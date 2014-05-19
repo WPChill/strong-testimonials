@@ -182,6 +182,7 @@ function wpmtst_is_queued( $filenames ) {
 	Register Post Type and Taxonomy
 */
 function wpmtst_register_cpt() {
+
 	$testimonial_labels = array(
 			'name'                  => _x( 'Testimonials', 'post type general name', WPMTST_NAME ),
 			'singular_name'         => _x( 'Testimonial', 'post type singular name', WPMTST_NAME ),
@@ -237,6 +238,7 @@ function wpmtst_register_cpt() {
 					'with_front'   => false
 			)
 	) );
+	
 }
 add_action( 'init', 'wpmtst_register_cpt' );
 
@@ -1449,12 +1451,12 @@ class WpmTst_Widget extends WP_Widget {
 
 
 function wpmtst_settings_menu() {
-	add_submenu_page( 'edit.php?post_type=wpm-testimonial', 
-										'Settings', 
-										'Settings', 
-										'manage_options', 
-										'settings', 
-										'wpmtst_settings_page' );
+	add_submenu_page( 'edit.php?post_type=wpm-testimonial', // $parent_slug
+										'Settings',                           // $page_title
+										'Settings',                           // $menu_title
+										'manage_options',                     // $capability
+										'settings',                           // $menu_slug
+										'wpmtst_settings_page' );             // $function
 										
 	add_submenu_page( 'edit.php?post_type=wpm-testimonial', 
 										'Shortcodes', 
@@ -1466,6 +1468,33 @@ function wpmtst_settings_menu() {
 	add_action( 'admin_init', 'wpmtst_register_settings' );
 }
 add_action( 'admin_menu', 'wpmtst_settings_menu' );
+
+
+/*
+	Make admin menu title unique if necessary.
+*/
+function wpmtst_unique_menu_title() {
+	// GC Testimonials (any others?)
+	if ( is_plugin_active( 'gc-testimonials/testimonials.php' ) ) {
+		$need_unique = true;
+	} else {
+		$need_unique = false;
+	}
+
+	if ( ! $need_unique ) {
+		return;
+	}
+	
+	global $menu;
+	
+	foreach ( $menu as $key => $menu_item ) {
+		// set unique menu title
+		if ( 'Testimonials' == $menu_item[0] && 'edit.php?post_type=wpm-testimonial' == $menu_item[2] ) {
+			$menu[$key][0] = 'Strong Testimonials';
+		}
+	}
+}
+add_action( 'admin_menu', 'wpmtst_unique_menu_title', 100 );
 
 
 function wpmtst_register_settings() {
