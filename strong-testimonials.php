@@ -1516,6 +1516,8 @@ function wpmtst_settings_page() {
 		wp_die( __( 'You do not have sufficient permissions to access this page.' ) );
 	}
 	
+	$wpmtst_options = get_option( 'wpmtst_options' );
+	
 	// Build list of supported Captcha plugins.
 	$plugins = array(
 			'bwsmath' => array( 'name' => 'Captcha by BestWebSoft', 'file' => 'captcha/captcha.php', 'active' => false ),
@@ -1524,6 +1526,12 @@ function wpmtst_settings_page() {
 	
 	foreach ( $plugins as $key => $plugin ) {
 		$plugins[$key]['active'] = is_plugin_active( $plugin['file'] );
+		// If current Captcha plugin has been deactivated, disable Captcha
+		// so corresponding div does not appear on form.
+		if ( $key == $wpmtst_options['captcha'] && ! $plugins[$key]['active'] ) {
+			$wpmtst_options['captcha'] = '';
+			update_option( 'wpmtst_options', $wpmtst_options );
+		}
 	}
 	?>
 
@@ -1578,7 +1586,9 @@ function wpmtst_settings_page() {
 						<select name="wpmtst_options[captcha]">
 							<option value="">None</option>
 							<?php foreach ( $plugins as $key => $plugin ) : ?>
+							<?php if ( $plugin['active'] ) : ?>
 							<option value="<?php echo $key; ?>" <?php selected( $wpmtst_options['captcha'], $key ); ?>><?php echo $plugin['name']; ?></option>
+							<?php endif; ?>
 							<?php endforeach; ?>
 						</select>
 					</td>
