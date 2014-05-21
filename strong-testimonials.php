@@ -1518,33 +1518,36 @@ function wpmtst_settings_page() {
 				<tr valign="top">
 					<th scope="row">Number of testimonials to show per page</th>
 					<td>
-						<input type="text" name="wpmtst_options[per_page]" size="3"
+						<input type="text" 
+										name="wpmtst_options[per_page]" size="3"
 										value="<?php echo esc_attr( $wpmtst_options['per_page'] ); ?>">
 					</td>
 				</tr>				
 
 				<tr valign="top">
-					<th scope="row">Send notification email upon testimonial submission</th>
+					<th scope="row">When new testimonial is submitted</th>
 					<td>
-						<input type="checkbox" name="wpmtst_options[admin_notify]"
-										<?php checked( $wpmtst_options['admin_notify'] ); ?>>
-					</td>
-				</tr>				
-
-				<tr valign="top">
-					<th scope="row">Notification email address</th>
-					<td>
-						<input type="email" size="30" 
+						<label>
+							<input id="wpmtst-options-admin-notify"
+											type="checkbox" 
+											name="wpmtst_options[admin_notify]"
+											<?php checked( $wpmtst_options['admin_notify'] ); ?>>
+							<?php _e( 'Send notification email to', WPMTST_NAME ); ?>
+						</label>
+						<input id="wpmtst-options-admin-email"
+										type="email" 
+										size="30" 
+										placeholder="email address"
 										name="wpmtst_options[admin_email]" 
 										value="<?php echo esc_attr( $wpmtst_options['admin_email'] ); ?>">
 					</td>
 				</tr>
 				
 				<tr valign="top">
-					<th scope="row">CAPTCHA Plugin</th>
+					<th scope="row">CAPTCHA plugin</th>
 					<td>
 						<select name="wpmtst_options[captcha]">
-							<option value="">Disabled</option>
+							<option value="">None</option>
 							<?php foreach ( $plugins as $key => $plugin ) : ?>
 							<option value="<?php echo $key; ?>" <?php selected( $wpmtst_options['captcha'], $key ); ?>><?php echo $plugin['name']; ?></option>
 							<?php endforeach; ?>
