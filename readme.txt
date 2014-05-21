@@ -12,16 +12,16 @@ Collect and display testimonials from your customers. This is a fork of GC Testi
 
 == Description ==
 
-Show testimonials
+*Show testimonials*
 
 * with a variety of shortcodes
 * in a widget with transition effects
 
-Collect testimonials
+*Collect testimonials*
 
-* through a form with anti-spam measures
+* through a form with selectable anti-spam measures
 
-Manage testimonials
+*Manage testimonials*
 
 * using the standard WordPress post editor, including Featured Images
 * organize into categories
@@ -30,45 +30,33 @@ This is based on the very popular [GC Testimonials](http://wordpress.org/plugins
 
 Strong Testimonials aims to pick up where GC Testimonials left off while maintaining its simplicity.
 
-= New Features =
+= New Features and Fixes =
 
-Numerous code optimizations and PHP notice & error fixes.
-
-Simplified CSS.
-
-Process shortcodes in content (i.e. nested shortcodes).
-
-Thumbnail theme support specifically for testimonials, not all posts.
-
-Using native WordPress functions and style, a best practice that makes it faster and futureproof and helps it play well with others.
-
-Multisite compatible with [Proper Network Activation](http://wordpress.org/plugins/proper-network-activation/) plugin. See FAQ below.
-
-Admin
-
-* settings retained upon plugin deactivation
-* allow client's name and email to be blanked out
-* more efficient options storage means it's faster & easier to upgrade
-* improved settings & shortcodes pages
-* added category counts
-
-Submission form
-
-* updated [jQuery validation plugin](http://jqueryvalidation.org/), conditionally loaded from CDN (speed!)
-* client-side validation *plus* server-side validation, a best practice
-* CAPTCHA options (more info below)
-
-Pagination
-
-* scrolls to the top when a new page is selected
-
-Widget
-
-* updated [jQuery cycle plugin](http://jquery.malsup.com/cycle2/), conditionally loaded from CDN (speed!)
-* break on word-boundary, not mid-word (e.g. "John is an assuring . . ." not "John is an ass . . .")
-* improved widget settings
-* order by: Random, Newest first, Oldest first
-* loading stylesheet in standard order instead of in the footer to allow your theme's stylesheet to take precedence
+* Numerous code optimizations and PHP notice & error fixes.
+* Simplified CSS.
+* Process shortcodes in content (i.e. nested shortcodes).
+* Thumbnail theme support specifically for testimonials, not all posts.
+* Using native WordPress functions and style, a best practice that makes it faster and futureproof and helps it play well with others.
+* Multisite compatible with [Proper Network Activation](http://wordpress.org/plugins/proper-network-activation/) plugin. See FAQ below.
+* Admin
+	* settings retained upon plugin deactivation
+	* allow client's name and email to be blanked out
+	* more efficient options storage means it's faster & easier to upgrade
+	* improved settings & shortcodes pages
+	* added category counts
+* Submission form
+	* updated [jQuery validation plugin](http://jqueryvalidation.org/), conditionally loaded from CDN (speed!)
+	* client-side validation *plus* server-side validation, a best practice
+	* CAPTCHA options (more info below)
+* Pagination
+	* scrolls to the top when a new page is selected
+* Widget
+	* updated [jQuery cycle plugin](http://jquery.malsup.com/cycle2/), conditionally loaded from CDN (speed!)
+	* break on word-boundary, not mid-word
+		(e.g. "John is an assuring . . ." not "John is an ass . . .")
+	* improved widget settings
+	* order by: Random, Newest first, Oldest first
+	* loading stylesheet in standard order instead of in the footer to allow your theme's stylesheet to take precedence
 
 = Anti-spam =
 
