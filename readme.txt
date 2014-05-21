@@ -134,11 +134,9 @@ I will gladly help add your modifications to a custom version of Strong Testimon
 
 = I spent a lot of time adjusting the CSS to get GC Testimonials to work with my theme. Can I expect to do the same with this version? =
 
-(a) You're not alone.
+(a) I simplifed the CSS so it will inherit as much from your theme as your other content and widgets, so you may be able to trim down any custom CSS.
 
-(b) I simplifed the CSS so it will inherit as much from your theme as your other content and widgets. So you may be able to trim down any custom CSS.
-
-(c) I will gladly help you sort it out.
+(b) I will gladly help you sort it out.
 
 == Changelog ==
 
