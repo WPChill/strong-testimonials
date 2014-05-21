@@ -106,26 +106,20 @@ Grab a shortcode from the `Testimonials > Shortcodes` page.
 == Frequently Asked Questions ==
 
 = Is this multisite compatible? =
-
 Yes, but I highly recommend first installing the [Proper Network Activation](http://wordpress.org/plugins/proper-network-activation/) plugin when adding Strong Testimonials to a multisite installation. That plugin will deftly handle the plugin activation process, thus ensuring each site has the default settings.
 
 = Will it import my existing testimonials? =
-
 Not yet, but the next version will have an import function. If you have a ton of testimonials, you may want to wait.
 
 = What about Akismet for the submission form? =
-
 I plan to integrate Akismet soon.
 
 = I modified my copy of GC Testimonials and I want to keep my features. =
-
 I will gladly help add your modifications to a custom version of Strong Testimonials. In reality, I will likely steal your features and add them to a new version. You have been warned.
 
 = I spent a lot of time adjusting the CSS to get GC Testimonials to work with my theme. Can I expect to do the same with this version? =
-
-(a) I simplifed the CSS so it will inherit as much from your theme as your other content and widgets, so you may be able to trim down any custom CSS.
-
-(b) I will gladly help you sort it out.
+1. I simplifed the CSS so it will inherit as much from your theme as your other content and widgets, so you may be able to trim down any custom CSS.
+1. I will gladly help you sort it out.
 
 == Screenshots ==
 
