@@ -1,0 +1,96 @@
+/*
+	Strong Testimonials
+*/
+
+/* Submission Form
+-----------------------------------------------*/
+
+#wpmtst-form {
+	margin: 20px auto;
+	padding: 0px 20px;
+}
+
+#wpmtst-form .required.symbol:after {
+	content: '*';
+	color: #FF0000;
+	margin: 0 4px;
+}
+
+#wpmtst-form .required-notice {
+}
+
+#wpmtst-form label {
+	display: inline-block;
+	float: none;
+	font-weight: 700;
+}
+
+#wpmtst-form input[type="text"],
+#wpmtst-form input[type="email"],
+#wpmtst-form input[type="file"],
+#wpmtst-form textarea {
+	display: block;
+	float: none;
+	width: 370px;
+}
+
+#wpmtst-form textarea {
+	height: 16em;
+}
+
+#wpmtst-form span.error,
+#wpmtst-form input.error,
+#wpmtst-form textarea.error,
+#wpmtst-form select.error {
+	background: #F9E5E6;
+	border: 1px solid #E8AAAD;
+}
+
+#wpmtst-form label.error {
+	color: #B50007;
+	font-weight: normal;
+}
+
+p.form-field {
+}
+
+p.form-field span.help {
+	display: block;
+	font-size: .9em;
+	font-style: italic;	
+}
+
+.wpmtst-captcha {
+  margin: 1.5em 0;
+}
+
+.wptst-captcha .wrap {
+	display: block;
+}
+
+.testimonial-success {
+	background: #E9F9E5;
+	border: 1px solid #B4E8AA;
+	color: #1C8400;
+	padding: 5px 10px;
+}
+
+/* reCAPTCHA mini-reset
+-----------------------------------------------*/
+
+.recaptchatable {
+	width: auto !important;
+}
+
+.recaptchatable #recaptcha_response_field {
+	border-radius: 0 !important;
+}
+
+.recaptchatable img {
+	border-radius: 0 !important;
+	box-shadow: none !important;
+}
+
+.recaptchatable input {
+	display: inline !important;
+}

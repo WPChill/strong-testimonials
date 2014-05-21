@@ -1,0 +1,158 @@
+/*
+	Strong Testimonials admin stylesheet
+*/
+
+/* shortcodes table */
+
+table.wpmtst {
+	border-collapse: collapse;
+	margin-bottom: 1em;
+}
+
+table.wpmtst h3 {
+	margin: .5em 0 0;
+}
+
+table.wpmtst td {
+	border-bottom: 1px solid #dfdfdf;
+	padding: .5em;
+}
+
+.wpmtst code {
+	background: #fff;
+	font-size: 1.1em;
+}
+
+/* settings table */
+
+.wrap.wpmtst .form-table {
+	width: auto;
+}
+
+.wrap.wpmtst .form-table th {
+	width: auto;
+}
+
+/* client details meta box */
+
+#details table {
+  border: none;
+}
+
+#details td {
+  margin: 5px;
+  padding: 5px;
+}
+
+#details th {
+  text-align: right;
+  font-weight: 400;
+}
+
+.icon-arrow-right:after {
+  content: "\21E8";
+  font-size: larger;
+  font-weight: 700;
+  color: blue;
+}
+
+
+.widget-content .help {
+	display: block;
+	font-style: italic;
+}
+
+/* widget */
+
+.radio-tab {
+	background: #eee;
+	display: inline-block;
+	padding: .5em;
+	border: 1px solid #ddd;
+	margin-bottom: -1px;
+	z-index: 5;
+}
+
+.radio-tab label {
+	vertical-align: baseline;
+}
+
+.radio-tab:hover {
+	color: black;
+}
+
+.radio-current {
+	background: #fff;
+	border-bottom-color: #fff;
+}
+
+.mode-tab {
+	display: block;
+}
+
+.wpmtst-mode {
+	margin-top: 1.5em;
+}
+
+.wpmtst-mode ul {
+	margin: 0;
+}
+
+.wpmtst-mode li:nth-child(n+2) {
+	margin-left: -4px;
+}
+
+.wpmtst-mode-cycle,
+.wpmtst-mode-static {
+	border: 1px solid #ddd;
+	padding: 5px 10px;
+}
+
+.wpmtst-mode .row {
+	display: block;
+	margin: 4px 0;
+}
+
+.wpmtst-mode .row.tall {
+	margin-top: 8px;
+}
+
+.wpmtst-mode .row label {
+	vertical-align: baseline;
+}
+
+.row div {
+	display: inline-block;
+}
+
+.alpha {
+	display: inline-block;
+	width: 110px;
+}
+
+label.alpha {
+	width: 65px;
+}
+
+input.omega,
+select.omega {
+	width: calc( 100% - 75px );
+}
+
+.divider {
+	padding: 4px 0 4px 10px;
+	margin-left: 10px;
+	border-left: 1px dotted #999;
+}
+
+input[disabled],
+input[readonly] {
+	color: #999;
+	background: rgba(0, 0, 0, 0.04);
+}
+
+/* Categories admin list */
+
+.widefat th.column-ID {
+	width: 2.2em;
+}

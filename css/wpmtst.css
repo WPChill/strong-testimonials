@@ -1,0 +1,121 @@
+/*
+	Strong Testimonials
+*/
+
+/* Testimonial pages
+---------------------------------------------------------*/
+
+#wpmtst-container {
+}
+
+.testimonial {
+	border: 1px solid #E6E6E6;
+	margin: 20px auto;
+	padding: 0;
+	text-align: left;
+	width: 90%;
+}
+
+.testimonial .inner {
+	background: #fbfbfb;
+	background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ZiZmJmYiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNlZGVkZWQiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#fbfbfb), color-stop(100%,#ededed));
+	background: -webkit-linear-gradient(top, #fbfbfb 0%, #ededed 100%);
+	background: -moz-linear-gradient(top, #fbfbfb 0%, #ededed 100%);
+	background:   -o-linear-gradient(top, #fbfbfb 0%, #ededed 100%);
+	background:  -ms-linear-gradient(top, #fbfbfb 0%, #ededed 100%);
+	background: linear-gradient(to bottom, #fbfbfb 0%, #ededed 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fbfbfb', endColorstr='#ededed',GradientType=0 );
+
+	border: 1px solid #FFFFFF;
+	margin: 0;
+	padding: 20px;
+}
+
+.testimonial .heading {
+	background: url("../images/quotes.png") no-repeat scroll left center transparent;
+	margin-top: 0;
+	padding-left: 40px;
+	text-align: left;
+}
+
+.testimonial img {
+	background: none repeat scroll 0 0 #FFFFFF;
+	border: 1px solid #EFEFEF;
+	padding: 6px;
+}
+
+.testimonial .photo {
+	float: left;
+	margin-top: .25em;
+	margin-right: 1em;
+}
+
+.testimonial .content {
+	float: none;
+	font-style: italic;
+	padding-top: 0;
+}
+
+.testimonial .client {
+	margin-top: 1em;
+	text-align: right;
+}
+
+.testimonial .client .name {
+	font-weight: bold;
+}
+
+
+/* Widget
+---------------------------------------------------------*/
+
+.testimonial-widget {
+	margin-bottom: 1.5em;
+}
+
+.testimonial-widget h5 {
+	line-height: 1.5;
+}
+
+.testimonial-widget .photo {
+	float: left;
+	margin-top: .5em;
+	margin-right: 1em;
+}
+
+.testimonial-widget .client {
+	line-height: 1.5;
+}
+
+.testimonial-widget .name {
+	font-weight: bold;
+}
+
+#tcycle { 
+	margin-bottom: 1em;
+}
+
+
+/* Paging Controls 
+---------------------------------------------------------*/
+
+ul.simplePagerNav {
+	margin: 1em auto;
+	text-align: center;
+	display: block;
+}
+
+ul.simplePagerNav li {
+	display: inline;
+	list-style: none;
+	margin: 0;
+	padding: 0 .3em;
+}
+
+ul.simplePagerNav li a {
+}
+
+ul.simplePagerNav li.currentPage a {
+	text-decoration: none;	
+}
