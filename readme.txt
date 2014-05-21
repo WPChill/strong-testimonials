@@ -1,10 +1,10 @@
 === Strong Testimonials ===
 Contributors: cdillon27
-Donate link: http://wpmission.com/donate
+Donate link: http://www.wpmission.com/donate
 Tags: testimonials
 Requires at least: 3.0.1
 Tested up to: 3.9.1
-Stable tag: 1.4
+Stable tag: trunk
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -15,7 +15,7 @@ Collect and display testimonials from your customers. This is a fork of GC Testi
 Show testimonials
 
 * with a variety of shortcodes
-* in a widget with slide effects
+* in a widget with transition effects
 
 Collect testimonials
 
@@ -26,7 +26,7 @@ Manage testimonials
 * using the standard WordPress post editor, including Featured Images
 * organize into categories
 
-This is based on the very popular [GC Testimonials](http://wordpress.org/plugins/gc-testimonials/). I have been very active in that plugin's support forum because I like it's simplicity, I used it on many sites, and I love to fix things.
+This is based on the very popular [GC Testimonials](http://wordpress.org/plugins/gc-testimonials/). I have been very active in that plugin's support forum because I like its simplicity, I used it on many sites, and I love to fix things.
 
 Strong Testimonials aims to pick up where GC Testimonials left off while maintaining its simplicity.
 
@@ -138,7 +138,31 @@ I will gladly help add your modifications to a custom version of Strong Testimon
 
 (b) I will gladly help you sort it out.
 
+== Screenshots ==
+
+1. A sample page of three testimonials including photos.
+2. The widget with a character limit of 200.
+3. The widget without a character limit.
+4. The testimonial submission form without CAPTCHA.
+5. The math CAPTCHA option at the end of the form.
+6. The reCAPTCHA option at the end of the form.
+7. The settings page.
+8. All the shortcode options.
+9. The testimonials admin page.
+10. Adding or editing a testimonial.
+11. Adding or editing categories.
+12. The widget settings in Cycle mode.
+13. The same widget in Static mode.
+
 == Changelog ==
+
+= 1.4.1 =
+* Fixed bug in category filter in the widget.
 
 = 1.4 =
 * Initial version, a fork of GC Testimonials 1.3.2.
+
+== Upgrade Notice ==
+
+= 1.4.1 =
+Fixed a minor bug if a category was selected in the widget settings.
