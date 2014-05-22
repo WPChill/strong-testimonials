@@ -12,16 +12,16 @@ Collect and display testimonials from your customers. This is a fork of GC Testi
 
 == Description ==
 
-Show testimonials
+**Show testimonials**
 
 * with a variety of shortcodes
 * in a widget with transition effects
 
-Collect testimonials
+**Collect testimonials**
 
-* through a form with anti-spam measures
+* through a form with selectable anti-spam measures
 
-Manage testimonials
+**Manage testimonials**
 
 * using the standard WordPress post editor, including Featured Images
 * organize into categories
@@ -30,45 +30,34 @@ This is based on the very popular [GC Testimonials](http://wordpress.org/plugins
 
 Strong Testimonials aims to pick up where GC Testimonials left off while maintaining its simplicity.
 
-= New Features =
+= New Features and Fixes =
 
-Numerous code optimizations and PHP notice & error fixes.
-
-Simplified CSS.
-
-Process shortcodes in content (i.e. nested shortcodes).
-
-Thumbnail theme support specifically for testimonials, not all posts.
-
-Using native WordPress functions and style, a best practice that makes it faster and futureproof and helps it play well with others.
-
-Multisite compatible with [Proper Network Activation](http://wordpress.org/plugins/proper-network-activation/) plugin. See FAQ below.
-
-Admin
-
-* settings retained upon plugin deactivation
-* allow client's name and email to be blanked out
-* more efficient options storage means it's faster & easier to upgrade
-* improved settings & shortcodes pages
-* added category counts
-
-Submission form
-
-* updated [jQuery validation plugin](http://jqueryvalidation.org/), conditionally loaded from CDN (speed!)
-* client-side validation *plus* server-side validation, a best practice
-* CAPTCHA options (more info below)
-
-Pagination
-
-* scrolls to the top when a new page is selected
-
-Widget
-
-* updated [jQuery cycle plugin](http://jquery.malsup.com/cycle2/), conditionally loaded from CDN (speed!)
-* break on word-boundary, not mid-word (e.g. "John is an assuring . . ." not "John is an ass . . .")
-* improved widget settings
-* order by: Random, Newest first, Oldest first
-* loading stylesheet in standard order instead of in the footer to allow your theme's stylesheet to take precedence
+* General
+	* Numerous code optimizations and PHP notice & error fixes.
+	* Using native WordPress functions and style, a best practice that makes it faster and futureproof and helps it play well with others.
+	* Multisite compatible with [Proper Network Activation](http://wordpress.org/plugins/proper-network-activation/) plugin. See FAQ below.
+* Display
+	* Simplified CSS.
+	* Process shortcodes in content (i.e. nested shortcodes).
+	* Thumbnail theme support specifically for testimonials, not all posts.
+* Admin
+	* Settings retained upon plugin deactivation.
+	* Allow client's name and email to be blanked out.
+	* More efficient options storage means it's faster & easier to upgrade.
+	* Improved settings & shortcodes pages.
+	* Added category counts.
+* Submission form
+	* Updated [jQuery validation plugin](http://jqueryvalidation.org/), conditionally loaded from CDN (speed!).
+	* Client-side validation *plus* server-side validation, a best practice.
+	* CAPTCHA options (more info below).
+* Pagination
+	* Scrolls to the top when a new page is selected.
+* Widget
+	* Updated [jQuery cycle plugin](http://jquery.malsup.com/cycle2/), conditionally loaded from CDN (speed!).
+	* Break on word-boundary, not mid-word (e.g. "John is an assuring . . ." not "John is an ass . . .").
+	* Improved widget settings.
+	* Order by: Random, Newest first, Oldest first.
+	* Load stylesheet in standard order instead of in the footer to allow your theme's stylesheet to take precedence.
 
 = Anti-spam =
 
@@ -117,26 +106,20 @@ Grab a shortcode from the `Testimonials > Shortcodes` page.
 == Frequently Asked Questions ==
 
 = Is this multisite compatible? =
-
 Yes, but I highly recommend first installing the [Proper Network Activation](http://wordpress.org/plugins/proper-network-activation/) plugin when adding Strong Testimonials to a multisite installation. That plugin will deftly handle the plugin activation process, thus ensuring each site has the default settings.
 
 = Will it import my existing testimonials? =
-
 Not yet, but the next version will have an import function. If you have a ton of testimonials, you may want to wait.
 
 = What about Akismet for the submission form? =
-
 I plan to integrate Akismet soon.
 
 = I modified my copy of GC Testimonials and I want to keep my features. =
-
 I will gladly help add your modifications to a custom version of Strong Testimonials. In reality, I will likely steal your features and add them to a new version. You have been warned.
 
 = I spent a lot of time adjusting the CSS to get GC Testimonials to work with my theme. Can I expect to do the same with this version? =
-
-(a) I simplifed the CSS so it will inherit as much from your theme as your other content and widgets, so you may be able to trim down any custom CSS.
-
-(b) I will gladly help you sort it out.
+1. I simplifed the CSS so it will inherit as much from your theme as your other content and widgets, so you may be able to trim down any custom CSS.
+1. I will gladly help you sort it out.
 
 == Screenshots ==
 
