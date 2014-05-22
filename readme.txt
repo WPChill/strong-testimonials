@@ -68,7 +68,7 @@ To add CAPTCHA to the testimonial submission form:
 1. install one of these supported plugins,
 1. select that plugin on the `Testimonials > Settings` page.
 
-CAPTCHA plugins supported:
+Currently supported CAPTCHA plugins:
 
 * [Captcha](http://wordpress.org/plugins/captcha/) by BestWebSoft
 * [Simple reCAPTCHA](http://wordpress.org/plugins/simple-recaptcha) by WPMission (that's me!)
@@ -139,6 +139,9 @@ I will gladly help add your modifications to a custom version of Strong Testimon
 
 == Changelog ==
 
+= 1.4.2 =
+* Fixed bug: missing categories in admin testimonials table.
+
 = 1.4.1 =
 * Fixed bug in category filter in the widget.
 
@@ -146,6 +149,9 @@ I will gladly help add your modifications to a custom version of Strong Testimon
 * Initial version, a fork of GC Testimonials 1.3.2.
 
 == Upgrade Notice ==
+
+= 1.4.2 =
+Fixed a minor bug that did not show multiple categories in the admin testimonials list.
 
 = 1.4.1 =
 Fixed a minor bug if a category was selected in the widget settings.
