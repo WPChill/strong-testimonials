@@ -4,7 +4,7 @@
 	Plugin URI: http://www.wpmission.com/
 	Description: Collect and display testimonials.
 	Author: Chris Dillon
-	Version: 1.4
+	Version: 1.4.1
 	Forked From: GC Testimonials version 1.3.2 by Erin Garscadden
 	Author URI: http://www.wpmission.com/
 	Text Domain: wpmtst
@@ -291,11 +291,12 @@ function wpmtst_custom_columns( $column ) {
 	} elseif ( 'category' == $column ) {
 
 		$categories = get_the_terms( 0, 'wpm-testimonial-category' );
-		if ( is_array( $categories ) ) {
-			$category = reset( $categories );
-			if ( is_object( $category ) ) {
-				echo $category->name;
+		if ( $categories && ! is_wp_error( $categories ) ) {
+			$list = array();
+			foreach ( $categories as $cat ) {
+				$list[] = $cat->name;
 			}
+			echo join( ", ", $list );		
 		}
 
 	}
@@ -1028,7 +1029,6 @@ class WpmTst_Widget extends WP_Widget {
 
 	// display
 	function widget( $args, $instance ) {
-
 		if ( is_active_widget( false, false, $this->id_base ) ) {
 			wp_enqueue_style( 'wpmtst-style' );
 			// load slider with widget parameters
@@ -1082,16 +1082,16 @@ class WpmTst_Widget extends WP_Widget {
 			$char_limit = $this->defaults['char-limit'];
 		}
 
+		$term_taxonomy = '';
+		$term_slug = '';
 		if ( 'all' != $data['category'] ) {
-			$term = get_term_by( 'id', $data['category'], 'wpmtst-category' );
-			$term_taxonomy = $term->taxonomy;
-			$term_slug = $term->slug;
-		} else {
-			$term_taxonomy = '';
-			$term_slug = '';
+			$term = get_term_by( 'id', $data['category'], 'wpm-testimonial-category' );
+			if ( $term ) {
+				$term_taxonomy = $term->taxonomy;
+				$term_slug = $term->slug;
+			}
 		}
 
-		// @todo: sort options
 		$args = array(
 				$term_taxonomy   => $term_slug,
 				'posts_per_page' => $num,
