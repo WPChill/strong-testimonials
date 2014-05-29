@@ -653,7 +653,7 @@ function wpmtst_form_shortcode( $atts ) {
 	$agree           = 1;
   
 	$options = get_option( 'wpmtst_options' );
-	$captcha = options['captcha'];
+	$captcha = $options['captcha'];
   $errors = array();
 	
 	if ( isset( $_POST['wpmtst_form_submitted'] )
