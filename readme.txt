@@ -2,66 +2,86 @@
 Contributors: cdillon27
 Donate link: http://www.wpmission.com/donate
 Tags: testimonials
-Requires at least: 3.0.1
+Requires at least: 3.5
 Tested up to: 3.9.1
 Stable tag: trunk
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
-Collect and display testimonials from your customers. This is a fork of GC Testimonials that adds many new features.
+Strong Testimonials is a simple and feature-rich testimonial manager.
 
 == Description ==
 
-**Show testimonials**
+Strong Testimonials by [WPMission](http://www.wpmission.com) makes collecting and displaying testimonials simple with many useful and intuitive features.
 
-* with a variety of shortcodes
-* in a widget with transition effects
+**Show testimonials** with a variety of shortcodes or in a widget with transition effects.
 
-**Collect testimonials**
+**Collect testimonials** through a form with selectable anti-spam measures.
 
-* through a form with selectable anti-spam measures
+**Manage testimonials** just like posts and pages, including Featured Images. Organize into categories for use in shortcodes and widgets.
 
-**Manage testimonials**
+= Primary Features =
 
-* using the standard WordPress post editor, including Featured Images
-* organize into categories
+* A shortcode for a testimonial submission **form**.
+* Selectable **anti-spam** measures.
+* Administrator **notification** upon new testimonial submission.
+* Multiple **shortcode** options for displaying testimonials on a page.
+* Multiple **widget** options including word limit, category selection, random order, "Read more" link, and, of course, fade controls.
+* Use the WordPress post editor to **add and edit** testimonial content, including **thumbnail support** and extra client information.
+* Easily organize into **categories**.
 
-This is based on the very popular [GC Testimonials](http://wordpress.org/plugins/gc-testimonials/). I have been very active in that plugin's support forum because I like its simplicity, I used it on many sites, and I love to fix things.
+*[Check out the screenshots for a better overview](http://wordpress.org/plugins/strong-testimonials/screenshots/).*
+
+= Inspiration =
+
+This is based on the popular [GC Testimonials](http://wordpress.org/plugins/gc-testimonials/). I have been very active in that plugin's support forum because I like its simplicity, I have used it on many sites, and I love to fix things.
 
 Strong Testimonials aims to pick up where GC Testimonials left off while maintaining its simplicity.
 
 = New Features and Fixes =
 
-* General
-	* Numerous code optimizations and PHP notice & error fixes.
-	* Using native WordPress functions and style, a best practice that makes it faster and futureproof and helps it play well with others.
-	* Multisite compatible with [Proper Network Activation](http://wordpress.org/plugins/proper-network-activation/) plugin. See FAQ below.
-* Display
-	* Simplified CSS.
-	* Process shortcodes in content (i.e. nested shortcodes).
-	* Thumbnail theme support specifically for testimonials, not all posts.
-* Admin
-	* Settings retained upon plugin deactivation.
-	* Allow client's name and email to be blanked out.
-	* More efficient options storage means it's faster & easier to upgrade.
-	* Improved settings & shortcodes pages.
-	* Added category counts.
-* Submission form
-	* Updated [jQuery validation plugin](http://jqueryvalidation.org/), conditionally loaded from CDN (speed!).
-	* Client-side validation *plus* server-side validation, a best practice.
-	* CAPTCHA options (more info below).
-* Pagination
-	* Scrolls to the top when a new page is selected.
-* Widget
-	* Updated [jQuery cycle plugin](http://jquery.malsup.com/cycle2/), conditionally loaded from CDN (speed!).
-	* Break on word-boundary, not mid-word (e.g. "John is an assuring . . ." not "John is an ass . . .").
-	* Improved widget settings.
-	* Order by: Random, Newest first, Oldest first.
-	* Load stylesheet in standard order instead of in the footer to allow your theme's stylesheet to take precedence.
+General
+
+* Numerous code optimizations and PHP notice & error fixes.
+* Using native WordPress functions and style, a best practice that makes it faster and futureproof and helps it play well with others.
+* Multisite compatible with [Proper Network Activation](http://wordpress.org/plugins/proper-network-activation/) plugin. See FAQ below.
+* A unique custom post type name of "wpm-testimonial" to prevent conflicts with other testimonial plugins (an infrequent but nonetheless valid approach).
+
+Display
+
+* Simplified CSS.
+* Process shortcodes in content (i.e. nested shortcodes).
+* Thumbnail support specifically for testimonials, not all posts.
+
+Admin
+
+* Settings retained upon plugin deactivation.
+* Allow client's name and email to be blanked out.
+* More efficient options storage means it's faster & easier to upgrade.
+* Improved settings & shortcodes pages.
+* Added category counts.
+
+Submission form
+
+* Updated [jQuery validation plugin](http://jqueryvalidation.org/), conditionally loaded from CDN (speed!).
+* Client-side validation *plus* server-side validation, a best practice.
+* CAPTCHA options (more info below).
+
+Pagination
+
+* Scrolls to the top when a new page is selected.
+
+Widget
+
+* Updated [jQuery cycle plugin](http://jquery.malsup.com/cycle2/), conditionally loaded from CDN (speed!).
+* Break on word-boundary, not mid-word (e.g. "John is an assuring . . ." not "John is an ass . . .").
+* Improved widget options.
+* Order by: Random, Newest first, Oldest first.
+* Load stylesheet in standard order instead of in the footer to allow your theme's stylesheet to take precedence.
 
 = Anti-spam =
 
-I prefer a modular approach. Instead of reinventing the anti-spam wheel, I decided to integrate other plugins to do the heavy lifting. Because spam is heavy.
+Instead of reinventing the anti-spam wheel, I decided to integrate other plugins to do the heavy lifting. Because spam is heavy. And modular is better.
 
 To add CAPTCHA to the testimonial submission form:
 
@@ -81,7 +101,7 @@ Notes
 
 = Future =
 
-This plugin is under active development and all ideas and feedback are welcome.
+This plugin is under active development and all [ideas and feedback are welcome](http://www.wpmission.com/contact).
 
 = Translations =
 
@@ -118,7 +138,7 @@ I plan to integrate Akismet soon.
 I will gladly help add your modifications to a custom version of Strong Testimonials. In reality, I will likely steal your features and add them to a new version. You have been warned.
 
 = I spent a lot of time adjusting the CSS to get GC Testimonials to work with my theme. Can I expect to do the same with this version? =
-1. I simplifed the CSS so it will inherit as much from your theme as your other content and widgets, so you may be able to trim down any custom CSS.
+1. I simplifed the CSS so it will inherit as much from your theme as your other content and widgets, so you can probably trim down any custom CSS.
 1. I will gladly help you sort it out.
 
 == Screenshots ==
@@ -139,6 +159,11 @@ I will gladly help add your modifications to a custom version of Strong Testimon
 
 == Changelog ==
 
+= 1.4.4 =
+* New minimum WordPress version: 3.5.
+* Added shims for `has_shortcode` and `shortcode_exists` for WordPress version 3.5.
+* Changed `save_post_{post-type}` to `save_post` for WordPress version 3.6.
+
 = 1.4.3 =
 * Improved compatibility with earlier versions of PHP.
 
@@ -152,6 +177,9 @@ I will gladly help add your modifications to a custom version of Strong Testimon
 * Initial version, a fork of GC Testimonials 1.3.2.
 
 == Upgrade Notice ==
+
+= 1.4.4 =
+Definitely upgrade if you are running WordPress 3.5 or 3.6.
 
 = 1.4.3 = 
 Improved compatibility with earlier versions of PHP.
