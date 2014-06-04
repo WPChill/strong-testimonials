@@ -467,7 +467,7 @@ function wpmtst_meta_options() {
 */
 function wpmtst_save_details() {
 	// check Custom Post Type
-	if ( 'wpm-testimonial' != $_POST['post_type'] )
+	if ( ! isset( $_POST['post_type'] ) || 'wpm-testimonial' != $_POST['post_type'] )
 		return;
 	
 	global $post;
