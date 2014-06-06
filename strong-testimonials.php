@@ -1,10 +1,10 @@
 <?php
 /*
-	Plugin Name: Strong Testimonials
+	Plugin Name: Strong Testimonials (Dewberry)
 	Plugin URI: http://www.wpmission.com/plugins/strong-testimonials/
 	Description: Collect and display testimonials.
 	Author: Chris Dillon
-	Version: 1.4.4
+	Version: 1.4.4.1
 	Forked From: GC Testimonials version 1.3.2 by Erin Garscadden
 	Author URI: http://www.wpmission.com/
 	Text Domain: wpmtst
@@ -288,7 +288,7 @@ function wpmtst_edit_columns( $columns ) {
 	$columns = array(
 			'cb'          => '<input type="checkbox" />',
 			'title'       => __( 'Title', WPMTST_NAME ),
-			'client_name' => __( 'Client', WPMTST_NAME ),
+			'name' => __( 'Client', WPMTST_NAME ),
 			'thumbnail'   => __( 'Thumbnail', WPMTST_NAME ),
 			'category'    => __( 'Category', WPMTST_NAME ),
 			'shortcode'   => __( 'Shortcode', WPMTST_NAME ),
@@ -314,9 +314,9 @@ function wpmtst_custom_columns( $column ) {
 
 		echo substr( $post->post_content, 0, 100 ) . '...';
 
-	} elseif ( 'client_name' == $column ) {
+	} elseif ( 'name' == $column ) {
 
-		echo $custom['client_name'][0];
+		echo $custom['name'][0];
 
 	} elseif ( 'thumbnail' == $column ) {
 
@@ -413,25 +413,15 @@ function wpmtst_meta_options() {
 	global $post;
 	$custom = get_post_custom();
 
-	if ( $custom && array_key_exists( 'client_name', $custom ) )
-		$client_name = $custom['client_name'][0];
+	if ( $custom && array_key_exists( 'name', $custom ) )
+		$name = $custom['name'][0];
 	else
-		$client_name = '';
+		$name = '';
 
 	if ( $custom && array_key_exists( 'email', $custom ) )
 		$email = $custom['email'][0];
 	else
 		$email = '';
-
-	if ( $custom && array_key_exists( 'company_website', $custom ) )
-		$company_website = $custom['company_website'][0];
-	else
-		$company_website = '';
-
-	if ( $custom && array_key_exists( 'company_name', $custom ) )
-		$company_name = $custom['company_name'][0];
-	else
-		$company_name = '';
 
 	?>
 	<table class="options">
@@ -439,20 +429,12 @@ function wpmtst_meta_options() {
 			<td colspan="2">To add a client's photo, use the <strong>Featured Image</strong> option. <div class="dashicons dashicons-arrow-right-alt"></div></td>
 		</tr>
 		<tr>
-			<th><label for="client_name"><?php _e( 'Name', WPMTST_NAME ); ?></label></td>
-			<td><input type="text" id="client_name" name="client_name" value="<?php echo $client_name; ?>" size="40"/></td>
+			<th><label for="name"><?php _e( 'Name', WPMTST_NAME ); ?></label></td>
+			<td><input type="text" id="name" name="name" value="<?php echo $name; ?>" size="40"/></td>
 		</tr>
 		<tr>
 			<th><label for="email"><?php _e( 'Email', WPMTST_NAME ); ?></label></td>
 			<td><input type="text" id="email" name="email" value="<?php echo $email; ?>" size="40"/></td>
-		</tr>
-		<tr>
-			<th><label for="company_website"><?php _e( 'Website', WPMTST_NAME ); ?></label></td>
-			<td><input type="text" id="company_website" name="company_website" value="<?php echo $company_website; ?>" size="40"/></td>
-		</tr>
-		<tr>
-			<th><label for="company_name"><?php _e( 'Company Name', WPMTST_NAME ); ?></label></td>
-			<td><input type="text" id="company_name" name="company_name" value="<?php echo $company_name; ?>" size="40"/></td>
 		</tr>
 	</table>
 	<?php
@@ -468,7 +450,7 @@ function wpmtst_save_details() {
 		return;
 	
 	global $post;
-	$custom_meta_fields = array( 'client_name', 'email', 'company_website', 'company_name' );
+	$custom_meta_fields = array( 'name', 'email' );
 
 	foreach ( $custom_meta_fields as $field ) {
 		// Update every field even if empty.
@@ -563,16 +545,7 @@ function wpmtst_single( $post ) {
 			<div class="clear"></div>
 
 			<div class="client">
-				<div class="name"><?php echo $post->client_name; ?></div>
-				<?php if ( ! empty( $post->company_name ) && ! empty( $post->company_website ) ) : ?>
-					<div class="company">
-						<a href="<?php echo wpmtst_get_website( $post->company_website ); ?>" target="blank"><?php echo $post->company_name; ?></a>
-					</div>
-				<?php elseif ( ! empty( $post->company_name ) ) : ?>
-					<div class="company"><?php echo $post->company_name; ?></div>
-				<?php elseif ( ! empty( $post->company_website ) ) : ?>
-					<div class="website"><?php echo $post->company_website; ?></div>
-				<?php endif; ?>
+				<div class="name"><?php echo $post->name; ?></div>
 			</div><!-- client -->
 
 		</div><!-- inner -->
@@ -681,13 +654,10 @@ add_shortcode( 'wpmtst-all', 'wpmtst_all_shortcode' );
 */
 function wpmtst_form_shortcode( $atts ) {
 
-	$client_name     = '';
-	$email           = '';
-	$company_name    = '';
-	$company_website = '';
-	$headline        = '';
-	$text            = '';
-	$agree           = 1;
+	$name  = '';
+	$email = '';
+	$text  = '';
+	$agree = 1;
   
 	$options = get_option( 'wpmtst_options' );
 	$captcha = $options['captcha'];
@@ -737,54 +707,29 @@ function wpmtst_form_shortcode( $atts ) {
 		// --------
 		
 		// custom
-		$client_name     = sanitize_text_field( $_POST['wpmtst_client_name'] );
-		$email           = sanitize_text_field( $_POST['wpmtst_email'] );
-		$company_name    = sanitize_text_field( $_POST['wpmtst_company_name'] );
-		$company_website = sanitize_text_field( $_POST['wpmtst_company_website'] );
+		$name  = sanitize_text_field( $_POST['wpmtst_name'] );
+		$email = sanitize_text_field( $_POST['wpmtst_email'] );
 		
 		// common
-		$headline        = sanitize_text_field( $_POST['wpmtst_headline'] );
-		$text            = sanitize_text_field( $_POST['wpmtst_text'] );
-		$agree           = isset( $_POST['wpmtst_agree'] ) ? 1 : 0;
+		$headline = sanitize_text_field( $_POST['wpmtst_headline'] );
+		$text     = sanitize_text_field( $_POST['wpmtst_text'] );
+		// $agree    = isset( $_POST['wpmtst_agree'] ) ? 1 : 0;
 
 		// --------
 		// validate
 		// --------
 		
-		// custom
-		if ( empty( $client_name ) )
-			$errors['client_name'] = 'Please enter your name.'; 
-		
-		if ( empty( $email ) )
-			$errors['email'] = 'Please enter your email address.';
-		
-		/*
-		if ( empty( $company_name ) )
-			$errors['company_name'] = ''; 
-		
-		if ( empty( $company_website ) )
-			$errors['company_website'] = ''; 
-		*/
-		
-		// common
-		
-		/*
-		if ( empty( $headline ) )
-			$errors['headline'] = ''; 
-		*/
-		
 		if ( empty( $text ) )
 			$errors['text'] = 'Please enter your testimonial.'; 
 		
-		if ( empty( $agree ) )
-			$errors['agree'] = 'Please let us share your testimonial.'; 
-		
+		// if ( empty( $agree ) )
+			// $errors['agree'] = 'Please let us share your testimonial.'; 
 		
     if ( ! count( $errors ) ) {
 		
 			// create new testimonial post
 			$testimonial_data = array(
-					'post_title'   => $headline,
+					// 'post_title'   => $headline,
 					'post_content' => $text,
 					'post_status'  => 'pending',
 					'post_type'    => 'wpm-testimonial'
@@ -793,37 +738,8 @@ function wpmtst_form_shortcode( $atts ) {
 			if ( $testimonial_id = wp_insert_post( $testimonial_data ) ) {
 
 				// save custom fields
-				add_post_meta( $testimonial_id, 'client_name', $client_name );
+				add_post_meta( $testimonial_id, 'name', $name );
 				add_post_meta( $testimonial_id, 'email', $email );
-				add_post_meta( $testimonial_id, 'company_name', $company_name );
-				add_post_meta( $testimonial_id, 'company_website', $company_website );
-
-				if ( $_FILES['wpmtst_client_photo']['size'] > 1 ) {
-					foreach ( $_FILES as $field => $file ) {
-
-						// Upload File
-						$overrides = array( 'test_form' => false );
-						$uploaded_file = wpmtst_wp_handle_upload( $_FILES['wpmtst_client_photo'], $overrides );
-						$wpmtst_client_photo = $uploaded_file['url'];
-
-						// Create an Attachment
-						$attachment = array(
-								'post_title'     => $file['name'],
-								'post_content'   => '',
-								'post_type'      => 'attachment',
-								'post_parent'    => $testimonial_id,
-								'post_mime_type' => $file['type'],
-								'guid'           => $uploaded_file['url']
-						);
-
-						$attach_id = wp_insert_attachment( $attachment, $uploaded_file['file'], $testimonial_id );
-						$attach_data = wp_generate_attachment_metadata( $attach_id, $uploaded_file['file'] );
-						wp_update_attachment_metadata( $attach_id,  $attach_data );
-						add_post_meta( $testimonial_id, 'client_photo', $wpmtst_client_photo ); // ~!~ is this needed?
-						set_post_thumbnail( $testimonial_id, $attach_id );
-
-					}
-				}
 
 				$admin_notify = $options['admin_notify'];
 				$admin_email  = $options['admin_email'];
@@ -860,62 +776,28 @@ function wpmtst_form_shortcode( $atts ) {
 			<?php echo wp_nonce_field( 'wpmtst_submission_form', 'wpmtst_form_submitted' ); ?>
 
 			<p class="form-field">
-				<label for="wpmtst_client_name"><?php _e( 'Full Name', WPMTST_NAME ); ?></label><span class="required symbol"></span>
-				<input id="wpmtst_client_name" 
+				<label for="wpmtst_name"><?php _e( 'Name', WPMTST_NAME ); ?></label>
+				<input id="wpmtst_name" 
 								class="text" 
 								type="text" 
-								name="wpmtst_client_name" 
-								value="<?php echo $client_name; ?>"
-								minlength="2" 
-								required>
-				<?php if ( isset( $errors['client_name'] ) ) : ?>
-					<span class="error"><label class="error"><?php echo $errors['client_name']; ?></label></span>
-				<?php endif; ?>
+								name="wpmtst_name" 
+								value="<?php echo $name; ?>"
+								minlength="2">
+				<!--
 				<span class="help"><?php _e( 'What is your full name?', WPMTST_NAME ); ?></span>
+				-->
 			</p>
 			
 			<p class="form-field">
-				<label for="wpmtst_email"><?php _e( 'Email', WPMTST_NAME ); ?></label><span class="required symbol"></span>
+				<label for="wpmtst_email"><?php _e( 'Email', WPMTST_NAME ); ?></label>
 				<input id="wpmtst_email" 
 								class="text email" 
 								type="email" 
 								name="wpmtst_email" 
-								value="<?php echo $email; ?>"
-								required>
-				<?php if ( isset( $errors['email'] ) ) : ?>
-					<span class="error"><label class="error"><?php echo $errors['email']; ?></label></span>
-				<?php endif; ?>
+								value="<?php echo $email; ?>">
+				<!--
 				<span class="help"><?php _e( 'What is your email address?', WPMTST_NAME ); ?></span>
-			</p>
-
-			<p class="form-field">
-				<label for="wpmtst_company_name"><?php _e( 'Company Name', WPMTST_NAME ); ?></label>
-				<input id="wpmtst_company_name" 
-								class="text"
-								type="text" 
-								name="wpmtst_company_name" 
-								value="<?php echo $company_name; ?>">
-				<span class="help"><?php _e( 'What is your company name?', WPMTST_NAME ); ?></span>
-			</p>
-
-			<p class="form-field">
-				<label for="wpmtst_company_website"><?php _e( 'Company Website', WPMTST_NAME ); ?></label>
-				<input id="wpmtst_company_website" 
-								class="text"
-								type="text" 
-								name="wpmtst_company_website" 
-								value="<?php echo $company_website; ?>">
-				<span class="help"><?php _e( 'Does your company have a website?', WPMTST_NAME ); ?></span>
-			</p>
-
-			<p class="form-field">
-				<label for="wpmtst_headline"><?php _e( 'Heading', WPMTST_NAME ); ?></label>
-				<input id="wpmtst_headline" 
-								class="text"
-								type="text" 
-								name="wpmtst_headline" 
-								value="<?php echo $headline; ?>">
-				<span class="help"><?php _e( 'A headline for your testimonial.', WPMTST_NAME ); ?></span>
+				-->
 			</p>
 
 			<p class="form-field">
@@ -927,32 +809,12 @@ function wpmtst_form_shortcode( $atts ) {
 				<?php if ( isset( $errors['text'] ) ) : ?>
 					<span class="error"><label class="error"><?php echo $errors['text']; ?></label></span>
 				<?php endif; ?>
+				<!--
 				<span class="help"><?php _e( 'What do you think about us?', WPMTST_NAME ); ?></span>
+				-->
 			</p>
 
 			<div class="clear"></div>
-
-			<p class="form-field">
-				<label for="wpmtst_client_photo"><?php _e( 'Photo', WPMTST_NAME ); ?></label>
-				<input id="wpmtst_client_photo" 
-								class="text"
-								type="file" 
-								name="wpmtst_client_photo">
-				<span class="help"><?php _e( 'Would you like to include a photo?', WPMTST_NAME ); ?></span>
-			</p>
-
-			<p class="form-field agree">
-				<input id="wpmtst_agree"
-							 class="checkbox" 
-							 type="checkbox" 
-							 name="wpmtst_agree"
-							 checked="<?php checked( $agree ); ?>"
-							 required>
-				<?php if ( isset( $errors['agree'] ) ) : ?>
-					<span class="error"><label class="error"><?php echo $errors['agree']; ?></label></span>
-				<?php endif; ?>
-				<span class="required symbol"></span><span><?php _e( 'I agree this testimonial may be published.', WPMTST_NAME ); ?></span>
-			</p>
 
 			<?php if ( $captcha ) : ?>
 			<div class="wpmtst-captcha">
@@ -1189,7 +1051,7 @@ class WpmTst_Widget extends WP_Widget {
 
 			echo '<div class="client">';
 
-			echo '<div class="name">' . $post->client_name . '</div>';
+			echo '<div class="name">' . $post->name . '</div>';
 
 			if ( ! empty( $post->company_name ) && ! empty( $post->company_website ) ) {
 
