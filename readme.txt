@@ -45,7 +45,7 @@ General
 * Numerous code optimizations and PHP notice & error fixes.
 * Using native WordPress functions and style, a best practice that makes it faster and futureproof and helps it play well with others.
 * Multisite compatible with [Proper Network Activation](http://wordpress.org/plugins/proper-network-activation/) plugin. See FAQ below.
-* A unique custom post type name of "wpm-testimonial" to prevent conflicts with other testimonial plugins (an infrequent but nonetheless valid approach).
+* A unique custom post type name of "wpm-testimonial" to prevent conflicts with other testimonial plugins (an infrequent but possible occurrence).
 
 Display
 
