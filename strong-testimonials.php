@@ -156,17 +156,6 @@ add_action( 'admin_enqueue_scripts', 'wpmtst_admin_scripts' );
 
 
 /*
-	Helper: Format URL.
-*/
-function wpmtst_get_website( $url ) {
-	if ( ! preg_match( "~^(?:f|ht)tps?://~i", $url ) ) {
-		$url = 'http://' . $url;
-	}
-	return $url;
-}
-
-
-/*
 	Shim: has_shortcode < WP 3.6
 */
 if ( ! function_exists( 'has_shortcode' ) ) {
@@ -247,7 +236,6 @@ function wpmtst_register_cpt() {
 			'menu_position'			    => 20,
 			'exclude_from_search' 	=> true,
 			'supports'              => array( 'title', 'excerpt', 'editor', 'thumbnail' )
-			// 'supports'              => array( 'title', 'excerpt', 'editor', 'thumbnail', 'custom-fields' )
 	);
 
 	register_post_type( 'wpm-testimonial', $testimonial_args );
@@ -288,8 +276,7 @@ function wpmtst_edit_columns( $columns ) {
 	$columns = array(
 			'cb'          => '<input type="checkbox" />',
 			'title'       => __( 'Title', WPMTST_NAME ),
-			'name' => __( 'Client', WPMTST_NAME ),
-			'thumbnail'   => __( 'Thumbnail', WPMTST_NAME ),
+			'name'        => __( 'Client', WPMTST_NAME ),
 			'category'    => __( 'Category', WPMTST_NAME ),
 			'shortcode'   => __( 'Shortcode', WPMTST_NAME ),
 			'date'        => __( 'Date', WPMTST_NAME ),
@@ -318,10 +305,6 @@ function wpmtst_custom_columns( $column ) {
 
 		echo $custom['name'][0];
 
-	} elseif ( 'thumbnail' == $column ) {
-
-		echo $post->post_thumbnail;
-
 	} elseif ( 'shortcode' == $column ) {
 
 		echo '[wpmtst-single id="' . $post->ID . '"]';
@@ -340,59 +323,6 @@ function wpmtst_custom_columns( $column ) {
 	}
 }
 add_action( 'manage_wpm-testimonial_posts_custom_column', 'wpmtst_custom_columns' );
-
-
-/*************************/
-/*   THUMBNAIL SUPPORT   */
-/*************************/
-
-
-/*
-	Theme support for custom post type only.
-*/
-function wpmtst_theme_support() {
-	add_theme_support( 'post-thumbnails', array( 'wpm-testimonial' ) );
-}
-add_action( 'after_theme_setup', 'wpmtst_theme_support' );
-
-
-/*
-	Add thumbnail column to admin screen list
-*/
-function wpmtst_add_thumbnail_column( $columns ) {
-	$columns['thumbnail'] = __( 'Thumbnail', WPMTST_NAME );
-	return $columns;
-}
-add_filter( 'manage_wpm-testimonial_posts_columns', 'wpmtst_add_thumbnail_column' );
-
-
-/*
-	Show thumbnail in admin screen list
-*/
-function wpmtst_add_thumbnail_value( $column_name, $post_id ) {
-	if ( 'thumbnail' == $column_name ) {
-		$width = (int) 75;
-		$height = (int) 75;
-
-		$thumbnail_id = get_post_meta( $post_id, '_thumbnail_id', true );
-		$attachments = get_children( array( 'post_parent' => $post_id, 'post_type' => 'attachment', 'post_mime_type' => 'image') );
-
-		if ( $thumbnail_id ) {
-			$thumb = wp_get_attachment_image( $thumbnail_id, array( $width, $height ), true );
-		} elseif ( $attachments ) {
-			foreach ( $attachments as $attachment_id => $attachment ) {
-				$thumb = wp_get_attachment_image( $attachment_id, array( $width, $height ), true );
-			}
-		}
-
-		if ( isset( $thumb ) && $thumb ) {
-			echo $thumb;
-		} else {
-			echo __( 'None', WPMTST_NAME );
-		}
-	}
-}
-add_action( 'manage_wpm-testimonial_posts_custom_column', 'wpmtst_add_thumbnail_value', 10, 2 );
 
 
 /*********************/
@@ -425,9 +355,6 @@ function wpmtst_meta_options() {
 
 	?>
 	<table class="options">
-		<tr>
-			<td colspan="2">To add a client's photo, use the <strong>Featured Image</strong> option. <div class="dashicons dashicons-arrow-right-alt"></div></td>
-		</tr>
 		<tr>
 			<th><label for="name"><?php _e( 'Name', WPMTST_NAME ); ?></label></td>
 			<td><input type="text" id="name" name="name" value="<?php echo $name; ?>" size="40"/></td>
@@ -657,7 +584,6 @@ function wpmtst_form_shortcode( $atts ) {
 	$name  = '';
 	$email = '';
 	$text  = '';
-	$agree = 1;
   
 	$options = get_option( 'wpmtst_options' );
 	$captcha = $options['captcha'];
@@ -713,7 +639,6 @@ function wpmtst_form_shortcode( $atts ) {
 		// common
 		$headline = sanitize_text_field( $_POST['wpmtst_headline'] );
 		$text     = sanitize_text_field( $_POST['wpmtst_text'] );
-		// $agree    = isset( $_POST['wpmtst_agree'] ) ? 1 : 0;
 
 		// --------
 		// validate
@@ -721,9 +646,6 @@ function wpmtst_form_shortcode( $atts ) {
 		
 		if ( empty( $text ) )
 			$errors['text'] = 'Please enter your testimonial.'; 
-		
-		// if ( empty( $agree ) )
-			// $errors['agree'] = 'Please let us share your testimonial.'; 
 		
     if ( ! count( $errors ) ) {
 		
@@ -770,19 +692,12 @@ function wpmtst_form_shortcode( $atts ) {
 
 	<div id="wpmtst-form">
 
-		<p class="required-notice"><span class="required symbol"></span><?php _e( 'Required Field', WPMTST_NAME ); ?></p>
-
 		<form id="wpmtst-submission-form" method="post" action="" enctype="multipart/form-data">
 			<?php echo wp_nonce_field( 'wpmtst_submission_form', 'wpmtst_form_submitted' ); ?>
 
 			<p class="form-field">
 				<label for="wpmtst_name"><?php _e( 'Name', WPMTST_NAME ); ?></label>
-				<input id="wpmtst_name" 
-								class="text" 
-								type="text" 
-								name="wpmtst_name" 
-								value="<?php echo $name; ?>"
-								minlength="2">
+				<input id="wpmtst_name" class="text" type="text" name="wpmtst_name" value="<?php echo $name; ?>" minlength="2">
 				<!--
 				<span class="help"><?php _e( 'What is your full name?', WPMTST_NAME ); ?></span>
 				-->
@@ -790,22 +705,15 @@ function wpmtst_form_shortcode( $atts ) {
 			
 			<p class="form-field">
 				<label for="wpmtst_email"><?php _e( 'Email', WPMTST_NAME ); ?></label>
-				<input id="wpmtst_email" 
-								class="text email" 
-								type="email" 
-								name="wpmtst_email" 
-								value="<?php echo $email; ?>">
+				<input id="wpmtst_email" class="text email" type="email" name="wpmtst_email" value="<?php echo $email; ?>">
 				<!--
 				<span class="help"><?php _e( 'What is your email address?', WPMTST_NAME ); ?></span>
 				-->
 			</p>
 
 			<p class="form-field">
-				<label for="wpmtst_text"><?php _e( 'Testimonial', WPMTST_NAME ); ?></label><span class="required symbol"></span>
-				<textarea id="wpmtst_text" 
-									class="textarea"
-									name="wpmtst_text"
-									required><?php echo $text; ?></textarea>
+				<label for="wpmtst_text"><?php _e( 'Testimonial', WPMTST_NAME ); ?></label>
+				<textarea id="wpmtst_text" class="textarea" name="wpmtst_text"><?php echo $text; ?></textarea>
 				<?php if ( isset( $errors['text'] ) ) : ?>
 					<span class="error"><label class="error"><?php echo $errors['text']; ?></label></span>
 				<?php endif; ?>
@@ -818,7 +726,7 @@ function wpmtst_form_shortcode( $atts ) {
 
 			<?php if ( $captcha ) : ?>
 			<div class="wpmtst-captcha">
-				<label for="wpmtst_captcha"><?php _e( 'Captcha', WPMTST_NAME ); ?></label><span class="required symbol"></span>
+				<label for="wpmtst_captcha"><?php _e( 'Captcha', WPMTST_NAME ); ?></label>
 				<div class="wrap">
 					<?php do_action( 'wpmtst_captcha', $captcha ); ?>
 					<?php if ( isset( $errors['captcha'] ) ) : ?>
@@ -829,12 +737,7 @@ function wpmtst_form_shortcode( $atts ) {
 			<?php endif; ?>
 			
 			<p class="form-field">
-				<input type="submit" 
-								id="wpmtst_submit_testimonial" 
-								name="wpmtst_submit_testimonial" 
-								value="<?php _e( 'Add Testimonial', WPMTST_NAME ); ?>" 
-								class="button" 
-								validate="required:true" />
+				<input type="submit" id="wpmtst_submit_testimonial" name="wpmtst_submit_testimonial" value="<?php _e( 'Add Testimonial', WPMTST_NAME ); ?>" class="button" validate="required:true" />
 			</p>
 
 		</form>
@@ -847,16 +750,6 @@ function wpmtst_form_shortcode( $atts ) {
 	echo $html;
 }
 add_shortcode( 'wpmtst-form', 'wpmtst_form_shortcode' );
-
-
-function wpmtst_wp_handle_upload( $file_handler, $overrides ) {
-	require_once( admin_url( 'includes/image.php' ) );
-	require_once( admin_url( 'includes/file.php' ) );
-	require_once( admin_url( 'includes/media.php' ) );
-
-	$upload = wp_handle_upload( $file_handler, $overrides );
-	return $upload ;
-}
 
 
 /**************/
@@ -1052,22 +945,6 @@ class WpmTst_Widget extends WP_Widget {
 			echo '<div class="client">';
 
 			echo '<div class="name">' . $post->name . '</div>';
-
-			if ( ! empty( $post->company_name ) && ! empty( $post->company_website ) ) {
-
-				echo '<div class="company">';
-				echo '<a href="' . wpmtst_get_website( $post->company_website ) .'" target="blank">' . $post->company_name . '</a>';
-				echo '</div>';
-
-			} elseif ( ! empty( $post->company_name ) ) {
-
-				echo '<div class="company">' . $post->company_name . '</div>';
-
-			} elseif ( ! empty( $post->company_website ) ) {
-
-				echo '<div class="website">' . $post->company_website . '</div>';
-
-			}
 
 		 	echo '</div><!-- client -->';
 
