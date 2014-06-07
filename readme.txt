@@ -159,6 +159,9 @@ I will gladly help add your modifications to a custom version of Strong Testimon
 
 == Changelog ==
 
+= 1.4.5 =
+* Fixed bug: the form shortcode was being rendered before any accompanying page content.
+
 = 1.4.4 =
 * New minimum WordPress version: 3.5.
 * Added shims for `has_shortcode` and `shortcode_exists` for WordPress version 3.5.
@@ -178,8 +181,11 @@ I will gladly help add your modifications to a custom version of Strong Testimon
 
 == Upgrade Notice ==
 
+= 1.4.5 =
+Fixed a bug where the form shortcode pushed other page content below.
+
 = 1.4.4 =
-Definitely upgrade if you are running WordPress 3.5 or 3.6.
+Definitely update if you are running WordPress 3.5 or 3.6.
 
 = 1.4.3 = 
 Improved compatibility with earlier versions of PHP.
