@@ -4,7 +4,7 @@
 	Plugin URI: http://www.wpmission.com/plugins/strong-testimonials/
 	Description: Collect and display testimonials.
 	Author: Chris Dillon
-	Version: 1.4.4.1
+	Version: 1.4.5.1
 	Forked From: GC Testimonials version 1.3.2 by Erin Garscadden
 	Author URI: http://www.wpmission.com/
 	Text Domain: wpmtst
@@ -637,7 +637,6 @@ function wpmtst_form_shortcode( $atts ) {
 		$email = sanitize_text_field( $_POST['wpmtst_email'] );
 		
 		// common
-		$headline = sanitize_text_field( $_POST['wpmtst_headline'] );
 		$text     = sanitize_text_field( $_POST['wpmtst_text'] );
 
 		// --------
@@ -747,7 +746,7 @@ function wpmtst_form_shortcode( $atts ) {
 	<?php
 	$html = ob_get_contents();
 	ob_end_clean();
-	echo $html;
+	return $html;
 }
 add_shortcode( 'wpmtst-form', 'wpmtst_form_shortcode' );
 
