@@ -1,7 +1,7 @@
 <?php
 /*
 	Plugin Name: Strong Testimonials (Dewberry)
-	Plugin URI: http://www.wpmission.com/plugins/strong-testimonials/
+	Plugin URI: 
 	Description: Collect and display testimonials.
 	Author: Chris Dillon
 	Version: 1.4.5.1
@@ -697,17 +697,11 @@ function wpmtst_form_shortcode( $atts ) {
 			<p class="form-field">
 				<label for="wpmtst_name"><?php _e( 'Name', WPMTST_NAME ); ?></label>
 				<input id="wpmtst_name" class="text" type="text" name="wpmtst_name" value="<?php echo $name; ?>" minlength="2">
-				<!--
-				<span class="help"><?php _e( 'What is your full name?', WPMTST_NAME ); ?></span>
-				-->
 			</p>
 			
 			<p class="form-field">
 				<label for="wpmtst_email"><?php _e( 'Email', WPMTST_NAME ); ?></label>
 				<input id="wpmtst_email" class="text email" type="email" name="wpmtst_email" value="<?php echo $email; ?>">
-				<!--
-				<span class="help"><?php _e( 'What is your email address?', WPMTST_NAME ); ?></span>
-				-->
 			</p>
 
 			<p class="form-field">
@@ -716,9 +710,6 @@ function wpmtst_form_shortcode( $atts ) {
 				<?php if ( isset( $errors['text'] ) ) : ?>
 					<span class="error"><label class="error"><?php echo $errors['text']; ?></label></span>
 				<?php endif; ?>
-				<!--
-				<span class="help"><?php _e( 'What do you think about us?', WPMTST_NAME ); ?></span>
-				-->
 			</p>
 
 			<div class="clear"></div>
