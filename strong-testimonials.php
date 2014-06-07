@@ -982,7 +982,7 @@ function wpmtst_form_shortcode( $atts ) {
 	<?php
 	$html = ob_get_contents();
 	ob_end_clean();
-	echo $html;
+	return $html;
 }
 add_shortcode( 'wpmtst-form', 'wpmtst_form_shortcode' );
 
@@ -1013,9 +1013,9 @@ function wpmtst_widget_script( $arg1, $arg2, $arg3, $arg4 ) {
 	// $list = 'enqueued';
 	// if ( ! wp_script_is( 'jquery.cycle2.min.js', $list ) || ! wp_script_is( 'jquery.cycle2.js', $list ) ) {
 	
-	// ---------------------------------
+	// -------------------------------------------------
 	// This custom function checks by file name instead:
-	// ---------------------------------
+	// -------------------------------------------------
 	if ( ! wpmtst_is_queued( array( 'jquery.cycle2.min.js', 'jquery.cycle2.js' ) ) ) {
 		wp_enqueue_script( 'wpmtst-slider', '//cdn.jsdelivr.net/cycle2/20140314/jquery.cycle2.min.js', array( 'jquery' ) );
 	}
