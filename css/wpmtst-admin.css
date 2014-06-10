@@ -4,23 +4,27 @@
 
 /* shortcodes table */
 
-table.wpmtst {
+table.shortcode-table {
 	border-collapse: collapse;
 	margin-bottom: 1em;
 }
 
-table.wpmtst h3 {
+table.shortcode-table h3 {
 	margin: .5em 0 0;
 }
 
-table.wpmtst td {
+table.shortcode-table td {
 	border-bottom: 1px solid #dfdfdf;
 	padding: .5em;
 }
 
-.wpmtst code {
+/* code */
+table.shortcode-table td:nth-child(2) {
 	background: #fff;
 	font-size: 1.1em;
+	padding: .5em 1em;
+	direction: ltr;
+	font-family: Consolas, Monaco, monospace;
 }
 
 /* settings table */

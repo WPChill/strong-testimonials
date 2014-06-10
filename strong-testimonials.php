@@ -4,7 +4,7 @@
 	Plugin URI: http://www.wpmission.com/plugins/strong-testimonials/
 	Description: Collect and display testimonials.
 	Author: Chris Dillon
-	Version: 1.4.5
+	Version: 1.4.6
 	Forked From: GC Testimonials version 1.3.2 by Erin Garscadden
 	Author URI: http://www.wpmission.com/
 	Text Domain: wpmtst
@@ -1664,52 +1664,52 @@ function wpmtst_settings_shortcodes() {
 
 		<h2><?php _e( 'Shortcodes', WPMTST_NAME ); ?></h2>
 
-		<table class="wpmtst">
+		<table class="shortcode-table">
 			<tr>
 				<td colspan="2"><h3>All Testimonials</h3></td>
 			</tr>
 			<tr>
-				<td>Show all from all categories.</td><td><code>[wpmtst-all]</code></td>
+				<td>Show all from all categories.</td><td>[wpmtst-all]</td>
 			</tr>
 			<tr>
-				<td>Show all from a specific category.<br> Find these on the <a href="<?php echo admin_url( 'edit-tags.php?taxonomy=wpm-testimonial-category&post_type=wpm-testimonial' ); ?>">categories screen</a>.</td><td><code>[wpmtst-all category="xx"]</code></td>
+				<td>Show all from a specific category.<br> Find these on the <a href="<?php echo admin_url( 'edit-tags.php?taxonomy=wpm-testimonial-category&post_type=wpm-testimonial' ); ?>">categories screen</a>.</td><td>[wpmtst-all category="xx"]</td>
 			</tr>
 		</table>
 		
-		<table class="wpmtst">
+		<table class="shortcode-table">
 			<tr>
 				<td colspan="2"><h3>Random Testimonial</h3></td>
 			</tr>
 			<tr>
-				<td>Show a single random testimonial.</td><td><code>[wpmtst-random]</code></td>
+				<td>Show a single random testimonial.</td><td>[wpmtst-random]</td>
 			</tr>
 			<tr>
-				<td>Show a certain number of testimonials.</td><td><code>[wpmtst-random limit="x"]</code></td>
+				<td>Show a certain number of testimonials.</td><td>[wpmtst-random limit="x"]</td>
 			</tr>
 			<tr>
 				<td>Show a single random testimonial from a specific category.<br>Find these on the <a href="<?php echo admin_url( 'edit-tags.php?taxonomy=wpm-testimonial-category&post_type=wpm-testimonial' ); ?>">categories screen</a>.</td>
-				<td><code>[wpmtst-random category="xx"]</code></td>
+				<td>[wpmtst-random category="xx"]</td>
 			</tr>
 			<tr>
-				<td>Show a certain number from a specific category.</td><td><code>[wpmtst-random category="xx" limit="x"]</code></td>
+				<td>Show a certain number from a specific category.</td><td>[wpmtst-random category="xx" limit="x"]</td>
 			</tr>
 		</table>
 
-		<table class="wpmtst">
+		<table class="shortcode-table">
 			<tr>
 				<td colspan="2"><h3>Single Testimonial</h3></td>
 			</tr>
 			<tr>
-				<td> Show one specific testimonial.<br>Find these on the <a href="<?php echo admin_url( 'edit.php?post_type=wpm-testimonial' ); ?>">testimonials screen</a>.</td><td><code>[wpmtst-single id="xx"]</code></td>
+				<td> Show one specific testimonial.<br>Find these on the <a href="<?php echo admin_url( 'edit.php?post_type=wpm-testimonial' ); ?>">testimonials screen</a>.</td><td>[wpmtst-single id="xx"]</td>
 			</tr>
 		</table>
 		
-		<table class="wpmtst">
+		<table class="shortcode-table">
 			<tr>
 				<td colspan="2"><h3>Testimonial Submission Form</h3></td>
 			</tr>
 			<tr>
-				<td>Show a form for visitors to submit testimonials.<br>New testimonials are in "Pending" status until<br> published by an administrator.</td><td><code>[wpmtst-form]</code></td>
+				<td>Show a form for visitors to submit testimonials.<br>New testimonials are in "Pending" status until<br> published by an administrator.</td><td>[wpmtst-form]</td>
 			</tr>
 		</table>
 
