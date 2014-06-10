@@ -718,8 +718,9 @@ function wpmtst_form_shortcode( $atts ) {
 						// check captcha
 						$response = wpmsrc_check();
 						if ( ! $response->is_valid ) {
-							$errors['captcha'] = __( 'The CAPTCHA was not entered correctly. Please try again.', WPMTST_NAME );
-							// $response['error'] contains the actual error message, e.g. "incorrect-captcha-sol"
+							// $errors['captcha'] = __( 'The CAPTCHA was not entered correctly. Please try again.', WPMTST_NAME );
+							// $response->error contains the actual error message, e.g. "incorrect-captcha-sol"
+							$errors['captcha'] = __( $response->error, WPMTST_NAME );
 						}
 					}
 				}
@@ -830,7 +831,8 @@ function wpmtst_form_shortcode( $atts ) {
 
 				if ( $admin_notify && $admin_email ) {
 					$subject = 'New testimonial for ' . get_option( 'blogname' );
-					$headers = 'From: noreply@' . str_replace( 'www.', '', $_SERVER['HTTP_HOST'] );
+					// $headers = 'From: noreply@' . preg_replace( '/^www\./', '', $_SERVER['HTTP_HOST'] );
+					$headers = '';
 					$message = 'New testimonial submission for ' . get_option( 'blogname' ) . '. This is awaiting action from the website administrator.';
 					// More info here? A copy of testimonial? A link to admin page? A link to approve directly from email?
 					wp_mail( $admin_email, $subject, $message, $headers );
@@ -857,7 +859,7 @@ function wpmtst_form_shortcode( $atts ) {
 		<p class="required-notice"><span class="required symbol"></span><?php _e( 'Required Field', WPMTST_NAME ); ?></p>
 
 		<form id="wpmtst-submission-form" method="post" action="" enctype="multipart/form-data">
-			<?php echo wp_nonce_field( 'wpmtst_submission_form', 'wpmtst_form_submitted' ); ?>
+			<?php wp_nonce_field( 'wpmtst_submission_form', 'wpmtst_form_submitted' ); ?>
 
 			<p class="form-field">
 				<label for="wpmtst_client_name"><?php _e( 'Full Name', WPMTST_NAME ); ?></label><span class="required symbol"></span>
@@ -1462,9 +1464,8 @@ function wpmtst_unique_menu_title() {
 		$need_unique = false;
 	}
 
-	if ( ! $need_unique ) {
+	if ( ! $need_unique )
 		return;
-	}
 	
 	global $menu;
 	
@@ -1508,7 +1509,7 @@ function wpmtst_settings_page() {
 	foreach ( $plugins as $key => $plugin ) {
 		$plugins[$key]['active'] = is_plugin_active( $plugin['file'] );
 		// If current Captcha plugin has been deactivated, disable Captcha
-		// so corresponding div does not appear on form.
+		// so corresponding div does not appear on front-end form.
 		if ( $key == $wpmtst_options['captcha'] && ! $plugins[$key]['active'] ) {
 			$wpmtst_options['captcha'] = '';
 			update_option( 'wpmtst_options', $wpmtst_options );
@@ -1571,9 +1572,9 @@ function wpmtst_settings_page() {
 
 		</form>
 
-	</div> <!-- wrap -->
+	</div><!-- wrap -->
 
-<?php
+	<?php
 }
 
 function wpmtst_settings_shortcodes() {
