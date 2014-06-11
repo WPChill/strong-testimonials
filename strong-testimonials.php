@@ -518,19 +518,15 @@ function wpmtst_single( $post ) {
 	ob_start();
 	?>
 	<div class="testimonial">
-
 		<div class="inner">
-
+		
 			<?php if ( ! empty( $post->post_title ) ) : ?>
 			<h3 class="heading"><?php echo $post->post_title; ?></h3>
 			<?php endif; ?>
-
 			<?php if ( has_post_thumbnail( $post->ID ) ) : ?>
 			<div class="photo"><?php echo get_the_post_thumbnail( $post->ID, 'thumbnail' ); ?></div>
 			<?php endif; ?>
-
 			<div class="content"><?php echo wpautop( $post->post_content ); ?></div><!-- content -->
-
 			<div class="clear"></div>
 
 			<div class="client">
@@ -547,9 +543,7 @@ function wpmtst_single( $post ) {
 			</div><!-- client -->
 
 		</div><!-- inner -->
-
 	</div><!-- testimonial -->
-
 	<?php
 	$html = ob_get_contents();
 	ob_end_clean();
@@ -576,10 +570,10 @@ function wpmtst_random_shortcode( $atts ) {
 	if ( '' != $category ) {
 		$term = get_term_by( 'id', $category, 'wpm-testimonial-category' );
 		$term_taxonomy = $term->taxonomy;
-		$term_slug = $term->slug;
+		$term_slug     = $term->slug;
 	} else {
 		$term_taxonomy = '';
-		$term_slug = '';
+		$term_slug     = '';
 	}
 
 	$args = array(
@@ -611,10 +605,10 @@ function wpmtst_all_shortcode( $atts ) {
 	if ( '' != $category ) {
 		$term = get_term_by( 'id', $category, 'wpm-testimonial-category' );
 		$term_taxonomy = $term->taxonomy;
-		$term_slug = $term->slug;
+		$term_slug     = $term->slug;
 	} else {
 		$term_taxonomy = '';
-		$term_slug = '';
+		$term_slug     = '';
 	}
 
 	// @todo: sort options
@@ -946,16 +940,16 @@ function wpmtst_widget_script( $arg1, $arg2, $arg3, $arg4 ) {
 	// Load jQuery Cycle2 plugin (http://jquery.malsup.com/cycle2/) from CDN 
 	// **if not already enqueued** by the theme or another plugin.
 	
-	// ---------------------------------------------------------------------
-	// This checks by handle but handles can be different so this misses it:
+	// -----------------------------------------------------------------------
+	// This checks by *handle* but handles can be different so this misses it:
 	// (Seems to be intended for checks within the plugin itself.)
-	// ---------------------------------------------------------------------
+	// -----------------------------------------------------------------------
 	// $list = 'enqueued';
 	// if ( ! wp_script_is( 'jquery.cycle2.min.js', $list ) || ! wp_script_is( 'jquery.cycle2.js', $list ) ) {
 	
-	// -------------------------------------------------
-	// This custom function checks by file name instead:
-	// -------------------------------------------------
+	// ---------------------------------------------------
+	// This custom function checks by *file name* instead:
+	// ---------------------------------------------------
 	if ( ! wpmtst_is_queued( array( 'jquery.cycle2.min.js', 'jquery.cycle2.js' ) ) ) {
 		wp_enqueue_script( 'wpmtst-slider', '//cdn.jsdelivr.net/cycle2/20140314/jquery.cycle2.min.js', array( 'jquery' ) );
 	}
@@ -1030,48 +1024,44 @@ class WpmTst_Widget extends WP_Widget {
 
 		echo $data['before_widget'];
 
-		if ( ! empty( $data['title'] ) ) {
+		if ( ! empty( $data['title'] ) )
 			echo $data['before_title'] . $data['title'] . $data['after_title'];
-		};
 
 		if ( 'rand' == $data['order'] ) {
 			$orderby = 'rand';
-			$order = '';
+			$order   = '';
 		} elseif ( 'oldest' == $data['order'] ) {
 			$orderby = 'post_date';
-			$order = 'ASC';
+			$order   = 'ASC';
 		} else {
 			$orderby = 'post_date';
-			$order = 'DESC';
+			$order   = 'DESC';
 		}
 
 		if ( 'cycle' == $data['mode'] ) {
 
-			if ( $data['cycle-all'] ) {
+			if ( $data['cycle-all'] )
 				$num = -1;
-			} elseif ( ! empty( $data['cycle-limit'] ) ) {
+			elseif ( ! empty( $data['cycle-limit'] ) )
 				$num = $data['cycle-limit'];
-			} else {
+			else
 				$num = $this->defaults['cycle-limit'];
-			}
 
 		} else {
 
-			if ( ! empty( $data['static-limit'] ) ) {
+			if ( ! empty( $data['static-limit'] ) )
 				$num = $data['static-limit'];
-			} else {
+			else
 				$num = $this->defaults['static-limit'];
-			}
 
 		}
 
 		$char_switch = $data['char-switch'];
 
-		if ( (int) $data['char-limit'] ) {
+		if ( (int) $data['char-limit'] )
 			$char_limit = $data['char-limit'];
-		} else {
+		else
 			$char_limit = $this->defaults['char-limit'];
-		}
 
 		$term_taxonomy = '';
 		$term_slug = '';
@@ -1079,7 +1069,7 @@ class WpmTst_Widget extends WP_Widget {
 			$term = get_term_by( 'id', $data['category'], 'wpm-testimonial-category' );
 			if ( $term ) {
 				$term_taxonomy = $term->taxonomy;
-				$term_slug = $term->slug;
+				$term_slug     = $term->slug;
 			}
 		}
 
@@ -1095,19 +1085,16 @@ class WpmTst_Widget extends WP_Widget {
 		$wp_query = new WP_Query();
 		$posts_array = $wp_query->query( $args );
 
-		if ( 'cycle' == $data['mode'] ) {
+		if ( 'cycle' == $data['mode'] )
 			echo '<div id="tcycle">';
-		}
 
 		foreach ( $posts_array as $post ) {
-
 			$post = wpmtst_get_post( $post );
 
 			echo '<div class="testimonial-widget">';
 
-			if ( ! empty( $post->post_title ) ) {
+			if ( ! empty( $post->post_title ) )
 				echo '<h5>' . $post->post_title . '</h5>';
-			}
 
 			if ( $data['images'] ) {
 				if ( has_post_thumbnail( $post->ID ) ) {
@@ -1122,38 +1109,25 @@ class WpmTst_Widget extends WP_Widget {
 				$content = substr( $content, 0, strpos( $content, ' ', $char_limit ) ) . ' . . . ';
 			}
 			echo '<div class="content">' . $content . '</div><!-- content -->';
-
 			echo '<div class="clear"></div>';
 
 			echo '<div class="client">';
-
 			echo '<div class="name">' . $post->client_name . '</div>';
-
 			if ( ! empty( $post->company_name ) && ! empty( $post->company_website ) ) {
-
 				echo '<div class="company">';
 				echo '<a href="' . wpmtst_get_website( $post->company_website ) .'" target="blank">' . $post->company_name . '</a>';
 				echo '</div>';
-
 			} elseif ( ! empty( $post->company_name ) ) {
-
 				echo '<div class="company">' . $post->company_name . '</div>';
-
 			} elseif ( ! empty( $post->company_website ) ) {
-
 				echo '<div class="website">' . $post->company_website . '</div>';
-
 			}
-
 		 	echo '</div><!-- client -->';
-
 		 echo '</div><!-- testimonial-widget -->';
-
 		}
 
-		if ( 'cycle' == $data['mode'] ) {
+		if ( 'cycle' == $data['mode'] )
 			echo '</div><!-- tcycle --><div class="clear"></div>';
-		}
 
 		if ( $data['more'] ) {
 			$link = get_permalink( $data['more_page'] );
@@ -1161,7 +1135,6 @@ class WpmTst_Widget extends WP_Widget {
 		}
 
 		echo $data['after_widget'];
-
 	}
 
 	// form
