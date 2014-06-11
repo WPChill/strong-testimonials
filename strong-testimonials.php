@@ -4,7 +4,7 @@
 	Plugin URI: http://www.wpmission.com/plugins/strong-testimonials/
 	Description: Collect and display testimonials.
 	Author: Chris Dillon
-	Version: 1.4.6
+	Version: 1.4.7
 	Forked From: GC Testimonials version 1.3.2 by Erin Garscadden
 	Author URI: http://www.wpmission.com/
 	Text Domain: wpmtst

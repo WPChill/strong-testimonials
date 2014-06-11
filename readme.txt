@@ -159,6 +159,10 @@ I will gladly help add your modifications to a custom version of Strong Testimon
 
 == Changelog ==
 
+= 1.4.7 =
+* Removed line breaks on long input elements.
+* Consistent self-closing input tags.
+
 = 1.4.6 =
 * Fixed bug: Copy-n-pasting shortcodes onto a page in Visual mode included `<code>` tags which fubar'd the page.
 
@@ -183,6 +187,9 @@ I will gladly help add your modifications to a custom version of Strong Testimon
 * Initial version, a fork of GC Testimonials 1.3.2.
 
 == Upgrade Notice ==
+
+= 1.4.7 =
+Improved code formatting to prevent a low-probability rendering problem.
 
 = 1.4.6 =
 Fixed a bug when copy-n-pasting a shortcode.
