@@ -41,7 +41,6 @@ function wpmtst_textdomain() {
 }
 add_action( 'plugins_loaded', 'wpmtst_textdomain' );
 
-
 /*
  * Plugin activation
  */
@@ -211,8 +210,23 @@ function wpmtst_validation_function() {
 
 
 /*----------------------------------------------------------------------------*
- * Shims & Helpers
+ * Getters, Setters, Shims, & Helpers
  *----------------------------------------------------------------------------*/
+
+/*
+ * Add custom fields to post object.
+ */
+function wpmtst_get_post( $post ) {
+	$custom = get_post_custom( $post->ID );
+	foreach ( $custom as $key => $field ) {
+		// exclude '_edit_last' and '_edit_lock'
+		$keyt = trim( $key );
+		if ( '_' != $keyt{0} ) {
+			$post->$key = $field[0];
+		}
+	}
+	return $post;
+}
 
 /*
  * Helper: Format URL.
@@ -286,6 +300,63 @@ function wpmtst_admin_scripts() {
 	wp_enqueue_script( 'wpmtst-admin-script', plugins_url( '/js/wpmtst-admin.js', __FILE__ ), array( 'jquery' ) );
 }
 add_action( 'admin_enqueue_scripts', 'wpmtst_admin_scripts' );
+
+/*
+ * Add custom fields to the Add / Edit screen
+ */
+function wpmtst_admin_init() {
+	add_meta_box( 'details', 'Client Details', 'wpmtst_meta_options', 'wpm-testimonial', 'normal', 'low' );
+}
+add_action( 'admin_init', 'wpmtst_admin_init' );
+
+function wpmtst_meta_options() {
+	global $post;
+	$custom = get_post_custom();
+
+	if ( $custom && array_key_exists( 'client_name', $custom ) )
+		$client_name = $custom['client_name'][0];
+	else
+		$client_name = '';
+
+	if ( $custom && array_key_exists( 'email', $custom ) )
+		$email = $custom['email'][0];
+	else
+		$email = '';
+
+	if ( $custom && array_key_exists( 'company_website', $custom ) )
+		$company_website = $custom['company_website'][0];
+	else
+		$company_website = '';
+
+	if ( $custom && array_key_exists( 'company_name', $custom ) )
+		$company_name = $custom['company_name'][0];
+	else
+		$company_name = '';
+
+	?>
+	<table class="options">
+		<tr>
+			<td colspan="2">To add a client's photo, use the <strong>Featured Image</strong> option. <div class="dashicons dashicons-arrow-right-alt"></div></td>
+		</tr>
+		<tr>
+			<th><label for="client_name"><?php _e( 'Name', WPMTST_NAME ); ?></label></td>
+			<td><input type="text" id="client_name" name="client_name" value="<?php echo $client_name; ?>" size="40" /></td>
+		</tr>
+		<tr>
+			<th><label for="email"><?php _e( 'Email', WPMTST_NAME ); ?></label></td>
+			<td><input type="text" id="email" name="email" value="<?php echo $email; ?>" size="40" /></td>
+		</tr>
+		<tr>
+			<th><label for="company_website"><?php _e( 'Website', WPMTST_NAME ); ?></label></td>
+			<td><input type="text" id="company_website" name="company_website" value="<?php echo $company_website; ?>" size="40" /></td>
+		</tr>
+		<tr>
+			<th><label for="company_name"><?php _e( 'Company Name', WPMTST_NAME ); ?></label></td>
+			<td><input type="text" id="company_name" name="company_name" value="<?php echo $company_name; ?>" size="40" /></td>
+		</tr>
+	</table>
+	<?php
+}
 
 /*
  * Add custom columns to the admin screen
@@ -384,84 +455,6 @@ function wpmtst_add_thumbnail_value( $column_name, $post_id ) {
 add_action( 'manage_wpm-testimonial_posts_custom_column', 'wpmtst_add_thumbnail_value', 10, 2 );
 
 /*
- * Add custom fields to the Add / Edit screen
- */
-function wpmtst_admin_init() {
-	add_meta_box( 'details', 'Client Details', 'wpmtst_meta_options', 'wpm-testimonial', 'normal', 'low' );
-}
-add_action( 'admin_init', 'wpmtst_admin_init' );
-
-function wpmtst_meta_options() {
-	global $post;
-	$custom = get_post_custom();
-
-	if ( $custom && array_key_exists( 'client_name', $custom ) )
-		$client_name = $custom['client_name'][0];
-	else
-		$client_name = '';
-
-	if ( $custom && array_key_exists( 'email', $custom ) )
-		$email = $custom['email'][0];
-	else
-		$email = '';
-
-	if ( $custom && array_key_exists( 'company_website', $custom ) )
-		$company_website = $custom['company_website'][0];
-	else
-		$company_website = '';
-
-	if ( $custom && array_key_exists( 'company_name', $custom ) )
-		$company_name = $custom['company_name'][0];
-	else
-		$company_name = '';
-
-	?>
-	<table class="options">
-		<tr>
-			<td colspan="2">To add a client's photo, use the <strong>Featured Image</strong> option. <div class="dashicons dashicons-arrow-right-alt"></div></td>
-		</tr>
-		<tr>
-			<th><label for="client_name"><?php _e( 'Name', WPMTST_NAME ); ?></label></td>
-			<td><input type="text" id="client_name" name="client_name" value="<?php echo $client_name; ?>" size="40" /></td>
-		</tr>
-		<tr>
-			<th><label for="email"><?php _e( 'Email', WPMTST_NAME ); ?></label></td>
-			<td><input type="text" id="email" name="email" value="<?php echo $email; ?>" size="40" /></td>
-		</tr>
-		<tr>
-			<th><label for="company_website"><?php _e( 'Website', WPMTST_NAME ); ?></label></td>
-			<td><input type="text" id="company_website" name="company_website" value="<?php echo $company_website; ?>" size="40" /></td>
-		</tr>
-		<tr>
-			<th><label for="company_name"><?php _e( 'Company Name', WPMTST_NAME ); ?></label></td>
-			<td><input type="text" id="company_name" name="company_name" value="<?php echo $company_name; ?>" size="40" /></td>
-		</tr>
-	</table>
-	<?php
-}
-
-/*
- * Update custom fields
- */
-function wpmtst_save_details() {
-	// check Custom Post Type
-	if ( ! isset( $_POST['post_type'] ) || 'wpm-testimonial' != $_POST['post_type'] )
-		return;
-	
-	global $post;
-	$custom_meta_fields = array( 'client_name', 'email', 'company_website', 'company_name' );
-
-	foreach ( $custom_meta_fields as $field ) {
-		// Update every field even if empty.
-		if ( isset( $_POST[$field] ) ) {
-			update_post_meta( $post->ID, $field, $_POST[$field] );
-		}
-	}
-}
-// add_action( 'save_post_wpm-testimonial', 'wpmtst_save_details' ); // WP 3.7+
-add_action( 'save_post', 'wpmtst_save_details' );
-
-/*
  * Add columns to the testimonials categories screen
  */
 function wpmtst_manage_categories( $columns ) {
@@ -492,25 +485,31 @@ function wpmtst_manage_columns( $out, $column_name, $id ) {
 }
 add_filter( 'manage_wpm-testimonial-category_custom_column', 'wpmtst_manage_columns', 10, 3 );
 
+/*
+ * Update custom fields
+ */
+function wpmtst_save_details() {
+	// check Custom Post Type
+	if ( ! isset( $_POST['post_type'] ) || 'wpm-testimonial' != $_POST['post_type'] )
+		return;
+	
+	global $post;
+	$custom_meta_fields = array( 'client_name', 'email', 'company_website', 'company_name' );
+
+	foreach ( $custom_meta_fields as $field ) {
+		// Update every field even if empty.
+		if ( isset( $_POST[$field] ) ) {
+			update_post_meta( $post->ID, $field, $_POST[$field] );
+		}
+	}
+}
+// add_action( 'save_post_wpm-testimonial', 'wpmtst_save_details' ); // WP 3.7+
+add_action( 'save_post', 'wpmtst_save_details' );
+
 
 /*----------------------------------------------------------------------------*
  * Shortcodes
  *----------------------------------------------------------------------------*/
-
-/*
- * Add custom fields to post object.
- */
-function wpmtst_get_post( $post ) {
-	$custom = get_post_custom( $post->ID );
-	foreach ( $custom as $key => $field ) {
-		// exclude '_edit_last' and '_edit_lock'
-		$keyt = trim( $key );
-		if ( '_' != $keyt{0} ) {
-			$post->$key = $field[0];
-		}
-	}
-	return $post;
-}
 
 /*
  * Single Testimonial LAYOUT
@@ -926,6 +925,9 @@ function wpmtst_form_shortcode( $atts ) {
 }
 add_shortcode( 'wpmtst-form', 'wpmtst_form_shortcode' );
 
+/*
+ * File upload handler
+ */
 function wpmtst_wp_handle_upload( $file_handler, $overrides ) {
 	require_once( admin_url( 'includes/image.php' ) );
 	require_once( admin_url( 'includes/file.php' ) );
