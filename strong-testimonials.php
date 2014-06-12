@@ -223,11 +223,11 @@ function wpmtst_validation_function() {
 
 
 /*----------------------------------------------------------------------------*
- * Getters, Setters, Shims, & Helpers
+ * Getters, Shims, Helpers
  *----------------------------------------------------------------------------*/
 
 /*
- * Add custom fields to post object.
+ * Append custom fields to post object.
  */
 function wpmtst_get_post( $post ) {
 	$custom = get_post_custom( $post->ID );
@@ -258,6 +258,21 @@ if ( ! function_exists( 'normalize_empty_atts' ) ) {
 			return $atts;
 		}
 	}
+}
+
+/*
+ * Get category.
+ */
+function wpmtst_get_terms( $category ) {
+	if ( '' != $category ) {
+		$term = get_term_by( 'id', $category, 'wpm-testimonial-category' );
+		$term_taxonomy = $term->taxonomy;
+		$term_slug     = $term->slug;
+	} else {
+		$term_taxonomy = '';
+		$term_slug     = '';
+	}
+	return array( 'taxo' => $term_taxonomy, 'term' => $term_slug );
 }
 
 /*
@@ -597,19 +612,15 @@ add_shortcode( 'wpmtst-single', 'wpmtst_single_shortcode' );
  * Random testimonial shortcode
  */
 function wpmtst_random_shortcode( $atts ) {
-	extract( shortcode_atts( array( 'category' => '', 'limit' => '1' ), $atts ) );
+	extract( shortcode_atts( 
+		array( 'category' => '', 'limit' => '1' ), 
+		normalize_empty_atts( $atts )
+	) );
 
-	if ( '' != $category ) {
-		$term = get_term_by( 'id', $category, 'wpm-testimonial-category' );
-		$term_taxonomy = $term->taxonomy;
-		$term_slug     = $term->slug;
-	} else {
-		$term_taxonomy = '';
-		$term_slug     = '';
-	}
+	$terms = wpmtst_get_terms( $category );
 
 	$args = array(
-			$term_taxonomy   => $term_slug,
+			$terms['taxo']   => $terms['term'],
 			'post_type'      => 'wpm-testimonial',
 			'posts_per_page' => $limit,
 			'orderby'        => 'rand',
@@ -618,12 +629,11 @@ function wpmtst_random_shortcode( $atts ) {
 
 	$wp_query = new WP_Query();
 	$results  = $wp_query->query( $args );
+	
 	$display = '';
-
 	foreach ( $results as $post ) {
 		$display .= wpmtst_single( wpmtst_get_post( $post ) );
 	}
-
 	return $display;
 }
 add_shortcode( 'wpmtst-random', 'wpmtst_random_shortcode' );
@@ -640,17 +650,10 @@ function wpmtst_all_shortcode( $atts ) {
 		normalize_empty_atts( $atts )
 	) );
 
-	if ( '' != $category ) {
-		$term = get_term_by( 'id', $category, 'wpm-testimonial-category' );
-		$term_taxonomy = $term->taxonomy;
-		$term_slug     = $term->slug;
-	} else {
-		$term_taxonomy = '';
-		$term_slug     = '';
-	}
+	$terms = wpmtst_get_terms( $category );
 
 	$args = array(
-			$term_taxonomy   => $term_slug,
+			$terms['taxo']   => $terms['term'],
 			'post_type'      => 'wpm-testimonial',
 			'posts_per_page' => -1,
 			'orderby'        => 'post_date',
@@ -662,11 +665,9 @@ function wpmtst_all_shortcode( $atts ) {
 	$results = $wp_query->query( $args );
 
 	$display = '<div id="wpmtst-container">';
-
 	foreach ( $results as $post ) {
 		$display .= '<div class="result">' . wpmtst_single( wpmtst_get_post( $post ) ) . '</div><!-- result -->';
 	}
-
 	$display .= '</div><!-- wpmtst-container -->';
 	$display .= '<div id="pagingControls"></div>';
 	
@@ -700,17 +701,10 @@ function wpmtst_cycle_shortcode( $atts ) {
 		$order   = 'DESC';
 	}
 
-	if ( '' != $category ) {
-		$term = get_term_by( 'id', $category, 'wpm-testimonial-category' );
-		$term_taxonomy = $term->taxonomy;
-		$term_slug     = $term->slug;
-	} else {
-		$term_taxonomy = '';
-		$term_slug     = '';
-	}
+	$terms = wpmtst_get_terms( $category );
 
 	$args = array(
-			$term_taxonomy   => $term_slug,
+			$terms['taxo']   => $terms['term'],
 			'post_type'      => 'wpm-testimonial',
 			'posts_per_page' => -1,
 			'orderby'        => $orderby,
@@ -722,11 +716,9 @@ function wpmtst_cycle_shortcode( $atts ) {
 	$results = $wp_query->query( $args );
 
 	$display = '<div id="wpmtst-container" class="tcycle">';
-
 	foreach ( $results as $post ) {
 		$display .= '<div class="result">' . wpmtst_single( wpmtst_get_post( $post ) ) . '</div><!-- result -->';
 	}
-
 	$display .= '</div><!-- wpmtst-container -->';
 	
 	return $display;
