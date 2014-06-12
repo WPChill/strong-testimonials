@@ -59,10 +59,15 @@ function wpmtst_flush_rewrite_rules() {
  */
 function wpmtst_default_settings() {
 	$new_options = array(
-			'per_page'     => '5',
-			'admin_notify' => 0,
-			'admin_email'  => '',
-			'captcha'      => '',
+			'per_page'      => '5',
+			'admin_notify'  => 0,
+			'admin_email'   => '',
+			'captcha'       => '',
+			'cycle-order'   => 'recent',
+			'cycle-effect'  => 'fade',
+			'cycle-speed'   => 1.5,
+			'cycle-timeout' => 8,
+			'cycle-pause'   => 1,
 	);
 
 	// Don't overwrite saved options upon reactivation.
@@ -149,31 +154,39 @@ add_action( 'after_theme_setup', 'wpmtst_theme_support' );
  */
 
 function wpmtst_scripts() {
-
 	global $post;
 
 	wp_register_style( 'wpmtst-style', plugins_url( '/css/wpmtst.css', __FILE__ ) );
 	wp_register_style( 'wpmtst-form-style', plugins_url( '/css/wpmtst-form.css', __FILE__ ) );
 
-	// shortcodes: all, single, random, form
-	if ( has_shortcode( $post->post_content, 'wpmtst-all' )
-			|| has_shortcode( $post->post_content, 'wpmtst-single' )
-			|| has_shortcode( $post->post_content, 'wpmtst-random' )
-			|| has_shortcode( $post->post_content, 'wpmtst-form' ) ) {
-		wp_enqueue_style( 'wpmtst-style' );
-	}
+	wp_register_script( 'wpmtst-pager', plugins_url( '/js/quickpager.jquery.js', __FILE__ ), array( 'jquery' ) );
+	wp_register_script( 'wpmtst-slider', '//cdn.jsdelivr.net/cycle2/20140314/jquery.cycle2.min.js', array( 'jquery' ) );
+	wp_register_script( 'wpmtst-validation', '//ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js', array( 'jquery' ) );
+	wp_register_script( 'wpmtst-cycle', plugins_url( '/js/wpmtst-cycle.js', __FILE__ ), array ( 'jquery' ), false, true );
 
-	// shortcode: all testimonials
 	if ( has_shortcode( $post->post_content, 'wpmtst-all' ) ) {
-		wp_enqueue_script( 'wpmtst-pager', plugins_url( '/js/quickpager.jquery.js', __FILE__ ), array( 'jquery' ) );
+		wp_enqueue_style( 'wpmtst-style' );
+		wp_enqueue_script( 'wpmtst-pager' );
 		add_action( 'wp_footer', 'wpmtst_pagination_function' );
 	}
-
-	// shortcode: submission form
+	
 	if ( has_shortcode( $post->post_content, 'wpmtst-form' ) ) {
+		wp_enqueue_style( 'wpmtst-style' );
 		wp_enqueue_style( 'wpmtst-form-style' );
-		wp_enqueue_script( 'wpmtst-validation', '//ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js', array( 'jquery' ) );
+		wp_enqueue_script( 'wpmtst-validation' );
 		add_action( 'wp_footer', 'wpmtst_validation_function' );
+	}
+
+	if ( has_shortcode( $post->post_content, 'wpmtst-cycle' ) ) {
+		wp_enqueue_style( 'wpmtst-style' );
+	}
+	
+	if ( has_shortcode( $post->post_content, 'wpmtst-single' ) ) {
+		wp_enqueue_style( 'wpmtst-style' );
+	}
+	
+	if ( has_shortcode( $post->post_content, 'wpmtst-random' ) ) {
+		wp_enqueue_style( 'wpmtst-style' );
 	}
 
 }
@@ -226,6 +239,25 @@ function wpmtst_get_post( $post ) {
 		}
 	}
 	return $post;
+}
+
+/*
+ * Normalize empty shortcode attributes
+ * (turns atts into tags - brilliant!)
+ * Thanks http://wordpress.stackexchange.com/a/123073/32076
+ */
+if ( ! function_exists( 'normalize_empty_atts' ) ) {
+	function normalize_empty_atts( $atts ) {
+		if ( ! empty( $atts ) ) {
+			foreach ( $atts as $attribute => $value ) {
+				if ( is_int( $attribute ) ) {
+					$atts[ strtolower( $value ) ] = true;
+					unset( $atts[ $attribute ] );
+				}
+			}
+			return $atts;
+		}
+	}
 }
 
 /*
@@ -585,10 +617,10 @@ function wpmtst_random_shortcode( $atts ) {
 	);
 
 	$wp_query = new WP_Query();
-	$posts_array  = $wp_query->query( $args );
+	$results  = $wp_query->query( $args );
 	$display = '';
 
-	foreach ( $posts_array as $post ) {
+	foreach ( $results as $post ) {
 		$display .= wpmtst_single( wpmtst_get_post( $post ) );
 	}
 
@@ -598,9 +630,15 @@ add_shortcode( 'wpmtst-random', 'wpmtst_random_shortcode' );
 
 /*
  * All testimonials shortcode
+ *
+ * @TODO:
+ * - sort options in query
  */
 function wpmtst_all_shortcode( $atts ) {
-	extract( shortcode_atts( array( 'category' => '' ), $atts ) );
+	extract( shortcode_atts( 
+		array( 'category' => '' ), 
+		normalize_empty_atts( $atts )
+	) );
 
 	if ( '' != $category ) {
 		$term = get_term_by( 'id', $category, 'wpm-testimonial-category' );
@@ -611,7 +649,6 @@ function wpmtst_all_shortcode( $atts ) {
 		$term_slug     = '';
 	}
 
-	// @todo: sort options
 	$args = array(
 			$term_taxonomy   => $term_slug,
 			'post_type'      => 'wpm-testimonial',
@@ -622,20 +659,79 @@ function wpmtst_all_shortcode( $atts ) {
 	);
 
 	$wp_query = new WP_Query();
-	$posts_array = $wp_query->query( $args );
+	$results = $wp_query->query( $args );
 
 	$display = '<div id="wpmtst-container">';
 
-	foreach ( $posts_array as $post ) {
+	foreach ( $results as $post ) {
 		$display .= '<div class="result">' . wpmtst_single( wpmtst_get_post( $post ) ) . '</div><!-- result -->';
 	}
 
 	$display .= '</div><!-- wpmtst-container -->';
 	$display .= '<div id="pagingControls"></div>';
-
+	
 	return $display;
 }
 add_shortcode( 'wpmtst-all', 'wpmtst_all_shortcode' );
+
+/*
+ * Cycle testimonials shortcode
+ *
+ * @TODO:
+ * - sort options in query
+ */
+function wpmtst_cycle_shortcode( $atts ) {
+	extract( shortcode_atts( 
+		array( 'category' => '' ), 
+		normalize_empty_atts( $atts )
+	) );
+	$options = get_option( 'wpmtst_options' );
+	
+	do_action( 'wpmtst_cycle_hook', $options['cycle-effect'], $options['cycle-speed'], $options['cycle-timeout'], $options['cycle-pause'] );
+	
+	if ( 'rand' == $options['cycle-order'] ) {
+		$orderby = 'rand';
+		$order   = '';
+	} elseif ( 'oldest' == $options['cycle-order'] ) {
+		$orderby = 'post_date';
+		$order   = 'ASC';
+	} else {
+		$orderby = 'post_date';
+		$order   = 'DESC';
+	}
+
+	if ( '' != $category ) {
+		$term = get_term_by( 'id', $category, 'wpm-testimonial-category' );
+		$term_taxonomy = $term->taxonomy;
+		$term_slug     = $term->slug;
+	} else {
+		$term_taxonomy = '';
+		$term_slug     = '';
+	}
+
+	$args = array(
+			$term_taxonomy   => $term_slug,
+			'post_type'      => 'wpm-testimonial',
+			'posts_per_page' => -1,
+			'orderby'        => $orderby,
+			'order'          => $order,
+			'post_status'    => 'publish'
+	);
+
+	$wp_query = new WP_Query();
+	$results = $wp_query->query( $args );
+
+	$display = '<div id="wpmtst-container" class="tcycle">';
+
+	foreach ( $results as $post ) {
+		$display .= '<div class="result">' . wpmtst_single( wpmtst_get_post( $post ) ) . '</div><!-- result -->';
+	}
+
+	$display .= '</div><!-- wpmtst-container -->';
+	
+	return $display;
+}
+add_shortcode( 'wpmtst-cycle', 'wpmtst_cycle_shortcode' );
 
 /*
  * Submission form shortcode
@@ -659,7 +755,6 @@ function wpmtst_form_shortcode( $atts ) {
 		
 		// --------------------------------
 		// start: CAPTCHA plugin handlers 
-	
 		switch ( $captcha ) {
 		
 			// Captcha by BestWebSoft
@@ -699,7 +794,6 @@ function wpmtst_form_shortcode( $atts ) {
 			default :
 			
 		}
-		
 		// end: CAPTCHA plugin handlers
 		// --------------------------------
 		
@@ -801,8 +895,7 @@ function wpmtst_form_shortcode( $atts ) {
 
 				if ( $admin_notify && $admin_email ) {
 					$subject = 'New testimonial for ' . get_option( 'blogname' );
-					// $headers = 'From: noreply@' . preg_replace( '/^www\./', '', $_SERVER['HTTP_HOST'] );
-					$headers = '';
+					$headers = 'From: noreply@' . preg_replace( '/^www\./', '', $_SERVER['HTTP_HOST'] );
 					$message = 'New testimonial submission for ' . get_option( 'blogname' ) . '. This is awaiting action from the website administrator.';
 					// More info here? A copy of testimonial? A link to admin page? A link to approve directly from email?
 					wp_mail( $admin_email, $subject, $message, $headers );
@@ -936,37 +1029,6 @@ function wpmtst_wp_handle_upload( $file_handler, $overrides ) {
  * Widget
  *----------------------------------------------------------------------------*/
 
-function wpmtst_widget_script( $arg1, $arg2, $arg3, $arg4 ) {
-	// Load jQuery Cycle2 plugin (http://jquery.malsup.com/cycle2/) from CDN 
-	// **if not already enqueued** by the theme or another plugin.
-	
-	// -----------------------------------------------------------------------
-	// This checks by *handle* but handles can be different so this misses it:
-	// (Seems to be intended for checks within the plugin itself.)
-	// -----------------------------------------------------------------------
-	// $list = 'enqueued';
-	// if ( ! wp_script_is( 'jquery.cycle2.min.js', $list ) || ! wp_script_is( 'jquery.cycle2.js', $list ) ) {
-	
-	// ---------------------------------------------------
-	// This custom function checks by *file name* instead:
-	// ---------------------------------------------------
-	if ( ! wpmtst_is_queued( array( 'jquery.cycle2.min.js', 'jquery.cycle2.js' ) ) ) {
-		wp_enqueue_script( 'wpmtst-slider', '//cdn.jsdelivr.net/cycle2/20140314/jquery.cycle2.min.js', array( 'jquery' ) );
-	}
-
-	// Send arguments to Cycle function call and load it **in the footer**.
-	wp_enqueue_script( 'wpmtst-widget', plugins_url( '/js/wpmtst-widget.js', __FILE__ ), array ( 'jquery' ), false, true );
-	$args = array ( 'effect' => $arg1, 'speed' => $arg2 * 1000, 'timeout' => $arg3 * 1000, 'pause' => $arg4 );
-	wp_localize_script( 'wpmtst-widget', 'tcycle', $args );
-}
-// custom hook
-add_action( 'wpmtst_widget_hook', 'wpmtst_widget_script', 10, 4 );
-
-function wpmtst_load_widget() {
-	register_widget( 'WpmTst_Widget' );
-}
-add_action( 'widgets_init', 'wpmtst_load_widget' );
-
 class WpmTst_Widget extends WP_Widget {
 
 	// setup
@@ -1017,16 +1079,20 @@ class WpmTst_Widget extends WP_Widget {
 		if ( is_active_widget( false, false, $this->id_base ) ) {
 			wp_enqueue_style( 'wpmtst-style' );
 			// load slider with widget parameters
-			do_action( 'wpmtst_widget_hook', $instance['cycle-effect'], $instance['cycle-speed'], $instance['cycle-timeout'], $instance['cycle-pause'] );
+			do_action( 
+				'wpmtst_cycle_hook', 
+				$instance['cycle-effect'], 
+				$instance['cycle-speed'], 
+				$instance['cycle-timeout'], 
+				$instance['cycle-pause']
+			);
 		}
 
 		$data = array_merge( $args, $instance );
+		$classes = [];
 
-		echo $data['before_widget'];
-
-		if ( ! empty( $data['title'] ) )
-			echo $data['before_title'] . $data['title'] . $data['after_title'];
-
+		// build query
+		
 		if ( 'rand' == $data['order'] ) {
 			$orderby = 'rand';
 			$order   = '';
@@ -1040,6 +1106,7 @@ class WpmTst_Widget extends WP_Widget {
 
 		if ( 'cycle' == $data['mode'] ) {
 
+			$classes[] = 'tcycle';
 			if ( $data['cycle-all'] )
 				$num = -1;
 			elseif ( ! empty( $data['cycle-limit'] ) )
@@ -1083,12 +1150,18 @@ class WpmTst_Widget extends WP_Widget {
 		);
 
 		$wp_query = new WP_Query();
-		$posts_array = $wp_query->query( $args );
+		$results = $wp_query->query( $args );
+		
+		// start HTML output
+		
+		echo $data['before_widget'];
 
-		if ( 'cycle' == $data['mode'] )
-			echo '<div id="tcycle">';
+		if ( ! empty( $data['title'] ) )
+			echo $data['before_title'] . $data['title'] . $data['after_title'];
 
-		foreach ( $posts_array as $post ) {
+		echo '<div class="wpmtst-widget-container ' . join( ' ', $classes ) . '">';
+
+		foreach ( $results as $post ) {
 			$post = wpmtst_get_post( $post );
 
 			echo '<div class="testimonial-widget">';
@@ -1105,11 +1178,14 @@ class WpmTst_Widget extends WP_Widget {
 			// trim on word boundary
 			$content = wpautop( $post->post_content );
 			if ( $char_switch && strlen( $content ) > $char_limit ) {
-				// find space
-				$content = substr( $content, 0, strpos( $content, ' ', $char_limit ) ) . ' . . . ';
+				// Find first space after char_limit (e.g. 200).
+				// If not found then char_limit is in the middle of the 
+				// last word (e.g. string length = 203) so no need to truncate.
+				$space_pos = strpos( $content, ' ', $char_limit );
+				if ( $space_pos ) 
+					$content = substr( $content, 0, $space_pos ) . ' . . . ';
 			}
 			echo '<div class="content">' . $content . '</div><!-- content -->';
-			echo '<div class="clear"></div>';
 
 			echo '<div class="client">';
 			echo '<div class="name">' . $post->client_name . '</div>';
@@ -1122,12 +1198,11 @@ class WpmTst_Widget extends WP_Widget {
 			} elseif ( ! empty( $post->company_website ) ) {
 				echo '<div class="website">' . $post->company_website . '</div>';
 			}
-		 	echo '</div><!-- client -->';
-		 echo '</div><!-- testimonial-widget -->';
+			echo '</div><!-- client -->';
+			echo '</div><!-- testimonial-widget -->';
 		}
 
-		if ( 'cycle' == $data['mode'] )
-			echo '</div><!-- tcycle --><div class="clear"></div>';
+		echo '</div><!-- wpmtst-widget-container -->';
 
 		if ( $data['more'] ) {
 			$link = get_permalink( $data['more_page'] );
@@ -1375,6 +1450,47 @@ class WpmTst_Widget extends WP_Widget {
 
 }
 
+/*
+ * Load widget
+ */
+function wpmtst_load_widget() {
+	register_widget( 'WpmTst_Widget' );
+}
+add_action( 'widgets_init', 'wpmtst_load_widget' );
+
+/*
+ * Custom hook action to conditionally load Cycle script
+ */
+function wpmtst_cycle_script( $arg1, $arg2, $arg3, $arg4 ) {
+	// Load jQuery Cycle2 plugin (http://jquery.malsup.com/cycle2/) from CDN 
+	// **if not already enqueued** by the theme or another plugin.
+	
+	// -----------------------------------------------------------------------
+	// This checks by *handle* but handles can be different so this misses it:
+	// (Seems to be intended for checks within the plugin itself.)
+	// -----------------------------------------------------------------------
+	// $list = 'enqueued';
+	// if ( ! wp_script_is( 'jquery.cycle2.min.js', $list ) || ! wp_script_is( 'jquery.cycle2.js', $list ) ) {
+	
+	// ---------------------------------------------------
+	// This custom function checks by *file name* instead:
+	// ---------------------------------------------------
+	if ( ! wpmtst_is_queued( array( 'jquery.cycle2.min.js', 'jquery.cycle2.js' ) ) )
+		wp_enqueue_script( 'wpmtst-slider' );
+
+	// Send arguments to Cycle function call and load it **in the footer**.
+	wp_enqueue_script( 'wpmtst-cycle' );
+	$args = array ( 
+		'effect'  => $arg1, 
+		'speed'   => $arg2 * 1000, 
+		'timeout' => $arg3 * 1000, 
+		'pause'   => $arg4
+	);
+	wp_localize_script( 'wpmtst-cycle', 'tcycle', $args );
+}
+// custom hook
+add_action( 'wpmtst_cycle_hook', 'wpmtst_cycle_script', 10, 4 );
+
 
 /*----------------------------------------------------------------------------*
  * Settings
@@ -1429,9 +1545,13 @@ function wpmtst_register_settings() {
 }
 
 function wpmtst_sanitize_options( $input ) {
-	$input['per_page']     = (int) sanitize_text_field( $input['per_page'] );
-	$input['admin_notify'] = isset( $input['admin_notify'] ) ? 1 : 0;
-	$input['admin_email']  = sanitize_email( $input['admin_email'] );
+	$input['per_page']      = (int) sanitize_text_field( $input['per_page'] );
+	$input['admin_notify']  = isset( $input['admin_notify'] ) ? 1 : 0;
+	$input['admin_email']   = sanitize_email( $input['admin_email'] );
+	$input['cycle-timeout'] = (float) sanitize_text_field( $input['cycle-timeout'] );
+	// $input['cycle-effect']
+	$input['cycle-speed']   = (float) sanitize_text_field( $input['cycle-speed'] );
+	$input['cycle-pause']   = isset( $input['cycle-pause'] ) ? 1 : 0;
 	
 	return $input;
 }
@@ -1442,6 +1562,18 @@ function wpmtst_settings_page() {
 	}
 	
 	$wpmtst_options = get_option( 'wpmtst_options' );
+	$cycle_options = array(
+			'effects' => array(
+					'fade'       => 'Fade',
+					'scrollHorz' => 'Scroll horizontally',
+					'none'       => 'None',
+			)
+	);
+	$order_list = array(
+			'rand'   => 'Random',
+			'recent' => 'Newest first',
+			'oldest' => 'Oldest first'
+	);
 	
 	// Build list of supported Captcha plugins.
 	$plugins = array(
@@ -1478,14 +1610,15 @@ function wpmtst_settings_page() {
 			<table class="form-table">
 			
 				<tr valign="top">
-					<th scope="row">Number of testimonials to show per page</th>
+					<th scope="row">The number of testimonials to show per page</th>
 					<td>
 						<input type="text" name="wpmtst_options[per_page]" size="3" value="<?php echo esc_attr( $wpmtst_options['per_page'] ); ?>" />
+						This applies to the <span class="code">[wpmtst-all]</span> shortcode.
 					</td>
 				</tr>				
 
 				<tr valign="top">
-					<th scope="row">When new testimonial is submitted</th>
+					<th scope="row">When a new testimonial is submitted</th>
 					<td>
 						<label>
 							<input id="wpmtst-options-admin-notify" type="checkbox" name="wpmtst_options[admin_notify]" <?php checked( $wpmtst_options['admin_notify'] ); ?> />
@@ -1509,6 +1642,69 @@ function wpmtst_settings_page() {
 					</td>
 				</tr>
 				
+				<tr valign="top">
+					<th scope="row">Cycle Shortcode Settings</th>
+					<td>
+						<div class="box">
+						
+							<div class="row">
+								<div class="alpha">
+									<label for="cycle-order"><?php _e( 'Order' ) ?>:</label>
+								</div>
+								<div>
+									<select id="cycle-order" name="wpmtst_options[cycle-order]">
+										<?php
+										foreach ( $order_list as $order => $order_label ) {
+											echo '<option value="' . $order . '"' . selected( $order, $wpmtst_options['cycle-order'] ) . '>' . $order_label . '</option>';
+										}
+										?>
+									</select>
+								</div>
+							</div>
+						
+							<div class="row">
+								<div class="alpha">
+									<label for="cycle-timeout"><?php _e( 'Show each for', WPMTST_NAME ); ?>:</label>
+								</div>
+								<div>
+									<input type="text" id="cycle-timeout" name="wpmtst_options[cycle-timeout]" value="<?php echo $wpmtst_options['cycle-timeout']; ?>" size="3" />
+									<?php _e( 'seconds', WPMTST_NAME ); ?>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="alpha">
+									<label for="cycle-effect"><?php _e( 'Transition effect', WPMTST_NAME ); ?>:</label>
+								</div>
+								<div>
+									<select id="cycle-effect" name="wpmtst_options[cycle-effect]">
+										<?php foreach ( $cycle_options['effects'] as $key => $label ) : ?>
+										<option value="<?php echo $key; ?>" <?php selected( $wpmtst_options['cycle-effect'], $key ); ?>><?php _e( $label ) ?></option>
+										<?php endforeach; ?>
+									</select>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="alpha">
+									<label for="cycle-speed"><?php _e( 'Effect duration', WPMTST_NAME ); ?>:</label>
+								</div>
+								<div>
+									<input type="text" id="cycle-speed" name="wpmtst_options[cycle-speed]" value="<?php echo $wpmtst_options['cycle-speed']; ?>" size="3" />
+									<?php _e( 'seconds', WPMTST_NAME ); ?>
+								</div>
+							</div>
+
+							<div class="row">
+								<div>
+									<input type="checkbox" id="cycle-pause" name="wpmtst_options[cycle-pause]" <?php checked( $wpmtst_options['cycle-pause'] ); ?>  class="checkbox" />
+									<label for="cycle-pause"><?php _e( 'Pause on hover', WPMTST_NAME ); ?></label>
+								</div>
+							</div>
+						</div>
+					</td>
+				</tr>
+				
 			</table>
 
 			<?php submit_button(); ?>
@@ -1521,7 +1717,7 @@ function wpmtst_settings_page() {
 }
 
 function wpmtst_settings_shortcodes() {
-?>
+	?>
 	<div class="wrap wpmtst">
 
 		<h2><?php _e( 'Shortcodes', WPMTST_NAME ); ?></h2>
@@ -1538,6 +1734,18 @@ function wpmtst_settings_shortcodes() {
 			</tr>
 		</table>
 		
+		<table class="shortcode-table">
+			<tr>
+				<td colspan="2"><h3>Testimonials Cycle</h3></td>
+			</tr>
+			<tr>
+				<td>Cycle through all from all categories.</td><td>[wpmtst-cycle]</td>
+			</tr>
+			<tr>
+				<td>Cycle through all from a specific category.<br> Find these on the <a href="<?php echo admin_url( 'edit-tags.php?taxonomy=wpm-testimonial-category&post_type=wpm-testimonial' ); ?>">categories screen</a>.</td><td>[wpmtst-cycle category="xx"]</td>
+			</tr>
+		</table>
+
 		<table class="shortcode-table">
 			<tr>
 				<td colspan="2"><h3>Random Testimonial</h3></td>

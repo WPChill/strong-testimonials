@@ -1,6 +1,7 @@
-/*
-	Strong Testimonials
-*/
+/**
+ * wpmtst.css
+ * Strong Testimonials stylesheet
+ */
 
 /* Testimonial pages
 ---------------------------------------------------------*/
@@ -70,6 +71,9 @@
 /* Widget
 ---------------------------------------------------------*/
 
+.wpmtst-widget-container {
+}
+
 .testimonial-widget {
 	margin-bottom: 1.5em;
 }
@@ -92,8 +96,8 @@
 	font-weight: bold;
 }
 
-#tcycle { 
-	margin-bottom: 1em;
+.wpmtst-widget-readmore {
+	margin-top: 1.5em;
 }
 
 
