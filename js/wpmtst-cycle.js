@@ -5,15 +5,14 @@
  
 jQuery(document).ready(function($) { 
 
-	// Not sure if this is a problem with my CSS
-	// or if Colorbox is expecting elements to be 
-	// of equal sizes, but we have to set the container 
-	// to match the height of the tallest div.
+	// Not sure if this is a problem with my CSS or if Colorbox
+	// is expecting elements to be of equal sizes, but we have
+	// to set the container to match the height of the tallest div.
 	
 	// debug
-	$(".tcycle > div").each( function( index ) {
-		console.log(index, $(this).height(), $(this).outerHeight(true));
-	});
+	// $(".tcycle > div").each( function( index ) {
+		// console.log(index, $(this).height(), $(this).outerHeight(true));
+	// });
 
 	// thanks http://stackoverflow.com/a/5052710/51600
 	

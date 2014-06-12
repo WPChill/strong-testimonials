@@ -58,6 +58,11 @@
 	padding-top: 0;
 }
 
+/* fix for themes that set a width on .content :{ */
+[id^=wpmtst-widget] .content {
+	width: auto;
+}
+
 .testimonial .client {
 	margin-top: 1em;
 	text-align: right;

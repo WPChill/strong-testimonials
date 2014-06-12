@@ -8,7 +8,7 @@
  * Forked From: GC Testimonials version 1.3.2 by Erin Garscadden
  * Author URI: http://www.wpmission.com/
  * Text Domain: strong-testimonials
- * Requires: 3.0 or higher
+ * Requires: 3.5 or higher
  * License: GPLv3 or later
  *
  * Copyright 2014  Chris Dillon  chris@wpmission.com
@@ -45,7 +45,7 @@ add_action( 'plugins_loaded', 'wpmtst_textdomain' );
  * Plugin activation
  */
 register_activation_hook( __FILE__, 'wpmtst_register_cpt' );
-register_activation_hook( __FILE__, 'wpmtst_default_settings' );
+// register_activation_hook( __FILE__, 'wpmtst_default_settings' );
 register_activation_hook( __FILE__, 'wpmtst_flush_rewrite_rules' );
 
 register_deactivation_hook( __FILE__, 'wpmtst_flush_rewrite_rules' );
@@ -55,10 +55,34 @@ function wpmtst_flush_rewrite_rules() {
 }
 
 /*
+ * Check WordPress version
+ */
+function wpmtst_version_check() {
+	global $wp_version;
+	$wpmtst_plugin_info = get_plugin_data( __FILE__, false );
+	$require_wp = "3.5";  // least required Wordpress version
+	$plugin = plugin_basename( __FILE__ );
+	
+	if ( version_compare( $wp_version, $require_wp, "<" ) ) {
+		if ( is_plugin_active( $plugin ) ) {
+			deactivate_plugins( $plugin );
+			wp_die( "<strong>" . $wpmtst_plugin_info['Name'] . " </strong> " . __( 'requires', WPMTST_NAME ) . " <strong>WordPress " . $require_wp . "</strong> " . __( 'or higher so it has been deactivated. Please upgrade WordPress and try again.', WPMTST_NAME) . "<br /><br />" . __( 'Back to the WordPress', WPMTST_NAME) . " <a href='" . get_admin_url( null, 'plugins.php' ) . "'>" . __( 'Plugins page', WPMTST_NAME) . "</a>." );
+		}
+	}
+}
+
+/*
  * Default settings.
+ * Double duty: Plugin activation and upgrade.
+ * http://make.wordpress.org/core/2010/10/27/plugin-activation-hooks-no-longer-fire-for-updates/
  */
 function wpmtst_default_settings() {
-	$new_options = array(
+
+	// -1- DEFAULTS
+	$plugin_data = get_plugin_data( __FILE__, false );
+	$plugin_version = $plugin_data['Version'];
+	// add new options for plugin upgrade here
+	$default_options = array(
 			'per_page'      => '5',
 			'admin_notify'  => 0,
 			'admin_email'   => '',
@@ -70,10 +94,22 @@ function wpmtst_default_settings() {
 			'cycle-pause'   => 1,
 	);
 
-	// Don't overwrite saved options upon reactivation.
-	if ( ! get_option( 'wpmtst_options' ) ) {
-		update_option( 'wpmtst_options', $new_options );
+	// -2- GET OPTIONS
+	$options = get_option( 'wpmtst_options' );
+
+	if ( ! $options ) {
+		// -2A- ACTIVATION
+		update_option( 'wpmtst_options', $default_options );
+	} else {
+		// -2B- UPGRADE?
+		if ( ! isset( $options['plugin_version'] ) || $options['plugin_version'] != $plugin_version ) {
+			// merge in any new options - arg#2 [options] populates/overwrites arg#1 [defaults]
+			$options = array_merge( $default_options, $options );
+			$options['plugin_version'] = $plugin_version;
+			update_option( 'wpmtst_options', $options );
+		}
 	}
+	
 }
 
 /*
@@ -159,21 +195,21 @@ function wpmtst_scripts() {
 	wp_register_style( 'wpmtst-style', plugins_url( '/css/wpmtst.css', __FILE__ ) );
 	wp_register_style( 'wpmtst-form-style', plugins_url( '/css/wpmtst-form.css', __FILE__ ) );
 
-	wp_register_script( 'wpmtst-pager', plugins_url( '/js/quickpager.jquery.js', __FILE__ ), array( 'jquery' ) );
-	wp_register_script( 'wpmtst-slider', '//cdn.jsdelivr.net/cycle2/20140314/jquery.cycle2.min.js', array( 'jquery' ) );
-	wp_register_script( 'wpmtst-validation', '//ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js', array( 'jquery' ) );
+	wp_register_script( 'wpmtst-pager-plugin', plugins_url( '/js/quickpager.jquery.js', __FILE__ ), array( 'jquery' ) );
+	wp_register_script( 'wpmtst-slider-plugin', '//cdn.jsdelivr.net/cycle2/20140314/jquery.cycle2.min.js', array( 'jquery' ) );
+	wp_register_script( 'wpmtst-validation-plugin', '//ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js', array( 'jquery' ) );
 	wp_register_script( 'wpmtst-cycle', plugins_url( '/js/wpmtst-cycle.js', __FILE__ ), array ( 'jquery' ), false, true );
 
 	if ( has_shortcode( $post->post_content, 'wpmtst-all' ) ) {
 		wp_enqueue_style( 'wpmtst-style' );
-		wp_enqueue_script( 'wpmtst-pager' );
+		wp_enqueue_script( 'wpmtst-pager-plugin' );
 		add_action( 'wp_footer', 'wpmtst_pagination_function' );
 	}
 	
 	if ( has_shortcode( $post->post_content, 'wpmtst-form' ) ) {
 		wp_enqueue_style( 'wpmtst-style' );
 		wp_enqueue_style( 'wpmtst-form-style' );
-		wp_enqueue_script( 'wpmtst-validation' );
+		wp_enqueue_script( 'wpmtst-validation-plugin' );
 		add_action( 'wp_footer', 'wpmtst_validation_function' );
 	}
 
@@ -286,15 +322,22 @@ function wpmtst_get_website( $url ) {
 }
 
 /*
- * Check whether a script is queued by file name instead of handle.
+ * Check whether a script is registered by file name instead of handle.
  *
  * @param array $filenames possible versions of one script, e.g. plugin.js, plugin-min.js, plugin-1.2.js
  * @return bool
  */
 function wpmtst_is_queued( $filenames ) {
 	global $wp_scripts;
+	$registered = false;
 	foreach ( $wp_scripts->registered as $handle => $script ) {
 		if ( in_array( basename( $script->src ), $filenames ) ) {
+			$registered = true;
+			break;
+		}
+	}
+	if ( $registered ) {
+		if ( in_array( $handle, $wp_scripts->queue ) ) {
 			return true;
 		}
 	}
@@ -340,6 +383,19 @@ if( ! function_exists( 'shortcode_exists' ) ) {
  *----------------------------------------------------------------------------*/
 
 /*
+ * Add custom fields to the Add / Edit screen
+ */
+function wpmtst_admin_init() {
+	// Check WordPress version
+	wpmtst_version_check();
+	// Check for new options in plugin upgrade
+	wpmtst_default_settings();
+	
+	add_meta_box( 'details', 'Client Details', 'wpmtst_meta_options', 'wpm-testimonial', 'normal', 'low' );
+}
+add_action( 'admin_init', 'wpmtst_admin_init' );
+
+/*
  * Admin scripts.
  */
 function wpmtst_admin_scripts() {
@@ -349,13 +405,8 @@ function wpmtst_admin_scripts() {
 add_action( 'admin_enqueue_scripts', 'wpmtst_admin_scripts' );
 
 /*
- * Add custom fields to the Add / Edit screen
+ * Add custom fields to the testimonial editor
  */
-function wpmtst_admin_init() {
-	add_meta_box( 'details', 'Client Details', 'wpmtst_meta_options', 'wpm-testimonial', 'normal', 'low' );
-}
-add_action( 'admin_init', 'wpmtst_admin_init' );
-
 function wpmtst_meta_options() {
 	global $post;
 	$custom = get_post_custom();
@@ -573,7 +624,7 @@ function wpmtst_single( $post ) {
 			<?php if ( has_post_thumbnail( $post->ID ) ) : ?>
 			<div class="photo"><?php echo get_the_post_thumbnail( $post->ID, 'thumbnail' ); ?></div>
 			<?php endif; ?>
-			<div class="content"><?php echo wpautop( $post->post_content ); ?></div><!-- content -->
+			<div class="content"><?php echo wpautop( $post->post_content ); ?></div>
 			<div class="clear"></div>
 
 			<div class="client">
@@ -587,10 +638,10 @@ function wpmtst_single( $post ) {
 				<?php elseif ( ! empty( $post->company_website ) ) : ?>
 					<div class="website"><?php echo $post->company_website; ?></div>
 				<?php endif; ?>
-			</div><!-- client -->
+			</div>
 
-		</div><!-- inner -->
-	</div><!-- testimonial -->
+		</div>
+	</div>
 	<?php
 	$html = ob_get_contents();
 	ob_end_clean();
@@ -1177,7 +1228,7 @@ class WpmTst_Widget extends WP_Widget {
 				if ( $space_pos ) 
 					$content = substr( $content, 0, $space_pos ) . ' . . . ';
 			}
-			echo '<div class="content">' . $content . '</div><!-- content -->';
+			echo '<div class="content">' . $content . '</div>';
 
 			echo '<div class="client">';
 			echo '<div class="name">' . $post->client_name . '</div>';
@@ -1190,11 +1241,11 @@ class WpmTst_Widget extends WP_Widget {
 			} elseif ( ! empty( $post->company_website ) ) {
 				echo '<div class="website">' . $post->company_website . '</div>';
 			}
-			echo '</div><!-- client -->';
-			echo '</div><!-- testimonial-widget -->';
+			echo '</div>';
+			echo '</div>';
 		}
 
-		echo '</div><!-- wpmtst-widget-container -->';
+		echo '</div>';
 
 		if ( $data['more'] ) {
 			$link = get_permalink( $data['more_page'] );
@@ -1460,6 +1511,7 @@ function wpmtst_cycle_script( $arg1, $arg2, $arg3, $arg4 ) {
 	// -----------------------------------------------------------------------
 	// This checks by *handle* but handles can be different so this misses it:
 	// (Seems to be intended for checks within the plugin itself.)
+	// http://codex.wordpress.org/Function_Reference/wp_script_is
 	// -----------------------------------------------------------------------
 	// $list = 'enqueued';
 	// if ( ! wp_script_is( 'jquery.cycle2.min.js', $list ) || ! wp_script_is( 'jquery.cycle2.js', $list ) ) {
@@ -1468,7 +1520,7 @@ function wpmtst_cycle_script( $arg1, $arg2, $arg3, $arg4 ) {
 	// This custom function checks by *file name* instead:
 	// ---------------------------------------------------
 	if ( ! wpmtst_is_queued( array( 'jquery.cycle2.min.js', 'jquery.cycle2.js' ) ) )
-		wp_enqueue_script( 'wpmtst-slider' );
+		wp_enqueue_script( 'wpmtst-slider-plugin' );
 
 	// Send arguments to Cycle function call and load it **in the footer**.
 	wp_enqueue_script( 'wpmtst-cycle' );
