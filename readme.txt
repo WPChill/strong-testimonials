@@ -20,6 +20,19 @@ Strong Testimonials by [WPMission](http://www.wpmission.com) makes collecting an
 
 **Manage testimonials** just like posts and pages, including Featured Images. Organize into categories for use in shortcodes and widgets.
 
+= What's New in Version 1.5 =
+
+A frequently requested feature, a shortcode for cycling testimonials on a page just like the widget. AKA slider, fader, rotator.
+
+Improved reCAPTCHA error handling.
+
+Correct text domain use (getting ready for i18n).
+
+Bug fixes
+
+* the widget would truncate the whole text string when the length was less than the limit
+* a conflict with some themes that forced the widget text beyond the sidebar
+
 = Primary Features =
 
 * A shortcode for a testimonial submission **form**.
@@ -74,7 +87,7 @@ Pagination
 Widget
 
 * Updated [jQuery cycle plugin](http://jquery.malsup.com/cycle2/), conditionally loaded from CDN (speed!).
-* Break on word-boundary, not mid-word (e.g. "John is an assuring . . ." not "John is an ass . . .").
+* Break on word boundary, not mid-word (e.g. *"John is an assuring . . ."* not *"John is an ass . . ."*).
 * Improved widget options.
 * Order by: Random, Newest first, Oldest first.
 * Load stylesheet in standard order instead of in the footer to allow your theme's stylesheet to take precedence.
@@ -159,6 +172,16 @@ I will gladly help add your modifications to a custom version of Strong Testimon
 
 == Changelog ==
 
+= 1.5 =
+* Testimonial cycle shortcode.
+* Improved reCAPTCHA error handling.
+* Corrected text domain use.
+* Fixed bug in widget character limit function.
+* Fix for widget text that flows outside of sidebar.
+* Fix bug in script registered/queued check.
+* Improved plugin update procedure.
+* Finally settled on a commenting style :)
+	
 = 1.4.7 =
 * Removed line breaks on long input elements.
 * Consistent self-closing input tags.
@@ -187,6 +210,9 @@ I will gladly help add your modifications to a custom version of Strong Testimon
 * Initial version, a fork of GC Testimonials 1.3.2.
 
 == Upgrade Notice ==
+
+= 1.5 =
+New cycle shortcode. Bug fixes.
 
 = 1.4.7 =
 Improved code formatting to prevent a low-probability rendering problem.
