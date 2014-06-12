@@ -168,6 +168,9 @@ I will gladly help add your modifications to a custom version of Strong Testimon
 
 == Changelog ==
 
+= 1.5.1 =
+* Another bug fix for themes that set a width on the `content` class.
+
 = 1.5 =
 * Testimonial cycle shortcode.
 * Improved reCAPTCHA error handling.
@@ -206,6 +209,9 @@ I will gladly help add your modifications to a custom version of Strong Testimon
 * Initial version, a fork of GC Testimonials 1.3.2.
 
 == Upgrade Notice ==
+
+= 1.5.1 =
+Another bug fix for themes that set a width on the `content` class.
 
 = 1.5 =
 New cycle shortcode. Bug fixes.
