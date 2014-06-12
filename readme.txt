@@ -22,16 +22,12 @@ Strong Testimonials by [WPMission](http://www.wpmission.com) makes collecting an
 
 = What's New in Version 1.5 =
 
-A frequently requested feature, a shortcode for cycling testimonials on a page just like the widget. AKA slider, fader, rotator.
-
-Improved reCAPTCHA error handling.
-
-Correct text domain use (getting ready for i18n).
-
-Bug fixes
-
-* the widget would truncate the whole text string when the length was less than the limit
-* a conflict with some themes that forced the widget text beyond the sidebar
+* A frequently requested feature, a **shortcode for cycling testimonials** on a page just like the widget. AKA slider, fader, rotator.
+* Improved reCAPTCHA error handling.
+* Correct text domain use (getting ready for i18n).
+* Bug fixes
+  * the widget would truncate the whole text string when the length was less than the limit
+  * a conflict with some themes that forced the widget text beyond the sidebar
 
 = Primary Features =
 
