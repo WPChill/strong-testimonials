@@ -4,7 +4,7 @@
  * Plugin URI: http://www.wpmission.com/plugins/strong-testimonials/
  * Description: Collect and display testimonials.
  * Author: Chris Dillon
- * Version: 1.5.1
+ * Version: 1.5.2
  * Forked From: GC Testimonials version 1.3.2 by Erin Garscadden
  * Author URI: http://www.wpmission.com/
  * Text Domain: strong-testimonials
@@ -12,16 +12,17 @@
  * License: GPLv3 or later
  *
  * Copyright 2014  Chris Dillon  chris@wpmission.com
- * 
+ *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
  * (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details. * 
+ * GNU General Public License for more details. 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
@@ -200,31 +201,34 @@ function wpmtst_scripts() {
 	wp_register_script( 'wpmtst-validation-plugin', '//ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js', array( 'jquery' ) );
 	wp_register_script( 'wpmtst-cycle', plugins_url( '/js/wpmtst-cycle.js', __FILE__ ), array ( 'jquery' ), false, true );
 
-	if ( has_shortcode( $post->post_content, 'wpmtst-all' ) ) {
-		wp_enqueue_style( 'wpmtst-style' );
-		wp_enqueue_script( 'wpmtst-pager-plugin' );
-		add_action( 'wp_footer', 'wpmtst_pagination_function' );
-	}
+	if ( $post ) {
 	
-	if ( has_shortcode( $post->post_content, 'wpmtst-form' ) ) {
-		wp_enqueue_style( 'wpmtst-style' );
-		wp_enqueue_style( 'wpmtst-form-style' );
-		wp_enqueue_script( 'wpmtst-validation-plugin' );
-		add_action( 'wp_footer', 'wpmtst_validation_function' );
-	}
+		if ( has_shortcode( $post->post_content, 'wpmtst-all' ) ) {
+			wp_enqueue_style( 'wpmtst-style' );
+			wp_enqueue_script( 'wpmtst-pager-plugin' );
+			add_action( 'wp_footer', 'wpmtst_pagination_function' );
+		}
+		
+		if ( has_shortcode( $post->post_content, 'wpmtst-form' ) ) {
+			wp_enqueue_style( 'wpmtst-style' );
+			wp_enqueue_style( 'wpmtst-form-style' );
+			wp_enqueue_script( 'wpmtst-validation-plugin' );
+			add_action( 'wp_footer', 'wpmtst_validation_function' );
+		}
 
-	if ( has_shortcode( $post->post_content, 'wpmtst-cycle' ) ) {
-		wp_enqueue_style( 'wpmtst-style' );
-	}
-	
-	if ( has_shortcode( $post->post_content, 'wpmtst-single' ) ) {
-		wp_enqueue_style( 'wpmtst-style' );
-	}
-	
-	if ( has_shortcode( $post->post_content, 'wpmtst-random' ) ) {
-		wp_enqueue_style( 'wpmtst-style' );
-	}
+		if ( has_shortcode( $post->post_content, 'wpmtst-cycle' ) ) {
+			wp_enqueue_style( 'wpmtst-style' );
+		}
+		
+		if ( has_shortcode( $post->post_content, 'wpmtst-single' ) ) {
+			wp_enqueue_style( 'wpmtst-style' );
+		}
+		
+		if ( has_shortcode( $post->post_content, 'wpmtst-random' ) ) {
+			wp_enqueue_style( 'wpmtst-style' );
+		}
 
+	}
 }
 add_action( 'wp_enqueue_scripts', 'wpmtst_scripts' );
 
@@ -1132,7 +1136,7 @@ class WpmTst_Widget extends WP_Widget {
 		}
 
 		$data = array_merge( $args, $instance );
-		$classes = [];
+		$classes = array();
 
 		// build query
 		
