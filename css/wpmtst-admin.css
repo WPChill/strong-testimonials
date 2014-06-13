@@ -1,29 +1,36 @@
 /*
-	Strong Testimonials admin stylesheet
-*/
+ * wpmtst-admin.css
+ * Strong Testimonials admin stylesheet
+ */
 
-/* shortcodes table */
+/* shortcodes table 
+---------------------------------------------------------*/
 
-table.wpmtst {
+table.shortcode-table {
 	border-collapse: collapse;
 	margin-bottom: 1em;
 }
 
-table.wpmtst h3 {
+table.shortcode-table h3 {
 	margin: .5em 0 0;
 }
 
-table.wpmtst td {
+table.shortcode-table td {
 	border-bottom: 1px solid #dfdfdf;
 	padding: .5em;
 }
 
-.wpmtst code {
+/* code */
+table.shortcode-table td:nth-child(2) {
 	background: #fff;
 	font-size: 1.1em;
+	padding: .5em 1em;
+	direction: ltr;
+	font-family: Consolas, Monaco, monospace;
 }
 
-/* settings table */
+/* settings table 
+---------------------------------------------------------*/
 
 .wrap.wpmtst .form-table {
 	width: auto;
@@ -33,7 +40,26 @@ table.wpmtst td {
 	width: auto;
 }
 
-/* client details meta box */
+.wrap.wpmtst .form-table div.box {
+	border: 1px solid #ddd;
+	display: inline-block;
+	padding: 10px;
+}
+
+.wrap.wpmtst .form-table .row {
+	line-height: 2.5em;
+}
+
+.wrap.wpmtst .form-table .alpha {
+	width: 120px;
+}
+
+.code {
+	background: #fff;
+}
+
+/* client details meta box 
+---------------------------------------------------------*/
 
 #details table {
   border: none;
@@ -62,7 +88,8 @@ table.wpmtst td {
 	font-style: italic;
 }
 
-/* widget */
+/* widget 
+---------------------------------------------------------*/
 
 .radio-tab {
 	background: #eee;
@@ -151,7 +178,8 @@ input[readonly] {
 	background: rgba(0, 0, 0, 0.04);
 }
 
-/* Categories admin list */
+/* Categories admin list 
+---------------------------------------------------------*/
 
 .widefat th.column-ID {
 	width: 2.2em;
