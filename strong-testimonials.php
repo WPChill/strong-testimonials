@@ -4,7 +4,7 @@
  * Plugin URI: http://www.wpmission.com/plugins/strong-testimonials/
  * Description: Collect and display testimonials.
  * Author: Chris Dillon
- * Version: 1.5.2
+ * Version: 1.6
  * Forked From: GC Testimonials version 1.3.2 by Erin Garscadden
  * Author URI: http://www.wpmission.com/
  * Text Domain: strong-testimonials
@@ -837,9 +837,24 @@ function wpmtst_form_shortcode( $atts ) {
 					}
 				}
 				break;
+			
+			// Really Simple Captcha by Takayuki Miyoshi
+			case 'miyoshi':
+				if ( class_exists( 'ReallySimpleCaptcha' ) ) {
+					$captcha_instance = new ReallySimpleCaptcha();
+					$prefix = isset( $_POST['captchac'] ) ? (string) $_POST['captchac'] : '';
+					$response = isset( $_POST['captchar'] ) ? (string) $_POST['captchar'] : '';
+					$correct = $captcha_instance->check( $prefix, $response );
+					if ( ! $correct )
+						$errors['captcha'] = __( 'The Captcha was not entered correctly. Please try again.', WPMTST_NAME );
+					// remove the temporary image and text files
+					// (except on Windows)
+					if ( '127.0.0.1' != $_SERVER['SERVER_ADDR'] )
+						$captcha_instance->remove( $prefix );
+				}
+				break;
 		
 			default :
-			
 		}
 		// end: CAPTCHA plugin handlers
 		// --------------------------------
@@ -1625,8 +1640,21 @@ function wpmtst_settings_page() {
 	
 	// Build list of supported Captcha plugins.
 	$plugins = array(
-			'bwsmath' => array( 'name' => 'Captcha by BestWebSoft', 'file' => 'captcha/captcha.php', 'active' => false ),
-			'wpmsrc'  => array( 'name' => 'Simple reCAPTCHA by WPMission', 'file' => 'simple-recaptcha/simple-recaptcha.php', 'active' => false ),
+			'bwsmath' => array(
+					'name' => 'Captcha by BestWebSoft',
+					'file' => 'captcha/captcha.php',
+					'active' => false
+			),
+			'wpmsrc'  => array(
+					'name' => 'Simple reCAPTCHA by WP Mission',
+					'file' => 'simple-recaptcha/simple-recaptcha.php',
+					'active' => false
+			),
+			'miyoshi' => array(
+					'name' => 'Really Simple Captcha by Takayuki Miyoshi',
+					'file' => 'really-simple-captcha/really-simple-captcha.php',
+					'active' => false
+			),
 	);
 	
 	foreach ( $plugins as $key => $plugin ) {
@@ -1845,19 +1873,35 @@ function wpmtst_add_captcha( $captcha ) {
 
 	switch ( $captcha ) {
 		
+		// Akismet
 		case 'akismet' :
+			// nothing yet
 			break;
 		
-		case 'bwsmath' : // Captcha by BestWebSoft
+		// Captcha by BestWebSoft
+		case 'bwsmath' :
 			if ( function_exists( 'cptch_display_captcha_custom' ) ) {
 				echo '<input type="hidden" name="cntctfrm_contact_action" value="true" />';
 				echo cptch_display_captcha_custom();
 			}
 			break;
 			
-		case 'wpmsrc' : // Strong reCAPTCHA by WPMission
+		// Strong reCAPTCHA by WPMission
+		case 'wpmsrc' :
 			if ( function_exists( 'wpmsrc_display' ) ) { 
 				echo wpmsrc_display();
+			}
+			break;
+
+		// Really Simple Captcha by Takayuki Miyoshi
+		case 'miyoshi' :
+			if ( class_exists( 'ReallySimpleCaptcha' ) ) {
+				$captcha_instance = new ReallySimpleCaptcha();
+				$word = $captcha_instance->generate_random_word();
+				$prefix = mt_rand();
+				$image = $captcha_instance->generate_image( $prefix, $word );
+				echo '<span>Input this code: <input type="hidden" name="captchac" value="'.$prefix.'" /><img class="captcha" src="' . plugins_url( 'really-simple-captcha/tmp/' ) . $image . '"></span>';
+				echo '<input type="text" class="captcha" name="captchar" maxlength="4" size="5" />';
 			}
 			break;
 			

@@ -94,3 +94,18 @@ p.form-field span.help {
 .recaptchatable input {
 	display: inline !important;
 }
+
+/* Really Simple Captcha
+-----------------------------------------------*/
+
+#wpmtst-form span {
+}
+
+#wpmtst-form input.captcha {
+	display: block;
+	width: auto;
+}
+
+#wpmtst-form img.captcha {
+	border: 0;
+}
