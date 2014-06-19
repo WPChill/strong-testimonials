@@ -4,7 +4,7 @@
  * Plugin URI: http://www.wpmission.com/plugins/strong-testimonials/
  * Description: Collect and display testimonials.
  * Author: Chris Dillon
- * Version: 1.6
+ * Version: 1.6.1
  * Forked From: GC Testimonials version 1.3.2 by Erin Garscadden
  * Author URI: http://www.wpmission.com/
  * Text Domain: strong-testimonials
@@ -1078,9 +1078,9 @@ add_shortcode( 'wpmtst-form', 'wpmtst_form_shortcode' );
  * File upload handler
  */
 function wpmtst_wp_handle_upload( $file_handler, $overrides ) {
-	require_once( admin_url( 'includes/image.php' ) );
-	require_once( admin_url( 'includes/file.php' ) );
-	require_once( admin_url( 'includes/media.php' ) );
+	require_once( ABSPATH . 'wp-admin/includes/image.php' );
+	require_once( ABSPATH . 'wp-admin/includes/file.php' );
+	require_once( ABSPATH . 'wp-admin/includes/media.php' );
 
 	$upload = wp_handle_upload( $file_handler, $overrides );
 	return $upload ;
