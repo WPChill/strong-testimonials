@@ -4,7 +4,7 @@
  * Plugin URI: http://www.wpmission.com/plugins/strong-testimonials/
  * Description: Collect and display testimonials.
  * Author: Chris Dillon
- * Version: 1.6.1
+ * Version: 1.6.2
  * Forked From: GC Testimonials version 1.3.2 by Erin Garscadden
  * Author URI: http://www.wpmission.com/
  * Text Domain: strong-testimonials
@@ -197,9 +197,10 @@ function wpmtst_scripts() {
 	wp_register_style( 'wpmtst-form-style', plugins_url( '/css/wpmtst-form.css', __FILE__ ) );
 
 	wp_register_script( 'wpmtst-pager-plugin', plugins_url( '/js/quickpager.jquery.js', __FILE__ ), array( 'jquery' ) );
-	wp_register_script( 'wpmtst-slider-plugin', '//cdn.jsdelivr.net/cycle2/20140314/jquery.cycle2.min.js', array( 'jquery' ) );
-	wp_register_script( 'wpmtst-validation-plugin', '//ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js', array( 'jquery' ) );
-	wp_register_script( 'wpmtst-cycle', plugins_url( '/js/wpmtst-cycle.js', __FILE__ ), array ( 'jquery' ), false, true );
+	wp_register_script( 'wpmtst-validation-plugin', plugins_url( '/js/jquery.validate.min.js', __FILE__ ), array( 'jquery' ) );
+	
+	wp_register_script( 'wpmtst-cycle-plugin', plugins_url( '/js/jquery.cycle2.js', __FILE__ ), array( 'jquery' ) );
+	wp_register_script( 'wpmtst-cycle-script', plugins_url( '/js/wpmtst-cycle.js', __FILE__ ), array ( 'jquery' ), false, true );
 
 	if ( $post ) {
 	
@@ -328,7 +329,7 @@ function wpmtst_get_website( $url ) {
 /*
  * Check whether a script is registered by file name instead of handle.
  *
- * @param array $filenames possible versions of one script, e.g. plugin.js, plugin-min.js, plugin-1.2.js
+ * @param array $filenames possible versions of *one* script; e.g. plugin.js, plugin-min.js, plugin-1.2.js
  * @return bool
  */
 function wpmtst_is_queued( $filenames ) {
@@ -743,7 +744,17 @@ function wpmtst_cycle_shortcode( $atts ) {
 	) );
 	$options = get_option( 'wpmtst_options' );
 	
-	do_action( 'wpmtst_cycle_hook', $options['cycle-effect'], $options['cycle-speed'], $options['cycle-timeout'], $options['cycle-pause'] );
+	// custom action hook:
+	// load slider with shortcode parameters
+	do_action( 
+		'wpmtst_cycle_hook',
+		$options['cycle-effect'], 
+		$options['cycle-speed'], 
+		$options['cycle-timeout'], 
+		$options['cycle-pause'],
+		'#wpmtst-container',
+		'cycleShortcode'
+	);
 	
 	if ( 'rand' == $options['cycle-order'] ) {
 		$orderby = 'rand';
@@ -1140,13 +1151,17 @@ class WpmTst_Widget extends WP_Widget {
 	function widget( $args, $instance ) {
 		if ( is_active_widget( false, false, $this->id_base ) ) {
 			wp_enqueue_style( 'wpmtst-style' );
+
+			// custom action hook:
 			// load slider with widget parameters
-			do_action( 
+			do_action(
 				'wpmtst_cycle_hook', 
 				$instance['cycle-effect'], 
 				$instance['cycle-speed'], 
 				$instance['cycle-timeout'], 
-				$instance['cycle-pause']
+				$instance['cycle-pause'],
+				'.wpmtst-widget-container',
+				'cycleWidget'
 			);
 		}
 
@@ -1523,37 +1538,43 @@ add_action( 'widgets_init', 'wpmtst_load_widget' );
 /*
  * Custom hook action to conditionally load Cycle script
  */
-function wpmtst_cycle_script( $arg1, $arg2, $arg3, $arg4 ) {
-	// Load jQuery Cycle2 plugin (http://jquery.malsup.com/cycle2/) from CDN 
-	// **if not already enqueued** by the theme or another plugin.
+function wpmtst_cycle_check( $effect, $speed, $timeout, $pause, $div, $var ) {
+	// Load jQuery Cycle2 plugin (http://jquery.malsup.com/cycle2/) only if
+	// either Cycle or Cycle 2 is not already enqueued by a theme or another
+	// plugin. Both versions use same function name
+	// (see http://jquery.malsup.com/cycle2/faq/) so we can't load both
+	// but either version will work for our purposes.
 	
-	// -----------------------------------------------------------------------
-	// This checks by *handle* but handles can be different so this misses it:
-	// (Seems to be intended for checks within the plugin itself.)
+	// ----------------------------------------------------------
+	// This WordPress function checks by *handle* but handles can
+	// be different so `wp_script_is` misses it.
+	// (Seems to be intended for use within the plugin itself.)
 	// http://codex.wordpress.org/Function_Reference/wp_script_is
-	// -----------------------------------------------------------------------
+	// ----------------------------------------------------------
 	// $list = 'enqueued';
-	// if ( ! wp_script_is( 'jquery.cycle2.min.js', $list ) || ! wp_script_is( 'jquery.cycle2.js', $list ) ) {
+	// if ( ! wp_script_is( 'jquery.cycle2.min.js', $list ) ) {
 	
 	// ---------------------------------------------------
 	// This custom function checks by *file name* instead:
 	// ---------------------------------------------------
-	if ( ! wpmtst_is_queued( array( 'jquery.cycle2.min.js', 'jquery.cycle2.js' ) ) )
-		wp_enqueue_script( 'wpmtst-slider-plugin' );
-
-	// Send arguments to Cycle function call and load it **in the footer**.
-	wp_enqueue_script( 'wpmtst-cycle' );
-	$args = array ( 
-		'effect'  => $arg1, 
-		'speed'   => $arg2 * 1000, 
-		'timeout' => $arg3 * 1000, 
-		'pause'   => $arg4
+	if ( ! wpmtst_is_queued( array( 'jquery.cycle.all.min.js', 'jquery.cycle.all.js' ) )
+			&& ! wpmtst_is_queued( array( 'jquery.cycle2.min.js', 'jquery.cycle2.js' ) ) ) {
+		wp_enqueue_script( 'wpmtst-cycle-plugin' ); // Cycle2
+	}
+	
+	// Load Cycle script and populate its variable.
+	$args = array (
+			'fx'      => $effect,
+			'speed'   => $speed * 1000, 
+			'timeout' => $timeout * 1000, 
+			'pause'   => $pause,
+			'div'     => $div,
 	);
-	wp_localize_script( 'wpmtst-cycle', 'tcycle', $args );
+	wp_enqueue_script( 'wpmtst-cycle-script' );
+	wp_localize_script( 'wpmtst-cycle-script', $var, $args );
 }
 // custom hook
-add_action( 'wpmtst_cycle_hook', 'wpmtst_cycle_script', 10, 4 );
-
+add_action( 'wpmtst_cycle_hook', 'wpmtst_cycle_check', 10, 6 );
 
 /*----------------------------------------------------------------------------*
  * Settings

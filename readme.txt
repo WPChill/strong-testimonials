@@ -76,7 +76,7 @@ Admin
 
 Submission form
 
-* Updated [jQuery validation plugin](http://jqueryvalidation.org/), conditionally loaded from CDN (speed!).
+* Updated [jQuery validation plugin](http://jqueryvalidation.org/), conditionally loaded.
 * Client-side validation *plus* server-side validation, a best practice.
 * CAPTCHA options (more info below).
 
@@ -86,7 +86,7 @@ Pagination
 
 Widget
 
-* Updated [jQuery cycle plugin](http://jquery.malsup.com/cycle2/), conditionally loaded from CDN (speed!).
+* Updated [jQuery cycle plugin](http://jquery.malsup.com/cycle2/), conditionally loaded.
 * Break on word boundary, not mid-word (e.g. *"John is an assuring . . ."* not *"John is an ass . . ."*).
 * Improved widget options.
 * Order by: Random, Newest first, Oldest first.
@@ -173,6 +173,11 @@ I will gladly help add your modifications to a custom version of Strong Testimon
 
 == Changelog ==
 
+= 1.6.2 =
+* Fix conflict if jQuery Cycle plugin is enqueued by another plugin or theme.
+* Fix conflict if using cycle shortcode and cycle widget on same page.
+* All scripts local instead of via CDN.
+
 = 1.6.1 =
 * Bug fix where photo was not uploading with form submission.
 
@@ -223,6 +228,9 @@ I will gladly help add your modifications to a custom version of Strong Testimon
 * Initial version, a fork of GC Testimonials 1.3.2.
 
 == Upgrade Notice ==
+
+= 1.6.2 =
+Fix conflicts with multiple uses of jQuery Cycle plugin.
 
 = 1.6.1 =
 Bug fix where photo was not uploading with form submission.
