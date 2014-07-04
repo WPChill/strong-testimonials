@@ -89,10 +89,12 @@ function wpmtst_activation() {
 
 	// -2- GET OPTIONS
 	$options = get_option( 'wpmtst_options' );
+	$fields = get_option( 'wpmtst_fields' );
 
 	if ( ! $options ) {
 		// -2A- NEW ACTIVATION
 		update_option( 'wpmtst_options', $default_options );
+		update_option( 'wpmtst_fields', $default_fields );
 	}
 	else {
 		// -2B- UPGRADE?
@@ -119,10 +121,14 @@ function wpmtst_activation() {
 				);
 			}
 
-			// merge in any new options
+			// merge in new options
 			$options = array_merge( $default_options, $options );
 			$options['plugin_version'] = $plugin_version;
 			update_option( 'wpmtst_options', $options );
+			
+			// merge in new fields
+			$fields = array_merge( $default_fields, $fields );
+			update_option( 'wpmtst_fields', $fields );
 		}
 	}
 }
@@ -286,10 +292,11 @@ function wpmtst_validation_function() {
 function wpmtst_get_post( $post ) {
 	$custom = get_post_custom( $post->ID );
 	$options = get_option( 'wpmtst_options' );
-	$field_groups = $options['field_groups'];
+	$fields = get_option( 'wpmtst_fields' );
+	$field_groups = $fields['field_groups'];
 
 	// Only add on fields from current field group.
-	foreach ( $field_groups[ $options['field_group'] ]['fields'] as $key => $field ) {
+	foreach ( $field_groups[ $fields['current_field_group'] ]['fields'] as $key => $field ) {
 		if ( isset( $custom[$key] ) )
 			$post->$key = $custom[$key][0];
 		else
@@ -438,13 +445,14 @@ function wpmtst_meta_options() {
 	global $post;
 	$post = wpmtst_get_post( $post );
 	$options = get_option( 'wpmtst_options' );
-	$field_groups = $options['field_groups'];
+	$fields = get_option( 'wpmtst_fields' );
+	$field_groups = $fields['field_groups'];
 	?>
 	<table class="options">
 		<tr>
 			<td colspan="2">To add a client's photo, use the <strong>Featured Image</strong> option. <div class="dashicons dashicons-arrow-right-alt"></div></td>
 		</tr>
-		<?php foreach ( $field_groups[ $options['field_group'] ]['fields'] as $key => $field ) { ?>
+		<?php foreach ( $field_groups[ $fields['current_field_group'] ]['fields'] as $key => $field ) { ?>
 		<?php if ( 'custom' == $field['record_type'] ) { ?>
 		<tr>
 			<th><label for="<?php echo $field['name']; ?>"><?php _e( $field['label'], WPMTST_NAME ); ?></label></td>
@@ -479,7 +487,8 @@ add_action( 'save_post', 'wpmtst_save_details' );
  */
 function wpmtst_edit_columns( $columns ) {
 	$options = get_option( 'wpmtst_options' );
-	$fields = $options['field_groups'][ $options['field_group'] ]['fields'];
+	$fields = get_option( 'wpmtst_fields' );
+	$fields = $fields['field_groups'][ $fields['current_field_group'] ]['fields'];
 	
 	$columns = array(
 			'cb'    => '<input type="checkbox" />', 
@@ -640,6 +649,7 @@ function wpmtst_single( $post ) {
 	// ---------------------------------------------------------------------
 	
 	$options = get_option( 'wpmtst_options' );
+	$fields = get_option( 'wpmtst_fields' );
 	$template = $options['client_section'];
 	
 	$lines = explode( PHP_EOL, $template );
@@ -889,10 +899,11 @@ add_shortcode( 'wpmtst-cycle', 'wpmtst_cycle_shortcode' );
  */
 function wpmtst_form_shortcode( $atts ) {
 	$options = get_option( 'wpmtst_options' );
+	$fields = get_option( 'wpmtst_fields' );
 	$captcha = $options['captcha'];
 
-	$field_groups = $options['field_groups'];
-	$current_field_group = $field_groups[ $options['field_group'] ];
+	$field_groups = $fields['field_groups'];
+	$current_field_group = $field_groups[ $fields['current_field_group'] ];
 	$fields = $current_field_group['fields'];
   
 	$errors = array();
@@ -1215,7 +1226,7 @@ class WpmTst_Widget extends WP_Widget {
 				$instance['cycle-effect'],
 				$instance['cycle-speed'],
 				$instance['cycle-timeout'],
-				$instance['cycle-pause']
+				$instance['cycle-pause'],
 				'.wpmtst-widget-container',
 				'cycleWidget'
 			);
@@ -1639,6 +1650,8 @@ function wpmtst_cycle_check( $effect, $speed, $timeout, $pause, $div, $var ) {
 }
 // custom hook
 add_action( 'wpmtst_cycle_hook', 'wpmtst_cycle_check', 10, 6 );
+
+
 /*----------------------------------------------------------------------------*
  * Settings
  *----------------------------------------------------------------------------*/
@@ -1995,8 +2008,9 @@ function wpmtst_settings_custom_fields() {
 	}
 
 	$options = get_option( 'wpmtst_options' );
-	$field_groups = $options['field_groups'];
-	$current_field_group = $options['field_group'];  // "custom", only one for now
+	$field_options = get_option( 'wpmtst_fields' );
+	$field_groups = $field_options['field_groups'];
+	$current_field_group = $field_options['current_field_group'];  // "custom", only one for now
 	$field_group = $field_groups[$current_field_group];
 
 	$message_format = '<div id="message" class="updated"><p><strong>%s</strong></p></div>';
@@ -2017,9 +2031,9 @@ function wpmtst_settings_custom_fields() {
 		elseif ( isset( $_POST['restore-defaults'] ) ) {
 
 			// Restore defaults
-			$fields = $options['field_groups']['default']['fields'];
-			$options['field_groups']['custom']['fields'] = $fields;
-			update_option( 'wpmtst_options', $options );
+			$fields = $field_options['field_groups']['default']['fields'];
+			$field_options['field_groups']['custom']['fields'] = $fields;
+			update_option( 'wpmtst_fields', $field_options );
 			echo sprintf( $message_format, __( 'Defaults restored.', WPMTST_NAME ) );
 
 		}
@@ -2029,7 +2043,7 @@ function wpmtst_settings_custom_fields() {
 			$fields = array();
 			$new_key = 0;
 			foreach ( $_POST['fields'] as $key => $field ) {
-				$field = array_merge( $options['field_base'], $field );
+				$field = array_merge( $field_options['field_base'], $field );
 
 				// sanitize & validate
 				$field['name']        = sanitize_text_field( $field['name'] );
@@ -2044,8 +2058,8 @@ function wpmtst_settings_custom_fields() {
 				$fields[$new_key++] = $field;
 
 			}
-			$options['field_groups']['custom']['fields'] = $fields;
-			update_option( 'wpmtst_options', $options );
+			$field_options['field_groups']['custom']['fields'] = $fields;
+			update_option( 'wpmtst_fields', $field_options );
 			echo sprintf( $message_format, __( 'Fields saved.', WPMTST_NAME ) );
 		}
 
@@ -2094,11 +2108,11 @@ function wpmtst_settings_custom_fields() {
  * Add a field to the form
  */
 function wpmtst_show_field( $key, $field, $adding ) {
-	$options = get_option( 'wpmtst_options' );
-	$field_types = $options['field_types'];
+	// $options = get_option( 'wpmtst_options' );
+	$fields = get_option( 'wpmtst_fields' );
+	$field_types = $fields['field_types'];
 	$field_link = $field['label'] ? $field['label'] : ucwords( $field['name'] );
 	$is_core = ( isset( $field['core'] ) && $field['core'] );
-	// logmore($field['name'].' is_core = '.$is_core);
 
 	// ------------
 	// Field Header
@@ -2358,7 +2372,7 @@ function wpmtst_show_field_hidden( $key, $field ) {
  */
 function wpmtst_add_field_function() {
 	$new_key = intval( $_REQUEST['key'] );
-	$options = get_option( 'wpmtst_options' );
+	$fields = get_option( 'wpmtst_fields' );
 	// when adding, don't define the Name so it will be populated from Label properly
 	$empty_field = array( 'record_type' => 'custom', 'label' => 'New Field' );
 	$new_field = wpmtst_show_field( $new_key, $empty_field, true );
@@ -2375,9 +2389,9 @@ function wpmtst_add_field_2_function() {
 	$new_key = intval( $_REQUEST['key'] );
 	$new_field_type = $_REQUEST['fieldType'];
 	$new_field_class = $_REQUEST['fieldClass'];
-	$options = get_option( 'wpmtst_options' );
+	$fields = get_option( 'wpmtst_fields' );
 	$empty_field = array_merge(
-		$options['field_types'][$new_field_class][$new_field_type],
+		$fields['field_types'][$new_field_class][$new_field_type],
 		array( 'record_type' => $new_field_class )
 	);
 	$new_field = wpmtst_show_field_more( $new_key, $empty_field );
@@ -2394,9 +2408,9 @@ function wpmtst_add_field_3_function() {
 	$new_key = intval( $_REQUEST['key'] );
 	$new_field_type = $_REQUEST['fieldType'];
 	$new_field_class = $_REQUEST['fieldClass'];
-	$options = get_option( 'wpmtst_options' );
+	$fields = get_option( 'wpmtst_fields' );
 	$empty_field = array_merge(
-		$options['field_types'][$new_field_class][$new_field_type],
+		$fields['field_types'][$new_field_class][$new_field_type],
 		array( 'record_type' => $new_field_class )
 	);
 	$new_field = wpmtst_show_field_hidden( $new_key, $empty_field );
@@ -2413,9 +2427,9 @@ function wpmtst_add_field_4_function() {
 	$new_key = intval( $_REQUEST['key'] );
 	$new_field_type = $_REQUEST['fieldType'];
 	$new_field_class = $_REQUEST['fieldClass'];
-	$options = get_option( 'wpmtst_options' );
+	$fields = get_option( 'wpmtst_fields' );
 	$empty_field = array_merge(
-		$options['field_types'][$new_field_class][$new_field_type],
+		$fields['field_types'][$new_field_class][$new_field_type],
 		array( 'record_type' => $new_field_class )
 	);
 	$new_field = wpmtst_show_field_admin_table( $new_key, $empty_field );

@@ -2,14 +2,19 @@
 /**
  * Strong Testimonials default options
  * Version: 1.7
+ *
+ * Populates default_options and default_options.
  */
+
+// --------
+// Settings
+// --------
 
 $default_options = array(
 		'per_page'      => '5',
 		'admin_notify'  => 0,
 		'admin_email'   => '',
 		'captcha'       => '',
-		'field_group'   => 'custom',
 );
 
 $default_options['cycle'] = array(
@@ -19,6 +24,19 @@ $default_options['cycle'] = array(
 		'cycle-timeout' => 8,
 		'cycle-pause'   => 1,
 );
+
+// ---------
+// Templates
+// ---------
+
+$default_options['default_template'] = '[wpmtst-text field="client_name" class="name"]' . "\n"
+	.'[wpmtst-link url="company_website" text="company_name" target="_blank" class="company"]';
+
+$default_options['client_section'] = $default_options['default_template'];
+
+// ------
+// Fields
+// ------
 
 // common field properties
 $field_base = array(
@@ -167,13 +185,8 @@ $field_groups['custom'] = array(
 		'fields' => $field_groups['default']['fields'],
 );
 
-// Add field groups to default options.
-$default_options['field_base'] = $field_base;
-$default_options['field_types'] = $field_types;
-$default_options['field_groups'] = $field_groups;
-
-// Templates
-$default_options['default_template'] = '[wpmtst-text field="client_name" class="name"]' . "\n"
-	.'[wpmtst-link url="company_website" text="company_name" target="_blank" class="company"]';
-
-$default_options['client_section'] = $default_options['default_template'];
+// Assemble default field settings.
+$default_fields['field_base'] = $field_base;
+$default_fields['field_types'] = $field_types;
+$default_fields['field_groups'] = $field_groups;
+$default_fields['current_field_group'] = 'custom';
