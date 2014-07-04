@@ -27,6 +27,7 @@
 
 #wpmtst-form input[type="text"],
 #wpmtst-form input[type="email"],
+#wpmtst-form input[type="url"],
 #wpmtst-form input[type="file"],
 #wpmtst-form textarea {
 	display: block;
@@ -38,23 +39,29 @@
 	height: 16em;
 }
 
-#wpmtst-form span.error,
 #wpmtst-form input.error,
 #wpmtst-form textarea.error,
 #wpmtst-form select.error {
 	background: #F9E5E6;
 	border: 1px solid #E8AAAD;
+	color: #B50007;
+	width: 370px;
 }
 
+#wpmtst-form span.error,
 #wpmtst-form label.error {
 	color: #B50007;
-	font-weight: normal;
+	display: block;
 }
 
-p.form-field {
+.form-field {
 }
 
-p.form-field span.help {
+.form-field .before {
+	display: block;
+}
+
+.form-field .after {
 	display: block;
 	font-size: .9em;
 	font-style: italic;	

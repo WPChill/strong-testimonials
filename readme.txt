@@ -20,6 +20,10 @@ Strong Testimonials by [WP Mission](http://www.wpmission.com) makes collecting a
 
 **Manage testimonials** just like posts and pages, including Featured Images. Organize into categories for use in shortcodes and widgets.
 
+= What's New in Version 1.7 =
+
+* 
+
 = What's New in Version 1.6 =
 
 * Added support for the [Really Simple Captcha](http://wordpress.org/plugins/really-simple-captcha/) plugin which you may know from [Contact Form 7](http://wordpress.org/plugins/contact-form-7/). Nice!

@@ -4,7 +4,7 @@
  * Plugin URI: http://www.wpmission.com/plugins/strong-testimonials/
  * Description: Collect and display testimonials.
  * Author: Chris Dillon
- * Version: 1.6.2
+ * Version: 1.7
  * Forked From: GC Testimonials version 1.3.2 by Erin Garscadden
  * Author URI: http://www.wpmission.com/
  * Text Domain: strong-testimonials
@@ -21,12 +21,13 @@
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details. 
+ * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
+
 
 /*----------------------------------------------------------------------------*
  * Setup
@@ -45,10 +46,9 @@ add_action( 'plugins_loaded', 'wpmtst_textdomain' );
 /*
  * Plugin activation
  */
+register_activation_hook( __FILE__, 'wpmtst_activation' );
 register_activation_hook( __FILE__, 'wpmtst_register_cpt' );
-// register_activation_hook( __FILE__, 'wpmtst_default_settings' );
 register_activation_hook( __FILE__, 'wpmtst_flush_rewrite_rules' );
-
 register_deactivation_hook( __FILE__, 'wpmtst_flush_rewrite_rules' );
 
 function wpmtst_flush_rewrite_rules() {
@@ -63,11 +63,16 @@ function wpmtst_version_check() {
 	$wpmtst_plugin_info = get_plugin_data( __FILE__, false );
 	$require_wp = "3.5";  // least required Wordpress version
 	$plugin = plugin_basename( __FILE__ );
-	
-	if ( version_compare( $wp_version, $require_wp, "<" ) ) {
+
+	if ( version_compare( $wp_version, $require_wp, '<' ) ) {
 		if ( is_plugin_active( $plugin ) ) {
 			deactivate_plugins( $plugin );
-			wp_die( "<strong>" . $wpmtst_plugin_info['Name'] . " </strong> " . __( 'requires', WPMTST_NAME ) . " <strong>WordPress " . $require_wp . "</strong> " . __( 'or higher so it has been deactivated. Please upgrade WordPress and try again.', WPMTST_NAME) . "<br /><br />" . __( 'Back to the WordPress', WPMTST_NAME) . " <a href='" . get_admin_url( null, 'plugins.php' ) . "'>" . __( 'Plugins page', WPMTST_NAME) . "</a>." );
+			wp_die( '<strong>' . $wpmtst_plugin_info['Name'] . ' </strong> ' 
+				. __( 'requires', WPMTST_NAME ) . ' <strong>WordPress ' . $require_wp . '</strong> ' 
+				. __( 'or higher so it has been deactivated. Please upgrade WordPress and try again.', WPMTST_NAME) 
+				. '<br /><br />' 
+				. __( 'Back to the WordPress', WPMTST_NAME) . ' <a href="' . get_admin_url( null, 'plugins.php' ) . '">' 
+				. __( 'Plugins page', WPMTST_NAME) . '</a>' );
 		}
 	}
 }
@@ -75,42 +80,51 @@ function wpmtst_version_check() {
 /*
  * Default settings.
  * Double duty: Plugin activation and upgrade.
- * http://make.wordpress.org/core/2010/10/27/plugin-activation-hooks-no-longer-fire-for-updates/
  */
-function wpmtst_default_settings() {
-
+function wpmtst_activation() {
 	// -1- DEFAULTS
 	$plugin_data = get_plugin_data( __FILE__, false );
 	$plugin_version = $plugin_data['Version'];
-	// add new options for plugin upgrade here
-	$default_options = array(
-			'per_page'      => '5',
-			'admin_notify'  => 0,
-			'admin_email'   => '',
-			'captcha'       => '',
-			'cycle-order'   => 'recent',
-			'cycle-effect'  => 'fade',
-			'cycle-speed'   => 1.5,
-			'cycle-timeout' => 8,
-			'cycle-pause'   => 1,
-	);
+	include( plugin_dir_path( __FILE__ ) . 'defaults.php');
 
 	// -2- GET OPTIONS
 	$options = get_option( 'wpmtst_options' );
 
 	if ( ! $options ) {
-		// -2A- ACTIVATION
+		// -2A- NEW ACTIVATION
 		update_option( 'wpmtst_options', $default_options );
-	} else {
+	}
+	else {
 		// -2B- UPGRADE?
-		if ( ! isset( $options['plugin_version'] ) || $options['plugin_version'] != $plugin_version ) {
-			// merge in any new options - arg#2 [options] populates/overwrites arg#1 [defaults]
+		if ( ! isset( $options['plugin_version'] )
+					|| $options['plugin_version'] != $plugin_version
+					|| '127.0.0.1' === $_SERVER['SERVER_ADDR'] ) {
+			
+			// if updating from 1.5+ to 1.7
+			// individual cycle shortcode settings are now grouped
+			if ( isset( $options['cycle-order'] ) ) {
+				$options['cycle'] = array(
+						'cycle-order'   => $options['cycle-order'],
+						'cycle-effect'  => $options['cycle-effect'],
+						'cycle-speed'   => $options['cycle-speed'],
+						'cycle-timeout' => $options['cycle-timeout'],
+						'cycle-pause'   => $options['cycle-pause'],
+				);
+				unset( 
+					$options['cycle-order'],
+					$options['cycle-effect'],
+					$options['cycle-speed'],
+					$options['cycle-timeout'],
+					$options['cycle-pause']
+				);
+			}
+
+			// merge in any new options
 			$options = array_merge( $default_options, $options );
 			$options['plugin_version'] = $plugin_version;
 			update_option( 'wpmtst_options', $options );
 		}
 	}
-	
 }
 
 /*
@@ -174,7 +188,7 @@ function wpmtst_register_cpt() {
 					'with_front'   => false
 			)
 	) );
-	
+
 }
 add_action( 'init', 'wpmtst_register_cpt' );
 
@@ -189,7 +203,6 @@ add_action( 'after_theme_setup', 'wpmtst_theme_support' );
 /*
  * Register scripts and styles.
  */
-
 function wpmtst_scripts() {
 	global $post;
 
@@ -198,18 +211,18 @@ function wpmtst_scripts() {
 
 	wp_register_script( 'wpmtst-pager-plugin', plugins_url( '/js/quickpager.jquery.js', __FILE__ ), array( 'jquery' ) );
 	wp_register_script( 'wpmtst-validation-plugin', plugins_url( '/js/jquery.validate.min.js', __FILE__ ), array( 'jquery' ) );
-	
-	wp_register_script( 'wpmtst-cycle-plugin', plugins_url( '/js/jquery.cycle2.js', __FILE__ ), array( 'jquery' ) );
+
+	wp_register_script( 'wpmtst-cycle-plugin', plugins_url( '/js/jquery.cycle2.min.js', __FILE__ ), array( 'jquery' ) );
 	wp_register_script( 'wpmtst-cycle-script', plugins_url( '/js/wpmtst-cycle.js', __FILE__ ), array ( 'jquery' ), false, true );
 
 	if ( $post ) {
-	
+
 		if ( has_shortcode( $post->post_content, 'wpmtst-all' ) ) {
 			wp_enqueue_style( 'wpmtst-style' );
 			wp_enqueue_script( 'wpmtst-pager-plugin' );
 			add_action( 'wp_footer', 'wpmtst_pagination_function' );
 		}
-		
+
 		if ( has_shortcode( $post->post_content, 'wpmtst-form' ) ) {
 			wp_enqueue_style( 'wpmtst-style' );
 			wp_enqueue_style( 'wpmtst-form-style' );
@@ -220,11 +233,11 @@ function wpmtst_scripts() {
 		if ( has_shortcode( $post->post_content, 'wpmtst-cycle' ) ) {
 			wp_enqueue_style( 'wpmtst-style' );
 		}
-		
+
 		if ( has_shortcode( $post->post_content, 'wpmtst-single' ) ) {
 			wp_enqueue_style( 'wpmtst-style' );
 		}
-		
+
 		if ( has_shortcode( $post->post_content, 'wpmtst-random' ) ) {
 			wp_enqueue_style( 'wpmtst-style' );
 		}
@@ -268,16 +281,19 @@ function wpmtst_validation_function() {
  *----------------------------------------------------------------------------*/
 
 /*
- * Append custom fields to post object.
+ * Add post custom fields to post object.
  */
 function wpmtst_get_post( $post ) {
 	$custom = get_post_custom( $post->ID );
-	foreach ( $custom as $key => $field ) {
-		// exclude '_edit_last' and '_edit_lock'
-		$keyt = trim( $key );
-		if ( '_' != $keyt{0} ) {
-			$post->$key = $field[0];
-		}
+	$options = get_option( 'wpmtst_options' );
+	$field_groups = $options['field_groups'];
+
+	// Only add on fields from current field group.
+	foreach ( $field_groups[ $options['field_group'] ]['fields'] as $key => $field ) {
+		if ( isset( $custom[$key] ) )
+			$post->$key = $custom[$key][0];
+		else
+			$post->$key = '';
 	}
 	return $post;
 }
@@ -309,7 +325,8 @@ function wpmtst_get_terms( $category ) {
 		$term = get_term_by( 'id', $category, 'wpm-testimonial-category' );
 		$term_taxonomy = $term->taxonomy;
 		$term_slug     = $term->slug;
-	} else {
+	}
+	else {
 		$term_taxonomy = '';
 		$term_slug     = '';
 	}
@@ -329,7 +346,7 @@ function wpmtst_get_website( $url ) {
 /*
  * Check whether a script is registered by file name instead of handle.
  *
- * @param array $filenames possible versions of *one* script; e.g. plugin.js, plugin-min.js, plugin-1.2.js
+ * @param array $filenames possible versions of one script, e.g. plugin.js, plugin-min.js, plugin-1.2.js
  * @return bool
  */
 function wpmtst_is_queued( $filenames ) {
@@ -387,16 +404,9 @@ if( ! function_exists( 'shortcode_exists' ) ) {
  * Admin
  *----------------------------------------------------------------------------*/
 
-/*
- * Add custom fields to the Add / Edit screen
- */
 function wpmtst_admin_init() {
 	// Check WordPress version
 	wpmtst_version_check();
-	// Check for new options in plugin upgrade
-	wpmtst_default_settings();
-	
-	add_meta_box( 'details', 'Client Details', 'wpmtst_meta_options', 'wpm-testimonial', 'normal', 'low' );
 }
 add_action( 'admin_init', 'wpmtst_admin_init' );
 
@@ -405,75 +415,91 @@ add_action( 'admin_init', 'wpmtst_admin_init' );
  */
 function wpmtst_admin_scripts() {
 	wp_enqueue_style( 'wpmtst-admin-style', plugins_url( '/css/wpmtst-admin.css', __FILE__ ) );
+	wp_enqueue_script( 'jquery-ui-core' );
+	wp_enqueue_script( 'jquery-ui-sortable' );
 	wp_enqueue_script( 'wpmtst-admin-script', plugins_url( '/js/wpmtst-admin.js', __FILE__ ), array( 'jquery' ) );
+	wp_localize_script( 'wpmtst-admin-script', 'ajax_object', array( 'ajaxurl' => admin_url( 'admin-ajax.php' ) ) );
+
 }
 add_action( 'admin_enqueue_scripts', 'wpmtst_admin_scripts' );
+
+/*
+ * Add meta box to the post editor screen
+ */
+function wpmtst_add_meta_boxes() {
+	add_meta_box( 'details', 'Client Details', 'wpmtst_meta_options', 'wpm-testimonial', 'normal', 'low' );
+}
+add_action( 'add_meta_boxes', 'wpmtst_add_meta_boxes' );
 
 /*
  * Add custom fields to the testimonial editor
  */
 function wpmtst_meta_options() {
 	global $post;
-	$custom = get_post_custom();
-
-	if ( $custom && array_key_exists( 'client_name', $custom ) )
-		$client_name = $custom['client_name'][0];
-	else
-		$client_name = '';
-
-	if ( $custom && array_key_exists( 'email', $custom ) )
-		$email = $custom['email'][0];
-	else
-		$email = '';
-
-	if ( $custom && array_key_exists( 'company_website', $custom ) )
-		$company_website = $custom['company_website'][0];
-	else
-		$company_website = '';
-
-	if ( $custom && array_key_exists( 'company_name', $custom ) )
-		$company_name = $custom['company_name'][0];
-	else
-		$company_name = '';
-
+	$post = wpmtst_get_post( $post );
+	$options = get_option( 'wpmtst_options' );
+	$field_groups = $options['field_groups'];
 	?>
 	<table class="options">
 		<tr>
 			<td colspan="2">To add a client's photo, use the <strong>Featured Image</strong> option. <div class="dashicons dashicons-arrow-right-alt"></div></td>
 		</tr>
+		<?php foreach ( $field_groups[ $options['field_group'] ]['fields'] as $key => $field ) { ?>
+		<?php if ( 'custom' == $field['record_type'] ) { ?>
 		<tr>
-			<th><label for="client_name"><?php _e( 'Name', WPMTST_NAME ); ?></label></td>
-			<td><input type="text" id="client_name" name="client_name" value="<?php echo $client_name; ?>" size="40" /></td>
+			<th><label for="<?php echo $field['name']; ?>"><?php _e( $field['label'], WPMTST_NAME ); ?></label></td>
+			<td><?php echo sprintf( '<input id="%2$s" type="%1$s" class="custom-input" name="custom[%2$s]" value="%3$s" size="" />', $field['input_type'], $field['name'], $post->$field['name'] ); ?></td>
 		</tr>
-		<tr>
-			<th><label for="email"><?php _e( 'Email', WPMTST_NAME ); ?></label></td>
-			<td><input type="text" id="email" name="email" value="<?php echo $email; ?>" size="40" /></td>
-		</tr>
-		<tr>
-			<th><label for="company_website"><?php _e( 'Website', WPMTST_NAME ); ?></label></td>
-			<td><input type="text" id="company_website" name="company_website" value="<?php echo $company_website; ?>" size="40" /></td>
-		</tr>
-		<tr>
-			<th><label for="company_name"><?php _e( 'Company Name', WPMTST_NAME ); ?></label></td>
-			<td><input type="text" id="company_name" name="company_name" value="<?php echo $company_name; ?>" size="40" /></td>
-		</tr>
+		<?php } ?>
+		<?php } ?>
 	</table>
 	<?php
 }
 
 /*
+ * Update custom fields
+ */
+function wpmtst_save_details() {
+	// check Custom Post Type
+	if ( ! isset( $_POST['post_type'] ) || 'wpm-testimonial' != $_POST['post_type'] )
+		return;
+
+	global $post;
+
+	foreach ( $_POST['custom'] as $key => $value ) {
+		// Allow empty values to replace existing values.
+		update_post_meta( $post->ID, $key, $value );
+	}
+}
+// add_action( 'save_post_wpm-testimonial', 'wpmtst_save_details' ); // WP 3.7+
+add_action( 'save_post', 'wpmtst_save_details' );
+
+/*
  * Add custom columns to the admin screen
  */
 function wpmtst_edit_columns( $columns ) {
+	$options = get_option( 'wpmtst_options' );
+	$fields = $options['field_groups'][ $options['field_group'] ]['fields'];
+	
 	$columns = array(
-			'cb'          => '<input type="checkbox" />',
-			'title'       => __( 'Title', WPMTST_NAME ),
-			'client_name' => __( 'Client', WPMTST_NAME ),
-			'thumbnail'   => __( 'Thumbnail', WPMTST_NAME ),
-			'category'    => __( 'Category', WPMTST_NAME ),
-			'shortcode'   => __( 'Shortcode', WPMTST_NAME ),
-			'date'        => __( 'Date', WPMTST_NAME ),
+			'cb'    => '<input type="checkbox" />', 
+			'title' => __( 'Title', WPMTST_NAME ),
 	);
+	
+	foreach ( $fields as $key => $field ) {
+		if ( $field['admin_table'] ) {
+			if ( 'featured_image' == $field['name'] )
+				$columns['thumbnail'] = __( 'Thumbnail', WPMTST_NAME );
+			elseif ( 'post_title' == $field['name'] )
+				continue; // is set above
+			else
+				$columns[ $field['name'] ] = __( $field['label'], WPMTST_NAME );
+		}
+	}
+	$columns['category']  = __( 'Category', WPMTST_NAME );
+	$columns['shortcode'] = __( 'Shortcode', WPMTST_NAME );
+	$columns['date']      = __( 'Date', WPMTST_NAME );
+
 	return $columns;
 }
 add_filter( 'manage_edit-wpm-testimonial_columns', 'wpmtst_edit_columns' );
@@ -486,42 +512,37 @@ function wpmtst_custom_columns( $column ) {
 	$custom = get_post_custom();
 
 	if ( 'post_id' == $column ) {
-
 		echo $post->ID;
-
-	} elseif ( 'description' == $column ) {
-
+	}
+	elseif ( 'post_content' == $column ) {
 		echo substr( $post->post_content, 0, 100 ) . '...';
-
-	} elseif ( 'client_name' == $column ) {
-
-		echo $custom['client_name'][0];
-
-	} elseif ( 'thumbnail' == $column ) {
-
+	}
+	elseif ( 'thumbnail' == $column ) {
 		echo $post->post_thumbnail;
-
-	} elseif ( 'shortcode' == $column ) {
-
+	}
+	elseif ( 'shortcode' == $column ) {
 		echo '[wpmtst-single id="' . $post->ID . '"]';
-
-	} elseif ( 'category' == $column ) {
-
+	}
+	elseif ( 'category' == $column ) {
 		$categories = get_the_terms( 0, 'wpm-testimonial-category' );
 		if ( $categories && ! is_wp_error( $categories ) ) {
 			$list = array();
 			foreach ( $categories as $cat ) {
 				$list[] = $cat->name;
 			}
-			echo join( ", ", $list );		
+			echo join( ", ", $list );
 		}
-
+	}
+	else {
+		// custom field?
+		if ( isset( $custom[$column] ) )
+			echo $custom[$column][0];
 	}
 }
 add_action( 'manage_wpm-testimonial_posts_custom_column', 'wpmtst_custom_columns' );
 
 /*
- * Add thumbnail column to admin screen list
+ * Add thumbnail column to admin list
  */
 function wpmtst_add_thumbnail_column( $columns ) {
 	$columns['thumbnail'] = __( 'Thumbnail', WPMTST_NAME );
@@ -530,11 +551,11 @@ function wpmtst_add_thumbnail_column( $columns ) {
 add_filter( 'manage_wpm-testimonial_posts_columns', 'wpmtst_add_thumbnail_column' );
 
 /*
- * Show thumbnail in admin screen list
+ * Show thumbnail in admin list
  */
 function wpmtst_add_thumbnail_value( $column_name, $post_id ) {
 	if ( 'thumbnail' == $column_name ) {
-		$width = (int) 75;
+		$width  = (int) 75;
 		$height = (int) 75;
 
 		$thumbnail_id = get_post_meta( $post_id, '_thumbnail_id', true );
@@ -542,17 +563,17 @@ function wpmtst_add_thumbnail_value( $column_name, $post_id ) {
 
 		if ( $thumbnail_id ) {
 			$thumb = wp_get_attachment_image( $thumbnail_id, array( $width, $height ), true );
-		} elseif ( $attachments ) {
+		}
+		elseif ( $attachments ) {
 			foreach ( $attachments as $attachment_id => $attachment ) {
 				$thumb = wp_get_attachment_image( $attachment_id, array( $width, $height ), true );
 			}
 		}
 
-		if ( isset( $thumb ) && $thumb ) {
+		if ( isset( $thumb ) && $thumb )
 			echo $thumb;
-		} else {
+		else
 			echo __( 'None', WPMTST_NAME );
-		}
 	}
 }
 add_action( 'manage_wpm-testimonial_posts_custom_column', 'wpmtst_add_thumbnail_value', 10, 2 );
@@ -577,37 +598,16 @@ add_filter( 'manage_edit-wpm-testimonial-category_columns', 'wpmtst_manage_categ
  * Show custom column
  */
 function wpmtst_manage_columns( $out, $column_name, $id ) {
-	if ( 'shortcode' == $column_name ) {
+	if ( 'shortcode' == $column_name )
 		$output = '[wpmtst-all category="' . $id . '"]';
-	} elseif ( 'ID' == $column_name ) {
+	elseif ( 'ID' == $column_name )
 		$output = $id;
-	} else {
+	else
 		$output = '';
-	}
+
 	return $output;
 }
 add_filter( 'manage_wpm-testimonial-category_custom_column', 'wpmtst_manage_columns', 10, 3 );
-
-/*
- * Update custom fields
- */
-function wpmtst_save_details() {
-	// check Custom Post Type
-	if ( ! isset( $_POST['post_type'] ) || 'wpm-testimonial' != $_POST['post_type'] )
-		return;
-	
-	global $post;
-	$custom_meta_fields = array( 'client_name', 'email', 'company_website', 'company_name' );
-
-	foreach ( $custom_meta_fields as $field ) {
-		// Update every field even if empty.
-		if ( isset( $_POST[$field] ) ) {
-			update_post_meta( $post->ID, $field, $_POST[$field] );
-		}
-	}
-}
-// add_action( 'save_post_wpm-testimonial', 'wpmtst_save_details' ); // WP 3.7+
-add_action( 'save_post', 'wpmtst_save_details' );
 
 
 /*----------------------------------------------------------------------------*
@@ -618,40 +618,132 @@ add_action( 'save_post', 'wpmtst_save_details' );
  * Single Testimonial LAYOUT
  */
 function wpmtst_single( $post ) {
-	ob_start();
-	?>
-	<div class="testimonial">
-		<div class="inner">
-		
-			<?php if ( ! empty( $post->post_title ) ) : ?>
-			<h3 class="heading"><?php echo $post->post_title; ?></h3>
-			<?php endif; ?>
-			<?php if ( has_post_thumbnail( $post->ID ) ) : ?>
-			<div class="photo"><?php echo get_the_post_thumbnail( $post->ID, 'thumbnail' ); ?></div>
-			<?php endif; ?>
-			<div class="content"><?php echo wpautop( $post->post_content ); ?></div>
-			<div class="clear"></div>
+	$html = '<div class="testimonial">';
+	$html .= '<div class="inner">';
+	
+	if ( ! empty( $post->post_title ) )
+		$html .= '<h3 class="heading">' . $post->post_title .'</h3>';
+	
+	if ( has_post_thumbnail( $post->ID ) )
+		$html .= '<div class="photo">' . get_the_post_thumbnail( $post->ID, 'thumbnail' ) . '</div>';
 
-			<div class="client">
-				<div class="name"><?php echo $post->client_name; ?></div>
-				<?php if ( ! empty( $post->company_name ) && ! empty( $post->company_website ) ) : ?>
-					<div class="company">
-						<a href="<?php echo wpmtst_get_website( $post->company_website ); ?>" target="blank"><?php echo $post->company_name; ?></a>
-					</div>
-				<?php elseif ( ! empty( $post->company_name ) ) : ?>
-					<div class="company"><?php echo $post->company_name; ?></div>
-				<?php elseif ( ! empty( $post->company_website ) ) : ?>
-					<div class="website"><?php echo $post->company_website; ?></div>
-				<?php endif; ?>
-			</div>
+	$html .= '<div class="content">' . wpautop( $post->post_content ) . '</div>';
+	$html .= '<div class="clear"></div>';
 
-		</div>
-	</div>
-	<?php
-	$html = ob_get_contents();
-	ob_end_clean();
+	$html .= '<div class="client">';
+	
+	// ---------------------------------------------------------------------
+	// Get the client template, populate it with data from the current post,
+	// then render it.
+	//
+	// Third approach. Took me all day on 6/30/2014.
+	// ---------------------------------------------------------------------
+	
+	$options = get_option( 'wpmtst_options' );
+	$template = $options['client_section'];
+	
+	$lines = explode( PHP_EOL, $template );
+	// [wpmtst-text field="client_name" class="name"]
+	// [wpmtst-link url="company_website" text="company_name" target="_blank" class="company"]
+	
+	foreach ( $lines as $line ) {
+		// to get shortcode:
+		$pattern = '/\[([a-z0-9_\-]+)/';
+		preg_match( $pattern, $line, $matches );
+		if ( $matches ) {
+			$shortcode = $matches[1];
+			if ( 'wpmtst-text' == $shortcode ) {
+				// to get field:
+				$pattern = '/field="(\w+)"/';
+				preg_match( $pattern, $line, $matches2 );
+				if ( $matches2 ) {
+					$field_name = $matches2[1];
+					$post_value = $post->$field_name;
+					// add to line as content and close shortcode
+					$line .= $post_value . '[/' . $shortcode . ']';
+					$newline = do_shortcode( $line );
+					$html .= $newline;
+				}
+			}
+			elseif ( 'wpmtst-link' == $shortcode ) {
+				// (\w+)="(\w+)"
+				// to get url:
+				$pattern = '/url="(\w+)"/';
+				preg_match( $pattern, $line, $matches2 );
+				if ( $matches2 ) {
+					$field_name = $matches2[1];
+					$post_value = $post->$field_name;
+					// add to line as content with separator
+					$line .= $post_value . '|';
+				}
+				// to get text:
+				$pattern = '/text="(\w+)"/';
+				preg_match( $pattern, $line, $matches3 );
+				if ( $matches3 ) {
+					$field_name = $matches3[1];
+					$post_value = $post->$field_name;
+					// add to line as content
+					$line .= $post_value;
+				}
+				// close shortcode
+				$line .= '[/' . $shortcode . ']';
+				$newline = do_shortcode( $line );
+				$html .= $newline;
+			}
+		}
+	}
+
+	$html .= '</div><!-- client -->';
+	$html .= '</div><!-- inner -->';
+	$html .= '</div><!-- testimonial -->';
+	
+	// render other shortcodes in content
 	return do_shortcode( $html );
 }
+
+/*
+ * Client text field shortcode.
+ */
+function wpmtst_text_shortcode( $atts, $content = null ) {
+	// bail if no content
+	if ( empty( $content ) || '|' === $content )
+		return;
+		
+	extract( shortcode_atts(
+		array( 'field' => '', 'class' => '' ),
+		normalize_empty_atts( $atts )
+	) );
+	return '<div class="' . $class . '">' . $content . '</div>';
+}
+add_shortcode( 'wpmtst-text', 'wpmtst_text_shortcode' );
+
+/*
+ * Client link shortcode.
+ */
+function wpmtst_link_shortcode( $atts, $content = null ) {
+	// content like "company_website|company_name"
+	// bail if no content
+	if ( empty( $content ) || '|' === $content )
+		return;
+
+	extract( shortcode_atts(
+		array( 'url' => '', 'target' => '_blank', 'text' => '', 'class' => '' ),
+		normalize_empty_atts( $atts )
+	) );
+		
+	list( $url, $text ) = explode( '|', $content );
+	
+	// if no company name, use domain name
+	if ( ! $text )
+		$text = preg_replace( "(^https?://)", "", $url );
+		
+	// if no url, return text_shortcode instead
+	if ( $url )
+		return '<div class="' . $class . '"><a href="' . $url . '" target="' . $target . '">' . $text . '</a></div>';
+	else
+		return '<div class="' . $class . '">' . $text . '</div>';
+}
+add_shortcode( 'wpmtst-link', 'wpmtst_link_shortcode' );
 
 /*
  * Single testimonial shortcode
@@ -668,8 +760,8 @@ add_shortcode( 'wpmtst-single', 'wpmtst_single_shortcode' );
  * Random testimonial shortcode
  */
 function wpmtst_random_shortcode( $atts ) {
-	extract( shortcode_atts( 
-		array( 'category' => '', 'limit' => '1' ), 
+	extract( shortcode_atts(
+		array( 'category' => '', 'limit' => '1' ),
 		normalize_empty_atts( $atts )
 	) );
 
@@ -685,7 +777,7 @@ function wpmtst_random_shortcode( $atts ) {
 
 	$wp_query = new WP_Query();
 	$results  = $wp_query->query( $args );
-	
+
 	$display = '';
 	foreach ( $results as $post ) {
 		$display .= wpmtst_single( wpmtst_get_post( $post ) );
@@ -701,8 +793,8 @@ add_shortcode( 'wpmtst-random', 'wpmtst_random_shortcode' );
  * - sort options in query
  */
 function wpmtst_all_shortcode( $atts ) {
-	extract( shortcode_atts( 
-		array( 'category' => '' ), 
+	extract( shortcode_atts(
+		array( 'category' => '' ),
 		normalize_empty_atts( $atts )
 	) );
 
@@ -726,7 +818,7 @@ function wpmtst_all_shortcode( $atts ) {
 	}
 	$display .= '</div><!-- wpmtst-container -->';
 	$display .= '<div id="pagingControls"></div>';
-	
+
 	return $display;
 }
 add_shortcode( 'wpmtst-all', 'wpmtst_all_shortcode' );
@@ -738,31 +830,32 @@ add_shortcode( 'wpmtst-all', 'wpmtst_all_shortcode' );
  * - sort options in query
  */
 function wpmtst_cycle_shortcode( $atts ) {
-	extract( shortcode_atts( 
-		array( 'category' => '' ), 
+	extract( shortcode_atts(
+		array( 'category' => '' ),
 		normalize_empty_atts( $atts )
 	) );
 	$options = get_option( 'wpmtst_options' );
-	
-	// custom action hook:
-	// load slider with shortcode parameters
+	$cycle = $options['cycle'];
+
 	do_action( 
-		'wpmtst_cycle_hook',
-		$options['cycle-effect'], 
-		$options['cycle-speed'], 
-		$options['cycle-timeout'], 
-		$options['cycle-pause'],
+		'wpmtst_cycle_hook', 
+		$cycle['cycle-effect'], 
+		$cycle['cycle-speed'], 
+		$cycle['cycle-timeout'], 
+		$cycle['cycle-pause'],
 		'#wpmtst-container',
 		'cycleShortcode'
 	);
-	
-	if ( 'rand' == $options['cycle-order'] ) {
+
+	if ( 'rand' == $cycle['cycle-order'] ) {
 		$orderby = 'rand';
 		$order   = '';
-	} elseif ( 'oldest' == $options['cycle-order'] ) {
+	}
+	elseif ( 'oldest' == $cycle['cycle-order'] ) {
 		$orderby = 'post_date';
 		$order   = 'ASC';
-	} else {
+	}
+	else {
 		$orderby = 'post_date';
 		$order   = 'DESC';
 	}
@@ -786,7 +879,7 @@ function wpmtst_cycle_shortcode( $atts ) {
 		$display .= '<div class="result">' . wpmtst_single( wpmtst_get_post( $post ) ) . '</div><!-- result -->';
 	}
 	$display .= '</div><!-- wpmtst-container -->';
-	
+
 	return $display;
 }
 add_shortcode( 'wpmtst-cycle', 'wpmtst_cycle_shortcode' );
@@ -795,156 +888,103 @@ add_shortcode( 'wpmtst-cycle', 'wpmtst_cycle_shortcode' );
  * Submission form shortcode
  */
 function wpmtst_form_shortcode( $atts ) {
-
-	$client_name     = '';
-	$email           = '';
-	$company_name    = '';
-	$company_website = '';
-	$headline        = '';
-	$text            = '';
-	$agree           = 1;
-  
 	$options = get_option( 'wpmtst_options' );
 	$captcha = $options['captcha'];
-  $errors = array();
+
+	$field_groups = $options['field_groups'];
+	$current_field_group = $field_groups[ $options['field_group'] ];
+	$fields = $current_field_group['fields'];
+  
+	$errors = array();
 	
+	// Init three arrays: post, post_meta, attachment(s).
+	$testimonial_post = array(
+			'post_status'  => 'pending',
+			'post_type'    => 'wpm-testimonial'
+	);
+	$testimonial_meta = array();
+	$testimonial_att = array();
+
+	foreach ( $fields as $key => $field ) {
+		$testimonial_inputs[ $field['name'] ] = '';
+	}
+
+	// ------------
+	// Form Actions
+	// ------------
 	if ( isset( $_POST['wpmtst_form_submitted'] )
 			&& wp_verify_nonce( $_POST['wpmtst_form_submitted'], 'wpmtst_submission_form' ) ) {
-		
-		// --------------------------------
-		// start: CAPTCHA plugin handlers 
-		switch ( $captcha ) {
-		
-			// Captcha by BestWebSoft
-			case 'bwsmath' :
-				if ( function_exists( 'cptch_check_custom_form' ) && cptch_check_custom_form() !== true ) {
-					$errors['captcha'] = 'Please complete the CAPTCHA.';
-				}
-				break;
-			
-			// Simple reCAPTCHA by WPMission
-			case 'wpmsrc' :
-				if ( function_exists( 'wpmsrc_check' ) ) {
-					// check for empty user response first
-					if ( empty( $_POST['recaptcha_response_field'] ) ) {
-						$errors['captcha'] = __( 'Please complete the CAPTCHA.', WPMTST_NAME );
-					} else {
-						// check captcha
-						$response = wpmsrc_check();
-						if ( ! $response->is_valid ) {
-							// -------------------------------------------------------
-							// MOVE THIS TO RECAPTCHA PLUGIN ~!~
-							// with log and auto-report email
-							// -------------------------------------------------------
-							// see https://developers.google.com/recaptcha/docs/verify
-							// -------------------------------------------------------
-							$error_codes['invalid-site-private-key'] = 'Invalid keys. Please contact the site administrator.';
-							$error_codes['invalid-request-cookie']   = 'Invalid parameter. Please contact the site administrator.';
-							$error_codes['incorrect-captcha-sol']    = 'The CAPTCHA was not entered correctly. Please try again.';
-							$error_codes['captcha-timeout']          = 'The process timed out. Please try again.';
-							// $error_codes['recaptcha-not-reachable']  = 'Unable to reach reCAPTCHA server. Please contact the site administrator.';
-							$errors['captcha'] = __( $error_codes[ $response->error ], WPMTST_NAME );
-						}
-					}
-				}
-				break;
-			
-			// Really Simple Captcha by Takayuki Miyoshi
-			case 'miyoshi':
-				if ( class_exists( 'ReallySimpleCaptcha' ) ) {
-					$captcha_instance = new ReallySimpleCaptcha();
-					$prefix = isset( $_POST['captchac'] ) ? (string) $_POST['captchac'] : '';
-					$response = isset( $_POST['captchar'] ) ? (string) $_POST['captchar'] : '';
-					$correct = $captcha_instance->check( $prefix, $response );
-					if ( ! $correct )
-						$errors['captcha'] = __( 'The Captcha was not entered correctly. Please try again.', WPMTST_NAME );
-					// remove the temporary image and text files
-					// (except on Windows)
-					if ( '127.0.0.1' != $_SERVER['SERVER_ADDR'] )
-						$captcha_instance->remove( $prefix );
-				}
-				break;
-		
-			default :
-		}
-		// end: CAPTCHA plugin handlers
-		// --------------------------------
-		
-		// --------
-		// sanitize
-		// --------
-		
-		// custom
-		$client_name     = sanitize_text_field( $_POST['wpmtst_client_name'] );
-		$email           = sanitize_text_field( $_POST['wpmtst_email'] );
-		$company_name    = sanitize_text_field( $_POST['wpmtst_company_name'] );
-		$company_website = sanitize_text_field( $_POST['wpmtst_company_website'] );
-		
-		// common
-		$headline        = sanitize_text_field( $_POST['wpmtst_headline'] );
-		$text            = sanitize_text_field( $_POST['wpmtst_text'] );
-		$agree           = isset( $_POST['wpmtst_agree'] ) ? 1 : 0;
 
-		// --------
-		// validate
-		// --------
-		
-		// custom
-		if ( empty( $client_name ) )
-			$errors['client_name'] = 'Please enter your name.'; 
-		
-		if ( empty( $email ) )
-			$errors['email'] = 'Please enter your email address.';
-		
-		/*
-		if ( empty( $company_name ) )
-			$errors['company_name'] = ''; 
-		
-		if ( empty( $company_website ) )
-			$errors['company_website'] = ''; 
-		*/
-		
-		// common
-		
-		/*
-		if ( empty( $headline ) )
-			$errors['headline'] = ''; 
-		*/
-		
-		if ( empty( $text ) )
-			$errors['text'] = 'Please enter your testimonial.'; 
-		
-		if ( empty( $agree ) )
-			$errors['agree'] = 'Please let us share your testimonial.'; 
-		
-		
+		$errors = wpmtst_captcha_check( $captcha, $errors );
+
+		// -------------------
+		// sanitize & validate
+		// -------------------
+		foreach ( $fields as $key => $field ) {
+
+			if ( isset( $field['required'] ) && $field['required'] && empty( $_POST[ $field['name'] ] ) ) {
+				$errors[ $field['name'] ] = $field['error'];
+			}
+			else {
+			
+				if ( 'post' == $field['record_type'] ) {
+				
+					if ( 'file' == $field['input_type'] )
+						$testimonial_att[ $field['name'] ] = isset( $field['map'] ) ? $field['map'] : 'post';
+					else
+						$testimonial_post[ $field['name'] ] = sanitize_text_field( $_POST[ $field['name'] ] );
+						
+				}
+				elseif ( 'custom' == $field['record_type'] ) {
+				
+					if ( 'email' == $field['input_type'] ) {
+						$testimonial_meta[ $field['name'] ] = sanitize_email( $_POST[ $field['name'] ] );
+					}
+					elseif ( 'url' == $field['input_type'] ) {
+						// wpmtst_get_website() will prefix with "http://"
+						// so don't add that to an empty input
+						if ( $_POST[ $field['name'] ] )
+							$testimonial_meta[ $field['name'] ] = esc_url_raw( wpmtst_get_website( $_POST[ $field['name'] ] ) );
+					}
+					elseif ( in_array( $field['input_type'], array( 'text', 'textarea' ) ) ) {
+						$testimonial_meta[ $field['name'] ] = sanitize_text_field( $_POST[ $field['name'] ] );
+					}
+					
+				}
+				
+			}
+
+		}
+
+		// special handling:
+		// if post_title is not required, create one from post_content
+		if ( ! $testimonial_post['post_title'] ) {
+			$words_array = explode( ' ', $testimonial_post['post_content'] );
+			$five_words = array_slice( $words_array, 0, 5 );
+			$testimonial_post['post_title'] = implode( ' ', $five_words );
+		}
+
     if ( ! count( $errors ) ) {
-		
+	
 			// create new testimonial post
-			$testimonial_data = array(
-					'post_title'   => $headline,
-					'post_content' => $text,
-					'post_status'  => 'pending',
-					'post_type'    => 'wpm-testimonial'
-			);
-    
-			if ( $testimonial_id = wp_insert_post( $testimonial_data ) ) {
+			if ( $testimonial_id = wp_insert_post( $testimonial_post ) ) {
 
 				// save custom fields
-				add_post_meta( $testimonial_id, 'client_name', $client_name );
-				add_post_meta( $testimonial_id, 'email', $email );
-				add_post_meta( $testimonial_id, 'company_name', $company_name );
-				add_post_meta( $testimonial_id, 'company_website', $company_website );
+				foreach ( $testimonial_meta as $key => $field ) {
+					add_post_meta( $testimonial_id, $key, $field );
+				}
 
-				if ( $_FILES['wpmtst_client_photo']['size'] > 1 ) {
-					foreach ( $_FILES as $field => $file ) {
-
-						// Upload File
+				// save attachments
+				foreach ( $testimonial_att as $name => $map ) {
+					if ( isset( $_FILES[$name] ) && $_FILES[$name]['size'] > 1 ) {
+						$file = $_FILES[$name];
+						
+						// Upload file
 						$overrides = array( 'test_form' => false );
-						$uploaded_file = wpmtst_wp_handle_upload( $_FILES['wpmtst_client_photo'], $overrides );
-						$wpmtst_client_photo = $uploaded_file['url'];
+						$uploaded_file = wpmtst_wp_handle_upload( $file, $overrides );
+						$image = $uploaded_file['url'];
 
-						// Create an Attachment
+						// Create an attachment
 						$attachment = array(
 								'post_title'     => $file['name'],
 								'post_content'   => '',
@@ -956,142 +996,159 @@ function wpmtst_form_shortcode( $atts ) {
 
 						$attach_id = wp_insert_attachment( $attachment, $uploaded_file['file'], $testimonial_id );
 						$attach_data = wp_generate_attachment_metadata( $attach_id, $uploaded_file['file'] );
-						wp_update_attachment_metadata( $attach_id,  $attach_data );
-						add_post_meta( $testimonial_id, 'client_photo', $wpmtst_client_photo ); // ~!~ is this needed?
-						set_post_thumbnail( $testimonial_id, $attach_id );
-
+						$result = wp_update_attachment_metadata( $attach_id,  $attach_data );
+						add_post_meta( $testimonial_id, $name, $image );
+						if ( 'featured_image' == $map ) {
+							set_post_thumbnail( $testimonial_id, $attach_id );
+						}
 					}
 				}
 
-				$admin_notify = $options['admin_notify'];
-				$admin_email  = $options['admin_email'];
-
-				if ( $admin_notify && $admin_email ) {
-					$subject = 'New testimonial for ' . get_option( 'blogname' );
-					$headers = 'From: noreply@' . preg_replace( '/^www\./', '', $_SERVER['HTTP_HOST'] );
-					$message = 'New testimonial submission for ' . get_option( 'blogname' ) . '. This is awaiting action from the website administrator.';
-					// More info here? A copy of testimonial? A link to admin page? A link to approve directly from email?
-					wp_mail( $admin_email, $subject, $message, $headers );
-				}
-
+				wpmtst_notify_admin();
 				return '<div class="testimonial-success">' .  __( 'Thank you! Your testimonial is awaiting moderation.', WPMTST_NAME ) .'</div>';
-				
-			} else {
-				// need post insert error handling
+
 			}
-    
-    } // if errors
+			else {
+				// @TODO post insert error handling
+			}
 
-	} // if posted
+		}
+		else {  // errors
+			$testimonial_inputs = array_merge( $testimonial_inputs, $testimonial_post, $testimonial_meta );
+    }
 
-	//---------------------------------
-	//   Testimonial Submission Form
-	//---------------------------------
-	ob_start();
-	?>
+	}  // if posted
 
-	<div id="wpmtst-form">
+	// ---------------------------
+	// Testimonial Submission Form
+	// ---------------------------
+	// output buffering made this incredibly unreadable
+	
+	$html = '<div id="wpmtst-form">';
+	$html .= '<p class="required-notice"><span class="required symbol"></span>' . __( 'Required Field', WPMTST_NAME ) . '</p>';
+	$html .= '<form id="wpmtst-submission-form" method="post" action="" enctype="multipart/form-data">';
+	$html .= wp_nonce_field( 'wpmtst_submission_form', 'wpmtst_form_submitted', true, false );
 
-		<p class="required-notice"><span class="required symbol"></span><?php _e( 'Required Field', WPMTST_NAME ); ?></p>
+	foreach ( $fields as $key => $field ) {
 
-		<form id="wpmtst-submission-form" method="post" action="" enctype="multipart/form-data">
-			<?php wp_nonce_field( 'wpmtst_submission_form', 'wpmtst_form_submitted' ); ?>
+		if ( 'text' == $field['input_type'] )
+			$classes = 'text';
+		elseif ( 'email' == $field['input_type'] )
+			$classes = 'text email';
+		elseif ( 'url' == $field['input_type'] )
+			$classes = 'text url';
+		else
+			$classes = '';
 
-			<p class="form-field">
-				<label for="wpmtst_client_name"><?php _e( 'Full Name', WPMTST_NAME ); ?></label><span class="required symbol"></span>
-				<input id="wpmtst_client_name" class="text" type="text" name="wpmtst_client_name" value="<?php echo $client_name; ?>" minlength="2" required />
-				<?php if ( isset( $errors['client_name'] ) ) : ?>
-					<span class="error"><label class="error"><?php echo $errors['client_name']; ?></label></span>
-				<?php endif; ?>
-				<span class="help"><?php _e( 'What is your full name?', WPMTST_NAME ); ?></span>
-			</p>
-			
-			<p class="form-field">
-				<label for="wpmtst_email"><?php _e( 'Email', WPMTST_NAME ); ?></label><span class="required symbol"></span>
-				<input id="wpmtst_email" class="text email" type="email" name="wpmtst_email" value="<?php echo $email; ?>" required />
-				<?php if ( isset( $errors['email'] ) ) : ?>
-					<span class="error"><label class="error"><?php echo $errors['email']; ?></label></span>
-				<?php endif; ?>
-				<span class="help"><?php _e( 'What is your email address?', WPMTST_NAME ); ?></span>
-			</p>
+		$html .= '<p class="form-field">';
+		$html .= '<label for="wpmtst_' . $field['name'] . '">' . __( $field['label'], WPMTST_NAME ) . '</label>';
 
-			<p class="form-field">
-				<label for="wpmtst_company_name"><?php _e( 'Company Name', WPMTST_NAME ); ?></label>
-				<input id="wpmtst_company_name" class="text" type="text" name="wpmtst_company_name" value="<?php echo $company_name; ?>" />
-				<span class="help"><?php _e( 'What is your company name?', WPMTST_NAME ); ?></span>
-			</p>
+		if ( isset( $field['required'] ) && $field['required'] )
+			$html .= '<span class="required symbol"></span>';
 
-			<p class="form-field">
-				<label for="wpmtst_company_website"><?php _e( 'Company Website', WPMTST_NAME ); ?></label>
-				<input id="wpmtst_company_website" class="text" type="text" name="wpmtst_company_website" value="<?php echo $company_website; ?>" />
-				<span class="help"><?php _e( 'Does your company have a website?', WPMTST_NAME ); ?></span>
-			</p>
+		if ( isset( $field['before'] ) && $field['before'] )
+			$html .= '<span class="before">' . $field['before'] . '</span>';
 
-			<p class="form-field">
-				<label for="wpmtst_headline"><?php _e( 'Heading', WPMTST_NAME ); ?></label>
-				<input id="wpmtst_headline" class="text" type="text" name="wpmtst_headline" value="<?php echo $headline; ?>" />
-				<span class="help"><?php _e( 'A headline for your testimonial.', WPMTST_NAME ); ?></span>
-			</p>
+		// -----------------------------
+		// input types: text, email, url
+		// -----------------------------
+		if ( in_array( $field['input_type'], array( 'text', 'email', 'url' ) ) ) {
 
-			<p class="form-field">
-				<label for="wpmtst_text"><?php _e( 'Testimonial', WPMTST_NAME ); ?></label><span class="required symbol"></span>
-				<textarea id="wpmtst_text" class="textarea" name="wpmtst_text" required><?php echo $text; ?></textarea>
-				<?php if ( isset( $errors['text'] ) ) : ?>
-					<span class="error"><label class="error"><?php echo $errors['text']; ?></label></span>
-				<?php endif; ?>
-				<span class="help"><?php _e( 'What do you think about us?', WPMTST_NAME ); ?></span>
-			</p>
+			$html .= '<input id="wpmtst_' . $field['name'] . '"'
+						. ' type="' . $field['input_type'] . '"'
+						. ' class="' . $classes . '"'
+						. ' name="' . $field['name'] . '"'
+						. ' value="' . $testimonial_inputs[ $field['name'] ] . '"';
 
-			<div class="clear"></div>
+			if ( isset( $field['placeholder'] ) && $field['placeholder'] )
+				$html .= ' placeholder="' . $field['placeholder'] . '"';
 
-			<p class="form-field">
-				<label for="wpmtst_client_photo"><?php _e( 'Photo', WPMTST_NAME ); ?></label>
-				<input id="wpmtst_client_photo" class="text" type="file" name="wpmtst_client_photo" />
-				<span class="help"><?php _e( 'Would you like to include a photo?', WPMTST_NAME ); ?></span>
-			</p>
+			if ( isset( $field['required'] ) && $field['required'] )
+				$html .= ' required';
 
-			<p class="form-field agree">
-				<input id="wpmtst_agree" class="checkbox" type="checkbox" name="wpmtst_agree" checked="<?php checked( $agree ); ?>" required />
-				<?php if ( isset( $errors['agree'] ) ) : ?>
-					<span class="error"><label class="error"><?php echo $errors['agree']; ?></label></span>
-				<?php endif; ?>
-				<span class="required symbol"></span><span><?php _e( 'I agree this testimonial may be published.', WPMTST_NAME ); ?></span>
-			</p>
+			$html .= ' />';
 
-			<?php if ( $captcha ) : ?>
-			<div class="wpmtst-captcha">
-				<label for="wpmtst_captcha"><?php _e( 'Captcha', WPMTST_NAME ); ?></label><span class="required symbol"></span>
-				<div class="wrap">
-					<?php do_action( 'wpmtst_captcha', $captcha ); ?>
-					<?php if ( isset( $errors['captcha'] ) ) : ?>
-					<p><label class="error"><?php echo $errors['captcha']; ?></label></p>
-					<?php endif; ?>
-				</div>
-			</div>
-			<?php endif; ?>
-			
-			<p class="form-field">
-				<input type="submit" id="wpmtst_submit_testimonial" name="wpmtst_submit_testimonial" value="<?php _e( 'Add Testimonial', WPMTST_NAME ); ?>" class="button" validate="required:true" />
-			</p>
+		}
+		// --------------------
+		// input type: textarea
+		// --------------------
+		elseif ( 'textarea' == $field['input_type'] ) {
 
-		</form>
+			$html .= '<textarea id="wpmtst_' . $field['name'] . '" class="textarea" name="' . $field['name'] . '"';
 
-	</div><!-- wpmtst-form -->
+			if ( isset( $field['required'] ) && $field['required'] )
+				$html .= ' required';
 
-	<?php
-	$html = ob_get_contents();
-	ob_end_clean();
+			$html .= '>' . $testimonial_inputs[ $field['name'] ] . '</textarea>';
+
+		}
+		// -----------------
+		// input type: image
+		// -----------------
+		elseif ( 'file' == $field['input_type'] ) {
+
+			$html .= '<input id="wpmtst_' . $field['name'] . '" class="" type="file" name="' . $field['name'] . '" />';
+
+		}
+
+		if ( isset( $errors[ $field['name'] ] ) )
+			$html .= '<span class="error">' . $errors[ $field['name'] ] . '</span>';
+
+		if ( isset( $field['after']) && $field['after'] )
+			$html .= '<span class="after">' . $field['after'] . '</span>';
+
+		$html .= '</p>';
+
+	}
+
+	if ( $captcha ) {
+		$html .= '<div class="wpmtst-captcha">';
+		$html .= '<label for="wpmtst_captcha">' . __( 'Captcha', WPMTST_NAME ) . '</label><span class="required symbol"></span>';
+		$html .= '<div class="wrap">';
+		do_action( 'wpmtst_captcha', $captcha );
+		if ( isset( $errors['captcha'] ) )
+			$html .= '<p><label class="error">' . $errors['captcha'] . '</label></p>';
+		$html .= '</div>';
+		$html .= '</div>';
+	}
+
+	$html .= '<p class="form-field">';
+	$html .= '<input type="submit" id="wpmtst_submit_testimonial"'
+				.' name="wpmtst_submit_testimonial"'
+				.' value="' . __( 'Add Testimonial', WPMTST_NAME ) . '"'
+				.' class="button" validate="required:true" />';
+	$html .= '</p>';
+	$html .= '</form>';
+	$html .= '</div><!-- wpmtst-form -->';
+
 	return $html;
 }
 add_shortcode( 'wpmtst-form', 'wpmtst_form_shortcode' );
 
 /*
+ * Notify admin upon testimonial submission.
+ */
+function wpmtst_notify_admin() {
+	$options = get_option( 'wpmtst_options' );
+	$admin_notify = $options['admin_notify'];
+	$admin_email  = $options['admin_email'];
+
+	if ( $admin_notify && $admin_email ) {
+		$subject = 'New testimonial for ' . get_option( 'blogname' );
+		$headers = 'From: noreply@' . preg_replace( '/^www\./', '', $_SERVER['HTTP_HOST'] );
+		$message = 'New testimonial submission for ' . get_option( 'blogname' ) . '. This is awaiting action from the website administrator.';
+		// More info here? A copy of testimonial? A link to admin page? A link to approve directly from email?
+		wp_mail( $admin_email, $subject, $message, $headers );
+	}
+}
+
+/*
  * File upload handler
  */
 function wpmtst_wp_handle_upload( $file_handler, $overrides ) {
-	require_once( ABSPATH . 'wp-admin/includes/image.php' );
-	require_once( ABSPATH . 'wp-admin/includes/file.php' );
-	require_once( ABSPATH . 'wp-admin/includes/media.php' );
+  require_once( ABSPATH . 'wp-admin/includes/image.php' );
+  require_once( ABSPATH . 'wp-admin/includes/file.php' );
+  require_once( ABSPATH . 'wp-admin/includes/media.php' );
 
 	$upload = wp_handle_upload( $file_handler, $overrides );
 	return $upload ;
@@ -1115,7 +1172,7 @@ class WpmTst_Widget extends WP_Widget {
 		$control_ops = array(
 				'id_base' => 'wpmtst-widget'
 		);
-		
+
 		$this->cycle_options = array(
 				'effects' => array(
 						'fade'       => 'Fade',
@@ -1151,15 +1208,14 @@ class WpmTst_Widget extends WP_Widget {
 	function widget( $args, $instance ) {
 		if ( is_active_widget( false, false, $this->id_base ) ) {
 			wp_enqueue_style( 'wpmtst-style' );
-
 			// custom action hook:
 			// load slider with widget parameters
 			do_action(
-				'wpmtst_cycle_hook', 
-				$instance['cycle-effect'], 
-				$instance['cycle-speed'], 
-				$instance['cycle-timeout'], 
-				$instance['cycle-pause'],
+				'wpmtst_cycle_hook',
+				$instance['cycle-effect'],
+				$instance['cycle-speed'],
+				$instance['cycle-timeout'],
+				$instance['cycle-pause']
 				'.wpmtst-widget-container',
 				'cycleWidget'
 			);
@@ -1169,14 +1225,16 @@ class WpmTst_Widget extends WP_Widget {
 		$classes = array();
 
 		// build query
-		
+
 		if ( 'rand' == $data['order'] ) {
 			$orderby = 'rand';
 			$order   = '';
-		} elseif ( 'oldest' == $data['order'] ) {
+		}
+		elseif ( 'oldest' == $data['order'] ) {
 			$orderby = 'post_date';
 			$order   = 'ASC';
-		} else {
+		}
+		else {
 			$orderby = 'post_date';
 			$order   = 'DESC';
 		}
@@ -1191,7 +1249,8 @@ class WpmTst_Widget extends WP_Widget {
 			else
 				$num = $this->defaults['cycle-limit'];
 
-		} else {
+		}
+		else {
 
 			if ( ! empty( $data['static-limit'] ) )
 				$num = $data['static-limit'];
@@ -1228,9 +1287,9 @@ class WpmTst_Widget extends WP_Widget {
 
 		$wp_query = new WP_Query();
 		$results = $wp_query->query( $args );
-		
+
 		// start HTML output
-		
+
 		echo $data['before_widget'];
 
 		if ( ! empty( $data['title'] ) )
@@ -1256,10 +1315,10 @@ class WpmTst_Widget extends WP_Widget {
 			$content = wpautop( $post->post_content );
 			if ( $char_switch && strlen( $content ) > $char_limit ) {
 				// Find first space after char_limit (e.g. 200).
-				// If not found then char_limit is in the middle of the 
+				// If not found then char_limit is in the middle of the
 				// last word (e.g. string length = 203) so no need to truncate.
 				$space_pos = strpos( $content, ' ', $char_limit );
-				if ( $space_pos ) 
+				if ( $space_pos )
 					$content = substr( $content, 0, $space_pos ) . ' . . . ';
 			}
 			echo '<div class="content">' . $content . '</div>';
@@ -1268,11 +1327,13 @@ class WpmTst_Widget extends WP_Widget {
 			echo '<div class="name">' . $post->client_name . '</div>';
 			if ( ! empty( $post->company_name ) && ! empty( $post->company_website ) ) {
 				echo '<div class="company">';
-				echo '<a href="' . wpmtst_get_website( $post->company_website ) .'" target="blank">' . $post->company_name . '</a>';
+				echo '<a href="' . $post->company_website .'" target="blank">' . $post->company_name . '</a>';
 				echo '</div>';
-			} elseif ( ! empty( $post->company_name ) ) {
+			}
+			elseif ( ! empty( $post->company_name ) ) {
 				echo '<div class="company">' . $post->company_name . '</div>';
-			} elseif ( ! empty( $post->company_website ) ) {
+			}
+			elseif ( ! empty( $post->company_website ) ) {
 				echo '<div class="website">' . $post->company_website . '</div>';
 			}
 			echo '</div>';
@@ -1325,7 +1386,7 @@ class WpmTst_Widget extends WP_Widget {
 			<!-- CATEGORY -->
 			<p>
 				<label class="alpha" for="<?php echo $this->get_field_id( 'category' ); ?>"><?php _e( 'Category' ) ?>:</label>
-				<select id="<?php echo $this->get_field_id( 'category' ); ?>" name="<?php echo $this->get_field_name( 'category' ); ?>" class="omega">
+				<select id="<?php echo $this->get_field_id( 'category' ); ?>" name="<?php echo $this->get_field_name( 'category' ); ?>" class="omega" autocomplete="off">
 					<option value="all"><?php _e( 'Show all' ) ?></option>
 					<?php
 					foreach ( $category_list as $category ) {
@@ -1339,7 +1400,7 @@ class WpmTst_Widget extends WP_Widget {
 			<!-- ORDER -->
 			<p>
 				<label class="alpha" for="<?php echo $this->get_field_id( 'order' ); ?>"><?php _e( 'Order' ) ?>:</label>
-				<select id="<?php echo $this->get_field_id( 'order' ); ?>" name="<?php echo $this->get_field_name( 'order' ); ?>" class="omega">
+				<select id="<?php echo $this->get_field_id( 'order' ); ?>" name="<?php echo $this->get_field_name( 'order' ); ?>" class="omega" autocomplete="off">
 					<?php
 					foreach ( $order_list as $order => $order_label ) {
 						echo '<option value="' . $order . '"' . selected( $order, $instance['order'] ) . '>' . $order_label . '</option>';
@@ -1395,7 +1456,7 @@ class WpmTst_Widget extends WP_Widget {
 							<label for="<?php echo $this->get_field_id( 'cycle-effect' ); ?>"><?php _e( 'Transition effect', WPMTST_NAME ); ?>:</label>
 						</div>
 						<div>
-							<select id="<?php echo $this->get_field_id( 'cycle-effect' ); ?>" name="<?php echo $this->get_field_name( 'cycle-effect' ); ?>">
+							<select id="<?php echo $this->get_field_id( 'cycle-effect' ); ?>" name="<?php echo $this->get_field_name( 'cycle-effect' ); ?>" autocomplete="off">
 								<?php foreach ( $this->cycle_options['effects'] as $key => $label ) : ?>
 								<option value="<?php echo $key; ?>" <?php selected( $instance['cycle-effect'], $key ); ?>><?php _e( $label ) ?></option>
 								<?php endforeach; ?>
@@ -1461,7 +1522,7 @@ class WpmTst_Widget extends WP_Widget {
 			</p>
 
 			<p>
-				<select id="<?php echo $this->get_field_id( 'more_page' ); ?>" name="<?php echo $this->get_field_name( 'more_page' ); ?>" class="widefat">
+				<select id="<?php echo $this->get_field_id( 'more_page' ); ?>" name="<?php echo $this->get_field_name( 'more_page' ); ?>" class="widefat" autocomplete="off">
 					<option value="*"><?php _e( 'Select page' ) ?></option>
 					<?php foreach ( $pages_list as $pages ) : ?>
 						<option value="<?php echo $pages->ID; ?>" <?php selected( $instance['more_page'], $pages->ID ); ?>><?php echo $pages->post_title; ?></option>
@@ -1485,7 +1546,8 @@ class WpmTst_Widget extends WP_Widget {
 
 		if ( ! $new_instance['cycle-limit'] ) {
 			$instance['cycle-limit'] = $defaults['cycle-limit'];
-		} else {
+		}
+		else {
 			$instance['cycle-limit'] = (int) strip_tags( $new_instance['cycle-limit'] );
 		}
 
@@ -1493,7 +1555,8 @@ class WpmTst_Widget extends WP_Widget {
 
 		if ( ! $new_instance['cycle-timeout'] ) {
 			$instance['cycle-timeout'] = $defaults['cycle-timeout'];
-		} else {
+		}
+		else {
 			$instance['cycle-timeout'] = (float) strip_tags( $new_instance['cycle-timeout'] );
 		}
 
@@ -1501,7 +1564,8 @@ class WpmTst_Widget extends WP_Widget {
 
 		if ( ! $new_instance['cycle-speed'] ) {
 			$instance['cycle-speed'] = $defaults['cycle-speed'];
-		} else {
+		}
+		else {
 			$instance['cycle-speed'] = (float) strip_tags( $new_instance['cycle-speed'] );
 		}
 
@@ -1575,7 +1639,6 @@ function wpmtst_cycle_check( $effect, $speed, $timeout, $pause, $div, $var ) {
 }
 // custom hook
 add_action( 'wpmtst_cycle_hook', 'wpmtst_cycle_check', 10, 6 );
-
 /*----------------------------------------------------------------------------*
  * Settings
  *----------------------------------------------------------------------------*/
@@ -1587,14 +1650,21 @@ function wpmtst_settings_menu() {
 										'manage_options',                     // $capability
 										'settings',                           // $menu_slug
 										'wpmtst_settings_page' );             // $function
-										
-	add_submenu_page( 'edit.php?post_type=wpm-testimonial', 
-										'Shortcodes', 
-										'Shortcodes', 
-										'manage_options', 
-										'shortcodes', 
+
+	add_submenu_page( 'edit.php?post_type=wpm-testimonial',
+										'Fields',
+										'Fields',
+										'manage_options',
+										'fields',
+										'wpmtst_settings_custom_fields' );
+
+	add_submenu_page( 'edit.php?post_type=wpm-testimonial',
+										'Shortcodes',
+										'Shortcodes',
+										'manage_options',
+										'shortcodes',
 										'wpmtst_settings_shortcodes' );
-										
+
 	add_action( 'admin_init', 'wpmtst_register_settings' );
 }
 add_action( 'admin_menu', 'wpmtst_settings_menu' );
@@ -1603,18 +1673,21 @@ add_action( 'admin_menu', 'wpmtst_settings_menu' );
  * Make admin menu title unique if necessary.
  */
 function wpmtst_unique_menu_title() {
-	// GC Testimonials (any others?)
-	if ( is_plugin_active( 'gc-testimonials/testimonials.php' ) ) {
+	$need_unique = false;
+
+		// GC Testimonials
+	if ( is_plugin_active( 'gc-testimonials/testimonials.php' ) )
 		$need_unique = true;
-	} else {
-		$need_unique = false;
-	}
+
+	// Testimonials by Aihrus
+	if ( is_plugin_active( 'testimonials-widget/testimonials-widget.php' ) )
+		$need_unique = true;
 
 	if ( ! $need_unique )
 		return;
-	
+
 	global $menu;
-	
+
 	foreach ( $menu as $key => $menu_item ) {
 		// set unique menu title
 		if ( 'Testimonials' == $menu_item[0] && 'edit.php?post_type=wpm-testimonial' == $menu_item[2] ) {
@@ -1632,19 +1705,22 @@ function wpmtst_sanitize_options( $input ) {
 	$input['per_page']      = (int) sanitize_text_field( $input['per_page'] );
 	$input['admin_notify']  = isset( $input['admin_notify'] ) ? 1 : 0;
 	$input['admin_email']   = sanitize_email( $input['admin_email'] );
-	$input['cycle-timeout'] = (float) sanitize_text_field( $input['cycle-timeout'] );
-	// $input['cycle-effect']
-	$input['cycle-speed']   = (float) sanitize_text_field( $input['cycle-speed'] );
-	$input['cycle-pause']   = isset( $input['cycle-pause'] ) ? 1 : 0;
-	
+	$input['cycle']['cycle-timeout'] = (float) sanitize_text_field( $input['cycle']['cycle-timeout'] );
+	// $input['cycle']['cycle-effect']
+	$input['cycle']['cycle-speed']   = (float) sanitize_text_field( $input['cycle']['cycle-speed'] );
+	$input['cycle']['cycle-pause']   = isset( $input['cycle']['cycle-pause'] ) ? 1 : 0;
+
 	return $input;
 }
 
+/*
+ * Settings page
+ */
 function wpmtst_settings_page() {
 	if ( ! current_user_can( 'manage_options' ) )  {
 		wp_die( __( 'You do not have sufficient permissions to access this page.' ) );
 	}
-	
+
 	$wpmtst_options = get_option( 'wpmtst_options' );
 	$cycle_options = array(
 			'effects' => array(
@@ -1658,7 +1734,7 @@ function wpmtst_settings_page() {
 			'recent' => 'Newest first',
 			'oldest' => 'Oldest first'
 	);
-	
+
 	// Build list of supported Captcha plugins.
 	$plugins = array(
 			'bwsmath' => array(
@@ -1677,7 +1753,7 @@ function wpmtst_settings_page() {
 					'active' => false
 			),
 	);
-	
+
 	foreach ( $plugins as $key => $plugin ) {
 		$plugins[$key]['active'] = is_plugin_active( $plugin['file'] );
 		// If current Captcha plugin has been deactivated, disable Captcha
@@ -1688,7 +1764,6 @@ function wpmtst_settings_page() {
 		}
 	}
 	?>
-
 	<div class="wrap wpmtst">
 
 		<h2><?php _e( 'Testimonial Settings', WPMTST_NAME ); ?></h2>
@@ -1703,16 +1778,16 @@ function wpmtst_settings_page() {
 
 			<?php settings_fields( 'wpmtst-settings-group' ); ?>
 			<?php $wpmtst_options = get_option( 'wpmtst_options' ); ?>
-			
+
 			<table class="form-table">
-			
+
 				<tr valign="top">
 					<th scope="row">The number of testimonials to show per page</th>
 					<td>
 						<input type="text" name="wpmtst_options[per_page]" size="3" value="<?php echo esc_attr( $wpmtst_options['per_page'] ); ?>" />
 						This applies to the <span class="code">[wpmtst-all]</span> shortcode.
 					</td>
-				</tr>				
+				</tr>
 
 				<tr valign="top">
 					<th scope="row">When a new testimonial is submitted</th>
@@ -1724,11 +1799,11 @@ function wpmtst_settings_page() {
 						<input id="wpmtst-options-admin-email" type="email" size="30" placeholder="email address" name="wpmtst_options[admin_email]" value="<?php echo esc_attr( $wpmtst_options['admin_email'] ); ?>" />
 					</td>
 				</tr>
-				
+
 				<tr valign="top">
 					<th scope="row">CAPTCHA plugin</th>
 					<td>
-						<select name="wpmtst_options[captcha]">
+						<select name="wpmtst_options[captcha]" autocomplete="off">
 							<option value="">None</option>
 							<?php foreach ( $plugins as $key => $plugin ) : ?>
 							<?php if ( $plugin['active'] ) : ?>
@@ -1738,33 +1813,33 @@ function wpmtst_settings_page() {
 						</select>
 					</td>
 				</tr>
-				
+
 				<tr valign="top">
 					<th scope="row">Cycle Shortcode Settings</th>
 					<td>
 						<div class="box">
-						
+
 							<div class="row">
 								<div class="alpha">
 									<label for="cycle-order"><?php _e( 'Order' ) ?>:</label>
 								</div>
 								<div>
-									<select id="cycle-order" name="wpmtst_options[cycle-order]">
+									<select id="cycle-order" name="wpmtst_options[cycle][cycle-order]" autocomplete="off">
 										<?php
 										foreach ( $order_list as $order => $order_label ) {
-											echo '<option value="' . $order . '"' . selected( $order, $wpmtst_options['cycle-order'] ) . '>' . $order_label . '</option>';
+											echo '<option value="' . $order . '"' . selected( $order, $wpmtst_options['cycle']['cycle-order'] ) . '>' . $order_label . '</option>';
 										}
 										?>
 									</select>
 								</div>
 							</div>
-						
+
 							<div class="row">
 								<div class="alpha">
 									<label for="cycle-timeout"><?php _e( 'Show each for', WPMTST_NAME ); ?>:</label>
 								</div>
 								<div>
-									<input type="text" id="cycle-timeout" name="wpmtst_options[cycle-timeout]" value="<?php echo $wpmtst_options['cycle-timeout']; ?>" size="3" />
+									<input type="text" id="cycle-timeout" name="wpmtst_options[cycle][cycle-timeout]" value="<?php echo $wpmtst_options['cycle']['cycle-timeout']; ?>" size="3" />
 									<?php _e( 'seconds', WPMTST_NAME ); ?>
 								</div>
 							</div>
@@ -1774,9 +1849,9 @@ function wpmtst_settings_page() {
 									<label for="cycle-effect"><?php _e( 'Transition effect', WPMTST_NAME ); ?>:</label>
 								</div>
 								<div>
-									<select id="cycle-effect" name="wpmtst_options[cycle-effect]">
+									<select id="cycle-effect" name="wpmtst_options[cycle][cycle-effect]" autocomplete="off">
 										<?php foreach ( $cycle_options['effects'] as $key => $label ) : ?>
-										<option value="<?php echo $key; ?>" <?php selected( $wpmtst_options['cycle-effect'], $key ); ?>><?php _e( $label ) ?></option>
+										<option value="<?php echo $key; ?>" <?php selected( $wpmtst_options['cycle']['cycle-effect'], $key ); ?>><?php _e( $label ) ?></option>
 										<?php endforeach; ?>
 									</select>
 								</div>
@@ -1787,18 +1862,42 @@ function wpmtst_settings_page() {
 									<label for="cycle-speed"><?php _e( 'Effect duration', WPMTST_NAME ); ?>:</label>
 								</div>
 								<div>
-									<input type="text" id="cycle-speed" name="wpmtst_options[cycle-speed]" value="<?php echo $wpmtst_options['cycle-speed']; ?>" size="3" />
+									<input type="text" id="cycle-speed" name="wpmtst_options[cycle][cycle-speed]" value="<?php echo $wpmtst_options['cycle']['cycle-speed']; ?>" size="3" />
 									<?php _e( 'seconds', WPMTST_NAME ); ?>
 								</div>
 							</div>
 
 							<div class="row">
 								<div>
-									<input type="checkbox" id="cycle-pause" name="wpmtst_options[cycle-pause]" <?php checked( $wpmtst_options['cycle-pause'] ); ?>  class="checkbox" />
+									<input type="checkbox" id="cycle-pause" name="wpmtst_options[cycle][cycle-pause]" <?php checked( $wpmtst_options['cycle']['cycle-pause'] ); ?>  class="checkbox" />
 									<label for="cycle-pause"><?php _e( 'Pause on hover', WPMTST_NAME ); ?></label>
 								</div>
 							</div>
 						</div>
+					</td>
+				</tr>
+				
+				<tr valign="top">
+					<th scope="row"><?php _e( 'Client Template', WPMTST_NAME ); ?></th>
+					<td>
+						<p><?php _e( 'Use these shortcode options to show client information below each testimonial', WPMTST_NAME ); ?>:</p>
+						<div class="shortcode-example code">
+							<p class="indent">
+								<span class="outdent">[wpmtst-text </span>
+										<br>field="{ <?php _e( 'your custom text field', WPMTST_NAME ); ?> }" 
+										<br>class="{ <?php _e( 'your CSS class', WPMTST_NAME ); ?> }"]
+							</p>
+							<p class="indent">
+								<span class="outdent">[wpmtst-link </span>
+										<br>url="{ <?php _e( 'your custom URL field', WPMTST_NAME ); ?> }" 
+										<br>text="{ <?php _e( 'your custom text field', WPMTST_NAME ); ?> }" 
+										<br>target="_blank" <br>class="{ <?php _e( 'your CSS class', WPMTST_NAME ); ?> }"]
+							</p>
+						</div>
+						
+						<p><textarea id="client-section" class="widefat code" name="wpmtst_options[client_section]" rows="3"><?php echo $wpmtst_options['client_section']; ?></textarea></p>
+						
+						<p><input type="button" class="button" id="restore-default-template" value="Restore Default Template" /></p>
 					</td>
 				</tr>
 				
@@ -1813,6 +1912,9 @@ function wpmtst_settings_page() {
 	<?php
 }
 
+/*
+ * Shortcodes page
+ */
 function wpmtst_settings_shortcodes() {
 	?>
 	<div class="wrap wpmtst">
@@ -1830,7 +1932,7 @@ function wpmtst_settings_shortcodes() {
 				<td>Show all from a specific category.<br> Find these on the <a href="<?php echo admin_url( 'edit-tags.php?taxonomy=wpm-testimonial-category&post_type=wpm-testimonial' ); ?>">categories screen</a>.</td><td>[wpmtst-all category="xx"]</td>
 			</tr>
 		</table>
-		
+
 		<table class="shortcode-table">
 			<tr>
 				<td colspan="2"><h3>Testimonials Cycle</h3></td>
@@ -1870,7 +1972,7 @@ function wpmtst_settings_shortcodes() {
 				<td> Show one specific testimonial.<br>Find these on the <a href="<?php echo admin_url( 'edit.php?post_type=wpm-testimonial' ); ?>">testimonials screen</a>.</td><td>[wpmtst-single id="xx"]</td>
 			</tr>
 		</table>
-		
+
 		<table class="shortcode-table">
 			<tr>
 				<td colspan="2"><h3>Testimonial Submission Form</h3></td>
@@ -1881,24 +1983,495 @@ function wpmtst_settings_shortcodes() {
 		</table>
 
 	</div><!-- wrap -->
-
 	<?php
 }
+
+/*
+ * Custom Fields page
+ */
+function wpmtst_settings_custom_fields() {
+	if ( ! current_user_can( 'manage_options' ) )  {
+		wp_die( __( 'You do not have sufficient permissions to access this page.' ) );
+	}
+
+	$options = get_option( 'wpmtst_options' );
+	$field_groups = $options['field_groups'];
+	$current_field_group = $options['field_group'];  // "custom", only one for now
+	$field_group = $field_groups[$current_field_group];
+
+	$message_format = '<div id="message" class="updated"><p><strong>%s</strong></p></div>';
+
+	// ------------
+	// Form Actions
+	// ------------
+	if ( isset( $_POST['wpmtst_form_submitted'] )
+			&& wp_verify_nonce( $_POST['wpmtst_form_submitted'], 'wpmtst_custom_fields_form' ) ) {
+
+		if ( isset( $_POST['reset'] ) ) {
+
+			// Undo changes
+			$fields = $field_group['fields'];
+			echo sprintf( $message_format, __( 'Changes undone.', WPMTST_NAME ) );
+
+		}
+		elseif ( isset( $_POST['restore-defaults'] ) ) {
+
+			// Restore defaults
+			$fields = $options['field_groups']['default']['fields'];
+			$options['field_groups']['custom']['fields'] = $fields;
+			update_option( 'wpmtst_options', $options );
+			echo sprintf( $message_format, __( 'Defaults restored.', WPMTST_NAME ) );
+
+		}
+		else {
+
+			// Save changes
+			$fields = array();
+			$new_key = 0;
+			foreach ( $_POST['fields'] as $key => $field ) {
+				$field = array_merge( $options['field_base'], $field );
+
+				// sanitize & validate
+				$field['name']        = sanitize_text_field( $field['name'] );
+				$field['label']       = sanitize_text_field( $field['label'] );
+				$field['placeholder'] = sanitize_text_field( $field['placeholder'] );
+				$field['before']      = sanitize_text_field( $field['before'] );
+				$field['after']       = sanitize_text_field( $field['after'] );
+				$field['required']    = $field['required'] ? 1 : 0;
+				$field['admin_table'] = $field['admin_table'] ? 1 : 0;
+
+				// add to fields array in display order
+				$fields[$new_key++] = $field;
+
+			}
+			$options['field_groups']['custom']['fields'] = $fields;
+			update_option( 'wpmtst_options', $options );
+			echo sprintf( $message_format, __( 'Fields saved.', WPMTST_NAME ) );
+		}
+
+	}
+	else {
+
+		// Get current fields
+		$fields = $field_group['fields'];
+
+	}
+
+	// ------------------
+	// Custom Fields Form
+	// ------------------
+	echo '<div class="wrap wpmtst">' . "\n";
+	echo '<h2>' . __( 'Fields', WPMTST_NAME ) . '</h2>' . "\n";
+	echo '<p>Fields will appear in this order on the form. Sort by grabbing the <span class="dashicons dashicons-menu"></span> icon. Click the field name to expand its options panel.</p>' . "\n";
+	
+	echo "\n<!-- Custom Fields Form -->\n";
+	echo '<form id="wpmtst-custom-fields-form" method="post" action="">' . "\n";
+	wp_nonce_field( 'wpmtst_custom_fields_form', 'wpmtst_form_submitted' ); 
+	
+	echo '<ul id="custom-field-list">' . "\n";
+	
+	foreach ( $fields as $key => $field ) {
+		echo '<li id="field-' . $key . '">' . wpmtst_show_field( $key, $field, false ) . '</li>' . "\n";
+	}
+	
+	echo '</ul>' . "\n";
+	
+	echo '<div id="add-field-bar">';
+	echo '<input id="add-field" type="button" class="button-primary" name="add-field" value="' . __( 'Add New Field', WPMTST_NAME ) . '" />';
+	echo '</div>' . "\n";
+	
+	echo '<p class="submit">' . "\n";
+	submit_button( '', 'primary', 'submit', false );
+	submit_button( 'Undo Changes', 'secondary', 'reset', false );
+	submit_button( 'Restore Defaults', 'secondary', 'restore-defaults', false );
+	echo '</p>' . "\n";
+	
+	echo '</form><!-- Custom Fields -->' . "\n";
+	echo '</div><!-- wrap -->' . "\n";
+}
+
+/*
+ * Add a field to the form
+ */
+function wpmtst_show_field( $key, $field, $adding ) {
+	$options = get_option( 'wpmtst_options' );
+	$field_types = $options['field_types'];
+	$field_link = $field['label'] ? $field['label'] : ucwords( $field['name'] );
+	$is_core = ( isset( $field['core'] ) && $field['core'] );
+	// logmore($field['name'].' is_core = '.$is_core);
+
+	// ------------
+	// Field Header
+	// ------------
+	$html = "<div class=\"custom-field-header\">\n";
+	$html .= "<span class=\"handle\"><div class=\"dashicons dashicons-menu\"></div></span>\n";
+	$html .= "<span class=\"link\"><a class=\"field\" href=\"#\">{$field_link}</a></span>\n";
+	$html .= "</div>\n";
+	
+	$html .= "<div class=\"custom-field\">\n";
+	
+	$html .= "<table class=\"field-table\">\n";
+	
+	// -----------
+	// Field Label
+	// -----------
+	$html .= "<tr>\n";
+	$html .= "<th>Label</th>\n";
+	$html .= "<td>\n";
+	$html .= "<input type=\"text\" class=\"first-field field-label\" name=\"fields[{$key}][label]\" value=\"{$field['label']}\" />\n";
+	$html .= "<span class=\"help\">This appears on the form.</span>\n";
+	$html .= "</td>\n";
+	$html .= "</td>\n";
+	
+	// ----------
+	// Field Name
+	// ----------
+	$html .= "<tr>\n";
+	$html .= "<th>Name</th>\n";
+	$html .= "<td>\n";
+	if ( 'custom' == $field['record_type'] ) {
+		// if adding, the field Name is blank so it can be populated from Label
+		$html .= '<input type="text" class="field-name" name="fields['.$key.'][name]" value="' . ( isset( $field['name'] ) ? $field['name'] : '' ) . '" />' . "\n";
+		$html .= '<span id="field-name-help" class="help">Use only lowercase letters, numbers, and underscores.</span>' . "\n";
+	}
+	else {
+		$html .= '<input type="text" class="field-name" value="' . $field['name'] . '" disabled="disabled" />' . "\n";
+		// disabled inputs are not posted so store the field name in a hidden input
+		$html .= '<input type="hidden" name="fields[' . $key . '][name]" value="' . $field['name'] . '" />' . "\n";
+	}
+	$html .= "</td>\n";
+	$html .= "</td>\n";
+	
+	// ---------------------------
+	// Field Type (Post or Custom)
+	// ---------------------------
+	// If disabled, create <select> with single option
+	// and add hidden input with current value.
+	// Separate code! Readability trumps ultra-minor efficiency.
+	
+	$html .= '<tr>' . "\n";
+	$html .= '<th>Type</th>' . "\n";
+	$html .= '<td>' . "\n";
+	
+	// Restrict field choice to this record type
+	// unless we're adding a new field.
+	if ( $adding ) {
+	
+		$html .= '<select class="field-type new" name="fields[' . $key . '][input_type]" autocomplete="off">' . "\n";
+	
+		// start with a blank option that triggers script to update optgroups
+		$html .= '<option class="no-selection" value="none" name="none">&mdash;</option>' . "\n";
+		
+		// If pre-selecting a record type in event handler:
+		/*
+		if ( 'custom' == $field['record_type'] ) {
+			// compare field *name*
+			$selected = selected( $field['name'], $field_key, false );
+		}
+		elseif ( 'post' == $field['record_type'] {
+			// compare field *type*
+			$selected = selected( $field['input_type'], $field_key, false );
+		}
+		*/
+		// then add $selected to <option>.
+		
+		// Post fields
+		$html .= '<optgroup class="post-fields" label="Post Fields">' . "\n";
+		foreach ( $field_types['post'] as $field_key => $field_parts ) {
+			$html .= '<option value="' . $field_key . '">' . $field_parts['option_label'] . '</option>' . "\n";
+		}
+		$html .= '</optgroup>' . "\n";
+		
+		// Custom fields
+		$html .= '<optgroup class="custom-fields" label="Custom Fields">' . "\n";
+		foreach ( $field_types['custom'] as $field_key => $field_parts ) {
+			$html .= '<option value="' . $field_key . '">' . $field_parts['option_label'] . '</option>' . "\n";
+		}
+		$html .= '</optgroup>' . "\n";
+		
+		$html .= '</select>' . "\n";
+
+	}
+	else {
+	
+		if ( 'post' == $field['record_type'] ) {
+			// Post fields
+			// -----------
+			// Disable <select>. Display current value as only option.
+			// Disabled inputs are not posted so store the value in hidden field.
+			$html .= '<input type="hidden" name="fields[' . $key . '][input_type]" value="' . $field['name'] . '" />' . "\n";
+			$html .= '<select id="current-field-type" class="field-type" disabled="disabled">' . "\n";
+			foreach ( $field_types['post'] as $field_key => $field_parts ) {
+				// compare field *name*
+				if ( $field['name'] == $field_key )
+					$html .= '<option value="' . $field_key . '" selected="selected">' . $field_parts['option_label'] . '</option>' . "\n";
+			}
+			$html .= '</select>' . "\n";
+		}
+		else {
+			// Custom fields
+			// -------------
+			$html .= '<select class="field-type" name="fields[' . $key . '][input_type]" autocomplete="off">' . "\n";
+			$html .= '<optgroup label="Custom Fields">' . "\n";
+			foreach ( $field_types['custom'] as $field_key => $field_parts ) {
+				// compare field *type*
+				$selected = selected( $field['input_type'], $field_key, false );
+				$html .= '<option value="' . $field_key . '" ' . $selected . '>' . $field_parts['option_label'] . '</option>' . "\n";
+			}
+			$html .= '</optgroup>' . "\n";
+			$html .= '</select>' . "\n";
+		}
+		
+	} // adding
+	$html .= '</td>' . "\n";
+	
+	if ( ! $adding ) {
+		$html .= wpmtst_show_field_more( $key, $field );
+		$html .= wpmtst_show_field_admin_table( $key, $field );
+	}
+	
+	$html .= "</table>\n";
+
+	if ( ! $adding )
+		$html .= wpmtst_show_field_hidden( $key, $field );
+	
+	// --------
+	// Controls
+	// --------
+	$html .= '<div class="controls">' . "\n";
+	if ( $adding || ! $is_core ) {
+		$html .= '<span><a href="#" class="delete-field">Delete</a></span>';
+	}
+	$html .= '<span class="close-field"><a href="#">Close</a></span>';
+	$html .= '</div>' . "\n";
+	
+	$html .= '</div><!-- .custom-field -->' . "\n";
+	
+	return $html;
+}
+
+/*
+ * Create the secondary inputs for a new custom field.
+ * Called after field type is chosen (Post or Custom).
+ */
+function wpmtst_show_field_more( $key, $field ) {
+	// This populates inputs for these field parts:
+	// core, required, placeholder, before, after, admin_table
+	$html = '';
+	
+	// --------
+	// Required
+	// --------
+	// Disable option if this is a core field like post_content.
+	if ( isset( $field['core'] ) && $field['core'] )
+		$disabled = ' disabled="disabled"';
+	else
+		$disabled = false;
+		
+	$html .= "<tr>\n";
+	$html .= "<th>Required</th>\n";
+	$html .= "<td>\n";
+	if ( $disabled ) {
+		$html .= '<input type="hidden" name="fields[' . $key . '][required]" value="' . $field['required'] . '" />' . "\n";
+		$html .= '<input type="checkbox" ' . checked( $field['required'], true, false ) . $disabled . ' />' . "\n";
+	}
+	else {
+		$html .= '<input type="checkbox" name="fields[' . $key . '][required]" ' . checked( $field['required'], true, false ) . ' />' . "\n";
+	}
+	$html .= "</td>\n";
+	$html .= "</td>\n";
+	
+	// -----------
+	// Placeholder
+	// -----------
+	if ( isset( $field['placeholder'] ) ) {
+		$html .= '<tr>' . "\n";
+		$html .= '<th>Placeholder</th>' . "\n";
+		$html .= '<td><input type="text" name="fields[' . $key . '][placeholder]" value="' . $field['placeholder'] . '" /></td>' . "\n";
+		$html .= '</td>' . "\n";
+	}
+	
+	// ------
+	// Before
+	// ------
+	$html .= '<tr>' . "\n";
+	$html .= '<th>Before</th>' . "\n";
+	$html .= '<td><input type="text" name="fields[' . $key . '][before]" value="' . $field['before'] . '" /></td>' . "\n";
+	$html .= '</td>' . "\n";
+	
+	// -----
+	// After
+	// -----
+	$html .= '<tr>' . "\n";
+	$html .= '<th>After</th>' . "\n";
+	$html .= '<td><input type="text" name="fields[' . $key . '][after]" value="' . $field['after'] . '" /></td>' . "\n";
+	$html .= '</td>' . "\n";
+	
+	return $html;
+}
+
+/*
+ * Add type-specific [Admin Table] setting to form.
+ */
+function wpmtst_show_field_admin_table( $key, $field ) {
+	// -------------------
+	// Show in Admin Table
+	// -------------------
+	$html = '<tr class="field-admin-table">' . "\n";
+	$html .= '<th>Admin Table</th>' . "\n";
+	$html .= '<td>' . "\n";
+	if ( $field['admin_table_option'] ) {
+		$html .= '<input type="checkbox" class="field-admin-table" name="fields[' . $key . '][admin_table]" ' . checked( $field['admin_table'], 1, false ) . ' />' . "\n";
+	}
+	else {
+		$html .= '<input type="checkbox" ' . checked( $field['admin_table'], 1, false ) . ' disabled="disabled" /> <em>required</em>' . "\n";
+		$html .= '<input type="hidden" name="fields[' . $key . '][admin_table]" value="' . $field['admin_table'] . '" />' . "\n";
+	}
+	$html .= "</td>\n";
+	
+	return $html;
+}
+
+/*
+ * Add hidden fields to form.
+ */
+function wpmtst_show_field_hidden( $key, $field ) {
+	// -------------
+	// Hidden Values
+	// -------------
+	$html = '<input type="hidden" name="fields[' . $key . '][record_type]" value="' . $field['record_type'] . '">' . "\n";
+	$html .= '<input type="hidden" name="fields[' . $key . '][input_type]" value="' . $field['input_type'] . '">' . "\n";
+	$html .= '<input type="hidden" name="fields[' . $key . '][admin_table_option]" value="' . $field['admin_table_option'] . '">' . "\n";
+	if ( isset( $field['map'] ) ) {
+		$html .= '<input type="hidden" name="fields[' . $key . '][map]" value="' . $field['map'] . '">' . "\n";
+	}
+	if ( isset( $field['core'] ) ) {
+		$html .= '<input type="hidden" name="fields[' . $key . '][core]" value="' . $field['core'] . '">' . "\n";
+	}
+	
+	return $html;
+}
+
+
+/*
+ * [Add New Field] Ajax receiver
+ */
+function wpmtst_add_field_function() {
+	$new_key = intval( $_REQUEST['key'] );
+	$options = get_option( 'wpmtst_options' );
+	// when adding, don't define the Name so it will be populated from Label properly
+	$empty_field = array( 'record_type' => 'custom', 'label' => 'New Field' );
+	$new_field = wpmtst_show_field( $new_key, $empty_field, true );
+	echo $new_field;
+	die();
+}
+add_action( 'wp_ajax_wpmtst_add_field', 'wpmtst_add_field_function' );
+
+
+/*
+ * [Add New Field 2] Ajax receiver
+ */
+function wpmtst_add_field_2_function() {
+	$new_key = intval( $_REQUEST['key'] );
+	$new_field_type = $_REQUEST['fieldType'];
+	$new_field_class = $_REQUEST['fieldClass'];
+	$options = get_option( 'wpmtst_options' );
+	$empty_field = array_merge(
+		$options['field_types'][$new_field_class][$new_field_type],
+		array( 'record_type' => $new_field_class )
+	);
+	$new_field = wpmtst_show_field_more( $new_key, $empty_field );
+	echo $new_field;
+	die();
+}
+add_action( 'wp_ajax_wpmtst_add_field_2', 'wpmtst_add_field_2_function' );
+
+
+/*
+ * [Add New Field 3] Ajax receiver
+ */
+function wpmtst_add_field_3_function() {
+	$new_key = intval( $_REQUEST['key'] );
+	$new_field_type = $_REQUEST['fieldType'];
+	$new_field_class = $_REQUEST['fieldClass'];
+	$options = get_option( 'wpmtst_options' );
+	$empty_field = array_merge(
+		$options['field_types'][$new_field_class][$new_field_type],
+		array( 'record_type' => $new_field_class )
+	);
+	$new_field = wpmtst_show_field_hidden( $new_key, $empty_field );
+	echo $new_field;
+	die();
+}
+add_action( 'wp_ajax_wpmtst_add_field_3', 'wpmtst_add_field_3_function' );
+
+
+/*
+ * [Add New Field 4] Ajax receiver
+ */
+function wpmtst_add_field_4_function() {
+	$new_key = intval( $_REQUEST['key'] );
+	$new_field_type = $_REQUEST['fieldType'];
+	$new_field_class = $_REQUEST['fieldClass'];
+	$options = get_option( 'wpmtst_options' );
+	$empty_field = array_merge(
+		$options['field_types'][$new_field_class][$new_field_type],
+		array( 'record_type' => $new_field_class )
+	);
+	$new_field = wpmtst_show_field_admin_table( $new_key, $empty_field );
+	echo $new_field;
+	die();
+}
+add_action( 'wp_ajax_wpmtst_add_field_4', 'wpmtst_add_field_4_function' );
+
+
+/*
+ * [Restore Default Template] event handler
+ */
+function wpmtst_restore_default_template_script() {
+	?>
+	<script type="text/javascript">
+	jQuery(document).ready(function($) {
+		$("#restore-default-template").click(function(e){
+			var data = {
+				'action' : 'wpmtst_restore_default_template',
+			};
+			$.get( ajaxurl, data, function( response ) {
+				$("#client-section").val(response);
+			});
+		});
+	});
+	</script>
+	<?php
+}
+add_action( 'admin_footer', 'wpmtst_restore_default_template_script' );
+
+/*
+ * [Restore Default Template] Ajax receiver
+ */
+function wpmtst_restore_default_template_function() {
+	$options = get_option( 'wpmtst_options' );
+	$template = $options['default_template'];
+	echo $template;
+	die();
+}
+add_action( 'wp_ajax_wpmtst_restore_default_template', 'wpmtst_restore_default_template_function' );
 
 
 /*----------------------------------------------------------------------------*
  * CAPTCHA
  *----------------------------------------------------------------------------*/
 
+/*
+ * Add to form
+ */
 function wpmtst_add_captcha( $captcha ) {
 
 	switch ( $captcha ) {
-		
-		// Akismet
+
 		case 'akismet' :
-			// nothing yet
 			break;
-		
+
 		// Captcha by BestWebSoft
 		case 'bwsmath' :
 			if ( function_exists( 'cptch_display_captcha_custom' ) ) {
@@ -1906,10 +2479,10 @@ function wpmtst_add_captcha( $captcha ) {
 				echo cptch_display_captcha_custom();
 			}
 			break;
-			
-		// Strong reCAPTCHA by WPMission
+
+		// Strong reCAPTCHA by WP Mission
 		case 'wpmsrc' :
-			if ( function_exists( 'wpmsrc_display' ) ) { 
+			if ( function_exists( 'wpmsrc_display' ) ) {
 				echo wpmsrc_display();
 			}
 			break;
@@ -1924,12 +2497,58 @@ function wpmtst_add_captcha( $captcha ) {
 				echo '<span>Input this code: <input type="hidden" name="captchac" value="'.$prefix.'" /><img class="captcha" src="' . plugins_url( 'really-simple-captcha/tmp/' ) . $image . '"></span>';
 				echo '<input type="text" class="captcha" name="captchar" maxlength="4" size="5" />';
 			}
+
 			break;
-			
 		default :
 			// no captcha
-			
+
 	}
 }
-
 add_action( 'wpmtst_captcha', 'wpmtst_add_captcha', 50, 1 );
+
+/*
+ * Check form input
+ */
+function wpmtst_captcha_check( $captcha, $errors ) {
+	switch ( $captcha ) {
+
+		// Captcha by BestWebSoft
+		case 'bwsmath' :
+			if ( function_exists( 'cptch_check_custom_form' ) && cptch_check_custom_form() !== true ) {
+				$errors['captcha'] = 'Please complete the CAPTCHA.';
+			}
+			break;
+
+		// Simple reCAPTCHA by WP Mission
+		case 'wpmsrc' :
+			if ( function_exists( 'wpmsrc_check' ) ) {
+				// check for empty user response first
+				if ( empty( $_POST['recaptcha_response_field'] ) ) {
+					$errors['captcha'] = __( 'Please complete the CAPTCHA.', WPMTST_NAME );
+				}
+				else {
+					// check captcha
+					$response = wpmsrc_check();
+					if ( ! $response->is_valid ) {
+						// -------------------------------------------------------
+						// MOVE THIS TO RECAPTCHA PLUGIN ~!~
+						// with log and auto-report email
+						// -------------------------------------------------------
+						// see https://developers.google.com/recaptcha/docs/verify
+						// -------------------------------------------------------
+						$error_codes['invalid-site-private-key'] = 'Invalid keys. Please contact the site administrator.';
+						$error_codes['invalid-request-cookie']   = 'Invalid parameter. Please contact the site administrator.';
+						$error_codes['incorrect-captcha-sol']    = 'The CAPTCHA was not entered correctly. Please try again.';
+						$error_codes['captcha-timeout']          = 'The process timed out. Please try again.';
+						// $error_codes['recaptcha-not-reachable']  = 'Unable to reach reCAPTCHA server. Please contact the site administrator.';
+						$errors['captcha'] = __( $error_codes[ $response->error ], WPMTST_NAME );
+					}
+				}
+			}
+			break;
+
+		default :
+
+	}
+	return $errors;
+}
