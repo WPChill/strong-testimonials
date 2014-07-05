@@ -6,7 +6,7 @@
  * Author: Chris Dillon
  * Version: 1.7
  * Forked From: GC Testimonials version 1.3.2 by Erin Garscadden
- * Author URI: http://www.wpmission.com/
+ * Author URI: http://www.wpmission.com/contact
  * Text Domain: strong-testimonials
  * Requires: 3.5 or higher
  * License: GPLv3 or later

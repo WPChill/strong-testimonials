@@ -22,15 +22,17 @@ Strong Testimonials by [WP Mission](http://www.wpmission.com) makes collecting a
 
 = What's New in Version 1.7 =
 
-* 
+* Finally! Custom fields. Change the testimonial submission form to meet your needs. Change which client fields appear underneath each testimonial.
 
 = What's New in Version 1.6 =
 
 * Added support for the [Really Simple Captcha](http://wordpress.org/plugins/really-simple-captcha/) plugin which you may know from [Contact Form 7](http://wordpress.org/plugins/contact-form-7/). Nice!
 
+* Fixed a conflict with other plugins or themes also using the Cycle jQuery plugin.
+
 = What's New in Version 1.5 =
 
-* A frequently requested feature, a **shortcode for cycling testimonials** on a page just like the widget. AKA slider, fader, rotator.
+* A frequently requested feature, a **shortcode for rotating testimonials** on a page just like the widget. AKA slider, fader, cycler.
 * Improved reCAPTCHA error handling.
 * Correct text domain use (getting ready for i18n).
 * Bug fixes
@@ -177,6 +179,10 @@ I will gladly help add your modifications to a custom version of Strong Testimon
 
 == Changelog ==
 
+= 1.7 =
+* Custom fields on the testimonial submission form.
+* Client fields underneath each testimonial via shortcodes.
+
 = 1.6.2 =
 * Fix conflict if jQuery Cycle plugin is enqueued by another plugin or theme.
 * Fix conflict if using cycle shortcode and cycle widget on same page.
@@ -232,6 +238,9 @@ I will gladly help add your modifications to a custom version of Strong Testimon
 * Initial version, a fork of GC Testimonials 1.3.2.
 
 == Upgrade Notice ==
+
+= 1.7 =
+Custom fields. Finally!
 
 = 1.6.2 =
 Fix conflicts with multiple uses of jQuery Cycle plugin.
