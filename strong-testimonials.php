@@ -639,7 +639,21 @@ function wpmtst_single( $post ) {
 	$html .= '<div class="clear"></div>';
 
 	$html .= '<div class="client">';
+	$html .= wpmtst_client_info( $post );
+	$html .= '</div><!-- client -->';
 	
+	$html .= '</div><!-- inner -->';
+	$html .= '</div><!-- testimonial -->';
+	
+	// render other shortcodes in content,
+	// this will render the client_info shortcodes too
+	return do_shortcode( $html );
+}
+
+/*
+ * Assemble and display client info
+ */
+function wpmtst_client_info( $post ) {
 	// ---------------------------------------------------------------------
 	// Get the client template, populate it with data from the current post,
 	// then render it.
@@ -647,6 +661,7 @@ function wpmtst_single( $post ) {
 	// Third approach. Took me all day on 6/30/2014.
 	// ---------------------------------------------------------------------
 	
+	$html = '';
 	$options = get_option( 'wpmtst_options' );
 	$fields = get_option( 'wpmtst_fields' );
 	$template = $options['client_section'];
@@ -670,8 +685,7 @@ function wpmtst_single( $post ) {
 					$post_value = $post->$field_name;
 					// add to line as content and close shortcode
 					$line .= $post_value . '[/' . $shortcode . ']';
-					$newline = do_shortcode( $line );
-					$html .= $newline;
+					$html .= $line;
 				}
 			}
 			elseif ( 'wpmtst-link' == $shortcode ) {
@@ -696,18 +710,12 @@ function wpmtst_single( $post ) {
 				}
 				// close shortcode
 				$line .= '[/' . $shortcode . ']';
-				$newline = do_shortcode( $line );
-				$html .= $newline;
+				$html .= $line;
 			}
 		}
 	}
-
-	$html .= '</div><!-- client -->';
-	$html .= '</div><!-- inner -->';
-	$html .= '</div><!-- testimonial -->';
-	
-	// render other shortcodes in content
-	return do_shortcode( $html );
+	// return do_shortcode( $html );
+	return $html;
 }
 
 /*
@@ -1183,14 +1191,15 @@ class WpmTst_Widget extends WP_Widget {
 		);
 
 		$control_ops = array(
-				'id_base' => 'wpmtst-widget'
+				'id_base' => 'wpmtst-widget',
+				'width'   => '285px',
 		);
 
 		$this->cycle_options = array(
 				'effects' => array(
 						'fade'       => 'Fade',
-						'scrollHorz' => 'Scroll horizontally',
-						'none'       => 'None',
+						// 'scrollHorz' => 'Scroll horizontally',
+						// 'none'       => 'None',
 				)
 		);
 
@@ -1334,26 +1343,12 @@ class WpmTst_Widget extends WP_Widget {
 				if ( $space_pos )
 					$content = substr( $content, 0, $space_pos ) . ' . . . ';
 			}
-			echo '<div class="content">' . $content . '</div>';
-
-			echo '<div class="client">';
-			echo '<div class="name">' . $post->client_name . '</div>';
-			if ( ! empty( $post->company_name ) && ! empty( $post->company_website ) ) {
-				echo '<div class="company">';
-				echo '<a href="' . $post->company_website .'" target="blank">' . $post->company_name . '</a>';
-				echo '</div>';
-			}
-			elseif ( ! empty( $post->company_name ) ) {
-				echo '<div class="company">' . $post->company_name . '</div>';
-			}
-			elseif ( ! empty( $post->company_website ) ) {
-				echo '<div class="website">' . $post->company_website . '</div>';
-			}
-			echo '</div>';
-			echo '</div>';
+			echo '<div class="content">' . $content . '</div><!-- content -->';
+			echo '<div class="client">' . do_shortcode( wpmtst_client_info( $post ) ) . '</div><!-- client -->';
+			echo '</div><!-- testimonial-widget -->';
 		}
 
-		echo '</div>';
+		echo '</div><!-- wpmtst-widget-container -->';
 
 		if ( $data['more'] ) {
 			$link = get_permalink( $data['more_page'] );
@@ -1475,6 +1470,7 @@ class WpmTst_Widget extends WP_Widget {
 								<?php endforeach; ?>
 							</select>
 						</div>
+						<p><em><a href="http://wordpress.org/support/topic/settings-bug-1" target="_blank">Fade is the only effect for now</a>.</em></p>
 					</div>
 
 					<div class="row">
@@ -1740,8 +1736,8 @@ function wpmtst_settings_page() {
 	$cycle_options = array(
 			'effects' => array(
 					'fade'       => 'Fade',
-					'scrollHorz' => 'Scroll horizontally',
-					'none'       => 'None',
+					// 'scrollHorz' => 'Scroll horizontally',
+					// 'none'       => 'None',
 			)
 	);
 	$order_list = array(
@@ -1793,7 +1789,8 @@ function wpmtst_settings_page() {
 
 			<?php settings_fields( 'wpmtst-settings-group' ); ?>
 			<?php $wpmtst_options = get_option( 'wpmtst_options' ); ?>
-
+			<input type="hidden" name="wpmtst_options[default_template]" value="<?php esc_attr_e( $wpmtst_options['default_template'] ); ?>" />
+			
 			<table class="form-table">
 
 				<tr valign="top">
@@ -1870,6 +1867,7 @@ function wpmtst_settings_page() {
 										<?php endforeach; ?>
 									</select>
 								</div>
+								<p><em><a href="http://wordpress.org/support/topic/settings-bug-1" target="_blank">Fade is the only effect for now</a>.</em></p>
 							</div>
 
 							<div class="row">

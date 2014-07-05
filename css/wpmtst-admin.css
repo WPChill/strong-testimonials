@@ -140,7 +140,7 @@ table.shortcode-table td:nth-child(2) {
 }
 
 .wpmtst-mode {
-	margin-top: 1.5em;
+	margin-top: 1.3em;
 }
 
 .wpmtst-mode ul {
@@ -154,7 +154,7 @@ table.shortcode-table td:nth-child(2) {
 .wpmtst-mode-cycle,
 .wpmtst-mode-static {
 	border: 1px solid #ddd;
-	padding: 5px 10px;
+	padding: 4px 7px;
 }
 
 .wpmtst-mode .row {
@@ -189,8 +189,8 @@ select.omega {
 }
 
 .divider {
-	padding: 4px 0 4px 10px;
-	margin-left: 10px;
+	padding: 4px 0 4px 7px;
+	margin-left: 4px;
 	border-left: 1px dotted #999;
 }
 
