@@ -6,11 +6,30 @@ jQuery(document).ready(function($) {
 	
 	// Function to get the Max value in Array
 	Array.max = function( array ){
-			return Math.max.apply( Math, array );
+		return Math.max.apply( Math, array );
 	};
 
+	// Convert "A String" to "a_string"
+	function convertLabel(label) {
+		return label.replace(/\s+/g, "_").replace(/\W/g, "").toLowerCase();
+	}
 
-	// widget events
+	// --------------
+	// General events
+	// --------------
+	
+	// enabling "admin notify" focuses "admin email" input
+	$("#wpmtst-options-admin-notify").change(function(e){
+		if ($(e.target).is(":checked")) {
+			$("#wpmtst-options-admin-email").focus();
+		}
+	});
+
+
+	// -------------
+	// Widget events
+	// -------------
+	
 	$('#widgets-right').click(function(e) {
 		// Listen to widget container because deeper handlers are lost after Ajax update.
 	
@@ -71,14 +90,6 @@ jQuery(document).ready(function($) {
 	});
 	
 	
-	// enabling "admin notify" focuses "admin email" input
-	$("#wpmtst-options-admin-notify").change(function(e){
-		if ($(e.target).is(":checked")) {
-			$("#wpmtst-options-admin-email").focus();
-		}
-	});
-	
-	
 	// ------------------
 	// Custom field table
 	// ------------------
@@ -124,7 +135,7 @@ jQuery(document).ready(function($) {
 		// fill in blank field name
 		$fieldName = $parent.find("input.field-name");
 		if( ! $fieldName.val() ) {
-			var newFieldName = newLabel.replace(/\s+/g, "_").replace(/\W/g, "").toLowerCase();
+			var newFieldName = convertLabel(newLabel);
 			$fieldName.val(newFieldName);
 		}
 	});
@@ -134,7 +145,7 @@ jQuery(document).ready(function($) {
 		var fieldLabel = $(this).closest(".field-table").find(".field-label").val();
 		
 		if( ! $(this).val() ) {
-			var newFieldName = fieldLabel.replace(/\s+/g, "_").replace(/\W/g, "").toLowerCase();
+			var newFieldName = convertLabel(fieldLabel);
 			$(this).val(newFieldName);
 		}
 	});
@@ -148,7 +159,7 @@ jQuery(document).ready(function($) {
 	$("#custom-field-list").on("click", ".delete-field", function(){
 		var thisField = $(this).closest("li");
 		var thisLabel = thisField.find(".field").html();
-		var yesno = confirm("Delete \"" + thisLabel + "\"?");
+		var yesno = confirm('Delete "' + thisLabel + '"?');
 		if( yesno ) {
 			thisField.fadeOut(function(){$(this).remove()});
 		}
@@ -166,7 +177,10 @@ jQuery(document).ready(function($) {
 		return false;
 	});
 
-	// add new field
+	
+	// -------------
+	// Add new field
+	// -------------
 	$("#add-field").click(function(e) {
 		var keys = $("#custom-field-list > li").map(function() {
 			var key_id = $(this).attr("id");
@@ -175,10 +189,10 @@ jQuery(document).ready(function($) {
 		var nextKey = Array.max(keys)+1;
 
 		var data = {
-			'action' : 'wpmtst_add_field',
-			'key'    : nextKey,
+			'action'     : 'wpmtst_add_field',
+			'key'        : nextKey,
 			'fieldClass' : null,
-			'fieldType' : null,
+			'fieldType'  : null,
 		};
 		$.get( ajaxurl, data, function( response ) {
 			// disable Add button
@@ -190,21 +204,20 @@ jQuery(document).ready(function($) {
 			// append to list
 			$("#custom-field-list").append($li);
 			
-			// {
-			// We need to disable any Post fields already in use.
+			// ---------------------------------------------------------
+			// Disable any Post fields already in use.
 			// ---------------------------------------------------------
 			// Doing this client-side so a Post field can be added 
 			// but not saved before adding more fields;
 			// i.e. add multiple fields of either type without risk
 			// of duplicating single Post fields before clicking "Save".
-			
+			// ---------------------------------------------------------
 			$("#custom-field-list").find('input[name$="[record_type]"]').each(function(index) {
 				if( "post" == $(this).val() ) {
 					var name = $(this).closest("li").find(".field-name").val();
 					$li.find("select.field-type.new").find('option[value="'+name+'"]').attr("disabled","disabled");
 				}
 			});
-			// }
 			
 			// hide "Close" link until Type is selected
 			$("span.close-field").hide();
@@ -214,17 +227,18 @@ jQuery(document).ready(function($) {
 		});
 	});
 
-	// field type change
+	
+	// -----------------
+	// Field type change
+	// -----------------
 	$("#custom-field-list")
 		.on("focus", ".field-type", function() {
-			// console.log('field type focus');
-			
 			// store existing values on parent element
 			
 			// find parent element
 			var fieldType = $(this).val();
-			// var $table = $(this).closest("table");
 			var $parent = $(this).closest("li");
+			$parent.data('fieldType',fieldType);
 			
 			// label
 			var $fieldLabel = $parent.find('input.field-label');
@@ -234,58 +248,60 @@ jQuery(document).ready(function($) {
 			var $fieldName = $parent.find('input.field-name');
 			$fieldName.data('oldValue',$fieldName.val());
 			
-			// admin-table
-			// var $fieldAdminTable = $parent.find('input.field-admin-table');
-			// $fieldAdminTable.data('oldValue',$fieldAdminTable.val());
+			// input_type
+			var $fieldInputType = $parent.find('input[name$="[input_type]"]');
+			$fieldInputType.data('oldValue',$fieldInputType.val());
 			
 		})
 		.on("change", ".field-type", function() {
-			// force values if selecting a Post field
 			
 			var fieldType = $(this).val();
-			console.log('new field type:', fieldType);
 			
 			var $table = $(this).closest("table");
 			var $parent = $(this).closest('li');
+			
 			var key_id = $parent.attr("id");
 			var key = key_id.substr( key_id.lastIndexOf("-")+1 );
 			
 			var $fieldLabel = $parent.find('input.field-label');
 			var $fieldName  = $parent.find('input.field-name');
+			var $fieldInputType = $parent.find('input[name$="[input_type]"]');
 			
-
+			// Force values if selecting a Post field.
+			
 			// get type of field from its optgroup
-			// **********************
-			// IS THERE A BETTER WAY?
-			// **********************
-			var fieldClass = $(this).find("option[value='"+fieldType+"']").closest("optgroup").attr("class");
-			var postOrCustom = fieldClass.substr(0,fieldClass.indexOf("-"));
-			console.log('record type:', postOrCustom);
+			var fieldClass = $(this)
+				.find("option[value='"+fieldType+"']")
+				.closest("optgroup")
+				.attr("class");
 			
-			// Find the record type (Post or Custom).
-			// If found, we are changing the type of an existing field.
-			// If not found, we are adding a new field.
-			// **********************
-			// IS THERE A BETTER WAY?
-			// **********************
-			var $fieldRecordType = $parent.find('input[name$="[record_type]"]');
-			if( $fieldRecordType.length ) {
+			// Are we adding a new field or changing an existing one?
+			if( $parent.data('fieldType') != 'none' ) {
 			
 				// --------
 				// changing
 				// --------
 				// could be changing after being *added* but before being *saved*
-				console.log('changing existing field');
 				
-				if( postOrCustom == "post" ) {
+				if( fieldClass == "post" ) {
 				
 					if( fieldType == 'post_title' ) {
 						$fieldLabel.val('Testimonial Title');
 						$fieldName.val('post_title').attr('disabled','disabled');
+						// move value to hidden input
+						$fieldName.after('<input type="hidden" name="'+$fieldName.attr("name")+'" value="'+$fieldName.val()+'" />');
+						// change input_type
+						$parent.find('input[name$="[input_type]"]').val("text");
+						// hide help message
+						$parent.find(".field-name-help").hide();
 					}
 					else if( fieldType == 'featured_image' ) {
 						$fieldLabel.val('Photo');
 						$fieldName.val('featured_image').attr('disabled','disabled');
+						// move value to hidden input
+						$fieldName.after('<input type="hidden" name="'+$fieldName.attr("name")+'" value="'+$fieldName.val()+'" />');
+						// change input_type
+						$parent.find('input[name$="[input_type]"]').val("file");
 					}
 					
 				}
@@ -294,18 +310,24 @@ jQuery(document).ready(function($) {
 					// if switching back from Post field to Custom field
 					var fieldName = $fieldName.val();
 					if( fieldName == 'post_title' || fieldName == 'featured_image' ) {
+						// restore previous values
 						$fieldLabel.val($fieldLabel.data('oldValue'));
 						$fieldName.val($fieldName.data('oldValue')).removeAttr('disabled');
+						$fieldInputType.val($fieldInputType.data('oldValue'));
 						$parent.find(".custom-field-header a.field").html( $fieldLabel.val() );
+						// remove hidden input
+						$fieldName.next('input:hidden').remove();
+						// show help message
+						$parent.find(".field-name-help").show();
 					}
 				
 				}
 				
-				// update admin-table setting
+				// update admin_table setting
 				var data = {
 					'action'     : 'wpmtst_add_field_4',
 					'key'        : key,
-					'fieldClass' : postOrCustom,
+					'fieldClass' : fieldClass,
 					'fieldType'  : fieldType,
 				};
 				$.get( ajaxurl, data, function( response ) {
@@ -319,15 +341,21 @@ jQuery(document).ready(function($) {
 				// adding
 				// ------
 				
-				if( postOrCustom == 'post' ) {
+				if( fieldClass == 'post' ) {
 				
 					if( fieldType == 'post_title' ) {
 						$fieldLabel.val('Testimonial Title');
 						$fieldName.val('post_title').attr('disabled','disabled');
+						// add hidden input
+						$fieldName.after('<input type="hidden" name="'+$fieldName.attr("name")+'" value="'+$fieldName.val()+'" />');
+						// hide help message
+						$parent.find(".field-name-help").hide();
 					}
 					else if( fieldType == 'featured_image' ) {
 						$fieldLabel.val('Photo');
 						$fieldName.val('featured_image').attr('disabled','disabled');
+						// add hidden input
+						$fieldName.after('<input type="hidden" name="'+$fieldName.attr("name")+'" value="'+$fieldName.val()+'" />');						
 					}
 					
 				}
@@ -337,7 +365,7 @@ jQuery(document).ready(function($) {
 				var data1 = {
 					'action'     : 'wpmtst_add_field_2',
 					'key'        : key,
-					'fieldClass' : postOrCustom,
+					'fieldClass' : fieldClass,
 					'fieldType'  : fieldType,
 				};
 				$.get( ajaxurl, data1, function( response ) {
@@ -348,7 +376,7 @@ jQuery(document).ready(function($) {
 					var data2 = {
 						'action'     : 'wpmtst_add_field_4',
 						'key'        : key,
-						'fieldClass' : postOrCustom,
+						'fieldClass' : fieldClass,
 						'fieldType'  : fieldType,
 					};
 					$.get( ajaxurl, data2, function( response ) {
@@ -359,7 +387,7 @@ jQuery(document).ready(function($) {
 						var data3 = {
 							'action'     : 'wpmtst_add_field_3',
 							'key'        : key,
-							'fieldClass' : postOrCustom,
+							'fieldClass' : fieldClass,
 							'fieldType'  : fieldType,
 						};
 						$.get( ajaxurl, data3, function( response ) {
@@ -379,11 +407,13 @@ jQuery(document).ready(function($) {
 				$("#add-field").removeAttr("disabled");
 			}
 			
-			// update parent list item
+			// update parent list item...
 			$parent.find(".custom-field-header a.field").html( $fieldLabel.val() );
-				
-			// change [record_type]
-			$fieldRecordType.val(postOrCustom);
+			// ... and stored fieldType
+			$parent.data('fieldType',fieldType);
+			
+			// update hidden [record_type] input
+			$parent.find('input[name$="[record_type]"]').val(fieldClass);
 			
 		}); // on(change)
 		

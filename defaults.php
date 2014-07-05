@@ -92,11 +92,7 @@ $field_types['custom'] = array(
 		'url' => array(
 				'input_type' => 'text',
 				'option_label' => 'url (text)',
-		),
-		'textarea' => array(
-				'input_type' => 'textarea',
-				'option_label' => 'text area',
-		),
+		)
 );
 foreach ( $field_types['custom'] as $key => $array ) {
 	$field_types['custom'][$key] = array_merge( $field_base, $array );

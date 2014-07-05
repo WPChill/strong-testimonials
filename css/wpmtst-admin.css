@@ -321,6 +321,10 @@ input[readonly] {
 		border-bottom: 1px solid #ccc;
 		padding: 10px;
 	}
+	
+	.field-table th {
+		width: 100px;
+	}
 
 	.field-table td input[type="text"] {
 		width: 100%;
