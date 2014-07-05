@@ -36,6 +36,29 @@
 define( 'WPMTST_NAME', 'strong-testimonials' );
 
 /*
+ * Plugin action links
+ */
+function wpmtst_plugin_action_links( $links, $file ) {
+	if ( $file == plugin_basename( __FILE__ ) ) {
+		$settings_link = '<a href="' . admin_url( 'edit.php?post_type=wpm-testimonial&page=settings' ) . '">' . __( 'Settings', WPMTST_NAME ) . '</a>';
+		array_unshift( $links, $settings_link );
+	}
+	return $links;
+}
+add_filter( 'plugin_action_links', 'wpmtst_plugin_action_links', 10, 2 );
+
+/*
+ * Plugin meta row
+ */
+function wpmtst_plugin_row_meta( $plugin_meta, $plugin_file, $plugin_data, $status ) {
+	if ( $plugin_file == plugin_basename( __FILE__ ) ) {
+		$plugin_meta[] = '<a href="http://www.wpmission.com/donate" target="_blank">Donate</a>';
+	}
+	return $plugin_meta;
+}
+add_filter( 'plugin_row_meta', 'wpmtst_plugin_row_meta', 10, 4 );
+
+/*
  * Text domain.
  */
 function wpmtst_textdomain() {
