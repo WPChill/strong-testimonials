@@ -1,6 +1,6 @@
 <?php
 /**
- * Strong Testimonials default options
+ * Strong Testimonials - Default options
  * Version: 1.7
  *
  * Populates default_options and default_options.
