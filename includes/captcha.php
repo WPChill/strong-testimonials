@@ -7,8 +7,7 @@
 /*
  * Add to form
  */
-function wpmtst_add_captcha( $captcha ) {
-
+function wpmtst_add_captcha( $html =  '', $captcha ) {
 	switch ( $captcha ) {
 
 		case 'akismet' :
@@ -17,15 +16,15 @@ function wpmtst_add_captcha( $captcha ) {
 		// Captcha by BestWebSoft
 		case 'bwsmath' :
 			if ( function_exists( 'cptch_display_captcha_custom' ) ) {
-				echo '<input type="hidden" name="cntctfrm_contact_action" value="true" />';
-				echo cptch_display_captcha_custom();
+				$html .= '<input type="hidden" name="cntctfrm_contact_action" value="true" />';
+				$html .= cptch_display_captcha_custom();
 			}
 			break;
 
 		// Strong reCAPTCHA by WP Mission
 		case 'wpmsrc' :
 			if ( function_exists( 'wpmsrc_display' ) ) {
-				echo wpmsrc_display();
+				$html .= wpmsrc_display();
 			}
 			break;
 
@@ -36,8 +35,8 @@ function wpmtst_add_captcha( $captcha ) {
 				$word = $captcha_instance->generate_random_word();
 				$prefix = mt_rand();
 				$image = $captcha_instance->generate_image( $prefix, $word );
-				echo '<span>Input this code: <input type="hidden" name="captchac" value="'.$prefix.'" /><img class="captcha" src="' . plugins_url( 'really-simple-captcha/tmp/' ) . $image . '"></span>';
-				echo '<input type="text" class="captcha" name="captchar" maxlength="4" size="5" />';
+				$html .= '<span>Input this code: <input type="hidden" name="captchac" value="'.$prefix.'" /><img class="captcha" src="' . plugins_url( 'really-simple-captcha/tmp/' ) . $image . '"></span>';
+				$html .= '<input type="text" class="captcha" name="captchar" maxlength="4" size="5" />';
 			}
 			break;
 			
@@ -45,8 +44,10 @@ function wpmtst_add_captcha( $captcha ) {
 			// no captcha
 
 	}
+	return $html;
 }
-add_action( 'wpmtst_captcha', 'wpmtst_add_captcha', 50, 1 );
+// add_action( 'wpmtst_captcha', 'wpmtst_add_captcha', 50, 1 );
+add_filter( 'wpmtst_captcha', 'wpmtst_add_captcha', 50, 2 );
 
 
 /*

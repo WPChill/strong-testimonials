@@ -531,7 +531,8 @@ function wpmtst_form_shortcode( $atts ) {
 		$html .= '<div class="wpmtst-captcha">';
 		$html .= '<label for="wpmtst_captcha">' . __( 'Captcha', WPMTST_NAME ) . '</label><span class="required symbol"></span>';
 		$html .= '<div class="wrap">';
-		do_action( 'wpmtst_captcha', $captcha );
+		// do_action( 'wpmtst_captcha', $captcha );
+		$html = apply_filters( 'wpmtst_captcha', $html, $captcha );
 		if ( isset( $errors['captcha'] ) )
 			$html .= '<p><label class="error">' . $errors['captcha'] . '</label></p>';
 		$html .= '</div>';
@@ -544,6 +545,7 @@ function wpmtst_form_shortcode( $atts ) {
 				.' value="' . __( 'Add Testimonial', WPMTST_NAME ) . '"'
 				.' class="button" validate="required:true" />';
 	$html .= '</p>';
+	
 	$html .= '</form>';
 	$html .= '</div><!-- wpmtst-form -->';
 
