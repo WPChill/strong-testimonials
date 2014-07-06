@@ -80,7 +80,7 @@ function wpmtst_settings_custom_fields() {
 	// ------------------
 	echo '<div class="wrap wpmtst">' . "\n";
 	echo '<h2>' . __( 'Fields', WPMTST_NAME ) . '</h2>' . "\n";
-	echo '<p>Fields will appear in this order on the form. Sort by grabbing the <span class="dashicons dashicons-menu"></span> icon. Click the field name to expand its options panel.</p>' . "\n";
+	echo '<ul><li>Fields will appear in this order on the form.</li><li>Sort by grabbing the <span class="dashicons dashicons-menu"></span> icon.</li><li>Click the field name to expand its options panel.</li></ul>' . "\n";
 	
 	echo '<!-- Custom Fields Form -->' . "\n";
 	echo '<form id="wpmtst-custom-fields-form" method="post" action="">' . "\n";
