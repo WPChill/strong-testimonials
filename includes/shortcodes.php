@@ -381,7 +381,7 @@ function wpmtst_form_shortcode( $atts ) {
 
 		// special handling:
 		// if post_title is not required, create one from post_content
-		if ( ! $testimonial_post['post_title'] ) {
+		if ( ! isset( $testimonial_post['post_title'] ) || ! $testimonial_post['post_title'] ) {
 			$words_array = explode( ' ', $testimonial_post['post_content'] );
 			$five_words = array_slice( $words_array, 0, 5 );
 			$testimonial_post['post_title'] = implode( ' ', $five_words );
@@ -528,15 +528,19 @@ function wpmtst_form_shortcode( $atts ) {
 	}
 
 	if ( $captcha ) {
-		$html .= '<div class="wpmtst-captcha">';
-		$html .= '<label for="wpmtst_captcha">' . __( 'Captcha', WPMTST_NAME ) . '</label><span class="required symbol"></span>';
-		$html .= '<div class="wrap">';
+		// Only display Captcha label if properly configured.
 		// do_action( 'wpmtst_captcha', $captcha );
-		$html = apply_filters( 'wpmtst_captcha', $html, $captcha );
-		if ( isset( $errors['captcha'] ) )
-			$html .= '<p><label class="error">' . $errors['captcha'] . '</label></p>';
-		$html .= '</div>';
-		$html .= '</div>';
+		$captcha_html = apply_filters( 'wpmtst_captcha', $captcha );
+		if ( $captcha_html ) {
+			$html .= '<div class="wpmtst-captcha">';
+			$html .= '<label for="wpmtst_captcha">' . __( 'Captcha', WPMTST_NAME ) . '</label><span class="required symbol"></span>';
+			$html .= '<div>';
+			$html .= $captcha_html;
+			if ( isset( $errors['captcha'] ) )
+				$html .= '<p><label class="error">' . $errors['captcha'] . '</label></p>';
+			$html .= '</div>';
+			$html .= '</div>';
+		}
 	}
 
 	$html .= '<p class="form-field">';

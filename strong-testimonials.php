@@ -135,7 +135,11 @@ function wpmtst_activation() {
 			update_option( 'wpmtst_options', $options );
 			
 			// merge in new fields
-			$fields = array_merge( $default_fields, $fields );
+			if ( $fields )
+				$fields = array_merge( $default_fields, $fields );
+			else
+				$fields = $default_fields;
+			
 			update_option( 'wpmtst_fields', $fields );
 		}
 	}

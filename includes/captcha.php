@@ -7,7 +7,8 @@
 /*
  * Add to form
  */
-function wpmtst_add_captcha( $html =  '', $captcha ) {
+function wpmtst_add_captcha( $captcha ) {
+	$html = '';
 	switch ( $captcha ) {
 
 		case 'akismet' :
@@ -47,7 +48,7 @@ function wpmtst_add_captcha( $html =  '', $captcha ) {
 	return $html;
 }
 // add_action( 'wpmtst_captcha', 'wpmtst_add_captcha', 50, 1 );
-add_filter( 'wpmtst_captcha', 'wpmtst_add_captcha', 50, 2 );
+add_filter( 'wpmtst_captcha', 'wpmtst_add_captcha', 50, 1 );
 
 
 /*
