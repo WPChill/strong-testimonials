@@ -4,7 +4,7 @@
  * Plugin URI: http://www.wpmission.com/plugins/strong-testimonials/
  * Description: Collect and display testimonials.
  * Author: Chris Dillon
- * Version: 1.7.1
+ * Version: 1.7.2
  * Forked From: GC Testimonials version 1.3.2 by Erin Garscadden
  * Author URI: http://www.wpmission.com/contact
  * Text Domain: strong-testimonials
@@ -76,7 +76,6 @@ add_action( 'plugins_loaded', 'wpmtst_textdomain' );
 /*
  * Plugin activation
  */
-register_activation_hook( __FILE__, 'wpmtst_activation' );
 register_activation_hook( __FILE__, 'wpmtst_register_cpt' );
 register_activation_hook( __FILE__, 'wpmtst_flush_rewrite_rules' );
 register_deactivation_hook( __FILE__, 'wpmtst_flush_rewrite_rules' );
@@ -89,7 +88,7 @@ function wpmtst_flush_rewrite_rules() {
 /*
  * Plugin activation and upgrade.
  */
-function wpmtst_activation() {
+function wpmtst_default_settings() {
 	// -1- DEFAULTS
 	$plugin_data = get_plugin_data( __FILE__, false );
 	$plugin_version = $plugin_data['Version'];
