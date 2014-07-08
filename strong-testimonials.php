@@ -4,7 +4,7 @@
  * Plugin URI: http://www.wpmission.com/plugins/strong-testimonials/
  * Description: Collect and display testimonials.
  * Author: Chris Dillon
- * Version: 1.7
+ * Version: 1.7.1
  * Forked From: GC Testimonials version 1.3.2 by Erin Garscadden
  * Author URI: http://www.wpmission.com/contact
  * Text Domain: strong-testimonials
@@ -93,7 +93,7 @@ function wpmtst_activation() {
 	// -1- DEFAULTS
 	$plugin_data = get_plugin_data( __FILE__, false );
 	$plugin_version = $plugin_data['Version'];
-	include( WPMTST_INC . 'defaults.php');
+	include( WPMTST_INC . 'defaults.php' );
 
 	// -2- GET OPTIONS
 	$options = get_option( 'wpmtst_options' );
@@ -108,7 +108,7 @@ function wpmtst_activation() {
 		// -2B- UPGRADE?
 		if ( ! isset( $options['plugin_version'] )
 					|| $options['plugin_version'] != $plugin_version
-					|| '127.0.0.1' === $_SERVER['SERVER_ADDR'] ) {
+					|| ! $fields ) {
 			
 			// if updating from 1.5+ to 1.7
 			// individual cycle shortcode settings are now grouped

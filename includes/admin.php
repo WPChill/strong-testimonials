@@ -238,9 +238,11 @@ function wpmtst_save_details() {
 
 	global $post;
 
-	foreach ( $_POST['custom'] as $key => $value ) {
-		// Allow empty values to replace existing values.
-		update_post_meta( $post->ID, $key, $value );
+	if ( isset( $_POST['custom'] ) ) {
+		foreach ( $_POST['custom'] as $key => $value ) {
+			// Allow empty values to replace existing values.
+			update_post_meta( $post->ID, $key, $value );
+		}
 	}
 }
 // add_action( 'save_post_wpm-testimonial', 'wpmtst_save_details' ); // WP 3.7+
