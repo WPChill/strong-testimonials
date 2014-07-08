@@ -97,12 +97,9 @@ function wpmtst_activation() {
 
 	// -2- GET OPTIONS
 	$options = get_option( 'wpmtst_options' );
-	// $fields = get_option( 'wpmtst_fields' );
-
 	if ( ! $options ) {
 		// -2A- NEW ACTIVATION
 		update_option( 'wpmtst_options', $default_options );
-		update_option( 'wpmtst_fields', $default_fields );
 	}
 	else {
 		// -2B- UPGRADE?
@@ -132,15 +129,14 @@ function wpmtst_activation() {
 			$options = array_merge( $default_options, $options );
 			$options['plugin_version'] = $plugin_version;
 			update_option( 'wpmtst_options', $options );
-			
-			// merge in new fields
-			// if ( $fields )
-				// $fields = array_merge( $default_fields, $fields );
-			// else
-				$fields = $default_fields;
-			
-			update_option( 'wpmtst_fields', $fields );
 		}
+	}
+	
+	// -3- GET FIELDS
+	$fields = get_option( 'wpmtst_fields' );
+	if ( ! $fields ) {
+		// -3A- NEW ACTIVATION
+		update_option( 'wpmtst_fields', $default_fields );
 	}
 }
 
