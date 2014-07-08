@@ -97,7 +97,7 @@ function wpmtst_activation() {
 
 	// -2- GET OPTIONS
 	$options = get_option( 'wpmtst_options' );
-	$fields = get_option( 'wpmtst_fields' );
+	// $fields = get_option( 'wpmtst_fields' );
 
 	if ( ! $options ) {
 		// -2A- NEW ACTIVATION
@@ -107,8 +107,7 @@ function wpmtst_activation() {
 	else {
 		// -2B- UPGRADE?
 		if ( ! isset( $options['plugin_version'] )
-					|| $options['plugin_version'] != $plugin_version
-					|| ! $fields ) {
+					|| $options['plugin_version'] != $plugin_version ) {
 			
 			// if updating from 1.5+ to 1.7
 			// individual cycle shortcode settings are now grouped
@@ -135,9 +134,9 @@ function wpmtst_activation() {
 			update_option( 'wpmtst_options', $options );
 			
 			// merge in new fields
-			if ( $fields )
-				$fields = array_merge( $default_fields, $fields );
-			else
+			// if ( $fields )
+				// $fields = array_merge( $default_fields, $fields );
+			// else
 				$fields = $default_fields;
 			
 			update_option( 'wpmtst_fields', $fields );
