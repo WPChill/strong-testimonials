@@ -12,7 +12,7 @@ Strong Testimonials is a simple and feature-rich testimonial manager.
 
 == Description ==
 
-Strong Testimonials by [WP Mission](http://www.wpmission.com) makes collecting and displaying testimonials simple with many useful and intuitive features.
+Strong Testimonials by [WP Mission](http://www.wpmission.com) makes adding testimonials to your site simple and quick.
 
 **Show testimonials** with a variety of shortcodes or in a widget with transition effects.
 
@@ -20,14 +20,35 @@ Strong Testimonials by [WP Mission](http://www.wpmission.com) makes collecting a
 
 **Manage testimonials** just like posts and pages, including Featured Images and Categories.
 
-= What's New in Version 1.7 =
+---
 
-* Finally! [Custom fields](http://www.wpmission.com/tutorials/customize-the-form-in-strong-testimonials/). Change the testimonial submission form to meet your needs. Change which client fields appear underneath each testimonial.
+Strong Testimonials is a **work in progress**.
+
+This is my project for learning plugin development and sharpening my skills. It will always be free and, in a sense, the flagship product of WP Mission.
+
+If you do not tolerate occasional bugs and frequent updates well, then please consider another plugin. 
+
+Or I will gladly build a custom version for you with just the features you want. Your version will not track with the latest version and you won't have to worry about updates. Your first custom version is free with lifetime support (fixing bugs, keeping up with WordPress, resolving conflicts with other plugins, CSS help) but future modifications will have a price tag.
+
+On the other hand, if you want
+
+* to participate in this plugin's development by offering ideas and feedback,
+* the prompt, personal attention of its developer (who will move mountains to resolve issues),
+* features that other plugins offer at a price,
+
+then welcome aboard!
+
+You have been warned :)
+
+---
+
+= What's New in Version 1.7 =  
+
+* Finally! Custom fields. Change the testimonial submission form to meet your needs. Change which client fields appear underneath each testimonial.
 
 = What's New in Version 1.6 =
 
 * Added support for the [Really Simple Captcha](http://wordpress.org/plugins/really-simple-captcha/) plugin which you may know from [Contact Form 7](http://wordpress.org/plugins/contact-form-7/). Nice!
-
 * Fixed a conflict with other plugins or themes also using the Cycle jQuery plugin.
 
 = What's New in Version 1.5 =
@@ -63,14 +84,14 @@ General
 
 * Numerous code optimizations and PHP notice & error fixes.
 * Using native WordPress functions and style, a best practice that makes it faster and futureproof and helps it play well with others.
-* Multisite compatible with [Proper Network Activation](http://wordpress.org/plugins/proper-network-activation/) plugin. See FAQ below.
-* A unique custom post type name of "wpm-testimonial" to prevent conflicts with other testimonial plugins (an infrequent but possible occurrence).
+* Multisite compatible with [Proper Network Activation](http://wordpress.org/plugins/proper-network-activation/) plugin. See FAQ.
+* A unique custom post type name of "wpm-testimonial" to prevent conflicts with other testimonial plugins (an infrequent but potential problem).
 
 Display
 
 * Simplified CSS.
 * Process shortcodes in content (i.e. nested shortcodes).
-* Thumbnail support specifically for testimonials, not all posts.
+* Improved pagination.
 
 Admin
 
@@ -86,15 +107,10 @@ Submission form
 * Client-side validation *plus* server-side validation, a best practice.
 * CAPTCHA options (more info below).
 
-Pagination
-
-* Scrolls to the top when a new page is selected.
-
 Widget
 
 * Updated [jQuery cycle plugin](http://jquery.malsup.com/cycle2/), conditionally loaded.
-* Break on word boundary, not mid-word.
-  * e.g. *"John is an assuring . . ."* not *"John is an ass . . ."*
+* Break on word boundary, not mid-word; e.g. *"John is an asset..."* not *"John is an ass..."*
 * Improved widget options.
 * Order by: Random, Newest first, Oldest first.
 * Load stylesheet in standard order instead of in the footer to allow your theme's stylesheet to take precedence.
@@ -122,7 +138,7 @@ Notes
 
 = Future =
 
-This plugin is under active development and all [ideas and feedback are welcome](http://www.wpmission.com/contact).
+You are invited to participate! This plugin is under active development and all [ideas and feedback are welcome](http://www.wpmission.com/contact).
 
 = Translations =
 
@@ -154,7 +170,7 @@ On the `Testimonials > Fields` page, there is a field editor where you can add o
 
 If you have ever used the Advanced Custom Fields or Custom Field Suite plugins, the editor will be very familiar.
 
-Here is a [tutorial](http://www.wpmission.com/tutorials/customize-the-form-in-strong-testimonials/) - more to follow. Use the [support forum](http://wordpress.org/support/plugin/strong-testimonials) if you need help.
+I will publish a full tutorial soon.
 
 = How can I change which client information appears below the testimonial? =
 On the `Testimonials > Settings` page, there is a Client Template. Follow the example to build shortcodes based on your custom fields. There is a shortcode for text fields (like a client's name) and a shortcode for links (like a client's website). A default template is included.
@@ -196,12 +212,6 @@ I will gladly help add your modifications to a custom version of Strong Testimon
 13. The same widget in Static mode.
 
 == Changelog ==
-
-= 1.7.2 = 
-Fixed the update process.
-
-= 1.7.1 =
-* Fix for `Warning: Invalid argument supplied in foreach()` bugs.
 
 = 1.7 =
 * Custom fields on the testimonial submission form.
@@ -264,12 +274,6 @@ Fixed the update process.
 * Initial version, a fork of GC Testimonials 1.3.2.
 
 == Upgrade Notice ==
-
-= 1.7.2 =
-Fixed the update process.
-
-= 1.7.1 =
-Bugfix for `Warning: Invalid argument supplied in foreach()`.
 
 = 1.7 =
 Custom fields. Finally!

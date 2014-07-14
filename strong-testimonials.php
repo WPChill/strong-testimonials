@@ -4,7 +4,7 @@
  * Plugin URI: http://www.wpmission.com/plugins/strong-testimonials/
  * Description: Collect and display testimonials.
  * Author: Chris Dillon
- * Version: 1.7.2
+ * Version: 1.8
  * Forked From: GC Testimonials version 1.3.2 by Erin Garscadden
  * Author URI: http://www.wpmission.com/contact
  * Text Domain: strong-testimonials
@@ -29,11 +29,10 @@
  */
 
 
-/**
+/*
  * Setup
  */
 define( 'WPMTST_NAME', 'strong-testimonials' );
-// define( 'WPMTST_DIR', plugins_url( false, __FILE__ ) );
 define( 'WPMTST_DIR', plugin_dir_url( __FILE__ ) );
 define( 'WPMTST_INC', plugin_dir_path( __FILE__ ) . 'includes/' );
 
@@ -67,7 +66,6 @@ add_filter( 'plugin_row_meta', 'wpmtst_plugin_row_meta', 10, 4 );
  * Text domain
  */
 function wpmtst_textdomain() {
-	// load_plugin_textdomain( WPMTST_NAME, FALSE, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 	load_plugin_textdomain( WPMTST_NAME, FALSE, WPMTST_DIR . 'languages/' );
 }
 add_action( 'plugins_loaded', 'wpmtst_textdomain' );
@@ -105,7 +103,7 @@ function wpmtst_default_settings() {
 		if ( ! isset( $options['plugin_version'] )
 					|| $options['plugin_version'] != $plugin_version ) {
 			
-			// if updating from 1.5+ to 1.7
+			// if updating from 1.5+ to 1.7+
 			// individual cycle shortcode settings are now grouped
 			if ( isset( $options['cycle-order'] ) ) {
 				$options['cycle'] = array(
@@ -128,15 +126,19 @@ function wpmtst_default_settings() {
 			$options = array_merge( $default_options, $options );
 			$options['plugin_version'] = $plugin_version;
 			update_option( 'wpmtst_options', $options );
+			unset( $options );
 		}
 	}
 	
 	// -3- GET FIELDS
-	$fields = get_option( 'wpmtst_fields' );
-	if ( ! $fields ) {
+	if ( ! get_option( 'wpmtst_fields' ) ) {
 		// -3A- NEW ACTIVATION
 		update_option( 'wpmtst_fields', $default_fields );
 	}
+	
+	// Clean up
+	unset( $default_options );
+	unset( $default_fields );
 }
 
 
