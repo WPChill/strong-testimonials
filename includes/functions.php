@@ -9,17 +9,24 @@
  */
 function wpmtst_get_post( $post ) {
 	$custom = get_post_custom( $post->ID );
+	// var_dump($custom);
 	// $options = get_option( 'wpmtst_options' );
 	$fields = get_option( 'wpmtst_fields' );
 	$field_groups = $fields['field_groups'];
 
 	// Only add on fields from current field group.
 	foreach ( $field_groups[ $fields['current_field_group'] ]['fields'] as $key => $field ) {
-		if ( isset( $custom[$key] ) )
-			$post->$key = $custom[$key][0];
-		else
-			$post->$key = '';
+		// var_dump($key);
+		// var_dump($field);
+		// var_dump($custom);
+		if ( 'custom' == $field['record_type'] ) {
+			if ( isset( $custom[ $field['name'] ] ) )
+				$post->$field['name'] = $custom[ $field['name'] ][0];
+			else
+				$post->$field['name'] = '';
+		}
 	}
+	// var_dump($post);
 	return $post;
 }
 

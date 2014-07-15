@@ -3,7 +3,7 @@
  * Strong Testimonials - Default options
  * Version: 1.7
  *
- * Populates default_options and default_options.
+ * Populates default_options and default_fields.
  */
 
 // --------
@@ -53,6 +53,7 @@ $field_base = array(
 );
 
 $field_types = array();
+
 $field_types['post'] = array(
 		'post_title' => array(
 				'input_type' => 'text',
@@ -182,7 +183,95 @@ $field_groups['custom'] = array(
 );
 
 // Assemble default field settings.
-$default_fields['field_base'] = $field_base;
-$default_fields['field_types'] = $field_types;
-$default_fields['field_groups'] = $field_groups;
-$default_fields['current_field_group'] = 'custom';
+$default_fields = array(
+		'field_base' => $field_base,
+		'field_types' => $field_types,
+		'field_groups' => $field_groups,
+		'current_field_group' => 'custom',
+);
+unset( $field_base, $field_types, $field_groups );
+
+
+// ----------------
+// Display Template
+// ----------------
+
+$default_sections = array(
+		0 => array(
+				'name' => 'header',
+				'wrapper_class' => '',
+				'fields' => array(
+						0 => array(
+								'name' => 'post_title',
+								'label' => 'Title',
+								'type' => 'h3',
+								'class' => 'heading',
+								'record_type' => 'post',
+						),
+				),
+		),
+		1 => array(
+				'name' => 'content',
+				'wrapper_class' => '',
+				'fields' => array(
+						0 => array(
+								'name' => 'thumbnail',
+								'label' => 'Thumbnail',
+								'type' => 'thumbnail',
+								'class' => 'photo',
+								'record_type' => 'post',
+						),
+						1 => array(
+								'name' => 'post_content',
+								'label' => 'Testimonial',
+								'type' => 'post_content',
+								'class' => 'content',
+								'record_type' => 'post',
+						),
+				)
+		),
+		2 => array(
+				'name' => 'footer',
+				'wrapper_class' => 'client',
+				'fields' => array(
+						0 => array(
+								'name' => 'client_name',
+								'label' => 'Client Name',
+								'type' => 'text',
+								'class' => 'name',
+								'record_type' => 'custom',
+						),
+						1 => array(
+								'name' => 'company_website',
+								'label' => 'Website',
+								'type' => 'link',
+								'class' => 'company',
+								'text' => 'company_name',
+								'record_type' => 'custom',
+						),
+				),
+		),
+);
+
+
+
+$templates = array(
+		'default' => array(
+				'name'   => 'default',
+				'label'  => 'Default Template',
+				'sections' => $default_sections,
+				'wrapper_class' => 'inner',
+		),
+		'custom' => array(
+				'name'   => 'custom',
+				'label'  => 'Custom Template',
+				'sections' => $default_sections,
+				'wrapper_class' => 'inner',
+		)
+);
+unset( $default_sections );
+
+$default_templates = array(
+		'templates' => $templates,
+		'current_template' => 'custom',
+);

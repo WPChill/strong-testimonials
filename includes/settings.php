@@ -23,6 +23,13 @@ function wpmtst_settings_menu() {
 										'wpmtst_settings_custom_fields' );
 
 	add_submenu_page( 'edit.php?post_type=wpm-testimonial',
+										'Template',
+										'Template',
+										'manage_options',
+										'template',
+										'wpmtst_settings_template' );
+										
+	add_submenu_page( 'edit.php?post_type=wpm-testimonial',
 										'Shortcodes',
 										'Shortcodes',
 										'manage_options',

@@ -15,7 +15,7 @@
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -130,15 +130,18 @@ function wpmtst_default_settings() {
 		}
 	}
 	
-	// -3- GET FIELDS
+	// -3- FIELDS
 	if ( ! get_option( 'wpmtst_fields' ) ) {
-		// -3A- NEW ACTIVATION
 		update_option( 'wpmtst_fields', $default_fields );
 	}
 	
+	// -4- DISPLAY TEMPLATES
+	if ( ! get_option( 'wpmtst_templates' ) ) {
+		update_option( 'wpmtst_templates', $default_templates );
+	}
+	
 	// Clean up
-	unset( $default_options );
-	unset( $default_fields );
+	unset( $default_options, $default_fields, $default_templates );
 }
 
 
@@ -173,8 +176,8 @@ function wpmtst_register_cpt() {
 			'menu_icon'				      => 'dashicons-editor-quote',
 			'menu_position'			    => 20,
 			'exclude_from_search' 	=> true,
-			'supports'              => array( 'title', 'excerpt', 'editor', 'thumbnail' )
-			// 'supports'              => array( 'title', 'excerpt', 'editor', 'thumbnail', 'custom-fields' )
+			// 'supports'              => array( 'title', 'excerpt', 'editor', 'thumbnail' )
+			'supports'              => array( 'title', 'excerpt', 'editor', 'thumbnail', 'custom-fields' )
 	);
 
 	register_post_type( 'wpm-testimonial', $testimonial_args );

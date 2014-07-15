@@ -25,31 +25,62 @@ if ( ! function_exists( 'normalize_empty_atts' ) ) {
 
 
 /*
- * Single Testimonial LAYOUT
+ * Single Testimonial Template
  */
-function wpmtst_single( $post ) {
+function wpmtst_display( $post ) {
+	$templates = get_option( 'wpmtst_templates' );
+	$template = $templates['templates'][ $templates['current_template'] ];
+	$sections = $template['sections'];
+	
 	$html = '<div class="testimonial">';
-	$html .= '<div class="inner">';
+	$template_html = '';
 	
-	if ( ! empty( $post->post_title ) )
-		$html .= '<h3 class="heading">' . $post->post_title .'</h3>';
+	foreach ( $sections as $section ) {
+		$section_html = '';
+		foreach ( $section['fields'] as $key => $field ) {
+			$section_html .= wpmtst_section_field( $field, $post );
+		}
+		if ( $section['wrapper_class'] ) {
+			$section_html = '<div class="' . $section['wrapper_class'] . '">' . $section_html . '</div>';
+		}
+		$template_html .= $section_html;
+	}
 	
-	if ( has_post_thumbnail( $post->ID ) )
-		$html .= '<div class="photo">' . get_the_post_thumbnail( $post->ID, 'thumbnail' ) . '</div>';
-
-	$html .= '<div class="content">' . wpautop( $post->post_content ) . '</div>';
-	$html .= '<div class="clear"></div>';
-
-	$html .= '<div class="client">';
-	$html .= wpmtst_client_info( $post );
-	$html .= '</div><!-- client -->';
-	
-	$html .= '</div><!-- inner -->';
+	if ( $template['wrapper_class'] ) {
+		$template_html = '<div class="' . $template['wrapper_class'] . '">' . $template_html . '</div>';
+	}
+	$html .= $template_html;
 	$html .= '</div><!-- testimonial -->';
 	
-	// render other shortcodes in content,
-	// this will render the client_info shortcodes too
 	return do_shortcode( $html );
+}
+
+
+/*
+ * Display section field
+ */
+function wpmtst_section_field( $field, $post ) {
+	if ( 'custom' == $field['record_type'] && empty( $post->$field['name'] ) )
+		return '';
+	
+	if ( in_array( $field['type'], array( 'h1', 'h2', 'h3', 'h4', 'h5', 'h6' ) ) ) {
+		$html = '<' . $field['type'] . ' class="' . $field['class'] . '">' . $post->$field['name'] . '</' . $field['type'] . '>';
+	}
+	elseif ( 'thumbnail' == $field['type'] ) {
+		if( has_post_thumbnail( $post->ID ) ) {
+			$html = '<div class="' . $field['class'] . '">' . get_the_post_thumbnail( $post->ID, 'thumbnail' ) . '</div>';
+		}
+	}
+	elseif ( 'post_content' == $field['type'] ) {
+		$html = '<div class="' . $field['class'] . '">' . wpautop( $post->post_content ) . '</div>';
+	}
+	elseif ( 'link' == $field['type'] ) {
+		$html = '<a class="' . $field['class'] . '" href="' . $post->$field['name'] . '" target="_blank">' . $post->$field['text'] . '</a>';
+	}
+	else {
+		$html = '<div class="' . $field['class'] . '">' . $post->$field['name'] . '</div>';
+	}
+	return $html;
 }
 
 
@@ -125,6 +156,7 @@ function wpmtst_client_info( $post ) {
 /*
  * Client text field shortcode.
  */
+/*
 function wpmtst_text_shortcode( $atts, $content = null ) {
 	// bail if no content
 	if ( empty( $content ) || '|' === $content )
@@ -137,10 +169,13 @@ function wpmtst_text_shortcode( $atts, $content = null ) {
 	return '<div class="' . $class . '">' . $content . '</div>';
 }
 add_shortcode( 'wpmtst-text', 'wpmtst_text_shortcode' );
+*/
+
 
 /*
  * Client link shortcode.
  */
+/*
 function wpmtst_link_shortcode( $atts, $content = null ) {
 	// content like "company_website|company_name"
 	// bail if no content
@@ -165,6 +200,7 @@ function wpmtst_link_shortcode( $atts, $content = null ) {
 		return '<div class="' . $class . '">' . $text . '</div>';
 }
 add_shortcode( 'wpmtst-link', 'wpmtst_link_shortcode' );
+*/
 
 
 /*
@@ -173,10 +209,12 @@ add_shortcode( 'wpmtst-link', 'wpmtst_link_shortcode' );
 function wpmtst_single_shortcode( $atts ) {
 	extract( shortcode_atts( array( 'id' => '' ), $atts ) );
 	$post = wpmtst_get_post( get_post( $id ) );
-	$display = wpmtst_single( $post );
+	// var_dump($post);
+	$display = wpmtst_display( $post );
 	return $display;
 }
 add_shortcode( 'wpmtst-single', 'wpmtst_single_shortcode' );
+
 
 /*
  * Random testimonial shortcode
@@ -202,11 +240,12 @@ function wpmtst_random_shortcode( $atts ) {
 
 	$display = '';
 	foreach ( $results as $post ) {
-		$display .= wpmtst_single( wpmtst_get_post( $post ) );
+		$display .= wpmtst_display( wpmtst_get_post( $post ) );
 	}
 	return $display;
 }
 add_shortcode( 'wpmtst-random', 'wpmtst_random_shortcode' );
+
 
 /*
  * All testimonials shortcode
@@ -236,7 +275,7 @@ function wpmtst_all_shortcode( $atts ) {
 
 	$display = '<div id="wpmtst-container">';
 	foreach ( $results as $post ) {
-		$display .= '<div class="result">' . wpmtst_single( wpmtst_get_post( $post ) ) . '</div><!-- result -->';
+		$display .= '<div class="result">' . wpmtst_display( wpmtst_get_post( $post ) ) . '</div><!-- result -->';
 	}
 	$display .= '</div><!-- wpmtst-container -->';
 	$display .= '<div id="pagingControls"></div>';
@@ -244,6 +283,7 @@ function wpmtst_all_shortcode( $atts ) {
 	return $display;
 }
 add_shortcode( 'wpmtst-all', 'wpmtst_all_shortcode' );
+
 
 /*
  * Cycle testimonials shortcode
@@ -298,13 +338,14 @@ function wpmtst_cycle_shortcode( $atts ) {
 
 	$display = '<div id="wpmtst-container" class="tcycle">';
 	foreach ( $results as $post ) {
-		$display .= '<div class="result">' . wpmtst_single( wpmtst_get_post( $post ) ) . '</div><!-- result -->';
+		$display .= '<div class="result">' . wpmtst_display( wpmtst_get_post( $post ) ) . '</div><!-- result -->';
 	}
 	$display .= '</div><!-- wpmtst-container -->';
 
 	return $display;
 }
 add_shortcode( 'wpmtst-cycle', 'wpmtst_cycle_shortcode' );
+
 
 /*
  * Submission form shortcode
