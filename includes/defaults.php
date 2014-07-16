@@ -50,6 +50,7 @@ $field_base = array(
 		'after' => '',
 		'admin_table' => 0,
 		'admin_table_option' => 1,
+		'template' => 1,
 );
 
 $field_types = array();
@@ -89,6 +90,7 @@ $field_types['custom'] = array(
 		'email' => array(
 				'input_type' => 'text',
 				'option_label' => 'email (text)',
+				'template' => 0,
 		),
 		'url' => array(
 				'input_type' => 'text',
@@ -196,82 +198,91 @@ unset( $field_base, $field_types, $field_groups );
 // Display Template
 // ----------------
 
+// section key = section name
+// field label = fetched from custom fields array
 $default_sections = array(
-		0 => array(
-				'name' => 'header',
+		'header' => array(
+				// 'name' => 'header',
 				'wrapper_class' => '',
 				'fields' => array(
 						0 => array(
 								'name' => 'post_title',
-								'label' => 'Title',
+								// 'label' => 'Title',
 								'type' => 'h3',
 								'class' => 'heading',
-								'record_type' => 'post',
+								// 'record_type' => 'post',
 						),
 				),
 		),
-		1 => array(
-				'name' => 'content',
+		'content' => array(
+				// 'name' => 'content',
 				'wrapper_class' => '',
 				'fields' => array(
 						0 => array(
-								'name' => 'thumbnail',
-								'label' => 'Thumbnail',
-								'type' => 'thumbnail',
+								'name' => 'featured_image',
+								// 'label' => 'Featured Image',
+								'type' => 'featured_image',
 								'class' => 'photo',
-								'record_type' => 'post',
+								// 'record_type' => 'post',
 						),
 						1 => array(
 								'name' => 'post_content',
-								'label' => 'Testimonial',
+								// 'label' => 'Testimonial',
 								'type' => 'post_content',
 								'class' => 'content',
-								'record_type' => 'post',
+								// 'record_type' => 'post',
+								'locked' => 1,
 						),
 				)
 		),
-		2 => array(
-				'name' => 'footer',
+		'footer' => array(
+				// 'name' => 'footer',
 				'wrapper_class' => 'client',
 				'fields' => array(
 						0 => array(
 								'name' => 'client_name',
-								'label' => 'Client Name',
+								// 'label' => 'Client Name',
 								'type' => 'text',
 								'class' => 'name',
-								'record_type' => 'custom',
+								// 'record_type' => 'custom',
 						),
+						/*
 						1 => array(
 								'name' => 'company_website',
-								'label' => 'Website',
+								// 'label' => 'Website',
 								'type' => 'link',
 								'class' => 'company',
-								'text' => 'company_name',
+								// 'text' => 'company_name',
 								'record_type' => 'custom',
 						),
+						2 => array(
+								'name' => 'company_name',
+								// 'label' => 'Company Name',
+								'type' => 'link-text',
+								'for' => 'company_website',
+								'record_type' => 'custom',
+						),
+						*/
 				),
 		),
 );
 
 
-
-$templates = array(
-		'default' => array(
-				'name'   => 'default',
-				'label'  => 'Default Template',
-				'sections' => $default_sections,
-				'wrapper_class' => 'inner',
-		),
-		'custom' => array(
-				'name'   => 'custom',
-				'label'  => 'Custom Template',
-				'sections' => $default_sections,
-				'wrapper_class' => 'inner',
-		)
-);
-unset( $default_sections );
-
 $default_templates = array(
-		'templates' => $templates,
+		'templates' => array(
+				'default' => array(
+						'name'   => 'default',
+						'label'  => 'Default Template',
+						'sections' => $default_sections,
+						'wrapper_class' => 'inner',
+				),
+				'custom' => array(
+						'name'   => 'custom',
+						'label'  => 'Custom Template',
+						'sections' => $default_sections,
+						'wrapper_class' => 'inner',
+				)
+		),
 		'current_template' => 'custom',
 );
+unset( $default_sections );

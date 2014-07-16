@@ -292,5 +292,8 @@ include( WPMTST_INC . 'widget.php');
 // Custom fields
 include( WPMTST_INC . 'admin-custom-fields.php');
 
+// Template
+include( WPMTST_INC . 'admin-template.php');
+
 // Captcha
 include( WPMTST_INC . 'captcha.php');

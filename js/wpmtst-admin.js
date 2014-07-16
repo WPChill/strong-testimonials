@@ -409,7 +409,7 @@ jQuery(document).ready(function($) {
 			
 			// update parent list item...
 			$parent.find(".custom-field-header a.field").html( $fieldLabel.val() );
-			// ... and stored fieldType
+			// ...and stored fieldType
 			$parent.data('fieldType',fieldType);
 			
 			// update hidden [record_type] input
@@ -417,4 +417,56 @@ jQuery(document).ready(function($) {
 			
 		}); // on(change)
 		
+		
+	// --------------
+	// Template admin
+	// --------------
+	$(".template-list").sortable({ 
+		connectWith : '.connected-sortable',
+		cancel      : '.locked',
+		placeholder : 'placeholder',
+	});
+	
+	// $("#wpmtst-template-form").submit(function(e){
+	$("#check").click(function(e){
+		// console.log( getList( $("#list-header li") ) ); 
+		// console.log( getList( $("#list-content li") ) ); 
+		// console.log( getList( $("#list-footer li") ) ); 
+		
+/*
+<input type="hidden" value="post_title" name="sections[header][fields][0][name]">
+<input type="hidden" value="h3" name="sections[header][fields][0][type]">
+<input type="hidden" value="heading" name="sections[header][fields][0][class]">
+*/
+
+		$(".template-section ul").each(function(index, el){
+			var section = el.getAttribute("id").split("-")[1];
+			console.log(section);
+			if (el.children.length) {
+				var children = el.children;
+				console.log(children);
+				for (var i = 0; i < children.length; i++) {
+					if (children[i].dataset) {
+						var data = children[i].dataset;
+						console.log(data);
+						// var fieldName = data.name;
+						// var fieldType = data.type;
+						// var fieldClass = data.classname;
+						// console.log(fieldName, fieldType, fieldClass);
+						$(children[i]).append('<input type="hidden" name="section[' + section + '][fields]['+i+'][name]" value="' + data.name + '" />');
+					}
+				}
+			}
+		});
+		
+		e.preventDefault();
+		return false;
+	});
+	
+	function getList($el) {
+		return $el.map(function(){
+			return this.innerHTML;
+		}).get();
+	}
+	
 });

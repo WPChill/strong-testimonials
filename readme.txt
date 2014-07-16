@@ -26,7 +26,7 @@ Strong Testimonials is a **work in progress**.
 
 This is my project for learning plugin development and sharpening my skills. It will always be free.
 
-If you do not tolerate occasional bugs and frequent updates, then please consider another plugin. 
+If you cannot tolerate occasional bugs and frequent updates, then please consider another plugin. 
 
 Or I will gladly build a custom version for you with just the features you want. Your version will not track with the latest version and you won't have to worry about updates. Your first custom version is free with lifetime support (fixing bugs, keeping up with WordPress, resolving conflicts with other plugins, CSS help) but future modifications will have a price tag.
 

@@ -66,7 +66,7 @@ function wpmtst_section_field( $field, $post ) {
 	if ( in_array( $field['type'], array( 'h1', 'h2', 'h3', 'h4', 'h5', 'h6' ) ) ) {
 		$html = '<' . $field['type'] . ' class="' . $field['class'] . '">' . $post->$field['name'] . '</' . $field['type'] . '>';
 	}
-	elseif ( 'thumbnail' == $field['type'] ) {
+	elseif ( 'featured_image' == $field['type'] ) {
 		if( has_post_thumbnail( $post->ID ) ) {
 			$html = '<div class="' . $field['class'] . '">' . get_the_post_thumbnail( $post->ID, 'thumbnail' ) . '</div>';
 		}
