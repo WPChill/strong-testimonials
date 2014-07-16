@@ -104,16 +104,18 @@ function wpmtst_settings_template() {
 	echo '<h2>' . __( 'Template', WPMTST_NAME ) . '</h2>' . "\n";	
 	
 
+	// -----
 	// debug
-	// echo '<div class="print_r-wrap"><div class="print_r-heading yellow">fields</div><pre class="print_r-pre">'.print_r($field_group,true).'</pre></div>';
-	// echo '<div class="print_r-wrap"><div class="print_r-heading green">template</div><pre class="print_r-pre">'.print_r($template,true).'</pre></div>';
+	// -----
+	echo debug('field group',$field_group,'yellow');
+	echo debug('template',$template,'green');
 	
 	$custom_field_list = array();
 	foreach ( $field_group['fields'] as $field ) {
 		if ( $field['template'] )
 			$custom_field_list[ $field['name'] ] = $field['label'];
 	}
-	// echo '<div class="print_r-wrap"><div class="print_r-heading yellow">field list</div><pre class="print_r-pre">'.print_r($custom_field_list,true).'</pre></div>';
+	echo debug('custom fields',$custom_field_list,'yellow');
 	
 	$template_field_list = array();
 	foreach ( $sections as $section ) {
@@ -121,21 +123,16 @@ function wpmtst_settings_template() {
 			$template_field_list[] = $field['name'];
 		}
 	}
-	// echo '<div class="print_r-wrap"><div class="print_r-heading green">template list</div><pre class="print_r-pre">'.print_r($template_field_list,true).'</pre></div>';
+	echo debug('template fields',$template_field_list,'green');
 	
-	// echo '<div class="print_r-wrap"><div class="print_r-heading">diff</div><pre class="print_r-pre">'.print_r(array_diff($custom_field_list, $template_field_list),true).'</pre></div>';
+	echo debug('diff',array_diff(array_keys($custom_field_list), $template_field_list));
 
-	// echo '<div class="print_r-wrap"><div class="print_r-heading orange">$_POST</div><pre class="print_r-pre">'.print_r($_POST,true).'</pre></div>';
+	echo debug('POST',$_POST,'orange');
 	
 	
-	// foreach ( $sections as $section ) {
-		// foreach ( $section['fields'] as $field ) {
-			// echo '<div class="print_r-wrap"><div class="print_r-heading brick">field array keys</div><pre class="print_r-pre">'.print_r(array_keys($field),true).'</pre></div>';
-		// }
-	// }	
-
-
-	
+	// -------------
+	// Template Form
+	// -------------
 	echo '<!-- Template Form -->' . "\n";
 	echo '<form id="wpmtst-template-form" method="post" action="">' . "\n";
 	wp_nonce_field( 'wpmtst_template_form', 'wpmtst_form_submitted' ); 
@@ -149,7 +146,9 @@ function wpmtst_settings_template() {
 	
 	echo '<tr>';
 	
+	// -----------
 	// field group
+	// -----------
 	echo '<td>';
 	echo '<ul id="field-list" class="template-list connected-sortable">';
 	// foreach ( $field_group['fields'] as $field ) {
@@ -161,11 +160,15 @@ function wpmtst_settings_template() {
 	echo '</ul>';
 	echo '</td>';
 	
-	$hidden_format = '<input type="hidden" name="sections[%s][fields][%s][%s]" value="%s" />';
+	
+	
+	// $hidden_format = '<input type="hidden" name="sections[%s][fields][%s][%s]" value="%s" />';
 	
 	$data_format = 'data-name="%s" data-type="%s" data-classname="%s"';
 	
+	// -----------------
 	// template sections
+	// -----------------
 	echo '<td>';
 	foreach ( $sections as $section_key => $section ) {
 		echo '<div class="template-section">' . "\n";
@@ -196,7 +199,7 @@ function wpmtst_settings_template() {
 			echo '<div class="field-prop">';
 			// echo '<div>' . $field['name'] . '</div>';
 			echo '<div>class: ' . $field['class'] . '</div>';
-			echo '<div><input type="text" name="' . $field['name'] . '-class" value="' . $field['class'] . '" /></div>';
+			// echo '<div><input type="text" name="' . $field['name'] . '-class" value="' . $field['class'] . '" /></div>';
 			echo '</div>';
 			
 			echo '</li>' . "\n";
@@ -215,9 +218,10 @@ function wpmtst_settings_template() {
 	echo '</tr>';
 	echo '</table>';
 
+	echo '<a href="'.$_SERVER['REQUEST_URI'].'">refresh</a>';
 	echo '<p class="submit">' . "\n";
-	echo '<input type="button" id="check" value="check" />';
-	// submit_button( '', 'primary', 'submit', false );
+	echo '<input type="button" class="button" style="background: orange" id="check" value="check" />';
+	submit_button( '', 'primary', 'submit', false );
 	// submit_button( 'Undo Changes', 'secondary', 'reset', false );
 	// submit_button( 'Restore Defaults', 'secondary', 'restore-defaults', false );
 	echo '</p>' . "\n";
@@ -225,4 +229,8 @@ function wpmtst_settings_template() {
 	echo '</form><!-- Template Form -->';
 	
 	echo '</div><!-- .wrap -->' . "\n";
+}
+
+function debug( $title = '', $array = array(), $bg = '' ) {
+	return '<div class="print_r-wrap"><div class="print_r-heading ' . $bg . '">' . $title . '</div><pre class="print_r-pre">' . print_r($array,true) . '</pre></div>';
 }

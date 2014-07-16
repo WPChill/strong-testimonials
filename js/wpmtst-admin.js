@@ -427,33 +427,34 @@ jQuery(document).ready(function($) {
 		placeholder : 'placeholder',
 	});
 	
+	function getList($el) {
+		return $el.map(function(){
+			return this.innerHTML;
+		}).get();
+	}
+	
 	// $("#wpmtst-template-form").submit(function(e){
 	$("#check").click(function(e){
 		// console.log( getList( $("#list-header li") ) ); 
 		// console.log( getList( $("#list-content li") ) ); 
 		// console.log( getList( $("#list-footer li") ) ); 
 		
-/*
-<input type="hidden" value="post_title" name="sections[header][fields][0][name]">
-<input type="hidden" value="h3" name="sections[header][fields][0][type]">
-<input type="hidden" value="heading" name="sections[header][fields][0][class]">
-*/
 
 		$(".template-section ul").each(function(index, el){
 			var section = el.getAttribute("id").split("-")[1];
-			console.log(section);
+			// console.log(section);
 			if (el.children.length) {
 				var children = el.children;
-				console.log(children);
+				// Remove current hidden fields.
+				$(children).find(":hidden").remove();
+				// console.log(children);
 				for (var i = 0; i < children.length; i++) {
 					if (children[i].dataset) {
 						var data = children[i].dataset;
-						console.log(data);
-						// var fieldName = data.name;
-						// var fieldType = data.type;
-						// var fieldClass = data.classname;
-						// console.log(fieldName, fieldType, fieldClass);
-						$(children[i]).append('<input type="hidden" name="section[' + section + '][fields]['+i+'][name]" value="' + data.name + '" />');
+						// console.log(data);
+						$(children[i]).append('<input type="hidden" name="section[' + section + '][fields][' + i + '][name]" value="' + data.name + '" />');
+						$(children[i]).append('<input type="hidden" name="section[' + section + '][fields][' + i + '][type]" value="' + data.type + '" />');
+						$(children[i]).append('<input type="hidden" name="section[' + section + '][fields][' + i + '][class]" value="' + data.className + '" />');
 					}
 				}
 			}
@@ -463,10 +464,8 @@ jQuery(document).ready(function($) {
 		return false;
 	});
 	
-	function getList($el) {
-		return $el.map(function(){
-			return this.innerHTML;
-		}).get();
-	}
+	/*
+	If field class is clicked, append input field and [save] button. Upon save, update display <div> and `data-classname` on parent <li>.
+	*/
 	
 });
