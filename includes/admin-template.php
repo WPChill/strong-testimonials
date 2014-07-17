@@ -136,7 +136,7 @@ function wpmtst_settings_template() {
 	echo '<!-- Template Form -->' . "\n";
 	echo '<form id="wpmtst-template-form" method="post" action="">' . "\n";
 	wp_nonce_field( 'wpmtst_template_form', 'wpmtst_form_submitted' ); 
-
+	echo '<input type="hidden" name="save_template" value="" />';
 	
 	// 1. display
 	echo '<table border="1">';
@@ -162,8 +162,6 @@ function wpmtst_settings_template() {
 	
 	
 	
-	// $hidden_format = '<input type="hidden" name="sections[%s][fields][%s][%s]" value="%s" />';
-	
 	$data_format = 'data-name="%s" data-type="%s" data-classname="%s"';
 	
 	// -----------------
@@ -174,9 +172,9 @@ function wpmtst_settings_template() {
 		echo '<div class="template-section">' . "\n";
 		
 		echo '<div class="section-name">' . $section_key . '</div>' . "\n";
+		echo '<div class="section-class">' . $section['wrapper_class'] . '</div>' . "\n";
 		
-		echo '<ul id="list-' . $section_key . '" class="template-list connected-sortable">' . "\n";
-		// each [section] needs hidden inputs so it can be fully reconstituted upon POST
+		echo '<ul class="template-list connected-sortable" data-section="' . $section_key . '" data-classname="' . $section['wrapper_class'] . '">' . "\n";
 		
 		foreach ( $section['fields'] as $field_key => $field ) {
 		
@@ -234,3 +232,10 @@ function wpmtst_settings_template() {
 function debug( $title = '', $array = array(), $bg = '' ) {
 	return '<div class="print_r-wrap"><div class="print_r-heading ' . $bg . '">' . $title . '</div><pre class="print_r-pre">' . print_r($array,true) . '</pre></div>';
 }
+
+function wpmtst_save_template_function() {
+	logmore($_REQUEST['sections']);
+	echo "success";
+	die();
+}
+add_action( 'wp_ajax_wpmtst_save_template', 'wpmtst_save_template_function' );

@@ -418,6 +418,7 @@ jQuery(document).ready(function($) {
 		}); // on(change)
 		
 		
+		
 	// --------------
 	// Template admin
 	// --------------
@@ -427,37 +428,39 @@ jQuery(document).ready(function($) {
 		placeholder : 'placeholder',
 	});
 	
-	function getList($el) {
-		return $el.map(function(){
-			return this.innerHTML;
-		}).get();
-	}
-	
 	// $("#wpmtst-template-form").submit(function(e){
 	$("#check").click(function(e){
-		// console.log( getList( $("#list-header li") ) ); 
-		// console.log( getList( $("#list-content li") ) ); 
-		// console.log( getList( $("#list-footer li") ) ); 
-		
-
+	
+		var sectionFields = new Object();
 		$(".template-section ul").each(function(index, el){
-			var section = el.getAttribute("id").split("-")[1];
-			// console.log(section);
+			var sectionData = el.dataset,
+					section = sectionData.section,
+					className = sectionData.classname;
+			
+			// collect data for each field in order
+			var fieldsArray = [];
 			if (el.children.length) {
 				var children = el.children;
-				// Remove current hidden fields.
-				$(children).find(":hidden").remove();
-				// console.log(children);
 				for (var i = 0; i < children.length; i++) {
 					if (children[i].dataset) {
 						var data = children[i].dataset;
-						// console.log(data);
-						$(children[i]).append('<input type="hidden" name="section[' + section + '][fields][' + i + '][name]" value="' + data.name + '" />');
-						$(children[i]).append('<input type="hidden" name="section[' + section + '][fields][' + i + '][type]" value="' + data.type + '" />');
-						$(children[i]).append('<input type="hidden" name="section[' + section + '][fields][' + i + '][class]" value="' + data.className + '" />');
+						fieldsArray[i] = data;
 					}
 				}
 			}
+			
+			sectionFields[section] = { fields: fieldsArray, wrapper_class: className };
+		});
+		// console.log(sectionFields);
+		
+		var data = {
+			'action'   : 'wpmtst_save_template',
+			'sections' : sectionFields,
+		};
+		$.get( ajaxurl, data, function( response ) {
+			console.log(response);
+			var status = document.querySelector('input[name="save_template"]');
+			status.value = response;
 		});
 		
 		e.preventDefault();
@@ -465,7 +468,8 @@ jQuery(document).ready(function($) {
 	});
 	
 	/*
-	If field class is clicked, append input field and [save] button. Upon save, update display <div> and `data-classname` on parent <li>.
+	If field class is clicked, append input field and [save] button. 
+	Upon save, update display <div> and `data-classname` on parent <li>.
 	*/
 	
 });
