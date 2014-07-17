@@ -30,7 +30,7 @@ class WpmTst_Widget extends WP_Widget {
 				)
 		);
 
-		$this->WP_Widget( 'wpmtst-widget', __( 'Strong Testimonials', WPMTST_NAME ), $widget_ops, $control_ops );
+		$this->WP_Widget( 'wpmtst-widget', __( 'Strong Testimonials', 'strong-testimonials' ), $widget_ops, $control_ops );
 
 		$this->defaults = array(
 				'title'         => 'Testimonials',
@@ -179,7 +179,7 @@ class WpmTst_Widget extends WP_Widget {
 
 		if ( $data['more'] ) {
 			$link = get_permalink( $data['more_page'] );
-			echo '<p class="wpmtst-widget-readmore"><a href="' . $link . '">'. __( 'Read More Testimonials', WPMTST_NAME ) .'</a></p>';
+			echo '<p class="wpmtst-widget-readmore"><a href="' . $link . '">'. __( 'Read More Testimonials', 'strong-testimonials' ) .'</a></p>';
 		}
 
 		echo $data['after_widget'];
@@ -265,30 +265,30 @@ class WpmTst_Widget extends WP_Widget {
 
 					<div class="row">
 						<div class="alpha">
-							<label for="<?php echo $this->get_field_id( 'cycle-limit' ); ?>"><?php _e( 'Number to show', WPMTST_NAME ); ?>:</label>
+							<label for="<?php echo $this->get_field_id( 'cycle-limit' ); ?>"><?php _e( 'Number to show', 'strong-testimonials' ); ?>:</label>
 						</div>
 						<div>
 							<input  type="text" id="<?php echo $this->get_field_id( 'cycle-limit' ); ?>" name="<?php echo $this->get_field_name( 'cycle-limit' ); ?>" value="<?php echo $instance['cycle-limit']; ?>" size="3" <?php if ( $instance['cycle-all'] ) { echo ' readonly="readonly"'; } ?> />
 						</div>
 						<div class="divider">
 							<input  type="checkbox" id="<?php echo $this->get_field_id( 'cycle-all' ); ?>" name="<?php echo $this->get_field_name( 'cycle-all' ); ?>" <?php checked( $instance['cycle-all'], 1 ); ?> class="checkbox" />
-							<label for="<?php echo $this->get_field_id( 'cycle-all' ); ?>"><?php _e( 'Show all', WPMTST_NAME ); ?></label>
+							<label for="<?php echo $this->get_field_id( 'cycle-all' ); ?>"><?php _e( 'Show all', 'strong-testimonials' ); ?></label>
 						</div>
 					</div>
 
 					<div class="row">
 						<div class="alpha">
-							<label for="<?php echo $this->get_field_id( 'cycle-timeout' ); ?>"><?php _e( 'Show each for', WPMTST_NAME ); ?>:</label>
+							<label for="<?php echo $this->get_field_id( 'cycle-timeout' ); ?>"><?php _e( 'Show each for', 'strong-testimonials' ); ?>:</label>
 						</div>
 						<div>
 							<input type="text" id="<?php echo $this->get_field_id( 'cycle-timeout' ); ?>" name="<?php echo $this->get_field_name( 'cycle-timeout' ); ?>" value="<?php echo $instance['cycle-timeout']; ?>" size="3" />
-							<?php _e( 'seconds', WPMTST_NAME ); ?>
+							<?php _e( 'seconds', 'strong-testimonials' ); ?>
 						</div>
 					</div>
 
 					<div class="row">
 						<div class="alpha">
-							<label for="<?php echo $this->get_field_id( 'cycle-effect' ); ?>"><?php _e( 'Transition effect', WPMTST_NAME ); ?>:</label>
+							<label for="<?php echo $this->get_field_id( 'cycle-effect' ); ?>"><?php _e( 'Transition effect', 'strong-testimonials' ); ?>:</label>
 						</div>
 						<div>
 							<select id="<?php echo $this->get_field_id( 'cycle-effect' ); ?>" name="<?php echo $this->get_field_name( 'cycle-effect' ); ?>" autocomplete="off">
@@ -302,18 +302,18 @@ class WpmTst_Widget extends WP_Widget {
 
 					<div class="row">
 						<div class="alpha">
-							<label for="<?php echo $this->get_field_id( 'cycle-speed' ); ?>"><?php _e( 'Effect duration', WPMTST_NAME ); ?>:</label>
+							<label for="<?php echo $this->get_field_id( 'cycle-speed' ); ?>"><?php _e( 'Effect duration', 'strong-testimonials' ); ?>:</label>
 						</div>
 						<div>
 							<input type="text" id="<?php echo $this->get_field_id( 'cycle-speed' ); ?>" name="<?php echo $this->get_field_name( 'cycle-speed' ); ?>" value="<?php echo $instance['cycle-speed']; ?>" size="3" />
-							<?php _e( 'seconds', WPMTST_NAME ); ?>
+							<?php _e( 'seconds', 'strong-testimonials' ); ?>
 						</div>
 					</div>
 
 					<div class="row tall">
 						<div>
 							<input type="checkbox" id="<?php echo $this->get_field_id( 'cycle-pause' ); ?>" name="<?php echo $this->get_field_name( 'cycle-pause' ); ?>" <?php checked( $instance['cycle-pause'] ); ?>  class="checkbox" />
-							<label for="<?php echo $this->get_field_id( 'cycle-pause' ); ?>"><?php _e( 'Pause on hover', WPMTST_NAME ); ?></label>
+							<label for="<?php echo $this->get_field_id( 'cycle-pause' ); ?>"><?php _e( 'Pause on hover', 'strong-testimonials' ); ?></label>
 						</div>
 					</div>
 
@@ -324,7 +324,7 @@ class WpmTst_Widget extends WP_Widget {
 
 					<div class="row">
 						<div class="alpha">
-							<label for="<?php echo $this->get_field_id( 'static-limit' ); ?>"><?php _e( 'Number to show', WPMTST_NAME ); ?>:</label>
+							<label for="<?php echo $this->get_field_id( 'static-limit' ); ?>"><?php _e( 'Number to show', 'strong-testimonials' ); ?>:</label>
 						</div>
 						<div>
 							<input type="text" id="<?php echo $this->get_field_id( 'static-limit' ); ?>" name="<?php echo $this->get_field_name( 'static-limit' ); ?>" value="<?php echo $instance['static-limit']; ?>" size="3" />
@@ -340,7 +340,7 @@ class WpmTst_Widget extends WP_Widget {
 			<p>
 				<input type="checkbox" id="<?php echo $this->get_field_id( 'char-switch' ); ?>" name="<?php echo $this->get_field_name( 'char-switch' ); ?>" <?php checked( $instance['char-switch'] ); ?>  class="checkbox" />
 
-				<label for="<?php echo $this->get_field_id( 'char-limit' ); ?>"><?php _e( 'Character limit', WPMTST_NAME ); ?>:</label>
+				<label for="<?php echo $this->get_field_id( 'char-limit' ); ?>"><?php _e( 'Character limit', 'strong-testimonials' ); ?>:</label>
 				<input  type="text" id="<?php echo $this->get_field_id( 'char-limit' ); ?>" name="<?php echo $this->get_field_name( 'char-limit' ); ?>" value="<?php echo $instance['char-limit']; ?>" size="3" <?php if ( ! $instance['char-switch'] ) { echo ' readonly="readonly"'; } ?> />
 				<span class="help">Will break line on a space and add an ellipsis.</span>
 			</p>
@@ -348,13 +348,13 @@ class WpmTst_Widget extends WP_Widget {
 			<!-- FEATURED IMAGES -->
 			<p>
 				<input  type="checkbox" id="<?php echo $this->get_field_id( 'images' ); ?>" name="<?php echo $this->get_field_name( 'images' ); ?>" <?php checked( $instance['images'] ); ?> class="checkbox" />
-				<label for="<?php echo $this->get_field_id('images'); ?>"><?php _e( 'Show Featured Images', WPMTST_NAME ); ?></label>
+				<label for="<?php echo $this->get_field_id('images'); ?>"><?php _e( 'Show Featured Images', 'strong-testimonials' ); ?></label>
 			</p>
 
 			<!-- READ MORE LINK -->
 			<p>
 				<input  type="checkbox" id="<?php echo $this->get_field_id( 'more' ); ?>" name="<?php echo $this->get_field_name( 'more' ); ?>" <?php checked( $instance['more'] ); ?> class="checkbox" />
-				<label for="<?php echo $this->get_field_id( 'more' ); ?>"><?php _e( 'Show "Read More" link to this page', WPMTST_NAME ); ?>:</label>
+				<label for="<?php echo $this->get_field_id( 'more' ); ?>"><?php _e( 'Show "Read More" link to this page', 'strong-testimonials' ); ?>:</label>
 			</p>
 
 			<p>

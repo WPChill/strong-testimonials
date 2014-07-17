@@ -140,7 +140,7 @@ function wpmtst_settings_page() {
 	?>
 	<div class="wrap wpmtst">
 
-		<h2><?php _e( 'Testimonial Settings', WPMTST_NAME ); ?></h2>
+		<h2><?php _e( 'Testimonial Settings', 'strong-testimonials' ); ?></h2>
 
 		<?php if( isset( $_GET['settings-updated'] ) ) : ?>
 			<div id="message" class="updated">
@@ -169,7 +169,7 @@ function wpmtst_settings_page() {
 					<td>
 						<label>
 							<input id="wpmtst-options-admin-notify" type="checkbox" name="wpmtst_options[admin_notify]" <?php checked( $wpmtst_options['admin_notify'] ); ?> />
-							<?php _e( 'Send notification email to', WPMTST_NAME ); ?>
+							<?php _e( 'Send notification email to', 'strong-testimonials' ); ?>
 						</label>
 						<input id="wpmtst-options-admin-email" type="email" size="30" placeholder="email address" name="wpmtst_options[admin_email]" value="<?php echo esc_attr( $wpmtst_options['admin_email'] ); ?>" />
 					</td>
@@ -211,17 +211,17 @@ function wpmtst_settings_page() {
 
 							<div class="row">
 								<div class="alpha">
-									<label for="cycle-timeout"><?php _e( 'Show each for', WPMTST_NAME ); ?>:</label>
+									<label for="cycle-timeout"><?php _e( 'Show each for', 'strong-testimonials' ); ?>:</label>
 								</div>
 								<div>
 									<input type="text" id="cycle-timeout" name="wpmtst_options[cycle][cycle-timeout]" value="<?php echo $wpmtst_options['cycle']['cycle-timeout']; ?>" size="3" />
-									<?php _e( 'seconds', WPMTST_NAME ); ?>
+									<?php _e( 'seconds', 'strong-testimonials' ); ?>
 								</div>
 							</div>
 
 							<div class="row">
 								<div class="alpha">
-									<label for="cycle-effect"><?php _e( 'Transition effect', WPMTST_NAME ); ?>:</label>
+									<label for="cycle-effect"><?php _e( 'Transition effect', 'strong-testimonials' ); ?>:</label>
 								</div>
 								<div>
 									<select id="cycle-effect" name="wpmtst_options[cycle][cycle-effect]" autocomplete="off">
@@ -235,18 +235,18 @@ function wpmtst_settings_page() {
 
 							<div class="row">
 								<div class="alpha">
-									<label for="cycle-speed"><?php _e( 'Effect duration', WPMTST_NAME ); ?>:</label>
+									<label for="cycle-speed"><?php _e( 'Effect duration', 'strong-testimonials' ); ?>:</label>
 								</div>
 								<div>
 									<input type="text" id="cycle-speed" name="wpmtst_options[cycle][cycle-speed]" value="<?php echo $wpmtst_options['cycle']['cycle-speed']; ?>" size="3" />
-									<?php _e( 'seconds', WPMTST_NAME ); ?>
+									<?php _e( 'seconds', 'strong-testimonials' ); ?>
 								</div>
 							</div>
 
 							<div class="row">
 								<div>
 									<input type="checkbox" id="cycle-pause" name="wpmtst_options[cycle][cycle-pause]" <?php checked( $wpmtst_options['cycle']['cycle-pause'] ); ?>  class="checkbox" />
-									<label for="cycle-pause"><?php _e( 'Pause on hover', WPMTST_NAME ); ?></label>
+									<label for="cycle-pause"><?php _e( 'Pause on hover', 'strong-testimonials' ); ?></label>
 								</div>
 							</div>
 						</div>
@@ -254,20 +254,20 @@ function wpmtst_settings_page() {
 				</tr>
 				
 				<tr valign="top">
-					<th scope="row"><?php _e( 'Client Template', WPMTST_NAME ); ?></th>
+					<th scope="row"><?php _e( 'Client Template', 'strong-testimonials' ); ?></th>
 					<td>
-						<p><?php _e( 'Use these shortcode options to show client information below each testimonial', WPMTST_NAME ); ?>:</p>
+						<p><?php _e( 'Use these shortcode options to show client information below each testimonial', 'strong-testimonials' ); ?>:</p>
 						<div class="shortcode-example code">
 							<p class="indent">
 								<span class="outdent">[wpmtst-text </span>
-										<br>field="{ <?php _e( 'your custom text field', WPMTST_NAME ); ?> }" 
-										<br>class="{ <?php _e( 'your CSS class', WPMTST_NAME ); ?> }"]
+										<br>field="{ <?php _e( 'your custom text field', 'strong-testimonials' ); ?> }" 
+										<br>class="{ <?php _e( 'your CSS class', 'strong-testimonials' ); ?> }"]
 							</p>
 							<p class="indent">
 								<span class="outdent">[wpmtst-link </span>
-										<br>url="{ <?php _e( 'your custom URL field', WPMTST_NAME ); ?> }" 
-										<br>text="{ <?php _e( 'your custom text field', WPMTST_NAME ); ?> }" 
-										<br>target="_blank" <br>class="{ <?php _e( 'your CSS class', WPMTST_NAME ); ?> }"]
+										<br>url="{ <?php _e( 'your custom URL field', 'strong-testimonials' ); ?> }" 
+										<br>text="{ <?php _e( 'your custom text field', 'strong-testimonials' ); ?> }" 
+										<br>target="_blank" <br>class="{ <?php _e( 'your CSS class', 'strong-testimonials' ); ?> }"]
 							</p>
 						</div>
 						
@@ -296,7 +296,7 @@ function wpmtst_settings_shortcodes() {
 	?>
 	<div class="wrap wpmtst">
 
-		<h2><?php _e( 'Shortcodes', WPMTST_NAME ); ?></h2>
+		<h2><?php _e( 'Shortcodes', 'strong-testimonials' ); ?></h2>
 
 		<table class="shortcode-table">
 			<tr>

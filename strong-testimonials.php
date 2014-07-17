@@ -32,7 +32,6 @@
 /**
  * Setup
  */
-define( 'WPMTST_NAME', 'strong-testimonials' );
 // define( 'WPMTST_DIR', plugins_url( false, __FILE__ ) );
 define( 'WPMTST_DIR', plugin_dir_url( __FILE__ ) );
 define( 'WPMTST_INC', plugin_dir_path( __FILE__ ) . 'includes/' );
@@ -43,7 +42,7 @@ define( 'WPMTST_INC', plugin_dir_path( __FILE__ ) . 'includes/' );
  */
 function wpmtst_plugin_action_links( $links, $file ) {
 	if ( $file == plugin_basename( __FILE__ ) ) {
-		$settings_link = '<a href="' . admin_url( 'edit.php?post_type=wpm-testimonial&page=settings' ) . '">' . __( 'Settings', WPMTST_NAME ) . '</a>';
+		$settings_link = '<a href="' . admin_url( 'edit.php?post_type=wpm-testimonial&page=settings' ) . '">' . __( 'Settings', 'strong-testimonials' ) . '</a>';
 		array_unshift( $links, $settings_link );
 	}
 	return $links;
@@ -67,8 +66,7 @@ add_filter( 'plugin_row_meta', 'wpmtst_plugin_row_meta', 10, 4 );
  * Text domain
  */
 function wpmtst_textdomain() {
-	// load_plugin_textdomain( WPMTST_NAME, FALSE, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
-	load_plugin_textdomain( WPMTST_NAME, FALSE, WPMTST_DIR . 'languages/' );
+	load_plugin_textdomain( 'strong-testimonials', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 }
 add_action( 'plugins_loaded', 'wpmtst_textdomain' );
 
@@ -146,23 +144,23 @@ function wpmtst_default_settings() {
 function wpmtst_register_cpt() {
 
 	$testimonial_labels = array(
-			'name'                  => _x( 'Testimonials', 'post type general name', WPMTST_NAME ),
-			'singular_name'         => _x( 'Testimonial', 'post type singular name', WPMTST_NAME ),
-			'add_new'               => __( 'Add New', WPMTST_NAME ),
-			'add_new_item'          => __( 'Add New Testimonial', WPMTST_NAME ),
-			'edit_item'             => __( 'Edit Testimonial', WPMTST_NAME ),
-			'new_item'              => __( 'New Testimonial', WPMTST_NAME ),
-			'all_items' 			      => __( 'All Testimonials', WPMTST_NAME ),
-			'view_item'             => __( 'View Testimonial', WPMTST_NAME ) ,
-			'search_items'          => __( 'Search Testimonials', WPMTST_NAME ),
-			'not_found'             => __( 'Nothing Found', WPMTST_NAME ),
-			'not_found_in_trash'    => __( 'Nothing found in Trash', WPMTST_NAME ),
+			'name'                  => _x( 'Testimonials', 'post type general name', 'strong-testimonials' ),
+			'singular_name'         => _x( 'Testimonial', 'post type singular name', 'strong-testimonials' ),
+			'add_new'               => __( 'Add New', 'strong-testimonials' ),
+			'add_new_item'          => __( 'Add New Testimonial', 'strong-testimonials' ),
+			'edit_item'             => __( 'Edit Testimonial', 'strong-testimonials' ),
+			'new_item'              => __( 'New Testimonial', 'strong-testimonials' ),
+			'all_items' 			      => __( 'All Testimonials', 'strong-testimonials' ),
+			'view_item'             => __( 'View Testimonial', 'strong-testimonials' ) ,
+			'search_items'          => __( 'Search Testimonials', 'strong-testimonials' ),
+			'not_found'             => __( 'Nothing Found', 'strong-testimonials' ),
+			'not_found_in_trash'    => __( 'Nothing found in Trash', 'strong-testimonials' ),
 			'parent_item_colon'     => ''
 	);
 
 	$testimonial_args = array(
 			'labels'                => $testimonial_labels,
-			'singular_label'        => __( 'testimonial', WPMTST_NAME ),
+			'singular_label'        => __( 'testimonial', 'strong-testimonials' ),
 			'public'                => true,
 			'show_ui'               => true,
 			'capability_type'       => 'post',
@@ -179,16 +177,16 @@ function wpmtst_register_cpt() {
 
 
 	$categories_labels = array(
-			'name'                  => __( 'Categories', WPMTST_NAME ),
-			'singular_name'         => _x( 'Category', WPMTST_NAME ),
-			'all_items' 			      => __( 'All Categories', WPMTST_NAME ),
-			'add_new_item'          => _x( 'Add New Category', WPMTST_NAME ),
-			'edit_item'             => __( 'Edit Category', WPMTST_NAME ),
-			'new_item'              => __( 'New Category', WPMTST_NAME ),
-			'view_item'             => __( 'View Category', WPMTST_NAME ),
-			'search_items'          => __( 'Search Category', WPMTST_NAME ),
-			'not_found'             => __( 'Nothing Found', WPMTST_NAME ),
-			'not_found_in_trash'    => __( 'Nothing found in Trash', WPMTST_NAME ),
+			'name'                  => __( 'Categories', 'strong-testimonials' ),
+			'singular_name'         => _x( 'Category', 'strong-testimonials' ),
+			'all_items' 			      => __( 'All Categories', 'strong-testimonials' ),
+			'add_new_item'          => _x( 'Add New Category', 'strong-testimonials' ),
+			'edit_item'             => __( 'Edit Category', 'strong-testimonials' ),
+			'new_item'              => __( 'New Category', 'strong-testimonials' ),
+			'view_item'             => __( 'View Category', 'strong-testimonials' ),
+			'search_items'          => __( 'Search Category', 'strong-testimonials' ),
+			'not_found'             => __( 'Nothing Found', 'strong-testimonials' ),
+			'not_found_in_trash'    => __( 'Nothing found in Trash', 'strong-testimonials' ),
 			'parent_item_colon'     => ''
 	);
 

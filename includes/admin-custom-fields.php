@@ -29,7 +29,7 @@ function wpmtst_settings_custom_fields() {
 
 			// Undo changes
 			$fields = $field_group['fields'];
-			echo sprintf( $message_format, __( 'Changes undone.', WPMTST_NAME ) );
+			echo sprintf( $message_format, __( 'Changes undone.', 'strong-testimonials' ) );
 
 		}
 		elseif ( isset( $_POST['restore-defaults'] ) ) {
@@ -46,7 +46,7 @@ function wpmtst_settings_custom_fields() {
 			update_option( 'wpmtst_fields', $default_fields );
 			$fields = $default_fields['field_groups']['custom']['fields'];
 			
-			echo sprintf( $message_format, __( 'Defaults restored.', WPMTST_NAME ) );
+			echo sprintf( $message_format, __( 'Defaults restored.', 'strong-testimonials' ) );
 
 		}
 		else {
@@ -72,7 +72,7 @@ function wpmtst_settings_custom_fields() {
 			}
 			$field_options['field_groups']['custom']['fields'] = $fields;
 			update_option( 'wpmtst_fields', $field_options );
-			echo sprintf( $message_format, __( 'Fields saved.', WPMTST_NAME ) );
+			echo sprintf( $message_format, __( 'Fields saved.', 'strong-testimonials' ) );
 		}
 
 	}
@@ -87,7 +87,7 @@ function wpmtst_settings_custom_fields() {
 	// Custom Fields Form
 	// ------------------
 	echo '<div class="wrap wpmtst">' . "\n";
-	echo '<h2>' . __( 'Fields', WPMTST_NAME ) . '</h2>' . "\n";
+	echo '<h2>' . __( 'Fields', 'strong-testimonials' ) . '</h2>' . "\n";
 	echo '<ul><li>Fields will appear in this order on the form.</li><li>Sort by grabbing the <span class="dashicons dashicons-menu"></span> icon.</li><li>Click the field name to expand its options panel.</li></ul>' . "\n";
 	
 	echo '<!-- Custom Fields Form -->' . "\n";
@@ -103,7 +103,7 @@ function wpmtst_settings_custom_fields() {
 	echo '</ul>' . "\n";
 	
 	echo '<div id="add-field-bar">';
-	echo '<input id="add-field" type="button" class="button-primary" name="add-field" value="' . __( 'Add New Field', WPMTST_NAME ) . '" />';
+	echo '<input id="add-field" type="button" class="button-primary" name="add-field" value="' . __( 'Add New Field', 'strong-testimonials' ) . '" />';
 	echo '</div>' . "\n";
 	
 	echo '<p class="submit">' . "\n";

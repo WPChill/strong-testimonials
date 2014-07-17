@@ -69,7 +69,7 @@ function wpmtst_captcha_check( $captcha, $errors ) {
 			if ( function_exists( 'wpmsrc_check' ) ) {
 				// check for empty user response first
 				if ( empty( $_POST['recaptcha_response_field'] ) ) {
-					$errors['captcha'] = __( 'Please complete the CAPTCHA.', WPMTST_NAME );
+					$errors['captcha'] = __( 'Please complete the CAPTCHA.', 'strong-testimonials' );
 				}
 				else {
 					// check captcha
@@ -86,7 +86,7 @@ function wpmtst_captcha_check( $captcha, $errors ) {
 						$error_codes['incorrect-captcha-sol']    = 'The CAPTCHA was not entered correctly. Please try again.';
 						$error_codes['captcha-timeout']          = 'The process timed out. Please try again.';
 						// $error_codes['recaptcha-not-reachable']  = 'Unable to reach reCAPTCHA server. Please contact the site administrator.';
-						$errors['captcha'] = __( $error_codes[ $response->error ], WPMTST_NAME );
+						$errors['captcha'] = __( $error_codes[ $response->error ], 'strong-testimonials' );
 					}
 				}
 			}
@@ -100,7 +100,7 @@ function wpmtst_captcha_check( $captcha, $errors ) {
 					$response = isset( $_POST['captchar'] ) ? (string) $_POST['captchar'] : '';
 					$correct = $captcha_instance->check( $prefix, $response );
 					if ( ! $correct )
-						$errors['captcha'] = __( 'The Captcha was not entered correctly. Please try again.', WPMTST_NAME );
+						$errors['captcha'] = __( 'The Captcha was not entered correctly. Please try again.', 'strong-testimonials' );
 					// remove the temporary image and text files
 					// (except on Windows)
 					if ( '127.0.0.1' != $_SERVER['SERVER_ADDR'] )

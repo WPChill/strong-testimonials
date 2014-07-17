@@ -1,0 +1,296 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Strong Testimonials Plugin\n"
+"POT-Creation-Date: 2014-07-17 13:43-0500\n"
+"PO-Revision-Date: 2014-07-17 14:54-0500\n"
+"Last-Translator: Chris Dillon <chris@wpmission.com>\n"
+"Language-Team: WP Mission <chris@wpmission.com>\n"
+"Language: ru\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.6.4\n"
+"X-Poedit-Basepath: .\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-SearchPath-0: ..\n"
+
+#: ../includes/admin-custom-fields.php:12 ../includes/settings.php:95
+msgid "You do not have sufficient permissions to access this page."
+msgstr ""
+
+#: ../includes/admin-custom-fields.php:32
+msgid "Changes undone."
+msgstr ""
+
+#: ../includes/admin-custom-fields.php:49
+msgid "Defaults restored."
+msgstr ""
+
+#: ../includes/admin-custom-fields.php:75
+msgid "Fields saved."
+msgstr ""
+
+#: ../includes/admin-custom-fields.php:90
+msgid "Fields"
+msgstr ""
+
+#: ../includes/admin-custom-fields.php:106
+msgid "Add New Field"
+msgstr ""
+
+#: ../includes/admin.php:32
+msgid "requires"
+msgstr ""
+
+#: ../includes/admin.php:33
+msgid ""
+"or higher so it has been deactivated. Please upgrade WordPress and try again."
+msgstr ""
+
+#: ../includes/admin.php:35
+msgid "Back to the WordPress"
+msgstr ""
+
+#: ../includes/admin.php:36
+msgid "Plugins page"
+msgstr ""
+
+#: ../includes/admin.php:101 ../includes/widget.php:217
+msgid "Title"
+msgstr ""
+
+#: ../includes/admin.php:107 ../includes/admin.php:165
+msgid "Thumbnail"
+msgstr ""
+
+#: ../includes/admin.php:114 ../includes/widget.php:223
+msgid "Category"
+msgstr ""
+
+#: ../includes/admin.php:115 ../includes/admin.php:209
+msgid "Shortcode"
+msgstr ""
+
+#: ../includes/admin.php:116
+msgid "Date"
+msgstr ""
+
+#: ../includes/admin.php:194
+msgid "None"
+msgstr ""
+
+#: ../includes/admin.php:206
+msgid "ID"
+msgstr ""
+
+#: ../includes/admin.php:207
+msgid "Name"
+msgstr ""
+
+#: ../includes/admin.php:208
+msgid "Slug"
+msgstr ""
+
+#: ../includes/admin.php:210
+msgid "Posts"
+msgstr ""
+
+#: ../includes/captcha.php:72
+msgid "Please complete the CAPTCHA."
+msgstr ""
+
+#: ../includes/captcha.php:103
+msgid "The Captcha was not entered correctly. Please try again."
+msgstr ""
+
+#: ../includes/settings.php:143
+msgid "Testimonial Settings"
+msgstr ""
+
+#: ../includes/settings.php:147
+msgid "Settings saved."
+msgstr ""
+
+#: ../includes/settings.php:172
+msgid "Send notification email to"
+msgstr ""
+
+#: ../includes/settings.php:199 ../includes/widget.php:237
+msgid "Order"
+msgstr ""
+
+#: ../includes/settings.php:214 ../includes/widget.php:281
+msgid "Show each for"
+msgstr ""
+
+#: ../includes/settings.php:218 ../includes/settings.php:242
+#: ../includes/widget.php:285 ../includes/widget.php:309
+msgid "seconds"
+msgstr ""
+
+#: ../includes/settings.php:224 ../includes/widget.php:291
+msgid "Transition effect"
+msgstr ""
+
+#: ../includes/settings.php:238 ../includes/widget.php:305
+msgid "Effect duration"
+msgstr ""
+
+#: ../includes/settings.php:249 ../includes/widget.php:316
+msgid "Pause on hover"
+msgstr ""
+
+#: ../includes/settings.php:257
+msgid "Client Template"
+msgstr ""
+
+#: ../includes/settings.php:259
+msgid ""
+"Use these shortcode options to show client information below each testimonial"
+msgstr ""
+
+#: ../includes/settings.php:263 ../includes/settings.php:269
+msgid "your custom text field"
+msgstr ""
+
+#: ../includes/settings.php:264 ../includes/settings.php:270
+msgid "your CSS class"
+msgstr ""
+
+#: ../includes/settings.php:268
+msgid "your custom URL field"
+msgstr ""
+
+#: ../includes/settings.php:299
+msgid "Shortcodes"
+msgstr ""
+
+#: ../includes/shortcodes.php:431
+msgid "Thank you! Your testimonial is awaiting moderation."
+msgstr ""
+
+#: ../includes/shortcodes.php:451
+msgid "Required Field"
+msgstr "Обязательное поле"
+
+#: ../includes/shortcodes.php:536
+msgid "Captcha"
+msgstr ""
+
+#: ../includes/shortcodes.php:549
+msgid "Add Testimonial"
+msgstr "Добавить рекомендацию"
+
+#: ../includes/widget.php:17
+msgid "Several ways to show testimonials."
+msgstr ""
+
+#: ../includes/widget.php:33
+msgid "Strong Testimonials"
+msgstr ""
+
+#: ../includes/widget.php:182
+msgid "Read More Testimonials"
+msgstr ""
+
+#: ../includes/widget.php:225 ../includes/widget.php:275
+msgid "Show all"
+msgstr ""
+
+#: ../includes/widget.php:254
+msgid "Cycle Mode"
+msgstr ""
+
+#: ../includes/widget.php:259
+msgid "Static Mode"
+msgstr ""
+
+#: ../includes/widget.php:268 ../includes/widget.php:327
+msgid "Number to show"
+msgstr ""
+
+#: ../includes/widget.php:343
+msgid "Character limit"
+msgstr ""
+
+#: ../includes/widget.php:351
+msgid "Show Featured Images"
+msgstr ""
+
+#: ../includes/widget.php:357
+msgid "Show \"Read More\" link to this page"
+msgstr ""
+
+#: ../includes/widget.php:362
+msgid "Select page"
+msgstr ""
+
+#: ../strong-testimonials.php:45
+msgid "Settings"
+msgstr ""
+
+#: ../strong-testimonials.php:150
+msgid "Add New"
+msgstr ""
+
+#: ../strong-testimonials.php:151
+msgid "Add New Testimonial"
+msgstr ""
+
+#: ../strong-testimonials.php:152
+msgid "Edit Testimonial"
+msgstr ""
+
+#: ../strong-testimonials.php:153
+msgid "New Testimonial"
+msgstr ""
+
+#: ../strong-testimonials.php:154
+msgid "All Testimonials"
+msgstr ""
+
+#: ../strong-testimonials.php:155
+msgid "View Testimonial"
+msgstr ""
+
+#: ../strong-testimonials.php:156
+msgid "Search Testimonials"
+msgstr ""
+
+#: ../strong-testimonials.php:157 ../strong-testimonials.php:189
+msgid "Nothing Found"
+msgstr ""
+
+#: ../strong-testimonials.php:158 ../strong-testimonials.php:190
+msgid "Nothing found in Trash"
+msgstr ""
+
+#: ../strong-testimonials.php:164
+msgid "testimonial"
+msgstr ""
+
+#: ../strong-testimonials.php:181
+msgid "Categories"
+msgstr ""
+
+#: ../strong-testimonials.php:183
+msgid "All Categories"
+msgstr ""
+
+#: ../strong-testimonials.php:185
+msgid "Edit Category"
+msgstr ""
+
+#: ../strong-testimonials.php:186
+msgid "New Category"
+msgstr ""
+
+#: ../strong-testimonials.php:187
+msgid "View Category"
+msgstr ""
+
+#: ../strong-testimonials.php:188
+msgid "Search Category"
+msgstr ""

@@ -29,11 +29,11 @@ function wpmtst_version_check() {
 		if ( is_plugin_active( $plugin ) ) {
 			deactivate_plugins( $plugin );
 			wp_die( '<strong>' . $wpmtst_plugin_info['Name'] . ' </strong> ' 
-				. __( 'requires', WPMTST_NAME ) . ' <strong>WordPress ' . $require_wp . '</strong> ' 
-				. __( 'or higher so it has been deactivated. Please upgrade WordPress and try again.', WPMTST_NAME) 
+				. __( 'requires', 'strong-testimonials' ) . ' <strong>WordPress ' . $require_wp . '</strong> ' 
+				. __( 'or higher so it has been deactivated. Please upgrade WordPress and try again.', 'strong-testimonials') 
 				. '<br /><br />' 
-				. __( 'Back to the WordPress', WPMTST_NAME) . ' <a href="' . get_admin_url( null, 'plugins.php' ) . '">' 
-				. __( 'Plugins page', WPMTST_NAME) . '</a>' );
+				. __( 'Back to the WordPress', 'strong-testimonials') . ' <a href="' . get_admin_url( null, 'plugins.php' ) . '">' 
+				. __( 'Plugins page', 'strong-testimonials') . '</a>' );
 		}
 	}
 }
@@ -78,7 +78,7 @@ function wpmtst_meta_options() {
 		<?php foreach ( $field_groups[ $fields['current_field_group'] ]['fields'] as $key => $field ) { ?>
 		<?php if ( 'custom' == $field['record_type'] ) { ?>
 		<tr>
-			<th><label for="<?php echo $field['name']; ?>"><?php _e( $field['label'], WPMTST_NAME ); ?></label></td>
+			<th><label for="<?php echo $field['name']; ?>"><?php _e( $field['label'], 'strong-testimonials' ); ?></label></td>
 			<td><?php echo sprintf( '<input id="%2$s" type="%1$s" class="custom-input" name="custom[%2$s]" value="%3$s" size="" />', $field['input_type'], $field['name'], $post->$field['name'] ); ?></td>
 		</tr>
 		<?php } ?>
@@ -98,22 +98,22 @@ function wpmtst_edit_columns( $columns ) {
 	
 	$columns = array(
 			'cb'    => '<input type="checkbox" />', 
-			'title' => __( 'Title', WPMTST_NAME ),
+			'title' => __( 'Title', 'strong-testimonials' ),
 	);
 	
 	foreach ( $fields as $key => $field ) {
 		if ( $field['admin_table'] ) {
 			if ( 'featured_image' == $field['name'] )
-				$columns['thumbnail'] = __( 'Thumbnail', WPMTST_NAME );
+				$columns['thumbnail'] = __( 'Thumbnail', 'strong-testimonials' );
 			elseif ( 'post_title' == $field['name'] )
 				continue; // is set above
 			else
-				$columns[ $field['name'] ] = __( $field['label'], WPMTST_NAME );
+				$columns[ $field['name'] ] = __( $field['label'], 'strong-testimonials' );
 		}
 	}
-	$columns['category']  = __( 'Category', WPMTST_NAME );
-	$columns['shortcode'] = __( 'Shortcode', WPMTST_NAME );
-	$columns['date']      = __( 'Date', WPMTST_NAME );
+	$columns['category']  = __( 'Category', 'strong-testimonials' );
+	$columns['shortcode'] = __( 'Shortcode', 'strong-testimonials' );
+	$columns['date']      = __( 'Date', 'strong-testimonials' );
 
 	return $columns;
 }
@@ -162,7 +162,7 @@ add_action( 'manage_wpm-testimonial_posts_custom_column', 'wpmtst_custom_columns
  * Add thumbnail column to admin list
  */
 function wpmtst_add_thumbnail_column( $columns ) {
-	$columns['thumbnail'] = __( 'Thumbnail', WPMTST_NAME );
+	$columns['thumbnail'] = __( 'Thumbnail', 'strong-testimonials' );
 	return $columns;
 }
 add_filter( 'manage_wpm-testimonial_posts_columns', 'wpmtst_add_thumbnail_column' );
@@ -191,7 +191,7 @@ function wpmtst_add_thumbnail_value( $column_name, $post_id ) {
 		if ( isset( $thumb ) && $thumb )
 			echo $thumb;
 		else
-			echo __( 'None', WPMTST_NAME );
+			echo __( 'None', 'strong-testimonials' );
 	}
 }
 add_action( 'manage_wpm-testimonial_posts_custom_column', 'wpmtst_add_thumbnail_value', 10, 2 );
@@ -203,11 +203,11 @@ add_action( 'manage_wpm-testimonial_posts_custom_column', 'wpmtst_add_thumbnail_
 function wpmtst_manage_categories( $columns ) {
 	$new_columns = array(
 			'cb'        => '<input type="checkbox" />',
-			'ID'        => __( 'ID', WPMTST_NAME ),
-			'name'      => __( 'Name', WPMTST_NAME ),
-			'slug'      => __( 'Slug', WPMTST_NAME ),
-			'shortcode' => __( 'Shortcode', WPMTST_NAME ),
-			'posts'     => __( 'Posts', WPMTST_NAME )
+			'ID'        => __( 'ID', 'strong-testimonials' ),
+			'name'      => __( 'Name', 'strong-testimonials' ),
+			'slug'      => __( 'Slug', 'strong-testimonials' ),
+			'shortcode' => __( 'Shortcode', 'strong-testimonials' ),
+			'posts'     => __( 'Posts', 'strong-testimonials' )
 	);
 	return $new_columns;
 }

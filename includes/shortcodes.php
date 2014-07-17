@@ -428,7 +428,7 @@ function wpmtst_form_shortcode( $atts ) {
 				}
 
 				wpmtst_notify_admin();
-				return '<div class="testimonial-success">' .  __( 'Thank you! Your testimonial is awaiting moderation.', WPMTST_NAME ) .'</div>';
+				return '<div class="testimonial-success">' .  __( 'Thank you! Your testimonial is awaiting moderation.', 'strong-testimonials' ) .'</div>';
 
 			}
 			else {
@@ -448,7 +448,7 @@ function wpmtst_form_shortcode( $atts ) {
 	// output buffering made this incredibly unreadable
 	
 	$html = '<div id="wpmtst-form">';
-	$html .= '<p class="required-notice"><span class="required symbol"></span>' . __( 'Required Field', WPMTST_NAME ) . '</p>';
+	$html .= '<p class="required-notice"><span class="required symbol"></span>' . __( 'Required Field', 'strong-testimonials' ) . '</p>';
 	$html .= '<form id="wpmtst-submission-form" method="post" action="" enctype="multipart/form-data">';
 	$html .= wp_nonce_field( 'wpmtst_submission_form', 'wpmtst_form_submitted', true, false );
 
@@ -464,7 +464,7 @@ function wpmtst_form_shortcode( $atts ) {
 			$classes = '';
 
 		$html .= '<p class="form-field">';
-		$html .= '<label for="wpmtst_' . $field['name'] . '">' . __( $field['label'], WPMTST_NAME ) . '</label>';
+		$html .= '<label for="wpmtst_' . $field['name'] . '">' . __( $field['label'], 'strong-testimonials' ) . '</label>';
 
 		if ( isset( $field['required'] ) && $field['required'] )
 			$html .= '<span class="required symbol"></span>';
@@ -533,7 +533,7 @@ function wpmtst_form_shortcode( $atts ) {
 		$captcha_html = apply_filters( 'wpmtst_captcha', $captcha );
 		if ( $captcha_html ) {
 			$html .= '<div class="wpmtst-captcha">';
-			$html .= '<label for="wpmtst_captcha">' . __( 'Captcha', WPMTST_NAME ) . '</label><span class="required symbol"></span>';
+			$html .= '<label for="wpmtst_captcha">' . __( 'Captcha', 'strong-testimonials' ) . '</label><span class="required symbol"></span>';
 			$html .= '<div>';
 			$html .= $captcha_html;
 			if ( isset( $errors['captcha'] ) )
@@ -546,7 +546,7 @@ function wpmtst_form_shortcode( $atts ) {
 	$html .= '<p class="form-field">';
 	$html .= '<input type="submit" id="wpmtst_submit_testimonial"'
 				.' name="wpmtst_submit_testimonial"'
-				.' value="' . __( 'Add Testimonial', WPMTST_NAME ) . '"'
+				.' value="' . __( 'Add Testimonial', 'strong-testimonials' ) . '"'
 				.' class="button" validate="required:true" />';
 	$html .= '</p>';
 	
