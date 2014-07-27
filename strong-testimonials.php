@@ -4,7 +4,7 @@
 	Plugin URI: http://www.wpmission.com/
 	Description: Collect and display testimonials.
 	Author: Chris Dillon
-	Version: 1.4.3
+	Version: 1.4.4
 	Forked From: GC Testimonials version 1.3.2 by Erin Garscadden
 	Author URI: http://www.wpmission.com/
 	Text Domain: wpmtst
@@ -167,6 +167,41 @@ function wpmtst_get_website( $url ) {
 
 
 /*
+	Helper: has_shortcode < WP 3.6
+*/
+if ( ! function_exists( 'has_shortcode' ) ) {
+	function has_shortcode( $content, $tag ) {
+		if ( false === strpos( $content, '[' ) ) {
+			return false;
+		}
+
+		if ( shortcode_exists( $tag ) ) {
+			preg_match_all( '/' . get_shortcode_regex() . '/s', $content, $matches, PREG_SET_ORDER );
+			if ( empty( $matches ) )
+				return false;
+
+			foreach ( $matches as $shortcode ) {
+				if ( $tag === $shortcode[2] )
+					return true;
+			}
+		}
+		return false;
+	}
+}
+
+
+/*
+	Helper: shortcode_exists < WP 3.6
+*/
+if( ! function_exists( 'shortcode_exists' ) ) {
+	function shortcode_exists( $tag ) {
+		global $shortcode_tags;
+		return array_key_exists( $tag, $shortcode_tags );
+	}
+}
+
+
+/*
 	Function to check whether a script is queued by file name instead of handle.
 */
 function wpmtst_is_queued( $filenames ) {
@@ -306,8 +341,8 @@ function wpmtst_custom_columns( $column ) {
 add_action( 'manage_wpm-testimonial_posts_custom_column', 'wpmtst_custom_columns' );
 
 
-	/*************************/
- /*   THUMBNAIL SUPPORT   */
+/*************************/
+/*   THUMBNAIL SUPPORT   */
 /*************************/
 
 
@@ -359,8 +394,8 @@ function wpmtst_add_thumbnail_value( $column_name, $post_id ) {
 add_action( 'manage_wpm-testimonial_posts_custom_column', 'wpmtst_add_thumbnail_value', 10, 2 );
 
 
-	/*********************/
- /*   CUSTOM FIELDS   */
+/*********************/
+/*   CUSTOM FIELDS   */
 /*********************/
 
 
@@ -431,6 +466,10 @@ function wpmtst_meta_options() {
 	Update custom fields.
 */
 function wpmtst_save_details() {
+	// check Custom Post Type
+	if ( ! isset( $_POST['post_type'] ) || 'wpm-testimonial' != $_POST['post_type'] )
+		return;
+	
 	global $post;
 	$custom_meta_fields = array( 'client_name', 'email', 'company_website', 'company_name' );
 
@@ -441,11 +480,12 @@ function wpmtst_save_details() {
 		}
 	}
 }
-add_action( 'save_post_wpm-testimonial', 'wpmtst_save_details' );
+// add_action( 'save_post_wpm-testimonial', 'wpmtst_save_details' ); // WP 3.7+
+add_action( 'save_post', 'wpmtst_save_details' );
 
 
-	/******************/
- /*   CATEGORIES   */
+/******************/
+/*   CATEGORIES   */
 /******************/
 
 
@@ -482,8 +522,8 @@ function wpmtst_manage_columns( $out, $column_name, $id ) {
 add_filter( 'manage_wpm-testimonial-category_custom_column', 'wpmtst_manage_columns', 10, 3 );
 
 
-	/******************/
- /*   SHORTCODES   */
+/******************/
+/*   SHORTCODES   */
 /******************/
 
 
@@ -796,8 +836,8 @@ function wpmtst_form_shortcode( $atts ) {
 
 	} // if posted
 
-	  /*---------------------------------*/
-	 /*   Testimonial Submission Form   */
+	/*---------------------------------*/
+	/*   Testimonial Submission Form   */
 	/*---------------------------------*/
 	ob_start();
 	?>
@@ -947,8 +987,8 @@ function wpmtst_wp_handle_upload( $file_handler, $overrides ) {
 }
 
 
-	/**************/
- /*   WIDGET   */
+/**************/
+/*   WIDGET   */
 /**************/
 
 
@@ -1448,8 +1488,8 @@ class WpmTst_Widget extends WP_Widget {
 }
 
 
-	/****************/
- /*   SETTINGS   */
+/****************/
+/*   SETTINGS   */
 /****************/
 
 
@@ -1669,8 +1709,8 @@ function wpmtst_settings_shortcodes() {
 }
 
 
-	/***************/
- /*   CAPTCHA   */
+/***************/
+/*   CAPTCHA   */
 /***************/
 
 
