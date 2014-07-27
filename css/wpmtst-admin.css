@@ -1,8 +1,10 @@
 /*
-	Strong Testimonials admin stylesheet
-*/
+ * wpmtst-admin.css
+ * Strong Testimonials admin stylesheet
+ */
 
-/* shortcodes table */
+/* shortcodes table 
+---------------------------------------------------------*/
 
 table.shortcode-table {
 	border-collapse: collapse;
@@ -27,7 +29,8 @@ table.shortcode-table td:nth-child(2) {
 	font-family: Consolas, Monaco, monospace;
 }
 
-/* settings table */
+/* settings table 
+---------------------------------------------------------*/
 
 .wrap.wpmtst .form-table {
 	width: auto;
@@ -37,7 +40,26 @@ table.shortcode-table td:nth-child(2) {
 	width: auto;
 }
 
-/* client details meta box */
+.wrap.wpmtst .form-table div.box {
+	border: 1px solid #ddd;
+	display: inline-block;
+	padding: 10px;
+}
+
+.wrap.wpmtst .form-table .row {
+	line-height: 2.5em;
+}
+
+.wrap.wpmtst .form-table .alpha {
+	width: 120px;
+}
+
+.code {
+	background: #fff;
+}
+
+/* client details meta box 
+---------------------------------------------------------*/
 
 #details table {
   border: none;
@@ -66,7 +88,8 @@ table.shortcode-table td:nth-child(2) {
 	font-style: italic;
 }
 
-/* widget */
+/* widget 
+---------------------------------------------------------*/
 
 .radio-tab {
 	background: #eee;
@@ -155,7 +178,8 @@ input[readonly] {
 	background: rgba(0, 0, 0, 0.04);
 }
 
-/* Categories admin list */
+/* Categories admin list 
+---------------------------------------------------------*/
 
 .widefat th.column-ID {
 	width: 2.2em;

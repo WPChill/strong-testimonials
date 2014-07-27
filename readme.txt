@@ -119,7 +119,7 @@ or
 
 then
 
-* Activate the plugin through the `Plugins` menu.
+* Activate the plugin.
 
 Grab a shortcode from the `Testimonials > Shortcodes` page.
 

@@ -1,223 +1,120 @@
 <?php
+/**
+ * Plugin Name: Strong Testimonials
+ * Plugin URI: http://www.wpmission.com/plugins/strong-testimonials/
+ * Description: Collect and display testimonials.
+ * Author: Chris Dillon
+ * Version: 1.5
+ * Forked From: GC Testimonials version 1.3.2 by Erin Garscadden
+ * Author URI: http://www.wpmission.com/
+ * Text Domain: strong-testimonials
+ * Requires: 3.5 or higher
+ * License: GPLv3 or later
+ *
+ * Copyright 2014  Chris Dillon  chris@wpmission.com
+ * 
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details. * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+ */
+
+/*----------------------------------------------------------------------------*
+ * Setup
+ *----------------------------------------------------------------------------*/
+
+define( 'WPMTST_NAME', 'strong-testimonials' );
+
 /*
-	Plugin Name: Strong Testimonials
-	Plugin URI: http://www.wpmission.com/plugins/strong-testimonials/
-	Description: Collect and display testimonials.
-	Author: Chris Dillon
-	Version: 1.4.7
-	Forked From: GC Testimonials version 1.3.2 by Erin Garscadden
-	Author URI: http://www.wpmission.com/
-	Text Domain: wpmtst
-	Requires: 3.0 or higher
-	License: GPLv3 or later
-
-
-  Copyright 2014  Chris Dillon  chris@wpmission.com
-
-	This program is free software; you can redistribute it and/or modify
-	it under the terms of the GNU General Public License as published by
-	the Free Software Foundation; either version 2 of the License, or
-	(at your option) any later version.
-
-	This program is distributed in the hope that it will be useful,
-	but WITHOUT ANY WARRANTY; without even the implied warranty of
-	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-	GNU General Public License for more details.
-
-	You should have received a copy of the GNU General Public License
-	along with this program; if not, write to the Free Software
-	Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
-*/
-
-
-define( 'WPMTST_NAME', 'wpmtst' );
-
-
-/*
-	Text domain.
-*/
+ * Text domain.
+ */
 function wpmtst_textdomain() {
-	load_plugin_textdomain( 'wpmtst', FALSE, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+	load_plugin_textdomain( WPMTST_NAME, FALSE, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 }
 add_action( 'plugins_loaded', 'wpmtst_textdomain' );
 
-
 /*
-	Plugin activation
-*/
+ * Plugin activation
+ */
 register_activation_hook( __FILE__, 'wpmtst_register_cpt' );
-register_activation_hook( __FILE__, 'wpmtst_default_settings' );
+// register_activation_hook( __FILE__, 'wpmtst_default_settings' );
 register_activation_hook( __FILE__, 'wpmtst_flush_rewrite_rules' );
 
 register_deactivation_hook( __FILE__, 'wpmtst_flush_rewrite_rules' );
-
-
-/*
-	Default settings.
-*/
-function wpmtst_default_settings() {
-	$new_options = array(
-			'per_page'     => '5',
-			'admin_notify' => 0,
-			'admin_email'  => '',
-			'captcha'      => '',
-	);
-
-	// Don't overwrite saved options upon reactivation.
-	if ( ! get_option( 'wpmtst_options' ) ) {
-		update_option( 'wpmtst_options', $new_options );
-	}
-}
-
 
 function wpmtst_flush_rewrite_rules() {
 	flush_rewrite_rules();
 }
 
-
 /*
-	Register scripts and styles.
-*/
-
-function wpmtst_scripts() {
-
-	global $post;
-
-	wp_register_style( 'wpmtst-style', plugins_url( '/css/wpmtst.css', __FILE__ ) );
-	wp_register_style( 'wpmtst-form-style', plugins_url( '/css/wpmtst-form.css', __FILE__ ) );
-
-	// shortcodes: all, single, random
-	if ( has_shortcode( $post->post_content, 'wpmtst-all' )
-			|| has_shortcode( $post->post_content, 'wpmtst-single' )
-			|| has_shortcode( $post->post_content, 'wpmtst-random' )
-			|| has_shortcode( $post->post_content, 'wpmtst-form' ) ) {
-		wp_enqueue_style( 'wpmtst-style' );
+ * Check WordPress version
+ */
+function wpmtst_version_check() {
+	global $wp_version;
+	$wpmtst_plugin_info = get_plugin_data( __FILE__, false );
+	$require_wp = "3.5";  // least required Wordpress version
+	$plugin = plugin_basename( __FILE__ );
+	
+	if ( version_compare( $wp_version, $require_wp, "<" ) ) {
+		if ( is_plugin_active( $plugin ) ) {
+			deactivate_plugins( $plugin );
+			wp_die( "<strong>" . $wpmtst_plugin_info['Name'] . " </strong> " . __( 'requires', WPMTST_NAME ) . " <strong>WordPress " . $require_wp . "</strong> " . __( 'or higher so it has been deactivated. Please upgrade WordPress and try again.', WPMTST_NAME) . "<br /><br />" . __( 'Back to the WordPress', WPMTST_NAME) . " <a href='" . get_admin_url( null, 'plugins.php' ) . "'>" . __( 'Plugins page', WPMTST_NAME) . "</a>." );
+		}
 	}
-
-	// shortcode: all testimonials
-	if ( has_shortcode( $post->post_content, 'wpmtst-all' ) ) {
-		wp_enqueue_script( 'wpmtst-pager', plugins_url( '/js/quickpager.jquery.js', __FILE__ ), array( 'jquery' ) );
-		add_action( 'wp_footer', 'wpmtst_pagination_function' );
-	}
-
-	// shortcode: submission form
-	if ( has_shortcode( $post->post_content, 'wpmtst-form' ) ) {
-		wp_enqueue_style( 'wpmtst-form-style' );
-		wp_enqueue_script( 'wpmtst-validation', '//ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js', array( 'jquery' ) );
-		add_action( 'wp_footer', 'wpmtst_validation_function' );
-	}
-
 }
-add_action( 'wp_enqueue_scripts', 'wpmtst_scripts' );
-
 
 /*
-	Pagination on "All Testimonials" shortcode.
-*/
-function wpmtst_pagination_function() {
-	// $per_page = get_option( 'wpmtst_options' )['per_page']; // causes error in earlier PHP versions?
+ * Default settings.
+ * Double duty: Plugin activation and upgrade.
+ * http://make.wordpress.org/core/2010/10/27/plugin-activation-hooks-no-longer-fire-for-updates/
+ */
+function wpmtst_default_settings() {
+
+	// -1- DEFAULTS
+	$plugin_data = get_plugin_data( __FILE__, false );
+	$plugin_version = $plugin_data['Version'];
+	// add new options for plugin upgrade here
+	$default_options = array(
+			'per_page'      => '5',
+			'admin_notify'  => 0,
+			'admin_email'   => '',
+			'captcha'       => '',
+			'cycle-order'   => 'recent',
+			'cycle-effect'  => 'fade',
+			'cycle-speed'   => 1.5,
+			'cycle-timeout' => 8,
+			'cycle-pause'   => 1,
+	);
+
+	// -2- GET OPTIONS
 	$options = get_option( 'wpmtst_options' );
-	$per_page = $options['per_page'];
-	if ( ! $per_page ) {
-		$per_page = '5';
-	}
-	?>
-	<script type="text/javascript">
-		jQuery(document).ready(function($) {
-			$("#wpmtst-container").quickPager({ pageSize: <?php echo $per_page; ?>, currentPage: 1, pagerLocation: "after" });
-		});
-	</script>
-	<?php
-}
 
-
-/*
-	Submission form validation.
-*/
-function wpmtst_validation_function() {
-	?>
-	<script type="text/javascript">
-		jQuery(document).ready(function($) {
-			$("#wpmtst-submission-form").validate({});
-		});
-	</script>
-	<?php
-}
-
-
-/*
-	Admin scripts.
-*/
-function wpmtst_admin_scripts() {
-	wp_enqueue_style( 'wpmtst-admin-style', plugins_url( '/css/wpmtst-admin.css', __FILE__ ) );
-	wp_enqueue_script( 'wpmtst-admin-script', plugins_url( '/js/wpmtst-admin.js', __FILE__ ), array( 'jquery' ) );
-}
-add_action( 'admin_enqueue_scripts', 'wpmtst_admin_scripts' );
-
-
-/*
-	Helper: Format URL.
-*/
-function wpmtst_get_website( $url ) {
-	if ( ! preg_match( "~^(?:f|ht)tps?://~i", $url ) ) {
-		$url = 'http://' . $url;
-	}
-	return $url;
-}
-
-
-/*
-	Shim: has_shortcode < WP 3.6
-*/
-if ( ! function_exists( 'has_shortcode' ) ) {
-	function has_shortcode( $content, $tag ) {
-		if ( false === strpos( $content, '[' ) ) {
-			return false;
-		}
-
-		if ( shortcode_exists( $tag ) ) {
-			preg_match_all( '/' . get_shortcode_regex() . '/s', $content, $matches, PREG_SET_ORDER );
-			if ( empty( $matches ) )
-				return false;
-
-			foreach ( $matches as $shortcode ) {
-				if ( $tag === $shortcode[2] )
-					return true;
-			}
-		}
-		return false;
-	}
-}
-
-
-/*
-	Shim: shortcode_exists < WP 3.6
-*/
-if( ! function_exists( 'shortcode_exists' ) ) {
-	function shortcode_exists( $tag ) {
-		global $shortcode_tags;
-		return array_key_exists( $tag, $shortcode_tags );
-	}
-}
-
-
-/*
-	Function to check whether a script is queued by file name instead of handle.
-*/
-function wpmtst_is_queued( $filenames ) {
-	global $wp_scripts;
-	foreach ( $wp_scripts->registered as $handle => $script ) {
-		if ( in_array( basename( $script->src ), $filenames ) ) {
-			return true;
+	if ( ! $options ) {
+		// -2A- ACTIVATION
+		update_option( 'wpmtst_options', $default_options );
+	} else {
+		// -2B- UPGRADE?
+		if ( ! isset( $options['plugin_version'] ) || $options['plugin_version'] != $plugin_version ) {
+			// merge in any new options - arg#2 [options] populates/overwrites arg#1 [defaults]
+			$options = array_merge( $default_options, $options );
+			$options['plugin_version'] = $plugin_version;
+			update_option( 'wpmtst_options', $options );
 		}
 	}
-	return false;
+	
 }
 
-
 /*
-	Register Post Type and Taxonomy
-*/
+ * Register Post Type and Taxonomy
+ */
 function wpmtst_register_cpt() {
 
 	$testimonial_labels = array(
@@ -280,135 +177,236 @@ function wpmtst_register_cpt() {
 }
 add_action( 'init', 'wpmtst_register_cpt' );
 
-
 /*
-	Add Custom Columns to the Admin Screen
-*/
-function wpmtst_edit_columns( $columns ) {
-	$columns = array(
-			'cb'          => '<input type="checkbox" />',
-			'title'       => __( 'Title', WPMTST_NAME ),
-			'client_name' => __( 'Client', WPMTST_NAME ),
-			'thumbnail'   => __( 'Thumbnail', WPMTST_NAME ),
-			'category'    => __( 'Category', WPMTST_NAME ),
-			'shortcode'   => __( 'Shortcode', WPMTST_NAME ),
-			'date'        => __( 'Date', WPMTST_NAME ),
-	);
-	return $columns;
-}
-add_filter( 'manage_edit-wpm-testimonial_columns', 'wpmtst_edit_columns' );
-
-
-/*
-	Show custom values
-*/
-function wpmtst_custom_columns( $column ) {
-	global $post;
-	$custom = get_post_custom();
-
-	if ( 'post_id' == $column ) {
-
-		echo $post->ID;
-
-	} elseif ( 'description' == $column ) {
-
-		echo substr( $post->post_content, 0, 100 ) . '...';
-
-	} elseif ( 'client_name' == $column ) {
-
-		echo $custom['client_name'][0];
-
-	} elseif ( 'thumbnail' == $column ) {
-
-		echo $post->post_thumbnail;
-
-	} elseif ( 'shortcode' == $column ) {
-
-		echo '[wpmtst-single id="' . $post->ID . '"]';
-
-	} elseif ( 'category' == $column ) {
-
-		$categories = get_the_terms( 0, 'wpm-testimonial-category' );
-		if ( $categories && ! is_wp_error( $categories ) ) {
-			$list = array();
-			foreach ( $categories as $cat ) {
-				$list[] = $cat->name;
-			}
-			echo join( ", ", $list );		
-		}
-
-	}
-}
-add_action( 'manage_wpm-testimonial_posts_custom_column', 'wpmtst_custom_columns' );
-
-
-/*************************/
-/*   THUMBNAIL SUPPORT   */
-/*************************/
-
-
-/*
-	Theme support for custom post type only.
-*/
+ * Theme support for this custom post type only.
+ */
 function wpmtst_theme_support() {
 	add_theme_support( 'post-thumbnails', array( 'wpm-testimonial' ) );
 }
 add_action( 'after_theme_setup', 'wpmtst_theme_support' );
 
-
 /*
-	Add thumbnail column to admin screen list
-*/
-function wpmtst_add_thumbnail_column( $columns ) {
-	$columns['thumbnail'] = __( 'Thumbnail', WPMTST_NAME );
-	return $columns;
+ * Register scripts and styles.
+ */
+
+function wpmtst_scripts() {
+	global $post;
+
+	wp_register_style( 'wpmtst-style', plugins_url( '/css/wpmtst.css', __FILE__ ) );
+	wp_register_style( 'wpmtst-form-style', plugins_url( '/css/wpmtst-form.css', __FILE__ ) );
+
+	wp_register_script( 'wpmtst-pager-plugin', plugins_url( '/js/quickpager.jquery.js', __FILE__ ), array( 'jquery' ) );
+	wp_register_script( 'wpmtst-slider-plugin', '//cdn.jsdelivr.net/cycle2/20140314/jquery.cycle2.min.js', array( 'jquery' ) );
+	wp_register_script( 'wpmtst-validation-plugin', '//ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js', array( 'jquery' ) );
+	wp_register_script( 'wpmtst-cycle', plugins_url( '/js/wpmtst-cycle.js', __FILE__ ), array ( 'jquery' ), false, true );
+
+	if ( has_shortcode( $post->post_content, 'wpmtst-all' ) ) {
+		wp_enqueue_style( 'wpmtst-style' );
+		wp_enqueue_script( 'wpmtst-pager-plugin' );
+		add_action( 'wp_footer', 'wpmtst_pagination_function' );
+	}
+	
+	if ( has_shortcode( $post->post_content, 'wpmtst-form' ) ) {
+		wp_enqueue_style( 'wpmtst-style' );
+		wp_enqueue_style( 'wpmtst-form-style' );
+		wp_enqueue_script( 'wpmtst-validation-plugin' );
+		add_action( 'wp_footer', 'wpmtst_validation_function' );
+	}
+
+	if ( has_shortcode( $post->post_content, 'wpmtst-cycle' ) ) {
+		wp_enqueue_style( 'wpmtst-style' );
+	}
+	
+	if ( has_shortcode( $post->post_content, 'wpmtst-single' ) ) {
+		wp_enqueue_style( 'wpmtst-style' );
+	}
+	
+	if ( has_shortcode( $post->post_content, 'wpmtst-random' ) ) {
+		wp_enqueue_style( 'wpmtst-style' );
+	}
+
 }
-add_filter( 'manage_wpm-testimonial_posts_columns', 'wpmtst_add_thumbnail_column' );
-
+add_action( 'wp_enqueue_scripts', 'wpmtst_scripts' );
 
 /*
-	Show thumbnail in admin screen list
-*/
-function wpmtst_add_thumbnail_value( $column_name, $post_id ) {
-	if ( 'thumbnail' == $column_name ) {
-		$width = (int) 75;
-		$height = (int) 75;
+ * Pagination on "All Testimonials" shortcode.
+ */
+function wpmtst_pagination_function() {
+	// $per_page = get_option( 'wpmtst_options' )['per_page']; // only PHP 5.3+ ?
+	$options  = get_option( 'wpmtst_options' );
+	$per_page = $options['per_page'] ? $options['per_page'] : 5;
+	?>
+	<script type="text/javascript">
+		jQuery(document).ready(function($) {
+			$("#wpmtst-container").quickPager({ pageSize: <?php echo $per_page; ?>, currentPage: 1, pagerLocation: "after" });
+		});
+	</script>
+	<?php
+}
 
-		$thumbnail_id = get_post_meta( $post_id, '_thumbnail_id', true );
-		$attachments = get_children( array( 'post_parent' => $post_id, 'post_type' => 'attachment', 'post_mime_type' => 'image') );
+/*
+ * Submission form validation.
+ */
+function wpmtst_validation_function() {
+	?>
+	<script type="text/javascript">
+		jQuery(document).ready(function($) {
+			$("#wpmtst-submission-form").validate({});
+		});
+	</script>
+	<?php
+}
 
-		if ( $thumbnail_id ) {
-			$thumb = wp_get_attachment_image( $thumbnail_id, array( $width, $height ), true );
-		} elseif ( $attachments ) {
-			foreach ( $attachments as $attachment_id => $attachment ) {
-				$thumb = wp_get_attachment_image( $attachment_id, array( $width, $height ), true );
-			}
+
+/*----------------------------------------------------------------------------*
+ * Getters, Shims, Helpers
+ *----------------------------------------------------------------------------*/
+
+/*
+ * Append custom fields to post object.
+ */
+function wpmtst_get_post( $post ) {
+	$custom = get_post_custom( $post->ID );
+	foreach ( $custom as $key => $field ) {
+		// exclude '_edit_last' and '_edit_lock'
+		$keyt = trim( $key );
+		if ( '_' != $keyt{0} ) {
+			$post->$key = $field[0];
 		}
+	}
+	return $post;
+}
 
-		if ( isset( $thumb ) && $thumb ) {
-			echo $thumb;
-		} else {
-			echo __( 'None', WPMTST_NAME );
+/*
+ * Normalize empty shortcode attributes
+ * (turns atts into tags - brilliant!)
+ * Thanks http://wordpress.stackexchange.com/a/123073/32076
+ */
+if ( ! function_exists( 'normalize_empty_atts' ) ) {
+	function normalize_empty_atts( $atts ) {
+		if ( ! empty( $atts ) ) {
+			foreach ( $atts as $attribute => $value ) {
+				if ( is_int( $attribute ) ) {
+					$atts[ strtolower( $value ) ] = true;
+					unset( $atts[ $attribute ] );
+				}
+			}
+			return $atts;
 		}
 	}
 }
-add_action( 'manage_wpm-testimonial_posts_custom_column', 'wpmtst_add_thumbnail_value', 10, 2 );
-
-
-/*********************/
-/*   CUSTOM FIELDS   */
-/*********************/
-
 
 /*
-	Add custom fields to the Add / Edit screen
-*/
+ * Get category.
+ */
+function wpmtst_get_terms( $category ) {
+	if ( '' != $category ) {
+		$term = get_term_by( 'id', $category, 'wpm-testimonial-category' );
+		$term_taxonomy = $term->taxonomy;
+		$term_slug     = $term->slug;
+	} else {
+		$term_taxonomy = '';
+		$term_slug     = '';
+	}
+	return array( 'taxo' => $term_taxonomy, 'term' => $term_slug );
+}
+
+/*
+ * Helper: Format URL.
+ */
+function wpmtst_get_website( $url ) {
+	if ( ! preg_match( "~^(?:f|ht)tps?://~i", $url ) )
+		$url = 'http://' . $url;
+
+	return $url;
+}
+
+/*
+ * Check whether a script is registered by file name instead of handle.
+ *
+ * @param array $filenames possible versions of one script, e.g. plugin.js, plugin-min.js, plugin-1.2.js
+ * @return bool
+ */
+function wpmtst_is_queued( $filenames ) {
+	global $wp_scripts;
+	$registered = false;
+	foreach ( $wp_scripts->registered as $handle => $script ) {
+		if ( in_array( basename( $script->src ), $filenames ) ) {
+			$registered = true;
+			break;
+		}
+	}
+	if ( $registered ) {
+		if ( in_array( $handle, $wp_scripts->queue ) ) {
+			return true;
+		}
+	}
+	return false;
+}
+
+/*
+ * Shim: has_shortcode < WP 3.6
+ */
+if ( ! function_exists( 'has_shortcode' ) ) {
+	function has_shortcode( $content, $tag ) {
+		if ( false === strpos( $content, '[' ) ) {
+			return false;
+		}
+
+		if ( shortcode_exists( $tag ) ) {
+			preg_match_all( '/' . get_shortcode_regex() . '/s', $content, $matches, PREG_SET_ORDER );
+			if ( empty( $matches ) )
+				return false;
+
+			foreach ( $matches as $shortcode ) {
+				if ( $tag === $shortcode[2] )
+					return true;
+			}
+		}
+		return false;
+	}
+}
+
+/*
+ * Shim: shortcode_exists < WP 3.6
+ */
+if( ! function_exists( 'shortcode_exists' ) ) {
+	function shortcode_exists( $tag ) {
+		global $shortcode_tags;
+		return array_key_exists( $tag, $shortcode_tags );
+	}
+}
+
+
+/*----------------------------------------------------------------------------*
+ * Admin
+ *----------------------------------------------------------------------------*/
+
+/*
+ * Add custom fields to the Add / Edit screen
+ */
 function wpmtst_admin_init() {
+	// Check WordPress version
+	wpmtst_version_check();
+	// Check for new options in plugin upgrade
+	wpmtst_default_settings();
+	
 	add_meta_box( 'details', 'Client Details', 'wpmtst_meta_options', 'wpm-testimonial', 'normal', 'low' );
 }
 add_action( 'admin_init', 'wpmtst_admin_init' );
 
+/*
+ * Admin scripts.
+ */
+function wpmtst_admin_scripts() {
+	wp_enqueue_style( 'wpmtst-admin-style', plugins_url( '/css/wpmtst-admin.css', __FILE__ ) );
+	wp_enqueue_script( 'wpmtst-admin-script', plugins_url( '/js/wpmtst-admin.js', __FILE__ ), array( 'jquery' ) );
+}
+add_action( 'admin_enqueue_scripts', 'wpmtst_admin_scripts' );
 
+/*
+ * Add custom fields to the testimonial editor
+ */
 function wpmtst_meta_options() {
 	global $post;
 	$custom = get_post_custom();
@@ -458,10 +456,136 @@ function wpmtst_meta_options() {
 	<?php
 }
 
+/*
+ * Add custom columns to the admin screen
+ */
+function wpmtst_edit_columns( $columns ) {
+	$columns = array(
+			'cb'          => '<input type="checkbox" />',
+			'title'       => __( 'Title', WPMTST_NAME ),
+			'client_name' => __( 'Client', WPMTST_NAME ),
+			'thumbnail'   => __( 'Thumbnail', WPMTST_NAME ),
+			'category'    => __( 'Category', WPMTST_NAME ),
+			'shortcode'   => __( 'Shortcode', WPMTST_NAME ),
+			'date'        => __( 'Date', WPMTST_NAME ),
+	);
+	return $columns;
+}
+add_filter( 'manage_edit-wpm-testimonial_columns', 'wpmtst_edit_columns' );
 
 /*
-	Update custom fields.
-*/
+ * Show custom values
+ */
+function wpmtst_custom_columns( $column ) {
+	global $post;
+	$custom = get_post_custom();
+
+	if ( 'post_id' == $column ) {
+
+		echo $post->ID;
+
+	} elseif ( 'description' == $column ) {
+
+		echo substr( $post->post_content, 0, 100 ) . '...';
+
+	} elseif ( 'client_name' == $column ) {
+
+		echo $custom['client_name'][0];
+
+	} elseif ( 'thumbnail' == $column ) {
+
+		echo $post->post_thumbnail;
+
+	} elseif ( 'shortcode' == $column ) {
+
+		echo '[wpmtst-single id="' . $post->ID . '"]';
+
+	} elseif ( 'category' == $column ) {
+
+		$categories = get_the_terms( 0, 'wpm-testimonial-category' );
+		if ( $categories && ! is_wp_error( $categories ) ) {
+			$list = array();
+			foreach ( $categories as $cat ) {
+				$list[] = $cat->name;
+			}
+			echo join( ", ", $list );		
+		}
+
+	}
+}
+add_action( 'manage_wpm-testimonial_posts_custom_column', 'wpmtst_custom_columns' );
+
+/*
+ * Add thumbnail column to admin screen list
+ */
+function wpmtst_add_thumbnail_column( $columns ) {
+	$columns['thumbnail'] = __( 'Thumbnail', WPMTST_NAME );
+	return $columns;
+}
+add_filter( 'manage_wpm-testimonial_posts_columns', 'wpmtst_add_thumbnail_column' );
+
+/*
+ * Show thumbnail in admin screen list
+ */
+function wpmtst_add_thumbnail_value( $column_name, $post_id ) {
+	if ( 'thumbnail' == $column_name ) {
+		$width = (int) 75;
+		$height = (int) 75;
+
+		$thumbnail_id = get_post_meta( $post_id, '_thumbnail_id', true );
+		$attachments = get_children( array( 'post_parent' => $post_id, 'post_type' => 'attachment', 'post_mime_type' => 'image') );
+
+		if ( $thumbnail_id ) {
+			$thumb = wp_get_attachment_image( $thumbnail_id, array( $width, $height ), true );
+		} elseif ( $attachments ) {
+			foreach ( $attachments as $attachment_id => $attachment ) {
+				$thumb = wp_get_attachment_image( $attachment_id, array( $width, $height ), true );
+			}
+		}
+
+		if ( isset( $thumb ) && $thumb ) {
+			echo $thumb;
+		} else {
+			echo __( 'None', WPMTST_NAME );
+		}
+	}
+}
+add_action( 'manage_wpm-testimonial_posts_custom_column', 'wpmtst_add_thumbnail_value', 10, 2 );
+
+/*
+ * Add columns to the testimonials categories screen
+ */
+function wpmtst_manage_categories( $columns ) {
+	$new_columns = array(
+			'cb'        => '<input type="checkbox" />',
+			'ID'        => __( 'ID', WPMTST_NAME ),
+			'name'      => __( 'Name', WPMTST_NAME ),
+			'slug'      => __( 'Slug', WPMTST_NAME ),
+			'shortcode' => __( 'Shortcode', WPMTST_NAME ),
+			'posts'     => __( 'Posts', WPMTST_NAME )
+	);
+	return $new_columns;
+}
+add_filter( 'manage_edit-wpm-testimonial-category_columns', 'wpmtst_manage_categories');
+
+/*
+ * Show custom column
+ */
+function wpmtst_manage_columns( $out, $column_name, $id ) {
+	if ( 'shortcode' == $column_name ) {
+		$output = '[wpmtst-all category="' . $id . '"]';
+	} elseif ( 'ID' == $column_name ) {
+		$output = $id;
+	} else {
+		$output = '';
+	}
+	return $output;
+}
+add_filter( 'manage_wpm-testimonial-category_custom_column', 'wpmtst_manage_columns', 10, 3 );
+
+/*
+ * Update custom fields
+ */
 function wpmtst_save_details() {
 	// check Custom Post Type
 	if ( ! isset( $_POST['post_type'] ) || 'wpm-testimonial' != $_POST['post_type'] )
@@ -481,85 +605,26 @@ function wpmtst_save_details() {
 add_action( 'save_post', 'wpmtst_save_details' );
 
 
-/******************/
-/*   CATEGORIES   */
-/******************/
-
-
-/*
-	Add Columns to the Testimonials Categories Screen
-*/
-function wpmtst_manage_categories( $columns ) {
-	$new_columns = array(
-			'cb'        => '<input type="checkbox" />',
-			'ID'        => __( 'ID', WPMTST_NAME ),
-			'name'      => __( 'Name', WPMTST_NAME ),
-			'slug'      => __( 'Slug', WPMTST_NAME ),
-			'shortcode' => __( 'Shortcode', WPMTST_NAME ),
-			'posts'     => __( 'Posts', WPMTST_NAME )
-	);
-	return $new_columns;
-}
-add_filter( 'manage_edit-wpm-testimonial-category_columns', 'wpmtst_manage_categories');
-
+/*----------------------------------------------------------------------------*
+ * Shortcodes
+ *----------------------------------------------------------------------------*/
 
 /*
-	Show custom column
-*/
-function wpmtst_manage_columns( $out, $column_name, $id ) {
-	if ( 'shortcode' == $column_name ) {
-		$output = '[wpmtst-all category="' . $id . '"]';
-	} elseif ( 'ID' == $column_name ) {
-		$output = $id;
-	} else {
-		$output = '';
-	}
-	return $output;
-}
-add_filter( 'manage_wpm-testimonial-category_custom_column', 'wpmtst_manage_columns', 10, 3 );
-
-
-/******************/
-/*   SHORTCODES   */
-/******************/
-
-
-/*
-	Add custom fields to post object.
-*/
-function wpmtst_get_post( $post ) {
-	$custom = get_post_custom( $post->ID );
-	foreach ( $custom as $key => $field ) {
-		// exclude '_edit_last' and '_edit_lock'
-		$keyt = trim( $key );
-		if ( '_' != $keyt{0} ) {
-			$post->$key = $field[0];
-		}
-	}
-	return $post;
-}
-
-
-/*
-	Single Testimonial LAYOUT
-*/
+ * Single Testimonial LAYOUT
+ */
 function wpmtst_single( $post ) {
 	ob_start();
 	?>
 	<div class="testimonial">
-
 		<div class="inner">
-
+		
 			<?php if ( ! empty( $post->post_title ) ) : ?>
 			<h3 class="heading"><?php echo $post->post_title; ?></h3>
 			<?php endif; ?>
-
 			<?php if ( has_post_thumbnail( $post->ID ) ) : ?>
 			<div class="photo"><?php echo get_the_post_thumbnail( $post->ID, 'thumbnail' ); ?></div>
 			<?php endif; ?>
-
-			<div class="content"><?php echo wpautop( $post->post_content ); ?></div><!-- content -->
-
+			<div class="content"><?php echo wpautop( $post->post_content ); ?></div>
 			<div class="clear"></div>
 
 			<div class="client">
@@ -573,22 +638,19 @@ function wpmtst_single( $post ) {
 				<?php elseif ( ! empty( $post->company_website ) ) : ?>
 					<div class="website"><?php echo $post->company_website; ?></div>
 				<?php endif; ?>
-			</div><!-- client -->
+			</div>
 
-		</div><!-- inner -->
-
-	</div><!-- testimonial -->
-
+		</div>
+	</div>
 	<?php
 	$html = ob_get_contents();
 	ob_end_clean();
 	return do_shortcode( $html );
 }
 
-
 /*
-	Single Testimonial Shortcode
-*/
+ * Single testimonial shortcode
+ */
 function wpmtst_single_shortcode( $atts ) {
 	extract( shortcode_atts( array( 'id' => '' ), $atts ) );
 	$post = wpmtst_get_post( get_post( $id ) );
@@ -597,24 +659,19 @@ function wpmtst_single_shortcode( $atts ) {
 }
 add_shortcode( 'wpmtst-single', 'wpmtst_single_shortcode' );
 
-
 /*
-	Random Testimonial Shortcode
-*/
+ * Random testimonial shortcode
+ */
 function wpmtst_random_shortcode( $atts ) {
-	extract( shortcode_atts( array( 'category' => '', 'limit' => '1' ), $atts ) );
+	extract( shortcode_atts( 
+		array( 'category' => '', 'limit' => '1' ), 
+		normalize_empty_atts( $atts )
+	) );
 
-	if ( '' != $category ) {
-		$term = get_term_by( 'id', $category, 'wpm-testimonial-category' );
-		$term_taxonomy = $term->taxonomy;
-		$term_slug = $term->slug;
-	} else {
-		$term_taxonomy = '';
-		$term_slug = '';
-	}
+	$terms = wpmtst_get_terms( $category );
 
 	$args = array(
-			$term_taxonomy   => $term_slug,
+			$terms['taxo']   => $terms['term'],
 			'post_type'      => 'wpm-testimonial',
 			'posts_per_page' => $limit,
 			'orderby'        => 'rand',
@@ -622,36 +679,32 @@ function wpmtst_random_shortcode( $atts ) {
 	);
 
 	$wp_query = new WP_Query();
-	$posts_array  = $wp_query->query( $args );
+	$results  = $wp_query->query( $args );
+	
 	$display = '';
-
-	foreach ( $posts_array as $post ) {
+	foreach ( $results as $post ) {
 		$display .= wpmtst_single( wpmtst_get_post( $post ) );
 	}
-
 	return $display;
 }
 add_shortcode( 'wpmtst-random', 'wpmtst_random_shortcode' );
 
-
 /*
-	All Testimonials Shortcode
-*/
+ * All testimonials shortcode
+ *
+ * @TODO:
+ * - sort options in query
+ */
 function wpmtst_all_shortcode( $atts ) {
-	extract( shortcode_atts( array( 'category' => '' ), $atts ) );
+	extract( shortcode_atts( 
+		array( 'category' => '' ), 
+		normalize_empty_atts( $atts )
+	) );
 
-	if ( '' != $category ) {
-		$term = get_term_by( 'id', $category, 'wpm-testimonial-category' );
-		$term_taxonomy = $term->taxonomy;
-		$term_slug = $term->slug;
-	} else {
-		$term_taxonomy = '';
-		$term_slug = '';
-	}
+	$terms = wpmtst_get_terms( $category );
 
-	// @todo: sort options
 	$args = array(
-			$term_taxonomy   => $term_slug,
+			$terms['taxo']   => $terms['term'],
 			'post_type'      => 'wpm-testimonial',
 			'posts_per_page' => -1,
 			'orderby'        => 'post_date',
@@ -660,25 +713,72 @@ function wpmtst_all_shortcode( $atts ) {
 	);
 
 	$wp_query = new WP_Query();
-	$posts_array = $wp_query->query( $args );
+	$results = $wp_query->query( $args );
 
 	$display = '<div id="wpmtst-container">';
-
-	foreach ( $posts_array as $post ) {
+	foreach ( $results as $post ) {
 		$display .= '<div class="result">' . wpmtst_single( wpmtst_get_post( $post ) ) . '</div><!-- result -->';
 	}
-
 	$display .= '</div><!-- wpmtst-container -->';
 	$display .= '<div id="pagingControls"></div>';
-
+	
 	return $display;
 }
 add_shortcode( 'wpmtst-all', 'wpmtst_all_shortcode' );
 
+/*
+ * Cycle testimonials shortcode
+ *
+ * @TODO:
+ * - sort options in query
+ */
+function wpmtst_cycle_shortcode( $atts ) {
+	extract( shortcode_atts( 
+		array( 'category' => '' ), 
+		normalize_empty_atts( $atts )
+	) );
+	$options = get_option( 'wpmtst_options' );
+	
+	do_action( 'wpmtst_cycle_hook', $options['cycle-effect'], $options['cycle-speed'], $options['cycle-timeout'], $options['cycle-pause'] );
+	
+	if ( 'rand' == $options['cycle-order'] ) {
+		$orderby = 'rand';
+		$order   = '';
+	} elseif ( 'oldest' == $options['cycle-order'] ) {
+		$orderby = 'post_date';
+		$order   = 'ASC';
+	} else {
+		$orderby = 'post_date';
+		$order   = 'DESC';
+	}
+
+	$terms = wpmtst_get_terms( $category );
+
+	$args = array(
+			$terms['taxo']   => $terms['term'],
+			'post_type'      => 'wpm-testimonial',
+			'posts_per_page' => -1,
+			'orderby'        => $orderby,
+			'order'          => $order,
+			'post_status'    => 'publish'
+	);
+
+	$wp_query = new WP_Query();
+	$results = $wp_query->query( $args );
+
+	$display = '<div id="wpmtst-container" class="tcycle">';
+	foreach ( $results as $post ) {
+		$display .= '<div class="result">' . wpmtst_single( wpmtst_get_post( $post ) ) . '</div><!-- result -->';
+	}
+	$display .= '</div><!-- wpmtst-container -->';
+	
+	return $display;
+}
+add_shortcode( 'wpmtst-cycle', 'wpmtst_cycle_shortcode' );
 
 /*
-	Submission Form shortcode
-*/
+ * Submission form shortcode
+ */
 function wpmtst_form_shortcode( $atts ) {
 
 	$client_name     = '';
@@ -698,7 +798,6 @@ function wpmtst_form_shortcode( $atts ) {
 		
 		// --------------------------------
 		// start: CAPTCHA plugin handlers 
-	
 		switch ( $captcha ) {
 		
 			// Captcha by BestWebSoft
@@ -718,8 +817,18 @@ function wpmtst_form_shortcode( $atts ) {
 						// check captcha
 						$response = wpmsrc_check();
 						if ( ! $response->is_valid ) {
-							$errors['captcha'] = __( 'The CAPTCHA was not entered correctly. Please try again.', WPMTST_NAME );
-							// $response['error'] contains the actual error message, e.g. "incorrect-captcha-sol"
+							// -------------------------------------------------------
+							// MOVE THIS TO RECAPTCHA PLUGIN ~!~
+							// with log and auto-report email
+							// -------------------------------------------------------
+							// see https://developers.google.com/recaptcha/docs/verify
+							// -------------------------------------------------------
+							$error_codes['invalid-site-private-key'] = 'Invalid keys. Please contact the site administrator.';
+							$error_codes['invalid-request-cookie']   = 'Invalid parameter. Please contact the site administrator.';
+							$error_codes['incorrect-captcha-sol']    = 'The CAPTCHA was not entered correctly. Please try again.';
+							$error_codes['captcha-timeout']          = 'The process timed out. Please try again.';
+							// $error_codes['recaptcha-not-reachable']  = 'Unable to reach reCAPTCHA server. Please contact the site administrator.';
+							$errors['captcha'] = __( $error_codes[ $response->error ], WPMTST_NAME );
 						}
 					}
 				}
@@ -728,7 +837,6 @@ function wpmtst_form_shortcode( $atts ) {
 			default :
 			
 		}
-		
 		// end: CAPTCHA plugin handlers
 		// --------------------------------
 		
@@ -830,7 +938,7 @@ function wpmtst_form_shortcode( $atts ) {
 
 				if ( $admin_notify && $admin_email ) {
 					$subject = 'New testimonial for ' . get_option( 'blogname' );
-					$headers = 'From: noreply@' . str_replace( 'www.', '', $_SERVER['HTTP_HOST'] );
+					$headers = 'From: noreply@' . preg_replace( '/^www\./', '', $_SERVER['HTTP_HOST'] );
 					$message = 'New testimonial submission for ' . get_option( 'blogname' ) . '. This is awaiting action from the website administrator.';
 					// More info here? A copy of testimonial? A link to admin page? A link to approve directly from email?
 					wp_mail( $admin_email, $subject, $message, $headers );
@@ -846,9 +954,9 @@ function wpmtst_form_shortcode( $atts ) {
 
 	} // if posted
 
-	/*---------------------------------*/
-	/*   Testimonial Submission Form   */
-	/*---------------------------------*/
+	//---------------------------------
+	//   Testimonial Submission Form
+	//---------------------------------
 	ob_start();
 	?>
 
@@ -857,7 +965,7 @@ function wpmtst_form_shortcode( $atts ) {
 		<p class="required-notice"><span class="required symbol"></span><?php _e( 'Required Field', WPMTST_NAME ); ?></p>
 
 		<form id="wpmtst-submission-form" method="post" action="" enctype="multipart/form-data">
-			<?php echo wp_nonce_field( 'wpmtst_submission_form', 'wpmtst_form_submitted' ); ?>
+			<?php wp_nonce_field( 'wpmtst_submission_form', 'wpmtst_form_submitted' ); ?>
 
 			<p class="form-field">
 				<label for="wpmtst_client_name"><?php _e( 'Full Name', WPMTST_NAME ); ?></label><span class="required symbol"></span>
@@ -947,7 +1055,9 @@ function wpmtst_form_shortcode( $atts ) {
 }
 add_shortcode( 'wpmtst-form', 'wpmtst_form_shortcode' );
 
-
+/*
+ * File upload handler
+ */
 function wpmtst_wp_handle_upload( $file_handler, $overrides ) {
 	require_once( admin_url( 'includes/image.php' ) );
 	require_once( admin_url( 'includes/file.php' ) );
@@ -958,43 +1068,9 @@ function wpmtst_wp_handle_upload( $file_handler, $overrides ) {
 }
 
 
-/**************/
-/*   WIDGET   */
-/**************/
-
-
-function wpmtst_widget_script( $arg1, $arg2, $arg3, $arg4 ) {
-	// Load jQuery Cycle2 plugin (http://jquery.malsup.com/cycle2/) from CDN 
-	// **if not already enqueued** by the theme or another plugin.
-	
-	// ---------------------------------------------------------------------
-	// This checks by handle but handles can be different so this misses it:
-	// (Seems to be intended for checks within the plugin itself.)
-	// ---------------------------------------------------------------------
-	// $list = 'enqueued';
-	// if ( ! wp_script_is( 'jquery.cycle2.min.js', $list ) || ! wp_script_is( 'jquery.cycle2.js', $list ) ) {
-	
-	// -------------------------------------------------
-	// This custom function checks by file name instead:
-	// -------------------------------------------------
-	if ( ! wpmtst_is_queued( array( 'jquery.cycle2.min.js', 'jquery.cycle2.js' ) ) ) {
-		wp_enqueue_script( 'wpmtst-slider', '//cdn.jsdelivr.net/cycle2/20140314/jquery.cycle2.min.js', array( 'jquery' ) );
-	}
-
-	// Send arguments to Cycle function call and load it **in the footer**.
-	wp_enqueue_script( 'wpmtst-widget', plugins_url( '/js/wpmtst-widget.js', __FILE__ ), array ( 'jquery' ), false, true );
-	$args = array ( 'effect' => $arg1, 'speed' => $arg2 * 1000, 'timeout' => $arg3 * 1000, 'pause' => $arg4 );
-	wp_localize_script( 'wpmtst-widget', 'tcycle', $args );
-}
-// custom hook
-add_action( 'wpmtst_widget_hook', 'wpmtst_widget_script', 10, 4 );
-
-
-function wpmtst_load_widget() {
-	register_widget( 'WpmTst_Widget' );
-}
-add_action( 'widgets_init', 'wpmtst_load_widget' );
-
+/*----------------------------------------------------------------------------*
+ * Widget
+ *----------------------------------------------------------------------------*/
 
 class WpmTst_Widget extends WP_Widget {
 
@@ -1046,55 +1122,56 @@ class WpmTst_Widget extends WP_Widget {
 		if ( is_active_widget( false, false, $this->id_base ) ) {
 			wp_enqueue_style( 'wpmtst-style' );
 			// load slider with widget parameters
-			do_action( 'wpmtst_widget_hook', $instance['cycle-effect'], $instance['cycle-speed'], $instance['cycle-timeout'], $instance['cycle-pause'] );
+			do_action( 
+				'wpmtst_cycle_hook', 
+				$instance['cycle-effect'], 
+				$instance['cycle-speed'], 
+				$instance['cycle-timeout'], 
+				$instance['cycle-pause']
+			);
 		}
 
 		$data = array_merge( $args, $instance );
+		$classes = [];
 
-		echo $data['before_widget'];
-
-		if ( ! empty( $data['title'] ) ) {
-			echo $data['before_title'] . $data['title'] . $data['after_title'];
-		};
-
+		// build query
+		
 		if ( 'rand' == $data['order'] ) {
 			$orderby = 'rand';
-			$order = '';
+			$order   = '';
 		} elseif ( 'oldest' == $data['order'] ) {
 			$orderby = 'post_date';
-			$order = 'ASC';
+			$order   = 'ASC';
 		} else {
 			$orderby = 'post_date';
-			$order = 'DESC';
+			$order   = 'DESC';
 		}
 
 		if ( 'cycle' == $data['mode'] ) {
 
-			if ( $data['cycle-all'] ) {
+			$classes[] = 'tcycle';
+			if ( $data['cycle-all'] )
 				$num = -1;
-			} elseif ( ! empty( $data['cycle-limit'] ) ) {
+			elseif ( ! empty( $data['cycle-limit'] ) )
 				$num = $data['cycle-limit'];
-			} else {
+			else
 				$num = $this->defaults['cycle-limit'];
-			}
 
 		} else {
 
-			if ( ! empty( $data['static-limit'] ) ) {
+			if ( ! empty( $data['static-limit'] ) )
 				$num = $data['static-limit'];
-			} else {
+			else
 				$num = $this->defaults['static-limit'];
-			}
 
 		}
 
 		$char_switch = $data['char-switch'];
 
-		if ( (int) $data['char-limit'] ) {
+		if ( (int) $data['char-limit'] )
 			$char_limit = $data['char-limit'];
-		} else {
+		else
 			$char_limit = $this->defaults['char-limit'];
-		}
 
 		$term_taxonomy = '';
 		$term_slug = '';
@@ -1102,7 +1179,7 @@ class WpmTst_Widget extends WP_Widget {
 			$term = get_term_by( 'id', $data['category'], 'wpm-testimonial-category' );
 			if ( $term ) {
 				$term_taxonomy = $term->taxonomy;
-				$term_slug = $term->slug;
+				$term_slug     = $term->slug;
 			}
 		}
 
@@ -1116,21 +1193,24 @@ class WpmTst_Widget extends WP_Widget {
 		);
 
 		$wp_query = new WP_Query();
-		$posts_array = $wp_query->query( $args );
+		$results = $wp_query->query( $args );
+		
+		// start HTML output
+		
+		echo $data['before_widget'];
 
-		if ( 'cycle' == $data['mode'] ) {
-			echo '<div id="tcycle">';
-		}
+		if ( ! empty( $data['title'] ) )
+			echo $data['before_title'] . $data['title'] . $data['after_title'];
 
-		foreach ( $posts_array as $post ) {
+		echo '<div class="wpmtst-widget-container ' . join( ' ', $classes ) . '">';
 
+		foreach ( $results as $post ) {
 			$post = wpmtst_get_post( $post );
 
 			echo '<div class="testimonial-widget">';
 
-			if ( ! empty( $post->post_title ) ) {
+			if ( ! empty( $post->post_title ) )
 				echo '<h5>' . $post->post_title . '</h5>';
-			}
 
 			if ( $data['images'] ) {
 				if ( has_post_thumbnail( $post->ID ) ) {
@@ -1141,42 +1221,31 @@ class WpmTst_Widget extends WP_Widget {
 			// trim on word boundary
 			$content = wpautop( $post->post_content );
 			if ( $char_switch && strlen( $content ) > $char_limit ) {
-				// find space
-				$content = substr( $content, 0, strpos( $content, ' ', $char_limit ) ) . ' . . . ';
+				// Find first space after char_limit (e.g. 200).
+				// If not found then char_limit is in the middle of the 
+				// last word (e.g. string length = 203) so no need to truncate.
+				$space_pos = strpos( $content, ' ', $char_limit );
+				if ( $space_pos ) 
+					$content = substr( $content, 0, $space_pos ) . ' . . . ';
 			}
-			echo '<div class="content">' . $content . '</div><!-- content -->';
-
-			echo '<div class="clear"></div>';
+			echo '<div class="content">' . $content . '</div>';
 
 			echo '<div class="client">';
-
 			echo '<div class="name">' . $post->client_name . '</div>';
-
 			if ( ! empty( $post->company_name ) && ! empty( $post->company_website ) ) {
-
 				echo '<div class="company">';
 				echo '<a href="' . wpmtst_get_website( $post->company_website ) .'" target="blank">' . $post->company_name . '</a>';
 				echo '</div>';
-
 			} elseif ( ! empty( $post->company_name ) ) {
-
 				echo '<div class="company">' . $post->company_name . '</div>';
-
 			} elseif ( ! empty( $post->company_website ) ) {
-
 				echo '<div class="website">' . $post->company_website . '</div>';
-
 			}
-
-		 	echo '</div><!-- client -->';
-
-		 echo '</div><!-- testimonial-widget -->';
-
+			echo '</div>';
+			echo '</div>';
 		}
 
-		if ( 'cycle' == $data['mode'] ) {
-			echo '</div><!-- tcycle --><div class="clear"></div>';
-		}
+		echo '</div>';
 
 		if ( $data['more'] ) {
 			$link = get_permalink( $data['more_page'] );
@@ -1184,7 +1253,6 @@ class WpmTst_Widget extends WP_Widget {
 		}
 
 		echo $data['after_widget'];
-
 	}
 
 	// form
@@ -1425,11 +1493,52 @@ class WpmTst_Widget extends WP_Widget {
 
 }
 
+/*
+ * Load widget
+ */
+function wpmtst_load_widget() {
+	register_widget( 'WpmTst_Widget' );
+}
+add_action( 'widgets_init', 'wpmtst_load_widget' );
 
-/****************/
-/*   SETTINGS   */
-/****************/
+/*
+ * Custom hook action to conditionally load Cycle script
+ */
+function wpmtst_cycle_script( $arg1, $arg2, $arg3, $arg4 ) {
+	// Load jQuery Cycle2 plugin (http://jquery.malsup.com/cycle2/) from CDN 
+	// **if not already enqueued** by the theme or another plugin.
+	
+	// -----------------------------------------------------------------------
+	// This checks by *handle* but handles can be different so this misses it:
+	// (Seems to be intended for checks within the plugin itself.)
+	// http://codex.wordpress.org/Function_Reference/wp_script_is
+	// -----------------------------------------------------------------------
+	// $list = 'enqueued';
+	// if ( ! wp_script_is( 'jquery.cycle2.min.js', $list ) || ! wp_script_is( 'jquery.cycle2.js', $list ) ) {
+	
+	// ---------------------------------------------------
+	// This custom function checks by *file name* instead:
+	// ---------------------------------------------------
+	if ( ! wpmtst_is_queued( array( 'jquery.cycle2.min.js', 'jquery.cycle2.js' ) ) )
+		wp_enqueue_script( 'wpmtst-slider-plugin' );
 
+	// Send arguments to Cycle function call and load it **in the footer**.
+	wp_enqueue_script( 'wpmtst-cycle' );
+	$args = array ( 
+		'effect'  => $arg1, 
+		'speed'   => $arg2 * 1000, 
+		'timeout' => $arg3 * 1000, 
+		'pause'   => $arg4
+	);
+	wp_localize_script( 'wpmtst-cycle', 'tcycle', $args );
+}
+// custom hook
+add_action( 'wpmtst_cycle_hook', 'wpmtst_cycle_script', 10, 4 );
+
+
+/*----------------------------------------------------------------------------*
+ * Settings
+ *----------------------------------------------------------------------------*/
 
 function wpmtst_settings_menu() {
 	add_submenu_page( 'edit.php?post_type=wpm-testimonial', // $parent_slug
@@ -1450,10 +1559,9 @@ function wpmtst_settings_menu() {
 }
 add_action( 'admin_menu', 'wpmtst_settings_menu' );
 
-
 /*
-	Make admin menu title unique if necessary.
-*/
+ * Make admin menu title unique if necessary.
+ */
 function wpmtst_unique_menu_title() {
 	// GC Testimonials (any others?)
 	if ( is_plugin_active( 'gc-testimonials/testimonials.php' ) ) {
@@ -1462,9 +1570,8 @@ function wpmtst_unique_menu_title() {
 		$need_unique = false;
 	}
 
-	if ( ! $need_unique ) {
+	if ( ! $need_unique )
 		return;
-	}
 	
 	global $menu;
 	
@@ -1477,20 +1584,21 @@ function wpmtst_unique_menu_title() {
 }
 add_action( 'admin_menu', 'wpmtst_unique_menu_title', 100 );
 
-
 function wpmtst_register_settings() {
 	register_setting( 'wpmtst-settings-group', 'wpmtst_options', 'wpmtst_sanitize_options' );
 }
 
-
 function wpmtst_sanitize_options( $input ) {
-	$input['per_page']     = (int) sanitize_text_field( $input['per_page'] );
-	$input['admin_notify'] = isset( $input['admin_notify'] ) ? 1 : 0;
-	$input['admin_email']  = sanitize_email( $input['admin_email'] );
+	$input['per_page']      = (int) sanitize_text_field( $input['per_page'] );
+	$input['admin_notify']  = isset( $input['admin_notify'] ) ? 1 : 0;
+	$input['admin_email']   = sanitize_email( $input['admin_email'] );
+	$input['cycle-timeout'] = (float) sanitize_text_field( $input['cycle-timeout'] );
+	// $input['cycle-effect']
+	$input['cycle-speed']   = (float) sanitize_text_field( $input['cycle-speed'] );
+	$input['cycle-pause']   = isset( $input['cycle-pause'] ) ? 1 : 0;
 	
 	return $input;
 }
-
 
 function wpmtst_settings_page() {
 	if ( ! current_user_can( 'manage_options' ) )  {
@@ -1498,6 +1606,18 @@ function wpmtst_settings_page() {
 	}
 	
 	$wpmtst_options = get_option( 'wpmtst_options' );
+	$cycle_options = array(
+			'effects' => array(
+					'fade'       => 'Fade',
+					'scrollHorz' => 'Scroll horizontally',
+					'none'       => 'None',
+			)
+	);
+	$order_list = array(
+			'rand'   => 'Random',
+			'recent' => 'Newest first',
+			'oldest' => 'Oldest first'
+	);
 	
 	// Build list of supported Captcha plugins.
 	$plugins = array(
@@ -1508,7 +1628,7 @@ function wpmtst_settings_page() {
 	foreach ( $plugins as $key => $plugin ) {
 		$plugins[$key]['active'] = is_plugin_active( $plugin['file'] );
 		// If current Captcha plugin has been deactivated, disable Captcha
-		// so corresponding div does not appear on form.
+		// so corresponding div does not appear on front-end form.
 		if ( $key == $wpmtst_options['captcha'] && ! $plugins[$key]['active'] ) {
 			$wpmtst_options['captcha'] = '';
 			update_option( 'wpmtst_options', $wpmtst_options );
@@ -1534,14 +1654,15 @@ function wpmtst_settings_page() {
 			<table class="form-table">
 			
 				<tr valign="top">
-					<th scope="row">Number of testimonials to show per page</th>
+					<th scope="row">The number of testimonials to show per page</th>
 					<td>
 						<input type="text" name="wpmtst_options[per_page]" size="3" value="<?php echo esc_attr( $wpmtst_options['per_page'] ); ?>" />
+						This applies to the <span class="code">[wpmtst-all]</span> shortcode.
 					</td>
 				</tr>				
 
 				<tr valign="top">
-					<th scope="row">When new testimonial is submitted</th>
+					<th scope="row">When a new testimonial is submitted</th>
 					<td>
 						<label>
 							<input id="wpmtst-options-admin-notify" type="checkbox" name="wpmtst_options[admin_notify]" <?php checked( $wpmtst_options['admin_notify'] ); ?> />
@@ -1565,19 +1686,82 @@ function wpmtst_settings_page() {
 					</td>
 				</tr>
 				
+				<tr valign="top">
+					<th scope="row">Cycle Shortcode Settings</th>
+					<td>
+						<div class="box">
+						
+							<div class="row">
+								<div class="alpha">
+									<label for="cycle-order"><?php _e( 'Order' ) ?>:</label>
+								</div>
+								<div>
+									<select id="cycle-order" name="wpmtst_options[cycle-order]">
+										<?php
+										foreach ( $order_list as $order => $order_label ) {
+											echo '<option value="' . $order . '"' . selected( $order, $wpmtst_options['cycle-order'] ) . '>' . $order_label . '</option>';
+										}
+										?>
+									</select>
+								</div>
+							</div>
+						
+							<div class="row">
+								<div class="alpha">
+									<label for="cycle-timeout"><?php _e( 'Show each for', WPMTST_NAME ); ?>:</label>
+								</div>
+								<div>
+									<input type="text" id="cycle-timeout" name="wpmtst_options[cycle-timeout]" value="<?php echo $wpmtst_options['cycle-timeout']; ?>" size="3" />
+									<?php _e( 'seconds', WPMTST_NAME ); ?>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="alpha">
+									<label for="cycle-effect"><?php _e( 'Transition effect', WPMTST_NAME ); ?>:</label>
+								</div>
+								<div>
+									<select id="cycle-effect" name="wpmtst_options[cycle-effect]">
+										<?php foreach ( $cycle_options['effects'] as $key => $label ) : ?>
+										<option value="<?php echo $key; ?>" <?php selected( $wpmtst_options['cycle-effect'], $key ); ?>><?php _e( $label ) ?></option>
+										<?php endforeach; ?>
+									</select>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="alpha">
+									<label for="cycle-speed"><?php _e( 'Effect duration', WPMTST_NAME ); ?>:</label>
+								</div>
+								<div>
+									<input type="text" id="cycle-speed" name="wpmtst_options[cycle-speed]" value="<?php echo $wpmtst_options['cycle-speed']; ?>" size="3" />
+									<?php _e( 'seconds', WPMTST_NAME ); ?>
+								</div>
+							</div>
+
+							<div class="row">
+								<div>
+									<input type="checkbox" id="cycle-pause" name="wpmtst_options[cycle-pause]" <?php checked( $wpmtst_options['cycle-pause'] ); ?>  class="checkbox" />
+									<label for="cycle-pause"><?php _e( 'Pause on hover', WPMTST_NAME ); ?></label>
+								</div>
+							</div>
+						</div>
+					</td>
+				</tr>
+				
 			</table>
 
 			<?php submit_button(); ?>
 
 		</form>
 
-	</div> <!-- wrap -->
+	</div><!-- wrap -->
 
-<?php
+	<?php
 }
 
 function wpmtst_settings_shortcodes() {
-?>
+	?>
 	<div class="wrap wpmtst">
 
 		<h2><?php _e( 'Shortcodes', WPMTST_NAME ); ?></h2>
@@ -1594,6 +1778,18 @@ function wpmtst_settings_shortcodes() {
 			</tr>
 		</table>
 		
+		<table class="shortcode-table">
+			<tr>
+				<td colspan="2"><h3>Testimonials Cycle</h3></td>
+			</tr>
+			<tr>
+				<td>Cycle through all from all categories.</td><td>[wpmtst-cycle]</td>
+			</tr>
+			<tr>
+				<td>Cycle through all from a specific category.<br> Find these on the <a href="<?php echo admin_url( 'edit-tags.php?taxonomy=wpm-testimonial-category&post_type=wpm-testimonial' ); ?>">categories screen</a>.</td><td>[wpmtst-cycle category="xx"]</td>
+			</tr>
+		</table>
+
 		<table class="shortcode-table">
 			<tr>
 				<td colspan="2"><h3>Random Testimonial</h3></td>
@@ -1637,10 +1833,9 @@ function wpmtst_settings_shortcodes() {
 }
 
 
-/***************/
-/*   CAPTCHA   */
-/***************/
-
+/*----------------------------------------------------------------------------*
+ * CAPTCHA
+ *----------------------------------------------------------------------------*/
 
 function wpmtst_add_captcha( $captcha ) {
 

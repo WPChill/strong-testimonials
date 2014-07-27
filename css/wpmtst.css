@@ -1,6 +1,7 @@
-/*
-	Strong Testimonials
-*/
+/**
+ * wpmtst.css
+ * Strong Testimonials stylesheet
+ */
 
 /* Testimonial pages
 ---------------------------------------------------------*/
@@ -57,6 +58,11 @@
 	padding-top: 0;
 }
 
+/* fix for themes that set a width on .content :{ */
+[id^=wpmtst-widget] .content {
+	width: auto;
+}
+
 .testimonial .client {
 	margin-top: 1em;
 	text-align: right;
@@ -69,6 +75,9 @@
 
 /* Widget
 ---------------------------------------------------------*/
+
+.wpmtst-widget-container {
+}
 
 .testimonial-widget {
 	margin-bottom: 1.5em;
@@ -92,8 +101,8 @@
 	font-weight: bold;
 }
 
-#tcycle { 
-	margin-bottom: 1em;
+.wpmtst-widget-readmore {
+	margin-top: 1.5em;
 }
 
 
