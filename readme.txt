@@ -173,6 +173,9 @@ I will gladly help add your modifications to a custom version of Strong Testimon
 
 == Changelog ==
 
+= 1.6.1 =
+* Bug fix where photo was not uploading with form submission.
+
 = 1.6 =
 * Added support for Really Simple Captcha plugin.
 
@@ -220,6 +223,9 @@ I will gladly help add your modifications to a custom version of Strong Testimon
 * Initial version, a fork of GC Testimonials 1.3.2.
 
 == Upgrade Notice ==
+
+= 1.6.1 =
+Bug fix where photo was not uploading with form submission.
 
 = 1.6 =
 Added support for Really Simple Captcha plugin.
