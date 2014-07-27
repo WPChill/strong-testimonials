@@ -159,8 +159,11 @@ I will gladly help add your modifications to a custom version of Strong Testimon
 
 == Changelog ==
 
+= 1.4.6 =
+* Fixed bug: Copy-n-pasting shortcodes onto a page in Visual mode included `<code>` tags which fubar'd the page.
+
 = 1.4.5 =
-* Fixed bug: the form shortcode was being rendered before any accompanying page content.
+* Fixed bug: The form shortcode was being rendered before any accompanying page content.
 
 = 1.4.4 =
 * New minimum WordPress version: 3.5.
@@ -180,6 +183,9 @@ I will gladly help add your modifications to a custom version of Strong Testimon
 * Initial version, a fork of GC Testimonials 1.3.2.
 
 == Upgrade Notice ==
+
+= 1.4.6 =
+Fixed a bug when copy-n-pasting a shortcode.
 
 = 1.4.5 =
 Fixed a bug where the form shortcode pushed other page content below.
