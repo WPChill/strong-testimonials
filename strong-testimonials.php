@@ -1,10 +1,10 @@
 <?php
 /*
 	Plugin Name: Strong Testimonials
-	Plugin URI: http://www.wpmission.com/
+	Plugin URI: http://www.wpmission.com/plugins/strong-testimonials/
 	Description: Collect and display testimonials.
 	Author: Chris Dillon
-	Version: 1.4.4
+	Version: 1.4.5
 	Forked From: GC Testimonials version 1.3.2 by Erin Garscadden
 	Author URI: http://www.wpmission.com/
 	Text Domain: wpmtst
@@ -167,7 +167,7 @@ function wpmtst_get_website( $url ) {
 
 
 /*
-	Helper: has_shortcode < WP 3.6
+	Shim: has_shortcode < WP 3.6
 */
 if ( ! function_exists( 'has_shortcode' ) ) {
 	function has_shortcode( $content, $tag ) {
@@ -191,7 +191,7 @@ if ( ! function_exists( 'has_shortcode' ) ) {
 
 
 /*
-	Helper: shortcode_exists < WP 3.6
+	Shim: shortcode_exists < WP 3.6
 */
 if( ! function_exists( 'shortcode_exists' ) ) {
 	function shortcode_exists( $tag ) {
@@ -247,6 +247,7 @@ function wpmtst_register_cpt() {
 			'menu_position'			    => 20,
 			'exclude_from_search' 	=> true,
 			'supports'              => array( 'title', 'excerpt', 'editor', 'thumbnail' )
+			// 'supports'              => array( 'title', 'excerpt', 'editor', 'thumbnail', 'custom-fields' )
 	);
 
 	register_post_type( 'wpm-testimonial', $testimonial_args );
@@ -412,29 +413,25 @@ function wpmtst_meta_options() {
 	global $post;
 	$custom = get_post_custom();
 
-	if ( $custom && array_key_exists( 'client_name', $custom ) ) {
+	if ( $custom && array_key_exists( 'client_name', $custom ) )
 		$client_name = $custom['client_name'][0];
-	} else {
+	else
 		$client_name = '';
-	}
 
-	if ( $custom && array_key_exists( 'email', $custom ) ) {
+	if ( $custom && array_key_exists( 'email', $custom ) )
 		$email = $custom['email'][0];
-	} else {
+	else
 		$email = '';
-	}
 
-	if ( $custom && array_key_exists( 'company_website', $custom ) ) {
+	if ( $custom && array_key_exists( 'company_website', $custom ) )
 		$company_website = $custom['company_website'][0];
-	} else {
+	else
 		$company_website = '';
-	}
 
-	if ( $custom && array_key_exists( 'company_name', $custom ) ) {
+	if ( $custom && array_key_exists( 'company_name', $custom ) )
 		$company_name = $custom['company_name'][0];
-	} else {
+	else
 		$company_name = '';
-	}
 
 	?>
 	<table class="options">
@@ -697,11 +694,10 @@ function wpmtst_form_shortcode( $atts ) {
   $errors = array();
 	
 	if ( isset( $_POST['wpmtst_form_submitted'] )
-		&& wp_verify_nonce( $_POST['wpmtst_form_submitted'], 'wpmtst_submission_form' ) ) {
+			&& wp_verify_nonce( $_POST['wpmtst_form_submitted'], 'wpmtst_submission_form' ) ) {
 		
 		// --------------------------------
 		// start: CAPTCHA plugin handlers 
-	
 	
 		switch ( $captcha ) {
 		
@@ -736,40 +732,53 @@ function wpmtst_form_shortcode( $atts ) {
 		// end: CAPTCHA plugin handlers
 		// --------------------------------
 		
-
-		// sanitize posted values
+		// --------
+		// sanitize
+		// --------
+		
+		// custom
 		$client_name     = sanitize_text_field( $_POST['wpmtst_client_name'] );
 		$email           = sanitize_text_field( $_POST['wpmtst_email'] );
 		$company_name    = sanitize_text_field( $_POST['wpmtst_company_name'] );
 		$company_website = sanitize_text_field( $_POST['wpmtst_company_website'] );
+		
+		// common
 		$headline        = sanitize_text_field( $_POST['wpmtst_headline'] );
 		$text            = sanitize_text_field( $_POST['wpmtst_text'] );
 		$agree           = isset( $_POST['wpmtst_agree'] ) ? 1 : 0;
 
+		// --------
 		// validate
-		if ( empty( $client_name ) ) {
+		// --------
+		
+		// custom
+		if ( empty( $client_name ) )
 			$errors['client_name'] = 'Please enter your name.'; 
-		}
-		if ( empty( $email ) ) {
+		
+		if ( empty( $email ) )
 			$errors['email'] = 'Please enter your email address.';
-		}
+		
 		/*
-		if ( empty( $company_name ) ) {
+		if ( empty( $company_name ) )
 			$errors['company_name'] = ''; 
-		}
-		if ( empty( $company_website ) ) {
+		
+		if ( empty( $company_website ) )
 			$errors['company_website'] = ''; 
-		}
-		if ( empty( $headline ) ) {
-			$errors['headline'] = ''; 
-		}
 		*/
-		if ( empty( $text ) ) {
+		
+		// common
+		
+		/*
+		if ( empty( $headline ) )
+			$errors['headline'] = ''; 
+		*/
+		
+		if ( empty( $text ) )
 			$errors['text'] = 'Please enter your testimonial.'; 
-		}
-		if ( empty( $agree ) ) {
+		
+		if ( empty( $agree ) )
 			$errors['agree'] = 'Please let us share your testimonial.'; 
-		}
+		
 		
     if ( ! count( $errors ) ) {
 		
@@ -783,6 +792,7 @@ function wpmtst_form_shortcode( $atts ) {
     
 			if ( $testimonial_id = wp_insert_post( $testimonial_data ) ) {
 
+				// save custom fields
 				add_post_meta( $testimonial_id, 'client_name', $client_name );
 				add_post_meta( $testimonial_id, 'email', $email );
 				add_post_meta( $testimonial_id, 'company_name', $company_name );
@@ -972,7 +982,7 @@ function wpmtst_form_shortcode( $atts ) {
 	<?php
 	$html = ob_get_contents();
 	ob_end_clean();
-	echo $html;
+	return $html;
 }
 add_shortcode( 'wpmtst-form', 'wpmtst_form_shortcode' );
 
@@ -1003,9 +1013,9 @@ function wpmtst_widget_script( $arg1, $arg2, $arg3, $arg4 ) {
 	// $list = 'enqueued';
 	// if ( ! wp_script_is( 'jquery.cycle2.min.js', $list ) || ! wp_script_is( 'jquery.cycle2.js', $list ) ) {
 	
-	// ---------------------------------
-	// This checks by file name instead:
-	// ---------------------------------
+	// -------------------------------------------------
+	// This custom function checks by file name instead:
+	// -------------------------------------------------
 	if ( ! wpmtst_is_queued( array( 'jquery.cycle2.min.js', 'jquery.cycle2.js' ) ) ) {
 		wp_enqueue_script( 'wpmtst-slider', '//cdn.jsdelivr.net/cycle2/20140314/jquery.cycle2.min.js', array( 'jquery' ) );
 	}
