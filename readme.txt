@@ -12,13 +12,17 @@ Strong Testimonials is a simple and feature-rich testimonial manager.
 
 == Description ==
 
-Strong Testimonials by [WPMission](http://www.wpmission.com) makes collecting and displaying testimonials simple with many useful and intuitive features.
+Strong Testimonials by [WP Mission](http://www.wpmission.com) makes collecting and displaying testimonials simple with many useful and intuitive features.
 
 **Show testimonials** with a variety of shortcodes or in a widget with transition effects.
 
 **Collect testimonials** through a form with selectable anti-spam measures.
 
 **Manage testimonials** just like posts and pages, including Featured Images. Organize into categories for use in shortcodes and widgets.
+
+= What's New in Version 1.6 =
+
+* Added support for the [Really Simple Captcha](http://wordpress.org/plugins/really-simple-captcha/) plugin which you may know from [Contact Form 7](http://wordpress.org/plugins/contact-form-7/). Nice!
 
 = What's New in Version 1.5 =
 
@@ -100,7 +104,8 @@ To add CAPTCHA to the testimonial submission form:
 Currently supported CAPTCHA plugins:
 
 * [Captcha](http://wordpress.org/plugins/captcha/) by BestWebSoft
-* [Simple reCAPTCHA](http://wordpress.org/plugins/simple-recaptcha) by WPMission (that's me!)
+* [Simple reCAPTCHA](http://wordpress.org/plugins/simple-recaptcha) by WP Mission (that's me!)
+* [Really Simple Captcha](http://wordpress.org/plugins/really-simple-captcha/) by Takayuki Miyoshi
 
 Notes
 
@@ -168,6 +173,9 @@ I will gladly help add your modifications to a custom version of Strong Testimon
 
 == Changelog ==
 
+= 1.6 =
+* Added support for Really Simple Captcha plugin.
+
 = 1.5.2 =
 * Improved compatibility with earlier versions of PHP.
 
@@ -212,6 +220,9 @@ I will gladly help add your modifications to a custom version of Strong Testimon
 * Initial version, a fork of GC Testimonials 1.3.2.
 
 == Upgrade Notice ==
+
+= 1.6 =
+Added support for Really Simple Captcha plugin.
 
 = 1.5.2 = 
 Improved compatibility with earlier versions of PHP.
