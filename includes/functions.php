@@ -3,22 +3,45 @@
  * Strong Testimonials - Functions
  */
 
+ 
+/*
+ * Truncate post content
+ */
+function wpmtst_truncate( $content, $limit ) {
+	if ( strlen( $content ) > $limit ) {
+		// Find first space after char_limit (e.g. 200).
+		// If not found then char_limit is in the middle of the
+		// last word (e.g. string length = 203) so no need to truncate.
+		$space_pos = strpos( $content, ' ', $limit );
+		if ( $space_pos )
+			$content = substr( $content, 0, $space_pos ) . ' . . . ';
+	}
+	return $content;
+}
+
 
 /*
  * Append custom fields to post object.
+ * Add thumbnail if included in field group. (v1.8)
  */
 function wpmtst_get_post( $post ) {
 	$custom = get_post_custom( $post->ID );
-	// $options = get_option( 'wpmtst_options' );
 	$fields = get_option( 'wpmtst_fields' );
 	$field_groups = $fields['field_groups'];
 
 	// Only add on fields from current field group.
 	foreach ( $field_groups[ $fields['current_field_group'] ]['fields'] as $key => $field ) {
-		if ( isset( $custom[$key] ) )
-			$post->$key = $custom[$key][0];
-		else
-			$post->$key = '';
+		$name = $field['name'];
+		
+		if ( 'featured_image' == $name )
+			$post->thumbnail_id = get_post_thumbnail_id( $post->ID );
+			
+		if ( 'custom' == $field['record_type'] ) {
+			if ( isset( $custom[$name] ) )
+				$post->$name = $custom[$name][0];
+			else
+				$post->$name = '';
+		}
 	}
 	return $post;
 }
@@ -28,7 +51,7 @@ function wpmtst_get_post( $post ) {
  * Get category
  */
 function wpmtst_get_terms( $category ) {
-	if ( '' != $category ) {
+	if ( $category && 'all' != $category ) {
 		$term = get_term_by( 'id', $category, 'wpm-testimonial-category' );
 		$term_taxonomy = $term->taxonomy;
 		$term_slug     = $term->slug;

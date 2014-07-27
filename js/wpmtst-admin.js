@@ -25,7 +25,12 @@ jQuery(document).ready(function($) {
 		}
 	});
 
-
+	// toggle screenshots;
+	// need to make this more generic
+	$("#toggle-screen-options").add("#screenshot-screen-options").click(function(e) {
+		$("#screenshot-screen-options").slideToggle();
+	}).blur();
+	
 	// -------------
 	// Widget events
 	// -------------

@@ -1,0 +1,924 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Strong Testimonials v1.8\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-07-21 07:30-0500\n"
+"PO-Revision-Date: 2014-07-22 17:34:18+0000\n"
+"Last-Translator: Chris Dillon <chris@wpmission.com>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=n%100/10==1 ? 2 : n%10==1 ? 0 : (n+9)%10>3 ? 2 : 1;\n"
+"X-Generator: Poedit 1.6.4\n"
+"X-Poedit-Language: \n"
+"X-Poedit-Country: \n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-Bookmarks: \n"
+"X-Poedit-SearchPath-0: ..\n"
+"X-Textdomain-Support: yes"
+
+#: includes/admin-custom-fields.php:12
+#: includes/settings.php:120
+#@ default
+msgid "You do not have sufficient permissions to access this page."
+msgstr ""
+
+#: includes/admin-custom-fields.php:32
+#@ strong-testimonials
+msgid "Changes undone."
+msgstr ""
+
+#: includes/admin-custom-fields.php:49
+#@ strong-testimonials
+msgid "Defaults restored."
+msgstr ""
+
+#: includes/admin-custom-fields.php:75
+#@ strong-testimonials
+msgid "Fields saved."
+msgstr ""
+
+#: includes/admin-custom-fields.php:90
+#@ strong-testimonials
+msgid "Fields"
+msgstr ""
+
+#: includes/admin-custom-fields.php:106
+#@ strong-testimonials
+msgid "Add New Field"
+msgstr ""
+
+#: includes/admin-custom-fields.php:111
+#@ strong-testimonials
+msgid "Undo Changes"
+msgstr ""
+
+#: includes/admin-custom-fields.php:112
+#@ strong-testimonials
+msgid "Restore Defaults"
+msgstr ""
+
+#: includes/admin-custom-fields.php:148
+#@ strong-testimonials
+msgid "This appears on the form."
+msgstr ""
+
+#: includes/admin-custom-fields.php:161
+#@ strong-testimonials
+msgid "Use only lowercase letters, numbers, and underscores."
+msgstr ""
+
+#: includes/admin-custom-fields.php:205
+#@ strong-testimonials
+msgid "Post Fields"
+msgstr ""
+
+#: includes/admin-custom-fields.php:212
+#@ strong-testimonials
+msgid "Custom Fields"
+msgstr ""
+
+#: includes/admin-custom-fields.php:271
+#@ default
+msgid "Delete"
+msgstr ""
+
+#: includes/admin-custom-fields.php:273
+#@ strong-testimonials
+msgid "Close"
+msgstr ""
+
+#: includes/admin-custom-fields.php:297
+#@ strong-testimonials
+msgid "Required"
+msgstr ""
+
+#: includes/admin-custom-fields.php:314
+#@ strong-testimonials
+msgid "Placeholder"
+msgstr ""
+
+#: includes/admin-custom-fields.php:323
+#@ strong-testimonials
+msgid "Before"
+msgstr ""
+
+#: includes/admin-custom-fields.php:331
+#@ strong-testimonials
+msgid "After"
+msgstr ""
+
+#: includes/admin-custom-fields.php:347
+#@ strong-testimonials
+msgid "Admin Table"
+msgstr ""
+
+#: includes/admin-custom-fields.php:353
+#@ strong-testimonials
+msgid "required"
+msgstr ""
+
+#: includes/admin.php:53
+#@ strong-testimonials
+msgid "Client Details"
+msgstr ""
+
+#: includes/admin.php:70
+#@ strong-testimonials
+msgid "To add a client&apos;s photo, use the Featured Image option."
+msgstr ""
+
+#: includes/admin.php:95
+#: includes/form-cycle-settings.php:73
+#: includes/widget.php:214
+#@ strong-testimonials
+msgid "Title"
+msgstr ""
+
+#: includes/admin.php:102
+#: includes/admin.php:163
+#@ strong-testimonials
+msgid "Thumbnail"
+msgstr ""
+
+#: includes/admin.php:109
+#: includes/form-cycle-settings.php:12
+#: includes/widget.php:220
+#@ strong-testimonials
+msgid "Category"
+msgstr ""
+
+#: includes/admin.php:110
+#: includes/admin.php:207
+#@ strong-testimonials
+msgid "Shortcode"
+msgstr ""
+
+#: includes/admin.php:111
+#@ strong-testimonials
+msgid "Date"
+msgstr ""
+
+#: includes/admin.php:192
+#: includes/form-cycle-settings.php:140
+#@ strong-testimonials
+msgid "None"
+msgstr ""
+
+#: includes/admin.php:204
+#@ strong-testimonials
+msgid "ID"
+msgstr ""
+
+#: includes/admin.php:205
+#@ strong-testimonials
+msgid "Name"
+msgstr ""
+
+#: includes/admin.php:206
+#@ default
+msgid "Slug"
+msgstr ""
+
+#: includes/admin.php:208
+#@ default
+msgid "Posts"
+msgstr ""
+
+#: includes/captcha.php:39
+#@ strong-testimonials
+msgid "Input this code:"
+msgstr ""
+
+#: includes/captcha.php:65
+#: includes/captcha.php:74
+#@ strong-testimonials
+msgid "Please complete the CAPTCHA."
+msgstr ""
+
+#: includes/captcha.php:86
+#@ strong-testimonials
+msgid "Invalid keys. Please contact the site administrator."
+msgstr ""
+
+#: includes/captcha.php:87
+#@ strong-testimonials
+msgid "Invalid parameter. Please contact the site administrator."
+msgstr ""
+
+#: includes/captcha.php:88
+#: includes/captcha.php:105
+#@ strong-testimonials
+msgid "The CAPTCHA was not entered correctly. Please try again."
+msgstr ""
+
+#: includes/captcha.php:89
+#@ strong-testimonials
+msgid "The process timed out. Please try again."
+msgstr ""
+
+#: includes/defaults.php:61
+#@ strong-testimonials
+msgid "This field is required."
+msgstr ""
+
+#: includes/defaults.php:73
+#@ strong-testimonials
+msgid "Testimonial Title"
+msgstr ""
+
+#: includes/defaults.php:80
+#@ strong-testimonials
+msgid "Testimonial Content"
+msgstr ""
+
+#: includes/defaults.php:88
+#@ strong-testimonials
+msgid "Featured Image"
+msgstr ""
+
+#: includes/defaults.php:118
+#@ strong-testimonials
+msgid "Default Field Group"
+msgstr ""
+
+#: includes/defaults.php:126
+#@ strong-testimonials
+msgid "Full Name"
+msgstr ""
+
+#: includes/defaults.php:129
+#@ strong-testimonials
+msgid "What is your full name?"
+msgstr ""
+
+#: includes/defaults.php:135
+#@ strong-testimonials
+msgid "Email"
+msgstr ""
+
+#: includes/defaults.php:138
+#@ strong-testimonials
+msgid "What is your email address?"
+msgstr ""
+
+#: includes/defaults.php:143
+#@ strong-testimonials
+msgid "Company Name"
+msgstr ""
+
+#: includes/defaults.php:145
+#@ strong-testimonials
+msgid "What is your company name?"
+msgstr ""
+
+#: includes/defaults.php:150
+#@ strong-testimonials
+msgid "Company Website"
+msgstr ""
+
+#: includes/defaults.php:152
+#@ strong-testimonials
+msgid "Does your company have a website?"
+msgstr ""
+
+#: includes/defaults.php:160
+#@ strong-testimonials
+msgid "Heading"
+msgstr ""
+
+#: includes/defaults.php:163
+#@ strong-testimonials
+msgid "A headline for your testimonial."
+msgstr ""
+
+#: includes/defaults.php:168
+#@ strong-testimonials
+msgid "Testimonial"
+msgstr "свидетельство"
+
+#: includes/defaults.php:171
+#@ strong-testimonials
+msgid "What do you think about us?"
+msgstr ""
+
+#: includes/defaults.php:176
+#@ strong-testimonials
+msgid "Photo"
+msgstr ""
+
+#: includes/defaults.php:178
+#@ strong-testimonials
+msgid "Would you like to include a photo?"
+msgstr ""
+
+#: includes/defaults.php:194
+#@ strong-testimonials
+msgid "Custom Field Group"
+msgstr ""
+
+#: includes/settings.php:288
+#: includes/widget.php:191
+#@ strong-testimonials
+msgid "Random"
+msgstr ""
+
+#: includes/settings.php:289
+#: includes/widget.php:192
+#@ strong-testimonials
+msgid "Newest first"
+msgstr ""
+
+#: includes/settings.php:290
+#: includes/widget.php:193
+#@ strong-testimonials
+msgid "Oldest first"
+msgstr ""
+
+#: includes/settings.php:125
+#@ strong-testimonials
+msgid "Testimonial Settings"
+msgstr ""
+
+#: includes/settings.php:129
+#@ default
+msgid "Settings saved."
+msgstr ""
+
+#: includes/settings.php:215
+#@ strong-testimonials
+msgid "The number of testimonials to show per page"
+msgstr ""
+
+#: includes/settings.php:218
+#, php-format
+#@ strong-testimonials
+msgid "This applies to the %s shortcode."
+msgstr ""
+
+#: includes/settings.php:223
+#@ strong-testimonials
+msgid "When a new testimonial is submitted"
+msgstr ""
+
+#: includes/settings.php:227
+#@ strong-testimonials
+msgid "Send notification email to"
+msgstr ""
+
+#: includes/settings.php:234
+#@ strong-testimonials
+msgid "CAPTCHA plugin"
+msgstr ""
+
+#: includes/settings.php:237
+#@ default
+msgid "none"
+msgstr ""
+
+#: includes/form-cycle-settings.php:30
+#: includes/widget.php:234
+#@ strong-testimonials
+msgid "Order"
+msgstr ""
+
+#: includes/form-cycle-settings.php:174
+#: includes/widget.php:278
+#@ strong-testimonials
+msgid "Show each for"
+msgstr ""
+
+#: includes/form-cycle-settings.php:178
+#: includes/form-cycle-settings.php:202
+#: includes/widget.php:282
+#: includes/widget.php:306
+#@ strong-testimonials
+msgid "seconds"
+msgstr ""
+
+#: includes/widget.php:288
+#@ strong-testimonials
+msgid "Transition effect"
+msgstr ""
+
+#: includes/form-cycle-settings.php:198
+#: includes/widget.php:302
+#@ strong-testimonials
+msgid "Effect duration"
+msgstr ""
+
+#: includes/form-cycle-settings.php:209
+#: includes/widget.php:313
+#@ strong-testimonials
+msgid "Pause on hover"
+msgstr ""
+
+#: includes/settings.php:248
+#@ strong-testimonials
+msgid "Client Template"
+msgstr ""
+
+#: includes/settings.php:250
+#@ strong-testimonials
+msgid "Use these shortcode options to show client information below each testimonial"
+msgstr ""
+
+#: includes/settings.php:254
+#: includes/settings.php:260
+#@ strong-testimonials
+msgid "your custom text field"
+msgstr ""
+
+#: includes/settings.php:255
+#: includes/settings.php:261
+#@ strong-testimonials
+msgid "your CSS class"
+msgstr ""
+
+#: includes/settings.php:259
+#@ strong-testimonials
+msgid "your custom URL field"
+msgstr ""
+
+#: includes/settings.php:267
+#@ strong-testimonials
+msgid "Restore Default Template"
+msgstr ""
+
+#: includes/settings.php:320
+#@ strong-testimonials
+msgid "Shortcodes"
+msgstr ""
+
+#: includes/settings.php:324
+#: strong-testimonials.php:208
+#@ strong-testimonials
+msgid "All Testimonials"
+msgstr ""
+
+#: includes/settings.php:327
+#@ strong-testimonials
+msgid "Show all from all categories."
+msgstr ""
+
+#: includes/settings.php:331
+#, php-format
+#@ strong-testimonials
+msgid "Show all from a specific <a href=\"%s\">category</a>."
+msgstr ""
+
+#: includes/settings.php:338
+#@ strong-testimonials
+msgid "Testimonials Cycle"
+msgstr ""
+
+#: includes/settings.php:348
+#@ strong-testimonials
+msgid "Random Testimonial"
+msgstr ""
+
+#: includes/settings.php:351
+#@ strong-testimonials
+msgid "Show a single random testimonial."
+msgstr ""
+
+#: includes/settings.php:355
+#@ strong-testimonials
+msgid "Show a certain number of testimonials."
+msgstr ""
+
+#: includes/settings.php:359
+#, php-format
+#@ strong-testimonials
+msgid "Show a single random testimonial from a specific <a href=\"%s\">category</a>."
+msgstr ""
+
+#: includes/settings.php:363
+#, php-format
+#@ strong-testimonials
+msgid "Show a certain number from a specific <a href=\"%s\">category</a>."
+msgstr ""
+
+#: includes/settings.php:370
+#@ strong-testimonials
+msgid "Single Testimonial"
+msgstr ""
+
+#: includes/settings.php:373
+#, php-format
+#@ strong-testimonials
+msgid "Show one specific <a href=\"%s\">testimonial</a>."
+msgstr ""
+
+#: includes/settings.php:380
+#@ strong-testimonials
+msgid "Testimonial Submission Form"
+msgstr ""
+
+#: includes/settings.php:383
+#@ strong-testimonials
+msgid "Show a form for visitors to submit testimonials."
+msgstr ""
+
+#: includes/settings.php:383
+#@ strong-testimonials
+msgid "New testimonials are in \"Pending\" status until published by an administrator."
+msgstr ""
+
+#: includes/shortcodes.php:450
+#@ strong-testimonials
+msgid "Thank you! Your testimonial is awaiting moderation."
+msgstr ""
+
+#: includes/shortcodes.php:470
+#@ strong-testimonials
+msgid "Required Field"
+msgstr ""
+
+#: includes/shortcodes.php:555
+#@ strong-testimonials
+msgid "Captcha"
+msgstr ""
+
+#: includes/shortcodes.php:568
+#@ strong-testimonials
+msgid "Add Testimonial"
+msgstr "Добавить отзыв"
+
+#: includes/shortcodes.php:633
+#@ strong-testimonials
+msgid "New testimonial for"
+msgstr ""
+
+#: includes/shortcodes.php:635
+#, php-format
+#@ strong-testimonials
+msgid "New testimonial submission for %s. This is awaiting action from the website administrator."
+msgstr ""
+
+#: includes/widget.php:19
+#@ strong-testimonials
+msgid "Several ways to show testimonials."
+msgstr ""
+
+#: includes/widget.php:29
+#@ strong-testimonials
+msgid "Fade"
+msgstr ""
+
+#. translators: plugin header field 'Name'
+#: includes/widget.php:35
+#: strong-testimonials.php:0
+#@ strong-testimonials
+msgid "Strong Testimonials"
+msgstr ""
+
+#: includes/widget.php:38
+#@ strong-testimonials
+msgid "Testimonials"
+msgstr "свидетельства"
+
+#: includes/widget.php:177
+#@ strong-testimonials
+msgid "Read More Testimonials"
+msgstr "подробнее"
+
+#: includes/widget.php:222
+#: includes/widget.php:272
+#@ strong-testimonials
+msgid "Show all"
+msgstr ""
+
+#: includes/widget.php:251
+#@ strong-testimonials
+msgid "Cycle Mode"
+msgstr ""
+
+#: includes/widget.php:256
+#@ strong-testimonials
+msgid "Static Mode"
+msgstr ""
+
+#: includes/widget.php:265
+#: includes/widget.php:324
+#@ strong-testimonials
+msgid "Number to show"
+msgstr ""
+
+#: includes/widget.php:340
+#@ strong-testimonials
+msgid "Character limit"
+msgstr ""
+
+#: includes/widget.php:348
+#@ strong-testimonials
+msgid "Show Featured Images"
+msgstr ""
+
+#: includes/widget.php:354
+#@ strong-testimonials
+msgid "Show \"Read More\" link to this page"
+msgstr ""
+
+#: includes/widget.php:359
+#@ strong-testimonials
+msgid "Select page"
+msgstr ""
+
+#: strong-testimonials.php:46
+#@ strong-testimonials
+msgid "Settings"
+msgstr ""
+
+#: strong-testimonials.php:187
+#, php-format
+#@ strong-testimonials
+msgid "This plugin requires <strong>WordPress %s</strong> or higher so it has been deactivated."
+msgstr ""
+
+#: strong-testimonials.php:188
+#@ strong-testimonials
+msgid "Please upgrade WordPress and try again."
+msgstr ""
+
+#: strong-testimonials.php:189
+#, php-format
+#@ strong-testimonials
+msgid "Back to the WordPress <a href=\"%s\">Plugins page</a>"
+msgstr ""
+
+#: strong-testimonials.php:202
+#@ strong-testimonials
+msgctxt "post type general name"
+msgid "Testimonials"
+msgstr "Свидетельства"
+
+#: strong-testimonials.php:203
+#@ strong-testimonials
+msgctxt "post type singular name"
+msgid "Testimonial"
+msgstr "Свидетельство"
+
+#: strong-testimonials.php:204
+#@ strong-testimonials
+msgid "Add New"
+msgstr ""
+
+#: strong-testimonials.php:205
+#@ strong-testimonials
+msgid "Add New Testimonial"
+msgstr ""
+
+#: strong-testimonials.php:206
+#@ strong-testimonials
+msgid "Edit Testimonial"
+msgstr ""
+
+#: strong-testimonials.php:207
+#@ strong-testimonials
+msgid "New Testimonial"
+msgstr ""
+
+#: strong-testimonials.php:209
+#@ strong-testimonials
+msgid "View Testimonial"
+msgstr ""
+
+#: strong-testimonials.php:210
+#@ strong-testimonials
+msgid "Search Testimonials"
+msgstr ""
+
+#: strong-testimonials.php:211
+#: strong-testimonials.php:242
+#@ strong-testimonials
+msgid "Nothing Found"
+msgstr ""
+
+#: strong-testimonials.php:212
+#: strong-testimonials.php:243
+#@ strong-testimonials
+msgid "Nothing found in Trash"
+msgstr ""
+
+#: strong-testimonials.php:218
+#@ strong-testimonials
+msgid "testimonial"
+msgstr ""
+
+#: strong-testimonials.php:234
+#@ strong-testimonials
+msgid "Categories"
+msgstr ""
+
+#: strong-testimonials.php:235
+#@ default
+msgctxt "strong-testimonials"
+msgid "Category"
+msgstr ""
+
+#: strong-testimonials.php:236
+#@ strong-testimonials
+msgid "All Categories"
+msgstr ""
+
+#: strong-testimonials.php:237
+#@ default
+msgctxt "strong-testimonials"
+msgid "Add New Category"
+msgstr ""
+
+#: strong-testimonials.php:238
+#@ strong-testimonials
+msgid "Edit Category"
+msgstr ""
+
+#: strong-testimonials.php:239
+#@ strong-testimonials
+msgid "New Category"
+msgstr ""
+
+#: strong-testimonials.php:240
+#@ strong-testimonials
+msgid "View Category"
+msgstr ""
+
+#: strong-testimonials.php:241
+#@ strong-testimonials
+msgid "Search Category"
+msgstr ""
+
+#: includes/settings.php:192
+#@ default
+msgid "default_template"
+msgstr ""
+
+#. translators: plugin header field 'PluginURI'
+#: strong-testimonials.php:0
+#@ strong-testimonials
+msgid "http://www.wpmission.com/plugins/strong-testimonials/"
+msgstr ""
+
+#. translators: plugin header field 'Description'
+#: strong-testimonials.php:0
+#@ strong-testimonials
+msgid "Collect and display testimonials."
+msgstr ""
+
+#. translators: plugin header field 'Author'
+#: strong-testimonials.php:0
+#@ strong-testimonials
+msgid "Chris Dillon"
+msgstr ""
+
+#. translators: plugin header field 'AuthorURI'
+#: strong-testimonials.php:0
+#@ strong-testimonials
+msgid "http://www.wpmission.com/contact"
+msgstr ""
+
+#. translators: plugin header field 'Version'
+#: strong-testimonials.php:0
+#@ strong-testimonials
+msgid "1.8"
+msgstr ""
+
+#: includes/admin.php:96
+#: includes/form-cycle-settings.php:85
+#@ strong-testimonials
+msgid "Excerpt"
+msgstr ""
+
+#: includes/form-cycle-settings.php:16
+#@ strong-testimonials
+msgid "All categories"
+msgstr ""
+
+#: includes/form-cycle-settings.php:52
+#@ strong-testimonials
+msgid "All"
+msgstr ""
+
+#: includes/form-cycle-settings.php:73
+#: includes/form-cycle-settings.php:116
+#: includes/form-cycle-settings.php:126
+#@ strong-testimonials
+msgid "(if included in Fields)"
+msgstr ""
+
+#: includes/form-cycle-settings.php:87
+#@ strong-testimonials
+msgid "Excerpts are hand-crafted summaries of your testimonial."
+msgstr ""
+
+#: includes/form-cycle-settings.php:88
+#@ strong-testimonials
+msgid "You may need to <a id=\"toggle-screen-options\" href=\"#\">enable them</a>."
+msgstr ""
+
+#: includes/form-cycle-settings.php:96
+#@ strong-testimonials
+msgid "Content up to"
+msgstr ""
+
+#: includes/form-cycle-settings.php:96
+#@ strong-testimonials
+msgid "characters"
+msgstr ""
+
+#: includes/form-cycle-settings.php:98
+#: includes/widget.php:342
+#@ strong-testimonials
+msgid "Will break on a space and add an ellipsis."
+msgstr ""
+
+#: includes/form-cycle-settings.php:103
+#@ strong-testimonials
+msgid "Entire content"
+msgstr ""
+
+#: includes/form-cycle-settings.php:116
+#@ strong-testimonials
+msgid "Featured Images"
+msgstr ""
+
+#: includes/form-cycle-settings.php:126
+#@ strong-testimonials
+msgid "Client Information"
+msgstr ""
+
+#: includes/form-cycle-settings.php:146
+#@ strong-testimonials
+msgid "Link to the testimonial"
+msgstr ""
+
+#: includes/form-cycle-settings.php:152
+#@ strong-testimonials
+msgid "Link to"
+msgstr ""
+
+#: includes/form-cycle-settings.php:155
+#@ strong-testimonials
+msgid "— Select a page —"
+msgstr ""
+
+#: includes/form-cycle-settings.php:184
+#@ strong-testimonials
+msgid "Effect"
+msgstr ""
+
+#: includes/settings.php:136
+#@ strong-testimonials
+msgid "General"
+msgstr ""
+
+#: includes/settings.php:137
+#@ strong-testimonials
+msgid "Cycle Shortcode"
+msgstr ""
+
+#: includes/settings.php:197
+#@ strong-testimonials
+msgid "Load stylesheets"
+msgstr ""
+
+#: includes/settings.php:201
+#@ strong-testimonials
+msgid "Pages"
+msgstr ""
+
+#: includes/settings.php:205
+#@ strong-testimonials
+msgid "Widget"
+msgstr ""
+
+#: includes/settings.php:209
+#@ strong-testimonials
+msgid "Submission Form"
+msgstr ""
+
+#: includes/settings.php:341
+#, php-format
+#@ strong-testimonials
+msgid "Cycle through testimonials. <a href=\"%s\">configure</a>"
+msgstr ""
+
+#: includes/shortcodes.php:55
+#@ strong-testimonials
+msgid "Read more"
+msgstr ""
+
+#: includes/widget.php:348
+#@ strong-testimonials
+msgid "(if included in Field Group)"
+msgstr ""
+
+#: strong-testimonials.php:186
+#, php-format
+#@ strong-testimonials
+msgid "Unable to load %s"
+msgstr ""
+

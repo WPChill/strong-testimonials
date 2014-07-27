@@ -1,0 +1,47 @@
+/**
+ * Strong Testimonials widget stylesheet
+ */
+
+/* Widget
+---------------------------------------------------------*/
+
+.clear {
+	clear: both;
+}
+
+.wpmtst-widget-container {
+}
+
+.testimonial-widget {
+	margin-bottom: 1.5em;
+}
+
+.testimonial-widget h5 {
+	line-height: 1.5;
+}
+
+.testimonial-widget .photo {
+	float: left;
+	margin-top: .5em;
+	margin-right: 1em;
+}
+
+.testimonial-widget .content {
+	background: transparent;
+	float: none;
+	height: auto;
+	width: auto;
+}
+
+.testimonial-widget .client {
+	line-height: 1.5;
+	clear: both;
+}
+
+.testimonial-widget .name {
+	font-weight: bold;
+}
+
+.readmore {
+	margin-top: 1em;
+}

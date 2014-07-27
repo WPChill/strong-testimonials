@@ -68,24 +68,49 @@ add_action( 'admin_menu', 'wpmtst_unique_menu_title', 100 );
  */
 function wpmtst_register_settings() {
 	register_setting( 'wpmtst-settings-group', 'wpmtst_options', 'wpmtst_sanitize_options' );
+	register_setting( 'wpmtst-cycle-group', 'wpmtst_cycle', 'wpmtst_sanitize_cycle' );
 }
 
 
 /*
- * Sanitize settings
+ * Sanitize general settings
  */
 function wpmtst_sanitize_options( $input ) {
-	$input['per_page']      = (int) sanitize_text_field( $input['per_page'] );
-	$input['admin_notify']  = isset( $input['admin_notify'] ) ? 1 : 0;
-	$input['admin_email']   = sanitize_email( $input['admin_email'] );
-	$input['cycle']['cycle-timeout'] = (float) sanitize_text_field( $input['cycle']['cycle-timeout'] );
-	// $input['cycle']['cycle-effect']
-	$input['cycle']['cycle-speed']   = (float) sanitize_text_field( $input['cycle']['cycle-speed'] );
-	$input['cycle']['cycle-pause']   = isset( $input['cycle']['cycle-pause'] ) ? 1 : 0;
-
+	$input['per_page']          = (int) sanitize_text_field( $input['per_page'] );
+	$input['admin_notify']      = isset( $input['admin_notify'] ) ? 1 : 0;
+	$input['admin_email']       = sanitize_email( $input['admin_email'] );
+	$input['load_page_style']   = isset( $input['load_page_style'] ) ? 1 : 0;
+	$input['load_widget_style'] = isset( $input['load_widget_style'] ) ? 1 : 0;
+	$input['load_form_style']   = isset( $input['load_form_style'] ) ? 1 : 0;
 	return $input;
 }
 
+
+/*
+ * Sanitize cycle settings
+ */
+function wpmtst_sanitize_cycle( $input ) {
+	// an unchecked checkbox is not posted
+	// radio buttons always return a value, no need to sanitize
+	
+	$input['category']   = strip_tags( $input['category'] );
+	// $input['order']
+	// $input['all']
+	$input['limit']      = (int) strip_tags( $input['limit'] );
+	$input['title']      = isset( $input['title'] ) ? 1 : 0;
+	// $input['content']
+	$input['char-limit'] = (int) sanitize_text_field( $input['char-limit'] );
+	$input['images']     = isset( $input['images'] ) ? 1 : 0;
+	$input['client']     = isset( $input['client'] ) ? 1 : 0;
+	// $input['more']
+	$input['more-page']  = strip_tags( $input['more-page'] );
+	$input['timeout']    = (float) sanitize_text_field( $input['timeout'] );
+	$input['effect']     = strip_tags( $input['effect'] );
+	$input['speed']      = (float) sanitize_text_field( $input['speed'] );
+	$input['pause']      = isset( $input['pause'] ) ? 1 : 0;
+	
+	return $input;
+}
 
 /*
  * Settings page
@@ -94,22 +119,48 @@ function wpmtst_settings_page() {
 	if ( ! current_user_can( 'manage_options' ) )  {
 		wp_die( __( 'You do not have sufficient permissions to access this page.' ) );
 	}
+	?>
+	<div class="wrap wpmtst">
 
-	$wpmtst_options = get_option( 'wpmtst_options' );
-	$cycle_options = array(
-			'effects' => array(
-					'fade'       => 'Fade',
-					// 'scrollHorz' => 'Scroll horizontally',
-					// 'none'       => 'None',
-			)
-	);
-	$order_list = array(
-			'rand'   => 'Random',
-			'recent' => 'Newest first',
-			'oldest' => 'Oldest first'
-	);
+		<h2><?php _e( 'Testimonial Settings', 'strong-testimonials' ); ?></h2>
+
+		<?php if( isset( $_GET['settings-updated'] ) ) : ?>
+			<div id="message" class="updated">
+				<p><strong><?php _e( 'Settings saved.' ) ?></strong></p>
+			</div>
+		<?php endif; ?>
+
+		<?php /* tabs */ ?>
+		<?php $active_tab = isset( $_GET['tab'] ) ? $_GET['tab'] : 'general'; ?>
+		<h2 class="nav-tab-wrapper">
+			<a href="?post_type=wpm-testimonial&page=settings&tab=general" class="nav-tab <?php echo $active_tab == 'general' ? 'nav-tab-active' : ''; ?>"><?php _e( 'General', 'strong-testimonials' ); ?></a>
+			<a href="?post_type=wpm-testimonial&page=settings&tab=cycle" class="nav-tab <?php echo $active_tab == 'cycle' ? 'nav-tab-active' : ''; ?>"><?php _e( 'Cycle Shortcode', 'strong-testimonials' ); ?></a>
+		</h2>
+
+		<form method="post" action="options.php">
+			<?php
+			if( $active_tab == 'general' ) {
+				settings_fields( 'wpmtst-settings-group' );
+				wpmtst_settings_section();
+			} 
+			else {
+				settings_fields( 'wpmtst-cycle-group' );
+				wpmtst_cycle_section();
+			}
+			submit_button();
+			?>
+		</form>
+
+	</div><!-- wrap -->
+
+	<?php
+}
+
+function wpmtst_settings_section() {
+	$options = get_option( 'wpmtst_options' );
 
 	// Build list of supported Captcha plugins.
+	// @TODO - Move this to options array
 	$plugins = array(
 			'bwsmath' => array(
 					'name' => 'Captcha by BestWebSoft',
@@ -132,230 +183,205 @@ function wpmtst_settings_page() {
 		$plugins[$key]['active'] = is_plugin_active( $plugin['file'] );
 		// If current Captcha plugin has been deactivated, disable Captcha
 		// so corresponding div does not appear on front-end form.
-		if ( $key == $wpmtst_options['captcha'] && ! $plugins[$key]['active'] ) {
-			$wpmtst_options['captcha'] = '';
-			update_option( 'wpmtst_options', $wpmtst_options );
+		if ( $key == $options['captcha'] && ! $plugins[$key]['active'] ) {
+			$options['captcha'] = '';
+			update_option( 'wpmtst_options', $options );
 		}
 	}
 	?>
-	<div class="wrap wpmtst">
+	<input type="hidden" name="wpmtst_options[default_template]" value="<?php esc_attr_e( $options['default_template'] ); ?>" />
+	
+	<table class="form-table" cellpadding="0" cellspacing="0">
+	
+	<tr valign="top">
+	<th scope="row"><?php _e( 'Load stylesheets', 'strong-testimonials' );?></th>
+	<td class="stackem">
+		<label>
+			<input type="checkbox" name="wpmtst_options[load_page_style]" <?php checked( $options['load_page_style'] ); ?> />
+			<?php _e( 'Pages', 'strong-testimonials' ); ?>
+		</label>
+		<label>
+			<input type="checkbox" name="wpmtst_options[load_widget_style]" <?php checked( $options['load_widget_style'] ); ?> />
+			<?php _e( 'Widget', 'strong-testimonials' ); ?>
+		</label>
+		<label>
+			<input type="checkbox" name="wpmtst_options[load_form_style]" <?php checked( $options['load_form_style'] ); ?> />
+			<?php _e( 'Submission Form', 'strong-testimonials' ); ?>
+		</label>
+	</td>
+	</tr>
 
-		<h2><?php _e( 'Testimonial Settings', WPMTST_NAME ); ?></h2>
+	<tr valign="top">
+	<th scope="row"><?php _e( 'The number of testimonials to show per page', 'strong-testimonials' ); ?></th>
+	<td>
+		<input type="text" name="wpmtst_options[per_page]" size="3" value="<?php echo esc_attr( $options['per_page'] ); ?>" />
+		<?php echo sprintf( __( 'This applies to the %s shortcode.', 'strong-testimonials' ), '<span class="code">[wpmtst-all]</span>' ); ?>
+	</td>
+	</tr>
 
-		<?php if( isset( $_GET['settings-updated'] ) ) : ?>
-			<div id="message" class="updated">
-				<p><strong><?php _e( 'Settings saved.' ) ?></strong></p>
-			</div>
-		<?php endif; ?>
+	<tr valign="top">
+	<th scope="row"><?php _e( 'When a new testimonial is submitted', 'strong-testimonials' );?></th>
+	<td>
+		<label>
+			<input id="wpmtst-options-admin-notify" type="checkbox" name="wpmtst_options[admin_notify]" <?php checked( $options['admin_notify'] ); ?> />
+			<?php _e( 'Send notification email to', 'strong-testimonials' ); ?>
+		</label>
+		<input id="wpmtst-options-admin-email" type="email" size="30" placeholder="email address" name="wpmtst_options[admin_email]" value="<?php echo esc_attr( $options['admin_email'] ); ?>" />
+	</td>
+	</tr>
 
-		<form method="post" action="options.php">
+	<tr valign="top">
+	<th scope="row"><?php _e( 'CAPTCHA plugin', 'strong-testimonials' );?></th>
+	<td>
+		<select name="wpmtst_options[captcha]" autocomplete="off">
+			<option value=""><?php _e( 'none' );?></option>
+			<?php foreach ( $plugins as $key => $plugin ) : ?>
+			<?php if ( $plugin['active'] ) : ?>
+			<option value="<?php echo $key; ?>" <?php selected( $options['captcha'], $key ); ?>><?php echo $plugin['name']; ?></option>
+			<?php endif; ?>
+			<?php endforeach; ?>
+		</select>
+	</td>
+	</tr>
 
-			<?php settings_fields( 'wpmtst-settings-group' ); ?>
-			<?php $wpmtst_options = get_option( 'wpmtst_options' ); ?>
-			<input type="hidden" name="wpmtst_options[default_template]" value="<?php esc_attr_e( $wpmtst_options['default_template'] ); ?>" />
-			
-			<table class="form-table">
-
-				<tr valign="top">
-					<th scope="row">The number of testimonials to show per page</th>
-					<td>
-						<input type="text" name="wpmtst_options[per_page]" size="3" value="<?php echo esc_attr( $wpmtst_options['per_page'] ); ?>" />
-						This applies to the <span class="code">[wpmtst-all]</span> shortcode.
-					</td>
-				</tr>
-
-				<tr valign="top">
-					<th scope="row">When a new testimonial is submitted</th>
-					<td>
-						<label>
-							<input id="wpmtst-options-admin-notify" type="checkbox" name="wpmtst_options[admin_notify]" <?php checked( $wpmtst_options['admin_notify'] ); ?> />
-							<?php _e( 'Send notification email to', WPMTST_NAME ); ?>
-						</label>
-						<input id="wpmtst-options-admin-email" type="email" size="30" placeholder="email address" name="wpmtst_options[admin_email]" value="<?php echo esc_attr( $wpmtst_options['admin_email'] ); ?>" />
-					</td>
-				</tr>
-
-				<tr valign="top">
-					<th scope="row">CAPTCHA plugin</th>
-					<td>
-						<select name="wpmtst_options[captcha]" autocomplete="off">
-							<option value="">None</option>
-							<?php foreach ( $plugins as $key => $plugin ) : ?>
-							<?php if ( $plugin['active'] ) : ?>
-							<option value="<?php echo $key; ?>" <?php selected( $wpmtst_options['captcha'], $key ); ?>><?php echo $plugin['name']; ?></option>
-							<?php endif; ?>
-							<?php endforeach; ?>
-						</select>
-					</td>
-				</tr>
-
-				<tr valign="top">
-					<th scope="row">Cycle Shortcode Settings</th>
-					<td>
-						<div class="box">
-
-							<div class="row">
-								<div class="alpha">
-									<label for="cycle-order"><?php _e( 'Order' ) ?>:</label>
-								</div>
-								<div>
-									<select id="cycle-order" name="wpmtst_options[cycle][cycle-order]" autocomplete="off">
-										<?php
-										foreach ( $order_list as $order => $order_label ) {
-											echo '<option value="' . $order . '"' . selected( $order, $wpmtst_options['cycle']['cycle-order'] ) . '>' . $order_label . '</option>';
-										}
-										?>
-									</select>
-								</div>
-							</div>
-
-							<div class="row">
-								<div class="alpha">
-									<label for="cycle-timeout"><?php _e( 'Show each for', WPMTST_NAME ); ?>:</label>
-								</div>
-								<div>
-									<input type="text" id="cycle-timeout" name="wpmtst_options[cycle][cycle-timeout]" value="<?php echo $wpmtst_options['cycle']['cycle-timeout']; ?>" size="3" />
-									<?php _e( 'seconds', WPMTST_NAME ); ?>
-								</div>
-							</div>
-
-							<div class="row">
-								<div class="alpha">
-									<label for="cycle-effect"><?php _e( 'Transition effect', WPMTST_NAME ); ?>:</label>
-								</div>
-								<div>
-									<select id="cycle-effect" name="wpmtst_options[cycle][cycle-effect]" autocomplete="off">
-										<?php foreach ( $cycle_options['effects'] as $key => $label ) : ?>
-										<option value="<?php echo $key; ?>" <?php selected( $wpmtst_options['cycle']['cycle-effect'], $key ); ?>><?php _e( $label ) ?></option>
-										<?php endforeach; ?>
-									</select>
-								</div>
-								<p><em><a href="http://wordpress.org/support/topic/settings-bug-1" target="_blank">Fade is the only effect for now</a>.</em></p>
-							</div>
-
-							<div class="row">
-								<div class="alpha">
-									<label for="cycle-speed"><?php _e( 'Effect duration', WPMTST_NAME ); ?>:</label>
-								</div>
-								<div>
-									<input type="text" id="cycle-speed" name="wpmtst_options[cycle][cycle-speed]" value="<?php echo $wpmtst_options['cycle']['cycle-speed']; ?>" size="3" />
-									<?php _e( 'seconds', WPMTST_NAME ); ?>
-								</div>
-							</div>
-
-							<div class="row">
-								<div>
-									<input type="checkbox" id="cycle-pause" name="wpmtst_options[cycle][cycle-pause]" <?php checked( $wpmtst_options['cycle']['cycle-pause'] ); ?>  class="checkbox" />
-									<label for="cycle-pause"><?php _e( 'Pause on hover', WPMTST_NAME ); ?></label>
-								</div>
-							</div>
-						</div>
-					</td>
-				</tr>
-				
-				<tr valign="top">
-					<th scope="row"><?php _e( 'Client Template', WPMTST_NAME ); ?></th>
-					<td>
-						<p><?php _e( 'Use these shortcode options to show client information below each testimonial', WPMTST_NAME ); ?>:</p>
-						<div class="shortcode-example code">
-							<p class="indent">
-								<span class="outdent">[wpmtst-text </span>
-										<br>field="{ <?php _e( 'your custom text field', WPMTST_NAME ); ?> }" 
-										<br>class="{ <?php _e( 'your CSS class', WPMTST_NAME ); ?> }"]
-							</p>
-							<p class="indent">
-								<span class="outdent">[wpmtst-link </span>
-										<br>url="{ <?php _e( 'your custom URL field', WPMTST_NAME ); ?> }" 
-										<br>text="{ <?php _e( 'your custom text field', WPMTST_NAME ); ?> }" 
-										<br>target="_blank" <br>class="{ <?php _e( 'your CSS class', WPMTST_NAME ); ?> }"]
-							</p>
-						</div>
-						
-						<p><textarea id="client-section" class="widefat code" name="wpmtst_options[client_section]" rows="3"><?php echo $wpmtst_options['client_section']; ?></textarea></p>
-						
-						<p><input type="button" class="button" id="restore-default-template" value="Restore Default Template" /></p>
-					</td>
-				</tr>
-				
-			</table>
-
-			<?php submit_button(); ?>
-
-		</form>
-
-	</div><!-- wrap -->
-
+	<tr valign="top">
+	<th scope="row"><?php _e( 'Client Template', 'strong-testimonials' ); ?></th>
+	<td>
+		<p><?php _e( 'Use these shortcode options to show client information below each testimonial', 'strong-testimonials' ); ?>:</p>
+		<div class="shortcode-example code">
+			<p class="indent">
+				<span class="outdent">[wpmtst-text </span>
+						<br>field="{ <?php _e( 'your custom text field', 'strong-testimonials' ); ?> }" 
+						<br>class="{ <?php _e( 'your CSS class', 'strong-testimonials' ); ?> }"]
+			</p>
+			<p class="indent">
+				<span class="outdent">[wpmtst-link </span>
+						<br>url="{ <?php _e( 'your custom URL field', 'strong-testimonials' ); ?> }" 
+						<br>text="{ <?php _e( 'your custom text field', 'strong-testimonials' ); ?> }" 
+						<br>target="_blank" <br>class="{ <?php _e( 'your CSS class', 'strong-testimonials' ); ?> }"]
+			</p>
+		</div>
+		
+		<p><textarea id="client-section" class="widefat code" name="wpmtst_options[client_section]" rows="3"><?php echo $options['client_section']; ?></textarea></p>
+		
+		<p><input type="button" class="button" id="restore-default-template" value="<?php _e( 'Restore Default Template', 'strong-testimonials' ); ?>" /></p>
+	</td>
+	</tr>
+	
+	</table>
 	<?php
 }
 
+function wpmtst_cycle_section() {
+	$cycle = get_option( 'wpmtst_cycle' );
+	
+	$cycle_options = array(
+			'effects' => array(
+					'fade'       => 'Fade',
+					// 'scrollHorz' => 'Scroll horizontally',
+					// 'none'       => 'None',
+			)
+	);
+	
+	// @TODO: de-duplicate (in widget too)
+	$order_list = array(
+			'rand'   => __( 'Random', 'strong-testimonials' ),
+			'recent' => __( 'Newest first', 'strong-testimonials' ),
+			'oldest' => __( 'Oldest first', 'strong-testimonials' ),
+	);
+
+	$category_list = get_terms( 'wpm-testimonial-category', array(
+			'hide_empty' 	=> false,
+			'order_by'		=> 'name',
+			'pad_counts'	=> true
+	) );
+
+	$pages_list = get_pages( array(
+			'sort_order'  => 'ASC',
+			'sort_column' => 'post_title',
+			'post_type'   => 'page',
+			'post_status' => 'publish'
+	) );
+	
+	include( WPMTST_INC . 'form-cycle-settings.php' );
+}
 
 /*
  * Shortcodes page
  */
 function wpmtst_settings_shortcodes() {
+	$links = array(
+			'categories'   => admin_url( 'edit-tags.php?taxonomy=wpm-testimonial-category&post_type=wpm-testimonial' ),
+			'testimonials' => admin_url( 'edit.php?post_type=wpm-testimonial' ),
+	);
 	?>
 	<div class="wrap wpmtst">
 
-		<h2><?php _e( 'Shortcodes', WPMTST_NAME ); ?></h2>
+		<h2><?php _e( 'Shortcodes', 'strong-testimonials' ); ?></h2>
 
 		<table class="shortcode-table">
 			<tr>
-				<td colspan="2"><h3>All Testimonials</h3></td>
+				<th colspan="2"><h3><?php _e( 'All Testimonials', 'strong-testimonials' ); ?></h3></th>
 			</tr>
 			<tr>
-				<td>Show all from all categories.</td><td>[wpmtst-all]</td>
+				<td><?php _e( 'Show all from all categories.', 'strong-testimonials' ); ?></td>
+				<td>[wpmtst-all]</td>
 			</tr>
 			<tr>
-				<td>Show all from a specific category.<br> Find these on the <a href="<?php echo admin_url( 'edit-tags.php?taxonomy=wpm-testimonial-category&post_type=wpm-testimonial' ); ?>">categories screen</a>.</td><td>[wpmtst-all category="xx"]</td>
+				<td><?php printf( __( 'Show all from a specific <a href="%s">category</a>.', 'strong-testimonials' ), $links['categories'] ); ?></a></td>
+				<td>[wpmtst-all category="xx"]</td>
 			</tr>
 		</table>
 
 		<table class="shortcode-table">
 			<tr>
-				<td colspan="2"><h3>Testimonials Cycle</h3></td>
+				<th colspan="2"><h3><?php _e( 'Testimonials Cycle', 'strong-testimonials' ); ?></h3></th>
 			</tr>
 			<tr>
-				<td>Cycle through all from all categories.</td><td>[wpmtst-cycle]</td>
-			</tr>
-			<tr>
-				<td>Cycle through all from a specific category.<br> Find these on the <a href="<?php echo admin_url( 'edit-tags.php?taxonomy=wpm-testimonial-category&post_type=wpm-testimonial' ); ?>">categories screen</a>.</td><td>[wpmtst-cycle category="xx"]</td>
+				<td><?php printf( __( 'Cycle through testimonials. <a href="%s">configure</a>', 'strong-testimonials' ), admin_url( 'edit.php?post_type=wpm-testimonial&page=settings&tab=cycle' ) ); ?></td>
+				<td>[wpmtst-cycle]</td>
 			</tr>
 		</table>
 
 		<table class="shortcode-table">
 			<tr>
-				<td colspan="2"><h3>Random Testimonial</h3></td>
+				<th colspan="2"><h3><?php _e( 'Random Testimonial', 'strong-testimonials' ); ?></h3></th>
 			</tr>
 			<tr>
-				<td>Show a single random testimonial.</td><td>[wpmtst-random]</td>
+				<td><?php _e( 'Show a single random testimonial.', 'strong-testimonials' ); ?></td>
+				<td>[wpmtst-random]</td>
 			</tr>
 			<tr>
-				<td>Show a certain number of testimonials.</td><td>[wpmtst-random limit="x"]</td>
+				<td><?php _e( 'Show a certain number of testimonials.', 'strong-testimonials' ); ?></td>
+				<td>[wpmtst-random limit="x"]</td>
 			</tr>
 			<tr>
-				<td>Show a single random testimonial from a specific category.<br>Find these on the <a href="<?php echo admin_url( 'edit-tags.php?taxonomy=wpm-testimonial-category&post_type=wpm-testimonial' ); ?>">categories screen</a>.</td>
+				<td><?php printf( __( 'Show a single random testimonial from a specific <a href="%s">category</a>.', 'strong-testimonials' ), $links['categories'] ); ?></td>
 				<td>[wpmtst-random category="xx"]</td>
 			</tr>
 			<tr>
-				<td>Show a certain number from a specific category.</td><td>[wpmtst-random category="xx" limit="x"]</td>
+				<td><?php printf( __( 'Show a certain number from a specific <a href="%s">category</a>.', 'strong-testimonials' ), $links['categories'] ); ?></td>
+				<td>[wpmtst-random category="xx" limit="x"]</td>
 			</tr>
 		</table>
 
 		<table class="shortcode-table">
 			<tr>
-				<td colspan="2"><h3>Single Testimonial</h3></td>
+				<th colspan="2"><h3><?php _e( 'Single Testimonial', 'strong-testimonials' ); ?></h3></th>
 			</tr>
 			<tr>
-				<td> Show one specific testimonial.<br>Find these on the <a href="<?php echo admin_url( 'edit.php?post_type=wpm-testimonial' ); ?>">testimonials screen</a>.</td><td>[wpmtst-single id="xx"]</td>
+				<td><?php printf( __( 'Show one specific <a href="%s">testimonial</a>.', 'strong-testimonials' ), $links['testimonials'] ); ?></td>
+				<td>[wpmtst-single id="xx"]</td>
 			</tr>
 		</table>
 
 		<table class="shortcode-table">
 			<tr>
-				<td colspan="2"><h3>Testimonial Submission Form</h3></td>
+				<th colspan="2"><h3><?php _e( 'Testimonial Submission Form', 'strong-testimonials' ); ?></h3></th>
 			</tr>
 			<tr>
-				<td>Show a form for visitors to submit testimonials.<br>New testimonials are in "Pending" status until<br> published by an administrator.</td><td>[wpmtst-form]</td>
+				<td><?php _e( 'Show a form for visitors to submit testimonials.', 'strong-testimonials' );?><br><?php _e( 'New testimonials are in "Pending" status until published by an administrator.', 'strong-testimonials' ); ?></td>
+				<td>[wpmtst-form]</td>
 			</tr>
 		</table>
 

@@ -17,37 +17,31 @@ add_action( 'admin_init', 'wpmtst_admin_init' );
 
 
 /*
- * Check WordPress version
- */
-function wpmtst_version_check() {
-	global $wp_version;
-	$wpmtst_plugin_info = get_plugin_data( __FILE__, false );
-	$require_wp = "3.5";  // least required Wordpress version
-	$plugin = plugin_basename( __FILE__ );
-
-	if ( version_compare( $wp_version, $require_wp, '<' ) ) {
-		if ( is_plugin_active( $plugin ) ) {
-			deactivate_plugins( $plugin );
-			wp_die( '<strong>' . $wpmtst_plugin_info['Name'] . ' </strong> ' 
-				. __( 'requires', WPMTST_NAME ) . ' <strong>WordPress ' . $require_wp . '</strong> ' 
-				. __( 'or higher so it has been deactivated. Please upgrade WordPress and try again.', WPMTST_NAME) 
-				. '<br /><br />' 
-				. __( 'Back to the WordPress', WPMTST_NAME) . ' <a href="' . get_admin_url( null, 'plugins.php' ) . '">' 
-				. __( 'Plugins page', WPMTST_NAME) . '</a>' );
-		}
-	}
-}
-
-
-/*
  * Admin scripts.
  */
-function wpmtst_admin_scripts() {
-	wp_enqueue_style( 'wpmtst-admin-style', WPMTST_DIR . 'css/wpmtst-admin.css' );
-	wp_enqueue_script( 'jquery-ui-core' );
-	wp_enqueue_script( 'jquery-ui-sortable' );
-	wp_enqueue_script( 'wpmtst-admin-script', WPMTST_DIR . 'js/wpmtst-admin.js', array( 'jquery' ) );
-	wp_localize_script( 'wpmtst-admin-script', 'ajax_object', array( 'ajaxurl' => admin_url( 'admin-ajax.php' ) ) );
+function wpmtst_admin_scripts( $hook ) {
+	if ( in_array( $hook, array( 
+				'wpm-testimonial_page_settings',
+				'wpm-testimonial_page_fields',
+				'wpm-testimonial_page_shortcodes',
+				'widgets.php',
+				'edit.php',
+				'edit-tags.php',
+				'post.php',
+				'post-new.php',
+			) ) ) {
+		wp_enqueue_style( 'wpmtst-admin-style', WPMTST_DIR . 'css/wpmtst-admin.css' );
+	}
+	if ( in_array( $hook, array( 
+				'wpm-testimonial_page_settings',
+				'wpm-testimonial_page_fields',
+				'widgets.php',
+			) ) ) {
+		wp_enqueue_script( 'jquery-ui-core' );
+		wp_enqueue_script( 'jquery-ui-sortable' );
+		wp_enqueue_script( 'wpmtst-admin-script', WPMTST_DIR . 'js/wpmtst-admin.js', array( 'jquery' ) );
+		wp_localize_script( 'wpmtst-admin-script', 'ajax_object', array( 'ajaxurl' => admin_url( 'admin-ajax.php' ) ) );
+	}
 }
 add_action( 'admin_enqueue_scripts', 'wpmtst_admin_scripts' );
 
@@ -56,7 +50,7 @@ add_action( 'admin_enqueue_scripts', 'wpmtst_admin_scripts' );
  * Add meta box to the post editor screen
  */
 function wpmtst_add_meta_boxes() {
-	add_meta_box( 'details', 'Client Details', 'wpmtst_meta_options', 'wpm-testimonial', 'normal', 'low' );
+	add_meta_box( 'details', __( 'Client Details', 'strong-testimonials' ), 'wpmtst_meta_options', 'wpm-testimonial', 'normal', 'low' );
 }
 add_action( 'add_meta_boxes', 'wpmtst_add_meta_boxes' );
 
@@ -73,12 +67,12 @@ function wpmtst_meta_options() {
 	?>
 	<table class="options">
 		<tr>
-			<td colspan="2">To add a client's photo, use the <strong>Featured Image</strong> option. <div class="dashicons dashicons-arrow-right-alt"></div></td>
+			<td colspan="2"><?php _e( 'To add a client&apos;s photo, use the Featured Image option.', 'strong-testimonials' ); ?>&nbsp;<div class="dashicons dashicons-arrow-right-alt"></div></td>
 		</tr>
 		<?php foreach ( $field_groups[ $fields['current_field_group'] ]['fields'] as $key => $field ) { ?>
 		<?php if ( 'custom' == $field['record_type'] ) { ?>
 		<tr>
-			<th><label for="<?php echo $field['name']; ?>"><?php _e( $field['label'], WPMTST_NAME ); ?></label></td>
+			<th><label for="<?php echo $field['name']; ?>"><?php echo $field['label']; ?></label></td>
 			<td><?php echo sprintf( '<input id="%2$s" type="%1$s" class="custom-input" name="custom[%2$s]" value="%3$s" size="" />', $field['input_type'], $field['name'], $post->$field['name'] ); ?></td>
 		</tr>
 		<?php } ?>
@@ -98,22 +92,23 @@ function wpmtst_edit_columns( $columns ) {
 	
 	$columns = array(
 			'cb'    => '<input type="checkbox" />', 
-			'title' => __( 'Title', WPMTST_NAME ),
+			'title' => __( 'Title', 'strong-testimonials' ),
+			'post_excerpt' => __( 'Excerpt', 'strong-testimonials' ),
 	);
 	
 	foreach ( $fields as $key => $field ) {
 		if ( $field['admin_table'] ) {
 			if ( 'featured_image' == $field['name'] )
-				$columns['thumbnail'] = __( 'Thumbnail', WPMTST_NAME );
+				$columns['thumbnail'] = __( 'Thumbnail', 'strong-testimonials' );
 			elseif ( 'post_title' == $field['name'] )
 				continue; // is set above
 			else
-				$columns[ $field['name'] ] = __( $field['label'], WPMTST_NAME );
+				$columns[ $field['name'] ] = $field['label'];
 		}
 	}
-	$columns['category']  = __( 'Category', WPMTST_NAME );
-	$columns['shortcode'] = __( 'Shortcode', WPMTST_NAME );
-	$columns['date']      = __( 'Date', WPMTST_NAME );
+	$columns['category']  = __( 'Category', 'strong-testimonials' );
+	$columns['shortcode'] = __( 'Shortcode', 'strong-testimonials' );
+	$columns['date']      = __( 'Date', 'strong-testimonials' );
 
 	return $columns;
 }
@@ -132,6 +127,9 @@ function wpmtst_custom_columns( $column ) {
 	}
 	elseif ( 'post_content' == $column ) {
 		echo substr( $post->post_content, 0, 100 ) . '...';
+	}
+	elseif ( 'post_excerpt' == $column ) {
+		echo $post->post_excerpt;
 	}
 	elseif ( 'thumbnail' == $column ) {
 		echo $post->post_thumbnail;
@@ -162,7 +160,7 @@ add_action( 'manage_wpm-testimonial_posts_custom_column', 'wpmtst_custom_columns
  * Add thumbnail column to admin list
  */
 function wpmtst_add_thumbnail_column( $columns ) {
-	$columns['thumbnail'] = __( 'Thumbnail', WPMTST_NAME );
+	$columns['thumbnail'] = __( 'Thumbnail', 'strong-testimonials' );
 	return $columns;
 }
 add_filter( 'manage_wpm-testimonial_posts_columns', 'wpmtst_add_thumbnail_column' );
@@ -191,7 +189,7 @@ function wpmtst_add_thumbnail_value( $column_name, $post_id ) {
 		if ( isset( $thumb ) && $thumb )
 			echo $thumb;
 		else
-			echo __( 'None', WPMTST_NAME );
+			echo __( 'None', 'strong-testimonials' );
 	}
 }
 add_action( 'manage_wpm-testimonial_posts_custom_column', 'wpmtst_add_thumbnail_value', 10, 2 );
@@ -203,11 +201,11 @@ add_action( 'manage_wpm-testimonial_posts_custom_column', 'wpmtst_add_thumbnail_
 function wpmtst_manage_categories( $columns ) {
 	$new_columns = array(
 			'cb'        => '<input type="checkbox" />',
-			'ID'        => __( 'ID', WPMTST_NAME ),
-			'name'      => __( 'Name', WPMTST_NAME ),
-			'slug'      => __( 'Slug', WPMTST_NAME ),
-			'shortcode' => __( 'Shortcode', WPMTST_NAME ),
-			'posts'     => __( 'Posts', WPMTST_NAME )
+			'ID'        => __( 'ID', 'strong-testimonials' ),
+			'name'      => __( 'Name', 'strong-testimonials' ),
+			'slug'      => __( 'Slug' ),
+			'shortcode' => __( 'Shortcode', 'strong-testimonials' ),
+			'posts'     => __( 'Posts' )
 	);
 	return $new_columns;
 }

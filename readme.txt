@@ -20,17 +20,57 @@ Strong Testimonials by [WP Mission](http://www.wpmission.com) makes collecting a
 
 **Manage testimonials** just like posts and pages, including Featured Images and Categories.
 
-= What's New in Version 1.7 =
+===
+
+Strong Testimonials is a **work in progress**.
+
+This is my project for learning plugin development and sharpening my skills. It will always be free.
+
+If you cannot tolerate occasional bugs and frequent updates, then please consider another plugin. 
+
+On the other hand, if you want
+
+* to participate in this plugin's development by offering ideas and feedback,
+* the prompt, personal attention of its developer (who will move mountains to resolve issues),
+* features that other plugins offer at a price,
+
+then welcome aboard! You have been warned :)
+
+=== 
+
+Need more? Or less? I will gladly build a custom version for you with just the features you want, within reason and as my schedule allows. Your version will not track with the latest version and you won't have to worry about updates. Your first custom version is free with lifetime support (fixing bugs, keeping up with WordPress, resolving conflicts with other plugins, CSS help) but future modifications will have a price tag.
+
+===
+
+*We are moving towards version 2.0 with flexible display components!*
+
+= What's New in Version 1.8: Excerpting =
+
+* Improved cycle shortcode options:
+  * Show an **excerpt** of a testimonial, or the entire content, or up to a certain length.
+	* Add a "Read more" link to the full testimonial or another page.
+	* Options to show the title, the featured image, and the client information or not.
+  * *Note: the category attribute was removed from the `[cycle]` shortcode.*
+
+* Post Excerpt and Custom Fields now available in testimonial editor.
+
+* Options to load the included stylesheets or not, so you can style from the ground up if you want.
+
+* Improved CSS including solving the long-standing width and float conflicts with some themes (YMMV). Tested in many popular themes including the [problematic](http://chrislema.com/wordpress-obesity/) [Avada](http://www.fklein.info/2013/05/overloaded-theme-problems/).
+
+* Improved i18n. Ready for translations.
+
+= What's New in Version 1.7: Customizing =
 
 * Finally! [Custom fields](http://www.wpmission.com/tutorials/customize-the-form-in-strong-testimonials/). Change the testimonial submission form to meet your needs. Change which client fields appear underneath each testimonial.
 
-= What's New in Version 1.6 =
+= What's New in Version 1.6: Captcha-ing =
 
 * Added support for the [Really Simple Captcha](http://wordpress.org/plugins/really-simple-captcha/) plugin which you may know from [Contact Form 7](http://wordpress.org/plugins/contact-form-7/). Nice!
 
 * Fixed a conflict with other plugins or themes also using the Cycle jQuery plugin.
 
-= What's New in Version 1.5 =
+= What's New in Version 1.5: Cycling =
 
 * A frequently requested feature, a **shortcode for rotating testimonials** on a page just like the widget. AKA slider, fader, cycler.
 * Improved reCAPTCHA error handling.
@@ -94,7 +134,7 @@ Widget
 
 * Updated [jQuery cycle plugin](http://jquery.malsup.com/cycle2/), conditionally loaded.
 * Break on word boundary, not mid-word.
-  * e.g. *"John is an assuring . . ."* not *"John is an ass . . ."*
+  * e.g. *"John is an asset . . ."* not *"John is an ass . . ."*
 * Improved widget options.
 * Order by: Random, Newest first, Oldest first.
 * Load stylesheet in standard order instead of in the footer to allow your theme's stylesheet to take precedence.
@@ -196,6 +236,12 @@ I will gladly help add your modifications to a custom version of Strong Testimon
 13. The same widget in Static mode.
 
 == Changelog ==
+
+= 1.8 =
+
+* New features in cycle shortcode: Excerpt and "Read more" link.
+* Solved CSS width and float conflicts with some themes.
+* Ready for translations.
 
 = 1.7.3 = 
 * Fixed shortcode processing in widget content.

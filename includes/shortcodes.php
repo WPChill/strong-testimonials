@@ -27,28 +27,42 @@ if ( ! function_exists( 'normalize_empty_atts' ) ) {
 /*
  * Single Testimonial LAYOUT
  */
-function wpmtst_single( $post ) {
-	$html = '<div class="testimonial">';
+function wpmtst_single( $post, $args = array( 'title' => 1, 'images' => 1, 'content' => '', 'client' => 1, 'more' => 0 ) ) {
+	$html = '<div class="testimonial ' . $args['content'] . '">';
 	$html .= '<div class="inner">';
 	
-	if ( ! empty( $post->post_title ) )
+	if ( $args['title'] && $post->post_title )
 		$html .= '<h3 class="heading">' . $post->post_title .'</h3>';
 	
-	if ( has_post_thumbnail( $post->ID ) )
+	$html .= '<div class="content">';
+
+	if ( $args['images'] && isset( $post->thumbnail_id ) )
 		$html .= '<div class="photo">' . get_the_post_thumbnail( $post->ID, 'thumbnail' ) . '</div>';
-
-	$html .= '<div class="content">' . wpautop( $post->post_content ) . '</div>';
-	$html .= '<div class="clear"></div>';
-
-	$html .= '<div class="client">';
-	$html .= wpmtst_client_info( $post );
-	$html .= '</div><!-- client -->';
 	
+	if ( 'excerpt' == $args['content'] )
+		$html .= $post->post_excerpt;
+	elseif( 'truncated' == $args['content'] )
+		$html .= wpmtst_truncate( $post->post_content, $args['char-limit'] );
+	else // entire
+		$html .= wpautop( $post->post_content );
+		
+	// $html .= '<div class="clear"></div>';
+	$html .= '</div><!-- .content -->';
+
+	if ( $args['client'] )
+		$html .= '<div class="client">' . wpmtst_client_info( $post ) . '</div><!-- client -->';
+	
+	$format = '<div class="readmore"><a href="%s">' . __( 'Read more', 'strong-testimonials' ) .'</a></div>';
+	if ( 2 == $args['more'] )
+		$html .= sprintf( $format, get_permalink( $args['more-page'] ) );
+	elseif ( 1 == $args['more'] )
+		$html .= sprintf( $format, get_permalink( $post ) );
+
+	$html .= '<div class="clear"></div>';
 	$html .= '</div><!-- inner -->';
 	$html .= '</div><!-- testimonial -->';
 	
-	// render other shortcodes in content,
-	// this will render the client_info shortcodes too
+	// render other shortcodes in content; client_info shortcodes too
 	return do_shortcode( $html );
 }
 
@@ -65,8 +79,8 @@ function wpmtst_client_info( $post ) {
 	// ---------------------------------------------------------------------
 	
 	$html = '';
-	$options = get_option( 'wpmtst_options' );
-	$fields = get_option( 'wpmtst_fields' );
+	$options  = get_option( 'wpmtst_options' );
+	$fields   = get_option( 'wpmtst_fields' );
 	$template = $options['client_section'];
 	
 	$lines = explode( PHP_EOL, $template );
@@ -138,6 +152,7 @@ function wpmtst_text_shortcode( $atts, $content = null ) {
 }
 add_shortcode( 'wpmtst-text', 'wpmtst_text_shortcode' );
 
+
 /*
  * Client link shortcode.
  */
@@ -171,12 +186,18 @@ add_shortcode( 'wpmtst-link', 'wpmtst_link_shortcode' );
  * Single testimonial shortcode
  */
 function wpmtst_single_shortcode( $atts ) {
-	extract( shortcode_atts( array( 'id' => '' ), $atts ) );
+	extract( shortcode_atts( 
+		array( 'id' => '' ),
+		normalize_empty_atts( $atts )
+	) );
 	$post = wpmtst_get_post( get_post( $id ) );
-	$display = wpmtst_single( $post );
+	$display = '<div id="wpmtst-container">';
+	$display .= wpmtst_single( $post );
+	$display .= '</div>';
 	return $display;
 }
 add_shortcode( 'wpmtst-single', 'wpmtst_single_shortcode' );
+
 
 /*
  * Random testimonial shortcode
@@ -200,13 +221,15 @@ function wpmtst_random_shortcode( $atts ) {
 	$wp_query = new WP_Query();
 	$results  = $wp_query->query( $args );
 
-	$display = '';
+	$display = '<div id="wpmtst-container">';
 	foreach ( $results as $post ) {
 		$display .= wpmtst_single( wpmtst_get_post( $post ) );
 	}
+	$display .= '</div>';
 	return $display;
 }
 add_shortcode( 'wpmtst-random', 'wpmtst_random_shortcode' );
+
 
 /*
  * All testimonials shortcode
@@ -247,33 +270,29 @@ add_shortcode( 'wpmtst-all', 'wpmtst_all_shortcode' );
 
 /*
  * Cycle testimonials shortcode
- *
- * @TODO:
- * - sort options in query
  */
 function wpmtst_cycle_shortcode( $atts ) {
 	extract( shortcode_atts(
-		array( 'category' => '' ),
+		array(),
 		normalize_empty_atts( $atts )
 	) );
-	$options = get_option( 'wpmtst_options' );
-	$cycle = $options['cycle'];
+	$cycle = get_option( 'wpmtst_cycle' );
 
 	do_action( 
 		'wpmtst_cycle_hook', 
-		$cycle['cycle-effect'], 
-		$cycle['cycle-speed'], 
-		$cycle['cycle-timeout'], 
-		$cycle['cycle-pause'],
+		$cycle['effect'], 
+		$cycle['speed'], 
+		$cycle['timeout'], 
+		$cycle['pause'],
 		'#wpmtst-container',
 		'cycleShortcode'
 	);
 
-	if ( 'rand' == $cycle['cycle-order'] ) {
+	if ( 'rand' == $cycle['order'] ) {
 		$orderby = 'rand';
 		$order   = '';
 	}
-	elseif ( 'oldest' == $cycle['cycle-order'] ) {
+	elseif ( 'oldest' == $cycle['order'] ) {
 		$orderby = 'post_date';
 		$order   = 'ASC';
 	}
@@ -281,16 +300,16 @@ function wpmtst_cycle_shortcode( $atts ) {
 		$orderby = 'post_date';
 		$order   = 'DESC';
 	}
-
-	$terms = wpmtst_get_terms( $category );
-
+	$terms = wpmtst_get_terms( $cycle['category'] );
+	$limit = ( $cycle['all'] ? -1 : $cycle['limit'] );
+	
 	$args = array(
 			$terms['taxo']   => $terms['term'],
 			'post_type'      => 'wpm-testimonial',
-			'posts_per_page' => -1,
+			'post_status'    => 'publish',
+			'posts_per_page' => $limit,
 			'orderby'        => $orderby,
 			'order'          => $order,
-			'post_status'    => 'publish'
 	);
 
 	$wp_query = new WP_Query();
@@ -298,13 +317,14 @@ function wpmtst_cycle_shortcode( $atts ) {
 
 	$display = '<div id="wpmtst-container" class="tcycle">';
 	foreach ( $results as $post ) {
-		$display .= '<div class="result">' . wpmtst_single( wpmtst_get_post( $post ) ) . '</div><!-- result -->';
+		$display .= '<div class="result">' . wpmtst_single( wpmtst_get_post( $post ), $cycle ) . '</div><!-- result -->';
 	}
-	$display .= '</div><!-- wpmtst-container -->';
+	$display .= '</div><!-- #wpmtst-container -->';
 
 	return $display;
 }
 add_shortcode( 'wpmtst-cycle', 'wpmtst_cycle_shortcode' );
+
 
 /*
  * Submission form shortcode
@@ -379,16 +399,16 @@ function wpmtst_form_shortcode( $atts ) {
 
 		}
 
-		// special handling:
-		// if post_title is not required, create one from post_content
-		if ( ! isset( $testimonial_post['post_title'] ) || ! $testimonial_post['post_title'] ) {
-			$words_array = explode( ' ', $testimonial_post['post_content'] );
-			$five_words = array_slice( $words_array, 0, 5 );
-			$testimonial_post['post_title'] = implode( ' ', $five_words );
-		}
-
     if ( ! count( $errors ) ) {
-	
+		
+			// special handling:
+			// if post_title is not required, create one from post_content
+			if ( ! isset( $testimonial_post['post_title'] ) || ! $testimonial_post['post_title'] ) {
+				$words_array = explode( ' ', $testimonial_post['post_content'] );
+				$five_words = array_slice( $words_array, 0, 5 );
+				$testimonial_post['post_title'] = implode( ' ', $five_words );
+			}
+
 			// create new testimonial post
 			if ( $testimonial_id = wp_insert_post( $testimonial_post ) ) {
 
@@ -428,7 +448,7 @@ function wpmtst_form_shortcode( $atts ) {
 				}
 
 				wpmtst_notify_admin();
-				return '<div class="testimonial-success">' .  __( 'Thank you! Your testimonial is awaiting moderation.', WPMTST_NAME ) .'</div>';
+				return '<div class="testimonial-success">' .  __( 'Thank you! Your testimonial is awaiting moderation.', 'strong-testimonials' ) .'</div>';
 
 			}
 			else {
@@ -448,7 +468,7 @@ function wpmtst_form_shortcode( $atts ) {
 	// output buffering made this incredibly unreadable
 	
 	$html = '<div id="wpmtst-form">';
-	$html .= '<p class="required-notice"><span class="required symbol"></span>' . __( 'Required Field', WPMTST_NAME ) . '</p>';
+	$html .= '<p class="required-notice"><span class="required symbol"></span>' . __( 'Required Field', 'strong-testimonials' ) . '</p>';
 	$html .= '<form id="wpmtst-submission-form" method="post" action="" enctype="multipart/form-data">';
 	$html .= wp_nonce_field( 'wpmtst_submission_form', 'wpmtst_form_submitted', true, false );
 
@@ -464,7 +484,7 @@ function wpmtst_form_shortcode( $atts ) {
 			$classes = '';
 
 		$html .= '<p class="form-field">';
-		$html .= '<label for="wpmtst_' . $field['name'] . '">' . __( $field['label'], WPMTST_NAME ) . '</label>';
+		$html .= '<label for="wpmtst_' . $field['name'] . '">' . $field['label'] . '</label>';
 
 		if ( isset( $field['required'] ) && $field['required'] )
 			$html .= '<span class="required symbol"></span>';
@@ -533,7 +553,7 @@ function wpmtst_form_shortcode( $atts ) {
 		$captcha_html = apply_filters( 'wpmtst_captcha', $captcha );
 		if ( $captcha_html ) {
 			$html .= '<div class="wpmtst-captcha">';
-			$html .= '<label for="wpmtst_captcha">' . __( 'Captcha', WPMTST_NAME ) . '</label><span class="required symbol"></span>';
+			$html .= '<label for="wpmtst_captcha">' . __( 'Captcha', 'strong-testimonials' ) . '</label><span class="required symbol"></span>';
 			$html .= '<div>';
 			$html .= $captcha_html;
 			if ( isset( $errors['captcha'] ) )
@@ -546,7 +566,7 @@ function wpmtst_form_shortcode( $atts ) {
 	$html .= '<p class="form-field">';
 	$html .= '<input type="submit" id="wpmtst_submit_testimonial"'
 				.' name="wpmtst_submit_testimonial"'
-				.' value="' . __( 'Add Testimonial', WPMTST_NAME ) . '"'
+				.' value="' . __( 'Add Testimonial', 'strong-testimonials' ) . '"'
 				.' class="button" validate="required:true" />';
 	$html .= '</p>';
 	
@@ -611,9 +631,9 @@ function wpmtst_notify_admin() {
 	$admin_email  = $options['admin_email'];
 
 	if ( $admin_notify && $admin_email ) {
-		$subject = 'New testimonial for ' . get_option( 'blogname' );
+		$subject = __( 'New testimonial for', 'strong-testimonials' ) . ' ' . get_option( 'blogname' );
 		$headers = 'From: noreply@' . preg_replace( '/^www\./', '', $_SERVER['HTTP_HOST'] );
-		$message = 'New testimonial submission for ' . get_option( 'blogname' ) . '. This is awaiting action from the website administrator.';
+		$message = sprintf( __( 'New testimonial submission for %s. This is awaiting action from the website administrator.', 'strong-testimonials' ), get_option( 'blogname' ) );
 		// More info here? A copy of testimonial? A link to admin page? A link to approve directly from email?
 		wp_mail( $admin_email, $subject, $message, $headers );
 	}

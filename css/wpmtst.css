@@ -1,12 +1,21 @@
 /**
- * wpmtst.css
  * Strong Testimonials stylesheet
  */
+
 
 /* Testimonial pages
 ---------------------------------------------------------*/
 
+.clear {
+	clear: both;
+}
+
 #wpmtst-container {
+	display: inline-block;
+	width: 100%;
+}
+
+#wpmtst-container.tcycle {
 }
 
 .testimonial {
@@ -14,8 +23,18 @@
 	margin: 20px auto;
 	padding: 0;
 	text-align: left;
-	width: 90%;
+	/* width: 90%; */
+	height: auto;
 }
+	
+	.testimonial.excerpt {
+	}
+
+	.testimonial.truncated {
+	}
+
+	.testimonial.entire {
+	}
 
 .testimonial .inner {
 	background: #fbfbfb;
@@ -29,8 +48,9 @@
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fbfbfb', endColorstr='#ededed',GradientType=0 );
 
 	border: 1px solid #FFFFFF;
-	margin: 0;
+	margin: 0 auto;
 	padding: 20px;
+	text-align: left;
 }
 
 .testimonial .heading {
@@ -53,14 +73,9 @@
 }
 
 .testimonial .content {
+	background: transparent;
 	float: none;
-	font-style: italic;
-	padding-top: 0;
-}
-
-/* fix for themes that set a width on .content :{ */
-#wpmtst-container .content,
-[id^=wpmtst-widget] .content {
+	height: auto;
 	width: auto;
 }
 
@@ -73,37 +88,8 @@
 	font-weight: bold;
 }
 
-
-/* Widget
----------------------------------------------------------*/
-
-.wpmtst-widget-container {
-}
-
-.testimonial-widget {
-	margin-bottom: 1.5em;
-}
-
-.testimonial-widget h5 {
-	line-height: 1.5;
-}
-
-.testimonial-widget .photo {
-	float: left;
-	margin-top: .5em;
-	margin-right: 1em;
-}
-
-.testimonial-widget .client {
-	line-height: 1.5;
-}
-
-.testimonial-widget .name {
-	font-weight: bold;
-}
-
-.wpmtst-widget-readmore {
-	margin-top: 1.5em;
+.readmore {
+	margin-top: 1em;
 }
 
 

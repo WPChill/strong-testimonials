@@ -29,7 +29,7 @@ function wpmtst_settings_custom_fields() {
 
 			// Undo changes
 			$fields = $field_group['fields'];
-			echo sprintf( $message_format, __( 'Changes undone.', WPMTST_NAME ) );
+			echo sprintf( $message_format, __( 'Changes undone.', 'strong-testimonials' ) );
 
 		}
 		elseif ( isset( $_POST['restore-defaults'] ) ) {
@@ -46,7 +46,7 @@ function wpmtst_settings_custom_fields() {
 			update_option( 'wpmtst_fields', $default_fields );
 			$fields = $default_fields['field_groups']['custom']['fields'];
 			
-			echo sprintf( $message_format, __( 'Defaults restored.', WPMTST_NAME ) );
+			echo sprintf( $message_format, __( 'Defaults restored.', 'strong-testimonials' ) );
 
 		}
 		else {
@@ -72,7 +72,7 @@ function wpmtst_settings_custom_fields() {
 			}
 			$field_options['field_groups']['custom']['fields'] = $fields;
 			update_option( 'wpmtst_fields', $field_options );
-			echo sprintf( $message_format, __( 'Fields saved.', WPMTST_NAME ) );
+			echo sprintf( $message_format, __( 'Fields saved.', 'strong-testimonials' ) );
 		}
 
 	}
@@ -87,7 +87,7 @@ function wpmtst_settings_custom_fields() {
 	// Custom Fields Form
 	// ------------------
 	echo '<div class="wrap wpmtst">' . "\n";
-	echo '<h2>' . __( 'Fields', WPMTST_NAME ) . '</h2>' . "\n";
+	echo '<h2>' . __( 'Fields', 'strong-testimonials' ) . '</h2>' . "\n";
 	echo '<ul><li>Fields will appear in this order on the form.</li><li>Sort by grabbing the <span class="dashicons dashicons-menu"></span> icon.</li><li>Click the field name to expand its options panel.</li></ul>' . "\n";
 	
 	echo '<!-- Custom Fields Form -->' . "\n";
@@ -103,13 +103,13 @@ function wpmtst_settings_custom_fields() {
 	echo '</ul>' . "\n";
 	
 	echo '<div id="add-field-bar">';
-	echo '<input id="add-field" type="button" class="button-primary" name="add-field" value="' . __( 'Add New Field', WPMTST_NAME ) . '" />';
+	echo '<input id="add-field" type="button" class="button-primary" name="add-field" value="' . __( 'Add New Field', 'strong-testimonials' ) . '" />';
 	echo '</div>' . "\n";
 	
 	echo '<p class="submit">' . "\n";
 	submit_button( '', 'primary', 'submit', false );
-	submit_button( 'Undo Changes', 'secondary', 'reset', false );
-	submit_button( 'Restore Defaults', 'secondary', 'restore-defaults', false );
+	submit_button( __( 'Undo Changes', 'strong-testimonials' ), 'secondary', 'reset', false );
+	submit_button( __( 'Restore Defaults', 'strong-testimonials' ), 'secondary', 'restore-defaults', false );
 	echo '</p>' . "\n";
 	
 	echo '</form><!-- Custom Fields -->' . "\n";
@@ -145,7 +145,7 @@ function wpmtst_show_field( $key, $field, $adding ) {
 	$html .= '<th>Label</th>' . "\n";
 	$html .= '<td>' . "\n";
 	$html .= '<input type="text" class="first-field field-label" name="fields[' . $key . '][label]" value="' . $field['label'] . '" />' . "\n";
-	$html .= '<span class="help">This appears on the form.</span>' . "\n";
+	$html .= '<span class="help">' . __( 'This appears on the form.', 'strong-testimonials' ) . '</span>' . "\n";
 	$html .= '</td>' . "\n";
 	$html .= '</td>' . "\n";
 	
@@ -158,7 +158,7 @@ function wpmtst_show_field( $key, $field, $adding ) {
 	if ( 'custom' == $field['record_type'] ) {
 		// if adding, the field Name is blank so it can be populated from Label
 		$html .= '<input type="text" class="field-name" name="fields['.$key.'][name]" value="' . ( isset( $field['name'] ) ? $field['name'] : '' ) . '" />' . "\n";
-		$html .= '<span class="help field-name-help">Use only lowercase letters, numbers, and underscores.</span>' . "\n";
+		$html .= '<span class="help field-name-help">' . __( 'Use only lowercase letters, numbers, and underscores.', 'strong-testimonials' ) . '</span>' . "\n";
 	}
 	else {
 		$html .= '<input type="text" class="field-name" value="' . $field['name'] . '" disabled="disabled" />' . "\n";
@@ -202,14 +202,14 @@ function wpmtst_show_field( $key, $field, $adding ) {
 		// ...then add $selected to <option>.
 		
 		// Post fields
-		$html .= '<optgroup class="post" label="Post Fields">' . "\n";
+		$html .= '<optgroup class="post" label="' . __( 'Post Fields', 'strong-testimonials' ) . '">' . "\n";
 		foreach ( $field_types['post'] as $field_key => $field_parts ) {
 			$html .= '<option value="' . $field_key . '">' . $field_parts['option_label'] . '</option>' . "\n";
 		}
 		$html .= '</optgroup>' . "\n";
 		
 		// Custom fields
-		$html .= '<optgroup class="custom" label="Custom Fields">' . "\n";
+		$html .= '<optgroup class="custom" label="' . __( 'Custom Fields', 'strong-testimonials' ) . '">' . "\n";
 		foreach ( $field_types['custom'] as $field_key => $field_parts ) {
 			$html .= '<option value="' . $field_key . '">' . $field_parts['option_label'] . '</option>' . "\n";
 		}
@@ -268,9 +268,9 @@ function wpmtst_show_field( $key, $field, $adding ) {
 	// --------
 	$html .= '<div class="controls">' . "\n";
 	if ( $adding || ! $is_core ) {
-		$html .= '<span><a href="#" class="delete-field">Delete</a></span>';
+		$html .= '<span><a href="#" class="delete-field">' . __( 'Delete' ) . '</a></span>';
 	}
-	$html .= '<span class="close-field"><a href="#">Close</a></span>';
+	$html .= '<span class="close-field"><a href="#">' . __( 'Close', 'strong-testimonials' ) . '</a></span>';
 	$html .= '</div>' . "\n";
 	
 	$html .= '</div><!-- .custom-field -->' . "\n";
@@ -294,7 +294,7 @@ function wpmtst_show_field_secondary( $key, $field ) {
 		$disabled = false;
 		
 	$html = '<tr>' . "\n";
-	$html .= '<th>Required</th>' . "\n";
+	$html .= '<th>' . __( 'Required', 'strong-testimonials' ) . '</th>' . "\n";
 	$html .= '<td>' . "\n";
 	if ( $disabled ) {
 		$html .= '<input type="hidden" name="fields[' . $key . '][required]" value="' . $field['required'] . '" />' . "\n";
@@ -311,7 +311,7 @@ function wpmtst_show_field_secondary( $key, $field ) {
 	// -----------
 	if ( isset( $field['placeholder'] ) ) {
 		$html .= '<tr>' . "\n";
-		$html .= '<th>Placeholder</th>' . "\n";
+		$html .= '<th>' . __( 'Placeholder', 'strong-testimonials' ) . '</th>' . "\n";
 		$html .= '<td><input type="text" name="fields[' . $key . '][placeholder]" value="' . $field['placeholder'] . '" /></td>' . "\n";
 		$html .= '</td>' . "\n";
 	}
@@ -320,7 +320,7 @@ function wpmtst_show_field_secondary( $key, $field ) {
 	// Before
 	// ------
 	$html .= '<tr>' . "\n";
-	$html .= '<th>Before</th>' . "\n";
+	$html .= '<th>' . __( 'Before', 'strong-testimonials' ) . '</th>' . "\n";
 	$html .= '<td><input type="text" name="fields[' . $key . '][before]" value="' . $field['before'] . '" /></td>' . "\n";
 	$html .= '</td>' . "\n";
 	
@@ -328,7 +328,7 @@ function wpmtst_show_field_secondary( $key, $field ) {
 	// After
 	// -----
 	$html .= '<tr>' . "\n";
-	$html .= '<th>After</th>' . "\n";
+	$html .= '<th>' . __( 'After', 'strong-testimonials' ) . '</th>' . "\n";
 	$html .= '<td><input type="text" name="fields[' . $key . '][after]" value="' . $field['after'] . '" /></td>' . "\n";
 	$html .= '</td>' . "\n";
 	
@@ -344,13 +344,13 @@ function wpmtst_show_field_admin_table( $key, $field ) {
 	// Show in Admin Table
 	// -------------------
 	$html = '<tr class="field-admin-table">' . "\n";
-	$html .= '<th>Admin Table</th>' . "\n";
+	$html .= '<th>' . __( 'Admin Table', 'strong-testimonials' ) . '</th>' . "\n";
 	$html .= '<td>' . "\n";
 	if ( $field['admin_table_option'] ) {
 		$html .= '<input type="checkbox" class="field-admin-table" name="fields[' . $key . '][admin_table]" ' . checked( $field['admin_table'], 1, false ) . ' />' . "\n";
 	}
 	else {
-		$html .= '<input type="checkbox" ' . checked( $field['admin_table'], 1, false ) . ' disabled="disabled" /> <em>required</em>' . "\n";
+		$html .= '<input type="checkbox" ' . checked( $field['admin_table'], 1, false ) . ' disabled="disabled" /> <em>' . __( 'required', 'strong-testimonials' ) . '</em>' . "\n";
 		$html .= '<input type="hidden" name="fields[' . $key . '][admin_table]" value="' . $field['admin_table'] . '" />' . "\n";
 	}
 	$html .= '</td>' . "\n";

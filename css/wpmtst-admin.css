@@ -1,24 +1,41 @@
-/*
- * wpmtst-admin.css
+/**
  * Strong Testimonials admin stylesheet
  */
 
+ 
 /* shortcodes table 
 ---------------------------------------------------------*/
 
 table.shortcode-table {
 	border-collapse: collapse;
 	margin-bottom: 1em;
+	width: 100%;
+	max-width: 800px;
 }
 
-table.shortcode-table h3 {
-	margin: .5em 0 0;
-}
+	table.shortcode-table a:hover {
+		text-decoration: none;
+	}
 
-table.shortcode-table td {
-	border-bottom: 1px solid #dfdfdf;
-	padding: .5em;
-}
+	table.shortcode-table h3 {
+		margin: .5em 0 0;
+	}
+
+	table.shortcode-table th,
+	table.shortcode-table td {
+		border-bottom: 1px solid #dfdfdf;
+		padding: .5em;
+		width: 50%;
+	}
+
+	table.shortcode-table th {
+		text-align: left;
+	}
+
+	table.shortcode-table tr:hover td {
+		background: #FFFFE0;
+		color: #000;
+	}
 
 /* code */
 table.shortcode-table td:nth-child(2) {
@@ -29,28 +46,93 @@ table.shortcode-table td:nth-child(2) {
 	font-family: Consolas, Monaco, monospace;
 }
 
+	table.shortcode-table td:nth-child(2):hover {
+		background: #FFFFE0;
+	}
+
+	
 /* settings table 
 ---------------------------------------------------------*/
 
-.wrap.wpmtst .form-table {
-	/* width: auto; */
+.stackem label {
+	display: block;
+	line-height: 2em;
 }
 
-.wrap.wpmtst .form-table th {
-	/* width: auto; */
+#screenshot-screen-options {
+	display: none;
 }
 
-.wrap.wpmtst .form-table div.box {
+.screenshot img {
+	box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.5);
+}
+
+div.radio {
+	line-height: 1.5em;
+}
+
+	div.radio:hover {
+		color: #000;
+	}
+
+.wpmtst .form-table {
+	border-collapse: separate;
+	border-bottom: 1px solid #fff;
+	vertical-align: middle;
+}
+
+.wpmtst .form-table th,
+.wpmtst .form-table td {
+	border-top: 1px solid #fff;
+	border-bottom: 1px solid #ddd;
+	padding: 10px 5px;
+}
+
+.wpmtst .form-table tr:first-child th,
+.wpmtst .form-table tr:first-child td {
+	border-top: 0;
+}
+
+.wpmtst .form-table th.parent {
+	border-bottom: 0;
+}
+
+.wpmtst .form-table th.parent + td {
+}
+
+.wpmtst .form-table .child {
+	border-top: 0;
+}
+
+.wpmtst .form-table p {
+	margin-bottom: 1em;
+}
+
+.wpmtst .form-table input,
+.wpmtst .form-table select,
+.wpmtst .form-table textarea {
+	line-height: 1.5em;
+}
+
+.wpmtst select {
+	min-width: 120px;
+}
+
+.wpmtst option {
+	padding-left: 5px;
+}
+
+.wpmtst .form-table div.box {
 	border: 1px solid #ddd;
 	display: inline-block;
 	padding: 10px;
 }
 
-.wrap.wpmtst .form-table .row {
+.wpmtst .form-table .row {
 	line-height: 2.5em;
 }
 
-.wrap.wpmtst .form-table .alpha {
+.wpmtst .form-table .alpha {
 	width: 120px;
 }
 
@@ -104,11 +186,18 @@ table.shortcode-table td:nth-child(2) {
   color: blue;
 }
 
-
-.widget-content .help {
-	display: block;
-	font-style: italic;
+.description a {
+	text-decoration: underline;
 }
+
+.description a:hover {
+	text-decoration: none;
+}
+
+.radio .description {
+	padding-left: 20px;
+}
+
 
 /* widget 
 ---------------------------------------------------------*/
@@ -170,13 +259,21 @@ table.shortcode-table td:nth-child(2) {
 	vertical-align: baseline;
 }
 
-.row div {
-	display: inline-block;
+.row {
 }
+
+	.row > div {
+		vertical-align: top;
+		display: inline-block;
+	}
 
 .alpha {
 	display: inline-block;
 	width: 110px;
+}
+
+.full {
+	width: 100%;
 }
 
 label.alpha {
@@ -189,9 +286,7 @@ select.omega {
 }
 
 .divider {
-	padding: 4px 0 4px 4px;
-	margin-left: 1px;
-	border-left: 1px dotted #999;
+	margin-left: 1em;
 }
 
 input[disabled],
@@ -200,12 +295,27 @@ input[readonly] {
 	background: rgba(0, 0, 0, 0.04);
 }
 
+.help {
+	display: inline-block;
+	font-style: italic;
+	font-size: 13px;
+	line-height: 1.5;
+	margin-left: 2em;
+	vertical-align: middle;
+}
+
+div.help {
+	margin-left: 0;
+}
+
+
 /* Categories admin list 
 ---------------------------------------------------------*/
 
 .widefat th.column-ID {
 	width: 2.2em;
 }
+
 
 /* Custom fields
 ---------------------------------------------------------*/

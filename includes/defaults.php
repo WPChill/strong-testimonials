@@ -1,28 +1,42 @@
 <?php
 /**
  * Strong Testimonials - Default options
- * Version: 1.7
+ * Version: 1.8
  *
  * Populates default_options and default_options.
  */
 
+ 
 // --------
 // Settings
 // --------
 
 $default_options = array(
-		'per_page'      => '5',
-		'admin_notify'  => 0,
-		'admin_email'   => '',
-		'captcha'       => '',
+		'per_page'          => '5',
+		'admin_notify'      => 0,
+		'admin_email'       => '',
+		'captcha'           => '',
+		'load_page_style'   => 1,
+		'load_widget_style' => 1,
+		'load_form_style'   => 1,
 );
 
-$default_options['cycle'] = array(
-		'cycle-order'   => 'recent',
-		'cycle-effect'  => 'fade',
-		'cycle-speed'   => 1.5,
-		'cycle-timeout' => 8,
-		'cycle-pause'   => 1,
+$default_cycle = array(
+		'category'    => 'all',
+		'order'       => 'recent',
+		'all'         => 0,
+		'limit'       => 3,
+		'title'       => 1,
+		'content'     => 'entire',
+		'char-limit'  => 200,
+		'images'      => 1,
+		'client'      => 0,
+		'more'        => 0,
+		'more-page'   => '',
+		'effect'      => 'fade',
+		'speed'       => 1.5,
+		'timeout'     => 8,
+		'pause'       => 1,
 );
 
 // ---------
@@ -30,7 +44,7 @@ $default_options['cycle'] = array(
 // ---------
 
 $default_options['default_template'] = '[wpmtst-text field="client_name" class="name"]' . PHP_EOL
-	.'[wpmtst-link url="company_website" text="company_name" target="_blank" class="company"]';
+	. '[wpmtst-link url="company_website" text="company_name" target="_blank" class="company"]';
 
 $default_options['client_section'] = $default_options['default_template'];
 
@@ -44,7 +58,7 @@ $field_base = array(
 		'label' => '',
 		'input_type' => '',
 		'required' => 0,
-		'error' => 'This field is required.',
+		'error' => __( 'This field is required.', 'strong-testimonials' ),
 		'placeholder' => '',
 		'before' => '',
 		'after' => '',
@@ -56,14 +70,14 @@ $field_types = array();
 $field_types['post'] = array(
 		'post_title' => array(
 				'input_type' => 'text',
-				'option_label' => 'Testimonial Title',
+				'option_label' => __( 'Testimonial Title', 'strong-testimonials' ),
 				'map' => 'post_title',
 				'admin_table' => 1,
 				'admin_table_option' => 0,
 		),
 		'post_content' => array(
 				'input_type' => 'textarea',
-				'option_label' => 'Testimonial Content',
+				'option_label' => __( 'Testimonial Content', 'strong-testimonials' ),
 				'map' => 'post_content',
 				'required' => 1,
 				'core' => 1,
@@ -71,7 +85,7 @@ $field_types['post'] = array(
 		),
 		'featured_image' => array(
 				'input_type' => 'file',
-				'option_label' => 'Featured Image',
+				'option_label' => __( 'Featured Image', 'strong-testimonials' ),
 				'map' => 'featured_image',
 				'admin_table' => 0,
 		),
@@ -101,7 +115,7 @@ foreach ( $field_types['custom'] as $key => $array ) {
 $field_groups = array(
 		'default' => array(
 				'name'   => 'default',
-				'label'  => 'Default Field Group',
+				'label'  => __( 'Default Field Group', 'strong-testimonials' ),
 				'fields' => array(
 						// ------
 						// CUSTOM
@@ -109,33 +123,33 @@ $field_groups = array(
 						0 => array(
 								'record_type' => 'custom',
 								'name' => 'client_name',
-								'label' => 'Full Name',
+								'label' => __( 'Full Name', 'strong-testimonials' ),
 								'input_type' => 'text',
 								'required' => 1,
-								'after' => 'What is your full name?',
+								'after' => __( 'What is your full name?', 'strong-testimonials' ),
 								'admin_table' => 1,
 						),
 						1 => array(
 								'record_type' => 'custom',
 								'name' => 'email',
-								'label' => 'Email',
+								'label' => __( 'Email', 'strong-testimonials' ),
 								'input_type' => 'email',
 								'required' => 1,
-								'after' => 'What is your email address?',
+								'after' => __( 'What is your email address?', 'strong-testimonials' ),
 						),
 						3 => array(
 								'record_type' => 'custom',
 								'name' => 'company_name',
-								'label' => 'Company Name',
+								'label' => __( 'Company Name', 'strong-testimonials' ),
 								'input_type' => 'text',
-								'after' => 'What is your company name?',
+								'after' => __( 'What is your company name?', 'strong-testimonials' ),
 						),
 						4 => array(
 								'record_type' => 'custom',
 								'name' => 'company_website',
-								'label' => 'Company Website',
+								'label' => __( 'Company Website', 'strong-testimonials' ),
 								'input_type' => 'url',
-								'after' => 'Does your company have a website?',
+								'after' => __( 'Does your company have a website?', 'strong-testimonials' ),
 						),
 						// ----
 						// POST
@@ -143,25 +157,25 @@ $field_groups = array(
 						5 => array(
 								'record_type' => 'post',
 								'name' => 'post_title',
-								'label' => 'Heading',
+								'label' => __( 'Heading', 'strong-testimonials' ),
 								'input_type' => 'text',
 								'required' => 0,
-								'after' => 'A headline for your testimonial.',
+								'after' => __( 'A headline for your testimonial.', 'strong-testimonials' ),
 						),
 						6 => array(
 								'record_type' => 'post',
 								'name' => 'post_content',
-								'label' => 'Testimonial',
+								'label' => __( 'Testimonial', 'strong-testimonials' ),
 								'input_type' => 'textarea',
 								'required' => 1,
-								'after' => 'What do you think about us?',
+								'after' => __( 'What do you think about us?', 'strong-testimonials' ),
 						),
 						7 => array(
 								'record_type' => 'post',
 								'name' => 'featured_image',
-								'label' => 'Photo',
+								'label' => __( 'Photo', 'strong-testimonials' ),
 								'input_type' => 'file',
-								'after' => 'Would you like to include a photo?',
+								'after' => __( 'Would you like to include a photo?', 'strong-testimonials' ),
 								'admin_table' => 1,
 						),
 				)
@@ -177,7 +191,7 @@ foreach ( $field_groups['default']['fields'] as $key => $array ) {
 // Copy default field group to custom field group.
 $field_groups['custom'] = array(
 		'name'   => 'custom',
-		'label'  => 'Custom Field Group',
+		'label'  => __( 'Custom Field Group', 'strong-testimonials' ),
 		'fields' => $field_groups['default']['fields'],
 );
 
