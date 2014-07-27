@@ -59,6 +59,7 @@
 }
 
 /* fix for themes that set a width on .content :{ */
+#wpmtst-container .content,
 [id^=wpmtst-widget] .content {
 	width: auto;
 }
