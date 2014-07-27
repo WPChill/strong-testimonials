@@ -35,9 +35,17 @@ function wpmtst_settings_custom_fields() {
 		elseif ( isset( $_POST['restore-defaults'] ) ) {
 
 			// Restore defaults
-			$fields = $field_options['field_groups']['default']['fields'];
-			$field_options['field_groups']['custom']['fields'] = $fields;
-			update_option( 'wpmtst_fields', $field_options );
+			// ----------------
+			// 1.7 - soft restore from database
+			// $fields = $field_options['field_groups']['default']['fields'];
+			// $field_options['field_groups']['custom']['fields'] = $fields;
+			// update_option( 'wpmtst_fields', $field_options );
+			
+			// 1.7.1 - hard restore from file
+			include( WPMTST_INC . 'defaults.php' );
+			update_option( 'wpmtst_fields', $default_fields );
+			$fields = $default_fields['field_groups']['custom']['fields'];
+			
 			echo sprintf( $message_format, __( 'Defaults restored.', WPMTST_NAME ) );
 
 		}

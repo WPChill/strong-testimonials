@@ -197,6 +197,9 @@ I will gladly help add your modifications to a custom version of Strong Testimon
 
 == Changelog ==
 
+= 1.7.1 =
+* Fix for `Warning: Invalid argument supplied in foreach()` bugs.
+
 = 1.7 =
 * Custom fields on the testimonial submission form.
 * Client fields underneath each testimonial via shortcodes.
@@ -258,6 +261,9 @@ I will gladly help add your modifications to a custom version of Strong Testimon
 * Initial version, a fork of GC Testimonials 1.3.2.
 
 == Upgrade Notice ==
+
+= 1.7.1 =
+Bugfix for `Warning: Invalid argument supplied in foreach()`.
 
 = 1.7 =
 Custom fields. Finally!
