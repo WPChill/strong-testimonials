@@ -4,7 +4,7 @@
 	Plugin URI: http://www.wpmission.com/plugins/strong-testimonials/
 	Description: Collect and display testimonials.
 	Author: Chris Dillon
-	Version: 1.4.6
+	Version: 1.4.7
 	Forked From: GC Testimonials version 1.3.2 by Erin Garscadden
 	Author URI: http://www.wpmission.com/
 	Text Domain: wpmtst
@@ -440,19 +440,19 @@ function wpmtst_meta_options() {
 		</tr>
 		<tr>
 			<th><label for="client_name"><?php _e( 'Name', WPMTST_NAME ); ?></label></td>
-			<td><input type="text" id="client_name" name="client_name" value="<?php echo $client_name; ?>" size="40"/></td>
+			<td><input type="text" id="client_name" name="client_name" value="<?php echo $client_name; ?>" size="40" /></td>
 		</tr>
 		<tr>
 			<th><label for="email"><?php _e( 'Email', WPMTST_NAME ); ?></label></td>
-			<td><input type="text" id="email" name="email" value="<?php echo $email; ?>" size="40"/></td>
+			<td><input type="text" id="email" name="email" value="<?php echo $email; ?>" size="40" /></td>
 		</tr>
 		<tr>
 			<th><label for="company_website"><?php _e( 'Website', WPMTST_NAME ); ?></label></td>
-			<td><input type="text" id="company_website" name="company_website" value="<?php echo $company_website; ?>" size="40"/></td>
+			<td><input type="text" id="company_website" name="company_website" value="<?php echo $company_website; ?>" size="40" /></td>
 		</tr>
 		<tr>
 			<th><label for="company_name"><?php _e( 'Company Name', WPMTST_NAME ); ?></label></td>
-			<td><input type="text" id="company_name" name="company_name" value="<?php echo $company_name; ?>" size="40"/></td>
+			<td><input type="text" id="company_name" name="company_name" value="<?php echo $company_name; ?>" size="40" /></td>
 		</tr>
 	</table>
 	<?php
@@ -861,13 +861,7 @@ function wpmtst_form_shortcode( $atts ) {
 
 			<p class="form-field">
 				<label for="wpmtst_client_name"><?php _e( 'Full Name', WPMTST_NAME ); ?></label><span class="required symbol"></span>
-				<input id="wpmtst_client_name" 
-								class="text" 
-								type="text" 
-								name="wpmtst_client_name" 
-								value="<?php echo $client_name; ?>"
-								minlength="2" 
-								required>
+				<input id="wpmtst_client_name" class="text" type="text" name="wpmtst_client_name" value="<?php echo $client_name; ?>" minlength="2" required />
 				<?php if ( isset( $errors['client_name'] ) ) : ?>
 					<span class="error"><label class="error"><?php echo $errors['client_name']; ?></label></span>
 				<?php endif; ?>
@@ -876,12 +870,7 @@ function wpmtst_form_shortcode( $atts ) {
 			
 			<p class="form-field">
 				<label for="wpmtst_email"><?php _e( 'Email', WPMTST_NAME ); ?></label><span class="required symbol"></span>
-				<input id="wpmtst_email" 
-								class="text email" 
-								type="email" 
-								name="wpmtst_email" 
-								value="<?php echo $email; ?>"
-								required>
+				<input id="wpmtst_email" class="text email" type="email" name="wpmtst_email" value="<?php echo $email; ?>" required />
 				<?php if ( isset( $errors['email'] ) ) : ?>
 					<span class="error"><label class="error"><?php echo $errors['email']; ?></label></span>
 				<?php endif; ?>
@@ -890,40 +879,25 @@ function wpmtst_form_shortcode( $atts ) {
 
 			<p class="form-field">
 				<label for="wpmtst_company_name"><?php _e( 'Company Name', WPMTST_NAME ); ?></label>
-				<input id="wpmtst_company_name" 
-								class="text"
-								type="text" 
-								name="wpmtst_company_name" 
-								value="<?php echo $company_name; ?>">
+				<input id="wpmtst_company_name" class="text" type="text" name="wpmtst_company_name" value="<?php echo $company_name; ?>" />
 				<span class="help"><?php _e( 'What is your company name?', WPMTST_NAME ); ?></span>
 			</p>
 
 			<p class="form-field">
 				<label for="wpmtst_company_website"><?php _e( 'Company Website', WPMTST_NAME ); ?></label>
-				<input id="wpmtst_company_website" 
-								class="text"
-								type="text" 
-								name="wpmtst_company_website" 
-								value="<?php echo $company_website; ?>">
+				<input id="wpmtst_company_website" class="text" type="text" name="wpmtst_company_website" value="<?php echo $company_website; ?>" />
 				<span class="help"><?php _e( 'Does your company have a website?', WPMTST_NAME ); ?></span>
 			</p>
 
 			<p class="form-field">
 				<label for="wpmtst_headline"><?php _e( 'Heading', WPMTST_NAME ); ?></label>
-				<input id="wpmtst_headline" 
-								class="text"
-								type="text" 
-								name="wpmtst_headline" 
-								value="<?php echo $headline; ?>">
+				<input id="wpmtst_headline" class="text" type="text" name="wpmtst_headline" value="<?php echo $headline; ?>" />
 				<span class="help"><?php _e( 'A headline for your testimonial.', WPMTST_NAME ); ?></span>
 			</p>
 
 			<p class="form-field">
 				<label for="wpmtst_text"><?php _e( 'Testimonial', WPMTST_NAME ); ?></label><span class="required symbol"></span>
-				<textarea id="wpmtst_text" 
-									class="textarea"
-									name="wpmtst_text"
-									required><?php echo $text; ?></textarea>
+				<textarea id="wpmtst_text" class="textarea" name="wpmtst_text" required><?php echo $text; ?></textarea>
 				<?php if ( isset( $errors['text'] ) ) : ?>
 					<span class="error"><label class="error"><?php echo $errors['text']; ?></label></span>
 				<?php endif; ?>
@@ -934,20 +908,12 @@ function wpmtst_form_shortcode( $atts ) {
 
 			<p class="form-field">
 				<label for="wpmtst_client_photo"><?php _e( 'Photo', WPMTST_NAME ); ?></label>
-				<input id="wpmtst_client_photo" 
-								class="text"
-								type="file" 
-								name="wpmtst_client_photo">
+				<input id="wpmtst_client_photo" class="text" type="file" name="wpmtst_client_photo" />
 				<span class="help"><?php _e( 'Would you like to include a photo?', WPMTST_NAME ); ?></span>
 			</p>
 
 			<p class="form-field agree">
-				<input id="wpmtst_agree"
-							 class="checkbox" 
-							 type="checkbox" 
-							 name="wpmtst_agree"
-							 checked="<?php checked( $agree ); ?>"
-							 required>
+				<input id="wpmtst_agree" class="checkbox" type="checkbox" name="wpmtst_agree" checked="<?php checked( $agree ); ?>" required />
 				<?php if ( isset( $errors['agree'] ) ) : ?>
 					<span class="error"><label class="error"><?php echo $errors['agree']; ?></label></span>
 				<?php endif; ?>
@@ -967,12 +933,7 @@ function wpmtst_form_shortcode( $atts ) {
 			<?php endif; ?>
 			
 			<p class="form-field">
-				<input type="submit" 
-								id="wpmtst_submit_testimonial" 
-								name="wpmtst_submit_testimonial" 
-								value="<?php _e( 'Add Testimonial', WPMTST_NAME ); ?>" 
-								class="button" 
-								validate="required:true" />
+				<input type="submit" id="wpmtst_submit_testimonial" name="wpmtst_submit_testimonial" value="<?php _e( 'Add Testimonial', WPMTST_NAME ); ?>" class="button" validate="required:true" />
 			</p>
 
 		</form>
@@ -1291,23 +1252,13 @@ class WpmTst_Widget extends WP_Widget {
 				<ul>
 					<li class="radio-tab <?php if ( 'cycle' == $instance['mode'] ) { echo ' radio-current'; } ?>">
 						<label for="<?php echo $this->get_field_id( 'mode-cycle' ); ?>">
-							<input  id="<?php echo $this->get_field_id( 'mode-cycle' ); ?>"
-											type="radio"
-											name="<?php echo $this->get_field_name( 'mode' ); ?>"
-											value="cycle"
-											class="wpmtst-mode-setting"
-											<?php checked( $instance['mode'], 'cycle' ); ?>>
-								<?php _e( 'Cycle Mode' ) ?></label>
+							<input  id="<?php echo $this->get_field_id( 'mode-cycle' ); ?>" type="radio" name="<?php echo $this->get_field_name( 'mode' ); ?>" value="cycle" class="wpmtst-mode-setting" <?php checked( $instance['mode'], 'cycle' ); ?> />
+							<?php _e( 'Cycle Mode' ) ?></label>
 					</li>
 					<li class="radio-tab <?php if ( 'static' == $instance['mode'] ) { echo ' radio-current'; } ?>">
 						<label for="<?php echo $this->get_field_id( 'mode-static' ); ?>">
-							<input  id="<?php echo $this->get_field_id( 'mode-static' ); ?>"
-											type="radio"
-											name="<?php echo $this->get_field_name( 'mode' ); ?>"
-											value="static"
-											class="wpmtst-mode-setting"
-											<?php checked( $instance['mode'], 'static' ); ?>>
-								<?php _e( 'Static Mode' ) ?></label>
+							<input  id="<?php echo $this->get_field_id( 'mode-static' ); ?>" type="radio" name="<?php echo $this->get_field_name( 'mode' ); ?>" value="static" class="wpmtst-mode-setting" <?php checked( $instance['mode'], 'static' ); ?> />
+							<?php _e( 'Static Mode' ) ?></label>
 					</li>
 				</ul>
 
@@ -1319,19 +1270,10 @@ class WpmTst_Widget extends WP_Widget {
 							<label for="<?php echo $this->get_field_id( 'cycle-limit' ); ?>"><?php _e( 'Number to show', WPMTST_NAME ); ?>:</label>
 						</div>
 						<div>
-							<input  type="text"
-											id="<?php echo $this->get_field_id( 'cycle-limit' ); ?>"
-											name="<?php echo $this->get_field_name( 'cycle-limit' ); ?>"
-											value="<?php echo $instance['cycle-limit']; ?>"
-											size="3"
-											<?php if ( $instance['cycle-all'] ) { echo ' readonly="readonly"'; } ?> />
+							<input  type="text" id="<?php echo $this->get_field_id( 'cycle-limit' ); ?>" name="<?php echo $this->get_field_name( 'cycle-limit' ); ?>" value="<?php echo $instance['cycle-limit']; ?>" size="3" <?php if ( $instance['cycle-all'] ) { echo ' readonly="readonly"'; } ?> />
 						</div>
 						<div class="divider">
-							<input  type="checkbox"
-											id="<?php echo $this->get_field_id( 'cycle-all' ); ?>"
-											name="<?php echo $this->get_field_name( 'cycle-all' ); ?>"
-											<?php checked( $instance['cycle-all'], 1 ); ?>
-											class="checkbox" />
+							<input  type="checkbox" id="<?php echo $this->get_field_id( 'cycle-all' ); ?>" name="<?php echo $this->get_field_name( 'cycle-all' ); ?>" <?php checked( $instance['cycle-all'], 1 ); ?> class="checkbox" />
 							<label for="<?php echo $this->get_field_id( 'cycle-all' ); ?>"><?php _e( 'Show all', WPMTST_NAME ); ?></label>
 						</div>
 					</div>
@@ -1341,7 +1283,8 @@ class WpmTst_Widget extends WP_Widget {
 							<label for="<?php echo $this->get_field_id( 'cycle-timeout' ); ?>"><?php _e( 'Show each for', WPMTST_NAME ); ?>:</label>
 						</div>
 						<div>
-							<input type="text" id="<?php echo $this->get_field_id( 'cycle-timeout' ); ?>" name="<?php echo $this->get_field_name( 'cycle-timeout' ); ?>" value="<?php echo $instance['cycle-timeout']; ?>" size="3" /> <?php _e( 'seconds', WPMTST_NAME ); ?>
+							<input type="text" id="<?php echo $this->get_field_id( 'cycle-timeout' ); ?>" name="<?php echo $this->get_field_name( 'cycle-timeout' ); ?>" value="<?php echo $instance['cycle-timeout']; ?>" size="3" />
+							<?php _e( 'seconds', WPMTST_NAME ); ?>
 						</div>
 					</div>
 
@@ -1363,7 +1306,8 @@ class WpmTst_Widget extends WP_Widget {
 							<label for="<?php echo $this->get_field_id( 'cycle-speed' ); ?>"><?php _e( 'Effect duration', WPMTST_NAME ); ?>:</label>
 						</div>
 						<div>
-							<input type="text" id="<?php echo $this->get_field_id( 'cycle-speed' ); ?>" name="<?php echo $this->get_field_name( 'cycle-speed' ); ?>" value="<?php echo $instance['cycle-speed']; ?>" size="3" /> <?php _e( 'seconds', WPMTST_NAME ); ?>
+							<input type="text" id="<?php echo $this->get_field_id( 'cycle-speed' ); ?>" name="<?php echo $this->get_field_name( 'cycle-speed' ); ?>" value="<?php echo $instance['cycle-speed']; ?>" size="3" />
+							<?php _e( 'seconds', WPMTST_NAME ); ?>
 						</div>
 					</div>
 
@@ -1395,38 +1339,22 @@ class WpmTst_Widget extends WP_Widget {
 
 			<!-- CHARACTER LIMIT -->
 			<p>
-				<input  type="checkbox"
-								id="<?php echo $this->get_field_id( 'char-switch' ); ?>"
-								name="<?php echo $this->get_field_name( 'char-switch' ); ?>"
-								<?php checked( $instance['char-switch'] ); ?>  class="checkbox" />
+				<input type="checkbox" id="<?php echo $this->get_field_id( 'char-switch' ); ?>" name="<?php echo $this->get_field_name( 'char-switch' ); ?>" <?php checked( $instance['char-switch'] ); ?>  class="checkbox" />
 
 				<label for="<?php echo $this->get_field_id( 'char-limit' ); ?>"><?php _e( 'Character limit', WPMTST_NAME ); ?>:</label>
-				<input  type="text"
-								id="<?php echo $this->get_field_id( 'char-limit' ); ?>"
-								name="<?php echo $this->get_field_name( 'char-limit' ); ?>"
-								value="<?php echo $instance['char-limit']; ?>"
-								size="3"
-								<?php if ( ! $instance['char-switch'] ) { echo ' readonly="readonly"'; } ?> />
+				<input  type="text" id="<?php echo $this->get_field_id( 'char-limit' ); ?>" name="<?php echo $this->get_field_name( 'char-limit' ); ?>" value="<?php echo $instance['char-limit']; ?>" size="3" <?php if ( ! $instance['char-switch'] ) { echo ' readonly="readonly"'; } ?> />
 				<span class="help">Will break line on a space and add an ellipsis.</span>
 			</p>
 
 			<!-- FEATURED IMAGES -->
 			<p>
-				<input  type="checkbox"
-								id="<?php echo $this->get_field_id( 'images' ); ?>"
-								name="<?php echo $this->get_field_name( 'images' ); ?>"
-								<?php checked( $instance['images'] ); ?>
-								class="checkbox" />
+				<input  type="checkbox" id="<?php echo $this->get_field_id( 'images' ); ?>" name="<?php echo $this->get_field_name( 'images' ); ?>" <?php checked( $instance['images'] ); ?> class="checkbox" />
 				<label for="<?php echo $this->get_field_id('images'); ?>"><?php _e( 'Show Featured Images', WPMTST_NAME ); ?></label>
 			</p>
 
 			<!-- READ MORE LINK -->
 			<p>
-				<input  type="checkbox"
-								id="<?php echo $this->get_field_id( 'more' ); ?>"
-								name="<?php echo $this->get_field_name( 'more' ); ?>"
-								<?php checked( $instance['more'] ); ?>
-								class="checkbox" />
+				<input  type="checkbox" id="<?php echo $this->get_field_id( 'more' ); ?>" name="<?php echo $this->get_field_name( 'more' ); ?>" <?php checked( $instance['more'] ); ?> class="checkbox" />
 				<label for="<?php echo $this->get_field_id( 'more' ); ?>"><?php _e( 'Show "Read More" link to this page', WPMTST_NAME ); ?>:</label>
 			</p>
 
@@ -1608,9 +1536,7 @@ function wpmtst_settings_page() {
 				<tr valign="top">
 					<th scope="row">Number of testimonials to show per page</th>
 					<td>
-						<input type="text" 
-										name="wpmtst_options[per_page]" size="3"
-										value="<?php echo esc_attr( $wpmtst_options['per_page'] ); ?>">
+						<input type="text" name="wpmtst_options[per_page]" size="3" value="<?php echo esc_attr( $wpmtst_options['per_page'] ); ?>" />
 					</td>
 				</tr>				
 
@@ -1618,18 +1544,10 @@ function wpmtst_settings_page() {
 					<th scope="row">When new testimonial is submitted</th>
 					<td>
 						<label>
-							<input id="wpmtst-options-admin-notify"
-											type="checkbox" 
-											name="wpmtst_options[admin_notify]"
-											<?php checked( $wpmtst_options['admin_notify'] ); ?>>
+							<input id="wpmtst-options-admin-notify" type="checkbox" name="wpmtst_options[admin_notify]" <?php checked( $wpmtst_options['admin_notify'] ); ?> />
 							<?php _e( 'Send notification email to', WPMTST_NAME ); ?>
 						</label>
-						<input id="wpmtst-options-admin-email"
-										type="email" 
-										size="30" 
-										placeholder="email address"
-										name="wpmtst_options[admin_email]" 
-										value="<?php echo esc_attr( $wpmtst_options['admin_email'] ); ?>">
+						<input id="wpmtst-options-admin-email" type="email" size="30" placeholder="email address" name="wpmtst_options[admin_email]" value="<?php echo esc_attr( $wpmtst_options['admin_email'] ); ?>" />
 					</td>
 				</tr>
 				
@@ -1733,7 +1651,7 @@ function wpmtst_add_captcha( $captcha ) {
 		
 		case 'bwsmath' : // Captcha by BestWebSoft
 			if ( function_exists( 'cptch_display_captcha_custom' ) ) {
-				?><input type="hidden" name="cntctfrm_contact_action" value="true"><?php
+				echo '<input type="hidden" name="cntctfrm_contact_action" value="true" />';
 				echo cptch_display_captcha_custom();
 			}
 			break;
