@@ -1,11 +1,11 @@
 /**
- * wpmtst-widget.js
+ * wpmtst-cycle.js
  * Strong Testimonials > slider settings
  */
  
 jQuery(document).ready(function($) { 
 
-	// Not sure if this is a problem with my CSS or if Colorbox
+	// Not sure if this is a problem with my CSS or if Cycle
 	// is expecting elements to be of equal sizes, but we have
 	// to set the container to match the height of the tallest div.
 	
@@ -16,26 +16,44 @@ jQuery(document).ready(function($) {
 
 	// thanks http://stackoverflow.com/a/5052710/51600
 	
-	// Function to get the Max value in Array
+	// Function to get the max value in array
 	Array.max = function( array ){
-			return Math.max.apply( Math, array );
+		return Math.max.apply( Math, array );
 	};
 
-	var heights = $(".tcycle > div").map(function() {
-			return $(this).outerHeight(true);
-	}).get();
+	// ------------------
+	// Multiple instances
+	// ------------------
 	
-	var maxHeight = Array.max( heights );
-	$(".tcycle").height( maxHeight );
-
-	
-	// Add Colorbox to testimonials div.
-	// Handles both widget and shortcode.
-	$(".tcycle").cycle({ 
-		slides       : "> div",
-		fx           : tcycle.effect,
-		speed        : parseInt( tcycle.speed ),
-		timeout      : parseInt( tcycle.timeout ),
-		pauseOnHover : "1" == tcycle.pause ? true : false,
+	$(".tcycle").each( function(index, el) {
+		var heights = $("> div", el).map(function() {
+				return $(this).outerHeight(true);
+		}).get();
+		
+		var maxHeight = Array.max( heights );
+		$(el).height( maxHeight );
 	});
+		
+	// Example CDATA section:
+	// var cycleWidget = {"effect":"fade","speed":"1000","timeout":"8000","pause":"1","div":".wpmtst-widget-container"};
+	// var cycleShortcode = {"effect":"fade","speed":"1000","timeout":"5000","pause":"1","div":"#wpmtst-container"};
+
+	// Widget
+	if( typeof(cycleWidget) !== 'undefined' )
+		cycleIt( cycleWidget );
+	
+	// Shortcode
+	if( typeof(cycleShortcode) !== 'undefined' )
+		cycleIt( cycleShortcode );
+	
+	function cycleIt( el ) {
+		$( el.div).cycle({ 
+			slides       : "> div",
+			fx           : el.effect,
+			speed        : parseInt( el.speed ),
+			timeout      : parseInt( el.timeout ),
+			pauseOnHover : "1" == el.pause ? true : false,
+		});
+	}
+	
 });
