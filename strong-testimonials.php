@@ -4,7 +4,7 @@
 	Plugin URI: http://www.wpmission.com/
 	Description: Collect and display testimonials.
 	Author: Chris Dillon
-	Version: 1.4
+	Version: 1.4.2
 	Forked From: GC Testimonials version 1.3.2 by Erin Garscadden
 	Author URI: http://www.wpmission.com/
 	Text Domain: wpmtst
@@ -291,11 +291,12 @@ function wpmtst_custom_columns( $column ) {
 	} elseif ( 'category' == $column ) {
 
 		$categories = get_the_terms( 0, 'wpm-testimonial-category' );
-		if ( is_array( $categories ) ) {
-			$category = reset( $categories );
-			if ( is_object( $category ) ) {
-				echo $category->name;
+		if ( $categories && ! is_wp_error( $categories ) ) {
+			$list = array();
+			foreach ( $categories as $cat ) {
+				$list[] = $cat->name;
 			}
+			echo join( ", ", $list );		
 		}
 
 	}
