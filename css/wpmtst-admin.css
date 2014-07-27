@@ -33,11 +33,11 @@ table.shortcode-table td:nth-child(2) {
 ---------------------------------------------------------*/
 
 .wrap.wpmtst .form-table {
-	width: auto;
+	/* width: auto; */
 }
 
 .wrap.wpmtst .form-table th {
-	width: auto;
+	/* width: auto; */
 }
 
 .wrap.wpmtst .form-table div.box {
@@ -57,6 +57,28 @@ table.shortcode-table td:nth-child(2) {
 .code {
 	background: #fff;
 }
+
+.wpmtst input.button {
+	margin-right: 10px;
+}
+
+.custom-input {
+	line-height: 1.3em;
+}
+
+.shortcode-example {
+	background: transparent;
+	border: 1px solid #ddd;
+	margin: .5em 0 1em;
+	padding: 10px;
+}
+.indent {
+	margin-left: 2em;
+}
+.outdent {
+	margin-left: -2em;
+}
+
 
 /* client details meta box 
 ---------------------------------------------------------*/
@@ -118,7 +140,7 @@ table.shortcode-table td:nth-child(2) {
 }
 
 .wpmtst-mode {
-	margin-top: 1.5em;
+	margin-top: 1.3em;
 }
 
 .wpmtst-mode ul {
@@ -132,7 +154,7 @@ table.shortcode-table td:nth-child(2) {
 .wpmtst-mode-cycle,
 .wpmtst-mode-static {
 	border: 1px solid #ddd;
-	padding: 5px 10px;
+	padding: 4px 7px;
 }
 
 .wpmtst-mode .row {
@@ -167,8 +189,8 @@ select.omega {
 }
 
 .divider {
-	padding: 4px 0 4px 10px;
-	margin-left: 10px;
+	padding: 4px 0 4px 4px;
+	margin-left: 1px;
 	border-left: 1px dotted #999;
 }
 
@@ -184,3 +206,149 @@ input[readonly] {
 .widefat th.column-ID {
 	width: 2.2em;
 }
+
+/* Custom fields
+---------------------------------------------------------*/
+
+#wpmtst-custom-fields-form {
+	width: 500px;
+	display: inline-block;
+}
+
+#custom-field-list {
+	margin-bottom: 0;
+}
+
+	#custom-field-list li {
+		background: #fff;
+		border: 1px solid #ddd;
+		margin: 0;
+	}
+
+.custom-field-header {
+	padding: 10px;
+	font-size: 1.1em;
+}
+
+	.custom-field {
+		display: none;
+	}
+	
+	.handle {
+		display: inline-block;
+		margin-right: 10px;
+		color: #999;
+	}
+
+	.handle:hover {
+		color: #111;
+	}
+
+	a.field {
+		text-decoration: none;
+	}
+
+	/* open */
+	
+	#custom-field-list li.open {
+		border-color: #2ea2cc;
+	}
+
+	li.open .custom-field-header {
+		background: #2ea2cc;
+	}
+
+	.open .handle,
+	.open .link a {
+		color: #fff;
+	}
+	
+	select.field-type {
+		min-width: 120px;
+	}
+	
+	option {
+		font-family: "Open Sans", sans-serif;
+	}
+	
+	option[disabled] {
+		color: #999;
+	}
+	
+	#custom-field-list optgroup:before {
+		color: #333;
+    content: attr(label);
+    display: block;
+		font-family: "Open Sans", sans-serif;
+		font-style: normal;
+		padding-left: 4px;
+	}
+	
+	#custom-field-list option[disabled]:after {
+    content: " (in use)";
+		font-style: italic;
+	}
+
+	.controls {
+		padding: 10px 15px;
+		background: #f8f8f8;
+		background: #e7f5fa;
+		border-top: 1px solid #ddd;
+	}
+	
+	.controls > span:nth-child(n+2):before {
+		content: " | ";
+	}
+	
+	.controls a.delete-field {
+		color: #F00;
+	}
+	
+.sortable-placeholder {
+	border: 1px dashed #ccc !important;
+	background: #f1f1f1 !important;
+	height: 40px;
+}
+
+
+.field-table {
+	border-collapse: collapse;
+	width: 100%;
+}
+
+	.field-table th,
+	.field-table td {
+		border-bottom: 1px solid #ccc;
+		padding: 10px;
+	}
+	
+	.field-table th {
+		width: 100px;
+	}
+
+	.field-table td input[type="text"] {
+		width: 100%;
+	}
+
+	.field-table td span.help {
+		display: block;
+		padding: 5px;
+	}
+
+	.field-table tr:last-child th,
+	.field-table tr:last-child td {
+		border-bottom: 0;
+	}
+
+#add-field-bar {
+	background: #fff;
+	border: 1px solid #ddd;
+	padding: 5px;
+	text-align: right;
+}
+
+	#add-field-bar input {
+		margin-right: 0;
+		margin-left: 10px;
+	}
+	

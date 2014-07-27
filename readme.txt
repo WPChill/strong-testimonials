@@ -16,17 +16,23 @@ Strong Testimonials by [WP Mission](http://www.wpmission.com) makes collecting a
 
 **Show testimonials** with a variety of shortcodes or in a widget with transition effects.
 
-**Collect testimonials** through a form with selectable anti-spam measures.
+**Collect testimonials** through a customizable form with anti-spam options.
 
-**Manage testimonials** just like posts and pages, including Featured Images. Organize into categories for use in shortcodes and widgets.
+**Manage testimonials** just like posts and pages, including Featured Images and Categories.
+
+= What's New in Version 1.7 =
+
+* Finally! Custom fields. Change the testimonial submission form to meet your needs. Change which client fields appear underneath each testimonial.
 
 = What's New in Version 1.6 =
 
 * Added support for the [Really Simple Captcha](http://wordpress.org/plugins/really-simple-captcha/) plugin which you may know from [Contact Form 7](http://wordpress.org/plugins/contact-form-7/). Nice!
 
+* Fixed a conflict with other plugins or themes also using the Cycle jQuery plugin.
+
 = What's New in Version 1.5 =
 
-* A frequently requested feature, a **shortcode for cycling testimonials** on a page just like the widget. AKA slider, fader, rotator.
+* A frequently requested feature, a **shortcode for rotating testimonials** on a page just like the widget. AKA slider, fader, cycler.
 * Improved reCAPTCHA error handling.
 * Correct text domain use (getting ready for i18n).
 * Bug fixes
@@ -35,13 +41,13 @@ Strong Testimonials by [WP Mission](http://www.wpmission.com) makes collecting a
 
 = Primary Features =
 
-* A shortcode for a testimonial submission **form**.
-* Selectable **anti-spam** measures.
+* A customizable testimonial submission **form**.
+* **Anti-spam** options.
 * Administrator **notification** upon new testimonial submission.
-* Multiple **shortcode** options for displaying testimonials on a page.
-* Multiple **widget** options including word limit, category selection, random order, "Read more" link, and, of course, fade controls.
-* Use the WordPress post editor to **add and edit** testimonial content, including **thumbnail support** and extra client information.
-* Easily organize into **categories**.
+* Multiple **shortcode** options including All, Single, and Random.
+* Multiple **widget** options including word limit, category selection, random order, and a "Read more" link.
+* Use the WordPress post editor to **add and edit** testimonial content, including **thumbnail support** and **categories**.
+* A developer dedicated to your success.
 
 *[Check out the screenshots for a better overview](http://wordpress.org/plugins/strong-testimonials/screenshots/).*
 
@@ -87,7 +93,8 @@ Pagination
 Widget
 
 * Updated [jQuery cycle plugin](http://jquery.malsup.com/cycle2/), conditionally loaded.
-* Break on word boundary, not mid-word (e.g. *"John is an assuring . . ."* not *"John is an ass . . ."*).
+* Break on word boundary, not mid-word.
+  * e.g. *"John is an assuring . . ."* not *"John is an ass . . ."*
 * Improved widget options.
 * Order by: Random, Newest first, Oldest first.
 * Load stylesheet in standard order instead of in the footer to allow your theme's stylesheet to take precedence.
@@ -139,11 +146,28 @@ Grab a shortcode from the `Testimonials > Shortcodes` page.
 
 == Frequently Asked Questions ==
 
+= Why is "Fade" the only transition effect? =
+See this [support thread](http://wordpress.org/support/topic/settings-bug-1).
+
+= How can I change the fields on the form? =
+On the `Testimonials > Fields` page, there is a field editor where you can add or remove fields, change field details, and drag-n-drop to reorder them. You can also restore the default fields. 
+
+If you have ever used the Advanced Custom Fields or Custom Field Suite plugins, the editor will be very familiar.
+
+I will publish a full tutorial soon.
+
+= How can I change which client information appears below the testimonial? =
+On the `Testimonials > Settings` page, there is a Client Template. Follow the example to build shortcodes based on your custom fields. There is a shortcode for text fields (like a client's name) and a shortcode for links (like a client's website). A default template is included.
+
+I admit it can greatly improved but I needed to build something quickly to include in version 1.7 with custom fields. The next major version will have a much better tool.
+
+Use the [support forum](http://wordpress.org/support/plugin/strong-testimonials) if you need help.
+
 = Is this multisite compatible? =
 Yes, but I highly recommend first installing the [Proper Network Activation](http://wordpress.org/plugins/proper-network-activation/) plugin when adding Strong Testimonials to a multisite installation. That plugin will deftly handle the plugin activation process, thus ensuring each site has the default settings.
 
 = Will it import my existing testimonials? =
-Not yet, but the next version will have an import function. If you have a ton of testimonials, you may want to wait.
+Not yet, but the next major version will have an import function. If you have a ton of testimonials, you may want to wait.
 
 = What about Akismet for the submission form? =
 I plan to integrate Akismet soon.
@@ -172,6 +196,12 @@ I will gladly help add your modifications to a custom version of Strong Testimon
 13. The same widget in Static mode.
 
 == Changelog ==
+
+= 1.7 =
+* Custom fields on the testimonial submission form.
+* Client fields underneath each testimonial via shortcodes.
+* Improved activation/update process.
+* Removed "Agree" checkbox from form.
 
 = 1.6.2 =
 * Fix conflict if jQuery Cycle plugin is enqueued by another plugin or theme.
@@ -228,6 +258,9 @@ I will gladly help add your modifications to a custom version of Strong Testimon
 * Initial version, a fork of GC Testimonials 1.3.2.
 
 == Upgrade Notice ==
+
+= 1.7 =
+Custom fields. Finally!
 
 = 1.6.2 =
 Fix conflicts with multiple uses of jQuery Cycle plugin.
