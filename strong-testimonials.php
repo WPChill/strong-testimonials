@@ -4,7 +4,7 @@
 	Plugin URI: http://www.wpmission.com/
 	Description: Collect and display testimonials.
 	Author: Chris Dillon
-	Version: 1.4.2
+	Version: 1.4.3
 	Forked From: GC Testimonials version 1.3.2 by Erin Garscadden
 	Author URI: http://www.wpmission.com/
 	Text Domain: wpmtst
@@ -115,7 +115,9 @@ add_action( 'wp_enqueue_scripts', 'wpmtst_scripts' );
 	Pagination on "All Testimonials" shortcode.
 */
 function wpmtst_pagination_function() {
-	$per_page = get_option( 'wpmtst_options' )['per_page'];
+	// $per_page = get_option( 'wpmtst_options' )['per_page']; // causes error in earlier PHP versions?
+	$options = get_option( 'wpmtst_options' );
+	$per_page = $options['per_page'];
 	if ( ! $per_page ) {
 		$per_page = '5';
 	}
@@ -650,7 +652,8 @@ function wpmtst_form_shortcode( $atts ) {
 	$text            = '';
 	$agree           = 1;
   
-	$captcha = get_option( 'wpmtst_options' )['captcha'];
+	$options = get_option( 'wpmtst_options' );
+	$captcha = $options['captcha'];
   $errors = array();
 	
 	if ( isset( $_POST['wpmtst_form_submitted'] )
@@ -772,8 +775,8 @@ function wpmtst_form_shortcode( $atts ) {
 					}
 				}
 
-				$admin_notify = get_option( 'wpmtst_options' )['admin_notify'];
-				$admin_email  = get_option( 'wpmtst_options' )['admin_email'];
+				$admin_notify = $options['admin_notify'];
+				$admin_email  = $options['admin_email'];
 
 				if ( $admin_notify && $admin_email ) {
 					$subject = 'New testimonial for ' . get_option( 'blogname' );
