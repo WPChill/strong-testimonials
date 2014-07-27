@@ -22,7 +22,7 @@ Strong Testimonials by [WP Mission](http://www.wpmission.com) makes collecting a
 
 = What's New in Version 1.7 =
 
-* Finally! Custom fields. Change the testimonial submission form to meet your needs. Change which client fields appear underneath each testimonial.
+* Finally! [Custom fields](http://www.wpmission.com/tutorials/customize-the-form-in-strong-testimonials/). Change the testimonial submission form to meet your needs. Change which client fields appear underneath each testimonial.
 
 = What's New in Version 1.6 =
 
@@ -154,7 +154,7 @@ On the `Testimonials > Fields` page, there is a field editor where you can add o
 
 If you have ever used the Advanced Custom Fields or Custom Field Suite plugins, the editor will be very familiar.
 
-I will publish a full tutorial soon.
+Here is a [tutorial](http://www.wpmission.com/tutorials/customize-the-form-in-strong-testimonials/) - more to follow. Use the [support forum](http://wordpress.org/support/plugin/strong-testimonials) if you need help.
 
 = How can I change which client information appears below the testimonial? =
 On the `Testimonials > Settings` page, there is a Client Template. Follow the example to build shortcodes based on your custom fields. There is a shortcode for text fields (like a client's name) and a shortcode for links (like a client's website). A default template is included.
@@ -197,8 +197,11 @@ I will gladly help add your modifications to a custom version of Strong Testimon
 
 == Changelog ==
 
+= 1.7.3 = 
+* Fixed shortcode processing in widget content.
+
 = 1.7.2 = 
-Fixed the update process.
+* Fixed the update process.
 
 = 1.7.1 =
 * Fix for `Warning: Invalid argument supplied in foreach()` bugs.
@@ -264,6 +267,9 @@ Fixed the update process.
 * Initial version, a fork of GC Testimonials 1.3.2.
 
 == Upgrade Notice ==
+
+= 1.7.3 =
+Fixed shortcode processing in widget content.
 
 = 1.7.2 =
 Fixed the update process.

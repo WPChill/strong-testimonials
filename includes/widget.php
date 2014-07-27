@@ -161,7 +161,7 @@ class WpmTst_Widget extends WP_Widget {
 			}
 
 			// trim on word boundary
-			$content = wpautop( $post->post_content );
+			$content = wpautop( do_shortcode( $post->post_content ) );
 			if ( $char_switch && strlen( $content ) > $char_limit ) {
 				// Find first space after char_limit (e.g. 200).
 				// If not found then char_limit is in the middle of the
