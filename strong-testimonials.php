@@ -182,6 +182,7 @@ function wpmtst_is_queued( $filenames ) {
 	Register Post Type and Taxonomy
 */
 function wpmtst_register_cpt() {
+
 	$testimonial_labels = array(
 			'name'                  => _x( 'Testimonials', 'post type general name', WPMTST_NAME ),
 			'singular_name'         => _x( 'Testimonial', 'post type singular name', WPMTST_NAME ),
@@ -237,6 +238,7 @@ function wpmtst_register_cpt() {
 					'with_front'   => false
 			)
 	) );
+	
 }
 add_action( 'init', 'wpmtst_register_cpt' );
 
@@ -1026,7 +1028,6 @@ class WpmTst_Widget extends WP_Widget {
 
 	// display
 	function widget( $args, $instance ) {
-
 		if ( is_active_widget( false, false, $this->id_base ) ) {
 			wp_enqueue_style( 'wpmtst-style' );
 			// load slider with widget parameters
@@ -1080,16 +1081,16 @@ class WpmTst_Widget extends WP_Widget {
 			$char_limit = $this->defaults['char-limit'];
 		}
 
+		$term_taxonomy = '';
+		$term_slug = '';
 		if ( 'all' != $data['category'] ) {
-			$term = get_term_by( 'id', $data['category'], 'wpmtst-category' );
-			$term_taxonomy = $term->taxonomy;
-			$term_slug = $term->slug;
-		} else {
-			$term_taxonomy = '';
-			$term_slug = '';
+			$term = get_term_by( 'id', $data['category'], 'wpm-testimonial-category' );
+			if ( $term ) {
+				$term_taxonomy = $term->taxonomy;
+				$term_slug = $term->slug;
+			}
 		}
 
-		// @todo: sort options
 		$args = array(
 				$term_taxonomy   => $term_slug,
 				'posts_per_page' => $num,
@@ -1449,12 +1450,12 @@ class WpmTst_Widget extends WP_Widget {
 
 
 function wpmtst_settings_menu() {
-	add_submenu_page( 'edit.php?post_type=wpm-testimonial', 
-										'Settings', 
-										'Settings', 
-										'manage_options', 
-										'settings', 
-										'wpmtst_settings_page' );
+	add_submenu_page( 'edit.php?post_type=wpm-testimonial', // $parent_slug
+										'Settings',                           // $page_title
+										'Settings',                           // $menu_title
+										'manage_options',                     // $capability
+										'settings',                           // $menu_slug
+										'wpmtst_settings_page' );             // $function
 										
 	add_submenu_page( 'edit.php?post_type=wpm-testimonial', 
 										'Shortcodes', 
@@ -1466,6 +1467,33 @@ function wpmtst_settings_menu() {
 	add_action( 'admin_init', 'wpmtst_register_settings' );
 }
 add_action( 'admin_menu', 'wpmtst_settings_menu' );
+
+
+/*
+	Make admin menu title unique if necessary.
+*/
+function wpmtst_unique_menu_title() {
+	// GC Testimonials (any others?)
+	if ( is_plugin_active( 'gc-testimonials/testimonials.php' ) ) {
+		$need_unique = true;
+	} else {
+		$need_unique = false;
+	}
+
+	if ( ! $need_unique ) {
+		return;
+	}
+	
+	global $menu;
+	
+	foreach ( $menu as $key => $menu_item ) {
+		// set unique menu title
+		if ( 'Testimonials' == $menu_item[0] && 'edit.php?post_type=wpm-testimonial' == $menu_item[2] ) {
+			$menu[$key][0] = 'Strong Testimonials';
+		}
+	}
+}
+add_action( 'admin_menu', 'wpmtst_unique_menu_title', 100 );
 
 
 function wpmtst_register_settings() {
@@ -1487,6 +1515,8 @@ function wpmtst_settings_page() {
 		wp_die( __( 'You do not have sufficient permissions to access this page.' ) );
 	}
 	
+	$wpmtst_options = get_option( 'wpmtst_options' );
+	
 	// Build list of supported Captcha plugins.
 	$plugins = array(
 			'bwsmath' => array( 'name' => 'Captcha by BestWebSoft', 'file' => 'captcha/captcha.php', 'active' => false ),
@@ -1495,6 +1525,12 @@ function wpmtst_settings_page() {
 	
 	foreach ( $plugins as $key => $plugin ) {
 		$plugins[$key]['active'] = is_plugin_active( $plugin['file'] );
+		// If current Captcha plugin has been deactivated, disable Captcha
+		// so corresponding div does not appear on form.
+		if ( $key == $wpmtst_options['captcha'] && ! $plugins[$key]['active'] ) {
+			$wpmtst_options['captcha'] = '';
+			update_option( 'wpmtst_options', $wpmtst_options );
+		}
 	}
 	?>
 
@@ -1518,35 +1554,40 @@ function wpmtst_settings_page() {
 				<tr valign="top">
 					<th scope="row">Number of testimonials to show per page</th>
 					<td>
-						<input type="text" name="wpmtst_options[per_page]" size="3"
+						<input type="text" 
+										name="wpmtst_options[per_page]" size="3"
 										value="<?php echo esc_attr( $wpmtst_options['per_page'] ); ?>">
 					</td>
 				</tr>				
 
 				<tr valign="top">
-					<th scope="row">Send notification email upon testimonial submission</th>
+					<th scope="row">When new testimonial is submitted</th>
 					<td>
-						<input type="checkbox" name="wpmtst_options[admin_notify]"
-										<?php checked( $wpmtst_options['admin_notify'] ); ?>>
-					</td>
-				</tr>				
-
-				<tr valign="top">
-					<th scope="row">Notification email address</th>
-					<td>
-						<input type="email" size="30" 
+						<label>
+							<input id="wpmtst-options-admin-notify"
+											type="checkbox" 
+											name="wpmtst_options[admin_notify]"
+											<?php checked( $wpmtst_options['admin_notify'] ); ?>>
+							<?php _e( 'Send notification email to', WPMTST_NAME ); ?>
+						</label>
+						<input id="wpmtst-options-admin-email"
+										type="email" 
+										size="30" 
+										placeholder="email address"
 										name="wpmtst_options[admin_email]" 
 										value="<?php echo esc_attr( $wpmtst_options['admin_email'] ); ?>">
 					</td>
 				</tr>
 				
 				<tr valign="top">
-					<th scope="row">CAPTCHA Plugin</th>
+					<th scope="row">CAPTCHA plugin</th>
 					<td>
 						<select name="wpmtst_options[captcha]">
-							<option value="">Disabled</option>
+							<option value="">None</option>
 							<?php foreach ( $plugins as $key => $plugin ) : ?>
+							<?php if ( $plugin['active'] ) : ?>
 							<option value="<?php echo $key; ?>" <?php selected( $wpmtst_options['captcha'], $key ); ?>><?php echo $plugin['name']; ?></option>
+							<?php endif; ?>
 							<?php endforeach; ?>
 						</select>
 					</td>

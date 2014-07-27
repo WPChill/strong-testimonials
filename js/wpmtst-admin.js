@@ -63,5 +63,13 @@ jQuery(document).ready(function($) {
 		}
 		
 	});
-		
+	
+	
+	// enabling "admin notify" focuses "admin email" input
+	$("#wpmtst-options-admin-notify").change(function(e){
+		if ($(e.target).is(":checked")) {
+			$("#wpmtst-options-admin-email").focus();
+		}
+	});
+	
 });
