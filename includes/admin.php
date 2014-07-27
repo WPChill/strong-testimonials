@@ -10,6 +10,8 @@
 function wpmtst_admin_init() {
 	// Check WordPress version
 	wpmtst_version_check();
+	// Check for new options in plugin activation/update
+	wpmtst_default_settings();
 }
 add_action( 'admin_init', 'wpmtst_admin_init' );
 

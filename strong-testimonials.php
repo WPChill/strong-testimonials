@@ -4,7 +4,7 @@
  * Plugin URI: http://www.wpmission.com/plugins/strong-testimonials/
  * Description: Collect and display testimonials.
  * Author: Chris Dillon
- * Version: 1.7.1
+ * Version: 1.7.2
  * Forked From: GC Testimonials version 1.3.2 by Erin Garscadden
  * Author URI: http://www.wpmission.com/contact
  * Text Domain: strong-testimonials
@@ -76,7 +76,6 @@ add_action( 'plugins_loaded', 'wpmtst_textdomain' );
 /*
  * Plugin activation
  */
-register_activation_hook( __FILE__, 'wpmtst_activation' );
 register_activation_hook( __FILE__, 'wpmtst_register_cpt' );
 register_activation_hook( __FILE__, 'wpmtst_flush_rewrite_rules' );
 register_deactivation_hook( __FILE__, 'wpmtst_flush_rewrite_rules' );
@@ -89,7 +88,7 @@ function wpmtst_flush_rewrite_rules() {
 /*
  * Plugin activation and upgrade.
  */
-function wpmtst_activation() {
+function wpmtst_default_settings() {
 	// -1- DEFAULTS
 	$plugin_data = get_plugin_data( __FILE__, false );
 	$plugin_version = $plugin_data['Version'];
@@ -97,18 +96,14 @@ function wpmtst_activation() {
 
 	// -2- GET OPTIONS
 	$options = get_option( 'wpmtst_options' );
-	$fields = get_option( 'wpmtst_fields' );
-
 	if ( ! $options ) {
 		// -2A- NEW ACTIVATION
 		update_option( 'wpmtst_options', $default_options );
-		update_option( 'wpmtst_fields', $default_fields );
 	}
 	else {
 		// -2B- UPGRADE?
 		if ( ! isset( $options['plugin_version'] )
-					|| $options['plugin_version'] != $plugin_version
-					|| ! $fields ) {
+					|| $options['plugin_version'] != $plugin_version ) {
 			
 			// if updating from 1.5+ to 1.7
 			// individual cycle shortcode settings are now grouped
@@ -133,15 +128,14 @@ function wpmtst_activation() {
 			$options = array_merge( $default_options, $options );
 			$options['plugin_version'] = $plugin_version;
 			update_option( 'wpmtst_options', $options );
-			
-			// merge in new fields
-			if ( $fields )
-				$fields = array_merge( $default_fields, $fields );
-			else
-				$fields = $default_fields;
-			
-			update_option( 'wpmtst_fields', $fields );
 		}
+	}
+	
+	// -3- GET FIELDS
+	$fields = get_option( 'wpmtst_fields' );
+	if ( ! $fields ) {
+		// -3A- NEW ACTIVATION
+		update_option( 'wpmtst_fields', $default_fields );
 	}
 }
 
