@@ -52,7 +52,7 @@ jQuery(document).ready(function($) {
 			fx           : el.effect,
 			speed        : parseInt( el.speed ),
 			timeout      : parseInt( el.timeout ),
-			pauseOnHover : "1" == el.pause ? true : false,
+			pauseOnHover : "1" == el.pause ? true : false
 		});
 	}
 	

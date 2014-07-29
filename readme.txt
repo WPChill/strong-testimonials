@@ -8,86 +8,64 @@ Stable tag: trunk
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
-Strong Testimonials is a simple and feature-rich testimonial manager.
+A simple yet robust testimonial manager.
 
 == Description ==
 
-Strong Testimonials by [WP Mission](http://www.wpmission.com) makes collecting and displaying testimonials simple with many useful and intuitive features.
+Strong Testimonials by [WP Mission](http://www.wpmission.com) makes testimonials simple.
 
-**Show testimonials** with a variety of shortcodes or in a widget with transition effects.
+* **Show** with a variety of shortcodes or in a widget with transition effects.
+* **Collect** through a customizable form with anti-spam options.
+* **Manage** in the post editor including Featured Images and Categories.
 
-**Collect testimonials** through a customizable form with anti-spam options.
+> **This is a work in progress.** Strong is my project for learning plugin development. It will always be free. If you cannot tolerate occasional bugs and frequent updates, then please consider another plugin. 
 
-**Manage testimonials** just like posts and pages, including Featured Images and Categories.
+> On the other hand, if you want: -- to participate in this plugin's development by offering ideas and feedback, -- the prompt, personal attention of its developer (who will move mountains to resolve issues), -- popular features that other plugins offer at a price, then welcome aboard! You have been warned :)
 
-===
+**Need more? Or less?** [Contact me](http://www.wpmission.com/contact) about a custom version. I will make minor changes or remove unwanted features for free with lifetime support (fixing bugs, keeping up with WordPress, resolving conflicts, CSS help) but future modifications will have a price tag. Your version will not track with the current version and you won't have to worry about updates.
 
-Strong Testimonials is a **work in progress**.
 
-This is my project for learning plugin development and sharpening my skills. It will always be free.
+**We are moving towards version 2.0 with flexible display components!**
 
-If you cannot tolerate occasional bugs and frequent updates, then please consider another plugin. 
+= What's New in Version 1.8 =
 
-On the other hand, if you want
+Improved cycle shortcode options:
 
-* to participate in this plugin's development by offering ideas and feedback,
-* the prompt, personal attention of its developer (who will move mountains to resolve issues),
-* features that other plugins offer at a price,
+* Show an **excerpt** of a testimonial, or the entire content, or up to a certain length.
+* Add a "Read more" link to the full testimonial or another page.
+* Options to show the title, the featured image, and the client information or not.
+* *Note: the category attribute was removed from the cycle shortcode.*
 
-then welcome aboard! You have been warned :)
+Post Excerpt and Custom Fields now available in testimonial editor.
 
-=== 
+Skip loading the included stylesheets if you want to style it from the ground up.
 
-Need more? Or less? I will gladly build a custom version for you with just the features you want, within reason and as my schedule allows. Your version will not track with the latest version and you won't have to worry about updates. Your first custom version is free with lifetime support (fixing bugs, keeping up with WordPress, resolving conflicts with other plugins, CSS help) but future modifications will have a price tag.
+Improved CSS including solving the long-standing width and float conflicts with some themes (YMMV). Tested in many popular themes including the [problematic](http://chrislema.com/wordpress-obesity/) [Avada](http://www.fklein.info/2013/05/overloaded-theme-problems/).
 
-===
+Improved i18n. Ready for translations.
 
-*We are moving towards version 2.0 with flexible display components!*
+= What's New in Version 1.7 =
 
-= What's New in Version 1.8: Excerpting =
+Finally! [Custom fields](http://www.wpmission.com/tutorials/customize-the-form-in-strong-testimonials/). Change the testimonial submission form to meet your needs. Change which client fields appear underneath each testimonial.
 
-* Improved cycle shortcode options:
-  * Show an **excerpt** of a testimonial, or the entire content, or up to a certain length.
-	* Add a "Read more" link to the full testimonial or another page.
-	* Options to show the title, the featured image, and the client information or not.
-  * *Note: the category attribute was removed from the `[cycle]` shortcode.*
+= What's New in Version 1.6 =
 
-* Post Excerpt and Custom Fields now available in testimonial editor.
+Added support for the [Really Simple Captcha](http://wordpress.org/plugins/really-simple-captcha/) plugin which you may know from [Contact Form 7](http://wordpress.org/plugins/contact-form-7/). Nice!
+Fixed a conflict with other plugins or themes also using the Cycle jQuery plugin.
 
-* Options to load the included stylesheets or not, so you can style from the ground up if you want.
+= What's New in Version 1.5 =
 
-* Improved CSS including solving the long-standing width and float conflicts with some themes (YMMV). Tested in many popular themes including the [problematic](http://chrislema.com/wordpress-obesity/) [Avada](http://www.fklein.info/2013/05/overloaded-theme-problems/).
-
-* Improved i18n. Ready for translations.
-
-= What's New in Version 1.7: Customizing =
-
-* Finally! [Custom fields](http://www.wpmission.com/tutorials/customize-the-form-in-strong-testimonials/). Change the testimonial submission form to meet your needs. Change which client fields appear underneath each testimonial.
-
-= What's New in Version 1.6: Captcha-ing =
-
-* Added support for the [Really Simple Captcha](http://wordpress.org/plugins/really-simple-captcha/) plugin which you may know from [Contact Form 7](http://wordpress.org/plugins/contact-form-7/). Nice!
-
-* Fixed a conflict with other plugins or themes also using the Cycle jQuery plugin.
-
-= What's New in Version 1.5: Cycling =
-
-* A frequently requested feature, a **shortcode for rotating testimonials** on a page just like the widget. AKA slider, fader, cycler.
-* Improved reCAPTCHA error handling.
-* Correct text domain use (getting ready for i18n).
-* Bug fixes
-  * the widget would truncate the whole text string when the length was less than the limit
-  * a conflict with some themes that forced the widget text beyond the sidebar
+A frequently requested feature, a **shortcode for rotating testimonials** on a page just like the widget.
 
 = Primary Features =
 
 * A customizable testimonial submission **form**.
 * **Anti-spam** options.
 * Administrator **notification** upon new testimonial submission.
-* Multiple **shortcode** options including All, Single, and Random.
-* Multiple **widget** options including word limit, category selection, random order, and a "Read more" link.
+* Multiple **shortcode** options including Cycle, All, Random, and Single.
+* Multiple **widget** options including word limit, category selection, and random order.
 * Use the WordPress post editor to **add and edit** testimonial content, including **thumbnail support** and **categories**.
-* A developer dedicated to your success.
+* A developer dedicated to making it work.
 
 *[Check out the screenshots for a better overview](http://wordpress.org/plugins/strong-testimonials/screenshots/).*
 
@@ -96,6 +74,39 @@ Need more? Or less? I will gladly build a custom version for you with just the f
 This is based on the popular [GC Testimonials](http://wordpress.org/plugins/gc-testimonials/). I have been very active in that plugin's support forum because I like its simplicity, I have used it on many sites, and I love to fix things.
 
 Strong Testimonials aims to pick up where GC Testimonials left off while maintaining its simplicity.
+
+= Future =
+
+This plugin is under active development and all [ideas and feedback are welcome](http://www.wpmission.com/contact).
+
+= Translations =
+
+Can you help? [Contact me](http://www.wpmission.com/contact/).
+
+
+== Anti-spam ==
+
+Instead of reinventing the anti-spam wheel, Strong integrates other plugins to do the heavy lifting. Because spam is heavy. And modular is better.
+
+To add CAPTCHA to the testimonial submission form:
+
+1. install one of these supported plugins,
+1. select that plugin on the `Testimonials > Settings` page.
+
+Currently supported CAPTCHA plugins:
+
+* [Captcha](http://wordpress.org/plugins/captcha/) by BestWebSoft
+* [Simple reCAPTCHA](http://wordpress.org/plugins/simple-recaptcha) by WP Mission (that's me!)
+* [Really Simple Captcha](http://wordpress.org/plugins/really-simple-captcha/) by Takayuki Miyoshi
+
+Notes
+
+* If the currently selected CAPTCHA plugin is deactivated, the setting will revert to "None".
+* I plan to add an option for Akismet soon.
+* [Contact me](http://www.wpmission.com/contact) if you have a plugin recommendation.
+
+
+== Compared to GC Testimonials ==
 
 = New Features and Fixes =
 
@@ -115,7 +126,6 @@ Display
 Admin
 
 * Settings retained upon plugin deactivation.
-* Allow client's name and email to be blanked out.
 * More efficient options storage means it's faster & easier to upgrade.
 * Improved settings & shortcodes pages.
 * Added category counts.
@@ -126,63 +136,12 @@ Submission form
 * Client-side validation *plus* server-side validation, a best practice.
 * CAPTCHA options (more info below).
 
-Pagination
-
-* Scrolls to the top when a new page is selected.
-
 Widget
 
 * Updated [jQuery cycle plugin](http://jquery.malsup.com/cycle2/), conditionally loaded.
-* Break on word boundary, not mid-word.
-  * e.g. *"John is an asset . . ."* not *"John is an ass . . ."*
+* Break on word boundary, not mid-word, e.g. *"John is an asset . . ."* not *"John is an ass . . ."*
 * Improved widget options.
 * Order by: Random, Newest first, Oldest first.
-* Load stylesheet in standard order instead of in the footer to allow your theme's stylesheet to take precedence.
-
-= Anti-spam =
-
-Instead of reinventing the anti-spam wheel, I decided to integrate other plugins to do the heavy lifting. Because spam is heavy. And modular is better.
-
-To add CAPTCHA to the testimonial submission form:
-
-1. install one of these supported plugins,
-1. select that plugin on the `Testimonials > Settings` page.
-
-Currently supported CAPTCHA plugins:
-
-* [Captcha](http://wordpress.org/plugins/captcha/) by BestWebSoft
-* [Simple reCAPTCHA](http://wordpress.org/plugins/simple-recaptcha) by WP Mission (that's me!)
-* [Really Simple Captcha](http://wordpress.org/plugins/really-simple-captcha/) by Takayuki Miyoshi
-
-Notes
-
-* If the currently selected CAPTCHA plugin is deactivated, the setting will revert to "None".
-* I plan to add an option for Akismet soon.
-* [Contact me](http://www.wpmission.com/contact) if you have a plugin recommendation.
-
-= Future =
-
-This plugin is under active development and all [ideas and feedback are welcome](http://www.wpmission.com/contact).
-
-= Translations =
-
-Can you help? [Contact me](http://www.wpmission.com/contact/).
-
-== Installation ==
-
-The normal way.
-
-* Upload `/strong-testimonials` to the `/wp-content/plugins/` directory.
-
-or
-
-* Search for "Strong Testimonials" on your `Plugins > Add New` page.
-
-then
-
-* Activate the plugin.
-
-Grab a shortcode from the `Testimonials > Shortcodes` page.
 
 == Frequently Asked Questions ==
 
@@ -219,6 +178,7 @@ I will gladly help add your modifications to a custom version of Strong Testimon
 1. I simplifed the CSS so it will inherit as much from your theme as your other content and widgets, so you can probably trim down any custom CSS.
 1. I will gladly help you sort it out.
 
+
 == Screenshots ==
 
 1. A sample page of three testimonials including photos.
@@ -235,7 +195,11 @@ I will gladly help add your modifications to a custom version of Strong Testimon
 12. The widget settings in Cycle mode.
 13. The same widget in Static mode.
 
+
 == Changelog ==
+
+= 1.8.1 =
+* Fixed trailing comma error in JavaScript for IE 7 and 8.
 
 = 1.8 =
 
@@ -312,7 +276,14 @@ I will gladly help add your modifications to a custom version of Strong Testimon
 = 1.4 =
 * Initial version, a fork of GC Testimonials 1.3.2.
 
+
 == Upgrade Notice ==
+
+= 1.8.1 =
+Fixed a minor bug in Internet Explorer 7 or 8.
+
+= 1.8 =
+New features in cycle shortcode: Excerpt and "Read more" link. Solved CSS width and float conflicts with some themes. Ready for translations.
 
 = 1.7.3 =
 Fixed shortcode processing in widget content.

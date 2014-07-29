@@ -1,10 +1,10 @@
-﻿<?php
+<?php
 /**
  * Plugin Name: Strong Testimonials
  * Plugin URI: http://www.wpmission.com/plugins/strong-testimonials/
  * Description: Collect and display testimonials.
  * Author: Chris Dillon
- * Version: 1.8
+ * Version: 1.8.1
  * Forked From: GC Testimonials version 1.3.2 by Erin Garscadden
  * Author URI: http://www.wpmission.com/contact
  * Text Domain: strong-testimonials
