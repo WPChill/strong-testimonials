@@ -43,7 +43,7 @@
 <!-- limit -->
 <tr valign="top">
 	<th scope="row">
-		How Many?
+		How many?
 	</th>
 	<td>
 	
@@ -84,9 +84,9 @@
 			<label>
 				<input type="radio" id="" name="wpmtst_cycle[content]" <?php checked( 'excerpt', $cycle['content'] ); ?> value="excerpt" /><?php _e( 'Excerpt', 'strong-testimonials' ); ?>
 				<p class="description">
-					<?php _e( 'Excerpts are hand-crafted summaries of your testimonial.', 'strong-testimonials' ); ?>
-					<?php _e( 'You may need to <a id="toggle-screen-options" href="#">enable them</a>.', 'strong-testimonials' ); ?>
-					<div class="screenshot" id="screenshot-screen-options"><img src="<?php echo WPMTST_DIR; ?>/images/screen-options.png" /></div>
+					<?php _e( 'Excerpts are hand-crafted summaries of your testimonial.', 'strong-testimonials' ); ?><br />
+					<?php _e( 'You may need to enable them in the post editor like in this <a id="toggle-screen-options" href="#">screenshot</a>.', 'strong-testimonials' ); ?>
+					<div class="screenshot" id="screenshot-screen-options"><div style="background: url(<?php echo WPMTST_DIR; ?>/images/screen-options.png); height: 241px; width: 740px;"></div></div>
 				</p>
 			</label>
 		</div>
@@ -179,20 +179,9 @@
 			</div>
 		</div>
 		
-		<div class="row"><!-- effect -->
-			<div class="alpha">
-				<label for="cycle-effect"><?php _e( 'Effect', 'strong-testimonials' ); ?></label>
-			</div>
-			<div>
-				<select id="cycle-effect" name="wpmtst_cycle[effect]" autocomplete="off">
-					<?php foreach ( $cycle_options['effects'] as $key => $label ) : ?>
-					<option value="<?php echo $key; ?>" <?php selected( $cycle['effect'], $key ); ?>><?php echo $label; ?></option>
-					<?php endforeach; ?>
-				</select>
-				<span class="description"><a href="http://wordpress.org/support/topic/settings-bug-1" target="_blank">Fade is the only effect for now</a></span>
-			</div>
-		</div>
-
+		<!-- effect -->
+		<input type="hidden" name="wpmtst_cycle[effect]" value="fade" />
+		
 		<div class="row"><!-- duration -->
 			<div class="alpha">
 				<label for="cycle-speed"><?php _e( 'Effect duration', 'strong-testimonials' ); ?></label>

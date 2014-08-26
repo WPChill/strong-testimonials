@@ -4,7 +4,7 @@
  * Plugin URI: http://www.wpmission.com/plugins/strong-testimonials/
  * Description: Collect and display testimonials.
  * Author: Chris Dillon
- * Version: 1.8.1
+ * Version: 1.9
  * Forked From: GC Testimonials version 1.3.2 by Erin Garscadden
  * Author URI: http://www.wpmission.com/contact
  * Text Domain: strong-testimonials
@@ -35,7 +35,6 @@
  */
 define( 'WPMTST_DIR', plugin_dir_url( __FILE__ ) );
 define( 'WPMTST_INC', plugin_dir_path( __FILE__ ) . 'includes/' );
-
 
 /*
  * Plugin action links
@@ -222,15 +221,6 @@ function wpmtst_register_cpt() {
 			'hierarchical'          => false,	// 1.8
 			// 'rewrite'               => true,
 			'rewrite'               => array( 'slug' => __( 'testimonial', 'strong-testimonials' ) ), // 1.8
-			/*
-			 * ┌──────────────────────────────────┬────────────────────────────────────────────────────────┬─────────────────┐
-			 * │ Rule                             │ Rewrite                                                │ Source          │
-			 * ├──────────────────────────────────┼────────────────────────────────────────────────────────┼─────────────────┤
-			 * │ testimonial/([^/]+)(/[0-9]+)?/?$ │ index.php?wpm-testimonial=$matches[1]&page=$matches[2] │ wpm-testimonial │
-			 * │ (.?.+?)(/[0-9]+)?/?$             │ index.php?pagename=$matches[1]&page=$matches[2]	       │ page            │
-			 * │ [^/]+/([^/]+)/?$                 │ index.php?attachment=$matches[1]                       │ post            │
-			 * └──────────────────────────────────┴────────────────────────────────────────────────────────┴─────────────────┘
-			 */
 			'menu_icon'				      => 'dashicons-editor-quote',
 			'menu_position'			    => 20,
 			'exclude_from_search' 	=> true,
@@ -291,18 +281,20 @@ function wpmtst_scripts() {
 	global $post;
 	$options = get_option( 'wpmtst_options' );
 
+	/*
+	 * Widget style and scripts are enqueued when widget is active
+	 * to be compatible with Page Builder plugin.
+	 * @since 1.9
+	 */
+	 
 	wp_register_style( 'wpmtst-style', WPMTST_DIR . 'css/wpmtst.css' );
-	wp_register_style( 'wpmtst-widget-style', WPMTST_DIR . 'css/wpmtst-widget.css' );
 	wp_register_style( 'wpmtst-form-style', WPMTST_DIR . 'css/wpmtst-form.css' );
 
 	wp_register_script( 'wpmtst-pager-plugin', WPMTST_DIR . 'js/quickpager.jquery.js', array( 'jquery' ) );
 	wp_register_script( 'wpmtst-validation-plugin', WPMTST_DIR . 'js/jquery.validate.min.js', array( 'jquery' ) );
 
-	wp_register_script( 'wpmtst-cycle-plugin', WPMTST_DIR . 'js/jquery.cycle2.min.js', array( 'jquery' ) );
-	wp_register_script( 'wpmtst-cycle-script', WPMTST_DIR . 'js/wpmtst-cycle.js', array ( 'jquery' ), false, true );
-
+	// Check for shortcodes. Keep these exploded!
 	if ( $post ) {
-		// Keep these exploded!
 
 		if ( has_shortcode( $post->post_content, 'wpmtst-all' ) ) {
 			if ( $options['load_page_style'] )
@@ -357,7 +349,7 @@ include( WPMTST_INC . 'settings.php');
 // Shortcodes
 include( WPMTST_INC . 'shortcodes.php');
  
-// Widget
+// Widgets
 include( WPMTST_INC . 'widget.php');
 
 // Custom fields

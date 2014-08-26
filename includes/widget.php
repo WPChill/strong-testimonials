@@ -16,23 +16,14 @@ class WpmTst_Widget extends WP_Widget {
 
 		$widget_ops = array(
 				'classname'   => 'wpmtst-widget',
-				'description' => __( 'Several ways to show testimonials.', 'strong-testimonials' )
+				'description' => __( 'Strong Testimonials widget. Static or Cycle options.', 'strong-testimonials' )
 		);
 
 		$control_ops = array(
 				'id_base' => 'wpmtst-widget',
-				'width'   => '280px',
 		);
 
-		$this->cycle_options = array(
-				'effects' => array(
-						'fade'       => __( 'Fade', 'strong-testimonials' ),
-						// 'scrollHorz' => 'Scroll horizontally',
-						// 'none'       => 'None',
-				)
-		);
-
-		$this->WP_Widget( 'wpmtst-widget', __( 'Strong Testimonials', 'strong-testimonials' ), $widget_ops, $control_ops );
+		$this->WP_Widget( 'wpmtst-widget', __( 'Testimonials', 'strong-testimonials' ), $widget_ops, $control_ops );
 
 		$this->defaults = array(
 				'title'         => __( 'Testimonials', 'strong-testimonials' ),
@@ -46,10 +37,14 @@ class WpmTst_Widget extends WP_Widget {
 				'cycle-speed'   => 1.5,
 				'cycle-pause'   => 1,
 				'static-limit'  => 2,
-				'char-switch'   => 1,
+				// New option name will break existing widgets. Wait until 2.0.
+				// 'content'       => 'truncated',  // excerpt, truncated, entire
+				'char-switch'   => 1,  // 1 = truncated, 2 = entire, 3 = excerpt
 				'char-limit'    => 200,
+				'show-title'    => 1,
 				'images'        => 0,
-				'more'          => 0,
+				'client'        => 1,
+				'more'          => 0,  // 0 = none, 1 = testimonial, 2 = page
 				'more_page'     => ''
 		);
 
@@ -59,27 +54,28 @@ class WpmTst_Widget extends WP_Widget {
 	// display
 	// -------
 	function widget( $args, $instance ) {
-		if ( is_active_widget( false, false, $this->id_base ) ) {
+		$var = 'tcycle_' . str_replace( '-', '_', $args['widget_id'] );
 		
-			$options = get_option( 'wpmtst_options' );
-			if ( $options['load_widget_style'] )
-				wp_enqueue_style( 'wpmtst-widget-style' );
-				
-			// custom action hook: load slider with widget parameters
-			do_action(
-				'wpmtst_cycle_hook',
-				$instance['cycle-effect'],
-				$instance['cycle-speed'],
-				$instance['cycle-timeout'],
-				$instance['cycle-pause'],
-				'.wpmtst-widget-container',
-				'cycleWidget'
-			);
-			
+		$options = get_option( 'wpmtst_options' );
+		if ( $options['load_widget_style'] ) {
+			// Enqueue completely here to be compatible with Page Builder.
+			wp_enqueue_style( 'wpmtst-widget-style', WPMTST_DIR . 'css/wpmtst-widget.css' );
 		}
-
-		$classes = array();
+			
+		// custom action hook: load slider with widget parameters
+		do_action(
+			'wpmtst_cycle_hook',
+			$instance['cycle-effect'],
+			$instance['cycle-speed'],
+			$instance['cycle-timeout'],
+			$instance['cycle-pause'],
+			$var
+		);
+		
+		$classes = array( 'wpmtst-widget-container' );
+		
 		$data = array_merge( $args, $instance );
+		
 		// Polylang filter
 		$title = apply_filters( 'widget_title', empty( $data['title'] ) ? '' : $data['title'], $instance, $this->id_base );
 
@@ -100,7 +96,8 @@ class WpmTst_Widget extends WP_Widget {
 
 		if ( 'cycle' == $data['mode'] ) {
 
-			$classes[] = 'tcycle';
+			array_push( $classes, 'tcycle', $var );
+			
 			if ( $data['cycle-all'] )
 				$num = -1;
 			elseif ( ! empty( $data['cycle-limit'] ) )
@@ -141,42 +138,56 @@ class WpmTst_Widget extends WP_Widget {
 
 		// start HTML output
 
+		$format = '<div class="readmore"><a href="%s">' . __( 'Read more', 'strong-testimonials' ) .'</a></div>';
+
 		echo $data['before_widget'];
 
 		if ( ! empty( $title ) )
 			echo $data['before_title'] . $title . $data['after_title'];
 
-		echo '<div class="wpmtst-widget-container ' . join( ' ', $classes ) . '">';
+		echo '<div class="' . join( ' ', $classes ) . '">';
 
 		foreach ( $results as $post ) {
 			$post = wpmtst_get_post( $post );
 
-			echo '<div class="testimonial-widget">';
+			echo '<div class="testimonial-widget t-slide">';
 
-			if ( $post->post_title )
+			if ( $data['show-title'] && $post->post_title )
 				echo '<h5>' . $post->post_title . '</h5>';
 
-			// process shortcodes then trim on word boundary
-			$content = wpautop( do_shortcode( $post->post_content ) );
-			if ( $char_switch )
-				$content = wpmtst_truncate( $content, $char_limit );
-			echo '<div class="content">';
-			if ( $data['images'] ) {
-				if ( $post->thumbnail_id )
-					echo '<div class="photo">' . get_the_post_thumbnail( $post->ID, array( 75, 75 ) ) . '</div>';
+			// content: excerpt, truncated, or entire (since 1.8.2)
+			if ( 3 == $char_switch ) {
+				$content = do_shortcode( $post->post_excerpt );
 			}
+			else {
+				// process shortcodes then trim on word boundary
+				$content = wpautop( do_shortcode( $post->post_content ) );
+				if ( 1 == $char_switch )
+					$content = wpmtst_truncate( $content, $char_limit );
+			}
+			
+			echo '<div class="content">';
+			
+			if ( $data['images'] && $post->thumbnail_id )
+				echo '<div class="photo">' . get_the_post_thumbnail( $post->ID, array( 75, 75 ) ) . '</div>';
+			
 			echo $content;
-			echo '</div>';
-			echo '<div class="client">' . do_shortcode( wpmtst_client_info( $post ) ) . '</div><!-- client -->';
-			echo '</div>';
+			
+			echo '</div>'; // content
+			
+			if ( $data['client'] )
+				echo '<div class="client">' . do_shortcode( wpmtst_client_info( $post ) ) . '</div>';
+			
+			if ( 1 == $data['more'] )
+				echo sprintf( $format, get_permalink( $post ) );
+			
+			echo '</div>'; // testimonial-widget
 		}
 
 		echo '</div><!-- wpmtst-widget-container -->';
 
-		if ( $data['more'] ) {
-			$link = get_permalink( $data['more_page'] );
-			echo '<p class="readmore"><a href="' . $link . '">' . __( 'Read More Testimonials', 'strong-testimonials' ) .'</a></p>';
-		}
+		if ( 2 == $data['more'] )
+			echo sprintf( $format, get_permalink( $data['more_page'] ) );
 
 		echo $data['after_widget'];
 	}
@@ -208,7 +219,7 @@ class WpmTst_Widget extends WP_Widget {
 		) );
 
 		?>
-		<div class="wpmtst-widget">
+		<div class="wpmtst-widget-form">
 
 			<!-- title -->
 			<p>
@@ -263,14 +274,14 @@ class WpmTst_Widget extends WP_Widget {
 
 					<div class="row">
 						<div class="alpha">
-							<label for="<?php echo $this->get_field_id( 'cycle-limit' ); ?>"><?php _e( 'Number to show', 'strong-testimonials' ); ?>:</label>
+							<label for="<?php echo $this->get_field_id( 'cycle-limit' ); ?>"><?php _e( 'Show', 'strong-testimonials' ); ?>:</label>
 						</div>
 						<div>
-							<input  type="text" id="<?php echo $this->get_field_id( 'cycle-limit' ); ?>" name="<?php echo $this->get_field_name( 'cycle-limit' ); ?>" value="<?php echo $instance['cycle-limit']; ?>" size="3" <?php if ( $instance['cycle-all'] ) { echo ' readonly="readonly"'; } ?> />
+							<input type="text" id="<?php echo $this->get_field_id( 'cycle-limit' ); ?>" name="<?php echo $this->get_field_name( 'cycle-limit' ); ?>" value="<?php echo $instance['cycle-limit']; ?>" size="3" <?php if ( $instance['cycle-all'] ) { echo ' readonly="readonly"'; } ?> />
 						</div>
 						<div class="divider">
-							<input  type="checkbox" id="<?php echo $this->get_field_id( 'cycle-all' ); ?>" name="<?php echo $this->get_field_name( 'cycle-all' ); ?>" <?php checked( $instance['cycle-all'], 1 ); ?> class="checkbox" />
-							<label for="<?php echo $this->get_field_id( 'cycle-all' ); ?>"><?php _e( 'Show all', 'strong-testimonials' ); ?></label>
+							<input type="checkbox" id="<?php echo $this->get_field_id( 'cycle-all' ); ?>" name="<?php echo $this->get_field_name( 'cycle-all' ); ?>" <?php checked( $instance['cycle-all'] ); ?> class="checkbox" />
+							<label for="<?php echo $this->get_field_id( 'cycle-all' ); ?>"><?php _e( 'All', 'strong-testimonials' ); ?></label>
 						</div>
 					</div>
 
@@ -282,20 +293,6 @@ class WpmTst_Widget extends WP_Widget {
 							<input type="text" id="<?php echo $this->get_field_id( 'cycle-timeout' ); ?>" name="<?php echo $this->get_field_name( 'cycle-timeout' ); ?>" value="<?php echo $instance['cycle-timeout']; ?>" size="3" />
 							<?php _e( 'seconds', 'strong-testimonials' ); ?>
 						</div>
-					</div>
-
-					<div class="row">
-						<div class="alpha">
-							<label for="<?php echo $this->get_field_id( 'cycle-effect' ); ?>"><?php _e( 'Transition effect', 'strong-testimonials' ); ?>:</label>
-						</div>
-						<div>
-							<select id="<?php echo $this->get_field_id( 'cycle-effect' ); ?>" name="<?php echo $this->get_field_name( 'cycle-effect' ); ?>" autocomplete="off">
-								<?php foreach ( $this->cycle_options['effects'] as $key => $label ) : ?>
-								<option value="<?php echo $key; ?>" <?php selected( $instance['cycle-effect'], $key ); ?>><?php echo $label; ?></option>
-								<?php endforeach; ?>
-							</select>
-						</div>
-						<div class="help"><a href="http://wordpress.org/support/topic/settings-bug-1" target="_blank">Fade is the only effect for now</a></div>
 					</div>
 
 					<div class="row">
@@ -322,7 +319,7 @@ class WpmTst_Widget extends WP_Widget {
 
 					<div class="row">
 						<div class="alpha">
-							<label for="<?php echo $this->get_field_id( 'static-limit' ); ?>"><?php _e( 'Number to show', 'strong-testimonials' ); ?>:</label>
+							<label for="<?php echo $this->get_field_id( 'static-limit' ); ?>"><?php _e( 'Show', 'strong-testimonials' ); ?>:</label>
 						</div>
 						<div>
 							<input type="text" id="<?php echo $this->get_field_id( 'static-limit' ); ?>" name="<?php echo $this->get_field_name( 'static-limit' ); ?>" value="<?php echo $instance['static-limit']; ?>" size="3" />
@@ -334,35 +331,90 @@ class WpmTst_Widget extends WP_Widget {
 
 			</div><!-- wpmtst-mode -->
 
-			<!-- character limit -->
-			<p>
-				<input type="checkbox" id="<?php echo $this->get_field_id( 'char-switch' ); ?>" name="<?php echo $this->get_field_name( 'char-switch' ); ?>" <?php checked( $instance['char-switch'] ); ?>  class="checkbox" />
+			<!-- content: excerpt, character limit, or entire -->
+			<div class="wpmtst-inner-box">
+				<p><b>Content</b></p>
+			
+				<p>
+					<input type="radio" id="<?php echo $this->get_field_id( 'char-switch' ); ?>-3" name="<?php echo $this->get_field_name( 'char-switch' ); ?>" value="3" <?php checked( $instance['char-switch'], 3 ); ?>  class="radio" />
+					<label for="<?php echo $this->get_field_id( 'char-switch' ); ?>-3"><?php _e( 'Excerpt', 'strong-testimonials' ); ?></label>
+					<span class="widget-help pushdown2 dashicons dashicons-editor-help">
+						<span class="help"><?php _e( 'Excerpts are hand-crafted summaries of your testimonial. You may need to enable them in the post editor.', 'strong-testimonials' ); ?></span>
+					</span>
+				</p>
 
-				<label for="<?php echo $this->get_field_id( 'char-limit' ); ?>"><?php _e( 'Character limit', 'strong-testimonials' ); ?>:</label>
-				<input type="text" id="<?php echo $this->get_field_id( 'char-limit' ); ?>" name="<?php echo $this->get_field_name( 'char-limit' ); ?>" value="<?php echo $instance['char-limit']; ?>" size="3" <?php if ( ! $instance['char-switch'] ) { echo ' readonly="readonly"'; } ?> />
-				<span class="help"><?php _e( 'Will break on a space and add an ellipsis.', 'strong-testimonials' ); ?></span>
+				<p>
+					<input type="radio" id="<?php echo $this->get_field_id( 'char-switch' ); ?>-1" name="<?php echo $this->get_field_name( 'char-switch' ); ?>" value="1" <?php checked( $instance['char-switch'], 1 ); ?>  class="radio" />
+					<label for="<?php echo $this->get_field_id( 'char-switch' ); ?>-1"><?php _e( 'Character limit', 'strong-testimonials' ); ?>:&nbsp;</label>
+					<!-- char limit field -->
+					<input type="text" id="<?php echo $this->get_field_id( 'char-limit' ); ?>" name="<?php echo $this->get_field_name( 'char-limit' ); ?>" value="<?php echo $instance['char-limit']; ?>" size="3" <?php if ( 1 != $instance['char-switch'] ) { echo ' readonly="readonly"'; } ?> />
+					<span class="widget-help pushdown4 dashicons dashicons-editor-help">
+						<span class="help"><?php _e( 'Will break on a space and add an ellipsis.', 'strong-testimonials' ); ?></span>
+					</span>
+				</p>
+				
+				<p>
+					<input type="radio" id="<?php echo $this->get_field_id( 'char-switch' ); ?>-2" name="<?php echo $this->get_field_name( 'char-switch' ); ?>" value="2" <?php checked( $instance['char-switch'], 2 ); ?>  class="radio" />
+					<label for="<?php echo $this->get_field_id( 'char-switch' ); ?>-2"><?php _e( 'Entire content', 'strong-testimonials' ); ?></label>
+				</p>
+				
+			</div>
+			
+			<div class="wpmtst-inner-box">
+			<p><b>Show Parts</b></p>
+			
+			<!-- title -->
+			<p>
+				<input type="checkbox" id="<?php echo $this->get_field_id( 'show-title' ); ?>" name="<?php echo $this->get_field_name( 'show-title' ); ?>" <?php checked( $instance['show-title'] ); ?> class="checkbox" />
+				<label for="<?php echo $this->get_field_id('show-title'); ?>"><?php _e( 'Title', 'strong-testimonials' ); ?></label>
+				<span class="widget-help pushdown2 dashicons dashicons-editor-help">
+					<span class="help"><?php _e( 'if included in Fields', 'strong-testimonials' ); ?></span>
+				</span>
 			</p>
 
 			<!-- featured images -->
 			<p>
 				<input type="checkbox" id="<?php echo $this->get_field_id( 'images' ); ?>" name="<?php echo $this->get_field_name( 'images' ); ?>" <?php checked( $instance['images'] ); ?> class="checkbox" />
-				<label for="<?php echo $this->get_field_id('images'); ?>"><?php _e( 'Show Featured Images', 'strong-testimonials' ); ?></label><span class="help"><?php _e( '(if included in Field Group)', 'strong-testimonials' ); ?></span>
+				<label for="<?php echo $this->get_field_id('images'); ?>"><?php _e( 'Featured Images', 'strong-testimonials' ); ?></label>
+				<span class="widget-help pushdown2 dashicons dashicons-editor-help">
+					<span class="help"><?php _e( 'if included in Fields', 'strong-testimonials' ); ?></span>
+				</span>
 			</p>
+			
+			<!-- client info -->
+			<p>
+				<input type="checkbox" id="<?php echo $this->get_field_id( 'client' ); ?>" name="<?php echo $this->get_field_name( 'client' ); ?>" <?php checked( $instance['client'] ); ?> class="checkbox" />
+				<label for="<?php echo $this->get_field_id('images'); ?>"><?php _e( 'Client Info', 'strong-testimonials' ); ?></label>
+				<span class="widget-help pushdown2 dashicons dashicons-editor-help">
+					<span class="help"><?php _e( 'if included in Fields', 'strong-testimonials' ); ?></span>
+				</span>
+			</p>
+			
+			</div>
 
 			<!-- read more link -->
+			<div class="wpmtst-inner-box">
+			<p><b>"Read more" Link</b></p>
+			
 			<p>
-				<input type="checkbox" id="<?php echo $this->get_field_id( 'more' ); ?>" name="<?php echo $this->get_field_name( 'more' ); ?>" <?php checked( $instance['more'] ); ?> class="checkbox" />
-				<label for="<?php echo $this->get_field_id( 'more' ); ?>"><?php _e( 'Show "Read More" link to this page', 'strong-testimonials' ); ?>:</label>
+				<input type="radio" id="<?php echo $this->get_field_id( 'more' ); ?>-0" name="<?php echo $this->get_field_name( 'more' ); ?>" value="0" <?php checked( 0, $instance['more'] ); ?> class="radio" />
+				<label for="<?php echo $this->get_field_id( 'more' ); ?>-0"><?php _e( 'None', 'strong-testimonials' ); ?></label>
 			</p>
-
 			<p>
-				<select id="<?php echo $this->get_field_id( 'more_page' ); ?>" name="<?php echo $this->get_field_name( 'more_page' ); ?>" class="widefat" autocomplete="off">
-					<option value="*"><?php _e( 'Select page', 'strong-testimonials' ) ?></option>
+				<input type="radio" id="<?php echo $this->get_field_id( 'more' ); ?>-1" name="<?php echo $this->get_field_name( 'more' ); ?>" value="1" <?php checked( 1, $instance['more'] ); ?> class="radio" />
+				<label for="<?php echo $this->get_field_id( 'more' ); ?>-1"><?php _e( 'Link to the testimonial', 'strong-testimonials' ); ?></label>
+			</p>
+			<p>
+				<input type="radio" id="<?php echo $this->get_field_id( 'more' ); ?>-2" name="<?php echo $this->get_field_name( 'more' ); ?>" value="2" <?php checked( 2, $instance['more'] ); ?> class="radio" />
+				<label for="<?php echo $this->get_field_id( 'more' ); ?>-2"><?php _e( 'Link to', 'strong-testimonials' ); ?></label>
+				<select id="<?php echo $this->get_field_id( 'more_page' ); ?>" name="<?php echo $this->get_field_name( 'more_page' ); ?>" class="" autocomplete="off">
+					<option value="*"><?php _e( '— Select a page —', 'strong-testimonials' ) ?></option>
 					<?php foreach ( $pages_list as $pages ) : ?>
-						<option value="<?php echo $pages->ID; ?>" <?php selected( $instance['more_page'], $pages->ID ); ?>><?php echo $pages->post_title; ?></option>
+					<option value="<?php echo $pages->ID; ?>" <?php selected( $instance['more_page'], $pages->ID ); ?>><?php echo $pages->post_title; ?></option>
 					<?php endforeach; ?>
 				</select>
 			</p>
+			</div>
 
 		</div><!-- wpmtst-widget -->
 		<?php
@@ -374,7 +426,7 @@ class WpmTst_Widget extends WP_Widget {
 	function update( $new_instance, $old_instance ) {
 		$instance = $old_instance;
 		$defaults = $this->defaults;
-
+	
 		$instance['title']    = strip_tags( $new_instance['title'] );
 		$instance['category'] = strip_tags( $new_instance['category'] );
 		$instance['order']    = strip_tags( $new_instance['order'] );
@@ -396,7 +448,8 @@ class WpmTst_Widget extends WP_Widget {
 			$instance['cycle-timeout'] = (float) strip_tags( $new_instance['cycle-timeout'] );
 		}
 
-		$instance['cycle-effect'] = strip_tags( $new_instance['cycle-effect'] );
+		// $instance['cycle-effect'] = strip_tags( $new_instance['cycle-effect'] );
+		$instance['cycle-effect'] = 'fade';
 
 		if ( ! $new_instance['cycle-speed'] ) {
 			$instance['cycle-speed'] = $defaults['cycle-speed'];
@@ -409,19 +462,27 @@ class WpmTst_Widget extends WP_Widget {
 
 		$instance['static-limit'] = (int) strip_tags( $new_instance['static-limit'] );
 
-		$instance['char-switch'] = isset( $new_instance['char-switch'] ) ? 1 : 0;
+		// previous: checkbox (on/off)
+		// $instance['char-switch'] = isset( $new_instance['char-switch'] ) ? 1 : 0;
+		// new: radio (1,2,3)
+		$instance['char-switch'] = $new_instance['char-switch'];
 		$instance['char-limit']  = (int) strip_tags( $new_instance['char-limit'] );
 
-		if ( $instance['char-switch'] && ! $instance['char-limit'] ) {
-			// if limit turned on and value cleared out then restore default value
+		if ( 1 == $instance['char-switch'] && ! $instance['char-limit'] ) {
+			// if limit selected and value cleared out then restore default value
 			$instance['char-limit'] = $defaults['char-limit'];
 		}
 
-		$instance['images'] = isset( $new_instance['images'] ) ? 1 : 0;
+		$instance['show-title'] = isset( $new_instance['show-title'] ) ? 1 : 0;
+		$instance['images']     = isset( $new_instance['images'] ) ? 1 : 0;
+		$instance['client']     = isset( $new_instance['client'] ) ? 1 : 0;
 
-		$instance['more']      = isset( $new_instance['more'] ) ? 1 : 0;
+		// previous: checkbox (on/off)
+		// $instance['more']      = isset( $new_instance['more'] ) ? 1 : 0;
+		// new: radio (0,1,2)
+		$instance['more']      = $new_instance['more'];
 		$instance['more_page'] = strip_tags( $new_instance['more_page'] );
-
+		
 		return $instance;
 	}
 

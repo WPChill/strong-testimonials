@@ -2,8 +2,92 @@
  * Strong Testimonials admin stylesheet
  */
 
+
+p.submit .reminder {
+	display: inline-block;
+	font-style: italic;
+}
+
+.wp-core-ui .button-primary.active, 
+.wp-core-ui .button-primary.active:hover, 
+.wp-core-ui .button-primary.active:focus, 
+.wp-core-ui .button-primary:active {
+	vertical-align: baseline;
+}
  
-/* shortcodes table 
+/* Firefox fix */
+a.widget-action:focus {
+	outline: none;
+}
+
+
+/* Help sections
+---------------------------------------------------------*/
+
+div.help {
+	margin-left: 0;
+}
+
+/* Help icon */
+
+span.widget-help:hover {
+	color: #1E8CBE;
+	cursor: pointer !important;
+  display: inline;
+  position: relative;
+}
+span.widget-help span {
+  position: absolute;
+  visibility: hidden;
+  width: 160px;
+	height: auto;
+	padding: 8px;
+  color: #FFFFFF;
+  background: #222;
+  text-align: center;
+  border-radius: 4px;
+	font-family: "Open Sans", sans-serif;
+	font-size: 13px;
+	line-height: 1.5;
+}
+span.widget-help span:after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -10px;
+  width: 0;
+	height: 0;
+  border-top: 8px solid #222;
+  border-right: 8px solid transparent;
+  border-left: 8px solid transparent;
+}
+span.widget-help:hover span,
+span.widget-help span.showing {
+  visibility: visible;
+  opacity: 0.9;
+  bottom: 30px;
+  left: 50%;
+  margin-left: -88px;
+  z-index: 999;
+  -webkit-box-shadow: 0px 0px 8px rgba(0,0,0,0.8);
+     -moz-box-shadow: 0px 0px 8px rgba(0,0,0,0.8);
+          box-shadow: 0px 0px 8px rgba(0,0,0,0.8);
+}
+	
+.pushdown2 {
+	position: relative;
+	top: 2px;
+}
+
+.pushdown4 {
+	position: relative;
+	top: 4px;
+}
+	
+	
+ 
+/* Shortcodes table 
 ---------------------------------------------------------*/
 
 table.shortcode-table {
@@ -51,7 +135,7 @@ table.shortcode-table td:nth-child(2) {
 	}
 
 	
-/* settings table 
+/* Settings table 
 ---------------------------------------------------------*/
 
 .stackem label {
@@ -63,8 +147,11 @@ table.shortcode-table td:nth-child(2) {
 	display: none;
 }
 
-.screenshot img {
-	box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.5);
+.screenshot > div {
+	display: inline-block;
+  -webkit-box-shadow: inset 0px 0px 40px rgba(0,0,0,0.8);
+     -moz-box-shadow: inset 0px 0px 40px rgba(0,0,0,0.8);
+          box-shadow: inset 0px 0px 40px rgba(0,0,0,0.8);
 }
 
 div.radio {
@@ -139,6 +226,11 @@ div.radio {
 .code {
 	background: #fff;
 }
+.code.wide {
+	padding: 2px 5px;
+	margin: 3px;
+	border-radius: 2px;
+}
 
 .wpmtst input.button {
 	margin-right: 10px;
@@ -161,8 +253,31 @@ div.radio {
 	margin-left: -2em;
 }
 
+.hilite {
+	background: lightyellow;
+	border-radius: 4px;
+	display: inline-block;
+	padding: .25em .75em;
+  -webkit-box-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+     -moz-box-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+          box-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+.form-table td .shortcode-example p {  /*S*/
+	margin-top: 0;
+	margin-bottom: 0;
+	line-height: 1.8;
+}
+.shortcode-example p .field {
+	display: inline-block;
+	color: #2ea2cc;
+	margin: 0 1px;
+}
+.shortcode-example p .field.example {
+	font-style: italic;
+}
 
-/* client details meta box 
+
+/* Client details meta box 
 ---------------------------------------------------------*/
 
 #details table {
@@ -198,9 +313,21 @@ div.radio {
 	padding-left: 20px;
 }
 
+ul.description {
+	font-style: italic;
+	color: #666;
+}
 
-/* widget 
+/* Widget 
 ---------------------------------------------------------*/
+
+.wpmtst-widget-form {
+	margin-bottom: 1em;
+}
+
+.widget-inside p {
+	margin: .5em 0;
+}
 
 .radio-tab {
 	background: #eee;
@@ -229,7 +356,7 @@ div.radio {
 }
 
 .wpmtst-mode {
-	margin-top: 1.3em;
+	margin-top: 1em;
 }
 
 .wpmtst-mode ul {
@@ -245,6 +372,16 @@ div.radio {
 	border: 1px solid #ddd;
 	padding: 4px 7px;
 }
+
+.wpmtst-inner-box {
+	border: 1px solid #ddd;
+	margin-top: .5em;
+	padding: 0 7px;
+}
+
+	.wpmtst-inner-box p {
+		margin: 0.25em 0;
+	}
 
 .wpmtst-mode .row {
 	display: block;
@@ -263,7 +400,7 @@ div.radio {
 }
 
 	.row > div {
-		vertical-align: top;
+		vertical-align: baseline;
 		display: inline-block;
 	}
 
@@ -279,6 +416,9 @@ div.radio {
 label.alpha {
 	width: 65px;
 }
+label.alpha.wide {
+	width: 100px;
+}
 
 input.omega,
 select.omega {
@@ -286,26 +426,14 @@ select.omega {
 }
 
 .divider {
-	margin-left: 1em;
+	margin-left: .8em;
+	vertical-align: baseline;
 }
 
 input[disabled],
 input[readonly] {
 	color: #999;
 	background: rgba(0, 0, 0, 0.04);
-}
-
-.help {
-	display: inline-block;
-	font-style: italic;
-	font-size: 13px;
-	line-height: 1.5;
-	margin-left: 2em;
-	vertical-align: middle;
-}
-
-div.help {
-	margin-left: 0;
 }
 
 

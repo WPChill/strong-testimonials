@@ -11,6 +11,7 @@
 }
 
 #wpmtst-container {
+	box-sizing: border-box;
 	display: inline-block;
 	width: 100%;
 }
@@ -23,7 +24,6 @@
 	margin: 20px auto;
 	padding: 0;
 	text-align: left;
-	/* width: 90%; */
 	height: auto;
 }
 	

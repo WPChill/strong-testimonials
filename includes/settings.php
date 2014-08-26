@@ -112,6 +112,7 @@ function wpmtst_sanitize_cycle( $input ) {
 	return $input;
 }
 
+
 /*
  * Settings page
  */
@@ -135,20 +136,28 @@ function wpmtst_settings_page() {
 		<h2 class="nav-tab-wrapper">
 			<a href="?post_type=wpm-testimonial&page=settings&tab=general" class="nav-tab <?php echo $active_tab == 'general' ? 'nav-tab-active' : ''; ?>"><?php _e( 'General', 'strong-testimonials' ); ?></a>
 			<a href="?post_type=wpm-testimonial&page=settings&tab=cycle" class="nav-tab <?php echo $active_tab == 'cycle' ? 'nav-tab-active' : ''; ?>"><?php _e( 'Cycle Shortcode', 'strong-testimonials' ); ?></a>
+			<a href="?post_type=wpm-testimonial&page=settings&tab=client" class="nav-tab <?php echo $active_tab == 'client' ? 'nav-tab-active' : ''; ?>"><?php _e( 'Client Section', 'strong-testimonials' ); ?></a>
 		</h2>
 
 		<form method="post" action="options.php">
 			<?php
-			if( $active_tab == 'general' ) {
-				settings_fields( 'wpmtst-settings-group' );
-				wpmtst_settings_section();
-			} 
-			else {
+			if( $active_tab == 'cycle' ) {
 				settings_fields( 'wpmtst-cycle-group' );
 				wpmtst_cycle_section();
 			}
-			submit_button();
+			elseif( $active_tab == 'client' ) {
+				settings_fields( 'wpmtst-settings-group' );
+				wpmtst_client_section();
+			}
+			else {  // general tab
+				settings_fields( 'wpmtst-settings-group' );
+				wpmtst_settings_section();
+			} 
 			?>
+			<p class="submit">
+				<input id="submit" class="button button-primary" type="submit" value="Save Changes" name="submit">
+				<span class="reminder"><?php _e( 'Remember to save changes before switching tabs.', 'strong-testimonials' ); ?></span>
+			</p>
 		</form>
 
 	</div><!-- wrap -->
@@ -156,10 +165,16 @@ function wpmtst_settings_page() {
 	<?php
 }
 
+
+/*
+ * General settings
+ */
 function wpmtst_settings_section() {
 	$options = get_option( 'wpmtst_options' );
 
+	// ----------------------------------------
 	// Build list of supported Captcha plugins.
+	// ----------------------------------------
 	// @TODO - Move this to options array
 	$plugins = array(
 			'bwsmath' => array(
@@ -188,100 +203,40 @@ function wpmtst_settings_section() {
 			update_option( 'wpmtst_options', $options );
 		}
 	}
-	?>
-	<input type="hidden" name="wpmtst_options[default_template]" value="<?php esc_attr_e( $options['default_template'] ); ?>" />
 	
-	<table class="form-table" cellpadding="0" cellspacing="0">
-	
-	<tr valign="top">
-	<th scope="row"><?php _e( 'Load stylesheets', 'strong-testimonials' );?></th>
-	<td class="stackem">
-		<label>
-			<input type="checkbox" name="wpmtst_options[load_page_style]" <?php checked( $options['load_page_style'] ); ?> />
-			<?php _e( 'Pages', 'strong-testimonials' ); ?>
-		</label>
-		<label>
-			<input type="checkbox" name="wpmtst_options[load_widget_style]" <?php checked( $options['load_widget_style'] ); ?> />
-			<?php _e( 'Widget', 'strong-testimonials' ); ?>
-		</label>
-		<label>
-			<input type="checkbox" name="wpmtst_options[load_form_style]" <?php checked( $options['load_form_style'] ); ?> />
-			<?php _e( 'Submission Form', 'strong-testimonials' ); ?>
-		</label>
-	</td>
-	</tr>
-
-	<tr valign="top">
-	<th scope="row"><?php _e( 'The number of testimonials to show per page', 'strong-testimonials' ); ?></th>
-	<td>
-		<input type="text" name="wpmtst_options[per_page]" size="3" value="<?php echo esc_attr( $options['per_page'] ); ?>" />
-		<?php echo sprintf( __( 'This applies to the %s shortcode.', 'strong-testimonials' ), '<span class="code">[wpmtst-all]</span>' ); ?>
-	</td>
-	</tr>
-
-	<tr valign="top">
-	<th scope="row"><?php _e( 'When a new testimonial is submitted', 'strong-testimonials' );?></th>
-	<td>
-		<label>
-			<input id="wpmtst-options-admin-notify" type="checkbox" name="wpmtst_options[admin_notify]" <?php checked( $options['admin_notify'] ); ?> />
-			<?php _e( 'Send notification email to', 'strong-testimonials' ); ?>
-		</label>
-		<input id="wpmtst-options-admin-email" type="email" size="30" placeholder="email address" name="wpmtst_options[admin_email]" value="<?php echo esc_attr( $options['admin_email'] ); ?>" />
-	</td>
-	</tr>
-
-	<tr valign="top">
-	<th scope="row"><?php _e( 'CAPTCHA plugin', 'strong-testimonials' );?></th>
-	<td>
-		<select name="wpmtst_options[captcha]" autocomplete="off">
-			<option value=""><?php _e( 'none' );?></option>
-			<?php foreach ( $plugins as $key => $plugin ) : ?>
-			<?php if ( $plugin['active'] ) : ?>
-			<option value="<?php echo $key; ?>" <?php selected( $options['captcha'], $key ); ?>><?php echo $plugin['name']; ?></option>
-			<?php endif; ?>
-			<?php endforeach; ?>
-		</select>
-	</td>
-	</tr>
-
-	<tr valign="top">
-	<th scope="row"><?php _e( 'Client Template', 'strong-testimonials' ); ?></th>
-	<td>
-		<p><?php _e( 'Use these shortcode options to show client information below each testimonial', 'strong-testimonials' ); ?>:</p>
-		<div class="shortcode-example code">
-			<p class="indent">
-				<span class="outdent">[wpmtst-text </span>
-						<br>field="{ <?php _e( 'your custom text field', 'strong-testimonials' ); ?> }" 
-						<br>class="{ <?php _e( 'your CSS class', 'strong-testimonials' ); ?> }"]
-			</p>
-			<p class="indent">
-				<span class="outdent">[wpmtst-link </span>
-						<br>url="{ <?php _e( 'your custom URL field', 'strong-testimonials' ); ?> }" 
-						<br>text="{ <?php _e( 'your custom text field', 'strong-testimonials' ); ?> }" 
-						<br>target="_blank" <br>class="{ <?php _e( 'your CSS class', 'strong-testimonials' ); ?> }"]
-			</p>
-		</div>
-		
-		<p><textarea id="client-section" class="widefat code" name="wpmtst_options[client_section]" rows="3"><?php echo $options['client_section']; ?></textarea></p>
-		
-		<p><input type="button" class="button" id="restore-default-template" value="<?php _e( 'Restore Default Template', 'strong-testimonials' ); ?>" /></p>
-	</td>
-	</tr>
-	
-	</table>
-	<?php
+	include( WPMTST_INC . 'form-general-settings.php' );
 }
 
+
+/*
+ * Client section settings
+ */
+function wpmtst_client_section() {
+	$options = get_option( 'wpmtst_options' );
+
+	// ----------------------------
+	// Build list of custom fields.
+	// ----------------------------
+	$field_options = get_option( 'wpmtst_fields' );
+	$field_groups = $field_options['field_groups'];
+	$current_field_group = $field_options['current_field_group'];  // "custom", only one for now
+	$fields = $field_groups[$current_field_group]['fields'];
+	$fields_array = array();
+	foreach ( $fields as $field ) {
+		$field_name = $field['name'];
+		if ( ! in_array( $field['name'], array( 'post_title', 'post_content', 'featured_image' ) ) )
+			$fields_array[] = '<span class="code wide">' . $field['name'] . '</span>';
+	}
+	
+	include( WPMTST_INC . 'form-client-settings.php' );
+}
+
+
+/*
+ * Cycle shortcode settings
+ */
 function wpmtst_cycle_section() {
 	$cycle = get_option( 'wpmtst_cycle' );
-	
-	$cycle_options = array(
-			'effects' => array(
-					'fade'       => 'Fade',
-					// 'scrollHorz' => 'Scroll horizontally',
-					// 'none'       => 'None',
-			)
-	);
 	
 	// @TODO: de-duplicate (in widget too)
 	$order_list = array(
@@ -305,6 +260,7 @@ function wpmtst_cycle_section() {
 	
 	include( WPMTST_INC . 'form-cycle-settings.php' );
 }
+
 
 /*
  * Shortcodes page

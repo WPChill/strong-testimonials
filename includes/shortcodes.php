@@ -259,7 +259,7 @@ function wpmtst_all_shortcode( $atts ) {
 
 	$display = '<div id="wpmtst-container">';
 	foreach ( $results as $post ) {
-		$display .= '<div class="result">' . wpmtst_single( wpmtst_get_post( $post ) ) . '</div><!-- result -->';
+		$display .= '<div class="result">' . wpmtst_single( wpmtst_get_post( $post ) ) . '</div>';
 	}
 	$display .= '</div><!-- wpmtst-container -->';
 	$display .= '<div id="pagingControls"></div>';
@@ -284,8 +284,7 @@ function wpmtst_cycle_shortcode( $atts ) {
 		$cycle['speed'], 
 		$cycle['timeout'], 
 		$cycle['pause'],
-		'#wpmtst-container',
-		'cycleShortcode'
+		'tcycle_cycle_shortcode'
 	);
 
 	if ( 'rand' == $cycle['order'] ) {
@@ -315,9 +314,9 @@ function wpmtst_cycle_shortcode( $atts ) {
 	$wp_query = new WP_Query();
 	$results = $wp_query->query( $args );
 
-	$display = '<div id="wpmtst-container" class="tcycle">';
+	$display = '<div id="wpmtst-container" class="tcycle tcycle_cycle_shortcode">';
 	foreach ( $results as $post ) {
-		$display .= '<div class="result">' . wpmtst_single( wpmtst_get_post( $post ), $cycle ) . '</div><!-- result -->';
+		$display .= '<div class="result t-slide">' . wpmtst_single( wpmtst_get_post( $post ), $cycle ) . '</div>';
 	}
 	$display .= '</div><!-- #wpmtst-container -->';
 
