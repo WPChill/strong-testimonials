@@ -29,6 +29,13 @@ function wpmtst_settings_menu() {
 										'shortcodes',
 										'wpmtst_settings_shortcodes' );
 
+	add_submenu_page( 'edit.php?post_type=wpm-testimonial',
+										'Guide',
+										'<div class="dashicons dashicons-info"></div> Guide',
+										'manage_options',
+										'guide',
+										'wpmtst_guide' );
+										
 	add_action( 'admin_init', 'wpmtst_register_settings' );
 }
 add_action( 'admin_menu', 'wpmtst_settings_menu' );
@@ -40,7 +47,7 @@ add_action( 'admin_menu', 'wpmtst_settings_menu' );
 function wpmtst_unique_menu_title() {
 	$need_unique = false;
 
-		// GC Testimonials
+	// GC Testimonials
 	if ( is_plugin_active( 'gc-testimonials/testimonials.php' ) )
 		$need_unique = true;
 
@@ -117,9 +124,8 @@ function wpmtst_sanitize_cycle( $input ) {
  * Settings page
  */
 function wpmtst_settings_page() {
-	if ( ! current_user_can( 'manage_options' ) )  {
+	if ( ! current_user_can( 'manage_options' ) )
 		wp_die( __( 'You do not have sufficient permissions to access this page.' ) );
-	}
 	?>
 	<div class="wrap wpmtst">
 
@@ -131,7 +137,6 @@ function wpmtst_settings_page() {
 			</div>
 		<?php endif; ?>
 
-		<?php /* tabs */ ?>
 		<?php $active_tab = isset( $_GET['tab'] ) ? $_GET['tab'] : 'general'; ?>
 		<h2 class="nav-tab-wrapper">
 			<a href="?post_type=wpm-testimonial&page=settings&tab=general" class="nav-tab <?php echo $active_tab == 'general' ? 'nav-tab-active' : ''; ?>"><?php _e( 'General', 'strong-testimonials' ); ?></a>
@@ -180,16 +185,19 @@ function wpmtst_settings_section() {
 			'bwsmath' => array(
 					'name' => 'Captcha by BestWebSoft',
 					'file' => 'captcha/captcha.php',
-					'active' => false
-			),
-			'wpmsrc'  => array(
-					'name' => 'Simple reCAPTCHA by WP Mission',
-					'file' => 'simple-recaptcha/simple-recaptcha.php',
+					'url'  => 'http://wordpress.org/plugins/captcha/',
 					'active' => false
 			),
 			'miyoshi' => array(
 					'name' => 'Really Simple Captcha by Takayuki Miyoshi',
 					'file' => 'really-simple-captcha/really-simple-captcha.php',
+					'url'  => 'http://wordpress.org/plugins/really-simple-captcha/',
+					'active' => false
+			),
+			'wpmsrc'  => array(
+					'name' => 'Simple reCAPTCHA by WP Mission',
+					'file' => 'simple-recaptcha/simple-recaptcha.php',
+					'url'  => 'http://wordpress.org/plugins/simple-recaptcha',
 					'active' => false
 			),
 	);

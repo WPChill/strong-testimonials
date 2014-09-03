@@ -1,10 +1,10 @@
 <?php
 /**
  * Plugin Name: Strong Testimonials
- * Plugin URI: http://www.wpmission.com/plugins/strong-testimonials/
- * Description: Collect and display testimonials.
+ * Plugin URI: http://www.wpmission.com/wordpress-plugins/strong-testimonials/
+ * Description: A simple yet robust testimonial manager.
  * Author: Chris Dillon
- * Version: 1.9
+ * Version: 1.9.3
  * Forked From: GC Testimonials version 1.3.2 by Erin Garscadden
  * Author URI: http://www.wpmission.com/contact
  * Text Domain: strong-testimonials
@@ -36,6 +36,7 @@
 define( 'WPMTST_DIR', plugin_dir_url( __FILE__ ) );
 define( 'WPMTST_INC', plugin_dir_path( __FILE__ ) . 'includes/' );
 
+
 /*
  * Plugin action links
  */
@@ -51,23 +52,10 @@ add_filter( 'plugin_action_links', 'wpmtst_plugin_action_links', 10, 2 );
 
 
 /*
- * Plugin meta row
- */
-function wpmtst_plugin_row_meta( $plugin_meta, $plugin_file, $plugin_data, $status ) {
-	if ( $plugin_file == plugin_basename( __FILE__ ) ) {
-		$plugin_meta[] = '<a href="http://www.wpmission.com/donate" target="_blank">Donate</a>';
-	}
-	return $plugin_meta;
-}
-add_filter( 'plugin_row_meta', 'wpmtst_plugin_row_meta', 10, 4 );
-
-
-/*
  * Text domain
  */
 function wpmtst_textdomain() {
 	$success = load_plugin_textdomain( 'strong-testimonials', FALSE, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
-	// logmore('load plugin textdomain success = ' . ($success?'true':'false'));
 }
 add_action( 'plugins_loaded', 'wpmtst_textdomain' );
 
@@ -222,6 +210,7 @@ function wpmtst_register_cpt() {
 			// 'rewrite'               => true,
 			'rewrite'               => array( 'slug' => __( 'testimonial', 'strong-testimonials' ) ), // 1.8
 			'menu_icon'				      => 'dashicons-editor-quote',
+			// 'menu_icon'				      => 'dashicons-testimonial',
 			'menu_position'			    => 20,
 			'exclude_from_search' 	=> true,
 			'supports'              => array( 'title', 'excerpt', 'editor', 'thumbnail', 'custom-fields' )
@@ -333,27 +322,12 @@ add_action( 'wp_enqueue_scripts', 'wpmtst_scripts' );
 /*
  * Includes
  */
-
-// Functions
 include( WPMTST_INC . 'functions.php');
-
-// Shims
 include( WPMTST_INC . 'shims.php');
-
-// Admin
 include( WPMTST_INC . 'admin.php');
-
-// Settings
 include( WPMTST_INC . 'settings.php');
-
-// Shortcodes
+include( WPMTST_INC . 'guide.php');
 include( WPMTST_INC . 'shortcodes.php');
- 
-// Widgets
 include( WPMTST_INC . 'widget.php');
-
-// Custom fields
 include( WPMTST_INC . 'admin-custom-fields.php');
-
-// Captcha
 include( WPMTST_INC . 'captcha.php');

@@ -3,7 +3,7 @@
  * Strong Testimonials - Admin functions
  */
 
- 
+
 /*
  * Init
  */
@@ -24,6 +24,7 @@ function wpmtst_admin_scripts( $hook ) {
 				'wpm-testimonial_page_settings',
 				'wpm-testimonial_page_fields',
 				'wpm-testimonial_page_shortcodes',
+				'wpm-testimonial_page_guide',
 				'widgets.php',
 				'edit.php',
 				'edit-tags.php',
@@ -47,12 +48,33 @@ add_action( 'admin_enqueue_scripts', 'wpmtst_admin_scripts' );
 
 
 /*
- * Add meta box to the post editor screen
+ * Add meta box to the post editor screen and place above Custom Fields
  */
 function wpmtst_add_meta_boxes() {
-	add_meta_box( 'details', __( 'Client Details', 'strong-testimonials' ), 'wpmtst_meta_options', 'wpm-testimonial', 'normal', 'low' );
+	add_meta_box( 'details', __( 'Client Details', 'strong-testimonials' ), 'wpmtst_meta_options', 'wpm-testimonial', 'normal', 'core' );
 }
-add_action( 'add_meta_boxes', 'wpmtst_add_meta_boxes' );
+add_action( 'add_meta_boxes_wpm-testimonial', 'wpmtst_add_meta_boxes' );
+
+function wpmtst_reorder_meta_boxes() {
+	global $wp_meta_boxes;
+	if ( ! isset( $wp_meta_boxes['wpm-testimonial'] ) ) 
+		return;
+	
+	$core = $wp_meta_boxes['wpm-testimonial']['normal']['core'];
+	$newcore = array();
+	if ( $core['postexcerpt'] )
+		$newcore['postexcerpt'] = $core['postexcerpt'];
+	if ( $core['details'] )
+		$newcore['details'] = $core['details'];
+	if ( $core['postcustom'] )
+		$newcore['postcustom'] = $core['postcustom'];
+	if ( $core['slugdiv'] )
+		$newcore['slugdiv'] = $core['slugdiv'];
+		
+	if ( $newcore ) 
+		$wp_meta_boxes['wpm-testimonial']['normal']['core'] = $newcore;
+}
+add_action( 'do_meta_boxes', 'wpmtst_reorder_meta_boxes' );
 
 
 /*

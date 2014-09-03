@@ -1,128 +1,83 @@
 === Strong Testimonials ===
 Contributors: cdillon27
-Donate link: http://www.wpmission.com/donate
-Tags: testimonials
+Tags: testimonials, testimonial widget, random testimonial, testimonial shortcode, testimonial slider
 Requires at least: 3.5
 Tested up to: 4.0
 Stable tag: trunk
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
-A simple yet robust testimonial manager.
-
+A powerful testimonial manager.
 
 
 == Description ==
 
-Strong Testimonials by [WP Mission](http://www.wpmission.com) makes testimonials simple.
+Integrate testimonials in 3 steps:
 
-* **Show** with a variety of shortcodes or in a widget with transition effects.
-* **Collect** through a customizable form with anti-spam options.
-* **Manage** in the post editor including Featured Images and Categories.
+1. Add a form to a page to **gather** them.
+2. Use the editor to **review** and organize them.
+3. **Display** them using shortcodes or a widget.
 
-
-= This is a work in progress. =
-
-If you cannot tolerate occasional bugs and frequent updates, then please consider another plugin. 
-
-On the other hand, if you want:
-
-1. to participate in this plugin's development by offering ideas and feedback,
-2. the prompt, personal attention of its developer (who will move mountains to resolve issues), 
-3. popular features that other plugins offer at a price,
-
-then welcome aboard! You have been warned :)
+[Screenshots](http://wordpress.org/plugins/strong-testimonials/screenshots/) | [Demos](http://demos.wpmission.com/strong-testimonials/) | [Feature Requests](http://www.wpmission.com)
 
 
-= Coming Soon =
+**Primary Features**
 
-* Get involved by voting on feature requests.
-* A vastly improved version 2.0 with flexible display components!
+A submission form with custom fields and anti-spam options.
 
+Support for excerpts, featured images, and categories.
 
-= What's New =
-Some of the latest features:
+Multiple shortcode options including Cycle, All, Random, and Single.
 
-* A better widget!
-  1. Showing an **excerpt** of a testimonial, the entire content, or up to a certain length;
-  1. a "Read more" link to the full testimonial or another page;
-  1. options to show the title, the featured image, and the client information or not.
-	1. Multiple widgets on a page, each with their own cycle settings.
-	1. Improved slide element handling and container spacing that increases overall compatibility.
-
-* A better cycle shortcode! 
-  1. Showing an **excerpt** of a testimonial, the entire content, or up to a certain length;
-  1. a "Read more" link to the full testimonial or another page;
-  1. options to show the title, the featured image, and the client information or not.
-
-* Skip loading the included stylesheets if you want to style it from the ground up.
-
-* Improved theme compatibility (YMMV). Tested in many popular themes including the [problematic](http://chrislema.com/wordpress-obesity/) [Avada](http://www.fklein.info/2013/05/overloaded-theme-problems/).
-
-* Improved i18n. Ready for translations.
+Multiple widget options including category selection and random order.
 
 
-= Primary Features =
+**Other Features**
 
-* A customizable testimonial submission **form** with **anti-spam** options.
-* Administrator **notification** upon new testimonial submission.
-* Multiple **shortcodes** including Cycle, All, Random, and Single.
-* Multiple **widget** options including category selection and random order.
-* Support for **excerpts** in both the cycle shortcode and widgets.
-* Use the WordPress post editor to **add and edit** testimonial content, including **thumbnail support** and **categories**.
+Administrator notification upon new testimonial submission.
 
-*[Check out the screenshots for a better overview](http://wordpress.org/plugins/strong-testimonials/screenshots/).*
+Skip loading the included stylesheets if you want to style it from the ground up.
 
+Tested in many popular themes including the [problematic](http://chrislema.com/wordpress-obesity/) [Avada](http://www.fklein.info/2013/05/overloaded-theme-problems/).
 
-= Inspiration =
-
-This is based on the popular [GC Testimonials](http://wordpress.org/plugins/gc-testimonials/). I have been very active in that plugin's support forum because I like its simplicity, I have used it on many sites, and I love to fix things.
-
-Strong aims to pick up where GC Testimonials left off while maintaining its simplicity.
+Ready for translations (i18n).
 
 
-= Anti-Spam =
+**Anti-Spam**
 
 Instead of reinventing the anti-spam wheel, Strong integrates other plugins to do the heavy lifting. Because spam is heavy and modular is stronger.
 
-To add CAPTCHA to the testimonial submission form:
+Currently supported:
 
-1. install one of these supported plugins,
-1. select that plugin on the `Testimonials > Settings` page.
-
-Currently supported CAPTCHA plugins:
-
-* [Captcha](http://wordpress.org/plugins/captcha/) by BestWebSoft
-* [Simple reCAPTCHA](http://wordpress.org/plugins/simple-recaptcha) by WP Mission
-* [Really Simple Captcha](http://wordpress.org/plugins/really-simple-captcha/) by Takayuki Miyoshi
+* [Captcha](http://wordpress.org/plugins/captcha/)
+* [Really Simple Captcha](http://wordpress.org/plugins/really-simple-captcha/)
+* [Simple reCaptcha](http://wordpress.org/plugins/simple-recaptcha)
 
 Notes
 
-* If the currently selected CAPTCHA plugin is deactivated, the setting will revert to "None".
-* I plan to add an option for Akismet soon.
+* More options coming soon.
+* If your site relies on a partner plugin like this, and that plugin becomes buggy or abandoned, I will adopt it or integrate it to keep your site running.
 * [Contact me](http://www.wpmission.com/contact) if you have a plugin recommendation.
 
 
-= Recommended =
+**Recommended**
 
-[Simple Custom CSS](http://wordpress.org/plugins/simple-custom-css/) (fully compatible)
+These plugins work well with Strong Testimonials and add some nice features.
 
-[Wider Admin Menu](http://wordpress.org/plugins/wider-admin-menu/) (fully compatible)
-
-
-= Known Conflicts =
-
-[WP Mail SMTP](https://wordpress.org/plugins/wp-mail-smtp/)
-The administrator notification email may not be sent. I am working on this.
-
-[Page Builder by SiteOrigin](http://wordpress.org/support/plugin/siteorigin-panels)
-The widget settings are not being saved properly in the drag-and-drop builder. I am working on this.
+* [Admin Menu Post List](http://wordpress.org/plugins/admin-menu-post-list/)
+* [Simple Custom CSS](http://wordpress.org/plugins/simple-custom-css/)
+* [Wider Admin Menu](http://wordpress.org/plugins/wider-admin-menu/)
 
 
-= Translations =
+**Known Conflicts**
+
+* [Page Builder by SiteOrigin](http://wordpress.org/support/plugin/siteorigin-panels) - The widget settings are not being saved properly in the drag-and-drop builder.
+* [WP Mail SMTP](https://wordpress.org/plugins/wp-mail-smtp/) - The administrator notification email may not be sent.
+
+
+**Translations**
 
 Can you help? [Contact me](http://www.wpmission.com/contact/).
-
 
 
 == Installation ==
@@ -146,71 +101,92 @@ Option C:
 
 Finally, activate the plugin.
 
-I apologize for the lack of documentation. Adding features has taken precedence recently.
+<em>The default settings are designed to help you hit the ground running.</em>
 
-The default settings are designed to help you hit the ground running. Add the submission form shortcode to a page to start collecting testimonials. You can change the fields on the form in the fields editor. Other shortcodes and widgets allow you to display testimonials in various ways. 
+* Add the **submission form shortcode** to a page to start gathering testimonials. 
+* You can **change the fields** on the form in the fields editor. 
+* Use **shortcodes and widgets** to display testimonials in various ways. 
 
-If you have any questions or need help, use the [support forum](http://wordpress.org/support/plugin/strong-testimonials) or [contact me](http://www.wpmission.com/contact/).
+View some examples on the [demo site](http://demos.wpmission.com/strong-testimonials/).
 
+For help, use the [support forum](http://wordpress.org/support/plugin/strong-testimonials) or [contact me](http://www.wpmission.com/contact/).
 
 
 == Frequently Asked Questions ==
 
-= When using the Page Builder plugin, I can add a widget to a panel but the settings are not being saved. =
-There seems to be a problem with radio buttons in [Page Builder](http://wordpress.org/plugins/siteorigin-panels/). I have notified the developer and I am trying to find a workaround.
+[Screenshots](http://wordpress.org/plugins/strong-testimonials/screenshots/) | [Demos](http://demos.wpmission.com/strong-testimonials/) | [Feature Requests](http://www.wpmission.com)
 
-= Why is "Fade" the only transition effect? =
-See this [support thread](http://wordpress.org/support/topic/settings-bug-1).
+= How do I add a Captcha to the form? =
+
+Select one of the supported plugins on the `Testimonials > Settings` page. Use the link to each plugin's download page to install it.
+
+If the currently selected Captcha plugin is deactivated, the setting will revert to "none".
 
 = How can I change the fields on the form? =
+
 On the `Testimonials > Fields` page, there is a field editor where you can add or remove fields, change field details, and drag-n-drop to reorder them. You can also restore the default fields. 
 
-If you have ever used the Advanced Custom Fields or Custom Field Suite plugins, the editor will be very familiar.
+If you have ever used the Advanced Custom Fields or Custom Field Suite plugins, the editor will be very familiar. Here is a full [tutorial](http://www.wpmission.com/tutorials/customize-the-form-in-strong-testimonials/).
 
-Here is a [tutorial](http://www.wpmission.com/tutorials/customize-the-form-in-strong-testimonials/) - more to follow. Use the [support forum](http://wordpress.org/support/plugin/strong-testimonials) if you need help.
+= How can I change which client fields appear below the testimonial? =
 
-= How can I change which client information appears below the testimonial? =
-On the `Client Section` tab on `Testimonials > Settings` page. Follow the example to build shortcodes based on your custom fields. There is a shortcode for text fields (like a client's name) and a shortcode for links (like a client's website). When in doubt, use the default template provided.
+On the `Client Section` tab on the `Testimonials > Settings` page. Follow the example to build shortcodes based on your custom fields. There is a shortcode for text fields (like a client's name) and a shortcode for links (like a client's website). When in doubt, use the default template provided.
 
 I admit it can greatly improved but I needed to build something quickly to include in version 1.7 with custom fields. This will be replaced with a field editor in an upcoming version.
 
-Use the [support forum](http://wordpress.org/support/plugin/strong-testimonials) if you need help.
-
 = Is this multisite compatible? =
-Yes, but I highly recommend first installing the [Proper Network Activation](http://wordpress.org/plugins/proper-network-activation/) plugin when adding Strong Testimonials to a multisite installation. That plugin will deftly handle the plugin activation process, thus ensuring each site has the default settings.
 
-= Will it import my existing testimonials? =
-Not yet. If you have a ton of testimonials, you may want to wait.
+Yes, but I highly recommend first installing the [Proper Network Activation](http://wordpress.org/plugins/proper-network-activation/) plugin when adding Strong Testimonials to a multisite installation. That plugin will deftly handle the plugin activation process, ensuring each site has the default settings.
+
+= Are there templates? How do I change the look of the testimonials? =
+
+Except for the default template, which is rather plain and so 2011, the stylesheets are largely structural so you can add on CSS in your theme or [custom CSS](http://wordpress.org/plugins/simple-custom-css/). In fact, I like to skip loading the stylesheets (in `Testimonials > Settings`) to see how they look in the theme, then style up from there. Future versions will have pre-built templates with adjustable colors, borders, etc.
 
 = What about Akismet for the submission form? =
-I plan to integrate Akismet soon.
 
-= I modified my copy of GC Testimonials and I want to keep my features. =
-I will gladly help add your modifications to a custom version of Strong Testimonials. In reality, I will likely steal your features and add them to a new version. You have been warned.
+I plan to integrate Akismet and more soon.
 
-= I spent a lot of time adjusting the CSS to get GC Testimonials to work with my theme. Can I expect to do the same with this version? =
-1. I simplifed the CSS so it will inherit as much from your theme as your other content and widgets, so you can probably trim down any custom CSS.
-1. I will gladly help you sort it out.
+= Will it import my existing testimonials? =
+
+Not yet. If you have a ton of testimonials, you may want to wait.
+
+= Can I make a donation? =
+
+Thanks but I prefer a nice [review](https://wordpress.org/support/view/plugin-reviews/strong-testimonials). Casting a compatibility vote will tell others it works too. That feedback really helps me understand how people are using my plugins, what works well, and what still needs work.
+
+= Does anybody read these things? =
+
+That's *my* frequently asked question ;) As a reward for reading this far, leave a message [here](http://www.wpmission.com/contact) with "I read the FAQs!" in the subject line to receive one hour of WordPress support absolutely free.
 
 
 == Screenshots ==
 
-1. A sample page of three testimonials including photos.
-2. The widget with a character limit of 200.
-3. The widget without a character limit.
-4. The testimonial submission form without CAPTCHA.
-5. The math CAPTCHA option at the end of the form.
-6. The reCAPTCHA option at the end of the form.
-7. The settings page.
-8. All the shortcode options.
+1. The form with the default fields.
+2. The form with custom fields.
+3. The [all] shortcode with the default style.
+4. The [all] shortcode with custom CSS.
+5. The widget with a character limit.
+6. The widget without a character limit.
+7. The widget showing random excerpts.
+8. the [cycle] shortcode showing excerpts.
 9. The testimonials admin page.
-10. Adding or editing a testimonial.
-11. Adding or editing categories.
-12. The widget settings in Cycle mode.
-13. The same widget in Static mode.
+10. Settings > General.
+11. Settings > Cycle Shortcode.
+12. Settings > Client Section.
+13. The widget settings.
+14. The custom fields editor.
+15. The shortcode list.
+16. The guide.
 
 
 == Changelog ==
+
+= 1.9.3 =
+* Fix bug.
+
+= 1.9.1 =
+* Added a guide to help new users.
+* Improved Captcha plugin selector.
 
 = 1.9 =
 * Add widget features.
@@ -261,7 +237,7 @@ I will gladly help add your modifications to a custom version of Strong Testimon
 
 = 1.5 =
 * Testimonial cycle shortcode.
-* Improved reCAPTCHA error handling.
+* Improved reCaptcha error handling.
 * Corrected text domain use.
 * Fixed bug in widget character limit function.
 * Fix for widget text that flows outside of sidebar.
@@ -298,6 +274,9 @@ I will gladly help add your modifications to a custom version of Strong Testimon
 
 
 == Upgrade Notice ==
+
+= 1.9.3 =
+Added a guide to help new users.
 
 = 1.9 =
 The widget now has the same features as the cycle shortcode, and the cycle process has been made more compatible with other plugins and themes.

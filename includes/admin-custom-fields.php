@@ -88,7 +88,12 @@ function wpmtst_settings_custom_fields() {
 	// ------------------
 	echo '<div class="wrap wpmtst">' . "\n";
 	echo '<h2>' . __( 'Fields', 'strong-testimonials' ) . '</h2>' . "\n";
-	echo '<ul><li>Fields will appear in this order on the form.</li><li>Sort by grabbing the <span class="dashicons dashicons-menu"></span> icon.</li><li>Click the field name to expand its options panel.</li></ul>' . "\n";
+	echo '<ul>';
+	echo '<li>Fields will appear in this order on the form.</li>';
+	echo '<li>Sort by grabbing the <span class="dashicons dashicons-menu"></span> icon.</li>';
+	echo '<li>Click the field name to expand its options panel.</li>';
+	echo '<li><a href="http://www.wpmission.com/tutorials/customize-the-form-in-strong-testimonials/" target="_blank">Full tutorial</a> | <a href="http://wordpress.org/support/plugin/strong-testimonials" target="_blank">Plugin support</a> | <a href="http://www.wpmission.com/contact/" target="_blank">Developer</a></li>';
+	echo '</ul>' . "\n";
 	
 	echo '<!-- Custom Fields Form -->' . "\n";
 	echo '<form id="wpmtst-custom-fields-form" method="post" action="">' . "\n";

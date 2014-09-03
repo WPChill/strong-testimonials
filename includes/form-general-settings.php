@@ -47,16 +47,18 @@
 </tr>
 
 <tr valign="top">
-<th scope="row"><?php _e( 'CAPTCHA plugin', 'strong-testimonials' );?></th>
-<td>
-	<select name="wpmtst_options[captcha]" autocomplete="off">
-		<option value=""><?php _e( 'none' );?></option>
-		<?php foreach ( $plugins as $key => $plugin ) : ?>
-		<?php if ( $plugin['active'] ) : ?>
-		<option value="<?php echo $key; ?>" <?php selected( $options['captcha'], $key ); ?>><?php echo $plugin['name']; ?></option>
-		<?php endif; ?>
-		<?php endforeach; ?>
-	</select>
+<th scope="row"><?php _e( 'Captcha Method', 'strong-testimonials' );?></th>
+<td class="stackem">
+	<label>
+		<input type="radio" id="" name="wpmtst_options[captcha]" <?php checked( 'none', $options['captcha'] ); ?> value="none" /> none
+	</label>
+	<?php foreach ( $plugins as $key => $plugin ) : ?>
+	<label <?php if ( ! $plugin['active'] ) echo ' class="disabled"'; ?>>
+		<input type="radio" id="" name="wpmtst_options[captcha]" <?php disabled( ! $plugin['active'] ); ?><?php checked( $key, $options['captcha'] ); ?> value="<?php echo $key; ?>" />
+		<?php echo $plugin['name']; ?> <?php if ( ! $plugin['active'] ) echo '<span class="notice">(not installed)</span>'; ?>
+		<span class="link"><a href="<?php echo $plugin['url']; ?>" target="_blank"><?php _e( 'plugin page &raquo;', 'strong-testimonials' ); ?></a></span>
+	</label>	
+	<?php endforeach; ?>
 </td>
 </tr>
 

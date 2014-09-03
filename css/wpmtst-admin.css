@@ -3,6 +3,14 @@
  */
 
 
+.wpmtst h2 {
+	margin-bottom: 1em;
+}
+
+.wpmtst .list-wrap {
+	padding: .5em;
+}
+
 p.submit .reminder {
 	display: inline-block;
 	font-style: italic;
@@ -141,6 +149,21 @@ table.shortcode-table td:nth-child(2) {
 .stackem label {
 	display: block;
 	line-height: 2em;
+}
+
+.stackem .notice {
+	display: inline-block;
+	font-size: .9em;
+	font-style: italic;
+	margin: 0 .2em;
+}
+.stackem span.link {
+	display: inline-block;
+	margin: 0 .2em;
+	font-size: .9em;
+}
+.stackem label.disabled {
+	color: #888;
 }
 
 #screenshot-screen-options {
@@ -396,10 +419,7 @@ ul.description {
 	vertical-align: baseline;
 }
 
-.row {
-}
-
-	.row > div {
+	.wpmtst-mode .row > div {
 		vertical-align: baseline;
 		display: inline-block;
 	}
@@ -589,4 +609,176 @@ input[readonly] {
 		margin-right: 0;
 		margin-left: 10px;
 	}
+
 	
+/* Guide page
+---------------------------------------------------------*/
+
+.guide-content {
+	padding: 0 1em;
+}
+
+.guide-content p {
+	font-size: 1.2em;
+}
+
+.guide-content h3 {
+	color: #6CAEC7;
+	font-size: 1.5em;
+	margin-top: 2em;
+}
+
+/* Getting Started tab */
+
+.guide-content.start ul {
+	display: inline-block;
+	font-size: 1.1em;
+	text-align: center;
+}
+.guide-content.start ul > li {
+	background: #C8E9F6;
+	margin: 0;
+	padding: .8em 1.6em;
+}
+.guide-content.start ul > li:nth-child(even) {
+	background: #FFF;
+}
+.guide-content.start ul strong {
+	font-size: 1.4em;
+	letter-spacing: 1px;
+}
+.guide-content.start ul .permalink {
+	font-family: Consolas, Monaco, monospace;
+	font-size: 1.1em;
+	padding: .25em;
+	text-decoration: underline;
+}
+.guide-content.start ul .help {
+	color: #666;
+	font-size: .9em;
+}
+
+/* guide table */
+
+table.guide {
+	margin: 2em 0 1em;
+	border-collapse: collapse;
+}
+table.guide * {
+	transition: all 0.5s ease;
+}
+table.guide tr {
+	background: #C8E9F6;
+}
+
+table.guide th,
+table.guide td {
+	padding: 10px;
+	border-bottom: 10px solid #F1F1F1;
+}
+table.guide th span {
+	background: #FFF;
+	border-radius: 5px;
+	color: #6CAEC7;
+	display: inline-block;
+	font-size: 2em;
+	padding: 7px;
+}
+table.guide td:last-child {
+	font-size: 1.2em;
+	line-height: 1.5em;
+	padding-right: 1em;
+}
+table.guide td.step {
+	font-size: 2em;
+	padding-left: 0;
+	white-space: nowrap;
+}
+
+table.guide tr:hover th,
+table.guide tr:hover td {
+	background: #FFF;
+	color: #000;
+}
+table.guide tr:hover th span {
+	background: #6CAEC7;
+	border-color: transparent;
+	color: #FFF;
+}
+table.guide tr:hover td.step {
+	color: #6CAEC7;
+}
+
+table.guide td.features {
+	padding: 0 0px;
+}
+
+/* features list */
+
+ul.features {
+	margin: 0;
+}
+ul.features li {
+	margin: 0;
+	padding: .7em;
+}
+table.guide tr:hover ul.features li {
+	background: #FFE6A8;
+}
+table.guide tr:hover ul.features li:nth-child(even) {
+	background: #FFF1CD;
+}
+table.guide tr:hover ul.features li:hover {
+	background: #FFF;
+}
+
+/* 
+  Future tab
+  thanks http://www.456bereastreet.com/archive/201105/styling_ordered_list_numbers/
+*/
+.guide-content.future ol {
+	counter-reset: li; /* Initiate a counter */
+	display: inline-block;
+	margin-left: 1em;
+	padding-left: 0;
+}
+.guide-content.future ol > li {
+	background: #e4e4e4;
+	font-size: 1.2em;
+	padding: 14px;
+	position: relative; /* Create a positioning context */
+	list-style: none; /* Disable the normal item numbering */
+	margin: 0 0 0 2em; /* Give each list item a left margin to make room for the numbers */
+	transition: all 0.5s ease;
+}
+.guide-content.future ol > li:before {
+	content: counter(li); /* Use the counter as content */
+	counter-increment: li; /* Increment the counter by 1 */
+	position: absolute;
+		top: 0;
+		left: -2.5em;
+	-webkit-box-sizing: border-box;
+	   -moz-box-sizing: border-box;
+	        box-sizing: border-box;
+	background: #666;
+	border-bottom: 1px solid white;
+	color: #fff;
+	font-weight: bold;
+	margin-top: 0;
+	margin-bottom: 0;
+	padding: 14px 10px 13px;
+	text-align: center;
+	transition: all 0.5s ease;
+	width: 2.5em;
+}
+
+.guide-content.future ol li:nth-child(even) {
+	background: #fff;
+}
+.guide-content.future ol li:hover {
+	background: #C8E9F6;
+	color: #000;
+}
+.guide-content.future ol li:hover:before {
+	background: #6CAEC7;
+}
