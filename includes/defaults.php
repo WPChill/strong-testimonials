@@ -1,9 +1,10 @@
 <?php
 /**
  * Strong Testimonials - Default options
- * Version: 1.8
  *
  * Populates default_options and default_options.
+ *
+ * @since 1.8
  */
 
  
@@ -16,6 +17,8 @@ $default_options = array(
 		'admin_notify'      => 0,
 		'admin_email'       => '',
 		'captcha'           => '',
+		'honeypot_before'   => 0,
+		'honeypot_after'    => 1,
 		'load_page_style'   => 1,
 		'load_widget_style' => 1,
 		'load_form_style'   => 1,
@@ -44,7 +47,7 @@ $default_cycle = array(
 // ---------
 
 $default_options['default_template'] = '[wpmtst-text field="client_name" class="name"]' . PHP_EOL
-	. '[wpmtst-link url="company_website" text="company_name" target="_blank" class="company"]';
+	. '[wpmtst-link url="company_website" text="company_name" new_tab class="company"]';
 
 $default_options['client_section'] = $default_options['default_template'];
 

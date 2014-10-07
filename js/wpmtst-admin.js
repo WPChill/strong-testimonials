@@ -170,6 +170,8 @@ jQuery(document).ready(function($) {
 		var yesno = confirm('Delete "' + thisLabel + '"?');
 		if( yesno ) {
 			thisField.fadeOut(function(){$(this).remove()});
+			// enable "Add New Field" button
+			$("#add-field").removeAttr("disabled");
 		}
 	});
 	
@@ -417,7 +419,7 @@ jQuery(document).ready(function($) {
 			
 			// update parent list item...
 			$parent.find(".custom-field-header a.field").html( $fieldLabel.val() );
-			// ... and stored fieldType
+			// ...and stored fieldType
 			$parent.data('fieldType',fieldType);
 			
 			// update hidden [record_type] input

@@ -1,10 +1,10 @@
 <?php
 /**
  * Plugin Name: Strong Testimonials
- * Plugin URI: http://www.wpmission.com/wordpress-plugins/strong-testimonials/
- * Description: A simple yet robust testimonial manager.
+ * Plugin URI: http://www.wpmission.com/plugins/strong-testimonials/
+ * Description: A powerful testimonial manager.
  * Author: Chris Dillon
- * Version: 1.9.3
+ * Version: 1.10
  * Forked From: GC Testimonials version 1.3.2 by Erin Garscadden
  * Author URI: http://www.wpmission.com/contact
  * Text Domain: strong-testimonials
@@ -93,8 +93,16 @@ function wpmtst_default_settings() {
 	else {
 		// -2B- UPDATE
 		if ( ! isset( $options['plugin_version'] )
-					|| $options['plugin_version'] != $plugin_version ) {
-			
+					|| $options['plugin_version'] != $plugin_version 
+					|| 'strong.dev' == $_SERVER['SERVER_NAME'] ) {
+
+			// Fixing captcha inconsistency.
+			if ( 'none' == $options['captcha'] )
+				$options['captcha'] = '';
+				
+			// Change target parameter in client section
+			$options['default_template'] = str_replace( 'target="_blank"', 'new_tab', $options['default_template'] );
+				
 			// merge in new options
 			$options = array_merge( $default_options, $options );
 			$options['plugin_version'] = $plugin_version;
@@ -222,7 +230,6 @@ function wpmtst_register_cpt() {
 	// This will override other CPTs with same slug.
 	// $permastruct_args = $testimonial_args['rewrite'];
 	// add_permastruct( 'wpm-testimonial', "review/%wpm-testimonial%", array( 'slug' => __( 'review', 'strong-testimonials' ) ) );
-	// add_permastruct( 'wpm-testimonial', "testimonial/%wpm-testimonial%", array( 'slug' => __( 'testimonial', 'strong-testimonials' ) ) );
 
 	
 	$categories_labels = array(
@@ -295,8 +302,19 @@ function wpmtst_scripts() {
 		if ( has_shortcode( $post->post_content, 'wpmtst-form' ) ) {
 			if ( $options['load_form_style'] )
 				wp_enqueue_style( 'wpmtst-form-style' );
+				
 			wp_enqueue_script( 'wpmtst-validation-plugin' );
 			add_action( 'wp_footer', 'wpmtst_validation_function' );
+			
+			if ( $options['honeypot_before'] ) {
+				add_action( 'wp_footer', 'wpmtst_honeypot_before_script' );
+				add_action( 'wpmtst_honeypot_before', 'wpmtst_honeypot_before' );
+			}
+			
+			if ( $options['honeypot_after'] ) {
+				add_action( 'wp_footer', 'wpmtst_honeypot_after_script' );
+				add_action( 'wpmtst_honeypot_after', 'wpmtst_honeypot_after' );
+			}
 		}
 
 		if ( has_shortcode( $post->post_content, 'wpmtst-cycle' ) ) {
@@ -322,12 +340,13 @@ add_action( 'wp_enqueue_scripts', 'wpmtst_scripts' );
 /*
  * Includes
  */
-include( WPMTST_INC . 'functions.php');
-include( WPMTST_INC . 'shims.php');
-include( WPMTST_INC . 'admin.php');
-include( WPMTST_INC . 'settings.php');
-include( WPMTST_INC . 'guide.php');
-include( WPMTST_INC . 'shortcodes.php');
-include( WPMTST_INC . 'widget.php');
-include( WPMTST_INC . 'admin-custom-fields.php');
-include( WPMTST_INC . 'captcha.php');
+include( WPMTST_INC . 'functions.php' );
+include( WPMTST_INC . 'shims.php' );
+include( WPMTST_INC . 'admin.php' );
+include( WPMTST_INC . 'settings.php' );
+include( WPMTST_INC . 'guide.php' );
+include( WPMTST_INC . 'shortcodes.php' );
+include( WPMTST_INC . 'shortcode-form.php' );
+include( WPMTST_INC . 'widget.php' );
+include( WPMTST_INC . 'admin-custom-fields.php' );
+include( WPMTST_INC . 'captcha.php' );

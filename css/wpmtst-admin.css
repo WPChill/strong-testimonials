@@ -146,11 +146,9 @@ table.shortcode-table td:nth-child(2) {
 /* Settings table 
 ---------------------------------------------------------*/
 
-.stackem label {
-	display: block;
-	line-height: 2em;
+.stackem ul {
+	margin: 0;
 }
-
 .stackem .notice {
 	display: inline-block;
 	font-size: .9em;
@@ -159,10 +157,10 @@ table.shortcode-table td:nth-child(2) {
 }
 .stackem span.link {
 	display: inline-block;
-	margin: 0 .2em;
+	margin: 0 .3em;
 	font-size: .9em;
 }
-.stackem label.disabled {
+.stackem .disabled {
 	color: #888;
 }
 
@@ -245,7 +243,9 @@ div.radio {
 .wpmtst .form-table .alpha {
 	width: 120px;
 }
-
+.wpmtst .form-table .alpha + div{
+	display: inline-block;
+}
 .code {
 	background: #fff;
 }
@@ -285,6 +285,10 @@ div.radio {
      -moz-box-shadow: 2px 2px 4px rgba(0,0,0,0.5);
           box-shadow: 2px 2px 4px rgba(0,0,0,0.5);
 }
+p.description.hilite {
+	margin-bottom: 2em;
+}
+
 .form-table td .shortcode-example p {  /*S*/
 	margin-top: 0;
 	margin-bottom: 0;
@@ -334,6 +338,9 @@ div.radio {
 
 .radio .description {
 	padding-left: 20px;
+}
+.checkbox .description {
+	padding-left: 24px;
 }
 
 ul.description {

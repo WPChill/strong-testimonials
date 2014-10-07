@@ -55,6 +55,10 @@ function wpmtst_unique_menu_title() {
 	if ( is_plugin_active( 'testimonials-widget/testimonials-widget.php' ) )
 		$need_unique = true;
 
+	// Clean Testimonials
+	if ( is_plugin_active( 'clean-testimonials/clean-testimonials.php' ) )
+		$need_unique = true;
+		
 	if ( ! $need_unique )
 		return;
 
@@ -86,6 +90,8 @@ function wpmtst_sanitize_options( $input ) {
 	$input['per_page']          = (int) sanitize_text_field( $input['per_page'] );
 	$input['admin_notify']      = isset( $input['admin_notify'] ) ? 1 : 0;
 	$input['admin_email']       = sanitize_email( $input['admin_email'] );
+	$input['honeypot_before']   = isset( $input['honeypot_before'] ) ? 1 : 0;
+	$input['honeypot_after']    = isset( $input['honeypot_after'] ) ? 1 : 0;
 	$input['load_page_style']   = isset( $input['load_page_style'] ) ? 1 : 0;
 	$input['load_widget_style'] = isset( $input['load_widget_style'] ) ? 1 : 0;
 	$input['load_form_style']   = isset( $input['load_form_style'] ) ? 1 : 0;
@@ -185,31 +191,45 @@ function wpmtst_settings_section() {
 			'bwsmath' => array(
 					'name' => 'Captcha by BestWebSoft',
 					'file' => 'captcha/captcha.php',
+					'settings' => 'admin.php?page=captcha.php',
+					'search' => 'plugin-install.php?tab=search&s=Captcha',
 					'url'  => 'http://wordpress.org/plugins/captcha/',
+					'installed' => false,
 					'active' => false
 			),
 			'miyoshi' => array(
 					'name' => 'Really Simple Captcha by Takayuki Miyoshi',
 					'file' => 'really-simple-captcha/really-simple-captcha.php',
+					'search' => 'plugin-install.php?tab=search&s=Really+Simple+Captcha',
 					'url'  => 'http://wordpress.org/plugins/really-simple-captcha/',
+					'installed' => false,
 					'active' => false
 			),
 			'wpmsrc'  => array(
 					'name' => 'Simple reCAPTCHA by WP Mission',
 					'file' => 'simple-recaptcha/simple-recaptcha.php',
+					'settings' => 'options-general.php?page=simple-recaptcha.php',
+					'search' => 'plugin-install.php?tab=search&s=Simple+reCAPTCHA',
 					'url'  => 'http://wordpress.org/plugins/simple-recaptcha',
+					'installed' => false,
 					'active' => false
 			),
 	);
 
 	foreach ( $plugins as $key => $plugin ) {
+	
+		if ( file_exists( WP_PLUGIN_DIR . '/' . $plugin['file'] ) ) 
+			$plugins[$key]['installed'] = true;
+			
 		$plugins[$key]['active'] = is_plugin_active( $plugin['file'] );
+		
 		// If current Captcha plugin has been deactivated, disable Captcha
 		// so corresponding div does not appear on front-end form.
 		if ( $key == $options['captcha'] && ! $plugins[$key]['active'] ) {
 			$options['captcha'] = '';
 			update_option( 'wpmtst_options', $options );
 		}
+		
 	}
 	
 	include( WPMTST_INC . 'form-general-settings.php' );
@@ -292,8 +312,8 @@ function wpmtst_settings_shortcodes() {
 				<td>[wpmtst-all]</td>
 			</tr>
 			<tr>
-				<td><?php printf( __( 'Show all from a specific <a href="%s">category</a>.', 'strong-testimonials' ), $links['categories'] ); ?></a></td>
-				<td>[wpmtst-all category="xx"]</td>
+				<td><?php printf( __( 'Show all from a specific <a href="%s">category</a>.', 'strong-testimonials' ), $links['categories'] ); ?></td>
+				<td>[wpmtst-all category="x"]</td>
 			</tr>
 		</table>
 
@@ -321,11 +341,11 @@ function wpmtst_settings_shortcodes() {
 			</tr>
 			<tr>
 				<td><?php printf( __( 'Show a single random testimonial from a specific <a href="%s">category</a>.', 'strong-testimonials' ), $links['categories'] ); ?></td>
-				<td>[wpmtst-random category="xx"]</td>
+				<td>[wpmtst-random category="x"]</td>
 			</tr>
 			<tr>
 				<td><?php printf( __( 'Show a certain number from a specific <a href="%s">category</a>.', 'strong-testimonials' ), $links['categories'] ); ?></td>
-				<td>[wpmtst-random category="xx" limit="x"]</td>
+				<td>[wpmtst-random category="x" limit="x"]</td>
 			</tr>
 		</table>
 
@@ -335,7 +355,7 @@ function wpmtst_settings_shortcodes() {
 			</tr>
 			<tr>
 				<td><?php printf( __( 'Show one specific <a href="%s">testimonial</a>.', 'strong-testimonials' ), $links['testimonials'] ); ?></td>
-				<td>[wpmtst-single id="xx"]</td>
+				<td>[wpmtst-single id="x"]</td>
 			</tr>
 		</table>
 
@@ -344,8 +364,12 @@ function wpmtst_settings_shortcodes() {
 				<th colspan="2"><h3><?php _e( 'Testimonial Submission Form', 'strong-testimonials' ); ?></h3></th>
 			</tr>
 			<tr>
-				<td><?php _e( 'Show a form for visitors to submit testimonials.', 'strong-testimonials' );?><br><?php _e( 'New testimonials are in "Pending" status until published by an administrator.', 'strong-testimonials' ); ?></td>
+				<td><?php _e( 'Show a form for visitors to submit testimonials.', 'strong-testimonials' );?><br><?php // _e( 'New testimonials are in "Pending" status until published by an administrator.', 'strong-testimonials' ); ?></td>
 				<td>[wpmtst-form]</td>
+			</tr>
+			<tr>
+				<td><?php printf( __( 'Add new submissions to a specific <a href="%s">category</a>.', 'strong-testimonials' ), $links['categories'] ); ?></td>
+				<td>[wpmtst-form category="x"]</td>
 			</tr>
 		</table>
 

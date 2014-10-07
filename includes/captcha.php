@@ -42,6 +42,16 @@ function wpmtst_add_captcha( $captcha ) {
 				$html .= '<input type="text" class="captcha" name="captchar" maxlength="4" size="5" />';
 			}
 			break;
+		
+		case 'zerospam' :
+			// add_action( 'zero_spam_enqueue_scripts', 'wpmtst_zerospam' );
+			// add_action( 'zero_spam_enqueue_scripts', 'wpmtst_zerospam', 20 );
+			echo '<script type="text/javascript">';
+			echo '/* <![CDATA[ */';
+			echo 'var forms = "#commentform, #registerform, #wpmtst-submission-form";';
+			echo '/* ]]> */';
+			echo '</script>';
+			break;
 			
 		default :
 			// no captcha
@@ -49,7 +59,6 @@ function wpmtst_add_captcha( $captcha ) {
 	}
 	return $html;
 }
-// add_action( 'wpmtst_captcha', 'wpmtst_add_captcha', 50, 1 );
 add_filter( 'wpmtst_captcha', 'wpmtst_add_captcha', 50, 1 );
 
 
@@ -94,24 +103,22 @@ function wpmtst_captcha_check( $captcha, $errors ) {
 			}
 			break;
 
-			// Really Simple Captcha by Takayuki Miyoshi
-			case 'miyoshi':
-				if ( class_exists( 'ReallySimpleCaptcha' ) ) {
-					$captcha_instance = new ReallySimpleCaptcha();
-					$prefix = isset( $_POST['captchac'] ) ? (string) $_POST['captchac'] : '';
-					$response = isset( $_POST['captchar'] ) ? (string) $_POST['captchar'] : '';
-					$correct = $captcha_instance->check( $prefix, $response );
-					if ( ! $correct )
-						$errors['captcha'] = __( 'The CAPTCHA was not entered correctly. Please try again.', 'strong-testimonials' );
-					// remove the temporary image and text files
-					// (except on Windows)
-					if ( '127.0.0.1' != $_SERVER['SERVER_ADDR'] )
-						$captcha_instance->remove( $prefix );
-				}
-				break;
-				
+		// Really Simple Captcha by Takayuki Miyoshi
+		case 'miyoshi' :
+			if ( class_exists( 'ReallySimpleCaptcha' ) ) {
+				$captcha_instance = new ReallySimpleCaptcha();
+				$prefix = isset( $_POST['captchac'] ) ? (string) $_POST['captchac'] : '';
+				$response = isset( $_POST['captchar'] ) ? (string) $_POST['captchar'] : '';
+				$correct = $captcha_instance->check( $prefix, $response );
+				if ( ! $correct )
+					$errors['captcha'] = __( 'The CAPTCHA was not entered correctly. Please try again.', 'strong-testimonials' );
+				// remove the temporary image and text files (except on Windows)
+				if ( '127.0.0.1' != $_SERVER['SERVER_ADDR'] )
+					$captcha_instance->remove( $prefix );
+			}
+			break;
+		
 		default :
-
 	}
 	return $errors;
 }

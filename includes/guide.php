@@ -115,7 +115,7 @@ function wpmtst_guide_advanced() {
 					<ul class="features">
 						<li><strong><a href="edit.php?post_type=wpm-testimonial&page=fields">Fields</a></strong> - Customize the form to meet your needs. <a href="http://www.wpmission.com/tutorials/customize-the-form-in-strong-testimonials/" target="_blank">Here</a> is a full tutorial.</li>
 						<li><strong><a href="edit.php?post_type=wpm-testimonial">Featured Images</a></strong> - AKA thumbnails. Allow your clients to include a photo or a logo with their testimonial.</li>
-						<li><strong><a href="edit.php?post_type=wpm-testimonial&page=settings">Anti-spam</a></strong> - Add a Captcha to the form using a plugin.</li>
+						<li><strong><a href="edit.php?post_type=wpm-testimonial&page=settings">Spam Control</a></strong> - Add honeypot and/or Captcha  methods to the form.</li>
 						<li><strong><a href="edit.php?post_type=wpm-testimonial&page=settings">Notification</a></strong> - Automatically send an email to the site administrator when a new testimonial has been submitted and is pending review.</li>
 					</ul>
 				</td>
@@ -155,10 +155,10 @@ function wpmtst_guide_future() {
 	?>
 	<div class="guide-content future">
 	
-		<h3>Here's some of what we have planned for upcoming versions.</h3>
+		<h3>Here's some of what is planned for upcoming versions.</h3>
 		<ol>
-			<li>A client section editor similar to the custom fields editor.</li>
-			<li>More anti-spam options.</li>
+			<li>A single shortcode that does it all.</li>
+			<li>A new slider with carousel and news feed effects.</li>
 			<li>Auto-publish option (bypass administrator review).</li>
 			<li>Manual reordering of testimonials.</li>
 			<li>Hooks and filters for deeper customization.</li>

@@ -81,6 +81,7 @@
 	padding: 5px 10px;
 }
 
+
 /* reCAPTCHA mini-reset
 -----------------------------------------------*/
 
@@ -101,6 +102,7 @@
 	display: inline !important;
 }
 
+
 /* Really Simple Captcha
 -----------------------------------------------*/
 
@@ -114,4 +116,12 @@
 
 #wpmtst-form img.captcha {
 	border: 0;
+}
+
+
+/* Honeypot
+-----------------------------------------------*/
+#wpmtst-form .wpmtst_if_visitor * {
+	display: none !important;
+	visibility: hidden !important;
 }

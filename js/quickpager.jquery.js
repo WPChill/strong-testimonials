@@ -1,28 +1,32 @@
-/*-------------------------------------------------
-		Quick Pager jquery plugin
-		
-		Copyright (C) 2011 by Dan Drayne
+/*
+	Quick Pager jQuery plugin
 
-		Permission is hereby granted, free of charge, to any person obtaining a copy
-		of this software and associated documentation files (the "Software"), to deal
-		in the Software without restriction, including without limitation the rights
-		to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-		copies of the Software, and to permit persons to whom the Software is
-		furnished to do so, subject to the following conditions:
+	Copyright (C) 2011 by Dan Drayne
 
-		The above copyright notice and this permission notice shall be included in
-		all copies or substantial portions of the Software.
+	Permission is hereby granted, free of charge, to any person obtaining a copy
+	of this software and associated documentation files (the "Software"), to deal
+	in the Software without restriction, including without limitation the rights
+	to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+	copies of the Software, and to permit persons to whom the Software is
+	furnished to do so, subject to the following conditions:
 
-		THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-		IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-		FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-		AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-		LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-		OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-		THE SOFTWARE.
-		
-		v1.1/		18/09/09 * bug fix by John V - http://blog.geekyjohn.com/
--------------------------------------------------*/
+	The above copyright notice and this permission notice shall be included in
+	all copies or substantial portions of the Software.
+
+	THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+	IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+	FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+	AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+	LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+	THE SOFTWARE.
+
+	v1.1   18/09/09 * bug fix by John V - http://blog.geekyjohn.com/
+
+	v1.2   09/29/2014
+	Modified for Strong Testimonials WordPress plugin by Chris Dillon
+	chris@wpmission.com
+*/
 
 (function($) {
 	    
@@ -118,8 +122,23 @@
 				selector.children().hide();			
 				selector.find(".simplePagerPage"+clickedLink).show();
 				
-				// Scroll to top for any click
-				$("html, body").animate({ "scrollTop": $("#wpmtst-container").scrollTop() }, 800);
+				// Modified for Strong Testimonials
+				// --------------------------------
+				// Scroll up for any nav click
+				//
+				// Special cases:
+				//   WooCommerce product tabs
+				if(selector.closest(".woocommerce-tabs").length) {
+					var offset = selector.closest(".woocommerce-tabs").offset();
+				} else {
+					var offset = selector.closest(".simplePagerContainer").offset();
+				}
+				var scrollto = offset.top;
+				// is WordPress admin bar showing?
+				if($("#wpadminbar").length) {
+					scrollto -= 32;
+				}
+				$("html, body").animate({scrollTop:scrollto}, 800);
 
 				return false;
 			});
@@ -127,4 +146,3 @@
 	}
 
 })(jQuery);
-
