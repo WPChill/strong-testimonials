@@ -4,7 +4,7 @@
  * Plugin URI: http://www.wpmission.com/plugins/strong-testimonials/
  * Description: A powerful testimonial manager.
  * Author: Chris Dillon
- * Version: 1.10
+ * Version: 1.11
  * Forked From: GC Testimonials version 1.3.2 by Erin Garscadden
  * Author URI: http://www.wpmission.com/contact
  * Text Domain: strong-testimonials
@@ -35,9 +35,10 @@
  */
 define( 'WPMTST_DIR', plugin_dir_url( __FILE__ ) );
 define( 'WPMTST_INC', plugin_dir_path( __FILE__ ) . 'includes/' );
+define( 'WPMTST_TPL', plugin_dir_path( __FILE__ ) . 'templates/' );
 
 
-/*
+/**
  * Plugin action links
  */
 function wpmtst_plugin_action_links( $links, $file ) {
@@ -51,7 +52,7 @@ function wpmtst_plugin_action_links( $links, $file ) {
 add_filter( 'plugin_action_links', 'wpmtst_plugin_action_links', 10, 2 );
 
 
-/*
+/**
  * Text domain
  */
 function wpmtst_textdomain() {
@@ -60,7 +61,7 @@ function wpmtst_textdomain() {
 add_action( 'plugins_loaded', 'wpmtst_textdomain' );
 
 
-/*
+/**
  * Plugin activation
  */
 register_activation_hook( __FILE__, 'wpmtst_register_cpt' );
@@ -72,7 +73,7 @@ function wpmtst_flush_rewrite_rules() {
 }
 
 
-/*
+/**
  * Plugin activation and upgrade.
  */
 function wpmtst_default_settings() {
@@ -145,6 +146,17 @@ function wpmtst_default_settings() {
 			update_option( 'wpmtst_options', $options );
 		}
 		
+		// if updating to 1.11
+		// change hyphenated to underscored
+		if ( isset( $cycle['char-limit'] ) ) {
+			$cycle['char_limit'] = $cycle['char-limit'];
+			unset( $cycle['char-limit'] );
+		}
+		if ( isset( $cycle['more-page'] ) ) {
+			$cycle['more_page'] = $cycle['more-page'];
+			unset( $cycle['more-page'] );
+		}
+		
 		// if updating from 1.7
 		// moving cycle options to separate option
 		if ( isset( $options['cycle']['cycle-order'] ) ) {
@@ -166,7 +178,7 @@ function wpmtst_default_settings() {
 }
 
 
-/*
+/**
  * Check WordPress version
  */
 function wpmtst_version_check() {
@@ -188,7 +200,7 @@ function wpmtst_version_check() {
 }
 
 
-/*
+/**
  * Register Post Type and Taxonomy
  */
 function wpmtst_register_cpt() {
@@ -261,7 +273,7 @@ function wpmtst_register_cpt() {
 add_action( 'init', 'wpmtst_register_cpt', 5 );
 
 
-/*
+/**
  * Theme support for this custom post type only.
  */
 function wpmtst_theme_support() {
@@ -270,7 +282,7 @@ function wpmtst_theme_support() {
 add_action( 'after_theme_setup', 'wpmtst_theme_support' );
 
 
-/*
+/**
  * Register scripts and styles.
  */
 function wpmtst_scripts() {
@@ -280,7 +292,8 @@ function wpmtst_scripts() {
 	/*
 	 * Widget style and scripts are enqueued when widget is active
 	 * to be compatible with Page Builder plugin.
-	 * @since 1.9
+	 *
+	 * @since 1.9.0
 	 */
 	 
 	wp_register_style( 'wpmtst-style', WPMTST_DIR . 'css/wpmtst.css' );
@@ -331,22 +344,28 @@ function wpmtst_scripts() {
 			if ( $options['load_page_style'] )
 				wp_enqueue_style( 'wpmtst-style' );
 		}
-
+	
 	}
 }
 add_action( 'wp_enqueue_scripts', 'wpmtst_scripts' );
 
 
-/*
+/**
  * Includes
  */
 include( WPMTST_INC . 'functions.php' );
+include( WPMTST_INC . 'child-shortcodes.php' );
 include( WPMTST_INC . 'shims.php' );
-include( WPMTST_INC . 'admin.php' );
-include( WPMTST_INC . 'settings.php' );
-include( WPMTST_INC . 'guide.php' );
-include( WPMTST_INC . 'shortcodes.php' );
-include( WPMTST_INC . 'shortcode-form.php' );
 include( WPMTST_INC . 'widget.php' );
-include( WPMTST_INC . 'admin-custom-fields.php' );
-include( WPMTST_INC . 'captcha.php' );
+if ( is_admin() ) {
+	include( WPMTST_INC . 'admin.php' );
+	include( WPMTST_INC . 'admin-custom-fields.php' );
+	include( WPMTST_INC . 'settings.php' );
+	include( WPMTST_INC . 'guide.php' );
+}
+else {
+	include( WPMTST_INC . 'shortcodes.php' );
+	include( WPMTST_INC . 'shortcode-form.php' );
+	include( WPMTST_INC . 'shortcode-strong.php' );
+	include( WPMTST_INC . 'captcha.php' );
+}

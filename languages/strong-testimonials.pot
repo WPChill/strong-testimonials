@@ -1,0 +1,1411 @@
+# Copyright (C) 2014 Strong Testimonials
+# This file is distributed under the same license as the Strong Testimonials package.
+msgid ""
+msgstr ""
+"Project-Id-Version: Strong Testimonials 1.11\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/strong-testimonials\n"
+"POT-Creation-Date: 2014-10-23 00:34:15+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2014-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+
+#: includes/admin-custom-fields.php:12 includes/settings.php:136
+msgid "You do not have sufficient permissions to access this page."
+msgstr ""
+
+#: includes/admin-custom-fields.php:32
+msgid "Changes undone."
+msgstr ""
+
+#: includes/admin-custom-fields.php:49
+msgid "Defaults restored."
+msgstr ""
+
+#: includes/admin-custom-fields.php:75
+msgid "Fields saved."
+msgstr ""
+
+#: includes/admin-custom-fields.php:90 includes/guide-advanced.php:12
+msgid "Fields"
+msgstr ""
+
+#: includes/admin-custom-fields.php:111
+msgid "Add New Field"
+msgstr ""
+
+#: includes/admin-custom-fields.php:116
+msgid "Undo Changes"
+msgstr ""
+
+#: includes/admin-custom-fields.php:117
+msgid "Restore Defaults"
+msgstr ""
+
+#: includes/admin-custom-fields.php:153
+msgid "This appears on the form."
+msgstr ""
+
+#: includes/admin-custom-fields.php:166
+msgid "Use only lowercase letters, numbers, and underscores."
+msgstr ""
+
+#: includes/admin-custom-fields.php:210
+msgid "Post Fields"
+msgstr ""
+
+#: includes/admin-custom-fields.php:217
+msgid "Custom Fields"
+msgstr ""
+
+#: includes/admin-custom-fields.php:276
+msgid "Delete"
+msgstr ""
+
+#: includes/admin-custom-fields.php:278
+msgid "Close"
+msgstr ""
+
+#: includes/admin-custom-fields.php:302
+msgid "Required"
+msgstr ""
+
+#: includes/admin-custom-fields.php:319
+msgid "Placeholder"
+msgstr ""
+
+#: includes/admin-custom-fields.php:328 includes/form-general-settings.php:66
+msgid "Before"
+msgstr ""
+
+#: includes/admin-custom-fields.php:336 includes/form-general-settings.php:71
+msgid "After"
+msgstr ""
+
+#: includes/admin-custom-fields.php:352
+msgid "Admin Table"
+msgstr ""
+
+#: includes/admin-custom-fields.php:358
+msgid "required"
+msgstr ""
+
+#: includes/admin.php:58
+msgid "Client Details"
+msgstr ""
+
+#: includes/admin.php:96
+msgid "To add a client&apos;s photo, use the Featured Image option."
+msgstr ""
+
+#: includes/admin.php:133 includes/form-cycle-settings.php:73
+#: includes/widget.php:234 includes/widget.php:377
+msgid "Title"
+msgstr ""
+
+#: includes/admin.php:134 includes/form-cycle-settings.php:85
+#: includes/widget.php:348
+msgid "Excerpt"
+msgstr ""
+
+#: includes/admin.php:140 includes/admin.php:201
+msgid "Thumbnail"
+msgstr ""
+
+#: includes/admin.php:147 includes/form-cycle-settings.php:12
+#: includes/widget.php:240
+msgid "Category"
+msgstr ""
+
+#: includes/admin.php:148 includes/admin.php:245
+msgid "Shortcode"
+msgstr ""
+
+#: includes/admin.php:149
+msgid "Date"
+msgstr ""
+
+#: includes/admin.php:230 includes/form-cycle-settings.php:140
+#: includes/widget.php:409
+msgid "None"
+msgstr ""
+
+#: includes/admin.php:242
+msgid "ID"
+msgstr ""
+
+#: includes/admin.php:243
+msgid "Name"
+msgstr ""
+
+#: includes/admin.php:244
+msgid "Slug"
+msgstr ""
+
+#: includes/admin.php:246
+msgid "Posts"
+msgstr ""
+
+#: includes/captcha.php:39
+msgid "Input this code:"
+msgstr ""
+
+#: includes/captcha.php:64 includes/captcha.php:73
+msgid "Please complete the CAPTCHA."
+msgstr ""
+
+#: includes/captcha.php:85
+msgid "Invalid keys. Please contact the site administrator."
+msgstr ""
+
+#: includes/captcha.php:86
+msgid "Invalid parameter. Please contact the site administrator."
+msgstr ""
+
+#: includes/captcha.php:87 includes/captcha.php:104
+msgid "The CAPTCHA was not entered correctly. Please try again."
+msgstr ""
+
+#: includes/captcha.php:88
+msgid "The process timed out. Please try again."
+msgstr ""
+
+#: includes/defaults.php:65
+msgid "This field is required."
+msgstr ""
+
+#: includes/defaults.php:77
+msgid "Testimonial Title"
+msgstr ""
+
+#: includes/defaults.php:84
+msgid "Testimonial Content"
+msgstr ""
+
+#: includes/defaults.php:92
+msgid "Featured Image"
+msgstr ""
+
+#: includes/defaults.php:122
+msgid "Default Field Group"
+msgstr ""
+
+#: includes/defaults.php:130
+msgid "Full Name"
+msgstr ""
+
+#: includes/defaults.php:133
+msgid "What is your full name?"
+msgstr ""
+
+#: includes/defaults.php:139
+msgid "Email"
+msgstr ""
+
+#: includes/defaults.php:142
+msgid "What is your email address?"
+msgstr ""
+
+#: includes/defaults.php:147
+msgid "Company Name"
+msgstr ""
+
+#: includes/defaults.php:149
+msgid "What is your company name?"
+msgstr ""
+
+#: includes/defaults.php:154
+msgid "Company Website"
+msgstr ""
+
+#: includes/defaults.php:156
+msgid "Does your company have a website?"
+msgstr ""
+
+#: includes/defaults.php:164
+msgid "Heading"
+msgstr ""
+
+#: includes/defaults.php:167
+msgid "A headline for your testimonial."
+msgstr ""
+
+#: includes/defaults.php:172
+msgid "Testimonial"
+msgstr ""
+
+#: includes/defaults.php:175
+msgid "What do you think about us?"
+msgstr ""
+
+#: includes/defaults.php:180
+msgid "Photo"
+msgstr ""
+
+#: includes/defaults.php:182
+msgid "Would you like to include a photo?"
+msgstr ""
+
+#: includes/defaults.php:198
+msgid "Custom Field Group"
+msgstr ""
+
+#: includes/form-client-settings.php:28
+msgid "Client section shortcodes:"
+msgstr ""
+
+#: includes/form-client-settings.php:30
+msgid "Your fields:"
+msgstr ""
+
+#: includes/form-client-settings.php:30
+msgid ""
+"These are the fields used on your testimonial submission form. You can "
+"change these in the Fields editor."
+msgstr ""
+
+#: includes/form-client-settings.php:32
+msgid ""
+"Use these shortcodes to select which client fields appear below each "
+"testimonial."
+msgstr ""
+
+#: includes/form-client-settings.php:32
+msgid "These shortcodes only work here, not on a page."
+msgstr ""
+
+#: includes/form-client-settings.php:46
+msgid "Default:"
+msgstr ""
+
+#: includes/form-client-settings.php:55
+msgid "Restore Default"
+msgstr ""
+
+#: includes/form-cycle-settings.php:16
+msgid "All categories"
+msgstr ""
+
+#: includes/form-cycle-settings.php:30 includes/widget.php:254
+msgid "Order"
+msgstr ""
+
+#: includes/form-cycle-settings.php:46
+msgid "How many?"
+msgstr ""
+
+#: includes/form-cycle-settings.php:52 includes/widget.php:292
+msgid "All"
+msgstr ""
+
+#: includes/form-cycle-settings.php:68 includes/widget.php:285
+#: includes/widget.php:330
+msgid "Show"
+msgstr ""
+
+#: includes/form-cycle-settings.php:73 includes/form-cycle-settings.php:116
+#: includes/form-cycle-settings.php:126
+msgid "(if included in Fields)"
+msgstr ""
+
+#: includes/form-cycle-settings.php:87
+msgid "Excerpts are hand-crafted summaries of your testimonial."
+msgstr ""
+
+#: includes/form-cycle-settings.php:88
+msgid ""
+"You may need to enable them in the post editor like in this <a id=\"toggle-"
+"screen-options\" href=\"#\">screenshot</a>."
+msgstr ""
+
+#: includes/form-cycle-settings.php:96
+msgid "Content up to"
+msgstr ""
+
+#: includes/form-cycle-settings.php:96
+msgid "characters"
+msgstr ""
+
+#: includes/form-cycle-settings.php:98 includes/widget.php:360
+msgid "Will break on a space and add an ellipsis."
+msgstr ""
+
+#: includes/form-cycle-settings.php:103 includes/widget.php:366
+msgid "Entire content"
+msgstr ""
+
+#: includes/form-cycle-settings.php:116 includes/guide-advanced.php:13
+#: includes/widget.php:386
+msgid "Featured Images"
+msgstr ""
+
+#: includes/form-cycle-settings.php:126
+msgid "Client Information"
+msgstr ""
+
+#: includes/form-cycle-settings.php:134
+msgid "\"Read more\" link"
+msgstr ""
+
+#: includes/form-cycle-settings.php:146 includes/widget.php:413
+msgid "Link to the testimonial"
+msgstr ""
+
+#: includes/form-cycle-settings.php:152 includes/widget.php:417
+msgid "Link to"
+msgstr ""
+
+#: includes/form-cycle-settings.php:155 includes/widget.php:419
+msgid "— Select a page —"
+msgstr ""
+
+#: includes/form-cycle-settings.php:168
+msgid "Transition"
+msgstr ""
+
+#: includes/form-cycle-settings.php:174 includes/widget.php:298
+msgid "Show each for"
+msgstr ""
+
+#: includes/form-cycle-settings.php:178 includes/form-cycle-settings.php:191
+#: includes/widget.php:302 includes/widget.php:312
+msgid "seconds"
+msgstr ""
+
+#: includes/form-cycle-settings.php:187 includes/widget.php:308
+msgid "Effect duration"
+msgstr ""
+
+#: includes/form-cycle-settings.php:198 includes/widget.php:319
+msgid "Pause on hover"
+msgstr ""
+
+#: includes/form-general-settings.php:14
+msgid "Load stylesheets"
+msgstr ""
+
+#: includes/form-general-settings.php:20
+msgid "Pages"
+msgstr ""
+
+#: includes/form-general-settings.php:26
+msgid "Widget"
+msgstr ""
+
+#: includes/form-general-settings.php:32 includes/settings-shortcodes.php:81
+msgid "Submission Form"
+msgstr ""
+
+#: includes/form-general-settings.php:40
+msgid "The number of testimonials to show per page"
+msgstr ""
+
+#: includes/form-general-settings.php:43
+msgid "This applies to the %s shortcode."
+msgstr ""
+
+#: includes/form-general-settings.php:48
+msgid "When a new testimonial is submitted"
+msgstr ""
+
+#: includes/form-general-settings.php:52
+msgid "Send notification email to"
+msgstr ""
+
+#: includes/form-general-settings.php:59 includes/guide-advanced.php:14
+msgid "Spam Control"
+msgstr ""
+
+#: includes/form-general-settings.php:61
+msgid "Honeypot"
+msgstr ""
+
+#: includes/form-general-settings.php:62
+msgid ""
+"These methods are both time-tested and widely used. They can be used "
+"simultaneously for more protection."
+msgstr ""
+
+#: includes/form-general-settings.php:67
+msgid ""
+"Traps spambots by adding an extra empty field that is invisible to humans "
+"but not to spambots which tend to fill in every field they find in the form "
+"code. Empty field = human. Not empty = spambot."
+msgstr ""
+
+#: includes/form-general-settings.php:72
+msgid "Recommended."
+msgstr ""
+
+#: includes/form-general-settings.php:72
+msgid ""
+"Traps spambots by using JavaScript to add a new field as soon as the form is "
+"submitted. Since spambots cannot run JavaScript, the new field never gets "
+"added. New field = human. Missing = spambot."
+msgstr ""
+
+#: includes/form-general-settings.php:81
+msgid ""
+"Captcha can be used alongside honeypot methods. Be sure to configure any "
+"plugins first, if necessary."
+msgstr ""
+
+#: includes/form-general-settings.php:101
+msgid "settings"
+msgstr ""
+
+#: includes/form-general-settings.php:103
+msgid "no settings"
+msgstr ""
+
+#: includes/form-general-settings.php:108
+msgid "inactive"
+msgstr ""
+
+#: includes/form-general-settings.php:114
+msgid "not installed"
+msgstr ""
+
+#: includes/form-general-settings.php:115
+msgid "install plugin"
+msgstr ""
+
+#: includes/form-general-settings.php:119
+msgid "plugin page"
+msgstr ""
+
+#: includes/guide-advanced.php:3 includes/guide-simple.php:3
+#: includes/guide-start.php:3
+msgid ""
+"View some examples on the <a href=\"http://demos.wpmission.com/strong-"
+"testimonials/\" target=\"_blank\">demo site</a>."
+msgstr ""
+
+#: includes/guide-advanced.php:5
+msgid "Make your testimonials sing using advanced features."
+msgstr ""
+
+#: includes/guide-advanced.php:9 includes/guide-simple.php:10
+msgid "Gather"
+msgstr ""
+
+#: includes/guide-advanced.php:12
+msgid "Customize the form to meet your needs."
+msgstr ""
+
+#: includes/guide-advanced.php:12
+msgid ""
+"<a href=\"http://www.wpmission.com/tutorials/customize-the-form-in-strong-"
+"testimonials/\" target=\"_blank\">Here</a> is a full tutorial."
+msgstr ""
+
+#: includes/guide-advanced.php:13
+msgid "AKA thumbnails."
+msgstr ""
+
+#: includes/guide-advanced.php:13
+msgid "Allow your clients to include a photo or a logo with their testimonial."
+msgstr ""
+
+#: includes/guide-advanced.php:14
+msgid "Add honeypot and/or Captcha  methods to the form."
+msgstr ""
+
+#: includes/guide-advanced.php:15
+msgid "Notification"
+msgstr ""
+
+#: includes/guide-advanced.php:15
+msgid ""
+"Automatically send an email to the site administrator when a new testimonial "
+"has been submitted and is pending review."
+msgstr ""
+
+#: includes/guide-advanced.php:21 includes/guide-simple.php:15
+msgid "Publish"
+msgstr ""
+
+#: includes/guide-advanced.php:24 strong-testimonials.php:248
+msgid "Categories"
+msgstr ""
+
+#: includes/guide-advanced.php:24
+msgid "Organize your testimonials by year, salesperson, event, etc."
+msgstr ""
+
+#: includes/guide-advanced.php:25
+msgid "Excerpts"
+msgstr ""
+
+#: includes/guide-advanced.php:25
+msgid ""
+"Available in the post editor, use excerpts to create attention-grabbing one-"
+"liners for use in widgets and the cycle shortcode."
+msgstr ""
+
+#: includes/guide-advanced.php:26
+msgid "Skip Loading Stylesheets"
+msgstr ""
+
+#: includes/guide-advanced.php:26
+msgid ""
+"The included stylesheets include a default layout. Skip loading the "
+"stylesheets if you want to style everything in your theme or <a href="
+"\"http://wordpress.org/plugins/simple-custom-css/\">custom CSS</a>."
+msgstr ""
+
+#: includes/guide-advanced.php:32 includes/guide-simple.php:20
+#: includes/settings-shortcodes-strong.php:17
+msgid "Display"
+msgstr ""
+
+#: includes/guide-advanced.php:35 includes/settings.php:302
+msgid "Shortcodes"
+msgstr ""
+
+#: includes/guide-advanced.php:35
+msgid "Several ways to show your testimonials."
+msgstr ""
+
+#: includes/guide-advanced.php:36 includes/settings.php:151
+msgid "Cycle Shortcode"
+msgstr ""
+
+#: includes/guide-advanced.php:36
+msgid "Add a testimonial slider to any page."
+msgstr ""
+
+#: includes/guide-advanced.php:37
+msgid "Widgets"
+msgstr ""
+
+#: includes/guide-advanced.php:37
+msgid ""
+"The widget has the same features as the cycle shortcode. Multiple widgets "
+"can used on the same page."
+msgstr ""
+
+#: includes/guide-advanced.php:38 includes/settings.php:152
+msgid "Client Section"
+msgstr ""
+
+#: includes/guide-advanced.php:38
+msgid ""
+"Select which fields (including your custom fields) appear below the "
+"testimonial content."
+msgstr ""
+
+#: includes/guide-advanced.php:39
+msgid "As Posts"
+msgstr ""
+
+#: includes/guide-advanced.php:39
+msgid ""
+"Since a testimonial is a type of post, it can be displayed using your "
+"theme's default post template or a custom template, included pagination."
+msgstr ""
+
+#: includes/guide-future.php:3
+msgid "Here's some of what is planned for upcoming versions."
+msgstr ""
+
+#: includes/guide-notes.php:3
+msgid "Template files"
+msgstr ""
+
+#: includes/guide-notes.php:4
+msgid "The [strong] shortcode uses template files."
+msgstr ""
+
+#: includes/guide-notes.php:5
+msgid ""
+"To create custom templates, copy <code>templates/theme/testimonials.php</"
+"code> from the plugin directory to your theme directory. This template file "
+"contains both the loop and the testimonial layout."
+msgstr ""
+
+#: includes/guide-notes.php:6
+msgid ""
+"The plugin will search for that template file in this order: (1) your child "
+"theme (if using one), (2) your parent theme, (3) the plugin templates "
+"directory."
+msgstr ""
+
+#: includes/guide-notes.php:7
+msgid ""
+"Additional template files can be created such as <code>testimonials-narrow."
+"php</code> and found by adding the shortcode attribute <code>template="
+"\"narrow\"</code>."
+msgstr ""
+
+#: includes/guide-notes.php:9
+msgid "Template functions"
+msgstr ""
+
+#: includes/guide-notes.php:10
+msgid ""
+"Use <code>wpmtst_field( $field_name )</code> to get one of your custom "
+"fields."
+msgstr ""
+
+#: includes/guide-notes.php:11
+msgid ""
+"Use <code>wpmtst_field( 'truncated', array( 'char_limit' => 200 ) )</code> "
+"to get the truncated testimonial content."
+msgstr ""
+
+#: includes/guide-notes.php:12
+msgid ""
+"Use <code>wpmtst_field( 'client', array( 'content' => $shortcode_content )</"
+"code> to get <code>[strong]</code> child shortcodes for the client section "
+"(more <a href=\"edit.php?post_type=wpm-testimonial&page=shortcodes\">here</"
+"a>)."
+msgstr ""
+
+#: includes/guide-notes.php:13
+msgid ""
+"Look at <code>templates/theme/testimonials.php</code> in the plugin "
+"directory for examples."
+msgstr ""
+
+#: includes/guide-notes.php:15
+msgid "Translations"
+msgstr ""
+
+#: includes/guide-notes.php:16
+msgid ""
+"There is a .pot file in the plugin's <code>languages</code> directory. <a "
+"href=\"http://www.wpmission.com/contact/\" target=_blank\">Contact me</a> to "
+"submit a translation file."
+msgstr ""
+
+#: includes/guide-notes.php:17
+msgid ""
+"The field labels on the submission form will not appear in the .pot file so "
+"they must be translated manually in the <a href=\"edit.php?post_type=wpm-"
+"testimonial&page=fields\">Fields editor</a>."
+msgstr ""
+
+#: includes/guide-notes.php:18
+msgid ""
+"The WordPress browser elements like the <button style=\"font-size: smaller;"
+"\">Browse...</button> button and the \"No file chosen\" message are "
+"controlled by the WordPress language and browser language settings."
+msgstr ""
+
+#: includes/guide-notes.php:20
+msgid "\"Nofollow\" links"
+msgstr ""
+
+#: includes/guide-notes.php:21
+msgid ""
+"The Client Details meta box in the post editor now has an option to add "
+"<code>rel=\"nofollow\"</code> to client URLs. There is no global setting yet "
+"so each one must be enabled manually. Future versions will likely have a "
+"global setting with a local override."
+msgstr ""
+
+#: includes/guide-notes.php:24
+msgid "Found a bug? Have an idea? Need help?"
+msgstr ""
+
+#: includes/guide-notes.php:25
+msgid ""
+"Please use the <a href=\"http://wordpress.org/support/plugin/strong-"
+"testimonials\" target=\"_blank\">support forum</a> or <a href=\"http://www."
+"wpmission.com/contact/\" target=\"_blank\">contact me</a>."
+msgstr ""
+
+#: includes/guide-simple.php:5
+msgid "Add testimonials to your site in three simple steps."
+msgstr ""
+
+#: includes/guide-simple.php:6
+msgid "Use the default settings to hit the ground running."
+msgstr ""
+
+#: includes/guide-simple.php:11
+msgid "To accept new testimonials, add the shortcode [wpmtst-form] to a page."
+msgstr ""
+
+#: includes/guide-simple.php:16
+msgid ""
+"Review and publish new submissions and/or enter existing testimonials "
+"manually."
+msgstr ""
+
+#: includes/guide-simple.php:21
+msgid ""
+"Add a shortcode like [wpmtst-all] to a page and/or add a widget to a sidebar."
+msgstr ""
+
+#: includes/guide-start.php:5
+msgid "A testimonial is like a blog post."
+msgstr ""
+
+#: includes/guide-start.php:6
+msgid "They have many of the same fields and features:"
+msgstr ""
+
+#: includes/guide-start.php:8
+msgid "A Title"
+msgstr ""
+
+#: includes/guide-start.php:9
+msgid "a permalink"
+msgstr ""
+
+#: includes/guide-start.php:10
+msgid "Some content."
+msgstr ""
+
+#: includes/guide-start.php:11
+msgid "an excerpt"
+msgstr ""
+
+#: includes/guide-start.php:12
+msgid "a featured image (thumbnail)"
+msgstr ""
+
+#: includes/guide-start.php:13
+msgid "custom fields"
+msgstr ""
+
+#: includes/guide-start.php:13
+msgid "(like client name and email)"
+msgstr ""
+
+#: includes/guide-start.php:14
+msgid "categories"
+msgstr ""
+
+#: includes/guide-start.php:17
+msgid "How do you want to use testimonials?"
+msgstr ""
+
+#: includes/guide-start.php:18
+msgid ""
+"The <strong><a href=\"edit.php?post_type=wpm-"
+"testimonial&page=guide&tab=simple\">Simple</a></strong> tab shows you how to "
+"quickly start adding testimonials to your site."
+msgstr ""
+
+#: includes/guide-start.php:19
+msgid ""
+"The <strong><a href=\"edit.php?post_type=wpm-"
+"testimonial&page=guide&tab=advanced\">Advanced</a></strong> tab describes "
+"more features like custom fields and excerpts."
+msgstr ""
+
+#: includes/guide-start.php:21
+msgid "You are invited to participate."
+msgstr ""
+
+#: includes/guide-start.php:22
+msgid ""
+"Coming soon, the direction of this plugin will be in your hands as you will "
+"be able to vote on feature requests."
+msgstr ""
+
+#: includes/guide.php:11
+msgid "Strong Testimonials Guide"
+msgstr ""
+
+#: includes/guide.php:17
+msgid "Getting Started"
+msgstr ""
+
+#: includes/guide.php:18
+msgid "Simple"
+msgstr ""
+
+#: includes/guide.php:19
+msgid "Advanced"
+msgstr ""
+
+#: includes/guide.php:20 includes/settings-shortcodes-strong.php:15
+#: includes/tabs/notes.php:5
+msgid "Notes"
+msgstr ""
+
+#: includes/guide.php:21
+msgid "Future"
+msgstr ""
+
+#: includes/settings-shortcodes-strong.php:10
+msgid "The new shortcode that does it all."
+msgstr ""
+
+#: includes/settings-shortcodes-strong.php:16 includes/tabs/form.php:5
+msgid "The Form"
+msgstr ""
+
+#: includes/settings-shortcodes-strong.php:18 includes/tabs/slideshow.php:5
+msgid "Slideshow"
+msgstr ""
+
+#: includes/settings-shortcodes-strong.php:19
+msgid "Read More"
+msgstr ""
+
+#: includes/settings-shortcodes-strong.php:20 includes/tabs/child.php:5
+msgid "Child Shortcodes"
+msgstr ""
+
+#: includes/settings-shortcodes-strong.php:21 includes/tabs/child.php:38
+#: includes/tabs/examples.php:5 includes/tabs/form.php:31
+#: includes/tabs/readmore.php:37
+msgid "Examples"
+msgstr ""
+
+#: includes/settings-shortcodes.php:9
+msgid ""
+"These shortcodes will be deprecated soon. Please migrate to the <code>"
+"[strong]</code> shortcode."
+msgstr ""
+
+#: includes/settings-shortcodes.php:13
+msgid "Show All"
+msgstr ""
+
+#: includes/settings-shortcodes.php:16
+msgid "from all categories"
+msgstr ""
+
+#: includes/settings-shortcodes.php:20
+msgid "or a single category"
+msgstr ""
+
+#: includes/settings-shortcodes.php:24 includes/settings-shortcodes.php:56
+#: includes/settings-shortcodes.php:64 includes/settings-shortcodes.php:92
+msgid "or multiple categories"
+msgstr ""
+
+#: includes/settings-shortcodes.php:31
+msgid "Cycle"
+msgstr ""
+
+#: includes/settings-shortcodes.php:34
+msgid "<a href=\"%s\">configure</a>"
+msgstr ""
+
+#: includes/settings-shortcodes.php:41 includes/settings.php:273
+#: includes/widget.php:211
+msgid "Random"
+msgstr ""
+
+#: includes/settings-shortcodes.php:44
+msgid "a single random testimonial"
+msgstr ""
+
+#: includes/settings-shortcodes.php:48
+msgid "or a certain number"
+msgstr ""
+
+#: includes/settings-shortcodes.php:52
+msgid "a single testimonial from a single category"
+msgstr ""
+
+#: includes/settings-shortcodes.php:60
+msgid "a certain number from a single category"
+msgstr ""
+
+#: includes/settings-shortcodes.php:71
+msgid "Single"
+msgstr ""
+
+#: includes/settings-shortcodes.php:74
+msgid "one specific testimonial"
+msgstr ""
+
+#: includes/settings-shortcodes.php:84
+msgid "a form for visitors to submit testimonials"
+msgstr ""
+
+#: includes/settings-shortcodes.php:88
+msgid "and add them to a single category"
+msgstr ""
+
+#: includes/settings.php:140
+msgid "Testimonial Settings"
+msgstr ""
+
+#: includes/settings.php:144
+msgid "Settings saved."
+msgstr ""
+
+#: includes/settings.php:150
+msgid "General"
+msgstr ""
+
+#: includes/settings.php:172
+msgid "Remember to save changes before switching tabs."
+msgstr ""
+
+#: includes/settings.php:274 includes/widget.php:212
+msgid "Newest first"
+msgstr ""
+
+#: includes/settings.php:275 includes/widget.php:213
+msgid "Oldest first"
+msgstr ""
+
+#: includes/settings.php:307
+msgid "Original"
+msgstr ""
+
+#: includes/shortcode-form.php:48 includes/shortcode-form.php:304
+#: includes/shortcode-form.php:316
+msgid "There was a problem processing your testimonial."
+msgstr ""
+
+#: includes/shortcode-form.php:152
+msgid "Thank you! Your testimonial is awaiting moderation."
+msgstr ""
+
+#: includes/shortcode-form.php:172
+msgid "Required Field"
+msgstr ""
+
+#: includes/shortcode-form.php:272
+msgid "Captcha"
+msgstr ""
+
+#: includes/shortcode-form.php:285
+msgid "Add Testimonial"
+msgstr ""
+
+#: includes/shortcode-strong.php:61 includes/shortcode-strong.php:108
+#: includes/widget.php:149
+msgid "Read more"
+msgstr ""
+
+#: includes/shortcodes.php:421
+msgid "New testimonial for"
+msgstr ""
+
+#: includes/shortcodes.php:423
+msgid ""
+"New testimonial submission for %s. This is awaiting action from the website "
+"administrator."
+msgstr ""
+
+#: includes/tabs/child.php:6
+msgid "must be inside a parent [ strong ] shortcode"
+msgstr ""
+
+#: includes/tabs/child.php:10
+msgid "the client section"
+msgstr ""
+
+#: includes/tabs/child.php:11
+msgid "required for displaying custom fields"
+msgstr ""
+
+#: includes/tabs/child.php:17
+msgid "a custom field"
+msgstr ""
+
+#: includes/tabs/child.php:24
+msgid "with a CSS class"
+msgstr ""
+
+#: includes/tabs/child.php:31
+msgid "as a link with another field<br /> that opens in a new tab"
+msgstr ""
+
+#: includes/tabs/child.php:41 includes/tabs/form.php:34
+#: includes/tabs/readmore.php:41
+msgid "minimal"
+msgstr ""
+
+#: includes/tabs/child.php:45 includes/tabs/form.php:38
+#: includes/tabs/readmore.php:49
+msgid "full"
+msgstr ""
+
+#: includes/tabs/examples.php:8
+msgid "the form"
+msgstr ""
+
+#: includes/tabs/examples.php:12
+msgid "show all, 5 per page, with pagination above and below"
+msgstr ""
+
+#: includes/tabs/examples.php:16
+msgid "show 3 random, limited to about 200 characters"
+msgstr ""
+
+#: includes/tabs/examples.php:20
+msgid "a slideshow with excerpts<br /> from categories 2 and 3"
+msgstr ""
+
+#: includes/tabs/examples.php:25
+msgid ""
+"show the full-length testimonial<br />\n"
+"\t\t\t\twith the title and thumbnail,<br />\n"
+"\t\t\t\tin random order,<br />\n"
+"\t\t\t\twith client name, company, and website,<br />\n"
+"\t\t\t\tand a \"read more\" link"
+msgstr ""
+
+#: includes/tabs/examples.php:42
+msgid ""
+"Many more examples on the <a href=\"http://demos.wpmission.com/strong-"
+"testimonials/\" target=\"_blank\">demo site</a>."
+msgstr ""
+
+#: includes/tabs/form.php:12
+msgid "add new submissions to a category"
+msgstr ""
+
+#: includes/tabs/form.php:18 includes/tabs/part-style.php:10
+msgid "add classes to <code>div.strong-container</code>"
+msgstr ""
+
+#: includes/tabs/form.php:25 includes/tabs/part-style.php:15
+msgid "skip plugin stylesheet"
+msgstr ""
+
+#: includes/tabs/notes.php:8
+msgid "Multiple"
+msgstr ""
+
+#: includes/tabs/notes.php:10
+msgid ""
+"If a page has multiple <code>[strong]</code>'s, each one must be closed; e."
+"g. <code>[strong ... /]</code> or <code>[strong ...][/strong]</code>."
+msgstr ""
+
+#: includes/tabs/notes.php:14 strong-testimonials.php:47
+msgid "Settings"
+msgstr ""
+
+#: includes/tabs/notes.php:16
+msgid ""
+"There are no settings yet so each <code>[strong]</code> must have every "
+"attribute it needs, except for the default attributes indicated."
+msgstr ""
+
+#: includes/tabs/notes.php:22
+msgid ""
+"New elements: <code>div.strong-container</code> wraps <code>div.strong-"
+"content</code> which wraps the collection of <code>.testimonial</code>'s."
+msgstr ""
+
+#: includes/tabs/notes.php:26
+msgid "Help"
+msgstr ""
+
+#: includes/tabs/notes.php:28
+msgid ""
+"Please use the <a href=\"%s\" target=\"_blank\">support forum</a> to report "
+"bugs, get help, or make feature requests."
+msgstr ""
+
+#: includes/tabs/part-content.php:3
+msgid "Content"
+msgstr ""
+
+#: includes/tabs/part-content.php:6
+msgid "entire post"
+msgstr ""
+
+#: includes/tabs/part-content.php:11
+msgid "excerpt"
+msgstr ""
+
+#: includes/tabs/part-content.php:12
+msgid "overrides <b>length limit</b>"
+msgstr ""
+
+#: includes/tabs/part-content.php:18
+msgid "length limit"
+msgstr ""
+
+#: includes/tabs/part-content.php:19
+msgid "will break on a space and add an ellipsis"
+msgstr ""
+
+#: includes/tabs/part-pagination.php:3
+msgid "Pagination"
+msgstr ""
+
+#: includes/tabs/part-pagination.php:6
+msgid "per page"
+msgstr ""
+
+#: includes/tabs/part-pagination.php:10
+msgid "navigation after"
+msgstr ""
+
+#: includes/tabs/part-pagination.php:11
+msgid "default"
+msgstr ""
+
+#: includes/tabs/part-pagination.php:14
+msgid "navigation before"
+msgstr ""
+
+#: includes/tabs/part-pagination.php:18
+msgid "navigation before & after"
+msgstr ""
+
+#: includes/tabs/part-parts.php:3
+msgid "Parts"
+msgstr ""
+
+#: includes/tabs/part-parts.php:7
+msgid "show the Title"
+msgstr ""
+
+#: includes/tabs/part-parts.php:8 includes/tabs/part-parts.php:15
+#: includes/widget.php:379 includes/widget.php:388 includes/widget.php:397
+msgid "if included in Fields"
+msgstr ""
+
+#: includes/tabs/part-parts.php:14
+msgid "show the Featured Image"
+msgstr ""
+
+#: includes/tabs/part-parts.php:21
+msgid "\"Read more\" link to the full post"
+msgstr ""
+
+#: includes/tabs/part-parts.php:22
+msgid "for use with <b>excerpt</b> or <b>length limit</b> only"
+msgstr ""
+
+#: includes/tabs/part-parts.php:28
+msgid "\"Read more\" phrase"
+msgstr ""
+
+#: includes/tabs/part-parts.php:29 includes/tabs/readmore.php:11
+msgid "default text is \"Read more\" (translatable)"
+msgstr ""
+
+#: includes/tabs/part-selection.php:3
+msgid "Selection"
+msgstr ""
+
+#: includes/tabs/part-selection.php:6
+msgid "show all"
+msgstr ""
+
+#: includes/tabs/part-selection.php:10
+msgid "show a certain number"
+msgstr ""
+
+#: includes/tabs/part-selection.php:14
+msgid "order"
+msgstr ""
+
+#: includes/tabs/part-selection.php:20
+msgid "by category"
+msgstr ""
+
+#: includes/tabs/part-selection.php:25
+msgid "by post ID"
+msgstr ""
+
+#: includes/tabs/part-style.php:3
+msgid "Style"
+msgstr ""
+
+#: includes/tabs/part-style.php:6
+msgid "select a theme template file"
+msgstr ""
+
+#: includes/tabs/readmore.php:5
+msgid "\"Read More\" link"
+msgstr ""
+
+#: includes/tabs/readmore.php:6
+msgid "must not be inside another [ strong ] shortcode"
+msgstr ""
+
+#: includes/tabs/readmore.php:10
+msgid "appears after the loop"
+msgstr ""
+
+#: includes/tabs/readmore.php:19
+msgid "to another page (required)"
+msgstr ""
+
+#: includes/tabs/readmore.php:20
+msgid "ID or slug"
+msgstr ""
+
+#: includes/tabs/readmore.php:28
+msgid "add classes"
+msgstr ""
+
+#: includes/tabs/slideshow.php:13
+msgid "show each for (in seconds)"
+msgstr ""
+
+#: includes/tabs/slideshow.php:19
+msgid "transition effect (in seconds)"
+msgstr ""
+
+#: includes/tabs/slideshow.php:25
+msgid "no pause on hover"
+msgstr ""
+
+#: includes/tabs/slideshow.php:26
+msgid "will pause by default"
+msgstr ""
+
+#: includes/widget.php:19
+msgid "Strong Testimonials widget. Static or Cycle options."
+msgstr ""
+
+#: includes/widget.php:26 includes/widget.php:29
+msgid "Testimonials"
+msgstr ""
+
+#: includes/widget.php:242
+msgid "Show all"
+msgstr ""
+
+#: includes/widget.php:271
+msgid "Cycle Mode"
+msgstr ""
+
+#: includes/widget.php:276
+msgid "Static Mode"
+msgstr ""
+
+#: includes/widget.php:350
+msgid ""
+"Excerpts are hand-crafted summaries of your testimonial. You may need to "
+"enable them in the post editor."
+msgstr ""
+
+#: includes/widget.php:356
+msgid "Character limit"
+msgstr ""
+
+#: includes/widget.php:395
+msgid "Client Info"
+msgstr ""
+
+#: strong-testimonials.php:193
+msgid "Unable to load %s"
+msgstr ""
+
+#: strong-testimonials.php:194
+msgid ""
+"This plugin requires <strong>WordPress %s</strong> or higher so it has been "
+"deactivated."
+msgstr ""
+
+#: strong-testimonials.php:195
+msgid "Please upgrade WordPress and try again."
+msgstr ""
+
+#: strong-testimonials.php:196
+msgid "Back to the WordPress <a href=\"%s\">Plugins page</a>"
+msgstr ""
+
+#: strong-testimonials.php:209
+msgctxt "post type general name"
+msgid "Testimonials"
+msgstr ""
+
+#: strong-testimonials.php:210
+msgctxt "post type singular name"
+msgid "Testimonial"
+msgstr ""
+
+#: strong-testimonials.php:211
+msgid "Add New"
+msgstr ""
+
+#: strong-testimonials.php:212
+msgid "Add New Testimonial"
+msgstr ""
+
+#: strong-testimonials.php:213
+msgid "Edit Testimonial"
+msgstr ""
+
+#: strong-testimonials.php:214
+msgid "New Testimonial"
+msgstr ""
+
+#: strong-testimonials.php:215
+msgid "All Testimonials"
+msgstr ""
+
+#: strong-testimonials.php:216
+msgid "View Testimonial"
+msgstr ""
+
+#: strong-testimonials.php:217
+msgid "Search Testimonials"
+msgstr ""
+
+#: strong-testimonials.php:218 strong-testimonials.php:256
+msgid "Nothing Found"
+msgstr ""
+
+#: strong-testimonials.php:219 strong-testimonials.php:257
+msgid "Nothing found in Trash"
+msgstr ""
+
+#: strong-testimonials.php:225 strong-testimonials.php:231
+msgid "testimonial"
+msgstr ""
+
+#: strong-testimonials.php:249
+msgctxt "strong-testimonials"
+msgid "Category"
+msgstr ""
+
+#: strong-testimonials.php:250
+msgid "All Categories"
+msgstr ""
+
+#: strong-testimonials.php:251
+msgctxt "strong-testimonials"
+msgid "Add New Category"
+msgstr ""
+
+#: strong-testimonials.php:252
+msgid "Edit Category"
+msgstr ""
+
+#: strong-testimonials.php:253
+msgid "New Category"
+msgstr ""
+
+#: strong-testimonials.php:254
+msgid "View Category"
+msgstr ""
+
+#: strong-testimonials.php:255
+msgid "Search Category"
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "Strong Testimonials"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "http://www.wpmission.com/plugins/strong-testimonials/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "A powerful testimonial manager."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Chris Dillon"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://www.wpmission.com/contact"
+msgstr ""

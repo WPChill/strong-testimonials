@@ -193,13 +193,23 @@ function wpmtst_form_shortcode( $atts ) {
 		if ( isset( $field['before'] ) && $field['before'] )
 			$html .= '<span class="before">' . $field['before'] . '</span>';
 
+		if ( isset( $errors[ $field['name'] ] ) )
+			$classes .= ' error';
+
 		// -----------------------------
 		// input types: text, email, url
 		// -----------------------------
 		if ( in_array( $field['input_type'], array( 'text', 'email', 'url' ) ) ) {
-
+		
+			/*
+			 * Switching out url type until more themes adopt it.
+			 * @since 1.11.0
+			 */
+			$input_type = ( $field['input_type'] = 'url' ? 'text' : $field['input_type'] );
+			
 			$html .= '<input id="wpmtst_' . $field['name'] . '"'
-						. ' type="' . $field['input_type'] . '"'
+						// . ' type="' . $field['input_type'] . '"'
+						. ' type="' . $input_type . '"'
 						. ' class="' . $classes . '"'
 						. ' name="' . $field['name'] . '"'
 						. ' value="' . $testimonial_inputs[ $field['name'] ] . '"';
@@ -218,10 +228,10 @@ function wpmtst_form_shortcode( $atts ) {
 		// ------------------------------------------
 		elseif ( 'textarea' == $field['input_type'] ) {
 
-			$html .= '<textarea id="wpmtst_' . $field['name'] . '" class="textarea" name="' . $field['name'] . '"';
+			$html .= '<textarea id="wpmtst_' . $field['name'] . '" class="' . $classes . '" name="' . $field['name'] . '"';
 			
-			if ( isset( $field['required'] ) && $field['required'] )
-				$html .= ' required';
+			// if ( isset( $field['required'] ) && $field['required'] )
+				// $html .= ' required';
 				
 			if ( isset( $field['placeholder'] ) && $field['placeholder'] )
 				$html .= ' placeholder="' . $field['placeholder'] . '"';
@@ -238,6 +248,7 @@ function wpmtst_form_shortcode( $atts ) {
 
 		}
 
+		// Add error messages and wrap it up
 		if ( isset( $errors[ $field['name'] ] ) )
 			$html .= '<span class="error">' . $errors[ $field['name'] ] . '</span>';
 
@@ -248,8 +259,10 @@ function wpmtst_form_shortcode( $atts ) {
 
 	}
 
-	if ( $options['honeypot_before'] )
+	if ( $options['honeypot_before'] ) {
+		$html .= '<style>#wpmtst-form .wpmtst_if_visitor * { display: none !important; visibility: hidden !important; }</style>';
 		$html .= '<span class="wpmtst_if_visitor"><label for="wpmtst_if_visitor">Visitor?</label><input id="wpmtst_if_visitor" type="text" name="wpmtst_if_visitor" size="40" tabindex="-1" autocomplete="off" /></span>';
+	}
 	
 	if ( $captcha ) {
 		// Only display Captcha label if properly configured.
@@ -281,6 +294,9 @@ function wpmtst_form_shortcode( $atts ) {
 add_shortcode( 'wpmtst-form', 'wpmtst_form_shortcode' );
 
 
+/**
+ * Honeypot preprocessor
+ */
 function wpmtst_honeypot_before() {
 	$value = isset( $_POST['wpmtst_if_visitor'] ) ? $_POST['wpmtst_if_visitor'] : '';
 	if ( isset( $_POST['wpmtst_if_visitor'] ) && ! empty( $_POST['wpmtst_if_visitor'] ) ) {
@@ -291,8 +307,11 @@ function wpmtst_honeypot_before() {
 }
 
 
+/**
+ * Honeypot preprocessor
+ */
 function wpmtst_honeypot_after() {
-	if ( ! isset ( $_POST['zero-spam'] ) ) {
+	if ( ! isset ( $_POST['wpmtst_after'] ) ) {
 		do_action( 'honeypot_after_spam_testimonial', $_POST );
 		die( __( 'There was a problem processing your testimonial.', 'strong-testimonials' ) );
 	}
@@ -300,11 +319,17 @@ function wpmtst_honeypot_after() {
 }
 
 
+/**
+ * Honeypot
+ */
 function wpmtst_honeypot_before_script() { 
 	?><script type="text/javascript">jQuery('#wpmtst_if_visitor').val('');</script><?php 
 }
 
 
+/**
+ * Honeypot
+ */
 function wpmtst_honeypot_after_script() {
 	?><script type="text/javascript">
 ( function( $ ) {
@@ -312,11 +337,38 @@ function wpmtst_honeypot_after_script() {
 	var forms = "#wpmtst-submission-form";
 	$( forms ).submit( function() {
 		$( "<input>" ).attr( "type", "hidden" )
-		.attr( "name", "zero-spam" )
+		.attr( "name", "wpmtst_after" )
 		.attr( "value", "1" )
 		.appendTo( forms );
 		return true;
 	});
 })( jQuery );
 </script><?php
+}
+
+
+/*
+ * File upload handler
+ */
+function wpmtst_wp_handle_upload( $file_handler, $overrides ) {
+  require_once( ABSPATH . 'wp-admin/includes/image.php' );
+  require_once( ABSPATH . 'wp-admin/includes/file.php' );
+  require_once( ABSPATH . 'wp-admin/includes/media.php' );
+
+	$upload = wp_handle_upload( $file_handler, $overrides );
+	return $upload ;
+}
+
+
+/*
+ * Submission form validation.
+ */
+function wpmtst_validation_function() {
+	?>
+	<script type="text/javascript">
+		jQuery(document).ready(function($) {
+			$("#wpmtst-submission-form").validate({});
+		});
+	</script>
+	<?php
 }

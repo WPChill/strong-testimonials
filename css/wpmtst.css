@@ -10,13 +10,19 @@
 	clear: both;
 }
 
-#wpmtst-container {
+/*
+#wpmtst-container will be deprecated soon,
+use .strong-container instead
+*/
+#wpmtst-container,
+.strong-container {
 	box-sizing: border-box;
 	display: inline-block;
 	width: 100%;
 }
 
-#wpmtst-container.tcycle {
+/* container for posts & pagination */
+.strong-content {
 }
 
 .testimonial {

@@ -20,6 +20,14 @@ Integrate testimonials in 3 steps:
 
 [Screenshots](http://wordpress.org/plugins/strong-testimonials/screenshots/) | [Demos](http://demos.wpmission.com/strong-testimonials/) | [Feature Requests](http://www.wpmission.com)
 
+**What's New**
+
+The `[strong]` shortcode that does it all.
+
+Template functions and a default template file.
+
+An updated POT file for translations.
+
 
 **Primary Features**
 
@@ -111,6 +119,12 @@ For help, use the [support forum](http://wordpress.org/support/plugin/strong-tes
 
 [Screenshots](http://wordpress.org/plugins/strong-testimonials/screenshots/) | [Demos](http://demos.wpmission.com/strong-testimonials/) | [Feature Requests](http://www.wpmission.com)
 
+= Are there templates? How do I change the look of the testimonials? =
+
+The new `[strong]` shortcode uses a template file that can be copied into your theme. You can create multiple template files and include them using a shortcode attribute; e.g. `template="my-template"`. Template functions are also available for adding testimonial fields to new or existing templates.
+
+The original shortcodes do not use template files, but the stylesheets are largely structural so you can add CSS in your theme or [custom CSS](http://wordpress.org/plugins/simple-custom-css/). In fact, I like to skip loading the stylesheets (in `Testimonials > Settings`) to see how they look in the theme, then style up from there. Future versions will have pre-built templates with adjustable colors, borders, etc.
+
 = How can I change "testimonial" to "review", for example? =
 
 Instructions are [here](https://wordpress.org/support/topic/how-to-change-the-slug).
@@ -139,15 +153,11 @@ If your site relies on a partner plugin like this, and that plugin becomes buggy
 
 On the `Client Section` tab on the `Testimonials > Settings` page. Follow the example to build shortcodes based on your custom fields. There is a shortcode for text fields (like a client's name) and a shortcode for links (like a client's website). When in doubt, use the default template provided.
 
-I admit it can greatly improved but I needed to build something quickly to include in version 1.7 with custom fields. This will be replaced with a field editor in an upcoming version.
+I admit it can greatly improved but I needed to build something quickly to include in version 1.7 with custom fields.
 
 = Is this multisite compatible? =
 
 Yes, but I highly recommend first installing the [Proper Network Activation](http://wordpress.org/plugins/proper-network-activation/) plugin when adding Strong Testimonials to a multisite installation. That plugin will deftly handle the plugin activation process, ensuring each site has the default settings.
-
-= Are there templates? How do I change the look of the testimonials? =
-
-Except for the default template, which is rather plain and so 2011, the stylesheets are largely structural so you can add on CSS in your theme or [custom CSS](http://wordpress.org/plugins/simple-custom-css/). In fact, I like to skip loading the stylesheets (in `Testimonials > Settings`) to see how they look in the theme, then style up from there. Future versions will have pre-built templates with adjustable colors, borders, etc.
 
 = Will it import my existing testimonials? =
 
@@ -159,7 +169,7 @@ Thanks but I prefer a nice [review](https://wordpress.org/support/view/plugin-re
 
 = Does anybody read these things? =
 
-That's *my* frequently asked question ;) As a reward for reading this far, leave a message [here](http://www.wpmission.com/contact) with "I read the FAQs!" in the subject line to receive one hour of WordPress support absolutely free.
+That's *my* frequently asked question ;) As a reward for reading this far, leave a message [here](http://www.wpmission.com/contact) with "I read the FAQs!" in the subject line to receive one hour of WordPress support absolutely free. Use it to customize this plugin, resolve theme & plugin conflicts, site migrations, and so on.
 
 
 == Screenshots ==
@@ -184,7 +194,20 @@ That's *my* frequently asked question ;) As a reward for reading this far, leave
 
 == Changelog ==
 
-= 1.10 =
+= 1.11 - 2014-10-22 =
+* New [strong] shortcode.
+* New default template file and template functions for use in themes.
+* Add `rel="nofollow"` option for links in client section.
+* Improve conditional loading using `is_admin`.
+* Use `tax_query` in shortcode queries instead of `get_terms`.
+* Move honeypot CSS to page and generify hidden element.
+* Fix server-side validation not adding error classes.
+* Rename `char-limit` and `more-page` options to use underscores.
+* Add POT file.
+* Make the Guide page translation-ready.
+* Drop `input type="url"` from the form until more themes adopt it.
+
+= 1.10 - 2014-10-07 =
 * Add honeypot spam control.
 * Add category parameter to form shortcode.
 
@@ -282,6 +305,9 @@ That's *my* frequently asked question ;) As a reward for reading this far, leave
 
 == Upgrade Notice ==
 
+= 1.11 =
+Testing new [strong] shortcode. Added template functions and a default template file for use in themes. Added `rel="nofollow"` option. Improved memory usage, queries, honeypots, and server-side form validation. Added a .pot file.
+
 = 1.10 =
 Added honeypot spam control. Added category parameter to form shortcode.
 
@@ -292,7 +318,7 @@ Added a guide to help new users.
 The widget now has the same features as the cycle shortcode, and the cycle process has been made more compatible with other plugins and themes.
 
 = 1.8.1 =
-Fixed a minor bug in Internet Explorer 7 or 8.
+Fixed a minor bug in Internet Explorer 7 and 8.
 
 = 1.8 =
 New features in cycle shortcode: Excerpt and "Read more" link. Solved CSS width and float conflicts with some themes. Ready for translations.

@@ -122,10 +122,7 @@ class WpmTst_Widget extends WP_Widget {
 		else
 			$char_limit = $this->defaults['char-limit'];
 
-		$terms = wpmtst_get_terms( $data['category'] );
-
 		$args = array(
-				$terms['taxo']   => $terms['term'],
 				'post_type'      => 'wpm-testimonial',
 				'post_status'    => 'publish',
 				'posts_per_page' => $num,
@@ -133,6 +130,17 @@ class WpmTst_Widget extends WP_Widget {
 				'order'          => $order,
 		);
 
+		if ( 'all' != $data['category'] ) {
+			$args['tax_query'] = array(
+					array(
+							'taxonomy' => 'wpm-testimonial-category',
+							'field'    => 'term_id',
+							'terms'    => $data['category'],
+							'include_children' => false
+					)
+			);
+		}
+	
 		$wp_query = new WP_Query();
 		$results = $wp_query->query( $args );
 

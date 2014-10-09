@@ -1,6 +1,8 @@
 <?php
 /**
- * Strong Testimonials - Settings functions
+ * Settings
+ *
+ * @package Strong_Testimonials
  */
  
  
@@ -112,11 +114,11 @@ function wpmtst_sanitize_cycle( $input ) {
 	$input['limit']      = (int) strip_tags( $input['limit'] );
 	$input['title']      = isset( $input['title'] ) ? 1 : 0;
 	// $input['content']
-	$input['char-limit'] = (int) sanitize_text_field( $input['char-limit'] );
+	$input['char_limit'] = (int) sanitize_text_field( $input['char_limit'] );
 	$input['images']     = isset( $input['images'] ) ? 1 : 0;
 	$input['client']     = isset( $input['client'] ) ? 1 : 0;
 	// $input['more']
-	$input['more-page']  = strip_tags( $input['more-page'] );
+	$input['more_page']  = strip_tags( $input['more_page'] );
 	$input['timeout']    = (float) sanitize_text_field( $input['timeout'] );
 	$input['effect']     = strip_tags( $input['effect'] );
 	$input['speed']      = (float) sanitize_text_field( $input['speed'] );
@@ -294,84 +296,26 @@ function wpmtst_cycle_section() {
  * Shortcodes page
  */
 function wpmtst_settings_shortcodes() {
-	$links = array(
-			'categories'   => admin_url( 'edit-tags.php?taxonomy=wpm-testimonial-category&post_type=wpm-testimonial' ),
-			'testimonials' => admin_url( 'edit.php?post_type=wpm-testimonial' ),
-	);
 	?>
 	<div class="wrap wpmtst">
 
 		<h2><?php _e( 'Shortcodes', 'strong-testimonials' ); ?></h2>
 
-		<table class="shortcode-table">
-			<tr>
-				<th colspan="2"><h3><?php _e( 'All Testimonials', 'strong-testimonials' ); ?></h3></th>
-			</tr>
-			<tr>
-				<td><?php _e( 'Show all from all categories.', 'strong-testimonials' ); ?></td>
-				<td>[wpmtst-all]</td>
-			</tr>
-			<tr>
-				<td><?php printf( __( 'Show all from a specific <a href="%s">category</a>.', 'strong-testimonials' ), $links['categories'] ); ?></td>
-				<td>[wpmtst-all category="x"]</td>
-			</tr>
-		</table>
+		<?php $active_tab = isset( $_GET['tab'] ) ? $_GET['tab'] : 'strong'; ?>
+		<h2 class="nav-tab-wrapper">
+			<a href="?post_type=wpm-testimonial&page=shortcodes" class="nav-tab <?php echo $active_tab == 'strong' ? 'nav-tab-active' : ''; ?>"><span class="strong-tab-label">strong</span></a>
+			<a href="?post_type=wpm-testimonial&page=shortcodes&tab=original" class="nav-tab <?php echo $active_tab == 'original' ? 'nav-tab-active' : ''; ?>"><?php _e( 'Original', 'strong-testimonials' ); ?></a>
+		</h2>
 
-		<table class="shortcode-table">
-			<tr>
-				<th colspan="2"><h3><?php _e( 'Testimonials Cycle', 'strong-testimonials' ); ?></h3></th>
-			</tr>
-			<tr>
-				<td><?php printf( __( 'Cycle through testimonials. <a href="%s">configure</a>', 'strong-testimonials' ), admin_url( 'edit.php?post_type=wpm-testimonial&page=settings&tab=cycle' ) ); ?></td>
-				<td>[wpmtst-cycle]</td>
-			</tr>
-		</table>
-
-		<table class="shortcode-table">
-			<tr>
-				<th colspan="2"><h3><?php _e( 'Random Testimonial', 'strong-testimonials' ); ?></h3></th>
-			</tr>
-			<tr>
-				<td><?php _e( 'Show a single random testimonial.', 'strong-testimonials' ); ?></td>
-				<td>[wpmtst-random]</td>
-			</tr>
-			<tr>
-				<td><?php _e( 'Show a certain number of testimonials.', 'strong-testimonials' ); ?></td>
-				<td>[wpmtst-random limit="x"]</td>
-			</tr>
-			<tr>
-				<td><?php printf( __( 'Show a single random testimonial from a specific <a href="%s">category</a>.', 'strong-testimonials' ), $links['categories'] ); ?></td>
-				<td>[wpmtst-random category="x"]</td>
-			</tr>
-			<tr>
-				<td><?php printf( __( 'Show a certain number from a specific <a href="%s">category</a>.', 'strong-testimonials' ), $links['categories'] ); ?></td>
-				<td>[wpmtst-random category="x" limit="x"]</td>
-			</tr>
-		</table>
-
-		<table class="shortcode-table">
-			<tr>
-				<th colspan="2"><h3><?php _e( 'Single Testimonial', 'strong-testimonials' ); ?></h3></th>
-			</tr>
-			<tr>
-				<td><?php printf( __( 'Show one specific <a href="%s">testimonial</a>.', 'strong-testimonials' ), $links['testimonials'] ); ?></td>
-				<td>[wpmtst-single id="x"]</td>
-			</tr>
-		</table>
-
-		<table class="shortcode-table">
-			<tr>
-				<th colspan="2"><h3><?php _e( 'Testimonial Submission Form', 'strong-testimonials' ); ?></h3></th>
-			</tr>
-			<tr>
-				<td><?php _e( 'Show a form for visitors to submit testimonials.', 'strong-testimonials' );?><br><?php // _e( 'New testimonials are in "Pending" status until published by an administrator.', 'strong-testimonials' ); ?></td>
-				<td>[wpmtst-form]</td>
-			</tr>
-			<tr>
-				<td><?php printf( __( 'Add new submissions to a specific <a href="%s">category</a>.', 'strong-testimonials' ), $links['categories'] ); ?></td>
-				<td>[wpmtst-form category="x"]</td>
-			</tr>
-		</table>
+		<?php
+		if( $active_tab == 'original' ) {
+			include( WPMTST_INC . 'settings-shortcodes.php' );
+		}
+		else {
+			include( WPMTST_INC . 'settings-shortcodes-strong.php' );
+		} 
+		?>
+		
 
 	</div><!-- wrap -->
 	<?php

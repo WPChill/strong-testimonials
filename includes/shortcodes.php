@@ -1,12 +1,15 @@
 <?php
 /**
- * Strong Testimonials - Shortcode functions
+ * Shortcode functions.
+ *
+ * @package Strong_Testimonials
  */
 
 
-/*
- * Normalize empty shortcode attributes
- * (turns atts into tags - brilliant!)
+/**
+ * Normalize empty shortcode attributes.
+ *
+ * Turns atts into tags - brilliant!
  * Thanks http://wordpress.stackexchange.com/a/123073/32076
  */
 if ( ! function_exists( 'normalize_empty_atts' ) ) {
@@ -24,51 +27,62 @@ if ( ! function_exists( 'normalize_empty_atts' ) ) {
 }
 
 
-/*
+/**
  * Single Testimonial LAYOUT
  */
-function wpmtst_single( $post, $args = array( 'title' => 1, 'images' => 1, 'content' => '', 'client' => 1, 'more' => 0 ) ) {
-	$html = '<div class="testimonial ' . $args['content'] . '">';
-	$html .= '<div class="inner">';
+function wpmtst_single( $post, $args = array() ) {
+	extract( array_merge( array( 
+			'title'   => 1, 
+			'images'  => 1, 
+			'content' => '',
+			'client'  => 1, 
+			'more'    => 0
+	), $args ) );
 	
-	if ( $args['title'] && $post->post_title )
-		$html .= '<h3 class="heading">' . $post->post_title .'</h3>';
+	$client_info = do_shortcode( wpmtst_client_info( $post ) );
 	
-	$html .= '<div class="content">';
-
-	if ( $args['images'] && isset( $post->thumbnail_id ) )
-		$html .= '<div class="photo">' . get_the_post_thumbnail( $post->ID, 'thumbnail' ) . '</div>';
-	
-	if ( 'excerpt' == $args['content'] )
-		$html .= $post->post_excerpt;
-	elseif( 'truncated' == $args['content'] )
-		$html .= wpmtst_truncate( $post->post_content, $args['char-limit'] );
-	else // entire
-		$html .= wpautop( $post->post_content );
-		
-	// $html .= '<div class="clear"></div>';
-	$html .= '</div><!-- .content -->';
-
-	if ( $args['client'] )
-		$html .= '<div class="client">' . wpmtst_client_info( $post ) . '</div><!-- client -->';
-	
-	$format = '<div class="readmore"><a href="%s">' . __( 'Read more', 'strong-testimonials' ) .'</a></div>';
-	if ( 2 == $args['more'] )
-		$html .= sprintf( $format, get_permalink( $args['more-page'] ) );
-	elseif ( 1 == $args['more'] )
-		$html .= sprintf( $format, get_permalink( $post ) );
-
-	$html .= '<div class="clear"></div>';
-	$html .= '</div><!-- inner -->';
-	$html .= '</div><!-- testimonial -->';
-	
-	// render other shortcodes in content; client_info shortcodes too
-	return do_shortcode( $html );
+	ob_start();
+	include( WPMTST_INC . 'wpmtst-single.php' );
+	$html = ob_get_contents();
+	ob_end_clean();
+	return $html;
 }
 
 
-/*
- * Assemble and display client info
+/**
+ * Template functions (partial).
+ *
+ * @since 1.11.0
+ */
+function wpmtst_field( $field = null, $args = array() ) {
+	if ( ! $field ) return '';
+		
+	global $post;
+	$html = '';
+	
+	switch( $field ) {
+	
+		// Apply a character limit to post content.
+		case 'truncated' :
+			$html = wpmtst_truncate( $post->post_content, $args['char_limit'] );
+			break;
+		
+		// Process child shortcodes in [strong] content.
+		case 'client' :
+			$html = do_child_shortcode( 'strong', $args['content'] );
+			break;
+		
+		// Get the custom field.
+		default :
+			$html = get_post_meta( $post->ID, $field, true );
+			
+	}
+	echo $html;
+}
+
+
+/**
+ * Assemble and display client info.
  */
 function wpmtst_client_info( $post ) {
 	// ---------------------------------------------------------------------
@@ -85,7 +99,7 @@ function wpmtst_client_info( $post ) {
 	
 	$lines = explode( PHP_EOL, $template );
 	// [wpmtst-text field="client_name" class="name"]
-	// [wpmtst-link url="company_website" text="company_name" target="_blank" class="company"]
+	// [wpmtst-link url="company_website" text="company_name" new_tab class="company"]
 	
 	foreach ( $lines as $line ) {
 		// to get shortcode:
@@ -125,6 +139,10 @@ function wpmtst_client_info( $post ) {
 					// add to line as content
 					$line .= $post_value;
 				}
+				// check nofollow:
+				$line .= '|';
+				if ( get_post_meta( $post->ID, 'nofollow' ) )
+					$line .= 'nofollow';
 				// close shortcode
 				$line .= '[/' . $shortcode . ']';
 				$html .= $line;
@@ -136,7 +154,7 @@ function wpmtst_client_info( $post ) {
 }
 
 
-/*
+/**
  * Client text field shortcode.
  */
 function wpmtst_text_shortcode( $atts, $content = null ) {
@@ -156,42 +174,45 @@ function wpmtst_text_shortcode( $atts, $content = null ) {
 add_shortcode( 'wpmtst-text', 'wpmtst_text_shortcode' );
 
 
-/*
+/**
  * Client link shortcode.
  */
 function wpmtst_link_shortcode( $atts, $content = null ) {
-	// content like "company_website|company_name"
+	// content like "company_website|company_name|nofollow"
 	// bail if no content
 	if ( empty( $content ) || '|' === $content )
 		return;
 
 	extract( shortcode_atts(
 		array( 
-				'url' => '', 
-				'new_tab' => 1, 
-				'text' => '', 
-				'class' => ''
+				'url'      => '', 
+				'new_tab'  => 0,
+				'nofollow' => '',   // client-specific, not global
+				'text'     => '', 
+				'class'    => ''
 		),
 		normalize_empty_atts( $atts )
 	) );
 		
-	list( $url, $text ) = explode( '|', $content );
+	list( $url, $text, $nofollow ) = explode( '|', $content );
 	
 	// if no company name, use domain name
 	if ( ! $text )
 		$text = preg_replace( "(^https?://)", "", $url );
 		
-	// if no url, return text_shortcode instead
+	// if no url, return as text shortcode instead
 	if ( $url )
-		return '<div class="' . $class . '"><a href="' . $url . '"'. ( $new_tab ? ' target="_blank"' : '' ) .'>' . $text . '</a></div>';
+		return '<div class="' . $class . '"><a href="' . $url . '"'. link_new_tab( $new_tab, false ) . link_nofollow( $nofollow, false ) . '>' . $text . '</a></div>';
 	else
 		return '<div class="' . $class . '">' . $text . '</div>';
 }
 add_shortcode( 'wpmtst-link', 'wpmtst_link_shortcode' );
 
 
-/*
- * Single testimonial shortcode
+/**
+ * Single testimonial shortcode.
+ *
+ * @uses wpmtst-single.php
  */
 function wpmtst_single_shortcode( $atts ) {
 	extract( shortcode_atts( 
@@ -207,8 +228,10 @@ function wpmtst_single_shortcode( $atts ) {
 add_shortcode( 'wpmtst-single', 'wpmtst_single_shortcode' );
 
 
-/*
- * Random testimonial shortcode
+/**
+ * Random testimonial shortcode.
+ *
+ * @uses wpmtst-single.php
  */
 function wpmtst_random_shortcode( $atts ) {
 	extract( shortcode_atts(
@@ -218,17 +241,26 @@ function wpmtst_random_shortcode( $atts ) {
 		),
 		normalize_empty_atts( $atts )
 	) );
-
-	$terms = wpmtst_get_terms( $category );
+	$categories = explode( ',', $category );
 
 	$args = array(
-			$terms['taxo']   => $terms['term'],
 			'post_type'      => 'wpm-testimonial',
 			'posts_per_page' => $limit,
 			'orderby'        => 'rand',
 			'post_status'    => 'publish'
 	);
 
+	if ( $category ) {
+		$args['tax_query'] = array(
+				array(
+						'taxonomy' => 'wpm-testimonial-category',
+						'field'    => 'term_id',
+						'terms'    => $categories,
+						'include_children' => false
+				)
+		);
+	}
+	
 	$wp_query = new WP_Query();
 	$results  = $wp_query->query( $args );
 
@@ -237,16 +269,16 @@ function wpmtst_random_shortcode( $atts ) {
 		$display .= wpmtst_single( wpmtst_get_post( $post ) );
 	}
 	$display .= '</div>';
+	
 	return $display;
 }
 add_shortcode( 'wpmtst-random', 'wpmtst_random_shortcode' );
 
 
-/*
- * All testimonials shortcode
+/**
+ * All testimonials shortcode.
  *
- * @TODO:
- * - sort options in query
+ * @uses wpmtst-single.php
  */
 function wpmtst_all_shortcode( $atts ) {
 	extract( shortcode_atts(
@@ -256,17 +288,26 @@ function wpmtst_all_shortcode( $atts ) {
 		),
 		normalize_empty_atts( $atts )
 	) );
-
-	$terms = wpmtst_get_terms( $category );
+	$categories = explode( ',', $category );
 
 	$args = array(
-			$terms['taxo']   => $terms['term'],
 			'post_type'      => 'wpm-testimonial',
 			'posts_per_page' => $limit,
 			'orderby'        => 'post_date',
 			'order'          => 'DESC',
 			'post_status'    => 'publish'
 	);
+
+	if ( $category ) {
+		$args['tax_query'] = array(
+				array(
+						'taxonomy' => 'wpm-testimonial-category',
+						'field'    => 'term_id',
+						'terms'    => $categories,
+						'include_children' => false
+				)
+		);
+	}
 
 	$wp_query = new WP_Query();
 	$results = $wp_query->query( $args );
@@ -282,8 +323,10 @@ function wpmtst_all_shortcode( $atts ) {
 add_shortcode( 'wpmtst-all', 'wpmtst_all_shortcode' );
 
 
-/*
- * Cycle testimonials shortcode
+/**
+ * Cycle testimonials shortcode.
+ *
+ * @uses wpmtst-single.php
  */
 function wpmtst_cycle_shortcode( $atts ) {
 	extract( shortcode_atts(
@@ -313,17 +356,26 @@ function wpmtst_cycle_shortcode( $atts ) {
 		$orderby = 'post_date';
 		$order   = 'DESC';
 	}
-	$terms = wpmtst_get_terms( $cycle['category'] );
 	$limit = ( $cycle['all'] ? -1 : $cycle['limit'] );
 	
 	$args = array(
-			$terms['taxo']   => $terms['term'],
 			'post_type'      => 'wpm-testimonial',
 			'post_status'    => 'publish',
 			'posts_per_page' => $limit,
 			'orderby'        => $orderby,
 			'order'          => $order,
 	);
+
+	if ( $cycle['category'] ) {
+		$args['tax_query'] = array(
+				array(
+						'taxonomy' => 'wpm-testimonial-category',
+						'field'    => 'term_id',
+						'terms'    => $cycle['category'],
+						'include_children' => false,
+				)
+		);
+	}
 
 	$wp_query = new WP_Query();
 	$results = $wp_query->query( $args );
@@ -339,34 +391,7 @@ function wpmtst_cycle_shortcode( $atts ) {
 add_shortcode( 'wpmtst-cycle', 'wpmtst_cycle_shortcode' );
 
 
-/*
- * File upload handler
- */
-function wpmtst_wp_handle_upload( $file_handler, $overrides ) {
-  require_once( ABSPATH . 'wp-admin/includes/image.php' );
-  require_once( ABSPATH . 'wp-admin/includes/file.php' );
-  require_once( ABSPATH . 'wp-admin/includes/media.php' );
-
-	$upload = wp_handle_upload( $file_handler, $overrides );
-	return $upload ;
-}
-
-
-/*
- * Submission form validation.
- */
-function wpmtst_validation_function() {
-	?>
-	<script type="text/javascript">
-		jQuery(document).ready(function($) {
-			$("#wpmtst-submission-form").validate({});
-		});
-	</script>
-	<?php
-}
-
-
-/*
+/**
  * Pagination on "All Testimonials" shortcode.
  */
 function wpmtst_pagination_function() {
@@ -377,14 +402,15 @@ function wpmtst_pagination_function() {
 	<script type="text/javascript">
 		jQuery(document).ready(function($) {
 			$("#wpmtst-container").quickPager({ pageSize: <?php echo $per_page; ?>, currentPage: 1, pagerLocation: "after" });
+			$(".strong-container").quickPager({ pageSize: <?php echo $per_page; ?>, currentPage: 1, pagerLocation: "after" });
 		});
 	</script>
 	<?php
 }
 
 
-/*
- * Notify admin upon testimonial submission
+/**
+ * Notify admin upon testimonial submission.
  */
 function wpmtst_notify_admin() {
 	$options = get_option( 'wpmtst_options' );

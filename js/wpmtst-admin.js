@@ -1,8 +1,13 @@
-/*
+/**
  *	Strong Testimonials > admin screens
  */
 
 jQuery(document).ready(function($) {
+	
+	$( "#tabs" ).tabs({ active: 0 });
+	$( "ul.ui-tabs-nav li a" ).click(function(e){
+		$(this).blur();
+	});
 	
 	// Function to get the Max value in Array
 	Array.max = function( array ){

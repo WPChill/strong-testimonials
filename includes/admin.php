@@ -38,9 +38,11 @@ function wpmtst_admin_scripts( $hook ) {
 	if ( in_array( $hook, array( 
 				'wpm-testimonial_page_settings',
 				'wpm-testimonial_page_fields',
+				'wpm-testimonial_page_shortcodes',
 				'widgets.php',
 			) ) ) {
 		wp_enqueue_script( 'jquery-ui-core' );
+		wp_enqueue_script( 'jquery-ui-tabs' );
 		wp_enqueue_script( 'jquery-ui-sortable' );
 		wp_enqueue_script( 'wpmtst-admin-script', WPMTST_DIR . 'js/wpmtst-admin.js', array( 'jquery' ) );
 		wp_localize_script( 'wpmtst-admin-script', 'ajax_object', array( 'ajaxurl' => admin_url( 'admin-ajax.php' ) ) );
@@ -93,14 +95,26 @@ function wpmtst_meta_options() {
 		<tr>
 			<td colspan="2"><?php _e( 'To add a client&apos;s photo, use the Featured Image option.', 'strong-testimonials' ); ?>&nbsp;<div class="dashicons dashicons-arrow-right-alt"></div></td>
 		</tr>
-		<?php foreach ( $field_groups[ $fields['current_field_group'] ]['fields'] as $key => $field ) { ?>
-		<?php if ( 'custom' == $field['record_type'] ) { ?>
+		<?php foreach ( $field_groups[ $fields['current_field_group'] ]['fields'] as $key => $field ) : ?>
+		<?php if ( 'custom' == $field['record_type'] ) : ?>
 		<tr>
 			<th><label for="<?php echo $field['name']; ?>"><?php echo $field['label']; ?></label></td>
-			<td><?php echo sprintf( '<input id="%2$s" type="%1$s" class="custom-input" name="custom[%2$s]" value="%3$s" size="" />', $field['input_type'], $field['name'], $post->$field['name'] ); ?></td>
+			<td>
+				<?php echo sprintf( '<input id="%2$s" type="%1$s" class="custom-input" name="custom[%2$s]" value="%3$s" size="" />', $field['input_type'], $field['name'], $post->$field['name'] ); ?>
+				<?php
+				/*
+				 * Add rel="nofollow" to outbound links.
+				 *
+				 * @since 1.11.0
+				 */
+				 ?>
+				<?php if ( 'url' == $field['input_type'] ) : ?>
+					&nbsp;&nbsp;<label><input type="checkbox" name="custom[nofollow]" <?php checked( $post->nofollow, 'on' ); ?> /> <code>rel="nofollow"</code></label>
+				<?php endif; ?>
+			</td>
 		</tr>
-		<?php } ?>
-		<?php } ?>
+		<?php endif; ?>
+		<?php endforeach; ?>
 	</table>
 	<?php
 }
@@ -263,10 +277,16 @@ function wpmtst_save_details() {
 	global $post;
 
 	if ( isset( $_POST['custom'] ) ) {
+	
+		// missing 'nofollow' = unchecked checkbox = 'off'
+		if ( ! array_key_exists( 'nofollow', $_POST['custom'] ) )
+			$_POST['custom']['nofollow'] = 'off';
+			
 		foreach ( $_POST['custom'] as $key => $value ) {
-			// Allow empty values to replace existing values.
+			// empty values replace existing values
 			update_post_meta( $post->ID, $key, $value );
 		}
+		
 	}
 }
 // add_action( 'save_post_wpm-testimonial', 'wpmtst_save_details' ); // WP 3.7+

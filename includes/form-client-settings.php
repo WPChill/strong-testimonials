@@ -25,14 +25,11 @@ if ( $options['honeypot_after'] )
 
 <tr valign="top">
 <td>
-	<!--
-	<p class="description hilite">This will be replaced with a field editor in an upcoming version.</p>
-	-->
-	<p><b>Client section shortcodes:</b></p>
+	<p><b><?php _e( 'Client section shortcodes:', 'strong-testimonials' ); ?></b></p>
 	<p><textarea id="client-section" class="widefat code" name="wpmtst_options[client_section]" rows="3"><?php echo $options['client_section']; ?></textarea></p>
-	<p>Your fields:&nbsp;&nbsp;<?php echo join( " ", $fields_array ); ?><span class="widget-help pushdown2 dashicons dashicons-editor-help"><span class="help">These are the fields used on your testimonial submission form. You can change these in the Fields editor.</span></span></p>
+	<p><?php _e( 'Your fields:', 'strong-testimonials' ); ?>&nbsp;&nbsp;<?php echo join( " ", $fields_array ); ?><span class="widget-help pushdown2 dashicons dashicons-editor-help"><span class="help"><?php _e( 'These are the fields used on your testimonial submission form. You can change these in the Fields editor.', 'strong-testimonials' ); ?></span></span></p>
 	
-	<p>Use these shortcodes to select which client fields appear below each testimonial. <em>These shortcodes only work here, not on a page.</em></p>
+	<p><?php _e( 'Use these shortcodes to select which client fields appear below each testimonial.', 'strong-testimonials' ); ?> <em><?php _e( 'These shortcodes only work here, not on a page.', 'strong-testimonials' ); ?></em></p>
 	
 	<?php /*
 	<p>Here's an example:</p>
@@ -46,7 +43,7 @@ if ( $options['honeypot_after'] )
 	</div>
 	*/ ?>
 	
-	<p>Default:</p>
+	<p><?php _e( 'Default:', 'strong-testimonials' ); ?></p>
 	<div class="shortcode-example code">
 		<p class="indent">
 			<span class="outdent">[wpmtst-text </span> field="<span class="field">client_name</span>" class="<span class="field">name</span>"]

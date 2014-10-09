@@ -1,10 +1,11 @@
 <?php
 /**
- * Strong Testimonials - Default options
+ * Default options.
  *
  * Populates default_options and default_options.
  *
  * @since 1.8
+ * @package Strong_Testimonials
  */
 
  
@@ -31,11 +32,11 @@ $default_cycle = array(
 		'limit'       => 3,
 		'title'       => 1,
 		'content'     => 'entire',
-		'char-limit'  => 200,
+		'char_limit'  => 200,
 		'images'      => 1,
 		'client'      => 0,
 		'more'        => 0,
-		'more-page'   => '',
+		'more_page'   => '',
 		'effect'      => 'fade',
 		'speed'       => 1.5,
 		'timeout'     => 8,

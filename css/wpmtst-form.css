@@ -117,11 +117,3 @@
 #wpmtst-form img.captcha {
 	border: 0;
 }
-
-
-/* Honeypot
------------------------------------------------*/
-#wpmtst-form .wpmtst_if_visitor * {
-	display: none !important;
-	visibility: hidden !important;
-}

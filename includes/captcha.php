@@ -43,16 +43,6 @@ function wpmtst_add_captcha( $captcha ) {
 			}
 			break;
 		
-		case 'zerospam' :
-			// add_action( 'zero_spam_enqueue_scripts', 'wpmtst_zerospam' );
-			// add_action( 'zero_spam_enqueue_scripts', 'wpmtst_zerospam', 20 );
-			echo '<script type="text/javascript">';
-			echo '/* <![CDATA[ */';
-			echo 'var forms = "#commentform, #registerform, #wpmtst-submission-form";';
-			echo '/* ]]> */';
-			echo '</script>';
-			break;
-			
 		default :
 			// no captcha
 

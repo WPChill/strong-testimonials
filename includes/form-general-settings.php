@@ -1,7 +1,8 @@
 <?php
 /**
- * Strong Testimonials
- * General settings form
+ * General settings form.
+ *
+ * @package Strong_Testimonials
  */
 ?>
 <input type="hidden" name="wpmtst_options[default_template]" value="<?php esc_attr_e( $options['default_template'] ); ?>" />
@@ -57,18 +58,18 @@
 <tr valign="top">
 <th class="parent" scope="row"><?php _e( 'Spam Control', 'strong-testimonials' );?></th>
 <td>
-	<p><strong>Honeypot</strong></p>
-	<p>These methods are both time-tested and widely used. They can be used simultaneously for more protection.</p>
+	<p><strong><?php _e( 'Honeypot', 'strong-testimonials' ); ?></strong></p>
+	<p><?php _e( 'These methods are both time-tested and widely used. They can be used simultaneously for more protection.', 'strong-testimonials' ); ?></p>
 	<ul>
 		<li class="checkbox">
 			<input type="checkbox" name="wpmtst_options[honeypot_before]" <?php checked( $options['honeypot_before'] ); ?> />
 			<?php _e( 'Before', 'strong-testimonials' ); ?>
-			<p class="description">Traps spambots by adding an extra empty field that is invisible to humans but not to spambots which tend to fill in every field they find in the form code. Empty field = human. Not empty = spambot.</p>
+			<p class="description"><?php _e( 'Traps spambots by adding an extra empty field that is invisible to humans but not to spambots which tend to fill in every field they find in the form code. Empty field = human. Not empty = spambot.', 'strong-testimonials' ); ?></p>
 		</li>
 		<li class="checkbox">
 			<input type="checkbox" name="wpmtst_options[honeypot_after]" <?php checked( $options['honeypot_after'] ); ?> />
 			<?php _e( 'After', 'strong-testimonials' ); ?>
-			<p class="description"><strong>Recommended.</strong> Traps spambots by using JavaScript to add a new field as soon as the form is submitted. Since spambots cannot run JavaScript, the new field never gets added. New field = human. Missing = spambot.</p>
+			<p class="description"><strong><?php _e( 'Recommended.', 'strong-testimonials' ); ?></strong> <?php _e( 'Traps spambots by using JavaScript to add a new field as soon as the form is submitted. Since spambots cannot run JavaScript, the new field never gets added. New field = human. Missing = spambot.', 'strong-testimonials' ); ?></p>
 		</li>
 	</ul>
 </td>
@@ -77,7 +78,7 @@
 <th class="child" scope="row"></th>
 <td class="stackem child">
 	<p><strong>Captcha</strong></p>
-	<p>Captcha can be used alongside honeypot methods. Be sure to configure any plugins first, if necessary.</p>
+	<p><?php _e( 'Captcha can be used alongside honeypot methods. Be sure to configure any plugins first, if necessary.', 'strong-testimonials' ); ?></p>
 	<ul>
 		<li>
 			<label>
@@ -99,12 +100,12 @@
 					<?php if ( isset( $plugin['settings'] ) && $plugin['settings'] ) : ?>
 						<span class="link"><a href="<?php echo $plugin['settings']; ?>"><?php _e( 'settings', 'strong-testimonials' ); ?></a></span> |
 					<?php else : ?>
-						<span class="notice">(<?php _e( 'no settings', 'strong-testimonials' ); ?>)</span> |
+						<span class="notice"><?php _e( 'no settings', 'strong-testimonials' ); ?></span> |
 					<?php endif; ?>
 					
 				<?php else : ?>
 					
-					<span class="notice disabled">(<?php _e( 'inactive', 'strong-testimonials' ); ?>)</span> |
+					<span class="notice disabled"><?php _e( 'inactive', 'strong-testimonials' ); ?></span> |
 					
 				<?php endif; ?>
 				

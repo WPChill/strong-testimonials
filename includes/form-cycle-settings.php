@@ -43,7 +43,7 @@
 <!-- limit -->
 <tr valign="top">
 	<th scope="row">
-		How many?
+		<?php _e( 'How many?', 'strong-testimonials' ); ?>
 	</th>
 	<td>
 	
@@ -65,7 +65,7 @@
 <!-- start: show parts -->
 <tr valign="top">
 	<th scope="row" class="parent">
-		Show
+		<?php _e( 'Show', 'strong-testimonials' ); ?>
 	</th>
 	<!-- title -->
 	<td class="">
@@ -93,7 +93,7 @@
 		
 		<div class="radio">
 			<label>
-				<input type="radio" id="" name="wpmtst_cycle[content]" <?php checked( 'truncated', $cycle['content'] ); ?> value="truncated" /><?php _e( 'Content up to', 'strong-testimonials' ); ?>&nbsp;<input type="number" min="10" max="995" step="5" id="cycle-char-limit" name="wpmtst_cycle[char-limit]" value="<?php echo $cycle['char-limit']; ?>" size="3" /><?php _e( 'characters', 'strong-testimonials' ); ?>
+				<input type="radio" id="" name="wpmtst_cycle[content]" <?php checked( 'truncated', $cycle['content'] ); ?> value="truncated" /><?php _e( 'Content up to', 'strong-testimonials' ); ?>&nbsp;<input type="number" min="10" max="995" step="5" id="cycle-char-limit" name="wpmtst_cycle[char_limit]" value="<?php echo $cycle['char_limit']; ?>" size="3" /><?php _e( 'characters', 'strong-testimonials' ); ?>
 			</label>
 			<p class="description"><?php _e( 'Will break on a space and add an ellipsis.', 'strong-testimonials' ); ?></p>
 		</div>
@@ -131,7 +131,7 @@
 <!-- read more -->
 <tr valign="top">
 	<th scope="row">
-		"Read more" link
+		<?php _e( '"Read more" link', 'strong-testimonials' ); ?>
 	</th>
 	<td>
 	
@@ -151,10 +151,10 @@
 			<label>
 				<input type="radio" id="" name="wpmtst_cycle[more]" <?php checked( 2, $cycle['more'] ); ?> value="2" /><?php _e( 'Link to', 'strong-testimonials' ); ?>
 			</label>&nbsp;
-			<select id="cycle-more-page" name="wpmtst_cycle[more-page]" autocomplete="off">
+			<select id="cycle-more-page" name="wpmtst_cycle[more_page]" autocomplete="off">
 				<option value=""><?php _e( '— Select a page —', 'strong-testimonials' ) ?></option>
 				<?php foreach ( $pages_list as $pages ) : ?>
-					<option value="<?php echo $pages->ID; ?>" <?php selected( $cycle['more-page'], $pages->ID ); ?>><?php echo $pages->post_title; ?></option>
+					<option value="<?php echo $pages->ID; ?>" <?php selected( $cycle['more_page'], $pages->ID ); ?>><?php echo $pages->post_title; ?></option>
 				<?php endforeach; ?>
 			</select>
 		</div>
@@ -165,7 +165,7 @@
 <!-- effect -->
 <tr valign="top">
 	<th scope="row">
-		Transition
+		<?php _e( 'Transition', 'strong-testimonials' ); ?>
 	</th>
  <td>
 		
