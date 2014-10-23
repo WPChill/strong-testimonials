@@ -366,7 +366,7 @@ function wpmtst_cycle_shortcode( $atts ) {
 			'order'          => $order,
 	);
 
-	if ( $cycle['category'] ) {
+	if ( $cycle['category'] && 'all' != $cycle['category'] ) {
 		$args['tax_query'] = array(
 				array(
 						'taxonomy' => 'wpm-testimonial-category',

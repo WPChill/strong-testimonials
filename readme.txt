@@ -194,6 +194,9 @@ That's *my* frequently asked question ;) As a reward for reading this far, leave
 
 == Changelog ==
 
+= 1.11.1 - 2014-10-23 =
+* Fix bug in [wpmtst-cycle] category query.
+
 = 1.11 - 2014-10-22 =
 * New [strong] shortcode.
 * New default template file and template functions for use in themes.
@@ -304,6 +307,9 @@ That's *my* frequently asked question ;) As a reward for reading this far, leave
 
 
 == Upgrade Notice ==
+
+= 1.11.1 =
+Fixed a bug in [wpmtst-cycle] category query.
 
 = 1.11 =
 Testing new [strong] shortcode. Added template functions and a default template file for use in themes. Added `rel="nofollow"` option. Improved memory usage, queries, honeypots, and server-side form validation. Added a .pot file.
