@@ -3,6 +3,24 @@
  * Submission form shortcode
  */
  
+function wpmtst_restrict_mime( $mimes ) {
+	$mimes = array(
+		'jpg|jpeg|jpe' => 'image/jpeg',
+		'gif' => 'image/gif',
+		'png' => 'image/png',
+	);
+	return $mimes;
+}
+add_filter( 'upload_mimes', 'wpmtst_restrict_mime' );
+
+
+function wpmtst_wp_handle_upload_prefilter( $file ) {
+	d($file);
+	return $file;
+}
+// add_filter( 'wp_handle_upload_prefilter', 'wpmtst_wp_handle_upload_prefilter' );
+
+
 function wpmtst_form_shortcode( $atts ) {
 	extract( shortcode_atts(
 		array( 
@@ -39,9 +57,11 @@ function wpmtst_form_shortcode( $atts ) {
 		$testimonial_inputs[ $field['name'] ] = '';
 	}
 
-	// ------------
-	// Form Actions
-	// ------------
+	/*
+	 * ------------
+	 * Form Actions
+	 * ------------
+	 */
 	if ( isset( $_POST['wpmtst_form_submitted'] ) ) {
 	
 		if ( ! wp_verify_nonce( $_POST['wpmtst_form_submitted'], 'wpmtst_submission_form' ) )
@@ -56,9 +76,11 @@ function wpmtst_form_shortcode( $atts ) {
 		if ( $options['honeypot_after'] )
 			do_action('wpmtst_honeypot_after');
 			
-		// -------------------
-		// sanitize & validate
-		// -------------------
+		/*
+		 * -------------------
+		 * sanitize & validate
+		 * -------------------
+		 */
 		foreach ( $fields as $key => $field ) {
 
 			if ( isset( $field['required'] ) && $field['required'] && empty( $_POST[ $field['name'] ] ) ) {
@@ -68,11 +90,13 @@ function wpmtst_form_shortcode( $atts ) {
 			
 				if ( 'post' == $field['record_type'] ) {
 				
-					if ( 'file' == $field['input_type'] )
-						$testimonial_att[ $field['name'] ] = isset( $field['map'] ) ? $field['map'] : 'post';
-					else
+					if ( 'file' == $field['input_type'] ) {
+						$testimonial_att[ $field['name'] ] = array( 'field' => isset( $field['map'] ) ? $field['map'] : 'post' );
+					}
+					else {
 						$testimonial_post[ $field['name'] ] = sanitize_text_field( $_POST[ $field['name'] ] );
-						
+					}
+					
 				}
 				elseif ( 'custom' == $field['record_type'] ) {
 				
@@ -80,8 +104,7 @@ function wpmtst_form_shortcode( $atts ) {
 						$testimonial_meta[ $field['name'] ] = sanitize_email( $_POST[ $field['name'] ] );
 					}
 					elseif ( 'url' == $field['input_type'] ) {
-						// wpmtst_get_website() will prefix with "http://"
-						// so don't add that to an empty input
+						// wpmtst_get_website() will prefix with "http://" so don't add that to an empty input
 						if ( $_POST[ $field['name'] ] )
 							$testimonial_meta[ $field['name'] ] = esc_url_raw( wpmtst_get_website( $_POST[ $field['name'] ] ) );
 					}
@@ -93,8 +116,11 @@ function wpmtst_form_shortcode( $atts ) {
 				
 			}
 
-		}
+		} // foreach $field
 
+		/*
+		 * No missing required fields, carry on.
+		 */
     if ( ! count( $errors ) ) {
 		
 			// special handling:
@@ -104,7 +130,49 @@ function wpmtst_form_shortcode( $atts ) {
 				$five_words = array_slice( $words_array, 0, 5 );
 				$testimonial_post['post_title'] = implode( ' ', $five_words );
 			}
-
+			
+			// validate image attachments and store WP error messages
+			foreach ( $testimonial_att as $name => $atts ) {
+				if ( isset( $_FILES[$name] ) && $_FILES[$name]['size'] > 1 ) {
+					$file = $_FILES[$name];
+					
+					// Upload file
+					$overrides = array( 'test_form' => false );
+					$uploaded_file = wpmtst_wp_handle_upload( $file, $overrides );
+					/* 
+					 * $uploaded_file = array (size=3)
+					 *   'file' => string 'M:\wp\strong\site/wp-content/uploads/Lotus8.jpg' (length=47)
+					 *   'url' => string 'http://strong.dev/wp-content/uploads/Lotus8.jpg' (length=47)
+					 *   'type' => string 'image/jpeg' (length=10)
+					 */
+					if ( isset( $uploaded_file['error'] ) )	{
+						$errors[ $name ] = $uploaded_file['error'];
+						break;
+					}
+					else {
+						// Create an attachment
+						$attachment = array(
+								'post_title'     => $file['name'],
+								'post_content'   => '',
+								'post_type'      => 'attachment',
+								'post_parent'    => null, // populated after inserting post
+								'post_mime_type' => $file['type'],
+								'guid'           => $uploaded_file['url']
+						);
+						
+						$testimonial_att[$name]['attachment'] = $attachment;
+						$testimonial_att[$name]['uploaded_file'] = $uploaded_file;
+					}
+					
+				}
+			}
+		}
+		
+		/*
+		 * No faulty uploads, carry on.
+		 */
+    if ( ! count( $errors ) ) {
+		
 			// create new testimonial post
 			if ( $testimonial_id = wp_insert_post( $testimonial_post ) ) {
 
@@ -119,47 +187,36 @@ function wpmtst_form_shortcode( $atts ) {
 				}
 
 				// save attachments
-				foreach ( $testimonial_att as $name => $map ) {
-					if ( isset( $_FILES[$name] ) && $_FILES[$name]['size'] > 1 ) {
-						$file = $_FILES[$name];
-						
-						// Upload file
-						$overrides = array( 'test_form' => false );
-						$uploaded_file = wpmtst_wp_handle_upload( $file, $overrides );
-						$image = $uploaded_file['url'];
-
-						// Create an attachment
-						$attachment = array(
-								'post_title'     => $file['name'],
-								'post_content'   => '',
-								'post_type'      => 'attachment',
-								'post_parent'    => $testimonial_id,
-								'post_mime_type' => $file['type'],
-								'guid'           => $uploaded_file['url']
-						);
-
-						$attach_id = wp_insert_attachment( $attachment, $uploaded_file['file'], $testimonial_id );
-						$attach_data = wp_generate_attachment_metadata( $attach_id, $uploaded_file['file'] );
+				foreach ( $testimonial_att as $name => $atts ) {
+					if ( isset( $atts['attachment'] ) ) {
+						$atts['attachment']['post_parent'] = $testimonial_id;
+						$attach_id = wp_insert_attachment( $atts['attachment'], $atts['uploaded_file']['file'], $testimonial_id );
+						$attach_data = wp_generate_attachment_metadata( $attach_id, $atts['uploaded_file']['file'] );
 						$result = wp_update_attachment_metadata( $attach_id,  $attach_data );
-						add_post_meta( $testimonial_id, $name, $image );
-						if ( 'featured_image' == $map ) {
+						add_post_meta( $testimonial_id, $name, $atts['uploaded_file']['url'] );
+						if ( 'featured_image' == $atts['field'] ) {
 							set_post_thumbnail( $testimonial_id, $attach_id );
 						}
 					}
 				}
-
-				wpmtst_notify_admin();
-				return '<div class="testimonial-success">' .  __( 'Thank you! Your testimonial is awaiting moderation.', 'strong-testimonials' ) .'</div>';
-
+			
 			}
 			else {
-				// @TODO post insert error handling
+				// @TODO Add general error message to top of form.
+				$errors['post'] = __( 'There was a problem processing your testimonial.', 'strong-testimonials' );
 			}
 
 		}
-		else {  // errors
-			$testimonial_inputs = array_merge( $testimonial_inputs, $testimonial_post, $testimonial_meta );
-    }
+		
+		/*
+		 * Post inserted successfully, carry on.
+		 */
+		if ( ! count( $errors ) ) {
+			wpmtst_notify_admin();
+			return '<div class="testimonial-success">' .  __( 'Thank you! Your testimonial is awaiting moderation.', 'strong-testimonials' ) .'</div>';
+		}
+		
+		$testimonial_inputs = array_merge( $testimonial_inputs, $testimonial_post, $testimonial_meta );
 
 	}  // if posted
 
@@ -248,16 +305,17 @@ function wpmtst_form_shortcode( $atts ) {
 
 		}
 
-		// Add error messages and wrap it up
+		// Add error message
 		if ( isset( $errors[ $field['name'] ] ) )
 			$html .= '<span class="error">' . $errors[ $field['name'] ] . '</span>';
 
+		// Add "after" message
 		if ( isset( $field['after']) && $field['after'] )
 			$html .= '<span class="after">' . $field['after'] . '</span>';
 
 		$html .= '</p>';
 
-	}
+	} // foreach $field
 
 	if ( $options['honeypot_before'] ) {
 		$html .= '<style>#wpmtst-form .wpmtst_if_visitor * { display: none !important; visibility: hidden !important; }</style>';
