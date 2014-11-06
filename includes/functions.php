@@ -7,16 +7,6 @@
 
 
 /**
- * For when I forget to remove Kint debugging calls.
- */ 
-if ( ! function_exists( 'd' ) ) {
-	function d( $args ){
-		// do nothing
-	}
-}
-
-
-/**
  * Truncate post content
  *
  * Find first space after char_limit (e.g. 200).
@@ -148,7 +138,10 @@ function wpmtst_cycle_check( $effect, $speed, $timeout, $pause, $var ) {
 			'timeout' => $timeout * 1000, 
 			'pause'   => $pause,
 	);
+	// Load in footer:
 	wp_enqueue_script( 'wpmtst-cycle-script', WPMTST_DIR . 'js/wpmtst-cycle.js', array ( 'jquery' ), false, true );
+	// Load in header:
+	//wp_enqueue_script( 'wpmtst-cycle-script', WPMTST_DIR . 'js/wpmtst-cycle.js', array ( 'jquery' ), false );
 	wp_localize_script( 'wpmtst-cycle-script', $var, $args );
 	
 }

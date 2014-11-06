@@ -265,9 +265,6 @@ add_shortcode( 'strong', 'wpmtst_strong_shortcode' );
  * @since 1.11.0
  */
 function wpmtst_strong_shortcode_filter( $out, $pairs, $atts ) {
-	d($out);
-	d($pairs);
-	d($atts);
 	return $out;
 }
 add_filter( 'shortcode_atts_strong', 'wpmtst_strong_shortcode_filter', 10, 3 );

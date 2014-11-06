@@ -45,3 +45,15 @@
 .readmore {
 	margin-top: 1em;
 }
+
+/*
+ * Next two rules prevent stacking blocks in widget on slow-loading pages
+ */
+
+.wpmtst-widget-container .t-slide {
+  display: none;
+}
+
+.wpmtst-widget-container .t-slide:first-child {
+  display: block;
+}

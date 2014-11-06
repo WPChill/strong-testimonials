@@ -15,7 +15,6 @@ add_filter( 'upload_mimes', 'wpmtst_restrict_mime' );
 
 
 function wpmtst_wp_handle_upload_prefilter( $file ) {
-	d($file);
 	return $file;
 }
 // add_filter( 'wp_handle_upload_prefilter', 'wpmtst_wp_handle_upload_prefilter' );
@@ -213,6 +212,7 @@ function wpmtst_form_shortcode( $atts ) {
 		 */
 		if ( ! count( $errors ) ) {
 			wpmtst_notify_admin();
+			// wpmtst_notify_admin( $_POST['email'] );
 			return '<div class="testimonial-success">' .  __( 'Thank you! Your testimonial is awaiting moderation.', 'strong-testimonials' ) .'</div>';
 		}
 		

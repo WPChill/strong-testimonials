@@ -194,7 +194,12 @@ That's *my* frequently asked question ;) As a reward for reading this far, leave
 
 == Changelog ==
 
+= 1.11.3 - 2014-11-14 =
+* Fix conflict with Roki theme.
+* Fix a condition on slow-loading pages where the testimonials in the widget might appear stacked up before the slideshow script hides all but the first one.
+
 = 1.11.2 - 2014-11-06 =
+* IMPORTANT SECURITY UPDATE! 
 * Restrict file upload types to jpg, jpeg, jpe, gif, png.
 
 = 1.11.1 - 2014-10-23 =
@@ -310,6 +315,9 @@ That's *my* frequently asked question ;) As a reward for reading this far, leave
 
 
 == Upgrade Notice ==
+
+= 1.11.3 =
+Fixed a conflict with Roki theme. Fixed a potential display problem in the widget for slow-loading pages.
 
 = 1.11.2 =
 SECURITY VULNERABILITY FIXED. PLEASE UPDATE! The file upload on the submission form is now restricted to image file types only (jpg|jpeg|jpe|gif|png).
