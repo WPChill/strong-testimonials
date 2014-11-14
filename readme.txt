@@ -194,6 +194,9 @@ That's *my* frequently asked question ;) As a reward for reading this far, leave
 
 == Changelog ==
 
+= 1.11.4 - 2014-11-14 =
+* Remove the fix for potential problem on slow-loading pages; needs more testing.
+
 = 1.11.3 - 2014-11-14 =
 * Fix conflict with Roki theme.
 * Fix a condition on slow-loading pages where the testimonials in the widget might appear stacked up before the slideshow script hides all but the first one.
@@ -315,6 +318,9 @@ That's *my* frequently asked question ;) As a reward for reading this far, leave
 
 
 == Upgrade Notice ==
+
+= 1.11.4 =
+Removed the fix for potential widget problem; needs more testing.
 
 = 1.11.3 =
 Fixed a conflict with Roki theme. Fixed a potential display problem in the widget for slow-loading pages.
