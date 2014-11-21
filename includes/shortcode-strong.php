@@ -25,6 +25,18 @@ add_filter( 'testimonials_template', 'wpmtst_loop_template_filter', 99 );
 
 
 /**
+ * Do not texturize [strong].
+ *
+ * @since 1.11.5
+ */
+function shortcodes_to_exempt_from_wptexturize( $shortcodes ) {
+	$shortcodes[] = 'strong';
+	return $shortcodes;
+}
+add_filter( 'no_texturize_shortcodes', 'shortcodes_to_exempt_from_wptexturize' );
+
+
+/**
  * Strong shortcode.
  *
  * @since 1.11.0

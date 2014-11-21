@@ -194,6 +194,9 @@ That's *my* frequently asked question ;) As a reward for reading this far, leave
 
 == Changelog ==
 
+= 1.11.5 - 2014-11-21 =
+* Add filter to prevent `[strong]` shortcode from `wptexturize()` in WordPress 4.0.1.
+
 = 1.11.4 - 2014-11-14 =
 * Remove the fix for potential problem on slow-loading pages; needs more testing.
 
@@ -318,6 +321,9 @@ That's *my* frequently asked question ;) As a reward for reading this far, leave
 
 
 == Upgrade Notice ==
+
+= 1.11.5 =
+* Important update for WordPress 4.0.1 that fixes client shortcode problem.
 
 = 1.11.4 =
 Removed the fix for potential widget problem; needs more testing.
