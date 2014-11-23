@@ -2,7 +2,7 @@
 Contributors: cdillon27
 Tags: testimonials, testimonial widget, random testimonial, testimonial shortcode, testimonial slider
 Requires at least: 3.5
-Tested up to: 4.0
+Tested up to: 4.0.1
 Stable tag: trunk
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -20,7 +20,7 @@ Integrate testimonials in 3 steps:
 
 [Screenshots](http://wordpress.org/plugins/strong-testimonials/screenshots/) | [Demos](http://demos.wpmission.com/strong-testimonials/) | [Feature Requests](http://www.wpmission.com)
 
-**What's New**
+**WHAT'S NEW**
 
 The `[strong]` shortcode that does it all.
 
@@ -29,7 +29,7 @@ Template functions and a default template file.
 An updated POT file for translations.
 
 
-**Primary Features**
+**PRIMARY FEATURES**
 
 A submission form with custom fields and anti-spam options.
 
@@ -40,7 +40,7 @@ Multiple shortcode options including Cycle, All, Random, and Single.
 Multiple widget options including category selection and random order.
 
 
-**Other Features**
+**OTHER FEATURES**
 
 Administrator notification upon new testimonial submission.
 
@@ -51,7 +51,7 @@ Tested in many popular themes including the [problematic](http://chrislema.com/w
 Ready for translations (i18n).
 
 
-**Spam Control**
+**SPAM CONTROL**
 
 Two methods are available:
 
@@ -62,7 +62,7 @@ Two methods are available:
     * [Simple reCaptcha](http://wordpress.org/plugins/simple-recaptcha)
 
 
-**Recommended**
+**RECOMMENDED**
 
 These plugins work well with Strong Testimonials and add some nice features.
 
@@ -72,13 +72,13 @@ These plugins work well with Strong Testimonials and add some nice features.
 * [Wider Admin Menu](http://wordpress.org/plugins/wider-admin-menu/)
 
 
-**Known Conflicts**
+**KNOWN CONFLICTS**
 
 * [Page Builder by SiteOrigin](http://wordpress.org/support/plugin/siteorigin-panels) - The widget settings are not being saved properly in the drag-and-drop builder.
 * [WP Mail SMTP](https://wordpress.org/plugins/wp-mail-smtp/) - The administrator notification email may not be sent.
 
 
-**Translations**
+**TRANSLATIONS**
 
 Can you help? [Contact me](http://www.wpmission.com/contact/).
 
@@ -123,7 +123,7 @@ For help, use the [support forum](http://wordpress.org/support/plugin/strong-tes
 
 The new `[strong]` shortcode uses a template file that can be copied into your theme. You can create multiple template files and include them using a shortcode attribute; e.g. `template="my-template"`. Template functions are also available for adding testimonial fields to new or existing templates.
 
-The original shortcodes do not use template files, but the stylesheets are largely structural so you can add CSS in your theme or [custom CSS](http://wordpress.org/plugins/simple-custom-css/). In fact, I like to skip loading the stylesheets (in `Testimonials > Settings`) to see how they look in the theme, then style up from there. Future versions will have pre-built templates with adjustable colors, borders, etc.
+The original `[wpmtst]` shortcodes do not use template files, but the stylesheets are largely structural so you can add CSS in your theme or [custom CSS](http://wordpress.org/plugins/simple-custom-css/). In fact, I like to skip loading the stylesheets (in `Testimonials > Settings`) to see how they look in the theme, then style up from there. Future versions will have pre-built templates with adjustable colors, borders, etc.
 
 = How can I change "testimonial" to "review", for example? =
 
@@ -151,9 +151,9 @@ If your site relies on a partner plugin like this, and that plugin becomes buggy
 
 = How can I change which client fields appear below the testimonial? =
 
-On the `Client Section` tab on the `Testimonials > Settings` page. Follow the example to build shortcodes based on your custom fields. There is a shortcode for text fields (like a client's name) and a shortcode for links (like a client's website). When in doubt, use the default template provided.
+The new `[strong]` shortcode has child shortcodes `[client]` and `[field]`. Here's a good [example](http://demos.wpmission.com/strong-testimonials/the-strong-shortcode/custom-fields/).
 
-I admit it can greatly improved but I needed to build something quickly to include in version 1.7 with custom fields.
+For the original `[wpmtst]` shortcodes, go to the `Client Section` tab on the `Testimonials > Settings` page. Follow the example to build shortcodes based on your custom fields. There is a shortcode for text fields (like a client's name) and a shortcode for links (like a client's website). When in doubt, use the default template provided.
 
 = Is this multisite compatible? =
 
@@ -193,6 +193,13 @@ That's *my* frequently asked question ;) As a reward for reading this far, leave
 
 
 == Changelog ==
+
+= 1.12 - 2014-11-24 =
+* Bug fix: empty custom field showed field name.
+* Feature: Add `[strong]` shortcode to admin list.
+* Feature: Make name column sortable in admin list.
+* Conflict: Rename `wptexturize` filter.
+* Conflict: De-couple some page-specific stylesheets to make plugin compatible with WPBakery's Visual Composer.
 
 = 1.11.5 - 2014-11-21 =
 * Add filter to prevent `[strong]` shortcode from `wptexturize()` in WordPress 4.0.1.
@@ -322,8 +329,11 @@ That's *my* frequently asked question ;) As a reward for reading this far, leave
 
 == Upgrade Notice ==
 
+= 1.12 =
+One bug fixed, two conflicts prevented, two minor features.
+
 = 1.11.5 =
-* Important update for WordPress 4.0.1 that fixes client shortcode problem.
+Important update for WordPress 4.0.1 that fixes client shortcode problem.
 
 = 1.11.4 =
 Removed the fix for potential widget problem; needs more testing.

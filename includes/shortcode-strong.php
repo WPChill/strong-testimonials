@@ -29,11 +29,11 @@ add_filter( 'testimonials_template', 'wpmtst_loop_template_filter', 99 );
  *
  * @since 1.11.5
  */
-function shortcodes_to_exempt_from_wptexturize( $shortcodes ) {
+function wpmtst_no_texturize_shortcodes( $shortcodes ) {
 	$shortcodes[] = 'strong';
 	return $shortcodes;
 }
-add_filter( 'no_texturize_shortcodes', 'shortcodes_to_exempt_from_wptexturize' );
+add_filter( 'no_texturize_shortcodes', 'wpmtst_no_texturize_shortcodes' );
 
 
 /**
@@ -324,9 +324,9 @@ add_filter( 'child_shortcode_atts_client', 'wpmtst_client_shortcode_filter', 10,
 function wpmtst_strong_field_shortcode( $atts, $content = null, $tag ) {
 	extract( child_shortcode_atts(
 		array(
-				'name'     => '',
-				'class'    => '',
-				'url'      => '',
+				'name'     => '',	// custom field
+				'url'      => '', // custom field
+				'class'    => '', // CSS
 				'new_tab'  => false,
 				// 'nofollow' => false   // approach: no global + local enable (via filter)
 		),
@@ -335,12 +335,21 @@ function wpmtst_strong_field_shortcode( $atts, $content = null, $tag ) {
 	) );
 
 	if ( $url ) {
-		if ( ! $name ) { 
+		if ( '' == $name ) {
 			$name = preg_replace( '(^https?://)', '', $url );
 		}
-		$name = '<a href="' . $url . '"' . link_new_tab( $new_tab, false ) . link_nofollow( $nofollow, false ) .  '>' . $name . '</a>';
+		$name = "<a href=\"$url\"" . link_new_tab( $new_tab, false ) . link_nofollow( $nofollow, false ) . ">$name</a>";
 	}
-	return '<div class="' . $class . '">' . $name . '</div>';
+	
+	/*
+	 * Bug fix: Return blank string.
+	 *
+	 * @since 1.12.0
+	 */
+	if ( '' == $name )
+		return;
+	else
+		return '<div class="' . $class . '">' . $name . '</div>';
 }
 add_child_shortcode( 'strong', 'field', 'wpmtst_strong_field_shortcode' );
 
@@ -349,6 +358,9 @@ add_child_shortcode( 'strong', 'field', 'wpmtst_strong_field_shortcode' );
  * Attribute filter for [field] child shortcode.
  *
  * @since 1.11.0
+ * @param array $out   The output array of shortcode attributes.
+ * @param array $pairs The array of accepted parameters and their defaults.
+ * @param array $atts  The input array of shortcode attributes.
  */
 function wpmtst_field_shortcode_filter( $out, $pairs, $atts ) {
 	global $post;
@@ -371,13 +383,21 @@ add_filter( 'child_shortcode_atts_field', 'wpmtst_field_shortcode_filter', 10, 3
  *   to : [url] => http://example.com -OR- (empty string)
  *
  * @since 1.11.0
+ * @param array $out   The output array of shortcode attributes.
+ * @param array $atts  The input array of shortcode attributes.
+ * @param array $post  The testimonial post.
  */
 function wpmtst_atts_to_values( $out, $atts, $post ) {
 	// for fields listed in shortcode attributes:
 	foreach ( $atts as $key => $field ) {
-		if ( isset( $post->$field ) )
-			$out[$key] = $post->$field;
+		if ( 'name' == $key || 'url' == $key ) {
+			if ( isset( $post->$field ) )
+				$out[$key] = $post->$field;
+			else
+				$out[$key] = '';  // @since 1.12
+		}
 	}
+
 	// for fields *not* listed in shortcode attributes:
 	// approach: no global + local enable
 	$out['nofollow'] = ( 'on' == $post->nofollow );

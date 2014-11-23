@@ -4,7 +4,7 @@
  * Plugin URI: http://www.wpmission.com/plugins/strong-testimonials/
  * Description: A powerful testimonial manager.
  * Author: Chris Dillon
- * Version: 1.11.5
+ * Version: 1.12
  * Forked From: GC Testimonials version 1.3.2 by Erin Garscadden
  * Author URI: http://www.wpmission.com/contact
  * Text Domain: strong-testimonials
@@ -348,6 +348,24 @@ function wpmtst_scripts() {
 	}
 }
 add_action( 'wp_enqueue_scripts', 'wpmtst_scripts' );
+
+
+/**
+ * Show version number in <head> section.
+ *
+ * For troubleshooting only.
+ * @since 1.12.0
+ */
+function wpmtst_show_version_number() {
+	global $wp_version;
+	$headers = array(
+		'Name' => 'Plugin Name',
+		'Version' => 'Version',
+	);
+	$plugin_info = get_file_data( __FILE__, $headers );
+	echo '<!-- WordPress ' . $wp_version . ' | ' . $plugin_info['Name'] . ' ' . $plugin_info['Version'] . ' -->' . "\n";
+}
+add_action( 'wp_head', 'wpmtst_show_version_number', 999 );
 
 
 /**

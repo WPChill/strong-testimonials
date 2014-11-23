@@ -22,31 +22,46 @@ add_action( 'admin_init', 'wpmtst_admin_init' );
  * Admin scripts.
  */
 function wpmtst_admin_scripts( $hook ) {
-	if ( in_array( $hook, array( 
-				'wpm-testimonial_page_settings',
-				'wpm-testimonial_page_fields',
-				'wpm-testimonial_page_shortcodes',
-				'wpm-testimonial_page_guide',
-				'widgets.php',
-				'edit.php',
-				'edit-tags.php',
-				'post.php',
-				'post-new.php',
-			) ) ) {
+
+	$hooks_to_style = array( 
+			'wpm-testimonial_page_settings',
+			'wpm-testimonial_page_fields',
+			'wpm-testimonial_page_shortcodes',
+			'wpm-testimonial_page_guide',
+			'widgets.php',
+			'edit.php',
+			'edit-tags.php',
+			'post.php',
+			'post-new.php',
+	);
+			
+	if ( in_array( $hook, $hooks_to_style ) ) {
 		wp_enqueue_style( 'wpmtst-admin-style', WPMTST_DIR . 'css/wpmtst-admin.css' );
 	}
-	if ( in_array( $hook, array( 
-				'wpm-testimonial_page_settings',
-				'wpm-testimonial_page_fields',
-				'wpm-testimonial_page_shortcodes',
-				'widgets.php',
-			) ) ) {
+	
+	if ( 'wpm-testimonial_page_fields' == $hook ) {
+		wp_enqueue_style( 'wpmtst-admin-fields-style', WPMTST_DIR . 'css/wpmtst-admin-fields.css' );
+	}
+
+	if ( 'wpm-testimonial_page_guide' == $hook ) {
+		wp_enqueue_style( 'wpmtst-admin-guide-style', WPMTST_DIR . 'css/wpmtst-admin-guide.css' );
+	}
+
+	$hooks_to_script = array( 
+			'wpm-testimonial_page_settings',
+			'wpm-testimonial_page_fields',
+			'wpm-testimonial_page_shortcodes',
+			'widgets.php',
+	);
+			
+	if ( in_array( $hook, $hooks_to_script ) ) {
 		wp_enqueue_script( 'jquery-ui-core' );
 		wp_enqueue_script( 'jquery-ui-tabs' );
 		wp_enqueue_script( 'jquery-ui-sortable' );
 		wp_enqueue_script( 'wpmtst-admin-script', WPMTST_DIR . 'js/wpmtst-admin.js', array( 'jquery' ) );
 		wp_localize_script( 'wpmtst-admin-script', 'ajax_object', array( 'ajaxurl' => admin_url( 'admin-ajax.php' ) ) );
 	}
+	
 }
 add_action( 'admin_enqueue_scripts', 'wpmtst_admin_scripts' );
 
@@ -173,7 +188,8 @@ function wpmtst_custom_columns( $column ) {
 		echo $post->post_thumbnail;
 	}
 	elseif ( 'shortcode' == $column ) {
-		echo '[wpmtst-single id="' . $post->ID . '"]';
+		echo '[strong id="' . $post->ID . '" ... ]';
+		//echo '[wpmtst-single id="' . $post->ID . '"]';
 	}
 	elseif ( 'category' == $column ) {
 		$categories = get_the_terms( 0, 'wpm-testimonial-category' );
@@ -267,6 +283,39 @@ add_filter( 'manage_wpm-testimonial-category_custom_column', 'wpmtst_manage_colu
 
 
 /*
+ * Make columns sortable.
+ *
+ * @since 1.12.0
+ */
+function wpmtst_manage_sortable_columns( $columns ) {
+	$columns[ 'client_name' ] = 'client_name';
+	return $columns;
+}
+add_filter( 'manage_edit-wpm-testimonial_sortable_columns', 'wpmtst_manage_sortable_columns' );
+
+
+/*
+ * Sort columns.
+ *
+ * @since 1.12.0
+ */
+function wpmtst_pre_get_posts( $query ) {
+	// Only in main WP query AND if an orderby query variable is designated.
+	if ( is_admin() && $query->is_main_query() && ( $orderby = $query->get( 'orderby' ) ) ) {
+
+		switch( $orderby ) {
+			case 'client_name':
+				$query->set( 'meta_key', 'client_name' );
+				$query->set( 'orderby', 'meta_value' );
+				break;
+		}
+		
+	}
+}
+add_action( 'pre_get_posts', 'wpmtst_pre_get_posts', 1 );
+
+
+/*
  * Save custom fields
  */
 function wpmtst_save_details() {
@@ -278,7 +327,7 @@ function wpmtst_save_details() {
 
 	if ( isset( $_POST['custom'] ) ) {
 	
-		// missing 'nofollow' = unchecked checkbox = 'off'
+		// {missing 'nofollow'} = {unchecked checkbox} = 'off'
 		if ( ! array_key_exists( 'nofollow', $_POST['custom'] ) )
 			$_POST['custom']['nofollow'] = 'off';
 			
