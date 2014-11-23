@@ -1,0 +1,2224 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Strong Testimonials v1.11.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-11-26 12:29-0500\n"
+"PO-Revision-Date: 2014-11-26 12:29-0500\n"
+"Last-Translator: Chris Dillon <chris@wpmission.com>\n"
+"Language-Team: \n"
+"Language: ru_RU\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=n%100/10==1 ? 2 : n%10==1 ? 0 : (n"
+"+9)%10>3 ? 2 : 1;\n"
+"X-Generator: Poedit 1.6.4\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;"
+"_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2\n"
+"X-Poedit-Basepath: .\n"
+"X-Textdomain-Support: yes\n"
+"X-Poedit-SearchPath-0: ..\n"
+
+# @ default
+#: ../includes/admin-custom-fields.php:12 ../includes/settings.php:137
+msgid "You do not have sufficient permissions to access this page."
+msgstr "Вы не имеете достаточно прав для доступа к этой странице."
+
+# @ strong-testimonials
+#: ../includes/admin-custom-fields.php:32
+msgid "Changes undone."
+msgstr "Изменения отменены."
+
+# @ strong-testimonials
+#: ../includes/admin-custom-fields.php:49
+msgid "Defaults restored."
+msgstr "Исходные установки восстановлены."
+
+# @ strong-testimonials
+#: ../includes/admin-custom-fields.php:75
+msgid "Fields saved."
+msgstr "Поля сохранены."
+
+# @ strong-testimonials
+#: ../includes/admin-custom-fields.php:90 ../includes/guide-advanced.php:15
+#: ../includes/settings.php:21 ../includes/settings.php:22
+msgid "Fields"
+msgstr "Поля"
+
+# @ strong-testimonials
+#: ../includes/admin-custom-fields.php:92
+#, fuzzy
+msgid "Fields will appear in this order on the form."
+msgstr "Это отобразится в форме."
+
+#. translators: %s is an icon.
+#: ../includes/admin-custom-fields.php:94
+#, php-format
+msgid "Sort by grabbing the %s icon."
+msgstr ""
+
+#: ../includes/admin-custom-fields.php:95
+msgid "Click the field name to expand its options panel."
+msgstr ""
+
+#: ../includes/admin-custom-fields.php:97
+msgctxt "link"
+msgid "Full tutorial"
+msgstr ""
+
+#: ../includes/admin-custom-fields.php:99
+msgctxt "link"
+msgid "Plugin support"
+msgstr ""
+
+#: ../includes/admin-custom-fields.php:101
+msgctxt "contact link"
+msgid "Developer"
+msgstr ""
+
+# @ strong-testimonials
+#: ../includes/admin-custom-fields.php:118
+msgid "Add New Field"
+msgstr "Добавить Новое Поле"
+
+# @ strong-testimonials
+#: ../includes/admin-custom-fields.php:123
+msgid "Undo Changes"
+msgstr "Отменить Изменения"
+
+# @ strong-testimonials
+#: ../includes/admin-custom-fields.php:124
+msgid "Restore Defaults"
+msgstr "Сброс Установок"
+
+#: ../includes/admin-custom-fields.php:157
+msgctxt "noun"
+msgid "Label"
+msgstr ""
+
+# @ strong-testimonials
+#: ../includes/admin-custom-fields.php:160
+msgid "This appears on the form."
+msgstr "Это отобразится в форме."
+
+# @ strong-testimonials
+#: ../includes/admin-custom-fields.php:168 ../includes/admin.php:259
+#, fuzzy
+msgctxt "noun"
+msgid "Name"
+msgstr "Имя"
+
+# @ strong-testimonials
+#: ../includes/admin-custom-fields.php:173
+msgid "Use only lowercase letters, numbers, and underscores."
+msgstr "Используйте только строчные буквы, цифры и символы подчеркивания."
+
+#: ../includes/admin-custom-fields.php:191
+msgctxt "noun"
+msgid "Type"
+msgstr ""
+
+# @ strong-testimonials
+#: ../includes/admin-custom-fields.php:217
+msgid "Post Fields"
+msgstr "Поля Поста"
+
+# @ strong-testimonials
+#: ../includes/admin-custom-fields.php:224
+msgid "Custom Fields"
+msgstr "Произвольные Поля"
+
+# @ default
+#: ../includes/admin-custom-fields.php:283
+msgid "Delete"
+msgstr "Удалить"
+
+# @ strong-testimonials
+#: ../includes/admin-custom-fields.php:285
+#, fuzzy
+msgctxt "verb"
+msgid "Close"
+msgstr "Закрыть"
+
+# @ strong-testimonials
+#: ../includes/admin-custom-fields.php:309
+msgid "Required"
+msgstr "Обязательное"
+
+# @ strong-testimonials
+#: ../includes/admin-custom-fields.php:326
+msgid "Placeholder"
+msgstr "Подсказка"
+
+# @ strong-testimonials
+#: ../includes/admin-custom-fields.php:335
+#: ../includes/form-general-settings.php:67
+msgid "Before"
+msgstr "Перед"
+
+# @ strong-testimonials
+#: ../includes/admin-custom-fields.php:343
+#: ../includes/form-general-settings.php:72
+msgid "After"
+msgstr "После"
+
+# @ strong-testimonials
+#: ../includes/admin-custom-fields.php:359
+msgid "Admin Table"
+msgstr "Админ Таблица"
+
+# @ strong-testimonials
+#: ../includes/admin-custom-fields.php:365
+msgid "required"
+msgstr "обязательное"
+
+# @ strong-testimonials
+#: ../includes/admin.php:73
+#, fuzzy
+msgctxt "post editor"
+msgid "Client Details"
+msgstr "Сведения о Клиенте"
+
+# @ strong-testimonials
+#: ../includes/admin.php:111
+#, fuzzy
+msgctxt "post editor"
+msgid "To add a client's photo, use the Featured Image option."
+msgstr "Для добавления фото клиента, используйте опцию Избранных Изображений."
+
+# @ strong-testimonials
+#: ../includes/admin.php:148
+#, fuzzy
+msgctxt "testimonial"
+msgid "Title"
+msgstr "Заголовок"
+
+# @ strong-testimonials
+#. translators: This appears in widget settings.
+#: ../includes/admin.php:149 ../includes/widget.php:421
+msgid "Excerpt"
+msgstr "Цитата"
+
+# @ strong-testimonials
+#: ../includes/admin.php:155 ../includes/admin.php:217
+msgid "Thumbnail"
+msgstr "Миниатюра"
+
+# @ strong-testimonials
+#. translators: This is on the Cycle Shortcode settings screen.
+#. translators: This appears in widget settings.
+#: ../includes/admin.php:162 ../includes/form-cycle-settings.php:18
+#: ../includes/widget.php:252 ../strong-testimonials.php:253
+msgid "Category"
+msgstr "Категория"
+
+# @ strong-testimonials
+#: ../includes/admin.php:163 ../includes/admin.php:261
+msgid "Shortcode"
+msgstr "Шорткод"
+
+# @ strong-testimonials
+#: ../includes/admin.php:164
+msgid "Date"
+msgstr "Дата"
+
+# @ strong-testimonials
+#: ../includes/admin.php:246
+msgid "None"
+msgstr "Нет"
+
+# @ strong-testimonials
+#: ../includes/admin.php:258
+msgid "ID"
+msgstr "ID"
+
+# @ default
+#: ../includes/admin.php:260
+msgid "Slug"
+msgstr "Slug"
+
+# @ default
+#: ../includes/admin.php:262
+msgid "Posts"
+msgstr "Посты"
+
+# @ strong-testimonials
+#: ../includes/captcha.php:39
+#, fuzzy
+msgctxt "Captcha"
+msgid "Input this code:"
+msgstr "Введите этот код:"
+
+# @ strong-testimonials
+#: ../includes/captcha.php:64 ../includes/captcha.php:73
+#, fuzzy
+msgid "Please complete the Captcha."
+msgstr "Пожалуйста, заполните КАПЧУ."
+
+# @ strong-testimonials
+#: ../includes/captcha.php:85
+msgid "Invalid keys. Please contact the site administrator."
+msgstr "Недействительные ключи. Пожалуйста, свяжитесь с администратором сайта."
+
+# @ strong-testimonials
+#: ../includes/captcha.php:86
+msgid "Invalid parameter. Please contact the site administrator."
+msgstr "Недопустимый параметр. Пожалуйста, обратитесь к администратору сайта."
+
+# @ strong-testimonials
+#: ../includes/captcha.php:87 ../includes/captcha.php:104
+#, fuzzy
+msgid "The Captcha was not entered correctly. Please try again."
+msgstr "Капча была введена неправильно. Пожалуйста, попробуйте еще раз."
+
+# @ strong-testimonials
+#: ../includes/captcha.php:88
+msgid "The process timed out. Please try again."
+msgstr "Время обработки истекло. Пожалуйста, попробуйте еще раз."
+
+# @ strong-testimonials
+#: ../includes/defaults.php:65
+msgid "This field is required."
+msgstr "Это поле является обязательным."
+
+# @ strong-testimonials
+#: ../includes/defaults.php:77
+msgid "Testimonial Title"
+msgstr "Заголовок отзыва"
+
+# @ strong-testimonials
+#: ../includes/defaults.php:84
+msgid "Testimonial Content"
+msgstr "Содержание Отзыва"
+
+# @ strong-testimonials
+#: ../includes/defaults.php:92
+msgid "Featured Image"
+msgstr "Избранное Изображение"
+
+# @ strong-testimonials
+#: ../includes/defaults.php:122
+msgid "Default Field Group"
+msgstr "Группа Полей По Умолчанию"
+
+# @ strong-testimonials
+#: ../includes/defaults.php:130
+msgid "Full Name"
+msgstr "Имя"
+
+# @ strong-testimonials
+#: ../includes/defaults.php:133
+msgid "What is your full name?"
+msgstr "Как Вас зовут? (имя, или полное ФИО)"
+
+# @ strong-testimonials
+#: ../includes/defaults.php:139
+msgid "Email"
+msgstr "Email"
+
+# @ strong-testimonials
+#: ../includes/defaults.php:142
+msgid "What is your email address?"
+msgstr "Ваш адрес электронной почты?"
+
+# @ strong-testimonials
+#: ../includes/defaults.php:147
+msgid "Company Name"
+msgstr "Название Компании"
+
+# @ strong-testimonials
+#: ../includes/defaults.php:149
+msgid "What is your company name?"
+msgstr "Как называется ваша компания?"
+
+# @ strong-testimonials
+#: ../includes/defaults.php:154
+msgid "Company Website"
+msgstr "Сайт Компании"
+
+# @ strong-testimonials
+#: ../includes/defaults.php:156
+msgid "Does your company have a website?"
+msgstr "У вашей компании есть сайт?"
+
+# @ strong-testimonials
+#: ../includes/defaults.php:164
+msgid "Heading"
+msgstr "Заголовок"
+
+# @ strong-testimonials
+#: ../includes/defaults.php:167
+msgid "A headline for your testimonial."
+msgstr "Заголовок для вашего отзыва."
+
+# @ strong-testimonials
+#: ../includes/defaults.php:172
+msgid "Testimonial"
+msgstr "Отзыв"
+
+# @ strong-testimonials
+#: ../includes/defaults.php:175
+msgid "What do you think about us?"
+msgstr "Что Вы о нас думаете?"
+
+# @ strong-testimonials
+#: ../includes/defaults.php:180
+msgid "Photo"
+msgstr "Фото"
+
+# @ strong-testimonials
+#: ../includes/defaults.php:182
+msgid "Would you like to include a photo?"
+msgstr "Хотели бы Вы добавить ваше фото?"
+
+# @ strong-testimonials
+#: ../includes/defaults.php:198
+msgid "Custom Field Group"
+msgstr "Группа Произвольных Полей"
+
+# @ strong-testimonials
+#: ../includes/form-client-settings.php:8
+#: ../includes/settings-shortcodes.php:9
+msgid ""
+"These shortcodes will be deprecated soon. Please migrate to the "
+"<code>[strong]</code> shortcode."
+msgstr ""
+"Поддержка этих шорткодов будет прекращена в ближайшее время. Пожалуйста, "
+"перейдите на <code>[strong]</code> шорткоды."
+
+# @ strong-testimonials
+#: ../includes/form-client-settings.php:33
+msgid "Client section shortcodes:"
+msgstr "Шорткоды клиентского раздела:"
+
+# @ strong-testimonials
+#: ../includes/form-client-settings.php:35
+msgid "Your fields:"
+msgstr "Ваши поля:"
+
+# @ strong-testimonials
+#: ../includes/form-client-settings.php:35
+msgid ""
+"These are the fields used on your testimonial submission form. You can "
+"change these in the Fields editor."
+msgstr ""
+"Эти поля используются в вашей форме отправки отзывов. Вы можете изменить их "
+"в Редакторе полей."
+
+# @ strong-testimonials
+#: ../includes/form-client-settings.php:37
+msgid ""
+"Use these shortcodes to select which client fields appear below each "
+"testimonial."
+msgstr ""
+"Используйте эти шорткоды для выбора клиентских полей, которые будут "
+"отображаются под каждым отзывом."
+
+# @ strong-testimonials
+#: ../includes/form-client-settings.php:37
+msgid "These shortcodes only work here, not on a page."
+msgstr "Эти шорткоды только работать здесь, а не на странице."
+
+# @ strong-testimonials
+#: ../includes/form-client-settings.php:39
+msgid "Default:"
+msgstr "По умолчанию:"
+
+# @ strong-testimonials
+#: ../includes/form-client-settings.php:48
+msgid "Restore Default"
+msgstr "Восстановить По Умолчанию"
+
+# @ strong-testimonials
+#: ../includes/form-cycle-settings.php:8
+#, fuzzy
+msgid ""
+"This shortcode will be deprecated soon. Please migrate to the "
+"<code>[strong]</code> shortcode."
+msgstr ""
+"Поддержка этих шорткодов будет прекращена в ближайшее время. Пожалуйста, "
+"перейдите на <code>[strong]</code> шорткоды."
+
+# @ strong-testimonials
+#. translators: This is on the Cycle Shortcode settings screen.
+#: ../includes/form-cycle-settings.php:27
+msgid "All categories"
+msgstr "Все категории"
+
+# @ strong-testimonials
+#. translators: This is on the Cycle Shortcode settings screen.
+#. translators: This appears in widget settings.
+#: ../includes/form-cycle-settings.php:48 ../includes/widget.php:278
+#, fuzzy
+msgctxt "noun"
+msgid "Order"
+msgstr "Порядок"
+
+# @ strong-testimonials
+#. translators: This is on the Cycle Shortcode settings screen.
+#: ../includes/form-cycle-settings.php:68
+#, fuzzy
+msgctxt "quantity"
+msgid "How many?"
+msgstr "Сколько отзывов?"
+
+# @ strong-testimonials
+#. translators: This is on the Cycle Shortcode settings screen.
+#. translators: This appears in widget settings.
+#: ../includes/form-cycle-settings.php:78 ../includes/widget.php:334
+msgid "All"
+msgstr "Все"
+
+# @ strong-testimonials
+#. translators: This is on the Cycle Shortcode settings screen.
+#. translators: This appears in widget settings.
+#: ../includes/form-cycle-settings.php:97 ../includes/widget.php:322
+#: ../includes/widget.php:398
+#, fuzzy
+msgctxt "verb"
+msgid "Show"
+msgstr "Показывать"
+
+# @ strong-testimonials
+#. translators: This is on the Cycle Shortcode settings screen. Refers to your custom fields.
+#: ../includes/form-cycle-settings.php:106
+#, fuzzy
+msgctxt "the testimonial title"
+msgid "Title <em>(if included in Fields)</em>"
+msgstr "(если включено во вкладке ''Поля'')"
+
+# @ strong-testimonials
+#. translators: This is on the Cycle Shortcode settings screen.
+#: ../includes/form-cycle-settings.php:123
+#, fuzzy
+msgctxt "the testimonial excerpt"
+msgid "Excerpt"
+msgstr "Цитата"
+
+# @ strong-testimonials
+#. translators: This is on the Cycle Shortcode settings screen.
+#: ../includes/form-cycle-settings.php:128
+msgid "Excerpts are hand-crafted summaries of your testimonial."
+msgstr "Цитаты - это ручное резюме вашего отзыва."
+
+# @ strong-testimonials
+#. translators: This is on the Cycle Shortcode settings screen.
+#: ../includes/form-cycle-settings.php:133
+msgid ""
+"You may need to enable them in the post editor like in this <a id=\"toggle-"
+"screen-options\" href=\"#\">screenshot</a>."
+msgstr ""
+"Вам может потребоваться включить их в редакторе постов, как на этом <a id="
+"\"toggle-screen-options\" href=\"#\">скриншоте</a>."
+
+# @ strong-testimonials
+#. translators: This is on the Cycle Shortcode settings screen. %s is a number input field.
+#: ../includes/form-cycle-settings.php:148
+#, fuzzy, php-format
+msgctxt "display setting"
+msgid "Content up to %s characters"
+msgstr "Содержание до"
+
+# @ strong-testimonials
+#. translators: This is on the Cycle Shortcode settings screen.
+#. translators: This appears in widget settings.
+#: ../includes/form-cycle-settings.php:154 ../includes/widget.php:448
+msgid "Will break on a space and add an ellipsis."
+msgstr "Будет обрываться на пробеле и добавится многоточие."
+
+# @ strong-testimonials
+#. translators: This is on the Cycle Shortcode settings screen.
+#: ../includes/form-cycle-settings.php:164
+#, fuzzy
+msgctxt "display setting"
+msgid "Entire content"
+msgstr "Весь контент"
+
+# @ strong-testimonials
+#. translators: This is on the Cycle Shortcode settings screen. Refers to your custom fields.
+#: ../includes/form-cycle-settings.php:181
+#, fuzzy
+msgid "Featured Images <em>(if included in Fields)</em>"
+msgstr "(если включено во вкладке ''Поля'')"
+
+# @ strong-testimonials
+#. translators: This is on the Cycle Shortcode settings screen. Refers to your custom fields.
+#: ../includes/form-cycle-settings.php:196
+#, fuzzy
+msgid "Client Information <em>(if included in Fields)</em>"
+msgstr "(если включено во вкладке ''Поля'')"
+
+# @ strong-testimonials
+#. translators: This is on the Cycle Shortcode settings screen.
+#. translators: This appears in the [strong] shortcode instructions.
+#. translators: This appears in widget settings.
+#: ../includes/form-cycle-settings.php:208 ../includes/tabs/readmore.php:6
+#: ../includes/widget.php:538
+msgid "\"Read More\" link"
+msgstr "\"Читать далее\" ссылка"
+
+# @ strong-testimonials
+#. translators: This is on the Cycle Shortcode settings screen.
+#. translators: This appears in widget settings.
+#: ../includes/form-cycle-settings.php:218 ../includes/widget.php:547
+#, fuzzy
+msgctxt "no \"Read more\" link"
+msgid "None"
+msgstr "Нет"
+
+# @ strong-testimonials
+#. translators: This is on the Cycle Shortcode settings screen.
+#. translators: This appears in widget settings.
+#: ../includes/form-cycle-settings.php:228 ../includes/widget.php:556
+#, fuzzy
+msgctxt "the \"Read more\" link"
+msgid "Link to the testimonial"
+msgstr "Ссылка на отзыв"
+
+# @ strong-testimonials
+#. translators: This is on the Cycle Shortcode settings screen.
+#. translators: This appears in widget settings.
+#: ../includes/form-cycle-settings.php:238 ../includes/widget.php:565
+#, fuzzy
+msgctxt "the \"Read more\" link"
+msgid "Link to"
+msgstr "Ссылка на"
+
+# @ strong-testimonials
+#. translators: This is on the Cycle Shortcode settings screen.
+#. translators: This appears in widget settings.
+#: ../includes/form-cycle-settings.php:245 ../includes/widget.php:572
+#, fuzzy
+msgctxt "the \"Read more\" link"
+msgid "— Select a page —"
+msgstr "— Выбрать страницу —"
+
+# @ strong-testimonials
+#. translators: This is on the Cycle Shortcode settings screen.
+#: ../includes/form-cycle-settings.php:262
+#, fuzzy
+msgctxt "slideshow effect"
+msgid "Transition"
+msgstr "Переход"
+
+# @ strong-testimonials
+#. translators: This is on the Cycle Shortcode settings screen.
+#. translators: This appears in widget settings.
+#: ../includes/form-cycle-settings.php:272 ../includes/widget.php:345
+#, fuzzy
+msgctxt "slideshow setting"
+msgid "Show each for"
+msgstr "Время показа"
+
+# @ strong-testimonials
+#. translators: This is on the Cycle Shortcode settings screen.
+#. translators: This appears in widget settings.
+#: ../includes/form-cycle-settings.php:280
+#: ../includes/form-cycle-settings.php:301 ../includes/widget.php:353
+#: ../includes/widget.php:371
+#, fuzzy
+msgctxt "time setting"
+msgid "seconds"
+msgstr "секунд(-ы)"
+
+# @ strong-testimonials
+#. translators: This is on the Cycle Shortcode settings screen.
+#. translators: This appears in widget settings.
+#: ../includes/form-cycle-settings.php:293 ../includes/widget.php:363
+#, fuzzy
+msgctxt "slideshow setting"
+msgid "Effect duration"
+msgstr "Длительность"
+
+# @ strong-testimonials
+#. translators: This is on the Cycle Shortcode settings screen.
+#. translators: This appears in widget settings.
+#: ../includes/form-cycle-settings.php:312 ../includes/widget.php:382
+#, fuzzy
+msgctxt "slideshow setting"
+msgid "Pause on hover"
+msgstr "Пауза при наведении"
+
+# @ strong-testimonials
+#: ../includes/form-general-settings.php:14
+msgid "Load stylesheets"
+msgstr "Загрузка стилей"
+
+# @ strong-testimonials
+#: ../includes/form-general-settings.php:20
+msgid "Pages"
+msgstr "Страницы"
+
+# @ strong-testimonials
+#: ../includes/form-general-settings.php:26
+msgid "Widget"
+msgstr "Виджета"
+
+# @ strong-testimonials
+#. translators: This appears on the Original Shortcodes admin screen.
+#: ../includes/form-general-settings.php:32
+#: ../includes/settings-shortcodes.php:97
+msgid "Submission Form"
+msgstr "Формы Отправки"
+
+# @ strong-testimonials
+#: ../includes/form-general-settings.php:40
+msgid "The number of testimonials to show per page"
+msgstr "Количество отзывов на страницу"
+
+# @ strong-testimonials
+#. translators: %s is a shortcode.
+#: ../includes/form-general-settings.php:44
+#, php-format
+msgid "This applies to the %s shortcode."
+msgstr "Это относится и к %s шорткоду."
+
+# @ strong-testimonials
+#: ../includes/form-general-settings.php:49
+msgid "When a new testimonial is submitted"
+msgstr "Когда получен новый отзыв клиента"
+
+# @ strong-testimonials
+#: ../includes/form-general-settings.php:53
+msgid "Send notification email to"
+msgstr "Отправить уведомление на email"
+
+# @ strong-testimonials
+#: ../includes/form-general-settings.php:60 ../includes/guide-advanced.php:21
+msgid "Spam Control"
+msgstr "Контроль Спама"
+
+# @ strong-testimonials
+#: ../includes/form-general-settings.php:62
+#, fuzzy
+msgctxt "spam control techniques"
+msgid "Honeypot"
+msgstr "Спам-ловушки"
+
+# @ strong-testimonials
+#: ../includes/form-general-settings.php:63
+msgid ""
+"These methods are both time-tested and widely used. They can be used "
+"simultaneously for more protection."
+msgstr ""
+"Эти методы проверенные временем и широко используемые. Они могут быть "
+"использованы одновременно для дополнительной защиты."
+
+# @ strong-testimonials
+#: ../includes/form-general-settings.php:68
+msgid ""
+"Traps spambots by adding an extra empty field that is invisible to humans "
+"but not to spambots which tend to fill in every field they find in the form "
+"code. Empty field = human. Not empty = spambot."
+msgstr ""
+"Ловушки спам-ботов добавляют дополнительное пустое поле, которое невидимо "
+"для человека, но не для спам-ботов, которые, как правило, заполняют все "
+"поля, которые они находят в виде кода. Пустое поле = человека. Не пустое = "
+"spambot."
+
+# @ strong-testimonials
+#: ../includes/form-general-settings.php:73
+msgid "Recommended."
+msgstr "Рекомендуется."
+
+# @ strong-testimonials
+#: ../includes/form-general-settings.php:73
+msgid ""
+"Traps spambots by using JavaScript to add a new field as soon as the form is "
+"submitted. Since spambots cannot run JavaScript, the new field never gets "
+"added. New field = human. Missing = spambot."
+msgstr ""
+"Ловушки спам-ботов используют JavaScript, чтобы добавить новое поле, как "
+"только форма отправлена. Так как спам-боты не могут выполнять JavaScript, "
+"новое поле не добавляется. Новое поле = человек. Отсутствует = spambot."
+
+# @ strong-testimonials
+#: ../includes/form-general-settings.php:82
+msgid ""
+"Captcha can be used alongside honeypot methods. Be sure to configure any "
+"plugins first, if necessary."
+msgstr ""
+"Капчу можно использовать наряду с методами спам-ловушек. Не забудьте "
+"установить и настроить все плагины, которые необходимы."
+
+# @ strong-testimonials
+#: ../includes/form-general-settings.php:102
+#, fuzzy
+msgctxt "link"
+msgid "settings"
+msgstr "настройки"
+
+# @ strong-testimonials
+#: ../includes/form-general-settings.php:104
+msgid "no settings"
+msgstr "нет настроек"
+
+# @ strong-testimonials
+#: ../includes/form-general-settings.php:109
+#, fuzzy
+msgctxt "adjective"
+msgid "inactive"
+msgstr "неактивный"
+
+# @ strong-testimonials
+#: ../includes/form-general-settings.php:115
+msgid "not installed"
+msgstr "не установлено"
+
+# @ strong-testimonials
+#: ../includes/form-general-settings.php:116
+#, fuzzy
+msgctxt "link"
+msgid "install plugin"
+msgstr "установить плагин"
+
+# @ strong-testimonials
+#: ../includes/form-general-settings.php:120
+#, fuzzy
+msgctxt "link"
+msgid "plugin page"
+msgstr "страница плагина"
+
+# @ strong-testimonials
+#: ../includes/guide-advanced.php:4 ../includes/guide-simple.php:3
+#: ../includes/guide-start.php:3
+#, fuzzy, php-format
+msgid ""
+"View some examples on the <a href=\"%s\" target=\"_blank\">demo site</a>."
+msgstr ""
+"Посмотреть примеры на <a href=\"http://demos.wpmission.com/strong-"
+"testimonials/\" target=\"_blank\">демо сайте</a>."
+
+# @ strong-testimonials
+#: ../includes/guide-advanced.php:7
+msgid "Make your testimonials sing using advanced features."
+msgstr ""
+"Заставьте ваши отзывы работать на все 100%, используя расширенные функции."
+
+# @ strong-testimonials
+#: ../includes/guide-advanced.php:11 ../includes/guide-simple.php:10
+#, fuzzy
+msgctxt "verb"
+msgid "Gather"
+msgstr "Принимать"
+
+# @ strong-testimonials
+#: ../includes/guide-advanced.php:15
+msgid "Customize the form to meet your needs."
+msgstr "Настройте форму под ваши нужды."
+
+#: ../includes/guide-advanced.php:15
+#, php-format
+msgid "<a href=\"%s\" target=\"_blank\">Here</a> is a full tutorial."
+msgstr ""
+
+# @ strong-testimonials
+#: ../includes/guide-advanced.php:18
+msgid "Featured Images"
+msgstr "Избранные Изображения"
+
+# @ strong-testimonials
+#: ../includes/guide-advanced.php:18
+msgid "AKA thumbnails."
+msgstr "AKA миниатюры."
+
+# @ strong-testimonials
+#: ../includes/guide-advanced.php:18
+msgid "Allow your clients to include a photo or a logo with their testimonial."
+msgstr "Позвольте вашим клиентам добавлять фотографии к их отзывам."
+
+# @ strong-testimonials
+#: ../includes/guide-advanced.php:21
+msgid "Add honeypot and/or Captcha  methods to the form."
+msgstr "Добавьте спам-ловушки и/или Капчу к форме."
+
+# @ strong-testimonials
+#: ../includes/guide-advanced.php:24
+msgid "Notification"
+msgstr "Уведомление"
+
+# @ strong-testimonials
+#: ../includes/guide-advanced.php:24
+msgid ""
+"Automatically send an email to the site administrator when a new testimonial "
+"has been submitted and is pending review."
+msgstr ""
+"Автоматически отправляет письмо администратору сайта, когда новый отзыв был "
+"получен ​​и ожидает рассмотрения."
+
+# @ strong-testimonials
+#: ../includes/guide-advanced.php:31 ../includes/guide-simple.php:15
+#, fuzzy
+msgctxt "verb"
+msgid "Publish"
+msgstr "Публиковать"
+
+# @ strong-testimonials
+#: ../includes/guide-advanced.php:35 ../strong-testimonials.php:252
+msgid "Categories"
+msgstr "Категории"
+
+# @ strong-testimonials
+#: ../includes/guide-advanced.php:35
+msgid "Organize your testimonials by year, salesperson, event, etc."
+msgstr "Организуйте ваши отзывы по году, продавец, событие и т.д."
+
+# @ strong-testimonials
+#: ../includes/guide-advanced.php:38
+msgid "Excerpts"
+msgstr "Цитаты"
+
+# @ strong-testimonials
+#: ../includes/guide-advanced.php:38
+msgid ""
+"Available in the post editor, use excerpts to create attention-grabbing one-"
+"liners for use in widgets and the cycle shortcode."
+msgstr ""
+"Доступные в редакторе постов, используйте цитаты для привлечения внимания в "
+"виджетах или шорткоде цикла."
+
+# @ strong-testimonials
+#: ../includes/guide-advanced.php:41
+msgid "Skip Loading Stylesheets"
+msgstr "Пропустить Загрузку Файлов Стилей"
+
+# @ strong-testimonials
+#: ../includes/guide-advanced.php:41
+#, fuzzy, php-format
+msgid ""
+"The included stylesheets include a default layout. Skip loading the "
+"stylesheets if you want to style everything in your theme or <a href=\"%s\" "
+"target=\"_blank\">custom CSS</a>."
+msgstr ""
+"Включенные таблицы стилей включают макет по умолчанию. Пропустите загрузку "
+"таблиц стилей, если вы хотите, чтобы использовались стили вашей темы или <a "
+"href=\"http://wordpress.org/plugins/simple-custom-css/\">пользовательские  "
+"CSS</a>."
+
+# @ strong-testimonials
+#: ../includes/guide-advanced.php:48 ../includes/guide-simple.php:20
+#: ../includes/settings-shortcodes-strong.php:17
+#, fuzzy
+msgctxt "verb"
+msgid "Display"
+msgstr "Показывать"
+
+# @ strong-testimonials
+#: ../includes/guide-advanced.php:52 ../includes/settings.php:28
+#: ../includes/settings.php:29 ../includes/settings.php:303
+msgid "Shortcodes"
+msgstr "Шорткоды"
+
+# @ strong-testimonials
+#: ../includes/guide-advanced.php:52
+msgid "Several ways to show your testimonials."
+msgstr "Несколько способов, чтобы показать ваши отзывы."
+
+# @ strong-testimonials
+#: ../includes/guide-advanced.php:55 ../includes/settings.php:152
+msgid "Cycle Shortcode"
+msgstr "Шорткод Цикла"
+
+# @ strong-testimonials
+#: ../includes/guide-advanced.php:55
+msgid "Add a testimonial slider to any page."
+msgstr "Добавляет слайдер отзывов на любой странице."
+
+# @ strong-testimonials
+#: ../includes/guide-advanced.php:58
+msgid "Widgets"
+msgstr "Виджеты"
+
+# @ strong-testimonials
+#: ../includes/guide-advanced.php:58
+msgid ""
+"The widget has the same features as the cycle shortcode. Multiple widgets "
+"can used on the same page."
+msgstr ""
+"Виджет имеет те же функции, что шорткод цикла. Несколько виджетов могут "
+"использоваться на одной и той же странице."
+
+# @ strong-testimonials
+#: ../includes/guide-advanced.php:61 ../includes/settings.php:153
+msgid "Client Section"
+msgstr "Клиентский Раздел"
+
+# @ strong-testimonials
+#: ../includes/guide-advanced.php:61
+msgid ""
+"Select which fields (including your custom fields) appear below the "
+"testimonial content."
+msgstr ""
+"Выберите, какие поля (включая ваши произвольные поля) появится под "
+"содержанием отзыва."
+
+# @ strong-testimonials
+#: ../includes/guide-advanced.php:64
+msgid "As Posts"
+msgstr "Как Посты"
+
+# @ strong-testimonials
+#: ../includes/guide-advanced.php:64
+msgid ""
+"Since a testimonial is a type of post, it can be displayed using your "
+"theme's default post template or a custom template, included pagination."
+msgstr ""
+"Поскольку отзыв - это тип поста, он может быть отображен с использованием "
+"шаблона поста вашей темы по умолчанию или пользовательского шаблона, включая "
+"разбиение на страницы."
+
+# @ strong-testimonials
+#: ../includes/guide-future.php:3
+#, fuzzy
+msgid "Here are some features planned for upcoming versions."
+msgstr "Вот некоторое из того, что планируется в будущих версиях."
+
+# @ strong-testimonials
+#: ../includes/guide-notes.php:3
+msgid "Template files"
+msgstr "Файлы шаблона"
+
+# @ strong-testimonials
+#: ../includes/guide-notes.php:4
+msgid "The [strong] shortcode uses template files."
+msgstr "[strong] шорткод использует файлы шаблона."
+
+# @ strong-testimonials
+#: ../includes/guide-notes.php:5
+msgid ""
+"To create custom templates, copy <code>templates/theme/testimonials.php</"
+"code> from the plugin directory to your theme directory. This template file "
+"contains both the loop and the testimonial layout."
+msgstr ""
+"Для создания пользовательских шаблонов, скопируйте <code>templates/theme/"
+"testimonials.php</code> из директории  плагина в директорию темы. Этот файл "
+"шаблона содержит цикл (loop) и макет отзыва."
+
+# @ strong-testimonials
+#: ../includes/guide-notes.php:6
+msgid ""
+"The plugin will search for that template file in this order: (1) your child "
+"theme (if using one), (2) your parent theme, (3) the plugin templates "
+"directory."
+msgstr ""
+"Плагин будет искать для этого файла шаблона в следующем порядке: (1) вашу "
+"дочернюю тему (если она используется), (2) вашу родительскую тему, (3) "
+"директорию шаблонов плагина."
+
+# @ strong-testimonials
+#: ../includes/guide-notes.php:7
+msgid ""
+"Additional template files can be created such as <code>testimonials-narrow."
+"php</code> and found by adding the shortcode attribute <code>template="
+"\"narrow\"</code>."
+msgstr ""
+"Дополнительные файлы шаблонов могут быть созданы, как например "
+"<code>testimonials-narrow.php</code> и обнаружены путем добавления атрибута "
+"шорткода <code>template=\"narrow\"</code>."
+
+# @ strong-testimonials
+#: ../includes/guide-notes.php:9
+msgid "Template functions"
+msgstr "Функции шаблона"
+
+# @ strong-testimonials
+#: ../includes/guide-notes.php:10
+msgid ""
+"Use <code>wpmtst_field( $field_name )</code> to get one of your custom "
+"fields."
+msgstr ""
+"Используйте <code>wpmtst_field( $field_name )</code>, чтобы получить одно из "
+"ваших произвольных полей."
+
+# @ strong-testimonials
+#: ../includes/guide-notes.php:11
+msgid ""
+"Use <code>wpmtst_field( 'truncated', array( 'char_limit' => 200 ) )</code> "
+"to get the truncated testimonial content."
+msgstr ""
+"Используйте <code>wpmtst_field( 'truncated', array( 'char_limit' => 200 ) )</"
+"code>, чтобы получить укороченный контент отзыва."
+
+# @ strong-testimonials
+#: ../includes/guide-notes.php:12
+msgid ""
+"Use <code>wpmtst_field( 'client', array( 'content' => $shortcode_content )</"
+"code> to get <code>[strong]</code> child shortcodes for the client section "
+"(more <a href=\"edit.php?post_type=wpm-testimonial&page=shortcodes\">here</"
+"a>)."
+msgstr ""
+"Используйте <code>wpmtst_field( 'client', array( 'content' => "
+"$shortcode_content )</code>, чтобы получить <code>[strong]</code> дочерние "
+"шорткоды для раздела клиента (подробнее <a href=\"edit.php?post_type=wpm-"
+"testimonial&page=shortcodes\">здесь</a>)."
+
+# @ strong-testimonials
+#: ../includes/guide-notes.php:13
+msgid ""
+"Look at <code>templates/theme/testimonials.php</code> in the plugin "
+"directory for examples."
+msgstr ""
+"Посмотрите в директорию плагина <code>templates/theme/testimonials.php</"
+"code>, чтобы ознакомиться с примерами."
+
+# @ strong-testimonials
+#: ../includes/guide-notes.php:15
+msgid "Translations"
+msgstr "Переводы"
+
+# @ strong-testimonials
+#: ../includes/guide-notes.php:16
+#, fuzzy, php-format
+msgid ""
+"There is a POT file in the plugin's <code>languages</code> directory. <a "
+"href=\"%s\" target=_blank\">Contact me</a> to submit a translation file."
+msgstr ""
+"Для перевода есть .pot файл в директории плагина <code>languages</code>. <a "
+"href=\"http://www.wpmission.com/contact/\" target=_blank\">Напишите мне</a>, "
+"чтобы отправить файл перевода."
+
+# @ strong-testimonials
+#: ../includes/guide-notes.php:17
+#, fuzzy, php-format
+msgid ""
+"The field labels on the submission form will not appear in the POT file so "
+"they must be translated manually in the <a href=\"%s\">Fields editor</a>."
+msgstr ""
+"Ярлыки полей в форме отправки не будет отображаться в .pot файле , поэтому "
+"они должны быть переведены вручную в  <a href=\"edit.php?post_type=wpm-"
+"testimonial&page=fields\">Редакторе полей</a>."
+
+# @ strong-testimonials
+#: ../includes/guide-notes.php:18
+msgid ""
+"The WordPress browser elements like the <button style=\"font-size: smaller;"
+"\">Browse...</button> button and the \"No file chosen\" message are "
+"controlled by the WordPress language and browser language settings."
+msgstr ""
+"Элементы браузера WordPress, такие как кнопка <button style=\"font-size: "
+"smaller;\">Обзор...</button> и сообщение \"Файл не выбран\" контролируются "
+"языковыми настройками языка и браузера WordPress."
+
+# @ strong-testimonials
+#: ../includes/guide-notes.php:20
+#, fuzzy
+msgid "Nofollow links"
+msgstr "\"Nofollow\" ссылки"
+
+# @ strong-testimonials
+#: ../includes/guide-notes.php:21
+msgid ""
+"The Client Details meta box in the post editor now has an option to add "
+"<code>rel=\"nofollow\"</code> to client URLs. There is no global setting yet "
+"so each one must be enabled manually. Future versions will likely have a "
+"global setting with a local override."
+msgstr ""
+"Мета окно Клиентские Сведения в редакторе поста теперь обладает опцией "
+"добавления <code>rel=\"nofollow\"</code> к клиентским URLs. Это пока еще не "
+"глобальный параметр, так как каждый должен быть включен вручную. Будущие "
+"версии будут, вероятно, иметь глобальные настройки с локальным "
+"переопределением."
+
+# @ strong-testimonials
+#: ../includes/guide-notes.php:24
+msgid "Found a bug? Have an idea? Need help?"
+msgstr "Нашли ошибку? Есть идея? Нужна помощь?"
+
+# @ strong-testimonials
+#: ../includes/guide-notes.php:25
+#, fuzzy, php-format
+msgid ""
+"Please use the <a href=\"%s\" target=\"_blank\">support forum</a> or <a href="
+"\"%s\" target=\"_blank\">contact me</a>."
+msgstr ""
+"Пожалуйста, воспользуйтесь <a href=\"%s\" target=\"_blank\">форумом "
+"поддержки</a>, чтобы сообщить об ошибках, получить помощь, или внести свои "
+"предложения."
+
+# @ strong-testimonials
+#: ../includes/guide-simple.php:5
+msgid "Add testimonials to your site in three simple steps."
+msgstr "Добавление отзывов на ваш сайт включает три простых шага."
+
+# @ strong-testimonials
+#: ../includes/guide-simple.php:6
+msgid "Use the default settings to hit the ground running."
+msgstr "Используйте настройки по умолчанию, чтобы сразу приступить к работе."
+
+# @ strong-testimonials
+#: ../includes/guide-simple.php:11
+#, fuzzy
+msgid "To accept new testimonials, add the shortcode [strong form] to a page."
+msgstr ""
+"Чтобы принять новые отзывы, добавьте шорткод [wpmtst-form] на страницу."
+
+# @ strong-testimonials
+#: ../includes/guide-simple.php:16
+msgid ""
+"Review and publish new submissions and/or enter existing testimonials "
+"manually."
+msgstr ""
+"Просмотрите и опубликуйте новые отзывы и/или добавьте существующие отзывы "
+"вручную."
+
+# @ strong-testimonials
+#: ../includes/guide-simple.php:21
+#, fuzzy
+msgid ""
+"Add a shortcode like [strong title random per_page=\"5\"] to a page and/or "
+"add a widget to a sidebar."
+msgstr ""
+"Добавьте шорткод (например: [wpmtst-all]) на страницу, и/или добавьте виджет "
+"в сайдбар."
+
+# @ strong-testimonials
+#: ../includes/guide-start.php:5
+msgid "A testimonial is like a blog post."
+msgstr "Отзывы выглядят как посты блога."
+
+# @ strong-testimonials
+#: ../includes/guide-start.php:6
+msgid "They have many of the same fields and features:"
+msgstr "Они имеют большинство тех же полей и функций:"
+
+# @ strong-testimonials
+#: ../includes/guide-start.php:8
+msgid "A Title"
+msgstr "Заголовок"
+
+# @ strong-testimonials
+#: ../includes/guide-start.php:9
+msgid "a permalink"
+msgstr "постоянная ссылка"
+
+# @ strong-testimonials
+#: ../includes/guide-start.php:10
+msgid "Some content."
+msgstr "Некоторый контент."
+
+# @ strong-testimonials
+#: ../includes/guide-start.php:11
+msgid "an excerpt"
+msgstr "цитата"
+
+# @ strong-testimonials
+#: ../includes/guide-start.php:12
+msgid "a featured image (thumbnail)"
+msgstr "избранное изображение (миниатюра)"
+
+# @ strong-testimonials
+#: ../includes/guide-start.php:13
+msgid "custom fields"
+msgstr "произвольные поля"
+
+# @ strong-testimonials
+#: ../includes/guide-start.php:13
+#, fuzzy
+msgid "like client name and email"
+msgstr "(например, имя клиента и email)"
+
+# @ strong-testimonials
+#: ../includes/guide-start.php:14
+msgid "categories"
+msgstr "категории"
+
+# @ strong-testimonials
+#: ../includes/guide-start.php:17
+msgid "How do you want to use testimonials?"
+msgstr "Как вы хотите использовать отзывы?"
+
+# @ strong-testimonials
+#: ../includes/guide-start.php:18
+#, fuzzy, php-format
+msgid ""
+"The <strong><a href=\"%s\">Simple</a></strong> tab shows you how to quickly "
+"start adding testimonials to your site."
+msgstr ""
+"Вкладка <strong><a href=\"edit.php?post_type=wpm-"
+"testimonial&page=guide&tab=simple\">Простой режим</a></strong> показывает, "
+"как быстро начать добавлять отзывы на ваш сайт."
+
+# @ strong-testimonials
+#: ../includes/guide-start.php:19
+#, fuzzy, php-format
+msgid ""
+"The <strong><a href=\"%s\">Advanced</a></strong> tab describes more features "
+"like custom fields and excerpts."
+msgstr ""
+"Вкладка <strong><a href=\"edit.php?post_type=wpm-"
+"testimonial&page=guide&tab=advanced\">Продвинутый режим</a></strong> "
+"описывает дополнительные функции, такие как произвольные поля и цитаты."
+
+# @ strong-testimonials
+#: ../includes/guide-start.php:21
+msgid "You are invited to participate."
+msgstr "Приглашаем Вас принять участие."
+
+# @ strong-testimonials
+#: ../includes/guide-start.php:22
+msgid ""
+"Coming soon, the direction of this plugin will be in your hands as you will "
+"be able to vote on feature requests."
+msgstr ""
+"Скоро направление развития этого плагина будет в ваших руках, и Вы сможете "
+"голосовать и оставлять пожелания."
+
+# @ strong-testimonials
+#: ../includes/guide.php:11
+msgid "Strong Testimonials Guide"
+msgstr "Сильные Отзывы - Руководство пользователя"
+
+# @ strong-testimonials
+#. translators: This appears in the Guide.
+#: ../includes/guide.php:19
+msgid "Getting Started"
+msgstr "Начало Работы"
+
+# @ strong-testimonials
+#. translators: This appears in the Guide.
+#: ../includes/guide.php:23
+msgid "Simple"
+msgstr "Простой режим"
+
+# @ strong-testimonials
+#. translators: This appears in the Guide.
+#: ../includes/guide.php:27
+msgid "Advanced"
+msgstr "Продвинутый режим"
+
+# @ strong-testimonials
+#. translators: This appears in the Guide.
+#. translators: This appears in the [strong] shortcode instructions.
+#: ../includes/guide.php:31 ../includes/settings-shortcodes-strong.php:15
+#: ../includes/tabs/notes.php:6
+msgid "Notes"
+msgstr "Примечания"
+
+# @ strong-testimonials
+#. translators: This appears in the Guide.
+#: ../includes/guide.php:35
+msgid "Future"
+msgstr "Планируется"
+
+# @ strong-testimonials
+#: ../includes/settings-shortcodes-strong.php:10
+msgid "The new shortcode that does it all."
+msgstr "Новый шорткод, который делает все это."
+
+# @ strong-testimonials
+#. translators: This appears in the [strong] shortcode instructions.
+#: ../includes/settings-shortcodes-strong.php:16 ../includes/tabs/form.php:6
+msgid "The Form"
+msgstr "Форма"
+
+# @ strong-testimonials
+#. translators: This appears in the [strong] shortcode instructions.
+#: ../includes/settings-shortcodes-strong.php:18
+#: ../includes/tabs/slideshow.php:6
+msgid "Slideshow"
+msgstr "Слайдшоу"
+
+# @ strong-testimonials
+#: ../includes/settings-shortcodes-strong.php:19
+msgid "Read More"
+msgstr "Читать далее"
+
+# @ strong-testimonials
+#. translators: This appears in the [strong] shortcode instructions.
+#: ../includes/settings-shortcodes-strong.php:20 ../includes/tabs/child.php:6
+msgid "Child Shortcodes"
+msgstr "Дочерние Шорткоды"
+
+# @ strong-testimonials
+#. translators: This appears in the [strong] shortcode instructions.
+#. translators: This appears in the [strong] shortcode instructions.
+#: ../includes/settings-shortcodes-strong.php:21 ../includes/tabs/child.php:42
+#: ../includes/tabs/examples.php:6 ../includes/tabs/form.php:36
+#: ../includes/tabs/readmore.php:44
+msgid "Examples"
+msgstr "Примеры"
+
+# @ strong-testimonials
+#. translators: This appears on the Original Shortcodes admin screen.
+#: ../includes/settings-shortcodes.php:14
+msgid "Show All"
+msgstr "Показать Все Отзывы"
+
+# @ strong-testimonials
+#. translators: This appears on the Original Shortcodes admin screen.
+#: ../includes/settings-shortcodes.php:18
+msgid "from all categories"
+msgstr "из всех категорий"
+
+# @ strong-testimonials
+#. translators: This appears on the Original Shortcodes admin screen.
+#: ../includes/settings-shortcodes.php:23
+msgid "or a single category"
+msgstr "или одной категории"
+
+# @ strong-testimonials
+#. translators: This appears on the Original Shortcodes admin screen.
+#: ../includes/settings-shortcodes.php:28
+#: ../includes/settings-shortcodes.php:67
+#: ../includes/settings-shortcodes.php:77
+#: ../includes/settings-shortcodes.php:111
+msgid "or multiple categories"
+msgstr "или нескольких категорий"
+
+# @ strong-testimonials
+#. translators: This appears on the Original Shortcodes admin screen.
+#: ../includes/settings-shortcodes.php:36
+msgid "Cycle"
+msgstr "Цикл Отзывов"
+
+# @ strong-testimonials
+#. translators: This appears on the Original Shortcodes admin screen.
+#: ../includes/settings-shortcodes.php:40
+#, fuzzy, php-format
+msgctxt "verb"
+msgid "<a href=\"%s\">configure</a>"
+msgstr "<a href=\"%s\">настройка</a>"
+
+# @ strong-testimonials
+#. translators: This appears on the Original Shortcodes admin screen.
+#: ../includes/settings-shortcodes.php:48 ../includes/settings.php:274
+#: ../includes/widget.php:215
+#, fuzzy
+msgctxt "display order"
+msgid "Random"
+msgstr "Случайный"
+
+# @ strong-testimonials
+#. translators: This appears on the Original Shortcodes admin screen.
+#: ../includes/settings-shortcodes.php:52
+msgid "a single random testimonial"
+msgstr "один случайный отзыв"
+
+# @ strong-testimonials
+#. translators: This appears on the Original Shortcodes admin screen.
+#: ../includes/settings-shortcodes.php:57
+#, fuzzy
+msgctxt "quantity"
+msgid "or a certain number"
+msgstr "или определенное количество"
+
+# @ strong-testimonials
+#. translators: This appears on the Original Shortcodes admin screen.
+#: ../includes/settings-shortcodes.php:62
+msgid "a single testimonial from a single category"
+msgstr "один отзыв из одной категории"
+
+# @ strong-testimonials
+#. translators: This appears on the Original Shortcodes admin screen.
+#: ../includes/settings-shortcodes.php:72
+#, fuzzy
+msgctxt "quantity"
+msgid "a certain number from a single category"
+msgstr "определенное количество из одной категории"
+
+# @ strong-testimonials
+#. translators: This appears on the Original Shortcodes admin screen.
+#: ../includes/settings-shortcodes.php:85
+#, fuzzy
+msgctxt "quantity"
+msgid "Single"
+msgstr "Одиночный Отзыв"
+
+# @ strong-testimonials
+#. translators: This appears on the Original Shortcodes admin screen.
+#: ../includes/settings-shortcodes.php:89
+msgid "one specific testimonial"
+msgstr "один конкретный отзыв"
+
+# @ strong-testimonials
+#. translators: This appears on the Original Shortcodes admin screen.
+#: ../includes/settings-shortcodes.php:101
+msgid "a form for visitors to submit testimonials"
+msgstr "форма для сбора отзывов посетителей"
+
+# @ strong-testimonials
+#. translators: This appears on the Original Shortcodes admin screen.
+#: ../includes/settings-shortcodes.php:106
+msgid "and add them to a single category"
+msgstr "и добавления их в одну категорию"
+
+# @ strong-testimonials
+#. translators: This appears in the [strong] shortcode instructions.
+#: ../includes/settings.php:14 ../includes/settings.php:15
+#: ../includes/tabs/notes.php:17 ../strong-testimonials.php:47
+msgid "Settings"
+msgstr "Настройки"
+
+#: ../includes/settings.php:35
+msgctxt "noun"
+msgid "Guide"
+msgstr ""
+
+#. translators: %s is an icon.
+#: ../includes/settings.php:37
+#, php-format
+msgctxt "noun"
+msgid "%s Guide"
+msgstr ""
+
+# @ strong-testimonials
+#: ../includes/settings.php:141
+msgid "Testimonial Settings"
+msgstr "Настройки Отзывов"
+
+# @ default
+#: ../includes/settings.php:145
+msgid "Settings saved."
+msgstr "Настройки сохраняются."
+
+# @ strong-testimonials
+#: ../includes/settings.php:151
+#, fuzzy
+msgctxt "adjective"
+msgid "General"
+msgstr "Основные"
+
+# @ strong-testimonials
+#: ../includes/settings.php:173
+msgid "Remember to save changes before switching tabs."
+msgstr "Не забудьте сохранить изменения перед переключением вкладок."
+
+# @ strong-testimonials
+#: ../includes/settings.php:275 ../includes/widget.php:216
+#, fuzzy
+msgctxt "display order"
+msgid "Newest first"
+msgstr "Сначала новые"
+
+# @ strong-testimonials
+#: ../includes/settings.php:276 ../includes/widget.php:217
+#, fuzzy
+msgctxt "display order"
+msgid "Oldest first"
+msgstr "Сначала старые"
+
+# @ strong-testimonials
+#: ../includes/settings.php:308
+msgid "Original"
+msgstr "Оригинальный"
+
+# @ strong-testimonials
+#. translators: Front-end error message.
+#: ../includes/shortcode-form.php:68 ../includes/shortcode-form.php:207
+#: ../includes/shortcode-form.php:366 ../includes/shortcode-form.php:379
+msgid "There was a problem processing your testimonial."
+msgstr "Возникла проблема с обработкой вашего отзыва."
+
+# @ strong-testimonials
+#: ../includes/shortcode-form.php:218
+msgid "Thank you! Your testimonial is awaiting moderation."
+msgstr "Спасибо! Ваш отзыв ожидает модерации."
+
+# @ strong-testimonials
+#: ../includes/shortcode-form.php:231
+msgid "Required Field"
+msgstr "Обязательное Поле"
+
+# @ strong-testimonials
+#: ../includes/shortcode-form.php:332
+msgid "Captcha"
+msgstr "Капча"
+
+# @ strong-testimonials
+#: ../includes/shortcode-form.php:346
+#, fuzzy
+msgctxt "the Submit button"
+msgid "Add Testimonial"
+msgstr "Добавить отзыв"
+
+# @ strong-testimonials
+#: ../includes/shortcode-strong.php:73 ../includes/shortcode-strong.php:120
+#: ../includes/widget.php:149
+#, fuzzy
+msgctxt "link"
+msgid "Read more"
+msgstr "Читать далее"
+
+# @ strong-testimonials
+#. translators: Subject line for new testimonial notification email.
+#: ../includes/shortcodes.php:423
+msgid "New testimonial for"
+msgstr "Новый отзыв для"
+
+# @ strong-testimonials
+#. translators: Message for new testimonial notification email.
+#: ../includes/shortcodes.php:426
+#, php-format
+msgid ""
+"New testimonial submission for %s. This is awaiting action from the website "
+"administrator."
+msgstr "Новый отзыв для %s. Он ожидает действий администратора сайта."
+
+# @ strong-testimonials
+#. translators: This appears in the [strong] shortcode instructions.
+#: ../includes/tabs/child.php:8
+msgid "must be inside a parent [ strong ] shortcode"
+msgstr "должны быть внутри родительского [ strong ] шорткода"
+
+# @ strong-testimonials
+#. translators: This appears in the [strong] shortcode instructions.
+#: ../includes/tabs/child.php:13
+msgid "the client section"
+msgstr "клиентский раздел"
+
+# @ strong-testimonials
+#. translators: This appears in the [strong] shortcode instructions.
+#: ../includes/tabs/child.php:15
+msgid "required for displaying custom fields"
+msgstr "требуется для отображения произвольных полей"
+
+# @ strong-testimonials
+#. translators: This appears in the [strong] shortcode instructions.
+#: ../includes/tabs/child.php:22
+msgid "a custom field"
+msgstr "произвольное поле"
+
+# @ strong-testimonials
+#. translators: This appears in the [strong] shortcode instructions.
+#: ../includes/tabs/child.php:29
+msgid "with a CSS class"
+msgstr "с CSS классом"
+
+# @ strong-testimonials
+#. translators: This appears in the [strong] shortcode instructions.
+#: ../includes/tabs/child.php:36
+msgid "as a link with another field<br /> that opens in a new tab"
+msgstr "как ссылка на другое поле<br /> которое откроется в новой вкладке"
+
+# @ strong-testimonials
+#. translators: This appears in the [strong] shortcode instructions.
+#: ../includes/tabs/child.php:46 ../includes/tabs/form.php:40
+#: ../includes/tabs/readmore.php:49
+#, fuzzy
+msgctxt "adjective"
+msgid "minimal"
+msgstr "минимальный"
+
+# @ strong-testimonials
+#. translators: This appears in the [strong] shortcode instructions.
+#: ../includes/tabs/child.php:51 ../includes/tabs/form.php:45
+#: ../includes/tabs/readmore.php:58
+#, fuzzy
+msgctxt "adjective"
+msgid "full"
+msgstr "полный"
+
+# @ strong-testimonials
+#. translators: This appears in the [strong] shortcode instructions.
+#: ../includes/tabs/examples.php:10
+msgid "the form"
+msgstr "форма"
+
+# @ strong-testimonials
+#. translators: This appears in the [strong] shortcode instructions.
+#: ../includes/tabs/examples.php:15
+msgid "show all, 5 per page, with pagination above and below"
+msgstr "показать все, 5 на страницу, с разбивкой на страницы вверху и внизу"
+
+# @ strong-testimonials
+#. translators: This appears in the [strong] shortcode instructions.
+#: ../includes/tabs/examples.php:20
+msgid "show 3 random, limited to about 200 characters"
+msgstr "показать 3 случайных, ограниченных примерно 200 символами"
+
+# @ strong-testimonials
+#. translators: This appears in the [strong] shortcode instructions.
+#: ../includes/tabs/examples.php:25
+msgid "a slideshow with excerpts<br /> from categories 2 and 3"
+msgstr "слайдшоу с цитатами<br /> из категорий 2 и 3"
+
+# @ strong-testimonials
+#. translators: This appears in the [strong] shortcode instructions.
+#: ../includes/tabs/examples.php:31
+msgid ""
+"show the full-length testimonial<br />\n"
+"\t\t\t\twith the title and thumbnail,<br />\n"
+"\t\t\t\tin random order,<br />\n"
+"\t\t\t\twith client name, company, and website,<br />\n"
+"\t\t\t\tand a \"read more\" link"
+msgstr ""
+"показать полноценный отзыв<br />\n"
+"с названием и миниатюрой,<br />\n"
+"в случайном порядке,<br />\n"
+"с именем клиента, компанией, веб-сайтом,<br />\n"
+"и ссылкой \"читать далее\""
+
+# @ strong-testimonials
+#. translators: This appears in the [strong] shortcode instructions.
+#: ../includes/tabs/examples.php:49
+#, fuzzy, php-format
+msgid ""
+"Many more examples on the <a href=\"%s\" target=\"_blank\">demo site</a>."
+msgstr ""
+"Гораздо больше примеров на <a href=\"http://demos.wpmission.com/strong-"
+"testimonials/\" target=\"_blank\">демо сайте</a>."
+
+# @ strong-testimonials
+#. translators: This appears in the [strong] shortcode instructions.
+#: ../includes/tabs/form.php:14
+msgid "add new submissions to a category"
+msgstr "добавить новые материалы к категории"
+
+# @ strong-testimonials
+#. translators: This appears in the [strong] shortcode instructions.
+#: ../includes/tabs/form.php:21 ../includes/tabs/part-style.php:13
+#, fuzzy
+msgctxt "CSS"
+msgid "add classes to <code>div.strong-container</code>"
+msgstr "добавить классы к <code>div.strong-container</code>"
+
+# @ strong-testimonials
+#. translators: This appears in the [strong] shortcode instructions.
+#: ../includes/tabs/form.php:29 ../includes/tabs/part-style.php:19
+msgid "skip plugin stylesheet"
+msgstr "пропустить таблицу стилей плагина"
+
+# @ strong-testimonials
+#: ../includes/tabs/notes.php:9
+#, fuzzy
+msgctxt "adjective"
+msgid "Multiple"
+msgstr "Множественность"
+
+# @ strong-testimonials
+#. translators: This appears in the [strong] shortcode instructions.
+#: ../includes/tabs/notes.php:12
+msgid ""
+"If a page has multiple <code>[strong]</code>'s, each one must be closed; e."
+"g. <code>[strong ... /]</code> or <code>[strong ...][/strong]</code>."
+msgstr ""
+"Если страница имеет несколько <code>[strong]</code>-ов, каждый из них должен "
+"быть закрыт; т.е. <code>[strong ... /]</code> или <code>[strong ...][/"
+"strong]</code>."
+
+# @ strong-testimonials
+#. translators: This appears in the [strong] shortcode instructions.
+#: ../includes/tabs/notes.php:20
+msgid ""
+"There are no settings yet so each <code>[strong]</code> must have every "
+"attribute it needs, except for the default attributes indicated."
+msgstr ""
+"Если еще нет настроек, то каждый <code>[strong]</code> должен иметь "
+"необходимый атрибут, за исключением атрибутов, указанных по умолчанию."
+
+# @ strong-testimonials
+#. translators: This appears in the [strong] shortcode instructions.
+#: ../includes/tabs/notes.php:27
+msgid ""
+"New elements: <code>div.strong-container</code> wraps <code>div.strong-"
+"content</code> which wraps the collection of <code>.testimonial</code>'s."
+msgstr ""
+"Новые элементы: <code>div.strong-container</code> обертка для <code>div."
+"strong-content</code> который обертка для коллекции <code>.testimonial</"
+"code>-ов."
+
+# @ strong-testimonials
+#. translators: This appears in the [strong] shortcode instructions.
+#: ../includes/tabs/notes.php:32
+#, fuzzy
+msgctxt "noun"
+msgid "Help"
+msgstr "Помощь"
+
+# @ strong-testimonials
+#: ../includes/tabs/notes.php:34
+#, php-format
+msgid ""
+"Please use the <a href=\"%s\" target=\"_blank\">support forum</a> to report "
+"bugs, get help, or make feature requests."
+msgstr ""
+"Пожалуйста, воспользуйтесь <a href=\"%s\" target=\"_blank\">форумом "
+"поддержки</a>, чтобы сообщить об ошибках, получить помощь, или внести свои "
+"предложения."
+
+# @ strong-testimonials
+#. translators: This appears in the [strong] shortcode instructions.
+#: ../includes/tabs/part-content.php:4 ../includes/widget.php:414
+#, fuzzy
+msgctxt "noun"
+msgid "Content"
+msgstr "Контент Отзыва"
+
+# @ strong-testimonials
+#. translators: This appears in the [strong] shortcode instructions.
+#: ../includes/tabs/part-content.php:8
+msgid "entire post"
+msgstr "весь пост"
+
+# @ strong-testimonials
+#. translators: This appears in the [strong] shortcode instructions.
+#: ../includes/tabs/part-content.php:14
+msgid "excerpt"
+msgstr "цитата"
+
+# @ strong-testimonials
+#. translators: This appears in the [strong] shortcode instructions.
+#: ../includes/tabs/part-content.php:16
+msgid "overrides <b>length limit</b>"
+msgstr "отменяет <b>ограничение длины</b>"
+
+# @ strong-testimonials
+#. translators: This appears in the [strong] shortcode instructions.
+#: ../includes/tabs/part-content.php:23
+#, fuzzy
+msgctxt "content"
+msgid "length limit"
+msgstr "ограничение длины"
+
+# @ strong-testimonials
+#. translators: This appears in the [strong] shortcode instructions.
+#: ../includes/tabs/part-content.php:25
+msgid "will break on a space and add an ellipsis"
+msgstr "будет обрываться на пробеле и добавится многоточие."
+
+# @ strong-testimonials
+#. translators: This appears in the [strong] shortcode instructions.
+#: ../includes/tabs/part-pagination.php:4
+msgid "Pagination"
+msgstr "Постраничная навигация"
+
+# @ strong-testimonials
+#. translators: This appears in the [strong] shortcode instructions.
+#: ../includes/tabs/part-pagination.php:8
+msgid "per page"
+msgstr "на страницу"
+
+# @ strong-testimonials
+#. translators: This appears in the [strong] shortcode instructions.
+#: ../includes/tabs/part-pagination.php:13
+msgid "navigation after"
+msgstr "навигация после"
+
+# @ strong-testimonials
+#. translators: This appears in the [strong] shortcode instructions.
+#: ../includes/tabs/part-pagination.php:14
+#: ../includes/tabs/part-selection.php:10
+msgid "default"
+msgstr "по умолчанию"
+
+# @ strong-testimonials
+#. translators: This appears in the [strong] shortcode instructions.
+#: ../includes/tabs/part-pagination.php:18
+msgid "navigation before"
+msgstr "навигация до"
+
+# @ strong-testimonials
+#. translators: This appears in the [strong] shortcode instructions.
+#: ../includes/tabs/part-pagination.php:23
+msgid "navigation before & after"
+msgstr "навигация до & после"
+
+# @ strong-testimonials
+#. translators: This appears in the [strong] shortcode instructions.
+#: ../includes/tabs/part-parts.php:4
+#, fuzzy
+msgctxt "noun"
+msgid "Parts"
+msgstr "Части"
+
+# @ strong-testimonials
+#. translators: This appears in the [strong] shortcode instructions.
+#: ../includes/tabs/part-parts.php:9
+msgid "show the Title"
+msgstr "показать Заголовок"
+
+# @ strong-testimonials
+#. translators: This appears in the [strong] shortcode instructions. Refers to your custom fields.
+#: ../includes/tabs/part-parts.php:11 ../includes/tabs/part-parts.php:20
+msgid "if included in Fields"
+msgstr "если включено в ''Поля''"
+
+# @ strong-testimonials
+#. translators: This appears in the [strong] shortcode instructions.
+#: ../includes/tabs/part-parts.php:18
+msgid "show the Featured Image"
+msgstr "показать Избранные Изображения"
+
+# @ strong-testimonials
+#. translators: This appears in the [strong] shortcode instructions.
+#: ../includes/tabs/part-parts.php:27
+msgid "\"Read more\" link to the full post"
+msgstr "\"Читать далее\" ссылка на полный пост"
+
+# @ strong-testimonials
+#. translators: This appears in the [strong] shortcode instructions.
+#: ../includes/tabs/part-parts.php:29
+msgid "for use with <b>excerpt</b> or <b>length limit</b> only"
+msgstr ""
+"для использования только с <b>цитатой</b> или <b>ограничением длины</b>"
+
+# @ strong-testimonials
+#. translators: This appears in the [strong] shortcode instructions.
+#: ../includes/tabs/part-parts.php:36
+msgid "\"Read more\" phrase"
+msgstr "\"Читать далее\" фраза"
+
+# @ strong-testimonials
+#. translators: This appears in the [strong] shortcode instructions.
+#: ../includes/tabs/part-parts.php:38 ../includes/tabs/readmore.php:15
+msgid "default text is \"Read more\" (translatable)"
+msgstr "текст по умолчанию - \"Читать далее\" (переводимый)"
+
+# @ strong-testimonials
+#. translators: This appears in the [strong] shortcode instructions.
+#: ../includes/tabs/part-selection.php:4
+msgid "Selection"
+msgstr "Выборка"
+
+# @ strong-testimonials
+#. translators: This appears in the [strong] shortcode instructions.
+#: ../includes/tabs/part-selection.php:8
+msgid "show all"
+msgstr "показать все"
+
+# @ strong-testimonials
+#. translators: This appears in the [strong] shortcode instructions.
+#: ../includes/tabs/part-selection.php:14
+#, fuzzy
+msgctxt "quantity"
+msgid "show a certain number"
+msgstr "показать определенное количество"
+
+# @ strong-testimonials
+#. translators: This appears in the [strong] shortcode instructions.
+#: ../includes/tabs/part-selection.php:19
+msgid "order"
+msgstr "порядок"
+
+# @ strong-testimonials
+#. translators: This appears in the [strong] shortcode instructions.
+#: ../includes/tabs/part-selection.php:26
+msgid "by category"
+msgstr "по категориям"
+
+# @ strong-testimonials
+#. translators: This appears in the [strong] shortcode instructions.
+#: ../includes/tabs/part-selection.php:32
+msgid "by post ID"
+msgstr "по ID поста"
+
+# @ strong-testimonials
+#. translators: This appears in the [strong] shortcode instructions.
+#: ../includes/tabs/part-style.php:4
+#, fuzzy
+msgctxt "noun"
+msgid "Style"
+msgstr "Стиль"
+
+# @ strong-testimonials
+#. translators: This appears in the [strong] shortcode instructions.
+#: ../includes/tabs/part-style.php:8
+msgid "select a theme template file"
+msgstr "выбор файла шаблона темы"
+
+# @ strong-testimonials
+#. translators: This appears in the [strong] shortcode instructions.
+#: ../includes/tabs/readmore.php:8
+msgid "must not be inside another [ strong ] shortcode"
+msgstr "не должно быть внутри другого [ strong ] шорткода"
+
+# @ strong-testimonials
+#. translators: This appears in the [strong] shortcode instructions.
+#: ../includes/tabs/readmore.php:13
+msgid "appears after the loop"
+msgstr "появляется после цикла (the loop)"
+
+# @ strong-testimonials
+#. translators: This appears in the [strong] shortcode instructions.
+#: ../includes/tabs/readmore.php:24
+msgid "to another page (required)"
+msgstr "на другую страницу (обязательно)"
+
+# @ strong-testimonials
+#. translators: This appears in the [strong] shortcode instructions.
+#: ../includes/tabs/readmore.php:26
+msgid "ID or slug"
+msgstr "ID или slug"
+
+# @ strong-testimonials
+#. translators: This appears in the [strong] shortcode instructions.
+#: ../includes/tabs/readmore.php:35
+#, fuzzy
+msgctxt "CSS"
+msgid "add classes"
+msgstr "добавить классы"
+
+# @ strong-testimonials
+#. translators: This appears in the [strong] shortcode instructions.
+#: ../includes/tabs/slideshow.php:15
+#, fuzzy
+msgctxt "setting"
+msgid "show each for (in seconds)"
+msgstr "время показа (в секундах)"
+
+# @ strong-testimonials
+#. translators: This appears in the [strong] shortcode instructions.
+#: ../includes/tabs/slideshow.php:22
+#, fuzzy
+msgctxt "setting"
+msgid "transition effect (in seconds)"
+msgstr "эффект перехода (в секундах)"
+
+# @ strong-testimonials
+#. translators: This appears in the [strong] shortcode instructions.
+#: ../includes/tabs/slideshow.php:29
+#, fuzzy
+msgctxt "setting"
+msgid "no pause on hover"
+msgstr "нет паузы при наведении"
+
+# @ strong-testimonials
+#. translators: This appears in the [strong] shortcode instructions.
+#: ../includes/tabs/slideshow.php:31
+msgid "will pause by default"
+msgstr "будет пауза по умолчанию"
+
+# @ strong-testimonials
+#: ../includes/widget.php:19
+#, fuzzy
+msgctxt "description"
+msgid "Strong Testimonials widget."
+msgstr "Сильные Отзывы - Руководство пользователя"
+
+# @ strong-testimonials
+#: ../includes/widget.php:26 ../includes/widget.php:29
+#, fuzzy
+msgctxt "widget title"
+msgid "Testimonials"
+msgstr "Отзывы"
+
+# @ strong-testimonials
+#. translators: This appears in widget settings.
+#: ../includes/widget.php:241
+#, fuzzy
+msgctxt "widget setting"
+msgid "Title"
+msgstr "Заголовок"
+
+# @ strong-testimonials
+#. translators: This appears in widget settings.
+#: ../includes/widget.php:259
+#, fuzzy
+msgctxt "categories"
+msgid "Show all"
+msgstr "Показать все"
+
+# @ strong-testimonials
+#. translators: This appears in widget settings.
+#: ../includes/widget.php:299
+#, fuzzy
+msgctxt "display type"
+msgid "Cycle Mode"
+msgstr "Циклический Режим"
+
+# @ strong-testimonials
+#. translators: This appears in widget settings.
+#: ../includes/widget.php:308
+#, fuzzy
+msgctxt "display type"
+msgid "Static Mode"
+msgstr "Статический Режим"
+
+# @ strong-testimonials
+#. translators: This appears in widget settings.
+#: ../includes/widget.php:428
+msgid ""
+"Excerpts are hand-crafted summaries of your testimonial. You may need to "
+"enable them in the post editor."
+msgstr ""
+"Цитаты - это ручное резюме вашего отзыва. Возможно, вам придется включить их "
+"в редакторе постов."
+
+# @ strong-testimonials
+#. translators: This appears in widget settings.
+#: ../includes/widget.php:439
+msgid "Character limit"
+msgstr "Показывать символов"
+
+# @ strong-testimonials
+#. translators: This appears in widget settings.
+#: ../includes/widget.php:459
+msgid "Entire content"
+msgstr "Весь контент"
+
+# @ strong-testimonials
+#. translators: This appears in widget settings.
+#: ../includes/widget.php:470
+#, fuzzy
+msgctxt "display custom fields"
+msgid "Show parts"
+msgstr "Показать все"
+
+# @ strong-testimonials
+#. translators: This appears in widget settings.
+#: ../includes/widget.php:480
+msgid "Title"
+msgstr "Заголовок"
+
+# @ strong-testimonials
+#. translators: This appears in widget settings. Refers to your custom fields.
+#. translators: This appears in widget settings.
+#: ../includes/widget.php:487 ../includes/widget.php:506
+#: ../includes/widget.php:525
+#, fuzzy
+msgctxt "tooltip"
+msgid "if included in Fields"
+msgstr "если включено в ''Поля''"
+
+# @ strong-testimonials
+#. translators: This appears in widget settings.
+#: ../includes/widget.php:499
+#, fuzzy
+msgctxt "thumbnail"
+msgid "Featured Images"
+msgstr "Избранные Изображения"
+
+# @ strong-testimonials
+#. translators: This appears in widget settings.
+#: ../includes/widget.php:518
+msgid "Client Info"
+msgstr "Информация о Клиенте"
+
+# @ strong-testimonials
+#. translators: %s is the name of the plugin.
+#: ../strong-testimonials.php:195
+#, fuzzy, php-format
+msgctxt "installation"
+msgid "Unable to load %s"
+msgstr "Невозможно загрузить %s"
+
+# @ strong-testimonials
+#. translators: %s is a WordPress version number.
+#: ../strong-testimonials.php:198
+#, fuzzy, php-format
+msgctxt "installation"
+msgid ""
+"This plugin requires <strong>WordPress %s</strong> or higher so it has been "
+"deactivated."
+msgstr ""
+"Этот плагин требует <strong>WordPress %s</strong> или выше, поэтому он был "
+"деактивирован."
+
+# @ strong-testimonials
+#: ../strong-testimonials.php:199
+#, fuzzy
+msgctxt "installation"
+msgid "Please upgrade WordPress and try again."
+msgstr "Пожалуйста, обновите WordPress и попробуйте снова."
+
+# @ strong-testimonials
+#: ../strong-testimonials.php:200
+#, fuzzy, php-format
+msgctxt "installation"
+msgid "Back to the WordPress <a href=\"%s\">Plugins page</a>"
+msgstr "Вернуться к <a href=\"%s\">странице Плагинов</a> WordPress"
+
+# @ strong-testimonials
+#: ../strong-testimonials.php:213
+msgctxt "post type general name"
+msgid "Testimonials"
+msgstr "Отзывы"
+
+# @ strong-testimonials
+#: ../strong-testimonials.php:214
+msgctxt "post type singular name"
+msgid "Testimonial"
+msgstr "Отзыв"
+
+# @ strong-testimonials
+#: ../strong-testimonials.php:215
+#, fuzzy
+msgctxt "post type"
+msgid "Add New"
+msgstr "Добавить Новый"
+
+# @ strong-testimonials
+#: ../strong-testimonials.php:216
+msgid "Add New Testimonial"
+msgstr "Добавить Новый Отзыв"
+
+# @ strong-testimonials
+#: ../strong-testimonials.php:217
+msgid "Edit Testimonial"
+msgstr "Редактировать Отзыв"
+
+# @ strong-testimonials
+#: ../strong-testimonials.php:218
+msgid "New Testimonial"
+msgstr "Новый Отзыв"
+
+# @ strong-testimonials
+#: ../strong-testimonials.php:219
+msgid "All Testimonials"
+msgstr "Все Отзывы"
+
+# @ strong-testimonials
+#: ../strong-testimonials.php:220
+msgid "View Testimonial"
+msgstr "Просмотреть Отзыв"
+
+# @ strong-testimonials
+#: ../strong-testimonials.php:221
+msgid "Search Testimonials"
+msgstr "Поиск Отзывов"
+
+# @ strong-testimonials
+#: ../strong-testimonials.php:222 ../strong-testimonials.php:260
+msgid "Nothing Found"
+msgstr "Ничего не найдено"
+
+# @ strong-testimonials
+#: ../strong-testimonials.php:223 ../strong-testimonials.php:261
+msgid "Nothing found in Trash"
+msgstr "Ничего не найдено в корзине"
+
+# @ strong-testimonials
+#: ../strong-testimonials.php:229
+#, fuzzy
+msgctxt "post type singular label"
+msgid "testimonial"
+msgstr "отзыв"
+
+# @ strong-testimonials
+#: ../strong-testimonials.php:235
+#, fuzzy
+msgctxt "slug"
+msgid "testimonial"
+msgstr "отзыв"
+
+# @ strong-testimonials
+#: ../strong-testimonials.php:254
+msgid "All Categories"
+msgstr "Все Категории"
+
+# @ default
+#: ../strong-testimonials.php:255
+#, fuzzy
+msgid "Add New Category"
+msgstr "Добавить Новую Категорию"
+
+# @ strong-testimonials
+#: ../strong-testimonials.php:256
+msgid "Edit Category"
+msgstr "Редактировать Категорию"
+
+# @ strong-testimonials
+#: ../strong-testimonials.php:257
+msgid "New Category"
+msgstr "Новая Категория"
+
+# @ strong-testimonials
+#: ../strong-testimonials.php:258
+msgid "View Category"
+msgstr "Просмотр Категории"
+
+# @ strong-testimonials
+#: ../strong-testimonials.php:259
+msgid "Search Category"
+msgstr "Поиск Категории"

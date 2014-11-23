@@ -343,6 +343,8 @@ div.radio:hover {
 	color: #000;
 }
 
+/* form table */
+
 .wpmtst .form-table {
 	border-collapse: separate;
 	border-bottom: 1px solid #fff;
@@ -404,9 +406,39 @@ div.radio:hover {
 	width: 120px;
 }
 
-.wpmtst .form-table .alpha + div{
+.wpmtst .form-table .alpha + div {
 	display: inline-block;
 }
+
+/* compact */
+
+.wpmtst .form-table.compact th,
+.wpmtst .form-table.compact td {
+	border-top: none;
+	border-bottom: none;
+	padding: 5px 5px;
+}
+
+.wpmtst .form-table.compact {
+	border-bottom: none;
+}
+
+.wpmtst .form-table.compact input[type="text"] {
+	width: 100%;
+}
+
+.wpmtst .form-table.compact input.error {
+	border-color: red;
+	border-radius: 2px;
+	box-shadow: none;
+}
+
+.wpmtst .form-table.compact label.error {
+	color: red;
+	display: block;
+}
+
+/* end: form-table */
 
 .code {
 	background: #fff;
@@ -583,6 +615,9 @@ ul.description {
 	/* margin: 0.25em 0; */
 	line-height: 19px;
 	vertical-align: baseline;
+}
+.wpmtst-inner-box p:first-child {
+	font-weight: 700;
 }
 
 .wpmtst-mode .row {

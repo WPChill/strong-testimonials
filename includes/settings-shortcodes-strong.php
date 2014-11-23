@@ -14,7 +14,7 @@
 	<ul>
 		<li><a href="#tabs-notes"><?php _e( 'Notes', 'strong-testimonials' ); ?></a></li>
 		<li><a href="#tabs-form"><?php _e( 'The Form', 'strong-testimonials' ); ?></a></li>
-		<li><a href="#tabs-display"><?php _e( 'Display', 'strong-testimonials' ); ?></a></li>
+		<li><a href="#tabs-display"><?php _ex( 'Display', 'verb', 'strong-testimonials' ); ?></a></li>
 		<li><a href="#tabs-slideshow"><?php _e( 'Slideshow', 'strong-testimonials' ); ?></a></li>
 		<li><a href="#tabs-readmore"><?php _e( 'Read More', 'strong-testimonials' ); ?></a></li>
 		<li><a href="#tabs-child"><?php _e( 'Child Shortcodes', 'strong-testimonials' ); ?></a></li>

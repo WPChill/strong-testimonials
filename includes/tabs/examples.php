@@ -2,26 +2,32 @@
 <div id="tabs-examples">
 	<table class="shortcode-table wide">
 		<tr>
+			<?php /* translators: This appears in the [strong] shortcode instructions. */ ?>
 			<th colspan="2"><h3><?php _e( 'Examples', 'strong-testimonials' ); ?></h3></th>
 		</tr>
 		<tr class="example">
+			<?php /* translators: This appears in the [strong] shortcode instructions. */ ?>
 			<td><?php _e( 'the form', 'strong-testimonials' ); ?></td>
 			<td>[strong form]</td>
 		</tr>
 		<tr class="example">
+			<?php /* translators: This appears in the [strong] shortcode instructions. */ ?>
 			<td><?php _e( 'show all, 5 per page, with pagination above and below', 'strong-testimonials' ); ?></td>
 			<td>[strong per_page="5" nav="before,after"]</td>
 		</tr>
 		<tr class="example">
+			<?php /* translators: This appears in the [strong] shortcode instructions. */ ?>
 			<td><?php _e( 'show 3 random, limited to about 200 characters', 'strong-testimonials' ); ?></td>
 			<td>[strong count="3" random length="200"]</td>
 		</tr>
 		<tr class="example">
+			<?php /* translators: This appears in the [strong] shortcode instructions. */ ?>
 			<td><?php _e( 'a slideshow with excerpts<br /> from categories 2 and 3', 'strong-testimonials' ); ?></td>
 			<td>[strong slideshow excerpt show_for="5" effect_for="1" category="2,3"]</td>
 		</tr>
 		<tr class="example">
 			<td>
+				<?php /* translators: This appears in the [strong] shortcode instructions. */ ?>
 				<?php _e( 'show the full-length testimonial<br />
 				with the title and thumbnail,<br />
 				in random order,<br />
@@ -39,5 +45,6 @@
 			</td>
 		</tr>
 	</table>
-	<h3><em><?php _e( 'Many more examples on the <a href="http://demos.wpmission.com/strong-testimonials/" target="_blank">demo site</a>.', 'strong-testimonials' ); ?></em></h3>
+	<?php /* translators: This appears in the [strong] shortcode instructions. */ ?>
+	<h3><em><?php printf( __( 'Many more examples on the <a href="%s" target="_blank">demo site</a>.', 'strong-testimonials' ), 'http://demos.wpmission.com/strong-testimonials/' ); ?></em></h3>
 </div>

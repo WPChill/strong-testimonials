@@ -1,6 +1,6 @@
 	<div class="guide-content future">
 	
-		<h3><?php _e( 'Here\'s some of what is planned for upcoming versions.', 'strong-testimonials' ); ?></h3>
+		<h3><?php _e( 'Here are some features planned for upcoming versions.', 'strong-testimonials' ); ?></h3>
 		<ol>
 			<li>A new slider with carousel and news feed effects.</li>
 			<li>Auto-publish option (bypass administrator review).</li>

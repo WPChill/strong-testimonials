@@ -2,9 +2,9 @@
 # This file is distributed under the same license as the Strong Testimonials package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Strong Testimonials 1.11.1\n"
+"Project-Id-Version: Strong Testimonials 1.12\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/strong-testimonials\n"
-"POT-Creation-Date: 2014-11-02 00:24:14+00:00\n"
+"POT-Creation-Date: 2014-11-26 15:08:15+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 
-#: includes/admin-custom-fields.php:12 includes/settings.php:136
+#: includes/admin-custom-fields.php:12 includes/settings.php:137
 msgid "You do not have sufficient permissions to access this page."
 msgstr ""
 
@@ -28,132 +28,177 @@ msgstr ""
 msgid "Fields saved."
 msgstr ""
 
-#: includes/admin-custom-fields.php:90 includes/guide-advanced.php:12
+#: includes/admin-custom-fields.php:90 includes/guide-advanced.php:15
+#: includes/settings.php:21 includes/settings.php:22
 msgid "Fields"
 msgstr ""
 
-#: includes/admin-custom-fields.php:111
+#: includes/admin-custom-fields.php:92
+msgid "Fields will appear in this order on the form."
+msgstr ""
+
+#. translators: %s is an icon.
+#: includes/admin-custom-fields.php:94
+msgid "Sort by grabbing the %s icon."
+msgstr ""
+
+#: includes/admin-custom-fields.php:95
+msgid "Click the field name to expand its options panel."
+msgstr ""
+
+#: includes/admin-custom-fields.php:97
+msgctxt "link"
+msgid "Full tutorial"
+msgstr ""
+
+#: includes/admin-custom-fields.php:99
+msgctxt "link"
+msgid "Plugin support"
+msgstr ""
+
+#: includes/admin-custom-fields.php:101
+msgctxt "contact link"
+msgid "Developer"
+msgstr ""
+
+#: includes/admin-custom-fields.php:118
 msgid "Add New Field"
 msgstr ""
 
-#: includes/admin-custom-fields.php:116
+#: includes/admin-custom-fields.php:123
 msgid "Undo Changes"
 msgstr ""
 
-#: includes/admin-custom-fields.php:117
+#: includes/admin-custom-fields.php:124
 msgid "Restore Defaults"
 msgstr ""
 
-#: includes/admin-custom-fields.php:153
+#: includes/admin-custom-fields.php:157
+msgctxt "noun"
+msgid "Label"
+msgstr ""
+
+#: includes/admin-custom-fields.php:160
 msgid "This appears on the form."
 msgstr ""
 
-#: includes/admin-custom-fields.php:166
-msgid "Use only lowercase letters, numbers, and underscores."
-msgstr ""
-
-#: includes/admin-custom-fields.php:210
-msgid "Post Fields"
-msgstr ""
-
-#: includes/admin-custom-fields.php:217
-msgid "Custom Fields"
-msgstr ""
-
-#: includes/admin-custom-fields.php:276
-msgid "Delete"
-msgstr ""
-
-#: includes/admin-custom-fields.php:278
-msgid "Close"
-msgstr ""
-
-#: includes/admin-custom-fields.php:302
-msgid "Required"
-msgstr ""
-
-#: includes/admin-custom-fields.php:319
-msgid "Placeholder"
-msgstr ""
-
-#: includes/admin-custom-fields.php:328 includes/form-general-settings.php:66
-msgid "Before"
-msgstr ""
-
-#: includes/admin-custom-fields.php:336 includes/form-general-settings.php:71
-msgid "After"
-msgstr ""
-
-#: includes/admin-custom-fields.php:352
-msgid "Admin Table"
-msgstr ""
-
-#: includes/admin-custom-fields.php:358
-msgid "required"
-msgstr ""
-
-#: includes/admin.php:58
-msgid "Client Details"
-msgstr ""
-
-#: includes/admin.php:96
-msgid "To add a client&apos;s photo, use the Featured Image option."
-msgstr ""
-
-#: includes/admin.php:133 includes/form-cycle-settings.php:73
-#: includes/widget.php:234 includes/widget.php:377
-msgid "Title"
-msgstr ""
-
-#: includes/admin.php:134 includes/form-cycle-settings.php:85
-#: includes/widget.php:348
-msgid "Excerpt"
-msgstr ""
-
-#: includes/admin.php:140 includes/admin.php:201
-msgid "Thumbnail"
-msgstr ""
-
-#: includes/admin.php:147 includes/form-cycle-settings.php:12
-#: includes/widget.php:240
-msgid "Category"
-msgstr ""
-
-#: includes/admin.php:148 includes/admin.php:245
-msgid "Shortcode"
-msgstr ""
-
-#: includes/admin.php:149
-msgid "Date"
-msgstr ""
-
-#: includes/admin.php:230 includes/form-cycle-settings.php:140
-#: includes/widget.php:409
-msgid "None"
-msgstr ""
-
-#: includes/admin.php:242
-msgid "ID"
-msgstr ""
-
-#: includes/admin.php:243
+#: includes/admin-custom-fields.php:168 includes/admin.php:259
+msgctxt "noun"
 msgid "Name"
 msgstr ""
 
-#: includes/admin.php:244
-msgid "Slug"
+#: includes/admin-custom-fields.php:173
+msgid "Use only lowercase letters, numbers, and underscores."
+msgstr ""
+
+#: includes/admin-custom-fields.php:191
+msgctxt "noun"
+msgid "Type"
+msgstr ""
+
+#: includes/admin-custom-fields.php:217
+msgid "Post Fields"
+msgstr ""
+
+#: includes/admin-custom-fields.php:224
+msgid "Custom Fields"
+msgstr ""
+
+#: includes/admin-custom-fields.php:283
+msgid "Delete"
+msgstr ""
+
+#: includes/admin-custom-fields.php:285
+msgctxt "verb"
+msgid "Close"
+msgstr ""
+
+#: includes/admin-custom-fields.php:309
+msgid "Required"
+msgstr ""
+
+#: includes/admin-custom-fields.php:326
+msgid "Placeholder"
+msgstr ""
+
+#: includes/admin-custom-fields.php:335 includes/form-general-settings.php:67
+msgid "Before"
+msgstr ""
+
+#: includes/admin-custom-fields.php:343 includes/form-general-settings.php:72
+msgid "After"
+msgstr ""
+
+#: includes/admin-custom-fields.php:359
+msgid "Admin Table"
+msgstr ""
+
+#: includes/admin-custom-fields.php:365
+msgid "required"
+msgstr ""
+
+#: includes/admin.php:73
+msgctxt "post editor"
+msgid "Client Details"
+msgstr ""
+
+#: includes/admin.php:111
+msgctxt "post editor"
+msgid "To add a client's photo, use the Featured Image option."
+msgstr ""
+
+#: includes/admin.php:148
+msgctxt "testimonial"
+msgid "Title"
+msgstr ""
+
+#. translators: This appears in widget settings.
+#: includes/admin.php:149 includes/widget.php:421
+msgid "Excerpt"
+msgstr ""
+
+#: includes/admin.php:155 includes/admin.php:217
+msgid "Thumbnail"
+msgstr ""
+
+#. translators: This is on the Cycle Shortcode settings screen.
+#. translators: This appears in widget settings.
+#: includes/admin.php:162 includes/form-cycle-settings.php:18
+#: includes/widget.php:252 strong-testimonials.php:253
+msgid "Category"
+msgstr ""
+
+#: includes/admin.php:163 includes/admin.php:261
+msgid "Shortcode"
+msgstr ""
+
+#: includes/admin.php:164
+msgid "Date"
 msgstr ""
 
 #: includes/admin.php:246
+msgid "None"
+msgstr ""
+
+#: includes/admin.php:258
+msgid "ID"
+msgstr ""
+
+#: includes/admin.php:260
+msgid "Slug"
+msgstr ""
+
+#: includes/admin.php:262
 msgid "Posts"
 msgstr ""
 
 #: includes/captcha.php:39
+msgctxt "Captcha"
 msgid "Input this code:"
 msgstr ""
 
 #: includes/captcha.php:64 includes/captcha.php:73
-msgid "Please complete the CAPTCHA."
+msgid "Please complete the Captcha."
 msgstr ""
 
 #: includes/captcha.php:85
@@ -165,7 +210,7 @@ msgid "Invalid parameter. Please contact the site administrator."
 msgstr ""
 
 #: includes/captcha.php:87 includes/captcha.php:104
-msgid "The CAPTCHA was not entered correctly. Please try again."
+msgid "The Captcha was not entered correctly. Please try again."
 msgstr ""
 
 #: includes/captcha.php:88
@@ -252,133 +297,206 @@ msgstr ""
 msgid "Custom Field Group"
 msgstr ""
 
-#: includes/form-client-settings.php:28
+#: includes/form-client-settings.php:8 includes/settings-shortcodes.php:9
+msgid ""
+"These shortcodes will be deprecated soon. Please migrate to the "
+"<code>[strong]</code> shortcode."
+msgstr ""
+
+#: includes/form-client-settings.php:33
 msgid "Client section shortcodes:"
 msgstr ""
 
-#: includes/form-client-settings.php:30
+#: includes/form-client-settings.php:35
 msgid "Your fields:"
 msgstr ""
 
-#: includes/form-client-settings.php:30
+#: includes/form-client-settings.php:35
 msgid ""
 "These are the fields used on your testimonial submission form. You can "
 "change these in the Fields editor."
 msgstr ""
 
-#: includes/form-client-settings.php:32
+#: includes/form-client-settings.php:37
 msgid ""
 "Use these shortcodes to select which client fields appear below each "
 "testimonial."
 msgstr ""
 
-#: includes/form-client-settings.php:32
+#: includes/form-client-settings.php:37
 msgid "These shortcodes only work here, not on a page."
 msgstr ""
 
-#: includes/form-client-settings.php:46
+#: includes/form-client-settings.php:39
 msgid "Default:"
 msgstr ""
 
-#: includes/form-client-settings.php:55
+#: includes/form-client-settings.php:48
 msgid "Restore Default"
 msgstr ""
 
-#: includes/form-cycle-settings.php:16
+#: includes/form-cycle-settings.php:8
+msgid ""
+"This shortcode will be deprecated soon. Please migrate to the "
+"<code>[strong]</code> shortcode."
+msgstr ""
+
+#. translators: This is on the Cycle Shortcode settings screen.
+#: includes/form-cycle-settings.php:27
 msgid "All categories"
 msgstr ""
 
-#: includes/form-cycle-settings.php:30 includes/widget.php:254
+#. translators: This is on the Cycle Shortcode settings screen.
+#. translators: This appears in widget settings.
+#: includes/form-cycle-settings.php:48 includes/widget.php:278
+msgctxt "noun"
 msgid "Order"
 msgstr ""
 
-#: includes/form-cycle-settings.php:46
+#. translators: This is on the Cycle Shortcode settings screen.
+#: includes/form-cycle-settings.php:68
+msgctxt "quantity"
 msgid "How many?"
 msgstr ""
 
-#: includes/form-cycle-settings.php:52 includes/widget.php:292
+#. translators: This is on the Cycle Shortcode settings screen.
+#. translators: This appears in widget settings.
+#: includes/form-cycle-settings.php:78 includes/widget.php:334
 msgid "All"
 msgstr ""
 
-#: includes/form-cycle-settings.php:68 includes/widget.php:285
-#: includes/widget.php:330
+#. translators: This is on the Cycle Shortcode settings screen.
+#. translators: This appears in widget settings.
+#: includes/form-cycle-settings.php:97 includes/widget.php:322
+#: includes/widget.php:398
+msgctxt "verb"
 msgid "Show"
 msgstr ""
 
-#: includes/form-cycle-settings.php:73 includes/form-cycle-settings.php:116
-#: includes/form-cycle-settings.php:126
-msgid "(if included in Fields)"
+#. translators: This is on the Cycle Shortcode settings screen. Refers to your
+#. custom fields.
+#: includes/form-cycle-settings.php:106
+msgctxt "the testimonial title"
+msgid "Title <em>(if included in Fields)</em>"
 msgstr ""
 
-#: includes/form-cycle-settings.php:87
+#. translators: This is on the Cycle Shortcode settings screen.
+#: includes/form-cycle-settings.php:123
+msgctxt "the testimonial excerpt"
+msgid "Excerpt"
+msgstr ""
+
+#. translators: This is on the Cycle Shortcode settings screen.
+#: includes/form-cycle-settings.php:128
 msgid "Excerpts are hand-crafted summaries of your testimonial."
 msgstr ""
 
-#: includes/form-cycle-settings.php:88
+#. translators: This is on the Cycle Shortcode settings screen.
+#: includes/form-cycle-settings.php:133
 msgid ""
 "You may need to enable them in the post editor like in this <a id=\"toggle-"
 "screen-options\" href=\"#\">screenshot</a>."
 msgstr ""
 
-#: includes/form-cycle-settings.php:96
-msgid "Content up to"
+#. translators: This is on the Cycle Shortcode settings screen. %s is a number
+#. input field.
+#: includes/form-cycle-settings.php:148
+msgctxt "display setting"
+msgid "Content up to %s characters"
 msgstr ""
 
-#: includes/form-cycle-settings.php:96
-msgid "characters"
-msgstr ""
-
-#: includes/form-cycle-settings.php:98 includes/widget.php:360
+#. translators: This is on the Cycle Shortcode settings screen.
+#. translators: This appears in widget settings.
+#: includes/form-cycle-settings.php:154 includes/widget.php:448
 msgid "Will break on a space and add an ellipsis."
 msgstr ""
 
-#: includes/form-cycle-settings.php:103 includes/widget.php:366
+#. translators: This is on the Cycle Shortcode settings screen.
+#: includes/form-cycle-settings.php:164
+msgctxt "display setting"
 msgid "Entire content"
 msgstr ""
 
-#: includes/form-cycle-settings.php:116 includes/guide-advanced.php:13
-#: includes/widget.php:386
-msgid "Featured Images"
+#. translators: This is on the Cycle Shortcode settings screen. Refers to your
+#. custom fields.
+#: includes/form-cycle-settings.php:181
+msgid "Featured Images <em>(if included in Fields)</em>"
 msgstr ""
 
-#: includes/form-cycle-settings.php:126
-msgid "Client Information"
+#. translators: This is on the Cycle Shortcode settings screen. Refers to your
+#. custom fields.
+#: includes/form-cycle-settings.php:196
+msgid "Client Information <em>(if included in Fields)</em>"
 msgstr ""
 
-#: includes/form-cycle-settings.php:134
-msgid "\"Read more\" link"
+#. translators: This is on the Cycle Shortcode settings screen.
+#. translators: This appears in the [strong] shortcode instructions.
+#. translators: This appears in widget settings.
+#: includes/form-cycle-settings.php:208 includes/tabs/readmore.php:6
+#: includes/widget.php:538
+msgid "\"Read More\" link"
 msgstr ""
 
-#: includes/form-cycle-settings.php:146 includes/widget.php:413
+#. translators: This is on the Cycle Shortcode settings screen.
+#. translators: This appears in widget settings.
+#: includes/form-cycle-settings.php:218 includes/widget.php:547
+msgctxt "no \"Read more\" link"
+msgid "None"
+msgstr ""
+
+#. translators: This is on the Cycle Shortcode settings screen.
+#. translators: This appears in widget settings.
+#: includes/form-cycle-settings.php:228 includes/widget.php:556
+msgctxt "the \"Read more\" link"
 msgid "Link to the testimonial"
 msgstr ""
 
-#: includes/form-cycle-settings.php:152 includes/widget.php:417
+#. translators: This is on the Cycle Shortcode settings screen.
+#. translators: This appears in widget settings.
+#: includes/form-cycle-settings.php:238 includes/widget.php:565
+msgctxt "the \"Read more\" link"
 msgid "Link to"
 msgstr ""
 
-#: includes/form-cycle-settings.php:155 includes/widget.php:419
+#. translators: This is on the Cycle Shortcode settings screen.
+#. translators: This appears in widget settings.
+#: includes/form-cycle-settings.php:245 includes/widget.php:572
+msgctxt "the \"Read more\" link"
 msgid "— Select a page —"
 msgstr ""
 
-#: includes/form-cycle-settings.php:168
+#. translators: This is on the Cycle Shortcode settings screen.
+#: includes/form-cycle-settings.php:262
+msgctxt "slideshow effect"
 msgid "Transition"
 msgstr ""
 
-#: includes/form-cycle-settings.php:174 includes/widget.php:298
+#. translators: This is on the Cycle Shortcode settings screen.
+#. translators: This appears in widget settings.
+#: includes/form-cycle-settings.php:272 includes/widget.php:345
+msgctxt "slideshow setting"
 msgid "Show each for"
 msgstr ""
 
-#: includes/form-cycle-settings.php:178 includes/form-cycle-settings.php:191
-#: includes/widget.php:302 includes/widget.php:312
+#. translators: This is on the Cycle Shortcode settings screen.
+#. translators: This appears in widget settings.
+#: includes/form-cycle-settings.php:280 includes/form-cycle-settings.php:301
+#: includes/widget.php:353 includes/widget.php:371
+msgctxt "time setting"
 msgid "seconds"
 msgstr ""
 
-#: includes/form-cycle-settings.php:187 includes/widget.php:308
+#. translators: This is on the Cycle Shortcode settings screen.
+#. translators: This appears in widget settings.
+#: includes/form-cycle-settings.php:293 includes/widget.php:363
+msgctxt "slideshow setting"
 msgid "Effect duration"
 msgstr ""
 
-#: includes/form-cycle-settings.php:198 includes/widget.php:319
+#. translators: This is on the Cycle Shortcode settings screen.
+#. translators: This appears in widget settings.
+#: includes/form-cycle-settings.php:312 includes/widget.php:382
+msgctxt "slideshow setting"
 msgid "Pause on hover"
 msgstr ""
 
@@ -394,7 +512,8 @@ msgstr ""
 msgid "Widget"
 msgstr ""
 
-#: includes/form-general-settings.php:32 includes/settings-shortcodes.php:81
+#. translators: This appears on the Original Shortcodes admin screen.
+#: includes/form-general-settings.php:32 includes/settings-shortcodes.php:97
 msgid "Submission Form"
 msgstr ""
 
@@ -402,213 +521,224 @@ msgstr ""
 msgid "The number of testimonials to show per page"
 msgstr ""
 
-#: includes/form-general-settings.php:43
+#. translators: %s is a shortcode.
+#: includes/form-general-settings.php:44
 msgid "This applies to the %s shortcode."
 msgstr ""
 
-#: includes/form-general-settings.php:48
+#: includes/form-general-settings.php:49
 msgid "When a new testimonial is submitted"
 msgstr ""
 
-#: includes/form-general-settings.php:52
+#: includes/form-general-settings.php:53
 msgid "Send notification email to"
 msgstr ""
 
-#: includes/form-general-settings.php:59 includes/guide-advanced.php:14
+#: includes/form-general-settings.php:60 includes/guide-advanced.php:21
 msgid "Spam Control"
 msgstr ""
 
-#: includes/form-general-settings.php:61
+#: includes/form-general-settings.php:62
+msgctxt "spam control techniques"
 msgid "Honeypot"
 msgstr ""
 
-#: includes/form-general-settings.php:62
+#: includes/form-general-settings.php:63
 msgid ""
 "These methods are both time-tested and widely used. They can be used "
 "simultaneously for more protection."
 msgstr ""
 
-#: includes/form-general-settings.php:67
+#: includes/form-general-settings.php:68
 msgid ""
 "Traps spambots by adding an extra empty field that is invisible to humans "
 "but not to spambots which tend to fill in every field they find in the form "
 "code. Empty field = human. Not empty = spambot."
 msgstr ""
 
-#: includes/form-general-settings.php:72
+#: includes/form-general-settings.php:73
 msgid "Recommended."
 msgstr ""
 
-#: includes/form-general-settings.php:72
+#: includes/form-general-settings.php:73
 msgid ""
 "Traps spambots by using JavaScript to add a new field as soon as the form is "
 "submitted. Since spambots cannot run JavaScript, the new field never gets "
 "added. New field = human. Missing = spambot."
 msgstr ""
 
-#: includes/form-general-settings.php:81
+#: includes/form-general-settings.php:82
 msgid ""
 "Captcha can be used alongside honeypot methods. Be sure to configure any "
 "plugins first, if necessary."
 msgstr ""
 
-#: includes/form-general-settings.php:101
+#: includes/form-general-settings.php:102
+msgctxt "link"
 msgid "settings"
 msgstr ""
 
-#: includes/form-general-settings.php:103
+#: includes/form-general-settings.php:104
 msgid "no settings"
 msgstr ""
 
-#: includes/form-general-settings.php:108
+#: includes/form-general-settings.php:109
+msgctxt "adjective"
 msgid "inactive"
 msgstr ""
 
-#: includes/form-general-settings.php:114
+#: includes/form-general-settings.php:115
 msgid "not installed"
 msgstr ""
 
-#: includes/form-general-settings.php:115
+#: includes/form-general-settings.php:116
+msgctxt "link"
 msgid "install plugin"
 msgstr ""
 
-#: includes/form-general-settings.php:119
+#: includes/form-general-settings.php:120
+msgctxt "link"
 msgid "plugin page"
 msgstr ""
 
-#: includes/guide-advanced.php:3 includes/guide-simple.php:3
+#: includes/guide-advanced.php:4 includes/guide-simple.php:3
 #: includes/guide-start.php:3
 msgid ""
-"View some examples on the <a href=\"http://demos.wpmission.com/strong-"
-"testimonials/\" target=\"_blank\">demo site</a>."
+"View some examples on the <a href=\"%s\" target=\"_blank\">demo site</a>."
 msgstr ""
 
-#: includes/guide-advanced.php:5
+#: includes/guide-advanced.php:7
 msgid "Make your testimonials sing using advanced features."
 msgstr ""
 
-#: includes/guide-advanced.php:9 includes/guide-simple.php:10
+#: includes/guide-advanced.php:11 includes/guide-simple.php:10
+msgctxt "verb"
 msgid "Gather"
 msgstr ""
 
-#: includes/guide-advanced.php:12
+#: includes/guide-advanced.php:15
 msgid "Customize the form to meet your needs."
 msgstr ""
 
-#: includes/guide-advanced.php:12
-msgid ""
-"<a href=\"http://www.wpmission.com/tutorials/customize-the-form-in-strong-"
-"testimonials/\" target=\"_blank\">Here</a> is a full tutorial."
+#: includes/guide-advanced.php:15
+msgid "<a href=\"%s\" target=\"_blank\">Here</a> is a full tutorial."
 msgstr ""
 
-#: includes/guide-advanced.php:13
+#: includes/guide-advanced.php:18
+msgid "Featured Images"
+msgstr ""
+
+#: includes/guide-advanced.php:18
 msgid "AKA thumbnails."
 msgstr ""
 
-#: includes/guide-advanced.php:13
+#: includes/guide-advanced.php:18
 msgid "Allow your clients to include a photo or a logo with their testimonial."
 msgstr ""
 
-#: includes/guide-advanced.php:14
+#: includes/guide-advanced.php:21
 msgid "Add honeypot and/or Captcha  methods to the form."
 msgstr ""
 
-#: includes/guide-advanced.php:15
+#: includes/guide-advanced.php:24
 msgid "Notification"
 msgstr ""
 
-#: includes/guide-advanced.php:15
+#: includes/guide-advanced.php:24
 msgid ""
 "Automatically send an email to the site administrator when a new testimonial "
 "has been submitted and is pending review."
 msgstr ""
 
-#: includes/guide-advanced.php:21 includes/guide-simple.php:15
+#: includes/guide-advanced.php:31 includes/guide-simple.php:15
+msgctxt "verb"
 msgid "Publish"
 msgstr ""
 
-#: includes/guide-advanced.php:24 strong-testimonials.php:248
+#: includes/guide-advanced.php:35 strong-testimonials.php:252
 msgid "Categories"
 msgstr ""
 
-#: includes/guide-advanced.php:24
+#: includes/guide-advanced.php:35
 msgid "Organize your testimonials by year, salesperson, event, etc."
 msgstr ""
 
-#: includes/guide-advanced.php:25
+#: includes/guide-advanced.php:38
 msgid "Excerpts"
 msgstr ""
 
-#: includes/guide-advanced.php:25
+#: includes/guide-advanced.php:38
 msgid ""
 "Available in the post editor, use excerpts to create attention-grabbing one-"
 "liners for use in widgets and the cycle shortcode."
 msgstr ""
 
-#: includes/guide-advanced.php:26
+#: includes/guide-advanced.php:41
 msgid "Skip Loading Stylesheets"
 msgstr ""
 
-#: includes/guide-advanced.php:26
+#: includes/guide-advanced.php:41
 msgid ""
 "The included stylesheets include a default layout. Skip loading the "
-"stylesheets if you want to style everything in your theme or <a href="
-"\"http://wordpress.org/plugins/simple-custom-css/\">custom CSS</a>."
+"stylesheets if you want to style everything in your theme or <a href=\"%s\" "
+"target=\"_blank\">custom CSS</a>."
 msgstr ""
 
-#: includes/guide-advanced.php:32 includes/guide-simple.php:20
+#: includes/guide-advanced.php:48 includes/guide-simple.php:20
 #: includes/settings-shortcodes-strong.php:17
+msgctxt "verb"
 msgid "Display"
 msgstr ""
 
-#: includes/guide-advanced.php:35 includes/settings.php:302
+#: includes/guide-advanced.php:52 includes/settings.php:28
+#: includes/settings.php:29 includes/settings.php:303
 msgid "Shortcodes"
 msgstr ""
 
-#: includes/guide-advanced.php:35
+#: includes/guide-advanced.php:52
 msgid "Several ways to show your testimonials."
 msgstr ""
 
-#: includes/guide-advanced.php:36 includes/settings.php:151
+#: includes/guide-advanced.php:55 includes/settings.php:152
 msgid "Cycle Shortcode"
 msgstr ""
 
-#: includes/guide-advanced.php:36
+#: includes/guide-advanced.php:55
 msgid "Add a testimonial slider to any page."
 msgstr ""
 
-#: includes/guide-advanced.php:37
+#: includes/guide-advanced.php:58
 msgid "Widgets"
 msgstr ""
 
-#: includes/guide-advanced.php:37
+#: includes/guide-advanced.php:58
 msgid ""
 "The widget has the same features as the cycle shortcode. Multiple widgets "
 "can used on the same page."
 msgstr ""
 
-#: includes/guide-advanced.php:38 includes/settings.php:152
+#: includes/guide-advanced.php:61 includes/settings.php:153
 msgid "Client Section"
 msgstr ""
 
-#: includes/guide-advanced.php:38
+#: includes/guide-advanced.php:61
 msgid ""
 "Select which fields (including your custom fields) appear below the "
 "testimonial content."
 msgstr ""
 
-#: includes/guide-advanced.php:39
+#: includes/guide-advanced.php:64
 msgid "As Posts"
 msgstr ""
 
-#: includes/guide-advanced.php:39
+#: includes/guide-advanced.php:64
 msgid ""
 "Since a testimonial is a type of post, it can be displayed using your "
 "theme's default post template or a custom template, included pagination."
 msgstr ""
 
 #: includes/guide-future.php:3
-msgid "Here's some of what is planned for upcoming versions."
+msgid "Here are some features planned for upcoming versions."
 msgstr ""
 
 #: includes/guide-notes.php:3
@@ -676,16 +806,14 @@ msgstr ""
 
 #: includes/guide-notes.php:16
 msgid ""
-"There is a .pot file in the plugin's <code>languages</code> directory. <a "
-"href=\"http://www.wpmission.com/contact/\" target=_blank\">Contact me</a> to "
-"submit a translation file."
+"There is a POT file in the plugin's <code>languages</code> directory. <a "
+"href=\"%s\" target=_blank\">Contact me</a> to submit a translation file."
 msgstr ""
 
 #: includes/guide-notes.php:17
 msgid ""
-"The field labels on the submission form will not appear in the .pot file so "
-"they must be translated manually in the <a href=\"edit.php?post_type=wpm-"
-"testimonial&page=fields\">Fields editor</a>."
+"The field labels on the submission form will not appear in the POT file so "
+"they must be translated manually in the <a href=\"%s\">Fields editor</a>."
 msgstr ""
 
 #: includes/guide-notes.php:18
@@ -696,7 +824,7 @@ msgid ""
 msgstr ""
 
 #: includes/guide-notes.php:20
-msgid "\"Nofollow\" links"
+msgid "Nofollow links"
 msgstr ""
 
 #: includes/guide-notes.php:21
@@ -713,9 +841,8 @@ msgstr ""
 
 #: includes/guide-notes.php:25
 msgid ""
-"Please use the <a href=\"http://wordpress.org/support/plugin/strong-"
-"testimonials\" target=\"_blank\">support forum</a> or <a href=\"http://www."
-"wpmission.com/contact/\" target=\"_blank\">contact me</a>."
+"Please use the <a href=\"%s\" target=\"_blank\">support forum</a> or <a href="
+"\"%s\" target=\"_blank\">contact me</a>."
 msgstr ""
 
 #: includes/guide-simple.php:5
@@ -727,7 +854,7 @@ msgid "Use the default settings to hit the ground running."
 msgstr ""
 
 #: includes/guide-simple.php:11
-msgid "To accept new testimonials, add the shortcode [wpmtst-form] to a page."
+msgid "To accept new testimonials, add the shortcode [strong form] to a page."
 msgstr ""
 
 #: includes/guide-simple.php:16
@@ -738,7 +865,8 @@ msgstr ""
 
 #: includes/guide-simple.php:21
 msgid ""
-"Add a shortcode like [wpmtst-all] to a page and/or add a widget to a sidebar."
+"Add a shortcode like [strong title random per_page=\"5\"] to a page and/or add a "
+"widget to a sidebar."
 msgstr ""
 
 #: includes/guide-start.php:5
@@ -774,7 +902,7 @@ msgid "custom fields"
 msgstr ""
 
 #: includes/guide-start.php:13
-msgid "(like client name and email)"
+msgid "like client name and email"
 msgstr ""
 
 #: includes/guide-start.php:14
@@ -787,16 +915,14 @@ msgstr ""
 
 #: includes/guide-start.php:18
 msgid ""
-"The <strong><a href=\"edit.php?post_type=wpm-"
-"testimonial&page=guide&tab=simple\">Simple</a></strong> tab shows you how to "
-"quickly start adding testimonials to your site."
+"The <strong><a href=\"%s\">Simple</a></strong> tab shows you how to quickly "
+"start adding testimonials to your site."
 msgstr ""
 
 #: includes/guide-start.php:19
 msgid ""
-"The <strong><a href=\"edit.php?post_type=wpm-"
-"testimonial&page=guide&tab=advanced\">Advanced</a></strong> tab describes "
-"more features like custom fields and excerpts."
+"The <strong><a href=\"%s\">Advanced</a></strong> tab describes more features "
+"like custom fields and excerpts."
 msgstr ""
 
 #: includes/guide-start.php:21
@@ -813,24 +939,30 @@ msgstr ""
 msgid "Strong Testimonials Guide"
 msgstr ""
 
-#: includes/guide.php:17
+#. translators: This appears in the Guide.
+#: includes/guide.php:19
 msgid "Getting Started"
 msgstr ""
 
-#: includes/guide.php:18
+#. translators: This appears in the Guide.
+#: includes/guide.php:23
 msgid "Simple"
 msgstr ""
 
-#: includes/guide.php:19
+#. translators: This appears in the Guide.
+#: includes/guide.php:27
 msgid "Advanced"
 msgstr ""
 
-#: includes/guide.php:20 includes/settings-shortcodes-strong.php:15
-#: includes/tabs/notes.php:5
+#. translators: This appears in the Guide.
+#. translators: This appears in the [strong] shortcode instructions.
+#: includes/guide.php:31 includes/settings-shortcodes-strong.php:15
+#: includes/tabs/notes.php:6
 msgid "Notes"
 msgstr ""
 
-#: includes/guide.php:21
+#. translators: This appears in the Guide.
+#: includes/guide.php:35
 msgid "Future"
 msgstr ""
 
@@ -838,11 +970,13 @@ msgstr ""
 msgid "The new shortcode that does it all."
 msgstr ""
 
-#: includes/settings-shortcodes-strong.php:16 includes/tabs/form.php:5
+#. translators: This appears in the [strong] shortcode instructions.
+#: includes/settings-shortcodes-strong.php:16 includes/tabs/form.php:6
 msgid "The Form"
 msgstr ""
 
-#: includes/settings-shortcodes-strong.php:18 includes/tabs/slideshow.php:5
+#. translators: This appears in the [strong] shortcode instructions.
+#: includes/settings-shortcodes-strong.php:18 includes/tabs/slideshow.php:6
 msgid "Slideshow"
 msgstr ""
 
@@ -850,199 +984,256 @@ msgstr ""
 msgid "Read More"
 msgstr ""
 
-#: includes/settings-shortcodes-strong.php:20 includes/tabs/child.php:5
+#. translators: This appears in the [strong] shortcode instructions.
+#: includes/settings-shortcodes-strong.php:20 includes/tabs/child.php:6
 msgid "Child Shortcodes"
 msgstr ""
 
-#: includes/settings-shortcodes-strong.php:21 includes/tabs/child.php:38
-#: includes/tabs/examples.php:5 includes/tabs/form.php:31
-#: includes/tabs/readmore.php:37
+#. translators: This appears in the [strong] shortcode instructions.
+#: includes/settings-shortcodes-strong.php:21 includes/tabs/child.php:42
+#: includes/tabs/examples.php:6 includes/tabs/form.php:36
+#: includes/tabs/readmore.php:44
 msgid "Examples"
 msgstr ""
 
-#: includes/settings-shortcodes.php:9
-msgid ""
-"These shortcodes will be deprecated soon. Please migrate to the <code>"
-"[strong]</code> shortcode."
-msgstr ""
-
-#: includes/settings-shortcodes.php:13
+#. translators: This appears on the Original Shortcodes admin screen.
+#: includes/settings-shortcodes.php:14
 msgid "Show All"
 msgstr ""
 
-#: includes/settings-shortcodes.php:16
+#. translators: This appears on the Original Shortcodes admin screen.
+#: includes/settings-shortcodes.php:18
 msgid "from all categories"
 msgstr ""
 
-#: includes/settings-shortcodes.php:20
+#. translators: This appears on the Original Shortcodes admin screen.
+#: includes/settings-shortcodes.php:23
 msgid "or a single category"
 msgstr ""
 
-#: includes/settings-shortcodes.php:24 includes/settings-shortcodes.php:56
-#: includes/settings-shortcodes.php:64 includes/settings-shortcodes.php:92
+#. translators: This appears on the Original Shortcodes admin screen.
+#: includes/settings-shortcodes.php:28 includes/settings-shortcodes.php:67
+#: includes/settings-shortcodes.php:77 includes/settings-shortcodes.php:111
 msgid "or multiple categories"
 msgstr ""
 
-#: includes/settings-shortcodes.php:31
+#. translators: This appears on the Original Shortcodes admin screen.
+#: includes/settings-shortcodes.php:36
 msgid "Cycle"
 msgstr ""
 
-#: includes/settings-shortcodes.php:34
+#. translators: This appears on the Original Shortcodes admin screen.
+#: includes/settings-shortcodes.php:40
+msgctxt "verb"
 msgid "<a href=\"%s\">configure</a>"
 msgstr ""
 
-#: includes/settings-shortcodes.php:41 includes/settings.php:273
-#: includes/widget.php:211
+#. translators: This appears on the Original Shortcodes admin screen.
+#: includes/settings-shortcodes.php:48 includes/settings.php:274
+#: includes/widget.php:215
+msgctxt "display order"
 msgid "Random"
 msgstr ""
 
-#: includes/settings-shortcodes.php:44
+#. translators: This appears on the Original Shortcodes admin screen.
+#: includes/settings-shortcodes.php:52
 msgid "a single random testimonial"
 msgstr ""
 
-#: includes/settings-shortcodes.php:48
+#. translators: This appears on the Original Shortcodes admin screen.
+#: includes/settings-shortcodes.php:57
+msgctxt "quantity"
 msgid "or a certain number"
 msgstr ""
 
-#: includes/settings-shortcodes.php:52
+#. translators: This appears on the Original Shortcodes admin screen.
+#: includes/settings-shortcodes.php:62
 msgid "a single testimonial from a single category"
 msgstr ""
 
-#: includes/settings-shortcodes.php:60
+#. translators: This appears on the Original Shortcodes admin screen.
+#: includes/settings-shortcodes.php:72
+msgctxt "quantity"
 msgid "a certain number from a single category"
 msgstr ""
 
-#: includes/settings-shortcodes.php:71
+#. translators: This appears on the Original Shortcodes admin screen.
+#: includes/settings-shortcodes.php:85
+msgctxt "quantity"
 msgid "Single"
 msgstr ""
 
-#: includes/settings-shortcodes.php:74
+#. translators: This appears on the Original Shortcodes admin screen.
+#: includes/settings-shortcodes.php:89
 msgid "one specific testimonial"
 msgstr ""
 
-#: includes/settings-shortcodes.php:84
+#. translators: This appears on the Original Shortcodes admin screen.
+#: includes/settings-shortcodes.php:101
 msgid "a form for visitors to submit testimonials"
 msgstr ""
 
-#: includes/settings-shortcodes.php:88
+#. translators: This appears on the Original Shortcodes admin screen.
+#: includes/settings-shortcodes.php:106
 msgid "and add them to a single category"
 msgstr ""
 
-#: includes/settings.php:140
+#. translators: This appears in the [strong] shortcode instructions.
+#: includes/settings.php:14 includes/settings.php:15
+#: includes/tabs/notes.php:17 strong-testimonials.php:47
+msgid "Settings"
+msgstr ""
+
+#: includes/settings.php:35
+msgctxt "noun"
+msgid "Guide"
+msgstr ""
+
+#. translators: %s is an icon.
+#: includes/settings.php:37
+msgctxt "noun"
+msgid "%s Guide"
+msgstr ""
+
+#: includes/settings.php:141
 msgid "Testimonial Settings"
 msgstr ""
 
-#: includes/settings.php:144
+#: includes/settings.php:145
 msgid "Settings saved."
 msgstr ""
 
-#: includes/settings.php:150
+#: includes/settings.php:151
+msgctxt "adjective"
 msgid "General"
 msgstr ""
 
-#: includes/settings.php:172
+#: includes/settings.php:173
 msgid "Remember to save changes before switching tabs."
 msgstr ""
 
-#: includes/settings.php:274 includes/widget.php:212
+#: includes/settings.php:275 includes/widget.php:216
+msgctxt "display order"
 msgid "Newest first"
 msgstr ""
 
-#: includes/settings.php:275 includes/widget.php:213
+#: includes/settings.php:276 includes/widget.php:217
+msgctxt "display order"
 msgid "Oldest first"
 msgstr ""
 
-#: includes/settings.php:307
+#: includes/settings.php:308
 msgid "Original"
 msgstr ""
 
-#: includes/shortcode-form.php:48 includes/shortcode-form.php:304
-#: includes/shortcode-form.php:316
+#. translators: Front-end error message.
+#: includes/shortcode-form.php:68 includes/shortcode-form.php:207
+#: includes/shortcode-form.php:366 includes/shortcode-form.php:379
 msgid "There was a problem processing your testimonial."
 msgstr ""
 
-#: includes/shortcode-form.php:152
+#: includes/shortcode-form.php:218
 msgid "Thank you! Your testimonial is awaiting moderation."
 msgstr ""
 
-#: includes/shortcode-form.php:172
+#: includes/shortcode-form.php:231
 msgid "Required Field"
 msgstr ""
 
-#: includes/shortcode-form.php:272
+#: includes/shortcode-form.php:332
 msgid "Captcha"
 msgstr ""
 
-#: includes/shortcode-form.php:285
+#. translators: The submit button on testimonial form.
+#: includes/shortcode-form.php:346
+msgctxt "the Submit button"
 msgid "Add Testimonial"
 msgstr ""
 
-#: includes/shortcode-strong.php:61 includes/shortcode-strong.php:108
+#: includes/shortcode-strong.php:73 includes/shortcode-strong.php:120
 #: includes/widget.php:149
+msgctxt "link"
 msgid "Read more"
 msgstr ""
 
-#: includes/shortcodes.php:421
+#. translators: Subject line for new testimonial notification email.
+#: includes/shortcodes.php:423
 msgid "New testimonial for"
 msgstr ""
 
-#: includes/shortcodes.php:423
+#. translators: Message for new testimonial notification email.
+#: includes/shortcodes.php:426
 msgid ""
 "New testimonial submission for %s. This is awaiting action from the website "
 "administrator."
 msgstr ""
 
-#: includes/tabs/child.php:6
+#. translators: This appears in the [strong] shortcode instructions.
+#: includes/tabs/child.php:8
 msgid "must be inside a parent [ strong ] shortcode"
 msgstr ""
 
-#: includes/tabs/child.php:10
+#. translators: This appears in the [strong] shortcode instructions.
+#: includes/tabs/child.php:13
 msgid "the client section"
 msgstr ""
 
-#: includes/tabs/child.php:11
+#. translators: This appears in the [strong] shortcode instructions.
+#: includes/tabs/child.php:15
 msgid "required for displaying custom fields"
 msgstr ""
 
-#: includes/tabs/child.php:17
+#. translators: This appears in the [strong] shortcode instructions.
+#: includes/tabs/child.php:22
 msgid "a custom field"
 msgstr ""
 
-#: includes/tabs/child.php:24
+#. translators: This appears in the [strong] shortcode instructions.
+#: includes/tabs/child.php:29
 msgid "with a CSS class"
 msgstr ""
 
-#: includes/tabs/child.php:31
+#. translators: This appears in the [strong] shortcode instructions.
+#: includes/tabs/child.php:36
 msgid "as a link with another field<br /> that opens in a new tab"
 msgstr ""
 
-#: includes/tabs/child.php:41 includes/tabs/form.php:34
-#: includes/tabs/readmore.php:41
+#. translators: This appears in the [strong] shortcode instructions.
+#: includes/tabs/child.php:46 includes/tabs/form.php:40
+#: includes/tabs/readmore.php:49
+msgctxt "adjective"
 msgid "minimal"
 msgstr ""
 
-#: includes/tabs/child.php:45 includes/tabs/form.php:38
-#: includes/tabs/readmore.php:49
+#. translators: This appears in the [strong] shortcode instructions.
+#: includes/tabs/child.php:51 includes/tabs/form.php:45
+#: includes/tabs/readmore.php:58
+msgctxt "adjective"
 msgid "full"
 msgstr ""
 
-#: includes/tabs/examples.php:8
+#. translators: This appears in the [strong] shortcode instructions.
+#: includes/tabs/examples.php:10
 msgid "the form"
 msgstr ""
 
-#: includes/tabs/examples.php:12
+#. translators: This appears in the [strong] shortcode instructions.
+#: includes/tabs/examples.php:15
 msgid "show all, 5 per page, with pagination above and below"
 msgstr ""
 
-#: includes/tabs/examples.php:16
+#. translators: This appears in the [strong] shortcode instructions.
+#: includes/tabs/examples.php:20
 msgid "show 3 random, limited to about 200 characters"
 msgstr ""
 
-#: includes/tabs/examples.php:20
+#. translators: This appears in the [strong] shortcode instructions.
+#: includes/tabs/examples.php:25
 msgid "a slideshow with excerpts<br /> from categories 2 and 3"
 msgstr ""
 
-#: includes/tabs/examples.php:25
+#. translators: This appears in the [strong] shortcode instructions.
+#: includes/tabs/examples.php:31
 msgid ""
 "show the full-length testimonial<br />\n"
 "\t\t\t\twith the title and thumbnail,<br />\n"
@@ -1051,342 +1242,443 @@ msgid ""
 "\t\t\t\tand a \"read more\" link"
 msgstr ""
 
-#: includes/tabs/examples.php:42
+#. translators: This appears in the [strong] shortcode instructions.
+#: includes/tabs/examples.php:49
 msgid ""
-"Many more examples on the <a href=\"http://demos.wpmission.com/strong-"
-"testimonials/\" target=\"_blank\">demo site</a>."
+"Many more examples on the <a href=\"%s\" target=\"_blank\">demo site</a>."
 msgstr ""
 
-#: includes/tabs/form.php:12
+#. translators: This appears in the [strong] shortcode instructions.
+#: includes/tabs/form.php:14
 msgid "add new submissions to a category"
 msgstr ""
 
-#: includes/tabs/form.php:18 includes/tabs/part-style.php:10
+#. translators: This appears in the [strong] shortcode instructions.
+#: includes/tabs/form.php:21 includes/tabs/part-style.php:13
+msgctxt "CSS"
 msgid "add classes to <code>div.strong-container</code>"
 msgstr ""
 
-#: includes/tabs/form.php:25 includes/tabs/part-style.php:15
+#. translators: This appears in the [strong] shortcode instructions.
+#: includes/tabs/form.php:29 includes/tabs/part-style.php:19
 msgid "skip plugin stylesheet"
 msgstr ""
 
-#: includes/tabs/notes.php:8
+#: includes/tabs/notes.php:9
+msgctxt "adjective"
 msgid "Multiple"
 msgstr ""
 
-#: includes/tabs/notes.php:10
+#. translators: This appears in the [strong] shortcode instructions.
+#: includes/tabs/notes.php:12
 msgid ""
 "If a page has multiple <code>[strong]</code>'s, each one must be closed; e."
 "g. <code>[strong ... /]</code> or <code>[strong ...][/strong]</code>."
 msgstr ""
 
-#: includes/tabs/notes.php:14 strong-testimonials.php:47
-msgid "Settings"
-msgstr ""
-
-#: includes/tabs/notes.php:16
+#. translators: This appears in the [strong] shortcode instructions.
+#: includes/tabs/notes.php:20
 msgid ""
 "There are no settings yet so each <code>[strong]</code> must have every "
 "attribute it needs, except for the default attributes indicated."
 msgstr ""
 
-#: includes/tabs/notes.php:22
+#. translators: This appears in the [strong] shortcode instructions.
+#: includes/tabs/notes.php:27
 msgid ""
 "New elements: <code>div.strong-container</code> wraps <code>div.strong-"
 "content</code> which wraps the collection of <code>.testimonial</code>'s."
 msgstr ""
 
-#: includes/tabs/notes.php:26
+#. translators: This appears in the [strong] shortcode instructions.
+#: includes/tabs/notes.php:32
+msgctxt "noun"
 msgid "Help"
 msgstr ""
 
-#: includes/tabs/notes.php:28
+#: includes/tabs/notes.php:34
 msgid ""
 "Please use the <a href=\"%s\" target=\"_blank\">support forum</a> to report "
 "bugs, get help, or make feature requests."
 msgstr ""
 
-#: includes/tabs/part-content.php:3
+#. translators: This appears in the [strong] shortcode instructions.
+#: includes/tabs/part-content.php:4 includes/widget.php:414
+msgctxt "noun"
 msgid "Content"
 msgstr ""
 
-#: includes/tabs/part-content.php:6
+#. translators: This appears in the [strong] shortcode instructions.
+#: includes/tabs/part-content.php:8
 msgid "entire post"
 msgstr ""
 
-#: includes/tabs/part-content.php:11
+#. translators: This appears in the [strong] shortcode instructions.
+#: includes/tabs/part-content.php:14
 msgid "excerpt"
 msgstr ""
 
-#: includes/tabs/part-content.php:12
+#. translators: This appears in the [strong] shortcode instructions.
+#: includes/tabs/part-content.php:16
 msgid "overrides <b>length limit</b>"
 msgstr ""
 
-#: includes/tabs/part-content.php:18
+#. translators: This appears in the [strong] shortcode instructions.
+#: includes/tabs/part-content.php:23
+msgctxt "content"
 msgid "length limit"
 msgstr ""
 
-#: includes/tabs/part-content.php:19
+#. translators: This appears in the [strong] shortcode instructions.
+#: includes/tabs/part-content.php:25
 msgid "will break on a space and add an ellipsis"
 msgstr ""
 
-#: includes/tabs/part-pagination.php:3
+#. translators: This appears in the [strong] shortcode instructions.
+#: includes/tabs/part-pagination.php:4
 msgid "Pagination"
 msgstr ""
 
-#: includes/tabs/part-pagination.php:6
+#. translators: This appears in the [strong] shortcode instructions.
+#: includes/tabs/part-pagination.php:8
 msgid "per page"
 msgstr ""
 
-#: includes/tabs/part-pagination.php:10
+#. translators: This appears in the [strong] shortcode instructions.
+#: includes/tabs/part-pagination.php:13
 msgid "navigation after"
 msgstr ""
 
-#: includes/tabs/part-pagination.php:11
+#. translators: This appears in the [strong] shortcode instructions.
+#: includes/tabs/part-pagination.php:14 includes/tabs/part-selection.php:10
 msgid "default"
 msgstr ""
 
-#: includes/tabs/part-pagination.php:14
+#. translators: This appears in the [strong] shortcode instructions.
+#: includes/tabs/part-pagination.php:18
 msgid "navigation before"
 msgstr ""
 
-#: includes/tabs/part-pagination.php:18
+#. translators: This appears in the [strong] shortcode instructions.
+#: includes/tabs/part-pagination.php:23
 msgid "navigation before & after"
 msgstr ""
 
-#: includes/tabs/part-parts.php:3
+#. translators: This appears in the [strong] shortcode instructions.
+#: includes/tabs/part-parts.php:4
+msgctxt "noun"
 msgid "Parts"
 msgstr ""
 
-#: includes/tabs/part-parts.php:7
+#. translators: This appears in the [strong] shortcode instructions.
+#: includes/tabs/part-parts.php:9
 msgid "show the Title"
 msgstr ""
 
-#: includes/tabs/part-parts.php:8 includes/tabs/part-parts.php:15
-#: includes/widget.php:379 includes/widget.php:388 includes/widget.php:397
+#. translators: This appears in the [strong] shortcode instructions. Refers to
+#. your custom fields.
+#: includes/tabs/part-parts.php:11 includes/tabs/part-parts.php:20
 msgid "if included in Fields"
 msgstr ""
 
-#: includes/tabs/part-parts.php:14
+#. translators: This appears in the [strong] shortcode instructions.
+#: includes/tabs/part-parts.php:18
 msgid "show the Featured Image"
 msgstr ""
 
-#: includes/tabs/part-parts.php:21
+#. translators: This appears in the [strong] shortcode instructions.
+#: includes/tabs/part-parts.php:27
 msgid "\"Read more\" link to the full post"
 msgstr ""
 
-#: includes/tabs/part-parts.php:22
+#. translators: This appears in the [strong] shortcode instructions.
+#: includes/tabs/part-parts.php:29
 msgid "for use with <b>excerpt</b> or <b>length limit</b> only"
 msgstr ""
 
-#: includes/tabs/part-parts.php:28
+#. translators: This appears in the [strong] shortcode instructions.
+#: includes/tabs/part-parts.php:36
 msgid "\"Read more\" phrase"
 msgstr ""
 
-#: includes/tabs/part-parts.php:29 includes/tabs/readmore.php:11
+#. translators: This appears in the [strong] shortcode instructions.
+#: includes/tabs/part-parts.php:38 includes/tabs/readmore.php:15
 msgid "default text is \"Read more\" (translatable)"
 msgstr ""
 
-#: includes/tabs/part-selection.php:3
+#. translators: This appears in the [strong] shortcode instructions.
+#: includes/tabs/part-selection.php:4
 msgid "Selection"
 msgstr ""
 
-#: includes/tabs/part-selection.php:6
+#. translators: This appears in the [strong] shortcode instructions.
+#: includes/tabs/part-selection.php:8
 msgid "show all"
 msgstr ""
 
-#: includes/tabs/part-selection.php:10
+#. translators: This appears in the [strong] shortcode instructions.
+#: includes/tabs/part-selection.php:14
+msgctxt "quantity"
 msgid "show a certain number"
 msgstr ""
 
-#: includes/tabs/part-selection.php:14
+#. translators: This appears in the [strong] shortcode instructions.
+#: includes/tabs/part-selection.php:19
 msgid "order"
 msgstr ""
 
-#: includes/tabs/part-selection.php:20
+#. translators: This appears in the [strong] shortcode instructions.
+#: includes/tabs/part-selection.php:26
 msgid "by category"
 msgstr ""
 
-#: includes/tabs/part-selection.php:25
+#. translators: This appears in the [strong] shortcode instructions.
+#: includes/tabs/part-selection.php:32
 msgid "by post ID"
 msgstr ""
 
-#: includes/tabs/part-style.php:3
+#. translators: This appears in the [strong] shortcode instructions.
+#: includes/tabs/part-style.php:4
+msgctxt "noun"
 msgid "Style"
 msgstr ""
 
-#: includes/tabs/part-style.php:6
+#. translators: This appears in the [strong] shortcode instructions.
+#: includes/tabs/part-style.php:8
 msgid "select a theme template file"
 msgstr ""
 
-#: includes/tabs/readmore.php:5
-msgid "\"Read More\" link"
-msgstr ""
-
-#: includes/tabs/readmore.php:6
+#. translators: This appears in the [strong] shortcode instructions.
+#: includes/tabs/readmore.php:8
 msgid "must not be inside another [ strong ] shortcode"
 msgstr ""
 
-#: includes/tabs/readmore.php:10
+#. translators: This appears in the [strong] shortcode instructions.
+#: includes/tabs/readmore.php:13
 msgid "appears after the loop"
 msgstr ""
 
-#: includes/tabs/readmore.php:19
+#. translators: This appears in the [strong] shortcode instructions.
+#: includes/tabs/readmore.php:24
 msgid "to another page (required)"
 msgstr ""
 
-#: includes/tabs/readmore.php:20
+#. translators: This appears in the [strong] shortcode instructions.
+#: includes/tabs/readmore.php:26
 msgid "ID or slug"
 msgstr ""
 
-#: includes/tabs/readmore.php:28
+#. translators: This appears in the [strong] shortcode instructions.
+#: includes/tabs/readmore.php:35
+msgctxt "CSS"
 msgid "add classes"
 msgstr ""
 
-#: includes/tabs/slideshow.php:13
+#. translators: This appears in the [strong] shortcode instructions.
+#: includes/tabs/slideshow.php:15
+msgctxt "setting"
 msgid "show each for (in seconds)"
 msgstr ""
 
-#: includes/tabs/slideshow.php:19
+#. translators: This appears in the [strong] shortcode instructions.
+#: includes/tabs/slideshow.php:22
+msgctxt "setting"
 msgid "transition effect (in seconds)"
 msgstr ""
 
-#: includes/tabs/slideshow.php:25
+#. translators: This appears in the [strong] shortcode instructions.
+#: includes/tabs/slideshow.php:29
+msgctxt "setting"
 msgid "no pause on hover"
 msgstr ""
 
-#: includes/tabs/slideshow.php:26
+#. translators: This appears in the [strong] shortcode instructions.
+#: includes/tabs/slideshow.php:31
 msgid "will pause by default"
 msgstr ""
 
 #: includes/widget.php:19
-msgid "Strong Testimonials widget. Static or Cycle options."
+msgctxt "description"
+msgid "Strong Testimonials widget."
 msgstr ""
 
 #: includes/widget.php:26 includes/widget.php:29
+msgctxt "widget title"
 msgid "Testimonials"
 msgstr ""
 
-#: includes/widget.php:242
+#. translators: This appears in widget settings.
+#: includes/widget.php:241
+msgctxt "widget setting"
+msgid "Title"
+msgstr ""
+
+#. translators: This appears in widget settings.
+#: includes/widget.php:259
+msgctxt "categories"
 msgid "Show all"
 msgstr ""
 
-#: includes/widget.php:271
+#. translators: This appears in widget settings.
+#: includes/widget.php:299
+msgctxt "display type"
 msgid "Cycle Mode"
 msgstr ""
 
-#: includes/widget.php:276
+#. translators: This appears in widget settings.
+#: includes/widget.php:308
+msgctxt "display type"
 msgid "Static Mode"
 msgstr ""
 
-#: includes/widget.php:350
+#. translators: This appears in widget settings.
+#: includes/widget.php:428
 msgid ""
 "Excerpts are hand-crafted summaries of your testimonial. You may need to "
 "enable them in the post editor."
 msgstr ""
 
-#: includes/widget.php:356
+#. translators: This appears in widget settings.
+#: includes/widget.php:439
 msgid "Character limit"
 msgstr ""
 
-#: includes/widget.php:395
+#. translators: This appears in widget settings.
+#: includes/widget.php:459
+msgid "Entire content"
+msgstr ""
+
+#. translators: This appears in widget settings.
+#: includes/widget.php:470
+msgctxt "display custom fields"
+msgid "Show parts"
+msgstr ""
+
+#. translators: This appears in widget settings.
+#: includes/widget.php:480
+msgid "Title"
+msgstr ""
+
+#. translators: This appears in widget settings. Refers to your custom fields.
+#. translators: This appears in widget settings.
+#: includes/widget.php:487 includes/widget.php:506 includes/widget.php:525
+msgctxt "tooltip"
+msgid "if included in Fields"
+msgstr ""
+
+#. translators: This appears in widget settings.
+#: includes/widget.php:499
+msgctxt "thumbnail"
+msgid "Featured Images"
+msgstr ""
+
+#. translators: This appears in widget settings.
+#: includes/widget.php:518
 msgid "Client Info"
 msgstr ""
 
-#: strong-testimonials.php:193
+#. translators: %s is the name of the plugin.
+#: strong-testimonials.php:195
+msgctxt "installation"
 msgid "Unable to load %s"
 msgstr ""
 
-#: strong-testimonials.php:194
+#. translators: %s is a WordPress version number.
+#: strong-testimonials.php:198
+msgctxt "installation"
 msgid ""
 "This plugin requires <strong>WordPress %s</strong> or higher so it has been "
 "deactivated."
 msgstr ""
 
-#: strong-testimonials.php:195
+#: strong-testimonials.php:199
+msgctxt "installation"
 msgid "Please upgrade WordPress and try again."
 msgstr ""
 
-#: strong-testimonials.php:196
+#: strong-testimonials.php:200
+msgctxt "installation"
 msgid "Back to the WordPress <a href=\"%s\">Plugins page</a>"
 msgstr ""
 
-#: strong-testimonials.php:209
+#: strong-testimonials.php:213
 msgctxt "post type general name"
 msgid "Testimonials"
 msgstr ""
 
-#: strong-testimonials.php:210
+#: strong-testimonials.php:214
 msgctxt "post type singular name"
 msgid "Testimonial"
 msgstr ""
 
-#: strong-testimonials.php:211
+#: strong-testimonials.php:215
+msgctxt "post type"
 msgid "Add New"
 msgstr ""
 
-#: strong-testimonials.php:212
+#: strong-testimonials.php:216
 msgid "Add New Testimonial"
 msgstr ""
 
-#: strong-testimonials.php:213
+#: strong-testimonials.php:217
 msgid "Edit Testimonial"
 msgstr ""
 
-#: strong-testimonials.php:214
+#: strong-testimonials.php:218
 msgid "New Testimonial"
 msgstr ""
 
-#: strong-testimonials.php:215
+#: strong-testimonials.php:219
 msgid "All Testimonials"
 msgstr ""
 
-#: strong-testimonials.php:216
+#: strong-testimonials.php:220
 msgid "View Testimonial"
 msgstr ""
 
-#: strong-testimonials.php:217
+#: strong-testimonials.php:221
 msgid "Search Testimonials"
 msgstr ""
 
-#: strong-testimonials.php:218 strong-testimonials.php:256
+#: strong-testimonials.php:222 strong-testimonials.php:260
 msgid "Nothing Found"
 msgstr ""
 
-#: strong-testimonials.php:219 strong-testimonials.php:257
+#: strong-testimonials.php:223 strong-testimonials.php:261
 msgid "Nothing found in Trash"
 msgstr ""
 
-#: strong-testimonials.php:225 strong-testimonials.php:231
+#: strong-testimonials.php:229
+msgctxt "post type singular label"
 msgid "testimonial"
 msgstr ""
 
-#: strong-testimonials.php:249
-msgctxt "strong-testimonials"
-msgid "Category"
-msgstr ""
-
-#: strong-testimonials.php:250
-msgid "All Categories"
-msgstr ""
-
-#: strong-testimonials.php:251
-msgctxt "strong-testimonials"
-msgid "Add New Category"
-msgstr ""
-
-#: strong-testimonials.php:252
-msgid "Edit Category"
-msgstr ""
-
-#: strong-testimonials.php:253
-msgid "New Category"
+#: strong-testimonials.php:235
+msgctxt "slug"
+msgid "testimonial"
 msgstr ""
 
 #: strong-testimonials.php:254
-msgid "View Category"
+msgid "All Categories"
 msgstr ""
 
 #: strong-testimonials.php:255
+msgid "Add New Category"
+msgstr ""
+
+#: strong-testimonials.php:256
+msgid "Edit Category"
+msgstr ""
+
+#: strong-testimonials.php:257
+msgid "New Category"
+msgstr ""
+
+#: strong-testimonials.php:258
+msgid "View Category"
+msgstr ""
+
+#: strong-testimonials.php:259
 msgid "Search Category"
 msgstr ""
 

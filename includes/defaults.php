@@ -2,16 +2,16 @@
 /**
  * Default options.
  *
- * Populates default_options and default_options.
+ * Populates default_options and default_fields.
  *
- * @since 1.8
+ * @since 1.8.0
  * @package Strong_Testimonials
  */
 
  
-// --------
-// Settings
-// --------
+/*
+ * Settings
+ */
 
 $default_options = array(
 		'per_page'          => '5',
@@ -43,18 +43,20 @@ $default_cycle = array(
 		'pause'       => 1,
 );
 
-// ---------
-// Templates
-// ---------
+
+/*
+ * Templates
+ */
 
 $default_options['default_template'] = '[wpmtst-text field="client_name" class="name"]' . PHP_EOL
 	. '[wpmtst-link url="company_website" text="company_name" new_tab class="company"]';
 
 $default_options['client_section'] = $default_options['default_template'];
 
-// ------
-// Fields
-// ------
+
+/*
+ * Fields
+ */
 
 // common field properties
 $field_base = array(
@@ -204,3 +206,56 @@ $default_fields['field_base'] = $field_base;
 $default_fields['field_types'] = $field_types;
 $default_fields['field_groups'] = $field_groups;
 $default_fields['current_field_group'] = 'custom';
+
+
+/*
+ * Messages
+ *
+ * @since 1.12.1
+ */
+
+$default_messages = array(
+
+		'required-field' => array(
+				'order' => 1,
+				/* translators: Settings > Messages tab > message description */
+				'description' => _x( 'Required field', 'description', 'strong-testimonials' ),
+				/* translators: Required field message at top of form (default). */
+				'text'        => _x( 'Required field', 'message', 'strong-testimonials' ),
+		),
+
+		'captcha' => array(
+				'order' => 2,
+				/* translators: Settings > Messages tab > message description */
+				'description' => _x( 'Captcha label', 'description', 'strong-testimonials' ),
+				/* translators: ? */
+				'text'        => _x( 'Captcha', 'message', 'strong-testimonials' ),
+		),
+		
+		'form-submit-button' => array(
+				'order' => 3,
+				/* translators: Settings > Messages tab > message description */
+				'description' => _x( 'Form submit button', 'description', 'strong-testimonials' ),
+				/* translators: The Submit button on testimonial form (default). */
+				'text'        => _x( 'Add Testimonial', 'the Submit button', 'strong-testimonials' ),
+		),
+		
+		'submission-error' => array(
+				'order' => 4,
+				/* translators: Settings > Messages tab > message description */
+				'description' => _x( 'Form submission error', 'description', 'strong-testimonials' ),
+				/* translators: Submission form error message (default). */
+				'text'        => _x( 'There was a problem processing your testimonial.', 'error message', 'strong-testimonials' ),
+		),
+		
+		'submission-success' => array(
+				'order' => 5,
+				/* translators: Settings > Messages tab > message description */
+				'description' => _x( 'Form submission success', 'description', 'strong-testimonials' ),
+				/* translators: Submission form success message (default). */
+				'text'        => _x( 'Thank you! Your testimonial is awaiting moderation.', 'success message', 'strong-testimonials' ),
+		),
+
+);
+
+uasort( $default_messages, 'wpmtst_uasort' );

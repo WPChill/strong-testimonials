@@ -1,8 +1,15 @@
 <?php
 /**
- * Strong Testimonials
- * Client section form
+ * Settings > Client section
+ *
+ * @since 1.7.0
+ * @package Strong_Testimonials
  */
+ 
+?>
+<div class="update-nag"><?php _e( 'These shortcodes will be deprecated soon. Please migrate to the <code>[strong]</code> shortcode.', 'strong-testimonials' ); ?></div>
+
+<?php
 if ( $options['load_page_style'] )
 	echo '<input type="hidden" name="wpmtst_options[load_page_style]" value="1" />';
 if ( $options['load_widget_style'] )
@@ -30,18 +37,6 @@ if ( $options['honeypot_after'] )
 	<p><?php _e( 'Your fields:', 'strong-testimonials' ); ?>&nbsp;&nbsp;<?php echo join( " ", $fields_array ); ?><span class="widget-help pushdown2 dashicons dashicons-editor-help"><span class="help"><?php _e( 'These are the fields used on your testimonial submission form. You can change these in the Fields editor.', 'strong-testimonials' ); ?></span></span></p>
 	
 	<p><?php _e( 'Use these shortcodes to select which client fields appear below each testimonial.', 'strong-testimonials' ); ?> <em><?php _e( 'These shortcodes only work here, not on a page.', 'strong-testimonials' ); ?></em></p>
-	
-	<?php /*
-	<p>Here's an example:</p>
-	<div class="shortcode-example code">
-		<p class="indent">
-			<span class="outdent">[wpmtst-text </span> field="<span class="field example"><?php _e( 'your field', 'strong-testimonials' ); ?></span>" class="<span class="field example"><?php _e( 'your CSS class', 'strong-testimonials' ); ?></span>"]
-		</p>
-		<p class="indent">
-			<span class="outdent">[wpmtst-link </span> url="<span class="field example"><?php _e( 'your field', 'strong-testimonials' ); ?></span>" text="<span class="field example"><?php _e( 'your field', 'strong-testimonials' ); ?></span>" new_tab class="<span class="field example"><?php _e( 'your CSS class', 'strong-testimonials' ); ?></span>"]
-		</p>
-	</div>
-	*/ ?>
 	
 	<p><?php _e( 'Default:', 'strong-testimonials' ); ?></p>
 	<div class="shortcode-example code">

@@ -40,6 +40,7 @@
 <th scope="row"><?php _e( 'The number of testimonials to show per page', 'strong-testimonials' ); ?></th>
 <td>
 	<input type="text" name="wpmtst_options[per_page]" size="3" value="<?php echo esc_attr( $options['per_page'] ); ?>" />
+	<?php /* translators: %s is a shortcode. */ ?>
 	<?php echo sprintf( __( 'This applies to the %s shortcode.', 'strong-testimonials' ), '<span class="code">[wpmtst-all]</span>' ); ?>
 </td>
 </tr>
@@ -56,9 +57,9 @@
 </tr>
 
 <tr valign="top">
-<th class="parent" scope="row"><?php _e( 'Spam Control', 'strong-testimonials' );?></th>
+<th class="parent" scope="row"><?php _e( 'Spam control', 'strong-testimonials' );?></th>
 <td>
-	<p><strong><?php _e( 'Honeypot', 'strong-testimonials' ); ?></strong></p>
+	<p><strong><?php _ex( 'Honeypot', 'spam control techniques', 'strong-testimonials' ); ?></strong></p>
 	<p><?php _e( 'These methods are both time-tested and widely used. They can be used simultaneously for more protection.', 'strong-testimonials' ); ?></p>
 	<ul>
 		<li class="checkbox">
@@ -74,6 +75,7 @@
 	</ul>
 </td>
 </tr>
+
 <tr valign="top">
 <th class="child" scope="row"></th>
 <td class="stackem child">
@@ -98,25 +100,25 @@
 				<?php if ( $plugin['active'] ) : ?>
 				
 					<?php if ( isset( $plugin['settings'] ) && $plugin['settings'] ) : ?>
-						<span class="link"><a href="<?php echo $plugin['settings']; ?>"><?php _e( 'settings', 'strong-testimonials' ); ?></a></span> |
+						<span class="link"><a href="<?php echo $plugin['settings']; ?>"><?php _ex( 'settings', 'link', 'strong-testimonials' ); ?></a></span> |
 					<?php else : ?>
 						<span class="notice"><?php _e( 'no settings', 'strong-testimonials' ); ?></span> |
 					<?php endif; ?>
 					
 				<?php else : ?>
 					
-					<span class="notice disabled"><?php _e( 'inactive', 'strong-testimonials' ); ?></span> |
+					<span class="notice disabled"><?php _ex( 'inactive', 'adjective', 'strong-testimonials' ); ?></span> |
 					
 				<?php endif; ?>
 				
 			<?php else : ?>
 			
 				<span class="notice disabled">(<?php _e( 'not installed', 'strong-testimonials' ); ?>)</span> |
-				<span class="link"><a href="<?php echo $plugin['search']; ?>"><?php _e( 'install plugin', 'strong-testimonials' ); ?></a></span> |
+				<span class="link"><a href="<?php echo $plugin['search']; ?>"><?php _ex( 'install plugin', 'link', 'strong-testimonials' ); ?></a></span> |
 				
 			<?php endif; ?>
 			
-			<span class="link"><a href="<?php echo $plugin['url']; ?>" target="_blank"><?php _e( 'plugin page', 'strong-testimonials' ); ?></a></span>
+			<span class="link"><a href="<?php echo $plugin['url']; ?>" target="_blank"><?php _ex( 'plugin page', 'link', 'strong-testimonials' ); ?></a></span>
 		</li>
 		<?php endforeach; ?>
 	</ul>

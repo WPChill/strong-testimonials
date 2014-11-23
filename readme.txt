@@ -74,11 +74,17 @@ These plugins work well with Strong Testimonials and add some nice features.
 
 **KNOWN CONFLICTS**
 
-* [Page Builder by SiteOrigin](http://wordpress.org/support/plugin/siteorigin-panels) - The widget settings are not being saved properly in the drag-and-drop builder.
+* [Page Builder by SiteOrigin](https://wordpress.org/plugins/siteorigin-panels/) - The widget settings are not being saved properly in the drag-and-drop builder.
 * [WP Mail SMTP](https://wordpress.org/plugins/wp-mail-smtp/) - The administrator notification email may not be sent.
 
 
 **TRANSLATIONS**
+
+In version 1.12:
+
+* Russian: 69% (thanks Матвеев Валерий)
+* Spanish: 28% (thanks Diego Ferrández)
+* Swedish: 49% (thanks TStone)
 
 Can you help? [Contact me](http://www.wpmission.com/contact/).
 

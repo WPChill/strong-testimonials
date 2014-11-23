@@ -103,7 +103,7 @@ function wpmtst_default_settings() {
 				
 			// Change target parameter in client section
 			$options['default_template'] = str_replace( 'target="_blank"', 'new_tab', $options['default_template'] );
-				
+			
 			// merge in new options
 			$options = array_merge( $default_options, $options );
 			$options['plugin_version'] = $plugin_version;
@@ -175,6 +175,18 @@ function wpmtst_default_settings() {
 		$cycle = array_merge( $default_cycle, $cycle );
 		update_option( 'wpmtst_cycle', $cycle );
 	}
+	
+	/*
+	 * -5- GET MESSAGES
+	 *
+	 * @since 1.12.1
+	 */
+	$messages = get_option( 'wpmtst_messages' );
+	if ( ! $messages ) {
+		// -5A- NEW ACTIVATION
+		update_option( 'wpmtst_messages', $default_messages );
+	}
+	
 }
 
 
@@ -190,10 +202,14 @@ function wpmtst_version_check() {
 	if ( version_compare( $wp_version, $require_wp, '<' ) ) {
 		if ( is_plugin_active( $plugin ) ) {
 			deactivate_plugins( $plugin );
-			$message = '<h2>' . sprintf( __( 'Unable to load %s', 'strong-testimonials' ), $plugin_info['Name'] ) . '</h2>';
-			$message .= '<p>' . sprintf( __( 'This plugin requires <strong>WordPress %s</strong> or higher so it has been deactivated.', 'strong-testimonials' ), $require_wp ) . '<p>';
-			$message .= '<p>' . __( 'Please upgrade WordPress and try again.', 'strong-testimonials' ) . '<p>';
-			$message .= '<p>' . sprintf( __( 'Back to the WordPress <a href="%s">Plugins page</a>', 'strong-testimonials' ), get_admin_url( null, 'plugins.php' ) ) . '<p>';
+			$message = '<h2>';
+			/* translators: %s is the name of the plugin. */
+			$message .= sprintf( _x( 'Unable to load %s', 'installation', 'strong-testimonials' ), $plugin_info['Name'] );
+			$message .= '</h2>';
+			/* translators: %s is a WordPress version number. */
+			$message .= '<p>' . sprintf( _x( 'This plugin requires <strong>WordPress %s</strong> or higher so it has been deactivated.', 'installation', 'strong-testimonials' ), $require_wp ) . '<p>';
+			$message .= '<p>' . _x( 'Please upgrade WordPress and try again.', 'installation', 'strong-testimonials' ) . '<p>';
+			$message .= '<p>' . sprintf( _x( 'Back to the WordPress <a href="%s">Plugins page</a>', 'installation', 'strong-testimonials' ), get_admin_url( null, 'plugins.php' ) ) . '<p>';
 			wp_die( $message );
 		}
 	}
@@ -208,7 +224,7 @@ function wpmtst_register_cpt() {
 	$testimonial_labels = array(
 			'name'                  => _x( 'Testimonials', 'post type general name', 'strong-testimonials' ),
 			'singular_name'         => _x( 'Testimonial', 'post type singular name', 'strong-testimonials' ),
-			'add_new'               => __( 'Add New', 'strong-testimonials' ),
+			'add_new'               => _x( 'Add New', 'post type', 'strong-testimonials' ),
 			'add_new_item'          => __( 'Add New Testimonial', 'strong-testimonials' ),
 			'edit_item'             => __( 'Edit Testimonial', 'strong-testimonials' ),
 			'new_item'              => __( 'New Testimonial', 'strong-testimonials' ),
@@ -222,13 +238,13 @@ function wpmtst_register_cpt() {
 
 	$testimonial_args = array(
 			'labels'                => $testimonial_labels,
-			'singular_label'        => __( 'testimonial', 'strong-testimonials' ),
+			'singular_label'        => _x( 'testimonial', 'post type singular label', 'strong-testimonials' ),
 			'public'                => true,
 			'show_ui'               => true,
 			'capability_type'       => 'post',
-			'hierarchical'          => false,	// 1.8
+			'hierarchical'          => false,	// @since 1.8
 			// 'rewrite'               => true,
-			'rewrite'               => array( 'slug' => __( 'testimonial', 'strong-testimonials' ) ), // 1.8
+			'rewrite'               => array( 'slug' => _x( 'testimonial', 'slug', 'strong-testimonials' ) ), // @since 1.8
 			'menu_icon'				      => 'dashicons-editor-quote',
 			// 'menu_icon'				      => 'dashicons-testimonial',
 			'menu_position'			    => 20,
@@ -246,9 +262,9 @@ function wpmtst_register_cpt() {
 	
 	$categories_labels = array(
 			'name'                  => __( 'Categories', 'strong-testimonials' ),
-			'singular_name'         => _x( 'Category', 'strong-testimonials' ),
+			'singular_name'         => __( 'Category', 'strong-testimonials' ),
 			'all_items' 			      => __( 'All Categories', 'strong-testimonials' ),
-			'add_new_item'          => _x( 'Add New Category', 'strong-testimonials' ),
+			'add_new_item'          => __( 'Add New Category', 'strong-testimonials' ),
 			'edit_item'             => __( 'Edit Category', 'strong-testimonials' ),
 			'new_item'              => __( 'New Category', 'strong-testimonials' ),
 			'view_item'             => __( 'View Category', 'strong-testimonials' ),

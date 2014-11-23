@@ -70,7 +70,7 @@ function wpmtst_strong_shortcode( $atts, $content = null, $parent_tag ) {
 				'excerpt' => '',
 				'length' => '',
 				'more_post' => '',
-				'more_text' => __( 'Read more', 'strong-testimonials' ),
+				'more_text' => _x( 'Read more', 'link', 'strong-testimonials' ),
 				
 				// slideshow attributes
 				'show_for' => '',
@@ -117,7 +117,7 @@ function wpmtst_strong_shortcode( $atts, $content = null, $parent_tag ) {
 			$page = get_page_by_slug( $page );
 			
 		if ( ! $content )
-			$content = __( 'Read more', 'strong-testimonials' );
+			$content = _x( 'Read more', 'link', 'strong-testimonials' );
 			
 		return '<div class="' . $class . '"><a href="' . get_permalink( $page ) . '">' . $content . '</a></div>';
 	}

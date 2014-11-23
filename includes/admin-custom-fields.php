@@ -88,11 +88,18 @@ function wpmtst_settings_custom_fields() {
 	// ------------------
 	echo '<div class="wrap wpmtst">' . "\n";
 	echo '<h2>' . __( 'Fields', 'strong-testimonials' ) . '</h2>' . "\n";
-	echo '<ul>';
-	echo '<li>Fields will appear in this order on the form.</li>';
-	echo '<li>Sort by grabbing the <span class="dashicons dashicons-menu"></span> icon.</li>';
-	echo '<li>Click the field name to expand its options panel.</li>';
-	echo '<li><a href="http://www.wpmission.com/tutorials/customize-the-form-in-strong-testimonials/" target="_blank">Full tutorial</a> | <a href="http://wordpress.org/support/plugin/strong-testimonials" target="_blank">Plugin support</a> | <a href="http://www.wpmission.com/contact/" target="_blank">Developer</a></li>';
+	echo '<ul>' . "\n";
+	echo '<li>' . __( 'Fields will appear in this order on the form.', 'strong-testimonials' ) . '</li>' . "\n";
+	/* translators: %s is an icon. */
+	echo '<li>' . sprintf( __( 'Sort by grabbing the %s icon.', 'strong-testimonials' ), '<span class="dashicons dashicons-menu"></span>' ) . '</li>';
+	echo '<li>' . __( 'Click the field name to expand its options panel.', 'strong-testimonials' ) . '</li>' . "\n";
+	echo '<li>' . "\n";
+	echo '<a href="http://www.wpmission.com/tutorials/customize-the-form-in-strong-testimonials/" target="_blank">' . _x( 'Full tutorial', 'link', 'strong-testimonials' ) .'</a>';
+	echo ' | ' . "\n";
+	echo '<a href="http://wordpress.org/support/plugin/strong-testimonials" target="_blank">' . _x( 'Plugin support', 'link', 'strong-testimonials' ) . '</a>';
+	echo ' | ' . "\n";
+	echo '<a href="http://www.wpmission.com/contact/" target="_blank">' . _x( 'Developer', 'contact link', 'strong-testimonials' ) . '</a>' . "\n";
+	echo '</li>' . "\n";
 	echo '</ul>' . "\n";
 	
 	echo '<!-- Custom Fields Form -->' . "\n";
@@ -147,7 +154,7 @@ function wpmtst_show_field( $key, $field, $adding ) {
 	// Field Label
 	// -----------
 	$html .= '<tr>' . "\n";
-	$html .= '<th>Label</th>' . "\n";
+	$html .= '<th>' . _x( 'Label', 'noun', 'strong-testimonials' ) . '</th>' . "\n";
 	$html .= '<td>' . "\n";
 	$html .= '<input type="text" class="first-field field-label" name="fields[' . $key . '][label]" value="' . $field['label'] . '" />' . "\n";
 	$html .= '<span class="help">' . __( 'This appears on the form.', 'strong-testimonials' ) . '</span>' . "\n";
@@ -158,7 +165,7 @@ function wpmtst_show_field( $key, $field, $adding ) {
 	// Field Name
 	// ----------
 	$html .= '<tr>' . "\n";
-	$html .= '<th>Name</th>' . "\n";
+	$html .= '<th>' . _x( 'Name', 'noun', 'strong-testimonials' ) . '</th>' . "\n";
 	$html .= '<td>' . "\n";
 	if ( 'custom' == $field['record_type'] ) {
 		// if adding, the field Name is blank so it can be populated from Label
@@ -181,7 +188,7 @@ function wpmtst_show_field( $key, $field, $adding ) {
 	// Separate code! Readability trumps ultra-minor efficiency.
 	
 	$html .= '<tr>' . "\n";
-	$html .= '<th>Type</th>' . "\n";
+	$html .= '<th>' . _x( 'Type', 'noun', 'strong-testimonials' ) . '</th>' . "\n";
 	$html .= '<td>' . "\n";
 	
 	// Restrict field choice to this record type
@@ -275,7 +282,7 @@ function wpmtst_show_field( $key, $field, $adding ) {
 	if ( $adding || ! $is_core ) {
 		$html .= '<span><a href="#" class="delete-field">' . __( 'Delete' ) . '</a></span>';
 	}
-	$html .= '<span class="close-field"><a href="#">' . __( 'Close', 'strong-testimonials' ) . '</a></span>';
+	$html .= '<span class="close-field"><a href="#">' . _x( 'Close', 'verb', 'strong-testimonials' ) . '</a></span>';
 	$html .= '</div>' . "\n";
 	
 	$html .= '</div><!-- .custom-field -->' . "\n";

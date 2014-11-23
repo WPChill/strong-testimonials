@@ -31,7 +31,8 @@ function wpmtst_form_shortcode( $atts ) {
 	// explode categories
 	$categories = explode( ',', $category );
 
-	$options = get_option( 'wpmtst_options' );
+	$options  = get_option( 'wpmtst_options' );
+	$messages = get_option( 'wpmtst_messages' );
 	
 	$field_options       = get_option( 'wpmtst_fields' );
 	$field_groups        = $field_options['field_groups'];
@@ -64,7 +65,7 @@ function wpmtst_form_shortcode( $atts ) {
 	if ( isset( $_POST['wpmtst_form_submitted'] ) ) {
 	
 		if ( ! wp_verify_nonce( $_POST['wpmtst_form_submitted'], 'wpmtst_submission_form' ) )
-			die( __( 'There was a problem processing your testimonial.', 'strong-testimonials' ) );
+			die( $messages['submission-error']['text'] );
 
 		if ( $captcha )
 			$errors = wpmtst_captcha_check( $captcha, $errors );
@@ -202,7 +203,7 @@ function wpmtst_form_shortcode( $atts ) {
 			}
 			else {
 				// @TODO Add general error message to top of form.
-				$errors['post'] = __( 'There was a problem processing your testimonial.', 'strong-testimonials' );
+				$errors['post'] = $messages['submission-error']['text'];
 			}
 
 		}
@@ -213,7 +214,7 @@ function wpmtst_form_shortcode( $atts ) {
 		if ( ! count( $errors ) ) {
 			wpmtst_notify_admin();
 			// wpmtst_notify_admin( $_POST['email'] );
-			return '<div class="testimonial-success">' .  __( 'Thank you! Your testimonial is awaiting moderation.', 'strong-testimonials' ) .'</div>';
+			return '<div class="testimonial-success">' .  $messages['submission-success']['text'] .'</div>';
 		}
 		
 		$testimonial_inputs = array_merge( $testimonial_inputs, $testimonial_post, $testimonial_meta );
@@ -226,7 +227,7 @@ function wpmtst_form_shortcode( $atts ) {
 	// output buffering made this incredibly unreadable
 	
 	$html = '<div id="wpmtst-form">';
-	$html .= '<p class="required-notice"><span class="required symbol"></span>' . __( 'Required Field', 'strong-testimonials' ) . '</p>';
+	$html .= '<p class="required-notice"><span class="required symbol"></span>' . $messages['required-field']['text'] . '</p>';
 	$html .= '<form id="wpmtst-submission-form" method="post" action="" enctype="multipart/form-data">';
 	$html .= wp_nonce_field( 'wpmtst_submission_form', 'wpmtst_form_submitted', true, false );
 
@@ -327,7 +328,7 @@ function wpmtst_form_shortcode( $atts ) {
 		$captcha_html = apply_filters( 'wpmtst_captcha', $captcha );
 		if ( $captcha_html ) {
 			$html .= '<div class="wpmtst-captcha">';
-			$html .= '<label for="wpmtst_captcha">' . __( 'Captcha', 'strong-testimonials' ) . '</label><span class="required symbol"></span>';
+			$html .= '<label for="wpmtst_captcha">' . $messages['captcha']['text'] . '</label><span class="required symbol"></span>';
 			$html .= '<div>';
 			$html .= $captcha_html;
 			if ( isset( $errors['captcha'] ) )
@@ -337,15 +338,16 @@ function wpmtst_form_shortcode( $atts ) {
 		}
 	}
 
+	// /* translators: The Submit button on testimonial form.*/
 	$html .= '<p class="form-field">';
 	$html .= '<input type="submit" id="wpmtst_submit_testimonial"'
 				.' name="wpmtst_submit_testimonial"'
-				.' value="' . __( 'Add Testimonial', 'strong-testimonials' ) . '"'
+				.' value="' . $messages['form-submit-button']['text'] . '"'
 				.' class="button" validate="required:true" />';
 	$html .= '</p>';
 	
 	$html .= '</form>';
-	$html .= '</div><!-- wpmtst-form -->';
+	$html .= '</div><!-- wpmtst-form -->' . "\n";
 
 	return $html;
 }
@@ -359,7 +361,8 @@ function wpmtst_honeypot_before() {
 	$value = isset( $_POST['wpmtst_if_visitor'] ) ? $_POST['wpmtst_if_visitor'] : '';
 	if ( isset( $_POST['wpmtst_if_visitor'] ) && ! empty( $_POST['wpmtst_if_visitor'] ) ) {
 		do_action( 'honeypot_before_spam_testimonial', $_POST );
-		die( __( 'There was a problem processing your testimonial.', 'strong-testimonials' ) );
+		$messages = get_option( 'wpmtst_messages' );
+		die( $messages['submission-error']['text'] );
 	}
 	return;
 }
@@ -371,7 +374,8 @@ function wpmtst_honeypot_before() {
 function wpmtst_honeypot_after() {
 	if ( ! isset ( $_POST['wpmtst_after'] ) ) {
 		do_action( 'honeypot_after_spam_testimonial', $_POST );
-		die( __( 'There was a problem processing your testimonial.', 'strong-testimonials' ) );
+		$messages = get_option( 'wpmtst_messages' );
+		die( $messages['submission-error']['text'] );
 	}
 	return;
 }
