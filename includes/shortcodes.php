@@ -413,19 +413,23 @@ function wpmtst_pagination_function() {
  * Notify admin upon testimonial submission.
  */
 function wpmtst_notify_admin() {
-// function wpmtst_notify_admin( $email = '' ) {
-	$options = get_option( 'wpmtst_options' );
+	$options = get_option( 'wpmtst_form_options' );
 	$admin_notify = $options['admin_notify'];
 	$admin_email  = $options['admin_email'];
 
 	if ( $admin_notify && $admin_email ) {
+	
 		/* translators: Subject line for new testimonial notification email. */
 		$subject = __( 'New testimonial for', 'strong-testimonials' ) . ' ' . get_option( 'blogname' );
+		
 		$headers = 'From: noreply@' . preg_replace( '/^www\./', '', $_SERVER['HTTP_HOST'] );
+		
 		/* translators: Message for new testimonial notification email. */
 		$message = sprintf( __( 'New testimonial submission for %s. This is awaiting action from the website administrator.', 'strong-testimonials' ), get_option( 'blogname' ) );
-		// $message = sprintf( __( 'New testimonial submission from %s for %s. This is awaiting action from the website administrator.', 'strong-testimonials' ), $email, get_option( 'blogname' ) );
-		// More info here? A copy of testimonial? A link to admin page? A link to approve directly from email?
+		
+		// @TODO More info here? A copy of testimonial? A link to admin page? A link to approve directly from email?
+		
 		wp_mail( $admin_email, $subject, $message, $headers );
+	
 	}
 }

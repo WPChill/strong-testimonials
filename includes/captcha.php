@@ -1,6 +1,8 @@
 <?php
 /**
- * Strong Testimonials - Captcha functions
+ * Captcha functions.
+ *
+ * @package Strong_Testimonials
  */
 
  

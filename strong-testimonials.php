@@ -4,7 +4,7 @@
  * Plugin URI: http://www.wpmission.com/plugins/strong-testimonials/
  * Description: A powerful testimonial manager.
  * Author: Chris Dillon
- * Version: 1.12
+ * Version: 1.13
  * Forked From: GC Testimonials version 1.3.2 by Erin Garscadden
  * Author URI: http://www.wpmission.com/contact
  * Text Domain: strong-testimonials
@@ -70,123 +70,6 @@ register_deactivation_hook( __FILE__, 'wpmtst_flush_rewrite_rules' );
 
 function wpmtst_flush_rewrite_rules() {
 	flush_rewrite_rules();
-}
-
-
-/**
- * Plugin activation and upgrade.
- */
-function wpmtst_default_settings() {
-	// placeholders
-	$cycle = array();
-	
-	// -1- DEFAULTS
-	$plugin_data = get_plugin_data( __FILE__, false );
-	$plugin_version = $plugin_data['Version'];
-	include( WPMTST_INC . 'defaults.php' );
-
-	// -2- GET OPTIONS
-	$options = get_option( 'wpmtst_options' );
-	if ( ! $options ) {
-		// -2A- NEW ACTIVATION
-		update_option( 'wpmtst_options', $default_options );
-	}
-	else {
-		// -2B- UPDATE
-		if ( ! isset( $options['plugin_version'] )
-					|| $options['plugin_version'] != $plugin_version 
-					|| 'strong.dev' == $_SERVER['SERVER_NAME'] ) {
-
-			// Fixing captcha inconsistency.
-			if ( 'none' == $options['captcha'] )
-				$options['captcha'] = '';
-				
-			// Change target parameter in client section
-			$options['default_template'] = str_replace( 'target="_blank"', 'new_tab', $options['default_template'] );
-			
-			// merge in new options
-			$options = array_merge( $default_options, $options );
-			$options['plugin_version'] = $plugin_version;
-			update_option( 'wpmtst_options', $options );
-		}
-	}
-	
-	// -3- GET FIELDS
-	$fields = get_option( 'wpmtst_fields' );
-	if ( ! $fields ) {
-		// -3A- NEW ACTIVATION
-		update_option( 'wpmtst_fields', $default_fields );
-	}
-	
-	// -4- GET CYCLE
-	$cycle = get_option( 'wpmtst_cycle' );
-	if ( ! $cycle ) {
-		// -4A- NEW ACTIVATION
-		update_option( 'wpmtst_cycle', $default_cycle );
-	}
-	else {
-		// -4B- UPDATE
-		
-		// if updating from 1.5 - 1.6
-		if ( isset( $options['cycle-order'] ) ) {
-			$cycle = array(
-					'order'   => $options['cycle-order'],
-					'effect'  => $options['cycle-effect'],
-					'speed'   => $options['cycle-speed'],
-					'timeout' => $options['cycle-timeout'],
-					'pause'   => $options['cycle-pause'],
-			);
-			unset( 
-				$options['cycle-order'],
-				$options['cycle-effect'],
-				$options['cycle-speed'],
-				$options['cycle-timeout'],
-				$options['cycle-pause']
-			);
-			update_option( 'wpmtst_options', $options );
-		}
-		
-		// if updating to 1.11
-		// change hyphenated to underscored
-		if ( isset( $cycle['char-limit'] ) ) {
-			$cycle['char_limit'] = $cycle['char-limit'];
-			unset( $cycle['char-limit'] );
-		}
-		if ( isset( $cycle['more-page'] ) ) {
-			$cycle['more_page'] = $cycle['more-page'];
-			unset( $cycle['more-page'] );
-		}
-		
-		// if updating from 1.7
-		// moving cycle options to separate option
-		if ( isset( $options['cycle']['cycle-order'] ) ) {
-			$old_cycle = $options['cycle'];
-			$cycle = array(
-					'order'   => $old_cycle['cycle-order'],
-					'effect'  => $old_cycle['cycle-effect'],
-					'speed'   => $old_cycle['cycle-speed'],
-					'timeout' => $old_cycle['cycle-timeout'],
-					'pause'   => $old_cycle['cycle-pause'],
-			);
-			unset( $options['cycle'] );
-			update_option( 'wpmtst_options', $options );
-		}
-		
-		$cycle = array_merge( $default_cycle, $cycle );
-		update_option( 'wpmtst_cycle', $cycle );
-	}
-	
-	/*
-	 * -5- GET MESSAGES
-	 *
-	 * @since 1.12.1
-	 */
-	$messages = get_option( 'wpmtst_messages' );
-	if ( ! $messages ) {
-		// -5A- NEW ACTIVATION
-		update_option( 'wpmtst_messages', $default_messages );
-	}
-	
 }
 
 
@@ -392,6 +275,7 @@ include( WPMTST_INC . 'child-shortcodes.php' );
 include( WPMTST_INC . 'shims.php' );
 include( WPMTST_INC . 'widget.php' );
 if ( is_admin() ) {
+	include( WPMTST_INC . 'upgrade.php' );
 	include( WPMTST_INC . 'admin.php' );
 	include( WPMTST_INC . 'admin-custom-fields.php' );
 	include( WPMTST_INC . 'settings.php' );

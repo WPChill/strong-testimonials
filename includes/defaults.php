@@ -15,11 +15,6 @@
 
 $default_options = array(
 		'per_page'          => '5',
-		'admin_notify'      => 0,
-		'admin_email'       => '',
-		'captcha'           => '',
-		'honeypot_before'   => 0,
-		'honeypot_after'    => 1,
 		'load_page_style'   => 1,
 		'load_widget_style' => 1,
 		'load_form_style'   => 1,
@@ -211,7 +206,7 @@ $default_fields['current_field_group'] = 'custom';
 /*
  * Messages
  *
- * @since 1.12.1
+ * @since 1.13
  */
 
 $default_messages = array(
@@ -219,43 +214,53 @@ $default_messages = array(
 		'required-field' => array(
 				'order' => 1,
 				/* translators: Settings > Messages tab > message description */
-				'description' => _x( 'Required field', 'description', 'strong-testimonials' ),
-				/* translators: Required field message at top of form (default). */
-				'text'        => _x( 'Required field', 'message', 'strong-testimonials' ),
+				'description' => __( 'Required field', 'strong-testimonials' ),
+				/* translators: Default message for required field message at top of form. */
+				'text'        => __( 'Required field', 'strong-testimonials' ),
 		),
 
 		'captcha' => array(
 				'order' => 2,
 				/* translators: Settings > Messages tab > message description */
 				'description' => _x( 'Captcha label', 'description', 'strong-testimonials' ),
-				/* translators: ? */
-				'text'        => _x( 'Captcha', 'message', 'strong-testimonials' ),
+				/* translators: Default label for Captcha field on submission form. */
+				'text'        => _x( 'Captcha', 'strong-testimonials' ),
 		),
 		
 		'form-submit-button' => array(
 				'order' => 3,
 				/* translators: Settings > Messages tab > message description */
-				'description' => _x( 'Form submit button', 'description', 'strong-testimonials' ),
-				/* translators: The Submit button on testimonial form (default). */
+				'description' => _x( 'Submit button', 'description', 'strong-testimonials' ),
+				/* translators: Default label for the Submit button on testimonial form. */
 				'text'        => _x( 'Add Testimonial', 'the Submit button', 'strong-testimonials' ),
 		),
 		
 		'submission-error' => array(
 				'order' => 4,
 				/* translators: Settings > Messages tab > message description */
-				'description' => _x( 'Form submission error', 'description', 'strong-testimonials' ),
-				/* translators: Submission form error message (default). */
+				'description' => _x( 'Submission error', 'description', 'strong-testimonials' ),
+				/* translators: Default message for submission form error. */
 				'text'        => _x( 'There was a problem processing your testimonial.', 'error message', 'strong-testimonials' ),
 		),
 		
 		'submission-success' => array(
 				'order' => 5,
 				/* translators: Settings > Messages tab > message description */
-				'description' => _x( 'Form submission success', 'description', 'strong-testimonials' ),
-				/* translators: Submission form success message (default). */
+				'description' => _x( 'Submission success', 'description', 'strong-testimonials' ),
+				/* translators: Default message for submission form success message. */
 				'text'        => _x( 'Thank you! Your testimonial is awaiting moderation.', 'success message', 'strong-testimonials' ),
 		),
 
 );
 
 uasort( $default_messages, 'wpmtst_uasort' );
+
+$default_form_options = array(
+		'post_status'       => 'pending',
+		'admin_notify'      => 0,
+		'admin_email'       => '',
+		'captcha'           => '',
+		'honeypot_before'   => 0,
+		'honeypot_after'    => 1,
+		'messages'          => $default_messages,
+);

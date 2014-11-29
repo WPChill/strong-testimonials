@@ -2,6 +2,11 @@
  * Strong Testimonials admin stylesheet
  */
 
+.wrap.wpmtst h3 {
+	margin-top: 40px;
+	margin-bottom: 10px;
+}
+
 .wrap.wpmtst .update-nag {
 	margin-top: 0;
 	margin-bottom: 20px;
@@ -13,6 +18,17 @@
 	margin: 0;
 	padding: 0;
 	color: #2ea2cc;
+	padding-bottom: 2px;
+	border-bottom: 1px dotted #2ea2cc;
+}
+
+.wrap.wpmtst .update-nag code:hover {
+	border-bottom: 0;
+	color: #000;
+}
+
+.wrap.wpmtst .update-nag a {
+	text-decoration: none;
 }
 
 .wpmtst h2 {
@@ -347,6 +363,7 @@ div.radio:hover {
 
 .wpmtst .form-table {
 	border-collapse: separate;
+	border-top: 1px solid #ddd;
 	border-bottom: 1px solid #fff;
 	vertical-align: middle;
 }
@@ -355,16 +372,21 @@ div.radio:hover {
 .wpmtst .form-table td {
 	border-top: 1px solid #fff;
 	border-bottom: 1px solid #ddd;
-	padding: 10px 5px;
+	padding: 10px 0;
 }
 
 .wpmtst .form-table tr:first-child th,
 .wpmtst .form-table tr:first-child td {
-	border-top: 0;
+	border-top: 1px solid #FFF;
 }
 
-.wpmtst .form-table th.parent {
+.wpmtst .form-table td:nth-child(1) {
+	width: 200px;
+}
+
+.wpmtst .form-table .parent {
 	border-bottom: 0;
+	vertical-align: top;
 }
 
 .wpmtst .form-table th.parent + td {
@@ -416,11 +438,28 @@ div.radio:hover {
 .wpmtst .form-table.compact td {
 	border-top: none;
 	border-bottom: none;
-	padding: 5px 5px;
+	padding: 5px 0;
 }
 
-.wpmtst .form-table.compact {
-	border-bottom: none;
+.wpmtst .form-table.compact tr:first-child th,
+.wpmtst .form-table.compact tr:first-child td {
+	border-top: 1px solid #FFF;
+	padding-top: 10px;
+}
+
+.wpmtst .form-table.compact tr:last-child th,
+.wpmtst .form-table.compact tr:last-child td {
+	border-bottom: 1px solid #DDD;
+	padding-bottom: 10px;
+}
+
+.wpmtst .form-table.compact td:nth-child(3) {
+	width: 100px;
+	padding-left: 10px;
+}
+
+.wpmtst .form-table.compact td:nth-child(3) input.button {
+	margin-right: 0;
 }
 
 .wpmtst .form-table.compact input[type="text"] {
@@ -436,6 +475,12 @@ div.radio:hover {
 .wpmtst .form-table.compact label.error {
 	color: red;
 	display: block;
+}
+
+/* multiple */
+
+.form-table td.align-top {
+	vertical-align: top;
 }
 
 /* end: form-table */
@@ -503,6 +548,15 @@ p.description.hilite {
 	font-style: italic;
 }
 
+ul.compact {
+	margin: 0;
+}
+
+ul.compact li {
+	margin: 6px 0;
+	display: inline-block;
+	margin-right: 30px;
+}
 
 /* Client details meta box 
 ---------------------------------------------------------*/

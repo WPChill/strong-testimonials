@@ -20,16 +20,17 @@ Integrate testimonials in 3 steps:
 
 [Screenshots](http://wordpress.org/plugins/strong-testimonials/screenshots/) | [Demos](http://demos.wpmission.com/strong-testimonials/) | [Feature Requests](http://www.wpmission.com)
 
-**WHAT'S NEW**
+
+**What's New**
 
 The `[strong]` shortcode that does it all.
 
 Template functions and a default template file.
 
-An updated POT file for translations.
+An improved POT file for translations.
 
 
-**PRIMARY FEATURES**
+**Primary Features**
 
 A submission form with custom fields and anti-spam options.
 
@@ -40,7 +41,7 @@ Multiple shortcode options including Cycle, All, Random, and Single.
 Multiple widget options including category selection and random order.
 
 
-**OTHER FEATURES**
+**Other Features**
 
 Administrator notification upon new testimonial submission.
 
@@ -51,7 +52,7 @@ Tested in many popular themes including the [problematic](http://chrislema.com/w
 Ready for translations (i18n).
 
 
-**SPAM CONTROL**
+**Spam Control**
 
 Two methods are available:
 
@@ -62,7 +63,7 @@ Two methods are available:
     * [Simple reCaptcha](http://wordpress.org/plugins/simple-recaptcha)
 
 
-**RECOMMENDED**
+**Recommended**
 
 These plugins work well with Strong Testimonials and add some nice features.
 
@@ -72,19 +73,19 @@ These plugins work well with Strong Testimonials and add some nice features.
 * [Wider Admin Menu](http://wordpress.org/plugins/wider-admin-menu/)
 
 
-**KNOWN CONFLICTS**
+**Known Conflicts**
 
 * [Page Builder by SiteOrigin](https://wordpress.org/plugins/siteorigin-panels/) - The widget settings are not being saved properly in the drag-and-drop builder.
 * [WP Mail SMTP](https://wordpress.org/plugins/wp-mail-smtp/) - The administrator notification email may not be sent.
 
 
-**TRANSLATIONS**
+**Translations**
 
-In version 1.12:
+In version 1.13:
 
-* Russian: 69% (thanks Матвеев Валерий)
-* Spanish: 28% (thanks Diego Ferrández)
-* Swedish: 49% (thanks TStone)
+* Russian: 67% (thanks Матвеев Валерий)
+* Spanish: 26% (thanks Diego Ferrández)
+* Swedish: 47% (thanks TStone)
 
 Can you help? [Contact me](http://www.wpmission.com/contact/).
 
@@ -173,10 +174,6 @@ Not yet. If you have a ton of testimonials, you may want to wait.
 
 Thanks but I prefer a nice [review](https://wordpress.org/support/view/plugin-reviews/strong-testimonials). Casting a compatibility vote will tell others it works too. That feedback really helps me understand how people are using my plugins, what works well, and what still needs work.
 
-= Does anybody read these things? =
-
-That's *my* frequently asked question ;) As a reward for reading this far, leave a message [here](http://www.wpmission.com/contact) with "I read the FAQs!" in the subject line to receive one hour of WordPress support absolutely free. Use it to customize this plugin, resolve theme & plugin conflicts, site migrations, and so on.
-
 
 == Screenshots ==
 
@@ -199,6 +196,13 @@ That's *my* frequently asked question ;) As a reward for reading this far, leave
 
 
 == Changelog ==
+
+= 1.13 - 2014-11-30 =
+* Ability to change labels and messages on the submission form.
+* Add context and comments to POT file.
+* Russian, Spanish, and Swedish translations.
+* Improve category handling on form shortcode.
+* Make form responsive.
 
 = 1.12 - 2014-11-24 =
 * Bug fix: empty custom field showed field name.
@@ -334,6 +338,9 @@ That's *my* frequently asked question ;) As a reward for reading this far, leave
 
 
 == Upgrade Notice ==
+
+= 1.13 =
+Option to change the labels and messages on the form. Improved POT file. Russian, Spanish, and Swedish translations.
 
 = 1.12 =
 One bug fixed, two conflicts prevented, two minor features.

@@ -226,7 +226,7 @@ if ( ! function_exists( 'link_nofollow' ) ) {
 /*
  * Sort array based on 'order' element.
  *
- * @since 1.12.1
+ * @since 1.13
  */
 function wpmtst_uasort( $a, $b ) {
 	if ( $a['order'] == $b['order'] ) {
