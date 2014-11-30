@@ -197,6 +197,9 @@ Thanks but I prefer a nice [review](https://wordpress.org/support/view/plugin-re
 
 == Changelog ==
 
+= 1.13.1 - 2014-11-30 =
+* Bug fix.
+
 = 1.13 - 2014-11-30 =
 * Ability to change labels and messages on the submission form.
 * Add context and comments to POT file.
@@ -338,6 +341,9 @@ Thanks but I prefer a nice [review](https://wordpress.org/support/view/plugin-re
 
 
 == Upgrade Notice ==
+
+= 1.13.1 =
+Bug fix.
 
 = 1.13 =
 Option to change the labels and messages on the form. Improved POT file. Russian, Spanish, and Swedish translations.

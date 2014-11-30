@@ -4,7 +4,7 @@
  * Plugin URI: http://www.wpmission.com/plugins/strong-testimonials/
  * Description: A powerful testimonial manager.
  * Author: Chris Dillon
- * Version: 1.13
+ * Version: 1.13.1
  * Forked From: GC Testimonials version 1.3.2 by Erin Garscadden
  * Author URI: http://www.wpmission.com/contact
  * Text Domain: strong-testimonials
@@ -187,6 +187,7 @@ add_action( 'after_theme_setup', 'wpmtst_theme_support' );
 function wpmtst_scripts() {
 	global $post;
 	$options = get_option( 'wpmtst_options' );
+	$form_options = get_option( 'wpmtst_form_options' );
 
 	/*
 	 * Widget style and scripts are enqueued when widget is active
@@ -218,12 +219,12 @@ function wpmtst_scripts() {
 			wp_enqueue_script( 'wpmtst-validation-plugin' );
 			add_action( 'wp_footer', 'wpmtst_validation_function' );
 			
-			if ( $options['honeypot_before'] ) {
+			if ( $form_options['honeypot_before'] ) {
 				add_action( 'wp_footer', 'wpmtst_honeypot_before_script' );
 				add_action( 'wpmtst_honeypot_before', 'wpmtst_honeypot_before' );
 			}
 			
-			if ( $options['honeypot_after'] ) {
+			if ( $form_options['honeypot_after'] ) {
 				add_action( 'wp_footer', 'wpmtst_honeypot_after_script' );
 				add_action( 'wpmtst_honeypot_after', 'wpmtst_honeypot_after' );
 			}
