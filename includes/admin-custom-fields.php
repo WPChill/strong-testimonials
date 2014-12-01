@@ -126,7 +126,7 @@ function wpmtst_settings_custom_fields() {
 	
 	echo '</form><!-- Custom Fields -->' . "\n";
 	
-	echo '<p><em>' . sprintf( __( 'Customize other form elements <a href="%s">here</a>.', 'strong-testimonials' ), admin_url( 'edit.php?post_type=wpm-testimonial&page=settings&tab=messages' ) ) . '</em></p>';
+	echo '<p><em>' . sprintf( __( 'Customize other form elements <a href="%s">here</a>.', 'strong-testimonials' ), admin_url( 'edit.php?post_type=wpm-testimonial&page=settings&tab=form' ) ) . '</em></p>';
 		
 	echo '</div><!-- wrap -->' . "\n";
 }

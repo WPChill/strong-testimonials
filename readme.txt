@@ -83,11 +83,11 @@ These plugins work well with Strong Testimonials and add some nice features.
 
 In version 1.13:
 
-* Russian: 67% (thanks Матвеев Валерий)
-* Spanish: 26% (thanks Diego Ferrández)
-* Swedish: 47% (thanks TStone)
+* Russian (ru_RU) - Матвеев Валерий
+* Spanish (es_ES) - Diego Ferrández
+* Swedish (sv_SE) - Tom Stone
 
-Can you help? [Contact me](http://www.wpmission.com/contact/).
+Many thanks to these translators. Can you help? [Contact me](http://www.wpmission.com/contact/).
 
 
 == Installation ==
@@ -196,6 +196,9 @@ Thanks but I prefer a nice [review](https://wordpress.org/support/view/plugin-re
 
 
 == Changelog ==
+
+= 1.13.2 - 2014-12-8 =
+* Minor fixes. Updated translation files.
 
 = 1.13.1 - 2014-11-30 =
 * Bug fix.
@@ -341,6 +344,9 @@ Thanks but I prefer a nice [review](https://wordpress.org/support/view/plugin-re
 
 
 == Upgrade Notice ==
+
+= 1.13.2 =
+Minor fixes. Updated translation files.
 
 = 1.13.1 =
 Bug fix.

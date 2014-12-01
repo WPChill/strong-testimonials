@@ -11,7 +11,7 @@ function wpmtst_default_settings() {
 	$form_options = array();
 	
 	// -1- DEFAULTS
-	$plugin_data = get_plugin_data( __FILE__, false );
+	$plugin_data    = get_plugin_data( dirname( dirname( __FILE__ ) ) . '/strong-testimonials.php', false );
 	$plugin_version = $plugin_data['Version'];
 	include( WPMTST_INC . 'defaults.php' );
 

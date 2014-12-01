@@ -77,7 +77,11 @@ add_action( 'add_meta_boxes_wpm-testimonial', 'wpmtst_add_meta_boxes' );
 
 function wpmtst_reorder_meta_boxes() {
 	global $wp_meta_boxes;
-	if ( ! isset( $wp_meta_boxes['wpm-testimonial'] ) ) 
+
+	if ( ! isset( $wp_meta_boxes['wpm-testimonial'] ) )
+		return;
+
+	if ( ! isset( $wp_meta_boxes['wpm-testimonial']['normal'] ) )
 		return;
 	
 	$core = $wp_meta_boxes['wpm-testimonial']['normal']['core'];
