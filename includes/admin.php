@@ -29,11 +29,15 @@ function wpmtst_admin_scripts( $hook ) {
 			'wpm-testimonial_page_shortcodes',
 			'wpm-testimonial_page_guide',
 			'widgets.php',
-			'edit.php',
-			'edit-tags.php',
-			'post.php',
-			'post-new.php',
 	);
+	
+	$screen = get_current_screen();
+	if ( $screen && 'wpm-testimonial' == $screen->post_type ) {
+		$hooks_to_style[] = 'edit.php';
+		$hooks_to_style[] = 'edit-tags.php';
+		$hooks_to_style[] = 'post.php';
+		$hooks_to_style[] = 'post-new.php';
+	}
 			
 	if ( in_array( $hook, $hooks_to_style ) ) {
 		wp_enqueue_style( 'wpmtst-admin-style', WPMTST_DIR . 'css/wpmtst-admin.css' );

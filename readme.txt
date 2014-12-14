@@ -197,6 +197,9 @@ Thanks but I prefer a nice [review](https://wordpress.org/support/view/plugin-re
 
 == Changelog ==
 
+= 1.13.3 - 2014-12-14 =
+* Fix conflict with iThemes Exchange plugin.
+
 = 1.13.2 - 2014-12-8 =
 * Minor fixes. Updated translation files.
 
@@ -344,6 +347,9 @@ Thanks but I prefer a nice [review](https://wordpress.org/support/view/plugin-re
 
 
 == Upgrade Notice ==
+
+= 1.13.3 =
+Fix conflict with iThemes Exchange plugin.
 
 = 1.13.2 =
 Minor fixes. Updated translation files.
