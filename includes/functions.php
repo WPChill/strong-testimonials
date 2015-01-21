@@ -62,27 +62,46 @@ function wpmtst_get_website( $url ) {
 
 
 /*
- * Check whether a script is registered by file name instead of handle.
+ * Check whether a script is queued by file name instead of handle.
  *
  * @param array $filenames possible versions of one script, e.g. plugin.js, plugin-min.js, plugin-1.2.js
  * @return bool
  */
 function wpmtst_is_queued( $filenames ) {
 	global $wp_scripts;
+
 	// Bail if called too early.
 	if ( ! $wp_scripts ) return false;
-		
+	
+	$cycle_handle = '';
+	
 	$registered = false;
 	foreach ( $wp_scripts->registered as $handle => $script ) {
 		if ( in_array( basename( $script->src ), $filenames ) ) {
 			$registered = true;
+			$cycle_handle = $handle;
 			break;
 		}
 	}
+	
 	if ( $registered ) {
-		if ( in_array( $handle, $wp_scripts->queue ) ) {
+	
+		if ( in_array( $handle, $wp_scripts->queue ) )
 			return true;
+		
+		/*
+		 * Look in current group for handle.
+		 * This will find scripts that are dependencies but not queued.
+		 * 
+		 * @since 1.13.4
+		 */
+		$current_group  = $wp_scripts->group;
+		$groups         = $wp_scripts->groups;
+		foreach ( $groups as $handle => $group ) {
+			if ( $group == $current_group && $handle == $cycle_handle )
+				return true;
 		}
+		
 	}
 	return false;
 }
@@ -113,9 +132,10 @@ function wpmtst_cycle_check( $effect, $speed, $timeout, $pause, $var ) {
 	 * This custom function checks by *file name* instead:
 	 * ---------------------------------------------------
 	 */
-	if ( ! wpmtst_is_queued( array( 'jquery.cycle.all.min.js', 'jquery.cycle.all.js' ) )
-			&& ! wpmtst_is_queued( array( 'jquery.cycle2.min.js', 'jquery.cycle2.js' ) ) ) {
-			
+	$cycle1 = wpmtst_is_queued( array( 'jquery.cycle.all.min.js', 'jquery.cycle.all.js' ) );
+	$cycle2 = wpmtst_is_queued( array( 'jquery.cycle2.min.js', 'jquery.cycle2.js' ) );
+
+	if ( ! $cycle1 && ! $cycle2 ) {
 		/*
 		 * ----------------------------------------------------------------------
 		 * Conflict with Page Builder plugin (and maybe others)

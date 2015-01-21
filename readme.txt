@@ -75,7 +75,7 @@ These plugins work well with Strong Testimonials and add some nice features.
 
 **Known Conflicts**
 
-* [Page Builder by SiteOrigin](https://wordpress.org/plugins/siteorigin-panels/) - The widget settings are not being saved properly in the drag-and-drop builder.
+* [Page Builder 1.x by SiteOrigin](https://wordpress.org/plugins/siteorigin-panels/) - The widget settings are not being saved properly in the drag-and-drop builder. Update to Page Builder 2.x if possible.
 * [WP Mail SMTP](https://wordpress.org/plugins/wp-mail-smtp/) - The administrator notification email may not be sent.
 
 
@@ -196,6 +196,9 @@ Thanks but I prefer a nice [review](https://wordpress.org/support/view/plugin-re
 
 
 == Changelog ==
+
+= 1.13.4 - 2015-01-21 =
+* Fix conflict with Spacious theme.
 
 = 1.13.3 - 2014-12-14 =
 * Fix conflict with iThemes Exchange plugin.
@@ -347,6 +350,9 @@ Thanks but I prefer a nice [review](https://wordpress.org/support/view/plugin-re
 
 
 == Upgrade Notice ==
+
+= 1.13.4 =
+Fix conflict with Spacious theme.
 
 = 1.13.3 =
 Fix conflict with iThemes Exchange plugin.
