@@ -412,24 +412,65 @@ function wpmtst_pagination_function() {
 /**
  * Notify admin upon testimonial submission.
  */
-function wpmtst_notify_admin() {
-	$options = get_option( 'wpmtst_form_options' );
-	$admin_notify = $options['admin_notify'];
-	$admin_email  = $options['admin_email'];
+function wpmtst_notify_admin( $post ) {
+	$custom_fields = get_option('wpmtst_fields');
+	$fields = $custom_fields['field_groups']['custom']['fields'];
 
-	if ( $admin_notify && $admin_email ) {
-	
-		/* translators: Subject line for new testimonial notification email. */
-		$subject = __( 'New testimonial for', 'strong-testimonials' ) . ' ' . get_option( 'blogname' );
+	$options = get_option( 'wpmtst_form_options' );
+
+	if ( $options['sender_site_email'] )
+		$sender_email = get_bloginfo( 'admin_email' );
+	else
+		$sender_email = $options['sender_email'];
+
+	$sender_name = $options['sender_name'];
 		
-		$headers = 'From: noreply@' . preg_replace( '/^www\./', '', $_SERVER['HTTP_HOST'] );
+	if ( $options['admin_site_email'] )
+		$admin_email = get_bloginfo( 'admin_email' );
+	else
+		$admin_email = $options['admin_email'];
+
+	$admin_name = $options['admin_name'];
+
+
+	if ( $options['admin_notify'] ) {
+		
+		$to = sprintf( '%s <%s>', $admin_name, $admin_email );
+	
+		// Default subject and message moved to includes/defaults.php.
+		
+		// str_replace( search, replace, subject )
+		
+		// Subject line
+		$subject = $options['email_subject'];
+		$subject = str_replace( '%BLOGNAME%', get_bloginfo( 'name' ), $subject );
+		$subject = str_replace( '%TITLE%', $post['post_title'], $subject );
+		$subject = str_replace( '%STATUS%', $post['post_status'], $subject );
+		// custom fields
+		foreach ( $fields as $field ) {
+			$field_as_tag = '%' . strtoupper( $field['name'] ). '%';
+			$subject = str_replace( $field_as_tag, $post[$field['name']], $subject );
+		}
+		
+		// Message text
+		$message = $options['email_message'];
+		$message = str_replace( '%BLOGNAME%', get_bloginfo( 'name' ), $message );
+		$message = str_replace( '%TITLE%', $post['post_title'], $message );
+		$message = str_replace( '%CONTENT%', $post['post_content'], $message );
+		$message = str_replace( '%STATUS%', $post['post_status'], $message );
+		// custom fields
+		foreach ( $fields as $field ) {
+			$field_as_tag = '%' . strtoupper( $field['name'] ). '%';
+			$message = str_replace( $field_as_tag, $post[$field['name']], $message );
+		}
+
+		$headers = sprintf( 'From: %s <%s>', $sender_name, $sender_email );
 		
 		/* translators: Message for new testimonial notification email. */
-		$message = sprintf( __( 'New testimonial submission for %s. This is awaiting action from the website administrator.', 'strong-testimonials' ), get_option( 'blogname' ) );
 		
 		// @TODO More info here? A copy of testimonial? A link to admin page? A link to approve directly from email?
 		
-		wp_mail( $admin_email, $subject, $message, $headers );
+		@wp_mail( $to, $subject, $message, $headers );
 	
 	}
 }

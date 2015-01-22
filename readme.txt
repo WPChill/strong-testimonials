@@ -197,6 +197,9 @@ Thanks but I prefer a nice [review](https://wordpress.org/support/view/plugin-re
 
 == Changelog ==
 
+= 1.14 - 2015-01-22 =
+* New notification email options.
+
 = 1.13.4 - 2015-01-21 =
 * Fix conflict with Spacious theme.
 
@@ -350,6 +353,9 @@ Thanks but I prefer a nice [review](https://wordpress.org/support/view/plugin-re
 
 
 == Upgrade Notice ==
+
+= 1.14 =
+On the notification email, you can now edit the subject line, the message, and the "From" name and email address.
 
 = 1.13.4 =
 Fix conflict with Spacious theme.

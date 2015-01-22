@@ -258,7 +258,16 @@ uasort( $default_messages, 'wpmtst_uasort' );
 $default_form_options = array(
 		'post_status'       => 'pending',
 		'admin_notify'      => 0,
+		'sender_name'       => 'WordPress',
+		'sender_site_email' => 0,
+		'sender_email'      => 'noreply@' . preg_replace( '/^www\./', '', $_SERVER['HTTP_HOST'] ),
+		'admin_name'        => '',
+		'admin_site_email'  => 1,
 		'admin_email'       => '',
+		/* translators: Default subject line for new testimonial notification email. */
+		'email_subject'     => __( 'New testimonial for %BLOGNAME%', 'strong-testimonials' ),
+		/* translators: Default message for new testimonial notification email. */
+		'email_message'     => __( 'New testimonial submission for %BLOGNAME%. This is awaiting action from the website administrator.', 'strong-testimonials' ),
 		'captcha'           => '',
 		'honeypot_before'   => 0,
 		'honeypot_after'    => 1,

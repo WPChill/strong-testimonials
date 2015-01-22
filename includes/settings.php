@@ -134,8 +134,20 @@ function wpmtst_sanitize_cycle( $input ) {
 function wpmtst_sanitize_form( $input ) {
 	// an unchecked checkbox is not posted
 	$input['post_status']       = sanitize_text_field( $input['post_status'] );
+	
 	$input['admin_notify']      = isset( $input['admin_notify'] ) ? 1 : 0;
+
+	$input['admin_name']        = sanitize_text_field( $input['admin_name'] );
+	$input['admin_site_email']  = intval( $input['admin_site_email'] );
 	$input['admin_email']       = sanitize_email( $input['admin_email'] );
+	
+	$input['sender_name']       = sanitize_text_field( $input['sender_name'] );
+	$input['sender_site_email'] = intval( $input['sender_site_email'] );
+	$input['sender_email']      = sanitize_email( $input['sender_email'] );
+	
+	$input['email_subject']     = sanitize_text_field( $input['email_subject'] );
+	$input['email_message']     = wp_kses_post( $input['email_message'] );
+	
 	$input['honeypot_before']   = isset( $input['honeypot_before'] ) ? 1 : 0;
 	$input['honeypot_after']    = isset( $input['honeypot_after'] ) ? 1 : 0;
 	$input['captcha']           = sanitize_text_field( $input['captcha'] );

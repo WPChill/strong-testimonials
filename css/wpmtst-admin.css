@@ -323,10 +323,15 @@ ul.ui-tabs-nav li.ui-tabs-active a {
 }
 
 .stackem .notice {
+	background: none;
+	border: none;
+	box-shadow: none;
 	display: inline-block;
 	font-size: .9em;
 	font-style: italic;
 	margin: 0 .2em;
+	padding: 0;
+	color: #868686;
 }
 
 .stackem span.link {
@@ -733,3 +738,80 @@ input[readonly] {
 	width: 2.2em;
 }
 
+
+/* The notification email settings tab
+---------------------------------------------------------*/
+
+.has-divs .subsection {
+	font-weight: 700;
+}
+
+.has-divs > div {
+	padding: 5px 0; */
+}
+
+.has-divs > div > div {
+	margin-bottom: 5px;
+}
+
+.has-divs .left-col,
+.has-divs .right-col {
+	display: inline-block;
+}
+
+.has-divs .left-col {
+	display: inline-block;
+	width: 5em;
+}
+
+.has-divs a {
+	display: inline-block;
+	margin: 0 .3em;
+	font-size: .9em;
+}
+
+.has-divs div > label > span {
+	display: inline-block;
+	margin-right: 5px;
+	width: 4.5em;
+}
+
+.has-divs textarea,
+.has-divs input.wide {
+	width: 100%;
+}
+
+.has-divs textarea {
+	white-space: pre-wrap;
+}
+
+.has-divs .template-tags-help {
+	float: right;
+	display: inline-block;
+	background: #FFFFE0;
+	width: 38%;
+	padding: 0;
+	margin-top: 28px;
+}
+
+.template-tags-help ul {
+	margin: 0;
+}
+
+.template-tags-help .title {
+	background: rgba(0,0,0,0.1);
+	padding: 5px;
+}
+
+.template-tags-help .content {
+	padding: 5px;
+}
+
+.half-width {
+	display: inline-block;
+	width: 58%;
+}
+
+.has-divs div.input-email-subject {
+	margin-bottom: 15px;
+}

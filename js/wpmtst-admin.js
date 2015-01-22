@@ -24,10 +24,17 @@ jQuery(document).ready(function($) {
 	// General events
 	// --------------
 	
-	// enabling "admin notify" focuses "admin email" input
-	$("#wpmtst-options-admin-notify").change(function(e){
-		if ($(e.target).is(":checked")) {
-			$("#wpmtst-options-admin-email").focus();
+	// enabling "admin notify" focuses "sender name" input
+	$("#wpmtst-options-admin-notify").change(function(e) {
+		if( $(e.target).is(":checked") ) {
+			$("#wpmtst-options-sender-name").focus().select();
+		}
+	});
+	
+	$(".focus-next-field").change(function(e) {
+		if( $(e.target).is(":checked") ) {
+			// $(e.target).parent().next().find("input").focus().live('focus', function() { $(this).select(); });
+			$(e.target).parent().next().find("input").focus().select();
 		}
 	});
 

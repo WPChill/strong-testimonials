@@ -212,7 +212,7 @@ function wpmtst_form_shortcode( $atts ) {
 		// Post inserted successfully, carry on.
 		//
 		if ( ! count( $errors ) ) {
-			wpmtst_notify_admin();
+			wpmtst_notify_admin( array_merge( $testimonial_post, $testimonial_meta ) );
 			return '<div class="testimonial-success">' . $messages['submission-success']['text'] .'</div>';
 		}
 		
