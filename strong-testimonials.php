@@ -4,7 +4,7 @@
  * Plugin URI: http://www.wpmission.com/plugins/strong-testimonials/
  * Description: A powerful testimonial manager.
  * Author: Chris Dillon
- * Version: 1.14
+ * Version: 1.14.1
  * Forked From: GC Testimonials version 1.3.2 by Erin Garscadden
  * Author URI: http://www.wpmission.com/contact
  * Text Domain: strong-testimonials
@@ -190,8 +190,9 @@ function wpmtst_scripts() {
 	$form_options = get_option( 'wpmtst_form_options' );
 
 	/*
-	 * Widget style and scripts are enqueued when widget is active
-	 * to be compatible with Page Builder plugin.
+	 * To be compatible with Page Builder plugin, widget styles and scripts
+	 * are enqueued later when widget is active using custom action hook 
+	 * `wpmtst_cycle_hook` and `wpmtst_is_enqueued` function.
 	 *
 	 * @since 1.9.0
 	 */
@@ -201,7 +202,7 @@ function wpmtst_scripts() {
 
 	wp_register_script( 'wpmtst-pager-plugin', WPMTST_DIR . 'js/quickpager.jquery.js', array( 'jquery' ) );
 	wp_register_script( 'wpmtst-validation-plugin', WPMTST_DIR . 'js/jquery.validate.min.js', array( 'jquery' ) );
-
+	
 	// Check for shortcodes. Keep these exploded!
 	if ( $post ) {
 
@@ -248,6 +249,33 @@ function wpmtst_scripts() {
 	}
 }
 add_action( 'wp_enqueue_scripts', 'wpmtst_scripts' );
+
+
+/**
+ * Register jQuery Cycle plugin.
+ *
+ * In case the theme loads cycle.js for a slider, we check after it's enqueue function.
+ * If registered, we register our slider script using its handle.
+ * If not registered, we register it.
+ * @since 1.14.1
+ */
+function wpmtst_scripts_after_theme() {
+	global $post;
+	$options      = get_option( 'wpmtst_options' );
+	$form_options = get_option( 'wpmtst_form_options' );
+
+	// jQuery Cycle plugin (all flavors)
+	$filenames = array( 'jquery.cycle.all.min.js', 'jquery.cycle.all.js', 'jquery.cycle2.min.js', 'jquery.cycle2.js' );
+	$cycle_handle = wpmtst_is_registered( $filenames );
+	if ( ! $cycle_handle ) {
+		$cycle_handle = 'jquery-cycle';
+		wp_register_script( $cycle_handle, WPMTST_DIR . 'js/jquery.cycle2.min.js', array( 'jquery' ) );
+	}
+	
+	// our slider handler, dependent on jQuery Cycle plugin
+	wp_register_script( 'wpmtst-slider', WPMTST_DIR . 'js/wpmtst-cycle.js', array ( $cycle_handle ), false, true );
+}
+add_action( 'wp_enqueue_scripts', 'wpmtst_scripts_after_theme', 50 );
 
 
 /**

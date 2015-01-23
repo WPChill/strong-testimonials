@@ -25,9 +25,9 @@ Integrate testimonials in 3 steps:
 
 The `[strong]` shortcode that does it all.
 
-Template functions and a default template file.
+More notification email options.
 
-An improved POT file for translations.
+Template functions and a default template file.
 
 
 **Primary Features**
@@ -75,13 +75,12 @@ These plugins work well with Strong Testimonials and add some nice features.
 
 **Known Conflicts**
 
-* [Page Builder 1.x by SiteOrigin](https://wordpress.org/plugins/siteorigin-panels/) - The widget settings are not being saved properly in the drag-and-drop builder. Update to Page Builder 2.x if possible.
-* [WP Mail SMTP](https://wordpress.org/plugins/wp-mail-smtp/) - The administrator notification email may not be sent.
+* [Page Builder 1.x by SiteOrigin](https://wordpress.org/plugins/siteorigin-panels/) - The widget settings are not being saved properly in the drag-and-drop builder. Update to the excellent Page Builder 2.x if possible.
 
 
 **Translations**
 
-In version 1.13:
+In version 1.13+:
 
 * Russian (ru_RU) - Матвеев Валерий
 * Spanish (es_ES) - Diego Ferrández
@@ -196,6 +195,11 @@ Thanks but I prefer a nice [review](https://wordpress.org/support/view/plugin-re
 
 
 == Changelog ==
+
+= 1.14.1 - 2015-01-23 =
+* Fixed conflict with Spacious theme and others that also use the jQuery Cycle slideshow plugin.
+* Improved compatibility with Page Builder plugin version 2.x.
+* Added jquery.cycle2.js.map to prevent error in Chrome Developer Console.
 
 = 1.14 - 2015-01-22 =
 * New notification email options.
@@ -353,6 +357,9 @@ Thanks but I prefer a nice [review](https://wordpress.org/support/view/plugin-re
 
 
 == Upgrade Notice ==
+
+= 1.14.1 =
+Definitely update if you are using the Spacious theme or Page Builder plugin.
 
 = 1.14 =
 On the notification email, you can now edit the subject line, the message, and the "From" name and email address.

@@ -61,49 +61,45 @@ function wpmtst_get_website( $url ) {
 }
 
 
-/*
- * Check whether a script is queued by file name instead of handle.
+/**
+ * Check whether a common script is already registered by file name instead of handle.
+ * 
+ * Why? Plugins are loaded before themes. Our plugin includes the Cycle slider.
+ * Some themes include it too. We only want to load it once.
+ *
+ * Load jQuery Cycle2 plugin (http://jquery.malsup.com/cycle2/) only if
+ * any version of Cycle is not already registered by a theme or another
+ * plugin. Both versions of Cycle use same function name so we can't load
+ * both but either version will work for our purposes.
+ * http://jquery.malsup.com/cycle2/faq/
+ *
+ * ------------------------------------------------------------------------
+ * This WordPress function checks by *handle* but handles can be different
+ * so `wp_script_is` misses it. (Seems to be for use only within a plugin.)
+ * http://codex.wordpress.org/Function_Reference/wp_script_is
+ *   $list = 'enqueued';
+ *   if ( ! wp_script_is( 'jquery.cycle2.min.js', $list ) ) { }
+ * ------------------------------------------------------------------------
  *
  * @param array $filenames possible versions of one script, e.g. plugin.js, plugin-min.js, plugin-1.2.js
- * @return bool
+ * @return string
  */
-function wpmtst_is_queued( $filenames ) {
+function wpmtst_is_registered( $filenames ) {
 	global $wp_scripts;
 
 	// Bail if called too early.
 	if ( ! $wp_scripts ) return false;
 	
-	$cycle_handle = '';
+	$script_handle = '';
 	
-	$registered = false;
 	foreach ( $wp_scripts->registered as $handle => $script ) {
 		if ( in_array( basename( $script->src ), $filenames ) ) {
-			$registered = true;
-			$cycle_handle = $handle;
+			$script_handle = $handle;
 			break;
 		}
 	}
 	
-	if ( $registered ) {
-	
-		if ( in_array( $handle, $wp_scripts->queue ) )
-			return true;
-		
-		/*
-		 * Look in current group for handle.
-		 * This will find scripts that are dependencies but not queued.
-		 * 
-		 * @since 1.13.4
-		 */
-		$current_group  = $wp_scripts->group;
-		$groups         = $wp_scripts->groups;
-		foreach ( $groups as $handle => $group ) {
-			if ( $group == $current_group && $handle == $cycle_handle )
-				return true;
-		}
-		
-	}
-	return false;
+	return $script_handle;
 }
 
 
@@ -112,32 +108,13 @@ function wpmtst_is_queued( $filenames ) {
  */
 function wpmtst_cycle_check( $effect, $speed, $timeout, $pause, $var ) {
 	/*
-	 * Load jQuery Cycle2 plugin (http://jquery.malsup.com/cycle2/) only if
-	 * either Cycle or Cycle 2 is not already enqueued by a theme or another
-	 * plugin. Both versions use same function name so we can't load both
-	 * but either version will work for our purposes.
-	 * http://jquery.malsup.com/cycle2/faq/
-	 *
-	 * ------------------------------------------------------------------------
-	 * This WordPress function checks by *handle* but handles can be different
-	 * so `wp_script_is` misses it. (Seems to be for use only within a plugin.)
-	 * http://codex.wordpress.org/Function_Reference/wp_script_is
-	 * ------------------------------------------------------------------------
-	 */
-	// $list = 'enqueued';
-	// if ( ! wp_script_is( 'jquery.cycle2.min.js', $list ) ) { }
-	
-	/*
-	 * ---------------------------------------------------
 	 * This custom function checks by *file name* instead:
-	 * ---------------------------------------------------
 	 */
-	$cycle1 = wpmtst_is_queued( array( 'jquery.cycle.all.min.js', 'jquery.cycle.all.js' ) );
-	$cycle2 = wpmtst_is_queued( array( 'jquery.cycle2.min.js', 'jquery.cycle2.js' ) );
+	$filenames = array( 'jquery.cycle.all.min.js', 'jquery.cycle.all.js', 'jquery.cycle2.min.js', 'jquery.cycle2.js' );
+	$cycle_handle = wpmtst_is_registered( $filenames );
 
-	if ( ! $cycle1 && ! $cycle2 ) {
+	if ( ! $cycle_handle ) {
 		/*
-		 * ----------------------------------------------------------------------
 		 * Conflict with Page Builder plugin (and maybe others)
 		 * ----------------------------------------------------------------------
 		 * Page Builder preloads widgets before `wp_enqueue_scripts` hook.
@@ -145,10 +122,11 @@ function wpmtst_cycle_check( $effect, $speed, $timeout, $pause, $var ) {
 		 * `wp_enqueue_scripts` so this plugin's styles and scripts have not
 		 * been registered yet, and therefore cannot be enqueued or localized.
 		 *
-		 * Solution: Enqueue completely here, not registered first.
+		 * Solution: Enqueue entirely here, not registered first.
 		 * @since 1.9.0
 		 */
-		wp_enqueue_script( 'wpmtst-cycle-plugin', WPMTST_DIR . 'js/jquery.cycle2.min.js', array( 'jquery' ) );
+		$cycle_handle = 'jquery-cycle';
+		wp_enqueue_script( 'jquery-cycle', WPMTST_DIR . 'js/jquery.cycle2.min.js', array( 'jquery' ) );
 	}
 	
 	// Load Cycle script and populate its variable.
@@ -158,12 +136,10 @@ function wpmtst_cycle_check( $effect, $speed, $timeout, $pause, $var ) {
 			'timeout' => $timeout * 1000, 
 			'pause'   => $pause,
 	);
-	// Load in footer:
-	wp_enqueue_script( 'wpmtst-cycle-script', WPMTST_DIR . 'js/wpmtst-cycle.js', array ( 'jquery' ), false, true );
-	// Load in header:
-	//wp_enqueue_script( 'wpmtst-cycle-script', WPMTST_DIR . 'js/wpmtst-cycle.js', array ( 'jquery' ), false );
-	wp_localize_script( 'wpmtst-cycle-script', $var, $args );
 	
+	// Dependent on whatever version of Cycle is registered.
+	wp_enqueue_script( 'wpmtst-slider', WPMTST_DIR . 'js/wpmtst-cycle.js', array ( $cycle_handle ), false, true );
+	wp_localize_script( 'wpmtst-slider', $var, $args );
 }
 // custom hook
 add_action( 'wpmtst_cycle_hook', 'wpmtst_cycle_check', 10, 5 );

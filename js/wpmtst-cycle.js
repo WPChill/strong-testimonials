@@ -49,6 +49,7 @@ jQuery(document).ready(function($) {
 		
 		if( typeof( window[cycleVar] ) !== 'undefined' ) {
 			var parms = window[cycleVar];
+			console.log('Strong .cycle()');
 			$(el).cycle({
 				slides       : "> div.t-slide",
 				fx           : parms.effect,

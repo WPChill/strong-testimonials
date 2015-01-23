@@ -33,7 +33,6 @@ jQuery(document).ready(function($) {
 	
 	$(".focus-next-field").change(function(e) {
 		if( $(e.target).is(":checked") ) {
-			// $(e.target).parent().next().find("input").focus().live('focus', function() { $(this).select(); });
 			$(e.target).parent().next().find("input").focus().select();
 		}
 	});
@@ -97,7 +96,6 @@ jQuery(document).ready(function($) {
 				// Disable character limit input if not selected.
 				var eChange1 = eId.substr(0,ePos2) + "char-limit";
 				var eChange2 = eId.substr(0,ePos2) + "more-1";
-				console.log(eChange2);
 				if ( 1 == e.target.value ) {
 					document.getElementById(eChange1).removeAttribute("readonly");
 				} else {
