@@ -3,7 +3,6 @@
 		<h3><?php _e( 'Here are some features we\'re planning.', 'strong-testimonials' ); ?></h3>
 		<ol>
 			<li>A shortcode builder.</li>
-			<li>Customize the notification email.</li>
 			<li>Manual reordering of testimonials.</li>
 			<li>Hooks and filters for deeper customization.</li>
 			<li>Microdata for SEO benefits.</li>

@@ -38,10 +38,11 @@ function wpmtst_admin_scripts( $hook ) {
 		$hooks_to_style[] = 'post.php';
 		$hooks_to_style[] = 'post-new.php';
 	}
-			
-	if ( in_array( $hook, $hooks_to_style ) ) {
+	
+	// Page Builder compat
+	if ( in_array( $hook, $hooks_to_style ) || defined( 'SITEORIGIN_PANELS_VERSION' ) ) {
 		wp_enqueue_style( 'wpmtst-admin-style', WPMTST_DIR . 'css/wpmtst-admin.css' );
-	}
+	}	
 	
 	if ( 'wpm-testimonial_page_fields' == $hook ) {
 		wp_enqueue_style( 'wpmtst-admin-fields-style', WPMTST_DIR . 'css/wpmtst-admin-fields.css' );
@@ -58,7 +59,8 @@ function wpmtst_admin_scripts( $hook ) {
 			'widgets.php',
 	);
 			
-	if ( in_array( $hook, $hooks_to_script ) ) {
+	// Page Builder compat
+	if ( in_array( $hook, $hooks_to_script ) || defined( 'SITEORIGIN_PANELS_VERSION' ) ) {
 		wp_enqueue_script( 'jquery-ui-core' );
 		wp_enqueue_script( 'jquery-ui-tabs' );
 		wp_enqueue_script( 'jquery-ui-sortable' );

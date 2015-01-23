@@ -29,6 +29,8 @@ More notification email options.
 
 Template functions and a default template file.
 
+Improved compatibility.
+
 
 **Primary Features**
 
