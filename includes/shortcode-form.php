@@ -28,6 +28,17 @@ function wpmtst_form_shortcode( $atts ) {
 		normalize_empty_atts( $atts )
 	) );
 	
+	$form_options = get_option( 'wpmtst_form_options' );
+				if ( $form_options['honeypot_before'] ) {
+				add_action( 'wp_footer', 'wpmtst_honeypot_before_script' );
+				add_action( 'wpmtst_honeypot_before', 'wpmtst_honeypot_before' );
+			}
+			
+			if ( $form_options['honeypot_after'] ) {
+				add_action( 'wp_footer', 'wpmtst_honeypot_after_script' );
+				add_action( 'wpmtst_honeypot_after', 'wpmtst_honeypot_after' );
+			}
+
 	// explode categories
 	if ( $category )
 		$categories = explode( ',', $category );
@@ -358,7 +369,6 @@ add_shortcode( 'wpmtst-form', 'wpmtst_form_shortcode' );
  * Honeypot preprocessor
  */
 function wpmtst_honeypot_before() {
-	$value = isset( $_POST['wpmtst_if_visitor'] ) ? $_POST['wpmtst_if_visitor'] : '';
 	if ( isset( $_POST['wpmtst_if_visitor'] ) && ! empty( $_POST['wpmtst_if_visitor'] ) ) {
 		do_action( 'honeypot_before_spam_testimonial', $_POST );
 		$form_options = get_option( 'wpmtst_form_options' );
@@ -384,8 +394,10 @@ function wpmtst_honeypot_after() {
 /**
  * Honeypot
  */
-function wpmtst_honeypot_before_script() { 
-	?><script type="text/javascript">jQuery('#wpmtst_if_visitor').val('');</script><?php 
+function wpmtst_honeypot_before_script() {
+	?>
+<script type="text/javascript">jQuery('#wpmtst_if_visitor').val('');</script>
+	<?php 
 }
 
 
@@ -393,19 +405,21 @@ function wpmtst_honeypot_before_script() {
  * Honeypot
  */
 function wpmtst_honeypot_after_script() {
-	?><script type="text/javascript">
-( function( $ ) {
-	'use strict';
-	var forms = "#wpmtst-submission-form";
-	$( forms ).submit( function() {
-		$( "<input>" ).attr( "type", "hidden" )
-		.attr( "name", "wpmtst_after" )
-		.attr( "value", "1" )
-		.appendTo( forms );
-		return true;
-	});
-})( jQuery );
-</script><?php
+	?>
+<script type="text/javascript">
+	( function( $ ) {
+		'use strict';
+		var forms = "#wpmtst-submission-form";
+		$( forms ).submit( function() {
+			$( "<input>" ).attr( "type", "hidden" )
+			.attr( "name", "wpmtst_after" )
+			.attr( "value", "1" )
+			.appendTo( forms );
+			return true;
+		});
+	})( jQuery );
+</script>
+	<?php
 }
 
 
@@ -426,11 +440,11 @@ function wpmtst_wp_handle_upload( $file_handler, $overrides ) {
  * Submission form validation.
  */
 function wpmtst_validation_function() {
-	?>
-	<script type="text/javascript">
-		jQuery(document).ready(function($) {
-			$("#wpmtst-submission-form").validate({});
-		});
-	</script>
+	echo "\r"; ?>
+<script type="text/javascript">
+	jQuery(document).ready(function($) {
+		$("#wpmtst-submission-form").validate({});
+	});
+</script>
 	<?php
 }
