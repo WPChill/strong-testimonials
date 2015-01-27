@@ -1,0 +1,18 @@
+/**
+ * Strong Testimonials Widget RTL stylesheet
+ *
+ * Please send any improvements to chris@wpmission.com
+ */
+
+.testimonial-widget .photo {
+	float: right;
+	margin-left: 1em;
+}
+
+.testimonial-widget .client {
+	float: left;
+}
+
+.testimonial-widget .name {
+	float:left;
+}

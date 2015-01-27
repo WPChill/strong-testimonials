@@ -192,13 +192,22 @@ function wpmtst_scripts() {
 	/*
 	 * To be compatible with Page Builder plugin, widget styles and scripts
 	 * are enqueued later when widget is active using custom action hook 
-	 * `wpmtst_cycle_hook` and `wpmtst_is_enqueued` function.
+	 * `wpmtst_cycle_hook` and `wpmtst_is_registered` function.
 	 *
 	 * @since 1.9.0
 	 */
 	 
 	wp_register_style( 'wpmtst-style', WPMTST_DIR . 'css/wpmtst.css' );
 	wp_register_style( 'wpmtst-form-style', WPMTST_DIR . 'css/wpmtst-form.css' );
+	
+	/*
+	 * RTL
+	 *
+	 * @since 1.14.2
+	 */
+	if ( is_rtl() ) {
+		wp_enqueue_style( 'wpmtst-rtl', WPMTST_DIR . 'css/wpmtst-rtl.css' );
+	}
 
 	wp_register_script( 'wpmtst-pager-plugin', WPMTST_DIR . 'js/quickpager.jquery.js', array( 'jquery' ) );
 	wp_register_script( 'wpmtst-validation-plugin', WPMTST_DIR . 'js/jquery.validate.min.js', array( 'jquery' ) );
@@ -256,7 +265,7 @@ add_action( 'wp_enqueue_scripts', 'wpmtst_scripts' );
  *
  * In case the theme loads cycle.js for a slider, we check after it's enqueue function.
  * If registered, we register our slider script using its handle.
- * If not registered, we register it.
+ * If not registered, we register it with our handle.
  * @since 1.14.1
  */
 function wpmtst_scripts_after_theme() {

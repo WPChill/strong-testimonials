@@ -58,8 +58,22 @@ class WpmTst_Widget extends WP_Widget {
 		
 		$options = get_option( 'wpmtst_options' );
 		if ( $options['load_widget_style'] ) {
-			// Enqueue completely here to be compatible with Page Builder.
+			/*
+			 * Enqueue completely here to be compatible with Page Builder.
+			 *
+			 * @since 1.9.0
+			 */
 			wp_enqueue_style( 'wpmtst-widget-style', WPMTST_DIR . 'css/wpmtst-widget.css' );
+			
+			/*
+			 * RTL
+			 *
+			 * @since 1.14.2
+			 */
+			if ( is_rtl() ) {
+				wp_enqueue_style( 'wpmtst-widget-rtl', WPMTST_DIR . 'css/wpmtst-widget-rtl.css' );
+			}
+
 		}
 			
 		// custom action hook: load slider with widget parameters
