@@ -38,9 +38,7 @@ A submission form with custom fields and anti-spam options.
 
 Support for excerpts, featured images, and categories.
 
-Multiple shortcode options including Cycle, All, Random, and Single.
-
-Multiple widget options including category selection and random order.
+Multiple shortcode and widget options including slideshows, random order, and categories.
 
 
 **Other Features**
@@ -51,7 +49,7 @@ Skip loading the included stylesheets if you want to style it from the ground up
 
 Tested in many popular themes including the [problematic](http://chrislema.com/wordpress-obesity/) [Avada](http://www.fklein.info/2013/05/overloaded-theme-problems/).
 
-Ready for translations (i18n).
+Ready for translations.
 
 
 **Spam Control**
@@ -84,6 +82,7 @@ These plugins work well with Strong Testimonials and add some nice features.
 
 In version 1.13+:
 
+* Hebrew (he_IL) - Haim Asher
 * Russian (ru_RU) - Матвеев Валерий
 * Spanish (es_ES) - Diego Ferrández
 * Swedish (sv_SE) - Tom Stone
@@ -127,25 +126,53 @@ For help, use the [support forum](http://wordpress.org/support/plugin/strong-tes
 
 [Screenshots](http://wordpress.org/plugins/strong-testimonials/screenshots/) | [Demos](http://demos.wpmission.com/strong-testimonials/) | [Feature Requests](http://www.wpmission.com)
 
+
+= I added the `[strong]` shortcode to a page but I don't see the name or company fields. =
+
+The `[strong]` shortcode has child shortcodes `[client]` and `[field]`. Here's a good [example](http://demos.wpmission.com/strong-testimonials/the-strong-shortcode/custom-fields/).
+
+If you're not familiar with HTML or nested shortcodes, it may feel like learning a foreign language. Please refer to the [demo site](http://demos.wpmission.com/strong-testimonials) or ask for help.
+
+
+= How can I change which client fields appear below the testimonial? =
+
+The `[strong]` shortcode has child shortcodes `[client]` and `[field]`. Here's a good [example](http://demos.wpmission.com/strong-testimonials/the-strong-shortcode/custom-fields/).
+
+For the original `[wpmtst]` shortcodes and the widget, go to the `Client Section` tab on the `Testimonials > Settings` page. Follow the example to build shortcodes based on your custom fields. There is a shortcode for text fields (like a client's name) and a shortcode for links (like a client's website). When in doubt, use the default template provided.
+
+
+= So the child/nested shortcodes for `[strong]` are different than the widget? Why? =
+
+Short answer: I plan to build a single method soon. If the shortcode and the widget are cousins now, they will be more like brothers later.
+
+Long answer: The Client Section shortcodes were a quick-n-simple way to add client fields to both the original `[wpmtst-*]` shortcodes and the widget AFTER custom fields were added in version 1.7. Then I developed the `[strong]` shortcode in order to bring all the options together (a form, a slideshow, multiple selection criteria) into a single shortcode. That opened up the door for child shortcodes to provide even more options for displaying client fields. The customization requests and questions like "Where do I edit the code to..." decreased significantly after that :). 
+
+My plan is to build a tool that allows you to configure a testimonial display component, let's call it a block, and then add that block to a page using a shorter shortcode (!) like `[strong block="1"]` or to a widget using a dropdown selector. 
+
+
 = Are there templates? How do I change the look of the testimonials? =
 
-The new `[strong]` shortcode uses a template file that can be copied into your theme. You can create multiple template files and include them using a shortcode attribute; e.g. `template="my-template"`. Template functions are also available for adding testimonial fields to new or existing templates.
+The `[strong]` shortcode uses a template file that can be copied into your theme. You can create multiple template files and include them using a shortcode attribute; e.g. `template="my-template"`. Template functions are also available for adding testimonial fields to new or existing templates.
 
 The original `[wpmtst]` shortcodes do not use template files, but the stylesheets are largely structural so you can add CSS in your theme or [custom CSS](http://wordpress.org/plugins/simple-custom-css/). In fact, I like to skip loading the stylesheets (in `Testimonials > Settings`) to see how they look in the theme, then style up from there. Future versions will have pre-built templates with adjustable colors, borders, etc.
+
 
 = How can I change "testimonial" to "review", for example? =
 
 Instructions are [here](https://wordpress.org/support/topic/how-to-change-the-slug).
 
+
 = How can I reorder my testimonials? =
 
 Until I can build this into the plugin, try [Post Types Order](https://wordpress.org/plugins/post-types-order/) by Nsp Code (which lists them on a separate admin page) or [Simple Custom Post Order](https://wordpress.org/plugins/simple-custom-post-order/) by Sameer Humagain (which works directly in the admin list). Or you can adjust each testimonial's publish date manually.
+
 
 = How can I change the fields on the form? =
 
 On the `Testimonials > Fields` page, there is a field editor where you can add or remove fields, change field details, and drag-n-drop to reorder them. You can also restore the default fields. 
 
 If you have ever used the Advanced Custom Fields or Custom Field Suite plugins, the editor will be very familiar. Here is a full [tutorial](http://www.wpmission.com/tutorials/customize-the-form-in-strong-testimonials/).
+
 
 = How do I add a Captcha to the form? =
 
@@ -157,19 +184,16 @@ If your site relies on a partner plugin like this, and that plugin becomes buggy
 
 [Contact me](http://www.wpmission.com/contact) to recommend another method or plugin.
 
-= How can I change which client fields appear below the testimonial? =
-
-The new `[strong]` shortcode has child shortcodes `[client]` and `[field]`. Here's a good [example](http://demos.wpmission.com/strong-testimonials/the-strong-shortcode/custom-fields/).
-
-For the original `[wpmtst]` shortcodes, go to the `Client Section` tab on the `Testimonials > Settings` page. Follow the example to build shortcodes based on your custom fields. There is a shortcode for text fields (like a client's name) and a shortcode for links (like a client's website). When in doubt, use the default template provided.
 
 = Is this multisite compatible? =
 
 Yes, but I highly recommend first installing the [Proper Network Activation](http://wordpress.org/plugins/proper-network-activation/) plugin when adding Strong Testimonials to a multisite installation. That plugin will deftly handle the plugin activation process, ensuring each site has the default settings.
 
+
 = Will it import my existing testimonials? =
 
 Not yet. If you have a ton of testimonials, you may want to wait.
+
 
 = Can I make a donation? =
 
@@ -198,10 +222,14 @@ Thanks but I prefer a nice [review](https://wordpress.org/support/view/plugin-re
 
 == Changelog ==
 
+= 1.14.2 - 2015-01-27 =
+* Fix honeypot bug.
+* Add Hebrew translation and right-to-left stylesheets.
+
 = 1.14.1 - 2015-01-23 =
-* Fixed conflict with Spacious theme and others that also use the jQuery Cycle slideshow plugin.
-* Improved compatibility with Page Builder plugin version 2.x.
-* Added jquery.cycle2.js.map to prevent error in Chrome Developer Console.
+* Fix conflict with Spacious theme and others that also use the jQuery Cycle slideshow plugin.
+* Add `jquery.cycle2.js.map` to prevent error in Chrome Developer Console.
+* Improve compatibility with Page Builder plugin version 2.x.
 
 = 1.14 - 2015-01-22 =
 * New notification email options.
@@ -359,6 +387,9 @@ Thanks but I prefer a nice [review](https://wordpress.org/support/view/plugin-re
 
 
 == Upgrade Notice ==
+
+= 1.14.2 = 
+Fix honeypot bug. Add Hebrew translation and right-to-left stylesheets.
 
 = 1.14.1 =
 Definitely update if you are using the Spacious theme or Page Builder plugin.
