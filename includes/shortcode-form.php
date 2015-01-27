@@ -28,21 +28,6 @@ function wpmtst_form_shortcode( $atts ) {
 		normalize_empty_atts( $atts )
 	) );
 	
-	$form_options = get_option( 'wpmtst_form_options' );
-				if ( $form_options['honeypot_before'] ) {
-				add_action( 'wp_footer', 'wpmtst_honeypot_before_script' );
-				add_action( 'wpmtst_honeypot_before', 'wpmtst_honeypot_before' );
-			}
-			
-			if ( $form_options['honeypot_after'] ) {
-				add_action( 'wp_footer', 'wpmtst_honeypot_after_script' );
-				add_action( 'wpmtst_honeypot_after', 'wpmtst_honeypot_after' );
-			}
-
-	// explode categories
-	if ( $category )
-		$categories = explode( ',', $category );
-
 	$options      = get_option( 'wpmtst_options' );
 	$form_options = get_option( 'wpmtst_form_options' );
 	$messages     = $form_options['messages'];
@@ -55,9 +40,21 @@ function wpmtst_form_shortcode( $atts ) {
 	$captcha         = $form_options['captcha'];
 	$honeypot_before = $form_options['honeypot_before'];
 	$honeypot_after  = $form_options['honeypot_after'];
-
+	if ( $honeypot_before ) {
+		add_action( 'wp_footer', 'wpmtst_honeypot_before_script' );
+		add_action( 'wpmtst_honeypot_before', 'wpmtst_honeypot_before' );
+	}
+	if ( $honeypot_after ) {
+		add_action( 'wp_footer', 'wpmtst_honeypot_after_script' );
+		add_action( 'wpmtst_honeypot_after', 'wpmtst_honeypot_after' );
+	}
+	
 	$errors = array();
 	
+	// explode categories
+	if ( $category )
+		$categories = explode( ',', $category );
+
 	// Init three arrays: post, post_meta, attachment(s).
 	$testimonial_post = array(
 			'post_status'  => $form_options['post_status'],
