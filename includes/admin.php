@@ -90,6 +90,9 @@ function wpmtst_reorder_meta_boxes() {
 	if ( ! isset( $wp_meta_boxes['wpm-testimonial']['normal'] ) )
 		return;
 	
+	if ( ! isset( $wp_meta_boxes['wpm-testimonial']['normal']['core'] ) )
+		return;
+		
 	$core = $wp_meta_boxes['wpm-testimonial']['normal']['core'];
 	$newcore = array();
 	if ( $core['postexcerpt'] )
