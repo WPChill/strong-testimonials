@@ -222,6 +222,9 @@ Thanks but I prefer a nice [review](https://wordpress.org/support/view/plugin-re
 
 == Changelog ==
 
+= 1.14.3 - 2015-01-27 =
+* Fix JavaScript error in slideshow.
+
 = 1.14.2 - 2015-01-27 =
 * Fix honeypot bug.
 * Add Hebrew translation and right-to-left stylesheets.
@@ -387,6 +390,9 @@ Thanks but I prefer a nice [review](https://wordpress.org/support/view/plugin-re
 
 
 == Upgrade Notice ==
+
+= 1.14.3 =
+Fix JavaScript error in slideshow.
 
 = 1.14.2 = 
 Fix honeypot bug. Add Hebrew translation and right-to-left stylesheets.
