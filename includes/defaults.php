@@ -18,6 +18,7 @@ $default_options = array(
 		'load_page_style'   => 1,
 		'load_widget_style' => 1,
 		'load_form_style'   => 1,
+		'load_rtl_style'    => 0,
 );
 
 $default_cycle = array(

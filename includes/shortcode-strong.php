@@ -129,6 +129,9 @@ function wpmtst_strong_shortcode( $atts, $content = null, $parent_tag ) {
 	if ( $options['load_page_style'] && ! $no_stylesheet )
 		wp_enqueue_style( 'wpmtst-style' );
 
+	if ( is_rtl() && $options['load_rtl_style'] )
+		wp_enqueue_style( 'wpmtst-rtl-style' );
+
 		
 	// ===================
 	// SUB-MODE: SLIDESHOW

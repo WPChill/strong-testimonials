@@ -33,6 +33,12 @@
 						<?php _e( 'Submission Form', 'strong-testimonials' ); ?>
 					</label>
 				</li>
+				<li>
+					<label>
+						<input type="checkbox" name="wpmtst_options[load_rtl_style]" <?php checked( $options['load_rtl_style'] ); ?> />
+						<?php _e( 'RTL', 'strong-testimonials' ); ?>
+					</label>
+				</li>
 			</ul>
 		</td>
 	</tr>

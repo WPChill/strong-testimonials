@@ -95,6 +95,7 @@ function wpmtst_sanitize_options( $input ) {
 	$input['load_page_style']   = isset( $input['load_page_style'] ) ? 1 : 0;
 	$input['load_widget_style'] = isset( $input['load_widget_style'] ) ? 1 : 0;
 	$input['load_form_style']   = isset( $input['load_form_style'] ) ? 1 : 0;
+	$input['load_rtl_style']    = isset( $input['load_rtl_style'] ) ? 1 : 0;
 	return $input;
 }
 

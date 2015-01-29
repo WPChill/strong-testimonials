@@ -4,7 +4,7 @@
  * Plugin URI: http://www.wpmission.com/plugins/strong-testimonials/
  * Description: A powerful testimonial manager.
  * Author: Chris Dillon
- * Version: 1.14.3
+ * Version: 1.14.4
  * Forked From: GC Testimonials version 1.3.2 by Erin Garscadden
  * Author URI: http://www.wpmission.com/contact
  * Text Domain: strong-testimonials
@@ -199,16 +199,8 @@ function wpmtst_scripts() {
 	 
 	wp_register_style( 'wpmtst-style', WPMTST_DIR . 'css/wpmtst.css' );
 	wp_register_style( 'wpmtst-form-style', WPMTST_DIR . 'css/wpmtst-form.css' );
+	wp_register_style( 'wpmtst-rtl-style', WPMTST_DIR . 'css/wpmtst-rtl.css' );
 	
-	/*
-	 * RTL
-	 *
-	 * @since 1.14.2
-	 */
-	if ( is_rtl() ) {
-		wp_enqueue_style( 'wpmtst-rtl', WPMTST_DIR . 'css/wpmtst-rtl.css' );
-	}
-
 	wp_register_script( 'wpmtst-pager-plugin', WPMTST_DIR . 'js/quickpager.jquery.js', array( 'jquery' ) );
 	wp_register_script( 'wpmtst-validation-plugin', WPMTST_DIR . 'js/jquery.validate.min.js', array( 'jquery' ) );
 	
@@ -218,6 +210,10 @@ function wpmtst_scripts() {
 		if ( has_shortcode( $post->post_content, 'wpmtst-all' ) ) {
 			if ( $options['load_page_style'] )
 				wp_enqueue_style( 'wpmtst-style' );
+			
+			if ( is_rtl() && $options['load_rtl_style'] )
+				wp_enqueue_style( 'wpmtst-rtl-style' );
+			
 			wp_enqueue_script( 'wpmtst-pager-plugin' );
 			add_action( 'wp_footer', 'wpmtst_pagination_function' );
 		}
@@ -225,6 +221,9 @@ function wpmtst_scripts() {
 		if ( has_shortcode( $post->post_content, 'wpmtst-form' ) ) {
 			if ( $options['load_form_style'] )
 				wp_enqueue_style( 'wpmtst-form-style' );
+			
+			if ( is_rtl() && $options['load_rtl_style'] )
+				wp_enqueue_style( 'wpmtst-rtl-style' );
 				
 			wp_enqueue_script( 'wpmtst-validation-plugin' );
 			add_action( 'wp_footer', 'wpmtst_validation_function' );
@@ -243,16 +242,25 @@ function wpmtst_scripts() {
 		if ( has_shortcode( $post->post_content, 'wpmtst-cycle' ) ) {
 			if ( $options['load_page_style'] )
 				wp_enqueue_style( 'wpmtst-style' );
+			
+			if ( is_rtl() && $options['load_rtl_style'] )
+				wp_enqueue_style( 'wpmtst-rtl-style' );
 		}
 
 		if ( has_shortcode( $post->post_content, 'wpmtst-single' ) ) {
 			if ( $options['load_page_style'] )
 				wp_enqueue_style( 'wpmtst-style' );
+			
+			if ( is_rtl() && $options['load_rtl_style'] )
+				wp_enqueue_style( 'wpmtst-rtl-style' );
 		}
 
 		if ( has_shortcode( $post->post_content, 'wpmtst-random' ) ) {
 			if ( $options['load_page_style'] )
 				wp_enqueue_style( 'wpmtst-style' );
+			
+			if ( is_rtl() && $options['load_rtl_style'] )
+				wp_enqueue_style( 'wpmtst-rtl-style' );
 		}
 	
 	}

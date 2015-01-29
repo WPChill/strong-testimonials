@@ -222,6 +222,9 @@ Thanks but I prefer a nice [review](https://wordpress.org/support/view/plugin-re
 
 == Changelog ==
 
+= 1.14.4 - 2015-01-28 =
+* RTL stylesheet not included by default.
+
 = 1.14.3 - 2015-01-27 =
 * Fix JavaScript error in slideshow.
 
@@ -391,11 +394,14 @@ Thanks but I prefer a nice [review](https://wordpress.org/support/view/plugin-re
 
 == Upgrade Notice ==
 
+= 1.14.4 =
+* RTL stylesheet not included by default.
+
 = 1.14.3 =
-Fix JavaScript error in slideshow.
+Fixed JavaScript error in slideshow.
 
 = 1.14.2 = 
-Fix honeypot bug. Add Hebrew translation and right-to-left stylesheets.
+Fixed honeypot bug. Add Hebrew translation and right-to-left stylesheets.
 
 = 1.14.1 =
 Definitely update if you are using the Spacious theme or Page Builder plugin.
@@ -404,10 +410,10 @@ Definitely update if you are using the Spacious theme or Page Builder plugin.
 On the notification email, you can now edit the subject line, the message, and the "From" name and email address.
 
 = 1.13.4 =
-Fix conflict with Spacious theme.
+Fixed conflict with Spacious theme.
 
 = 1.13.3 =
-Fix conflict with iThemes Exchange plugin.
+Fixed conflict with iThemes Exchange plugin.
 
 = 1.13.2 =
 Minor fixes. Updated translation files.

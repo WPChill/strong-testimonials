@@ -18,6 +18,8 @@ if ( $options['load_widget_style'] )
 	echo '<input type="hidden" name="wpmtst_options[load_widget_style]" value="1" />';
 if ( $options['load_form_style'] )
 	echo '<input type="hidden" name="wpmtst_options[load_form_style]" value="1" />';
+if ( $options['load_rtl_style'] )
+	echo '<input type="hidden" name="wpmtst_options[load_rtl_style]" value="1" />';
 ?>
 <input type="hidden" name="wpmtst_options[per_page]" value="<?php esc_attr_e( $options['per_page'] ); ?>" />
 <input type="hidden" name="wpmtst_options[default_template]" value="<?php esc_attr_e( $options['default_template'] ); ?>" />
