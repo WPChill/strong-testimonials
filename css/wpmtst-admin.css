@@ -312,7 +312,7 @@ ul.ui-tabs-nav li.ui-tabs-active a {
 }
 
 .stackem label {
-	display: block;
+	display: inline-block;
 	line-height: 28px;
 	margin-right: 0.5em;
 	vertical-align: baseline;

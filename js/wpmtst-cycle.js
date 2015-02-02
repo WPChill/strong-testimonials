@@ -54,7 +54,8 @@ jQuery(document).ready(function($) {
 				fx           : parms.effect,
 				speed        : parseInt( parms.speed ),
 				timeout      : parseInt( parms.timeout ),
-				pauseOnHover : "1" == parms.pause ? true : false
+				pause        : "1" == parms.pause ? true : false,  // Cycle
+				pauseOnHover : "1" == parms.pause ? true : false   // Cycle2
 			});
 		}
 				
