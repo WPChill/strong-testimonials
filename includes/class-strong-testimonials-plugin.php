@@ -378,8 +378,8 @@ final class StrongTestimonials_Plugin {
 		
 		foreach ( $all_widgets as $sidebar => $widgets ) {
 			
-			// sidebars only (see notes.txt)
-			if ( 'sidebar' != substr( $sidebar, 0, 7 ) ) continue;
+			// active widget areas only (see notes.txt)
+			if ( 'wp_inactive_widgets' == $sidebar || 'array_version' == $sidebar ) continue;
 			
 			foreach ( $widgets as $key => $widget_name ) {
 				

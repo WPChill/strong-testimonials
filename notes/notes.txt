@@ -93,20 +93,19 @@ Array
 (
     [wp_inactive_widgets] => Array
         (
+            [0] => text-2
+            [1] => wpmtst-widget-2
+        )
+
+    [child_widgets_page] => Array			<<-- This is a custom widget, doesn't follow naming convention.
+        (
+            [0] => wpmtst-widget-4
+            [1] => wpmtst-widget-5
         )
 
     [sidebar-1] => Array
         (
-            [0] => wpmtst-widget-2
-            [1] => wpmtst-widget-3
-        )
-
-    [sidebar-2] => Array
-        (
-        )
-
-    [sidebar-3] => Array
-        (
+            [0] => wpmtst-widget-3
         )
 
     [array_version] => 3

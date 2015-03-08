@@ -280,6 +280,9 @@ Thanks but I prefer a nice [review](https://wordpress.org/support/view/plugin-re
 
 == Changelog ==
 
+= 1.15.2 - 2015-03-07 =
+* Fix handling of custom widget areas.
+
 = 1.15.1 - 2015-03-07 =
 * Fix bug in slideshow JavaScript.
 
@@ -464,14 +467,20 @@ Thanks but I prefer a nice [review](https://wordpress.org/support/view/plugin-re
 
 == Upgrade Notice ==
 
+= 1.15.2 =
+Fix handling of custom widget areas.
+
+= 1.15.1 =
+Fix bug in slideshow Javascript.
+
 = 1.15 =
-* Now works better with Page Builder 2.0. Added some filters.
+Now works better with Page Builder 2.0. Added some filters.
 
 = 1.14.5 =
-* Fixed slideshow pause on hover.
+Fixed slideshow pause on hover.
 
 = 1.14.4 =
-* RTL stylesheet not included by default.
+RTL stylesheet not included by default.
 
 = 1.14.3 =
 Fixed JavaScript error in slideshow.
