@@ -203,7 +203,6 @@ function wpmtst_custom_columns( $column ) {
 	}
 	elseif ( 'shortcode' == $column ) {
 		echo '[strong id="' . $post->ID . '" ... ]';
-		//echo '[wpmtst-single id="' . $post->ID . '"]';
 	}
 	elseif ( 'category' == $column ) {
 		$categories = get_the_terms( 0, 'wpm-testimonial-category' );

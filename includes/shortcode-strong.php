@@ -73,14 +73,16 @@ function wpmtst_strong_shortcode( $atts, $content = null, $parent_tag ) {
 				'more_text' => _x( 'Read more', 'link', 'strong-testimonials' ),
 				
 				// slideshow attributes
-				'show_for' => '',
-				'effect_for' => '',
+				'show_for' => '8',
+				'effect_for' => '1.5',
 				// 'pause' => true,
 				'no_pause' => 'false',
 				
 				// read more link attributes
 				// 'class' => '',
 				'page' => '',
+				
+				'order_in_page' => 0,
 		),
 		normalize_empty_atts( $atts ), 
 		$parent_tag
@@ -94,19 +96,12 @@ function wpmtst_strong_shortcode( $atts, $content = null, $parent_tag ) {
 	$container_class_list = '';
 	$content_class_list   = '';
 	
-	
 	// ==========
 	// MODE: FORM
 	// ==========
 	if ( $form ) {
-		if ( $options['load_form_style'] && ! $no_stylesheet )
-			wp_enqueue_style( 'wpmtst-form-style' );
-		
-		wp_enqueue_script( 'wpmtst-validation-plugin' );
-		add_action( 'wp_footer', 'wpmtst_validation_function' );
 		return wpmtst_form_shortcode( $atts );  // move this to include
 	}
-	
 	
 	// ====================
 	// MODE: READ MORE LINK
@@ -126,31 +121,6 @@ function wpmtst_strong_shortcode( $atts, $content = null, $parent_tag ) {
 	// =======================
 	// MODE: DISPLAY (default)
 	// =======================
-	if ( $options['load_page_style'] && ! $no_stylesheet )
-		wp_enqueue_style( 'wpmtst-style' );
-
-	if ( is_rtl() && $options['load_rtl_style'] )
-		wp_enqueue_style( 'wpmtst-rtl-style' );
-
-		
-	// ===================
-	// SUB-MODE: SLIDESHOW
-	// ===================
-	if ( $slideshow ) {
-		$random_string = substr( str_shuffle( str_repeat( '0123456789abcdefghijklmnopqrstuvwxyz', 10 ) ), 0, 10 );
-		$content_class_list .= ' tcycle tcycle_shortcode_' . $random_string;
-		// custom action hook to localize script
-		// need to incorporate default settings
-		do_action(
-			'wpmtst_cycle_hook', 
-			'fade', 
-			$effect_for, 
-			$show_for, 
-			$no_pause ? true : false,
-			'tcycle_shortcode_' . $random_string
-		);
-	}
-	
 	
 	// ------------------------------
 	// extract comma-separated values
@@ -159,14 +129,6 @@ function wpmtst_strong_shortcode( $atts, $content = null, $parent_tag ) {
 	$ids = explode( ',', $id );
 	if ( $class )
 		$container_class_list .= ' ' . str_replace( ',', ' ', $class );
-	
-	
-	// -------------------------
-	// QuickPager script options
-	// -------------------------
-	if ( false !== strpos( $nav, 'before' ) && false !== strpos( $nav, 'after') )
-		$nav = 'both';
-	
 	
 	// ------------------------
 	// assemble query arguments
@@ -204,29 +166,22 @@ function wpmtst_strong_shortcode( $atts, $content = null, $parent_tag ) {
 			$args['order'] = 'ASC';
 	}
 
-	
-	// -----
 	// query
-	// -----
 	$query = new WP_Query( $args );
 	$post_count = $query->post_count;
-
 	
-	// -------------------------------
-	// conditional loading: pagination
-	// -------------------------------
-	// slideshow overrides pagination
-	if ( ! $slideshow && $per_page && $post_count > $per_page ) {
-		$pager = array (
-				'pageSize'      => $per_page,
-				'currentPage'   => 1, 
-				'pagerLocation' => $nav
-		);
-		wp_enqueue_script( 'wpmtst-pager-plugin', WPMTST_DIR . 'js/quickpager.jquery.js', array( 'jquery' ) );
-		wp_enqueue_script( 'wpmtst-pager-script', WPMTST_DIR . 'js/wpmtst-pager.js', array( 'wpmtst-pager-plugin' ) );
-		wp_localize_script( 'wpmtst-pager-script', 'pagerVar', $pager );
+	// ===================
+	// SUB-MODE: SLIDESHOW
+	// ===================
+	if ( $slideshow ) {
+		$content_class_list .= ' tcycle';
 	}
-
+	else {
+		// pagination
+		if ( $per_page && $post_count > $per_page ) {
+			$content_class_list .= ' strong-paginated';
+		}
+	}
 
 	// ------------------------------
 	// individual testimonial classes
@@ -241,7 +196,6 @@ function wpmtst_strong_shortcode( $atts, $content = null, $parent_tag ) {
 		
 	if ( $slideshow )
 		$post_class_list .= ' t-slide';
-		
 		
 	// -------------
 	// load template

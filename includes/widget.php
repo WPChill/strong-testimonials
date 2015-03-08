@@ -54,41 +54,12 @@ class WpmTst_Widget extends WP_Widget {
 	// display
 	// -------
 	function widget( $args, $instance ) {
-		$var = 'tcycle_' . str_replace( '-', '_', $args['widget_id'] );
-		
-		$options = get_option( 'wpmtst_options' );
-		if ( $options['load_widget_style'] ) {
-			/*
-			 * Enqueue completely here to be compatible with Page Builder.
-			 *
-			 * @since 1.9.0
-			 */
-			wp_enqueue_style( 'wpmtst-widget-style', WPMTST_DIR . 'css/wpmtst-widget.css' );
-			
-			/*
-			 * RTL
-			 *
-			 * @since 1.14.2
-			 */
-			if ( is_rtl() ) {
-				wp_enqueue_style( 'wpmtst-widget-rtl', WPMTST_DIR . 'css/wpmtst-widget-rtl.css' );
-			}
-
-		}
-			
-		// custom action hook: load slider with widget parameters
-		do_action(
-			'wpmtst_cycle_hook',
-			$instance['cycle-effect'],
-			$instance['cycle-speed'],
-			$instance['cycle-timeout'],
-			$instance['cycle-pause'],
-			$var
-		);
-		
-		$classes = array( 'wpmtst-widget-container' );
 		
 		$data = array_merge( $args, $instance );
+		
+		$var_name = 'tcycle_' . str_replace( '-', '_', $args['widget_id'] );
+		
+		$classes = array( 'wpmtst-widget-container' );
 		
 		// Polylang filter
 		$title = apply_filters( 'widget_title', empty( $data['title'] ) ? '' : $data['title'], $instance, $this->id_base );
@@ -110,9 +81,9 @@ class WpmTst_Widget extends WP_Widget {
 
 		if ( 'cycle' == $data['mode'] ) {
 
-			array_push( $classes, 'tcycle', $var );
+			array_push( $classes, 'tcycle', $var_name );
 			
-			if ( $data['cycle-all'] )
+			if ( isset( $data['cycle-all'] ) )
 				$num = -1;
 			elseif ( ! empty( $data['cycle-limit'] ) )
 				$num = $data['cycle-limit'];
@@ -159,8 +130,8 @@ class WpmTst_Widget extends WP_Widget {
 		$results = $wp_query->query( $args );
 
 		// start HTML output
-
-		$format = '<div class="readmore"><a href="%s">' . _x( 'Read more', 'link', 'strong-testimonials' ) .'</a></div>';
+		$read_more_text = apply_filters( 'strong_widget_read_more_text', _x( 'Read more', 'link', 'strong-testimonials' ) );
+		$format = '<div class="readmore"><a href="%s">' . $read_more_text . '</a></div>';
 
 		echo $data['before_widget'];
 
@@ -174,7 +145,7 @@ class WpmTst_Widget extends WP_Widget {
 
 			echo '<div class="testimonial-widget t-slide">';
 
-			if ( $data['show-title'] && $post->post_title )
+			if ( isset( $data['show-title'] ) && $post->post_title )
 				echo '<h5>' . $post->post_title . '</h5>';
 
 			/*
@@ -194,23 +165,23 @@ class WpmTst_Widget extends WP_Widget {
 			
 			echo '<div class="content">';
 			
-			if ( $data['images'] && $post->thumbnail_id )
+			if ( isset( $data['images'] ) && $post->thumbnail_id )
 				echo '<div class="photo">' . get_the_post_thumbnail( $post->ID, array( 75, 75 ) ) . '</div>';
 			
 			echo $content;
 			
-			echo '</div>'; // content
+			echo '</div>'; // <!-- .content -->
 			
-			if ( $data['client'] )
+			if ( isset( $data['client'] ) )
 				echo '<div class="client">' . do_shortcode( wpmtst_client_info( $post ) ) . '</div>';
 			
 			if ( 1 == $data['more'] )
 				echo sprintf( $format, get_permalink( $post ) );
 			
-			echo '</div>'; // testimonial-widget
+			echo '</div>'; // <!-- .testimonial-widget -->
 		}
 
-		echo '</div><!-- wpmtst-widget-container -->';
+		echo '</div>'; // <!-- .wpmtst-widget-container -->
 
 		if ( 2 == $data['more'] )
 			echo sprintf( $format, get_permalink( $data['more_page'] ) );

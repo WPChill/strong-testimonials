@@ -131,6 +131,7 @@ The template files and functions can be vastly improved.
 These plugins work well with Strong Testimonials and add some nice features.
 
 * [Admin Menu Post List](http://wordpress.org/plugins/admin-menu-post-list/) provides a list of your testimonials right there in the admin menu.
+* [Debug This](http://wordpress.org/plugins/debug-this/) to peek under the hood when troubleshooting.
 * [Proper Network Activation](http://wordpress.org/plugins/proper-network-activation/) (multisite) ensures the plugin is properly activated in each site in your network.
 * [Simple Custom CSS](http://wordpress.org/plugins/simple-custom-css/) is my go-to plugin for quick CSS fixes.
 * [Wider Admin Menu](http://wordpress.org/plugins/wider-admin-menu/) lets your admin menu breathe.
@@ -181,7 +182,7 @@ For help, use the [support forum](http://wordpress.org/support/plugin/strong-tes
 
 == Frequently Asked Questions ==
 
-[Screenshots](http://wordpress.org/plugins/strong-testimonials/screenshots/) | [Demos](http://demos.wpmission.com/strong-testimonials/) | [Feature Requests](http://www.wpmission.com)
+[Screenshots](http://wordpress.org/plugins/strong-testimonials/screenshots/) | [Demos](http://demos.wpmission.com/strong-testimonials/) | [Feature Requests](http://www.wpmission.com/feature-request)
 
 
 = I added the `[strong]` shortcode to a page but I don't see the name or company fields. =
@@ -204,12 +205,12 @@ Short answer: I plan to build a single method soon. If the shortcode and the wid
 
 Long answer: The Client Section shortcodes were a quick-n-simple way to add client fields to both the original `[wpmtst-*]` shortcodes and the widget AFTER custom fields were added in version 1.7. Then I developed the `[strong]` shortcode in order to bring all the options together (a form, a slideshow, multiple selection criteria) into a single shortcode. That opened up the door for child shortcodes to provide even more options for displaying client fields. The customization requests and questions like "Where do I edit the code to..." decreased significantly after that :). 
 
-My plan is to build a tool that allows you to configure a testimonial display component, let's call it a block, and then add that block to a page using a shorter shortcode (!) like `[strong block="1"]` or to a widget using a dropdown selector. 
+My plan is to build a tool that allows you to configure a testimonial display component, let's call it a view, and then add that view to a page using a shorter shortcode (!) like `[strong view="1"]` or to a widget using a dropdown selector. 
 
 
 = Are there templates? How do I change the look of the testimonials? =
 
-The `[strong]` shortcode uses a template file that can be copied into your theme. You can create multiple template files and include them using a shortcode attribute; e.g. `template="my-template"`. Template functions are also available for adding testimonial fields to new or existing templates.
+The `[strong]` shortcode uses a template file that can be copied into the top directory of your theme, e.g. `wp-content/themes/my-theme/testimonials.php`. You can create multiple template files and include them using a shortcode attribute; e.g. `template="my-template"`. Template functions are also available for adding testimonial fields to new or existing templates.
 
 The original `[wpmtst]` shortcodes do not use template files, but the stylesheets are largely structural so you can add CSS in your theme. In fact, I like to skip loading the stylesheets (in `Testimonials > Settings`) to see how they look in the theme, then style up from there. 
 
@@ -237,7 +238,7 @@ Select one of the supported plugins on the `Testimonials > Settings` page. Use t
 
 If the currently selected Captcha plugin is deactivated, the setting will revert to "none".
 
-If your site relies on a partner plugin like this, and that plugin becomes buggy or abandoned, I will adopt it or integrate it to keep your site running.
+If your site relies on a partner plugin like this, and that plugin becomes buggy or abandoned, I will adopt or fork it to keep your site running.
 
 [Contact me](http://www.wpmission.com/contact) to recommend another method or plugin.
 
@@ -278,6 +279,12 @@ Thanks but I prefer a nice [review](https://wordpress.org/support/view/plugin-re
 
 
 == Changelog ==
+
+= 1.15 - 2015-03-07 =
+* Improved style and script enqueueing for better compatibility with page builder plugins.
+* Add filter for the widget "Read more" link.
+* Add filter for `[strong]` shortcode HTML output.
+* Add default slideshow attributes.
 
 = 1.14.5 - 2015-02-02 =
 * Fix slideshow pause on hover to work with either version of Cycle.
@@ -454,7 +461,10 @@ Thanks but I prefer a nice [review](https://wordpress.org/support/view/plugin-re
 
 == Upgrade Notice ==
 
-= 1.14.5 - 2015-02-02 =
+= 1.15 =
+* Now works better with Page Builder 2.0. Added some filters.
+
+= 1.14.5 =
 * Fixed slideshow pause on hover.
 
 = 1.14.4 =

@@ -40,14 +40,6 @@ function wpmtst_form_shortcode( $atts ) {
 	$captcha         = $form_options['captcha'];
 	$honeypot_before = $form_options['honeypot_before'];
 	$honeypot_after  = $form_options['honeypot_after'];
-	if ( $honeypot_before ) {
-		add_action( 'wp_footer', 'wpmtst_honeypot_before_script' );
-		add_action( 'wpmtst_honeypot_before', 'wpmtst_honeypot_before' );
-	}
-	if ( $honeypot_after ) {
-		add_action( 'wp_footer', 'wpmtst_honeypot_after_script' );
-		add_action( 'wpmtst_honeypot_after', 'wpmtst_honeypot_after' );
-	}
 	
 	$errors = array();
 	
@@ -234,7 +226,9 @@ function wpmtst_form_shortcode( $atts ) {
 	// ---------------------------
 	// output buffering made this incredibly unreadable
 	
-	$html = '<div id="wpmtst-form">';
+	$html = '<div class="strong-container">';
+	$html .= '<div class="strong-content">';
+	$html .= '<div id="wpmtst-form">';
 	$html .= '<p class="required-notice"><span class="required symbol"></span>' . $messages['required-field']['text'] . '</p>';
 	$html .= '<form id="wpmtst-submission-form" method="post" action="" enctype="multipart/form-data">';
 	$html .= wp_nonce_field( 'wpmtst_submission_form', 'wpmtst_form_submitted', true, false );
@@ -355,7 +349,9 @@ function wpmtst_form_shortcode( $atts ) {
 	$html .= '</p>';
 	
 	$html .= '</form>';
-	$html .= '</div><!-- wpmtst-form -->' . "\n";
+	$html .= '</div><!-- #wpmtst-form -->' . "\n";
+	$html .= '</div><!-- .strong-content -->' . "\n";
+	$html .= '</div><!-- .strong-container -->' . "\n";
 
 	return $html;
 }
@@ -403,7 +399,7 @@ function wpmtst_honeypot_before_script() {
  */
 function wpmtst_honeypot_after_script() {
 	?>
-<script type="text/javascript">
+<script>
 	( function( $ ) {
 		'use strict';
 		var forms = "#wpmtst-submission-form";
@@ -435,6 +431,9 @@ function wpmtst_wp_handle_upload( $file_handler, $overrides ) {
 
 /*
  * Submission form validation.
+ *
+ * Required for original shortcodes.
+ * To be removed in 2.0.
  */
 function wpmtst_validation_function() {
 	echo "\r"; ?>

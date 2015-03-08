@@ -2,9 +2,9 @@
 /**
  * Plugin Name: Strong Testimonials
  * Plugin URI: http://www.wpmission.com/plugins/strong-testimonials/
- * Description: A powerful testimonial manager.
+ * Description: Collect and display testimonials with a plugin that offers strong features and strong support.
  * Author: Chris Dillon
- * Version: 1.14.5
+ * Version: 1.15
  * Forked From: GC Testimonials version 1.3.2 by Erin Garscadden
  * Author URI: http://www.wpmission.com/contact
  * Text Domain: strong-testimonials
@@ -185,114 +185,113 @@ add_action( 'after_theme_setup', 'wpmtst_theme_support' );
  * Register scripts and styles.
  */
 function wpmtst_scripts() {
-	global $post;
+	
+	global $strong_testimonials_plugin;
+	
 	$options = get_option( 'wpmtst_options' );
 	$form_options = get_option( 'wpmtst_form_options' );
 
-	/*
-	 * To be compatible with Page Builder plugin, widget styles and scripts
-	 * are enqueued later when widget is active using custom action hook 
-	 * `wpmtst_cycle_hook` and `wpmtst_is_registered` function.
-	 *
-	 * @since 1.9.0
-	 */
-	 
 	wp_register_style( 'wpmtst-style', WPMTST_DIR . 'css/wpmtst.css' );
 	wp_register_style( 'wpmtst-form-style', WPMTST_DIR . 'css/wpmtst-form.css' );
+	wp_register_style( 'wpmtst-widget-style', WPMTST_DIR . 'css/wpmtst-widget.css' );
+	
 	wp_register_style( 'wpmtst-rtl-style', WPMTST_DIR . 'css/wpmtst-rtl.css' );
+	wp_register_style( 'wpmtst-widget-rtl-style', WPMTST_DIR . 'css/wpmtst-widget-rtl.css' );
 	
-	wp_register_script( 'wpmtst-pager-plugin', WPMTST_DIR . 'js/quickpager.jquery.js', array( 'jquery' ) );
-	wp_register_script( 'wpmtst-validation-plugin', WPMTST_DIR . 'js/jquery.validate.min.js', array( 'jquery' ) );
+	wp_register_script( 'wpmtst-pager-plugin', WPMTST_DIR . 'js/quickpager.jquery.js', array( 'jquery' ), false, true );
+	wp_register_script( 'wpmtst-pager-script', WPMTST_DIR . 'js/wpmtst-pager.js', array( 'wpmtst-pager-plugin' ), false, true );
 	
-	// Check for shortcodes. Keep these exploded!
-	if ( $post ) {
-
-		if ( has_shortcode( $post->post_content, 'wpmtst-all' ) ) {
-			if ( $options['load_page_style'] )
-				wp_enqueue_style( 'wpmtst-style' );
-			
-			if ( is_rtl() && $options['load_rtl_style'] )
-				wp_enqueue_style( 'wpmtst-rtl-style' );
-			
-			wp_enqueue_script( 'wpmtst-pager-plugin' );
-			add_action( 'wp_footer', 'wpmtst_pagination_function' );
-		}
-
-		if ( has_shortcode( $post->post_content, 'wpmtst-form' ) ) {
-			if ( $options['load_form_style'] )
-				wp_enqueue_style( 'wpmtst-form-style' );
-			
-			if ( is_rtl() && $options['load_rtl_style'] )
-				wp_enqueue_style( 'wpmtst-rtl-style' );
-				
-			wp_enqueue_script( 'wpmtst-validation-plugin' );
-			add_action( 'wp_footer', 'wpmtst_validation_function' );
-			
-			if ( $form_options['honeypot_before'] ) {
-				add_action( 'wp_footer', 'wpmtst_honeypot_before_script' );
-				add_action( 'wpmtst_honeypot_before', 'wpmtst_honeypot_before' );
-			}
-			
-			if ( $form_options['honeypot_after'] ) {
-				add_action( 'wp_footer', 'wpmtst_honeypot_after_script' );
-				add_action( 'wpmtst_honeypot_after', 'wpmtst_honeypot_after' );
-			}
-		}
-
-		if ( has_shortcode( $post->post_content, 'wpmtst-cycle' ) ) {
-			if ( $options['load_page_style'] )
-				wp_enqueue_style( 'wpmtst-style' );
-			
-			if ( is_rtl() && $options['load_rtl_style'] )
-				wp_enqueue_style( 'wpmtst-rtl-style' );
-		}
-
-		if ( has_shortcode( $post->post_content, 'wpmtst-single' ) ) {
-			if ( $options['load_page_style'] )
-				wp_enqueue_style( 'wpmtst-style' );
-			
-			if ( is_rtl() && $options['load_rtl_style'] )
-				wp_enqueue_style( 'wpmtst-rtl-style' );
-		}
-
-		if ( has_shortcode( $post->post_content, 'wpmtst-random' ) ) {
-			if ( $options['load_page_style'] )
-				wp_enqueue_style( 'wpmtst-style' );
-			
-			if ( is_rtl() && $options['load_rtl_style'] )
-				wp_enqueue_style( 'wpmtst-rtl-style' );
-		}
+	wp_register_script( 'wpmtst-validation-plugin', WPMTST_DIR . 'js/jquery.validate.min.js', array( 'jquery' ), false, true );
+	wp_register_script( 'wpmtst-form-script', WPMTST_DIR . 'js/wpmtst-form.js', array( 'wpmtst-validation-plugin' ), false, true );
 	
+	/*
+	 * Enqueue "normal" scripts and styles
+	 * 
+	 * @since 1.15.0
+	 */
+	 
+	$styles = $strong_testimonials_plugin->get_styles();
+
+	if ( $styles ) {
+		foreach ( $styles['normal'] as $key => $style ) {
+			wp_enqueue_style( $style );
+		}
 	}
+	
+	$scripts = $strong_testimonials_plugin->get_scripts();
+
+	if ( $scripts ) {
+		foreach ( $scripts['normal'] as $key => $script ) {
+			wp_enqueue_script( $script );
+		}
+	}
+
 }
 add_action( 'wp_enqueue_scripts', 'wpmtst_scripts' );
 
 
 /**
- * Register jQuery Cycle plugin.
+ * Enqueue styles and scripts after theme.
  *
- * In case the theme loads cycle.js for a slider, we check after it's enqueue function.
- * If registered, we register our slider script using its handle.
- * If not registered, we register it with our handle.
- * @since 1.14.1
+ * @since 1.15.0
  */
 function wpmtst_scripts_after_theme() {
-	global $post;
-	$options      = get_option( 'wpmtst_options' );
-	$form_options = get_option( 'wpmtst_form_options' );
-
-	// jQuery Cycle plugin (all flavors)
-	$filenames = array( 'jquery.cycle.all.min.js', 'jquery.cycle.all.js', 'jquery.cycle2.min.js', 'jquery.cycle2.js' );
+	
+	global $strong_testimonials_plugin;
+	
+	/**
+	 * Register jQuery Cycle plugin after theme to prevent conflicts.
+	 *
+	 * Everybody loves Cycle!
+	 *
+	 * In case the theme loads cycle.js for a slider, we check after it's enqueue function.
+	 * If registered, we register our slider script using existing Cycle handle.
+	 * If not registered, we register it with our Cycle handle.
+	 *
+	 * @since 1.14.1
+	 */
+	 
+	$filenames = array( 
+			'jquery.cycle.all.min.js', 
+			'jquery.cycle.all.js', 
+			'jquery.cycle2.min.js', 
+			'jquery.cycle2.js'
+	);
+			
 	$cycle_handle = wpmtst_is_registered( $filenames );
-	if ( ! $cycle_handle ) {
+	
+	if ( !$cycle_handle ) {
 		$cycle_handle = 'jquery-cycle';
-		wp_register_script( $cycle_handle, WPMTST_DIR . 'js/jquery.cycle2.min.js', array( 'jquery' ) );
+		wp_register_script( $cycle_handle, WPMTST_DIR . 'js/jquery.cycle2.min.js', array( 'jquery' ), false, true );
 	}
 	
 	// our slider handler, dependent on jQuery Cycle plugin
 	wp_register_script( 'wpmtst-slider', WPMTST_DIR . 'js/wpmtst-cycle.js', array ( $cycle_handle ), false, true );
+	
+	/**
+	 * Enqueue "later" scripts and styles.
+	 * 
+	 * @since 1.15.0
+	 */
+	 
+	$styles = $strong_testimonials_plugin->get_styles();
+	
+	if ( $styles ) {
+		foreach ( $styles['later'] as $key => $style ) {
+			wp_enqueue_style( $style );
+		}
+	}
+
+	$scripts = $strong_testimonials_plugin->get_scripts();
+	
+	if ( $scripts ) {
+		foreach ( $scripts['later'] as $key => $script ) {
+			wp_enqueue_script( $script );
+		}
+	}
+
 }
-add_action( 'wp_enqueue_scripts', 'wpmtst_scripts_after_theme', 50 );
+add_action( 'wp_enqueue_scripts', 'wpmtst_scripts_after_theme', 200 );
 
 
 /**
@@ -316,6 +315,9 @@ add_action( 'wp_head', 'wpmtst_show_version_number', 999 );
 /**
  * Includes
  */
+
+include( WPMTST_INC . 'class-strong-testimonials-plugin.php' );
+
 include( WPMTST_INC . 'functions.php' );
 include( WPMTST_INC . 'child-shortcodes.php' );
 include( WPMTST_INC . 'shims.php' );

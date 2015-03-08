@@ -1,0 +1,169 @@
+Sample [strong] shortcode matches in StrongTestimonials_Plugin->find_views():
+
+Array
+(
+    [0] => Array
+        (
+            [0] => [strong title excerpt slideshow show_for=3 effect_for=1]
+            [1] =>
+            [2] => strong
+            [3] =>  title excerpt slideshow show_for=3 effect_for=1
+            [4] =>
+            [5] =>
+            [6] =>
+        )
+
+    [1] => Array
+        (
+            [0] => [strong form]
+            [1] =>
+            [2] => strong
+            [3] =>  form
+            [4] =>
+            [5] =>
+            [6] =>
+        )
+
+    [2] => Array
+        (
+            [0] => [strong per_page=3 nav="before,after"]
+            [1] =>
+            [2] => strong
+            [3] =>  per_page=3 nav="before,after"
+            [4] =>
+            [5] =>
+            [6] =>
+        )
+
+)
+
+================================================================================
+
+Sample shortcode_parse_atts() results in StrongTestimonials_Plugin->find_views():
+
+Array
+(
+    [0] => title
+    [1] => excerpt
+    [2] => slideshow
+    [show_for] => 3
+    [effect_for] => 1
+)
+
+Array
+(
+    [0] => form
+)
+
+Array
+(
+    [per_page] => 3
+    [nav] => before,after
+)
+
+================================================================================
+
+Sample normalize_empty_atts() results in StrongTestimonials_Plugin->find_views():
+
+Array
+(
+    [show_for] => 3
+    [effect_for] => 1
+    [title] => 1
+    [excerpt] => 1
+    [slideshow] => 1
+)
+
+Array
+(
+    [form] => 1
+)
+
+Array
+(
+    [per_page] => 3
+    [nav] => before,after
+)
+
+================================================================================
+
+Sample get_option('sidebars_widgets') results in StrongTestimonials_Plugin->find_views():
+
+Array
+(
+    [wp_inactive_widgets] => Array
+        (
+        )
+
+    [sidebar-1] => Array
+        (
+            [0] => wpmtst-widget-2
+            [1] => wpmtst-widget-3
+        )
+
+    [sidebar-2] => Array
+        (
+        )
+
+    [sidebar-3] => Array
+        (
+        )
+
+    [array_version] => 3
+)
+
+================================================================================
+
+Sample get_option('widget_wpmtst-widget') results in StrongTestimonials_Plugin->find_views():
+
+Array
+(
+    [2] => Array
+        (
+            [title] => Testimonials
+            [category] => all
+            [order] => rand
+            [mode] => cycle
+            [cycle-limit] => 3
+            [cycle-all] => 0
+            [cycle-timeout] => 5
+            [cycle-effect] => fade
+            [cycle-speed] => 1
+            [cycle-pause] => 1
+            [static-limit] => 2
+            [char-switch] => 1
+            [char-limit] => 200
+            [show-title] => 1
+            [images] => 0
+            [client] => 1
+            [more] => 1
+            [more_page] => *
+        )
+
+    [3] => Array
+        (
+            [title] => Testimonials
+            [category] => all
+            [order] => rand
+            [mode] => static
+            [cycle-limit] => 3
+            [cycle-all] => 0
+            [cycle-timeout] => 4
+            [cycle-effect] => fade
+            [cycle-speed] => 0.5
+            [cycle-pause] => 1
+            [static-limit] => 1
+            [char-switch] => 2
+            [char-limit] => 200
+            [show-title] => 1
+            [images] => 1
+            [client] => 1
+            [more] => 2
+            [more_page] => 27
+        )
+
+    [_multiwidget] => 1
+)
+
+================================================================================
+

@@ -1,0 +1,160 @@
+Array
+(
+    [widgets] => Array
+        (
+            [0] => Array
+                (
+                    [title] => Testimonials
+                    [category] => all
+                    [order] => rand
+                    [mode] => cycle
+                    [cycle-limit] => 3
+                    [cycle-timeout] => 2.25
+                    [cycle-speed] => 0.75
+                    [cycle-pause] => 1
+                    [static-limit] => 2
+                    [char-switch] => 1
+                    [char-limit] => 100
+                    [more] => 0
+                    [more_page] => *
+                    [cycle-all] => 0
+                    [cycle-effect] => fade
+                    [show-title] => 0
+                    [images] => 0
+                    [client] => 0
+                    [panels_info] => Array
+                        (
+                            [class] => WpmTst_Widget
+                            [raw] => 
+                            [grid] => 0
+                            [cell] => 0
+                            [id] => 0
+                            [style] => Array
+                                (
+                                    [background_display] => tile
+                                )
+
+                        )
+
+                )
+
+            [1] => Array
+                (
+                    [title] => Testimonials
+                    [category] => all
+                    [order] => rand
+                    [mode] => cycle
+                    [cycle-limit] => 3
+                    [cycle-timeout] => 2.25
+                    [cycle-speed] => 0.75
+                    [cycle-pause] => 1
+                    [static-limit] => 2
+                    [char-switch] => 1
+                    [char-limit] => 100
+                    [more] => 0
+                    [more_page] => *
+                    [panels_info] => Array
+                        (
+                            [class] => WpmTst_Widget
+                            [grid] => 1
+                            [cell] => 0
+                            [id] => 1
+                            [style] => Array
+                                (
+                                    [background_image_attachment] => 
+                                    [background_display] => tile
+                                )
+
+                        )
+
+                    [cycle-all] => 0
+                    [cycle-effect] => fade
+                    [show-title] => 0
+                    [images] => 0
+                    [client] => 0
+                )
+
+            [2] => Array
+                (
+                    [title] => Testimonials
+                    [category] => all
+                    [order] => rand
+                    [mode] => cycle
+                    [cycle-limit] => 3
+                    [cycle-timeout] => 2.25
+                    [cycle-speed] => 0.75
+                    [cycle-pause] => 1
+                    [static-limit] => 2
+                    [char-switch] => 1
+                    [char-limit] => 100
+                    [more] => 0
+                    [more_page] => *
+                    [panels_info] => Array
+                        (
+                            [class] => WpmTst_Widget
+                            [grid] => 1
+                            [cell] => 1
+                            [id] => 2
+                            [style] => Array
+                                (
+                                    [background_image_attachment] => 
+                                    [background_display] => tile
+                                )
+
+                        )
+
+                    [cycle-all] => 0
+                    [cycle-effect] => fade
+                    [show-title] => 0
+                    [images] => 0
+                    [client] => 0
+                )
+
+        )
+
+    [grids] => Array
+        (
+            [0] => Array
+                (
+                    [cells] => 1
+                    [style] => Array
+                        (
+                            [background_display] => tile
+                        )
+
+                )
+
+            [1] => Array
+                (
+                    [cells] => 2
+                    [style] => Array
+                        (
+                        )
+
+                )
+
+        )
+
+    [grid_cells] => Array
+        (
+            [0] => Array
+                (
+                    [grid] => 0
+                    [weight] => 1
+                )
+
+            [1] => Array
+                (
+                    [grid] => 1
+                    [weight] => 0.5
+                )
+
+            [2] => Array
+                (
+                    [grid] => 1
+                    [weight] => 0.5
+                )
+
+        )
+
+)

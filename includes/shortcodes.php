@@ -327,6 +327,8 @@ add_shortcode( 'wpmtst-all', 'wpmtst_all_shortcode' );
  * Cycle testimonials shortcode.
  *
  * @uses wpmtst-single.php
+ *
+ * To be removed in 2.0.
  */
 function wpmtst_cycle_shortcode( $atts ) {
 	extract( shortcode_atts(
@@ -334,15 +336,6 @@ function wpmtst_cycle_shortcode( $atts ) {
 		normalize_empty_atts( $atts )
 	) );
 	$cycle = get_option( 'wpmtst_cycle' );
-
-	do_action( 
-		'wpmtst_cycle_hook', 
-		$cycle['effect'], 
-		$cycle['speed'], 
-		$cycle['timeout'], 
-		$cycle['pause'],
-		'tcycle_cycle_shortcode'
-	);
 
 	if ( 'rand' == $cycle['order'] ) {
 		$orderby = 'rand';
@@ -393,16 +386,16 @@ add_shortcode( 'wpmtst-cycle', 'wpmtst_cycle_shortcode' );
 
 /**
  * Pagination on "All Testimonials" shortcode.
+ *
+ * To be removed in 2.0.
  */
 function wpmtst_pagination_function() {
-	// $per_page = get_option( 'wpmtst_options' )['per_page']; // only PHP 5.3+
 	$options  = get_option( 'wpmtst_options' );
 	$per_page = $options['per_page'] ? $options['per_page'] : 5;
 	?>
 	<script type="text/javascript">
 		jQuery(document).ready(function($) {
 			$("#wpmtst-container").quickPager({ pageSize: <?php echo $per_page; ?>, currentPage: 1, pagerLocation: "after" });
-			$(".strong-container").quickPager({ pageSize: <?php echo $per_page; ?>, currentPage: 1, pagerLocation: "after" });
 		});
 	</script>
 	<?php

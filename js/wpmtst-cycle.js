@@ -25,6 +25,12 @@ jQuery(document).ready(function($) {
 	// Multiple instances
 	// ------------------
 	
+	// Add sequential number of the strong outer container to its inner slideshow div.
+	$(".strong-container").each(function(index){
+		var $el = $(this).find(".tcycle");
+		$el.addClass("tcycle_" + index);
+	});
+	
 	// Set container height to match tallest element.
 	$(".tcycle").each( function(index, el) {
 		var heights = $("div.t-slide", el).map(function() {
