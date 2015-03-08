@@ -280,6 +280,9 @@ Thanks but I prefer a nice [review](https://wordpress.org/support/view/plugin-re
 
 == Changelog ==
 
+= 1.15.1 - 2015-03-07 =
+* Fix bug in slideshow JavaScript.
+
 = 1.15 - 2015-03-07 =
 * Improved style and script enqueueing for better compatibility with page builder plugins.
 * Add filter for the widget "Read more" link.
