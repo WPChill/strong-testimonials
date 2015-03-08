@@ -191,6 +191,7 @@ final class StrongTestimonials_Plugin {
 		$form_options = get_option( 'wpmtst_form_options' );
 		
 		$views = array();
+		// $i = 0;
 		
 		foreach ( $matches as $key => $shortcode ) {
 			$view = '';
@@ -248,6 +249,7 @@ final class StrongTestimonials_Plugin {
 				
 				// Process attributes to check for required styles & scripts.
 				if ( $preprocess ) self::pre_process( $key, $view );
+				// if ( $preprocess ) self::pre_process( $i++, $view );
 				
 				$views[] = $view;
 				

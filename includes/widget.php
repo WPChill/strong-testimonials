@@ -145,7 +145,7 @@ class WpmTst_Widget extends WP_Widget {
 
 			echo '<div class="testimonial-widget t-slide">';
 
-			if ( isset( $data['show-title'] ) && $post->post_title )
+			if ( isset( $data['show-title'] ) && $data['show-title'] && $post->post_title )
 				echo '<h5>' . $post->post_title . '</h5>';
 
 			/*
@@ -165,14 +165,14 @@ class WpmTst_Widget extends WP_Widget {
 			
 			echo '<div class="content">';
 			
-			if ( isset( $data['images'] ) && $post->thumbnail_id )
+			if ( isset( $data['images'] ) && $data['images'] && $post->thumbnail_id )
 				echo '<div class="photo">' . get_the_post_thumbnail( $post->ID, array( 75, 75 ) ) . '</div>';
 			
 			echo $content;
 			
 			echo '</div>'; // <!-- .content -->
 			
-			if ( isset( $data['client'] ) )
+			if ( isset( $data['client'] ) && $data['client'] )
 				echo '<div class="client">' . do_shortcode( wpmtst_client_info( $post ) ) . '</div>';
 			
 			if ( 1 == $data['more'] )
