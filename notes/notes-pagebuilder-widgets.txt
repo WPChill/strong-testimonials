@@ -1,0 +1,232 @@
+Page Builder widgets = Array
+(
+    [0] => Array
+        (
+            [title] => Testimonials
+            [category] => all
+            [order] => rand
+            [mode] => cycle
+            [cycle-limit] => 3
+            [cycle-timeout] => 8
+            [cycle-speed] => 1.5
+            [cycle-pause] => 1
+            [static-limit] => 2
+            [char-switch] => 1
+            [char-limit] => 200
+            [show-title] => 1
+            [client] => 1
+            [more] => 0
+            [more_page] => *
+            [cycle-all] => 0
+            [cycle-effect] => fade
+            [images] => 0
+            [panels_info] => Array
+                (
+                    [class] => WpmTst_Widget
+                    [raw] => 
+                    [grid] => 0
+                    [cell] => 0
+                    [id] => 0
+                    [style] => Array
+                        (
+                            [background_display] => tile
+                        )
+
+                )
+
+        )
+
+    [1] => Array
+        (
+            [title] => Testimonials
+            [category] => all
+            [order] => rand
+            [mode] => cycle
+            [cycle-limit] => 3
+            [cycle-timeout] => 8
+            [cycle-speed] => 1.5
+            [cycle-pause] => 1
+            [static-limit] => 2
+            [char-switch] => 1
+            [char-limit] => 200
+            [show-title] => 1
+            [client] => 1
+            [more] => 0
+            [more_page] => *
+            [cycle-all] => 0
+            [cycle-effect] => fade
+            [images] => 0
+            [panels_info] => Array
+                (
+                    [class] => WpmTst_Widget
+                    [raw] => 
+                    [grid] => 0
+                    [cell] => 1
+                    [id] => 1
+                    [style] => Array
+                        (
+                            [background_display] => tile
+                        )
+
+                )
+
+        )
+
+    [2] => Array
+        (
+            [title] => Testimonials
+            [category] => all
+            [order] => rand
+            [mode] => cycle
+            [cycle-limit] => 3
+            [cycle-timeout] => 8
+            [cycle-speed] => 1.5
+            [cycle-pause] => 1
+            [static-limit] => 2
+            [char-switch] => 1
+            [char-limit] => 200
+            [show-title] => 1
+            [client] => 1
+            [more] => 0
+            [more_page] => *
+            [cycle-all] => 0
+            [cycle-effect] => fade
+            [images] => 0
+            [panels_info] => Array
+                (
+                    [class] => WpmTst_Widget
+                    [raw] => 
+                    [grid] => 0
+                    [cell] => 1
+                    [id] => 2
+                    [style] => Array
+                        (
+                            [background_display] => tile
+                        )
+
+                )
+
+        )
+
+)
+================================================================================
+Grouped by cells = Array
+(
+    [0] => Array
+        (
+            [0] => Array
+                (
+                    [title] => Testimonials
+                    [category] => all
+                    [order] => rand
+                    [mode] => cycle
+                    [cycle-limit] => 3
+                    [cycle-timeout] => 8
+                    [cycle-speed] => 1.5
+                    [cycle-pause] => 1
+                    [static-limit] => 2
+                    [char-switch] => 1
+                    [char-limit] => 200
+                    [show-title] => 1
+                    [client] => 1
+                    [more] => 0
+                    [more_page] => *
+                    [cycle-all] => 0
+                    [cycle-effect] => fade
+                    [images] => 0
+                    [panels_info] => Array
+                        (
+                            [class] => WpmTst_Widget
+                            [raw] => 
+                            [grid] => 0
+                            [cell] => 0
+                            [id] => 0
+                            [style] => Array
+                                (
+                                    [background_display] => tile
+                                )
+
+                        )
+
+                )
+
+        )
+
+    [1] => Array
+        (
+            [0] => Array
+                (
+                    [title] => Testimonials
+                    [category] => all
+                    [order] => rand
+                    [mode] => cycle
+                    [cycle-limit] => 3
+                    [cycle-timeout] => 8
+                    [cycle-speed] => 1.5
+                    [cycle-pause] => 1
+                    [static-limit] => 2
+                    [char-switch] => 1
+                    [char-limit] => 200
+                    [show-title] => 1
+                    [client] => 1
+                    [more] => 0
+                    [more_page] => *
+                    [cycle-all] => 0
+                    [cycle-effect] => fade
+                    [images] => 0
+                    [panels_info] => Array
+                        (
+                            [class] => WpmTst_Widget
+                            [raw] => 
+                            [grid] => 0
+                            [cell] => 1
+                            [id] => 1
+                            [style] => Array
+                                (
+                                    [background_display] => tile
+                                )
+
+                        )
+
+                )
+
+            [1] => Array
+                (
+                    [title] => Testimonials
+                    [category] => all
+                    [order] => rand
+                    [mode] => cycle
+                    [cycle-limit] => 3
+                    [cycle-timeout] => 8
+                    [cycle-speed] => 1.5
+                    [cycle-pause] => 1
+                    [static-limit] => 2
+                    [char-switch] => 1
+                    [char-limit] => 200
+                    [show-title] => 1
+                    [client] => 1
+                    [more] => 0
+                    [more_page] => *
+                    [cycle-all] => 0
+                    [cycle-effect] => fade
+                    [images] => 0
+                    [panels_info] => Array
+                        (
+                            [class] => WpmTst_Widget
+                            [raw] => 
+                            [grid] => 0
+                            [cell] => 1
+                            [id] => 2
+                            [style] => Array
+                                (
+                                    [background_display] => tile
+                                )
+
+                        )
+
+                )
+
+        )
+
+)
+================================================================================

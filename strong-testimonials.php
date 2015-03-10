@@ -4,7 +4,7 @@
  * Plugin URI: http://www.wpmission.com/plugins/strong-testimonials/
  * Description: Collect and display testimonials with a plugin that offers strong features and strong support.
  * Author: Chris Dillon
- * Version: 1.15.4
+ * Version: 1.15.5
  * Forked From: GC Testimonials version 1.3.2 by Erin Garscadden
  * Author URI: http://www.wpmission.com/contact
  * Text Domain: strong-testimonials
@@ -298,18 +298,44 @@ add_action( 'wp_enqueue_scripts', 'wpmtst_scripts_after_theme', 200 );
  * Show version number in <head> section.
  *
  * For troubleshooting only.
+ *
  * @since 1.12.0
  */
 function wpmtst_show_version_number() {
 	global $wp_version;
 	$headers = array(
-		'Name' => 'Plugin Name',
-		'Version' => 'Version',
+		'name' => 'Plugin Name',
+		'version' => 'Version',
 	);
 	$plugin_info = get_file_data( __FILE__, $headers );
-	echo '<!-- WordPress ' . $wp_version . ' | ' . $plugin_info['Name'] . ' ' . $plugin_info['Version'] . ' -->' . "\n";
+	$comment = array(
+			'WordPress ' . $wp_version,
+			$plugin_info['name'] . ' ' . $plugin_info['version'],
+	);
+	
+	if ( defined( 'SITEORIGIN_PANELS_VERSION' ) )
+		$comment[] = 'Page Builder by SiteOrigin ' . SITEORIGIN_PANELS_VERSION;
+	
+	if ( defined( 'AV_FRAMEWORK_VERSION' ) )
+		$comment[] = 'Avia Framework ' . AV_FRAMEWORK_VERSION;
+
+	if ( defined( 'ET_PB_VERSION' ) )
+		$comment[] = 'Elegant Themes Page Builder ' . ET_PB_VERSION;
+
+	if ( defined( 'TTFMAKE_VERSION' ) )
+		$comment[] = 'Make Page Builder ' . TTFMAKE_VERSION;
+
+	echo '<!-- versions: ' . implode( ' | ', $comment ) . ' -->' . "\n";
 }
 add_action( 'wp_head', 'wpmtst_show_version_number', 999 );
+
+
+/**
+ * Be sure to process shortcodes in widget.
+ *
+ * @since 1.15.5
+ */
+add_filter( 'widget_text', 'do_shortcode' );
 
 
 /**

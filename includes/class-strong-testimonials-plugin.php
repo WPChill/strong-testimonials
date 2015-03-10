@@ -51,7 +51,11 @@ final class StrongTestimonials_Plugin {
 		
 	}
 	
-	
+	/**
+	 * Load RTL stylesheet.
+	 * 
+	 * @since 1.15.4
+	 */
 	public static function load_rtl() {
 		$options = get_option('wpmtst_options');
 		if ( !empty( self::$views ) && is_rtl() && $options['load_rtl_style'] ) {
@@ -149,6 +153,8 @@ final class StrongTestimonials_Plugin {
 	 * Build list of all shortcode views on a page.
 	 *
 	 * A combination of has_shortcode and shortcode_parse_atts.
+	 *
+	 * @access public
 	 */
 	public static function find_views() {
 		
@@ -164,9 +170,16 @@ final class StrongTestimonials_Plugin {
 		
 	}
 
-	// content = post content or widget content
+	/**
+	 * Process content for shortcodes.
+	 *
+	 * This seems to solve the unenclosed shortcode issue too.
+	 *
+	 * @access private
+	 * @param string $content  Post content or widget content.
+	 */
 	private static function process_content( $content ) {
-		
+
 		preg_match_all( '/' . get_shortcode_regex() . '/s', $content, $matches, PREG_SET_ORDER );
 		if ( empty( $matches ) ) return false;
 
@@ -188,10 +201,25 @@ final class StrongTestimonials_Plugin {
 				$views[] = $view;
 				
 			}
+			else {
+				
+				/**
+				 * Recursively process nested shortcodes.
+				 *
+				 * @since 1.15.5
+				 */
+				self::process_content( $shortcode[5] );
+				
+			}
 		
 		}
 	}
 
+	/**
+	 * Process a single [strong] shortcode.
+	 *
+	 * @since 1.15.4
+	 */
 	private static function find_single_view( $counter, $atts, $att_string ) {
 		
 		$options = get_option( 'wpmtst_options' );
@@ -350,7 +378,7 @@ final class StrongTestimonials_Plugin {
 	/**
 	 * Find widgets in a page to gather styles, scripts and script vars.
 	 *
-	 * For standard widgets NOT in PageBuilder panels.
+	 * For standard widgets NOT in [Page Builder by SiteOrigin] panels.
 	 *
 	 * @access public
 	 */
@@ -409,7 +437,7 @@ final class StrongTestimonials_Plugin {
 					$id = array_pop( explode( '-', $widget_name ) );
 					$text_widgets = get_option( 'widget_text' );
 					$widget_content = $text_widgets[$id]['text'];
-					
+
 					self::process_content( $widget_content );
 					
 				}
@@ -423,7 +451,7 @@ final class StrongTestimonials_Plugin {
 	/**
 	 * Find widgets in a page to gather styles, scripts and script vars.
 	 *
-	 * For widgets in PageBuilder panels.
+	 * For widgets in [Page Builder by SiteOrigin] panels.
 	 *
 	 * @access public
 	 * @see notes-pagebuilder-post-meta-panels_data.txt
@@ -442,39 +470,57 @@ final class StrongTestimonials_Plugin {
 		$all_widgets = $panels_data['widgets'];
 		if ( !$all_widgets ) return false;
 		
+		// Need to group by cell to replicate Page Builder rendering order,
+		// whether these are Strong widgets or not.
+		$cells = array();
 		foreach ( $all_widgets as $key => $widget ) {
+			$cell_id = $widget['panels_info']['cell'];
+			$cells[$cell_id][] = $widget;
+		}
+		
+		foreach ( $cells as $cell_widgets ) {
 			
-			// Is our widget active?
-			if ( 'WpmTst_Widget' == $widget['panels_info']['class'] ) {
+			foreach ( $cell_widgets as $key => $widget ) {
 				
-				// Enqueue stylesheets
-				if ( $options['load_widget_style'] ) {
-					self::add_style( 'wpmtst-widget-style' );
-				}
-				if ( is_rtl() && $options['load_rtl_style'] ) {
-					self::add_style( 'wpmtst-widget-rtl-style' );
-				}
-				
-				if ( 'cycle' == $widget['mode'] ) {
-				
-					// PageBuilder assembles name like `widget-0-0-0`
-					$widget_name = implode( '_', array( 
-							'tcycle_widget',
-							$widget['panels_info']['grid'],
-							$widget['panels_info']['cell'],
-							$widget['panels_info']['id']
-					) );
-	
-					// Populate variable for Cycle script.
-					$args = array (
-							'fx'      => 'fade',
-							'speed'   => $widget['cycle-speed'] * 1000, 
-							'timeout' => $widget['cycle-timeout'] * 1000, 
-							'pause'   => $widget['cycle-pause'] ? true : false,
-					);
-					self::add_script( 'wpmtst-slider', 'later' );
-					self::add_script_var( 'wpmtst-slider', $widget_name, $args );
+				// Is a Strong widget?
+				if ( 'WpmTst_Widget' == $widget['panels_info']['class'] ) {
+					
+					// Enqueue stylesheets
+					if ( $options['load_widget_style'] ) {
+						self::add_style( 'wpmtst-widget-style' );
+					}
+					if ( is_rtl() && $options['load_rtl_style'] ) {
+						self::add_style( 'wpmtst-widget-rtl-style' );
+					}
+					
+					if ( 'cycle' == $widget['mode'] ) {
+					
+						// PageBuilder assembles name like `widget-0-0-0`
+						$widget_name = implode( '_', array( 
+								'tcycle_widget',
+								$widget['panels_info']['grid'],
+								$widget['panels_info']['cell'],
+								$key
+						) );
+		
+						// Populate variable for Cycle script.
+						$args = array (
+								'fx'      => 'fade',
+								'speed'   => $widget['cycle-speed'] * 1000, 
+								'timeout' => $widget['cycle-timeout'] * 1000, 
+								'pause'   => $widget['cycle-pause'] ? true : false,
+						);
+						self::add_script( 'wpmtst-slider', 'later' );
+						self::add_script_var( 'wpmtst-slider', $widget_name, $args );
 
+					}
+					
+				}
+				// Is a Text widget?
+				elseif ( 'WP_Widget_Text' == $widget['panels_info']['class'] ) {
+					
+					self::process_content( $widget['text'] );
+					
 				}
 				
 			}
@@ -580,7 +626,7 @@ final class StrongTestimonials_Plugin {
 		}
 		
 	}
-
+	
 } // StrongTestimonials_Plugin
 
 $strong_testimonials_plugin = StrongTestimonials_Plugin::get_instance();

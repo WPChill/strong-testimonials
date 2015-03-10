@@ -280,6 +280,14 @@ Thanks but I prefer a nice [review](https://wordpress.org/support/view/plugin-re
 
 == Changelog ==
 
+= 1.15.5 - 2015-03-13 =
+* Add filter to process shortcode in widgets.
+* Preprocess nested shortcodes.
+* Add "News" tab to Settings page.
+* Remove Guide icon.
+* Add more version info to HTML comment.
+* Fix <label> mismatch in widget form.
+
 = 1.15.4 - 2015-03-10 =
 * Fix bug in slideshows.
 
@@ -472,6 +480,9 @@ Thanks but I prefer a nice [review](https://wordpress.org/support/view/plugin-re
 
 
 == Upgrade Notice ==
+
+= 1.15.5 =
+Improve compatibility with Page Builder by SiteOrigin, Avia Framework, Elegant Themes Page Builder, Make theme by Theme Foundry, Responsive theme by CyberChimps.
 
 = 1.15.4 =
 Fix bug in slideshows.

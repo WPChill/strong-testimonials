@@ -459,7 +459,7 @@ class WpmTst_Widget extends WP_Widget {
 			<!-- title -->
 			<p>
 				<input type="checkbox" id="<?php echo $this->get_field_id( 'show-title' ); ?>" name="<?php echo $this->get_field_name( 'show-title' ); ?>" <?php checked( $instance['show-title'] ); ?> class="checkbox" />
-				<label for="<?php echo $this->get_field_id('show-title'); ?>">
+				<label for="<?php echo $this->get_field_id( 'show-title' ); ?>">
 					<?php
 					/* translators: This appears in widget settings. */
 					_e( 'Title', 'strong-testimonials' );
@@ -478,7 +478,7 @@ class WpmTst_Widget extends WP_Widget {
 			<!-- featured images -->
 			<p>
 				<input type="checkbox" id="<?php echo $this->get_field_id( 'images' ); ?>" name="<?php echo $this->get_field_name( 'images' ); ?>" <?php checked( $instance['images'] ); ?> class="checkbox" />
-				<label for="<?php echo $this->get_field_id('images'); ?>">
+				<label for="<?php echo $this->get_field_id( 'images' ); ?>">
 					<?php
 					/* translators: This appears in widget settings. */
 					_ex( 'Featured Images', 'thumbnail', 'strong-testimonials' );
@@ -497,7 +497,7 @@ class WpmTst_Widget extends WP_Widget {
 			<!-- client info -->
 			<p>
 				<input type="checkbox" id="<?php echo $this->get_field_id( 'client' ); ?>" name="<?php echo $this->get_field_name( 'client' ); ?>" <?php checked( $instance['client'] ); ?> class="checkbox" />
-				<label for="<?php echo $this->get_field_id('images'); ?>">
+				<label for="<?php echo $this->get_field_id( 'client' ); ?>">
 					<?php
 						/* translators: This appears in widget settings. */
 						_e( 'Client Info', 'strong-testimonials' );

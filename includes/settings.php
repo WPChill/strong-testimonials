@@ -33,8 +33,7 @@ function wpmtst_settings_menu() {
 
 	add_submenu_page( 'edit.php?post_type=wpm-testimonial',
 										_x( 'Guide', 'noun', 'strong-testimonials' ),
-										/* translators: %s is an icon. */
-										sprintf( _x ('%s Guide', 'noun', 'strong-testimonials' ), '<div class="dashicons dashicons-info"></div>' ),
+										_x ('Guide', 'noun', 'strong-testimonials' ),
 										'manage_options',
 										'guide',
 										'wpmtst_guide' );
@@ -62,8 +61,7 @@ function wpmtst_unique_menu_title() {
 	if ( is_plugin_active( 'clean-testimonials/clean-testimonials.php' ) )
 		$need_unique = true;
 		
-	if ( ! $need_unique )
-		return;
+	if ( ! $need_unique ) return;
 
 	global $menu;
 
@@ -178,29 +176,37 @@ function wpmtst_settings_page() {
 			</div>
 		<?php endif; ?>
 
-		<?php $active_tab = isset( $_GET['tab'] ) ? $_GET['tab'] : 'general'; ?>
+		<?php $active_tab = isset( $_GET['tab'] ) ? $_GET['tab'] : 'news'; ?>
 		<h2 class="nav-tab-wrapper">
-			<a href="?post_type=wpm-testimonial&page=settings" class="nav-tab <?php echo $active_tab == 'general' ? 'nav-tab-active' : ''; ?>"><?php _ex( 'General', 'adjective', 'strong-testimonials' ); ?></a>
+			<a href="?post_type=wpm-testimonial&page=settings" class="nav-tab <?php echo $active_tab == 'news' ? 'nav-tab-active' : ''; ?>"><?php _e( 'News', 'strong-testimonials' ); ?></a>
+			<a href="?post_type=wpm-testimonial&page=settings&tab=general" class="nav-tab <?php echo $active_tab == 'general' ? 'nav-tab-active' : ''; ?>"><?php _ex( 'General', 'adjective', 'strong-testimonials' ); ?></a>
 			<a href="?post_type=wpm-testimonial&page=settings&tab=form" class="nav-tab <?php echo $active_tab == 'form' ? 'nav-tab-active' : ''; ?>"><?php _e( 'Form', 'strong-testimonials' ); ?></a>
 			<a href="?post_type=wpm-testimonial&page=settings&tab=cycle" class="nav-tab <?php echo $active_tab == 'cycle' ? 'nav-tab-active' : ''; ?>"><?php _e( 'Cycle Shortcode', 'strong-testimonials' ); ?></a>
 			<a href="?post_type=wpm-testimonial&page=settings&tab=client" class="nav-tab <?php echo $active_tab == 'client' ? 'nav-tab-active' : ''; ?>"><?php _e( 'Client Section', 'strong-testimonials' ); ?></a>
 		</h2>
-
+		
+		<?php
+		if ( 'news' == $active_tab ) {
+			wpmtst_news();
+			return;
+		}
+		?>
+		
 		<form id="<?php echo $active_tab; ?>-form" method="post" action="options.php">
 			<?php
-			if( $active_tab == 'form' ) {
+			if ( $active_tab == 'form' ) {
 				settings_fields( 'wpmtst-form-group' );
 				wpmtst_form_settings();
 			}
-			elseif( $active_tab == 'client' ) {
+			elseif ( $active_tab == 'client' ) {
 				settings_fields( 'wpmtst-settings-group' );
 				wpmtst_client_settings();
 			}
-			elseif( $active_tab == 'cycle' ) {
+			elseif ( $active_tab == 'cycle' ) {
 				settings_fields( 'wpmtst-cycle-group' );
 				wpmtst_cycle_settings();
 			}
-			else {  // general tab
+			else {  // $active_tab == 'general'
 				settings_fields( 'wpmtst-settings-group' );
 				wpmtst_settings();
 			} 
@@ -213,6 +219,14 @@ function wpmtst_settings_page() {
 		
 	</div><!-- wrap -->
 	<?php
+}
+
+
+/*
+ * News page
+ */
+function wpmtst_news() {
+	include( WPMTST_INC . 'settings-news.php' );
 }
 
 

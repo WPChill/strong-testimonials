@@ -815,3 +815,24 @@ input[readonly] {
 .has-divs div.input-email-subject {
 	margin-bottom: 15px;
 }
+
+
+/* Settings > News tab
+---------------------------------------------------------*/
+
+.strong-news {
+}
+
+.strong-news h3 {
+	font-size: 1.5em;
+}
+
+.strong-news p {
+	margin: 1.5em 0;
+	font-size: 1.2em;
+}
+
+.strong-news ol a,
+.strong-news ul a {
+	font-size: 1.2em;
+}
