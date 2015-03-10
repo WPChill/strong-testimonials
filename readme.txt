@@ -280,7 +280,10 @@ Thanks but I prefer a nice [review](https://wordpress.org/support/view/plugin-re
 
 == Changelog ==
 
-= 1.15.3 - 2015-03-08 =
+= 1.15.4 - 2015-03-10 =
+* Fix bug in slideshows.
+
+= 1.15.3 - 2015-03-09 =
 * Fix bug in widget.
 
 = 1.15.2 - 2015-03-07 =
@@ -469,6 +472,12 @@ Thanks but I prefer a nice [review](https://wordpress.org/support/view/plugin-re
 
 
 == Upgrade Notice ==
+
+= 1.15.4 =
+Fix bug in slideshows.
+
+= 1.15.3 =
+Fix bug in widget.
 
 = 1.15.2 =
 Fix handling of custom widget areas.

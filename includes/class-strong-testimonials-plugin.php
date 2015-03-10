@@ -12,8 +12,9 @@ final class StrongTestimonials_Plugin {
 	 * A singleton instance.
 	 *
 	 * For now, only used for preprocessing shortcodes and widgets to properly
-	 * enqueue styles and scripts to (1) improve overall plugin flexibility and
-	 * to (2) improve compatibility with PageBuilder plugin (and probably others).
+	 * enqueue styles and scripts (1) to improve overall plugin flexibility,
+	 * (2) to improve compatibility with PageBuilder plugin (and probably others),
+	 * and (3) to maintain conditional laoding best practices.
 	 *
 	 * @return StrongTestimonials_Plugin  StrongTestimonials_Plugin object
 	 */
@@ -34,26 +35,35 @@ final class StrongTestimonials_Plugin {
 		
 		// Preprocess the post content for the [strong] shortcode.
 		add_action( 'wp', array( $this, 'find_views' ) );
-		
-		// Preprocess the post content for widgets.
-		add_action( 'wp', array( $this, 'find_widgets' ) );
 		add_action( 'wp', array( $this, 'find_pagebuilder_widgets' ) );
+		
+		// Preprocess the page for widgets.
+		add_action( 'wp', array( $this, 'find_widgets' ) );
 		
 		// Preprocess the post content for the original shortcodes.
 		add_action( 'wp', array( $this, 'find_original_shortcodes' ) );
 
+		// Load RTL stylesheet.
+		add_action( 'wp_enqueue_scripts', array( $this, 'load_rtl' ) );
+
 		// Localize scripts. Priority 5 is important.
 		add_action( 'wp_print_footer_scripts', array( $this, 'localize_vars' ), 5 );
 		
-		/**
-		 * Filter the content.
-		 * 
-		 * Priority must be higher than PageBuilder.
-		 */
-		// add_filter( 'the_content', array( $this, 'append_order_attribute' ), 5 );
-		
 	}
 	
+	
+	public static function load_rtl() {
+		$options = get_option('wpmtst_options');
+		if ( !empty( self::$views ) && is_rtl() && $options['load_rtl_style'] ) {
+			wp_enqueue_style( 'wpmtst-rtl-style' );
+		}
+	}
+
+	private static function add_view( $view ) {
+		self::$views[] = $view;
+	}
+	
+
 	/**
 	 * Access to the testimonial views on a page.
 	 *
@@ -134,38 +144,6 @@ final class StrongTestimonials_Plugin {
 		}
 	}
 	
-	/**
-	 * Append an attribute to the shortcode.
-	 *
-	 * Used to indicate sequential order of the shortcode in a page.
-	 * An elegant solution that won't work because of Page Builder's
-	 * content filter. So do this in wpmtst-cycle.js instead.
-	 *
-	 * @access public
-	 * @param string $content  The post content.
-	 * @return string  The modified post content.
-	 */
-	public static function append_order_attribute( $content ) {
-		global $post;
-
-		if ( empty( $post ) ) return $content;
-		
-		if ( false === strpos( $content, '[' ) ) return $content;
-
-		preg_match_all( '/' . get_shortcode_regex() . '/s', $content, $matches, PREG_SET_ORDER );
-		
-		if ( empty( $matches ) ) return $content;
-		
-		foreach ( $matches as $key => $shortcode ) {
-			
-			if ( 'strong' === $shortcode[2] ) {
-				$atts = shortcode_parse_atts( $shortcode[3] );
-				$content = str_replace( $shortcode[3], $shortcode[3] . ' order_in_page="'.$key.'"', $content );
-			}
-			
-		}
-		return $content;
-	}		
 	
 	/**
 	 * Build list of all shortcode views on a page.
@@ -182,88 +160,96 @@ final class StrongTestimonials_Plugin {
 		$content = $post->post_content;
 		if ( false === strpos( $content, '[' ) ) return false;
 
+		self::process_content( $content );
+		
+	}
+
+	// content = post content or widget content
+	private static function process_content( $content ) {
+		
 		preg_match_all( '/' . get_shortcode_regex() . '/s', $content, $matches, PREG_SET_ORDER );
 		if ( empty( $matches ) ) return false;
 
-		self::$view_count = count( $matches );
-		
-		$options = get_option( 'wpmtst_options' );
-		$form_options = get_option( 'wpmtst_form_options' );
-		
 		$views = array();
-		// $i = 0;
 		
 		foreach ( $matches as $key => $shortcode ) {
-			$view = '';
 			
 			if ( 'strong' === $shortcode[2] ) {
+			
+				$parsed_atts = shortcode_parse_atts( $shortcode[3] );
 				
-				$atts = normalize_empty_atts( shortcode_parse_atts( $shortcode[3] ) );
+				// shortcode signature
+				$att_string = serialize( $parsed_atts );
 				
-				$preprocess = false;
+				$atts = normalize_empty_atts( $parsed_atts );
 				
-				// Read More
-				if ( isset( $atts['read_more'] ) ) {
-					$view = array( 'mode' => 'read_more', 'atts' => $atts );
-				}
-				
-				// Form
-				elseif ( isset( $atts['form'] ) ) {
-					$view = array( 'mode' => 'form', 'atts' => $atts );
-					
-					if ( $options['load_form_style'] ) {
-						self::add_style( 'wpmtst-form-style' );
-					}
-					
-					self::add_script( 'wpmtst-form-script' );
-					
-					if ( $form_options['honeypot_before'] ) {
-						add_action( 'wp_footer', 'wpmtst_honeypot_before_script' );
-						add_action( 'wpmtst_honeypot_before', 'wpmtst_honeypot_before' );
-					}
-					
-					if ( $form_options['honeypot_after'] ) {
-						add_action( 'wp_footer', 'wpmtst_honeypot_after_script' );
-						add_action( 'wpmtst_honeypot_after', 'wpmtst_honeypot_after' );
-					}
-					
-				}
-				
-				// Slideshow
-				elseif ( isset( $atts['slideshow'] ) ) {
-					$view = array( 'mode' => 'slideshow', 'atts' => $atts );
-					if ( $options['load_page_style'] ) {
-						self::add_style( 'wpmtst-style' );
-					}
-					$preprocess = true;
-				}
-				
-				// Display (default)
-				else {
-					$view = array( 'mode' => 'display', 'atts' => $atts );
-					if ( $options['load_page_style'] ) {
-						self::add_style( 'wpmtst-style' );
-					}
-					$preprocess = true;
-				}
-				
-				// Process attributes to check for required styles & scripts.
-				if ( $preprocess ) self::pre_process( $key, $view );
-				// if ( $preprocess ) self::pre_process( $i++, $view );
+				$view = self::find_single_view( self::$view_count++, $atts, $att_string );
 				
 				$views[] = $view;
 				
 			}
 		
 		}
-		
-		if ( !empty( $views ) && is_rtl() && $options['load_rtl_style'] ) {
-			wp_enqueue_style( 'wpmtst-rtl-style' );
-		}
-
-		self::$views = $views;
 	}
 
+	private static function find_single_view( $counter, $atts, $att_string ) {
+		
+		$options = get_option( 'wpmtst_options' );
+		$form_options = get_option( 'wpmtst_form_options' );
+		
+		$preprocess = false;
+				
+		// Read More
+		if ( isset( $atts['read_more'] ) ) {
+			$view = array( 'mode' => 'read_more', 'atts' => $atts );
+		}
+		
+		// Form
+		elseif ( isset( $atts['form'] ) ) {
+			$view = array( 'mode' => 'form', 'atts' => $atts );
+			
+			if ( $options['load_form_style'] ) {
+				self::add_style( 'wpmtst-form-style' );
+			}
+			
+			self::add_script( 'wpmtst-form-script' );
+			
+			if ( $form_options['honeypot_before'] ) {
+				add_action( 'wp_footer', 'wpmtst_honeypot_before_script' );
+				add_action( 'wpmtst_honeypot_before', 'wpmtst_honeypot_before' );
+			}
+			
+			if ( $form_options['honeypot_after'] ) {
+				add_action( 'wp_footer', 'wpmtst_honeypot_after_script' );
+				add_action( 'wpmtst_honeypot_after', 'wpmtst_honeypot_after' );
+			}
+			
+		}
+		
+		// Slideshow
+		elseif ( isset( $atts['slideshow'] ) ) {
+			$view = array( 'mode' => 'slideshow', 'atts' => $atts );
+			if ( $options['load_page_style'] ) {
+				self::add_style( 'wpmtst-style' );
+			}
+			$preprocess = true;
+		}
+		
+		// Display (default)
+		else {
+			$view = array( 'mode' => 'display', 'atts' => $atts );
+			if ( $options['load_page_style'] ) {
+				self::add_style( 'wpmtst-style' );
+			}
+			$preprocess = true;
+		}
+		
+		// Process attributes to check for required styles & scripts.
+		if ( $preprocess ) self::pre_process( $view, $counter, $atts, $att_string );
+			
+		return $view;
+	}
+	
 	/**
 	 * Preprocess a view to gather styles, scripts and script vars.
 	 *
@@ -271,8 +257,9 @@ final class StrongTestimonials_Plugin {
 	 * @param string $key  The array key that indicates the view's order in the page.
 	 * @param array $view  The view.
 	 */
-	private static function pre_process( $key, $view ) {
+	private static function pre_process( $view, $counter, $atts, $att_string ) {
 		
+		$var = '';
 		$options = get_option( 'wpmtst_options' );
 		
 		// minimal subset of all shortcode atts
@@ -332,8 +319,8 @@ final class StrongTestimonials_Plugin {
 					'pause'   => $no_pause ? true : false,
 			);
 			self::add_script( 'wpmtst-slider', 'later' );
-			self::add_script_var( 'wpmtst-slider', 'tcycle_' . $key, $args );
-
+			self::add_script_var( 'wpmtst-slider', 'strong_cycle_' . hash( 'md5', $att_string ), $args );
+			
 		}
 		
 		// display -> paginated
@@ -357,6 +344,7 @@ final class StrongTestimonials_Plugin {
 		}
 
 		wp_reset_postdata();
+		return $var;
 	}
 	
 	/**
@@ -371,7 +359,8 @@ final class StrongTestimonials_Plugin {
 		if ( is_admin() ) return false;
 
 		$options = get_option( 'wpmtst_options' );
-		
+		$form_options = get_option( 'wpmtst_form_options' );
+
 		// Get all widgets
 		$all_widgets = get_option( 'sidebars_widgets' );
 		
@@ -381,12 +370,12 @@ final class StrongTestimonials_Plugin {
 		foreach ( $all_widgets as $sidebar => $widgets ) {
 			
 			// active widget areas only (see notes.txt)
-			if ( 'wp_inactive_widgets' == $sidebar || 'array_version' == $sidebar ) continue;
+			if ( !$widgets || 'wp_inactive_widgets' == $sidebar || 'array_version' == $sidebar ) continue;
 			
 			foreach ( $widgets as $key => $widget_name ) {
 				
 				// Is our widget active?
-				if ( 0 === strpos( $widget_name, 'wpmtst-widget' ) ) {
+				if ( 0 === strpos( $widget_name, 'wpmtst-widget-' ) ) {
 					
 					// Enqueue stylesheets
 					if ( $options['load_widget_style'] ) {
@@ -414,6 +403,16 @@ final class StrongTestimonials_Plugin {
 					}
 					
 				}
+				// Get text widget content to scan for [strong] shortcode
+				elseif ( 0 === strpos( $widget_name, 'text-' ) ){
+					
+					$id = array_pop( explode( '-', $widget_name ) );
+					$text_widgets = get_option( 'widget_text' );
+					$widget_content = $text_widgets[$id]['text'];
+					
+					self::process_content( $widget_content );
+					
+				}
 				
 			}
 				
@@ -434,6 +433,7 @@ final class StrongTestimonials_Plugin {
 		if ( is_admin() ) return false;
 		
 		$options = get_option( 'wpmtst_options' );
+		$form_options = get_option( 'wpmtst_form_options' );
 		
 		// Get all widgets
 		$panels_data = get_post_meta( get_the_ID(), 'panels_data', true );
@@ -513,7 +513,7 @@ final class StrongTestimonials_Plugin {
 					self::add_style( 'wpmtst-style' );
 				
 				if ( is_rtl() && $options['load_rtl_style'] )
-					self::add_style( 'wpmtst-style' );
+					self::add_style( 'wpmtst-rtl-style' );
 				
 				self::add_script( 'wpmtst-pager-plugin' );
 				add_action( 'wp_footer', 'wpmtst_pagination_function' );

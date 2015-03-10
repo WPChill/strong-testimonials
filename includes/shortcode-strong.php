@@ -174,7 +174,8 @@ function wpmtst_strong_shortcode( $atts, $content = null, $parent_tag ) {
 	// SUB-MODE: SLIDESHOW
 	// ===================
 	if ( $slideshow ) {
-		$content_class_list .= ' tcycle';
+		// add shortcode signature
+		$content_class_list .= ' strong_cycle strong_cycle_' . hash( 'md5', serialize( $atts ) );
 	}
 	else {
 		// pagination
