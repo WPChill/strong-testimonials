@@ -43,26 +43,15 @@ final class StrongTestimonials_Plugin {
 		// Preprocess the post content for the original shortcodes.
 		add_action( 'wp', array( $this, 'find_original_shortcodes' ) );
 
-		// Load RTL stylesheet.
-		add_action( 'wp_enqueue_scripts', array( $this, 'load_rtl' ) );
-
 		// Localize scripts. Priority 5 is important.
 		add_action( 'wp_print_footer_scripts', array( $this, 'localize_vars' ), 5 );
 		
 	}
+
 	
 	/**
-	 * Load RTL stylesheet.
-	 * 
-	 * @since 1.15.4
+	 * Add a view.
 	 */
-	public static function load_rtl() {
-		$options = get_option('wpmtst_options');
-		if ( !empty( self::$views ) && is_rtl() && $options['load_rtl_style'] ) {
-			wp_enqueue_style( 'wpmtst-rtl-style' );
-		}
-	}
-
 	private static function add_view( $view ) {
 		self::$views[] = $view;
 	}
@@ -274,7 +263,11 @@ final class StrongTestimonials_Plugin {
 		
 		// Process attributes to check for required styles & scripts.
 		if ( $preprocess ) self::pre_process( $view, $counter, $atts, $att_string );
-			
+		
+		// RTL
+		if ( is_rtl() && $options['load_rtl_style'] )
+			self::add_style( 'wpmtst-rtl-style' );
+		
 		return $view;
 	}
 	
@@ -391,7 +384,8 @@ final class StrongTestimonials_Plugin {
 
 		// Get all widgets
 		$all_widgets = get_option( 'sidebars_widgets' );
-		
+		if ( !$all_widgets ) return false;
+
 		// Get active strong widgets
 		$strong_widgets = get_option( 'widget_wpmtst-widget' );
 		
@@ -414,20 +408,25 @@ final class StrongTestimonials_Plugin {
 					}
 					
 					$widget_id = array_pop( explode( '-', $widget_name ) );
-					$widget_settings = $strong_widgets[$widget_id];
 					
-					if ( 'cycle' == $widget_settings['mode'] ) {
-		
-						// Populate variable for Cycle script.
-						$args = array (
-								'fx'      => 'fade',
-								'speed'   => $widget_settings['cycle-speed'] * 1000, 
-								'timeout' => $widget_settings['cycle-timeout'] * 1000, 
-								'pause'   => $widget_settings['cycle-pause'] ? true : false,
-						);
-						self::add_script( 'wpmtst-slider', 'later' );
-						self::add_script_var( 'wpmtst-slider', 'tcycle_' . str_replace( '-', '_', $widget_name ), $args );
+					if ( $strong_widgets ) {
+						
+						$widget_settings = $strong_widgets[$widget_id];
+						
+						if ( 'cycle' == $widget_settings['mode'] ) {
+			
+							// Populate variable for Cycle script.
+							$args = array (
+									'fx'      => 'fade',
+									'speed'   => $widget_settings['cycle-speed'] * 1000, 
+									'timeout' => $widget_settings['cycle-timeout'] * 1000, 
+									'pause'   => $widget_settings['cycle-pause'] ? true : false,
+							);
+							self::add_script( 'wpmtst-slider', 'later' );
+							self::add_script_var( 'wpmtst-slider', 'tcycle_' . str_replace( '-', '_', $widget_name ), $args );
 
+						}
+					
 					}
 					
 				}

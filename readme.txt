@@ -156,7 +156,7 @@ Many thanks to these translators. Can you help? [Contact me](http://www.wpmissio
 
 Option A:
 
-1. Go to `Plugins > Add New`.
+1. Go to Plugins > Add New.
 1. Search for "strong testimonials".
 1. Click "Install Now".
 
@@ -169,7 +169,7 @@ Option B:
 Option C:
 
 1. Download the zip file.
-1. Upload the zip file via `Plugins > Add New > Upload`.
+1. Upload the zip file via Plugins > Add New > Upload.
 
 Finally, activate the plugin.
 
@@ -184,6 +184,21 @@ For help, use the [support forum](http://wordpress.org/support/plugin/strong-tes
 
 [Screenshots](http://wordpress.org/plugins/strong-testimonials/screenshots/) | [Demos](http://demos.wpmission.com/strong-testimonials/) | [Feature Requests](http://www.wpmission.com/feature-request)
 
+= How can I change the "Read more" link text? =
+
+For the widget, use the 'strong_widget_read_more_text' filter. For example, add this to your theme's `functions.php`:
+`
+/**
+ * Change the widget "Read more" link text.
+ */
+function my_strong_widget_read_more_text( $text ) {
+	return "More testimonials »";
+}
+add_filter( 'strong_widget_read_more_text', 'my_strong_widget_read_more_text', 10, 1 );
+`
+
+For the `[strong]` shortcode, use the `more_post` and `more_text` attributes like in [this demo](http://demos.wpmission.com/strong-testimonials/the-strong-shortcode/read-more-each/).
+
 
 = I added the `[strong]` shortcode to a page but I don't see the name or company fields. =
 
@@ -196,7 +211,7 @@ If you're not familiar with HTML or nested shortcodes, it may feel like learning
 
 The `[strong]` shortcode has child shortcodes `[client]` and `[field]`. Here's a good [example](http://demos.wpmission.com/strong-testimonials/the-strong-shortcode/custom-fields/).
 
-For the original `[wpmtst]` shortcodes and the widget, go to the `Client Section` tab on the `Testimonials > Settings` page. Follow the example to build shortcodes based on your custom fields. There is a shortcode for text fields (like a client's name) and a shortcode for links (like a client's website). When in doubt, use the default template provided.
+For the widget and the original `[wpmtst]` shortcodes, go to the Client Section tab on the Testimonials > Settings page. Follow the example to build shortcodes based on your custom fields. There is a shortcode for text fields (like a client's name) and a shortcode for links (like a client's website). When in doubt, use the default template provided.
 
 
 = So the child/nested shortcodes for `[strong]` are different than the widget? Why? =
@@ -222,19 +237,19 @@ Instructions are [here](https://wordpress.org/support/topic/how-to-change-the-sl
 
 = How can I reorder my testimonials? =
 
-Until I can build this into the plugin, try [Post Types Order](https://wordpress.org/plugins/post-types-order/) by Nsp Code (which lists them on a separate admin page) or [Simple Custom Post Order](https://wordpress.org/plugins/simple-custom-post-order/) by Sameer Humagain (which works directly in the admin list). Or you can adjust each testimonial's publish date manually.
+Until I can build this into the plugin, try [Post Types Order](https://wordpress.org/plugins/post-types-order/) by Nsp Code (which lists them on a separate admin page) or [Simple Custom Post Order](https://wordpress.org/plugins/simple-custom-post-order/) by Sameer Humagain (which works directly in the admin list).
 
 
 = How can I change the fields on the form? =
 
-On the `Testimonials > Fields` page, there is a field editor where you can add or remove fields, change field details, and drag-n-drop to reorder them. You can also restore the default fields. 
+On the Testimonials > Fields page, there is a field editor where you can add or remove fields, change field details, and drag-n-drop to reorder them. You can also restore the default fields. 
 
 If you have ever used the Advanced Custom Fields or Custom Field Suite plugins, the editor will be very familiar. Here is a full [tutorial](http://www.wpmission.com/tutorials/customize-the-form-in-strong-testimonials/).
 
 
 = How do I add a Captcha to the form? =
 
-Select one of the supported plugins on the `Testimonials > Settings` page. Use the link to each plugin's download page to install it.
+Select one of the supported plugins on the Testimonials > Settings page. Use the link to each plugin's download page to install it.
 
 If the currently selected Captcha plugin is deactivated, the setting will revert to "none".
 
@@ -280,13 +295,18 @@ Thanks but I prefer a nice [review](https://wordpress.org/support/view/plugin-re
 
 == Changelog ==
 
+= 1.15.6 - 2015-05-14 =
+* Add missing element to RTL stylesheet.
+* Prevent error if no widgets have been defined.
+
 = 1.15.5 - 2015-03-13 =
-* Add filter to process shortcode in widgets.
+* Process shortcode in widgets.
 * Preprocess nested shortcodes.
+* Add filter 'strong_widget_read_more_text' for the widget "Read more" link text.
 * Add "News" tab to Settings page.
 * Remove Guide icon.
 * Add more version info to HTML comment.
-* Fix <label> mismatch in widget form.
+* Fix `<label>` mismatch in widget form.
 
 = 1.15.4 - 2015-03-10 =
 * Fix bug in slideshows.
@@ -480,6 +500,9 @@ Thanks but I prefer a nice [review](https://wordpress.org/support/view/plugin-re
 
 
 == Upgrade Notice ==
+
+= 1.15.6 =
+Fix RTL stylesheet. Prevent error if there are no widgets.
 
 = 1.15.5 =
 Improve compatibility with Page Builder by SiteOrigin, Avia Framework, Elegant Themes Page Builder, Make theme by Theme Foundry, Responsive theme by CyberChimps.
