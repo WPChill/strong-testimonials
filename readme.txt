@@ -295,8 +295,11 @@ Thanks but I prefer a nice [review](https://wordpress.org/support/view/plugin-re
 
 == Changelog ==
 
+= 1.15.8 - 2015-03-16 =
+* Fix pass-by-reference error.
+
 = 1.15.7 - 2015-03-16 =
-* Minor bug fix.
+* Fix pass-by-reference error.
 * Add `wpmtst_get_field` function.
 
 = 1.15.6 - 2015-03-14 =
@@ -504,6 +507,9 @@ Thanks but I prefer a nice [review](https://wordpress.org/support/view/plugin-re
 
 
 == Upgrade Notice ==
+
+= 1.15.8 =
+Minor bug fix.
 
 = 1.15.7 =
 Minor bug fix. Add `wpmtst_get_field` template function.

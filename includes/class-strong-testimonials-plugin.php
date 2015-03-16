@@ -407,47 +407,51 @@ final class StrongTestimonials_Plugin {
 						self::add_style( 'wpmtst-widget-rtl-style' );
 					}
 					
-					$widget_id = array_pop( explode( '-', $widget_name ) );
-					
 					if ( $strong_widgets ) {
+					
+						$widget_name_parts = explode( '-', $widget_name );
+						$id = array_pop( $widget_name_parts );
 						
-						$widget_settings = $strong_widgets[$widget_id];
-						
-						if ( 'cycle' == $widget_settings['mode'] ) {
-			
-							// Populate variable for Cycle script.
-							$args = array (
-									'fx'      => 'fade',
-									'speed'   => $widget_settings['cycle-speed'] * 1000, 
-									'timeout' => $widget_settings['cycle-timeout'] * 1000, 
-									'pause'   => $widget_settings['cycle-pause'] ? true : false,
-							);
-							self::add_script( 'wpmtst-slider', 'later' );
-							self::add_script_var( 'wpmtst-slider', 'tcycle_' . str_replace( '-', '_', $widget_name ), $args );
+						if ( isset( $strong_widgets[$id] ) ) {
+							
+							$widget = $strong_widgets[$id];
+							
+							if ( 'cycle' == $widget['mode'] ) {
+				
+								// Populate variable for Cycle script.
+								$args = array (
+										'fx'      => 'fade',
+										'speed'   => $widget['cycle-speed'] * 1000, 
+										'timeout' => $widget['cycle-timeout'] * 1000, 
+										'pause'   => $widget['cycle-pause'] ? true : false,
+								);
+								self::add_script( 'wpmtst-slider', 'later' );
+								self::add_script_var( 'wpmtst-slider', 'tcycle_' . str_replace( '-', '_', $widget_name ), $args );
 
+							}
+							
 						}
 					
 					}
 					
 				}
-				/**
-				 * Get text widget content to scan for [strong] shortcode
-				 * 
-				 * Thanks to Matthew Harris.
-				 * @link https://github.com/cdillon/strong-testimonials/issues/3
-				 */
+				// Get text widget content to scan for [strong] shortcode
 				elseif ( 0 === strpos( $widget_name, 'text-' ) ){
 					
 					$text_widgets = get_option( 'widget_text' );
 					if ( !$text_widgets ) return;
 					
+					/*
+					 * Thanks to Matthew Harris for catching pass-by-reference error.
+					 * @link https://github.com/cdillon/strong-testimonials/issues/3
+					 */
 					$widget_name_parts = explode( '-', $widget_name );
 					$id = array_pop( $widget_name_parts );
 					
-					$widget = $text_widgets[$id];
-					if ( !$widget ) return;
-					
-					self::process_content( $widget['text'] );
+					if ( isset( $text_widgets[$id] ) ) {
+						$widget = $text_widgets[$id];
+						self::process_content( $widget['text'] );
+					}
 					
 				}
 				
