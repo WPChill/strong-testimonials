@@ -295,7 +295,11 @@ Thanks but I prefer a nice [review](https://wordpress.org/support/view/plugin-re
 
 == Changelog ==
 
-= 1.15.6 - 2015-05-14 =
+= 1.15.7 - 2015-03-16 =
+* Minor bug fix.
+* Add `wpmtst_get_field` function.
+
+= 1.15.6 - 2015-03-14 =
 * Add missing element to RTL stylesheet.
 * Prevent error if no widgets have been defined.
 
@@ -500,6 +504,9 @@ Thanks but I prefer a nice [review](https://wordpress.org/support/view/plugin-re
 
 
 == Upgrade Notice ==
+
+= 1.15.7 =
+Minor bug fix. Add `wpmtst_get_field` template function.
 
 = 1.15.6 =
 Fix RTL stylesheet. Prevent error if there are no widgets.

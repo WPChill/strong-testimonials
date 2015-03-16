@@ -50,13 +50,24 @@ function wpmtst_single( $post, $args = array() ) {
 
 
 /**
- * Template functions (partial).
+ * Echo custom field.
  *
  * @since 1.11.0
  */
 function wpmtst_field( $field = null, $args = array() ) {
+	echo wpmtst_get_field( $field, $args );
+}
+
+/**
+ * Fetch custom field.
+ *
+ * Thanks to Matthew Harris.
+ * @link https://github.com/cdillon/strong-testimonials/issues/2
+ * @since 1.15.7
+ */
+function wpmtst_get_field( $field, $args = array() ) {	
 	if ( ! $field ) return '';
-		
+	
 	global $post;
 	$html = '';
 	
@@ -77,7 +88,7 @@ function wpmtst_field( $field = null, $args = array() ) {
 			$html = get_post_meta( $post->ID, $field, true );
 			
 	}
-	echo $html;
+	return $html;
 }
 
 

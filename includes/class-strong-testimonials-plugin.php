@@ -430,14 +430,24 @@ final class StrongTestimonials_Plugin {
 					}
 					
 				}
-				// Get text widget content to scan for [strong] shortcode
+				/**
+				 * Get text widget content to scan for [strong] shortcode
+				 * 
+				 * Thanks to Matthew Harris.
+				 * @link https://github.com/cdillon/strong-testimonials/issues/3
+				 */
 				elseif ( 0 === strpos( $widget_name, 'text-' ) ){
 					
-					$id = array_pop( explode( '-', $widget_name ) );
 					$text_widgets = get_option( 'widget_text' );
-					$widget_content = $text_widgets[$id]['text'];
-
-					self::process_content( $widget_content );
+					if ( !$text_widgets ) return;
+					
+					$widget_name_parts = explode( '-', $widget_name );
+					$id = array_pop( $widget_name_parts );
+					
+					$widget = $text_widgets[$id];
+					if ( !$widget ) return;
+					
+					self::process_content( $widget['text'] );
 					
 				}
 				
