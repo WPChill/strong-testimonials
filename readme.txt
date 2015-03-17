@@ -295,6 +295,9 @@ Thanks but I prefer a nice [review](https://wordpress.org/support/view/plugin-re
 
 == Changelog ==
 
+= 1.15.10 - 2015-03-17 =
+* Fix category view page. 
+
 = 1.15.9 - 2015-03-17 =
 * Fix possible early return when preprocessing widgets.
 
@@ -510,6 +513,9 @@ Thanks but I prefer a nice [review](https://wordpress.org/support/view/plugin-re
 
 
 == Upgrade Notice ==
+
+= 1.15.10 =
+Fix category view page. 
 
 = 1.15.9 =
 Minor bug fix.

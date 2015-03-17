@@ -4,7 +4,7 @@
  * Plugin URI: http://www.wpmission.com/strong-testimonials/
  * Description: Collect and display testimonials with a plugin that offers strong features and strong support.
  * Author: Chris Dillon
- * Version: 1.15.9
+ * Version: 1.15.10
  * Forked From: GC Testimonials version 1.3.2 by Erin Garscadden
  * Author URI: http://www.wpmission.com/contact
  * Text Domain: strong-testimonials
@@ -125,21 +125,20 @@ function wpmtst_register_cpt() {
 			'public'                => true,
 			'show_ui'               => true,
 			'capability_type'       => 'post',
-			'hierarchical'          => false,	// @since 1.8
-			// 'rewrite'               => true,
+			'hierarchical'          => false,	 // @since 1.8
 			'rewrite'               => array( 'slug' => _x( 'testimonial', 'slug', 'strong-testimonials' ) ), // @since 1.8
 			'menu_icon'				      => 'dashicons-editor-quote',
-			// 'menu_icon'				      => 'dashicons-testimonial',
 			'menu_position'			    => 20,
-			'exclude_from_search' 	=> true,
+			'exclude_from_search' 	=> false,  // @since 1.15.10
 			'supports'              => array( 'title', 'excerpt', 'editor', 'thumbnail', 'custom-fields' )
 	);
 
 	register_post_type( 'wpm-testimonial', $testimonial_args );
 
-	// Additional permastructure.
-	// This will override other CPTs with same slug.
-	// $permastruct_args = $testimonial_args['rewrite'];
+	/**
+	 * Additional permastructure.
+	 * This will override other CPTs with same slug.
+	 */
 	// add_permastruct( 'wpm-testimonial', "review/%wpm-testimonial%", array( 'slug' => __( 'review', 'strong-testimonials' ) ) );
 
 	
@@ -162,10 +161,17 @@ function wpmtst_register_cpt() {
 			'labels'       => $categories_labels,
 			'rewrite'      => array(
 					'slug'         => 'view',
-					'hierarchical' => true,
-					'with_front'   => false
+					// 'hierarchical' => true,
+					// 'with_front'   => false,
 			)
 	) );
+	
+	/**
+	 * Attaching taxonomy to custom post type, per the codex.
+	 *
+	 * @since 1.15.10
+	 */
+	register_taxonomy_for_object_type( 'wpm-testimonial-category', 'wpm-testimonial' );
 
 }
 // add_action( 'init', 'wpmtst_register_cpt' );
