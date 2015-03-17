@@ -373,6 +373,10 @@ final class StrongTestimonials_Plugin {
 	 *
 	 * For standard widgets NOT in [Page Builder by SiteOrigin] panels.
 	 *
+	 * Thanks to Matthew Harris for catching strict pass-by-reference error
+	 * on $id = array_pop( explode( '-', $widget_name ) ).
+	 * @link https://github.com/cdillon/strong-testimonials/issues/3
+	 *
 	 * @access public
 	 */
 	public static function find_widgets() {
@@ -436,21 +440,20 @@ final class StrongTestimonials_Plugin {
 					
 				}
 				// Get text widget content to scan for [strong] shortcode
-				elseif ( 0 === strpos( $widget_name, 'text-' ) ){
+				elseif ( 0 === strpos( $widget_name, 'text-' ) ) {
 					
 					$text_widgets = get_option( 'widget_text' );
-					if ( !$text_widgets ) return;
 					
-					/*
-					 * Thanks to Matthew Harris for catching pass-by-reference error.
-					 * @link https://github.com/cdillon/strong-testimonials/issues/3
-					 */
-					$widget_name_parts = explode( '-', $widget_name );
-					$id = array_pop( $widget_name_parts );
+					if ( $text_widgets ) {
 					
-					if ( isset( $text_widgets[$id] ) ) {
-						$widget = $text_widgets[$id];
-						self::process_content( $widget['text'] );
+						$widget_name_parts = explode( '-', $widget_name );
+						$id = array_pop( $widget_name_parts );
+						
+						if ( isset( $text_widgets[$id] ) ) {
+							$widget = $text_widgets[$id];
+							self::process_content( $widget['text'] );
+						}
+					
 					}
 					
 				}

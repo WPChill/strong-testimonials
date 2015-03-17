@@ -295,6 +295,9 @@ Thanks but I prefer a nice [review](https://wordpress.org/support/view/plugin-re
 
 == Changelog ==
 
+= 1.15.9 - 2015-03-17 =
+* Fix possible early return when preprocessing widgets.
+
 = 1.15.8 - 2015-03-16 =
 * Fix pass-by-reference error.
 
@@ -507,6 +510,9 @@ Thanks but I prefer a nice [review](https://wordpress.org/support/view/plugin-re
 
 
 == Upgrade Notice ==
+
+= 1.15.9 =
+Minor bug fix.
 
 = 1.15.8 =
 Minor bug fix.
