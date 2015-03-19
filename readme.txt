@@ -295,6 +295,9 @@ Thanks but I prefer a nice [review](https://wordpress.org/support/view/plugin-re
 
 == Changelog ==
 
+= 1.15.11 - 2015-03-19 =
+* Preprocess post meta fields for shortcodes.
+
 = 1.15.10 - 2015-03-17 =
 * Fix category view page. 
 
@@ -513,6 +516,9 @@ Thanks but I prefer a nice [review](https://wordpress.org/support/view/plugin-re
 
 
 == Upgrade Notice ==
+
+= 1.15.11 =
+Fix slideshow for certain page builders.
 
 = 1.15.10 =
 Fix category view page. 

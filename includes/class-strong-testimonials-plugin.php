@@ -13,8 +13,8 @@ final class StrongTestimonials_Plugin {
 	 *
 	 * For now, only used for preprocessing shortcodes and widgets to properly
 	 * enqueue styles and scripts (1) to improve overall plugin flexibility,
-	 * (2) to improve compatibility with PageBuilder plugin (and probably others),
-	 * and (3) to maintain conditional laoding best practices.
+	 * (2) to improve compatibility with page builder plugins, and (3) to 
+	 * maintain conditional loading best practices.
 	 *
 	 * @return StrongTestimonials_Plugin  StrongTestimonials_Plugin object
 	 */
@@ -35,6 +35,9 @@ final class StrongTestimonials_Plugin {
 		
 		// Preprocess the post content for the [strong] shortcode.
 		add_action( 'wp', array( $this, 'find_views' ) );
+		add_action( 'wp', array( $this, 'find_views_in_postmeta' ) );
+		
+		// Page Builder by Site Origin
 		add_action( 'wp', array( $this, 'find_pagebuilder_widgets' ) );
 		
 		// Preprocess the page for widgets.
@@ -141,8 +144,6 @@ final class StrongTestimonials_Plugin {
 	/**
 	 * Build list of all shortcode views on a page.
 	 *
-	 * A combination of has_shortcode and shortcode_parse_atts.
-	 *
 	 * @access public
 	 */
 	public static function find_views() {
@@ -153,15 +154,39 @@ final class StrongTestimonials_Plugin {
 		if ( empty( $post ) ) return false;
 		
 		$content = $post->post_content;
-		if ( false === strpos( $content, '[' ) ) return false;
+		if ( false === strpos( $content, '[strong' ) ) return false;
 
 		self::process_content( $content );
 		
 	}
 
 	/**
+	 * Build list of all shortcode views in a page's meta fields.
+	 *
+	 * To handle page builders that store shortcodes and widgets in post meta.
+	 *
+	 * @access public
+	 * @since 1.15.11
+	 */
+	public static function find_views_in_postmeta() {
+		
+		if ( is_admin() ) return false;
+		
+		global $post;
+		if ( empty( $post ) ) return false;
+		
+		$meta_content = get_post_meta( $post->ID );
+		$meta_content_serialized = maybe_serialize( $meta_content );
+		if ( false === strpos( $meta_content_serialized, '[strong' ) ) return false;
+
+		self::process_content( $meta_content_serialized );
+		
+	}
+	
+	/**
 	 * Process content for shortcodes.
 	 *
+	 * A combination of has_shortcode and shortcode_parse_atts.
 	 * This seems to solve the unenclosed shortcode issue too.
 	 *
 	 * @access private
@@ -194,6 +219,9 @@ final class StrongTestimonials_Plugin {
 				
 				/**
 				 * Recursively process nested shortcodes.
+				 *
+				 * Handles:
+				 * Elegant Themes page builder (Divi theme).
 				 *
 				 * @since 1.15.5
 				 */
@@ -262,7 +290,8 @@ final class StrongTestimonials_Plugin {
 		}
 		
 		// Process attributes to check for required styles & scripts.
-		if ( $preprocess ) self::pre_process( $view, $counter, $atts, $att_string );
+		if ( $preprocess )
+			self::pre_process( $view, $counter, $atts, $att_string );
 		
 		// RTL
 		if ( is_rtl() && $options['load_rtl_style'] )
