@@ -184,6 +184,23 @@ For help, use the [support forum](http://wordpress.org/support/plugin/strong-tes
 
 [Screenshots](http://wordpress.org/plugins/strong-testimonials/screenshots/) | [Demos](http://demos.wpmission.com/strong-testimonials/) | [Feature Requests](http://www.wpmission.com/feature-request)
 
+= The pagination controls are not working right. =
+
+Try adding this to your (child) theme's `functions.php`:
+
+`
+/**
+ * Remove HTML comments, except MSIE conditionals, from Strong Testimonials output.
+ */
+function my_strong_html( $content ) {
+	$content = preg_replace('/<!--(?!\s*(?:\[if [^\]]+]|<!|>))(?:(?!-->).)*-->/s', '', $content);
+	return $content;
+}
+add_filter( 'strong_html', 'my_strong_html', 10, 1 );
+`
+
+Some page builder plugins inadvertently wrap HTML comments in shortcode output in paragraph tags. The pagination script then interprets those extra paragraphs as regular content. This filter removes those comments.
+
 = How can I change the "Read more" link text? =
 
 For the widget, use the 'strong_widget_read_more_text' filter. For example, add this to your theme's `functions.php`:
@@ -294,6 +311,11 @@ Thanks but I prefer a nice [review](https://wordpress.org/support/view/plugin-re
 
 
 == Changelog ==
+
+= 1.15.12 - 2015-03-24 =
+* Improve compatibility with WooCommerce and Visual Composer.
+* Fix mobile screen orientation change CSS.
+* Strip tags when truncating content.
 
 = 1.15.11 - 2015-03-19 =
 * Preprocess post meta fields for shortcodes.
@@ -516,6 +538,9 @@ Thanks but I prefer a nice [review](https://wordpress.org/support/view/plugin-re
 
 
 == Upgrade Notice ==
+
+= 1.15.12 =
+Improve compatibility with WooCommerce and Visual Composer. Fix mobile screen orientation change. Strip HTML tags when truncating content.
 
 = 1.15.11 =
 Fix slideshow for certain page builders.

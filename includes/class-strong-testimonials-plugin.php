@@ -36,6 +36,7 @@ final class StrongTestimonials_Plugin {
 		// Preprocess the post content for the [strong] shortcode.
 		add_action( 'wp', array( $this, 'find_views' ) );
 		add_action( 'wp', array( $this, 'find_views_in_postmeta' ) );
+		add_action( 'wp', array( $this, 'find_views_in_postexcerpt' ) );
 		
 		// Page Builder by Site Origin
 		add_action( 'wp', array( $this, 'find_pagebuilder_widgets' ) );
@@ -183,6 +184,27 @@ final class StrongTestimonials_Plugin {
 		
 	}
 	
+	/**
+	 * Build list of all shortcode views in a page's excerpt.
+	 *
+	 * WooCommerce stores product short description in post_excerpt field.
+	 *
+	 * @access public
+	 * @since 1.15.12
+	 */
+	public static function find_views_in_postexcerpt() {
+		
+		if ( is_admin() ) return false;
+		
+		global $post;
+		if ( empty( $post ) ) return false;
+
+		if ( false === strpos( $post->post_excerpt, '[strong' ) ) return false;
+
+		self::process_content( $post->post_excerpt );
+		
+	}
+
 	/**
 	 * Process content for shortcodes.
 	 *

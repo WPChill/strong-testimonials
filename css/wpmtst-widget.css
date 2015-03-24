@@ -58,3 +58,19 @@
   display: block;
 }
 */
+
+/*
+ * Mobile device orientation change
+ */
+@media only screen and (min-width: 320px) and (orientation:portrait) {
+	.testimonial-widget h5 {
+	}
+	.testimonial-widget .content {
+	}
+}
+@media only screen and (min-width: 320px) and (orientation:landscape) {
+	.testimonial-widget h5 {
+	}
+	.testimonial-widget .content {
+	}
+}
