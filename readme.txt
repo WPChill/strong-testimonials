@@ -312,6 +312,9 @@ Thanks but I prefer a nice [review](https://wordpress.org/support/view/plugin-re
 
 == Changelog ==
 
+= 1.15.13 - 2015-03-29 =
+* Order by menu order instead of post date in query.
+
 = 1.15.12 - 2015-03-24 =
 * Improve compatibility with WooCommerce and Visual Composer.
 * Fix mobile screen orientation change CSS.
@@ -538,6 +541,9 @@ Thanks but I prefer a nice [review](https://wordpress.org/support/view/plugin-re
 
 
 == Upgrade Notice ==
+
+= 1.15.13 =
+Fix custom post order.
 
 = 1.15.12 =
 Improve compatibility with WooCommerce and Visual Composer. Fix mobile screen orientation change. Strip HTML tags when truncating content.

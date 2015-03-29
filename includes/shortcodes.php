@@ -304,7 +304,7 @@ function wpmtst_all_shortcode( $atts ) {
 	$args = array(
 			'post_type'      => 'wpm-testimonial',
 			'posts_per_page' => $limit,
-			'orderby'        => 'post_date',
+			'orderby'        => 'menu_order',
 			'order'          => 'DESC',
 			'post_status'    => 'publish'
 	);
@@ -353,11 +353,11 @@ function wpmtst_cycle_shortcode( $atts ) {
 		$order   = '';
 	}
 	elseif ( 'oldest' == $cycle['order'] ) {
-		$orderby = 'post_date';
+		$orderby = 'menu_order';
 		$order   = 'ASC';
 	}
 	else {
-		$orderby = 'post_date';
+		$orderby = 'menu_order';
 		$order   = 'DESC';
 	}
 	$limit = ( $cycle['all'] ? -1 : $cycle['limit'] );

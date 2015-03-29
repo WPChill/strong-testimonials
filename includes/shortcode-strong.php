@@ -136,7 +136,7 @@ function wpmtst_strong_shortcode( $atts, $content = null, $parent_tag ) {
 	$args = array(
 			'post_type'      => 'wpm-testimonial',
 			'posts_per_page' => $count,
-			'orderby'        => 'post_date',
+			'orderby'        => 'menu_order',
 			'post_status'    => 'publish',
 	);
 	
@@ -159,7 +159,6 @@ function wpmtst_strong_shortcode( $atts, $content = null, $parent_tag ) {
 		$args['orderby'] = 'rand';
 	}
 	else {
-		$args['orderby'] = 'post_date';
 		if ( $newest )
 			$args['order'] = 'DESC';
 		else 

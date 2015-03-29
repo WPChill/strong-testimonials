@@ -71,11 +71,11 @@ class WpmTst_Widget extends WP_Widget {
 			$order   = '';
 		}
 		elseif ( 'oldest' == $data['order'] ) {
-			$orderby = 'post_date';
+			$orderby = 'menu_order';
 			$order   = 'ASC';
 		}
 		else {
-			$orderby = 'post_date';
+			$orderby = 'menu_order';
 			$order   = 'DESC';
 		}
 
