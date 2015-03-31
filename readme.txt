@@ -312,6 +312,9 @@ Thanks but I prefer a nice [review](https://wordpress.org/support/view/plugin-re
 
 == Changelog ==
 
+= 1.15.14 - 2015-04-02 =
+* Fix bug when truncating content.
+
 = 1.15.13 - 2015-03-29 =
 * Order by menu order instead of post date in query.
 
@@ -541,6 +544,9 @@ Thanks but I prefer a nice [review](https://wordpress.org/support/view/plugin-re
 
 
 == Upgrade Notice ==
+
+= 1.15.14 =
+Fix bug when truncating content.
 
 = 1.15.13 =
 Fix custom post order.

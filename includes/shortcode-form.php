@@ -399,7 +399,8 @@ function wpmtst_honeypot_before_script() {
  */
 function wpmtst_honeypot_after_script() {
 	?>
-<script>
+<script type='text/javascript'>
+	//<![CDATA[
 	( function( $ ) {
 		'use strict';
 		var forms = "#wpmtst-submission-form";
@@ -411,6 +412,7 @@ function wpmtst_honeypot_after_script() {
 			return true;
 		});
 	})( jQuery );
+	//]]>
 </script>
 	<?php
 }

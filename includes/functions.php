@@ -14,17 +14,19 @@
  * last word (e.g. string length = 203) so no need to truncate.
  */
 function wpmtst_truncate( $content, $limit ) {
+	/**
+	 * Strip tags.
+	 *
+	 * @since 1.15.12
+	 */
+	$content = strip_tags( $content );
+	
 	if ( strlen( $content ) > $limit ) {
-		/**
-		 * Strip tags.
-		 *
-		 * @since 1.15.12
-		 */
-		$content = strip_tags( $content );
 		$space_pos = strpos( $content, ' ', $limit );
 		if ( $space_pos )
 			$content = substr( $content, 0, $space_pos ) . ' . . . ';
 	}
+	
 	return $content;
 }
 
