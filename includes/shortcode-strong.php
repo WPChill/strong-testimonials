@@ -81,8 +81,6 @@ function wpmtst_strong_shortcode( $atts, $content = null, $parent_tag ) {
 				// read more link attributes
 				// 'class' => '',
 				'page' => '',
-				
-				'order_in_page' => 0,
 		),
 		normalize_empty_atts( $atts ), 
 		$parent_tag
