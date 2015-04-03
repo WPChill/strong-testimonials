@@ -130,7 +130,7 @@ function wpmtst_register_cpt() {
 			'menu_icon'				      => 'dashicons-editor-quote',
 			'menu_position'			    => 20,
 			'exclude_from_search' 	=> false,  // @since 1.15.10
-			'supports'              => array( 'title', 'excerpt', 'editor', 'thumbnail', 'custom-fields' )
+			'supports'              => array( 'title', 'excerpt', 'editor', 'thumbnail', 'custom-fields', 'page-attributes' )
 	);
 
 	register_post_type( 'wpm-testimonial', $testimonial_args );
