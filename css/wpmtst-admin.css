@@ -836,3 +836,9 @@ input[readonly] {
 .strong-news ul a {
 	font-size: 1.2em;
 }
+
+
+/* category list */
+td.column-shortcode {
+	white-space: nowrap;
+}

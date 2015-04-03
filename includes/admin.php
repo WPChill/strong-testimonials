@@ -284,7 +284,7 @@ add_filter( 'manage_edit-wpm-testimonial-category_columns', 'wpmtst_manage_categ
  */
 function wpmtst_manage_columns( $out, $column_name, $id ) {
 	if ( 'shortcode' == $column_name )
-		$output = '[wpmtst-all category="' . $id . '"]';
+		$output = '[strong <b>category="' . $id . '"</b> ]';
 	elseif ( 'ID' == $column_name )
 		$output = $id;
 	else
