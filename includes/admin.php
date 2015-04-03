@@ -202,7 +202,7 @@ function wpmtst_custom_columns( $column ) {
 		echo $post->post_thumbnail;
 	}
 	elseif ( 'shortcode' == $column ) {
-		echo '[strong id="' . $post->ID . '" ... ]';
+		echo '[strong id="' . $post->ID . '" ]';
 	}
 	elseif ( 'category' == $column ) {
 		$categories = get_the_terms( 0, 'wpm-testimonial-category' );
@@ -284,7 +284,7 @@ add_filter( 'manage_edit-wpm-testimonial-category_columns', 'wpmtst_manage_categ
  */
 function wpmtst_manage_columns( $out, $column_name, $id ) {
 	if ( 'shortcode' == $column_name )
-		$output = '[strong <b>category="' . $id . '"</b> ]';
+		$output = '[strong category="' . $id . '" ]';
 	elseif ( 'ID' == $column_name )
 		$output = $id;
 	else
