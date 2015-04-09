@@ -37,6 +37,7 @@
 
 #custom-field-list .handle:hover {
 	color: #111;
+	cursor: move;
 }
 
 #custom-field-list a.field {

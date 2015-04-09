@@ -640,6 +640,7 @@ final class StrongTestimonials_Plugin {
 					self::add_style( 'wpmtst-rtl-style' );
 					
 				self::add_script( 'wpmtst-validation-plugin' );
+				self::add_script( 'wpmtst-validation-lang' );
 				add_action( 'wp_footer', 'wpmtst_validation_function' );
 				
 				if ( $form_options['honeypot_before'] ) {

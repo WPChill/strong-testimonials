@@ -66,17 +66,16 @@ class WpmTst_Widget extends WP_Widget {
 
 		// build query
 
-		if ( 'rand' == $data['order'] ) {
-			$orderby = 'rand';
-			$order   = '';
-		}
-		elseif ( 'oldest' == $data['order'] ) {
+		if ( 'menu' == $data['order'] ) {
 			$orderby = 'menu_order';
 			$order   = 'ASC';
 		}
 		else {
-			$orderby = 'menu_order';
-			$order   = 'DESC';
+			$orderby = 'post_date';
+			if ( 'oldest' == $data['order'] )
+				$order = 'ASC';
+			else
+				$order = 'DESC';
 		}
 
 		if ( 'cycle' == $data['mode'] ) {
@@ -128,6 +127,9 @@ class WpmTst_Widget extends WP_Widget {
 	
 		$wp_query = new WP_Query();
 		$results = $wp_query->query( $args );
+		
+		if ( 'rand' == $data['order'] )
+			shuffle( $results );
 
 		// start HTML output
 		$read_more_text = apply_filters( 'strong_widget_read_more_text', _x( 'Read more', 'link', 'strong-testimonials' ) );
@@ -198,6 +200,7 @@ class WpmTst_Widget extends WP_Widget {
 
 		$order_list = array(
 				'rand'   => _x( 'Random', 'display order', 'strong-testimonials' ),
+				'menu'   => _x( 'Menu Order', 'display order', 'strong-testimonials' ),
 				'recent' => _x( 'Newest first', 'display order', 'strong-testimonials' ),
 				'oldest' => _x( 'Oldest first', 'display order', 'strong-testimonials' ),
 		);

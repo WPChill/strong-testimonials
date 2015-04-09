@@ -44,12 +44,36 @@
 	</tr>
 	<tr valign="top">
 		<th scope="row">
-			<?php _e( 'The number of testimonials to show per page', 'strong-testimonials' ); ?>
+			<?php _e( 'Pagination', 'strong-testimonials' ); ?>
 		</th>
 		<td>
-			<input type="text" name="wpmtst_options[per_page]" size="3" value="<?php echo esc_attr( $options['per_page'] ); ?>" />
-			<?php /* translators: %s is a shortcode. */ ?>
-			<?php echo sprintf( __( 'This applies to the %s shortcode.', 'strong-testimonials' ), '<span class="code">[wpmtst-all]</span>' ); ?>
+			<p>
+				<label>
+					<input type="text" name="wpmtst_options[per_page]" size="2" value="<?php echo esc_attr( $options['per_page'] ); ?>" />
+					<?php _e( 'The number of testimonials to show per page.', 'strong-testimonials' ); ?>
+				</label>
+			</p>
+			<p>
+				<?php /* translators: %s is a shortcode. */ ?>
+				<?php echo sprintf( __( 'This applies to the %s shortcode only.', 'strong-testimonials' ), '<code>[wpmtst-all]</code>' ); ?>
+			</p>
+			<p><?php _e( 'Enter <code>-1</code> for no pagination.', 'strong-testimonials' ); ?></p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<th scope="row">
+			<?php _e( 'Reordering', 'strong-testimonials' ); ?>
+		</th>
+		<td>
+			<p>
+				<label>
+					<input type="checkbox" name="wpmtst_options[reorder]" <?php checked( $options['reorder'] ); ?> />
+					<?php /* translators: %s is a shortcode. */ ?>
+					<?php _e( 'Enable drag-and-drop reordering in the testimonial list.', 'strong-testimonials' ); ?>
+				</label>
+			</p>
+			<p><?php _e( 'Enabling this will overwrite any existing order settings.', 'strong-testimonials' ); ?></p>
+			<p><?php _e( 'Disable this if you want to set the order manually using the Order field.', 'strong-testimonials' ); ?></p>
 		</td>
 	</tr>
 </table>

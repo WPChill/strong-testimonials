@@ -248,7 +248,7 @@ function wpmtst_random_shortcode( $atts ) {
 	extract( shortcode_atts(
 		array( 
 				'category' => '', 
-				'limit' => 1
+				'limit'    => 1,
 		),
 		normalize_empty_atts( $atts )
 	) );
@@ -256,8 +256,8 @@ function wpmtst_random_shortcode( $atts ) {
 
 	$args = array(
 			'post_type'      => 'wpm-testimonial',
-			'posts_per_page' => $limit,
-			'orderby'        => 'rand',
+			'posts_per_page' => -1,
+			'orderby'        => 'post_date',
 			'post_status'    => 'publish'
 	);
 
@@ -274,9 +274,21 @@ function wpmtst_random_shortcode( $atts ) {
 	
 	$wp_query = new WP_Query();
 	$results  = $wp_query->query( $args );
+	
+	$random_keys    = array_rand( $results, $limit );
+	$random_results = array();
+	
+	if ( is_int( $random_keys ) ) {
+		$random_results[] = $results[$random_keys];
+	}
+	else {
+		foreach ( $random_keys as $key ) {
+			$random_results[] = $results[$key];
+		}
+	}
 
 	$display = '<div id="wpmtst-container">';
-	foreach ( $results as $post ) {
+	foreach ( $random_results as $post ) {
 		$display .= wpmtst_single( wpmtst_get_post( $post ) );
 	}
 	$display .= '</div>';
@@ -304,8 +316,8 @@ function wpmtst_all_shortcode( $atts ) {
 	$args = array(
 			'post_type'      => 'wpm-testimonial',
 			'posts_per_page' => $limit,
-			'orderby'        => 'menu_order',
-			'order'          => 'DESC',
+			// 'orderby'        => 'menu_order',
+			// 'order'          => 'DESC',
 			'post_status'    => 'publish'
 	);
 
@@ -348,17 +360,16 @@ function wpmtst_cycle_shortcode( $atts ) {
 	) );
 	$cycle = get_option( 'wpmtst_cycle' );
 
-	if ( 'rand' == $cycle['order'] ) {
-		$orderby = 'rand';
-		$order   = '';
-	}
-	elseif ( 'oldest' == $cycle['order'] ) {
+	if ( 'menu_order' == $cycle['order'] ) {
 		$orderby = 'menu_order';
 		$order   = 'ASC';
 	}
 	else {
-		$orderby = 'menu_order';
-		$order   = 'DESC';
+		$orderby = 'post_date';
+		if ( 'oldest' == $cycle['order'] )
+			$order = 'ASC';
+		else
+			$order = 'DESC';
 	}
 	$limit = ( $cycle['all'] ? -1 : $cycle['limit'] );
 	
@@ -383,7 +394,10 @@ function wpmtst_cycle_shortcode( $atts ) {
 
 	$wp_query = new WP_Query();
 	$results = $wp_query->query( $args );
-
+	
+	if ( 'rand' == $cycle['order'] )
+		shuffle( $results );
+	
 	$display = '<div id="wpmtst-container" class="tcycle tcycle_cycle_shortcode">';
 	foreach ( $results as $post ) {
 		$display .= '<div class="result t-slide">' . wpmtst_single( wpmtst_get_post( $post ), $cycle ) . '</div>';
@@ -403,6 +417,8 @@ add_shortcode( 'wpmtst-cycle', 'wpmtst_cycle_shortcode' );
 function wpmtst_pagination_function() {
 	$options  = get_option( 'wpmtst_options' );
 	$per_page = $options['per_page'] ? $options['per_page'] : 5;
+	if ( $per_page < 1 )
+		return;
 	?>
 	<script type="text/javascript">
 		jQuery(document).ready(function($) {

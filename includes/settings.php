@@ -94,6 +94,7 @@ function wpmtst_sanitize_options( $input ) {
 	$input['load_widget_style'] = isset( $input['load_widget_style'] ) ? 1 : 0;
 	$input['load_form_style']   = isset( $input['load_form_style'] ) ? 1 : 0;
 	$input['load_rtl_style']    = isset( $input['load_rtl_style'] ) ? 1 : 0;
+	$input['reorder']           = isset( $input['reorder'] ) ? 1 : 0;
 	return $input;
 }
 
@@ -248,6 +249,7 @@ function wpmtst_cycle_settings() {
 	// @TODO: de-duplicate (in widget too)
 	$order_list = array(
 			'rand'   => _x( 'Random', 'display order', 'strong-testimonials' ),
+			'menu'   => _x( 'Menu Order', 'display order', 'strong-testimonials' ),
 			'recent' => _x( 'Newest first', 'display order', 'strong-testimonials' ),
 			'oldest' => _x( 'Oldest first', 'display order', 'strong-testimonials' ),
 	);

@@ -24,8 +24,7 @@ function wpmtst_default_settings() {
 	else {
 		// -2B- UPDATE
 		if ( ! isset( $options['plugin_version'] )
-					|| $options['plugin_version'] != $plugin_version 
-					|| 'strong.dev' == $_SERVER['SERVER_NAME'] ) {
+					|| $options['plugin_version'] != $plugin_version ) {
 
 			// Fix captcha inconsistency
 			if ( isset( $options['captcha'] ) && 'none' == $options['captcha'] )
@@ -137,8 +136,7 @@ function wpmtst_default_settings() {
 	else {
 		// -5C- UPDATE
 		if ( ! isset( $options['plugin_version'] )
-					|| $options['plugin_version'] != $plugin_version 
-					|| 'strong.dev' == $_SERVER['SERVER_NAME'] ) {
+					|| $options['plugin_version'] != $plugin_version ) {
 
 			// Merge in new options
 			$form_options = array_merge( $default_form_options, $form_options );

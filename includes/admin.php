@@ -8,14 +8,89 @@
  * Init
  */
 function wpmtst_admin_init() {
+	
 	// Check WordPress version
 	wpmtst_version_check();
+	
 	// Check for new options in plugin activation/update
 	wpmtst_default_settings();
+	
 	// Remove ad banner from Captcha by BestWebSoft plugin
 	remove_action( 'admin_notices', 'cptch_plugin_banner' );
+	
 }
 add_action( 'admin_init', 'wpmtst_admin_init' );
+
+
+/**
+ * Prevent other post ordering plugins, in admin_init hook.
+ *
+ * @since 1.15.15
+ */
+function wpmtst_deny_plugins_init() {
+	
+	/**
+	 * Intuitive Custom Post Order
+	 */
+	if ( is_plugin_active( 'intuitive-custom-post-order/intuitive-custom-post-order.php' ) ) {
+		$options = get_option( 'hicpo_options' );
+		$update = false;
+		
+		if ( in_array( 'wpm-testimonial', $options['objects'] ) ) {
+			$options['objects'] = array_diff( $options['objects'], array( 'wpm-testimonial' ) );
+			$update = true;
+		}
+		
+		if ( in_array( 'wpm-testimonial-category', $options['tags'] ) ) {
+			$options['tags'] = array_diff( $options['tags'], array( 'wpm-testimonial-category' ) );
+			$update = true;
+		}
+		
+		if ( $update )
+			update_option( 'hicpo_options', $options );
+	}
+	
+	/**
+	 * Simple Custom Post Order
+	 */
+	if ( is_plugin_active( 'simple-custom-post-order/simple-custom-post-order.php' ) ) {
+		$options = get_option( 'scporder_options' );
+		$update = false;
+		
+		if ( in_array( 'wpm-testimonial', $options['objects'] ) ) {
+			$options['objects'] = array_diff( $options['objects'], array( 'wpm-testimonial' ) );
+			$update = true;
+		}
+		
+		if ( in_array( 'wpm-testimonial-category', $options['tags'] ) ) {
+			$options['tags'] = array_diff( $options['tags'], array( 'wpm-testimonial-category' ) );
+			$update = true;
+		}
+		
+		if ( $update )
+			update_option( 'scporder_options', $options );
+	}
+	
+}
+add_action( 'admin_init', 'wpmtst_deny_plugins_init', 200 );
+
+
+/**
+ * Prevent other post ordering plugins, in admin_menu hook.
+ *
+ * @since 1.15.15
+ */
+function wpmtst_deny_plugins_menu() {
+	
+	/**
+	 * Post Types Order
+	 */
+	if ( is_plugin_active( 'post-types-order/post-types-order.php' ) ) {
+		remove_submenu_page( 'edit.php?post_type=wpm-testimonial', 'order-post-types-wpm-testimonial' );
+	}
+
+}
+add_action( 'admin_menu', 'wpmtst_deny_plugins_menu', 200 );
 
 
 /*
@@ -41,15 +116,15 @@ function wpmtst_admin_scripts( $hook ) {
 	
 	// Page Builder compat
 	if ( in_array( $hook, $hooks_to_style ) || defined( 'SITEORIGIN_PANELS_VERSION' ) ) {
-		wp_enqueue_style( 'wpmtst-admin-style', WPMTST_DIR . 'css/wpmtst-admin.css' );
+		wp_enqueue_style( 'wpmtst-admin-style', WPMTST_URL . 'css/wpmtst-admin.css' );
 	}	
 	
 	if ( 'wpm-testimonial_page_fields' == $hook ) {
-		wp_enqueue_style( 'wpmtst-admin-fields-style', WPMTST_DIR . 'css/wpmtst-admin-fields.css' );
+		wp_enqueue_style( 'wpmtst-admin-fields-style', WPMTST_URL . 'css/wpmtst-admin-fields.css' );
 	}
 
 	if ( 'wpm-testimonial_page_guide' == $hook ) {
-		wp_enqueue_style( 'wpmtst-admin-guide-style', WPMTST_DIR . 'css/wpmtst-admin-guide.css' );
+		wp_enqueue_style( 'wpmtst-admin-guide-style', WPMTST_URL . 'css/wpmtst-admin-guide.css' );
 	}
 
 	$hooks_to_script = array( 
@@ -64,8 +139,9 @@ function wpmtst_admin_scripts( $hook ) {
 		wp_enqueue_script( 'jquery-ui-core' );
 		wp_enqueue_script( 'jquery-ui-tabs' );
 		wp_enqueue_script( 'jquery-ui-sortable' );
-		wp_enqueue_script( 'wpmtst-validation-plugin', WPMTST_DIR . 'js/jquery.validate.min.js', array( 'jquery' ) );
-		wp_enqueue_script( 'wpmtst-admin-script', WPMTST_DIR . 'js/wpmtst-admin.js', array( 'jquery' ) );
+		// @todo  is loading validate this necessary? if so, language file too?
+		wp_enqueue_script( 'wpmtst-validation-plugin', WPMTST_URL . 'js/validate/jquery.validate.min.js', array( 'jquery' ) );
+		wp_enqueue_script( 'wpmtst-admin-script', WPMTST_URL . 'js/wpmtst-admin.js', array( 'jquery' ) );
 		wp_localize_script( 'wpmtst-admin-script', 'ajax_object', array( 'ajaxurl' => admin_url( 'admin-ajax.php' ) ) );
 	}
 	
@@ -149,19 +225,28 @@ function wpmtst_meta_options() {
 }
 
 
-/*
+/**
  * Add custom columns to the admin screen
  */
 function wpmtst_edit_columns( $columns ) {
 	$options = get_option( 'wpmtst_options' );
-	$fields = get_option( 'wpmtst_fields' );
-	$fields = $fields['field_groups'][ $fields['current_field_group'] ]['fields'];
+	$fields  = get_option( 'wpmtst_fields' );
+	$fields  = $fields['field_groups'][ $fields['current_field_group'] ]['fields'];
 	
-	$columns = array(
-			'cb'    => '<input type="checkbox" />', 
-			'title' => _x( 'Title', 'testimonial', 'strong-testimonials' ),
-			'post_excerpt' => __( 'Excerpt', 'strong-testimonials' ),
-	);
+	$columns = array( 'cb' => '<input type="checkbox" />'	);
+	
+	/**
+	 * Menu order
+	 *
+	 * @since 1.15.15
+	 */
+	if ( $options['reorder'] && !wpmtst_is_column_sorted() && !wpmtst_is_viewing_trash() ) {
+		$columns['order'] = __( 'Order', 'strong-testimonials' );
+	}
+	
+	$columns['title'] = _x( 'Title', 'testimonial', 'strong-testimonials' );
+	
+	$columns['post_excerpt'] = __( 'Excerpt', 'strong-testimonials' );
 	
 	foreach ( $fields as $key => $field ) {
 		if ( $field['admin_table'] ) {
@@ -173,8 +258,11 @@ function wpmtst_edit_columns( $columns ) {
 				$columns[ $field['name'] ] = $field['label'];
 		}
 	}
+	
 	$columns['category']  = __( 'Category', 'strong-testimonials' );
+	
 	$columns['shortcode'] = __( 'Shortcode', 'strong-testimonials' );
+	
 	$columns['date']      = __( 'Date', 'strong-testimonials' );
 
 	return $columns;
@@ -182,42 +270,107 @@ function wpmtst_edit_columns( $columns ) {
 add_filter( 'manage_edit-wpm-testimonial_columns', 'wpmtst_edit_columns' );
 
 
+/**
+ * Filter the published time of the post.
+ *
+ * This filter is documented in wp-admin/includes/class-wp-posts-list-table.php.
+ *
+ * @since 1.15.15
+ */
+function wpmtst_post_date_column_time( $t_time, $post, $column_name, $mode ) {
+	$time = get_post_time( __( 'Y/m/d g:i:s A' ), true, $post );
+	return $time;
+}
+add_filter( 'post_date_column_time', 'wpmtst_post_date_column_time', 10, 4 );
+
+
+/**
+ * Check if a column in admin list table is sorted.
+ *
+ * @since 1.15.15
+ */
+function wpmtst_is_column_sorted() {
+	return isset( $_GET['orderby'] ) || strstr( $_SERVER['REQUEST_URI'], 'action=edit' ) || strstr( $_SERVER['REQUEST_URI'], 'wp-admin/post-new.php' );
+}
+
+
+/**
+ * Check if we are viewing the Trash.
+ *
+ * @since 1.15.15
+ */
+function wpmtst_is_viewing_trash() {
+	return isset( $_GET['post_status'] ) && 'trash' == $_GET['post_status'];
+}
+
+
 /*
  * Show custom values
  */
 function wpmtst_custom_columns( $column ) {
 	global $post;
-	$custom = get_post_custom();
+	$custom  = get_post_custom();
+	$options = get_option( 'wpmtst_options' );
 
-	if ( 'post_id' == $column ) {
-		echo $post->ID;
-	}
-	elseif ( 'post_content' == $column ) {
-		echo substr( $post->post_content, 0, 100 ) . '...';
-	}
-	elseif ( 'post_excerpt' == $column ) {
-		echo $post->post_excerpt;
-	}
-	elseif ( 'thumbnail' == $column ) {
-		echo $post->post_thumbnail;
-	}
-	elseif ( 'shortcode' == $column ) {
-		echo '[strong id="' . $post->ID . '" ]';
-	}
-	elseif ( 'category' == $column ) {
-		$categories = get_the_terms( 0, 'wpm-testimonial-category' );
-		if ( $categories && ! is_wp_error( $categories ) ) {
-			$list = array();
-			foreach ( $categories as $cat ) {
-				$list[] = $cat->name;
+	switch ( $column ) {
+		
+		case 'post_id':
+			echo $post->ID;
+			break;
+		
+		case 'post_content':
+			echo substr( $post->post_content, 0, 100 ) . '...';
+			break;
+		
+		case 'post_excerpt':
+			echo $post->post_excerpt;
+			break;
+		
+		case 'thumbnail':
+			echo $post->post_thumbnail;
+			break;
+		
+		case 'shortcode':
+			echo '[strong id="' . $post->ID . '" ]';
+			break;
+		
+		case 'category':
+			$categories = get_the_terms( 0, 'wpm-testimonial-category' );
+			if ( $categories && ! is_wp_error( $categories ) ) {
+				$list = array();
+				foreach ( $categories as $cat ) {
+					$list[] = $cat->name;
+				}
+				echo join( ", ", $list );
 			}
-			echo join( ", ", $list );
-		}
-	}
-	else {
-		// custom field?
-		if ( isset( $custom[$column] ) )
-			echo $custom[$column][0];
+			break;
+		
+		/**
+		 * Menu order.
+		 *
+		 * @since 1.15.15
+		 */
+		case 'order':
+			if ( current_user_can( 'edit_post', $post->ID ) 
+					&& $options['reorder'] 
+					&& !wpmtst_is_column_sorted() 
+					&& !wpmtst_is_viewing_trash() ) {
+						
+				echo '<div class="handle">';
+				echo '<div class="menu-order">' . $post->menu_order . '</div>';
+				// echo '<div class="help" style="display: none;">reorder</div>';
+				echo '<div class="help">reorder</div>';
+				echo '<div class="help-in-motion">drag and drop</div>';
+				// echo '<div class="dashicons dashicons-menu"></div>';
+				echo '</div>';
+			}
+			break;
+			
+		default:
+			// custom field?
+			if ( isset( $custom[$column] ) )
+				echo $custom[$column][0];
+		
 	}
 }
 add_action( 'manage_wpm-testimonial_posts_custom_column', 'wpmtst_custom_columns' );
@@ -301,7 +454,8 @@ add_filter( 'manage_wpm-testimonial-category_custom_column', 'wpmtst_manage_colu
  * @since 1.12.0
  */
 function wpmtst_manage_sortable_columns( $columns ) {
-	$columns[ 'client_name' ] = 'client_name';
+	$columns['client_name'] = 'client_name';
+	$columns['date'] = 'date';
 	return $columns;
 }
 add_filter( 'manage_edit-wpm-testimonial_sortable_columns', 'wpmtst_manage_sortable_columns' );
@@ -314,18 +468,38 @@ add_filter( 'manage_edit-wpm-testimonial_sortable_columns', 'wpmtst_manage_sorta
  */
 function wpmtst_pre_get_posts( $query ) {
 	// Only in main WP query AND if an orderby query variable is designated.
-	if ( is_admin() && $query->is_main_query() && ( $orderby = $query->get( 'orderby' ) ) ) {
-
-		switch( $orderby ) {
-			case 'client_name':
-				$query->set( 'meta_key', 'client_name' );
-				$query->set( 'orderby', 'meta_value' );
-				break;
+	if ( is_admin() 
+				&& $query->is_main_query() 
+				&& 'wpm-testimonial' == $query->get( 'post_type' )
+				&& ( $orderby = $query->get( 'orderby' ) ) ) {
+					
+		if ( 'client_name' == $orderby ) {
+			$query->set( 'meta_key', 'client_name' );
+			$query->set( 'orderby', 'meta_value' );
 		}
 		
 	}
 }
-add_action( 'pre_get_posts', 'wpmtst_pre_get_posts', 1 );
+add_action( 'pre_get_posts', 'wpmtst_pre_get_posts', 10 );
+
+
+/**
+ * Add order to default sort to allow manual ordering.
+ *
+ * @since 1.15.15
+ */
+function wpmtst_posts_orderby( $orderby, $query ) {
+	if ( !$query->get( 'orderby' ) ) {
+		global $wpdb;
+		$orderby = "{$wpdb->posts}.menu_order, {$wpdb->posts}.post_date DESC";
+		/*
+		 * Store this in query. See notes in class-strong-testimonials-order.php.
+		 */
+		$query->set( 'original_orderby', $orderby );
+	}
+	return $orderby;
+}
+add_filter( 'posts_orderby', 'wpmtst_posts_orderby', 10, 2 );
 
 
 /*

@@ -405,6 +405,10 @@ div.radio:hover {
 	margin-bottom: 1em;
 }
 
+.wpmtst .form-table td p:last-child {
+	margin-bottom: 0;
+}
+
 .wpmtst .form-table input,
 .wpmtst .form-table select,
 .wpmtst .form-table textarea {
@@ -841,4 +845,15 @@ input[readonly] {
 /* category list */
 td.column-shortcode {
 	white-space: nowrap;
+}
+
+/* indicate sortable & sorted columns */
+th.manage-column.sorted {
+	/* background: #D8EDCA; */
+	background: #BBEBFA;
+}
+th.manage-column.sorted:hover,
+th.manage-column.sortable:hover {
+	/* background: #BFEAA3; */
+	background: #8FDEF7;
 }

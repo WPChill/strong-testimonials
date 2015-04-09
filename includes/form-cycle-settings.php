@@ -135,7 +135,7 @@
 					_e( 'You may need to enable them in the post editor like in this <a id="toggle-screen-options" href="#">screenshot</a>.', 'strong-testimonials' );
 					?>
 					<div class="screenshot" id="screenshot-screen-options">
-						<div style="background: url(<?php echo WPMTST_DIR; ?>/images/screen-options.png); height: 241px; width: 730px;"></div>
+						<div style="background: url(<?php echo WPMTST_URL; ?>/images/screen-options.png); height: 241px; width: 730px;"></div>
 					</div>
 				</p>
 			</label>

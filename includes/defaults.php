@@ -19,6 +19,12 @@ $default_options = array(
 		'load_widget_style' => 1,
 		'load_form_style'   => 1,
 		'load_rtl_style'    => 0,
+		/**
+		 * Drag-n-drop reorder
+		 *
+		 * @since 1.15.15
+		 */
+		'reorder'           => false,
 );
 
 $default_cycle = array(

@@ -33,7 +33,8 @@
 /**
  * Setup
  */
-define( 'WPMTST_DIR', plugin_dir_url( __FILE__ ) );
+define( 'WPMTST_URL', plugin_dir_url( __FILE__ ) );
+define( 'WPMTST_DIR', plugin_dir_path( __FILE__ ) );
 define( 'WPMTST_INC', plugin_dir_path( __FILE__ ) . 'includes/' );
 define( 'WPMTST_TPL', plugin_dir_path( __FILE__ ) . 'templates/' );
 
@@ -179,6 +180,19 @@ add_action( 'init', 'wpmtst_register_cpt', 5 );
 
 
 /**
+ * Load post ordering class if enabled.
+ *
+ * @since 1.15.15
+ */
+function wpmtst_load_order_class() {
+	$options = get_option( 'wpmtst_options' );
+	if ( $options['reorder'] )
+		include( WPMTST_INC . 'class-strong-testimonials-order.php' );
+}
+add_action( 'init', 'wpmtst_load_order_class' );
+
+
+/**
  * Theme support for this custom post type only.
  */
 function wpmtst_theme_support() {
@@ -197,18 +211,32 @@ function wpmtst_scripts() {
 	$options = get_option( 'wpmtst_options' );
 	$form_options = get_option( 'wpmtst_form_options' );
 
-	wp_register_style( 'wpmtst-style', WPMTST_DIR . 'css/wpmtst.css' );
-	wp_register_style( 'wpmtst-form-style', WPMTST_DIR . 'css/wpmtst-form.css' );
-	wp_register_style( 'wpmtst-widget-style', WPMTST_DIR . 'css/wpmtst-widget.css' );
+	wp_register_style( 'wpmtst-style', WPMTST_URL . 'css/wpmtst.css' );
+	wp_register_style( 'wpmtst-form-style', WPMTST_URL . 'css/wpmtst-form.css' );
+	wp_register_style( 'wpmtst-widget-style', WPMTST_URL . 'css/wpmtst-widget.css' );
 	
-	wp_register_style( 'wpmtst-rtl-style', WPMTST_DIR . 'css/wpmtst-rtl.css' );
-	wp_register_style( 'wpmtst-widget-rtl-style', WPMTST_DIR . 'css/wpmtst-widget-rtl.css' );
+	wp_register_style( 'wpmtst-rtl-style', WPMTST_URL . 'css/wpmtst-rtl.css' );
+	wp_register_style( 'wpmtst-widget-rtl-style', WPMTST_URL . 'css/wpmtst-widget-rtl.css' );
 	
-	wp_register_script( 'wpmtst-pager-plugin', WPMTST_DIR . 'js/quickpager.jquery.js', array( 'jquery' ), false, true );
-	wp_register_script( 'wpmtst-pager-script', WPMTST_DIR . 'js/wpmtst-pager.js', array( 'wpmtst-pager-plugin' ), false, true );
+	wp_register_script( 'wpmtst-pager-plugin', WPMTST_URL . 'js/quickpager.jquery.js', array( 'jquery' ), false, true );
+	wp_register_script( 'wpmtst-pager-script', WPMTST_URL . 'js/wpmtst-pager.js', array( 'wpmtst-pager-plugin' ), false, true );
 	
-	wp_register_script( 'wpmtst-validation-plugin', WPMTST_DIR . 'js/jquery.validate.min.js', array( 'jquery' ), false, true );
-	wp_register_script( 'wpmtst-form-script', WPMTST_DIR . 'js/wpmtst-form.js', array( 'wpmtst-validation-plugin' ), false, true );
+	wp_register_script( 'wpmtst-form-script', WPMTST_URL . 'js/wpmtst-form.js', array( 'wpmtst-validation-plugin', 'wpmtst-validation-lang' ), false, true );
+	wp_register_script( 'wpmtst-validation-plugin', WPMTST_URL . 'js/validate/jquery.validate.min.js', array( 'jquery' ), false, true );	
+	/**
+	 * Localize jQuery Validate plugin.
+	 *
+	 * @since 1.15.15
+	 */
+	$locale = get_locale();
+	if ( 'en_US' != $locale ) {
+		$lang_parts = explode( '_', $locale );
+		$lang_file = 'js/validate/localization/messages_' . $lang_parts[0] . '.min.js';
+		if ( file_exists( WPMTST_DIR . $lang_file ) ) {
+			wp_register_script( 'wpmtst-validation-lang', WPMTST_URL . $lang_file, array( 'wpmtst-validation-plugin' ), false, true );
+		}
+	}
+	
 	
 	/*
 	 * Enqueue "normal" scripts and styles
@@ -268,11 +296,11 @@ function wpmtst_scripts_after_theme() {
 	
 	if ( !$cycle_handle ) {
 		$cycle_handle = 'jquery-cycle';
-		wp_register_script( $cycle_handle, WPMTST_DIR . 'js/jquery.cycle2.min.js', array( 'jquery' ), false, true );
+		wp_register_script( $cycle_handle, WPMTST_URL . 'js/jquery.cycle2.min.js', array( 'jquery' ), false, true );
 	}
 	
 	// our slider handler, dependent on jQuery Cycle plugin
-	wp_register_script( 'wpmtst-slider', WPMTST_DIR . 'js/wpmtst-cycle.js', array ( $cycle_handle ), false, true );
+	wp_register_script( 'wpmtst-slider', WPMTST_URL . 'js/wpmtst-cycle.js', array ( $cycle_handle ), false, true );
 	
 	/**
 	 * Enqueue "later" scripts and styles.
