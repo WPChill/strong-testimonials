@@ -62,7 +62,7 @@ function wpmtst_strong_shortcode( $atts, $content = null, $parent_tag ) {
 				'per_page' => '',
 				'nav' => 'after',
 				'id' => '',
-				'menu_order' => '',  // @since 1.15.15
+				'menu_order' => '',  // @since 1.16
 				'random' => '',
 				'newest' => '',
 				'oldest' => '',
@@ -172,7 +172,7 @@ function wpmtst_strong_shortcode( $atts, $content = null, $parent_tag ) {
 	/**
 	 * Shuffle array in PHP instead of SQL.
 	 * 
-	 * @since 1.15.15
+	 * @since 1.16
 	 */
 	if ( $random ) {
 		shuffle( $query->posts );

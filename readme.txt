@@ -23,7 +23,9 @@ Categories, excerpts and Featured Images (thumbnails) are supported. Other displ
 
 = The Form =
 
-Right out of the box, the testimonial submission form has fields for a name, an email address, a company name and website, a heading, a photo, and of course the testimonial content. Need to add a field? Want to remove one? No problem. Use the fields editor to **customize the form** to your specific situation, including the field order, the text before or after, the placeholder text, and required fields.
+Right out of the box, the testimonial submission form has fields for a name, an email address, a company name and website, a heading, a photo, and of course the testimonial content. 
+
+Need to add a field? Want to remove one? No problem. Use the fields editor to **customize the form** to your specific situation, including the field order, the text before or after, the placeholder text, and required fields.
 
 > **Example**: A dog trainer serving a wide geographical area added fields for the dog's name and the city to the form which encouraged people to upload pictures of their dog instead of themselves! Displaying the city demonstrated her willingness to travel near and far to help her customers.
 
@@ -37,7 +39,9 @@ Submitted testimonials will be in Pending status by default or they can be publi
 
 = Show Them Off =
 
-Show the newest first, the oldest first or in random order. Show one, ten or all of them. Show the full testimonial, the excerpt or up to a specified length - which is great when you have both long and short testimonials. 
+Show the newest first, the oldest first or in random order. Drag and drop them into a new order in the admin list.
+
+Show one, ten or all of them. Show the full testimonial, the excerpt or up to a specified length - which is great when you have both long and short testimonials. 
 
 With the excerpt and short version options, you can add a "Read more" link to the full testimonial, which works well when you have long testimonials that really tell a story and when you have prospects that do their due diligence and read every word on your site.
 
@@ -45,7 +49,7 @@ With the excerpt and short version options, you can add a "Read more" link to th
 
 Many people sprinkle testimonials around their site and add a link to their full testimonials page. That's a great way to pique someone's interest without bombarding them with all your testimonials up front.
 
-When you have more than ten or so testimonials, a popular approach is to **paginate them**, only showing 5-10 per page. The plugin offers simple pagination controls (1 2 3 ...) that can be placed above and below the testimonial group.
+When you have more than ten or so testimonials, a popular approach is to **paginate them**, only showing 5-10 per page. The plugin offers simple page controls (1 2 3 ...) that can be placed above and below the testimonial group.
 
 > **Example**: A computer repair guy in business for 15 years had hundreds(!) of wonderful testimonials. Fearing a mammoth page of testimonials would, at best, never be read and, at worst, turn people off, he organized them into categories by year and by service (hardware, network, mobile, etc.). Paginating them allowed people to take their time flipping through them. For the kicker, he compiled the top ten spanning all his years in business into another page so his prospects would quickly appreciate his longevity and experience. A nice balance of quick-and-to-the-point and here's-the-whole-story.
 
@@ -59,7 +63,7 @@ Both the shortcode and the widget can be a slideshow. Multiple slideshows can be
 
 Testimonial plugins typically offer either no styling at all or a handful of predefined layouts that may or may not look good in your theme.
 
-Strong Testimonials offers one layout for the shortcode and one for the widget inherited from the original version (GC Testimonials) that is just generic enough to look good in most cases with maybe a few tweaks (I always remove the gradient background ;)). 
+Strong Testimonials offers one layout for the shortcode and one for the widget inherited from the original version (GC Testimonials) that is just generic enough to look good in most cases with maybe a few tweaks (I always remove the gradient gray background ;)). 
 
 Its stylesheets are largely structural and can be easily overridden by your theme or a plugin like [Simple Custom CSS](https://wordpress.org/plugins/simple-custom-css/). You can also skip loading each stylesheet (page, widget, form) and let your theme handle it from the ground up.
 
@@ -90,11 +94,11 @@ Other shortcode examples:
  count="3" class="three-across"]
 `
 
-Learning a new plugin, especially one that makes heavy use of shortcodes and attributes, can seem like learning Klingon. If you have any trouble, take it one bite at a time with the [demo site](http://demos.wpmission.com/strong-testimonials/the-strong-shortcode/full-attribute-list/) as your guide. By all means, use the support forum for help or contact me directly. You will be fluent soon!
+Learning a new plugin, especially one that makes heavy use of shortcodes and attributes, can seem like learning [Klingon](http://en.wikipedia.org/wiki/Klingon_language). If you have any trouble, take it one bite at a time with the [demo site](http://demos.wpmission.com/strong-testimonials/the-strong-shortcode/full-attribute-list/) as your guide. By all means, use the support forum for help or contact me directly. You will be fluent soon!
 
 = Translations =
 
-The plugin includes a POT file and Hebrew, Russian, Spanish and Swedish translations. It is currently undergoing testing by the generous folks at WPML who will recommend how to make it WPML-compatible.
+The plugin includes a POT file and French, Hebrew, Russian, Spanish and Swedish translations. It is currently undergoing testing by the generous folks at WPML who will recommend how to make it WPML-compatible.
 
 = Support =
 
@@ -138,13 +142,14 @@ These plugins work well with Strong Testimonials and add some nice features.
 
 = Known Conflicts =
 
-* [Page Builder 1.x by SiteOrigin](https://wordpress.org/plugins/siteorigin-panels/) - The widget settings are not being saved properly in the drag-and-drop builder. Update to the excellent Page Builder 2.x if possible.
+* [Html Social Share Buttons](https://wordpress.org/plugins/html-social-share-buttons/) - It's buggy, sorry.
+* [Unyson Framework by ThemeFuse](http://unyson.io/) - I'm working on a solution.
 * [Warp Framework by YooTheme](https://yootheme.com/themes/warp-framework) - Custom templates for custom post types are not being found since the framework seemingly supplants the WordPress template hierarchy.
+* [Page Builder 1.x by SiteOrigin](https://wordpress.org/plugins/siteorigin-panels/) - The widget settings are not being saved properly in the drag-and-drop builder. Update to the excellent Page Builder 2 if possible.
 
 = Translations =
 
-In version 1.13+:
-
+* French (fr_FR) - Jean-Paul Radet
 * Hebrew (he_IL) - Haim Asher
 * Russian (ru_RU) - Матвеев Валерий
 * Spanish (es_ES) - Diego Ferrández
@@ -184,6 +189,11 @@ For help, use the [support forum](http://wordpress.org/support/plugin/strong-tes
 
 [Screenshots](http://wordpress.org/plugins/strong-testimonials/screenshots/) | [Demos](http://demos.wpmission.com/strong-testimonials/) | [Feature Requests](http://www.wpmission.com/feature-request)
 
+= My web host does not allow the SQL RAND() random function. Will your plugin still work? =
+
+Yes, the random routine has been moved to PHP. Thanks to [Eric Hoanshelt](http://wpmigration.guru/) at [WPEngine](http://wpengine.com/) for showing me the light.
+
+
 = The pagination controls are not working right. =
 
 Try adding this to your (child) theme's `functions.php`:
@@ -200,6 +210,7 @@ add_filter( 'strong_html', 'my_strong_html', 10, 1 );
 `
 
 Some page builder plugins inadvertently wrap HTML comments in shortcode output in paragraph tags. The pagination script then interprets those extra paragraphs as regular content. This filter removes those comments.
+
 
 = How can I change the "Read more" link text? =
 
@@ -237,7 +248,9 @@ Short answer: I plan to build a single method soon. If the shortcode and the wid
 
 Long answer: The Client Section shortcodes were a quick-n-simple way to add client fields to both the original `[wpmtst-*]` shortcodes and the widget AFTER custom fields were added in version 1.7. Then I developed the `[strong]` shortcode in order to bring all the options together (a form, a slideshow, multiple selection criteria) into a single shortcode. That opened up the door for child shortcodes to provide even more options for displaying client fields. The customization requests and questions like "Where do I edit the code to..." decreased significantly after that :). 
 
-My plan is to build a tool that allows you to configure a testimonial display component, let's call it a view, and then add that view to a page using a shorter shortcode (!) like `[strong view="1"]` or to a widget using a dropdown selector. 
+My plan is to build a tool that allows you to configure a testimonial display component, let's call it a **view**, and then add that **view** to a page using a shorter shortcode (!) like `[strong view="1"]` or to a widget using a dropdown selector. 
+
+And it's almost ready!
 
 
 = Are there templates? How do I change the look of the testimonials? =
@@ -249,17 +262,23 @@ The original `[wpmtst]` shortcodes do not use template files, but the stylesheet
 
 = How can I change "testimonial" to "review", for example? =
 
-Instructions are [here](https://wordpress.org/support/topic/how-to-change-the-slug).
+Instructions are [here](https://wordpress.org/support/topic/how-to-change-the-slug). I plan to build this into the plugin soon.
 
 
 = How can I reorder my testimonials? =
 
-Until I can build this into the plugin, try [Post Types Order](https://wordpress.org/plugins/post-types-order/) by Nsp Code (which lists them on a separate admin page) or [Simple Custom Post Order](https://wordpress.org/plugins/simple-custom-post-order/) by Sameer Humagain (which works directly in the admin list).
+Two ways: (1) drag-and-drop ordering in the admin list and (2) manually changing the Order field (usually in the right-hand column in the post editor *or* in Quick Edit in the post list).
+
+Drag and drop is **disabled by default** and can be enabled in `Testimonials > Settings > General`.
+
+To avoid conflicts, the plugin proactively **denies** these plugins from reordering testimonials: [Post Types Order](https://wordpress.org/plugins/post-types-order/) by Nsp Code, [Simple Custom Post Order](https://wordpress.org/plugins/simple-custom-post-order/) by Sameer Humagain, and [Intuitive Custom Post Order](https://wordpress.org/plugins/intuitive-custom-post-order/) by Hijiri.
+
+The widget now offers the option to sort by that Order field too.
 
 
 = How can I change the fields on the form? =
 
-On the Testimonials > Fields page, there is a field editor where you can add or remove fields, change field details, and drag-n-drop to reorder them. You can also restore the default fields. 
+On the Testimonials > Fields page, there is a field editor where you can add or remove fields, change field details, and drag-and-drop to reorder them. You can also restore the default fields.
 
 If you have ever used the Advanced Custom Fields or Custom Field Suite plugins, the editor will be very familiar. Here is a full [tutorial](http://www.wpmission.com/tutorials/customize-the-form-in-strong-testimonials/).
 
@@ -282,7 +301,7 @@ Yes, but I highly recommend first installing the [Proper Network Activation](htt
 
 = Will it import my existing testimonials? =
 
-Not yet. If you have a ton of testimonials, you may want to wait.
+Not yet.
 
 
 = Can I make a donation? =
@@ -311,6 +330,15 @@ Thanks but I prefer a nice [review](https://wordpress.org/support/view/plugin-re
 
 
 == Changelog ==
+
+= 1.16 - 2015-04-09 =
+* Add menu order to post list.
+* Add `menu_order` attribute to `[strong]` shortcode.
+* Add menu order option to widget and `[wpmtst-cycle]` shortcode.
+* Add drag-and-drop reordering in post list.
+* Move random selection from SQL to PHP.
+* Add language files for the form validation script.
+* Add French translation.
 
 = 1.15.14 - 2015-04-02 =
 * Fix bug when truncating content.
@@ -545,6 +573,9 @@ Thanks but I prefer a nice [review](https://wordpress.org/support/view/plugin-re
 
 == Upgrade Notice ==
 
+= 1.16 =
+Drag-and-drop ordering. Moved randomizer to PHP for WPEngine and others. Language files for the form validation script. French translation.
+
 = 1.15.14 =
 Fix bug when truncating content.
 
@@ -709,3 +740,33 @@ Fixed a minor bug that did not show multiple categories in the admin testimonial
 
 = 1.4.1 =
 Fixed a minor bug if a category was selected in the widget settings.
+
+
+== Roadmap ==
+
+Here's what I'm working on. This is subject to change.
+
+Version 1.17
+
+* **Views** will be easier to configure than the shortcode.
+* **No Conflict mode** for page builders that I haven't found workarounds for yet.
+* An option to assign the initial list order based on a sorted column like Date or Title.
+* An option to completely reset the list order.
+* A category filter in the admin list.
+
+Version 1.18
+
+* This will probably be the last update before version 2.0.
+* An option to lock in the current version and forgo updates (maybe).
+* An option to change the slug; for example, from "testimonial" to "review".
+* Prevent form from being submitted twice.
+
+Version 2.0
+
+* A full object-oriented refactoring.
+* The original `[wpmtst]` shortcodes will be removed. Use Views instead.
+* The original widget will be removed. Use a View widget instead.
+* A new default modern template. The current gradient gray template will still be available.
+* A sample data file.
+* Leave No Trace options.
+* A troubleshooting mode.

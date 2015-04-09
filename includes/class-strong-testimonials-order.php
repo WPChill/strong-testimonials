@@ -2,7 +2,7 @@
 /**
  * Post order class.
  *
- * @since 1.15.15
+ * @since 1.16
  */
 
 class StrongTestimonialsOrder {
