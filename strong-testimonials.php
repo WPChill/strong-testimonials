@@ -186,8 +186,9 @@ add_action( 'init', 'wpmtst_register_cpt', 5 );
  */
 function wpmtst_load_order_class() {
 	$options = get_option( 'wpmtst_options' );
-	if ( $options['reorder'] )
+	if ( isset( $options['reorder'] ) && $options['reorder'] ) {
 		include( WPMTST_INC . 'class-strong-testimonials-order.php' );
+	}
 }
 add_action( 'init', 'wpmtst_load_order_class' );
 
