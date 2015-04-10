@@ -55,7 +55,6 @@ function wpmtst_strong_shortcode( $atts, $content = null, $parent_tag ) {
 				'category' => '',
 				'class' => '',
 				'template' => '',
-				'no_stylesheet' => '',
 				
 				// display loop attributes
 				'count' => -1,

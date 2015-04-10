@@ -20,6 +20,7 @@
 			<td>random</td>
 			<td>newest</td>
 			<td>oldest</td>
+			<td>menu_order</td>
 		</tr>
 		<tr>
 			<?php /* translators: This appears in the [strong] shortcode instructions. */ ?>

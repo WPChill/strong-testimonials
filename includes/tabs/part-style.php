@@ -14,8 +14,3 @@
 			<td>class="abc"</td>
 			<td>class="abc,xyz"</td>
 		</tr>
-		<tr>
-			<?php /* translators: This appears in the [strong] shortcode instructions. */ ?>
-			<td><?php _e( 'skip plugin stylesheet', 'strong-testimonials' ); ?></td>
-			<td>no_stylesheet</td>
-		</tr>

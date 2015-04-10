@@ -125,7 +125,7 @@ span.widget-help span.showing {
 /* Shortcodes table 
 ---------------------------------------------------------*/
 
-h3.gutter {
+.wrap.wpmtst h3.gutter {
 	margin-bottom: 1.5em;
 }
 
@@ -297,6 +297,10 @@ ul.ui-tabs-nav li.ui-tabs-active a {
 	font-family: inherit;
 	font-size: 1.1em;
 	background: inherit;
+}
+
+.notes p {
+	font-size: 1.1em;
 }
 
 
@@ -821,39 +825,61 @@ input[readonly] {
 }
 
 
-/* Settings > News tab
+/* News page
 ---------------------------------------------------------*/
 
 .strong-news {
 }
 
-.strong-news h3 {
-	font-size: 1.5em;
+.wrap.wpmtst.strong-news h3 {
+	font-size: 1.4em;
+	/* margin-top: 0; */
 }
 
 .strong-news p {
 	margin: 1.5em 0;
-	font-size: 1.2em;
+	font-size: 1.1em;
 }
 
 .strong-news ol a,
 .strong-news ul a {
-	font-size: 1.2em;
 }
 
+table.news {
+	border-collapse: collapse;
+	width: 100%;
+}
 
-/* category list */
+table.news th,
+table.news td {
+	padding: 1em;
+	vertical-align: top;
+	border: 1px solid #ddd;
+}
+table.news th {
+	font-size: 1.3em;
+	border-bottom: 0;
+	padding-bottom: 0.5em;
+}
+table.news td {
+	font-size: 1.1em;
+	border-top: 0;
+	padding-top: 0.5em;
+}
+
+/* Post list table
+---------------------------------------------------------*/
+
 td.column-shortcode {
 	white-space: nowrap;
 }
 
 /* indicate sortable & sorted columns */
 th.manage-column.sorted {
-	/* background: #D8EDCA; */
 	background: #BBEBFA;
 }
+
 th.manage-column.sorted:hover,
 th.manage-column.sortable:hover {
-	/* background: #BFEAA3; */
 	background: #8FDEF7;
 }

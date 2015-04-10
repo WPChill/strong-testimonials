@@ -30,15 +30,9 @@ function wpmtst_guide() {
 			<a href="<?php echo $page; ?>&tab=notes" class="nav-tab <?php echo $tab == 'notes' ? 'nav-tab-active' : ''; ?>">
 				<?php _e( 'Notes', 'strong-testimonials' ); ?>
 			</a>
-			<?php /* translators: This appears in the Guide. */ ?>
-			<a href="<?php echo $page; ?>&tab=future" class="nav-tab <?php echo $tab == 'future' ? 'nav-tab-active' : ''; ?>">
-				<?php _e( 'Future', 'strong-testimonials' ); ?>
-			</a>
 		</h2>
 		<?php
-		if( 'future' == $tab )
-			include( 'guide-future.php' );
-		elseif( 'notes' == $tab )
+		if( 'notes' == $tab )
 			include( 'guide-notes.php' );
 		elseif( 'advanced' == $tab )
 			include( 'guide-advanced.php' );

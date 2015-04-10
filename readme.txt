@@ -17,9 +17,13 @@ How to get started: Add the submission form to a page to start collecting testim
 
 = TL;DR =
 
-Categories, excerpts and Featured Images (thumbnails) are supported. Other display options include random order, pagination and slideshows. There's a customizable form with anti-spam options and a notification email. Shortcodes, widgets, and template files. A deep and wide demo site and a developer who's on your side.
+1. Categories, excerpts and Featured Images (thumbnails) are supported.
+1. Display options include random order, pagination and slideshows.
+1. There's a customizable form with anti-spam options and a notification email.
+1. Shortcodes, widgets, and template files.
+1. A deep and wide demo site and a developer who's on your side.
 
-[Screenshots](http://wordpress.org/plugins/strong-testimonials/screenshots/) | [Demos](http://demos.wpmission.com/strong-testimonials/) | [Feature Requests](http://www.wpmission.com/feature-request)
+[Screenshots](http://wordpress.org/plugins/strong-testimonials/screenshots/) | [Demos](http://demos.wpmission.com/strong-testimonials/) | [Feature Requests](https://www.wpmission.com/feature-request)
 
 = The Form =
 
@@ -118,7 +122,7 @@ Putting yourself in the shoes of your prospect may not always be easy but the di
 
 **And that's my mission: to build a strong yet flexible tool to help you do that.**
 
-[Screenshots](http://wordpress.org/plugins/strong-testimonials/screenshots/) | [Demos](http://demos.wpmission.com/strong-testimonials/) | [Feature Requests](http://www.wpmission.com/feature-request)
+[Screenshots](http://wordpress.org/plugins/strong-testimonials/screenshots/) | [Demos](http://demos.wpmission.com/strong-testimonials/) | [Feature Requests](https://www.wpmission.com/feature-request)
 
 = The Weaknesses =
 
@@ -143,6 +147,7 @@ These plugins work well with Strong Testimonials and add some nice features.
 = Known Conflicts =
 
 * [Html Social Share Buttons](https://wordpress.org/plugins/html-social-share-buttons/) - It's buggy, sorry.
+* [Meteor Slides](https://wordpress.org/plugins/meteor-slides/) - Its author is aware of the problem.
 * [Unyson Framework by ThemeFuse](http://unyson.io/) - I'm working on a solution.
 * [Warp Framework by YooTheme](https://yootheme.com/themes/warp-framework) - Custom templates for custom post types are not being found since the framework seemingly supplants the WordPress template hierarchy.
 * [Page Builder 1.x by SiteOrigin](https://wordpress.org/plugins/siteorigin-panels/) - The widget settings are not being saved properly in the drag-and-drop builder. Update to the excellent Page Builder 2 if possible.
@@ -155,7 +160,7 @@ These plugins work well with Strong Testimonials and add some nice features.
 * Spanish (es_ES) - Diego Ferrández
 * Swedish (sv_SE) - Tom Stone
 
-Many thanks to these translators. Can you help? [Contact me](http://www.wpmission.com/contact/).
+Many thanks to these translators. Can you help? [Contact me](https://www.wpmission.com/contact/).
 
 == Installation ==
 
@@ -182,12 +187,12 @@ Finally, activate the plugin.
 
 View some examples on the [demo site](http://demos.wpmission.com/strong-testimonials/).
 
-For help, use the [support forum](http://wordpress.org/support/plugin/strong-testimonials) or [contact me](http://www.wpmission.com/contact/).
+For help, use the [support forum](http://wordpress.org/support/plugin/strong-testimonials) or [contact me](https://www.wpmission.com/contact/).
 
 
 == Frequently Asked Questions ==
 
-[Screenshots](http://wordpress.org/plugins/strong-testimonials/screenshots/) | [Demos](http://demos.wpmission.com/strong-testimonials/) | [Feature Requests](http://www.wpmission.com/feature-request)
+[Screenshots](http://wordpress.org/plugins/strong-testimonials/screenshots/) | [Demos](http://demos.wpmission.com/strong-testimonials/) | [Feature Requests](https://www.wpmission.com/feature-request)
 
 = My web host does not allow the SQL RAND() random function. Will your plugin still work? =
 
@@ -280,7 +285,7 @@ The widget now offers the option to sort by that Order field too.
 
 On the Testimonials > Fields page, there is a field editor where you can add or remove fields, change field details, and drag-and-drop to reorder them. You can also restore the default fields.
 
-If you have ever used the Advanced Custom Fields or Custom Field Suite plugins, the editor will be very familiar. Here is a full [tutorial](http://www.wpmission.com/tutorials/customize-the-form-in-strong-testimonials/).
+If you have ever used the Advanced Custom Fields or Custom Field Suite plugins, the editor will be very familiar. Here is a full [tutorial](https://www.wpmission.com/tutorials/customize-the-form-in-strong-testimonials/).
 
 
 = How do I add a Captcha to the form? =
@@ -291,7 +296,7 @@ If the currently selected Captcha plugin is deactivated, the setting will revert
 
 If your site relies on a partner plugin like this, and that plugin becomes buggy or abandoned, I will adopt or fork it to keep your site running.
 
-[Contact me](http://www.wpmission.com/contact) to recommend another method or plugin.
+[Contact me](https://www.wpmission.com/contact) to recommend another method or plugin.
 
 
 = Is this multisite compatible? =
@@ -337,6 +342,7 @@ Thanks but I prefer a nice [review](https://wordpress.org/support/view/plugin-re
 * Add menu order option to widget and `[wpmtst-cycle]` shortcode.
 * Add drag-and-drop reordering in post list.
 * Move random selection from SQL to PHP.
+* Remove `no_stylesheet` shortcode attribute.
 * Add language files for the form validation script.
 * Add French translation.
 
@@ -750,6 +756,7 @@ Version 1.17
 
 * **Views** will be easier to configure than the shortcode.
 * **No Conflict mode** for page builders that I haven't found workarounds for yet.
+* More size options for the Featured Image.
 * An option to assign the initial list order based on a sorted column like Date or Title.
 * An option to completely reset the list order.
 * A category filter in the admin list.
@@ -764,6 +771,7 @@ Version 1.18
 Version 2.0
 
 * A full object-oriented refactoring.
+* Fully WPML-compatible.
 * The original `[wpmtst]` shortcodes will be removed. Use Views instead.
 * The original widget will be removed. Use a View widget instead.
 * A new default modern template. The current gradient gray template will still be available.

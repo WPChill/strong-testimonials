@@ -24,14 +24,6 @@
 		<td>class="abc,xyz"</td>
 	</tr>
 	<tr>
-		<td>
-			<?php /* translators: This appears in the [strong] shortcode instructions. */ ?>
-			<?php _e( 'skip plugin stylesheet', 'strong-testimonials' ); ?><br />
-		</td>
-		<td>no_stylesheet</td>
-	</tr>
-
-	<tr>
 		<?php /* translators: This appears in the [strong] shortcode instructions. */ ?>
 		<th colspan="2"><h3><?php _e( 'Examples', 'strong-testimonials' ); ?></h3></th>
 	</tr>

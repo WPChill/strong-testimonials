@@ -7,7 +7,7 @@
  */
 ?>
 
-<h3 class="gutter"><code>[strong]</code> <?php _e( 'The new shortcode that does it all.', 'strong-testimonials' ); ?></h3>
+<h3 class="gutter"><code>[strong]</code> <?php _e( 'The one shortcode that does it all.', 'strong-testimonials' ); ?></h3>
 
 <div id="tabs">
 
