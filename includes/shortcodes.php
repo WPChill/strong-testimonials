@@ -376,7 +376,7 @@ function wpmtst_cycle_shortcode( $atts ) {
 	$args = array(
 			'post_type'      => 'wpm-testimonial',
 			'post_status'    => 'publish',
-			'posts_per_page' => $limit,
+			'posts_per_page' => -1,
 			'orderby'        => $orderby,
 			'order'          => $order,
 	);
@@ -395,9 +395,24 @@ function wpmtst_cycle_shortcode( $atts ) {
 	$wp_query = new WP_Query();
 	$results = $wp_query->query( $args );
 	
-	if ( 'rand' == $cycle['order'] )
+	/**
+	 * Shuffle array in PHP instead of SQL.
+	 * 
+	 * @since 1.16
+	 */
+	if ( 'rand' == $cycle['order'] ) {
 		shuffle( $results );
+	}
 	
+	/**
+	 * Extract slice of array, which may be shuffled.
+	 *
+	 * @since 1.16.1
+	 */
+	if ( $limit > 0 ) {
+		$results = array_slice( $results, 0, $limit );
+	}
+
 	$display = '<div id="wpmtst-container" class="tcycle tcycle_cycle_shortcode">';
 	foreach ( $results as $post ) {
 		$display .= '<div class="result t-slide">' . wpmtst_single( wpmtst_get_post( $post ), $cycle ) . '</div>';

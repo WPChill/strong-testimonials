@@ -109,7 +109,7 @@ class WpmTst_Widget extends WP_Widget {
 		$args = array(
 				'post_type'      => 'wpm-testimonial',
 				'post_status'    => 'publish',
-				'posts_per_page' => $num,
+				'posts_per_page' => -1,
 				'orderby'        => $orderby,
 				'order'          => $order,
 		);
@@ -128,9 +128,24 @@ class WpmTst_Widget extends WP_Widget {
 		$wp_query = new WP_Query();
 		$results = $wp_query->query( $args );
 		
-		if ( 'rand' == $data['order'] )
+		/**
+		 * Shuffle array in PHP instead of SQL.
+		 * 
+		 * @since 1.16
+		 */
+		if ( 'rand' == $data['order'] ) {
 			shuffle( $results );
+		}
 
+		/**
+		 * Extract slice of array, which may be shuffled.
+		 *
+		 * @since 1.16.1
+		 */
+		if ( $num > 0 ) {
+			$results = array_slice( $results, 0, $num );
+		}
+		
 		// start HTML output
 		$read_more_text = apply_filters( 'strong_widget_read_more_text', _x( 'Read more', 'link', 'strong-testimonials' ) );
 		$format = '<div class="readmore"><a href="%s">' . $read_more_text . '</a></div>';

@@ -133,7 +133,7 @@ function wpmtst_strong_shortcode( $atts, $content = null, $parent_tag ) {
 	// ------------------------
 	$args = array(
 			'post_type'      => 'wpm-testimonial',
-			'posts_per_page' => $count,
+			'posts_per_page' => -1,
 			'post_status'    => 'publish',
 	);
 	
@@ -175,6 +175,15 @@ function wpmtst_strong_shortcode( $atts, $content = null, $parent_tag ) {
 	 */
 	if ( $random ) {
 		shuffle( $query->posts );
+	}
+	
+	/**
+	 * Extract slice of array, which may be shuffled.
+	 *
+	 * @since 1.16.1
+	 */
+	if ( $count > 0 ) {
+		$query->posts = array_slice( $query->posts, 0, $count );
 	}
 	
 	// ===================
