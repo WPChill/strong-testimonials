@@ -166,7 +166,6 @@ function wpmtst_strong_shortcode( $atts, $content = null, $parent_tag ) {
 
 	// query
 	$query = new WP_Query( $args );
-	$post_count = $query->post_count;
 	
 	/**
 	 * Shuffle array in PHP instead of SQL.
@@ -186,6 +185,8 @@ function wpmtst_strong_shortcode( $atts, $content = null, $parent_tag ) {
 		$query->posts = array_slice( $query->posts, 0, $count );
 		$query->post_count = $count;
 	}
+	
+	$post_count = $query->post_count;
 	
 	// ===================
 	// SUB-MODE: SLIDESHOW
