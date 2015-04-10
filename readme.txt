@@ -336,6 +336,9 @@ Thanks but I prefer a nice [review](https://wordpress.org/support/view/plugin-re
 
 == Changelog ==
 
+= 1.16.2 - 2015-04-09 =
+* Fix bug in random order.
+
 = 1.16.1 - 2015-04-09 =
 * Fix bug in random order.
 

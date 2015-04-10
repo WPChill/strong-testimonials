@@ -184,6 +184,7 @@ function wpmtst_strong_shortcode( $atts, $content = null, $parent_tag ) {
 	 */
 	if ( $count > 0 ) {
 		$query->posts = array_slice( $query->posts, 0, $count );
+		$query->post_count = $count;
 	}
 	
 	// ===================
