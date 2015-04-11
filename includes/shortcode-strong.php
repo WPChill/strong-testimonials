@@ -182,6 +182,11 @@ function wpmtst_strong_shortcode( $atts, $content = null, $parent_tag ) {
 	 * @since 1.16.1
 	 */
 	if ( $count > 0 ) {
+		/**
+		 * Use lesser value: requested count or actual count.
+		 * Thanks chestozo.
+		 * @link https://github.com/cdillon/strong-testimonials/pull/5
+		 */
 		$count = min( $count, count( $query->posts ) );
 		$query->posts = array_slice( $query->posts, 0, $count );
 		$query->post_count = $count;
