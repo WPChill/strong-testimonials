@@ -248,7 +248,7 @@ function wpmtst_cycle_settings() {
 	// @TODO: de-duplicate (in widget too)
 	$order_list = array(
 			'rand'   => _x( 'Random', 'display order', 'strong-testimonials' ),
-			'menu'   => _x( 'Menu Order', 'display order', 'strong-testimonials' ),
+			'menu'   => _x( 'Menu order', 'display order', 'strong-testimonials' ),
 			'recent' => _x( 'Newest first', 'display order', 'strong-testimonials' ),
 			'oldest' => _x( 'Oldest first', 'display order', 'strong-testimonials' ),
 	);

@@ -63,7 +63,11 @@ Drag-and-drop page builder plugins and themes store content differently. This pl
 <h3>Version 1.16: Reorder & Random</h3>
 
 <p>
-This version offers drag-and-drop ordering in the testimonial list. That order is available in the widget and by using <code>menu_order</code> in the <code>[strong]</code> shortcode. The plugin actively prevents these post order plugins from accessing testimonials: <a href="https://wordpress.org/plugins/simple-custom-post-order/" target="_blank" rel="nofollow">Simple Custom Post Order</a>, <a href="https://wordpress.org/plugins/intuitive-custom-post-order/" target="_blank" rel="nofollow">Intuitive Custom Post Order</a>, and <a href="https://wordpress.org/plugins/post-types-order/" target="_blank" rel="nofollow">Post Types Order</a>.
+This version offers drag-and-drop ordering in the testimonial list. It is <em>disabled by default</em> and can be enabled on the Testimonials Settings page.
+</p>
+
+<p>
+That order is available in the widget and by using <code>menu_order</code> in the <code>[strong]</code> shortcode. The plugin actively prevents these post order plugins from accessing testimonials: <a href="https://wordpress.org/plugins/simple-custom-post-order/" target="_blank" rel="nofollow">Simple Custom Post Order</a>, <a href="https://wordpress.org/plugins/intuitive-custom-post-order/" target="_blank" rel="nofollow">Intuitive Custom Post Order</a>, and <a href="https://wordpress.org/plugins/post-types-order/" target="_blank" rel="nofollow">Post Types Order</a>.
 </p>
 
 <p><a href="https://www.wpmission.com/contact" target="_blank">Contact me</a> to suggest a post order plugin.</p>
@@ -87,7 +91,7 @@ The <code>[strong]</code> shortcode will remain for those who like it.
 
 <h3>Version 1.18</h3>
 
-<p>This version will add a new minor features in preparation for 2.0.</p>
+<p>This version will add a few minor features in preparation for 2.0.</p>
 
 <h3>Version 2.0</h3>
 
