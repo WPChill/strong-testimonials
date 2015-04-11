@@ -336,6 +336,9 @@ Thanks but I prefer a nice [review](https://wordpress.org/support/view/plugin-re
 
 == Changelog ==
 
+= 1.16.4 - 2015-04-09 =
+* Fix bug in shortcode post count.
+
 = 1.16.3 - 2015-04-09 =
 * Fix bug on reactivate.
 
