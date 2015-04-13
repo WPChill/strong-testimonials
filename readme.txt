@@ -336,6 +336,9 @@ Thanks but I prefer a nice [review](https://wordpress.org/support/view/plugin-re
 
 == Changelog ==
 
+= 1.16.6 - 2015-04-13 =
+* Fix bug in [wpmtst-random] shortcode.
+
 = 1.16.5 - 2015-04-13 =
 * Fix bug in admin post list date column filter (WooCommerce compat).
 
@@ -593,6 +596,9 @@ Thanks but I prefer a nice [review](https://wordpress.org/support/view/plugin-re
 
 
 == Upgrade Notice ==
+
+= 1.16.6 =
+* Fix bug in [wpmtst-random] shortcode.
 
 = 1.16.5 =
 * Fix bug in admin post list date column filter.

@@ -127,6 +127,7 @@ class WpmTst_Widget extends WP_Widget {
 	
 		$wp_query = new WP_Query();
 		$results = $wp_query->query( $args );
+		$num = min( $num, count( $results ) );
 		
 		/**
 		 * Shuffle array in PHP instead of SQL.

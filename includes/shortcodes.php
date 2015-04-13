@@ -274,21 +274,14 @@ function wpmtst_random_shortcode( $atts ) {
 	
 	$wp_query = new WP_Query();
 	$results  = $wp_query->query( $args );
-	
-	$random_keys    = array_rand( $results, $limit );
-	$random_results = array();
-	
-	if ( is_int( $random_keys ) ) {
-		$random_results[] = $results[$random_keys];
+	shuffle( $results );
+	$limit = min( $limit, count( $results ) );
+	if ( $limit > 0 ) {
+		$results = array_slice( $results, 0, $limit );
 	}
-	else {
-		foreach ( $random_keys as $key ) {
-			$random_results[] = $results[$key];
-		}
-	}
-
+	
 	$display = '<div id="wpmtst-container">';
-	foreach ( $random_results as $post ) {
+	foreach ( $results as $post ) {
 		$display .= wpmtst_single( wpmtst_get_post( $post ) );
 	}
 	$display .= '</div>';
