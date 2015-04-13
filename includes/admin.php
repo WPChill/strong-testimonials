@@ -25,7 +25,7 @@ add_action( 'admin_init', 'wpmtst_admin_init' );
 /**
  * Prevent other post ordering plugins, in admin_init hook.
  *
- * @since 1.16
+ * @since 1.16.0
  */
 function wpmtst_deny_plugins_init() {
 	
@@ -78,7 +78,7 @@ add_action( 'admin_init', 'wpmtst_deny_plugins_init', 200 );
 /**
  * Prevent other post ordering plugins, in admin_menu hook.
  *
- * @since 1.16
+ * @since 1.16.0
  */
 function wpmtst_deny_plugins_menu() {
 	
@@ -246,7 +246,7 @@ function wpmtst_edit_columns( $columns ) {
 	/**
 	 * Menu order
 	 *
-	 * @since 1.16
+	 * @since 1.16.0
 	 */
 	if ( $options['reorder'] && !wpmtst_is_column_sorted() && !wpmtst_is_viewing_trash() ) {
 		$columns['order'] = __( 'Order', 'strong-testimonials' );
@@ -283,11 +283,13 @@ add_filter( 'manage_edit-wpm-testimonial_columns', 'wpmtst_edit_columns' );
  *
  * This filter is documented in wp-admin/includes/class-wp-posts-list-table.php.
  *
- * @since 1.16
+ * @since 1.16.0
  */
-function wpmtst_post_date_column_time( $t_time, $post, $column_name, $mode ) {
-	$time = get_post_time( __( 'Y/m/d g:i:s A' ), true, $post );
-	return $time;
+function wpmtst_post_date_column_time( $t_time, $post = null, $column_name = 'date', $mode = 'list' ) {
+	if ( $post && 'wpm-testimonial' == $post->post_type && 'date' == $column_name ) {
+		$t_time = get_post_time( __( 'Y/m/d g:i:s A' ), true, $post );
+	}
+	return $t_time;
 }
 add_filter( 'post_date_column_time', 'wpmtst_post_date_column_time', 10, 4 );
 
@@ -295,7 +297,7 @@ add_filter( 'post_date_column_time', 'wpmtst_post_date_column_time', 10, 4 );
 /**
  * Check if a column in admin list table is sorted.
  *
- * @since 1.16
+ * @since 1.16.0
  */
 function wpmtst_is_column_sorted() {
 	return isset( $_GET['orderby'] ) || strstr( $_SERVER['REQUEST_URI'], 'action=edit' ) || strstr( $_SERVER['REQUEST_URI'], 'wp-admin/post-new.php' );
@@ -305,7 +307,7 @@ function wpmtst_is_column_sorted() {
 /**
  * Check if we are viewing the Trash.
  *
- * @since 1.16
+ * @since 1.16.0
  */
 function wpmtst_is_viewing_trash() {
 	return isset( $_GET['post_status'] ) && 'trash' == $_GET['post_status'];
@@ -356,7 +358,7 @@ function wpmtst_custom_columns( $column ) {
 		/**
 		 * Menu order.
 		 *
-		 * @since 1.16
+		 * @since 1.16.0
 		 */
 		case 'order':
 			if ( current_user_can( 'edit_post', $post->ID ) 
@@ -494,7 +496,7 @@ add_action( 'pre_get_posts', 'wpmtst_pre_get_posts', 10 );
 /**
  * Add order to default sort to allow manual ordering.
  *
- * @since 1.16
+ * @since 1.16.0
  */
 function wpmtst_posts_orderby( $orderby, $query ) {
 	if ( !$query->get( 'orderby' ) ) {

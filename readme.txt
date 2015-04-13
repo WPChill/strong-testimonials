@@ -336,6 +336,9 @@ Thanks but I prefer a nice [review](https://wordpress.org/support/view/plugin-re
 
 == Changelog ==
 
+= 1.16.5 - 2015-04-13 =
+* Fix bug in admin post list date column filter (WooCommerce compat).
+
 = 1.16.4 - 2015-04-09 =
 * Fix bug in shortcode post count.
 
@@ -591,6 +594,9 @@ Thanks but I prefer a nice [review](https://wordpress.org/support/view/plugin-re
 
 == Upgrade Notice ==
 
+= 1.16.5 =
+* Fix bug in admin post list date column filter.
+
 = 1.16 =
 Drag-and-drop ordering. Moved randomizer to PHP for WPEngine and others. Language files for the form validation script. French translation.
 
@@ -758,35 +764,3 @@ Fixed a minor bug that did not show multiple categories in the admin testimonial
 
 = 1.4.1 =
 Fixed a minor bug if a category was selected in the widget settings.
-
-
-== Roadmap ==
-
-Here's what I'm working on. This is subject to change.
-
-Version 1.17
-
-* **Views** will be easier to configure than the shortcode.
-* **No Conflict mode** for page builders that I haven't found workarounds for yet.
-* More size options for the Featured Image.
-* An option to assign the initial list order based on a sorted column like Date or Title.
-* An option to completely reset the list order.
-* A category filter in the admin list.
-
-Version 1.18
-
-* This will probably be the last update before version 2.0.
-* An option to lock in the current version and forgo updates (maybe).
-* An option to change the slug; for example, from "testimonial" to "review".
-* Prevent form from being submitted twice.
-
-Version 2.0
-
-* A full object-oriented refactoring.
-* Fully WPML-compatible.
-* The original `[wpmtst]` shortcodes will be removed. Use Views instead.
-* The original widget will be removed. Use a View widget instead.
-* A new default modern template. The current gradient gray template will still be available.
-* A sample data file.
-* Leave No Trace options.
-* A troubleshooting mode.

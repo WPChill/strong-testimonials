@@ -4,7 +4,7 @@
  * Plugin URI: http://www.wpmission.com/strong-testimonials/
  * Description: Collect and display testimonials with a plugin that offers strong features and strong support.
  * Author: Chris Dillon
- * Version: 1.16.4
+ * Version: 1.16.5
  * Forked From: GC Testimonials version 1.3.2 by Erin Garscadden
  * Author URI: http://www.wpmission.com/contact
  * Text Domain: strong-testimonials
@@ -12,7 +12,7 @@
  * Requires: 3.5 or higher
  * License: GPLv3 or later
  *
- * Copyright 2014  Chris Dillon  chris@wpmission.com
+ * Copyright 2014-2015  Chris Dillon  chris@wpmission.com
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
