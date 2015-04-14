@@ -333,7 +333,7 @@ final class StrongTestimonials_Plugin {
 		
 		$var = '';
 		$options = get_option( 'wpmtst_options' );
-		
+
 		// minimal subset of all shortcode atts
 		extract( shortcode_atts(
 			array(
@@ -345,7 +345,7 @@ final class StrongTestimonials_Plugin {
 					'id'         => '',
 					'show_for'   => '8',
 					'effect_for' => '1.5',
-					'no_pause'   => 'false',
+					'no_pause'   => 0,  // must be zero not boolean or string!
 			),
 			$view['atts']
 		) );
@@ -388,7 +388,7 @@ final class StrongTestimonials_Plugin {
 					'fx'      => 'fade',
 					'speed'   => $effect_for * 1000, 
 					'timeout' => $show_for * 1000, 
-					'pause'   => $no_pause ? true : false,
+					'pause'   => $no_pause ? 0 : 1
 			);
 			self::add_script( 'wpmtst-slider', 'later' );
 			self::add_script_var( 'wpmtst-slider', 'strong_cycle_' . hash( 'md5', $att_string ), $args );

@@ -336,6 +336,9 @@ Thanks but I prefer a nice [review](https://wordpress.org/support/view/plugin-re
 
 == Changelog ==
 
+= 1.16.7 - 2015-04-15 =
+* Fix bug in slideshow pause-on-hover.
+
 = 1.16.6 - 2015-04-13 =
 * Fix bug in [wpmtst-random] shortcode.
 
@@ -596,6 +599,9 @@ Thanks but I prefer a nice [review](https://wordpress.org/support/view/plugin-re
 
 
 == Upgrade Notice ==
+
+= 1.16.7 =
+* Fix bug in slideshow pause-on-hover.
 
 = 1.16.6 =
 * Fix bug in [wpmtst-random] shortcode.

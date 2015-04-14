@@ -61,7 +61,7 @@ function wpmtst_strong_shortcode( $atts, $content = null, $parent_tag ) {
 				'per_page' => '',
 				'nav' => 'after',
 				'id' => '',
-				'menu_order' => '',  // @since 1.16
+				'menu_order' => '',  // @since 1.16.0
 				'random' => '',
 				'newest' => '',
 				'oldest' => '',
@@ -75,8 +75,7 @@ function wpmtst_strong_shortcode( $atts, $content = null, $parent_tag ) {
 				// slideshow attributes
 				'show_for' => '8',
 				'effect_for' => '1.5',
-				// 'pause' => true,
-				'no_pause' => 'false',
+				'no_pause' => 0,  // must be zero not boolean or string!
 				
 				// read more link attributes
 				// 'class' => '',
