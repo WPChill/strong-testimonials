@@ -35,7 +35,7 @@
 	<tr class="example">
 		<?php /* translators: This appears in the [strong] shortcode instructions. */ ?>
 		<td><?php _ex( 'full', 'adjective', 'strong-testimonials' ); ?></td>
-		<td colspan="2">[strong form category="27" no_stylesheet class="full-width"]</td>
+		<td colspan="2">[strong form category="27" class="full-width"]</td>
 	</tr>
 	</table>
 </div>

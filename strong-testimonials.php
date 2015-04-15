@@ -4,7 +4,7 @@
  * Plugin URI: http://www.wpmission.com/strong-testimonials/
  * Description: Collect and display testimonials with a plugin that offers strong features and strong support.
  * Author: Chris Dillon
- * Version: 1.16.7
+ * Version: 1.16.8
  * Forked From: GC Testimonials version 1.3.2 by Erin Garscadden
  * Author URI: http://www.wpmission.com/contact
  * Text Domain: strong-testimonials
@@ -287,20 +287,26 @@ function wpmtst_scripts_after_theme() {
 	 */
 	 
 	$filenames = array( 
-			'jquery.cycle.all.min.js', 
-			'jquery.cycle.all.js', 
-			'jquery.cycle2.min.js', 
+			'jquery.cycle.all.min.js',
+			'jquery.cycle.all.js',
+			'jquery.cycle.min.js',
+			'jquery.cycle.js',  // for Jetpack Slideshow shortcode
+			'jquery.cycle2.min.js',
 			'jquery.cycle2.js'
 	);
-			
+	
 	$cycle_handle = wpmtst_is_registered( $filenames );
 	
 	if ( !$cycle_handle ) {
 		$cycle_handle = 'jquery-cycle';
-		wp_register_script( $cycle_handle, WPMTST_URL . 'js/jquery.cycle2.min.js', array( 'jquery' ), false, true );
+		// Special handling for Jetpack's version of Cycle.
+		if ( class_exists( 'Jetpack_Slideshow_Shortcode' ) )
+			wp_register_script( $cycle_handle, WPMTST_URL . 'js/jquery.cycle.js', array( 'jquery' ), false, true );
+		else
+			wp_register_script( $cycle_handle, WPMTST_URL . 'js/jquery.cycle2.min.js', array( 'jquery' ), false, true );
 	}
 	
-	// our slider handler, dependent on jQuery Cycle plugin
+	// Our slider handler, dependent on jQuery Cycle plugin.
 	wp_register_script( 'wpmtst-slider', WPMTST_URL . 'js/wpmtst-cycle.js', array ( $cycle_handle ), false, true );
 	
 	/**

@@ -336,7 +336,10 @@ Thanks but I prefer a nice [review](https://wordpress.org/support/view/plugin-re
 
 == Changelog ==
 
-= 1.16.7 - 2015-04-15 =
+= 1.16.8 - 2015-04-15 =
+* Fix conflict with Jetpack Slideshow shortcode.
+
+= 1.16.7 - 2015-04-14 =
 * Fix bug in slideshow pause-on-hover.
 
 = 1.16.6 - 2015-04-13 =
@@ -599,6 +602,9 @@ Thanks but I prefer a nice [review](https://wordpress.org/support/view/plugin-re
 
 
 == Upgrade Notice ==
+
+= 1.16.8 =
+* Fix conflict with Jetpack Slideshow shortcode.
 
 = 1.16.7 =
 * Fix bug in slideshow pause-on-hover.
