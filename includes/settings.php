@@ -68,6 +68,10 @@ function wpmtst_unique_menu_title() {
 	if ( is_plugin_active( 'clean-testimonials/clean-testimonials.php' ) )
 		$need_unique = true;
 		
+	// Easy Testimonials
+	if ( is_plugin_active( 'easy-testimonials/easy-testimonials.php' ) )
+		$need_unique = true;
+	
 	if ( ! $need_unique ) return;
 
 	global $menu;
