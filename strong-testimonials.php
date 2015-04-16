@@ -289,24 +289,22 @@ function wpmtst_scripts_after_theme() {
 	$filenames = array( 
 			'jquery.cycle.all.min.js',
 			'jquery.cycle.all.js',
-			'jquery.cycle.min.js',
-			'jquery.cycle.js',  // for Jetpack Slideshow shortcode
 			'jquery.cycle2.min.js',
 			'jquery.cycle2.js'
 	);
 	
 	$cycle_handle = wpmtst_is_registered( $filenames );
-	
+
 	if ( !$cycle_handle ) {
-		$cycle_handle = 'jquery-cycle';
-		// Special handling for Jetpack's version of Cycle.
-		if ( class_exists( 'Jetpack_Slideshow_Shortcode' ) )
-			wp_register_script( $cycle_handle, WPMTST_URL . 'js/jquery.cycle.js', array( 'jquery' ), false, true );
-		else
-			wp_register_script( $cycle_handle, WPMTST_URL . 'js/jquery.cycle2.min.js', array( 'jquery' ), false, true );
+		/**
+		 * Using unique handle and loading Cycle instead of Cycle2 for compatibility.
+		 * @since 1.16.9
+		 */
+		$cycle_handle = 'jquery-cycle-in-wpmtst';
+		wp_register_script( $cycle_handle, WPMTST_URL . 'js/jquery.cycle.all.js', array( 'jquery' ), '2.9999.5', true );
 	}
 	
-	// Our slider handler, dependent on jQuery Cycle plugin.
+	// Our slider handler, dependent on whichever jQuery Cycle plugin is being used.
 	wp_register_script( 'wpmtst-slider', WPMTST_URL . 'js/wpmtst-cycle.js', array ( $cycle_handle ), false, true );
 	
 	/**

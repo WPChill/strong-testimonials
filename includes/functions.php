@@ -76,7 +76,7 @@ function wpmtst_get_website( $url ) {
  * Why? Plugins are loaded before themes. Our plugin includes the Cycle
  * slider. Some themes include it too. We only want to load it once.
  *
- * Load jQuery Cycle2 plugin (http://jquery.malsup.com/cycle2/) only if
+ * Load jQuery Cycle plugin (http://jquery.malsup.com/cycle/) only if
  * any version of Cycle is not already registered by a theme or another
  * plugin. Both versions of Cycle use same function name so we can't load
  * both but either version will work for our purposes.
@@ -84,11 +84,15 @@ function wpmtst_get_website( $url ) {
  *
  * The WordPress function `wp_script_is` checks by *handle* within a plugin
  * or theme but handles can be different so it misses it.
- *   wp_script_is( 'jquery.cycle2.min.js', 'registered' )
- * @link http://codex.wordpress.org/Function_Reference/wp_script_is
+ *   wp_script_is( 'jquery-cycle', 'registered' )
+ * http://codex.wordpress.org/Function_Reference/wp_script_is
  *
- * @param array $filenames possible versions of one script, 
- *    e.g. plugin.js, plugin-min.js, plugin-1.2.js
+ * Jetpack's slideshow shortcode simply enqueues its own version of Cycle
+ * without registering first if and when the shortcode is rendered. No way
+ * to check for that. It does not seem to create a conflict now. (1.16)
+ *
+ * @param  array  $filenames possible versions of one script, 
+ *                e.g. plugin.js, plugin-min.js, plugin-1.2.js
  * @return string
  */
 function wpmtst_is_registered( $filenames ) {
