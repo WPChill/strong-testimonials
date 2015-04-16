@@ -194,85 +194,34 @@ For help, use the [support forum](http://wordpress.org/support/plugin/strong-tes
 
 [Screenshots](http://wordpress.org/plugins/strong-testimonials/screenshots/) | [Demos](http://demos.wpmission.com/strong-testimonials/) | [Feature Requests](https://www.wpmission.com/feature-request)
 
+
 = My web host does not allow the SQL RAND() random function. Will your plugin still work? =
 
-Yes, the random routine has been moved to PHP. Thanks to [Eric Hoanshelt](http://wpmigration.guru/) at [WPEngine](http://wpengine.com/) for showing me the light.
+Yes. The random routine has been moved from SQL to PHP (from the database to the application). Thanks to [Eric Hoanshelt](http://wpmigration.guru/) at [WPEngine](http://wpengine.com/) for showing me the light.
 
 
-= The pagination controls are not working right. =
+= Can I change which client fields appear below the testimonial? =
 
-Try adding this to your (child) theme's `functions.php`:
+Yes. The `[strong]` shortcode has child shortcodes `[client]` and `[field]`. Here's a good [example](http://demos.wpmission.com/strong-testimonials/the-strong-shortcode/custom-fields/).
 
-`
-/**
- * Remove HTML comments, except MSIE conditionals, from Strong Testimonials output.
- */
-function my_strong_html( $content ) {
-	$content = preg_replace('/<!--(?!\s*(?:\[if [^\]]+]|<!|>))(?:(?!-->).)*-->/s', '', $content);
-	return $content;
-}
-add_filter( 'strong_html', 'my_strong_html', 10, 1 );
-`
-
-Some page builder plugins inadvertently wrap HTML comments in shortcode output in paragraph tags. The pagination script then interprets those extra paragraphs as regular content. This filter removes those comments.
+For the widget and the original `[wpmtst]` shortcodes, there are other child shortcodes for your custom fields; one for text fields (like a client's name) and one for links (like a client's website).
 
 
-= How can I change the "Read more" link text? =
+= Are there templates? Can I change the look of the testimonials? =
 
-For the widget, use the 'strong_widget_read_more_text' filter. For example, add this to your theme's `functions.php`:
-`
-/**
- * Change the widget "Read more" link text.
- */
-function my_strong_widget_read_more_text( $text ) {
-	return "More testimonials »";
-}
-add_filter( 'strong_widget_read_more_text', 'my_strong_widget_read_more_text', 10, 1 );
-`
-
-For the `[strong]` shortcode, use the `more_post` and `more_text` attributes like in [this demo](http://demos.wpmission.com/strong-testimonials/the-strong-shortcode/read-more-each/).
-
-
-= I added the `[strong]` shortcode to a page but I don't see the name or company fields. =
-
-The `[strong]` shortcode has child shortcodes `[client]` and `[field]`. Here's a good [example](http://demos.wpmission.com/strong-testimonials/the-strong-shortcode/custom-fields/).
-
-If you're not familiar with HTML or nested shortcodes, it may feel like learning a foreign language. Please refer to the [demo site](http://demos.wpmission.com/strong-testimonials) or ask for help.
-
-
-= How can I change which client fields appear below the testimonial? =
-
-The `[strong]` shortcode has child shortcodes `[client]` and `[field]`. Here's a good [example](http://demos.wpmission.com/strong-testimonials/the-strong-shortcode/custom-fields/).
-
-For the widget and the original `[wpmtst]` shortcodes, go to the Client Section tab on the Testimonials > Settings page. Follow the example to build shortcodes based on your custom fields. There is a shortcode for text fields (like a client's name) and a shortcode for links (like a client's website). When in doubt, use the default template provided.
-
-
-= So the child/nested shortcodes for `[strong]` are different than the widget? Why? =
-
-Short answer: I plan to build a single method soon. If the shortcode and the widget are cousins now, they will be more like brothers later.
-
-Long answer: The Client Section shortcodes were a quick-n-simple way to add client fields to both the original `[wpmtst-*]` shortcodes and the widget AFTER custom fields were added in version 1.7. Then I developed the `[strong]` shortcode in order to bring all the options together (a form, a slideshow, multiple selection criteria) into a single shortcode. That opened up the door for child shortcodes to provide even more options for displaying client fields. The customization requests and questions like "Where do I edit the code to..." decreased significantly after that :). 
-
-My plan is to build a tool that allows you to configure a testimonial display component, let's call it a **view**, and then add that **view** to a page using a shorter shortcode (!) like `[strong view="1"]` or to a widget using a dropdown selector. 
-
-And it's almost ready!
-
-
-= Are there templates? How do I change the look of the testimonials? =
-
-The `[strong]` shortcode uses a template file that can be copied into the top directory of your theme, e.g. `wp-content/themes/my-theme/testimonials.php`. You can create multiple template files and include them using a shortcode attribute; e.g. `template="my-template"`. Template functions are also available for adding testimonial fields to new or existing templates.
+Yes. The `[strong]` shortcode uses a template file that can be copied into the top directory of your theme, e.g. `wp-content/themes/my-theme/testimonials.php`. You can create multiple template files and include them using a shortcode attribute; e.g. `template="my-template"`. Template functions are also available for adding testimonial fields to new or existing templates.
 
 The original `[wpmtst]` shortcodes do not use template files, but the stylesheets are largely structural so you can add CSS in your theme. In fact, I like to skip loading the stylesheets (in `Testimonials > Settings`) to see how they look in the theme, then style up from there. 
 
 
-= How can I change "testimonial" to "review", for example? =
+= Can I change "testimonial" to "review", for example? =
 
-Instructions are [here](https://wordpress.org/support/topic/how-to-change-the-slug). I plan to build this into the plugin soon.
+Maybe. Instructions are [here](https://wordpress.org/support/topic/how-to-change-the-slug). However, this does not seem to work for all theme/plugin combinations, like themes that also include testimonials, so I plan to build this into the plugin soon.
 
 
-= How can I reorder my testimonials? =
+= Can I reorder my testimonials? =
 
-Two ways: (1) drag-and-drop ordering in the admin list and (2) manually changing the Order field (usually in the right-hand column in the post editor *or* in Quick Edit in the post list).
+Yes. Two ways: (1) drag-and-drop ordering in the admin list and (2) manually changing the Order field (usually in the right-hand column in the post editor *or* in Quick Edit in the post list).
 
 Drag and drop is **disabled by default** and can be enabled in `Testimonials > Settings > General`.
 
@@ -281,18 +230,16 @@ To avoid conflicts, the plugin proactively **denies** these plugins from reorder
 The widget now offers the option to sort by that Order field too.
 
 
-= How can I change the fields on the form? =
+= Can I change the fields on the form? =
 
-On the Testimonials > Fields page, there is a field editor where you can add or remove fields, change field details, and drag-and-drop to reorder them. You can also restore the default fields.
+Yes. There is a custom field editor where you can add or remove fields, change field details, and drag-and-drop to reorder them. You can also restore the default fields.
 
 If you have ever used the Advanced Custom Fields or Custom Field Suite plugins, the editor will be very familiar. Here is a full [tutorial](https://www.wpmission.com/tutorials/customize-the-form-in-strong-testimonials/).
 
 
-= How do I add a Captcha to the form? =
+= Can I add Captcha to the form? =
 
-Select one of the supported plugins on the Testimonials > Settings page. Use the link to each plugin's download page to install it.
-
-If the currently selected Captcha plugin is deactivated, the setting will revert to "none".
+Yes. Install one of the supported Captcha plugins, configure it, and select it on the Settings page.
 
 If your site relies on a partner plugin like this, and that plugin becomes buggy or abandoned, I will adopt or fork it to keep your site running.
 
