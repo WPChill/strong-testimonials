@@ -283,6 +283,9 @@ Thanks but I prefer a nice [review](https://wordpress.org/support/view/plugin-re
 
 == Changelog ==
 
+= 1.16.10 - 2015-05-29 =
+* Fix bug when interacting with Simple Custom Post Order and Intuitive Custom Post Order plugins.
+
 = 1.16.9 - 2015-04-16 =
 * Really fix conflict with Jetpack Slideshow shortcode.
 

@@ -36,14 +36,18 @@ function wpmtst_deny_plugins_init() {
 		$options = get_option( 'hicpo_options' );
 		$update = false;
 		
-		if ( in_array( 'wpm-testimonial', $options['objects'] ) ) {
-			$options['objects'] = array_diff( $options['objects'], array( 'wpm-testimonial' ) );
-			$update = true;
+		if ( isset( $options['objects'] ) && is_array( $options['objects'] ) ) {
+			if ( in_array( 'wpm-testimonial', $options['objects'] ) ) {
+				$options['objects'] = array_diff( $options['objects'], array( 'wpm-testimonial' ) );
+				$update = true;
+			}
 		}
 		
-		if ( in_array( 'wpm-testimonial-category', $options['tags'] ) ) {
-			$options['tags'] = array_diff( $options['tags'], array( 'wpm-testimonial-category' ) );
-			$update = true;
+		if ( isset( $options['tags'] ) && is_array( $options['tags'] ) ) {
+			if ( in_array( 'wpm-testimonial-category', $options['tags'] ) ) {
+				$options['tags'] = array_diff( $options['tags'], array( 'wpm-testimonial-category' ) );
+				$update = true;
+			}
 		}
 		
 		if ( $update )
@@ -57,14 +61,18 @@ function wpmtst_deny_plugins_init() {
 		$options = get_option( 'scporder_options' );
 		$update = false;
 		
-		if ( in_array( 'wpm-testimonial', $options['objects'] ) ) {
-			$options['objects'] = array_diff( $options['objects'], array( 'wpm-testimonial' ) );
-			$update = true;
+		if ( isset( $options['objects'] ) && is_array( $options['objects'] ) ) {
+			if ( in_array( 'wpm-testimonial', $options['objects'] ) ) {
+				$options['objects'] = array_diff( $options['objects'], array( 'wpm-testimonial' ) );
+				$update = true;
+			}
 		}
 		
-		if ( in_array( 'wpm-testimonial-category', $options['tags'] ) ) {
-			$options['tags'] = array_diff( $options['tags'], array( 'wpm-testimonial-category' ) );
-			$update = true;
+		if ( isset( $options['tags'] ) && is_array( $options['tags'] ) ) {
+			if ( in_array( 'wpm-testimonial-category', $options['tags'] ) ) {
+				$options['tags'] = array_diff( $options['tags'], array( 'wpm-testimonial-category' ) );
+				$update = true;
+			}
 		}
 		
 		if ( $update )
