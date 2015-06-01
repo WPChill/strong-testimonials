@@ -283,6 +283,9 @@ Thanks but I prefer a nice [review](https://wordpress.org/support/view/plugin-re
 
 == Changelog ==
 
+= 1.16.11 - 2015-06-01 =
+* Fix conflict with NextGEN Gallery.
+
 = 1.16.10 - 2015-05-29 =
 * Fix bug when interacting with Simple Custom Post Order and Intuitive Custom Post Order plugins.
 
@@ -552,3 +555,8 @@ Thanks but I prefer a nice [review](https://wordpress.org/support/view/plugin-re
 
 = 1.4 =
 * Initial version, a fork of GC Testimonials 1.3.2.
+
+== Upgrade Notice ==
+
+= 1.16.11 =
+Definitely upgrade if using the NextGEN Gallery plugin.

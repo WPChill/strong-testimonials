@@ -227,13 +227,20 @@ add_shortcode( 'wpmtst-link', 'wpmtst_link_shortcode' );
  */
 function wpmtst_single_shortcode( $atts ) {
 	extract( shortcode_atts( 
-		array( 'id' => '' ),
+		array( 'id' => null ),
 		normalize_empty_atts( $atts )
 	) );
-	$post = wpmtst_get_post( get_post( $id ) );
-	$display = '<div id="wpmtst-container">';
-	$display .= wpmtst_single( $post );
-	$display .= '</div>';
+	
+	if ( !$id )
+		return '';
+	
+	$post = get_post( $id );
+	if ( !$post )
+		return '';
+	
+	$post = wpmtst_get_post( $post );
+	
+	$display = '<div id="wpmtst-container">'. wpmtst_single( $post ) . '</div>';
 	return $display;
 }
 add_shortcode( 'wpmtst-single', 'wpmtst_single_shortcode' );

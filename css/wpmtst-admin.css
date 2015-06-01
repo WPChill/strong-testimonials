@@ -56,6 +56,19 @@ a.widget-action:focus {
 	outline: none;
 }
 
+/* Slug field */
+input#post_name {
+	width: 98%;
+}
+
+/* Client Details metabox */
+#details table.options {
+	width: 98%;
+}
+input.custom-input {
+	width: 65%;
+}
+
 
 /* Help sections
 ---------------------------------------------------------*/

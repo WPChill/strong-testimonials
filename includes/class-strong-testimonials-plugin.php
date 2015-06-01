@@ -47,8 +47,16 @@ final class StrongTestimonials_Plugin {
 		// Preprocess the post content for the original shortcodes.
 		add_action( 'wp', array( $this, 'find_original_shortcodes' ) );
 
-		// Localize scripts. Priority 5 is important.
-		add_action( 'wp_print_footer_scripts', array( $this, 'localize_vars' ), 5 );
+		/**
+		 * Localize scripts.
+		 *
+		 * Priority value must be greater than `wpmtst_scripts_after_theme` level
+		 * which is currently 200. Leave room in case that number needs to be
+		 * adjusted for theme compatibility.
+		 *
+		 * @since 1.16.11 (with proper hook)
+		 */
+		add_action( 'wp_enqueue_scripts', array( $this, 'localize_vars' ), 500 );
 		
 	}
 
