@@ -283,6 +283,9 @@ Thanks but I prefer a nice [review](https://wordpress.org/support/view/plugin-re
 
 == Changelog ==
 
+= 1.16.12 - 2015-06-10 =
+* Move localize scripts to wp_footer.
+
 = 1.16.11 - 2015-06-01 =
 * Fix conflict with NextGEN Gallery.
 
@@ -558,5 +561,5 @@ Thanks but I prefer a nice [review](https://wordpress.org/support/view/plugin-re
 
 == Upgrade Notice ==
 
-= 1.16.11 =
-Definitely upgrade if using the NextGEN Gallery plugin.
+= 1.16.12 =
+Improve page builder compatibility.

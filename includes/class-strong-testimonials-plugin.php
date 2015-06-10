@@ -56,8 +56,9 @@ final class StrongTestimonials_Plugin {
 		 *
 		 * @since 1.16.11 (with proper hook)
 		 */
-		add_action( 'wp_enqueue_scripts', array( $this, 'localize_vars' ), 500 );
-		
+		//add_action( 'wp_enqueue_scripts', array( $this, 'localize_vars' ), 500 );
+		add_action( 'wp_footer', array( $this, 'localize_vars' ) );
+
 	}
 
 	
