@@ -234,7 +234,12 @@ final class StrongTestimonials_Plugin {
 			
 			if ( 'strong' === $shortcode[2] ) {
 			
-				$parsed_atts = shortcode_parse_atts( $shortcode[3] );
+				/**
+				 * Adding html_entity_decode.
+				 * @since 1.16.13
+				 */
+				// $parsed_atts = shortcode_parse_atts( $shortcode[3] );
+				$parsed_atts = shortcode_parse_atts( html_entity_decode( $shortcode[3] ) );
 				
 				// shortcode signature
 				$att_string = serialize( $parsed_atts );

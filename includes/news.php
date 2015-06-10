@@ -22,7 +22,7 @@ Drag-and-drop page builder plugins and themes store content differently. This pl
 <tr>
 <th>Works!</th>
 <th>Conflict</th>
-<th>Untested</th>
+<th>Requested</th>
 </tr>
 
 <tr>
@@ -33,6 +33,7 @@ Drag-and-drop page builder plugins and themes store content differently. This pl
 <li><a href="https://thethemefoundry.com/wordpress-themes/make/" target="_blank" rel="nofollow">Make theme by Theme Foundry</a></li>
 <li><a href="http://www.elegantthemes.com/gallery/divi/" target="_blank" rel="nofollow">Elegant Page Builder & Divi theme by Elegant Themes</a></li>
 <li><a href="http://cyberchimps.com/responsive-theme/" target="_blank" rel="nofollow">Responsive theme by CyberChimps</a></li>
+<li><a href="http://goodlayers.com/" target="_blank" rel="nofollow">GoodLayers themes</a>
 </ol>
 </td>
 
@@ -44,6 +45,8 @@ Drag-and-drop page builder plugins and themes store content differently. This pl
 
 <td>
 <ol>
+<li>Obox's Layers</li>
+<li>WPMU Dev’s Upfront</li>
 <li>Visual Composer</li>
 <li>Velocity Page</li>
 <li>Beaver Builder</li>
@@ -86,7 +89,7 @@ I have taken the feedback to heart. The <code>[strong]</code> shortcode is eithe
 Version 1.17 will introduce views which will replace the shortcode "language" with something like <code>[strong view="1"]</code> and all the settings will be in admin. This has been the goal from the start. It is a better approach for both you and me.
 </p>
 <p>
-The <code>[strong]</code> shortcode will remain for those who like it.
+The <code>[strong]</code> shortcode and all its options will remain for those who like it.
 </p>
 
 <h3>Version 1.18</h3>

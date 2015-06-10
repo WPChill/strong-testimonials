@@ -2,7 +2,7 @@
 Contributors: cdillon27
 Tags: testimonials, testimonial widget, random testimonial, testimonial shortcode, testimonial slider
 Requires at least: 3.5
-Tested up to: 4.2
+Tested up to: 4.2.2
 Stable tag: trunk
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -283,6 +283,9 @@ Thanks but I prefer a nice [review](https://wordpress.org/support/view/plugin-re
 
 == Changelog ==
 
+= 1.16.13 - 2015-06-10 =
+* Add html_entity_decode to shortcode preprocessing for GoodLayers themes.
+
 = 1.16.12 - 2015-06-10 =
 * Move localize scripts to wp_footer.
 
@@ -561,5 +564,5 @@ Thanks but I prefer a nice [review](https://wordpress.org/support/view/plugin-re
 
 == Upgrade Notice ==
 
-= 1.16.12 =
-Improve page builder compatibility.
+= 1.16.13 =
+Improved compatibility with GoodLayers themes.
