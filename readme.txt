@@ -263,6 +263,9 @@ Thanks but I prefer a nice [review](https://wordpress.org/support/view/plugin-re
 
 == Changelog ==
 
+= 1.16.14 - 2015-06-27 =
+* Fix conflict with Black Studio TinyMCE plugin.
+
 = 1.16.13 - 2015-06-10 =
 * Add html_entity_decode to shortcode preprocessing for GoodLayers themes.
 
@@ -544,5 +547,5 @@ Thanks but I prefer a nice [review](https://wordpress.org/support/view/plugin-re
 
 == Upgrade Notice ==
 
-= 1.16.13 =
-Improved compatibility with GoodLayers themes.
+= 1.16.14 =
+Fix conflict with Black Studio TinyMCE plugin.

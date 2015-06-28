@@ -41,6 +41,9 @@ final class StrongTestimonials_Plugin {
 		// Page Builder by Site Origin
 		add_action( 'wp', array( $this, 'find_pagebuilder_widgets' ) );
 		
+		// Black Studio TinyMCE Widget
+		add_action( 'wp', array( $this, 'find_blackstudio_widgets' ) );
+
 		// Preprocess the page for widgets.
 		add_action( 'wp', array( $this, 'find_widgets' ) );
 		
@@ -211,6 +214,29 @@ final class StrongTestimonials_Plugin {
 		if ( false === strpos( $post->post_excerpt, '[strong' ) ) return false;
 
 		self::process_content( $post->post_excerpt );
+		
+	}
+
+	/**
+	 * Build list of all shortcode views in Black Studio TinyMCE Widget.
+	 *
+	 * @access public
+	 * @since 1.16.14
+	 */
+	public static function find_blackstudio_widgets() {
+		
+		if ( is_admin() ) return false;
+		
+		global $post;
+		if ( empty( $post ) ) return false;
+		
+		$widget_content = get_option( 'widget_black-studio-tinymce' );
+		if ( !$widget_content ) return false;
+		
+		$widget_content_serialized = maybe_serialize( $widget_content );
+		if ( false === strpos( $widget_content_serialized, '[strong' ) ) return false;
+
+		self::process_content( $widget_content_serialized );
 		
 	}
 
