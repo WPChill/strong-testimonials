@@ -44,7 +44,14 @@ function wpmtst_add_captcha( $captcha ) {
 				$html .= '<input type="text" class="captcha" name="captchar" maxlength="4" size="5" />';
 			}
 			break;
-		
+
+		// Advanced noCaptcha reCaptcha by Shamim Hasan
+		case 'advnore' :
+			if ( function_exists( 'anr_captcha_form_field' ) ) {
+				$html .= anr_captcha_form_field( false );
+			}
+			break;
+
 		default :
 			// no captcha
 
@@ -109,7 +116,14 @@ function wpmtst_captcha_check( $captcha, $errors ) {
 					$captcha_instance->remove( $prefix );
 			}
 			break;
-		
+
+		// Advanced noCaptcha reCaptcha by Shamim Hasan
+		case 'advnore' :
+			if ( function_exists( 'anr_verify_captcha' ) && anr_verify_captcha() !== true ) {
+				$errors['captcha'] = __( 'The Captcha failed. Please try again.', 'strong-testimonials' );
+			}
+			break;
+
 		default :
 	}
 	return $errors;

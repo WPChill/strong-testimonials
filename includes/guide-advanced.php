@@ -35,7 +35,7 @@
 							<strong><a href="edit-tags.php?taxonomy=wpm-testimonial-category&post_type=wpm-testimonial"><?php _e( 'Categories', 'strong-testimonials' ); ?></a></strong> - <?php _e( 'Organize your testimonials by year, salesperson, event, etc.', 'strong-testimonials' ); ?>
 						</li>
 						<li>
-							<strong><a href="edit.php?post_type=wpm-testimonial"><?php _e( 'Excerpts', 'strong-testimonials' ); ?></a></strong> - <?php _e( 'Available in the post editor, use excerpts to create attention-grabbing one-liners for use in widgets and the cycle shortcode.', 'strong-testimonials' ); ?>
+							<strong><a href="edit.php?post_type=wpm-testimonial"><?php _e( 'Excerpts', 'strong-testimonials' ); ?></a></strong> - <?php _e( 'Available in the post editor, use excerpts to create attention-grabbing one-liners for use in widgets and slideshows.', 'strong-testimonials' ); ?>
 						</li>
 						<li>
 							<strong><a href="edit.php?post_type=wpm-testimonial&page=settings"><?php _e( 'Skip Loading Stylesheets', 'strong-testimonials' ); ?></a></strong> - <?php printf( __( 'The included stylesheets include a default layout. Skip loading the stylesheets if you want to style everything in your theme or <a href="%s" target="_blank">custom CSS</a>.', 'strong-testimonials' ), 'http://wordpress.org/plugins/simple-custom-css/' ); ?>
@@ -52,16 +52,10 @@
 							<strong><a href="edit.php?post_type=wpm-testimonial&page=shortcodes"><?php _e( 'Shortcodes', 'strong-testimonials' ); ?></a></strong> - <?php _e( 'Several ways to show your testimonials.', 'strong-testimonials' ); ?>
 						</li>
 						<li>
-							<strong><a href="edit.php?post_type=wpm-testimonial&page=settings&tab=cycle"><?php _e( 'Cycle Shortcode', 'strong-testimonials' ); ?></a></strong> - <?php _e( 'Add a testimonial slider to any page.', 'strong-testimonials' ); ?>
-						</li>
-						<li>
 							<strong><a href="widgets.php"><?php _e( 'Widgets', 'strong-testimonials' ); ?></a></strong> - <?php _e( 'The widget has the same features as the cycle shortcode. Multiple widgets can used on the same page.', 'strong-testimonials' ); ?>
 						</li>
 						<li>
-							<strong><a href="edit.php?post_type=wpm-testimonial&page=settings&tab=client"><?php _e( 'Client Section', 'strong-testimonials' ); ?></a></strong> - <?php _e( 'Select which fields (including your custom fields) appear below the testimonial content.', 'strong-testimonials' ); ?>
-						</li>
-						<li>
-							<strong><a href="edit.php?post_type=wpm-testimonial"><?php _e( 'As Posts', 'strong-testimonials' ); ?></a></strong> - <?php _e( 'Since a testimonial is a type of post, it can be displayed using your theme\'s default post template or a custom template, included pagination.', 'strong-testimonials' ); ?>
+							<strong><a href="edit.php?post_type=wpm-testimonial"><?php _e( 'As Posts', 'strong-testimonials' ); ?></a></strong> - <?php _e( 'Since a testimonial is a type of post, it can be displayed using your theme\'s default post template or a custom template, including pagination.', 'strong-testimonials' ); ?>
 						</li>
 					</ul>
 				</td>

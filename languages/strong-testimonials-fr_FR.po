@@ -1,460 +1,472 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Strong Testimonials v1.15.12\n"
+"Project-Id-Version: Strong Testimonials v1.16.9\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: \n"
-"PO-Revision-Date: 2015-04-09 15:03-0500\n"
+"POT-Creation-Date: 2015-06-28 11:14-0400\n"
+"PO-Revision-Date: 2015-06-28 11:26-0400\n"
 "Last-Translator: Chris Dillon <chris@wpmission.com>\n"
 "Language-Team: \n"
+"Language: fr_FR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n>1;\n"
-"X-Generator: Poedit 1.6.4\n"
+"X-Generator: Poedit 1.8.2\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;"
 "_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2\n"
 "X-Poedit-Basepath: .\n"
 "X-Textdomain-Support: yes\n"
-"Language: fr_FR\n"
 "X-Poedit-SearchPath-0: ..\n"
 
 # @ default
-#: includes/admin-custom-fields.php:12 includes/settings.php:167
+#: ../includes/admin-custom-fields.php:12 ../includes/settings.php:179
 msgid "You do not have sufficient permissions to access this page."
 msgstr "Vous n'avez pas les droits suffisants pour accéder à cette page."
 
 # @ strong-testimonials
-#: includes/admin-custom-fields.php:32
+#: ../includes/admin-custom-fields.php:32
 msgid "Changes undone."
 msgstr "Modifications annulées"
 
 # @ strong-testimonials
-#: includes/admin-custom-fields.php:49
+#: ../includes/admin-custom-fields.php:49
 msgid "Defaults restored."
 msgstr "Réglages par défaut restaurés."
 
 # @ strong-testimonials
-#: includes/admin-custom-fields.php:75
+#: ../includes/admin-custom-fields.php:75
 msgid "Fields saved."
 msgstr "Champs sauvegardés."
 
 # @ strong-testimonials
-#: includes/admin-custom-fields.php:90 includes/guide-advanced.php:15
-#: includes/settings.php:21 includes/settings.php:22
+#: ../includes/admin-custom-fields.php:90 ../includes/guide-advanced.php:15
+#: ../includes/settings.php:21 ../includes/settings.php:22
 msgid "Fields"
 msgstr "Champs"
 
 # @ strong-testimonials
-#: includes/admin-custom-fields.php:92
+#: ../includes/admin-custom-fields.php:92
 msgid "Fields will appear in this order on the form."
 msgstr "Les champs apparaîtront dans cet ordre sur le formulaire."
 
 # @ strong-testimonials
 #. translators: %s is an icon.
-#: includes/admin-custom-fields.php:94
+#: ../includes/admin-custom-fields.php:94
 #, php-format
 msgid "Sort by grabbing the %s icon."
 msgstr "Trier en saisissant l'icone %s."
 
 # @ strong-testimonials
-#: includes/admin-custom-fields.php:95
+#: ../includes/admin-custom-fields.php:95
 msgid "Click the field name to expand its options panel."
 msgstr "Cliquez sur le nom du champ pour accéder à son panneau d'options."
 
 # @ strong-testimonials
-#: includes/admin-custom-fields.php:97
+#: ../includes/admin-custom-fields.php:97
 msgctxt "link"
 msgid "Full tutorial"
 msgstr "Tutorial complet"
 
 # @ strong-testimonials
-#: includes/admin-custom-fields.php:99
+#: ../includes/admin-custom-fields.php:99
 msgctxt "link"
 msgid "Plugin support"
 msgstr "Support du plugin"
 
 # @ strong-testimonials
-#: includes/admin-custom-fields.php:101
+#: ../includes/admin-custom-fields.php:101
 msgctxt "contact link"
 msgid "Developer"
 msgstr "Développeur"
 
 # @ strong-testimonials
-#: includes/admin-custom-fields.php:118
+#: ../includes/admin-custom-fields.php:118
 msgid "Add New Field"
 msgstr "Ajouter un nouveau champ"
 
 # @ strong-testimonials
-#: includes/admin-custom-fields.php:123
+#: ../includes/admin-custom-fields.php:123
 msgid "Undo Changes"
 msgstr "Annuler les modifications"
 
 # @ strong-testimonials
-#: includes/admin-custom-fields.php:124
+#: ../includes/admin-custom-fields.php:124
 msgid "Restore Defaults"
 msgstr "Restaurer les paramètres par défaut"
 
 # @ strong-testimonials
-#: includes/admin-custom-fields.php:129
+#: ../includes/admin-custom-fields.php:129
 #, php-format
 msgid "Customize other form elements <a href=\"%s\">here</a>."
 msgstr "Personnaliser d'autres éléments du formulaire <a href=\"%s\">ici</a>."
 
 # @ strong-testimonials
-#: includes/admin-custom-fields.php:160
+#: ../includes/admin-custom-fields.php:160
 msgctxt "noun"
 msgid "Label"
 msgstr "Etiquette"
 
 # @ strong-testimonials
-#: includes/admin-custom-fields.php:163
+#: ../includes/admin-custom-fields.php:163
 msgid "This appears on the form."
 msgstr "Ceci apparaît sur le formulaire."
 
 # @ strong-testimonials
-#: includes/admin-custom-fields.php:171 includes/admin.php:272
+#: ../includes/admin-custom-fields.php:171 ../includes/admin.php:443
 msgctxt "noun"
 msgid "Name"
 msgstr "Nom"
 
 # @ strong-testimonials
-#: includes/admin-custom-fields.php:176
+#: ../includes/admin-custom-fields.php:176
 msgid "Use only lowercase letters, numbers, and underscores."
 msgstr ""
 "Utilisez uniquement des lettres minuscules, chiffres et caractères de "
 "soulignement."
 
 # @ strong-testimonials
-#: includes/admin-custom-fields.php:194
+#: ../includes/admin-custom-fields.php:194
 msgctxt "noun"
 msgid "Type"
 msgstr "Type"
 
 # @ strong-testimonials
-#: includes/admin-custom-fields.php:220
+#: ../includes/admin-custom-fields.php:220
 msgid "Post Fields"
 msgstr "Les champs réservés"
 
 # @ strong-testimonials
-#: includes/admin-custom-fields.php:227
+#: ../includes/admin-custom-fields.php:227
 msgid "Custom Fields"
 msgstr "Les champs personnalisables"
 
 # @ default
-#: includes/admin-custom-fields.php:286
+#: ../includes/admin-custom-fields.php:286
 msgid "Delete"
 msgstr "Supprimer"
 
 # @ strong-testimonials
-#: includes/admin-custom-fields.php:288
+#: ../includes/admin-custom-fields.php:288
 msgctxt "verb"
 msgid "Close"
 msgstr "Fermer"
 
 # @ strong-testimonials
-#: includes/admin-custom-fields.php:312
+#: ../includes/admin-custom-fields.php:312
 msgid "Required"
 msgstr "Obligatoire"
 
 # @ strong-testimonials
-#: includes/admin-custom-fields.php:329
+#: ../includes/admin-custom-fields.php:329
 msgid "Placeholder"
 msgstr "Texte substituable"
 
 # @ strong-testimonials
-#: includes/admin-custom-fields.php:338 includes/form-form.php:223
+#: ../includes/admin-custom-fields.php:338 ../includes/form-form.php:223
 msgid "Before"
 msgstr "Avant"
 
 # @ strong-testimonials
-#: includes/admin-custom-fields.php:346 includes/form-form.php:228
+#: ../includes/admin-custom-fields.php:346 ../includes/form-form.php:228
 msgid "After"
 msgstr "Après"
 
 # @ strong-testimonials
-#: includes/admin-custom-fields.php:362
+#: ../includes/admin-custom-fields.php:362
 msgid "Admin Table"
 msgstr "Colonne présente en administration"
 
 # @ strong-testimonials
-#: includes/admin-custom-fields.php:368
+#: ../includes/admin-custom-fields.php:368
 msgid "required"
 msgstr "obligatoire"
 
 # @ strong-testimonials
-#: includes/admin.php:80
+#: ../includes/admin.php:172
 msgctxt "post editor"
 msgid "Client Details"
 msgstr "Détails du client"
 
 # @ strong-testimonials
-#: includes/admin.php:125
+#: ../includes/admin.php:217
 msgctxt "post editor"
 msgid "To add a client's photo, use the Featured Image option."
 msgstr "Pour ajouter la photo d'un client, utilisez l'option 'Image à la Une'."
 
 # @ strong-testimonials
-#: includes/admin.php:162
+#: ../includes/admin.php:260
+msgid "Order"
+msgstr "Ordre"
+
+# @ strong-testimonials
+#: ../includes/admin.php:263
 msgctxt "testimonial"
 msgid "Title"
 msgstr "Titre"
 
 # @ strong-testimonials
 #. translators: This appears in widget settings.
-#: includes/admin.php:163 includes/widget.php:406
+#: ../includes/admin.php:265 ../includes/widget.php:425
 msgid "Excerpt"
 msgstr "Extrait"
 
 # @ strong-testimonials
-#: includes/admin.php:169 includes/admin.php:230
+#: ../includes/admin.php:270 ../includes/admin.php:401
 msgid "Thumbnail"
 msgstr "Miniature"
 
 # @ strong-testimonials
 #. translators: This is on the Cycle Shortcode settings screen.
 #. translators: This appears in widget settings.
-#: includes/admin.php:176 includes/form-cycle-settings.php:20
-#: includes/widget.php:237 strong-testimonials.php:147
+#: ../includes/admin.php:278 ../includes/form-cycle-settings.php:20
+#: ../includes/widget.php:256 ../strong-testimonials.php:148
 msgid "Category"
 msgstr "Catégorie"
 
 # @ strong-testimonials
-#: includes/admin.php:177 includes/admin.php:274
+#: ../includes/admin.php:280 ../includes/admin.php:445
 msgid "Shortcode"
 msgstr "Shortcode"
 
 # @ strong-testimonials
-#: includes/admin.php:178
+#: ../includes/admin.php:282
 msgid "Date"
 msgstr "Date"
 
+# @ default
+#: ../includes/admin.php:298
+msgid "Y/m/d g:i:s A"
+msgstr ""
+
 # @ strong-testimonials
-#: includes/admin.php:259
+#: ../includes/admin.php:430
 msgid "None"
 msgstr "Aucun"
 
 # @ strong-testimonials
-#: includes/admin.php:271
+#: ../includes/admin.php:442
 msgid "ID"
 msgstr "ID"
 
 # @ strong-testimonials
-#: includes/admin.php:273
+#: ../includes/admin.php:444
 msgid "Slug"
 msgstr "Identifiant"
 
 # @ strong-testimonials
-#: includes/admin.php:275
+#: ../includes/admin.php:446
 msgid "Posts"
 msgstr "Articles"
 
 # @ strong-testimonials
-#: includes/captcha.php:41
+#: ../includes/captcha.php:41
 msgctxt "Captcha"
 msgid "Input this code:"
 msgstr "Entrez ce code :"
 
 # @ strong-testimonials
-#: includes/captcha.php:66 includes/captcha.php:75
+#: ../includes/captcha.php:73 ../includes/captcha.php:82
 msgid "Please complete the Captcha."
 msgstr "Veuillez recopier ce code Captcha"
 
 # @ strong-testimonials
-#: includes/captcha.php:87
+#: ../includes/captcha.php:94
 msgid "Invalid keys. Please contact the site administrator."
 msgstr "Clés non valides. Veuillez contacter l'administrateur du site."
 
 # @ strong-testimonials
-#: includes/captcha.php:88
+#: ../includes/captcha.php:95
 msgid "Invalid parameter. Please contact the site administrator."
 msgstr "Paramètre invalide. Veuillez contacter l'administrateur du site."
 
 # @ strong-testimonials
-#: includes/captcha.php:89 includes/captcha.php:106
+#: ../includes/captcha.php:96 ../includes/captcha.php:113
 msgid "The Captcha was not entered correctly. Please try again."
 msgstr "Le Captcha n'a pas été entré correctement. Veuillez recommencer."
 
 # @ strong-testimonials
-#: includes/captcha.php:90
+#: ../includes/captcha.php:97
 msgid "The process timed out. Please try again."
 msgstr "Le processus a expiré. Veuillez recommencer."
 
+#: ../includes/captcha.php:123
+msgid "The Captcha failed. Please try again."
+msgstr "Le Captcha manqué. Veuillez recommencer."
+
 # @ strong-testimonials
-#: includes/defaults.php:63
+#: ../includes/defaults.php:69
 msgid "This field is required."
 msgstr "Ce champ est obligatoire."
 
 # @ strong-testimonials
-#: includes/defaults.php:75
+#: ../includes/defaults.php:81
 msgid "Testimonial Title"
 msgstr "Titre du témoignage"
 
 # @ strong-testimonials
-#: includes/defaults.php:82
+#: ../includes/defaults.php:88
 msgid "Testimonial Content"
 msgstr "Contenu du témoignage"
 
 # @ strong-testimonials
-#: includes/defaults.php:90
+#: ../includes/defaults.php:96
 msgid "Featured Image"
 msgstr "Photo descriptive"
 
 # @ strong-testimonials
-#: includes/defaults.php:120
+#: ../includes/defaults.php:126
 msgid "Default Field Group"
 msgstr "Groupe de champ par défaut"
 
 # @ strong-testimonials
-#: includes/defaults.php:128
+#: ../includes/defaults.php:134
 msgid "Full Name"
 msgstr "Nom et prénom"
 
 # @ strong-testimonials
-#: includes/defaults.php:131
+#: ../includes/defaults.php:137
 msgid "What is your full name?"
 msgstr "Quels sont vos nom et prénom ?"
 
 # @ strong-testimonials
-#: includes/defaults.php:137 includes/form-form.php:100
-#: includes/form-form.php:142
+#: ../includes/defaults.php:143 ../includes/form-form.php:100
+#: ../includes/form-form.php:142
 msgid "Email"
 msgstr "Courriel"
 
 # @ strong-testimonials
-#: includes/defaults.php:140
+#: ../includes/defaults.php:146
 msgid "What is your email address?"
 msgstr "Quelle est votre adresse courriel ?"
 
 # @ strong-testimonials
-#: includes/defaults.php:145
+#: ../includes/defaults.php:151
 msgid "Company Name"
 msgstr "Nom de l'entreprise"
 
 # @ strong-testimonials
-#: includes/defaults.php:147
+#: ../includes/defaults.php:153
 msgid "What is your company name?"
 msgstr "Quel est le nom de votre entreprise ?"
 
 # @ strong-testimonials
-#: includes/defaults.php:152
+#: ../includes/defaults.php:158
 msgid "Company Website"
 msgstr "Site Web de l'entreprise"
 
 # @ strong-testimonials
-#: includes/defaults.php:154
+#: ../includes/defaults.php:160
 msgid "Does your company have a website?"
 msgstr "Votre entreprise a-t-elle un site Web ?"
 
 # @ strong-testimonials
-#: includes/defaults.php:162
+#: ../includes/defaults.php:168
 msgid "Heading"
 msgstr "En-tête"
 
 # @ strong-testimonials
-#: includes/defaults.php:165
+#: ../includes/defaults.php:171
 msgid "A headline for your testimonial."
 msgstr "Un titre 'vedette' pour votre témoignage."
 
 # @ strong-testimonials
-#: includes/defaults.php:170
+#: ../includes/defaults.php:176
 msgid "Testimonial"
 msgstr "Témoignage"
 
 # @ strong-testimonials
-#: includes/defaults.php:173
+#: ../includes/defaults.php:179
 msgid "What do you think about us?"
 msgstr "Que pensez-vous de nous ?"
 
 # @ strong-testimonials
-#: includes/defaults.php:178
+#: ../includes/defaults.php:184
 msgid "Photo"
 msgstr "Photo"
 
 # @ strong-testimonials
-#: includes/defaults.php:180
+#: ../includes/defaults.php:186
 msgid "Would you like to include a photo?"
 msgstr "Voulez-vous ajouter une photo ?"
 
 # @ strong-testimonials
-#: includes/defaults.php:196
+#: ../includes/defaults.php:202
 msgid "Custom Field Group"
 msgstr "Groupe de champ personnalisé"
 
 # @ strong-testimonials
 #. translators: Settings > Messages tab > message description
 #. translators: Default message for required field message at top of form.
-#: includes/defaults.php:218 includes/defaults.php:220
+#: ../includes/defaults.php:224 ../includes/defaults.php:226
 msgid "Required field"
 msgstr "Champ obligatoire"
 
 # @ strong-testimonials
 #. translators: Settings > Messages tab > message description
-#: includes/defaults.php:226
+#: ../includes/defaults.php:232
 msgctxt "description"
 msgid "Captcha label"
 msgstr "Etiquette Captcha"
 
 # @ default
 #. translators: Default label for Captcha field on submission form.
-#: includes/defaults.php:228
+#: ../includes/defaults.php:234
 msgctxt "strong-testimonials"
 msgid "Captcha"
 msgstr "Captcha"
 
 # @ strong-testimonials
 #. translators: Settings > Messages tab > message description
-#: includes/defaults.php:234
+#: ../includes/defaults.php:240
 msgctxt "description"
 msgid "Submit button"
 msgstr "Bouton Soumettre"
 
 # @ strong-testimonials
 #. translators: Default label for the Submit button on testimonial form.
-#: includes/defaults.php:236
+#: ../includes/defaults.php:242
 msgctxt "the Submit button"
 msgid "Add Testimonial"
 msgstr "Ajouter un témoignage"
 
 # @ strong-testimonials
 #. translators: Settings > Messages tab > message description
-#: includes/defaults.php:242
+#: ../includes/defaults.php:248
 msgctxt "description"
 msgid "Submission error"
 msgstr "Erreur de traitement"
 
 # @ strong-testimonials
 #. translators: Default message for submission form error.
-#: includes/defaults.php:244
+#: ../includes/defaults.php:250
 msgctxt "error message"
 msgid "There was a problem processing your testimonial."
 msgstr "Il y a eu un problème de traitement de votre témoignage."
 
 # @ strong-testimonials
 #. translators: Settings > Messages tab > message description
-#: includes/defaults.php:250
+#: ../includes/defaults.php:256
 msgctxt "description"
 msgid "Submission success"
 msgstr "Traitement réussi"
 
 # @ strong-testimonials
 #. translators: Default message for submission form success message.
-#: includes/defaults.php:252
+#: ../includes/defaults.php:258
 msgctxt "success message"
 msgid "Thank you! Your testimonial is awaiting moderation."
 msgstr "Merci ! Votre témoignage est en attente de modération."
 
 # @ strong-testimonials
 #. translators: Default subject line for new testimonial notification email.
-#: includes/defaults.php:269
-#, php-format
+#: ../includes/defaults.php:275
 msgid "New testimonial for %BLOGNAME%"
 msgstr "Nouveau témoignage pour %BLOGNAME%"
 
 # @ strong-testimonials
 #. translators: Default message for new testimonial notification email.
-#: includes/defaults.php:271
-#, php-format
+#: ../includes/defaults.php:277
 msgid ""
 "New testimonial submission for %BLOGNAME%. This is awaiting action from the "
 "website administrator."
@@ -462,23 +474,13 @@ msgstr ""
 "Nouvel ajout de témoignage pour %BLOGNAME%, en attente d'une décision du "
 "webmaster."
 
-# @ default
-#: includes/form-client-settings.php:22
-msgid "per_page"
-msgstr "per_page"
-
-# @ default
-#: includes/form-client-settings.php:23 includes/form-general-settings.php:8
-msgid "default_template"
-msgstr "default_template"
-
 # @ strong-testimonials
-#: includes/form-client-settings.php:28
+#: ../includes/form-client-settings.php:28
 msgid "Client section shortcodes:"
 msgstr "Shortcodes section client :"
 
 # @ strong-testimonials
-#: includes/form-client-settings.php:30
+#: ../includes/form-client-settings.php:30
 msgid ""
 "Use these shortcodes to select which client fields appear below each "
 "testimonial."
@@ -487,19 +489,19 @@ msgstr ""
 "chaque témoignage."
 
 # @ strong-testimonials
-#: includes/form-client-settings.php:30
+#: ../includes/form-client-settings.php:30
 msgid "These shortcodes only work here, not on a page."
 msgstr ""
 "Ces shortcodes ne fonctionnent qu'ici, sous cette forme et jamais seuls sur "
 "une page."
 
 # @ strong-testimonials
-#: includes/form-client-settings.php:34
+#: ../includes/form-client-settings.php:34
 msgid "Your fields:"
 msgstr "Vos champs :"
 
 # @ strong-testimonials
-#: includes/form-client-settings.php:34
+#: ../includes/form-client-settings.php:34
 msgid ""
 "These are the fields used on your testimonial submission form. You can "
 "change these in the Fields editor."
@@ -508,17 +510,17 @@ msgstr ""
 "les modifier dans l'éditeur de champs."
 
 # @ strong-testimonials
-#: includes/form-client-settings.php:36
+#: ../includes/form-client-settings.php:36
 msgid "Default shortcodes:"
 msgstr "Shortcodes par défaut :"
 
 # @ strong-testimonials
-#: includes/form-client-settings.php:46
+#: ../includes/form-client-settings.php:46
 msgid "Restore Default"
 msgstr "Restaurer les réglages par défaut"
 
 # @ strong-testimonials
-#: includes/form-cycle-settings.php:9
+#: ../includes/form-cycle-settings.php:9
 #, php-format
 msgid ""
 "This shortcode will be deprecated soon. Please migrate to the <a href=\"%s"
@@ -529,21 +531,21 @@ msgstr ""
 
 # @ strong-testimonials
 #. translators: This is on the Cycle Shortcode settings screen.
-#: includes/form-cycle-settings.php:29
+#: ../includes/form-cycle-settings.php:29
 msgid "All categories"
 msgstr "Toutes catégories"
 
 # @ strong-testimonials
 #. translators: This is on the Cycle Shortcode settings screen.
 #. translators: This appears in widget settings.
-#: includes/form-cycle-settings.php:50 includes/widget.php:263
+#: ../includes/form-cycle-settings.php:50 ../includes/widget.php:282
 msgctxt "noun"
 msgid "Order"
 msgstr "Ordre"
 
 # @ strong-testimonials
 #. translators: This is on the Cycle Shortcode settings screen.
-#: includes/form-cycle-settings.php:70
+#: ../includes/form-cycle-settings.php:70
 msgctxt "quantity"
 msgid "How many?"
 msgstr "Combien ?"
@@ -551,42 +553,42 @@ msgstr "Combien ?"
 # @ strong-testimonials
 #. translators: This is on the Cycle Shortcode settings screen.
 #. translators: This appears in widget settings.
-#: includes/form-cycle-settings.php:80 includes/widget.php:319
+#: ../includes/form-cycle-settings.php:80 ../includes/widget.php:338
 msgid "All"
 msgstr "Tous"
 
 # @ strong-testimonials
 #. translators: This is on the Cycle Shortcode settings screen.
 #. translators: This appears in widget settings.
-#: includes/form-cycle-settings.php:99 includes/widget.php:307
-#: includes/widget.php:383
+#: ../includes/form-cycle-settings.php:99 ../includes/widget.php:326
+#: ../includes/widget.php:402
 msgctxt "verb"
 msgid "Show"
 msgstr "Afficher"
 
 # @ strong-testimonials
 #. translators: This is on the Cycle Shortcode settings screen. Refers to your custom fields.
-#: includes/form-cycle-settings.php:108
+#: ../includes/form-cycle-settings.php:108
 msgctxt "the testimonial title"
 msgid "Title <em>(if included in Fields)</em>"
 msgstr "Titre <em>(si inclus dans les champs)</em>"
 
 # @ strong-testimonials
 #. translators: This is on the Cycle Shortcode settings screen.
-#: includes/form-cycle-settings.php:125
+#: ../includes/form-cycle-settings.php:125
 msgctxt "the testimonial excerpt"
 msgid "Excerpt"
 msgstr "Extrait"
 
 # @ strong-testimonials
 #. translators: This is on the Cycle Shortcode settings screen.
-#: includes/form-cycle-settings.php:130
+#: ../includes/form-cycle-settings.php:130
 msgid "Excerpts are hand-crafted summaries of your testimonial."
 msgstr "Les extraits sont des résumés manuels de votre témoignage."
 
 # @ strong-testimonials
 #. translators: This is on the Cycle Shortcode settings screen.
-#: includes/form-cycle-settings.php:135
+#: ../includes/form-cycle-settings.php:135
 msgid ""
 "You may need to enable them in the post editor like in this <a id=\"toggle-"
 "screen-options\" href=\"#\">screenshot</a>."
@@ -596,7 +598,7 @@ msgstr ""
 
 # @ strong-testimonials
 #. translators: This is on the Cycle Shortcode settings screen. %s is a number input field.
-#: includes/form-cycle-settings.php:150
+#: ../includes/form-cycle-settings.php:150
 #, php-format
 msgctxt "display setting"
 msgid "Content up to %s characters"
@@ -605,27 +607,27 @@ msgstr "Les %s premiers caractères du contenu"
 # @ strong-testimonials
 #. translators: This is on the Cycle Shortcode settings screen.
 #. translators: This appears in widget settings.
-#: includes/form-cycle-settings.php:156 includes/widget.php:433
+#: ../includes/form-cycle-settings.php:156 ../includes/widget.php:452
 msgid "Will break on a space and add an ellipsis."
 msgstr ""
 "S'interrompt en présence d'un espace et ajoute des points de suspension."
 
 # @ strong-testimonials
 #. translators: This is on the Cycle Shortcode settings screen.
-#: includes/form-cycle-settings.php:166
+#: ../includes/form-cycle-settings.php:166
 msgctxt "display setting"
 msgid "Entire content"
 msgstr "Tout le contenu"
 
 # @ strong-testimonials
 #. translators: This is on the Cycle Shortcode settings screen. Refers to your custom fields.
-#: includes/form-cycle-settings.php:183
+#: ../includes/form-cycle-settings.php:183
 msgid "Featured Images <em>(if included in Fields)</em>"
 msgstr "Images à la Une <em>(si inclus dans les champs)</em>"
 
 # @ strong-testimonials
 #. translators: This is on the Cycle Shortcode settings screen. Refers to your custom fields.
-#: includes/form-cycle-settings.php:198
+#: ../includes/form-cycle-settings.php:198
 msgid "Client Information <em>(if included in Fields)</em>"
 msgstr "Informations Client <em>(si inclus dans les champs)</em>"
 
@@ -633,15 +635,15 @@ msgstr "Informations Client <em>(si inclus dans les champs)</em>"
 #. translators: This is on the Cycle Shortcode settings screen.
 #. translators: This appears in the [strong] shortcode instructions.
 #. translators: This appears in widget settings.
-#: includes/form-cycle-settings.php:210 includes/tabs/readmore.php:6
-#: includes/widget.php:523
+#: ../includes/form-cycle-settings.php:210 ../includes/tabs/readmore.php:6
+#: ../includes/widget.php:542
 msgid "\"Read More\" link"
 msgstr "Lien \"En savoir plus\""
 
 # @ strong-testimonials
 #. translators: This is on the Cycle Shortcode settings screen.
 #. translators: This appears in widget settings.
-#: includes/form-cycle-settings.php:220 includes/widget.php:532
+#: ../includes/form-cycle-settings.php:220 ../includes/widget.php:551
 msgctxt "no \"Read more\" link"
 msgid "None"
 msgstr "Aucun"
@@ -649,7 +651,7 @@ msgstr "Aucun"
 # @ strong-testimonials
 #. translators: This is on the Cycle Shortcode settings screen.
 #. translators: This appears in widget settings.
-#: includes/form-cycle-settings.php:230 includes/widget.php:541
+#: ../includes/form-cycle-settings.php:230 ../includes/widget.php:560
 msgctxt "the \"Read more\" link"
 msgid "Link to the testimonial"
 msgstr "Lien vers le témoignage"
@@ -657,7 +659,7 @@ msgstr "Lien vers le témoignage"
 # @ strong-testimonials
 #. translators: This is on the Cycle Shortcode settings screen.
 #. translators: This appears in widget settings.
-#: includes/form-cycle-settings.php:240 includes/widget.php:550
+#: ../includes/form-cycle-settings.php:240 ../includes/widget.php:569
 msgctxt "the \"Read more\" link"
 msgid "Link to"
 msgstr "Lien vers"
@@ -665,14 +667,14 @@ msgstr "Lien vers"
 # @ strong-testimonials
 #. translators: This is on the Cycle Shortcode settings screen.
 #. translators: This appears in widget settings.
-#: includes/form-cycle-settings.php:247 includes/widget.php:557
+#: ../includes/form-cycle-settings.php:247 ../includes/widget.php:576
 msgctxt "the \"Read more\" link"
 msgid "— Select a page —"
 msgstr "— Sélectionnez une page —"
 
 # @ strong-testimonials
 #. translators: This is on the Cycle Shortcode settings screen.
-#: includes/form-cycle-settings.php:264
+#: ../includes/form-cycle-settings.php:264
 msgctxt "slideshow effect"
 msgid "Transition"
 msgstr "Transition"
@@ -680,7 +682,7 @@ msgstr "Transition"
 # @ strong-testimonials
 #. translators: This is on the Cycle Shortcode settings screen.
 #. translators: This appears in widget settings.
-#: includes/form-cycle-settings.php:274 includes/widget.php:330
+#: ../includes/form-cycle-settings.php:274 ../includes/widget.php:349
 msgctxt "slideshow setting"
 msgid "Show each for"
 msgstr "Afficher chacun pendant"
@@ -688,8 +690,9 @@ msgstr "Afficher chacun pendant"
 # @ strong-testimonials
 #. translators: This is on the Cycle Shortcode settings screen.
 #. translators: This appears in widget settings.
-#: includes/form-cycle-settings.php:282 includes/form-cycle-settings.php:303
-#: includes/widget.php:338 includes/widget.php:356
+#: ../includes/form-cycle-settings.php:282
+#: ../includes/form-cycle-settings.php:303 ../includes/widget.php:357
+#: ../includes/widget.php:375
 msgctxt "time setting"
 msgid "seconds"
 msgstr "secondes"
@@ -697,7 +700,7 @@ msgstr "secondes"
 # @ strong-testimonials
 #. translators: This is on the Cycle Shortcode settings screen.
 #. translators: This appears in widget settings.
-#: includes/form-cycle-settings.php:295 includes/widget.php:348
+#: ../includes/form-cycle-settings.php:295 ../includes/widget.php:367
 msgctxt "slideshow setting"
 msgid "Effect duration"
 msgstr "Durée de l'effet"
@@ -705,113 +708,108 @@ msgstr "Durée de l'effet"
 # @ strong-testimonials
 #. translators: This is on the Cycle Shortcode settings screen.
 #. translators: This appears in widget settings.
-#: includes/form-cycle-settings.php:314 includes/widget.php:367
+#: ../includes/form-cycle-settings.php:314 ../includes/widget.php:386
 msgctxt "slideshow setting"
 msgid "Pause on hover"
 msgstr "Pause au survol"
 
 # @ strong-testimonials
-#: includes/form-form.php:11
+#: ../includes/form-form.php:11
 #, php-format
 msgid "Customize the form fields <a href=\"%s\">here</a>."
 msgstr "Personnaliser les champs du formulaire <a href=\"%s\">ici</a>."
 
 # @ strong-testimonials
-#: includes/form-form.php:14
+#: ../includes/form-form.php:14
 msgid "Labels & Messages"
 msgstr "Étiquettes et Messages"
 
-# @ default
-#: includes/form-form.php:22
-msgid "description"
-msgstr "description"
-
 # @ strong-testimonials
-#: includes/form-form.php:28
+#: ../includes/form-form.php:28
 msgctxt "singular"
 msgid "restore default"
 msgstr "restaurer le paramètre par défaut"
 
 # @ strong-testimonials
-#: includes/form-form.php:34
+#: ../includes/form-form.php:34
 msgctxt "multiple"
 msgid "Restore Defaults"
 msgstr "Restaurer les paramètres par défaut"
 
 # @ strong-testimonials
-#: includes/form-form.php:40
+#: ../includes/form-form.php:40
 msgctxt "noun"
 msgid "Actions"
 msgstr "Actions"
 
 # @ strong-testimonials
-#: includes/form-form.php:45
+#: ../includes/form-form.php:45
 msgid "Post status"
 msgstr "Statut de l'article"
 
 # @ default
-#: includes/form-form.php:52
+#: ../includes/form-form.php:52
 msgid "Pending"
 msgstr "En attente"
 
 # @ default
-#: includes/form-form.php:58
+#: ../includes/form-form.php:58
 msgid "Published"
 msgstr "Publié"
 
 # @ strong-testimonials
-#: includes/form-form.php:67 includes/guide-advanced.php:24
+#: ../includes/form-form.php:67 ../includes/guide-advanced.php:24
 msgid "Notification"
 msgstr "Notification"
 
 # @ strong-testimonials
-#: includes/form-form.php:75
+#: ../includes/form-form.php:75
 msgid "Send email upon new testimonial submission"
 msgstr "Envoyer un courriel à chaque nouveau témoignage"
 
 # @ strong-testimonials
-#: includes/form-form.php:85
+#: ../includes/form-form.php:85
 msgid "From:"
 msgstr "De :"
 
 # @ strong-testimonials
-#: includes/form-form.php:90 includes/form-form.php:132
+#: ../includes/form-form.php:90 ../includes/form-form.php:132
 msgid "Name"
 msgstr "Nom"
 
 # @ strong-testimonials
-#: includes/form-form.php:127
+#: ../includes/form-form.php:127
 msgid "To:"
 msgstr "Pour :"
 
 # @ strong-testimonials
-#: includes/form-form.php:168
+#: ../includes/form-form.php:168
 msgid "Template tags for Subject and Message:"
 msgstr "Modèles de tags pour Objet et Message :"
 
 # @ strong-testimonials
-#: includes/form-form.php:185
+#: ../includes/form-form.php:185
 msgid "Subject:"
 msgstr "Objet :"
 
 # @ strong-testimonials
-#: includes/form-form.php:198
+#: ../includes/form-form.php:198
 msgid "Message:"
 msgstr "Message :"
 
 # @ strong-testimonials
-#: includes/form-form.php:211 includes/guide-advanced.php:21
+#: ../includes/form-form.php:211 ../includes/guide-advanced.php:21
 msgid "Spam Control"
 msgstr "Contrôle de SPAM"
 
 # @ strong-testimonials
-#: includes/form-form.php:216
+#: ../includes/form-form.php:216
 msgctxt "spam control techniques"
 msgid "Honeypot"
 msgstr "Leurre (honeypot)"
 
 # @ strong-testimonials
-#: includes/form-form.php:219
+#: ../includes/form-form.php:219
 msgid ""
 "These methods are both time-tested and widely used. They can be used "
 "simultaneously for more protection."
@@ -820,7 +818,7 @@ msgstr ""
 "utilisées simultanément pour plus de protection."
 
 # @ strong-testimonials
-#: includes/form-form.php:224
+#: ../includes/form-form.php:224
 msgid ""
 "Traps spambots by adding an extra empty field that is invisible to humans "
 "but not to spambots which tend to fill in every field they find in the form "
@@ -832,12 +830,12 @@ msgstr ""
 "vide = humain. Non vide = spambot."
 
 # @ strong-testimonials
-#: includes/form-form.php:229
+#: ../includes/form-form.php:229
 msgid "Recommended."
 msgstr "Recommandé."
 
 # @ strong-testimonials
-#: includes/form-form.php:229
+#: ../includes/form-form.php:229
 msgid ""
 "Traps spambots by using JavaScript to add a new field as soon as the form is "
 "submitted. Since spambots cannot run JavaScript, the new field never gets "
@@ -849,12 +847,12 @@ msgstr ""
 "présent = humain. Manquant = spambot."
 
 # @ strong-testimonials
-#: includes/form-form.php:236
+#: ../includes/form-form.php:236
 msgid "Captcha"
 msgstr "Captcha"
 
 # @ strong-testimonials
-#: includes/form-form.php:239
+#: ../includes/form-form.php:239
 msgid ""
 "Can be used alongside honeypot methods. Be sure to configure any plugins "
 "first, if necessary."
@@ -863,85 +861,118 @@ msgstr ""
 "vous de configurer les plugins d'abord, si nécessaire."
 
 # @ strong-testimonials
-#: includes/form-form.php:259
+#: ../includes/form-form.php:259
 msgctxt "link"
 msgid "settings"
 msgstr "paramètres"
 
 # @ strong-testimonials
-#: includes/form-form.php:261
+#: ../includes/form-form.php:261
 msgid "no settings"
 msgstr "aucun réglage"
 
 # @ strong-testimonials
-#: includes/form-form.php:266
+#: ../includes/form-form.php:266
 msgctxt "adjective"
 msgid "inactive"
 msgstr "inactif"
 
 # @ strong-testimonials
-#: includes/form-form.php:272
+#: ../includes/form-form.php:272
 msgid "not installed"
 msgstr "non installé"
 
 # @ strong-testimonials
-#: includes/form-form.php:273
+#: ../includes/form-form.php:273
 msgctxt "link"
 msgid "install plugin"
 msgstr "installez le plugin"
 
 # @ strong-testimonials
-#: includes/form-form.php:277
+#: ../includes/form-form.php:277
 msgctxt "link"
 msgid "plugin page"
 msgstr "page du plugin"
 
-# @ default
-#: includes/form-general-settings.php:9
-msgid "client_section"
-msgstr "client_section"
-
 # @ strong-testimonials
-#: includes/form-general-settings.php:14
+#: ../includes/form-general-settings.php:14
 msgid "Load stylesheets"
 msgstr "Charger les feuilles de style"
 
 # @ strong-testimonials
-#: includes/form-general-settings.php:21
+#: ../includes/form-general-settings.php:21
 msgid "Pages"
 msgstr "Pages"
 
 # @ strong-testimonials
-#: includes/form-general-settings.php:27
+#: ../includes/form-general-settings.php:27
 msgid "Widget"
 msgstr "Widget"
 
 # @ strong-testimonials
 #. translators: This appears on the Original Shortcodes admin screen.
-#: includes/form-general-settings.php:33 includes/settings-shortcodes.php:100
+#: ../includes/form-general-settings.php:33
+#: ../includes/settings-shortcodes.php:100
 msgid "Submission Form"
 msgstr "Formulaire de soumission"
 
 # @ strong-testimonials
-#: includes/form-general-settings.php:39
+#: ../includes/form-general-settings.php:39
 msgid "RTL"
 msgstr "RTL"
 
 # @ strong-testimonials
-#: includes/form-general-settings.php:47
-msgid "The number of testimonials to show per page"
-msgstr "Nombre de témoignages à afficher par page"
+#. translators: This appears in the [strong] shortcode instructions.
+#: ../includes/form-general-settings.php:47
+#: ../includes/tabs/part-pagination.php:4
+msgid "Pagination"
+msgstr "Pagination"
+
+# @ strong-testimonials
+#: ../includes/form-general-settings.php:53
+msgid "The number of testimonials to show per page."
+msgstr "Le nombre de témoignages à afficher par page"
 
 # @ strong-testimonials
 #. translators: %s is a shortcode.
-#: includes/form-general-settings.php:52
+#: ../includes/form-general-settings.php:58
 #, php-format
-msgid "This applies to the %s shortcode."
-msgstr "Cela s'applique au shortcode %s."
+msgid "This applies to the %s shortcode only."
+msgstr "Ceci ne s'applique qu'au shortcode %s."
 
 # @ strong-testimonials
-#: includes/guide-advanced.php:4 includes/guide-simple.php:3
-#: includes/guide-start.php:3
+#: ../includes/form-general-settings.php:60
+msgid "Enter <code>-1</code> for no pagination."
+msgstr "Entrez <code>-1</code> pour aucune pagination."
+
+# @ strong-testimonials
+#: ../includes/form-general-settings.php:65
+msgid "Reordering"
+msgstr "Réaménagement"
+
+# @ strong-testimonials
+#. translators: %s is a shortcode.
+#: ../includes/form-general-settings.php:72
+msgid "Enable drag-and-drop reordering in the testimonial list."
+msgstr ""
+"Activer la réorganisation des témoignages dans la liste par 'glisser-"
+"déposer'."
+
+# @ strong-testimonials
+#: ../includes/form-general-settings.php:75
+msgid "Enabling this will overwrite any existing order settings."
+msgstr "Cette activation sera prioritaire sur tout autre ordre de tri."
+
+# @ strong-testimonials
+#: ../includes/form-general-settings.php:76
+msgid ""
+"Disable this if you want to set the order manually using the Order field."
+msgstr ""
+"Désactivez cette option si vous voulez trier en utilisant le champ 'Order'."
+
+# @ strong-testimonials
+#: ../includes/guide-advanced.php:4 ../includes/guide-simple.php:3
+#: ../includes/guide-start.php:3
 #, php-format
 msgid ""
 "View some examples on the <a href=\"%s\" target=\"_blank\">demo site</a>."
@@ -949,52 +980,52 @@ msgstr ""
 "Voir quelques exemples sur <a href=\"%s\" target=\"_blank\">démo site</a>."
 
 # @ strong-testimonials
-#: includes/guide-advanced.php:7
+#: ../includes/guide-advanced.php:7
 msgid "Make your testimonials sing using advanced features."
 msgstr ""
 "Rendez vos témoignages plus parlants en utilisant des fonctionnalités "
 "avancées."
 
 # @ strong-testimonials
-#: includes/guide-advanced.php:11 includes/guide-simple.php:10
+#: ../includes/guide-advanced.php:11 ../includes/guide-simple.php:10
 msgctxt "verb"
 msgid "Gather"
 msgstr "Recueillir"
 
 # @ strong-testimonials
-#: includes/guide-advanced.php:15
+#: ../includes/guide-advanced.php:15
 msgid "Customize the form to meet your needs."
 msgstr "Personnalisez le formulaire pour répondre à vos besoins."
 
 # @ strong-testimonials
-#: includes/guide-advanced.php:15
+#: ../includes/guide-advanced.php:15
 #, php-format
 msgid "<a href=\"%s\" target=\"_blank\">Here</a> is a full tutorial."
 msgstr "Un tutoriel complet <a href=\"%s\" target=\"_blank\">ici</a>."
 
 # @ strong-testimonials
-#: includes/guide-advanced.php:18
+#: ../includes/guide-advanced.php:18
 msgid "Featured Images"
 msgstr "Images associées"
 
 # @ strong-testimonials
-#: includes/guide-advanced.php:18
+#: ../includes/guide-advanced.php:18
 msgid "AKA thumbnails."
 msgstr "Vignettes AKA."
 
 # @ strong-testimonials
-#: includes/guide-advanced.php:18
+#: ../includes/guide-advanced.php:18
 msgid "Allow your clients to include a photo or a logo with their testimonial."
 msgstr ""
 "Permettre à vos clients d'ajouter une photo ou un logo à leur témoignage."
 
 # @ strong-testimonials
-#: includes/guide-advanced.php:21
+#: ../includes/guide-advanced.php:21
 msgid "Add honeypot and/or Captcha  methods to the form."
 msgstr "Ajouter un leurre (honeypot) et/ou un Captcha au formulaire."
 
 # @ strong-testimonials
-#: includes/guide-advanced.php:24
+#: ../includes/guide-advanced.php:24
 msgid ""
 "Automatically send an email to the site administrator when a new testimonial "
 "has been submitted and is pending review."
@@ -1003,28 +1034,28 @@ msgstr ""
 "nouveau témoignage a été soumis et est en attente de modération."
 
 # @ strong-testimonials
-#: includes/guide-advanced.php:31 includes/guide-simple.php:15
+#: ../includes/guide-advanced.php:31 ../includes/guide-simple.php:15
 msgctxt "verb"
 msgid "Publish"
 msgstr "Publier"
 
 # @ strong-testimonials
-#: includes/guide-advanced.php:35 strong-testimonials.php:146
+#: ../includes/guide-advanced.php:35 ../strong-testimonials.php:147
 msgid "Categories"
 msgstr "Catégories"
 
 # @ strong-testimonials
-#: includes/guide-advanced.php:35
+#: ../includes/guide-advanced.php:35
 msgid "Organize your testimonials by year, salesperson, event, etc."
 msgstr "Organisez vos témoignages par année, vendeur, événement, etc ..."
 
 # @ strong-testimonials
-#: includes/guide-advanced.php:38
+#: ../includes/guide-advanced.php:38
 msgid "Excerpts"
 msgstr "Extraits"
 
 # @ strong-testimonials
-#: includes/guide-advanced.php:38
+#: ../includes/guide-advanced.php:38
 msgid ""
 "Available in the post editor, use excerpts to create attention-grabbing one-"
 "liners for use in widgets and the cycle shortcode."
@@ -1033,12 +1064,12 @@ msgstr ""
 "accroches à utiliser dans les widgets avec le shortcode cyclique."
 
 # @ strong-testimonials
-#: includes/guide-advanced.php:41
+#: ../includes/guide-advanced.php:41
 msgid "Skip Loading Stylesheets"
 msgstr "Ne pas charger les feuilles de style"
 
 # @ strong-testimonials
-#: includes/guide-advanced.php:41
+#: ../includes/guide-advanced.php:41
 #, php-format
 msgid ""
 "The included stylesheets include a default layout. Skip loading the "
@@ -1050,40 +1081,40 @@ msgstr ""
 "thème ou utiliser le plugin <a href=\"%s\" target=\"_blank\">custom CSS</a>."
 
 # @ strong-testimonials
-#: includes/guide-advanced.php:48 includes/guide-simple.php:20
-#: includes/settings-shortcodes-strong.php:17
+#: ../includes/guide-advanced.php:48 ../includes/guide-simple.php:20
+#: ../includes/settings-shortcodes-strong.php:17
 msgctxt "verb"
 msgid "Display"
 msgstr "Afficher"
 
 # @ strong-testimonials
-#: includes/guide-advanced.php:52 includes/settings.php:28
-#: includes/settings.php:29 includes/settings.php:362
+#: ../includes/guide-advanced.php:52 ../includes/settings.php:28
+#: ../includes/settings.php:29 ../includes/settings.php:377
 msgid "Shortcodes"
 msgstr "Shortcodes"
 
 # @ strong-testimonials
-#: includes/guide-advanced.php:52
+#: ../includes/guide-advanced.php:52
 msgid "Several ways to show your testimonials."
 msgstr "Plusieurs façons de montrer vos témoignages."
 
 # @ strong-testimonials
-#: includes/guide-advanced.php:55 includes/settings.php:184
+#: ../includes/guide-advanced.php:55 ../includes/settings.php:195
 msgid "Cycle Shortcode"
 msgstr "Shortcode cyclique"
 
 # @ strong-testimonials
-#: includes/guide-advanced.php:55
+#: ../includes/guide-advanced.php:55
 msgid "Add a testimonial slider to any page."
 msgstr "Ajouter un diaporama de témoignage dans n'importe quelle page."
 
 # @ strong-testimonials
-#: includes/guide-advanced.php:58
+#: ../includes/guide-advanced.php:58
 msgid "Widgets"
 msgstr "Widgets"
 
 # @ strong-testimonials
-#: includes/guide-advanced.php:58
+#: ../includes/guide-advanced.php:58
 msgid ""
 "The widget has the same features as the cycle shortcode. Multiple widgets "
 "can used on the same page."
@@ -1092,12 +1123,12 @@ msgstr ""
 "widgets peuvent être utilisés dans la même page."
 
 # @ strong-testimonials
-#: includes/guide-advanced.php:61 includes/settings.php:185
+#: ../includes/guide-advanced.php:61 ../includes/settings.php:196
 msgid "Client Section"
 msgstr "Section client"
 
 # @ strong-testimonials
-#: includes/guide-advanced.php:61
+#: ../includes/guide-advanced.php:61
 msgid ""
 "Select which fields (including your custom fields) appear below the "
 "testimonial content."
@@ -1106,12 +1137,12 @@ msgstr ""
 "sous le contenu du témoignage."
 
 # @ strong-testimonials
-#: includes/guide-advanced.php:64
+#: ../includes/guide-advanced.php:64
 msgid "As Posts"
 msgstr "Comme des articles"
 
 # @ strong-testimonials
-#: includes/guide-advanced.php:64
+#: ../includes/guide-advanced.php:64
 msgid ""
 "Since a testimonial is a type of post, it can be displayed using your "
 "theme's default post template or a custom template, included pagination."
@@ -1121,22 +1152,17 @@ msgstr ""
 "incluant la pagination."
 
 # @ strong-testimonials
-#: includes/guide-future.php:3
-msgid "Here are some features we're planning."
-msgstr "Voici quelques fonctionnalités que nous prévoyons."
-
-# @ strong-testimonials
-#: includes/guide-notes.php:3
+#: ../includes/guide-notes.php:3
 msgid "Template files"
 msgstr "Les fichiers modèle"
 
 # @ strong-testimonials
-#: includes/guide-notes.php:4
+#: ../includes/guide-notes.php:4
 msgid "The [strong] shortcode uses template files."
 msgstr "Le shotcode [strong]  utilise des fichiers modèle."
 
 # @ strong-testimonials
-#: includes/guide-notes.php:5
+#: ../includes/guide-notes.php:5
 msgid ""
 "To create custom templates, copy <code>templates/theme/testimonials.php</"
 "code> from the plugin directory to your theme directory. This template file "
@@ -1148,7 +1174,7 @@ msgstr ""
 "page du témoignage."
 
 # @ strong-testimonials
-#: includes/guide-notes.php:6
+#: ../includes/guide-notes.php:6
 msgid ""
 "The plugin will search for that template file in this order: (1) your child "
 "theme (if using one), (2) your parent theme, (3) the plugin templates "
@@ -1159,7 +1185,7 @@ msgstr ""
 "répertoire des modèles du plugin."
 
 # @ strong-testimonials
-#: includes/guide-notes.php:7
+#: ../includes/guide-notes.php:7
 msgid ""
 "Additional template files can be created such as <code>testimonials-narrow."
 "php</code> and found by adding the shortcode attribute <code>template="
@@ -1170,12 +1196,12 @@ msgstr ""
 "shortcode <code>template=\"narrow\"</code>."
 
 # @ strong-testimonials
-#: includes/guide-notes.php:9
+#: ../includes/guide-notes.php:9
 msgid "Template functions"
 msgstr "Fonctions du modèle"
 
 # @ strong-testimonials
-#: includes/guide-notes.php:10
+#: ../includes/guide-notes.php:10
 msgid ""
 "Use <code>wpmtst_field( $field_name )</code> to get one of your custom "
 "fields."
@@ -1184,7 +1210,7 @@ msgstr ""
 "champs personnalisés."
 
 # @ strong-testimonials
-#: includes/guide-notes.php:11
+#: ../includes/guide-notes.php:11
 msgid ""
 "Use <code>wpmtst_field( 'truncated', array( 'char_limit' => 200 ) )</code> "
 "to get the truncated testimonial content."
@@ -1193,7 +1219,7 @@ msgstr ""
 "code> pour obtenir un contenu tronqué du témoignage."
 
 # @ strong-testimonials
-#: includes/guide-notes.php:12
+#: ../includes/guide-notes.php:12
 msgid ""
 "Use <code>wpmtst_field( 'client', array( 'content' => $shortcode_content )</"
 "code> to get <code>[strong]</code> child shortcodes for the client section "
@@ -1206,7 +1232,7 @@ msgstr ""
 "php?post_type=wpm-testimonial&page=shortcodes\">ici</a>)."
 
 # @ strong-testimonials
-#: includes/guide-notes.php:13
+#: ../includes/guide-notes.php:13
 msgid ""
 "Look at <code>templates/theme/testimonials.php</code> in the plugin "
 "directory for examples."
@@ -1215,12 +1241,12 @@ msgstr ""
 "du plugin pour des exemples."
 
 # @ strong-testimonials
-#: includes/guide-notes.php:15
+#: ../includes/guide-notes.php:15
 msgid "Translations"
 msgstr "Traductions"
 
 # @ strong-testimonials
-#: includes/guide-notes.php:16
+#: ../includes/guide-notes.php:16
 #, php-format
 msgid ""
 "There is a POT file in the plugin's <code>languages</code> directory. <a "
@@ -1231,7 +1257,7 @@ msgstr ""
 "fichier de traduction."
 
 # @ strong-testimonials
-#: includes/guide-notes.php:17
+#: ../includes/guide-notes.php:17
 #, php-format
 msgid ""
 "The field labels on the submission form will not appear in the POT file so "
@@ -1242,7 +1268,7 @@ msgstr ""
 "<a href=\"%s\">Champs</a>."
 
 # @ strong-testimonials
-#: includes/guide-notes.php:18
+#: ../includes/guide-notes.php:18
 msgid ""
 "The WordPress browser elements like the <button style=\"font-size: smaller;"
 "\">Browse...</button> button and the \"No file chosen\" message are "
@@ -1253,12 +1279,12 @@ msgstr ""
 "\" sont contrôlés par les paramètres de langue de WordPress ."
 
 # @ strong-testimonials
-#: includes/guide-notes.php:20
+#: ../includes/guide-notes.php:20
 msgid "Nofollow links"
 msgstr "Liens ne pas suivre (nofollow)"
 
 # @ strong-testimonials
-#: includes/guide-notes.php:21
+#: ../includes/guide-notes.php:21
 msgid ""
 "The Client Details meta box in the post editor now has an option to add "
 "<code>rel=\"nofollow\"</code> to client URLs. There is no global setting yet "
@@ -1272,12 +1298,12 @@ msgstr ""
 "avec forçage individuel."
 
 # @ strong-testimonials
-#: includes/guide-notes.php:24
+#: ../includes/guide-notes.php:24
 msgid "Found a bug? Have an idea? Need help?"
 msgstr "Trouvé un bug ? Avez-vous une idée ? Besoin d'aide ?"
 
 # @ strong-testimonials
-#: includes/guide-notes.php:25
+#: ../includes/guide-notes.php:25
 #, php-format
 msgid ""
 "Please use the <a href=\"%s\" target=\"_blank\">support forum</a> or <a href="
@@ -1287,24 +1313,24 @@ msgstr ""
 "ou <a href=\"%s\" target=\"_blank\">contactez-moi</a>."
 
 # @ strong-testimonials
-#: includes/guide-simple.php:5
+#: ../includes/guide-simple.php:5
 msgid "Add testimonials to your site in three simple steps."
 msgstr "Ajouter des témoignages à votre site en trois étapes simples."
 
 # @ strong-testimonials
-#: includes/guide-simple.php:6
+#: ../includes/guide-simple.php:6
 msgid "Use the default settings to hit the ground running."
 msgstr "Utilisez les paramètres par défaut pour démarrer immédiatement."
 
 # @ strong-testimonials
-#: includes/guide-simple.php:11
+#: ../includes/guide-simple.php:11
 msgid "To accept new testimonials, add the shortcode [strong form] to a page."
 msgstr ""
 "Pour enregister de nouveaux témoignages, ajouter le shortcode [strong form] "
 "à une page."
 
 # @ strong-testimonials
-#: includes/guide-simple.php:16
+#: ../includes/guide-simple.php:16
 msgid ""
 "Review and publish new submissions and/or enter existing testimonials "
 "manually."
@@ -1313,7 +1339,7 @@ msgstr ""
 "manuellement."
 
 # @ strong-testimonials
-#: includes/guide-simple.php:21
+#: ../includes/guide-simple.php:21
 msgid ""
 "Add a shortcode like [strong title random per_page=\"5\"] to a page and/or "
 "add a widget to a sidebar."
@@ -1322,62 +1348,62 @@ msgstr ""
 "et/ou ajouter un widget à une barre latérale."
 
 # @ strong-testimonials
-#: includes/guide-start.php:5
+#: ../includes/guide-start.php:5
 msgid "A testimonial is like a blog post."
 msgstr "Un témoignage est comme un article de blog."
 
 # @ strong-testimonials
-#: includes/guide-start.php:6
+#: ../includes/guide-start.php:6
 msgid "They have many of the same fields and features:"
 msgstr "Ils ont beaucoup de champs et de caractéristiques communs :"
 
 # @ strong-testimonials
-#: includes/guide-start.php:8
+#: ../includes/guide-start.php:8
 msgid "A Title"
 msgstr "Un titre"
 
 # @ strong-testimonials
-#: includes/guide-start.php:9
+#: ../includes/guide-start.php:9
 msgid "a permalink"
 msgstr "un permalien"
 
 # @ strong-testimonials
-#: includes/guide-start.php:10
+#: ../includes/guide-start.php:10
 msgid "Some content."
 msgstr "du contenu."
 
 # @ strong-testimonials
-#: includes/guide-start.php:11
+#: ../includes/guide-start.php:11
 msgid "an excerpt"
 msgstr "un extrait"
 
 # @ strong-testimonials
-#: includes/guide-start.php:12
+#: ../includes/guide-start.php:12
 msgid "a featured image (thumbnail)"
 msgstr "une image à la une (vignette)"
 
 # @ strong-testimonials
-#: includes/guide-start.php:13
+#: ../includes/guide-start.php:13
 msgid "custom fields"
 msgstr "des champs personnalisés"
 
 # @ strong-testimonials
-#: includes/guide-start.php:13
+#: ../includes/guide-start.php:13
 msgid "like client name and email"
 msgstr "comme nom du client et courriel"
 
 # @ strong-testimonials
-#: includes/guide-start.php:14
+#: ../includes/guide-start.php:14
 msgid "categories"
 msgstr "des catégories"
 
 # @ strong-testimonials
-#: includes/guide-start.php:17
+#: ../includes/guide-start.php:17
 msgid "How do you want to use testimonials?"
 msgstr "Comment voulez-vous gérer les témoignages ?"
 
 # @ strong-testimonials
-#: includes/guide-start.php:18
+#: ../includes/guide-start.php:18
 #, php-format
 msgid ""
 "The <strong><a href=\"%s\">Simple</a></strong> tab shows you how to quickly "
@@ -1387,7 +1413,7 @@ msgstr ""
 "ajouter rapidement des témoignages à votre site."
 
 # @ strong-testimonials
-#: includes/guide-start.php:19
+#: ../includes/guide-start.php:19
 #, php-format
 msgid ""
 "The <strong><a href=\"%s\">Advanced</a></strong> tab describes more features "
@@ -1397,12 +1423,12 @@ msgstr ""
 "fonctionnalités comme les champs personnalisés et les extraits."
 
 # @ strong-testimonials
-#: includes/guide-start.php:21
+#: ../includes/guide-start.php:21
 msgid "You are invited to participate."
 msgstr "Vous êtes invités à participer."
 
 # @ strong-testimonials
-#: includes/guide-start.php:22
+#: ../includes/guide-start.php:22
 msgid ""
 "Coming soon, the direction of this plugin will be in your hands as you will "
 "be able to vote on feature requests."
@@ -1411,80 +1437,80 @@ msgstr ""
 "exprimer sur les nouvelles fonctionnalités."
 
 # @ strong-testimonials
-#: includes/guide.php:11
+#: ../includes/guide.php:11
 msgid "Strong Testimonials Guide"
 msgstr "Guide Strong Testimonials"
 
 # @ strong-testimonials
 #. translators: This appears in the Guide.
-#: includes/guide.php:19
+#: ../includes/guide.php:19
 msgid "Getting Started"
 msgstr "Commencer"
 
 # @ strong-testimonials
 #. translators: This appears in the Guide.
-#: includes/guide.php:23
+#: ../includes/guide.php:23
 msgid "Simple"
 msgstr "Simple"
 
 # @ strong-testimonials
 #. translators: This appears in the Guide.
-#: includes/guide.php:27
+#: ../includes/guide.php:27
 msgid "Advanced"
 msgstr "Avancé"
 
 # @ strong-testimonials
 #. translators: This appears in the Guide.
 #. translators: This appears in the [strong] shortcode instructions.
-#: includes/guide.php:31 includes/settings-shortcodes-strong.php:15
-#: includes/tabs/notes.php:6
+#: ../includes/guide.php:31 ../includes/settings-shortcodes-strong.php:15
+#: ../includes/tabs/notes.php:6
 msgid "Notes"
 msgstr "Notes"
 
 # @ strong-testimonials
-#. translators: This appears in the Guide.
-#: includes/guide.php:35
-msgid "Future"
-msgstr "A venir"
+#: ../includes/news.php:11
+msgid "Strong Testimonials News"
+msgstr "Nouveautés de Strong Testimonials"
 
 # @ strong-testimonials
-#: includes/settings-shortcodes-strong.php:10
-msgid "The new shortcode that does it all."
-msgstr "Le nouveau shortcode qui fait tout."
+#: ../includes/settings-shortcodes-strong.php:10
+msgid "The one shortcode that does it all."
+msgstr "Ce shortcode qui fait tout."
 
 # @ strong-testimonials
 #. translators: This appears in the [strong] shortcode instructions.
-#: includes/settings-shortcodes-strong.php:16 includes/tabs/form.php:6
+#: ../includes/settings-shortcodes-strong.php:16 ../includes/tabs/form.php:6
 msgid "The Form"
 msgstr "Le formulaire"
 
 # @ strong-testimonials
 #. translators: This appears in the [strong] shortcode instructions.
-#: includes/settings-shortcodes-strong.php:18 includes/tabs/slideshow.php:6
+#: ../includes/settings-shortcodes-strong.php:18
+#: ../includes/tabs/slideshow.php:6
 msgid "Slideshow"
 msgstr "Diaporama"
 
 # @ strong-testimonials
-#: includes/settings-shortcodes-strong.php:19
+#: ../includes/settings-shortcodes-strong.php:19
 msgid "Read More"
 msgstr "En savoir plus"
 
 # @ strong-testimonials
 #. translators: This appears in the [strong] shortcode instructions.
-#: includes/settings-shortcodes-strong.php:20 includes/tabs/child.php:6
+#: ../includes/settings-shortcodes-strong.php:20 ../includes/tabs/child.php:6
 msgid "Child Shortcodes"
 msgstr "Shortcodes enfant"
 
 # @ strong-testimonials
 #. translators: This appears in the [strong] shortcode instructions.
-#: includes/settings-shortcodes-strong.php:21 includes/tabs/child.php:42
-#: includes/tabs/examples.php:6 includes/tabs/form.php:36
-#: includes/tabs/readmore.php:44
+#: ../includes/settings-shortcodes-strong.php:21 ../includes/tabs/child.php:42
+#: ../includes/tabs/examples.php:6 ../includes/tabs/form.php:28
+#: ../includes/tabs/readmore.php:44
 msgid "Examples"
 msgstr "Exemples"
 
 # @ strong-testimonials
-#: includes/settings-shortcodes.php:10
+#: ../includes/settings-shortcodes.php:10
 #, php-format
 msgid ""
 "These shortcodes will be deprecated soon. Please migrate to the <a href=\"%s"
@@ -1495,38 +1521,40 @@ msgstr ""
 
 # @ strong-testimonials
 #. translators: This appears on the Original Shortcodes admin screen.
-#: includes/settings-shortcodes.php:17
+#: ../includes/settings-shortcodes.php:17
 msgid "Show All"
 msgstr "Tout afficher"
 
 # @ strong-testimonials
 #. translators: This appears on the Original Shortcodes admin screen.
-#: includes/settings-shortcodes.php:21
+#: ../includes/settings-shortcodes.php:21
 msgid "from all categories"
 msgstr "toutes les catégories"
 
 # @ strong-testimonials
 #. translators: This appears on the Original Shortcodes admin screen.
-#: includes/settings-shortcodes.php:26
+#: ../includes/settings-shortcodes.php:26
 msgid "or a single category"
 msgstr "ou une seule catégorie"
 
 # @ strong-testimonials
 #. translators: This appears on the Original Shortcodes admin screen.
-#: includes/settings-shortcodes.php:31 includes/settings-shortcodes.php:70
-#: includes/settings-shortcodes.php:80 includes/settings-shortcodes.php:114
+#: ../includes/settings-shortcodes.php:31
+#: ../includes/settings-shortcodes.php:70
+#: ../includes/settings-shortcodes.php:80
+#: ../includes/settings-shortcodes.php:114
 msgid "or multiple categories"
 msgstr "ou plusieurs"
 
 # @ strong-testimonials
 #. translators: This appears on the Original Shortcodes admin screen.
-#: includes/settings-shortcodes.php:39
+#: ../includes/settings-shortcodes.php:39
 msgid "Cycle"
 msgstr "Cycle"
 
 # @ strong-testimonials
 #. translators: This appears on the Original Shortcodes admin screen.
-#: includes/settings-shortcodes.php:43
+#: ../includes/settings-shortcodes.php:43
 #, php-format
 msgctxt "verb"
 msgid "<a href=\"%s\">configure</a>"
@@ -1534,211 +1562,216 @@ msgstr "<a href=\"%s\">configurer</a>"
 
 # @ strong-testimonials
 #. translators: This appears on the Original Shortcodes admin screen.
-#: includes/settings-shortcodes.php:51 includes/settings.php:250
-#: includes/widget.php:200
+#: ../includes/settings-shortcodes.php:51 ../includes/settings.php:254
+#: ../includes/widget.php:218
 msgctxt "display order"
 msgid "Random"
 msgstr "Aléatoire"
 
 # @ strong-testimonials
 #. translators: This appears on the Original Shortcodes admin screen.
-#: includes/settings-shortcodes.php:55
+#: ../includes/settings-shortcodes.php:55
 msgid "a single random testimonial"
 msgstr "un seul témoignage pris au hasard"
 
 # @ strong-testimonials
 #. translators: This appears on the Original Shortcodes admin screen.
-#: includes/settings-shortcodes.php:60
+#: ../includes/settings-shortcodes.php:60
 msgctxt "quantity"
 msgid "or a certain number"
 msgstr "ou un certain nombre pris au hasard"
 
 # @ strong-testimonials
 #. translators: This appears on the Original Shortcodes admin screen.
-#: includes/settings-shortcodes.php:65
+#: ../includes/settings-shortcodes.php:65
 msgid "a single testimonial from a single category"
 msgstr "un seul témoignage d'une seule catégorie"
 
 # @ strong-testimonials
 #. translators: This appears on the Original Shortcodes admin screen.
-#: includes/settings-shortcodes.php:75
+#: ../includes/settings-shortcodes.php:75
 msgctxt "quantity"
 msgid "a certain number from a single category"
 msgstr "un certain nombre d'une seule catégorie"
 
 # @ strong-testimonials
 #. translators: This appears on the Original Shortcodes admin screen.
-#: includes/settings-shortcodes.php:88
+#: ../includes/settings-shortcodes.php:88
 msgctxt "quantity"
 msgid "Single"
 msgstr "Unique"
 
 # @ strong-testimonials
 #. translators: This appears on the Original Shortcodes admin screen.
-#: includes/settings-shortcodes.php:92
+#: ../includes/settings-shortcodes.php:92
 msgid "one specific testimonial"
 msgstr "un témoignage spécifique"
 
 # @ strong-testimonials
 #. translators: This appears on the Original Shortcodes admin screen.
-#: includes/settings-shortcodes.php:104
+#: ../includes/settings-shortcodes.php:104
 msgid "a form for visitors to submit testimonials"
 msgstr "un formulaire pour les témoignages des visiteurs"
 
 # @ strong-testimonials
 #. translators: This appears on the Original Shortcodes admin screen.
-#: includes/settings-shortcodes.php:109
+#: ../includes/settings-shortcodes.php:109
 msgid "and add them to a single category"
 msgstr "et les ajouter à une seule catégorie"
 
 # @ strong-testimonials
-#. translators: This appears in the [strong] shortcode instructions.
-#: includes/settings.php:14 includes/settings.php:15
-#: includes/tabs/notes.php:17 strong-testimonials.php:47
+#: ../includes/settings.php:14 ../includes/settings.php:15
+#: ../strong-testimonials.php:48
 msgid "Settings"
 msgstr "Réglages"
 
 # @ strong-testimonials
-#: includes/settings.php:35 includes/settings.php:36
+#: ../includes/settings.php:35 ../includes/settings.php:36
 msgctxt "noun"
 msgid "Guide"
 msgstr "Guide"
 
 # @ strong-testimonials
-#: includes/settings.php:171
-msgid "Testimonial Settings"
-msgstr "Paramétrage général"
-
-# @ default
-#: includes/settings.php:175
-msgid "Settings saved."
-msgstr "Réglages sauvegardés"
-
-# @ strong-testimonials
-#: includes/settings.php:181
+#: ../includes/settings.php:42 ../includes/settings.php:43
 msgid "News"
 msgstr "Nouvelles"
 
 # @ strong-testimonials
-#: includes/settings.php:182
+#: ../includes/settings.php:183
+msgid "Testimonial Settings"
+msgstr "Paramétrage général"
+
+# @ default
+#: ../includes/settings.php:187
+msgid "Settings saved."
+msgstr "Réglages sauvegardés"
+
+# @ strong-testimonials
+#: ../includes/settings.php:193
 msgctxt "adjective"
 msgid "General"
 msgstr "Général"
 
 # @ strong-testimonials
-#: includes/settings.php:183
+#: ../includes/settings.php:194
 msgid "Form"
 msgstr "Formulaire"
 
 # @ strong-testimonials
-#: includes/settings.php:216
+#: ../includes/settings.php:220
 msgid "Remember to save changes before switching tabs."
 msgstr ""
 "Ne pas oublier d'enregistrer les modifications avant de changer d'onglet."
 
 # @ strong-testimonials
-#: includes/settings.php:251 includes/widget.php:201
+#: ../includes/settings.php:255 ../includes/widget.php:219
+msgctxt "display order"
+msgid "Menu order"
+msgstr "Classement de la liste"
+
+# @ strong-testimonials
+#: ../includes/settings.php:256 ../includes/widget.php:220
 msgctxt "display order"
 msgid "Newest first"
 msgstr "Plus récent en premier"
 
 # @ strong-testimonials
-#: includes/settings.php:252 includes/widget.php:202
+#: ../includes/settings.php:257 ../includes/widget.php:221
 msgctxt "display order"
 msgid "Oldest first"
 msgstr "Plus ancien en premier"
 
 # @ strong-testimonials
-#: includes/settings.php:367
+#: ../includes/settings.php:382
 msgid "Original"
 msgstr "Original"
 
 # @ strong-testimonials
-#: includes/shortcode-strong.php:73 includes/shortcode-strong.php:115
-#: includes/widget.php:133
+#: ../includes/shortcode-strong.php:73 ../includes/shortcode-strong.php:112
+#: ../includes/widget.php:151
 msgctxt "link"
 msgid "Read more"
 msgstr "Lire plus"
 
 # @ strong-testimonials
 #. translators: This appears in the [strong] shortcode instructions.
-#: includes/tabs/child.php:8
+#: ../includes/tabs/child.php:8
 msgid "must be inside a parent [ strong ] shortcode"
 msgstr "doit être à l'intérieur d'un shortcode [strong] parent"
 
 # @ strong-testimonials
 #. translators: This appears in the [strong] shortcode instructions.
-#: includes/tabs/child.php:13
+#: ../includes/tabs/child.php:13
 msgid "the client section"
 msgstr "la section client"
 
 # @ strong-testimonials
 #. translators: This appears in the [strong] shortcode instructions.
-#: includes/tabs/child.php:15
+#: ../includes/tabs/child.php:15
 msgid "required for displaying custom fields"
 msgstr "obligatoire pour afficher les champs personnalisés"
 
 # @ strong-testimonials
 #. translators: This appears in the [strong] shortcode instructions.
-#: includes/tabs/child.php:22
+#: ../includes/tabs/child.php:22
 msgid "a custom field"
 msgstr "un champ personnalisé"
 
 # @ strong-testimonials
 #. translators: This appears in the [strong] shortcode instructions.
-#: includes/tabs/child.php:29
+#: ../includes/tabs/child.php:29
 msgid "with a CSS class"
 msgstr "avec une classe CSS"
 
 # @ strong-testimonials
 #. translators: This appears in the [strong] shortcode instructions.
-#: includes/tabs/child.php:36
+#: ../includes/tabs/child.php:36
 msgid "as a link with another field<br /> that opens in a new tab"
 msgstr "comme un lien avec un autre champ<br /> qui ouvre un nouvel onglet"
 
 # @ strong-testimonials
 #. translators: This appears in the [strong] shortcode instructions.
-#: includes/tabs/child.php:46 includes/tabs/form.php:40
-#: includes/tabs/readmore.php:49
+#: ../includes/tabs/child.php:46 ../includes/tabs/form.php:32
+#: ../includes/tabs/readmore.php:49
 msgctxt "adjective"
 msgid "minimal"
 msgstr "minimal"
 
 # @ strong-testimonials
 #. translators: This appears in the [strong] shortcode instructions.
-#: includes/tabs/child.php:51 includes/tabs/form.php:45
-#: includes/tabs/readmore.php:58
+#: ../includes/tabs/child.php:51 ../includes/tabs/form.php:37
+#: ../includes/tabs/readmore.php:58
 msgctxt "adjective"
 msgid "full"
 msgstr "complet"
 
 # @ strong-testimonials
 #. translators: This appears in the [strong] shortcode instructions.
-#: includes/tabs/examples.php:10
+#: ../includes/tabs/examples.php:10
 msgid "the form"
 msgstr "le formulaire"
 
 # @ strong-testimonials
 #. translators: This appears in the [strong] shortcode instructions.
-#: includes/tabs/examples.php:15
+#: ../includes/tabs/examples.php:15
 msgid "show all, 5 per page, with pagination above and below"
 msgstr "montrer tout, 5 par page, avec la pagination en haut et en bas"
 
 # @ strong-testimonials
 #. translators: This appears in the [strong] shortcode instructions.
-#: includes/tabs/examples.php:20
+#: ../includes/tabs/examples.php:20
 msgid "show 3 random, limited to about 200 characters"
 msgstr "montrer 3 en aléatoire, limités à environ 200 caractères"
 
 # @ strong-testimonials
 #. translators: This appears in the [strong] shortcode instructions.
-#: includes/tabs/examples.php:25
+#: ../includes/tabs/examples.php:25
 msgid "a slideshow with excerpts<br /> from categories 2 and 3"
 msgstr "un diaporama avec des extraits<br />&nbsp;des catégories 2 et 3"
 
 # @ strong-testimonials
 #. translators: This appears in the [strong] shortcode instructions.
-#: includes/tabs/examples.php:31
+#: ../includes/tabs/examples.php:31
 msgid ""
 "show the full-length testimonial<br />\n"
 "\t\t\t\twith the title and thumbnail,<br />\n"
@@ -1753,7 +1786,7 @@ msgstr ""
 
 # @ strong-testimonials
 #. translators: This appears in the [strong] shortcode instructions.
-#: includes/tabs/examples.php:49
+#: ../includes/tabs/examples.php:49
 #, php-format
 msgid ""
 "Many more examples on the <a href=\"%s\" target=\"_blank\">demo site</a>."
@@ -1763,32 +1796,20 @@ msgstr ""
 
 # @ strong-testimonials
 #. translators: This appears in the [strong] shortcode instructions.
-#: includes/tabs/form.php:14
+#: ../includes/tabs/form.php:14
 msgid "add new submissions to a category"
 msgstr "ajouter de nouveaux témoignages à une catégorie"
 
 # @ strong-testimonials
 #. translators: This appears in the [strong] shortcode instructions.
-#: includes/tabs/form.php:21 includes/tabs/part-style.php:13
+#: ../includes/tabs/form.php:21 ../includes/tabs/part-style.php:13
 msgctxt "CSS"
 msgid "add classes to <code>div.strong-container</code>"
 msgstr "ajouter des classes à <code>div.strong-container</code>"
 
 # @ strong-testimonials
 #. translators: This appears in the [strong] shortcode instructions.
-#: includes/tabs/form.php:29 includes/tabs/part-style.php:19
-msgid "skip plugin stylesheet"
-msgstr "sauter la feuille de style du plugin"
-
-# @ strong-testimonials
-#: includes/tabs/notes.php:9
-msgctxt "adjective"
-msgid "Multiple"
-msgstr "Multiple"
-
-# @ strong-testimonials
-#. translators: This appears in the [strong] shortcode instructions.
-#: includes/tabs/notes.php:12
+#: ../includes/tabs/notes.php:12
 msgid ""
 "If a page has multiple <code>[strong]</code>'s, each one must be closed; e."
 "g. <code>[strong ... /]</code> or <code>[strong ...][/strong]</code>."
@@ -1798,7 +1819,7 @@ msgstr ""
 
 # @ strong-testimonials
 #. translators: This appears in the [strong] shortcode instructions.
-#: includes/tabs/notes.php:20
+#: ../includes/tabs/notes.php:16
 msgid ""
 "There are no settings yet so each <code>[strong]</code> must have every "
 "attribute it needs, except for the default attributes indicated."
@@ -1809,7 +1830,7 @@ msgstr ""
 
 # @ strong-testimonials
 #. translators: This appears in the [strong] shortcode instructions.
-#: includes/tabs/notes.php:27
+#: ../includes/tabs/notes.php:20
 msgid ""
 "New elements: <code>div.strong-container</code> wraps <code>div.strong-"
 "content</code> which wraps the collection of <code>.testimonial</code>'s."
@@ -1818,298 +1839,285 @@ msgstr ""
 "content</code> qui enveloppe la collection <code>.testimonial</code>."
 
 # @ strong-testimonials
-#. translators: This appears in the [strong] shortcode instructions.
-#: includes/tabs/notes.php:32
-msgctxt "noun"
-msgid "Help"
-msgstr "Aide"
-
-# @ strong-testimonials
-#: includes/tabs/notes.php:34
+#: ../includes/tabs/notes.php:23
 #, php-format
 msgid ""
 "Please use the <a href=\"%s\" target=\"_blank\">support forum</a> to report "
-"bugs, get help, or make feature requests."
+"bugs or get help."
 msgstr ""
 "Veuillez utiliser le <a href=\"%s\" target=\"_blank\">forum de support</a> "
-"pour rapporter des bugs, obtenir de l'aide ou faire des demandes de "
-"fonctionnalités."
+"pour remonter des 'bugs' et obtenir de l'aide."
 
 # @ strong-testimonials
 #. translators: This appears in the [strong] shortcode instructions.
-#: includes/tabs/part-content.php:4 includes/widget.php:399
+#: ../includes/tabs/part-content.php:4 ../includes/widget.php:418
 msgctxt "noun"
 msgid "Content"
 msgstr "Contenu"
 
 # @ strong-testimonials
 #. translators: This appears in the [strong] shortcode instructions.
-#: includes/tabs/part-content.php:8
+#: ../includes/tabs/part-content.php:8
 msgid "entire post"
 msgstr "totalité de l'article"
 
 # @ strong-testimonials
 #. translators: This appears in the [strong] shortcode instructions.
-#: includes/tabs/part-content.php:14
+#: ../includes/tabs/part-content.php:14
 msgid "excerpt"
 msgstr "extrait"
 
 # @ strong-testimonials
 #. translators: This appears in the [strong] shortcode instructions.
-#: includes/tabs/part-content.php:16
+#: ../includes/tabs/part-content.php:16
 msgid "overrides <b>length limit</b>"
 msgstr "remplace <b>longueur limitée</ b>"
 
 # @ strong-testimonials
 #. translators: This appears in the [strong] shortcode instructions.
-#: includes/tabs/part-content.php:23
+#: ../includes/tabs/part-content.php:23
 msgctxt "content"
 msgid "length limit"
 msgstr "longueur limitée"
 
 # @ strong-testimonials
 #. translators: This appears in the [strong] shortcode instructions.
-#: includes/tabs/part-content.php:25
+#: ../includes/tabs/part-content.php:25
 msgid "will break on a space and add an ellipsis"
 msgstr ""
 "s'interrompt en présence d'un espace et ajoute des points de suspension"
 
 # @ strong-testimonials
 #. translators: This appears in the [strong] shortcode instructions.
-#: includes/tabs/part-pagination.php:4
-msgid "Pagination"
-msgstr "Pagination"
-
-# @ strong-testimonials
-#. translators: This appears in the [strong] shortcode instructions.
-#: includes/tabs/part-pagination.php:8
+#: ../includes/tabs/part-pagination.php:8
 msgid "per page"
 msgstr "témoignages par page"
 
 # @ strong-testimonials
 #. translators: This appears in the [strong] shortcode instructions.
-#: includes/tabs/part-pagination.php:13
+#: ../includes/tabs/part-pagination.php:13
 msgid "navigation after"
 msgstr "navigation suivant"
 
 # @ strong-testimonials
 #. translators: This appears in the [strong] shortcode instructions.
-#: includes/tabs/part-pagination.php:14 includes/tabs/part-selection.php:10
+#: ../includes/tabs/part-pagination.php:14
+#: ../includes/tabs/part-selection.php:10
 msgid "default"
 msgstr "défaut"
 
 # @ strong-testimonials
 #. translators: This appears in the [strong] shortcode instructions.
-#: includes/tabs/part-pagination.php:18
+#: ../includes/tabs/part-pagination.php:18
 msgid "navigation before"
 msgstr "navigation précédent"
 
 # @ strong-testimonials
 #. translators: This appears in the [strong] shortcode instructions.
-#: includes/tabs/part-pagination.php:23
+#: ../includes/tabs/part-pagination.php:23
 msgid "navigation before & after"
 msgstr "navigation précédent et suivant"
 
 # @ strong-testimonials
 #. translators: This appears in the [strong] shortcode instructions.
-#: includes/tabs/part-parts.php:4
+#: ../includes/tabs/part-parts.php:4
 msgctxt "noun"
 msgid "Parts"
 msgstr "Eléments"
 
 # @ strong-testimonials
 #. translators: This appears in the [strong] shortcode instructions.
-#: includes/tabs/part-parts.php:9
+#: ../includes/tabs/part-parts.php:9
 msgid "show the Title"
 msgstr "montrer le titre"
 
 # @ strong-testimonials
 #. translators: This appears in the [strong] shortcode instructions. Refers to your custom fields.
-#: includes/tabs/part-parts.php:11 includes/tabs/part-parts.php:20
+#: ../includes/tabs/part-parts.php:11 ../includes/tabs/part-parts.php:20
 msgid "if included in Fields"
 msgstr "si inclus dans les champs"
 
 # @ strong-testimonials
 #. translators: This appears in the [strong] shortcode instructions.
-#: includes/tabs/part-parts.php:18
+#: ../includes/tabs/part-parts.php:18
 msgid "show the Featured Image"
 msgstr "montrer la photo associée"
 
 # @ strong-testimonials
 #. translators: This appears in the [strong] shortcode instructions.
-#: includes/tabs/part-parts.php:27
+#: ../includes/tabs/part-parts.php:27
 msgid "\"Read more\" link to the full post"
 msgstr "Lien \"Lire la suite\" vers l'article complet"
 
 # @ strong-testimonials
 #. translators: This appears in the [strong] shortcode instructions.
-#: includes/tabs/part-parts.php:29
+#: ../includes/tabs/part-parts.php:29
 msgid "for use with <b>excerpt</b> or <b>length limit</b> only"
 msgstr "à utiliser avec <b>extrait</b> or <b>longueur limitée</b> seulement"
 
 # @ strong-testimonials
 #. translators: This appears in the [strong] shortcode instructions.
-#: includes/tabs/part-parts.php:36
+#: ../includes/tabs/part-parts.php:36
 msgid "\"Read more\" phrase"
 msgstr "Phrase \"Lire la suite\""
 
 # @ strong-testimonials
 #. translators: This appears in the [strong] shortcode instructions.
-#: includes/tabs/part-parts.php:38 includes/tabs/readmore.php:15
+#: ../includes/tabs/part-parts.php:38 ../includes/tabs/readmore.php:15
 msgid "default text is \"Read more\" (translatable)"
 msgstr "le texte par défaut est \"Read more\" (traductible)"
 
 # @ strong-testimonials
 #. translators: This appears in the [strong] shortcode instructions.
-#: includes/tabs/part-selection.php:4
+#: ../includes/tabs/part-selection.php:4
 msgid "Selection"
 msgstr "Sélection"
 
 # @ strong-testimonials
 #. translators: This appears in the [strong] shortcode instructions.
-#: includes/tabs/part-selection.php:8
+#: ../includes/tabs/part-selection.php:8
 msgid "show all"
 msgstr "les montrer tous"
 
 # @ strong-testimonials
 #. translators: This appears in the [strong] shortcode instructions.
-#: includes/tabs/part-selection.php:14
+#: ../includes/tabs/part-selection.php:14
 msgctxt "quantity"
 msgid "show a certain number"
 msgstr "montrer un certain nombre"
 
 # @ noun
 #. translators: This appears in the [strong] shortcode instructions.
-#: includes/tabs/part-selection.php:19
+#: ../includes/tabs/part-selection.php:19
 msgid "order"
 msgstr "ordre"
 
 # @ strong-testimonials
 #. translators: This appears in the [strong] shortcode instructions.
-#: includes/tabs/part-selection.php:26
+#: ../includes/tabs/part-selection.php:27
 msgid "by category"
 msgstr "par catégorie"
 
 # @ strong-testimonials
 #. translators: This appears in the [strong] shortcode instructions.
-#: includes/tabs/part-selection.php:32
+#: ../includes/tabs/part-selection.php:33
 msgid "by post ID"
 msgstr "par ID article"
 
 # @ strong-testimonials
 #. translators: This appears in the [strong] shortcode instructions.
-#: includes/tabs/part-style.php:4
+#: ../includes/tabs/part-style.php:4
 msgctxt "noun"
 msgid "Style"
 msgstr "Style"
 
 # @ strong-testimonials
 #. translators: This appears in the [strong] shortcode instructions.
-#: includes/tabs/part-style.php:8
+#: ../includes/tabs/part-style.php:8
 msgid "select a theme template file"
 msgstr "sélectionner un fichier thème modèle"
 
 # @ strong-testimonials
 #. translators: This appears in the [strong] shortcode instructions.
-#: includes/tabs/readmore.php:8
+#: ../includes/tabs/readmore.php:8
 msgid "must not be inside another [ strong ] shortcode"
 msgstr "ne doit pas être dans un autre shortcode [strong]"
 
 # @ strong-testimonials
 #. translators: This appears in the [strong] shortcode instructions.
-#: includes/tabs/readmore.php:13
+#: ../includes/tabs/readmore.php:13
 msgid "appears after the loop"
 msgstr "apparaît après la boucle"
 
 # @ strong-testimonials
 #. translators: This appears in the [strong] shortcode instructions.
-#: includes/tabs/readmore.php:24
+#: ../includes/tabs/readmore.php:24
 msgid "to another page (required)"
 msgstr "vers une autre page (obligatoire)"
 
 # @ strong-testimonials
 #. translators: This appears in the [strong] shortcode instructions.
-#: includes/tabs/readmore.php:26
+#: ../includes/tabs/readmore.php:26
 msgid "ID or slug"
 msgstr "ID ou identifiant"
 
 # @ strong-testimonials
 #. translators: This appears in the [strong] shortcode instructions.
-#: includes/tabs/readmore.php:35
+#: ../includes/tabs/readmore.php:35
 msgctxt "CSS"
 msgid "add classes"
 msgstr "ajouter des classes"
 
 # @ strong-testimonials
 #. translators: This appears in the [strong] shortcode instructions.
-#: includes/tabs/slideshow.php:15
+#: ../includes/tabs/slideshow.php:15
 msgctxt "setting"
 msgid "show each for (in seconds)"
 msgstr "afficher chacun pendant (en secondes)"
 
 # @ strong-testimonials
 #. translators: This appears in the [strong] shortcode instructions.
-#: includes/tabs/slideshow.php:22
+#: ../includes/tabs/slideshow.php:22
 msgctxt "setting"
 msgid "transition effect (in seconds)"
 msgstr "effet de transition (en secondes)"
 
 # @ strong-testimonials
 #. translators: This appears in the [strong] shortcode instructions.
-#: includes/tabs/slideshow.php:29
+#: ../includes/tabs/slideshow.php:29
 msgctxt "setting"
 msgid "no pause on hover"
 msgstr "pas de pause au survol"
 
 # @ strong-testimonials
 #. translators: This appears in the [strong] shortcode instructions.
-#: includes/tabs/slideshow.php:31
+#: ../includes/tabs/slideshow.php:31
 msgid "will pause by default"
 msgstr "fera une pause par défaut"
 
 # @ strong-testimonials
-#: includes/widget.php:19
+#: ../includes/widget.php:19
 msgctxt "description"
 msgid "Strong Testimonials widget."
 msgstr "Widget Strong Testimonials"
 
 # @ strong-testimonials
-#: includes/widget.php:26 includes/widget.php:29
+#: ../includes/widget.php:26 ../includes/widget.php:29
 msgctxt "widget title"
 msgid "Testimonials"
 msgstr "Témoignages"
 
 # @ strong-testimonials
 #. translators: This appears in widget settings.
-#: includes/widget.php:226
+#: ../includes/widget.php:245
 msgctxt "widget setting"
 msgid "Title"
 msgstr "Titre"
 
 # @ strong-testimonials
 #. translators: This appears in widget settings.
-#: includes/widget.php:244
+#: ../includes/widget.php:263
 msgctxt "categories"
 msgid "Show all"
 msgstr "Montrer toutes"
 
 # @ strong-testimonials
 #. translators: This appears in widget settings.
-#: includes/widget.php:284
+#: ../includes/widget.php:303
 msgctxt "display type"
 msgid "Cycle Mode"
 msgstr "Mode cyclique"
 
 # @ strong-testimonials
 #. translators: This appears in widget settings.
-#: includes/widget.php:293
+#: ../includes/widget.php:312
 msgctxt "display type"
 msgid "Static Mode"
 msgstr "Mode statique"
 
 # @ strong-testimonials
 #. translators: This appears in widget settings.
-#: includes/widget.php:413
+#: ../includes/widget.php:432
 msgid ""
 "Excerpts are hand-crafted summaries of your testimonial. You may need to "
 "enable them in the post editor."
@@ -2119,87 +2127,54 @@ msgstr ""
 
 # @ strong-testimonials
 #. translators: This appears in widget settings.
-#: includes/widget.php:424
+#: ../includes/widget.php:443
 msgid "Character limit"
 msgstr "Nombre limite de caractères"
 
 # @ strong-testimonials
 #. translators: This appears in widget settings.
-#: includes/widget.php:444
+#: ../includes/widget.php:463
 msgid "Entire content"
 msgstr "Tout le contenu"
 
 # @ strong-testimonials
 #. translators: This appears in widget settings.
-#: includes/widget.php:455
+#: ../includes/widget.php:474
 msgctxt "display custom fields"
 msgid "Show parts"
 msgstr "Afficher les éléments"
 
 # @ strong-testimonials
 #. translators: This appears in widget settings.
-#: includes/widget.php:465
+#: ../includes/widget.php:484
 msgid "Title"
 msgstr "Titre"
 
 # @ strong-testimonials
 #. translators: This appears in widget settings. Refers to your custom fields.
 #. translators: This appears in widget settings.
-#: includes/widget.php:472 includes/widget.php:491 includes/widget.php:510
+#: ../includes/widget.php:491 ../includes/widget.php:510
+#: ../includes/widget.php:529
 msgctxt "tooltip"
 msgid "if included in Fields"
 msgstr "Si inclus dans les champs"
 
 # @ strong-testimonials
 #. translators: This appears in widget settings.
-#: includes/widget.php:484
+#: ../includes/widget.php:503
 msgctxt "thumbnail"
 msgid "Featured Images"
 msgstr "Images mises en avant"
 
 # @ strong-testimonials
 #. translators: This appears in widget settings.
-#: includes/widget.php:503
+#: ../includes/widget.php:522
 msgid "Client Info"
 msgstr "Infos client"
 
 # @ strong-testimonials
-#. translators: plugin header field 'Name'
-#: strong-testimonials.php:0
-msgid "Strong Testimonials"
-msgstr "Strong Testimonials"
-
-# @ strong-testimonials
-#. translators: plugin header field 'PluginURI'
-#: strong-testimonials.php:0
-msgid "http://www.wpmission.com/strong-testimonials/"
-msgstr "http://www.wpmission.com/strong-testimonials/"
-
-# @ strong-testimonials
-#. translators: plugin header field 'Description'
-#: strong-testimonials.php:0
-msgid ""
-"Collect and display testimonials with a plugin that offers strong features "
-"and strong support."
-msgstr ""
-"Recueillir et afficher des témoignages grâce à un plugin offrant de "
-"puissantes fonctionnalités et doté d'un solide soutien."
-
-# @ strong-testimonials
-#. translators: plugin header field 'Author'
-#: strong-testimonials.php:0
-msgid "Chris Dillon"
-msgstr "Chris Dillon"
-
-# @ strong-testimonials
-#. translators: plugin header field 'AuthorURI'
-#: strong-testimonials.php:0
-msgid "http://www.wpmission.com/contact"
-msgstr "http://www.wpmission.com/contact"
-
-# @ strong-testimonials
 #. translators: %s is the name of the plugin.
-#: strong-testimonials.php:90
+#: ../strong-testimonials.php:91
 #, php-format
 msgctxt "installation"
 msgid "Unable to load %s"
@@ -2207,7 +2182,7 @@ msgstr "Impossible de charger %s"
 
 # @ strong-testimonials
 #. translators: %s is a WordPress version number.
-#: strong-testimonials.php:93
+#: ../strong-testimonials.php:94
 #, php-format
 msgctxt "installation"
 msgid ""
@@ -2218,120 +2193,162 @@ msgstr ""
 "été désactivé."
 
 # @ strong-testimonials
-#: strong-testimonials.php:94
+#: ../strong-testimonials.php:95
 msgctxt "installation"
 msgid "Please upgrade WordPress and try again."
 msgstr "Veuillez mettre à jour WordPress et essayez à nouveau."
 
 # @ strong-testimonials
-#: strong-testimonials.php:95
+#: ../strong-testimonials.php:96
 #, php-format
 msgctxt "installation"
 msgid "Back to the WordPress <a href=\"%s\">Plugins page</a>"
 msgstr "Retour aux <a href=\"%s\">Extensions</a> WordPress"
 
 # @ strong-testimonials
-#: strong-testimonials.php:108
+#: ../strong-testimonials.php:109
 msgctxt "post type general name"
 msgid "Testimonials"
 msgstr "Témoignages"
 
 # @ strong-testimonials
-#: strong-testimonials.php:109
+#: ../strong-testimonials.php:110
 msgctxt "post type singular name"
 msgid "Testimonial"
 msgstr "Témoignage"
 
 # @ strong-testimonials
-#: strong-testimonials.php:110
+#: ../strong-testimonials.php:111
 msgctxt "post type"
 msgid "Add New"
 msgstr "Ajouter un nouveau"
 
 # @ strong-testimonials
-#: strong-testimonials.php:111
+#: ../strong-testimonials.php:112
 msgid "Add New Testimonial"
 msgstr "Ajouter un nouveau témoignage"
 
 # @ strong-testimonials
-#: strong-testimonials.php:112
+#: ../strong-testimonials.php:113
 msgid "Edit Testimonial"
 msgstr "Modifier un témoignage"
 
 # @ strong-testimonials
-#: strong-testimonials.php:113
+#: ../strong-testimonials.php:114
 msgid "New Testimonial"
 msgstr "Nouveau témoignage"
 
 # @ strong-testimonials
-#: strong-testimonials.php:114
+#: ../strong-testimonials.php:115
 msgid "All Testimonials"
 msgstr "Tous les témoignages"
 
 # @ strong-testimonials
-#: strong-testimonials.php:115
+#: ../strong-testimonials.php:116
 msgid "View Testimonial"
 msgstr "Voir le témoignage"
 
 # @ strong-testimonials
-#: strong-testimonials.php:116
+#: ../strong-testimonials.php:117
 msgid "Search Testimonials"
 msgstr "Recherche de témoignages"
 
 # @ strong-testimonials
-#: strong-testimonials.php:117 strong-testimonials.php:154
+#: ../strong-testimonials.php:118 ../strong-testimonials.php:155
 msgid "Nothing Found"
 msgstr "Rien n'a été trouvé"
 
 # @ strong-testimonials
-#: strong-testimonials.php:118 strong-testimonials.php:155
+#: ../strong-testimonials.php:119 ../strong-testimonials.php:156
 msgid "Nothing found in Trash"
 msgstr "Rien trouvé dans la corbeille"
 
 # @ strong-testimonials
-#: strong-testimonials.php:124
+#: ../strong-testimonials.php:125
 msgctxt "post type singular label"
 msgid "testimonial"
 msgstr "témoignage"
 
 # @ strong-testimonials
-#: strong-testimonials.php:129
+#: ../strong-testimonials.php:130
 msgctxt "slug"
 msgid "testimonial"
-msgstr "témoignage"
+msgstr "temoignage"
 
 # @ strong-testimonials
-#: strong-testimonials.php:148
+#: ../strong-testimonials.php:149
 msgid "All Categories"
 msgstr "Toutes les catégories"
 
 # @ strong-testimonials
-#: strong-testimonials.php:149
+#: ../strong-testimonials.php:150
 msgid "Add New Category"
 msgstr "Ajouter une nouvelle catégorie"
 
 # @ strong-testimonials
-#: strong-testimonials.php:150
+#: ../strong-testimonials.php:151
 msgid "Edit Category"
 msgstr "Modifier une catégorie"
 
 # @ strong-testimonials
-#: strong-testimonials.php:151
+#: ../strong-testimonials.php:152
 msgid "New Category"
 msgstr "Nouvelle catégorie"
 
 # @ strong-testimonials
-#: strong-testimonials.php:152
+#: ../strong-testimonials.php:153
 msgid "View Category"
 msgstr "Voir la catégorie"
 
 # @ strong-testimonials
-#: strong-testimonials.php:153
+#: ../strong-testimonials.php:154
 msgid "Search Category"
 msgstr "Recherche de catégorie"
 
+# @ default
+#~ msgid "per_page"
+#~ msgstr "per_page"
+
+# @ default
+#~ msgid "default_template"
+#~ msgstr "default_template"
+
+# @ default
+#~ msgid "description"
+#~ msgstr "description"
+
+# @ default
+#~ msgid "client_section"
+#~ msgstr "client_section"
+
 # @ strong-testimonials
-#. translators: plugin header field 'Version'
-#: strong-testimonials.php:0
-msgid "1.15.12"
-msgstr "1.15.12"
+#~ msgid "Here are some features we're planning."
+#~ msgstr "Voici quelques fonctionnalités que nous prévoyons."
+
+# @ strong-testimonials
+#~ msgid "Strong Testimonials"
+#~ msgstr "Strong Testimonials"
+
+# @ strong-testimonials
+#~ msgid "http://www.wpmission.com/strong-testimonials/"
+#~ msgstr "http://www.wpmission.com/strong-testimonials/"
+
+# @ strong-testimonials
+#~ msgid ""
+#~ "Collect and display testimonials with a plugin that offers strong "
+#~ "features and strong support."
+#~ msgstr ""
+#~ "Recueillir et afficher des témoignages grâce à un plugin offrant de "
+#~ "puissantes fonctionnalités et doté d'un solide soutien."
+
+# @ strong-testimonials
+#~ msgid "Chris Dillon"
+#~ msgstr "Chris Dillon"
+
+# @ strong-testimonials
+#~ msgid "http://www.wpmission.com/contact"
+#~ msgstr "http://www.wpmission.com/contact"
+
+# @ strong-testimonials
+#~ msgid "1.16.9"
+#~ msgstr "1.16.9"

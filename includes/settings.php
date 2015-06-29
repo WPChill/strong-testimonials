@@ -304,37 +304,47 @@ function wpmtst_client_settings() {
 function wpmtst_form_settings() {
 	$form_options = get_option( 'wpmtst_form_options' );
 
-	// ----------------------------------------
-	// Build list of supported Captcha plugins.
-	// ----------------------------------------
-	// @TODO - Move this to options array
+	/**
+	 * Build list of supported Captcha plugins.
+	 *
+	 * @todo - Move this to options array
+	 */
 	$plugins = array(
-			'bwsmath' => array(
-					'name' => 'Captcha by BestWebSoft',
-					'file' => 'captcha/captcha.php',
-					'settings' => 'admin.php?page=captcha.php',
-					'search' => 'plugin-install.php?tab=search&s=Captcha',
-					'url'  => 'http://wordpress.org/plugins/captcha/',
-					'installed' => false,
-					'active' => false
-			),
-			'miyoshi' => array(
-					'name' => 'Really Simple Captcha by Takayuki Miyoshi',
-					'file' => 'really-simple-captcha/really-simple-captcha.php',
-					'search' => 'plugin-install.php?tab=search&s=Really+Simple+Captcha',
-					'url'  => 'http://wordpress.org/plugins/really-simple-captcha/',
-					'installed' => false,
-					'active' => false
-			),
-			'wpmsrc'  => array(
-					'name' => 'Simple reCAPTCHA by WP Mission',
-					'file' => 'simple-recaptcha/simple-recaptcha.php',
-					'settings' => 'options-general.php?page=simple-recaptcha.php',
-					'search' => 'plugin-install.php?tab=search&s=Simple+reCAPTCHA',
-					'url'  => 'http://wordpress.org/plugins/simple-recaptcha',
-					'installed' => false,
-					'active' => false
-			),
+		'bwsmath' => array(
+			'name' => 'Captcha by BestWebSoft',
+			'file' => 'captcha/captcha.php',
+			'settings' => 'admin.php?page=captcha.php',
+			'search' => 'plugin-install.php?tab=search&s=Captcha',
+			'url' => 'http://wordpress.org/plugins/captcha/',
+			'installed' => false,
+			'active' => false
+		),
+		'miyoshi' => array(
+			'name' => 'Really Simple Captcha by Takayuki Miyoshi',
+			'file' => 'really-simple-captcha/really-simple-captcha.php',
+			'search' => 'plugin-install.php?tab=search&s=Really+Simple+Captcha',
+			'url' => 'http://wordpress.org/plugins/really-simple-captcha/',
+			'installed' => false,
+			'active' => false
+		),
+		'wpmsrc'  => array(
+			'name' => 'Simple reCAPTCHA by WP Mission',
+			'file' => 'simple-recaptcha/simple-recaptcha.php',
+			'settings' => 'options-general.php?page=simple-recaptcha.php',
+			'search' => 'plugin-install.php?tab=search&s=Simple+reCAPTCHA',
+			'url' => 'http://wordpress.org/plugins/simple-recaptcha',
+			'installed' => false,
+			'active' => false
+		),
+		'advnore'  => array(
+			'name' => 'Advanced noCaptcha reCaptcha by Shamim Hasan',
+			'file' => 'advanced-nocaptcha-recaptcha/advanced-nocaptcha-recaptcha.php',
+			'settings' => 'admin.php?page=anr-admin-settings',
+			'search' => 'plugin-install.php?tab=search&s=Advanced+noCaptcha+reCaptcha',
+			'url' => 'http://wordpress.org/plugins/advanced-nocaptcha-recaptcha',
+			'installed' => false,
+			'active' => false
+		),
 	);
 
 	foreach ( $plugins as $key => $plugin ) {
@@ -401,7 +411,7 @@ function wpmtst_restore_default_template_script() {
 	jQuery(document).ready(function($) {
 		$("#restore-default-template").click(function(e){
 			var data = {
-				'action' : 'wpmtst_restore_default_template',
+				'action' : 'wpmtst_restore_default_template'
 			};
 			$.get( ajaxurl, data, function( response ) {
 				$("#client-section").val(response);
@@ -442,7 +452,7 @@ function wpmtst_restore_default_messages_script() {
 	jQuery(document).ready(function($) {
 		$("#restore-default-messages").click(function(e){
 			var data = {
-				'action' : 'wpmtst_restore_default_messages',
+				'action' : 'wpmtst_restore_default_messages'
 			};
 			$.get( ajaxurl, data, function( response ) {
 				var object = JSON.parse( response );
@@ -492,7 +502,7 @@ function wpmtst_restore_default_message_script() {
 			var input = $(e.target).closest("tr").find("input[type='text']").attr("id");
 			var data = {
 				'action' : 'wpmtst_restore_default_message',
-				'field'  : input,
+				'field'  : input
 			};
 			$.get( ajaxurl, data, function( response ) {
 				var object = JSON.parse( response );

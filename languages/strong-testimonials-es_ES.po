@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Strong Testimonials v1.8\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-11-30 18:00-0500\n"
-"PO-Revision-Date: 2014-12-04 00:09+0100\n"
+"PO-Revision-Date: 2015-06-21 09:52+0100\n"
 "Last-Translator: Diego Ferrández <drdelco@live.com>\n"
 "Language-Team: \n"
 "Language: es_ES\n"
@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.6.10\n"
+"X-Generator: Poedit 1.8.1\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;"
 "_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2\n"
@@ -27,14 +27,14 @@ msgstr "Ajustes"
 
 # @ strong-testimonials
 #: ../strong-testimonials.php:90
-#, fuzzy, php-format
+#, php-format
 msgctxt "installation"
 msgid "Unable to load %s"
 msgstr "Imposible cargar %s"
 
 # @ strong-testimonials
 #: ../strong-testimonials.php:93
-#, fuzzy, php-format
+#, php-format
 msgctxt "installation"
 msgid ""
 "This plugin requires <strong>WordPress %s</strong> or higher so it has been "
@@ -45,17 +45,16 @@ msgstr ""
 
 # @ strong-testimonials
 #: ../strong-testimonials.php:94
-#, fuzzy
 msgctxt "installation"
 msgid "Please upgrade WordPress and try again."
 msgstr "Por favor, actualice WP e inténtelo de nuevo"
 
 # @ strong-testimonials
 #: ../strong-testimonials.php:95
-#, fuzzy, php-format
+#, php-format
 msgctxt "installation"
 msgid "Back to the WordPress <a href=\"%s\">Plugins page</a>"
-msgstr "Volver a WordPress  <a href=\"%s\">Página de Plugins</a>."
+msgstr "Volver a la <a href=\"%s\">Lista de Plugins</a> WordPress."
 
 # @ strong-testimonials
 #: ../strong-testimonials.php:108
@@ -71,7 +70,6 @@ msgstr "Testimonio"
 
 # @ strong-testimonials
 #: ../strong-testimonials.php:110
-#, fuzzy
 msgctxt "post type"
 msgid "Add New"
 msgstr "Añadir Nuevo"
@@ -118,14 +116,12 @@ msgstr "Nada en la Papelera"
 
 # @ strong-testimonials
 #: ../strong-testimonials.php:124
-#, fuzzy
 msgctxt "post type singular label"
 msgid "testimonial"
 msgstr "testimonio"
 
 # @ strong-testimonials
 #: ../strong-testimonials.php:130
-#, fuzzy
 msgctxt "slug"
 msgid "testimonial"
 msgstr "testimonio"
@@ -148,7 +144,6 @@ msgstr "Todas las Categorías"
 
 # @ default
 #: ../strong-testimonials.php:150
-#, fuzzy
 msgid "Add New Category"
 msgstr "Añadir Nueva Categoría"
 
@@ -174,16 +169,14 @@ msgstr "Buscar Categoría"
 
 # @ strong-testimonials
 #: ../includes/captcha.php:41
-#, fuzzy
 msgctxt "Captcha"
 msgid "Input this code:"
-msgstr "Introduzca este código"
+msgstr "Introduzca este código:"
 
 # @ strong-testimonials
 #: ../includes/captcha.php:66 ../includes/captcha.php:75
-#, fuzzy
 msgid "Please complete the Captcha."
-msgstr "Por favor, complete el CAPTCHA"
+msgstr "Por favor, complete el CAPTCHA."
 
 # @ strong-testimonials
 #: ../includes/captcha.php:87
@@ -197,9 +190,8 @@ msgstr "Parámetro no válido. Contacte con el administrador"
 
 # @ strong-testimonials
 #: ../includes/captcha.php:89 ../includes/captcha.php:106
-#, fuzzy
 msgid "The Captcha was not entered correctly. Please try again."
-msgstr "El CAPTCHA es incorrecto. Inténtelo de nuevo"
+msgstr "El CAPTCHA es incorrecto. Inténtelo de nuevo."
 
 # @ strong-testimonials
 #: ../includes/captcha.php:90
@@ -213,7 +205,6 @@ msgstr "Widget de Strong Testimonials"
 
 # @ strong-testimonials
 #: ../includes/widget.php:26 ../includes/widget.php:29
-#, fuzzy
 msgctxt "widget title"
 msgid "Testimonials"
 msgstr "Testimonios"
@@ -221,7 +212,6 @@ msgstr "Testimonios"
 # @ strong-testimonials
 #: ../includes/widget.php:149 ../includes/shortcode-strong.php:73
 #: ../includes/shortcode-strong.php:120
-#, fuzzy
 msgctxt "link"
 msgid "Read more"
 msgstr "Leer más"
@@ -229,63 +219,54 @@ msgstr "Leer más"
 # @ strong-testimonials
 #: ../includes/widget.php:215 ../includes/settings.php:223
 #: ../includes/settings-shortcodes.php:51
-#, fuzzy
 msgctxt "display order"
 msgid "Random"
 msgstr "Aleatorio"
 
 # @ strong-testimonials
 #: ../includes/widget.php:216 ../includes/settings.php:224
-#, fuzzy
 msgctxt "display order"
 msgid "Newest first"
 msgstr "Primero los nuevos"
 
 # @ strong-testimonials
 #: ../includes/widget.php:217 ../includes/settings.php:225
-#, fuzzy
 msgctxt "display order"
 msgid "Oldest first"
 msgstr "Primero los antiguos"
 
 # @ strong-testimonials
 #: ../includes/widget.php:241
-#, fuzzy
 msgctxt "widget setting"
 msgid "Title"
 msgstr "Título"
 
 # @ strong-testimonials
 #: ../includes/widget.php:259
-#, fuzzy
 msgctxt "categories"
 msgid "Show all"
-msgstr "Mostrar todos"
+msgstr "Mostrar todas"
 
 # @ strong-testimonials
 #: ../includes/widget.php:278 ../includes/form-cycle-settings.php:50
-#, fuzzy
 msgctxt "noun"
 msgid "Order"
 msgstr "Ordenar"
 
 # @ strong-testimonials
 #: ../includes/widget.php:299
-#, fuzzy
 msgctxt "display type"
 msgid "Cycle Mode"
 msgstr "Modo cíclico"
 
 # @ strong-testimonials
 #: ../includes/widget.php:308
-#, fuzzy
 msgctxt "display type"
 msgid "Static Mode"
 msgstr "Modo estático"
 
 #: ../includes/widget.php:322 ../includes/widget.php:398
 #: ../includes/form-cycle-settings.php:99
-#, fuzzy
 msgctxt "verb"
 msgid "Show"
 msgstr "Mostrar"
@@ -305,24 +286,21 @@ msgstr "Mostrar cada uno durante"
 #: ../includes/widget.php:353 ../includes/widget.php:371
 #: ../includes/form-cycle-settings.php:282
 #: ../includes/form-cycle-settings.php:303
-#, fuzzy
 msgctxt "time setting"
 msgid "seconds"
 msgstr "segundos"
 
 # @ strong-testimonials
 #: ../includes/widget.php:363 ../includes/form-cycle-settings.php:295
-#, fuzzy
 msgctxt "slideshow setting"
 msgid "Effect duration"
-msgstr "Duración del efecto"
+msgstr "Efecto"
 
 # @ strong-testimonials
 #: ../includes/widget.php:382 ../includes/form-cycle-settings.php:314
-#, fuzzy
 msgctxt "slideshow setting"
 msgid "Pause on hover"
-msgstr "Pausar al señalar con el ratón"
+msgstr "Pausar al señalar"
 
 # @ strong-testimonials
 #: ../includes/widget.php:414 ../includes/tabs/part-content.php:4
@@ -377,10 +355,9 @@ msgstr "si incluidos en Campos"
 
 # @ strong-testimonials
 #: ../includes/widget.php:499
-#, fuzzy
 msgctxt "thumbnail"
 msgid "Featured Images"
-msgstr "Imágenes Destacadas"
+msgstr "Imágenes"
 
 #: ../includes/widget.php:518
 msgid "Client Info"
@@ -394,7 +371,6 @@ msgstr "enlace \"Leer más\""
 
 # @ strong-testimonials
 #: ../includes/widget.php:547 ../includes/form-cycle-settings.php:220
-#, fuzzy
 msgctxt "no \"Read more\" link"
 msgid "None"
 msgstr "Ninguno"
@@ -403,18 +379,16 @@ msgstr "Ninguno"
 #: ../includes/widget.php:556 ../includes/form-cycle-settings.php:230
 msgctxt "the \"Read more\" link"
 msgid "Link to the testimonial"
-msgstr "Enlaza al testimonio"
+msgstr "Enlazar al testimonio"
 
 # @ strong-testimonials
 #: ../includes/widget.php:565 ../includes/form-cycle-settings.php:240
-#, fuzzy
 msgctxt "the \"Read more\" link"
 msgid "Link to"
-msgstr "Enlace a"
+msgstr "Enlazar a"
 
 # @ strong-testimonials
 #: ../includes/widget.php:572 ../includes/form-cycle-settings.php:247
-#, fuzzy
 msgctxt "the \"Read more\" link"
 msgid "— Select a page —"
 msgstr "— Elegir página —"
@@ -445,7 +419,6 @@ msgstr ""
 
 # @ strong-testimonials
 #: ../includes/settings-shortcodes-strong.php:19
-#, fuzzy
 msgid "Read More"
 msgstr "Leer más"
 
@@ -496,7 +469,7 @@ msgstr ""
 # @ strong-testimonials
 #: ../includes/guide-advanced.php:18
 msgid "Featured Images"
-msgstr "Imágenes Destacadas"
+msgstr "Imágenes"
 
 #: ../includes/guide-advanced.php:18
 msgid "AKA thumbnails."
@@ -709,7 +682,6 @@ msgstr "Para añadir la foto de un cliente utilice la opción Imagen Destacada"
 
 # @ strong-testimonials
 #: ../includes/admin.php:149
-#, fuzzy
 msgctxt "testimonial"
 msgid "Title"
 msgstr "Título"
@@ -741,7 +713,6 @@ msgstr ""
 
 # @ strong-testimonials
 #: ../includes/admin.php:260 ../includes/admin-custom-fields.php:171
-#, fuzzy
 msgctxt "noun"
 msgid "Name"
 msgstr "Nombre"
@@ -1014,7 +985,6 @@ msgstr ""
 "plugin primero, si es necesario."
 
 #: ../includes/form-form.php:127
-#, fuzzy
 msgctxt "link"
 msgid "settings"
 msgstr "ajustes"
@@ -1024,7 +994,6 @@ msgid "no settings"
 msgstr "sin ajustes"
 
 #: ../includes/form-form.php:134
-#, fuzzy
 msgctxt "adjective"
 msgid "inactive"
 msgstr "inactivo"
@@ -1034,16 +1003,14 @@ msgid "not installed"
 msgstr "no instalado"
 
 #: ../includes/form-form.php:141
-#, fuzzy
 msgctxt "link"
 msgid "install plugin"
 msgstr "instalar plugin"
 
 #: ../includes/form-form.php:145
-#, fuzzy
 msgctxt "link"
 msgid "plugin page"
-msgstr "página del plugin"
+msgstr "página de plugin"
 
 #: ../includes/form-cycle-settings.php:9
 #, php-format
@@ -1100,7 +1067,6 @@ msgstr "Contenido hasta %s caracteres"
 
 # @ strong-testimonials
 #: ../includes/form-cycle-settings.php:166
-#, fuzzy
 msgctxt "display setting"
 msgid "Entire content"
 msgstr "Contenido completo"
@@ -1108,7 +1074,7 @@ msgstr "Contenido completo"
 # @ strong-testimonials
 #: ../includes/form-cycle-settings.php:183
 msgid "Featured Images <em>(if included in Fields)</em>"
-msgstr "Imágenes Destacadas <em>(si incluidas en Campos)</em>"
+msgstr "Imágenes <em>(si incluidas en Campos)</em>"
 
 # @ strong-testimonials
 #: ../includes/form-cycle-settings.php:198
@@ -1144,7 +1110,6 @@ msgstr "Ambos comparten muchos campos y características:"
 
 # @ strong-testimonials
 #: ../includes/guide-start.php:8
-#, fuzzy
 msgid "A Title"
 msgstr "Título"
 
@@ -1458,7 +1423,6 @@ msgstr "Borrar"
 
 # @ strong-testimonials
 #: ../includes/admin-custom-fields.php:288
-#, fuzzy
 msgctxt "verb"
 msgid "Close"
 msgstr "Cerrar"
@@ -1626,7 +1590,6 @@ msgstr "Botón enviar"
 
 # @ strong-testimonials
 #: ../includes/defaults.php:235
-#, fuzzy
 msgctxt "the Submit button"
 msgid "Add Testimonial"
 msgstr "Añadir testimonio"
@@ -1638,10 +1601,9 @@ msgid "Submission error"
 msgstr "Error de envío"
 
 #: ../includes/defaults.php:243
-#, fuzzy
 msgctxt "error message"
 msgid "There was a problem processing your testimonial."
-msgstr "Ha habido un problema al procesar su tesimonio"
+msgstr "Ha habido un problema al procesar su tesimonio."
 
 # @ strong-testimonials
 #: ../includes/defaults.php:249
@@ -1651,10 +1613,9 @@ msgstr "Envío correcto"
 
 # @ strong-testimonials
 #: ../includes/defaults.php:251
-#, fuzzy
 msgctxt "success message"
 msgid "Thank you! Your testimonial is awaiting moderation."
-msgstr "Gracias! Su testimonio está pendiente de revisión"
+msgstr "Gracias! Su testimonio está pendiente de revisión."
 
 #: ../includes/guide-future.php:3
 msgid "Here are some features we're planning."
@@ -1722,11 +1683,11 @@ msgstr "mostrar la Imagen Destacada"
 
 #: ../includes/tabs/part-parts.php:27
 msgid "\"Read more\" link to the full post"
-msgstr "Enlace \"Leer más\" a la entrada completa"
+msgstr "Enlazar \"Leer más\" a la entrada completa"
 
 #: ../includes/tabs/part-parts.php:29
 msgid "for use with <b>excerpt</b> or <b>length limit</b> only"
-msgstr "para usar únicamente en <b>extracto</b> o <b>límite de longitud</b>"
+msgstr "para usar únicamente con <b>extracto</b> o <b>límite de longitud</b>"
 
 # @ strong-testimonials
 #: ../includes/tabs/part-parts.php:36

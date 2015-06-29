@@ -8,7 +8,7 @@
 			<li><strong><?php _e( 'A Title', 'strong-testimonials' ); ?></strong></li>
 			<li><span class="permalink"><?php _e( 'a permalink', 'strong-testimonials' ); ?></a></li>
 			<li>"<?php _e( 'Some content.', 'strong-testimonials' ); ?>"</li>
-			<li><em>...<?php _e( 'an excerpt', 'strong-testimonials' ); ?>...</em></li>
+			<li><em>&hellip;<?php _e( 'an excerpt', 'strong-testimonials' ); ?>&hellip;</em></li>
 			<li><div class="dashicons dashicons-format-image"></div> <?php _e( 'a featured image (thumbnail)', 'strong-testimonials' ); ?></li>
 			<li><?php _e( 'custom fields', 'strong-testimonials' ); ?> <span class="help">(<?php _e( 'like client name and email', 'strong-testimonials' ); ?>)</span></li>
 			<li><?php _e( 'categories', 'strong-testimonials' ); ?></li>
@@ -19,6 +19,6 @@
 		<p><?php printf( __( 'The <strong><a href="%s">Advanced</a></strong> tab describes more features like custom fields and excerpts.', 'strong-testimonials' ), 'edit.php?post_type=wpm-testimonial&page=guide&tab=advanced' ); ?></p>
 		
 		<h3><?php _e( 'You are invited to participate.', 'strong-testimonials' ); ?></h3>
-		<p><?php _e( 'Coming soon, the direction of this plugin will be in your hands as you will be able to vote on feature requests.', 'strong-testimonials' ); ?></p>
+		<p><?php _e( 'Join <a href="https://www.wpmission.com/" target="_blank">WP Mission</a> to submit and vote on feature requests.', 'strong-testimonials' ); ?></p>
 		
 	</div>

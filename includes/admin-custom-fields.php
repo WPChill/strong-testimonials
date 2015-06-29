@@ -174,6 +174,7 @@ function wpmtst_show_field( $key, $field, $adding ) {
 		// if adding, the field Name is blank so it can be populated from Label
 		$html .= '<input type="text" class="field-name" name="fields['.$key.'][name]" value="' . ( isset( $field['name'] ) ? $field['name'] : '' ) . '" />' . "\n";
 		$html .= '<span class="help field-name-help">' . __( 'Use only lowercase letters, numbers, and underscores.', 'strong-testimonials' ) . '</span>' . "\n";
+		$html .= '<span class="help field-name-help important">' . __( 'Cannot be "name".', 'strong-testimonials' ) . '</span>' . "\n";
 	}
 	else {
 		$html .= '<input type="text" class="field-name" value="' . $field['name'] . '" disabled="disabled" />' . "\n";

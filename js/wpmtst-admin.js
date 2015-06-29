@@ -114,6 +114,23 @@ jQuery(document).ready(function($) {
 	
 	$(".custom-field").hide();
 	
+	// check all field names
+	$("#wpmtst-custom-fields-form").submit(function(event){
+		$("input.field-name").each(function(index){
+			if( 'name' == $(this).val() ) {
+				$(this).focus().parent().find('.field-name-help.important').addClass('error');
+				var $parent = $(this).closest("li");
+				if(!$parent.hasClass("open")) {
+					$parent.find("a.field").click();
+				}
+				event.preventDefault();
+			} else {
+				$(this).parent().find('.field-name-help').removeClass('error');
+			}
+		});
+	});
+	
+	
 	// sortable
 	$("#custom-field-list").sortable({
 		placeholder: "sortable-placeholder",
@@ -165,6 +182,12 @@ jQuery(document).ready(function($) {
 		if( ! $(this).val() ) {
 			var newFieldName = convertLabel(fieldLabel);
 			$(this).val(newFieldName);
+			return;
+		}
+		if( 'name' == $(this).val() ) {
+			$(this).focus().parent().find('.field-name-help.important').addClass('error');
+		} else {
+			$(this).parent().find('.field-name-help').removeClass('error');
 		}
 	});
 	

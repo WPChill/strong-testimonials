@@ -4,7 +4,7 @@
  * Plugin URI: http://www.wpmission.com/strong-testimonials/
  * Description: Collect and display testimonials with a plugin that offers strong features and strong support.
  * Author: Chris Dillon
- * Version: 1.16.14
+ * Version: 1.17
  * Forked From: GC Testimonials version 1.3.2 by Erin Garscadden
  * Author URI: http://www.wpmission.com/contact
  * Text Domain: strong-testimonials
@@ -128,8 +128,8 @@ function wpmtst_register_cpt() {
 			'capability_type'       => 'post',
 			'hierarchical'          => false,	 // @since 1.8
 			'rewrite'               => array( 'slug' => _x( 'testimonial', 'slug', 'strong-testimonials' ) ), // @since 1.8
-			'menu_icon'				      => 'dashicons-editor-quote',
-			'menu_position'			    => 20,
+			'menu_icon'             => 'dashicons-editor-quote',
+			'menu_position'         => 20,
 			'exclude_from_search' 	=> false,  // @since 1.15.10
 			'supports'              => array( 'title', 'excerpt', 'editor', 'thumbnail', 'custom-fields', 'page-attributes' )
 	);
@@ -144,9 +144,9 @@ function wpmtst_register_cpt() {
 
 	
 	$categories_labels = array(
-			'name'                  => __( 'Categories', 'strong-testimonials' ),
-			'singular_name'         => __( 'Category', 'strong-testimonials' ),
-			'all_items' 			      => __( 'All Categories', 'strong-testimonials' ),
+			'name'                  => __( 'Testimonial Categories', 'strong-testimonials' ),
+			'singular_name'         => __( 'Testimonial Category', 'strong-testimonials' ),
+			'all_items'             => __( 'All Categories', 'strong-testimonials' ),
 			'add_new_item'          => __( 'Add New Category', 'strong-testimonials' ),
 			'edit_item'             => __( 'Edit Category', 'strong-testimonials' ),
 			'new_item'              => __( 'New Category', 'strong-testimonials' ),

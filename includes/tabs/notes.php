@@ -9,7 +9,7 @@
 			<td>
 				<p>
 				<?php /* translators: This appears in the [strong] shortcode instructions. */ ?>
-				<?php _e( 'If a page has multiple <code>[strong]</code>\'s, each one must be closed; e.g. <code>[strong ... /]</code> or <code>[strong ...][/strong]</code>.', 'strong-testimonials' ); ?>
+				<?php _e( 'If a page has multiple <code>[strong]</code>\'s, each one must be closed; e.g. <code>[strong &hellip; /]</code> or <code>[strong &hellip;][/strong]</code>.', 'strong-testimonials' ); ?>
 				</p>
 				<p>
 				<?php /* translators: This appears in the [strong] shortcode instructions. */ ?>

@@ -119,6 +119,8 @@
 
 #custom-field-list .field-table th {
 	width: 100px;
+	vertical-align: top;
+	padding-top: 14px;
 }
 
 #custom-field-list .field-table td input[type="text"] {
@@ -127,7 +129,14 @@
 
 #custom-field-list .field-table td span.help {
 	display: block;
-	padding: 5px;
+	padding: 3px;
+}
+#custom-field-list .field-table td span.help:first-of-type {
+	margin-top: 5px;
+}
+.help.error {
+	background-color: red;
+	color: white;
 }
 
 #custom-field-list .field-table tr:last-child th,

@@ -337,7 +337,7 @@ function wpmtst_custom_columns( $column ) {
 			break;
 		
 		case 'post_content':
-			echo substr( $post->post_content, 0, 100 ) . '...';
+			echo substr( $post->post_content, 0, 100 ) . '&hellip;';
 			break;
 		
 		case 'post_excerpt':

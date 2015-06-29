@@ -24,7 +24,7 @@ function wpmtst_truncate( $content, $limit ) {
 	if ( strlen( $content ) > $limit ) {
 		$space_pos = strpos( $content, ' ', $limit );
 		if ( $space_pos )
-			$content = substr( $content, 0, $space_pos ) . ' . . . ';
+			$content = substr( $content, 0, $space_pos ) . '&hellip;';
 	}
 	
 	return $content;

@@ -33,7 +33,7 @@ Right out of the box, the testimonial submission form has fields for a name, an 
 
 Need to add a field? Want to remove one? No problem. Use the fields editor to **customize the form** to your specific situation, including the field order, the text before or after, the placeholder text, and required fields.
 
-The form also offer **anti-spam** options like honeypots and Captcha via these plugins: [Captcha](http://wordpress.org/plugins/captcha/), [Really Simple Captcha](http://wordpress.org/plugins/really-simple-captcha/), [Simple reCaptcha](http://wordpress.org/plugins/simple-recaptcha). The form messages for the required fields, the success and error messages, and even the Submit button are customizable too. It's pretty cool.
+The form also offer **anti-spam** options like honeypots and Captcha via these plugins: [Captcha](http://wordpress.org/plugins/captcha/), [Really Simple Captcha](http://wordpress.org/plugins/really-simple-captcha/), [Simple reCaptcha](http://wordpress.org/plugins/simple-recaptcha), and [Advanced noCaptcha reCaptcha](https://wordpress.org/plugins/advanced-nocaptcha-recaptcha/). The form messages for the required fields, the success and error messages, and even the Submit button are customizable too. It's pretty cool.
 
 = Admin =
 
@@ -102,7 +102,7 @@ Learning a new plugin, especially one that makes heavy use of shortcodes, can se
 
 = Translations =
 
-The plugin includes a POT file and French, Hebrew, Russian, Spanish and Swedish translations. It is currently undergoing testing by the generous folks at WPML who will recommend how to make it WPML-compatible.
+The plugin includes a POT file and Arabic, French, Hebrew, Portuguese, Russian, Spanish and Swedish translations. It is currently undergoing testing by the generous folks at WPML who will recommend how to make it WPML-compatible.
 
 = Support =
 
@@ -140,13 +140,15 @@ These plugins work well with Strong Testimonials and add some nice features.
 
 = Translations =
 
+* Arabic (ar_AR) - Ahmad Yousef
 * French (fr_FR) - Jean-Paul Radet
 * Hebrew (he_IL) - Haim Asher
+* Portuguese (pt_BR) - Mauricio Richieri
 * Russian (ru_RU) - Матвеев Валерий
 * Spanish (es_ES) - Diego Ferrández
 * Swedish (sv_SE) - Tom Stone
 
-Many thanks to these translators. Can you help? [Contact me](https://www.wpmission.com/contact/).
+Many, many thanks to these translators. Can you help? [Contact me](https://www.wpmission.com/contact/).
 
 == Installation ==
 
@@ -262,6 +264,12 @@ Thanks but I prefer a nice [review](https://wordpress.org/support/view/plugin-re
 
 
 == Changelog ==
+
+= 1.17 - 2015-06-29 =
+* Add support for the Advanced noCaptcha reCaptcha plugin.
+* Add Arabic and Portuguese translations.
+* Updated translation files for French and Spanish.
+* Updated POT file.
 
 = 1.16.14 - 2015-06-27 =
 * Fix conflict with Black Studio TinyMCE plugin.
@@ -547,5 +555,5 @@ Thanks but I prefer a nice [review](https://wordpress.org/support/view/plugin-re
 
 == Upgrade Notice ==
 
-= 1.16.14 =
-Fix conflict with Black Studio TinyMCE plugin.
+= 1.17 - 2015-06-29 =
+* Add support for the Advanced noCaptcha reCaptcha plugin. Updated translation files.
