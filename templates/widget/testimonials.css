@@ -1,0 +1,98 @@
+/**
+ * Strong Testimonials widget stylesheet
+ *
+ * @author Chris Dillon <chris@wpmission.com>
+ * @package Strong_Testimonials
+ */
+
+.clear {
+	clear: both;
+}
+
+.strong-view.widget {
+	box-sizing: border-box;
+	margin-bottom: 1em;
+}
+
+.strong-view.widget .strong-content {
+}
+
+.strong-view.widget .testimonial {
+	margin-bottom: 1em;
+}
+
+.strong-view.widget .testimonial-inner {
+	padding: 10px;
+}
+
+.strong-view.widget .testimonial-heading {
+	line-height: 2;
+	text-align: center;
+}
+
+.strong-view.widget .testimonial-image {
+	float: left;
+	margin-top: 0.25em;
+	margin-right: 1em;
+	margin-bottom: .5em;
+}
+
+.strong-view.widget .testimonial-image img {
+}
+
+.strong-view.widget .testimonial-content {
+}
+
+.strong-view.widget .testimonial-client {
+	margin-top: 1em;
+	clear: both;
+}
+
+.strong-view.widget .testimonial-name {
+	font-weight: 700;
+}
+
+.strong-view.widget .readmore {
+	margin-top: 1em;
+}
+
+/* RTL
+-----------------------------------------------*/
+
+.strong-view.widget.rtl .testimonial,
+.strong-view.widget.rtl .testimonial-inner,
+.strong-view.widget.rtl .testimonial-heading {
+	text-align: right;
+}
+
+.strong-view.widget.rtl .testimonial-image {
+	float: right;
+	margin-left: 1em;
+}
+
+.strong-view.widget.rtl .testimonial-client {
+	text-align: left;
+}
+
+/* Paging Controls
+---------------------------------------------------------*/
+
+.strong-view.widget ul.simplePagerNav {
+	margin: 1em auto;
+	text-align: center;
+	display: block;
+}
+
+.strong-view.widget ul.simplePagerNav li {
+	display: inline;
+	list-style: none;
+	margin: 0;
+	padding: 0 .3em;
+}
+
+.strong-view.widget ul.simplePagerNav li a {
+}
+
+.strong-view.widget ul.simplePagerNav li.currentPage a {
+	text-decoration: none;
+}

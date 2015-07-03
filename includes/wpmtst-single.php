@@ -18,7 +18,7 @@
 		<h3 class="heading"><?php echo $post->post_title; ?></h3>
 		<?php endif; ?>
 
-		<?php // The content block ?>
+		<?php // The content view ?>
 		<div class="content">
 
 			<?php // Thumbnail ?>
@@ -39,7 +39,7 @@
 
 		</div><!-- .content -->
 
-		<?php // The client block (client shortcodes have already been processed) ?>
+		<?php // The client view (client shortcodes have already been processed) ?>
 		<?php if ( $client ) : ?>
 		<div class="client"><?php echo $client_info; ?></div>
 		<?php endif; ?>

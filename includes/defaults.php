@@ -8,7 +8,6 @@
  * @package Strong_Testimonials
  */
 
-
 /**
  * Settings
  * 
@@ -31,7 +30,6 @@ function wpmtst_get_default_options() {
 
 	return $default_options;
 }
-
 
 /**
  * Cycle shortcode
@@ -58,7 +56,6 @@ function wpmtst_get_default_cycle() {
 	);
 	return $default_cycle;
 }
-
 
 /**
  * Fields
@@ -99,8 +96,7 @@ function wpmtst_get_default_fields() {
 			'option_label' => __( 'Testimonial Content', 'strong-testimonials' ),
 			'map'          => 'post_content',
 			'required'     => 1,
-			//'core'         => 1,
-			'core'         => 0,  // @since 1.20.2
+			'core'         => 0,
 			'admin_table'  => 0,
 		),
 		'featured_image' => array(
@@ -119,15 +115,15 @@ function wpmtst_get_default_fields() {
 	$field_types['custom'] = array(
 		'text'  => array(
 			'input_type'   => 'text',
-			'option_label' => 'text',
+			'option_label' => __( 'text', 'strong-testimonials' ),
 		),
 		'email' => array(
 			'input_type'   => 'text',
-			'option_label' => 'email (text)',
+			'option_label' => __( 'email (text)', 'strong-testimonials' ),
 		),
 		'url'   => array(
 			'input_type'   => 'text',
-			'option_label' => 'URL (text)',
+			'option_label' => __( 'URL (text)', 'strong-testimonials' ),
 		)
 	);
 	foreach ( $field_types['custom'] as $key => $array ) {
@@ -141,8 +137,8 @@ function wpmtst_get_default_fields() {
 	 */
 	$field_types['optional'] = array(
 		'categories' => array(
-			'input_type'              => 'categories',
-			'option_label'            => 'category selector',
+			'input_type'              => __( 'categories', 'strong-testimonials' ),
+			'option_label'            => __( 'category selector', 'strong-testimonials' ),
 			'show_placeholder_option' => 0,
 			'show_admin_table_option' => 0,
 		)
@@ -245,7 +241,6 @@ function wpmtst_get_default_fields() {
 	return $default_fields;
 }
 
-
 /**
  * Form
  * 
@@ -260,35 +255,35 @@ function wpmtst_get_default_form_options() {
 	$default_messages = array(
 		'required-field'     => array(
 			'order'       => 1,
-			/* translators: Settings > Messages tab > message description */
+			/* translators: Settings > Forms > Messages tab */
 			'description' => __( 'Required field', 'strong-testimonials' ),
 			/* translators: Default message for required field message at top of form. */
 			'text'        => __( 'Required field', 'strong-testimonials' ),
 		),
 		'captcha'            => array(
 			'order'       => 2,
-			/* translators: Settings > Messages tab > message description */
+			/* translators: Settings > Forms > Messages tab */
 			'description' => _x( 'Captcha label', 'description', 'strong-testimonials' ),
 			/* translators: Default label for Captcha field on submission form. */
 			'text'        => _x( 'Captcha', 'strong-testimonials' ),
 		),
 		'form-submit-button' => array(
 			'order'       => 3,
-			/* translators: Settings > Messages tab > message description */
+			/* translators: Settings > Forms > Messages tab */
 			'description' => _x( 'Submit button', 'description', 'strong-testimonials' ),
 			/* translators: Default label for the Submit button on testimonial form. */
 			'text'        => _x( 'Add Testimonial', 'the Submit button', 'strong-testimonials' ),
 		),
 		'submission-error'   => array(
 			'order'       => 4,
-			/* translators: Settings > Messages tab > message description */
+			/* translators: Settings > Forms > Messages tab */
 			'description' => _x( 'Submission error', 'description', 'strong-testimonials' ),
 			/* translators: Default message for submission form error. */
 			'text'        => _x( 'There was a problem processing your testimonial.', 'error message', 'strong-testimonials' ),
 		),
 		'submission-success' => array(
 			'order'       => 5,
-			/* translators: Settings > Messages tab > message description */
+			/* translators: Settings > Forms > Messages tab */
 			'description' => _x( 'Submission success', 'description', 'strong-testimonials' ),
 			/* translators: Default message for submission form success message. */
 			'text'        => _x( 'Thank you! Your testimonial is awaiting moderation.', 'success message', 'strong-testimonials' ),
@@ -327,4 +322,107 @@ function wpmtst_get_default_form_options() {
 	);
 
 	return $default_form_options;
+}
+
+/**
+ * Some default view options.
+ *
+ * @since 1.21.0
+ */
+function wpmtst_get_default_view_options() {
+	$default_view_options = array(
+		'mode'    => array(
+			'options' => array(
+				array( 'name' => 'display', 'label' => __( 'Display', 'strong-testimonials' ), 'description' => '', 'help' => '' ),
+				array( 'name' => 'slideshow', 'label' => __( 'Slideshow', 'strong-testimonials' ), 'description' => '', 'help' => '' ),
+				array( 'name' => 'form', 'label' => __( 'Form', 'strong-testimonials' ), 'description' => '', 'help' => '' ),
+			)
+		),
+		'order'   => array(
+			'options' => array(
+				array( 'name' => 'random', 'label' => __( 'Random', 'strong-testimonials' ), 'description' => '', 'help' => '' ),
+				array( 'name' => 'newest', 'label' => __( 'Newest first', 'strong-testimonials' ), 'description' => '', 'help' => '' ),
+				array( 'name' => 'oldest', 'label' => __( 'Oldest first', 'strong-testimonials' ), 'description' => '', 'help' => '' )
+			)
+		),
+		'content' => array(
+			'options' => array(
+				array( 'name' => 'excerpt', 'label' => __( 'Excerpt', 'strong-testimonials' ), 'description' => '', 'help' => '' ),
+				array( 'name' => 'length', 'label' => __( 'Length', 'strong-testimonials' ), 'description' => '', 'help' => '' ),
+				array( 'name' => 'entire', 'label' => __( 'Entire', 'strong-testimonials' ), 'description' => '', 'help' => '' )
+			)
+		),
+	);
+	return $default_view_options;
+}
+
+/**
+ * option name: wpmtst_view_default
+ * 
+ * @since 1.21.0
+ */
+function wpmtst_get_default_view() {
+	$default_view = array(
+		'all'              => true,
+		'background'       => '',
+		'category'         => 'all',
+		'class'            => '',
+		'client_section'   => array(
+			0 => array(
+				'field' => 'client_name',
+				'type'  => 'text',
+				'class' => 'testimonial-name'
+			),
+			1 => array(
+				'field'   => 'company_name',
+				'type'    => 'link',
+				'url'     => 'company_website',
+				'class'   => 'testimonial-company',
+				'new_tab' => true
+			)
+		),
+		'content'          => 'entire',
+		'count'            => 5,
+		'effect_for'       => 1.5,
+		'id'               => '',
+		'length'           => 200,
+		'lightbox'         => '',
+		'mode'             => 'display',
+		'more_page'        => false,
+		'more_post'        => false,
+		'more_text'        => 'Read more',
+		'nav'              => 'after',
+		'no_pause'         => false,
+		'order'            => 'oldest',
+		'page'             => '',
+		'pagination'       => false,
+		'per_page'         => 5,
+		'show_for'         => 8,
+		'template'         => '',
+		'thumbnail'        => true,
+		'thumbnail_size'   => 'thumbnail',
+		'thumbnail_height' => null,
+		'thumbnail_width'  => null,
+		'title'            => true,
+	);
+
+	ksort( $default_view );
+	return $default_view;
+}
+
+/**
+ * The contexts for string translation in WPML & Polylang plugins.
+ * 
+ * @since 1.21.0
+ * 
+ * @return array
+ */
+function wpmtst_get_default_l10n_contexts() {
+	/* Translators: For string translation in WPML & Polylang plugins. */
+	$contexts = array(
+		'form-fields'   => __( 'Testimonial Form Fields', 'strong-testimonials' ),
+		'form-messages' => __( 'Testimonial Form Messages', 'strong-testimonials' ),
+		'notification'  => __( 'Testimonial Notification Options', 'strong-testimonials' ),
+	);
+	return $contexts;
 }

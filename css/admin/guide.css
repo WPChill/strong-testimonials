@@ -1,0 +1,342 @@
+/**
+ * Strong Testimonials > Guide pages
+ */
+
+/*
+ * Guide page
+ */
+.goto {
+	background: #e4e4e4;
+	padding: 1em;
+	margin: 2em 0;
+	text-align: center;
+	font-size: 1.1em;
+}
+.goto span {
+	margin-right: 1.5em;
+}
+.goto a {
+	margin: 1em;
+}
+
+.wpmtst h1 {
+	margin-bottom: 1em;
+}
+
+section {
+}
+
+.guide-content {
+	padding: 0 1em;
+}
+
+.guide-content p {
+	font-size: 1.1em;
+}
+
+.guide-content h3 {
+	color: #0276FD;
+	font-size: 1.5em;
+	margin: 1.5em 0 1em;
+}
+
+.guide-content h4 {
+	font-size: 1.2em;
+	margin: 2em 0 1em;
+}
+/*
+.guide-content h4.current:after {
+	content: "(current)";
+	font-style: italic;
+	color: #CD0000;
+	margin-left: 0.5em;
+}
+*/
+.guide-content code {
+	margin: 0;
+	font-size: 1.05em;
+	line-height: 22px;
+	background: none;
+	padding: 0;
+	font-weight: 400;
+}
+
+.guide-content ul {
+	font-size: 1.1em;
+}
+.guide-content ul:not(.ui-tabs-nav) > li {
+	list-style-type: disc;
+	margin-left: 1.3em;
+	padding-left: .3em;
+}
+
+.guide-content p.first {
+	margin-top: 2em;
+	margin-bottom: 2em;
+}
+
+/*
+ * Guide table
+ */
+table.guide {
+	margin: 2em 0 1em;
+	border-collapse: collapse;
+	width: 100%;
+}
+table.guide td {
+	padding: 10px;
+	font-size: 1.1em;
+	vertical-align: top;
+}
+table.guide th {
+	text-shadow: rgb(255, 255, 255) 0px 1px 0px;
+	padding: 20px 0 0;
+	font-size: 1.2em;
+}
+table.guide.compat th:nth-child(2),
+table.guide.compat td:nth-child(2) {
+	border-right: 2px solid #F1F1F1;
+	border-left: 2px solid #F1F1F1;
+}
+table.guide .works {
+	background: rgb(223, 240, 216);
+}
+table.guide .conflict {
+	background: rgb(242, 222, 222);
+}
+table.guide .request {
+	background: rgb(217, 237, 247);
+}
+
+/*
+ * Attribute list
+ */
+.matrix {
+	border-collapse: collapse;
+	margin-bottom: 2em;
+}
+.matrix .fa {
+	color: #777;
+}
+.matrix tr:hover td {
+	background: #FFFFE0;
+}
+.matrix th,
+.matrix td {
+	border: 1px solid #CCC;
+	padding: 5px 10px;
+	text-align: center;
+	vertical-align: middle;
+}
+.matrix th {
+	background: #fafcff;
+	font-size: 1.1em;
+	padding: 10px;
+}
+.matrix td {
+	font-family: Consolas,Monaco,monospace;
+	background: #FFF;
+	font-size: 1.1em;
+}
+.matrix td.example {
+	font-style: italic;
+}
+.matrix th.top {
+	font-size: 1.5em;
+}
+.matrix .text {
+	font-style: italic;
+	padding: 10px;
+}
+
+/*
+ * Guide code examples
+ */
+textarea.code {
+	background: #FFF;
+	font-family: Consolas,Monaco,monospace;
+	font-size: 1.05em;
+	margin: 1em 0;
+	padding: 10px;
+	width: 100%;
+}
+
+/*
+ * Shortcode reference table
+ */
+table.reference {
+	border-collapse: collapse;
+	/*margin-top: 3em;*/
+	width: 100%;
+}
+table.reference.first {
+	margin-top: 3em;
+}
+
+table.reference a:hover {
+}
+
+table.reference tr {
+	border-top: 1px solid #ddd;
+	border-bottom: 1px solid #ddd;
+}
+table.reference th,
+table.reference td {
+	border-left: 1px solid #ddd;
+	border-right: 1px solid #ddd;
+	font-size: 14px;
+	padding: .7em;
+}
+table.reference tr.heading {
+	border: 1px solid #9AC8FE;
+	color: #0276FD;
+	font-size: 0.9em;
+}
+table.reference tr.heading th {
+	font-size: 1.5em;
+	background: #E6F1FF;
+	text-align: left;
+	border: 0;
+}
+
+table.reference tr.sub {
+	background: #fff;
+	text-transform: uppercase;
+}
+table.reference tr.sub th {
+	color: #E14D43;
+}
+
+table.reference tr.section {
+	text-align: left;
+	background: #f9f9ff;
+}
+
+table.reference tr.section th {
+	padding-left: 13px;
+}
+
+table.reference tr.section h4 {
+	margin: 3px 0;
+}
+
+table.reference tr.section .description {
+	font-weight: 400;
+	margin: 3px 0;
+}
+table.reference tr.section .description code {
+	padding: 0;
+	background: inherit;
+}
+
+table.reference tr.blank,
+table.reference tr.blank td {
+	border: 0;
+	/*padding: 0;*/
+	background: #F1F1F1;
+}
+
+table.reference td.has-inner {
+	padding: 0;
+}
+
+table.reference table.example,
+table.reference tr.example table td {
+	background: #fff;
+	font-family: Consolas, Monaco, monospace;
+	font-size: 14px;
+}
+table.reference pre {
+	font-family: Consolas, Monaco, monospace !important;
+	margin: 0;
+}
+
+table.reference tr:hover:not(.blank):not(.example) td,
+table.reference tr.example table tr:hover td {
+	background: #FFFFE0;
+	color: #000;
+}
+
+.left {
+	text-align: left;
+}
+
+table.reference .dashicons {
+	font-size: 1.7em;
+	color: #0276FD;
+}
+
+/* wide */
+table.reference.wide {
+	width: 100%;
+	max-width: none;
+}
+
+table.reference.wide th,
+table.reference.wide td {
+	width: auto;
+}
+
+table.reference code {
+	line-height: 1;
+}
+table.reference .att {
+	background: #fff;
+}
+table.reference tr.att > td:first-child {
+	font-family: Consolas, Monaco, monospace;
+}
+table.reference tr.att > td:nth-child(2) {
+	color: #499DF5;
+}
+table.reference tr.att > td:nth-child(3) {
+	text-align: center;
+}
+
+table.reference.alternate {
+	margin-top: 3em;
+}
+table.reference.alternate tr.att > td:nth-child(2) {
+	color: #444;
+	font-family: Consolas, Monaco, monospace;
+}
+table.reference.alternate tr.att > td:nth-child(3) {
+	color: #499DF5;
+	text-align: left;
+}
+
+table.reference.examples tr.example {
+	background: #fff;
+	text-align: left;
+}
+
+table.reference.examples tr.example td:last-child {
+	color: #499DF5;
+}
+
+/*
+ * inner table
+ */
+table.reference table {
+	border-collapse: collapse;
+	width: 100%;
+	text-align: center;
+}
+table.reference table tr {
+	border: 0;
+}
+table.reference table th,
+table.reference table td {
+	/*font-size: 1em;*/
+	border: 0;
+}
+table.reference table th:nth-child(n+2),
+table.reference table td:nth-child(n+2) {
+	border-left: 1px dotted #ddd;
+}
+table.reference table th {
+	border-bottom: 1px solid #ddd;
+}
+table.reference table tr:nth-child(n+2) td {
+	border-top: 1px solid #ddd;
+}

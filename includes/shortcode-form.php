@@ -1,406 +1,46 @@
 <?php
-/*
- * Submission form shortcode
+/**
+ * The form.
+ * 
+ * @param $atts
+ *
+ * @return mixed|string|void
  */
- 
-function wpmtst_restrict_mime( $mimes ) {
-	$mimes = array(
-		'jpg|jpeg|jpe' => 'image/jpeg',
-		'gif' => 'image/gif',
-		'png' => 'image/png',
-	);
-	return $mimes;
-}
-add_filter( 'upload_mimes', 'wpmtst_restrict_mime' );
-
-
-// function wpmtst_wp_handle_upload_prefilter( $file ) {
-	// return $file;
-// }
-// add_filter( 'wp_handle_upload_prefilter', 'wpmtst_wp_handle_upload_prefilter' );
-
-
 function wpmtst_form_shortcode( $atts ) {
-	extract( shortcode_atts(
-		array( 
-			'category' => false,
-			'class'    => '',
-		),
-		normalize_empty_atts( $atts )
-	) );
-
-	$container_class_list = '';
-	if ( $class )
-		$container_class_list = ' ' . str_replace( ',', ' ', $class );
-
-	$options      = get_option( 'wpmtst_options' );
-	$form_options = get_option( 'wpmtst_form_options' );
-	$messages     = $form_options['messages'];
 	
+	if ( isset( $_GET['success'] ) )
+		return '<div class="testimonial-success">' . wpmtst_get_form_message( 'submission-success' ) . '</div>';
+	
+	//TODO trim down atts?
+	//extract( normalize_empty_atts( $atts ) );
+	$atts = normalize_empty_atts( $atts );
+
+	// initialize
 	$field_options       = get_option( 'wpmtst_fields' );
 	$field_groups        = $field_options['field_groups'];
 	$current_field_group = $field_groups[ $field_options['current_field_group'] ];
 	$fields              = $current_field_group['fields'];
-  
-	$captcha         = $form_options['captcha'];
-	$honeypot_before = $form_options['honeypot_before'];
-	$honeypot_after  = $form_options['honeypot_after'];
-	
-	$errors = array();
-	
-	// explode categories
-	if ( $category )
-		$categories = explode( ',', $category );
 
-	// Init three arrays: post, post_meta, attachment(s).
-	$testimonial_post = array(
-			'post_status'  => $form_options['post_status'],
-			'post_type'    => 'wpm-testimonial'
-	);
-	$testimonial_meta = array();
-	$testimonial_att  = array();
-
+	$form_values = array( 'category' => $atts['category'] );
 	foreach ( $fields as $key => $field ) {
-		$testimonial_inputs[ $field['name'] ] = '';
+		$form_values[ $field['name'] ] = '';
 	}
-
-	// ------------
-	// Form Actions
-	// ------------
-	if ( isset( $_POST['wpmtst_form_submitted'] ) ) {
-	
-		if ( ! wp_verify_nonce( $_POST['wpmtst_form_submitted'], 'wpmtst_submission_form' ) )
-			die( $messages['submission-error']['text'] );
-
-		if ( $captcha )
-			$errors = wpmtst_captcha_check( $captcha, $errors );
-
-		if ( $honeypot_before )
-			do_action('wpmtst_honeypot_before');
-
-		if ( $honeypot_after )
-			do_action('wpmtst_honeypot_after');
-			
-		// -------------------
-		// sanitize & validate
-		// -------------------
-		foreach ( $fields as $key => $field ) {
-			
-			if ( isset( $field['required'] ) && $field['required'] ) {
-				
-				if ( ( 'file' == $field['input_type'] ) ) {
-					if ( ! isset( $_FILES[ $field['name'] ] ) || ! $_FILES[ $field['name'] ]['size'] ) {
-						$errors[ $field['name'] ] = $field['error'];
-						continue;
-					}
-				}
-				elseif ( empty( $_POST[ $field['name'] ] ) ) {
-					$errors[ $field['name'] ] = $field['error'];
-					continue;
-				}
-					
-			}
-			
-			if ( 'post' == $field['record_type'] ) {
-			
-				if ( 'file' == $field['input_type'] ) {
-					$testimonial_att[ $field['name'] ] = array( 'field' => isset( $field['map'] ) ? $field['map'] : 'post' );
-				}
-				else {
-					$testimonial_post[ $field['name'] ] = sanitize_text_field( $_POST[ $field['name'] ] );
-				}
-				
-			}
-			elseif ( 'custom' == $field['record_type'] ) {
-			
-				if ( 'email' == $field['input_type'] ) {
-					$testimonial_meta[ $field['name'] ] = sanitize_email( $_POST[ $field['name'] ] );
-				}
-				elseif ( 'url' == $field['input_type'] ) {
-					// wpmtst_get_website() will prefix with "http://" so don't add that to an empty input
-					if ( $_POST[ $field['name'] ] )
-						$testimonial_meta[ $field['name'] ] = esc_url_raw( wpmtst_get_website( $_POST[ $field['name'] ] ) );
-				}
-				elseif ( 'text' == $field['input_type'] ) {
-					$testimonial_meta[ $field['name'] ] = sanitize_text_field( $_POST[ $field['name'] ] );
-				}
-				
-			}
-			elseif ( 'optional' == $field['record_type'] ) {
-				
-				if ( 'categories' == $field['input_type'] ) {
-					$category   = true;
-					$categories = $_POST[ $field['name'] ];
-				}
-				
-			}
-
-		} // foreach $field
-
-		//
-		// No missing required fields, carry on.
-		//
-    if ( ! count( $errors ) ) {
-		
-			// special handling:
-			// if post_title is not required, create one from post_content
-			if ( ! isset( $testimonial_post['post_title'] ) || ! $testimonial_post['post_title'] ) {
-				$words_array = explode( ' ', $testimonial_post['post_content'] );
-				$five_words = array_slice( $words_array, 0, 5 );
-				$testimonial_post['post_title'] = implode( ' ', $five_words );
-			}
-			
-			// validate image attachments and store WP error messages
-			foreach ( $testimonial_att as $name => $atts ) {
-				if ( isset( $_FILES[$name] ) && $_FILES[$name]['size'] > 1 ) {
-					$file = $_FILES[$name];
-					
-					// Upload file
-					$overrides = array( 'test_form' => false );
-					$uploaded_file = wpmtst_wp_handle_upload( $file, $overrides );
-					/* 
-					 * $uploaded_file = array (size=3)
-					 *   'file' => string 'M:\wp\strong\site/wp-content/uploads/Lotus8.jpg' (length=47)
-					 *   'url' => string 'http://strong.dev/wp-content/uploads/Lotus8.jpg' (length=47)
-					 *   'type' => string 'image/jpeg' (length=10)
-					 */
-					if ( isset( $uploaded_file['error'] ) )	{
-						$errors[ $name ] = $uploaded_file['error'];
-						break;
-					}
-					else {
-						// Create an attachment
-						$attachment = array(
-								'post_title'     => $file['name'],
-								'post_content'   => '',
-								'post_type'      => 'attachment',
-								'post_parent'    => null, // populated after inserting post
-								'post_mime_type' => $file['type'],
-								'guid'           => $uploaded_file['url']
-						);
-						
-						$testimonial_att[$name]['attachment'] = $attachment;
-						$testimonial_att[$name]['uploaded_file'] = $uploaded_file;
-					}
-					
-				}
-			}
-		}
-		
-		//
-		// No faulty uploads, carry on.
-		//
-    if ( ! count( $errors ) ) {
-		
-			// create new testimonial post
-			if ( $testimonial_id = wp_insert_post( $testimonial_post ) ) {
-
-				// add to categories
-				if ( $category ) {
-					$category_success = wp_set_post_terms( $testimonial_id, $categories, 'wpm-testimonial-category' );
-					// @TODO improve error handling
-					// if ( $categories && ! $category_success ) ...
-				}
-
-				// save custom fields
-				foreach ( $testimonial_meta as $key => $field ) {
-					add_post_meta( $testimonial_id, $key, $field );
-				}
-
-				// save attachments
-				foreach ( $testimonial_att as $name => $atts ) {
-					if ( isset( $atts['attachment'] ) ) {
-						$atts['attachment']['post_parent'] = $testimonial_id;
-						$attach_id = wp_insert_attachment( $atts['attachment'], $atts['uploaded_file']['file'], $testimonial_id );
-						$attach_data = wp_generate_attachment_metadata( $attach_id, $atts['uploaded_file']['file'] );
-						$result = wp_update_attachment_metadata( $attach_id,  $attach_data );
-						add_post_meta( $testimonial_id, $name, $atts['uploaded_file']['url'] );
-						if ( 'featured_image' == $atts['field'] ) {
-							set_post_thumbnail( $testimonial_id, $attach_id );
-						}
-					}
-				}
-			
-			}
-			else {
-				// @TODO Add general error message to top of form.
-				$errors['post'] = $messages['submission-error']['text'];
-			}
-
-		}
-		
-		//
-		// Post inserted successfully, carry on.
-		//
-		if ( ! count( $errors ) ) {
-			wpmtst_notify_admin( array_merge( $testimonial_post, $testimonial_meta ) );
-			return '<div class="testimonial-success">' . $messages['submission-success']['text'] .'</div>';
-		}
-		
-		$testimonial_inputs = array_merge( $testimonial_inputs, $testimonial_post, $testimonial_meta );
-
-	}  // if posted
-
-	
-	// ---------------------------
-	// Testimonial Submission Form
-	// ---------------------------
-	// output buffering made this incredibly unreadable
-	
-	$html = '<div class="strong-container'. $container_class_list .'">';
-	$html .= '<div class="strong-content">';
-	$html .= '<div id="wpmtst-form">';
-	$html .= '<p class="required-notice"><span class="required symbol"></span>' . $messages['required-field']['text'] . '</p>';
-	$html .= '<form id="wpmtst-submission-form" method="post" action="" enctype="multipart/form-data">';
-	$html .= wp_nonce_field( 'wpmtst_submission_form', 'wpmtst_form_submitted', true, false );
-
-	foreach ( $fields as $key => $field ) {
-
-		if ( 'text' == $field['input_type'] )
-			$classes = 'text';
-		elseif ( 'email' == $field['input_type'] )
-			$classes = 'text email';
-		elseif ( 'url' == $field['input_type'] )
-			$classes = 'text url';
-		else
-			$classes = '';
-
-		$html .= '<p class="form-field">';
-		$html .= '<label for="wpmtst_' . $field['name'] . '">' . $field['label'] . '</label>';
-
-		if ( isset( $field['required'] ) && $field['required'] )
-			$html .= '<span class="required symbol"></span>';
-
-		if ( isset( $field['before'] ) && $field['before'] )
-			$html .= '<span class="before">' . $field['before'] . '</span>';
-
-		if ( isset( $errors[ $field['name'] ] ) )
-			$classes .= ' error';
-
-		// -----------------------------
-		// input types: text, email, url
-		// -----------------------------
-		if ( in_array( $field['input_type'], array( 'text', 'email', 'url' ) ) ) {
-		
-			/*
-			 * Switching out url type until more themes adopt it.
-			 * @since 1.11.0
-			 */
-			$input_type = ( $field['input_type'] = 'url' ? 'text' : $field['input_type'] );
-			
-			$html .= '<input id="wpmtst_' . $field['name'] . '"'
-						// . ' type="' . $field['input_type'] . '"'
-						. ' type="' . $input_type . '"'
-						. ' class="' . $classes . '"'
-						. ' name="' . $field['name'] . '"'
-						. ' value="' . $testimonial_inputs[ $field['name'] ] . '"';
-
-			if ( isset( $field['placeholder'] ) && $field['placeholder'] )
-				$html .= ' placeholder="' . $field['placeholder'] . '"';
-
-			if ( isset( $field['required'] ) && $field['required'] )
-				$html .= ' required';
-
-			$html .= ' />';
-
-		}
-		// ------------------------------------------
-		// input type: textarea <-- post_content ONLY
-		// ------------------------------------------
-		elseif ( 'textarea' == $field['input_type'] ) {
-
-			$html .= '<textarea id="wpmtst_' . $field['name'] . '" class="' . $classes . '" name="' . $field['name'] . '"';
-			
-			// if ( isset( $field['required'] ) && $field['required'] )
-				// $html .= ' required';
-				
-			if ( isset( $field['placeholder'] ) && $field['placeholder'] )
-				$html .= ' placeholder="' . $field['placeholder'] . '"';
-			
-			$html .= '>' . $testimonial_inputs[ $field['name'] ] . '</textarea>';
-
-		}
-		// -----------------
-		// input type: image
-		// -----------------
-		elseif ( 'file' == $field['input_type'] ) {
-
-			$html .= '<input id="wpmtst_' . $field['name'] . '" class="" type="file" accept="image/*" name="' . $field['name'] . '" />';
-
-		} 
-		/**
-		 * Categories
-		 *
-		 * @since 1.18 
-		 */
-		elseif ( 'categories' == $field['input_type'] ) {
-			
-			$category_list = get_terms( 'wpm-testimonial-category', array(
-				'hide_empty' => false,
-				'order_by'   => 'name',
-			) );
-
-			
-			$html .= '<select id="wpmtst_' . $field['name']. '" name="' . $field['name'] . '" class="' . $classes . '" autocomplete="off">';
-			$html .= '<option value="">&mdash;</option>';
-			foreach ( $category_list as $category ) {
-				// required?
-				$html .= '<option value="' . $category->term_id . '">'; //selected( $category->term_id, '$instance['category'] )
-				$html .= $category->name;
-				$html .= '</option>';
-			}
-			$html .= '</select>';
-			
-		}
-
-		// Add error message
-		if ( isset( $errors[ $field['name'] ] ) )
-			$html .= '<span class="error">' . $errors[ $field['name'] ] . '</span>';
-
-		// Add "after" message
-		if ( isset( $field['after']) && $field['after'] )
-			$html .= '<span class="after">' . $field['after'] . '</span>';
-
-		$html .= '</p>';
-
-	} // foreach $field
-
-	if ( $honeypot_before ) {
-		$html .= '<style>#wpmtst-form .wpmtst_if_visitor * { display: none !important; visibility: hidden !important; }</style>';
-		$html .= '<span class="wpmtst_if_visitor"><label for="wpmtst_if_visitor">Visitor?</label><input id="wpmtst_if_visitor" type="text" name="wpmtst_if_visitor" size="40" tabindex="-1" autocomplete="off" /></span>';
+	$previous_values = WPMST()->get_form_values();
+	if ( $previous_values ) {
+		$form_values = array_merge( $form_values, $previous_values );
 	}
-	
-	if ( $captcha ) {
-		// Only display Captcha label if properly configured.
-		$captcha_html = apply_filters( 'wpmtst_captcha', $captcha );
-		if ( $captcha_html ) {
-			$html .= '<div class="wpmtst-captcha">';
-			$html .= '<label for="wpmtst_captcha">' . $messages['captcha']['text'] . '</label><span class="required symbol"></span>';
-			$html .= '<div>';
-			$html .= $captcha_html;
-			if ( isset( $errors['captcha'] ) )
-				$html .= '<p><label class="error">' . $errors['captcha'] . '</label></p>';
-			$html .= '</div>';
-			$html .= '</div>';
-		}
-	}
+	WPMST()->set_form_values( $form_values );
 
-	$html .= '<p class="form-field">';
-	$html .= '<input type="submit" id="wpmtst_submit_testimonial"'
-				.' name="wpmtst_submit_testimonial"'
-				.' value="' . $messages['form-submit-button']['text'] . '"'
-				.' class="button" validate="required:true" />';
-	$html .= '</p>';
-	
-	$html .= '</form>';
-	$html .= '</div><!-- #wpmtst-form -->' . "\n";
-	$html .= '</div><!-- .strong-content -->' . "\n";
-	$html .= '</div><!-- .strong-container -->' . "\n";
+	$template_file = wpmtst_find_form_template( $atts['template'], $atts['view'] );
 
+	ob_start();
+	include $template_file;
+	$html = ob_get_contents();
+	ob_end_clean();
+
+	$html = apply_filters( 'strong_html', $html );
 	return $html;
 }
-add_shortcode( 'wpmtst-form', 'wpmtst_form_shortcode' );
-
 
 /**
  * Honeypot preprocessor
@@ -409,7 +49,8 @@ function wpmtst_honeypot_before() {
 	if ( isset( $_POST['wpmtst_if_visitor'] ) && ! empty( $_POST['wpmtst_if_visitor'] ) ) {
 		do_action( 'honeypot_before_spam_testimonial', $_POST );
 		$form_options = get_option( 'wpmtst_form_options' );
-		die( $form_options['messages']['submission-error']['text'] );
+		$messages     = $form_options['messages'];
+		die( apply_filters( 'wpmtst_l10n', $messages['submission-error']['text'], wpmtst_get_l10n_context( 'form-messages' ), $messages['submission-error']['description'] ) );
 	}
 	return;
 }
@@ -422,7 +63,8 @@ function wpmtst_honeypot_after() {
 	if ( ! isset ( $_POST['wpmtst_after'] ) ) {
 		do_action( 'honeypot_after_spam_testimonial', $_POST );
 		$form_options = get_option( 'wpmtst_form_options' );
-		die( $form_options['messages']['submission-error']['text'] );
+		$messages     = $form_options['messages'];
+		die( apply_filters( 'wpmtst_l10n', $messages['submission-error']['text'], wpmtst_get_l10n_context( 'form-messages' ), $messages['submission-error']['description'] ) );
 	}
 	return;
 }
@@ -461,21 +103,7 @@ function wpmtst_honeypot_after_script() {
 	<?php
 }
 
-
-/*
- * File upload handler
- */
-function wpmtst_wp_handle_upload( $file_handler, $overrides ) {
-  require_once( ABSPATH . 'wp-admin/includes/image.php' );
-  require_once( ABSPATH . 'wp-admin/includes/file.php' );
-  require_once( ABSPATH . 'wp-admin/includes/media.php' );
-
-	$upload = wp_handle_upload( $file_handler, $overrides );
-	return $upload ;
-}
-
-
-/*
+/**
  * Submission form validation.
  *
  * Required for original shortcodes.
@@ -488,5 +116,236 @@ function wpmtst_validation_function() {
 		$("#wpmtst-submission-form").validate({});
 	});
 </script>
+	<?php
+}
+
+/**
+ * ---------------------------------------------------------------------------
+ * 
+ *     FORM TEMPLATE FUNCTIONS
+ * 
+ * ---------------------------------------------------------------------------
+ */
+
+function wpmtst_form_info() {
+	// action="' . admin_url( 'admin-post.php' ) . '"
+	echo 'id="wpmtst-submission-form" method="post" enctype="multipart/form-data"';
+}
+
+
+function wpmtst_form_hidden_fields() {
+	$form_values = WPMST()->get_form_values();
+	echo '<input type="hidden" name="action" value="wpmtst_form">';
+	echo '<input type="hidden" name="category" value="'. $form_values['category'] .'">';
+
+}
+
+function wpmtst_form_nonce() {
+	echo wp_nonce_field( 'wpmtst_form_action', 'wpmtst_form_nonce', true, true );
+}
+
+function wpmtst_form_message( $part ) {
+	echo wpmtst_get_form_message( $part );
+}
+
+function wpmtst_get_form_message( $part ) {
+	$form_options = get_option( 'wpmtst_form_options' );
+	$messages = $form_options['messages'];
+	if ( isset( $messages[$part]['text'] ) ) {
+		return apply_filters( 'wpmtst_l10n', $messages[$part]['text'], wpmtst_get_l10n_context( 'form-messages' ), $messages[$part]['description'] );
+	}
+}
+
+function wpmtst_all_form_fields() {
+	$field_options       = get_option( 'wpmtst_fields' );
+	$field_groups        = $field_options['field_groups'];
+	$current_field_group = $field_groups[ $field_options['current_field_group'] ];
+	$fields              = $current_field_group['fields'];
+	foreach ( $fields as $key => $field ) {
+		wpmtst_single_form_field( $field );
+	}
+}
+
+function wpmtst_form_field( $field_name ) {
+	$field_options       = get_option( 'wpmtst_fields' );
+	$field_groups        = $field_options['field_groups'];
+	$current_field_group = $field_groups[ $field_options['current_field_group'] ];
+	$fields              = $current_field_group['fields'];
+	foreach ( $fields as $key => $field ) {
+		if ( $field['name'] == $field_name ) {
+			wpmtst_single_form_field( $field );
+		}
+	}
+}
+
+function wpmtst_single_form_field( $field ) {
+	$form_values = WPMST()->get_form_values();
+	$context = wpmtst_get_l10n_context( 'form-fields' );
+
+	echo '<p class="form-field">';
+	echo '<label for="wpmtst_' . $field['name'] . '">' . apply_filters( 'wpmtst_l10n', $field['label'], $context, $field['name'] ) . '</label>';
+
+	wpmtst_field_required_symbol( $field );
+	wpmtst_field_before( $field );
+	switch ( $field['input_type'] ) {
+
+		case 'categories':
+			$value = isset( $form_values[ $field['name'] ] ) ? $form_values[ $field['name'] ] : '';
+			$category_list = get_terms( 'wpm-testimonial-category', array(
+				'hide_empty' => false,
+				'order_by'   => 'name',
+			) );
+			echo '<select id="wpmtst_' . $field['name']. '"'
+				. ' name="' . $field['name'] . '"'
+				. ' class="' . wpmtst_field_classes( $field['input_type'], $field['name'] ) . '"'
+				. wpmtst_field_required_tag( $field ) . ' autocomplete="off">';
+			echo '<option value="">&mdash;</option>';
+			foreach ( $category_list as $category ) {
+				echo '<option value="' . $category->term_id . '" ' . selected( $category->term_id, $value ) . '>'; 
+				echo $category->name;
+				echo '</option>';
+			}
+			echo '</select>';
+			break;
+		
+		case 'textarea':
+			$value = ( isset( $form_values[ $field['name'] ] ) && $form_values[ $field['name'] ] ) ? $form_values[ $field['name'] ] : '';
+			// textarea tags must be on same line for placeholder to work
+			echo '<textarea id="wpmtst_' . $field['name'] . '"'
+			     . ' class="' . wpmtst_field_classes( $field['input_type'], $field['name'] ) . '"'
+			     . ' name="' . $field['name'] . '"'
+			     . wpmtst_field_required_tag( $field ) . wpmtst_field_placeholder( $field )
+			     . '>' . $value . '</textarea>';
+			break;
+
+		case 'file':
+			echo '<input id="wpmtst_' . $field['name'] . '" type="file" name="' . $field['name'] . '">';
+			break;
+
+		default: // test, email, url
+			/**
+			 * Switching out url type until more themes adopt it.
+			 * @since 1.11.0
+			 */
+			$input_type = ( $field['input_type'] = 'url' ? 'text' : $field['input_type'] );
+			$value = isset( $form_values[ $field['name'] ] ) ? $form_values[ $field['name'] ] : '';
+			echo '<input id="wpmtst_' . $field['name'] . '"'
+			     . ' type="' . $input_type . '"'
+			     . ' class="' . wpmtst_field_classes( $field['input_type'], $field['name'] ) . '"'
+			     . ' name="' . $field['name'] . '"'
+			     . ' value="' . $value . '"'
+			     . wpmtst_field_placeholder( $field ) . wpmtst_field_required_tag( $field )
+			     . '>';
+	}
+	wpmtst_field_error( $field );
+	wpmtst_field_after( $field );
+	echo '</p>';
+}
+
+function wpmtst_field_classes( $type = null, $name = null ) {
+	$errors = WPMST()->get_form_errors();
+	$class_list = array();
+
+	switch( $type ) {
+		case 'email':
+			$class_list[] = 'text';
+			$class_list[] = 'email';
+			break;
+		case 'url':
+			$class_list[] = 'text';
+			$class_list[] = 'url';
+			break;
+		case 'text':
+			$class_list[] = 'text';
+			break;
+		default:
+			break;
+	}
+
+	if ( isset( $errors[ $name ] ) ) {
+		$class_list[] = 'error';
+	}
+
+	return apply_filters( 'wpmtst_form_field_class', implode( ' ', $class_list ), $type, $name );
+}
+
+function wpmtst_field_placeholder( $field ) {
+	if ( isset( $field['placeholder'] ) && $field['placeholder'] )
+		return ' placeholder="' . $field['placeholder'] . '"';
+}
+
+function wpmtst_field_required_tag( $field ) {
+	if ( isset( $field['required'] ) && apply_filters( 'wpmtst_field_required_tag', $field['required'] ) )
+		return ' required';
+}
+
+function wpmtst_field_required_symbol( $field ) {
+	if ( isset( $field['required'] ) && $field['required'] )
+		echo '<span class="required symbol"></span>';
+}
+
+function wpmtst_field_before( $field ) {
+	if ( isset( $field['before'] ) && $field['before'] ) {
+		$context = wpmtst_get_l10n_context( 'form-fields' );
+		echo '<span class="before">' . apply_filters( 'wpmtst_l10n', $field['before'], $context, $field['name'] . ' : before' . '</span>' );
+	}
+}
+
+function wpmtst_field_after( $field ) {
+	if ( isset( $field['after'] ) && $field['after'] ) {
+		$context = wpmtst_get_l10n_context( 'form-fields' );
+		//echo '<span class="after">' . $field['after'] . '</span>';
+		echo '<span class="after">' . apply_filters( 'wpmtst_l10n', $field['after'], $context, $field['name'] . ' : after' . '</span>' );
+	}
+}
+
+function wpmtst_field_error( $field ) {
+	$errors = WPMST()->get_form_errors();
+	if ( isset( $errors[ $field['name'] ] ) )
+		echo '<span class="error">' . $errors[ $field['name'] ] . '</span>';
+}
+
+function wpmtst_form_honeypot_before() {
+	$form_options = get_option( 'wpmtst_form_options' );
+	if ( $form_options['honeypot_before'] ) {
+		?>
+		<style>#wpmtst-form .wpmtst_if_visitor * { display: none !important; visibility: hidden !important; }</style>
+		<span class="wpmtst_if_visitor"><label for="wpmtst_if_visitor">Visitor?</label><input id="wpmtst_if_visitor" type="text" name="wpmtst_if_visitor" size="40" tabindex="-1" autocomplete="off"></span>
+		<?php
+	}
+}
+add_action( 'wpmtst_form_after_fields', 'wpmtst_form_honeypot_before' );
+
+function wpmtst_form_captcha() {
+	$errors = WPMST()->get_form_errors();
+	$form_options = get_option( 'wpmtst_form_options' );
+	if ( $form_options['captcha'] ) {
+		// Only display Captcha label if properly configured.
+		$captcha_html = apply_filters( 'wpmtst_captcha', $form_options['captcha'] );
+		if ( $captcha_html ) {
+			?>
+			<div class="wpmtst-captcha">
+				<label for="wpmtst_captcha"><?php wpmtst_form_message('captcha'); ?></label><span class="required symbol"></span>
+				<div>
+					<?php echo $captcha_html; ?>
+					<?php if ( isset( $errors['captcha'] ) ) : ?>
+						<p><label class="error"><?php echo $errors['captcha']; ?></label></p>
+					<?php endif; ?>
+				</div>
+			</div>
+			<?php
+		}
+	}
+
+}
+add_action( 'wpmtst_form_after_fields', 'wpmtst_form_captcha' );
+
+function wpmtst_form_submit_button() {
+	$form_options = get_option( 'wpmtst_form_options' );
+	$messages     = $form_options['messages'];
+	?>
+	<p class="form-field submit">
+		<input type="submit" id="wpmtst_submit_testimonial" name="wpmtst_submit_testimonial" value="<?php echo $messages['form-submit-button']['text']; ?>" class="button" validate="required:true">
+	</p>
 	<?php
 }

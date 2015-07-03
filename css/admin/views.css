@@ -1,0 +1,435 @@
+/**
+ * Strong Testimonials admin stylesheet
+ */
+
+/* Views
+---------------------------------------------------------*/
+
+/* Common with other admin style
+NEED TO CONSOLIDATE */
+
+.screenshot {
+	margin: 10px;
+}
+
+.screenshot > div {
+	display: inline-block;
+    -webkit-box-shadow: inset 0 0 40px rgba(0,0,0,0.8);
+       -moz-box-shadow: inset 0 0 40px rgba(0,0,0,0.8);
+            box-shadow: inset 0 0 40px rgba(0,0,0,0.8);
+}
+
+#wpmtst-views-form input[type="submit"] {
+	margin-right: 10px;
+}
+
+.view-info {
+	font-size: 1.5em;
+	margin-top: 1em;
+}
+
+.view-info input,
+.view-info code {
+	font-size: 1em;
+	/*margin-right: 1em;*/
+}
+
+.view-info code {
+	font-size: 1em;
+	padding: 3px 6px 5px;
+}
+
+.view-info .title {
+	width: 120px;
+	display: inline-block;
+	margin: 0;
+}
+
+input.view-name {
+	width: calc( 100% - 120px );
+	display: inline-block;
+	margin: 0;
+}
+
+td.column-name strong {
+	display: block;
+	margin-bottom: .2em;
+	font-size: 14px;
+}
+
+/* Misc elements */
+
+.wpmtst2 p.submit {
+	margin-top: 2em;
+}
+
+/* views section heading */
+.wpmtst2 h3 {
+	background: #FFF;
+	color: #0276FD;
+	border: 1px solid #ddd;
+	border-bottom: 0;
+	padding: 10px;
+	margin-bottom: 0;
+	margin-top: 1.5em;
+}
+
+p.description.under-checkbox {
+	margin-left: 22px;
+}
+
+p.description.inline {
+	display: inline-block;
+	margin-left: 10px;
+}
+
+input[type="text"].long {
+	width: 25em;
+}
+
+/* Misc positioning */
+
+.inline {
+	display: inline-block;
+	white-space: nowrap;
+	margin-right: 2em;
+	vertical-align: top;
+}
+.inline-middle {
+	vertical-align: middle;
+}
+
+.tight {
+	margin-right: 1.5em;
+}
+.tight:last-child {
+	margin-right: 0;
+}
+
+.checkbox,
+.form-table th.checkbox {
+	line-height: 30px;
+}
+
+.field {
+	position: relative;
+}
+
+.field div {
+	display: inline-block;
+	padding: 0.2em 0.3em;
+}
+
+/* Misc inputs */
+.input-number {
+	width: 5em;
+	text-align: right;
+}
+.input-incremental {
+	width: 5em;
+}
+.input-number-px {
+	width: 4em;
+	text-align: right;
+}
+
+.form-table select {
+	vertical-align: baseline;
+}
+
+div.radio {
+	line-height: 1.5em;
+	padding: 0 5px;
+}
+
+div.radio.selected {
+	background: #ddd;
+}
+
+td.selected {
+	background: #FFFFE0;
+}
+
+label {
+	vertical-align: baseline;
+	margin-right: 0.3em;
+	display: inline-block;
+}
+
+label:hover {
+	color: #000;
+}
+
+option:disabled {
+	font-style: italic !important;
+}
+
+/* Form table */
+
+.form-table {
+	margin-top: 0;
+	background: #FEFEFE;
+	width: 100% !important;
+	border: 1px solid #DDD;
+}
+
+.form-table tr {
+	border: 1px solid #DDD;
+}
+
+.form-table.multiple {
+	width: auto;
+}
+
+.form-table th,
+.form-table td {
+	vertical-align: top;
+}
+.form-table th {
+	font-weight: 400;
+	white-space: nowrap;
+	vertical-align: top;
+	width: 150px;
+	padding: 10px 15px;
+}
+.form-table td {
+	padding: 10px;
+}
+td.w1 {
+	width: 185px;
+}
+td.w2 {
+	width: 300px;
+}
+.form-table td div.row:not(:last-child) {
+	margin-bottom: 10px;
+}
+.form-table td div.row:not(.top-of-cell) {
+	margin-top: 10px;
+}
+.form-table th label {
+	line-height: 30px;
+}
+
+/* paired rows */
+.form-table tr.pair-top {
+	border-bottom: 0;
+}
+.form-table tr.pair-bottom {
+	border-top: 0;
+}
+.form-table tr.pair-bottom td {
+	padding-top: 0;
+}
+.form-table tr.no-padding td {
+	padding: 0;
+}
+
+span.title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+/* Mode selector */
+
+#view-mode {
+	margin-top: 1em;
+}
+#view-mode label {
+	display: inline-block;
+	margin: 0;
+	padding: 0.5em 15px;
+	border: 1px solid #e4e4e4;
+	border-radius: 20px;
+}
+#view-mode label:hover {
+	background: #FFF;
+	color: #444;
+}
+#view-mode input[type="radio"] {
+	margin-right: 10px;
+}
+#view-mode label {
+	color: #999;
+}
+#view-mode label.checked {
+	background: #FFF;
+	color: #0073AA;
+	border: 1px solid rgba(0,115,170,0.3);
+}
+
+.wpmtst2 h3.large,
+.wpmtst2 select.large {
+	font-size: 2em;
+}
+
+.wpmtst2 select.large {
+	font-size: 2em;
+	height: auto;
+	vertical-align: baseline;
+	border: 0;
+}
+
+.wpmtst2 h3.large {
+	color: #444;
+	background: transparent;
+	display: inline-block;
+	font-size: 2em;
+	margin-top: 0;
+	margin-bottom: 0;
+	margin-right: 10px;
+}
+
+
+/* Category checkboxes */
+
+ul.checkbox-horizontal {
+	display: inline-block;
+	list-style: none;
+	margin: 0;
+}
+
+ul.checkbox-horizontal li {
+	display: inline-block;
+	margin: 0 1.5em 0 0;
+}
+
+.checkbox-toggle {
+	display: inline-block;
+	margin-right: 2em;
+	font-weight: 700;
+	background: #eee;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+}
+.checkbox-toggle input:disabled {
+	background: #FFF;
+}
+.checkbox-toggle label {
+	display: block;
+	padding: 0.3em 1em 0.2em;
+	margin: 0;
+}
+
+/* Client fields table
+---------------------------------------------------------*/
+
+/* Need to back out some rules since this is a table in a table. */
+
+table.fields {
+	background: white;
+	border-collapse: collapse;
+}
+
+.form-table table.fields tr th,
+.form-table table.fields tr td {
+	border-top: 0;
+	border-bottom: 0;
+	padding: 5px;
+	white-space: nowrap;
+	width: auto;
+}
+
+/* Make it stand out. */
+
+table.fields thead tr {
+	background: #f4f4f4;
+}
+
+table.fields tr {
+	border: 1px solid #eee;
+	background: #fff; /* for better dragging */
+}
+
+.form-table table.fields th,
+.form-table table.fields td {
+	/* padding: 5px; */
+}
+
+.form-table table.fields th {
+	font-weight: 400;
+	padding: 15px 10px; /* WP */
+}
+
+table.fields select {
+	min-width: 0;
+}
+
+table.fields .controls {
+	max-width: 110px;
+	text-align: right;
+	white-space: nowrap;
+	vertical-align: middle;
+}
+
+.field-link {
+	white-space: nowrap;
+}
+
+.new_tab {
+	display: inline-block;
+	white-space: nowrap;
+	margin: 0 10px 0 4px;
+	position: relative;
+	top: 2px;
+}
+
+table.fields .sortable-placeholder {
+	/*border: 1px dashed #ccc !important;*/
+	background: lightyellow !important;
+}
+
+table.fields.full-width {
+	width: 100%;
+}
+
+#add-field-bar {
+	margin-top: 10px;
+}
+
+/* Fields table > field controls */
+
+.field .controls {
+	position: absolute;
+	right: 0;
+	top: 4px;
+}
+
+.field .controls > span {
+	padding: 2px;
+}
+
+.handle:hover {
+	color: #2ea2cc;
+	cursor: pointer;
+}
+
+.delete-field:hover {
+	color: red;
+	cursor: pointer;
+}
+
+/* Firefox loses font with first optgroup */
+select optgroup,
+select option {
+	font-family: "Open Sans", sans-serif;
+}
+
+select option {
+	padding-right: 0.5em;
+}
+
+@-moz-document url-prefix() {
+	select optgroup {
+		font-style: normal;
+		margin-left: 3px;
+	}
+}
+
+/* DEBUG */
+/*
+.form-table th,
+.form-table td {
+	border: 1px solid orange;
+}
+*/

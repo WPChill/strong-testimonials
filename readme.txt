@@ -7,64 +7,87 @@ Stable tag: trunk
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
-Manage your testimonials with a plugin that offers strong features and strong support.
+Add testimonials with a plugin that offers strong features and strong support.
 
 == Description ==
 
 Strong Testimonials by [WP Mission](https://www.wpmission.com) is a full-featured plugin that works right out of the box for beginners and offers advanced features for pros.
 
-= Overview =
+= What's New =
 
-1. Categories, excerpts, and Featured Images (thumbnails) are supported.
-1. Sorting options, pagination, and slideshows.
-1. A testimonial form with customizable fields, anti-spam options, and a notification email.
-1. Shortcodes, widgets, and template files.
-1. A deep and wide demo site and a developer who's on your side.
+* Compatible with WPML and Polylang.
+* Views are easy to configure.
+* New template choices (and more on the way)
+* More thumbnail sizes
+
+= Primary Features =
+
+1. Two ways to implement:
+  * a View is a simple way to display your testimonials or the form
+  * or the robust `[strong]` shortcode
+1. A front-end form
+  * custom fields
+  * anti-spam options
+  * notification emails
+1. Categories
+1. Excerpts
+1. Featured Images (thumbnails)
+1. Multiple slideshows
+1. Sort by oldest, newest, random, or menu order
+1. Simple pagination
+1. Custom "Read more" links
+1. Template files and functions for deep customization
+1. A developer who's on your side :)
 
 [Check out the demos](http://demos.wpmission.com/strong-testimonials/)
 
 = Collect =
 
-The testimonial form has fields for a name, an email address, a company name and website, a heading, a photo, and of course the testimonial content. 
+The testimonial form has fields for a name, an email address, a company name and website, a heading, a photo, and, of course, the testimonial content.
 
 Need to add a field? Want to remove one? No problem. Use the fields editor to **customize the form** to your specific situation, including the field order, the text before or after, the placeholder text, and required fields.
 
-The form also offer **anti-spam** options like honeypots and Captcha via these plugins: [Captcha](http://wordpress.org/plugins/captcha/), [Really Simple Captcha](http://wordpress.org/plugins/really-simple-captcha/), and [Advanced noCaptcha reCaptcha](https://wordpress.org/plugins/advanced-nocaptcha-recaptcha/). 
+The form also offer **anti-spam** options like honeypots and Captcha via these plugins: [Captcha](http://wordpress.org/plugins/captcha/), [Really Simple Captcha](http://wordpress.org/plugins/really-simple-captcha/), and [Advanced noCaptcha reCaptcha](https://wordpress.org/plugins/advanced-nocaptcha-recaptcha/).
 
 New testimonials will be in Pending status by default or they can be published immediately. You can send multiple **notification emails** to your admin(s).
 
 = Display =
 
-Show the newest first, the oldest first, or in random order. Drag and drop them into a new order in the admin list.
+Select the sort order and how many to show. Drag and drop them into a new order in the admin list.
 
-Show one or show all or any number in between. Show the full testimonial, the excerpt, or up to a specified length - which is great when you have both long and short testimonials. 
+Show the full testimonial, the excerpt, or up to a specified length - which is great when you have both long and short testimonials.
 
-Just like posts, they can be organized into **categories** for easy segmentation. You can **paginate them**, only showing 5-10 per page, for eaxmple. The plugin offers simple page controls (1 2 3 ...) that can be placed above and below the testimonial group.
+Organize them into **categories** for easy segmentation. You can **paginate them**, only showing 5-10 per page, for example. The plugin offers simple page controls (1 2 3) that can be placed above and below the testimonial group.
 
 = Slideshow =
 
-Both the shortcode and the widget can be a slideshow. Multiple slideshows can be used on the same page by a shortcode or widget with different styles and speeds. *(Can other testimonial plugins say that?)*
+Slideshows are easy to create. Multiple slideshows can be used on the same page with different styles and speeds. *(Can other testimonial plugins say that?)*
+
+Use **excerpts** to craft quick and simple one-liners. [Really make it sing](http://demos.wpmission.com/strong-testimonials/examples/excerpt-slideshow/) using **Featured Images**.
 
 Use **excerpts** to craft quick and simple one-liners. [Really make it sing](http://demos.wpmission.com/strong-testimonials/examples/excerpt-slideshow/) using **Featured Images**.
 
 = Style =
 
-Testimonial plugins typically offer either no styling at all or a handful of predefined layouts that may or may not look good in your theme.
-
-Strong Testimonials offers one layout for the shortcode and one for the widget inherited from the original version (GC Testimonials) that is just generic enough to look good in most cases with maybe a few tweaks. 
-
-You can also skip loading each stylesheet (page, widget, form) and let your theme handle it from the ground up.
+Strong Testimonials offers a handful of templates to try in your theme. The default template is just generic enough to look good in most cases with maybe a few tweaks.
 
 Need help matching your theme? Got some weird spacing or floating? I'm here to help.
 
-For ultimate control and seamless integration with your theme, the plugin also offers **template files**. (Tutorial coming soon.)
+For ultimate control and seamless integration, any **template file** can be copied into your theme. (A tutorial and more templates coming soon.)
 
-= One shortcode to rule them all. =
+= Views =
 
-The `[strong]` shortcode is unique and versatile. Most attributes act as on/off switches. For example, `[strong title random]` means "show testimonials and their title in random order".
+Views are the future of this plugin. They bring all the options together into a single admin screen. Add a View to a page with the `[testimonial_view]` shortcode, or to a sidebar with a widget.
 
-Other shortcode examples:
+= Shortcodes =
 
+The `[strong]` shortcode is the predecessor of Views. It is unique and versatile. Most attributes act as on/off switches. For example, `[strong title random]` means "show testimonials and their title in random order".
+
+Other examples:
+
+`
+[strong form]
+`
 `
 [strong title category="3" count="20" per_page="5"]
   [client]
@@ -76,17 +99,20 @@ Other shortcode examples:
 [strong slideshow show_for="5" effect_for="1" excerpt]
 `
 
+Use '[read_more]' after your testimonials to add a "Read more" link to another page.
+
 [Check out the demos](http://demos.wpmission.com/strong-testimonials/)
 
 = Support =
 
-As a technical support veteran, I am dedicated to your success. I will move mountains to fix bugs, to resolve conflicts with other plugins and themes, and to craft elegant solutions to fragile workarounds.
+I will move mountains to fix bugs, to resolve conflicts with other plugins and themes, and to craft elegant solutions to fragile workarounds.
 
 = Recommended =
 
+* [Simple Colorbox](https://wordpress.org/plugins/simple-colorbox/) to open thumbnails into full-size images. Nice!
 * [Debug This](http://wordpress.org/plugins/debug-this/) to peek under the hood when troubleshooting.
 * [Simple Custom CSS](http://wordpress.org/plugins/simple-custom-css/) is my go-to plugin for quick CSS fixes.
-* [Wider Admin Menu](http://wordpress.org/plugins/wider-admin-menu/) lets your admin menu breathe.
+* [Wider Admin Menu](http://wordpress.org/plugins/wider-admin-menu/) lets your admin menu b r e a t h e.
 
 = Known Conflicts =
 
@@ -114,7 +140,7 @@ Option A:
 1. Search for "strong testimonials".
 1. Click "Install Now".
 
-Option B: 
+Option B:
 
 1. Download the zip file.
 1. Unzip it on your hard drive.
@@ -137,7 +163,7 @@ Yes. There is a custom field editor where you can add or remove fields, change f
 
 Yes. After setting up your categories, you can add a category dropdown element to the form.
 
-= Can I edit the notification email that goes out when a new testimonial has been submitted? = 
+= Can I edit the notification email that goes out when a new testimonial has been submitted? =
 
 Yes. You can edit the subject line, the message, who it's from, and who it's to (including multiple recipients).
 
@@ -167,6 +193,17 @@ Not yet.
 10. The shortcode guide.
 
 == Changelog ==
+
+= 1.21 - 2015-10-12 =
+* Views.
+* New templates.
+* WPML & Polylang compatible.
+* All available thumbnail sizes including custom.
+* Option to click thumbnail to open full-size image in lightbox.
+* More hooks and filters.
+* Better template functions.
+* Prevent double posting of the form.
+* Separate `[read_more]` shortcode.
 
 = 1.20.2 - 2015-09-25 =
 * Fix bug in custom shortcode.
@@ -220,5 +257,4 @@ Not yet.
 
 == Upgrade Notice ==
 
-= 1.20.2 = 
-Fix bugs in custom shortcode and form class. Allow removal of form content field.
+Introducing Views. WPML & Polylang compatible. New templates. More thumbnail sizes.

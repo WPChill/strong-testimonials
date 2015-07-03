@@ -1,5 +1,5 @@
 /**
- * Strong Testimonials > cycle settings
+ * Strong Testimonials slideshow
  */
  
 jQuery(document).ready(function($) { 
@@ -26,10 +26,10 @@ jQuery(document).ready(function($) {
 	// ------------------
 	
 	// Shortcode
-	$(".strong-container").each(function(index){
+	$(".strong-container, .strong-view").each(function(index) {
+		
 		var $el = $(this).find(".strong_cycle");
 		if(!$el.length) return;
-		// $el.addClass("strong_cycle_" + index);
 		
 		// Set container height to match tallest element.
 		var heights = $el.find("div.t-slide").map(function() {
@@ -40,7 +40,7 @@ jQuery(document).ready(function($) {
 		$el.height( maxHeight );
 		
 		// Thanks http://stackoverflow.com/a/15505986/51600
-		var cycleVar = $.grep($el.prop("class").split(/\s+/), function(v, i){
+		var cycleVar = $.grep($el.prop("class").split(/\s+/), function(v, i) {
 			return v.indexOf('strong_cycle_') === 0;
 		}).join();
 		

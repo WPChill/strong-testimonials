@@ -91,14 +91,14 @@ window.addEventListener('resize', myEfficientFn);
 					var obj = JSON.parse(data);
 					var orderArray = $.map(obj, function (val, i) {
 						$orders.eq(i).html(val);
-					});
-					// update zebra striping
-					//$("#the-list tr").removeClass("alternate");
-				})
-				.done(function () {
-					// alert( "second success" );
-					ui.item.effect('highlight', {}, 2000);
-				})
+				});
+				// update zebra striping
+				$("#the-list tr:even").removeClass("alternate");
+			})
+			.done(function() {
+				// alert( "second success" );
+				ui.item.effect('highlight', {}, 2000);
+			})
 			/*
 			 .fail(function() {
 			 // alert( "error" );

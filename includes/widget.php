@@ -9,36 +9,34 @@ class Strong_Testimonials_Widget extends WP_Widget {
 
 		$widget_ops = array(
 			'classname'   => 'wpmtst-widget',
-			'description' => _x( 'Strong Testimonials widget.', 'description', 'strong-testimonials' )
+			'description' => _x( 'Strong Testimonials widget. *** Will be removed soon. Please create a View instead. ***', 'widget description', 'strong-testimonials' )
 		);
 
 		$control_ops = array(
 			'id_base' => 'wpmtst-widget',
 		);
 
-		parent::__construct( 'wpmtst-widget', _x( 'Testimonials', 'widget title', 'strong-testimonials' ), $widget_ops, $control_ops );
+		parent::__construct( 'wpmtst-widget', _x( 'Testimonials', 'widget label', 'strong-testimonials' ), $widget_ops, $control_ops );
 
 		$this->defaults = array(
-				'title'         => _x( 'Testimonials', 'widget title', 'strong-testimonials' ),
-				'category'      => 'all',
-				'mode'          => 'cycle',	// 'cycle' or 'static'
-				'order'         => 'rand',
-				'cycle-limit'   => 3,
-				'cycle-all'     => 0,
-				'cycle-timeout' => 8,
-				'cycle-effect'  => 'fade',
-				'cycle-speed'   => 1.5,
-				'cycle-pause'   => 1,
-				'static-limit'  => 2,
-				// New option name will break existing widgets. Wait until 2.0.
-				// 'content'       => 'truncated',  // excerpt, truncated, entire
-				'char-switch'   => 1,  // 1 = truncated, 2 = entire, 3 = excerpt
-				'char-limit'    => 200,
-				'show-title'    => 1,
-				'images'        => 0,
-				'client'        => 1,
-				'more'          => 0,  // 0 = none, 1 = testimonial, 2 = page
-				'more_page'     => ''
+			'title'         => __( 'Testimonials', 'strong-testimonials' ),
+			'category'      => 'all',
+			'mode'          => 'cycle',	// 'cycle' or 'static'
+			'order'         => 'rand',
+			'cycle-limit'   => 3,
+			'cycle-all'     => 0,
+			'cycle-timeout' => 8,
+			'cycle-effect'  => 'fade',
+			'cycle-speed'   => 1.5,
+			'cycle-pause'   => 1,
+			'static-limit'  => 2,
+			'char-switch'   => 1,  // 1 = truncated, 2 = entire, 3 = excerpt
+			'char-limit'    => 200,
+			'show-title'    => 1,
+			'images'        => 0,
+			'client'        => 1,
+			'more'          => 0,  // 0 = none, 1 = testimonial, 2 = page
+			'more_page'     => ''
 		);
 
 	}
@@ -59,8 +57,7 @@ class Strong_Testimonials_Widget extends WP_Widget {
 		if ( 'menu' == $data['order'] ) {
 			$orderby = 'menu_order';
 			$order   = 'ASC';
-		}
-		else {
+		} else {
 			$orderby = 'post_date';
 			if ( 'oldest' == $data['order'] )
 				$order = 'ASC';
@@ -79,8 +76,7 @@ class Strong_Testimonials_Widget extends WP_Widget {
 			else
 				$num = $this->defaults['cycle-limit'];
 
-		}
-		else {
+		} else {
 
 			if ( ! empty( $data['static-limit'] ) )
 				$num = $data['static-limit'];
@@ -97,20 +93,20 @@ class Strong_Testimonials_Widget extends WP_Widget {
 			$char_limit = $this->defaults['char-limit'];
 
 		$args = array(
-				'post_type'      => 'wpm-testimonial',
-				'post_status'    => 'publish',
-				'posts_per_page' => -1,
-				'orderby'        => $orderby,
-				'order'          => $order,
+			'post_type'      => 'wpm-testimonial',
+			'post_status'    => 'publish',
+			'posts_per_page' => -1,
+			'orderby'        => $orderby,
+			'order'          => $order,
 		);
 
 		if ( 'all' != $data['category'] ) {
 			$args['tax_query'] = array(
 					array(
-							'taxonomy' => 'wpm-testimonial-category',
-							'field'    => 'term_id',
-							'terms'    => $data['category'],
-							'include_children' => false
+						'taxonomy' => 'wpm-testimonial-category',
+						'field'    => 'term_id',
+						'terms'    => $data['category'],
+						'include_children' => false
 					)
 			);
 		}
@@ -163,8 +159,7 @@ class Strong_Testimonials_Widget extends WP_Widget {
 			 */
 			if ( 3 == $char_switch ) {
 				$content = do_shortcode( $post->post_excerpt );
-			}
-			else {
+			} else {
 				// process shortcodes then trim on word boundary
 				$content = wpautop( do_shortcode( $post->post_content ) );
 				if ( 1 == $char_switch )
@@ -202,23 +197,23 @@ class Strong_Testimonials_Widget extends WP_Widget {
 		$instance = wp_parse_args( (array) $instance, $this->defaults );
 
 		$order_list = array(
-				'rand'   => _x( 'Random', 'display order', 'strong-testimonials' ),
-				'menu'   => _x( 'Menu order', 'display order', 'strong-testimonials' ),
-				'recent' => _x( 'Newest first', 'display order', 'strong-testimonials' ),
-				'oldest' => _x( 'Oldest first', 'display order', 'strong-testimonials' ),
+			'rand'   => _x( 'Random', 'display order', 'strong-testimonials' ),
+			'menu'   => _x( 'Menu order', 'display order', 'strong-testimonials' ),
+			'recent' => _x( 'Newest first', 'display order', 'strong-testimonials' ),
+			'oldest' => _x( 'Oldest first', 'display order', 'strong-testimonials' ),
 		);
 
 		$category_list = get_terms( 'wpm-testimonial-category', array(
-				'hide_empty' 	=> false,
-				'order_by'		=> 'name',
-				'pad_counts'	=> true
+			'hide_empty' 	=> false,
+			'order_by'		=> 'name',
+			'pad_counts'	=> true
 		) );
 
 		$pages_list = get_pages( array(
-				'sort_order'  => 'ASC',
-				'sort_column' => 'post_title',
-				'post_type'   => 'page',
-				'post_status' => 'publish'
+			'sort_order'  => 'ASC',
+			'sort_column' => 'post_title',
+			'post_type'   => 'page',
+			'post_status' => 'publish'
 		) );
 
 		?>
@@ -232,7 +227,7 @@ class Strong_Testimonials_Widget extends WP_Widget {
 					_ex( 'Title', 'widget setting', 'strong-testimonials' );
 					?>:
 				</label>
-				<input type="text" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name('title'); ?>" value="<?php echo $instance['title']; ?>" class="omega" />
+				<input type="text" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name('title'); ?>" value="<?php echo $instance['title']; ?>" class="omega">
 			</p>
 
 			<!-- category -->
@@ -284,7 +279,7 @@ class Strong_Testimonials_Widget extends WP_Widget {
 				<ul>
 					<li class="radio-tab <?php if ( 'cycle' == $instance['mode'] ) { echo ' radio-current'; } ?>">
 						<label for="<?php echo $this->get_field_id( 'mode-cycle' ); ?>">
-							<input  id="<?php echo $this->get_field_id( 'mode-cycle' ); ?>" type="radio" name="<?php echo $this->get_field_name( 'mode' ); ?>" value="cycle" class="wpmtst-mode-setting" <?php checked( $instance['mode'], 'cycle' ); ?> />
+							<input  id="<?php echo $this->get_field_id( 'mode-cycle' ); ?>" type="radio" name="<?php echo $this->get_field_name( 'mode' ); ?>" value="cycle" class="wpmtst-mode-setting" <?php checked( $instance['mode'], 'cycle' ); ?>>
 							<?php
 							/* translators: This appears in widget settings. */
 							_ex( 'Cycle Mode', 'display type', 'strong-testimonials' );
@@ -293,7 +288,7 @@ class Strong_Testimonials_Widget extends WP_Widget {
 					</li>
 					<li class="radio-tab <?php if ( 'static' == $instance['mode'] ) { echo ' radio-current'; } ?>">
 						<label for="<?php echo $this->get_field_id( 'mode-static' ); ?>">
-							<input  id="<?php echo $this->get_field_id( 'mode-static' ); ?>" type="radio" name="<?php echo $this->get_field_name( 'mode' ); ?>" value="static" class="wpmtst-mode-setting" <?php checked( $instance['mode'], 'static' ); ?> />
+							<input  id="<?php echo $this->get_field_id( 'mode-static' ); ?>" type="radio" name="<?php echo $this->get_field_name( 'mode' ); ?>" value="static" class="wpmtst-mode-setting" <?php checked( $instance['mode'], 'static' ); ?>>
 							<?php
 							/* translators: This appears in widget settings. */
 							_ex( 'Static Mode', 'display type', 'strong-testimonials' );
@@ -315,10 +310,10 @@ class Strong_Testimonials_Widget extends WP_Widget {
 							</label>
 						</div>
 						<div>
-							<input type="text" id="<?php echo $this->get_field_id( 'cycle-limit' ); ?>" name="<?php echo $this->get_field_name( 'cycle-limit' ); ?>" value="<?php echo $instance['cycle-limit']; ?>" size="3" <?php if ( $instance['cycle-all'] ) { echo ' readonly="readonly"'; } ?> />
+							<input type="text" id="<?php echo $this->get_field_id( 'cycle-limit' ); ?>" name="<?php echo $this->get_field_name( 'cycle-limit' ); ?>" value="<?php echo $instance['cycle-limit']; ?>" size="3" <?php if ( $instance['cycle-all'] ) { echo ' readonly="readonly"'; } ?>>
 						</div>
 						<div class="divider">
-							<input type="checkbox" id="<?php echo $this->get_field_id( 'cycle-all' ); ?>" name="<?php echo $this->get_field_name( 'cycle-all' ); ?>" <?php checked( $instance['cycle-all'] ); ?> class="checkbox" />
+							<input type="checkbox" id="<?php echo $this->get_field_id( 'cycle-all' ); ?>" name="<?php echo $this->get_field_name( 'cycle-all' ); ?>" <?php checked( $instance['cycle-all'] ); ?> class="checkbox">
 							<label for="<?php echo $this->get_field_id( 'cycle-all' ); ?>">
 								<?php
 								/* translators: This appears in widget settings. */
@@ -338,7 +333,7 @@ class Strong_Testimonials_Widget extends WP_Widget {
 							</label>
 						</div>
 						<div>
-							<input type="text" id="<?php echo $this->get_field_id( 'cycle-timeout' ); ?>" name="<?php echo $this->get_field_name( 'cycle-timeout' ); ?>" value="<?php echo $instance['cycle-timeout']; ?>" size="3" />
+							<input type="text" id="<?php echo $this->get_field_id( 'cycle-timeout' ); ?>" name="<?php echo $this->get_field_name( 'cycle-timeout' ); ?>" value="<?php echo $instance['cycle-timeout']; ?>" size="3">
 							<?php
 							/* translators: This appears in widget settings. */
 							_ex( 'seconds', 'time setting', 'strong-testimonials' );
@@ -356,7 +351,7 @@ class Strong_Testimonials_Widget extends WP_Widget {
 							</label>
 						</div>
 						<div>
-							<input type="text" id="<?php echo $this->get_field_id( 'cycle-speed' ); ?>" name="<?php echo $this->get_field_name( 'cycle-speed' ); ?>" value="<?php echo $instance['cycle-speed']; ?>" size="3" />
+							<input type="text" id="<?php echo $this->get_field_id( 'cycle-speed' ); ?>" name="<?php echo $this->get_field_name( 'cycle-speed' ); ?>" value="<?php echo $instance['cycle-speed']; ?>" size="3">
 							<?php
 							/* translators: This appears in widget settings. */
 							_ex( 'seconds', 'time setting', 'strong-testimonials' );
@@ -366,7 +361,7 @@ class Strong_Testimonials_Widget extends WP_Widget {
 
 					<div class="row tall">
 						<div>
-							<input type="checkbox" id="<?php echo $this->get_field_id( 'cycle-pause' ); ?>" name="<?php echo $this->get_field_name( 'cycle-pause' ); ?>" <?php checked( $instance['cycle-pause'] ); ?>  class="checkbox" />
+							<input type="checkbox" id="<?php echo $this->get_field_id( 'cycle-pause' ); ?>" name="<?php echo $this->get_field_name( 'cycle-pause' ); ?>" <?php checked( $instance['cycle-pause'] ); ?>  class="checkbox">
 							<label for="<?php echo $this->get_field_id( 'cycle-pause' ); ?>">
 								<?php
 								/* translators: This appears in widget settings. */
@@ -391,7 +386,7 @@ class Strong_Testimonials_Widget extends WP_Widget {
 							</label>
 						</div>
 						<div>
-							<input type="text" id="<?php echo $this->get_field_id( 'static-limit' ); ?>" name="<?php echo $this->get_field_name( 'static-limit' ); ?>" value="<?php echo $instance['static-limit']; ?>" size="3" />
+							<input type="text" id="<?php echo $this->get_field_id( 'static-limit' ); ?>" name="<?php echo $this->get_field_name( 'static-limit' ); ?>" value="<?php echo $instance['static-limit']; ?>" size="3">
 						</div>
 					</div>
 
@@ -405,7 +400,7 @@ class Strong_Testimonials_Widget extends WP_Widget {
 				<p><b><?php _ex( 'Content', 'noun', 'strong-testimonials' ); ?></b></p>
 			
 				<p>
-					<input type="radio" id="<?php echo $this->get_field_id( 'char-switch' ); ?>-3" name="<?php echo $this->get_field_name( 'char-switch' ); ?>" value="3" <?php checked( $instance['char-switch'], 3 ); ?>  class="radio" />
+					<input type="radio" id="<?php echo $this->get_field_id( 'char-switch' ); ?>-3" name="<?php echo $this->get_field_name( 'char-switch' ); ?>" value="3" <?php checked( $instance['char-switch'], 3 ); ?>  class="radio">
 					<label for="<?php echo $this->get_field_id( 'char-switch' ); ?>-3">
 						<?php
 						/* translators: This appears in widget settings. */
@@ -423,7 +418,7 @@ class Strong_Testimonials_Widget extends WP_Widget {
 				</p>
 
 				<p>
-					<input type="radio" id="<?php echo $this->get_field_id( 'char-switch' ); ?>-1" name="<?php echo $this->get_field_name( 'char-switch' ); ?>" value="1" <?php checked( $instance['char-switch'], 1 ); ?>  class="radio" />
+					<input type="radio" id="<?php echo $this->get_field_id( 'char-switch' ); ?>-1" name="<?php echo $this->get_field_name( 'char-switch' ); ?>" value="1" <?php checked( $instance['char-switch'], 1 ); ?>  class="radio">
 					<label for="<?php echo $this->get_field_id( 'char-switch' ); ?>-1">
 						<?php
 						/* translators: This appears in widget settings. */
@@ -431,7 +426,7 @@ class Strong_Testimonials_Widget extends WP_Widget {
 						?>:&nbsp;
 					</label>
 					<!-- char limit field -->
-					<input type="text" id="<?php echo $this->get_field_id( 'char-limit' ); ?>" name="<?php echo $this->get_field_name( 'char-limit' ); ?>" value="<?php echo $instance['char-limit']; ?>" size="3" <?php if ( 1 != $instance['char-switch'] ) { echo ' readonly="readonly"'; } ?> />
+					<input type="text" id="<?php echo $this->get_field_id( 'char-limit' ); ?>" name="<?php echo $this->get_field_name( 'char-limit' ); ?>" value="<?php echo $instance['char-limit']; ?>" size="3" <?php if ( 1 != $instance['char-switch'] ) { echo ' readonly="readonly"'; } ?>>
 					<span class="widget-help pushdown dashicons dashicons-editor-help">
 						<span class="help">
 							<?php
@@ -443,7 +438,7 @@ class Strong_Testimonials_Widget extends WP_Widget {
 				</p>
 				
 				<p>
-					<input type="radio" id="<?php echo $this->get_field_id( 'char-switch' ); ?>-2" name="<?php echo $this->get_field_name( 'char-switch' ); ?>" value="2" <?php checked( $instance['char-switch'], 2 ); ?>  class="radio" />
+					<input type="radio" id="<?php echo $this->get_field_id( 'char-switch' ); ?>-2" name="<?php echo $this->get_field_name( 'char-switch' ); ?>" value="2" <?php checked( $instance['char-switch'], 2 ); ?>  class="radio">
 					<label for="<?php echo $this->get_field_id( 'char-switch' ); ?>-2">
 						<?php
 						/* translators: This appears in widget settings. */
@@ -464,7 +459,7 @@ class Strong_Testimonials_Widget extends WP_Widget {
 			
 			<!-- title -->
 			<p>
-				<input type="checkbox" id="<?php echo $this->get_field_id( 'show-title' ); ?>" name="<?php echo $this->get_field_name( 'show-title' ); ?>" <?php checked( $instance['show-title'] ); ?> class="checkbox" />
+				<input type="checkbox" id="<?php echo $this->get_field_id( 'show-title' ); ?>" name="<?php echo $this->get_field_name( 'show-title' ); ?>" <?php checked( $instance['show-title'] ); ?> class="checkbox">
 				<label for="<?php echo $this->get_field_id( 'show-title' ); ?>">
 					<?php
 					/* translators: This appears in widget settings. */
@@ -483,7 +478,7 @@ class Strong_Testimonials_Widget extends WP_Widget {
 
 			<!-- featured images -->
 			<p>
-				<input type="checkbox" id="<?php echo $this->get_field_id( 'images' ); ?>" name="<?php echo $this->get_field_name( 'images' ); ?>" <?php checked( $instance['images'] ); ?> class="checkbox" />
+				<input type="checkbox" id="<?php echo $this->get_field_id( 'images' ); ?>" name="<?php echo $this->get_field_name( 'images' ); ?>" <?php checked( $instance['images'] ); ?> class="checkbox">
 				<label for="<?php echo $this->get_field_id( 'images' ); ?>">
 					<?php
 					/* translators: This appears in widget settings. */
@@ -502,7 +497,7 @@ class Strong_Testimonials_Widget extends WP_Widget {
 			
 			<!-- client info -->
 			<p>
-				<input type="checkbox" id="<?php echo $this->get_field_id( 'client' ); ?>" name="<?php echo $this->get_field_name( 'client' ); ?>" <?php checked( $instance['client'] ); ?> class="checkbox" />
+				<input type="checkbox" id="<?php echo $this->get_field_id( 'client' ); ?>" name="<?php echo $this->get_field_name( 'client' ); ?>" <?php checked( $instance['client'] ); ?> class="checkbox">
 				<label for="<?php echo $this->get_field_id( 'client' ); ?>">
 					<?php
 						/* translators: This appears in widget settings. */
@@ -526,12 +521,12 @@ class Strong_Testimonials_Widget extends WP_Widget {
 				<p>
 					<?php
 					/* translators: This appears in widget settings. */
-					_e( '"Read More" link', 'strong-testimonials' );
+					_e( '"Read more" link', 'strong-testimonials' );
 					?>
 				</p>
 			
 				<p>
-					<input type="radio" id="<?php echo $this->get_field_id( 'more' ); ?>-0" name="<?php echo $this->get_field_name( 'more' ); ?>" value="0" <?php checked( 0, $instance['more'] ); ?> class="radio" />
+					<input type="radio" id="<?php echo $this->get_field_id( 'more' ); ?>-0" name="<?php echo $this->get_field_name( 'more' ); ?>" value="0" <?php checked( 0, $instance['more'] ); ?> class="radio">
 					<label for="<?php echo $this->get_field_id( 'more' ); ?>-0">
 						<?php
 						/* translators: This appears in widget settings. */
@@ -540,7 +535,7 @@ class Strong_Testimonials_Widget extends WP_Widget {
 					</label>
 				</p>
 				<p>
-					<input type="radio" id="<?php echo $this->get_field_id( 'more' ); ?>-1" name="<?php echo $this->get_field_name( 'more' ); ?>" value="1" <?php checked( 1, $instance['more'] ); ?> class="radio" />
+					<input type="radio" id="<?php echo $this->get_field_id( 'more' ); ?>-1" name="<?php echo $this->get_field_name( 'more' ); ?>" value="1" <?php checked( 1, $instance['more'] ); ?> class="radio">
 					<label for="<?php echo $this->get_field_id( 'more' ); ?>-1">
 						<?php
 						/* translators: This appears in widget settings. */
@@ -549,7 +544,7 @@ class Strong_Testimonials_Widget extends WP_Widget {
 					</label>
 				</p>
 				<p>
-					<input type="radio" id="<?php echo $this->get_field_id( 'more' ); ?>-2" name="<?php echo $this->get_field_name( 'more' ); ?>" value="2" <?php checked( 2, $instance['more'] ); ?> class="radio" />
+					<input type="radio" id="<?php echo $this->get_field_id( 'more' ); ?>-2" name="<?php echo $this->get_field_name( 'more' ); ?>" value="2" <?php checked( 2, $instance['more'] ); ?> class="radio">
 					<label for="<?php echo $this->get_field_id( 'more' ); ?>-2">
 						<?php
 						/* translators: This appears in widget settings. */
@@ -587,8 +582,7 @@ class Strong_Testimonials_Widget extends WP_Widget {
 
 		if ( ! $new_instance['cycle-limit'] ) {
 			$instance['cycle-limit'] = $defaults['cycle-limit'];
-		}
-		else {
+		} else {
 			$instance['cycle-limit'] = (int) strip_tags( $new_instance['cycle-limit'] );
 		}
 
@@ -596,8 +590,7 @@ class Strong_Testimonials_Widget extends WP_Widget {
 
 		if ( ! $new_instance['cycle-timeout'] ) {
 			$instance['cycle-timeout'] = $defaults['cycle-timeout'];
-		}
-		else {
+		} else {
 			$instance['cycle-timeout'] = (float) strip_tags( $new_instance['cycle-timeout'] );
 		}
 
@@ -606,8 +599,7 @@ class Strong_Testimonials_Widget extends WP_Widget {
 
 		if ( ! $new_instance['cycle-speed'] ) {
 			$instance['cycle-speed'] = $defaults['cycle-speed'];
-		}
-		else {
+		} else {
 			$instance['cycle-speed'] = (float) strip_tags( $new_instance['cycle-speed'] );
 		}
 

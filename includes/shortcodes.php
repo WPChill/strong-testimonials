@@ -5,6 +5,72 @@
  * @package Strong_Testimonials
  */
 
+function wpmtst_strong_view_shortcode( $atts, $content = null ) {
+	$out = shortcode_atts(
+		WPMST()->get_view_defaults(),
+		normalize_empty_atts( $atts ), 'testimonial_view'
+	);
+	$out['content'] = $content;
+
+	// container_class is shared by display and form in both original and new default templates
+	$options = get_option( 'wpmtst_options' );
+	$out['container_class'] = '';
+	if ( $out['class'] ) {
+		$out['container_class'] .= ' ' . str_replace( ',', ' ', $out['class'] );
+	}
+	if ( is_rtl() && $options['load_rtl_style'] ) {
+		$out['container_class'] .= ' rtl';
+	}
+	WPMST()->set_atts( $out );
+
+	/**
+	 * MODE: FORM
+	 */
+	if ( $out['form'] )
+		return wpmtst_form_shortcode( $out );
+
+	/**
+	 * MODE: DISPLAY (default)
+	 */
+	return wpmtst_display_view( $out );
+}
+add_shortcode( 'testimonial_view', 'wpmtst_strong_view_shortcode' );
+
+/**
+ * testimonial_view attribute filter
+ *
+ * @since 1.21.0
+ * @param $out
+ * @param $pairs
+ * @param $atts
+ *
+ * @return array
+ */
+function wpmtst_strong_view_shortcode_filter( $out, $pairs, $atts ) {
+	return WPMST()->parse_view( $out, $pairs, $atts );
+}
+add_filter( 'shortcode_atts_testimonial_view', 'wpmtst_strong_view_shortcode_filter', 10, 3 );
+
+/**
+ * read_more shortcode
+ *
+ * @since 1.21.0
+ * @param $atts
+ * @param null $content
+ *
+ * @return string
+ */
+function wpmtst_read_more_shortcode( $atts, $content = null ) {
+	$atts = shortcode_atts(
+		array(
+			'page'  => '',
+			'class' => '',
+		),
+		normalize_empty_atts( $atts ), 'read_more'
+	);
+	return wpmtst_readmore_shortcode( $atts, $content );
+}
+add_shortcode( 'read_more', 'wpmtst_read_more_shortcode' );
 
 /**
  * Normalize empty shortcode attributes.
@@ -29,6 +95,9 @@ if ( ! function_exists( 'normalize_empty_atts' ) ) {
 
 /**
  * Single Testimonial LAYOUT
+ * Will be removed in 2.0
+ * 
+ * @deprecated
  */
 function wpmtst_single( $post, $args = array() ) {
 	extract( array_merge( array( 
@@ -50,50 +119,10 @@ function wpmtst_single( $post, $args = array() ) {
 
 
 /**
- * Echo custom field.
- *
- * @since 1.11.0
- */
-function wpmtst_field( $field = null, $args = array() ) {
-	echo wpmtst_get_field( $field, $args );
-}
-
-/**
- * Fetch custom field.
- *
- * Thanks to Matthew Harris.
- * @link https://github.com/cdillon/strong-testimonials/issues/2
- * @since 1.15.7
- */
-function wpmtst_get_field( $field, $args = array() ) {	
-	if ( ! $field ) return '';
-	
-	global $post;
-	$html = '';
-	
-	switch( $field ) {
-	
-		// Apply a character limit to post content.
-		case 'truncated' :
-			$html = wpmtst_truncate( $post->post_content, $args['char_limit'] );
-			break;
-		
-		// Process child shortcodes in [strong] content.
-		case 'client' :
-			$html = do_child_shortcode( wpmtst_get_shortcode(), $args['content'] );
-			break;
-		
-		// Get the custom field.
-		default :
-			$html = get_post_meta( $post->ID, $field, true );
-			
-	}
-	return $html;
-}
-
-
-/**
  * Assemble and display client info.
+ * Will be removed in 2.0
+ * 
+ * @deprecated
  */
 function wpmtst_client_info( $post ) {
 	// ---------------------------------------------------------------------
@@ -167,6 +196,9 @@ function wpmtst_client_info( $post ) {
 
 /**
  * Client text field shortcode.
+ * Will be removed in 2.0
+ * 
+ * @deprecated
  */
 function wpmtst_text_shortcode( $atts, $content = null ) {
 	// bail if no content
@@ -175,8 +207,8 @@ function wpmtst_text_shortcode( $atts, $content = null ) {
 		
 	extract( shortcode_atts(
 		array( 
-				'field' => '', 
-				'class' => ''
+			'field' => '', 
+			'class' => ''
 		),
 		normalize_empty_atts( $atts )
 	) );
@@ -187,6 +219,9 @@ add_shortcode( 'wpmtst-text', 'wpmtst_text_shortcode' );
 
 /**
  * Client link shortcode.
+ * Will be removed in 2.0
+ * 
+ * @deprecated
  */
 function wpmtst_link_shortcode( $atts, $content = null ) {
 	// content like "company_website|company_name|nofollow"
@@ -222,7 +257,9 @@ add_shortcode( 'wpmtst-link', 'wpmtst_link_shortcode' );
 
 /**
  * Single testimonial shortcode.
+ * Will be removed in 2.0
  *
+ * @deprecated
  * @uses wpmtst-single.php
  */
 function wpmtst_single_shortcode( $atts ) {
@@ -248,7 +285,9 @@ add_shortcode( 'wpmtst-single', 'wpmtst_single_shortcode' );
 
 /**
  * Random testimonial shortcode.
+ * Will be removed in 2.0
  *
+ * @deprecated
  * @uses wpmtst-single.php
  */
 function wpmtst_random_shortcode( $atts ) {
@@ -300,7 +339,9 @@ add_shortcode( 'wpmtst-random', 'wpmtst_random_shortcode' );
 
 /**
  * All testimonials shortcode.
+ * Will be removed in 2.0
  *
+ * @deprecated
  * @uses wpmtst-single.php
  */
 function wpmtst_all_shortcode( $atts ) {
@@ -348,10 +389,10 @@ add_shortcode( 'wpmtst-all', 'wpmtst_all_shortcode' );
 
 /**
  * Cycle testimonials shortcode.
+ * Will be removed in 2.0
  *
+ * @deprecated
  * @uses wpmtst-single.php
- *
- * To be removed in 2.0.
  */
 function wpmtst_cycle_shortcode( $atts ) {
 	extract( shortcode_atts(
@@ -426,8 +467,9 @@ add_shortcode( 'wpmtst-cycle', 'wpmtst_cycle_shortcode' );
 
 /**
  * Pagination on "All Testimonials" shortcode.
- *
- * To be removed in 2.0.
+ * Will be removed in 2.0
+ * 
+ * @deprecated
  */
 function wpmtst_pagination_function() {
 	$options  = get_option( 'wpmtst_options' );
@@ -441,72 +483,4 @@ function wpmtst_pagination_function() {
 		});
 	</script>
 	<?php
-}
-
-
-/**
- * Notify admin upon testimonial submission.
- */
-function wpmtst_notify_admin( $post ) {
-	$custom_fields = get_option('wpmtst_fields');
-	$fields = $custom_fields['field_groups']['custom']['fields'];
-	
-	$options = get_option( 'wpmtst_form_options' );
-
-	if ( $options['sender_site_email'] )
-		$sender_email = get_bloginfo( 'admin_email' );
-	else
-		$sender_email = $options['sender_email'];
-
-	$sender_name = $options['sender_name'];
-		
-	if ( $options['admin_notify'] ) {
-		
-		foreach ( $options['recipients'] as $recipient ) {
-
-			if ( isset( $recipient['admin_site_email'] ) && $recipient['admin_site_email'] )
-				$admin_email = get_bloginfo( 'admin_email' );
-			else
-				$admin_email = $recipient['admin_email'];
-
-			$admin_name = $recipient['admin_name'];
-
-			$to = sprintf( '%s <%s>', $admin_name, $admin_email );
-
-			// Subject line
-			$subject = $options['email_subject'];
-			$subject = str_replace( '%BLOGNAME%', get_bloginfo( 'name' ), $subject );
-			$subject = str_replace( '%TITLE%', $post['post_title'], $subject );
-			$subject = str_replace( '%STATUS%', $post['post_status'], $subject );
-			
-			// custom fields
-			foreach ( $fields as $field ) {
-				$replace      = isset( $post[ $field['name'] ] ) ? $post[ $field['name'] ] : '(blank)';
-				$field_as_tag = '%' . strtoupper( $field['name'] ) . '%';
-				$subject      = str_replace( $field_as_tag, $replace, $subject );
-			}
-
-			// Message text
-			$message = $options['email_message'];
-			$message = str_replace( '%BLOGNAME%', get_bloginfo( 'name' ), $message );
-			$message = str_replace( '%TITLE%', $post['post_title'], $message );
-			$message = str_replace( '%CONTENT%', $post['post_content'], $message );
-			$message = str_replace( '%STATUS%', $post['post_status'], $message );
-			
-			// custom fields
-			foreach ( $fields as $field ) {
-				$replace      = isset( $post[ $field['name'] ] ) ? $post[ $field['name'] ] : '(blank)';
-				$field_as_tag = '%' . strtoupper( $field['name'] ) . '%';
-				$message      = str_replace( $field_as_tag, $replace, $message );
-			}
-
-			$headers = sprintf( 'From: %s <%s>', $sender_name, $sender_email );
-
-			// @TODO More info here? A copy of testimonial? A link to admin page? A link to approve directly from email?
-
-			@wp_mail( $to, $subject, $message, $headers );
-			
-		}
-	
-	}
 }
