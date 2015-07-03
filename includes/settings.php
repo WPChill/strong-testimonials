@@ -327,15 +327,6 @@ function wpmtst_form_settings() {
 			'installed' => false,
 			'active' => false
 		),
-		'wpmsrc'  => array(
-			'name' => 'Simple reCAPTCHA by WP Mission',
-			'file' => 'simple-recaptcha/simple-recaptcha.php',
-			'settings' => 'options-general.php?page=simple-recaptcha.php',
-			'search' => 'plugin-install.php?tab=search&s=Simple+reCAPTCHA',
-			'url' => 'http://wordpress.org/plugins/simple-recaptcha',
-			'installed' => false,
-			'active' => false
-		),
 		'advnore'  => array(
 			'name' => 'Advanced noCaptcha reCaptcha by Shamim Hasan',
 			'file' => 'advanced-nocaptcha-recaptcha/advanced-nocaptcha-recaptcha.php',

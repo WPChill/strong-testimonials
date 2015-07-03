@@ -33,7 +33,7 @@ Right out of the box, the testimonial submission form has fields for a name, an 
 
 Need to add a field? Want to remove one? No problem. Use the fields editor to **customize the form** to your specific situation, including the field order, the text before or after, the placeholder text, and required fields.
 
-The form also offer **anti-spam** options like honeypots and Captcha via these plugins: [Captcha](http://wordpress.org/plugins/captcha/), [Really Simple Captcha](http://wordpress.org/plugins/really-simple-captcha/), [Simple reCaptcha](http://wordpress.org/plugins/simple-recaptcha), and [Advanced noCaptcha reCaptcha](https://wordpress.org/plugins/advanced-nocaptcha-recaptcha/). The form messages for the required fields, the success and error messages, and even the Submit button are customizable too. It's pretty cool.
+The form also offer **anti-spam** options like honeypots and Captcha via these plugins: [Captcha](http://wordpress.org/plugins/captcha/), [Really Simple Captcha](http://wordpress.org/plugins/really-simple-captcha/), and [Advanced noCaptcha reCaptcha](https://wordpress.org/plugins/advanced-nocaptcha-recaptcha/). The form messages for the required fields, the success and error messages, and even the Submit button are customizable too. It's pretty cool.
 
 = Admin =
 
@@ -264,6 +264,9 @@ Thanks but I prefer a nice [review](https://wordpress.org/support/view/plugin-re
 
 
 == Changelog ==
+
+= 1.17.1 - 2015-07-03 =
+* Remove support for the Simple reCaptcha plugin.
 
 = 1.17 - 2015-06-29 =
 * Add support for the Advanced noCaptcha reCaptcha plugin.
@@ -555,5 +558,5 @@ Thanks but I prefer a nice [review](https://wordpress.org/support/view/plugin-re
 
 == Upgrade Notice ==
 
-= 1.17 - 2015-06-29 =
-* Add support for the Advanced noCaptcha reCaptcha plugin. Updated translation files.
+= 1.17.1 - 2015-07-03 =
+* Removed support for the Simple reCaptcha plugin. Use Advanced noCaptcha reCaptcha instead.
