@@ -265,6 +265,9 @@ Thanks but I prefer a nice [review](https://wordpress.org/support/view/plugin-re
 
 == Changelog ==
 
+= 1.17.2 - 2015-07-09 =
+* Remove HTML comments from templates to increase theme compatibility.
+
 = 1.17.1 - 2015-07-03 =
 * Remove support for the Simple reCaptcha plugin.
 
@@ -558,5 +561,5 @@ Thanks but I prefer a nice [review](https://wordpress.org/support/view/plugin-re
 
 == Upgrade Notice ==
 
-= 1.17.1 - 2015-07-03 =
-* Removed support for the Simple reCaptcha plugin. Use Advanced noCaptcha reCaptcha instead.
+= 1.17.2 =
+Removed HTML comments from templates to increase theme compatibility.
