@@ -281,6 +281,9 @@ Thanks but I prefer a nice [review](https://wordpress.org/support/view/plugin-re
 
 == Changelog ==
 
+= 1.18.1 - 2015-08-17 =
+* Fix bug when using site admin email for notifications.
+
 = 1.18 - 2015-08-17 =
 * Important update for WordPress 4.3!
 * Option to send notification emails to multiple recipients.

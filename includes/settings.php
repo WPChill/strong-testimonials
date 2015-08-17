@@ -173,9 +173,6 @@ function wpmtst_sanitize_form( $input ) {
 		if ( isset( $recipient['admin_name'] ) ) {
 			$recipient['admin_name'] = sanitize_text_field( $recipient['admin_name'] );
 		}
-		if ( isset( $recipient['admin_site_email'] ) ) {
-			$recipient['admin_site_email'] = isset( $recipient['admin_site_email'] ) ? 1 : 0;
-		}
 		$recipient['admin_email'] = sanitize_email( $recipient['admin_email'] );
 		if ( isset( $recipient['primary'] ) ) {
 			$recipient['primary'] = 1;
