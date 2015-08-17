@@ -111,6 +111,14 @@ function wpmtst_form_shortcode( $atts ) {
 					}
 					
 				}
+				elseif ( 'optional' == $field['record_type'] ) {
+					
+					if ( 'categories' == $field['input_type'] ) {
+						$category   = true;
+						$categories = $_POST[ $field['name'] ];
+					}
+					
+				}
 				
 			}
 
@@ -306,6 +314,30 @@ function wpmtst_form_shortcode( $atts ) {
 
 			$html .= '<input id="wpmtst_' . $field['name'] . '" class="" type="file" name="' . $field['name'] . '" />';
 
+		} 
+		/**
+		 * Categories
+		 *
+		 * @since 1.18 
+		 */
+		elseif ( 'categories' == $field['input_type'] ) {
+			
+			$category_list = get_terms( 'wpm-testimonial-category', array(
+				'hide_empty' => false,
+				'order_by'   => 'name',
+			) );
+
+			
+			$html .= '<select id="wpmtst_' . $field['name']. '" name="' . $field['name'] . '" class="' . $classes . '" autocomplete="off">';
+			$html .= '<option value="">&mdash;</option>';
+			foreach ( $category_list as $category ) {
+				// required?
+				$html .= '<option value="' . $category->term_id . '">'; //selected( $category->term_id, '$instance['category'] )
+				$html .= $category->name;
+				$html .= '</option>';
+			}
+			$html .= '</select>';
+			
 		}
 
 		// Add error message
@@ -340,7 +372,6 @@ function wpmtst_form_shortcode( $atts ) {
 		}
 	}
 
-	// /* translators: The Submit button on testimonial form.*/
 	$html .= '<p class="form-field">';
 	$html .= '<input type="submit" id="wpmtst_submit_testimonial"'
 				.' name="wpmtst_submit_testimonial"'

@@ -7,6 +7,7 @@
  */
  
 ?>
+<input type="hidden" name="wpmtst_form_options[default_recipient]" value="<?php echo htmlentities( serialize( $form_options['default_recipient'] ) ); ?>" />
 <p>
 	<em><?php printf( __( 'Customize the form fields <a href="%s">here</a>.', 'strong-testimonials' ), admin_url( 'edit.php?post_type=wpm-testimonial&page=fields' ) ); ?></em>
 </p>
@@ -63,148 +64,26 @@
 	</tr>
 	
 	<tr>
-		<td class="align-top">
+		<td class="tall">
 			<?php _e( 'Notification', 'strong-testimonials' ); ?>
 		</td>
 		
-		<td class="has-divs">
+		<td class="subsection">
 		
-			<div>
+			<div class="single-option">
 				<label>
 					<input id="wpmtst-options-admin-notify" type="checkbox" name="wpmtst_form_options[admin_notify]" <?php checked( $form_options['admin_notify'] ); ?> />
-					<?php _e( 'Send email upon new testimonial submission', 'strong-testimonials' ); ?>
+					<?php _e( 'Send an email upon new testimonial submission', 'strong-testimonials' ); ?>
 				</label>
 			</div>
 			
-			
-			<!-- FROM -->
-			<hr>
-			
-			<div>
-			
-				<div class="subsection"><?php _e( "From:", 'strong-testimonials' ); ?></div>
-				
-				<div>
-					<div class="left-col">
-						<label for="wpmtst-options-sender-name">
-							<span><?php _e( "Name", 'strong-testimonials' ); ?></span>
-						</label>
-					</div>
-					<div class="right-col">
-						<input id="wpmtst-options-sender-name" type="text" size="30" placeholder="sender's name" name="wpmtst_form_options[sender_name]" value="<?php echo esc_attr( $form_options['sender_name'] ); ?>" />
-					</div>
-				</div>
-				
-				<div>
-					<div class="left-col">
-						<?php _e( "Email", 'strong-testimonials' ); ?>
-					</div>
-					<div class="right-col">
-						<div>
-							<label>
-								<input id="wpmtst-options-sender-site-email-1" type="radio" name="wpmtst_form_options[sender_site_email]" <?php checked( $form_options['sender_site_email'], 1 ); ?> value="1" /> site admin email ( <?php echo get_bloginfo( 'admin_email' ); ?> ) <a href="<?php echo admin_url( 'options-general.php'); ?>">change</a>
-							</label>
-						</div>
-					</div>
-				</div>
-				
-				<div class="left-col"></div>
-				<div class="right-col">
-					<label>
-						<input id="wpmtst-options-sender-site-email-0" class="focus-next-field" type="radio" name="wpmtst_form_options[sender_site_email]" <?php checked( $form_options['sender_site_email'], 0 ); ?> value="0" />
-					</label>
-					<label>
-						<input id="wpmtst-options-sender-email" type="email" size="30" placeholder="sender's email" name="wpmtst_form_options[sender_email]" value="<?php echo esc_attr( $form_options['sender_email'] ); ?>" />
-					</label>
-				</div>
-				
+			<div id="admin-notify-fields" style="display: none;">
+				<?php include WPMTST_INC . 'form-form-settings-email-from.php'; ?>
+				<?php include WPMTST_INC . 'form-form-settings-email-to.php'; ?>
+				<?php include WPMTST_INC . 'form-form-settings-email.php'; ?>
 			</div>
 			
-			<!-- TO -->
-			
-			<div>
-			
-				<div class="subsection"><?php _e( "To:", 'strong-testimonials' ); ?></div>
-				
-				<div>
-					<div class="left-col">
-						<label for="wpmtst-options-admin-name">
-							<?php _e( "Name", 'strong-testimonials' ); ?>
-						</label>
-					</div>
-					<div class="right-col">
-						<input id="wpmtst-options-admin-name" type="text" size="30" placeholder="name" name="wpmtst_form_options[admin_name]" value="<?php echo esc_attr( $form_options['admin_name'] ); ?>" />
-					</div>
-				</div>
-				
-				<div>
-					<div class="left-col">
-						<?php _e( "Email", 'strong-testimonials' ); ?>
-					</div>
-					<div class="right-col">
-						<label>
-							<input id="wpmtst-options-admin-site-email-1" type="radio" name="wpmtst_form_options[admin_site_email]" <?php checked( $form_options['admin_site_email'], 1 ); ?> value="1" /> site admin email ( <?php echo get_bloginfo( 'admin_email' ); ?> ) <a href="<?php echo admin_url( 'options-general.php'); ?>">change</a>
-						</label>
-					</div>
-				</div>
-				
-				<div>
-					<div class="left-col"></div>
-					<div class="right-col">
-						<label>
-							<input id="wpmtst-options-admin-site-email-0" class="focus-next-field" type="radio" name="wpmtst_form_options[admin_site_email]" <?php checked( $form_options['admin_site_email'], 0 ); ?> value="0" />
-						</label>
-						<label>
-							<input id="wpmtst-options-admin-email" type="email" size="30" placeholder="email address" name="wpmtst_form_options[admin_email]" value="<?php echo esc_attr( $form_options['admin_email'] ); ?>" />
-						</label>
-					</div>
-				</div>
-				
-			</div>
-			
-			<hr>
-			
-			<div class="template-tags-help">
-				<div class="title"><?php _e( "Template tags for Subject and Message:", 'strong-testimonials' ); ?></div>
-				<div class="content">
-					<ul>
-						<li>%BLOGNAME% - the site title</li>
-						<li>%TITLE% - the testimonial title</li>
-						<li>%CONTENT% - the testimonial content</li>
-						<li>%STATUS% - pending or published</li>
-						<li>include your custom fields using this pattern:<br>%FIELD_NAME%<br>for example: %CLIENT_NAME%, %EMAIL%<li>
-					</ul>
-				</div>
-			</div>
-			</div>
-
-			<div class="half-width">
-			
-				<!-- SUBJECT -->
-				<div>
-					<div class="subsection"><?php _e( "Subject:", 'strong-testimonials' ); ?></div>
-				</div>
-				
-				<div class="input-email-subject">
-					<label>
-						<input id="wpmtst-options-email-subject" class="wide" type="text" size="50" placeholder="subject line" name="wpmtst_form_options[email_subject]" value="<?php echo esc_attr( $form_options['email_subject'] ); ?>" />
-					</label>
-				</div>
-				
-				<!-- MESSAGE -->
-				
-				<div>
-					<label for="wpmtst-options-email-message">
-						<span class="subsection"><?php _e( "Message:", 'strong-testimonials' ); ?></span>
-					</label>
-				</div>
-				<div>
-					<textarea id="wpmtst-options-email-message" rows="6" placeholder="message text" name="wpmtst_form_options[email_message]"><?php echo esc_attr( $form_options['email_message'] ); ?></textarea>
-				</div>
-			
-			</div><!-- .half-width -->
-			
-		</td><!-- .has-divs -->
+		</td><!-- .subsection -->
 	</tr>
 </table>
 
@@ -233,7 +112,7 @@
 	</tr>
 	<tr valign="top">
 		<td class="align-top">
-			<p><?php _e( 'Captcha', 'strong-testimonials' ); ?></strong>
+			<p><?php _e( 'Captcha', 'strong-testimonials' ); ?></p>
 		</td>
 		<td class="stackem">
 			<p><?php _e( 'Can be used alongside honeypot methods. Be sure to configure any plugins first, if necessary.', 'strong-testimonials' ); ?></p>

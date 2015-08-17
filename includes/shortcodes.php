@@ -450,7 +450,7 @@ function wpmtst_pagination_function() {
 function wpmtst_notify_admin( $post ) {
 	$custom_fields = get_option('wpmtst_fields');
 	$fields = $custom_fields['field_groups']['custom']['fields'];
-
+	
 	$options = get_option( 'wpmtst_form_options' );
 
 	if ( $options['sender_site_email'] )
@@ -460,52 +460,53 @@ function wpmtst_notify_admin( $post ) {
 
 	$sender_name = $options['sender_name'];
 		
-	if ( $options['admin_site_email'] )
-		$admin_email = get_bloginfo( 'admin_email' );
-	else
-		$admin_email = $options['admin_email'];
-
-	$admin_name = $options['admin_name'];
-
-
 	if ( $options['admin_notify'] ) {
 		
-		$to = sprintf( '%s <%s>', $admin_name, $admin_email );
-	
-		// Default subject and message moved to includes/defaults.php.
-		
-		// str_replace( search, replace, subject )
-		
-		// Subject line
-		$subject = $options['email_subject'];
-		$subject = str_replace( '%BLOGNAME%', get_bloginfo( 'name' ), $subject );
-		$subject = str_replace( '%TITLE%', $post['post_title'], $subject );
-		$subject = str_replace( '%STATUS%', $post['post_status'], $subject );
-		// custom fields
-		foreach ( $fields as $field ) {
-			$field_as_tag = '%' . strtoupper( $field['name'] ). '%';
-			$subject = str_replace( $field_as_tag, $post[$field['name']], $subject );
-		}
-		
-		// Message text
-		$message = $options['email_message'];
-		$message = str_replace( '%BLOGNAME%', get_bloginfo( 'name' ), $message );
-		$message = str_replace( '%TITLE%', $post['post_title'], $message );
-		$message = str_replace( '%CONTENT%', $post['post_content'], $message );
-		$message = str_replace( '%STATUS%', $post['post_status'], $message );
-		// custom fields
-		foreach ( $fields as $field ) {
-			$field_as_tag = '%' . strtoupper( $field['name'] ). '%';
-			$message = str_replace( $field_as_tag, $post[$field['name']], $message );
-		}
+		foreach ( $options['recipients'] as $recipient ) {
 
-		$headers = sprintf( 'From: %s <%s>', $sender_name, $sender_email );
-		
-		/* translators: Message for new testimonial notification email. */
-		
-		// @TODO More info here? A copy of testimonial? A link to admin page? A link to approve directly from email?
-		
-		@wp_mail( $to, $subject, $message, $headers );
+			if ( isset( $recipient['admin_site_email'] ) && $recipient['admin_site_email'] )
+				$admin_email = get_bloginfo( 'admin_email' );
+			else
+				$admin_email = $recipient['admin_email'];
+
+			$admin_name = $recipient['admin_name'];
+
+			$to = sprintf( '%s <%s>', $admin_name, $admin_email );
+
+			// Subject line
+			$subject = $options['email_subject'];
+			$subject = str_replace( '%BLOGNAME%', get_bloginfo( 'name' ), $subject );
+			$subject = str_replace( '%TITLE%', $post['post_title'], $subject );
+			$subject = str_replace( '%STATUS%', $post['post_status'], $subject );
+			
+			// custom fields
+			foreach ( $fields as $field ) {
+				$replace      = isset( $post[ $field['name'] ] ) ? $post[ $field['name'] ] : '(blank)';
+				$field_as_tag = '%' . strtoupper( $field['name'] ) . '%';
+				$subject      = str_replace( $field_as_tag, $replace, $subject );
+			}
+
+			// Message text
+			$message = $options['email_message'];
+			$message = str_replace( '%BLOGNAME%', get_bloginfo( 'name' ), $message );
+			$message = str_replace( '%TITLE%', $post['post_title'], $message );
+			$message = str_replace( '%CONTENT%', $post['post_content'], $message );
+			$message = str_replace( '%STATUS%', $post['post_status'], $message );
+			
+			// custom fields
+			foreach ( $fields as $field ) {
+				$replace      = isset( $post[ $field['name'] ] ) ? $post[ $field['name'] ] : '(blank)';
+				$field_as_tag = '%' . strtoupper( $field['name'] ) . '%';
+				$message      = str_replace( $field_as_tag, $replace, $message );
+			}
+
+			$headers = sprintf( 'From: %s <%s>', $sender_name, $sender_email );
+
+			// @TODO More info here? A copy of testimonial? A link to admin page? A link to approve directly from email?
+
+			@wp_mail( $to, $subject, $message, $headers );
+			
+		}
 	
 	}
 }

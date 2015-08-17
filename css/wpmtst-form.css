@@ -29,6 +29,7 @@
 #wpmtst-form input[type="email"],
 #wpmtst-form input[type="url"],
 #wpmtst-form input[type="file"],
+#wpmtst-form select,
 #wpmtst-form textarea {
 	box-sizing: border-box;
 	display: block;
@@ -87,7 +88,7 @@
 
 /* reCAPTCHA mini-reset
 -----------------------------------------------*/
-
+/*
 .recaptchatable {
 	width: auto !important;
 }
@@ -104,9 +105,9 @@
 .recaptchatable input {
 	display: inline !important;
 }
+*/
 
-
-/* Really Simple Captcha
+/* Captcha
 -----------------------------------------------*/
 
 #wpmtst-form span {

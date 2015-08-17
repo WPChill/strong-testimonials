@@ -58,13 +58,15 @@ function wpmtst_settings_custom_fields() {
 				$field = array_merge( $field_options['field_base'], $field );
 
 				// sanitize & validate
-				$field['name']        = sanitize_text_field( $field['name'] );
-				$field['label']       = sanitize_text_field( $field['label'] );
+				$field['name'] = sanitize_text_field( $field['name'] );
+				$field['label'] = sanitize_text_field( $field['label'] );
 				$field['placeholder'] = sanitize_text_field( $field['placeholder'] );
-				$field['before']      = sanitize_text_field( $field['before'] );
-				$field['after']       = sanitize_text_field( $field['after'] );
-				$field['required']    = $field['required'] ? 1 : 0;
+				$field['show_placeholder_option'] = $field['show_placeholder_option'] ? 1 : 0;
+				$field['before'] = sanitize_text_field( $field['before'] );
+				$field['after'] = sanitize_text_field( $field['after'] );
+				$field['required'] = $field['required'] ? 1 : 0;
 				$field['admin_table'] = $field['admin_table'] ? 1 : 0;
+				$field['show_admin_table_option'] = $field['show_admin_table_option'] ? 1 : 0;
 
 				// add to fields array in display order
 				$fields[$new_key++] = $field;
@@ -170,7 +172,7 @@ function wpmtst_show_field( $key, $field, $adding ) {
 	$html .= '<tr>' . "\n";
 	$html .= '<th>' . _x( 'Name', 'noun', 'strong-testimonials' ) . '</th>' . "\n";
 	$html .= '<td>' . "\n";
-	if ( 'custom' == $field['record_type'] ) {
+	if ( in_array( $field['record_type'], array( 'custom', 'optional' ) ) ) {
 		// if adding, the field Name is blank so it can be populated from Label
 		$html .= '<input type="text" class="field-name" name="fields['.$key.'][name]" value="' . ( isset( $field['name'] ) ? $field['name'] : '' ) . '" />' . "\n";
 		$html .= '<span class="help field-name-help">' . __( 'Use only lowercase letters, numbers, and underscores.', 'strong-testimonials' ) . '</span>' . "\n";
@@ -230,7 +232,18 @@ function wpmtst_show_field( $key, $field, $adding ) {
 			$html .= '<option value="' . $field_key . '">' . $field_parts['option_label'] . '</option>' . "\n";
 		}
 		$html .= '</optgroup>' . "\n";
-		
+
+		/**
+		 * Optional fields
+		 * 
+		 * @since 1.18
+		 */
+		$html .= '<optgroup class="optional" label="' . __( 'Optional Fields', 'strong-testimonials' ) . '">' . "\n";
+		foreach ( $field_types['optional'] as $field_key => $field_parts ) {
+			$html .= '<option value="' . $field_key . '">' . $field_parts['option_label'] . '</option>' . "\n";
+		}
+		$html .= '</optgroup>' . "\n";
+
 		$html .= '</select>' . "\n";
 
 	}
@@ -251,13 +264,27 @@ function wpmtst_show_field( $key, $field, $adding ) {
 			}
 			$html .= '</select>' . "\n";
 		}
-		else {
+		elseif ( 'custom' == $field['record_type'] ) {
 			// -------------
 			// Custom fields
 			// -------------
 			$html .= '<select class="field-type" name="fields[' . $key . '][input_type]" autocomplete="off">' . "\n";
 			$html .= '<optgroup class="custom" label="Custom Fields">' . "\n";
 			foreach ( $field_types['custom'] as $field_key => $field_parts ) {
+				// compare field *type*
+				$selected = selected( $field['input_type'], $field_key, false );
+				$html .= '<option value="' . $field_key . '" ' . $selected . '>' . $field_parts['option_label'] . '</option>' . "\n";
+			}
+			$html .= '</optgroup>' . "\n";
+			$html .= '</select>' . "\n";
+		}
+		elseif ( 'optional' == $field['record_type'] ) {
+			// -------------
+			// Optional fields
+			// -------------
+			$html .= '<select class="field-type" name="fields[' . $key . '][input_type]" autocomplete="off">' . "\n";
+			$html .= '<optgroup class="optional" label="Optional Fields">' . "\n";
+			foreach ( $field_types['optional'] as $field_key => $field_parts ) {
 				// compare field *type*
 				$selected = selected( $field['input_type'], $field_key, false );
 				$html .= '<option value="' . $field_key . '" ' . $selected . '>' . $field_parts['option_label'] . '</option>' . "\n";
@@ -325,11 +352,13 @@ function wpmtst_show_field_secondary( $key, $field ) {
 	// -----------
 	// Placeholder
 	// -----------
-	if ( isset( $field['placeholder'] ) ) {
-		$html .= '<tr>' . "\n";
-		$html .= '<th>' . __( 'Placeholder', 'strong-testimonials' ) . '</th>' . "\n";
-		$html .= '<td><input type="text" name="fields[' . $key . '][placeholder]" value="' . $field['placeholder'] . '" /></td>' . "\n";
-		$html .= '</td>' . "\n";
+	if ( $field['show_placeholder_option'] ) {
+		if ( isset( $field['placeholder'] ) ) {
+			$html .= '<tr>' . "\n";
+			$html .= '<th>' . __( 'Placeholder', 'strong-testimonials' ) . '</th>' . "\n";
+			$html .= '<td><input type="text" name="fields[' . $key . '][placeholder]" value="' . $field['placeholder'] . '" /></td>' . "\n";
+			$html .= '</td>' . "\n";
+		}
 	}
 	
 	// ------
@@ -359,13 +388,17 @@ function wpmtst_show_field_admin_table( $key, $field ) {
 	// -------------------
 	// Show in Admin Table
 	// -------------------
+	if ( ! $field['show_admin_table_option'] ) {
+		$html = '<input type="hidden" name="fields[' . $key . '][show_admin_table_option]" value="' . $field['show_admin_table_option'] . '" />' . "\n";
+		return $html;
+	}
+	
 	$html = '<tr class="field-admin-table">' . "\n";
 	$html .= '<th>' . __( 'Admin Table', 'strong-testimonials' ) . '</th>' . "\n";
 	$html .= '<td>' . "\n";
 	if ( $field['admin_table_option'] ) {
 		$html .= '<input type="checkbox" class="field-admin-table" name="fields[' . $key . '][admin_table]" ' . checked( $field['admin_table'], 1, false ) . ' />' . "\n";
-	}
-	else {
+	} else {
 		$html .= '<input type="checkbox" ' . checked( $field['admin_table'], 1, false ) . ' disabled="disabled" /> <em>' . __( 'required', 'strong-testimonials' ) . '</em>' . "\n";
 		$html .= '<input type="hidden" name="fields[' . $key . '][admin_table]" value="' . $field['admin_table'] . '" />' . "\n";
 	}
@@ -384,10 +417,14 @@ function wpmtst_show_field_hidden( $key, $field ) {
 	// -------------
 	$html = '<input type="hidden" name="fields[' . $key . '][record_type]" value="' . $field['record_type'] . '">' . "\n";
 	$html .= '<input type="hidden" name="fields[' . $key . '][input_type]" value="' . $field['input_type'] . '">' . "\n";
+	$html .= '<input type="hidden" name="fields[' . $key . '][show_placeholder_option]" value="' . $field['show_placeholder_option'] . '">' . "\n";
 	$html .= '<input type="hidden" name="fields[' . $key . '][admin_table_option]" value="' . $field['admin_table_option'] . '">' . "\n";
+	$html .= '<input type="hidden" name="fields[' . $key . '][show_admin_table_option]" value="' . $field['show_admin_table_option'] . '">' . "\n";
+	
 	if ( isset( $field['map'] ) ) {
 		$html .= '<input type="hidden" name="fields[' . $key . '][map]" value="' . $field['map'] . '">' . "\n";
 	}
+	
 	if ( isset( $field['core'] ) ) {
 		$html .= '<input type="hidden" name="fields[' . $key . '][core]" value="' . $field['core'] . '">' . "\n";
 	}

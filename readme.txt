@@ -2,7 +2,7 @@
 Contributors: cdillon27
 Tags: testimonials, testimonial widget, random testimonial, testimonial shortcode, testimonial slider
 Requires at least: 3.5
-Tested up to: 4.2.2
+Tested up to: 4.3
 Stable tag: trunk
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -16,12 +16,18 @@ Strong Testimonials by [WP Mission](https://www.wpmission.com) is a full-feature
 = Overview =
 
 1. Categories, excerpts, and Featured Images (thumbnails) are supported.
-1. Multiple sorting options, pagination, and slideshows.
+1. Sorting options, pagination, and slideshows.
 1. A testimonial submission form with customizable fields, anti-spam options, and a notification email.
 1. Shortcodes, widgets, and template files.
 1. A deep and wide demo site and a developer who's on your side.
 
 [Demos](http://demos.wpmission.com/strong-testimonials/) | [Screenshots](http://wordpress.org/plugins/strong-testimonials/screenshots/) | [Feature Requests](https://www.wpmission.com/project/strong-testimonials/?target=feature-requests)
+
+= What's New = 
+
+* Version 1.18 is fully compatible with WordPress 4.3.
+* When a testimonial has been submitted, you can send the notification email to multiple recipients.
+* You can add a category selector to the submission form.
 
 = Collect =
 
@@ -35,25 +41,21 @@ Need to add a field? Want to remove one? No problem. Use the fields editor to **
 
 The form also offer **anti-spam** options like honeypots and Captcha via these plugins: [Captcha](http://wordpress.org/plugins/captcha/), [Really Simple Captcha](http://wordpress.org/plugins/really-simple-captcha/), and [Advanced noCaptcha reCaptcha](https://wordpress.org/plugins/advanced-nocaptcha-recaptcha/). The form messages for the required fields, the success and error messages, and even the Submit button are customizable too. It's pretty cool.
 
-= Admin =
-
-Testimonials are a custom post type that uses the standard post editor, so no new UI to learn there. Just like posts, they can be organized into **categories** for easy segmentation. Categories are by far the best way to show the right testimonials on the right page and to spread them out across the breadth of your site.
-
 Submitted testimonials will be in Pending status by default or they can be published immediately. You can send a **notification email** to the site administrator (or any email address) with submission details.
 
 = Display =
 
 `
-[strong title thumbnail]
+[strong title thumbnail ... ]
 `
 
 Show the newest first, the oldest first or in random order. Drag and drop them into a new order in the admin list.
 
-Show one, ten or all of them. Show the full testimonial, the excerpt, or up to a specified length - which is great when you have both long and short testimonials. 
+Show one or show all or any number in between. Show the full testimonial, the excerpt, or up to a specified length - which is great when you have both long and short testimonials. 
 
 With the excerpt and short version options, you can add a "Read more" link to the full testimonial, which works well when you have long testimonials that really tell a story and when you have prospects that do their due diligence and read every word on your site.
 
-When you have more than ten or so testimonials, a popular approach is to **paginate them**, only showing 5-10 per page. The plugin offers simple page controls (1 2 3 ...) that can be placed above and below the testimonial group.
+Just like posts, they can be organized into **categories** for easy segmentation. You can **paginate them**, only showing 5-10 per page. The plugin offers simple page controls (1 2 3 ...) that can be placed above and below the testimonial group.
 
 = Slideshow =
 
@@ -106,7 +108,7 @@ The plugin includes a POT file and Arabic, French, Hebrew, Portuguese, Russian, 
 
 = Support =
 
-As a technical support veteran, I am dedicated to your success. I will move mountains to fix bugs, to resolve conflicts with other plugins and themes, and to craft elegant solutions to fragile workarounds. Just ask [Grant](https://wordpress.org/support/topic/great-support-308?replies=2), [hnrocket](https://wordpress.org/support/topic/effective-great-support?replies=2), and [Anna](https://wordpress.org/support/topic/awesome-support-and-solid-plug-in?replies=2).
+As a technical support veteran, I am dedicated to your success. I will move mountains to fix bugs, to resolve conflicts with other plugins and themes, and to craft elegant solutions to fragile workarounds.
 
 [Demos](http://demos.wpmission.com/strong-testimonials/) | [Screenshots](http://wordpress.org/plugins/strong-testimonials/screenshots/) | [Feature Requests](https://www.wpmission.com/project/strong-testimonials/?target=feature-requests)
 
@@ -182,6 +184,36 @@ For help, use the [support forum](http://wordpress.org/support/plugin/strong-tes
 
 [Demos](http://demos.wpmission.com/strong-testimonials/) | [Screenshots](http://wordpress.org/plugins/strong-testimonials/screenshots/) | [Feature Requests](https://www.wpmission.com/feature-request)
 
+= Can I edit the notification email that goes out when a new testimonial has been submitted? = 
+
+Yes. You can edit the subject line, the message, who it's from, and who it's to (including multiple recipients).
+
+
+= Can I auto-publish new testimonials instead of putting them in "pending" status? =
+
+Yes.
+
+
+= Can I change the fields on the form? =
+
+Yes. There is a custom field editor where you can add or remove fields, change field details, and drag-and-drop to reorder them. You can also restore the default fields.
+
+If you have ever used the Advanced Custom Fields or Custom Field Suite plugins, the editor will be very familiar. Here is a full [tutorial](https://www.wpmission.com/tutorials/customize-the-form-in-strong-testimonials/).
+
+
+= I want to use categories. Can I add a category selector to the submission form? =
+
+Yes. After setting up your categories, you can add a category dropdown element to the form.
+
+
+= Can I add Captcha to the form? =
+
+Yes. Install one of the supported Captcha plugins, configure it, and select it on the Settings page.
+
+If your site relies on a partner plugin like this, and that plugin becomes buggy or abandoned, I will adopt or fork it to keep your site running.
+
+[Contact me](https://www.wpmission.com/contact) to recommend another method or plugin.
+
 
 = My web host does not allow the SQL RAND() random function. Will your plugin still work? =
 
@@ -218,22 +250,6 @@ To avoid conflicts, the plugin proactively **denies** these plugins from reorder
 That manual order field is also available in the widget.
 
 
-= Can I change the fields on the form? =
-
-Yes. There is a custom field editor where you can add or remove fields, change field details, and drag-and-drop to reorder them. You can also restore the default fields.
-
-If you have ever used the Advanced Custom Fields or Custom Field Suite plugins, the editor will be very familiar. Here is a full [tutorial](https://www.wpmission.com/tutorials/customize-the-form-in-strong-testimonials/).
-
-
-= Can I add Captcha to the form? =
-
-Yes. Install one of the supported Captcha plugins, configure it, and select it on the Settings page.
-
-If your site relies on a partner plugin like this, and that plugin becomes buggy or abandoned, I will adopt or fork it to keep your site running.
-
-[Contact me](https://www.wpmission.com/contact) to recommend another method or plugin.
-
-
 = Is this multisite compatible? =
 
 Yes, but I highly recommend first installing the [Proper Network Activation](http://wordpress.org/plugins/proper-network-activation/) plugin when adding Strong Testimonials to a multisite installation. That plugin will deftly handle the plugin activation process, ensuring each site has the default settings.
@@ -264,6 +280,11 @@ Thanks but I prefer a nice [review](https://wordpress.org/support/view/plugin-re
 
 
 == Changelog ==
+
+= 1.18 - 2015-08-17 =
+* Important update for WordPress 4.3!
+* Option to send notification emails to multiple recipients.
+* Option to add a category selector to the testimonial submission form.
 
 = 1.17.2 - 2015-07-09 =
 * Remove HTML comments from templates to increase theme compatibility.
@@ -561,5 +582,5 @@ Thanks but I prefer a nice [review](https://wordpress.org/support/view/plugin-re
 
 == Upgrade Notice ==
 
-= 1.17.2 =
-Removed HTML comments from templates to increase theme compatibility.
+= 1.18 =
+* Important update for WordPress 4.3! Multiple notification emails. A category selector for the form.

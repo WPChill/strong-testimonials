@@ -1,29 +1,22 @@
 <?php
 /**
- * Strong Testimonials - Widget functions
+ * Strong Testimonials - Widget
  */
 
- 
-/*
- * Widget
- */
-class WpmTst_Widget extends WP_Widget {
+class Strong_Testimonials_Widget extends WP_Widget {
 
-	// -----
-	// setup
-	// -----
-	function WpmTst_Widget() {
+	function __construct() {
 
 		$widget_ops = array(
-				'classname'   => 'wpmtst-widget',
-				'description' => _x( 'Strong Testimonials widget.', 'description', 'strong-testimonials' )
+			'classname'   => 'wpmtst-widget',
+			'description' => _x( 'Strong Testimonials widget.', 'description', 'strong-testimonials' )
 		);
 
 		$control_ops = array(
-				'id_base' => 'wpmtst-widget',
+			'id_base' => 'wpmtst-widget',
 		);
 
-		$this->WP_Widget( 'wpmtst-widget', _x( 'Testimonials', 'widget title', 'strong-testimonials' ), $widget_ops, $control_ops );
+		parent::__construct( 'wpmtst-widget', _x( 'Testimonials', 'widget title', 'strong-testimonials' ), $widget_ops, $control_ops );
 
 		$this->defaults = array(
 				'title'         => _x( 'Testimonials', 'widget title', 'strong-testimonials' ),
@@ -50,9 +43,6 @@ class WpmTst_Widget extends WP_Widget {
 
 	}
 
-	// -------
-	// display
-	// -------
 	function widget( $args, $instance ) {
 		
 		$data = array_merge( $args, $instance );
@@ -207,9 +197,6 @@ class WpmTst_Widget extends WP_Widget {
 		echo $data['after_widget'];
 	}
 
-	// ----
-	// form
-	// ----
 	function form( $instance ) {
 
 		$instance = wp_parse_args( (array) $instance, $this->defaults );
@@ -589,9 +576,6 @@ class WpmTst_Widget extends WP_Widget {
 		<?php
 	}
 
-	// ----
-	// save
-	// ----
 	function update( $new_instance, $old_instance ) {
 		$instance = $old_instance;
 		$defaults = $this->defaults;
@@ -658,10 +642,7 @@ class WpmTst_Widget extends WP_Widget {
 }
 
 
-/*
- * Load widget
- */
 function wpmtst_load_widget() {
-	register_widget( 'WpmTst_Widget' );
+	register_widget( 'Strong_Testimonials_Widget' );
 }
 add_action( 'widgets_init', 'wpmtst_load_widget' );

@@ -10,43 +10,44 @@
  * Menus
  */
 function wpmtst_settings_menu() {
-	add_submenu_page( 'edit.php?post_type=wpm-testimonial',     // $parent_slug
-										__( 'Settings', 'strong-testimonials' ),  // $page_title
-										__( 'Settings', 'strong-testimonials' ),  // $menu_title
-										'manage_options',                         // $capability
-										'settings',                               // $menu_slug
-										'wpmtst_settings_page' );                 // $function
+	add_submenu_page( 'edit.php?post_type=wpm-testimonial',
+		__( 'Settings', 'strong-testimonials' ),
+		__( 'Settings', 'strong-testimonials' ),
+		'manage_options',
+		'settings',
+		'wpmtst_settings_page' );
 
 	add_submenu_page( 'edit.php?post_type=wpm-testimonial',
-										__( 'Fields', 'strong-testimonials' ),
-										__( 'Fields', 'strong-testimonials' ),
-										'manage_options',
-										'fields',
-										'wpmtst_settings_custom_fields' );
+		__( 'Fields', 'strong-testimonials' ),
+		__( 'Fields', 'strong-testimonials' ),
+		'manage_options',
+		'fields',
+		'wpmtst_settings_custom_fields' );
 
 	add_submenu_page( 'edit.php?post_type=wpm-testimonial',
-										__( 'Shortcodes', 'strong-testimonials' ),
-										__( 'Shortcodes', 'strong-testimonials' ),
-										'manage_options',
-										'shortcodes',
-										'wpmtst_settings_shortcodes' );
+		__( 'Shortcodes', 'strong-testimonials' ),
+		__( 'Shortcodes', 'strong-testimonials' ),
+		'manage_options',
+		'shortcodes',
+		'wpmtst_settings_shortcodes' );
 
 	add_submenu_page( 'edit.php?post_type=wpm-testimonial',
-										_x( 'Guide', 'noun', 'strong-testimonials' ),
-										_x('Guide', 'noun', 'strong-testimonials' ),
-										'manage_options',
-										'guide',
-										'wpmtst_guide' );
-										
+		_x( 'Guide', 'noun', 'strong-testimonials' ),
+		_x( 'Guide', 'noun', 'strong-testimonials' ),
+		'manage_options',
+		'guide',
+		'wpmtst_guide' );
+
 	add_submenu_page( 'edit.php?post_type=wpm-testimonial',
-										__( 'News', 'strong-testimonials' ),
-										__( 'News', 'strong-testimonials' ),
-										'manage_options',
-										'news',
-										'wpmtst_news' );
-										
+		__( 'News', 'strong-testimonials' ),
+		__( 'News', 'strong-testimonials' ),
+		'manage_options',
+		'news',
+		'wpmtst_news' );
+
 	add_action( 'admin_init', 'wpmtst_register_settings' );
 }
+
 add_action( 'admin_menu', 'wpmtst_settings_menu' );
 
 
@@ -140,25 +141,52 @@ function wpmtst_sanitize_cycle( $input ) {
 /*
  * Sanitize form settings
  *
+ * An unchecked checkbox is not posted.
+ * 
  * @since 1.13
  */
 function wpmtst_sanitize_form( $input ) {
-	// an unchecked checkbox is not posted
 	$input['post_status']       = sanitize_text_field( $input['post_status'] );
-	
 	$input['admin_notify']      = isset( $input['admin_notify'] ) ? 1 : 0;
-
-	$input['admin_name']        = sanitize_text_field( $input['admin_name'] );
-	$input['admin_site_email']  = intval( $input['admin_site_email'] );
-	$input['admin_email']       = sanitize_email( $input['admin_email'] );
-	
 	$input['sender_name']       = sanitize_text_field( $input['sender_name'] );
 	$input['sender_site_email'] = intval( $input['sender_site_email'] );
 	$input['sender_email']      = sanitize_email( $input['sender_email'] );
+
+	/**
+	 * Multiple recipients.
+	 * 
+	 * @since 1.18
+	 */
+	$new_recipients = array();
+	foreach ( $input['recipients'] as $recipient ) {
+		// Don't save if both fields are empty.
+		if ( isset( $recipient['admin_site_email'] ) && ! $recipient['admin_site_email'] || ! isset( $recipient['admin_site_email'] ) ) {
+			if ( isset( $recipient['admin_name'] ) && isset( $recipient['admin_email'] ) ) {
+				if ( ! $recipient['admin_name']  && ! $recipient['admin_email'] ) {
+					continue;
+				}
+			}
+			else {
+				continue;
+			}
+		}
+		if ( isset( $recipient['admin_name'] ) ) {
+			$recipient['admin_name'] = sanitize_text_field( $recipient['admin_name'] );
+		}
+		if ( isset( $recipient['admin_site_email'] ) ) {
+			$recipient['admin_site_email'] = isset( $recipient['admin_site_email'] ) ? 1 : 0;
+		}
+		$recipient['admin_email'] = sanitize_email( $recipient['admin_email'] );
+		if ( isset( $recipient['primary'] ) ) {
+			$recipient['primary'] = 1;
+		}
+		$new_recipients[] = $recipient;
+	}
+	$input['recipients'] = $new_recipients;
 	
+	$input['default_recipient'] = unserialize( $input['default_recipient'] ); 
 	$input['email_subject']     = sanitize_text_field( $input['email_subject'] );
 	$input['email_message']     = wp_kses_post( $input['email_message'] );
-	
 	$input['honeypot_before']   = isset( $input['honeypot_before'] ) ? 1 : 0;
 	$input['honeypot_after']    = isset( $input['honeypot_after'] ) ? 1 : 0;
 	$input['captcha']           = sanitize_text_field( $input['captcha'] );
@@ -354,7 +382,7 @@ function wpmtst_form_settings() {
 		
 	}
 
-	include( WPMTST_INC . 'form-form.php' );
+	include( WPMTST_INC . 'form-form-settings.php' );
 }
 
 

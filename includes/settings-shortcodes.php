@@ -7,7 +7,7 @@
 ?>
 
 <div class="update-nag">
-	<?php printf( __( 'These shortcodes will be deprecated soon. Please migrate to the <a href="%s"><code>[strong]</code></a> shortcode.', 'strong-testimonials' ), admin_url( 'edit.php?post_type=wpm-testimonial&page=shortcodes' ) ); ?>
+	<?php printf( __( 'These shortcodes will be deprecated in version 2.0. Please migrate to the <a href="%s"><code>[strong]</code></a> shortcode.', 'strong-testimonials' ), admin_url( 'edit.php?post_type=wpm-testimonial&page=shortcodes' ) ); ?>
 </div>
 
 

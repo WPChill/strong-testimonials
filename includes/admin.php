@@ -545,3 +545,16 @@ function wpmtst_save_details() {
 }
 // add_action( 'save_post_wpm-testimonial', 'wpmtst_save_details' ); // WP 3.7+
 add_action( 'save_post', 'wpmtst_save_details' );
+
+
+/*
+ * [Add Recipient] Ajax receiver
+ */
+function wpmtst_add_recipient_function() {
+	$key = $_REQUEST['key'];
+	$form_options = get_option( 'wpmtst_form_options' );
+	$recipient = $form_options['default_recipient'];
+	include WPMTST_INC . 'form-form-settings-recipient.php';
+	die();
+}
+add_action( 'wp_ajax_wpmtst_add_recipient', 'wpmtst_add_recipient_function' );

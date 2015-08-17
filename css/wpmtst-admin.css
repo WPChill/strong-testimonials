@@ -69,6 +69,12 @@ input.custom-input {
 	width: 65%;
 }
 
+/* Widget
+---------------------------------------------------------*/
+.wp-admin .wpmtst-inner-box  select {
+	max-width: 100%;
+	margin-top: 6px;
+}
 
 /* Help sections
 ---------------------------------------------------------*/
@@ -620,6 +626,9 @@ ul.compact li {
 	padding-left: 20px;
 }
 
+li.checkbox {
+	margin-bottom: 10px;
+}
 .checkbox .description {
 	padding-left: 24px;
 }
@@ -763,56 +772,132 @@ input[readonly] {
 /* The notification email settings tab
 ---------------------------------------------------------*/
 
-.has-divs .subsection {
+.subsection .single-option {
+	padding: 10px 0;
+}
+
+td.tall {
+	padding-top: 20px !important;
+	vertical-align: top;
+}
+
+.subsection .subsection-title {
 	font-weight: 700;
 }
 
-.has-divs > div {
+.subsubsection {
+}
+
+#admin-notify-fields {
+	padding-top: 10px;
+}
+
+.subsubsection.ib {
+	display: inline-block;
+}
+
+.subsection table {
+	border-spacing: 0;
+	margin-top: 20px;
+}
+.subsection table.first {
+	margin-top: 10px;
+}
+.subsection table.wide {
+	width: 100%;
+}
+.subsection table.half-width {
+	width: 440px;
+}
+
+.subsection table thead {
+	width: 100%;
+}
+
+.subsection table tr {
+	border-bottom: 1px solid #EEE !important;
+}
+.subsection table tr:last-child {
+	border-bottom: 0 !important;
+}
+
+/* reset */
+.subsection table th,
+.subsection table td {
+	vertical-align: top;
+	border-top: 0 !important;
+	width: auto !important;
+	border-bottom: inherit !important;
+}
+.subsection table th {
+	padding: 0 0 7px 0 !important;
+}
+.subsection table td {
+	padding: 7px 10px !important;
+}
+.subsection tbody {
+	background: #FFF;
+}
+
+.subsection table td.single-field {
+	padding: 0 !important;
+	background: #F1F1F1 !important;
+}
+
+.subsection label.block {
+	display: block;
+	line-height: 1.5em;
 	padding: 5px 0;
 }
-
-.has-divs > div > div {
-	margin-bottom: 5px;
+.subsection label.indent {
+	display: block;
+	line-height: 1.5em;
+	margin-left: 23px;
+}
+.subsection .controls {
+	display: inline-block;
+	width: 20px;
 }
 
-.has-divs .left-col,
-.has-divs .right-col {
+/* delete email recipient */
+.delete-recipient {
+	color: #BBB;
 	display: inline-block;
 }
-
-.has-divs .left-col {
-	display: inline-block;
-	width: 5em;
+.delete-recipient:hover {
+	color: #CD0000;
+	cursor: pointer;
 }
 
-.has-divs a {
+.subsection a {
 	display: inline-block;
 	margin: 0 .3em;
 	font-size: .9em;
 }
 
-.has-divs div > label > span {
+.subsection div > label > span {
 	display: inline-block;
 	margin-right: 5px;
 	width: 4.5em;
 }
 
-.has-divs textarea,
-.has-divs input.wide {
+.subsection textarea,
+.subsection input.wide {
 	width: 100%;
 }
 
-.has-divs textarea {
+.subsection textarea {
 	white-space: pre-wrap;
 }
 
-.has-divs .template-tags-help {
+.subsection .template-tags-help {
 	float: right;
 	display: inline-block;
 	background: #FFFFE0;
-	width: 38%;
+	width: 320px;
 	padding: 0;
-	margin-top: 28px;
+	margin-top: 45px;
+	margin-left: 2em;
 }
 
 .template-tags-help ul {
@@ -828,13 +913,8 @@ input[readonly] {
 	padding: 5px;
 }
 
-.half-width {
-	display: inline-block;
-	width: 58%;
-}
-
-.has-divs div.input-email-subject {
-	margin-bottom: 15px;
+.name-email {
+	margin-right: 1.5em;
 }
 
 
@@ -864,6 +944,7 @@ input[readonly] {
 table.news {
 	border-collapse: collapse;
 	width: 100%;
+	margin-bottom: 50px;
 }
 
 table.news th,

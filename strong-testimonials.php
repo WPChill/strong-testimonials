@@ -4,7 +4,7 @@
  * Plugin URI: http://www.wpmission.com/strong-testimonials/
  * Description: Collect and display testimonials with a plugin that offers strong features and strong support.
  * Author: Chris Dillon
- * Version: 1.17.2
+ * Version: 1.18
  * Forked From: GC Testimonials version 1.3.2 by Erin Garscadden
  * Author URI: http://www.wpmission.com/contact
  * Text Domain: strong-testimonials
@@ -142,19 +142,20 @@ function wpmtst_register_cpt() {
 	 */
 	// add_permastruct( 'wpm-testimonial', "review/%wpm-testimonial%", array( 'slug' => __( 'review', 'strong-testimonials' ) ) );
 
-	
+
 	$categories_labels = array(
-			'name'                  => __( 'Testimonial Categories', 'strong-testimonials' ),
-			'singular_name'         => __( 'Testimonial Category', 'strong-testimonials' ),
-			'all_items'             => __( 'All Categories', 'strong-testimonials' ),
-			'add_new_item'          => __( 'Add New Category', 'strong-testimonials' ),
-			'edit_item'             => __( 'Edit Category', 'strong-testimonials' ),
-			'new_item'              => __( 'New Category', 'strong-testimonials' ),
-			'view_item'             => __( 'View Category', 'strong-testimonials' ),
-			'search_items'          => __( 'Search Category', 'strong-testimonials' ),
-			'not_found'             => __( 'Nothing Found', 'strong-testimonials' ),
-			'not_found_in_trash'    => __( 'Nothing found in Trash', 'strong-testimonials' ),
-			'parent_item_colon'     => ''
+		'name'               => __( 'Testimonial Categories', 'strong-testimonials' ),
+		'singular_name'      => __( 'Testimonial Category', 'strong-testimonials' ),
+		'menu_name'          => __( 'Categories', 'strong-testimonials' ),
+		'all_items'          => __( 'All Categories', 'strong-testimonials' ),
+		'add_new_item'       => __( 'Add New Category', 'strong-testimonials' ),
+		'edit_item'          => __( 'Edit Category', 'strong-testimonials' ),
+		'new_item'           => __( 'New Category', 'strong-testimonials' ),
+		'view_item'          => __( 'View Category', 'strong-testimonials' ),
+		'search_items'       => __( 'Search Category', 'strong-testimonials' ),
+		'not_found'          => __( 'Nothing Found', 'strong-testimonials' ),
+		'not_found_in_trash' => __( 'Nothing found in Trash', 'strong-testimonials' ),
+		'parent_item_colon'  => ''
 	);
 
 	register_taxonomy( 'wpm-testimonial-category', array( 'wpm-testimonial' ), array(

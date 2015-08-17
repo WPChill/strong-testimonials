@@ -23,8 +23,7 @@ function wpmtst_default_settings() {
 	}
 	else {
 		// -2B- UPDATE
-		if ( ! isset( $options['plugin_version'] )
-					|| $options['plugin_version'] != $plugin_version ) {
+		if ( ! isset( $options['plugin_version'] ) || $options['plugin_version'] != $plugin_version ) {
 
 			// Fix captcha inconsistency
 			if ( isset( $options['captcha'] ) && 'none' == $options['captcha'] )
@@ -35,7 +34,6 @@ function wpmtst_default_settings() {
 			
 			// Merge in new options
 			$options = array_merge( $default_options, $options );
-			$options['plugin_version'] = $plugin_version;
 			update_option( 'wpmtst_options', $options );
 		}
 	}
@@ -91,11 +89,11 @@ function wpmtst_default_settings() {
 		if ( isset( $options['cycle']['cycle-order'] ) ) {
 			$old_cycle = $options['cycle'];
 			$cycle = array(
-					'order'   => $old_cycle['cycle-order'],
-					'effect'  => $old_cycle['cycle-effect'],
-					'speed'   => $old_cycle['cycle-speed'],
-					'timeout' => $old_cycle['cycle-timeout'],
-					'pause'   => $old_cycle['cycle-pause'],
+				'order'   => $old_cycle['cycle-order'],
+				'effect'  => $old_cycle['cycle-effect'],
+				'speed'   => $old_cycle['cycle-speed'],
+				'timeout' => $old_cycle['cycle-timeout'],
+				'pause'   => $old_cycle['cycle-pause'],
 			);
 			unset( $options['cycle'] );
 			update_option( 'wpmtst_options', $options );
@@ -135,13 +133,36 @@ function wpmtst_default_settings() {
 	}
 	else {
 		// -5C- UPDATE
-		if ( ! isset( $options['plugin_version'] )
-					|| $options['plugin_version'] != $plugin_version ) {
+		if ( ! isset( $options['plugin_version'] ) || $options['plugin_version'] != $plugin_version ) {
 
+			/**
+			 * Update single email recipient to multiple.
+			 * 
+			 * @since 1.18
+			 */
+			$recipients = array(
+				array(
+					'admin_name'       => $form_options['admin_name'],
+					'admin_site_email' => $form_options['admin_site_email'],
+					'admin_email'      => $form_options['admin_email'],
+					'primary'          => 1,  // cannot be deleted
+				),
+			);
+			$form_options['recipients'] = $recipients;
+			
+			unset( $form_options['admin_name'] );
+			unset( $form_options['admin_site_email'] );
+			unset( $form_options['admin_email'] );
+			
 			// Merge in new options
 			$form_options = array_merge( $default_form_options, $form_options );
 			update_option( 'wpmtst_form_options', $form_options );
 		}
 	}
-	
+
+	// Final step: Update the plugin version.
+	if ( ! isset( $options['plugin_version'] ) || $options['plugin_version'] != $plugin_version ) {
+		$options['plugin_version'] = $plugin_version;
+		update_option( 'wpmtst_options', $options );
+	}
 }

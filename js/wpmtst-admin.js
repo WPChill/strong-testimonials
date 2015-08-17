@@ -4,11 +4,6 @@
 
 jQuery(document).ready(function($) {
 	
-	$( "#tabs" ).tabs({ active: 0 });
-	$( "ul.ui-tabs-nav li a" ).click(function(e){
-		$(this).blur();
-	});
-	
 	// Function to get the Max value in Array
 	Array.max = function( array ){
 		return Math.max.apply( Math, array );
@@ -23,14 +18,13 @@ jQuery(document).ready(function($) {
 	// --------------
 	// General events
 	// --------------
-	
-	// enabling "admin notify" focuses "sender name" input
-	$("#wpmtst-options-admin-notify").change(function(e) {
-		if( $(e.target).is(":checked") ) {
-			$("#wpmtst-options-sender-name").focus().select();
-		}
+
+	$("#tabs").tabs({active: 0});
+
+	$("ul.ui-tabs-nav li a").click(function(e){
+		$(this).blur();
 	});
-	
+
 	$(".focus-next-field").change(function(e) {
 		if( $(e.target).is(":checked") ) {
 			$(e.target).parent().next().find("input").focus().select();
@@ -38,10 +32,47 @@ jQuery(document).ready(function($) {
 	});
 
 	// toggle screenshots;
-	// need to make this more generic
 	$("#toggle-screen-options").add("#screenshot-screen-options").click(function(e) {
 		$("#screenshot-screen-options").slideToggle();
 	}).blur();
+
+	
+	// -------------------------
+	// Admin notification events
+	// -------------------------
+
+	var $notifyAdmin = $("#wpmtst-options-admin-notify");
+	var $notifyFields = $("#admin-notify-fields");
+	
+	if( $notifyAdmin.is(":checked") ) {
+		$notifyFields.slideDown();
+	}
+
+	$notifyAdmin.change(function(e) {
+		if( $(this).is(":checked") ) {
+			$notifyFields.slideDown();
+			$(this).blur();
+		}
+		else {
+			$notifyFields.slideUp();
+		}
+	});
+	
+	$("#add-recipient").click(function(e){
+		var $this = $(this);
+		var key = $this.closest("tr").siblings().length-1; 
+		var data = {
+			'action': 'wpmtst_add_recipient',
+			'key': key,
+		};
+		$.get( ajaxurl, data, function( response ) {
+			$this.closest("tr").before(response).prev("tr").find(".name-email").first().focus();
+		});
+	});
+	
+	$("#admin-notify-fields").on('click',".delete-recipient",function(e){
+		$(this).closest("tr").remove();
+	});
 	
 	
 	// -------------
