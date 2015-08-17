@@ -162,6 +162,7 @@ function wpmtst_default_settings() {
 
 	// Final step: Update the plugin version.
 	if ( ! isset( $options['plugin_version'] ) || $options['plugin_version'] != $plugin_version ) {
+		$options = get_option( 'wpmtst_options' );
 		$options['plugin_version'] = $plugin_version;
 		update_option( 'wpmtst_options', $options );
 	}

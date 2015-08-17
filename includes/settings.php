@@ -151,6 +151,9 @@ function wpmtst_sanitize_form( $input ) {
 	$input['sender_name']       = sanitize_text_field( $input['sender_name'] );
 	$input['sender_site_email'] = intval( $input['sender_site_email'] );
 	$input['sender_email']      = sanitize_email( $input['sender_email'] );
+	if ( ! $input['sender_email'] && ! $input['sender_site_email'] ) {
+		$input['sender_site_email'] = 1;
+	}
 
 	/**
 	 * Multiple recipients.
@@ -159,25 +162,38 @@ function wpmtst_sanitize_form( $input ) {
 	 */
 	$new_recipients = array();
 	foreach ( $input['recipients'] as $recipient ) {
-		// Don't save if both fields are empty.
-		if ( isset( $recipient['admin_site_email'] ) && ! $recipient['admin_site_email'] || ! isset( $recipient['admin_site_email'] ) ) {
-			if ( isset( $recipient['admin_name'] ) && isset( $recipient['admin_email'] ) ) {
-				if ( ! $recipient['admin_name']  && ! $recipient['admin_email'] ) {
-					continue;
+		
+		if ( isset( $recipient['primary'] ) ) {
+			$recipient['primary'] = 1;
+			if ( isset( $recipient['admin_site_email'] ) && ! $recipient['admin_site_email'] ) {
+				if ( ! $recipient['admin_email'] ) {
+					$recipient['admin_site_email'] = 1;
 				}
 			}
-			else {
+		}
+		else {
+
+			// Don't save if both fields are empty.
+			if ( isset( $recipient['admin_name'] ) && isset( $recipient['admin_email'] ) ) {
+				if ( ! $recipient['admin_name'] || ! $recipient['admin_email'] ) {
+					continue;
+				}
+			} else {
 				continue;
 			}
+			
 		}
+			
 		if ( isset( $recipient['admin_name'] ) ) {
 			$recipient['admin_name'] = sanitize_text_field( $recipient['admin_name'] );
 		}
-		$recipient['admin_email'] = sanitize_email( $recipient['admin_email'] );
-		if ( isset( $recipient['primary'] ) ) {
-			$recipient['primary'] = 1;
+		
+		if ( isset( $recipient['admin_email'] ) ) {
+			$recipient['admin_email'] = sanitize_email( $recipient['admin_email'] );
 		}
+		
 		$new_recipients[] = $recipient;
+	
 	}
 	$input['recipients'] = $new_recipients;
 	
