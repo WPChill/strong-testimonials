@@ -281,6 +281,9 @@ Thanks but I prefer a nice [review](https://wordpress.org/support/view/plugin-re
 
 == Changelog ==
 
+= 1.18.3 - 2015-08-18 =
+* Fix bug when image is a required field on the form.
+
 = 1.18.2 - 2015-08-17 =
 * Fix bug in updating default options.
 

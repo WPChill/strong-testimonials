@@ -80,44 +80,52 @@ function wpmtst_form_shortcode( $atts ) {
 		// sanitize & validate
 		// -------------------
 		foreach ( $fields as $key => $field ) {
-
-			if ( isset( $field['required'] ) && $field['required'] && empty( $_POST[ $field['name'] ] ) ) {
-				$errors[ $field['name'] ] = $field['error'];
-			}
-			else {
 			
-				if ( 'post' == $field['record_type'] ) {
+			if ( isset( $field['required'] ) && $field['required'] ) {
 				
-					if ( 'file' == $field['input_type'] ) {
-						$testimonial_att[ $field['name'] ] = array( 'field' => isset( $field['map'] ) ? $field['map'] : 'post' );
+				if ( ( 'file' == $field['input_type'] ) ) {
+					if ( ! isset( $_FILES[ $field['name'] ] ) || ! $_FILES[ $field['name'] ]['size'] ) {
+						$errors[ $field['name'] ] = $field['error'];
+						continue;
 					}
-					else {
-						$testimonial_post[ $field['name'] ] = sanitize_text_field( $_POST[ $field['name'] ] );
-					}
-					
 				}
-				elseif ( 'custom' == $field['record_type'] ) {
+				elseif ( empty( $_POST[ $field['name'] ] ) ) {
+					$errors[ $field['name'] ] = $field['error'];
+					continue;
+				}
+					
+			}
+			
+			if ( 'post' == $field['record_type'] ) {
+			
+				if ( 'file' == $field['input_type'] ) {
+					$testimonial_att[ $field['name'] ] = array( 'field' => isset( $field['map'] ) ? $field['map'] : 'post' );
+				}
+				else {
+					$testimonial_post[ $field['name'] ] = sanitize_text_field( $_POST[ $field['name'] ] );
+				}
 				
-					if ( 'email' == $field['input_type'] ) {
-						$testimonial_meta[ $field['name'] ] = sanitize_email( $_POST[ $field['name'] ] );
-					}
-					elseif ( 'url' == $field['input_type'] ) {
-						// wpmtst_get_website() will prefix with "http://" so don't add that to an empty input
-						if ( $_POST[ $field['name'] ] )
-							$testimonial_meta[ $field['name'] ] = esc_url_raw( wpmtst_get_website( $_POST[ $field['name'] ] ) );
-					}
-					elseif ( 'text' == $field['input_type'] ) {
-						$testimonial_meta[ $field['name'] ] = sanitize_text_field( $_POST[ $field['name'] ] );
-					}
-					
+			}
+			elseif ( 'custom' == $field['record_type'] ) {
+			
+				if ( 'email' == $field['input_type'] ) {
+					$testimonial_meta[ $field['name'] ] = sanitize_email( $_POST[ $field['name'] ] );
 				}
-				elseif ( 'optional' == $field['record_type'] ) {
-					
-					if ( 'categories' == $field['input_type'] ) {
-						$category   = true;
-						$categories = $_POST[ $field['name'] ];
-					}
-					
+				elseif ( 'url' == $field['input_type'] ) {
+					// wpmtst_get_website() will prefix with "http://" so don't add that to an empty input
+					if ( $_POST[ $field['name'] ] )
+						$testimonial_meta[ $field['name'] ] = esc_url_raw( wpmtst_get_website( $_POST[ $field['name'] ] ) );
+				}
+				elseif ( 'text' == $field['input_type'] ) {
+					$testimonial_meta[ $field['name'] ] = sanitize_text_field( $_POST[ $field['name'] ] );
+				}
+				
+			}
+			elseif ( 'optional' == $field['record_type'] ) {
+				
+				if ( 'categories' == $field['input_type'] ) {
+					$category   = true;
+					$categories = $_POST[ $field['name'] ];
 				}
 				
 			}
@@ -312,7 +320,7 @@ function wpmtst_form_shortcode( $atts ) {
 		// -----------------
 		elseif ( 'file' == $field['input_type'] ) {
 
-			$html .= '<input id="wpmtst_' . $field['name'] . '" class="" type="file" name="' . $field['name'] . '" />';
+			$html .= '<input id="wpmtst_' . $field['name'] . '" class="" type="file" accept="image/*" name="' . $field['name'] . '" />';
 
 		} 
 		/**
