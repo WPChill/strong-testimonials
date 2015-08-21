@@ -6,14 +6,16 @@
  */
 
 function wpmtst_default_settings() {
-	// placeholders
-	$cycle = array();
-	$form_options = array();
 	
 	// -1- DEFAULTS
 	$plugin_data    = get_plugin_data( dirname( dirname( __FILE__ ) ) . '/strong-testimonials.php', false );
 	$plugin_version = $plugin_data['Version'];
 	include( WPMTST_INC . 'defaults.php' );
+
+	$default_options      = wpmtst_get_default_options();
+	$default_fields       = wpmtst_get_default_fields();
+	$default_cycle        = wpmtst_get_default_cycle();
+	$default_form_options = wpmtst_get_default_form_options();
 
 	// -2- GET OPTIONS
 	$options = get_option( 'wpmtst_options' );
@@ -39,7 +41,7 @@ function wpmtst_default_settings() {
 	}
 	
 	// -3- GET FIELDS
-	$fields = get_option( 'wpmtst_fields' );
+	$fields = get_option( 'wpmtst_fields', array() );
 	if ( ! $fields ) {
 		// -3A- NEW ACTIVATION
 		update_option( 'wpmtst_fields', $default_fields );
@@ -108,7 +110,7 @@ function wpmtst_default_settings() {
 	 *
 	 * @since 1.13
 	 */
-	$form_options = get_option( 'wpmtst_form_options' );
+	$form_options = get_option( 'wpmtst_form_options', array() );
 	if ( ! $form_options ) {
 		// -5A- NEW ACTIVATION
 		$form_options = $default_form_options;
@@ -134,7 +136,6 @@ function wpmtst_default_settings() {
 	else {
 		// -5C- UPDATE
 		if ( ! isset( $options['plugin_version'] ) || $options['plugin_version'] != $plugin_version ) {
-
 			/**
 			 * Update single email recipient to multiple.
 			 * 
@@ -142,9 +143,9 @@ function wpmtst_default_settings() {
 			 */
 			$recipients = array(
 				array(
-					'admin_name'       => $form_options['admin_name'],
-					'admin_site_email' => $form_options['admin_site_email'],
-					'admin_email'      => $form_options['admin_email'],
+					'admin_name'       => isset( $form_options['admin_name'] ) ? $form_options['admin_name'] : '',
+					'admin_site_email' => isset( $form_options['admin_site_email'] ) ? $form_options['admin_site_email'] : 1,
+					'admin_email'      => isset( $form_options['admin_email'] ) ? $form_options['admin_email'] : '',
 					'primary'          => 1,  // cannot be deleted
 				),
 			);
@@ -161,9 +162,14 @@ function wpmtst_default_settings() {
 	}
 
 	// Final step: Update the plugin version.
+	$options = get_option( 'wpmtst_options' );
 	if ( ! isset( $options['plugin_version'] ) || $options['plugin_version'] != $plugin_version ) {
-		$options = get_option( 'wpmtst_options' );
 		$options['plugin_version'] = $plugin_version;
 		update_option( 'wpmtst_options', $options );
+		
+		$notices = get_option( 'wpmtst_admin_notices', array() );
+		$notices[] = 'Thanks for updating Strong Testimonials. Please double-check your settings for the <a href="' . admin_url( 'edit.php?post_type=wpm-testimonial&page=settings&tab=form' ) . '" style="font-weight: 700;
+	text-decoration: underline; }">Notification email</a>. <a href="' . admin_url( 'edit.php?post_type=wpm-testimonial&action=dismiss-notice' ) . '" style="margin-left: 0.7em; background: #7ad03a; color: #fff; border-radius: 50%;" title="dismiss this notice"><span class="dashicons dashicons-yes" style="display: inline-block; position: relative; left: -1px;"></span></a>';
+		update_option( 'wpmtst_admin_notices', $notices );
 	}
 }

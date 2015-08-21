@@ -281,6 +281,9 @@ Thanks but I prefer a nice [review](https://wordpress.org/support/view/plugin-re
 
 == Changelog ==
 
+= 1.18.4 - 2015-08-21 =
+* Fix bug in notification email settings.
+
 = 1.18.3 - 2015-08-18 =
 * Fix bug when image is a required field on the form.
 

@@ -17,7 +17,16 @@ function wpmtst_admin_init() {
 	
 	// Remove ad banner from Captcha by BestWebSoft plugin
 	remove_action( 'admin_notices', 'cptch_plugin_banner' );
-	
+
+	/**
+	 * Custom action hooks
+	 * 
+	 * @since 1.18.4
+	 */
+	if ( isset( $_REQUEST['action'] ) && '' != $_REQUEST['action'] ) {
+		do_action( 'wpmtst_' . $_REQUEST['action'] );
+	}
+
 }
 add_action( 'admin_init', 'wpmtst_admin_init' );
 
@@ -558,3 +567,33 @@ function wpmtst_add_recipient_function() {
 	die();
 }
 add_action( 'wp_ajax_wpmtst_add_recipient', 'wpmtst_add_recipient_function' );
+
+
+/**
+ * Admin notices
+ * 
+ * @since 1.18.4
+ */
+function wpmtst_admin_notices() {
+	if ( $notices = get_option( 'wpmtst_admin_notices' ) ) {
+		foreach ( $notices as $notice ) {
+			echo "<div class='updated notice'><p>$notice</p></div>";
+		}
+	}
+}
+add_action( 'admin_notices', 'wpmtst_admin_notices' );
+
+/**
+ * Dismiss admin notices
+ * 
+ * @since 1.18.4
+ */
+function wpmtst_dismiss_notice() {
+	if ( isset( $_REQUEST['action'] ) && 'dismiss-notice' == $_REQUEST['action'] ) {
+		delete_option( 'wpmtst_admin_notices' );
+		$goback = remove_query_arg( 'action', wp_get_referer() );
+		wp_redirect( $goback );
+		exit;
+	}
+}
+add_action( 'wpmtst_dismiss-notice', 'wpmtst_dismiss_notice' );

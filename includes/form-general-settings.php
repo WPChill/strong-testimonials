@@ -5,6 +5,7 @@
  * @package Strong_Testimonials
  */
 ?>
+<input type="hidden" name="wpmtst_options[plugin_version]" value="<?php esc_attr_e( $options['plugin_version'] ); ?>" />
 <input type="hidden" name="wpmtst_options[default_template]" value="<?php esc_attr_e( $options['default_template'] ); ?>" />
 <input type="hidden" name="wpmtst_options[client_section]" value="<?php esc_attr_e( $options['client_section'] ); ?>" />
 

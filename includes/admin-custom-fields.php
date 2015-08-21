@@ -17,7 +17,7 @@ function wpmtst_settings_custom_fields() {
 	$current_field_group = $field_options['current_field_group'];  // "custom", only one for now
 	$field_group = $field_groups[$current_field_group];
 
-	$message_format = '<div id="message" class="updated"><p><strong>%s</strong></p></div>';
+	$message_format = '<div id="message" class="updated notice is-dismissible"><p><strong>%s</strong></p></div>';
 
 	// ------------
 	// Form Actions

@@ -45,6 +45,14 @@ function wpmtst_settings_menu() {
 		'news',
 		'wpmtst_news' );
 
+	// Undocked pages
+	add_submenu_page( null,
+		'',
+		'',
+		'manage_options',
+		'dismiss-notice',
+		'wpmtst_dismiss_notice' );
+
 	add_action( 'admin_init', 'wpmtst_register_settings' );
 }
 
@@ -224,7 +232,7 @@ function wpmtst_settings_page() {
 		<h2><?php _e( 'Testimonial Settings', 'strong-testimonials' ); ?></h2>
 
 		<?php if( isset( $_GET['settings-updated'] ) ) : ?>
-			<div id="message" class="updated">
+			<div id="message" class="updated notice is-dismissible">
 				<p><strong><?php _e( 'Settings saved.' ) ?></strong></p>
 			</div>
 		<?php endif; ?>
