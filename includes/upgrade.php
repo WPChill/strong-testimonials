@@ -10,7 +10,7 @@ function wpmtst_default_settings() {
 	// -1- DEFAULTS
 	$plugin_data    = get_plugin_data( dirname( dirname( __FILE__ ) ) . '/strong-testimonials.php', false );
 	$plugin_version = $plugin_data['Version'];
-	include( WPMTST_INC . 'defaults.php' );
+	include_once WPMTST_INC . 'defaults.php';
 
 	$default_options      = wpmtst_get_default_options();
 	$default_fields       = wpmtst_get_default_fields();

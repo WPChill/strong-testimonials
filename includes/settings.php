@@ -517,9 +517,9 @@ add_action( 'admin_footer', 'wpmtst_restore_default_messages_script' );
  */
 function wpmtst_restore_default_messages_function() {
 	// hard restore from file
-	include( WPMTST_INC . 'defaults.php' );
-	// update_option( 'wpmtst_messages', $default_messages );
-	$messages = $default_messages;
+	include_once WPMTST_INC . 'defaults.php';
+	$default_form_options = wpmtst_get_default_form_options();
+	$messages = $default_form_options['messages'];
 	echo json_encode( $messages );
 	die();
 }
@@ -564,9 +564,9 @@ add_action( 'admin_footer', 'wpmtst_restore_default_message_script' );
 function wpmtst_restore_default_message_function() {
 	$input = $_REQUEST['field'];
 	// hard restore from file
-	include( WPMTST_INC . 'defaults.php' );
-	// update_option( 'wpmtst_messages', $default_messages );
-	$message = $default_messages[$input];
+	include_once WPMTST_INC . 'defaults.php';
+	$default_form_options = wpmtst_get_default_form_options();
+	$message = $default_form_options['messages'][$input];
 	echo json_encode( $message );
 	die();
 }

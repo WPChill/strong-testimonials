@@ -42,7 +42,8 @@ function wpmtst_settings_custom_fields() {
 			// update_option( 'wpmtst_fields', $field_options );
 			
 			// 1.7.1 - hard restore from file
-			include( WPMTST_INC . 'defaults.php' );
+			include_once WPMTST_INC . 'defaults.php';
+			$default_fields = wpmtst_get_default_fields();
 			update_option( 'wpmtst_fields', $default_fields );
 			$fields = $default_fields['field_groups']['custom']['fields'];
 			
@@ -438,7 +439,7 @@ function wpmtst_show_field_hidden( $key, $field ) {
  */
 function wpmtst_add_field_function() {
 	$new_key = intval( $_REQUEST['key'] );
-	$fields = get_option( 'wpmtst_fields' );
+	//$fields = get_option( 'wpmtst_fields' );
 	// when adding, leave Name empty so it will be populated from Label
 	$empty_field = array( 'record_type' => 'custom', 'label' => 'New Field' );
 	$new_field = wpmtst_show_field( $new_key, $empty_field, true );
