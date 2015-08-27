@@ -12,6 +12,51 @@
 <table class="form-table" cellpadding="0" cellspacing="0">
 	<tr valign="top">
 		<th scope="row">
+			<?php _e( 'Shortcode', 'strong-testimonials' ); ?>
+		</th>
+		<td>
+			<p>
+				<label>
+					<input id="wpmtst_shortcode" type="text" name="wpmtst_options[shortcode]" size="20" value="<?php echo esc_attr( $options['shortcode'] ); ?>" autocomplete="off" placeholder="enter a word" />
+				</label>
+				<span class="between-inputs">or</span>
+				<input id="restore-default-shortcode" type="button" class="button secondary restore-default-shortcode" value="<?php _ex( 'restore default', 'singular', 'strong-testimonials' ); ?>" />
+				<span class="between-inputs">or</span>
+				<select id="wpmtst_shortcode_select">
+					<option value="0">&ndash; <?php _e( 'select one', 'strong-testimonials' ); ?> &ndash;</option>
+					<optgroup label="<?php _e( 'variants', 'strong-testimonials' ); ?>">
+						<option>strong2</option>
+						<option>STRONG</option>
+						<option>my_strong</option>
+						<option>strong-testimonials</option>
+					</optgroup>
+					<optgroup label="<?php _e( 'languages', 'strong-testimonials' ); ?>">
+						<option>fuerte</option>
+						<option>fort</option>
+						<option>forte</option>
+						<option>sterk</option>
+						<option>stark</option>
+					</optgroup>
+					<optgroup label="<?php _e( 'similar', 'strong-testimonials' ); ?>">
+						<option>applause</option>
+						<option>bravos</option>
+						<option>cheers</option>
+						<option>kudos</option>
+						<option>praise</option>
+						<option>raves</option>
+					</optgroup>
+				</select>
+			</p>
+			<p>
+				<?php _e( 'The hyphen <code>-</code> and underscore <code>_</code> are allowed. &nbsp;&nbsp;Capital letters too: <code>strong</code>, <code>Strong</code>, <code>STRONG</code> are all different.', 'strong-testimonials' ); ?>
+			</p>
+			<p>
+				<?php _e( '<strong>Why?</strong> A theme or another plugin with a <code>[strong]</code> shortcode will cause a conflict. Try a unique word here if the <code>[strong]</code> shortcode is not working. Then replace <code>[strong]</code> with your new shortcode throughout your site.', 'strong-testimonials' ); ?>
+			</p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<th scope="row">
 			<?php _e( 'Load stylesheets', 'strong-testimonials' );?>
 		</th>
 		<td class="stackem">

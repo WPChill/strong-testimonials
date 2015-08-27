@@ -4,7 +4,7 @@
  * Plugin URI: http://www.wpmission.com/strong-testimonials/
  * Description: Collect and display testimonials with a plugin that offers strong features and strong support.
  * Author: Chris Dillon
- * Version: 1.18.5
+ * Version: 1.19
  * Forked From: GC Testimonials version 1.3.2 by Erin Garscadden
  * Author URI: http://www.wpmission.com/contact
  * Text Domain: strong-testimonials
@@ -106,32 +106,32 @@ function wpmtst_version_check() {
 function wpmtst_register_cpt() {
 
 	$testimonial_labels = array(
-			'name'                  => _x( 'Testimonials', 'post type general name', 'strong-testimonials' ),
-			'singular_name'         => _x( 'Testimonial', 'post type singular name', 'strong-testimonials' ),
-			'add_new'               => _x( 'Add New', 'post type', 'strong-testimonials' ),
-			'add_new_item'          => __( 'Add New Testimonial', 'strong-testimonials' ),
-			'edit_item'             => __( 'Edit Testimonial', 'strong-testimonials' ),
-			'new_item'              => __( 'New Testimonial', 'strong-testimonials' ),
-			'all_items' 			      => __( 'All Testimonials', 'strong-testimonials' ),
-			'view_item'             => __( 'View Testimonial', 'strong-testimonials' ) ,
-			'search_items'          => __( 'Search Testimonials', 'strong-testimonials' ),
-			'not_found'             => __( 'Nothing Found', 'strong-testimonials' ),
-			'not_found_in_trash'    => __( 'Nothing found in Trash', 'strong-testimonials' ),
-			'parent_item_colon'     => ''
+		'name'               => _x( 'Testimonials', 'post type general name', 'strong-testimonials' ),
+		'singular_name'      => _x( 'Testimonial', 'post type singular name', 'strong-testimonials' ),
+		'add_new'            => _x( 'Add New', 'post type', 'strong-testimonials' ),
+		'add_new_item'       => __( 'Add New Testimonial', 'strong-testimonials' ),
+		'edit_item'          => __( 'Edit Testimonial', 'strong-testimonials' ),
+		'new_item'           => __( 'New Testimonial', 'strong-testimonials' ),
+		'all_items'          => __( 'All Testimonials', 'strong-testimonials' ),
+		'view_item'          => __( 'View Testimonial', 'strong-testimonials' ),
+		'search_items'       => __( 'Search Testimonials', 'strong-testimonials' ),
+		'not_found'          => __( 'Nothing Found', 'strong-testimonials' ),
+		'not_found_in_trash' => __( 'Nothing found in Trash', 'strong-testimonials' ),
+		'parent_item_colon'  => ''
 	);
 
 	$testimonial_args = array(
-			'labels'                => $testimonial_labels,
-			'singular_label'        => _x( 'testimonial', 'post type singular label', 'strong-testimonials' ),
-			'public'                => true,
-			'show_ui'               => true,
-			'capability_type'       => 'post',
-			'hierarchical'          => false,	 // @since 1.8
-			'rewrite'               => array( 'slug' => _x( 'testimonial', 'slug', 'strong-testimonials' ) ), // @since 1.8
-			'menu_icon'             => 'dashicons-editor-quote',
-			'menu_position'         => 20,
-			'exclude_from_search' 	=> false,  // @since 1.15.10
-			'supports'              => array( 'title', 'excerpt', 'editor', 'thumbnail', 'custom-fields', 'page-attributes' )
+		'labels'              => $testimonial_labels,
+		'singular_label'      => _x( 'testimonial', 'post type singular label', 'strong-testimonials' ),
+		'public'              => true,
+		'show_ui'             => true,
+		'capability_type'     => 'post',
+		'hierarchical'        => false,  // @since 1.8
+		'rewrite'             => array( 'slug' => _x( 'testimonial', 'slug', 'strong-testimonials' ) ),  // @since 1.8
+		'menu_icon'           => 'dashicons-editor-quote',
+		'menu_position'       => 20,
+		'exclude_from_search' => false,  // @since 1.15.10
+		'supports'            => array( 'title', 'excerpt', 'editor', 'thumbnail', 'custom-fields', 'page-attributes' )
 	);
 
 	register_post_type( 'wpm-testimonial', $testimonial_args );
@@ -159,13 +159,11 @@ function wpmtst_register_cpt() {
 	);
 
 	register_taxonomy( 'wpm-testimonial-category', array( 'wpm-testimonial' ), array(
-			'hierarchical' => true,
-			'labels'       => $categories_labels,
-			'rewrite'      => array(
-					'slug'         => 'view',
-					// 'hierarchical' => true,
-					// 'with_front'   => false,
-			)
+		'hierarchical' => true,
+		'labels'       => $categories_labels,
+		'rewrite'      => array(
+			'slug' => 'view',
+		)
 	) );
 	
 	/**

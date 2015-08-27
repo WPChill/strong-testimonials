@@ -25,7 +25,8 @@ Strong Testimonials by [WP Mission](https://www.wpmission.com) is a full-feature
 
 = What's New = 
 
-* Version 1.18 is fully compatible with WordPress 4.3.
+* Fully compatible with WordPress 4.3.
+* You can change the shortcode tag to avoid conflicts with themes and other plugins.
 * When a testimonial has been submitted, you can send the notification email to multiple recipients.
 * You can add a category selector to the submission form.
 
@@ -280,6 +281,10 @@ Thanks but I prefer a nice [review](https://wordpress.org/support/view/plugin-re
 
 
 == Changelog ==
+
+= 1.19 - 2015-08-27 =
+* Add option to change shortcode.
+* Fix redundant admin notices.
 
 = 1.18.5 - 2015-08-25 =
 * Fix bug when restoring default fields.
@@ -597,5 +602,5 @@ Thanks but I prefer a nice [review](https://wordpress.org/support/view/plugin-re
 
 == Upgrade Notice ==
 
-= 1.18 =
-* Important update for WordPress 4.3! Multiple notification emails. A category selector for the form.
+= 1.19 =
+* Add option to change shortcode. Fix redundant admin notices.

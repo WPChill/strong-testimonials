@@ -22,10 +22,10 @@ function wpmtst_get_default_options() {
 		'load_form_style'   => 1,
 		'load_rtl_style'    => 0,
 		'reorder'           => false,
+		'shortcode'         => 'strong',
 	);
 
-	$default_options['default_template'] = '[wpmtst-text field="client_name" class="name"]' . PHP_EOL
-	                                       . '[wpmtst-link url="company_website" text="company_name" new_tab class="company"]';
+	$default_options['default_template'] = '[wpmtst-text field="client_name" class="name"]' . PHP_EOL . '[wpmtst-link url="company_website" text="company_name" new_tab class="company"]';
 
 	$default_options['client_section'] = $default_options['default_template'];
 

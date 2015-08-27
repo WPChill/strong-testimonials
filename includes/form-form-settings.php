@@ -26,7 +26,7 @@
 			<input type="text" id="<?php echo $key; ?>" name="wpmtst_form_options[messages][<?php echo $key; ?>][text]" size="" value="<?php echo esc_attr( $messages[$key]['text'] ); ?>" required />
 		</td>
 		<td class="actions">
-			<input type="button" class="button button-small secondary restore-default-message" value="<?php _ex( 'restore default', 'singular', 'strong-testimonials' ); ?>" />
+			<input type="button" class="button secondary restore-default-message" value="<?php _ex( 'restore default', 'singular', 'strong-testimonials' ); ?>" />
 		</td>
 	</tr>
 	<?php endforeach; ?>

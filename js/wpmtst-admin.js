@@ -14,6 +14,11 @@ jQuery(document).ready(function($) {
 		return label.replace(/\s+/g, "_").replace(/\W/g, "").toLowerCase();
 	}
 
+	// Remove invalid characters
+	function removeSpaces(word) {
+		//return word.replace(/\s+/g, "_");
+		return word.replace(/[^\w\s(?!\-)]/gi, '')
+	}
 	
 	// --------------
 	// General events
@@ -31,14 +36,42 @@ jQuery(document).ready(function($) {
 		}
 	});
 
-	// toggle screenshots;
+	// toggle screenshots
 	$("#toggle-screen-options").add("#screenshot-screen-options").click(function(e) {
+		$(this).blur();
 		$("#screenshot-screen-options").slideToggle();
-	}).blur();
+	});
 
-	
+	// toggle screenshots
+	$("#toggle-help").click(function(e) {
+		$(this).toggleClass("closed open").blur();
+		$("#help-section").slideToggle();
+	});
+
 	// -------------------------
-	// Admin notification events
+	// Custom shortcode
+	// -------------------------
+
+	$("#wpmtst_shortcode").change(function(){
+		var word = $(this).val();
+		$(this).val(removeSpaces(word));
+	});
+
+	$("#restore-default-shortcode").click(function(){
+		$("#wpmtst_shortcode").val('strong');
+		$("#wpmtst_shortcode_select").val("0");
+		$(this).blur();
+	});
+
+	$("#wpmtst_shortcode_select").change(function(){
+		var shortcode = $(this).val();
+		if ("0" != shortcode) {
+			$("#wpmtst_shortcode").val(shortcode);
+		}
+	});
+
+	// -------------------------
+	// Admin notification email events
 	// -------------------------
 
 	var $notifyAdmin = $("#wpmtst-options-admin-notify");

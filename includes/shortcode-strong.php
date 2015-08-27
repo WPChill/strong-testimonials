@@ -249,7 +249,8 @@ function wpmtst_strong_shortcode( $atts, $content = null, $parent_tag ) {
 	$html = apply_filters( 'strong_html', $html );
 	return $html;
 }
-add_shortcode( 'strong', 'wpmtst_strong_shortcode' );
+$shortcode = wpmtst_get_shortcode();
+add_shortcode( $shortcode, 'wpmtst_strong_shortcode' );
 
 
 /**

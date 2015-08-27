@@ -8,45 +8,52 @@ final class StrongTestimonials_Plugin {
 	
   private static $instance;
 
-  /**
+	/**
 	 * A singleton instance.
 	 *
 	 * For now, only used for preprocessing shortcodes and widgets to properly
 	 * enqueue styles and scripts (1) to improve overall plugin flexibility,
-	 * (2) to improve compatibility with page builder plugins, and (3) to 
+	 * (2) to improve compatibility with page builder plugins, and (3) to
 	 * maintain conditional loading best practices.
 	 *
 	 * @return StrongTestimonials_Plugin  StrongTestimonials_Plugin object
 	 */
 	public static function get_instance() {
-    if ( !self::$instance ) {
-      self::$instance = new self();
-    }
-    return self::$instance;
-  }
+		if ( ! self::$instance ) {
+			self::$instance = new self();
+		}
+
+		return self::$instance;
+	}
 
 	public static $views = false;
 	public static $view_count = 0;
 	public static $styles = array( 'normal' => array(), 'later' => array() );
 	public static $scripts = array( 'normal' => array(), 'later' => array() );
 	public static $script_vars;
-	
-  private function __construct() {
+	public static $shortcode;
+	public static $shortcode_lb;
+
+	private function __construct() {
+
+		$options = get_option( 'wpmtst_options' );
+		self::$shortcode    = $options['shortcode'];
+		self::$shortcode_lb = '[' . self::$shortcode;
 		
 		// Preprocess the post content for the [strong] shortcode.
 		add_action( 'wp', array( $this, 'find_views' ) );
 		add_action( 'wp', array( $this, 'find_views_in_postmeta' ) );
 		add_action( 'wp', array( $this, 'find_views_in_postexcerpt' ) );
-		
+
 		// Page Builder by Site Origin
 		add_action( 'wp', array( $this, 'find_pagebuilder_widgets' ) );
-		
+
 		// Black Studio TinyMCE Widget
 		add_action( 'wp', array( $this, 'find_blackstudio_widgets' ) );
 
 		// Preprocess the page for widgets.
 		add_action( 'wp', array( $this, 'find_widgets' ) );
-		
+
 		// Preprocess the post content for the original shortcodes.
 		add_action( 'wp', array( $this, 'find_original_shortcodes' ) );
 
@@ -167,7 +174,7 @@ final class StrongTestimonials_Plugin {
 		if ( empty( $post ) ) return false;
 		
 		$content = $post->post_content;
-		if ( false === strpos( $content, '[strong' ) ) return false;
+		if ( false === strpos( $content, self::$shortcode_lb ) ) return false;
 
 		self::process_content( $content );
 		
@@ -190,7 +197,7 @@ final class StrongTestimonials_Plugin {
 		
 		$meta_content = get_post_meta( $post->ID );
 		$meta_content_serialized = maybe_serialize( $meta_content );
-		if ( false === strpos( $meta_content_serialized, '[strong' ) ) return false;
+		if ( false === strpos( $meta_content_serialized, self::$shortcode_lb ) ) return false;
 
 		self::process_content( $meta_content_serialized );
 		
@@ -211,7 +218,7 @@ final class StrongTestimonials_Plugin {
 		global $post;
 		if ( empty( $post ) ) return false;
 
-		if ( false === strpos( $post->post_excerpt, '[strong' ) ) return false;
+		if ( false === strpos( $post->post_excerpt, self::$shortcode_lb ) ) return false;
 
 		self::process_content( $post->post_excerpt );
 		
@@ -234,7 +241,7 @@ final class StrongTestimonials_Plugin {
 		if ( !$widget_content ) return false;
 		
 		$widget_content_serialized = maybe_serialize( $widget_content );
-		if ( false === strpos( $widget_content_serialized, '[strong' ) ) return false;
+		if ( false === strpos( $widget_content_serialized, self::$shortcode_lb ) ) return false;
 
 		self::process_content( $widget_content_serialized );
 		
@@ -258,7 +265,7 @@ final class StrongTestimonials_Plugin {
 		
 		foreach ( $matches as $key => $shortcode ) {
 			
-			if ( 'strong' === $shortcode[2] ) {
+			if ( self::$shortcode === $shortcode[2] ) {
 			
 				/**
 				 * Adding html_entity_decode.

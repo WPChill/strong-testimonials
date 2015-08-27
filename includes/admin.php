@@ -577,11 +577,23 @@ add_action( 'wp_ajax_wpmtst_add_recipient', 'wpmtst_add_recipient_function' );
 function wpmtst_admin_notices() {
 	if ( $notices = get_option( 'wpmtst_admin_notices' ) ) {
 		foreach ( $notices as $notice ) {
-			echo "<div class='updated notice'><p>$notice</p></div>";
+			echo "<div class='wpmtst updated notice is-dismissible'><p>$notice</p></div>";
 		}
+		?>
+		<script>
+		jQuery(document).ready(function($) {
+			$(".wrap").on("click", ".notice-dismiss", function() {
+				$.get(ajaxurl,{'action':'wpmtst_dismiss_notice'},function(response){})
+			}).on("click", ".notice-dismiss-text", function() {
+				$(this).closest(".notice").find(".notice-dismiss").click();
+			});
+		});
+		</script>
+	<?php
 	}
 }
 add_action( 'admin_notices', 'wpmtst_admin_notices' );
+
 
 /**
  * Dismiss admin notices
@@ -589,11 +601,9 @@ add_action( 'admin_notices', 'wpmtst_admin_notices' );
  * @since 1.18.4
  */
 function wpmtst_dismiss_notice() {
-	if ( isset( $_REQUEST['action'] ) && 'dismiss-notice' == $_REQUEST['action'] ) {
+	if ( isset( $_REQUEST['action'] ) && 'wpmtst_dismiss_notice' == $_REQUEST['action'] ) {
 		delete_option( 'wpmtst_admin_notices' );
-		$goback = remove_query_arg( 'action', wp_get_referer() );
-		wp_redirect( $goback );
-		exit;
+		die;
 	}
 }
-add_action( 'wpmtst_dismiss-notice', 'wpmtst_dismiss_notice' );
+add_action( 'wp_ajax_wpmtst_dismiss_notice', 'wpmtst_dismiss_notice' );

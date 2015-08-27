@@ -2,6 +2,15 @@
  * Strong Testimonials admin stylesheet
  */
 
+.wpmtst input.button.restore-default-shortcode {
+	margin-right: 0;
+}
+
+.between-inputs {
+	margin-left: 0.3em;
+	margin-right: 0.3em;
+}
+
 .wrap.wpmtst h3 {
 	margin-top: 40px;
 	margin-bottom: 10px;
@@ -368,23 +377,56 @@ ul.ui-tabs-nav li.ui-tabs-active a {
 	color: #888;
 }
 
-#screenshot-screen-options {
-	display: none;
-}
-
-.screenshot > div {
-	display: inline-block;
-  -webkit-box-shadow: inset 0px 0px 40px rgba(0,0,0,0.8);
-     -moz-box-shadow: inset 0px 0px 40px rgba(0,0,0,0.8);
-          box-shadow: inset 0px 0px 40px rgba(0,0,0,0.8);
-}
-
 div.radio {
 	line-height: 1.5em;
 }
 
 div.radio:hover {
 	color: #000;
+}
+
+#screenshot-screen-options,
+#help-section {
+	display: none;
+}
+
+.screenshot > div {
+	display: inline-block;
+	-webkit-box-shadow: inset 0px 0px 40px rgba(0,0,0,0.8);
+	-moz-box-shadow: inset 0px 0px 40px rgba(0,0,0,0.8);
+	box-shadow: inset 0px 0px 40px rgba(0,0,0,0.8);
+}
+
+/* [more info] help section on General settings tab */
+#toggle-help {
+	color: #777;
+}
+#toggle-help:hover {
+	color: #32373c;
+}
+#toggle-help span:after {
+	right: 0;
+	content: '\f140';
+	font: normal 20px/1 'dashicons';
+	speak: none;
+	display: inline-block;
+	padding: 0 0 0 3px;
+	bottom: 3px;
+	position: relative;
+	vertical-align: bottom;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	text-decoration: none !important;
+	color: #b4b9be;
+}
+#toggle-help.closed span:after {
+	content: "\f140";
+}
+#toggle-help.open span:after {
+	content: "\f142";
+}
+.help-text {
+	padding: 0.5em 0;
 }
 
 /* form table */
@@ -513,6 +555,13 @@ div.radio:hover {
 
 .form-table td.align-top {
 	vertical-align: top;
+}
+
+.wpmtst .form-table code {
+	/*background: transparent;*/
+	/*color: #0073aa;*/
+	/*font-size: 1.1em;*/
+	/*padding: 0;*/
 }
 
 /* end: form-table */
@@ -921,19 +970,38 @@ td.tall {
 /* News page
 ---------------------------------------------------------*/
 
-.strong-news {
+/* highlight menu item */
+.news-flag {
+	background: #BEFE9D;
+	color: #333;
+	border-radius: 4px;
+	padding: 0 5px;
 }
 
-.strong-news h3 {
-	font-size: 1.5em;
+.news-flag:hover {
+	background: transparent;
+	color: #BEFE9D;
 }
 
-.strong-news h4 {
-	font-size: 1.2em;
+.strong-news section {
+	margin-bottom: 60px;
+}
+
+.strong-news section:last-child {
+	margin-bottom: 0;
+}
+
+.wrap.wpmtst.strong-news h3 {
+	font-size: 1.6em;
+}
+
+.wrap.wpmtst.strong-news h4 {
+	font-size: 1.3em;
+	margin-top: 40px;
 }
 
 .strong-news p {
-	margin: 1.5em 0;
+	margin: 1.4em 0;
 	font-size: 1.1em;
 }
 
@@ -980,3 +1048,5 @@ th.manage-column.sorted:hover,
 th.manage-column.sortable:hover {
 	background: rgba(255,255,0,0.6);
 }
+
+

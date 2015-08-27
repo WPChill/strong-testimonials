@@ -199,3 +199,19 @@ function wpmtst_uasort( $a, $b ) {
 	}
 	return ( $a['order'] < $b['order'] ) ? -1 : 1;
 }
+
+
+/**
+ * Return the shortcode tag.
+ * 
+ * @since 1.18.4
+ * 
+ * @return string
+ */
+function wpmtst_get_shortcode() {
+	$options = get_option( 'wpmtst_options' );
+	if ( $options && isset( $options['shortcode'] ) && $options['shortcode'] )
+		return $options['shortcode'];
+	else
+		return 'strong';
+}

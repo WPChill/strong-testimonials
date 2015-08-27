@@ -38,20 +38,21 @@ function wpmtst_settings_menu() {
 		'guide',
 		'wpmtst_guide' );
 
+	/**
+	 * Highlight News link
+	 * 
+	 * @since 1.19
+	 */
+	$flag = '';
+	if ( get_option( 'wpmtst_news_flag' ) && 'post_type=wpm-testimonial&page=news' != $_SERVER['QUERY_STRING'] ) {
+		$flag = 'news-flag';
+	}
 	add_submenu_page( 'edit.php?post_type=wpm-testimonial',
 		__( 'News', 'strong-testimonials' ),
-		__( 'News', 'strong-testimonials' ),
+		'<span class="' . $flag . '">' . __( 'News', 'strong-testimonials' ) . '</span>',
 		'manage_options',
 		'news',
 		'wpmtst_news' );
-
-	// Undocked pages
-	add_submenu_page( null,
-		'',
-		'',
-		'manage_options',
-		'dismiss-notice',
-		'wpmtst_dismiss_notice' );
 
 	add_action( 'admin_init', 'wpmtst_register_settings' );
 }
@@ -279,6 +280,9 @@ function wpmtst_settings_page() {
  * News page
  */
 function wpmtst_news() {
+	if ( get_option( 'wpmtst_news_flag' ) )
+		delete_option( 'wpmtst_news_flag' );
+	
 	include( WPMTST_INC . 'news.php' );
 }
 
@@ -298,7 +302,6 @@ function wpmtst_settings() {
 function wpmtst_cycle_settings() {
 	$cycle = get_option( 'wpmtst_cycle' );
 	
-	// @TODO: de-duplicate (in widget too)
 	$order_list = array(
 			'rand'   => _x( 'Random', 'display order', 'strong-testimonials' ),
 			'menu'   => _x( 'Menu order', 'display order', 'strong-testimonials' ),

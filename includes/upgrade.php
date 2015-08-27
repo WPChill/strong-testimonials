@@ -168,8 +168,26 @@ function wpmtst_default_settings() {
 		update_option( 'wpmtst_options', $options );
 		
 		$notices = get_option( 'wpmtst_admin_notices', array() );
-		$notices[] = 'Thanks for updating Strong Testimonials. Please double-check your settings for the <a href="' . admin_url( 'edit.php?post_type=wpm-testimonial&page=settings&tab=form' ) . '" style="font-weight: 700;
-	text-decoration: underline; }">Notification email</a>. <a href="' . admin_url( 'edit.php?post_type=wpm-testimonial&action=dismiss-notice' ) . '" style="margin-left: 0.7em; background: #7ad03a; color: #fff; border-radius: 50%;" title="dismiss this notice"><span class="dashicons dashicons-yes" style="display: inline-block; position: relative; left: -1px;"></span></a>';
+		
+		switch ( $plugin_version ) {
+			
+			case '1.18.4':
+				$notices[] = 'Thanks for updating Strong Testimonials. Please double-check your settings for the <a href="' . admin_url( 'edit.php?post_type=wpm-testimonial&page=settings&tab=form' ) . '" style="font-weight: 700; text-decoration: underline; }">Notification email</a>.';
+				break;
+			
+			case '1.18.5':
+				//$notices[] = 'Test. <a href="#" class="notice-dismiss-text" style="margin-left: 1em; text-decoration: underline; font-size: 0.9em;">dismiss</a>';
+				break;
+			
+			//case '1.18.6':
+			//	break;
+			
+			default:
+				// Reset all
+				$notices = array();
+		}
+
 		update_option( 'wpmtst_admin_notices', $notices );
+		update_option( 'wpmtst_news_flag', 1 );
 	}
 }
