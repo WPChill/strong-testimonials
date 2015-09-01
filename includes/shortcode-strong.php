@@ -69,6 +69,7 @@ function wpmtst_strong_shortcode( $atts, $content = null, $parent_tag ) {
 				'thumbnail' => '',
 				'excerpt' => '',
 				'length' => '',
+				'more_page' => '',  // @since 1.20.0
 				'more_post' => '',
 				'more_text' => _x( 'Read more', 'link', 'strong-testimonials' ),
 				
@@ -85,6 +86,16 @@ function wpmtst_strong_shortcode( $atts, $content = null, $parent_tag ) {
 		$parent_tag
 	) );
 
+	/**
+	 * more_page - "Read more" link to a page
+	 * 
+	 * @since 1.20.0
+	 */
+	if ( $more_page && ! is_numeric( $more_page ) ) {
+		$post_object = get_page_by_slug( $more_page );
+		$more_page = $post_object->ID;
+	}
+	
 	$options = get_option( 'wpmtst_options' );
 	
 	$shortcode_content = reverse_wpautop( $content );
@@ -306,11 +317,11 @@ add_filter( 'child_shortcode_atts_client', 'wpmtst_client_shortcode_filter', 10,
 function wpmtst_strong_field_shortcode( $atts, $content = null, $tag ) {
 	extract( child_shortcode_atts(
 		array(
-				'name'     => '',	// custom field
-				'url'      => '', // custom field
-				'class'    => '', // CSS
-				'new_tab'  => false,
-				// 'nofollow' => false   // approach: no global + local enable (via filter)
+			'name'    => '', // custom field
+			'url'     => '', // custom field
+			'class'   => '', // CSS
+			'new_tab' => false,
+			// 'nofollow' => false   // approach: no global + local enable (via filter)
 		),
 		normalize_empty_atts( $atts ),
 		$tag
@@ -320,20 +331,56 @@ function wpmtst_strong_field_shortcode( $atts, $content = null, $tag ) {
 		if ( '' == $name ) {
 			$name = preg_replace( '(^https?://)', '', $url );
 		}
-		$name = "<a href=\"$url\"" . link_new_tab( $new_tab, false ) . link_nofollow( $nofollow, false ) . ">$name</a>";
+		$name = '<a href="' . $url . '"' . link_new_tab( $new_tab, false ) . link_nofollow( $nofollow, false ) . '>' . $name . '</a>';
 	}
-	
-	/*
+
+	/**
 	 * Bug fix: Return blank string.
 	 *
 	 * @since 1.12.0
 	 */
-	if ( '' == $name )
+	if ( '' == $name ) {
 		return;
-	else
+	} else {
 		return '<div class="' . $class . '">' . $name . '</div>';
+	}
 }
 add_child_shortcode( 'strong', 'field', 'wpmtst_strong_field_shortcode' );
+
+
+/**
+ * Child shortcode the the post date.
+ * 
+ * @since 1.20.0
+ * 
+ * @param $atts
+ * @param null $content
+ * @param $tag
+ *
+ * @return bool|int|string
+ */
+function wpmtst_strong_date_shortcode( $atts, $content = null, $tag ) {
+	extract( child_shortcode_atts(
+		array(
+			'format' => '',
+			'class'  => '',
+		),
+		normalize_empty_atts( $atts ),
+		$tag
+	) );
+	
+	global $post;
+	if ( ! $post ) return false;
+
+	if ( '' == $format )
+		$the_date = mysql2date( get_option( 'date_format' ), $post->post_date );
+	else
+		$the_date = mysql2date( $format, $post->post_date );
+	
+	$the_date = apply_filters( 'wpmtst_the_date', $the_date, $format, $post );
+	return '<div class="' . $class . '">' . $the_date . '</div>';
+}
+add_child_shortcode( 'strong', 'date', 'wpmtst_strong_date_shortcode' );
 
 
 /**
@@ -343,6 +390,7 @@ add_child_shortcode( 'strong', 'field', 'wpmtst_strong_field_shortcode' );
  * @param array $out   The output array of shortcode attributes.
  * @param array $pairs The array of accepted parameters and their defaults.
  * @param array $atts  The input array of shortcode attributes.
+ * @return mixed
  */
 function wpmtst_field_shortcode_filter( $out, $pairs, $atts ) {
 	global $post;
@@ -368,6 +416,7 @@ add_filter( 'child_shortcode_atts_field', 'wpmtst_field_shortcode_filter', 10, 3
  * @param array $out   The output array of shortcode attributes.
  * @param array $atts  The input array of shortcode attributes.
  * @param array $post  The testimonial post.
+ * @return mixed
  */
 function wpmtst_atts_to_values( $out, $atts, $post ) {
 	// for fields listed in shortcode attributes:
@@ -377,6 +426,9 @@ function wpmtst_atts_to_values( $out, $atts, $post ) {
 				$out[$key] = $post->$field;
 			else
 				$out[$key] = '';  // @since 1.12
+		}
+		elseif ( 'date' == $key ) {
+			$out[$key] = 'the_date';
 		}
 	}
 

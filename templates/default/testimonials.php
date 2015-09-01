@@ -41,6 +41,9 @@
 		<?php if ( $more_post && ( $excerpt || $length ) ) : ?>
 		<div class="readmore"><a href="<?php echo get_permalink( $post ); ?>"><?php echo $more_text; ?></a></div>
 		<?php endif; ?>
+		<?php if ( $more_page ) : ?>
+		<div class="readmore"><a href="<?php echo get_permalink( $more_page ); ?>"><?php echo $more_text; ?></a></div>
+		<?php endif; ?>
 		<div class="clear"></div>
 	</div>
 </div>

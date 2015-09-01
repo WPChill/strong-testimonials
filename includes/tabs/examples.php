@@ -22,8 +22,8 @@
 		</tr>
 		<tr class="example">
 			<?php /* translators: This appears in the [strong] shortcode instructions. */ ?>
-			<td><?php _e( 'a slideshow with excerpts<br /> from categories 2 and 3', 'strong-testimonials' ); ?></td>
-			<td>[strong slideshow excerpt show_for="5" effect_for="1" category="2,3"]</td>
+			<td><?php _e( 'a slideshow with excerpts<br /> from categories 2 and 3,<br />and a link to another page', 'strong-testimonials' ); ?></td>
+			<td>[strong slideshow excerpt show_for="5" effect_for="1" category="2,3" more_page="testimonials" more_text="Read more testimonials"]</td>
 		</tr>
 		<tr class="example">
 			<td>
@@ -32,6 +32,7 @@
 				with the title and thumbnail,<br />
 				in random order,<br />
 				with client name, company, and website,<br />
+				the date like "September 2015",<br />
 				and a "read more" link', 'strong-testimonials' ); ?>
 			</td>
 			<td>
@@ -39,6 +40,7 @@
 				&nbsp;&nbsp;[client]<br />
 				&nbsp;&nbsp;&nbsp;&nbsp;[field name="client_name" class="name"]<br />
 				&nbsp;&nbsp;&nbsp;&nbsp;[field name="company_name" url="company_website" class="company" new_tab]<br />
+				&nbsp;&nbsp;&nbsp;&nbsp;[date class="date" format="F Y"]<br />
 				&nbsp;&nbsp;[/client]<br />
 				[/strong]<br />
 				[strong read_more page="all-testimonials" /]

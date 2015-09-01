@@ -188,6 +188,8 @@ function wpmtst_default_settings() {
 		}
 
 		update_option( 'wpmtst_admin_notices', $notices );
+		
+		// To highlight the News menu option until read.
 		update_option( 'wpmtst_news_flag', 1 );
 	}
 }

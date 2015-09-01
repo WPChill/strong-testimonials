@@ -4,7 +4,7 @@
  * Plugin URI: http://www.wpmission.com/strong-testimonials/
  * Description: Collect and display testimonials with a plugin that offers strong features and strong support.
  * Author: Chris Dillon
- * Version: 1.19
+ * Version: 1.20
  * Forked From: GC Testimonials version 1.3.2 by Erin Garscadden
  * Author URI: http://www.wpmission.com/contact
  * Text Domain: strong-testimonials
@@ -193,10 +193,24 @@ add_action( 'init', 'wpmtst_load_order_class' );
 
 
 /**
- * Theme support for this custom post type only.
+ * Add theme support for this custom post type only.
+ *
+ * Bug: Was calling non-existent hook until 1.19.1
+ * Good thing too because simple use of add_theme_support may overwrite theme.
+ * See this thread:
+ * @link https://wordpress.org/support/topic/missing-featured-image?replies=8
+ *
+ * In 1.20, this now appends our testimonial post type to the existing array,
+ * at a later priority, and only if thumbnails are not already global for all
+ * post types (an array means not global).
+ *
+ * @since 1.4.0
  */
 function wpmtst_theme_support() {
-	add_theme_support( 'post-thumbnails', array( 'wpm-testimonial' ) );
+	global $_wp_theme_features;
+	if ( is_array( $_wp_theme_features['post-thumbnails'] ) ) {
+		$_wp_theme_features['post-thumbnails'][0][] = 'wpm-testimonial';
+	}
 }
 add_action( 'after_theme_setup', 'wpmtst_theme_support' );
 

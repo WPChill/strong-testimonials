@@ -13,25 +13,34 @@
 	<section>
 		<h3>The road ahead: In clay, not stone.</h3>
 		
-		<h4>Version 1.18</h4>
+		<h4>Version 1.19</h4>
 	
-		<p>This was an important update for compatibility with WordPress 4.3.</p>
-	
-		<p>This version introduced two highly requested features: <strong>multiple email notifications</strong> when
-			new testimonials have been submitted, and <strong>a category selector</strong> that can be added to the
-			submission form.</p>
-	
-		
-		<h4>Version 1.19 <em style="color: #CD0000;">(current)</em></h4>
-	
-		<p>This version improves compatibility with themes and other plugins by allowing you to <strong>customize the shortcode tag</strong>. For example, you can change it from <code>[strong]</code> to <code>[my_testimonials]</code>, <code>[reviews]</code>, or even a single character like <code>[T]</code>.</p>
+		<p>This version improved compatibility with themes and other plugins by allowing you to <strong>customize the shortcode tag</strong>. For example, you can change it from <code>[strong]</code> to <code>[my_testimonials]</code>, <code>[reviews]</code>, or even a single character like <code>[T]</code>.</p>
 	
 		<p>WordPress does not handle shortcode collisions at all. So if your theme also provides a <code>[strong]</code> shortcode (for <strong>bolding</strong> text) it will override this plugin's shortcode, as themes are loaded <em>after</em> plugins. Customizing the shortcode will resolve that conflict. <a href="https://www.wpmission.com/contact" target="_blank">Contact me</a> for help if you would prefer to disable a shortcode in your theme.</p>
 		
-		<h4>Version 1.20</h4>
-	
-		<p>This version will add a few minor but highly requested features.</p>
-	
+
+		<h4>Version 1.20 <em style="color: #CD0000;">(current)</em></h4>
+		
+		<p>New shortcode feature: Use <code>more_page</code> to add a link to a page using the page ID or slug.</p>
+		<p>Examples:</p>
+<pre>
+[strong more_page="27"]
+
+[strong more_page="our-testimonials"]
+</pre>
+		
+		<p>New shortcode feature: Use <code>[date]</code> to display the testimonial post date. It must be in the <code>[client]</code>section.<br>Options: <code>class</code> to add a CSS class, and <code>format</code> to change the display format. <a href="http://php.net/manual/en/function.date.php" target="_blank" rel="nofollow">More about PHP date formats</a>.</p>
+		<p>Example:</p>
+<pre>
+[strong title thumbnail]
+  [client]
+    [field name="client_name" class="name"]
+    [field name="company_name" url="company_website" class="company" new_tab]
+    <b style="color:#CD0000;">[date class="date"]</b>
+  [/client]
+[/strong]</pre>
+		<p><img src="<?php echo WPMTST_URL . 'images/strong-date.png'; ?>"></p>
 		
 		<h4>Version 1.21</h4>
 	

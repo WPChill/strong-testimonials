@@ -5,7 +5,7 @@
 			<?php /* translators: This appears in the [strong] shortcode instructions. */ ?>
 			<th><h3><?php _e( 'Child Shortcodes', 'strong-testimonials' ); ?></h3></th>
 			<?php /* translators: This appears in the [strong] shortcode instructions. */ ?>
-			<th><em><?php _e( 'must be inside a parent [ strong ] shortcode', 'strong-testimonials' ); ?></em></th>
+			<th><em><?php _e( 'must be inside a parent [strong] shortcode', 'strong-testimonials' ); ?></em></th>
 		</tr>
 		<tr>
 			<td>
@@ -37,6 +37,13 @@
 			</td>
 			<td>[field name="my_custom_field_1" url="my_custom_field_2" new_tab]</td>
 		</tr>
+		<tr>
+			<td>
+				<?php /* translators: This appears in the [strong] shortcode instructions. */ ?>
+				<?php _e( 'the testimonial post date', 'strong-testimonials' ); ?><br />
+			</td>
+			<td>[date]<br>[date class="date"]<br>[date format="mm-dd-Y"]<br><br><a href="http://php.net/manual/en/function.date.php" target="_blank" rel="nofollow">More about PHP date formats</a></td>
+		</tr>
 
 		<tr>
 			<th colspan="2"><h3><?php _e( 'Examples', 'strong-testimonials' ); ?></h3></th>
@@ -49,7 +56,7 @@
 		<tr class="example">
 			<?php /* translators: This appears in the [strong] shortcode instructions. */ ?>
 			<td><?php _ex( 'full', 'adjective', 'strong-testimonials' ); ?></td>
-			<td>[client]<br />&nbsp;&nbsp;[field name="client_name" class="name"]<br />&nbsp;&nbsp;[field name="company_name" class="company" url="company_website" new_tab]<br />[/client]</td>
+			<td>[client]<br />&nbsp;&nbsp;[field name="client_name" class="name"]<br />&nbsp;&nbsp;[field name="company_name" class="company" url="company_website" new_tab]<br>&nbsp;&nbsp;[date]<br />[/client]</td>
 		</tr>
 	</table>
 </div>

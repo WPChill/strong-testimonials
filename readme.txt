@@ -21,7 +21,7 @@ Strong Testimonials by [WP Mission](https://www.wpmission.com) is a full-feature
 1. Shortcodes, widgets, and template files.
 1. A deep and wide demo site and a developer who's on your side.
 
-[Demos](http://demos.wpmission.com/strong-testimonials/) | [Feature Requests](https://www.wpmission.com/project/strong-testimonials/?target=feature-requests)
+[Check out the demos](http://demos.wpmission.com/strong-testimonials/)
 
 = Collect =
 
@@ -31,7 +31,7 @@ Need to add a field? Want to remove one? No problem. Use the fields editor to **
 
 The form also offer **anti-spam** options like honeypots and Captcha via these plugins: [Captcha](http://wordpress.org/plugins/captcha/), [Really Simple Captcha](http://wordpress.org/plugins/really-simple-captcha/), and [Advanced noCaptcha reCaptcha](https://wordpress.org/plugins/advanced-nocaptcha-recaptcha/). 
 
-Submitted testimonials will be in Pending status by default or they can be published immediately. You can send multiple **notification emails** to your admin(s).
+New testimonials will be in Pending status by default or they can be published immediately. You can send multiple **notification emails** to your admin(s).
 
 = Display =
 
@@ -73,14 +73,14 @@ Other shortcode examples:
 [/strong]
 `
 `
-[strong slideshow show_for="5" effect_for="1" length="200"]
+[strong slideshow show_for="5" effect_for="1" excerpt]
 `
+
+[Check out the demos](http://demos.wpmission.com/strong-testimonials/)
 
 = Support =
 
 As a technical support veteran, I am dedicated to your success. I will move mountains to fix bugs, to resolve conflicts with other plugins and themes, and to craft elegant solutions to fragile workarounds.
-
-[Demos](http://demos.wpmission.com/strong-testimonials/) | [Feature Requests](https://www.wpmission.com/project/strong-testimonials/?target=feature-requests)
 
 = Recommended =
 
@@ -168,6 +168,12 @@ Not yet.
 
 == Changelog ==
 
+= 1.20 - 2015-09-01 =
+* New shortcode option "more_page" to add a "Read more" to a page.
+* New child shortcode "date" to display the post date.
+* Fix thumbnail support.
+* Fix reorder table striping.
+
 = 1.19 - 2015-08-27 =
 * Add option to change shortcode.
 * Fix redundant admin notices.
@@ -206,5 +212,5 @@ Not yet.
 
 == Upgrade Notice ==
 
-= 1.19 =
-* Add option to change shortcode. Fix redundant admin notices.
+= 1.20 =
+* New shortcode options "more_page" and "date". Fix thumbnail support and reorder table striping.

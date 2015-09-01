@@ -1,13 +1,13 @@
 /**
- *	Strong Testimonials > admin list order
+ *  Strong Testimonials > admin list order
  */
 
-jQuery(document).ready(function($) {
+jQuery(document).ready(function ($) {
 	$("td.column-order").hover(
-		function(){
+		function () {
 			$(this).closest("tr").addClass("reorder-hover");
 		},
-		function(){
+		function () {
 			$(this).closest("tr").removeClass("reorder-hover");
 		}
 	);
@@ -36,9 +36,9 @@ function resetCellWidths(reset) {
 // Thanks http://davidwalsh.name/javascript-debounce-function
 function debounce(func, wait, immediate) {
 	var timeout;
-	return function() {
+	return function () {
 		var context = this, args = arguments;
-		var later = function() {
+		var later = function () {
 			timeout = null;
 			if (!immediate) func.apply(context, args);
 		};
@@ -55,71 +55,59 @@ var myEfficientFn = debounce(resetCellWidths, 100);
 window.addEventListener('resize', myEfficientFn);
 
 
-(function($){
+(function ($) {
 
 	setCellWidths();
-	
+
 	// make rows sortable
 	$('table.posts #the-list').sortable({
-
-		items : 'tr',
-		
-		axis : 'y',
-		
-		handle :'td.column-order',
-		
-		forcePlaceholderSize : true,
-		
-		placeholder : "sortable-placeholder",
-		
-		start : function(e, ui) {
+		items: 'tr',
+		axis: 'y',
+		handle: 'td.column-order',
+		forcePlaceholderSize: true,
+		placeholder: "sortable-placeholder",
+		start: function (e, ui) {
 			// set height of placeholder to match current dragged element
 			ui.placeholder.height(ui.helper.height());
-			ui.helper.css("cursor","move");
+			ui.helper.css("cursor", "move");
 		},
-		
-		helper : function(e, ui) {
+		helper: function (e, ui) {
 			var $originals = ui.children();
 			var $helper = ui.clone();
-			$helper.children().each(function(index) {
+			$helper.children().each(function (index) {
 				// set helper cell sizes to match the original sizes
 				$(this).width($originals.eq(index).width());
 			});
 			return $helper;
 		},
-		
-		update : function(e, ui) {
-
-			$.post( ajaxurl, {
-				action : 'update-menu-order',
-				order : $('#the-list').sortable('serialize'),
+		update: function (e, ui) {
+			$.post(ajaxurl, {
+					action: 'update-menu-order',
+					order: $('#the-list').sortable('serialize'),
 				},
-				function(data){
+				function (data) {
 					// update menu order shown
 					var $orders = $(".menu-order");
 					var obj = JSON.parse(data);
-					var orderArray = $.map(obj, function(val, i) { 
+					var orderArray = $.map(obj, function (val, i) {
 						$orders.eq(i).html(val);
-				});
-				// update zebra striping
-				$("#the-list tr:odd").addClass("alternate");
-				$("#the-list tr:even").removeClass("alternate");
-			})
-			.done(function() {
-				// alert( "second success" );
-				ui.item.effect('highlight', {}, 2000);
-			})
+					});
+					// update zebra striping
+					//$("#the-list tr").removeClass("alternate");
+				})
+				.done(function () {
+					// alert( "second success" );
+					ui.item.effect('highlight', {}, 2000);
+				})
 			/*
-			.fail(function() {
-				// alert( "error" );
-			})
-			.always(function() {
-				// alert( "finished" );
-			});
-			*/
-			
+			 .fail(function() {
+			 // alert( "error" );
+			 })
+			 .always(function() {
+			 // alert( "finished" );
+			 });
+			 */
 		}
-		
 	});
 
 })(jQuery);

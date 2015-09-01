@@ -33,6 +33,15 @@
 		<tr>
 			<td>
 				<?php /* translators: This appears in the [strong] shortcode instructions. */ ?>
+				<?php _e( '"Read more" link to a page', 'strong-testimonials' ); ?><br />
+				<?php /* translators: This appears in the [strong] shortcode instructions. */ ?>
+				<em><?php _e( 'use either the page ID or slug', 'strong-testimonials' ); ?></em>
+			</td>
+			<td>more_page="27"<br>more_page="our-testimonials"</td>
+		</tr>
+		<tr>
+			<td>
+				<?php /* translators: This appears in the [strong] shortcode instructions. */ ?>
 				<?php _e( '"Read more" phrase', 'strong-testimonials' ); ?><br />
 				<?php /* translators: This appears in the [strong] shortcode instructions. */ ?>
 				<em><?php _e( 'default text is "Read more" (translatable)', 'strong-testimonials' ); ?></em>
