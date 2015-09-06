@@ -168,6 +168,9 @@ Not yet.
 
 == Changelog ==
 
+= 1.21 - 2015-09-06 =
+* Fix bug in updating default settings.
+
 = 1.20 - 2015-09-01 =
 * New shortcode option "more_page" to add a "Read more" to a page.
 * New child shortcode "date" to display the post date.
@@ -209,8 +212,3 @@ Not yet.
 * Add Arabic and Portuguese translations.
 * Updated translation files for French and Spanish.
 * Updated POT file.
-
-== Upgrade Notice ==
-
-= 1.20 =
-* New shortcode options "more_page" and "date". Fix thumbnail support and reorder table striping.

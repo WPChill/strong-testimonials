@@ -46,6 +46,59 @@ function wpmtst_default_settings() {
 		// -3A- NEW ACTIVATION
 		update_option( 'wpmtst_fields', $default_fields );
 	}
+	else {
+		// -3B- UPDATE
+		// Field update was missing from 1.18 - 1.20. Added in 1.20.1.
+
+		// ----------
+		// field base
+		// ----------
+		$new_field_base = array_merge( $default_fields['field_base'], $fields['field_base'] );
+		
+		// -----------
+		// field types
+		// -----------
+		$new_field_types = $fields['field_types'];
+		// first check for new default types like "optional"
+		foreach ( $default_fields['field_types'] as $type_name => $type_array ) {
+			if ( ! isset( $new_field_types[$type_name] ) ) {
+				$new_field_types[ $type_name ] = $type_array;
+			}			
+		}
+		// now update existing types like "post" and "custom"
+		foreach ( $new_field_types as $type_name => $type_array ) {
+			foreach ( $type_array as $field_name => $field_atts ) {
+				$new_field_types[$type_name][$field_name] = array_merge( $default_fields['field_types'][$type_name][$field_name], $field_atts );
+			}
+		}
+		
+		// ------------
+		// field_groups
+		// ------------
+		$new_field_groups = $fields['field_groups'];
+		foreach ( $new_field_groups as $group_name => $group_array ) {
+			// custom fields are in display order (not associative)
+			// so we must find them by name
+			foreach ( $group_array['fields'] as $key => $new_field ) {
+				$updated_default = null;
+				foreach( $default_fields['field_groups']['default']['fields'] as $a_field ) {
+					if ( $a_field['name'] = $new_field['name'] ) {
+						$updated_default = $a_field;
+						break;
+					}
+				}
+				if ( $updated_default ) {
+					$new_field_groups[ $group_name ]['fields'][ $key ] = array_merge( $updated_default, $new_field );
+				}
+			}
+		}
+	
+		// Re-assemble fields and save.
+		$fields['field_base']   = $new_field_base;
+		$fields['field_types']  = $new_field_types;
+		$fields['field_groups'] = $new_field_groups;
+		update_option( 'wpmtst_fields', $fields );
+	}
 	
 	// -4- GET CYCLE
 	$cycle = get_option( 'wpmtst_cycle' );
