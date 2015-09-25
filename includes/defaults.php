@@ -99,7 +99,8 @@ function wpmtst_get_default_fields() {
 			'option_label' => __( 'Testimonial Content', 'strong-testimonials' ),
 			'map'          => 'post_content',
 			'required'     => 1,
-			'core'         => 1,
+			//'core'         => 1,
+			'core'         => 0,  // @since 1.20.2
 			'admin_table'  => 0,
 		),
 		'featured_image' => array(

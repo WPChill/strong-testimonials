@@ -168,7 +168,12 @@ Not yet.
 
 == Changelog ==
 
-= 1.21 - 2015-09-06 =
+= 1.20.2 - 2015-09-25 =
+* Fix bug in custom shortcode.
+* Fix bug in form class.
+* Allow removal of content field in form.
+
+= 1.20.1 - 2015-09-06 =
 * Fix bug in updating default settings.
 
 = 1.20 - 2015-09-01 =
@@ -212,3 +217,8 @@ Not yet.
 * Add Arabic and Portuguese translations.
 * Updated translation files for French and Spanish.
 * Updated POT file.
+
+== Upgrade Notice ==
+
+= 1.20.2 = 
+Fix bugs in custom shortcode and form class. Allow removal of form content field.

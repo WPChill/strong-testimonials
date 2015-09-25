@@ -23,11 +23,16 @@ add_filter( 'upload_mimes', 'wpmtst_restrict_mime' );
 function wpmtst_form_shortcode( $atts ) {
 	extract( shortcode_atts(
 		array( 
-				'category' => false,
+			'category' => false,
+			'class'    => '',
 		),
 		normalize_empty_atts( $atts )
 	) );
-	
+
+	$container_class_list = '';
+	if ( $class )
+		$container_class_list = ' ' . str_replace( ',', ' ', $class );
+
 	$options      = get_option( 'wpmtst_options' );
 	$form_options = get_option( 'wpmtst_form_options' );
 	$messages     = $form_options['messages'];
@@ -242,7 +247,7 @@ function wpmtst_form_shortcode( $atts ) {
 	// ---------------------------
 	// output buffering made this incredibly unreadable
 	
-	$html = '<div class="strong-container">';
+	$html = '<div class="strong-container'. $container_class_list .'">';
 	$html .= '<div class="strong-content">';
 	$html .= '<div id="wpmtst-form">';
 	$html .= '<p class="required-notice"><span class="required symbol"></span>' . $messages['required-field']['text'] . '</p>';

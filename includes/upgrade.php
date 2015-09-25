@@ -37,6 +37,7 @@ function wpmtst_default_settings() {
 			// Merge in new options
 			$options = array_merge( $default_options, $options );
 			update_option( 'wpmtst_options', $options );
+			
 		}
 	}
 	
@@ -50,54 +51,58 @@ function wpmtst_default_settings() {
 		// -3B- UPDATE
 		// Field update was missing from 1.18 - 1.20. Added in 1.20.1.
 
-		// ----------
-		// field base
-		// ----------
-		$new_field_base = array_merge( $default_fields['field_base'], $fields['field_base'] );
-		
-		// -----------
-		// field types
-		// -----------
-		$new_field_types = $fields['field_types'];
-		// first check for new default types like "optional"
-		foreach ( $default_fields['field_types'] as $type_name => $type_array ) {
-			if ( ! isset( $new_field_types[$type_name] ) ) {
-				$new_field_types[ $type_name ] = $type_array;
-			}			
-		}
-		// now update existing types like "post" and "custom"
-		foreach ( $new_field_types as $type_name => $type_array ) {
-			foreach ( $type_array as $field_name => $field_atts ) {
-				$new_field_types[$type_name][$field_name] = array_merge( $default_fields['field_types'][$type_name][$field_name], $field_atts );
+		if ( ! isset( $options['plugin_version'] ) || $options['plugin_version'] != $plugin_version ) {
+			
+			// ----------
+			// field base
+			// ----------
+			$new_field_base = array_merge( $default_fields['field_base'], $fields['field_base'] );
+			
+			// -----------
+			// field types
+			// -----------
+			$new_field_types = $fields['field_types'];
+			// first check for new default types like "optional"
+			foreach ( $default_fields['field_types'] as $type_name => $type_array ) {
+				if ( ! isset( $new_field_types[$type_name] ) ) {
+					$new_field_types[ $type_name ] = $type_array;
+				}			
 			}
-		}
-		
-		// ------------
-		// field_groups
-		// ------------
-		$new_field_groups = $fields['field_groups'];
-		foreach ( $new_field_groups as $group_name => $group_array ) {
-			// custom fields are in display order (not associative)
-			// so we must find them by name
-			foreach ( $group_array['fields'] as $key => $new_field ) {
-				$updated_default = null;
-				foreach( $default_fields['field_groups']['default']['fields'] as $a_field ) {
-					if ( $a_field['name'] = $new_field['name'] ) {
-						$updated_default = $a_field;
-						break;
+			// now update existing types like "post" and "custom"
+			foreach ( $new_field_types as $type_name => $type_array ) {
+				foreach ( $type_array as $field_name => $field_atts ) {
+					$new_field_types[$type_name][$field_name] = array_merge( $default_fields['field_types'][$type_name][$field_name], $field_atts );
+				}
+			}
+			
+			// ------------
+			// field_groups
+			// ------------
+			$new_field_groups = $fields['field_groups'];
+			foreach ( $new_field_groups as $group_name => $group_array ) {
+				// custom fields are in display order (not associative)
+				// so we must find them by name
+				foreach ( $group_array['fields'] as $key => $new_field ) {
+					$updated_default = null;
+					foreach( $default_fields['field_groups']['default']['fields'] as $a_field ) {
+						if ( $a_field['name'] = $new_field['name'] ) {
+							$updated_default = $a_field;
+							break;
+						}
+					}
+					if ( $updated_default ) {
+						$new_field_groups[ $group_name ]['fields'][ $key ] = array_merge( $updated_default, $new_field );
 					}
 				}
-				if ( $updated_default ) {
-					$new_field_groups[ $group_name ]['fields'][ $key ] = array_merge( $updated_default, $new_field );
-				}
 			}
+		
+			// Re-assemble fields and save.
+			$fields['field_base']   = $new_field_base;
+			$fields['field_types']  = $new_field_types;
+			$fields['field_groups'] = $new_field_groups;
+			update_option( 'wpmtst_fields', $fields );
+			
 		}
-	
-		// Re-assemble fields and save.
-		$fields['field_base']   = $new_field_base;
-		$fields['field_types']  = $new_field_types;
-		$fields['field_groups'] = $new_field_groups;
-		update_option( 'wpmtst_fields', $fields );
 	}
 	
 	// -4- GET CYCLE
@@ -108,54 +113,57 @@ function wpmtst_default_settings() {
 	}
 	else {
 		// -4B- UPDATE
-		
-		// if updating from 1.5 - 1.6
-		if ( isset( $options['cycle-order'] ) ) {
-			$cycle = array(
-					'order'   => $options['cycle-order'],
-					'effect'  => $options['cycle-effect'],
-					'speed'   => $options['cycle-speed'],
-					'timeout' => $options['cycle-timeout'],
-					'pause'   => $options['cycle-pause'],
-			);
-			unset( 
-				$options['cycle-order'],
-				$options['cycle-effect'],
-				$options['cycle-speed'],
-				$options['cycle-timeout'],
-				$options['cycle-pause']
-			);
-			update_option( 'wpmtst_options', $options );
+		if ( ! isset( $options['plugin_version'] ) || $options['plugin_version'] != $plugin_version ) {
+			
+			// if updating from 1.5 - 1.6
+			if ( isset( $options['cycle-order'] ) ) {
+				$cycle = array(
+						'order'   => $options['cycle-order'],
+						'effect'  => $options['cycle-effect'],
+						'speed'   => $options['cycle-speed'],
+						'timeout' => $options['cycle-timeout'],
+						'pause'   => $options['cycle-pause'],
+				);
+				unset( 
+					$options['cycle-order'],
+					$options['cycle-effect'],
+					$options['cycle-speed'],
+					$options['cycle-timeout'],
+					$options['cycle-pause']
+				);
+				update_option( 'wpmtst_options', $options );
+			}
+			
+			// if updating to 1.11
+			// change hyphenated to underscored
+			if ( isset( $cycle['char-limit'] ) ) {
+				$cycle['char_limit'] = $cycle['char-limit'];
+				unset( $cycle['char-limit'] );
+			}
+			if ( isset( $cycle['more-page'] ) ) {
+				$cycle['more_page'] = $cycle['more-page'];
+				unset( $cycle['more-page'] );
+			}
+			
+			// if updating from 1.7
+			// moving cycle options to separate option
+			if ( isset( $options['cycle']['cycle-order'] ) ) {
+				$old_cycle = $options['cycle'];
+				$cycle = array(
+					'order'   => $old_cycle['cycle-order'],
+					'effect'  => $old_cycle['cycle-effect'],
+					'speed'   => $old_cycle['cycle-speed'],
+					'timeout' => $old_cycle['cycle-timeout'],
+					'pause'   => $old_cycle['cycle-pause'],
+				);
+				unset( $options['cycle'] );
+				update_option( 'wpmtst_options', $options );
+			}
+			
+			$cycle = array_merge( $default_cycle, $cycle );
+			update_option( 'wpmtst_cycle', $cycle );
+			
 		}
-		
-		// if updating to 1.11
-		// change hyphenated to underscored
-		if ( isset( $cycle['char-limit'] ) ) {
-			$cycle['char_limit'] = $cycle['char-limit'];
-			unset( $cycle['char-limit'] );
-		}
-		if ( isset( $cycle['more-page'] ) ) {
-			$cycle['more_page'] = $cycle['more-page'];
-			unset( $cycle['more-page'] );
-		}
-		
-		// if updating from 1.7
-		// moving cycle options to separate option
-		if ( isset( $options['cycle']['cycle-order'] ) ) {
-			$old_cycle = $options['cycle'];
-			$cycle = array(
-				'order'   => $old_cycle['cycle-order'],
-				'effect'  => $old_cycle['cycle-effect'],
-				'speed'   => $old_cycle['cycle-speed'],
-				'timeout' => $old_cycle['cycle-timeout'],
-				'pause'   => $old_cycle['cycle-pause'],
-			);
-			unset( $options['cycle'] );
-			update_option( 'wpmtst_options', $options );
-		}
-		
-		$cycle = array_merge( $default_cycle, $cycle );
-		update_option( 'wpmtst_cycle', $cycle );
 	}
 	
 	/*
@@ -189,6 +197,7 @@ function wpmtst_default_settings() {
 	else {
 		// -5C- UPDATE
 		if ( ! isset( $options['plugin_version'] ) || $options['plugin_version'] != $plugin_version ) {
+			
 			/**
 			 * Update single email recipient to multiple.
 			 * 
@@ -211,12 +220,16 @@ function wpmtst_default_settings() {
 			// Merge in new options
 			$form_options = array_merge( $default_form_options, $form_options );
 			update_option( 'wpmtst_form_options', $form_options );
+			
 		}
 	}
 
-	// Final step: Update the plugin version.
+	/**
+	 * Final step: Update the plugin version.
+	 */
 	$options = get_option( 'wpmtst_options' );
 	if ( ! isset( $options['plugin_version'] ) || $options['plugin_version'] != $plugin_version ) {
+		
 		$options['plugin_version'] = $plugin_version;
 		update_option( 'wpmtst_options', $options );
 		
@@ -243,6 +256,7 @@ function wpmtst_default_settings() {
 		update_option( 'wpmtst_admin_notices', $notices );
 		
 		// To highlight the News menu option until read.
-		update_option( 'wpmtst_news_flag', 1 );
+		//update_option( 'wpmtst_news_flag', 1 );
+	
 	}
 }

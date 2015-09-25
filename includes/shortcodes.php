@@ -80,7 +80,7 @@ function wpmtst_get_field( $field, $args = array() ) {
 		
 		// Process child shortcodes in [strong] content.
 		case 'client' :
-			$html = do_child_shortcode( 'strong', $args['content'] );
+			$html = do_child_shortcode( wpmtst_get_shortcode(), $args['content'] );
 			break;
 		
 		// Get the custom field.

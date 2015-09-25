@@ -30,7 +30,7 @@ add_filter( 'testimonials_template', 'wpmtst_loop_template_filter', 99 );
  * @since 1.11.5
  */
 function wpmtst_no_texturize_shortcodes( $shortcodes ) {
-	$shortcodes[] = 'strong';
+	$shortcodes[] = wpmtst_get_shortcode();
 	return $shortcodes;
 }
 add_filter( 'no_texturize_shortcodes', 'wpmtst_no_texturize_shortcodes' );
@@ -260,8 +260,7 @@ function wpmtst_strong_shortcode( $atts, $content = null, $parent_tag ) {
 	$html = apply_filters( 'strong_html', $html );
 	return $html;
 }
-$shortcode = wpmtst_get_shortcode();
-add_shortcode( $shortcode, 'wpmtst_strong_shortcode' );
+add_shortcode( wpmtst_get_shortcode(), 'wpmtst_strong_shortcode' );
 
 
 /**
@@ -286,9 +285,9 @@ add_filter( 'shortcode_atts_strong', 'wpmtst_strong_shortcode_filter', 10, 3 );
  * @since 1.11.0
  */
 function wpmtst_strong_client_shortcode( $atts, $content = null, $tag ) {
-	return do_child_shortcode( 'strong', $content );
+	return do_child_shortcode( wpmtst_get_shortcode(), $content );
 }
-add_child_shortcode( 'strong', 'client', 'wpmtst_strong_client_shortcode' );
+add_child_shortcode( wpmtst_get_shortcode(), 'client', 'wpmtst_strong_client_shortcode' );
 
 
 /**
@@ -345,7 +344,7 @@ function wpmtst_strong_field_shortcode( $atts, $content = null, $tag ) {
 		return '<div class="' . $class . '">' . $name . '</div>';
 	}
 }
-add_child_shortcode( 'strong', 'field', 'wpmtst_strong_field_shortcode' );
+add_child_shortcode( wpmtst_get_shortcode(), 'field', 'wpmtst_strong_field_shortcode' );
 
 
 /**
@@ -380,7 +379,7 @@ function wpmtst_strong_date_shortcode( $atts, $content = null, $tag ) {
 	$the_date = apply_filters( 'wpmtst_the_date', $the_date, $format, $post );
 	return '<div class="' . $class . '">' . $the_date . '</div>';
 }
-add_child_shortcode( 'strong', 'date', 'wpmtst_strong_date_shortcode' );
+add_child_shortcode( wpmtst_get_shortcode(), 'date', 'wpmtst_strong_date_shortcode' );
 
 
 /**
