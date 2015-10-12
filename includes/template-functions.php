@@ -47,11 +47,17 @@ function wpmtst_the_thumbnail( $size = null ) {
 		extract( WPMST()->atts( array( 'thumbnail', 'thumbnail_size', 'lightbox' ) ) );
 		if ( $thumbnail && has_post_thumbnail( $id ) ) {
 			$img = get_the_post_thumbnail( $id, $thumbnail_size );
-			if ( $img && $lightbox && defined( 'SIMPLECOLORBOX_VERSION' ) ) {
+			if ( $img && $lightbox ) {
 				$url = wp_get_attachment_url( get_post_thumbnail_id( $id ) );
 				if ( $url ) {
-					$img = '<a href="' . $url . '" class="colorbox">' . $img . '</a>';
-					add_action( 'wp_footer', 'wpmtst_colorbox_manual_settings', 100 );
+					$img = '<a href="' . $url . '">' . $img . '</a>';
+					/**
+					 * Adjust settings for Simple Colorbox plugin. 
+					 * TODO do the same for other lightbox plugins
+					 */
+					if ( defined( 'SIMPLECOLORBOX_VERSION' ) ) {
+						add_action( 'wp_footer', 'wpmtst_colorbox_manual_settings', 100 );
+					}
 				}
 			}
 		}
@@ -62,25 +68,29 @@ function wpmtst_the_thumbnail( $size = null ) {
 }
 
 /**
+ * Global Colorbox settings.
+ * 
  * @param $settings
  *
  * @return mixed
  */
 function wpmtst_colorbox_settings( $settings ) {
-	// This doesn't work because wp_localize_script converts booleans to strings.
-	//$settings['returnFocus'] = false;
+	$settings['returnFocus'] = false;
+	$settings['rel'] = 'nofollow';
 	return $settings;
 }
-add_filter( 'simple_colorbox_settings', 'wpmtst_colorbox_settings' );
+//add_filter( 'simple_colorbox_settings', 'wpmtst_colorbox_settings' );
 
+/**
+ * Colorbox settings for testimonials only.
+ */
 function wpmtst_colorbox_manual_settings() {
-	// Setting booleans manually since wp_localize_script converts booleans to strings.
 	?>
 	<script>
-		(function(){
-			colorboxSettings.returnFocus = false; // de-focus thumbnail after lightbox is closed
-			colorboxSettings.rel = false; // don't display as a group
-		})();
+	// de-focus and disable grouping 
+	jQuery(function($){
+		$(".testimonial-image a").colorbox({rel:"nofollow",returnFocus:false});
+	});
 	</script>
 	<?php
 }

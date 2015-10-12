@@ -11,7 +11,7 @@
 		<li>new templates included</li>
 		<li>better template functions</li>
 		<li>select from all available thumbnail sizes or set a custom size</li>
-		<li>thumbnail link can open full-size image in a lightbox (<a href="https://wordpress.org/plugins/simple-colorbox/" target="_blank">Simple Colorbox</a> plugin required)</li>
+		<li>thumbnail link can open full-size image in a lightbox (try the <a href="https://wordpress.org/plugins/simple-colorbox/" target="_blank">Simple Colorbox</a> plugin)</li>
 		<li>prevent double form submissions</li>
 		<li>some admin speed improvement</li>
 	</ul>

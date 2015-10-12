@@ -1098,4 +1098,13 @@ th.manage-column.sortable:hover {
 	margin: 0;
 }
 
+/* Pointers
+--------------------------------------*/
+.wp-pointer-content ul {
+	list-style-type: disc;
+	padding-left: 2em;
+}
 
+.wpm-testimonial_page_views div.wp-pointer-content {
+	box-shadow: 2px 2px 2px 2px rgba(0,0,0,0.3); 
+}

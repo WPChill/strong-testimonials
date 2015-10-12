@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Strong Testimonials 1.13\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/strong-testimonials\n"
-"POT-Creation-Date: 2015-10-12 08:49-0400\n"
-"PO-Revision-Date: 2015-10-12 08:49-0400\n"
+"POT-Creation-Date: 2015-10-13 12:10-0400\n"
+"PO-Revision-Date: 2015-10-13 12:10-0400\n"
 "Last-Translator: Chris Dillon <chris@wpmission.com>\n"
 "Language-Team: \n"
 "Language: pt_BR\n"
@@ -27,94 +27,107 @@ msgstr ""
 msgid "Settings"
 msgstr "Configurações"
 
+#: ../includes/admin/admin.php:245
+msgid "New in Strong Testimonials"
+msgstr ""
+
 #: ../includes/admin/admin.php:246
+msgid ""
+"<ul><li>Views make it easier to configure your testimonials.</li>\n"
+"\t\t\t\t\t\t<li>WPML & Polylang compatible.</li>\n"
+"\t\t\t\t\t\t<li>New templates!</li>\n"
+"\t\t\t\t\t\t<li>More thumbnail sizes.</li></ul>\n"
+"\t\t\t\t\t\t<p>Read more in the new Guide.</p>"
+msgstr ""
+
+#: ../includes/admin/admin.php:302
 msgctxt "post editor"
 msgid "Client Details"
 msgstr "Detalhes do Cliente"
 
-#: ../includes/admin/admin.php:290
+#: ../includes/admin/admin.php:346
 msgctxt "post editor"
 msgid "To add a photo or logo, use the Featured Image option."
 msgstr ""
 
-#: ../includes/admin/admin.php:334 ../includes/admin/guide/order.php:4
+#: ../includes/admin/admin.php:390 ../includes/admin/guide/order.php:4
 msgid "Order"
 msgstr ""
 
-#: ../includes/admin/admin.php:336
+#: ../includes/admin/admin.php:392
 msgctxt "testimonial"
 msgid "Title"
 msgstr "Título"
 
 #. translators: This appears in widget settings.
-#: ../includes/admin/admin.php:338 ../includes/defaults.php:350
+#: ../includes/admin/admin.php:394 ../includes/defaults.php:350
 #: ../includes/widget.php:407
 msgid "Excerpt"
 msgstr "Resumo"
 
-#: ../includes/admin/admin.php:343 ../includes/admin/admin.php:473
+#: ../includes/admin/admin.php:399 ../includes/admin/admin.php:528
 msgid "Thumbnail"
 msgstr "Miniatura"
 
 #. translators: This is on the Cycle Shortcode settings screen.
 #. translators: This appears in widget settings.
-#: ../includes/admin/admin.php:351
+#: ../includes/admin/admin.php:407
 #: ../includes/admin/forms/settings/cycle.php:19 ../includes/widget.php:238
 msgid "Category"
 msgstr "Categoria"
 
-#: ../includes/admin/admin.php:353 ../includes/admin/admin.php:516
+#: ../includes/admin/admin.php:409 ../includes/admin/admin.php:571
 #: ../includes/admin/forms/settings/general.php:14
 msgid "Shortcode"
 msgstr "Shortcode"
 
-#: ../includes/admin/admin.php:355
+#: ../includes/admin/admin.php:411
 msgid "Date"
 msgstr "Data"
 
-#: ../includes/admin/admin.php:371
+#: ../includes/admin/admin.php:427
 msgid "Y/m/d g:i:s A"
 msgstr ""
 
-#: ../includes/admin/admin.php:450
+#: ../includes/admin/admin.php:505
 msgid "reorder"
 msgstr ""
 
-#: ../includes/admin/admin.php:451
+#: ../includes/admin/admin.php:506
 msgid "drag and drop"
 msgstr ""
 
-#: ../includes/admin/admin.php:501
+#: ../includes/admin/admin.php:556
 msgid "None"
 msgstr "Nenhuma"
 
-#: ../includes/admin/admin.php:513
+#: ../includes/admin/admin.php:568
 msgid "ID"
 msgstr "ID"
 
-#: ../includes/admin/admin.php:514
+#: ../includes/admin/admin.php:569
 #: ../includes/admin/forms/settings/email-from.php:12
 #: ../includes/admin/forms/settings/email-to.php:12
 msgid "Name"
 msgstr ""
 
-#: ../includes/admin/admin.php:515
+#: ../includes/admin/admin.php:570
 msgid "Slug"
 msgstr "Slug"
 
-#: ../includes/admin/admin.php:517
+#: ../includes/admin/admin.php:572
 msgid "Posts"
 msgstr "Posts"
 
 #. translators: %s is the name of the plugin.
-#: ../includes/admin/admin.php:635
+#: ../includes/admin/admin.php:690
 #, php-format
 msgctxt "installation"
 msgid "Unable to load %s"
 msgstr "Incapaz de carregar %s"
 
 #. translators: %s is a WordPress version number.
-#: ../includes/admin/admin.php:638
+#: ../includes/admin/admin.php:693
 #, php-format
 msgctxt "installation"
 msgid ""
@@ -124,12 +137,12 @@ msgstr ""
 "Este plugin requer <strong>WordPress %s</strong> ou superior por isso que "
 "ele foi desativado."
 
-#: ../includes/admin/admin.php:639
+#: ../includes/admin/admin.php:694
 msgctxt "installation"
 msgid "Please upgrade WordPress and try again."
 msgstr "Por favor, atualize o WordPress e tente novamente."
 
-#: ../includes/admin/admin.php:640
+#: ../includes/admin/admin.php:695
 #, php-format
 msgctxt "installation"
 msgid "Back to the WordPress <a href=\"%s\">Plugins page</a>"
@@ -137,7 +150,7 @@ msgstr ""
 "Volte para a \n"
 "<a href=\"%s\">pagina de Plugins</a> do WordPress."
 
-#: ../includes/admin/custom-fields.php:12 ../includes/admin/settings.php:213
+#: ../includes/admin/custom-fields.php:12 ../includes/admin/settings.php:212
 #: ../includes/admin/views.php:121
 msgid "You do not have sufficient permissions to access this page."
 msgstr "Você não tem permissões suficientes para acessar esta página."
@@ -847,7 +860,7 @@ msgstr "<a href=\"%s\">configuração</a>"
 
 #. translators: This appears on the Original Shortcodes admin screen.
 #: ../includes/admin/forms/settings/shortcodes.php:47
-#: ../includes/admin/guide/original.php:37 ../includes/admin/settings.php:282
+#: ../includes/admin/guide/original.php:37 ../includes/admin/settings.php:281
 #: ../includes/admin/views.php:22 ../includes/widget.php:200
 msgctxt "display order"
 msgid "Random"
@@ -1097,7 +1110,7 @@ msgstr "Imagem em Destaque"
 msgid "(if included in Fields)"
 msgstr ""
 
-#: ../includes/admin/forms/view/option-thumbnail.php:36
+#: ../includes/admin/forms/view/option-thumbnail.php:35
 msgid "Open full-size image in lightbox"
 msgstr ""
 
@@ -1701,10 +1714,7 @@ msgid "the size of the Featured Image (thumbnail)"
 msgstr ""
 
 #: ../includes/admin/guide/views.php:17
-msgid ""
-"thumbnail link can open full-size image in a lightbox (<a href=\"https://"
-"wordpress.org/plugins/simple-colorbox/\" target=\"_blank\">Simple Colorbox</"
-"a> plugin required)"
+msgid "thumbnail link can open full-size image in a lightbox"
 msgstr ""
 
 #: ../includes/admin/guide/views.php:18
@@ -1766,52 +1776,52 @@ msgstr "Guia"
 msgid "Welcome"
 msgstr ""
 
-#: ../includes/admin/settings.php:217
+#: ../includes/admin/settings.php:216
 msgid "Testimonial Settings"
 msgstr "Configuração Depoimentos"
 
-#: ../includes/admin/settings.php:221
+#: ../includes/admin/settings.php:220
 msgid "Settings saved."
 msgstr "Configuração Salva"
 
-#: ../includes/admin/settings.php:230
+#: ../includes/admin/settings.php:229
 msgctxt "adjective"
 msgid "General"
 msgstr "Geral"
 
-#: ../includes/admin/settings.php:231 ../includes/defaults.php:338
+#: ../includes/admin/settings.php:230 ../includes/defaults.php:338
 msgid "Form"
 msgstr "Formulário"
 
-#: ../includes/admin/settings.php:232
+#: ../includes/admin/settings.php:231
 msgid "Cycle Shortcode"
 msgstr "Ciclo Shortcode"
 
-#: ../includes/admin/settings.php:233
+#: ../includes/admin/settings.php:232
 msgid "Client Section"
 msgstr "Seção do Cliente"
 
-#: ../includes/admin/settings.php:258
+#: ../includes/admin/settings.php:257
 msgid "Save Changes"
 msgstr ""
 
-#: ../includes/admin/settings.php:259
+#: ../includes/admin/settings.php:258
 msgid "Remember to save changes before switching tabs."
 msgstr "Lembre-se de salvar as mudanças antes de mudar entre as guias."
 
-#: ../includes/admin/settings.php:283 ../includes/admin/views.php:23
+#: ../includes/admin/settings.php:282 ../includes/admin/views.php:23
 #: ../includes/widget.php:201
 msgctxt "display order"
 msgid "Menu order"
 msgstr ""
 
-#: ../includes/admin/settings.php:284 ../includes/admin/views.php:24
+#: ../includes/admin/settings.php:283 ../includes/admin/views.php:24
 #: ../includes/widget.php:202
 msgctxt "display order"
 msgid "Newest first"
 msgstr "Mais recentes primeiro"
 
-#: ../includes/admin/settings.php:285 ../includes/admin/views.php:25
+#: ../includes/admin/settings.php:284 ../includes/admin/views.php:25
 #: ../includes/widget.php:203
 msgctxt "display order"
 msgid "Oldest first"

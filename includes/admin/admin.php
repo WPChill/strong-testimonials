@@ -46,7 +46,7 @@ function wpmtst_plugin_action_links( $links, $file ) {
 	}
 	return $links;
 }
-add_filter( 'plugin_action_links', 'wpmtst_plugin_action_links', 10, 2 );
+//add_filter( 'plugin_action_links', 'wpmtst_plugin_action_links', 10, 2 );
 
 
 /**
@@ -196,16 +196,15 @@ function wpmtst_admin_scripts( $hook ) {
 		default:
 	}
 
+
 }
 add_action( 'admin_enqueue_scripts', 'wpmtst_admin_scripts' );
-
 
 function wpmtst_admin_dequeue_scripts() {
 	if ( wp_style_is( 'CPTStyleSheets' ) )
 		wp_dequeue_style( 'CPTStyleSheets' );
 }
 add_action( 'admin_enqueue_scripts', 'wpmtst_admin_dequeue_scripts', 500 );
-
 
 /**
  * Load custom style for WPML.

@@ -4,7 +4,7 @@
  * Plugin URI: http://www.wpmission.com/strong-testimonials/
  * Description: Collect and display testimonials with a plugin that offers strong features and strong support.
  * Author: Chris Dillon
- * Version: 1.21
+ * Version: 1.21.1
  * Forked From: GC Testimonials version 1.3.2 by Erin Garscadden
  * Author URI: http://www.wpmission.com/contact
  * Text Domain: strong-testimonials
@@ -174,6 +174,7 @@ final class Strong_Testimonials {
 			require_once WPMTST_INC . 'admin/custom-fields.php';
 			require_once WPMTST_INC . 'admin/guide/guide.php';
 			require_once WPMTST_INC . 'admin/install.php';
+			require_once WPMTST_INC . 'admin/pointers.php';
 			require_once WPMTST_INC . 'admin/settings.php';
 			require_once WPMTST_INC . 'admin/upgrade.php';
 			require_once WPMTST_INC . 'admin/views.php';

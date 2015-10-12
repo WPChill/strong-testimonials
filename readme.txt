@@ -22,22 +22,17 @@ Strong Testimonials by [WP Mission](https://www.wpmission.com) is a full-feature
 
 = Primary Features =
 
-1. Two ways to implement:
-  * a View is a simple way to display your testimonials or the form
-  * or the robust `[strong]` shortcode
-1. A front-end form
-  * custom fields
-  * anti-spam options
-  * notification emails
-1. Categories
-1. Excerpts
-1. Featured Images (thumbnails)
-1. Multiple slideshows
-1. Sort by oldest, newest, random, or menu order
-1. Simple pagination
-1. Custom "Read more" links
-1. Template files and functions for deep customization
-1. A developer who's on your side :)
+* Configure a View or use the robust `[strong]` shortcode
+* A front-end form with custom fields, anti-spam options, and notification emails
+* Categories
+* Excerpts
+* Featured Images (thumbnails)
+* Multiple slideshows
+* Sort by oldest, newest, random, or menu order
+* Simple pagination
+* Custom "Read more" links
+* Template files and functions for deep customization
+* A developer who's on your side :)
 
 [Check out the demos](http://demos.wpmission.com/strong-testimonials/)
 
@@ -99,7 +94,7 @@ Other examples:
 [strong slideshow show_for="5" effect_for="1" excerpt]
 `
 
-Use '[read_more]' after your testimonials to add a "Read more" link to another page.
+Use `[read_more]` after your testimonials to add a "Read more" link to another page.
 
 [Check out the demos](http://demos.wpmission.com/strong-testimonials/)
 
@@ -193,6 +188,9 @@ Not yet.
 10. The shortcode guide.
 
 == Changelog ==
+
+= 1.21.1 - 2015-10-13 =
+* Removed Simple Colorbox dependency. Any lightbox will do.
 
 = 1.21 - 2015-10-12 =
 * Views.

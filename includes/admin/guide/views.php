@@ -14,7 +14,7 @@
 		<li><?php _e( 'show the full content, the excerpt, or up to a specific length', 'strong-testimonials' ); ?></li>
 		<li><?php _e( 'which fields to include', 'strong-testimonials' ); ?></li>
 		<li><?php _e( 'the size of the Featured Image (thumbnail)', 'strong-testimonials' ); ?></li>
-		<li><?php _e( 'thumbnail link can open full-size image in a lightbox (<a href="https://wordpress.org/plugins/simple-colorbox/" target="_blank">Simple Colorbox</a> plugin required)', 'strong-testimonials' ); ?></li>
+		<li><?php _e( 'thumbnail link can open full-size image in a lightbox' ); ?></li>
 		<li><?php _e( 'pagination', 'strong-testimonials' ); ?></li>
 		<li><?php _e( 'a "Read more" link to the full post or another page', 'strong-testimonials' ); ?></li>
 		<li><?php _e( 'choose a template, either included in the plugin or a custom template you create in your theme', 'strong-testimonials' ); ?></li>
