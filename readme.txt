@@ -189,6 +189,9 @@ Not yet.
 
 == Changelog ==
 
+= 1.21.2 - 2015-10-14 = 
+* Fix conflict with WooCommerce.
+
 = 1.21.1 - 2015-10-13 =
 * Removed Simple Colorbox dependency. Any lightbox will do.
 

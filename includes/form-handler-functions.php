@@ -12,6 +12,8 @@ function wpmtst_form_handler() {
 	if ( ! check_admin_referer( 'wpmtst_form_action', 'wpmtst_form_nonce' ) )
 		return false;
 
+	add_filter( 'upload_mimes', 'wpmtst_restrict_mime' );
+
 	$form_options = get_option( 'wpmtst_form_options' );
 
 	// Init three arrays: post, post_meta, attachment(s).
@@ -183,6 +185,8 @@ function wpmtst_form_handler() {
 
 	}
 
+	remove_filter( 'upload_mimes', 'wpmtst_restrict_mime' );
+		
 	/**
 	 * Post inserted successfully, carry on.
 	 */
@@ -201,6 +205,15 @@ function wpmtst_form_handler() {
 	return false;
 }
 
+function wpmtst_restrict_mime( $mimes ) {
+	$mimes = array(
+		'jpg|jpeg|jpe' => 'image/jpeg',
+		'gif'          => 'image/gif',
+		'png'          => 'image/png',
+	);
+
+	return $mimes;
+}
 
 /**
  * File upload handler

@@ -30,7 +30,7 @@ add_action( 'init', 'wpmtst_load_order_class' );
  */
 function wpmtst_theme_support() {
 	global $_wp_theme_features;
-	if ( is_array( $_wp_theme_features['post-thumbnails'] ) ) {
+	if ( isset( $_wp_theme_features['post-thumbnails']) && is_array( $_wp_theme_features['post-thumbnails'] ) ) {
 		$_wp_theme_features['post-thumbnails'][0][] = 'wpm-testimonial';
 	}
 
@@ -51,24 +51,3 @@ add_action( 'admin_init', 'wpmtst_theme_support' );
  * @since 1.15.5
  */
 add_filter( 'widget_text', 'do_shortcode' );
-
-
-function wpmtst_restrict_mime( $mimes ) {
-	$mimes = array(
-		'jpg|jpeg|jpe' => 'image/jpeg',
-		'gif'          => 'image/gif',
-		'png'          => 'image/png',
-	);
-
-	return $mimes;
-}
-
-add_filter( 'upload_mimes', 'wpmtst_restrict_mime' );
-
-
-// function wpmtst_wp_handle_upload_prefilter( $file ) {
-// return $file;
-// }
-// add_filter( 'wp_handle_upload_prefilter', 'wpmtst_wp_handle_upload_prefilter' );
-
-
