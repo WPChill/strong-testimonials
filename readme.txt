@@ -17,8 +17,8 @@ Strong Testimonials by [WP Mission](https://www.wpmission.com) is a full-feature
 
 * Compatible with WPML and Polylang.
 * Views are easy to configure.
-* New template choices (and more on the way)
-* More thumbnail sizes
+* New template choices (and more on the way).
+* More thumbnail sizes.
 
 = Primary Features =
 
@@ -188,6 +188,9 @@ Not yet.
 10. The shortcode guide.
 
 == Changelog ==
+
+= 1.21.3 - 2015-10-15 =
+* Fix bug in resetting post data after query.
 
 = 1.21.2 - 2015-10-14 = 
 * Fix conflict with WooCommerce.

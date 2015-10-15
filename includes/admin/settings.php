@@ -37,12 +37,14 @@ function wpmtst_settings_menu() {
 		'guide',
 		'wpmtst_guide' );
 
+	if ( ! is_multisite() ) {
 		add_submenu_page( 'admin.php',
 			__( 'Welcome', 'strong-testimonials' ),
 			__( 'Welcome', 'strong-testimonials' ),
 			'manage_options',
 			'strong-testimonials-welcome',
 			'wpmtst_welcome' );
+	}
 }
 
 add_action( 'admin_menu', 'wpmtst_settings_menu' );

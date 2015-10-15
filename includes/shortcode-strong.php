@@ -175,7 +175,6 @@ function wpmtst_display_view( $atts ) {
 	}
 
 	$post_count = $query->post_count;
-	wp_reset_postdata();
 
 	/**
 	 * -------------------
@@ -242,6 +241,7 @@ function wpmtst_display_view( $atts ) {
 	$html = ob_get_contents();
 	ob_end_clean();
 
+	wp_reset_postdata();
 	$html = apply_filters( 'strong_html', $html );
 	return $html;
 }
