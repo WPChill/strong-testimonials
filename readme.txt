@@ -189,6 +189,10 @@ Not yet.
 
 == Changelog ==
 
+= 1.21.4 - 2015-10-21 =
+* Fix bug with Polylang admin.
+* New Spanish (es_ES) translation.
+
 = 1.21.3 - 2015-10-15 =
 * Fix bug in resetting post data after query.
 
