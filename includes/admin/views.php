@@ -88,7 +88,7 @@ function wpmtst_view_settings( $action = '', $view_id = null ) {
 		<?php if ( 'edit' == $action ) : ?>
 			<div class="view-info">
 				<div class="form-view-shortcode">
-					<span class="title">Shortcode:</span><code>[testimonial_view id=<?php echo $view_id; ?>]</code>
+					<span class="title">Shortcode:</span>[testimonial_view id=<?php echo $view_id; ?>]
 				</div>
 			</div>
 		<?php endif; ?>
@@ -608,6 +608,7 @@ function wpmtst_sanitize_view( $input ) {
 	$view_data['thumbnail_width']  = sanitize_text_field( $input['thumbnail_width'] );
 	$view_data['thumbnail_height'] = sanitize_text_field( $input['thumbnail_height'] );
 	$view_data['lightbox']         = isset( $input['lightbox'] ) ? 1 : 0;
+	$view_data['gravatar']         = sanitize_text_field( $input['gravatar'] );
 
 	$view_data['class']      = sanitize_text_field( $input['class'] );
 	$view_data['background'] = sanitize_text_field( $input['background'] );

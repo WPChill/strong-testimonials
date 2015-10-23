@@ -28,15 +28,8 @@ NEED TO CONSOLIDATE */
 	margin-top: 1em;
 }
 
-.view-info input,
-.view-info code {
+.view-info input {
 	font-size: 1em;
-	/*margin-right: 1em;*/
-}
-
-.view-info code {
-	font-size: 1em;
-	padding: 3px 6px 5px;
 }
 
 .view-info .title {
@@ -424,6 +417,19 @@ select option {
 		font-style: normal;
 		margin-left: 3px;
 	}
+}
+
+.form-view-shortcode {
+    direction: ltr;
+    font-family: Consolas,Monaco,monospace;
+    unicode-bidi: embed;
+}
+.form-view-shortcode .title {
+    font-family: "Open Sans",sans-serif;
+}
+
+.indented {
+	margin-left: 24px;
 }
 
 /* DEBUG */

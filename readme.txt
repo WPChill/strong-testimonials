@@ -19,6 +19,7 @@ Strong Testimonials by [WP Mission](https://www.wpmission.com) is a full-feature
 * Views are easy to configure.
 * New template choices (and more on the way).
 * More thumbnail sizes.
+* Gravatar support.
 
 = Primary Features =
 
@@ -189,6 +190,9 @@ Not yet.
 
 == Changelog ==
 
+= 1.22 - 2015-10-23 =
+* Gravatar support.
+
 = 1.21.4 - 2015-10-21 =
 * Fix bug with Polylang admin.
 * New Spanish (es_ES) translation.
@@ -265,4 +269,4 @@ Not yet.
 
 == Upgrade Notice ==
 
-Introducing Views. WPML & Polylang compatible. New templates. More thumbnail sizes.
+Introducing Views. WPML & Polylang compatible. New templates. More thumbnail sizes. Gravatar support.

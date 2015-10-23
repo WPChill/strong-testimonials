@@ -1036,6 +1036,7 @@ table.news td {
 ------------------------------------------------*/
 td.column-shortcode {
 	white-space: nowrap;
+	font-family: Consolas, Monaco, monospace;
 }
 
 /* indicate sortable & sorted columns */

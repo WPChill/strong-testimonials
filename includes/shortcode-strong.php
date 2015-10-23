@@ -232,6 +232,11 @@ function wpmtst_display_view( $atts ) {
 	}
 	
 	/**
+	 * Add filters here.
+	 */
+	add_filter( 'get_avatar', 'wpmtst_avatar_filter', 10, 5 );
+	
+	/**
 	 * Load template
 	 */
 	$template_file = wpmtst_find_template( $template, $view );
@@ -241,6 +246,11 @@ function wpmtst_display_view( $atts ) {
 	$html = ob_get_contents();
 	ob_end_clean();
 
+	/**
+	 * Remove filters here.
+	 */
+	remove_filter( 'get_avatar', 'wpmtst_avatar_filter' );
+	
 	wp_reset_postdata();
 	$html = apply_filters( 'strong_html', $html );
 	return $html;

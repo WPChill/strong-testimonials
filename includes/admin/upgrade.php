@@ -257,6 +257,15 @@ function wpmtst_default_settings() {
 		$view_default = array_merge( $default_view, $view_default );
 		update_option( 'wpmtst_view_default', $view_default );
 	}
+	
+	/**
+	 * Update views
+	 */
+	$views = wpmtst_get_views();
+	foreach ( $views as $view ) {
+		$view['data'] = array_merge( $view_default, unserialize( $view['value'] ) );
+		wpmtst_save_view( $view );
+	}
 
 	/**
 	 * -8- GET L10N CONTEXTS
@@ -280,8 +289,8 @@ function wpmtst_default_settings() {
 	update_option( 'wpmtst_plugin_version', $plugin_version );
 	delete_option( 'wpmtst_admin_notices' );
 	delete_option( 'wpmtst_news_flag' );
-	if ( version_compare( $current_plugin_version, '1.21', '<' ) ) {
-		add_option( 'wpmtst_update_redirect', true );
-	}
+	// if ( version_compare( $current_plugin_version, '1.21', '<' ) ) {
+		// add_option( 'wpmtst_update_redirect', true );
+	// }
 	
 }

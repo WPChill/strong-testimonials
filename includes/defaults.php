@@ -384,6 +384,7 @@ function wpmtst_get_default_view() {
 		'content'          => 'entire',
 		'count'            => 5,
 		'effect_for'       => 1.5,
+		'gravatar'         => 'no',
 		'id'               => '',
 		'length'           => 200,
 		'lightbox'         => '',

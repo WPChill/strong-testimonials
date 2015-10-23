@@ -65,7 +65,7 @@ class Strong_Views_List_Table extends Strong_Testimonials_List_Table {
 			case 'template':
 				return $this->find_template( $item['data'][ $column_name ] );
 			case 'shortcode':
-				return "<code>[testimonial_view id={$item['id']}]</code>";
+				return "[testimonial_view id={$item['id']}]";
 			default:
 				return print_r( $item, true );
 		}

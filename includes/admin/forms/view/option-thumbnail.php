@@ -35,4 +35,23 @@
 			<label for="view-lightbox"><?php _e( 'Open full-size image in lightbox', 'strong-testimonials' ); ?></label>
 		</div>
 	</div>
+	<div class="row">
+		<div class="inline tight">
+			<div class="then then_images" style="display: none;">
+				<label for="view-gravatar" class=""><?php _e( 'If no Featured image', 'strong-testimonials' ); ?></label>
+				<select id="view-gravatar" class="if select selectper" name="view[data][gravatar]" autocomplete="off">
+					<option value="no" <?php selected( $view['gravatar'], 'no' ); ?>><?php _e( 'show nothing', 'strong-testimonials' ); ?></option>
+					<option value="yes" <?php selected( $view['gravatar'], 'yes' ); ?>><?php _e( 'show Gravatar', 'strong-testimonials' ); ?></option>
+					<option value="if" <?php selected( $view['gravatar'], 'if' ); ?>><?php _e( 'show Gravatar only if found', 'strong-testimonials' ); ?></option>
+				</select>
+			</div>
+		</div>
+	<div class="inline">
+		<div style="display: none;" class="then fast then_not_no then_yes then_if">
+			<p class="description">
+				<a href="<?php echo admin_url( 'options-discussion.php' ); ?>"><?php _e( 'Gravatar settings', 'strong-testimonials' ); ?></a>
+			</p>
+		</div>
+	</div>
+	</div>
 </td>

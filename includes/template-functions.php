@@ -36,35 +36,65 @@ function wpmtst_the_content( $length = null ) {
 }
 
 /**
+ * Display the thumbnail.
+ *
+ * TODO WP 4.2+ has better filters.
+ *
  * @param null $size
  */
 function wpmtst_the_thumbnail( $size = null ) {
-	$id  = get_the_ID();
-	$img = false;
-	if ( $size ) {
+	if ( ! WPMST()->atts( 'thumbnail' ) )
+		return;
+	
+	$size = ( null === $size ) ? WPMST()->atts( 'thumbnail_size' ) : $size ;
+	$id   = get_the_ID();
+	$img  = false;
+	
+	if ( has_post_thumbnail( $id ) ) {
 		$img = get_the_post_thumbnail( $id, $size );
-	} else {
-		extract( WPMST()->atts( array( 'thumbnail', 'thumbnail_size', 'lightbox' ) ) );
-		if ( $thumbnail && has_post_thumbnail( $id ) ) {
-			$img = get_the_post_thumbnail( $id, $thumbnail_size );
-			if ( $img && $lightbox ) {
-				$url = wp_get_attachment_url( get_post_thumbnail_id( $id ) );
-				if ( $url ) {
-					$img = '<a href="' . $url . '">' . $img . '</a>';
-					/**
-					 * Adjust settings for Simple Colorbox plugin. 
-					 * TODO do the same for other lightbox plugins
-					 */
-					if ( defined( 'SIMPLECOLORBOX_VERSION' ) ) {
-						add_action( 'wp_footer', 'wpmtst_colorbox_manual_settings', 100 );
-					}
+	} elseif ( 'no' != WPMST()->atts( 'gravatar' ) ) {
+		// avatars are square so get the width of the requested size
+		if ( is_array( $size ) ) {
+			// if dimension array
+			$gravatar_size = $size[0];
+		} else {
+			// if named size
+			$image_sizes   = wpmtst_get_image_sizes();
+			$gravatar_size = $image_sizes[$size]['width'];
+		}
+		$img = get_avatar( wpmtst_get_field( 'email' ), apply_filters( 'wpmtst_gravatar_size', $gravatar_size ), '' );
+	}
+	
+	if ( $img ) {
+		if ( WPMST()->atts( 'lightbox' ) ) {
+			$url = wp_get_attachment_url( get_post_thumbnail_id( $id ) );
+			if ( $url ) {
+				$img = '<a href="' . $url . '">' . $img . '</a>';
+				/**
+				 * Adjust settings for Simple Colorbox plugin. 
+				 * TODO do the same for other lightbox plugins
+				 */
+				if ( defined( 'SIMPLECOLORBOX_VERSION' ) ) {
+					add_action( 'wp_footer', 'wpmtst_colorbox_manual_settings', 100 );
 				}
 			}
 		}
-	}
-	if ( $img ) {
 		echo '<div class="testimonial-image">' . $img . '</div>';
 	}
+}
+
+/**
+ * Filter the avatar.
+ *
+ * @since 1.22.0
+ *
+ * TODO WP 4.2+ has better filters.
+ */
+ function wpmtst_avatar_filter( $avatar, $id_or_email, $size, $default, $alt ) {
+	if ( 'if' == WPMST()->atts( 'gravatar' ) && false !== strpos( $avatar, 'avatar-default' ) ) {
+		$avatar = '';
+	}
+	return $avatar;
 }
 
 /**
