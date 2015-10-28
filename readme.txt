@@ -37,9 +37,15 @@ Strong Testimonials by [WP Mission](https://www.wpmission.com) is a full-feature
 
 [Check out the demos](http://demos.wpmission.com/strong-testimonials/)
 
-= Collect =
+= The Form =
 
-The testimonial form has fields for a name, an email address, a company name and website, a heading, a photo, and, of course, the testimonial content.
+By default, the testimonial form has fields for 
+* a name, 
+* an email address, 
+* a company name and website, 
+* a heading, 
+* a photo, 
+* and, of course, the testimonial content.
 
 Need to add a field? Want to remove one? No problem. Use the fields editor to **customize the form** to your specific situation, including the field order, the text before or after, the placeholder text, and required fields.
 
@@ -53,13 +59,11 @@ Select the sort order and how many to show. Drag and drop them into a new order 
 
 Show the full testimonial, the excerpt, or up to a specified length - which is great when you have both long and short testimonials.
 
-Organize them into **categories** for easy segmentation. You can **paginate them**, only showing 5-10 per page, for example. The plugin offers simple page controls (1 2 3) that can be placed above and below the testimonial group.
+Organize them into **categories** for easy segmentation. You can **paginate them**, only showing 5-10 per page, for example. The plugin offers simple page controls that can be placed above and below the testimonial group.
 
 = Slideshow =
 
 Slideshows are easy to create. Multiple slideshows can be used on the same page with different styles and speeds. *(Can other testimonial plugins say that?)*
-
-Use **excerpts** to craft quick and simple one-liners. [Really make it sing](http://demos.wpmission.com/strong-testimonials/examples/excerpt-slideshow/) using **Featured Images**.
 
 Use **excerpts** to craft quick and simple one-liners. [Really make it sing](http://demos.wpmission.com/strong-testimonials/examples/excerpt-slideshow/) using **Featured Images**.
 
@@ -161,11 +165,11 @@ Yes. After setting up your categories, you can add a category dropdown element t
 
 = Can I edit the notification email that goes out when a new testimonial has been submitted? =
 
-Yes. You can edit the subject line, the message, who it's from, and who it's to (including multiple recipients).
+Yes. You can edit the subject line, the message, the sender, and the recipient(s).
 
 = Can I change which client fields appear below the testimonial? =
 
-Yes. The `[strong]` shortcode has child shortcodes `[client]` and `[field]`. Here's a good [example](http://demos.wpmission.com/strong-testimonials/the-strong-shortcode/custom-fields/).
+Yes. In Views, the client fields can be changed with a few clicks. The `[strong]` shortcode has child shortcodes `[client]` and `[field]`. Here's a good [example](http://demos.wpmission.com/strong-testimonials/the-strong-shortcode/custom-fields/).
 
 = Can I change "testimonial" to "review", for example? =
 
@@ -190,8 +194,14 @@ Not yet.
 
 == Changelog ==
 
+= 1.23 - 2015-10-28 =
+* Fix option to show Gravatar only if found.
+* Improve compatibility with Elegant Themes.
+* Fix invalid HTML.
+* Load custom stylesheet if using custom template; e.g. testimonials-custom.php & testimonials-custom.css.
+
 = 1.22 - 2015-10-23 =
-* Gravatar support.
+* Gravatar support in Views.
 
 = 1.21.4 - 2015-10-21 =
 * Fix bug with Polylang admin.

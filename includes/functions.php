@@ -587,45 +587,6 @@ function wpmtst_save_view( $view, $action = 'edit' ) {
 
 }
 
-
-/**
- * Show version number in <head> section.
- *
- * For troubleshooting only.
- *
- * @since 1.12.0
- */
-function wpmtst_show_version_number() {
-	global $wp_version;
-	$headers = array(
-		'name' => 'Plugin Name',
-		'version' => 'Version',
-	);
-	$plugin_info = get_file_data( __FILE__, $headers );
-	$comment = array(
-		'WordPress ' . $wp_version,
-		$plugin_info['name'] . ' ' . $plugin_info['version'],
-	);
-
-	if ( defined( 'SITEORIGIN_PANELS_VERSION' ) )
-		$comment[] = 'Page Builder by SiteOrigin ' . SITEORIGIN_PANELS_VERSION;
-
-	if ( defined( 'AV_FRAMEWORK_VERSION' ) )
-		$comment[] = 'Avia Framework ' . AV_FRAMEWORK_VERSION;
-
-	if ( defined( 'ET_PB_VERSION' ) )
-		$comment[] = 'Elegant Themes Page Builder ' . ET_PB_VERSION;
-
-	if ( defined( 'TTFMAKE_VERSION' ) )
-		$comment[] = 'Make Page Builder ' . TTFMAKE_VERSION;
-
-	if ( defined( 'THEME_FULL_NAME' ) )
-		$comment[] = THEME_FULL_NAME . ' theme';
-
-	echo "\n" . '<!-- versions: ' . implode( ' | ', $comment ) . ' -->' . "\n";
-}
-add_action( 'wp_head', 'wpmtst_show_version_number', 999 );
-
 /**
  * Update reminder
  * 

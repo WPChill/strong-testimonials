@@ -141,7 +141,7 @@ function wpmtst_form_hidden_fields() {
 }
 
 function wpmtst_form_nonce() {
-	echo wp_nonce_field( 'wpmtst_form_action', 'wpmtst_form_nonce', true, true );
+	wp_nonce_field( 'wpmtst_form_action', 'wpmtst_form_nonce', true, true );
 }
 
 function wpmtst_form_message( $part ) {
@@ -287,7 +287,7 @@ function wpmtst_field_required_symbol( $field ) {
 function wpmtst_field_before( $field ) {
 	if ( isset( $field['before'] ) && $field['before'] ) {
 		$context = wpmtst_get_l10n_context( 'form-fields' );
-		echo '<span class="before">' . apply_filters( 'wpmtst_l10n', $field['before'], $context, $field['name'] . ' : before' . '</span>' );
+		echo '<span class="before">' . apply_filters( 'wpmtst_l10n', $field['before'], $context, $field['name'] . ' : before' ) . '</span>';
 	}
 }
 
@@ -295,7 +295,7 @@ function wpmtst_field_after( $field ) {
 	if ( isset( $field['after'] ) && $field['after'] ) {
 		$context = wpmtst_get_l10n_context( 'form-fields' );
 		//echo '<span class="after">' . $field['after'] . '</span>';
-		echo '<span class="after">' . apply_filters( 'wpmtst_l10n', $field['after'], $context, $field['name'] . ' : after' . '</span>' );
+		echo '<span class="after">' . apply_filters( 'wpmtst_l10n', $field['after'], $context, $field['name'] . ' : after' ) . '</span>';
 	}
 }
 
@@ -345,7 +345,8 @@ function wpmtst_form_submit_button() {
 	$messages     = $form_options['messages'];
 	?>
 	<p class="form-field submit">
-		<input type="submit" id="wpmtst_submit_testimonial" name="wpmtst_submit_testimonial" value="<?php echo $messages['form-submit-button']['text']; ?>" class="button" validate="required:true">
+		<input type="submit" id="wpmtst_submit_testimonial" name="wpmtst_submit_testimonial" value="<?php echo $messages['form-submit-button']['text']; ?>" class="button">
 	</p>
 	<?php
+	// validate="required:true"
 }

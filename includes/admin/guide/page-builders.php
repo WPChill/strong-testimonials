@@ -26,7 +26,7 @@
 						<li><a href="https://wordpress.org/plugins/aqua-page-builder/" target="_blank" rel="nofollow">Aqua Page Builder</a></li>
 						<li><a href="http://www.kriesi.at/theme-overview" target="_blank" rel="nofollow">Avia Framework & Enfold theme</a></li>
 						<li><a href="https://wordpress.org/plugins/black-studio-tinymce-widget/" target="_blank" rel="nofollow">Black Studio TinyMCE Widget</a></li>
-						<li><a href="http://www.elegantthemes.com/gallery/divi/" target="_blank" rel="nofollow">Elegant Page Builder & Divi theme by Elegant Themes</a></li>
+						<li><a href="http://www.elegantthemes.com/gallery/divi/" target="_blank" rel="nofollow">Elegant Page Builder & themes</a></li>
 						<li><a href="http://goodlayers.com/" target="_blank" rel="nofollow">GoodLayers themes</a>
 						<li><a href="https://thethemefoundry.com/wordpress-themes/make/" target="_blank" rel="nofollow">Make theme by Theme Foundry</a></li>
 						<li><a href="https://www.optimizepress.com/" target="_blank" rel="nofollow">OptmizePress</a></li>

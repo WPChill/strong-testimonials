@@ -4,9 +4,8 @@
  * Plugin URI: http://www.wpmission.com/strong-testimonials/
  * Description: Collect and display testimonials with a plugin that offers strong features and strong support.
  * Author: Chris Dillon
- * Version: 1.22
- * Forked From: GC Testimonials version 1.3.2 by Erin Garscadden
- * Author URI: http://www.wpmission.com/contact
+ * Version: 1.23
+ * Author URI: http://www.wpmission.com/
  * Text Domain: strong-testimonials
  * Domain Path: /languages
  * Requires: 3.5 or higher
@@ -223,6 +222,9 @@ final class Strong_Testimonials {
 		// Preprocess the page for widgets.
 		add_action( 'wp', array( $this, 'find_widgets' ) );
 		add_action( 'wp', array( $this, 'find_view_widgets' ) );
+		
+		// Elegant Themes - Home page content areas
+		add_action( 'wp', array( $this, 'find_views_elegant_themes' ) );
 
 		// Preprocess the post content for the original shortcodes.
 		add_action( 'wp', array( $this, 'find_original_shortcodes' ) );
@@ -266,6 +268,8 @@ final class Strong_Testimonials {
 		 * Print our custom CSS.
 		 */
 		add_action( 'wp_head', array( $this, 'custom_css' ) );
+
+		add_action( 'wp_head', array( $this, 'show_version_info' ), 999 );
 
 	}
 
@@ -636,7 +640,52 @@ final class Strong_Testimonials {
 		self::process_content( $widget_content_serialized );
 
 	}
-	
+
+	/**
+	 * Build list of all shortcode views in the various convolutions of Elegant Themes.
+	 *
+	 * @since 1.23
+	 * @access public
+	 */
+	public static function find_views_elegant_themes() {
+
+		if ( is_admin() )
+			return false;
+
+		global $post;
+		if ( empty( $post ) )
+			return false;
+
+		if ( get_option( 'mycuisine_home_page_1' ) ) {
+			$target = get_post( get_option( 'mycuisine_home_page_1' ) );
+			if ( $target ) {
+				$content = $target->post_content;
+				if ( self::check_content( $content ) ) {
+					self::process_content( $content );
+				}
+			}
+		}
+		if ( get_option( 'mycuisine_home_page_2' ) ) {
+			$target = get_post( get_option( 'mycuisine_home_page_2' ) );
+			if ( $target ) {
+				$content = $target->post_content;
+				if ( self::check_content( $content ) ) {
+					self::process_content( $content );
+				}
+			}
+		}
+		if ( get_option( 'mycuisine_home_page_3' ) ) {
+			$target = get_post( get_option( 'mycuisine_home_page_3' ) );
+			if ( $target ) {
+				$content = $target->post_content;
+				if ( self::check_content( $content ) ) {
+					self::process_content( $content );
+				}
+			}
+		}
+
+	}
+
 	/**
 	 * Process content for shortcodes.
 	 *
@@ -699,7 +748,7 @@ final class Strong_Testimonials {
 				 * Recursively process nested shortcodes.
 				 *
 				 * Handles:
-				 * Elegant Themes page builder (Divi theme).
+				 * Elegant Themes page builder.
 				 *
 				 * @since 1.15.5
 				 */
@@ -713,7 +762,10 @@ final class Strong_Testimonials {
 	/**
 	 * Process a single [strong] or [testimonial_view] shortcode.
 	 *
-	 * @since 1.15.4
+	 * TODO Move all this to hooks and filters.
+	 * 
+	 * @since 1.15.4 [strong]
+	 * @since 1.21.0 [testimonial_view]
 	 */
 	private static function find_single_view( $counter, $atts, $att_string ) {
 		$options         = get_option( 'wpmtst_options' );
@@ -740,33 +792,17 @@ final class Strong_Testimonials {
 			$form_options = get_option( 'wpmtst_form_options' );
 			$view = array( 'mode' => 'form', 'atts' => $atts );
 			$preprocess_form = true;
-
+			
 			/**
 			 * If this is a view, look for accompanying stylesheet.
 			 * If this is a configured shortcode, check the option for loading its stylesheet.
 			 */
-			//TODO DRY (below)
 			if ( isset( $atts['view'] ) && $atts['view'] ) {
 
-				// Use default template if unspecified.
-				if ( ! isset( $atts['template'] ) || ! $atts['template'] ) {
-					$default_template = wpmtst_find_form_template( '', $atts['view'] );
-					$atts['template'] = str_replace( WPMTST_TPL, '', $default_template );
-				}
-
-				$stylesheet = str_replace( '.php', '.css', $atts['template'] );
-				$stylesheet_path = WPMTST_TPL . $stylesheet;
-				$stylesheet_url  = WPMTST_TPL_URI . $stylesheet;
-
-				if ( file_exists( $stylesheet_path ) ) {
-					$handle = str_replace( array( '/', '.php' ), array( '-', '-template' ), $atts['template'] ) . '-style';
-					wp_register_style( $handle, $stylesheet_url );
-					self::add_style( $handle );
-				}
+				self::find_stylesheet( $view['mode'], $atts );
 
 			} else {
 				
-				// [strong]
 				// load original stylesheet
 				if ( $options['load_form_style'] ) {
 					self::add_style( 'wpmtst-form-style' );
@@ -791,7 +827,7 @@ final class Strong_Testimonials {
 			if ( $form_options['honeypot_after'] ) {
 				add_action( 'wp_footer', 'wpmtst_honeypot_after_script' );
 			}
-
+			
 		} elseif ( isset( $atts['slideshow'] ) ) {
 			
 			/**
@@ -805,28 +841,12 @@ final class Strong_Testimonials {
 			 * If this is a configured shortcode, check the option for loading its stylesheet.
 			 */
 
-			//TODO DRY (below)
 			if ( isset( $atts['view'] ) && $atts['view'] ) {
 
-				// Use default template if unspecified.
-				if ( ! isset( $atts['template'] ) || ! $atts['template'] ) {
-					$default_template = wpmtst_find_template( '', $atts['view'] );
-					$atts['template'] = str_replace( WPMTST_TPL, '', $default_template );
-				}
-
-				$stylesheet = str_replace( '.php', '.css', $atts['template'] );
-				$stylesheet_path = WPMTST_TPL . $stylesheet;
-				$stylesheet_url = WPMTST_TPL_URI . $stylesheet;
-
-				if ( file_exists( $stylesheet_path ) ) {
-					$handle = str_replace( array( '/', '.php' ), array( '-', '-template' ), $atts['template'] ) . '-style';
-					wp_register_style( $handle, $stylesheet_url );
-					self::add_style( $handle );
-				}
+				self::find_stylesheet( $view['mode'], $atts );
 
 			} else {
 
-				// [strong]
 				// Load original stylesheet.
 				if ( $options['load_page_style'] ) {
 					self::add_style( 'wpmtst-style' );
@@ -851,29 +871,12 @@ final class Strong_Testimonials {
 			 * If this is a configured shortcode, check the option for loading its stylesheet.
 			 */
 
-			// TODO DRY (above)
 			if ( isset( $atts['view'] ) && $atts['view'] ) {
 
-				// Use default template if unspecified.
-				if ( ! isset( $atts['template'] ) || ! $atts['template'] ) {
-					$default_template = wpmtst_find_template( '', $atts['view'] );
-					$atts['template'] = str_replace( WPMTST_TPL, '', $default_template );
-				}
-
-				// Load template stylesheet
-				$stylesheet = str_replace( '.php', '.css', $atts['template'] );
-				$stylesheet_path = WPMTST_TPL . $stylesheet;
-				$stylesheet_url = WPMTST_TPL_URI . $stylesheet;
-
-				if ( file_exists( $stylesheet_path ) ) {
-					$handle = str_replace( array( '/', '.php' ), array( '-', '-template' ), $atts['template'] ) . '-style';
-					wp_register_style( $handle, $stylesheet_url );
-					self::add_style( $handle );
-				}
+				self::find_stylesheet( $view['mode'], $atts );
 				
 			} else {
 
-				// [strong]
 				// Load original stylesheet.
 				if ( $options['load_page_style'] ) {
 					self::add_style( 'wpmtst-style' );
@@ -897,7 +900,70 @@ final class Strong_Testimonials {
 
 		return $view;
 	}
+	
+	/**
+	 * Find a template's associated stylesheet.
+	 * 
+	 * @since 1.23.0
+	 */
+	private static function find_stylesheet( $mode = 'display', $atts ) {
+		// Find template; use default if unspecified.
+		if ( isset( $atts['template'] ) && $atts['template'] ) {
+			if ( 'form' == $mode ) {
+				$template = wpmtst_find_form_template( $atts['template'], $atts['view'] );
+			} else {
+				$template = wpmtst_find_template( $atts['template'], $atts['view'] );
+			}
+		} else {
+			if ( 'form' == $mode ) {
+				$template = wpmtst_find_form_template( '', $atts['view'] );
+			} else {
+				$template = wpmtst_find_template( '', $atts['view'] );
+			}
+			// Important to populate template var.
+			$atts['template'] = str_replace( WPMTST_TPL, '', $template );
+		}
 
+		// Load template stylesheet. Search theme first.
+		$handle = '';
+		$stylesheet_url = '';
+		
+		// Derive basename from full template filename.
+		$stylesheet = str_replace( array( '.php', get_stylesheet_directory() ), array( '.css', '' ), $template );
+		
+		if ( file_exists( get_stylesheet_directory() . $stylesheet ) ) {
+			$handle = self::generate_stylesheet_handle( $stylesheet );
+			$stylesheet_url  = get_stylesheet_directory_uri() . $stylesheet;
+		}
+
+		// Search plugin next.
+		if ( ! $handle ) {
+			
+			// Derive basename from full template filename.
+			$stylesheet = str_replace( array( '.php', WPMTST_TPL ), array( '.css', '' ), $template );
+
+			if ( file_exists( WPMTST_TPL . $stylesheet ) ) {
+				$handle = self::generate_stylesheet_handle( $stylesheet );
+				$stylesheet_url  = WPMTST_TPL_URI . $stylesheet;
+			}
+			
+		}
+		
+		if ( $handle ) {
+			wp_register_style( $handle, $stylesheet_url );
+			self::add_style( $handle );
+		}
+	}
+	
+	/**
+	 * Generate stylesheet handle using filename.
+	 *
+	 * @since 1.23
+	 */
+	private static function generate_stylesheet_handle( $stylesheet ){
+		return str_replace( array( '/', '.css' ), array( '-', '-template' ), trim( $stylesheet, '/' ) ) . '-style';
+	}
+	
 	/**
 	 * Preprocess a view to gather styles, scripts and script vars.
 	 *
@@ -987,8 +1053,10 @@ final class Strong_Testimonials {
 		 * Custom CSS for Views only.
 		 */
 		if ( isset( $atts['view'] ) && $atts['view'] ) {
-			$template_class = $template ? '.' . strtok( $template, '/' ) : '';
+			// For plugin templates only. 
 			if ( $background ) {
+				// Convert "default/testimonials.php" to "default", for example.
+				$template_class = $template ? '.' . strtok( $template, '/' ) : '';
 				self::add_css( ".strong-view{$template_class} .testimonial-inner { background: {$background}; }" );
 			}
 		}
@@ -1511,6 +1579,46 @@ final class Strong_Testimonials {
 	}
 	public function get_form_errors() {
 		return self::$form_errors;
+	}
+
+	/**
+	 * Show version number in <head> section.
+	 *
+	 * For troubleshooting only.
+	 *
+	 * @since 1.12.0
+	 */
+	function show_version_info() {
+		global $wp_version;
+		$plugin_info = $this->get_plugin_info();
+		$comment = array(
+			'WordPress ' . $wp_version,
+			$plugin_info['name'] . ' ' . $plugin_info['version'],
+		);
+
+		if ( defined( 'WPB_VC_VERSION' ) )
+			$comment[] = 'Visual Composer ' . WPB_VC_VERSION;
+
+		if ( defined( 'SITEORIGIN_PANELS_VERSION' ) )
+			$comment[] = 'Page Builder by SiteOrigin ' . SITEORIGIN_PANELS_VERSION;
+
+		if ( defined( 'AV_FRAMEWORK_VERSION' ) )
+			$comment[] = 'Avia Framework ' . AV_FRAMEWORK_VERSION;
+
+		if ( defined( 'ET_PB_VERSION' ) )
+			$comment[] = 'Elegant Themes Page Builder ' . ET_PB_VERSION;
+
+		if ( defined( 'TTFMAKE_VERSION' ) )
+			$comment[] = 'Make Page Builder ' . TTFMAKE_VERSION;
+
+		if ( defined( 'THEME_FULL_NAME' ) )
+			$comment[] = THEME_FULL_NAME . ' theme';
+
+		echo "\n" . '<!-- versions: ' . implode( ' | ', $comment ) . ' -->' . "\n";
+	}
+
+	public function get_plugin_info() {
+		return get_file_data( __FILE__, array( 'name' => 'Plugin Name', 'version' => 'Version' ) );
 	}
 	
 }

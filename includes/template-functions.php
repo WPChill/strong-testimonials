@@ -53,48 +53,96 @@ function wpmtst_the_thumbnail( $size = null ) {
 	if ( has_post_thumbnail( $id ) ) {
 		$img = get_the_post_thumbnail( $id, $size );
 	} elseif ( 'no' != WPMST()->atts( 'gravatar' ) ) {
-		// avatars are square so get the width of the requested size
-		if ( is_array( $size ) ) {
-			// if dimension array
-			$gravatar_size = $size[0];
-		} else {
-			// if named size
-			$image_sizes   = wpmtst_get_image_sizes();
-			$gravatar_size = $image_sizes[$size]['width'];
-		}
-		$img = get_avatar( wpmtst_get_field( 'email' ), apply_filters( 'wpmtst_gravatar_size', $gravatar_size ), '' );
+		$img = get_avatar( wpmtst_get_field( 'email' ), apply_filters( 'wpmtst_gravatar_size', $size ) );
 	}
 	
 	if ( $img ) {
-		if ( WPMST()->atts( 'lightbox' ) ) {
-			$url = wp_get_attachment_url( get_post_thumbnail_id( $id ) );
-			if ( $url ) {
-				$img = '<a href="' . $url . '">' . $img . '</a>';
-				/**
-				 * Adjust settings for Simple Colorbox plugin. 
-				 * TODO do the same for other lightbox plugins
-				 */
-				if ( defined( 'SIMPLECOLORBOX_VERSION' ) ) {
-					add_action( 'wp_footer', 'wpmtst_colorbox_manual_settings', 100 );
-				}
-			}
-		}
-		echo '<div class="testimonial-image">' . $img . '</div>';
+		// TODO Move class to a filter.
+		echo '<div class="testimonial-image">' . apply_filters( 'wpmtst_thumbnail_img', $img, $id ) . '</div>';
 	}
 }
 
 /**
- * Filter the avatar.
- *
- * @since 1.22.0
- *
- * TODO WP 4.2+ has better filters.
+ * Filter the thumbnail image.
+ * Used to add link for a lightbox. Will not affect avatars.
+ * 
+ * @param $img
+ * @param $post_id
+ * @since 1.23.0
+ * @return string
  */
- function wpmtst_avatar_filter( $avatar, $id_or_email, $size, $default, $alt ) {
-	if ( 'if' == WPMST()->atts( 'gravatar' ) && false !== strpos( $avatar, 'avatar-default' ) ) {
-		$avatar = '';
+function wpmtst_thumbnail_img( $img, $post_id ) {
+	if ( WPMST()->atts( 'lightbox' ) ) {
+		$url = wp_get_attachment_url( get_post_thumbnail_id( $post_id ) );
+		if ( $url ) {
+			$img = '<a href="' . $url . '">' . $img . '</a>';
+			/**
+			 * Adjust settings for Simple Colorbox plugin.
+			 * TODO do the same for other lightbox plugins
+			 */
+			if ( defined( 'SIMPLECOLORBOX_VERSION' ) ) {
+				add_action( 'wp_footer', 'wpmtst_colorbox_manual_settings', 100 );
+			}
+		}
 	}
-	return $avatar;
+	return $img;
+}
+add_filter( 'wpmtst_thumbnail_img', 'wpmtst_thumbnail_img', 10, 2 );
+
+/**
+ * Filter the gravatar size.
+ * 
+ * @param array $size
+ * @since 1.23.0
+ * @return mixed
+ */
+function wpmtst_gravatar_size_filter( $size = array( 150, 150 ) ) {
+	// avatars are square so get the width of the requested size
+	if ( is_array( $size ) ) {
+		// if dimension array
+		$gravatar_size = $size[0];
+	} else {
+		// if named size
+		$image_sizes   = wpmtst_get_image_sizes();
+		$gravatar_size = $image_sizes[$size]['width'];
+	}
+	return $gravatar_size;
+}
+add_filter( 'wpmtst_gravatar_size', 'wpmtst_gravatar_size_filter' );
+
+/**
+ * Checks to see if the specified email address has a Gravatar image.
+ *
+ * Thanks Tom McFarlin https://tommcfarlin.com/check-if-a-user-has-a-gravatar/
+ * @param $email_address string The email of the address of the user to check
+ * @return bool Whether or not the user has a gravatar
+ * @since 1.23.0
+ */
+function wpmtst_has_gravatar( $email_address ) {
+	// Build the Gravatar URL by hashing the email address
+	$url = 'http://www.gravatar.com/avatar/' . md5( strtolower( trim ( $email_address ) ) ) . '?d=404';
+
+	// Now check the headers...
+	$headers = @get_headers( $url );
+
+	// If 200 is found, the user has a Gravatar; otherwise, they don't.
+	return preg_match( '|200|', $headers[0] ) ? true : false;
+}
+
+/**
+ * Before assembling avatar HTML.
+ * 
+ * @param $url
+ * @param $id_or_email
+ * @param $args
+ *
+ * @return bool
+ */
+function wpmtst_get_avatar( $url, $id_or_email, $args ) {
+	if ( 'if' == WPMST()->atts( 'gravatar' ) && ! wpmtst_has_gravatar( $id_or_email ) )
+		return false;
+	
+	return $url;	
 }
 
 /**
