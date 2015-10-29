@@ -340,3 +340,13 @@ table.reference table th {
 table.reference table tr:nth-child(n+2) td {
 	border-top: 1px solid #ddd;
 }
+
+/* on Guide pages */
+.dashicon-large {
+	float: left;
+	color: #9AC8FE;
+	margin-right: 10px;
+	font-size: 34px;
+	width: 34px;
+	height: 34px;
+}

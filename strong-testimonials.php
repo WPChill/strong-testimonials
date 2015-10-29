@@ -4,7 +4,7 @@
  * Plugin URI: http://www.wpmission.com/strong-testimonials/
  * Description: Collect and display testimonials with a plugin that offers strong features and strong support.
  * Author: Chris Dillon
- * Version: 1.23
+ * Version: 1.23.1
  * Author URI: http://www.wpmission.com/
  * Text Domain: strong-testimonials
  * Domain Path: /languages
@@ -817,7 +817,7 @@ final class Strong_Testimonials {
 
 			if ( apply_filters( 'wpmtst_field_required_tag', true ) && apply_filters( 'wpmtst_form_validation_script', true ) ) {
 				self::add_script( 'wpmtst-form-script' );
-				// TODO localize too?
+				self::add_script( 'wpmtst-validation-lang' );
 			}
 
 			if ( $form_options['honeypot_before'] ) {
@@ -1406,6 +1406,7 @@ final class Strong_Testimonials {
 					self::add_style( 'wpmtst-rtl-style' );
 				}
 
+				// Slightly different than View processing.
 				self::add_script( 'wpmtst-validation-plugin' );
 				self::add_script( 'wpmtst-validation-lang' );
 				add_action( 'wp_footer', 'wpmtst_validation_function' );

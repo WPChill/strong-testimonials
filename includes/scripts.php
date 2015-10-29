@@ -20,9 +20,6 @@ function wpmtst_scripts() {
 	wp_register_script( 'wpmtst-pager-plugin', WPMTST_URL . 'js/quickpager.jquery.js', array( 'jquery' ), false, true );
 	wp_register_script( 'wpmtst-pager-script', WPMTST_URL . 'js/wpmtst-pager.js', array( 'wpmtst-pager-plugin' ), false, true );
 
-	// original with broken dependency:
-	//wp_register_script( 'wpmtst-form-script', WPMTST_URL . 'js/wpmtst-form.js', array( 'wpmtst-validation-plugin', 'wpmtst-validation-lang' ), false, true );
-
 	/**
 	 * Allow disabling of client-side form validation via filter.
 	 *

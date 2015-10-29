@@ -8,5 +8,5 @@
 <?php include 'selection.php'; ?>
 <?php include 'order.php'; ?>
 <?php include 'content.php'; ?>
-<?php include 'read-more.php'; ?>
+<?php include 'readmore.php'; ?>
 <?php include 'pagination.php'; ?>

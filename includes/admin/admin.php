@@ -171,7 +171,7 @@ function wpmtst_admin_scripts( $hook ) {
 	
 	// Page Builder compat
 	if ( defined( 'SITEORIGIN_PANELS_VERSION' ) ) {
-		//TODO  is loading validate this necessary? if so, language file too?
+		//TODO  is loading validate necessary? if so, language file too?
 		wp_enqueue_script( 'wpmtst-validation-plugin', WPMTST_URL . 'js/validate/jquery.validate.min.js', array( 'jquery' ) );
 	}
 

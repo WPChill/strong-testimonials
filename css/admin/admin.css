@@ -1052,7 +1052,7 @@ th.manage-column.sortable:hover {
 /* Plugin Sidebar
 ------------------------------------------------*/
 #plugin-sidebar {
-	width: 300px;
+	width: 320px;
 	float: right;
 	margin-left: 3em;
 	margin-bottom: 2em;
@@ -1060,6 +1060,10 @@ th.manage-column.sortable:hover {
 	background: #EDF2F8;
 	border: 1px solid #9AC8FE;
 	border-top-width: 5px;
+}
+
+#plugin-sidebar p {
+	margin: 1.5em 0;
 }
 
 /* Welcome page

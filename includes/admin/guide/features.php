@@ -4,6 +4,19 @@
 
 	<h3><?php _e( 'New Features', 'strong-testimonials' ); ?></h3>
 
+	<h4>Version 1.23</h4>
+
+	<ul>
+		<li>improved compatibility with Elegant Themes</li>
+		<li>fully valid HTML</li>
+	</ul>
+
+	<h4>Version 1.22</h4>
+	
+	<ul>
+		<li>support for Gravatars in Views, a long overdue feature</li>
+	</ul>
+	
 	<h4>Version 1.21</h4>
 	
 	<ul>

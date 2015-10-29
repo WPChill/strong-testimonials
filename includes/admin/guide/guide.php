@@ -61,17 +61,29 @@ function wpmtst_guide() {
 function wpmtst_guide_before_content() {
 	?>
 	<div id="plugin-sidebar">
-		<p><?php _e( 'Need help? Have an idea? Found a bug?', 'strong-testimonials' ); ?></p>
-		<p><?php printf( __( 'Please use the <a href="%s" target="_blank">support forum</a> or <a href="%s" target="_blank">contact me</a>.', 'strong-testimonials' ), 'http://wordpress.org/support/plugin/strong-testimonials', 'https://www.wpmission.com/contact/' ); ?></p>
+		<p><span class="dashicons dashicons-editor-help dashicon-large"></span><strong><?php _e( 'Need help? Have an idea? Found a bug?', 'strong-testimonials' ); ?></strong>
+		<?php
+		$link = sprintf( 
+			wp_kses( 
+				__( 'Use the <a href="%s" target="_blank">support forum</a> or <a href="%s" target="_blank">contact me</a>.', 'strong-testimonials' ), 
+				array( 'a' => array( 'href' => array() ) ) 
+			), esc_url( 'http://wordpress.org/support/plugin/strong-testimonials' ), esc_url( 'https://www.wpmission.com/contact/' ) );
+		?>
+		<?php echo $link; ?></p>
+
+		<?php
+		$link = sprintf(
+			wp_kses(
+				__( '<a href="%s" target="_blank">Donate here</a> to help cover development costs.', 'strong-testimonials' ),
+				array( 'a' => array( 'href' => array() ) )
+			), esc_url( 'https://www.wpmission.com/donate' ) );
+		?>
+		<p><span class="dashicons dashicons-smiley dashicon-large"></span><strong><?php _e( 'Want to help?', 'strong-testimonials' ); ?></strong> <?php echo $link; ?></p>
+
 	</div>
 	<?php
 }
 add_action( 'wpmtst_guide_before_content', 'wpmtst_guide_before_content' );
 
-function wpmtst_guide_after_content() {
-	?>
-	<h3><?php _e( 'Need help? Have an idea? Found a bug?', 'strong-testimonials' ); ?></h3>
-	<p><?php printf( __( 'Please use the <a href="%s" target="_blank">support forum</a> or <a href="%s" target="_blank">contact me</a>.', 'strong-testimonials' ), 'http://wordpress.org/support/plugin/strong-testimonials', 'https://www.wpmission.com/contact/' ); ?></p>
-	<?php
-}
+function wpmtst_guide_after_content() {}
 //add_action( 'wpmtst_guide_after_content', 'wpmtst_guide_after_content' );
