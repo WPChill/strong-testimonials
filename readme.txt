@@ -62,11 +62,7 @@ For displaying testimonials:
 
 * select which testimonials to show
 * set the sort order
-* select the fields
-  * title
-  * thumbnail
-  * the full content or an excerpt
-  * client name, website, etc.
+* select the fields: title, thumbnail, the full content or an excerpt, client name, website, etc.
 * extras like pagination
 * style options
 * slideshow settings if desired
@@ -196,16 +192,15 @@ Not yet.
 
 == Screenshots ==
 
-1. The form with the default fields.
-2. An example of custom fields on the form.
-3. A [strong] shortcode example.
-4. The widget with a character limit.
-5. The widget settings.
-6. The testimonials admin list.
-7. Settings > General.
-8. Settings > Form.
-9. The custom fields editor.
-10. The shortcode guide.
+1. The default View settings and the default template.
+2. Another View and the Simple template.
+3. The form with default fields.
+4. A `[strong]` shortcode example.
+5. The testimonial admin list.
+6. The testimonial form settings.
+7. The View editor.
+8. the custom fields editor.
+9. Template files and template functions.
 
 == Changelog ==
 
