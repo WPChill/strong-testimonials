@@ -133,6 +133,8 @@ add_action( 'admin_menu', 'wpmtst_deny_plugins_menu', 200 );
  */
 function wpmtst_admin_scripts( $hook ) {
 
+	$plugin_version = get_option( 'wpmtst_plugin_version' );
+	
 	$hooks_to_style = array( 
 		'wpm-testimonial_page_settings',
 		'wpm-testimonial_page_fields',
@@ -152,7 +154,7 @@ function wpmtst_admin_scripts( $hook ) {
 	
 	// Page Builder compat
 	if ( in_array( $hook, $hooks_to_style ) || defined( 'SITEORIGIN_PANELS_VERSION' ) ) {
-		wp_enqueue_style( 'wpmtst-admin-style', WPMTST_URL . 'css/admin/admin.css' );
+		wp_enqueue_style( 'wpmtst-admin-style', WPMTST_URL . 'css/admin/admin.css', array(), $plugin_version );
 	}	
 	
 	$hooks_to_script = array( 
@@ -165,32 +167,33 @@ function wpmtst_admin_scripts( $hook ) {
 	);
 			
 	if ( in_array( $hook, $hooks_to_script ) || defined( 'SITEORIGIN_PANELS_VERSION' ) ) {
-		wp_enqueue_script( 'wpmtst-admin-script', WPMTST_URL . 'js/wpmtst-admin.js', array( 'jquery' ) );
+		wp_enqueue_script( 'wpmtst-admin-script', WPMTST_URL . 'js/wpmtst-admin.js', array( 'jquery' ), $plugin_version );
 		wp_localize_script( 'wpmtst-admin-script', 'ajax_object', array( 'ajaxurl' => admin_url( 'admin-ajax.php' ) ) );
 	}
 	
 	// Page Builder compat
 	if ( defined( 'SITEORIGIN_PANELS_VERSION' ) ) {
 		//TODO  is loading validate necessary? if so, language file too?
-		wp_enqueue_script( 'wpmtst-validation-plugin', WPMTST_URL . 'js/validate/jquery.validate.min.js', array( 'jquery' ) );
+		wp_enqueue_script( 'wpmtst-validation-plugin', WPMTST_URL . 'js/validate/jquery.validate.min.js', array( 'jquery' ), $plugin_version );
 	}
 
 	// Extra
 	switch ( $hook ) {
 		case 'wpm-testimonial_page_fields':
-			wp_enqueue_style( 'wpmtst-admin-fields-style', WPMTST_URL . 'css/admin/fields.css' );
-			wp_enqueue_script( 'jquery-ui-sortable' );
-			wp_enqueue_script( 'wpmtst-admin-fields-script', WPMTST_URL . 'js/wpmtst-admin-fields.js', array( 'jquery' ) );
+			wp_enqueue_style( 'wpmtst-admin-fields-style', WPMTST_URL . 'css/admin/fields.css', array(), $plugin_version );
+			//wp_enqueue_script( 'jquery-ui-sortable' );
+			wp_enqueue_script( 'wpmtst-admin-fields-script', WPMTST_URL . 'js/wpmtst-admin-fields.js', array( 'jquery', 'jquery-ui-sortable' ), $plugin_version );
 			wp_localize_script( 'wpmtst-admin-fields-script', 'ajax_object', array( 'ajaxurl' => admin_url( 'admin-ajax.php' ) ) );
 			break;
 		case 'wpm-testimonial_page_views':
-			wp_enqueue_style( 'wpmtst-admin-views-style', WPMTST_URL . 'css/admin/views.css' );
-			wp_enqueue_script( 'wpmtst-admin-views-script', WPMTST_URL . 'js/wpmtst-views.js', array( 'jquery', 'jquery-ui-sortable', 'wp-color-picker' ) );
+			wp_enqueue_style( 'wpmtst-admin-views-style', WPMTST_URL . 'css/admin/views.css', array(), $plugin_version );
+			wp_enqueue_script( 'wpmtst-admin-views-script', WPMTST_URL . 'js/wpmtst-views.js', 
+					array( 'jquery', 'jquery-ui-sortable', 'wp-color-picker' ), $plugin_version );
 			wp_localize_script( 'wpmtst-admin-views-script', 'ajax_object', array( 'ajaxurl' => admin_url( 'admin-ajax.php' ) ) );
 			wp_enqueue_style( 'wp-color-picker' );
 			break;
 		case 'wpm-testimonial_page_guide':
-			wp_enqueue_style( 'wpmtst-admin-guide-style', WPMTST_URL . 'css/admin/guide.css' );
+			wp_enqueue_style( 'wpmtst-admin-guide-style', WPMTST_URL . 'css/admin/guide.css', array(), $plugin_version );
 			wp_enqueue_style( 'font-awesome', '//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css', array(), '4.3.0' );
 			break;
 		default:
@@ -212,7 +215,8 @@ add_action( 'admin_enqueue_scripts', 'wpmtst_admin_dequeue_scripts', 500 );
  * @since 1.21.0
  */
 function wpmtst_admin_scripts_wpml() {
-	wp_enqueue_style( 'wpmtst-admin-style-wpml', WPMTST_URL . 'css/admin/wpml.css' );
+	$plugin_version = get_option( 'wpmtst_plugin_version' );
+	wp_enqueue_style( 'wpmtst-admin-style-wpml', WPMTST_URL . 'css/admin/wpml.css', array(), $plugin_version );
 }
 add_action( 'load-wpml-string-translation/menu/string-translation.php', 'wpmtst_admin_scripts_wpml' );
 add_action( 'load-edit-tags.php', 'wpmtst_admin_scripts_wpml' );
@@ -225,8 +229,9 @@ add_action( 'load-edit-tags.php', 'wpmtst_admin_scripts_wpml' );
 function wpmtst_admin_polylang() {
 	if ( ! defined( 'POLYLANG_VERSION' ) )
 		return;
-	
-	wp_enqueue_style( 'wpmtst-admin-style-polylang', WPMTST_URL . 'css/admin/polylang.css' );
+
+	$plugin_version = get_option( 'wpmtst_plugin_version' );
+	wp_enqueue_style( 'wpmtst-admin-style-polylang', WPMTST_URL . 'css/admin/polylang.css', array(), $plugin_version );
 
 	include_once WPMTST_INC . 'defaults.php';
 	$default_fields = wpmtst_get_default_fields();

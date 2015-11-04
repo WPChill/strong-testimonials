@@ -118,12 +118,12 @@ function wpmtst_get_default_fields() {
 			'option_label' => __( 'text', 'strong-testimonials' ),
 		),
 		'email' => array(
-			'input_type'   => 'text',
-			'option_label' => __( 'email (text)', 'strong-testimonials' ),
+			'input_type'   => 'email',
+			'option_label' => __( 'email', 'strong-testimonials' ),
 		),
 		'url'   => array(
-			'input_type'   => 'text',
-			'option_label' => __( 'URL (text)', 'strong-testimonials' ),
+			'input_type'   => 'url',
+			'option_label' => __( 'URL', 'strong-testimonials' ),
 		)
 	);
 	foreach ( $field_types['custom'] as $key => $array ) {

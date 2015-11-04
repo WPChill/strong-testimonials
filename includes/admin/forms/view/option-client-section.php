@@ -1,5 +1,5 @@
+<?php /* translators: On the Views admin screen. */ ?>
 <th>
-	<?php /* translators: This is on the Views admin screen. */ ?>
 	<?php _e( 'Custom Fields', 'strong-testimonials' ); ?> 
 </th>
 <td colspan="2">
@@ -8,7 +8,7 @@
 		<table id="custom-field-list2" class="fields" cellpadding="0" cellspacing="0">
 			<thead>
 				<tr>
-					<th>Name</th><th>Type</th><th></th><th>CSS Class</th><th class="controls">&nbsp;</th>
+					<th>Name</th><th>Type</th><th>Properties</th><th>CSS Class</th><th class="controls">&nbsp;</th>
 				</tr>
 			</thead>
 			<tbody>

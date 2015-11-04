@@ -130,7 +130,7 @@ jQuery(document).ready(function($) {
 				break;
 			case 'slideshow':
 				// force all categories
-				setCategoryAllCheckbox();
+				//setCategoryAllCheckbox();
 				break;
 			case 'display':
 				// update single/multiple selector ONLY
@@ -144,6 +144,7 @@ jQuery(document).ready(function($) {
 	 * Plugin: Toggle dependent options for checkboxes.
 	 *
 	 * Show/hide other option groups when checkbox is "on".
+	 * Single value
 	 */
 	$.fn.toggleOption = function(el, speed) {
 		speed = speed || 400;
@@ -159,49 +160,10 @@ jQuery(document).ready(function($) {
 	}
 
 	/**
-	 * Plugin: Toggle dependent options for selects.
-	 *
-	 * Show/hide other option groups when a *specific* option is selected.
-	 */
-	$.fn.selectOption = function(el, speed) {
-		speed = speed || 400;
-		var currentValue = $(el).val();
-		var tripValue = $(el).find(".trip").val();
-		var option = $(el).attr("id").split("-").pop();
-		var deps = ".then_" + option;
-		if(currentValue == tripValue) {
-			$(deps).fadeIn(speed);
-		}
-		else {
-			$(deps).fadeOut(speed);
-		}
-	}
-
-	/**
-	 * Plugin: Toggle dependent options for selects.
-	 *
-	 * Show/hide other option groups when any *non-empty (initial)* option is selected.
-	 */
-	$.fn.selectAnyOption = function(el, speed) {
-		speed = speed || 400;
-		var currentValue = $(el).val();
-		var option = $(el).attr("id").split("-").pop();
-		var deps = ".then_" + option + ".then_" + currentValue;
-		var indeps = ".then_not_" + option + ".then_" + currentValue;
-		if(currentValue) {
-			$(deps).fadeIn(speed);
-			$(indeps).fadeOut(speed);
-		}
-		else {
-			$(deps).fadeOut(speed);
-			$(indeps).fadeIn(speed);
-		}
-	}
-
-	/**
 	 * Plugin: Toggle dependent options for checkboxes.
 	 *
 	 * Show/hide other option groups when checkbox is "on".
+	 * Multiple values
 	 *
 	 * @since 1.20.0
 	 */
@@ -229,6 +191,81 @@ jQuery(document).ready(function($) {
 	}
 
 	/**
+	 * Plugin: Toggle dependent options for selects.
+	 *
+	 * Show/hide other option groups when one and only one *specific* option is selected.
+	 */
+	$.fn.selectOption = function(el, speed) {
+		speed = speed || 400;
+		var currentValue = $(el).val();
+		var tripValue = $(el).find(".trip").val();
+		var option = $(el).attr("id").split("-").pop();
+		var deps = ".then_" + option;
+		if(currentValue == tripValue) {
+			$(deps).fadeIn(speed);
+		}
+		else {
+			$(deps).fadeOut(speed);
+		}
+	}
+
+	/**
+	 * Plugin: Toggle dependent options for selects.
+	 *
+	 * Show/hide other option groups when any *non-empty (initial)* option is selected.
+	 * class="if selectany"
+	 */
+	$.fn.selectAnyOption = function(el, speed) {
+		speed = speed || 400;
+		var currentValue = $(el).val();
+		var option = $(el).attr("id").split("-").pop();
+		var deps = ".then_" + option + ".then_" + currentValue;
+		var indeps = ".then_not_" + option + ".then_" + currentValue;
+		if(currentValue) {
+			$(deps).fadeIn(speed);
+			$(indeps).fadeOut(speed);
+		}
+		else {
+			$(deps).fadeOut(speed);
+			$(indeps).fadeIn(speed);
+		}
+	}
+
+	/**
+	 * Plugin: Toggle dependent options for checkboxes.
+	 *
+	 * Show/hide other option groups when checkbox is "on".
+	 * Multiple values
+	 * using both option and value (which is different than other functions)
+	 * TODO Is this a duplicate of the checkbox version?
+	 *
+	 * @since 1.20.0
+	 */
+	$.fn.selectGroupOption = function(el, speed) {
+		speed = speed || 400;
+		var fast = 100;
+		var option = $(el).attr("id").split("-").pop();
+		var currentValue = $(el).val();
+		var deps       = ".then_" + option + ".then_" + currentValue;
+		var depsFast   = deps + ".fast";
+		var indeps     = ".then_" + option + ".then_not_" + currentValue;
+		var indepsFast = indeps + ".fast";
+		if (currentValue) {
+			$(depsFast).fadeIn(fast);
+			$(deps).not(".fast").fadeIn(speed);
+			$(indepsFast).fadeOut(fast);
+			$(indeps).not(".fast").fadeOut(speed);
+		}
+		else {
+			$(indepsFast).fadeIn(fast);
+			$(indeps).not(".fast").fadeIn(speed);
+			$(depsFast).fadeOut(fast);
+			$(deps).not(".fast").fadeOut(speed);
+		}
+	}
+	
+	
+	/**
 	 * Initial state
 	 */
 	var $mode = $("#view-mode");
@@ -253,39 +290,45 @@ jQuery(document).ready(function($) {
 	function initialize() {
 		$(".if.toggle").each(function(index,el) {
 			$.fn.toggleOption(this);
-			$(this).change(function() {
+			$(this).on("change", function() {
 				$.fn.toggleOption(this);
 			});
 		});
 
 		$(".if.select").each(function(index,el) {
 			$.fn.selectOption(this);
-			$(this).change(function() {
+			$(this).on("change", function() {
 				$.fn.selectOption(this);
 			});
 		});
 
 		$(".if.selectany").each(function(index,el) {
 			$.fn.selectAnyOption(this);
-			$(this).change(function() {
+			$(this).on("change", function() {
 				$.fn.selectAnyOption(this);
 			});
 		});
 
 		$(".if.selectper").each(function(index,el) {
 			$.fn.selectPerOption(this);
-			$(this).change(function() {
+			$(this).on("change", function() {
 				$.fn.selectPerOption(this);
+			});
+		});
+
+		$(".if.selectgroup").each(function(index,el) {
+			$.fn.selectGroupOption(this);
+			$(this).on("change", function() {
+				$.fn.selectGroupOption(this);
 			});
 		});
 
 		$(".field-name select").each(function() {
 			var $el = $(this);
 			var fieldValue = $el.val();
-			var elParent = $el.closest("tr");
-			var key_id = elParent.attr("id");
-			var key = key_id.substr( key_id.lastIndexOf("-")+1 );
-			var typeSelect = elParent.find("td.field-type select");
+			var $elParent = $el.closest("tr");
+			var key = $elParent.attr("id").split('-').slice(-1)[0];
+			var typeSelect = $elParent.find("td.field-type select");
 			if( fieldValue == 'date' ) {
 				$(typeSelect).prop("disabled", true);
 				$(typeSelect).parent().append('<input type="hidden" class="save-type" name="view[data][client_section][' + key + '][type]" value="date">');
@@ -297,6 +340,19 @@ jQuery(document).ready(function($) {
 
 	}
 	initialize();
+
+	/**
+	 * Link field text change listener
+	 */
+	function textChangeListener() {
+		$('select[id^="view-fieldtext"]').on("change", function () {
+			if ($(this).val() == 'custom') {
+				var key = $(this).closest("tr").attr("id").split('-').slice(-1)[0];
+				$("#view-fieldtext" + key + "-custom").focus();
+			}
+		});
+	}
+	textChangeListener();
 
 	/**
 	 * -------------
@@ -339,9 +395,8 @@ jQuery(document).ready(function($) {
 	 * Add client field
 	 */
 	$("#add-field").click(function(e) {
-		var keys = $("#custom-field-list2 tbody tr").map(function() {
-			var key_id = $(this).attr("id");
-			return key_id.substr( key_id.lastIndexOf("-")+1 );
+		var keys = $("#custom-field-list2").find("tbody tr").map(function() {
+			return $(this).attr("id").split('-').slice(-1)[0];
 		}).get();
 		var nextKey = Array.max(keys)+1;
 		var data = {
@@ -350,7 +405,7 @@ jQuery(document).ready(function($) {
 		};
 		$.get( ajaxurl, data, function( response ) {
 			// append to list
-			$("#custom-field-list2").append(response);
+			$("#custom-field-list2").find("tbody").append(response);
 		});
 	});
 
@@ -359,72 +414,119 @@ jQuery(document).ready(function($) {
 	 */
 	customFieldList.on("change", ".field-type select", function() {
 		var $el = $(this);
+		var $elParent = $el.closest("tr");
 		var fieldType = $el.val();
-		var key_id = $el.closest("tr").attr("id");
-		var key = key_id.substr( key_id.lastIndexOf("-")+1 );
+		var fieldName = $elParent.find(".field-name").find("select").val();
+		var key = $elParent.attr("id").split('-').slice(-1)[0];
+		var data;
 
 		switch (fieldType) {
+
+			case 'link2':
 			case 'link':
 				// if changing to [link], add link fields
-				var data = {
-					'action' : 'wpmtst_view_add_field_link',
-					'key'    : key,
+				data = {
+					'action': 'wpmtst_view_add_field_link',
+					'fieldName': fieldName,
+					'fieldType': fieldType,
+					'key': key,
 				};
 				$.get( ajaxurl, data, function( response ) {
 					// insert into placeholder div
-					$el.closest(".field2").find(".field-meta").html(response);
+					$elParent.find(".field-meta").html(response);
+					
+					// Trigger conditional select
+					var $newFieldSelect = $elParent.find(".if.selectgroup");
+					$.fn.selectGroupOption($newFieldSelect);
+					$newFieldSelect.on("change", function() {
+						$.fn.selectGroupOption($newFieldSelect);
+					});
+					textChangeListener();
+					
+					// Get field name --> Get field label --> Populate link_text label
+					var fieldName = $elParent.find(".field-name").find("select").val();
+					var data2 = {
+						'action': 'wpmtst_view_get_label',
+						'name': fieldName,
+					};
+					$.get( ajaxurl, data2, function( response ) {
+						var key = $elParent.attr("id").split('-').slice(-1)[0];
+						$("#view-fieldtext" + key + "-label").val(response);
+					});
+					
 				});
 				break;
 
 			case 'date':
 				// if changing to [date], add date fields
-				var data = {
+				data = {
 					'action' : 'wpmtst_view_add_field_date',
 					'key'    : key,
 				};
 				$.get( ajaxurl, data, function( response ) {
 					// insert into placeholder div
-					$el.closest(".field2").find(".field-meta").html(response);
+					$elParent.find(".field-meta").html(response);
 				});
 				break;
 
 			case 'text':
 				// if changing to [text], remove meta fields
-				$el.closest(".field2").find(".field-meta").empty();
+				$elParent.find(".field-meta").empty();
 				break;
 
 			default:
+		
 		}
 	});
 
 	/**
-	 * Hide type selector if date field.
+	 * Field name change listener.
 	 */
 	customFieldList.on("change", ".field-name select", function() {
 		var $el = $(this);
+		var $elParent = $el.closest("tr");
 		var fieldValue = $el.val();
-		var key_id = $el.closest("tr").attr("id");
-		var key = key_id.substr( key_id.lastIndexOf("-")+1 );
-		var typeSelect = $el.closest("tr").find("td.field-type select");
-		if( fieldValue == 'date' ) {
-			$(typeSelect).val("date").prop("disabled", true);
-
-			// add format field
-			var data = {
-				'action': 'wpmtst_view_add_field_date',
-				'key': key,
-			};
-			$.get( ajaxurl, data, function( response ) {
-				// Insert into placeholder div. Add hidden field because we are
-				// disabling the <select> so its value will not be submitted.
-				$el.closest(".field2").find(".field-meta").html(response);
-				$el.parent().append('<input type="hidden" class="save-type" name="view[data][client_section][' + key + '][type]" value="date">');
-			});
-		} else {
-			$(typeSelect).val("text").prop("disabled",false);
-			// remove meta field
-			$el.closest(".field2").find(".field-meta").empty();
-			$el.parent().find("input.save-type").remove();
+		var key = $elParent.attr("id").split('-').slice(-1)[0];
+		var typeSelect = $elParent.find("td.field-type select");
+		
+		switch( fieldValue ) {
+			case 'date':
+				// Hide type selector if date field.
+				$(typeSelect).val("date").prop("disabled", true);
+	
+				// add format field
+				var data = {
+					'action': 'wpmtst_view_add_field_date',
+					'key': key,
+				};
+				$.get( ajaxurl, data, function( response ) {
+					// Insert into placeholder div. Add hidden field because we are
+					// disabling the <select> so its value will not be submitted.
+					$elParent.find(".field-meta").html(response);
+					$el.parent().append('<input type="hidden" class="save-type" name="view[data][client_section][' + key + '][type]" value="date">');
+				});
+				break;
+			
+			case 'link2':
+			case 'link':
+				// Get field name --> Get field label --> Populate link_text label
+				var fieldName = $elParent.find(".field-name").find("select").val();
+				var data2 = {
+					'action' : 'wpmtst_view_get_label',
+					'name'   : fieldName,
+				};
+				$.get( ajaxurl, data2, function( response ) {
+					var key = $elParent.attr("id").split('-').slice(-1)[0];
+					$("#view-fieldtext" + key + "-label").val(response);
+				});
+				//break;
+				
+			default:
+				$(typeSelect).val("text").prop("disabled",false);
+				// remove meta field
+				$elParent.find(".field-meta").empty();
+				// remove the saved type that's only necessary when we disable the input (above)
+				$el.parent().find("input.save-type").remove();
 		}
 	});
 
@@ -433,7 +535,6 @@ jQuery(document).ready(function($) {
 	 */
 	customFieldList.on("click", ".delete-field", function(){
 		var thisField = $(this).closest("tr");
-		var thisLabel = thisField.find(".field-name option:selected").html();
 		var yesno = confirm("Remove this field?");
 		if( yesno ) {
 			thisField.fadeOut(function(){$(this).remove()});

@@ -50,7 +50,6 @@ function wpmtst_view_settings( $action = '', $view_id = null ) {
 	// Get current view
 	if ( 'edit' == $action ) {
 		$view_array = wpmtst_get_view( $view_id );
-		//$view       = array_merge( $default_view, unserialize( $view_array['value'] ) );
 		$view       = unserialize( $view_array['value'] );
 		$view_name  = $view_array['name'];
 	} else {
@@ -195,16 +194,32 @@ add_action( 'wp_ajax_wpmtst_view_add_field', 'wpmtst_view_add_field_function' );
  * @since 1.21.0
  */
 function wpmtst_view_add_field_link_function() {
-	$key = (int) $_REQUEST['key'];
-	$empty_field = array( 'url' => '', 'new_tab' => true );
-	wpmtst_view_field_link( $key, $empty_field );
+	$key         = (int) $_REQUEST['key'];
+	$field_name  = $_REQUEST['fieldName'];
+	$type        = $_REQUEST['fieldType'];
+	$empty_field = array( 'url' => '', 'link_text' => '', 'new_tab' => true );
+	wpmtst_view_field_link( $key, $field_name, $type, $empty_field );
 	die();
 }
 add_action( 'wp_ajax_wpmtst_view_add_field_link', 'wpmtst_view_add_field_link_function' );
 
 
 /**
- * [Field Type: Link] Ajax receiver
+ * [Field name change] Ajax receiver
+ *
+ * @since 1.24.0
+ */
+function wpmtst_view_get_label_function() {
+	$field = array( 'field' => $_REQUEST['name'] );
+	$label = wpmtst_get_field_label( $field );
+	echo $label;
+	die();
+}
+add_action( 'wp_ajax_wpmtst_view_get_label', 'wpmtst_view_get_label_function' );
+
+
+/**
+ * [Field Type: Date] Ajax receiver
  *
  * @since 1.21.0
  */
@@ -237,20 +252,29 @@ function wpmtst_get_default_template_function() {
  *
  * @since 1.21.0
  */
-function wpmtst_view_field_inputs( $key, $field, $adding = false ) {
+function wpmtst_view_field_inputs( $key, $field, $adding = false ) { //
 	$custom_fields = wpmtst_get_custom_fields();
 	// the date is a special field
 	$custom_fields[] = array(
-		'name' => 'date',
-		'input_type' => 'date',
-		'type' => 'date',
+		'name'        => 'date',
+		'input_type'  => 'date',
+		'type'        => 'date',
 		'record_type' => 'builtin',
-	); 
-		
-	$types = array( 'text', 'link', 'date' );
+	);
+
+	// TODO Move this to view defaults option.
+	$types = array(
+		'text'  => __( 'text', 'strong-testimonials' ),
+		'link'  => __( 'link with field', 'strong-testimonials' ),  // the original link type
+		'link2' => __( 'link', 'strong-testimonials' ),  // @since 1.24.0
+		'date'  => __( 'date', 'strong-testimonials' )
+	);
+	
 	$allowed = array( 'custom', 'builtin' );
 	?>
 	<tr class="field2" id="field-<?php echo $key; ?>">
+		
+		<?php // Name ?>
 		<td class="field-name">
 			<select name="view[data][client_section][<?php echo $key; ?>][field]" autocomplete="off">
 				<option value=""></option>
@@ -262,54 +286,126 @@ function wpmtst_view_field_inputs( $key, $field, $adding = false ) {
 			</select>
 		</td>
 		
+		<?php // Type ?>
 		<td class="field-type">
 			<select name="view[data][client_section][<?php echo $key; ?>][type]" autocomplete="off">
-			<?php foreach ( $types as $type ) : ?>
-				<option value="<?php echo $type; ?>" <?php selected( $type, $field['type'] ); ?>><?php echo $type; ?></option>
+			<?php foreach ( $types as $type => $type_label ) : ?>
+				<option value="<?php echo $type; ?>" <?php selected( $type, $field['type'] ); ?>><?php echo $type_label; ?></option>
 			<?php endforeach; ?>
 			</select>
 		</td>
+		
+		<?php // Meta ?>
 		<td class="field-meta">
-			<?php if ( 'link' == $field['type'] ) wpmtst_view_field_link( $key, $field); ?>
-			<?php if ( 'date' == $field['type'] ) wpmtst_view_field_date( $key, $field); ?>
+			<?php
+				if ( 'link' == $field['type'] || 'link2' == $field['type'] ) 
+					wpmtst_view_field_link( $key, $field['field'], $field['type'], $field );
+					 
+				if ( 'date' == $field['type'] ) 
+					wpmtst_view_field_date( $key, $field ); 
+			?>
 		</td>
+		
+		<?php // Class ?>
 		<td class="field-class">
 			<input type="text" name="view[data][client_section][<?php echo $key; ?>][class]" value="<?php echo $field['class']; ?>">
 		</td>
+		
+		<?php // Controls ?>
 		<td class="controls">
 			<span class="delete-field"><span class="dashicons dashicons-no"></span></span>
 			<span class="handle"><span class="dashicons dashicons-menu"></span></span>
 		</td>
+		
 	</tr>
 	<?php
 }
 
 
 /**
- * Show a single client link field's inputs.
+ * Show a single client link field inputs.
  *
  * @since 1.21.0
+ * 
+ * @param $key
+ * @param $field_name
+ * @param $type
+ * @param $field
+ * @param bool|false $adding
  */
-function wpmtst_view_field_link( $key, $field, $adding = false ) {
+function wpmtst_view_field_link( $key, $field_name, $type, $field, $adding = false ) {
+	if ( $field_name ) {
+		$current_field = wpmtst_get_field_by_name( $field_name );
+		if ( is_array( $current_field ) ) {
+			$field = array_merge( $current_field, $field );
+		}
+	}
+	
 	$custom_fields = wpmtst_get_custom_fields();
+	
+	// Add placeholder link_text and label to field in case we need to populate link_text
+	if ( ! isset( $field['link_text'] ) ) {
+		$field['link_text'] = 'field';
+	}
+	if ( ! isset( $field['link_text_custom'] ) ) {
+		$field['link_text_custom'] = '';
+	}
+	$field['label'] = wpmtst_get_field_label( $field );
 	?>
-	<span>URL</span>
-	<select name="view[data][client_section][<?php echo $key; ?>][url]" class="field-type-select">
-		<?php foreach ( $custom_fields as $key2 => $field2 ) : ?>
-			<?php if ( 'url' == $field2['input_type'] ) : ?>
-			<option value="<?php echo $field2['name']; ?>" <?php selected( $field2['name'], $field['url'] ); ?>><?php echo $field2['name']; ?></option>
-			<?php endif; ?>
-		<?php endforeach; ?>
-	</select>
-	<span class="new_tab">
-		<input type="checkbox" name="view[data][client_section][<?php echo $key; ?>][new_tab]" value="1" <?php checked( $field['new_tab'] ); ?>> new_tab
-	</span>
+	
+	<!-- the link text -->
+	<div class="field-meta-row link-text">
+		<label for="view-fieldtext<?php echo $key; ?>">Text</label> 
+		<select id="view-fieldtext<?php echo $key; ?>" name="view[data][client_section][<?php echo $key; ?>][link_text]" class="if selectgroup" autocomplete="off">
+			<option value="value" <?php selected( $field['link_text'], 'value' ); ?>>this field's value</option>
+			<option value="label" <?php selected( $field['link_text'], 'label' ); ?>>this field's label</option>
+			<option value="custom" <?php selected( $field['link_text'], 'custom' ); ?>>custom text</option>
+		</select>
+	</div>
+	
+	<!-- the link text options -->
+	<div class="field-meta-row link-text">
+		<div class="then_fieldtext<?php echo $key; ?> then_value then_not_label then_not_custom" style="display: none;">
+			<!-- placeholder -->
+		</div>
+		<div class="then_fieldtext<?php echo $key; ?> then_label then_not_value then_not_custom" style="display: none;">
+			<input type="text" id="view-fieldtext<?php echo $key; ?>-label" value="<?php echo $field['label']; ?>" readonly>
+		</div>
+		<div class="then_fieldtext<?php echo $key; ?> then_custom then_not_value then_not_label" style="display: none;">
+			<input type="text" id="view-fieldtext<?php echo $key; ?>-custom" name="view[data][client_section][<?php echo $key; ?>][link_text_custom]" value="<?php echo $field['link_text_custom']; ?>">
+		</div>
+	</div>
+	
+	<!-- the URL -->
+	<?php if ( 'link' == $type ) : // URL = another field ?>
+	<div class="field-meta-row">
+		<label for="view-fieldurl<?php echo $key; ?>">URL</label>
+		<select id="view-fieldurl<?php echo $key; ?>" name="view[data][client_section][<?php echo $key; ?>][url]" class="field-type-select">
+			<?php foreach ( $custom_fields as $key2 => $field2 ) : ?>
+				<?php if ( 'url' == $field2['input_type'] ) : ?>
+				<option value="<?php echo $field2['name']; ?>" <?php selected( $field2['name'], $field['url'] ); ?>><?php echo $field2['name']; ?></option>
+				<?php endif; ?>
+			<?php endforeach; ?>
+		</select>
+	</div>
+	<?php else : // URL = this field ?>
+		<input type="hidden" name="view[data][client_section][<?php echo $key; ?>][url]" value="<?php echo $field['name']; ?>">
+	<?php endif; ?>
+	
+	<!-- the URL options -->
+	<div class="field-meta-row checkbox">
+		<label>
+			<span class="new_tab">
+				<input type="checkbox" name="view[data][client_section][<?php echo $key; ?>][new_tab]" value="1" <?php checked( $field['new_tab'] ); ?>><?php _e( 'new tab', 'strong-testimonials' ); ?>
+			</span>
+		</label>
+	</div>
 	<?php
 }
 
 
 /**
- * Show a single client link field's inputs.
+ * Show a single client date field inputs.
  *
  * @since 1.21.0
  */
@@ -318,7 +414,7 @@ function wpmtst_view_field_date( $key, $field, $adding = false ) {
 	<label for="view-<?php echo $key; ?>-client-date-format"><span>Format</span></label>
 	<input id="view-<?php echo $key; ?>-client-date-format" type="text" name="view[data][client_section][<?php echo $key; ?>][format]" class="field-type-date" value="<?php echo isset( $field['format'] ) ? $field['format'] : ''; ?>" autocomplete="off">
 	<div class="help minor">
-		<?php _e( '<a href="https://codex.wordpress.org/Formatting_Date_and_Time" target="_blank">more about data formats</a>', 'strong-testimonials' ); ?>
+		<?php printf( wp_kses( __( '<a href="%s" target="_blank">more about date formats</a>', 'strong-testimonials' ), array( 'a' => array( 'href' => array(), 'target' => array() ) ) ), esc_url( 'https://codex.wordpress.org/Formatting_Date_and_Time' ) ); ?>
 	</div>
 
 	<?php
@@ -368,55 +464,58 @@ function wpmtst_delete_view_action_hook() {
  * @since 1.21.0
  */
 function wpmtst_view_edit_form() {
-	$query_arg = 'error';
+	
+	$goback = wp_get_referer();
 
 	if ( ! empty( $_POST ) && check_admin_referer( 'view_form_submit', 'view_form_nonce' ) ) {
 
 		$view_id    = $_POST['view']['id'];
 		$view_name  = $_POST['view']['name'];
-		// $view_title = $_POST['view']['title'];
 
-		// Undo changes
 		if ( isset( $_POST['reset'] ) ) {
 
-			$view = wpmtst_get_view( $view_id );
+			// Undo changes
+			//$view = wpmtst_get_view( $view_id );
+			$goback = add_query_arg( 'changes-undone', true, $goback );
 
-			$query_arg = 'changes-undone';
-
-		}
-		// Restore defaults
+		} 
 		elseif ( isset( $_POST['restore-defaults'] ) ) {
 
-			// $default_view = wpmtst_get_view( 1 );
+			// Restore defaults
 			$default_view = get_option( 'wpmtst_view_default' );
 
+			/**
+			 * Must save first to get the auto-increment ID.
+			 */
 			$view = array(
 				'id'    => $view_id,
-				'name'  => $view_name,
+				'name'  => sanitize_text_field( $view_name ),
 				'data'  => $default_view
 			);
 			wpmtst_save_view( $view );
 
-			$query_arg = 'defaults-restored';
+			$goback = add_query_arg( 'defaults-restored', true, $goback );
 
-		}
-		// Sanitize & validate
+		} 
 		else {
 
+			// Sanitize & validate
 			$view = array(
 				'id'    => $view_id,
 				'name'  => sanitize_text_field( $view_name ),
 				'data'  => wpmtst_sanitize_view( $_POST['view']['data'] )
 			);
-			$num = wpmtst_save_view( $view );
+			wpmtst_save_view( $view );
 
-			$query_arg = 'view-saved';
+			$goback = add_query_arg( 'view-saved', true, $goback );
 
 		}
 
 	}
+	else {
+		$goback = add_query_arg( 'error', true, $goback );
+	}
 
-	$goback = add_query_arg( $query_arg, true, wp_get_referer() );
 	wp_redirect( $goback );
 	exit;
 
@@ -433,48 +532,50 @@ add_action( 'admin_post_nopriv_view_edit_form', 'wpmtst_view_edit_form' );
  */
 function wpmtst_view_add_form() {
 
-	$query_arg = 'error';
-
+	$goback = wp_get_referer();
+		
 	if ( ! empty( $_POST ) && check_admin_referer( 'view_form_submit', 'view_form_nonce' ) ) {
 
-		// $view_id    = $_POST['view']['id'];
 		$view_id    = 0;
 		$view_name  = $_POST['view']['name'];
-		// $view_title = $_POST['view']['title'];
 
 		if ( isset( $_POST['restore-defaults'] ) ) {
-			// Restore defaults
 
+			// Restore defaults
 			$default_view = get_option( 'wpmtst_view_default' );
 
 			$view = array(
 				'id'    => $view_id,
 				'name'  => $view_name,
-				'data'  => unserialize( $default_view )
+				'data'  => $default_view,
 			);
-			wpmtst_save_view( $view, 'add' );
+			$new_id = wpmtst_save_view( $view, 'add' );
 
 			$query_arg = 'defaults-restored';
 
 		} 
 		else {
+			
 			// Sanitize & validate
-
 			$view = array(
 				'id'    => 0,
 				'name'  => sanitize_text_field( $view_name ),
 				'data'  => wpmtst_sanitize_view( $_POST['view']['data'] )
 			);
-			$view['id'] = wpmtst_save_view( $view, 'add' );
+			$new_id = wpmtst_save_view( $view, 'add' );
 
 			$query_arg = 'view-saved';
 
 		}
 
+		$goback = remove_query_arg( 'action', $goback );
+		$goback = add_query_arg( array( 'action' => 'edit', 'id' => $new_id, $query_arg => true ), $goback );
+		
+	}
+	else {
+		$goback = add_query_arg( 'error', true, $goback );
 	}
 
-	$goback = remove_query_arg( 'action', wp_get_referer() );
-	$goback = add_query_arg( array( 'action' => 'edit', 'id' => $view['id'], $query_arg => true ), $goback );
 	wp_redirect( $goback );
 	exit;
 
@@ -484,7 +585,7 @@ add_action( 'admin_post_nopriv_view_add_form', 'wpmtst_view_add_form' );
 
 
 function wpmtst_sanitize_view( $input ) {
-	$view_data = array();
+	$view_data         = array();
 	$view_data['mode'] = sanitize_text_field( $input['mode'] );
 	
 	/**
@@ -626,14 +727,22 @@ function wpmtst_sanitize_view( $input ) {
 			$view_data['client_section'][ $key ]['field'] = sanitize_text_field( $field['field'] );
 			$view_data['client_section'][ $key ]['type']  = sanitize_text_field( $field['type'] );
 			$view_data['client_section'][ $key ]['class'] = sanitize_text_field( $field['class'] );
-			if ( 'link' == $field['type'] ) {
-				$view_data['client_section'][ $key ]['url']     = sanitize_text_field( $field['url'] );
-				$view_data['client_section'][ $key ]['new_tab'] = isset( $field['new_tab'] ) ? 1 : 0;
-			} 
-			elseif ( 'date' == $field['type'] ) {
-				$format = isset( $field['format'] ) ? sanitize_text_field( $field['format'] ) : '';
-				$view_data['client_section'][ $key ]['format'] = $format;
+			
+			switch ( $field['type'] ) {
+				case 'link':
+				case 'link2':
+					$view_data['client_section'][ $key ]['url']              = sanitize_text_field( $field['url'] );
+					$view_data['client_section'][ $key ]['link_text']        = sanitize_text_field( $field['link_text'] );
+					$view_data['client_section'][ $key ]['link_text_custom'] = sanitize_text_field( $field['link_text_custom'] );
+					$view_data['client_section'][ $key ]['new_tab']          = isset( $field['new_tab'] ) ? 1 : 0;
+					break;
+				case 'date':
+					$format = isset( $field['format'] ) ? sanitize_text_field( $field['format'] ) : '';
+					$view_data['client_section'][ $key ]['format'] = $format;
+					break;
+				default:
 			}
+			
 		}
 	}
 	else {

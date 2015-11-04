@@ -306,23 +306,28 @@ ul.checkbox-horizontal li {
 
 /* Client fields table
 ---------------------------------------------------------*/
-
 /* Need to back out some rules since this is a table in a table. */
 
 table.fields {
 	background: white;
 	border-collapse: collapse;
+	width: 100%;
 }
 
 .form-table table.fields tr th,
 .form-table table.fields tr td {
-	border-top: 0;
-	border-bottom: 0;
+	border: 0 !important;
 	padding: 5px;
 	white-space: nowrap;
 	width: auto;
 }
-
+.form-table table.fields tr th {
+	/*text-align: center;*/
+	padding: 5px 8px;
+}
+.form-table table.fields tr th:not(:last-child) {
+	border-right: 1px solid #ddd;
+}
 /* Make it stand out. */
 
 table.fields thead tr {
@@ -330,7 +335,7 @@ table.fields thead tr {
 }
 
 table.fields tr {
-	border: 1px solid #eee;
+	/*border: 1px solid #eee;*/
 	background: #fff; /* for better dragging */
 }
 
@@ -352,7 +357,13 @@ table.fields .controls {
 	max-width: 110px;
 	text-align: right;
 	white-space: nowrap;
-	vertical-align: middle;
+	/*vertical-align: middle;*/
+	vertical-align: top;
+}
+
+table.fields .controls > span {
+	position: relative;
+	top: 5px;
 }
 
 .field-link {
@@ -362,9 +373,11 @@ table.fields .controls {
 .new_tab {
 	display: inline-block;
 	white-space: nowrap;
-	margin: 0 10px 0 4px;
-	position: relative;
-	top: 2px;
+	margin: 0 10px 0 0;
+}
+.new_tab input[type="checkbox"] {
+	/*position: relative;*/
+	/*top: 1px;*/
 }
 
 table.fields .sortable-placeholder {
@@ -409,7 +422,7 @@ select option {
 }
 
 select option {
-	padding-right: 0.5em;
+	/*padding-right: 0.5em;*/
 }
 
 @-moz-document url-prefix() {
@@ -439,3 +452,39 @@ select option {
 	border: 1px solid orange;
 }
 */
+
+
+.field-meta-row {
+	margin: 5px;
+}
+.field-meta-row:first-child {
+	margin-top: 0;
+}
+.field-meta-row:last-child {
+	margin-bottom: 0;
+}
+
+.field-meta-row label[for^="view-field"] {
+	width: 34px;
+	margin-right: 0;
+	box-sizing: border-box;
+}
+
+.field-meta-row div[class^="then"] {
+	margin-left: 38px;
+	width: 180px;
+}
+.field-meta-row.checkbox label {
+	margin-left: 38px;
+}
+
+.field-meta-row input[type="text"],
+.field-meta-row input[type="url"],
+.field-meta-row select {
+	width: 180px;
+}
+
+
+input.field-type-date {
+	max-width: 150px;
+}

@@ -29,6 +29,7 @@ function wpmtst_form_handler() {
 	$form_options = get_option( 'wpmtst_form_options' );
 	$messages     = $form_options['messages'];
 
+	//TODO Move this to single function just to get $fields?
 	$field_options       = get_option( 'wpmtst_fields' );
 	$field_groups        = $field_options['field_groups'];
 	$current_field_group = $field_groups[ $field_options['current_field_group'] ];

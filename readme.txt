@@ -199,10 +199,15 @@ Not yet.
 5. The testimonial admin list.
 6. The testimonial form settings.
 7. The View editor.
-8. the custom fields editor.
+8. The custom fields editor.
 9. Template files and template functions.
 
 == Changelog ==
+
+= 1.24 =
+* Option to change custom field link text.
+* Fix admin UI bugs.
+* Add JavaScript and stylesheet versioning to force browser reload.
 
 = 1.23.1 - 2015-10-29 =
 * Fix bug in localization of form validation messages.

@@ -604,3 +604,24 @@ function wpmtst_update_nag( $preface = '' ) {
 	</div>
 	<?php
 }
+
+
+function wpmtst_get_field_label( $field ) {
+	$custom_fields = wpmtst_get_custom_fields();
+	if ( isset( $field['field'] ) ) {
+		foreach ( $custom_fields as $key => $custom_field ) {
+			if ( $custom_field['name'] == $field['field'] ) {
+				return $custom_field['label'];
+			}
+		}
+	}
+}
+
+function wpmtst_get_field_by_name( $field_name = '' ) {
+	$custom_fields = wpmtst_get_custom_fields();
+	foreach ( $custom_fields as $key => $custom_field ) {
+		if ( $custom_field['name'] == $field_name ) {
+			return $custom_field;
+		}
+	}
+}

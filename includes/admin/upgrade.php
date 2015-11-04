@@ -68,6 +68,18 @@ function wpmtst_default_settings() {
 		// field types
 		// -----------
 		$new_field_types = $fields['field_types'];
+		// convert url and email to HTML5 types
+		// @since 1.24.0
+		foreach ( $new_field_types['custom'] as $field_name => $field_atts ) {
+			if ( 'email' == $field_name ) {
+				$new_field_types['custom'][$field_name]['input_type']   = 'email';
+				$new_field_types['custom'][$field_name]['option_label'] = 'email';
+			} elseif ( 'url' == $field_name ) {
+				$new_field_types['custom'][$field_name]['input_type']   = 'url';
+				$new_field_types['custom'][$field_name]['option_label'] = 'url';
+			}
+		}
+		
 		// first check for new default types like "optional"
 		foreach ( $default_fields['field_types'] as $type_name => $type_array ) {
 			if ( ! isset( $new_field_types[ $type_name ] ) ) {
@@ -243,27 +255,32 @@ function wpmtst_default_settings() {
 	}
 
 	/**
-	 * -7- GET DEFAULT VIEW
+	 * -7- VIEWS
 	 *
 	 * @since 1.21.0
 	 */
-	$view_default = get_option( 'wpmtst_view_default' );
-	if ( ! $view_default ) {
+	$current_default_view = get_option( 'wpmtst_view_default' );
+	if ( ! $current_default_view ) {
 		// -7A- NEW ACTIVATION
-		update_option( 'wpmtst_view_default', $default_view );
+		$current_default_view = $default_view;
 	} else {
 		// -7B- UPDATE
+		
 		// Merge in new options
-		$view_default = array_merge( $default_view, $view_default );
-		update_option( 'wpmtst_view_default', $view_default );
+		$current_default_view = array_merge( $default_view, $current_default_view );
 	}
+	update_option( 'wpmtst_view_default', $default_view );
 	
 	/**
 	 * Update views
 	 */
 	$views = wpmtst_get_views();
 	foreach ( $views as $view ) {
-		$view['data'] = array_merge( $view_default, unserialize( $view['value'] ) );
+		$view_data = unserialize( $view['value'] );
+		if ( is_array( $view_data) ) {
+			// Merge in new default values
+			$view['data'] = array_merge( $current_default_view, $view_data );
+		}
 		wpmtst_save_view( $view );
 	}
 

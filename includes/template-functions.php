@@ -215,37 +215,75 @@ function wpmtst_the_client() {
 function wpmtst_client_section( $client_section ) {
 	global $post;
 	$html = '';
+	
 	foreach ( $client_section as $field ) {
-		if ( 'link' == $field['type'] ) {
-			$text = get_post_meta( $post->ID, $field['field'], true );
-			$url  = get_post_meta( $post->ID, $field['url'], true );
-			if ( $url ) {
-				$new_tab = isset( $field['new_tab'] ) ? $field['new_tab'] : false;
 
-				// TODO Make this an option.
-				$nofollow = get_post_meta( $post->ID, 'nofollow', true );
+		// Get label.
+		$field['label'] = wpmtst_get_field_label( $field );
 
-				// if field empty, use domain instead
-				if ( '' == $text )
-					$text = preg_replace( '(^https?://)', '', $url );
+		switch ( $field['type'] ) {
+			
+			case 'link':
+			case 'link2':
+				// use default if missing
+				// TODO is this necessary? check after testing upgrade process
+				if ( ! isset( $field['link_text'] ) ) {
+					$field['link_text'] = 'field';
+				}
 
-				$output = sprintf( '<a href="%s"%s%s>%s</a>', $url, link_new_tab( $new_tab, false ), link_nofollow( $nofollow, false ), $text );
-			}
-			else {
-				// if no URL, just show the field
-				$output = $text;
-			}
+				/**
+				 * Get link text and an alternate in case the URL is empty;
+				 * e.g. display the domain if no company name given
+				 * but don't display 'LinkedIn' if no URL given.
+				 */
+				$text_if_no_url = '';
+				switch ( $field['link_text'] ) {
+					case 'custom' :
+						$text = $field['link_text_custom'];
+						break;
+					case 'label' :
+						$text = $field['label'];
+						break;
+					default :
+						$text = get_post_meta( $post->ID, $field['field'], true );
+						$text_if_no_url = $text;
+				}
+
+				$url = get_post_meta( $post->ID, $field['url'], true );
+				if ( $url ) {
+
+					$new_tab = isset( $field['new_tab'] ) ? $field['new_tab'] : false;
+
+					// TODO Make this a global plugin option.
+					$nofollow = get_post_meta( $post->ID, 'nofollow', true );
+
+					// if field empty, use domain instead
+					if ( '' == $text ) {
+						$text = preg_replace( '(^https?://)', '', $url );
+					}
+
+					$output = sprintf( '<a href="%s"%s%s>%s</a>', $url, link_new_tab( $new_tab, false ), link_nofollow( $nofollow, false ), $text );
+
+				} else {
+
+					// if no URL, show the alternate (usually the field)
+					$output = $text_if_no_url;
+
+				}
+				break;
+			
+			case 'date':
+				$format   = isset( $field['format'] ) && $field['format'] ? $field['format'] : get_option( 'date_format' );
+				$the_date = mysql2date( $format, $post->post_date );
+				$output   = apply_filters( 'wpmtst_the_date', $the_date, $format, $post );
+				break;
+			
+			default:
+				// text field
+				$output = get_post_meta( $post->ID, $field['field'], true );
+			
 		}
-		elseif ( 'date' == $field['type'] ) {
-			$format = isset( $field['format'] ) && $field['format'] ? $field['format'] : get_option( 'date_format' );
-			$the_date = mysql2date( $format, $post->post_date );
-			$output = apply_filters( 'wpmtst_the_date', $the_date, $format, $post );
-		}
-		else {
-			// text field
-			$output = get_post_meta( $post->ID, $field['field'], true );
-		}
-
+		
 		if ( $output ) {
 			$html .= '<div class="' . $field['class'] . '">' . $output . '</div>';
 		}

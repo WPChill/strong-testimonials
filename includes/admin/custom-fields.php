@@ -10,7 +10,7 @@
 function wpmtst_settings_custom_fields() {
 	if ( ! current_user_can( 'manage_options' ) )
 		wp_die( __( 'You do not have sufficient permissions to access this page.' ) );
-
+	
 	$options = get_option( 'wpmtst_options' );
 	$field_options = get_option( 'wpmtst_fields' );
 	$field_groups = $field_options['field_groups'];
@@ -286,21 +286,7 @@ function wpmtst_show_field( $key, $field, $adding ) {
 			}
 			$html .= '</optgroup>';
 			$html .= '</select>';
-		}
-		elseif ( 'optional' == $field['record_type'] ) {
-			// -------------
-			// Optional fields
-			// -------------
-			$html .= '<select class="field-type" name="fields[' . $key . '][input_type]" autocomplete="off">' . "\n";
-			$html .= '<optgroup class="optional" label="Optional Fields">' . "\n";
-			foreach ( $field_types['optional'] as $field_key => $field_parts ) {
-				// compare field *type*
-				$selected = selected( $field['input_type'], $field_key, false );
-				$html .= '<option value="' . $field_key . '" ' . $selected . '>' . $field_parts['option_label'] . '</option>' . "\n";
-			}
-			$html .= '</optgroup>' . "\n";
-			$html .= '</select>' . "\n";
-		}
+		} 
 		
 	} // adding
 	$html .= '</td>';

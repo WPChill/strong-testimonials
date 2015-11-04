@@ -1039,16 +1039,6 @@ td.column-shortcode {
 	font-family: Consolas, Monaco, monospace;
 }
 
-/* indicate sortable & sorted columns */
-th.manage-column.sorted {
-	background: rgba(255, 255, 0, 0.3);
-}
-
-th.manage-column.sorted:hover,
-th.manage-column.sortable:hover {
-	background: rgba(255, 255, 0, 0.6);
-}
-
 /* Plugin Sidebar
 ------------------------------------------------*/
 #plugin-sidebar {
@@ -1111,5 +1101,5 @@ th.manage-column.sortable:hover {
 }
 
 .wpm-testimonial_page_views div.wp-pointer-content {
-	box-shadow: 2px 2px 2px 2px rgba(0,0,0,0.3); 
+	/*box-shadow: 2px 2px 2px 2px rgba(0,0,0,0.3);*/
 }
