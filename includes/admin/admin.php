@@ -8,19 +8,19 @@
  * Init
  */
 function wpmtst_admin_init() {
-	
+
 	// Check WordPress version
 	wpmtst_version_check();
 
 	// Check for new options in plugin activation/update
 	wpmtst_default_settings();
-	
+
 	// Remove ad banner from Captcha by BestWebSoft plugin
 	remove_action( 'admin_notices', 'cptch_plugin_banner' );
 
 	/**
 	 * Custom action hooks
-	 * 
+	 *
 	 * @since 1.18.4
 	 */
 	if ( isset( $_REQUEST['action'] ) && '' != $_REQUEST['action'] ) {
@@ -55,57 +55,57 @@ function wpmtst_plugin_action_links( $links, $file ) {
  * @since 1.16.0
  */
 function wpmtst_deny_plugins_init() {
-	
+
 	/**
 	 * Intuitive Custom Post Order
 	 */
 	if ( is_plugin_active( 'intuitive-custom-post-order/intuitive-custom-post-order.php' ) ) {
 		$options = get_option( 'hicpo_options' );
 		$update = false;
-		
+
 		if ( isset( $options['objects'] ) && is_array( $options['objects'] ) ) {
 			if ( in_array( 'wpm-testimonial', $options['objects'] ) ) {
 				$options['objects'] = array_diff( $options['objects'], array( 'wpm-testimonial' ) );
 				$update = true;
 			}
 		}
-		
+
 		if ( isset( $options['tags'] ) && is_array( $options['tags'] ) ) {
 			if ( in_array( 'wpm-testimonial-category', $options['tags'] ) ) {
 				$options['tags'] = array_diff( $options['tags'], array( 'wpm-testimonial-category' ) );
 				$update = true;
 			}
 		}
-		
+
 		if ( $update )
 			update_option( 'hicpo_options', $options );
 	}
-	
+
 	/**
 	 * Simple Custom Post Order
 	 */
 	if ( is_plugin_active( 'simple-custom-post-order/simple-custom-post-order.php' ) ) {
 		$options = get_option( 'scporder_options' );
 		$update = false;
-		
+
 		if ( isset( $options['objects'] ) && is_array( $options['objects'] ) ) {
 			if ( in_array( 'wpm-testimonial', $options['objects'] ) ) {
 				$options['objects'] = array_diff( $options['objects'], array( 'wpm-testimonial' ) );
 				$update = true;
 			}
 		}
-		
+
 		if ( isset( $options['tags'] ) && is_array( $options['tags'] ) ) {
 			if ( in_array( 'wpm-testimonial-category', $options['tags'] ) ) {
 				$options['tags'] = array_diff( $options['tags'], array( 'wpm-testimonial-category' ) );
 				$update = true;
 			}
 		}
-		
+
 		if ( $update )
 			update_option( 'scporder_options', $options );
 	}
-	
+
 }
 add_action( 'admin_init', 'wpmtst_deny_plugins_init', 200 );
 
@@ -116,7 +116,7 @@ add_action( 'admin_init', 'wpmtst_deny_plugins_init', 200 );
  * @since 1.16.0
  */
 function wpmtst_deny_plugins_menu() {
-	
+
 	/**
 	 * Post Types Order
 	 */
@@ -134,8 +134,8 @@ add_action( 'admin_menu', 'wpmtst_deny_plugins_menu', 200 );
 function wpmtst_admin_scripts( $hook ) {
 
 	$plugin_version = get_option( 'wpmtst_plugin_version' );
-	
-	$hooks_to_style = array( 
+
+	$hooks_to_style = array(
 		'wpm-testimonial_page_settings',
 		'wpm-testimonial_page_fields',
 		'wpm-testimonial_page_views',
@@ -146,18 +146,18 @@ function wpmtst_admin_scripts( $hook ) {
 		'widgets.php',
 		'settings_page_strong-testimonials-welcome',
 	);
-	
+
 	$screen = get_current_screen();
 	if ( $screen && 'wpm-testimonial' == $screen->post_type ) {
 		$hooks_to_style = array_merge( $hooks_to_style, array( 'edit.php', 'edit-tags.php', 'post.php', 'post-new.php' ) );
 	}
-	
+
 	// Page Builder compat
 	if ( in_array( $hook, $hooks_to_style ) || defined( 'SITEORIGIN_PANELS_VERSION' ) ) {
 		wp_enqueue_style( 'wpmtst-admin-style', WPMTST_URL . 'css/admin/admin.css', array(), $plugin_version );
-	}	
-	
-	$hooks_to_script = array( 
+	}
+
+	$hooks_to_script = array(
 		'wpm-testimonial_page_settings',
 		'wpm-testimonial_page_fields',
 		'wpm-testimonial_page_guide',
@@ -165,12 +165,12 @@ function wpmtst_admin_scripts( $hook ) {
 		// TODO Can remove widgets.php in 2.0
 		'widgets.php',
 	);
-			
+
 	if ( in_array( $hook, $hooks_to_script ) || defined( 'SITEORIGIN_PANELS_VERSION' ) ) {
 		wp_enqueue_script( 'wpmtst-admin-script', WPMTST_URL . 'js/wpmtst-admin.js', array( 'jquery' ), $plugin_version );
 		wp_localize_script( 'wpmtst-admin-script', 'ajax_object', array( 'ajaxurl' => admin_url( 'admin-ajax.php' ) ) );
 	}
-	
+
 	// Page Builder compat
 	if ( defined( 'SITEORIGIN_PANELS_VERSION' ) ) {
 		//TODO  is loading validate necessary? if so, language file too?
@@ -187,7 +187,7 @@ function wpmtst_admin_scripts( $hook ) {
 			break;
 		case 'wpm-testimonial_page_views':
 			wp_enqueue_style( 'wpmtst-admin-views-style', WPMTST_URL . 'css/admin/views.css', array(), $plugin_version );
-			wp_enqueue_script( 'wpmtst-admin-views-script', WPMTST_URL . 'js/wpmtst-views.js', 
+			wp_enqueue_script( 'wpmtst-admin-views-script', WPMTST_URL . 'js/wpmtst-views.js',
 					array( 'jquery', 'jquery-ui-sortable', 'wp-color-picker' ), $plugin_version );
 			wp_localize_script( 'wpmtst-admin-views-script', 'ajax_object', array( 'ajaxurl' => admin_url( 'admin-ajax.php' ) ) );
 			wp_enqueue_style( 'wp-color-picker' );
@@ -211,7 +211,7 @@ add_action( 'admin_enqueue_scripts', 'wpmtst_admin_dequeue_scripts', 500 );
 
 /**
  * Load custom style for WPML.
- * 
+ *
  * @since 1.21.0
  */
 function wpmtst_admin_scripts_wpml() {
@@ -260,10 +260,10 @@ function wpmtst_reorder_meta_boxes() {
 
 	if ( ! isset( $wp_meta_boxes['wpm-testimonial']['normal'] ) )
 		return;
-	
+
 	if ( ! isset( $wp_meta_boxes['wpm-testimonial']['normal']['core'] ) )
 		return;
-		
+
 	$core = $wp_meta_boxes['wpm-testimonial']['normal']['core'];
 	$newcore = array();
 	if ( $core['postexcerpt'] )
@@ -274,8 +274,8 @@ function wpmtst_reorder_meta_boxes() {
 		$newcore['postcustom'] = $core['postcustom'];
 	if ( $core['slugdiv'] )
 		$newcore['slugdiv'] = $core['slugdiv'];
-		
-	if ( $newcore ) 
+
+	if ( $newcore )
 		$wp_meta_boxes['wpm-testimonial']['normal']['core'] = $newcore;
 }
 add_action( 'do_meta_boxes', 'wpmtst_reorder_meta_boxes' );
@@ -326,9 +326,9 @@ function wpmtst_edit_columns( $columns ) {
 	$options = get_option( 'wpmtst_options' );
 	$fields  = get_option( 'wpmtst_fields' );
 	$fields  = $fields['field_groups'][ $fields['current_field_group'] ]['fields'];
-	
+
 	$columns = array( 'cb' => '<input type="checkbox">'	);
-	
+
 	/**
 	 * Menu order
 	 *
@@ -337,11 +337,11 @@ function wpmtst_edit_columns( $columns ) {
 	//if ( $options['reorder'] && ! wpmtst_is_column_sorted() && ! wpmtst_is_viewing_trash() )
 	if ( ! wpmtst_is_column_sorted() && ! wpmtst_is_viewing_trash() )
 		$columns['order'] = __( 'Order', 'strong-testimonials' );
-	
+
 	$columns['title'] = _x( 'Title', 'testimonial', 'strong-testimonials' );
-	
+
 	$columns['post_excerpt'] = __( 'Excerpt', 'strong-testimonials' );
-	
+
 	foreach ( $fields as $key => $field ) {
 		if ( $field['admin_table'] ) {
 			if ( 'featured_image' == $field['name'] )
@@ -352,11 +352,11 @@ function wpmtst_edit_columns( $columns ) {
 				$columns[ $field['name'] ] = apply_filters( 'wpmtst_l10n', $field['label'], wpmtst_get_l10n_context( 'form-fields' ), $field['name'] . ' : label' );
 		}
 	}
-	
+
 	$columns['category']  = __( 'Category', 'strong-testimonials' );
-	
+
 	$columns['shortcode'] = __( 'Shortcode', 'strong-testimonials' );
-	
+
 	$columns['date']      = __( 'Date', 'strong-testimonials' );
 
 	return $columns;
@@ -409,27 +409,27 @@ function wpmtst_custom_columns( $column ) {
 	$options = get_option( 'wpmtst_options' );
 
 	switch ( $column ) {
-		
+
 		case 'post_id':
 			echo $post->ID;
 			break;
-		
+
 		case 'post_content':
 			echo substr( $post->post_content, 0, 100 ) . '&hellip;';
 			break;
-		
+
 		case 'post_excerpt':
 			echo $post->post_excerpt;
 			break;
-		
+
 		case 'thumbnail':
 			echo get_the_post_thumbnail( $post->ID, array( 75, 75 ) );
 			break;
-		
+
 		case 'shortcode':
 			echo '[' . wpmtst_get_shortcode() . ' id="' . $post->ID . '" &hellip; ]';
 			break;
-		
+
 		case 'category':
 			$categories = get_the_terms( 0, 'wpm-testimonial-category' );
 			if ( $categories && ! is_wp_error( $categories ) ) {
@@ -440,7 +440,7 @@ function wpmtst_custom_columns( $column ) {
 				echo join( ", ", $list );
 			}
 			break;
-		
+
 		/**
 		 * Menu order.
 		 *
@@ -459,12 +459,12 @@ function wpmtst_custom_columns( $column ) {
 				echo '<div>' . $post->menu_order . '</div>';
 			}
 			break;
-			
+
 		default:
 			// custom field?
 			if ( isset( $custom[$column] ) )
 				echo $custom[$column][0];
-		
+
 	}
 }
 add_action( 'manage_wpm-testimonial_posts_custom_column', 'wpmtst_custom_columns' );
@@ -561,16 +561,16 @@ add_filter( 'manage_edit-wpm-testimonial_sortable_columns', 'wpmtst_manage_sorta
  */
 function wpmtst_pre_get_posts( $query ) {
 	// Only in main WP query AND if an orderby query variable is designated.
-	if ( is_admin() 
-			&& $query->is_main_query() 
+	if ( is_admin()
+			&& $query->is_main_query()
 			&& 'wpm-testimonial' == $query->get( 'post_type' )
 			&& ( $orderby = $query->get( 'orderby' ) ) ) {
-					
+
 		if ( 'client_name' == $orderby ) {
 			$query->set( 'meta_key', 'client_name' );
 			$query->set( 'orderby', 'meta_value' );
 		}
-		
+
 	}
 }
 add_action( 'pre_get_posts', 'wpmtst_pre_get_posts', 10 );
@@ -582,7 +582,7 @@ add_action( 'pre_get_posts', 'wpmtst_pre_get_posts', 10 );
  * @since 1.16.0
  */
 function wpmtst_posts_orderby( $orderby, $query ) {
-	if ( !$query->get( 'orderby' ) ) {
+	if ( 'wpm-testimonial' == $query->get( 'post_type' ) && ! $query->get( 'orderby' ) ) {
 		global $wpdb;
 		$orderby = "{$wpdb->posts}.menu_order, {$wpdb->posts}.post_date DESC";
 		/*
@@ -606,16 +606,16 @@ function wpmtst_save_details() {
 	global $post;
 
 	if ( isset( $_POST['custom'] ) ) {
-	
+
 		// {missing 'nofollow'} = {unchecked checkbox} = 'off'
 		if ( ! array_key_exists( 'nofollow', $_POST['custom'] ) )
 			$_POST['custom']['nofollow'] = 'off';
-			
+
 		foreach ( $_POST['custom'] as $key => $value ) {
 			// empty values replace existing values
 			update_post_meta( $post->ID, $key, $value );
 		}
-		
+
 	}
 }
 // add_action( 'save_post_wpm-testimonial', 'wpmtst_save_details' ); // WP 3.7+
@@ -663,7 +663,7 @@ add_action( 'wp_ajax_wpmtst_add_recipient', 'wpmtst_add_recipient_function' );
 
 /**
  * Admin notices
- * 
+ *
  * @since 1.18.4
  */
 function wpmtst_admin_notices() {
@@ -689,7 +689,7 @@ add_action( 'admin_notices', 'wpmtst_admin_notices' );
 
 /**
  * Dismiss admin notices
- * 
+ *
  * @since 1.18.4
  */
 function wpmtst_dismiss_notice() {

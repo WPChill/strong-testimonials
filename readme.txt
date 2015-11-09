@@ -39,13 +39,13 @@ Strong Testimonials by [WP Mission](https://www.wpmission.com) is a full-feature
 
 = The Form =
 
-By default, the testimonial form has fields for 
+By default, the testimonial form has fields for
 
-* a name, 
-* an email address, 
-* a company name and website, 
-* a heading, 
-* a photo, 
+* a name,
+* an email address,
+* a company name and website,
+* a heading,
+* a photo,
 * and, of course, the testimonial content.
 
 Use the fields editor to **customize the form** to your specific situation, including the field order, the text before or after, the placeholder text, and required fields.
@@ -182,9 +182,9 @@ It depends. I have narrowed down the causes of many conflicts and addressed them
 
 Yes. You can copy a template to your theme, with or without its associated stylesheet, and customize it as you see fit. You can also have multiple custom templates. (A tutorial is coming soon.)
 
-= Can I make some suggestions? = 
+= Can I make some suggestions? =
 
-I'm all ears! Many of the improvements over the last year are the result of feedback and ideas from people using the plugin in a variety of sites. Here are [some recent requests](https://www.wpmission.com/strong-testimonials/feature-requests/) awaiting your votes. 
+I'm all ears! Many of the improvements over the last year are the result of feedback and ideas from people using the plugin in a variety of sites. Here are [some recent requests](https://www.wpmission.com/strong-testimonials/feature-requests/) awaiting your votes.
 
 = Will it import my existing testimonials? =
 
@@ -204,7 +204,10 @@ Not yet.
 
 == Changelog ==
 
-= 1.24 =
+= 1.24.1 - 2015-11-09 =
+* Fix bug in post list order.
+
+= 1.24 - 2015-11-04 =
 * Option to change custom field link text.
 * Fix admin UI bugs.
 * Add JavaScript and stylesheet versioning to force browser reload.
@@ -228,7 +231,7 @@ Not yet.
 = 1.21.3 - 2015-10-15 =
 * Fix bug in resetting post data after query.
 
-= 1.21.2 - 2015-10-14 = 
+= 1.21.2 - 2015-10-14 =
 * Fix conflict with WooCommerce.
 
 = 1.21.1 - 2015-10-13 =

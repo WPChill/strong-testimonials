@@ -4,7 +4,7 @@
  * Plugin URI: http://www.wpmission.com/strong-testimonials/
  * Description: Collect and display testimonials with a plugin that offers strong features and strong support.
  * Author: Chris Dillon
- * Version: 1.24
+ * Version: 1.24.1
  * Author URI: http://www.wpmission.com/
  * Text Domain: strong-testimonials
  * Domain Path: /languages
@@ -33,7 +33,7 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 if ( ! class_exists( 'Strong_Testimonials' ) ) :
-	
+
 /**
  * Main plugin class.
  *
@@ -42,7 +42,7 @@ if ( ! class_exists( 'Strong_Testimonials' ) ) :
 final class Strong_Testimonials {
 
 	private static $instance;
-	
+
 	private static $db_version = '1.0';
 	public static $view_count = 0;
 	public static $styles = array( 'normal' => array(), 'later' => array() );
@@ -65,9 +65,9 @@ final class Strong_Testimonials {
 	 * (1) to improve overall plugin flexibility,
 	 * (2) to improve compatibility with page builder plugins, and
 	 * (3) to maintain conditional loading best practices.
-	 * 
+	 *
 	 * Also used to store testimonial form data during Post-Redirect-Get.
-	 * 
+	 *
 	 * Heavily copied from Easy Digital Downloads by Pippin Williamson.
 	 *
 	 * @return Strong_Testimonials  Strong_Testimonials object
@@ -76,7 +76,7 @@ final class Strong_Testimonials {
 		if ( ! isset( self::$instance ) && ! ( self::$instance instanceof Strong_Testimonials ) ) {
 			self::$instance = new Strong_Testimonials;
 			self::$instance->setup_constants();
-			
+
 			add_action( 'plugins_loaded', array( self::$instance, 'load_textdomain' ) );
 
 			self::$instance->includes();
@@ -122,7 +122,7 @@ final class Strong_Testimonials {
 	 * @return void
 	 */
 	private function setup_constants() {
-		
+
 		if ( ! defined( 'WPMTST_URL' ) )
 			define( 'WPMTST_URL', plugin_dir_url( __FILE__ ) );
 
@@ -131,19 +131,19 @@ final class Strong_Testimonials {
 
 		if ( ! defined( 'WPMTST_INC' ) )
 			define( 'WPMTST_INC', plugin_dir_path( __FILE__ ) . 'includes/' );
-		
+
 		if ( ! defined( 'WPMTST_DEF_TPL' ) )
 			define( 'WPMTST_DEF_TPL', plugin_dir_path( __FILE__ ) . 'templates/default/' );
-		
+
 		if ( ! defined( 'WPMTST_DEF_TPL_URI' ) )
 			define( 'WPMTST_DEF_TPL_URI', plugin_dir_url( __FILE__ ) . 'templates/default/' );
-		
+
 		if ( ! defined( 'WPMTST_TPL' ) )
 			define( 'WPMTST_TPL', plugin_dir_path( __FILE__ ) . 'templates/' );
-		
+
 		if ( ! defined( 'WPMTST_TPL_URI' ) )
 			define( 'WPMTST_TPL_URI', plugin_dir_url( __FILE__ ) . 'templates/' );
-		
+
 	}
 
 
@@ -164,9 +164,9 @@ final class Strong_Testimonials {
 		require_once WPMTST_INC . 'shims.php';
 		require_once WPMTST_INC . 'widget.php';
 		require_once WPMTST_INC . 'widget2.php';
-		
+
 		if ( is_admin() ) {
-			
+
 			require_once WPMTST_INC . 'class-strong-testimonials-list-table.php';
 			require_once WPMTST_INC . 'class-strong-views-list-table.php';
 			require_once WPMTST_INC . 'admin/admin.php';
@@ -178,16 +178,16 @@ final class Strong_Testimonials {
 			require_once WPMTST_INC . 'admin/upgrade.php';
 			require_once WPMTST_INC . 'admin/views.php';
 			require_once WPMTST_INC . 'admin/welcome.php';
-		
+
 		} else {
-			
+
 			require_once WPMTST_INC . 'scripts.php';
 			require_once WPMTST_INC . 'shortcodes.php';
 			require_once WPMTST_INC . 'shortcode-form.php';
 			require_once WPMTST_INC . 'shortcode-strong.php';
 			require_once WPMTST_INC . 'captcha.php';
 			require_once WPMTST_INC . 'template-functions.php';
-			
+
 		}
 
 	}
@@ -207,7 +207,7 @@ final class Strong_Testimonials {
 		/**
 		 * Actions on 'wp' hook allow us to properly enqueue styles and scripts.
 		 */
-		
+
 		// Preprocess the post content for the our shortcodes.
 		add_action( 'wp', array( $this, 'find_views' ) );
 		add_action( 'wp', array( $this, 'find_views_in_postmeta' ) );
@@ -222,7 +222,7 @@ final class Strong_Testimonials {
 		// Preprocess the page for widgets.
 		add_action( 'wp', array( $this, 'find_widgets' ) );
 		add_action( 'wp', array( $this, 'find_view_widgets' ) );
-		
+
 		// Elegant Themes - Home page content areas
 		add_action( 'wp', array( $this, 'find_views_elegant_themes' ) );
 
@@ -240,7 +240,7 @@ final class Strong_Testimonials {
 
 		/**
 		 * Action hook: Delete a view.
-		 * 
+		 *
 		 * @since 1.21.0
 		 */
 		add_action( 'admin_action_delete-strong-view', 'wpmtst_delete_view_action_hook' );
@@ -249,12 +249,12 @@ final class Strong_Testimonials {
 		 * Filter page templates to exclude testimonial templates.
 		 */
 		add_action( 'load-post.php', array( $this, 'add_page_templates_filter' ) );
-		
+
 		/**
 		 * Flush rewrite rules after theme switch.
-		 * 
+		 *
 		 * In case the previous or current theme skips this and it has a "testimonial" post type.
-		 * 
+		 *
 		 * @since 1.21.0
 		 */
 		add_action( 'after_switch_theme', 'flush_rewrite_rules' );
@@ -293,7 +293,7 @@ final class Strong_Testimonials {
 
 	/**
 	 * Remove testimonial templates from Template dropdown in Page Attributes metabox.
-	 * 
+	 *
 	 * @param $page_templates
 	 * @param $theme_object
 	 * @param $post
@@ -302,8 +302,8 @@ final class Strong_Testimonials {
 	 */
 	public function page_templates_filter( $page_templates, $theme_object, $post ) {
 		foreach ( $page_templates as $file_name => $template_name ) {
-			if ( 'testimonials.php' == $file_name 
-			        || 'testimonials-' == substr( $file_name, 0, 13 ) 
+			if ( 'testimonials.php' == $file_name
+			        || 'testimonials-' == substr( $file_name, 0, 13 )
 			        || 'testimonial-form' == substr( $file_name, 0, 16 ) ) {
 				unset( $page_templates[ $file_name ] );
 			}
@@ -328,7 +328,7 @@ final class Strong_Testimonials {
 	public function get_shortcode() {
 		return self::$shortcode;
 	}
-	
+
 	public function get_shortcode2() {
 		return self::$shortcode2;
 	}
@@ -345,10 +345,10 @@ final class Strong_Testimonials {
 		$shortcodes[] = self::$shortcode2;
 		return $shortcodes;
 	}
-	
+
 	/**
 	 * Getter for the shortcode defaults.
-	 * 
+	 *
 	 * @return array
 	 */
 	public static function get_view_defaults() {
@@ -357,14 +357,14 @@ final class Strong_Testimonials {
 
 	/**
 	 * Setter for the shortcode defaults.
-	 * 
+	 *
 	 * TODO Provide a filter.
 	 * TODO Consolidate with wpmtst_get_default_view()
-	 * 
+	 *
 	 * @param array $defaults
 	 */
 	private static function set_view_defaults( $defaults = array() ) {
-		$defaults = array_merge( 
+		$defaults = array_merge(
 			array(
 				'background'       => '',
 				'category'         => '',
@@ -409,7 +409,7 @@ final class Strong_Testimonials {
 
 	/**
 	 * Set atts.
-	 * 
+	 *
 	 * @param $atts
 	 */
 	public function set_atts( $atts ) {
@@ -418,7 +418,7 @@ final class Strong_Testimonials {
 
 	/**
 	 * Get att(s).
-	 * 
+	 *
 	 * @param null $keys
 	 *
 	 * @return array|bool
@@ -427,7 +427,7 @@ final class Strong_Testimonials {
 		// return all
 		if ( ! $keys )
 			return self::$strong_atts;
-		
+
 		// return some
 		if ( is_array( $keys ) ) {
 			$found = array();
@@ -438,18 +438,18 @@ final class Strong_Testimonials {
 			}
 			return $found;
 		}
-		
+
 		// return one
 		if ( isset( self::$strong_atts[ $keys ] ) )
 			return self::$strong_atts[ $keys ];
-		
+
 		// return none
 		return false;
 	}
 
 	/**
 	 * Get database tables version.
-	 * 
+	 *
 	 * @return string
 	 */
 	public function get_db_version() {
@@ -503,7 +503,7 @@ final class Strong_Testimonials {
 			self::$scripts[ $when ][] = $script_name;
 		}
 	}
-	
+
 	private static function add_css( $line ) {
 		self::$css[] = $line;
 	}
@@ -538,7 +538,7 @@ final class Strong_Testimonials {
 	private static function check_content( $content ) {
 		if ( false === strpos( $content, self::$shortcode_lb ) && false === strpos( $content, self::$shortcode2_lb ) )
 			return false;
-		
+
 		return true;
 	}
 
@@ -721,19 +721,19 @@ final class Strong_Testimonials {
 				$att_string = serialize( $original_atts );
 
 				self::find_single_view( self::$view_count++, $atts, $att_string );
-				
+
 			} elseif ( self::$shortcode2 === $shortcode[2]) {
-				
+
 				/**
 				 * Adding html_entity_decode.
 				 * @since 1.16.13
 				 */
 				// Retrieve all attributes from the shortcode.
 				$original_atts = shortcode_parse_atts( html_entity_decode( $shortcode[3] ) );
-				
+
 				// Incorporate attributes from the View and defaults.
 				$parsed_atts = self::parse_view( $original_atts, self::get_view_defaults(), $original_atts );
-				
+
 				// Turn empty atts into switches.
 				$atts = normalize_empty_atts( $parsed_atts );
 
@@ -763,7 +763,7 @@ final class Strong_Testimonials {
 	 * Process a single [strong] or [testimonial_view] shortcode.
 	 *
 	 * TODO Move all this to hooks and filters.
-	 * 
+	 *
 	 * @since 1.15.4 [strong]
 	 * @since 1.21.0 [testimonial_view]
 	 */
@@ -776,23 +776,23 @@ final class Strong_Testimonials {
 		 * Modes
 		 */
 		if ( isset( $atts['read_more'] ) ) {
-		
+
 			/**
 			 * "Read more"
-			 * 
+			 *
 			 * TODO remove in 2.0
 			 */
 			$view = array( 'mode' => 'read_more', 'atts' => $atts );
-		
+
 		} elseif ( isset( $atts['form'] ) ) {
-			
+
 			/**
 			 * Form
 			 */
 			$form_options = get_option( 'wpmtst_form_options' );
 			$view = array( 'mode' => 'form', 'atts' => $atts );
 			$preprocess_form = true;
-			
+
 			/**
 			 * If this is a view, look for accompanying stylesheet.
 			 * If this is a configured shortcode, check the option for loading its stylesheet.
@@ -802,7 +802,7 @@ final class Strong_Testimonials {
 				self::find_stylesheet( $view['mode'], $atts );
 
 			} else {
-				
+
 				// load original stylesheet
 				if ( $options['load_form_style'] ) {
 					self::add_style( 'wpmtst-form-style' );
@@ -812,7 +812,7 @@ final class Strong_Testimonials {
 				if ( is_rtl() && $options['load_rtl_style'] ) {
 					self::add_style( 'wpmtst-rtl-style' );
 				}
-				
+
 			}
 
 			if ( apply_filters( 'wpmtst_field_required_tag', true ) && apply_filters( 'wpmtst_form_validation_script', true ) ) {
@@ -827,9 +827,9 @@ final class Strong_Testimonials {
 			if ( $form_options['honeypot_after'] ) {
 				add_action( 'wp_footer', 'wpmtst_honeypot_after_script' );
 			}
-			
+
 		} elseif ( isset( $atts['slideshow'] ) ) {
-			
+
 			/**
 			 * Slideshow
 			 */
@@ -857,7 +857,7 @@ final class Strong_Testimonials {
 					self::add_style( 'wpmtst-rtl-style' );
 				}
 			}
-		
+
 		} else {
 
 			/**
@@ -874,7 +874,7 @@ final class Strong_Testimonials {
 			if ( isset( $atts['view'] ) && $atts['view'] ) {
 
 				self::find_stylesheet( $view['mode'], $atts );
-				
+
 			} else {
 
 				// Load original stylesheet.
@@ -888,7 +888,7 @@ final class Strong_Testimonials {
 				}
 
 			}
-			
+
 		}
 
 		// Process attributes to check for required styles & scripts.
@@ -900,10 +900,10 @@ final class Strong_Testimonials {
 
 		return $view;
 	}
-	
+
 	/**
 	 * Find a template's associated stylesheet.
-	 * 
+	 *
 	 * @since 1.23.0
 	 */
 	private static function find_stylesheet( $mode = 'display', $atts ) {
@@ -927,10 +927,10 @@ final class Strong_Testimonials {
 		// Load template stylesheet. Search theme first.
 		$handle = '';
 		$stylesheet_url = '';
-		
+
 		// Derive basename from full template filename.
 		$stylesheet = str_replace( array( '.php', get_stylesheet_directory() ), array( '.css', '' ), $template );
-		
+
 		if ( file_exists( get_stylesheet_directory() . $stylesheet ) ) {
 			$handle = self::generate_stylesheet_handle( $stylesheet );
 			$stylesheet_url  = get_stylesheet_directory_uri() . $stylesheet;
@@ -938,7 +938,7 @@ final class Strong_Testimonials {
 
 		// Search plugin next.
 		if ( ! $handle ) {
-			
+
 			// Derive basename from full template filename.
 			$stylesheet = str_replace( array( '.php', WPMTST_TPL ), array( '.css', '' ), $template );
 
@@ -946,15 +946,15 @@ final class Strong_Testimonials {
 				$handle = self::generate_stylesheet_handle( $stylesheet );
 				$stylesheet_url  = WPMTST_TPL_URI . $stylesheet;
 			}
-			
+
 		}
-		
+
 		if ( $handle ) {
 			wp_register_style( $handle, $stylesheet_url );
 			self::add_style( $handle );
 		}
 	}
-	
+
 	/**
 	 * Generate stylesheet handle using filename.
 	 *
@@ -963,7 +963,7 @@ final class Strong_Testimonials {
 	private static function generate_stylesheet_handle( $stylesheet ){
 		return str_replace( array( '/', '.css' ), array( '-', '-template' ), trim( $stylesheet, '/' ) ) . '-style';
 	}
-	
+
 	/**
 	 * Preprocess a view to gather styles, scripts and script vars.
 	 *
@@ -980,7 +980,7 @@ final class Strong_Testimonials {
 			self::get_view_defaults(),
 			$view['atts']
 		) );
-		
+
 		// extract comma-separated values
 		$categories = explode( ',', $category );
 		$ids        = explode( ',', $id );
@@ -1009,9 +1009,9 @@ final class Strong_Testimonials {
 		$query      = new WP_Query( $args );
 		$post_count = $query->post_count;
 		wp_reset_postdata();
-	
+
 		if ( $slideshow ) {
-	
+
 			// Populate variable for Cycle script.
 			$args = array(
 				'fx'      => 'fade',
@@ -1025,17 +1025,17 @@ final class Strong_Testimonials {
 			 * Example result:
 			 * var strong_cycle_b17e46f93ef619819cdfe5e26b66a3e9 = {"fx":"fade","speed":"1000","timeout":"5000","pause":"1"};
 			 */
-	
+
 		} else {
-			
+
 			if ( $per_page && $post_count > $per_page ) {
-	
+
 				// Paginated.
 				// Populate variable for QuickPager script.
 				if ( false !== strpos( $nav, 'before' ) && false !== strpos( $nav, 'after' ) ) {
 					$nav = 'both';
 				}
-	
+
 				$pager = array(
 					'id'            => '.strong-paginated',
 					'pageSize'      => $per_page,
@@ -1044,16 +1044,16 @@ final class Strong_Testimonials {
 				);
 				self::add_script( 'wpmtst-pager-script' );
 				self::add_script_var( 'wpmtst-pager-script', 'pagerVar', $pager );
-	
+
 			}
-			
+
 		}
 
 		/**
 		 * Custom CSS for Views only.
 		 */
 		if ( isset( $atts['view'] ) && $atts['view'] ) {
-			// For plugin templates only. 
+			// For plugin templates only.
 			if ( $background ) {
 				// Convert "default/testimonials.php" to "default", for example.
 				$template_class = $template ? '.' . strtok( $template, '/' ) : '';
@@ -1062,7 +1062,7 @@ final class Strong_Testimonials {
 		}
 
 	}
-	
+
 	/**
 	 * Preprocess a form.
 	 *
@@ -1090,7 +1090,7 @@ final class Strong_Testimonials {
 				exit;
 			}
 		}
-		
+
 		/**
 		 * Custom CSS for View Forms only.
 		 */
@@ -1154,7 +1154,7 @@ final class Strong_Testimonials {
 
 								self::find_single_view( self::$view_count++, $atts, $att_string );
 							}
-							
+
 						}
 
 					}
@@ -1234,7 +1234,7 @@ final class Strong_Testimonials {
 					}
 
 				} elseif ( 0 === strpos( $widget_name, 'text-' ) ) {
-					
+
 					// Get text widget content to scan for shortcodes.
 
 					$text_widgets = get_option( 'widget_text' );
@@ -1280,7 +1280,7 @@ final class Strong_Testimonials {
 			return false;
 
 		$options = get_option( 'wpmtst_options' );
-		
+
 		// Need to group by cell to replicate Page Builder rendering order,
 		// whether these are Strong widgets or not.
 		$cells = array();
@@ -1344,10 +1344,10 @@ final class Strong_Testimonials {
 					}
 
 				} elseif ( 'WP_Widget_Text' == $widget['panels_info']['class'] ) {
-					
+
 					// Is a Text widget?
 					self::process_content( $widget['text'] );
-					
+
 				}
 
 			}
@@ -1492,7 +1492,7 @@ final class Strong_Testimonials {
 
 		/**
 		 * Add error attribute for shortcode handler.
-		 * 
+		 *
 		 * @since 1.21.0
 		 */
 		if ( ! $view ) {
@@ -1568,12 +1568,12 @@ final class Strong_Testimonials {
 	//	require_once WPMTST_INC . 'form-handler-functions.php';
 	//	wpmtst_form_handler();
 	//}
-	
+
 	public function set_form_values( $form_values ) {
-		self::$form_values = $form_values; 
+		self::$form_values = $form_values;
 	}
 	public function get_form_values() {
-		return self::$form_values; 
+		return self::$form_values;
 	}
 	public function set_form_errors( $form_errors ) {
 		self::$form_errors = $form_errors;
@@ -1621,9 +1621,9 @@ final class Strong_Testimonials {
 	public function get_plugin_info() {
 		return get_file_data( __FILE__, array( 'name' => 'Plugin Name', 'version' => 'Version' ) );
 	}
-	
+
 }
-	
+
 endif; // class_exists check
 
 function WPMST() {
