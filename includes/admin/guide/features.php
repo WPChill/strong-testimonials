@@ -4,6 +4,12 @@
 
 	<h3><?php _e( 'New Features', 'strong-testimonials' ); ?></h3>
 
+	<h4>Version 1.24</h4>
+	<ul>
+		<li>a new link field type for social media profiles</li>
+		<li>better process for refreshing browser cache</li>
+	</ul>
+
 	<h4>Version 1.23</h4>
 
 	<ul>
@@ -12,13 +18,13 @@
 	</ul>
 
 	<h4>Version 1.22</h4>
-	
+
 	<ul>
 		<li>support for Gravatars in Views, a long overdue feature</li>
 	</ul>
-	
+
 	<h4>Version 1.21</h4>
-	
+
 	<ul>
 		<li>WPML and Polylang compatible - so the form can be translated</li>
 		<li>new templates included</li>
@@ -28,7 +34,7 @@
 		<li>prevent double form submissions</li>
 		<li>some admin speed improvement</li>
 	</ul>
-	
+
 	<h4>Version 1.20</h4>
 
 	<ul>

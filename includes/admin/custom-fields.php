@@ -3,14 +3,14 @@
  * Strong Testimonials - Custom fields admin functions
  */
 
- 
+
 /*
  * Custom Fields page
  */
 function wpmtst_settings_custom_fields() {
 	if ( ! current_user_can( 'manage_options' ) )
 		wp_die( __( 'You do not have sufficient permissions to access this page.' ) );
-	
+
 	$options = get_option( 'wpmtst_options' );
 	$field_options = get_option( 'wpmtst_fields' );
 	$field_groups = $field_options['field_groups'];
@@ -39,7 +39,7 @@ function wpmtst_settings_custom_fields() {
 			// $fields = $field_options['field_groups']['default']['fields'];
 			// $field_options['field_groups']['custom']['fields'] = $fields;
 			// update_option( 'wpmtst_fields', $field_options );
-			
+
 			// 1.7.1 - hard restore from file
 			include_once WPMTST_INC . 'defaults.php';
 			$default_fields = wpmtst_get_default_fields();
@@ -97,26 +97,26 @@ function wpmtst_settings_custom_fields() {
 			<p><?php printf( __( 'Reorder by grabbing the %s icon.', 'strong-testimonials' ), '<span class="dashicons dashicons-menu"></span>' ); ?></p>
 			<p><?php _e( 'Click the field name to expand its options panel.', 'strong-testimonials' ); ?></p>
 			<p>
-				<a href="https://www.wpmission.com/tutorials/customize-the-form-in-strong-testimonials/" target="_blank"><?php _ex( 'Full tutorial', 'link', 'strong-testimonials' ); ?></a>
+				<a href="https://www.wpmission.com/tutorial/how-to-customize-the-form-in-strong-testimonials/" target="_blank"><?php _ex( 'Full tutorial', 'link', 'strong-testimonials' ); ?></a>
 			</p>
 		</div>
-	
+
 	<!-- Custom Fields Form -->
 	<form id="wpmtst-custom-fields-form" method="post" action="">
-	<?php wp_nonce_field( 'wpmtst_custom_fields_form', 'wpmtst_form_submitted' ); ?> 
-	
+	<?php wp_nonce_field( 'wpmtst_custom_fields_form', 'wpmtst_form_submitted' ); ?>
+
 	<ul id="custom-field-list">
-	
+
 	<?php foreach ( $fields as $key => $field ) : ?>
 		<li id="field-<?php echo $key; ?>"><?php echo wpmtst_show_field( $key, $field, false ); ?></li>
 	<?php endforeach; ?>
-	
+
 	</ul>
-	
+
 	<div id="add-field-bar">
 		<input id="add-field" type="button" class="button" name="add-field" value="<?php _e( 'Add New Field', 'strong-testimonials' ); ?>">
 	</div>
-	
+
 	<p class="submit">
 		<?php
 		submit_button( '', 'primary', 'submit', false );
@@ -124,11 +124,11 @@ function wpmtst_settings_custom_fields() {
 		submit_button( __( 'Restore Defaults', 'strong-testimonials' ), 'secondary', 'restore-defaults', false );
 		?>
 	</p>
-	
+
 	</form><!-- Custom Fields -->
-	
+
 	<p><em><?php printf( __( 'Customize other form elements <a href="%s">here</a>.', 'strong-testimonials' ), admin_url( 'edit.php?post_type=wpm-testimonial&page=settings&tab=form' ) ); ?></em></p>
-		
+
 	</div><!-- wrap -->
 	<?php
 }
@@ -150,11 +150,11 @@ function wpmtst_show_field( $key, $field, $adding ) {
 	$html .= '<span class="handle"><div class="dashicons dashicons-menu"></div></span>';
 	$html .= '<span class="link"><a class="field" href="#">' . $field_link . '</a></span>';
 	$html .= '</div>';
-	
+
 	$html .= '<div class="custom-field">';
-	
+
 	$html .= '<table class="field-table">';
-	
+
 	// -----------
 	// Field Label
 	// -----------
@@ -165,7 +165,7 @@ function wpmtst_show_field( $key, $field, $adding ) {
 	$html .= '<span class="help">' . __( 'This appears on the form.', 'strong-testimonials' ) . '</span>';
 	$html .= '</td>';
 	$html .= '</td>';
-	
+
 	// ----------
 	// Field Name
 	// ----------
@@ -184,27 +184,27 @@ function wpmtst_show_field( $key, $field, $adding ) {
 	}
 	$html .= '</td>';
 	$html .= '</td>';
-	
+
 	// ---------------------------
 	// Field Type (Post or Custom)
 	// ---------------------------
 	// If disabled, create <select> with single option
 	// and add hidden input with current value.
 	// Separate code! Readability trumps ultra-minor efficiency.
-	
+
 	$html .= '<tr>';
 	$html .= '<th>' . _x( 'Type', 'noun', 'strong-testimonials' ) . '</th>';
 	$html .= '<td>';
-	
+
 	// Restrict field choice to this record type
 	// unless we're adding a new field.
 	if ( $adding ) {
-	
+
 		$html .= '<select class="field-type new" name="fields[' . $key . '][input_type]" autocomplete="off">';
-	
+
 		// start with a blank option with event trigger to update optgroups...
 		$html .= '<option class="no-selection" value="none" name="none">&mdash;</option>';
-		
+
 		// If pre-selecting a record type in event handler:
 		/*
 		if ( 'custom' == $field['record_type'] ) {
@@ -216,14 +216,14 @@ function wpmtst_show_field( $key, $field, $adding ) {
 		}
 		*/
 		// ...then add $selected to <option>.
-		
+
 		// Post fields
 		$html .= '<optgroup class="post" label="' . __( 'Post Fields', 'strong-testimonials' ) . '">';
 		foreach ( $field_types['post'] as $field_key => $field_parts ) {
 			$html .= '<option value="' . $field_key . '">' . $field_parts['option_label'] . '</option>';
 		}
 		$html .= '</optgroup>';
-		
+
 		// Custom fields
 		$html .= '<optgroup class="custom" label="' . __( 'Custom Fields', 'strong-testimonials' ) . '">';
 		foreach ( $field_types['custom'] as $field_key => $field_parts ) {
@@ -233,7 +233,7 @@ function wpmtst_show_field( $key, $field, $adding ) {
 
 		/**
 		 * Optional fields
-		 * 
+		 *
 		 * @since 1.18
 		 */
 		$html .= '<optgroup class="optional" label="' . __( 'Optional Fields', 'strong-testimonials' ) . '">';
@@ -245,7 +245,7 @@ function wpmtst_show_field( $key, $field, $adding ) {
 		$html .= '</select>';
 
 	} else {
-	
+
 		if ( 'post' == $field['record_type'] ) {
 			// -----------
 			// Post fields
@@ -286,21 +286,21 @@ function wpmtst_show_field( $key, $field, $adding ) {
 			}
 			$html .= '</optgroup>';
 			$html .= '</select>';
-		} 
-		
+		}
+
 	} // adding
 	$html .= '</td>';
-	
+
 	if ( ! $adding ) {
 		$html .= wpmtst_show_field_secondary( $key, $field );
 		$html .= wpmtst_show_field_admin_table( $key, $field );
 	}
-	
+
 	$html .= '</table>';
 
 	if ( ! $adding )
 		$html .= wpmtst_show_field_hidden( $key, $field );
-	
+
 	// --------
 	// Controls
 	// --------
@@ -310,9 +310,9 @@ function wpmtst_show_field( $key, $field, $adding ) {
 	}
 	$html .= '<span class="close-field"><a href="#">' . _x( 'Close', 'verb', 'strong-testimonials' ) . '</a></span>';
 	$html .= '</div>';
-	
+
 	$html .= '</div><!-- .custom-field -->';
-	
+
 	return $html;
 }
 
@@ -330,7 +330,7 @@ function wpmtst_show_field_secondary( $key, $field ) {
 		$disabled = ' disabled="disabled"';
 	else
 		$disabled = false;
-		
+
 	$html = '<tr>';
 	$html .= '<th>' . __( 'Required', 'strong-testimonials' ) . '</th>';
 	$html .= '<td>';
@@ -342,7 +342,7 @@ function wpmtst_show_field_secondary( $key, $field ) {
 	}
 	$html .= '</td>';
 	$html .= '</td>';
-	
+
 	// -----------
 	// Placeholder
 	// -----------
@@ -354,7 +354,7 @@ function wpmtst_show_field_secondary( $key, $field ) {
 			$html .= '</td>';
 		}
 	}
-	
+
 	// ------
 	// Before
 	// ------
@@ -362,7 +362,7 @@ function wpmtst_show_field_secondary( $key, $field ) {
 	$html .= '<th>' . __( 'Before', 'strong-testimonials' ) . '</th>';
 	$html .= '<td><input type="text" name="fields[' . $key . '][before]" value="' . $field['before'] . '"></td>';
 	$html .= '</td>';
-	
+
 	// -----
 	// After
 	// -----
@@ -370,7 +370,7 @@ function wpmtst_show_field_secondary( $key, $field ) {
 	$html .= '<th>' . __( 'After', 'strong-testimonials' ) . '</th>';
 	$html .= '<td><input type="text" name="fields[' . $key . '][after]" value="' . $field['after'] . '"></td>';
 	$html .= '</td>';
-	
+
 	return $html;
 }
 
@@ -386,7 +386,7 @@ function wpmtst_show_field_admin_table( $key, $field ) {
 		$html = '<input type="hidden" name="fields[' . $key . '][show_admin_table_option]" value="' . $field['show_admin_table_option'] . '">';
 		return $html;
 	}
-	
+
 	$html = '<tr class="field-admin-table">';
 	$html .= '<th>' . __( 'Admin Table', 'strong-testimonials' ) . '</th>';
 	$html .= '<td>';
@@ -397,7 +397,7 @@ function wpmtst_show_field_admin_table( $key, $field ) {
 		$html .= '<input type="hidden" name="fields[' . $key . '][admin_table]" value="' . $field['admin_table'] . '">';
 	}
 	$html .= '</td>';
-	
+
 	return $html;
 }
 
@@ -414,15 +414,15 @@ function wpmtst_show_field_hidden( $key, $field ) {
 	$html .= '<input type="hidden" name="fields[' . $key . '][show_placeholder_option]" value="' . $field['show_placeholder_option'] . '">';
 	$html .= '<input type="hidden" name="fields[' . $key . '][admin_table_option]" value="' . $field['admin_table_option'] . '">';
 	$html .= '<input type="hidden" name="fields[' . $key . '][show_admin_table_option]" value="' . $field['show_admin_table_option'] . '">';
-	
+
 	if ( isset( $field['map'] ) ) {
 		$html .= '<input type="hidden" name="fields[' . $key . '][map]" value="' . $field['map'] . '">';
 	}
-	
+
 	if ( isset( $field['core'] ) ) {
 		$html .= '<input type="hidden" name="fields[' . $key . '][core]" value="' . $field['core'] . '">';
 	}
-	
+
 	return $html;
 }
 

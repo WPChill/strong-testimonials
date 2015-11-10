@@ -1,7 +1,7 @@
 <?php
 /**
  * Template Functions
- * 
+ *
  * @package Strong_Testimonials
  */
 
@@ -45,19 +45,40 @@ function wpmtst_the_content( $length = null ) {
 function wpmtst_the_thumbnail( $size = null ) {
 	if ( ! WPMST()->atts( 'thumbnail' ) )
 		return;
-	
+
+	// let arg override view setting
 	$size = ( null === $size ) ? WPMST()->atts( 'thumbnail_size' ) : $size ;
 	$id   = get_the_ID();
 	$img  = false;
-	
+
+	// check for a featured image
 	if ( has_post_thumbnail( $id ) ) {
+
+		// show featured image
 		$img = get_the_post_thumbnail( $id, $size );
-	} elseif ( 'no' != WPMST()->atts( 'gravatar' ) ) {
-		$img = get_avatar( wpmtst_get_field( 'email' ), apply_filters( 'wpmtst_gravatar_size', $size ) );
+
+	} else {
+
+		// no featured image, now what?
+
+		if ( 'yes' == WPMST()->atts( 'gravatar' ) ) {
+			// view > gravatar > show gravatar (use default, if not found)
+
+			$img = get_avatar( wpmtst_get_field( 'email' ), apply_filters( 'wpmtst_gravatar_size', $size ) );
+
+		} elseif ( 'if' == WPMST()->atts( 'gravatar' ) ) {
+			// view > gravatar > show gravatar only if found (and has email)
+
+			if ( wpmtst_get_field( 'email' ) ) {
+				// get_avatar will return false if not found (via filter)
+				$img = get_avatar( wpmtst_get_field( 'email' ), apply_filters( 'wpmtst_gravatar_size', $size ) );
+			}
+		}
+
 	}
-	
+
 	if ( $img ) {
-		// TODO Move class to a filter.
+		// TODO Move class to arg and filter.
 		echo '<div class="testimonial-image">' . apply_filters( 'wpmtst_thumbnail_img', $img, $id ) . '</div>';
 	}
 }
@@ -65,7 +86,7 @@ function wpmtst_the_thumbnail( $size = null ) {
 /**
  * Filter the thumbnail image.
  * Used to add link for a lightbox. Will not affect avatars.
- * 
+ *
  * @param $img
  * @param $post_id
  * @since 1.23.0
@@ -91,7 +112,7 @@ add_filter( 'wpmtst_thumbnail_img', 'wpmtst_thumbnail_img', 10, 2 );
 
 /**
  * Filter the gravatar size.
- * 
+ *
  * @param array $size
  * @since 1.23.0
  * @return mixed
@@ -131,7 +152,7 @@ function wpmtst_has_gravatar( $email_address ) {
 
 /**
  * Before assembling avatar HTML.
- * 
+ *
  * @param $url
  * @param $id_or_email
  * @param $args
@@ -141,13 +162,13 @@ function wpmtst_has_gravatar( $email_address ) {
 function wpmtst_get_avatar( $url, $id_or_email, $args ) {
 	if ( 'if' == WPMST()->atts( 'gravatar' ) && ! wpmtst_has_gravatar( $id_or_email ) )
 		return false;
-	
-	return $url;	
+
+	return $url;
 }
 
 /**
  * Global Colorbox settings.
- * 
+ *
  * @param $settings
  *
  * @return mixed
@@ -165,7 +186,7 @@ function wpmtst_colorbox_settings( $settings ) {
 function wpmtst_colorbox_manual_settings() {
 	?>
 	<script>
-	// de-focus and disable grouping 
+	// de-focus and disable grouping
 	jQuery(function($){
 		$(".testimonial-image a").colorbox({rel:"nofollow",returnFocus:false});
 	});
@@ -215,14 +236,14 @@ function wpmtst_the_client() {
 function wpmtst_client_section( $client_section ) {
 	global $post;
 	$html = '';
-	
+
 	foreach ( $client_section as $field ) {
 
 		// Get label.
 		$field['label'] = wpmtst_get_field_label( $field );
 
 		switch ( $field['type'] ) {
-			
+
 			case 'link':
 			case 'link2':
 				// use default if missing
@@ -271,19 +292,19 @@ function wpmtst_client_section( $client_section ) {
 
 				}
 				break;
-			
+
 			case 'date':
 				$format   = isset( $field['format'] ) && $field['format'] ? $field['format'] : get_option( 'date_format' );
 				$the_date = mysql2date( $format, $post->post_date );
 				$output   = apply_filters( 'wpmtst_the_date', $the_date, $format, $post );
 				break;
-			
+
 			default:
 				// text field
 				$output = get_post_meta( $post->ID, $field['field'], true );
-			
+
 		}
-		
+
 		if ( $output ) {
 			$html .= '<div class="' . $field['class'] . '">' . $output . '</div>';
 		}

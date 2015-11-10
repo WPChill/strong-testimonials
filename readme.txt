@@ -204,6 +204,9 @@ Not yet.
 
 == Changelog ==
 
+= 1.24.2 =
+* Fix bug in Gravatar display.
+
 = 1.24.1 - 2015-11-09 =
 * Fix bug in post list order.
 
