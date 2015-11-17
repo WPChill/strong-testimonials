@@ -1,7 +1,7 @@
 === Strong Testimonials ===
 Contributors: cdillon27
 Donate link: https://www.wpmission.com/donate/
-Tags: testimonials, testimonial widget, random testimonial, testimonial shortcode, testimonial slider, reviews, testimonial form
+Tags: testimonials, testimonial widget, random testimonial, testimonial shortcode, testimonial slider, testimonial form
 Requires at least: 3.5
 Tested up to: 4.3
 Stable tag: trunk
@@ -39,16 +39,7 @@ Strong Testimonials by [WP Mission](https://www.wpmission.com) is a full-feature
 
 = The Form =
 
-By default, the testimonial form has fields for
-
-* a name,
-* an email address,
-* a company name and website,
-* a heading,
-* a photo,
-* and, of course, the testimonial content.
-
-Use the fields editor to **customize the form** to your specific situation, including the field order, the text before or after, the placeholder text, and required fields.
+You can customize the form to your specific situation by adding or removing fields, or changing properties like the order, the text before or after, and the placeholder text.
 
 The form also offers **anti-spam** options like honeypots and Captcha via these plugins: [Captcha](http://wordpress.org/plugins/captcha/), [Really Simple Captcha](http://wordpress.org/plugins/really-simple-captcha/), and [Advanced noCaptcha reCaptcha](https://wordpress.org/plugins/advanced-nocaptcha-recaptcha/).
 
@@ -62,7 +53,7 @@ For displaying testimonials:
 
 * select which testimonials to show
 * set the sort order
-* select the fields: title, thumbnail, the full content or an excerpt, client name, website, etc.
+* select which fields to include
 * extras like pagination
 * style options
 * slideshow settings if desired
@@ -83,41 +74,11 @@ Need help matching your theme? Got some weird spacing or floating? I'm here to h
 
 For ultimate control and seamless integration, any **template file and stylesheet** pair can be copied into your theme. (A tutorial and more templates coming soon.)
 
-= Shortcodes =
-
-The `[strong]` shortcode is the predecessor of Views. It is unique and versatile. Most attributes act as on/off switches. For example, `[strong title random]` means "show testimonials and their title in random order".
-
-Other examples:
-
-`
-[strong form]
-`
-`
-[strong title category="3" count="20" per_page="5"]
-  [client]
-    [field name="client_name" class="name"]
-  [/client]
-[/strong]
-`
-
-[Check out the demos](http://demos.wpmission.com/strong-testimonials/)
-
-= Support =
-
-I will move mountains to fix bugs, to resolve conflicts with other plugins and themes, and to craft elegant solutions to fragile workarounds.
-
 = Recommended =
 
 * [Simple Colorbox](https://wordpress.org/plugins/simple-colorbox/) to open thumbnails into full-size images. Nice!
-* [Debug This](http://wordpress.org/plugins/debug-this/) to peek under the hood when troubleshooting.
 * [Simple Custom CSS](http://wordpress.org/plugins/simple-custom-css/) is my go-to plugin for quick CSS fixes.
 * [Wider Admin Menu](http://wordpress.org/plugins/wider-admin-menu/) lets your admin menu b r e a t h e.
-
-= Known Conflicts =
-
-* [Meteor Slides](https://wordpress.org/plugins/meteor-slides/)
-* [Unyson Framework by ThemeFuse](http://unyson.io/)
-* [Warp Framework by YooTheme](https://yootheme.com/themes/warp-framework)
 
 = Translations =
 
@@ -133,19 +94,11 @@ Many, many thanks to these translators. Can you help? [Contact me](https://www.w
 
 == Installation ==
 
-Option A:
-
 1. Go to Plugins > Add New.
 1. Search for "strong testimonials".
 1. Click "Install Now".
 
-Option B:
-
-1. Download the zip file.
-1. Unzip it on your hard drive.
-1. Upload the `strong-testimonials` folder to the `/wp-content/plugins/` directory.
-
-Option C:
+OR
 
 1. Download the zip file.
 1. Upload the zip file via Plugins > Add New > Upload.
@@ -156,7 +109,7 @@ Finally, activate the plugin.
 
 = Can I change the fields on the form? =
 
-Yes. There is a custom field editor where you can add or remove fields, change field details, and drag-and-drop to reorder them. You can also restore the default fields if it gets away from you. Here is a full [tutorial](https://www.wpmission.com/tutorial/how-to-customize-the-form-in-strong-testimonials/). You can also customize the form error & success messages and the Submit button.
+Yes. There is a custom field editor where you can add or remove fields, change field details, and drag-and-drop to reorder them. You can also customize the form error & success messages and the Submit button.
 
 = I want to use categories. Can I add a category selector to the submission form? =
 
@@ -288,18 +241,6 @@ Not yet.
 * Important update for WordPress 4.3!
 * Option to send notification emails to multiple recipients.
 * Option to add a category selector to the testimonial submission form.
-
-= 1.17.2 - 2015-07-09 =
-* Remove HTML comments from templates to increase theme compatibility.
-
-= 1.17.1 - 2015-07-03 =
-* Remove support for the Simple reCaptcha plugin.
-
-= 1.17 - 2015-06-29 =
-* Add support for the Advanced noCaptcha reCaptcha plugin.
-* Add Arabic and Portuguese translations.
-* Updated translation files for French and Spanish.
-* Updated POT file.
 
 == Upgrade Notice ==
 
