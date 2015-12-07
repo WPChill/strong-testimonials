@@ -157,6 +157,9 @@ Not yet.
 
 == Changelog ==
 
+= 1.24.4 - 2015-12-07 =
+* Remove debugging.
+
 = 1.24.3 - 2015-12-06 =
 * Fix bug in `more_page` option.
 
