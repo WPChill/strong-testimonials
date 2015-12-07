@@ -121,12 +121,14 @@ function wpmtst_is_registered( $filenames ) {
  * Thanks http://wordpress.stackexchange.com/a/102845/32076
  * Does not require parent slug.
  *
+ * @deprecated
  * @since 1.11.0
  */
 if ( ! function_exists( 'get_page_by_slug' ) ) {
 	function get_page_by_slug( $page_slug, $output = OBJECT, $post_type = 'page' ) {
 		global $wpdb;
 		$page = $wpdb->get_var( $wpdb->prepare( "SELECT ID FROM $wpdb->posts WHERE post_name = %s AND post_type= %s AND post_status = 'publish'", $page_slug, $post_type ) );
+		q2($page);
 		if ( $page )
 			return get_post($page, $output);
 		else
@@ -265,7 +267,7 @@ function wpmtst_cleanup_header_comment( $str ) {
 /**
  * Get theme templates. Include only testimonial templates.
  *
- * Template file must have "testimonial" in the name. 
+ * Template file must have "testimonial" in the name.
  * Use the filter in case to add specific files.
  *
  * @since 1.21.0
@@ -274,7 +276,7 @@ function wpmtst_cleanup_header_comment( $str ) {
  */
 function wpmtst_get_theme_templates( $type = null ) {
 	$page_templates = get_page_templates();
-	
+
 	if ( $type ) {
 		foreach ( $page_templates as $name => $file ) {
 			if ( false === strpos( $file, $type ) ) {
@@ -589,9 +591,9 @@ function wpmtst_save_view( $view, $action = 'edit' ) {
 
 /**
  * Update reminder
- * 
+ *
  * @since 1.21.0
- * 
+ *
  * @param string $preface
  */
 function wpmtst_update_nag( $preface = '' ) {

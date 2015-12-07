@@ -8,7 +8,7 @@
  *
  * This template is used by the [strong] shortcode when it has attributes like "title", "thumbnail", etc.
  * Maintained for backwards-compatibility.
- * 
+ *
  * With [testimonial_view], use the default/testimonials.php template instead. It's much better :)
  */
 ?>
@@ -45,6 +45,12 @@
 						<div class="readmore"><a href="<?php echo get_permalink( $post ); ?>"><?php echo $more_text; ?></a></div>
 					<?php endif; ?>
 					<?php if ( $more_page ) : ?>
+						<?php
+						if ( !is_numeric( $more_page ) ) {
+							$page = get_page_by_path( $more_page );
+							$more_page = $page->ID;
+						}
+						?>
 						<div class="readmore"><a href="<?php echo get_permalink( $more_page ); ?>"><?php echo $more_text; ?></a></div>
 					<?php endif; ?>
 					<div class="clear"></div>

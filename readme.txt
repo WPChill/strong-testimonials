@@ -157,7 +157,10 @@ Not yet.
 
 == Changelog ==
 
-= 1.24.2 =
+= 1.24.3 - 2015-12-06 =
+* Fix bug in `more_page` option.
+
+= 1.24.2 - 2015-11-10 =
 * Fix bug in Gravatar display.
 
 = 1.24.1 - 2015-11-09 =
