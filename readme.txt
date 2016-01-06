@@ -147,6 +147,12 @@ Not yet.
 
 == Changelog ==
 
+= 1.25.2 =
+* Fix bug in [strong form].
+
+= 1.25.1 =
+* Fix bug in Internet Explorer and Safari.
+
 = 1.25 - 2016-01-06 =
 * More layout and background options in Views.
 * Improve template directory structure.

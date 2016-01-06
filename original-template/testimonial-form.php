@@ -17,9 +17,7 @@
 
 		<form <?php wpmtst_form_info(); ?>>
 
-			<?php wpmtst_form_nonce(); ?>
-
-			<?php wpmtst_form_hidden_fields(); ?>
+			<?php wpmtst_form_setup(); ?>
 
 			<?php do_action( 'wpmtst_form_before_fields' ); ?>
 
