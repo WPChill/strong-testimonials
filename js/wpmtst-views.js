@@ -530,7 +530,7 @@ jQuery(document).ready(function($) {
 			case 'gradient':
 				c1 = document.getElementById( "bg-gradient1" ).value;
 				c2 = document.getElementById( "bg-gradient2" ).value;
-				backgroundPreview.css( constructGradientCSS( c1, c2 ) );
+				backgroundPreview.css(constructGradientCSS(c1, c2));
 				break;
 			case 'preset':
 				backgroundPreset( backgroundPresetSelector.val() );
@@ -553,7 +553,7 @@ jQuery(document).ready(function($) {
 		$.get( ajaxurl, data, function( response ) {
 			var presetObj = JSON.parse(response);
 			if ( presetObj.color && presetObj.color2 ) {
-				backgroundPreview.css( constructGradientCSS( presetObj.color, presetObj.color2 ) );
+				backgroundPreview.css(constructGradientCSS(presetObj.color, presetObj.color2));
 			}
 			else if (presetObj.color ) {
 				backgroundPreview.css( "background", presetObj.color );
@@ -565,16 +565,8 @@ jQuery(document).ready(function($) {
 	}
 
 	function constructGradientCSS( c1, c2 ) {
-		//noinspection JSDuplicatedDeclaration
 		return {
-			"background": c1,
-			"background": "-moz-linear-gradient(top, "+c1+" 0%, "+c2+" 100%)",
-			"background": "-webkit-gradient(linear, left top, left bottom, color-stop(0%, "+c1+"), color-stop(100%, "+c2+"))",
-			"background": "-webkit-linear-gradient(top, "+c1+" 0%, "+c2+" 100%)",
-			"background": "-o-linear-gradient(top, "+c1+" 0%, "+c2+" 100%)",
-			"background": "-ms-linear-gradient(top, "+c1+" 0%, "+c2+" 100%)",
-			"background": "linear-gradient(to bottom, "+c1+" 0%, "+c2+" 100%)",
-			"filter": "progid:DXImageTransform.Microsoft.gradient(startColorstr='"+c1+"', endColorstr='"+c2+"', GradientType=0)",
+			"background": "linear-gradient(to bottom, "+c1+" 0%, "+c2+" 100%)"
 		}
 	}
 

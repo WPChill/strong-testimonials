@@ -4,7 +4,7 @@
  * Plugin URI: http://www.wpmission.com/plugin/strong-testimonials/
  * Description: Collect and display testimonials with a plugin that offers strong features and strong support.
  * Author: Chris Dillon
- * Version: 1.25
+ * Version: 1.25.1
  * Author URI: http://www.wpmission.com/
  * Text Domain: strong-testimonials
  * Domain Path: /languages
