@@ -5,6 +5,15 @@
  * @package Strong_Testimonials
  */
 
+/**
+ * testimonial_view shortcode
+ * Merely a wrapper for the [strong] shortcode until verion 2.0
+ *
+ * @param      $atts
+ * @param null $content
+ *
+ * @return mixed|string|void
+ */
 function wpmtst_strong_view_shortcode( $atts, $content = null ) {
 	$out = shortcode_atts(
 		WPMST()->get_view_defaults(),
@@ -14,11 +23,12 @@ function wpmtst_strong_view_shortcode( $atts, $content = null ) {
 
 	// container_class is shared by display and form in both original and new default templates
 	$options = get_option( 'wpmtst_options' );
-	$out['container_class'] = '';
+	$out['container_class'] = 'strong-view-id-' . $out['view'];
+
 	if ( $out['class'] ) {
 		$out['container_class'] .= ' ' . str_replace( ',', ' ', $out['class'] );
 	}
-	if ( is_rtl() && $options['load_rtl_style'] ) {
+	if ( is_rtl() ) {
 		$out['container_class'] .= ' rtl';
 	}
 	WPMST()->set_atts( $out );
@@ -96,20 +106,20 @@ if ( ! function_exists( 'normalize_empty_atts' ) ) {
 /**
  * Single Testimonial LAYOUT
  * Will be removed in 2.0
- * 
+ *
  * @deprecated
  */
 function wpmtst_single( $post, $args = array() ) {
-	extract( array_merge( array( 
-			'title'   => 1, 
-			'images'  => 1, 
+	extract( array_merge( array(
+			'title'   => 1,
+			'images'  => 1,
 			'content' => '',
-			'client'  => 1, 
+			'client'  => 1,
 			'more'    => 0
 	), $args ) );
-	
+
 	$client_info = do_shortcode( wpmtst_client_info( $post ) );
-	
+
 	ob_start();
 	include( WPMTST_INC . 'wpmtst-single.php' );
 	$html = ob_get_contents();
@@ -121,7 +131,7 @@ function wpmtst_single( $post, $args = array() ) {
 /**
  * Assemble and display client info.
  * Will be removed in 2.0
- * 
+ *
  * @deprecated
  */
 function wpmtst_client_info( $post ) {
@@ -131,16 +141,16 @@ function wpmtst_client_info( $post ) {
 	//
 	// Third approach. Took me all day on 6/30/2014.
 	// ---------------------------------------------------------------------
-	
+
 	$html = '';
 	$options  = get_option( 'wpmtst_options' );
 	$fields   = get_option( 'wpmtst_fields' );
 	$template = $options['client_section'];
-	
+
 	$lines = explode( PHP_EOL, $template );
 	// [wpmtst-text field="client_name" class="name"]
 	// [wpmtst-link url="company_website" text="company_name" new_tab class="company"]
-	
+
 	foreach ( $lines as $line ) {
 		// to get shortcode:
 		$pattern = '/\[([a-z0-9_\-]+)/';
@@ -197,17 +207,17 @@ function wpmtst_client_info( $post ) {
 /**
  * Client text field shortcode.
  * Will be removed in 2.0
- * 
+ *
  * @deprecated
  */
 function wpmtst_text_shortcode( $atts, $content = null ) {
 	// bail if no content
 	if ( empty( $content ) || '|' === $content )
 		return;
-		
+
 	extract( shortcode_atts(
-		array( 
-			'field' => '', 
+		array(
+			'field' => '',
 			'class' => ''
 		),
 		normalize_empty_atts( $atts )
@@ -220,7 +230,7 @@ add_shortcode( 'wpmtst-text', 'wpmtst_text_shortcode' );
 /**
  * Client link shortcode.
  * Will be removed in 2.0
- * 
+ *
  * @deprecated
  */
 function wpmtst_link_shortcode( $atts, $content = null ) {
@@ -230,22 +240,22 @@ function wpmtst_link_shortcode( $atts, $content = null ) {
 		return;
 
 	extract( shortcode_atts(
-		array( 
-				'url'      => '', 
+		array(
+				'url'      => '',
 				'new_tab'  => 0,
 				'nofollow' => '',   // client-specific, not global
-				'text'     => '', 
+				'text'     => '',
 				'class'    => ''
 		),
 		normalize_empty_atts( $atts )
 	) );
-		
+
 	list( $url, $text, $nofollow ) = explode( '|', $content );
-	
+
 	// if no company name, use domain name
 	if ( ! $text )
 		$text = preg_replace( "(^https?://)", "", $url );
-		
+
 	// if no url, return as text shortcode instead
 	if ( $url )
 		return '<div class="' . $class . '"><a href="' . $url . '"'. link_new_tab( $new_tab, false ) . link_nofollow( $nofollow, false ) . '>' . $text . '</a></div>';
@@ -263,20 +273,20 @@ add_shortcode( 'wpmtst-link', 'wpmtst_link_shortcode' );
  * @uses wpmtst-single.php
  */
 function wpmtst_single_shortcode( $atts ) {
-	extract( shortcode_atts( 
+	extract( shortcode_atts(
 		array( 'id' => null ),
 		normalize_empty_atts( $atts )
 	) );
-	
+
 	if ( !$id )
 		return '';
-	
+
 	$post = get_post( $id );
 	if ( !$post )
 		return '';
-	
+
 	$post = wpmtst_get_post( $post );
-	
+
 	$display = '<div id="wpmtst-container">'. wpmtst_single( $post ) . '</div>';
 	return $display;
 }
@@ -292,8 +302,8 @@ add_shortcode( 'wpmtst-single', 'wpmtst_single_shortcode' );
  */
 function wpmtst_random_shortcode( $atts ) {
 	extract( shortcode_atts(
-		array( 
-				'category' => '', 
+		array(
+				'category' => '',
 				'limit'    => 1,
 		),
 		normalize_empty_atts( $atts )
@@ -317,7 +327,7 @@ function wpmtst_random_shortcode( $atts ) {
 				)
 		);
 	}
-	
+
 	$wp_query = new WP_Query();
 	$results  = $wp_query->query( $args );
 	shuffle( $results );
@@ -325,13 +335,13 @@ function wpmtst_random_shortcode( $atts ) {
 	if ( $limit > 0 ) {
 		$results = array_slice( $results, 0, $limit );
 	}
-	
+
 	$display = '<div id="wpmtst-container">';
 	foreach ( $results as $post ) {
 		$display .= wpmtst_single( wpmtst_get_post( $post ) );
 	}
 	$display .= '</div>';
-	
+
 	return $display;
 }
 add_shortcode( 'wpmtst-random', 'wpmtst_random_shortcode' );
@@ -346,8 +356,8 @@ add_shortcode( 'wpmtst-random', 'wpmtst_random_shortcode' );
  */
 function wpmtst_all_shortcode( $atts ) {
 	extract( shortcode_atts(
-		array( 
-				'category' => '', 
+		array(
+				'category' => '',
 				'limit' => -1
 		),
 		normalize_empty_atts( $atts )
@@ -413,7 +423,7 @@ function wpmtst_cycle_shortcode( $atts ) {
 			$order = 'DESC';
 	}
 	$limit = ( $cycle['all'] ? -1 : $cycle['limit'] );
-	
+
 	$args = array(
 			'post_type'      => 'wpm-testimonial',
 			'post_status'    => 'publish',
@@ -435,16 +445,16 @@ function wpmtst_cycle_shortcode( $atts ) {
 
 	$wp_query = new WP_Query();
 	$results = $wp_query->query( $args );
-	
+
 	/**
 	 * Shuffle array in PHP instead of SQL.
-	 * 
+	 *
 	 * @since 1.16
 	 */
 	if ( 'rand' == $cycle['order'] ) {
 		shuffle( $results );
 	}
-	
+
 	/**
 	 * Extract slice of array, which may be shuffled.
 	 *
@@ -468,7 +478,7 @@ add_shortcode( 'wpmtst-cycle', 'wpmtst_cycle_shortcode' );
 /**
  * Pagination on "All Testimonials" shortcode.
  * Will be removed in 2.0
- * 
+ *
  * @deprecated
  */
 function wpmtst_pagination_function() {

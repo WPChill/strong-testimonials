@@ -13,16 +13,27 @@
  */
 function wpmtst_view_settings( $action = '', $view_id = null ) {
 
-	if ( 'edit' == $action && ! $view_id ) return;
+	if ( 'edit' == $action && !$view_id )
+		return;
 
-	$options = get_option( 'wpmtst_options' );
+	global $strong_templates;
+	add_thickbox();
+
+	$screen = get_current_screen();
+	$url    = $screen->parent_file;
+
+	$options             = get_option( 'wpmtst_options' );
+	$field_options       = get_option( 'wpmtst_fields' );
+	$field_groups        = $field_options['field_groups'];
+	$current_field_group = $field_options['current_field_group'];  // "custom", only one for now
+	$field_group         = $field_groups[ $current_field_group ];
 
 	// @TODO de-duplicate
 	$order_list = array(
-		'random'     => _x( 'Random', 'display order', 'strong-testimonials' ),
-		'menu_order' => _x( 'Menu order', 'display order', 'strong-testimonials' ),
-		'newest'     => _x( 'Newest first', 'display order', 'strong-testimonials' ),
-		'oldest'     => _x( 'Oldest first', 'display order', 'strong-testimonials' ),
+		'random'     => _x( 'random', 'display order', 'strong-testimonials' ),
+		'menu_order' => _x( 'menu order', 'display order', 'strong-testimonials' ),
+		'newest'     => _x( 'newest first', 'display order', 'strong-testimonials' ),
+		'oldest'     => _x( 'oldest first', 'display order', 'strong-testimonials' ),
 	);
 
 	$posts_list = get_posts( array(
@@ -41,40 +52,74 @@ function wpmtst_view_settings( $action = '', $view_id = null ) {
 		'sort_order'  => 'ASC',
 		'sort_column' => 'menu_order',
 		'post_type'   => 'page',
-		'post_status' => 'publish'
+		'post_status' => 'publish',
 	) );
 
 	$view_options = get_option( 'wpmtst_view_options' );
 	$default_view = get_option( 'wpmtst_view_default' );
-	
+
 	// Get current view
 	if ( 'edit' == $action ) {
 		$view_array = wpmtst_get_view( $view_id );
 		$view       = unserialize( $view_array['value'] );
 		$view_name  = $view_array['name'];
-	} else {
+	}
+	else {
 		$view_id   = 1;
 		$view      = $default_view;
 		$view_name = 'new';
 	}
 
-	$view['nav'] = explode( ',', str_replace( ' ', '', $view['nav'] ) );
+	// Deselect title & thumbnail if not in field group
+	$has_title_field = false;
+	$has_thumbnail_field = false;
+	foreach( $field_group['fields'] as $key => $field ) {
+		if ( 'post_title' == $field['name'] )
+			$has_title_field = true;
+
+		if ( 'featured_image' == $field['name'] )
+			$has_thumbnail_field = true;
+	}
+	if ( !$has_title_field )
+		$view['title'] = false;
+	if ( !$has_thumbnail_field )
+		$view['thumbnail'] = false;
+
+	// Select default template if necessary
+	if ( !$view['template'] ) {
+		if ( 'form' == $view['mode'] )
+			$view['template'] = 'default:content';
+		else
+			$view['template'] = 'default:form';
+	}
+
+	$view['nav']     = explode( ',', str_replace( ' ', '', $view['nav'] ) );
 	$view_cats_array = explode( ',', $view['category'] );
 
 	// Assemble list of templates
-	$theme_templates       = wpmtst_get_theme_templates( 'testimonials' );
-	$plugin_templates      = wpmtst_get_plugin_templates( 'testimonials' );
-	$theme_form_templates  = wpmtst_get_theme_templates( 'testimonial-form' );
-	$plugin_form_templates = wpmtst_get_plugin_templates( 'testimonial-form' );
+	$templates      = $strong_templates->get_templates( array( 'content', 'widget' ) );
+	$form_templates = $strong_templates->get_templates( 'form' );
+
+	$group = strtok( $view['template'], ':' );
+	$type  = strtok( ':' );
+
+	if ( 'form' == $type )
+		$template_found = in_array( $view['template'], array_keys( $form_templates ) );
+	else
+		$template_found = in_array( $view['template'], array_keys( $templates ) );
 
 	// Get list of image sizes
 	$image_sizes = wpmtst_get_image_sizes();
+
 	?>
-	<h2><?php 'add' == $action ? _e( 'Add View', 'strong-testimonials' ) : _e( 'Edit View', 'strong-testimonials' ); ?></h2>
+	<h2>
+		<?php 'add' == $action ? _e( 'Add View', 'strong-testimonials' ) : _e( 'Edit View', 'strong-testimonials' ); ?>
+		<a href="<?php echo $url; ?>&page=views&action=add" class="add-new-h2">Add New</a>
+	</h2>
 
 	<p><a href="<?php echo admin_url( 'edit.php?post_type=wpm-testimonial&page=views' ); ?>">Return to list</a></p>
 
-	<form id="wpmtst-views-form" method="post" action="<?php echo get_admin_url() . 'admin-post.php'; ?>">
+	<form id="wpmtst-views-form" method="post" action="<?php echo get_admin_url() . 'admin-post.php'; ?>" autocomplete="off">
 
 		<input type="hidden" name="action" value="view_<?php echo $action; ?>_form">
 		<?php wp_nonce_field( 'view_form_submit', 'view_form_nonce', true, true ); ?>
@@ -82,7 +127,7 @@ function wpmtst_view_settings( $action = '', $view_id = null ) {
 		<input type="hidden" name="view[id]" value="<?php echo $view_id; ?>">
 		<input type="hidden" name="view_original_mode" value="<?php echo $view['mode']; ?>">
 		<div class="view-info">
-			<div class="form-view-name"><span class="title">Name:</span><input type="text" id="view-name" class="view-name" name="view[name]" value="<?php echo $view_name; ?>" tabindex="1" autocomplete="off"></div>
+			<div class="form-view-name"><span class="title">Name:</span><input type="text" id="view-name" class="view-name" name="view[name]" value="<?php echo $view_name; ?>" tabindex="1"></div>
 		</div>
 		<?php if ( 'edit' == $action ) : ?>
 			<div class="view-info">
@@ -92,13 +137,14 @@ function wpmtst_view_settings( $action = '', $view_id = null ) {
 			</div>
 		<?php endif; ?>
 
-		<?php include( 'forms/view/mode.php' ); ?>
-		<?php include( 'forms/view/group-select.php' ); ?>
-		<?php include( 'forms/view/group-slideshow.php' ); ?>
-		<?php include( 'forms/view/group-fields.php' ); ?>
-		<?php include( 'forms/view/group-form-options.php' ); ?>
-		<?php include( 'forms/view/group-extra.php' ); ?>
-		<?php include( 'forms/view/group-style.php' ); ?>
+		<?php include( 'views/mode.php' ); ?>
+		<?php include( 'views/group-select.php' ); ?>
+		<?php //include( 'views/group-slideshow.php' ); ?>
+		<?php include( 'views/group-fields.php' ); ?>
+		<?php include( 'views/group-form.php' ); ?>
+		<?php include( 'views/group-extra.php' ); ?>
+		<?php include( 'views/group-style.php' ); ?>
+		<?php include( 'views/group-general.php' ); ?>
 
 		<p class="submit">
 			<?php submit_button( '', 'primary', 'submit', false ); ?>
@@ -109,13 +155,13 @@ function wpmtst_view_settings( $action = '', $view_id = null ) {
 	</form>
 	<?php
 }
-	
+
 /**
  * View list page
  *
  * @since 1.21.0
  */
-function wpmtst_views() {
+function wpmtst_views_admin() {
 	if ( ! current_user_can( 'manage_options' ) )
 		wp_die( __( 'You do not have sufficient permissions to access this page.' ) );
 
@@ -123,7 +169,7 @@ function wpmtst_views() {
 	$url = $screen->parent_file;
 	?>
 	<div class="wrap wpmtst2">
-	
+
 		<?php
 		// @TODO move to options
 		if ( isset( $_REQUEST['changes-undone'] ) ) {
@@ -143,15 +189,15 @@ function wpmtst_views() {
 
 		// Editing a view
 		if ( isset( $_REQUEST['action'] ) ) {
-			
+
 			if ( 'edit' == $_REQUEST['action'] && isset( $_REQUEST['id'] ) ) {
 				wpmtst_view_settings( $_REQUEST['action'], $_REQUEST['id'] );
 			} elseif ( 'add' == $_REQUEST['action'] ) {
 				wpmtst_view_settings( $_REQUEST['action'] );
 			}
-			
+
 		} else {
-			
+
 			// View list
 			?>
 			<h2>
@@ -166,13 +212,26 @@ function wpmtst_views() {
 			$views_table = new Strong_Views_List_Table();
 			$views_table->prepare_list( wpmtst_unserialize_views( $views ) );
 			$views_table->display();
-			
+
 		}
 		?>
 	</div><!-- .wrap -->
 	<?php
 }
 
+/**
+ * Check for forced options.
+ *
+ * @since 1.25.0
+ */
+function wpmtst_force_check() {
+	global $strong_templates;
+	$atts = array( 'template' => $_REQUEST['template'] );
+	$force = $strong_templates->get_template_attr( $atts, 'force', false );
+	echo $force;
+	die();
+}
+add_action( 'wp_ajax_wpmtst_force_check', 'wpmtst_force_check' );
 
 /**
  * [Add New Field] Ajax receiver
@@ -269,54 +328,60 @@ function wpmtst_view_field_inputs( $key, $field, $adding = false ) { //
 		'link2' => __( 'link', 'strong-testimonials' ),  // @since 1.24.0
 		'date'  => __( 'date', 'strong-testimonials' )
 	);
-	
+
 	$allowed = array( 'custom', 'builtin' );
 	?>
 	<tr class="field2" id="field-<?php echo $key; ?>">
-		
+
 		<?php // Name ?>
 		<td class="field-name">
-			<select name="view[data][client_section][<?php echo $key; ?>][field]" autocomplete="off">
-				<option value=""></option>
-				<?php foreach ( $custom_fields as $key2 => $field2 ) : ?>
-					<?php if ( in_array( $field2['record_type'], $allowed ) && 'email' != $field2['input_type'] ) : ?>
-						<option value="<?php echo $field2['name']; ?>" <?php selected( $field2['name'], $field['field'] ); ?>><?php echo $field2['name']; ?></option>
-					<?php endif; ?>
-				<?php endforeach; ?>
-			</select>
+			<label>
+				<select name="view[data][client_section][<?php echo $key; ?>][field]">
+					<option value=""></option>
+					<?php foreach ( $custom_fields as $key2 => $field2 ) : ?>
+						<?php if ( in_array( $field2['record_type'], $allowed ) && 'email' != $field2['input_type'] ) : ?>
+							<option value="<?php echo $field2['name']; ?>" <?php selected( $field2['name'], $field['field'] ); ?>><?php echo $field2['name']; ?></option>
+						<?php endif; ?>
+					<?php endforeach; ?>
+				</select>
+			</label>
 		</td>
-		
+
 		<?php // Type ?>
 		<td class="field-type">
-			<select name="view[data][client_section][<?php echo $key; ?>][type]" autocomplete="off">
-			<?php foreach ( $types as $type => $type_label ) : ?>
-				<option value="<?php echo $type; ?>" <?php selected( $type, $field['type'] ); ?>><?php echo $type_label; ?></option>
-			<?php endforeach; ?>
-			</select>
+			<label>
+				<select name="view[data][client_section][<?php echo $key; ?>][type]">
+				<?php foreach ( $types as $type => $type_label ) : ?>
+					<option value="<?php echo $type; ?>" <?php selected( $type, $field['type'] ); ?>><?php echo $type_label; ?></option>
+				<?php endforeach; ?>
+				</select>
+			</label>
 		</td>
-		
+
 		<?php // Meta ?>
 		<td class="field-meta">
 			<?php
-				if ( 'link' == $field['type'] || 'link2' == $field['type'] ) 
+				if ( 'link' == $field['type'] || 'link2' == $field['type'] )
 					wpmtst_view_field_link( $key, $field['field'], $field['type'], $field );
-					 
-				if ( 'date' == $field['type'] ) 
-					wpmtst_view_field_date( $key, $field ); 
+
+				if ( 'date' == $field['type'] )
+					wpmtst_view_field_date( $key, $field );
 			?>
 		</td>
-		
+
 		<?php // Class ?>
 		<td class="field-class">
-			<input type="text" name="view[data][client_section][<?php echo $key; ?>][class]" value="<?php echo $field['class']; ?>">
+			<label>
+				<input type="text" name="view[data][client_section][<?php echo $key; ?>][class]" value="<?php echo $field['class']; ?>">
+			</label>
 		</td>
-		
+
 		<?php // Controls ?>
 		<td class="controls">
-			<span class="delete-field"><span class="dashicons dashicons-no"></span></span>
-			<span class="handle"><span class="dashicons dashicons-menu"></span></span>
+			<span class="delete-field" title="delete"><span class="dashicons dashicons-no"></span></span>
+			<span class="handle" title="drag and drop to reorder"><span class="dashicons dashicons-menu"></span></span>
 		</td>
-		
+
 	</tr>
 	<?php
 }
@@ -326,7 +391,7 @@ function wpmtst_view_field_inputs( $key, $field, $adding = false ) { //
  * Show a single client link field inputs.
  *
  * @since 1.21.0
- * 
+ *
  * @param $key
  * @param $field_name
  * @param $type
@@ -340,9 +405,9 @@ function wpmtst_view_field_link( $key, $field_name, $type, $field, $adding = fal
 			$field = array_merge( $current_field, $field );
 		}
 	}
-	
+
 	$custom_fields = wpmtst_get_custom_fields();
-	
+
 	// Add placeholder link_text and label to field in case we need to populate link_text
 	if ( ! isset( $field['link_text'] ) ) {
 		$field['link_text'] = 'field';
@@ -352,17 +417,17 @@ function wpmtst_view_field_link( $key, $field_name, $type, $field, $adding = fal
 	}
 	$field['label'] = wpmtst_get_field_label( $field );
 	?>
-	
+
 	<!-- the link text -->
 	<div class="field-meta-row link-text">
-		<label for="view-fieldtext<?php echo $key; ?>">Text</label> 
-		<select id="view-fieldtext<?php echo $key; ?>" name="view[data][client_section][<?php echo $key; ?>][link_text]" class="if selectgroup" autocomplete="off">
+		<label for="view-fieldtext<?php echo $key; ?>">Text</label>
+		<select id="view-fieldtext<?php echo $key; ?>" name="view[data][client_section][<?php echo $key; ?>][link_text]" class="if selectgroup">
 			<option value="value" <?php selected( $field['link_text'], 'value' ); ?>>this field's value</option>
 			<option value="label" <?php selected( $field['link_text'], 'label' ); ?>>this field's label</option>
 			<option value="custom" <?php selected( $field['link_text'], 'custom' ); ?>>custom text</option>
 		</select>
 	</div>
-	
+
 	<!-- the link text options -->
 	<div class="field-meta-row link-text">
 		<div class="then_fieldtext<?php echo $key; ?> then_value then_not_label then_not_custom" style="display: none;">
@@ -375,7 +440,7 @@ function wpmtst_view_field_link( $key, $field_name, $type, $field, $adding = fal
 			<input type="text" id="view-fieldtext<?php echo $key; ?>-custom" name="view[data][client_section][<?php echo $key; ?>][link_text_custom]" value="<?php echo $field['link_text_custom']; ?>">
 		</div>
 	</div>
-	
+
 	<!-- the URL -->
 	<?php if ( 'link' == $type ) : // URL = another field ?>
 	<div class="field-meta-row">
@@ -391,13 +456,16 @@ function wpmtst_view_field_link( $key, $field_name, $type, $field, $adding = fal
 	<?php else : // URL = this field ?>
 		<input type="hidden" name="view[data][client_section][<?php echo $key; ?>][url]" value="<?php echo $field['name']; ?>">
 	<?php endif; ?>
-	
+
 	<!-- the URL options -->
 	<div class="field-meta-row checkbox">
 		<label>
-			<span class="new_tab">
-				<input type="checkbox" name="view[data][client_section][<?php echo $key; ?>][new_tab]" value="1" <?php checked( $field['new_tab'] ); ?>><?php _e( 'new tab', 'strong-testimonials' ); ?>
-			</span>
+			<div class="new_tab">
+				<input type="checkbox" id="<?php echo $key; ?>-newtab" name="view[data][client_section][<?php echo $key; ?>][new_tab]" value="1" <?php checked( $field['new_tab'] ); ?>>
+				<label for="<?php echo $key; ?>-newtab">
+					<?php _e( 'new tab', 'strong-testimonials' ); ?>
+				</label>
+			</div>
 		</label>
 	</div>
 	<?php
@@ -412,7 +480,7 @@ function wpmtst_view_field_link( $key, $field_name, $type, $field, $adding = fal
 function wpmtst_view_field_date( $key, $field, $adding = false ) {
 	?>
 	<label for="view-<?php echo $key; ?>-client-date-format"><span>Format</span></label>
-	<input id="view-<?php echo $key; ?>-client-date-format" type="text" name="view[data][client_section][<?php echo $key; ?>][format]" class="field-type-date" value="<?php echo isset( $field['format'] ) ? $field['format'] : ''; ?>" autocomplete="off">
+	<input id="view-<?php echo $key; ?>-client-date-format" type="text" name="view[data][client_section][<?php echo $key; ?>][format]" class="field-type-date" value="<?php echo isset( $field['format'] ) ? $field['format'] : ''; ?>">
 	<div class="help minor">
 		<?php printf( wp_kses( __( '<a href="%s" target="_blank">more about date formats</a>', 'strong-testimonials' ), array( 'a' => array( 'href' => array(), 'target' => array() ) ) ), esc_url( 'https://codex.wordpress.org/Formatting_Date_and_Time' ) ); ?>
 	</div>
@@ -451,7 +519,6 @@ function wpmtst_delete_view_action_hook() {
 	}
 }
 
-
 /**
  * -----------------
  * POST-REDIRECT-GET
@@ -461,10 +528,12 @@ function wpmtst_delete_view_action_hook() {
 /**
  * Process form POST after editing.
  *
+ * Thanks http://stackoverflow.com/a/20003981/51600
+ *
  * @since 1.21.0
  */
 function wpmtst_view_edit_form() {
-	
+
 	$goback = wp_get_referer();
 
 	if ( ! empty( $_POST ) && check_admin_referer( 'view_form_submit', 'view_form_nonce' ) ) {
@@ -478,7 +547,7 @@ function wpmtst_view_edit_form() {
 			//$view = wpmtst_get_view( $view_id );
 			$goback = add_query_arg( 'changes-undone', true, $goback );
 
-		} 
+		}
 		elseif ( isset( $_POST['restore-defaults'] ) ) {
 
 			// Restore defaults
@@ -488,22 +557,22 @@ function wpmtst_view_edit_form() {
 			 * Must save first to get the auto-increment ID.
 			 */
 			$view = array(
-				'id'    => $view_id,
-				'name'  => sanitize_text_field( $view_name ),
-				'data'  => $default_view
+				'id'   => $view_id,
+				'name' => sanitize_text_field( $view_name ),
+				'data' => $default_view
 			);
 			wpmtst_save_view( $view );
 
 			$goback = add_query_arg( 'defaults-restored', true, $goback );
 
-		} 
+		}
 		else {
 
 			// Sanitize & validate
 			$view = array(
-				'id'    => $view_id,
-				'name'  => sanitize_text_field( $view_name ),
-				'data'  => wpmtst_sanitize_view( $_POST['view']['data'] )
+				'id'   => $view_id,
+				'name' => sanitize_text_field( $view_name ),
+				'data' => wpmtst_sanitize_view( $_POST['view']['data'] )
 			);
 			wpmtst_save_view( $view );
 
@@ -520,9 +589,8 @@ function wpmtst_view_edit_form() {
 	exit;
 
 }
-// Thanks http://stackoverflow.com/a/20003981/51600
 add_action( 'admin_post_view_edit_form', 'wpmtst_view_edit_form' );
-add_action( 'admin_post_nopriv_view_edit_form', 'wpmtst_view_edit_form' );
+//add_action( 'admin_post_nopriv_view_edit_form', 'wpmtst_view_edit_form' );
 
 
 /**
@@ -533,11 +601,11 @@ add_action( 'admin_post_nopriv_view_edit_form', 'wpmtst_view_edit_form' );
 function wpmtst_view_add_form() {
 
 	$goback = wp_get_referer();
-		
+
 	if ( ! empty( $_POST ) && check_admin_referer( 'view_form_submit', 'view_form_nonce' ) ) {
 
-		$view_id    = 0;
-		$view_name  = $_POST['view']['name'];
+		$view_id   = 0;
+		$view_name = $_POST['view']['name'];
 
 		if ( isset( $_POST['restore-defaults'] ) ) {
 
@@ -545,22 +613,22 @@ function wpmtst_view_add_form() {
 			$default_view = get_option( 'wpmtst_view_default' );
 
 			$view = array(
-				'id'    => $view_id,
-				'name'  => $view_name,
-				'data'  => $default_view,
+				'id'   => $view_id,
+				'name' => $view_name,
+				'data' => $default_view,
 			);
 			$new_id = wpmtst_save_view( $view, 'add' );
 
 			$query_arg = 'defaults-restored';
 
-		} 
+		}
 		else {
-			
+
 			// Sanitize & validate
 			$view = array(
-				'id'    => 0,
-				'name'  => sanitize_text_field( $view_name ),
-				'data'  => wpmtst_sanitize_view( $_POST['view']['data'] )
+				'id'   => 0,
+				'name' => sanitize_text_field( $view_name ),
+				'data' => wpmtst_sanitize_view( $_POST['view']['data'] )
 			);
 			$new_id = wpmtst_save_view( $view, 'add' );
 
@@ -570,7 +638,7 @@ function wpmtst_view_add_form() {
 
 		$goback = remove_query_arg( 'action', $goback );
 		$goback = add_query_arg( array( 'action' => 'edit', 'id' => $new_id, $query_arg => true ), $goback );
-		
+
 	}
 	else {
 		$goback = add_query_arg( 'error', true, $goback );
@@ -581,60 +649,65 @@ function wpmtst_view_add_form() {
 
 }
 add_action( 'admin_post_view_add_form', 'wpmtst_view_add_form' );
-add_action( 'admin_post_nopriv_view_add_form', 'wpmtst_view_add_form' );
+//add_action( 'admin_post_nopriv_view_add_form', 'wpmtst_view_add_form' );
 
 
+/**
+ * Sanitize and validate a View.
+ * TODO break down into separate validators
+ *
+ * @param $input
+ *
+ * @return array
+ */
 function wpmtst_sanitize_view( $input ) {
+	ksort( $input );
+	
 	$view_data         = array();
 	$view_data['mode'] = sanitize_text_field( $input['mode'] );
-	
-	/**
-	 * Read more target
-	 */ 
-	if ( isset( $input['read_more'] ) ) {  // checkbox
-		
-		if ( isset( $input['read_more_to'] ) && 'more_post' == $input['read_more_to'] ) {
+
+    // Compatibility
+    $view_data['compat'] = ( 'compat_on' == $input['compat'] ? 1 : 0 );
+
+	// Read more target
+	if ( isset( $input['read_more'] ) && isset( $input['read_more_to'] ) ) {
+
+		// Target: the post
+		if ( 'more_post' == $input['read_more_to'] ) {
 			$view_data['more_post'] = 1;
 		}
 		else {
-			if ( ! $input['find_page'] ) {
-				if ( $input['more_page'] ) {
-					$view_data['more_page'] = (int) $input['more_page'];
-				}
-			}
-			else {
-				// is page ID or slug?
-				$id = (int) $input['find_page'];
+
+			// Target: a page
+
+			// Check the "ID or slug" field first
+			if ( $input['more_page_id'] ) {
+				// is post ID?
+				$id = (int) sanitize_text_field( $input['more_page_id'] );
 				if ( $id ) {
-					if( ! get_post( $id ) ) {
+					if ( ! get_posts( array( 'p' => $id, 'post_type' => 'page', 'post_status' => 'publish' ) ) ) {
 						$id = null;
 					}
 				}
 				else {
-					$target = get_posts( array(
-						'name'        => $input['find_page'],
-						'post_type'   => 'page',
-						'post_status' => 'publish'
-					) );
+					// is post slug?
+					$target = get_posts( array( 'name' => $input['more_page_id'], 'post_type' => 'page', 'post_status' => 'publish' ) );
 					if ( $target ) {
 						$id = $target[0]->ID;
 					}
-					else {
-						$id = null;
-					}
 				}
-	
-				if ( $id ) {
-					$view_data['more_page'] = $id;
-				}
+
+				$view_data['more_page']    = $id;
 			}
-			
+			else {
+				$view_data['more_page'] = (int) sanitize_text_field( $input['more_page'] );
+			}
+			$view_data['more_page_id'] = '';
+
 		}
-		
+
 	}
 	$view_data['more_text'] = sanitize_text_field( $input['more_text'] );
-	// Clear its "ID or slug" input field.
-	$view_data['find_page'] = '';
 
 	/**
 	 * Single testimonial
@@ -642,11 +715,12 @@ function wpmtst_sanitize_view( $input ) {
 	// Clear single ID if "multiple" selected
 	if ( 'multiple' == $input['select'] ) {
 		$view_data['id'] = 0;  // must be zero not empty or false
-		$view_data['post_id'] = '';
-	} else {
+		//$view_data['post_id'] = '';
+	}
+	else {
 		// Check the "ID or slug" field first
-		if ( ! $input['post_id'] ) {
-			$view_data['id'] = intval( sanitize_text_field( $input['id'] ) );
+		if ( !$input['post_id'] ) {
+			$view_data['id'] = (int) sanitize_text_field( $input['id'] );
 		} else {
 			// is post ID?
 			$id = (int) $input['post_id'];
@@ -665,34 +739,44 @@ function wpmtst_sanitize_view( $input ) {
 					$id = $target[0]->ID;
 				}
 			}
-	
+
 			$view_data['id']      = $id;
 			$view_data['post_id'] = '';
 		}
 	}
 
-	/**
-	 * Template & Category
-	 */
-	if ( 'form' == $view_data['mode'] ) {
+	$view_data['form-ajax'] = isset( $input['form-ajax'] ) ? 1 : 0;
+
+	// Template
+	if ( 'form' == $view_data['mode'] )
 		$view_data['template'] = isset( $input['form-template'] ) ? sanitize_text_field( $input['form-template'] ) : '';
-		
-		if ( isset( $input['category-form'] ) ) {
-			$view_data['category'] = sanitize_text_field( implode( ',', $input['category-form'] ) );
-		} else {
-			$view_data['category'] = '';
-		}
-	} else {
+	else
 		$view_data['template']   = isset( $input['template'] ) ? sanitize_text_field( $input['template'] ) : '';
-		
-		if ( ! isset( $input['category'] ) || $input['category'] == wpmtst_get_category_ids() ) {
-			$view_data['category'] = 'all';
-		} else {
-			$view_data['category'] = sanitize_text_field( implode( ',', $input['category'] ) );
-		}
+
+	// Category
+	if ( 'form' == $view_data['mode'] ) {
+
+		if ( isset( $input['category-form'] ) )
+			$view_data['category'] = sanitize_text_field( implode( ',', $input['category-form'] ) );
+		else
+			$view_data['category'] = '';
+
 	}
-	
+	else {
+
+		if ( 'allcats' == $input['category_all'] )
+			$view_data['category'] = 'all';
+		elseif ( !isset( $input['category']) || $input['category'] == wpmtst_get_category_ids() )
+			$view_data['category'] = 'all';
+		elseif ( 'somecats' == $input['category_all'] && !isset( $input['category'] ) )
+			$view_data['category'] = 'all';
+		else
+			$view_data['category'] = sanitize_text_field( implode( ',', $input['category'] ) );
+
+	}
+
 	$view_data['order'] = sanitize_text_field( $input['order'] );
+
 	$view_data['all']   = sanitize_text_field( $input['all'] );
 	$view_data['count'] = (int) sanitize_text_field( $input['count'] );
 
@@ -711,13 +795,36 @@ function wpmtst_sanitize_view( $input ) {
 	$view_data['lightbox']         = isset( $input['lightbox'] ) ? 1 : 0;
 	$view_data['gravatar']         = sanitize_text_field( $input['gravatar'] );
 
-	$view_data['class']      = sanitize_text_field( $input['class'] );
-	$view_data['background'] = sanitize_text_field( $input['background'] );
+	$view_data['class'] = sanitize_text_field( $input['class'] );
 
+	// Background
+	$view_data['background']              = WPMST()->get_background_defaults();
+	if ( !isset( $input['background']['type'] ) || 'none' == $input['background']['type'] ) {
+		$view_data['background']['type'] = '';
+	}
+	else {
+		$view_data['background']['type'] = sanitize_text_field( $input['background']['type'] );
+	}
+	$view_data['background']['color']     = sanitize_text_field( $input['background']['color'] );
+	$view_data['background']['gradient1'] = sanitize_text_field( $input['background']['gradient1'] );
+	$view_data['background']['gradient2'] = sanitize_text_field( $input['background']['gradient2'] );
+	$view_data['background']['preset']    = sanitize_text_field( $input['background']['preset'] );
+	$view_data['background']['example-font-color'] = sanitize_text_field( $input['background']['example-font-color'] );
+
+	// Layout input may have been disabled by selecting the widget template so no value is posted.
+	if ( !isset( $input['layout'] ) )
+		$view_data['layout'] = 'normal';
+	else
+		$view_data['layout'] = sanitize_text_field( $input['layout'] );
+
+	$view_data['column_count'] = sanitize_text_field( $input['column_count'] );
+
+	// Slideshow
 	$view_data['show_for']   = floatval( sanitize_text_field( $input['show_for'] ) );
 	$view_data['effect_for'] = floatval( sanitize_text_field( $input['effect_for'] ) );
 	$view_data['no_pause']   = isset( $input['no_pause'] ) ? 0 : 1;
 
+	// Custom fields
 	if ( isset( $input['client_section'] ) ) {
 		foreach ( $input['client_section'] as $key => $field ) {
 			if ( empty( $field['field'] ) ) {
@@ -727,7 +834,7 @@ function wpmtst_sanitize_view( $input ) {
 			$view_data['client_section'][ $key ]['field'] = sanitize_text_field( $field['field'] );
 			$view_data['client_section'][ $key ]['type']  = sanitize_text_field( $field['type'] );
 			$view_data['client_section'][ $key ]['class'] = sanitize_text_field( $field['class'] );
-			
+
 			switch ( $field['type'] ) {
 				case 'link':
 				case 'link2':
@@ -742,7 +849,7 @@ function wpmtst_sanitize_view( $input ) {
 					break;
 				default:
 			}
-			
+
 		}
 	}
 	else {
@@ -750,5 +857,6 @@ function wpmtst_sanitize_view( $input ) {
 	}
 
 	ksort( $view_data );
+
 	return $view_data;
 }

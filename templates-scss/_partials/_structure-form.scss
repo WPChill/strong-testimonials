@@ -1,0 +1,65 @@
+.strong-form {
+	margin: 0 auto;
+	padding: 20px;
+
+	.required.symbol:after {
+		content: '*';
+		color: #FF0000;
+		margin: 0 4px;
+	}
+
+	label {
+		display: inline-block;
+		float: none;
+	}
+
+	input[type="text"],
+	input[type="email"],
+	input[type="url"],
+	input[type="file"],
+	select,
+	textarea {
+		box-sizing: border-box;
+		display: block;
+		float: none;
+		width: 100%;
+	}
+
+	textarea {
+		height: 16em;
+	}
+
+	span.error,
+	label.error {
+		display: block;
+	}
+
+	.form-field .before {
+		display: block;
+	}
+
+	.form-field .after {
+		display: block;
+	}
+}
+
+input.captcha {
+	display: block;
+	width: auto;
+}
+
+img.captcha {
+	border: 0;
+}
+
+.wpmtst-captcha {
+	margin-bottom: 1em;
+}
+
+.testimonial-success {
+	background: #E9F9E5;
+	border: 1px solid #B4E8AA;
+	color: #1C8400;
+	padding: 5px 10px;
+	margin-bottom: 1em;
+}

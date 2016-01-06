@@ -3,7 +3,6 @@
  * Install Function
  *
  * @package     Strong_Testimonials
- * @subpackage  Functions/Install
  * @since       1.18
  */
 
@@ -11,16 +10,19 @@
  * Plugin activation
  */
 function wpmtst_plugin_activation() {
-	
 	wpmtst_register_cpt();
-	
 	flush_rewrite_rules();
-	
 	wpmtst_update_tables();
-
+	wpmtst_activate_about_page();
 }
 register_activation_hook( __FILE__, 'wpmtst_plugin_activation' );
 
+/**
+ * Activate the auto redirection of the about page on the next page load
+ */
+function wpmtst_activate_about_page() {
+	set_transient( 'wpmtst_about_page_activated', 1, 300 );
+}
 
 /**
  * Plugin activation
@@ -30,7 +32,6 @@ function wpmtst_plugin_deactivation() {
 }
 register_deactivation_hook( __FILE__, 'wpmtst_plugin_deactivation' );
 
-
 /**
  * Add tables for Views.
  *
@@ -39,7 +40,7 @@ register_deactivation_hook( __FILE__, 'wpmtst_plugin_deactivation' );
 function wpmtst_update_tables() {
 	global $wpdb;
 	require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
-	
+
 	$charset_collate = $wpdb->get_charset_collate();
 
 	$table_name = $wpdb->prefix . 'strong_views';
@@ -51,11 +52,11 @@ function wpmtst_update_tables() {
 			PRIMARY KEY  (id)
 		) $charset_collate;";
 
-	dbDelta( $sql );
+	$result = dbDelta( $sql );
+	WPMST()->log( $result, __FUNCTION__, 'install.log' );
 
 	update_option( 'wpmtst_db_version', WPMST()->get_db_version() );
 }
-
 
 /**
  * Update tables.

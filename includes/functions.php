@@ -5,7 +5,6 @@
  * @package Strong_Testimonials
  */
 
-
 /**
  * Truncate post content
  *
@@ -30,7 +29,6 @@ function wpmtst_truncate( $content, $limit ) {
 
 	return $content;
 }
-
 
 /**
  * Append custom fields to post object.
@@ -58,9 +56,11 @@ function wpmtst_get_post( $post ) {
 	return $post;
 }
 
-
 /**
  * Helper: Format URL
+ *
+ * @param $url
+ * @return string
  */
 function wpmtst_get_website( $url ) {
 	if ( !preg_match( "~^(?:f|ht)tps?://~i", $url ) )
@@ -68,7 +68,6 @@ function wpmtst_get_website( $url ) {
 
 	return $url;
 }
-
 
 /**
  * Check whether a common script is already registered by file name
@@ -114,14 +113,12 @@ function wpmtst_is_registered( $filenames ) {
 	return $script_handle;
 }
 
-
 /**
  * Get page ID by slug.
  *
  * Thanks http://wordpress.stackexchange.com/a/102845/32076
  * Does not require parent slug.
  *
- * @deprecated
  * @since 1.11.0
  */
 if ( ! function_exists( 'get_page_by_slug' ) ) {
@@ -134,7 +131,6 @@ if ( ! function_exists( 'get_page_by_slug' ) ) {
 			return null;
 	}
 }
-
 
 /**
  * Reverse auto-p wrap shortcodes that stand alone
@@ -159,7 +155,6 @@ if ( ! function_exists( 'reverse_wpautop' ) ) {
 	}
 }
 
-
 /**
  * Open links in new tab.
  *
@@ -173,7 +168,6 @@ if ( ! function_exists( 'link_new_tab' ) ) {
 		else return $t;
 	}
 }
-
 
 /**
  * Add nofollow to links.
@@ -189,7 +183,6 @@ if ( ! function_exists( 'link_nofollow' ) ) {
 	}
 }
 
-
 /**
  * Sort array based on 'order' element.
  *
@@ -201,7 +194,6 @@ function wpmtst_uasort( $a, $b ) {
 	}
 	return ( $a['order'] < $b['order'] ) ? -1 : 1;
 }
-
 
 /**
  * Return the shortcode tag.
@@ -218,7 +210,6 @@ function wpmtst_get_shortcode() {
 		return 'strong';
 }
 
-
 /**
  * Get custom fields.
  *
@@ -234,6 +225,9 @@ function wpmtst_get_custom_fields() {
 	return $custom_fields;
 }
 
+/**
+ * @return array
+ */
 function wpmtst_get_custom_field_list() {
 	// ----------------------------
 	// Build list of custom fields.
@@ -261,143 +255,6 @@ function wpmtst_get_custom_field_list() {
 function wpmtst_cleanup_header_comment( $str ) {
 	return trim(preg_replace("/\s*(?:\*\/|\?>).*/", '', $str));
 }
-
-
-/**
- * Get theme templates. Include only testimonial templates.
- *
- * Template file must have "testimonial" in the name.
- * Use the filter in case to add specific files.
- *
- * @since 1.21.0
- * @param null $type
- * @return mixed|void
- */
-function wpmtst_get_theme_templates( $type = null ) {
-	$page_templates = get_page_templates();
-
-	if ( $type ) {
-		foreach ( $page_templates as $name => $file ) {
-			if ( false === strpos( $file, $type ) ) {
-				unset( $page_templates[$name] );
-			}
-		}
-	}
-
-	ksort( $page_templates );
-	return apply_filters( 'strong_theme_templates', $page_templates );
-}
-
-/**
- * Get plugin templates.
- *
- * @since 1.21.0
- * @param null $type
- * @return mixed|void
- */
-function wpmtst_get_plugin_templates( $type = null ) {
-	$page_templates = array();
-	$files = (array) wpmtst_get_files( 'php' );
-
-	/**
-	 * Look for $type in the *name* which contains the relative path. The full path contains
-	 * 'strong-testimonials' and will always return true when looking for 'testimonials'.
-	 *
-	 * $name: simple/testimonials.php
-	 *               ^^^^^^^^^^^^
-	 * $file: [...]/wp-content/plugins/strong-testimonials/templates/plugin/simple/testimonials.php
-	 *                                        ^^^^^^^^^^^^
-	 */
-	if ( $type ) {
-		foreach ( $files as $name => $file ) {
-			if ( false === strpos( $name, $type ) ) {
-				unset( $files[$name] );
-			}
-		}
-	}
-
-	foreach ( $files as $file => $full_path ) {
-		if ( ! preg_match( '|Template Name:(.*)$|mi', file_get_contents( $full_path ), $header ) )
-			continue;
-		//TODO: PROBLEM: Template names must be unique. This will overwrite!
-		$page_templates[ wpmtst_cleanup_header_comment( $header[1] ) ] = $file;
-	}
-
-	ksort( $page_templates );
-	/**
-	 *	Array (
-	 *		[Round Testimonials Template] => round/testimonials.php
-	 *		[Simple Testimonials Template] => simple/testimonials.php
-	 *	)
-	 */
-	return apply_filters( 'strong_plugin_templates', $page_templates );
-}
-
-
-/**
-* Return files in the plugin templates directory.
- *
- * @since 1.21.0
- *
- * @param mixed $type Optional. Array of extensions to return. Defaults to all files (null).
- * @return array Array of files, keyed by the path to the file relative to the directory, with the values
- * 	being absolute paths.
- */
-function wpmtst_get_files( $type = null ) {
-	$files = (array) wpmtst_scandir( untrailingslashit( WPMTST_TPL ), $type, 1 );
-	return $files;
-}
-
-
-/**
- * Scans a directory for files of a certain extension.
- *
- * @since 1.21.0
- *
- * @param string $path Absolute path to search.
- * @param mixed  Array of extensions to find, string of a single extension, or null for all extensions.
- * @param int $depth How deep to search for files. Optional, defaults to a flat scan (0 depth). -1 depth is infinite.
- * @param string $relative_path The basename of the absolute path. Used to control the returned path
- *   for the found files, particularly when this function recurses to lower depths.
- * @return mixed
- */
-function wpmtst_scandir( $path, $extensions = null, $depth = 0, $relative_path = '' ) {
-	if ( ! is_dir( $path ) )
-		return false;
-
-	if ( $extensions ) {
-		$extensions = (array) $extensions;
-		$_extensions = implode( '|', $extensions );
-	}
-
-	$relative_path = trailingslashit( $relative_path );
-
-	if ( 'original/' == $relative_path ) {
-		return array();
-	}
-
-	if ( '/' == $relative_path )
-		$relative_path = '';
-
-	$results = scandir( $path );
-	$files = array();
-
-	foreach ( $results as $result ) {
-		if ( '.' == $result[0] )
-			continue;
-		if ( is_dir( $path . '/' . $result ) ) {
-			if ( ! $depth )
-				continue;
-			$found = wpmtst_scandir( $path . '/' . $result, $extensions, $depth - 1 , $relative_path . $result );
-			$files = array_merge_recursive( $files, $found );
-		} elseif ( ! $extensions || preg_match( '~\.(' . $_extensions . ')$~', $result ) ) {
-			$files[ $relative_path . $result ] = $path . '/' . $result;
-		}
-	}
-
-	return $files;
-}
-
 
 /**
  * Get defined images sizes.
@@ -486,7 +343,7 @@ function wpmtst_get_image_sizes( $size = '' ) {
 	}
 
 	// Sort by width
-  uasort( $sizes, 'wpmtst_compare_width' );
+	uasort( $sizes, 'wpmtst_compare_width' );
 
 	// Add option labels
 	foreach ( $sizes as $key => $dimensions ) {
@@ -509,6 +366,12 @@ function wpmtst_get_image_sizes( $size = '' ) {
 	return $sizes;
 }
 
+/**
+ * @param $a
+ * @param $b
+ *
+ * @return int
+ */
 function wpmtst_compare_width( $a, $b ) {
 	if ( $a['width'] == $b['width'] ) {
 		return 0;
@@ -516,41 +379,61 @@ function wpmtst_compare_width( $a, $b ) {
 	return ($a['width'] < $b['width']) ? -1 : 1;
 }
 
-
+/**
+ * @return array|int|WP_Error
+ */
 function wpmtst_get_category_list() {
 	$category_list = get_terms( 'wpm-testimonial-category', array(
-			'hide_empty' 	=> false,
-			'order_by'		=> 'name',
-			'pad_counts'	=> true
+		'hide_empty' => false,
+		'order_by'   => 'name',
+		'pad_counts' => true,
 	) );
+
 	return $category_list;
 }
 
-
+/**
+ * @return array
+ */
 function wpmtst_get_category_ids() {
 	$category_ids = array();
 	$category_list = wpmtst_get_category_list();
 	foreach ( $category_list as $cat ) {
 		$category_ids[] = $cat->term_id;
 	}
+
 	return $category_ids;
 }
 
-
+/**
+ * @return array|mixed|null|object
+ */
 function wpmtst_get_views() {
 	global $wpdb;
 	$table_name = $wpdb->prefix . 'strong_views';
 	$results = $wpdb->get_results( $wpdb->prepare( 'SELECT * FROM ' . $table_name . ' WHERE name != %s ORDER BY 1', '_default' ), ARRAY_A );
+
 	return $results;
 }
 
+/**
+ * @param $views
+ *
+ * @return mixed
+ */
 function wpmtst_unserialize_views( $views ) {
 	foreach( $views as $key => $view ) {
 		$views[$key]['data'] = unserialize( $view['value'] );
 	}
+
 	return $views;
 }
 
+/**
+ * @param $id
+ *
+ * @return array|mixed|null|object|void
+ */
 function wpmtst_get_view( $id ) {
 	global $wpdb;
 	$table_name = $wpdb->prefix . 'strong_views';
@@ -563,6 +446,12 @@ function wpmtst_get_view( $id ) {
 	return $row;
 }
 
+/**
+ * @param        $view
+ * @param string $action
+ *
+ * @return bool|false|int
+ */
 function wpmtst_save_view( $view, $action = 'edit' ) {
 	$view = (array) $view;
 	if ( ! $view )
@@ -579,13 +468,11 @@ function wpmtst_save_view( $view, $action = 'edit' ) {
 		return $last_id;
 	}
 	else {
-		// $sql = "INSERT INTO {$table_name} (name, value) VALUES (%s, %s) ON DUPLICATE KEY UPDATE value = %s";
 		$sql = "UPDATE {$table_name} SET name = %s, value = %s WHERE id = %d";
 		$sql = $wpdb->prepare( $sql, $view['name'], $serialized, intval( $view['id'] ) );
 		$num_rows = $wpdb->query( $sql );
 		return $num_rows;
 	}
-
 }
 
 /**
@@ -594,19 +481,22 @@ function wpmtst_save_view( $view, $action = 'edit' ) {
  * @since 1.21.0
  *
  * @param string $preface
+ * @param string $class
  */
-function wpmtst_update_nag( $preface = '' ) {
+function wpmtst_update_nag( $preface = '', $class = '' ) {
 	?>
-	<div class="update-nag">
-		<?php printf( __( '%s Please use a <a href="%s">View</a> or the <a href="%s"><code>[strong]</code></a> shortcode instead.', 'strong-testimonials' ),
-			$preface,
-			admin_url( 'edit.php?post_type=wpm-testimonial&page=views'),
-			admin_url( 'edit.php?post_type=wpm-testimonial&page=guide&tab=shortcodes' ) ); ?>
+	<div class="update-nag <?php echo $class; ?>">
+		<?php printf( __( '%s Please use a <a href="%s">View</a> instead.', 'strong-testimonials' ),
+			$preface, admin_url( 'edit.php?post_type=wpm-testimonial&page=views') ); ?>
 	</div>
 	<?php
 }
 
-
+/**
+ * @param $field
+ *
+ * @return mixed
+ */
 function wpmtst_get_field_label( $field ) {
 	$custom_fields = wpmtst_get_custom_fields();
 	if ( isset( $field['field'] ) ) {
@@ -616,8 +506,15 @@ function wpmtst_get_field_label( $field ) {
 			}
 		}
 	}
+
+	return '';
 }
 
+/**
+ * @param string $field_name
+ *
+ * @return mixed
+ */
 function wpmtst_get_field_by_name( $field_name = '' ) {
 	$custom_fields = wpmtst_get_custom_fields();
 	foreach ( $custom_fields as $key => $custom_field ) {
@@ -625,4 +522,22 @@ function wpmtst_get_field_by_name( $field_name = '' ) {
 			return $custom_field;
 		}
 	}
+
+	return '';
+}
+
+function wpmtst_sort_array_by_name( $a, $b ) {
+	if ( $a['name'] == $b['name'] )
+		return 0;
+
+	return ( $a['name'] < $b['name'] ) ? -1 : 1;
+}
+
+/**
+ * Allow disabling of client-side form validation via filter.
+ *
+ * @since 1.21.0
+ */
+function wpmtst_using_form_validation_script() {
+	return apply_filters( 'wpmtst_field_required_tag', true ) && apply_filters( 'wpmtst_form_validation_script', true );
 }

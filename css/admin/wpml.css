@@ -17,6 +17,11 @@
 	padding: 5px 8px 8px;
 }
 
+/* the textareas */
+.icl-st-table textarea {
+	font-size: 13px;
+}
+
 /* match the header/footer checkbox to standard post list table */
 .widefat thead td.check-column,
 .widefat thead th.check-column,

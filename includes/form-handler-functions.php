@@ -5,10 +5,10 @@
  * @since 1.21.0
  */
 function wpmtst_form_handler() {
-	
+
 	if ( empty( $_POST ) )
 		return false;
-	
+
 	if ( ! check_admin_referer( 'wpmtst_form_action', 'wpmtst_form_nonce' ) )
 		return false;
 
@@ -88,10 +88,10 @@ function wpmtst_form_handler() {
 					$testimonial_meta[ $field['name'] ] = $_POST[ $field['name'] ];
 				}
 				break;
-			
+
 			default:
 		}
-		
+
 	}
 
 	/**
@@ -187,12 +187,12 @@ function wpmtst_form_handler() {
 	}
 
 	remove_filter( 'upload_mimes', 'wpmtst_restrict_mime' );
-		
+
 	/**
 	 * Post inserted successfully, carry on.
 	 */
 	$form_values = array_merge( $testimonial_post, $testimonial_meta );
-	
+
 	if ( ! count( $form_errors ) ) {
 		// Clear saved form data and errors.
 		WPMST()->set_form_values( null );
@@ -200,12 +200,19 @@ function wpmtst_form_handler() {
 		wpmtst_notify_admin( $form_values );
 		return true;
 	}
-	
+
 	WPMST()->set_form_values( $form_values );
 	WPMST()->set_form_errors( $form_errors );
 	return false;
 }
 
+/**
+ * Restrict MIME types for security reasons.
+ *
+ * @param $mimes
+ *
+ * @return array
+ */
 function wpmtst_restrict_mime( $mimes ) {
 	$mimes = array(
 		'jpg|jpeg|jpe' => 'image/jpeg',
@@ -218,6 +225,11 @@ function wpmtst_restrict_mime( $mimes ) {
 
 /**
  * File upload handler
+ *
+ * @param $file_handler
+ * @param $overrides
+ *
+ * @return array
  */
 function wpmtst_wp_handle_upload( $file_handler, $overrides ) {
 	require_once( ABSPATH . 'wp-admin/includes/image.php' );
@@ -230,6 +242,11 @@ function wpmtst_wp_handle_upload( $file_handler, $overrides ) {
 
 /**
  * Check form input
+ *
+ * @param $captcha
+ * @param $errors
+ *
+ * @return mixed
  */
 function wpmtst_captcha_check( $captcha, $errors ) {
 
@@ -271,9 +288,10 @@ function wpmtst_captcha_check( $captcha, $errors ) {
 
 }
 
-
 /**
  * Notify admin upon testimonial submission.
+ *
+ * @param $post
  */
 function wpmtst_notify_admin( $post ) {
 	$custom_fields = get_option('wpmtst_fields');

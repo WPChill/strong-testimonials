@@ -1,17 +1,7 @@
 /**
- *  Strong Testimonials > admin list order
+ *  Admin list order
+ *  Strong Testimonials
  */
-
-jQuery(document).ready(function ($) {
-	$("td.column-order").hover(
-		function () {
-			$(this).closest("tr").addClass("reorder-hover");
-		},
-		function () {
-			$(this).closest("tr").removeClass("reorder-hover");
-		}
-	);
-});
 
 // set cell widths to prevent shrinkage
 function setCellWidths() {
@@ -49,65 +39,90 @@ function debounce(func, wait, immediate) {
 	};
 };
 
-
 // window resize listener
 var myEfficientFn = debounce(resetCellWidths, 100);
 window.addEventListener('resize', myEfficientFn);
 
 
-(function ($) {
+jQuery(document).ready(function ($) {
+
+	$.fn.strongSort = function( options ) {
+
+		var $this = this;
+		var $handles = $( options.handles );
+
+		var toggleReorder = function () {
+			$this.sortable( "enable" );
+			$handles.show();
+		}
+
+		this.sortable({
+			disabled: true, // initially disabled
+			items: 'tr',
+			axis: 'y',
+			handle: options.handles,
+			forcePlaceholderSize: true,
+			placeholder: "sortable-placeholder",
+			start: function (e, ui) {
+				// set height of placeholder to match current dragged element
+				ui.placeholder.height(ui.helper.height());
+				ui.helper.css("cursor", "move");
+			},
+			helper: function (e, ui) {
+				var $originals = ui.children();
+				var $helper = ui.clone();
+				$helper.children().each(function (index) {
+					// set helper cell sizes to match the original sizes
+					$(this).width($originals.eq(index).width());
+				});
+				return $helper;
+			},
+			update: function (e, ui) {
+				ui.item.find(".column-handle").addClass("refresh");
+				$.post(ajaxurl, {
+						action: 'update-menu-order',
+						order: $('#the-list').sortable('serialize'),
+					},
+					function (data) {
+						// update menu order shown
+						var $orders = $(".menu-order");
+						var obj = JSON.parse(data);
+						var orderArray = $.map(obj, function (val, i) {
+							$orders.eq(i).html(val);
+						});
+					})
+					.done(function () {
+						// update zebra striping
+						$("#the-list").find("tr:even").removeClass("alternate");
+						ui.item.effect('highlight', {}, 2000);
+						ui.item.find(".column-handle").removeClass("refresh");
+					})
+
+			}
+		});
+
+		toggleReorder();
+
+		return this;
+	}
+
+	// Init
 
 	setCellWidths();
 
-	// make rows sortable
-	$('table.posts #the-list').sortable({
-		items: 'tr',
-		axis: 'y',
-		handle: 'td.column-order',
-		forcePlaceholderSize: true,
-		placeholder: "sortable-placeholder",
-		start: function (e, ui) {
-			// set height of placeholder to match current dragged element
-			ui.placeholder.height(ui.helper.height());
-			ui.helper.css("cursor", "move");
-		},
-		helper: function (e, ui) {
-			var $originals = ui.children();
-			var $helper = ui.clone();
-			$helper.children().each(function (index) {
-				// set helper cell sizes to match the original sizes
-				$(this).width($originals.eq(index).width());
-			});
-			return $helper;
-		},
-		update: function (e, ui) {
-			$.post(ajaxurl, {
-					action: 'update-menu-order',
-					order: $('#the-list').sortable('serialize'),
-				},
-				function (data) {
-					// update menu order shown
-					var $orders = $(".menu-order");
-					var obj = JSON.parse(data);
-					var orderArray = $.map(obj, function (val, i) {
-						$orders.eq(i).html(val);
-				});
-				// update zebra striping
-				$("#the-list tr:even").removeClass("alternate");
-			})
-			.done(function() {
-				// alert( "second success" );
-				ui.item.effect('highlight', {}, 2000);
-			})
-			/*
-			 .fail(function() {
-			 // alert( "error" );
-			 })
-			 .always(function() {
-			 // alert( "finished" );
-			 });
-			 */
-		}
+	$( "#screen-meta" ).on( "change", ".metabox-prefs", resetCellWidths );
+
+	$( "#the-list" ).strongSort({
+		handles: 'td.column-handle'
 	});
 
-})(jQuery);
+	$( "td.column-handle" ).hover(
+		function () {
+			$(this).closest("tr").addClass("reorder-hover");
+		},
+		function () {
+			$(this).closest("tr").removeClass("reorder-hover");
+		}
+	);
+
+});

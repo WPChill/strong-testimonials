@@ -3,7 +3,7 @@
  */
 
 jQuery(document).ready(function($) {
-	
+
 	// Function to get the Max value in Array
 	Array.max = function( array ){
 		return Math.max.apply( Math, array );
@@ -19,15 +19,46 @@ jQuery(document).ready(function($) {
 		//return word.replace(/\s+/g, "_");
 		return word.replace(/[^\w\s(?!\-)]/gi, '')
 	}
-	
+
 	// --------------
 	// General events
 	// --------------
 
-	// jQuery tabs
-	//$("#tabs").tabs({active: 0});
+	// Warning icon on old settings submenu item.
+	$("#menu-posts-wpm-testimonial")
+		.find("li a:contains('Old Settings')")
+			.append("<span class='dashicons dashicons-warning'></span>");
 
-	$("ul.ui-tabs-nav li a").click(function(e){
+	// the widget list
+	$("#widget-list")
+		.find(".widget-description:contains('The original widget for Strong Testimonials')")
+			.append("<span style='color:red; font-weight: bold;'>Will be removed in the next release. Use a View instead.</span>")
+			.parent()
+				.find(".widget-title h4")
+					.prepend("<span class='dashicons dashicons-warning'></span>")
+
+	// a widget instance
+	$("#widgets-right")
+		.find(".widget-description:contains('The original widget for Strong Testimonials')")
+			.parent()
+				.find(".widget-title h4")
+				.prepend("<span class='dashicons dashicons-warning high'></span>")
+			.end()
+			.find(".widget-content")
+				.prepend("<p style='color:red; margin-bottom: 10px; font-size: 14px;'>Will be removed in the next release. Create a View and use the View widget instead.</p>");
+
+
+	// Version 2 countdown
+	var countdown = {
+		'action': 'wpmtst_countdown',
+	};
+	$.get( ajaxurl, countdown, function( response ) {
+		if ( response )
+			$(".v2warning").html(response);
+	});
+
+
+	$("ul.ui-tabs-nav li a").click(function(){
 		$(this).blur();
 	});
 
@@ -77,7 +108,7 @@ jQuery(document).ready(function($) {
 
 	var $notifyAdmin = $("#wpmtst-options-admin-notify");
 	var $notifyFields = $("#admin-notify-fields");
-	
+
 	if( $notifyAdmin.is(":checked") ) {
 		$notifyFields.slideDown();
 	}
@@ -91,10 +122,10 @@ jQuery(document).ready(function($) {
 			$notifyFields.slideUp();
 		}
 	});
-	
+
 	$("#add-recipient").click(function(e){
 		var $this = $(this);
-		var key = $this.closest("tr").siblings().length-1; 
+		var key = $this.closest("tr").siblings().length-1;
 		var data = {
 			'action': 'wpmtst_add_recipient',
 			'key': key,
@@ -103,16 +134,45 @@ jQuery(document).ready(function($) {
 			$this.closest("tr").before(response).prev("tr").find(".name-email").first().focus();
 		});
 	});
-	
-	$("#admin-notify-fields").on('click',".delete-recipient",function(e){
+
+	$notifyFields.on('click',".delete-recipient",function(e){
 		$(this).closest("tr").remove();
 	});
-	
-	
+
+	// -------------
+	// Form Settings
+	// -------------
+
+	$("#restore-default-messages").click(function(e){
+		var data = {
+			'action': 'wpmtst_restore_default_messages'
+		};
+		$.get( ajaxurl, data, function( response ) {
+			var object = JSON.parse( response );
+			for (var key in object) {
+				if (object.hasOwnProperty(key)) {
+					$("input[id='" + key + "']").val( object[key]["text"] );
+				}
+			}
+		});
+	});
+
+	$(".restore-default-message").click(function(e){
+		var input = $(e.target).closest("tr").find("input[type='text']").attr("id");
+		var data = {
+			'action': 'wpmtst_restore_default_message',
+			'field': input
+		};
+		$.get( ajaxurl, data, function( response ) {
+			var object = JSON.parse( response );
+			$("input[id='" + input + "']").val( object["text"] );
+		});
+	});
+
 	// -------------
 	// Widget events
 	// -------------
-	
+
 	// Delegated listener on dual-mode widget only.
 
 	// Normal admin:
@@ -121,12 +181,12 @@ jQuery(document).ready(function($) {
 	$('.wp-admin').on('click', '.wpmtst-widget-form', function(e) {
 
 		if ( "wpmtst-mode-setting" == e.target.className ) {
-		
+
 			// get selected tab
 			var tab = e.target.getAttribute("value");
 			// find parent div
 			var $p = $(e.target).closest(".wpmtst-mode");
-			
+
 			// highlight current tab
 			$(e.target).closest("ul").find("li").each( function( i, el ) {
 				var tabvalue = $(this).find('input').val();
@@ -138,16 +198,16 @@ jQuery(document).ready(function($) {
 					$p.find(".wpmtst-mode-" + tabvalue).hide();
 				}
 			});
-			
+
 		}
-		
+
 		// Switches and related settings.
 		if ( e.target.getAttribute("id") ) { // not all elements have id's
-		
+
 			var eId = e.target.getAttribute("id"); // like "widget-wpmtst-widget-2-cycle-all"
 			var ePos1 = eId.indexOf("cycle-all");
 			var ePos2 = eId.indexOf("char-switch");
-			
+
 			if ( ePos1 > 0 ) {
 				// Disable "number to show" if "show all" is checked.
 				var eChange = eId.substr(0,ePos1) + 'cycle-limit';
@@ -167,9 +227,9 @@ jQuery(document).ready(function($) {
 					document.getElementById(eChange1).setAttribute("readonly", "readonly");
 				}
 			}
-		
+
 		}
-		
+
 	});
-		
+
 });

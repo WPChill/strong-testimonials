@@ -10,7 +10,7 @@
 
 /**
  * Settings
- * 
+ *
  * @return array
  */
 function wpmtst_get_default_options() {
@@ -33,7 +33,7 @@ function wpmtst_get_default_options() {
 
 /**
  * Cycle shortcode
- * 
+ *
  * @return array
  */
 function wpmtst_get_default_cycle() {
@@ -59,7 +59,7 @@ function wpmtst_get_default_cycle() {
 
 /**
  * Fields
- * 
+ *
  * @return array
  */
 function wpmtst_get_default_fields() {
@@ -237,13 +237,13 @@ function wpmtst_get_default_fields() {
 	$default_fields['field_types']         = $field_types;
 	$default_fields['field_groups']        = $field_groups;
 	$default_fields['current_field_group'] = 'custom';
-	
+
 	return $default_fields;
 }
 
 /**
  * Form
- * 
+ *
  * @return array
  */
 function wpmtst_get_default_form_options() {
@@ -358,48 +358,61 @@ function wpmtst_get_default_view_options() {
 
 /**
  * option name: wpmtst_view_default
- * 
+ *
  * @since 1.21.0
  */
 function wpmtst_get_default_view() {
 	$default_view = array(
-		'all'              => true,
-		'background'       => '',
+		'all'              => 1,
+		'background'       => array(
+			'color'     => '',
+			'type'      => '',
+			'preset'    => '',
+			'gradient1' => '',
+			'gradient2' => '',
+			'example-font-color' => 'dark',
+		),
 		'category'         => 'all',
 		'class'            => '',
 		'client_section'   => array(
 			0 => array(
 				'field' => 'client_name',
 				'type'  => 'text',
-				'class' => 'testimonial-name'
+				'class' => 'testimonial-name',
 			),
 			1 => array(
 				'field'   => 'company_name',
 				'type'    => 'link',
 				'url'     => 'company_website',
 				'class'   => 'testimonial-company',
-				'new_tab' => true
-			)
+				'new_tab' => true,
+			),
 		),
+		'column_count'     => 2,
+        'compat'           => 0,
+		'container_class'  => '',
 		'content'          => 'entire',
-		'count'            => 5,
+		'count'            => 1,
 		'effect_for'       => 1.5,
+		'form-ajax'        => 0,
 		'gravatar'         => 'no',
 		'id'               => '',
+		'layout'           => '',
 		'length'           => 200,
 		'lightbox'         => '',
 		'mode'             => 'display',
 		'more_page'        => false,
 		'more_post'        => false,
-		'more_text'        => 'Read more',
+		'more_text'        => _x( 'Read more', 'link', 'strong-testimonials' ),
 		'nav'              => 'after',
 		'no_pause'         => false,
+		'note'             => '',
 		'order'            => 'oldest',
 		'page'             => '',
 		'pagination'       => false,
 		'per_page'         => 5,
 		'show_for'         => 8,
-		'template'         => '',
+		'template'         => 'default:content',
 		'thumbnail'        => true,
 		'thumbnail_size'   => 'thumbnail',
 		'thumbnail_height' => null,
@@ -413,17 +426,17 @@ function wpmtst_get_default_view() {
 
 /**
  * The contexts for string translation in WPML & Polylang plugins.
- * 
+ *
  * @since 1.21.0
- * 
+ *
  * @return array
  */
 function wpmtst_get_default_l10n_contexts() {
 	/* Translators: For string translation in WPML & Polylang plugins. */
 	$contexts = array(
-		'form-fields'   => __( 'Testimonial Form Fields', 'strong-testimonials' ),
-		'form-messages' => __( 'Testimonial Form Messages', 'strong-testimonials' ),
-		'notification'  => __( 'Testimonial Notification Options', 'strong-testimonials' ),
+		'strong-testimonials-form-fields'   => __( 'Testimonial Form Fields', 'strong-testimonials' ),
+		'strong-testimonials-form-messages' => __( 'Testimonial Form Messages', 'strong-testimonials' ),
+		'strong-testimonials-notification'  => __( 'Testimonial Notification Options', 'strong-testimonials' ),
 	);
 	return $contexts;
 }

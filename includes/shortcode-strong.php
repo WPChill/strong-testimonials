@@ -11,7 +11,7 @@
  * Simply a router for various modes.
  *
  * @since 1.11.0
- * 
+ *
  * @param array  $atts
  * @param null   $content     Contains only child shortcodes like [client].
  * @param string $parent_tag  Used for child shortcodes.
@@ -37,7 +37,6 @@ function wpmtst_strong_shortcode( $atts, $content = null, $parent_tag ) {
 
 	// container_class is shared by display and form in both original and new default templates
 	$options = get_option( 'wpmtst_options' );
-	$out['container_class'] = '';
 	if ( $out['class'] ) {
 		$out['container_class'] .= ' ' . str_replace( ',', ' ', $out['class'] );
 	}
@@ -45,7 +44,7 @@ function wpmtst_strong_shortcode( $atts, $content = null, $parent_tag ) {
 		$out['container_class'] .= ' rtl';
 	}
 	WPMST()->set_atts( $out );
-	
+
 	/**
 	 * MODE: FORM
 	 */
@@ -71,7 +70,7 @@ add_shortcode( wpmtst_get_shortcode(), 'wpmtst_strong_shortcode' );
  *
  * This filter was used by [strong view] to get the view and merge it onto the
  * shortcode defaults, but views are now parsed through a different shortcode.
- * 
+ *
  * @since 1.11.0
  *
  * @param array $out The output array of shortcode attributes.
@@ -83,16 +82,17 @@ add_shortcode( wpmtst_get_shortcode(), 'wpmtst_strong_shortcode' );
 function wpmtst_strong_shortcode_filter( $out, $pairs, $atts ) {
 	return $out;
 }
-//add_filter( 'shortcode_atts_' . wpmtst_get_shortcode(), 'wpmtst_strong_shortcode_filter', 10, 3 );
+add_filter( 'shortcode_atts_' . wpmtst_get_shortcode(), 'wpmtst_strong_shortcode_filter', 10, 3 );
 
 /**
  * Strong view - display mode
- * 
+ *
  * @param $atts
  *
  * @return mixed|string|void
  */
 function wpmtst_display_view( $atts ) {
+	global $strong_templates;
 	extract( $atts );
 
 	if ( isset( $view_not_found ) && $view_not_found )
@@ -108,7 +108,7 @@ function wpmtst_display_view( $atts ) {
 	} elseif ( $length ) {
 		$post_class_list .= ' truncated';
 	}
-	
+
 	/**
 	 * Build the query
 	 */
@@ -165,10 +165,10 @@ function wpmtst_display_view( $atts ) {
 	 * Use lesser value: requested count or actual count.
 	 * Thanks chestozo.
 	 * @link https://github.com/cdillon/strong-testimonials/pull/5
-	 * 
+	 *
 	 * @since 1.16.1
 	 */
-	if ( $count > 0 ) {
+	if ( !$all && $count > 0 ) {
 		$count = min( $count, count( $query->posts ) );
 		$query->posts = array_slice( $query->posts, 0, $count );
 		$query->post_count = $count;
@@ -198,6 +198,17 @@ function wpmtst_display_view( $atts ) {
 		if ( $per_page && $post_count > $per_page ) {
 			$content_class_list .= ' strong-paginated';
 		}
+
+		// layouts
+		if ( 'masonry' == $layout ) {
+			$content_class_list .= ' strong-masonry columned columns-' . $column_count;
+		}
+		elseif ( 'grid' == $layout ) {
+			$content_class_list .= ' strong-grid columned columns-' . $column_count;
+		}
+		elseif ( 'columns' == $layout ) {
+			$content_class_list .= ' strong-columns columned columns-' . $column_count;
+		}
 	}
 
 	/**
@@ -213,9 +224,10 @@ function wpmtst_display_view( $atts ) {
 		$atts['content_class'] = $content_class_list;
 		$atts['post_class']    = $post_class_list;
 		WPMST()->set_atts( $atts );
-	} else {
+	}
+	else {
 		/**
-		 * Maintain compatibility with original template 
+		 * Maintain compatibility with original template
 		 * which uses the parsed shortcode options.
 		 */
 		if ( $thumbnail_size ) {
@@ -226,20 +238,26 @@ function wpmtst_display_view( $atts ) {
 				$thumbnail_size = $dimensions;
 			}
 		}
-		$container_class_list = $atts['container_class'];
+		$container_class_list = $atts['class'];
 		$shortcode_content = reverse_wpautop( $content );
-		$show_client = has_child_shortcode( $shortcode_content, 'client', $parent_tag );		
+		$show_client = has_child_shortcode( $shortcode_content, 'client', $parent_tag );
 	}
-	
+
 	/**
 	 * Add filters here.
 	 */
 	add_filter( 'get_avatar', 'wpmtst_get_avatar', 10, 3 );
-	
+
 	/**
 	 * Load template
 	 */
-	$template_file = wpmtst_find_template( $template, $view );
+	if ( $view ) {
+		$template_file = $strong_templates->get_template_attr( $atts, 'template' );
+	}
+	else {
+		// [strong] shortcode
+		$template_file = wpmtst_find_template( 'testimonials', $template );
+	}
 
 	ob_start();
 	include( $template_file );
@@ -250,9 +268,13 @@ function wpmtst_display_view( $atts ) {
 	 * Remove filters here.
 	 */
 	remove_filter( 'get_avatar', 'wpmtst_get_avatar' );
-	
+
+	if ( $view )
+		do_action( 'wpmtst_view_rendered', $atts );
+
 	wp_reset_postdata();
 	$html = apply_filters( 'strong_html', $html );
+
 	return $html;
 }
 
@@ -267,7 +289,7 @@ function wpmtst_display_view( $atts ) {
 function wpmtst_readmore_shortcode( $atts, $content ) {
 	if ( ! $atts['page'] )
 		return '';
-	
+
 	// page ID or slug?
 	$page    = (int) $atts['page'] ? (int) $atts['page'] : get_page_by_slug( $atts['page'] );
 	$content = $content ? $content : _x( 'Read more', 'link', 'strong-testimonials' );
@@ -277,121 +299,27 @@ function wpmtst_readmore_shortcode( $atts, $content ) {
 /**
  * Template search.
  *
- * Similar to get_query_template.
- * Called by shortcode and when enqueueing stylesheets.
- *
- * @since 1.21.0
- * @param string $template
- * @param null $view
- * @return string $template_file
- */
-function wpmtst_find_template( $template = '', $view = null ) {
-	
-	$template_file = '';
-	
-	if ( '.php' != substr( $template, - 4 ) ) {
-
-		/**
-		 * If not full filename, use native function to search
-		 * in child/parent theme first and allow filtering.
-		 */
-		
-		$search_array = array();
-		if ( $template ) {
-			$search_array[] = "testimonials-{$template}.php";
-		}
-		$search_array[] = 'testimonials.php';
-
-		$template_file = get_query_template( 'testimonials', $search_array );
-
-	} else {
-		
-		/**
-		 * If full file name, search in plugin.
-		 * File name includes path relative to plugin's template directory.
-		 */
-
-		// To include add-on templates:
-		$paths = apply_filters( 'wpmtst_template_paths', array( WPMTST_TPL ) );
-		
-		foreach ( $paths as $path ) {
-			if ( file_exists( $path . $template ) ) {
-				$template_file = $path . $template;
-				break;
-			}
-		}
-		
-	}
-	
-	//TODO Add filter.
-	if ( ! $template_file ) {
-		if ( $view ) {
-			// new default template
-			$template_file = WPMTST_DEF_TPL . 'testimonials.php';
-		} else {
-			// original template (back-compat)
-			$template_file = WPMTST_TPL . 'original/testimonials.php';
-		}
-	}
-	
-	return $template_file;
-}
-
-/**
- * Template search.
- *
- * Similar to get_query_template.
+ * Use normal theme search order and allow filtering.
  * Called by shortcode and when enqueueing stylesheets.
  *
  * @since 1.21.0
  * @param string $template
  * @return string $template_file
  */
-function wpmtst_find_form_template( $template = '', $view = null ) {
+function wpmtst_find_template( $type = '', $template = '' ) {
+	if ( !$type ) return false;
 
-	$template_file = '';
-
-	if ( '.php' != substr( $template, - 4 ) ) {
-
-		/**
-		 * If not full filename, use native function to search
-		 * in child/parent theme first and allow filtering.
-		 */
-
-		$search_array = array();
-		if ( $template ) {
-			$search_array[] = "testimonial-form-{$template}.php";
-		}
-		$search_array[] = 'testimonial-form.php';
-
-		$template_file = get_query_template( 'testimonial-form', $search_array );
-
-	} else {
-
-		/**
-		 * If full file name, search in plugin.
-		 * File name includes path relative to plugin's template directory.
-		 */
-
-		// To include add-on templates:
-		$paths = apply_filters( 'wpmtst_template_paths', array( WPMTST_TPL ) );
-
-		foreach ( $paths as $path ) {
-			if ( file_exists( $path . $template ) ) {
-				$template_file = $path . $template;
-				break;
-			}
-		}
-
+	$search_array = array();
+	if ( $template ) {
+		$search_array[] = "{$type}-{$template}.php";
 	}
+	$search_array[] = "{$type}.php";
+
+	$template_file = get_query_template( $type, $search_array );
 
 	//TODO Add filter.
 	if ( ! $template_file ) {
-		if ( $view ) {
-			$template_file = WPMTST_DEF_TPL . 'testimonial-form.php';
-		} else {
-			$template_file = WPMTST_TPL . 'original/testimonial-form.php';
-		}
+		$template_file = WPMTST_ORIG_TPL . "{$type}.php";
 	}
 
 	return $template_file;
@@ -446,7 +374,7 @@ function wpmtst_strong_date_shortcode( $atts, $content = null, $tag ) {
 
 	if ( ! $format )
 		$format = get_option( 'date_format' );
-	
+
 	$the_date = apply_filters( 'wpmtst_the_date', mysql2date( $format, $post->post_date ), $format, $post );
 	return '<div class="' . $class . '">' . $the_date . '</div>';
 }
@@ -481,7 +409,7 @@ function wpmtst_strong_field_shortcode( $atts, $content = null, $tag ) {
 		}
 		$name = sprintf( '<a href="%s" %s %s>%s</a>', $url, link_new_tab( $new_tab, false ), link_nofollow( $nofollow, false ), $name );
 	}
-	
+
 	/**
 	 * Bug fix: Return blank string.
 	 *
@@ -489,7 +417,7 @@ function wpmtst_strong_field_shortcode( $atts, $content = null, $tag ) {
 	 */
 	if ( $name )
 		return '<div class="' . $class . '">' . $name . '</div>';
-	
+
 	return '';
 }
 add_child_shortcode( wpmtst_get_shortcode(), 'field', 'wpmtst_strong_field_shortcode' );

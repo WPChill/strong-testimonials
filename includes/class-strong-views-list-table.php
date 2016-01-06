@@ -19,10 +19,9 @@ class Strong_Views_List_Table extends Strong_Testimonials_List_Table {
 
 	public function get_columns() {
 		$columns = array(
-			//'id'   => 'View ID',
-			'name' => 'Name',
-			'mode' => 'Mode',
-			'template' => 'Template',
+			'name'      => 'Name',
+			'mode'      => 'Mode',
+			'template'  => 'Template',
 			'shortcode' => 'Shortcode',
 		);
 
@@ -35,7 +34,10 @@ class Strong_Views_List_Table extends Strong_Testimonials_List_Table {
 
 	public function get_sortable_columns() {
 		return array(
-			// 'post_author' => array( 'post_author', false ),
+			'name'      => array( 'name', false ),
+			'mode'      => array( 'mode', false ),
+			'template'  => array( 'template', false ),
+			'shortcode' => array( 'shortcode', false ),
 		);
 	}
 
@@ -54,82 +56,24 @@ class Strong_Views_List_Table extends Strong_Testimonials_List_Table {
 	}
 
 	public function column_default( $item, $column_name ) {
-		$this->find_template();
 		switch ( $column_name ) {
-			//case 'id':
-			//	return $item[ $column_name ];
 			case 'name':
 				return $item[ $column_name ];
 			case 'mode':
 				return $item['data'][ $column_name ];
 			case 'template':
-				return $this->find_template( $item['data'][ $column_name ] );
+				return $this->find_template( array( 'template' => $item['data'][ $column_name ] ) );
 			case 'shortcode':
 				return "[testimonial_view id={$item['id']}]";
 			default:
 				return print_r( $item, true );
 		}
 	}
-	
-	public function find_template( $template = '' ) {
-		if ( ! $template ) {
-			return 'plugin > Default';
-		}
-		
-		$template_file = '';
 
-		if ( '.php' != substr( $template, - 4 ) ) {
-
-			/**
-			 * If not full filename, use native function to search
-			 * in child/parent theme first and allow filtering.
-			 */
-
-			$search_array = array();
-			if ( $template ) {
-				$search_array[] = "testimonials-{$template}.php";
-			}
-			$search_array[] = 'testimonials.php';
-
-			$template_file = get_query_template( 'testimonials', $search_array );
-
-		} else {
-
-			/**
-			 * If full file name, search in plugin.
-			 * File name includes path relative to plugin's template directory.
-			 */
-
-			// To include add-on templates:
-			$paths = apply_filters( 'wpmtst_template_paths', array( WPMTST_TPL ) );
-
-			foreach ( $paths as $path ) {
-				if ( file_exists( $path . $template ) ) {
-					$template_file = $path . $template;
-					break;
-				}
-			}
-
-		}
-
-		if ( ! $template_file ) {
-			return 'plugin > Default';
-		}
-		
-		$template_file = str_replace( array( WPMTST_TPL, trailingslashit( get_stylesheet_directory() ) ), array( '', '' ), $template_file );
-
-		$theme_templates  = wpmtst_get_theme_templates( 'testimonials' ) + wpmtst_get_theme_templates( 'testimonial-form' );
-		$plugin_templates = wpmtst_get_plugin_templates( 'testimonials' ) + wpmtst_get_plugin_templates( 'testimonial-form' );
-		
-		// Get template name. Search theme first.
-		$name = array_search( $template_file, $theme_templates );
-		$location = 'theme';
-		if ( ! $name ) {
-			$name = array_search( $template_file, $plugin_templates );
-			$location = 'plugin';
-		}
-
-		return "$location > $name";
+	public function find_template( $atts = '' ) {
+		global $strong_templates;
+		$name = $strong_templates->get_template_attr( $atts, 'name', false );
+		return $name ? $name : '<span class="error"><span class="dashicons dashicons-warning"></span> not found</span>';
 	}
 
 }

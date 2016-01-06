@@ -12,15 +12,7 @@ Add testimonials with a plugin that offers strong features and strong support.
 
 == Description ==
 
-Strong Testimonials by [WP Mission](https://www.wpmission.com) is a full-featured plugin that works right out of the box for beginners and offers advanced features for pros.
-
-= What's New =
-
-* Compatible with WPML and Polylang.
-* Views make it easy to display testimonials just the way you want.
-* New template choices and more on the way.
-* More thumbnail sizes.
-* Gravatar support.
+Strong Testimonials is a full-featured plugin that works right out of the box for beginners and offers advanced features for pros.
 
 = Primary Features =
 
@@ -31,11 +23,11 @@ Strong Testimonials by [WP Mission](https://www.wpmission.com) is a full-feature
 * Multiple slideshows
 * Sort by oldest, newest, random, or menu order
 * Simple pagination
-* Custom "Read more" links
+* Templates with layout and background options
 * Template files and functions for deep customization
-* A developer who's on your side :)
-
-[Check out the demos](http://demos.wpmission.com/strong-testimonials/)
+* Custom "Read more" links
+* Gravatar support
+* Compatible with WPML and Polylang
 
 = The Form =
 
@@ -47,24 +39,22 @@ Send a **notification email** to your multiple admins when new testimonials are 
 
 = Views =
 
-A View is a simple, intuitive way to control the many available options.
+A View is a simple, intuitive way to configure the many available options.
 
-For displaying testimonials:
+For displaying testimonials in a list or slideshow:
 
 * select which testimonials to show
 * set the sort order
 * select which fields to include
 * extras like pagination
-* style options
-* slideshow settings if desired
-* and more
+* layout and style options
 
 For showing the form:
 
 * select categories to assign the new testimonial to (optional)
 * style options
 
-Add the View's shortcode to a page or use the widget to add it to a sidebar.
+Add the View via shortcode or widget.
 
 = Style =
 
@@ -72,7 +62,7 @@ Strong Testimonials offers a handful of templates to try in your theme. The defa
 
 Need help matching your theme? Got some weird spacing or floating? I'm here to help.
 
-For ultimate control and seamless integration, any **template file and stylesheet** pair can be copied into your theme. (A tutorial and more templates coming soon.)
+For ultimate control and seamless integration, any template can be copied to your theme and customized. (A tutorial and more templates coming soon.)
 
 = Recommended =
 
@@ -133,11 +123,11 @@ It depends. I have narrowed down the causes of many conflicts and addressed them
 
 = I'm familiar with template files. Can I customize the template? =
 
-Yes. You can copy a template to your theme, with or without its associated stylesheet, and customize it as you see fit. You can also have multiple custom templates. (A tutorial is coming soon.)
+Yes. You can copy any template to your theme, with or without its associated stylesheet, and customize it as you see fit. You can also have multiple custom templates. (A tutorial is coming soon.)
 
 = Can I make some suggestions? =
 
-I'm all ears! Many of the improvements over the last year are the result of feedback and ideas from people using the plugin in a variety of sites. Here are [some recent requests](https://www.wpmission.com/strong-testimonials/feature-requests/) awaiting your votes.
+I'm all ears! Many of the improvements over the last year are the result of feedback and ideas from people using the plugin in a variety of sites.
 
 = Will it import my existing testimonials? =
 
@@ -156,6 +146,16 @@ Not yet.
 9. Template files and template functions.
 
 == Changelog ==
+
+= 1.25 - 2016-01-06 =
+* More layout and background options in Views.
+* Improve template directory structure.
+* New template function: `strong_testimonial_view()`
+* Improve responsiveness.
+* Fix long-standing slideshow CSS problems.
+* Improve WPML compatibility.
+* Compatible with Beaver Builder, Search Exclude, and Popup Maker.
+* Preparing for version 2.0.
 
 = 1.24.4 - 2015-12-07 =
 * Remove debugging.
@@ -210,44 +210,6 @@ Not yet.
 * Prevent double posting of the form.
 * Separate `[read_more]` shortcode.
 
-= 1.20.2 - 2015-09-25 =
-* Fix bug in custom shortcode.
-* Fix bug in form class.
-* Allow removal of content field in form.
-
-= 1.20.1 - 2015-09-06 =
-* Fix bug in updating default settings.
-
-= 1.20 - 2015-09-01 =
-* New shortcode option "more_page" to add a "Read more" to a page.
-* New child shortcode "date" to display the post date.
-* Fix thumbnail support.
-* Fix reorder table striping.
-
-= 1.19 - 2015-08-27 =
-* Add option to change shortcode.
-* Fix redundant admin notices.
-
-= 1.18.5 - 2015-08-25 =
-* Fix bug when restoring default fields.
-
-= 1.18.4 - 2015-08-21 =
-* Fix bug in notification email settings.
-
-= 1.18.3 - 2015-08-18 =
-* Fix bug when image is a required field on the form.
-
-= 1.18.2 - 2015-08-17 =
-* Fix bug in updating default options.
-
-= 1.18.1 - 2015-08-17 =
-* Fix bug when using site admin email for notifications.
-
-= 1.18 - 2015-08-17 =
-* Important update for WordPress 4.3!
-* Option to send notification emails to multiple recipients.
-* Option to add a category selector to the testimonial submission form.
-
 == Upgrade Notice ==
 
-Introducing Views. WPML & Polylang compatible. New templates. More thumbnail sizes. Gravatar support.
+More style options. Improved compatibility. Preparing for version 2.0.

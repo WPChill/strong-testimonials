@@ -1,0 +1,111 @@
+/**
+ * Strong Testimonials Image on Right Widget template
+ */
+/* Clears
+-----------------------------------------------*/
+.clear {
+  clear: both;
+}
+
+/**
+Minimum paragraph width means no short words in skinny space next to image
+in columns or small screens.
+
+This workaround is needed until we can use flexbox properly
+or CSS offers container queries.
+
+Thanks https://css-tricks.com/minimum-paragraph-widths/
+*/
+.maybe-clear {
+  content: "";
+  /* this value seems to work well in both responsive and Masonry */
+  width: 6em;
+  display: block;
+  overflow: hidden;
+}
+
+/* Base
+-----------------------------------------------*/
+.strong-view.image-right-widget {
+  display: block;
+  /* this handles short content */
+  width: 100%;
+}
+.strong-view.image-right-widget * {
+  box-sizing: border-box;
+}
+.strong-view.image-right-widget .testimonial-inner {
+  display: block;
+  /* fill horizontal & vertical space */
+  width: 100%;
+  height: 100%;
+}
+.strong-view.image-right-widget .strong_cycle .testimonial {
+  /* remove margin in slideshow */
+  margin-top: 0;
+  margin-bottom: 0;
+}
+.strong-view.image-right-widget .strong_cycle .testimonial:not(:first-child) {
+  /* prevents flash on slow page load */
+  display: none;
+}
+
+/* Template
+-----------------------------------------------*/
+.strong-view.image-right-widget {
+  margin-bottom: 1em;
+}
+.strong-view.image-right-widget .testimonial {
+  margin-bottom: 1em;
+  width: 100%;
+}
+.strong-view.image-right-widget .testimonial-inner {
+  padding: 10px;
+}
+.strong-view.image-right-widget .testimonial-heading {
+  margin-bottom: 1em;
+}
+.strong-view.image-right-widget .testimonial-content p:first-of-type {
+  margin-top: 0;
+  padding-top: 0;
+}
+.strong-view.image-right-widget .testimonial-content p:last-of-type {
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+.strong-view.image-right-widget .testimonial-image {
+  float: right;
+  margin-top: 0.25em;
+  margin-left: 1em;
+  margin-bottom: 0.1em;
+}
+.strong-view.image-right-widget .testimonial-client {
+  margin-top: 1em;
+  clear: both;
+}
+.strong-view.image-right-widget .testimonial-name {
+  font-weight: 700;
+}
+.strong-view.image-right-widget .readmore {
+  margin-top: 1em;
+}
+
+/* Responsive
+-----------------------------------------------*/
+@media only screen and (max-width: 480px) and (orientation: portrait) {
+  .strong-view.image-right-widget .strong-content .testimonial-image {
+    float: none;
+  }
+}
+/* RTL
+-----------------------------------------------*/
+.strong-view.image-right-widget.rtl .testimonial,
+.strong-view.image-right-widget.rtl .testimonial-inner,
+.strong-view.image-right-widget.rtl .testimonial-heading {
+  text-align: right;
+}
+.strong-view.image-right-widget.rtl .testimonial-image {
+  float: left;
+  margin-left: 0;
+  margin-right: 1em;
+}

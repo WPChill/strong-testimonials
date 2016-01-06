@@ -1,0 +1,29 @@
+/* Base
+-----------------------------------------------*/
+.strong-view.#{$template} {
+	display: block;
+	/* this handles short content */
+	width: 100%;
+
+	* {
+		box-sizing: border-box;
+	}
+
+	.testimonial-inner {
+		display: block;
+		/* fill horizontal & vertical space */
+		width: 100%;
+		height: 100%;
+	}
+
+	.strong_cycle .testimonial {
+		/* remove margin in slideshow */
+		margin-top: 0;
+		margin-bottom: 0;
+
+		&:not(:first-child) {
+			/* prevents flash on slow page load */
+			display: none;
+		}
+	}
+}

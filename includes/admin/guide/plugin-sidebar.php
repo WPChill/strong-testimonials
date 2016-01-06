@@ -12,8 +12,10 @@
 	);
 	?>
 	<div class="has-icon icon-help">
-		<strong><?php _e( 'Need help? Have an idea? Found a bug?', 'strong-testimonials' ); ?></strong>
-		<?php echo $link; ?>
+		<p><strong><?php _e( 'Help? Idea? Bug?', 'strong-testimonials' ); ?></strong></p>
+		<ul>
+			<li><?php echo $link; ?></li>
+		</ul>
 	</div>
 
 	<?php
@@ -26,8 +28,14 @@
 
 	$link2 = sprintf(
 		wp_kses(
-			__( '<a href="%s" target="_blank">Learn the [strong] shortcode</a>', 'strong-testimonials' ), $tags
+			__( '<a href="%s" target="_blank">See the new demos</a>', 'strong-testimonials' ), $tags
 		), esc_url( 'http://demos.wpmission.com/strong-testimonials/' )
+	);
+
+	$link3 = sprintf(
+		wp_kses(
+			__( '<a href="%s" target="_blank">Subscribe to the newsletter</a>', 'strong-testimonials' ), $tags
+		), esc_url( 'https://www.wpmission.com/newsletter' )
 	);
 	?>
 	<div class="has-icon icon-document">
@@ -35,6 +43,7 @@
 		<ul>
 			<li><?php echo $link1; ?></li>
 			<li><?php echo $link2; ?></li>
+			<li><?php echo $link3; ?></li>
 		</ul>
 	</div>
 
@@ -42,7 +51,7 @@
 	// How to help
 	$link1 = sprintf(
 		wp_kses(
-			__( '<a href="%s" target="_blank">Post an honest review</a> on wordpress.org.', 'strong-testimonials' ), $tags
+			__( 'Post an honest <a href="%s" target="_blank">review</a> on wordpress.org.', 'strong-testimonials' ), $tags
 		), esc_url( 'https://wordpress.org/support/view/plugin-reviews/strong-testimonials' ) );
 
 	$link2 = sprintf(
@@ -50,18 +59,12 @@
 			__( '<a href="%s" target="_blank">Donate</a> to the Theme & Plugin Compatibility Fund.', 'strong-testimonials' ), $tags
 		), esc_url( 'https://www.wpmission.com/donate' )
 	);
-	$link3 = sprintf(
-		wp_kses(
-			__( 'Submit <a href="%s" target="_blank">feature requests</a> to improve the plugin.', 'strong-testimonials' ), $tags
-		), esc_url( 'https://www.wpmission.com/feature-request/' )
-	);
 	?>
 	<div class="has-icon icon-donate">
 		<strong><?php _e( 'Want to help?', 'strong-testimonials' ); ?></strong><br>
 		<ul>
 			<li><?php echo $link1; ?></li>
 			<li><?php echo $link2; ?></li>
-			<li><?php echo $link3; ?></li>
 		</ul>
 	</div>
 

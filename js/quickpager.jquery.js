@@ -26,62 +26,65 @@
 	v1.2   09/29/2014
 	Modified for Strong Testimonials WordPress plugin by Chris Dillon
 	chris@wpmission.com
+
+	v1.3   01/05/2016
 */
 
 (function($) {
-	    
+
 	$.fn.quickPager = function(options) {
-	
+
 		var defaults = {
 			pageSize: 10,
 			currentPage: 1,
 			holder: null,
-			pagerLocation: "after"
+			pagerLocation: "after",
+			offset: 40
 		};
-		
+
 		var options = $.extend(defaults, options);
-		
-		
+
 		return this.each(function() {
-	
-						
-			var selector = $(this);	
+
+
+			var selector = $(this);
 			var pageCounter = 1;
-			
+
 			selector.wrap("<div class='simplePagerContainer'></div>");
-			
-			selector.children().each(function(i){ 
-					
+
+			selector.children().each(function(i){
+
 				if(i < pageCounter*options.pageSize && i >= (pageCounter-1)*options.pageSize) {
 				$(this).addClass("simplePagerPage"+pageCounter);
 				}
 				else {
 					$(this).addClass("simplePagerPage"+(pageCounter+1));
 					pageCounter ++;
-				}	
-				
+				}
+
 			});
-			
-			// show/hide the appropriate regions 
+
+			// show/hide the appropriate regions
 			selector.children().hide();
 			selector.children(".simplePagerPage"+options.currentPage).show();
-			
+
 			if(pageCounter <= 1) {
 				return;
 			}
-			
+
 			//Build pager navigation
-			var pageNav = "<ul class='simplePagerNav'>";	
-			for (i=1;i<=pageCounter;i++){
+			var pageNav = "<ul class='simplePagerNav'>";
+			for (var i = 1; i <= pageCounter; i++ ){
 				if (i==options.currentPage) {
-					pageNav += "<li class='currentPage simplePageNav"+i+"'><a rel='"+i+"' href='#'>"+i+"</a></li>";	
+					pageNav += "<li class='currentPage simplePageNav"+i+"'><a rel='"+i+"' href='#'>"+i+"</a></li>";
 				}
 				else {
 					pageNav += "<li class='simplePageNav"+i+"'><a rel='"+i+"' href='#'>"+i+"</a></li>";
 				}
 			}
 			pageNav += "</ul>";
-			
+			pageNav = "<div class='simplePagerList'>" + pageNav + "</div>";
+
 			if(!options.holder) {
 				switch(options.pagerLocation)
 				{
@@ -99,45 +102,49 @@
 			else {
 				$(options.holder).append(pageNav);
 			}
-			
+
 			//pager navigation behaviour
 			selector.parent().find(".simplePagerNav a").click(function() {
-					
-				//grab the REL attribute 
+
+				//grab the REL attribute
 				var clickedLink = $(this).attr("rel");
 				options.currentPage = clickedLink;
-				
+
 				if(options.holder) {
-					$(this).parent("li").parent("ul").parent(options.holder).find("li.currentPage").removeClass("currentPage");
-					$(this).parent("li").parent("ul").parent(options.holder).find("a[rel='"+clickedLink+"']").parent("li").addClass("currentPage");
+					$(this).closest(options.holder).find("li.currentPage").removeClass("currentPage");
+					$(this).closest(options.holder).find("a[rel='"+clickedLink+"']").parent("li").addClass("currentPage");
 				}
 				else {
-					//remove current current (!) page
-					$(this).parent("li").parent("ul").parent(".simplePagerContainer").find("li.currentPage").removeClass("currentPage");
-					//Add current page highlighting
-					$(this).parent("li").parent("ul").parent(".simplePagerContainer").find("a[rel='"+clickedLink+"']").parent("li").addClass("currentPage");
+					// Remove current page highlight
+					$(this).closest(".simplePagerContainer").find("li.currentPage").removeClass("currentPage");
+					// Add current page highlight
+					$(this).closest(".simplePagerContainer").find("a[rel='"+clickedLink+"']").parent("li").addClass("currentPage");
 				}
-				
-				//hide and show relevant links
-				selector.children().hide();			
+
+				// Hide and show relevant links
+				selector.children().hide();
 				selector.find(".simplePagerPage"+clickedLink).show();
-				
+
 				// Modified for Strong Testimonials
 				// --------------------------------
 				// Scroll up for any nav click
-				//
+				var containerOffset;
+
 				// Special cases:
 				//   WooCommerce product tabs
-				if(selector.closest(".woocommerce-tabs").length) {
-					var offset = selector.closest(".woocommerce-tabs").offset();
+				if( selector.closest(".woocommerce-tabs").length ) {
+					containerOffset = selector.closest(".woocommerce-tabs").offset();
 				} else {
-					var offset = selector.closest(".simplePagerContainer").offset();
+					containerOffset = selector.closest(".simplePagerContainer").offset();
 				}
-				var scrollto = offset.top;
+
+				var scrollto = containerOffset.top - options.offset;
+
 				// is WordPress admin bar showing?
-				if($("#wpadminbar").length) {
+				if( $("#wpadminbar").length ) {
 					scrollto -= 32;
 				}
+
 				$("html, body").animate({scrollTop:scrollto}, 800);
 
 				return false;

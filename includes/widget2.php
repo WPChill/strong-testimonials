@@ -1,7 +1,7 @@
 <?php
 /**
  * Strong Testimonials - View widget
- * 
+ *
  * @since 1.21.0
  */
 
@@ -9,16 +9,16 @@ class Strong_Testimonials_View_Widget extends WP_Widget {
 
 	function __construct() {
 
-		parent::__construct( 
-			'strong-testimonials-view-widget', 
-			_x( 'Strong Testimonials', 'widget label', 'strong-testimonials' ),
+		parent::__construct(
+			'strong-testimonials-view-widget',
+			_x( 'Strong Testimonials View', 'widget label', 'strong-testimonials' ),
 			array(
 				'classname'   => 'strong-testimonials-view-widget',
 				'description' => _x( 'Add one of your testimonial views.', 'widget description', 'strong-testimonials' )
 			),
 			array(
 				'id_base' => 'strong-testimonials-view-widget',
-			) 
+			)
 		);
 
 		$this->defaults = array(
@@ -43,7 +43,7 @@ class Strong_Testimonials_View_Widget extends WP_Widget {
 		 */
 		if ( isset( $data['view'] ) && $data['view'] )
 			echo wpmtst_strong_view_shortcode( $instance, null );
-		
+
 		echo $data['after_widget'];
 	}
 

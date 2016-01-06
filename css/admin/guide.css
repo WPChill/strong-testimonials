@@ -35,13 +35,13 @@ section {
 }
 
 .guide-content h3 {
-	color: #0276FD;
+	color: #00A4F3;
 	font-size: 1.5em;
 	margin: 1.5em 0 1em;
 }
 
 .guide-content h4 {
-	font-size: 1.2em;
+	font-size: 16px;
 	margin: 2em 0 1em;
 }
 /*
@@ -62,17 +62,66 @@ section {
 }
 
 .guide-content ul {
-	font-size: 1.1em;
+	font-size: 14px;
 }
+
 .guide-content ul:not(.ui-tabs-nav) > li {
 	list-style-type: disc;
 	margin-left: 1.3em;
 	padding-left: .3em;
 }
 
+.guide-content ul ul {
+	margin-top: 0.3em;
+	margin-bottom: 1.2em;
+}
+
+.guide-content.translation section > ul > li {
+	font-weight: 700;
+}
+
+.guide-content.translation ul ul li {
+	font-weight: 400;
+	list-style-type: none;
+	margin-left: 0;
+	padding: 0;
+}
+
 .guide-content p.first {
 	margin-top: 2em;
 	margin-bottom: 2em;
+}
+
+/* Welcome page
+------------------------------------------------*/
+.wrap.welcome {
+	padding: 1em;
+}
+
+.wrap.welcome h3.large {
+	color: #00A4F3;
+	font-size: 36px;
+	font-weight: 700;
+	margin: 1em 0;
+}
+
+.wrap.welcome h3.large {
+	margin: 0.7em 0 1.4em;
+}
+
+.wrap.welcome h4.large {
+	font-size: 1.6em;
+}
+
+.wrap.welcome p {
+	font-size: 1.2em;
+}
+
+.wrap.welcome code {
+	font-size: 1.1em;
+	background: none;
+	padding: 0;
+	margin: 0;
 }
 
 /*
@@ -189,7 +238,7 @@ table.reference td {
 }
 table.reference tr.heading {
 	border: 1px solid #9AC8FE;
-	color: #0276FD;
+	color: #00A4F3;
 	font-size: 0.9em;
 }
 table.reference tr.heading th {
@@ -263,7 +312,7 @@ table.reference tr.example table tr:hover td {
 
 table.reference .dashicons {
 	font-size: 1.7em;
-	color: #0276FD;
+	color: #00A4F3;
 }
 
 /* wide */

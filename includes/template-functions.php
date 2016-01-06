@@ -6,6 +6,46 @@
  */
 
 /**
+ * Template function for showing a View.
+ * Merely a wrapper for the [strong] shortcode until that's removed in version 2.0.
+ *
+ * @since 1.25.0
+ *
+ * @param null $id
+ */
+function strong_testimonials_view( $id = null ) {
+	if ( !$id ) return;
+
+	$out   = WPMST()->get_view_defaults();
+	$pairs = array();
+	$atts  = array( 'id' => $id );
+	$out   = WPMST()->parse_view( $out, $pairs, $atts );
+
+	// container_class is shared by display and form in both original and new default templates
+	$options = get_option( 'wpmtst_options' );
+	$out['container_class'] = 'strong-view-id-' . $out['view'];
+
+	if ( $out['class'] ) {
+		$out['container_class'] .= ' ' . str_replace( ',', ' ', $out['class'] );
+	}
+	if ( is_rtl() ) {
+		$out['container_class'] .= ' rtl';
+	}
+	WPMST()->set_atts( $out );
+
+	/**
+	 * MODE: FORM
+	 */
+	if ( $out['form'] )
+		echo wpmtst_form_shortcode( $out );
+
+	/**
+	 * MODE: DISPLAY (default)
+	 */
+	echo wpmtst_display_view( $out );
+}
+
+/**
  * @param string $before
  * @param string $after
  */
@@ -312,23 +352,41 @@ function wpmtst_client_section( $client_section ) {
 	return $html;
 }
 
+/**
+ * Read More link to the post or a page.
+ */
 function wpmtst_read_more() {
 	$atts = WPMST()->atts( array( 'more_post', 'more_page', 'more_text' ) );
+
 	if ( $atts['more_post'] ) {
-		echo '<div class="readmore"><a href="' . get_permalink() . '">' . $atts['more_text'] . '</a></div>';
+		$permalink = get_permalink();
 	}
-	if ( $atts['more_page'] ) {
-		/**
-		 * more_page - "Read more" link to a page by ID or slug
-		 *
-		 * @since 1.20.0
-		 */
-		if ( ! is_numeric( $atts['more_page'] ) ) {
-			$post_object = get_page_by_slug( $atts['more_page'] );
-			$atts['more_page'] = $post_object->ID;
-		}
-		echo '<div class="readmore"><a href="' . get_permalink( $atts['more_page'] ) . '">' . $atts['more_text'] . '</a></div>';
+	elseif ( $atts['more_page'] ) {
+		$permalink = wpmtst_get_permalink( $atts['more_page'] );
 	}
+	else {
+		$permalink = false;
+	}
+
+	if ( $permalink ) {
+		echo '<div class="readmore"><a href="' . $permalink . '">' . $atts['more_text'] . '</a></div>';
+	}
+}
+
+/**
+ * Get permalink by ID or slug.
+ *
+ * @since 1.25.0
+ * @param $page_id
+ *
+ * @return false|string
+ */
+function wpmtst_get_permalink( $page_id ) {
+	if ( ! is_numeric( $page_id ) ) {
+		$page = get_page_by_path( $page_id );
+		$page_id = $page->ID;
+	}
+	return get_permalink( $page_id );
 }
 
 function wpmtst_container_class() {

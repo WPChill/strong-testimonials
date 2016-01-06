@@ -1,0 +1,91 @@
+/**
+ * Strong Testimonials Default Dark template
+ */
+
+$template: default-dark;
+
+@import "../_mixins/testimonial";
+
+@import "../_partials/clear";
+@import "../_partials/base";
+@import "../_partials/pagination";
+
+/* Template
+-----------------------------------------------*/
+.strong-view.#{$template} {
+	.strong-content {
+		margin: 20px auto;
+	}
+
+	.testimonial {
+		@include testimonial;
+		border: 1px solid #777;
+	}
+
+	.testimonial-inner {
+		border: 1px solid #333;
+		padding: 20px;
+		text-align: left;
+	}
+
+	.testimonial-heading {
+		background: url("img/quotes.png") no-repeat scroll left center transparent;
+		margin-top: 0;
+		padding-left: 40px;
+		text-align: left;
+	}
+
+	.testimonial-content {
+		@include paragraphs;
+	}
+
+	.testimonial-image {
+		margin-top: .25em;
+		margin-right: 1em;
+		margin-bottom: 0.25em;
+		float: left;
+
+		img {
+			background: none repeat scroll 0 0 #FFFFFF;
+			border: 1px solid #EFEFEF;
+			padding: 6px;
+		}
+	}
+
+	.testimonial-client {
+		margin-top: 1em;
+		text-align: right;
+	}
+
+	.testimonial-name {
+		font-weight: bold;
+	}
+
+	.readmore {
+		margin-top: 1em;
+	}
+}
+
+/* Template variant overrides
+-----------------------------------------------*/
+.strong-view.#{$template} {
+
+	ul.simplePagerNav {
+		li {
+			a:hover {
+				background: #777;
+				color: #FFF;
+			}
+
+			&.currentPage a {
+				background: #555;
+				color: #FFF;
+			}
+		}
+	}
+}
+
+@import "../_partials/responsive";
+@import "../_partials/responsive-no-heading-background";
+
+@import "../_partials/rtl";

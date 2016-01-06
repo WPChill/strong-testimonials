@@ -1,19 +1,21 @@
 <?php
 /**
  * The form.
- * 
+ *
  * @param $atts
  *
  * @return mixed|string|void
  */
 function wpmtst_form_shortcode( $atts ) {
-	
-	if ( isset( $_GET['success'] ) )
-		return '<div class="testimonial-success">' . wpmtst_get_form_message( 'submission-success' ) . '</div>';
-	
+	global $strong_templates;
+
+	if ( isset( $_GET['success'] ) ) {
+		return '<div class="testimonial-success">' . wpmtst_get_form_message('submission-success') . '</div>';
+	}
+
 	//TODO trim down atts?
-	//extract( normalize_empty_atts( $atts ) );
-	$atts = normalize_empty_atts( $atts );
+	extract( normalize_empty_atts( $atts ) );
+	//$atts = normalize_empty_atts( $atts );
 
 	// initialize
 	$field_options       = get_option( 'wpmtst_fields' );
@@ -21,7 +23,8 @@ function wpmtst_form_shortcode( $atts ) {
 	$current_field_group = $field_groups[ $field_options['current_field_group'] ];
 	$fields              = $current_field_group['fields'];
 
-	$form_values = array( 'category' => $atts['category'] );
+	//$form_values = array( 'category' => $atts['category'] );
+	$form_values = array( 'category' => $category );
 	foreach ( $fields as $key => $field ) {
 		$form_values[ $field['name'] ] = '';
 	}
@@ -31,14 +34,37 @@ function wpmtst_form_shortcode( $atts ) {
 	}
 	WPMST()->set_form_values( $form_values );
 
-	$template_file = wpmtst_find_form_template( $atts['template'], $atts['view'] );
+	/**
+	 * Add filters here.
+	 */
+
+	/**
+	 * Load template
+	 */
+	if ( $view ) {
+		$template_file = $strong_templates->get_template_attr( $atts, 'template' );
+	}
+	else {
+		// [strong] shortcode
+		$template_file = wpmtst_find_template( 'testimonial-form', $template );
+	}
 
 	ob_start();
 	include $template_file;
 	$html = ob_get_contents();
 	ob_end_clean();
 
+	/**
+	 * Remove filters here.
+	 */
+
+	if ( $view ) {
+		do_action( 'wpmtst_form_rendered', $atts );
+	}
+
+	// TODO Different filter?
 	$html = apply_filters( 'strong_html', $html );
+
 	return $html;
 }
 
@@ -50,7 +76,7 @@ function wpmtst_honeypot_before() {
 		do_action( 'honeypot_before_spam_testimonial', $_POST );
 		$form_options = get_option( 'wpmtst_form_options' );
 		$messages     = $form_options['messages'];
-		die( apply_filters( 'wpmtst_l10n', $messages['submission-error']['text'], wpmtst_get_l10n_context( 'form-messages' ), $messages['submission-error']['description'] ) );
+		die( apply_filters( 'wpmtst_l10n', $messages['submission-error']['text'], 'strong-testimonials-form-messages', $messages['submission-error']['description'] ) );
 	}
 	return;
 }
@@ -64,7 +90,7 @@ function wpmtst_honeypot_after() {
 		do_action( 'honeypot_after_spam_testimonial', $_POST );
 		$form_options = get_option( 'wpmtst_form_options' );
 		$messages     = $form_options['messages'];
-		die( apply_filters( 'wpmtst_l10n', $messages['submission-error']['text'], wpmtst_get_l10n_context( 'form-messages' ), $messages['submission-error']['description'] ) );
+		die( apply_filters( 'wpmtst_l10n', $messages['submission-error']['text'], 'strong-testimonials-form-messages', $messages['submission-error']['description'] ) );
 	}
 	return;
 }
@@ -76,7 +102,7 @@ function wpmtst_honeypot_after() {
 function wpmtst_honeypot_before_script() {
 	?>
 <script type="text/javascript">jQuery('#wpmtst_if_visitor').val('');</script>
-	<?php 
+	<?php
 }
 
 
@@ -121,27 +147,27 @@ function wpmtst_validation_function() {
 
 /**
  * ---------------------------------------------------------------------------
- * 
+ *
  *     FORM TEMPLATE FUNCTIONS
- * 
+ *
  * ---------------------------------------------------------------------------
  */
 
 function wpmtst_form_info() {
-	// action="' . admin_url( 'admin-post.php' ) . '"
-	echo 'id="wpmtst-submission-form" method="post" enctype="multipart/form-data"';
+	if ( wpmtst_using_form_validation_script() )
+		$action = sprintf( ' action="%s"', admin_url('admin-post.php') );
+	else
+		$action = '';
+
+	echo 'id="wpmtst-submission-form" method="post"' . $action . ' enctype="multipart/form-data"';
 }
 
-
-function wpmtst_form_hidden_fields() {
+function wpmtst_form_setup() {
 	$form_values = WPMST()->get_form_values();
-	echo '<input type="hidden" name="action" value="wpmtst_form">';
-	echo '<input type="hidden" name="category" value="'. $form_values['category'] .'">';
-
-}
-
-function wpmtst_form_nonce() {
 	wp_nonce_field( 'wpmtst_form_action', 'wpmtst_form_nonce', true, true );
+	echo '<input type="hidden" name="action" value="wpmtst_form">'."\n";
+	echo '<input type="hidden" name="category" value="'. $form_values['category'] .'">'."\n";
+
 }
 
 function wpmtst_form_message( $part ) {
@@ -152,7 +178,7 @@ function wpmtst_get_form_message( $part ) {
 	$form_options = get_option( 'wpmtst_form_options' );
 	$messages = $form_options['messages'];
 	if ( isset( $messages[$part]['text'] ) ) {
-		return apply_filters( 'wpmtst_l10n', $messages[$part]['text'], wpmtst_get_l10n_context( 'form-messages' ), $messages[$part]['description'] );
+		return apply_filters( 'wpmtst_l10n', $messages[$part]['text'], 'strong-testimonials-form-messages', $messages[$part]['description'] );
 	}
 }
 
@@ -180,10 +206,9 @@ function wpmtst_form_field( $field_name ) {
 
 function wpmtst_single_form_field( $field ) {
 	$form_values = WPMST()->get_form_values();
-	$context = wpmtst_get_l10n_context( 'form-fields' );
 
 	echo '<p class="form-field">';
-	echo '<label for="wpmtst_' . $field['name'] . '">' . apply_filters( 'wpmtst_l10n', $field['label'], $context, $field['name'] ) . '</label>';
+	echo '<label for="wpmtst_' . $field['name'] . '">' . apply_filters( 'wpmtst_l10n', $field['label'], 'strong-testimonials-form-fields', $field['name'] . ' : label' ) . '</label>';
 
 	wpmtst_field_required_symbol( $field );
 	wpmtst_field_before( $field );
@@ -201,13 +226,13 @@ function wpmtst_single_form_field( $field ) {
 				. wpmtst_field_required_tag( $field ) . ' autocomplete="off">';
 			echo '<option value="">&mdash;</option>';
 			foreach ( $category_list as $category ) {
-				echo '<option value="' . $category->term_id . '" ' . selected( $category->term_id, $value ) . '>'; 
+				echo '<option value="' . $category->term_id . '" ' . selected( $category->term_id, $value ) . '>';
 				echo $category->name;
 				echo '</option>';
 			}
 			echo '</select>';
 			break;
-		
+
 		case 'textarea':
 			$value = ( isset( $form_values[ $field['name'] ] ) && $form_values[ $field['name'] ] ) ? $form_values[ $field['name'] ] : '';
 			// textarea tags must be on same line for placeholder to work
@@ -239,7 +264,7 @@ function wpmtst_single_form_field( $field ) {
 	}
 	wpmtst_field_error( $field );
 	wpmtst_field_after( $field );
-	echo '</p>';
+	echo '</p>'."\n";
 }
 
 function wpmtst_field_classes( $type = null, $name = null ) {
@@ -270,10 +295,17 @@ function wpmtst_field_classes( $type = null, $name = null ) {
 }
 
 function wpmtst_field_placeholder( $field ) {
-	if ( isset( $field['placeholder'] ) && $field['placeholder'] )
-		return ' placeholder="' . $field['placeholder'] . '"';
+	if ( isset( $field['placeholder'] ) && $field['placeholder'] ) {
+		return ' placeholder="' . apply_filters( 'wpmtst_l10n', $field['placeholder'], 'strong-testimonials-form-fields', $field['name'] . ' : placeholder' ) . '"';
+	}
 }
 
+/**
+ * HTML tag: required
+ *
+ * @param $field
+ * @return string
+ */
 function wpmtst_field_required_tag( $field ) {
 	if ( isset( $field['required'] ) && apply_filters( 'wpmtst_field_required_tag', $field['required'] ) )
 		return ' required';
@@ -286,16 +318,13 @@ function wpmtst_field_required_symbol( $field ) {
 
 function wpmtst_field_before( $field ) {
 	if ( isset( $field['before'] ) && $field['before'] ) {
-		$context = wpmtst_get_l10n_context( 'form-fields' );
-		echo '<span class="before">' . apply_filters( 'wpmtst_l10n', $field['before'], $context, $field['name'] . ' : before' ) . '</span>';
+		echo '<span class="before">' . apply_filters( 'wpmtst_l10n', $field['before'], 'strong-testimonials-form-fields', $field['name'] . ' : before' ) . '</span>';
 	}
 }
 
 function wpmtst_field_after( $field ) {
 	if ( isset( $field['after'] ) && $field['after'] ) {
-		$context = wpmtst_get_l10n_context( 'form-fields' );
-		//echo '<span class="after">' . $field['after'] . '</span>';
-		echo '<span class="after">' . apply_filters( 'wpmtst_l10n', $field['after'], $context, $field['name'] . ' : after' ) . '</span>';
+		echo '<span class="after">' . apply_filters( 'wpmtst_l10n', $field['after'], 'strong-testimonials-form-fields', $field['name'] . ' : after' ) . '</span>';
 	}
 }
 
@@ -343,9 +372,13 @@ add_action( 'wpmtst_form_after_fields', 'wpmtst_form_captcha' );
 function wpmtst_form_submit_button() {
 	$form_options = get_option( 'wpmtst_form_options' );
 	$messages     = $form_options['messages'];
+
+	$string   = $messages['form-submit-button']['text'];
+	$context  = 'strong-testimonials-form-messages';
+	$name     = $messages['form-submit-button']['description'];
 	?>
 	<p class="form-field submit">
-		<input type="submit" id="wpmtst_submit_testimonial" name="wpmtst_submit_testimonial" value="<?php echo $messages['form-submit-button']['text']; ?>" class="button">
+		<input type="submit" id="wpmtst_submit_testimonial" name="wpmtst_submit_testimonial" value="<?php echo apply_filters( 'wpmtst_l10n', $string, $context, $name ); ?>" class="button">
 	</p>
 	<?php
 	// validate="required:true"

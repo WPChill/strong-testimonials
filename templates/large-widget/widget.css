@@ -1,0 +1,101 @@
+/**
+ * Strong Testimonials Large Widget template
+ */
+/* Clears
+-----------------------------------------------*/
+.clear {
+  clear: both;
+}
+
+/**
+Minimum paragraph width means no short words in skinny space next to image
+in columns or small screens.
+
+This workaround is needed until we can use flexbox properly
+or CSS offers container queries.
+
+Thanks https://css-tricks.com/minimum-paragraph-widths/
+*/
+.maybe-clear {
+  content: "";
+  /* this value seems to work well in both responsive and Masonry */
+  width: 6em;
+  display: block;
+  overflow: hidden;
+}
+
+/* Base
+-----------------------------------------------*/
+.strong-view.large-widget {
+  display: block;
+  /* this handles short content */
+  width: 100%;
+}
+.strong-view.large-widget * {
+  box-sizing: border-box;
+}
+.strong-view.large-widget .testimonial-inner {
+  display: block;
+  /* fill horizontal & vertical space */
+  width: 100%;
+  height: 100%;
+}
+.strong-view.large-widget .strong_cycle .testimonial {
+  /* remove margin in slideshow */
+  margin-top: 0;
+  margin-bottom: 0;
+}
+.strong-view.large-widget .strong_cycle .testimonial:not(:first-child) {
+  /* prevents flash on slow page load */
+  display: none;
+}
+
+.strong-view.large-widget {
+  margin-bottom: 1em;
+}
+.strong-view.large-widget .testimonial {
+  margin-bottom: 1em;
+  text-align: center;
+  width: 100%;
+}
+.strong-view.large-widget .testimonial-inner {
+  /* custom background color is applied here */
+  padding: 20px;
+  border-radius: 3px;
+}
+.strong-view.large-widget .testimonial-content p:first-of-type {
+  margin-top: 0;
+  padding-top: 0;
+}
+.strong-view.large-widget .testimonial-content p:last-of-type {
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+.strong-view.large-widget .testimonial-image {
+  margin: 10px auto 20px;
+}
+.strong-view.large-widget .testimonial-image img {
+  border-radius: 3px;
+  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.4);
+}
+.strong-view.large-widget .testimonial-content {
+  font-size: 2.2em;
+  line-height: 1.4;
+}
+.strong-view.large-widget .testimonial-client {
+  font-size: 1.2em;
+  margin-top: 1em;
+}
+.strong-view.large-widget .testimonial-name {
+  font-weight: 700;
+}
+.strong-view.large-widget .readmore {
+  margin-top: 1.2em;
+}
+.strong-view.large-widget .readmore a {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 3px;
+  font-size: 1.2em;
+  padding: 0.5em;
+  display: block;
+}

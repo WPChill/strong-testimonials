@@ -6,14 +6,14 @@
  */
 
 function wpmtst_default_settings() {
-	
+
 	$current_plugin_version = get_option( 'wpmtst_plugin_version' );
 	$plugin_data            = get_plugin_data( dirname( dirname( dirname( __FILE__ ) ) ) . '/strong-testimonials.php', false );
 	$plugin_version         = $plugin_data['Version'];
-	
+
 	if ( $current_plugin_version == $plugin_version )
 		return;
-	
+
 	// -1- DEFAULTS
 	include_once WPMTST_INC . 'defaults.php';
 	$default_options       = wpmtst_get_default_options();
@@ -23,7 +23,7 @@ function wpmtst_default_settings() {
 	$default_view_options  = wpmtst_get_default_view_options();
 	$default_view          = wpmtst_get_default_view();
 	$default_l10n_contexts = wpmtst_get_default_l10n_contexts();
-	
+
 	// -2- GET OPTIONS
 	$options = get_option( 'wpmtst_options' );
 	if ( ! $options ) {
@@ -35,19 +35,19 @@ function wpmtst_default_settings() {
 		// Fix captcha inconsistency
 		if ( isset( $options['captcha'] ) && 'none' == $options['captcha'] )
 			$options['captcha'] = '';
-			
+
 		// Change target parameter in client section
 		$options['default_template'] = str_replace( 'target="_blank"', 'new_tab', $options['default_template'] );
 
 		// Remove plugin version
-		if ( isset( $options['plugin_version'] ) ) 
+		if ( isset( $options['plugin_version'] ) )
 			unset( $options['plugin_version'] );
-		
+
 		// Merge in new options
 		$options = array_merge( $default_options, $options );
 		update_option( 'wpmtst_options', $options );
 	}
-	
+
 	// -3- GET FIELDS
 	$fields = get_option( 'wpmtst_fields', array() );
 	if ( ! $fields ) {
@@ -79,7 +79,7 @@ function wpmtst_default_settings() {
 				$new_field_types['custom'][$field_name]['option_label'] = 'url';
 			}
 		}
-		
+
 		// first check for new default types like "optional"
 		foreach ( $default_fields['field_types'] as $type_name => $type_array ) {
 			if ( ! isset( $new_field_types[ $type_name ] ) ) {
@@ -122,7 +122,7 @@ function wpmtst_default_settings() {
 		// WPML
 		wpmtst_form_fields_wpml( $fields['field_groups']['custom']['fields'] );
 	}
-	
+
 	// -4- GET CYCLE
 	$cycle = get_option( 'wpmtst_cycle' );
 	if ( ! $cycle ) {
@@ -178,7 +178,7 @@ function wpmtst_default_settings() {
 		$cycle = array_merge( $default_cycle, $cycle );
 		update_option( 'wpmtst_cycle', $cycle );
 	}
-	
+
 	/**
 	 * -5- GET FORM OPTIONS
 	 *
@@ -188,15 +188,15 @@ function wpmtst_default_settings() {
 	if ( ! $form_options ) {
 		// -5A- NEW ACTIVATION
 		$form_options = $default_form_options;
-		
+
 		// -5B- MOVE EXISTING OPTIONS
 		if ( isset( $options['admin_notify'] ) ) {
 			$form_options['admin_notify']    = $options['admin_notify'];
 			$form_options['admin_email']     = $options['admin_email'];
 			$form_options['captcha']         = $options['captcha'];
 			$form_options['honeypot_before'] = $options['honeypot_before'];
-			$form_options['honeypot_after']  = $options['honeypot_after'];	
-			
+			$form_options['honeypot_after']  = $options['honeypot_after'];
+
 			unset( $options['admin_notify'] );
 			unset( $options['admin_email'] );
 			unset( $options['captcha'] );
@@ -204,7 +204,7 @@ function wpmtst_default_settings() {
 			unset( $options['honeypot_after'] );
 			update_option( 'wpmtst_options', $options );
 		}
-		
+
 		update_option( 'wpmtst_form_options', $form_options );
 		// WPML
 		wpmtst_form_messages_wpml( $form_options['messages'] );
@@ -213,7 +213,7 @@ function wpmtst_default_settings() {
 		// -5C- UPDATE
 		/**
 		 * Update single email recipient to multiple.
-		 * 
+		 *
 		 * @since 1.18
 		 */
 		$recipients = array(
@@ -225,11 +225,11 @@ function wpmtst_default_settings() {
 			),
 		);
 		$form_options['recipients'] = $recipients;
-		
+
 		unset( $form_options['admin_name'] );
 		unset( $form_options['admin_site_email'] );
 		unset( $form_options['admin_email'] );
-		
+
 		// Merge in new options
 		$form_options = array_merge( $default_form_options, $form_options );
 		update_option( 'wpmtst_form_options', $form_options );
@@ -260,33 +260,76 @@ function wpmtst_default_settings() {
 	 * @since 1.21.0
 	 */
 	$current_default_view = get_option( 'wpmtst_view_default' );
-	if ( ! $current_default_view ) {
+
+	if ( !$current_default_view ) {
+
 		// -7A- NEW ACTIVATION
-		$current_default_view = $default_view;
+		update_option( 'wpmtst_view_default', $default_view );
+
 	} else {
+
 		// -7B- UPDATE
-		
-		// Merge in new options
-		$current_default_view = array_merge( $default_view, $current_default_view );
-	}
-	update_option( 'wpmtst_view_default', $default_view );
-	
-	/**
-	 * Update views
-	 */
-	$views = wpmtst_get_views();
-	foreach ( $views as $view ) {
-		$view_data = unserialize( $view['value'] );
-		if ( is_array( $view_data) ) {
+
+		// Remove any options that have new default settings
+		unset( $current_default_view['template'], $current_default_view['background'] );
+
+		$new_default_view = array_merge( $current_default_view, $default_view );
+		ksort($new_default_view);
+		update_option( 'wpmtst_view_default', $new_default_view );
+
+		/**
+		 * Update each View
+		 */
+		$views = wpmtst_get_views();
+		foreach ( $views as $view ) {
+			$view_data = unserialize( $view['value'] );
+			if ( !is_array( $view_data ) )
+				continue;
+
+			// Change default template from empty to 'default:{type}'
+			if ( !$view_data['template'] ) {
+				if ( 'form' == $view_data['mode'] )
+					$type = 'form';
+				else
+					$type = 'content'; // list or slideshow
+
+				$view_data['template'] = "default:$type";
+			}
+
+			// Convert widget template name
+			if ( 'widget/testimonials.php' == $view_data['template'] ) {
+				$view_data['template'] = 'default:widget';
+			}
+
+			// Convert count value of -1 to 'all'
+			if ( -1 == $view_data['count'] ) {
+				$view_data['count'] = 1;
+				$view_data['all']   = 1;
+			}
+
+			// Convert background color
+			if ( is_string( $view_data['background'] ) ) {
+				$view_data['background'] = array(
+					'color' => $view_data['background'],
+					'type'  => 'single',
+				);
+			}
+
 			// Merge in new default values
-			$view['data'] = array_merge( $current_default_view, $view_data );
-		}
-		wpmtst_save_view( $view );
+			$view['data'] = array_merge( $new_default_view, $view_data );
+
+			// Merge nested arrays individually. Don't use array_merge_recursive.
+			$view['data']['background'] = array_merge( $new_default_view['background'], $view_data['background'] );
+
+			wpmtst_save_view( $view );
+
+		} // foreach $view
+
 	}
 
 	/**
 	 * -8- GET L10N CONTEXTS
-	 * 
+	 *
 	 * @since 1.21.0
 	 */
 	$contexts = get_option( 'wpmtst_l10n_contexts' );
@@ -301,13 +344,35 @@ function wpmtst_default_settings() {
 	}
 
 	/**
-	 * Final step: Update the plugin version.
+	 * Update the plugin version.
 	 */
 	update_option( 'wpmtst_plugin_version', $plugin_version );
+
+	/**
+	 * Remove older attempts at admin notices.
+	 */
 	delete_option( 'wpmtst_admin_notices' );
 	delete_option( 'wpmtst_news_flag' );
-	// if ( version_compare( $current_plugin_version, '1.21', '<' ) ) {
-		// add_option( 'wpmtst_update_redirect', true );
-	// }
-	
+
+	/**
+	 * Our welcome page
+	 */
+	wpmtst_activate_about_page();
+
+}
+
+
+/**
+ * Redirect automatically to the About Page
+ */
+function wpmtst_redirect_about_page() {
+	if ( !current_user_can( 'manage_options' ) )
+		return;
+
+	if ( !get_transient( 'wpmtst_about_page_activated' ) )
+		return;
+
+	delete_transient( 'wpmtst_about_page_activated' );
+	wp_safe_redirect( admin_url( 'edit.php?post_type=wpm-testimonial&page=guide&tab=welcome') );
+	exit;
 }

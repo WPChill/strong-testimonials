@@ -2,30 +2,112 @@
  * Strong Testimonials - Views
  */
 
+// Function to get the Max value in Array
+Array.max = function( array ){
+	return Math.max.apply( Math, array );
+};
+
+// Convert "A String" to "a_string"
+function convertLabel(label) {
+	return label.replace(/\s+/g, "_").replace(/\W/g, "").toLowerCase();
+}
+
+/**
+ * jQuery alterClass plugin
+ *
+ * Remove element classes with wildcard matching. Optionally add classes:
+ *   $( '#foo' ).alterClass( 'foo-* bar-*', 'foobar' )
+ *
+ * https://gist.github.com/peteboere/1517285
+ *
+ * Copyright (c) 2011 Pete Boere (the-echoplex.net)
+ * Free under terms of the MIT license: http://www.opensource.org/licenses/mit-license.php
+ */
+(function ( $ ) {
+
+	$.fn.alterClass = function ( removals, additions ) {
+
+		var self = this;
+
+		if ( removals.indexOf( '*' ) === -1 ) {
+			// Use native jQuery methods if there is no wildcard matching
+			self.removeClass( removals );
+			return !additions ? self : self.addClass( additions );
+		}
+
+		var patt = new RegExp( '\\s' +
+			removals.
+			replace( /\*/g, '[A-Za-z0-9-_]+' ).
+			split( ' ' ).
+			join( '\\s|\\s' ) +
+			'\\s', 'g' );
+
+		self.each( function ( i, it ) {
+			var cn = ' ' + it.className + ' ';
+			while ( patt.test( cn ) ) {
+				cn = cn.replace( patt, ' ' );
+			}
+			it.className = $.trim( cn );
+		});
+
+		return !additions ? self : self.addClass( additions );
+	};
+
+})( jQuery );
+
+jQuery(window).on('load', function () {
+	jQuery(".view-layout-masonry .example-container")
+		.find(".box")
+			.width( jQuery(".grid-sizer").width() )
+		.end()
+		.masonry();
+});
+
 jQuery(document).ready(function($) {
 	'use strict';
 
-	// Function to get the Max value in Array
-	Array.max = function( array ){
-		return Math.max.apply( Math, array );
-	};
+	// Masonry example
+	var masonryExample = $(".view-layout-masonry .example-container");
+	masonryExample.find(".box").width( $(".grid-sizer").width() ).end().masonry({
+		columnWidth: '.grid-sizer',
+		gutter: 10,
+		itemSelector: '.box',
+		percentPosition: true
+	});
 
-	// Convert "A String" to "a_string"
-	function convertLabel(label) {
-		return label.replace(/\s+/g, "_").replace(/\W/g, "").toLowerCase();
+	// Column count selector
+	var columnCount = $("#view-column-count");
+	var columnCountChange = function () {
+		var col = columnCount.val();
+		$(".example-container").alterClass("col-*", "col-" + col);
+		masonryExample.find(".box").width( $(".grid-sizer").width() ).end().masonry();
 	}
 
-	// UI
+	columnCountChange();
+	columnCount.on("change", columnCountChange);
+	$("input[name='view[data][layout]']").on("change",function(){
+		if ( 'masonry' == $(this).val() ) {
+			setTimeout( columnCountChange, 200);
+		}
+	});
 
 	// Background color picker
 	var myOptions = {
 		// you can declare a default color here,
 		// or in the data-default-color attribute on the input
-		defaultColor: false,
+		//defaultColor: '#FFFFFF',
 		// a callback to fire whenever the color changes to a valid color
-		//change: function(event, ui){},
+		change: function(event, ui){
+			setTimeout( function() {
+				updateBackgroundPreview();
+			}, 250);
+		},
 		// a callback to fire when the input is emptied or an invalid color
-		//clear: function() {},
+		clear: function(event, ui) {
+			setTimeout( function() {
+				updateBackgroundPreview();
+			}, 250);
+		},
 		// hide the color picker controls on load
 		//hide: true,
 		// show a group of common colors beneath the square
@@ -33,75 +115,20 @@ jQuery(document).ready(function($) {
 		palettes: true
 	};
 	$('.wp-color-picker-field').wpColorPicker(myOptions);
-	
-	// Toggle screenshot
-	$("#toggle-screen-options").add("#screenshot-screen-options").click(function(e) {
-		$("#screenshot-screen-options").slideToggle();
-		e.preventDefault();
-	}).blur();
 
-	$("#view-content").change(function(){
-		$("#screenshot-screen-options").slideUp();
-	});
-	
-	// Restore defaults
-	$("#restore-defaults").click(function(){
-		return confirm("Restore the default settings?");
+	/**
+	 * Example font color toggle
+	 */
+	$("input[name='view[data][background][example-font-color]']").on("change", function() {
+		$("#background-preview").toggleClass("light dark");
 	});
 
 	/**
-	 * Categories
-	 */
-	var catAllOption = $("#view_category_all");
-	var catListOption = $("#view_category_list");
-
-	function setCategoryAllCheckbox() {
-		catAllOption.prop("checked", true).attr("disabled","disabled");
-		// check all the other boxes
-		catListOption.find("input:checkbox").prop("checked", true);
-	}
-
-	catListOption.change(function(){
-
-		// checked group
-		var $checked = $(this).find("input:checkbox:checked");
-
-		// unchecked group
-		var $unchecked = $(this).find("input:checkbox:not(:checked)");
-
-		if ($checked.length > 0) {  // if any checked
-
-			if ($unchecked.length == 0) {
-			  // if all checked, check the "All" box and disable it
-				catAllOption.prop("checked", true).attr("disabled","disabled");
-			} else {
-				// some checked, uncheck the "all" box and enable it
-				catAllOption.prop("checked", false).removeAttr("disabled");
-			}
-
-		} else {  // none checked
-
-			// check the "All" box and enable it
-			catAllOption.prop("checked", true).attr("disabled","disabled");
-
-			// check all the other boxes
-			catListOption.find("input:checkbox").prop("checked", true);
-
-		}
-
+	 * Restore defaults
+ 	 */
+	$("#restore-defaults").click(function(){
+		return confirm("Restore the default settings?");
 	});
-
-	updateViewCategoryAll();
-	catAllOption.change( updateViewCategoryAll );
-	
-	function updateViewCategoryAll() {
-		if (catAllOption.is(":checked")) {
-			// check all the other boxes
-			catListOption.find("input:checkbox").prop("checked", true);
-			// disable the "All" box
-			catAllOption.attr("disabled","disabled");
-		}
-	}
 
 	/**
 	 * -----------------
@@ -125,12 +152,9 @@ jQuery(document).ready(function($) {
 		 */
 		switch (mode) {
 			case 'form':
-				// deselect categories if switching to Form
-				//$('#view_category_list_form input[type="checkbox"]').prop("checked", false);
+				//formTemplateDescriptions();
 				break;
 			case 'slideshow':
-				// force all categories
-				//setCategoryAllCheckbox();
 				break;
 			case 'display':
 				// update single/multiple selector ONLY
@@ -169,8 +193,8 @@ jQuery(document).ready(function($) {
 	 */
 	$.fn.selectPerOption = function(el, speed) {
 		speed = speed || 400;
-		var fast = 100;
-		var option = $(el).attr("id").split("-").pop();
+		var fast = 0;
+		//var option = $(el).attr("id").split("-").pop();
 		var currentValue = $(el).val();
 		var deps       = ".then_" + currentValue;
 		var depsFast   = deps + ".fast";
@@ -263,8 +287,8 @@ jQuery(document).ready(function($) {
 			$(deps).not(".fast").fadeOut(speed);
 		}
 	}
-	
-	
+
+
 	/**
 	 * Initial state
 	 */
@@ -276,12 +300,19 @@ jQuery(document).ready(function($) {
 	/**
 	 * Mode listener
 	 */
-	//$("input[name='view[data][mode]']").change(function() {
-	$mode.find("input").change(function() {
+	$mode.find("input").on("change", function() {
 		currentMode = $(this).val();
 		$mode.find("input").not(":checked").closest("label").removeClass("checked");
 		$mode.find("input:checked").closest("label").addClass("checked");
 		$.fn.updateScreen(currentMode);
+
+		// Force default template since we have more than one group of templates.
+		$("input[type=radio][name='view[data][template]'][value='default:content']").prop("checked", true);
+		templateRadios.change();
+		$("input[type=radio][name='view[data][form-template]'][value='default:form']").prop("checked", true);
+		formTemplateRadios.change();
+		layoutRadios.change();
+		backgroundRadios.change();
 	});
 
 	/**
@@ -339,6 +370,7 @@ jQuery(document).ready(function($) {
 		});
 
 	}
+
 	initialize();
 
 	/**
@@ -352,7 +384,199 @@ jQuery(document).ready(function($) {
 			}
 		});
 	}
+
 	textChangeListener();
+
+	/**
+	 * Template change listener
+	 */
+	var templateRadios = $("input[type=radio][name='view[data][template]']");
+
+	function templateDescriptions() {
+		var templateID = templateRadios.filter(":checked").attr("id");
+		var template = templateRadios.filter(":checked").val();
+
+		$("#view-template-info")
+			.find(".template-description:visible")
+			.hide()
+			.end()
+			.find("." + templateID)
+			.show();
+
+		// Check for forced options
+		if (template) {
+			$("input.forced").removeProp("disabled").removeClass("forced");
+			var data = {
+				'action': 'wpmtst_force_check',
+				'template': template,
+			};
+			$.get(ajaxurl, data, function (response) {
+				if (response) {
+					var $el = $("#" + response);
+					$el.prop("checked", true).change();
+					var inputName = $el.prop("name");
+					$("input[name='" + inputName + "']").prop("disabled", true).addClass("forced");
+				}
+			});
+		}
+
+		// Special handling
+		if ('unstyled:content' == template) {
+			$("input[name='view[data][background][type]']").prop("disabled",true);
+			$("#font-color-switcher").hide();
+		}
+		else {
+			$("input[name='view[data][background][type]']").prop("disabled",false);
+			$("#font-color-switcher").show();
+		}
+	}
+
+	templateDescriptions();
+
+	templateRadios.on("change", templateDescriptions);
+
+	/**
+	 * Form template change listener
+	 */
+	var formTemplateRadios = $("input[type=radio][name='view[data][form-template]']");
+
+	function formTemplateDescriptions() {
+		var template = formTemplateRadios.filter(":checked").attr("id");
+		$("#view-form-template-info")
+			.find(".template-description:visible")
+				.hide()
+			.end()
+			.find("." + template)
+				.show();
+	}
+
+	formTemplateDescriptions();
+
+	formTemplateRadios.on("change", formTemplateDescriptions);
+
+	/**
+	 * Layout change listener
+	 */
+	var layoutRadios = $("input[type=radio][name='view[data][layout]']");
+
+	function layoutDescriptions() {
+		var layout = layoutRadios.filter(":checked").attr("id");
+		// TODO Can use alterClass here instead?
+		$("#view-layout-info")
+			.find(".layout-description")
+				.hide()
+			.end()
+			.find("." + layout)
+				.show();
+
+		// Special handling
+
+		if ( 'view-layout-normal' == layout )
+			$("#column-count-wrapper").fadeOut();
+		else
+			$("#column-count-wrapper").fadeIn();
+
+		if( 'view-layout-masonry' == layout ) {
+			$("#view-pagination").prop("checked",false).change();
+		}
+	}
+
+	layoutDescriptions();
+
+	layoutRadios.on("change", layoutDescriptions);
+
+
+	/**
+	 * Background change listener
+	 */
+	var backgroundRadios = $("input[type=radio][name='view[data][background][type]']"),
+		backgroundPreview = $("#background-preview"),
+		backgroundPresetSelector = $("#view-background-preset");
+
+	function backgroundDescriptions() {
+		var backgroundID = backgroundRadios.filter(":checked").attr("id");
+
+		$("#view-background-info")
+			.find(".background-description:visible")
+				.hide()
+			.end()
+			.find("." + backgroundID)
+				.show();
+
+		updateBackgroundPreview();
+	}
+
+	backgroundDescriptions();
+
+	backgroundRadios.on("change", backgroundDescriptions);
+
+	backgroundPresetSelector.on( "change", function() {
+		backgroundPreset( $(this).val() );
+	} );
+
+	function updateBackgroundPreview() {
+		var c1,
+			c2,
+			background = backgroundRadios.filter(":checked").val();
+
+		switch ( background ) {
+			case 'none':
+				backgroundPreview.css( "background", "transparent" );
+				break;
+			case 'single':
+				c1 = document.getElementById("bg-color").value;
+				backgroundPreview.css( "background", c1 );
+				break;
+			case 'gradient':
+				c1 = document.getElementById( "bg-gradient1" ).value;
+				c2 = document.getElementById( "bg-gradient2" ).value;
+				backgroundPreview.css( constructGradientCSS( c1, c2 ) );
+				break;
+			case 'preset':
+				backgroundPreset( backgroundPresetSelector.val() );
+				break;
+			default:
+		}
+
+	}
+
+	function backgroundPreset( preset ) {
+		if ( !preset ) {
+			backgroundPreview.css( "background", "transparent" );
+			return;
+		}
+
+		var data = {
+			'action' : 'wpmtst_get_background_preset_colors',
+			'key'    : preset,
+		};
+		$.get( ajaxurl, data, function( response ) {
+			var presetObj = JSON.parse(response);
+			if ( presetObj.color && presetObj.color2 ) {
+				backgroundPreview.css( constructGradientCSS( presetObj.color, presetObj.color2 ) );
+			}
+			else if (presetObj.color ) {
+				backgroundPreview.css( "background", presetObj.color );
+			}
+			else {
+				backgroundPreview.css( "background", "transparent" );
+			}
+		});
+	}
+
+	function constructGradientCSS( c1, c2 ) {
+		//noinspection JSDuplicatedDeclaration
+		return {
+			"background": c1,
+			"background": "-moz-linear-gradient(top, "+c1+" 0%, "+c2+" 100%)",
+			"background": "-webkit-gradient(linear, left top, left bottom, color-stop(0%, "+c1+"), color-stop(100%, "+c2+"))",
+			"background": "-webkit-linear-gradient(top, "+c1+" 0%, "+c2+" 100%)",
+			"background": "-o-linear-gradient(top, "+c1+" 0%, "+c2+" 100%)",
+			"background": "-ms-linear-gradient(top, "+c1+" 0%, "+c2+" 100%)",
+			"background": "linear-gradient(to bottom, "+c1+" 0%, "+c2+" 100%)",
+			"filter": "progid:DXImageTransform.Microsoft.gradient(startColorstr='"+c1+"', endColorstr='"+c2+"', GradientType=0)",
+		}
+	}
 
 	/**
 	 * -------------
@@ -434,7 +658,7 @@ jQuery(document).ready(function($) {
 				$.get( ajaxurl, data, function( response ) {
 					// insert into placeholder div
 					$elParent.find(".field-meta").html(response);
-					
+
 					// Trigger conditional select
 					var $newFieldSelect = $elParent.find(".if.selectgroup");
 					$.fn.selectGroupOption($newFieldSelect);
@@ -442,7 +666,7 @@ jQuery(document).ready(function($) {
 						$.fn.selectGroupOption($newFieldSelect);
 					});
 					textChangeListener();
-					
+
 					// Get field name --> Get field label --> Populate link_text label
 					var fieldName = $elParent.find(".field-name").find("select").val();
 					var data2 = {
@@ -453,7 +677,7 @@ jQuery(document).ready(function($) {
 						var key = $elParent.attr("id").split('-').slice(-1)[0];
 						$("#view-fieldtext" + key + "-label").val(response);
 					});
-					
+
 				});
 				break;
 
@@ -475,7 +699,7 @@ jQuery(document).ready(function($) {
 				break;
 
 			default:
-		
+
 		}
 	});
 
@@ -488,12 +712,12 @@ jQuery(document).ready(function($) {
 		var fieldValue = $el.val();
 		var key = $elParent.attr("id").split('-').slice(-1)[0];
 		var typeSelect = $elParent.find("td.field-type select");
-		
+
 		switch( fieldValue ) {
 			case 'date':
 				// Hide type selector if date field.
 				$(typeSelect).val("date").prop("disabled", true);
-	
+
 				// add format field
 				var data = {
 					'action': 'wpmtst_view_add_field_date',
@@ -506,7 +730,7 @@ jQuery(document).ready(function($) {
 					$el.parent().append('<input type="hidden" class="save-type" name="view[data][client_section][' + key + '][type]" value="date">');
 				});
 				break;
-			
+
 			case 'link2':
 			case 'link':
 				// Get field name --> Get field label --> Populate link_text label
@@ -520,7 +744,7 @@ jQuery(document).ready(function($) {
 					$("#view-fieldtext" + key + "-label").val(response);
 				});
 				//break;
-				
+
 			default:
 				$(typeSelect).val("text").prop("disabled",false);
 				// remove meta field

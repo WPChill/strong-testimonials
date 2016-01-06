@@ -1,12 +1,78 @@
 /**
- * Strong Testimonials admin stylesheet
+ * Strong Testimonials View editor
  */
 
-/* Views
----------------------------------------------------------*/
+/* TODO Consolidate with admin.css */
 
-/* Common with other admin style
-NEED TO CONSOLIDATE */
+.clear {
+	clear: both;
+}
+
+.table {
+	display: table;
+}
+
+.table-row {
+	display: table-row;
+}
+
+.table-cell {
+	display: table-cell;
+	vertical-align: top;
+}
+
+.option-wrap {
+	margin-right: 2em;
+}
+
+.half-width {
+	display: inline-block;
+	box-sizing: border-box;
+	width: 50%;
+	float: left;
+}
+
+.is-below {
+	padding-top: 10px;
+}
+
+/*-----------------------------------------------
+ * replace checkboxes with icons
+ *-----------------------------------------------*/
+input[type=checkbox] {
+	display: none; /* to hide the radio itself */
+}
+
+/* keep the inherited margins, adjust width if more space is necessary */
+input[type=checkbox] + label:before {
+	font-family: FontAwesome;
+	display: inline-block;
+	color: #00A4F3;
+	width: 1em;
+}
+
+input[type=checkbox] + label:before {
+	content: "\f096"; /* unchecked icon */
+}
+
+input[type=checkbox]:checked + label:before {
+	content: "\f14a"; /* checked icon */
+}
+
+input[type=checkbox]:disabled + label:before {
+	content: "\f146"; /* disabled icon */
+}
+
+input[type=checkbox] + label:hover:before,
+input[type=checkbox]:checked + label:hover:before {
+	color: #FF8900;
+}
+
+input[type=checkbox]:disabled + label:before,
+input[type=checkbox]:disabled + label:hover:before {
+	color: #999;
+}
+
 
 .screenshot {
 	margin: 10px;
@@ -50,8 +116,9 @@ td.column-name strong {
 	font-size: 14px;
 }
 
-/* Misc elements */
-
+/*-----------------------------------------------
+ * Elements
+ *-----------------------------------------------*/
 .wpmtst2 p.submit {
 	margin-top: 2em;
 }
@@ -59,21 +126,26 @@ td.column-name strong {
 /* views section heading */
 .wpmtst2 h3 {
 	background: #FFF;
-	color: #0276FD;
-	border: 1px solid #ddd;
+	color: #00A4F3;
+	font-weight: 400;
+	border: 1px solid #DDD;
 	border-bottom: 0;
-	padding: 10px;
+	padding: 10px 15px;
 	margin-bottom: 0;
 	margin-top: 1.5em;
 }
 
-p.description.under-checkbox {
-	margin-left: 22px;
+.form-table td p.description {
+	margin-top: 0;
 }
 
-p.description.inline {
-	display: inline-block;
-	margin-left: 10px;
+p.description.tall {
+	line-height: 30px;
+	margin-top: 0;
+}
+
+p.description.under-checkbox {
+	margin-left: 22px;
 }
 
 input[type="text"].long {
@@ -84,10 +156,11 @@ input[type="text"].long {
 
 .inline {
 	display: inline-block;
-	white-space: nowrap;
+	/*white-space: nowrap;*/
 	margin-right: 2em;
 	vertical-align: top;
 }
+
 .inline-middle {
 	vertical-align: middle;
 }
@@ -95,6 +168,7 @@ input[type="text"].long {
 .tight {
 	margin-right: 1.5em;
 }
+
 .tight:last-child {
 	margin-right: 0;
 }
@@ -113,14 +187,18 @@ input[type="text"].long {
 	padding: 0.2em 0.3em;
 }
 
-/* Misc inputs */
+/*-----------------------------------------------
+ * Inputs
+ *-----------------------------------------------*/
 .input-number {
 	width: 5em;
 	text-align: right;
 }
+
 .input-incremental {
 	width: 5em;
 }
+
 .input-number-px {
 	width: 4em;
 	text-align: right;
@@ -157,8 +235,9 @@ option:disabled {
 	font-style: italic !important;
 }
 
-/* Form table */
-
+/*-----------------------------------------------
+ * Form table
+ *-----------------------------------------------*/
 .form-table {
 	margin-top: 0;
 	background: #FEFEFE;
@@ -178,6 +257,7 @@ option:disabled {
 .form-table td {
 	vertical-align: top;
 }
+
 .form-table th {
 	font-weight: 400;
 	white-space: nowrap;
@@ -185,37 +265,36 @@ option:disabled {
 	width: 150px;
 	padding: 10px 15px;
 }
+
+.form-table td.valign-middle {
+	vertical-align: middle;
+}
+
 .form-table td {
 	padding: 10px;
 }
+
 td.w1 {
 	width: 185px;
 }
+
 td.w2 {
 	width: 300px;
 }
-.form-table td div.row:not(:last-child) {
-	margin-bottom: 10px;
-}
-.form-table td div.row:not(.top-of-cell) {
-	margin-top: 10px;
-}
-.form-table th label {
-	line-height: 30px;
+
+.row {
+	vertical-align: middle;
 }
 
-/* paired rows */
-.form-table tr.pair-top {
-	border-bottom: 0;
+.row:not(:first-child) .row-inner {
+	margin-top: 10px;
 }
-.form-table tr.pair-bottom {
-	border-top: 0;
-}
-.form-table tr.pair-bottom td {
-	padding-top: 0;
-}
-.form-table tr.no-padding td {
-	padding: 0;
+
+.wpmtst2 .form-table th,
+.wpmtst2 .form-table th label {
+	line-height: 30px;
+	margin-top: 0;
+	margin-bottom: 0;
 }
 
 span.title {
@@ -223,11 +302,13 @@ span.title {
 	margin-right: 1em;
 }
 
-/* Mode selector */
-
+/*-----------------------------------------------
+ * Mode selector
+ *-----------------------------------------------*/
 #view-mode {
 	margin-top: 1em;
 }
+
 #view-mode label {
 	display: inline-block;
 	margin: 0;
@@ -235,16 +316,20 @@ span.title {
 	border: 1px solid #e4e4e4;
 	border-radius: 20px;
 }
+
 #view-mode label:hover {
 	background: #FFF;
 	color: #444;
 }
+
 #view-mode input[type="radio"] {
 	margin-right: 10px;
 }
+
 #view-mode label {
 	color: #999;
 }
+
 #view-mode label.checked {
 	background: #FFF;
 	color: #0073AA;
@@ -274,8 +359,9 @@ span.title {
 }
 
 
-/* Category checkboxes */
-
+/*-----------------------------------------------
+ * Category checkboxes
+ *-----------------------------------------------*/
 ul.checkbox-horizontal {
 	display: inline-block;
 	list-style: none;
@@ -284,28 +370,17 @@ ul.checkbox-horizontal {
 
 ul.checkbox-horizontal li {
 	display: inline-block;
-	margin: 0 1.5em 0 0;
+	float: left;
+	margin: 6px 2em 0 0;
 }
 
-.checkbox-toggle {
-	display: inline-block;
-	margin-right: 2em;
-	font-weight: 700;
-	background: #eee;
-	border: 1px solid #ddd;
-	border-radius: 4px;
-}
-.checkbox-toggle input:disabled {
-	background: #FFF;
-}
-.checkbox-toggle label {
-	display: block;
-	padding: 0.3em 1em 0.2em;
-	margin: 0;
+.select-cell {
+	padding-right: 2em;
 }
 
-/* Client fields table
----------------------------------------------------------*/
+/*-----------------------------------------------
+ * Client fields table
+ *-----------------------------------------------*/
 /* Need to back out some rules since this is a table in a table. */
 
 table.fields {
@@ -321,27 +396,23 @@ table.fields {
 	white-space: nowrap;
 	width: auto;
 }
+
 .form-table table.fields tr th {
 	/*text-align: center;*/
 	padding: 5px 8px;
 }
+
 .form-table table.fields tr th:not(:last-child) {
 	border-right: 1px solid #ddd;
 }
-/* Make it stand out. */
 
+/* Make it stand out. */
 table.fields thead tr {
 	background: #f4f4f4;
 }
 
 table.fields tr {
-	/*border: 1px solid #eee;*/
 	background: #fff; /* for better dragging */
-}
-
-.form-table table.fields th,
-.form-table table.fields td {
-	/* padding: 5px; */
 }
 
 .form-table table.fields th {
@@ -357,7 +428,6 @@ table.fields .controls {
 	max-width: 110px;
 	text-align: right;
 	white-space: nowrap;
-	/*vertical-align: middle;*/
 	vertical-align: top;
 }
 
@@ -370,18 +440,7 @@ table.fields .controls > span {
 	white-space: nowrap;
 }
 
-.new_tab {
-	display: inline-block;
-	white-space: nowrap;
-	margin: 0 10px 0 0;
-}
-.new_tab input[type="checkbox"] {
-	/*position: relative;*/
-	/*top: 1px;*/
-}
-
 table.fields .sortable-placeholder {
-	/*border: 1px dashed #ccc !important;*/
 	background: lightyellow !important;
 }
 
@@ -421,10 +480,6 @@ select option {
 	font-family: "Open Sans", sans-serif;
 }
 
-select option {
-	/*padding-right: 0.5em;*/
-}
-
 @-moz-document url-prefix() {
 	select optgroup {
 		font-style: normal;
@@ -449,7 +504,7 @@ select option {
 /*
 .form-table th,
 .form-table td {
-	border: 1px solid orange;
+	border: 2px solid orange;
 }
 */
 
@@ -457,9 +512,11 @@ select option {
 .field-meta-row {
 	margin: 5px;
 }
+
 .field-meta-row:first-child {
 	margin-top: 0;
 }
+
 .field-meta-row:last-child {
 	margin-bottom: 0;
 }
@@ -475,7 +532,7 @@ select option {
 	width: 180px;
 }
 .field-meta-row.checkbox label {
-	margin-left: 38px;
+	/*margin-left: 38px;*/
 }
 
 .field-meta-row input[type="text"],
@@ -488,3 +545,357 @@ select option {
 input.field-type-date {
 	max-width: 150px;
 }
+
+
+/*-----------------------------------------------
+ * List radio buttons
+ *-----------------------------------------------*/
+/*
+┼
+ ┌──[radio-wrap]─────────────┬────────────────────────┐
+ │                           │                        │
+ │   ┌──[radio-buttons]──┐   │  [radio-description]   │
+ │   │                   │   │                        │
+ │   │   [radio-list]    │   │                        │
+ │   │                   │   │                        │
+ │   └───────────────────┘   │                        │
+ └───────────────────────────┴────────────────────────┘
+*/
+
+.radio-wrap {
+	display: table;
+}
+
+/* the left side */
+.radio-buttons {
+	box-sizing: border-box;
+	vertical-align: top;
+}
+
+/* custom buttons */
+.radio-buttons input[type=radio] {
+	display: none; /* to hide the radio itself */
+}
+
+.radio-buttons input[type=radio] + label:before {
+	font-family: FontAwesome;
+	display: inline-block;
+	color: #999;
+	letter-spacing: 0.7em; /* space between radio and label */
+}
+
+.radio-buttons input[type=radio] + label:before {
+	content: "\f10c"; /* unchecked icon */
+}
+
+.radio-buttons input[type=radio] + label:hover {
+	background: rgba(0,160,210,0.16);
+}
+
+.radio-buttons input[type=radio]:checked + label:before {
+	content: "\f192"; /* checked icon */
+	color: #333;
+}
+
+.radio-buttons input[type=radio].error + label,
+.radio-buttons input[type=radio].error + label:before {
+	color: red;
+}
+
+.radio-buttons input[type=radio]:disabled + label {
+	color: #AAA;
+}
+.radio-buttons input[type=radio]:disabled + label:before {
+	color: #CCC;
+}
+.radio-buttons input[type=radio]:disabled + label:hover {
+	background: transparent;
+}
+.radio-buttons input[type=radio]:checked:disabled + label:hover {
+	background: #EAF7FB;
+}
+
+/* the list items */
+ul.radio-list {
+	display: inline-block;
+	margin: 10px 0;
+	width: 100%;
+	box-sizing: border-box;
+}
+.radio-list li {
+	margin: 0;
+	white-space: nowrap;
+	/* to appear seamless with adjacent box: */
+	position: relative;
+	right: -1px;
+}
+.radio-list li label {
+	padding: 4px 20px 3px 8px;
+	box-sizing: border-box;
+	border-radius: 12px 0 0 12px;
+	border: 1px solid transparent;
+	border-right-width: 0;
+	width: 100%;
+}
+.radio-list input[type="radio"]:checked + label {
+	/*background: rgba(0,160,210,0.08); */
+	background: #EAF7FB;
+	/*border-color: rgba(0,160,210,0.16);*/
+	border-color: #D5EFF7;
+}
+
+/* the right side */
+.radio-description {
+	background: #EAF7FB;
+	padding: 20px;
+	border: 1px solid #D5EFF7;
+}
+
+.form-table .radio-description p {
+	margin-bottom: 1em;
+}
+
+.radio-wrap.full-width {
+	width: 100%;
+}
+
+.radio-buttons.full-width {
+	width: 35%;
+}
+
+.radio-description.full-width {
+	width: 65%;
+}
+
+.radio-wrap.full-width.narrow-first .radio-buttons {
+	width: 20%;
+}
+
+.radio-wrap.full-width.narrow-first .radio-description {
+	width: 80%;
+}
+
+#font-color-switcher {
+	text-align: right;
+	margin-bottom: 10px;
+}
+	#font-color-switcher .inner {
+		display: inline-block;
+		background: #222;
+		padding: 1px;
+		overflow: hidden;
+	}
+
+	#font-color-switcher input[type="radio"] {
+		display: none;
+		margin: 0;
+	}
+
+	#font-color-switcher input[type="radio"] + label {
+		background: #333;
+		color: #e0e0e0;
+		margin: 0;
+		padding: 6px 12px;
+		text-transform: uppercase;
+		font-size: 0.9em;
+	}
+	#font-color-switcher input[type="radio"]:not(:first-of-type) + label {
+		margin-left: -5px;
+	}
+	#font-color-switcher input[type="radio"]:checked + label {
+		background: #00A4F3;
+		color: #FFF;
+	}
+	#font-color-switcher input[type="radio"]:checked + label:hover {
+		cursor: auto;
+	}
+	#font-color-switcher input[type="radio"]:not(:checked) + label:hover {
+		background: #444;
+		color: #FFF;
+	}
+
+
+.background-description.bg-gradient label {
+	padding-right: 1em;
+	padding-bottom: 2em;
+}
+
+.background-description.bg-gradient .table-row:first-child .table-cell {
+	padding-bottom: 20px;
+}
+
+.background-description-inner {
+	margin-bottom: 20px;
+}
+
+/* gradient preview */
+
+.background-preview-wrap {
+	background: white;
+	padding: 2em;
+	max-width: 500px;
+}
+
+#background-preview {
+	border: 1px solid #999;
+	padding: 2em;
+	text-align: center;
+}
+
+#background-preview.dark {
+	color: #333;
+}
+
+#background-preview.light {
+	color: #EEE;
+}
+
+/*-----------------------------------------------
+ * Examples
+ *-----------------------------------------------*/
+.example-container {
+	background: white;
+	border: 1px solid #ccc;
+	box-sizing: border-box;
+	margin-top: 0.5em;
+	padding: 15px 10px 5px;
+	width: 170px;
+}
+
+.example-container .box {
+	background: #DDD;
+	/*box-sizing: border-box;*/
+	width: 100%;
+	line-height: 30px;
+	height: 30px;
+	margin-bottom: 10px;
+	text-align: center;
+	/* to prevent overflowing margins */
+	display: inline-block;
+	position: relative;
+	/* multi-column properties */
+	-webkit-column-break-inside: avoid;
+	page-break-inside: avoid;
+	break-inside: avoid;
+}
+
+.example-container .box span {
+	/*box-sizing: border-box;*/
+	display: block;
+	margin: 0 auto;
+}
+
+.box.size2 {
+	height: 45px;
+}
+
+.box.size3 {
+	height: 60px;
+}
+
+/*--------------------------------------------------
+ * normal
+ *--------------------------------------------------*/
+.view-layout-normal .example-container {}
+
+.view-layout-normal .box {}
+
+/*--------------------------------------------------
+ * Masonry
+ *--------------------------------------------------*/
+.view-layout-masonry .example-container .box {
+	width: 46%;
+}
+
+.view-layout-masonry .example-container .grid-sizer,
+.view-layout-masonry .example-container.col-2 .grid-sizer {
+	width: 46%;
+}
+
+.view-layout-masonry .example-container.col-3 .grid-sizer {
+	width: 27.5%;
+}
+
+.view-layout-masonry .example-container.col-4 .grid-sizer {
+	width: 19.5%;
+}
+
+/*--------------------------------------------------
+ * columns
+ *--------------------------------------------------*/
+.view-layout-columns .example-container {
+	padding-bottom: 15px;
+}
+
+.view-layout-columns .example-container {
+	text-align: center;
+
+	/* a minimum width fallback */
+	-webkit-column-width: 25px;
+	   -moz-column-width: 25px;
+	        column-width: 25px;
+
+	-webkit-column-gap: 10px;
+	   -moz-column-gap: 10px;
+	        column-gap: 10px;
+
+	/* chrome does not repaint column-rule when switching classes in js :( */
+	/*-webkit-column-rule: 1px dashed #999;*/
+	   /*-moz-column-rule: 1px dashed #999;*/
+	        /*column-rule: 1px dashed #999;*/
+
+	-webkit-margin-bottom-collapse: separate;
+}
+
+.view-layout-columns .example-container.col-2 {
+	-webkit-column-count: 2;
+	   -moz-column-count: 2;
+	        column-count: 2;
+}
+
+.view-layout-columns .example-container.col-3 {
+	-webkit-column-count: 3;
+	   -moz-column-count: 3;
+	        column-count: 3;
+}
+
+.view-layout-columns .example-container.col-4 {
+	-webkit-column-count: 4;
+	   -moz-column-count: 4;
+	        column-count: 4;
+}
+
+/*--------------------------------------------------
+ * grid
+ *--------------------------------------------------*/
+.view-layout-grid .example-container {
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+
+	-webkit-flex-wrap: wrap;
+	    -ms-flex-wrap: wrap;
+	        flex-wrap: wrap;
+
+	/*justify-content: flex-start | flex-end | center | space-between | space-around;*/
+	justify-content: space-between;
+}
+
+.view-layout-grid .example-container .box {
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+}
+
+.view-layout-grid .example-container.col-2 .box {
+	width: 47%;
+}
+
+.view-layout-grid .example-container.col-3 .box {
+	width: 29%;
+}
+
+.view-layout-grid .example-container.col-4 .box {
+	width: 21%;
+}
+

@@ -45,20 +45,16 @@ class Strong_Testimonials_Order {
 	/**
 	 * Load admin scripts and styles.
 	 */
-	function load_scripts( $hook ) {
+	function load_scripts() {
 
 		$screen = get_current_screen();
-		if ( 'edit-wpm-testimonial' != $screen->id ) {
+		if ( !$screen || 'edit-wpm-testimonial' != $screen->id )
 			return;
-		}
 
-		if ( wpmtst_is_column_sorted() ) {
+		if ( wpmtst_is_column_sorted() )
 			return;
-		}
 
-		wp_enqueue_script( 'jquery-effects-highlight' );
-		wp_enqueue_script( 'jquery-ui-sortable' );
-		wp_enqueue_script( 'wpmtst-admin-order-script', WPMTST_URL . 'js/wpmtst-admin-order.js', array( 'jquery' ), null, true );
+		wp_enqueue_script( 'wpmtst-admin-order-script', WPMTST_URL . 'js/wpmtst-admin-order.js', array( 'jquery-effects-highlight', 'jquery-ui-sortable' ), null, true );
 		wp_localize_script( 'wpmtst-admin-order-script', 'ajax_object', array( 'ajaxurl' => admin_url( 'admin-ajax.php' ) ) );
 
 		wp_enqueue_style( 'wpmtst-admin-order-style', WPMTST_URL . '/css/admin/order.css', array(), null );
@@ -253,7 +249,6 @@ class Strong_Testimonials_Order {
 
 		return $sort;
 	}
-
 
 	/**
 	 * Update menu order in back end.

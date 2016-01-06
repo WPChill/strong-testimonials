@@ -1,0 +1,6 @@
+@media only screen and (max-width: 320px) and (orientation: portrait) {
+	.strong-view.#{$template} .testimonial-heading {
+		background: none;
+		padding-left: 0;
+	}
+}

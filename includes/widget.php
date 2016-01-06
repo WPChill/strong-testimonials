@@ -9,7 +9,7 @@ class Strong_Testimonials_Widget extends WP_Widget {
 
 		$widget_ops = array(
 			'classname'   => 'wpmtst-widget',
-			'description' => _x( 'Strong Testimonials widget. *** Will be removed soon. Please create a View instead. ***', 'widget description', 'strong-testimonials' )
+			'description' => _x( 'The original widget for Strong Testimonials.', 'widget description', 'strong-testimonials' )
 		);
 
 		$control_ops = array(
@@ -42,13 +42,13 @@ class Strong_Testimonials_Widget extends WP_Widget {
 	}
 
 	function widget( $args, $instance ) {
-		
+
 		$data = array_merge( $args, $instance );
-		
+
 		$var_name = 'tcycle_' . str_replace( '-', '_', $args['widget_id'] );
-		
+
 		$classes = array( 'wpmtst-widget-container' );
-		
+
 		// Polylang filter
 		$title = apply_filters( 'widget_title', empty( $data['title'] ) ? '' : $data['title'], $instance, $this->id_base );
 
@@ -68,7 +68,7 @@ class Strong_Testimonials_Widget extends WP_Widget {
 		if ( 'cycle' == $data['mode'] ) {
 
 			array_push( $classes, 'tcycle', $var_name );
-			
+
 			if ( isset( $data['cycle-all'] ) )
 				$num = -1;
 			elseif ( ! empty( $data['cycle-limit'] ) )
@@ -110,14 +110,14 @@ class Strong_Testimonials_Widget extends WP_Widget {
 					)
 			);
 		}
-	
+
 		$wp_query = new WP_Query();
 		$results = $wp_query->query( $args );
 		$num = min( $num, count( $results ) );
-		
+
 		/**
 		 * Shuffle array in PHP instead of SQL.
-		 * 
+		 *
 		 * @since 1.16
 		 */
 		if ( 'rand' == $data['order'] ) {
@@ -132,7 +132,7 @@ class Strong_Testimonials_Widget extends WP_Widget {
 		if ( $num > 0 ) {
 			$results = array_slice( $results, 0, $num );
 		}
-		
+
 		// start HTML output
 		$read_more_text = apply_filters( 'strong_widget_read_more_text', _x( 'Read more', 'link', 'strong-testimonials' ) );
 		$format = '<div class="readmore"><a href="%s">' . $read_more_text . '</a></div>';
@@ -165,22 +165,22 @@ class Strong_Testimonials_Widget extends WP_Widget {
 				if ( 1 == $char_switch )
 					$content = wpmtst_truncate( $content, $char_limit );
 			}
-			
+
 			echo '<div class="content">';
-			
+
 			if ( isset( $data['images'] ) && $data['images'] && $post->thumbnail_id )
 				echo '<div class="photo">' . get_the_post_thumbnail( $post->ID, array( 75, 75 ) ) . '</div>';
-			
+
 			echo $content;
-			
+
 			echo '</div>'; // <!-- .content -->
-			
+
 			if ( isset( $data['client'] ) && $data['client'] )
 				echo '<div class="client">' . do_shortcode( wpmtst_client_info( $post ) ) . '</div>';
-			
+
 			if ( 1 == $data['more'] )
 				echo sprintf( $format, get_permalink( $post ) );
-			
+
 			echo '</div>'; // <!-- .testimonial-widget -->
 		}
 
@@ -398,7 +398,7 @@ class Strong_Testimonials_Widget extends WP_Widget {
 			<!-- content: excerpt, character limit, or entire -->
 			<div class="wpmtst-inner-box">
 				<p><b><?php _ex( 'Content', 'noun', 'strong-testimonials' ); ?></b></p>
-			
+
 				<p>
 					<input type="radio" id="<?php echo $this->get_field_id( 'char-switch' ); ?>-3" name="<?php echo $this->get_field_name( 'char-switch' ); ?>" value="3" <?php checked( $instance['char-switch'], 3 ); ?>  class="radio">
 					<label for="<?php echo $this->get_field_id( 'char-switch' ); ?>-3">
@@ -436,7 +436,7 @@ class Strong_Testimonials_Widget extends WP_Widget {
 						</span>
 					</span>
 				</p>
-				
+
 				<p>
 					<input type="radio" id="<?php echo $this->get_field_id( 'char-switch' ); ?>-2" name="<?php echo $this->get_field_name( 'char-switch' ); ?>" value="2" <?php checked( $instance['char-switch'], 2 ); ?>  class="radio">
 					<label for="<?php echo $this->get_field_id( 'char-switch' ); ?>-2">
@@ -446,9 +446,9 @@ class Strong_Testimonials_Widget extends WP_Widget {
 						?>
 					</label>
 				</p>
-				
+
 			</div>
-			
+
 			<div class="wpmtst-inner-box">
 				<p>
 					<?php
@@ -456,7 +456,7 @@ class Strong_Testimonials_Widget extends WP_Widget {
 					_ex( 'Show parts', 'display custom fields', 'strong-testimonials' );
 					?>
 				</p>
-			
+
 			<!-- title -->
 			<p>
 				<input type="checkbox" id="<?php echo $this->get_field_id( 'show-title' ); ?>" name="<?php echo $this->get_field_name( 'show-title' ); ?>" <?php checked( $instance['show-title'] ); ?> class="checkbox">
@@ -494,7 +494,7 @@ class Strong_Testimonials_Widget extends WP_Widget {
 						</span>
 				</span>
 			</p>
-			
+
 			<!-- client info -->
 			<p>
 				<input type="checkbox" id="<?php echo $this->get_field_id( 'client' ); ?>" name="<?php echo $this->get_field_name( 'client' ); ?>" <?php checked( $instance['client'] ); ?> class="checkbox">
@@ -513,7 +513,7 @@ class Strong_Testimonials_Widget extends WP_Widget {
 						</span>
 				</span>
 			</p>
-			
+
 			</div>
 
 			<!-- read more link -->
@@ -524,7 +524,7 @@ class Strong_Testimonials_Widget extends WP_Widget {
 					_e( '"Read more" link', 'strong-testimonials' );
 					?>
 				</p>
-			
+
 				<p>
 					<input type="radio" id="<?php echo $this->get_field_id( 'more' ); ?>-0" name="<?php echo $this->get_field_name( 'more' ); ?>" value="0" <?php checked( 0, $instance['more'] ); ?> class="radio">
 					<label for="<?php echo $this->get_field_id( 'more' ); ?>-0">
@@ -574,7 +574,7 @@ class Strong_Testimonials_Widget extends WP_Widget {
 	function update( $new_instance, $old_instance ) {
 		$instance = $old_instance;
 		$defaults = $this->defaults;
-	
+
 		$instance['title']    = strip_tags( $new_instance['title'] );
 		$instance['category'] = strip_tags( $new_instance['category'] );
 		$instance['order']    = strip_tags( $new_instance['order'] );
@@ -627,7 +627,7 @@ class Strong_Testimonials_Widget extends WP_Widget {
 		// new: radio (0,1,2)
 		$instance['more']      = $new_instance['more'];
 		$instance['more_page'] = strip_tags( $new_instance['more_page'] );
-		
+
 		return $instance;
 	}
 

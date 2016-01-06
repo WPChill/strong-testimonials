@@ -1,0 +1,189 @@
+/**
+ * Strong Testimonials Image Right template
+ */
+/* Clears
+-----------------------------------------------*/
+.clear {
+  clear: both;
+}
+
+/**
+Minimum paragraph width means no short words in skinny space next to image
+in columns or small screens.
+
+This workaround is needed until we can use flexbox properly
+or CSS offers container queries.
+
+Thanks https://css-tricks.com/minimum-paragraph-widths/
+*/
+.maybe-clear {
+  content: "";
+  /* this value seems to work well in both responsive and Masonry */
+  width: 6em;
+  display: block;
+  overflow: hidden;
+}
+
+/* Base
+-----------------------------------------------*/
+.strong-view.image-right {
+  display: block;
+  /* this handles short content */
+  width: 100%;
+}
+.strong-view.image-right * {
+  box-sizing: border-box;
+}
+.strong-view.image-right .testimonial-inner {
+  display: block;
+  /* fill horizontal & vertical space */
+  width: 100%;
+  height: 100%;
+}
+.strong-view.image-right .strong_cycle .testimonial {
+  /* remove margin in slideshow */
+  margin-top: 0;
+  margin-bottom: 0;
+}
+.strong-view.image-right .strong_cycle .testimonial:not(:first-child) {
+  /* prevents flash on slow page load */
+  display: none;
+}
+
+/* Paging controls
+-----------------------------------------------*/
+.simplePagerList {
+  /* match .strong-content container */
+  margin: 20px auto;
+  text-align: center;
+}
+
+.strong-view ul.simplePagerNav {
+  margin: 0 auto;
+  padding: 0;
+  display: inline-block;
+}
+.strong-view ul.simplePagerNav li {
+  display: inline;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.strong-view ul.simplePagerNav li a {
+  padding: 0.1em 0.3em;
+  margin: 0 0.2em;
+  text-decoration: none;
+}
+.strong-view ul.simplePagerNav li a:hover {
+  background: #BBB;
+  color: #FFF;
+}
+.strong-view ul.simplePagerNav li.currentPage a {
+  text-decoration: none;
+  background: #999;
+  color: #FFF;
+}
+
+.strong-view.rtl ul.simplePagerNav li {
+  float: right;
+}
+
+/* Template
+-----------------------------------------------*/
+.strong-view.image-right .strong-content {
+  margin: 20px auto;
+}
+.strong-view.image-right .testimonial {
+  margin: 20px auto;
+  padding: 0;
+  text-align: left;
+  width: 100%;
+  border: 1px solid #E6E6E6;
+}
+.strong-view.image-right .testimonial:first-child {
+  margin-top: 0;
+}
+.strong-view.image-right .testimonial:last-child {
+  margin-bottom: 0;
+}
+.strong-view.image-right .testimonial-inner {
+  border: 1px solid #FFFFFF;
+  padding: 20px;
+  text-align: left;
+}
+.strong-view.image-right .testimonial-heading {
+  background: url("img/quotes.png") no-repeat scroll left center transparent;
+  margin-top: 0;
+  padding-left: 40px;
+  text-align: left;
+}
+.strong-view.image-right .testimonial-content p:first-of-type {
+  margin-top: 0;
+  padding-top: 0;
+}
+.strong-view.image-right .testimonial-content p:last-of-type {
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+.strong-view.image-right .testimonial-image {
+  float: right;
+  margin-top: .25em;
+  margin-bottom: 0.25em;
+  margin-left: 1em;
+}
+.strong-view.image-right .testimonial-image img {
+  background: none repeat scroll 0 0 #FFFFFF;
+  border: 1px solid #EFEFEF;
+  padding: 6px;
+}
+.strong-view.image-right .testimonial-client {
+  margin-top: 1em;
+  text-align: left;
+}
+.strong-view.image-right .testimonial-name {
+  font-weight: bold;
+}
+.strong-view.image-right .readmore {
+  margin-top: 1em;
+}
+
+/* Responsive
+-----------------------------------------------*/
+@media only screen and (max-width: 320px) {
+  .strong-view.image-right .testimonial-image {
+    float: none;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+@media only screen and (max-width: 320px) and (orientation: portrait) {
+  .strong-view.image-right .testimonial-heading {
+    background: none;
+    padding-left: 0;
+  }
+}
+/* RTL
+-----------------------------------------------*/
+.strong-view.image-right.rtl .testimonial,
+.strong-view.image-right.rtl .testimonial-inner,
+.strong-view.image-right.rtl .testimonial-heading {
+  text-align: right;
+}
+.strong-view.image-right.rtl .testimonial-image {
+  float: right;
+  margin-left: 1em;
+}
+.strong-view.image-right.rtl .testimonial-client {
+  text-align: left;
+}
+
+/* Template variant overrides
+-----------------------------------------------*/
+.strong-view.image-right.rtl .testimonial-image {
+  float: left;
+  margin-left: 0;
+  margin-right: 1em;
+}
+.strong-view.image-right.rtl .testimonial-client {
+  text-align: right;
+}

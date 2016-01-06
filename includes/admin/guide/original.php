@@ -1,9 +1,9 @@
 <div class="guide-content original-shortcodes">
 	<section>
 		<h3><?php _e( 'The Original Shortcodes', 'strong-testimonials' ); ?></h3>
-		
-		<?php wpmtst_update_nag( __( 'These shortcodes will be removed soon.' ) ); ?>
-		
+
+		<?php wpmtst_update_nag( __( 'These shortcodes will be removed <b>in the next release</b>.' ) ); ?>
+
 		<table class="shortcode-table">
 			<tr>
 				<th colspan="2"><h4><?php _e( 'Show All', 'strong-testimonials' ); ?></h4></th>
@@ -21,17 +21,17 @@
 				<td>[wpmtst-all category="1,2,3"]</td>
 			</tr>
 		</table>
-		
+
 		<table class="shortcode-table">
 			<tr>
 				<th colspan="2"><h4><?php _e( 'Cycle', 'strong-testimonials' ); ?></h4></th>
 			</tr>
 			<tr>
-				<td><?php printf( _x( '<a href="%s">configure</a>', 'verb', 'strong-testimonials' ), admin_url( 'edit.php?post_type=wpm-testimonial&page=settings&tab=cycle' ) ); ?></td>
+				<td><?php printf( _x( '<a href="%s">configure</a>', 'verb', 'strong-testimonials' ), admin_url( 'edit.php?post_type=wpm-testimonial&page=old-settings&tab=cycle' ) ); ?></td>
 				<td>[wpmtst-cycle]</td>
 			</tr>
 			</table>
-		
+
 			<table class="shortcode-table">
 			<tr>
 				<th colspan="2"><h4><?php _ex( 'Random', 'display order', 'strong-testimonials' ); ?></h4></th>
@@ -61,7 +61,7 @@
 				<td>[wpmtst-random limit="5" category="1,2,3"]</td>
 			</tr>
 		</table>
-		
+
 		<table class="shortcode-table">
 			<tr>
 				<th colspan="2"><h4><?php _ex( 'Single', 'quantity', 'strong-testimonials' ); ?></h4></th>
@@ -71,16 +71,6 @@
 				<td>[wpmtst-single id="1"]</td>
 			</tr>
 		</table>
-		
-		<table class="shortcode-table">
-			<tr>
-				<th colspan="2"><h4><?php _e( 'Submission Form', 'strong-testimonials' ); ?></h4></th>
-			</tr>
-			<tr>
-				<td colspan="2" style="text-align: center;">
-					<code>[wpmtst-form]</code> was removed. Use <code>[strong form]</code> or create a View instead.
-				</td>
-			</tr>
-		</table>
+
 	</section>
 </div>

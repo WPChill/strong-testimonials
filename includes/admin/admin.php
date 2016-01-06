@@ -4,7 +4,7 @@
  */
 
 
-/*
+/**
  * Init
  */
 function wpmtst_admin_init() {
@@ -34,20 +34,6 @@ function wpmtst_admin_init() {
 
 }
 add_action( 'admin_init', 'wpmtst_admin_init' );
-
-/**
- * Plugin action links
- */
-function wpmtst_plugin_action_links( $links, $file ) {
-	if ( $file == plugin_basename( __FILE__ ) ) {
-		$settings_link = '<a href="' . admin_url( 'edit.php?post_type=wpm-testimonial&page=settings' ) . '">'
-		                 . __( 'Settings', 'strong-testimonials' ) . '</a>';
-		array_unshift( $links, $settings_link );
-	}
-	return $links;
-}
-//add_filter( 'plugin_action_links', 'wpmtst_plugin_action_links', 10, 2 );
-
 
 /**
  * Prevent other post ordering plugins, in admin_init hook.
@@ -128,15 +114,18 @@ function wpmtst_deny_plugins_menu() {
 add_action( 'admin_menu', 'wpmtst_deny_plugins_menu', 200 );
 
 
-/*
+/**
  * Admin scripts.
+ *
+ * @param $hook
  */
 function wpmtst_admin_scripts( $hook ) {
 
 	$plugin_version = get_option( 'wpmtst_plugin_version' );
 
 	$hooks_to_style = array(
-		'wpm-testimonial_page_settings',
+		'wpm-testimonial_page_new-settings',
+		'wpm-testimonial_page_old-settings',
 		'wpm-testimonial_page_fields',
 		'wpm-testimonial_page_views',
 		'wpm-testimonial_page_shortcodes',
@@ -158,13 +147,18 @@ function wpmtst_admin_scripts( $hook ) {
 	}
 
 	$hooks_to_script = array(
-		'wpm-testimonial_page_settings',
+		'wpm-testimonial_page_new-settings',
+		'wpm-testimonial_page_old-settings',
 		'wpm-testimonial_page_fields',
 		'wpm-testimonial_page_guide',
 		'wpm-testimonial_page_shortcodes',
 		// TODO Can remove widgets.php in 2.0
 		'widgets.php',
 	);
+
+	if ( $screen && 'wpm-testimonial' == $screen->post_type ) {
+		$hooks_to_script = array_merge( $hooks_to_style, array( 'edit.php' ) );
+	}
 
 	if ( in_array( $hook, $hooks_to_script ) || defined( 'SITEORIGIN_PANELS_VERSION' ) ) {
 		wp_enqueue_script( 'wpmtst-admin-script', WPMTST_URL . 'js/wpmtst-admin.js', array( 'jquery' ), $plugin_version );
@@ -188,17 +182,17 @@ function wpmtst_admin_scripts( $hook ) {
 		case 'wpm-testimonial_page_views':
 			wp_enqueue_style( 'wpmtst-admin-views-style', WPMTST_URL . 'css/admin/views.css', array(), $plugin_version );
 			wp_enqueue_script( 'wpmtst-admin-views-script', WPMTST_URL . 'js/wpmtst-views.js',
-					array( 'jquery', 'jquery-ui-sortable', 'wp-color-picker' ), $plugin_version );
+					array( 'jquery', 'jquery-ui-sortable', 'wp-color-picker', 'jquery-masonry' ), $plugin_version );
 			wp_localize_script( 'wpmtst-admin-views-script', 'ajax_object', array( 'ajaxurl' => admin_url( 'admin-ajax.php' ) ) );
 			wp_enqueue_style( 'wp-color-picker' );
 			break;
 		case 'wpm-testimonial_page_guide':
 			wp_enqueue_style( 'wpmtst-admin-guide-style', WPMTST_URL . 'css/admin/guide.css', array(), $plugin_version );
-			wp_enqueue_style( 'font-awesome', '//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css', array(), '4.3.0' );
 			break;
 		default:
 	}
 
+	wp_enqueue_style( 'font-awesome', '//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css', array(), '4.4.0' );
 
 }
 add_action( 'admin_enqueue_scripts', 'wpmtst_admin_scripts' );
@@ -245,41 +239,12 @@ function wpmtst_admin_polylang() {
 add_action( 'load-settings_page_mlang', 'wpmtst_admin_polylang' );
 
 /**
- * Add meta box to the post editor screen and place above Custom Fields
+ * Add meta box to the post editor screen
  */
 function wpmtst_add_meta_boxes() {
 	add_meta_box( 'details', _x( 'Client Details', 'post editor', 'strong-testimonials' ), 'wpmtst_meta_options', 'wpm-testimonial', 'normal', 'core' );
 }
 add_action( 'add_meta_boxes_wpm-testimonial', 'wpmtst_add_meta_boxes' );
-
-function wpmtst_reorder_meta_boxes() {
-	global $wp_meta_boxes;
-
-	if ( ! isset( $wp_meta_boxes['wpm-testimonial'] ) )
-		return;
-
-	if ( ! isset( $wp_meta_boxes['wpm-testimonial']['normal'] ) )
-		return;
-
-	if ( ! isset( $wp_meta_boxes['wpm-testimonial']['normal']['core'] ) )
-		return;
-
-	$core = $wp_meta_boxes['wpm-testimonial']['normal']['core'];
-	$newcore = array();
-	if ( $core['postexcerpt'] )
-		$newcore['postexcerpt'] = $core['postexcerpt'];
-	if ( $core['details'] )
-		$newcore['details'] = $core['details'];
-	if ( $core['postcustom'] )
-		$newcore['postcustom'] = $core['postcustom'];
-	if ( $core['slugdiv'] )
-		$newcore['slugdiv'] = $core['slugdiv'];
-
-	if ( $newcore )
-		$wp_meta_boxes['wpm-testimonial']['normal']['core'] = $newcore;
-}
-add_action( 'do_meta_boxes', 'wpmtst_reorder_meta_boxes' );
-
 
 /**
  * Add custom fields to the testimonial editor
@@ -300,13 +265,6 @@ function wpmtst_meta_options() {
 			<th><label for="<?php echo $field['name']; ?>"><?php echo apply_filters( 'wpmtst_l10n', $field['label'], wpmtst_get_l10n_context( 'form-fields' ), $field['name'] . ' : label' ); ?></label></th>
 			<td>
 				<?php echo sprintf( '<input id="%2$s" type="%1$s" class="custom-input" name="custom[%2$s]" value="%3$s" size="">', $field['input_type'], $field['name'], $post->$field['name'] ); ?>
-				<?php
-				/**
-				 * Add rel="nofollow" to outbound links.
-				 *
-				 * @since 1.11.0
-				 */
-				 ?>
 				<?php if ( 'url' == $field['input_type'] ) : ?>
 					&nbsp;&nbsp;<label><input type="checkbox" name="custom[nofollow]" <?php checked( $post->nofollow, 'on' ); ?>> <code>rel="nofollow"</code></label>
 				<?php endif; ?>
@@ -320,48 +278,132 @@ function wpmtst_meta_options() {
 
 
 /**
- * Add custom columns to the admin screen
+ * Add custom columns to the admin list.
+ *
+ * @param $columns
+ *
+ * @return array
  */
 function wpmtst_edit_columns( $columns ) {
-	$options = get_option( 'wpmtst_options' );
-	$fields  = get_option( 'wpmtst_fields' );
-	$fields  = $fields['field_groups'][ $fields['current_field_group'] ]['fields'];
+	$fields = get_option( 'wpmtst_fields' );
+	$fields = $fields['field_groups'][ $fields['current_field_group'] ]['fields'];
 
-	$columns = array( 'cb' => '<input type="checkbox">'	);
+	/*
+		INCOMING COLUMNS = Array (
+			[cb] => <input type="checkbox" />
+			[title] => Title
+			[date] => Date
+			[search_exclude] => Search Exclude   // other plugin
+			[thumbnail] => Thumbnail
+		)
+	*/
 
-	/**
-	 * Menu order
-	 *
-	 * @since 1.16.0
-	 */
-	//if ( $options['reorder'] && ! wpmtst_is_column_sorted() && ! wpmtst_is_viewing_trash() )
-	if ( ! wpmtst_is_column_sorted() && ! wpmtst_is_viewing_trash() )
-		$columns['order'] = __( 'Order', 'strong-testimonials' );
+	// 1. remove [thumbnail] (may be re-added in custom field loop) and [date]
+	unset( $columns['thumbnail'], $columns['date'] );
 
-	$columns['title'] = _x( 'Title', 'testimonial', 'strong-testimonials' );
-
-	$columns['post_excerpt'] = __( 'Excerpt', 'strong-testimonials' );
-
-	foreach ( $fields as $key => $field ) {
-		if ( $field['admin_table'] ) {
-			if ( 'featured_image' == $field['name'] )
-				$columns['thumbnail'] = __( 'Thumbnail', 'strong-testimonials' );
-			elseif ( 'post_title' == $field['name'] )
-				continue; // is set above
-			else
-				$columns[ $field['name'] ] = apply_filters( 'wpmtst_l10n', $field['label'], wpmtst_get_l10n_context( 'form-fields' ), $field['name'] . ' : label' );
-		}
+	// 2. insert [order] after [cb]
+	if ( !wpmtst_is_column_sorted() && !wpmtst_is_viewing_trash() && class_exists( 'Strong_Testimonials_Order' ) ) {
+		$columns = array_merge (
+			array_slice($columns, 0, 1),
+			array('handle' => 'Order'),
+			array_slice($columns, 1, null)
+		);
 	}
 
-	$columns['category']  = __( 'Category', 'strong-testimonials' );
+	// 3. insert [excerpt] after [title]
+	$key           = 'title';
+	$offset        = array_search( $key, array_keys( $columns ) ) + 1;
+	$fields_to_add = array( 'post_excerpt' => __( 'Excerpt', 'strong-testimonials' ) );
 
-	$columns['shortcode'] = __( 'Shortcode', 'strong-testimonials' );
+	// 4. add custom fields
+	foreach ( $fields as $key => $field ) {
 
-	$columns['date']      = __( 'Date', 'strong-testimonials' );
+		if ( $field['admin_table'] ) {
+
+			if ( 'post_title' == $field['name'] ) {
+				continue;
+			}
+			elseif ( 'featured_image' == $field['name'] ) {
+				$fields_to_add['thumbnail'] = __( 'Thumbnail', 'strong-testimonials' );
+			}
+			else {
+				$fields_to_add[ $field['name'] ] = apply_filters( 'wpmtst_l10n', $field['label'], wpmtst_get_l10n_context( 'form-fields' ), $field['name'] . ' : label' );
+			}
+
+		}
+
+	}
+
+	// 5. add [category] and [date]
+	// this pushes other added columns like [search_exclude] to the end
+	if ( wpmtst_get_category_ids() )
+		$fields_to_add['category'] = __( 'Category', 'strong-testimonials' );
+
+	$fields_to_add['date']     = __( 'Date', 'strong-testimonials' );
+
+	$columns = array_merge (
+		array_slice( $columns, 0, $offset ),
+		$fields_to_add,
+		array_slice( $columns, $offset, null )
+	);
 
 	return $columns;
 }
 add_filter( 'manage_edit-wpm-testimonial_columns', 'wpmtst_edit_columns' );
+
+
+/**
+ * Show custom values
+ *
+ * @param $column
+ */
+function wpmtst_custom_columns( $column ) {
+	global $post;
+
+	switch ( $column ) {
+
+		case 'post_id':
+			echo $post->ID;
+			break;
+
+		case 'post_content':
+			echo substr( $post->post_content, 0, 100 ) . '&hellip;';
+			break;
+
+		case 'post_excerpt':
+			echo $post->post_excerpt;
+			break;
+
+		case 'thumbnail':
+			echo get_the_post_thumbnail( $post->ID, array( 75, 75 ) );
+			break;
+
+		case 'category':
+			$categories = get_the_terms( 0, 'wpm-testimonial-category' );
+			if ( $categories && ! is_wp_error( $categories ) ) {
+				$list = array();
+				foreach ( $categories as $cat ) {
+					$list[] = $cat->name;
+				}
+				echo join( ", ", $list );
+			}
+			break;
+
+		case 'handle':
+			if ( current_user_can( 'edit_post', $post->ID ) && ! wpmtst_is_column_sorted() && ! wpmtst_is_viewing_trash() ) {
+				echo '<div class="handle"><div class="help"></div><div class="help-in-motion"></div></div>';
+			}
+			break;
+
+		default:
+			// custom field?
+			$custom  = get_post_custom();
+			if ( isset( $custom[$column] ) )
+				echo $custom[$column][0];
+
+	}
+}
+add_action( 'manage_wpm-testimonial_posts_custom_column', 'wpmtst_custom_columns' );
 
 
 /**
@@ -400,77 +442,7 @@ function wpmtst_is_viewing_trash() {
 }
 
 
-/*
- * Show custom values
- */
-function wpmtst_custom_columns( $column ) {
-	global $post;
-	$custom  = get_post_custom();
-	$options = get_option( 'wpmtst_options' );
-
-	switch ( $column ) {
-
-		case 'post_id':
-			echo $post->ID;
-			break;
-
-		case 'post_content':
-			echo substr( $post->post_content, 0, 100 ) . '&hellip;';
-			break;
-
-		case 'post_excerpt':
-			echo $post->post_excerpt;
-			break;
-
-		case 'thumbnail':
-			echo get_the_post_thumbnail( $post->ID, array( 75, 75 ) );
-			break;
-
-		case 'shortcode':
-			echo '[' . wpmtst_get_shortcode() . ' id="' . $post->ID . '" &hellip; ]';
-			break;
-
-		case 'category':
-			$categories = get_the_terms( 0, 'wpm-testimonial-category' );
-			if ( $categories && ! is_wp_error( $categories ) ) {
-				$list = array();
-				foreach ( $categories as $cat ) {
-					$list[] = $cat->name;
-				}
-				echo join( ", ", $list );
-			}
-			break;
-
-		/**
-		 * Menu order.
-		 *
-		 * @since 1.16.0
-		 */
-		case 'order':
-			if ( $options['reorder'] ) {
-				if ( current_user_can( 'edit_post', $post->ID ) && ! wpmtst_is_column_sorted() && ! wpmtst_is_viewing_trash() ) {
-					echo '<div class="handle">';
-					echo '<div class="menu-order">' . $post->menu_order . '</div>';
-					echo '<div class="help">' . __( 'reorder', 'strong-testimonials' ) . '</div>';
-					echo '<div class="help-in-motion">' . __( 'drag and drop', 'strong-testimonials' ) . '</div>';
-					echo '</div>';
-				}
-			} else {
-				echo '<div>' . $post->menu_order . '</div>';
-			}
-			break;
-
-		default:
-			// custom field?
-			if ( isset( $custom[$column] ) )
-				echo $custom[$column][0];
-
-	}
-}
-add_action( 'manage_wpm-testimonial_posts_custom_column', 'wpmtst_custom_columns' );
-
-
-/*
+/**
  * Add thumbnail column to admin list
  */
 function wpmtst_add_thumbnail_column( $columns ) {
@@ -480,58 +452,28 @@ function wpmtst_add_thumbnail_column( $columns ) {
 add_filter( 'manage_wpm-testimonial_posts_columns', 'wpmtst_add_thumbnail_column' );
 
 
-/*
- * Show thumbnail in admin list
- */
-function wpmtst_add_thumbnail_value( $column_name, $post_id ) {
-	if ( 'thumbnail' == $column_name ) {
-		$width  = (int) 75;
-		$height = (int) 75;
-
-		$thumbnail_id = get_post_meta( $post_id, '_thumbnail_id', true );
-		$attachments = get_children( array( 'post_parent' => $post_id, 'post_type' => 'attachment', 'post_mime_type' => 'image') );
-
-		if ( $thumbnail_id ) {
-			$thumb = wp_get_attachment_image( $thumbnail_id, array( $width, $height ), true );
-		} elseif ( $attachments ) {
-			foreach ( $attachments as $attachment_id => $attachment ) {
-				$thumb = wp_get_attachment_image( $attachment_id, array( $width, $height ), true );
-			}
-		}
-
-		if ( isset( $thumb ) && $thumb )
-			echo $thumb;
-		else
-			echo __( 'None', 'strong-testimonials' );
-	}
-}
-//add_action( 'manage_wpm-testimonial_posts_custom_column', 'wpmtst_add_thumbnail_value', 10, 2 );
-
-
-/*
+/**
  * Add columns to the testimonials categories screen
  */
 function wpmtst_manage_categories( $columns ) {
 	$new_columns = array(
-			'cb'        => '<input type="checkbox">',
-			'ID'        => __( 'ID', 'strong-testimonials' ),
-			'name'      => __( 'Name', 'strong-testimonials' ),
-			'slug'      => __( 'Slug', 'strong-testimonials' ),
-			'shortcode' => __( 'Shortcode', 'strong-testimonials' ),
-			'posts'     => __( 'Posts', 'strong-testimonials' )
+		'cb'    => '<input type="checkbox">',
+		'ID'    => __( 'ID', 'strong-testimonials' ),
+		'name'  => __( 'Name', 'strong-testimonials' ),
+		'slug'  => __( 'Slug', 'strong-testimonials' ),
+		'posts' => __( 'Posts', 'strong-testimonials' ),
 	);
+
 	return $new_columns;
 }
 add_filter( 'manage_edit-wpm-testimonial-category_columns', 'wpmtst_manage_categories');
 
 
-/*
+/**
  * Show custom column
  */
 function wpmtst_manage_columns( $out, $column_name, $id ) {
-	if ( 'shortcode' == $column_name )
-		$output = '[strong category="' . $id . '" &hellip; ]';
-	elseif ( 'ID' == $column_name )
+	if ( 'ID' == $column_name )
 		$output = $id;
 	else
 		$output = '';
@@ -541,7 +483,7 @@ function wpmtst_manage_columns( $out, $column_name, $id ) {
 add_filter( 'manage_wpm-testimonial-category_custom_column', 'wpmtst_manage_columns', 10, 3 );
 
 
-/*
+/**
  * Make columns sortable.
  *
  * @since 1.12.0
@@ -554,7 +496,7 @@ function wpmtst_manage_sortable_columns( $columns ) {
 add_filter( 'manage_edit-wpm-testimonial_sortable_columns', 'wpmtst_manage_sortable_columns' );
 
 
-/*
+/**
  * Sort columns.
  *
  * @since 1.12.0
@@ -562,15 +504,14 @@ add_filter( 'manage_edit-wpm-testimonial_sortable_columns', 'wpmtst_manage_sorta
 function wpmtst_pre_get_posts( $query ) {
 	// Only in main WP query AND if an orderby query variable is designated.
 	if ( is_admin()
-			&& $query->is_main_query()
-			&& 'wpm-testimonial' == $query->get( 'post_type' )
-			&& ( $orderby = $query->get( 'orderby' ) ) ) {
-
+		&& $query->is_main_query()
+		&& 'wpm-testimonial' == $query->get( 'post_type' )
+		&& ( $orderby = $query->get( 'orderby' ) )
+	) {
 		if ( 'client_name' == $orderby ) {
 			$query->set( 'meta_key', 'client_name' );
 			$query->set( 'orderby', 'meta_value' );
 		}
-
 	}
 }
 add_action( 'pre_get_posts', 'wpmtst_pre_get_posts', 10 );
@@ -585,17 +526,16 @@ function wpmtst_posts_orderby( $orderby, $query ) {
 	if ( 'wpm-testimonial' == $query->get( 'post_type' ) && ! $query->get( 'orderby' ) ) {
 		global $wpdb;
 		$orderby = "{$wpdb->posts}.menu_order, {$wpdb->posts}.post_date DESC";
-		/*
-		 * Store this in query. See notes in class-strong-testimonials-order.php.
-		 */
+		// Store this in query. See notes in class-strong-testimonials-order.php.
 		$query->set( 'original_orderby', $orderby );
 	}
+
 	return $orderby;
 }
 add_filter( 'posts_orderby', 'wpmtst_posts_orderby', 10, 2 );
 
 
-/*
+/**
  * Save custom fields
  */
 function wpmtst_save_details() {
@@ -648,14 +588,14 @@ function wpmtst_version_check() {
 }
 
 
-/*
+/**
  * [Add Recipient] Ajax receiver
  */
 function wpmtst_add_recipient_function() {
 	$key = $_REQUEST['key'];
 	$form_options = get_option( 'wpmtst_form_options' );
 	$recipient = $form_options['default_recipient'];
-	include WPMTST_INC . 'admin/forms/settings/recipient.php';
+	include WPMTST_INC . 'admin/settings/recipient.php';
 	die();
 }
 add_action( 'wp_ajax_wpmtst_add_recipient', 'wpmtst_add_recipient_function' );
@@ -699,3 +639,24 @@ function wpmtst_dismiss_notice() {
 	}
 }
 add_action( 'wp_ajax_wpmtst_dismiss_notice', 'wpmtst_dismiss_notice' );
+
+
+function wpmtst_countdown() {
+	$datetime1 = new DateTime();
+	$datetime2 = new DateTime('2016-02-02');
+	$interval = $datetime1->diff($datetime2);
+	if ( $interval->invert )
+		echo 'in the next update';
+	else
+		echo $interval->format('in %a days');
+	die();
+}
+add_action( 'wp_ajax_wpmtst_countdown', 'wpmtst_countdown' );
+
+
+function wpmtst_get_background_preset_colors() {
+	$preset = WPMST()->get_background_presets( $_REQUEST['key'] );
+	echo json_encode( $preset );
+	die();
+}
+add_action( 'wp_ajax_wpmtst_get_background_preset_colors', 'wpmtst_get_background_preset_colors' );

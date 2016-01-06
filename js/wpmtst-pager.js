@@ -7,10 +7,11 @@
 
 jQuery(document).ready(function($) {
 	if( typeof( pagerVar ) !== 'undefined' ) {
-		$(pagerVar.id).quickPager({ 
-				pageSize      : pagerVar.pageSize, 
-				currentPage   : pagerVar.currentPage, 
-				pagerLocation : pagerVar.pagerLocation 
+		$(pagerVar.id).quickPager({
+			pageSize: pagerVar.pageSize,
+			currentPage: pagerVar.currentPage,
+			pagerLocation: pagerVar.pagerLocation,
+			offset: pagerVar.offset
 		});
 	}
 });

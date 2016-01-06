@@ -1,17 +1,17 @@
 <?php
 /**
  * Plugin Name: Strong Testimonials
- * Plugin URI: http://www.wpmission.com/strong-testimonials/
+ * Plugin URI: http://www.wpmission.com/plugin/strong-testimonials/
  * Description: Collect and display testimonials with a plugin that offers strong features and strong support.
  * Author: Chris Dillon
- * Version: 1.24.4
+ * Version: 1.25
  * Author URI: http://www.wpmission.com/
  * Text Domain: strong-testimonials
  * Domain Path: /languages
  * Requires: 3.5 or higher
  * License: GPLv3 or later
  *
- * Copyright 2014-2015  Chris Dillon  chris@wpmission.com
+ * Copyright 2014 Chris Dillon chris@wpmission.com
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -44,7 +44,6 @@ final class Strong_Testimonials {
 	private static $instance;
 
 	private static $db_version = '1.0';
-	public static $view_count = 0;
 	public static $styles = array( 'normal' => array(), 'later' => array() );
 	public static $scripts = array( 'normal' => array(), 'later' => array() );
 	public static $css = array();
@@ -123,6 +122,9 @@ final class Strong_Testimonials {
 	 */
 	private function setup_constants() {
 
+		if ( ! defined( 'WPMTST' ) )
+			define( 'WPMTST', dirname( plugin_basename( __FILE__ ) ) );
+
 		if ( ! defined( 'WPMTST_URL' ) )
 			define( 'WPMTST_URL', plugin_dir_url( __FILE__ ) );
 
@@ -139,10 +141,16 @@ final class Strong_Testimonials {
 			define( 'WPMTST_DEF_TPL_URI', plugin_dir_url( __FILE__ ) . 'templates/default/' );
 
 		if ( ! defined( 'WPMTST_TPL' ) )
-			define( 'WPMTST_TPL', plugin_dir_path( __FILE__ ) . 'templates/' );
+			define( 'WPMTST_TPL', plugin_dir_path( __FILE__ ) . 'templates' );
 
 		if ( ! defined( 'WPMTST_TPL_URI' ) )
-			define( 'WPMTST_TPL_URI', plugin_dir_url( __FILE__ ) . 'templates/' );
+			define( 'WPMTST_TPL_URI', plugin_dir_url( __FILE__ ) . 'templates' );
+
+		if ( ! defined( 'WPMTST_ORIG_TPL' ) )
+			define( 'WPMTST_ORIG_TPL', plugin_dir_path( __FILE__ ) . 'original-template/' );
+
+		if ( ! defined( 'WPMTST_ORIG_TPL_URI' ) )
+			define( 'WPMTST_ORIG_TPL_URI', plugin_dir_url( __FILE__ ) . 'original-template/' );
 
 	}
 
@@ -156,9 +164,9 @@ final class Strong_Testimonials {
 	 */
 	private function includes() {
 
+		require_once WPMTST_INC . 'class-strong-templates.php';
 		require_once WPMTST_INC . 'l10n.php';
 		require_once WPMTST_INC . 'post-types.php';
-		require_once WPMTST_INC . 'setup.php';
 		require_once WPMTST_INC . 'functions.php';
 		require_once WPMTST_INC . 'child-shortcodes.php';
 		require_once WPMTST_INC . 'shims.php';
@@ -173,11 +181,10 @@ final class Strong_Testimonials {
 			require_once WPMTST_INC . 'admin/custom-fields.php';
 			require_once WPMTST_INC . 'admin/guide/guide.php';
 			require_once WPMTST_INC . 'admin/install.php';
-			require_once WPMTST_INC . 'admin/pointers.php';
+			//require_once WPMTST_INC . 'admin/pointers.php';
 			require_once WPMTST_INC . 'admin/settings.php';
 			require_once WPMTST_INC . 'admin/upgrade.php';
 			require_once WPMTST_INC . 'admin/views.php';
-			require_once WPMTST_INC . 'admin/welcome.php';
 
 		} else {
 
@@ -204,30 +211,45 @@ final class Strong_Testimonials {
 	 */
 	private function add_actions() {
 
+		if ( !is_admin() ) {
+
+			/**
+			 * Actions on 'wp' hook allow us to properly enqueue styles and scripts.
+			 */
+
+			// Preprocess the post content for our shortcodes.
+			add_action( 'wp', array( $this, 'find_views' ) );
+			add_action( 'wp', array( $this, 'find_views_in_postmeta' ) );
+			add_action( 'wp', array( $this, 'find_views_in_postexcerpt' ) );
+
+			// Page Builder by Site Origin
+			add_action( 'wp', array( $this, 'find_pagebuilder_widgets' ) );
+
+			// Beaver Builder
+			add_action( 'wp', array( $this, 'find_beaverbuilder_widgets' ) );
+
+			// Black Studio TinyMCE Widget
+			add_action( 'wp', array( $this, 'find_blackstudio_widgets' ) );
+
+			// Preprocess the page for widgets.
+			add_action( 'wp', array( $this, 'find_widgets' ) );
+			add_action( 'wp', array( $this, 'find_view_widgets' ) );
+
+			// Elegant Themes - Home page content areas
+			add_action( 'wp', array( $this, 'find_views_elegant_themes' ) );
+
+			// Preprocess the post content for the original shortcodes.
+			add_action( 'wp', array( $this,	'find_original_shortcodes' ) );
+
+		}
+
 		/**
-		 * Actions on 'wp' hook allow us to properly enqueue styles and scripts.
+		 * Theme support for thumbnails.
 		 */
+		add_action( 'after_setup_theme', array( $this, 'theme_support' ) );
+		add_action( 'admin_init', array( $this, 'theme_support' ) );
 
-		// Preprocess the post content for the our shortcodes.
-		add_action( 'wp', array( $this, 'find_views' ) );
-		add_action( 'wp', array( $this, 'find_views_in_postmeta' ) );
-		add_action( 'wp', array( $this, 'find_views_in_postexcerpt' ) );
-
-		// Page Builder by Site Origin
-		add_action( 'wp', array( $this, 'find_pagebuilder_widgets' ) );
-
-		// Black Studio TinyMCE Widget
-		add_action( 'wp', array( $this, 'find_blackstudio_widgets' ) );
-
-		// Preprocess the page for widgets.
-		add_action( 'wp', array( $this, 'find_widgets' ) );
-		add_action( 'wp', array( $this, 'find_view_widgets' ) );
-
-		// Elegant Themes - Home page content areas
-		add_action( 'wp', array( $this, 'find_views_elegant_themes' ) );
-
-		// Preprocess the post content for the original shortcodes.
-		add_action( 'wp', array( $this, 'find_original_shortcodes' ) );
+		add_action( 'init', array( $this, 'reorder_check' ) );
 
 		/**
 		 * Localize scripts.
@@ -265,23 +287,201 @@ final class Strong_Testimonials {
 		add_filter( 'no_texturize_shortcodes', array( $this, 'no_texturize_shortcodes' ) );
 
 		/**
-		 * Print our custom CSS.
+		 * Be sure to process shortcodes in widget.
+		 *
+		 * @since 1.15.5
 		 */
-		add_action( 'wp_head', array( $this, 'custom_css' ) );
+		add_filter( 'widget_text', 'do_shortcode' );
 
 		add_action( 'wp_head', array( $this, 'show_version_info' ), 999 );
 
+		add_action( 'admin_init', 'wpmtst_redirect_about_page', 1 );
+
+		add_action( 'wpmtst_form_rendered', array( $this, 'form_rendered' ), 10, 1 );
+		add_action( 'wpmtst_view_rendered', array( $this, 'view_rendered' ), 10, 1 );
+
+		/**
+		 * Separate form submission handlers
+		 *
+		 * @since 1.25.0
+		 */
+
+		// Normal form submission
+		add_action( 'admin_post_wpmtst_form', array( $this, 'form_handler' ) );
+
+		// Ajax form submission
+		add_action( 'wp_ajax_wpmtst_form2', array( $this, 'form_handler2' ) );
+		add_action( 'wp_ajax_nopriv_wpmtst_form2', array( $this, 'form_handler2' ) );
+
+	}
+
+	public function form_handler() {
+		$goback = wp_get_referer();
+
+		if ( isset( $_POST['wpmtst_form_nonce'] ) ) {
+			require_once WPMTST_INC . 'shortcode-form.php';
+			require_once WPMTST_INC . 'form-handler-functions.php';
+			$success = wpmtst_form_handler();
+			if ( $success ) {
+				$goback = add_query_arg( 'success', true, $goback );
+			}
+			else {
+				$goback = add_query_arg( 'error', true, $goback );
+			}
+		}
+
+		wp_redirect( $goback );
+		exit;
+	}
+
+	public function form_handler2() {
+		if ( isset( $_POST['wpmtst_form_nonce'] ) ) {
+			require_once WPMTST_INC . 'shortcode-form.php';
+			require_once WPMTST_INC . 'form-handler-functions.php';
+			$success = wpmtst_form_handler();
+			if ( $success ) {
+				echo '<div class="testimonial-success">' . wpmtst_get_form_message( 'submission-success' ) . '</div>';
+			}
+			else {
+				echo '<div class="testimonial-error">' . wpmtst_get_form_message( 'submission-error' ) . '</div>';
+			}
+		}
+
+		die();
 	}
 
 	/**
-	 * @since 1.21.0
+	 * Do stuff after the form is rendered like load stylesheets and scripts.
+	 * For compatibility with page builders and popup makers.
+	 *
+	 * @since 1.25.0
+	 * @todo Combine with view_rendered in version 2.0
+	 *
+	 * @param $atts
 	 */
-	public function custom_css() {
-		echo "<style>\n";
-		foreach ( self::$css as $line ) {
-			echo $line . "\n";
+	public function form_rendered( $atts ) {
+		if ( isset( $atts['compat']) && $atts['compat'] ) {
+			self::find_stylesheet( $atts, false );
 		}
-		echo "</style>\n";
+		self::after_form( $atts );
+	}
+
+	/**
+	 * Do stuff after the slideshow is rendered like load stylesheets and scripts.
+	 * For compatibilty with page builders.
+	 * Required for the template function strong_testimonials_view.
+	 *
+	 * @since 1.25.0
+	 * @todo Combine with form_rendered in version 2.0
+	 *
+	 * @param $atts
+	 */
+	public function view_rendered( $atts ) {
+		if ( isset( $atts['compat']) && $atts['compat'] ) {
+			if ( isset( $atts['slideshow'] ) && $atts['slideshow'] ) {
+				self::find_stylesheet( $atts, false );
+			}
+			self::after_slideshow( $atts );
+			self::custom_background( $atts['view'], $atts['background'] );
+		}
+	}
+
+	/**
+	 * Add theme support for this custom post type only.
+	 *
+	 * Since 1.19.1, this appends our testimonial post type to the existing array,
+	 * at a later priority, and only if thumbnails are not already global for all
+	 * post types (an array means not global).
+	 *
+	 * @since 1.4.0
+	 * @since 1.19.1
+	 */
+	public function theme_support() {
+		global $_wp_theme_features;
+		if ( isset( $_wp_theme_features['post-thumbnails']) && is_array( $_wp_theme_features['post-thumbnails'] ) ) {
+			$_wp_theme_features['post-thumbnails'][0][] = 'wpm-testimonial';
+		}
+
+		/**
+		 * Add widget thumbnail size.
+		 *
+		 * @since 1.21.0
+		 */
+		add_image_size( 'widget-thumbnail', 75, 75, false );
+	}
+
+	/**
+	 * Load reorder class if enabled.
+	 */
+	public function reorder_check() {
+		$options = get_option( 'wpmtst_options' );
+		if ( isset( $options['reorder'] ) && $options['reorder'] ) {
+			require_once WPMTST_INC . 'class-strong-testimonials-order.php';
+		}
+	}
+
+	/**
+	 * @return mixed|void
+	 */
+	public function get_background_defaults() {
+		return apply_filters( 'wpmtst_default_template_background', array(
+			'color'  => '',
+			'type'   => '',
+			'preset' => '',
+			'gradient1' => '',
+			'gradient2' => '',
+			'example-font-color' => 'dark',
+		) );
+	}
+
+	/**
+	 * @param null $preset
+	 *
+	 * @return array|bool
+	 */
+	public function get_background_presets( $preset = null ) {
+		$presets = array(
+			'light-gray-gradient' => array(
+				'label'  => __( 'light gray gradient', 'strong-testimonials' ),
+				'color'  => '#FBFBFB',
+				'color2' => '#EDEDED',
+			),
+			'light-blue-gradient' => array(
+				'label'  => __( 'light blue gradient', 'strong-testimonials' ),
+				'color'  => '#E7EFFE',
+				'color2' => '#B8CFFB',
+			),
+			'sky-blue-gradient' => array(
+				'label'  => __( 'sky blue gradient', 'strong-testimonials' ),
+				'color'  => '#E9F6FB',
+				'color2' => '#C8E9F6',
+			),
+			'light-latte-gradient' => array(
+				'label'  => __( 'light latte gradient', 'strong-testimonials' ),
+				'color'  => '#F8F3EC',
+				'color2' => '#E0C8AB',
+			),
+			'light-green-mist-gradient' => array(
+				'label'  => __( 'light green mist gradient', 'strong-testimonials' ),
+				'color'  => '#F2FBE9',
+				'color2' => '#E0F7CC',
+			),
+			'light-plum-gradient' => array(
+				'label'  => __( 'light plum gradient', 'strong-testimonials' ),
+				'color'  => '#F7EEF7',
+				'color2' => '#E9D0E9',
+			),
+		);
+
+		ksort( $presets );
+
+		if ( !$preset )
+			return $presets;
+
+		if ( isset( $presets[ $preset] ) )
+			return $presets[ $preset ];
+
+		return false;
 	}
 
 	/**
@@ -303,8 +503,8 @@ final class Strong_Testimonials {
 	public function page_templates_filter( $page_templates, $theme_object, $post ) {
 		foreach ( $page_templates as $file_name => $template_name ) {
 			if ( 'testimonials.php' == $file_name
-			        || 'testimonials-' == substr( $file_name, 0, 13 )
-			        || 'testimonial-form' == substr( $file_name, 0, 16 ) ) {
+					|| 'testimonials-' == substr( $file_name, 0, 13 )
+					|| 'testimonial-form' == substr( $file_name, 0, 16 ) ) {
 				unset( $page_templates[ $file_name ] );
 			}
 		}
@@ -366,45 +566,58 @@ final class Strong_Testimonials {
 	private static function set_view_defaults( $defaults = array() ) {
 		$defaults = array_merge(
 			array(
-				'background'       => '',
-				'category'         => '',
-				'class'            => '',
-				'client_section'   => null,
-				'count'            => -1,
-				'display'          => '',
-				'effect_for'       => '1.5',
-				'excerpt'          => '',
-				'form'             => '',
-				'gravatar'         => 'no',
-				'id'               => '',
-				'length'           => '',
-				'lightbox'         => '',
-				'menu_order'       => '',  // @since 1.16.0
-				'mode'             => '',
-				'more_page'        => '',  // @since 1.20.0
-				'more_page_on'     => '',  // @since 1.20.0
-				'more_post'        => '',
-				'more_text'        => _x( 'Read more', 'link', 'strong-testimonials' ),
-				'nav'              => 'after',
-				'newest'           => '',
-				'no_pause'         => 0,  // must be zero not boolean or string!
-				'oldest'           => '',
-				'per_page'         => '',
-				'random'           => '',
-				'read_more'        => '',
-				'show_for'         => '8',
-				'slideshow'        => '',
-				'template'         => '',
-				'thumbnail'        => '',
-				'thumbnail_size'   => 'thumbnail',
-				'thumbnail_height' => null,
-				'thumbnail_width'  => null,
-				'title'            => '',
-				'view'             => '',
+				'all'               => 1,
+				'background'        => array(
+					'color'  => '',
+					//'color2' => '',
+					'type'   => '',
+					'preset' => '',
+					'example-font-color' => 'dark',
+				),
+				'category'          => '',
+				'class'             => '',
+				'client_section'    => null,
+				'column_count'      => 2,
+				'compat'            => 0,
+				'container_class'   => '',
+				'count'             => 1,
+				'display'           => '',
+				'effect_for'        => '1.5',
+				'excerpt'           => '',
+				'form'              => '',
+				'form-ajax'         => 0,
+				'gravatar'          => 'no',
+				'id'                => '',
+				'layout'            => '',
+				'length'            => '',
+				'lightbox'          => '',
+				'menu_order'        => '',
+				'mode'              => '',
+				'more_page'         => '',
+				'more_page_on'      => '',
+				'more_post'         => '',
+				'more_text'         => _x( 'Read more', 'link', 'strong-testimonials' ),
+				'nav'               => 'after',
+				'newest'            => '',
+				'no_pause'          => 0, // must be zero not boolean or string!
+				'note'              => '',
+				'oldest'            => '',
+				'per_page'          => '',
+				'random'            => '',
+				'read_more'         => '',
+				'show_for'          => '8',
+				'slideshow'         => '',
+				'template'          => '',
+				'thumbnail'         => '',
+				'thumbnail_size'    => 'thumbnail',
+				'thumbnail_height'  => null,
+				'thumbnail_width'   => null,
+				'title'             => '',
+				'view'              => '',
 			),
 			$defaults
 		);
-		self::$view_defaults      = $defaults;
+		self::$view_defaults = $defaults;
 	}
 
 	/**
@@ -502,10 +715,6 @@ final class Strong_Testimonials {
 		if ( ! in_array( $script_name, self::$scripts[ $when ] ) ) {
 			self::$scripts[ $when ][] = $script_name;
 		}
-	}
-
-	private static function add_css( $line ) {
-		self::$css[] = $line;
 	}
 
 	/**
@@ -720,9 +929,10 @@ final class Strong_Testimonials {
 				// Build the shortcode signature.
 				$att_string = serialize( $original_atts );
 
-				self::find_single_view( self::$view_count++, $atts, $att_string );
+				self::find_single_view( $atts, $att_string );
 
-			} elseif ( self::$shortcode2 === $shortcode[2]) {
+			}
+			elseif ( self::$shortcode2 === $shortcode[2]) {
 
 				/**
 				 * Adding html_entity_decode.
@@ -738,11 +948,12 @@ final class Strong_Testimonials {
 				$atts = normalize_empty_atts( $parsed_atts );
 
 				// Build the shortcode signature.
-				$att_string = serialize( $original_atts );
+				$att_string = serialize($original_atts);
 
-				self::find_single_view( self::$view_count++, $atts, $att_string );
+				self::find_single_view($atts, $att_string);
 
-			} else {
+			}
+			else {
 
 				/**
 				 * Recursively process nested shortcodes.
@@ -763,102 +974,110 @@ final class Strong_Testimonials {
 	 * Process a single [strong] or [testimonial_view] shortcode.
 	 *
 	 * TODO Move all this to hooks and filters.
+	 * TODO So not DRY -- improve in version 2.0
 	 *
 	 * @since 1.15.4 [strong]
 	 * @since 1.21.0 [testimonial_view]
+	 * @param $atts
+	 * @param $att_string
+	 * @return array
 	 */
-	private static function find_single_view( $counter, $atts, $att_string ) {
+	private static function find_single_view( $atts, $att_string ) {
 		$options         = get_option( 'wpmtst_options' );
 		$preprocess      = false;
 		$preprocess_form = false;
+		$handle          = false;
 
 		/**
+		 * ==============================
 		 * Modes
+		 * ==============================
 		 */
 		if ( isset( $atts['read_more'] ) ) {
 
 			/**
+			 * ------------------------------
 			 * "Read more"
-			 *
+			 * ------------------------------
 			 * TODO remove in 2.0
 			 */
 			$view = array( 'mode' => 'read_more', 'atts' => $atts );
 
-		} elseif ( isset( $atts['form'] ) ) {
+		}
+		elseif ( isset( $atts['form'] ) ) {
 
 			/**
+			 * ------------------------------
 			 * Form
+			 * ------------------------------
 			 */
-			$form_options = get_option( 'wpmtst_form_options' );
-			$view = array( 'mode' => 'form', 'atts' => $atts );
+			$view            = array( 'mode' => 'form', 'atts' => $atts );
 			$preprocess_form = true;
 
 			/**
 			 * If this is a view, look for accompanying stylesheet.
-			 * If this is a configured shortcode, check the option for loading its stylesheet.
 			 */
 			if ( isset( $atts['view'] ) && $atts['view'] ) {
 
-				self::find_stylesheet( $view['mode'], $atts );
+				if ( !$atts['compat'] ) {
+					$handle = self::find_stylesheet($atts);
+				}
 
-			} else {
+			}
+			else {
 
-				// load original stylesheet
+				/**
+				 * If this is a configured shortcode, check the option for loading its stylesheet.
+				 */
 				if ( $options['load_form_style'] ) {
 					self::add_style( 'wpmtst-form-style' );
 				}
 
-				// RTL
 				if ( is_rtl() && $options['load_rtl_style'] ) {
 					self::add_style( 'wpmtst-rtl-style' );
 				}
 
 			}
 
-			if ( apply_filters( 'wpmtst_field_required_tag', true ) && apply_filters( 'wpmtst_form_validation_script', true ) ) {
-				self::add_script( 'wpmtst-form-script' );
-				self::add_script( 'wpmtst-validation-lang' );
-			}
+			self::after_form( $atts );
 
-			if ( $form_options['honeypot_before'] ) {
-				add_action( 'wp_footer', 'wpmtst_honeypot_before_script' );
-			}
-
-			if ( $form_options['honeypot_after'] ) {
-				add_action( 'wp_footer', 'wpmtst_honeypot_after_script' );
-			}
-
-		} elseif ( isset( $atts['slideshow'] ) ) {
+		}
+		elseif ( isset( $atts['slideshow'] ) ) {
 
 			/**
+			 * ------------------------------
 			 * Slideshow
+			 * ------------------------------
 			 */
 			$view = array( 'mode' => 'slideshow', 'atts' => $atts );
 			$preprocess = true;
 
 			/**
 			 * If this is a view, look for accompanying stylesheet.
-			 * If this is a configured shortcode, check the option for loading its stylesheet.
 			 */
-
 			if ( isset( $atts['view'] ) && $atts['view'] ) {
 
-				self::find_stylesheet( $view['mode'], $atts );
+				if ( !$atts['compat'] ) {
+					$handle = self::find_stylesheet( $atts );
+				}
 
-			} else {
+			}
+			else {
 
-				// Load original stylesheet.
+				/**
+				 * If this is a configured shortcode, check the option for loading its stylesheet.
+				 */
 				if ( $options['load_page_style'] ) {
 					self::add_style( 'wpmtst-style' );
 				}
 
-				// RTL
 				if ( is_rtl() && $options['load_rtl_style'] ) {
 					self::add_style( 'wpmtst-rtl-style' );
 				}
 			}
 
-		} else {
+		}
+		else {
 
 			/**
 			 * Display (default)
@@ -868,21 +1087,21 @@ final class Strong_Testimonials {
 
 			/**
 			 * If this is a view, look for accompanying stylesheet.
-			 * If this is a configured shortcode, check the option for loading its stylesheet.
 			 */
-
 			if ( isset( $atts['view'] ) && $atts['view'] ) {
 
-				self::find_stylesheet( $view['mode'], $atts );
+				$handle = self::find_stylesheet( $atts );
 
-			} else {
+			}
+			else {
 
-				// Load original stylesheet.
+				/**
+				 * If this is a configured shortcode, check the option for loading its stylesheet.
+				 */
 				if ( $options['load_page_style'] ) {
 					self::add_style( 'wpmtst-style' );
 				}
 
-				// RTL
 				if ( is_rtl() && $options['load_rtl_style'] ) {
 					self::add_style( 'wpmtst-rtl-style' );
 				}
@@ -891,90 +1110,147 @@ final class Strong_Testimonials {
 
 		}
 
-		// Process attributes to check for required styles & scripts.
-		if ( $preprocess ) {
-			self::pre_process( $view, $counter, $atts, $att_string );
-		} elseif ( $preprocess_form ) {
-			self::pre_process_form( $view, $counter, $atts, $att_string );
+		/**
+		 * Process attributes to check for required styles & scripts.
+		 *
+		 * Add check for compatibility mode @since 1.25.0
+		 */
+		if ( !isset( $atts['compat'] ) || !$atts['compat'] ) {
+			if ( $preprocess ) {
+				self::preprocess( $view, $atts, $att_string, $handle );
+			} elseif ( $preprocess_form ) {
+				self::preprocess_form( $view, $atts, $att_string, $handle );
+			}
 		}
 
 		return $view;
 	}
 
 	/**
-	 * Find a template's associated stylesheet.
+	 * Load form validation and add honeypot actions.
 	 *
-	 * @since 1.23.0
+	 * @since 1.25.0
+	 *
+	 * @param array $atts
 	 */
-	private static function find_stylesheet( $mode = 'display', $atts ) {
-		// Find template; use default if unspecified.
-		if ( isset( $atts['template'] ) && $atts['template'] ) {
-			if ( 'form' == $mode ) {
-				$template = wpmtst_find_form_template( $atts['template'], $atts['view'] );
-			} else {
-				$template = wpmtst_find_template( $atts['template'], $atts['view'] );
-			}
-		} else {
-			if ( 'form' == $mode ) {
-				$template = wpmtst_find_form_template( '', $atts['view'] );
-			} else {
-				$template = wpmtst_find_template( '', $atts['view'] );
-			}
-			// Important to populate template var.
-			$atts['template'] = str_replace( WPMTST_TPL, '', $template );
+	private static function after_form( $atts = array() ) {
+		$form_options = get_option('wpmtst_form_options');
+
+		if ( wpmtst_using_form_validation_script() ) {
+			wp_localize_script( 'wpmtst-form-script', 'form_ajax_object', array(
+				'ajaxUrl' => admin_url( 'admin-ajax.php' ),
+				'ajaxSubmit' => isset( $atts['form-ajax'] ) && $atts['form-ajax'] ? 1 : 0,
+			) );
+			wp_enqueue_script( 'wpmtst-form-script' );
 		}
 
-		// Load template stylesheet. Search theme first.
-		$handle = '';
-		$stylesheet_url = '';
-
-		// Derive basename from full template filename.
-		$stylesheet = str_replace( array( '.php', get_stylesheet_directory() ), array( '.css', '' ), $template );
-
-		if ( file_exists( get_stylesheet_directory() . $stylesheet ) ) {
-			$handle = self::generate_stylesheet_handle( $stylesheet );
-			$stylesheet_url  = get_stylesheet_directory_uri() . $stylesheet;
+		if ( $form_options['honeypot_before'] ) {
+			add_action( 'wp_footer', 'wpmtst_honeypot_before_script' );
 		}
 
-		// Search plugin next.
-		if ( ! $handle ) {
-
-			// Derive basename from full template filename.
-			$stylesheet = str_replace( array( '.php', WPMTST_TPL ), array( '.css', '' ), $template );
-
-			if ( file_exists( WPMTST_TPL . $stylesheet ) ) {
-				$handle = self::generate_stylesheet_handle( $stylesheet );
-				$stylesheet_url  = WPMTST_TPL_URI . $stylesheet;
-			}
-
-		}
-
-		if ( $handle ) {
-			wp_register_style( $handle, $stylesheet_url );
-			self::add_style( $handle );
+		if ( $form_options['honeypot_after'] ) {
+			add_action( 'wp_footer', 'wpmtst_honeypot_after_script' );
 		}
 	}
 
 	/**
-	 * Generate stylesheet handle using filename.
-	 *
-	 * @since 1.23
+	 * @param array $atts
 	 */
-	private static function generate_stylesheet_handle( $stylesheet ){
-		return str_replace( array( '/', '.css' ), array( '-', '-template' ), trim( $stylesheet, '/' ) ) . '-style';
+	private static function after_slideshow( $atts = array() ) {
+
+		if ( !wp_script_is( 'wpmtst-slider', 'registered enqueued' ) ) {
+			  $plugin_version = get_option( 'wpmtst_plugin_version' );
+
+			/**
+			 * Register jQuery Cycle plugin after theme to prevent conflicts.
+			 *
+			 * Everybody loves Cycle!
+			 *
+			 * In case the theme loads cycle.js for a slider, we check after it's enqueue function.
+			 * If registered, we register our slider script using existing Cycle handle.
+			 * If not registered, we register it with our Cycle handle.
+			 *
+			 * @since 1.14.1
+			 */
+
+			$filenames = array(
+				'jquery.cycle.all.min.js',
+				'jquery.cycle.all.js',
+				'jquery.cycle2.min.js',
+				'jquery.cycle2.js'
+			);
+
+			$cycle_handle = wpmtst_is_registered( $filenames );
+
+			if ( !$cycle_handle ) {
+				// Using unique handle and loading Cycle2 for better dimension handling.
+				$cycle_handle = 'jquery-cycle-in-wpmtst';
+				wp_register_script( $cycle_handle, WPMTST_URL . 'js/cycle/jquery.cycle2.min.js', array( 'jquery' ), '2.1.6', true );
+			}
+
+			// Our slider handler, dependent on whichever jQuery Cycle plugin is being used.
+			wp_enqueue_script( 'jquery-actual', WPMTST_URL . 'js/actual/jquery.actual.min.js', array( 'jquery' ), false, true );
+			wp_enqueue_script( 'wpmtst-slider', WPMTST_URL . 'js/wpmtst-cycle.js', array( $cycle_handle, 'jquery-actual' ), $plugin_version, true );
+
+		}
+
+		// Populate variable for Cycle script.
+		$args = array(
+			'fx'      => 'fade',
+			'speed'   => $atts['effect_for'] * 1000,
+			'timeout' => $atts['show_for'] * 1000,
+			'pause'   => $atts['no_pause'] ? 0 : 1
+		);
+		if ( !wp_script_is( 'wpmtst-slider' ) ) {
+			wp_enqueue_script( 'wpmtst-slider' );
+		}
+		wp_localize_script( 'wpmtst-slider', 'strong_cycle_' . hash( 'md5', serialize( $args ) ), $args );
+
+	}
+
+	/**
+	 * Find a template's associated stylesheet.
+	 *
+	 * @since 1.23.0
+	 *
+	 * @param      $atts
+	 * @param bool $deferred
+	 *
+	 * @return bool|string
+	 */
+	private static function find_stylesheet( $atts, $deferred = true ) {
+		// In case of deactivated widgets still referencing deleted Views
+		if ( !isset( $atts['template'] ) || !$atts['template'] )
+			return false;
+
+		global $strong_templates;
+		$plugin_version = get_option( 'wpmtst_plugin_version' );
+		$handle = false;
+		$stylesheet = $strong_templates->get_template_attr( $atts, 'stylesheet', false );
+		if ( $stylesheet ) {
+			$handle = 'testimonials-' . str_replace( ':', '-', $atts['template'] );
+			wp_register_style( $handle, $stylesheet, array(), $plugin_version );
+			if ( $deferred )
+				self::add_style( $handle );
+			else
+				wp_enqueue_style( $handle );
+		}
+
+		return $handle;
 	}
 
 	/**
 	 * Preprocess a view to gather styles, scripts and script vars.
 	 *
 	 * @param $view
-	 * @param $counter
 	 * @param $atts
 	 * @param $att_string
 	 *
 	 * @return string
 	 */
-	private static function pre_process( $view, $counter, $atts, $att_string ) {
+	private static function preprocess( $view, $atts, $att_string, $handle = false ) {
+		global $strong_templates;
+
 		// subset of all shortcode atts
 		extract( shortcode_atts(
 			self::get_view_defaults(),
@@ -988,7 +1264,7 @@ final class Strong_Testimonials {
 		// assemble query arguments
 		$args = array(
 			'post_type'      => 'wpm-testimonial',
-			'posts_per_page' => $count,
+			'posts_per_page' => $all ? -1 : $count,
 			'orderby'        => 'post_date',
 			'post_status'    => 'publish',
 		);
@@ -1010,6 +1286,9 @@ final class Strong_Testimonials {
 		$post_count = $query->post_count;
 		wp_reset_postdata();
 
+		/**
+		 * Slideshow
+		 */
 		if ( $slideshow ) {
 
 			// Populate variable for Cycle script.
@@ -1026,11 +1305,14 @@ final class Strong_Testimonials {
 			 * var strong_cycle_b17e46f93ef619819cdfe5e26b66a3e9 = {"fx":"fade","speed":"1000","timeout":"5000","pause":"1"};
 			 */
 
-		} else {
+		}
+		else {
 
+			/**
+			 * Pagination
+			 */
 			if ( $per_page && $post_count > $per_page ) {
 
-				// Paginated.
 				// Populate variable for QuickPager script.
 				if ( false !== strpos( $nav, 'before' ) && false !== strpos( $nav, 'after' ) ) {
 					$nav = 'both';
@@ -1040,40 +1322,120 @@ final class Strong_Testimonials {
 					'id'            => '.strong-paginated',
 					'pageSize'      => $per_page,
 					'currentPage'   => 1,
-					'pagerLocation' => $nav
+					'pagerLocation' => $nav,
+					'offset'        => apply_filters( 'wpmtst_pagination_scroll_offset', 40 ),
 				);
 				self::add_script( 'wpmtst-pager-script' );
 				self::add_script_var( 'wpmtst-pager-script', 'pagerVar', $pager );
 
 			}
 
-		}
-
-		/**
-		 * Custom CSS for Views only.
-		 */
-		if ( isset( $atts['view'] ) && $atts['view'] ) {
-			// For plugin templates only.
-			if ( $background ) {
-				// Convert "default/testimonials.php" to "default", for example.
-				$template_class = $template ? '.' . strtok( $template, '/' ) : '';
-				self::add_css( ".strong-view{$template_class} .testimonial-inner { background: {$background}; }" );
+			/**
+			 * Layouts
+			 */
+			if ( 'masonry' == $layout ) {
+				self::add_script( 'wpmtst-masonry-script' );
+				self::add_style( 'wpmtst-masonry-style' );
+			}
+			elseif ( 'columns' == $layout ) {
+				self::add_style( 'wpmtst-columns-style' );
+			}
+			elseif ( 'grid' == $layout ) {
+				self::add_style( 'wpmtst-grid-style' );
 			}
 		}
 
+		/**
+		 * Load template's script and/or dependencies.
+		 *
+		 * @since 1.25.0
+		 */
+		$deps = $strong_templates->get_template_attr( $atts, 'deps', false );
+		$deps_array = array();
+		if ( $deps ) {
+			$deps_array = explode( ',', str_replace( ' ', '', $deps ) );
+		}
+
+		$script = $strong_templates->get_template_attr( $atts, 'script', false );
+		if ( $script ) {
+			$handle = 'testimonials-' . str_replace( ':', '-', $atts['template'] );
+			wp_register_script( $handle, $script, $deps_array );
+			self::add_script( $handle );
+		}
+		else {
+			foreach ( $deps_array as $handle ) {
+				self::add_script( $handle );
+			}
+		}
+
+		self::custom_background( $view, $background, $handle );
+
+	}
+
+	/**
+	 * Custom CSS for Views only.
+	 *
+	 * @param $view
+	 * @param $background
+	 * @param $handle
+	 */
+	private static function custom_background( $view = null, $background, $handle = 'wpmtst-custom-style' ) {
+		if ( !$view ) return;
+
+		$c1 = '';
+		$c2 = '';
+
+		switch ( $background['type'] ) {
+			case 'preset':
+				$preset = WPMST()->get_background_presets( $background['preset'] );
+				$c1 = $preset['color'];
+				if ( isset( $preset['color2'] ) ) {
+					$c2 = $preset['color2'];
+				}
+				break;
+			case 'gradient':
+				$c1 = $background['gradient1'];
+				$c2 = $background['gradient2'];
+				break;
+			case 'single':
+				$c1 = $background['color'];
+				break;
+			default:
+		}
+
+		if ( !wp_style_is( $handle ) )
+			wp_enqueue_style( $handle );
+
+		if ( $c1 && $c2 ) {
+			$gradient = self::gradient_rules( $c1, $c2 );
+			wp_add_inline_style( $handle, ".strong-view-id-$view .testimonial-inner { $gradient }" );
+		}
+		else {
+			wp_add_inline_style( $handle, ".strong-view-id-$view .testimonial-inner { background: $c1; }" );
+		}
+	}
+
+	private static function gradient_rules( $c1, $c2 ) {
+		return "background: {$c1};
+	background: -moz-linear-gradient(top, {$c1} 0%, {$c2} 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, {$c1}), color-stop(100%, {$c2}));
+	background: -webkit-linear-gradient(top,  {$c1} 0%, {$c2} 100%);
+	background: -o-linear-gradient(top, {$c1} 0%, {$c2} 100%);
+	background: -ms-linear-gradient(top, {$c1} 0%, {$c2} 100%);
+	background: linear-gradient(to bottom, {$c1} 0%, {$c2} 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='{$c1}', endColorstr='{$c2}', GradientType=0);
+ }";
 	}
 
 	/**
 	 * Preprocess a form.
 	 *
-	 * @param $view
-	 * @param $counter
-	 * @param $atts
-	 * @param $att_string
-	 *
-	 * @return string
+	 * @param            $view
+	 * @param            $atts
+	 * @param            $att_string
+	 * @param bool|false $handle
 	 */
-	private static function pre_process_form( $view, $counter, $atts, $att_string ) {
+	private static function preprocess_form( $view, $atts, $att_string, $handle = false ) {
 		// subset of all shortcode atts
 		extract( shortcode_atts(
 			self::get_view_defaults(),
@@ -1081,23 +1443,16 @@ final class Strong_Testimonials {
 		) );
 
 		// validate form entries here
-		if ( isset( $_POST['wpmtst_form_nonce'] ) ) {
-			require_once WPMTST_INC . 'form-handler-functions.php';
-			$success = wpmtst_form_handler();
-			if ( $success ) {
-				$goback = add_query_arg( 'success', 1, wp_get_referer() );
-				wp_redirect( $goback );
-				exit;
-			}
-		}
+		if ( !wpmtst_using_form_validation_script() ) {
 
-		/**
-		 * Custom CSS for View Forms only.
-		 */
-		if ( isset( $atts['view'] ) && $atts['view'] ) {
-			$template_class = $template ? '.' . strtok( $template, '/' ) : '';
-			if ( $background ) {
-				self::add_css( ".strong-form{$template_class} { background: {$background}; }" );
+			if ( isset( $_POST['wpmtst_form_nonce'] ) ) {
+				require_once WPMTST_INC . 'form-handler-functions.php';
+				$success = wpmtst_form_handler();
+				if ( $success ) {
+					$goback = add_query_arg( 'success', 1, wp_get_referer() );
+					wp_redirect( $goback );
+					exit;
+				}
 			}
 		}
 	}
@@ -1106,17 +1461,15 @@ final class Strong_Testimonials {
 	 * Find widgets in a page to gather styles, scripts and script vars.
 	 *
 	 * For standard widgets NOT in [Page Builder by SiteOrigin] panels.
-	 *
-	 * @access public
 	 */
 	public static function find_view_widgets() {
 		if ( is_admin() )
-			return false;
+			return;
 
 		// Get all widgets
 		$all_widgets = get_option( 'sidebars_widgets' );
 		if ( ! $all_widgets )
-			return false;
+			return;
 
 		// Get active strong widgets
 		$strong_widgets = get_option( 'widget_strong-testimonials-view-widget' );
@@ -1152,7 +1505,7 @@ final class Strong_Testimonials {
 								// Turn empty atts into switches.
 								$atts = normalize_empty_atts( $parsed_atts );
 
-								self::find_single_view( self::$view_count++, $atts, $att_string );
+								self::find_single_view( $atts, $att_string );
 							}
 
 						}
@@ -1180,12 +1533,12 @@ final class Strong_Testimonials {
 	 */
 	public static function find_widgets() {
 		if ( is_admin() )
-			return false;
+			return;
 
 		// Get all widgets
 		$all_widgets = get_option( 'sidebars_widgets' );
 		if ( ! $all_widgets )
-			return false;
+			return;
 
 		$options = get_option( 'wpmtst_options' );
 
@@ -1204,7 +1557,6 @@ final class Strong_Testimonials {
 				if ( 0 === strpos( $widget_name, 'wpmtst-widget-' ) ) {
 
 					// Enqueue stylesheets
-					//TODO move these to functions
 					if ( $options['load_widget_style'] ) {
 						self::add_style( 'wpmtst-widget-style' );
 					}
@@ -1262,22 +1614,19 @@ final class Strong_Testimonials {
 	 * Find widgets in a page to gather styles, scripts and script vars.
 	 *
 	 * For widgets in [Page Builder by SiteOrigin] panels.
-	 *
-	 * @access public
-	 * @see notes-pagebuilder-post-meta-panels_data.txt
 	 */
 	public static function find_pagebuilder_widgets() {
 		if ( is_admin() )
-			return false;
+			return;
 
 		// Get all widgets
 		$panels_data = get_post_meta( get_the_ID(), 'panels_data', true );
 		if ( ! $panels_data )
-			return false;
+			return;
 
 		$all_widgets = $panels_data['widgets'];
 		if ( ! $all_widgets )
-			return false;
+			return;
 
 		$options = get_option( 'wpmtst_options' );
 
@@ -1340,7 +1689,7 @@ final class Strong_Testimonials {
 						// Turn empty atts into switches.
 						$atts = normalize_empty_atts( $parsed_atts );
 
-						self::find_single_view( self::$view_count++, $atts, $att_string );
+						self::find_single_view( $atts, $att_string );
 					}
 
 				} elseif ( 'WP_Widget_Text' == $widget['panels_info']['class'] ) {
@@ -1353,7 +1702,49 @@ final class Strong_Testimonials {
 			}
 
 		}
+	}
 
+	/**
+	 * Find widgets in a page to gather styles, scripts and script vars.
+	 *
+	 * For widgets in [Page Builder by SiteOrigin] panels.
+	 */
+	public static function find_beaverbuilder_widgets() {
+		if ( is_admin() )
+			return;
+
+		$nodes = get_post_meta( get_the_ID(), '_fl_builder_data', true );
+		if ( ! $nodes )
+			return;
+
+		foreach ( $nodes as $key => $node ) {
+
+			if ( 'module' != $node->type )
+				continue;
+
+			if ( 'widget' != $node->settings->type )
+				continue;
+
+			if ( 'Strong_Testimonials_View_Widget' == $node->settings->widget ) {
+
+				$settings = (array) $node->settings;
+				$widget   = (array) $settings['widget-strong-testimonials-view-widget'];
+				if ( isset( $widget['view'] ) && $widget['view'] ) {
+					$atts        = array( 'view' => $widget['view'] );
+					$parsed_atts = self::parse_view( $atts, self::get_view_defaults(), $atts );
+
+					// Build the shortcode signature.
+					$att_string = serialize( $atts );
+
+					// Turn empty atts into switches.
+					$atts = normalize_empty_atts( $parsed_atts );
+
+					self::find_single_view( $atts, $att_string );
+				}
+
+			}
+
+		}
 	}
 
 	/**
@@ -1363,19 +1754,19 @@ final class Strong_Testimonials {
 	 */
 	public static function find_original_shortcodes() {
 		if ( is_admin() )
-			return false;
+			return;
 
 		global $post;
 		if ( empty( $post ) )
-			return false;
+			return;
 
 		$content = $post->post_content;
 		if ( false === strpos( $content, '[' ) )
-			return false;
+			return;
 
 		preg_match_all( '/' . get_shortcode_regex() . '/s', $content, $matches, PREG_SET_ORDER );
 		if ( empty( $matches ) )
-			return false;
+			return;
 
 		$options      = get_option( 'wpmtst_options' );
 		$form_options = get_option( 'wpmtst_form_options' );
@@ -1471,9 +1862,9 @@ final class Strong_Testimonials {
 	/**
 	 * Parse view attributes.
 	 *
-	 * @param array $out The output array of shortcode attributes.
+	 * @param array $out   The output array of shortcode attributes.
 	 * @param array $pairs The supported attributes and their defaults.
-	 * @param array $atts The user defined shortcode attributes.
+	 * @param array $atts  The user defined shortcode attributes.
 	 *
 	 * @return array
 	 */
@@ -1564,20 +1955,18 @@ final class Strong_Testimonials {
 	/**
 	 * Process the form.
 	 */
-	//public function form_handler() {
-	//	require_once WPMTST_INC . 'form-handler-functions.php';
-	//	wpmtst_form_handler();
-	//}
-
 	public function set_form_values( $form_values ) {
 		self::$form_values = $form_values;
 	}
+
 	public function get_form_values() {
 		return self::$form_values;
 	}
+
 	public function set_form_errors( $form_errors ) {
 		self::$form_errors = $form_errors;
 	}
+
 	public function get_form_errors() {
 		return self::$form_errors;
 	}
@@ -1620,6 +2009,30 @@ final class Strong_Testimonials {
 
 	public function get_plugin_info() {
 		return get_file_data( __FILE__, array( 'name' => 'Plugin Name', 'version' => 'Version' ) );
+	}
+
+	public function log( $log, $label = false, $filename = null, $append = true )  {
+
+		$entry = '[' . date('Y-m-d H:i:s') . '] ';
+
+		if ( $label )
+			$entry .= strtoupper( $label ) . ' = ';
+
+		if ( is_array( $log ) || is_object( $log ) )
+			$entry .= print_r( $log, true );
+		else
+			$entry .= $log . PHP_EOL;
+
+		if ( isset( $filename ) )
+			$filepath = ABSPATH . 'wp-content/' . $filename;
+		else
+			$filepath = ini_get( 'error_log' );
+
+		if ( $append )
+			file_put_contents( $filepath, $entry, FILE_APPEND );
+		else
+			file_put_contents( $filepath, $entry );
+
 	}
 
 }

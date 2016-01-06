@@ -1,83 +1,169 @@
 /**
- * Strong Testimonials admin stylesheet
+ *  Admin list order
+ *  Strong Testimonials
  */
 
-/* reordering */
-th.manage-column.column-order {
-	width: 4em;
+th.manage-column.column-handle {
+	width: 3em;
 	text-align: center;
 }
-td.column-order {
+
+td.column-handle {
 	text-align: center;
+	padding-top: 10px;
+}
+
+#the-list:not(.ui-sortable-disabled) td.column-handle {
 	cursor: move;
 }
-td.column-order .help {
-	display: none;
-	font-style: italic;
-}
-td.column-order .help-in-motion {
-	color: #ff0000;
-	display: none;
-	font-style: italic;
-}
-td.column-order:hover {
-	background: #BBEBFA;
-}
-td.column-order:hover .help {
-	display: block;
-}
 
-/* to add border to "handle" cell */
-/*
-td.column-order:hover {
-	padding: 0;
-	position: relative;
-}
-
-td.column-order:hover div.handle {
-	border: 1px dotted #999;
-	border-radius: 2px;
-	padding: 7px 9px;
-	position: absolute;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-}
-*/
-
-#the-list tr.reorder-hover {
+#the-list:not(.ui-sortable-disabled)  tr.reorder-hover {
 	background: #E7F8FD;
 }
-/* to add dashed border to row */
-/*
-tr.reorder-hover th,
-tr.reorder-hover td {
-	border-top: 1px dashed #999;
-	border-bottom: 1px dashed #999;
+
+td.column-handle .help:before,
+td.column-handle .help-in-motion:before {
+	font-family: fontawesome;
+	font-size: 14px;
+	width: 1em;
+	margin: 0 auto;
+	color: #aaa;
 }
-tr.reorder-hover th:first-child {
-	border-left: 1px dashed #999;
+
+td.column-handle .help:before {
+	content: "\f047";
 }
-tr.reorder-hover td:last-child {
-	border-right: 1px dashed #999;
+
+td.column-handle .help-in-motion:before {
+	content: "\f255";
+	color: #111;
+	font-size: 16px;
+	display: none;
 }
-*/
+
+#the-list:not(.ui-sortable-disabled) td.column-handle:not(.refresh):hover .help:before {
+	content: "\f256";
+	color: #111;
+	font-size: 16px;
+}
 
 .ui-sortable tr.ui-sortable-helper {
-	/* background: #BBEBFA; */
 	background: rgba(187,235,250,0.6) !important;
 	border: 1px solid #DFDFDF;
 }
 
-.ui-sortable tr.ui-sortable-helper .help {
+.ui-sortable tr.ui-sortable-helper .help:before {
 	display: none;
 }
 
-.ui-sortable tr.ui-sortable-helper .help-in-motion {
+.ui-sortable tr.ui-sortable-helper .help-in-motion:before {
 	display: block;
 }
 
 .sortable-placeholder {
 	background: #E7F8FD;
+}
+
+@-webkit-keyframes spin {
+	0% {
+		-webkit-transform: rotate(0deg);
+		transform: rotate(0deg);
+	}
+
+	100% {
+		-webkit-transform: rotate(359deg);
+		transform: rotate(359deg);
+	}
+}
+
+@keyframes spin {
+	0% {
+		-webkit-transform: rotate(0deg);
+		-ms-transform: rotate(0deg);
+		transform: rotate(0deg);
+	}
+
+	100% {
+		-webkit-transform: rotate(359deg);
+		-ms-transform: rotate(359deg);
+		transform: rotate(359deg);
+	}
+}
+
+td.column-handle.refresh .help:before {
+	content: "\f110";
+	color: #0073AA;
+	font-size: 16px;
+}
+
+td.column-handle.refresh .help {
+	-webkit-animation: spin 1.5s linear infinite;
+	animation: spin 1.5s linear infinite;
+}
+
+/* Help icon 2
+---------------------------------------------------------*/
+span.help-reorder {
+	color: #777;
+}
+
+span.help-reorder:hover {
+	color: #1E8CBE;
+	cursor: pointer !important;
+	display: inline-block;
+	position: relative;
+}
+
+/* tooltip */
+span.help-reorder span {
+	position: absolute;
+	visibility: hidden;
+	width: 180px;
+	height: auto;
+	padding: 8px 8px 10px;
+	color: #FFFFFF;
+	background: #222;
+	text-align: center;
+	border-radius: 4px;
+	font-family: "Open Sans", sans-serif;
+	font-size: 13px;
+	line-height: 19px;
+}
+
+span.help-reorder .help-pointer {
+	/*font-family: "dashicons";*/
+	/*content: "\f342";*/
+	font-style: normal;
+	color: yellow;
+	transform: rotate(75deg);
+	position: absolute;
+	right: 8px;
+	bottom: 4px;
+}
+
+/* triangle */
+span.help-reorder span:after {
+	content: '';
+	position: absolute;
+	top: 100%;
+	left: 18px;
+	/*margin-left: -10px;*/
+	width: 0;
+	height: 0;
+	border-top: 8px solid #222;
+	border-right: 8px solid transparent;
+	border-left: 8px solid transparent;
+}
+
+span.help-reorder:hover span,
+span.help-reorder span.showing {
+	visibility: visible;
+	opacity: 0.9;
+	bottom: 30px;
+	left: -20px;
+	/*margin-left: -20px;*/
+	z-index: 999;
+	-webkit-box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.8);
+	-moz-box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.8);
+	box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.8);
 }

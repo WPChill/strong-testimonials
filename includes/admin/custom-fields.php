@@ -12,6 +12,7 @@ function wpmtst_settings_custom_fields() {
 		wp_die( __( 'You do not have sufficient permissions to access this page.' ) );
 
 	$options = get_option( 'wpmtst_options' );
+	// TODO Build function for this:
 	$field_options = get_option( 'wpmtst_fields' );
 	$field_groups = $field_options['field_groups'];
 	$current_field_group = $field_options['current_field_group'];  // "custom", only one for now
@@ -58,14 +59,14 @@ function wpmtst_settings_custom_fields() {
 				$field = array_merge( $field_options['field_base'], $field );
 
 				// sanitize & validate
-				$field['name'] = sanitize_text_field( $field['name'] );
-				$field['label'] = sanitize_text_field( $field['label'] );
-				$field['placeholder'] = sanitize_text_field( $field['placeholder'] );
+				$field['name']                    = sanitize_text_field( $field['name'] );
+				$field['label']                   = wpmtst_sanitize_text_with_special_chars( $field['label'] );
+				$field['placeholder']             = wpmtst_sanitize_text_with_special_chars( $field['placeholder'] );
 				$field['show_placeholder_option'] = $field['show_placeholder_option'] ? 1 : 0;
-				$field['before'] = sanitize_text_field( $field['before'] );
-				$field['after'] = sanitize_text_field( $field['after'] );
-				$field['required'] = $field['required'] ? 1 : 0;
-				$field['admin_table'] = $field['admin_table'] ? 1 : 0;
+				$field['before']                  = wpmtst_sanitize_text_with_special_chars( $field['before'] );
+				$field['after']                   = wpmtst_sanitize_text_with_special_chars( $field['after'] );
+				$field['required']                = $field['required'] ? 1 : 0;
+				$field['admin_table']             = $field['admin_table'] ? 1 : 0;
 				$field['show_admin_table_option'] = $field['show_admin_table_option'] ? 1 : 0;
 
 				// add to fields array in display order
@@ -102,7 +103,7 @@ function wpmtst_settings_custom_fields() {
 		</div>
 
 	<!-- Custom Fields Form -->
-	<form id="wpmtst-custom-fields-form" method="post" action="">
+	<form id="wpmtst-custom-fields-form" method="post" action="" autocomplete="off">
 	<?php wp_nonce_field( 'wpmtst_custom_fields_form', 'wpmtst_form_submitted' ); ?>
 
 	<ul id="custom-field-list">
@@ -133,8 +134,12 @@ function wpmtst_settings_custom_fields() {
 	<?php
 }
 
+function wpmtst_sanitize_text_with_special_chars( $input ) {
+	// Single quotes are coming in as \' in $_POST so remove the slash before converting.
+	return sanitize_text_field( htmlentities( str_replace( "\\'", "'", $input ) ) );
+}
 
-/*
+/**
  * Add a field to the form
  */
 function wpmtst_show_field( $key, $field, $adding ) {
@@ -147,7 +152,7 @@ function wpmtst_show_field( $key, $field, $adding ) {
 	// Field Header
 	// ------------
 	$html = '<div class="custom-field-header">';
-	$html .= '<span class="handle"><div class="dashicons dashicons-menu"></div></span>';
+	$html .= '<span class="handle" title="drag and drop to reorder"><div class="dashicons dashicons-menu"></div></span>';
 	$html .= '<span class="link"><a class="field" href="#">' . $field_link . '</a></span>';
 	$html .= '</div>';
 
@@ -200,7 +205,7 @@ function wpmtst_show_field( $key, $field, $adding ) {
 	// unless we're adding a new field.
 	if ( $adding ) {
 
-		$html .= '<select class="field-type new" name="fields[' . $key . '][input_type]" autocomplete="off">';
+		$html .= '<select class="field-type new" name="fields[' . $key . '][input_type]">';
 
 		// start with a blank option with event trigger to update optgroups...
 		$html .= '<option class="no-selection" value="none" name="none">&mdash;</option>';
@@ -264,7 +269,7 @@ function wpmtst_show_field( $key, $field, $adding ) {
 			// -------------
 			// Custom fields
 			// -------------
-			$html .= '<select class="field-type" name="fields[' . $key . '][input_type]" autocomplete="off">';
+			$html .= '<select class="field-type" name="fields[' . $key . '][input_type]">';
 			$html .= '<optgroup class="custom" label="Custom Fields">';
 			foreach ( $field_types['custom'] as $field_key => $field_parts ) {
 				// compare field *type*
@@ -277,7 +282,7 @@ function wpmtst_show_field( $key, $field, $adding ) {
 			// -------------
 			// Optional fields
 			// -------------
-			$html .= '<select class="field-type" name="fields[' . $key . '][input_type]" autocomplete="off">';
+			$html .= '<select class="field-type" name="fields[' . $key . '][input_type]">';
 			$html .= '<optgroup class="optional" label="Optional Fields">';
 			foreach ( $field_types['optional'] as $field_key => $field_parts ) {
 				// compare field *type*
