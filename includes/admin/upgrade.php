@@ -7,11 +7,11 @@
 
 function wpmtst_default_settings() {
 
-	$current_plugin_version = get_option( 'wpmtst_plugin_version' );
+	$old_plugin_version     = get_option( 'wpmtst_plugin_version' );
 	$plugin_data            = get_plugin_data( dirname( dirname( dirname( __FILE__ ) ) ) . '/strong-testimonials.php', false );
 	$plugin_version         = $plugin_data['Version'];
 
-	if ( $current_plugin_version == $plugin_version )
+	if ( $old_plugin_version == $plugin_version )
 		return;
 
 	// -1- DEFAULTS
@@ -240,8 +240,6 @@ function wpmtst_default_settings() {
 
 	/**
 	 * -6- GET VIEW OPTIONS
-	 *
-	 * @since 1.21.0
 	 */
 	$view_options = get_option( 'wpmtst_view_options' );
 	if ( ! $view_options ) {
@@ -256,8 +254,6 @@ function wpmtst_default_settings() {
 
 	/**
 	 * -7- VIEWS
-	 *
-	 * @since 1.21.0
 	 */
 	$current_default_view = get_option( 'wpmtst_view_default' );
 
@@ -295,10 +291,16 @@ function wpmtst_default_settings() {
 
 				$view_data['template'] = "default:$type";
 			}
-
-			// Convert widget template name
-			if ( 'widget/testimonials.php' == $view_data['template'] ) {
-				$view_data['template'] = 'default:widget';
+			else {
+				// Convert name; e.g. 'simple/testimonials.php'
+				if ( 'widget/testimonials.php' == $view_data['template'] ) {
+					$view_data['template'] = 'default:widget';
+				}
+				else {
+					$view_data['template'] = str_replace( '/', ':', $view_data['template'] );
+					$view_data['template'] = str_replace( 'testimonials.php', 'content', $view_data['template'] );
+					$view_data['template'] = str_replace( 'testimonial-form.php', 'form', $view_data['template'] );
+				}
 			}
 
 			// Convert count value of -1 to 'all'
@@ -329,8 +331,6 @@ function wpmtst_default_settings() {
 
 	/**
 	 * -8- GET L10N CONTEXTS
-	 *
-	 * @since 1.21.0
 	 */
 	$contexts = get_option( 'wpmtst_l10n_contexts' );
 	if ( ! $contexts ) {
@@ -357,7 +357,14 @@ function wpmtst_default_settings() {
 	/**
 	 * Our welcome page
 	 */
-	wpmtst_activate_about_page();
+	$old_parts       = explode( '.', $old_plugin_version );
+	$new_parts       = explode( '.', $plugin_version );
+	$old_major_minor = implode( '.', array( $old_parts[0], $old_parts[1] ) );
+	$new_major_minor = implode( '.', array( $new_parts[0], $new_parts[1] ) );
+
+	if ( version_compare( $new_major_minor, $old_major_minor ) ) {
+		wpmtst_activate_about_page();
+	}
 
 }
 

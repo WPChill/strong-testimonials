@@ -27,11 +27,6 @@ function wpmtst_admin_init() {
 		do_action( 'wpmtst_' . $_REQUEST['action'] );
 	}
 
-	if ( get_option( 'wpmtst_update_redirect' ) ) {
-		delete_option( 'wpmtst_update_redirect' );
-		wp_redirect( 'options-general.php?page=strong-testimonials-welcome' );
-	}
-
 }
 add_action( 'admin_init', 'wpmtst_admin_init' );
 

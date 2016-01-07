@@ -4,7 +4,7 @@
  * Plugin URI: http://www.wpmission.com/plugin/strong-testimonials/
  * Description: Collect and display testimonials with a plugin that offers strong features and strong support.
  * Author: Chris Dillon
- * Version: 1.25.2
+ * Version: 1.25.3
  * Author URI: http://www.wpmission.com/
  * Text Domain: strong-testimonials
  * Domain Path: /languages
@@ -173,6 +173,20 @@ final class Strong_Testimonials {
 		require_once WPMTST_INC . 'widget.php';
 		require_once WPMTST_INC . 'widget2.php';
 
+		/**
+		 * These are not normally needed in admin.
+		 * Including here for compatibility with page builders.
+		 *
+		 * @since 1.25.3
+		 */
+		require_once WPMTST_INC . 'shortcodes.php';
+		require_once WPMTST_INC . 'shortcode-form.php';
+		require_once WPMTST_INC . 'template-functions.php';
+		require_once WPMTST_INC . 'shortcode-strong.php';
+		require_once WPMTST_INC . 'shortcodes.php';
+		require_once WPMTST_INC . 'captcha.php';
+		require_once WPMTST_INC . 'scripts.php';
+
 		if ( is_admin() ) {
 
 			require_once WPMTST_INC . 'class-strong-testimonials-list-table.php';
@@ -185,15 +199,6 @@ final class Strong_Testimonials {
 			require_once WPMTST_INC . 'admin/settings.php';
 			require_once WPMTST_INC . 'admin/upgrade.php';
 			require_once WPMTST_INC . 'admin/views.php';
-
-		} else {
-
-			require_once WPMTST_INC . 'scripts.php';
-			require_once WPMTST_INC . 'shortcodes.php';
-			require_once WPMTST_INC . 'shortcode-form.php';
-			require_once WPMTST_INC . 'shortcode-strong.php';
-			require_once WPMTST_INC . 'captcha.php';
-			require_once WPMTST_INC . 'template-functions.php';
 
 		}
 
@@ -1135,6 +1140,10 @@ final class Strong_Testimonials {
 	 */
 	private static function after_form( $atts = array() ) {
 		$form_options = get_option('wpmtst_form_options');
+
+		if ( wp_script_is( 'wpmtst-validation-lang', 'registered' ) ) {
+			wp_enqueue_script( 'wpmtst-validation-lang' );
+		}
 
 		if ( wpmtst_using_form_validation_script() ) {
 			wp_localize_script( 'wpmtst-form-script', 'form_ajax_object', array(

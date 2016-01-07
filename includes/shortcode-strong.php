@@ -148,6 +148,9 @@ function wpmtst_display_view( $atts ) {
 		}
 	}
 
+	// For Post Types Order plugin
+	$args['ignore_custom_sort'] = true;
+
 	$query = new WP_Query( $args );
 
 	/**
