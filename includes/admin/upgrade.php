@@ -310,7 +310,7 @@ function wpmtst_default_settings() {
 			}
 
 			// Convert background color
-			if ( is_string( $view_data['background'] ) ) {
+			if ( !is_array( $view_data['background'] ) ) {
 				$view_data['background'] = array(
 					'color' => $view_data['background'],
 					'type'  => 'single',

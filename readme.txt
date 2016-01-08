@@ -147,11 +147,14 @@ Not yet.
 
 == Changelog ==
 
+= 1.25.4 =
+* Fix loss of template selection when upgrading Views.
+* Fix bug in submission form.
+
 = 1.25.3 =
 * Fix conflict with Post Types Order plugin.
 * Fix localization of form error messages.
 * Fix conflict with Page Builder by SiteOrigin
-* Fix loss of template selection when upgrading Views.
 * Don't show welcome page on bugfix updates - sorry :)
 
 = 1.25.2 =

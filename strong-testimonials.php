@@ -4,7 +4,7 @@
  * Plugin URI: http://www.wpmission.com/plugin/strong-testimonials/
  * Description: Collect and display testimonials with a plugin that offers strong features and strong support.
  * Author: Chris Dillon
- * Version: 1.25.3
+ * Version: 1.25.4
  * Author URI: http://www.wpmission.com/
  * Text Domain: strong-testimonials
  * Domain Path: /languages
@@ -313,6 +313,7 @@ final class Strong_Testimonials {
 
 		// Normal form submission
 		add_action( 'admin_post_wpmtst_form', array( $this, 'form_handler' ) );
+		add_action( 'admin_post_nopriv_wpmtst_form', array( $this, 'form_handler' ) );
 
 		// Ajax form submission
 		add_action( 'wp_ajax_wpmtst_form2', array( $this, 'form_handler2' ) );
@@ -1024,7 +1025,7 @@ final class Strong_Testimonials {
 			 */
 			if ( isset( $atts['view'] ) && $atts['view'] ) {
 
-				if ( !$atts['compat'] ) {
+				if ( !isset( $atts['compat']) || !$atts['compat'] ) {
 					$handle = self::find_stylesheet($atts);
 				}
 
@@ -1062,7 +1063,7 @@ final class Strong_Testimonials {
 			 */
 			if ( isset( $atts['view'] ) && $atts['view'] ) {
 
-				if ( !$atts['compat'] ) {
+				if ( !isset( $atts['compat']) || !$atts['compat'] ) {
 					$handle = self::find_stylesheet( $atts );
 				}
 
@@ -1389,7 +1390,7 @@ final class Strong_Testimonials {
 	 * @param $handle
 	 */
 	private static function custom_background( $view = null, $background, $handle = 'wpmtst-custom-style' ) {
-		if ( !$view ) return;
+		if ( !$view || !isset( $background['type'] ) ) return;
 
 		$c1 = '';
 		$c2 = '';
