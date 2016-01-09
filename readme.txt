@@ -67,7 +67,8 @@ For ultimate control and seamless integration, any template can be copied to you
 = Recommended =
 
 * [Simple Colorbox](https://wordpress.org/plugins/simple-colorbox/) to open thumbnails into full-size images. Nice!
-* [Simple Custom CSS](http://wordpress.org/plugins/simple-custom-css/) is my go-to plugin for quick CSS fixes.
+* [Modular Custom CSS](https://wordpress.org/plugins/modular-custom-css/) for quick CSS tweaks right there in the Customizer.
+* [Post State Tags](https://wordpress.org/plugins/post-state-tags/) helps quickly differentiate Published / Pending / Draft and more.
 * [Wider Admin Menu](http://wordpress.org/plugins/wider-admin-menu/) lets your admin menu b r e a t h e.
 
 = Translations =
@@ -146,6 +147,9 @@ Not yet.
 9. Template files and template functions.
 
 == Changelog ==
+
+= 1.25.5 =
+* Fix bug in gradient CSS with two Views on one page.
 
 = 1.25.4 =
 * Fix loss of template selection when upgrading Views.
