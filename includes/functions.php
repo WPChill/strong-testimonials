@@ -383,11 +383,37 @@ function wpmtst_compare_width( $a, $b ) {
  * @return array|int|WP_Error
  */
 function wpmtst_get_category_list() {
+
+	// Disable Taxonomy Terms Order plugin by NSP-Code
+	if ( is_plugin_active( 'taxonomy-terms-order/taxonomy-terms-order.php' ) ) {
+		$NSP_TTO_f1 = function_exists( 'TO_get_terms_orderby' );
+		$NSP_TTO_f2 = function_exists( 'TO_applyorderfilter' );
+	}
+	else {
+		$NSP_TTO_f1 = false;
+		$NSP_TTO_f2 = false;
+	}
+
+	if ( $NSP_TTO_f1 ) {
+		remove_filter( 'get_terms_orderby', 'TO_get_terms_orderby', 1 );
+	}
+	if ( $NSP_TTO_f2 ) {
+		remove_filter( 'get_terms_orderby', 'TO_applyorderfilter', 10 );
+	}
+
 	$category_list = get_terms( 'wpm-testimonial-category', array(
 		'hide_empty' => false,
 		'order_by'   => 'name',
 		'pad_counts' => true,
 	) );
+
+	// Re-enable Taxonomy Terms Order plugin by NSP-Code
+	if ( $NSP_TTO_f1 ) {
+		add_filter( 'get_terms_orderby', 'TO_get_terms_orderby', 1, 2 );
+	}
+	if ( $NSP_TTO_f2 ) {
+		add_filter( 'get_terms_orderby', 'TO_applyorderfilter', 10, 2 );
+	}
 
 	return $category_list;
 }

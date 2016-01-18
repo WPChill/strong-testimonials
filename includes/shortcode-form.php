@@ -15,7 +15,6 @@ function wpmtst_form_shortcode( $atts ) {
 
 	//TODO trim down atts?
 	extract( normalize_empty_atts( $atts ) );
-	//$atts = normalize_empty_atts( $atts );
 
 	// initialize
 	$field_options       = get_option( 'wpmtst_fields' );
@@ -23,7 +22,6 @@ function wpmtst_form_shortcode( $atts ) {
 	$current_field_group = $field_groups[ $field_options['current_field_group'] ];
 	$fields              = $current_field_group['fields'];
 
-	//$form_values = array( 'category' => $atts['category'] );
 	$form_values = array( 'category' => $category );
 	foreach ( $fields as $key => $field ) {
 		$form_values[ $field['name'] ] = '';
@@ -154,12 +152,7 @@ function wpmtst_validation_function() {
  */
 
 function wpmtst_form_info() {
-	if ( wpmtst_using_form_validation_script() )
-		$action = sprintf( ' action="%s"', admin_url('admin-post.php') );
-	else
-		$action = '';
-
-	echo 'id="wpmtst-submission-form" method="post"' . $action . ' enctype="multipart/form-data"';
+	echo 'id="wpmtst-submission-form" method="post" enctype="multipart/form-data"';
 }
 
 function wpmtst_form_setup() {

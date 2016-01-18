@@ -14,6 +14,8 @@ Add testimonials with a plugin that offers strong features and strong support.
 
 Strong Testimonials is a full-featured plugin that works right out of the box for beginners and offers advanced features for pros.
 
+> See the demos!
+
 = Primary Features =
 
 * A front-end form with custom fields, anti-spam options, and notification emails
@@ -112,7 +114,7 @@ Yes. You can edit the subject line, the message, the sender, and the recipient(s
 
 = Can I change which client fields appear below the testimonial? =
 
-Yes. In Views, the client fields, including your custom fields, can be changed with a few clicks. The `[strong]` shortcode has child shortcodes `[client]` and `[field]`. Here's a good [example](http://demos.wpmission.com/strong-testimonials/the-strong-shortcode/custom-fields/).
+Yes. In Views, the client fields, including your custom fields, can be changed with a few clicks.
 
 = Can I change "testimonial" to "review", for example? =
 
@@ -147,6 +149,13 @@ Not yet.
 9. Template files and template functions.
 
 == Changelog ==
+
+= 1.25.6 =
+* Fix [strong] slideshow script.
+* Fix View list table column sorting.
+* Fix single category selection in View editor.
+* Make compatible with Taxonomy Terms Order plugin by nsp-code.
+* Remove unused files.
 
 = 1.25.5 =
 * Fix bug in gradient CSS with two Views on one page.

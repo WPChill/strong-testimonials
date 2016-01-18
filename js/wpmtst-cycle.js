@@ -63,7 +63,7 @@ jQuery(window).load(function() {
         var maxHeight = Array.max( heights );
         $elem.height( maxHeight );
 
-        var cycleVar = jQuery.grep(el.className.split(/\s+/), function(v, i){
+        var cycleVar = jQuery.grep(elem.className.split(/\s+/), function(v, i){
             return v.indexOf('tcycle_') === 0;
         }).join();
 

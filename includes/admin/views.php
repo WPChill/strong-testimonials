@@ -662,7 +662,7 @@ add_action( 'admin_post_view_add_form', 'wpmtst_view_add_form' );
  */
 function wpmtst_sanitize_view( $input ) {
 	ksort( $input );
-	
+
 	$view_data         = array();
 	$view_data['mode'] = sanitize_text_field( $input['mode'] );
 
@@ -756,22 +756,28 @@ function wpmtst_sanitize_view( $input ) {
 	// Category
 	if ( 'form' == $view_data['mode'] ) {
 
-		if ( isset( $input['category-form'] ) )
+		if ( isset( $input['category-form'] ) ) {
 			$view_data['category'] = sanitize_text_field( implode( ',', $input['category-form'] ) );
-		else
+		}
+		else {
 			$view_data['category'] = '';
+		}
 
 	}
 	else {
 
-		if ( 'allcats' == $input['category_all'] )
+		if ( 'allcats' == $input['category_all'] ) {
 			$view_data['category'] = 'all';
-		elseif ( !isset( $input['category']) || $input['category'] == wpmtst_get_category_ids() )
+		}
+		elseif ( !isset( $input['category'] ) ) {
 			$view_data['category'] = 'all';
-		elseif ( 'somecats' == $input['category_all'] && !isset( $input['category'] ) )
+		}
+		elseif ( 'somecats' == $input['category_all'] && !isset( $input['category'] ) ) {
 			$view_data['category'] = 'all';
-		else
+		}
+		else {
 			$view_data['category'] = sanitize_text_field( implode( ',', $input['category'] ) );
+		}
 
 	}
 

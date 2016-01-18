@@ -141,46 +141,33 @@ I'm all ears! Many of the improvements over the last year are the result of feed
 
 Not yet.
 
-## Screenshots ##
-
-###1. The default View settings and the default template.
-###
-[missing image]
-
-###2. Another View and the Simple template.
-###
-[missing image]
-
-###3. The form with default fields.
-###
-[missing image]
-
-###4. A `[strong]` shortcode example.
-###
-[missing image]
-
-###5. The testimonial admin list.
-###
-[missing image]
-
-###6. The testimonial form settings.
-###
-[missing image]
-
-###7. The View editor.
-###
-[missing image]
-
-###8. The custom fields editor.
-###
-[missing image]
-
-###9. Template files and template functions.
-###
-[missing image]
-
-
 ## Changelog ##
+
+### 1.25.6 ###
+* Fix `[strong]` slideshow script.
+* Fix View list table column sorting.
+* Fix single category selection in View editor.
+* Make compatible with Taxonomy Terms Order plugin by nsp-code.
+* Remove unused files.
+
+### 1.25.5 ###
+* Fix bug in gradient CSS with two Views on one page.
+
+### 1.25.4 ###
+* Fix loss of template selection when upgrading Views.
+* Fix bug in submission form.
+
+### 1.25.3 ###
+* Fix conflict with Post Types Order plugin.
+* Fix localization of form error messages.
+* Fix conflict with Page Builder by SiteOrigin
+* Don't show welcome page on bugfix updates - sorry :)
+
+### 1.25.2 ###
+* Fix bug in [strong form].
+
+### 1.25.1 ###
+* Fix bug in Internet Explorer and Safari.
 
 ### 1.25 - 2016-01-05 ###
 * More layout and background options in Views.

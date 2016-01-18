@@ -14,7 +14,10 @@ class Strong_Views_List_Table extends Strong_Testimonials_List_Table {
 		$sortable = $this->get_sortable_columns();
 
 		$this->_column_headers = array( $columns, $hidden, $sortable );
-		$this->items           = $data;
+		if ( isset( $_GET['orderby'] ) ) {
+			usort( $data, array( &$this, 'usort_reorder' ) );
+		}
+		$this->items = $data;
 	}
 
 	public function get_columns() {
@@ -35,10 +38,21 @@ class Strong_Views_List_Table extends Strong_Testimonials_List_Table {
 	public function get_sortable_columns() {
 		return array(
 			'name'      => array( 'name', false ),
-			'mode'      => array( 'mode', false ),
-			'template'  => array( 'template', false ),
-			'shortcode' => array( 'shortcode', false ),
 		);
+	}
+
+	public function usort_reorder( $a, $b ) {
+		// If no sort, default to title
+		$orderby = ( ! empty( $_GET['orderby'] ) ) ? $_GET['orderby'] : 'name';
+
+		// If no order, default to asc
+		$order = ( ! empty($_GET['order'] ) ) ? $_GET['order'] : 'asc';
+
+		// Determine sort order
+		$result = strcasecmp( $a[$orderby], $b[$orderby] );
+
+		// Send final sort direction to usort
+		return ( $order === 'asc' ) ? $result : -$result;
 	}
 
 	public function column_name( $item ) {

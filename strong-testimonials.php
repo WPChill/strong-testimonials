@@ -1,11 +1,11 @@
 <?php
 /**
  * Plugin Name: Strong Testimonials
- * Plugin URI: http://www.wpmission.com/plugin/strong-testimonials/
+ * Plugin URI: https://www.wpmission.com/plugins/strong-testimonials/
  * Description: Collect and display testimonials with a plugin that offers strong features and strong support.
  * Author: Chris Dillon
- * Version: 1.25.5
- * Author URI: http://www.wpmission.com/
+ * Version: 1.25.6
+ * Author URI: https://www.wpmission.com/
  * Text Domain: strong-testimonials
  * Domain Path: /languages
  * Requires: 3.5 or higher
@@ -306,38 +306,13 @@ final class Strong_Testimonials {
 		add_action( 'wpmtst_view_rendered', array( $this, 'view_rendered' ), 10, 1 );
 
 		/**
-		 * Separate form submission handlers
+		 * Ajax form submission handler
 		 *
 		 * @since 1.25.0
 		 */
-
-		// Normal form submission
-		add_action( 'admin_post_wpmtst_form', array( $this, 'form_handler' ) );
-		add_action( 'admin_post_nopriv_wpmtst_form', array( $this, 'form_handler' ) );
-
-		// Ajax form submission
 		add_action( 'wp_ajax_wpmtst_form2', array( $this, 'form_handler2' ) );
 		add_action( 'wp_ajax_nopriv_wpmtst_form2', array( $this, 'form_handler2' ) );
 
-	}
-
-	public function form_handler() {
-		$goback = wp_get_referer();
-
-		if ( isset( $_POST['wpmtst_form_nonce'] ) ) {
-			require_once WPMTST_INC . 'shortcode-form.php';
-			require_once WPMTST_INC . 'form-handler-functions.php';
-			$success = wpmtst_form_handler();
-			if ( $success ) {
-				$goback = add_query_arg( 'success', true, $goback );
-			}
-			else {
-				$goback = add_query_arg( 'error', true, $goback );
-			}
-		}
-
-		wp_redirect( $goback );
-		exit;
 	}
 
 	public function form_handler2() {
@@ -1452,16 +1427,13 @@ final class Strong_Testimonials {
 		) );
 
 		// validate form entries here
-		if ( !wpmtst_using_form_validation_script() ) {
-
-			if ( isset( $_POST['wpmtst_form_nonce'] ) ) {
-				require_once WPMTST_INC . 'form-handler-functions.php';
-				$success = wpmtst_form_handler();
-				if ( $success ) {
-					$goback = add_query_arg( 'success', 1, wp_get_referer() );
-					wp_redirect( $goback );
-					exit;
-				}
+		if ( isset( $_POST['wpmtst_form_nonce'] ) ) {
+			require_once WPMTST_INC . 'form-handler-functions.php';
+			$success = wpmtst_form_handler();
+			if ( $success ) {
+				$goback = add_query_arg( 'success', 1, wp_get_referer() );
+				wp_redirect( $goback );
+				exit;
 			}
 		}
 	}
