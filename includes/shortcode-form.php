@@ -39,13 +39,7 @@ function wpmtst_form_shortcode( $atts ) {
 	/**
 	 * Load template
 	 */
-	if ( $view ) {
-		$template_file = $strong_templates->get_template_attr( $atts, 'template' );
-	}
-	else {
-		// [strong] shortcode
-		$template_file = wpmtst_find_template( 'testimonial-form', $template );
-	}
+	$template_file = $strong_templates->get_template_attr( $atts, 'template' );
 
 	ob_start();
 	include $template_file;
