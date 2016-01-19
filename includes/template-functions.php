@@ -423,9 +423,9 @@ function wpmtst_get_field( $field, $args = array() ) {
 			break;
 
 		// Process child shortcodes in [strong] content.
-		case 'client' :
-			$html = do_child_shortcode( wpmtst_get_shortcode(), $args['content'] );
-			break;
+		//case 'client' :
+		//	$html = do_child_shortcode( wpmtst_get_shortcode(), $args['content'] );
+		//	break;
 
 		// Get the custom field.
 		default :
