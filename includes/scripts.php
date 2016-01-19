@@ -7,13 +7,6 @@ function wpmtst_scripts() {
 	$wpmst = WPMST();
 	$plugin_version = get_option( 'wpmtst_plugin_version' );
 
-	// Original stylesheets
-	wp_register_style( 'wpmtst-style', WPMTST_ORIG_TPL_URI . 'testimonials.css' );
-	wp_register_style( 'wpmtst-form-style', WPMTST_ORIG_TPL_URI . 'testimonial-form.css' );
-	wp_register_style( 'wpmtst-widget-style', WPMTST_URL . 'css/wpmtst-widget.css' );
-	wp_register_style( 'wpmtst-rtl-style', WPMTST_URL . 'css/wpmtst-rtl.css' );
-	wp_register_style( 'wpmtst-widget-rtl-style', WPMTST_URL . 'css/wpmtst-widget-rtl.css' );
-
 	wp_register_style( 'wpmtst-custom-style', WPMTST_URL . 'css/wpmtst-custom.css' );
 
 	wp_register_script( 'wpmtst-pager-plugin', WPMTST_URL . 'js/quickpager.jquery.js', array( 'jquery' ), false, true );
