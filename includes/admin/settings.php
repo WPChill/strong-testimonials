@@ -31,13 +31,6 @@ function wpmtst_settings_menu() {
 		'wpmtst_settings_page' );
 
 	add_submenu_page( 'edit.php?post_type=wpm-testimonial',
-		__( 'Old Settings', 'strong-testimonials' ),
-		__( 'Old Settings', 'strong-testimonials' ),
-		'manage_options',
-		'old-settings',
-		'wpmtst_old_settings_page' );
-
-	add_submenu_page( 'edit.php?post_type=wpm-testimonial',
 		_x( 'Guide', 'noun', 'strong-testimonials' ),
 		_x( 'Guide', 'noun', 'strong-testimonials' ),
 		'manage_options',
@@ -292,63 +285,6 @@ function wpmtst_form_settings() {
 	}
 
 	include( 'settings/form.php' );
-}
-
-/**
- * Settings page
- */
-function wpmtst_old_settings_page() {
-	if ( ! current_user_can( 'manage_options' ) )
-		wp_die( __( 'You do not have sufficient permissions to access this page.' ) );
-	?>
-	<div class="wrap wpmtst">
-
-		<h2><?php _e( 'Testimonial Settings', 'strong-testimonials' ); ?></h2>
-
-		<?php if( isset( $_GET['settings-updated'] ) ) : ?>
-			<div id="message" class="updated notice is-dismissible">
-				<p><strong><?php _e( 'Settings saved.' ) ?></strong></p>
-			</div>
-		<?php endif; ?>
-
-		<?php
-		$active_tab = isset( $_GET['tab'] ) ? $_GET['tab'] : 'general';
-		$url = admin_url( 'edit.php?post_type=wpm-testimonial&page=old-settings' )
-		?>
-		<h2 class="nav-tab-wrapper">
-			<a href="<?php echo add_query_arg( 'tab', 'general', $url ); ?>" class="nav-tab <?php echo $active_tab == 'general' ? 'nav-tab-active' : ''; ?>">
-				<span class="dashicons dashicons-warning medium"></span><?php _e( '[strong] Shortcode', 'strong-testimonials' ); ?>
-			</a>
-
-			<a href="<?php echo add_query_arg( 'tab', 'cycle', $url ); ?>" class="nav-tab <?php echo $active_tab == 'cycle' ? 'nav-tab-active' : ''; ?>">
-				<span class="dashicons dashicons-warning"></span><?php _e( 'Cycle Shortcode', 'strong-testimonials' ); ?>
-			</a>
-
-			<a href="<?php echo add_query_arg( 'tab', 'client', $url ); ?>" class="nav-tab <?php echo $active_tab == 'client' ? 'nav-tab-active' : ''; ?>">
-				<span class="dashicons dashicons-warning"></span><?php _e( 'Client Section', 'strong-testimonials' ); ?>
-			</a>
-		</h2>
-
-		<form id="<?php echo $active_tab; ?>-form" method="post" action="options.php">
-			<?php
-			switch( $active_tab ) {
-				case 'client' :
-					wpmtst_client_settings();
-					break;
-				case 'cycle' :
-					wpmtst_cycle_settings();
-					break;
-				default :
-					wpmtst_settings();
-			}
-			?>
-			<p class="submit">
-				<input id="submit" class="button button-primary" type="submit" value="<?php _e( 'Save Changes' ); ?>" name="submit">
-			</p>
-		</form>
-
-	</div><!-- wrap -->
-	<?php
 }
 
 /**
