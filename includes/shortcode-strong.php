@@ -52,13 +52,6 @@ function wpmtst_strong_shortcode( $atts, $content = null, $parent_tag ) {
 		return wpmtst_form_shortcode( $out );
 
 	/**
-	 * MODE: READ MORE LINK
-	 * Will be removed in 2.0
-	 */
-	if ( $out['read_more'] )
-		return wpmtst_readmore_shortcode( $out, $content );
-
-	/**
 	 * MODE: DISPLAY (default)
 	 */
 	return wpmtst_display_view( $out );
@@ -279,24 +272,6 @@ function wpmtst_display_view( $atts ) {
 	$html = apply_filters( 'strong_html', $html );
 
 	return $html;
-}
-
-/**
- * Strong shortcode - read_more mode
- *
- * @param $atts
- * @param $content
- *
- * @return string
- */
-function wpmtst_readmore_shortcode( $atts, $content ) {
-	if ( ! $atts['page'] )
-		return '';
-
-	// page ID or slug?
-	$page    = (int) $atts['page'] ? (int) $atts['page'] : get_page_by_slug( $atts['page'] );
-	$content = $content ? $content : _x( 'Read more', 'link', 'strong-testimonials' );
-	return '<div class="' . $atts['class'] . '"><a href="' . get_permalink( $page ) . '">' . $content . '</a></div>';
 }
 
 /**
