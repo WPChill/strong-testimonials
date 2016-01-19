@@ -62,27 +62,6 @@ function wpmtst_strong_view_shortcode_filter( $out, $pairs, $atts ) {
 add_filter( 'shortcode_atts_testimonial_view', 'wpmtst_strong_view_shortcode_filter', 10, 3 );
 
 /**
- * read_more shortcode
- *
- * @since 1.21.0
- * @param $atts
- * @param null $content
- *
- * @return string
- */
-function wpmtst_read_more_shortcode( $atts, $content = null ) {
-	$atts = shortcode_atts(
-		array(
-			'page'  => '',
-			'class' => '',
-		),
-		normalize_empty_atts( $atts ), 'read_more'
-	);
-	return wpmtst_readmore_shortcode( $atts, $content );
-}
-add_shortcode( 'read_more', 'wpmtst_read_more_shortcode' );
-
-/**
  * Normalize empty shortcode attributes.
  *
  * Turns atts into tags - brilliant!
