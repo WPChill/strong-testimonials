@@ -265,11 +265,6 @@ final class Strong_Testimonials {
 		add_action( 'admin_action_delete-strong-view', 'wpmtst_delete_view_action_hook' );
 
 		/**
-		 * Filter page templates to exclude testimonial templates.
-		 */
-		add_action( 'load-post.php', array( $this, 'add_page_templates_filter' ) );
-
-		/**
 		 * Flush rewrite rules after theme switch.
 		 *
 		 * In case the previous or current theme skips this and it has a "testimonial" post type.
