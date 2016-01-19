@@ -196,21 +196,6 @@ function wpmtst_uasort( $a, $b ) {
 }
 
 /**
- * Return the shortcode tag.
- *
- * @since 1.18.4
- *
- * @return string
- */
-function wpmtst_get_shortcode() {
-	$options = get_option( 'wpmtst_options' );
-	if ( $options && isset( $options['shortcode'] ) && $options['shortcode'] )
-		return $options['shortcode'];
-	else
-		return 'strong';
-}
-
-/**
  * Get custom fields.
  *
  * @since 1.21.0
