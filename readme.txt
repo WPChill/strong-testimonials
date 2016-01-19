@@ -1,4 +1,4 @@
-=== Strong Testimonials ===
+﻿=== Strong Testimonials ===
 Contributors: cdillon27
 Donate link: https://www.wpmission.com/donate/
 Tags: testimonials, testimonial widget, random testimonial, testimonial shortcode, testimonial slider, testimonial form
@@ -14,7 +14,7 @@ Add testimonials with a plugin that offers strong features and strong support.
 
 Strong Testimonials is a full-featured plugin that works right out of the box for beginners and offers advanced features for pros.
 
-> See the demos!
+> [See the demos!](http://demos.wpmission.com/strong-testimonials/)
 
 = Primary Features =
 
