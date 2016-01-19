@@ -268,15 +268,6 @@ function wpmtst_form_settings() {
 }
 
 /**
- * Main settings screen
- */
-function wpmtst_settings() {
-	$options = get_option( 'wpmtst_options' );
-	settings_fields( 'wpmtst-settings-group' );
-	include( 'settings/general.php' );
-}
-
-/**
  * Client section settings
  */
 function wpmtst_client_settings() {
