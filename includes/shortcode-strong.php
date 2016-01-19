@@ -137,36 +137,14 @@ function wpmtst_display_view( $atts ) {
 	}
 
 	/**
-	 * [TESTIMONIAL_VIEW] or [STRONG {OPTIONS}] ?
+	 * Add new values to shortcode atts
 	 */
-	if ( $view ) {
-		/**
-		 * Add new values to shortcode atts
-		 */
-		if ( 'custom' == $thumbnail_size ) {
-			$atts['thumbnail_size'] = array( $thumbnail_width, $thumbnail_height );
-		}
-		$atts['content_class'] = $content_class_list;
-		$atts['post_class']    = $post_class_list;
-		WPMST()->set_atts( $atts );
+	if ( 'custom' == $thumbnail_size ) {
+		$atts['thumbnail_size'] = array( $thumbnail_width, $thumbnail_height );
 	}
-	else {
-		/**
-		 * Maintain compatibility with original template
-		 * which uses the parsed shortcode options.
-		 */
-		if ( $thumbnail_size ) {
-			$dimensions = explode( ',', $thumbnail_size );
-			if ( 1 == count( $dimensions ) ) {
-				$thumbnail_size = $dimensions[0];
-			} else {
-				$thumbnail_size = $dimensions;
-			}
-		}
-		$container_class_list = $atts['class'];
-		$shortcode_content = reverse_wpautop( $content );
-		$show_client = has_child_shortcode( $shortcode_content, 'client', $parent_tag );
-	}
+	$atts['content_class'] = $content_class_list;
+	$atts['post_class']    = $post_class_list;
+	WPMST()->set_atts( $atts );
 
 	/**
 	 * Add filters here.
