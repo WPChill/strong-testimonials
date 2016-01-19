@@ -170,7 +170,6 @@ final class Strong_Testimonials {
 		require_once WPMTST_INC . 'functions.php';
 		require_once WPMTST_INC . 'child-shortcodes.php';
 		require_once WPMTST_INC . 'shims.php';
-		require_once WPMTST_INC . 'widget.php';
 		require_once WPMTST_INC . 'widget2.php';
 
 		/**
