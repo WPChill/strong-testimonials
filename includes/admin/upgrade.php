@@ -18,7 +18,6 @@ function wpmtst_default_settings() {
 	include_once WPMTST_INC . 'defaults.php';
 	$default_options       = wpmtst_get_default_options();
 	$default_fields        = wpmtst_get_default_fields();
-	$default_cycle         = wpmtst_get_default_cycle();
 	$default_form_options  = wpmtst_get_default_form_options();
 	$default_view_options  = wpmtst_get_default_view_options();
 	$default_view          = wpmtst_get_default_view();
@@ -121,62 +120,6 @@ function wpmtst_default_settings() {
 		update_option( 'wpmtst_fields', $fields );
 		// WPML
 		wpmtst_form_fields_wpml( $fields['field_groups']['custom']['fields'] );
-	}
-
-	// -4- GET CYCLE
-	$cycle = get_option( 'wpmtst_cycle' );
-	if ( ! $cycle ) {
-		// -4A- NEW ACTIVATION
-		update_option( 'wpmtst_cycle', $default_cycle );
-	} else {
-		// -4B- UPDATE
-		// if updating from 1.5 - 1.6
-		if ( isset( $options['cycle-order'] ) ) {
-			$cycle = array(
-				'order'   => $options['cycle-order'],
-				'effect'  => $options['cycle-effect'],
-				'speed'   => $options['cycle-speed'],
-				'timeout' => $options['cycle-timeout'],
-				'pause'   => $options['cycle-pause'],
-			);
-			unset(
-				$options['cycle-order'],
-				$options['cycle-effect'],
-				$options['cycle-speed'],
-				$options['cycle-timeout'],
-				$options['cycle-pause']
-			);
-			update_option( 'wpmtst_options', $options );
-		}
-
-		// if updating to 1.11
-		// change hyphenated to underscored
-		if ( isset( $cycle['char-limit'] ) ) {
-			$cycle['char_limit'] = $cycle['char-limit'];
-			unset( $cycle['char-limit'] );
-		}
-		if ( isset( $cycle['more-page'] ) ) {
-			$cycle['more_page'] = $cycle['more-page'];
-			unset( $cycle['more-page'] );
-		}
-
-		// if updating from 1.7
-		// moving cycle options to separate option
-		if ( isset( $options['cycle']['cycle-order'] ) ) {
-			$old_cycle = $options['cycle'];
-			$cycle     = array(
-				'order'   => $old_cycle['cycle-order'],
-				'effect'  => $old_cycle['cycle-effect'],
-				'speed'   => $old_cycle['cycle-speed'],
-				'timeout' => $old_cycle['cycle-timeout'],
-				'pause'   => $old_cycle['cycle-pause'],
-			);
-			unset( $options['cycle'] );
-			update_option( 'wpmtst_options', $options );
-		}
-
-		$cycle = array_merge( $default_cycle, $cycle );
-		update_option( 'wpmtst_cycle', $cycle );
 	}
 
 	/**
@@ -363,7 +306,7 @@ function wpmtst_default_settings() {
 	$new_major_minor = implode( '.', array( $new_parts[0], $new_parts[1] ) );
 
 	if ( version_compare( $new_major_minor, $old_major_minor ) ) {
-		wpmtst_activate_about_page();
+		//wpmtst_activate_about_page();
 	}
 
 }

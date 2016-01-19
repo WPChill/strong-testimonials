@@ -32,32 +32,6 @@ function wpmtst_get_default_options() {
 }
 
 /**
- * Cycle shortcode
- *
- * @return array
- */
-function wpmtst_get_default_cycle() {
-	$default_cycle = array(
-		'category'   => 'all',
-		'order'      => 'recent',
-		'all'        => 0,
-		'limit'      => 3,
-		'title'      => 1,
-		'content'    => 'entire',
-		'char_limit' => 200,
-		'images'     => 1,
-		'client'     => 0,
-		'more'       => 0,
-		'more_page'  => '',
-		'effect'     => 'fade',
-		'speed'      => 1.5,
-		'timeout'    => 8,
-		'pause'      => 1,
-	);
-	return $default_cycle;
-}
-
-/**
  * Fields
  *
  * @return array
