@@ -255,14 +255,7 @@ function wpmtst_the_date( $format = '', $class = '' ) {
 function wpmtst_the_client() {
 	$atts = WPMST()->atts();
 	if ( isset( $atts['client_section'] ) ) {
-		// View
 		echo wpmtst_client_section( $atts['client_section'] );
-	} elseif ( $atts['content'] ) {
-		// Child shortcodes
-		$shortcode_content = reverse_wpautop( $atts['content'] );
-		if ( has_child_shortcode( $shortcode_content, 'client', $atts['parent_tag'] ) ) {
-			echo do_child_shortcode( $atts['parent_tag'], $shortcode_content );
-		}
 	}
 }
 
