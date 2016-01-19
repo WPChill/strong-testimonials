@@ -268,31 +268,6 @@ function wpmtst_form_settings() {
 }
 
 /**
- * Client section settings
- */
-function wpmtst_client_settings() {
-	$options = get_option( 'wpmtst_options' );
-
-	// ----------------------------
-	// Build list of custom fields.
-	// ----------------------------
-	$field_options       = get_option( 'wpmtst_fields' );
-	$field_groups        = $field_options['field_groups'];
-	$current_field_group = $field_options['current_field_group'];  // "custom", only one for now
-	$fields              = $field_groups[ $current_field_group ]['fields'];
-	$fields_array        = array();
-	foreach ( $fields as $field ) {
-		if ( !in_array( $field['name'], array( 'post_title', 'post_content', 'featured_image' ) ) ) {
-			$fields_array[] = '<span class="code wide">' . $field['name'] . '</span>';
-		}
-	}
-
-	settings_fields( 'wpmtst-settings-group' );
-
-	include( 'settings/client.php' );
-}
-
-/**
  * [Restore Default Messages] Ajax receiver
  *
  * @since 1.13
