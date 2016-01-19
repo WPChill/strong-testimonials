@@ -15,18 +15,8 @@
  */
 function wpmtst_get_default_options() {
 	$default_options = array(
-		'per_page'          => '5',
-		'load_page_style'   => 1,
-		'load_widget_style' => 1,
-		'load_form_style'   => 1,
-		'load_rtl_style'    => 0,
 		'reorder'           => false,
-		'shortcode'         => 'strong',
 	);
-
-	$default_options['default_template'] = '[wpmtst-text field="client_name" class="name"]' . PHP_EOL . '[wpmtst-link url="company_website" text="company_name" new_tab class="company"]';
-
-	$default_options['client_section'] = $default_options['default_template'];
 
 	return $default_options;
 }
@@ -271,7 +261,6 @@ function wpmtst_get_default_form_options() {
 		'admin_notify'      => 0,
 		'sender_name'       => get_bloginfo( 'name' ),
 		'sender_site_email' => 1,
-		//'sender_email'      => 'noreply@' . preg_replace( '/^www\./', '', $_SERVER['HTTP_HOST'] ),
 		'sender_email'      => '',
 		'recipients'        => array(
 			array(

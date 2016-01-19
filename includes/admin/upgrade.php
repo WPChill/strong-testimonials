@@ -31,16 +31,36 @@ function wpmtst_default_settings() {
 	} else {
 		// -2B- UPDATE
 
-		// Fix captcha inconsistency
-		if ( isset( $options['captcha'] ) && 'none' == $options['captcha'] )
-			$options['captcha'] = '';
+		// Remove version 1 options
+		if ( isset( $options['captcha'] ) )
+			unset( $options['captcha'] );
 
-		// Change target parameter in client section
-		$options['default_template'] = str_replace( 'target="_blank"', 'new_tab', $options['default_template'] );
-
-		// Remove plugin version
 		if ( isset( $options['plugin_version'] ) )
 			unset( $options['plugin_version'] );
+
+		if ( isset( $options['per_page'] ) )
+			unset( $options['per_page'] );
+
+		if ( isset( $options['load_page_style'] ) )
+			unset( $options['load_page_style'] );
+
+		if ( isset( $options['load_widget_style'] ) )
+			unset( $options['load_widget_style'] );
+
+		if ( isset( $options['load_form_style'] ) )
+			unset( $options['load_form_style'] );
+
+		if ( isset( $options['load_rtl_style'] ) )
+			unset( $options['load_rtl_style'] );
+
+		if ( isset( $options['shortcode'] ) )
+			unset( $options['shortcode'] );
+
+		if ( isset( $options['default_template'] ) )
+			unset( $options['default_template'] );
+
+		if ( isset( $options['client_section'] ) )
+			unset( $options['client_section'] );
 
 		// Merge in new options
 		$options = array_merge( $default_options, $options );
@@ -121,6 +141,10 @@ function wpmtst_default_settings() {
 		// WPML
 		wpmtst_form_fields_wpml( $fields['field_groups']['custom']['fields'] );
 	}
+	/**
+	 * -4- CYCLE
+	 */
+	delete_option( 'wpmtst_cycle' );
 
 	/**
 	 * -5- GET FORM OPTIONS
