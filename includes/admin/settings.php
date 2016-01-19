@@ -44,7 +44,6 @@ add_action( 'admin_menu', 'wpmtst_settings_menu' );
  */
 function wpmtst_register_settings() {
 	register_setting( 'wpmtst-settings-group', 'wpmtst_options',      'wpmtst_sanitize_options' );
-	register_setting( 'wpmtst-cycle-group',    'wpmtst_cycle',        'wpmtst_sanitize_cycle' );
 	register_setting( 'wpmtst-form-group',     'wpmtst_form_options', 'wpmtst_sanitize_form' );
 }
 add_action( 'admin_init', 'wpmtst_register_settings' );
@@ -88,25 +87,6 @@ function wpmtst_sanitize_options( $input ) {
 	$input['load_rtl_style']    = !isset( $input['load_rtl_style'] ) ? 0 : ( 'on' == $input['load_rtl_style'] ? 1 : $input['load_rtl_style'] );
 
 	$input['reorder']           = !isset( $input['reorder'] ) ? 0 : ( 'on' == $input['reorder'] ? 1 : $input['reorder'] );
-
-	return $input;
-}
-
-/**
- * Sanitize cycle settings
- */
-function wpmtst_sanitize_cycle( $input ) {
-	$input['category']   = strip_tags( $input['category'] );
-	$input['limit']      = (int) strip_tags( $input['limit'] );
-	$input['title']      = isset( $input['title'] ) ? 1 : 0;
-	$input['char_limit'] = (int) sanitize_text_field( $input['char_limit'] );
-	$input['images']     = isset( $input['images'] ) ? 1 : 0;
-	$input['client']     = isset( $input['client'] ) ? 1 : 0;
-	$input['more_page']  = strip_tags( $input['more_page'] );
-	$input['timeout']    = (float) sanitize_text_field( $input['timeout'] );
-	$input['effect']     = strip_tags( $input['effect'] );
-	$input['speed']      = (float) sanitize_text_field( $input['speed'] );
-	$input['pause']      = isset( $input['pause'] ) ? 1 : 0;
 
 	return $input;
 }
@@ -237,7 +217,7 @@ function wpmtst_form_settings() {
 	/**
 	 * Build list of supported Captcha plugins.
 	 *
-	 * TODO - Move this to options array
+	 * TODO - Move this to options array and add filter
 	 */
 	$plugins = array(
 		'bwsmath' => array(
@@ -294,37 +274,6 @@ function wpmtst_settings() {
 	$options = get_option( 'wpmtst_options' );
 	settings_fields( 'wpmtst-settings-group' );
 	include( 'settings/general.php' );
-}
-
-/**
- * Cycle shortcode settings
- */
-function wpmtst_cycle_settings() {
-	$cycle = get_option( 'wpmtst_cycle' );
-
-	$order_list = array(
-		'rand'   => _x( 'Random', 'display order', 'strong-testimonials' ),
-		'menu'   => _x( 'Menu order', 'display order', 'strong-testimonials' ),
-		'recent' => _x( 'Newest first', 'display order', 'strong-testimonials' ),
-		'oldest' => _x( 'Oldest first', 'display order', 'strong-testimonials' ),
-	);
-
-	$category_list = get_terms( 'wpm-testimonial-category', array(
-		'hide_empty' => false,
-		'order_by'   => 'name',
-		'pad_counts' => true,
-	) );
-
-	$pages_list = get_pages( array(
-		'sort_order'  => 'ASC',
-		'sort_column' => 'post_title',
-		'post_type'   => 'page',
-		'post_status' => 'publish',
-	) );
-
-	settings_fields( 'wpmtst-cycle-group' );
-
-	include( 'settings/cycle.php' );
 }
 
 /**
