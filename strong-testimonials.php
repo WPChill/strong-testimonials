@@ -48,8 +48,6 @@ final class Strong_Testimonials {
 	public static $scripts = array( 'normal' => array(), 'later' => array() );
 	public static $css = array();
 	public static $script_vars;
-	public static $shortcode;
-	public static $shortcode_lb;
 	public static $shortcode2;
 	public static $shortcode2_lb;
 	public static $view_defaults = array();
@@ -181,7 +179,6 @@ final class Strong_Testimonials {
 		require_once WPMTST_INC . 'shortcode-form.php';
 		require_once WPMTST_INC . 'template-functions.php';
 		require_once WPMTST_INC . 'shortcode-strong.php';
-		require_once WPMTST_INC . 'shortcodes.php';
 		require_once WPMTST_INC . 'captcha.php';
 		require_once WPMTST_INC . 'scripts.php';
 
@@ -240,9 +237,6 @@ final class Strong_Testimonials {
 
 			// Elegant Themes - Home page content areas
 			add_action( 'wp', array( $this, 'find_views_elegant_themes' ) );
-
-			// Preprocess the post content for the original shortcodes.
-			add_action( 'wp', array( $this,	'find_original_shortcodes' ) );
 
 		}
 
@@ -495,8 +489,6 @@ final class Strong_Testimonials {
 	 */
 	public function set_shortcodes() {
 		$options = get_option( 'wpmtst_options' );
-		self::$shortcode     = isset( $options['shortcode'] ) ? $options['shortcode'] : 'strong';
-		self::$shortcode_lb  = '[' . self::$shortcode;
 		self::$shortcode2    = 'testimonial_view';
 		self::$shortcode2_lb = '[' . self::$shortcode2;
 	}
@@ -504,10 +496,6 @@ final class Strong_Testimonials {
 	/**
 	 * Get shortcodes.
 	 */
-	public function get_shortcode() {
-		return self::$shortcode;
-	}
-
 	public function get_shortcode2() {
 		return self::$shortcode2;
 	}
@@ -520,7 +508,6 @@ final class Strong_Testimonials {
 	 * @return array
 	 */
 	function no_texturize_shortcodes( $shortcodes ) {
-		$shortcodes[] = self::$shortcode;
 		$shortcodes[] = self::$shortcode2;
 		return $shortcodes;
 	}
@@ -724,7 +711,7 @@ final class Strong_Testimonials {
 	}
 
 	private static function check_content( $content ) {
-		if ( false === strpos( $content, self::$shortcode_lb ) && false === strpos( $content, self::$shortcode2_lb ) )
+		if ( false === strpos( $content, self::$shortcode2_lb ) )
 			return false;
 
 		return true;
@@ -893,25 +880,7 @@ final class Strong_Testimonials {
 
 		foreach ( $matches as $key => $shortcode ) {
 
-			if ( self::$shortcode === $shortcode[2] ) {
-
-				/**
-				 * Adding html_entity_decode.
-				 * @since 1.16.13
-				 */
-				// Retrieve all attributes from the shortcode.
-				$original_atts = shortcode_parse_atts( html_entity_decode( $shortcode[3] ) );
-
-				// Turn empty atts into switches.
-				$atts = normalize_empty_atts( $original_atts );
-
-				// Build the shortcode signature.
-				$att_string = serialize( $original_atts );
-
-				self::find_single_view( $atts, $att_string );
-
-			}
-			elseif ( self::$shortcode2 === $shortcode[2]) {
+			if ( self::$shortcode2 === $shortcode[2]) {
 
 				/**
 				 * Adding html_entity_decode.
@@ -972,18 +941,8 @@ final class Strong_Testimonials {
 		 * Modes
 		 * ==============================
 		 */
-		if ( isset( $atts['read_more'] ) ) {
 
-			/**
-			 * ------------------------------
-			 * "Read more"
-			 * ------------------------------
-			 * TODO remove in 2.0
-			 */
-			$view = array( 'mode' => 'read_more', 'atts' => $atts );
-
-		}
-		elseif ( isset( $atts['form'] ) ) {
+		if ( isset( $atts['form'] ) ) {
 
 			/**
 			 * ------------------------------
@@ -1721,118 +1680,6 @@ final class Strong_Testimonials {
 					self::find_single_view( $atts, $att_string );
 				}
 
-			}
-
-		}
-	}
-
-	/**
-	 * Build list of all shortcode views on a page.
-	 *
-	 * A combination of has_shortcode and shortcode_parse_atts.
-	 */
-	public static function find_original_shortcodes() {
-		if ( is_admin() )
-			return;
-
-		global $post;
-		if ( empty( $post ) )
-			return;
-
-		$content = $post->post_content;
-		if ( false === strpos( $content, '[' ) )
-			return;
-
-		preg_match_all( '/' . get_shortcode_regex() . '/s', $content, $matches, PREG_SET_ORDER );
-		if ( empty( $matches ) )
-			return;
-
-		$options      = get_option( 'wpmtst_options' );
-		$form_options = get_option( 'wpmtst_form_options' );
-
-		foreach ( $matches as $key => $shortcode ) {
-
-			// Check for original shortcodes. Keep these exploded!
-
-			if ( 'wpmtst-all' == $shortcode[2] ) {
-				if ( $options['load_page_style'] ) {
-					self::add_style( 'wpmtst-style' );
-				}
-
-				if ( is_rtl() && $options['load_rtl_style'] ) {
-					self::add_style( 'wpmtst-rtl-style' );
-				}
-
-				self::add_script( 'wpmtst-pager-plugin' );
-				add_action( 'wp_footer', 'wpmtst_pagination_function' );
-			}
-
-			if ( 'wpmtst-form' == $shortcode[2] ) {
-				if ( $options['load_form_style'] ) {
-					self::add_style( 'wpmtst-form-style' );
-				}
-
-				if ( is_rtl() && $options['load_rtl_style'] ) {
-					self::add_style( 'wpmtst-rtl-style' );
-				}
-
-				// Slightly different than View processing.
-				self::add_script( 'wpmtst-validation-plugin' );
-				self::add_script( 'wpmtst-validation-lang' );
-				add_action( 'wp_footer', 'wpmtst_validation_function' );
-
-				if ( $form_options['honeypot_before'] ) {
-					add_action( 'wp_footer', 'wpmtst_honeypot_before_script' );
-					add_action( 'wpmtst_honeypot_before', 'wpmtst_honeypot_before' );
-				}
-
-				if ( $form_options['honeypot_after'] ) {
-					add_action( 'wp_footer', 'wpmtst_honeypot_after_script' );
-					add_action( 'wpmtst_honeypot_after', 'wpmtst_honeypot_after' );
-				}
-			}
-
-			if ( 'wpmtst-cycle' == $shortcode[2] ) {
-				if ( $options['load_page_style'] ) {
-					self::add_style( 'wpmtst-style' );
-				}
-
-				if ( is_rtl() && $options['load_rtl_style'] ) {
-					self::add_style( 'wpmtst-rtl-style' );
-				}
-
-				$cycle = get_option( 'wpmtst_cycle' );
-
-				// Populate variable for Cycle script.
-				$var = array(
-					'fx'      => 'fade',
-					'speed'   => $cycle['speed'] * 1000,
-					'timeout' => $cycle['timeout'] * 1000,
-					'pause'   => $cycle['pause'] ? true : false,
-				);
-				self::add_script( 'wpmtst-slider', 'later' );
-				self::add_script_var( 'wpmtst-slider', 'tcycle_cycle_shortcode', $var );
-
-			}
-
-			if ( 'wpmtst-single' == $shortcode[2] ) {
-				if ( $options['load_page_style'] ) {
-					self::add_style( 'wpmtst-style' );
-				}
-
-				if ( is_rtl() && $options['load_rtl_style'] ) {
-					self::add_style( 'wpmtst-rtl-style' );
-				}
-			}
-
-			if ( 'wpmtst-random' == $shortcode[2] ) {
-				if ( $options['load_page_style'] ) {
-					self::add_style( 'wpmtst-style' );
-				}
-
-				if ( is_rtl() && $options['load_rtl_style'] ) {
-					self::add_style( 'wpmtst-rtl-style' );
-				}
 			}
 
 		}
