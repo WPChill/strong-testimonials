@@ -302,38 +302,3 @@ function wpmtst_find_template( $type = '', $template = '' ) {
 
 	return $template_file;
 }
-
-/**
- * Replace attribute values with $post values
- * but don't overwrite other attributes like "class".
- *
- * from : [url] => company_website
- *   to : [url] => http://example.com -OR- (empty string)
- *
- * @since 1.11.0
- *
- * @param array $out The output array of shortcode attributes.
- * @param array $atts The input array of shortcode attributes.
- * @param array $post The testimonial post.
- *
- * @return array
- */
-function wpmtst_atts_to_values( $out, $atts, $post ) {
-	// for fields listed in shortcode attributes:
-	foreach ( $atts as $key => $field ) {
-		if ( 'name' == $key || 'url' == $key ) {
-			if ( isset( $post->$field ) )
-				$out[$key] = $post->$field;
-			else
-				$out[$key] = '';  // @since 1.12
-		}
-		elseif ( 'date' == $key ) {
-			$out[$key] = 'the_date';
-		}
-	}
-
-	// for fields *not* listed in shortcode attributes:
-	// approach: no global + local enable
-	$out['nofollow'] = ( 'on' == $post->nofollow );
-	return $out;
-}
