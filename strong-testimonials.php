@@ -410,6 +410,7 @@ final class Strong_Testimonials {
 	/**
 	 * @param null $preset
 	 *
+	 * TODO Move to options and add a filter.
 	 * @return array|bool
 	 */
 	public function get_background_presets( $preset = null ) {
@@ -458,37 +459,9 @@ final class Strong_Testimonials {
 	}
 
 	/**
-	 * @since 1.21.0
-	 */
-	public function add_page_templates_filter() {
-		add_filter( 'theme_page_templates', array( $this, 'page_templates_filter' ), 10, 3 );
-	}
-
-	/**
-	 * Remove testimonial templates from Template dropdown in Page Attributes metabox.
-	 *
-	 * @param $page_templates
-	 * @param $theme_object
-	 * @param $post
-	 *
-	 * @return mixed
-	 */
-	public function page_templates_filter( $page_templates, $theme_object, $post ) {
-		foreach ( $page_templates as $file_name => $template_name ) {
-			if ( 'testimonials.php' == $file_name
-					|| 'testimonials-' == substr( $file_name, 0, 13 )
-					|| 'testimonial-form' == substr( $file_name, 0, 16 ) ) {
-				unset( $page_templates[ $file_name ] );
-			}
-		}
-		return $page_templates;
-	}
-
-	/**
 	 * Set shortcode.
 	 */
 	public function set_shortcodes() {
-		$options = get_option( 'wpmtst_options' );
 		self::$shortcode2    = 'testimonial_view';
 		self::$shortcode2_lb = '[' . self::$shortcode2;
 	}
@@ -919,12 +892,11 @@ final class Strong_Testimonials {
 	}
 
 	/**
-	 * Process a single [strong] or [testimonial_view] shortcode.
+	 * Process a single [testimonial_view] shortcode.
 	 *
 	 * TODO Move all this to hooks and filters.
 	 * TODO So not DRY -- improve in version 2.0
 	 *
-	 * @since 1.15.4 [strong]
 	 * @since 1.21.0 [testimonial_view]
 	 * @param $atts
 	 * @param $att_string
@@ -962,20 +934,6 @@ final class Strong_Testimonials {
 				}
 
 			}
-			else {
-
-				/**
-				 * If this is a configured shortcode, check the option for loading its stylesheet.
-				 */
-				if ( $options['load_form_style'] ) {
-					self::add_style( 'wpmtst-form-style' );
-				}
-
-				if ( is_rtl() && $options['load_rtl_style'] ) {
-					self::add_style( 'wpmtst-rtl-style' );
-				}
-
-			}
 
 			self::after_form( $atts );
 
@@ -1000,19 +958,6 @@ final class Strong_Testimonials {
 				}
 
 			}
-			else {
-
-				/**
-				 * If this is a configured shortcode, check the option for loading its stylesheet.
-				 */
-				if ( $options['load_page_style'] ) {
-					self::add_style( 'wpmtst-style' );
-				}
-
-				if ( is_rtl() && $options['load_rtl_style'] ) {
-					self::add_style( 'wpmtst-rtl-style' );
-				}
-			}
 
 		}
 		else {
@@ -1029,20 +974,6 @@ final class Strong_Testimonials {
 			if ( isset( $atts['view'] ) && $atts['view'] ) {
 
 				$handle = self::find_stylesheet( $atts );
-
-			}
-			else {
-
-				/**
-				 * If this is a configured shortcode, check the option for loading its stylesheet.
-				 */
-				if ( $options['load_page_style'] ) {
-					self::add_style( 'wpmtst-style' );
-				}
-
-				if ( is_rtl() && $options['load_rtl_style'] ) {
-					self::add_style( 'wpmtst-rtl-style' );
-				}
 
 			}
 
