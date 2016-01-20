@@ -73,7 +73,6 @@ function wpmtst_honeypot_before() {
 	return;
 }
 
-
 /**
  * Honeypot preprocessor
  */
@@ -87,7 +86,6 @@ function wpmtst_honeypot_after() {
 	return;
 }
 
-
 /**
  * Honeypot
  */
@@ -96,7 +94,6 @@ function wpmtst_honeypot_before_script() {
 <script type="text/javascript">jQuery('#wpmtst_if_visitor').val('');</script>
 	<?php
 }
-
 
 /**
  * Honeypot
@@ -117,22 +114,6 @@ function wpmtst_honeypot_after_script() {
 		});
 	})( jQuery );
 	//]]>
-</script>
-	<?php
-}
-
-/**
- * Submission form validation.
- *
- * Required for original shortcodes.
- * To be removed in 2.0.
- */
-function wpmtst_validation_function() {
-	echo "\r"; ?>
-<script type="text/javascript">
-	jQuery(document).ready(function($) {
-		$("#wpmtst-submission-form").validate({});
-	});
 </script>
 	<?php
 }
