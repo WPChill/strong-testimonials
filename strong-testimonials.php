@@ -144,12 +144,6 @@ final class Strong_Testimonials {
 		if ( ! defined( 'WPMTST_TPL_URI' ) )
 			define( 'WPMTST_TPL_URI', plugin_dir_url( __FILE__ ) . 'templates' );
 
-		if ( ! defined( 'WPMTST_ORIG_TPL' ) )
-			define( 'WPMTST_ORIG_TPL', plugin_dir_path( __FILE__ ) . 'original-template/' );
-
-		if ( ! defined( 'WPMTST_ORIG_TPL_URI' ) )
-			define( 'WPMTST_ORIG_TPL_URI', plugin_dir_url( __FILE__ ) . 'original-template/' );
-
 	}
 
 

@@ -232,10 +232,6 @@ function wpmtst_display_view( $atts ) {
 	if ( $view ) {
 		$template_file = $strong_templates->get_template_attr( $atts, 'template' );
 	}
-	else {
-		// [strong] shortcode
-		$template_file = wpmtst_find_template( 'testimonials', $template );
-	}
 
 	ob_start();
 	include( $template_file );
@@ -254,35 +250,6 @@ function wpmtst_display_view( $atts ) {
 	$html = apply_filters( 'strong_html', $html );
 
 	return $html;
-}
-
-/**
- * Template search.
- *
- * Use normal theme search order and allow filtering.
- * Called by shortcode and when enqueueing stylesheets.
- *
- * @since 1.21.0
- * @param string $template
- * @return string $template_file
- */
-function wpmtst_find_template( $type = '', $template = '' ) {
-	if ( !$type ) return false;
-
-	$search_array = array();
-	if ( $template ) {
-		$search_array[] = "{$type}-{$template}.php";
-	}
-	$search_array[] = "{$type}.php";
-
-	$template_file = get_query_template( $type, $search_array );
-
-	//TODO Add filter.
-	if ( ! $template_file ) {
-		$template_file = WPMTST_ORIG_TPL . "{$type}.php";
-	}
-
-	return $template_file;
 }
 
 /**
