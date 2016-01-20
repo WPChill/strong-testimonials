@@ -5,6 +5,8 @@
  * @package Strong_Testimonials
  * @since 1.13
  */
+
+$options = get_option( 'wpmtst_options' );
 ?>
 <table class="form-table" cellpadding="0" cellspacing="0">
 	<tr valign="top">

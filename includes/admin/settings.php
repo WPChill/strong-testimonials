@@ -198,8 +198,7 @@ function wpmtst_settings_page() {
 					break;
 				default :
 					settings_fields( 'wpmtst-settings-group' );
-					$options = get_option( 'wpmtst_options' );
-					include( 'settings/general2.php' );
+					include( 'settings/general.php' );
 			}
 			?>
 			<p class="submit">

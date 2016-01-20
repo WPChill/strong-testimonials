@@ -15,7 +15,7 @@
  */
 function wpmtst_get_default_options() {
 	$default_options = array(
-		'reorder'           => false,
+		'reorder' => false,
 	);
 
 	return $default_options;
