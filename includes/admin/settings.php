@@ -21,7 +21,8 @@ function wpmtst_settings_menu() {
 		__( 'Fields', 'strong-testimonials' ),
 		'manage_options',
 		'fields',
-		'wpmtst_settings_custom_fields' );
+		//'wpmtst_settings_custom_fields' );
+		'wpmtst_form_admin' );
 
 	add_submenu_page( 'edit.php?post_type=wpm-testimonial',
 		__( 'Settings', 'strong-testimonials' ),

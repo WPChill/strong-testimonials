@@ -3,11 +3,75 @@
  * Strong Testimonials - Custom fields admin functions
  */
 
+function wpmtst_form_admin() {
+	if ( ! current_user_can( 'manage_options' ) )
+		wp_die( __( 'You do not have sufficient permissions to access this page.' ) );
 
-/*
+	$screen = get_current_screen();
+	$url = $screen->parent_file;
+	?>
+	<div class="wrap wpmtst2">
+
+		<?php
+		// @TODO move to options
+		if ( isset( $_REQUEST['changes-undone'] ) ) {
+			$message = __( 'Changes undone.', 'strong-testimonials' );
+		} elseif ( isset( $_REQUEST['defaults-restored'] ) ) {
+			$message = __( 'Defaults restored.', 'strong-testimonials' );
+		} elseif ( isset( $_REQUEST['view-saved'] ) ) {
+			$message = __( 'View saved.', 'strong-testimonials' );
+		} elseif( isset( $_REQUEST['view-deleted'] ) ) {
+			$message = __( 'View deleted.', 'strong-testimonials' );
+		} else {
+			$message = '';
+		}
+
+		if ( $message )
+			printf( '<div class="notice is-dismissible updated"><p>%s</p></div>', $message );
+
+		// Editing a form
+		if ( isset( $_REQUEST['action'] ) ) {
+
+			if ( 'edit' == $_REQUEST['action'] && isset( $_REQUEST['form'] ) ) {
+				wpmtst_settings_custom_fields( $_REQUEST['action'], $_REQUEST['form'] );
+			}
+			//elseif ( 'add' == $_REQUEST['action'] ) {
+			//	wpmtst_view_settings( $_REQUEST['action'] );
+			//}
+
+		}
+		else {
+
+			// View list
+			?>
+			<h2>
+				<?php _e( 'Forms', 'strong-testimonials' ); ?>
+				<a href="<?php echo $url; ?>&page=fields&action=add" class="add-new-h2">Add New</a>
+			</h2>
+			<div class="intro">
+				<p>Forms are cool.<p>
+			</div>
+			<p><a href="<?php echo $url; ?>&page=fields&action=edit&form=custom">Edit form</a></p>
+			<?php
+
+			//$views = wpmtst_get_views();
+			//$views_table = new Strong_Views_List_Table();
+			//$views_table->prepare_list( wpmtst_unserialize_views( $views ) );
+			//$views_table->display();
+
+		}
+		?>
+	</div><!-- .wrap -->
+	<?php
+}
+
+/**
  * Custom Fields page
+ *
+ * @param string $action
+ * @param null   $form
  */
-function wpmtst_settings_custom_fields() {
+function wpmtst_settings_custom_fields( $action = '', $form = null ) {
 	if ( ! current_user_can( 'manage_options' ) )
 		wp_die( __( 'You do not have sufficient permissions to access this page.' ) );
 
