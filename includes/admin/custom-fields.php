@@ -46,7 +46,7 @@ function wpmtst_form_admin2() {
 		}
 		else {
 
-			// View list
+			// Form list
 			?>
 			<h2>
 				<?php _e( 'Forms', 'strong-testimonials' ); ?>
@@ -56,13 +56,8 @@ function wpmtst_form_admin2() {
 				<p>Forms are cool.<p>
 			</div>
 			<p><a href="<?php echo $url; ?>&page=fields&action=edit&form=custom">Edit form</a></p>
+
 			<?php
-
-			//$views = wpmtst_get_views();
-			//$views_table = new Strong_Views_List_Table();
-			//$views_table->prepare_list( wpmtst_unserialize_views( $views ) );
-			//$views_table->display();
-
 		}
 		?>
 	</div><!-- .wrap -->
@@ -79,7 +74,7 @@ function wpmtst_settings_custom_fields( $action = '', $form = null ) {
 	if ( ! current_user_can( 'manage_options' ) )
 		wp_die( __( 'You do not have sufficient permissions to access this page.' ) );
 
-	$options = get_option( 'wpmtst_options' );
+	//$options = get_option( 'wpmtst_options' );
 
 	$field_options = get_option( 'wpmtst_fields' );
 	d($field_options);
