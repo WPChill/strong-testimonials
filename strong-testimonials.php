@@ -297,7 +297,7 @@ final class Strong_Testimonials {
 
 	public function form_handler2() {
 		if ( isset( $_POST['wpmtst_form_nonce'] ) ) {
-			require_once WPMTST_INC . 'shortcode-form.php';
+			require_once WPMTST_INC . 'shortcodes.php';
 			require_once WPMTST_INC . 'form-handler-functions.php';
 			$success = wpmtst_form_handler();
 			if ( $success ) {
