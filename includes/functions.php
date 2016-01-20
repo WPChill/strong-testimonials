@@ -487,23 +487,6 @@ function wpmtst_save_view( $view, $action = 'edit' ) {
 }
 
 /**
- * Update reminder
- *
- * @since 1.21.0
- *
- * @param string $preface
- * @param string $class
- */
-function wpmtst_update_nag( $preface = '', $class = '' ) {
-	?>
-	<div class="update-nag <?php echo $class; ?>">
-		<?php printf( __( '%s Please use a <a href="%s">View</a> instead.', 'strong-testimonials' ),
-			$preface, admin_url( 'edit.php?post_type=wpm-testimonial&page=views') ); ?>
-	</div>
-	<?php
-}
-
-/**
  * @param $field
  *
  * @return mixed
