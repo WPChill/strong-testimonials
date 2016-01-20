@@ -12,6 +12,9 @@
  * @package
  * @subpackage
  */
+
+if ( !class_exists( 'Strong_Testimonials_List_Table' ) ) :
+
 class Strong_Testimonials_List_Table {
 
 	/**
@@ -1143,3 +1146,5 @@ class Strong_Testimonials_List_Table {
 		printf( "<script type='text/javascript'>list_args = %s;</script>\n", wp_json_encode( $args ) );
 	}
 }
+
+endif;

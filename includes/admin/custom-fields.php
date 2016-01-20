@@ -82,10 +82,16 @@ function wpmtst_settings_custom_fields( $action = '', $form = null ) {
 	$field_groups = $field_options['field_groups'];
 	d($field_groups);
 
-	$current_field_group = $field_options['current_field_group'];  // "custom", only one for now
-	d($current_field_group);
+	//$current_field_group_name = $field_options['current_field_group'];
+	if ( $form && isset( $field_groups[ $form ] ) ) {
+		$current_field_group_name = $form;
+	}
+	else {
+		$current_field_group_name = $field_options['current_field_group'];
+	}
+	d($current_field_group_name);
 
-	$field_group = $field_groups[$current_field_group];
+	$field_group = $field_groups[ $current_field_group_name ];
 	d($field_group);
 
 	$message_format = '<div id="message" class="updated notice is-dismissible"><p><strong>%s</strong></p></div>';
@@ -148,12 +154,12 @@ function wpmtst_settings_custom_fields( $action = '', $form = null ) {
 			}
 
 			//$field_options['field_groups']['custom']['fields'] = $fields;
-			$field_options['field_groups'][ $current_field_group ]['fields'] = $fields;
+			$field_options['field_groups'][ $current_field_group_name ]['fields'] = $fields;
 
 			if ( isset( $_POST['field_group_label'] ) ) {
 				// TODO Catch if empty.
 				$new_label = sanitize_text_field( $_POST['field_group_label'] );
-				$field_options['field_groups'][ $current_field_group ]['label'] = $new_label;
+				$field_options['field_groups'][ $current_field_group_name ]['label'] = $new_label;
 				// update current variable too
 				// will be done better in admin-post PRG
 				$field_group['label'] = $new_label;
