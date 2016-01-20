@@ -176,9 +176,8 @@ final class Strong_Testimonials {
 		 * @since 1.25.3
 		 */
 		require_once WPMTST_INC . 'shortcodes.php';
-		require_once WPMTST_INC . 'shortcode-form.php';
 		require_once WPMTST_INC . 'template-functions.php';
-		require_once WPMTST_INC . 'shortcode-strong.php';
+		require_once WPMTST_INC . 'form-template-functions.php';
 		require_once WPMTST_INC . 'captcha.php';
 		require_once WPMTST_INC . 'scripts.php';
 
