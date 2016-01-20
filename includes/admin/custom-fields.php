@@ -32,7 +32,8 @@ function wpmtst_settings_custom_fields() {
 			$fields = $field_group['fields'];
 			echo sprintf( $message_format, __( 'Changes undone.', 'strong-testimonials' ) );
 
-		} elseif ( isset( $_POST['restore-defaults'] ) ) {
+		}
+		elseif ( isset( $_POST['restore-defaults'] ) ) {
 
 			// Restore defaults
 			// ----------------
@@ -50,7 +51,8 @@ function wpmtst_settings_custom_fields() {
 
 			echo sprintf( $message_format, __( 'Defaults restored.', 'strong-testimonials' ) );
 
-		} else {
+		}
+		else {
 
 			// Save changes
 			$fields = array();
@@ -80,7 +82,8 @@ function wpmtst_settings_custom_fields() {
 			echo sprintf( $message_format, __( 'Fields saved.', 'strong-testimonials' ) );
 		}
 
-	} else {
+	}
+	else {
 
 		// Get current fields
 		$fields = $field_group['fields'];
@@ -188,7 +191,7 @@ function wpmtst_show_field( $key, $field, $adding ) {
 		$html .= '<input type="hidden" name="fields[' . $key . '][name]" value="' . $field['name'] . '">';
 	}
 	$html .= '</td>';
-	$html .= '</td>';
+	$html .= '</tr>';
 
 	// ---------------------------
 	// Field Type (Post or Custom)
