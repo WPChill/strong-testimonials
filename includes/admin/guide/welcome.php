@@ -15,9 +15,7 @@
 		<p><?php _e( 'Responsive design has been improved and a long-standing, intermittent slideshow style problem has been fixed.', 'strong-testimonials' ); ?></p>
 
 		<p><?php _e( 'Compatible with the popular <a href="https://wordpress.org/plugins/beaver-builder-lite-version/" target="_blank">Beaver Builder</a> and <a href="https://wordpress.org/plugins/popup-maker/" target="_blank">Popup Maker</a> plugins.', 'strong-testimonials' ); ?></p>
-
-		<p><?php _e( 'Please read the <strong><a href="'. admin_url( "edit.php?post_type=wpm-testimonial&page=guide&tab=version2" ) . '">Version 2</a></strong> tab for important news.', 'strong-testimonials' ); ?></p>
-
+		
 		<p style="font-style: italic;"><?php _e( 'Thanks for choosing Strong Testimonials!', 'strong-testimonials' ); ?></p>
 
 	</section>
