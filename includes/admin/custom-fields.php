@@ -4,6 +4,10 @@
  */
 
 function wpmtst_form_admin() {
+	do_action( 'wpmtst_form_admin' );
+}
+
+function wpmtst_form_admin2() {
 	if ( ! current_user_can( 'manage_options' ) )
 		wp_die( __( 'You do not have sufficient permissions to access this page.' ) );
 
@@ -76,11 +80,18 @@ function wpmtst_settings_custom_fields( $action = '', $form = null ) {
 		wp_die( __( 'You do not have sufficient permissions to access this page.' ) );
 
 	$options = get_option( 'wpmtst_options' );
-	// TODO Build function for this:
+
 	$field_options = get_option( 'wpmtst_fields' );
+	d($field_options);
+
 	$field_groups = $field_options['field_groups'];
+	d($field_groups);
+
 	$current_field_group = $field_options['current_field_group'];  // "custom", only one for now
+	d($current_field_group);
+
 	$field_group = $field_groups[$current_field_group];
+	d($field_group);
 
 	$message_format = '<div id="message" class="updated notice is-dismissible"><p><strong>%s</strong></p></div>';
 
@@ -117,6 +128,7 @@ function wpmtst_settings_custom_fields( $action = '', $form = null ) {
 
 		}
 		else {
+			//q2($_POST);
 
 			// Save changes
 			$fields = array();
@@ -139,8 +151,21 @@ function wpmtst_settings_custom_fields( $action = '', $form = null ) {
 				$fields[$new_key++] = $field;
 
 			}
-			$field_options['field_groups']['custom']['fields'] = $fields;
+
+			//$field_options['field_groups']['custom']['fields'] = $fields;
+			$field_options['field_groups'][ $current_field_group ]['fields'] = $fields;
+
+			if ( isset( $_POST['field_group_label'] ) ) {
+				// TODO Catch if empty.
+				$new_label = sanitize_text_field( $_POST['field_group_label'] );
+				$field_options['field_groups'][ $current_field_group ]['label'] = $new_label;
+				// update current variable too
+				// will be done better in admin-post PRG
+				$field_group['label'] = $new_label;
+			}
+
 			update_option( 'wpmtst_fields', $field_options );
+
 			do_action( 'wpmtst_fields_updated', $fields );
 
 			echo sprintf( $message_format, __( 'Fields saved.', 'strong-testimonials' ) );
@@ -160,7 +185,7 @@ function wpmtst_settings_custom_fields( $action = '', $form = null ) {
 	?>
 	<div class="wrap wpmtst">
 		<h2><?php _e( 'Fields', 'strong-testimonials' ); ?></h2>
-		<div class="intro">
+		<div class="intro" style="float: right;">
 			<p><?php _e( 'Fields will appear in this order on the form.', 'strong-testimonials' ); ?></p>
 			<p><?php printf( __( 'Reorder by grabbing the %s icon.', 'strong-testimonials' ), '<span class="dashicons dashicons-menu"></span>' ); ?></p>
 			<p><?php _e( 'Click the field name to expand its options panel.', 'strong-testimonials' ); ?></p>
@@ -171,14 +196,18 @@ function wpmtst_settings_custom_fields( $action = '', $form = null ) {
 
 	<!-- Custom Fields Form -->
 	<form id="wpmtst-custom-fields-form" method="post" action="" autocomplete="off">
-	<?php wp_nonce_field( 'wpmtst_custom_fields_form', 'wpmtst_form_submitted' ); ?>
+		<?php wp_nonce_field( 'wpmtst_custom_fields_form', 'wpmtst_form_submitted' ); ?>
+
+		<?php //TODO Move class check to a constant in main class AND/OR action hook ?>
+		<?php if ( class_exists( 'Strong_Testimonials_Multiple_Forms' ) ) : ?>
+		<p><a href="<?php echo admin_url( 'edit.php?post_type=wpm-testimonial&page=fields' ); ?>">Return to list</a></p>
+		<p><input type="text" name="field_group_label" value="<?php echo $field_group['label']; ?>"></p>
+		<?php endif; ?>
 
 	<ul id="custom-field-list">
-
-	<?php foreach ( $fields as $key => $field ) : ?>
+		<?php foreach ( $fields as $key => $field ) : ?>
 		<li id="field-<?php echo $key; ?>"><?php echo wpmtst_show_field( $key, $field, false ); ?></li>
-	<?php endforeach; ?>
-
+		<?php endforeach; ?>
 	</ul>
 
 	<div id="add-field-bar">

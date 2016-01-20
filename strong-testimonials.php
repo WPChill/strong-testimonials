@@ -204,7 +204,16 @@ final class Strong_Testimonials {
 	 */
 	private function add_actions() {
 
-		if ( !is_admin() ) {
+		if ( is_admin() ) {
+
+			//add_action( 'wpmtst_form_admin', 'wpmtst_form_admin2' );
+			add_action( 'wpmtst_form_admin', 'wpmtst_settings_custom_fields' );
+
+			// TODO Try this on wp_loaded instead
+			add_action( 'admin_init', 'wpmtst_redirect_about_page', 1 );
+
+		}
+		else {
 
 			/**
 			 * Actions on 'wp' hook allow us to properly enqueue styles and scripts.
@@ -279,8 +288,6 @@ final class Strong_Testimonials {
 		add_filter( 'widget_text', 'do_shortcode' );
 
 		add_action( 'wp_head', array( $this, 'show_version_info' ), 999 );
-
-		add_action( 'admin_init', 'wpmtst_redirect_about_page', 1 );
 
 		add_action( 'wpmtst_form_rendered', array( $this, 'form_rendered' ), 10, 1 );
 		add_action( 'wpmtst_view_rendered', array( $this, 'view_rendered' ), 10, 1 );
