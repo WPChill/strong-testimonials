@@ -37,7 +37,7 @@ function wpmtst_strong_view_shortcode( $atts, $content = null ) {
 	 * MODE: FORM
 	 */
 	if ( $out['form'] )
-		return wpmtst_form_shortcode( $out );
+		return wpmtst_form_view( $out );
 
 	/**
 	 * MODE: DISPLAY (default)
@@ -259,7 +259,7 @@ function wpmtst_display_view( $atts ) {
  *
  * @return mixed|string|void
  */
-function wpmtst_form_shortcode( $atts ) {
+function wpmtst_form_view( $atts ) {
 	global $strong_templates;
 
 	if ( isset( $_GET['success'] ) ) {
