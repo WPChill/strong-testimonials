@@ -141,7 +141,6 @@ function wpmtst_view_settings( $action = '', $view_id = null ) {
 
 		<?php include( 'views/mode.php' ); ?>
 		<?php include( 'views/group-select.php' ); ?>
-		<?php //include( 'views/group-slideshow.php' ); ?>
 		<?php include( 'views/group-fields.php' ); ?>
 		<?php include( 'views/group-form.php' ); ?>
 		<?php include( 'views/group-extra.php' ); ?>
