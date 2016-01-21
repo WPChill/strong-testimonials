@@ -111,11 +111,26 @@ function wpmtst_get_default_fields() {
 		$field_types['optional'][ $key ] = array_merge( $field_base, $array );
 	}
 
+	// Assemble default field settings.
+	$default_fields['field_base']          = $field_base;
+	$default_fields['field_types']         = $field_types;
+
+	return $default_fields;
+}
+
+/**
+ * Default forms.
+ *
+ * @return array
+ */
+function wpmtst_get_default_forms() {
+	$default_fields = wpmtst_get_default_fields();
+
 	// Assemble field groups.
-	$field_groups = array(
+	$forms = array(
 		'default' => array(
 			'name'   => 'default',
-			'label'  => __( 'Default Field Group', 'strong-testimonials' ),
+			'label'  => __( 'Default Form', 'strong-testimonials' ),
 			'fields' => array(
 				// ------
 				// CUSTOM
@@ -178,31 +193,25 @@ function wpmtst_get_default_fields() {
 					'after'       => __( 'Would you like to include a photo?', 'strong-testimonials' ),
 					'admin_table' => 1,
 				),
-			)
+			),
 		)
 	);
-	foreach ( $field_groups['default']['fields'] as $key => $array ) {
+	foreach ( $forms['default']['fields'] as $key => $array ) {
 		if ( 'post' == $array['record_type'] ) {
-			$field_groups['default']['fields'][ $key ] = array_merge( $field_types['post'][ $array['name'] ], $array );
+			$forms['default']['fields'][ $key ] = array_merge( $default_fields['field_types']['post'][ $array['name'] ], $array );
 		} else {
-			$field_groups['default']['fields'][ $key ] = array_merge( $field_types['custom'][ $array['input_type'] ], $array );
+			$forms['default']['fields'][ $key ] = array_merge( $default_fields['field_types']['custom'][ $array['input_type'] ], $array );
 		}
 	}
 
-	// Copy default field group to custom field group.
-	$field_groups['custom'] = array(
+	// Copy default fields to custom fields.
+	$forms['custom'] = array(
 		'name'   => 'custom',
-		'label'  => __( 'Custom Field Group', 'strong-testimonials' ),
-		'fields' => $field_groups['default']['fields'],
+		'label'  => __( 'Custom Form', 'strong-testimonials' ),
+		'fields' => $forms['default']['fields'],
 	);
 
-	// Assemble default field settings.
-	$default_fields['field_base']          = $field_base;
-	$default_fields['field_types']         = $field_types;
-	$default_fields['field_groups']        = $field_groups;
-	$default_fields['current_field_group'] = 'custom';
-
-	return $default_fields;
+	return $forms;
 }
 
 /**

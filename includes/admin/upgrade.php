@@ -14,10 +14,13 @@ function wpmtst_default_settings() {
 	if ( $old_plugin_version == $plugin_version )
 		return;
 
+	delete_option( 'wpmtst_cycle' );
+
 	// -1- DEFAULTS
 	include_once WPMTST_INC . 'defaults.php';
 	$default_options       = wpmtst_get_default_options();
 	$default_fields        = wpmtst_get_default_fields();
+	$default_forms         = wpmtst_get_default_forms();
 	$default_form_options  = wpmtst_get_default_form_options();
 	$default_view_options  = wpmtst_get_default_view_options();
 	$default_view          = wpmtst_get_default_view();
@@ -28,7 +31,8 @@ function wpmtst_default_settings() {
 	if ( ! $options ) {
 		// -2A- NEW ACTIVATION
 		update_option( 'wpmtst_options', $default_options );
-	} else {
+	}
+	else {
 		// -2B- UPDATE
 
 		// Remove version 1 options
@@ -74,9 +78,9 @@ function wpmtst_default_settings() {
 		update_option( 'wpmtst_fields', $default_fields );
 		// WPML
 		wpmtst_form_fields_wpml( $default_fields['field_groups']['custom']['fields'] );
-	} else {
+	}
+	else {
 		// -3B- UPDATE
-		// Field update was missing from 1.18 - 1.20. Added in 1.20.1.
 
 		// ----------
 		// field base
@@ -115,36 +119,46 @@ function wpmtst_default_settings() {
 		// ------------
 		// field_groups
 		// ------------
-		$new_field_groups = $fields['field_groups'];
-		foreach ( $new_field_groups as $group_name => $group_array ) {
-			// custom fields are in display order (not associative)
-			// so we must find them by name
-			foreach ( $group_array['fields'] as $key => $new_field ) {
-				$updated_default = null;
-				foreach ( $default_fields['field_groups']['default']['fields'] as $a_field ) {
-					if ( $a_field['name'] = $new_field['name'] ) {
-						$updated_default = $a_field;
-						break;
-					}
-				}
-				if ( $updated_default ) {
-					$new_field_groups[ $group_name ]['fields'][ $key ] = array_merge( $updated_default, $new_field );
-				}
-			}
+		if ( isset( $fields['field_groups'] ) ) {
+			// move to new option and update next
+			update_option( 'wpmtst_forms', $fields['field_groups'] );
+			unset( $fields['field_groups'] );
 		}
 
 		// Re-assemble fields and save.
 		$fields['field_base']   = $new_field_base;
 		$fields['field_types']  = $new_field_types;
-		$fields['field_groups'] = $new_field_groups;
 		update_option( 'wpmtst_fields', $fields );
-		// WPML
-		wpmtst_form_fields_wpml( $fields['field_groups']['custom']['fields'] );
 	}
-	/**
-	 * -4- CYCLE
-	 */
-	delete_option( 'wpmtst_cycle' );
+
+	// -4- GET FORMS
+	$forms = get_option( 'wpmtst_forms' );
+	if ( !$forms ) {
+		update_option( 'wpmtst_forms', $default_forms );
+	}
+	else {
+		//TODO Change group_name to form_name
+		foreach ( $forms as $group_name => $group_array ) {
+			// custom fields are in display order (not associative)
+			// so we must find them by name
+			foreach ( $group_array['fields'] as $key => $new_field ) {
+				$updated_default = null;
+				foreach ( $default_forms['default']['fields'] as $a_field ) {
+					if ( $a_field['name'] == $new_field['name'] ) {
+						$updated_default = $a_field;
+						break;
+					}
+				}
+				if ( $updated_default ) {
+					$new_forms[ $group_name ]['fields'][ $key ] = array_merge( $updated_default, $new_field );
+				}
+			}
+		}
+		update_option( 'wpmtst_forms', $forms );
+		// WPML
+		wpmtst_form_fields_wpml( $forms['custom']['fields'] );
+	}
+
 
 	/**
 	 * -5- GET FORM OPTIONS
@@ -176,7 +190,8 @@ function wpmtst_default_settings() {
 		// WPML
 		wpmtst_form_messages_wpml( $form_options['messages'] );
 		wpmtst_form_options_wpml( $form_options );
-	} else {
+	}
+	else {
 		// -5C- UPDATE
 		/**
 		 * Update single email recipient to multiple.
