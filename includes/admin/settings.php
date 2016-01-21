@@ -10,15 +10,15 @@
  */
 function wpmtst_settings_menu() {
 	add_submenu_page( 'edit.php?post_type=wpm-testimonial',
-		__( 'Views', 'strong-testimonials' ),
-		__( 'Views', 'strong-testimonials' ),
+		__( 'Views', 'strong-testimonials' ),  // page title
+		__( 'Views', 'strong-testimonials' ),  // menu title
 		'manage_options',
 		'views',
 		'wpmtst_views_admin' );
 
 	add_submenu_page( 'edit.php?post_type=wpm-testimonial',
 		__( 'Fields', 'strong-testimonials' ),
-		__( 'Fields', 'strong-testimonials' ),
+		apply_filters( 'wpmtst_fields_menu_title', __( 'Fields', 'strong-testimonials' ) ),
 		'manage_options',
 		'fields',
 		//'wpmtst_settings_custom_fields' );
