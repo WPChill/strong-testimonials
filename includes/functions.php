@@ -35,12 +35,14 @@ function wpmtst_truncate( $content, $limit ) {
  * Add thumbnail if included in field group. (v1.8)
  */
 function wpmtst_get_post( $post ) {
-	$custom = get_post_custom( $post->ID );
-	$fields = get_option( 'wpmtst_fields' );
-	$field_groups = $fields['field_groups'];
+	//$custom = get_post_custom( $post->ID );
+	//$fields = get_option( 'wpmtst_fields' );
+	//$field_groups = $fields['field_groups'];
+	$fields = wpmtst_get_form_fields();
 
 	// Only add on fields from current field group.
-	foreach ( $field_groups[ $fields['current_field_group'] ]['fields'] as $key => $field ) {
+	//foreach ( $field_groups[ $fields['current_field_group'] ]['fields'] as $key => $field ) {
+	foreach ( $fields as $key => $field ) {
 		$name = $field['name'];
 
 		if ( 'featured_image' == $name )
@@ -195,40 +197,45 @@ function wpmtst_uasort( $a, $b ) {
 	return ( $a['order'] < $b['order'] ) ? -1 : 1;
 }
 
+function wpmtst_get_form_fields() {
+	$forms = get_option( 'wpmtst_forms' );
+	// TODO add-on
+	$form = array_pop( $forms );
+	$fields = $form['fields'];
+	return $fields;
+}
+
 /**
  * Get custom fields.
  *
  * @since 1.21.0
  * @return array
  */
-function wpmtst_get_custom_fields() {
-	$field_options       = get_option( 'wpmtst_fields' );
-	$field_groups        = $field_options['field_groups'];
-	$current_field_group = $field_options['current_field_group'];
-	$field_group         = $field_groups[$current_field_group];
-	$custom_fields       = $field_group['fields'];
-	return $custom_fields;
-}
+//function wpmtst_get_custom_fields() {
+//	$field_options       = get_option( 'wpmtst_fields' );
+//	$field_groups        = $field_options['field_groups'];
+//	$current_field_group = $field_options['current_field_group'];
+//	$field_group         = $field_groups[$current_field_group];
+//	$custom_fields       = $field_group['fields'];
+//	return $custom_fields;
+//}
 
 /**
  * @return array
  */
-function wpmtst_get_custom_field_list() {
-	// ----------------------------
-	// Build list of custom fields.
-	// ----------------------------
-	$field_options = get_option( 'wpmtst_fields' );
-	$field_groups = $field_options['field_groups'];
-	$current_field_group = $field_options['current_field_group'];
-	$fields = $field_groups[$current_field_group]['fields'];
-	$fields_array = array();
-	foreach ( $fields as $field ) {
-		if ( ! in_array( $field['name'], array( 'post_title', 'post_content', 'featured_image' ) ) ) {
-			$fields_array[] = $field['name'];
-		}
-	}
-	return $fields_array;
-}
+//function wpmtst_get_custom_field_list() {
+//	$field_options = get_option( 'wpmtst_fields' );
+//	$field_groups = $field_options['field_groups'];
+//	$current_field_group = $field_options['current_field_group'];
+//	$fields = $field_groups[$current_field_group]['fields'];
+//	$fields_array = array();
+//	foreach ( $fields as $field ) {
+//		if ( ! in_array( $field['name'], array( 'post_title', 'post_content', 'featured_image' ) ) ) {
+//			$fields_array[] = $field['name'];
+//		}
+//	}
+//	return $fields_array;
+//}
 
 /**
  * Strip close comment and close php tags from file headers used by WP.
@@ -492,7 +499,8 @@ function wpmtst_save_view( $view, $action = 'edit' ) {
  * @return mixed
  */
 function wpmtst_get_field_label( $field ) {
-	$custom_fields = wpmtst_get_custom_fields();
+	//$custom_fields = wpmtst_get_custom_fields();
+	$custom_fields = wpmtst_get_form_fields();
 	if ( isset( $field['field'] ) ) {
 		foreach ( $custom_fields as $key => $custom_field ) {
 			if ( $custom_field['name'] == $field['field'] ) {
@@ -510,7 +518,8 @@ function wpmtst_get_field_label( $field ) {
  * @return mixed
  */
 function wpmtst_get_field_by_name( $field_name = '' ) {
-	$custom_fields = wpmtst_get_custom_fields();
+	//$custom_fields = wpmtst_get_custom_fields();
+	$custom_fields = wpmtst_get_form_fields();
 	foreach ( $custom_fields as $key => $custom_field ) {
 		if ( $custom_field['name'] == $field_name ) {
 			return $custom_field;

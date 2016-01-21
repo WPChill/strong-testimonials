@@ -22,13 +22,14 @@ function wpmtst_view_settings( $action = '', $view_id = null ) {
 	$screen = get_current_screen();
 	$url    = $screen->parent_file;
 
-	$options             = get_option( 'wpmtst_options' );
-	$field_options       = get_option( 'wpmtst_fields' );
-	$field_groups        = $field_options['field_groups'];
-	$current_field_group = $field_options['current_field_group'];  // "custom", only one for now
-	$field_group         = $field_groups[ $current_field_group ];
+	//$options             = get_option( 'wpmtst_options' );
+	//$field_options       = get_option( 'wpmtst_fields' );
+	//$field_groups        = $field_options['field_groups'];
+	//$current_field_group = $field_options['current_field_group'];  // "custom", only one for now
+	//$field_group         = $field_groups[ $current_field_group ];
+	$fields = wpmtst_get_form_fields();
 
-	// @TODO de-duplicate
+	// TODO de-duplicate
 	$order_list = array(
 		'random'     => _x( 'random', 'display order', 'strong-testimonials' ),
 		'menu_order' => _x( 'menu order', 'display order', 'strong-testimonials' ),
@@ -73,7 +74,8 @@ function wpmtst_view_settings( $action = '', $view_id = null ) {
 	// Deselect title & thumbnail if not in field group
 	$has_title_field = false;
 	$has_thumbnail_field = false;
-	foreach( $field_group['fields'] as $key => $field ) {
+	//foreach( $field_group['fields'] as $key => $field ) {
+	foreach( $fields as $key => $field ) {
 		if ( 'post_title' == $field['name'] )
 			$has_title_field = true;
 
@@ -312,7 +314,8 @@ function wpmtst_get_default_template_function() {
  * @since 1.21.0
  */
 function wpmtst_view_field_inputs( $key, $field, $adding = false ) { //
-	$custom_fields = wpmtst_get_custom_fields();
+	//$custom_fields = wpmtst_get_custom_fields();
+	$custom_fields = wpmtst_get_form_fields();
 	// the date is a special field
 	$custom_fields[] = array(
 		'name'        => 'date',
@@ -406,7 +409,8 @@ function wpmtst_view_field_link( $key, $field_name, $type, $field, $adding = fal
 		}
 	}
 
-	$custom_fields = wpmtst_get_custom_fields();
+//	$custom_fields = wpmtst_get_custom_fields();
+	$custom_fields = wpmtst_get_form_fields();
 
 	// Add placeholder link_text and label to field in case we need to populate link_text
 	if ( ! isset( $field['link_text'] ) ) {

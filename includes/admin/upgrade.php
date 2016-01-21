@@ -77,7 +77,7 @@ function wpmtst_default_settings() {
 		// -3A- NEW ACTIVATION
 		update_option( 'wpmtst_fields', $default_fields );
 		// WPML
-		wpmtst_form_fields_wpml( $default_fields['field_groups']['custom']['fields'] );
+		//wpmtst_form_fields_wpml( $default_fields['field_groups']['custom']['fields'] );
 	}
 	else {
 		// -3B- UPDATE

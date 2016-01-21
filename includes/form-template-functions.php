@@ -28,20 +28,38 @@ function wpmtst_get_form_message( $part ) {
 }
 
 function wpmtst_all_form_fields() {
-	$field_options       = get_option( 'wpmtst_fields' );
-	$field_groups        = $field_options['field_groups'];
-	$current_field_group = $field_groups[ $field_options['current_field_group'] ];
-	$fields              = $current_field_group['fields'];
+	//$field_options       = get_option( 'wpmtst_fields' );
+	//$field_groups        = $field_options['field_groups'];
+	//$current_field_group = $field_groups[ $field_options['current_field_group'] ];
+	//$fields              = $current_field_group['fields'];
+
+	// V2
+	//$forms = get_option( 'wpmtst_forms' );
+	// TODO add-on
+	//$form = array_pop( $forms );
+	//$fields = $form['fields'];
+
+	$fields = wpmtst_get_form_fields();
+
 	foreach ( $fields as $key => $field ) {
 		wpmtst_single_form_field( $field );
 	}
 }
 
 function wpmtst_form_field( $field_name ) {
-	$field_options       = get_option( 'wpmtst_fields' );
-	$field_groups        = $field_options['field_groups'];
-	$current_field_group = $field_groups[ $field_options['current_field_group'] ];
-	$fields              = $current_field_group['fields'];
+	//$field_options       = get_option( 'wpmtst_fields' );
+	//$field_groups        = $field_options['field_groups'];
+	//$current_field_group = $field_groups[ $field_options['current_field_group'] ];
+	//$fields              = $current_field_group['fields'];
+
+	// V2
+	//$forms = get_option( 'wpmtst_forms' );
+	// TODO add-on
+	//$form = array_pop( $forms );
+	//$fields = $form['fields'];
+
+	$fields = wpmtst_get_form_fields();
+
 	foreach ( $fields as $key => $field ) {
 		if ( $field['name'] == $field_name ) {
 			wpmtst_single_form_field( $field );

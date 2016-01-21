@@ -223,10 +223,13 @@ function wpmtst_admin_polylang() {
 	wp_enqueue_style( 'wpmtst-admin-style-polylang', WPMTST_URL . 'css/admin/polylang.css', array(), $plugin_version );
 
 	include_once WPMTST_INC . 'defaults.php';
-	$default_fields = wpmtst_get_default_fields();
-	wpmtst_form_fields_polylang( $default_fields['field_groups']['custom']['fields'] );
-	$fields = get_option( 'wpmtst_fields', array() );
-	wpmtst_form_fields_polylang( $fields['field_groups']['custom']['fields'] );
+	//$default_fields = wpmtst_get_default_fields();
+	$fields = wpmtst_get_form_fields();
+	//wpmtst_form_fields_polylang( $default_fields['field_groups']['custom']['fields'] );
+	wpmtst_form_fields_polylang( $fields );
+	//$fields = get_option( 'wpmtst_fields', array() );
+	//wpmtst_form_fields_polylang( $fields['field_groups']['custom']['fields'] );
+	wpmtst_form_fields_polylang( $fields );
 	$form_options = get_option( 'wpmtst_form_options', array() );
 	wpmtst_form_messages_polylang( $form_options['messages'] );
 	wpmtst_form_options_polylang( $form_options );
@@ -248,13 +251,15 @@ function wpmtst_meta_options() {
 	global $post;
 	$post = wpmtst_get_post( $post );
 	$fields = get_option( 'wpmtst_fields' );
-	$field_groups = $fields['field_groups'];
+	//$field_groups = $fields['field_groups'];
+	$fields = wpmtst_get_form_fields();
 	?>
 	<table class="options">
 		<tr>
 			<td colspan="2"><?php _ex( 'To add a photo or logo, use the Featured Image option.', 'post editor', 'strong-testimonials' ); ?>&nbsp;<div class="dashicons dashicons-arrow-right-alt"></div></td>
 		</tr>
-		<?php foreach ( $field_groups[ $fields['current_field_group'] ]['fields'] as $key => $field ) : ?>
+		<?php //foreach ( $field_groups[ $fields['current_field_group'] ]['fields'] as $key => $field ) : ?>
+		<?php foreach ( $fields as $key => $field ) : ?>
 		<?php if ( 'custom' == $field['record_type'] ) : ?>
 		<tr>
 			<th><label for="<?php echo $field['name']; ?>"><?php echo apply_filters( 'wpmtst_l10n', $field['label'], wpmtst_get_l10n_context( 'form-fields' ), $field['name'] . ' : label' ); ?></label></th>
@@ -280,8 +285,9 @@ function wpmtst_meta_options() {
  * @return array
  */
 function wpmtst_edit_columns( $columns ) {
-	$fields = get_option( 'wpmtst_fields' );
-	$fields = $fields['field_groups'][ $fields['current_field_group'] ]['fields'];
+	//$fields = get_option( 'wpmtst_fields' );
+	//$fields = $fields['field_groups'][ $fields['current_field_group'] ]['fields'];
+	$fields = wpmtst_get_form_fields();
 
 	/*
 		INCOMING COLUMNS = Array (

@@ -270,10 +270,11 @@ function wpmtst_form_view( $atts ) {
 	extract( normalize_empty_atts( $atts ) );
 
 	// initialize
-	$field_options       = get_option( 'wpmtst_fields' );
-	$field_groups        = $field_options['field_groups'];
-	$current_field_group = $field_groups[ $field_options['current_field_group'] ];
-	$fields              = $current_field_group['fields'];
+	//$field_options       = get_option( 'wpmtst_fields' );
+	//$field_groups        = $field_options['field_groups'];
+	//$current_field_group = $field_groups[ $field_options['current_field_group'] ];
+	//$fields              = $current_field_group['fields'];
+	$fields = wpmtst_get_form_fields();
 
 	$form_values = array( 'category' => $category );
 	foreach ( $fields as $key => $field ) {

@@ -31,9 +31,10 @@ function wpmtst_form_handler() {
 
 	//TODO Move this to single function just to get $fields?
 	$field_options       = get_option( 'wpmtst_fields' );
-	$field_groups        = $field_options['field_groups'];
-	$current_field_group = $field_groups[ $field_options['current_field_group'] ];
-	$fields              = $current_field_group['fields'];
+	//$field_groups        = $field_options['field_groups'];
+	//$current_field_group = $field_groups[ $field_options['current_field_group'] ];
+	//$fields              = $current_field_group['fields'];
+	$fields = wpmtst_get_form_fields();
 
 	if ( $form_options['captcha'] )
 		$form_errors = wpmtst_captcha_check( $form_options['captcha'], $form_errors );
@@ -294,8 +295,9 @@ function wpmtst_captcha_check( $captcha, $errors ) {
  * @param $post
  */
 function wpmtst_notify_admin( $post ) {
-	$custom_fields = get_option('wpmtst_fields');
-	$fields = $custom_fields['field_groups']['custom']['fields'];
+	//$custom_fields = get_option('wpmtst_fields');
+	//$fields = $custom_fields['field_groups']['custom']['fields'];
+	$fields = wpmtst_get_form_fields();
 
 	$options = get_option( 'wpmtst_form_options' );
 
