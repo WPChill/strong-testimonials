@@ -519,7 +519,8 @@ final class Strong_Testimonials {
 				'effect_for'        => '1.5',
 				'excerpt'           => '',
 				'form'              => '',
-				'form-ajax'         => 0,
+				'form_ajax'         => 0,
+				'form_name'         => 'custom',
 				'gravatar'          => 'no',
 				'id'                => '',
 				'layout'            => '',
@@ -1007,7 +1008,7 @@ final class Strong_Testimonials {
 		if ( wpmtst_using_form_validation_script() ) {
 			wp_localize_script( 'wpmtst-form-script', 'form_ajax_object', array(
 				'ajaxUrl' => admin_url( 'admin-ajax.php' ),
-				'ajaxSubmit' => isset( $atts['form-ajax'] ) && $atts['form-ajax'] ? 1 : 0,
+				'ajaxSubmit' => isset( $atts['form_ajax'] ) && $atts['form_ajax'] ? 1 : 0,
 			) );
 			wp_enqueue_script( 'wpmtst-form-script' );
 		}

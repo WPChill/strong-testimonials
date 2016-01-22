@@ -763,7 +763,7 @@ function wpmtst_sanitize_view( $input ) {
 		}
 	}
 
-	$view_data['form-ajax'] = isset( $input['form-ajax'] ) ? 1 : 0;
+	$view_data['form_ajax'] = isset( $input['form_ajax'] ) ? 1 : 0;
 
 	// Template
 	if ( 'form' == $view_data['mode'] )

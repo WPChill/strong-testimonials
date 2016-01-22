@@ -366,7 +366,7 @@ function wpmtst_get_default_view() {
 		'content'          => 'entire',
 		'count'            => 1,
 		'effect_for'       => 1.5,
-		'form-ajax'        => 0,
+		'form_ajax'        => 0,
 		'form_name'        => 'custom',
 		'gravatar'         => 'no',
 		'id'               => '',

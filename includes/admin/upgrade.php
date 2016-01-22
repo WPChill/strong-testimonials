@@ -253,6 +253,12 @@ function wpmtst_default_settings() {
 		// Remove any options that have new default settings
 		unset( $current_default_view['template'], $current_default_view['background'] );
 
+		// Convert 'form-ajax' (hyphen) to 'form_ajax' (underscore)
+		if ( isset( $current_default_view['form-ajax'] ) ) {
+			$current_default_view['form_ajax'] = $current_default_view['form-ajax'];
+			unset( $current_default_view['form-ajax'] );
+		}
+
 		$new_default_view = array_merge( $current_default_view, $default_view );
 		ksort($new_default_view);
 		update_option( 'wpmtst_view_default', $new_default_view );
@@ -299,6 +305,12 @@ function wpmtst_default_settings() {
 					'color' => $view_data['background'],
 					'type'  => 'single',
 				);
+			}
+
+			// Convert 'form-ajax' (hyphen) to 'form_ajax' (underscore)
+			if ( isset( $view_data['form-ajax'] ) ) {
+				$view_data['form_ajax'] = $view_data['form-ajax'];
+				unset( $view_data['form-ajax'] );
 			}
 
 			// Merge in new default values
