@@ -230,8 +230,8 @@ function wpmtst_display_view( $atts ) {
 	 * Load template
 	 */
 	$template_file = $strong_templates->get_template_attr( $atts, 'template' );
-
 	ob_start();
+	/** @noinspection PhpIncludeInspection */
 	include( $template_file );
 	$html = ob_get_contents();
 	ob_end_clean();
@@ -259,19 +259,12 @@ function wpmtst_display_view( $atts ) {
 function wpmtst_form_view( $atts ) {
 	global $strong_templates;
 
-	if ( isset( $_GET['success'] ) ) {
+	if ( isset( $_GET['success'] ) )
 		return '<div class="testimonial-success">' . wpmtst_get_form_message('submission-success') . '</div>';
-	}
 
-	//TODO trim down atts?
 	extract( normalize_empty_atts( $atts ) );
 
-	// initialize
-	//$field_options       = get_option( 'wpmtst_fields' );
-	//$field_groups        = $field_options['field_groups'];
-	//$current_field_group = $field_groups[ $field_options['current_field_group'] ];
-	//$fields              = $current_field_group['fields'];
-	$fields = wpmtst_get_form_fields( $atts['form-name'] );
+	$fields = wpmtst_get_form_fields( $form_name );
 
 	$form_values = array( 'category' => $category );
 	foreach ( $fields as $key => $field ) {
@@ -291,8 +284,8 @@ function wpmtst_form_view( $atts ) {
 	 * Load template
 	 */
 	$template_file = $strong_templates->get_template_attr( $atts, 'template' );
-
 	ob_start();
+	/** @noinspection PhpIncludeInspection */
 	include $template_file;
 	$html = ob_get_contents();
 	ob_end_clean();
@@ -301,9 +294,7 @@ function wpmtst_form_view( $atts ) {
 	 * Remove filters here.
 	 */
 
-	if ( $view ) {
-		do_action( 'wpmtst_form_rendered', $atts );
-	}
+	do_action( 'wpmtst_form_rendered', $atts );
 
 	// TODO Different filter?
 	$html = apply_filters( 'strong_html', $html );

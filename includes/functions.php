@@ -199,7 +199,12 @@ function wpmtst_uasort( $a, $b ) {
 
 function wpmtst_get_form_fields( $form_name = 'custom' ) {
 	$forms = get_option( 'wpmtst_forms' );
-	$form = $forms[ $form_name ];
+	if ( isset( $forms[ $form_name ] ) ) {
+		$form = $forms[ $form_name ];
+	}
+	else {
+		$form = $forms['custom'];
+	}
 	$fields = $form['fields'];
 	return $fields;
 }

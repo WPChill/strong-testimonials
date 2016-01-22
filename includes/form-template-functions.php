@@ -12,7 +12,7 @@ function wpmtst_form_setup() {
 	wp_nonce_field( 'wpmtst_form_action', 'wpmtst_form_nonce', true, true );
 	echo '<input type="hidden" name="action" value="wpmtst_form">'."\n";
 	echo '<input type="hidden" name="category" value="'. $form_values['category'] .'">'."\n";
-	echo '<input type="hidden" name="form-name" value="'. WPMST()->atts( 'form-name' ) .'">'."\n";
+	echo '<input type="hidden" name="form_name" value="'. WPMST()->atts( 'form_name' ) .'">'."\n";
 
 }
 
@@ -29,7 +29,7 @@ function wpmtst_get_form_message( $part ) {
 }
 
 function wpmtst_all_form_fields() {
-	$fields = wpmtst_get_form_fields( WPMST()->atts( 'form-name' ) );
+	$fields = wpmtst_get_form_fields( WPMST()->atts( 'form_name' ) );
 
 	foreach ( $fields as $key => $field ) {
 		wpmtst_single_form_field( $field );
@@ -37,7 +37,7 @@ function wpmtst_all_form_fields() {
 }
 
 function wpmtst_form_field( $field_name ) {
-	$fields = wpmtst_get_form_fields( WPMST()->atts( 'form-name' ) );
+	$fields = wpmtst_get_form_fields( WPMST()->atts( 'form_name' ) );
 
 	foreach ( $fields as $key => $field ) {
 		if ( $field['name'] == $field_name ) {
