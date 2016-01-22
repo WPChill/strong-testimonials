@@ -224,7 +224,7 @@ function wpmtst_admin_polylang() {
 
 	include_once WPMTST_INC . 'defaults.php';
 	//$default_fields = wpmtst_get_default_fields();
-	$fields = wpmtst_get_form_fields();
+	$fields = wpmtst_get_custom_fields();
 	//wpmtst_form_fields_polylang( $default_fields['field_groups']['custom']['fields'] );
 	wpmtst_form_fields_polylang( $fields );
 	//$fields = get_option( 'wpmtst_fields', array() );
@@ -250,7 +250,7 @@ add_action( 'add_meta_boxes_wpm-testimonial', 'wpmtst_add_meta_boxes' );
 function wpmtst_meta_options() {
 	global $post;
 	$post   = wpmtst_get_post( $post );
-	$fields = wpmtst_get_all_form_fields();
+	$fields = wpmtst_get_custom_fields();
 	?>
 	<table class="options">
 		<tr>
@@ -287,7 +287,7 @@ function wpmtst_meta_options() {
 function wpmtst_edit_columns( $columns ) {
 	//$fields = get_option( 'wpmtst_fields' );
 	//$fields = $fields['field_groups'][ $fields['current_field_group'] ]['fields'];
-	$fields = wpmtst_get_form_fields();
+	$fields = wpmtst_get_custom_fields();
 
 	/*
 		INCOMING COLUMNS = Array (

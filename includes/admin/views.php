@@ -27,7 +27,7 @@ function wpmtst_view_settings( $action = '', $view_id = null ) {
 	//$field_groups        = $field_options['field_groups'];
 	//$current_field_group = $field_options['current_field_group'];  // "custom", only one for now
 	//$field_group         = $field_groups[ $current_field_group ];
-	$fields = wpmtst_get_form_fields();
+	$fields = wpmtst_get_custom_fields();
 
 	// TODO de-duplicate
 	$order_list = array(
@@ -330,8 +330,7 @@ function wpmtst_get_default_template_function() {
  * @since 1.21.0
  */
 function wpmtst_view_field_inputs( $key, $field, $adding = false ) { //
-	//$custom_fields = wpmtst_get_custom_fields();
-	$custom_fields = wpmtst_get_form_fields();
+	$custom_fields = wpmtst_get_custom_fields();
 	// the date is a special field
 	$custom_fields[] = array(
 		'name'        => 'date',
@@ -425,8 +424,7 @@ function wpmtst_view_field_link( $key, $field_name, $type, $field, $adding = fal
 		}
 	}
 
-//	$custom_fields = wpmtst_get_custom_fields();
-	$custom_fields = wpmtst_get_form_fields();
+	$custom_fields = wpmtst_get_custom_fields();
 
 	// Add placeholder link_text and label to field in case we need to populate link_text
 	if ( ! isset( $field['link_text'] ) ) {

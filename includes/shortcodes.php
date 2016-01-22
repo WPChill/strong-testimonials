@@ -271,7 +271,7 @@ function wpmtst_form_view( $atts ) {
 	//$field_groups        = $field_options['field_groups'];
 	//$current_field_group = $field_groups[ $field_options['current_field_group'] ];
 	//$fields              = $current_field_group['fields'];
-	$fields = wpmtst_get_form_fields();
+	$fields = wpmtst_get_form_fields( $atts['form-name'] );
 
 	$form_values = array( 'category' => $category );
 	foreach ( $fields as $key => $field ) {
