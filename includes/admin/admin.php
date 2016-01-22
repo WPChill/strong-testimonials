@@ -249,20 +249,22 @@ add_action( 'add_meta_boxes_wpm-testimonial', 'wpmtst_add_meta_boxes' );
  */
 function wpmtst_meta_options() {
 	global $post;
-	$post = wpmtst_get_post( $post );
-	$fields = get_option( 'wpmtst_fields' );
-	//$field_groups = $fields['field_groups'];
-	$fields = wpmtst_get_form_fields();
+	$post   = wpmtst_get_post( $post );
+	$fields = wpmtst_get_all_form_fields();
 	?>
 	<table class="options">
 		<tr>
-			<td colspan="2"><?php _ex( 'To add a photo or logo, use the Featured Image option.', 'post editor', 'strong-testimonials' ); ?>&nbsp;<div class="dashicons dashicons-arrow-right-alt"></div></td>
+			<td colspan="2">
+				<?php _ex( 'To add a photo or logo, use the Featured Image option.', 'post editor', 'strong-testimonials' ); ?>&nbsp;<div class="dashicons dashicons-arrow-right-alt"></div>
+			</td>
 		</tr>
-		<?php //foreach ( $field_groups[ $fields['current_field_group'] ]['fields'] as $key => $field ) : ?>
 		<?php foreach ( $fields as $key => $field ) : ?>
-		<?php if ( 'custom' == $field['record_type'] ) : ?>
 		<tr>
-			<th><label for="<?php echo $field['name']; ?>"><?php echo apply_filters( 'wpmtst_l10n', $field['label'], wpmtst_get_l10n_context( 'form-fields' ), $field['name'] . ' : label' ); ?></label></th>
+			<th>
+				<label for="<?php echo $field['name']; ?>">
+					<?php echo apply_filters( 'wpmtst_l10n', $field['label'], wpmtst_get_l10n_context( 'form-fields' ), $field['name'] . ' : label' ); ?>
+				</label>
+			</th>
 			<td>
 				<?php echo sprintf( '<input id="%2$s" type="%1$s" class="custom-input" name="custom[%2$s]" value="%3$s" size="">', $field['input_type'], $field['name'], $post->$field['name'] ); ?>
 				<?php if ( 'url' == $field['input_type'] ) : ?>
@@ -270,12 +272,10 @@ function wpmtst_meta_options() {
 				<?php endif; ?>
 			</td>
 		</tr>
-		<?php endif; ?>
 		<?php endforeach; ?>
 	</table>
 	<?php
 }
-
 
 /**
  * Add custom columns to the admin list.

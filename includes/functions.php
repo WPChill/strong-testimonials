@@ -32,25 +32,25 @@ function wpmtst_truncate( $content, $limit ) {
 
 /**
  * Append custom fields to post object.
- * Add thumbnail if included in field group. (v1.8)
+ * Add thumbnail if included in field group.
+ *
+ * @param $post
+ *
+ * @return mixed
  */
 function wpmtst_get_post( $post ) {
-	//$custom = get_post_custom( $post->ID );
-	//$fields = get_option( 'wpmtst_fields' );
-	//$field_groups = $fields['field_groups'];
-	$fields = wpmtst_get_form_fields();
+	$custom = get_post_custom( $post->ID );
+	$fields = wpmtst_get_all_form_fields();
 
-	// Only add on fields from current field group.
-	//foreach ( $field_groups[ $fields['current_field_group'] ]['fields'] as $key => $field ) {
 	foreach ( $fields as $key => $field ) {
 		$name = $field['name'];
 
-		if ( 'featured_image' == $name )
+		if ( 'featured_image' == $name ) {
 			$post->thumbnail_id = get_post_thumbnail_id( $post->ID );
-
-		if ( 'custom' == $field['record_type'] ) {
-			if ( isset( $custom[$name] ) )
-				$post->$name = $custom[$name][0];
+		}
+		else {
+			if ( isset( $custom[ $name ] ) )
+				$post->$name = $custom[ $name ][0];
 			else
 				$post->$name = '';
 		}
@@ -202,6 +202,45 @@ function wpmtst_get_form_fields( $form_name = 'custom' ) {
 	$form = $forms[ $form_name ];
 	$fields = $form['fields'];
 	return $fields;
+}
+
+function wpmtst_get_all_form_fields() {
+	$forms = get_option( 'wpmtst_forms' );
+	$all_fields = array();
+
+	// use default group as base
+	$fields = $forms['default']['fields'];
+	unset( $forms['default'] );
+
+	// replace key with field name
+	foreach ( $fields as $field ) {
+		if ( 'custom' == $field['record_type'] ) {
+			// only need: name, label, input_type
+			$all_fields[ $field['name'] ] = array(
+				'name' => $field['name'],
+				'label' => $field['label'],
+				'input_type' => $field['input_type']
+			);
+		}
+	}
+
+	// merge remaining form fields
+	foreach ( $forms as $form ) {
+		$custom_fields = array();
+		$fields = $form['fields'];
+		foreach ( $fields as $field ) {
+			if ( 'custom' == $field['record_type'] ) {
+				$custom_fields[ $field['name'] ] = array(
+					'name' => $field['name'],
+					'label' => $field['label'],
+					'input_type' => $field['input_type']
+				);
+			}
+		}
+		$all_fields = array_merge( $all_fields, $custom_fields );
+	}
+
+	return $all_fields;
 }
 
 /**
