@@ -22,11 +22,6 @@ function wpmtst_view_settings( $action = '', $view_id = null ) {
 	$screen = get_current_screen();
 	$url    = $screen->parent_file;
 
-	//$options             = get_option( 'wpmtst_options' );
-	//$field_options       = get_option( 'wpmtst_fields' );
-	//$field_groups        = $field_options['field_groups'];
-	//$current_field_group = $field_options['current_field_group'];  // "custom", only one for now
-	//$field_group         = $field_groups[ $current_field_group ];
 	$fields = wpmtst_get_custom_fields();
 
 	// TODO de-duplicate
