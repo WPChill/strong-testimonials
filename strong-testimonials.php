@@ -492,67 +492,10 @@ final class Strong_Testimonials {
 	/**
 	 * Setter for the shortcode defaults.
 	 *
-	 * TODO Provide a filter.
-	 * TODO Consolidate with wpmtst_get_default_view()
-	 *
 	 * @param array $defaults
 	 */
 	private static function set_view_defaults( $defaults = array() ) {
-		$defaults = array_merge(
-			array(
-				'all'               => 1,
-				'background'        => array(
-					'color'  => '',
-					//'color2' => '',
-					'type'   => '',
-					'preset' => '',
-					'example-font-color' => 'dark',
-				),
-				'category'          => '',
-				'class'             => '',
-				'client_section'    => null,
-				'column_count'      => 2,
-				'compat'            => 0,
-				'container_class'   => '',
-				'count'             => 1,
-				'display'           => '',
-				'effect_for'        => '1.5',
-				'excerpt'           => '',
-				'form'              => '',
-				'form_ajax'         => 0,
-				'form_name'         => 'custom',
-				'gravatar'          => 'no',
-				'id'                => '',
-				'layout'            => '',
-				'length'            => '',
-				'lightbox'          => '',
-				'menu_order'        => '',
-				'mode'              => '',
-				'more_page'         => '',
-				'more_page_on'      => '',
-				'more_post'         => '',
-				'more_text'         => _x( 'Read more', 'link', 'strong-testimonials' ),
-				'nav'               => 'after',
-				'newest'            => '',
-				'no_pause'          => 0, // must be zero not boolean or string!
-				'note'              => '',
-				'oldest'            => '',
-				'per_page'          => '',
-				'random'            => '',
-				'read_more'         => '',
-				'show_for'          => '8',
-				'slideshow'         => '',
-				'template'          => '',
-				'thumbnail'         => '',
-				'thumbnail_size'    => 'thumbnail',
-				'thumbnail_height'  => null,
-				'thumbnail_width'   => null,
-				'title'             => '',
-				'view'              => '',
-			),
-			$defaults
-		);
-		self::$view_defaults = $defaults;
+		self::$view_defaults = array_merge( get_option( 'wpmtst_view_default' ), $defaults );
 	}
 
 	/**
