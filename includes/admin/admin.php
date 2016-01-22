@@ -285,9 +285,7 @@ function wpmtst_meta_options() {
  * @return array
  */
 function wpmtst_edit_columns( $columns ) {
-	//$fields = get_option( 'wpmtst_fields' );
-	//$fields = $fields['field_groups'][ $fields['current_field_group'] ]['fields'];
-	$fields = wpmtst_get_custom_fields();
+	$fields = wpmtst_get_all_fields();
 
 	/*
 		INCOMING COLUMNS = Array (
@@ -336,12 +334,12 @@ function wpmtst_edit_columns( $columns ) {
 	}
 
 	// 5. add [category] and [date]
-	// this pushes other added columns like [search_exclude] to the end
 	if ( wpmtst_get_category_ids() )
 		$fields_to_add['category'] = __( 'Category', 'strong-testimonials' );
 
-	$fields_to_add['date']     = __( 'Date', 'strong-testimonials' );
+	$fields_to_add['date'] = __( 'Date', 'strong-testimonials' );
 
+	// this pushes other added columns like [search_exclude] to the end
 	$columns = array_merge (
 		array_slice( $columns, 0, $offset ),
 		$fields_to_add,

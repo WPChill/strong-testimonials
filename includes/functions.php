@@ -204,6 +204,13 @@ function wpmtst_get_form_fields( $form_name = 'custom' ) {
 	return $fields;
 }
 
+/**
+ * Get only custom fields from all field groups.
+ *
+ * Used in post editor.
+ *
+ * @return array
+ */
 function wpmtst_get_custom_fields() {
 	$forms = get_option( 'wpmtst_forms' );
 	$all_fields = array();
@@ -227,6 +234,45 @@ function wpmtst_get_custom_fields() {
 			if ( 'custom' == $field['record_type'] ) {
 				$custom_fields[ $field['name'] ] = $field;
 			}
+		}
+		d($custom_fields);
+		$all_fields = array_merge( $all_fields, $custom_fields );
+	}
+	d($all_fields);
+
+	return $all_fields;
+}
+
+/**
+ * Get all fields from all field groups.
+ *
+ * Used for admin list columns.
+ *
+ * @return array
+ */
+function wpmtst_get_all_fields() {
+	$forms = get_option( 'wpmtst_forms' );
+	$all_fields = array();
+
+	/**
+	 * Use 'custom' form as the base because if we use 'default'
+	 * and a field has 'admin_table' enabled in 'default'
+	 * but not in any custom form, the column will still be shown.
+	 */
+	$fields = $forms['custom']['fields'];
+	unset( $forms['default'] );
+
+	// replace key with field name
+	foreach ( $fields as $field ) {
+		$all_fields[ $field['name'] ] = $field;
+	}
+
+	// merge remaining form fields
+	foreach ( $forms as $form ) {
+		$custom_fields = array();
+		$fields = $form['fields'];
+		foreach ( $fields as $field ) {
+			$custom_fields[ $field['name'] ] = $field;
 		}
 		$all_fields = array_merge( $all_fields, $custom_fields );
 	}
