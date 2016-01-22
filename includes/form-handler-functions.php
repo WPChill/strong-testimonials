@@ -5,6 +5,7 @@
  * @since 1.21.0
  */
 function wpmtst_form_handler() {
+	q2($_POST,__FUNCTION__);
 
 	if ( empty( $_POST ) )
 		return false;
@@ -29,7 +30,8 @@ function wpmtst_form_handler() {
 	$form_options = get_option( 'wpmtst_form_options' );
 	$messages     = $form_options['messages'];
 
-	$fields = wpmtst_get_form_fields();
+	$form_name = isset( $_POST['form-name'] ) ? $_POST['form-name'] : 'custom';
+	$fields = wpmtst_get_form_fields( $form_name );
 
 	if ( $form_options['captcha'] )
 		$form_errors = wpmtst_captcha_check( $form_options['captcha'], $form_errors );
@@ -193,7 +195,7 @@ function wpmtst_form_handler() {
 		// Clear saved form data and errors.
 		WPMST()->set_form_values( null );
 		WPMST()->set_form_errors( null );
-		wpmtst_notify_admin( $form_values );
+		wpmtst_notify_admin( $form_values, $form_name );
 		return true;
 	}
 
@@ -289,10 +291,8 @@ function wpmtst_captcha_check( $captcha, $errors ) {
  *
  * @param $post
  */
-function wpmtst_notify_admin( $post ) {
-	//$custom_fields = get_option('wpmtst_fields');
-	//$fields = $custom_fields['field_groups']['custom']['fields'];
-	$fields = wpmtst_get_form_fields();
+function wpmtst_notify_admin( $post, $form_name = 'custom' ) {
+	$fields = wpmtst_get_form_fields( $form_name );
 
 	$options = get_option( 'wpmtst_form_options' );
 

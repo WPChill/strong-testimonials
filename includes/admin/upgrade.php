@@ -137,8 +137,7 @@ function wpmtst_default_settings() {
 		update_option( 'wpmtst_forms', $default_forms );
 	}
 	else {
-		//TODO Change group_name to form_name
-		foreach ( $forms as $group_name => $group_array ) {
+		foreach ( $forms as $form_name => $group_array ) {
 			// custom fields are in display order (not associative)
 			// so we must find them by name
 			foreach ( $group_array['fields'] as $key => $new_field ) {
@@ -150,13 +149,14 @@ function wpmtst_default_settings() {
 					}
 				}
 				if ( $updated_default ) {
-					$new_forms[ $group_name ]['fields'][ $key ] = array_merge( $updated_default, $new_field );
+					$new_forms[ $form_name ]['fields'][ $key ] = array_merge( $updated_default, $new_field );
 				}
 			}
 		}
 		update_option( 'wpmtst_forms', $forms );
 		// WPML
 		wpmtst_form_fields_wpml( $forms['custom']['fields'] );
+		// TODO Do this for multiple forms too
 	}
 
 
@@ -343,8 +343,8 @@ function wpmtst_default_settings() {
 	 */
 	$old_parts       = explode( '.', $old_plugin_version );
 	$new_parts       = explode( '.', $plugin_version );
-	$old_major_minor = implode( '.', array( $old_parts[0], $old_parts[1] ) );
-	$new_major_minor = implode( '.', array( $new_parts[0], $new_parts[1] ) );
+	$old_major_minor = implode( '.', array( $old_parts[0], isset( $old_parts[1] ) ? $old_parts[1] : '0' ) );
+	$new_major_minor = implode( '.', array( $new_parts[0], isset( $new_parts[1] ) ? $new_parts[1] : '0' ) );
 
 	if ( version_compare( $new_major_minor, $old_major_minor ) ) {
 		//wpmtst_activate_about_page();

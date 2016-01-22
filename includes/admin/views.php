@@ -882,6 +882,8 @@ function wpmtst_sanitize_view( $input ) {
 		$view_data['client_section'] = null;
 	}
 
+	$view_data['form-name'] = $input['form-name'];
+
 	$view_data = apply_filters( 'wpmtst_sanitized_view', $view_data, $input );
 	ksort( $view_data );
 
