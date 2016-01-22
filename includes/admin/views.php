@@ -23,6 +23,7 @@ function wpmtst_view_settings( $action = '', $view_id = null ) {
 	$url    = $screen->parent_file;
 
 	$fields = wpmtst_get_custom_fields();
+	$all_fields = wpmtst_get_all_fields();
 
 	// TODO de-duplicate
 	$order_list = array(
@@ -67,20 +68,22 @@ function wpmtst_view_settings( $action = '', $view_id = null ) {
 	}
 
 	// Deselect title & thumbnail if not in field group
-	$has_title_field = false;
+	$has_title_field     = false;
 	$has_thumbnail_field = false;
-	//foreach( $field_group['fields'] as $key => $field ) {
-	foreach( $fields as $key => $field ) {
-		if ( 'post_title' == $field['name'] )
+	foreach( $all_fields as $key => $field ) {
+		if ( 'post_title' == $field['name'] ) {
 			$has_title_field = true;
-
-		if ( 'featured_image' == $field['name'] )
+		}
+		if ( 'featured_image' == $field['name'] ) {
 			$has_thumbnail_field = true;
+		}
 	}
-	if ( !$has_title_field )
+	if ( !$has_title_field ) {
 		$view['title'] = false;
-	if ( !$has_thumbnail_field )
+	}
+	if ( !$has_thumbnail_field ) {
 		$view['thumbnail'] = false;
+	}
 
 	// Select default template if necessary
 	if ( !$view['template'] ) {
