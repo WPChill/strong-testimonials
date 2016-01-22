@@ -235,38 +235,6 @@ function wpmtst_get_custom_fields() {
 }
 
 /**
- * Get custom fields.
- *
- * @since 1.21.0
- * @return array
- */
-//function wpmtst_get_custom_fields() {
-//	$field_options       = get_option( 'wpmtst_fields' );
-//	$field_groups        = $field_options['field_groups'];
-//	$current_field_group = $field_options['current_field_group'];
-//	$field_group         = $field_groups[$current_field_group];
-//	$custom_fields       = $field_group['fields'];
-//	return $custom_fields;
-//}
-
-/**
- * @return array
- */
-//function wpmtst_get_custom_field_list() {
-//	$field_options = get_option( 'wpmtst_fields' );
-//	$field_groups = $field_options['field_groups'];
-//	$current_field_group = $field_options['current_field_group'];
-//	$fields = $field_groups[$current_field_group]['fields'];
-//	$fields_array = array();
-//	foreach ( $fields as $field ) {
-//		if ( ! in_array( $field['name'], array( 'post_title', 'post_content', 'featured_image' ) ) ) {
-//			$fields_array[] = $field['name'];
-//		}
-//	}
-//	return $fields_array;
-//}
-
-/**
  * Strip close comment and close php tags from file headers used by WP.
  *
  * @since 1.21.0
