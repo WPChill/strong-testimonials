@@ -17,7 +17,7 @@ function wpmtst_settings_menu() {
 		'wpmtst_views_admin' );
 
 	add_submenu_page( 'edit.php?post_type=wpm-testimonial',
-		__( 'Fields', 'strong-testimonials' ),
+		apply_filters( 'wpmtst_fields_page_title', __( 'Fields', 'strong-testimonials' ) ),
 		apply_filters( 'wpmtst_fields_menu_title', __( 'Fields', 'strong-testimonials' ) ),
 		'manage_options',
 		'fields',
