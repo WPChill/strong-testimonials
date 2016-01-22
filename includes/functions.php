@@ -197,10 +197,9 @@ function wpmtst_uasort( $a, $b ) {
 	return ( $a['order'] < $b['order'] ) ? -1 : 1;
 }
 
-function wpmtst_get_form_fields() {
+function wpmtst_get_form_fields( $form_name = 'custom' ) {
 	$forms = get_option( 'wpmtst_forms' );
-	// TODO add-on
-	$form = array_pop( $forms );
+	$form = $forms[ $form_name ];
 	$fields = $form['fields'];
 	return $fields;
 }

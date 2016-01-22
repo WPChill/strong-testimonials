@@ -229,9 +229,7 @@ function wpmtst_display_view( $atts ) {
 	/**
 	 * Load template
 	 */
-	if ( $view ) {
-		$template_file = $strong_templates->get_template_attr( $atts, 'template' );
-	}
+	$template_file = $strong_templates->get_template_attr( $atts, 'template' );
 
 	ob_start();
 	include( $template_file );
@@ -243,8 +241,7 @@ function wpmtst_display_view( $atts ) {
 	 */
 	remove_filter( 'get_avatar', 'wpmtst_get_avatar' );
 
-	if ( $view )
-		do_action( 'wpmtst_view_rendered', $atts );
+	do_action( 'wpmtst_view_rendered', $atts );
 
 	wp_reset_postdata();
 	$html = apply_filters( 'strong_html', $html );

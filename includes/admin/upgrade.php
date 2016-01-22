@@ -227,7 +227,8 @@ function wpmtst_default_settings() {
 	if ( ! $view_options ) {
 		// -6A- NEW ACTIVATION
 		update_option( 'wpmtst_view_options', $default_view_options );
-	} else {
+	}
+	else {
 		// -6B- UPDATE
 		// Merge in new options
 		$view_options = array_merge( $default_view_options, $view_options );
@@ -244,7 +245,8 @@ function wpmtst_default_settings() {
 		// -7A- NEW ACTIVATION
 		update_option( 'wpmtst_view_default', $default_view );
 
-	} else {
+	}
+	else {
 
 		// -7B- UPDATE
 

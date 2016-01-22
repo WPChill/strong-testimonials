@@ -16,7 +16,7 @@ function wpmtst_view_settings( $action = '', $view_id = null ) {
 	if ( 'edit' == $action && !$view_id )
 		return;
 
-	global $strong_templates;
+	global $view, $strong_templates;
 	add_thickbox();
 
 	$screen = get_current_screen();
@@ -139,13 +139,30 @@ function wpmtst_view_settings( $action = '', $view_id = null ) {
 			</div>
 		<?php endif; ?>
 
-		<?php include( 'views/mode.php' ); ?>
-		<?php include( 'views/group-select.php' ); ?>
-		<?php include( 'views/group-fields.php' ); ?>
-		<?php include( 'views/group-form.php' ); ?>
-		<?php include( 'views/group-extra.php' ); ?>
-		<?php include( 'views/group-style.php' ); ?>
-		<?php include( 'views/group-general.php' ); ?>
+		<?php
+		include( 'views/mode.php' );
+
+		// TODO Generify both hook and include
+		do_action( 'wpmtst_view_editor_before_group_select' );
+		include( 'views/group-select.php' );
+
+		do_action( 'wpmtst_view_editor_before_group_fields' );
+		include( 'views/group-fields.php' );
+
+		do_action( 'wpmtst_view_editor_before_group_form' );
+		include( 'views/group-form.php' );
+
+		do_action( 'wpmtst_view_editor_before_group_extra' );
+		include( 'views/group-extra.php' );
+
+		do_action( 'wpmtst_view_editor_before_group_style' );
+		include( 'views/group-style.php' );
+
+		do_action( 'wpmtst_view_editor_before_group_general' );
+		include( 'views/group-general.php' );
+
+		do_action( 'wpmtst_view_editor_after_groups' );
+		?>
 
 		<p class="submit">
 			<?php submit_button( '', 'primary', 'submit', false ); ?>
@@ -865,6 +882,7 @@ function wpmtst_sanitize_view( $input ) {
 		$view_data['client_section'] = null;
 	}
 
+	$view_data = apply_filters( 'wpmtst_sanitized_view', $view_data, $input );
 	ksort( $view_data );
 
 	return $view_data;
