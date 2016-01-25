@@ -126,11 +126,11 @@ function wpmtst_default_settings() {
 		// ------------
 		// field_groups
 		// ------------
-		if ( isset( $fields['field_groups'] ) ) {
+		//if ( isset( $fields['field_groups'] ) ) {
 			// move to new option and update next
-			update_option( 'wpmtst_forms', $fields['field_groups'] );
-			unset( $fields['field_groups'] );
-		}
+			//update_option( 'wpmtst_forms', $fields['field_groups'] );
+			//unset( $fields['field_groups'] );
+		//}
 
 		// Re-assemble fields and save.
 		$fields['field_base']   = $new_field_base;
@@ -148,7 +148,7 @@ function wpmtst_default_settings() {
 		update_option( 'wpmtst_custom_forms', $default_custom_forms );
 	}
 	else {
-		foreach ( $custom_forms as $form_name => $group_array ) {
+		foreach ( $custom_forms as $form_id => $group_array ) {
 			// custom fields are in display order (not associative)
 			// so we must find them by name
 			foreach ( $group_array['fields'] as $key => $new_field ) {
@@ -160,7 +160,7 @@ function wpmtst_default_settings() {
 					}
 				}
 				if ( $updated_default ) {
-					$new_forms[ $form_name ]['fields'][ $key ] = array_merge( $updated_default, $new_field );
+					$new_forms[ $form_id ]['fields'][ $key ] = array_merge( $updated_default, $new_field );
 				}
 			}
 		}

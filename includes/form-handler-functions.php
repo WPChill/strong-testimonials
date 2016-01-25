@@ -30,7 +30,7 @@ function wpmtst_form_handler() {
 	$form_options = get_option( 'wpmtst_form_options' );
 	$messages     = $form_options['messages'];
 
-	$form_name = isset( $_POST['form_name'] ) ? $_POST['form_name'] : 'custom';
+	$form_name = isset( $_POST['form_id'] ) ? $_POST['form_id'] : 'custom';
 	$fields = wpmtst_get_form_fields( $form_name );
 
 	if ( $form_options['captcha'] )

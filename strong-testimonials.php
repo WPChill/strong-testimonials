@@ -78,7 +78,6 @@ final class Strong_Testimonials {
 
 			self::$instance->includes();
 			self::$instance->set_shortcodes();
-			self::$instance->set_view_defaults();
 			self::$instance->add_actions();
 		}
 		return self::$instance;
@@ -209,8 +208,8 @@ final class Strong_Testimonials {
 			//add_action( 'wpmtst_form_admin', 'wpmtst_settings_custom_fields' );
 			add_action( 'wpmtst_form_admin', 'wpmtst_form_admin2' );
 
-			// TODO Try this on wp_loaded instead
-			add_action( 'admin_init', 'wpmtst_redirect_about_page', 1 );
+			//add_action( 'admin_init', 'wpmtst_redirect_about_page', 1 );
+			add_action( 'wp_loaded', 'wpmtst_redirect_about_page', 1 );
 
 		}
 		else {
@@ -249,6 +248,7 @@ final class Strong_Testimonials {
 		add_action( 'admin_init', array( $this, 'theme_support' ) );
 
 		add_action( 'init', array( $this, 'reorder_check' ) );
+		add_action( 'init', array( $this, 'set_view_defaults' ) );
 
 		/**
 		 * Localize scripts.
@@ -491,11 +491,9 @@ final class Strong_Testimonials {
 
 	/**
 	 * Setter for the shortcode defaults.
-	 *
-	 * @param array $defaults
 	 */
-	private static function set_view_defaults( $defaults = array() ) {
-		self::$view_defaults = array_merge( get_option( 'wpmtst_view_default' ), $defaults );
+	public function set_view_defaults() {
+		self::$view_defaults = get_option( 'wpmtst_view_default' );
 	}
 
 	/**

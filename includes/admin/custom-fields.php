@@ -18,15 +18,15 @@ function wpmtst_form_admin2() {
  * Custom Fields page
  *
  * @param string $action
- * @param null   $form_name
+ * @param null   $form_id
  *
  * @return bool
  */
-function wpmtst_settings_custom_fields( $action = '', $form_name = null ) {
+function wpmtst_settings_custom_fields( $action = '', $form_id = null ) {
 	if ( ! current_user_can( 'manage_options' ) )
 		wp_die( __( 'You do not have sufficient permissions to access this page.' ) );
 
-	if ( !$form_name ) {
+	if ( !$form_id ) {
 		echo '<div class="wrap wpmtst"><p>No fields selected.</p></div>';
 		return false;
 	}
@@ -34,10 +34,10 @@ function wpmtst_settings_custom_fields( $action = '', $form_name = null ) {
 	$field_options = get_option( 'wpmtst_fields' );
 	d($field_options);
 
-	$forms = get_option( 'wpmtst_forms' );
+	$forms = get_option( 'wpmtst_custom_forms' );
 	d($forms);
 
-	$fields = $forms[ $form_name ]['fields'];
+	$fields = $forms[ $form_id ]['fields'];
 	d($fields);
 
 	$message_format = '<div id="message" class="updated notice is-dismissible"><p><strong>%s</strong></p></div>';
@@ -51,7 +51,7 @@ function wpmtst_settings_custom_fields( $action = '', $form_name = null ) {
 		if ( isset( $_POST['reset'] ) ) {
 
 			// Undo changes
-			$fields = $forms[ $form_name ]['fields'];
+			$fields = $forms[ $form_id ]['fields'];
 			echo sprintf( $message_format, __( 'Changes undone.', 'strong-testimonials' ) );
 
 		}
@@ -62,7 +62,7 @@ function wpmtst_settings_custom_fields( $action = '', $form_name = null ) {
 			include_once WPMTST_INC . 'defaults.php';
 			$default_forms = wpmtst_get_default_forms();
 			$fields = $default_forms['default']['fields'];
-			$forms[ $form_name ]['fields'] = $fields;
+			$forms[ $form_id ]['fields'] = $fields;
 			do_action( 'wpmtst_fields_updated', $fields );
 
 			echo sprintf( $message_format, __( 'Defaults restored.', 'strong-testimonials' ) );
@@ -92,19 +92,19 @@ function wpmtst_settings_custom_fields( $action = '', $form_name = null ) {
 
 			}
 
-			$forms[ $form_name ]['fields'] = $fields;
+			$forms[ $form_id ]['fields'] = $fields;
 
 			if ( isset( $_POST['field_group_label'] ) ) {
 				// TODO Catch if empty.
 				$new_label = sanitize_text_field( $_POST['field_group_label'] );
-				$forms[ $form_name ]['label'] = $new_label;
+				$forms[ $form_id ]['label'] = $new_label;
 				// update current variable too
 				// will be done better in admin-post PRG
 				//$field_group['label'] = $new_label;
 			}
 
 			update_option( 'wpmtst_fields', $field_options );
-			update_option( 'wpmtst_forms', $forms );
+			update_option( 'wpmtst_custom_forms', $forms );
 
 			do_action( 'wpmtst_fields_updated', $fields );
 
@@ -142,7 +142,7 @@ function wpmtst_settings_custom_fields( $action = '', $form_name = null ) {
 		<?php //TODO Move class check to a constant in main class AND/OR these lines to an action hook ?>
 		<?php if ( class_exists( 'Strong_Testimonials_Multiple_Forms' ) ) : ?>
 		<p><a href="<?php echo admin_url( 'edit.php?post_type=wpm-testimonial&page=fields' ); ?>">Return to list</a></p>
-		<p><input style="width: 100%;" type="text" name="field_group_label" value="<?php echo $forms[ $form_name ]['label']; ?>"></p>
+		<p><input style="width: 100%;" type="text" name="field_group_label" value="<?php echo $forms[ $form_id ]['label']; ?>"></p>
 		<?php endif; ?>
 
 	<ul id="custom-field-list">

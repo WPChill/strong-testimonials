@@ -197,10 +197,10 @@ function wpmtst_uasort( $a, $b ) {
 	return ( $a['order'] < $b['order'] ) ? -1 : 1;
 }
 
-function wpmtst_get_form_fields( $form_name = 'custom' ) {
-	$forms = get_option( 'wpmtst_forms' );
-	if ( isset( $forms[ $form_name ] ) ) {
-		$form = $forms[ $form_name ];
+function wpmtst_get_form_fields( $form_id = 1 ) {
+	$forms = get_option( 'wpmtst_custom_forms' );
+	if ( isset( $forms[ $form_id ] ) ) {
+		$form = $forms[ $form_id ];
 	}
 	else {
 		$form = $forms['custom'];
@@ -217,12 +217,12 @@ function wpmtst_get_form_fields( $form_name = 'custom' ) {
  * @return array
  */
 function wpmtst_get_custom_fields() {
-	$forms = get_option( 'wpmtst_forms' );
+	$forms = get_option( 'wpmtst_custom_forms' );
 	$all_fields = array();
 
 	// use default group as base
-	$fields = $forms['default']['fields'];
-	unset( $forms['default'] );
+	$fields = $forms[1]['fields'];
+	//unset( $forms[1] );
 
 	// replace key with field name
 	foreach ( $fields as $field ) {
@@ -256,7 +256,7 @@ function wpmtst_get_custom_fields() {
  * @return array
  */
 function wpmtst_get_all_fields() {
-	$forms = get_option( 'wpmtst_forms' );
+	$forms = get_option( 'wpmtst_custom_forms' );
 	$all_fields = array();
 
 	/**
@@ -264,8 +264,8 @@ function wpmtst_get_all_fields() {
 	 * and a field has 'admin_table' enabled in 'default'
 	 * but not in any custom form, the column will still be shown.
 	 */
-	$fields = $forms['custom']['fields'];
-	unset( $forms['default'] );
+	$fields = $forms[1]['fields'];
+	//unset( $forms[1] );
 
 	// replace key with field name
 	foreach ( $fields as $field ) {
