@@ -16,7 +16,9 @@ function wpmtst_default_settings() {
 
 	delete_option( 'wpmtst_cycle' );
 
-	// -1- DEFAULTS
+	/**
+	 * -1- DEFAULTS
+	 */
 	include_once WPMTST_INC . 'defaults.php';
 	$default_options       = wpmtst_get_default_options();
 	$default_fields        = wpmtst_get_default_fields();
@@ -26,7 +28,9 @@ function wpmtst_default_settings() {
 	$default_view          = apply_filters( 'wpmtst_view_default', wpmtst_get_default_view() );
 	$default_l10n_contexts = wpmtst_get_default_l10n_contexts();
 
-	// -2- GET OPTIONS
+	/**
+	 * -2- GET OPTIONS
+	 */
 	$options = get_option( 'wpmtst_options' );
 	if ( ! $options ) {
 		// -2A- NEW ACTIVATION
@@ -71,7 +75,9 @@ function wpmtst_default_settings() {
 		update_option( 'wpmtst_options', $options );
 	}
 
-	// -3- GET FIELDS
+	/**
+	 * -3- GET FIELDS
+	 */
 	$fields = get_option( 'wpmtst_fields', array() );
 	if ( ! $fields ) {
 		// -3A- NEW ACTIVATION
@@ -131,7 +137,9 @@ function wpmtst_default_settings() {
 		update_option( 'wpmtst_fields', $fields );
 	}
 
-	// -4- GET FORMS
+	/**
+	 * -4- GET FORMS
+	 */
 	$forms = get_option( 'wpmtst_forms' );
 	if ( !$forms ) {
 		update_option( 'wpmtst_forms', $default_forms );
