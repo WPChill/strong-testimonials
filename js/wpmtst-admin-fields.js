@@ -208,10 +208,8 @@ jQuery(document).ready(function($) {
 
 		})
 		.on("change", ".field-type", function() {
-console.log('field type change');
 
 			var fieldType = $(this).val();
-console.log('fieldType',fieldType);
 
 			var $table = $(this).closest("table");
 			var $parent = $(this).closest('li');
@@ -231,10 +229,8 @@ console.log('fieldType',fieldType);
 				.closest("optgroup")
 				.attr("class");
 
-console.log('fieldClass',fieldClass);
 			// Are we adding a new field or changing an existing one?
 			if( $parent.data('fieldType') != 'none' ) {
-console.log('changing');
 
 				// --------
 				// changing
