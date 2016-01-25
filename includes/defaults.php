@@ -131,6 +131,7 @@ function wpmtst_get_default_base_forms() {
 		'default' => array(
 			'name'   => 'default',
 			'label'  => __( 'Default Form', 'strong-testimonials' ),
+			'readonly' => 1,
 			'fields' => array(
 				// ------
 				// CUSTOM
@@ -197,18 +198,10 @@ function wpmtst_get_default_base_forms() {
 		)
 	);
 
-	//foreach ( $forms['default']['fields'] as $key => $array ) {
-	//	if ( 'post' == $array['record_type'] ) {
-	//		$forms['default']['fields'][ $key ] = array_merge( $default_fields['field_types']['post'][ $array['name'] ], $array );
-	//	}
-	//	else {
-	//		$forms['default']['fields'][ $key ] = array_merge( $default_fields['field_types']['custom'][ $array['input_type'] ], $array );
-	//	}
-	//}
-
 	$forms['minimal'] = array(
 		'name'   => 'minimal',
 		'label'  => __( 'Minimal Form', 'strong-testimonials' ),
+		'readonly' => 1,
 		'fields' => array(
 			// ------
 			// CUSTOM
@@ -266,6 +259,7 @@ function wpmtst_get_default_custom_forms() {
 	$forms[1] = array(
 		'name'   => 'custom',
 		'label'  => __( 'Custom Form', 'strong-testimonials' ),
+		'readonly' => 0,
 		'fields' => $base_forms['default']['fields'],
 	);
 
