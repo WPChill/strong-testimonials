@@ -203,7 +203,7 @@ function wpmtst_get_form_fields( $form_id = 1 ) {
 		$form = $forms[ $form_id ];
 	}
 	else {
-		$form = $forms['custom'];
+		$form = $forms[1];
 	}
 	$fields = $form['fields'];
 	return $fields;
@@ -260,7 +260,7 @@ function wpmtst_get_all_fields() {
 	$all_fields = array();
 
 	/**
-	 * Use 'custom' form as the base because if we use 'default'
+	 * Use first custom form as the base because if we use 'default'
 	 * and a field has 'admin_table' enabled in 'default'
 	 * but not in any custom form, the column will still be shown.
 	 */
