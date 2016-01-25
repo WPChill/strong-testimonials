@@ -205,7 +205,7 @@ function wpmtst_views_admin() {
 				<a href="<?php echo $url; ?>&page=views&action=add" class="add-new-h2">Add New</a>
 			</h2>
 			<div class="intro">
-				<p>A View can display your testimonials, create a slideshow, or show a testimonial submission form.<br>Add it to a page with a shortcode or add it to a sidebar with a widget.<p>
+				<p><?php _e( 'A View can display your testimonials, create a slideshow, or show a testimonial submission form.<br>Add it to a page with a shortcode or add it to a sidebar with a widget.', 'strong-testimonials' ); ?></p>
 			</div>
 			<?php
 			$views = wpmtst_get_views();

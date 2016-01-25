@@ -150,6 +150,9 @@ Not yet.
 
 == Changelog ==
 
+= 1.25.7 =
+* Minor admin UI fixes.
+
 = 1.25.6 =
 * Fix [strong] slideshow script.
 * Fix View list table column sorting.

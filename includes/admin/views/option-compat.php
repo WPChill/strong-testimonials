@@ -27,7 +27,7 @@
 						<?php _e( 'Turning this <b>on</b> may help if the form is not working, especially with page builders and popup makers. ', 'strong-testimonials' ); ?>
 					</p>
 					<p class="description tall">
-						<?php _e( 'Required <b>on</b> if using the Popup Maker plugin.', 'strong-testimonials' ); ?>
+						<?php _e( 'Required <b>on</b> if using the <a href="https://wordpress.org/plugins/popup-maker/" target="_blank">Popup Maker</a> plugin.', 'strong-testimonials' ); ?>
 					</p>
 				</div>
 				<!-- Slideshow notes -->

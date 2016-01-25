@@ -128,7 +128,7 @@ function wpmtst_settings_custom_fields() {
 
 	</form><!-- Custom Fields -->
 
-	<p><em><?php printf( __( 'Customize other form elements <a href="%s">here</a>.', 'strong-testimonials' ), admin_url( 'edit.php?post_type=wpm-testimonial&page=settings&tab=form' ) ); ?></em></p>
+	<p><em><?php printf( __( 'More form settings <a href="%s">here</a>.', 'strong-testimonials' ), admin_url( 'edit.php?post_type=wpm-testimonial&page=new-settings&tab=form' ) ); ?></em></p>
 
 	</div><!-- wrap -->
 	<?php
