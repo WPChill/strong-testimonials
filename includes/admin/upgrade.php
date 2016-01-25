@@ -22,7 +22,8 @@ function wpmtst_default_settings() {
 	include_once WPMTST_INC . 'defaults.php';
 	$default_options       = wpmtst_get_default_options();
 	$default_fields        = wpmtst_get_default_fields();
-	$default_forms         = wpmtst_get_default_forms();
+	$default_base_forms    = wpmtst_get_default_base_forms();
+	$default_custom_forms  = wpmtst_get_default_custom_forms();
 	$default_form_options  = wpmtst_get_default_form_options();
 	$default_view_options  = wpmtst_get_default_view_options();
 	$default_view          = apply_filters( 'wpmtst_view_default', wpmtst_get_default_view() );
@@ -140,17 +141,19 @@ function wpmtst_default_settings() {
 	/**
 	 * -4- GET FORMS
 	 */
-	$forms = get_option( 'wpmtst_forms' );
-	if ( !$forms ) {
-		update_option( 'wpmtst_forms', $default_forms );
+	update_option( 'wpmtst_base_forms', $default_base_forms );
+
+	$custom_forms = get_option( 'wpmtst_custom_forms' );
+	if ( !$custom_forms ) {
+		update_option( 'wpmtst_custom_forms', $default_custom_forms );
 	}
 	else {
-		foreach ( $forms as $form_name => $group_array ) {
+		foreach ( $custom_forms as $form_name => $group_array ) {
 			// custom fields are in display order (not associative)
 			// so we must find them by name
 			foreach ( $group_array['fields'] as $key => $new_field ) {
 				$updated_default = null;
-				foreach ( $default_forms['default']['fields'] as $a_field ) {
+				foreach ( $default_base_forms['default']['fields'] as $a_field ) {
 					if ( $a_field['name'] == $new_field['name'] ) {
 						$updated_default = $a_field;
 						break;
@@ -161,9 +164,9 @@ function wpmtst_default_settings() {
 				}
 			}
 		}
-		update_option( 'wpmtst_forms', $forms );
+		update_option( 'wpmtst_custom_forms', $custom_forms );
 		// WPML
-		wpmtst_form_fields_wpml( $forms['custom']['fields'] );
+		wpmtst_form_fields_wpml( $custom_forms['custom']['fields'] );
 		// TODO Do this for multiple forms too
 	}
 
