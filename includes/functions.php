@@ -197,6 +197,12 @@ function wpmtst_uasort( $a, $b ) {
 	return ( $a['order'] < $b['order'] ) ? -1 : 1;
 }
 
+function wpmtst_get_custom_form_count() {
+	$forms = get_option( 'wpmtst_custom_forms' );
+	return count( $forms );
+}
+
+
 function wpmtst_get_form_fields( $form_id = 1 ) {
 	$forms = get_option( 'wpmtst_custom_forms' );
 	if ( isset( $forms[ $form_id ] ) ) {
