@@ -172,8 +172,21 @@ function wpmtst_settings_custom_fields( $action = '', $form_id = null ) {
 }
 
 function wpmtst_sanitize_text_with_special_chars( $input ) {
-	// Single quotes are coming in as \' in $_POST so remove the slash before converting.
-	return sanitize_text_field( htmlentities( str_replace( "\\'", "'", $input ) ) );
+	/*
+	Single quotes are coming in as \' in $_POST and being saved as \\\' like D\\\'Andre.
+	Example:
+	Array
+		(
+		[action] => wpmtst_form
+		[client_name] => D\'Andre
+		[company_name] => D\'Andre
+		[company_website] => D\'Andre
+		[post_title] => D\'Andre
+		[post_content] => D\'Andre
+	)
+	*/
+	//return sanitize_text_field( htmlspecialchars( $input, ENT_QUOTES | ENT_HTML5, get_bloginfo( 'charset' ) ) );
+	return sanitize_text_field( $input );
 }
 
 /**
