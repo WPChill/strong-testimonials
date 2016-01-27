@@ -264,7 +264,7 @@ function wpmtst_form_view( $atts ) {
 
 	extract( normalize_empty_atts( $atts ) );
 
-	$fields = wpmtst_get_form_fields( $form_name );
+	$fields = wpmtst_get_form_fields( $form_id );
 
 	$form_values = array( 'category' => $category );
 	foreach ( $fields as $key => $field ) {
