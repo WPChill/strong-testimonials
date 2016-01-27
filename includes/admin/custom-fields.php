@@ -60,7 +60,7 @@ function wpmtst_settings_custom_fields( $action = '', $form_id = null ) {
 			// Restore defaults
 			// ----------------
 			include_once WPMTST_INC . 'defaults.php';
-			$default_forms = wpmtst_get_default_forms();
+			$default_forms = wpmtst_get_default_base_forms();
 			$fields = $default_forms['default']['fields'];
 			$forms[ $form_id ]['fields'] = $fields;
 			do_action( 'wpmtst_fields_updated', $fields );
@@ -73,16 +73,24 @@ function wpmtst_settings_custom_fields( $action = '', $form_id = null ) {
 			// Save changes
 			$fields = array();
 			$new_key = 0;
-			foreach ( $_POST['fields'] as $key => $field ) {
+
+			/**
+			 * Strip the dang slashes from the dang magic quotes.
+			 *
+			 * @since 2.0.0
+			 */
+			$post_fields = stripslashes_deep( $_POST['fields'] );
+
+			foreach ( $post_fields as $key => $field ) {
 				$field = array_merge( $field_options['field_base'], $field );
 
 				// sanitize & validate
 				$field['name']                    = sanitize_text_field( $field['name'] );
-				$field['label']                   = wpmtst_sanitize_text_with_special_chars( $field['label'] );
-				$field['placeholder']             = wpmtst_sanitize_text_with_special_chars( $field['placeholder'] );
+				$field['label']                   = sanitize_text_field( $field['label'] );
+				$field['placeholder']             = sanitize_text_field( $field['placeholder'] );
 				$field['show_placeholder_option'] = $field['show_placeholder_option'] ? 1 : 0;
-				$field['before']                  = wpmtst_sanitize_text_with_special_chars( $field['before'] );
-				$field['after']                   = wpmtst_sanitize_text_with_special_chars( $field['after'] );
+				$field['before']                  = sanitize_text_field( $field['before'] );
+				$field['after']                   = sanitize_text_field( $field['after'] );
 				$field['required']                = $field['required'] ? 1 : 0;
 				$field['admin_table']             = $field['admin_table'] ? 1 : 0;
 				$field['show_admin_table_option'] = $field['show_admin_table_option'] ? 1 : 0;
@@ -142,7 +150,7 @@ function wpmtst_settings_custom_fields( $action = '', $form_id = null ) {
 		<?php //TODO Move class check to a constant in main class AND/OR these lines to an action hook ?>
 		<?php if ( class_exists( 'Strong_Testimonials_Multiple_Forms' ) ) : ?>
 		<p><a href="<?php echo admin_url( 'edit.php?post_type=wpm-testimonial&page=fields' ); ?>">Return to list</a></p>
-		<p><input style="width: 100%;" type="text" name="field_group_label" value="<?php echo $forms[ $form_id ]['label']; ?>"></p>
+		<p><input style="width: 100%;" type="text" name="field_group_label" value="<?php echo wpmtst_htmlspecialchars( $forms[ $form_id ]['label'] ); ?>"></p>
 		<?php endif; ?>
 
 	<ul id="custom-field-list">
@@ -171,22 +179,16 @@ function wpmtst_settings_custom_fields( $action = '', $form_id = null ) {
 	<?php
 }
 
-function wpmtst_sanitize_text_with_special_chars( $input ) {
-	/*
-	Single quotes are coming in as \' in $_POST and being saved as \\\' like D\\\'Andre.
-	Example:
-	Array
-		(
-		[action] => wpmtst_form
-		[client_name] => D\'Andre
-		[company_name] => D\'Andre
-		[company_website] => D\'Andre
-		[post_title] => D\'Andre
-		[post_content] => D\'Andre
-	)
-	*/
-	//return sanitize_text_field( htmlspecialchars( $input, ENT_QUOTES | ENT_HTML5, get_bloginfo( 'charset' ) ) );
-	return sanitize_text_field( $input );
+/**
+ * Our version of htmlspecialchars.
+ *
+ * @since 2.0.0
+ * @param $string
+ *
+ * @return string
+ */
+function wpmtst_htmlspecialchars( $string ) {
+	return htmlspecialchars( $string, ENT_QUOTES, get_bloginfo( 'charset' ) );
 }
 
 /**
@@ -216,7 +218,7 @@ function wpmtst_show_field( $key, $field, $adding ) {
 	$html .= '<tr>';
 	$html .= '<th>' . _x( 'Label', 'noun', 'strong-testimonials' ) . '</th>';
 	$html .= '<td>';
-	$html .= '<input type="text" class="first-field field-label" name="fields[' . $key . '][label]" value="' . $field['label'] . '">';
+	$html .= '<input type="text" class="first-field field-label" name="fields[' . $key . '][label]" value="' . wpmtst_htmlspecialchars( $field['label'] ). '">';
 	$html .= '<span class="help">' . __( 'This appears on the form.', 'strong-testimonials' ) . '</span>';
 	$html .= '</td>';
 	$html .= '</td>';
@@ -229,7 +231,7 @@ function wpmtst_show_field( $key, $field, $adding ) {
 	$html .= '<td>';
 	if ( in_array( $field['record_type'], array( 'custom', 'optional' ) ) ) {
 		// if adding, the field Name is blank so it can be populated from Label
-		$html .= '<input type="text" class="field-name" name="fields['.$key.'][name]" value="' . ( isset( $field['name'] ) ? $field['name'] : '' ) . '">';
+		$html .= '<input type="text" class="field-name" name="fields['.$key.'][name]" value="' . ( isset( $field['name'] ) ? wpmtst_htmlspecialchars( $field['name'] ) : '' ) . '">';
 		$html .= '<span class="help field-name-help">' . __( 'Use only lowercase letters, numbers, and underscores.', 'strong-testimonials' ) . '</span>';
 		$html .= '<span class="help field-name-help important">' . __( 'Cannot be "name" or "date".', 'strong-testimonials' ) . '</span>';
 	} else {
@@ -405,7 +407,7 @@ function wpmtst_show_field_secondary( $key, $field ) {
 		if ( isset( $field['placeholder'] ) ) {
 			$html .= '<tr>';
 			$html .= '<th>' . __( 'Placeholder', 'strong-testimonials' ) . '</th>';
-			$html .= '<td><input type="text" name="fields[' . $key . '][placeholder]" value="' . $field['placeholder'] . '"></td>';
+			$html .= '<td><input type="text" name="fields[' . $key . '][placeholder]" value="' . wpmtst_htmlspecialchars( $field['placeholder'] ) . '"></td>';
 			$html .= '</td>';
 		}
 	}
@@ -415,7 +417,7 @@ function wpmtst_show_field_secondary( $key, $field ) {
 	// ------
 	$html .= '<tr>';
 	$html .= '<th>' . __( 'Before', 'strong-testimonials' ) . '</th>';
-	$html .= '<td><input type="text" name="fields[' . $key . '][before]" value="' . $field['before'] . '"></td>';
+	$html .= '<td><input type="text" name="fields[' . $key . '][before]" value="' . wpmtst_htmlspecialchars( $field['before'] ) . '"></td>';
 	$html .= '</td>';
 
 	// -----
@@ -423,7 +425,7 @@ function wpmtst_show_field_secondary( $key, $field ) {
 	// -----
 	$html .= '<tr>';
 	$html .= '<th>' . __( 'After', 'strong-testimonials' ) . '</th>';
-	$html .= '<td><input type="text" name="fields[' . $key . '][after]" value="' . $field['after'] . '"></td>';
+	$html .= '<td><input type="text" name="fields[' . $key . '][after]" value="' . wpmtst_htmlspecialchars( $field['after'] ) . '"></td>';
 	$html .= '</td>';
 
 	return $html;

@@ -166,7 +166,7 @@ function wpmtst_default_settings() {
 		}
 		update_option( 'wpmtst_custom_forms', $custom_forms );
 		// WPML
-		wpmtst_form_fields_wpml( $custom_forms['custom']['fields'] );
+		wpmtst_form_fields_wpml( $custom_forms[1]['fields'] );
 		// TODO Do this for multiple forms too
 	}
 
