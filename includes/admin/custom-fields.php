@@ -8,10 +8,7 @@ function wpmtst_form_admin() {
 }
 
 function wpmtst_form_admin2() {
-	if ( ! current_user_can( 'manage_options' ) )
-		wp_die( __( 'You do not have sufficient permissions to access this page.' ) );
-
-	wpmtst_settings_custom_fields( 'edit', 'custom' );
+	wpmtst_settings_custom_fields( 'edit', 1 );
 }
 
 /**
@@ -22,6 +19,7 @@ function wpmtst_form_admin2() {
  *
  * @return bool
  */
+// TODO is $action still used?
 function wpmtst_settings_custom_fields( $action = '', $form_id = null ) {
 	if ( ! current_user_can( 'manage_options' ) )
 		wp_die( __( 'You do not have sufficient permissions to access this page.' ) );

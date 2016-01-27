@@ -257,6 +257,14 @@ jQuery(document).ready(function($) {
 						// change input_type
 						$parent.find('input[name$="[input_type]"]').val("file");
 					}
+					else if( fieldType == 'post_content' ) {
+						$fieldLabel.val('Testimonial');
+						$fieldName.val('post_content').attr('disabled','disabled');
+						// move value to hidden input
+						$fieldName.after('<input type="hidden" name="'+$fieldName.attr("name")+'" value="'+$fieldName.val()+'" />');
+						// hide help message
+						$parent.find(".field-name-help").hide();
+					}
 
 				}
 				else {
@@ -314,6 +322,14 @@ jQuery(document).ready(function($) {
 						$fieldName.val('featured_image').attr('disabled','disabled');
 						// add hidden input
 						$fieldName.after('<input type="hidden" name="'+$fieldName.attr("name")+'" value="'+$fieldName.val()+'" />');
+					}
+					else if( fieldType == 'post_content' ) {
+						$fieldLabel.val('Testimonial');
+						$fieldName.val('post_content').attr('disabled','disabled');
+						// add hidden input
+						$fieldName.after('<input type="hidden" name="'+$fieldName.attr("name")+'" value="'+$fieldName.val()+'" />');
+						// hide help message
+						$parent.find(".field-name-help").hide();
 					}
 
 				}

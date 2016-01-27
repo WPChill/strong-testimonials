@@ -54,6 +54,7 @@ function wpmtst_get_default_fields() {
 			'map'                => 'post_title',
 			'admin_table'        => 1,
 			'admin_table_option' => 0,
+			'show_admin_table_option' => 0,
 		),
 		'post_content'   => array(
 			'input_type'   => 'textarea',
@@ -62,6 +63,7 @@ function wpmtst_get_default_fields() {
 			'required'     => 1,
 			'core'         => 0,
 			'admin_table'  => 0,
+			'show_admin_table_option' => 0,
 		),
 		'featured_image' => array(
 			'input_type'              => 'file',
