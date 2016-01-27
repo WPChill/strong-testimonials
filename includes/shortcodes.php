@@ -19,9 +19,15 @@ function wpmtst_strong_view_shortcode( $atts, $content = null ) {
 		WPMST()->get_view_defaults(),
 		normalize_empty_atts( $atts ), 'testimonial_view'
 	);
+
+	// Did we find this view?
+	if ( isset( $out['view_not_found'] ) && $out['view_not_found'] ) {
+		return '<p style="color:red">' . __( sprintf( 'Strong Testimonials error: View %s not found', $out['view'] ) ) . '</p>';
+	}
+
 	$out['content'] = $content;
 
-	// container_class is shared by display and form in both original and new default templates
+	// Container class is shared by display and form in templates.
 	$options = get_option( 'wpmtst_options' );
 	$out['container_class'] = 'strong-view-id-' . $out['view'];
 
@@ -91,9 +97,6 @@ if ( ! function_exists( 'normalize_empty_atts' ) ) {
 function wpmtst_display_view( $atts ) {
 	global $strong_templates;
 	extract( $atts );
-
-	if ( isset( $view_not_found ) && $view_not_found )
-		return '<p style="color:red">' . __( sprintf( 'Strong Testimonials error: View %s not found', $view ) ) . '</p>';
 
 	// classes
 	$content_class_list   = '';
@@ -259,8 +262,9 @@ function wpmtst_display_view( $atts ) {
 function wpmtst_form_view( $atts ) {
 	global $strong_templates;
 
-	if ( isset( $_GET['success'] ) )
-		return '<div class="testimonial-success">' . wpmtst_get_form_message('submission-success') . '</div>';
+	if ( isset( $_GET['success'] ) ) {
+		return '<div class="testimonial-success">' . wpmtst_get_form_message( 'submission-success' ) . '</div>';
+	}
 
 	extract( normalize_empty_atts( $atts ) );
 

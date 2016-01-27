@@ -772,6 +772,15 @@ final class Strong_Testimonials {
 	}
 
 	/**
+	 * @param $atts
+	 *
+	 * @return bool
+	 */
+	private static function view_not_found( $atts ) {
+		return ( isset( $atts['view_not_found'] ) && $atts['view_not_found'] );
+	}
+
+	/**
 	 * Process content for shortcodes.
 	 *
 	 * A combination of has_shortcode and shortcode_parse_atts.
@@ -801,6 +810,8 @@ final class Strong_Testimonials {
 
 				// Incorporate attributes from the View and defaults.
 				$parsed_atts = self::parse_view( $original_atts, self::get_view_defaults(), $original_atts );
+				if ( self::view_not_found( $parsed_atts ) )
+					continue;
 
 				// Turn empty atts into switches.
 				$atts = normalize_empty_atts( $parsed_atts );
@@ -1304,6 +1315,8 @@ final class Strong_Testimonials {
 							if ( isset( $widget['view'] ) && $widget['view'] ) {
 								$atts        = array( 'view' => $widget['view'] );
 								$parsed_atts = self::parse_view( $atts, self::get_view_defaults(), $atts );
+								if ( self::view_not_found( $parsed_atts ) )
+									continue;
 
 								// Build the shortcode signature.
 								$att_string = serialize( $atts );
@@ -1488,6 +1501,8 @@ final class Strong_Testimonials {
 						//TODO DRY
 						$atts        = array( 'view' => $widget['view'] );
 						$parsed_atts = self::parse_view( $atts, self::get_view_defaults(), $atts );
+						if ( self::view_not_found( $parsed_atts ) )
+							continue;
 
 						// Build the shortcode signature.
 						$att_string = serialize( $atts );
@@ -1538,6 +1553,8 @@ final class Strong_Testimonials {
 				if ( isset( $widget['view'] ) && $widget['view'] ) {
 					$atts        = array( 'view' => $widget['view'] );
 					$parsed_atts = self::parse_view( $atts, self::get_view_defaults(), $atts );
+					if ( self::view_not_found( $parsed_atts ) )
+						continue;
 
 					// Build the shortcode signature.
 					$att_string = serialize( $atts );
@@ -1580,7 +1597,7 @@ final class Strong_Testimonials {
 		 *
 		 * @since 1.21.0
 		 */
-		if ( ! $view ) {
+		if ( !$view ) {
 			return array_merge( array( 'view_not_found' => 1 ), $out );
 		}
 
