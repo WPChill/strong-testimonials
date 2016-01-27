@@ -1231,7 +1231,7 @@ final class Strong_Testimonials {
 			$gradient = self::gradient_rules( $c1, $c2 );
 			wp_add_inline_style( $handle, ".strong-view-id-$view .testimonial-inner { $gradient }" );
 		}
-		else {
+		elseif ( $c1 ) {
 			wp_add_inline_style( $handle, ".strong-view-id-$view .testimonial-inner { background: $c1; }" );
 		}
 	}
