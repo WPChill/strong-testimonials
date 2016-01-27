@@ -490,10 +490,61 @@ final class Strong_Testimonials {
 	}
 
 	/**
-	 * Setter for the shortcode defaults.
+	 * Set the defaults for a parsed View.
+	 * These are different than the default settings used by the View editor.
+	 * DO NOT COMBINE!
 	 */
 	public function set_view_defaults() {
-		self::$view_defaults = get_option( 'wpmtst_view_default' );
+		$defaults = array(
+			'all'              => 1,
+			'background'       => array(
+				'color'              => '',
+				'type'               => '',
+				'preset'             => '',
+				'example-font-color' => 'dark',
+			),
+			'category'         => '',
+			'class'            => '',
+			'client_section'   => null,
+			'column_count'     => 2,
+			'compat'           => 0,
+			'container_class'  => '',
+			'count'            => 1,
+			'display'          => '',
+			'effect_for'       => '1.5',
+			'excerpt'          => '',
+			'form'             => '',
+			'form-ajax'        => 0,
+			'gravatar'         => 'no',
+			'id'               => '',
+			'layout'           => '',
+			'length'           => '',
+			'lightbox'         => '',
+			'menu_order'       => '',
+			'mode'             => '',
+			'more_page'        => '',
+			'more_page_on'     => '',
+			'more_post'        => '',
+			'more_text'        => _x( 'Read more', 'link', 'strong-testimonials' ),
+			'nav'              => 'after',
+			'newest'           => '',
+			'no_pause'         => 0, // must be zero not boolean or string!
+			'note'             => '',
+			'oldest'           => '',
+			'per_page'         => '',
+			'random'           => '',
+			'read_more'        => '',
+			'show_for'         => '8',
+			'slideshow'        => '',
+			'template'         => '',
+			'thumbnail'        => '',
+			'thumbnail_size'   => 'thumbnail',
+			'thumbnail_height' => null,
+			'thumbnail_width'  => null,
+			'title'            => '',
+			'view'             => '',
+		);
+		self::$view_defaults = $defaults;
 	}
 
 	/**

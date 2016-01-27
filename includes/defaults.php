@@ -446,8 +446,8 @@ function wpmtst_get_default_view() {
 		'thumbnail_width'  => null,
 		'title'            => true,
 	);
-
 	ksort( $default_view );
+
 	return $default_view;
 }
 

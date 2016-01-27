@@ -68,26 +68,6 @@ function wpmtst_strong_view_shortcode_filter( $out, $pairs, $atts ) {
 add_filter( 'shortcode_atts_testimonial_view', 'wpmtst_strong_view_shortcode_filter', 10, 3 );
 
 /**
- * Normalize empty shortcode attributes.
- *
- * Turns atts into tags - brilliant!
- * Thanks http://wordpress.stackexchange.com/a/123073/32076
- */
-if ( ! function_exists( 'normalize_empty_atts' ) ) {
-	function normalize_empty_atts( $atts ) {
-		if ( ! empty( $atts ) ) {
-			foreach ( $atts as $attribute => $value ) {
-				if ( is_int( $attribute ) ) {
-					$atts[ strtolower( $value ) ] = true;
-					unset( $atts[ $attribute ] );
-				}
-			}
-			return $atts;
-		}
-	}
-}
-
-/**
  * Strong view - display mode
  *
  * @param $atts
@@ -304,6 +284,26 @@ function wpmtst_form_view( $atts ) {
 	$html = apply_filters( 'strong_html', $html );
 
 	return $html;
+}
+
+/**
+ * Normalize empty shortcode attributes.
+ *
+ * Turns atts into tags - brilliant!
+ * Thanks http://wordpress.stackexchange.com/a/123073/32076
+ */
+if ( ! function_exists( 'normalize_empty_atts' ) ) {
+	function normalize_empty_atts( $atts ) {
+		if ( ! empty( $atts ) ) {
+			foreach ( $atts as $attribute => $value ) {
+				if ( is_int( $attribute ) ) {
+					$atts[ strtolower( $value ) ] = true;
+					unset( $atts[ $attribute ] );
+				}
+			}
+			return $atts;
+		}
+	}
 }
 
 /**
