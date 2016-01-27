@@ -121,11 +121,13 @@ function wpmtst_view_settings( $action = '', $view_id = null ) {
 
 	<form id="wpmtst-views-form" method="post" action="<?php echo get_admin_url() . 'admin-post.php'; ?>" autocomplete="off">
 
-		<input type="hidden" name="action" value="view_<?php echo $action; ?>_form">
 		<?php wp_nonce_field( 'view_form_submit', 'view_form_nonce', true, true ); ?>
 
+		<input type="hidden" name="action" value="view_<?php echo $action; ?>_form">
 		<input type="hidden" name="view[id]" value="<?php echo $view_id; ?>">
 		<input type="hidden" name="view_original_mode" value="<?php echo $view['mode']; ?>">
+		<input type="hidden" name="view[data][_form_id]" value="<?php echo $view['form_id']; ?>">
+
 		<div class="view-info">
 			<div class="form-view-name"><span class="title">Name:</span><input type="text" id="view-name" class="view-name" name="view[name]" value="<?php echo $view_name; ?>" tabindex="1"></div>
 		</div>
@@ -878,7 +880,13 @@ function wpmtst_sanitize_view( $input ) {
 		$view_data['client_section'] = null;
 	}
 
-	$view_data['form_id'] = $input['form_id'];
+	// Multiple Forms add-on
+	if ( isset( $view_data['form_id'] ) ) {
+		$view_data['form_id'] = $input['form_id'];
+	}
+	else {
+		$view_data['form_id'] = $input['_form_id'];
+	}
 
 	$view_data = apply_filters( 'wpmtst_sanitized_view', $view_data, $input );
 	ksort( $view_data );
