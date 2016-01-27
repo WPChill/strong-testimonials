@@ -246,10 +246,8 @@ function wpmtst_get_custom_fields() {
 				$custom_fields[ $field['name'] ] = $field;
 			}
 		}
-		d($custom_fields);
 		$all_fields = array_merge( $all_fields, $custom_fields );
 	}
-	d($all_fields);
 
 	return $all_fields;
 }

@@ -5,7 +5,6 @@
  * @since 1.21.0
  */
 function wpmtst_form_handler() {
-	q2($_POST,__FUNCTION__);
 
 	if ( empty( $_POST ) )
 		return false;
