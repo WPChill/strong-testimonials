@@ -56,6 +56,10 @@ li.warning {
 	font-size: 14px;
 }
 
+.wrap.wpmtst .notice p {
+	font-size: 13px;
+}
+
 .wpmtst h2 {
 	margin-bottom: 1em;
 }

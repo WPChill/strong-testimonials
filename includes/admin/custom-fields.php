@@ -33,7 +33,7 @@ function wpmtst_settings_custom_fields( $action = '', $form_id = null ) {
 	$forms         = get_option( 'wpmtst_custom_forms' );
 	$fields        = $forms[ $form_id ]['fields'];
 
-	$message_format = '<div id="message" class="updated notice is-dismissible"><p><strong>%s</strong></p></div>';
+	$message_format = '<div id="message" class="updated notice is-dismissible"><p>%s</p></div>';
 
 	// ------------
 	// Form Actions

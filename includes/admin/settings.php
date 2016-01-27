@@ -165,7 +165,7 @@ function wpmtst_settings_page() {
 
 		<?php if( isset( $_GET['settings-updated'] ) ) : ?>
 			<div id="message" class="updated notice is-dismissible">
-				<p><strong><?php _e( 'Settings saved.' ) ?></strong></p>
+				<p><?php _e( 'Settings saved.' ) ?></p>
 			</div>
 		<?php endif; ?>
 
