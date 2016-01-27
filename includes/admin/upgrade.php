@@ -126,12 +126,12 @@ function wpmtst_default_settings() {
 		// ------------
 		// field_groups
 		// ------------
-		//if ( isset( $fields['field_groups'] ) ) {
-			// move to new option and update next
-			//update_option( 'wpmtst_forms', $fields['field_groups'] );
-			//unset( $fields['field_groups'] );
-		//}
-
+		if ( isset( $fields['field_groups'] ) ) {
+			unset( $fields['field_groups'] );
+		}
+		if ( isset( $fields['current_field_group'] ) ) {
+			unset( $fields['current_field_group'] );
+		}
 		// Re-assemble fields and save.
 		$fields['field_base']   = $new_field_base;
 		$fields['field_types']  = $new_field_types;
