@@ -65,7 +65,7 @@ class Strong_Views_List_Table extends Strong_Testimonials_List_Table {
 
 		$actions = array();
 		$actions['edit'] = '<a href="' . $edit_link . '">' . __( 'Edit' ) . '</a>';
-		$actions['delete'] = "<a class='submitdelete' href='" . wp_nonce_url( $delete_link, 'delete-strong-view_' . $item['id'] ) . "' onclick=\"if ( confirm( '" . esc_js( sprintf( __( "You are about to delete this view '%s'\n  'Cancel' to stop, 'OK' to delete." ), $item['name'] ) ) . "' ) ) { return true;}return false;\">" . __( 'Delete' ) . "</a>";
+		$actions['delete'] = "<a class='submitdelete' href='" . wp_nonce_url( $delete_link, 'delete-strong-view_' . $item['id'] ) . "' onclick=\"if ( confirm( '" . esc_js( sprintf( __( "Delete \"%s\"?" ), $item['name'] ) ) . "' ) ) { return true;} return false;\">" . __( 'Delete' ) . "</a>";
 		echo $this->row_actions( $actions );
 	}
 
