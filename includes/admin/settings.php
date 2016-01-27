@@ -57,37 +57,25 @@ add_action( 'admin_init', 'wpmtst_register_settings' );
  * @return mixed
  */
 function wpmtst_sanitize_options( $input ) {
-
-	//$input['per_page'] = (int) sanitize_text_field( $input['per_page'] );
-
 	/**
 	 * Store values as 0 or 1.
 	 * Checked checkbox value is "on".
 	 * Unchecked checkboxes are not submitted.
 	 */
 	/* LONGHAND
-	if ( isset( $input['load_page_style'] ) ) {
-		if ( 'on' == $input['load_page_style'] ) { // checked checkbox
-			$new_input['load_page_style'] = 1;
+	if ( isset( $input['reorder'] ) ) {
+		if ( 'on' == $input['reorder'] ) { // checked checkbox
+			$new_input['reorder'] = 1;
 		} else { // hidden input
-			$new_input['load_page_style'] = $input['load_page_style']; // 0 or 1
+			$new_input['reorder'] = $input['reorder']; // 0 or 1
 		}
 	} else { // unchecked checkbox
-		$new_input['load_page_style'] = 0;
+		$new_input['reorder'] = 0;
 	}
 	*/
 
 	// shorthand
-
-	//$input['load_page_style']   = !isset( $input['load_page_style'] ) ? 0 : ( 'on' == $input['load_page_style'] ? 1 : $input['load_page_style'] );
-
-	//$input['load_widget_style'] = !isset( $input['load_widget_style'] ) ? 0 : ( 'on' == $input['load_widget_style'] ? 1 : $input['load_widget_style'] );
-
-	//$input['load_form_style']   = !isset( $input['load_form_style'] ) ? 0 : ( 'on' == $input['load_form_style'] ? 1 : $input['load_form_style'] );
-
-	//$input['load_rtl_style']    = !isset( $input['load_rtl_style'] ) ? 0 : ( 'on' == $input['load_rtl_style'] ? 1 : $input['load_rtl_style'] );
-
-	$input['reorder']           = !isset( $input['reorder'] ) ? 0 : ( 'on' == $input['reorder'] ? 1 : $input['reorder'] );
+	$input['reorder'] = !isset( $input['reorder'] ) ? 0 : ( 'on' == $input['reorder'] ? 1 : $input['reorder'] );
 
 	return $input;
 }
