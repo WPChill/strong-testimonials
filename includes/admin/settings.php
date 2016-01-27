@@ -85,7 +85,10 @@ function wpmtst_sanitize_options( $input ) {
  *
  * An unchecked checkbox is not posted.
  *
+ * @param $input
  * @since 1.13
+ *
+ * @return mixed
  */
 function wpmtst_sanitize_form( $input ) {
 	$input['post_status']       = sanitize_text_field( $input['post_status'] );
