@@ -140,29 +140,25 @@ function wpmtst_settings_custom_fields( $action = '', $form_id = null ) {
 	<form id="wpmtst-custom-fields-form" method="post" action="" autocomplete="off">
 		<?php wp_nonce_field( 'wpmtst_custom_fields_form', 'wpmtst_form_submitted' ); ?>
 
-		<?php //TODO Move class check to a constant in main class AND/OR these lines to an action hook ?>
-		<?php if ( class_exists( 'Strong_Testimonials_Multiple_Forms' ) ) : ?>
-		<p><a href="<?php echo admin_url( 'edit.php?post_type=wpm-testimonial&page=fields' ); ?>">Return to list</a></p>
-		<p><input style="width: 100%;" type="text" name="field_group_label" value="<?php echo wpmtst_htmlspecialchars( $forms[ $form_id ]['label'] ); ?>"></p>
-		<?php endif; ?>
+		<?php do_action( 'wpmtst_fields_editor_before_field_group', $forms[ $form_id ] ); ?>
 
-	<ul id="custom-field-list">
-		<?php foreach ( $fields as $key => $field ) : ?>
-		<li id="field-<?php echo $key; ?>"><?php echo wpmtst_show_field( $key, $field, false ); ?></li>
-		<?php endforeach; ?>
-	</ul>
+		<ul id="custom-field-list">
+			<?php foreach ( $fields as $key => $field ) : ?>
+			<li id="field-<?php echo $key; ?>"><?php echo wpmtst_show_field( $key, $field, false ); ?></li>
+			<?php endforeach; ?>
+		</ul>
 
-	<div id="add-field-bar">
-		<input id="add-field" type="button" class="button" name="add-field" value="<?php _e( 'Add New Field', 'strong-testimonials' ); ?>">
-	</div>
+		<div id="add-field-bar">
+			<input id="add-field" type="button" class="button" name="add-field" value="<?php _e( 'Add New Field', 'strong-testimonials' ); ?>">
+		</div>
 
-	<p class="submit">
-		<?php
-		submit_button( '', 'primary', 'submit', false );
-		submit_button( __( 'Undo Changes', 'strong-testimonials' ), 'secondary', 'reset', false );
-		submit_button( __( 'Restore Defaults', 'strong-testimonials' ), 'secondary', 'restore-defaults', false );
-		?>
-	</p>
+		<p class="submit">
+			<?php
+			submit_button( '', 'primary', 'submit', false );
+			submit_button( __( 'Undo Changes', 'strong-testimonials' ), 'secondary', 'reset', false );
+			submit_button( __( 'Restore Defaults', 'strong-testimonials' ), 'secondary', 'restore-defaults', false );
+			?>
+		</p>
 
 	</form><!-- Custom Fields -->
 

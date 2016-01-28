@@ -28,7 +28,7 @@
 #custom-field-list .custom-field {
 	display: none;
 }
-	
+
 #custom-field-list .handle {
 	display: inline-block;
 	margin-right: 10px;
@@ -149,13 +149,31 @@
 }
 
 #add-field-bar {
-	background: #fff;
-	border: 1px solid #ddd;
-	padding: 5px;
+	padding-top: 10px;
 	text-align: right;
 }
 
 #add-field-bar input {
 	margin-right: 0;
 	margin-left: 10px;
+}
+
+/* field group label */
+
+p.field-group-label-wrap {
+}
+
+p.field-group-label-wrap > label,
+p.field-group-label-wrap > input {
+	display: inline-block;
+	font-size: 1.5em;
+	vertical-align: middle;
+}
+
+p.field-group-label-wrap label {
+	width: 6.5em;
+}
+p.field-group-label-wrap input {
+	margin: 0;
+	width: calc( 100% - 6.5em );
 }
