@@ -177,3 +177,15 @@ p.field-group-label-wrap input {
 	margin: 0;
 	width: calc( 100% - 6.5em );
 }
+
+/* intro */
+
+#fields-editor-intro {
+	display: inline-block;
+}
+
+#fields-editor-wrap {
+	display: inline-block;
+	float: left;
+	width: 540px;
+}

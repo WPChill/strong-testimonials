@@ -125,44 +125,47 @@ function wpmtst_settings_custom_fields( $action = '', $form_id = null ) {
 	// ------------------
 	?>
 	<div class="wrap wpmtst">
+
 		<h2><?php _e( 'Fields', 'strong-testimonials' ); ?></h2>
-		<div class="intro" style="float: right;">
+
+		<?php do_action( 'wpmtst_fields_editor_before_fields_intro' ); ?>
+
+		<div id="fields-editor-intro">
 			<p><?php _e( 'Fields will appear in this order on the form.', 'strong-testimonials' ); ?></p>
 			<p><?php printf( __( 'Reorder by grabbing the %s icon.', 'strong-testimonials' ), '<span class="dashicons dashicons-menu"></span>' ); ?></p>
 			<p><?php _e( 'Click the field name to expand its options panel.', 'strong-testimonials' ); ?></p>
-			<p>
-				<a href="https://www.wpmission.com/tutorial/how-to-customize-the-form-in-strong-testimonials/" target="_blank"><?php _ex( 'Full tutorial', 'link', 'strong-testimonials' ); ?></a>
-			</p>
+			<p><a href="https://www.wpmission.com/tutorial/how-to-customize-the-form-in-strong-testimonials/" target="_blank"><?php _ex( 'Full tutorial', 'link', 'strong-testimonials' ); ?></a></p>
+			<p><em><?php printf( __( 'More form settings <a href="%s">here</a>.', 'strong-testimonials' ), admin_url( 'edit.php?post_type=wpm-testimonial&page=new-settings&tab=form' ) ); ?></em></p>
 		</div>
 
-	<!-- Custom Fields Form -->
-	<?php // TODO use admin-post.php ?>
-	<form id="wpmtst-custom-fields-form" method="post" action="" autocomplete="off">
-		<?php wp_nonce_field( 'wpmtst_custom_fields_form', 'wpmtst_form_submitted' ); ?>
+		<div id="fields-editor-wrap">
+			<!-- Custom Fields Form -->
+			<?php // TODO use admin-post.php ?>
+			<form id="wpmtst-custom-fields-form" method="post" action="" autocomplete="off">
+				<?php wp_nonce_field( 'wpmtst_custom_fields_form', 'wpmtst_form_submitted' ); ?>
 
-		<?php do_action( 'wpmtst_fields_editor_before_field_group', $forms[ $form_id ] ); ?>
+				<?php do_action( 'wpmtst_fields_editor_before_fields_editor', $forms[ $form_id ] ); ?>
 
-		<ul id="custom-field-list">
-			<?php foreach ( $fields as $key => $field ) : ?>
-			<li id="field-<?php echo $key; ?>"><?php echo wpmtst_show_field( $key, $field, false ); ?></li>
-			<?php endforeach; ?>
-		</ul>
+				<ul id="custom-field-list">
+					<?php foreach ( $fields as $key => $field ) : ?>
+					<li id="field-<?php echo $key; ?>"><?php echo wpmtst_show_field( $key, $field, false ); ?></li>
+					<?php endforeach; ?>
+				</ul>
 
-		<div id="add-field-bar">
-			<input id="add-field" type="button" class="button" name="add-field" value="<?php _e( 'Add New Field', 'strong-testimonials' ); ?>">
+				<div id="add-field-bar">
+					<input id="add-field" type="button" class="button" name="add-field" value="<?php _e( 'Add New Field', 'strong-testimonials' ); ?>">
+				</div>
+
+				<p class="submit">
+					<?php
+					submit_button( '', 'primary', 'submit', false );
+					submit_button( __( 'Undo Changes', 'strong-testimonials' ), 'secondary', 'reset', false );
+					submit_button( __( 'Restore Defaults', 'strong-testimonials' ), 'secondary', 'restore-defaults', false );
+					?>
+				</p>
+
+			</form><!-- Custom Fields -->
 		</div>
-
-		<p class="submit">
-			<?php
-			submit_button( '', 'primary', 'submit', false );
-			submit_button( __( 'Undo Changes', 'strong-testimonials' ), 'secondary', 'reset', false );
-			submit_button( __( 'Restore Defaults', 'strong-testimonials' ), 'secondary', 'restore-defaults', false );
-			?>
-		</p>
-
-	</form><!-- Custom Fields -->
-
-	<p><em><?php printf( __( 'More form settings <a href="%s">here</a>.', 'strong-testimonials' ), admin_url( 'edit.php?post_type=wpm-testimonial&page=new-settings&tab=form' ) ); ?></em></p>
 
 	</div><!-- wrap -->
 	<?php
