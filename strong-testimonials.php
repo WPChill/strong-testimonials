@@ -695,9 +695,6 @@ final class Strong_Testimonials {
 	 */
 	public static function find_views() {
 
-		if ( is_admin() )
-			return false;
-
 		global $post;
 		if ( empty( $post ) )
 			return false;
@@ -719,9 +716,6 @@ final class Strong_Testimonials {
 	 * @since 1.15.11
 	 */
 	public static function find_views_in_postmeta() {
-
-		if ( is_admin() )
-			return false;
 
 		global $post;
 		if ( empty( $post ) )
@@ -746,9 +740,6 @@ final class Strong_Testimonials {
 	 */
 	public static function find_views_in_postexcerpt() {
 
-		if ( is_admin() )
-			return false;
-
 		global $post;
 		if ( empty( $post ) )
 			return false;
@@ -767,9 +758,6 @@ final class Strong_Testimonials {
 	 * @since 1.16.14
 	 */
 	public static function find_blackstudio_widgets() {
-
-		if ( is_admin() )
-			return;
 
 		global $post;
 		if ( empty( $post ) )
@@ -794,9 +782,6 @@ final class Strong_Testimonials {
 	 * @access public
 	 */
 	public static function find_views_elegant_themes() {
-
-		if ( is_admin() )
-			return;
 
 		global $post;
 		if ( empty( $post ) )
@@ -838,9 +823,6 @@ final class Strong_Testimonials {
 	 * @access public
 	 */
 	public static function find_rendered_views() {
-
-		if ( is_admin() )
-			return;
 
 		global $post;
 		if ( empty( $post ) )
@@ -1395,8 +1377,6 @@ final class Strong_Testimonials {
 	 * For standard widgets NOT in [Page Builder by SiteOrigin] panels.
 	 */
 	public static function find_view_widgets() {
-		if ( is_admin() )
-			return;
 
 		// Get all widgets
 		$all_widgets = get_option( 'sidebars_widgets' );
@@ -1466,8 +1446,6 @@ final class Strong_Testimonials {
 	 * @access public
 	 */
 	public static function find_widgets() {
-		if ( is_admin() )
-			return;
 
 		// Get all widgets
 		$all_widgets = get_option( 'sidebars_widgets' );
@@ -1550,8 +1528,6 @@ final class Strong_Testimonials {
 	 * For widgets in [Page Builder by SiteOrigin] panels.
 	 */
 	public static function find_pagebuilder_widgets() {
-		if ( is_admin() )
-			return;
 
 		// Get all widgets
 		$panels_data = get_post_meta( get_the_ID(), 'panels_data', true );
@@ -1646,8 +1622,6 @@ final class Strong_Testimonials {
 	 * For widgets in [Page Builder by SiteOrigin] panels.
 	 */
 	public static function find_beaverbuilder_widgets() {
-		if ( is_admin() )
-			return;
 
 		$nodes = get_post_meta( get_the_ID(), '_fl_builder_data', true );
 		if ( ! $nodes )
