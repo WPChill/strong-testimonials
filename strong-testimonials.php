@@ -239,6 +239,8 @@ final class Strong_Testimonials {
 			// Elegant Themes - Home page content areas
 			add_action( 'wp', array( $this, 'find_views_elegant_themes' ) );
 
+			// Profit Builder
+			add_action( 'wp', array( $this, 'find_rendered_views' ) );
 		}
 
 		/**
@@ -678,6 +680,14 @@ final class Strong_Testimonials {
 		return true;
 	}
 
+	private static function check_content_for_rendered_shortcodes( $content ) {
+		if ( preg_match_all( '/div class=(.*?) (strong-view-id-([0-9]*))/', $content, $matches ) ) {
+			return $matches[3];
+		}
+
+		return false;
+	}
+
 	/**
 	 * Build list of all shortcode views on a page.
 	 *
@@ -759,19 +769,19 @@ final class Strong_Testimonials {
 	public static function find_blackstudio_widgets() {
 
 		if ( is_admin() )
-			return false;
+			return;
 
 		global $post;
 		if ( empty( $post ) )
-			return false;
+			return;
 
 		$widget_content = get_option( 'widget_black-studio-tinymce' );
 		if ( ! $widget_content )
-			return false;
+			return;
 
 		$widget_content_serialized = maybe_serialize( $widget_content );
 		if ( ! self::check_content( $widget_content_serialized ) )
-			return false;
+			return;
 
 		self::process_content( $widget_content_serialized );
 
@@ -786,11 +796,11 @@ final class Strong_Testimonials {
 	public static function find_views_elegant_themes() {
 
 		if ( is_admin() )
-			return false;
+			return;
 
 		global $post;
 		if ( empty( $post ) )
-			return false;
+			return;
 
 		if ( get_option( 'mycuisine_home_page_1' ) ) {
 			$target = get_post( get_option( 'mycuisine_home_page_1' ) );
@@ -819,6 +829,29 @@ final class Strong_Testimonials {
 				}
 			}
 		}
+
+	}
+
+	/**
+	 * Build list of all shortcode views on a page.
+	 *
+	 * @access public
+	 */
+	public static function find_rendered_views() {
+
+		if ( is_admin() )
+			return;
+
+		global $post;
+		if ( empty( $post ) )
+			return;
+
+		$content = $post->post_content;
+		$view_ids = self::check_content_for_rendered_shortcodes( $content );
+		if ( !$view_ids )
+			return;
+
+		self::process_content_for_rendered_shortcodes( $view_ids );
 
 	}
 
@@ -886,6 +919,34 @@ final class Strong_Testimonials {
 				self::process_content( $shortcode[5] );
 
 			}
+
+		}
+	}
+
+	/**
+	 * Process content for rendered shortcodes.
+	 *
+	 * @access private
+	 *
+	 * @param array|null $view_ids
+	 */
+	private static function process_content_for_rendered_shortcodes( $view_ids = null ) {
+		if ( !$view_ids )
+			return;
+
+		foreach ( $view_ids as $view_id ) {
+
+			// Incorporate attributes from the View and defaults.
+			$original_atts = array( 'id' => $view_id );
+			$parsed_atts = self::parse_view( $original_atts, self::get_view_defaults(), $original_atts );
+
+			// Turn empty atts into switches.
+			$atts = normalize_empty_atts( $parsed_atts );
+
+			// Build the shortcode signature.
+			$att_string = serialize( $original_atts );
+
+			self::find_single_view( $atts, $att_string );
 
 		}
 	}
