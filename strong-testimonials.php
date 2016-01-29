@@ -925,6 +925,7 @@ final class Strong_Testimonials {
 
 			/**
 			 * If this is a view, look for accompanying stylesheet.
+			 * // TODO Is this check still necessary?
 			 */
 			if ( isset( $atts['view'] ) && $atts['view'] ) {
 
@@ -949,6 +950,7 @@ final class Strong_Testimonials {
 
 			/**
 			 * If this is a view, look for accompanying stylesheet.
+			 * // TODO Is this check still necessary?
 			 */
 			if ( isset( $atts['view'] ) && $atts['view'] ) {
 
@@ -969,6 +971,7 @@ final class Strong_Testimonials {
 
 			/**
 			 * If this is a view, look for accompanying stylesheet.
+			 * // TODO Is this check still necessary?
 			 */
 			if ( isset( $atts['view'] ) && $atts['view'] ) {
 
