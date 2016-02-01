@@ -310,11 +310,12 @@ final class Strong_Testimonials {
 			require_once WPMTST_INC . 'form-handler-functions.php';
 			$success = wpmtst_form_handler();
 			if ( $success ) {
-				echo '<div class="testimonial-success">' . wpmtst_get_form_message( 'submission-success' ) . '</div>';
+				$return = array( 'success' => true, 'message' => '<div class="testimonial-success">' . wpmtst_get_form_message( 'submission-success' ) . '</div>' );
 			}
 			else {
-				echo '<div class="testimonial-error">' . wpmtst_get_form_message( 'submission-error' ) . '</div>';
+				$return = array( 'success' => false, 'errors' => WPMST()->get_form_errors() );
 			}
+			echo json_encode( $return );
 		}
 
 		die();

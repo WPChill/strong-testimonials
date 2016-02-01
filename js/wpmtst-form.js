@@ -2,13 +2,14 @@
  * Submission form validation
  *
  * @package Strong_Testimonials
- * @since 1.15.0
  */
 
 jQuery(document).ready(function($) {
 
-	if( typeof( form_ajax_object ) !== 'undefined' && form_ajax_object.ajaxSubmit == "1" ) {
+	//noinspection JSUnresolvedVariable
+	if (typeof( form_ajax_object ) !== 'undefined' && form_ajax_object.ajaxSubmit == "1") {
 
+		//noinspection JSUnresolvedVariable
 		var formOptions = {
 			url: form_ajax_object.ajaxUrl,
 			data: {
@@ -20,8 +21,8 @@ jQuery(document).ready(function($) {
 		// attach handler to form's submit event
 		$("#wpmtst-submission-form").validate({
 
-			submitHandler: function(form) {
-				$(form).ajaxSubmit( formOptions );
+			submitHandler: function (form) {
+				$(form).ajaxSubmit(formOptions);
 			}
 
 		});
@@ -31,9 +32,23 @@ jQuery(document).ready(function($) {
 		$("#wpmtst-submission-form").validate();
 	}
 
-	function showResponse( responseText, statusText, xhr, $form) {
-		$("#wpmtst-form").html(responseText);
+	function showResponse(response) {
+		var obj = JSON.parse( response );
+
+		if (obj.success) {
+			$("#wpmtst-form").html(obj.message);
+		}
+		else {
+			for (var key in obj.errors) {
+				if (obj.errors.hasOwnProperty(key)) {
+					$("div.wpmtst-" + key)
+						.find('span.error')
+							.remove()
+							.end()
+						.append('<span class="error">' + obj.errors[key] + '</span>');
+				}
+			}
+		}
 	}
 
 });
-

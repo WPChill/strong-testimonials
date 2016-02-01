@@ -172,8 +172,9 @@ function wpmtst_field_after( $field ) {
 
 function wpmtst_field_error( $field ) {
 	$errors = WPMST()->get_form_errors();
-	if ( isset( $errors[ $field['name'] ] ) )
+	if ( isset( $errors[ $field['name'] ] ) ) {
 		echo '<span class="error">' . $errors[ $field['name'] ] . '</span>';
+	}
 }
 
 function wpmtst_form_honeypot_before() {
@@ -215,9 +216,9 @@ function wpmtst_form_submit_button() {
 	$form_options = get_option( 'wpmtst_form_options' );
 	$messages     = $form_options['messages'];
 
-	$string   = $messages['form-submit-button']['text'];
-	$context  = 'strong-testimonials-form-messages';
-	$name     = $messages['form-submit-button']['description'];
+	$string  = $messages['form-submit-button']['text'];
+	$context = 'strong-testimonials-form-messages';
+	$name    = $messages['form-submit-button']['description'];
 	?>
 	<p class="form-field submit">
 		<input type="submit" id="wpmtst_submit_testimonial" name="wpmtst_submit_testimonial" value="<?php echo apply_filters( 'wpmtst_l10n', $string, $context, $name ); ?>" class="button">

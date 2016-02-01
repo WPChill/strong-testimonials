@@ -252,7 +252,7 @@ function wpmtst_captcha_check( $captcha, $errors ) {
 		// Captcha by BestWebSoft
 		case 'bwsmath' :
 			if ( function_exists( 'cptch_check_custom_form' ) && cptch_check_custom_form() !== true ) {
-				$errors['captcha'] = __( 'Please complete the Captcha.', 'strong-testimonials' );
+				$errors['captcha'] = __( 'The Captcha failed. Please try again.', 'strong-testimonials' );
 			}
 			break;
 
@@ -263,17 +263,19 @@ function wpmtst_captcha_check( $captcha, $errors ) {
 				$prefix = isset( $_POST['captchac'] ) ? (string) $_POST['captchac'] : '';
 				$response = isset( $_POST['captchar'] ) ? (string) $_POST['captchar'] : '';
 				$correct = $captcha_instance->check( $prefix, $response );
-				if ( ! $correct )
-					$errors['captcha'] = __( 'The Captcha was not entered correctly. Please try again.', 'strong-testimonials' );
+				if ( !$correct ) {
+					$errors['captcha'] = __( 'The Captcha failed. Please try again.', 'strong-testimonials' );
+				}
 				// remove the temporary image and text files (except on Windows)
-				if ( '127.0.0.1' != $_SERVER['SERVER_ADDR'] )
+				if ( '127.0.0.1' != $_SERVER['SERVER_ADDR'] ) {
 					$captcha_instance->remove( $prefix );
+				}
 			}
 			break;
 
 		// Advanced noCaptcha reCaptcha by Shamim Hasan
 		case 'advnore' :
-			if ( function_exists( 'anr_verify_captcha' ) && ! anr_verify_captcha() ) {
+			if ( function_exists( 'anr_verify_captcha' ) && !anr_verify_captcha() ) {
 				$errors['captcha'] = __( 'The Captcha failed. Please try again.', 'strong-testimonials' );
 			}
 			break;
@@ -288,7 +290,8 @@ function wpmtst_captcha_check( $captcha, $errors ) {
 /**
  * Notify admin upon testimonial submission.
  *
- * @param $post
+ * @param array  $post
+ * @param string $form_name
  */
 function wpmtst_notify_admin( $post, $form_name = 'custom' ) {
 	$fields = wpmtst_get_form_fields( $form_name );
