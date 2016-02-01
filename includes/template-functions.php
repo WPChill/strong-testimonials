@@ -7,7 +7,6 @@
 
 /**
  * Template function for showing a View.
- * Merely a wrapper for the [strong] shortcode until that's removed in version 2.0.
  *
  * @since 1.25.0
  *
@@ -21,28 +20,7 @@ function strong_testimonials_view( $id = null ) {
 	$atts  = array( 'id' => $id );
 	$out   = WPMST()->parse_view( $out, $pairs, $atts );
 
-	// container_class is shared by display and form in both original and new default templates
-	$options = get_option( 'wpmtst_options' );
-	$out['container_class'] = 'strong-view-id-' . $out['view'];
-
-	if ( $out['class'] ) {
-		$out['container_class'] .= ' ' . str_replace( ',', ' ', $out['class'] );
-	}
-	if ( is_rtl() ) {
-		$out['container_class'] .= ' rtl';
-	}
-	WPMST()->set_atts( $out );
-
-	/**
-	 * MODE: FORM
-	 */
-	if ( $out['form'] )
-		echo wpmtst_form_shortcode( $out );
-
-	/**
-	 * MODE: DISPLAY (default)
-	 */
-	echo wpmtst_display_view( $out );
+	echo wpmtst_render_view( $out );
 }
 
 /**

@@ -20,12 +20,30 @@ function wpmtst_strong_view_shortcode( $atts, $content = null ) {
 		normalize_empty_atts( $atts ), 'testimonial_view'
 	);
 
+	return wpmtst_render_view( $out );
+}
+add_shortcode( 'testimonial_view', 'wpmtst_strong_view_shortcode' );
+
+/**
+ * testimonial_view attribute filter
+ *
+ * @since 1.21.0
+ * @param $out
+ * @param $pairs
+ * @param $atts
+ *
+ * @return array
+ */
+function wpmtst_strong_view_shortcode_filter( $out, $pairs, $atts ) {
+	return WPMST()->parse_view( $out, $pairs, $atts );
+}
+add_filter( 'shortcode_atts_testimonial_view', 'wpmtst_strong_view_shortcode_filter', 10, 3 );
+
+function wpmtst_render_view( $out ) {
 	// Did we find this view?
 	if ( isset( $out['view_not_found'] ) && $out['view_not_found'] ) {
 		return '<p style="color:red">' . __( sprintf( 'Strong Testimonials error: View %s not found', $out['view'] ) ) . '</p>';
 	}
-
-	$out['content'] = $content;
 
 	// Container class is shared by display and form in templates.
 	$options = get_option( 'wpmtst_options' );
@@ -50,22 +68,6 @@ function wpmtst_strong_view_shortcode( $atts, $content = null ) {
 	 */
 	return wpmtst_display_view( $out );
 }
-add_shortcode( 'testimonial_view', 'wpmtst_strong_view_shortcode' );
-
-/**
- * testimonial_view attribute filter
- *
- * @since 1.21.0
- * @param $out
- * @param $pairs
- * @param $atts
- *
- * @return array
- */
-function wpmtst_strong_view_shortcode_filter( $out, $pairs, $atts ) {
-	return WPMST()->parse_view( $out, $pairs, $atts );
-}
-add_filter( 'shortcode_atts_testimonial_view', 'wpmtst_strong_view_shortcode_filter', 10, 3 );
 
 /**
  * Strong view - display mode
@@ -227,7 +229,7 @@ function wpmtst_display_view( $atts ) {
 	do_action( 'wpmtst_view_rendered', $atts );
 
 	wp_reset_postdata();
-	$html = apply_filters( 'strong_html', $html );
+	$html = apply_filters( 'strong_view_html', $html );
 
 	return $html;
 }
@@ -280,8 +282,7 @@ function wpmtst_form_view( $atts ) {
 
 	do_action( 'wpmtst_form_rendered', $atts );
 
-	// TODO Different filter?
-	$html = apply_filters( 'strong_html', $html );
+	$html = apply_filters( 'strong_view_html', $html );
 
 	return $html;
 }

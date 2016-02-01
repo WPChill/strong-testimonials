@@ -170,7 +170,6 @@ function wpmtst_admin_scripts( $hook ) {
 	switch ( $hook ) {
 		case 'wpm-testimonial_page_fields':
 			wp_enqueue_style( 'wpmtst-admin-fields-style', WPMTST_URL . 'css/admin/fields.css', array(), $plugin_version );
-			//wp_enqueue_script( 'jquery-ui-sortable' );
 			wp_enqueue_script( 'wpmtst-admin-fields-script', WPMTST_URL . 'js/wpmtst-admin-fields.js', array( 'jquery', 'jquery-ui-sortable' ), $plugin_version );
 			wp_localize_script( 'wpmtst-admin-fields-script', 'ajax_object', array( 'ajaxurl' => admin_url( 'admin-ajax.php' ) ) );
 			break;
