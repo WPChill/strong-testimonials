@@ -33,6 +33,7 @@
 						<li><a href="https://wordpress.org/plugins/siteorigin-panels/" target="_blank" rel="nofollow">Page Builder by SiteOrigin</a></li>
 						<li><a href="http://cyberchimps.com/responsive-theme/" target="_blank" rel="nofollow">Responsive Theme by CyberChimps</a></li>
 						<li><a href="http://vc.wpbakery.com/" target="_blank" rel="nofollow">Visual Composer by WPBakery</a>
+						<li><a href="http://wpprofitbuilder.com/" target="_blank" rel="nofollow">WP Profit Builder</a></li>
 						<li><a href="http://theme.co/cornerstone" target="_blank" rel="nofollow">X Theme & Cornerstone</a></li>
 						</li>
 					</ol>
@@ -47,14 +48,20 @@
 
 				<td class="request">
 					<ol>
+						<li>Dynamik</li>
 						<li>Fast Page Layout</li>
 						<li>Lasso</li>
 						<li>Live Composer</li>
 						<li>Layers by Obox</li>
+						<li>Page Builder by WooRockets</li>
+						<li>Page Builder Sandwich</li>
+						<li>Pootle</li>
 						<li>Themify Builder</li>
 						<li>Velocity Page</li>
 						<li>Upfront by WPMU Dev</li>
+						<li>Zedity</li>
 					</ol>
+					<em>Do we really need any more page builders?</em>
 				</td>
 			</tr>
 		</table>

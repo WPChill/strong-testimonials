@@ -205,10 +205,8 @@ final class Strong_Testimonials {
 
 		if ( is_admin() ) {
 
-			//add_action( 'wpmtst_form_admin', 'wpmtst_settings_custom_fields' );
 			add_action( 'wpmtst_form_admin', 'wpmtst_form_admin2' );
 
-			//add_action( 'admin_init', 'wpmtst_redirect_about_page', 1 );
 			add_action( 'wp_loaded', 'wpmtst_redirect_about_page', 1 );
 
 		}

@@ -2,20 +2,16 @@
 
 	<section>
 
-		<h3 class="large"><?php _e( 'Welcome to Strong Testimonials version 1.25', 'strong-testimonials' ); ?></h3>
+		<h3 class="large"><?php _e( 'Welcome to Strong Testimonials version 2.0', 'strong-testimonials' ); ?></h3>
 
 		<h4 class="large"><?php _e( 'What\'s new' ); ?></h4>
 
-		<p><?php _e( 'Add columns or Masonry to any template.', 'strong-testimonials' ); ?></p>
-
-		<p><?php _e( 'Add a single background color, a gradient background, or choose a preset background for any template.', 'strong-testimonials' ); ?></p>
+		<p><?php _e( 'The &#91;strong&#93; and &#91;wpmtst&#93; shortcodes and the original widget have been removed.', 'strong-testimonials' ); ?></p>
 
 		<p><?php _e( 'Improved compatibility with WPML & Polylang.', 'strong-testimonials' ); ?></p>
 
-		<p><?php _e( 'Responsive design has been improved and a long-standing, intermittent slideshow style problem has been fixed.', 'strong-testimonials' ); ?></p>
+		<p><?php _e( 'Improved handling of special characters in the Fields editor.', 'strong-testimonials' ); ?></p>
 
-		<p><?php _e( 'Compatible with the popular <a href="https://wordpress.org/plugins/beaver-builder-lite-version/" target="_blank">Beaver Builder</a> and <a href="https://wordpress.org/plugins/popup-maker/" target="_blank">Popup Maker</a> plugins.', 'strong-testimonials' ); ?></p>
-		
 		<p style="font-style: italic;"><?php _e( 'Thanks for choosing Strong Testimonials!', 'strong-testimonials' ); ?></p>
 
 	</section>
