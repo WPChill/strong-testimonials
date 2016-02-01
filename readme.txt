@@ -8,13 +8,11 @@ Stable tag: trunk
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
-Add testimonials with a plugin that offers strong features and strong support.
+A full-featured plugin that works right out of the box for beginners and offers advanced features for pros, all backed by strong support.
 
 == Description ==
 
-Strong Testimonials is a full-featured plugin that works right out of the box for beginners and offers advanced features for pros.
-
-> [See the demos!](http://demos.wpmission.com/strong-testimonials/)
+> [See the plugin in action here!](http://demos.wpmission.com/strong-testimonials/)
 
 = Primary Features =
 
@@ -25,7 +23,7 @@ Strong Testimonials is a full-featured plugin that works right out of the box fo
 * Multiple slideshows
 * Sort by oldest, newest, random, or menu order
 * Simple pagination
-* Templates with layout and background options
+* Built-in templates with layout options for columns, grids, Masonry, and backgrounds
 * Template files and functions for deep customization
 * Custom "Read more" links
 * Gravatar support
@@ -43,7 +41,7 @@ Send a **notification email** to your multiple admins when new testimonials are 
 
 A View is a simple, intuitive way to configure the many available options.
 
-For displaying testimonials in a list or slideshow:
+For displaying testimonials in a **list** or **slideshow**:
 
 * select which testimonials to show
 * set the sort order
@@ -51,7 +49,7 @@ For displaying testimonials in a list or slideshow:
 * extras like pagination
 * layout and style options
 
-For showing the form:
+For showing the **form**:
 
 * select categories to assign the new testimonial to (optional)
 * style options
@@ -130,7 +128,7 @@ Yes. You can copy any template to your theme, with or without its associated sty
 
 = Can I make some suggestions? =
 
-I'm all ears! Many of the improvements over the last year are the result of feedback and ideas from people using the plugin in a variety of sites.
+I'm all ears! Many of the improvements over the last two years are the result of feedback and ideas from people using the plugin in a variety of sites.
 
 = Will it import my existing testimonials? =
 
@@ -140,15 +138,21 @@ Not yet.
 
 1. The default View settings and the default template.
 2. Another View and the Simple template.
-3. The form with default fields.
-4. A `[strong]` shortcode example.
-5. The testimonial admin list.
-6. The testimonial form settings.
-7. The View editor.
-8. The custom fields editor.
-9. Template files and template functions.
+3. The form with default fields plus Captcha.
+4. The testimonial admin list.
+5. The testimonial form settings.
+6. The View editor.
+7. The custom fields editor.
+8. Template files and template functions.
 
 == Changelog ==
+
+= 2.0 =
+* Remove [strong] and [wpmtst] shortcodes.
+* Remove original widget.
+* Improve handling of special characters in Fields editor.
+* Fix bug in failed Captcha when submitting form via Ajax.
+* Compatible with [Profit Builder](http://wpprofitbuilder.com/) plugin.
 
 = 1.25.7 =
 * Minor admin UI fixes.
@@ -244,4 +248,4 @@ Not yet.
 
 == Upgrade Notice ==
 
-More style options. Improved compatibility. Preparing for version 2.0.
+Version 2.0 removes `[strong]` and `[wpmtst]` shortcodes and the original widget.
