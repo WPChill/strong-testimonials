@@ -29,7 +29,7 @@
 						<li><a href="http://www.kriesi.at/theme-overview" target="_blank" rel="nofollow">Enfold Theme & Avia Framework</a></li>
 						<li><a href="http://goodlayers.com/" target="_blank" rel="nofollow">GoodLayers themes</a>
 						<li><a href="https://thethemefoundry.com/wordpress-themes/make/" target="_blank" rel="nofollow">Make Theme by Theme Foundry</a></li>
-						<li><a href="https://www.optimizepress.com/" target="_blank" rel="nofollow">OptmizePress</a></li>
+						<li><a href="https://www.optimizepress.com/" target="_blank" rel="nofollow">OptimizePress</a></li>
 						<li><a href="https://wordpress.org/plugins/siteorigin-panels/" target="_blank" rel="nofollow">Page Builder by SiteOrigin</a></li>
 						<li><a href="http://cyberchimps.com/responsive-theme/" target="_blank" rel="nofollow">Responsive Theme by CyberChimps</a></li>
 						<li><a href="http://vc.wpbakery.com/" target="_blank" rel="nofollow">Visual Composer by WPBakery</a>
@@ -50,8 +50,7 @@
 					<ol>
 						<li>Dynamik</li>
 						<li>Fast Page Layout</li>
-						<li>Lasso</li>
-						<li>Live Composer</li>
+						<li>Editus</li>
 						<li>Layers by Obox</li>
 						<li>Page Builder by WooRockets</li>
 						<li>Page Builder Sandwich</li>

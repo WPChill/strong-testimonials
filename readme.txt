@@ -8,11 +8,13 @@ Stable tag: trunk
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
-A full-featured plugin that works right out of the box for beginners and offers advanced features for pros, all backed by strong support.
+A full-featured testimonials plugin that works right out of the box for beginners and offers advanced features for pros, all backed by strong support.
 
 == Description ==
 
-> [See the plugin in action here!](http://demos.wpmission.com/strong-testimonials/)
+All the features you need to quickly add and customize testimonials on your site.
+
+**[See demos of various templates, slideshows, and forms here!](http://demos.wpmission.com/strong-testimonials/)**
 
 = Primary Features =
 
@@ -31,17 +33,19 @@ A full-featured plugin that works right out of the box for beginners and offers 
 
 = The Form =
 
-You can customize the form to your specific situation by adding or removing fields, or changing properties like the order, the text before or after, and the placeholder text.
+You can customize the form to your needs by adding or removing fields, or changing properties like the order, the text before or after, and the placeholder text.
 
 The form also offers **anti-spam** options like honeypots and Captcha via these plugins: [Captcha](http://wordpress.org/plugins/captcha/), [Really Simple Captcha](http://wordpress.org/plugins/really-simple-captcha/), and [Advanced noCaptcha reCaptcha](https://wordpress.org/plugins/advanced-nocaptcha-recaptcha/).
 
 Send a **notification email** to your multiple admins when new testimonials are submitted.
 
-= Views =
+The form can be submitted via Ajax which makes it compatible with the popular [Popup Maker](https://wordpress.org/plugins/popup-maker/) plugin. The newly submitted testimonial can also be assigned to a specific category.
 
-A View is a simple, intuitive way to configure the many available options.
+= Display =
 
-For displaying testimonials in a **list** or **slideshow**:
+A View is a simple, intuitive editor that no other testimonial plugin has. Instead of multiple shortcodes with dozens of options, a View contains all the options in one screen. Displaying the View is done with a single shortcode or the widget.
+
+Some of the options for displaying testimonials in a **list** or **slideshow**:
 
 * select which testimonials to show
 * set the sort order
@@ -49,12 +53,7 @@ For displaying testimonials in a **list** or **slideshow**:
 * extras like pagination
 * layout and style options
 
-For showing the **form**:
-
-* select categories to assign the new testimonial to (optional)
-* style options
-
-Add the View via shortcode or widget.
+Check out the [screenshots](https://wordpress.org/plugins/strong-testimonials/screenshots/).
 
 = Style =
 
@@ -112,7 +111,7 @@ Yes. You can edit the subject line, the message, the sender, and the recipient(s
 
 = Can I change which client fields appear below the testimonial? =
 
-Yes. In Views, the client fields, including your custom fields, can be changed with a few clicks.
+Yes. In Views, these custom fields can be changed with a few clicks.
 
 = Can I change "testimonial" to "review", for example? =
 
@@ -124,7 +123,7 @@ It depends. I have narrowed down the causes of many conflicts and addressed them
 
 = I'm familiar with template files. Can I customize the template? =
 
-Yes. You can copy any template to your theme, with or without its associated stylesheet, and customize it as you see fit. You can also have multiple custom templates. (A tutorial is coming soon.)
+Yes. With some HTML and CSS knowledge, you can copy any template to your theme and customize it as you see fit. You can also have multiple custom templates. (A tutorial is coming soon.)
 
 = Can I make some suggestions? =
 
@@ -147,8 +146,11 @@ Not yet.
 
 == Changelog ==
 
-= 2.0 - February 2nd, 2016 =
-* Remove `[strong]` and `[wpmtst]` shortcodes.
+= 2.0.1 - February 3, 2016 =
+* Fix bug that restored default custom fields.
+
+= 2.0 - February 2, 2016 =
+* Remove `[strong]`, `[wpmtst]`, `[read_more]` shortcodes.
 * Remove original widget.
 * Add content area to View widget.
 * Improve handling of special characters in Fields editor.

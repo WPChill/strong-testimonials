@@ -114,8 +114,8 @@ function wpmtst_get_default_fields() {
 	}
 
 	// Assemble default field settings.
-	$default_fields['field_base']          = $field_base;
-	$default_fields['field_types']         = $field_types;
+	$default_fields['field_base']  = $field_base;
+	$default_fields['field_types'] = $field_types;
 
 	return $default_fields;
 }

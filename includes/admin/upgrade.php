@@ -83,11 +83,25 @@ function wpmtst_default_settings() {
 	if ( ! $fields ) {
 		// -3A- NEW ACTIVATION
 		update_option( 'wpmtst_fields', $default_fields );
-		// WPML
-		//wpmtst_form_fields_wpml( $default_fields['field_groups']['custom']['fields'] );
 	}
 	else {
 		// -3B- UPDATE
+
+		/**
+		 * Updating from 1.x
+		 *
+		 * Copy current custom fields to the new default custom form which will be added in the next step.
+		 *
+		 * @since 2.0.1
+		 */
+		if ( isset( $fields['field_groups'] ) ) {
+			$current_custom_fields = $fields['field_groups']['custom'];
+			$default_custom_forms[1]['fields'] = $current_custom_fields['fields'];
+			unset( $fields['field_groups'] );
+		}
+		if ( isset( $fields['current_field_group'] ) ) {
+			unset( $fields['current_field_group'] );
+		}
 
 		// ----------
 		// field base
@@ -116,6 +130,7 @@ function wpmtst_default_settings() {
 				$new_field_types[ $type_name ] = $type_array;
 			}
 		}
+
 		// now update existing types like "post" and "custom"
 		foreach ( $new_field_types as $type_name => $type_array ) {
 			foreach ( $type_array as $field_name => $field_atts ) {
@@ -123,15 +138,6 @@ function wpmtst_default_settings() {
 			}
 		}
 
-		// ------------
-		// field_groups
-		// ------------
-		if ( isset( $fields['field_groups'] ) ) {
-			unset( $fields['field_groups'] );
-		}
-		if ( isset( $fields['current_field_group'] ) ) {
-			unset( $fields['current_field_group'] );
-		}
 		// Re-assemble fields and save.
 		$fields['field_base']   = $new_field_base;
 		$fields['field_types']  = $new_field_types;
