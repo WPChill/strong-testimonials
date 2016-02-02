@@ -147,9 +147,10 @@ Not yet.
 
 == Changelog ==
 
-= 2.0 =
-* Remove [strong] and [wpmtst] shortcodes.
+= 2.0 - February 2nd, 2016 =
+* Remove `[strong]` and `[wpmtst]` shortcodes.
 * Remove original widget.
+* Add content area to View widget.
 * Improve handling of special characters in Fields editor.
 * Fix bug in failed Captcha when submitting form via Ajax.
 * Compatible with [Profit Builder](http://wpprofitbuilder.com/) plugin.
@@ -158,10 +159,10 @@ Not yet.
 * Minor admin UI fixes.
 
 = 1.25.6 =
-* Fix [strong] slideshow script.
+* Fix `[strong]` slideshow script.
 * Fix View list table column sorting.
 * Fix single category selection in View editor.
-* Make compatible with Taxonomy Terms Order plugin by nsp-code.
+* Compatible with [Taxonomy Terms Order](https://wordpress.org/plugins/taxonomy-terms-order/) plugin by Nsp-Code.
 * Remove unused files.
 
 = 1.25.5 =
@@ -172,13 +173,13 @@ Not yet.
 * Fix bug in submission form.
 
 = 1.25.3 =
-* Fix conflict with Post Types Order plugin.
+* Fix conflict with [Post Types Order](https://wordpress.org/plugins/post-types-order/) plugin.
 * Fix localization of form error messages.
-* Fix conflict with Page Builder by SiteOrigin
+* Fix conflict with [Page Builder by SiteOrigin](https://wordpress.org/plugins/siteorigin-panels/).
 * Don't show welcome page on bugfix updates - sorry :)
 
 = 1.25.2 =
-* Fix bug in [strong form].
+* Fix bug in `[strong form]`.
 
 = 1.25.1 =
 * Fix bug in Internet Explorer and Safari.
