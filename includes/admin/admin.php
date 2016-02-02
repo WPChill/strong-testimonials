@@ -222,12 +222,8 @@ function wpmtst_admin_polylang() {
 	wp_enqueue_style( 'wpmtst-admin-style-polylang', WPMTST_URL . 'css/admin/polylang.css', array(), $plugin_version );
 
 	include_once WPMTST_INC . 'defaults.php';
-	//$default_fields = wpmtst_get_default_fields();
 	$fields = wpmtst_get_custom_fields();
-	//wpmtst_form_fields_polylang( $default_fields['field_groups']['custom']['fields'] );
 	wpmtst_form_fields_polylang( $fields );
-	//$fields = get_option( 'wpmtst_fields', array() );
-	//wpmtst_form_fields_polylang( $fields['field_groups']['custom']['fields'] );
 	wpmtst_form_fields_polylang( $fields );
 	$form_options = get_option( 'wpmtst_form_options', array() );
 	wpmtst_form_messages_polylang( $form_options['messages'] );

@@ -113,12 +113,6 @@ function wpmtst_settings_custom_fields( $action = '', $form_id = null ) {
 		}
 
 	}
-	else {
-
-		// Get current fields
-		//$fields = $field_group['fields'];
-
-	}
 
 	// ------------------
 	// Custom Fields Form

@@ -608,7 +608,6 @@ function wpmtst_view_edit_form() {
 
 }
 add_action( 'admin_post_view_edit_form', 'wpmtst_view_edit_form' );
-//add_action( 'admin_post_nopriv_view_edit_form', 'wpmtst_view_edit_form' );
 
 
 /**
@@ -667,7 +666,6 @@ function wpmtst_view_add_form() {
 
 }
 add_action( 'admin_post_view_add_form', 'wpmtst_view_add_form' );
-//add_action( 'admin_post_nopriv_view_add_form', 'wpmtst_view_add_form' );
 
 
 /**

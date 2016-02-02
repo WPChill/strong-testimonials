@@ -269,7 +269,6 @@ function wpmtst_get_all_fields() {
 	 * but not in any custom form, the column will still be shown.
 	 */
 	$fields = $forms[1]['fields'];
-	//unset( $forms[1] );
 
 	// replace key with field name
 	foreach ( $fields as $field ) {
