@@ -19,30 +19,8 @@ function wpmtst_strong_view_shortcode( $atts, $content = null ) {
 		WPMST()->get_view_defaults(),
 		normalize_empty_atts( $atts ), 'testimonial_view'
 	);
-	$out['content'] = $content;
 
-	// container_class is shared by display and form in both original and new default templates
-	$options = get_option( 'wpmtst_options' );
-	$out['container_class'] = 'strong-view-id-' . $out['view'];
-
-	if ( $out['class'] ) {
-		$out['container_class'] .= ' ' . str_replace( ',', ' ', $out['class'] );
-	}
-	if ( is_rtl() ) {
-		$out['container_class'] .= ' rtl';
-	}
-	WPMST()->set_atts( $out );
-
-	/**
-	 * MODE: FORM
-	 */
-	if ( $out['form'] )
-		return wpmtst_form_shortcode( $out );
-
-	/**
-	 * MODE: DISPLAY (default)
-	 */
-	return wpmtst_display_view( $out );
+	return wpmtst_render_view( $out );
 }
 add_shortcode( 'testimonial_view', 'wpmtst_strong_view_shortcode' );
 
@@ -61,26 +39,253 @@ function wpmtst_strong_view_shortcode_filter( $out, $pairs, $atts ) {
 }
 add_filter( 'shortcode_atts_testimonial_view', 'wpmtst_strong_view_shortcode_filter', 10, 3 );
 
-/**
- * read_more shortcode
- *
- * @since 1.21.0
- * @param $atts
- * @param null $content
- *
- * @return string
- */
-function wpmtst_read_more_shortcode( $atts, $content = null ) {
-	$atts = shortcode_atts(
-		array(
-			'page'  => '',
-			'class' => '',
-		),
-		normalize_empty_atts( $atts ), 'read_more'
-	);
-	return wpmtst_readmore_shortcode( $atts, $content );
+function wpmtst_render_view( $out ) {
+	// Did we find this view?
+	if ( isset( $out['view_not_found'] ) && $out['view_not_found'] ) {
+		return '<p style="color:red">' . __( sprintf( 'Strong Testimonials error: View %s not found', $out['view'] ) ) . '</p>';
+	}
+
+	// Container class is shared by display and form in templates.
+	$options = get_option( 'wpmtst_options' );
+	$out['container_class'] = 'strong-view-id-' . $out['view'];
+
+	if ( $out['class'] ) {
+		$out['container_class'] .= ' ' . str_replace( ',', ' ', $out['class'] );
+	}
+	if ( is_rtl() ) {
+		$out['container_class'] .= ' rtl';
+	}
+	WPMST()->set_atts( $out );
+
+	/**
+	 * MODE: FORM
+	 */
+	if ( $out['form'] )
+		return wpmtst_form_view( $out );
+
+	/**
+	 * MODE: DISPLAY (default)
+	 */
+	return wpmtst_display_view( $out );
 }
-add_shortcode( 'read_more', 'wpmtst_read_more_shortcode' );
+
+/**
+ * Strong view - display mode
+ *
+ * @param $atts
+ *
+ * @return mixed|string|void
+ */
+function wpmtst_display_view( $atts ) {
+	global $strong_templates;
+	extract( $atts );
+
+	// classes
+	$content_class_list   = '';
+	$post_class_list      = 'testimonial';
+
+	// excerpt overrides length
+	if ( $excerpt ) {
+		$post_class_list .= ' excerpt';
+	} elseif ( $length ) {
+		$post_class_list .= ' truncated';
+	}
+
+	/**
+	 * Build the query
+	 */
+
+	$categories = explode( ',', $category );
+	$ids        = explode( ',', $id );
+
+	$args = array(
+		'post_type'      => 'wpm-testimonial',
+		'posts_per_page' => -1,
+		'post_status'    => 'publish',
+	);
+
+	// id overrides category
+	if ( $id ) {
+		$args['post__in'] = $ids;
+	} elseif ( $category ) {
+		$args['tax_query'] = array(
+			array(
+				'taxonomy' => 'wpm-testimonial-category',
+				'field'    => 'id',
+				'terms'    => $categories
+			)
+		);
+	}
+
+	// order by
+	if ( $menu_order ) {
+		$args['orderby'] = 'menu_order';
+		$args['order']   = 'ASC';
+	} else {
+		$args['orderby'] = 'post_date';
+		if ( $newest ) {
+			$args['order'] = 'DESC';
+		} else {
+			$args['order'] = 'ASC';
+		}
+	}
+
+	// For Post Types Order plugin
+	$args['ignore_custom_sort'] = true;
+
+	$query = new WP_Query( $args );
+
+	/**
+	 * Shuffle array in PHP instead of SQL.
+	 *
+	 * @since 1.16
+	 */
+	if ( $random ) {
+		shuffle( $query->posts );
+	}
+
+	/**
+	 * Extract slice of array, which may be shuffled.
+	 *
+	 * Use lesser value: requested count or actual count.
+	 * Thanks chestozo.
+	 * @link https://github.com/cdillon/strong-testimonials/pull/5
+	 *
+	 * @since 1.16.1
+	 */
+	if ( !$all && $count > 0 ) {
+		$count = min( $count, count( $query->posts ) );
+		$query->posts = array_slice( $query->posts, 0, $count );
+		$query->post_count = $count;
+	}
+
+	$post_count = $query->post_count;
+
+	/**
+	 * -------------------
+	 * SUB-MODE: SLIDESHOW
+	 * -------------------
+	 * This check must be after the query due to changes in the random option.
+	 */
+	if ( $slideshow ) {
+		// add slideshow signature
+		$args = array(
+			'fx'      => 'fade',
+			'speed'   => $effect_for * 1000,
+			'timeout' => $show_for * 1000,
+			'pause'   => $no_pause ? 0 : 1
+		);
+		$content_class_list .= ' strong_cycle strong_cycle_' . hash( 'md5', serialize( $args ) );
+		$post_class_list    .= ' t-slide';
+	}
+	else {
+		// pagination
+		if ( $per_page && $post_count > $per_page ) {
+			$content_class_list .= ' strong-paginated';
+		}
+
+		// layouts
+		if ( 'masonry' == $layout ) {
+			$content_class_list .= ' strong-masonry columned columns-' . $column_count;
+		}
+		elseif ( 'grid' == $layout ) {
+			$content_class_list .= ' strong-grid columned columns-' . $column_count;
+		}
+		elseif ( 'columns' == $layout ) {
+			$content_class_list .= ' strong-columns columned columns-' . $column_count;
+		}
+	}
+
+	/**
+	 * Add new values to shortcode atts
+	 */
+	if ( 'custom' == $thumbnail_size ) {
+		$atts['thumbnail_size'] = array( $thumbnail_width, $thumbnail_height );
+	}
+	$atts['content_class'] = $content_class_list;
+	$atts['post_class']    = $post_class_list;
+	WPMST()->set_atts( $atts );
+
+	/**
+	 * Add filters here.
+	 */
+	add_filter( 'get_avatar', 'wpmtst_get_avatar', 10, 3 );
+
+	/**
+	 * Load template
+	 */
+	$template_file = $strong_templates->get_template_attr( $atts, 'template' );
+	ob_start();
+	/** @noinspection PhpIncludeInspection */
+	include( $template_file );
+	$html = ob_get_contents();
+	ob_end_clean();
+
+	/**
+	 * Remove filters here.
+	 */
+	remove_filter( 'get_avatar', 'wpmtst_get_avatar' );
+
+	do_action( 'wpmtst_view_rendered', $atts );
+
+	wp_reset_postdata();
+	$html = apply_filters( 'strong_view_html', $html );
+
+	return $html;
+}
+
+/**
+ * The form.
+ *
+ * @param $atts
+ *
+ * @return mixed|string|void
+ */
+function wpmtst_form_view( $atts ) {
+	global $strong_templates;
+
+	if ( isset( $_GET['success'] ) ) {
+		return '<div class="testimonial-success">' . wpmtst_get_form_message( 'submission-success' ) . '</div>';
+	}
+
+	extract( normalize_empty_atts( $atts ) );
+
+	$fields = wpmtst_get_form_fields( $form_id );
+
+	$form_values = array( 'category' => $category );
+	foreach ( $fields as $key => $field ) {
+		$form_values[ $field['name'] ] = '';
+	}
+	$previous_values = WPMST()->get_form_values();
+	if ( $previous_values ) {
+		$form_values = array_merge( $form_values, $previous_values );
+	}
+	WPMST()->set_form_values( $form_values );
+
+	/**
+	 * Add filters here.
+	 */
+
+	/**
+	 * Load template
+	 */
+	$template_file = $strong_templates->get_template_attr( $atts, 'template' );
+	ob_start();
+	/** @noinspection PhpIncludeInspection */
+	include $template_file;
+	$html = ob_get_contents();
+	ob_end_clean();
+
+	/**
+	 * Remove filters here.
+	 */
+
+	do_action( 'wpmtst_form_rendered', $atts );
+
+	$html = apply_filters( 'strong_view_html', $html );
+
+	return $html;
+}
 
 /**
  * Normalize empty shortcode attributes.
@@ -102,395 +307,60 @@ if ( ! function_exists( 'normalize_empty_atts' ) ) {
 	}
 }
 
-
 /**
- * Single Testimonial LAYOUT
- * Will be removed in 2.0
- *
- * @deprecated
+ * Honeypot preprocessor
  */
-function wpmtst_single( $post, $args = array() ) {
-	extract( array_merge( array(
-			'title'   => 1,
-			'images'  => 1,
-			'content' => '',
-			'client'  => 1,
-			'more'    => 0
-	), $args ) );
-
-	$client_info = do_shortcode( wpmtst_client_info( $post ) );
-
-	ob_start();
-	include( WPMTST_INC . 'wpmtst-single.php' );
-	$html = ob_get_contents();
-	ob_end_clean();
-	return $html;
+function wpmtst_honeypot_before() {
+	if ( isset( $_POST['wpmtst_if_visitor'] ) && ! empty( $_POST['wpmtst_if_visitor'] ) ) {
+		do_action( 'honeypot_before_spam_testimonial', $_POST );
+		$form_options = get_option( 'wpmtst_form_options' );
+		$messages     = $form_options['messages'];
+		die( apply_filters( 'wpmtst_l10n', $messages['submission-error']['text'], 'strong-testimonials-form-messages', $messages['submission-error']['description'] ) );
+	}
+	return;
 }
 
-
 /**
- * Assemble and display client info.
- * Will be removed in 2.0
- *
- * @deprecated
+ * Honeypot preprocessor
  */
-function wpmtst_client_info( $post ) {
-	// ---------------------------------------------------------------------
-	// Get the client template, populate it with data from the current post,
-	// then render it.
-	//
-	// Third approach. Took me all day on 6/30/2014.
-	// ---------------------------------------------------------------------
-
-	$html = '';
-	$options  = get_option( 'wpmtst_options' );
-	$fields   = get_option( 'wpmtst_fields' );
-	$template = $options['client_section'];
-
-	$lines = explode( PHP_EOL, $template );
-	// [wpmtst-text field="client_name" class="name"]
-	// [wpmtst-link url="company_website" text="company_name" new_tab class="company"]
-
-	foreach ( $lines as $line ) {
-		// to get shortcode:
-		$pattern = '/\[([a-z0-9_\-]+)/';
-		preg_match( $pattern, $line, $matches );
-		if ( $matches ) {
-			$shortcode = $matches[1];
-			if ( 'wpmtst-text' == $shortcode ) {
-				// to get field:
-				$pattern = '/field="(\w+)"/';
-				preg_match( $pattern, $line, $matches2 );
-				if ( $matches2 ) {
-					$field_name = $matches2[1];
-					$post_value = $post->$field_name;
-					// add to line as content and close shortcode
-					$line .= $post_value . '[/' . $shortcode . ']';
-					$html .= $line;
-				}
-			}
-			elseif ( 'wpmtst-link' == $shortcode ) {
-				// (\w+)="(\w+)"
-				// to get url:
-				$pattern = '/url="(\w+)"/';
-				preg_match( $pattern, $line, $matches2 );
-				if ( $matches2 ) {
-					$field_name = $matches2[1];
-					$post_value = $post->$field_name;
-					// add to line as content with separator
-					$line .= $post_value . '|';
-				}
-				// to get text:
-				$pattern = '/text="(\w+)"/';
-				preg_match( $pattern, $line, $matches3 );
-				if ( $matches3 ) {
-					$field_name = $matches3[1];
-					$post_value = $post->$field_name;
-					// add to line as content
-					$line .= $post_value;
-				}
-				// check nofollow:
-				$line .= '|';
-				if ( get_post_meta( $post->ID, 'nofollow' ) )
-					$line .= 'nofollow';
-				// close shortcode
-				$line .= '[/' . $shortcode . ']';
-				$html .= $line;
-			}
-		}
+function wpmtst_honeypot_after() {
+	if ( ! isset ( $_POST['wpmtst_after'] ) ) {
+		do_action( 'honeypot_after_spam_testimonial', $_POST );
+		$form_options = get_option( 'wpmtst_form_options' );
+		$messages     = $form_options['messages'];
+		die( apply_filters( 'wpmtst_l10n', $messages['submission-error']['text'], 'strong-testimonials-form-messages', $messages['submission-error']['description'] ) );
 	}
-	// return do_shortcode( $html );
-	return $html;
+	return;
 }
 
-
 /**
- * Client text field shortcode.
- * Will be removed in 2.0
- *
- * @deprecated
+ * Honeypot
  */
-function wpmtst_text_shortcode( $atts, $content = null ) {
-	// bail if no content
-	if ( empty( $content ) || '|' === $content )
-		return;
-
-	extract( shortcode_atts(
-		array(
-			'field' => '',
-			'class' => ''
-		),
-		normalize_empty_atts( $atts )
-	) );
-	return '<div class="' . $class . '">' . $content . '</div>';
-}
-add_shortcode( 'wpmtst-text', 'wpmtst_text_shortcode' );
-
-
-/**
- * Client link shortcode.
- * Will be removed in 2.0
- *
- * @deprecated
- */
-function wpmtst_link_shortcode( $atts, $content = null ) {
-	// content like "company_website|company_name|nofollow"
-	// bail if no content
-	if ( empty( $content ) || '|' === $content )
-		return;
-
-	extract( shortcode_atts(
-		array(
-				'url'      => '',
-				'new_tab'  => 0,
-				'nofollow' => '',   // client-specific, not global
-				'text'     => '',
-				'class'    => ''
-		),
-		normalize_empty_atts( $atts )
-	) );
-
-	list( $url, $text, $nofollow ) = explode( '|', $content );
-
-	// if no company name, use domain name
-	if ( ! $text )
-		$text = preg_replace( "(^https?://)", "", $url );
-
-	// if no url, return as text shortcode instead
-	if ( $url )
-		return '<div class="' . $class . '"><a href="' . $url . '"'. link_new_tab( $new_tab, false ) . link_nofollow( $nofollow, false ) . '>' . $text . '</a></div>';
-	else
-		return '<div class="' . $class . '">' . $text . '</div>';
-}
-add_shortcode( 'wpmtst-link', 'wpmtst_link_shortcode' );
-
-
-/**
- * Single testimonial shortcode.
- * Will be removed in 2.0
- *
- * @deprecated
- * @uses wpmtst-single.php
- */
-function wpmtst_single_shortcode( $atts ) {
-	extract( shortcode_atts(
-		array( 'id' => null ),
-		normalize_empty_atts( $atts )
-	) );
-
-	if ( !$id )
-		return '';
-
-	$post = get_post( $id );
-	if ( !$post )
-		return '';
-
-	$post = wpmtst_get_post( $post );
-
-	$display = '<div id="wpmtst-container">'. wpmtst_single( $post ) . '</div>';
-	return $display;
-}
-add_shortcode( 'wpmtst-single', 'wpmtst_single_shortcode' );
-
-
-/**
- * Random testimonial shortcode.
- * Will be removed in 2.0
- *
- * @deprecated
- * @uses wpmtst-single.php
- */
-function wpmtst_random_shortcode( $atts ) {
-	extract( shortcode_atts(
-		array(
-				'category' => '',
-				'limit'    => 1,
-		),
-		normalize_empty_atts( $atts )
-	) );
-	$categories = explode( ',', $category );
-
-	$args = array(
-			'post_type'      => 'wpm-testimonial',
-			'posts_per_page' => -1,
-			'orderby'        => 'post_date',
-			'post_status'    => 'publish'
-	);
-
-	if ( $category ) {
-		$args['tax_query'] = array(
-				array(
-						'taxonomy' => 'wpm-testimonial-category',
-						'field'    => 'term_id',
-						'terms'    => $categories,
-						'include_children' => false
-				)
-		);
-	}
-
-	$wp_query = new WP_Query();
-	$results  = $wp_query->query( $args );
-	shuffle( $results );
-	$limit = min( $limit, count( $results ) );
-	if ( $limit > 0 ) {
-		$results = array_slice( $results, 0, $limit );
-	}
-
-	$display = '<div id="wpmtst-container">';
-	foreach ( $results as $post ) {
-		$display .= wpmtst_single( wpmtst_get_post( $post ) );
-	}
-	$display .= '</div>';
-
-	return $display;
-}
-add_shortcode( 'wpmtst-random', 'wpmtst_random_shortcode' );
-
-
-/**
- * All testimonials shortcode.
- * Will be removed in 2.0
- *
- * @deprecated
- * @uses wpmtst-single.php
- */
-function wpmtst_all_shortcode( $atts ) {
-	extract( shortcode_atts(
-		array(
-				'category' => '',
-				'limit' => -1
-		),
-		normalize_empty_atts( $atts )
-	) );
-	$categories = explode( ',', $category );
-
-	$args = array(
-			'post_type'      => 'wpm-testimonial',
-			'posts_per_page' => $limit,
-			// 'orderby'        => 'menu_order',
-			// 'order'          => 'DESC',
-			'post_status'    => 'publish'
-	);
-
-	if ( $category ) {
-		$args['tax_query'] = array(
-				array(
-						'taxonomy' => 'wpm-testimonial-category',
-						'field'    => 'term_id',
-						'terms'    => $categories,
-						'include_children' => false
-				)
-		);
-	}
-
-	$wp_query = new WP_Query();
-	$results = $wp_query->query( $args );
-
-	$display = '<div id="wpmtst-container">';
-	foreach ( $results as $post ) {
-		$display .= '<div class="result">' . wpmtst_single( wpmtst_get_post( $post ) ) . '</div>';
-	}
-	$display .= '</div><!-- wpmtst-container -->';
-
-	return $display;
-}
-add_shortcode( 'wpmtst-all', 'wpmtst_all_shortcode' );
-
-
-/**
- * Cycle testimonials shortcode.
- * Will be removed in 2.0
- *
- * @deprecated
- * @uses wpmtst-single.php
- */
-function wpmtst_cycle_shortcode( $atts ) {
-	extract( shortcode_atts(
-		array(),
-		normalize_empty_atts( $atts )
-	) );
-	$cycle = get_option( 'wpmtst_cycle' );
-
-	if ( 'menu_order' == $cycle['order'] ) {
-		$orderby = 'menu_order';
-		$order   = 'ASC';
-	}
-	else {
-		$orderby = 'post_date';
-		if ( 'oldest' == $cycle['order'] )
-			$order = 'ASC';
-		else
-			$order = 'DESC';
-	}
-	$limit = ( $cycle['all'] ? -1 : $cycle['limit'] );
-
-	$args = array(
-			'post_type'      => 'wpm-testimonial',
-			'post_status'    => 'publish',
-			'posts_per_page' => -1,
-			'orderby'        => $orderby,
-			'order'          => $order,
-	);
-
-	if ( $cycle['category'] && 'all' != $cycle['category'] ) {
-		$args['tax_query'] = array(
-				array(
-						'taxonomy' => 'wpm-testimonial-category',
-						'field'    => 'term_id',
-						'terms'    => $cycle['category'],
-						'include_children' => false,
-				)
-		);
-	}
-
-	$wp_query = new WP_Query();
-	$results = $wp_query->query( $args );
-
-	/**
-	 * Shuffle array in PHP instead of SQL.
-	 *
-	 * @since 1.16
-	 */
-	if ( 'rand' == $cycle['order'] ) {
-		shuffle( $results );
-	}
-
-	/**
-	 * Extract slice of array, which may be shuffled.
-	 *
-	 * @since 1.16.1
-	 */
-	if ( $limit > 0 ) {
-		$results = array_slice( $results, 0, $limit );
-	}
-
-	$display = '<div id="wpmtst-container" class="tcycle tcycle_cycle_shortcode">';
-	foreach ( $results as $post ) {
-		$display .= '<div class="result t-slide">' . wpmtst_single( wpmtst_get_post( $post ), $cycle ) . '</div>';
-	}
-	$display .= '</div><!-- #wpmtst-container -->';
-
-	return $display;
-}
-add_shortcode( 'wpmtst-cycle', 'wpmtst_cycle_shortcode' );
-
-
-/**
- * Pagination on "All Testimonials" shortcode.
- * Will be removed in 2.0
- *
- * @deprecated
- */
-function wpmtst_pagination_function() {
-	$options  = get_option( 'wpmtst_options' );
-	$per_page = $options['per_page'] ? $options['per_page'] : 5;
-	if ( $per_page < 1 )
-		return;
+function wpmtst_honeypot_before_script() {
 	?>
-	<script type="text/javascript">
-		jQuery(document).ready(function($) {
-			$("#wpmtst-container").quickPager({ pageSize: <?php echo $per_page; ?>, currentPage: 1, pagerLocation: "after" });
-		});
+	<script type="text/javascript">jQuery('#wpmtst_if_visitor').val('');</script>
+	<?php
+}
+
+/**
+ * Honeypot
+ */
+function wpmtst_honeypot_after_script() {
+	?>
+	<script type='text/javascript'>
+		//<![CDATA[
+		( function( $ ) {
+			'use strict';
+			var forms = "#wpmtst-submission-form";
+			$( forms ).submit( function() {
+				$( "<input>" ).attr( "type", "hidden" )
+					.attr( "name", "wpmtst_after" )
+					.attr( "value", "1" )
+					.appendTo( forms );
+				return true;
+			});
+		})( jQuery );
+		//]]>
 	</script>
 	<?php
 }

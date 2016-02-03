@@ -32,23 +32,25 @@ function wpmtst_truncate( $content, $limit ) {
 
 /**
  * Append custom fields to post object.
- * Add thumbnail if included in field group. (v1.8)
+ * Add thumbnail if included in field group.
+ *
+ * @param $post
+ *
+ * @return mixed
  */
 function wpmtst_get_post( $post ) {
 	$custom = get_post_custom( $post->ID );
-	$fields = get_option( 'wpmtst_fields' );
-	$field_groups = $fields['field_groups'];
+	$fields = wpmtst_get_custom_fields();
 
-	// Only add on fields from current field group.
-	foreach ( $field_groups[ $fields['current_field_group'] ]['fields'] as $key => $field ) {
+	foreach ( $fields as $key => $field ) {
 		$name = $field['name'];
 
-		if ( 'featured_image' == $name )
+		if ( 'featured_image' == $name ) {
 			$post->thumbnail_id = get_post_thumbnail_id( $post->ID );
-
-		if ( 'custom' == $field['record_type'] ) {
-			if ( isset( $custom[$name] ) )
-				$post->$name = $custom[$name][0];
+		}
+		else {
+			if ( isset( $custom[ $name ] ) )
+				$post->$name = $custom[ $name ][0];
 			else
 				$post->$name = '';
 		}
@@ -195,54 +197,95 @@ function wpmtst_uasort( $a, $b ) {
 	return ( $a['order'] < $b['order'] ) ? -1 : 1;
 }
 
-/**
- * Return the shortcode tag.
- *
- * @since 1.18.4
- *
- * @return string
- */
-function wpmtst_get_shortcode() {
-	$options = get_option( 'wpmtst_options' );
-	if ( $options && isset( $options['shortcode'] ) && $options['shortcode'] )
-		return $options['shortcode'];
-	else
-		return 'strong';
+function wpmtst_get_custom_form_count() {
+	$forms = get_option( 'wpmtst_custom_forms' );
+	return count( $forms );
+}
+
+
+function wpmtst_get_form_fields( $form_id = 1 ) {
+	$forms = get_option( 'wpmtst_custom_forms' );
+	if ( isset( $forms[ $form_id ] ) ) {
+		$form = $forms[ $form_id ];
+	}
+	else {
+		$form = $forms[1];
+	}
+	$fields = $form['fields'];
+	return $fields;
 }
 
 /**
- * Get custom fields.
+ * Get only custom fields from all field groups.
  *
- * @since 1.21.0
+ * Used in post editor.
+ *
  * @return array
  */
 function wpmtst_get_custom_fields() {
-	$field_options       = get_option( 'wpmtst_fields' );
-	$field_groups        = $field_options['field_groups'];
-	$current_field_group = $field_options['current_field_group'];
-	$field_group         = $field_groups[$current_field_group];
-	$custom_fields       = $field_group['fields'];
-	return $custom_fields;
+	$forms = get_option( 'wpmtst_custom_forms' );
+	$all_fields = array();
+
+	// use default group as base
+	$fields = $forms[1]['fields'];
+	//unset( $forms[1] );
+
+	// replace key with field name
+	foreach ( $fields as $field ) {
+		if ( 'custom' == $field['record_type'] ) {
+			$all_fields[ $field['name'] ] = $field;
+		}
+	}
+
+	// merge remaining form fields
+	foreach ( $forms as $form ) {
+		$custom_fields = array();
+		$fields = $form['fields'];
+		foreach ( $fields as $field ) {
+			if ( 'custom' == $field['record_type'] ) {
+				$custom_fields[ $field['name'] ] = $field;
+			}
+		}
+		$all_fields = array_merge( $all_fields, $custom_fields );
+	}
+
+	return $all_fields;
 }
 
 /**
+ * Get all fields from all field groups.
+ *
+ * Used for admin list columns.
+ *
  * @return array
  */
-function wpmtst_get_custom_field_list() {
-	// ----------------------------
-	// Build list of custom fields.
-	// ----------------------------
-	$field_options = get_option( 'wpmtst_fields' );
-	$field_groups = $field_options['field_groups'];
-	$current_field_group = $field_options['current_field_group'];
-	$fields = $field_groups[$current_field_group]['fields'];
-	$fields_array = array();
+function wpmtst_get_all_fields() {
+	$forms = get_option( 'wpmtst_custom_forms' );
+	$all_fields = array();
+
+	/**
+	 * Use first custom form as the base because if we use 'default'
+	 * and a field has 'admin_table' enabled in 'default'
+	 * but not in any custom form, the column will still be shown.
+	 */
+	$fields = $forms[1]['fields'];
+
+	// replace key with field name
 	foreach ( $fields as $field ) {
-		if ( ! in_array( $field['name'], array( 'post_title', 'post_content', 'featured_image' ) ) ) {
-			$fields_array[] = $field['name'];
-		}
+		$all_fields[ $field['name'] ] = $field;
 	}
-	return $fields_array;
+
+	// merge remaining form fields
+	foreach ( $forms as $form ) {
+		$custom_fields = array();
+		$fields = $form['fields'];
+		foreach ( $fields as $field ) {
+			$custom_fields[ $field['name'] ] = $field;
+		}
+		$all_fields = array_merge( $all_fields, $custom_fields );
+	}
+
+	return $all_fields;
 }
 
 /**
@@ -502,30 +545,13 @@ function wpmtst_save_view( $view, $action = 'edit' ) {
 }
 
 /**
- * Update reminder
- *
- * @since 1.21.0
- *
- * @param string $preface
- * @param string $class
- */
-function wpmtst_update_nag( $preface = '', $class = '' ) {
-	?>
-	<div class="update-nag <?php echo $class; ?>">
-		<?php printf( __( '%s Please use a <a href="%s">View</a> instead.', 'strong-testimonials' ),
-			$preface, admin_url( 'edit.php?post_type=wpm-testimonial&page=views') ); ?>
-	</div>
-	<?php
-}
-
-/**
  * @param $field
  *
  * @return mixed
  */
 function wpmtst_get_field_label( $field ) {
-	$custom_fields = wpmtst_get_custom_fields();
 	if ( isset( $field['field'] ) ) {
+		$custom_fields = wpmtst_get_custom_fields();
 		foreach ( $custom_fields as $key => $custom_field ) {
 			if ( $custom_field['name'] == $field['field'] ) {
 				return $custom_field['label'];

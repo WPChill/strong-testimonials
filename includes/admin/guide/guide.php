@@ -17,9 +17,6 @@ function wpmtst_guide() {
 			<a href="<?php echo $page; ?>" class="nav-tab <?php echo $tab == 'welcome' ? 'nav-tab-active' : ''; ?>">
 				<?php _e( 'Welcome', 'strong-testimonials' ); ?>
 			</a>
-			<a href="<?php echo $page; ?>&tab=version2" class="nav-tab <?php echo $tab == 'version2' ? 'nav-tab-active' : ''; ?>" style="color:red;">
-				<?php _e( 'Version 2 - Important!', 'strong-testimonials' ); ?>
-			</a>
 			<a href="<?php echo $page; ?>&tab=start" class="nav-tab <?php echo $tab == 'start' ? 'nav-tab-active' : ''; ?>">
 				<?php _e( 'Getting Started', 'strong-testimonials' ); ?>
 			</a>
@@ -28,9 +25,6 @@ function wpmtst_guide() {
 			</a>
 			<a href="<?php echo $page; ?>&tab=templates" class="nav-tab <?php echo $tab == 'templates' ? 'nav-tab-active' : ''; ?>">
 				<?php _e( 'Templates', 'strong-testimonials' ); ?>
-			</a>
-			<a href="<?php echo $page; ?>&tab=shortcodes" class="nav-tab <?php echo $tab == 'shortcodes' ? 'nav-tab-active' : ''; ?>">
-				<?php _e( 'Shortcodes', 'strong-testimonials' ); ?>
 			</a>
 			<a href="<?php echo $page; ?>&tab=translation" class="nav-tab <?php echo $tab == 'translation' ? 'nav-tab-active' : ''; ?>">
 				<?php _e( 'Translation', 'strong-testimonials' ); ?>
@@ -47,9 +41,6 @@ function wpmtst_guide() {
 			case 'translation':
 				include 'translation.php';
 				break;
-			case 'shortcodes':
-				include 'shortcodes.php';
-				break;
 			case 'templates':
 				include 'templates.php';
 				break;
@@ -58,9 +49,6 @@ function wpmtst_guide() {
 				break;
 			case 'start':
 				include 'start.php';
-				break;
-			case 'version2':
-				include 'version2.php';
 				break;
 			default:
 				include 'welcome.php';

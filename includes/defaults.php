@@ -15,46 +15,10 @@
  */
 function wpmtst_get_default_options() {
 	$default_options = array(
-		'per_page'          => '5',
-		'load_page_style'   => 1,
-		'load_widget_style' => 1,
-		'load_form_style'   => 1,
-		'load_rtl_style'    => 0,
-		'reorder'           => false,
-		'shortcode'         => 'strong',
+		'reorder' => false,
 	);
-
-	$default_options['default_template'] = '[wpmtst-text field="client_name" class="name"]' . PHP_EOL . '[wpmtst-link url="company_website" text="company_name" new_tab class="company"]';
-
-	$default_options['client_section'] = $default_options['default_template'];
 
 	return $default_options;
-}
-
-/**
- * Cycle shortcode
- *
- * @return array
- */
-function wpmtst_get_default_cycle() {
-	$default_cycle = array(
-		'category'   => 'all',
-		'order'      => 'recent',
-		'all'        => 0,
-		'limit'      => 3,
-		'title'      => 1,
-		'content'    => 'entire',
-		'char_limit' => 200,
-		'images'     => 1,
-		'client'     => 0,
-		'more'       => 0,
-		'more_page'  => '',
-		'effect'     => 'fade',
-		'speed'      => 1.5,
-		'timeout'    => 8,
-		'pause'      => 1,
-	);
-	return $default_cycle;
 }
 
 /**
@@ -90,6 +54,7 @@ function wpmtst_get_default_fields() {
 			'map'                => 'post_title',
 			'admin_table'        => 1,
 			'admin_table_option' => 0,
+			'show_admin_table_option' => 0,
 		),
 		'post_content'   => array(
 			'input_type'   => 'textarea',
@@ -98,6 +63,7 @@ function wpmtst_get_default_fields() {
 			'required'     => 1,
 			'core'         => 0,
 			'admin_table'  => 0,
+			'show_admin_table_option' => 0,
 		),
 		'featured_image' => array(
 			'input_type'              => 'file',
@@ -147,11 +113,27 @@ function wpmtst_get_default_fields() {
 		$field_types['optional'][ $key ] = array_merge( $field_base, $array );
 	}
 
+	// Assemble default field settings.
+	$default_fields['field_base']          = $field_base;
+	$default_fields['field_types']         = $field_types;
+
+	return $default_fields;
+}
+
+/**
+ * Default forms.
+ *
+ * @return array
+ */
+function wpmtst_get_default_base_forms() {
+	$default_fields = wpmtst_get_default_fields();
+
 	// Assemble field groups.
-	$field_groups = array(
+	$forms = array(
 		'default' => array(
 			'name'   => 'default',
-			'label'  => __( 'Default Field Group', 'strong-testimonials' ),
+			'label'  => __( 'Default Form', 'strong-testimonials' ),
+			'readonly' => 1,
 			'fields' => array(
 				// ------
 				// CUSTOM
@@ -214,31 +196,37 @@ function wpmtst_get_default_fields() {
 					'after'       => __( 'Would you like to include a photo?', 'strong-testimonials' ),
 					'admin_table' => 1,
 				),
-			)
+			),
 		)
 	);
-	foreach ( $field_groups['default']['fields'] as $key => $array ) {
-		if ( 'post' == $array['record_type'] ) {
-			$field_groups['default']['fields'][ $key ] = array_merge( $field_types['post'][ $array['name'] ], $array );
-		} else {
-			$field_groups['default']['fields'][ $key ] = array_merge( $field_types['custom'][ $array['input_type'] ], $array );
+
+	foreach ( $forms as $form_name => $form ) {
+		foreach ( $form['fields'] as $key => $array ) {
+			if ( 'post' == $array['record_type'] ) {
+				$forms[$form_name]['fields'][ $key ] = array_merge( $default_fields['field_types']['post'][ $array['name'] ], $array );
+			}
+			else {
+				$forms[$form_name]['fields'][ $key ] = array_merge( $default_fields['field_types']['custom'][ $array['input_type'] ], $array );
+			}
 		}
 	}
 
-	// Copy default field group to custom field group.
-	$field_groups['custom'] = array(
+	return $forms;
+}
+
+function wpmtst_get_default_custom_forms() {
+
+	$base_forms = wpmtst_get_default_base_forms();
+
+	// Copy default fields to custom fields.
+	$forms[1] = array(
 		'name'   => 'custom',
-		'label'  => __( 'Custom Field Group', 'strong-testimonials' ),
-		'fields' => $field_groups['default']['fields'],
+		'label'  => __( 'Custom Form', 'strong-testimonials' ),
+		'readonly' => 0,
+		'fields' => $base_forms['default']['fields'],
 	);
 
-	// Assemble default field settings.
-	$default_fields['field_base']          = $field_base;
-	$default_fields['field_types']         = $field_types;
-	$default_fields['field_groups']        = $field_groups;
-	$default_fields['current_field_group'] = 'custom';
-
-	return $default_fields;
+	return $forms;
 }
 
 /**
@@ -297,7 +285,6 @@ function wpmtst_get_default_form_options() {
 		'admin_notify'      => 0,
 		'sender_name'       => get_bloginfo( 'name' ),
 		'sender_site_email' => 1,
-		//'sender_email'      => 'noreply@' . preg_replace( '/^www\./', '', $_SERVER['HTTP_HOST'] ),
 		'sender_email'      => '',
 		'recipients'        => array(
 			array(
@@ -394,7 +381,8 @@ function wpmtst_get_default_view() {
 		'content'          => 'entire',
 		'count'            => 1,
 		'effect_for'       => 1.5,
-		'form-ajax'        => 0,
+		'form_ajax'        => 0,
+		'form_id'          => 1,
 		'gravatar'         => 'no',
 		'id'               => '',
 		'layout'           => '',
@@ -419,8 +407,8 @@ function wpmtst_get_default_view() {
 		'thumbnail_width'  => null,
 		'title'            => true,
 	);
-
 	ksort( $default_view );
+
 	return $default_view;
 }
 

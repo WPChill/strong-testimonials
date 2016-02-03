@@ -208,10 +208,8 @@ jQuery(document).ready(function($) {
 
 		})
 		.on("change", ".field-type", function() {
-console.log('field type change');
 
 			var fieldType = $(this).val();
-console.log('fieldType',fieldType);
 
 			var $table = $(this).closest("table");
 			var $parent = $(this).closest('li');
@@ -231,10 +229,8 @@ console.log('fieldType',fieldType);
 				.closest("optgroup")
 				.attr("class");
 
-console.log('fieldClass',fieldClass);
 			// Are we adding a new field or changing an existing one?
 			if( $parent.data('fieldType') != 'none' ) {
-console.log('changing');
 
 				// --------
 				// changing
@@ -260,6 +256,14 @@ console.log('changing');
 						$fieldName.after('<input type="hidden" name="'+$fieldName.attr("name")+'" value="'+$fieldName.val()+'" />');
 						// change input_type
 						$parent.find('input[name$="[input_type]"]').val("file");
+					}
+					else if( fieldType == 'post_content' ) {
+						$fieldLabel.val('Testimonial');
+						$fieldName.val('post_content').attr('disabled','disabled');
+						// move value to hidden input
+						$fieldName.after('<input type="hidden" name="'+$fieldName.attr("name")+'" value="'+$fieldName.val()+'" />');
+						// hide help message
+						$parent.find(".field-name-help").hide();
 					}
 
 				}
@@ -318,6 +322,14 @@ console.log('changing');
 						$fieldName.val('featured_image').attr('disabled','disabled');
 						// add hidden input
 						$fieldName.after('<input type="hidden" name="'+$fieldName.attr("name")+'" value="'+$fieldName.val()+'" />');
+					}
+					else if( fieldType == 'post_content' ) {
+						$fieldLabel.val('Testimonial');
+						$fieldName.val('post_content').attr('disabled','disabled');
+						// add hidden input
+						$fieldName.after('<input type="hidden" name="'+$fieldName.attr("name")+'" value="'+$fieldName.val()+'" />');
+						// hide help message
+						$parent.find(".field-name-help").hide();
 					}
 
 				}

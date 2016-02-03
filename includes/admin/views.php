@@ -16,19 +16,16 @@ function wpmtst_view_settings( $action = '', $view_id = null ) {
 	if ( 'edit' == $action && !$view_id )
 		return;
 
-	global $strong_templates;
+	global $view, $strong_templates;
 	add_thickbox();
 
 	$screen = get_current_screen();
 	$url    = $screen->parent_file;
 
-	$options             = get_option( 'wpmtst_options' );
-	$field_options       = get_option( 'wpmtst_fields' );
-	$field_groups        = $field_options['field_groups'];
-	$current_field_group = $field_options['current_field_group'];  // "custom", only one for now
-	$field_group         = $field_groups[ $current_field_group ];
+	$fields = wpmtst_get_custom_fields();
+	$all_fields = wpmtst_get_all_fields();
 
-	// @TODO de-duplicate
+	// TODO de-duplicate
 	$order_list = array(
 		'random'     => _x( 'random', 'display order', 'strong-testimonials' ),
 		'menu_order' => _x( 'menu order', 'display order', 'strong-testimonials' ),
@@ -71,19 +68,22 @@ function wpmtst_view_settings( $action = '', $view_id = null ) {
 	}
 
 	// Deselect title & thumbnail if not in field group
-	$has_title_field = false;
+	$has_title_field     = false;
 	$has_thumbnail_field = false;
-	foreach( $field_group['fields'] as $key => $field ) {
-		if ( 'post_title' == $field['name'] )
+	foreach( $all_fields as $key => $field ) {
+		if ( 'post_title' == $field['name'] ) {
 			$has_title_field = true;
-
-		if ( 'featured_image' == $field['name'] )
+		}
+		if ( 'featured_image' == $field['name'] ) {
 			$has_thumbnail_field = true;
+		}
 	}
-	if ( !$has_title_field )
+	if ( !$has_title_field ) {
 		$view['title'] = false;
-	if ( !$has_thumbnail_field )
+	}
+	if ( !$has_thumbnail_field ) {
 		$view['thumbnail'] = false;
+	}
 
 	// Select default template if necessary
 	if ( !$view['template'] ) {
@@ -121,11 +121,13 @@ function wpmtst_view_settings( $action = '', $view_id = null ) {
 
 	<form id="wpmtst-views-form" method="post" action="<?php echo get_admin_url() . 'admin-post.php'; ?>" autocomplete="off">
 
-		<input type="hidden" name="action" value="view_<?php echo $action; ?>_form">
 		<?php wp_nonce_field( 'view_form_submit', 'view_form_nonce', true, true ); ?>
 
+		<input type="hidden" name="action" value="view_<?php echo $action; ?>_form">
 		<input type="hidden" name="view[id]" value="<?php echo $view_id; ?>">
 		<input type="hidden" name="view_original_mode" value="<?php echo $view['mode']; ?>">
+		<input type="hidden" name="view[data][_form_id]" value="<?php echo $view['form_id']; ?>">
+
 		<div class="view-info">
 			<div class="form-view-name"><span class="title">Name:</span><input type="text" id="view-name" class="view-name" name="view[name]" value="<?php echo $view_name; ?>" tabindex="1"></div>
 		</div>
@@ -137,14 +139,30 @@ function wpmtst_view_settings( $action = '', $view_id = null ) {
 			</div>
 		<?php endif; ?>
 
-		<?php include( 'views/mode.php' ); ?>
-		<?php include( 'views/group-select.php' ); ?>
-		<?php //include( 'views/group-slideshow.php' ); ?>
-		<?php include( 'views/group-fields.php' ); ?>
-		<?php include( 'views/group-form.php' ); ?>
-		<?php include( 'views/group-extra.php' ); ?>
-		<?php include( 'views/group-style.php' ); ?>
-		<?php include( 'views/group-general.php' ); ?>
+		<?php
+		include( 'views/mode.php' );
+
+		// TODO Generify both hook and include
+		do_action( 'wpmtst_view_editor_before_group_select' );
+		include( 'views/group-select.php' );
+
+		do_action( 'wpmtst_view_editor_before_group_fields' );
+		include( 'views/group-fields.php' );
+
+		do_action( 'wpmtst_view_editor_before_group_form' );
+		include( 'views/group-form.php' );
+
+		do_action( 'wpmtst_view_editor_before_group_extra' );
+		include( 'views/group-extra.php' );
+
+		do_action( 'wpmtst_view_editor_before_group_style' );
+		include( 'views/group-style.php' );
+
+		do_action( 'wpmtst_view_editor_before_group_general' );
+		include( 'views/group-general.php' );
+
+		do_action( 'wpmtst_view_editor_after_groups' );
+		?>
 
 		<p class="submit">
 			<?php submit_button( '', 'primary', 'submit', false ); ?>
@@ -590,7 +608,6 @@ function wpmtst_view_edit_form() {
 
 }
 add_action( 'admin_post_view_edit_form', 'wpmtst_view_edit_form' );
-//add_action( 'admin_post_nopriv_view_edit_form', 'wpmtst_view_edit_form' );
 
 
 /**
@@ -649,7 +666,6 @@ function wpmtst_view_add_form() {
 
 }
 add_action( 'admin_post_view_add_form', 'wpmtst_view_add_form' );
-//add_action( 'admin_post_nopriv_view_add_form', 'wpmtst_view_add_form' );
 
 
 /**
@@ -745,7 +761,7 @@ function wpmtst_sanitize_view( $input ) {
 		}
 	}
 
-	$view_data['form-ajax'] = isset( $input['form-ajax'] ) ? 1 : 0;
+	$view_data['form_ajax'] = isset( $input['form_ajax'] ) ? 1 : 0;
 
 	// Template
 	if ( 'form' == $view_data['mode'] )
@@ -862,6 +878,15 @@ function wpmtst_sanitize_view( $input ) {
 		$view_data['client_section'] = null;
 	}
 
+	// Multiple Forms add-on
+	if ( isset( $view_data['form_id'] ) ) {
+		$view_data['form_id'] = $input['form_id'];
+	}
+	else {
+		$view_data['form_id'] = $input['_form_id'];
+	}
+
+	$view_data = apply_filters( 'wpmtst_sanitized_view', $view_data, $input );
 	ksort( $view_data );
 
 	return $view_data;

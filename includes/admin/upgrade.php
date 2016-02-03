@@ -14,50 +14,80 @@ function wpmtst_default_settings() {
 	if ( $old_plugin_version == $plugin_version )
 		return;
 
-	// -1- DEFAULTS
+	delete_option( 'wpmtst_cycle' );
+
+	/**
+	 * -1- DEFAULTS
+	 */
 	include_once WPMTST_INC . 'defaults.php';
 	$default_options       = wpmtst_get_default_options();
 	$default_fields        = wpmtst_get_default_fields();
-	$default_cycle         = wpmtst_get_default_cycle();
+	$default_base_forms    = wpmtst_get_default_base_forms();
+	$default_custom_forms  = wpmtst_get_default_custom_forms();
 	$default_form_options  = wpmtst_get_default_form_options();
 	$default_view_options  = wpmtst_get_default_view_options();
-	$default_view          = wpmtst_get_default_view();
+	$default_view          = apply_filters( 'wpmtst_view_default', wpmtst_get_default_view() );
 	$default_l10n_contexts = wpmtst_get_default_l10n_contexts();
 
-	// -2- GET OPTIONS
+	/**
+	 * -2- GET OPTIONS
+	 */
 	$options = get_option( 'wpmtst_options' );
 	if ( ! $options ) {
 		// -2A- NEW ACTIVATION
 		update_option( 'wpmtst_options', $default_options );
-	} else {
+	}
+	else {
 		// -2B- UPDATE
 
-		// Fix captcha inconsistency
-		if ( isset( $options['captcha'] ) && 'none' == $options['captcha'] )
-			$options['captcha'] = '';
+		// Remove version 1 options
+		if ( isset( $options['captcha'] ) )
+			unset( $options['captcha'] );
 
-		// Change target parameter in client section
-		$options['default_template'] = str_replace( 'target="_blank"', 'new_tab', $options['default_template'] );
-
-		// Remove plugin version
 		if ( isset( $options['plugin_version'] ) )
 			unset( $options['plugin_version'] );
+
+		if ( isset( $options['per_page'] ) )
+			unset( $options['per_page'] );
+
+		if ( isset( $options['load_page_style'] ) )
+			unset( $options['load_page_style'] );
+
+		if ( isset( $options['load_widget_style'] ) )
+			unset( $options['load_widget_style'] );
+
+		if ( isset( $options['load_form_style'] ) )
+			unset( $options['load_form_style'] );
+
+		if ( isset( $options['load_rtl_style'] ) )
+			unset( $options['load_rtl_style'] );
+
+		if ( isset( $options['shortcode'] ) )
+			unset( $options['shortcode'] );
+
+		if ( isset( $options['default_template'] ) )
+			unset( $options['default_template'] );
+
+		if ( isset( $options['client_section'] ) )
+			unset( $options['client_section'] );
 
 		// Merge in new options
 		$options = array_merge( $default_options, $options );
 		update_option( 'wpmtst_options', $options );
 	}
 
-	// -3- GET FIELDS
+	/**
+	 * -3- GET FIELDS
+	 */
 	$fields = get_option( 'wpmtst_fields', array() );
 	if ( ! $fields ) {
 		// -3A- NEW ACTIVATION
 		update_option( 'wpmtst_fields', $default_fields );
 		// WPML
-		wpmtst_form_fields_wpml( $default_fields['field_groups']['custom']['fields'] );
-	} else {
+		//wpmtst_form_fields_wpml( $default_fields['field_groups']['custom']['fields'] );
+	}
+	else {
 		// -3B- UPDATE
-		// Field update was missing from 1.18 - 1.20. Added in 1.20.1.
 
 		// ----------
 		// field base
@@ -96,88 +126,50 @@ function wpmtst_default_settings() {
 		// ------------
 		// field_groups
 		// ------------
-		$new_field_groups = $fields['field_groups'];
-		foreach ( $new_field_groups as $group_name => $group_array ) {
+		if ( isset( $fields['field_groups'] ) ) {
+			unset( $fields['field_groups'] );
+		}
+		if ( isset( $fields['current_field_group'] ) ) {
+			unset( $fields['current_field_group'] );
+		}
+		// Re-assemble fields and save.
+		$fields['field_base']   = $new_field_base;
+		$fields['field_types']  = $new_field_types;
+		update_option( 'wpmtst_fields', $fields );
+	}
+
+	/**
+	 * -4- GET FORMS
+	 */
+	update_option( 'wpmtst_base_forms', $default_base_forms );
+
+	$custom_forms = get_option( 'wpmtst_custom_forms' );
+	if ( !$custom_forms ) {
+		update_option( 'wpmtst_custom_forms', $default_custom_forms );
+	}
+	else {
+		foreach ( $custom_forms as $form_id => $group_array ) {
 			// custom fields are in display order (not associative)
 			// so we must find them by name
 			foreach ( $group_array['fields'] as $key => $new_field ) {
 				$updated_default = null;
-				foreach ( $default_fields['field_groups']['default']['fields'] as $a_field ) {
-					if ( $a_field['name'] = $new_field['name'] ) {
+				foreach ( $default_base_forms['default']['fields'] as $a_field ) {
+					if ( $a_field['name'] == $new_field['name'] ) {
 						$updated_default = $a_field;
 						break;
 					}
 				}
 				if ( $updated_default ) {
-					$new_field_groups[ $group_name ]['fields'][ $key ] = array_merge( $updated_default, $new_field );
+					$new_forms[ $form_id ]['fields'][ $key ] = array_merge( $updated_default, $new_field );
 				}
 			}
 		}
-
-		// Re-assemble fields and save.
-		$fields['field_base']   = $new_field_base;
-		$fields['field_types']  = $new_field_types;
-		$fields['field_groups'] = $new_field_groups;
-		update_option( 'wpmtst_fields', $fields );
+		update_option( 'wpmtst_custom_forms', $custom_forms );
 		// WPML
-		wpmtst_form_fields_wpml( $fields['field_groups']['custom']['fields'] );
+		wpmtst_form_fields_wpml( $custom_forms[1]['fields'] );
+		// TODO Do this for multiple forms too
 	}
 
-	// -4- GET CYCLE
-	$cycle = get_option( 'wpmtst_cycle' );
-	if ( ! $cycle ) {
-		// -4A- NEW ACTIVATION
-		update_option( 'wpmtst_cycle', $default_cycle );
-	} else {
-		// -4B- UPDATE
-		// if updating from 1.5 - 1.6
-		if ( isset( $options['cycle-order'] ) ) {
-			$cycle = array(
-				'order'   => $options['cycle-order'],
-				'effect'  => $options['cycle-effect'],
-				'speed'   => $options['cycle-speed'],
-				'timeout' => $options['cycle-timeout'],
-				'pause'   => $options['cycle-pause'],
-			);
-			unset(
-				$options['cycle-order'],
-				$options['cycle-effect'],
-				$options['cycle-speed'],
-				$options['cycle-timeout'],
-				$options['cycle-pause']
-			);
-			update_option( 'wpmtst_options', $options );
-		}
-
-		// if updating to 1.11
-		// change hyphenated to underscored
-		if ( isset( $cycle['char-limit'] ) ) {
-			$cycle['char_limit'] = $cycle['char-limit'];
-			unset( $cycle['char-limit'] );
-		}
-		if ( isset( $cycle['more-page'] ) ) {
-			$cycle['more_page'] = $cycle['more-page'];
-			unset( $cycle['more-page'] );
-		}
-
-		// if updating from 1.7
-		// moving cycle options to separate option
-		if ( isset( $options['cycle']['cycle-order'] ) ) {
-			$old_cycle = $options['cycle'];
-			$cycle     = array(
-				'order'   => $old_cycle['cycle-order'],
-				'effect'  => $old_cycle['cycle-effect'],
-				'speed'   => $old_cycle['cycle-speed'],
-				'timeout' => $old_cycle['cycle-timeout'],
-				'pause'   => $old_cycle['cycle-pause'],
-			);
-			unset( $options['cycle'] );
-			update_option( 'wpmtst_options', $options );
-		}
-
-		$cycle = array_merge( $default_cycle, $cycle );
-		update_option( 'wpmtst_cycle', $cycle );
-	}
 
 	/**
 	 * -5- GET FORM OPTIONS
@@ -209,7 +201,8 @@ function wpmtst_default_settings() {
 		// WPML
 		wpmtst_form_messages_wpml( $form_options['messages'] );
 		wpmtst_form_options_wpml( $form_options );
-	} else {
+	}
+	else {
 		// -5C- UPDATE
 		/**
 		 * Update single email recipient to multiple.
@@ -245,7 +238,8 @@ function wpmtst_default_settings() {
 	if ( ! $view_options ) {
 		// -6A- NEW ACTIVATION
 		update_option( 'wpmtst_view_options', $default_view_options );
-	} else {
+	}
+	else {
 		// -6B- UPDATE
 		// Merge in new options
 		$view_options = array_merge( $default_view_options, $view_options );
@@ -262,12 +256,19 @@ function wpmtst_default_settings() {
 		// -7A- NEW ACTIVATION
 		update_option( 'wpmtst_view_default', $default_view );
 
-	} else {
+	}
+	else {
 
 		// -7B- UPDATE
 
 		// Remove any options that have new default settings
 		unset( $current_default_view['template'], $current_default_view['background'] );
+
+		// Convert 'form-ajax' (hyphen) to 'form_ajax' (underscore)
+		if ( isset( $current_default_view['form-ajax'] ) ) {
+			$current_default_view['form_ajax'] = $current_default_view['form-ajax'];
+			unset( $current_default_view['form-ajax'] );
+		}
 
 		$new_default_view = array_merge( $current_default_view, $default_view );
 		ksort($new_default_view);
@@ -317,6 +318,12 @@ function wpmtst_default_settings() {
 				);
 			}
 
+			// Convert 'form-ajax' (hyphen) to 'form_ajax' (underscore)
+			if ( isset( $view_data['form-ajax'] ) ) {
+				$view_data['form_ajax'] = $view_data['form-ajax'];
+				unset( $view_data['form-ajax'] );
+			}
+
 			// Merge in new default values
 			$view['data'] = array_merge( $new_default_view, $view_data );
 
@@ -359,11 +366,11 @@ function wpmtst_default_settings() {
 	 */
 	$old_parts       = explode( '.', $old_plugin_version );
 	$new_parts       = explode( '.', $plugin_version );
-	$old_major_minor = implode( '.', array( $old_parts[0], $old_parts[1] ) );
-	$new_major_minor = implode( '.', array( $new_parts[0], $new_parts[1] ) );
+	$old_major_minor = implode( '.', array( $old_parts[0], isset( $old_parts[1] ) ? $old_parts[1] : '0' ) );
+	$new_major_minor = implode( '.', array( $new_parts[0], isset( $new_parts[1] ) ? $new_parts[1] : '0' ) );
 
 	if ( version_compare( $new_major_minor, $old_major_minor ) ) {
-		wpmtst_activate_about_page();
+		//wpmtst_activate_about_page();
 	}
 
 }

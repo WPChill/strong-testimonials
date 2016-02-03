@@ -9,21 +9,25 @@ class Strong_Testimonials_View_Widget extends WP_Widget {
 
 	function __construct() {
 
+		$widget_ops = array(
+			'classname'   => 'strong-testimonials-view-widget',
+			'description' => _x( 'Add one of your testimonial views.', 'widget description', 'strong-testimonials' )
+		);
+		$control_ops = array(
+			'id_base' => 'strong-testimonials-view-widget',
+		);
 		parent::__construct(
 			'strong-testimonials-view-widget',
 			_x( 'Strong Testimonials View', 'widget label', 'strong-testimonials' ),
-			array(
-				'classname'   => 'strong-testimonials-view-widget',
-				'description' => _x( 'Add one of your testimonial views.', 'widget description', 'strong-testimonials' )
-			),
-			array(
-				'id_base' => 'strong-testimonials-view-widget',
-			)
+			$widget_ops,
+			$control_ops
 		);
 
 		$this->defaults = array(
-			'title' => _x( 'Testimonials', 'widget title', 'strong-testimonials' ),
-			'view'  => '0',
+			'title'   => _x( 'Testimonials', 'widget title', 'strong-testimonials' ),
+			'text'    => '',
+			'filter'  => 0,
+			'view'    => '0',
 		);
 
 	}
@@ -32,13 +36,21 @@ class Strong_Testimonials_View_Widget extends WP_Widget {
 		$data  = array_merge( $args, $instance );
 		$title = apply_filters( 'widget_title', empty( $data['title'] ) ? '' : $data['title'], $instance, $this->id_base );
 
+		$widget_text = ! empty( $data['text'] ) ? $data['text'] : '';
+		$text = apply_filters( 'widget_text', $widget_text, $data, $this );
+
 		echo $data['before_widget'];
 
 		if ( ! empty( $title ) )
 			echo $data['before_title'] . $title . $data['after_title'];
 
+		if ( ! empty( $text ) ) {
+			?>
+			<div class="textwidget"><?php echo !empty( $data['filter'] ) ? wpautop( $text ) : $text; ?></div>
+			<?php
+		}
+
 		/**
-		 * This is the equivalent of:  echo do_shortcode( '[testimonial_view id="' . $instance['view'] . '"]' );
 		 * Catch undefined view to avoid error in the Customizer.
 		 */
 		if ( isset( $data['view'] ) && $data['view'] )
@@ -49,15 +61,24 @@ class Strong_Testimonials_View_Widget extends WP_Widget {
 
 	function form( $instance ) {
 		$instance = wp_parse_args( (array) $instance, $this->defaults );
+		$filter = isset( $instance['filter'] ) ? $instance['filter'] : 0;
+		$title = sanitize_text_field( $instance['title'] );
 		$views = wpmtst_get_views();
 		?>
 		<div class="wpmtst-widget-form">
 			<p>
 				<label for="<?php echo $this->get_field_id( 'title' ); ?>">
-					<?php _ex( 'Title:', 'widget setting', 'strong-testimonials' ); ?>
+					<?php _e( 'Title:' ); ?>
 				</label>
 				<input class="widefat" type="text" id="<?php echo $this->get_field_id( 'title' ); ?>"
-				       name="<?php echo $this->get_field_name( 'title' ); ?>" value="<?php echo $instance['title']; ?>">
+				       name="<?php echo $this->get_field_name( 'title' ); ?>" value="<?php echo esc_attr( $title ); ?>">
+			</p>
+			<p>
+				<label for="<?php echo $this->get_field_id( 'text' ); ?>"><?php _e( 'Content:' ); ?></label>
+				<textarea class="widefat" rows="8" id="<?php echo $this->get_field_id('text'); ?>" name="<?php echo $this->get_field_name('text'); ?>"><?php echo esc_textarea( $instance['text'] ); ?></textarea>
+			</p>
+			<p>
+				<input id="<?php echo $this->get_field_id('filter'); ?>" name="<?php echo $this->get_field_name('filter'); ?>" type="checkbox"<?php checked( $filter ); ?> />&nbsp;<label for="<?php echo $this->get_field_id('filter'); ?>"><?php _e( 'Automatically add paragraphs to above Content only', 'strong-testimonials' ); ?></label>
 			</p>
 			<p>
 				<label for="<?php echo $this->get_field_id( 'view' ); ?>">
@@ -78,8 +99,17 @@ class Strong_Testimonials_View_Widget extends WP_Widget {
 	}
 
 	function update( $new_instance, $old_instance ) {
-		$new_instance['title'] = sanitize_text_field( $new_instance['title'] );
-		return array_merge( $this->defaults, $new_instance );
+		$instance = $old_instance;
+		$instance['title'] = sanitize_text_field( $new_instance['title'] );
+		if ( current_user_can( 'unfiltered_html' ) ) {
+			$instance['text'] = $new_instance['text'];
+		}
+		else {
+			$instance['text'] = wp_kses_post( stripslashes( $new_instance['text'] ) );
+		}
+		$instance['filter'] = !empty( $new_instance['filter'] );
+		$instance['view']   = sanitize_text_field( $new_instance['view'] );
+		return array_merge( $this->defaults, $instance );
 	}
 
 }

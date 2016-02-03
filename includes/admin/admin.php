@@ -170,7 +170,6 @@ function wpmtst_admin_scripts( $hook ) {
 	switch ( $hook ) {
 		case 'wpm-testimonial_page_fields':
 			wp_enqueue_style( 'wpmtst-admin-fields-style', WPMTST_URL . 'css/admin/fields.css', array(), $plugin_version );
-			//wp_enqueue_script( 'jquery-ui-sortable' );
 			wp_enqueue_script( 'wpmtst-admin-fields-script', WPMTST_URL . 'js/wpmtst-admin-fields.js', array( 'jquery', 'jquery-ui-sortable' ), $plugin_version );
 			wp_localize_script( 'wpmtst-admin-fields-script', 'ajax_object', array( 'ajaxurl' => admin_url( 'admin-ajax.php' ) ) );
 			break;
@@ -223,10 +222,9 @@ function wpmtst_admin_polylang() {
 	wp_enqueue_style( 'wpmtst-admin-style-polylang', WPMTST_URL . 'css/admin/polylang.css', array(), $plugin_version );
 
 	include_once WPMTST_INC . 'defaults.php';
-	$default_fields = wpmtst_get_default_fields();
-	wpmtst_form_fields_polylang( $default_fields['field_groups']['custom']['fields'] );
-	$fields = get_option( 'wpmtst_fields', array() );
-	wpmtst_form_fields_polylang( $fields['field_groups']['custom']['fields'] );
+	$fields = wpmtst_get_custom_fields();
+	wpmtst_form_fields_polylang( $fields );
+	wpmtst_form_fields_polylang( $fields );
 	$form_options = get_option( 'wpmtst_form_options', array() );
 	wpmtst_form_messages_polylang( $form_options['messages'] );
 	wpmtst_form_options_polylang( $form_options );
@@ -246,18 +244,22 @@ add_action( 'add_meta_boxes_wpm-testimonial', 'wpmtst_add_meta_boxes' );
  */
 function wpmtst_meta_options() {
 	global $post;
-	$post = wpmtst_get_post( $post );
-	$fields = get_option( 'wpmtst_fields' );
-	$field_groups = $fields['field_groups'];
+	$post   = wpmtst_get_post( $post );
+	$fields = wpmtst_get_custom_fields();
 	?>
 	<table class="options">
 		<tr>
-			<td colspan="2"><?php _ex( 'To add a photo or logo, use the Featured Image option.', 'post editor', 'strong-testimonials' ); ?>&nbsp;<div class="dashicons dashicons-arrow-right-alt"></div></td>
+			<td colspan="2">
+				<?php _ex( 'To add a photo or logo, use the Featured Image option.', 'post editor', 'strong-testimonials' ); ?>&nbsp;<div class="dashicons dashicons-arrow-right-alt"></div>
+			</td>
 		</tr>
-		<?php foreach ( $field_groups[ $fields['current_field_group'] ]['fields'] as $key => $field ) : ?>
-		<?php if ( 'custom' == $field['record_type'] ) : ?>
+		<?php foreach ( $fields as $key => $field ) : ?>
 		<tr>
-			<th><label for="<?php echo $field['name']; ?>"><?php echo apply_filters( 'wpmtst_l10n', $field['label'], wpmtst_get_l10n_context( 'form-fields' ), $field['name'] . ' : label' ); ?></label></th>
+			<th>
+				<label for="<?php echo $field['name']; ?>">
+					<?php echo apply_filters( 'wpmtst_l10n', $field['label'], wpmtst_get_l10n_context( 'form-fields' ), $field['name'] . ' : label' ); ?>
+				</label>
+			</th>
 			<td>
 				<?php echo sprintf( '<input id="%2$s" type="%1$s" class="custom-input" name="custom[%2$s]" value="%3$s" size="">', $field['input_type'], $field['name'], $post->$field['name'] ); ?>
 				<?php if ( 'url' == $field['input_type'] ) : ?>
@@ -265,12 +267,10 @@ function wpmtst_meta_options() {
 				<?php endif; ?>
 			</td>
 		</tr>
-		<?php endif; ?>
 		<?php endforeach; ?>
 	</table>
 	<?php
 }
-
 
 /**
  * Add custom columns to the admin list.
@@ -280,8 +280,7 @@ function wpmtst_meta_options() {
  * @return array
  */
 function wpmtst_edit_columns( $columns ) {
-	$fields = get_option( 'wpmtst_fields' );
-	$fields = $fields['field_groups'][ $fields['current_field_group'] ]['fields'];
+	$fields = wpmtst_get_all_fields();
 
 	/*
 		INCOMING COLUMNS = Array (
@@ -330,12 +329,12 @@ function wpmtst_edit_columns( $columns ) {
 	}
 
 	// 5. add [category] and [date]
-	// this pushes other added columns like [search_exclude] to the end
 	if ( wpmtst_get_category_ids() )
 		$fields_to_add['category'] = __( 'Category', 'strong-testimonials' );
 
-	$fields_to_add['date']     = __( 'Date', 'strong-testimonials' );
+	$fields_to_add['date'] = __( 'Date', 'strong-testimonials' );
 
+	// this pushes other added columns like [search_exclude] to the end
 	$columns = array_merge (
 		array_slice( $columns, 0, $offset ),
 		$fields_to_add,

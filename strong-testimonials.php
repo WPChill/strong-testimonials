@@ -4,7 +4,7 @@
  * Plugin URI: https://www.wpmission.com/plugins/strong-testimonials/
  * Description: Collect and display testimonials with a plugin that offers strong features and strong support.
  * Author: Chris Dillon
- * Version: 1.25.7
+ * Version: 2.0.0
  * Author URI: https://www.wpmission.com/
  * Text Domain: strong-testimonials
  * Domain Path: /languages
@@ -48,8 +48,6 @@ final class Strong_Testimonials {
 	public static $scripts = array( 'normal' => array(), 'later' => array() );
 	public static $css = array();
 	public static $script_vars;
-	public static $shortcode;
-	public static $shortcode_lb;
 	public static $shortcode2;
 	public static $shortcode2_lb;
 	public static $view_defaults = array();
@@ -80,7 +78,6 @@ final class Strong_Testimonials {
 
 			self::$instance->includes();
 			self::$instance->set_shortcodes();
-			self::$instance->set_view_defaults();
 			self::$instance->add_actions();
 		}
 		return self::$instance;
@@ -146,12 +143,6 @@ final class Strong_Testimonials {
 		if ( ! defined( 'WPMTST_TPL_URI' ) )
 			define( 'WPMTST_TPL_URI', plugin_dir_url( __FILE__ ) . 'templates' );
 
-		if ( ! defined( 'WPMTST_ORIG_TPL' ) )
-			define( 'WPMTST_ORIG_TPL', plugin_dir_path( __FILE__ ) . 'original-template/' );
-
-		if ( ! defined( 'WPMTST_ORIG_TPL_URI' ) )
-			define( 'WPMTST_ORIG_TPL_URI', plugin_dir_url( __FILE__ ) . 'original-template/' );
-
 	}
 
 
@@ -168,9 +159,7 @@ final class Strong_Testimonials {
 		require_once WPMTST_INC . 'l10n.php';
 		require_once WPMTST_INC . 'post-types.php';
 		require_once WPMTST_INC . 'functions.php';
-		require_once WPMTST_INC . 'child-shortcodes.php';
 		require_once WPMTST_INC . 'shims.php';
-		require_once WPMTST_INC . 'widget.php';
 		require_once WPMTST_INC . 'widget2.php';
 
 		/**
@@ -180,10 +169,8 @@ final class Strong_Testimonials {
 		 * @since 1.25.3
 		 */
 		require_once WPMTST_INC . 'shortcodes.php';
-		require_once WPMTST_INC . 'shortcode-form.php';
 		require_once WPMTST_INC . 'template-functions.php';
-		require_once WPMTST_INC . 'shortcode-strong.php';
-		require_once WPMTST_INC . 'shortcodes.php';
+		require_once WPMTST_INC . 'form-template-functions.php';
 		require_once WPMTST_INC . 'captcha.php';
 		require_once WPMTST_INC . 'scripts.php';
 
@@ -216,7 +203,14 @@ final class Strong_Testimonials {
 	 */
 	private function add_actions() {
 
-		if ( !is_admin() ) {
+		if ( is_admin() ) {
+
+			add_action( 'wpmtst_form_admin', 'wpmtst_form_admin2' );
+
+			add_action( 'wp_loaded', 'wpmtst_redirect_about_page', 1 );
+
+		}
+		else {
 
 			/**
 			 * Actions on 'wp' hook allow us to properly enqueue styles and scripts.
@@ -243,9 +237,8 @@ final class Strong_Testimonials {
 			// Elegant Themes - Home page content areas
 			add_action( 'wp', array( $this, 'find_views_elegant_themes' ) );
 
-			// Preprocess the post content for the original shortcodes.
-			add_action( 'wp', array( $this,	'find_original_shortcodes' ) );
-
+			// Profit Builder
+			add_action( 'wp', array( $this, 'find_rendered_views' ) );
 		}
 
 		/**
@@ -255,6 +248,7 @@ final class Strong_Testimonials {
 		add_action( 'admin_init', array( $this, 'theme_support' ) );
 
 		add_action( 'init', array( $this, 'reorder_check' ) );
+		add_action( 'init', array( $this, 'set_view_defaults' ) );
 
 		/**
 		 * Localize scripts.
@@ -271,11 +265,6 @@ final class Strong_Testimonials {
 		 * @since 1.21.0
 		 */
 		add_action( 'admin_action_delete-strong-view', 'wpmtst_delete_view_action_hook' );
-
-		/**
-		 * Filter page templates to exclude testimonial templates.
-		 */
-		add_action( 'load-post.php', array( $this, 'add_page_templates_filter' ) );
 
 		/**
 		 * Flush rewrite rules after theme switch.
@@ -300,8 +289,6 @@ final class Strong_Testimonials {
 
 		add_action( 'wp_head', array( $this, 'show_version_info' ), 999 );
 
-		add_action( 'admin_init', 'wpmtst_redirect_about_page', 1 );
-
 		add_action( 'wpmtst_form_rendered', array( $this, 'form_rendered' ), 10, 1 );
 		add_action( 'wpmtst_view_rendered', array( $this, 'view_rendered' ), 10, 1 );
 
@@ -317,15 +304,16 @@ final class Strong_Testimonials {
 
 	public function form_handler2() {
 		if ( isset( $_POST['wpmtst_form_nonce'] ) ) {
-			require_once WPMTST_INC . 'shortcode-form.php';
+			require_once WPMTST_INC . 'shortcodes.php';
 			require_once WPMTST_INC . 'form-handler-functions.php';
 			$success = wpmtst_form_handler();
 			if ( $success ) {
-				echo '<div class="testimonial-success">' . wpmtst_get_form_message( 'submission-success' ) . '</div>';
+				$return = array( 'success' => true, 'message' => '<div class="testimonial-success">' . wpmtst_get_form_message( 'submission-success' ) . '</div>' );
 			}
 			else {
-				echo '<div class="testimonial-error">' . wpmtst_get_form_message( 'submission-error' ) . '</div>';
+				$return = array( 'success' => false, 'errors' => WPMST()->get_form_errors() );
 			}
+			echo json_encode( $return );
 		}
 
 		die();
@@ -418,6 +406,7 @@ final class Strong_Testimonials {
 	/**
 	 * @param null $preset
 	 *
+	 * TODO Move to options and add a filter.
 	 * @return array|bool
 	 */
 	public function get_background_presets( $preset = null ) {
@@ -466,39 +455,9 @@ final class Strong_Testimonials {
 	}
 
 	/**
-	 * @since 1.21.0
-	 */
-	public function add_page_templates_filter() {
-		add_filter( 'theme_page_templates', array( $this, 'page_templates_filter' ), 10, 3 );
-	}
-
-	/**
-	 * Remove testimonial templates from Template dropdown in Page Attributes metabox.
-	 *
-	 * @param $page_templates
-	 * @param $theme_object
-	 * @param $post
-	 *
-	 * @return mixed
-	 */
-	public function page_templates_filter( $page_templates, $theme_object, $post ) {
-		foreach ( $page_templates as $file_name => $template_name ) {
-			if ( 'testimonials.php' == $file_name
-					|| 'testimonials-' == substr( $file_name, 0, 13 )
-					|| 'testimonial-form' == substr( $file_name, 0, 16 ) ) {
-				unset( $page_templates[ $file_name ] );
-			}
-		}
-		return $page_templates;
-	}
-
-	/**
 	 * Set shortcode.
 	 */
 	public function set_shortcodes() {
-		$options = get_option( 'wpmtst_options' );
-		self::$shortcode     = isset( $options['shortcode'] ) ? $options['shortcode'] : 'strong';
-		self::$shortcode_lb  = '[' . self::$shortcode;
 		self::$shortcode2    = 'testimonial_view';
 		self::$shortcode2_lb = '[' . self::$shortcode2;
 	}
@@ -506,10 +465,6 @@ final class Strong_Testimonials {
 	/**
 	 * Get shortcodes.
 	 */
-	public function get_shortcode() {
-		return self::$shortcode;
-	}
-
 	public function get_shortcode2() {
 		return self::$shortcode2;
 	}
@@ -522,7 +477,6 @@ final class Strong_Testimonials {
 	 * @return array
 	 */
 	function no_texturize_shortcodes( $shortcodes ) {
-		$shortcodes[] = self::$shortcode;
 		$shortcodes[] = self::$shortcode2;
 		return $shortcodes;
 	}
@@ -537,66 +491,59 @@ final class Strong_Testimonials {
 	}
 
 	/**
-	 * Setter for the shortcode defaults.
-	 *
-	 * TODO Provide a filter.
-	 * TODO Consolidate with wpmtst_get_default_view()
-	 *
-	 * @param array $defaults
+	 * Set the defaults for a parsed View.
+	 * These are different than the default settings used by the View editor.
+	 * DO NOT COMBINE!
 	 */
-	private static function set_view_defaults( $defaults = array() ) {
-		$defaults = array_merge(
-			array(
-				'all'               => 1,
-				'background'        => array(
-					'color'  => '',
-					//'color2' => '',
-					'type'   => '',
-					'preset' => '',
-					'example-font-color' => 'dark',
-				),
-				'category'          => '',
-				'class'             => '',
-				'client_section'    => null,
-				'column_count'      => 2,
-				'compat'            => 0,
-				'container_class'   => '',
-				'count'             => 1,
-				'display'           => '',
-				'effect_for'        => '1.5',
-				'excerpt'           => '',
-				'form'              => '',
-				'form-ajax'         => 0,
-				'gravatar'          => 'no',
-				'id'                => '',
-				'layout'            => '',
-				'length'            => '',
-				'lightbox'          => '',
-				'menu_order'        => '',
-				'mode'              => '',
-				'more_page'         => '',
-				'more_page_on'      => '',
-				'more_post'         => '',
-				'more_text'         => _x( 'Read more', 'link', 'strong-testimonials' ),
-				'nav'               => 'after',
-				'newest'            => '',
-				'no_pause'          => 0, // must be zero not boolean or string!
-				'note'              => '',
-				'oldest'            => '',
-				'per_page'          => '',
-				'random'            => '',
-				'read_more'         => '',
-				'show_for'          => '8',
-				'slideshow'         => '',
-				'template'          => '',
-				'thumbnail'         => '',
-				'thumbnail_size'    => 'thumbnail',
-				'thumbnail_height'  => null,
-				'thumbnail_width'   => null,
-				'title'             => '',
-				'view'              => '',
+	public function set_view_defaults() {
+		$defaults = array(
+			'all'              => 1,
+			'background'       => array(
+				'color'              => '',
+				'type'               => '',
+				'preset'             => '',
+				'example-font-color' => 'dark',
 			),
-			$defaults
+			'category'         => '',
+			'class'            => '',
+			'client_section'   => null,
+			'column_count'     => 2,
+			'compat'           => 0,
+			'container_class'  => '',
+			'count'            => 1,
+			'display'          => '',
+			'effect_for'       => '1.5',
+			'excerpt'          => '',
+			'form'             => '',
+			'form-ajax'        => 0,
+			'gravatar'         => 'no',
+			'id'               => '',
+			'layout'           => '',
+			'length'           => '',
+			'lightbox'         => '',
+			'menu_order'       => '',
+			'mode'             => '',
+			'more_page'        => '',
+			'more_page_on'     => '',
+			'more_post'        => '',
+			'more_text'        => _x( 'Read more', 'link', 'strong-testimonials' ),
+			'nav'              => 'after',
+			'newest'           => '',
+			'no_pause'         => 0, // must be zero not boolean or string!
+			'note'             => '',
+			'oldest'           => '',
+			'per_page'         => '',
+			'random'           => '',
+			'read_more'        => '',
+			'show_for'         => '8',
+			'slideshow'        => '',
+			'template'         => '',
+			'thumbnail'        => '',
+			'thumbnail_size'   => 'thumbnail',
+			'thumbnail_height' => null,
+			'thumbnail_width'  => null,
+			'title'            => '',
+			'view'             => '',
 		);
 		self::$view_defaults = $defaults;
 	}
@@ -726,10 +673,18 @@ final class Strong_Testimonials {
 	}
 
 	private static function check_content( $content ) {
-		if ( false === strpos( $content, self::$shortcode_lb ) && false === strpos( $content, self::$shortcode2_lb ) )
+		if ( false === strpos( $content, self::$shortcode2_lb ) )
 			return false;
 
 		return true;
+	}
+
+	private static function check_content_for_rendered_shortcodes( $content ) {
+		if ( preg_match_all( '/div class=(.*?) (strong-view-id-([0-9]*))/', $content, $matches ) ) {
+			return $matches[3];
+		}
+
+		return false;
 	}
 
 	/**
@@ -738,9 +693,6 @@ final class Strong_Testimonials {
 	 * @access public
 	 */
 	public static function find_views() {
-
-		if ( is_admin() )
-			return false;
 
 		global $post;
 		if ( empty( $post ) )
@@ -763,9 +715,6 @@ final class Strong_Testimonials {
 	 * @since 1.15.11
 	 */
 	public static function find_views_in_postmeta() {
-
-		if ( is_admin() )
-			return false;
 
 		global $post;
 		if ( empty( $post ) )
@@ -790,9 +739,6 @@ final class Strong_Testimonials {
 	 */
 	public static function find_views_in_postexcerpt() {
 
-		if ( is_admin() )
-			return false;
-
 		global $post;
 		if ( empty( $post ) )
 			return false;
@@ -812,20 +758,17 @@ final class Strong_Testimonials {
 	 */
 	public static function find_blackstudio_widgets() {
 
-		if ( is_admin() )
-			return false;
-
 		global $post;
 		if ( empty( $post ) )
-			return false;
+			return;
 
 		$widget_content = get_option( 'widget_black-studio-tinymce' );
 		if ( ! $widget_content )
-			return false;
+			return;
 
 		$widget_content_serialized = maybe_serialize( $widget_content );
 		if ( ! self::check_content( $widget_content_serialized ) )
-			return false;
+			return;
 
 		self::process_content( $widget_content_serialized );
 
@@ -839,12 +782,9 @@ final class Strong_Testimonials {
 	 */
 	public static function find_views_elegant_themes() {
 
-		if ( is_admin() )
-			return false;
-
 		global $post;
 		if ( empty( $post ) )
-			return false;
+			return;
 
 		if ( get_option( 'mycuisine_home_page_1' ) ) {
 			$target = get_post( get_option( 'mycuisine_home_page_1' ) );
@@ -877,6 +817,35 @@ final class Strong_Testimonials {
 	}
 
 	/**
+	 * Build list of all shortcode views on a page.
+	 *
+	 * @access public
+	 */
+	public static function find_rendered_views() {
+
+		global $post;
+		if ( empty( $post ) )
+			return;
+
+		$content = $post->post_content;
+		$view_ids = self::check_content_for_rendered_shortcodes( $content );
+		if ( !$view_ids )
+			return;
+
+		self::process_content_for_rendered_shortcodes( $view_ids );
+
+	}
+
+	/**
+	 * @param $atts
+	 *
+	 * @return bool
+	 */
+	private static function view_not_found( $atts ) {
+		return ( isset( $atts['view_not_found'] ) && $atts['view_not_found'] );
+	}
+
+	/**
 	 * Process content for shortcodes.
 	 *
 	 * A combination of has_shortcode and shortcode_parse_atts.
@@ -895,25 +864,7 @@ final class Strong_Testimonials {
 
 		foreach ( $matches as $key => $shortcode ) {
 
-			if ( self::$shortcode === $shortcode[2] ) {
-
-				/**
-				 * Adding html_entity_decode.
-				 * @since 1.16.13
-				 */
-				// Retrieve all attributes from the shortcode.
-				$original_atts = shortcode_parse_atts( html_entity_decode( $shortcode[3] ) );
-
-				// Turn empty atts into switches.
-				$atts = normalize_empty_atts( $original_atts );
-
-				// Build the shortcode signature.
-				$att_string = serialize( $original_atts );
-
-				self::find_single_view( $atts, $att_string );
-
-			}
-			elseif ( self::$shortcode2 === $shortcode[2]) {
+			if ( self::$shortcode2 === $shortcode[2]) {
 
 				/**
 				 * Adding html_entity_decode.
@@ -924,6 +875,8 @@ final class Strong_Testimonials {
 
 				// Incorporate attributes from the View and defaults.
 				$parsed_atts = self::parse_view( $original_atts, self::get_view_defaults(), $original_atts );
+				if ( self::view_not_found( $parsed_atts ) )
+					continue;
 
 				// Turn empty atts into switches.
 				$atts = normalize_empty_atts( $parsed_atts );
@@ -952,12 +905,39 @@ final class Strong_Testimonials {
 	}
 
 	/**
-	 * Process a single [strong] or [testimonial_view] shortcode.
+	 * Process content for rendered shortcodes.
+	 *
+	 * @access private
+	 *
+	 * @param array|null $view_ids
+	 */
+	private static function process_content_for_rendered_shortcodes( $view_ids = null ) {
+		if ( !$view_ids )
+			return;
+
+		foreach ( $view_ids as $view_id ) {
+
+			// Incorporate attributes from the View and defaults.
+			$original_atts = array( 'id' => $view_id );
+			$parsed_atts = self::parse_view( $original_atts, self::get_view_defaults(), $original_atts );
+
+			// Turn empty atts into switches.
+			$atts = normalize_empty_atts( $parsed_atts );
+
+			// Build the shortcode signature.
+			$att_string = serialize( $original_atts );
+
+			self::find_single_view( $atts, $att_string );
+
+		}
+	}
+
+	/**
+	 * Process a single [testimonial_view] shortcode.
 	 *
 	 * TODO Move all this to hooks and filters.
 	 * TODO So not DRY -- improve in version 2.0
 	 *
-	 * @since 1.15.4 [strong]
 	 * @since 1.21.0 [testimonial_view]
 	 * @param $atts
 	 * @param $att_string
@@ -974,18 +954,8 @@ final class Strong_Testimonials {
 		 * Modes
 		 * ==============================
 		 */
-		if ( isset( $atts['read_more'] ) ) {
 
-			/**
-			 * ------------------------------
-			 * "Read more"
-			 * ------------------------------
-			 * TODO remove in 2.0
-			 */
-			$view = array( 'mode' => 'read_more', 'atts' => $atts );
-
-		}
-		elseif ( isset( $atts['form'] ) ) {
+		if ( isset( $atts['form'] ) ) {
 
 			/**
 			 * ------------------------------
@@ -997,25 +967,12 @@ final class Strong_Testimonials {
 
 			/**
 			 * If this is a view, look for accompanying stylesheet.
+			 * // TODO Is this check still necessary?
 			 */
 			if ( isset( $atts['view'] ) && $atts['view'] ) {
 
 				if ( !isset( $atts['compat']) || !$atts['compat'] ) {
 					$handle = self::find_stylesheet($atts);
-				}
-
-			}
-			else {
-
-				/**
-				 * If this is a configured shortcode, check the option for loading its stylesheet.
-				 */
-				if ( $options['load_form_style'] ) {
-					self::add_style( 'wpmtst-form-style' );
-				}
-
-				if ( is_rtl() && $options['load_rtl_style'] ) {
-					self::add_style( 'wpmtst-rtl-style' );
 				}
 
 			}
@@ -1035,6 +992,7 @@ final class Strong_Testimonials {
 
 			/**
 			 * If this is a view, look for accompanying stylesheet.
+			 * // TODO Is this check still necessary?
 			 */
 			if ( isset( $atts['view'] ) && $atts['view'] ) {
 
@@ -1042,19 +1000,6 @@ final class Strong_Testimonials {
 					$handle = self::find_stylesheet( $atts );
 				}
 
-			}
-			else {
-
-				/**
-				 * If this is a configured shortcode, check the option for loading its stylesheet.
-				 */
-				if ( $options['load_page_style'] ) {
-					self::add_style( 'wpmtst-style' );
-				}
-
-				if ( is_rtl() && $options['load_rtl_style'] ) {
-					self::add_style( 'wpmtst-rtl-style' );
-				}
 			}
 
 		}
@@ -1068,24 +1013,11 @@ final class Strong_Testimonials {
 
 			/**
 			 * If this is a view, look for accompanying stylesheet.
+			 * // TODO Is this check still necessary?
 			 */
 			if ( isset( $atts['view'] ) && $atts['view'] ) {
 
 				$handle = self::find_stylesheet( $atts );
-
-			}
-			else {
-
-				/**
-				 * If this is a configured shortcode, check the option for loading its stylesheet.
-				 */
-				if ( $options['load_page_style'] ) {
-					self::add_style( 'wpmtst-style' );
-				}
-
-				if ( is_rtl() && $options['load_rtl_style'] ) {
-					self::add_style( 'wpmtst-rtl-style' );
-				}
 
 			}
 
@@ -1124,7 +1056,7 @@ final class Strong_Testimonials {
 		if ( wpmtst_using_form_validation_script() ) {
 			wp_localize_script( 'wpmtst-form-script', 'form_ajax_object', array(
 				'ajaxUrl' => admin_url( 'admin-ajax.php' ),
-				'ajaxSubmit' => isset( $atts['form-ajax'] ) && $atts['form-ajax'] ? 1 : 0,
+				'ajaxSubmit' => isset( $atts['form_ajax'] ) && $atts['form_ajax'] ? 1 : 0,
 			) );
 			wp_enqueue_script( 'wpmtst-form-script' );
 		}
@@ -1395,7 +1327,7 @@ final class Strong_Testimonials {
 			$gradient = self::gradient_rules( $c1, $c2 );
 			wp_add_inline_style( $handle, ".strong-view-id-$view .testimonial-inner { $gradient }" );
 		}
-		else {
+		elseif ( $c1 ) {
 			wp_add_inline_style( $handle, ".strong-view-id-$view .testimonial-inner { background: $c1; }" );
 		}
 	}
@@ -1444,8 +1376,6 @@ final class Strong_Testimonials {
 	 * For standard widgets NOT in [Page Builder by SiteOrigin] panels.
 	 */
 	public static function find_view_widgets() {
-		if ( is_admin() )
-			return;
 
 		// Get all widgets
 		$all_widgets = get_option( 'sidebars_widgets' );
@@ -1479,6 +1409,8 @@ final class Strong_Testimonials {
 							if ( isset( $widget['view'] ) && $widget['view'] ) {
 								$atts        = array( 'view' => $widget['view'] );
 								$parsed_atts = self::parse_view( $atts, self::get_view_defaults(), $atts );
+								if ( self::view_not_found( $parsed_atts ) )
+									continue;
 
 								// Build the shortcode signature.
 								$att_string = serialize( $atts );
@@ -1513,8 +1445,6 @@ final class Strong_Testimonials {
 	 * @access public
 	 */
 	public static function find_widgets() {
-		if ( is_admin() )
-			return;
 
 		// Get all widgets
 		$all_widgets = get_option( 'sidebars_widgets' );
@@ -1597,8 +1527,6 @@ final class Strong_Testimonials {
 	 * For widgets in [Page Builder by SiteOrigin] panels.
 	 */
 	public static function find_pagebuilder_widgets() {
-		if ( is_admin() )
-			return;
 
 		// Get all widgets
 		$panels_data = get_post_meta( get_the_ID(), 'panels_data', true );
@@ -1663,6 +1591,8 @@ final class Strong_Testimonials {
 						//TODO DRY
 						$atts        = array( 'view' => $widget['view'] );
 						$parsed_atts = self::parse_view( $atts, self::get_view_defaults(), $atts );
+						if ( self::view_not_found( $parsed_atts ) )
+							continue;
 
 						// Build the shortcode signature.
 						$att_string = serialize( $atts );
@@ -1691,8 +1621,6 @@ final class Strong_Testimonials {
 	 * For widgets in [Page Builder by SiteOrigin] panels.
 	 */
 	public static function find_beaverbuilder_widgets() {
-		if ( is_admin() )
-			return;
 
 		$nodes = get_post_meta( get_the_ID(), '_fl_builder_data', true );
 		if ( ! $nodes )
@@ -1713,6 +1641,8 @@ final class Strong_Testimonials {
 				if ( isset( $widget['view'] ) && $widget['view'] ) {
 					$atts        = array( 'view' => $widget['view'] );
 					$parsed_atts = self::parse_view( $atts, self::get_view_defaults(), $atts );
+					if ( self::view_not_found( $parsed_atts ) )
+						continue;
 
 					// Build the shortcode signature.
 					$att_string = serialize( $atts );
@@ -1723,118 +1653,6 @@ final class Strong_Testimonials {
 					self::find_single_view( $atts, $att_string );
 				}
 
-			}
-
-		}
-	}
-
-	/**
-	 * Build list of all shortcode views on a page.
-	 *
-	 * A combination of has_shortcode and shortcode_parse_atts.
-	 */
-	public static function find_original_shortcodes() {
-		if ( is_admin() )
-			return;
-
-		global $post;
-		if ( empty( $post ) )
-			return;
-
-		$content = $post->post_content;
-		if ( false === strpos( $content, '[' ) )
-			return;
-
-		preg_match_all( '/' . get_shortcode_regex() . '/s', $content, $matches, PREG_SET_ORDER );
-		if ( empty( $matches ) )
-			return;
-
-		$options      = get_option( 'wpmtst_options' );
-		$form_options = get_option( 'wpmtst_form_options' );
-
-		foreach ( $matches as $key => $shortcode ) {
-
-			// Check for original shortcodes. Keep these exploded!
-
-			if ( 'wpmtst-all' == $shortcode[2] ) {
-				if ( $options['load_page_style'] ) {
-					self::add_style( 'wpmtst-style' );
-				}
-
-				if ( is_rtl() && $options['load_rtl_style'] ) {
-					self::add_style( 'wpmtst-rtl-style' );
-				}
-
-				self::add_script( 'wpmtst-pager-plugin' );
-				add_action( 'wp_footer', 'wpmtst_pagination_function' );
-			}
-
-			if ( 'wpmtst-form' == $shortcode[2] ) {
-				if ( $options['load_form_style'] ) {
-					self::add_style( 'wpmtst-form-style' );
-				}
-
-				if ( is_rtl() && $options['load_rtl_style'] ) {
-					self::add_style( 'wpmtst-rtl-style' );
-				}
-
-				// Slightly different than View processing.
-				self::add_script( 'wpmtst-validation-plugin' );
-				self::add_script( 'wpmtst-validation-lang' );
-				add_action( 'wp_footer', 'wpmtst_validation_function' );
-
-				if ( $form_options['honeypot_before'] ) {
-					add_action( 'wp_footer', 'wpmtst_honeypot_before_script' );
-					add_action( 'wpmtst_honeypot_before', 'wpmtst_honeypot_before' );
-				}
-
-				if ( $form_options['honeypot_after'] ) {
-					add_action( 'wp_footer', 'wpmtst_honeypot_after_script' );
-					add_action( 'wpmtst_honeypot_after', 'wpmtst_honeypot_after' );
-				}
-			}
-
-			if ( 'wpmtst-cycle' == $shortcode[2] ) {
-				if ( $options['load_page_style'] ) {
-					self::add_style( 'wpmtst-style' );
-				}
-
-				if ( is_rtl() && $options['load_rtl_style'] ) {
-					self::add_style( 'wpmtst-rtl-style' );
-				}
-
-				$cycle = get_option( 'wpmtst_cycle' );
-
-				// Populate variable for Cycle script.
-				$var = array(
-					'fx'      => 'fade',
-					'speed'   => $cycle['speed'] * 1000,
-					'timeout' => $cycle['timeout'] * 1000,
-					'pause'   => $cycle['pause'] ? true : false,
-				);
-				self::add_script( 'wpmtst-slider', 'later' );
-				self::add_script_var( 'wpmtst-slider', 'tcycle_cycle_shortcode', $var );
-
-			}
-
-			if ( 'wpmtst-single' == $shortcode[2] ) {
-				if ( $options['load_page_style'] ) {
-					self::add_style( 'wpmtst-style' );
-				}
-
-				if ( is_rtl() && $options['load_rtl_style'] ) {
-					self::add_style( 'wpmtst-rtl-style' );
-				}
-			}
-
-			if ( 'wpmtst-random' == $shortcode[2] ) {
-				if ( $options['load_page_style'] ) {
-					self::add_style( 'wpmtst-style' );
-				}
-
-				if ( is_rtl() && $options['load_rtl_style'] ) {
-					self::add_style( 'wpmtst-rtl-style' );
-				}
 			}
 
 		}
@@ -1867,7 +1685,7 @@ final class Strong_Testimonials {
 		 *
 		 * @since 1.21.0
 		 */
-		if ( ! $view ) {
+		if ( !$view ) {
 			return array_merge( array( 'view_not_found' => 1 ), $out );
 		}
 

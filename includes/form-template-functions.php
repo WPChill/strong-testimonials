@@ -1,154 +1,6 @@
 <?php
 /**
- * The form.
- *
- * @param $atts
- *
- * @return mixed|string|void
- */
-function wpmtst_form_shortcode( $atts ) {
-	global $strong_templates;
-
-	if ( isset( $_GET['success'] ) ) {
-		return '<div class="testimonial-success">' . wpmtst_get_form_message('submission-success') . '</div>';
-	}
-
-	//TODO trim down atts?
-	extract( normalize_empty_atts( $atts ) );
-
-	// initialize
-	$field_options       = get_option( 'wpmtst_fields' );
-	$field_groups        = $field_options['field_groups'];
-	$current_field_group = $field_groups[ $field_options['current_field_group'] ];
-	$fields              = $current_field_group['fields'];
-
-	$form_values = array( 'category' => $category );
-	foreach ( $fields as $key => $field ) {
-		$form_values[ $field['name'] ] = '';
-	}
-	$previous_values = WPMST()->get_form_values();
-	if ( $previous_values ) {
-		$form_values = array_merge( $form_values, $previous_values );
-	}
-	WPMST()->set_form_values( $form_values );
-
-	/**
-	 * Add filters here.
-	 */
-
-	/**
-	 * Load template
-	 */
-	if ( $view ) {
-		$template_file = $strong_templates->get_template_attr( $atts, 'template' );
-	}
-	else {
-		// [strong] shortcode
-		$template_file = wpmtst_find_template( 'testimonial-form', $template );
-	}
-
-	ob_start();
-	include $template_file;
-	$html = ob_get_contents();
-	ob_end_clean();
-
-	/**
-	 * Remove filters here.
-	 */
-
-	if ( $view ) {
-		do_action( 'wpmtst_form_rendered', $atts );
-	}
-
-	// TODO Different filter?
-	$html = apply_filters( 'strong_html', $html );
-
-	return $html;
-}
-
-/**
- * Honeypot preprocessor
- */
-function wpmtst_honeypot_before() {
-	if ( isset( $_POST['wpmtst_if_visitor'] ) && ! empty( $_POST['wpmtst_if_visitor'] ) ) {
-		do_action( 'honeypot_before_spam_testimonial', $_POST );
-		$form_options = get_option( 'wpmtst_form_options' );
-		$messages     = $form_options['messages'];
-		die( apply_filters( 'wpmtst_l10n', $messages['submission-error']['text'], 'strong-testimonials-form-messages', $messages['submission-error']['description'] ) );
-	}
-	return;
-}
-
-
-/**
- * Honeypot preprocessor
- */
-function wpmtst_honeypot_after() {
-	if ( ! isset ( $_POST['wpmtst_after'] ) ) {
-		do_action( 'honeypot_after_spam_testimonial', $_POST );
-		$form_options = get_option( 'wpmtst_form_options' );
-		$messages     = $form_options['messages'];
-		die( apply_filters( 'wpmtst_l10n', $messages['submission-error']['text'], 'strong-testimonials-form-messages', $messages['submission-error']['description'] ) );
-	}
-	return;
-}
-
-
-/**
- * Honeypot
- */
-function wpmtst_honeypot_before_script() {
-	?>
-<script type="text/javascript">jQuery('#wpmtst_if_visitor').val('');</script>
-	<?php
-}
-
-
-/**
- * Honeypot
- */
-function wpmtst_honeypot_after_script() {
-	?>
-<script type='text/javascript'>
-	//<![CDATA[
-	( function( $ ) {
-		'use strict';
-		var forms = "#wpmtst-submission-form";
-		$( forms ).submit( function() {
-			$( "<input>" ).attr( "type", "hidden" )
-			.attr( "name", "wpmtst_after" )
-			.attr( "value", "1" )
-			.appendTo( forms );
-			return true;
-		});
-	})( jQuery );
-	//]]>
-</script>
-	<?php
-}
-
-/**
- * Submission form validation.
- *
- * Required for original shortcodes.
- * To be removed in 2.0.
- */
-function wpmtst_validation_function() {
-	echo "\r"; ?>
-<script type="text/javascript">
-	jQuery(document).ready(function($) {
-		$("#wpmtst-submission-form").validate({});
-	});
-</script>
-	<?php
-}
-
-/**
- * ---------------------------------------------------------------------------
- *
- *     FORM TEMPLATE FUNCTIONS
- *
- * ---------------------------------------------------------------------------
+ * FORM TEMPLATE FUNCTIONS
  */
 
 function wpmtst_form_info() {
@@ -160,6 +12,7 @@ function wpmtst_form_setup() {
 	wp_nonce_field( 'wpmtst_form_action', 'wpmtst_form_nonce', true, true );
 	echo '<input type="hidden" name="action" value="wpmtst_form">'."\n";
 	echo '<input type="hidden" name="category" value="'. $form_values['category'] .'">'."\n";
+	echo '<input type="hidden" name="form_id" value="'. WPMST()->atts( 'form_id' ) .'">'."\n";
 
 }
 
@@ -176,20 +29,16 @@ function wpmtst_get_form_message( $part ) {
 }
 
 function wpmtst_all_form_fields() {
-	$field_options       = get_option( 'wpmtst_fields' );
-	$field_groups        = $field_options['field_groups'];
-	$current_field_group = $field_groups[ $field_options['current_field_group'] ];
-	$fields              = $current_field_group['fields'];
+	$fields = wpmtst_get_form_fields( WPMST()->atts( 'form_id' ) );
+
 	foreach ( $fields as $key => $field ) {
 		wpmtst_single_form_field( $field );
 	}
 }
 
 function wpmtst_form_field( $field_name ) {
-	$field_options       = get_option( 'wpmtst_fields' );
-	$field_groups        = $field_options['field_groups'];
-	$current_field_group = $field_groups[ $field_options['current_field_group'] ];
-	$fields              = $current_field_group['fields'];
+	$fields = wpmtst_get_form_fields( WPMST()->atts( 'form_id' ) );
+
 	foreach ( $fields as $key => $field ) {
 		if ( $field['name'] == $field_name ) {
 			wpmtst_single_form_field( $field );
@@ -323,8 +172,9 @@ function wpmtst_field_after( $field ) {
 
 function wpmtst_field_error( $field ) {
 	$errors = WPMST()->get_form_errors();
-	if ( isset( $errors[ $field['name'] ] ) )
+	if ( isset( $errors[ $field['name'] ] ) ) {
 		echo '<span class="error">' . $errors[ $field['name'] ] . '</span>';
+	}
 }
 
 function wpmtst_form_honeypot_before() {
@@ -366,9 +216,9 @@ function wpmtst_form_submit_button() {
 	$form_options = get_option( 'wpmtst_form_options' );
 	$messages     = $form_options['messages'];
 
-	$string   = $messages['form-submit-button']['text'];
-	$context  = 'strong-testimonials-form-messages';
-	$name     = $messages['form-submit-button']['description'];
+	$string  = $messages['form-submit-button']['text'];
+	$context = 'strong-testimonials-form-messages';
+	$name    = $messages['form-submit-button']['description'];
 	?>
 	<p class="form-field submit">
 		<input type="submit" id="wpmtst_submit_testimonial" name="wpmtst_submit_testimonial" value="<?php echo apply_filters( 'wpmtst_l10n', $string, $context, $name ); ?>" class="button">

@@ -7,7 +7,6 @@
 
 /**
  * Template function for showing a View.
- * Merely a wrapper for the [strong] shortcode until that's removed in version 2.0.
  *
  * @since 1.25.0
  *
@@ -21,28 +20,7 @@ function strong_testimonials_view( $id = null ) {
 	$atts  = array( 'id' => $id );
 	$out   = WPMST()->parse_view( $out, $pairs, $atts );
 
-	// container_class is shared by display and form in both original and new default templates
-	$options = get_option( 'wpmtst_options' );
-	$out['container_class'] = 'strong-view-id-' . $out['view'];
-
-	if ( $out['class'] ) {
-		$out['container_class'] .= ' ' . str_replace( ',', ' ', $out['class'] );
-	}
-	if ( is_rtl() ) {
-		$out['container_class'] .= ' rtl';
-	}
-	WPMST()->set_atts( $out );
-
-	/**
-	 * MODE: FORM
-	 */
-	if ( $out['form'] )
-		echo wpmtst_form_shortcode( $out );
-
-	/**
-	 * MODE: DISPLAY (default)
-	 */
-	echo wpmtst_display_view( $out );
+	echo wpmtst_render_view( $out );
 }
 
 /**
@@ -255,14 +233,7 @@ function wpmtst_the_date( $format = '', $class = '' ) {
 function wpmtst_the_client() {
 	$atts = WPMST()->atts();
 	if ( isset( $atts['client_section'] ) ) {
-		// View
 		echo wpmtst_client_section( $atts['client_section'] );
-	} elseif ( $atts['content'] ) {
-		// Child shortcodes
-		$shortcode_content = reverse_wpautop( $atts['content'] );
-		if ( has_child_shortcode( $shortcode_content, 'client', $atts['parent_tag'] ) ) {
-			echo do_child_shortcode( $atts['parent_tag'], $shortcode_content );
-		}
 	}
 }
 
@@ -427,11 +398,6 @@ function wpmtst_get_field( $field, $args = array() ) {
 		// Apply a character limit to post content.
 		case 'truncated' :
 			$html = wpmtst_truncate( $post->post_content, $args['char_limit'] );
-			break;
-
-		// Process child shortcodes in [strong] content.
-		case 'client' :
-			$html = do_child_shortcode( wpmtst_get_shortcode(), $args['content'] );
 			break;
 
 		// Get the custom field.

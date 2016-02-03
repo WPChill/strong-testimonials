@@ -10,18 +10,19 @@
  */
 function wpmtst_settings_menu() {
 	add_submenu_page( 'edit.php?post_type=wpm-testimonial',
-		__( 'Views', 'strong-testimonials' ),
-		__( 'Views', 'strong-testimonials' ),
+		__( 'Views', 'strong-testimonials' ),  // page title
+		__( 'Views', 'strong-testimonials' ),  // menu title
 		'manage_options',
 		'views',
 		'wpmtst_views_admin' );
 
 	add_submenu_page( 'edit.php?post_type=wpm-testimonial',
-		__( 'Fields', 'strong-testimonials' ),
-		__( 'Fields', 'strong-testimonials' ),
+		apply_filters( 'wpmtst_fields_page_title', __( 'Fields', 'strong-testimonials' ) ),
+		apply_filters( 'wpmtst_fields_menu_title', __( 'Fields', 'strong-testimonials' ) ),
 		'manage_options',
 		'fields',
-		'wpmtst_settings_custom_fields' );
+		//'wpmtst_settings_custom_fields' );
+		'wpmtst_form_admin' );
 
 	add_submenu_page( 'edit.php?post_type=wpm-testimonial',
 		__( 'Settings', 'strong-testimonials' ),
@@ -29,13 +30,6 @@ function wpmtst_settings_menu() {
 		'manage_options',
 		'new-settings',
 		'wpmtst_settings_page' );
-
-	add_submenu_page( 'edit.php?post_type=wpm-testimonial',
-		__( 'Old Settings', 'strong-testimonials' ),
-		__( 'Old Settings', 'strong-testimonials' ),
-		'manage_options',
-		'old-settings',
-		'wpmtst_old_settings_page' );
 
 	add_submenu_page( 'edit.php?post_type=wpm-testimonial',
 		_x( 'Guide', 'noun', 'strong-testimonials' ),
@@ -51,7 +45,6 @@ add_action( 'admin_menu', 'wpmtst_settings_menu' );
  */
 function wpmtst_register_settings() {
 	register_setting( 'wpmtst-settings-group', 'wpmtst_options',      'wpmtst_sanitize_options' );
-	register_setting( 'wpmtst-cycle-group',    'wpmtst_cycle',        'wpmtst_sanitize_cycle' );
 	register_setting( 'wpmtst-form-group',     'wpmtst_form_options', 'wpmtst_sanitize_form' );
 }
 add_action( 'admin_init', 'wpmtst_register_settings' );
@@ -64,56 +57,25 @@ add_action( 'admin_init', 'wpmtst_register_settings' );
  * @return mixed
  */
 function wpmtst_sanitize_options( $input ) {
-
-	$input['per_page'] = (int) sanitize_text_field( $input['per_page'] );
-
 	/**
 	 * Store values as 0 or 1.
 	 * Checked checkbox value is "on".
 	 * Unchecked checkboxes are not submitted.
 	 */
 	/* LONGHAND
-	if ( isset( $input['load_page_style'] ) ) {
-		if ( 'on' == $input['load_page_style'] ) { // checked checkbox
-			$new_input['load_page_style'] = 1;
+	if ( isset( $input['reorder'] ) ) {
+		if ( 'on' == $input['reorder'] ) { // checked checkbox
+			$new_input['reorder'] = 1;
 		} else { // hidden input
-			$new_input['load_page_style'] = $input['load_page_style']; // 0 or 1
+			$new_input['reorder'] = $input['reorder']; // 0 or 1
 		}
 	} else { // unchecked checkbox
-		$new_input['load_page_style'] = 0;
+		$new_input['reorder'] = 0;
 	}
 	*/
 
 	// shorthand
-
-	$input['load_page_style']   = !isset( $input['load_page_style'] ) ? 0 : ( 'on' == $input['load_page_style'] ? 1 : $input['load_page_style'] );
-
-	$input['load_widget_style'] = !isset( $input['load_widget_style'] ) ? 0 : ( 'on' == $input['load_widget_style'] ? 1 : $input['load_widget_style'] );
-
-	$input['load_form_style']   = !isset( $input['load_form_style'] ) ? 0 : ( 'on' == $input['load_form_style'] ? 1 : $input['load_form_style'] );
-
-	$input['load_rtl_style']    = !isset( $input['load_rtl_style'] ) ? 0 : ( 'on' == $input['load_rtl_style'] ? 1 : $input['load_rtl_style'] );
-
-	$input['reorder']           = !isset( $input['reorder'] ) ? 0 : ( 'on' == $input['reorder'] ? 1 : $input['reorder'] );
-
-	return $input;
-}
-
-/**
- * Sanitize cycle settings
- */
-function wpmtst_sanitize_cycle( $input ) {
-	$input['category']   = strip_tags( $input['category'] );
-	$input['limit']      = (int) strip_tags( $input['limit'] );
-	$input['title']      = isset( $input['title'] ) ? 1 : 0;
-	$input['char_limit'] = (int) sanitize_text_field( $input['char_limit'] );
-	$input['images']     = isset( $input['images'] ) ? 1 : 0;
-	$input['client']     = isset( $input['client'] ) ? 1 : 0;
-	$input['more_page']  = strip_tags( $input['more_page'] );
-	$input['timeout']    = (float) sanitize_text_field( $input['timeout'] );
-	$input['effect']     = strip_tags( $input['effect'] );
-	$input['speed']      = (float) sanitize_text_field( $input['speed'] );
-	$input['pause']      = isset( $input['pause'] ) ? 1 : 0;
+	$input['reorder'] = !isset( $input['reorder'] ) ? 0 : ( 'on' == $input['reorder'] ? 1 : $input['reorder'] );
 
 	return $input;
 }
@@ -123,7 +85,10 @@ function wpmtst_sanitize_cycle( $input ) {
  *
  * An unchecked checkbox is not posted.
  *
+ * @param $input
  * @since 1.13
+ *
+ * @return mixed
  */
 function wpmtst_sanitize_form( $input ) {
 	$input['post_status']       = sanitize_text_field( $input['post_status'] );
@@ -200,7 +165,7 @@ function wpmtst_settings_page() {
 
 		<?php if( isset( $_GET['settings-updated'] ) ) : ?>
 			<div id="message" class="updated notice is-dismissible">
-				<p><strong><?php _e( 'Settings saved.' ) ?></strong></p>
+				<p><?php _e( 'Settings saved.' ) ?></p>
 			</div>
 		<?php endif; ?>
 
@@ -225,8 +190,7 @@ function wpmtst_settings_page() {
 					break;
 				default :
 					settings_fields( 'wpmtst-settings-group' );
-					$options = get_option( 'wpmtst_options' );
-					include( 'settings/general2.php' );
+					include( 'settings/general.php' );
 			}
 			?>
 			<p class="submit">
@@ -244,7 +208,7 @@ function wpmtst_form_settings() {
 	/**
 	 * Build list of supported Captcha plugins.
 	 *
-	 * TODO - Move this to options array
+	 * TODO - Move this to options array and add filter
 	 */
 	$plugins = array(
 		'bwsmath' => array(
@@ -292,128 +256,6 @@ function wpmtst_form_settings() {
 	}
 
 	include( 'settings/form.php' );
-}
-
-/**
- * Settings page
- */
-function wpmtst_old_settings_page() {
-	if ( ! current_user_can( 'manage_options' ) )
-		wp_die( __( 'You do not have sufficient permissions to access this page.' ) );
-	?>
-	<div class="wrap wpmtst">
-
-		<h2><?php _e( 'Testimonial Settings', 'strong-testimonials' ); ?></h2>
-
-		<?php if( isset( $_GET['settings-updated'] ) ) : ?>
-			<div id="message" class="updated notice is-dismissible">
-				<p><strong><?php _e( 'Settings saved.' ) ?></strong></p>
-			</div>
-		<?php endif; ?>
-
-		<?php
-		$active_tab = isset( $_GET['tab'] ) ? $_GET['tab'] : 'general';
-		$url = admin_url( 'edit.php?post_type=wpm-testimonial&page=old-settings' )
-		?>
-		<h2 class="nav-tab-wrapper">
-			<a href="<?php echo add_query_arg( 'tab', 'general', $url ); ?>" class="nav-tab <?php echo $active_tab == 'general' ? 'nav-tab-active' : ''; ?>">
-				<span class="dashicons dashicons-warning medium"></span><?php _e( '[strong] Shortcode', 'strong-testimonials' ); ?>
-			</a>
-
-			<a href="<?php echo add_query_arg( 'tab', 'cycle', $url ); ?>" class="nav-tab <?php echo $active_tab == 'cycle' ? 'nav-tab-active' : ''; ?>">
-				<span class="dashicons dashicons-warning"></span><?php _e( 'Cycle Shortcode', 'strong-testimonials' ); ?>
-			</a>
-
-			<a href="<?php echo add_query_arg( 'tab', 'client', $url ); ?>" class="nav-tab <?php echo $active_tab == 'client' ? 'nav-tab-active' : ''; ?>">
-				<span class="dashicons dashicons-warning"></span><?php _e( 'Client Section', 'strong-testimonials' ); ?>
-			</a>
-		</h2>
-
-		<form id="<?php echo $active_tab; ?>-form" method="post" action="options.php">
-			<?php
-			switch( $active_tab ) {
-				case 'client' :
-					wpmtst_client_settings();
-					break;
-				case 'cycle' :
-					wpmtst_cycle_settings();
-					break;
-				default :
-					wpmtst_settings();
-			}
-			?>
-			<p class="submit">
-				<input id="submit" class="button button-primary" type="submit" value="<?php _e( 'Save Changes' ); ?>" name="submit">
-			</p>
-		</form>
-
-	</div><!-- wrap -->
-	<?php
-}
-
-/**
- * Main settings screen
- */
-function wpmtst_settings() {
-	$options = get_option( 'wpmtst_options' );
-	settings_fields( 'wpmtst-settings-group' );
-	include( 'settings/general.php' );
-}
-
-/**
- * Cycle shortcode settings
- */
-function wpmtst_cycle_settings() {
-	$cycle = get_option( 'wpmtst_cycle' );
-
-	$order_list = array(
-		'rand'   => _x( 'Random', 'display order', 'strong-testimonials' ),
-		'menu'   => _x( 'Menu order', 'display order', 'strong-testimonials' ),
-		'recent' => _x( 'Newest first', 'display order', 'strong-testimonials' ),
-		'oldest' => _x( 'Oldest first', 'display order', 'strong-testimonials' ),
-	);
-
-	$category_list = get_terms( 'wpm-testimonial-category', array(
-		'hide_empty' => false,
-		'order_by'   => 'name',
-		'pad_counts' => true,
-	) );
-
-	$pages_list = get_pages( array(
-		'sort_order'  => 'ASC',
-		'sort_column' => 'post_title',
-		'post_type'   => 'page',
-		'post_status' => 'publish',
-	) );
-
-	settings_fields( 'wpmtst-cycle-group' );
-
-	include( 'settings/cycle.php' );
-}
-
-/**
- * Client section settings
- */
-function wpmtst_client_settings() {
-	$options = get_option( 'wpmtst_options' );
-
-	// ----------------------------
-	// Build list of custom fields.
-	// ----------------------------
-	$field_options       = get_option( 'wpmtst_fields' );
-	$field_groups        = $field_options['field_groups'];
-	$current_field_group = $field_options['current_field_group'];  // "custom", only one for now
-	$fields              = $field_groups[ $current_field_group ]['fields'];
-	$fields_array        = array();
-	foreach ( $fields as $field ) {
-		if ( !in_array( $field['name'], array( 'post_title', 'post_content', 'featured_image' ) ) ) {
-			$fields_array[] = '<span class="code wide">' . $field['name'] . '</span>';
-		}
-	}
-
-	settings_fields( 'wpmtst-settings-group' );
-
-	include( 'settings/client.php' );
 }
 
 /**

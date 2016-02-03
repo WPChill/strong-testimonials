@@ -37,7 +37,7 @@ class Strong_Views_List_Table extends Strong_Testimonials_List_Table {
 
 	public function get_sortable_columns() {
 		return array(
-			'name'      => array( 'name', false ),
+			'name' => array( 'name', false ),
 		);
 	}
 
@@ -59,13 +59,13 @@ class Strong_Views_List_Table extends Strong_Testimonials_List_Table {
 		$screen = get_current_screen();
 		$url = $screen->parent_file;
 		$edit_link = $url . '&page=views&action=edit&id=' . $item['id'];
-		echo '<strong><a href="' . $edit_link . '">' . $item['name'] . '</a></strong>';
+		echo '<a class="row-title" href="' . $edit_link . '">' . $item['name'] . '</a>';
 
 		$delete_link = 'admin.php?action=delete-strong-view&id=' . $item['id'];
 
 		$actions = array();
 		$actions['edit'] = '<a href="' . $edit_link . '">' . __( 'Edit' ) . '</a>';
-		$actions['delete'] = "<a class='submitdelete' href='" . wp_nonce_url( $delete_link, 'delete-strong-view_' . $item['id'] ) . "' onclick=\"if ( confirm( '" . esc_js( sprintf( __( "You are about to delete this view '%s'\n  'Cancel' to stop, 'OK' to delete." ), $item['name'] ) ) . "' ) ) { return true;}return false;\">" . __( 'Delete' ) . "</a>";
+		$actions['delete'] = "<a class='submitdelete' href='" . wp_nonce_url( $delete_link, 'delete-strong-view_' . $item['id'] ) . "' onclick=\"if ( confirm( '" . esc_js( sprintf( __( "Delete \"%s\"?" ), $item['name'] ) ) . "' ) ) { return true;} return false;\">" . __( 'Delete' ) . "</a>";
 		echo $this->row_actions( $actions );
 	}
 
