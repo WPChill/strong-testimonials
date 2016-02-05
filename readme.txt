@@ -1,4 +1,4 @@
-﻿=== Strong Testimonials ===
+=== Strong Testimonials ===
 Contributors: cdillon27
 Donate link: https://www.wpmission.com/donate/
 Tags: testimonials, testimonial widget, random testimonial, testimonial shortcode, testimonial slider, testimonial form
@@ -16,6 +16,11 @@ All the features you need to quickly add and customize testimonials on your site
 
 **[See demos of various templates, slideshows, and forms here!](http://demos.wpmission.com/strong-testimonials/)**
 
+= Is this the right plugin for you? =
+It's important to understand this plugin's intended use case: A small business with up to a few hundred testimonials, maybe organized into 5-10 categories, and displaying them a few different ways like a full page of testimonials and some slideshows, plus allowing customers to submit new testimonials.
+
+If that describes your situation, this plugin will work for you right out of the box with just a few steps.
+
 = Primary Features =
 
 * A front-end form with custom fields, anti-spam options, and notification emails
@@ -31,19 +36,21 @@ All the features you need to quickly add and customize testimonials on your site
 * Gravatar support
 * Compatible with WPML and Polylang
 
+Strong Testimonials [plays well with other plugins and themes](https://www.wpmission.com/theme-plugin-compatibility-fund/), and I strive to adhere to WordPress coding standards and best practices.
+
 = The Form =
 
 You can customize the form to your needs by adding or removing fields, or changing properties like the order, the text before or after, and the placeholder text.
 
 The form also offers **anti-spam** options like honeypots and Captcha via these plugins: [Captcha](http://wordpress.org/plugins/captcha/), [Really Simple Captcha](http://wordpress.org/plugins/really-simple-captcha/), and [Advanced noCaptcha reCaptcha](https://wordpress.org/plugins/advanced-nocaptcha-recaptcha/).
 
-Send a **notification email** to your multiple admins when new testimonials are submitted.
+**Notification emails** can be sent to multiple admins when new testimonials are submitted. New testimonials can also be assigned to a specific category.
 
-The form can be submitted via Ajax which makes it compatible with the popular [Popup Maker](https://wordpress.org/plugins/popup-maker/) plugin. The newly submitted testimonial can also be assigned to a specific category.
+The form can be submitted via Ajax which makes it compatible with the popular [Popup Maker](https://wordpress.org/plugins/popup-maker/) plugin.
 
 = Display =
 
-A View is a simple, intuitive editor that no other testimonial plugin has. Instead of multiple shortcodes with dozens of options, a View contains all the options in one screen. Displaying the View is done with a single shortcode or the widget.
+Everything happens in a **View**. Instead of learning multiple shortcodes with dozens of options, a View contains all the options in a simple, intuitive editor that no other testimonial plugin has. Display the View using a single shortcode or the widget.
 
 Some of the options for displaying testimonials in a **list** or **slideshow**:
 
@@ -53,7 +60,7 @@ Some of the options for displaying testimonials in a **list** or **slideshow**:
 * extras like pagination
 * layout and style options
 
-Check out the [screenshots](https://wordpress.org/plugins/strong-testimonials/screenshots/).
+Check out the [screenshots](https://wordpress.org/plugins/strong-testimonials/screenshots/) to see the View editor.
 
 = Style =
 
@@ -61,7 +68,7 @@ Strong Testimonials offers a handful of templates to try in your theme. The defa
 
 Need help matching your theme? Got some weird spacing or floating? I'm here to help.
 
-For ultimate control and seamless integration, any template can be copied to your theme and customized. (A tutorial and more templates coming soon.)
+For ultimate control and seamless integration, any template can be copied to your theme and customized (a tutorial and more templates coming soon). There is also a template function that can display any View.
 
 = Recommended =
 
@@ -145,6 +152,11 @@ Not yet.
 8. Template files and template functions.
 
 == Changelog ==
+
+= 2.1 - February 5, 2016 =
+* Add ability to duplicate a View.
+* Fix pagination/slideshow show/hide behavior in View editor.
+* Add framework for add-on plugins.
 
 = 2.0.1 - February 3, 2016 =
 * Fix bug that restored default custom fields.

@@ -523,13 +523,12 @@ function wpmtst_get_view( $id ) {
  */
 function wpmtst_save_view( $view, $action = 'edit' ) {
 	$view = (array) $view;
-	if ( ! $view )
-		return false;
+	if ( !$view ) return false;
 
 	global $wpdb;
 	$table_name = $wpdb->prefix . 'strong_views';
 	$serialized = serialize( $view['data'] );
-	if ( 'add' == $action ) {
+	if ( 'add' == $action || 'duplicate' == $action ) {
 		$sql = "INSERT INTO {$table_name} (name, value) VALUES (%s, %s)";
 		$sql = $wpdb->prepare( $sql, $view['name'], $serialized );
 		$num_rows = $wpdb->query( $sql );

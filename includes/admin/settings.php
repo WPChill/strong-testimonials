@@ -44,10 +44,45 @@ add_action( 'admin_menu', 'wpmtst_settings_menu' );
  * Register settings
  */
 function wpmtst_register_settings() {
-	register_setting( 'wpmtst-settings-group', 'wpmtst_options',      'wpmtst_sanitize_options' );
-	register_setting( 'wpmtst-form-group',     'wpmtst_form_options', 'wpmtst_sanitize_form' );
+	register_setting( 'wpmtst-settings-group', 'wpmtst_options', 'wpmtst_sanitize_options' );
+	register_setting( 'wpmtst-form-group', 'wpmtst_form_options', 'wpmtst_sanitize_form' );
+	register_setting( 'wpmtst-mf-license', 'wpmst_mf_license_key', 'wpmtst_sanitize_license' );
 }
 add_action( 'admin_init', 'wpmtst_register_settings' );
+
+/**
+ * Sanitize licenses.
+ *
+ * @param $new
+ *
+ * @return mixed
+ */
+function wpmtst_sanitize_license( $new ) {
+	$old = get_option( 'wpmst_mf_license_key' );
+	if( $old && $old != $new ) {
+		delete_option( 'wpmst_mf_license_status' ); // new license has been entered, so must reactivate
+	}
+	return $new;
+}
+
+/**
+ * Check for active add-ons.
+ *
+ * @since 2.1
+ */
+function wpmtst_active_addons() {
+	$addons = array (
+		'strong-testimonials-multiple-forms/strong-testimonials-multiple-forms.php',
+	);
+	return array_intersect( $addons, get_option( 'active_plugins' ) );
+}
+
+/**
+ * Our add-on licenses.
+ */
+function wpmtst_licenses_settings() {
+	include( 'settings/licenses.php' );
+}
 
 /**
  * Sanitize general settings
@@ -174,16 +209,23 @@ function wpmtst_settings_page() {
 		/**
 		 * Using "new-settings" instead of previously used "settings" due to possible bug or conflict that shows the parent menu item of the first instance of any "settings" submenu as the current one. This first became apparent with the Popup Maker plugin. Need to debug further. 2-Jan-2016
 		 */
-		$url = admin_url( 'edit.php?post_type=wpm-testimonial&page=new-settings' )
+		$url = admin_url( 'edit.php?post_type=wpm-testimonial&page=new-settings' );
 		?>
 		<h2 class="nav-tab-wrapper">
 			<a href="<?php echo add_query_arg( 'tab', 'general', $url ); ?>" class="nav-tab <?php echo $active_tab == 'general' ? 'nav-tab-active' : ''; ?>"><?php _ex( 'General', 'adjective', 'strong-testimonials' ); ?></a>
 			<a href="<?php echo add_query_arg( 'tab', 'form', $url ); ?>" class="nav-tab <?php echo $active_tab == 'form' ? 'nav-tab-active' : ''; ?>"><?php _e( 'Form', 'strong-testimonials' ); ?></a>
+			<?php if ( wpmtst_active_addons() ): ?>
+			<a href="<?php echo add_query_arg( 'tab', 'licenses', $url ); ?>" class="nav-tab <?php echo $active_tab == 'licenses' ? 'nav-tab-active' : ''; ?>"><?php _e( 'Licenses', 'strong-testimonials' ); ?></a>
+			<?php endif; ?>
 		</h2>
 
 		<form id="<?php echo $active_tab; ?>-form" method="post" action="options.php">
 			<?php
 			switch( $active_tab ) {
+				case 'licenses' :
+					settings_fields( 'wpmtst-mf-license' );
+					wpmtst_licenses_settings();
+					break;
 				case 'form' :
 					settings_fields( 'wpmtst-form-group' );
 					wpmtst_form_settings();
@@ -202,6 +244,9 @@ function wpmtst_settings_page() {
 	<?php
 }
 
+/**
+ * Our form settings.
+ */
 function wpmtst_form_settings() {
 	$form_options = get_option( 'wpmtst_form_options' );
 

@@ -173,7 +173,6 @@ function wpmtst_default_settings() {
 		update_option( 'wpmtst_custom_forms', $custom_forms );
 		// WPML
 		wpmtst_form_fields_wpml( $custom_forms[1]['fields'] );
-		// TODO Do this for multiple forms too
 	}
 
 
@@ -204,9 +203,6 @@ function wpmtst_default_settings() {
 		}
 
 		update_option( 'wpmtst_form_options', $form_options );
-		// WPML
-		wpmtst_form_messages_wpml( $form_options['messages'] );
-		wpmtst_form_options_wpml( $form_options );
 	}
 	else {
 		// -5C- UPDATE
@@ -215,15 +211,16 @@ function wpmtst_default_settings() {
 		 *
 		 * @since 1.18
 		 */
-		$recipients = array(
-			array(
-				'admin_name'       => isset( $form_options['admin_name'] ) ? $form_options['admin_name'] : '',
-				'admin_site_email' => isset( $form_options['admin_site_email'] ) ? $form_options['admin_site_email'] : 1,
-				'admin_email'      => isset( $form_options['admin_email'] ) ? $form_options['admin_email'] : '',
-				'primary'          => 1,  // cannot be deleted
-			),
-		);
-		$form_options['recipients'] = $recipients;
+		if ( !isset( $form_options['recipients'] ) ) {
+			$form_options['recipients'] = array(
+				array(
+					'admin_name'       => isset( $form_options['admin_name'] ) ? $form_options['admin_name'] : '',
+					'admin_site_email' => isset( $form_options['admin_site_email'] ) ? $form_options['admin_site_email'] : 1,
+					'admin_email'      => isset( $form_options['admin_email'] ) ? $form_options['admin_email'] : '',
+					'primary'          => 1,  // cannot be deleted
+				)
+			);
+		}
 
 		unset( $form_options['admin_name'] );
 		unset( $form_options['admin_site_email'] );
@@ -232,10 +229,10 @@ function wpmtst_default_settings() {
 		// Merge in new options
 		$form_options = array_merge( $default_form_options, $form_options );
 		update_option( 'wpmtst_form_options', $form_options );
-		// WPML
-		wpmtst_form_messages_wpml( $form_options['messages'] );
-		wpmtst_form_options_wpml( $form_options );
 	}
+	// WPML
+	wpmtst_form_messages_wpml( $form_options['messages'] );
+	wpmtst_form_options_wpml( $form_options );
 
 	/**
 	 * -6- GET VIEW OPTIONS

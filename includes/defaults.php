@@ -200,6 +200,45 @@ function wpmtst_get_default_base_forms() {
 		)
 	);
 
+	$forms['minimal'] = array(
+		'name'   => 'minimal',
+		'label'  => __( 'Minimal Form', 'strong-testimonials' ),
+		'readonly' => 1,
+		'fields' => array(
+			// ------
+			// CUSTOM
+			// ------
+			0 => array(
+				'record_type' => 'custom',
+				'name'        => 'client_name',
+				'label'       => __( 'Name', 'strong-testimonials-multiple-forms' ),
+				'input_type'  => 'text',
+				'required'    => 1,
+				'after'       => '',
+				'admin_table' => 1,
+			),
+			1 => array(
+				'record_type' => 'custom',
+				'name'        => 'email',
+				'label'       => __( 'Email', 'strong-testimonials-multiple-forms' ),
+				'input_type'  => 'email',
+				'required'    => 1,
+				'after'       => '',
+			),
+			// ----
+			// POST
+			// ----
+			2 => array(
+				'record_type' => 'post',
+				'name'        => 'post_content',
+				'label'       => __( 'Testimonial', 'strong-testimonials-multiple-forms' ),
+				'input_type'  => 'textarea',
+				'required'    => 1,
+				'after'       => '',
+			),
+		),
+	);
+
 	foreach ( $forms as $form_name => $form ) {
 		foreach ( $form['fields'] as $key => $array ) {
 			if ( 'post' == $array['record_type'] ) {

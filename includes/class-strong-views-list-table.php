@@ -57,15 +57,25 @@ class Strong_Views_List_Table extends Strong_Testimonials_List_Table {
 
 	public function column_name( $item ) {
 		$screen = get_current_screen();
-		$url = $screen->parent_file;
+		$url    = $screen->parent_file;
+
+		// Edit link
 		$edit_link = $url . '&page=views&action=edit&id=' . $item['id'];
 		echo '<a class="row-title" href="' . $edit_link . '">' . $item['name'] . '</a>';
 
+		// Duplicate link
+		// @since 2.1.0
+		$duplicate_link = $url . '&page=views&action=duplicate&id=' . $item['id'];
+
+		// Delete link
 		$delete_link = 'admin.php?action=delete-strong-view&id=' . $item['id'];
 
+		// Assemble links
 		$actions = array();
-		$actions['edit'] = '<a href="' . $edit_link . '">' . __( 'Edit' ) . '</a>';
-		$actions['delete'] = "<a class='submitdelete' href='" . wp_nonce_url( $delete_link, 'delete-strong-view_' . $item['id'] ) . "' onclick=\"if ( confirm( '" . esc_js( sprintf( __( "Delete \"%s\"?" ), $item['name'] ) ) . "' ) ) { return true;} return false;\">" . __( 'Delete' ) . "</a>";
+		$actions['edit']      = '<a href="' . $edit_link . '">' . __( 'Edit' ) . '</a>';
+		$actions['duplicate'] = '<a href="' . $duplicate_link . '">' . __( 'Duplicate' ) . '</a>';
+		$actions['delete']    = "<a class='submitdelete' href='" . wp_nonce_url( $delete_link, 'delete-strong-view_' . $item['id'] ) . "' onclick=\"if ( confirm( '" . esc_js( sprintf( __( "Delete \"%s\"?" ), $item['name'] ) ) . "' ) ) { return true;} return false;\">" . __( 'Delete' ) . "</a>";
+
 		echo $this->row_actions( $actions );
 	}
 

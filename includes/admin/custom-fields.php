@@ -89,7 +89,7 @@ function wpmtst_settings_custom_fields( $action = '', $form_id = null ) {
 				$field['show_admin_table_option'] = $field['show_admin_table_option'] ? 1 : 0;
 
 				// add to fields array in display order
-				$fields[$new_key++] = $field;
+				$fields[ $new_key++ ] = $field;
 
 			}
 
@@ -99,9 +99,6 @@ function wpmtst_settings_custom_fields( $action = '', $form_id = null ) {
 				// TODO Catch if empty.
 				$new_label = sanitize_text_field( $_POST['field_group_label'] );
 				$forms[ $form_id ]['label'] = $new_label;
-				// update current variable too
-				// will be done better in admin-post PRG
-				//$field_group['label'] = $new_label;
 			}
 
 			update_option( 'wpmtst_fields', $field_options );
@@ -179,6 +176,12 @@ function wpmtst_htmlspecialchars( $string ) {
 
 /**
  * Add a field to the form
+ *
+ * @param $key
+ * @param $field
+ * @param $adding
+ *
+ * @return string
  */
 function wpmtst_show_field( $key, $field, $adding ) {
 	$fields = get_option( 'wpmtst_fields' );

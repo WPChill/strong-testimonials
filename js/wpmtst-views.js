@@ -201,16 +201,21 @@ jQuery(document).ready(function($) {
 		var indeps     = ".then_not_" + currentValue;
 		var indepsFast = indeps + ".fast";
 		if (currentValue) {
-			$(depsFast).fadeIn(fast);
-			$(deps).not(".fast").fadeIn(speed);
+
+			$(depsFast).not(".then_not_" + currentMode).fadeIn(fast);
+			$(deps).not(".fast, .then_not_" + currentMode).fadeIn(speed);
+
 			$(indepsFast).fadeOut(fast);
 			$(indeps).not(".fast").fadeOut(speed);
 		}
 		else {
+
 			$(indepsFast).fadeIn(fast);
 			$(indeps).not(".fast").fadeIn(speed);
+
 			$(depsFast).fadeOut(fast);
 			$(deps).not(".fast").fadeOut(speed);
+
 		}
 	}
 
@@ -293,9 +298,9 @@ jQuery(document).ready(function($) {
 	 * Initial state
 	 */
 	var $mode = $("#view-mode");
-	var currentMode = $mode.find("input:checked");
-	currentMode.closest("label").addClass("checked");
-	$.fn.updateScreen(currentMode.val());
+	var currentMode = $mode.find("input:checked").val();
+	$mode.find("input:checked").closest("label").addClass("checked");
+	$.fn.updateScreen(currentMode);
 
 	/**
 	 * Mode listener
@@ -340,6 +345,7 @@ jQuery(document).ready(function($) {
 			});
 		});
 
+		// this is unhiding pagination in slideshow mode
 		$(".if.selectper").each(function(index,el) {
 			$.fn.selectPerOption(this);
 			$(this).on("change", function() {
@@ -569,6 +575,8 @@ jQuery(document).ready(function($) {
 			"background": "linear-gradient(to bottom, "+c1+" 0%, "+c2+" 100%)"
 		}
 	}
+
+	//$.fn.updateScreen(currentMode);
 
 	/**
 	 * -------------

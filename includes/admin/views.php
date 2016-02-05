@@ -10,11 +10,13 @@
  * An individual view settings page.
  *
  * @since 1.21.0
+ *
+ * @param string $action
+ * @param null   $view_id
  */
 function wpmtst_view_settings( $action = '', $view_id = null ) {
 
-	if ( 'edit' == $action && !$view_id )
-		return;
+	if ( ( 'edit' == $action || 'duplicate' == $action ) && !$view_id ) return;
 
 	global $view, $strong_templates;
 	add_thickbox();
@@ -22,16 +24,10 @@ function wpmtst_view_settings( $action = '', $view_id = null ) {
 	$screen = get_current_screen();
 	$url    = $screen->parent_file;
 
-	$fields = wpmtst_get_custom_fields();
+	$fields     = wpmtst_get_custom_fields();
 	$all_fields = wpmtst_get_all_fields();
 
-	// TODO de-duplicate
-	$order_list = array(
-		'random'     => _x( 'random', 'display order', 'strong-testimonials' ),
-		'menu_order' => _x( 'menu order', 'display order', 'strong-testimonials' ),
-		'newest'     => _x( 'newest first', 'display order', 'strong-testimonials' ),
-		'oldest'     => _x( 'oldest first', 'display order', 'strong-testimonials' ),
-	);
+	$order_list = wpmtst_get_order_list();
 
 	$posts_list = get_posts( array(
 		'orderby'          => 'post_date',
@@ -55,11 +51,16 @@ function wpmtst_view_settings( $action = '', $view_id = null ) {
 	$view_options = get_option( 'wpmtst_view_options' );
 	$default_view = get_option( 'wpmtst_view_default' );
 
-	// Get current view
 	if ( 'edit' == $action ) {
 		$view_array = wpmtst_get_view( $view_id );
 		$view       = unserialize( $view_array['value'] );
 		$view_name  = $view_array['name'];
+	}
+	elseif ( 'duplicate' == $action ) {
+		$view_array = wpmtst_get_view( $view_id );
+		$view       = unserialize( $view_array['value'] );
+		$view_id    = 0;
+		$view_name  = $view_array['name'] . ' - COPY';
 	}
 	else {
 		$view_id   = 1;
@@ -88,9 +89,9 @@ function wpmtst_view_settings( $action = '', $view_id = null ) {
 	// Select default template if necessary
 	if ( !$view['template'] ) {
 		if ( 'form' == $view['mode'] )
-			$view['template'] = 'default:content';
-		else
 			$view['template'] = 'default:form';
+		else
+			$view['template'] = 'default:content';
 	}
 
 	$view['nav']     = explode( ',', str_replace( ' ', '', $view['nav'] ) );
@@ -113,7 +114,7 @@ function wpmtst_view_settings( $action = '', $view_id = null ) {
 
 	?>
 	<h2>
-		<?php 'add' == $action ? _e( 'Add View', 'strong-testimonials' ) : _e( 'Edit View', 'strong-testimonials' ); ?>
+		<?php 'edit' == $action ? _e( 'Edit View', 'strong-testimonials' ) : _e( 'Add View', 'strong-testimonials' ); ?>
 		<a href="<?php echo $url; ?>&page=views&action=add" class="add-new-h2">Add New</a>
 	</h2>
 
@@ -210,11 +211,19 @@ function wpmtst_views_admin() {
 
 			if ( 'edit' == $_REQUEST['action'] && isset( $_REQUEST['id'] ) ) {
 				wpmtst_view_settings( $_REQUEST['action'], $_REQUEST['id'] );
-			} elseif ( 'add' == $_REQUEST['action'] ) {
+			}
+			elseif ( 'duplicate' == $_REQUEST['action'] && isset( $_REQUEST['id'] ) ) {
+				wpmtst_view_settings( $_REQUEST['action'], $_REQUEST['id'] );
+			}
+			elseif ( 'add' == $_REQUEST['action'] ) {
 				wpmtst_view_settings( $_REQUEST['action'] );
 			}
+			else {
+				echo "<p>Invalid request. Please try again.</p>";
+			}
 
-		} else {
+		}
+		else {
 
 			// View list
 			?>
@@ -235,6 +244,23 @@ function wpmtst_views_admin() {
 		?>
 	</div><!-- .wrap -->
 	<?php
+}
+
+/**
+ * The display order options.
+ *
+ * @since 2.1.0
+ * @todo DRY
+ *
+ * @return array
+ */
+function wpmtst_get_order_list() {
+	return array(
+		'random'     => _x( 'random', 'display order', 'strong-testimonials' ),
+		'menu_order' => _x( 'menu order', 'display order', 'strong-testimonials' ),
+		'newest'     => _x( 'newest first', 'display order', 'strong-testimonials' ),
+		'oldest'     => _x( 'oldest first', 'display order', 'strong-testimonials' ),
+	);
 }
 
 /**
@@ -666,6 +692,7 @@ function wpmtst_view_add_form() {
 
 }
 add_action( 'admin_post_view_add_form', 'wpmtst_view_add_form' );
+add_action( 'admin_post_view_duplicate_form', 'wpmtst_view_add_form' );
 
 
 /**
@@ -678,6 +705,7 @@ add_action( 'admin_post_view_add_form', 'wpmtst_view_add_form' );
  */
 function wpmtst_sanitize_view( $input ) {
 	ksort( $input );
+	//q2($input);
 
 	$view_data         = array();
 	$view_data['mode'] = sanitize_text_field( $input['mode'] );
@@ -879,7 +907,7 @@ function wpmtst_sanitize_view( $input ) {
 	}
 
 	// Multiple Forms add-on
-	if ( isset( $view_data['form_id'] ) ) {
+	if ( isset( $input['form_id'] ) ) {
 		$view_data['form_id'] = $input['form_id'];
 	}
 	else {
