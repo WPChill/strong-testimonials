@@ -179,6 +179,7 @@ final class Strong_Testimonials {
 
 			require_once WPMTST_INC . 'class-strong-testimonials-list-table.php';
 			require_once WPMTST_INC . 'class-strong-views-list-table.php';
+			require_once WPMTST_INC . 'class-walker-testimonial-category-checklist.php';
 			require_once WPMTST_INC . 'admin/admin.php';
 			require_once WPMTST_INC . 'admin/custom-fields.php';
 			require_once WPMTST_INC . 'admin/guide/guide.php';

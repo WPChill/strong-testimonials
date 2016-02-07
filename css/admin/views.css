@@ -39,8 +39,36 @@
 /*-----------------------------------------------
  * replace checkboxes with icons
  *-----------------------------------------------*/
+.view-category-list-panel {
+	min-height: 42px;
+	max-height: 195px;
+	min-width: 200px;
+	max-width: 300px;
+	overflow: auto;
+	padding: 0 11px;
+	border: 1px solid #DFDFDF;
+	background-color: #FDFDFD;
+}
+
+ul#view-category-list {
+	margin: 7px 0;
+}
+
+ul#view-category-list li {
+	margin-bottom: 0;
+}
+
+ul#view-category-list li label {
+	margin-bottom: 6px;
+	word-wrap: break-word;
+}
+
+ul.children {
+	margin-left: 18px;
+}
+
 input[type=checkbox] {
-	display: none; /* to hide the radio itself */
+	display: none;
 }
 
 /* keep the inherited margins, adjust width if more space is necessary */
