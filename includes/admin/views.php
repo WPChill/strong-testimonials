@@ -41,6 +41,15 @@ function wpmtst_view_settings( $action = '', $view_id = null ) {
 	$category_list = wpmtst_get_category_list();
 	$category_ids  = wpmtst_get_category_ids();
 
+	/**
+	 * Show category filter if necessary.
+	 *
+	 * @since 2.2.0
+	 */
+	if ( count( $category_ids ) > 5 ) {
+		wp_enqueue_script( 'wpmtst-view-category-filter-script' );
+	}
+
 	$pages_list = get_pages( array(
 		'sort_order'  => 'ASC',
 		'sort_column' => 'menu_order',
@@ -358,12 +367,12 @@ function wpmtst_get_default_template_function() {
 function wpmtst_view_field_inputs( $key, $field, $adding = false ) { //
 	$custom_fields = wpmtst_get_custom_fields();
 	// the date is a special field
-	$custom_fields[] = array(
-		'name'        => 'date',
-		'input_type'  => 'date',
-		'type'        => 'date',
-		'record_type' => 'builtin',
-	);
+	//$custom_fields[] = array(
+	//	'name'        => 'date',
+	//	'input_type'  => 'date',
+	//	'type'        => 'date',
+	//	'record_type' => 'builtin',
+	//);
 
 	// TODO Move this to view defaults option.
 	$types = array(

@@ -20,19 +20,22 @@
 					</div>
 
 					<div class="table-cell then then_not_allcats then_somecats" style="display: none;">
-
-						<ul id="view-category-list" class="checkbox-horizontal">
-							<?php foreach ( $category_list as $cat ) : ?>
-							<li>
-								<input type="checkbox" id="category-<?php echo $cat->term_id; ?>" name="view[data][category][]" value="<?php echo $cat->term_id; ?>" <?php checked( in_array( $cat->term_id, $view_cats_array ) ); ?>>
-								<label for="category-<?php echo $cat->term_id; ?>">
-									<?php echo $cat->name . ' (' . $cat->count . ')'; ?>
-								</label>
-							</li>
-							<?php endforeach; ?>
-						</ul>
-
+						<div class="view-category-list-panel">
+							<div class="fc-search-wrap"></div>
+							<ul class="view-category-list">
+								<?php $args = array(
+									'descendants_and_self'  => 0,
+									'selected_cats'         => $view_cats_array,
+									'popular_cats'          => false,
+									'walker'                => new Walker_Testimonial_Category_Checklist(),
+									'taxonomy'              => 'wpm-testimonial-category',
+									'checked_ontop'         => true,
+								); ?>
+								<?php wp_terms_checklist( 0, $args ); ?>
+							</ul>
+						</div>
 					</div>
+
 				</div>
 			</div>
 		<?php else : ?>

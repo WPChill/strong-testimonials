@@ -168,21 +168,40 @@ function wpmtst_admin_scripts( $hook ) {
 
 	// Extra
 	switch ( $hook ) {
+
+		// The Fields Editor
 		case 'wpm-testimonial_page_fields':
 			wp_enqueue_style( 'wpmtst-admin-fields-style', WPMTST_URL . 'css/admin/fields.css', array(), $plugin_version );
 			wp_enqueue_script( 'wpmtst-admin-fields-script', WPMTST_URL . 'js/wpmtst-admin-fields.js', array( 'jquery', 'jquery-ui-sortable' ), $plugin_version );
 			wp_localize_script( 'wpmtst-admin-fields-script', 'ajax_object', array( 'ajaxurl' => admin_url( 'admin-ajax.php' ) ) );
 			break;
+
+		// The View Editor
 		case 'wpm-testimonial_page_views':
 			wp_enqueue_style( 'wpmtst-admin-views-style', WPMTST_URL . 'css/admin/views.css', array(), $plugin_version );
 			wp_enqueue_script( 'wpmtst-admin-views-script', WPMTST_URL . 'js/wpmtst-views.js',
 					array( 'jquery', 'jquery-ui-sortable', 'wp-color-picker', 'jquery-masonry' ), $plugin_version );
 			wp_localize_script( 'wpmtst-admin-views-script', 'ajax_object', array( 'ajaxurl' => admin_url( 'admin-ajax.php' ) ) );
 			wp_enqueue_style( 'wp-color-picker' );
+
+			/**
+			 * Category filter in View editor.
+			 *
+			 * JavaScript copied under GPL-2.0+ license
+			 * from Post Category Filter plugin by Javier Villanueva (http://www.jahvi.com)
+			 *
+			 * @since 2.2.0
+			 */
+			wp_register_script( 'wpmtst-view-category-filter-script', WPMTST_URL . 'js/wpmtst-view-category-filter.js', array( 'jquery' ), $plugin_version, true );
+			wp_localize_script( 'wpmtst-view-category-filter-script', 'wpmtst_fc_plugin', wpmtst_vcf_language_strings() );
+
 			break;
+
+		// The Guide
 		case 'wpm-testimonial_page_guide':
 			wp_enqueue_style( 'wpmtst-admin-guide-style', WPMTST_URL . 'css/admin/guide.css', array(), $plugin_version );
 			break;
+
 		default:
 	}
 
@@ -190,6 +209,12 @@ function wpmtst_admin_scripts( $hook ) {
 
 }
 add_action( 'admin_enqueue_scripts', 'wpmtst_admin_scripts' );
+
+function wpmtst_vcf_language_strings() {
+	return array(
+		'placeholder' => __( 'Filter Categories', 'strong-testimonials' ),
+	);
+}
 
 function wpmtst_admin_dequeue_scripts() {
 	if ( wp_style_is( 'CPTStyleSheets' ) )

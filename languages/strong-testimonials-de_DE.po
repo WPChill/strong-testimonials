@@ -1,0 +1,1700 @@
+# Copyright (C) 2016 Strong Testimonials
+# This file is distributed under the same license as the Strong Testimonials package.
+msgid ""
+msgstr ""
+"Project-Id-Version: Strong Testimonials 2.0.0-RC1\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/strong-testimonials\n"
+"POT-Creation-Date: 2016-02-01 18:41:41+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2016-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Richard Hopp <r-hopp@gmx.de>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+
+#: includes/admin/admin.php:242
+msgctxt "post editor"
+msgid "Client Details"
+msgstr "Klientendetails"
+
+#: includes/admin/admin.php:257
+msgctxt "post editor"
+msgid "To add a photo or logo, use the Featured Image option."
+msgstr "Zum Hinzufügen eines Fotos oder Logos die Beitragsbild-Option benutzen."
+
+#: includes/admin/admin.php:314 includes/defaults.php:337
+msgid "Excerpt"
+msgstr "Auszug"
+
+#: includes/admin/admin.php:325 includes/admin/admin.php:447
+msgid "Thumbnail"
+msgstr "Vorschaubild"
+
+#: includes/admin/admin.php:337
+msgid "Category"
+msgstr "Kategorie"
+
+#: includes/admin/admin.php:339
+msgid "Date"
+msgstr "Datum"
+
+#: includes/admin/admin.php:416
+msgid "Y/m/d g:i:s A"
+msgstr "d.m.Y H:i:s"
+
+#: includes/admin/admin.php:459
+msgid "ID"
+msgstr "ID"
+
+#: includes/admin/admin.php:460 includes/admin/settings/email-from.php:12
+#: includes/admin/settings/email-to.php:12
+msgid "Name"
+msgstr "Name"
+
+#: includes/admin/admin.php:461
+msgid "Slug"
+msgstr "Permalink"
+
+#: includes/admin/admin.php:462
+msgid "Posts"
+msgstr "Anzahl"
+
+#. translators: %s is the name of the plugin.
+#: includes/admin/admin.php:577
+msgctxt "installation"
+msgid "Unable to load %s"
+msgstr "%s konntte nicht geladen werden"
+
+#. translators: %s is a WordPress version number.
+#: includes/admin/admin.php:580
+msgctxt "installation"
+msgid "This plugin requires <strong>WordPress %s</strong> or higher so it has been deactivated."
+msgstr "Dieses Plugin benötigt <strong>WordPress %s</strong> oder höher und wurde deshalb deaktiviert."
+
+#: includes/admin/admin.php:581
+msgctxt "installation"
+msgid "Please upgrade WordPress and try again."
+msgstr "Bitte WordPress updaten und erneut versuchen."
+
+#: includes/admin/admin.php:582
+msgctxt "installation"
+msgid "Back to the WordPress <a href=\"%s\">Plugins page</a>"
+msgstr "Zurück zu der WordPress <a href=\"%s\">Plugins-Seite</a>"
+
+#: includes/admin/custom-fields.php:25 includes/admin/settings.php:160
+#: includes/admin/views.php:184
+msgid "You do not have sufficient permissions to access this page."
+msgstr "Sie haben nicht die nötigen Rechte um diese Seite aufzurufen."
+
+#: includes/admin/custom-fields.php:48 includes/admin/views.php:194
+msgid "Changes undone."
+msgstr "Änderungen rückgängig gemacht."
+
+#: includes/admin/custom-fields.php:61 includes/admin/views.php:196
+msgid "Defaults restored."
+msgstr "Standardwerte wiederhergestellt."
+
+#: includes/admin/custom-fields.php:112
+msgid "Fields saved."
+msgstr "Formularfelder gespeichert."
+
+#. translators: On the Views admin screen.
+#: includes/admin/custom-fields.php:129 includes/admin/settings.php:20
+#: includes/admin/settings.php:21 includes/admin/views/group-fields.php:4
+msgid "Fields"
+msgstr "Formularfelder"
+
+#: includes/admin/custom-fields.php:134
+msgid "Fields will appear in this order on the form."
+msgstr "Die Felder erscheinen in dieser Reihenfolge im Formular."
+
+#: includes/admin/custom-fields.php:135
+msgid "Reorder by grabbing the %s icon."
+msgstr "Zum Sortieren am %s-Symbol ziehen."
+
+#: includes/admin/custom-fields.php:136
+msgid "Click the field name to expand its options panel."
+msgstr "Auf den Namen eines Feldes klicken, um dessen Optionsbereich auszuklappen."
+
+#: includes/admin/custom-fields.php:137
+msgctxt "link"
+msgid "Full tutorial"
+msgstr "Vollständige Anleitung (Englisch)"
+
+#: includes/admin/custom-fields.php:138
+msgid "More form settings <a href=\"%s\">here</a>."
+msgstr "Weitere Formular-Einstellungen <a href=\"%s\">hier</a>."
+
+#: includes/admin/custom-fields.php:156
+msgid "Add New Field"
+msgstr "Neues Feld hinzufügen"
+
+#: includes/admin/custom-fields.php:162 includes/admin/views.php:169
+msgid "Undo Changes"
+msgstr "Änderungen rückgängig machen"
+
+#: includes/admin/custom-fields.php:163 includes/admin/views.php:170
+msgid "Restore Defaults"
+msgstr "Standardwerte wiederherstellen"
+
+#: includes/admin/custom-fields.php:211
+msgctxt "noun"
+msgid "Label"
+msgstr "Bezeichnung"
+
+#: includes/admin/custom-fields.php:214
+msgid "This appears on the form."
+msgstr "Die Bezeichnung ist im Formular sichtbar."
+
+#: includes/admin/custom-fields.php:222
+msgctxt "noun"
+msgid "Name"
+msgstr "Name (intern)"
+
+#: includes/admin/custom-fields.php:227
+msgid "Use only lowercase letters, numbers, and underscores."
+msgstr "Nur kleine Buchstaben, Zahlen und Unterstriche (_) benutzen."
+
+#: includes/admin/custom-fields.php:228
+msgid "Cannot be \"name\" or \"date\"."
+msgstr "Kann nicht \"name\" oder \"date\" sein."
+
+#: includes/admin/custom-fields.php:245
+msgctxt "noun"
+msgid "Type"
+msgstr "Typ"
+
+#: includes/admin/custom-fields.php:270
+msgid "Post Fields"
+msgstr "Beitragsfelder"
+
+#. translators: On the Views admin screen.
+#: includes/admin/custom-fields.php:277
+#: includes/admin/views/option-client-section.php:3
+msgid "Custom Fields"
+msgstr "Benutzerdefinierte Felder"
+
+#: includes/admin/custom-fields.php:288
+msgid "Optional Fields"
+msgstr "Optionale Felder"
+
+#: includes/admin/custom-fields.php:358
+#: includes/class-strong-views-list-table.php:68
+msgid "Delete"
+msgstr "Entfernen"
+
+#: includes/admin/custom-fields.php:360
+msgctxt "verb"
+msgid "Close"
+msgstr "Schließen"
+
+#: includes/admin/custom-fields.php:384
+msgid "Required"
+msgstr "Pflichtfeld"
+
+#: includes/admin/custom-fields.php:401
+msgid "Placeholder"
+msgstr "Platzhalter"
+
+#: includes/admin/custom-fields.php:411 includes/admin/settings/form.php:105
+msgid "Before"
+msgstr "Vorangestellt"
+
+#: includes/admin/custom-fields.php:419 includes/admin/settings/form.php:112
+msgid "After"
+msgstr "Nachgestellt"
+
+#: includes/admin/custom-fields.php:440
+msgid "Admin Table"
+msgstr "In Admin Tabellenübersicht"
+
+#: includes/admin/custom-fields.php:445
+msgid "required"
+msgstr "benötigt"
+
+#: includes/admin/guide/guide.php:14
+msgid "Strong Testimonials Guide"
+msgstr "Starke Erfahrungsberichte Anleitung"
+
+#. translators: In the Guide.
+#: includes/admin/guide/guide.php:18
+msgid "Welcome"
+msgstr "Willkommen"
+
+#: includes/admin/guide/guide.php:21
+msgid "Getting Started"
+msgstr "Los geht's"
+
+#: includes/admin/guide/guide.php:24 includes/admin/guide/views.php:5
+#: includes/admin/settings.php:13 includes/admin/settings.php:14
+#: includes/admin/views.php:222
+msgid "Views"
+msgstr "Ansichten"
+
+#: includes/admin/guide/guide.php:27 includes/admin/guide/templates.php:6
+msgid "Templates"
+msgstr "Vorlagen"
+
+#: includes/admin/guide/guide.php:30 includes/admin/guide/translation.php:6
+msgid "Translation"
+msgstr "Übersetzung/Mehrsprachigkeit"
+
+#: includes/admin/guide/guide.php:33
+msgid "Page Builders"
+msgstr ""
+
+#: includes/admin/guide/plugin-sidebar.php:10
+msgid "Use the <a href=\"%s\" target=\"_blank\">support forum</a> or <a href=\"%s\" target=\"_blank\">contact me</a>."
+msgstr "Benutze das <a href=\"%s\" target=\"_blank\">Support-Forum</a> oder <a href=\"%s\" target=\"_blank\">kontaktiere mich</a>."
+
+#: includes/admin/guide/plugin-sidebar.php:15
+msgid "Help? Idea? Bug?"
+msgstr "Hilfe? Idee? Fehler?"
+
+#: includes/admin/guide/plugin-sidebar.php:25
+msgid "<a href=\"%s\" target=\"_blank\">How to customize the form</a>"
+msgstr "<a href=\"%s\" target=\"_blank\">Wie man das Formular anpasst (Englisch)</a>"
+
+#: includes/admin/guide/plugin-sidebar.php:31
+msgid "<a href=\"%s\" target=\"_blank\">See the new demos</a>"
+msgstr "<a href=\"%s\" target=\"_blank\">Sieh die neuen Demos an (Englisch)</a>"
+
+#: includes/admin/guide/plugin-sidebar.php:37
+msgid "<a href=\"%s\" target=\"_blank\">Subscribe to the newsletter</a>"
+msgstr "<a href=\"%s\" target=\"_blank\">Trage dich für den Newsletter ein (Englisch)</a>"
+
+#: includes/admin/guide/plugin-sidebar.php:42
+msgid "More resources"
+msgstr "Weitere Resourcen"
+
+#: includes/admin/guide/plugin-sidebar.php:54
+msgid "Post an honest <a href=\"%s\" target=\"_blank\">review</a> on wordpress.org."
+msgstr "Gib eine ehrliche <a href=\"%s\" target=\"_blank\">Bewertung</a> auf wordpress.org ab."
+
+#: includes/admin/guide/plugin-sidebar.php:59
+msgid "<a href=\"%s\" target=\"_blank\">Donate</a> to the Theme & Plugin Compatibility Fund."
+msgstr "<a href=\"%s\" target=\"_blank\">Spende</a> für den Theme & Plugin Kompatibilitäts-Fond."
+
+#: includes/admin/guide/plugin-sidebar.php:64
+msgid "Want to help?"
+msgstr "Du möchtest helfen?"
+
+#: includes/admin/guide/start.php:6
+msgid "How to display your testimonials"
+msgstr "Erfahrungsberichte anzeigen"
+
+#: includes/admin/guide/start.php:8
+msgid "1. Enter any existing testimonials and optional categories."
+msgstr "1. Gib alle bereits existierenden Erfahrungsberichte (und optional Kategorien) ein."
+
+#: includes/admin/guide/start.php:10
+msgid "2. Create a <b>View</b> to display them in a list or a slideshow."
+msgstr "2. Erstelle eine <b>Ansicht</b>, um sie in einer Liste oder Slideshow anzuzeigen."
+
+#: includes/admin/guide/start.php:12
+msgid "3. Add the View to a page using its <b>shortcode</b> or add it to a sidebar using the <b>widget</b>."
+msgstr "3. Füge die Ansicht mittels ihres <b>Shortcodes</b> in einer Seite oder mittels eines <b>Widgets</b> in eine Sidebar ein."
+
+#: includes/admin/guide/start.php:14
+msgid "Views provide many features. Learn more on the Views tab or jump right in!"
+msgstr "Ansichten bieten viele Funktionen. Erfahre mehr im Ansichten-Tab oder probiere es direkt aus!"
+
+#: includes/admin/guide/start.php:16
+msgid "How to add a testimonial submission form"
+msgstr "Formular zum Einreichen von Erfahrungsberichten hinzufügen"
+
+#: includes/admin/guide/start.php:18
+msgid "1. Create a new View and select <b>Form</b> mode. Add it via shortcode or widget."
+msgstr "1. Erstelle eine neue Ansicht und wähle den <b>Formular</b>-Modus. Füge die Ansicht mittels Shortcode oder Widget ein."
+
+#: includes/admin/guide/start.php:20
+msgid "2. Go to the <b>Fields</b> screen if you want to customize the form fields."
+msgstr "2. Gehe in die <b>Formularfelder</b>-Seite, um die Formularfelder anzupassen."
+
+#: includes/admin/guide/start.php:22
+msgid "The form has more options like messages and anti-spam on the <b>Settings</b> screen."
+msgstr "Das Formular bietet weitere Optionen wie Benachrichtigungen und Spam-Kontrolle auf der <b>Einstellungen</b>-Seite."
+
+#: includes/admin/guide/templates.php:8
+msgid "The <strong>Default</strong> template is a good place to start."
+msgstr "Die <strong>Default</strong>-Vorlage ist ein guter Startpunkt."
+
+#: includes/admin/guide/templates.php:10
+msgid "The <strong>Simple</strong> template has minimal style and may be the best option for matching your theme."
+msgstr "Die <strong>Simple</strong>-Vorlage hat minimale Styles und ist möglicherweise die beste Option, um zu Ihrem Theme zu passen."
+
+#: includes/admin/guide/templates.php:12
+msgid "The <strong>Widget</strong> template has smaller sizing for use in a sidebar or other widget area."
+msgstr "Die <strong>Widget</strong>-Vorlage hat eine geringere Größe zur Nutzung in einer Sidebar oder anderen Widget-Bereichen."
+
+#: includes/admin/guide/templates.php:14
+msgid "The <strong>Unstyled</strong> template includes no stylesheet and is a good foundation for theme experts."
+msgstr "Die <strong>Unstyled</strong>-Vorlage enthält kein Stylesheet und ist eine gute Grundlage für Theme-Experten."
+
+#: includes/admin/guide/templates.php:16
+msgid "Background colors and layout options are available for all templates."
+msgstr "Hintergrundfarben und Darstellungsoptionen sind für alle Vorlagen verfügbar."
+
+#: includes/admin/guide/templates.php:18
+msgid "Feel free to ask for help with minor style changes to add to a <a href=\"https://thethemefoundry.com/blog/wordpress-child-theme/\" target=\"_blank\">child theme</a> or <a href=\"https://wordpress.org/plugins/so-css/\" target=\"_blank\">custom CSS</a>."
+msgstr "Zögern Sie nicht um Hilfe zu fragen, um kleinere Style-Änderungen zu einem <a href=\"https://thethemefoundry.com/blog/wordpress-child-theme/\" target=\"_blank\">Child-Theme</a> hinzuzufügen oder für <a href=\"https://wordpress.org/plugins/so-css/\" target=\"_blank\">angepasstes CSS</a>."
+
+#: includes/admin/guide/templates.php:20
+msgid "New templates will be added occasionally. A premium add-on with a variety of modern templates will be available soon."
+msgstr "Neue Vorlagen werden von Zeit zu Zeit hinzugefügt. Eine Premium-Erweiterung mit einer Auswahl moderner Vorlagen wird bald verfügbar sein."
+
+#: includes/admin/guide/templates.php:22
+msgid "New template functions are also available."
+msgstr "Neue Vorlagen-Funktionen sind ebenfalls verfügbar."
+
+#: includes/admin/guide/templates.php:24
+msgid "Visit <a href=\"https://www.wpmission.com/strong-testimonials\" target=\"_blank\">WP Mission</a> for more information on customizing templates."
+msgstr "Besuche <a href=\"https://www.wpmission.com/strong-testimonials\" target=\"_blank\">WP Mission</a> für weitere Informationen zum Anpassen von Vorlagen."
+
+#: includes/admin/guide/translation.php:8
+msgid "The plugin is compatible with WPML and Polylang."
+msgstr "Das Plugin ist mit WPML und Polylang kompatibel."
+
+#: includes/admin/guide/translation.php:10
+msgid "In WPML, three domains are added to the String Translation screen."
+msgstr "In WPML werden drei Bereiche zu der Übersetzungsseite hinzugefügt."
+
+#: includes/admin/guide/translation.php:12
+msgid "In Polylang, the domains are added to the String Translation tab on the Languages screen."
+msgstr "In Polylang werden die Bereiche zum Übersetzungs-Tab der Sprachen-Seite hinzugefügt."
+
+#: includes/admin/guide/translation.php:35
+msgid "These domains are updated automatically when your form fields or settings change."
+msgstr "Diese Bereiche werden automatisch aktuallisiert, wenn sich Ihre Formularfelder oder Einstellungen ändern."
+
+#: includes/admin/guide/views.php:7
+msgid "A View is simply a group of settings"
+msgstr "Eine Ansicht ist eine einfache Gruppierung von Einstellungen"
+
+#: includes/admin/guide/views.php:9
+msgid "Views can display your testimonials in a <b>list</b>, create a <b>slideshow</b>, or show the front-end <b>form</b>. They are easy to learn and adjust as they combine all the features into a single intuitive configuration screen."
+msgstr "Ansichten können Ihre Erfahrungsberichte in einer <b>Liste</b> darstellen, eine <b>Slideshow</b> erzeugen oder das Front-End-<b>Formular</b> anzeigen. Sie sind einfach zu verstehen und anzupassen, da sie alle Funktionen in einer einzigen intuitiven Konfigurationsseite kombinieren."
+
+#: includes/admin/guide/views.php:11
+msgid "Display Mode - to show one or more testimonials"
+msgstr "Darstellungs-Modus (Display) - Zum Anzeigen von ein oder mehreren Erfahrungsberichten"
+
+#: includes/admin/guide/views.php:13
+msgid "how many to show"
+msgstr "wie viele sollen gezeigt werden"
+
+#: includes/admin/guide/views.php:14
+msgid "which categories to include"
+msgstr "welche Kategorien sollen eingebunden werden"
+
+#: includes/admin/guide/views.php:15
+msgid "the sort order"
+msgstr "die Sortierungs-Reihenfolge"
+
+#: includes/admin/guide/views.php:16
+msgid "show the full content, the excerpt, or up to a specific length"
+msgstr "zeige den kompletten Inhalt, den Auszug oder eine bestimmte Länge"
+
+#: includes/admin/guide/views.php:17
+msgid "which fields to include"
+msgstr "welche Formularfelder sollen eingebunden werden"
+
+#: includes/admin/guide/views.php:18
+msgid "the size of the Featured Image (thumbnail)"
+msgstr "die Größe des Beitragsbildes (Vorschaubild)"
+
+#: includes/admin/guide/views.php:19
+msgid "open the full-size image in a lightbox"
+msgstr "Öffnen des Vollbildes in einer Lightbox"
+
+#: includes/admin/guide/views.php:20
+msgid "pagination"
+msgstr "Seitennummerierung"
+
+#: includes/admin/guide/views.php:21
+msgid "a \"Read more\" link to the full post or another page"
+msgstr "ein \"Weiterlesen\"-Link zum vollständigen Post oder einer anderen Seite"
+
+#: includes/admin/guide/views.php:22
+msgid "choose a template and layout (more coming soon!)"
+msgstr "wählen Sie eine Vorlage und eine Darstellungsweise (mehr kommt bald!)"
+
+#: includes/admin/guide/views.php:23
+msgid "set the background color"
+msgstr "setzen Sie die Hintergrundfarbe"
+
+#: includes/admin/guide/views.php:24 includes/admin/guide/views.php:40
+msgid "add custom CSS classes to match your theme"
+msgstr "fügen Sie eigene CSS-Klassen hinzu, um es in Ihr Theme einzupassen"
+
+#: includes/admin/guide/views.php:27
+msgid "Slideshow Mode - to rotate through your testimonials"
+msgstr "Slideshow-Modus - Zum Durchblättern Ihrer Erfahrungsberichte"
+
+#: includes/admin/guide/views.php:29
+msgid "All the options of Display mode (except for pagination) plus:"
+msgstr "Alle Optionen wie beim Darstellungs-Modus (außer der Seitennummerierung) und darüber hinaus:"
+
+#: includes/admin/guide/views.php:31
+msgid "how long each slide is displayed"
+msgstr "wie lange ein Erfahrungsbericht angezeigt wird"
+
+#: includes/admin/guide/views.php:32
+msgid "how long the transition effect lasts"
+msgstr "wie lange der Übergangseffekt dauert"
+
+#: includes/admin/guide/views.php:33
+msgid "whether to pause the slideshow when the mouse hovers over it"
+msgstr "ob die Slideshow beim Überfahren mit der Maus pausiert"
+
+#: includes/admin/guide/views.php:36
+msgid "Form Mode - to add a testimonial submission form"
+msgstr "Formular-Modus - Zum Hinzufügen eines Erfahrungsbericht-Einreichen-Formulars"
+
+#: includes/admin/guide/views.php:38
+msgid "assign new testimonials to specific categories"
+msgstr "füge neue Erfahrungsberichte spezifischen Kategorien hinzu"
+
+#: includes/admin/guide/views.php:39
+msgid "choose a template"
+msgstr "wähle eine Vorlage"
+
+#: includes/admin/guide/welcome.php:5
+msgid "Welcome to Strong Testimonials version 2.0"
+msgstr "Willkommen zu 'Starke Erfahrungsberichte' Version 2.0"
+
+#: includes/admin/guide/welcome.php:7
+msgid "What's new"
+msgstr "Was ist neu"
+
+#: includes/admin/guide/welcome.php:9
+msgid "The &#91;strong&#93; and &#91;wpmtst&#93; shortcodes and the original widget have been removed."
+msgstr "Die &#91;strong&#93; und &#91;wpmtst&#93; Shortcodes, sowie das ursprüngliche Widget wurden entfernt."
+
+#: includes/admin/guide/welcome.php:11
+msgid "Improved compatibility with WPML & Polylang."
+msgstr "Verbesserte Kompatibilität mit WPML & Polylang."
+
+#: includes/admin/guide/welcome.php:13
+msgid "Improved handling of special characters in the Fields editor."
+msgstr "Verbesserte Handhabung von Sonderzeichen im Formularfeld-Editor."
+
+#: includes/admin/guide/welcome.php:15
+msgid "Thanks for choosing Strong Testimonials!"
+msgstr "Vielen Dank, dass Sie sich für Starke Erfahrungsberichte entschieden haben!"
+
+#: includes/admin/pointers.php:51 includes/admin/pointers.php:62
+msgid "New in version %s"
+msgstr "Neu in Version %s"
+
+#: includes/admin/pointers.php:52
+msgid "Works with multiple lightbox plugins like <a href=\"https://wordpress.org/plugins/simple-colorbox/\" target=\"_blank\">Simple Colorbox</a> and <a href=\"https://wordpress.org/plugins/simple-lightbox/\" target=\"_blank\">Simple Lightbox</a>."
+msgstr "Funktioniert mit mehreren Lightbox-Plugins wie <a href=\"https://wordpress.org/plugins/simple-colorbox/\" target=\"_blank\">Simple Colorbox</a> und <a href=\"https://wordpress.org/plugins/simple-lightbox/\" target=\"_blank\">Simple Lightbox</a>."
+
+#: includes/admin/pointers.php:63
+msgid "New link type: Create a link using a field and its label. Great for social media profiles."
+msgstr "Neuer Link-Typ: Erstelle einen Link mittels eines Feldes und seiner Bezeichnung. Gut für Profile Socialer Medien."
+
+#: includes/admin/settings/email-from.php:5
+msgid "From:"
+msgstr "Von:"
+
+#: includes/admin/settings/email-from.php:15
+#: includes/admin/settings/email-to.php:15 includes/defaults.php:153
+msgid "Email"
+msgstr "E-Mail"
+
+#: includes/admin/settings/email-from.php:20
+#: includes/admin/settings/recipient.php:9
+msgid "(optional)"
+msgstr "(optional)"
+
+#: includes/admin/settings/email-from.php:28
+#: includes/admin/settings/recipient.php:18
+msgid "site admin email:"
+msgstr "Seitenadministrator E-Mail:"
+
+#: includes/admin/settings/email-from.php:34
+msgid "sender's email"
+msgstr "E-Mail-Addresse"
+
+#: includes/admin/settings/email-to.php:5
+msgid "To:"
+msgstr "An"
+
+#: includes/admin/settings/email.php:3
+msgid "Template tags for Subject and Message:"
+msgstr "Vorlagen-Tags für Betreff und Nachricht:"
+
+#: includes/admin/settings/email.php:6
+msgid "the site title"
+msgstr "Der Seitentitel"
+
+#: includes/admin/settings/email.php:7
+msgid "the testimonial title"
+msgstr "Titel des Erfahrungsberichts"
+
+#: includes/admin/settings/email.php:8
+msgid "the testimonial content"
+msgstr "Text des Erfahrungsberichts"
+
+#: includes/admin/settings/email.php:9
+msgid "pending or published"
+msgstr "ausstehend oder veröffentlicht"
+
+#: includes/admin/settings/email.php:10
+msgid "pattern for custom fields:"
+msgstr "Muster für Benutzerdefinierte Formularfelder:"
+
+#: includes/admin/settings/email.php:10
+msgid "for example:"
+msgstr "z.B:"
+
+#: includes/admin/settings/email.php:17
+msgid "Subject:"
+msgstr "Betreff"
+
+#: includes/admin/settings/email.php:25
+msgid "subject line"
+msgstr "Betreffzeile"
+
+#: includes/admin/settings/email.php:37
+msgid "Message:"
+msgstr "Nachricht:"
+
+#: includes/admin/settings/email.php:45
+msgid "message text"
+msgstr "Nachrichtentext"
+
+#: includes/admin/settings/form.php:12
+msgid "Form Labels & Messages"
+msgstr "Bezeichnungen & Nachrichten"
+
+#: includes/admin/settings/form.php:31
+msgctxt "singular"
+msgid "restore default"
+msgstr "Standard wiederherstellen"
+
+#: includes/admin/settings/form.php:37
+msgctxt "multiple"
+msgid "Restore Defaults"
+msgstr "Standardwerte wiederherstellen"
+
+#: includes/admin/settings/form.php:43
+msgctxt "noun"
+msgid "Form Actions"
+msgstr "Aktionen"
+
+#: includes/admin/settings/form.php:48
+msgid "Post status"
+msgstr "Status setzen"
+
+#: includes/admin/settings/form.php:55
+msgid "Pending"
+msgstr "Ausstehend"
+
+#: includes/admin/settings/form.php:61
+msgid "Published"
+msgstr "Veröffentlicht"
+
+#: includes/admin/settings/form.php:70
+msgid "Notification"
+msgstr "Benachrichtigung"
+
+#: includes/admin/settings/form.php:78
+msgid "Send an email upon new testimonial submission"
+msgstr "Sende eine E-Mail beim Einreichen eines neuen Erfahrungsberichts"
+
+#: includes/admin/settings/form.php:92
+msgid "Form Spam Control"
+msgstr "Spam-Kontrolle"
+
+#: includes/admin/settings/form.php:97
+msgctxt "spam control techniques"
+msgid "Honeypot"
+msgstr "Honigtopf"
+
+#: includes/admin/settings/form.php:100
+msgid "These methods are both time-tested and widely used. They can be used simultaneously for more protection."
+msgstr "Diese Methoden sind beide langzeit-getestet und weit verbreitet. Sie können für mehr Sicherheit gleichzeitig genutzt werden."
+
+#: includes/admin/settings/form.php:107
+msgid "Traps spambots by adding an extra empty field that is invisible to humans but not to spambots which tend to fill in every field they find in the form code. Empty field = human. Not empty = spambot."
+msgstr "Überlistet Spambots durch das Hinzufügen eines leeren Extrafeldes, welches für Menschen unsichtbar ist. Spambots tendieren dazu, jedes Feld auszufüllen, welches sie im Formular-Code finden. Leeres Feld = Mensch. Ausgefüllt = Spambot."
+
+#: includes/admin/settings/form.php:114
+msgid "Recommended."
+msgstr "Empfohlen."
+
+#: includes/admin/settings/form.php:114
+msgid "Traps spambots by using JavaScript to add a new field as soon as the form is submitted. Since spambots cannot run JavaScript, the new field never gets added. New field = human. Missing = spambot."
+msgstr "Überlistet Spambots durch das Nutzen von JavaScript, um ein neues Feld hinzuzufügen, sobald das Formular abgesendet wird. Da Spambots keinen JavaScript ausführen können, wird das neue Formfeld nicht hinzugefügt. Neues Extra-Feld = Mensch. Fehlendes Feld = Spambot."
+
+#: includes/admin/settings/form.php:121
+msgid "Captcha"
+msgstr "Sicherheitsabfrage"
+
+#: includes/admin/settings/form.php:124
+msgid "Can be used alongside honeypot methods. Be sure to configure any plugins first, if necessary."
+msgstr "Kann zusammen mit den Honigtopf-Methoden benutzt werden. Stelle sicher, entsprechende Plugins vorher zu konfigurieren, falls notwendig."
+
+#: includes/admin/settings/form.php:144
+msgctxt "link"
+msgid "settings"
+msgstr "Einstellungen"
+
+#: includes/admin/settings/form.php:146
+msgid "no settings"
+msgstr "Keine Einstellungen"
+
+#: includes/admin/settings/form.php:151
+msgctxt "adjective"
+msgid "inactive"
+msgstr "Inaktiv"
+
+#: includes/admin/settings/form.php:157
+msgid "not installed"
+msgstr "Nicht installiert"
+
+#: includes/admin/settings/form.php:158
+msgctxt "link"
+msgid "install plugin"
+msgstr "Plugin installieren"
+
+#: includes/admin/settings/form.php:162
+msgctxt "link"
+msgid "plugin page"
+msgstr "Plugin-Seite"
+
+#: includes/admin/settings/general.php:14
+msgid "Reordering"
+msgstr "Sortierung"
+
+#: includes/admin/settings/general.php:19
+msgid "Enable drag-and-drop reordering in the testimonial list."
+msgstr "Drag-and-drop-Sortierung in der Liste von Erfahrungsberichten aktivieren."
+
+#: includes/admin/settings/recipient.php:22
+#: includes/admin/settings/recipient.php:29
+msgid "email address"
+msgstr "E-Mail-Addresse"
+
+#: includes/admin/settings.php:28 includes/admin/settings.php:29
+msgid "Settings"
+msgstr "Einstellungen"
+
+#: includes/admin/settings.php:35 includes/admin/settings.php:36
+msgctxt "noun"
+msgid "Guide"
+msgstr "Anleitung"
+
+#: includes/admin/settings.php:164
+msgid "Testimonial Settings"
+msgstr "Erfahrungsbericht-Einstellungen"
+
+#: includes/admin/settings.php:168
+msgid "Settings saved."
+msgstr "Einstellungen gespeichert."
+
+#: includes/admin/settings.php:180
+msgctxt "adjective"
+msgid "General"
+msgstr "Allgemein"
+
+#: includes/admin/settings.php:181 includes/defaults.php:325
+msgid "Form"
+msgstr "Formular"
+
+#: includes/admin/settings.php:197
+msgid "Save Changes"
+msgstr "Änderungen Speichern"
+
+#. translators: On the Views admin screen.
+#: includes/admin/views/group-extra.php:4
+msgid "Extra"
+msgstr "Extras"
+
+#. translators: On the Views admin screen.
+#: includes/admin/views/group-form.php:4
+msgid "Actions"
+msgstr "Aktionen"
+
+#. translators: On the Views admin screen.
+#: includes/admin/views/group-general.php:4
+msgid "Options"
+msgstr "Optionen"
+
+#. translators: On the Views admin screen.
+#: includes/admin/views/group-select.php:4
+msgid "Select"
+msgstr "Auswahl"
+
+#. translators: On the Views admin screen.
+#: includes/admin/views/group-style.php:4
+msgid "Style"
+msgstr "Darstellung"
+
+#. translators: This is on the Views admin screen.
+#: includes/admin/views/mode-slideshow.php:5
+#: includes/admin/views/option-timing.php:9
+msgctxt "slideshow setting"
+msgid "Show each for"
+msgstr "Zeige je für"
+
+#: includes/admin/views/mode-slideshow.php:8
+#: includes/admin/views/mode-slideshow.php:15
+#: includes/admin/views/option-timing.php:12
+#: includes/admin/views/option-timing.php:19
+msgctxt "time setting"
+msgid "seconds"
+msgstr "Sekunden"
+
+#: includes/admin/views/mode-slideshow.php:12
+#: includes/admin/views/option-timing.php:16
+msgctxt "slideshow setting"
+msgid "Fade transition for"
+msgstr "Überblende für"
+
+#: includes/admin/views/mode-slideshow.php:20
+#: includes/admin/views/option-timing.php:24
+msgctxt "slideshow setting"
+msgid "Pause on hover"
+msgstr "Pausiere beim Überfahren"
+
+#. translators: On the Views admin screen.
+#: includes/admin/views/mode.php:4
+msgid "Mode:"
+msgstr "Modus:"
+
+#: includes/admin/views/option-background.php:3
+msgid "Background"
+msgstr "Hintergrund"
+
+#: includes/admin/views/option-background.php:14
+msgid "none"
+msgstr "keine"
+
+#: includes/admin/views/option-background.php:18
+msgid "single color"
+msgstr "Einzelfarbe"
+
+#: includes/admin/views/option-background.php:22
+msgid "gradient"
+msgstr "Farbverlauf"
+
+#: includes/admin/views/option-background.php:26
+msgid "preset"
+msgstr "Vorgabe"
+
+#: includes/admin/views/option-background.php:51
+msgid "From top"
+msgstr "Von oben"
+
+#: includes/admin/views/option-background.php:59
+msgid "To bottom"
+msgstr "Nach unten"
+
+#: includes/admin/views/option-background.php:94
+msgid "dark"
+msgstr "dunkel"
+
+#: includes/admin/views/option-background.php:96
+msgid "light"
+msgstr "hell"
+
+#. translators: On the Views admin screen.
+#: includes/admin/views/option-boilerplate.php:4
+msgid "Option Name"
+msgstr "Optionsname"
+
+#: includes/admin/views/option-boilerplate.php:11
+msgid "yes"
+msgstr "ja"
+
+#: includes/admin/views/option-boilerplate.php:14
+msgid "no"
+msgstr "nein"
+
+#: includes/admin/views/option-boilerplate.php:17
+msgid "maybe"
+msgstr "vielleicht"
+
+#: includes/admin/views/option-boilerplate.php:24
+msgid "Yes"
+msgstr "Ja"
+
+#: includes/admin/views/option-boilerplate.php:30
+msgid "No"
+msgstr "Nein"
+
+#: includes/admin/views/option-boilerplate.php:36
+msgid "Maybe"
+msgstr "Vielleicht"
+
+#. translators: On the Views admin screen.
+#: includes/admin/views/option-category-form.php:3
+#: includes/admin/views/option-form-category.php:3
+msgid "Assign new submissions to a category"
+msgstr "Füge neue Eintragungen einer Kategorie hinzu"
+
+#: includes/admin/views/option-category-form.php:18
+#: includes/admin/views/option-category.php:40
+#: includes/admin/views/option-form-category.php:18
+msgid "No categories found"
+msgstr "Keine Kategorien gefunden"
+
+#. translators: On the Views admin screen.
+#: includes/admin/views/option-category.php:4 includes/post-types.php:49
+msgid "Categories"
+msgstr "Kategorien"
+
+#: includes/admin/views/option-category.php:16
+#: includes/admin/views/option-limit.php:11
+msgid "all"
+msgstr "alle"
+
+#: includes/admin/views/option-category.php:17
+msgctxt "verb"
+msgid "select"
+msgstr "auswählen"
+
+#: includes/admin/views/option-classes.php:3
+msgid "CSS Classes"
+msgstr "CSS-Klassen"
+
+#: includes/admin/views/option-classes.php:9
+msgid "separated by spaces"
+msgstr "mit Leerzeichen getrennt"
+
+#: includes/admin/views/option-client-section.php:27
+msgid "Add Field"
+msgstr "Feld hinzufügen"
+
+#. translators: On the Views admin screen.
+#: includes/admin/views/option-compat.php:4
+msgid "Compatibility mode"
+msgstr "Kompatibilitätsmodus"
+
+#: includes/admin/views/option-compat.php:14
+msgid "off (default)"
+msgstr "aus (Standard)"
+
+#: includes/admin/views/option-compat.php:17
+msgid "on"
+msgstr "an"
+
+#: includes/admin/views/option-compat.php:27
+msgid "Turning this <b>on</b> may help if the form is not working, especially with page builders and popup makers."
+msgstr "Das <b>an</b>schalten hilft möglicherweise, wenn das Formular nicht richtig funktioniert, besonders mit 'Page-Builders' und 'Popup-Maker'."
+
+#: includes/admin/views/option-compat.php:30
+msgid "Required <b>on</b> if using the <a href=\"https://wordpress.org/plugins/popup-maker/\" target=\"_blank\">Popup Maker</a> plugin."
+msgstr "Benötigt <b>an</b>, wenn das <a href=\"https://wordpress.org/plugins/popup-maker/\" target=\"_blank\">Popup Maker</a>-Plugin verwendet wird."
+
+#: includes/admin/views/option-compat.php:36
+msgid "Turning this <b>on</b> may help if the slideshow is not working, especially with page builders."
+msgstr "Das <b>an</b>schalten hilft möglicherweise, wenn die Slideshow nicht richtig funktioniert, besonders mit 'Page-Builders'."
+
+#: includes/admin/views/option-compat.php:39
+msgid "Required <b>on</b> if using the template function <code>strong_testimonial_view()</code>."
+msgstr "Benötigt <b>an</b>, wenn die Vorlagen-Funktion <code>strong_testimonial_view()</code> benutzt wird."
+
+#. translators: On the Views admin screen.
+#: includes/admin/views/option-content.php:4
+msgid "Content"
+msgstr "Inhalt"
+
+#: includes/admin/views/option-content.php:11
+msgctxt "display setting"
+msgid "the full testimonial"
+msgstr "gesamter Text"
+
+#: includes/admin/views/option-content.php:14
+msgctxt "display setting"
+msgid "the excerpt"
+msgstr "Auszug"
+
+#: includes/admin/views/option-content.php:17
+msgctxt "display setting"
+msgid "a specific length"
+msgstr "spezifische Länge"
+
+#: includes/admin/views/option-content.php:28
+msgid "Will break on a space and add an ellipsis."
+msgstr "Bricht bei einem Leerzeichen ab und fügt Auslassungspunkte hinzu."
+
+#: includes/admin/views/option-content.php:29
+msgid "Will strip tags like &lt;em&gt; and &lt;strong&gt;."
+msgstr "Entfernt Tags wie &lt;em&gt; und &lt;strong&gt;."
+
+#: includes/admin/views/option-content.php:36
+msgid "Excerpts are hand-crafted summaries of your testimonial."
+msgstr "Auszüge sind hand-gefertigte Zusammenfassungen von Erfahrungsberichten."
+
+#: includes/admin/views/option-content.php:40
+msgid "You may need to enable them in the post editor like in this <a href=\"%s\" class=\"%s\">screenshot</a>."
+msgstr "Du musst sie ggf. im Beitragseditor aktivieren, wie in diesem <a href=\"%s\" class=\"%s\">Bildschirmfoto</a>."
+
+#. translators: On the Views admin screen.
+#: includes/admin/views/option-form-ajax.php:5
+msgid "Submit form via Ajax"
+msgstr "Formular mittels Ajax senden"
+
+#. translators: On the Views admin screen.
+#: includes/admin/views/option-form-template-list.php:3
+#: includes/admin/views/option-template-list.php:3
+msgid "Template"
+msgstr "Vorlage"
+
+#: includes/admin/views/option-form-template-list.php:19
+#: includes/admin/views/option-template-list.php:19
+#: includes/admin/views/option-template-list.php:42
+msgid "not found"
+msgstr "nicht gefunden"
+
+#. translators: On the Views admin screen.
+#: includes/admin/views/option-id.php:7
+#: includes/admin/views/option-read-more.php:55
+msgid "&mdash; select &mdash;"
+msgstr "&mdash; auswählen &mdash;"
+
+#: includes/admin/views/option-id.php:10
+msgid "(untitled)"
+msgstr "(unbenannt)"
+
+#: includes/admin/views/option-id.php:16
+msgctxt "to select a testimonial"
+msgid "or enter its ID or slug"
+msgstr "oder gib ID oder Permalink ein"
+
+#: includes/admin/views/option-layout.php:2
+msgid "Layout"
+msgstr "Darstellungsweise"
+
+#: includes/admin/views/option-layout.php:14
+msgid "normal"
+msgstr "Normal"
+
+#: includes/admin/views/option-layout.php:20
+msgid "Masonry"
+msgstr "Mauerwerk"
+
+#: includes/admin/views/option-layout.php:26
+msgid "columns"
+msgstr "Spalten"
+
+#: includes/admin/views/option-layout.php:32
+msgid "grid"
+msgstr "Gitter"
+
+#: includes/admin/views/option-layout.php:42
+msgid "Normal layout."
+msgstr "Normale Darstellungsweise"
+
+#: includes/admin/views/option-layout.php:53
+msgid "A cascading, responsive grid using the jQuery plugin <a href=\"%s\" target=\"_blank\">Masonry</a>."
+msgstr "Eine stufenförmiges, flexibles Gitter mit dem jQuery-Plugin <a href=\"%s\" target=\"_blank\">Masonry</a>."
+
+#: includes/admin/views/option-layout.php:54
+msgid "The universal solution that works well regardless of testimonial lengths."
+msgstr "Eine universelle Lösung, die unabhängig von der Textlänge funktioniert."
+
+#: includes/admin/views/option-layout.php:55
+msgid "Not compatible with pagination."
+msgstr "Nicht kompatibel mit Seitennummerierung."
+
+#: includes/admin/views/option-layout.php:71
+msgid "Using <a href=\"%s\" target=\"_blank\">CSS multi-column</a>. Fill from top to bottom, then over to next column."
+msgstr "Benutzt <a href=\"%s\" target=\"_blank\">CSS-Multi-Column</a>. Füllt eine Spalte von oben nach unten, dann die nächste Spalte."
+
+#: includes/admin/views/option-layout.php:72
+msgid "Works well with both long and short testimonials."
+msgstr "Funktioniert gut mit langen und kurzen Erfahrungsberichten."
+
+#: includes/admin/views/option-layout.php:73
+#: includes/admin/views/option-layout.php:92
+msgid "Compatible with pagination."
+msgstr "Kompatibel mit Seitennummerierung."
+
+#: includes/admin/views/option-layout.php:89
+msgid "Using <a href=\"%s\" target=\"_blank\">CSS flexbox</a> with <a href=\"%s\" target=\"_blank\">JavaScript fallback</a> for older browsers."
+msgstr "Benutzt <a href=\"%s\" target=\"_blank\">CSS-Flexbox</a> mit <a href=\"%s\" target=\"_blank\">JavaScript-Fallback</a> für ältere Browser."
+
+#: includes/admin/views/option-layout.php:91
+msgid "Testimonials will be equal height so this works best when they are about the same length<br>(using the excerpts or setting a length limit)."
+msgstr "Erfahrungsberichte haben eine gleiche Höhe, um bei relativ gleichlangen Texten (z.B. beim Nutzen von Auszügen oder einem Textlängen-Limit) am Besten zu funktionieren."
+
+#: includes/admin/views/option-layout.php:117
+msgid "number of columns"
+msgstr "Spaltenanzahl"
+
+#. translators: On the Views admin screen.
+#: includes/admin/views/option-limit.php:4
+msgid "Quantity"
+msgstr "Anzahl"
+
+#: includes/admin/views/option-limit.php:14
+msgctxt "noun"
+msgid "count"
+msgstr "begrenzen"
+
+#. translators: On the Views admin screen.
+#: includes/admin/views/option-more-post.php:7
+msgid "\"Read more\" link to the testimonial"
+msgstr "\"Weiterlesen\"-Link zum Erfahrungsbericht"
+
+#: includes/admin/views/option-more-post.php:12
+#: includes/admin/views/option-read-more.php:39
+msgid "Link text"
+msgstr "Link-Text"
+
+#: includes/admin/views/option-more-post.php:18
+msgid "Typically used with excerpts and truncated content."
+msgstr "Wird meist mit Auszügen oder begrenzten Inhalten benutzt."
+
+#. translators: On the Views admin screen.
+#: includes/admin/views/option-order.php:4
+msgctxt "noun"
+msgid "Order"
+msgstr "Reihenfolge"
+
+#. translators: On the Views admin screen.
+#: includes/admin/views/option-pagination.php:5
+msgid "Pagination"
+msgstr "Seitennummerierung"
+
+#: includes/admin/views/option-pagination.php:13
+msgctxt "quantity"
+msgid "Per page"
+msgstr "Anzahl pro Seite"
+
+#: includes/admin/views/option-pagination.php:20
+msgid "Navigation"
+msgstr "Seiten-Navigation"
+
+#: includes/admin/views/option-pagination.php:24 includes/l10n.php:114
+#: includes/l10n.php:205
+msgid "before"
+msgstr "oberhalb"
+
+#. Translators: A form field name on the String Translation screen.
+#: includes/admin/views/option-pagination.php:27 includes/l10n.php:113
+#: includes/l10n.php:204
+msgid "after"
+msgstr "unterhalb"
+
+#: includes/admin/views/option-pagination.php:30
+msgid "before & after"
+msgstr "ober- & unterhalb"
+
+#. translators: On the Views admin screen.
+#: includes/admin/views/option-read-more.php:12
+msgid "\"Read more\" link"
+msgstr "\"Weiterlesen\"-Link"
+
+#: includes/admin/views/option-read-more.php:28
+msgid "to the testimonial"
+msgstr "zum Erfahrungsbericht"
+
+#: includes/admin/views/option-read-more.php:29
+msgid "to a page"
+msgstr "zu einer Seite"
+
+#: includes/admin/views/option-read-more.php:62
+msgctxt "to select a target page"
+msgid "or enter its ID or slug"
+msgstr "oder gib ID oder Permalink ein"
+
+#. translators: On the Views admin screen.
+#: includes/admin/views/option-show.php:3
+msgctxt "verb"
+msgid "Show"
+msgstr "Zeige"
+
+#: includes/admin/views/option-show.php:10
+msgid "multiple testimonials"
+msgstr "mehrere Erfahrungsberichte"
+
+#: includes/admin/views/option-show.php:11
+msgid "a single testimonial"
+msgstr "einzelnen Erfahrungsbericht"
+
+#: includes/admin/views/option-template-list.php:57
+msgid "no description"
+msgstr "keine Beschreibung"
+
+#. translators: On the Views admin screen.
+#: includes/admin/views/option-thumbnail.php:5 includes/defaults.php:70
+msgid "Featured Image"
+msgstr "Beitragsbild"
+
+#: includes/admin/views/option-thumbnail.php:10
+#: includes/admin/views/option-title.php:9
+msgid "not found in Fields"
+msgstr "nicht gefunden in Formularfeldern"
+
+#: includes/admin/views/option-thumbnail.php:29
+msgid "width"
+msgstr "Breite"
+
+#: includes/admin/views/option-thumbnail.php:35
+msgid "height"
+msgstr "Höhe"
+
+#: includes/admin/views/option-thumbnail.php:46
+msgid "Open full-size image in lightbox"
+msgstr "Öffne Vollbild in Vorschaubox (Lightbox)"
+
+#: includes/admin/views/option-thumbnail.php:55
+msgid "If no Featured image"
+msgstr "Wenn kein Beitragsbild vorhanden ist, "
+
+#: includes/admin/views/option-thumbnail.php:58
+msgid "show nothing"
+msgstr "zeige nichts"
+
+#: includes/admin/views/option-thumbnail.php:59
+msgid "show Gravatar"
+msgstr "zeige Gravatar"
+
+#: includes/admin/views/option-thumbnail.php:60
+msgid "show Gravatar only if found"
+msgstr "zeige Gravatar nur wenn vorhanden"
+
+#: includes/admin/views/option-thumbnail.php:66
+msgid "Gravatar settings"
+msgstr "Gravatar-Einstellungen"
+
+#. translators: This is on the Views admin screen.
+#: includes/admin/views/option-timing.php:3
+msgid "Timing"
+msgstr "Zeitwahl"
+
+#: includes/admin/views/option-title.php:4
+msgid "Title"
+msgstr "Titel"
+
+#: includes/admin/views.php:30
+msgctxt "display order"
+msgid "random"
+msgstr "zufällig"
+
+#: includes/admin/views.php:31
+msgctxt "display order"
+msgid "menu order"
+msgstr "Menü-Reihenfolge"
+
+#: includes/admin/views.php:32
+msgctxt "display order"
+msgid "newest first"
+msgstr "neueste zuerst"
+
+#: includes/admin/views.php:33
+msgctxt "display order"
+msgid "oldest first"
+msgstr "älteste zuerst"
+
+#: includes/admin/views.php:116
+msgid "Add View"
+msgstr "Ansicht erstellen"
+
+#: includes/admin/views.php:116
+msgid "Edit View"
+msgstr "Ansicht bearbeiten"
+
+#: includes/admin/views.php:198
+msgid "View saved."
+msgstr "Ansicht gespeichert."
+
+#: includes/admin/views.php:200
+msgid "View deleted."
+msgstr "Ansicht gelöscht."
+
+#: includes/admin/views.php:226
+msgid "A View can display your testimonials, create a slideshow, or show a testimonial submission form.<br>Add it to a page with a shortcode or add it to a sidebar with a widget."
+msgstr "Eine Ansicht kann deine Erfahrungsberichte anzeigen, eine Slideshow erstellen oder ein Formular zum Einreichen eines Erfahrungsberichts darstellen.<br>Füge Ansichten zu deinen Seiten mittels Shortcode hinzu oder zu einer Sidebar mit einem Widget."
+
+#: includes/admin/views.php:344 includes/defaults.php:84
+msgid "text"
+msgstr "Text"
+
+#: includes/admin/views.php:345
+msgid "link with field"
+msgstr "Feldverknüpfung"
+
+#: includes/admin/views.php:346
+msgid "link"
+msgstr "Link"
+
+#: includes/admin/views.php:347
+msgid "date"
+msgstr "Datum"
+
+#: includes/admin/views.php:484
+msgid "new tab"
+msgstr "öffne in neuem Tab"
+
+#: includes/admin/views.php:503
+msgid "<a href=\"%s\" target=\"_blank\">more about date formats</a>"
+msgstr "<a href=\"%s\" target=\"_blank\">Mehr über Datumsformate</a>"
+
+#: includes/captcha.php:34
+msgctxt "Captcha"
+msgid "Input this code:"
+msgstr "Gib diesen Code ein:"
+
+#: includes/class-strong-testimonials-list-table.php:149
+msgid "List View"
+msgstr "Listenansicht"
+
+#: includes/class-strong-testimonials-list-table.php:150
+msgid "Excerpt View"
+msgstr "Auszugsansicht"
+
+#: includes/class-strong-testimonials-list-table.php:317
+msgid "No items found."
+msgstr "Keine Elemente gefunden."
+
+#: includes/class-strong-testimonials-list-table.php:443
+msgid "Select bulk action"
+msgstr "Wähle Massenaktion"
+
+#: includes/class-strong-testimonials-list-table.php:445
+msgid "Bulk Actions"
+msgstr "Massenaktion"
+
+#: includes/class-strong-testimonials-list-table.php:455
+msgid "Apply"
+msgstr "Anwenden"
+
+#: includes/class-strong-testimonials-list-table.php:555
+msgid "Filter by date"
+msgstr "Nach Datum filtern"
+
+#: includes/class-strong-testimonials-list-table.php:557
+msgid "All dates"
+msgstr "Alle Daten"
+
+#. translators: 1: month name, 2: 4-digit year
+#: includes/class-strong-testimonials-list-table.php:570
+msgid "%1$s %2$d"
+msgstr ""
+
+#: includes/class-strong-testimonials-list-table.php:617
+msgid "%s pending"
+msgstr "%s ausstehend"
+
+#: includes/class-strong-testimonials-list-table.php:696
+#: includes/class-strong-testimonials-list-table.php:1120
+msgid "1 item"
+msgid_plural "%s items"
+msgstr[0] "1 Element"
+msgstr[1] "%s Elemente"
+
+#: includes/class-strong-testimonials-list-table.php:715
+msgid "Go to the first page"
+msgstr "Gehe zur ersten Seite"
+
+#: includes/class-strong-testimonials-list-table.php:722
+msgid "Go to the previous page"
+msgstr "Gehe zur vorherigen Seite"
+
+#: includes/class-strong-testimonials-list-table.php:731
+msgid "Select Page"
+msgstr "Seite auswählen"
+
+#: includes/class-strong-testimonials-list-table.php:732
+msgid "Current page"
+msgstr "Aktuelle Seite"
+
+#: includes/class-strong-testimonials-list-table.php:738
+msgctxt "paging"
+msgid "%1$s of %2$s"
+msgstr "%1$s von %2$s"
+
+#: includes/class-strong-testimonials-list-table.php:742
+msgid "Go to the next page"
+msgstr "Gehe zur nächsten Seite"
+
+#: includes/class-strong-testimonials-list-table.php:749
+msgid "Go to the last page"
+msgstr "Gehe zur letzten Seite"
+
+#: includes/class-strong-testimonials-list-table.php:886
+msgid "Select All"
+msgstr "Alle auswählen"
+
+#: includes/class-strong-views-list-table.php:67
+msgid "Edit"
+msgstr "Bearbeiten"
+
+#: includes/class-strong-views-list-table.php:68
+msgid "Delete \"%s\"?"
+msgstr "\"%s\" entfernen?"
+
+#: includes/defaults.php:36
+msgid "This field is required."
+msgstr "Dieses Feld wird benötitgt."
+
+#: includes/defaults.php:53
+msgid "Testimonial Title"
+msgstr "Titel des Erfahrungsberichts"
+
+#: includes/defaults.php:61
+msgid "Testimonial Content"
+msgstr "Inhalt des Erfahrungsberichts"
+
+#: includes/defaults.php:88
+msgid "email"
+msgstr "E-Mail"
+
+#: includes/defaults.php:92
+msgid "URL"
+msgstr "URL"
+
+#: includes/defaults.php:106
+msgid "categories"
+msgstr "Kategorien"
+
+#: includes/defaults.php:107
+msgid "category selector"
+msgstr "Kategorieauswahl"
+
+#: includes/defaults.php:135
+msgid "Default Form"
+msgstr "Standard-Formular"
+
+#: includes/defaults.php:144
+msgid "Full Name"
+msgstr "Vollständiger Name"
+
+#: includes/defaults.php:147
+msgid "What is your full name?"
+msgstr "Wie lautet dein vollständiger Name?"
+
+#: includes/defaults.php:156
+msgid "What is your email address?"
+msgstr "Wie lautet deine E-Mail-Addresse?"
+
+#: includes/defaults.php:161
+msgid "Company Name"
+msgstr "Firmenname"
+
+#: includes/defaults.php:163
+msgid "What is your company name?"
+msgstr "Wie lautet der Name deiner Firma?"
+
+#: includes/defaults.php:168
+msgid "Company Website"
+msgstr "Firmenwebseite"
+
+#: includes/defaults.php:170
+msgid "Does your company have a website?"
+msgstr "Hat deine Firma eine Webseite?"
+
+#: includes/defaults.php:178
+msgid "Heading"
+msgstr "Überschrift"
+
+#: includes/defaults.php:181
+msgid "A headline for your testimonial."
+msgstr "Eine Überschrift für deinen Erfahrungsbericht."
+
+#: includes/defaults.php:186
+msgid "Testimonial"
+msgstr "Erfahrungsbericht"
+
+#: includes/defaults.php:189
+msgid "What do you think about us?"
+msgstr "Was denkst du über uns?"
+
+#: includes/defaults.php:194
+msgid "Photo"
+msgstr "Foto"
+
+#: includes/defaults.php:196
+msgid "Would you like to include a photo?"
+msgstr "Möchtest du ein Foto hinzufügen?"
+
+#: includes/defaults.php:224
+msgid "Custom Form"
+msgstr "Benutzerdefiniertes Formular"
+
+#. translators: Settings > Forms > Messages tab
+#. translators: Default message for required field message at top of form.
+#: includes/defaults.php:247 includes/defaults.php:249
+msgid "Required field"
+msgstr "* Pflichtfeld"
+
+#. translators: Settings > Forms > Messages tab
+#: includes/defaults.php:254
+msgctxt "description"
+msgid "Captcha label"
+msgstr "Captcha-Beschriftung"
+
+#. translators: Default label for Captcha field on submission form.
+#: includes/defaults.php:256
+msgctxt "strong-testimonials"
+msgid "Captcha"
+msgstr "Sicherheitsabfrage"
+
+#. translators: Settings > Forms > Messages tab
+#: includes/defaults.php:261
+msgctxt "description"
+msgid "Submit button"
+msgstr "Absenden-Schaltfläche"
+
+#. translators: Default label for the Submit button on testimonial form.
+#: includes/defaults.php:263
+msgctxt "the Submit button"
+msgid "Add Testimonial"
+msgstr "Erfahrungsbericht hinzufügen"
+
+#. translators: Settings > Forms > Messages tab
+#: includes/defaults.php:268
+msgctxt "description"
+msgid "Submission error"
+msgstr "Absende-Fehler"
+
+#. translators: Default message for submission form error.
+#: includes/defaults.php:270
+msgctxt "error message"
+msgid "There was a problem processing your testimonial."
+msgstr "Es ist ein Problem beim Verarbeiten Ihres Erfahrungsberichts aufgetreten."
+
+#. translators: Settings > Forms > Messages tab
+#: includes/defaults.php:275
+msgctxt "description"
+msgid "Submission success"
+msgstr "Absende-Erfolg"
+
+#. translators: Default message for submission form success message.
+#: includes/defaults.php:277
+msgctxt "success message"
+msgid "Thank you! Your testimonial is awaiting moderation."
+msgstr "Vielen Dank! Ihr Erfahrungsbericht wurde erfolgreich abgesendet und erwartet eine Moderation."
+
+#. translators: Default subject line for new testimonial notification email.
+#: includes/defaults.php:302
+msgid "New testimonial for %BLOGNAME%"
+msgstr "Neuer Erfahrungsbericht zu %BLOGNAME%"
+
+#. translators: Default message for new testimonial notification email.
+#: includes/defaults.php:304
+msgid "New testimonial submission for %BLOGNAME%. This is awaiting action from the website administrator."
+msgstr "Neuer Erfahrungsbericht zu %BLOGNAME% eingereicht. Eine Handlung durch den Webseitenadministrator steht aus."
+
+#: includes/defaults.php:323
+msgid "Display"
+msgstr "Darstellung"
+
+#: includes/defaults.php:324
+msgid "Slideshow"
+msgstr "Slideshow"
+
+#: includes/defaults.php:330
+msgid "Random"
+msgstr "Zufall"
+
+#: includes/defaults.php:331
+msgid "Newest first"
+msgstr "Neueste zuerst"
+
+#: includes/defaults.php:332
+msgid "Oldest first"
+msgstr "Älteste zuerst"
+
+#: includes/defaults.php:338
+msgid "Length"
+msgstr "Länge"
+
+#: includes/defaults.php:339
+msgid "Entire"
+msgstr "Komplett"
+
+#: includes/defaults.php:394 strong-testimonials.php:529
+msgctxt "link"
+msgid "Read more"
+msgstr "Weiterlesen"
+
+#. Translators: For string translation in WPML & Polylang plugins.
+#: includes/defaults.php:425
+msgid "Testimonial Form Fields"
+msgstr "Erfahrungsbericht-Formularfelder"
+
+#: includes/defaults.php:426
+msgid "Testimonial Form Messages"
+msgstr "Erfahrungsbericht-Formularnachrichten"
+
+#: includes/defaults.php:427
+msgid "Testimonial Notification Options"
+msgstr "Erfahrungsbericht-Benachrichtigungsoptionen"
+
+#: includes/form-handler-functions.php:255
+#: includes/form-handler-functions.php:267
+#: includes/form-handler-functions.php:279
+msgid "The Captcha failed. Please try again."
+msgstr "Die Sicherheitsabfrage war falsch. Bitte versuche es erneut."
+
+#: includes/l10n.php:115 includes/l10n.php:206
+msgid "placeholder"
+msgstr "Platzhalter"
+
+#: includes/l10n.php:116 includes/l10n.php:207
+msgid "label"
+msgstr "Beschriftung"
+
+#: includes/l10n.php:156 includes/l10n.php:227
+msgid "Email message"
+msgstr "E-Mail-Nachricht"
+
+#: includes/l10n.php:157 includes/l10n.php:226
+msgid "Email subject"
+msgstr "E-Mail-Betreff"
+
+#: includes/post-types.php:8
+msgctxt "post type general name"
+msgid "Testimonials"
+msgstr "Erfahrungsberichte"
+
+#: includes/post-types.php:9
+msgctxt "admin menu name"
+msgid "Testimonials"
+msgstr "Erfahrungen"
+
+#: includes/post-types.php:10
+msgctxt "post type singular name"
+msgid "Testimonial"
+msgstr "Erfahrungsbericht"
+
+#: includes/post-types.php:11
+msgctxt "post type"
+msgid "Add New"
+msgstr "Erstellen"
+
+#: includes/post-types.php:12
+msgid "Add New Testimonial"
+msgstr "Neuen Erfahrungsbericht erstellen"
+
+#: includes/post-types.php:13
+msgid "Edit Testimonial"
+msgstr "Erfahrungsbericht bearbeiten"
+
+#: includes/post-types.php:14
+msgid "New Testimonial"
+msgstr "Neuer Erfahrungsbericht"
+
+#: includes/post-types.php:15
+msgid "All Testimonials"
+msgstr "Alle Erfahrungsberichte"
+
+#: includes/post-types.php:16
+msgid "View Testimonial"
+msgstr "Erfahrungsbericht anzeigen"
+
+#: includes/post-types.php:17
+msgid "Search Testimonials"
+msgstr "Erfahrungsberichte durchsuchen"
+
+#: includes/post-types.php:18
+msgid "Nothing Found"
+msgstr "Nichts gefunden"
+
+#: includes/post-types.php:19
+msgid "Nothing found in Trash"
+msgstr "Nichts gefunden im Papierkorb"
+
+#: includes/post-types.php:25
+msgctxt "post type singular label"
+msgid "testimonial"
+msgstr "Erfahrungsbericht"
+
+#: includes/post-types.php:30
+msgctxt "slug"
+msgid "testimonial"
+msgstr "erfahrungsbericht"
+
+#: includes/post-types.php:47
+msgid "Testimonial Categories"
+msgstr "Erfahrungsbericht-Kategorien"
+
+#: includes/post-types.php:48
+msgid "Testimonial Category"
+msgstr "Erfahrungsbericht-Kategorie"
+
+#: includes/widget2.php:14
+msgctxt "widget label"
+msgid "Strong Testimonials View"
+msgstr "Starke Erfahrungsberichte Ansicht"
+
+#: includes/widget2.php:17
+msgctxt "widget description"
+msgid "Add one of your testimonial views."
+msgstr "Füge eine deiner Erfahrungsbericht-Ansichten hinzu."
+
+#: includes/widget2.php:25
+msgctxt "widget title"
+msgid "Testimonials"
+msgstr "Erfahrungen"
+
+#: includes/widget2.php:57
+msgctxt "widget setting"
+msgid "Title:"
+msgstr "Titel:"
+
+#: includes/widget2.php:64
+msgctxt "widget setting"
+msgid "View:"
+msgstr "Ansicht:"
+
+#: includes/widget2.php:68
+msgid "&mdash; Select &mdash;"
+msgstr "&mdash; Auswählen &mdash;"
+
+#: strong-testimonials.php:98 strong-testimonials.php:110
+msgid "Cheatin&#8217; huh?"
+msgstr "Cheatin&#8217; huh?"
+
+#: strong-testimonials.php:415
+msgid "light gray gradient"
+msgstr "hellgrauer Verlauf"
+
+#: strong-testimonials.php:420
+msgid "light blue gradient"
+msgstr "hellblauer Verlauf"
+
+#: strong-testimonials.php:425
+msgid "sky blue gradient"
+msgstr "himmelsblauer Verlauf"
+
+#: strong-testimonials.php:430
+msgid "light latte gradient"
+msgstr "cremefarbener Verlauf"
+
+#: strong-testimonials.php:435
+msgid "light green mist gradient"
+msgstr "hellgrüner Verlauf"
+
+#: strong-testimonials.php:440
+msgid "light plum gradient"
+msgstr "hellvioletter Verlauf"
+
+#. Plugin Name of the plugin/theme
+msgid "Strong Testimonials"
+msgstr "Starke Erfahrungsberichte"
+
+#. Plugin URI of the plugin/theme
+msgid "https://www.wpmission.com/plugins/strong-testimonials/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "Collect and display testimonials with a plugin that offers strong features and strong support."
+msgstr "Sammle und veröffentliche Erfahrungsberichte mit einem Plugin, das starke Funktionen und einen starken Support bietet."
+
+#. Author of the plugin/theme
+msgid "Chris Dillon"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "https://www.wpmission.com/"
+msgstr ""
