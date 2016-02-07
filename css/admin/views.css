@@ -70,6 +70,10 @@
 	color: #CD0000;
 }
 
+.cat-count {
+	color: #888;
+}
+
 /* copying style from native post category list */
 .view-category-list-panel {
 	min-height: 42px;

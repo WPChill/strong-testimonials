@@ -79,6 +79,8 @@ class Walker_Testimonial_Category_Checklist extends Walker {
 
 		$args['selected_cats'] = empty( $args['selected_cats'] ) ? array() : $args['selected_cats'];
 
+		$args['cat_counts'] = empty( $args['cat_counts'] ) ? array() : $args['cat_counts'];
+
 		if ( ! empty( $args['list_only'] ) ) {
 			$aria_cheched = 'false';
 			$inner_class = 'category';
@@ -96,13 +98,16 @@ class Walker_Testimonial_Category_Checklist extends Walker {
 		}
 		else {
 			/** This filter is documented in wp-includes/category-template.php */
+			// newlines make for consistent spacing without extra CSS
 			$output .= "\n" . '<li id="li-category-' . $category->term_id . '"' . $class . '>' . "\n";
 			$output .= '<input value="' . $category->term_id . '" type="checkbox" name="' . $name . '[]"'
 						. ' id="category-' . $category->term_id . '"'
 						. checked( in_array( $category->term_id, $args['selected_cats'] ), true, false )
 						. disabled( empty( $args['disabled'] ), false, false ) . ' />' . "\n";
 			$output .= '<label class="selectit" for="category-' . $category->term_id . '">' . "\n";
-			$output .= esc_html( apply_filters( 'the_category', $category->name ) ) . '</label>';
+			$output .= esc_html( apply_filters( 'the_category', $category->name ) )
+						. ' <span class="cat-count">(' . $category->count . ')</span>';
+			$output .= '</label>';
 		}
 	}
 

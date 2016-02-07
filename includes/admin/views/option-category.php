@@ -29,7 +29,7 @@
 									'popular_cats'          => false,
 									'walker'                => new Walker_Testimonial_Category_Checklist(),
 									'taxonomy'              => 'wpm-testimonial-category',
-									'checked_ontop'         => true
+									'checked_ontop'         => true,
 								); ?>
 								<?php wp_terms_checklist( 0, $args ); ?>
 							</ul>
