@@ -5,6 +5,7 @@
 <td class="valign-middle">
 	<?php if ( $category_ids ) : ?>
 		<div class="view-category-list-panel">
+			<div class="fc-search-wrap"></div>
 			<ul class="view-category-list">
 				<?php $args = array(
 					'descendants_and_self'  => 0,

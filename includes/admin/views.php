@@ -41,6 +41,15 @@ function wpmtst_view_settings( $action = '', $view_id = null ) {
 	$category_list = wpmtst_get_category_list();
 	$category_ids  = wpmtst_get_category_ids();
 
+	/**
+	 * Show category filter if necessary.
+	 *
+	 * @since 2.2.0
+	 */
+	if ( count( $category_ids ) > 5 ) {
+		wp_enqueue_script( 'wpmtst-view-category-filter-script' );
+	}
+
 	$pages_list = get_pages( array(
 		'sort_order'  => 'ASC',
 		'sort_column' => 'menu_order',
