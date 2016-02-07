@@ -81,6 +81,7 @@ For ultimate control and seamless integration, any template can be copied to you
 
 * Arabic (ar_AR) - Ahmad Yousef
 * French (fr_FR) - Jean-Paul Radet
+* German (de_DE) - Richard Hopp
 * Hebrew (he_IL) - Haim Asher
 * Portuguese (pt_BR) - Mauricio Richieri
 * Russian (ru_RU) - Матвеев Валерий
@@ -152,6 +153,10 @@ Not yet.
 8. Template files and template functions.
 
 == Changelog ==
+
+= 2.2 - February 9, 2016 =
+* Improve category selector in View editor.
+* Add German translation.
 
 = 2.1 - February 5, 2016 =
 * Add ability to duplicate a View.
