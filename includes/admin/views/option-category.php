@@ -21,7 +21,7 @@
 
 					<div class="table-cell then then_not_allcats then_somecats" style="display: none;">
 						<div class="view-category-list-panel">
-							<ul id="view-category-list">
+							<ul class="view-category-list">
 								<?php $args = array(
 									'descendants_and_self'  => 0,
 									'selected_cats'         => $view_cats_array,

@@ -50,15 +50,15 @@
 	background-color: #FDFDFD;
 }
 
-ul#view-category-list {
+.view-category-list {
 	margin: 7px 0;
 }
 
-ul#view-category-list li {
+.view-category-list li {
 	margin-bottom: 0;
 }
 
-ul#view-category-list li label {
+.view-category-list li label {
 	margin-bottom: 6px;
 	word-wrap: break-word;
 }

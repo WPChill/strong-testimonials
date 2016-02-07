@@ -5,7 +5,6 @@
 	</h3>
 	<table class="form-table multiple group-select">
 		<tr>
-			<?php //include( 'option-category-form.php' ); ?>
 			<?php include('option-form-category.php'); ?>
 		</tr>
 		<tr>
