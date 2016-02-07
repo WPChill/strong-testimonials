@@ -358,12 +358,12 @@ function wpmtst_get_default_template_function() {
 function wpmtst_view_field_inputs( $key, $field, $adding = false ) { //
 	$custom_fields = wpmtst_get_custom_fields();
 	// the date is a special field
-	$custom_fields[] = array(
-		'name'        => 'date',
-		'input_type'  => 'date',
-		'type'        => 'date',
-		'record_type' => 'builtin',
-	);
+	//$custom_fields[] = array(
+	//	'name'        => 'date',
+	//	'input_type'  => 'date',
+	//	'type'        => 'date',
+	//	'record_type' => 'builtin',
+	//);
 
 	// TODO Move this to view defaults option.
 	$types = array(
