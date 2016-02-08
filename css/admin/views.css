@@ -36,11 +36,77 @@
 	padding-top: 10px;
 }
 
-/*-----------------------------------------------
+/*-----------------------------------------------*
  * replace checkboxes with icons
  *-----------------------------------------------*/
+
+/* search filter */
+.fc-search-wrap {
+	position: relative;
+}
+
+.fc-search-field {
+	margin: 10px 0 0 0;
+	width: 100%;
+}
+
+.fc-search-clear {
+	display: none;
+	position: absolute;
+	color: #999;
+	right: 5px;
+	top: 10px;
+	bottom: 0;
+}
+
+.fc-search-clear:before {
+	content: '\f00d';
+	font-family: FontAwesome;
+	display: inline-block;
+	font-size: 1.1em;
+	line-height: 28px;
+}
+
+.fc-search-clear:hover {
+	color: #CD0000;
+}
+
+.cat-count {
+	color: #888;
+}
+
+/* copying style from native post category list */
+.view-category-list-panel {
+	box-sizing: border-box;
+	min-height: 42px;
+	max-height: 215px;
+	min-width: 200px;
+	max-width: 300px;
+	overflow: auto;
+	padding: 0 11px;
+	border: 1px solid #DFDFDF;
+	background-color: #FDFDFD;
+}
+
+.view-category-list {
+	margin: 7px 0;
+}
+
+.view-category-list li {
+	margin-bottom: 0;
+}
+
+.view-category-list li label {
+	margin-bottom: 6px;
+	word-wrap: break-word;
+}
+
+ul.children {
+	margin-left: 18px;
+}
+
 input[type=checkbox] {
-	display: none; /* to hide the radio itself */
+	display: none;
 }
 
 /* keep the inherited margins, adjust width if more space is necessary */

@@ -20,19 +20,9 @@
 					</div>
 
 					<div class="table-cell then then_not_allcats then_somecats" style="display: none;">
-
-						<ul id="view-category-list" class="checkbox-horizontal">
-							<?php foreach ( $category_list as $cat ) : ?>
-							<li>
-								<input type="checkbox" id="category-<?php echo $cat->term_id; ?>" name="view[data][category][]" value="<?php echo $cat->term_id; ?>" <?php checked( in_array( $cat->term_id, $view_cats_array ) ); ?>>
-								<label for="category-<?php echo $cat->term_id; ?>">
-									<?php echo $cat->name . ' (' . $cat->count . ')'; ?>
-								</label>
-							</li>
-							<?php endforeach; ?>
-						</ul>
-
+						<?php include 'category-list.php'; ?>
 					</div>
+
 				</div>
 			</div>
 		<?php else : ?>

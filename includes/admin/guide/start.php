@@ -21,8 +21,6 @@
 
 		<p><?php _e( 'The form has more options like messages and anti-spam on the <b>Settings</b> screen.', 'strong-testimonials' ); ?></p>
 
-		<p><?php _e( '', 'strong-testimonials' ); ?></p>
-
 	</section>
 
 </div>

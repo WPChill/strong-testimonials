@@ -168,21 +168,40 @@ function wpmtst_admin_scripts( $hook ) {
 
 	// Extra
 	switch ( $hook ) {
+
+		// The Fields Editor
 		case 'wpm-testimonial_page_fields':
 			wp_enqueue_style( 'wpmtst-admin-fields-style', WPMTST_URL . 'css/admin/fields.css', array(), $plugin_version );
 			wp_enqueue_script( 'wpmtst-admin-fields-script', WPMTST_URL . 'js/wpmtst-admin-fields.js', array( 'jquery', 'jquery-ui-sortable' ), $plugin_version );
 			wp_localize_script( 'wpmtst-admin-fields-script', 'ajax_object', array( 'ajaxurl' => admin_url( 'admin-ajax.php' ) ) );
 			break;
+
+		// The View Editor
 		case 'wpm-testimonial_page_views':
 			wp_enqueue_style( 'wpmtst-admin-views-style', WPMTST_URL . 'css/admin/views.css', array(), $plugin_version );
 			wp_enqueue_script( 'wpmtst-admin-views-script', WPMTST_URL . 'js/wpmtst-views.js',
 					array( 'jquery', 'jquery-ui-sortable', 'wp-color-picker', 'jquery-masonry' ), $plugin_version );
 			wp_localize_script( 'wpmtst-admin-views-script', 'ajax_object', array( 'ajaxurl' => admin_url( 'admin-ajax.php' ) ) );
 			wp_enqueue_style( 'wp-color-picker' );
+
+			/**
+			 * Category filter in View editor.
+			 *
+			 * JavaScript copied under GPL-2.0+ license
+			 * from Post Category Filter plugin by Javier Villanueva (http://www.jahvi.com)
+			 *
+			 * @since 2.2.0
+			 */
+			wp_register_script( 'wpmtst-view-category-filter-script', WPMTST_URL . 'js/wpmtst-view-category-filter.js', array( 'jquery' ), $plugin_version, true );
+			wp_localize_script( 'wpmtst-view-category-filter-script', 'wpmtst_fc_plugin', wpmtst_vcf_language_strings() );
+
 			break;
+
+		// The Guide
 		case 'wpm-testimonial_page_guide':
 			wp_enqueue_style( 'wpmtst-admin-guide-style', WPMTST_URL . 'css/admin/guide.css', array(), $plugin_version );
 			break;
+
 		default:
 	}
 
@@ -190,6 +209,12 @@ function wpmtst_admin_scripts( $hook ) {
 
 }
 add_action( 'admin_enqueue_scripts', 'wpmtst_admin_scripts' );
+
+function wpmtst_vcf_language_strings() {
+	return array(
+		'placeholder' => __( 'Filter Categories', 'strong-testimonials' ),
+	);
+}
 
 function wpmtst_admin_dequeue_scripts() {
 	if ( wp_style_is( 'CPTStyleSheets' ) )
@@ -480,14 +505,63 @@ add_filter( 'manage_wpm-testimonial-category_custom_column', 'wpmtst_manage_colu
 /**
  * Make columns sortable.
  *
+ * @param $columns
  * @since 1.12.0
+ * @since 2.2.0 category
+ *
+ * @return mixed
  */
 function wpmtst_manage_sortable_columns( $columns ) {
 	$columns['client_name'] = 'client_name';
+	$columns['category'] = 'category';
 	$columns['date'] = 'date';
 	return $columns;
 }
 add_filter( 'manage_edit-wpm-testimonial_sortable_columns', 'wpmtst_manage_sortable_columns' );
+
+
+/**
+ * Add category filter to testimonial list table.
+ *
+ * @since 2.2.0
+ */
+function wpmtst_add_taxonomy_filters() {
+	global $typenow;
+
+	if ( $typenow == 'wpm-testimonial' ) {
+
+		$taxonomies = array( 'wpm-testimonial-category' );
+
+		foreach ( $taxonomies as $tax ) {
+			$tax_obj = get_taxonomy( $tax );
+			$args = array(
+				'show_option_all'   => $tax_obj->labels->all_items,
+				'show_option_none'  => '',
+				'option_none_value' => '-1',
+				'orderby'           => 'NAME',
+				'order'             => 'ASC',
+				'show_count'        => 1,
+				'hide_empty'        => 1,
+				'child_of'          => 0,
+				'exclude'           => '',
+				'echo'              => 1,
+				'selected'          => isset( $_GET[ $tax ] ) ? $_GET[ $tax ] : '',
+				'hierarchical'      => 1,
+				'name'              => $tax,
+				'id'                => $tax,
+				'class'             => 'postform',
+				'depth'             => 0,
+				'tab_index'         => 0,
+				'taxonomy'          => $tax,
+				'hide_if_empty'     => true,
+				'value_field'       => 'slug',
+			);
+
+			wp_dropdown_categories( $args );
+		}
+	}
+}
+add_action( 'restrict_manage_posts', 'wpmtst_add_taxonomy_filters' );
 
 
 /**

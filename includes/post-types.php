@@ -47,6 +47,7 @@ function wpmtst_register_cpt() {
 		'name'               => __( 'Testimonial Categories', 'strong-testimonials' ),
 		'singular_name'      => __( 'Testimonial Category', 'strong-testimonials' ),
 		'menu_name'          => __( 'Categories' ),
+		'all_items'          => __( 'All categories' ),
 	);
 
 	register_taxonomy( 'wpm-testimonial-category', array( 'wpm-testimonial' ), array(

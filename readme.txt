@@ -70,7 +70,7 @@ Need help matching your theme? Got some weird spacing or floating? I'm here to h
 
 For ultimate control and seamless integration, any template can be copied to your theme and customized (a tutorial and more templates coming soon). There is also a template function that can display any View.
 
-= Recommended =
+= Try these plugins too =
 
 * [Simple Colorbox](https://wordpress.org/plugins/simple-colorbox/) to open thumbnails into full-size images. Nice!
 * [Modular Custom CSS](https://wordpress.org/plugins/modular-custom-css/) for quick CSS tweaks right there in the Customizer.
@@ -81,13 +81,18 @@ For ultimate control and seamless integration, any template can be copied to you
 
 * Arabic (ar_AR) - Ahmad Yousef
 * French (fr_FR) - Jean-Paul Radet
+* German (de_DE) - Richard Hopp
 * Hebrew (he_IL) - Haim Asher
 * Portuguese (pt_BR) - Mauricio Richieri
 * Russian (ru_RU) - Матвеев Валерий
 * Spanish (es_ES) - Diego Ferrández
 * Swedish (sv_SE) - Tom Stone
 
-Many, many thanks to these translators. Can you help? [Contact me](https://www.wpmission.com/contact/).
+Many, many thanks to these translators.
+
+Did you know you can help by [translating phrases here](https://translate.wordpress.org/projects/wp-plugins/strong-testimonials)? Even just a few phrases would help.
+
+[Contact me](https://www.wpmission.com/contact/) to contribute a full translation.
 
 == Installation ==
 
@@ -152,6 +157,12 @@ Not yet.
 8. Template files and template functions.
 
 == Changelog ==
+
+= 2.2 - February 8, 2016 =
+* Improve category selector in View editor.
+* Add category filter to testimonial admin list.
+* Make category column sortable in testimonial admin list.
+* Add German translation.
 
 = 2.1 - February 5, 2016 =
 * Add ability to duplicate a View.
@@ -263,4 +274,4 @@ Not yet.
 
 == Upgrade Notice ==
 
-Version 2.0 removes `[strong]` and `[wpmtst]` shortcodes and the original widget.
+The Category selector is improved in the View editor and admin list. Adding a German translation.
