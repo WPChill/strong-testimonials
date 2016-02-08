@@ -20,7 +20,7 @@
 					</div>
 
 					<div class="table-cell then then_not_allcats then_somecats" style="display: none;">
-						<?php include 'category-list.php'; ?>
+						<?php wpmtst_category_checklist( $view_cats_array ); ?>
 					</div>
 
 				</div>

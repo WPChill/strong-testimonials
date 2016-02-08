@@ -55,6 +55,23 @@ function convertLabel(label) {
 
 })( jQuery );
 
+
+(function ( $ ) {
+	$.fn.afterToggle = function() {
+		console.log('afterToggle');
+		// custom handling
+		var $categoryDivs = $('.view-category-list-panel');
+		// Set initial width to compensate for narrowed box due to checkbox being hidden first
+		// and to prevent horizontal jumpiness as filter is applied.
+		if ( !$categoryDivs.hasClass("fixed") ) {
+			$categoryDivs.width( $categoryDivs.outerWidth(true) ).addClass("fixed");
+		}
+		return this;
+	}
+}
+( jQuery ));
+
+
 jQuery(window).on('load', function () {
 	jQuery(".view-layout-masonry .example-container")
 		.find(".box")
@@ -162,6 +179,7 @@ jQuery(document).ready(function($) {
 				break;
 			default:
 		}
+		return this;
 	}
 
 	/**
@@ -181,6 +199,7 @@ jQuery(document).ready(function($) {
 		else {
 			$(deps).fadeOut(speed);
 		}
+		return this;
 	}
 
 	/**
@@ -217,6 +236,7 @@ jQuery(document).ready(function($) {
 			$(deps).not(".fast").fadeOut(speed);
 
 		}
+		return this;
 	}
 
 	/**
@@ -236,6 +256,7 @@ jQuery(document).ready(function($) {
 		else {
 			$(deps).fadeOut(speed);
 		}
+		return this;
 	}
 
 	/**
@@ -258,6 +279,7 @@ jQuery(document).ready(function($) {
 			$(deps).fadeOut(speed);
 			$(indeps).fadeIn(speed);
 		}
+		return this;
 	}
 
 	/**
@@ -291,6 +313,7 @@ jQuery(document).ready(function($) {
 			$(depsFast).fadeOut(fast);
 			$(deps).not(".fast").fadeOut(speed);
 		}
+		return this;
 	}
 
 
@@ -349,7 +372,7 @@ jQuery(document).ready(function($) {
 		$(".if.selectper").each(function(index,el) {
 			$.fn.selectPerOption(this);
 			$(this).on("change", function() {
-				$.fn.selectPerOption(this);
+				$.fn.selectPerOption(this).afterToggle();
 			});
 		});
 

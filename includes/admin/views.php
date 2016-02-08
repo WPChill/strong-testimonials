@@ -928,3 +928,48 @@ function wpmtst_sanitize_view( $input ) {
 
 	return $view_data;
 }
+
+
+function wpmtst_category_checklist( $view_cats_array ) {
+	?>
+	<div class="view-category-list-panel">
+		<div class="fc-search-wrap">
+			<input type="search" class="fc-search-field"
+				   placeholder="<?php _e( 'filter categories', 'strong-testimonials' ); ?>"/>
+		</div>
+		<ul class="view-category-list">
+			<?php $args = array(
+				'descendants_and_self' => 0,
+				'selected_cats'        => $view_cats_array,
+				'popular_cats'         => false,
+				'walker'               => new Walker_WPMST_Category_Checklist(),
+				'taxonomy'             => "wpm-testimonial-category",
+				'checked_ontop'        => true,
+			); ?>
+			<?php wp_terms_checklist( 0, $args ); ?>
+		</ul>
+	</div>
+	<?php
+}
+
+function wpmtst_form_category_checklist( $view_cats_array ) {
+	?>
+	<div class="view-category-list-panel">
+		<div class="fc-search-wrap">
+			<input type="search" class="fc-search-field"
+				   placeholder="<?php _e( 'filter categories', 'strong-testimonials' ); ?>"/>
+		</div>
+		<ul class="view-category-list">
+			<?php $args = array(
+				'descendants_and_self' => 0,
+				'selected_cats'        => $view_cats_array,
+				'popular_cats'         => false,
+				'walker'               => new Walker_WPMST_Form_Category_Checklist(),
+				'taxonomy'             => "wpm-testimonial-category",
+				'checked_ontop'        => true,
+			); ?>
+			<?php wp_terms_checklist( 0, $args ); ?>
+		</ul>
+	</div>
+	<?php
+}

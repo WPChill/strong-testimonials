@@ -7,7 +7,7 @@
 	<div class="table">
 		<div class="table-row">
 			<div class="table-cell">
-				<?php include 'category-list.php'; ?>
+				<?php wpmtst_form_category_checklist( $view_cats_array ); ?>
 			</div>
 		</div>
 	</div>

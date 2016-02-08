@@ -17,16 +17,13 @@
 
 	'use strict';
 
+	var $categoryDivs = $('.view-category-list-panel');
+
 	$(function () {
 
-        var $categoryDivs = $('.view-category-list-panel');
-
-		$(".fc-search-wrap")
-            .append('<input type="search" class="fc-search-field" placeholder="' + wpmtst_fc_plugin.placeholder + '" /><span class="fc-search-clear"></span>');
+		$(".fc-search-wrap").show();
 
         $categoryDivs.on('keyup search', '.fc-search-field', function (event) {
-
-			$(this).parent().find(".fc-search-clear").show();
 
             var searchTerm = event.target.value,
                 $listItems = $(this).closest(".view-category-list-panel").find('.view-category-list li');
@@ -44,15 +41,6 @@
             }
 
         });
-
-		// Clear search input and show all list items
-		$(".fc-search-clear").on("click", function() {
-
-			$(this).closest(".view-category-list-panel").find('.view-category-list li').show();
-
-			$(this).parent().find('input').val('').focus().parent().find(".fc-search-clear").hide();
-
-		});
 
 	});
 

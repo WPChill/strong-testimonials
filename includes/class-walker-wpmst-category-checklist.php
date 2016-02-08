@@ -15,7 +15,7 @@
  * @see wp_category_checklist()
  * @see wp_terms_checklist()
  */
-class Walker_Testimonial_Category_Checklist extends Walker {
+class Walker_WPMST_Category_Checklist extends Walker {
 	public $tree_type = 'category';
 	public $db_fields = array ('parent' => 'parent', 'id' => 'term_id'); //TODO: decouple this
 
@@ -71,8 +71,7 @@ class Walker_Testimonial_Category_Checklist extends Walker {
 			$taxonomy = $args['taxonomy'];
 		}
 
-		//$name = 'tax_input[' . $taxonomy . ']';
-		$name = 'view[data][category]';
+		$name = "view[data][category]";
 
 		$args['popular_cats'] = empty( $args['popular_cats'] ) ? array() : $args['popular_cats'];
 		$class = in_array( $category->term_id, $args['popular_cats'] ) ? ' class="popular-category"' : '';

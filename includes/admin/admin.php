@@ -187,13 +187,12 @@ function wpmtst_admin_scripts( $hook ) {
 			/**
 			 * Category filter in View editor.
 			 *
-			 * JavaScript copied under GPL-2.0+ license
+			 * JavaScript adapted under GPL-2.0+ license
 			 * from Post Category Filter plugin by Javier Villanueva (http://www.jahvi.com)
 			 *
 			 * @since 2.2.0
 			 */
 			wp_register_script( 'wpmtst-view-category-filter-script', WPMTST_URL . 'js/wpmtst-view-category-filter.js', array( 'jquery' ), $plugin_version, true );
-			wp_localize_script( 'wpmtst-view-category-filter-script', 'wpmtst_fc_plugin', wpmtst_vcf_language_strings() );
 
 			break;
 
@@ -209,12 +208,6 @@ function wpmtst_admin_scripts( $hook ) {
 
 }
 add_action( 'admin_enqueue_scripts', 'wpmtst_admin_scripts' );
-
-function wpmtst_vcf_language_strings() {
-	return array(
-		'placeholder' => __( 'Filter Categories', 'strong-testimonials' ),
-	);
-}
 
 function wpmtst_admin_dequeue_scripts() {
 	if ( wp_style_is( 'CPTStyleSheets' ) )

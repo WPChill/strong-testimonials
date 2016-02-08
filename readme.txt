@@ -158,6 +158,10 @@ Not yet.
 
 == Changelog ==
 
+= 2.2.1 - February 8, 2016 =
+* Fix bug in View category selector.
+* Prevent potential class name conflict.
+
 = 2.2 - February 8, 2016 =
 * Improve category selector in View editor.
 * Add category filter to testimonial admin list.
