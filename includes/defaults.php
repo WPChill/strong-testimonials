@@ -100,10 +100,11 @@ function wpmtst_get_default_fields() {
 	 * Optional field types
 	 *
 	 * @since 1.18
+	 * @since 2.2.2 Fix bug caused by localizing 'categories'
 	 */
 	$field_types['optional'] = array(
 		'categories' => array(
-			'input_type'              => __( 'categories', 'strong-testimonials' ),
+			'input_type'              => 'categories',
 			'option_label'            => __( 'category selector', 'strong-testimonials' ),
 			'show_placeholder_option' => 0,
 			'show_admin_table_option' => 0,

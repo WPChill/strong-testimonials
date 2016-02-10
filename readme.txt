@@ -158,6 +158,9 @@ Not yet.
 
 == Changelog ==
 
+= 2.2.2 - February 10, 2016 =
+* Fix bug in category selector custom field when localized.
+
 = 2.2.1 - February 8, 2016 =
 * Fix bug in View category selector.
 * Prevent potential class name conflict.

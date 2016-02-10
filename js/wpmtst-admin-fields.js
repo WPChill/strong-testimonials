@@ -185,8 +185,8 @@ jQuery(document).ready(function($) {
 	// -----------------
 	// Field type change
 	// -----------------
-	$fieldList.on("focus", ".field-type", function() {
-			console.log('field type focus');
+	$fieldList
+		.on("focus", ".field-type", function() {
 			// store existing values on parent element
 
 			// find parent element
@@ -237,56 +237,67 @@ jQuery(document).ready(function($) {
 				// --------
 				// could be changing after being *added* but before being *saved*
 
-				if( fieldClass == "post" ) {
+				switch( fieldClass ) {
+					case "post":
 
-					if( fieldType == 'post_title' ) {
-						$fieldLabel.val('Testimonial Title');
-						$fieldName.val('post_title').attr('disabled','disabled');
-						// move value to hidden input
-						$fieldName.after('<input type="hidden" name="'+$fieldName.attr("name")+'" value="'+$fieldName.val()+'" />');
-						// change input_type
-						$parent.find('input[name$="[input_type]"]').val("text");
-						// hide help message
-						$parent.find(".field-name-help").hide();
-					}
-					else if( fieldType == 'featured_image' ) {
-						$fieldLabel.val('Photo');
-						$fieldName.val('featured_image').attr('disabled','disabled');
-						// move value to hidden input
-						$fieldName.after('<input type="hidden" name="'+$fieldName.attr("name")+'" value="'+$fieldName.val()+'" />');
-						// change input_type
-						$parent.find('input[name$="[input_type]"]').val("file");
-					}
-					else if( fieldType == 'post_content' ) {
-						$fieldLabel.val('Testimonial');
-						$fieldName.val('post_content').attr('disabled','disabled');
-						// move value to hidden input
-						$fieldName.after('<input type="hidden" name="'+$fieldName.attr("name")+'" value="'+$fieldName.val()+'" />');
-						// hide help message
-						$parent.find(".field-name-help").hide();
-					}
+						if( fieldType == 'post_title' ) {
+							$fieldLabel.val('Testimonial Title');
+							$fieldName.val('post_title').attr('disabled','disabled');
+							// move value to hidden input
+							$fieldName.after('<input type="hidden" name="'+$fieldName.attr("name")+'" value="'+$fieldName.val()+'" />');
+							// change input_type
+							$parent.find('input[name$="[input_type]"]').val("text");
+							// hide help message
+							$parent.find(".field-name-help").hide();
+						}
+						else if( fieldType == 'featured_image' ) {
+							$fieldLabel.val('Photo');
+							$fieldName.val('featured_image').attr('disabled','disabled');
+							// move value to hidden input
+							$fieldName.after('<input type="hidden" name="'+$fieldName.attr("name")+'" value="'+$fieldName.val()+'" />');
+							// change input_type
+							$parent.find('input[name$="[input_type]"]').val("file");
+						}
+						else if( fieldType == 'post_content' ) {
+							$fieldLabel.val('Testimonial');
+							$fieldName.val('post_content').attr('disabled','disabled');
+							// move value to hidden input
+							$fieldName.after('<input type="hidden" name="'+$fieldName.attr("name")+'" value="'+$fieldName.val()+'" />');
+							// hide help message
+							$parent.find(".field-name-help").hide();
+						}
+						break;
 
-				}
-				else {
+					case "custom":
 
-					// if switching back from Post field to Custom field
-					var fieldName = $fieldName.val();
-					if( fieldName == 'post_title' || fieldName == 'featured_image' ) {
-						// restore previous values
-						$fieldLabel.val($fieldLabel.data('oldValue'));
-						$fieldName.val($fieldName.data('oldValue')).removeAttr('disabled');
-						$fieldInputType.val($fieldInputType.data('oldValue'));
-						$parent.find(".custom-field-header a.field").html( $fieldLabel.val() );
-						// remove hidden input
-						$fieldName.next('input:hidden').remove();
-						// show help message
-						$parent.find(".field-name-help").show();
-					}
+						// if switching back from Post field to Custom field
+						var fieldName = $fieldName.val();
+						if( fieldName == 'post_title' || fieldName == 'featured_image' ) {
+							// restore previous values
+							$fieldLabel.val($fieldLabel.data('oldValue'));
+							$fieldName.val($fieldName.data('oldValue')).removeAttr('disabled');
+							$fieldInputType.val($fieldInputType.data('oldValue'));
+							$parent.find(".custom-field-header a.field").html( $fieldLabel.val() );
+							// remove hidden input
+							$fieldName.next('input:hidden').remove();
+							// show help message
+							$parent.find(".field-name-help").show();
+						}
 
-					if( fieldType == 'categories' ) {
-						$fieldName.val('category');
-					}
+						break;
 
+					case "optional":
+
+						if( fieldType == 'categories' ) {
+							$fieldName.val('category').attr('disabled','disabled');
+							// move value to hidden input
+							$fieldName.after('<input type="hidden" name="'+$fieldName.attr("name")+'" value="'+$fieldName.val()+'" />');
+							// hide help message
+							$parent.find(".field-name-help").hide();
+						}
+						break;
+
+					default:
 				}
 
 				// update admin_table setting
@@ -335,7 +346,11 @@ jQuery(document).ready(function($) {
 				}
 
 				if( fieldType == 'categories' ) {
-					$fieldName.val('category');
+					$fieldName.val('category').attr('disabled','disabled');
+					// move value to hidden input
+					$fieldName.after('<input type="hidden" name="'+$fieldName.attr("name")+'" value="'+$fieldName.val()+'" />');
+					// hide help message
+					$parent.find(".field-name-help").hide();
 				}
 
 				// Nesting Ajax calls for now.

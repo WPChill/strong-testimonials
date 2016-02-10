@@ -103,6 +103,13 @@ function wpmtst_default_settings() {
 			unset( $fields['current_field_group'] );
 		}
 
+		/**
+		 * Fix bug that localized 'categories'
+		 *
+		 * since 2.2.2
+		 */
+		$fields['field_types']['optional']['categories']['input_type'] = 'categories';
+
 		// ----------
 		// field base
 		// ----------
