@@ -54,14 +54,15 @@ function wpmtst_single_form_field( $field ) {
 
 	wpmtst_field_required_symbol( $field );
 	wpmtst_field_before( $field );
+
 	switch ( $field['input_type'] ) {
 
 		case 'categories':
+
 			$value = isset( $form_values[ $field['name'] ] ) ? $form_values[ $field['name'] ] : '';
-			$category_list = get_terms( 'wpm-testimonial-category', array(
-				'hide_empty' => false,
-				'order_by'   => 'name',
-			) );
+
+			$category_list = wpmtst_get_category_list();
+
 			echo '<select id="wpmtst_' . $field['name']. '"'
 				. ' name="' . $field['name'] . '"'
 				. ' class="' . wpmtst_field_classes( $field['input_type'], $field['name'] ) . '"'
@@ -76,7 +77,9 @@ function wpmtst_single_form_field( $field ) {
 			break;
 
 		case 'textarea':
+
 			$value = ( isset( $form_values[ $field['name'] ] ) && $form_values[ $field['name'] ] ) ? $form_values[ $field['name'] ] : '';
+
 			// textarea tags must be on same line for placeholder to work
 			echo '<textarea id="wpmtst_' . $field['name'] . '"'
 			     . ' class="' . wpmtst_field_classes( $field['input_type'], $field['name'] ) . '"'
@@ -86,10 +89,12 @@ function wpmtst_single_form_field( $field ) {
 			break;
 
 		case 'file':
+
 			echo '<input id="wpmtst_' . $field['name'] . '" type="file" name="' . $field['name'] . '">';
 			break;
 
 		default: // test, email, url
+
 			/**
 			 * Switching out url type until more themes adopt it.
 			 * @since 1.11.0

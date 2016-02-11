@@ -158,6 +158,9 @@ Not yet.
 
 == Changelog ==
 
+= 2.2.3 - February 11, 2016 =
+* Fix bug in category selector in WPML.
+
 = 2.2.2 - February 10, 2016 =
 * Fix bug in category selector custom field when localized.
 

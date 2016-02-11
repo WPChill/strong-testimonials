@@ -347,7 +347,7 @@ function wpmtst_edit_columns( $columns ) {
 	}
 
 	// 5. add [category] and [date]
-	if ( wpmtst_get_category_ids() )
+	if ( wpmtst_get_category_list() )
 		$fields_to_add['category'] = __( 'Category', 'strong-testimonials' );
 
 	$fields_to_add['date'] = __( 'Date', 'strong-testimonials' );

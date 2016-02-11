@@ -6,7 +6,7 @@
 </th>
 <td>
 	<div id="view-category" class="row">
-		<?php if ( $category_ids ) : ?>
+		<?php if ( $category_list ) : ?>
 			<div class="table">
 				<div class="table-row">
 

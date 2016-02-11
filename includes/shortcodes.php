@@ -95,7 +95,7 @@ function wpmtst_display_view( $atts ) {
 	 * Build the query
 	 */
 
-	$categories = explode( ',', $category );
+	$categories = apply_filters( 'wpmtst_l10n_cats', explode( ',', $category ) );
 	$ids        = explode( ',', $id );
 
 	$args = array(

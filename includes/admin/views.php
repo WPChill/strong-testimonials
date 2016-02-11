@@ -39,14 +39,13 @@ function wpmtst_view_settings( $action = '', $view_id = null ) {
 	) );
 
 	$category_list = wpmtst_get_category_list();
-	$category_ids  = wpmtst_get_category_ids();
 
 	/**
 	 * Show category filter if necessary.
 	 *
 	 * @since 2.2.0
 	 */
-	if ( count( $category_ids ) > 5 ) {
+	if ( count( $category_list ) > 5 ) {
 		wp_enqueue_script( 'wpmtst-view-category-filter-script' );
 	}
 
@@ -104,7 +103,8 @@ function wpmtst_view_settings( $action = '', $view_id = null ) {
 	}
 
 	$view['nav']     = explode( ',', str_replace( ' ', '', $view['nav'] ) );
-	$view_cats_array = explode( ',', $view['category'] );
+	//$view_cats_array = explode( ',', $view['category'] );
+	$view_cats_array = apply_filters( 'wpmtst_l10n_cats', explode( ',', $view['category'] ) );
 
 	// Assemble list of templates
 	$templates      = $strong_templates->get_templates( array( 'content', 'widget' ) );
@@ -714,7 +714,6 @@ add_action( 'admin_post_view_duplicate_form', 'wpmtst_view_add_form' );
  */
 function wpmtst_sanitize_view( $input ) {
 	ksort( $input );
-	//q2($input);
 
 	$view_data         = array();
 	$view_data['mode'] = sanitize_text_field( $input['mode'] );
