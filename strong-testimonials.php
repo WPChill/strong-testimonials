@@ -4,7 +4,7 @@
  * Plugin URI: https://www.wpmission.com/plugins/strong-testimonials/
  * Description: A full-featured plugin that works right out of the box for beginners and offers advanced features for pros.
  * Author: Chris Dillon
- * Version: 2.2.3
+ * Version: 2.2.4
  * Author URI: https://www.wpmission.com/
  * Text Domain: strong-testimonials
  * Domain Path: /languages
@@ -1460,10 +1460,8 @@ final class Strong_Testimonials {
 		if ( ! $all_widgets )
 			return;
 
-		$options = get_option( 'wpmtst_options' );
-
 		// Get active strong widgets
-		$strong_widgets = get_option( 'widget_wpmtst-widget' );
+		$strong_widgets = get_option( 'widget_strong-testimonials-view-widget' );
 
 		foreach ( $all_widgets as $sidebar => $widgets ) {
 
@@ -1474,15 +1472,7 @@ final class Strong_Testimonials {
 			foreach ( $widgets as $key => $widget_name ) {
 
 				// Is our widget active?
-				if ( 0 === strpos( $widget_name, 'wpmtst-widget-' ) ) {
-
-					// Enqueue stylesheets
-					if ( $options['load_widget_style'] ) {
-						self::add_style( 'wpmtst-widget-style' );
-					}
-					if ( is_rtl() && $options['load_rtl_style'] ) {
-						self::add_style( 'wpmtst-widget-rtl-style' );
-					}
+				if ( 0 === strpos( $widget_name, 'strong-testimonials-view-widget-' ) ) {
 
 					if ( $strong_widgets ) {
 						$name_parts = explode( '-', $widget_name );
@@ -1491,21 +1481,28 @@ final class Strong_Testimonials {
 						if ( isset( $strong_widgets[ $id ] ) ) {
 							$widget = $strong_widgets[ $id ];
 
-							if ( 'cycle' == $widget['mode'] ) {
-								// Populate variable for Cycle script.
-								$args = array(
-									'fx'      => 'fade',
-									'speed'   => $widget['cycle-speed'] * 1000,
-									'timeout' => $widget['cycle-timeout'] * 1000,
-									'pause'   => $widget['cycle-pause'] ? true : false,
-								);
-								self::add_script( 'wpmtst-slider', 'later' );
-								self::add_script_var( 'wpmtst-slider', 'tcycle_' . str_replace( '-', '_', $widget_name ), $args );
+							if ( isset( $widget['view'] ) && $widget['view'] ) {
+								//TODO DRY
+								$atts        = array( 'view' => $widget['view'] );
+								$parsed_atts = self::parse_view( $atts, self::get_view_defaults(), $atts );
+								if ( self::view_not_found( $parsed_atts ) )
+									continue;
+
+								// Build the shortcode signature.
+								$att_string = serialize( $atts );
+
+								// Turn empty atts into switches.
+								$atts = normalize_empty_atts( $parsed_atts );
+
+								self::find_single_view( $atts, $att_string );
 							}
+
 						}
+
 					}
 
-				} elseif ( 0 === strpos( $widget_name, 'text-' ) ) {
+				}
+				elseif ( 0 === strpos( $widget_name, 'text-' ) ) {
 
 					// Get text widget content to scan for shortcodes.
 
@@ -1546,8 +1543,6 @@ final class Strong_Testimonials {
 		if ( ! $all_widgets )
 			return;
 
-		$options = get_option( 'wpmtst_options' );
-
 		// Need to group by cell to replicate Page Builder rendering order,
 		// whether these are Strong widgets or not.
 		$cells = array();
@@ -1560,40 +1555,7 @@ final class Strong_Testimonials {
 
 			foreach ( $cell_widgets as $key => $widget ) {
 
-				// Is a Strong widget?
-				if ( 'Strong_Testimonials_Widget' == $widget['panels_info']['class'] ) {
-
-					// Enqueue stylesheets
-					if ( $options['load_widget_style'] ) {
-						self::add_style( 'wpmtst-widget-style' );
-					}
-					if ( is_rtl() && $options['load_rtl_style'] ) {
-						self::add_style( 'wpmtst-widget-rtl-style' );
-					}
-
-					if ( 'cycle' == $widget['mode'] ) {
-
-						// PageBuilder assembles name like `widget-0-0-0`
-						$widget_name = implode( '_', array(
-							'tcycle_widget',
-							$widget['panels_info']['grid'],
-							$widget['panels_info']['cell'],
-							$key
-						) );
-
-						// Populate variable for Cycle script.
-						$args = array(
-							'fx'      => 'fade',
-							'speed'   => $widget['cycle-speed'] * 1000,
-							'timeout' => $widget['cycle-timeout'] * 1000,
-							'pause'   => $widget['cycle-pause'] ? true : false,
-						);
-						self::add_script( 'wpmtst-slider', 'later' );
-						self::add_script_var( 'wpmtst-slider', $widget_name, $args );
-
-					}
-
-				} elseif ( 'Strong_Testimonials_View_Widget' == $widget['panels_info']['class'] ) {
+				if ( 'Strong_Testimonials_View_Widget' == $widget['panels_info']['class'] ) {
 
 					// Incorporate attributes from the View and defaults, just like the shortcode filter.
 					if ( isset( $widget['view'] ) && $widget['view'] ) {
@@ -1612,7 +1574,8 @@ final class Strong_Testimonials {
 						self::find_single_view( $atts, $att_string );
 					}
 
-				} elseif ( 'WP_Widget_Text' == $widget['panels_info']['class'] ) {
+				}
+				elseif ( 'WP_Widget_Text' == $widget['panels_info']['class'] ) {
 
 					// Is a Text widget?
 					self::process_content( $widget['text'] );

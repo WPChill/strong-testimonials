@@ -158,6 +158,9 @@ Not yet.
 
 == Changelog ==
 
+= 2.2.4 - February 15, 2016 =
+* Fix bug in widget processing.
+
 = 2.2.3 - February 11, 2016 =
 * Fix bug in category selector in WPML.
 
