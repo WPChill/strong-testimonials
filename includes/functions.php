@@ -364,33 +364,39 @@ function wpmtst_get_image_sizes( $size = '' ) {
 	$sizes = array();
 	$get_intermediate_image_sizes = get_intermediate_image_sizes();
 
-	// Create the full array with sizes and crop info
-	foreach( $get_intermediate_image_sizes as $_size ) {
+	/**
+	 * Catch possibility of missing standard sizes.
+	 * @since 2.2.5
+	 */
+	if ( $get_intermediate_image_sizes ) {
+		// Create the full array with sizes and crop info
+		foreach ( $get_intermediate_image_sizes as $_size ) {
 
-		if ( in_array( $_size, array( 'thumbnail', 'medium', 'large' ) ) ) {
+			if ( in_array( $_size, array( 'thumbnail', 'medium', 'large' ) ) ) {
 
-			$sizes[ $_size ]['width'] = get_option( $_size . '_size_w' );
-			$sizes[ $_size ]['height'] = get_option( $_size . '_size_h' );
-			$sizes[ $_size ]['crop'] = (bool) get_option( $_size . '_crop' );
-		}
-		elseif ( isset( $_wp_additional_image_sizes[ $_size ] ) ) {
+				$sizes[ $_size ]['width']  = get_option( $_size . '_size_w' );
+				$sizes[ $_size ]['height'] = get_option( $_size . '_size_h' );
+				$sizes[ $_size ]['crop']   = (bool)get_option( $_size . '_crop' );
+			}
+			elseif ( isset( $_wp_additional_image_sizes[ $_size ] ) ) {
 
-			$sizes[ $_size ] = array(
-					'width' => $_wp_additional_image_sizes[ $_size ]['width'],
+				$sizes[ $_size ] = array(
+					'width'  => $_wp_additional_image_sizes[ $_size ]['width'],
 					'height' => $_wp_additional_image_sizes[ $_size ]['height'],
-					'crop' =>  $_wp_additional_image_sizes[ $_size ]['crop']
-			);
+					'crop'   => $_wp_additional_image_sizes[ $_size ]['crop']
+				);
+
+			}
 
 		}
 
-	}
+		// Sort by width
+		uasort( $sizes, 'wpmtst_compare_width' );
 
-	// Sort by width
-	uasort( $sizes, 'wpmtst_compare_width' );
-
-	// Add option labels
-	foreach ( $sizes as $key => $dimensions ) {
-		$sizes[ $key ]['label'] = sprintf( '%s - %d x %d', $key, $dimensions['width'], $dimensions['height'] );
+		// Add option labels
+		foreach ( $sizes as $key => $dimensions ) {
+			$sizes[ $key ]['label'] = sprintf( '%s - %d x %d', $key, $dimensions['width'], $dimensions['height'] );
+		}
 	}
 
 	// Add extra options
@@ -399,7 +405,7 @@ function wpmtst_get_image_sizes( $size = '' ) {
 
 	// Get only one size if found
 	if ( $size ) {
-		if( isset( $sizes[ $size ] ) ) {
+		if ( isset( $sizes[ $size ] ) ) {
 			return $sizes[ $size ];
 		} else {
 			return false;

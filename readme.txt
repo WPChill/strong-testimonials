@@ -158,6 +158,9 @@ Not yet.
 
 == Changelog ==
 
+= 2.2.5 - February 17, 2016 =
+* Handle possibility of missing standard image sizes.
+
 = 2.2.4 - February 15, 2016 =
 * Fix bug in widget processing.
 
