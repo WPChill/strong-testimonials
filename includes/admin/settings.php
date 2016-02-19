@@ -181,7 +181,7 @@ function wpmtst_sanitize_form( $input ) {
 	$input['captcha']           = sanitize_text_field( $input['captcha'] );
 
 	foreach ( $input['messages'] as $key => $message ) {
-		$input['messages'][$key]['text'] = sanitize_text_field( $message['text'] );
+		$input['messages'][ $key ]['text'] = wp_kses_data( $message['text'] );
 	}
 
 	return $input;

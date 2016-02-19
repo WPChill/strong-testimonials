@@ -245,7 +245,7 @@ function wpmtst_form_view( $atts ) {
 	global $strong_templates;
 
 	if ( isset( $_GET['success'] ) ) {
-		return '<div class="testimonial-success">' . wpmtst_get_form_message( 'submission-success' ) . '</div>';
+		return apply_filters( 'wpmtst_form_success_message', '<div class="testimonial-success">' .  wpmtst_get_form_message( 'submission-success' ) . '</div>' );
 	}
 
 	extract( normalize_empty_atts( $atts ) );

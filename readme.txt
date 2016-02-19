@@ -158,6 +158,10 @@ Not yet.
 
 == Changelog ==
 
+= 2.2.6 - February 19, 2016 =
+* Allow some HTML in form messages (same as comments).
+* Add `wpmtst_form_success_message` filter.
+
 = 2.2.5 - February 17, 2016 =
 * Handle possibility of missing standard image sizes.
 

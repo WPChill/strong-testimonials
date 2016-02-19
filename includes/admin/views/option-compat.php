@@ -36,7 +36,7 @@
 						<?php _e( 'Turning this <b>on</b> may help if the slideshow is not working, especially with page builders.', 'strong-testimonials' ); ?>
 					</p>
 					<p class="description tall">
-						<?php _e( 'Required <b>on</b> if using the template function <code>strong_testimonial_view()</code>.', 'strong-testimonials' ); ?>
+						<?php _e( 'Required <b>on</b> if using the template function <code>strong_testimonials_view()</code>.', 'strong-testimonials' ); ?>
 					</p>
 				</div>
 			</div>
