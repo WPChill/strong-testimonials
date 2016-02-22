@@ -158,6 +158,9 @@ Not yet.
 
 == Changelog ==
 
+= 2.2.7 - February 22, 2016 =
+* Bug fix for PHP 7.
+
 = 2.2.6 - February 19, 2016 =
 * Allow some HTML in form messages (same as comments).
 * Add `wpmtst_form_success_message` filter.

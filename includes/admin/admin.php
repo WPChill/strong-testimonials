@@ -279,7 +279,7 @@ function wpmtst_meta_options() {
 				</label>
 			</th>
 			<td>
-				<?php echo sprintf( '<input id="%2$s" type="%1$s" class="custom-input" name="custom[%2$s]" value="%3$s" size="">', $field['input_type'], $field['name'], $post->$field['name'] ); ?>
+				<?php echo sprintf( '<input id="%2$s" type="%1$s" class="custom-input" name="custom[%2$s]" value="%3$s" size="">', $field['input_type'], $field['name'], $post->{$field['name']} ); ?>
 				<?php if ( 'url' == $field['input_type'] ) : ?>
 					&nbsp;&nbsp;<label><input type="checkbox" name="custom[nofollow]" <?php checked( $post->nofollow, 'on' ); ?>> <code>rel="nofollow"</code></label>
 				<?php endif; ?>

@@ -1,7 +1,7 @@
 <?php
 /**
  * Template Name: Default Dark
- * Description: A version of the the default template for dark themes.
+ * Description: A version of the default template for dark themes.
  */
 ?>
 <!-- Strong Testimonials: Default Dark Template -->
