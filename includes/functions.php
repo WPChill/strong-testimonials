@@ -429,16 +429,6 @@ function wpmtst_compare_width( $a, $b ) {
 }
 
 /**
- * @param $orderby
- * @param $args
- *
- * @return string
- */
-function wpmtst_get_terms_orderby( $orderby, $args ) {
-	return 'name';
-}
-
-/**
  * Return a list of categories after removing any orderby filters.
  *
  * @since 2.2.3 If WPML is active, will find corresponding term ID in current language.
@@ -446,39 +436,14 @@ function wpmtst_get_terms_orderby( $orderby, $args ) {
  * @return array|int|WP_Error
  */
 function wpmtst_get_category_list() {
-
-	// Disable Taxonomy Terms Order plugin by NSP-Code
-	$NSP_TTO_f1 = function_exists( 'TO_get_terms_orderby' );
-	$NSP_TTO_f2 = function_exists( 'TO_applyorderfilter' );
-
-	if ( $NSP_TTO_f1 ) {
-		remove_filter( 'get_terms_orderby', 'TO_get_terms_orderby', 1 );
-	}
-	if ( $NSP_TTO_f2 ) {
-		remove_filter( 'get_terms_orderby', 'TO_applyorderfilter', 10 );
-	}
-
-	add_filter( 'get_terms_orderby', 'wpmtst_get_terms_orderby', 20, 2 );
-
 	$category_list = get_terms( 'wpm-testimonial-category', array(
 		'hide_empty' => false,
 		'order_by'   => 'name',
 		'pad_counts' => true,
 	) );
 
-	remove_filter( 'get_terms_orderby', 'wpmtst_get_terms_orderby', 20 );
-
-	// Re-enable Taxonomy Terms Order plugin by NSP-Code
-	if ( $NSP_TTO_f1 ) {
-		add_filter( 'get_terms_orderby', 'TO_get_terms_orderby', 1, 2 );
-	}
-	if ( $NSP_TTO_f2 ) {
-		add_filter( 'get_terms_orderby', 'TO_applyorderfilter', 10, 2 );
-	}
-
 	return $category_list;
 }
-
 
 /**
  * @return array|mixed|null|object

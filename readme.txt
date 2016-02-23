@@ -158,6 +158,9 @@ Not yet.
 
 == Changelog ==
 
+= 2.2.8 - February 23, 2016 =
+* Fix conflict with Post Types Order plugin.
+
 = 2.2.7 - February 22, 2016 =
 * Bug fix for PHP 7.
 

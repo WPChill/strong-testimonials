@@ -253,7 +253,7 @@ add_action( 'load-settings_page_mlang', 'wpmtst_admin_polylang' );
  * Add meta box to the post editor screen
  */
 function wpmtst_add_meta_boxes() {
-	add_meta_box( 'details', _x( 'Client Details', 'post editor', 'strong-testimonials' ), 'wpmtst_meta_options', 'wpm-testimonial', 'normal', 'core' );
+	add_meta_box( 'details', _x( 'Client Details', 'post editor', 'strong-testimonials' ), 'wpmtst_meta_options', 'wpm-testimonial', 'normal', 'high' );
 }
 add_action( 'add_meta_boxes_wpm-testimonial', 'wpmtst_add_meta_boxes' );
 
@@ -576,24 +576,6 @@ function wpmtst_pre_get_posts( $query ) {
 	}
 }
 add_action( 'pre_get_posts', 'wpmtst_pre_get_posts', 10 );
-
-
-/**
- * Add order to default sort to allow manual ordering.
- *
- * @since 1.16.0
- */
-function wpmtst_posts_orderby( $orderby, $query ) {
-	if ( 'wpm-testimonial' == $query->get( 'post_type' ) && ! $query->get( 'orderby' ) ) {
-		global $wpdb;
-		$orderby = "{$wpdb->posts}.menu_order, {$wpdb->posts}.post_date DESC";
-		// Store this in query. See notes in class-strong-testimonials-order.php.
-		$query->set( 'original_orderby', $orderby );
-	}
-
-	return $orderby;
-}
-add_filter( 'posts_orderby', 'wpmtst_posts_orderby', 10, 2 );
 
 
 /**
