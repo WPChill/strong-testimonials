@@ -23,14 +23,14 @@ If that describes your situation, this plugin will work for you right out of the
 
 = Primary Features =
 
-* A front-end form with custom fields, anti-spam options, and notification emails
+* A front-end form
 * Categories
 * Excerpts
 * Featured Images (thumbnails)
 * Multiple slideshows
 * Sort by oldest, newest, random, or menu order
 * Simple pagination
-* Built-in templates with layout options for columns, grids, Masonry, and backgrounds
+* Built-in templates with several layout options
 * Template files and functions for deep customization
 * Custom "Read more" links
 * Gravatar support
@@ -90,7 +90,7 @@ For ultimate control and seamless integration, any template can be copied to you
 
 Many, many thanks to these translators.
 
-Did you know you can help by [translating phrases here](https://translate.wordpress.org/projects/wp-plugins/strong-testimonials)? Even just a few phrases would help.
+Did you know you can [translate phrases here](https://translate.wordpress.org/projects/wp-plugins/strong-testimonials)? Even just a few would help.
 
 [Contact me](https://www.wpmission.com/contact/) to contribute a full translation.
 
@@ -119,7 +119,7 @@ Yes. After setting up your categories, you can add a category dropdown element t
 
 = Can I edit the notification email that goes out when a new testimonial has been submitted? =
 
-Yes. You can edit the subject line, the message, the sender, and the recipient(s). You can also turn it off altogether.
+Yes. You can completely customize the email and send it to multiple recipients, or turn it off altogether.
 
 = Can I change which client fields appear below the testimonial? =
 
