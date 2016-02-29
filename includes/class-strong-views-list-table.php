@@ -60,12 +60,12 @@ class Strong_Views_List_Table extends Strong_Testimonials_List_Table {
 		$url    = $screen->parent_file;
 
 		// Edit link
-		$edit_link = $url . '&page=views&action=edit&id=' . $item['id'];
+		$edit_link = $url . '&page=testimonial-views&action=edit&id=' . $item['id'];
 		echo '<a class="row-title" href="' . $edit_link . '">' . $item['name'] . '</a>';
 
 		// Duplicate link
 		// @since 2.1.0
-		$duplicate_link = $url . '&page=views&action=duplicate&id=' . $item['id'];
+		$duplicate_link = $url . '&page=testimonial-views&action=duplicate&id=' . $item['id'];
 
 		// Delete link
 		$delete_link = 'admin.php?action=delete-strong-view&id=' . $item['id'];

@@ -126,7 +126,7 @@ function wpmtst_settings_custom_fields( $action = '', $form_id = null ) {
 			<p><?php printf( __( 'Reorder by grabbing the %s icon.', 'strong-testimonials' ), '<span class="dashicons dashicons-menu"></span>' ); ?></p>
 			<p><?php _e( 'Click the field name to expand its options panel.', 'strong-testimonials' ); ?></p>
 			<p><a href="https://www.wpmission.com/tutorial/how-to-customize-the-form-in-strong-testimonials/" target="_blank"><?php _ex( 'Full tutorial', 'link', 'strong-testimonials' ); ?></a></p>
-			<p><em><?php printf( __( 'More form settings <a href="%s">here</a>.', 'strong-testimonials' ), admin_url( 'edit.php?post_type=wpm-testimonial&page=new-settings&tab=form' ) ); ?></em></p>
+			<p><em><?php printf( __( 'More form settings <a href="%s">here</a>.', 'strong-testimonials' ), admin_url( 'edit.php?post_type=wpm-testimonial&page=testimonial-settings&tab=form' ) ); ?></em></p>
 		</div>
 
 		<div id="fields-editor-wrap">

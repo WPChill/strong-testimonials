@@ -119,15 +119,10 @@ function wpmtst_admin_scripts( $hook ) {
 	$plugin_version = get_option( 'wpmtst_plugin_version' );
 
 	$hooks_to_style = array(
-		'wpm-testimonial_page_new-settings',
-		'wpm-testimonial_page_old-settings',
-		'wpm-testimonial_page_fields',
-		'wpm-testimonial_page_views',
-		'wpm-testimonial_page_shortcodes',
-		'wpm-testimonial_page_guide',
-		'wpm-testimonial_page_reference',
-		'wpm-testimonial_page_about',
-		'widgets.php',
+		'wpm-testimonial_page_testimonial-views',
+		'wpm-testimonial_page_testimonial-fields',
+		'wpm-testimonial_page_testimonial-settings',
+		'wpm-testimonial_page_testimonial-guide',
 		'settings_page_strong-testimonials-welcome',
 	);
 
@@ -142,13 +137,10 @@ function wpmtst_admin_scripts( $hook ) {
 	}
 
 	$hooks_to_script = array(
-		'wpm-testimonial_page_new-settings',
-		'wpm-testimonial_page_old-settings',
-		'wpm-testimonial_page_fields',
-		'wpm-testimonial_page_guide',
-		'wpm-testimonial_page_shortcodes',
-		// TODO Can remove widgets.php in 2.0
-		'widgets.php',
+		'wpm-testimonial_page_testimonial-views',
+		'wpm-testimonial_page_testimonial-fields',
+		'wpm-testimonial_page_testimonial-settings',
+		'wpm-testimonial_page_testimonial-guide',
 	);
 
 	if ( $screen && 'wpm-testimonial' == $screen->post_type ) {
@@ -170,14 +162,14 @@ function wpmtst_admin_scripts( $hook ) {
 	switch ( $hook ) {
 
 		// The Fields Editor
-		case 'wpm-testimonial_page_fields':
+		case 'wpm-testimonial_page_testimonial-fields':
 			wp_enqueue_style( 'wpmtst-admin-fields-style', WPMTST_URL . 'css/admin/fields.css', array(), $plugin_version );
 			wp_enqueue_script( 'wpmtst-admin-fields-script', WPMTST_URL . 'js/wpmtst-admin-fields.js', array( 'jquery', 'jquery-ui-sortable' ), $plugin_version );
 			wp_localize_script( 'wpmtst-admin-fields-script', 'ajax_object', array( 'ajaxurl' => admin_url( 'admin-ajax.php' ) ) );
 			break;
 
 		// The View Editor
-		case 'wpm-testimonial_page_views':
+		case 'wpm-testimonial_page_testimonial-views':
 			wp_enqueue_style( 'wpmtst-admin-views-style', WPMTST_URL . 'css/admin/views.css', array(), $plugin_version );
 			wp_enqueue_script( 'wpmtst-admin-views-script', WPMTST_URL . 'js/wpmtst-views.js',
 					array( 'jquery', 'jquery-ui-sortable', 'wp-color-picker', 'jquery-masonry' ), $plugin_version );
@@ -197,7 +189,7 @@ function wpmtst_admin_scripts( $hook ) {
 			break;
 
 		// The Guide
-		case 'wpm-testimonial_page_guide':
+		case 'wpm-testimonial_page_testimonial-guide':
 			wp_enqueue_style( 'wpmtst-admin-guide-style', WPMTST_URL . 'css/admin/guide.css', array(), $plugin_version );
 			break;
 

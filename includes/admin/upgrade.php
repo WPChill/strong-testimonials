@@ -397,6 +397,6 @@ function wpmtst_redirect_about_page() {
 		return;
 
 	delete_transient( 'wpmtst_about_page_activated' );
-	wp_safe_redirect( admin_url( 'edit.php?post_type=wpm-testimonial&page=guide&tab=welcome') );
+	wp_safe_redirect( admin_url( 'edit.php?post_type=wpm-testimonial&page=testimonial-guide&tab=welcome') );
 	exit;
 }

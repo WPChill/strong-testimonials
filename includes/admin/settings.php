@@ -13,29 +13,28 @@ function wpmtst_settings_menu() {
 		__( 'Views', 'strong-testimonials' ),  // page title
 		__( 'Views', 'strong-testimonials' ),  // menu title
 		'manage_options',
-		'views',
+		'testimonial-views',
 		'wpmtst_views_admin' );
 
 	add_submenu_page( 'edit.php?post_type=wpm-testimonial',
 		apply_filters( 'wpmtst_fields_page_title', __( 'Fields', 'strong-testimonials' ) ),
 		apply_filters( 'wpmtst_fields_menu_title', __( 'Fields', 'strong-testimonials' ) ),
 		'manage_options',
-		'fields',
-		//'wpmtst_settings_custom_fields' );
+		'testimonial-fields',
 		'wpmtst_form_admin' );
 
 	add_submenu_page( 'edit.php?post_type=wpm-testimonial',
 		__( 'Settings', 'strong-testimonials' ),
 		__( 'Settings', 'strong-testimonials' ),
 		'manage_options',
-		'new-settings',
+		'testimonial-settings',
 		'wpmtst_settings_page' );
 
 	add_submenu_page( 'edit.php?post_type=wpm-testimonial',
 		_x( 'Guide', 'noun', 'strong-testimonials' ),
 		_x( 'Guide', 'noun', 'strong-testimonials' ),
 		'manage_options',
-		'guide',
+		'testimonial-guide',
 		'wpmtst_guide' );
 }
 add_action( 'admin_menu', 'wpmtst_settings_menu' );
@@ -209,7 +208,7 @@ function wpmtst_settings_page() {
 		/**
 		 * Using "new-settings" instead of previously used "settings" due to possible bug or conflict that shows the parent menu item of the first instance of any "settings" submenu as the current one. This first became apparent with the Popup Maker plugin. Need to debug further. 2-Jan-2016
 		 */
-		$url = admin_url( 'edit.php?post_type=wpm-testimonial&page=new-settings' );
+		$url = admin_url( 'edit.php?post_type=wpm-testimonial&page=testimonial-settings' );
 		?>
 		<h2 class="nav-tab-wrapper">
 			<a href="<?php echo add_query_arg( 'tab', 'general', $url ); ?>" class="nav-tab <?php echo $active_tab == 'general' ? 'nav-tab-active' : ''; ?>"><?php _ex( 'General', 'adjective', 'strong-testimonials' ); ?></a>

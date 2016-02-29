@@ -124,10 +124,10 @@ function wpmtst_view_settings( $action = '', $view_id = null ) {
 	?>
 	<h2>
 		<?php 'edit' == $action ? _e( 'Edit View', 'strong-testimonials' ) : _e( 'Add View', 'strong-testimonials' ); ?>
-		<a href="<?php echo $url; ?>&page=views&action=add" class="add-new-h2">Add New</a>
+		<a href="<?php echo $url; ?>&page=testimonial-views&action=add" class="add-new-h2">Add New</a>
 	</h2>
 
-	<p><a href="<?php echo admin_url( 'edit.php?post_type=wpm-testimonial&page=views' ); ?>">Return to list</a></p>
+	<p><a href="<?php echo admin_url( 'edit.php?post_type=wpm-testimonial&page=testimonial-views' ); ?>">Return to list</a></p>
 
 	<form id="wpmtst-views-form" method="post" action="<?php echo get_admin_url() . 'admin-post.php'; ?>" autocomplete="off">
 
@@ -238,7 +238,7 @@ function wpmtst_views_admin() {
 			?>
 			<h2>
 				<?php _e( 'Views', 'strong-testimonials' ); ?>
-				<a href="<?php echo $url; ?>&page=views&action=add" class="add-new-h2">Add New</a>
+				<a href="<?php echo $url; ?>&page=testimonial-views&action=add" class="add-new-h2">Add New</a>
 			</h2>
 			<div class="intro">
 				<p><?php _e( 'A View can display your testimonials, create a slideshow, or show a testimonial submission form.<br>Add it to a page with a shortcode or add it to a sidebar with a widget.', 'strong-testimonials' ); ?></p>

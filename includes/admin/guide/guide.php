@@ -8,7 +8,7 @@
 
 function wpmtst_guide() {
 	$tab = isset( $_GET['tab'] ) ? $_GET['tab'] : 'welcome';
-	$page = admin_url( 'edit.php?post_type=wpm-testimonial&page=guide');
+	$page = admin_url( 'edit.php?post_type=wpm-testimonial&page=testimonial-guide');
 	?>
 	<div class="wrap wpmtst guide">
 		<h1><?php _e( 'Strong Testimonials Guide', 'strong-testimonials' ); ?></h1>

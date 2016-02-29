@@ -3,7 +3,7 @@ Contributors: cdillon27
 Donate link: https://www.wpmission.com/donate/
 Tags: testimonials, testimonial widget, random testimonial, testimonial shortcode, testimonial slider, testimonial form
 Requires at least: 3.5
-Tested up to: 4.4.1
+Tested up to: 4.4.2
 Stable tag: trunk
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -83,6 +83,7 @@ For ultimate control and seamless integration, any template can be copied to you
 * French (fr_FR) - Jean-Paul Radet
 * German (de_DE) - Richard Hopp
 * Hebrew (he_IL) - Haim Asher
+* Persian (fa_IR) - Mahmoud Zooroofchi
 * Portuguese (pt_BR) - Mauricio Richieri
 * Russian (ru_RU) - Матвеев Валерий
 * Spanish (es_ES) - Diego Ferrández
@@ -157,6 +158,10 @@ Not yet.
 8. Template files and template functions.
 
 == Changelog ==
+
+= 2.2.9 - February 29, 2016 =
+* Fix conflict with [Toolset Views](https://wp-types.com/) plugin.
+* Add Persian translation.
 
 = 2.2.8 - February 23, 2016 =
 * Fix conflict with Post Types Order plugin.
@@ -300,4 +305,4 @@ Not yet.
 
 == Upgrade Notice ==
 
-The Category selector is improved in the View editor and admin list. Adding a German translation.
+Fix conflict with Toolset Views plugin. Adding a Persian translation.
