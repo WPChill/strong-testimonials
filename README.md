@@ -7,7 +7,7 @@
   
 **Requires at least:** 3.5
   
-**Tested up to:** 4.4.1
+**Tested up to:** 4.5
   
 **Stable tag:** trunk
   
@@ -31,17 +31,18 @@ If that describes your situation, this plugin will work for you right out of the
 
 ### Primary Features ###
 
-* A front-end form with custom fields, anti-spam options, and notification emails
+* A front-end form
 * Categories
 * Excerpts
 * Featured Images (thumbnails)
 * Multiple slideshows
 * Sort by oldest, newest, random, or menu order
 * Simple pagination
-* Built-in templates with layout options for columns, grids, Masonry, and backgrounds
+* Built-in templates with several layout options
 * Template files and functions for deep customization
 * Custom "Read more" links
 * Gravatar support
+* Fully localized, ready for translations
 * Compatible with WPML and Polylang
 
 Strong Testimonials [plays well with other plugins and themes](https://www.wpmission.com/theme-plugin-compatibility-fund/), and I strive to adhere to WordPress coding standards and best practices.
@@ -91,6 +92,7 @@ For ultimate control and seamless integration, any template can be copied to you
 * French (fr_FR) - Jean-Paul Radet
 * German (de_DE) - Richard Hopp
 * Hebrew (he_IL) - Haim Asher
+* Persian (fa_IR) - Mahmoud Zooroofchi
 * Portuguese (pt_BR) - Mauricio Richieri
 * Russian (ru_RU) - Матвеев Валерий
 * Spanish (es_ES) - Diego Ferrández
@@ -98,7 +100,7 @@ For ultimate control and seamless integration, any template can be copied to you
 
 Many, many thanks to these translators.
 
-Did you know you can help by [translating phrases here](https://translate.wordpress.org/projects/wp-plugins/strong-testimonials)? Even just a few phrases would help.
+Did you know you can [translate phrases here](https://translate.wordpress.org/projects/wp-plugins/strong-testimonials)? Even just a few would help.
 
 [Contact me](https://www.wpmission.com/contact/) to contribute a full translation.
 
@@ -127,7 +129,7 @@ Yes. After setting up your categories, you can add a category dropdown element t
 
 ### Can I edit the notification email that goes out when a new testimonial has been submitted? ###
 
-Yes. You can edit the subject line, the message, the sender, and the recipient(s). You can also turn it off altogether.
+Yes. You can completely customize the email and send it to multiple recipients, or turn it off altogether.
 
 ### Can I change which client fields appear below the testimonial? ###
 
@@ -190,6 +192,57 @@ Not yet.
 
 ## Changelog ##
 
+### 2.5 - April 7, 2016 ###
+* Integrate Large Scale add-on (coming soon).
+* Fix bug on date format conversion.
+* Fix content class bug.
+* Add filters to override default pagination.
+
+### 2.4.1 - April 5, 2016 ###
+* Apply all content filters (revert change in 2.4.0).
+* Bypass content filter for [All In On Schema.org Rich Snippets](https://wordpress.org/plugins/all-in-one-schemaorg-rich-snippets/) plugin.
+
+### 2.4 - April 4, 2016 ###
+* Add email notification troubleshooting log.
+* Add option to show Custom Fields meta box.
+* Add option to enable comments on individual testimonials.
+* Fix formatting of non-US date formats.
+* Apply only standard content filters (wptexturize, convert_smilies, wpautop, shortcode_unautop, do_shortcode).
+
+### 2.3.3 - March 18, 2016 ###
+* Prevent incompatible combination of pagination and Masonry.
+
+### 2.3.2 - March 17, 2016 ###
+* Fix bug when getting fields for Polylang.
+
+### 2.3.1 - March 12, 2016 ###
+* Apply all content filters to be compatible with [WPGlobus](https://wordpress.org/plugins/wpglobus/) translation plugin.
+
+### 2.3 - March 9, 2016 ###
+* Improve compatibility with [Posts for Page](https://wordpress.org/plugins/posts-for-page/), [Custom Content Shortcode](https://wordpress.org/plugins/custom-content-shortcode/), and other plugins that use shortcodes to pull in other content.
+* Add form handling to strong_testimonials_view() template function.
+* Optimize slideshow loading.
+* Strip HTML whitespace by default with option to disable.
+* Disable form honeypots by default in new installs.
+* Fix bug with first slide in Cycle script.
+* Fix conflict with RT Themes.
+* Fix admin style conflict.
+
+### 2.2.12 - March 3, 2016 ###
+* Fix bug when title is empty in some languages.
+* Add error logging to save process.
+
+### 2.2.11 - March 2, 2016 ###
+* Fix slideshow stacking bug in unstyled template.
+* Add option to disable scroll top in paginated Views.
+
+### 2.2.10 - March 1, 2016 ###
+* Add post date to Custom Fields in View editor.
+
+### 2.2.9 - February 29, 2016 ###
+* Fix conflict with [Toolset Views](https://wp-types.com/) plugin.
+* Add Persian translation.
+
 ### 2.2.8 - February 23, 2016 ###
 * Fix conflict with Post Types Order plugin.
 
@@ -238,98 +291,6 @@ Not yet.
 * Fix bug in failed Captcha when submitting form via Ajax.
 * Compatible with [Profit Builder](http://wpprofitbuilder.com/) plugin.
 
-### 1.25.7 ###
-* Minor admin UI fixes.
-
-### 1.25.6 ###
-* Fix `[strong]` slideshow script.
-* Fix View list table column sorting.
-* Fix single category selection in View editor.
-* Compatible with [Taxonomy Terms Order](https://wordpress.org/plugins/taxonomy-terms-order/) plugin by Nsp-Code.
-* Remove unused files.
-
-### 1.25.5 ###
-* Fix bug in gradient CSS with two Views on one page.
-
-### 1.25.4 ###
-* Fix loss of template selection when upgrading Views.
-* Fix bug in submission form.
-
-### 1.25.3 ###
-* Fix conflict with [Post Types Order](https://wordpress.org/plugins/post-types-order/) plugin.
-* Fix localization of form error messages.
-* Fix conflict with [Page Builder by SiteOrigin](https://wordpress.org/plugins/siteorigin-panels/).
-* Don't show welcome page on bugfix updates - sorry :)
-
-### 1.25.2 ###
-* Fix bug in `[strong form]`.
-
-### 1.25.1 ###
-* Fix bug in Internet Explorer and Safari.
-
-### 1.25 - 2016-01-06 ###
-* More layout and background options in Views.
-* Improve template directory structure.
-* New template function: `strong_testimonial_view()`
-* Improve responsiveness.
-* Fix long-standing slideshow CSS problems.
-* Improve WPML compatibility.
-* Compatible with Beaver Builder, Search Exclude, and Popup Maker.
-* Preparing for version 2.0.
-
-### 1.24.4 - 2015-12-07 ###
-* Remove debugging.
-
-### 1.24.3 - 2015-12-06 ###
-* Fix bug in `more_page` option.
-
-### 1.24.2 - 2015-11-10 ###
-* Fix bug in Gravatar display.
-
-### 1.24.1 - 2015-11-09 ###
-* Fix bug in post list order.
-
-### 1.24 - 2015-11-04 ###
-* Option to change custom field link text.
-* Fix admin UI bugs.
-* Add JavaScript and stylesheet versioning to force browser reload.
-
-### 1.23.1 - 2015-10-29 ###
-* Fix bug in localization of form validation messages.
-
-### 1.23 - 2015-10-28 ###
-* Fix option to show Gravatar only if found.
-* Improve compatibility with Elegant Themes.
-* Fix invalid HTML.
-* Load custom stylesheet if using custom template; e.g. testimonials-custom.php & testimonials-custom.css.
-
-### 1.22 - 2015-10-23 ###
-* Gravatar support in Views.
-
-### 1.21.4 - 2015-10-21 ###
-* Fix bug with Polylang admin.
-* New Spanish (es_ES) translation.
-
-### 1.21.3 - 2015-10-15 ###
-* Fix bug in resetting post data after query.
-
-### 1.21.2 - 2015-10-14 ###
-* Fix conflict with WooCommerce.
-
-### 1.21.1 - 2015-10-13 ###
-* Removed Simple Colorbox dependency. Any lightbox will do.
-
-### 1.21 - 2015-10-12 ###
-* Views.
-* New templates.
-* WPML & Polylang compatible.
-* All available thumbnail sizes including custom.
-* Option to click thumbnail to open full-size image in lightbox.
-* More hooks and filters.
-* Better template functions.
-* Prevent double posting of the form.
-* Separate `[read_more]` shortcode.
-
 ## Upgrade Notice ##
 
-The Category selector is improved in the View editor and admin list. Adding a German translation.
+Improved compatibility. Fixed minor bugs.

@@ -743,14 +743,24 @@ ul.radio-list {
 		overflow: hidden;
 	}
 
+	#font-color-switcher .inner-help {
+		display: inline-block;
+		height: 30px;
+		vertical-align: middle;
+		float: right;
+		line-height: 30px;
+		padding: 0 10px;
+		font-style: italic;
+	}
+
 	#font-color-switcher input[type="radio"] {
 		display: none;
 		margin: 0;
 	}
 
 	#font-color-switcher input[type="radio"] + label {
-		background: #333;
-		color: #e0e0e0;
+		color: #333;
+		background: #e0e0e0;
 		margin: 0;
 		padding: 6px 12px;
 		text-transform: uppercase;
@@ -794,8 +804,7 @@ ul.radio-list {
 }
 
 #background-preview {
-	border: 1px solid #999;
-	padding: 2em;
+	padding: 1em;
 	text-align: center;
 }
 

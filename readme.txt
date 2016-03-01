@@ -160,6 +160,12 @@ Not yet.
 
 == Changelog ==
 
+= 2.5 - April 7, 2016 =
+* Integrate Large Scale add-on (coming soon).
+* Fix bug on date format conversion.
+* Fix content class bug.
+* Add filters to override default pagination.
+
 = 2.4.1 - April 5, 2016 =
 * Apply all content filters (revert change in 2.4.0).
 * Bypass content filter for [All In On Schema.org Rich Snippets](https://wordpress.org/plugins/all-in-one-schemaorg-rich-snippets/) plugin.
@@ -252,98 +258,6 @@ Not yet.
 * Improve handling of special characters in Fields editor.
 * Fix bug in failed Captcha when submitting form via Ajax.
 * Compatible with [Profit Builder](http://wpprofitbuilder.com/) plugin.
-
-= 1.25.7 =
-* Minor admin UI fixes.
-
-= 1.25.6 =
-* Fix `[strong]` slideshow script.
-* Fix View list table column sorting.
-* Fix single category selection in View editor.
-* Compatible with [Taxonomy Terms Order](https://wordpress.org/plugins/taxonomy-terms-order/) plugin by Nsp-Code.
-* Remove unused files.
-
-= 1.25.5 =
-* Fix bug in gradient CSS with two Views on one page.
-
-= 1.25.4 =
-* Fix loss of template selection when upgrading Views.
-* Fix bug in submission form.
-
-= 1.25.3 =
-* Fix conflict with [Post Types Order](https://wordpress.org/plugins/post-types-order/) plugin.
-* Fix localization of form error messages.
-* Fix conflict with [Page Builder by SiteOrigin](https://wordpress.org/plugins/siteorigin-panels/).
-* Don't show welcome page on bugfix updates - sorry :)
-
-= 1.25.2 =
-* Fix bug in `[strong form]`.
-
-= 1.25.1 =
-* Fix bug in Internet Explorer and Safari.
-
-= 1.25 - 2016-01-06 =
-* More layout and background options in Views.
-* Improve template directory structure.
-* New template function: `strong_testimonial_view()`
-* Improve responsiveness.
-* Fix long-standing slideshow CSS problems.
-* Improve WPML compatibility.
-* Compatible with Beaver Builder, Search Exclude, and Popup Maker.
-* Preparing for version 2.0.
-
-= 1.24.4 - 2015-12-07 =
-* Remove debugging.
-
-= 1.24.3 - 2015-12-06 =
-* Fix bug in `more_page` option.
-
-= 1.24.2 - 2015-11-10 =
-* Fix bug in Gravatar display.
-
-= 1.24.1 - 2015-11-09 =
-* Fix bug in post list order.
-
-= 1.24 - 2015-11-04 =
-* Option to change custom field link text.
-* Fix admin UI bugs.
-* Add JavaScript and stylesheet versioning to force browser reload.
-
-= 1.23.1 - 2015-10-29 =
-* Fix bug in localization of form validation messages.
-
-= 1.23 - 2015-10-28 =
-* Fix option to show Gravatar only if found.
-* Improve compatibility with Elegant Themes.
-* Fix invalid HTML.
-* Load custom stylesheet if using custom template; e.g. testimonials-custom.php & testimonials-custom.css.
-
-= 1.22 - 2015-10-23 =
-* Gravatar support in Views.
-
-= 1.21.4 - 2015-10-21 =
-* Fix bug with Polylang admin.
-* New Spanish (es_ES) translation.
-
-= 1.21.3 - 2015-10-15 =
-* Fix bug in resetting post data after query.
-
-= 1.21.2 - 2015-10-14 =
-* Fix conflict with WooCommerce.
-
-= 1.21.1 - 2015-10-13 =
-* Removed Simple Colorbox dependency. Any lightbox will do.
-
-= 1.21 - 2015-10-12 =
-* Views.
-* New templates.
-* WPML & Polylang compatible.
-* All available thumbnail sizes including custom.
-* Option to click thumbnail to open full-size image in lightbox.
-* More hooks and filters.
-* Better template functions.
-* Prevent double posting of the form.
-* Separate `[read_more]` shortcode.
 
 == Upgrade Notice ==
 

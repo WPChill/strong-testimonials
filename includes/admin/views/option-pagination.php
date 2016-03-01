@@ -32,5 +32,7 @@
 			</select>
 		</div>
 
+		<?php do_action( 'wpmtst_view_editor_pagination_row_end' ); ?>
+
 	</div>
 </td>

@@ -349,7 +349,8 @@ function wpmtst_client_section( $client_section ) {
 						// Requires PHP 5.3+
 						if ( version_compare( PHP_VERSION, '5.3' ) >= 0 ) {
 							$new_date = DateTime::createFromFormat( get_option( 'date_format' ), $the_date );
-							$the_date = $new_date->format( $format );
+							if ( $new_date )
+								$the_date = $new_date->format( $format );
 						}
 					}
 				}

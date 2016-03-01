@@ -2,14 +2,15 @@
 /**
  * Register scripts and styles.
  */
+
 function wpmtst_scripts() {
 
 	$plugin_version = get_option( 'wpmtst_plugin_version' );
 
-	wp_register_style( 'wpmtst-custom-style', WPMTST_URL . 'css/wpmtst-custom.css' );
-
 	wp_register_script( 'wpmtst-pager-plugin', WPMTST_URL . 'js/quickpager.jquery.js', array( 'jquery' ), false, true );
 	wp_register_script( 'wpmtst-pager-script', WPMTST_URL . 'js/wpmtst-pager.js', array( 'wpmtst-pager-plugin' ), $plugin_version, true );
+
+	wp_register_style( 'wpmtst-custom-style', WPMTST_URL . 'css/wpmtst-custom.css' );
 
 	wp_register_script( 'imagesloaded-script', WPMTST_URL . 'js/imagesloaded.pkgd.min.js', array(), false, true );
 	wp_register_script( 'wpmtst-masonry-script', WPMTST_URL . 'js/wpmtst-masonry.js', array( 'jquery-masonry', 'imagesloaded-script' ), $plugin_version, true );

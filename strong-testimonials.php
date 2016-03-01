@@ -4,7 +4,7 @@
  * Plugin URI: https://www.wpmission.com/plugins/strong-testimonials/
  * Description: A full-featured plugin that works right out of the box for beginners and offers advanced features for pros.
  * Author: Chris Dillon
- * Version: 2.4.1
+ * Version: 2.5
  * Author URI: https://www.wpmission.com/
  * Text Domain: strong-testimonials
  * Domain Path: /languages
@@ -54,6 +54,8 @@ final class Strong_Testimonials {
 	public static $strong_atts = array();
 	public static $form_values;
 	public static $form_errors;
+	public static $post_list = array();
+	public static $post_list_transient_name = '';
 
 	/**
 	 * A singleton instance.
@@ -157,6 +159,7 @@ final class Strong_Testimonials {
 	private function includes() {
 
 		require_once WPMTST_INC . 'class-strong-templates.php';
+		require_once WPMTST_INC . 'class-strong-view.php';
 		require_once WPMTST_INC . 'l10n.php';
 		require_once WPMTST_INC . 'post-types.php';
 		require_once WPMTST_INC . 'functions.php';
@@ -564,6 +567,7 @@ final class Strong_Testimonials {
 			'no_pause'         => 0, // must be zero not boolean or string!
 			'note'             => '',
 			'oldest'           => '',
+			'pagination'       => '',
 			'per_page'         => '',
 			'random'           => '',
 			'read_more'        => '',
@@ -925,13 +929,7 @@ final class Strong_Testimonials {
 				if ( self::view_not_found( $parsed_atts ) )
 					continue;
 
-				// Turn empty atts into switches.
-				$atts = normalize_empty_atts( $parsed_atts );
-
-				// Build the shortcode signature.
-				$att_string = serialize($original_atts);
-
-				self::find_single_view($atts, $att_string);
+				self::find_single_view( $parsed_atts );
 
 			}
 			else {
@@ -968,13 +966,7 @@ final class Strong_Testimonials {
 			$original_atts = array( 'id' => $view_id );
 			$parsed_atts = self::parse_view( $original_atts, self::get_view_defaults(), $original_atts );
 
-			// Turn empty atts into switches.
-			$atts = normalize_empty_atts( $parsed_atts );
-
-			// Build the shortcode signature.
-			$att_string = serialize( $original_atts );
-
-			self::find_single_view( $atts, $att_string );
+			self::find_single_view( $parsed_atts );
 
 		}
 	}
@@ -987,10 +979,12 @@ final class Strong_Testimonials {
 	 *
 	 * @since 1.21.0 [testimonial_view]
 	 * @param $atts
-	 * @param $att_string
 	 * @return array
 	 */
-	private static function find_single_view( $atts, $att_string ) {
+	private static function find_single_view( $atts ) {
+		// Turn empty atts into switches.
+		$atts = normalize_empty_atts( $atts );
+
 		$preprocess      = false;
 		$preprocess_form = false;
 		$handle          = false;
@@ -1051,9 +1045,9 @@ final class Strong_Testimonials {
 		 */
 		if ( ! isset( $atts['compat'] ) || ! $atts['compat'] ) {
 			if ( $preprocess )
-				self::preprocess( $view, $atts, $att_string, $handle );
+				self::preprocess( $view, $handle );
 			elseif ( $preprocess_form )
-				self::preprocess_form( $view, $atts, $att_string, $handle );
+				self::preprocess_form( $view, $handle );
 		}
 
 		return $view;
@@ -1155,55 +1149,32 @@ final class Strong_Testimonials {
 	 * Preprocess a view to gather styles, scripts and script vars.
 	 *
 	 * @param $view
-	 * @param $atts
-	 * @param $att_string
+	 * @param bool $handle
+	 * @since 1.25.0
+	 * @since 2.5.0  Move some processing to Strong_View class.
+	 *
+	 * @todo Move add_script and add_style to Strong_View class.
 	 *
 	 * @return string
 	 */
-	private static function preprocess( $view, $atts, $att_string, $handle = false ) {
+	private static function preprocess( $view, $handle = false ) {
 		global $strong_templates;
 
 		$options = get_option( 'wpmtst_options' );
 
 		// subset of all shortcode atts
-		extract( shortcode_atts(
+		$atts = shortcode_atts(
 			self::get_view_defaults(),
 			$view['atts']
-		) );
-
-		// extract comma-separated values
-		$categories = explode( ',', $category );
-		$ids        = explode( ',', $id );
-
-		// assemble query arguments
-		$args = array(
-			'post_type'      => 'wpm-testimonial',
-			'posts_per_page' => $all ? -1 : $count,
-			'orderby'        => 'post_date',
-			'post_status'    => 'publish',
 		);
 
-		// id overrides category
-		if ( $id ) {
-			$args['post__in'] = $ids;
-		} elseif ( $category ) {
-			$args['tax_query'] = array(
-				array(
-					'taxonomy' => 'wpm-testimonial-category',
-					'field'    => 'id',
-					'terms'    => $categories
-				)
-			);
-		}
-
-		$query      = new WP_Query( $args );
-		$post_count = $query->post_count;
-		wp_reset_postdata();
+		$new_view = new Strong_View( $atts );
+		$new_view->process();
 
 		/**
 		 * Slideshow
 		 */
-		if ( $slideshow ) {
+		if ( $atts['slideshow'] ) {
 
 			// TODO Is this still beneficial?
 			self::add_script( 'wpmtst-slider', 'later' );
@@ -1214,16 +1185,19 @@ final class Strong_Testimonials {
 			/**
 			 * Pagination
 			 */
-			if ( $per_page && $post_count > $per_page ) {
-
+			if ( $atts['per_page']
+				&& $new_view->query->post_count > $atts['per_page']
+				&& apply_filters( 'wpmtst_use_default_pagination', true, $atts ) )
+			{
 				// Populate variable for QuickPager script.
-				if ( false !== strpos( $nav, 'before' ) && false !== strpos( $nav, 'after' ) ) {
+				$nav = $atts['nav'];
+				if ( false !== strpos( $atts['nav'], 'before' ) && false !== strpos( $atts['nav'], 'after' ) ) {
 					$nav = 'both';
 				}
 
 				$pager = array(
 					'id'            => '.strong-paginated',
-					'pageSize'      => $per_page,
+					'pageSize'      => $atts['per_page'],
 					'currentPage'   => 1,
 					'pagerLocation' => $nav,
 					'scrollTop'     => $options['scrolltop'],
@@ -1231,20 +1205,19 @@ final class Strong_Testimonials {
 				);
 				self::add_script( 'wpmtst-pager-script' );
 				self::add_script_var( 'wpmtst-pager-script', 'pagerVar', $pager );
-
 			}
 
 			/**
 			 * Layouts
 			 */
-			if ( 'masonry' == $layout ) {
+			if ( 'masonry' == $atts['layout'] ) {
 				self::add_script( 'wpmtst-masonry-script' );
 				self::add_style( 'wpmtst-masonry-style' );
 			}
-			elseif ( 'columns' == $layout ) {
+			elseif ( 'columns' == $atts['layout'] ) {
 				self::add_style( 'wpmtst-columns-style' );
 			}
-			elseif ( 'grid' == $layout ) {
+			elseif ( 'grid' == $atts['layout'] ) {
 				self::add_style( 'wpmtst-grid-style' );
 			}
 		}
@@ -1272,8 +1245,7 @@ final class Strong_Testimonials {
 			}
 		}
 
-		self::custom_background( $view, $background, $handle );
-
+		self::custom_background( $view, $atts['background'], $handle );
 	}
 
 	/**
@@ -1333,12 +1305,10 @@ final class Strong_Testimonials {
 	/**
 	 * Preprocess a form.
 	 *
-	 * @param            $view
-	 * @param            $atts
-	 * @param            $att_string
-	 * @param bool|false $handle
+	 * @param      $view
+	 * @param bool $handle
 	 */
-	private static function preprocess_form( $view, $atts, $att_string, $handle = false ) {
+	private static function preprocess_form( $view, $handle = false ) {
 		// subset of all shortcode atts
 		extract( shortcode_atts(
 			self::get_view_defaults(),
@@ -1418,13 +1388,7 @@ final class Strong_Testimonials {
 								if ( self::view_not_found( $parsed_atts ) )
 									continue;
 
-								// Build the shortcode signature.
-								$att_string = serialize( $atts );
-
-								// Turn empty atts into switches.
-								$atts = normalize_empty_atts( $parsed_atts );
-
-								self::find_single_view( $atts, $att_string );
+								self::find_single_view( $parsed_atts );
 							}
 
 						}
@@ -1485,13 +1449,7 @@ final class Strong_Testimonials {
 								if ( self::view_not_found( $parsed_atts ) )
 									continue;
 
-								// Build the shortcode signature.
-								$att_string = serialize( $atts );
-
-								// Turn empty atts into switches.
-								$atts = normalize_empty_atts( $parsed_atts );
-
-								self::find_single_view( $atts, $att_string );
+								self::find_single_view( $parsed_atts );
 							}
 
 						}
@@ -1562,13 +1520,7 @@ final class Strong_Testimonials {
 						if ( self::view_not_found( $parsed_atts ) )
 							continue;
 
-						// Build the shortcode signature.
-						$att_string = serialize( $atts );
-
-						// Turn empty atts into switches.
-						$atts = normalize_empty_atts( $parsed_atts );
-
-						self::find_single_view( $atts, $att_string );
+						self::find_single_view( $parsed_atts );
 					}
 
 				}
@@ -1613,13 +1565,7 @@ final class Strong_Testimonials {
 					if ( self::view_not_found( $parsed_atts ) )
 						continue;
 
-					// Build the shortcode signature.
-					$att_string = serialize( $atts );
-
-					// Turn empty atts into switches.
-					$atts = normalize_empty_atts( $parsed_atts );
-
-					self::find_single_view( $atts, $att_string );
+					self::find_single_view( $parsed_atts );
 				}
 
 			}
@@ -1791,6 +1737,15 @@ final class Strong_Testimonials {
 
 		error_log( $entry, 3, $filepath );
 
+	}
+
+
+	public function set_post_list( $post_list ) {
+		self::$post_list = $post_list;
+	}
+
+	public function get_post_list() {
+		return self::$post_list;
 	}
 
 }

@@ -9,7 +9,7 @@
 
 		<p><?php _e( '2. Create a <b>View</b> to display them in a list or a slideshow.', 'strong-testimonials' ); ?></p>
 
-		<p><?php _e( '3. Add the View to a page using its <b>shortcode</b> or add it to a sidebar using the <b>widget</b>.', 'strong-testimonials' ); ?></p>
+		<p><?php _e( '3. Add the View to a page using its <b>shortcode</b> or a <b>widget</b>.', 'strong-testimonials' ); ?></p>
 
 		<p><?php _e( 'Views provide many features. Learn more on the Views tab or jump right in!', 'strong-testimonials' ); ?></p>
 

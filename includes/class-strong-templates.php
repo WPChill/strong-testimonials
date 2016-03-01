@@ -4,6 +4,12 @@
  *
  * @since 1.25
  */
+
+// Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) exit;
+
+if ( ! class_exists( 'Strong_Templates' ) ) :
+
 class Strong_Templates {
 
 	/**
@@ -299,6 +305,8 @@ class Strong_Templates {
 	}
 
 }
+
+endif;
 
 global $strong_templates;
 $strong_templates = new Strong_Templates();

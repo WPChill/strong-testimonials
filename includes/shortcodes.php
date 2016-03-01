@@ -40,7 +40,7 @@ function wpmtst_strong_view_shortcode_filter( $out, $pairs, $atts ) {
 add_filter( 'shortcode_atts_testimonial_view', 'wpmtst_strong_view_shortcode_filter', 10, 3 );
 
 /**
- * Render our view.
+ * Render the View.
  *
  * @param $out
  *
@@ -53,7 +53,6 @@ function wpmtst_render_view( $out ) {
 	}
 
 	// Container class is shared by display and form in templates.
-	$options = get_option( 'wpmtst_options' );
 	$out['container_class'] = 'strong-view-id-' . $out['view'];
 
 	if ( $out['class'] ) {
@@ -73,172 +72,10 @@ function wpmtst_render_view( $out ) {
 	/**
 	 * MODE: DISPLAY (default)
 	 */
-	return wpmtst_display_view( $out );
-}
-
-/**
- * Strong view - display mode
- *
- * @param $atts
- *
- * @return mixed|string|void
- */
-function wpmtst_display_view( $atts ) {
-	global $strong_templates;
-	extract( $atts );
-
-	// classes
-	$content_class_list   = '';
-	$post_class_list      = 'testimonial';
-
-	// excerpt overrides length
-	if ( $excerpt ) {
-		$post_class_list .= ' excerpt';
-	} elseif ( $length ) {
-		$post_class_list .= ' truncated';
-	}
-
-	/**
-	 * Build the query
-	 */
-
-	$categories = apply_filters( 'wpmtst_l10n_cats', explode( ',', $category ) );
-	$ids        = explode( ',', $id );
-
-	$args = array(
-		'post_type'      => 'wpm-testimonial',
-		'posts_per_page' => -1,
-		'post_status'    => 'publish',
-	);
-
-	// id overrides category
-	if ( $id ) {
-		$args['post__in'] = $ids;
-	} elseif ( $category ) {
-		$args['tax_query'] = array(
-			array(
-				'taxonomy' => 'wpm-testimonial-category',
-				'field'    => 'id',
-				'terms'    => $categories
-			)
-		);
-	}
-
-	// order by
-	if ( $menu_order ) {
-		$args['orderby'] = 'menu_order';
-		$args['order']   = 'ASC';
-	} else {
-		$args['orderby'] = 'post_date';
-		if ( $newest ) {
-			$args['order'] = 'DESC';
-		} else {
-			$args['order'] = 'ASC';
-		}
-	}
-
-	// For Post Types Order plugin
-	$args['ignore_custom_sort'] = true;
-
-	$query = new WP_Query( $args );
-
-	/**
-	 * Shuffle array in PHP instead of SQL.
-	 *
-	 * @since 1.16
-	 */
-	if ( $random ) {
-		shuffle( $query->posts );
-	}
-
-	/**
-	 * Extract slice of array, which may be shuffled.
-	 *
-	 * Use lesser value: requested count or actual count.
-	 * Thanks chestozo.
-	 * @link https://github.com/cdillon/strong-testimonials/pull/5
-	 *
-	 * @since 1.16.1
-	 */
-	if ( !$all && $count > 0 ) {
-		$count = min( $count, count( $query->posts ) );
-		$query->posts = array_slice( $query->posts, 0, $count );
-		$query->post_count = $count;
-	}
-
-	$post_count = $query->post_count;
-
-	/**
-	 * -------------------
-	 * SUB-MODE: SLIDESHOW
-	 * -------------------
-	 * This check must be after the query due to changes in the random option.
-	 */
-	if ( $slideshow ) {
-		// add slideshow signature
-		$args = array(
-			'fx'      => 'fade',
-			'speed'   => $effect_for * 1000,
-			'timeout' => $show_for * 1000,
-			'pause'   => $no_pause ? 0 : 1
-		);
-		$content_class_list .= ' strong_cycle strong_cycle_' . hash( 'md5', serialize( $args ) );
-		$post_class_list    .= ' t-slide';
-	}
-	else {
-		// pagination
-		if ( $per_page && $post_count > $per_page ) {
-			$content_class_list .= ' strong-paginated';
-		}
-
-		// layouts
-		if ( 'masonry' == $layout ) {
-			$content_class_list .= ' strong-masonry columned columns-' . $column_count;
-		}
-		elseif ( 'grid' == $layout ) {
-			$content_class_list .= ' strong-grid columned columns-' . $column_count;
-		}
-		elseif ( 'columns' == $layout ) {
-			$content_class_list .= ' strong-columns columned columns-' . $column_count;
-		}
-	}
-
-	/**
-	 * Add new values to shortcode atts
-	 */
-	if ( 'custom' == $thumbnail_size ) {
-		$atts['thumbnail_size'] = array( $thumbnail_width, $thumbnail_height );
-	}
-	$atts['content_class'] = $content_class_list;
-	$atts['post_class']    = $post_class_list;
-	WPMST()->set_atts( $atts );
-
-	/**
-	 * Add filters here.
-	 */
-	add_filter( 'get_avatar', 'wpmtst_get_avatar', 10, 3 );
-
-	/**
-	 * Load template
-	 */
-	$template_file = $strong_templates->get_template_attr( $atts, 'template' );
-	ob_start();
-	/** @noinspection PhpIncludeInspection */
-	include( $template_file );
-	$html = ob_get_contents();
-	ob_end_clean();
-
-	/**
-	 * Remove filters here.
-	 */
-	remove_filter( 'get_avatar', 'wpmtst_get_avatar' );
-
-	do_action( 'wpmtst_view_rendered', $atts );
-
-	wp_reset_postdata();
-	$html = apply_filters( 'strong_view_html', $html );
-
-	return $html;
+	global $view;
+	$view = new Strong_View( $out );
+	$view->build();
+	return $view->output();
 }
 
 /**
@@ -257,6 +94,7 @@ function wpmtst_form_view( $atts ) {
 		return apply_filters( 'wpmtst_form_success_message', '<div class="testimonial-success">' .  wpmtst_get_form_message( 'submission-success' ) . '</div>' );
 	}
 
+	// TODO no need to extract
 	extract( normalize_empty_atts( $atts ) );
 
 	$fields = wpmtst_get_form_fields( $form_id );
@@ -291,7 +129,7 @@ function wpmtst_form_view( $atts ) {
 
 	do_action( 'wpmtst_form_rendered', $atts );
 
-	$html = apply_filters( 'strong_view_html', $html );
+	$html = apply_filters( 'strong_view_form_html', $html );
 
 	return $html;
 }

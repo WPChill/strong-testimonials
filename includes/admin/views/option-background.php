@@ -95,6 +95,7 @@
 							<input type="radio" id="light-font-color" name="view[data][background][example-font-color]" value="light" <?php checked( $view['background']['example-font-color'], 'light' ); ?>>
 							<label for="light-font-color"><?php _e( 'light', 'strong-testimonials' ); ?></label>
 						</div>
+						<div class="inner-help">for demo only</div>
 					</div>
 
 					<div id="background-preview" class="<?php echo $view['background']['example-font-color']; ?>">
