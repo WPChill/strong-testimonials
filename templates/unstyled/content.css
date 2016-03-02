@@ -1,0 +1,8 @@
+/**
+ * Strong Testimonials Unstyled template
+ */
+
+/* prevents flash on slow page load */
+.strong-view.unstyled .strong_cycle .testimonial:not(:first-child) {
+	display: none;
+}

@@ -159,6 +159,10 @@ Not yet.
 
 == Changelog ==
 
+= 2.2.11 - March 2, 2016 =
+* Fix slideshow stacking bug in unstyled template.
+* Add option to disable scroll top in paginated Views.
+
 = 2.2.10 - March 1, 2016 =
 * Add post date to Custom Fields in View editor.
 

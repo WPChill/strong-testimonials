@@ -109,7 +109,8 @@ function wpmtst_sanitize_options( $input ) {
 	*/
 
 	// shorthand
-	$input['reorder'] = !isset( $input['reorder'] ) ? 0 : ( 'on' == $input['reorder'] ? 1 : $input['reorder'] );
+	$input['reorder']   = ! isset( $input['reorder'] ) ? 0 : ( 'on' == $input['reorder'] ? 1 : $input['reorder'] );
+	$input['scrolltop'] = ! isset( $input['scrolltop'] ) ? 0 : ( 'on' == $input['scrolltop'] ? 1 : $input['scrolltop'] );
 
 	return $input;
 }
@@ -205,10 +206,7 @@ function wpmtst_settings_page() {
 
 		<?php
 		$active_tab = isset( $_GET['tab'] ) ? $_GET['tab'] : 'general';
-		/**
-		 * Using "new-settings" instead of previously used "settings" due to possible bug or conflict that shows the parent menu item of the first instance of any "settings" submenu as the current one. This first became apparent with the Popup Maker plugin. Need to debug further. 2-Jan-2016
-		 */
-		$url = admin_url( 'edit.php?post_type=wpm-testimonial&page=testimonial-settings' );
+		$url        = admin_url( 'edit.php?post_type=wpm-testimonial&page=testimonial-settings' );
 		?>
 		<h2 class="nav-tab-wrapper">
 			<a href="<?php echo add_query_arg( 'tab', 'general', $url ); ?>" class="nav-tab <?php echo $active_tab == 'general' ? 'nav-tab-active' : ''; ?>"><?php _ex( 'General', 'adjective', 'strong-testimonials' ); ?></a>

@@ -27,7 +27,9 @@
 	Modified for Strong Testimonials WordPress plugin by Chris Dillon
 	chris@wpmission.com
 
-	v1.3   01/05/2016
+	v1.3   01/05/2016 -- added offset
+
+	v1.4   03/01/2016 -- added scrollTop
 */
 
 (function($) {
@@ -39,13 +41,13 @@
 			currentPage: 1,
 			holder: null,
 			pagerLocation: "after",
+			scrollTop: 1,
 			offset: 40
 		};
 
 		var options = $.extend(defaults, options);
 
 		return this.each(function() {
-
 
 			var selector = $(this);
 			var pageCounter = 1;
@@ -125,27 +127,27 @@
 				selector.children().hide();
 				selector.find(".simplePagerPage"+clickedLink).show();
 
-				// Modified for Strong Testimonials
-				// --------------------------------
 				// Scroll up for any nav click
-				var containerOffset;
+				if ( parseInt( options.scrollTop ) ) {
+					var containerOffset;
 
-				// Special cases:
-				//   WooCommerce product tabs
-				if( selector.closest(".woocommerce-tabs").length ) {
-					containerOffset = selector.closest(".woocommerce-tabs").offset();
-				} else {
-					containerOffset = selector.closest(".simplePagerContainer").offset();
+					// Special cases:
+					//   WooCommerce product tabs
+					if (selector.closest(".woocommerce-tabs").length) {
+						containerOffset = selector.closest(".woocommerce-tabs").offset();
+					} else {
+						containerOffset = selector.closest(".simplePagerContainer").offset();
+					}
+
+					var scrollto = containerOffset.top - options.offset;
+
+					// is WordPress admin bar showing?
+					if ($("#wpadminbar").length) {
+						scrollto -= 32;
+					}
+
+					$("html, body").animate({scrollTop: scrollto}, 800);
 				}
-
-				var scrollto = containerOffset.top - options.offset;
-
-				// is WordPress admin bar showing?
-				if( $("#wpadminbar").length ) {
-					scrollto -= 32;
-				}
-
-				$("html, body").animate({scrollTop:scrollto}, 800);
 
 				return false;
 			});

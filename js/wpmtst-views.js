@@ -58,7 +58,6 @@ function convertLabel(label) {
 
 (function ( $ ) {
 	$.fn.afterToggle = function() {
-		console.log('afterToggle');
 		// custom handling
 		var $categoryDivs = $('.view-category-list-panel');
 		// Set initial width to compensate for narrowed box due to checkbox being hidden first

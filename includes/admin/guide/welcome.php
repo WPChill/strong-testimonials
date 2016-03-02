@@ -6,13 +6,13 @@
 
 		<h4 class="large"><?php _e( 'What\'s new' ); ?></h4>
 
-		<p><?php _e( 'The &#91;strong&#93;, &#91;wpmtst&#93; and &#91;read_more&#93; shortcodes and the original widget have been removed.', 'strong-testimonials' ); ?></p>
+		<p><?php _e( 'The &#91;strong&#93;, &#91;wpmtst&#93; and &#91;read_more&#93; shortcodes and the original widget <span style="color: red;">have been removed</span>.', 'strong-testimonials' ); ?></p>
 
 		<p><?php _e( 'Improved compatibility with WPML & Polylang.', 'strong-testimonials' ); ?></p>
 
 		<p><?php _e( 'The ability to duplicate a View.', 'strong-testimonials' ); ?></p>
 
-		<p><?php _e( 'Improved category selector in the View editor and category filter in admin list.', 'strong-testimonials' ); ?></p>
+		<p><?php _e( 'Improved category selector in the View editor and a category filter in the admin list.', 'strong-testimonials' ); ?></p>
 
 		<p style="font-style: italic;"><?php _e( 'Thanks for choosing Strong Testimonials!', 'strong-testimonials' ); ?></p>
 

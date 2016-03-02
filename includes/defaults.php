@@ -11,11 +11,15 @@
 /**
  * Settings
  *
+ * @since 1.13.0 reorder
+ * @since 2.2.11 scrolltop
+ *
  * @return array
  */
 function wpmtst_get_default_options() {
 	$default_options = array(
-		'reorder' => false,
+		'reorder'   => false,
+		'scrolltop' => true,
 	);
 
 	return $default_options;

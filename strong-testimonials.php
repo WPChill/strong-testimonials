@@ -4,7 +4,7 @@
  * Plugin URI: https://www.wpmission.com/plugins/strong-testimonials/
  * Description: A full-featured plugin that works right out of the box for beginners and offers advanced features for pros.
  * Author: Chris Dillon
- * Version: 2.2.10
+ * Version: 2.2.11
  * Author URI: https://www.wpmission.com/
  * Text Domain: strong-testimonials
  * Domain Path: /languages
@@ -1177,6 +1177,8 @@ final class Strong_Testimonials {
 	private static function preprocess( $view, $atts, $att_string, $handle = false ) {
 		global $strong_templates;
 
+		$options = get_option( 'wpmtst_options' );
+
 		// subset of all shortcode atts
 		extract( shortcode_atts(
 			self::get_view_defaults(),
@@ -1249,6 +1251,7 @@ final class Strong_Testimonials {
 					'pageSize'      => $per_page,
 					'currentPage'   => 1,
 					'pagerLocation' => $nav,
+					'scrollTop'     => $options['scrolltop'],
 					'offset'        => apply_filters( 'wpmtst_pagination_scroll_offset', 40 ),
 				);
 				self::add_script( 'wpmtst-pager-script' );

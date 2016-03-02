@@ -17,8 +17,7 @@ Array.max = function( array ){
  */
 jQuery(window).load(function() {
 
-    // Shortcode and Views
-    jQuery(".strong-container, .strong-view").each(function (index, elem) {
+    jQuery(".strong-view").each(function (index, elem) {
 
         var $el = jQuery(elem).find(".strong_cycle");
         if (!$el.length) return;
@@ -45,37 +44,6 @@ jQuery(window).load(function() {
                 timeout: parseInt(parms.timeout),
                 pause: "1" == parms.pause ? true : false,  // Cycle
                 pauseOnHover: "1" == parms.pause ? true : false   // Cycle2
-            });
-        }
-
-    });
-
-    // Original Shortcode & Widgets
-    jQuery("#wpmtst-container.tcycle").add(".wpmtst-widget-container.tcycle").each( function(index, elem) {
-
-        var $elem = jQuery(elem);
-
-        // Set container height to match tallest element.
-        var heights = $elem.find("div.t-slide").map(function() {
-            return jQuery(this).outerHeight(true);
-        }).get();
-
-        var maxHeight = Array.max( heights );
-        $elem.height( maxHeight );
-
-        var cycleVar = jQuery.grep(elem.className.split(/\s+/), function(v, i){
-            return v.indexOf('tcycle_') === 0;
-        }).join();
-
-        if( typeof( window[cycleVar] ) !== 'undefined' ) {
-            var parms = window[cycleVar];
-            $elem.cycle({
-                slides       : "> div.t-slide",
-                fx           : parms.effect,
-                speed        : parseInt( parms.speed ),
-                timeout      : parseInt( parms.timeout ),
-                pause        : "1" == parms.pause ? true : false,  // Cycle
-                pauseOnHover : "1" == parms.pause ? true : false   // Cycle2
             });
         }
 
