@@ -228,7 +228,6 @@ function wpmtst_get_custom_fields() {
 
 	// use default group as base
 	$fields = $forms[1]['fields'];
-	//unset( $forms[1] );
 
 	// replace key with field name
 	foreach ( $fields as $field ) {

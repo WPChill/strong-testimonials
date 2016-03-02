@@ -363,16 +363,21 @@ function wpmtst_get_default_template_function() {
  * Show a single client field's inputs.
  *
  * @since 1.21.0
+ *
+ * @param $key
+ * @param $field
+ * @param bool $adding
  */
-function wpmtst_view_field_inputs( $key, $field, $adding = false ) { //
+function wpmtst_view_field_inputs( $key, $field, $adding = false ) {
 	$custom_fields = wpmtst_get_custom_fields();
+
 	// the date is a special field
-	//$custom_fields[] = array(
-	//	'name'        => 'date',
-	//	'input_type'  => 'date',
-	//	'type'        => 'date',
-	//	'record_type' => 'builtin',
-	//);
+	$custom_fields[] = array(
+		'name'        => 'post_date',
+		'input_type'  => 'date',
+		'type'        => 'date',
+		'record_type' => 'builtin',
+	);
 
 	// TODO Move this to view defaults option.
 	$types = array(

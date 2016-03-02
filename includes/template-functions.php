@@ -305,8 +305,13 @@ function wpmtst_client_section( $client_section ) {
 				break;
 
 			case 'date':
+				if ( 'post_date' == $field['field'] )
+					$text = $post->post_date;
+				else
+					$text = get_post_meta( $post->ID, $field['field'], true );
+
 				$format   = isset( $field['format'] ) && $field['format'] ? $field['format'] : get_option( 'date_format' );
-				$the_date = mysql2date( $format, $post->post_date );
+				$the_date = mysql2date( $format, $text );
 				$output   = apply_filters( 'wpmtst_the_date', $the_date, $format, $post );
 				break;
 

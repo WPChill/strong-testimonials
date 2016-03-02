@@ -159,6 +159,9 @@ Not yet.
 
 == Changelog ==
 
+= 2.2.10 - March 1, 2016 =
+* Add post date to Custom Fields in View editor.
+
 = 2.2.9 - February 29, 2016 =
 * Fix conflict with [Toolset Views](https://wp-types.com/) plugin.
 * Add Persian translation.

@@ -389,7 +389,7 @@ jQuery(document).ready(function($) {
 			var $elParent = $el.closest("tr");
 			var key = $elParent.attr("id").split('-').slice(-1)[0];
 			var typeSelect = $elParent.find("td.field-type select");
-			if( fieldValue == 'date' ) {
+			if( fieldValue == 'post_date' ) {
 				$(typeSelect).prop("disabled", true);
 				$(typeSelect).parent().append('<input type="hidden" class="save-type" name="view[data][client_section][' + key + '][type]" value="date">');
 			} else {
@@ -737,7 +737,7 @@ jQuery(document).ready(function($) {
 		var typeSelect = $elParent.find("td.field-type select");
 
 		switch( fieldValue ) {
-			case 'date':
+			case 'post_date':
 				// Hide type selector if date field.
 				$(typeSelect).val("date").prop("disabled", true);
 
