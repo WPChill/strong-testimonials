@@ -101,7 +101,7 @@ function wpmtst_form_handler() {
 		if ( ! isset( $testimonial_post['post_title'] ) || ! $testimonial_post['post_title'] ) {
 			$words_array                    = explode( ' ', $testimonial_post['post_content'] );
 			$five_words                     = array_slice( $words_array, 0, 5 );
-			$testimonial_post['post_title'] = sanitize_title( implode( ' ', $five_words ) );
+			$testimonial_post['post_title'] = implode( ' ', $five_words );
 		}
 
 		// validate image attachments and store WP error messages
@@ -146,7 +146,14 @@ function wpmtst_form_handler() {
 	if ( ! count( $form_errors ) ) {
 
 		// create new testimonial post
-		if ( $testimonial_id = wp_insert_post( $testimonial_post ) ) {
+		$testimonial_id = wp_insert_post( $testimonial_post );
+		if ( is_wp_error( $testimonial_id ) ) {
+
+			WPMST()->log( $testimonial_id, __FUNCTION__, 'strong-error.log' );
+			$form_errors['post'] = $messages['submission-error']['text'];
+
+		}
+		else {
 
 			// add to categories
 			if ( $_POST['category'] ) {
@@ -176,9 +183,6 @@ function wpmtst_form_handler() {
 				}
 			}
 
-		} else {
-			// TODO Add general error message to top of form.
-			$form_errors['post'] = $messages['submission-error']['text'];
 		}
 
 	}

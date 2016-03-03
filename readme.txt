@@ -159,6 +159,10 @@ Not yet.
 
 == Changelog ==
 
+= 2.2.12 - March 3, 2016 =
+* Fix bug when title is empty in some languages.
+* Add error logging to save process.
+
 = 2.2.11 - March 2, 2016 =
 * Fix slideshow stacking bug in unstyled template.
 * Add option to disable scroll top in paginated Views.
