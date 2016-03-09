@@ -39,6 +39,13 @@ function wpmtst_strong_view_shortcode_filter( $out, $pairs, $atts ) {
 }
 add_filter( 'shortcode_atts_testimonial_view', 'wpmtst_strong_view_shortcode_filter', 10, 3 );
 
+/**
+ * Render our view.
+ *
+ * @param $out
+ *
+ * @return mixed|string|void
+ */
 function wpmtst_render_view( $out ) {
 	// Did we find this view?
 	if ( isset( $out['view_not_found'] ) && $out['view_not_found'] ) {
@@ -245,6 +252,8 @@ function wpmtst_form_view( $atts ) {
 	global $strong_templates;
 
 	if ( isset( $_GET['success'] ) ) {
+		// Load stylesheet
+		do_action( 'wpmtst_form_rendered', $atts );
 		return apply_filters( 'wpmtst_form_success_message', '<div class="testimonial-success">' .  wpmtst_get_form_message( 'submission-success' ) . '</div>' );
 	}
 
@@ -364,3 +373,23 @@ function wpmtst_honeypot_after_script() {
 	</script>
 	<?php
 }
+
+/**
+ * Remove whitespace between tags. Helps prevent double wpautop in plugins
+ * like Posts For Pages and Custom Content Shortcode.
+ *
+ * @param $html
+ * @since 2.3
+ *
+ * @return mixed
+ */
+function wpmtst_strong_view_html( $html ) {
+	$options = get_option( 'wpmtst_options' );
+	if ( $options['remove_whitespace'] ) {
+		$html = preg_replace( '~>\s+<~', '><', $html );
+		//$html = preg_replace('~[\r\n]+~', '', $html);
+	}
+
+	return $html;
+}
+add_filter( 'strong_view_html', 'wpmtst_strong_view_html' );

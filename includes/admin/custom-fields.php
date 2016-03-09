@@ -147,7 +147,7 @@ function wpmtst_settings_custom_fields( $action = '', $form_id = null ) {
 					<input id="add-field" type="button" class="button" name="add-field" value="<?php _e( 'Add New Field', 'strong-testimonials' ); ?>">
 				</div>
 
-				<p class="submit">
+				<p>
 					<?php
 					submit_button( '', 'primary', 'submit', false );
 					submit_button( __( 'Undo Changes', 'strong-testimonials' ), 'secondary', 'reset', false );

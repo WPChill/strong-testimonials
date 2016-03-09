@@ -34,6 +34,7 @@ If that describes your situation, this plugin will work for you right out of the
 * Template files and functions for deep customization
 * Custom "Read more" links
 * Gravatar support
+* Fully localized, ready for translations
 * Compatible with WPML and Polylang
 
 Strong Testimonials [plays well with other plugins and themes](https://www.wpmission.com/theme-plugin-compatibility-fund/), and I strive to adhere to WordPress coding standards and best practices.
@@ -158,6 +159,16 @@ Not yet.
 8. Template files and template functions.
 
 == Changelog ==
+
+= 2.3 - March 9, 2016 =
+* Improve compatibility with [Posts for Page](https://wordpress.org/plugins/posts-for-page/), [Custom Content Shortcode](https://wordpress.org/plugins/custom-content-shortcode/), and other plugins that use shortcodes to pull in other content.
+* Add form handling to strong_testimonials_view() template function.
+* Optimize slideshow loading.
+* Strip HTML whitespace by default with option to disable.
+* Disable form honeypots by default in new installs.
+* Fix bug with first slide in Cycle script.
+* Fix conflict with RT Themes.
+* Fix admin style conflict.
 
 = 2.2.12 - March 3, 2016 =
 * Fix bug when title is empty in some languages.

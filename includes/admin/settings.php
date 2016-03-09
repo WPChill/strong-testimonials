@@ -109,8 +109,9 @@ function wpmtst_sanitize_options( $input ) {
 	*/
 
 	// shorthand
-	$input['reorder']   = ! isset( $input['reorder'] ) ? 0 : ( 'on' == $input['reorder'] ? 1 : $input['reorder'] );
-	$input['scrolltop'] = ! isset( $input['scrolltop'] ) ? 0 : ( 'on' == $input['scrolltop'] ? 1 : $input['scrolltop'] );
+	$input['reorder']           = !isset( $input['reorder'] ) ? 0 : ( 'on' == $input['reorder'] ? 1 : $input['reorder'] );
+	$input['scrolltop']         = !isset( $input['scrolltop'] ) ? 0 : ( 'on' == $input['scrolltop'] ? 1 : $input['scrolltop'] );
+	$input['remove_whitespace'] = !isset( $input['remove_whitespace'] ) ? 0 : ( 'on' == $input['remove_whitespace'] ? 1 : $input['remove_whitespace'] );
 
 	return $input;
 }
@@ -232,7 +233,7 @@ function wpmtst_settings_page() {
 					include( 'settings/general.php' );
 			}
 			?>
-			<p class="submit">
+			<p>
 				<input id="submit" class="button button-primary" type="submit" value="<?php _e( 'Save Changes' ); ?>" name="submit">
 			</p>
 		</form>

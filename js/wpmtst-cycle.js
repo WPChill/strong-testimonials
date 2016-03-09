@@ -35,17 +35,18 @@ jQuery(window).load(function() {
             return v.indexOf('strong_cycle_') === 0;
         }).join();
 
-        if (typeof( window[cycleVar] ) !== 'undefined') {
-            var parms = window[cycleVar];
-            $el.cycle({
-                slides: "> div.t-slide",
-                fx: parms.effect,
-                speed: parseInt(parms.speed),
-                timeout: parseInt(parms.timeout),
-                pause: "1" == parms.pause ? true : false,  // Cycle
-                pauseOnHover: "1" == parms.pause ? true : false   // Cycle2
-            });
-        }
+		if (typeof( window[cycleVar] ) !== 'undefined') {
+			var parms = window[cycleVar];
+			$el.cycle({
+				slides: "> div.t-slide",
+				autoHeight: false,
+				fx: parms.effect,
+				speed: parseInt(parms.speed),
+				timeout: parseInt(parms.timeout),
+				pause: "1" == parms.pause ? true : false,  // Cycle
+				pauseOnHover: "1" == parms.pause ? true : false   // Cycle2
+			});
+		}
 
     });
 

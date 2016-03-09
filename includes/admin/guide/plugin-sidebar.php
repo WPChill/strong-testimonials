@@ -1,5 +1,5 @@
 <?php
-	$tags = array( 'a' => array( 'href' => array(), 'target' => array() ) );
+	$tags = array( 'a' => array( 'href' => array(), 'target' => array() ), 'br' => array() );
 ?>
 <div id="plugin-sidebar">
 
@@ -7,8 +7,13 @@
 	// Need help?
 	$link = sprintf(
 		wp_kses(
-			__( 'Use the <a href="%s" target="_blank">support forum</a> or <a href="%s" target="_blank">contact me</a>.', 'strong-testimonials' ), $tags
-		), esc_url( 'http://wordpress.org/support/plugin/strong-testimonials' ), esc_url( 'https://www.wpmission.com/contact/' )
+			__( 'Use the <a href="%s" target="_blank">plugin support</a> forum<br>
+ 				or <a href="%s" target="_blank">submit a trouble ticket</a><br>
+ 				or <a href="%s" target="_blank">contact me</a>.', 'strong-testimonials' ), $tags
+		),
+		esc_url( 'http://wordpress.org/support/plugin/strong-testimonials' ),
+		esc_url( 'https://www.wpmission.com/support/' ),
+		esc_url( 'https://www.wpmission.com/contact/' )
 	);
 	?>
 	<div class="has-icon icon-help">

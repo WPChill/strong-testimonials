@@ -4,14 +4,14 @@
  * Plugin URI: https://www.wpmission.com/plugins/strong-testimonials/
  * Description: A full-featured plugin that works right out of the box for beginners and offers advanced features for pros.
  * Author: Chris Dillon
- * Version: 2.2.12
+ * Version: 2.3
  * Author URI: https://www.wpmission.com/
  * Text Domain: strong-testimonials
  * Domain Path: /languages
  * Requires: 3.5 or higher
  * License: GPLv3 or later
  *
- * Copyright 2014 Chris Dillon chris@wpmission.com
+ * Copyright 2014-2016 Chris Dillon chris@wpmission.com
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -221,6 +221,8 @@ final class Strong_Testimonials {
 		}
 		else {
 
+			add_action( 'init', array( $this, 'process_form' ) );
+
 			/**
 			 * Actions on 'wp' hook allow us to properly enqueue styles and scripts.
 			 */
@@ -246,8 +248,9 @@ final class Strong_Testimonials {
 			// Elegant Themes - Home page content areas
 			add_action( 'wp', array( $this, 'find_views_elegant_themes' ) );
 
-			// Profit Builder
+			// Profit Builder - stores the rendered shortcode (!)
 			add_action( 'wp', array( $this, 'find_rendered_views' ) );
+
 		}
 
 		/**
@@ -332,36 +335,52 @@ final class Strong_Testimonials {
 	 * Do stuff after the form is rendered like load stylesheets and scripts.
 	 * For compatibility with page builders and popup makers.
 	 *
-	 * @since 1.25.0
-	 * @todo Combine with view_rendered in version 2.0
+	 * @since 1.25.0 Checking $atts['compat']
+	 * @since 2.3 Added wp_script_is( $handle ) as last check.
 	 *
 	 * @param $atts
 	 */
 	public function form_rendered( $atts ) {
-		if ( isset( $atts['compat']) && $atts['compat'] ) {
-			self::find_stylesheet( $atts, false );
+		$handle = self::find_stylesheet( $atts, false );
+
+		if ( ( isset( $atts['compat'] ) && $atts['compat'] ) || ! wp_script_is( $handle ) ) {
+
+			self::find_stylesheet( $atts, true, false );
+
 		}
+
 		self::after_form( $atts );
 	}
 
 	/**
-	 * Do stuff after the slideshow is rendered like load stylesheets and scripts.
-	 * For compatibilty with page builders.
+	 * Compatibility mode: Load stylesheet and scripts if not already.
+	 * For compatibility with page builders and plugins like
+	 * Posts For Page and Custom Content Shortcode
+	 * that pull in other posts so this plugin cannot preprocess them.
+	 *
 	 * Required for the template function strong_testimonials_view.
 	 *
-	 * @since 1.25.0
-	 * @todo Combine with form_rendered in version 2.0
+	 * @since 1.25.0 Checking $atts['compat']
+	 * @since 2.3 Added wp_script_is( $handle ) as last check.
 	 *
 	 * @param $atts
 	 */
 	public function view_rendered( $atts ) {
-		if ( isset( $atts['compat']) && $atts['compat'] ) {
-			if ( isset( $atts['slideshow'] ) && $atts['slideshow'] ) {
-				self::find_stylesheet( $atts, false );
-			}
-			self::after_slideshow( $atts );
+
+		$handle = self::find_stylesheet( $atts, false );
+
+		if ( ( isset( $atts['compat'] ) && $atts['compat'] ) || ! wp_script_is( $handle ) ) {
+
+			wp_enqueue_style( $handle );
+
 			self::custom_background( $atts['view'], $atts['background'] );
+
+			if ( isset( $atts['slideshow'] ) && $atts['slideshow'] ) {
+				self::after_slideshow( $atts );
+			}
+
 		}
+
 	}
 
 	/**
@@ -403,11 +422,11 @@ final class Strong_Testimonials {
 	 */
 	public function get_background_defaults() {
 		return apply_filters( 'wpmtst_default_template_background', array(
-			'color'  => '',
-			'type'   => '',
-			'preset' => '',
-			'gradient1' => '',
-			'gradient2' => '',
+			'color'              => '',
+			'type'               => '',
+			'preset'             => '',
+			'gradient1'          => '',
+			'gradient2'          => '',
 			'example-font-color' => 'dark',
 		) );
 	}
@@ -676,11 +695,18 @@ final class Strong_Testimonials {
 		$vars = self::$script_vars;
 		if ( $vars ) {
 			foreach ( $vars as $var ) {
-				$success = wp_localize_script( $var['script_name'], $var['var_name'], $var['var'] );
+				wp_localize_script( $var['script_name'], $var['var_name'], $var['var'] );
 			}
 		}
 	}
 
+	/**
+	 * Check the content for our shortcodes.
+	 *
+	 * @param $content
+	 *
+	 * @return bool
+	 */
 	private static function check_content( $content ) {
 		if ( false === strpos( $content, self::$shortcode2_lb ) )
 			return false;
@@ -688,6 +714,14 @@ final class Strong_Testimonials {
 		return true;
 	}
 
+	/**
+	 * Check the content for shortcodes that have been rendered already.
+	 * For some hacky page builders.
+	 *
+	 * @param $content
+	 *
+	 * @return bool
+	 */
 	private static function check_content_for_rendered_shortcodes( $content ) {
 		if ( preg_match_all( '/div class=(.*?) (strong-view-id-([0-9]*))/', $content, $matches ) ) {
 			return $matches[3];
@@ -953,7 +987,6 @@ final class Strong_Testimonials {
 	 * @return array
 	 */
 	private static function find_single_view( $atts, $att_string ) {
-		$options         = get_option( 'wpmtst_options' );
 		$preprocess      = false;
 		$preprocess_form = false;
 		$handle          = false;
@@ -974,16 +1007,8 @@ final class Strong_Testimonials {
 			$view            = array( 'mode' => 'form', 'atts' => $atts );
 			$preprocess_form = true;
 
-			/**
-			 * If this is a view, look for accompanying stylesheet.
-			 * // TODO Is this check still necessary?
-			 */
-			if ( isset( $atts['view'] ) && $atts['view'] ) {
-
-				if ( !isset( $atts['compat']) || !$atts['compat'] ) {
-					$handle = self::find_stylesheet($atts);
-				}
-
+			if ( ! isset( $atts['compat']) || ! $atts['compat'] ) {
+				$handle = self::find_stylesheet( $atts );
 			}
 
 			self::after_form( $atts );
@@ -996,19 +1021,11 @@ final class Strong_Testimonials {
 			 * Slideshow
 			 * ------------------------------
 			 */
-			$view = array( 'mode' => 'slideshow', 'atts' => $atts );
+			$view       = array( 'mode' => 'slideshow', 'atts' => $atts );
 			$preprocess = true;
 
-			/**
-			 * If this is a view, look for accompanying stylesheet.
-			 * // TODO Is this check still necessary?
-			 */
-			if ( isset( $atts['view'] ) && $atts['view'] ) {
-
-				if ( !isset( $atts['compat']) || !$atts['compat'] ) {
-					$handle = self::find_stylesheet( $atts );
-				}
-
+			if ( ! isset( $atts['compat'] ) || ! $atts['compat'] ) {
+				$handle = self::find_stylesheet( $atts );
 			}
 
 		}
@@ -1017,18 +1034,9 @@ final class Strong_Testimonials {
 			/**
 			 * Display (default)
 			 */
-			$view = array( 'mode' => 'display', 'atts' => $atts );
+			$view       = array( 'mode' => 'display', 'atts' => $atts );
 			$preprocess = true;
-
-			/**
-			 * If this is a view, look for accompanying stylesheet.
-			 * // TODO Is this check still necessary?
-			 */
-			if ( isset( $atts['view'] ) && $atts['view'] ) {
-
-				$handle = self::find_stylesheet( $atts );
-
-			}
+			$handle     = self::find_stylesheet( $atts );
 
 		}
 
@@ -1037,12 +1045,11 @@ final class Strong_Testimonials {
 		 *
 		 * Add check for compatibility mode @since 1.25.0
 		 */
-		if ( !isset( $atts['compat'] ) || !$atts['compat'] ) {
-			if ( $preprocess ) {
+		if ( ! isset( $atts['compat'] ) || ! $atts['compat'] ) {
+			if ( $preprocess )
 				self::preprocess( $view, $atts, $att_string, $handle );
-			} elseif ( $preprocess_form ) {
+			elseif ( $preprocess_form )
 				self::preprocess_form( $view, $atts, $att_string, $handle );
-			}
 		}
 
 		return $view;
@@ -1080,44 +1087,19 @@ final class Strong_Testimonials {
 	}
 
 	/**
+	 * Set up the slideshow.
+	 *
+	 * @since 2.3 As separate function.
 	 * @param array $atts
 	 */
 	private static function after_slideshow( $atts = array() ) {
 
-		if ( !wp_script_is( 'wpmtst-slider', 'registered enqueued' ) ) {
-			  $plugin_version = get_option( 'wpmtst_plugin_version' );
+		if ( ! wp_script_is( 'wpmtst-slider', 'registered' ) ) {
+			wpmtst_register_cycle();
+		}
 
-			/**
-			 * Register jQuery Cycle plugin after theme to prevent conflicts.
-			 *
-			 * Everybody loves Cycle!
-			 *
-			 * In case the theme loads cycle.js for a slider, we check after it's enqueue function.
-			 * If registered, we register our slider script using existing Cycle handle.
-			 * If not registered, we register it with our Cycle handle.
-			 *
-			 * @since 1.14.1
-			 */
-
-			$filenames = array(
-				'jquery.cycle.all.min.js',
-				'jquery.cycle.all.js',
-				'jquery.cycle2.min.js',
-				'jquery.cycle2.js'
-			);
-
-			$cycle_handle = wpmtst_is_registered( $filenames );
-
-			if ( !$cycle_handle ) {
-				// Using unique handle and loading Cycle2 for better dimension handling.
-				$cycle_handle = 'jquery-cycle-in-wpmtst';
-				wp_register_script( $cycle_handle, WPMTST_URL . 'js/cycle/jquery.cycle2.min.js', array( 'jquery' ), '2.1.6', true );
-			}
-
-			// Our slider handler, dependent on whichever jQuery Cycle plugin is being used.
-			wp_enqueue_script( 'jquery-actual', WPMTST_URL . 'js/actual/jquery.actual.min.js', array( 'jquery' ), false, true );
-			wp_enqueue_script( 'wpmtst-slider', WPMTST_URL . 'js/wpmtst-cycle.js', array( $cycle_handle, 'jquery-actual' ), $plugin_version, true );
-
+		if ( ! wp_script_is( 'wpmtst-slider', 'enqueued' ) ) {
+			wp_enqueue_script( 'wpmtst-slider' );
 		}
 
 		// Populate variable for Cycle script.
@@ -1127,11 +1109,8 @@ final class Strong_Testimonials {
 			'timeout' => $atts['show_for'] * 1000,
 			'pause'   => $atts['no_pause'] ? 0 : 1
 		);
-		if ( !wp_script_is( 'wpmtst-slider' ) ) {
-			wp_enqueue_script( 'wpmtst-slider' );
-		}
-		wp_localize_script( 'wpmtst-slider', 'strong_cycle_' . hash( 'md5', serialize( $args ) ), $args );
 
+		wp_localize_script( 'wpmtst-slider', 'strong_cycle_' . hash( 'md5', serialize( $args ) ), $args );
 	}
 
 	/**
@@ -1139,12 +1118,13 @@ final class Strong_Testimonials {
 	 *
 	 * @since 1.23.0
 	 *
-	 * @param      $atts
-	 * @param bool $deferred
+	 * @param array $atts      Our View attributes
+	 * @param bool  $enqueue   True = enqueue the stylesheet, @since 2.3
+	 * @param bool  $deferred  True = add to list for wp_enqueue_style, False = enqueue now (in footer)
 	 *
 	 * @return bool|string
 	 */
-	private static function find_stylesheet( $atts, $deferred = true ) {
+	private static function find_stylesheet( $atts, $enqueue = true, $deferred = true ) {
 		// In case of deactivated widgets still referencing deleted Views
 		if ( !isset( $atts['template'] ) || !$atts['template'] )
 			return false;
@@ -1156,10 +1136,12 @@ final class Strong_Testimonials {
 		if ( $stylesheet ) {
 			$handle = 'testimonials-' . str_replace( ':', '-', $atts['template'] );
 			wp_register_style( $handle, $stylesheet, array(), $plugin_version );
-			if ( $deferred )
-				self::add_style( $handle );
-			else
-				wp_enqueue_style( $handle );
+			if ( $enqueue ) {
+				if ( $deferred )
+					self::add_style( $handle );
+				else
+					wp_enqueue_style( $handle );
+			}
 		}
 
 		return $handle;
@@ -1219,19 +1201,8 @@ final class Strong_Testimonials {
 		 */
 		if ( $slideshow ) {
 
-			// Populate variable for Cycle script.
-			$args = array(
-				'fx'      => 'fade',
-				'speed'   => $effect_for * 1000,
-				'timeout' => $show_for * 1000,
-				'pause'   => $no_pause ? 0 : 1
-			);
+			// TODO Is this still beneficial?
 			self::add_script( 'wpmtst-slider', 'later' );
-			self::add_script_var( 'wpmtst-slider', 'strong_cycle_' . hash( 'md5', serialize( $args ) ), $args );
-			/**
-			 * Example result:
-			 * var strong_cycle_b17e46f93ef619819cdfe5e26b66a3e9 = {"fx":"fade","speed":"1000","timeout":"5000","pause":"1"};
-			 */
 
 		}
 		else {
@@ -1369,8 +1340,15 @@ final class Strong_Testimonials {
 			self::get_view_defaults(),
 			$view['atts']
 		) );
+	}
 
-		// validate form entries here
+	/**
+	 * Process a form.
+	 * Moved to `init` hook for strong_testimonials_view() template function.
+	 *
+	 * @since 2.3
+	 */
+	public static function process_form() {
 		if ( isset( $_POST['wpmtst_form_nonce'] ) ) {
 			require_once WPMTST_INC . 'form-handler-functions.php';
 			$success = wpmtst_form_handler();
@@ -1759,24 +1737,6 @@ final class Strong_Testimonials {
 			'WordPress ' . $wp_version,
 			$plugin_info['name'] . ' ' . $plugin_info['version'],
 		);
-
-		if ( defined( 'WPB_VC_VERSION' ) )
-			$comment[] = 'Visual Composer ' . WPB_VC_VERSION;
-
-		if ( defined( 'SITEORIGIN_PANELS_VERSION' ) )
-			$comment[] = 'Page Builder by SiteOrigin ' . SITEORIGIN_PANELS_VERSION;
-
-		if ( defined( 'AV_FRAMEWORK_VERSION' ) )
-			$comment[] = 'Avia Framework ' . AV_FRAMEWORK_VERSION;
-
-		if ( defined( 'ET_PB_VERSION' ) )
-			$comment[] = 'Elegant Themes Page Builder ' . ET_PB_VERSION;
-
-		if ( defined( 'TTFMAKE_VERSION' ) )
-			$comment[] = 'Make Page Builder ' . TTFMAKE_VERSION;
-
-		if ( defined( 'THEME_FULL_NAME' ) )
-			$comment[] = THEME_FULL_NAME . ' theme';
 
 		echo "\n" . '<!-- versions: ' . implode( ' | ', $comment ) . ' -->' . "\n";
 	}

@@ -144,7 +144,7 @@ function wpmtst_admin_scripts( $hook ) {
 	);
 
 	if ( $screen && 'wpm-testimonial' == $screen->post_type ) {
-		$hooks_to_script = array_merge( $hooks_to_style, array( 'edit.php' ) );
+		$hooks_to_script = array_merge( $hooks_to_script, array( 'edit.php' ) );
 	}
 
 	if ( in_array( $hook, $hooks_to_script ) || defined( 'SITEORIGIN_PANELS_VERSION' ) ) {
@@ -201,9 +201,37 @@ function wpmtst_admin_scripts( $hook ) {
 }
 add_action( 'admin_enqueue_scripts', 'wpmtst_admin_scripts' );
 
-function wpmtst_admin_dequeue_scripts() {
+/**
+ * Known theme and plugin conflicts.
+ *
+ * @param $hook
+ */
+function wpmtst_admin_dequeue_scripts( $hook ) {
+
 	if ( wp_style_is( 'CPTStyleSheets' ) )
 		wp_dequeue_style( 'CPTStyleSheets' );
+
+	$screen = get_current_screen();
+
+	$hooks_to_script = array(
+		'wpm-testimonial_page_testimonial-views',
+		'wpm-testimonial_page_testimonial-fields',
+		'wpm-testimonial_page_testimonial-settings',
+		'wpm-testimonial_page_testimonial-guide',
+	);
+
+	if ( $screen && 'wpm-testimonial' == $screen->post_type )
+		$hooks_to_script = array_merge( $hooks_to_script, array( 'edit.php' ) );
+
+	/**
+	 * Block RT Themes and their overzealous JavaScript on our admin pages.
+	 * @since 2.2.12.1
+	 */
+	if ( in_array( $hook, $hooks_to_script ) ) {
+		if ( class_exists( 'RTThemeAdmin' ) && wp_script_is( 'admin-scripts' ) )
+			wp_dequeue_script( 'admin-scripts' );
+	}
+
 }
 add_action( 'admin_enqueue_scripts', 'wpmtst_admin_dequeue_scripts', 500 );
 

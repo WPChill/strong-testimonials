@@ -173,7 +173,10 @@ td.column-name strong {
 /*-----------------------------------------------
  * Elements
  *-----------------------------------------------*/
-.wpmtst2 p.submit {
+/*
+ The generic classname `submit` conflicts with an unknown plugin or theme overzealous style.
+*/
+.wpmtst2 p.wpmtst-submit {
 	margin-top: 2em;
 }
 

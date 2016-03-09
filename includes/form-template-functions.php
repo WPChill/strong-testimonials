@@ -13,7 +13,6 @@ function wpmtst_form_setup() {
 	echo '<input type="hidden" name="action" value="wpmtst_form">'."\n";
 	echo '<input type="hidden" name="category" value="'. $form_values['category'] .'">'."\n";
 	echo '<input type="hidden" name="form_id" value="'. WPMST()->atts( 'form_id' ) .'">'."\n";
-
 }
 
 function wpmtst_form_message( $part ) {

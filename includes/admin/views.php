@@ -174,7 +174,7 @@ function wpmtst_view_settings( $action = '', $view_id = null ) {
 		do_action( 'wpmtst_view_editor_after_groups' );
 		?>
 
-		<p class="submit">
+		<p class="wpmtst-submit">
 			<?php submit_button( '', 'primary', 'submit', false ); ?>
 			<?php submit_button( __( 'Undo Changes', 'strong-testimonials' ), 'secondary', 'reset', false ); ?>
 			<?php submit_button( __( 'Restore Defaults', 'strong-testimonials' ), 'secondary', 'restore-defaults', false ); ?>

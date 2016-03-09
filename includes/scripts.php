@@ -4,7 +4,6 @@
  */
 function wpmtst_scripts() {
 
-	$wpmst = WPMST();
 	$plugin_version = get_option( 'wpmtst_plugin_version' );
 
 	wp_register_style( 'wpmtst-custom-style', WPMTST_URL . 'css/wpmtst-custom.css' );
@@ -42,14 +41,19 @@ function wpmtst_scripts() {
 		}
 
 	}
+}
+add_action( 'wp_enqueue_scripts', 'wpmtst_scripts' );
 
-	/**
-	 * Enqueue "normal" scripts and styles
-	 *
-	 * @since 1.15.0
-	 */
 
-	$styles = $wpmst->get_styles();
+/**
+ * Enqueue "normal" scripts and styles
+ *
+ * @since 1.15.0
+ * @since 2.3 As separate function.
+ */
+function wpmtst_scripts_normal() {
+
+	$styles = WPMST()->get_styles();
 
 	if ( $styles ) {
 		foreach ( $styles['normal'] as $key => $style ) {
@@ -57,16 +61,15 @@ function wpmtst_scripts() {
 		}
 	}
 
-	$scripts = $wpmst->get_scripts();
+	$scripts = WPMST()->get_scripts();
 
 	if ( $scripts ) {
 		foreach ( $scripts['normal'] as $key => $script ) {
 			wp_enqueue_script( $script );
 		}
 	}
-
 }
-add_action( 'wp_enqueue_scripts', 'wpmtst_scripts' );
+add_action( 'wp_enqueue_scripts', 'wpmtst_scripts_normal' );
 
 
 /**
@@ -76,21 +79,34 @@ add_action( 'wp_enqueue_scripts', 'wpmtst_scripts' );
  */
 function wpmtst_scripts_after_theme() {
 
-	$wpmst = WPMST();
+	wpmtst_register_cycle();
+
+	$styles = WPMST()->get_styles();
+
+	if ( $styles ) {
+		foreach ( $styles['later'] as $key => $style ) {
+			wp_enqueue_style( $style );
+		}
+	}
+
+	$scripts = WPMST()->get_scripts();
+
+	if ( $scripts ) {
+		foreach ( $scripts['later'] as $key => $script ) {
+			wp_enqueue_script( $script );
+		}
+	}
+}
+add_action( 'wp_enqueue_scripts', 'wpmtst_scripts_after_theme', 200 );
+
+
+/**
+ * Register our slider if necessary.
+ *
+ * @since 2.3 As separate function.
+ */
+function wpmtst_register_cycle() {
 	$plugin_version = get_option( 'wpmtst_plugin_version' );
-
-	/**
-	 * Register jQuery Cycle plugin after theme to prevent conflicts.
-	 *
-	 * Everybody loves Cycle!
-	 *
-	 * In case the theme loads cycle.js for a slider, we check after it's enqueue function.
-	 * If registered, we register our slider script using existing Cycle handle.
-	 * If not registered, we register it with our Cycle handle.
-	 *
-	 * @since 1.14.1
-	 */
-
 	$filenames = array(
 		'jquery.cycle.all.min.js',
 		'jquery.cycle.all.js',
@@ -100,8 +116,8 @@ function wpmtst_scripts_after_theme() {
 
 	$cycle_handle = wpmtst_is_registered( $filenames );
 
-	if ( !$cycle_handle ) {
-		 // Using unique handle and loading Cycle2 for better dimension handling.
+	if ( ! $cycle_handle ) {
+		// Using unique handle and loading Cycle2 for better dimension handling.
 		$cycle_handle = 'jquery-cycle-in-wpmtst';
 		wp_register_script( $cycle_handle, WPMTST_URL . 'js/cycle/jquery.cycle2.min.js', array( 'jquery' ), '2.1.6', true );
 	}
@@ -109,28 +125,4 @@ function wpmtst_scripts_after_theme() {
 	// Our slider handler, dependent on whichever jQuery Cycle plugin is being used.
 	wp_register_script( 'jquery-actual', WPMTST_URL . 'js/actual/jquery.actual.min.js', array( 'jquery' ), false, true );
 	wp_register_script( 'wpmtst-slider', WPMTST_URL . 'js/wpmtst-cycle.js', array( $cycle_handle, 'jquery-actual' ), $plugin_version, true );
-
-	/**
-	 * Enqueue "later" scripts and styles.
-	 *
-	 * @since 1.15.0
-	 */
-
-	$styles = $wpmst->get_styles();
-
-	if ( $styles ) {
-		foreach ( $styles['later'] as $key => $style ) {
-			wp_enqueue_style( $style );
-		}
-	}
-
-	$scripts = $wpmst->get_scripts();
-
-	if ( $scripts ) {
-		foreach ( $scripts['later'] as $key => $script ) {
-			wp_enqueue_script( $script );
-		}
-	}
-
 }
-add_action( 'wp_enqueue_scripts', 'wpmtst_scripts_after_theme', 200 );

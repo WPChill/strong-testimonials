@@ -18,8 +18,9 @@
  */
 function wpmtst_get_default_options() {
 	$default_options = array(
-		'reorder'   => false,
-		'scrolltop' => true,
+		'reorder'           => false,
+		'scrolltop'         => true,
+		'remove_whitespace' => true,
 	);
 
 	return $default_options;
@@ -348,7 +349,7 @@ function wpmtst_get_default_form_options() {
 		'email_message'     => __( 'New testimonial submission for %BLOGNAME%. This is awaiting action from the website administrator.', 'strong-testimonials' ),
 		'captcha'           => '',
 		'honeypot_before'   => 0,
-		'honeypot_after'    => 1,
+		'honeypot_after'    => 0,
 		'messages'          => $default_messages,
 	);
 
