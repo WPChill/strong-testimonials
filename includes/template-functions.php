@@ -13,7 +13,7 @@
  * @param null $id
  */
 function strong_testimonials_view( $id = null ) {
-	if ( !$id ) return;
+	if ( ! $id ) return;
 
 	$out   = WPMST()->get_view_defaults();
 	$pairs = array();
@@ -34,23 +34,27 @@ function wpmtst_the_title( $before = '', $after = '' ) {
 }
 
 /**
+ * Display the testimonial content.
+ *
  * @param null $length
+ * @todo Use native auto-excerpt and trim_words instead.
  */
 function wpmtst_the_content( $length = null ) {
 	if ( $length ) {
-		$output = wpmtst_get_field( 'truncated', array( 'char_limit' => $length ) );
-	} else {
-		// excerpt overrides length overrides full content
-		extract( WPMST()->atts( array( 'excerpt', 'length' ) ) );
-		if ( $excerpt ) {
-			$output = get_the_excerpt();
-		} elseif ( $length ) {
-			$output = wpmtst_get_field( 'truncated', array( 'char_limit' => $length ) );
-		} else {
-			$output = wpautop( get_the_content() );
-		}
+		$excerpt = false;
 	}
-	echo do_shortcode( $output );
+	else {
+		$excerpt = WPMST()->atts( 'excerpt' );
+		$length  = WPMST()->atts( 'length' );
+	}
+
+	// {excerpt} overrides {length} overrides {full content}
+	if ( $excerpt )
+		the_excerpt();
+	elseif ( $length )
+		echo do_shortcode( wpmtst_get_field( 'truncated', array( 'char_limit' => $length ) ) );
+	else
+		the_content();
 }
 
 /**
@@ -391,7 +395,11 @@ function wpmtst_field( $field = null, $args = array() ) {
  *
  * Thanks to Matthew Harris.
  * @link https://github.com/cdillon/strong-testimonials/issues/2
+ * @param $field
+ * @param array $args
  * @since 1.15.7
+ *
+ * @return mixed|string
  */
 function wpmtst_get_field( $field, $args = array() ) {
 	if ( ! $field ) return '';

@@ -160,6 +160,10 @@ Not yet.
 
 == Changelog ==
 
+= 2.3.1 - March 12, 2016 =
+* Allow normal filters on testimonial content and excerpts.
+* Compatible with [WPGlobus](https://wordpress.org/plugins/wpglobus/) translation plugin.
+
 = 2.3 - March 9, 2016 =
 * Improve compatibility with [Posts for Page](https://wordpress.org/plugins/posts-for-page/), [Custom Content Shortcode](https://wordpress.org/plugins/custom-content-shortcode/), and other plugins that use shortcodes to pull in other content.
 * Add form handling to strong_testimonials_view() template function.
@@ -327,4 +331,4 @@ Not yet.
 
 == Upgrade Notice ==
 
-Fix conflict with Toolset Views plugin. Adding a Persian translation.
+Improve compatibility. Fix minor bugs.

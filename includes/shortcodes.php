@@ -333,6 +333,7 @@ function wpmtst_honeypot_before() {
  * Honeypot preprocessor
  */
 function wpmtst_honeypot_after() {
+	// TODO Something is preventing JS from adding this so the form fails.
 	if ( ! isset ( $_POST['wpmtst_after'] ) ) {
 		do_action( 'honeypot_after_spam_testimonial', $_POST );
 		$form_options = get_option( 'wpmtst_form_options' );
