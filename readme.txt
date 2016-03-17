@@ -160,6 +160,9 @@ Not yet.
 
 == Changelog ==
 
+= 2.3.2 - March 17, 2016 =
+* Fix bug when getting fields for Polylang.
+
 = 2.3.1 - March 12, 2016 =
 * Allow normal filters on testimonial content and excerpts.
 * Compatible with [WPGlobus](https://wordpress.org/plugins/wpglobus/) translation plugin.

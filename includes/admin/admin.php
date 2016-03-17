@@ -260,8 +260,7 @@ function wpmtst_admin_polylang() {
 	wp_enqueue_style( 'wpmtst-admin-style-polylang', WPMTST_URL . 'css/admin/polylang.css', array(), $plugin_version );
 
 	include_once WPMTST_INC . 'defaults.php';
-	$fields = wpmtst_get_custom_fields();
-	wpmtst_form_fields_polylang( $fields );
+	$fields = wpmtst_get_all_fields();
 	wpmtst_form_fields_polylang( $fields );
 	$form_options = get_option( 'wpmtst_form_options', array() );
 	wpmtst_form_messages_polylang( $form_options['messages'] );
