@@ -505,7 +505,10 @@ jQuery(document).ready(function($) {
 			$("#column-count-wrapper").fadeIn();
 
 		if( 'view-layout-masonry' == layout ) {
-			$("#view-pagination").prop("checked",false).change();
+			if ( $("#view-pagination").is(":checked") ) {
+				alert('Masonry is incompatible with pagination. Please disable pagination first.');
+				$("#view-layout-normal").prop("checked", true).change();
+			}
 		}
 	}
 
@@ -513,6 +516,18 @@ jQuery(document).ready(function($) {
 
 	layoutRadios.on("change", layoutDescriptions);
 
+	/**
+	 * Pagination change listener
+	 */
+	function paginationChangeListener() {
+		// Pagination is incompatible with Masonry
+		if ( $(this).is(":checked") && "masonry" == layoutRadios.filter(":checked").val() ) {
+			alert('Pagination is incompatible with Masonry. Please select another layout first.');
+			$(this).prop("checked", false).change();
+		}
+	}
+
+	$("#view-pagination").on("change",paginationChangeListener);
 
 	/**
 	 * Background change listener

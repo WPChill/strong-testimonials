@@ -861,7 +861,7 @@ function wpmtst_sanitize_view( $input ) {
 	$view_data['class'] = sanitize_text_field( $input['class'] );
 
 	// Background
-	$view_data['background']              = WPMST()->get_background_defaults();
+	$view_data['background'] = WPMST()->get_background_defaults();
 	if ( !isset( $input['background']['type'] ) || 'none' == $input['background']['type'] ) {
 		$view_data['background']['type'] = '';
 	}
@@ -875,10 +875,16 @@ function wpmtst_sanitize_view( $input ) {
 	$view_data['background']['example-font-color'] = sanitize_text_field( $input['background']['example-font-color'] );
 
 	// Layout input may have been disabled by selecting the widget template so no value is posted.
-	if ( !isset( $input['layout'] ) )
-		$view_data['layout'] = 'normal';
-	else
+	if ( ! isset( $input['layout'] ) ) {
+		$view_data['layout'] = '';
+	}
+	else {
+		// pagination and Masonry are incompatible
 		$view_data['layout'] = sanitize_text_field( $input['layout'] );
+		if ( isset( $input['pagination'] ) && 'masonry' == $view_data['layout'] ) {
+			$view_data['layout'] = '';
+		}
+	}
 
 	$view_data['column_count'] = sanitize_text_field( $input['column_count'] );
 

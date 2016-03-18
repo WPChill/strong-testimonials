@@ -160,6 +160,9 @@ Not yet.
 
 == Changelog ==
 
+= 2.3.3 - March 18, 2016 =
+* Prevent incompatible combination of pagination and Masonry.
+
 = 2.3.2 - March 17, 2016 =
 * Fix bug when getting fields for Polylang.
 
@@ -334,4 +337,4 @@ Not yet.
 
 == Upgrade Notice ==
 
-Improve compatibility. Fix minor bugs.
+Improved compatibility. Fixed minor bugs.

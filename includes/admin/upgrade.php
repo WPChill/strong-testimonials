@@ -334,6 +334,12 @@ function wpmtst_default_settings() {
 				unset( $view_data['form-ajax'] );
 			}
 
+			if ( isset( $view_data['pagination'] ) && $view_data['pagination'] ) {
+				if ( isset( $view_data['layout'] ) && 'masonry' == $view_data['layout'] ) {
+					$view_data['layout'] = '';
+				}
+			}
+
 			// Merge in new default values
 			$view['data'] = array_merge( $new_default_view, $view_data );
 
