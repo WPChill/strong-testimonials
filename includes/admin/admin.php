@@ -92,6 +92,43 @@ add_action( 'admin_init', 'wpmtst_deny_plugins_init', 200 );
 
 
 /**
+ * Plugin and theme compatibility in admin.
+ *
+ * @since 2.4.0
+ */
+function wpmtst_compat__admin_init() {
+	$theme = wp_get_theme();
+
+	/* ------------------------------------------------------------
+	 * Theme Name: Mercury
+	 * Theme URI: http://themes.themegoods2.com/mercury
+	 * Description: Premium Template for Photography Portfolio
+	 * Version: 1.7.5
+	 * Author: Peerapong Pulpipatnan
+	 * Author URI: http://themeforest.net/user/peerapong
+	 * ------------------------------------------------------------
+	 * Mercury enqueues its scripts and styles poorly.
+	 * 1. on the `admin_init` hook
+	 * 2. UNconditionally
+	 */
+	if ( 'Mercury' == $theme->get( 'Name' ) && 'http://themes.themegoods2.com/mercury' == $theme->get( 'ThemeURI' )	) {
+
+		/** Screen information is not available yet. */
+		//$screen = get_current_screen();
+		//if ( $screen && 'wpm-testimonial' == $screen->post_type ) {
+
+		if ( false !== strpos( $_SERVER['QUERY_STRING'], 'post_type=wpm-testimonial' ) ) {
+			if ( function_exists( 'pp_add_init' ) ) {
+				remove_action( 'admin_init', 'pp_add_init' );
+			}
+		}
+
+	}
+}
+add_action( 'admin_init', 'wpmtst_compat__admin_init', 1 );
+
+
+/**
  * Prevent other post ordering plugins, in admin_menu hook.
  *
  * @since 1.16.0

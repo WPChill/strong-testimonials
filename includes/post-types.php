@@ -1,6 +1,13 @@
 <?php
 /**
  * Register Post Type and Taxonomy
+ *
+ * @since 1.4.0
+ * @since 1.8.0   $args['hierarchical'] => false
+ * @since 1.15.10 $args['exclude_from_search'] => false
+ * @since 2.4.0   Move 'custom-fields' to an option.
+ *                Added 'wpmtst_testimonial_supports' filter.
+ *                Added 'wpmtst_exclude_from_search' filter.
  */
 function wpmtst_register_cpt() {
 
@@ -20,18 +27,27 @@ function wpmtst_register_cpt() {
 		'parent_item_colon'  => ''
 	);
 
+	$supports = apply_filters( 'wpmtst_testimonial_supports', array(
+		'title',
+		'excerpt',
+		'editor',
+		'thumbnail',
+		'page-attributes',
+	) );
+
 	$testimonial_args = array(
 		'labels'              => $testimonial_labels,
 		'singular_label'      => _x( 'testimonial', 'post type singular label', 'strong-testimonials' ),
 		'public'              => true,
 		'show_ui'             => true,
 		'capability_type'     => 'post',
-		'hierarchical'        => false, // @since 1.8
+		'hierarchical'        => false,
 		'rewrite'             => array( 'slug' => _x( 'testimonial', 'slug', 'strong-testimonials' ) ), // @since 1.8
 		'menu_icon'           => 'dashicons-editor-quote',
 		'menu_position'       => 20,
-		'exclude_from_search' => false, // @since 1.15.10
-		'supports'            => array( 'title', 'excerpt', 'editor', 'thumbnail', 'custom-fields', 'page-attributes' )
+		'exclude_from_search' => apply_filters( 'wpmtst_exclude_from_search', false ),
+		'supports'            => $supports,
+		'taxonomies'          => array( 'wpm-testimonial-category' ),
 	);
 
 	register_post_type( 'wpm-testimonial', $testimonial_args );
@@ -57,13 +73,6 @@ function wpmtst_register_cpt() {
 			'slug' => 'view',
 		)
 	) );
-
-	/**
-	 * Attaching taxonomy to custom post type, per the codex.
-	 *
-	 * @since 1.15.10
-	 */
-	register_taxonomy_for_object_type( 'wpm-testimonial-category', 'wpm-testimonial' );
 
 }
 add_action( 'init', 'wpmtst_register_cpt', 5 );

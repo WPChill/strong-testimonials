@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Strong Testimonials v1.15.12\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-08 04:34-0500\n"
-"PO-Revision-Date: 2016-02-08 04:34-0500\n"
+"POT-Creation-Date: 2016-04-03 16:12-0400\n"
+"PO-Revision-Date: 2016-04-03 16:12-0400\n"
 "Last-Translator: Chris Dillon <chris@wpmission.com>\n"
 "Language-Team: \n"
 "Language: ar\n"
@@ -41,69 +41,65 @@ msgstr ""
 msgid "Error"
 msgstr ""
 
-#: ../includes/admin/admin.php:215
-msgid "Filter Categories"
-msgstr ""
-
 # @ strong-testimonials
-#: ../includes/admin/admin.php:263
+#: ../includes/admin/admin.php:312
 msgctxt "post editor"
 msgid "Client Details"
 msgstr "بيانات العميل"
 
-#: ../includes/admin/admin.php:278
+#: ../includes/admin/admin.php:327
 msgctxt "post editor"
 msgid "To add a photo or logo, use the Featured Image option."
 msgstr ""
 
 # @ strong-testimonials
-#: ../includes/admin/admin.php:335 ../includes/defaults.php:376
+#: ../includes/admin/admin.php:384 ../includes/defaults.php:387
 msgid "Excerpt"
 msgstr "مقتطف"
 
 # @ strong-testimonials
-#: ../includes/admin/admin.php:346 ../includes/admin/admin.php:468
+#: ../includes/admin/admin.php:395 ../includes/admin/admin.php:517
 msgid "Thumbnail"
 msgstr "صورة مصغرة"
 
 # @ strong-testimonials
-#: ../includes/admin/admin.php:358
+#: ../includes/admin/admin.php:407
 msgid "Category"
 msgstr "قسم"
 
 # @ strong-testimonials
-#: ../includes/admin/admin.php:360
+#: ../includes/admin/admin.php:409
 msgid "Date"
 msgstr "اليوم"
 
-#: ../includes/admin/admin.php:437
+#: ../includes/admin/admin.php:486
 msgid "Y/m/d g:i:s A"
 msgstr ""
 
 # @ strong-testimonials
-#: ../includes/admin/admin.php:480
+#: ../includes/admin/admin.php:529
 msgid "ID"
 msgstr "رقم المعرف"
 
 # @ strong-testimonials
-#: ../includes/admin/admin.php:481 ../includes/admin/settings/email-from.php:12
-#: ../includes/admin/settings/email-to.php:12 ../includes/defaults.php:214
+#: ../includes/admin/admin.php:530 ../includes/admin/settings/email-from.php:12
+#: ../includes/admin/settings/email-to.php:12 ../includes/defaults.php:225
 msgid "Name"
 msgstr "الاسم"
 
 # @ strong-testimonials
-#: ../includes/admin/admin.php:482
+#: ../includes/admin/admin.php:531
 msgid "Slug"
 msgstr "اسم الرابط"
 
 # @ strong-testimonials
-#: ../includes/admin/admin.php:483
+#: ../includes/admin/admin.php:532
 msgid "Posts"
 msgstr "مشاركات"
 
 # @ strong-testimonials
 #. translators: %s is the name of the plugin.
-#: ../includes/admin/admin.php:647
+#: ../includes/admin/admin.php:678
 #, php-format
 msgctxt "installation"
 msgid "Unable to load %s"
@@ -111,7 +107,7 @@ msgstr "فشل جلب %s"
 
 # @ strong-testimonials
 #. translators: %s is a WordPress version number.
-#: ../includes/admin/admin.php:650
+#: ../includes/admin/admin.php:681
 #, php-format
 msgctxt "installation"
 msgid ""
@@ -120,20 +116,20 @@ msgid ""
 msgstr "هذه الإضافة تتطلب <strong> وردبريس %s</strong> أو أعلى لذلك تم تعطيلها."
 
 # @ strong-testimonials
-#: ../includes/admin/admin.php:651
+#: ../includes/admin/admin.php:682
 msgctxt "installation"
 msgid "Please upgrade WordPress and try again."
 msgstr "الرجاء تحديث ووردبريس ثم المحاولة لاحقاً"
 
 # @ strong-testimonials
-#: ../includes/admin/admin.php:652
+#: ../includes/admin/admin.php:683
 #, php-format
 msgctxt "installation"
 msgid "Back to the WordPress <a href=\"%s\">Plugins page</a>"
 msgstr "الرجوع <a href=\"%s\"> لصفحة الإضافات </a> في ووردبريس"
 
 # @ default
-#: ../includes/admin/custom-fields.php:25 ../includes/admin/settings.php:195
+#: ../includes/admin/custom-fields.php:25 ../includes/admin/settings.php:199
 #: ../includes/admin/views.php:194
 msgid "You do not have sufficient permissions to access this page."
 msgstr "ليس لديك الصلاحيات الكافية لدخول هذه الصفحة."
@@ -219,77 +215,77 @@ msgid "Name"
 msgstr "الاسم"
 
 # @ strong-testimonials
-#: ../includes/admin/custom-fields.php:224
+#: ../includes/admin/custom-fields.php:231
 msgid "Use only lowercase letters, numbers, and underscores."
 msgstr "الرجاء استخدام أحرف صغيرة، أرقام أو  الشرطة السفلية _ ."
 
-#: ../includes/admin/custom-fields.php:225
+#: ../includes/admin/custom-fields.php:232
 msgid "Cannot be \"name\" or \"date\"."
 msgstr ""
 
 # @ strong-testimonials
-#: ../includes/admin/custom-fields.php:242
+#: ../includes/admin/custom-fields.php:253
 msgctxt "noun"
 msgid "Type"
 msgstr "النوع"
 
 # @ strong-testimonials
-#: ../includes/admin/custom-fields.php:267
+#: ../includes/admin/custom-fields.php:278
 msgid "Post Fields"
 msgstr "حقل المشاركة"
 
 # @ strong-testimonials
 #. translators: On the Views admin screen.
-#: ../includes/admin/custom-fields.php:274
+#: ../includes/admin/custom-fields.php:285
 #: ../includes/admin/views/option-client-section.php:3
 msgid "Custom Fields"
 msgstr "حقل مخصص"
 
-#: ../includes/admin/custom-fields.php:285
+#: ../includes/admin/custom-fields.php:296
 msgid "Optional Fields"
 msgstr ""
 
 # @ default
-#: ../includes/admin/custom-fields.php:355
+#: ../includes/admin/custom-fields.php:366
 #: ../includes/class-strong-views-list-table.php:77
 msgid "Delete"
 msgstr "حذف"
 
 # @ strong-testimonials
-#: ../includes/admin/custom-fields.php:357
+#: ../includes/admin/custom-fields.php:368
 msgctxt "verb"
 msgid "Close"
 msgstr "إغلاق"
 
 # @ strong-testimonials
-#: ../includes/admin/custom-fields.php:381
+#: ../includes/admin/custom-fields.php:392
 msgid "Required"
 msgstr "مطلوب"
 
 # @ strong-testimonials
-#: ../includes/admin/custom-fields.php:398
+#: ../includes/admin/custom-fields.php:409
 msgid "Placeholder"
 msgstr "قيمة أولية"
 
 # @ strong-testimonials
-#: ../includes/admin/custom-fields.php:408
+#: ../includes/admin/custom-fields.php:419
 #: ../includes/admin/settings/form.php:105
 msgid "Before"
 msgstr "قبل"
 
 # @ strong-testimonials
-#: ../includes/admin/custom-fields.php:416
+#: ../includes/admin/custom-fields.php:427
 #: ../includes/admin/settings/form.php:112
 msgid "After"
 msgstr "بعد"
 
 # @ strong-testimonials
-#: ../includes/admin/custom-fields.php:437
+#: ../includes/admin/custom-fields.php:448
 msgid "Admin Table"
 msgstr "جدول المدير"
 
 # @ strong-testimonials
-#: ../includes/admin/custom-fields.php:442
+#: ../includes/admin/custom-fields.php:453
 msgid "required"
 msgstr "مطلوب"
 
@@ -330,47 +326,48 @@ msgstr ""
 #: ../includes/admin/guide/plugin-sidebar.php:10
 #, php-format
 msgid ""
-"Use the <a href=\"%s\" target=\"_blank\">support forum</a> or <a href=\"%s\" "
-"target=\"_blank\">contact me</a>."
+"Use the <a href=\"%s\" target=\"_blank\">plugin support</a> forum<br>\n"
+" \t\t\t\tor <a href=\"%s\" target=\"_blank\">submit a trouble ticket</a><br>\n"
+" \t\t\t\tor <a href=\"%s\" target=\"_blank\">contact me</a>."
 msgstr ""
 
-#: ../includes/admin/guide/plugin-sidebar.php:15
+#: ../includes/admin/guide/plugin-sidebar.php:20
 msgid "Help? Idea? Bug?"
 msgstr ""
 
-#: ../includes/admin/guide/plugin-sidebar.php:25
+#: ../includes/admin/guide/plugin-sidebar.php:30
 #, php-format
 msgid "<a href=\"%s\" target=\"_blank\">How to customize the form</a>"
 msgstr ""
 
-#: ../includes/admin/guide/plugin-sidebar.php:31
+#: ../includes/admin/guide/plugin-sidebar.php:36
 #, php-format
 msgid "<a href=\"%s\" target=\"_blank\">See the new demos</a>"
 msgstr ""
 
-#: ../includes/admin/guide/plugin-sidebar.php:37
+#: ../includes/admin/guide/plugin-sidebar.php:42
 #, php-format
 msgid "<a href=\"%s\" target=\"_blank\">Subscribe to the newsletter</a>"
 msgstr ""
 
-#: ../includes/admin/guide/plugin-sidebar.php:42
+#: ../includes/admin/guide/plugin-sidebar.php:47
 msgid "More resources"
 msgstr ""
 
-#: ../includes/admin/guide/plugin-sidebar.php:54
+#: ../includes/admin/guide/plugin-sidebar.php:59
 #, php-format
 msgid ""
 "Post an honest <a href=\"%s\" target=\"_blank\">review</a> on wordpress.org."
 msgstr ""
 
-#: ../includes/admin/guide/plugin-sidebar.php:59
+#: ../includes/admin/guide/plugin-sidebar.php:64
 #, php-format
 msgid ""
 "<a href=\"%s\" target=\"_blank\">Donate</a> to the Theme & Plugin "
 "Compatibility Fund."
 msgstr ""
 
-#: ../includes/admin/guide/plugin-sidebar.php:64
+#: ../includes/admin/guide/plugin-sidebar.php:69
 msgid "Want to help?"
 msgstr ""
 
@@ -584,7 +581,7 @@ msgid "choose a template"
 msgstr ""
 
 #: ../includes/admin/guide/welcome.php:5
-msgid "Welcome to Strong Testimonials version 2.0"
+msgid "Welcome to Strong Testimonials version 2.4"
 msgstr ""
 
 #: ../includes/admin/guide/welcome.php:7
@@ -593,19 +590,12 @@ msgstr ""
 
 #: ../includes/admin/guide/welcome.php:9
 msgid ""
-"The &#91;strong&#93; and &#91;wpmtst&#93; shortcodes and the original widget "
-"have been removed."
+"The &#91;strong&#93;, &#91;wpmtst&#93; and &#91;read_more&#93; shortcodes and "
+"the original widget <span style=\"color: red;\">were removed</span> in "
+"version 2.0."
 msgstr ""
 
-#: ../includes/admin/guide/welcome.php:11
-msgid "Improved compatibility with WPML & Polylang."
-msgstr ""
-
-#: ../includes/admin/guide/welcome.php:13
-msgid "Improved handling of special characters in the Fields editor."
-msgstr ""
-
-#: ../includes/admin/guide/welcome.php:15
+#: ../includes/admin/guide/welcome.php:23
 msgid "Thanks for choosing Strong Testimonials!"
 msgstr ""
 
@@ -629,42 +619,42 @@ msgid ""
 msgstr ""
 
 # @ strong-testimonials
-#: ../includes/admin/settings.php:28 ../includes/admin/settings.php:29
+#: ../includes/admin/settings.php:27 ../includes/admin/settings.php:28
 msgid "Settings"
 msgstr "الإعدادات"
 
 # @ strong-testimonials
-#: ../includes/admin/settings.php:35 ../includes/admin/settings.php:36
+#: ../includes/admin/settings.php:34 ../includes/admin/settings.php:35
 msgctxt "noun"
 msgid "Guide"
 msgstr "الدليل"
 
 # @ strong-testimonials
-#: ../includes/admin/settings.php:199
+#: ../includes/admin/settings.php:203
 msgid "Testimonial Settings"
 msgstr "إعدادات الشهادة"
 
 # @ default
-#: ../includes/admin/settings.php:203
+#: ../includes/admin/settings.php:207
 msgid "Settings saved."
 msgstr "تم حفظ الإعدادات"
 
 # @ strong-testimonials
-#: ../includes/admin/settings.php:215
+#: ../includes/admin/settings.php:216
 msgctxt "adjective"
 msgid "General"
 msgstr "عام"
 
 # @ strong-testimonials
-#: ../includes/admin/settings.php:216 ../includes/defaults.php:364
+#: ../includes/admin/settings.php:217 ../includes/defaults.php:375
 msgid "Form"
 msgstr "نموذج"
 
-#: ../includes/admin/settings.php:218
+#: ../includes/admin/settings.php:219
 msgid "Licenses"
 msgstr ""
 
-#: ../includes/admin/settings.php:239
+#: ../includes/admin/settings.php:240
 msgid "Save Changes"
 msgstr ""
 
@@ -675,8 +665,8 @@ msgstr "من:"
 
 # @ strong-testimonials
 #: ../includes/admin/settings/email-from.php:15
-#: ../includes/admin/settings/email-to.php:15 ../includes/defaults.php:153
-#: ../includes/defaults.php:223
+#: ../includes/admin/settings/email-to.php:15 ../includes/defaults.php:164
+#: ../includes/defaults.php:234
 msgid "Email"
 msgstr "البريد الإلكتروني"
 
@@ -763,7 +753,6 @@ msgid "Restore Defaults"
 msgstr "إستعادة الافتراضيات"
 
 #: ../includes/admin/settings/form.php:43
-msgctxt "noun"
 msgid "Form Actions"
 msgstr ""
 
@@ -812,6 +801,11 @@ msgstr ""
 
 # @ strong-testimonials
 #: ../includes/admin/settings/form.php:107
+msgid "Recommended."
+msgstr "موصى به"
+
+# @ strong-testimonials
+#: ../includes/admin/settings/form.php:107
 msgid ""
 "Traps spambots by adding an extra empty field that is invisible to humans but "
 "not to spambots which tend to fill in every field they find in the form code. "
@@ -820,11 +814,6 @@ msgstr ""
 "فخ للمتطفلين و برامج التطفل (السبام) وذلك بإضافة حقل فارغ اضافي لا يمكن رؤيته "
 "من قبل المستخدم و لكن يمكن رؤيته من قبل هذه البرامج التي تميل إلى ملء كل خانة "
 "فارغة . (حقل فارغ = مستخدم حقيقي . حقل ليس فارغ = سبام)."
-
-# @ strong-testimonials
-#: ../includes/admin/settings/form.php:114
-msgid "Recommended."
-msgstr "موصى به"
 
 # @ strong-testimonials
 #: ../includes/admin/settings/form.php:114
@@ -890,7 +879,64 @@ msgid "Reordering"
 msgstr ""
 
 #: ../includes/admin/settings/general.php:19
-msgid "Enable drag-and-drop reordering in the testimonial list."
+msgid "Enable drag-and-drop reordering in the testimonial list. Off by default."
+msgstr ""
+
+#: ../includes/admin/settings/general.php:26
+msgid "Scroll Top"
+msgstr ""
+
+#: ../includes/admin/settings/general.php:31
+msgid ""
+"In paginated Views, scroll to the top when a new page is selected. On by "
+"default."
+msgstr ""
+
+#: ../includes/admin/settings/general.php:38
+msgid "Remove Whitespace"
+msgstr ""
+
+#: ../includes/admin/settings/general.php:43
+msgid ""
+"Remove space between HTML tags in View output to prevent double paragraphs "
+"<em>(wpautop)</em>. On by default."
+msgstr ""
+
+#: ../includes/admin/settings/general.php:50
+msgid "Custom Fields Meta Box"
+msgstr ""
+
+#: ../includes/admin/settings/general.php:55
+msgid ""
+"Show the <strong>Custom Fields</strong> meta box in the testimonial post "
+"editor. This does not affect the <strong>Client Fields</strong> meta box. Off "
+"by default."
+msgstr ""
+
+#: ../includes/admin/settings/general.php:63
+msgid "Allow comments"
+msgstr ""
+
+#: ../includes/admin/settings/general.php:68
+msgid ""
+"Allow comments on new testimonials. Requires using your theme's single post "
+"template. Off by default."
+msgstr ""
+
+#: ../includes/admin/settings/general.php:80
+msgid "Troubleshooting"
+msgstr ""
+
+#: ../includes/admin/settings/general.php:88
+msgid "Log nothing"
+msgstr ""
+
+#: ../includes/admin/settings/general.php:91
+msgid "Log failed emails only (default)"
+msgstr ""
+
+#: ../includes/admin/settings/general.php:94
+msgid "Log both successful and failed emails"
 msgstr ""
 
 #: ../includes/admin/settings/licenses.php:19
@@ -958,29 +1004,33 @@ msgctxt "display order"
 msgid "oldest first"
 msgstr ""
 
-#: ../includes/admin/views.php:379 ../includes/defaults.php:84
+#: ../includes/admin/views.php:384 ../includes/defaults.php:94
 msgid "text"
 msgstr ""
 
-#: ../includes/admin/views.php:380
+#: ../includes/admin/views.php:385
 msgid "link with field"
 msgstr ""
 
-#: ../includes/admin/views.php:381
+#: ../includes/admin/views.php:386
 msgid "link"
 msgstr ""
 
-#: ../includes/admin/views.php:382
+#: ../includes/admin/views.php:387
 msgid "date"
 msgstr ""
 
-#: ../includes/admin/views.php:519
+#: ../includes/admin/views.php:524
 msgid "new tab"
 msgstr ""
 
-#: ../includes/admin/views.php:538
+#: ../includes/admin/views.php:543
 #, php-format
 msgid "<a href=\"%s\" target=\"_blank\">more about date formats</a>"
+msgstr ""
+
+#: ../includes/admin/views.php:948 ../includes/admin/views.php:970
+msgid "filter categories"
 msgstr ""
 
 #. translators: On the Views admin screen.
@@ -1110,7 +1160,7 @@ msgstr ""
 
 # @ strong-testimonials
 #. translators: On the Views admin screen.
-#: ../includes/admin/views/option-category.php:4 ../includes/post-types.php:49
+#: ../includes/admin/views/option-category.php:4 ../includes/post-types.php:65
 msgid "Categories"
 msgstr "الأقسام"
 
@@ -1175,7 +1225,7 @@ msgstr ""
 #: ../includes/admin/views/option-compat.php:39
 msgid ""
 "Required <b>on</b> if using the template function "
-"<code>strong_testimonial_view()</code>."
+"<code>strong_testimonials_view()</code>."
 msgstr ""
 
 #. translators: On the Views admin screen.
@@ -1375,13 +1425,13 @@ msgstr ""
 msgid "Navigation"
 msgstr ""
 
-#: ../includes/admin/views/option-pagination.php:24 ../includes/l10n.php:103
-#: ../includes/l10n.php:161
+#: ../includes/admin/views/option-pagination.php:24 ../includes/l10n.php:170
+#: ../includes/l10n.php:228
 msgid "before"
 msgstr ""
 
-#: ../includes/admin/views/option-pagination.php:27 ../includes/l10n.php:102
-#: ../includes/l10n.php:160
+#: ../includes/admin/views/option-pagination.php:27 ../includes/l10n.php:169
+#: ../includes/l10n.php:227
 msgid "after"
 msgstr ""
 
@@ -1427,7 +1477,7 @@ msgstr ""
 
 # @ strong-testimonials
 #. translators: On the Views admin screen.
-#: ../includes/admin/views/option-thumbnail.php:5 ../includes/defaults.php:70
+#: ../includes/admin/views/option-thumbnail.php:5 ../includes/defaults.php:80
 msgid "Featured Image"
 msgstr "صورة بارزة"
 
@@ -1567,345 +1617,340 @@ msgid "Delete \"%s\"?"
 msgstr ""
 
 # @ strong-testimonials
-#: ../includes/defaults.php:36
+#: ../includes/defaults.php:46
 msgid "This field is required."
 msgstr "هذا الحقل مطلوب"
 
 # @ strong-testimonials
-#: ../includes/defaults.php:53
+#: ../includes/defaults.php:63
 msgid "Testimonial Title"
 msgstr "عنوان الشهادة"
 
 # @ strong-testimonials
-#: ../includes/defaults.php:61
+#: ../includes/defaults.php:71
 msgid "Testimonial Content"
 msgstr "محتوى الشهادة"
 
-#: ../includes/defaults.php:88
+#: ../includes/defaults.php:98
 msgid "email"
 msgstr ""
 
-#: ../includes/defaults.php:92
+#: ../includes/defaults.php:102
 msgid "URL"
 msgstr ""
 
-# @ strong-testimonials
-#: ../includes/defaults.php:106
-msgid "categories"
-msgstr "أقسام"
-
-#: ../includes/defaults.php:107
+#: ../includes/defaults.php:118
 msgid "category selector"
 msgstr ""
 
-#: ../includes/defaults.php:135
+#: ../includes/defaults.php:146
 msgid "Default Form"
 msgstr ""
 
 # @ strong-testimonials
-#: ../includes/defaults.php:144
+#: ../includes/defaults.php:155
 msgid "Full Name"
 msgstr "الاسم الكامل"
 
 # @ strong-testimonials
-#: ../includes/defaults.php:147
+#: ../includes/defaults.php:158
 msgid "What is your full name?"
 msgstr "ماهو اسمك الكامل؟"
 
 # @ strong-testimonials
-#: ../includes/defaults.php:156
+#: ../includes/defaults.php:167
 msgid "What is your email address?"
 msgstr "ماهو بريدك الإلكتروني؟"
 
 # @ strong-testimonials
-#: ../includes/defaults.php:161
+#: ../includes/defaults.php:172
 msgid "Company Name"
 msgstr "اسم الشركة"
 
 # @ strong-testimonials
-#: ../includes/defaults.php:163
+#: ../includes/defaults.php:174
 msgid "What is your company name?"
 msgstr "ماهو اسم الشركة؟"
 
 # @ strong-testimonials
-#: ../includes/defaults.php:168
+#: ../includes/defaults.php:179
 msgid "Company Website"
 msgstr "موقع الشركة"
 
 # @ strong-testimonials
-#: ../includes/defaults.php:170
+#: ../includes/defaults.php:181
 msgid "Does your company have a website?"
 msgstr "هل يوجد موقع لشركتك؟"
 
 # @ strong-testimonials
-#: ../includes/defaults.php:178
+#: ../includes/defaults.php:189
 msgid "Heading"
 msgstr "عنوان"
 
 # @ strong-testimonials
-#: ../includes/defaults.php:181
+#: ../includes/defaults.php:192
 msgid "A headline for your testimonial."
 msgstr "عنوان لشهادتك"
 
 # @ strong-testimonials
-#: ../includes/defaults.php:186 ../includes/defaults.php:234
+#: ../includes/defaults.php:197 ../includes/defaults.php:245
 msgid "Testimonial"
 msgstr "شهادة"
 
 # @ strong-testimonials
-#: ../includes/defaults.php:189
+#: ../includes/defaults.php:200
 msgid "What do you think about us?"
 msgstr "ماذا تشعر تجاهنا؟"
 
 # @ strong-testimonials
-#: ../includes/defaults.php:194
+#: ../includes/defaults.php:205
 msgid "Photo"
 msgstr "صورة"
 
 # @ strong-testimonials
-#: ../includes/defaults.php:196
+#: ../includes/defaults.php:207
 msgid "Would you like to include a photo?"
 msgstr "هل تود إضافة صورة؟"
 
-#: ../includes/defaults.php:205
+#: ../includes/defaults.php:216
 msgid "Minimal Form"
 msgstr ""
 
-#: ../includes/defaults.php:263
+#: ../includes/defaults.php:274
 msgid "Custom Form"
 msgstr ""
 
 # @ strong-testimonials
 #. translators: Settings > Forms > Messages tab
 #. translators: Default message for required field message at top of form.
-#: ../includes/defaults.php:286 ../includes/defaults.php:288
+#: ../includes/defaults.php:297 ../includes/defaults.php:299
 msgid "Required field"
 msgstr "خانة مطلوبة"
 
 # @ strong-testimonials
 #. translators: Settings > Forms > Messages tab
-#: ../includes/defaults.php:293
+#: ../includes/defaults.php:304
 msgctxt "description"
 msgid "Captcha label"
 msgstr "عنوان كابتشا"
 
 # @ default
 #. translators: Default label for Captcha field on submission form.
-#: ../includes/defaults.php:295
+#: ../includes/defaults.php:306
 msgctxt "strong-testimonials"
 msgid "Captcha"
 msgstr "كابتشا"
 
 # @ strong-testimonials
 #. translators: Settings > Forms > Messages tab
-#: ../includes/defaults.php:300
+#: ../includes/defaults.php:311
 msgctxt "description"
 msgid "Submit button"
 msgstr "زر الإرسال"
 
 # @ strong-testimonials
 #. translators: Default label for the Submit button on testimonial form.
-#: ../includes/defaults.php:302
+#: ../includes/defaults.php:313
 msgctxt "the Submit button"
 msgid "Add Testimonial"
 msgstr "إضافة شهادة"
 
 # @ strong-testimonials
 #. translators: Settings > Forms > Messages tab
-#: ../includes/defaults.php:307
+#: ../includes/defaults.php:318
 msgctxt "description"
 msgid "Submission error"
 msgstr "خطأ في الإرسال"
 
 # @ strong-testimonials
 #. translators: Default message for submission form error.
-#: ../includes/defaults.php:309
+#: ../includes/defaults.php:320
 msgctxt "error message"
 msgid "There was a problem processing your testimonial."
 msgstr "حدث خطأ أثناء معالجة شهادتك"
 
 # @ strong-testimonials
 #. translators: Settings > Forms > Messages tab
-#: ../includes/defaults.php:314
+#: ../includes/defaults.php:325
 msgctxt "description"
 msgid "Submission success"
 msgstr "تم الإرسال بنجاح"
 
 # @ strong-testimonials
 #. translators: Default message for submission form success message.
-#: ../includes/defaults.php:316
+#: ../includes/defaults.php:327
 msgctxt "success message"
 msgid "Thank you! Your testimonial is awaiting moderation."
 msgstr "شكراً لك ، الشهادة في انتظار القبول من الإدارة."
 
 # @ strong-testimonials
 #. translators: Default subject line for new testimonial notification email.
-#: ../includes/defaults.php:341
+#: ../includes/defaults.php:352
 msgid "New testimonial for %BLOGNAME%"
 msgstr "شهادة جديدة لـ %BLOGNAME%"
 
 # @ strong-testimonials
 #. translators: Default message for new testimonial notification email.
-#: ../includes/defaults.php:343
+#: ../includes/defaults.php:354
 msgid ""
 "New testimonial submission for %BLOGNAME%. This is awaiting action from the "
 "website administrator."
 msgstr "شهادة جديدة لـ %BLOGNAME% في انتظار القبول من إدارة الموقع."
 
-#: ../includes/defaults.php:362
+#: ../includes/defaults.php:373
 msgid "Display"
 msgstr ""
 
 # @ strong-testimonials
-#: ../includes/defaults.php:363
+#: ../includes/defaults.php:374
 msgid "Slideshow"
 msgstr "العرض التقديمي"
 
-#: ../includes/defaults.php:369
+#: ../includes/defaults.php:380
 msgid "Random"
 msgstr ""
 
-#: ../includes/defaults.php:370
+#: ../includes/defaults.php:381
 msgid "Newest first"
 msgstr ""
 
-#: ../includes/defaults.php:371
+#: ../includes/defaults.php:382
 msgid "Oldest first"
 msgstr ""
 
-#: ../includes/defaults.php:377
+#: ../includes/defaults.php:388
 msgid "Length"
 msgstr ""
 
-#: ../includes/defaults.php:378
+#: ../includes/defaults.php:389
 msgid "Entire"
 msgstr ""
 
 # @ strong-testimonials
-#: ../includes/defaults.php:433 ../strong-testimonials.php:537
+#: ../includes/defaults.php:444 ../strong-testimonials.php:561
 msgctxt "link"
 msgid "Read more"
 msgstr "قراءة المزيد"
 
-#: ../includes/defaults.php:464
+#: ../includes/defaults.php:475
 msgid "Testimonial Form Fields"
 msgstr ""
 
-#: ../includes/defaults.php:465
+#: ../includes/defaults.php:476
 msgid "Testimonial Form Messages"
 msgstr ""
 
-#: ../includes/defaults.php:466
+#: ../includes/defaults.php:477
 msgid "Testimonial Notification Options"
 msgstr ""
 
-#: ../includes/form-handler-functions.php:255
-#: ../includes/form-handler-functions.php:267
-#: ../includes/form-handler-functions.php:279
+#: ../includes/form-handler-functions.php:260
+#: ../includes/form-handler-functions.php:272
+#: ../includes/form-handler-functions.php:284
 msgid "The Captcha failed. Please try again."
 msgstr ""
 
-#: ../includes/l10n.php:104 ../includes/l10n.php:162
+#: ../includes/l10n.php:171 ../includes/l10n.php:229
 msgid "placeholder"
 msgstr ""
 
-#: ../includes/l10n.php:105 ../includes/l10n.php:163
+#: ../includes/l10n.php:172 ../includes/l10n.php:230
 msgid "label"
 msgstr ""
 
-#: ../includes/l10n.php:137 ../includes/l10n.php:179
+#: ../includes/l10n.php:204 ../includes/l10n.php:246
 msgid "Email message"
 msgstr ""
 
-#: ../includes/l10n.php:138 ../includes/l10n.php:178
+#: ../includes/l10n.php:205 ../includes/l10n.php:245
 msgid "Email subject"
 msgstr ""
 
 # @ strong-testimonials
-#: ../includes/post-types.php:8
+#: ../includes/post-types.php:15
 msgctxt "post type general name"
 msgid "Testimonials"
 msgstr "الشهادات"
 
-#: ../includes/post-types.php:9
+#: ../includes/post-types.php:16
 msgctxt "admin menu name"
 msgid "Testimonials"
 msgstr ""
 
 # @ strong-testimonials
-#: ../includes/post-types.php:10
+#: ../includes/post-types.php:17
 msgctxt "post type singular name"
 msgid "Testimonial"
 msgstr "شهادة"
 
 # @ strong-testimonials
-#: ../includes/post-types.php:11
+#: ../includes/post-types.php:18
 msgctxt "post type"
 msgid "Add New"
 msgstr "إضافة جديد"
 
 # @ strong-testimonials
-#: ../includes/post-types.php:12
+#: ../includes/post-types.php:19
 msgid "Add New Testimonial"
 msgstr "إضافة شهادة جديدة"
 
 # @ strong-testimonials
-#: ../includes/post-types.php:13
+#: ../includes/post-types.php:20
 msgid "Edit Testimonial"
 msgstr "تعديل الشهادة"
 
 # @ strong-testimonials
-#: ../includes/post-types.php:14
+#: ../includes/post-types.php:21
 msgid "New Testimonial"
 msgstr "شهادة جديدة"
 
 # @ strong-testimonials
-#: ../includes/post-types.php:15
+#: ../includes/post-types.php:22
 msgid "All Testimonials"
 msgstr "كافة الشهادات"
 
 # @ strong-testimonials
-#: ../includes/post-types.php:16
+#: ../includes/post-types.php:23
 msgid "View Testimonial"
 msgstr "عرض الشهادات"
 
 # @ strong-testimonials
-#: ../includes/post-types.php:17
+#: ../includes/post-types.php:24
 msgid "Search Testimonials"
 msgstr "البحث في الشهادات"
 
 # @ strong-testimonials
-#: ../includes/post-types.php:18
+#: ../includes/post-types.php:25
 msgid "Nothing Found"
 msgstr "لم يتم العثور على شيء"
 
 # @ strong-testimonials
-#: ../includes/post-types.php:19
+#: ../includes/post-types.php:26
 msgid "Nothing found in Trash"
 msgstr "لم يتم إيجاد شيء في المهملات"
 
 # @ strong-testimonials
-#: ../includes/post-types.php:25
+#: ../includes/post-types.php:40
 msgctxt "post type singular label"
 msgid "testimonial"
 msgstr "شهادة"
 
 # @ strong-testimonials
-#: ../includes/post-types.php:30
+#: ../includes/post-types.php:45
 msgctxt "slug"
 msgid "testimonial"
 msgstr "شهادة"
 
-#: ../includes/post-types.php:47
+#: ../includes/post-types.php:63
 msgid "Testimonial Categories"
 msgstr ""
 
-#: ../includes/post-types.php:48
+#: ../includes/post-types.php:64
 msgid "Testimonial Category"
 msgstr ""
 
 # @ strong-testimonials
-#: ../includes/post-types.php:50
+#: ../includes/post-types.php:66
 msgid "All categories"
 msgstr "كل الأقسام"
 
@@ -1950,29 +1995,33 @@ msgstr ""
 msgid "Cheatin&#8217; huh?"
 msgstr ""
 
-#: ../strong-testimonials.php:423
+#: ../strong-testimonials.php:447
 msgid "light gray gradient"
 msgstr ""
 
-#: ../strong-testimonials.php:428
+#: ../strong-testimonials.php:452
 msgid "light blue gradient"
 msgstr ""
 
-#: ../strong-testimonials.php:433
+#: ../strong-testimonials.php:457
 msgid "sky blue gradient"
 msgstr ""
 
-#: ../strong-testimonials.php:438
+#: ../strong-testimonials.php:462
 msgid "light latte gradient"
 msgstr ""
 
-#: ../strong-testimonials.php:443
+#: ../strong-testimonials.php:467
 msgid "light green mist gradient"
 msgstr ""
 
-#: ../strong-testimonials.php:448
+#: ../strong-testimonials.php:472
 msgid "light plum gradient"
 msgstr ""
+
+# @ strong-testimonials
+#~ msgid "categories"
+#~ msgstr "أقسام"
 
 # @ strong-testimonials
 #~ msgctxt "testimonial"

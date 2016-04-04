@@ -3,7 +3,7 @@ Contributors: cdillon27
 Donate link: https://www.wpmission.com/donate/
 Tags: testimonials, testimonial widget, random testimonial, testimonial shortcode, testimonial slider, testimonial form
 Requires at least: 3.5
-Tested up to: 4.4.2
+Tested up to: 4.5
 Stable tag: trunk
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -160,6 +160,13 @@ Not yet.
 
 == Changelog ==
 
+= 2.4 - April 4, 2016 =
+* Add email notification troubleshooting log.
+* Add option to show Custom Fields meta box.
+* Add option to enable comments on individual testimonials.
+* Fix formatting of non-US date formats.
+* Use only standard content filters (wptexturize, convert_smilies, wpautop, shortcode_unautop, do_shortcode).
+
 = 2.3.3 - March 18, 2016 =
 * Prevent incompatible combination of pagination and Masonry.
 
@@ -167,7 +174,7 @@ Not yet.
 * Fix bug when getting fields for Polylang.
 
 = 2.3.1 - March 12, 2016 =
-* Allow normal filters on testimonial content and excerpts.
+* Apply all content filters to testimonial content and excerpts.
 * Compatible with [WPGlobus](https://wordpress.org/plugins/wpglobus/) translation plugin.
 
 = 2.3 - March 9, 2016 =

@@ -4,7 +4,7 @@
  * Plugin URI: https://www.wpmission.com/plugins/strong-testimonials/
  * Description: A full-featured plugin that works right out of the box for beginners and offers advanced features for pros.
  * Author: Chris Dillon
- * Version: 2.3.3
+ * Version: 2.4
  * Author URI: https://www.wpmission.com/
  * Text Domain: strong-testimonials
  * Domain Path: /languages
@@ -216,12 +216,13 @@ final class Strong_Testimonials {
 
 			add_action( 'wpmtst_form_admin', 'wpmtst_form_admin2' );
 
-			add_action( 'wp_loaded', 'wpmtst_redirect_about_page', 1 );
-
 		}
 		else {
 
 			add_action( 'init', array( $this, 'process_form' ) );
+
+			// Catch email errors.
+			add_action( 'wp_mail_failed', array( $this, 'catch_mail_failed' ) );
 
 			/**
 			 * Actions on 'wp' hook allow us to properly enqueue styles and scripts.
@@ -281,11 +282,12 @@ final class Strong_Testimonials {
 		/**
 		 * Flush rewrite rules after theme switch.
 		 *
-		 * In case the previous or current theme skips this and it has a "testimonial" post type.
+		 * In case a theme skips this and it has a "testimonial" post type.
 		 *
 		 * @since 1.21.0
+		 * @since 2.4.0  Change to a later priority.
 		 */
-		add_action( 'after_switch_theme', 'flush_rewrite_rules' );
+		add_action( 'after_switch_theme', 'flush_rewrite_rules', 20 );
 
 		/**
 		 * @since 1.14.1
@@ -301,6 +303,9 @@ final class Strong_Testimonials {
 
 		add_action( 'wp_head', array( $this, 'show_version_info' ), 999 );
 
+		/**
+		 * Action hooks after a view has been rendered.
+		 */
 		add_action( 'wpmtst_form_rendered', array( $this, 'form_rendered' ), 10, 1 );
 		add_action( 'wpmtst_view_rendered', array( $this, 'view_rendered' ), 10, 1 );
 
@@ -311,7 +316,6 @@ final class Strong_Testimonials {
 		 */
 		add_action( 'wp_ajax_wpmtst_form2', array( $this, 'form_handler2' ) );
 		add_action( 'wp_ajax_nopriv_wpmtst_form2', array( $this, 'form_handler2' ) );
-
 	}
 
 	public function form_handler2() {
@@ -1346,7 +1350,7 @@ final class Strong_Testimonials {
 	 * Process a form.
 	 * Moved to `init` hook for strong_testimonials_view() template function.
 	 *
-	 * @since 2.3
+	 * @since 2.3.0
 	 */
 	public static function process_form() {
 		if ( isset( $_POST['wpmtst_form_nonce'] ) ) {
@@ -1358,6 +1362,18 @@ final class Strong_Testimonials {
 				exit;
 			}
 		}
+	}
+
+	/**
+	 * A WP_Error object with the phpmailerException code, message, and an array
+	 * containing the mail recipient, subject, message, headers, and attachments.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @param $error
+	 */
+	public function catch_mail_failed( $error ) {
+		$this->log( $error );
 	}
 
 	/**
@@ -1741,11 +1757,25 @@ final class Strong_Testimonials {
 		echo "\n" . '<!-- versions: ' . implode( ' | ', $comment ) . ' -->' . "\n";
 	}
 
+	/**
+	 * Return plugin info.
+	 *
+	 * @return array
+	 */
 	public function get_plugin_info() {
 		return get_file_data( __FILE__, array( 'name' => 'Plugin Name', 'version' => 'Version' ) );
 	}
 
-	public function log( $log, $label = false, $filename = null, $append = true )  {
+	/**
+	 * Generic logging function.
+	 *
+	 * @param string $log
+	 * @param bool   $label
+	 * @param string $filename
+	 */
+	public function log( $log = '', $label = false, $filename = 'strong-debug.log' )  {
+
+		if ( ! $log ) return;
 
 		$entry = '[' . date('Y-m-d H:i:s') . '] ';
 
@@ -1757,15 +1787,9 @@ final class Strong_Testimonials {
 		else
 			$entry .= $log . PHP_EOL;
 
-		if ( isset( $filename ) )
-			$filepath = ABSPATH . 'wp-content/' . $filename;
-		else
-			$filepath = ini_get( 'error_log' );
+		$filepath = WPMTST_DIR . $filename;
 
-		if ( $append )
-			file_put_contents( $filepath, $entry, FILE_APPEND );
-		else
-			file_put_contents( $filepath, $entry );
+		error_log( $entry, 3, $filepath );
 
 	}
 

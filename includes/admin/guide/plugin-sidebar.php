@@ -28,7 +28,7 @@
 	$link1 = sprintf(
 		wp_kses(
 			__( '<a href="%s" target="_blank">How to customize the form</a>', 'strong-testimonials' ), $tags
-		), esc_url( 'https://www.wpmission.com/tutorial/how-to-customize-the-form-in-strong-testimonials/' )
+		), esc_url( 'https://www.wpmission.com/tutorials/how-to-customize-the-form-in-strong-testimonials/' )
 	);
 
 	$link2 = sprintf(

@@ -112,6 +112,9 @@ function wpmtst_sanitize_options( $input ) {
 	$input['reorder']           = !isset( $input['reorder'] ) ? 0 : ( 'on' == $input['reorder'] ? 1 : $input['reorder'] );
 	$input['scrolltop']         = !isset( $input['scrolltop'] ) ? 0 : ( 'on' == $input['scrolltop'] ? 1 : $input['scrolltop'] );
 	$input['remove_whitespace'] = !isset( $input['remove_whitespace'] ) ? 0 : ( 'on' == $input['remove_whitespace'] ? 1 : $input['remove_whitespace'] );
+	$input['support_custom_fields'] = !isset( $input['support_custom_fields'] ) ? 0 : ( 'on' == $input['support_custom_fields'] ? 1 : $input['support_custom_fields'] );
+	$input['support_comments'] = !isset( $input['support_comments'] ) ? 0 : ( 'on' == $input['support_comments'] ? 1 : $input['support_comments'] );
+	$input['email_log_level']   = !isset( $input['email_log_level'] ) ? 1 : $input['email_log_level'];
 
 	return $input;
 }

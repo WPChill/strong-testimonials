@@ -149,7 +149,8 @@ function wpmtst_form_handler() {
 		$testimonial_id = wp_insert_post( $testimonial_post );
 		if ( is_wp_error( $testimonial_id ) ) {
 
-			WPMST()->log( $testimonial_id, __FUNCTION__, 'strong-error.log' );
+			WPMST()->log( $testimonial_id, __FUNCTION__ );
+			// TODO report errors in admin
 			$form_errors['post'] = $messages['submission-error']['text'];
 
 		}
@@ -160,7 +161,7 @@ function wpmtst_form_handler() {
 				$categories = explode( ',', $_POST['category'] );
 				$category_success = wp_set_post_terms( $testimonial_id, $categories, 'wpm-testimonial-category' );
 				if ( $categories && ! $category_success ) {
-					// @TODO improve error handling
+					// TODO improve error handling
 				}
 			}
 
@@ -296,6 +297,8 @@ function wpmtst_captcha_check( $captcha, $errors ) {
  *
  * @param array  $post
  * @param string $form_name
+ * @since 1.7.0
+ * @since 2.4.0 Logging mail failure.
  */
 function wpmtst_notify_admin( $post, $form_name = 'custom' ) {
 	$fields = wpmtst_get_form_fields( $form_name );
@@ -353,7 +356,37 @@ function wpmtst_notify_admin( $post, $form_name = 'custom' ) {
 
 			// @TODO More info here? A copy of testimonial? A link to admin page? A link to approve directly from email?
 
-			@wp_mail( $to, $subject, $message, $headers );
+			$mail_sent = wp_mail( $to, $subject, $message, $headers );
+
+			switch ( (int) $options['email_log_level'] ) {
+				/** @noinspection PhpMissingBreakStatementInspection */
+				case 2:
+					if ( $mail_sent ) {
+						$log_entry = array(
+							'response' => 'mail successful',
+							'to'       => $to,
+							'subject'  => $subject,
+							'message'  => $message,
+							'headers'  => $headers,
+						);
+						WPMST()->log( $log_entry, __FUNCTION__ );
+					}
+					// fall through
+				case 1:
+					if ( ! $mail_sent ) {
+						$log_entry = array(
+							'response' => 'mail failed',
+							'to'       => $to,
+							'subject'  => $subject,
+							'message'  => $message,
+							'headers'  => $headers,
+						);
+						WPMST()->log( $log_entry, __FUNCTION__ );
+					}
+					break;
+				default:
+					// do nothing
+			}
 
 		}
 

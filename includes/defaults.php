@@ -13,14 +13,19 @@
  *
  * @since 1.13.0 reorder
  * @since 2.2.11 scrolltop
+ * @since 2.3.0  remove whitespace
+ * @since 2.4.0  email log level for troubleshooting
  *
  * @return array
  */
 function wpmtst_get_default_options() {
 	$default_options = array(
-		'reorder'           => false,
-		'scrolltop'         => true,
-		'remove_whitespace' => true,
+		'reorder'               => false,
+		'scrolltop'             => true,
+		'remove_whitespace'     => true,
+		'support_custom_fields' => false,
+		'support_comments'      => false,
+		'email_log_level'       => 1,
 	);
 
 	return $default_options;

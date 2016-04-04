@@ -386,23 +386,16 @@ function wpmtst_default_settings() {
 	$new_major_minor = implode( '.', array( $new_parts[0], isset( $new_parts[1] ) ? $new_parts[1] : '0' ) );
 
 	if ( version_compare( $new_major_minor, $old_major_minor ) ) {
-		//wpmtst_activate_about_page();
+		set_transient( 'wpmtst_welcome_screen_activation_redirect', true, 30 );
 	}
 
-}
+	/**
+	 * Delete old install log.
+	 *
+	 * @since 2.4.0
+	 */
+	if ( file_exists( WP_CONTENT_DIR  . '/install.log' ) ) {
+		unlink( WP_CONTENT_DIR  . '/install.log' );
+	}
 
-
-/**
- * Redirect automatically to the About Page
- */
-function wpmtst_redirect_about_page() {
-	if ( !current_user_can( 'manage_options' ) )
-		return;
-
-	if ( !get_transient( 'wpmtst_about_page_activated' ) )
-		return;
-
-	delete_transient( 'wpmtst_about_page_activated' );
-	wp_safe_redirect( admin_url( 'edit.php?post_type=wpm-testimonial&page=testimonial-guide&tab=welcome') );
-	exit;
 }

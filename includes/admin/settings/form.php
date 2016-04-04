@@ -11,7 +11,7 @@
 
 <h3><?php _e( 'Form Labels & Messages', 'strong-testimonials' ); ?></h3>
 
-<table class="form-table multiple compact" cellpadding="0" cellspacing="0">
+<table class="form-table compact" cellpadding="0" cellspacing="0">
 	<?php $messages = $form_options['messages']; ?>
 	<?php foreach ( $messages as $key => $message ) : ?>
 	<tr>
@@ -40,7 +40,7 @@
 </table>
 
 
-<h3><?php _ex( 'Form Actions', 'noun', 'strong-testimonials' );?></h3>
+<h3><?php _e( 'Form Actions', 'strong-testimonials' ); ?></h3>
 
 <table class="form-table multiple" cellpadding="0" cellspacing="0">
 	<tr>
@@ -67,12 +67,12 @@
 
 	<tr>
 		<td class="tall">
-			<?php _e( 'Notification', 'strong-testimonials' ); ?>
+			<div><?php _e( 'Notification', 'strong-testimonials' ); ?></div>
 		</td>
 
 		<td class="subsection">
 
-			<div class="single-option">
+			<div>
 				<label>
 					<input id="wpmtst-options-admin-notify" type="checkbox" name="wpmtst_form_options[admin_notify]" <?php checked( $form_options['admin_notify'] ); ?>>
 					<?php _e( 'Send an email upon new testimonial submission', 'strong-testimonials' ); ?>

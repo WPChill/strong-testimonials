@@ -37,6 +37,11 @@ function wpmtst_the_title( $before = '', $after = '' ) {
  * Display the testimonial content.
  *
  * @param null $length
+ *
+ * @since 1.24.0
+ * @since 2.4.0 Run content through selected filters only, instead
+ *              of all filters added to the_excerpt() or the_content().
+ *
  * @todo Use native auto-excerpt and trim_words instead.
  */
 function wpmtst_the_content( $length = null ) {
@@ -48,13 +53,24 @@ function wpmtst_the_content( $length = null ) {
 		$length  = WPMST()->atts( 'length' );
 	}
 
-	// {excerpt} overrides {length} overrides {full content}
+	// In View settings, {excerpt} overrides {length} overrides {full content}.
 	if ( $excerpt )
-		the_excerpt();
+		$content = get_the_excerpt();
 	elseif ( $length )
-		echo do_shortcode( wpmtst_get_field( 'truncated', array( 'char_limit' => $length ) ) );
-	else
-		the_content();
+		$content = wpmtst_get_field( 'truncated', array( 'char_limit' => $length ) );
+	else {
+		$content = get_the_content();
+	}
+
+	$content = wptexturize( $content );
+	$content = convert_smilies( $content );
+	if ( $excerpt ) {
+		$content = convert_chars( $content );
+	}
+	$content = wpautop( $content );
+	$content = shortcode_unautop( $content );
+	$content = do_shortcode( $content );
+	echo $content;
 }
 
 /**
@@ -246,6 +262,7 @@ function wpmtst_the_client() {
  *
  * @since 1.21.0
  * @param array $client_section An array of client fields.
+ *
  * @return mixed
  */
 function wpmtst_client_section( $client_section ) {
@@ -309,14 +326,23 @@ function wpmtst_client_section( $client_section ) {
 				break;
 
 			case 'date':
-				if ( 'post_date' == $field['field'] )
-					$text = $post->post_date;
-				else
-					$text = get_post_meta( $post->ID, $field['field'], true );
-
 				$format   = isset( $field['format'] ) && $field['format'] ? $field['format'] : get_option( 'date_format' );
-				$the_date = mysql2date( $format, $text );
-				$output   = apply_filters( 'wpmtst_the_date', $the_date, $format, $post );
+
+				if ( 'post_date' == $field['field'] ) {
+					$the_date = mysql2date( $format, $post->post_date );
+				}
+				else {
+					$the_date = get_post_meta( $post->ID, $field['field'], true );
+					if ( get_option( 'date_format' ) != $format ) {
+						// Requires PHP 5.3+
+						if ( version_compare( PHP_VERSION, '5.3' ) >= 0 ) {
+							$new_date = DateTime::createFromFormat( get_option( 'date_format' ), $the_date );
+							$the_date = $new_date->format( $format );
+						}
+					}
+				}
+
+				$output = apply_filters( 'wpmtst_the_date', $the_date, $format, $post );
 				break;
 
 			default:

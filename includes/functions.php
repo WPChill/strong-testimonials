@@ -11,6 +11,11 @@
  * Find first space after char_limit (e.g. 200).
  * If not found then char_limit is in the middle of the
  * last word (e.g. string length = 203) so no need to truncate.
+ *
+ * @param $content
+ * @param $limit
+ *
+ * @return string
  */
 function wpmtst_truncate( $content, $limit ) {
 	/**
@@ -562,3 +567,25 @@ function wpmtst_sort_array_by_name( $a, $b ) {
 function wpmtst_using_form_validation_script() {
 	return apply_filters( 'wpmtst_field_required_tag', true ) && apply_filters( 'wpmtst_form_validation_script', true );
 }
+
+
+/**
+ * Modify testimonial features.
+ *
+ * @since 2.4.0
+ * @param $supports
+ *
+ * @return array
+ */
+function wpmtst_testimonial_supports( $supports ) {
+	$options = get_option( 'wpmtst_options' );
+
+	if ( $options['support_custom_fields'] )
+		$supports[] = 'custom-fields';
+
+	if ( $options['support_comments'] )
+		$supports[] = 'comments';
+
+	return $supports;
+}
+add_filter( 'wpmtst_testimonial_supports', 'wpmtst_testimonial_supports' );
