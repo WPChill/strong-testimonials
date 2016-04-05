@@ -160,12 +160,16 @@ Not yet.
 
 == Changelog ==
 
+= 2.4.1 - April 5, 2016 =
+* Apply all content filters (revert change in 2.4.0).
+* Bypass content filter for [All In On Schema.org Rich Snippets](https://wordpress.org/plugins/all-in-one-schemaorg-rich-snippets/) plugin.
+
 = 2.4 - April 4, 2016 =
 * Add email notification troubleshooting log.
 * Add option to show Custom Fields meta box.
 * Add option to enable comments on individual testimonials.
 * Fix formatting of non-US date formats.
-* Use only standard content filters (wptexturize, convert_smilies, wpautop, shortcode_unautop, do_shortcode).
+* Apply only standard content filters (wptexturize, convert_smilies, wpautop, shortcode_unautop, do_shortcode).
 
 = 2.3.3 - March 18, 2016 =
 * Prevent incompatible combination of pagination and Masonry.
@@ -174,8 +178,7 @@ Not yet.
 * Fix bug when getting fields for Polylang.
 
 = 2.3.1 - March 12, 2016 =
-* Apply all content filters to testimonial content and excerpts.
-* Compatible with [WPGlobus](https://wordpress.org/plugins/wpglobus/) translation plugin.
+* Apply all content filters to be compatible with [WPGlobus](https://wordpress.org/plugins/wpglobus/) translation plugin.
 
 = 2.3 - March 9, 2016 =
 * Improve compatibility with [Posts for Page](https://wordpress.org/plugins/posts-for-page/), [Custom Content Shortcode](https://wordpress.org/plugins/custom-content-shortcode/), and other plugins that use shortcodes to pull in other content.

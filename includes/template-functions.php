@@ -54,22 +54,34 @@ function wpmtst_the_content( $length = null ) {
 	}
 
 	// In View settings, {excerpt} overrides {length} overrides {full content}.
-	if ( $excerpt )
+
+	if ( $excerpt ) {
+
 		$content = get_the_excerpt();
-	elseif ( $length )
-		$content = wpmtst_get_field( 'truncated', array( 'char_limit' => $length ) );
+		$content = apply_filters( 'the_excerpt', $content );
+
+	}
 	else {
-		$content = get_the_content();
+
+		if ( $length )
+			$content = wpmtst_get_field( 'truncated', array ( 'char_limit' => $length ) );
+		else
+			$content = get_the_content();
+
+		// Bypass specific content filters added by plugins.
+		// TODO Build options for standard and custom filters.
+
+		// Plugin: All In One Schema.org Rich Snippets, Version: 1.4.0
+		if ( $display_rich_snippet = has_filter( 'the_content', 'display_rich_snippet' ) )
+			remove_filter( 'the_content', 'display_rich_snippet', $display_rich_snippet );
+
+		$content = apply_filters( 'the_content', $content );
+
+		if ( $display_rich_snippet )
+			add_filter( 'the_content', 'display_rich_snippet', $display_rich_snippet );
+
 	}
 
-	$content = wptexturize( $content );
-	$content = convert_smilies( $content );
-	if ( $excerpt ) {
-		$content = convert_chars( $content );
-	}
-	$content = wpautop( $content );
-	$content = shortcode_unautop( $content );
-	$content = do_shortcode( $content );
 	echo $content;
 }
 
