@@ -68,17 +68,17 @@ function wpmtst_the_content( $length = null ) {
 		else
 			$content = get_the_content();
 
-		// Bypass specific content filters added by plugins.
-		// TODO Build options for standard and custom filters.
+		// Applying all content filters breaks POS NextGEN Gallery.
+		// So need to find a way to select which additional filters, if any, to apply.
+		// For instance, All In One Rich Snippets.
 
-		// Plugin: All In One Schema.org Rich Snippets, Version: 1.4.0
-		if ( $display_rich_snippet = has_filter( 'the_content', 'display_rich_snippet' ) )
-			remove_filter( 'the_content', 'display_rich_snippet', $display_rich_snippet );
+		//$content = apply_filters( 'the_content', $content );
 
-		$content = apply_filters( 'the_content', $content );
-
-		if ( $display_rich_snippet )
-			add_filter( 'the_content', 'display_rich_snippet', $display_rich_snippet );
+		$content = wptexturize( $content );
+		$content = convert_smilies( $content );
+		$content = wpautop( $content );
+		$content = shortcode_unautop( $content );
+		$content = do_shortcode( $content );
 
 	}
 

@@ -350,16 +350,20 @@ function wpmtst_meta_options() {
  * Add custom columns to the admin list.
  *
  * @param $columns
- *
+ * @since 1.4.0
+ * @since 2.5.1  Added comments column.
  * @return array
  */
 function wpmtst_edit_columns( $columns ) {
 	$fields = wpmtst_get_all_fields();
 
+	$comments = isset( $columns['comments'] ) ? $columns['comments'] : '';
+
 	/*
 		INCOMING COLUMNS = Array (
 			[cb] => <input type="checkbox" />
 			[title] => Title
+			[comments] => <span class="vers comment-grey-bubble" title="Comments"><span class="screen-reader-text">Comments</span></span>
 			[date] => Date
 			[search_exclude] => Search Exclude   // other plugin
 			[thumbnail] => Thumbnail
@@ -369,8 +373,14 @@ function wpmtst_edit_columns( $columns ) {
 	// 1. remove [thumbnail] (may be re-added in custom field loop) and [date]
 	unset( $columns['thumbnail'], $columns['date'] );
 
+	if ( $comments )
+		unset( $columns['comments'] );
+
 	// 2. insert [order] after [cb]
-	if ( !wpmtst_is_column_sorted() && !wpmtst_is_viewing_trash() && class_exists( 'Strong_Testimonials_Order' ) ) {
+	if ( ! wpmtst_is_column_sorted()
+		&& ! wpmtst_is_viewing_trash()
+		&& class_exists( 'Strong_Testimonials_Order' ) )
+	{
 		$columns = array_merge (
 			array_slice($columns, 0, 1),
 			array('handle' => 'Order'),
@@ -402,13 +412,16 @@ function wpmtst_edit_columns( $columns ) {
 
 	}
 
-	// 5. add [category] and [date]
+	// 5. add [category], [comments] and [date]
 	if ( wpmtst_get_category_list() )
-		$fields_to_add['category'] = __( 'Category', 'strong-testimonials' );
+		$fields_to_add['categories'] = __( 'Categories', 'strong-testimonials' );
+
+	if ( $comments )
+		$fields_to_add['comments'] = $comments;
 
 	$fields_to_add['date'] = __( 'Date', 'strong-testimonials' );
 
-	// this pushes other added columns like [search_exclude] to the end
+	// Push other added columns like [search_exclude] to the end.
 	$columns = array_merge (
 		array_slice( $columns, 0, $offset ),
 		$fields_to_add,
@@ -446,7 +459,7 @@ function wpmtst_custom_columns( $column ) {
 			echo get_the_post_thumbnail( $post->ID, array( 75, 75 ) );
 			break;
 
-		case 'category':
+		case 'categories':
 			$categories = get_the_terms( 0, 'wpm-testimonial-category' );
 			if ( $categories && ! is_wp_error( $categories ) ) {
 				$list = array();
@@ -562,7 +575,7 @@ add_filter( 'manage_wpm-testimonial-category_custom_column', 'wpmtst_manage_colu
  */
 function wpmtst_manage_sortable_columns( $columns ) {
 	$columns['client_name'] = 'client_name';
-	$columns['category'] = 'category';
+	$columns['categories'] = 'categories';
 	$columns['date'] = 'date';
 	return $columns;
 }

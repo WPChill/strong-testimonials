@@ -22,6 +22,7 @@ function wpmtst_get_default_options() {
 	$default_options = array(
 		'reorder'               => false,
 		'scrolltop'             => true,
+		'scrolltop_offset'      => 40,
 		'remove_whitespace'     => true,
 		'support_custom_fields' => false,
 		'support_comments'      => false,

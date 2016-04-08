@@ -35,7 +35,7 @@ If that describes your situation, this plugin will work for you right out of the
 * Custom "Read more" links
 * Gravatar support
 * Fully localized, ready for translations
-* Compatible with WPML and Polylang
+* Compatible with [WPML](https://wpml.org/), [Polylang](https://wordpress.org/plugins/polylang/) and [WPGlobus](https://wordpress.org/plugins/wpglobus/)
 
 Strong Testimonials [plays well with other plugins and themes](https://www.wpmission.com/theme-plugin-compatibility-fund/), and I strive to adhere to WordPress coding standards and best practices.
 
@@ -137,7 +137,7 @@ It depends. I have narrowed down the causes of many conflicts and addressed them
 
 = I'm familiar with template files. Can I customize the template? =
 
-Yes. With some HTML and CSS knowledge, you can copy any template to your theme and customize it as you see fit. You can also have multiple custom templates. (A tutorial is coming soon.)
+Yes. With some HTML and CSS knowledge, you can copy any template to your theme and customize it as you see fit. You can also have multiple custom templates. A [tutorial](https://www.wpmission.com/knowledge-base/strong-testimonials/) is coming soon.
 
 = Can I make some suggestions? =
 
@@ -160,8 +160,11 @@ Not yet.
 
 == Changelog ==
 
+= 2.5.1 - April 8, 2016 =
+* Add comments column to testimonial admin list.
+* Fix conflict with NextGEN Gallery.
+
 = 2.5 - April 7, 2016 =
-* Integrate Large Scale add-on (coming soon).
 * Fix bug on date format conversion.
 * Fix content class bug.
 * Add filters to override default pagination.
@@ -261,4 +264,4 @@ Not yet.
 
 == Upgrade Notice ==
 
-Improved compatibility. Fixed minor bugs.
+Ongoing improvements in compatibility, speed, and troubleshooting.

@@ -16,10 +16,12 @@ $options = get_option( 'wpmtst_options' );
 			<?php _e( 'Reordering', 'strong-testimonials' ); ?>
 		</th>
 		<td>
+			<fieldset>
 			<label>
 				<input type="checkbox" name="wpmtst_options[reorder]" <?php checked( $options['reorder'] ); ?>>
 				<?php _e( 'Enable drag-and-drop reordering in the testimonial list. Off by default.', 'strong-testimonials' ); ?>
 			</label>
+			</fieldset>
 		</td>
 	</tr>
 
@@ -28,11 +30,13 @@ $options = get_option( 'wpmtst_options' );
 			<?php _e( 'Custom Fields Meta Box', 'strong-testimonials' ); ?>
 		</th>
 		<td>
+			<fieldset>
 			<label>
 				<input type="checkbox" name="wpmtst_options[support_custom_fields]" <?php checked( $options['support_custom_fields'] ); ?>>
 				<?php _e( 'Show the <strong>Custom Fields</strong> meta box in the testimonial post editor. This does not affect the <strong>Client Fields</strong> meta box. Off by default.', 'strong-testimonials' ); ?>
 				<p class="description">For advanced users.</p>
 			</label>
+			</fieldset>
 		</td>
 	</tr>
 
@@ -41,7 +45,7 @@ $options = get_option( 'wpmtst_options' );
 			<?php _e( 'Troubleshooting', 'strong-testimonials' ); ?>
 		</th>
 		<td>
-			<p>
+			<fieldset>
 				<span style="display: inline-block; margin-right: 20px; vertical-align: middle;">Notification Emails</span>
 				<label style="display: inline-block; vertical-align: middle;">
 					<select id="email_log_level" name="wpmtst_options[email_log_level]">
@@ -56,7 +60,7 @@ $options = get_option( 'wpmtst_options' );
 						</option>
 					</select>
 				</label>
-			</p>
+			</fieldset>
 			<?php if ( file_exists( WPMTST_DIR . 'strong-debug.log' ) ) : ?>
 				<p><a href="<?php echo WPMTST_URL . 'strong-debug.log'; ?>" download="strong-testimonials.log">Download log file</a></p>
 			<?php else : ?>
@@ -75,10 +79,12 @@ $options = get_option( 'wpmtst_options' );
 			<?php _e( 'Scroll Top', 'strong-testimonials' ); ?>
 		</th>
 		<td>
+			<fieldset>
 			<label>
 				<input type="checkbox" name="wpmtst_options[scrolltop]" <?php checked( $options['scrolltop'] ); ?>>
-				<?php _e( 'In paginated Views, scroll to the top when a new page is selected. On by default.', 'strong-testimonials' ); ?>
+				<?php printf( __( 'When a new page is selected in paginated Views, scroll to the top of the container minus %s pixels. On by default.', 'strong-testimonials' ), '<input type="text" name="wpmtst_options[scrolltop_offset]" value="' . $options['scrolltop_offset'] . '" size="3">' ); ?>
 			</label>
+			</fieldset>
 		</td>
 	</tr>
 
@@ -87,28 +93,32 @@ $options = get_option( 'wpmtst_options' );
 			<?php _e( 'Remove Whitespace', 'strong-testimonials' ); ?>
 		</th>
 		<td>
+			<fieldset>
 			<label>
 				<input type="checkbox" name="wpmtst_options[remove_whitespace]" <?php checked( $options['remove_whitespace'] ); ?>>
 				<?php _e( 'Remove space between HTML tags in View output to prevent double paragraphs <em>(wpautop)</em>. On by default.', 'strong-testimonials' ); ?>
 			</label>
+			</fieldset>
 		</td>
 	</tr>
 
 
 	<tr valign="top">
 		<th scope="row">
-			<?php _e( 'Allow comments', 'strong-testimonials' ); ?>
+			<?php _e( 'Comments', 'strong-testimonials' ); ?>
 		</th>
 		<td>
+			<fieldset>
 			<label>
 				<input type="checkbox" name="wpmtst_options[support_comments]" <?php checked( $options['support_comments'] ); ?>>
 				<?php _e( 'Allow comments on new testimonials. Requires using your theme\'s single post template. Off by default.', 'strong-testimonials' ); ?>
-				<p class="description">To enable comments:</p>
-				<ul class="description">
-					<li>For individual testimonials, use the <strong>Discussion</strong> meta box in the post editor or <strong>Quick Edit</strong> in the testimonial list.</li>
-					<li>For multiple testimonials, use <strong>Bulk Edit</strong> in the testimonial list.</li>
-				</ul>
 			</label>
+			<p class="description">To enable comments:</p>
+			<ul class="description">
+				<li>For individual testimonials, use the <strong>Discussion</strong> meta box in the post editor or <strong>Quick Edit</strong> in the testimonial list.</li>
+				<li>For multiple testimonials, use <strong>Bulk Edit</strong> in the testimonial list.</li>
+			</ul>
+			</fieldset>
 		</td>
 	</tr>
 
