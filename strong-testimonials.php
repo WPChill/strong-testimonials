@@ -4,7 +4,7 @@
  * Plugin URI: https://www.wpmission.com/plugins/strong-testimonials/
  * Description: A full-featured plugin that works right out of the box for beginners and offers advanced features for pros.
  * Author: Chris Dillon
- * Version: 2.5.1
+ * Version: 2.5.2
  * Author URI: https://www.wpmission.com/
  * Text Domain: strong-testimonials
  * Domain Path: /languages
@@ -367,7 +367,8 @@ final class Strong_Testimonials {
 	 * Required for the template function strong_testimonials_view.
 	 *
 	 * @since 1.25.0 Checking $atts['compat']
-	 * @since 2.3 Added wp_script_is( $handle ) as last check.
+	 * @since 2.3    Added wp_script_is( $handle ) as last check.
+	 * @since 2.5.2  Added pagination. When using `strong_testimonials_view` template function.
 	 *
 	 * @param $atts
 	 */
@@ -383,6 +384,10 @@ final class Strong_Testimonials {
 
 			if ( isset( $atts['slideshow'] ) && $atts['slideshow'] ) {
 				self::after_slideshow( $atts );
+			}
+
+			if ( isset( $atts['pagination'] ) && $atts['pagination'] ) {
+				self::after_pagination( $atts );
 			}
 
 		}
@@ -1108,6 +1113,35 @@ final class Strong_Testimonials {
 		);
 
 		wp_localize_script( 'wpmtst-slider', 'strong_cycle_' . hash( 'md5', serialize( $args ) ), $args );
+	}
+
+	/**
+	 * Set up the pagination.
+	 *
+	 * @since 2.5.2
+	 * @param array $atts
+	 */
+	private static function after_pagination( $atts = array() ) {
+
+		$options = get_option( 'wpmtst_options' );
+
+		// Populate variable for QuickPager script.
+		$nav = $atts['nav'];
+		if ( false !== strpos( $atts['nav'], 'before' ) && false !== strpos( $atts['nav'], 'after' ) ) {
+			$nav = 'both';
+		}
+
+		$pager = array(
+			'id'            => '.strong-paginated',
+			'pageSize'      => $atts['per_page'],
+			'currentPage'   => 1,
+			'pagerLocation' => $nav,
+			'scrollTop'     => $options['scrolltop'],
+			'offset'        => apply_filters( 'wpmtst_pagination_scroll_offset', $options['scrolltop_offset'] ),
+		);
+		wp_enqueue_script( 'wpmtst-pager-plugin' );
+		wp_enqueue_script( 'wpmtst-pager-script' );
+		wp_localize_script( 'wpmtst-pager-script', 'pagerVar', $pager );
 	}
 
 	/**

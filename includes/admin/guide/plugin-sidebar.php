@@ -25,30 +25,38 @@
 
 	<?php
 	// Resources
-	$link1 = sprintf(
+	$links = array();
+
+	$links[] = sprintf(
+		wp_kses(
+			__( '<a href="%s" target="_blank">How to enable comments</a>', 'strong-testimonials' ), $tags
+		), esc_url( 'https://www.wpmission.com/tutorials/how-to-add-comments-in-strong-testimonials/' )
+	) . '<span class="new-doc">NEW</span>';
+
+	$links[] = sprintf(
 		wp_kses(
 			__( '<a href="%s" target="_blank">How to customize the form</a>', 'strong-testimonials' ), $tags
 		), esc_url( 'https://www.wpmission.com/tutorials/how-to-customize-the-form-in-strong-testimonials/' )
 	);
 
-	$link2 = sprintf(
+	$links[] = sprintf(
 		wp_kses(
-			__( '<a href="%s" target="_blank">See the new demos</a>', 'strong-testimonials' ), $tags
+			__( '<a href="%s" target="_blank">See the demos</a>', 'strong-testimonials' ), $tags
 		), esc_url( 'http://demos.wpmission.com/strong-testimonials/' )
 	);
 
-	$link3 = sprintf(
+	$links[] = sprintf(
 		wp_kses(
 			__( '<a href="%s" target="_blank">Subscribe to the newsletter</a>', 'strong-testimonials' ), $tags
 		), esc_url( 'https://www.wpmission.com/newsletter' )
 	);
 	?>
 	<div class="has-icon icon-document">
-		<strong><?php _e( 'More resources', 'strong-testimonials' ); ?></strong>
+		<p><strong><?php _e( 'More resources', 'strong-testimonials' ); ?></strong></p>
 		<ul>
-			<li><?php echo $link1; ?></li>
-			<li><?php echo $link2; ?></li>
-			<li><?php echo $link3; ?></li>
+			<?php foreach ( $links as $link ) : ?>
+			<li><?php echo $link; ?></li>
+			<?php endforeach; ?>
 		</ul>
 	</div>
 
@@ -66,7 +74,7 @@
 	);
 	?>
 	<div class="has-icon icon-donate">
-		<strong><?php _e( 'Want to help?', 'strong-testimonials' ); ?></strong><br>
+		<p><strong><?php _e( 'Want to help?', 'strong-testimonials' ); ?></strong></p>
 		<ul>
 			<li><?php echo $link1; ?></li>
 			<li><?php echo $link2; ?></li>

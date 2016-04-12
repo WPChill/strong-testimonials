@@ -618,6 +618,15 @@ td.column-shortcode {
 	content: "\f328";
 }
 
+.new-doc {
+	background: #FF8900;
+	color: #FFF;
+	font-size: 0.8em;
+	padding: 1px 5px;
+	border-radius: 1px;
+	margin-left: 8px;
+}
+
 /* Pointers
 --------------------------------------*/
 .wp-pointer-content ul {

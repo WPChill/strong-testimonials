@@ -113,12 +113,17 @@ $options = get_option( 'wpmtst_options' );
 				<input type="checkbox" name="wpmtst_options[support_comments]" <?php checked( $options['support_comments'] ); ?>>
 				<?php _e( 'Allow comments on new testimonials. Requires using your theme\'s single post template. Off by default.', 'strong-testimonials' ); ?>
 			</label>
+			</fieldset>
 			<p class="description">To enable comments:</p>
 			<ul class="description">
 				<li>For individual testimonials, use the <strong>Discussion</strong> meta box in the post editor or <strong>Quick Edit</strong> in the testimonial list.</li>
 				<li>For multiple testimonials, use <strong>Bulk Edit</strong> in the testimonial list.</li>
 			</ul>
-			</fieldset>
+			<p class="description"><?php printf(
+					wp_kses(
+						__( '<a href="%s" target="_blank">Full tutorial here</a>', 'strong-testimonials' ), $tags
+					), esc_url( 'https://www.wpmission.com/tutorials/how-to-add-comments-in-strong-testimonials/' )
+				)?></p>
 		</td>
 	</tr>
 

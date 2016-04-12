@@ -160,6 +160,10 @@ Not yet.
 
 == Changelog ==
 
+= 2.5.2 - April 12, 2016 =
+* Add pagination to `strong_testimonials_view()` template function.
+* Fix bug in Categories column.
+
 = 2.5.1 - April 8, 2016 =
 * Add comments column to testimonial admin list.
 * Fix conflict with NextGEN Gallery.
@@ -191,7 +195,7 @@ Not yet.
 
 = 2.3 - March 9, 2016 =
 * Improve compatibility with [Posts for Page](https://wordpress.org/plugins/posts-for-page/), [Custom Content Shortcode](https://wordpress.org/plugins/custom-content-shortcode/), and other plugins that use shortcodes to pull in other content.
-* Add form handling to strong_testimonials_view() template function.
+* Add form handling to `strong_testimonials_view()` template function.
 * Optimize slideshow loading.
 * Strip HTML whitespace by default with option to disable.
 * Disable form honeypots by default in new installs.

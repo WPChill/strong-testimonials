@@ -413,8 +413,9 @@ function wpmtst_edit_columns( $columns ) {
 	}
 
 	// 5. add [category], [comments] and [date]
+	// 'categories' is reserved by WordPress.
 	if ( wpmtst_get_category_list() )
-		$fields_to_add['categories'] = __( 'Categories', 'strong-testimonials' );
+		$fields_to_add['category'] = __( 'Categories', 'strong-testimonials' );
 
 	if ( $comments )
 		$fields_to_add['comments'] = $comments;
@@ -459,7 +460,7 @@ function wpmtst_custom_columns( $column ) {
 			echo get_the_post_thumbnail( $post->ID, array( 75, 75 ) );
 			break;
 
-		case 'categories':
+		case 'category':
 			$categories = get_the_terms( 0, 'wpm-testimonial-category' );
 			if ( $categories && ! is_wp_error( $categories ) ) {
 				$list = array();
@@ -575,7 +576,7 @@ add_filter( 'manage_wpm-testimonial-category_custom_column', 'wpmtst_manage_colu
  */
 function wpmtst_manage_sortable_columns( $columns ) {
 	$columns['client_name'] = 'client_name';
-	$columns['categories'] = 'categories';
+	$columns['category'] = 'categories';
 	$columns['date'] = 'date';
 	return $columns;
 }
