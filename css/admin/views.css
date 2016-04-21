@@ -124,7 +124,7 @@ input[type=checkbox]:checked + label:hover:before {
 
 input[type=checkbox]:disabled + label:before,
 input[type=checkbox]:disabled + label:hover:before {
-	color: #999;
+	color: #888;
 }
 
 
@@ -368,29 +368,30 @@ span.title {
 
 #view-mode label {
 	display: inline-block;
-	margin: 0;
-	padding: 0.5em 15px;
-	border: 1px solid #e4e4e4;
+	margin: 0 5px 0 0;
+	padding: 0.5em 18px 0.5em 12px;
+	border: 1px solid #ccc;
 	border-radius: 20px;
 }
 
 #view-mode label:hover {
 	background: #FFF;
 	color: #444;
+	border-color: #AAA;
 }
 
 #view-mode input[type="radio"] {
-	margin-right: 10px;
+	margin-right: 7px;
 }
 
 #view-mode label {
-	color: #999;
+	color: #888;
 }
 
 #view-mode label.checked {
-	background: #FFF;
-	color: #0073AA;
-	border: 1px solid rgba(0,115,170,0.3);
+	background: #00A4F3;
+	color: #FFF;
+	border: 1px solid transparent;
 }
 
 .wpmtst2 h3.large,
@@ -414,7 +415,6 @@ span.title {
 	margin-bottom: 0;
 	margin-right: 10px;
 }
-
 
 /*-----------------------------------------------
  * Category checkboxes
@@ -544,13 +544,19 @@ select option {
 	}
 }
 
-.form-view-shortcode {
+.form-view-shortcode .title {
+    /*font-family: "Open Sans",sans-serif;*/
+}
+
+.form-view-shortcode .saved {
     direction: ltr;
     font-family: Consolas,Monaco,monospace;
     unicode-bidi: embed;
 }
-.form-view-shortcode .title {
-    font-family: "Open Sans",sans-serif;
+
+.form-view-shortcode .unsaved {
+	color: #888;
+	font-style: italic;
 }
 
 .indented {

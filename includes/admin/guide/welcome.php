@@ -8,13 +8,9 @@
 
 		<h4 class="large"><?php _e( 'What\'s new' ); ?></h4>
 
-		<p><?php _e( 'The &#91;strong&#93;, &#91;wpmtst&#93; and &#91;read_more&#93; shortcodes and the original widget <span style="color: red;">were removed</span> in version 2.0.', 'strong-testimonials' ); ?></p>
+		<p><?php _e( 'The &#91;strong&#93;, &#91;wpmtst&#93; and &#91;read_more&#93; shortcodes and the original widget <span style="color: red;">were removed</span> in version 2.0. Everything now happens in <b>Views</b>.', 'strong-testimonials' ); ?></p>
 
-		<p>Comments are now available for individual testimonials. <?php printf(
-				wp_kses(
-					__( '<a href="%s" target="_blank">Full tutorial here</a>', 'strong-testimonials' ), $tags
-				), esc_url( 'https://www.wpmission.com/tutorials/how-to-add-comments-in-strong-testimonials/' )
-			)?>.</p>
+		<p>Comments are now available for individual testimonials. <a href="https://www.wpmission.com/tutorials/how-to-add-comments-in-strong-testimonials/" target="_blank">Full tutorial here</a>.</p>
 
 		<p>Improved date format handling.</p>
 

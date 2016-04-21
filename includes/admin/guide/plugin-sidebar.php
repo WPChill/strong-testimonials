@@ -1,6 +1,3 @@
-<?php
-	$tags = array( 'a' => array( 'href' => array(), 'target' => array() ), 'br' => array() );
-?>
 <div id="plugin-sidebar">
 
 	<?php

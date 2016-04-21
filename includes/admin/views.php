@@ -141,13 +141,16 @@ function wpmtst_view_settings( $action = '', $view_id = null ) {
 		<div class="view-info">
 			<div class="form-view-name"><span class="title">Name:</span><input type="text" id="view-name" class="view-name" name="view[name]" value="<?php echo $view_name; ?>" tabindex="1"></div>
 		</div>
-		<?php if ( 'edit' == $action ) : ?>
 			<div class="view-info">
 				<div class="form-view-shortcode">
-					<span class="title">Shortcode:</span>[testimonial_view id=<?php echo $view_id; ?>]
+					<span class="title">Shortcode:</span>
+					<?php if ( 'edit' == $action ): ?>
+					<span class="saved">[testimonial_view id=<?php echo $view_id; ?>]</span>
+					<?php else: ?>
+					<span class="unsaved"><?php _ex( 'will be available after you save this', 'The shortcode for a new View.', 'strong-testimonials' ); ?></span>
+					<?php endif; ?>
 				</div>
 			</div>
-		<?php endif; ?>
 
 		<?php
 		include( 'views/mode.php' );

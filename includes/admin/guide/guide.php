@@ -7,8 +7,9 @@
  */
 
 function wpmtst_guide() {
-	$tab = isset( $_GET['tab'] ) ? $_GET['tab'] : 'welcome';
+	$tab  = isset( $_GET['tab'] ) ? $_GET['tab'] : 'welcome';
 	$page = admin_url( 'edit.php?post_type=wpm-testimonial&page=testimonial-guide');
+	$tags = array( 'a' => array( 'href' => array(), 'target' => array(), 'class' => array() ), 'br' => array() );
 	?>
 	<div class="wrap wpmtst guide">
 		<h1><?php _e( 'Strong Testimonials Guide', 'strong-testimonials' ); ?></h1>
@@ -29,15 +30,9 @@ function wpmtst_guide() {
 			<a href="<?php echo $page; ?>&tab=translation" class="nav-tab <?php echo $tab == 'translation' ? 'nav-tab-active' : ''; ?>">
 				<?php _e( 'Translation', 'strong-testimonials' ); ?>
 			</a>
-			<a href="<?php echo $page; ?>&tab=page-builders" class="nav-tab <?php echo $tab == 'page-builders' ? 'nav-tab-active' : ''; ?>">
-				<?php _e( 'Page Builders', 'strong-testimonials' ); ?>
-			</a>
 		</h2>
 		<?php
 		switch ( $tab ) {
-			case 'page-builders':
-				include 'page-builders.php';
-				break;
 			case 'translation':
 				include 'translation.php';
 				break;

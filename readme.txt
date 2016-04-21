@@ -160,6 +160,9 @@ Not yet.
 
 == Changelog ==
 
+= 2.5.3 - April 21, 2016 =
+* Minor admin UI improvements.
+
 = 2.5.2 - April 12, 2016 =
 * Add pagination to `strong_testimonials_view()` template function.
 * Fix bug in Categories column.

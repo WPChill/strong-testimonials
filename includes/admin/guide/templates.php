@@ -11,17 +11,15 @@
 
 	<p><?php _e( 'The <strong>Widget</strong> template has smaller sizing for use in a sidebar or other widget area.', 'strong-testimonials' ); ?></p>
 
-	<p><?php _e( 'The <strong>Unstyled</strong> template includes no stylesheet and is a good foundation for theme experts.', 'strong-testimonials' ); ?></p>
+	<p><?php _e( 'The <strong>Unstyled</strong> template includes no style and is a good foundation for theme experts.', 'strong-testimonials' ); ?></p>
 
 	<p><?php _e( 'Background colors and layout options are available for all templates.', 'strong-testimonials' ); ?></p>
 
-	<p><?php _e( 'Feel free to ask for help with minor style changes to add to a <a href="https://thethemefoundry.com/blog/wordpress-child-theme/" target="_blank">child theme</a> or <a href="https://wordpress.org/plugins/so-css/" target="_blank">custom CSS</a>.', 'strong-testimonials' ); ?></p>
+	<p><?php _e( 'Feel free to ask for help with minor style changes to add to a child theme or custom CSS.', 'strong-testimonials' ); ?></p>
 
 	<p><?php _e( 'New templates will be added occasionally. A premium add-on with a variety of modern templates will be available soon.', 'strong-testimonials' ); ?></p>
 
-	<p><?php _e( 'New template functions are also available.', 'strong-testimonials' ); ?></p>
-
-	<p><?php _e( 'Visit <a href="https://www.wpmission.com/strong-testimonials" target="_blank">WP Mission</a> for more information on customizing templates.', 'strong-testimonials' ); ?></p>
+	<!--<p>--><?php //_e( 'Visit <a href="https://www.wpmission.com/strong-testimonials" target="_blank">WP Mission</a> for more information on customizing templates.', 'strong-testimonials' ); ?><!--</p>-->
 
 	<?php do_action( 'wpmtst_guide_after_content' ); ?>
 

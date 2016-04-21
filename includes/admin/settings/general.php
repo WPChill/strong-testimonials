@@ -20,6 +20,7 @@ $options = get_option( 'wpmtst_options' );
 			<label>
 				<input type="checkbox" name="wpmtst_options[reorder]" <?php checked( $options['reorder'] ); ?>>
 				<?php _e( 'Enable drag-and-drop reordering in the testimonial list. Off by default.', 'strong-testimonials' ); ?>
+				<p class="description"><?php _e( 'Then set <b>Order</b> to "menu order" in the View.', 'strong-testimonials' ); ?></p>
 			</label>
 			</fieldset>
 		</td>
@@ -34,7 +35,7 @@ $options = get_option( 'wpmtst_options' );
 			<label>
 				<input type="checkbox" name="wpmtst_options[support_custom_fields]" <?php checked( $options['support_custom_fields'] ); ?>>
 				<?php _e( 'Show the <strong>Custom Fields</strong> meta box in the testimonial post editor. This does not affect the <strong>Client Fields</strong> meta box. Off by default.', 'strong-testimonials' ); ?>
-				<p class="description">For advanced users.</p>
+				<p class="description"><?php _e( 'For advanced users.', 'strong-testimonials' ); ?></p>
 			</label>
 			</fieldset>
 		</td>
@@ -62,9 +63,9 @@ $options = get_option( 'wpmtst_options' );
 				</label>
 			</fieldset>
 			<?php if ( file_exists( WPMTST_DIR . 'strong-debug.log' ) ) : ?>
-				<p><a href="<?php echo WPMTST_URL . 'strong-debug.log'; ?>" download="strong-testimonials.log">Download log file</a></p>
+				<p><a href="<?php echo WPMTST_URL . 'strong-debug.log'; ?>" download="strong-testimonials.log"><?php _e( 'Download the log file', 'strong-testimonials' ); ?></a></p>
 			<?php else : ?>
-				<p><em>No log file yet.</em></p>
+				<p><em><?php _e( 'No log file yet.', 'strong-testimonials' ); ?></em></p>
 			<?php endif; ?>
 		</td>
 	</tr>
