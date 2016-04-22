@@ -2,7 +2,7 @@
 Contributors: cdillon27
 Donate link: https://www.wpmission.com/donate/
 Tags: testimonials, testimonial widget, random testimonial, testimonial shortcode, testimonial slider, testimonial form
-Requires at least: 3.5
+Requires at least: 3.6
 Tested up to: 4.5
 Stable tag: trunk
 License: GPLv3 or later
@@ -159,6 +159,10 @@ Not yet.
 8. Template files and template functions.
 
 == Changelog ==
+
+= 2.5.4 - April 22, 2016 =
+* Fix bug.
+* Minimum WordPress version required: 3.6.
 
 = 2.5.3 - April 21, 2016 =
 * Minor admin UI improvements.

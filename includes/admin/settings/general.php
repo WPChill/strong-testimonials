@@ -7,6 +7,7 @@
  */
 
 $options = get_option( 'wpmtst_options' );
+$tags    = array( 'a' => array( 'href' => array(), 'target' => array(), 'class' => array() ), 'br' => array() );
 ?>
 <h3>Admin</h3>
 <table class="form-table" cellpadding="0" cellspacing="0">
