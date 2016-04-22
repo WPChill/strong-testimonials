@@ -580,10 +580,10 @@ function wpmtst_using_form_validation_script() {
 function wpmtst_testimonial_supports( $supports ) {
 	$options = get_option( 'wpmtst_options' );
 
-	if ( $options['support_custom_fields'] )
+	if ( isset( $options['support_custom_fields'] ) && $options['support_custom_fields'] )
 		$supports[] = 'custom-fields';
 
-	if ( $options['support_comments'] )
+	if ( isset( $options['support_comments'] ) && $options['support_comments'] )
 		$supports[] = 'comments';
 
 	return $supports;

@@ -114,7 +114,7 @@ function wpmtst_sanitize_options( $input ) {
 	$input['remove_whitespace'] = !isset( $input['remove_whitespace'] ) ? 0 : ( 'on' == $input['remove_whitespace'] ? 1 : $input['remove_whitespace'] );
 	$input['support_custom_fields'] = !isset( $input['support_custom_fields'] ) ? 0 : ( 'on' == $input['support_custom_fields'] ? 1 : $input['support_custom_fields'] );
 	$input['support_comments'] = !isset( $input['support_comments'] ) ? 0 : ( 'on' == $input['support_comments'] ? 1 : $input['support_comments'] );
-	$input['email_log_level']   = !isset( $input['email_log_level'] ) ? 1 : $input['email_log_level'];
+	$input['email_log_level']   = !isset( $input['email_log_level'] ) ? 1 : (int) $input['email_log_level'];
 
 	return $input;
 }

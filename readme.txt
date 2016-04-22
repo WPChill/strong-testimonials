@@ -160,8 +160,12 @@ Not yet.
 
 == Changelog ==
 
+= 2.5.5 - April 22, 2016 =
+* Fix bug in notification email logging.
+* Fix bug when enabling custom fields and comments.
+
 = 2.5.4 - April 22, 2016 =
-* Fix bug.
+* Fix bug in Guide.
 * Minimum WordPress version required: 3.6.
 
 = 2.5.3 - April 21, 2016 =

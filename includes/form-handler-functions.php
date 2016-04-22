@@ -303,18 +303,19 @@ function wpmtst_captcha_check( $captcha, $errors ) {
 function wpmtst_notify_admin( $post, $form_name = 'custom' ) {
 	$fields = wpmtst_get_form_fields( $form_name );
 
-	$options = get_option( 'wpmtst_form_options' );
+	$options      = get_option( 'wpmtst_options' );
+	$form_options = get_option( 'wpmtst_form_options' );
 
-	if ( $options['sender_site_email'] )
+	if ( $form_options['sender_site_email'] )
 		$sender_email = get_bloginfo( 'admin_email' );
 	else
-		$sender_email = $options['sender_email'];
+		$sender_email = $form_options['sender_email'];
 
-	$sender_name = $options['sender_name'];
+	$sender_name = $form_options['sender_name'];
 
-	if ( $options['admin_notify'] ) {
+	if ( $form_options['admin_notify'] ) {
 
-		foreach ( $options['recipients'] as $recipient ) {
+		foreach ( $form_options['recipients'] as $recipient ) {
 
 			if ( isset( $recipient['admin_site_email'] ) && $recipient['admin_site_email'] )
 				$admin_email = get_bloginfo( 'admin_email' );
@@ -326,7 +327,7 @@ function wpmtst_notify_admin( $post, $form_name = 'custom' ) {
 			$to = sprintf( '%s <%s>', $admin_name, $admin_email );
 
 			// Subject line
-			$subject = $options['email_subject'];
+			$subject = $form_options['email_subject'];
 			$subject = str_replace( '%BLOGNAME%', get_bloginfo( 'name' ), $subject );
 			$subject = str_replace( '%TITLE%', $post['post_title'], $subject );
 			$subject = str_replace( '%STATUS%', $post['post_status'], $subject );
@@ -339,7 +340,7 @@ function wpmtst_notify_admin( $post, $form_name = 'custom' ) {
 			}
 
 			// Message text
-			$message = $options['email_message'];
+			$message = $form_options['email_message'];
 			$message = str_replace( '%BLOGNAME%', get_bloginfo( 'name' ), $message );
 			$message = str_replace( '%TITLE%', $post['post_title'], $message );
 			$message = str_replace( '%CONTENT%', $post['post_content'], $message );
@@ -358,37 +359,25 @@ function wpmtst_notify_admin( $post, $form_name = 'custom' ) {
 
 			$mail_sent = wp_mail( $to, $subject, $message, $headers );
 
-			switch ( (int) $options['email_log_level'] ) {
-				/** @noinspection PhpMissingBreakStatementInspection */
-				case 2:
-					if ( $mail_sent ) {
-						$log_entry = array(
-							'response' => 'mail successful',
-							'to'       => $to,
-							'subject'  => $subject,
-							'message'  => $message,
-							'headers'  => $headers,
-						);
-						WPMST()->log( $log_entry, __FUNCTION__ );
-					}
-					// fall through
-				case 1:
-					if ( ! $mail_sent ) {
-						$log_entry = array(
-							'response' => 'mail failed',
-							'to'       => $to,
-							'subject'  => $subject,
-							'message'  => $message,
-							'headers'  => $headers,
-						);
-						WPMST()->log( $log_entry, __FUNCTION__ );
-					}
-					break;
-				default:
-					// do nothing
+			// Log email action
+			if ( isset( $options['email_log_level'] ) && $options['email_log_level'] ) {
+
+				// for both levels, log failure only
+				// for level 2, log both success and failure
+				if ( !$mail_sent || 2 == $options['email_log_level'] ) {
+					$log_entry = array(
+						'response' => $mail_sent ? 'mail successful' : 'mail failed',
+						'to'       => $to,
+						'subject'  => $subject,
+						'message'  => $message,
+						'headers'  => $headers,
+					);
+					WPMST()->log( $log_entry, __FUNCTION__ );
+				}
+
 			}
 
-		}
+		} // for each recipient
 
-	}
+	} // if notify
 }
