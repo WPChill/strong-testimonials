@@ -100,7 +100,9 @@ section {
 	font-size: 1.6em;
 }
 
-.wrap.welcome p {
+.wrap.welcome p,
+.wrap.welcome ol,
+.wrap.welcome ul {
 	font-size: 1.2em;
 }
 

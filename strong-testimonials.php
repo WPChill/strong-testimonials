@@ -4,7 +4,7 @@
  * Plugin URI: https://www.wpmission.com/plugins/strong-testimonials/
  * Description: A full-featured plugin that works right out of the box for beginners and offers advanced features for pros.
  * Author: Chris Dillon
- * Version: 2.5.5
+ * Version: 2.5.6
  * Author URI: https://www.wpmission.com/
  * Text Domain: strong-testimonials
  * Domain Path: /languages
@@ -252,6 +252,9 @@ final class Strong_Testimonials {
 
 			// Profit Builder - stores the rendered shortcode (!)
 			add_action( 'wp', array( $this, 'find_rendered_views' ) );
+
+			// Bretheon theme - stores content in post_meta using base 64 encode (!)
+			add_action( 'wp', array( $this, 'find_views_in_postmeta_encoded' ) );
 
 		}
 
@@ -887,6 +890,31 @@ final class Strong_Testimonials {
 			return;
 
 		self::process_content_for_rendered_shortcodes( $view_ids );
+
+	}
+
+	/**
+	 * Build list of all encoded shortcode views in a page's meta fields.
+	 *
+	 * To handle page builders that encode and store shortcodes and widgets in post meta.
+	 * - Bretheon theme
+	 *
+	 * @access public
+	 * @since 2.5.6
+	 */
+	public static function find_views_in_postmeta_encoded() {
+
+		global $post;
+		if ( empty( $post ) )
+			return false;
+
+		$meta_content = get_post_meta( $post->ID, 'mfn-page-items', true );
+		$mfn_tmp_fn   = 'base' . '64_decode';
+		$meta_content = call_user_func( $mfn_tmp_fn, $meta_content );
+		if ( !self::check_content( $meta_content ) )
+			return false;
+
+		self::process_content( $meta_content );
 
 	}
 

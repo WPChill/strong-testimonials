@@ -160,6 +160,10 @@ Not yet.
 
 == Changelog ==
 
+= 2.5.6 - April 24, 2016 =
+* Compatible with [Bretheon](http://themes.muffingroup.com/?theme=bretheon) theme.
+* Update the Guide.
+
 = 2.5.5 - April 22, 2016 =
 * Fix bug in notification email logging.
 * Fix bug when enabling custom fields and comments.
