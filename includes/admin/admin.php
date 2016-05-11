@@ -324,7 +324,7 @@ function wpmtst_meta_options() {
 	<table class="options">
 		<tr>
 			<td colspan="2">
-				<?php _ex( 'To add a photo or logo, use the Featured Image option.', 'post editor', 'strong-testimonials' ); ?>&nbsp;<div class="dashicons dashicons-arrow-right-alt"></div>
+				<?php _ex( 'To add a photo or logo, use the Featured Image option.', 'post editor', 'strong-testimonials' ); ?>
 			</td>
 		</tr>
 		<?php foreach ( $fields as $key => $field ) : ?>

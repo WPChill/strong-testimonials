@@ -74,7 +74,7 @@ For ultimate control and seamless integration, any template can be copied to you
 = Try these plugins too =
 
 * [Simple Colorbox](https://wordpress.org/plugins/simple-colorbox/) to open thumbnails into full-size images. Nice!
-* [Modular Custom CSS](https://wordpress.org/plugins/modular-custom-css/) for quick CSS tweaks right there in the Customizer.
+* [Simple Custom CSS](https://wordpress.org/plugins/simple-custom-css/) for quick CSS tweaks.
 * [Post State Tags](https://wordpress.org/plugins/post-state-tags/) helps quickly differentiate Published / Pending / Draft and more.
 * [Wider Admin Menu](http://wordpress.org/plugins/wider-admin-menu/) lets your admin menu b r e a t h e.
 
@@ -139,14 +139,6 @@ It depends. I have narrowed down the causes of many conflicts and addressed them
 
 Yes. With some HTML and CSS knowledge, you can copy any template to your theme and customize it as you see fit. You can also have multiple custom templates. A [tutorial](https://www.wpmission.com/knowledge-base/strong-testimonials/) is coming soon.
 
-= Can I make some suggestions? =
-
-I'm all ears! Many of the improvements over the last two years are the result of feedback and ideas from people using the plugin in a variety of sites.
-
-= Will it import my existing testimonials? =
-
-Not yet.
-
 == Screenshots ==
 
 1. The default View settings and the default template.
@@ -159,6 +151,11 @@ Not yet.
 8. Template files and template functions.
 
 == Changelog ==
+
+= 2.5.7 - May 11, 2016 =
+* New "No Quotes" template.
+* Restrict the CSS Classes setting to names only; not to be used for custom CSS rules.
+* Update the Guide.
 
 = 2.5.6 - April 24, 2016 =
 * Compatible with [Bretheon](http://themes.muffingroup.com/?theme=bretheon) theme.

@@ -27,32 +27,29 @@ $tags = array( 'a' => array( 'href' => array(), 'target' => array(), 'class' => 
 	// Resources
 	$links = array();
 
-	$links[] = sprintf(
-		wp_kses(
-			__( '<a href="%s" target="_blank">How to enable comments</a>', 'strong-testimonials' ), $tags
-		), esc_url( 'https://www.wpmission.com/tutorials/how-to-add-comments-in-strong-testimonials/' )
-	) . '<span class="new-doc">NEW</span>';
+	$links[] = sprintf( '<a href="%s" target="_blank">%s</a>',
+		esc_url( 'https://www.wpmission.com/tutorials/how-to-add-custom-css-in-strong-testimonials/' ),
+		__( 'How to add custom CSS', 'strong-testimonials' ) )
+		. '<span class="new-doc">NEW</span>';
 
-	$links[] = sprintf(
-		wp_kses(
-			__( '<a href="%s" target="_blank">How to customize the form</a>', 'strong-testimonials' ), $tags
-		), esc_url( 'https://www.wpmission.com/tutorials/how-to-customize-the-form-in-strong-testimonials/' )
-	);
+	$links[] = sprintf( '<a href="%s" target="_blank">%s</a>',
+		esc_url( 'https://www.wpmission.com/tutorials/how-to-add-comments-in-strong-testimonials/' ),
+		__( 'How to enable comments', 'strong-testimonials' ) );
 
-	$links[] = sprintf(
-		wp_kses(
-			__( '<a href="%s" target="_blank">See the demos</a>', 'strong-testimonials' ), $tags
-		), esc_url( 'http://demos.wpmission.com/strong-testimonials/' )
-	);
+	$links[] = sprintf( '<a href="%s" target="_blank">%s</a>',
+		esc_url( 'https://www.wpmission.com/tutorials/how-to-customize-the-form-in-strong-testimonials/' ),
+		__( 'How to customize the form', 'strong-testimonials' ) );
 
-	$links[] = sprintf(
-		wp_kses(
-			__( '<a href="%s" target="_blank">Subscribe to the newsletter</a>', 'strong-testimonials' ), $tags
-		), esc_url( 'https://www.wpmission.com/newsletter' )
-	);
+	$links[] = sprintf( '<a href="%s" target="_blank">%s</a>',
+		esc_url( 'http://demos.wpmission.com/strong-testimonials/' ),
+		__( 'See the demos', 'strong-testimonials' ) );
+
+	$links[] = sprintf( '<a href="%s" target="_blank">%s</a>',
+		esc_url( 'https://www.wpmission.com/newsletter' ),
+		__( 'Subscribe to the newsletter', 'strong-testimonials' ) );
 	?>
 	<div class="has-icon icon-document">
-		<p><strong><?php _e( 'More resources', 'strong-testimonials' ); ?></strong></p>
+		<p><strong><?php _e( 'Knowledge Base', 'strong-testimonials' ); ?></strong></p>
 		<ul>
 			<?php foreach ( $links as $link ) : ?>
 			<li><?php echo $link; ?></li>
@@ -74,7 +71,7 @@ $tags = array( 'a' => array( 'href' => array(), 'target' => array(), 'class' => 
 	);
 	?>
 	<div class="has-icon icon-donate">
-		<p><strong><?php _e( 'Want to help?', 'strong-testimonials' ); ?></strong></p>
+		<p><strong><?php _e( 'Give Back', 'strong-testimonials' ); ?></strong></p>
 		<ul>
 			<li><?php echo $link1; ?></li>
 			<li><?php echo $link2; ?></li>

@@ -4,7 +4,7 @@
  * Plugin URI: https://www.wpmission.com/plugins/strong-testimonials/
  * Description: A full-featured plugin that works right out of the box for beginners and offers advanced features for pros.
  * Author: Chris Dillon
- * Version: 2.5.6
+ * Version: 2.5.7
  * Author URI: https://www.wpmission.com/
  * Text Domain: strong-testimonials
  * Domain Path: /languages
@@ -392,6 +392,21 @@ final class Strong_Testimonials {
 				self::after_pagination( $atts );
 			}
 
+		}
+
+		/**
+		 * Enqueue layout stuff if preprocessing fails.
+		 * @since 2.5.7
+		 */
+		if ( 'masonry' == $atts['layout'] ) {
+			wp_enqueue_script( 'wpmtst-masonry-script' );
+			wp_enqueue_style( 'wpmtst-masonry-style' );
+		}
+		elseif ( 'columns' == $atts['layout'] ) {
+			wp_enqueue_style( 'wpmtst-columns-style' );
+		}
+		elseif ( 'grid' == $atts['layout'] ) {
+			wp_enqueue_style( 'wpmtst-grid-style' );
 		}
 
 	}

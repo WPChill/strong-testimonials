@@ -543,9 +543,10 @@ function wpmtst_view_field_date( $key, $field, $adding = false ) {
 	<label for="view-<?php echo $key; ?>-client-date-format"><span>Format</span></label>
 	<input id="view-<?php echo $key; ?>-client-date-format" type="text" name="view[data][client_section][<?php echo $key; ?>][format]" class="field-type-date" value="<?php echo isset( $field['format'] ) ? $field['format'] : ''; ?>">
 	<div class="help minor">
-		<?php printf( wp_kses( __( '<a href="%s" target="_blank">more about date formats</a>', 'strong-testimonials' ), array( 'a' => array( 'href' => array(), 'target' => array() ) ) ), esc_url( 'https://codex.wordpress.org/Formatting_Date_and_Time' ) ); ?>
+		<?php printf( '<a href="%s" target="_blank">%s</a>',
+			esc_url( 'https://codex.wordpress.org/Formatting_Date_and_Time' ),
+			__( 'more about date formats', 'strong-testimonials' ) ); ?>
 	</div>
-
 	<?php
 }
 
@@ -716,6 +717,9 @@ add_action( 'admin_post_view_duplicate_form', 'wpmtst_view_add_form' );
  * Sanitize and validate a View.
  * TODO break down into separate validators
  *
+ * @since 1.21.0
+ * @since 2.5.7 Strip CSS from CSS Class Names field.
+ *
  * @param $input
  *
  * @return array
@@ -861,7 +865,12 @@ function wpmtst_sanitize_view( $input ) {
 	$view_data['lightbox']         = isset( $input['lightbox'] ) ? 1 : 0;
 	$view_data['gravatar']         = sanitize_text_field( $input['gravatar'] );
 
-	$view_data['class'] = sanitize_text_field( $input['class'] );
+	/**
+	 * CSS Class Names
+	 * This field is being confused with custom CSS rules like `.testimonial { border: none; }`
+	 * so strip periods and anything between and including curly braces.
+	 */
+	$view_data['class'] = sanitize_text_field( trim( preg_replace( '/\{.*?\}|\./', '', $input['class'] ) ) );
 
 	// Background
 	$view_data['background'] = WPMST()->get_background_defaults();

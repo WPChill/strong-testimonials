@@ -5,7 +5,7 @@
   
 **Tags:** testimonials, testimonial widget, random testimonial, testimonial shortcode, testimonial slider, testimonial form
   
-**Requires at least:** 3.5
+**Requires at least:** 3.6
   
 **Tested up to:** 4.5
   
@@ -43,7 +43,7 @@ If that describes your situation, this plugin will work for you right out of the
 * Custom "Read more" links
 * Gravatar support
 * Fully localized, ready for translations
-* Compatible with WPML and Polylang
+* Compatible with [WPML](https://wpml.org/), [Polylang](https://wordpress.org/plugins/polylang/) and [WPGlobus](https://wordpress.org/plugins/wpglobus/)
 
 Strong Testimonials [plays well with other plugins and themes](https://www.wpmission.com/theme-plugin-compatibility-fund/), and I strive to adhere to WordPress coding standards and best practices.
 
@@ -82,7 +82,7 @@ For ultimate control and seamless integration, any template can be copied to you
 ### Try these plugins too ###
 
 * [Simple Colorbox](https://wordpress.org/plugins/simple-colorbox/) to open thumbnails into full-size images. Nice!
-* [Modular Custom CSS](https://wordpress.org/plugins/modular-custom-css/) for quick CSS tweaks right there in the Customizer.
+* [Simple Custom CSS](https://wordpress.org/plugins/simple-custom-css/) for quick CSS tweaks.
 * [Post State Tags](https://wordpress.org/plugins/post-state-tags/) helps quickly differentiate Published / Pending / Draft and more.
 * [Wider Admin Menu](http://wordpress.org/plugins/wider-admin-menu/) lets your admin menu b r e a t h e.
 
@@ -145,15 +145,7 @@ It depends. I have narrowed down the causes of many conflicts and addressed them
 
 ### I'm familiar with template files. Can I customize the template? ###
 
-Yes. With some HTML and CSS knowledge, you can copy any template to your theme and customize it as you see fit. You can also have multiple custom templates. (A tutorial is coming soon.)
-
-### Can I make some suggestions? ###
-
-I'm all ears! Many of the improvements over the last two years are the result of feedback and ideas from people using the plugin in a variety of sites.
-
-### Will it import my existing testimonials? ###
-
-Not yet.
+Yes. With some HTML and CSS knowledge, you can copy any template to your theme and customize it as you see fit. You can also have multiple custom templates. A [tutorial](https://www.wpmission.com/knowledge-base/strong-testimonials/) is coming soon.
 
 ## Screenshots ##
 
@@ -192,8 +184,35 @@ Not yet.
 
 ## Changelog ##
 
+### 2.5.7 - May 11, 2016 ###
+* New "No Quotes" template.
+* Restrict the CSS Classes setting to names only; not to be used for custom CSS rules.
+* Update the Guide.
+
+### 2.5.6 - April 24, 2016 ###
+* Compatible with [Bretheon](http://themes.muffingroup.com/?theme=bretheon) theme.
+* Update the Guide.
+
+### 2.5.5 - April 22, 2016 ###
+* Fix bug in notification email logging.
+* Fix bug when enabling custom fields and comments.
+
+### 2.5.4 - April 22, 2016 ###
+* Fix bug in Guide.
+* Minimum WordPress version required: 3.6.
+
+### 2.5.3 - April 21, 2016 ###
+* Minor admin UI improvements.
+
+### 2.5.2 - April 12, 2016 ###
+* Add pagination to `strong_testimonials_view()` template function.
+* Fix bug in Categories column.
+
+### 2.5.1 - April 8, 2016 ###
+* Add comments column to testimonial admin list.
+* Fix conflict with NextGEN Gallery.
+
 ### 2.5 - April 7, 2016 ###
-* Integrate Large Scale add-on (coming soon).
 * Fix bug on date format conversion.
 * Fix content class bug.
 * Add filters to override default pagination.
@@ -220,7 +239,7 @@ Not yet.
 
 ### 2.3 - March 9, 2016 ###
 * Improve compatibility with [Posts for Page](https://wordpress.org/plugins/posts-for-page/), [Custom Content Shortcode](https://wordpress.org/plugins/custom-content-shortcode/), and other plugins that use shortcodes to pull in other content.
-* Add form handling to strong_testimonials_view() template function.
+* Add form handling to `strong_testimonials_view()` template function.
 * Optimize slideshow loading.
 * Strip HTML whitespace by default with option to disable.
 * Disable form honeypots by default in new installs.
@@ -293,4 +312,4 @@ Not yet.
 
 ## Upgrade Notice ##
 
-Improved compatibility. Fixed minor bugs.
+Ongoing improvements in compatibility, speed, and troubleshooting.

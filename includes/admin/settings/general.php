@@ -116,16 +116,14 @@ $tags    = array( 'a' => array( 'href' => array(), 'target' => array(), 'class' 
 				<?php _e( 'Allow comments on new testimonials. Requires using your theme\'s single post template. Off by default.', 'strong-testimonials' ); ?>
 			</label>
 			</fieldset>
-			<p class="description">To enable comments:</p>
+			<p class="description"><?php _e( 'To enable comments:', 'strong-testimonials' ); ?></p>
 			<ul class="description">
-				<li>For individual testimonials, use the <strong>Discussion</strong> meta box in the post editor or <strong>Quick Edit</strong> in the testimonial list.</li>
-				<li>For multiple testimonials, use <strong>Bulk Edit</strong> in the testimonial list.</li>
+				<li><?php _e( 'For individual testimonials, use the <strong>Discussion</strong> meta box in the post editor or <strong>Quick Edit</strong> in the testimonial list.', 'strong-testimonials' ); ?></li>
+				<li><?php _e( 'For multiple testimonials, use <strong>Bulk Edit</strong> in the testimonial list.', 'strong-testimonials' ); ?></li>
 			</ul>
-			<p class="description"><?php printf(
-					wp_kses(
-						__( '<a href="%s" target="_blank">Full tutorial here</a>', 'strong-testimonials' ), $tags
-					), esc_url( 'https://www.wpmission.com/tutorials/how-to-add-comments-in-strong-testimonials/' )
-				)?></p>
+			<p class="description"><?php printf( '<a href="%s" target="_blank">%s</a>',
+				esc_url( 'https://www.wpmission.com/tutorials/how-to-add-comments-in-strong-testimonials/' ),
+				__( 'Tutorial', 'strong-testimonials' ) ); ?></p>
 		</td>
 	</tr>
 

@@ -8,7 +8,11 @@
 		<table id="custom-field-list2" class="fields" cellpadding="0" cellspacing="0">
 			<thead>
 				<tr>
-					<th>Name</th><th>Type</th><th>Properties</th><th>CSS Class</th><th class="controls">&nbsp;</th>
+					<th><?php _e( 'Name', 'strong-testimonials' ); ?></th>
+					<th><?php _e( 'Type', 'strong-testimonials' ); ?></th>
+					<th><?php _e( 'Properties', 'strong-testimonials' ); ?></th>
+					<th><?php _e( 'CSS Class Name', 'strong-testimonials' ); ?></th>
+					<th class="controls">&nbsp;</th>
 				</tr>
 			</thead>
 			<tbody>
