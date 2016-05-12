@@ -4,7 +4,7 @@
  * Plugin URI: https://www.wpmission.com/plugins/strong-testimonials/
  * Description: A full-featured plugin that works right out of the box for beginners and offers advanced features for pros.
  * Author: Chris Dillon
- * Version: 2.5.7
+ * Version: 2.5.8
  * Author URI: https://www.wpmission.com/
  * Text Domain: strong-testimonials
  * Domain Path: /languages
@@ -399,14 +399,25 @@ final class Strong_Testimonials {
 		 * @since 2.5.7
 		 */
 		if ( 'masonry' == $atts['layout'] ) {
-			wp_enqueue_script( 'wpmtst-masonry-script' );
-			wp_enqueue_style( 'wpmtst-masonry-style' );
+			if ( ! wp_script_is('wpmtst-masonry-script' ) ) {
+				wp_enqueue_script( 'wpmtst-masonry-script' );
+			}
+			if ( ! wp_style_is('wpmtst-masonry-style' ) ) {
+				wp_enqueue_style( 'wpmtst-masonry-style' );
+			}
 		}
 		elseif ( 'columns' == $atts['layout'] ) {
-			wp_enqueue_style( 'wpmtst-columns-style' );
+			if ( ! wp_style_is('wpmtst-columns-style' ) ) {
+				wp_enqueue_style( 'wpmtst-columns-style' );
+			}
 		}
 		elseif ( 'grid' == $atts['layout'] ) {
-			wp_enqueue_style( 'wpmtst-grid-style' );
+			if ( ! wp_script_is('wpmtst-grid-script' ) ) {
+				wp_enqueue_script( 'wpmtst-grid-script' );
+			}
+			if ( ! wp_style_is('wpmtst-grid-style' ) ) {
+				wp_enqueue_style( 'wpmtst-grid-style' );
+			}
 		}
 
 	}
@@ -1293,6 +1304,7 @@ final class Strong_Testimonials {
 				self::add_style( 'wpmtst-columns-style' );
 			}
 			elseif ( 'grid' == $atts['layout'] ) {
+				self::add_script( 'wpmtst-grid-script' );
 				self::add_style( 'wpmtst-grid-style' );
 			}
 		}

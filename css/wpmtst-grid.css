@@ -17,29 +17,49 @@
 	display: -webkit-flex;
 	display: -ms-flexbox;
 	display: flex;
-	flex-direction: column;
-	width: 48%;
+	/*flex-direction: column;*/
 	margin-top: 0;
 }
 
+.strong-view .strong-content.strong-grid.columns-2 .testimonial {
+	width: 48%;
+}
+
+.strong-view .strong-content.strong-grid.columns-3 .testimonial {
+	width: 31%;
+}
+
+.strong-view .strong-content.strong-grid.columns-4 .testimonial {
+	width: 23%;
+}
+
 .strong-view .strong-content.strong-grid .testimonial-inner {
-	flex: 1;
+	flex: 1 0 0;
 }
 
 html.no-js .strong-grid .testimonial {
-	width: 48%;
 	float: left;
-}
-
-@supports ( display: -webkit-flex ) or ( display: flex ) {
-	html.no-js .strong-grid .testimonial {
-		width: 48%;
-		float: left;
-	}
+	margin-right: 1%;
+	margin-left: 1%;
 }
 
 @media only screen and (max-width: 480px) {
 	.strong-view .strong-content.strong-grid .testimonial {
 		width: 100%;
 	}
+}
+
+/* either no JavaScript or no Flexbox */
+html.no-js .strong-grid .testimonial,
+.strong-grid.noflex .testimonial {
+	float: left;
+	margin-right: 1%;
+	margin-left: 1%;
+}
+
+/* float the last column */
+.strong-grid.columns-2.noflex .testimonial:nth-of-type(2n+2),
+.strong-grid.columns-3.noflex .testimonial:nth-of-type(3n+3),
+.strong-grid.columns-4.noflex .testimonial:nth-of-type(4n+4) {
+	float: right;
 }

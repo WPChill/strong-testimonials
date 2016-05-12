@@ -152,6 +152,9 @@ Yes. With some HTML and CSS knowledge, you can copy any template to your theme a
 
 == Changelog ==
 
+= 2.5.8 - May 12, 2016 =
+* Fix grid layout in IE 9 and IE 11.
+
 = 2.5.7 - May 11, 2016 =
 * New "No Quotes" template.
 * Restrict the CSS Classes setting to names only; not to be used for custom CSS rules.

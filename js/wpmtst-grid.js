@@ -11,6 +11,7 @@
         $items      = $list.find( '.testimonial' ),
         setHeights  = function()
         {
+			$list.addClass( 'noflex' );
             $items.css( 'height', 'auto' );
 
             var perRow = Math.floor( $list.width() / $items.width() );
