@@ -589,3 +589,21 @@ function wpmtst_testimonial_supports( $supports ) {
 	return $supports;
 }
 add_filter( 'wpmtst_testimonial_supports', 'wpmtst_testimonial_supports' );
+
+
+/**
+ * Allow empty posts.
+ *
+ * @since 2.5.9
+ * @param $maybe_empty
+ * @param $postarr
+ *
+ * @return bool
+ */
+function wpmtst_insert_post_empty_content( $maybe_empty, $postarr ) {
+	if ( 'wpm-testimonial' == $postarr['post_type'] )
+		return false;
+
+	return $maybe_empty;
+}
+add_filter( 'wp_insert_post_empty_content', 'wpmtst_insert_post_empty_content', 10, 2 );
