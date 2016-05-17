@@ -27,6 +27,7 @@ function wpmtst_get_default_options() {
 		'support_custom_fields' => false,
 		'support_comments'      => false,
 		'email_log_level'       => 1,
+		'embed_width'           => '',
 	);
 
 	return $default_options;

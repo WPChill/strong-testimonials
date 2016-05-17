@@ -104,7 +104,6 @@ $tags    = array( 'a' => array( 'href' => array(), 'target' => array(), 'class' 
 		</td>
 	</tr>
 
-
 	<tr valign="top">
 		<th scope="row">
 			<?php _e( 'Comments', 'strong-testimonials' ); ?>
@@ -113,7 +112,7 @@ $tags    = array( 'a' => array( 'href' => array(), 'target' => array(), 'class' 
 			<fieldset>
 			<label>
 				<input type="checkbox" name="wpmtst_options[support_comments]" <?php checked( $options['support_comments'] ); ?>>
-				<?php _e( 'Allow comments on new testimonials. Requires using your theme\'s single post template. Off by default.', 'strong-testimonials' ); ?>
+				<?php _e( 'Allow comments on testimonials. Requires using your theme\'s single post template. Off by default.', 'strong-testimonials' ); ?>
 			</label>
 			</fieldset>
 			<p class="description"><?php _e( 'To enable comments:', 'strong-testimonials' ); ?></p>
@@ -124,6 +123,26 @@ $tags    = array( 'a' => array( 'href' => array(), 'target' => array(), 'class' 
 			<p class="description"><?php printf( '<a href="%s" target="_blank">%s</a>',
 				esc_url( 'https://www.wpmission.com/tutorials/how-to-add-comments-in-strong-testimonials/' ),
 				__( 'Tutorial', 'strong-testimonials' ) ); ?></p>
+		</td>
+	</tr>
+
+	<tr valign="top">
+		<th scope="row">
+			<?php _e( 'Embed Width', 'strong-testimonials' ); ?>
+		</th>
+		<td>
+			<fieldset>
+				<label>
+					<?php printf(
+						/* Translators: %s is an input field. */
+						__( 'For embedded links (YouTube, Twitter, etc.) set the frame width to %s pixels.', 'strong-testimonials' ),
+						'<input type="text" name="wpmtst_options[embed_width]" value="' . $options['embed_width'] . '" size="3">' ); ?>
+					<p class="description"><?php _e( 'Leave empty for default width (usually 100% for videos). Height will be calculated automatically. This setting only applies to Views.', 'strong-testimonials' ); ?>
+						<?php printf( '<a href="%s" target="_blank">%s</a>',
+							esc_url( 'https://codex.wordpress.org/Embeds' ),
+							__( 'More on embeds', 'strong-testimonials' ) ); ?></p>
+				</label>
+			</fieldset>
 		</td>
 	</tr>
 

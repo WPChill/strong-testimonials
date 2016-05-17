@@ -592,9 +592,32 @@ add_filter( 'wpmtst_testimonial_supports', 'wpmtst_testimonial_supports' );
 
 
 /**
+ * Set iframe width of embedded videos.
+ *
+ * @since 2.6.0
+ * @param $dimensions
+ * @param $url
+ *
+ * @return array
+ */
+function wpmtst_embed_size( $dimensions, $url ) {
+	$options = get_option( 'wpmtst_options' );
+	$width = (int) $options['embed_width'];
+	if ( $width ) {
+		$dimensions = array(
+			'width'  => $width,
+			'height' => min( ceil( $width * 1.5 ), 1000 )
+		);
+	}
+
+	return $dimensions;
+}
+
+
+/**
  * Allow empty posts.
  *
- * @since 2.5.9
+ * @since 2.6.0
  * @param $maybe_empty
  * @param $postarr
  *

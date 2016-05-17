@@ -115,6 +115,7 @@ class Strong_View {
 		 * Add filters here.
 		 */
 		add_filter( 'get_avatar', 'wpmtst_get_avatar', 10, 3 );
+		add_filter( 'embed_defaults', 'wpmtst_embed_size', 10, 2 );
 
 		/**
 		 * Locate template.
@@ -140,6 +141,7 @@ class Strong_View {
 		 * Remove filters here.
 		 */
 		remove_filter( 'get_avatar', 'wpmtst_get_avatar' );
+		remove_filter( 'embed_defaults', 'wpmtst_embed_size' );
 
 		/**
 		 * Hook to enqueue scripts.

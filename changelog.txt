@@ -1,0 +1,133 @@
+= 2.6 - May 17, 2016 =
+* Bypass WordPress empty post check.
+* Enable embeds (YouTube, Twitter, etc.).
+* Add setting for embed frame width.
+
+= 2.5.8 - May 12, 2016 =
+* Fix grid layout in IE 9 and IE 11.
+
+= 2.5.7 - May 11, 2016 =
+* New "No Quotes" template.
+* Restrict the CSS Classes setting to names only; not to be used for custom CSS rules.
+* Update the Guide.
+
+= 2.5.6 - April 24, 2016 =
+* Compatible with [Bretheon](http://themes.muffingroup.com/?theme=bretheon) theme.
+* Update the Guide.
+
+= 2.5.5 - April 22, 2016 =
+* Fix bug in notification email logging.
+* Fix bug when enabling custom fields and comments.
+
+= 2.5.4 - April 22, 2016 =
+* Fix bug in Guide.
+* Minimum WordPress version required: 3.6.
+
+= 2.5.3 - April 21, 2016 =
+* Minor admin UI improvements.
+
+= 2.5.2 - April 12, 2016 =
+* Add pagination to `strong_testimonials_view()` template function.
+* Fix bug in Categories column.
+
+= 2.5.1 - April 8, 2016 =
+* Add comments column to testimonial admin list.
+* Fix conflict with NextGEN Gallery.
+
+= 2.5 - April 7, 2016 =
+* Fix bug on date format conversion.
+* Fix content class bug.
+* Add filters to override default pagination.
+
+= 2.4.1 - April 5, 2016 =
+* Apply all content filters (revert change in 2.4.0).
+* Bypass content filter for [All In On Schema.org Rich Snippets](https://wordpress.org/plugins/all-in-one-schemaorg-rich-snippets/) plugin.
+
+= 2.4 - April 4, 2016 =
+* Add email notification troubleshooting log.
+* Add option to show Custom Fields meta box.
+* Add option to enable comments on individual testimonials.
+* Fix formatting of non-US date formats.
+* Apply only standard content filters (wptexturize, convert_smilies, wpautop, shortcode_unautop, do_shortcode).
+
+= 2.3.3 - March 18, 2016 =
+* Prevent incompatible combination of pagination and Masonry.
+
+= 2.3.2 - March 17, 2016 =
+* Fix bug when getting fields for Polylang.
+
+= 2.3.1 - March 12, 2016 =
+* Apply all content filters to be compatible with [WPGlobus](https://wordpress.org/plugins/wpglobus/) translation plugin.
+
+= 2.3 - March 9, 2016 =
+* Improve compatibility with [Posts for Page](https://wordpress.org/plugins/posts-for-page/), [Custom Content Shortcode](https://wordpress.org/plugins/custom-content-shortcode/), and other plugins that use shortcodes to pull in other content.
+* Add form handling to `strong_testimonials_view()` template function.
+* Optimize slideshow loading.
+* Strip HTML whitespace by default with option to disable.
+* Disable form honeypots by default in new installs.
+* Fix bug with first slide in Cycle script.
+* Fix conflict with RT Themes.
+* Fix admin style conflict.
+
+= 2.2.12 - March 3, 2016 =
+* Fix bug when title is empty in some languages.
+* Add error logging to save process.
+
+= 2.2.11 - March 2, 2016 =
+* Fix slideshow stacking bug in unstyled template.
+* Add option to disable scroll top in paginated Views.
+
+= 2.2.10 - March 1, 2016 =
+* Add post date to Custom Fields in View editor.
+
+= 2.2.9 - February 29, 2016 =
+* Fix conflict with [Toolset Views](https://wp-types.com/) plugin.
+* Add Persian translation.
+
+= 2.2.8 - February 23, 2016 =
+* Fix conflict with Post Types Order plugin.
+
+= 2.2.7 - February 22, 2016 =
+* Bug fix for PHP 7.
+
+= 2.2.6 - February 19, 2016 =
+* Allow some HTML in form messages (same as comments).
+* Add `wpmtst_form_success_message` filter.
+
+= 2.2.5 - February 17, 2016 =
+* Handle possibility of missing standard image sizes.
+
+= 2.2.4 - February 15, 2016 =
+* Fix bug in widget processing.
+
+= 2.2.3 - February 11, 2016 =
+* Fix bug in category selector in WPML.
+
+= 2.2.2 - February 10, 2016 =
+* Fix bug in category selector custom field when localized.
+
+= 2.2.1 - February 8, 2016 =
+* Fix bug in View category selector.
+* Prevent potential class name conflict.
+
+= 2.2 - February 8, 2016 =
+* Improve category selector in View editor.
+* Add category filter to testimonial admin list.
+* Make category column sortable in testimonial admin list.
+* Add German translation.
+
+= 2.1 - February 5, 2016 =
+* Add ability to duplicate a View.
+* Fix pagination/slideshow show/hide behavior in View editor.
+* Add framework for add-on plugins.
+
+= 2.0.1 - February 3, 2016 =
+* Fix bug that restored default custom fields.
+
+= 2.0 - February 2, 2016 =
+* Remove `[strong]`, `[wpmtst]`, `[read_more]` shortcodes.
+* Remove original widget.
+* Add content area to View widget.
+* Improve handling of special characters in Fields editor.
+* Fix bug in failed Captcha when submitting form via Ajax.
+* Compatible with [Profit Builder](http://wpprofitbuilder.com/) plugin.

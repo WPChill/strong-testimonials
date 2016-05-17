@@ -68,12 +68,14 @@ function wpmtst_the_content( $length = null ) {
 		else
 			$content = get_the_content();
 
-		// Applying all content filters breaks POS NextGEN Gallery.
-		// So need to find a way to select which additional filters, if any, to apply.
-		// For instance, All In One Rich Snippets.
-
+		/*
+		 * Applying all content filters within a secondary loop breaks POS [NextGEN Gallery]
+		 * and applies unwanted filters like [All In One Rich Snippets].
+		 * So need to find a way to select which additional filters, if any, to apply.
+		 */
 		//$content = apply_filters( 'the_content', $content );
 
+		$content = $GLOBALS['wp_embed']->autoembed( $content );
 		$content = wptexturize( $content );
 		$content = convert_smilies( $content );
 		$content = wpautop( $content );
@@ -84,6 +86,7 @@ function wpmtst_the_content( $length = null ) {
 
 	echo $content;
 }
+
 
 /**
  * Display the thumbnail.
