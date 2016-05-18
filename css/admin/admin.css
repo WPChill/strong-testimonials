@@ -575,6 +575,23 @@ td.column-shortcode {
 	background: #EDF2F8;
 	border: 1px solid #9AC8FE;
 	border-top-width: 5px;
+	box-sizing: border-box;
+}
+
+@media screen and (max-width: 667px) {
+	#plugin-sidebar {
+		float: none;
+		width: 100%;
+		margin-left: 0;
+	}
+}
+@media screen and (min-width: 668px) and (max-width: 782px) {
+	#plugin-sidebar div {
+		margin-left: 20px !important;
+	}
+	#plugin-sidebar .has-icon::before {
+		display: none;
+	}
 }
 
 #plugin-sidebar div {

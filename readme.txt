@@ -152,6 +152,10 @@ Yes. With some HTML and CSS knowledge, you can copy any template to your theme a
 
 == Changelog ==
 
+= 2.6.1 - May 18, 2016 =
+* Update the Guide.
+* Improve responsive style.
+
 = 2.6 - May 17, 2016 =
 * Bypass WordPress empty post check.
 * Enable embeds (YouTube, Twitter, etc.).

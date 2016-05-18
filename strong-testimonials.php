@@ -4,7 +4,7 @@
  * Plugin URI: https://www.wpmission.com/plugins/strong-testimonials/
  * Description: A full-featured plugin that works right out of the box for beginners and offers advanced features for pros.
  * Author: Chris Dillon
- * Version: 2.6.0
+ * Version: 2.6.1
  * Author URI: https://www.wpmission.com/
  * Text Domain: strong-testimonials
  * Domain Path: /languages
@@ -215,6 +215,7 @@ final class Strong_Testimonials {
 
 		if ( is_admin() ) {
 
+			wp_enqueue_style( 'dashicons ');
 			add_action( 'wpmtst_form_admin', 'wpmtst_form_admin2' );
 
 		}

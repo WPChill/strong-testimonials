@@ -58,5 +58,7 @@ function wpmtst_guide_before_content() {
 }
 add_action( 'wpmtst_guide_before_content', 'wpmtst_guide_before_content' );
 
-function wpmtst_guide_after_content() {}
-//add_action( 'wpmtst_guide_after_content', 'wpmtst_guide_after_content' );
+function wpmtst_guide_after_content() {
+	//include 'plugin-sidebar.php';
+}
+add_action( 'wpmtst_guide_after_content', 'wpmtst_guide_after_content' );

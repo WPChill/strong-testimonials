@@ -89,11 +89,14 @@ section {
 	color: #00A4F3;
 	font-size: 36px;
 	font-weight: 700;
-	margin: 1em 0;
+	margin: 0.7em 0 1.4em;
 }
 
-.wrap.welcome h3.large {
-	margin: 0.7em 0 1.4em;
+@media screen and (max-width: 667px) {
+	.wrap.welcome h3.large {
+		font-size: 30px;
+		line-height: 1.5;
+	}
 }
 
 .wrap.welcome h4.large {
