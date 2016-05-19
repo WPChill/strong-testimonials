@@ -15,7 +15,7 @@ Array.max = function( array ){
  * http://stackoverflow.com/a/5555792/51600
  * http://dreamerslab.com/blog/en/get-hidden-elements-width-and-height-with-jquery/
  */
-jQuery(window).load(function() {
+jQuery(window).on( "load", function() {
 
     jQuery(".strong-view").each(function (index, elem) {
 
@@ -43,6 +43,7 @@ jQuery(window).load(function() {
 				fx: parms.effect,
 				speed: parseInt(parms.speed),
 				timeout: parseInt(parms.timeout),
+				maxZ: parseInt(parms.maxZ) ? parseInt(parms.maxZ) : 9,
 				pause: "1" == parms.pause ? true : false,  // Cycle
 				pauseOnHover: "1" == parms.pause ? true : false   // Cycle2
 			});

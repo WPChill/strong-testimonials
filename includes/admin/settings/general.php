@@ -140,7 +140,25 @@ $tags    = array( 'a' => array( 'href' => array(), 'target' => array(), 'class' 
 					<p class="description"><?php _e( 'Leave empty for default width (usually 100% for videos). Height will be calculated automatically. This setting only applies to Views.', 'strong-testimonials' ); ?>
 						<?php printf( '<a href="%s" target="_blank">%s</a>',
 							esc_url( 'https://codex.wordpress.org/Embeds' ),
-							__( 'More on embeds', 'strong-testimonials' ) ); ?></p>
+							__( 'More on embeds', 'strong-testimonials' ) ); ?> |
+						<?php printf( '<a href="%s" target="_blank">%s</a>',
+							esc_url( 'https://www.wpmission.com/tutorials/youtube-twitter-instagram-strong-testimonials/' ),
+							__( 'Tutorial', 'strong-testimonials' ) ); ?></p>
+				</label>
+			</fieldset>
+		</td>
+	</tr>
+
+	<tr valign="top">
+		<th scope="row">
+			<?php _e( 'Slideshow z-index', 'strong-testimonials' ); ?>
+		</th>
+		<td>
+			<fieldset>
+				<label>
+					<input type="text" name="wpmtst_options[slideshow_zindex]" value="<?php echo $options['slideshow_zindex']; ?>" size="1">
+					<?php printf( __( 'Default is 9. If the slideshow overlays other elements like sticky menus, decrement this by 1 until it underlays correctly. If the problem persists, open a <a href="%s">support ticket</a>.', 'strong-testimonials' ), esc_url( 'https://www.wpmission.com/support' ) ); ?>
+					<p class="description"><?php _e( '', 'strong-testimonials' ); ?></p>
 				</label>
 			</fieldset>
 		</td>

@@ -233,7 +233,8 @@ function wpmtst_admin_scripts( $hook ) {
 		default:
 	}
 
-	wp_enqueue_style( 'font-awesome', '//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css', array(), '4.4.0' );
+	wp_enqueue_style( 'font-awesome', '//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css', array(), '4.6.3' );
+	wp_enqueue_style( 'dashicons ');
 
 }
 add_action( 'admin_enqueue_scripts', 'wpmtst_admin_scripts' );
@@ -335,10 +336,14 @@ function wpmtst_meta_options() {
 				</label>
 			</th>
 			<td>
+				<div class="<?php echo $field['input_type']; ?>">
 				<?php echo sprintf( '<input id="%2$s" type="%1$s" class="custom-input" name="custom[%2$s]" value="%3$s" size="">', $field['input_type'], $field['name'], $post->{$field['name']} ); ?>
 				<?php if ( 'url' == $field['input_type'] ) : ?>
-					&nbsp;&nbsp;<label><input type="checkbox" name="custom[nofollow]" <?php checked( $post->nofollow, 'on' ); ?>> <code>rel="nofollow"</code></label>
+					<div class="input-nofollow">
+					<label class="nowrap"><input type="checkbox" name="custom[nofollow]" <?php checked( $post->nofollow, 'on' ); ?>> <code>rel="nofollow"</code></label>
+						</div>
 				<?php endif; ?>
+				</div>
 			</td>
 		</tr>
 		<?php endforeach; ?>

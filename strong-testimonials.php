@@ -4,7 +4,7 @@
  * Plugin URI: https://www.wpmission.com/plugins/strong-testimonials/
  * Description: A full-featured plugin that works right out of the box for beginners and offers advanced features for pros.
  * Author: Chris Dillon
- * Version: 2.6.1
+ * Version: 2.7
  * Author URI: https://www.wpmission.com/
  * Text Domain: strong-testimonials
  * Domain Path: /languages
@@ -215,7 +215,6 @@ final class Strong_Testimonials {
 
 		if ( is_admin() ) {
 
-			wp_enqueue_style( 'dashicons ');
 			add_action( 'wpmtst_form_admin', 'wpmtst_form_admin2' );
 
 		}
@@ -1159,14 +1158,67 @@ final class Strong_Testimonials {
 		}
 
 		// Populate variable for Cycle script.
+		$args = self::slideshow_args( $atts );
+		wp_localize_script( 'wpmtst-slider', self::slideshow_signature( $args ), $args );
+	}
+
+	/**
+	 * Create unique slideshow signature.
+	 *
+	 * @since 2.7.0
+	 * @private
+	 * @param $args
+	 *
+	 * @return string
+	 */
+	private static function slideshow_signature( $args ) {
+		return 'strong_cycle_' . md5( serialize( $args ) );
+	}
+
+	/**
+	 * Return slideshow signature.
+	 *
+	 * @since 2.7.0
+	 * @param $args
+	 *
+	 * @return string
+	 */
+	public function get_slideshow_signature( $args ) {
+		return self::slideshow_signature( $args );
+	}
+
+	/**
+	 * Assemble slideshow settings.
+	 *
+	 * @since 2.7.0
+	 * @private
+	 * @param $atts
+	 *
+	 * @return array
+	 */
+	private static function slideshow_args( $atts ) {
+		$options = get_option( 'wpmtst_options' );
 		$args = array(
 			'fx'      => 'fade',
 			'speed'   => $atts['effect_for'] * 1000,
 			'timeout' => $atts['show_for'] * 1000,
-			'pause'   => $atts['no_pause'] ? 0 : 1
+			'pause'   => $atts['no_pause'] ? 0 : 1,
+			'maxZ'    => (int) $options['slideshow_zindex']
 		);
 
-		wp_localize_script( 'wpmtst-slider', 'strong_cycle_' . hash( 'md5', serialize( $args ) ), $args );
+		return $args;
+	}
+
+	/**
+	 * Return slideshow settings.
+	 *
+	 * @since 2.7.0
+	 * @param $atts
+	 *
+	 * @return array
+	 */
+	public function get_slideshow_args( $atts ) {
+		return self::slideshow_args( $atts );
 	}
 
 	/**
@@ -1333,13 +1385,13 @@ final class Strong_Testimonials {
 			}
 		}
 
-		self::custom_background( $view, $atts['background'], $handle );
+		self::custom_background( $atts['view'], $atts['background'], $handle );
 	}
 
 	/**
 	 * Custom CSS for Views only.
 	 *
-	 * @param $view
+	 * @param $view int    The view id, not the view object.
 	 * @param $background
 	 * @param $handle
 	 */

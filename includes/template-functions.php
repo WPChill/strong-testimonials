@@ -427,6 +427,8 @@ function wpmtst_post_class() {
  * Echo custom field.
  *
  * @since 1.11.0
+ * @param null  $field
+ * @param array $args
  */
 function wpmtst_field( $field = null, $args = array() ) {
 	echo wpmtst_get_field( $field, $args );

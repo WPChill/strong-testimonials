@@ -152,6 +152,14 @@ Yes. With some HTML and CSS knowledge, you can copy any template to your theme a
 
 == Changelog ==
 
+= 2.7 - May 19, 2016 =
+* Add option for slideshow z-index to improve compatibility.
+* Fix bug in gradient background setting.
+* Improve Client Details meta box style.
+* Ensure custom template plugin paths are found.
+* Fix improper enqueue of Dashicons.
+* Latest FontAwesome.
+
 = 2.6.1 - May 18, 2016 =
 * Update the Guide.
 * Improve responsive style.
@@ -199,4 +207,4 @@ Yes. With some HTML and CSS knowledge, you can copy any template to your theme a
 
 == Upgrade Notice ==
 
-Add embed support. Bypass empty post check.
+New setting for slideshow z-index to improve compatibility. Fix bug in gradient background setting. Embed support. Bypass empty post check.

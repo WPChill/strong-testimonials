@@ -15,6 +15,8 @@
  * @since 2.2.11 scrolltop
  * @since 2.3.0  remove whitespace
  * @since 2.4.0  email log level for troubleshooting
+ * @since 2.6.0  embed width
+ * @since 2.6.2  slideshow z-index
  *
  * @return array
  */
@@ -28,6 +30,7 @@ function wpmtst_get_default_options() {
 		'support_comments'      => false,
 		'email_log_level'       => 1,
 		'embed_width'           => '',
+		'slideshow_zindex'      => 9,
 	);
 
 	return $default_options;

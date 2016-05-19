@@ -60,15 +60,6 @@ input#post_name {
 	width: 98%;
 }
 
-/* Client Details metabox */
-#details table.options {
-	width: 98%;
-}
-
-input.custom-input {
-	width: 65%;
-}
-
 /* Help sections
 ---------------------------------------------------------*/
 
@@ -323,10 +314,17 @@ ul.compact li {
 }
 
 /* Client details meta box
----------------------------------------------------------*/
+------------------------------------------------*/
 
 #details table {
 	border: none;
+	width: 98%;
+}
+
+#details th {
+	text-align: right;
+	font-weight: 400;
+	width: 35%;
 }
 
 #details td {
@@ -334,20 +332,27 @@ ul.compact li {
 	padding: 5px;
 }
 
-#details th {
-	text-align: right;
-	font-weight: 400;
+input.custom-input {
+	width: 100%;
 }
 
-.icon-arrow-right:after {
-	content: "\21E8";
-	font-size: larger;
-	font-weight: 700;
-	color: blue;
+div.url input.custom-input {
+	width: calc( 100% - 150px );
+}
+
+.input-nofollow {
+	display: inline-block;
+	padding: 5px;
+}
+
+label.nowrap {
+	word-break: keep-all;
+	white-space: nowrap;
 }
 
 /* Descriptions
 ------------------------------------------------*/
+
 .form-table th p.description,
 .form-table td p.description {
 	font-size: 14px;

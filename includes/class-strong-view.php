@@ -174,15 +174,9 @@ class Strong_View {
 		 */
 		if ( $this->atts['slideshow'] ) {
 
-			// add slideshow signature
-			$args = array(
-				'fx'      => 'fade',
-				'speed'   => $this->atts['effect_for'] * 1000,
-				'timeout' => $this->atts['show_for'] * 1000,
-				'pause'   => $this->atts['no_pause'] ? 0 : 1
-			);
 			$content_class_list[] = 'strong_cycle';
-			$content_class_list[] = 'strong_cycle_' . hash( 'md5', serialize( $args ) );
+			$args = WPMST()->get_slideshow_args( $this->atts );
+			$content_class_list[] = WPMST()->get_slideshow_signature( $args );
 			$post_class_list[]    = 't-slide';
 
 		}

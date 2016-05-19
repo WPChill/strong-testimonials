@@ -1,6 +1,10 @@
+<?php
+$plugin_data    = get_plugin_data( WPMTST_DIR . 'strong-testimonials.php', false );
+$plugin_version = $plugin_data['Version'];
+?>
 <div class="wrap wpmtst welcome">
 
-	<h3 class="large"><?php _e( 'Welcome to Strong Testimonials 2.6', 'strong-testimonials' ); ?></h3>
+	<h3 class="large"><?php printf( __( 'Welcome to Strong Testimonials %s', 'strong-testimonials' ), $plugin_version ); ?></h3>
 
 	<?php do_action( 'wpmtst_guide_before_content' ); ?>
 
@@ -18,7 +22,9 @@
 
 	<p>Comments are now available for individual testimonials. <a href="https://www.wpmission.com/tutorials/how-to-add-comments-in-strong-testimonials/" target="_blank">Tutorial</a></p>
 
-	<p>Links to videos, tweets, and photos can now be embedded in testimonial content. <a href="<?php echo admin_url( 'edit.php?post_type=wpm-testimonial&page=testimonial-settings' ); ?>">Embed width setting</a> | <a href="https://codex.wordpress.org/Embeds">More on embeds</a> | <a href="https://www.wpmission.com/tutorials/youtube-twitter-instagram-strong-testimonials/" target="_blank">Tutorial</a></p>
+	<p>Videos, tweets, and photos can now be embedded in testimonial content.<br><a href="<?php echo admin_url( 'edit.php?post_type=wpm-testimonial&page=testimonial-settings' ); ?>">Embed width setting</a> | <a href="https://codex.wordpress.org/Embeds">More on embeds</a> | <a href="https://www.wpmission.com/tutorials/youtube-twitter-instagram-strong-testimonials/" target="_blank">Tutorial</a></p>
+
+	<p>Minor bug fixes and improved theme compatibility.</p>
 
 	<p class="sig"><?php _e( 'Thanks for choosing Strong Testimonials!', 'strong-testimonials' ); ?></p>
 

@@ -308,5 +308,12 @@ class Strong_Templates {
 
 endif;
 
-global $strong_templates;
-$strong_templates = new Strong_Templates();
+
+/**
+ * Assemble template list after any custom plugins are loaded.
+ */
+function strong_templates_init() {
+	global $strong_templates;
+	$strong_templates = new Strong_Templates();
+}
+add_action( 'plugins_loaded', 'strong_templates_init', 20 );
