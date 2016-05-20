@@ -152,6 +152,9 @@ Yes. With some HTML and CSS knowledge, you can copy any template to your theme a
 
 == Changelog ==
 
+= 2.7.1 - May 20, 2016 =
+* Fix grid height and margins.
+
 = 2.7 - May 19, 2016 =
 * Add option for slideshow z-index to improve compatibility.
 * Fix bug in gradient background setting.

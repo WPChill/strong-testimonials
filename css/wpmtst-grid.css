@@ -17,24 +17,31 @@
 	display: -webkit-flex;
 	display: -ms-flexbox;
 	display: flex;
-	/*flex-direction: column;*/
 	margin-top: 0;
 }
 
-.strong-view .strong-content.strong-grid.columns-2 .testimonial {
+.strong-content.strong-grid.columns-2 .testimonial {
 	width: 48%;
 }
 
-.strong-view .strong-content.strong-grid.columns-3 .testimonial {
+.strong-content.strong-grid.columns-3 .testimonial {
 	width: 31%;
 }
 
-.strong-view .strong-content.strong-grid.columns-4 .testimonial {
+.strong-content.strong-grid.columns-4 .testimonial {
 	width: 23%;
 }
 
+/* the bottom row in the grid */
+.strong-content.strong-grid.columns-2 .testimonial:nth-last-child(-n+2),
+.strong-content.strong-grid.columns-3 .testimonial:nth-last-child(-n+3),
+.strong-content.strong-grid.columns-4 .testimonial:nth-last-child(-n+4) {
+	margin-bottom: 0;
+}
+
 .strong-view .strong-content.strong-grid .testimonial-inner {
-	flex: 1 0 0;
+	flex: 1 0 auto;
+	height: auto;
 }
 
 html.no-js .strong-grid .testimonial {
