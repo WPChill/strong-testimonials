@@ -338,6 +338,7 @@ function wpmtst_get_default_form_options() {
 	$default_form_options = array(
 		'post_status'       => 'pending',
 		'admin_notify'      => 0,
+		'mail_queue'        => 0,
 		'sender_name'       => get_bloginfo( 'name' ),
 		'sender_site_email' => 1,
 		'sender_email'      => '',

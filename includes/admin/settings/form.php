@@ -72,12 +72,12 @@
 
 		<td class="subsection">
 
-			<div>
+			<p>
 				<label>
 					<input id="wpmtst-options-admin-notify" type="checkbox" name="wpmtst_form_options[admin_notify]" <?php checked( $form_options['admin_notify'] ); ?>>
-					<?php _e( 'Send an email upon new testimonial submission', 'strong-testimonials' ); ?>
+					<?php _e( 'Send an email upon new testimonial submission.', 'strong-testimonials' ); ?>
 				</label>
-			</div>
+			</p>
 
 			<div id="admin-notify-fields" style="display: none;">
 				<?php include 'email-from.php'; ?>

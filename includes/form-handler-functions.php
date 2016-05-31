@@ -311,8 +311,6 @@ function wpmtst_notify_admin( $post, $form_name = 'custom' ) {
 	else
 		$sender_email = $form_options['sender_email'];
 
-	$sender_name = $form_options['sender_name'];
-
 	if ( $form_options['admin_notify'] ) {
 
 		foreach ( $form_options['recipients'] as $recipient ) {
@@ -322,9 +320,11 @@ function wpmtst_notify_admin( $post, $form_name = 'custom' ) {
 			else
 				$admin_email = $recipient['admin_email'];
 
-			$admin_name = $recipient['admin_name'];
-
-			$to = sprintf( '%s <%s>', $admin_name, $admin_email );
+			// Mandrill rejects the 'name <email>' format
+			if ( $recipient['admin_name'] && ! $form_options['mail_queue'] )
+				$to = sprintf( '%s <%s>', $recipient['admin_name'], $admin_email );
+			else
+				$to = sprintf( '%s', $admin_email );
 
 			// Subject line
 			$subject = $form_options['email_subject'];
@@ -353,29 +353,14 @@ function wpmtst_notify_admin( $post, $form_name = 'custom' ) {
 				$message      = str_replace( $field_as_tag, $replace, $message );
 			}
 
-			$headers = sprintf( 'From: %s <%s>', $sender_name, $sender_email );
+			$headers  = 'MIME-Version: 1.0' . "\n";
+			$headers .= 'Content-Type: text/plain; charset="' . get_option('blog_charset') . '"' . "\n";
+			if ( $form_options['sender_name'] )
+				$headers .= sprintf( 'From: %s <%s>', $form_options['sender_name'], $sender_email ) . "\n";
+			else
+				$headers .= sprintf( 'From: %s', $sender_email ) . "\n";
 
-			// @TODO More info here? A copy of testimonial? A link to admin page? A link to approve directly from email?
-
-			$mail_sent = wp_mail( $to, $subject, $message, $headers );
-
-			// Log email action
-			if ( isset( $options['email_log_level'] ) && $options['email_log_level'] ) {
-
-				// for both levels, log failure only
-				// for level 2, log both success and failure
-				if ( !$mail_sent || 2 == $options['email_log_level'] ) {
-					$log_entry = array(
-						'response' => $mail_sent ? 'mail successful' : 'mail failed',
-						'to'       => $to,
-						'subject'  => $subject,
-						'message'  => $message,
-						'headers'  => $headers,
-					);
-					WPMST()->log( $log_entry, __FUNCTION__ );
-				}
-
-			}
+			WPMST()->enqueue_mail( $to, $subject, $message, $headers );
 
 		} // for each recipient
 

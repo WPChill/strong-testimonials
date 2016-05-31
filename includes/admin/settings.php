@@ -132,6 +132,7 @@ function wpmtst_sanitize_options( $input ) {
 function wpmtst_sanitize_form( $input ) {
 	$input['post_status']       = sanitize_text_field( $input['post_status'] );
 	$input['admin_notify']      = isset( $input['admin_notify'] ) ? 1 : 0;
+	$input['mail_queue']        = isset( $input['mail_queue'] ) ? 1 : 0;
 	$input['sender_name']       = sanitize_text_field( $input['sender_name'] );
 	$input['sender_site_email'] = intval( $input['sender_site_email'] );
 	$input['sender_email']      = sanitize_email( $input['sender_email'] );

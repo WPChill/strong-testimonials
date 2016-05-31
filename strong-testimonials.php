@@ -4,7 +4,7 @@
  * Plugin URI: https://www.wpmission.com/plugins/strong-testimonials/
  * Description: A full-featured plugin that works right out of the box for beginners and offers advanced features for pros.
  * Author: Chris Dillon
- * Version: 2.7.1
+ * Version: 2.8
  * Author URI: https://www.wpmission.com/
  * Text Domain: strong-testimonials
  * Domain Path: /languages
@@ -220,7 +220,11 @@ final class Strong_Testimonials {
 		}
 		else {
 
+			// Process form data.
 			add_action( 'init', array( $this, 'process_form' ) );
+
+			// Process mail queue.
+			add_action( 'wp_loaded', array( $this, 'process_mail_queue' ), 20 );
 
 			// Catch email errors.
 			add_action( 'wp_mail_failed', array( $this, 'catch_mail_failed' ) );
@@ -1877,6 +1881,65 @@ final class Strong_Testimonials {
 
 		error_log( $entry, 3, $filepath );
 
+	}
+
+
+	/**
+	 * Enqueue mail.
+	 *
+	 * @since 2.8.0
+	 * @param $to
+	 * @param $subject
+	 * @param $message
+	 * @param $headers
+	 */
+	public function enqueue_mail( $to, $subject, $message, $headers ) {
+		$current_queue = get_transient( 'wpmtst_mail_queue' );
+		if ( $current_queue )
+			delete_transient( 'wpmtst_mail_queue' );
+		else
+			$current_queue = array();
+
+		$current_queue[] = array( 'to' => $to, 'subject' => $subject, 'message' => $message, 'headers' => $headers );
+		set_transient( 'wpmtst_mail_queue', $current_queue, DAY_IN_SECONDS );
+	}
+
+
+	/**
+	 * Process mail queue
+	 *
+	 * @since 2.8.0
+	 */
+	public function process_mail_queue() {
+		$current_queue = get_transient( 'wpmtst_mail_queue' );
+		if ( ! $current_queue )
+			return;
+
+		foreach ( $current_queue as $email ) {
+			$mail_sent = wp_mail( $email['to'], $email['subject'], $email['message'], $email['headers'] );
+
+			// Log email action
+			//TODO Deeper integration with Mandrill
+			$options = get_option( 'wpmtst_options' );
+			if ( isset( $options['email_log_level'] ) && $options['email_log_level'] ) {
+
+				// for both levels, log failure only
+				// for level 2, log both success and failure
+				if ( ! $mail_sent || 2 == $options['email_log_level'] ) {
+					$log_entry = array(
+						'response' => $mail_sent ? 'mail successful' : 'mail failed',
+						'to'       => $email['to'],
+						'subject'  => $email['subject'],
+						'message'  => $email['message'],
+						'headers'  => $email['headers'],
+					);
+					WPMST()->log( $log_entry, __FUNCTION__ );
+				}
+
+			}
+		}
+
+		delete_transient( 'wpmtst_mail_queue' );
 	}
 
 }

@@ -141,16 +141,18 @@ function wpmtst_view_settings( $action = '', $view_id = null ) {
 		<div class="view-info">
 			<div class="form-view-name"><span class="title">Name:</span><input type="text" id="view-name" class="view-name" name="view[name]" value="<?php echo $view_name; ?>" tabindex="1"></div>
 		</div>
-			<div class="view-info">
-				<div class="form-view-shortcode">
-					<span class="title">Shortcode:</span>
-					<?php if ( 'edit' == $action ): ?>
-					<span class="saved">[testimonial_view id=<?php echo $view_id; ?>]</span>
-					<?php else: ?>
-					<span class="unsaved"><?php _ex( 'will be available after you save this', 'The shortcode for a new View.', 'strong-testimonials' ); ?></span>
-					<?php endif; ?>
-				</div>
-			</div>
+
+		<?php
+		// avoiding the tab character before the shortcode for better copy-n-paste
+		if ( 'edit' == $action )
+			$shortcode = '<span class="saved">[testimonial_view id=' . $view_id . ']</span>';
+		else
+			$shortcode = '<span class="unsaved">' . _x( 'will be available after you save this', 'The shortcode for a new View.', 'strong-testimonials' ) . '</span>';
+		?>
+
+		<div class="view-info">
+			<div class="form-view-shortcode"><span class="title">Shortcode:</span><?php echo $shortcode; ?></div>
+		</div>
 
 		<?php
 		include( 'views/mode.php' );
@@ -919,10 +921,17 @@ function wpmtst_sanitize_view( $input ) {
 			switch ( $field['type'] ) {
 				case 'link':
 				case 'link2':
-					$view_data['client_section'][ $key ]['url']              = sanitize_text_field( $field['url'] );
-					$view_data['client_section'][ $key ]['link_text']        = sanitize_text_field( $field['link_text'] );
-					$view_data['client_section'][ $key ]['link_text_custom'] = sanitize_text_field( $field['link_text_custom'] );
+					if ( isset( $view_data['client_section'][ $key ]['url'] ) )
+						$view_data['client_section'][ $key ]['url']              = sanitize_text_field( $field['url'] );
+
+					if ( isset( $view_data['client_section'][ $key ]['link_text'] ) )
+						$view_data['client_section'][ $key ]['link_text']        = sanitize_text_field( $field['link_text'] );
+
+					if ( isset( $view_data['client_section'][ $key ]['link_text_custom'] ) )
+						$view_data['client_section'][ $key ]['link_text_custom'] = sanitize_text_field( $field['link_text_custom'] );
+
 					$view_data['client_section'][ $key ]['new_tab']          = isset( $field['new_tab'] ) ? 1 : 0;
+
 					break;
 				case 'date':
 					$format = isset( $field['format'] ) ? sanitize_text_field( $field['format'] ) : '';

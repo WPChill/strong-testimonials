@@ -152,6 +152,10 @@ Yes. With some HTML and CSS knowledge, you can copy any template to your theme a
 
 == Changelog ==
 
+= 2.8 - May 31, 2016 =
+* Add option for notification mail queue.
+* Updated Spanish translation.
+
 = 2.7.1 - May 20, 2016 =
 * Fix grid height and margins.
 
@@ -210,4 +214,4 @@ Yes. With some HTML and CSS knowledge, you can copy any template to your theme a
 
 == Upgrade Notice ==
 
-New setting for slideshow z-index to improve compatibility. Fix bug in gradient background setting. Embed support. Bypass empty post check.
+Improved compatibility with email services like Madrill and SMTP plugins.

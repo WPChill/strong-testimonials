@@ -1,4 +1,11 @@
 <div class="subsubsection">
+	<p>
+		<label>
+			<input id="wpmtst-options-mail-queue" type="checkbox" name="wpmtst_form_options[mail_queue]" <?php checked( $form_options['mail_queue'] ); ?>>
+			<?php _e( 'Use mail queue. For use with services like Mandrill for transactional email or plugins like Postman SMTP. Off by default.', 'strong-testimonials' ); ?>
+		</label>
+	</p>
+
 	<table class="first">
 		<thead>
 			<tr>
