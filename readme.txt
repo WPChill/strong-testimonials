@@ -152,6 +152,9 @@ Yes. With some HTML and CSS knowledge, you can copy any template to your theme a
 
 == Changelog ==
 
+= 2.8.1 - June 1, 2016 =
+* Fix bug: "Array" in client fields output.
+
 = 2.8 - May 31, 2016 =
 * Add option for notification mail queue.
 * Updated Spanish translation.

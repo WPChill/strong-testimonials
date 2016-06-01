@@ -921,16 +921,13 @@ function wpmtst_sanitize_view( $input ) {
 			switch ( $field['type'] ) {
 				case 'link':
 				case 'link2':
-					if ( isset( $view_data['client_section'][ $key ]['url'] ) )
-						$view_data['client_section'][ $key ]['url']              = sanitize_text_field( $field['url'] );
+					$view_data['client_section'][ $key ]['url'] = isset( $field['url'] ) ? sanitize_text_field( $field['url'] ) : '';
 
-					if ( isset( $view_data['client_section'][ $key ]['link_text'] ) )
-						$view_data['client_section'][ $key ]['link_text']        = sanitize_text_field( $field['link_text'] );
+					$view_data['client_section'][ $key ]['link_text'] = isset( $field['link_text'] ) ? sanitize_text_field( $field['link_text'] ) : '';
 
-					if ( isset( $view_data['client_section'][ $key ]['link_text_custom'] ) )
-						$view_data['client_section'][ $key ]['link_text_custom'] = sanitize_text_field( $field['link_text_custom'] );
+					$view_data['client_section'][ $key ]['link_text_custom'] = isset( $field['link_text_custom'] ) ? sanitize_text_field( $field['link_text_custom'] ) : '';
 
-					$view_data['client_section'][ $key ]['new_tab']          = isset( $field['new_tab'] ) ? 1 : 0;
+					$view_data['client_section'][ $key ]['new_tab'] = isset( $field['new_tab'] ) ? 1 : 0;
 
 					break;
 				case 'date':
