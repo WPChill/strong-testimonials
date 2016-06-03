@@ -19,9 +19,9 @@ $major_minor = strtok( $plugin_version, '.' ) . '.' . strtok( '.' );
 
 	<h4 class="large"><?php _e( 'What\'s new' ); ?></h4>
 
-	<p>An option to queue the notification emails (under Settings > Form Actions > Notification) when using services like <a href="https://www.mandrill.com/">Mandrill</a> or plugins like <a href="https://wordpress.org/plugins/postman-smtp/">Postman SMTP</a> that replace the standard <code>wp_mail</code> function.</p>
+	<p>Compatible with <a href="https://wordpress.org/plugins/megamenu/">Max Mega Menu</a> plugin.</p>
 
-	<p>New "No Quotes" template.</p>
+	<p>An option to queue the notification emails when using services like <a href="https://www.mandrill.com/">Mandrill</a> or plugins like <a href="https://wordpress.org/plugins/postman-smtp/">Postman SMTP</a> that replace the standard <code>wp_mail</code> function.</p>
 
 	<p>Comments are now available for individual testimonials. <a href="https://www.wpmission.com/tutorials/how-to-add-comments-in-strong-testimonials/" target="_blank">Tutorial</a></p>
 

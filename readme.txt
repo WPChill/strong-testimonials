@@ -152,6 +152,11 @@ Yes. With some HTML and CSS knowledge, you can copy any template to your theme a
 
 == Changelog ==
 
+= 2.9 - June 3, 2016 =
+* Compatible with [Max Mega Menu](https://wordpress.org/plugins/megamenu/) plugin.
+* Disable redirect to Guide page after update.
+* Disable console log output in Cycle script.
+
 = 2.8.1 - June 1, 2016 =
 * Fix bug: "Array" in client fields output.
 
@@ -214,7 +219,3 @@ Yes. With some HTML and CSS knowledge, you can copy any template to your theme a
 * Fix bug on date format conversion.
 * Fix content class bug.
 * Add filters to override default pagination.
-
-== Upgrade Notice ==
-
-Improved compatibility with email services like Madrill and SMTP plugins.

@@ -4,7 +4,7 @@
  * Plugin URI: https://www.wpmission.com/plugins/strong-testimonials/
  * Description: A full-featured plugin that works right out of the box for beginners and offers advanced features for pros.
  * Author: Chris Dillon
- * Version: 2.8.1
+ * Version: 2.9
  * Author URI: https://www.wpmission.com/
  * Text Domain: strong-testimonials
  * Domain Path: /languages
@@ -249,7 +249,7 @@ final class Strong_Testimonials {
 
 			// Preprocess the page for widgets.
 			add_action( 'wp', array( $this, 'find_widgets' ) );
-			add_action( 'wp', array( $this, 'find_view_widgets' ) );
+			//add_action( 'wp', array( $this, 'find_view_widgets' ) );
 
 			// Elegant Themes - Home page content areas
 			add_action( 'wp', array( $this, 'find_views_elegant_themes' ) );
@@ -836,6 +836,202 @@ final class Strong_Testimonials {
 		self::process_content( $post->post_excerpt );
 
 	}
+
+	/**
+	 * Find widgets in a page to gather styles, scripts and script vars.
+	 *
+	 * For standard widgets NOT in [Page Builder by SiteOrigin] panels.
+	 *
+	 * Thanks to Matthew Harris for catching strict pass-by-reference error
+	 * on $id = array_pop( explode( '-', $widget_name ) ).
+	 * @link https://github.com/cdillon/strong-testimonials/issues/3
+	 *
+	 * @access public
+	 */
+	public static function find_widgets() {
+
+		// Get all widgets
+		$all_widgets = get_option( 'sidebars_widgets' );
+		if ( ! $all_widgets )
+			return;
+
+		// Get active strong widgets
+		$strong_widgets = get_option( 'widget_strong-testimonials-view-widget' );
+		/*
+		Array
+		(
+			[wp_inactive_widgets] => Array
+				(
+				)
+
+			[pinbin_footer] => Array
+				(
+					[0] => search-2
+					[1] => recent-posts-2
+					[2] => recent-comments-2
+					[3] => archives-2
+					[4] => categories-2
+					[5] => meta-2
+				)
+
+			[mega-menu] => Array
+				(
+					[0] => strong-testimonials-view-widget-3
+				)
+
+			[array_version] => 3
+		)
+		 */
+
+		foreach ( $all_widgets as $sidebar => $widgets ) {
+
+			// active widget areas only
+			if ( ! $widgets || 'wp_inactive_widgets' == $sidebar || 'array_version' == $sidebar )
+				continue;
+
+			foreach ( $widgets as $key => $widget_name ) {
+
+				// Is our widget active?
+				if ( 0 === strpos( $widget_name, 'strong-testimonials-view-widget-' ) ) {
+
+					if ( $strong_widgets ) {
+						$name_parts = explode( '-', $widget_name );
+						$id         = array_pop( $name_parts );
+
+						if ( isset( $strong_widgets[ $id ] ) ) {
+							$widget = $strong_widgets[ $id ];
+
+							if ( isset( $widget['view'] ) && $widget['view'] ) {
+								//TODO DRY
+								$atts        = array( 'view' => $widget['view'] );
+								$parsed_atts = self::parse_view( $atts, self::get_view_defaults(), $atts );
+								if ( self::view_not_found( $parsed_atts ) )
+									continue;
+
+								self::find_single_view( $parsed_atts );
+							}
+
+						}
+
+					}
+
+				}
+				elseif ( 0 === strpos( $widget_name, 'text-' ) ) {
+
+					// Get text widget content to scan for shortcodes.
+
+					$text_widgets = get_option( 'widget_text' );
+
+					if ( $text_widgets ) {
+
+						$name_parts = explode( '-', $widget_name );
+						$id         = array_pop( $name_parts );
+
+						if ( isset( $text_widgets[ $id ] ) ) {
+							$widget = $text_widgets[ $id ];
+							self::process_content( $widget['text'] );
+						}
+
+					}
+
+				}
+
+			} // foreach $widgets
+
+		} // foreach $all_widgets
+	}
+
+	/**
+	 * Find widgets in a page to gather styles, scripts and script vars.
+	 *
+	 * For widgets in [Page Builder by SiteOrigin] panels.
+	 */
+	public static function find_pagebuilder_widgets() {
+
+		// Get all widgets
+		$panels_data = get_post_meta( get_the_ID(), 'panels_data', true );
+		if ( ! $panels_data )
+			return;
+
+		$all_widgets = $panels_data['widgets'];
+		if ( ! $all_widgets )
+			return;
+
+		// Need to group by cell to replicate Page Builder rendering order,
+		// whether these are Strong widgets or not.
+		$cells = array();
+		foreach ( $all_widgets as $key => $widget ) {
+			$cell_id             = $widget['panels_info']['cell'];
+			$cells[ $cell_id ][] = $widget;
+		}
+
+		foreach ( $cells as $cell_widgets ) {
+
+			foreach ( $cell_widgets as $key => $widget ) {
+
+				if ( 'Strong_Testimonials_View_Widget' == $widget['panels_info']['class'] ) {
+
+					// Incorporate attributes from the View and defaults, just like the shortcode filter.
+					if ( isset( $widget['view'] ) && $widget['view'] ) {
+						//TODO DRY
+						$atts        = array( 'view' => $widget['view'] );
+						$parsed_atts = self::parse_view( $atts, self::get_view_defaults(), $atts );
+						if ( self::view_not_found( $parsed_atts ) )
+							continue;
+
+						self::find_single_view( $parsed_atts );
+					}
+
+				}
+				elseif ( 'WP_Widget_Text' == $widget['panels_info']['class'] ) {
+
+					// Is a Text widget?
+					self::process_content( $widget['text'] );
+
+				}
+
+			}
+
+		}
+	}
+
+	/**
+	 * Find widgets in a page to gather styles, scripts and script vars.
+	 *
+	 * For widgets in [Page Builder by SiteOrigin] panels.
+	 */
+	public static function find_beaverbuilder_widgets() {
+
+		$nodes = get_post_meta( get_the_ID(), '_fl_builder_data', true );
+		if ( ! $nodes )
+			return;
+
+		foreach ( $nodes as $key => $node ) {
+
+			if ( 'module' != $node->type )
+				continue;
+
+			if ( 'widget' != $node->settings->type )
+				continue;
+
+			if ( 'Strong_Testimonials_View_Widget' == $node->settings->widget ) {
+
+				$settings = (array) $node->settings;
+				$widget   = (array) $settings['widget-strong-testimonials-view-widget'];
+				if ( isset( $widget['view'] ) && $widget['view'] ) {
+					$atts        = array( 'view' => $widget['view'] );
+					$parsed_atts = self::parse_view( $atts, self::get_view_defaults(), $atts );
+					if ( self::view_not_found( $parsed_atts ) )
+						continue;
+
+					self::find_single_view( $parsed_atts );
+				}
+
+			}
+
+		}
+	}
+
 
 	/**
 	 * Build list of all shortcode views in Black Studio TinyMCE Widget.
@@ -1495,6 +1691,7 @@ final class Strong_Testimonials {
 	 *
 	 * For standard widgets NOT in [Page Builder by SiteOrigin] panels.
 	 */
+	/*
 	public static function find_view_widgets() {
 
 		// Get all widgets
@@ -1546,176 +1743,8 @@ final class Strong_Testimonials {
 		}
 
 	}
+	*/
 
-	/**
-	 * Find widgets in a page to gather styles, scripts and script vars.
-	 *
-	 * For standard widgets NOT in [Page Builder by SiteOrigin] panels.
-	 *
-	 * Thanks to Matthew Harris for catching strict pass-by-reference error
-	 * on $id = array_pop( explode( '-', $widget_name ) ).
-	 * @link https://github.com/cdillon/strong-testimonials/issues/3
-	 *
-	 * @access public
-	 */
-	public static function find_widgets() {
-
-		// Get all widgets
-		$all_widgets = get_option( 'sidebars_widgets' );
-		if ( ! $all_widgets )
-			return;
-
-		// Get active strong widgets
-		$strong_widgets = get_option( 'widget_strong-testimonials-view-widget' );
-
-		foreach ( $all_widgets as $sidebar => $widgets ) {
-
-			// active widget areas only (see notes.txt)
-			if ( ! $widgets || 'wp_inactive_widgets' == $sidebar || 'array_version' == $sidebar )
-				continue;
-
-			foreach ( $widgets as $key => $widget_name ) {
-
-				// Is our widget active?
-				if ( 0 === strpos( $widget_name, 'strong-testimonials-view-widget-' ) ) {
-
-					if ( $strong_widgets ) {
-						$name_parts = explode( '-', $widget_name );
-						$id         = array_pop( $name_parts );
-
-						if ( isset( $strong_widgets[ $id ] ) ) {
-							$widget = $strong_widgets[ $id ];
-
-							if ( isset( $widget['view'] ) && $widget['view'] ) {
-								//TODO DRY
-								$atts        = array( 'view' => $widget['view'] );
-								$parsed_atts = self::parse_view( $atts, self::get_view_defaults(), $atts );
-								if ( self::view_not_found( $parsed_atts ) )
-									continue;
-
-								self::find_single_view( $parsed_atts );
-							}
-
-						}
-
-					}
-
-				}
-				elseif ( 0 === strpos( $widget_name, 'text-' ) ) {
-
-					// Get text widget content to scan for shortcodes.
-
-					$text_widgets = get_option( 'widget_text' );
-
-					if ( $text_widgets ) {
-
-						$name_parts = explode( '-', $widget_name );
-						$id         = array_pop( $name_parts );
-
-						if ( isset( $text_widgets[ $id ] ) ) {
-							$widget = $text_widgets[ $id ];
-							self::process_content( $widget['text'] );
-						}
-
-					}
-
-				}
-
-			} // foreach $widgets
-
-		} // foreach $all_widgets
-	}
-
-	/**
-	 * Find widgets in a page to gather styles, scripts and script vars.
-	 *
-	 * For widgets in [Page Builder by SiteOrigin] panels.
-	 */
-	public static function find_pagebuilder_widgets() {
-
-		// Get all widgets
-		$panels_data = get_post_meta( get_the_ID(), 'panels_data', true );
-		if ( ! $panels_data )
-			return;
-
-		$all_widgets = $panels_data['widgets'];
-		if ( ! $all_widgets )
-			return;
-
-		// Need to group by cell to replicate Page Builder rendering order,
-		// whether these are Strong widgets or not.
-		$cells = array();
-		foreach ( $all_widgets as $key => $widget ) {
-			$cell_id             = $widget['panels_info']['cell'];
-			$cells[ $cell_id ][] = $widget;
-		}
-
-		foreach ( $cells as $cell_widgets ) {
-
-			foreach ( $cell_widgets as $key => $widget ) {
-
-				if ( 'Strong_Testimonials_View_Widget' == $widget['panels_info']['class'] ) {
-
-					// Incorporate attributes from the View and defaults, just like the shortcode filter.
-					if ( isset( $widget['view'] ) && $widget['view'] ) {
-						//TODO DRY
-						$atts        = array( 'view' => $widget['view'] );
-						$parsed_atts = self::parse_view( $atts, self::get_view_defaults(), $atts );
-						if ( self::view_not_found( $parsed_atts ) )
-							continue;
-
-						self::find_single_view( $parsed_atts );
-					}
-
-				}
-				elseif ( 'WP_Widget_Text' == $widget['panels_info']['class'] ) {
-
-					// Is a Text widget?
-					self::process_content( $widget['text'] );
-
-				}
-
-			}
-
-		}
-	}
-
-	/**
-	 * Find widgets in a page to gather styles, scripts and script vars.
-	 *
-	 * For widgets in [Page Builder by SiteOrigin] panels.
-	 */
-	public static function find_beaverbuilder_widgets() {
-
-		$nodes = get_post_meta( get_the_ID(), '_fl_builder_data', true );
-		if ( ! $nodes )
-			return;
-
-		foreach ( $nodes as $key => $node ) {
-
-			if ( 'module' != $node->type )
-				continue;
-
-			if ( 'widget' != $node->settings->type )
-				continue;
-
-			if ( 'Strong_Testimonials_View_Widget' == $node->settings->widget ) {
-
-				$settings = (array) $node->settings;
-				$widget   = (array) $settings['widget-strong-testimonials-view-widget'];
-				if ( isset( $widget['view'] ) && $widget['view'] ) {
-					$atts        = array( 'view' => $widget['view'] );
-					$parsed_atts = self::parse_view( $atts, self::get_view_defaults(), $atts );
-					if ( self::view_not_found( $parsed_atts ) )
-						continue;
-
-					self::find_single_view( $parsed_atts );
-				}
-
-			}
-
-		}
-	}
 
 	/**
 	 * Parse view attributes.

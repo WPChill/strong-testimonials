@@ -380,14 +380,14 @@ function wpmtst_default_settings() {
 	/**
 	 * Our welcome page
 	 */
-	$old_parts       = explode( '.', $old_plugin_version );
-	$new_parts       = explode( '.', $plugin_version );
-	$old_major_minor = implode( '.', array( $old_parts[0], isset( $old_parts[1] ) ? $old_parts[1] : '0' ) );
-	$new_major_minor = implode( '.', array( $new_parts[0], isset( $new_parts[1] ) ? $new_parts[1] : '0' ) );
+	//$old_parts       = explode( '.', $old_plugin_version );
+	//$new_parts       = explode( '.', $plugin_version );
+	//$old_major_minor = implode( '.', array( $old_parts[0], isset( $old_parts[1] ) ? $old_parts[1] : '0' ) );
+	//$new_major_minor = implode( '.', array( $new_parts[0], isset( $new_parts[1] ) ? $new_parts[1] : '0' ) );
 
-	if ( version_compare( $new_major_minor, $old_major_minor ) ) {
-		set_transient( 'wpmtst_welcome_screen_activation_redirect', true, 30 );
-	}
+	//if ( version_compare( $new_major_minor, $old_major_minor ) ) {
+		//set_transient( 'wpmtst_welcome_screen_activation_redirect', true, 30 );
+	//}
 
 	/**
 	 * Delete old install log.

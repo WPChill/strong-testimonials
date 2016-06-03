@@ -1,4 +1,4 @@
-# Strong Testimonials #
+# Strong Testimonials 
 **Contributors:** cdillon27
   
 **Donate link:** https://www.wpmission.com/donate/
@@ -18,18 +18,21 @@
 
 A full-featured testimonials plugin that works right out of the box for beginners and offers advanced features for pros, all backed by strong support.
 
-## Description ##
+
+## Description 
 
 All the features you need to quickly add and customize testimonials on your site.
 
 **[See demos of various templates, slideshows, and forms here!](http://demos.wpmission.com/strong-testimonials/)**
 
-### Is this the right plugin for you? ###
+
+### Is this the right plugin for you? 
 It's important to understand this plugin's intended use case: A small business with up to a few hundred testimonials, maybe organized into 5-10 categories, and displaying them a few different ways like a full page of testimonials and some slideshows, plus allowing customers to submit new testimonials.
 
 If that describes your situation, this plugin will work for you right out of the box with just a few steps.
 
-### Primary Features ###
+
+### Primary Features 
 
 * A front-end form
 * Categories
@@ -47,7 +50,8 @@ If that describes your situation, this plugin will work for you right out of the
 
 Strong Testimonials [plays well with other plugins and themes](https://www.wpmission.com/theme-plugin-compatibility-fund/), and I strive to adhere to WordPress coding standards and best practices.
 
-### The Form ###
+
+### The Form 
 
 You can customize the form to your needs by adding or removing fields, or changing properties like the order, the text before or after, and the placeholder text.
 
@@ -57,7 +61,8 @@ The form also offers **anti-spam** options like honeypots and Captcha via these 
 
 The form can be submitted via Ajax which makes it compatible with the popular [Popup Maker](https://wordpress.org/plugins/popup-maker/) plugin.
 
-### Display ###
+
+### Display 
 
 Everything happens in a **View**. Instead of learning multiple shortcodes with dozens of options, a View contains all the options in a simple, intuitive editor that no other testimonial plugin has. Display the View using a single shortcode or the widget.
 
@@ -71,7 +76,8 @@ Some of the options for displaying testimonials in a **list** or **slideshow**:
 
 Check out the [screenshots](https://wordpress.org/plugins/strong-testimonials/screenshots/) to see the View editor.
 
-### Style ###
+
+### Style 
 
 Strong Testimonials offers a handful of templates to try in your theme. The default template is just generic enough to look good in most cases with maybe a few tweaks.
 
@@ -79,14 +85,16 @@ Need help matching your theme? Got some weird spacing or floating? I'm here to h
 
 For ultimate control and seamless integration, any template can be copied to your theme and customized (a tutorial and more templates coming soon). There is also a template function that can display any View.
 
-### Try these plugins too ###
+
+### Try these plugins too 
 
 * [Simple Colorbox](https://wordpress.org/plugins/simple-colorbox/) to open thumbnails into full-size images. Nice!
 * [Simple Custom CSS](https://wordpress.org/plugins/simple-custom-css/) for quick CSS tweaks.
 * [Post State Tags](https://wordpress.org/plugins/post-state-tags/) helps quickly differentiate Published / Pending / Draft and more.
 * [Wider Admin Menu](http://wordpress.org/plugins/wider-admin-menu/) lets your admin menu b r e a t h e.
 
-### Translations ###
+
+### Translations 
 
 * Arabic (ar_AR) - Ahmad Yousef
 * French (fr_FR) - Jean-Paul Radet
@@ -104,7 +112,8 @@ Did you know you can [translate phrases here](https://translate.wordpress.org/pr
 
 [Contact me](https://www.wpmission.com/contact/) to contribute a full translation.
 
-## Installation ##
+
+## Installation 
 
 1. Go to Plugins > Add New.
 1. Search for "strong testimonials".
@@ -117,74 +126,80 @@ OR
 
 Finally, activate the plugin.
 
-## Frequently Asked Questions ##
 
-### Can I change the fields on the form? ###
+## Frequently Asked Questions 
+
+
+### Can I change the fields on the form? 
 
 Yes. There is a custom field editor where you can add or remove fields, change field details, and drag-and-drop to reorder them. You can also customize the form error & success messages and the Submit button.
 
-### I want to use categories. Can I add a category selector to the submission form? ###
+
+### I want to use categories. Can I add a category selector to the submission form? 
 
 Yes. After setting up your categories, you can add a category dropdown element to the form.
 
-### Can I edit the notification email that goes out when a new testimonial has been submitted? ###
+
+### Can I edit the notification email that goes out when a new testimonial has been submitted? 
 
 Yes. You can completely customize the email and send it to multiple recipients, or turn it off altogether.
 
-### Can I change which client fields appear below the testimonial? ###
+
+### Can I change which client fields appear below the testimonial? 
 
 Yes. In Views, these custom fields can be changed with a few clicks.
 
-### Can I change "testimonial" to "review", for example? ###
+
+### Can I change "testimonial" to "review", for example? 
 
 Maybe. Instructions are [here](https://wordpress.org/support/topic/how-to-change-the-slug). However, this does not seem to work for all theme/plugin combinations so I plan to build this into the plugin soon.
 
-### My theme also includes testimonials. Will that be a problem? ###
+
+### My theme also includes testimonials. Will that be a problem? 
 
 It depends. I have narrowed down the causes of many conflicts and addressed them in the plugin. If you encounter trouble, use the support form or contact me and we'll sort it out. If you want help disabling testimonials in your theme, even better :)
 
-### I'm familiar with template files. Can I customize the template? ###
+
+### I'm familiar with template files. Can I customize the template? 
 
 Yes. With some HTML and CSS knowledge, you can copy any template to your theme and customize it as you see fit. You can also have multiple custom templates. A [tutorial](https://www.wpmission.com/knowledge-base/strong-testimonials/) is coming soon.
 
-## Screenshots ##
 
-###1. The default View settings and the default template.
-###
-[missing image]
+## Screenshots 
 
-###2. Another View and the Simple template.
-###
-[missing image]
-
-###3. The form with default fields plus Captcha.
-###
-[missing image]
-
-###4. The testimonial admin list.
-###
-[missing image]
-
-###5. The testimonial form settings.
-###
-[missing image]
-
-###6. The View editor.
-###
-[missing image]
-
-###7. The custom fields editor.
-###
-[missing image]
-
-###8. Template files and template functions.
-###
-[missing image]
+1. The default View settings and the default template.
+2. Another View and the Simple template.
+3. The form with default fields plus Captcha.
+4. The testimonial admin list.
+5. The testimonial form settings.
+6. The View editor.
+7. The custom fields editor.
+8. Template files and template functions.
 
 
-## Changelog ##
+## Changelog 
 
-### 2.7 - May 19, 2016 ###
+
+### 2.9 - June 3, 2016 
+* Compatible with [Max Mega Menu](https://wordpress.org/plugins/megamenu/) plugin.
+* Disable redirect to Guide page after update.
+* Disable console log output in Cycle script.
+
+
+### 2.8.1 - June 1, 2016 
+* Fix bug: "Array" in client fields output.
+
+
+### 2.8 - May 31, 2016 
+* Add option for notification mail queue.
+* Updated Spanish translation.
+
+
+### 2.7.1 - May 20, 2016 
+* Fix grid height and margins.
+
+
+### 2.7 - May 19, 2016 
 * Add option for slideshow z-index to improve compatibility.
 * Fix bug in gradient background setting.
 * Improve Client Details meta box style.
@@ -192,51 +207,58 @@ Yes. With some HTML and CSS knowledge, you can copy any template to your theme a
 * Fix improper enqueue of Dashicons.
 * Latest FontAwesome.
 
-### 2.6.1 - May 18, 2016 ###
+
+### 2.6.1 - May 18, 2016 
 * Update the Guide.
 * Improve responsive style.
 
-### 2.6 - May 17, 2016 ###
+
+### 2.6 - May 17, 2016 
 * Bypass WordPress empty post check.
 * Enable embeds (YouTube, Twitter, etc.).
 * Add setting for embed frame width.
 
-### 2.5.8 - May 12, 2016 ###
+
+### 2.5.8 - May 12, 2016 
 * Fix grid layout in IE 9 and IE 11.
 
-### 2.5.7 - May 11, 2016 ###
+
+### 2.5.7 - May 11, 2016 
 * New "No Quotes" template.
 * Restrict the CSS Classes setting to names only; not to be used for custom CSS rules.
 * Update the Guide.
 
-### 2.5.6 - April 24, 2016 ###
+
+### 2.5.6 - April 24, 2016 
 * Compatible with [Bretheon](http://themes.muffingroup.com/?theme=bretheon) theme.
 * Update the Guide.
 
-### 2.5.5 - April 22, 2016 ###
+
+### 2.5.5 - April 22, 2016 
 * Fix bug in notification email logging.
 * Fix bug when enabling custom fields and comments.
 
-### 2.5.4 - April 22, 2016 ###
+
+### 2.5.4 - April 22, 2016 
 * Fix bug in Guide.
 * Minimum WordPress version required: 3.6.
 
-### 2.5.3 - April 21, 2016 ###
+
+### 2.5.3 - April 21, 2016 
 * Minor admin UI improvements.
 
-### 2.5.2 - April 12, 2016 ###
+
+### 2.5.2 - April 12, 2016 
 * Add pagination to `strong_testimonials_view()` template function.
 * Fix bug in Categories column.
 
-### 2.5.1 - April 8, 2016 ###
+
+### 2.5.1 - April 8, 2016 
 * Add comments column to testimonial admin list.
 * Fix conflict with NextGEN Gallery.
 
-### 2.5 - April 7, 2016 ###
+
+### 2.5 - April 7, 2016 
 * Fix bug on date format conversion.
 * Fix content class bug.
 * Add filters to override default pagination.
-
-## Upgrade Notice ##
-
-New setting for slideshow z-index to improve compatibility. Fix bug in gradient background setting. Embed support. Bypass empty post check.
