@@ -233,7 +233,7 @@ function wpmtst_admin_scripts( $hook ) {
 		default:
 	}
 
-	wp_enqueue_style( 'font-awesome', '//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css', array(), '4.6.3' );
+	wp_enqueue_style( 'wpmtst-font-awesome', '//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css', array(), '4.6.3' );
 	wp_enqueue_style( 'dashicons ');
 
 }

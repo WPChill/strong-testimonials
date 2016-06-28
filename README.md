@@ -179,6 +179,9 @@ Yes. With some HTML and CSS knowledge, you can copy any template to your theme a
 
 ## Changelog 
 
+### 2.9.3 - June 28, 2016
+* Fix conflict with themes and plugins that also include Font Awesome.
+
 ### 2.9.2 - June 28, 2016
 * Fix bug.
 
