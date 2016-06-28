@@ -179,6 +179,9 @@ Yes. With some HTML and CSS knowledge, you can copy any template to your theme a
 
 ## Changelog 
 
+### 2.9.2 - June 28, 2016
+* Fix bug.
+
 ### 2.9.1 - June 28, 2016
 * Fix conflict with WooCommerce.
 

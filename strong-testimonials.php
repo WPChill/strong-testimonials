@@ -4,7 +4,7 @@
  * Plugin URI: https://www.wpmission.com/plugins/strong-testimonials/
  * Description: A full-featured plugin that works right out of the box for beginners and offers advanced features for pros.
  * Author: Chris Dillon
- * Version: 2.9.1
+ * Version: 2.9.2
  * Author URI: https://www.wpmission.com/
  * Text Domain: strong-testimonials
  * Domain Path: /languages
@@ -242,10 +242,10 @@ final class Strong_Testimonials {
 			add_action( 'wp', array( $this, 'find_pagebuilder_widgets' ), 20 );
 
 			// Beaver Builder
-			add_action( 'wp', array( $this, 'find_beaverbuilder_widgets', 20 ) );
+			add_action( 'wp', array( $this, 'find_beaverbuilder_widgets' ), 20 );
 
 			// Black Studio TinyMCE Widget
-			add_action( 'wp', array( $this, 'find_blackstudio_widgets', 20 ) );
+			add_action( 'wp', array( $this, 'find_blackstudio_widgets' ), 20 );
 
 			// Preprocess the page for widgets.
 			add_action( 'wp', array( $this, 'find_widgets' ), 20 );
