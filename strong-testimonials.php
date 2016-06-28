@@ -4,7 +4,7 @@
  * Plugin URI: https://www.wpmission.com/plugins/strong-testimonials/
  * Description: A full-featured plugin that works right out of the box for beginners and offers advanced features for pros.
  * Author: Chris Dillon
- * Version: 2.9
+ * Version: 2.9.1
  * Author URI: https://www.wpmission.com/
  * Text Domain: strong-testimonials
  * Domain Path: /languages
@@ -234,31 +234,30 @@ final class Strong_Testimonials {
 			 */
 
 			// Preprocess the post content for our shortcodes.
-			add_action( 'wp', array( $this, 'find_views' ) );
-			add_action( 'wp', array( $this, 'find_views_in_postmeta' ) );
-			add_action( 'wp', array( $this, 'find_views_in_postexcerpt' ) );
+			add_action( 'wp', array( $this, 'find_views' ), 20 );
+			add_action( 'wp', array( $this, 'find_views_in_postmeta' ), 20 );
+			add_action( 'wp', array( $this, 'find_views_in_postexcerpt' ), 20 );
 
 			// Page Builder by Site Origin
-			add_action( 'wp', array( $this, 'find_pagebuilder_widgets' ) );
+			add_action( 'wp', array( $this, 'find_pagebuilder_widgets' ), 20 );
 
 			// Beaver Builder
-			add_action( 'wp', array( $this, 'find_beaverbuilder_widgets' ) );
+			add_action( 'wp', array( $this, 'find_beaverbuilder_widgets', 20 ) );
 
 			// Black Studio TinyMCE Widget
-			add_action( 'wp', array( $this, 'find_blackstudio_widgets' ) );
+			add_action( 'wp', array( $this, 'find_blackstudio_widgets', 20 ) );
 
 			// Preprocess the page for widgets.
-			add_action( 'wp', array( $this, 'find_widgets' ) );
-			//add_action( 'wp', array( $this, 'find_view_widgets' ) );
+			add_action( 'wp', array( $this, 'find_widgets' ), 20 );
 
 			// Elegant Themes - Home page content areas
-			add_action( 'wp', array( $this, 'find_views_elegant_themes' ) );
+			add_action( 'wp', array( $this, 'find_views_elegant_themes' ), 20 );
 
 			// Profit Builder - stores the rendered shortcode (!)
-			add_action( 'wp', array( $this, 'find_rendered_views' ) );
+			add_action( 'wp', array( $this, 'find_rendered_views' ), 20 );
 
 			// Bretheon theme - stores content in post_meta using base 64 encode (!)
-			add_action( 'wp', array( $this, 'find_views_in_postmeta_encoded' ) );
+			add_action( 'wp', array( $this, 'find_views_in_postmeta_encoded' ), 20 );
 
 		}
 

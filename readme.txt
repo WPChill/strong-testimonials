@@ -152,6 +152,9 @@ Yes. With some HTML and CSS knowledge, you can copy any template to your theme a
 
 == Changelog ==
 
+= 2.9.1 - June 28, 2016 =
+* Fix conflict with WooCommerce.
+
 = 2.9 - June 3, 2016 =
 * Compatible with [Max Mega Menu](https://wordpress.org/plugins/megamenu/) plugin.
 * Disable redirect to Guide page after update.

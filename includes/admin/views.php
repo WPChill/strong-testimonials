@@ -388,7 +388,7 @@ function wpmtst_view_field_inputs( $key, $field, $adding = false ) {
 	$types = array(
 		'text'  => __( 'text', 'strong-testimonials' ),
 		'link'  => __( 'link with field', 'strong-testimonials' ),  // the original link type
-		'link2' => __( 'link', 'strong-testimonials' ),  // @since 1.24.0
+		'link2' => __( 'link (must be URL)', 'strong-testimonials' ),  // @since 1.24.0
 		'date'  => __( 'date', 'strong-testimonials' )
 	);
 
