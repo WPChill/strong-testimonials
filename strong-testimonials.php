@@ -4,7 +4,7 @@
  * Plugin URI: https://www.wpmission.com/plugins/strong-testimonials/
  * Description: A full-featured plugin that works right out of the box for beginners and offers advanced features for pros.
  * Author: Chris Dillon
- * Version: 2.9.3
+ * Version: 2.9.4
  * Author URI: https://www.wpmission.com/
  * Text Domain: strong-testimonials
  * Domain Path: /languages
@@ -1663,6 +1663,8 @@ final class Strong_Testimonials {
 	 */
 	public static function process_form() {
 		if ( isset( $_POST['wpmtst_form_nonce'] ) ) {
+			q2($_POST,'POST');
+			q2($_FILES,'FILES');
 			require_once WPMTST_INC . 'form-handler-functions.php';
 			$success = wpmtst_form_handler();
 			if ( $success ) {
@@ -1684,65 +1686,6 @@ final class Strong_Testimonials {
 	public function catch_mail_failed( $error ) {
 		$this->log( $error );
 	}
-
-	/**
-	 * Find widgets in a page to gather styles, scripts and script vars.
-	 *
-	 * For standard widgets NOT in [Page Builder by SiteOrigin] panels.
-	 */
-	/*
-	public static function find_view_widgets() {
-
-		// Get all widgets
-		$all_widgets = get_option( 'sidebars_widgets' );
-		if ( ! $all_widgets )
-			return;
-
-		// Get active strong widgets
-		$strong_widgets = get_option( 'widget_strong-testimonials-view-widget' );
-
-		foreach ( $all_widgets as $sidebar => $widgets ) {
-
-			// active widget areas only
-			if ( ! $widgets || 'wp_inactive_widgets' == $sidebar || 'array_version' == $sidebar )
-				continue;
-
-			foreach ( $widgets as $key => $widget_name ) {
-
-				// Is our widget active?
-				if ( 0 === strpos( $widget_name, 'strong-testimonials' ) ) {
-
-					if ( $strong_widgets ) {
-
-						$name_parts = explode( '-', $widget_name );
-						$id         = array_pop( $name_parts );
-
-						if ( isset( $strong_widgets[ $id ] ) ) {
-
-							$widget = $strong_widgets[ $id ];
-
-							// Incorporate attributes from the View and defaults, just like the shortcode filter.
-							if ( isset( $widget['view'] ) && $widget['view'] ) {
-								$atts        = array( 'view' => $widget['view'] );
-								$parsed_atts = self::parse_view( $atts, self::get_view_defaults(), $atts );
-								if ( self::view_not_found( $parsed_atts ) )
-									continue;
-
-								self::find_single_view( $parsed_atts );
-							}
-
-						}
-
-					}
-
-				}
-
-			}
-
-		}
-
-	}
-	*/
 
 
 	/**

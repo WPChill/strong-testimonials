@@ -143,13 +143,16 @@ function wpmtst_the_thumbnail( $size = null ) {
  * @param $img
  * @param $post_id
  * @since 1.23.0
+ * @since 2.9.4 classes and filter
+ *
  * @return string
  */
 function wpmtst_thumbnail_img( $img, $post_id ) {
 	if ( WPMST()->atts( 'lightbox' ) ) {
 		$url = wp_get_attachment_url( get_post_thumbnail_id( $post_id ) );
 		if ( $url ) {
-			$img = '<a href="' . $url . '">' . $img . '</a>';
+			$classes = join( ' ', array_unique( apply_filters( 'wpmtst_thumbnail_link_class', array() ) ) );
+			$img = '<a class="' . $classes . '" href="' . $url . '">' . $img . '</a>';
 			/**
 			 * Adjust settings for Simple Colorbox plugin.
 			 * TODO do the same for other lightbox plugins
@@ -162,6 +165,26 @@ function wpmtst_thumbnail_img( $img, $post_id ) {
 	return $img;
 }
 add_filter( 'wpmtst_thumbnail_img', 'wpmtst_thumbnail_img', 10, 2 );
+
+/**
+ * Filter thumbnail link classes.
+ *
+ * @since 2.9.4
+ * @param $classes
+ *
+ * @return array
+ */
+function wpmtst_thumbnail_link_class( $classes ) {
+	if ( ! is_array( $classes ) )
+		$classes = preg_split( '#\s+#', $classes );
+
+	// FooBox (both free and pro versions)
+	if ( defined( 'FOOBOXFREE_VERSION' ) || class_exists( 'fooboxV2' ) )
+		$classes[] = 'foobox';
+
+	return $classes;
+}
+add_filter( 'wpmtst_thumbnail_link_class', 'wpmtst_thumbnail_link_class' );
 
 /**
  * Filter the gravatar size.
