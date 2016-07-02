@@ -179,6 +179,9 @@ Yes. With some HTML and CSS knowledge, you can copy any template to your theme a
 
 ## Changelog 
 
+### 2.9.4 - July 2, 2016
+* Compatible with FooBox Image Lightbox [Free](https://wordpress.org/plugins/foobox-image-lightbox/) and [Pro](http://fooplugins.com/plugins/foobox/) versions.
+
 ### 2.9.3 - June 28, 2016
 * Fix conflict with themes and plugins that also include Font Awesome.
 
