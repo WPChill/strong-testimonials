@@ -1663,8 +1663,6 @@ final class Strong_Testimonials {
 	 */
 	public static function process_form() {
 		if ( isset( $_POST['wpmtst_form_nonce'] ) ) {
-			q2($_POST,'POST');
-			q2($_FILES,'FILES');
 			require_once WPMTST_INC . 'form-handler-functions.php';
 			$success = wpmtst_form_handler();
 			if ( $success ) {
