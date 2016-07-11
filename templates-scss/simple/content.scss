@@ -57,6 +57,11 @@ $template: simple;
 	.readmore {
 		margin-top: 1em;
 	}
+
+	.readmore-page {
+		padding: 1em;
+		text-align: center;
+	}
 }
 
 @import "../_partials/responsive";

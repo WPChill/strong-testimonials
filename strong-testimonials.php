@@ -4,7 +4,7 @@
  * Plugin URI: https://www.wpmission.com/plugins/strong-testimonials/
  * Description: A full-featured plugin that works right out of the box for beginners and offers advanced features for pros.
  * Author: Chris Dillon
- * Version: 2.9.4
+ * Version: 2.10
  * Author URI: https://www.wpmission.com/
  * Text Domain: strong-testimonials
  * Domain Path: /languages
@@ -567,54 +567,57 @@ final class Strong_Testimonials {
 	 */
 	public function set_view_defaults() {
 		$defaults = array(
-			'all'              => 1,
-			'background'       => array(
+			'all'                => 1,
+			'background'         => array(
 				'color'              => '',
 				'type'               => '',
 				'preset'             => '',
 				'example-font-color' => 'dark',
 			),
-			'category'         => '',
-			'class'            => '',
-			'client_section'   => null,
-			'column_count'     => 2,
-			'compat'           => 0,
-			'container_class'  => '',
-			'count'            => 1,
-			'display'          => '',
-			'effect_for'       => '1.5',
-			'excerpt'          => '',
-			'form'             => '',
-			'form-ajax'        => 0,
-			'gravatar'         => 'no',
-			'id'               => '',
-			'layout'           => '',
-			'length'           => '',
-			'lightbox'         => '',
-			'menu_order'       => '',
-			'mode'             => '',
-			'more_page'        => '',
-			'more_page_on'     => '',
-			'more_post'        => '',
-			'more_text'        => _x( 'Read more', 'link', 'strong-testimonials' ),
-			'nav'              => 'after',
-			'newest'           => '',
-			'no_pause'         => 0, // must be zero not boolean or string!
-			'note'             => '',
-			'oldest'           => '',
-			'pagination'       => '',
-			'per_page'         => '',
-			'random'           => '',
-			'read_more'        => '',
-			'show_for'         => '8',
-			'slideshow'        => '',
-			'template'         => '',
-			'thumbnail'        => '',
-			'thumbnail_size'   => 'thumbnail',
-			'thumbnail_height' => null,
-			'thumbnail_width'  => null,
-			'title'            => '',
-			'view'             => '',
+			'category'           => '',
+			'class'              => '',
+			'client_section'     => null,
+			'column_count'       => 2,
+			'compat'             => 0,
+			'container_class'    => '',
+			'count'              => 1,
+			'display'            => '',
+			'effect_for'         => '1.5',
+			'excerpt'            => '',
+			'excerpt_length'     => 55,
+			'form'               => '',
+			'form-ajax'          => 0,
+			'gravatar'           => 'no',
+			'id'                 => '',
+			'layout'             => '',
+			'lightbox'           => '',
+			'menu_order'         => '',
+			'mode'               => '',
+			'more_page'          => '',
+			'more_page_text'     => _x( 'Read more testimonials', 'link', 'strong-testimonials' ),
+			'more_post'          => 1,
+			'more_post_ellipsis' => 1,
+			'more_post_text'     => _x( 'Read more', 'link', 'strong-testimonials' ),
+			'nav'                => 'after',
+			'newest'             => '',
+			'no_pause'           => 0, // must be zero not boolean or string!
+			'note'               => '',
+			'oldest'             => '',
+			'pagination'         => '',
+			'per_page'           => '',
+			'random'             => '',
+			'show_for'           => '8',
+			'slideshow'          => '',
+			'template'           => '',
+			'thumbnail'          => '',
+			'thumbnail_size'     => 'thumbnail',
+			'thumbnail_height'   => null,
+			'thumbnail_width'    => null,
+			'title'              => '',
+			'use_default_length' => 1,
+			'use_default_more'   => 1,
+			'view'               => '',
+			'word_count'         => 0,
 		);
 		self::$view_defaults = $defaults;
 	}
@@ -629,7 +632,7 @@ final class Strong_Testimonials {
 	}
 
 	/**
-	 * Get att(s).
+	 * Get att(s). Return false if not found.
 	 *
 	 * @param null $keys
 	 *
@@ -1595,7 +1598,7 @@ final class Strong_Testimonials {
 	 * @param $handle
 	 */
 	private static function custom_background( $view = null, $background, $handle = 'wpmtst-custom-style' ) {
-		if ( !$view || !isset( $background['type'] ) ) return;
+		if ( ! $view || ! isset( $background['type'] ) ) return;
 
 		$c1 = '';
 		$c2 = '';
@@ -1618,15 +1621,21 @@ final class Strong_Testimonials {
 			default:
 		}
 
-		if ( !wp_style_is( $handle ) )
+		if ( ! wp_style_is( $handle ) )
 			wp_enqueue_style( $handle );
 
 		if ( $c1 && $c2 ) {
 			$gradient = self::gradient_rules( $c1, $c2 );
 			wp_add_inline_style( $handle, ".strong-view-id-$view .testimonial-inner { $gradient }" );
+			if ( 'large-widget:widget' == WPMST()->atts( 'template' ) ) {
+				wp_add_inline_style( $handle, ".strong-view-id-$view .readmore-page { background: $c2 }" );
+			}
 		}
 		elseif ( $c1 ) {
 			wp_add_inline_style( $handle, ".strong-view-id-$view .testimonial-inner { background: $c1; }" );
+			if ( 'large-widget:widget' == WPMST()->atts( 'template' ) ) {
+				wp_add_inline_style( $handle, ".strong-view-id-$view .readmore-page { background: $c1 }" );
+			}
 		}
 	}
 

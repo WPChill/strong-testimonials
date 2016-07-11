@@ -1,0 +1,62 @@
+<?php
+/* translators: On the Views admin screen. */
+?>
+<!-- Read more > page -->
+<th>
+	<div class="checkbox">
+		<input type="checkbox" id="view-more_page" class="if toggle" name="view[data][more_page]" value="1"
+			<?php checked( isset( $view['more_page'] ) && $view['more_page'] );?> class="checkbox">
+		<label for="view-more_page">
+			<?php _e( '"Read more" link to another page', 'strong-testimonials' ); ?>
+		</label>
+	</div>
+</th>
+<td>
+	<div class="row then then_more_page" style="display: none;">
+
+		<!-- Select page -->
+		<div class="row then then_more_page" style="display: none;">
+			<div class="row-inner">
+				<label>
+					<select id="view-page" name="view[data][more_page]">
+						<option value=""><?php _e( '&mdash; select &mdash;' ); ?></option>
+						<optgroup label="Pages">
+							<?php foreach ( $pages_list as $pages ) : ?>
+								<option value="<?php echo $pages->ID; ?>" <?php selected( isset( $view['more_page'] ) ? $view['more_page'] : 0, $pages->ID ); ?>><?php echo $pages->post_title; ?></option>
+							<?php endforeach; ?>
+						</optgroup>
+						<optgroup label="Posts">
+							<?php foreach ( $posts_list as $posts ) : ?>
+								<option value="<?php echo $posts->ID; ?>" <?php selected( isset( $view['more_page'] ) ? $view['more_page'] : 0, $posts->ID ); ?>><?php echo $posts->post_title; ?></option>
+							<?php endforeach; ?>
+						</optgroup>
+					</select>
+				</label>
+				<label for="view-page_id">
+					<?php _ex( 'or enter its ID or slug', 'to select a target page', 'strong-testimonials' ); ?>
+				</label>
+				<input type="text" id="view-page_id" name="view[data][more_page_id]" size="30">
+			</div>
+		</div>
+
+		<!-- Link text -->
+		<div class="row">
+			<div class="row-inner">
+				<div class="inline">
+					<label for="view-more_page_text">
+						<?php _e( 'with link text', 'strong-testimonials' ); ?>
+					</label>
+					<input type="text" id="view-more_page_text" name="view[data][more_page_text]"
+						   value="<?php echo $view['more_page_text']; ?>" size="50">
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="row-inner">
+				<p class="description"><?php _e( 'The link will appear after the last testimonial. For individual "Read more" links, use the <b>Content</b> option above.', 'strong-testimonials' ); ?></p>
+			</div>
+		</div>
+
+	</div>
+
+</td>

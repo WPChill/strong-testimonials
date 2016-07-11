@@ -49,13 +49,8 @@ function wpmtst_view_settings( $action = '', $view_id = null ) {
 		wp_enqueue_script( 'wpmtst-view-category-filter-script' );
 	}
 
-	$pages_list = get_pages( array(
-		'sort_order'  => 'ASC',
-		'sort_column' => 'menu_order',
-		'post_type'   => 'page',
-		'post_status' => 'publish',
-	) );
-
+	$pages_list   = wpmtst_get_pages();
+	$posts_list   = wpmtst_get_posts();
 	$view_options = get_option( 'wpmtst_view_options' );
 	$default_view = get_option( 'wpmtst_view_default' );
 
@@ -188,6 +183,41 @@ function wpmtst_view_settings( $action = '', $view_id = null ) {
 	</form>
 	<?php
 }
+
+
+/**
+ * Fetch pages, bypass filters.
+ *
+ * @since 2.10.0
+ *
+ * @return array|null|object
+ */
+function wpmtst_get_pages() {
+	global $wpdb;
+	$query = "SELECT * FROM $wpdb->posts WHERE post_type = 'page' AND post_status = 'publish' ORDER BY post_title ASC";
+
+	$pages = $wpdb->get_results( $query );
+
+	return $pages;
+}
+
+
+/**
+ * Fetch pages, bypass filters.
+ *
+ * @since 2.10.0
+ *
+ * @return array|null|object
+ */
+function wpmtst_get_posts() {
+	global $wpdb;
+	$query = "SELECT * FROM $wpdb->posts WHERE post_type = 'post' AND post_status = 'publish' ORDER BY post_title ASC";
+
+	$posts = $wpdb->get_results( $query );
+
+	return $posts;
+}
+
 
 /**
  * View list page
@@ -721,6 +751,7 @@ add_action( 'admin_post_view_duplicate_form', 'wpmtst_view_add_form' );
  *
  * @since 1.21.0
  * @since 2.5.7 Strip CSS from CSS Class Names field.
+ * @since 2.10.0 Provide both more_post and more_page.
  *
  * @param $input
  *
@@ -735,45 +766,41 @@ function wpmtst_sanitize_view( $input ) {
     // Compatibility
     $view_data['compat'] = ( 'compat_on' == $input['compat'] ? 1 : 0 );
 
-	// Read more target
-	if ( isset( $input['read_more'] ) && isset( $input['read_more_to'] ) ) {
+	// Read more --> post
+	$view_data['more_post']          = isset( $input['more_post'] ) ? 1 : 0;
+	$view_data['more_post_ellipsis'] = isset( $input['more_post_ellipsis'] ) ? 1 : 0;
+	$view_data['more_post_text']     = sanitize_text_field( $input['more_post_text'] );
+	$view_data['use_default_more']   = $input['use_default_more'];
 
-		// Target: the post
-		if ( 'more_post' == $input['read_more_to'] ) {
-			$view_data['more_post'] = 1;
-		}
-		else {
+	// Read more --> page
+	if ( isset( $input['more_page'] ) ) {
 
-			// Target: a page
-
-			// Check the "ID or slug" field first
-			if ( $input['more_page_id'] ) {
-				// is post ID?
-				$id = (int) sanitize_text_field( $input['more_page_id'] );
-				if ( $id ) {
-					if ( ! get_posts( array( 'p' => $id, 'post_type' => 'page', 'post_status' => 'publish' ) ) ) {
-						$id = null;
-					}
+		// Check the "ID or slug" field first
+		if ( $input['more_page_id'] ) {
+			// is post ID?
+			$id = sanitize_text_field( $input['more_page_id'] );
+			if ( is_numeric( $id ) ) {
+				if ( ! get_posts( array( 'p' => $id, 'post_type' => array( 'page', 'post' ), 'post_status' => 'publish' ) ) ) {
+					$id = null;
 				}
-				else {
-					// is post slug?
-					$target = get_posts( array( 'name' => $input['more_page_id'], 'post_type' => 'page', 'post_status' => 'publish' ) );
-					if ( $target ) {
-						$id = $target[0]->ID;
-					}
-				}
-
-				$view_data['more_page']    = $id;
 			}
 			else {
-				$view_data['more_page'] = (int) sanitize_text_field( $input['more_page'] );
+				// is post slug?
+				$target = get_posts( array( 'name' => $id, 'post_type' => array( 'page', 'post' ), 'post_status' => 'publish' ) );
+				if ( $target ) {
+					$id = $target[0]->ID;
+				}
 			}
-			$view_data['more_page_id'] = '';
 
+			$view_data['more_page'] = $id;
+			unset( $view_data['more_page_id'] );
+		}
+		else {
+			$view_data['more_page'] = (int) sanitize_text_field( $input['more_page'] );
 		}
 
 	}
-	$view_data['more_text'] = sanitize_text_field( $input['more_text'] );
+	$view_data['more_page_text'] = sanitize_text_field( $input['more_page_text'] );
 
 	/**
 	 * Single testimonial
@@ -858,7 +885,9 @@ function wpmtst_sanitize_view( $input ) {
 
 	$view_data['title']          = isset( $input['title'] ) ? 1 : 0;
 	$view_data['content']        = sanitize_text_field( $input['content'] );
-	$view_data['length']         = (int) sanitize_text_field( $input['length'] );
+	$view_data['word_count']     = isset( $input['word_count'] ) ? (int) sanitize_text_field( $input['word_count'] ) : 0;
+	$view_data['excerpt_length'] = (int) sanitize_text_field( $input['excerpt_length'] );
+	$view_data['use_default_length'] = sanitize_text_field( $input['use_default_length'] );
 
 	$view_data['thumbnail']        = isset( $input['thumbnail'] ) ? 1 : 0;
 	$view_data['thumbnail_size']   = sanitize_text_field( $input['thumbnail_size'] );
@@ -921,14 +950,26 @@ function wpmtst_sanitize_view( $input ) {
 			switch ( $field['type'] ) {
 				case 'link':
 				case 'link2':
-					$view_data['client_section'][ $key ]['url'] = isset( $field['url'] ) ? sanitize_text_field( $field['url'] ) : '';
+					/**
+					 * If no URL, change field type to 'text'. This happens when a URL field
+					 * (e.g. company_name) is removed from Custom Fields.
+					 * @since 2.10.0
+					 */
+					if ( ! isset( $field['url'] ) ) {
+						$view_data['client_section'][ $key ]['type'] = 'text';
+						unset( $view_data['client_section'][ $key ]['link_text'] );
+						unset( $view_data['client_section'][ $key ]['link_text_custom'] );
+						unset( $view_data['client_section'][ $key ]['new_tab'] );
+					}
+					else {
+						$view_data['client_section'][ $key ]['url'] = sanitize_text_field( $field['url'] );
 
-					$view_data['client_section'][ $key ]['link_text'] = isset( $field['link_text'] ) ? sanitize_text_field( $field['link_text'] ) : '';
+						$view_data['client_section'][ $key ]['link_text'] = isset( $field['link_text'] ) ? sanitize_text_field( $field['link_text'] ) : '';
 
-					$view_data['client_section'][ $key ]['link_text_custom'] = isset( $field['link_text_custom'] ) ? sanitize_text_field( $field['link_text_custom'] ) : '';
+						$view_data['client_section'][ $key ]['link_text_custom'] = isset( $field['link_text_custom'] ) ? sanitize_text_field( $field['link_text_custom'] ) : '';
 
-					$view_data['client_section'][ $key ]['new_tab'] = isset( $field['new_tab'] ) ? 1 : 0;
-
+						$view_data['client_section'][ $key ]['new_tab'] = isset( $field['new_tab'] ) ? 1 : 0;
+					}
 					break;
 				case 'date':
 					$format = isset( $field['format'] ) ? sanitize_text_field( $field['format'] ) : '';

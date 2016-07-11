@@ -146,6 +146,11 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
 .strong-view.default-dark .readmore {
   margin-top: 1em;
 }
+.strong-view.default-dark .readmore-page {
+  padding: 1em;
+  text-align: center;
+  border: 2px solid #777;
+}
 
 /* Template variant overrides
 -----------------------------------------------*/

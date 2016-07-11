@@ -179,6 +179,13 @@ Yes. With some HTML and CSS knowledge, you can copy any template to your theme a
 
 ## Changelog 
 
+### 2.10 - July 11, 2016
+* Fix bug when not using company_website field.
+* Improve "Read more" link to behave like standard blog posts.
+* Separate option for a "Read more" link to a page/post.
+* Option to show an indicator bubble for pending testimonials.
+* Include Font Awesome instead of loading via CDN.
+
 ### 2.9.4 - July 2, 2016
 * Compatible with FooBox Image Lightbox [Free](https://wordpress.org/plugins/foobox-image-lightbox/) and [Pro](http://fooplugins.com/plugins/foobox/) versions.
 

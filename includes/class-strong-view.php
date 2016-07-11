@@ -165,7 +165,7 @@ class Strong_View {
 		if ( $this->atts['excerpt'] ) {
 			$post_class_list[] = 'excerpt';
 		}
-		elseif ( $this->atts['length'] ) {
+		elseif ( $this->atts['word_count'] ) {
 			$post_class_list[] = 'truncated';
 		}
 

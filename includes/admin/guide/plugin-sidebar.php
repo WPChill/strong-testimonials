@@ -3,6 +3,8 @@ $tags = array( 'a' => array( 'href' => array(), 'target' => array(), 'class' => 
 ?>
 <div id="plugin-sidebar">
 
+	<p class="sig"><?php _e( 'Thanks for choosing Strong Testimonials!', 'strong-testimonials' ); ?></p>
+
 	<?php
 	// Need help?
 	$link = sprintf(

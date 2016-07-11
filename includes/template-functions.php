@@ -35,57 +35,141 @@ function wpmtst_the_title( $before = '', $after = '' ) {
 
 /**
  * Display the testimonial content.
- *
- * @param null $length
+ * Used by the plugin and as a template function.
  *
  * @since 1.24.0
  * @since 2.4.0 Run content through selected filters only, instead
  *              of all filters added to the_excerpt() or the_content().
- *
- * @todo Use native auto-excerpt and trim_words instead.
  */
-function wpmtst_the_content( $length = null ) {
-	if ( $length ) {
-		$excerpt = false;
+function wpmtst_the_content() {
+	if ( WPMST()->atts( 'truncated' ) ) {
+
+		add_filter( 'excerpt_length', 'wpmtst_specific_length', 20 );
+
+		// Disregard post excerpt. Force it to use post content.
+		echo wp_trim_excerpt();
+
+		remove_filter( 'excerpt_length', 'wpmtst_specific_length', 20 );
+
+	}
+	elseif ( WPMST()->atts( 'excerpt' ) ) {
+		$use_default_length = WPMST()->atts( 'use_default_length' );
+
+		if ( ! $use_default_length )
+			add_filter( 'excerpt_length', 'wpmtst_excerpt_length', 20 );
+
+		the_excerpt();
+
+		if ( ! $use_default_length )
+			remove_filter( 'excerpt_length', 'wpmtst_excerpt_length', 20 );
 	}
 	else {
-		$excerpt = WPMST()->atts( 'excerpt' );
-		$length  = WPMST()->atts( 'length' );
+		the_content( apply_filters( 'wpmtst_more_link_text', null ) );
 	}
-
-	// In View settings, {excerpt} overrides {length} overrides {full content}.
-
-	if ( $excerpt ) {
-
-		$content = get_the_excerpt();
-		$content = apply_filters( 'the_excerpt', $content );
-
-	}
-	else {
-
-		if ( $length )
-			$content = wpmtst_get_field( 'truncated', array ( 'char_limit' => $length ) );
-		else
-			$content = get_the_content();
-
-		/*
-		 * Applying all content filters within a secondary loop breaks POS [NextGEN Gallery]
-		 * and applies unwanted filters like [All In One Rich Snippets].
-		 * So need to find a way to select which additional filters, if any, to apply.
-		 */
-		//$content = apply_filters( 'the_content', $content );
-
-		$content = $GLOBALS['wp_embed']->autoembed( $content );
-		$content = wptexturize( $content );
-		$content = convert_smilies( $content );
-		$content = wpautop( $content );
-		$content = shortcode_unautop( $content );
-		$content = do_shortcode( $content );
-
-	}
-
-	echo $content;
 }
+
+
+/**
+ * Modify the excerpt length.
+ *
+ * @since 2.10.0
+ * @param $words
+ *
+ * @return int
+ */
+function wpmtst_excerpt_length( $words ) {
+	global $post;
+	if ( 'wpm-testimonial' == get_post_type( $post ) ) {
+		if ( $excerpt_length = WPMST()->atts( 'excerpt_length' ) )
+			$words = $excerpt_length;
+	}
+
+	return $words;
+}
+
+
+/**
+ * Modify the excerpt length.
+ *
+ * @since 2.10.0
+ * @param $words
+ *
+ * @return int
+ */
+function wpmtst_specific_length( $words ) {
+	global $post;
+	if ( 'wpm-testimonial' == get_post_type( $post ) ) {
+		if ( $excerpt_length = WPMST()->atts( 'word_count' ) )
+			$words = $excerpt_length;
+	}
+
+	return $words;
+}
+
+
+/**
+ * Modify the excerpt "Read more" link.
+ *
+ * @since 2.10.0
+ * @param $more
+ *
+ * @return string
+ */
+function wpmtst_excerpt_more( $more ) {
+	global $post;
+	if ( 'wpm-testimonial' == get_post_type( $post ) ) {
+		if ( WPMST()->atts( 'more_post' ) ) {
+			if ( WPMST()->atts( 'use_default_more' ) ) {
+				return $more;
+			}
+			else {
+				$link = sprintf( '<a href="%1$s" class="readmore">%2$s</a>',
+					esc_url( get_permalink( $post->ID ) ),
+					sprintf( '%s<span class="screen-reader-text"> "%s"</span>',
+						WPMST()->atts( 'more_post_text' ),
+						get_the_title( $post->ID ) )
+				);
+
+				return ' ' . ( WPMST()->atts( 'more_post_ellipsis' ) ? '&hellip;' : '' ) . ' ' . $link;
+			}
+		}
+		else {
+			// Override theme
+			return '';
+		}
+	}
+
+	return $more;
+}
+add_filter( 'excerpt_more', 'wpmtst_excerpt_more', 20 );
+
+
+/* to add a More link to manual excerpts */
+function wpmtst_wp_trim_excerpt( $text, $raw_excerpt ) {
+	if ( $text == $raw_excerpt ) {
+		$text .= ' CRAP!';
+	}
+	return $text;
+}
+//add_filter( 'wp_trim_excerpt', 'wpmtst_wp_trim_excerpt', 10, 2 );
+
+
+/**
+ * Prevent page scroll when clicking the More link.
+ *
+ * @since 2.10.0
+ * @param $link
+ *
+ * @return mixed
+ */
+function wpmtst_remove_more_link_scroll( $link ) {
+	global $post;
+	if ( 'wpm-testimonial' == get_post_type( $post ) )
+		$link = preg_replace( '|#more-[0-9]+|', '', $link );
+
+	return $link;
+}
+add_filter( 'the_content_more_link', 'wpmtst_remove_more_link_scroll' );
 
 
 /**
@@ -243,20 +327,6 @@ function wpmtst_get_avatar( $url, $id_or_email, $args ) {
 }
 
 /**
- * Global Colorbox settings.
- *
- * @param $settings
- *
- * @return mixed
- */
-function wpmtst_colorbox_settings( $settings ) {
-	$settings['returnFocus'] = false;
-	$settings['rel'] = 'nofollow';
-	return $settings;
-}
-//add_filter( 'simple_colorbox_settings', 'wpmtst_colorbox_settings' );
-
-/**
  * Colorbox settings for testimonials only.
  */
 function wpmtst_colorbox_manual_settings() {
@@ -288,6 +358,11 @@ function wpmtst_the_date( $format = '', $class = '' ) {
 	echo '<div class="' . $class . '">' . $the_date . '</div>';
 }
 
+/**
+ * Display the client section.
+ *
+ * @since 1.21.0
+ */
 function wpmtst_the_client() {
 	$atts = WPMST()->atts();
 	if ( isset( $atts['client_section'] ) ) {
@@ -296,10 +371,31 @@ function wpmtst_the_client() {
 }
 
 /**
- * Client section
+ * Assemble the client section.
  *
  * @since 1.21.0
+ *
  * @param array $client_section An array of client fields.
+ * Array
+ * (
+ * 	[0] => Array
+ * 	(
+ * 		[field] => client_name
+ * 		[type] => text
+ * 		[class] => testimonial-name
+ * 	)
+ *
+ * 	[1] => Array
+ * 	(
+ * 		[field] => company_name
+ * 		[type] => link
+ * 		[class] => testimonial-company
+ * 		[url] => company_website
+ * 		[link_text] => value
+ * 		[link_text_custom] =>
+ * 		[new_tab] => 1
+ * 	)
+ * )
  *
  * @return mixed
  */
@@ -317,48 +413,44 @@ function wpmtst_client_section( $client_section ) {
 			case 'link':
 			case 'link2':
 				// use default if missing
-				// TODO is this necessary? check after testing upgrade process
-				if ( ! isset( $field['link_text'] ) ) {
-					$field['link_text'] = 'field';
-				}
+				if ( ! isset( $field['link_text'] ) )
+					$field['link_text'] = 'value';
 
 				/**
 				 * Get link text and an alternate in case the URL is empty;
 				 * e.g. display the domain if no company name given
 				 * but don't display 'LinkedIn' if no URL given.
 				 */
-				$text_if_no_url = '';
 				switch ( $field['link_text'] ) {
 					case 'custom' :
 						$text = $field['link_text_custom'];
+						$output = '';
 						break;
 					case 'label' :
 						$text = $field['label'];
+						$output = '';
 						break;
-					default :
+					default : // value
 						$text = get_post_meta( $post->ID, $field['field'], true );
-						$text_if_no_url = $text;
+						// if no URL (next condition), show the alternate (the field)
+						$output = $text;
 				}
 
-				$url = get_post_meta( $post->ID, $field['url'], true );
-				if ( $url ) {
+				if ( $field['url'] ) {
 
-					$new_tab = isset( $field['new_tab'] ) ? $field['new_tab'] : false;
+					$url = get_post_meta( $post->ID, $field['url'], true );
+					if ( $url ) {
+						$new_tab = isset( $field['new_tab'] ) ? $field['new_tab'] : false;
 
-					// TODO Make this a global plugin option.
-					$nofollow = get_post_meta( $post->ID, 'nofollow', true );
+						// TODO Make this a global plugin option.
+						$nofollow = get_post_meta( $post->ID, 'nofollow', true );
 
-					// if field empty, use domain instead
-					if ( '' == $text ) {
-						$text = preg_replace( '(^https?://)', '', $url );
+						// if field empty, use domain instead
+						if ( ! $text || is_array( $text ) )
+							$text = preg_replace( '(^https?://)', '', $url );
+
+						$output = sprintf( '<a href="%s"%s%s>%s</a>', $url, link_new_tab( $new_tab, false ), link_nofollow( $nofollow, false ), $text );
 					}
-
-					$output = sprintf( '<a href="%s"%s%s>%s</a>', $url, link_new_tab( $new_tab, false ), link_nofollow( $nofollow, false ), $text );
-
-				} else {
-
-					// if no URL, show the alternate (usually the field)
-					$output = $text_if_no_url;
 
 				}
 				break;
@@ -390,32 +482,52 @@ function wpmtst_client_section( $client_section ) {
 
 		}
 
-		if ( $output ) {
+		if ( $output )
 			$html .= '<div class="' . $field['class'] . '">' . $output . '</div>';
-		}
 	}
+
 	return $html;
 }
 
 /**
  * Read More link to the post or a page.
+ *
+ * @deprecated 2.10.0
  */
-function wpmtst_read_more() {
-	$atts = WPMST()->atts( array( 'more_post', 'more_page', 'more_text' ) );
+function wpmtst_read_more() {}
 
-	if ( $atts['more_post'] ) {
-		$permalink = get_permalink();
-	}
-	elseif ( $atts['more_page'] ) {
-		$permalink = wpmtst_get_permalink( $atts['more_page'] );
-	}
-	else {
-		$permalink = false;
+
+/**
+ * Display link to the designated "Read more" page.
+ *
+ * @since 2.10.0
+ */
+function wpmtst_read_more_page() {
+	echo wpmtst_get_read_more_page();
+}
+
+
+/**
+ * Assemble link to designated "Read more" page.
+
+ * @since 2.10.0
+ *
+ * @return string
+ */
+function wpmtst_get_read_more_page() {
+	$atts = WPMST()->atts( array( 'more_page', 'more_page_text' ) );
+
+	if ( $atts['more_page'] ) {
+		if ( $permalink = wpmtst_get_permalink( $atts['more_page'] ) ) {
+			$view_options = get_option( 'wpmtst_view_default' );
+			$link_text = $atts['more_page_text'] ? $atts['more_page_text'] : $view_options['more_page_text'] ;
+
+			return sprintf( '<div class="%s"><a href="%s">%s</a></div>',
+				apply_filters( 'wpmtst_read_more_page_class', 'readmore-page'), $permalink, $link_text );
+		}
 	}
 
-	if ( $permalink ) {
-		echo '<div class="readmore"><a href="' . $permalink . '">' . $atts['more_text'] . '</a></div>';
-	}
+	return '';
 }
 
 /**

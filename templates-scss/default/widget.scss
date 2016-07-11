@@ -50,6 +50,12 @@ $template: default-widget;
 	.readmore {
 		margin-top: 1em;
 	}
+
+	.readmore-page {
+		border: 1px solid #E6E6E6;
+		padding: 0.5em;
+		text-align: center;
+	}
 }
 
 @import "../_partials/responsive";

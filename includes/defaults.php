@@ -17,6 +17,7 @@
  * @since 2.4.0  email log level for troubleshooting
  * @since 2.6.0  embed width
  * @since 2.6.2  slideshow z-index
+ * @since 2.10.0 pending indicator
  *
  * @return array
  */
@@ -31,6 +32,7 @@ function wpmtst_get_default_options() {
 		'email_log_level'       => 1,
 		'embed_width'           => '',
 		'slideshow_zindex'      => 9,
+		'pending_indicator'     => true,
 	);
 
 	return $default_options;
@@ -388,13 +390,6 @@ function wpmtst_get_default_view_options() {
 				array( 'name' => 'oldest', 'label' => __( 'Oldest first', 'strong-testimonials' ), 'description' => '', 'help' => '' )
 			)
 		),
-		'content' => array(
-			'options' => array(
-				array( 'name' => 'excerpt', 'label' => __( 'Excerpt', 'strong-testimonials' ), 'description' => '', 'help' => '' ),
-				array( 'name' => 'length', 'label' => __( 'Length', 'strong-testimonials' ), 'description' => '', 'help' => '' ),
-				array( 'name' => 'entire', 'label' => __( 'Entire', 'strong-testimonials' ), 'description' => '', 'help' => '' )
-			)
-		),
 	);
 	return $default_view_options;
 }
@@ -406,18 +401,18 @@ function wpmtst_get_default_view_options() {
  */
 function wpmtst_get_default_view() {
 	$default_view = array(
-		'all'              => 1,
-		'background'       => array(
-			'color'     => '',
-			'type'      => '',
-			'preset'    => '',
-			'gradient1' => '',
-			'gradient2' => '',
+		'all'                => 1,
+		'background'         => array(
+			'color'              => '',
+			'type'               => '',
+			'preset'             => '',
+			'gradient1'          => '',
+			'gradient2'          => '',
 			'example-font-color' => 'dark',
 		),
-		'category'         => 'all',
-		'class'            => '',
-		'client_section'   => array(
+		'category'           => 'all',
+		'class'              => '',
+		'client_section'     => array(
 			0 => array(
 				'field' => 'client_name',
 				'type'  => 'text',
@@ -431,37 +426,42 @@ function wpmtst_get_default_view() {
 				'new_tab' => true,
 			),
 		),
-		'column_count'     => 2,
-        'compat'           => 0,
-		'container_class'  => '',
-		'content'          => 'entire',
-		'count'            => 1,
-		'effect_for'       => 1.5,
-		'form_ajax'        => 0,
-		'form_id'          => 1,
-		'gravatar'         => 'no',
-		'id'               => '',
-		'layout'           => '',
-		'length'           => 200,
-		'lightbox'         => '',
-		'mode'             => 'display',
-		'more_page'        => false,
-		'more_post'        => false,
-		'more_text'        => _x( 'Read more', 'link', 'strong-testimonials' ),
-		'nav'              => 'after',
-		'no_pause'         => false,
-		'note'             => '',
-		'order'            => 'oldest',
-		'page'             => '',
-		'pagination'       => false,
-		'per_page'         => 5,
-		'show_for'         => 8,
-		'template'         => 'default:content',
-		'thumbnail'        => true,
-		'thumbnail_size'   => 'thumbnail',
-		'thumbnail_height' => null,
-		'thumbnail_width'  => null,
-		'title'            => true,
+		'column_count'       => 2,
+		'compat'             => 0,
+		'container_class'    => '',
+		'content'            => 'entire',
+		'count'              => 1,
+		'effect_for'         => 1.5,
+		'excerpt_length'     => 55,
+		'form_ajax'          => 0,
+		'form_id'            => 1,
+		'gravatar'           => 'no',
+		'id'                 => '',
+		'layout'             => '',
+		'lightbox'           => '',
+		'mode'               => 'display',
+		'more_post'          => true,
+		'more_post_ellipsis' => true,
+		'more_post_text'     => _x( 'Read more', 'link', 'strong-testimonials' ),
+		'more_page'          => false,
+		'more_page_text'     => _x( 'Read more testimonials', 'link', 'strong-testimonials' ),
+		'nav'                => 'after',
+		'no_pause'           => false,
+		'note'               => '',
+		'order'              => 'oldest',
+		'page'               => '',
+		'pagination'         => false,
+		'per_page'           => 5,
+		'show_for'           => 8,
+		'template'           => 'default:content',
+		'thumbnail'          => true,
+		'thumbnail_size'     => 'thumbnail',
+		'thumbnail_height'   => null,
+		'thumbnail_width'    => null,
+		'title'              => true,
+		'use_default_length' => true,
+		'use_default_more'   => true,
+		'word_count'         => 40,
 	);
 	ksort( $default_view );
 

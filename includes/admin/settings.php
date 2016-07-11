@@ -91,11 +91,35 @@ function wpmtst_licenses_settings() {
  * @return mixed
  */
 function wpmtst_sanitize_options( $input ) {
-	/**
-	 * Store values as 0 or 1.
-	 * Checked checkbox value is "on".
-	 * Unchecked checkboxes are not submitted.
-	 */
+	$input['pending_indicator'] = wpmtst_sanitize_checkbox( $input, 'pending_indicator' );
+
+	$input['reorder'] = wpmtst_sanitize_checkbox( $input, 'reorder' );
+
+	$input['scrolltop']        = wpmtst_sanitize_checkbox( $input, 'scrolltop' );
+	$input['scrolltop_offset'] = sanitize_text_field( $input['scrolltop_offset'] );
+
+	$input['remove_whitespace'] = wpmtst_sanitize_checkbox( $input, 'remove_whitespace' );
+
+	$input['support_custom_fields'] = wpmtst_sanitize_checkbox( $input, 'support_custom_fields' );
+
+	$input['support_comments'] = wpmtst_sanitize_checkbox( $input, 'support_comments' );
+
+	$input['email_log_level'] = ! isset( $input['email_log_level'] ) ? 1 : (int) $input['email_log_level'];
+
+	return $input;
+}
+
+/**
+ * Store values as 1 or 0 (never blank).
+ * Checked checkbox value is "on"
+ * but unchecked checkboxes are _not_ submitted.
+ *
+ * @param $input
+ * @param $key
+ *
+ * @return int
+ */
+function wpmtst_sanitize_checkbox( $input, $key ) {
 	/* LONGHAND
 	if ( isset( $input['reorder'] ) ) {
 		if ( 'on' == $input['reorder'] ) { // checked checkbox
@@ -107,16 +131,7 @@ function wpmtst_sanitize_options( $input ) {
 		$new_input['reorder'] = 0;
 	}
 	*/
-
-	// shorthand
-	$input['reorder']           = !isset( $input['reorder'] ) ? 0 : ( 'on' == $input['reorder'] ? 1 : $input['reorder'] );
-	$input['scrolltop']         = !isset( $input['scrolltop'] ) ? 0 : ( 'on' == $input['scrolltop'] ? 1 : $input['scrolltop'] );
-	$input['remove_whitespace'] = !isset( $input['remove_whitespace'] ) ? 0 : ( 'on' == $input['remove_whitespace'] ? 1 : $input['remove_whitespace'] );
-	$input['support_custom_fields'] = !isset( $input['support_custom_fields'] ) ? 0 : ( 'on' == $input['support_custom_fields'] ? 1 : $input['support_custom_fields'] );
-	$input['support_comments'] = !isset( $input['support_comments'] ) ? 0 : ( 'on' == $input['support_comments'] ? 1 : $input['support_comments'] );
-	$input['email_log_level']   = !isset( $input['email_log_level'] ) ? 1 : (int) $input['email_log_level'];
-
-	return $input;
+	return ( isset( $input[ $key ] ) ? ( 'on' == $input[ $key ] ? 1 : $input[ $key ] ) : 0 );
 }
 
 /**

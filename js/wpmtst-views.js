@@ -56,6 +56,9 @@ function convertLabel(label) {
 })( jQuery );
 
 
+/**
+ * Special handling after toggling certain options.
+ */
 (function ( $ ) {
 	$.fn.afterToggle = function() {
 		// custom handling
@@ -72,12 +75,19 @@ function convertLabel(label) {
 
 
 jQuery(window).on('load', function () {
+
+	// Masonry
 	jQuery(".view-layout-masonry .example-container")
 		.find(".box")
 			.width( jQuery(".grid-sizer").width() )
 		.end()
 		.masonry();
+
+	// Category select width
+	jQuery.fn.afterToggle();
+
 });
+
 
 jQuery(document).ready(function($) {
 	'use strict';
@@ -242,6 +252,7 @@ jQuery(document).ready(function($) {
 	 * Plugin: Toggle dependent options for selects.
 	 *
 	 * Show/hide other option groups when one and only one *specific* option is selected.
+	 * class="if select"
 	 */
 	$.fn.selectOption = function(el, speed) {
 		speed = speed || 400;
@@ -282,18 +293,17 @@ jQuery(document).ready(function($) {
 	}
 
 	/**
-	 * Plugin: Toggle dependent options for checkboxes.
+	 * Plugin: Toggle dependent options.
 	 *
-	 * Show/hide other option groups when checkbox is "on".
-	 * Multiple values
-	 * using both option and value (which is different than other functions)
-	 * TODO Is this a duplicate of the checkbox version?
+	 * Show/hide other option groups depending on value (1:1 relationshsip).
+	 * Using both option and value, which is different method than other functions.
 	 *
 	 * @since 1.20.0
 	 */
-	$.fn.selectGroupOption = function(el, speed) {
-		speed = speed || 400;
-		var fast = 100;
+	$.fn.selectGroupOption = function(el) {
+		var speed = 400,
+			fastOut = 0,
+			fastIn = 100;
 		var option = $(el).attr("id").split("-").pop();
 		var currentValue = $(el).val();
 		var deps       = ".then_" + option + ".then_" + currentValue;
@@ -301,15 +311,15 @@ jQuery(document).ready(function($) {
 		var indeps     = ".then_" + option + ".then_not_" + currentValue;
 		var indepsFast = indeps + ".fast";
 		if (currentValue) {
-			$(depsFast).fadeIn(fast);
+			$(depsFast).fadeIn(fastIn);
 			$(deps).not(".fast").fadeIn(speed);
-			$(indepsFast).fadeOut(fast);
+			$(indepsFast).fadeOut(fastOut);
 			$(indeps).not(".fast").fadeOut(speed);
 		}
 		else {
-			$(indepsFast).fadeIn(fast);
+			$(indepsFast).fadeIn(fastIn);
 			$(indeps).not(".fast").fadeIn(speed);
-			$(depsFast).fadeOut(fast);
+			$(depsFast).fadeOut(fastOut);
 			$(deps).not(".fast").fadeOut(speed);
 		}
 		return this;
@@ -367,7 +377,6 @@ jQuery(document).ready(function($) {
 			});
 		});
 
-		// this is unhiding pagination in slideshow mode
 		$(".if.selectper").each(function(index,el) {
 			$.fn.selectPerOption(this);
 			$(this).on("change", function() {

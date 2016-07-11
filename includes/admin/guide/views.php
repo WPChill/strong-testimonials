@@ -2,9 +2,9 @@
 
 	<?php do_action( 'wpmtst_guide_before_content' ); ?>
 
-	<h3><?php _e( 'Views', 'strong-testimonials' ); ?></h3>
+	<h3><?php _e( 'A View is simply a group of settings', 'strong-testimonials' ); ?></h3>
 
-	<h4><?php _e( 'A View is simply a group of settings' ); ?></h4>
+	<p><strong class="highlight">You can create an unlimited number of Views.</strong></p>
 
 	<p><?php _e( 'Views can display your testimonials in a <b>list</b>, create a <b>slideshow</b>, or show the front-end <b>form</b>. They are easy to learn and adjust as they combine all the features into a single intuitive configuration screen. Display any View by using its unique shortcode or by selecting it in the widget.', 'strong-testimonials' ); ?></p>
 

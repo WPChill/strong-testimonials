@@ -59,7 +59,7 @@
 .view-category-list-panel {
 	box-sizing: border-box;
 	min-height: 42px;
-	max-height: 220px;
+	max-height: 215px;
 	min-width: 220px;
 	overflow: auto;
 	padding: 0 11px;
@@ -214,8 +214,18 @@ input[type="text"].long {
 .inline {
 	display: inline-block;
 	/*white-space: nowrap;*/
-	margin-right: 2em;
+	margin-right: 1.5em;
 	vertical-align: top;
+}
+
+.inline span,
+.row span {
+	display: inline-block;
+	margin-right: 3px;
+}
+
+.inline:last-child {
+	margin-right: 0;
 }
 
 .inline-middle {
@@ -969,4 +979,3 @@ ul.radio-list {
 .view-layout-grid .example-container.col-4 .box {
 	width: 21%;
 }
-

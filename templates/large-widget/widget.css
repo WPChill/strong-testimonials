@@ -99,3 +99,9 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
   padding: 0.5em;
   display: block;
 }
+.strong-view.large-widget .readmore-page {
+  font-size: 1.2em;
+  border-radius: 3px;
+  padding: 1em;
+  text-align: center;
+}

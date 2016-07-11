@@ -616,7 +616,7 @@ td.column-shortcode {
 }
 
 #plugin-sidebar .has-icon:before {
-	font-family: dashicons;
+	font-family: fontawesome;
 	color: #9AC8FE;
 	float: left;
 	font-size: 34px;
@@ -626,15 +626,15 @@ td.column-shortcode {
 }
 
 #plugin-sidebar .icon-help:before {
-	content: "\f223";
+	content: "\f059";
 }
 
 #plugin-sidebar .icon-document:before {
-	content: "\f497";
+	content: "\f05a";
 }
 
 #plugin-sidebar .icon-donate:before {
-	content: "\f328";
+	content: "\f118";
 }
 
 .new-doc {

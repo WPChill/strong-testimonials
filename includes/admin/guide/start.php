@@ -3,6 +3,7 @@
 	<?php do_action( 'wpmtst_guide_before_content' ); ?>
 
 	<section>
+
 		<h3><?php _e( 'How to display your testimonials', 'strong-testimonials' ); ?></h3>
 
 		<p><?php _e( '1. Enter any existing testimonials and optional categories.', 'strong-testimonials' ); ?></p>

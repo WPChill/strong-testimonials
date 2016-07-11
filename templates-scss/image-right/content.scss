@@ -64,6 +64,11 @@ $template: image-right;
 	.readmore {
 		margin-top: 1em;
 	}
+
+	.readmore-page {
+		@include readmore-page;
+		border: 1px solid #E6E6E6;
+	}
 }
 
 @import "../_partials/responsive";

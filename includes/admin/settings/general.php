@@ -14,6 +14,20 @@ $tags    = array( 'a' => array( 'href' => array(), 'target' => array(), 'class' 
 
 	<tr valign="top">
 		<th scope="row">
+			<?php _e( 'Pending Indicator', 'strong-testimonials' ); ?>
+		</th>
+		<td>
+			<fieldset>
+				<label>
+					<input type="checkbox" name="wpmtst_options[pending_indicator]" <?php checked( $options['pending_indicator'] ); ?>>
+					<?php _e( 'Show indicator bubble when new submissions are awaiting moderation. On by default.', 'strong-testimonials' ); ?>
+				</label>
+			</fieldset>
+		</td>
+	</tr>
+
+	<tr valign="top">
+		<th scope="row">
 			<?php _e( 'Reordering', 'strong-testimonials' ); ?>
 		</th>
 		<td>

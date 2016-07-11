@@ -233,8 +233,7 @@ function wpmtst_admin_scripts( $hook ) {
 		default:
 	}
 
-	wp_enqueue_style( 'wpmtst-font-awesome', '//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css', array(), '4.6.3' );
-	wp_enqueue_style( 'dashicons ');
+	wp_enqueue_style( 'wpmtst-font-awesome', WPMTST_URL . 'fonts/font-awesome-4.6.3/css/font-awesome.min.css', array(), '4.6.3' );
 
 }
 add_action( 'admin_enqueue_scripts', 'wpmtst_admin_scripts' );
@@ -778,3 +777,44 @@ function wpmtst_get_background_preset_colors() {
 	die();
 }
 add_action( 'wp_ajax_wpmtst_get_background_preset_colors', 'wpmtst_get_background_preset_colors' );
+
+
+/**
+ * Add pending numbers to post types on admin menu.
+ * Thanks http://wordpress.stackexchange.com/a/105470/32076
+ *
+ * @param $menu
+ *
+ * @return mixed
+ */
+function wpmtst_pending_indicator( $menu ) {
+	if ( ! current_user_can('edit_posts') )
+		return;
+
+	$options = get_option( 'wpmtst_options' );
+	if ( ! isset( $options['pending_indicator'] ) || ! $options['pending_indicator'] )
+		return $menu;
+
+	$types  = array( 'wpm-testimonial' );
+	$status = 'pending';
+	foreach ( $types as $type ) {
+		$num_posts     = wp_count_posts( $type, 'readable' );
+		$pending_count = 0;
+		if ( ! empty( $num_posts->$status ) )
+			$pending_count = $num_posts->$status;
+
+		if ( $type == 'post' )
+			$menu_str = 'edit.php';
+		else
+			$menu_str = 'edit.php?post_type=' . $type;
+
+		foreach ( $menu as $menu_key => $menu_data ) {
+			if ( $menu_str != $menu_data[2] )
+				continue;
+			$menu[ $menu_key ][0] .= " <span class='update-plugins count-$pending_count'><span class='plugin-count'>" . number_format_i18n( $pending_count ) . '</span></span>';
+		}
+	}
+
+	return $menu;
+}
+add_filter( 'add_menu_classes', 'wpmtst_pending_indicator' );

@@ -20,11 +20,11 @@
 					<div class="testimonial-client">
 						<?php wpmtst_the_client(); ?>
 					</div>
-					<?php wpmtst_read_more(); ?>
 					<div class="clear"></div>
 				</div>
 			</div>
 		<?php endwhile; ?>
 
-	</div>
-</div>
+	</div><!-- .strong-content -->
+	<?php wpmtst_read_more_page(); ?>
+</div><!-- .strong-view -->

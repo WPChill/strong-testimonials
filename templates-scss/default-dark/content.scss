@@ -64,6 +64,11 @@ $template: default-dark;
 	.readmore {
 		margin-top: 1em;
 	}
+
+	.readmore-page {
+		@include readmore-page;
+		border: 2px solid #777;
+	}
 }
 
 /* Template variant overrides

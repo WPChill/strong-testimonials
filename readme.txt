@@ -25,14 +25,13 @@ If that describes your situation, this plugin will work for you right out of the
 
 * A front-end form
 * Categories
-* Excerpts
+* Excerpts, both manual and automatic
 * Featured Images (thumbnails)
 * Multiple slideshows
-* Sort by oldest, newest, random, or menu order
+* Sort by oldest, newest, random, or menu order (drag-and-drop)
 * Simple pagination
 * Built-in templates with several layout options
 * Template files and functions for deep customization
-* Custom "Read more" links
 * Gravatar support
 * Fully localized, ready for translations
 * Compatible with [WPML](https://wpml.org/), [Polylang](https://wordpress.org/plugins/polylang/) and [WPGlobus](https://wordpress.org/plugins/wpglobus/)
@@ -152,6 +151,13 @@ Yes. With some HTML and CSS knowledge, you can copy any template to your theme a
 
 == Changelog ==
 
+= 2.10 - July 11, 2016 =
+* Fix bug when not using company_website field.
+* Improve "Read more" link to behave like standard blog posts.
+* Separate option for a "Read more" link to a page/post.
+* Option to show an indicator bubble for pending testimonials.
+* Include Font Awesome instead of loading via CDN.
+
 = 2.9.4 - July 2, 2016 =
 * Compatible with FooBox Image Lightbox [Free](https://wordpress.org/plugins/foobox-image-lightbox/) and [Pro](http://fooplugins.com/plugins/foobox/) versions.
 
@@ -195,39 +201,3 @@ Yes. With some HTML and CSS knowledge, you can copy any template to your theme a
 * Bypass WordPress empty post check.
 * Enable embeds (YouTube, Twitter, etc.).
 * Add setting for embed frame width.
-
-= 2.5.8 - May 12, 2016 =
-* Fix grid layout in IE 9 and IE 11.
-
-= 2.5.7 - May 11, 2016 =
-* New "No Quotes" template.
-* Restrict the CSS Classes setting to names only; not to be used for custom CSS rules.
-* Update the Guide.
-
-= 2.5.6 - April 24, 2016 =
-* Compatible with [Bretheon](http://themes.muffingroup.com/?theme=bretheon) theme.
-* Update the Guide.
-
-= 2.5.5 - April 22, 2016 =
-* Fix bug in notification email logging.
-* Fix bug when enabling custom fields and comments.
-
-= 2.5.4 - April 22, 2016 =
-* Fix bug in Guide.
-* Minimum WordPress version required: 3.6.
-
-= 2.5.3 - April 21, 2016 =
-* Minor admin UI improvements.
-
-= 2.5.2 - April 12, 2016 =
-* Add pagination to `strong_testimonials_view()` template function.
-* Fix bug in Categories column.
-
-= 2.5.1 - April 8, 2016 =
-* Add comments column to testimonial admin list.
-* Fix conflict with NextGEN Gallery.
-
-= 2.5 - April 7, 2016 =
-* Fix bug on date format conversion.
-* Fix content class bug.
-* Add filters to override default pagination.

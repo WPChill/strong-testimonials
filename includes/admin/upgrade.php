@@ -280,6 +280,9 @@ function wpmtst_default_settings() {
 			unset( $current_default_view['form-ajax'] );
 		}
 
+		// Converting length to word_count later
+		unset( $current_default_view['length'] );
+
 		$new_default_view = array_merge( $current_default_view, $default_view );
 		ksort($new_default_view);
 		update_option( 'wpmtst_view_default', $new_default_view );
@@ -288,6 +291,10 @@ function wpmtst_default_settings() {
 		 * Update each View
 		 */
 		$views = wpmtst_get_views();
+
+		// Only used in upgrading to version 2.10.0
+		$average_word_length = false;
+
 		foreach ( $views as $view ) {
 			$view_data = unserialize( $view['value'] );
 			if ( !is_array( $view_data ) )
@@ -340,6 +347,42 @@ function wpmtst_default_settings() {
 				}
 			}
 
+			/**
+			 * Convert length (characters) to word_count.
+			 * @since 2.10.0
+			 */
+			if ( ! isset( $view_data['word_count'] ) ) {
+				if ( ! $average_word_length ) {
+					$average_word_length = wpmtst_get_average_word_length();
+				}
+
+				if ( isset( $view_data['length'] ) && $view_data['length'] ) {
+					$word_count = round( $view_data['length'] / $average_word_length );
+					$word_count = $word_count < 5 ? 5 : $word_count;
+					$word_count = $word_count > 300 ? 300 : $word_count;
+					$view_data['word_count'] = $word_count;
+				}
+				else {
+					$view_data['word_count'] = $default_view['word_count'];
+				}
+
+				unset( $view_data['length'] );
+			}
+
+			/**
+			 * Convert more_text to post or page.
+			 * @since 2.10.0
+			 */
+			if ( isset( $view['data']['more_text'] ) ) {
+				if ( isset( $view['data']['more_post'] ) && $view['data']['more_post'] ) {
+					$view['data']['more_post_text'] = $view['data']['more_text'];
+				}
+				elseif( isset( $view['data']['more_page'] ) && $view['data']['more_page'] ) {
+					$view['data']['more_page_text'] = $view['data']['more_text'];
+				}
+				unset( $view['data']['more_text'] );
+			}
+
 			// Merge in new default values
 			$view['data'] = array_merge( $new_default_view, $view_data );
 
@@ -351,6 +394,7 @@ function wpmtst_default_settings() {
 		} // foreach $view
 
 	}
+
 
 	/**
 	 * -8- GET L10N CONTEXTS
@@ -398,4 +442,36 @@ function wpmtst_default_settings() {
 		unlink( WP_CONTENT_DIR  . '/install.log' );
 	}
 
+}
+
+
+/**
+ * Used to convert length to word_count
+ *
+ * @since 2.10.0
+ */
+function wpmtst_get_average_word_length() {
+
+		$args = array(
+			'posts_per_page'   => -1,
+			'post_type'        => 'wpm-testimonial',
+			'post_status'      => 'publish',
+			'suppress_filters' => true
+		);
+		$posts = get_posts( $args );
+		if ( ! $posts )
+			return 5;
+
+		$allwords = array();
+
+		foreach ( $posts as $post ) {
+			$words = explode( ' ', $post->post_content );
+			if ( count( $words ) > 5 ) {
+				$allwords = $allwords + $words;
+			}
+		}
+
+		$wordstring = join( '', $allwords );
+
+		return round( strlen( $wordstring ) / count( $allwords) );
 }

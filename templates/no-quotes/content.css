@@ -145,6 +145,11 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
 .strong-view.no-quotes .readmore {
   margin-top: 1em;
 }
+.strong-view.no-quotes .readmore-page {
+  padding: 1em;
+  text-align: center;
+  border: 1px solid #E6E6E6;
+}
 
 /* Responsive
 -----------------------------------------------*/

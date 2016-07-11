@@ -52,7 +52,7 @@
 			<div class="row-inner">
 				<div class="inline tight">
 					<label for="view-gravatar" class="">
-						<?php _e( 'If no Featured image', 'strong-testimonials' ); ?>
+						<?php _e( 'If no Featured Image', 'strong-testimonials' ); ?>
 					</label>
 					<select id="view-gravatar" class="if select selectper" name="view[data][gravatar]">
 						<option value="no" <?php selected( $view['gravatar'], 'no' ); ?>><?php _e( 'show nothing', 'strong-testimonials' ); ?></option>
