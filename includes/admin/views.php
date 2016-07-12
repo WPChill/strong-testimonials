@@ -773,12 +773,12 @@ function wpmtst_sanitize_view( $input ) {
 	$view_data['use_default_more']   = $input['use_default_more'];
 
 	// Read more --> page
-	if ( isset( $input['more_page'] ) ) {
+	if ( isset( $input['more_page'] ) && $input['more_page'] ) {
 
 		// Check the "ID or slug" field first
-		if ( $input['more_page_id'] ) {
+		if ( $input['more_page_id2'] ) {
 			// is post ID?
-			$id = sanitize_text_field( $input['more_page_id'] );
+			$id = sanitize_text_field( $input['more_page_id2'] );
 			if ( is_numeric( $id ) ) {
 				if ( ! get_posts( array( 'p' => $id, 'post_type' => array( 'page', 'post' ), 'post_status' => 'publish' ) ) ) {
 					$id = null;
@@ -792,13 +792,21 @@ function wpmtst_sanitize_view( $input ) {
 				}
 			}
 
-			$view_data['more_page'] = $id;
-			unset( $view_data['more_page_id'] );
+			if ( $id ) {
+				$view_data['more_page_id'] = $id;
+				unset( $view_data['more_page_id2'] );
+			}
 		}
 		else {
-			$view_data['more_page'] = (int) sanitize_text_field( $input['more_page'] );
+			if ( $input['more_page_id'] ) {
+				$view_data['more_page_id'] = (int) sanitize_text_field( $input['more_page_id'] );
+			}
 		}
 
+		// Only enable more_page if a page was selected by either method.
+		if ( $view_data['more_page_id'] ) {
+			$view_data['more_page'] = 1;
+		}
 	}
 	$view_data['more_page_text'] = sanitize_text_field( $input['more_page_text'] );
 

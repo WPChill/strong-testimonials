@@ -515,10 +515,10 @@ function wpmtst_read_more_page() {
  * @return string
  */
 function wpmtst_get_read_more_page() {
-	$atts = WPMST()->atts( array( 'more_page', 'more_page_text' ) );
+	$atts = WPMST()->atts( array( 'more_page', 'more_page_id', 'more_page_text' ) );
 
-	if ( $atts['more_page'] ) {
-		if ( $permalink = wpmtst_get_permalink( $atts['more_page'] ) ) {
+	if ( $atts['more_page'] && $atts['more_page_id'] ) {
+		if ( $permalink = wpmtst_get_permalink( $atts['more_page_id'] ) ) {
 			$view_options = get_option( 'wpmtst_view_default' );
 			$link_text = $atts['more_page_text'] ? $atts['more_page_text'] : $view_options['more_page_text'] ;
 

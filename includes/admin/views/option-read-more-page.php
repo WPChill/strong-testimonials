@@ -18,16 +18,16 @@
 		<div class="row then then_more_page" style="display: none;">
 			<div class="row-inner">
 				<label>
-					<select id="view-page" name="view[data][more_page]">
+					<select id="view-page" name="view[data][more_page_id]">
 						<option value=""><?php _e( '&mdash; select &mdash;' ); ?></option>
 						<optgroup label="Pages">
 							<?php foreach ( $pages_list as $pages ) : ?>
-								<option value="<?php echo $pages->ID; ?>" <?php selected( isset( $view['more_page'] ) ? $view['more_page'] : 0, $pages->ID ); ?>><?php echo $pages->post_title; ?></option>
+								<option value="<?php echo $pages->ID; ?>" <?php selected( isset( $view['more_page_id'] ) ? $view['more_page_id'] : 0, $pages->ID ); ?>><?php echo $pages->post_title; ?></option>
 							<?php endforeach; ?>
 						</optgroup>
 						<optgroup label="Posts">
 							<?php foreach ( $posts_list as $posts ) : ?>
-								<option value="<?php echo $posts->ID; ?>" <?php selected( isset( $view['more_page'] ) ? $view['more_page'] : 0, $posts->ID ); ?>><?php echo $posts->post_title; ?></option>
+								<option value="<?php echo $posts->ID; ?>" <?php selected( isset( $view['more_page_id'] ) ? $view['more_page_id'] : 0, $posts->ID ); ?>><?php echo $posts->post_title; ?></option>
 							<?php endforeach; ?>
 						</optgroup>
 					</select>
@@ -35,7 +35,7 @@
 				<label for="view-page_id">
 					<?php _ex( 'or enter its ID or slug', 'to select a target page', 'strong-testimonials' ); ?>
 				</label>
-				<input type="text" id="view-page_id" name="view[data][more_page_id]" size="30">
+				<input type="text" id="view-page_id2" name="view[data][more_page_id2]" size="30">
 			</div>
 		</div>
 

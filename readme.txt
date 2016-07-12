@@ -151,6 +151,9 @@ Yes. With some HTML and CSS knowledge, you can copy any template to your theme a
 
 == Changelog ==
 
+= 2.10.2 - July 12, 2016 =
+* Fix bug in "Read more" selector.
+
 = 2.10.1 - July 11, 2016 =
 * Fix bug in single testimonial selector.
 

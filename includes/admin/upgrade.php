@@ -373,15 +373,16 @@ function wpmtst_default_settings() {
 			 * Convert more_text to post or page.
 			 * @since 2.10.0
 			 */
-			if ( isset( $view['data']['more_text'] ) ) {
-				if ( isset( $view['data']['more_post'] ) && $view['data']['more_post'] ) {
-					$view['data']['more_post_text'] = $view['data']['more_text'];
-				}
-				elseif( isset( $view['data']['more_page'] ) && $view['data']['more_page'] ) {
-					$view['data']['more_page_text'] = $view['data']['more_text'];
-				}
-				unset( $view['data']['more_text'] );
+			if ( isset( $view_data['more_page'] ) && $view_data['more_page'] ) {
+				// convert more_page to toggle and move page id to more_page_id
+				$view_data['more_page_id'] = $view_data['more_page'];
+				$view_data['more_page']    = 1;
+				$view_data['more_page_text'] = $view_data['more_text'];
 			}
+			elseif ( isset( $view_data['more_post'] ) && $view_data['more_post'] ) {
+				$view_data['more_post_text'] = $view_data['more_text'];
+			}
+			unset( $view_data['more_text'] );
 
 			// Merge in new default values
 			$view['data'] = array_merge( $new_default_view, $view_data );
