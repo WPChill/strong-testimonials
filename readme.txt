@@ -151,6 +151,9 @@ Yes. With some HTML and CSS knowledge, you can copy any template to your theme a
 
 == Changelog ==
 
+= 2.10.1 - July 11, 2016 =
+* Fix bug in single testimonial selector.
+
 = 2.10 - July 11, 2016 =
 * Fix bug when not using company_website field.
 * Improve "Read more" link to behave like standard blog posts.

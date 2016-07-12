@@ -29,7 +29,7 @@ function wpmtst_view_settings( $action = '', $view_id = null ) {
 
 	$order_list = wpmtst_get_order_list();
 
-	$posts_list = get_posts( array(
+	$testimonials_list = get_posts( array(
 		'orderby'          => 'post_date',
 		'order'            => 'ASC',
 		'post_type'        => 'wpm-testimonial',
