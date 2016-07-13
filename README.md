@@ -179,6 +179,11 @@ Yes. With some HTML and CSS knowledge, you can copy any template to your theme a
 
 ## Changelog 
 
+### 2.10.3 - July 13, 2016
+* Fix conflict with NextGEN Gallery.
+* Fix bugs in update process.
+* Add `wpmtst_before_testimonial` and `wpmtst_after_testimonial` hooks for prepending and appending content to each testimonial.
+
 ### 2.10.2 - July 12, 2016
 * Fix bug in "Read more" selector.
 
@@ -209,19 +214,15 @@ Yes. With some HTML and CSS knowledge, you can copy any template to your theme a
 * Disable redirect to Guide page after update.
 * Disable console log output in Cycle script.
 
-
 ### 2.8.1 - June 1, 2016 
 * Fix bug: "Array" in client fields output.
-
 
 ### 2.8 - May 31, 2016 
 * Add option for notification mail queue.
 * Updated Spanish translation.
 
-
 ### 2.7.1 - May 20, 2016 
 * Fix grid height and margins.
-
 
 ### 2.7 - May 19, 2016 
 * Add option for slideshow z-index to improve compatibility.
@@ -231,58 +232,11 @@ Yes. With some HTML and CSS knowledge, you can copy any template to your theme a
 * Fix improper enqueue of Dashicons.
 * Latest FontAwesome.
 
-
 ### 2.6.1 - May 18, 2016 
 * Update the Guide.
 * Improve responsive style.
-
 
 ### 2.6 - May 17, 2016 
 * Bypass WordPress empty post check.
 * Enable embeds (YouTube, Twitter, etc.).
 * Add setting for embed frame width.
-
-
-### 2.5.8 - May 12, 2016 
-* Fix grid layout in IE 9 and IE 11.
-
-
-### 2.5.7 - May 11, 2016 
-* New "No Quotes" template.
-* Restrict the CSS Classes setting to names only; not to be used for custom CSS rules.
-* Update the Guide.
-
-
-### 2.5.6 - April 24, 2016 
-* Compatible with [Bretheon](http://themes.muffingroup.com/?theme=bretheon) theme.
-* Update the Guide.
-
-
-### 2.5.5 - April 22, 2016 
-* Fix bug in notification email logging.
-* Fix bug when enabling custom fields and comments.
-
-
-### 2.5.4 - April 22, 2016 
-* Fix bug in Guide.
-* Minimum WordPress version required: 3.6.
-
-
-### 2.5.3 - April 21, 2016 
-* Minor admin UI improvements.
-
-
-### 2.5.2 - April 12, 2016 
-* Add pagination to `strong_testimonials_view()` template function.
-* Fix bug in Categories column.
-
-
-### 2.5.1 - April 8, 2016 
-* Add comments column to testimonial admin list.
-* Fix conflict with NextGEN Gallery.
-
-
-### 2.5 - April 7, 2016 
-* Fix bug on date format conversion.
-* Fix content class bug.
-* Add filters to override default pagination.

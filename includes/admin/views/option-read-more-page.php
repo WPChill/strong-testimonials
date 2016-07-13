@@ -7,7 +7,7 @@
 		<input type="checkbox" id="view-more_page" class="if toggle" name="view[data][more_page]" value="1"
 			<?php checked( isset( $view['more_page'] ) && $view['more_page'] );?> class="checkbox">
 		<label for="view-more_page">
-			<?php _e( '"Read more" link to another page', 'strong-testimonials' ); ?>
+			<?php _e( '"Read more" link to a page or post', 'strong-testimonials' ); ?>
 		</label>
 	</div>
 </th>

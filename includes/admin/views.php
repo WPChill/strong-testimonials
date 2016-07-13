@@ -804,7 +804,7 @@ function wpmtst_sanitize_view( $input ) {
 		}
 
 		// Only enable more_page if a page was selected by either method.
-		if ( $view_data['more_page_id'] ) {
+		if ( isset( $view_data['more_page_id'] ) && $view_data['more_page_id'] ) {
 			$view_data['more_page'] = 1;
 		}
 	}

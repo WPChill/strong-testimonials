@@ -41,10 +41,16 @@
 
 		<div class="row">
 			<div class="row-inner">
-				<input type="checkbox" id="view-lightbox" class="if toggle" name="view[data][lightbox]" value="1" <?php checked( $view['lightbox'] ); ?> class="checkbox">
-				<label for="view-lightbox">
-					<?php _e( 'Open full-size image in lightbox', 'strong-testimonials' ); ?>
-				</label>
+				<div class="inline">
+					<input type="checkbox" id="view-lightbox" class="if toggle" name="view[data][lightbox]"
+						   value="1" <?php checked( $view['lightbox'] ); ?> class="checkbox">
+					<label for="view-lightbox">
+						<?php _e( 'Open full-size image in a lightbox', 'strong-testimonials' ); ?>
+					</label>
+				</div>
+				<div class="inline then then_lightbox">
+					<p class="description"><?php printf( wp_kses( __( 'Requires a lightbox in your theme or another plugin like <a href="%s" target="_blank">Simple Colorbox</a>.', 'strong-testimonials' ), array( 'a' => array( 'href' => array(), 'target' => array(), 'class' => array() ) ) ), esc_url( 'https://wordpress.org/plugins/simple-colorbox/' ) ); ?></p>
+				</div>
 			</div>
 		</div>
 

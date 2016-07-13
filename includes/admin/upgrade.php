@@ -271,17 +271,19 @@ function wpmtst_default_settings() {
 
 		// -7B- UPDATE
 
-		// Remove any options that have new default settings
-		unset( $current_default_view['template'], $current_default_view['background'] );
+		// Remove any options that have new default settings or are obsolete
+		unset(
+			$current_default_view['template'],
+			$current_default_view['background'],
+			$current_default_view['length'],
+			$current_default_view['more_text']
+		);
 
 		// Convert 'form-ajax' (hyphen) to 'form_ajax' (underscore)
 		if ( isset( $current_default_view['form-ajax'] ) ) {
 			$current_default_view['form_ajax'] = $current_default_view['form-ajax'];
 			unset( $current_default_view['form-ajax'] );
 		}
-
-		// Converting length to word_count later
-		unset( $current_default_view['length'] );
 
 		$new_default_view = array_merge( $current_default_view, $default_view );
 		ksort($new_default_view);
@@ -373,16 +375,18 @@ function wpmtst_default_settings() {
 			 * Convert more_text to post or page.
 			 * @since 2.10.0
 			 */
-			if ( isset( $view_data['more_page'] ) && $view_data['more_page'] ) {
-				// convert more_page to toggle and move page id to more_page_id
-				$view_data['more_page_id'] = $view_data['more_page'];
-				$view_data['more_page']    = 1;
-				$view_data['more_page_text'] = $view_data['more_text'];
+			if ( isset( $view_data['more_text'] ) ) {
+				if ( isset( $view_data['more_page'] ) && $view_data['more_page'] > 1 ) {
+					// convert more_page to toggle and move page id to more_page_id
+					$view_data['more_page_id']   = $view_data['more_page'];
+					$view_data['more_page']      = 1;
+					$view_data['more_page_text'] = $view_data['more_text'];
+				}
+				elseif ( isset( $view_data['more_post'] ) && $view_data['more_post'] ) {
+					$view_data['more_post_text'] = $view_data['more_text'];
+				}
+				unset( $view_data['more_text'] );
 			}
-			elseif ( isset( $view_data['more_post'] ) && $view_data['more_post'] ) {
-				$view_data['more_post_text'] = $view_data['more_text'];
-			}
-			unset( $view_data['more_text'] );
 
 			// Merge in new default values
 			$view['data'] = array_merge( $new_default_view, $view_data );

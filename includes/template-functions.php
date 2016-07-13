@@ -39,33 +39,67 @@ function wpmtst_the_title( $before = '', $after = '' ) {
  *
  * @since 1.24.0
  * @since 2.4.0 Run content through selected filters only, instead
- *              of all filters added to the_excerpt() or the_content().
+ *              of all filters added to the_excerpt() or the_content()
+ *              to be compatible with NextGEN Gallery.
  */
 function wpmtst_the_content() {
 	if ( WPMST()->atts( 'truncated' ) ) {
 
-		add_filter( 'excerpt_length', 'wpmtst_specific_length', 20 );
+		// Force automatic excerpt (bypass manual excerpt).
+		// Based on wp_trim_excerpt
 
-		// Disregard post excerpt. Force it to use post content.
-		echo wp_trim_excerpt();
+		$content = get_the_content();
 
-		remove_filter( 'excerpt_length', 'wpmtst_specific_length', 20 );
+		$content = strip_shortcodes( $content );
+
+		$content = $GLOBALS['wp_embed']->autoembed( $content );
+		$content = wptexturize( $content );
+		$content = convert_smilies( $content );
+		$content = wpautop( $content );
+		$content = shortcode_unautop( $content );
+		$content = do_shortcode( $content );
+
+		$excerpt_more = apply_filters( 'excerpt_more', ' ' . '[&hellip;]' );
+		$content = wp_trim_words( $content, WPMST()->atts( 'word_count' ), $excerpt_more );
 
 	}
 	elseif ( WPMST()->atts( 'excerpt' ) ) {
+
+		// Based on the_excerpt
+
 		$use_default_length = WPMST()->atts( 'use_default_length' );
 
 		if ( ! $use_default_length )
 			add_filter( 'excerpt_length', 'wpmtst_excerpt_length', 20 );
 
-		the_excerpt();
+		$content = get_the_excerpt();
 
 		if ( ! $use_default_length )
 			remove_filter( 'excerpt_length', 'wpmtst_excerpt_length', 20 );
+
+		$content = wptexturize( $content );
+		$content = convert_smilies( $content );
+		$content = wpautop( $content );
+		$content = shortcode_unautop( $content );
+		$content = do_shortcode( $content );
+
 	}
 	else {
-		the_content( apply_filters( 'wpmtst_more_link_text', null ) );
+
+		// Based on the_content
+
+		$content = get_the_content( apply_filters( 'wpmtst_more_link_text', null ) );
+
+		$content = $GLOBALS['wp_embed']->autoembed( $content );
+		$content = wptexturize( $content );
+		$content = convert_smilies( $content );
+		$content = wpautop( $content );
+		$content = shortcode_unautop( $content );
+		$content = do_shortcode( $content );
+
 	}
+
+	echo $content;
 }
 
 
@@ -81,25 +115,6 @@ function wpmtst_excerpt_length( $words ) {
 	global $post;
 	if ( 'wpm-testimonial' == get_post_type( $post ) ) {
 		if ( $excerpt_length = WPMST()->atts( 'excerpt_length' ) )
-			$words = $excerpt_length;
-	}
-
-	return $words;
-}
-
-
-/**
- * Modify the excerpt length.
- *
- * @since 2.10.0
- * @param $words
- *
- * @return int
- */
-function wpmtst_specific_length( $words ) {
-	global $post;
-	if ( 'wpm-testimonial' == get_post_type( $post ) ) {
-		if ( $excerpt_length = WPMST()->atts( 'word_count' ) )
 			$words = $excerpt_length;
 	}
 
@@ -142,16 +157,6 @@ function wpmtst_excerpt_more( $more ) {
 	return $more;
 }
 add_filter( 'excerpt_more', 'wpmtst_excerpt_more', 20 );
-
-
-/* to add a More link to manual excerpts */
-function wpmtst_wp_trim_excerpt( $text, $raw_excerpt ) {
-	if ( $text == $raw_excerpt ) {
-		$text .= ' CRAP!';
-	}
-	return $text;
-}
-//add_filter( 'wp_trim_excerpt', 'wpmtst_wp_trim_excerpt', 10, 2 );
 
 
 /**
@@ -520,7 +525,12 @@ function wpmtst_get_read_more_page() {
 	if ( $atts['more_page'] && $atts['more_page_id'] ) {
 		if ( $permalink = wpmtst_get_permalink( $atts['more_page_id'] ) ) {
 			$view_options = get_option( 'wpmtst_view_default' );
-			$link_text = $atts['more_page_text'] ? $atts['more_page_text'] : $view_options['more_page_text'] ;
+			if ( isset( $atts['more_page_text'] ) && $atts['more_page_text'] ) {
+				$link_text = $atts['more_page_text'];
+			}
+			else {
+				$link_text = $view_options['more_page_text'];
+			}
 
 			return sprintf( '<div class="%s"><a href="%s">%s</a></div>',
 				apply_filters( 'wpmtst_read_more_page_class', 'readmore-page'), $permalink, $link_text );

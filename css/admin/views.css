@@ -349,8 +349,10 @@ td.w2 {
 	width: 300px;
 }
 
-.row {
+.row,
+.row p {
 	vertical-align: middle;
+	line-height: 30px;
 }
 
 .row:not(:first-child) .row-inner {

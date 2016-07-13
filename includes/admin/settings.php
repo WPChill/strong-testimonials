@@ -93,6 +93,8 @@ function wpmtst_licenses_settings() {
 function wpmtst_sanitize_options( $input ) {
 	$input['pending_indicator'] = wpmtst_sanitize_checkbox( $input, 'pending_indicator' );
 
+	$input['slideshow_zindex'] = sanitize_text_field( $input['slideshow_zindex'] );
+
 	$input['reorder'] = wpmtst_sanitize_checkbox( $input, 'reorder' );
 
 	$input['scrolltop']        = wpmtst_sanitize_checkbox( $input, 'scrolltop' );

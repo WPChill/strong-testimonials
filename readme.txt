@@ -46,11 +46,13 @@ The form also offers **anti-spam** options like honeypots and Captcha via these 
 
 **Notification emails** can be sent to multiple admins when new testimonials are submitted. New testimonials can also be assigned to a specific category.
 
-The form can be submitted via Ajax which makes it compatible with the popular [Popup Maker](https://wordpress.org/plugins/popup-maker/) plugin.
+The form can be submitted via Ajax so it's compatible with the popular [Popup Maker](https://wordpress.org/plugins/popup-maker/) plugin.
 
 = Display =
 
 Everything happens in a **View**. Instead of learning multiple shortcodes with dozens of options, a View contains all the options in a simple, intuitive editor that no other testimonial plugin has. Display the View using a single shortcode or the widget.
+
+You can create unlimited Views. For example, one View for the form, another View for a list, another for a slideshow, and so on.
 
 Some of the options for displaying testimonials in a **list** or **slideshow**:
 
@@ -90,8 +92,6 @@ For ultimate control and seamless integration, any template can be copied to you
 * Swedish (sv_SE) - Tom Stone
 
 Many, many thanks to these translators.
-
-Did you know you can [translate phrases here](https://translate.wordpress.org/projects/wp-plugins/strong-testimonials)? Even just a few would help.
 
 [Contact me](https://www.wpmission.com/contact/) to contribute a full translation.
 
@@ -138,6 +138,10 @@ It depends. I have narrowed down the causes of many conflicts and addressed them
 
 Yes. With some HTML and CSS knowledge, you can copy any template to your theme and customize it as you see fit. You can also have multiple custom templates. A [tutorial](https://www.wpmission.com/knowledge-base/strong-testimonials/) is coming soon.
 
+= Can I display a large version of the featured image in a lightbox? =
+
+Yes. This requires a lightbox so if your theme does not include one, you will need a plugin like [Simple Colorbox](https://wordpress.org/plugins/simple-colorbox/).
+
 == Screenshots ==
 
 1. The default View settings and the default template.
@@ -150,6 +154,11 @@ Yes. With some HTML and CSS knowledge, you can copy any template to your theme a
 8. Template files and template functions.
 
 == Changelog ==
+
+= 2.10.3 - July 13, 2016 =
+* Fix conflict with NextGEN Gallery.
+* Fix bugs in update process.
+* Add `wpmtst_before_testimonial` and `wpmtst_after_testimonial` hooks for prepending and appending content to each testimonial.
 
 = 2.10.2 - July 12, 2016 =
 * Fix bug in "Read more" selector.

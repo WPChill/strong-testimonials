@@ -12,6 +12,7 @@
 		<?php while ( $query->have_posts() ) : $query->the_post(); ?>
 			<div class="<?php wpmtst_post_class(); ?>">
 				<div class="testimonial-inner">
+					<?php do_action( 'wpmtst_before_testimonial' ); ?>
 					<div class="testimonial-content">
 						<?php wpmtst_the_thumbnail(); ?>
 						<?php wpmtst_the_content(); ?>
@@ -20,6 +21,7 @@
 						<?php wpmtst_the_client(); ?>
 					</div>
 					<div class="clear"></div>
+					<?php do_action( 'wpmtst_after_testimonial' ); ?>
 				</div>
 			</div>
 		<?php endwhile; ?>
