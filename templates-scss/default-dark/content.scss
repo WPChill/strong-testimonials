@@ -28,6 +28,15 @@ $template: default-dark;
 		text-align: left;
 	}
 
+	&.ui-slideshow-bottom .testimonial-inner {
+		padding-bottom: 60px;
+	}
+
+	&.ui-slideshow-bookends .testimonial-inner {
+		padding-left: 48px;
+		padding-right: 48px;
+	}
+
 	.testimonial-heading {
 		background: url("img/quotes.png") no-repeat scroll left center transparent;
 		margin-top: 0;

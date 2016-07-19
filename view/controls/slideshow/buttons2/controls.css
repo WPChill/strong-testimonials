@@ -1,0 +1,38 @@
+/**
+ * Slideshow Controls
+ */
+
+.strong-cycle-controls.buttons2 {
+	vertical-align: middle;
+	line-height: 60px;
+	text-align: center;
+	z-index: 999;
+}
+.strong-cycle-controls.buttons2 > span {
+	font-family: fontawesome;
+	display: inline-block;
+	background: #CCC;
+	border-radius: 5px;
+	color: #FFF;
+	cursor: pointer;
+	font-size: 24px;
+	line-height: 31px;
+	width: 32px;
+	height: 31px;
+	margin: 0 5px;
+	text-align: center;
+	transition: all 0.2s ease;
+}
+.strong-cycle-controls.buttons2 > span:hover {
+	background: #333;
+}
+.strong-cycle-controls.buttons2 .cycle-prev:before {
+	content: "\f104";
+	position: relative;
+	left: -1px;
+}
+.strong-cycle-controls.buttons2 .cycle-next:before {
+	content: "\f105";
+	position: relative;
+	left: 1px;
+}

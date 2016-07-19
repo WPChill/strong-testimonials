@@ -4,7 +4,7 @@
  * Plugin URI: https://www.wpmission.com/plugins/strong-testimonials/
  * Description: A full-featured plugin that works right out of the box for beginners and offers advanced features for pros.
  * Author: Chris Dillon
- * Version: 2.10.3
+ * Version: 2.11
  * Author URI: https://www.wpmission.com/
  * Text Domain: strong-testimonials
  * Domain Path: /languages
@@ -134,6 +134,12 @@ final class Strong_Testimonials {
 		if ( ! defined( 'WPMTST_INC' ) )
 			define( 'WPMTST_INC', plugin_dir_path( __FILE__ ) . 'includes/' );
 
+		if ( ! defined( 'WPMTST_VIEW_DIR' ) )
+			define( 'WPMTST_VIEW_DIR', plugin_dir_path( __FILE__ ) . 'view/' );
+
+		if ( ! defined( 'WPMTST_VIEW_URL' ) )
+			define( 'WPMTST_VIEW_URL', plugin_dir_url( __FILE__ ) . 'view/' );
+
 		if ( ! defined( 'WPMTST_DEF_TPL' ) )
 			define( 'WPMTST_DEF_TPL', plugin_dir_path( __FILE__ ) . 'templates/default/' );
 
@@ -157,8 +163,10 @@ final class Strong_Testimonials {
 	 */
 	private function includes() {
 
+		require_once WPMTST_VIEW_DIR . 'class-strong-view.php';
+		require_once WPMTST_VIEW_DIR . 'class-strong-view-controls.php';
+
 		require_once WPMTST_INC . 'class-strong-templates.php';
-		require_once WPMTST_INC . 'class-strong-view.php';
 		require_once WPMTST_INC . 'l10n.php';
 		require_once WPMTST_INC . 'post-types.php';
 		require_once WPMTST_INC . 'functions.php';
@@ -169,6 +177,7 @@ final class Strong_Testimonials {
 		 * Including here for compatibility with page builders.
 		 *
 		 * @since 1.25.3
+		 * @todo Load only when needed.
 		 */
 		require_once WPMTST_INC . 'shortcodes.php';
 		require_once WPMTST_INC . 'template-functions.php';
@@ -190,6 +199,7 @@ final class Strong_Testimonials {
 			require_once WPMTST_INC . 'admin/settings.php';
 			require_once WPMTST_INC . 'admin/upgrade.php';
 			require_once WPMTST_INC . 'admin/views.php';
+			require_once WPMTST_INC . 'admin/views-validate.php';
 
 		}
 
@@ -582,6 +592,7 @@ final class Strong_Testimonials {
 			'container_class'    => '',
 			'count'              => 1,
 			'display'            => '',
+			'effect'             => 'fade',
 			'effect_for'         => '1.5',
 			'excerpt'            => '',
 			'excerpt_length'     => 55,
@@ -609,6 +620,8 @@ final class Strong_Testimonials {
 			'random'             => '',
 			'show_for'           => '8',
 			'slideshow'          => '',
+			'slideshow_nav'      => 'simple',
+			'stretch'            => 1,
 			'template'           => '',
 			'thumbnail'          => '',
 			'thumbnail_size'     => 'thumbnail',
@@ -1362,7 +1375,7 @@ final class Strong_Testimonials {
 
 		// Populate variable for Cycle script.
 		$args = self::slideshow_args( $atts );
-		wp_localize_script( 'wpmtst-slider', self::slideshow_signature( $args ), $args );
+		wp_localize_script( 'wpmtst-slider', self::slideshow_signature( $atts ), $args );
 	}
 
 	/**
@@ -1370,24 +1383,26 @@ final class Strong_Testimonials {
 	 *
 	 * @since 2.7.0
 	 * @private
-	 * @param $args
+	 *
+	 * @param $atts
 	 *
 	 * @return string
 	 */
-	private static function slideshow_signature( $args ) {
-		return 'strong_cycle_' . md5( serialize( $args ) );
+	private static function slideshow_signature( $atts ) {
+		return 'strong_cycle_view_id_' . $atts['view'];
 	}
 
 	/**
 	 * Return slideshow signature.
 	 *
 	 * @since 2.7.0
-	 * @param $args
+	 *
+	 * @param $atts
 	 *
 	 * @return string
 	 */
-	public function get_slideshow_signature( $args ) {
-		return self::slideshow_signature( $args );
+	public function get_slideshow_signature( $atts ) {
+		return self::slideshow_signature( $atts );
 	}
 
 	/**
@@ -1401,13 +1416,27 @@ final class Strong_Testimonials {
 	 */
 	private static function slideshow_args( $atts ) {
 		$options = get_option( 'wpmtst_options' );
+		$sig = self::slideshow_signature( $atts );
+
 		$args = array(
-			'fx'      => 'fade',
-			'speed'   => $atts['effect_for'] * 1000,
+			'fx'      => $atts['effect'],
+			'speed'   => 'none' == $atts['effect'] ? 1 : $atts['effect_for'] * 1000,
 			'timeout' => $atts['show_for'] * 1000,
 			'pause'   => $atts['no_pause'] ? 0 : 1,
-			'maxZ'    => (int) $options['slideshow_zindex']
+			'maxZ'    => (int) $options['slideshow_zindex'],
+			'pager'   => ".$sig .cycle-pager",
+			'pagerTemplate' => '',
+			'next'    => ".$sig .cycle-next",
+			'prev'    => ".$sig .cycle-prev",
 		);
+
+		if ( $atts['slideshow_nav'] ) {
+			if ( 'indexed' == $atts['slideshow_nav'] ) {
+				$args['pagerTemplate'] = '<span class="slide-num">{{slideNum}}</span>';
+			} else {
+				$args['pagerTemplate'] = '<span class="slide-num" data-slideNum="{{slideNum}}"></span>';
+			}
+		}
 
 		return $args;
 	}

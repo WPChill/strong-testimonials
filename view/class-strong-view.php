@@ -2,7 +2,7 @@
 /**
  * View class.
  *
- * @since 2.3
+ * @since 2.3.0
  */
 
 // Exit if accessed directly
@@ -57,8 +57,6 @@ class Strong_View {
 
 		$this->atts = apply_filters( 'wpmtst_view_atts', $atts );
 
-		//$this->build();
-
 	}
 
 	/**
@@ -112,10 +110,29 @@ class Strong_View {
 		$this->build_classes();
 
 		/**
-		 * Add filters here.
+		 * Add filters.
 		 */
 		add_filter( 'get_avatar', 'wpmtst_get_avatar', 10, 3 );
 		add_filter( 'embed_defaults', 'wpmtst_embed_size', 10, 2 );
+
+		/**
+		 * Add actions.
+		 */
+		// Slideshow controls
+		if ( $this->atts['slideshow'] && $this->atts['slideshow_nav'] ) {
+			//if ( $this->atts['stretch'] ) {
+				// Add controls to `strong-content` div
+				//add_action( 'wpmtst_after_all_testimonials', array( 'Strong_View_Controls', 'cycle_controls' ) );
+			//} else {
+				/** THIS IS THE WRONG PLACE IN THE PAGE -- There should only be one per slideshow */
+				// Add controls to `testimonial-inner` div
+				//add_action( 'wpmtst_after_testimonial', array( 'Strong_View_Controls', 'cycle_controls' ) );
+			//}
+		}
+		add_action( 'wpmtst_after_content', array( 'Strong_View_Controls', 'cycle_controls' ) );
+
+		// Read more page
+		add_action( 'wpmtst_view_footer', 'wpmtst_read_more_page' );
 
 		/**
 		 * Locate template.
@@ -128,8 +145,7 @@ class Strong_View {
 		$query = $this->query;
 		if ( has_filter( 'wpmtst_render_view_template' ) ) {
 			$html = apply_filters( 'wpmtst_render_view_template', '', $this );
-		}
-		else {
+		} else {
 			ob_start();
 			/** @noinspection PhpIncludeInspection */
 			include( $this->template_file );
@@ -138,10 +154,19 @@ class Strong_View {
 		}
 
 		/**
-		 * Remove filters here.
+		 * Remove filters.
 		 */
 		remove_filter( 'get_avatar', 'wpmtst_get_avatar' );
 		remove_filter( 'embed_defaults', 'wpmtst_embed_size' );
+
+		/**
+		 * Remove actions.
+		 */
+		if ( $this->atts['slideshow'] ) {
+			remove_action( 'wpmtst_after_content', array( 'Strong_View_Controls', 'cycle_controls' ) );
+		}
+
+		remove_action( 'wpmtst_view_footer', 'wpmtst_read_more_page' );
 
 		/**
 		 * Hook to enqueue scripts.
@@ -158,14 +183,17 @@ class Strong_View {
 	 * Build class list based on view attributes.
 	 */
 	public function build_classes() {
-		$content_class_list = array();
-		$post_class_list    = array( 'testimonial' );
+		$container_class_list = array(
+			'strong-view-id-' . $this->atts['view'],
+			$this->get_template_css_class(),
+		);
+		$content_class_list   = array();
+		$post_class_list      = array( 'testimonial' );
 
 		// excerpt overrides length
 		if ( $this->atts['excerpt'] ) {
 			$post_class_list[] = 'excerpt';
-		}
-		elseif ( $this->atts['word_count'] ) {
+		} elseif ( $this->atts['word_count'] ) {
 			$post_class_list[] = 'truncated';
 		}
 
@@ -174,13 +202,21 @@ class Strong_View {
 		 */
 		if ( $this->atts['slideshow'] ) {
 
+			if ( $this->atts['slideshow_nav'] ) {
+				if ( 'buttons1' == $this->atts['slideshow_nav'] ) {
+					$container_class_list[] = 'stretch ui-slideshow-bookends';
+				} else {
+					$container_class_list[] = 'stretch ui-slideshow-bottom';
+				}
+			} elseif ( $this->atts['stretch'] ) {
+				$container_class_list[] = 'stretch';
+			}
+
 			$content_class_list[] = 'strong_cycle';
-			$args = WPMST()->get_slideshow_args( $this->atts );
-			$content_class_list[] = WPMST()->get_slideshow_signature( $args );
+			$content_class_list[] = WPMST()->get_slideshow_signature( $this->atts );
 			$post_class_list[]    = 't-slide';
 
-		}
-		else {
+		} else {
 
 			if ( $this->atts['per_page']
 				&& $this->post_count > $this->atts['per_page']
@@ -198,10 +234,22 @@ class Strong_View {
 		/**
 		 * Filter classes and store updated atts.
 		 */
-		$this->atts['content_class'] = join( ' ', apply_filters( 'wpmtst_view_content_class', $content_class_list ) );
-		$this->atts['post_class']    = join( ' ', apply_filters( 'wpmtst_view_post_class', $post_class_list ) );
+		$this->atts['container_class'] = join( ' ', apply_filters( 'wpmtst_view_container_class', $container_class_list ) );
+		$this->atts['content_class']   = join( ' ', apply_filters( 'wpmtst_view_content_class', $content_class_list ) );
+		$this->atts['post_class']      = join( ' ', apply_filters( 'wpmtst_view_post_class', $post_class_list ) );
 		WPMST()->set_atts( $this->atts );
 
+	}
+
+	/**
+	 * Construct template CSS class name.
+	 *
+	 * @since 2.11.0
+	 *
+	 * @return mixed
+	 */
+	public function get_template_css_class() {
+		return str_replace( ':', '-', str_replace( ':content', '', $this->atts['template'] ) );
 	}
 
 	/**

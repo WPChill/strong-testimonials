@@ -27,7 +27,7 @@ If that describes your situation, this plugin will work for you right out of the
 * Categories
 * Excerpts, both manual and automatic
 * Featured Images (thumbnails)
-* Multiple slideshows
+* Slideshows with several navigation options
 * Sort by oldest, newest, random, or menu order (drag-and-drop)
 * Simple pagination
 * Built-in templates with several layout options
@@ -154,6 +154,9 @@ Yes. This requires a lightbox so if your theme does not include one, you will ne
 8. Template files and template functions.
 
 == Changelog ==
+
+= 2.11 - July 19, 2016 =
+* Slideshow navigation options.
 
 = 2.10.3 - July 13, 2016 =
 * Fix conflict with NextGEN Gallery.

@@ -7,7 +7,6 @@
 
 /**
  * testimonial_view shortcode
- * Merely a wrapper for the [strong] shortcode until verion 2.0
  *
  * @param      $atts
  * @param null $content
@@ -53,8 +52,6 @@ function wpmtst_render_view( $out ) {
 	}
 
 	// Container class is shared by display and form in templates.
-	$out['container_class'] = 'strong-view-id-' . $out['view'];
-
 	if ( $out['class'] ) {
 		$out['container_class'] .= ' ' . str_replace( ',', ' ', $out['class'] );
 	}

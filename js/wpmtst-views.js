@@ -235,8 +235,8 @@ jQuery(document).ready(function($) {
 
 			$(indepsFast).fadeOut(fast);
 			$(indeps).not(".fast").fadeOut(speed);
-		}
-		else {
+
+		} else {
 
 			$(indepsFast).fadeIn(fast);
 			$(indeps).not(".fast").fadeIn(speed);
@@ -253,6 +253,7 @@ jQuery(document).ready(function($) {
 	 *
 	 * Show/hide other option groups when one and only one *specific* option is selected.
 	 * class="if select"
+	 * ~TRIP~
 	 */
 	$.fn.selectOption = function(el, speed) {
 		speed = speed || 400;
@@ -265,6 +266,28 @@ jQuery(document).ready(function($) {
 		}
 		else {
 			$(deps).fadeOut(speed);
+		}
+		return this;
+	}
+
+	/**
+	 * Plugin: Toggle dependent options for selects.
+	 *
+	 * Show/hide other option groups when one and only one *specific* option is selected.
+	 * class="if selectnot"
+	 * ~TRIP~
+	 */
+	$.fn.selectNotOption = function(el, speed) {
+		speed = speed || 400;
+		var currentValue = $(el).val();
+		var tripValue = $(el).find(".trip").val();
+		var option = $(el).attr("id").split("-").pop();
+		var deps = ".then_" + option;
+		if(currentValue == tripValue) {
+			$(deps).fadeOut(speed);
+		}
+		else {
+			$(deps).fadeIn(speed);
 		}
 		return this;
 	}
@@ -367,6 +390,13 @@ jQuery(document).ready(function($) {
 			$.fn.selectOption(this);
 			$(this).on("change", function() {
 				$.fn.selectOption(this);
+			});
+		});
+
+		$(".if.selectnot").each(function(index,el) {
+			$.fn.selectNotOption(this);
+			$(this).on("change", function() {
+				$.fn.selectNotOption(this);
 			});
 		});
 

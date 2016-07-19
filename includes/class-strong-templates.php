@@ -102,6 +102,20 @@ class Strong_Templates {
 	}
 
 	/**
+	 * Get template attribute.
+	 *
+	 * Array
+	 * 	(
+	 * [stylesheet] => http://strong.dev/wp-content/plugins/strong-testimonials/templates/default-dark/content.css
+	 * [template] => M:\wp\work\strong\master\wp-content\plugins\strong-testimonials/templates/default-dark/content.php
+	 * [name] => Default Dark
+	 * [description] => A version of the default template for dark themes.
+	 * [deps] =>
+	 * [force] =>
+	 * [group] => default-dark
+	 * [type] => content
+	 * )
+	 *
 	 * @param           $atts
 	 * @param string    $part
 	 * @param bool|true $use_default
@@ -111,30 +125,25 @@ class Strong_Templates {
 	public function get_template_attr( $atts, $part = 'template', $use_default = true ) {
 
 		// establish default
-		if ( isset( $atts['form'] ) )
-			$default_template = 'default:form';
-		else
-			$default_template = 'default:content';
-
+		$default_template = isset( $atts['form'] ) ? 'default:form' : 'default:content';
 		$default_template = apply_filters( 'wpmtst_default_template', $default_template, $atts );
 
-		if ( isset( $atts['template'] ) )
-			$template = $atts['template'];
-		else
-			$template = $default_template;
+		$template = isset( $atts['template'] ) ? $atts['template'] : $default_template;
 
 		// check existence
 		$found = in_array( $template, array_keys( $this->templates ) );
 
 		$template_info = false;
 
-		if ( $found )
+		if ( $found ) {
 			$template_info = $this->templates[ $template ];
-		elseif ( $use_default )
+		} elseif ( $use_default ) {
 			$template_info = $this->templates[ $default_template ];
+		}
 
-		if ( $template_info && isset( $template_info[ $part ] ) && $template_info[ $part ] )
+		if ( $template_info && isset( $template_info[ $part ] ) && $template_info[ $part ] ) {
 			return $template_info[ $part ];
+		}
 
 		return '';
 	}

@@ -59,7 +59,7 @@
 .view-category-list-panel {
 	box-sizing: border-box;
 	min-height: 42px;
-	max-height: 215px;
+	max-height: 180px;
 	min-width: 220px;
 	overflow: auto;
 	padding: 0 11px;
@@ -73,6 +73,7 @@
 
 .view-category-list li {
 	margin-bottom: 0;
+	line-height: normal;
 }
 
 .view-category-list li label {
@@ -233,7 +234,7 @@ input[type="text"].long {
 }
 
 .tight {
-	margin-right: 1.5em;
+	margin-right: 0.5em;
 }
 
 .tight:last-child {

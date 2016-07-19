@@ -1,15 +1,17 @@
 /**
  * Strong Testimonials slideshow
  *
- * Now compatible with Max Mega Menu plugin.
+ * Version: 0.3
  *
- * Version 0.2
+ * @since 0.2.0 Compatible with Max Mega Menu plugin.
+ * @since 0.3.0 Compatible with both versions of Cycle.
  */
 
 // Function to get the max value in array
 Array.max = function (array) {
 	return Math.max.apply(Math, array);
 };
+
 
 /**
  * Set height of slideshow container and initialize Cycle after all images
@@ -29,8 +31,8 @@ jQuery(window).on("load", function () {
 	strongSlideshows = jQuery('.strong_cycle');
 
 	if( megaMenuItems.length ) {
-		// Add class to not auto-start
-		// and set height to zero to avoid flash when full background shrinks to max height of slideshow.
+		// Add class to not auto-start and set height to zero to avoid flash 
+		// when full background shrinks to max height of slideshow.
 		megaMenuItems.find('.strong_cycle').addClass('noinit').css('height', 0);
 		// and underlay other slideshows (edge case).
 		strongSlideshows.not('.noinit').parent('.strong-view').css('opacity', '.99');
@@ -55,15 +57,30 @@ jQuery(window).on("load", function () {
 
 		setOpts: function (parms) {
 			return {
-				slides: '> div.t-slide',
+				// Cycle2
 				autoHeight: false,
-				fx: parms.effect,
-				speed: parseInt(parms.speed),
-				timeout: parseInt(parms.timeout),
-				maxZ: parseInt(parms.maxZ) ? parseInt(parms.maxZ) : 9,
+				pagerTemplate: parms.pagerTemplate,
+				pauseOnHover: "1" == parms.pause,
+				slides: '> div.t-slide',
+
+				// Cycle
+				activePagerClass: 'cycle-pager-active',
+				pagerAnchorBuilder: function( idx, slide) {
+					return parms.pagerTemplate.replace( /{{slideNum}}/, idx + 1 )
+				},
+				pause: "1" == parms.pause,
+				pauseOnPagerHover: "1" == parms.pause,
+				slideExpr: '> div.t-slide',
+
+				// common
+				fx: parms.fx,
 				log: false,
-				pause: "1" == parms.pause,  // Cycle
-				pauseOnHover: "1" == parms.pause   // Cycle2
+				maxZ: parseInt(parms.maxZ) ? parseInt(parms.maxZ) : 9,
+				next: parms.next,
+				pager: parms.pager,
+				prev: parms.prev,
+				speed: parseInt(parms.speed),
+				timeout: parseInt(parms.timeout)
 			};
 		},
 
@@ -83,7 +100,6 @@ jQuery(window).on("load", function () {
 	strongSlideshows.not('.noinit').each(function () {
 		cycleObject.initCycle(this);
 	});
-
 
 	// Start slideshow when menu item opens.
 	megaMenuItems.on('open_panel', function () {

@@ -9,6 +9,10 @@
 		box-sizing: border-box;
 	}
 
+	.strong-content {
+		position: relative;
+	}
+
 	.testimonial-inner {
 		display: block;
 		/* fill horizontal & vertical space */
@@ -26,4 +30,34 @@
 			display: none;
 		}
 	}
+
+	&.stretch .strong_cycle .testimonial {
+		/* to force same height for all slides */
+		height: 100%;
+	}
+
+	&.ui-slideshow-bottom .strong-cycle-controls {
+		position: absolute;
+		bottom: 0;
+		width: 100%;
+	}
+
+	&.ui-slideshow-bookends .strong-cycle-controls {
+	}
+
+}
+
+.strong-view {
+
+	.screen-reader-text {
+		/* copied from Twenty Sixteen theme */
+		clip: rect(1px, 1px, 1px, 1px);
+		height: 1px;
+		overflow: hidden;
+		position: absolute !important;
+		width: 1px;
+		/* many screen reader and browser combinations announce broken words as they would appear visually */
+		word-wrap: normal !important;
+	}
+
 }

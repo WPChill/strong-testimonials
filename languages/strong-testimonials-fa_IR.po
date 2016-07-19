@@ -8,12 +8,15 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2016-02-26 10:53+0330\n"
+"PO-Revision-Date: 2016-07-19 10:38-0400\n"
 "Language-Team: \n"
-"X-Generator: Poedit 1.8.5\n"
-"Last-Translator: \n"
+"X-Generator: Poedit 1.8.2\n"
+"Last-Translator: Chris Dillon <chris@wpmission.com>\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "Language: fa\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-SearchPath-0: .\n"
 
 #: includes/EDD_SL_Plugin_Updater.php:185
 msgid "There is a new version of %1$s available. %2$sView version %3$s details%4$s."
@@ -207,7 +210,8 @@ msgstr "فیلدهای دلخواه"
 msgid "Optional Fields"
 msgstr "فیلدهای اختیاری"
 
-#: includes/admin/custom-fields.php:355 includes/class-strong-views-list-table.php:77
+#: includes/admin/custom-fields.php:355
+#: includes/class-strong-views-list-table.php:77
 msgid "Delete"
 msgstr "حذف"
 
@@ -603,7 +607,8 @@ msgstr "ایمیل"
 msgid "(optional)"
 msgstr "(اختیاری)"
 
-#: includes/admin/settings/email-from.php:28 includes/admin/settings/recipient.php:18
+#: includes/admin/settings/email-from.php:28
+#: includes/admin/settings/recipient.php:18
 msgid "site admin email:"
 msgstr "ایمیل مدیر سایت:"
 
@@ -867,7 +872,8 @@ msgid "Style"
 msgstr "سبک(استایل)"
 
 #. translators: This is on the Views admin screen.
-#: includes/admin/views/mode-slideshow.php:5 includes/admin/views/option-timing.php:9
+#: includes/admin/views/mode-slideshow.php:5
+#: includes/admin/views/option-timing.php:9
 msgctxt "slideshow setting"
 msgid "Show each for"
 msgstr "نمایش هریک برای"

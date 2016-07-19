@@ -1,0 +1,27 @@
+/**
+ * Slideshow Controls
+ */
+
+.strong-cycle-controls.simple {
+	vertical-align: middle;
+	line-height: 60px;
+	text-align: center;
+	z-index: 999;
+}
+.strong-cycle-controls.simple .cycle-pager span:before {
+	font-family: fontawesome;
+	content: "\f10c";
+	display: inline-block;
+	color: #999;
+	cursor: pointer;
+	font-size: 12px;
+	text-align: center;
+	width: 18px;
+}
+.strong-cycle-controls.simple .cycle-pager span:hover:before {
+	content: "\f111";
+	color: #111;
+}
+.strong-cycle-controls.simple .cycle-pager span.cycle-pager-active:before {
+	content: "\f111";
+}

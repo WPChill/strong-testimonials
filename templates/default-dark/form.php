@@ -5,7 +5,7 @@
  */
 ?>
 <!-- Strong Testimonials: Default Dark Form Template -->
-<div class="strong-view strong-form default-dark-form <?php wpmtst_container_class(); ?>">
+<div class="strong-view strong-form <?php wpmtst_container_class(); ?>">
 
 	<div id="wpmtst-form">
 

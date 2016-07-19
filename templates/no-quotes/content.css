@@ -34,6 +34,9 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
 .strong-view.no-quotes * {
   box-sizing: border-box;
 }
+.strong-view.no-quotes .strong-content {
+  position: relative;
+}
 .strong-view.no-quotes .testimonial-inner {
   display: block;
   /* fill horizontal & vertical space */
@@ -48,6 +51,26 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
 .strong-view.no-quotes .strong_cycle .testimonial:not(:first-child) {
   /* prevents flash on slow page load */
   display: none;
+}
+.strong-view.no-quotes.stretch .strong_cycle .testimonial {
+  /* to force same height for all slides */
+  height: 100%;
+}
+.strong-view.no-quotes.ui-slideshow-bottom .strong-cycle-controls {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+
+.strong-view .screen-reader-text {
+  /* copied from Twenty Sixteen theme */
+  clip: rect(1px, 1px, 1px, 1px);
+  height: 1px;
+  overflow: hidden;
+  position: absolute !important;
+  width: 1px;
+  /* many screen reader and browser combinations announce broken words as they would appear visually */
+  word-wrap: normal !important;
 }
 
 /* Paging controls
@@ -111,6 +134,13 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
   padding: 20px;
   text-align: left;
 }
+.strong-view.no-quotes.ui-slideshow-bottom .testimonial-inner {
+  padding-bottom: 60px;
+}
+.strong-view.no-quotes.ui-slideshow-bookends .testimonial-inner {
+  padding-left: 48px;
+  padding-right: 48px;
+}
 .strong-view.no-quotes .testimonial-heading {
   margin-top: 0;
   text-align: left;
@@ -151,8 +181,6 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
   border: 1px solid #E6E6E6;
 }
 
-/* Responsive
------------------------------------------------*/
 @media only screen and (max-width: 320px) {
   .strong-view.no-quotes .testimonial-image {
     float: none;
@@ -166,8 +194,6 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
     padding-left: 0;
   }
 }
-/* RTL
------------------------------------------------*/
 .strong-view.no-quotes.rtl .testimonial,
 .strong-view.no-quotes.rtl .testimonial-inner,
 .strong-view.no-quotes.rtl .testimonial-heading {

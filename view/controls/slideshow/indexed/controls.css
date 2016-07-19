@@ -1,0 +1,24 @@
+/**
+ * Slideshow Controls
+ */
+
+.strong-cycle-controls.indexed {
+	font-size: 0.9em;
+	line-height: 60px;
+	text-align: center;
+	vertical-align: middle;
+	z-index: 999;
+}
+.strong-cycle-controls.indexed .cycle-pager span {
+	display: inline-block;
+	cursor: pointer;
+	padding: 0 4px;
+}
+.strong-cycle-controls.indexed .cycle-pager span:hover {
+	color: #111;
+	font-weight: bold;
+}
+.strong-cycle-controls.indexed .cycle-pager span.cycle-pager-active {
+	color: #111;
+	font-weight: bold;
+}

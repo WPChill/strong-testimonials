@@ -21,6 +21,7 @@
 
 	<p><?php _e( 'All the options of Display mode plus:', 'strong-testimonials' ); ?></p>
 	<ul>
+		<li><?php _e( 'navigation controls', 'strong-testimonials' ); ?></li>
 		<li><?php _e( 'how long each slide is displayed', 'strong-testimonials' ); ?></li>
 		<li><?php _e( 'how long the transition effect lasts', 'strong-testimonials' ); ?></li>
 		<li><?php _e( 'whether to pause on cursor hover', 'strong-testimonials' ); ?></li>

@@ -388,6 +388,18 @@ function wpmtst_default_settings() {
 				unset( $view_data['more_text'] );
 			}
 
+			/**
+			 * Don't force navigation or stretch on existing slideshows.
+			 * @since 2.11.0
+			 */
+			if ( !isset( $view_data['slideshow_nav'] ) ) {
+				$view_data['slideshow_nav'] = '';
+			}
+			if ( !isset( $view_data['stretch'] ) ) {
+				$view_data['stretch'] = 0;
+			}
+
+
 			// Merge in new default values
 			$view['data'] = array_merge( $new_default_view, $view_data );
 

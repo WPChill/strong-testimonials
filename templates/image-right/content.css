@@ -34,6 +34,9 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
 .strong-view.image-right * {
   box-sizing: border-box;
 }
+.strong-view.image-right .strong-content {
+  position: relative;
+}
 .strong-view.image-right .testimonial-inner {
   display: block;
   /* fill horizontal & vertical space */
@@ -48,6 +51,26 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
 .strong-view.image-right .strong_cycle .testimonial:not(:first-child) {
   /* prevents flash on slow page load */
   display: none;
+}
+.strong-view.image-right.stretch .strong_cycle .testimonial {
+  /* to force same height for all slides */
+  height: 100%;
+}
+.strong-view.image-right.ui-slideshow-bottom .strong-cycle-controls {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+
+.strong-view .screen-reader-text {
+  /* copied from Twenty Sixteen theme */
+  clip: rect(1px, 1px, 1px, 1px);
+  height: 1px;
+  overflow: hidden;
+  position: absolute !important;
+  width: 1px;
+  /* many screen reader and browser combinations announce broken words as they would appear visually */
+  word-wrap: normal !important;
 }
 
 /* Paging controls
@@ -111,6 +134,13 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
   padding: 20px;
   text-align: left;
 }
+.strong-view.image-right.ui-slideshow-bottom .testimonial-inner {
+  padding-bottom: 60px;
+}
+.strong-view.image-right.ui-slideshow-bookends .testimonial-inner {
+  padding-left: 48px;
+  padding-right: 48px;
+}
 .strong-view.image-right .testimonial-heading {
   background: url("img/quotes.png") no-repeat scroll left center transparent;
   margin-top: 0;
@@ -152,8 +182,6 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
   border: 1px solid #E6E6E6;
 }
 
-/* Responsive
------------------------------------------------*/
 @media only screen and (max-width: 320px) {
   .strong-view.image-right .testimonial-image {
     float: none;
@@ -167,8 +195,6 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
     padding-left: 0;
   }
 }
-/* RTL
------------------------------------------------*/
 .strong-view.image-right.rtl .testimonial,
 .strong-view.image-right.rtl .testimonial-inner,
 .strong-view.image-right.rtl .testimonial-heading {

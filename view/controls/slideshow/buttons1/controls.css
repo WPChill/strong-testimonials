@@ -1,0 +1,41 @@
+/**
+ * Slideshow Controls
+ */
+
+.strong-cycle-controls.buttons1 {
+	position: relative;
+	text-align: center;
+	z-index: 999;
+}
+.strong-cycle-controls.buttons1.left {
+	float: left;
+	top: calc( 50% - 14px );
+}
+.strong-cycle-controls.buttons1.right {
+	float: right;
+	top: calc( 50% - 14px );
+	left: -48px;
+}
+/* icon */
+.strong-cycle-controls.buttons1 > span {
+	font-family: fontawesome;
+	position: absolute;
+	color: #CCC;
+	cursor: pointer;
+	font-size: 28px;
+	line-height: 28px;
+	width: 28px;
+	height: 28px;
+	margin: 0 10px;
+	text-align: center;
+	transition: all 0.2s ease;
+}
+.strong-cycle-controls.buttons1 > span:hover {
+	color: #111;
+}
+.strong-cycle-controls.buttons1 .cycle-prev:before {
+	content: "\f053";
+}
+.strong-cycle-controls.buttons1 .cycle-next:before {
+	content: "\f054";
+}

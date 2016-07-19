@@ -16,8 +16,5 @@
 		<tr class="then then_slideshow then_not_single then_multiple" style="display: none;">
 			<?php include( 'option-limit.php' ); ?>
 		</tr>
-		<tr class="then then_not_display then_not_form then_slideshow" style="display: none;">
-			<?php include( 'option-timing.php' ); ?>
-		</tr>
 	</table>
 </div>

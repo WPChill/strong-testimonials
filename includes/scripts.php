@@ -42,6 +42,8 @@ function wpmtst_scripts() {
 		}
 
 	}
+
+	wp_register_style( 'wpmtst-font-awesome', WPMTST_URL . 'fonts/font-awesome-4.6.3/css/font-awesome.min.css', array(), '4.6.3' );
 }
 add_action( 'wp_enqueue_scripts', 'wpmtst_scripts' );
 

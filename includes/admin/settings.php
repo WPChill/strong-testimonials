@@ -106,7 +106,7 @@ function wpmtst_sanitize_options( $input ) {
 
 	$input['support_comments'] = wpmtst_sanitize_checkbox( $input, 'support_comments' );
 
-	$input['email_log_level'] = ! isset( $input['email_log_level'] ) ? 1 : (int) $input['email_log_level'];
+	$input['email_log_level'] = !isset( $input['email_log_level'] ) ? 1 : (int) $input['email_log_level'];
 
 	return $input;
 }

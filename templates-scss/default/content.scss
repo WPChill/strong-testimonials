@@ -14,7 +14,7 @@ $template: default;
 -----------------------------------------------*/
 .strong-view.#{$template} {
 	.strong-content {
-		margin: 20px auto;
+		margin: 20px auto 0;
 	}
 
 	.testimonial {
@@ -26,6 +26,15 @@ $template: default;
 		border: 1px solid #FFFFFF;
 		padding: 20px;
 		text-align: left;
+	}
+
+	&.ui-slideshow-bottom .testimonial-inner {
+		padding-bottom: 60px;
+	}
+
+	&.ui-slideshow-bookends .testimonial-inner {
+		padding-left: 48px;
+		padding-right: 48px;
 	}
 
 	.testimonial-heading {
@@ -66,17 +75,24 @@ $template: default;
 		margin-top: 1em;
 	}
 
+	.strong-view-footer {
+		margin-bottom: 20px;
+	}
+
 	.readmore-page {
 		@include readmore-page;
 		border: 1px solid #E6E6E6;
 	}
 }
 
+/* Responsive
+-----------------------------------------------*/
 @import "../_partials/responsive";
 @import "../_partials/responsive-no-heading-background";
 
+/* RTL
+-----------------------------------------------*/
 @import "../_partials/rtl";
-
 .strong-view.#{$template}.rtl {
 	.testimonial-heading {
 		padding-right: 40px;

@@ -503,23 +503,13 @@ function wpmtst_read_more() {}
 
 
 /**
- * Display link to the designated "Read more" page.
- *
- * @since 2.10.0
- */
-function wpmtst_read_more_page() {
-	echo wpmtst_get_read_more_page();
-}
-
-
-/**
  * Assemble link to designated "Read more" page.
 
  * @since 2.10.0
  *
  * @return string
  */
-function wpmtst_get_read_more_page() {
+function wpmtst_read_more_page() {
 	$atts = WPMST()->atts( array( 'more_page', 'more_page_id', 'more_page_text' ) );
 
 	if ( $atts['more_page'] && $atts['more_page_id'] ) {
@@ -532,12 +522,10 @@ function wpmtst_get_read_more_page() {
 				$link_text = $view_options['more_page_text'];
 			}
 
-			return sprintf( '<div class="%s"><a href="%s">%s</a></div>',
+			echo sprintf( '<div class="%s"><a href="%s">%s</a></div>',
 				apply_filters( 'wpmtst_read_more_page_class', 'readmore-page'), $permalink, $link_text );
 		}
 	}
-
-	return '';
 }
 
 /**

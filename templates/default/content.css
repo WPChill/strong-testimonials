@@ -34,6 +34,9 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
 .strong-view.default * {
   box-sizing: border-box;
 }
+.strong-view.default .strong-content {
+  position: relative;
+}
 .strong-view.default .testimonial-inner {
   display: block;
   /* fill horizontal & vertical space */
@@ -48,6 +51,26 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
 .strong-view.default .strong_cycle .testimonial:not(:first-child) {
   /* prevents flash on slow page load */
   display: none;
+}
+.strong-view.default.stretch .strong_cycle .testimonial {
+  /* to force same height for all slides */
+  height: 100%;
+}
+.strong-view.default.ui-slideshow-bottom .strong-cycle-controls {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+
+.strong-view .screen-reader-text {
+  /* copied from Twenty Sixteen theme */
+  clip: rect(1px, 1px, 1px, 1px);
+  height: 1px;
+  overflow: hidden;
+  position: absolute !important;
+  width: 1px;
+  /* many screen reader and browser combinations announce broken words as they would appear visually */
+  word-wrap: normal !important;
 }
 
 /* Paging controls
@@ -91,7 +114,7 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
 /* Template
 -----------------------------------------------*/
 .strong-view.default .strong-content {
-  margin: 20px auto;
+  margin: 20px auto 0;
 }
 .strong-view.default .testimonial {
   margin: 20px auto;
@@ -110,6 +133,13 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
   border: 1px solid #FFFFFF;
   padding: 20px;
   text-align: left;
+}
+.strong-view.default.ui-slideshow-bottom .testimonial-inner {
+  padding-bottom: 60px;
+}
+.strong-view.default.ui-slideshow-bookends .testimonial-inner {
+  padding-left: 48px;
+  padding-right: 48px;
 }
 .strong-view.default .testimonial-heading {
   background: url("img/quotes.png") no-repeat scroll left center transparent;
@@ -146,6 +176,9 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
 }
 .strong-view.default .readmore {
   margin-top: 1em;
+}
+.strong-view.default .strong-view-footer {
+  margin-bottom: 20px;
 }
 .strong-view.default .readmore-page {
   padding: 1em;

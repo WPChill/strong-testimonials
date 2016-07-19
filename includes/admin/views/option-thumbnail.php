@@ -24,13 +24,13 @@
 						<?php endforeach; ?>
 					</select>
 				</div>
-				<div class="inline tight then then_thumbnail_size">
+				<div class="inline then then_thumbnail_size">
 					<label for="thumbnail_width" class="">
 						<?php _e( 'width', 'strong-testimonials' ); ?>
 					</label>
 					<input id="thumbnail_width" class="input-number-px" type="text" name="view[data][thumbnail_width]" value="<?php echo $view['thumbnail_width']; ?>"> px
 				</div>
-				<div class="inline tight then then_thumbnail_size">
+				<div class="inline then then_thumbnail_size">
 					<label for="thumbnail_height" class="">
 						<?php _e( 'height', 'strong-testimonials' ); ?>
 					</label>
@@ -56,7 +56,7 @@
 
 		<div class="row">
 			<div class="row-inner">
-				<div class="inline tight">
+				<div class="inline">
 					<label for="view-gravatar" class="">
 						<?php _e( 'If no Featured Image', 'strong-testimonials' ); ?>
 					</label>

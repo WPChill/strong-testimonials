@@ -322,9 +322,11 @@ ul.compact li {
 }
 
 #details th {
-	text-align: right;
 	font-weight: 400;
-	width: 35%;
+	text-align: right;
+	vertical-align: top;
+	width: 30%;
+	padding-top: 8px;
 }
 
 #details td {
@@ -341,13 +343,18 @@ div.url input.custom-input {
 }
 
 .input-nofollow {
-	display: inline-block;
+	float: right;
 	padding: 5px;
 }
 
 label.nowrap {
 	word-break: keep-all;
 	white-space: nowrap;
+}
+
+label.nowrap code {
+	position: relative;
+	top: -2px;
 }
 
 /* Descriptions
