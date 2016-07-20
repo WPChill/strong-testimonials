@@ -155,6 +155,10 @@ Yes. This requires a lightbox so if your theme does not include one, you will ne
 
 == Changelog ==
 
+= 2.11.1 - July 20, 2016 =
+* Fix bug in pagination.
+* Fix bug in View class name option.
+
 = 2.11 - July 19, 2016 =
 * Slideshow navigation options.
 

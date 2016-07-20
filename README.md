@@ -179,6 +179,10 @@ Yes. With some HTML and CSS knowledge, you can copy any template to your theme a
 
 ## Changelog 
 
+### 2.11.1 - July 20, 2016
+   * Fix bug in pagination.
+   * Fix bug in View class name option.
+
 ### 2.11 - July 19, 2016
 * Slideshow navigation options.
 

@@ -118,18 +118,11 @@ class Strong_View {
 		/**
 		 * Add actions.
 		 */
+
 		// Slideshow controls
 		if ( $this->atts['slideshow'] && $this->atts['slideshow_nav'] ) {
-			//if ( $this->atts['stretch'] ) {
-				// Add controls to `strong-content` div
-				//add_action( 'wpmtst_after_all_testimonials', array( 'Strong_View_Controls', 'cycle_controls' ) );
-			//} else {
-				/** THIS IS THE WRONG PLACE IN THE PAGE -- There should only be one per slideshow */
-				// Add controls to `testimonial-inner` div
-				//add_action( 'wpmtst_after_testimonial', array( 'Strong_View_Controls', 'cycle_controls' ) );
-			//}
+			add_action( 'wpmtst_after_content', array( 'Strong_View_Controls', 'cycle_controls' ) );
 		}
-		add_action( 'wpmtst_after_content', array( 'Strong_View_Controls', 'cycle_controls' ) );
 
 		// Read more page
 		add_action( 'wpmtst_view_footer', 'wpmtst_read_more_page' );
@@ -185,6 +178,7 @@ class Strong_View {
 	public function build_classes() {
 		$container_class_list = array(
 			'strong-view-id-' . $this->atts['view'],
+			$this->atts['class'],
 			$this->get_template_css_class(),
 		);
 		$content_class_list   = array();
