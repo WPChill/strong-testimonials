@@ -1,6 +1,6 @@
 <?php
 /**
- * Template Name: Default Widget
+ * Template Name: Widget
  * Description: The default widget template.
  * Force: view-layout-normal
  */

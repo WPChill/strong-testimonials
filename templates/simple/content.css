@@ -93,9 +93,11 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
   padding: 0;
 }
 .strong-view ul.simplePagerNav li a {
-  padding: 0.1em 0.3em;
   margin: 0 0.2em;
+  padding: 0.1em 0.3em;
+  outline: none;
   text-decoration: none;
+  transition: background 0.2s ease;
 }
 .strong-view ul.simplePagerNav li a:hover {
   background: #BBB;

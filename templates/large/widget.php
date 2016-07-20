@@ -1,7 +1,7 @@
 <?php
 /**
  * Template Name: Large Widget
- * Description: A big bold widget template. Great for slideshows with excerpts & featured images. Try a solid background color.
+ * Description: A big bold widget template. Great for slideshows with excerpts and featured images. Try a solid background color.
  * Force: view-layout-normal
  */
 ?>

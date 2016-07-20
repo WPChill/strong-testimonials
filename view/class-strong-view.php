@@ -142,8 +142,7 @@ class Strong_View {
 			ob_start();
 			/** @noinspection PhpIncludeInspection */
 			include( $this->template_file );
-			$html = ob_get_contents();
-			ob_end_clean();
+			$html = ob_get_clean();
 		}
 
 		/**

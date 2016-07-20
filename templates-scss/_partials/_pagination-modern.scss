@@ -18,22 +18,24 @@
 		padding: 0;
 
 		a {
-			margin: 0 0.2em;
-			padding: 0.1em 0.3em;
+			border-radius: 50%;
+			display: inline-block;
+			line-height: 1.7em;
+			margin: 0 1px;
 			outline: none;
 			text-decoration: none;
 			transition: background 0.2s ease;
+			width: 1.7em;
 
 			&:hover {
-				background: #BBB;
-				color: #FFF;
+				background: #CDCDCD;
 			}
 		}
 
 		&.currentPage a {
 			text-decoration: none;
-			background: #999;
-			color: #FFF;
+			background: #CDCDCD;
+			color: #000;
 		}
 	}
 }

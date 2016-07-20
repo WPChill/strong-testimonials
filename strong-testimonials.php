@@ -4,7 +4,7 @@
  * Plugin URI: https://www.wpmission.com/plugins/strong-testimonials/
  * Description: A full-featured plugin that works right out of the box for beginners and offers advanced features for pros.
  * Author: Chris Dillon
- * Version: 2.11.1
+ * Version: 2.11.2
  * Author URI: https://www.wpmission.com/
  * Text Domain: strong-testimonials
  * Domain Path: /languages
@@ -1651,21 +1651,27 @@ final class Strong_Testimonials {
 			default:
 		}
 
-		if ( ! wp_style_is( $handle ) )
+		if ( !wp_style_is( $handle ) ) {
 			wp_enqueue_style( $handle );
+		}
 
+		// Includes special handling for Large Widget template.
+		// TODO Add option to include background for all templates.
 		if ( $c1 && $c2 ) {
+
 			$gradient = self::gradient_rules( $c1, $c2 );
 			wp_add_inline_style( $handle, ".strong-view-id-$view .testimonial-inner { $gradient }" );
 			if ( 'large-widget:widget' == WPMST()->atts( 'template' ) ) {
 				wp_add_inline_style( $handle, ".strong-view-id-$view .readmore-page { background: $c2 }" );
 			}
-		}
-		elseif ( $c1 ) {
+
+		} elseif ( $c1 ) {
+
 			wp_add_inline_style( $handle, ".strong-view-id-$view .testimonial-inner { background: $c1; }" );
 			if ( 'large-widget:widget' == WPMST()->atts( 'template' ) ) {
 				wp_add_inline_style( $handle, ".strong-view-id-$view .readmore-page { background: $c1 }" );
 			}
+
 		}
 	}
 

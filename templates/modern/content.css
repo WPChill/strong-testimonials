@@ -1,0 +1,260 @@
+/**
+ * Strong Testimonials Simple template
+ */
+/* Clears
+-----------------------------------------------*/
+.clear {
+  clear: both;
+}
+
+/**
+Minimum paragraph width means no short words in skinny space next to image
+in columns or small screens.
+
+This workaround is needed until we can use flexbox properly
+or CSS offers container queries.
+
+Thanks https://css-tricks.com/minimum-paragraph-widths/
+*/
+.maybe-clear {
+  content: "";
+  /* this value seems to work well in both responsive and Masonry */
+  width: 6em;
+  display: block;
+  overflow: hidden;
+}
+
+/* Base
+-----------------------------------------------*/
+.strong-view.modern {
+  display: block;
+  /* this handles short content */
+  width: 100%;
+}
+.strong-view.modern * {
+  box-sizing: border-box;
+}
+.strong-view.modern .strong-content {
+  position: relative;
+}
+.strong-view.modern .testimonial-inner {
+  display: block;
+  /* fill horizontal & vertical space */
+  width: 100%;
+  height: 100%;
+}
+.strong-view.modern .strong_cycle .testimonial {
+  /* remove margin in slideshow */
+  margin-top: 0;
+  margin-bottom: 0;
+}
+.strong-view.modern .strong_cycle .testimonial:not(:first-child) {
+  /* prevents flash on slow page load */
+  display: none;
+}
+.strong-view.modern.stretch .strong_cycle .testimonial {
+  /* to force same height for all slides */
+  height: 100%;
+}
+.strong-view.modern.ui-slideshow-bottom .strong-cycle-controls {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+
+.strong-view .screen-reader-text {
+  /* copied from Twenty Sixteen theme */
+  clip: rect(1px, 1px, 1px, 1px);
+  height: 1px;
+  overflow: hidden;
+  position: absolute !important;
+  width: 1px;
+  /* many screen reader and browser combinations announce broken words as they would appear visually */
+  word-wrap: normal !important;
+}
+
+/* Paging controls
+-----------------------------------------------*/
+.simplePagerList {
+  /* match .strong-content container */
+  margin: 20px auto;
+  text-align: center;
+}
+
+.strong-view ul.simplePagerNav {
+  margin: 0 auto;
+  padding: 0;
+  display: inline-block;
+}
+.strong-view ul.simplePagerNav li {
+  display: inline;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.strong-view ul.simplePagerNav li a {
+  border-radius: 50%;
+  display: inline-block;
+  line-height: 1.7em;
+  margin: 0 1px;
+  outline: none;
+  text-decoration: none;
+  transition: background 0.2s ease;
+  width: 1.7em;
+}
+.strong-view ul.simplePagerNav li a:hover {
+  background: #CDCDCD;
+}
+.strong-view ul.simplePagerNav li.currentPage a {
+  text-decoration: none;
+  background: #CDCDCD;
+  color: #000;
+}
+
+.strong-view.rtl ul.simplePagerNav li {
+  float: right;
+}
+
+/* Template
+-----------------------------------------------*/
+.strong-view.modern .testimonial {
+  background: #F6F6F6;
+  margin: 20px auto;
+  width: 100%;
+}
+.strong-view.modern .testimonial:first-child {
+  margin-top: 0;
+}
+.strong-view.modern .testimonial:last-child {
+  margin-bottom: 0;
+}
+.strong-view.modern .testimonial-inner {
+  padding: 30px;
+}
+.strong-view.modern.ui-slideshow-bottom .testimonial-inner {
+  padding-bottom: 60px;
+}
+.strong-view.modern .testimonial-content {
+  color: #434343;
+  margin: 0 56px;
+  font-size: 1.3em;
+  font-style: italic;
+  text-align: center;
+  position: relative;
+}
+.strong-view.modern .testimonial-content p:first-of-type {
+  margin-top: 0;
+  padding-top: 0;
+}
+.strong-view.modern .testimonial-content p:last-of-type {
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+.strong-view.modern .testimonial-content:before,
+.strong-view.modern .testimonial-content:after {
+  font-family: fontawesome;
+  color: #CDCDCD;
+  font-size: 36px;
+  font-style: normal;
+  line-height: 36px;
+  position: absolute;
+  width: 36px;
+}
+.strong-view.modern .testimonial-content:before {
+  content: "\f10d";
+  left: -56px;
+  top: 0;
+}
+.strong-view.modern .testimonial-content:after {
+  content: "\f10e";
+  right: -56px;
+  bottom: 0;
+}
+.strong-view.modern .testimonial-client {
+  clear: both;
+  margin-top: 30px;
+  text-align: center;
+}
+.strong-view.modern .testimonial-name {
+  color: #434343;
+  font-size: 1.3em;
+  font-weight: 700;
+}
+.strong-view.modern .testimonial-date {
+  font-size: 0.9em;
+  color: #777;
+}
+.strong-view.modern .testimonial-company {
+  font-size: 1.1em;
+}
+.strong-view.modern .testimonial-image {
+  margin-bottom: 10px;
+}
+.strong-view.modern .testimonial-image img {
+  border-radius: 50%;
+}
+.strong-view.modern .readmore-page {
+  background: #F6F6F6;
+  padding: 0.7em;
+  text-align: center;
+}
+.strong-view.modern .strong-cycle-controls .cycle-pager span::before {
+  color: #808080;
+}
+.strong-view.modern .strong-cycle-controls.indexed {
+  line-height: 22px;
+  padding: 19px 0;
+}
+.strong-view.modern .strong-cycle-controls.indexed .cycle-pager span {
+  height: 22px;
+  width: 22px;
+}
+.strong-view.modern .strong-cycle-controls.indexed span.cycle-pager-active {
+  border-radius: 50%;
+  background: #CDCDCD;
+  font-weight: 400;
+}
+
+/* widget? */
+.widget .strong-view.modern .testimonial-inner {
+  padding: 20px;
+}
+.widget .strong-view.modern.ui-slideshow-bottom .testimonial-inner {
+  padding-bottom: 40px;
+}
+.widget .strong-view.modern .strong-cycle-controls {
+  line-height: 40px;
+}
+.widget .strong-view.modern .testimonial-content {
+  margin: 36px 0;
+}
+.widget .strong-view.modern .testimonial-content:before {
+  left: 0;
+  top: -36px;
+}
+.widget .strong-view.modern .testimonial-content:after {
+  content: none;
+}
+.widget .strong-view.modern .readmore {
+  display: block;
+}
+
+@media only screen and (max-width: 320px) {
+  .strong-view.modern .testimonial-image {
+    float: none;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+.strong-view.modern.rtl .testimonial,
+.strong-view.modern.rtl .testimonial-inner,
+.strong-view.modern.rtl .testimonial-heading {
+  text-align: right;
+}
+.strong-view.modern.rtl .testimonial-image {
+  float: right;
+  margin-left: 1em;
+}
+.strong-view.modern.rtl .testimonial-client {
+  text-align: left;
+}
