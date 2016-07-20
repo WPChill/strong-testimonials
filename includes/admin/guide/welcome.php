@@ -20,6 +20,8 @@ $major_minor    = strtok( $plugin_version, '.' ) . '.' . strtok( '.' );
 
 	<h5>New features from your requests</h5>
 
+	<p>A new template named "Modern".</p>
+
 	<p>The slideshow now has several navigation options. Finally!</p>
 
 	<p>An indicator bubble when new submissions are awaiting moderation.</p>

@@ -7,6 +7,8 @@
 
 	<p><?php _e( 'The <strong>Default</strong> template is a good place to start.', 'strong-testimonials' ); ?></p>
 
+	<p><?php _e( 'The <strong>Modern</strong> template will look good in the latest themes.', 'strong-testimonials' ); ?></p>
+
 	<p><?php _e( 'The <strong>No Quotes</strong> template is a version of the default template without the quotation marks in the heading.', 'strong-testimonials' ); ?></p>
 
 	<p><?php _e( 'The <strong>Simple</strong> template has minimal style and may be the best option for matching your theme.', 'strong-testimonials' ); ?></p>
