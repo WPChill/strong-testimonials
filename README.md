@@ -179,6 +179,9 @@ Yes. With some HTML and CSS knowledge, you can copy any template to your theme a
 
 ## Changelog 
 
+### 2.11.3 - July 25, 2016
+* Remove background on Modern template.
+
 ### 2.11.2 - July 20, 2016
 * New template: Modern.
 
