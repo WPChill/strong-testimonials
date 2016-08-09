@@ -108,7 +108,7 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
   border-radius: 3px;
   box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.4);
 }
-.strong-view.large-widget .testimonial-content p {
+.strong-view.large-widget .testimonial-content {
   font-size: 2.2em;
   line-height: 1.4;
 }

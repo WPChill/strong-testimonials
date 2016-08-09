@@ -1,5 +1,5 @@
 /**
- * Strong Testimonials Simple template
+ * Strong Testimonials Modern template
  */
 
 $template: modern;
@@ -98,7 +98,7 @@ $template: modern;
 	}
 
 	.readmore-page {
-		background: #F6F6F6;
+		background: #F4F4F4;
 		padding: 0.7em;
 		text-align: center;
 	}
@@ -125,7 +125,8 @@ $template: modern;
 	}
 }
 
-/* widget? */
+/* Widget
+-----------------------------------------------*/
 .widget .strong-view.#{$template} {
 	.testimonial-inner {
 		padding: 20px;
@@ -150,9 +151,8 @@ $template: modern;
 	}
 
 	.testimonial-content:after {
-		//right: 0;
-		//bottom: -36px;
-		content: none;
+		right: 0;
+		bottom: -36px;
 	}
 
 	.readmore {
@@ -160,7 +160,32 @@ $template: modern;
 	}
 }
 
-@import "../_partials/responsive";
+/* Responsive
+-----------------------------------------------*/
+//@import "../_partials/responsive";
+@media only screen and (max-width: 320px) {
+	.strong-view.#{$template} .testimonial-inner {
+		padding: 15px;
+	}
 
+	.strong-view.#{$template} .testimonial-content {
+		margin: 0;
+
+		/* move quotes from left/right to top/bottom */
+		&:before {
+			position: static;
+			display: block;
+			margin-bottom: 10px;
+		}
+
+		&:after {
+			position: static;
+			float: right;
+			margin-top: 10px;
+		}
+	}
+}
+
+/* RTL
+-----------------------------------------------*/
 @import "../_partials/rtl";
-

@@ -100,6 +100,12 @@ class Strong_View {
 
 		global $strong_templates;
 
+		/**
+		 * Reset any hooks and filters that may have been set by other Views on the page.
+		 * @since 2.11.4
+		 */
+		remove_action( 'wpmtst_after_testimonial', 'wpmtst_excerpt_more_full_post' );
+
 		do_action( 'wpmtst_view_build_before', $this );
 
 		$this->query = $this->build_query();

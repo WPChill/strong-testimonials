@@ -183,6 +183,7 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
   margin-bottom: 20px;
 }
 .strong-view.default .readmore-page {
+  margin-top: 20px;
   padding: 1em;
   text-align: center;
   border: 1px solid #E6E6E6;

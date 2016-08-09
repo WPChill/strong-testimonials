@@ -659,3 +659,9 @@ td.column-shortcode {
 	list-style-type: disc;
 	padding-left: 2em;
 }
+
+
+.strong-view-error a {
+	color: red;
+	font-weight: 700;
+}

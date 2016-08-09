@@ -261,7 +261,7 @@ function wpmtst_default_settings() {
 	 */
 	$current_default_view = get_option( 'wpmtst_view_default' );
 
-	if ( !$current_default_view ) {
+	if ( ! $current_default_view ) {
 
 		// -7A- NEW ACTIVATION
 		update_option( 'wpmtst_view_default', $default_view );
@@ -299,11 +299,11 @@ function wpmtst_default_settings() {
 
 		foreach ( $views as $view ) {
 			$view_data = unserialize( $view['value'] );
-			if ( !is_array( $view_data ) )
+			if ( ! is_array( $view_data ) )
 				continue;
 
 			// Change default template from empty to 'default:{type}'
-			if ( !$view_data['template'] ) {
+			if ( ! $view_data['template'] ) {
 				if ( 'form' == $view_data['mode'] )
 					$type = 'form';
 				else
@@ -350,22 +350,34 @@ function wpmtst_default_settings() {
 			}
 
 			/**
-			 * Convert length (characters) to word_count.
-			 * @since 2.10.0
+			 * Move word_count to excerpt_length for versions 2.10.0 to 2.11.3.
+			 *
+			 * @since 2.11.4
 			 */
-			if ( ! isset( $view_data['word_count'] ) ) {
+			if ( isset( $view_data['word_count'] ) ) {
+				$view_data['excerpt_length'] = $view_data['word_count'];
+				unset ( $view_data['word_count'] );
+			}
+
+			/**
+			 * Convert length (characters).
+			 *
+			 * @since 2.10.0 word_count (deprecated)
+			 * @since 2.11.4 excerpt_length
+			 */
+			if ( ! isset( $view_data['excerpt_length'] ) || ! $view_data['excerpt_length'] ) {
 				if ( ! $average_word_length ) {
 					$average_word_length = wpmtst_get_average_word_length();
 				}
 
 				if ( isset( $view_data['length'] ) && $view_data['length'] ) {
-					$word_count = round( $view_data['length'] / $average_word_length );
-					$word_count = $word_count < 5 ? 5 : $word_count;
-					$word_count = $word_count > 300 ? 300 : $word_count;
-					$view_data['word_count'] = $word_count;
+					$word_count                  = round( $view_data['length'] / $average_word_length );
+					$word_count                  = $word_count < 5 ? 5 : $word_count;
+					$word_count                  = $word_count > 300 ? 300 : $word_count;
+					$view_data['excerpt_length'] = $word_count;
 				}
 				else {
-					$view_data['word_count'] = $default_view['word_count'];
+					$view_data['excerpt_length'] = $default_view['excerpt_length'];
 				}
 
 				unset( $view_data['length'] );
@@ -392,10 +404,10 @@ function wpmtst_default_settings() {
 			 * Don't force navigation or stretch on existing slideshows.
 			 * @since 2.11.0
 			 */
-			if ( !isset( $view_data['slideshow_nav'] ) ) {
+			if ( ! isset( $view_data['slideshow_nav'] ) ) {
 				$view_data['slideshow_nav'] = '';
 			}
-			if ( !isset( $view_data['stretch'] ) ) {
+			if ( ! isset( $view_data['stretch'] ) ) {
 				$view_data['stretch'] = 0;
 			}
 

@@ -2,7 +2,7 @@
 	<p>
 		<label>
 			<input id="wpmtst-options-mail-queue" type="checkbox" name="wpmtst_form_options[mail_queue]" <?php checked( $form_options['mail_queue'] ); ?>>
-			<?php _e( 'Use mail queue. For use with services like Mandrill for transactional email or plugins like Postman SMTP. Off by default.', 'strong-testimonials' ); ?>
+			<?php _e( 'Use mail queue. For services like Mandrill or plugins like Postman SMTP. Off by default.', 'strong-testimonials' ); ?>
 		</label>
 	</p>
 
@@ -38,7 +38,7 @@
 						<input id="wpmtst-options-sender-site-email-0" class="focus-next-field" type="radio"
 						       name="wpmtst_form_options[sender_site_email]" <?php checked( $form_options['sender_site_email'], 0 ); ?>
 						       value="0">
-						<input id="wpmtst-options-sender-email" type="email" class="name-email" size="30" placeholder="<?php _e( "sender's email", 'strong-testimonials' ); ?>"
+						<input id="wpmtst-options-sender-email" type="email" class="name-email" size="30" placeholder="<?php _e( 'email address', 'strong-testimonials' ); ?>"
 						       name="wpmtst_form_options[sender_email]"
 						       value="<?php echo esc_attr( $form_options['sender_email'] ); ?>">
 					</label>

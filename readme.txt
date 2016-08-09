@@ -155,6 +155,9 @@ Yes. This requires a lightbox so if your theme does not include one, you will ne
 
 == Changelog ==
 
+= 2.11.4 - August 9, 2016 =
+* Reinstate "Read more" option for manual excerpts.
+
 = 2.11.3 - July 25, 2016 =
 * Remove background on Modern template.
 

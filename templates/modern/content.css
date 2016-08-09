@@ -1,5 +1,5 @@
 /**
- * Strong Testimonials Simple template
+ * Strong Testimonials Modern template
  */
 /* Clears
 -----------------------------------------------*/
@@ -193,7 +193,7 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
   border-radius: 50%;
 }
 .strong-view.modern .readmore-page {
-  background: #F6F6F6;
+  background: #F4F4F4;
   padding: 0.7em;
   text-align: center;
 }
@@ -214,7 +214,8 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
   font-weight: 400;
 }
 
-/* widget? */
+/* Widget
+-----------------------------------------------*/
 .widget .strong-view.modern .testimonial-inner {
   padding: 20px;
 }
@@ -232,19 +233,37 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
   top: -36px;
 }
 .widget .strong-view.modern .testimonial-content:after {
-  content: none;
+  right: 0;
+  bottom: -36px;
 }
 .widget .strong-view.modern .readmore {
   display: block;
 }
 
+/* Responsive
+-----------------------------------------------*/
 @media only screen and (max-width: 320px) {
-  .strong-view.modern .testimonial-image {
-    float: none;
-    margin-left: auto;
-    margin-right: auto;
+  .strong-view.modern .testimonial-inner {
+    padding: 15px;
+  }
+
+  .strong-view.modern .testimonial-content {
+    margin: 0;
+    /* move quotes from left/right to top/bottom */
+  }
+  .strong-view.modern .testimonial-content:before {
+    position: static;
+    display: block;
+    margin-bottom: 10px;
+  }
+  .strong-view.modern .testimonial-content:after {
+    position: static;
+    float: right;
+    margin-top: 10px;
   }
 }
+/* RTL
+-----------------------------------------------*/
 .strong-view.modern.rtl .testimonial,
 .strong-view.modern.rtl .testimonial-inner,
 .strong-view.modern.rtl .testimonial-heading {

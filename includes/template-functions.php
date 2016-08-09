@@ -60,7 +60,7 @@ function wpmtst_the_content() {
 		$content = do_shortcode( $content );
 
 		$excerpt_more = apply_filters( 'excerpt_more', ' ' . '[&hellip;]' );
-		$content = wp_trim_words( $content, WPMST()->atts( 'word_count' ), $excerpt_more );
+		$content = wp_trim_words( $content, WPMST()->atts( 'excerpt_length' ), $excerpt_more );
 
 	}
 	elseif ( WPMST()->atts( 'excerpt' ) ) {
@@ -69,13 +69,15 @@ function wpmtst_the_content() {
 
 		$use_default_length = WPMST()->atts( 'use_default_length' );
 
-		if ( ! $use_default_length )
+		if ( ! $use_default_length ) {
 			add_filter( 'excerpt_length', 'wpmtst_excerpt_length', 20 );
+		}
 
 		$content = get_the_excerpt();
 
-		if ( ! $use_default_length )
+		if ( ! $use_default_length ) {
 			remove_filter( 'excerpt_length', 'wpmtst_excerpt_length', 20 );
+		}
 
 		$content = wptexturize( $content );
 		$content = convert_smilies( $content );
@@ -104,6 +106,28 @@ function wpmtst_the_content() {
 
 
 /**
+ * Add "Read more" to *manual* excerpts after content and custom fields.
+ *
+ * Using the wp_trim_excerpt filter as a trigger instead of checking content/excerpt fields manually.
+ *
+ * @since 2.11.4
+ *
+ * @param $text
+ * @param $raw_excerpt
+ *
+ * @return mixed
+ */
+function wpmtst_trim_excerpt( $text, $raw_excerpt ) {
+	if ( 'wpm-testimonial' == get_post_type() && WPMST()->atts( 'excerpt' ) && WPMST()->atts( 'more_full_post' ) ) {
+		add_action( 'wpmtst_after_testimonial', 'wpmtst_excerpt_more_full_post' );
+	}
+
+	return $text;
+}
+add_filter( 'wp_trim_excerpt', 'wpmtst_trim_excerpt', 10, 2 );
+
+
+/**
  * Modify the excerpt length.
  *
  * @since 2.10.0
@@ -112,10 +136,10 @@ function wpmtst_the_content() {
  * @return int
  */
 function wpmtst_excerpt_length( $words ) {
-	global $post;
-	if ( 'wpm-testimonial' == get_post_type( $post ) ) {
-		if ( $excerpt_length = WPMST()->atts( 'excerpt_length' ) )
+	if ( 'wpm-testimonial' == get_post_type() ) {
+		if ( $excerpt_length = WPMST()->atts( 'excerpt_length' ) ) {
 			$words = $excerpt_length;
+		}
 	}
 
 	return $words;
@@ -131,32 +155,40 @@ function wpmtst_excerpt_length( $words ) {
  * @return string
  */
 function wpmtst_excerpt_more( $more ) {
-	global $post;
-	if ( 'wpm-testimonial' == get_post_type( $post ) ) {
-		if ( WPMST()->atts( 'more_post' ) ) {
-			if ( WPMST()->atts( 'use_default_more' ) ) {
-				return $more;
-			}
-			else {
-				$link = sprintf( '<a href="%1$s" class="readmore">%2$s</a>',
-					esc_url( get_permalink( $post->ID ) ),
-					sprintf( '%s<span class="screen-reader-text"> "%s"</span>',
-						WPMST()->atts( 'more_post_text' ),
-						get_the_title( $post->ID ) )
-				);
-
-				return ' ' . ( WPMST()->atts( 'more_post_ellipsis' ) ? '&hellip;' : '' ) . ' ' . $link;
-			}
-		}
-		else {
-			// Override theme
-			return '';
+	if ( 'wpm-testimonial' == get_post_type() ) {
+		if ( WPMST()->atts( 'more_post' ) && ! WPMST()->atts( 'use_default_more' ) ) {
+			return wpmtst_get_excerpt_more_post();
 		}
 	}
 
 	return $more;
 }
 add_filter( 'excerpt_more', 'wpmtst_excerpt_more', 20 );
+
+
+function wpmtst_excerpt_more_full_post() {
+	echo apply_filters( 'wpmtst_manual_excerpt_read_more', wpmtst_get_excerpt_more_link() );
+}
+
+
+function wpmtst_get_excerpt_more_post() {
+	if ( WPMST()->atts( 'excerpt' ) && WPMST()->atts( 'more_full_post' ) )
+		return ( WPMST()->atts( 'more_post_ellipsis' ) ? ' &hellip;' : '' );
+	else
+		return ( WPMST()->atts( 'more_post_ellipsis' ) ? ' &hellip; ' : ' ' ) . wpmtst_get_excerpt_more_link();
+}
+
+
+function wpmtst_get_excerpt_more_link() {
+	$link = sprintf( '<a href="%1$s" class="readmore">%2$s</a>',
+		esc_url( get_permalink() ),
+		sprintf( '%s<span class="screen-reader-text"> "%s"</span>',
+			WPMST()->atts( 'more_post_text' ),
+			get_the_title() )
+	);
+
+	return $link;
+}
 
 
 /**
@@ -168,8 +200,7 @@ add_filter( 'excerpt_more', 'wpmtst_excerpt_more', 20 );
  * @return mixed
  */
 function wpmtst_remove_more_link_scroll( $link ) {
-	global $post;
-	if ( 'wpm-testimonial' == get_post_type( $post ) )
+	if ( 'wpm-testimonial' == get_post_type() )
 		$link = preg_replace( '|#more-[0-9]+|', '', $link );
 
 	return $link;

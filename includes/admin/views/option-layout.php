@@ -88,7 +88,7 @@
 
 					<p><?php printf( wp_kses( __( 'Using <a href="%s" target="_blank">CSS flexbox</a> with <a href="%s" target="_blank">JavaScript fallback</a> for older browsers.', 'strong-testimonials' ), array( 'a' => array( 'href' => array(), 'target' => array(), 'class' => array() ) ) ), esc_url( 'https://scotch.io/tutorials/a-visual-guide-to-css3-flexbox-properties' ), esc_url( 'http://osvaldas.info/flexbox-based-responsive-equal-height-blocks-with-javascript-fallback' ) ); ?></p>
 
-					<p><?php _e( 'Testimonials will be equal height so this works best when they are about the same length<br>(using the excerpts or setting a length limit).', 'strong-testimonials' ); ?></p>
+					<p><?php _e( 'Testimonials will be equal height so this works best when they are about the same length either naturally or using excerpts.', 'strong-testimonials' ); ?></p>
 					<p><?php _e( 'Compatible with pagination.', 'strong-testimonials' ); ?></p>
 					<div class="example-container col-2">
 						<div class="box"><span>1</span></div>

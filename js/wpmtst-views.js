@@ -119,8 +119,7 @@ jQuery(document).ready(function($) {
 
 	// Background color picker
 	var myOptions = {
-		// you can declare a default color here,
-		// or in the data-default-color attribute on the input
+		// you can declare a default color here, or in the data-default-color attribute on the input
 		//defaultColor: '#FFFFFF',
 		// a callback to fire whenever the color changes to a valid color
 		change: function(event, ui){
@@ -163,6 +162,26 @@ jQuery(document).ready(function($) {
 	 */
 
 	/**
+	 * Special handling
+	 * TODO Use a technique similar to if-then for adding/removing classes
+	 */
+
+	var viewContent = $("#view-content");
+	var viewContentChange = function() {
+		var thisValue = viewContent.val();
+		viewContent.closest("td").find(".highlight2").each(function(index,el){
+			if ("excerpt" == thisValue) {
+				$(el).addClass("highlight-on");
+			} else {
+				$(el).removeClass("highlight-on");
+			}
+		});
+	}
+	viewContentChange();
+	viewContent.on("change", viewContentChange);
+
+
+	/**
 	 * Plugin: Show/Hide parts based on current Mode
 	 */
 	$.fn.updateScreen = function(mode, speed) {
@@ -188,6 +207,7 @@ jQuery(document).ready(function($) {
 				break;
 			default:
 		}
+
 		return this;
 	}
 

@@ -198,8 +198,17 @@ td.column-name strong {
 }
 
 p.description.tall {
-	line-height: 30px;
+	line-height: 32px;
 	margin-top: 0;
+}
+
+p.description.short {
+	line-height: 22px;
+	padding: 5px 0;
+}
+
+p.description.solo {
+	margin-left: 0.3em;
 }
 
 p.description.under-checkbox {
@@ -237,13 +246,14 @@ input[type="text"].long {
 	margin-right: 0.5em;
 }
 
-.tight:last-child {
+.tight:last-child,
+.last {
 	margin-right: 0;
 }
 
 .checkbox,
 .form-table th.checkbox {
-	line-height: 30px;
+	line-height: 32px;
 }
 
 .field {
@@ -353,7 +363,11 @@ td.w2 {
 .row,
 .row p {
 	vertical-align: middle;
-	line-height: 30px;
+	line-height: 32px;
+}
+
+.row.links {
+	margin-top: 10px;
 }
 
 .row:not(:first-child) .row-inner {
@@ -981,4 +995,40 @@ ul.radio-list {
 
 .view-layout-grid .example-container.col-4 .box {
 	width: 21%;
+}
+
+/*--------------------------------------------------
+ * misc
+ *--------------------------------------------------*/
+
+.highlight-on {
+	/* 00A4F3 */
+	background: rgba(0, 164, 263, 0.05);
+	border: 1px solid rgba(0, 164, 263, 0.1);
+	padding: 0 0.5em;
+}
+
+.subgroup {
+	border: 1px solid #DDD;
+	padding: 0 0.5em;
+}
+
+.subgroup-heading {
+	font-weight: 700;
+}
+
+.subgroup .subgroup-heading + .row-inner {
+	margin-top: 5px;
+}
+
+.subgroup .row-inner {
+	margin-bottom: 10px;
+}
+
+.min-width-1 {
+	min-width: 152px;
+}
+
+.label-not-adjacent {
+	margin-right: 0.3em;
 }

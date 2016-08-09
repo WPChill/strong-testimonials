@@ -441,6 +441,7 @@ function wpmtst_get_default_view() {
 		'layout'             => '',
 		'lightbox'           => '',
 		'mode'               => 'display',
+		'more_full_post'     => false,
 		'more_post'          => true,
 		'more_post_ellipsis' => true,
 		'more_post_text'     => _x( 'Read more', 'link', 'strong-testimonials' ),
@@ -464,7 +465,7 @@ function wpmtst_get_default_view() {
 		'thumbnail_width'    => null,
 		'title'              => true,
 		'use_default_length' => true,
-		'use_default_more'   => true,
+		'use_default_more'   => false,
 		'word_count'         => 40,
 	);
 	ksort( $default_view );

@@ -6,6 +6,83 @@
  * @package Strong_Testimonials
  */
 
+
+/**
+ * View list page.
+ *
+ * @since 1.21.0
+ */
+function wpmtst_views_admin() {
+	if ( ! current_user_can( 'manage_options' ) )
+		wp_die( __( 'You do not have sufficient permissions to access this page.' ) );
+
+	?>
+	<div class="wrap wpmtst2">
+
+		<?php
+		if ( isset( $_REQUEST['changes-undone'] ) ) {
+			$message = __( 'Changes undone.', 'strong-testimonials' );
+		} elseif ( isset( $_REQUEST['defaults-restored'] ) ) {
+			$message = __( 'Defaults restored.', 'strong-testimonials' );
+		} elseif ( isset( $_REQUEST['view-saved'] ) ) {
+			$message = __( 'View saved.', 'strong-testimonials' );
+		} elseif( isset( $_REQUEST['view-deleted'] ) ) {
+			$message = __( 'View deleted.', 'strong-testimonials' );
+		} else {
+			$message = '';
+		}
+
+		if ( $message ) {
+			printf( '<div class="notice is-dismissible updated"><p>%s</p></div>', $message );
+		}
+
+		if ( isset( $_REQUEST['error'] ) ) {
+
+			echo '<h2>' . __( 'Edit View', 'strong-testimonials' ) . '</h2>';
+			$message = sprintf( wp_kses( __( 'An error occurred. Please <a href="%s" target="_blank">open a support ticket</a>.', 'strong-testimonials' ), array( 'a' => array( 'href' => array(), 'target' => array(), 'class' => array() ) ) ), esc_url( 'https://www.wpmission.com/submit-ticket/' ) );
+			printf( '<div class="error strong-view-error"><p>%s</p></div>', $message );
+
+		}
+		elseif ( isset( $_REQUEST['action'] ) ) {
+
+			if ( 'edit' == $_REQUEST['action'] && isset( $_REQUEST['id'] ) ) {
+				wpmtst_view_settings( $_REQUEST['action'], $_REQUEST['id'] );
+			}
+			elseif ( 'duplicate' == $_REQUEST['action'] && isset( $_REQUEST['id'] ) ) {
+				wpmtst_view_settings( $_REQUEST['action'], $_REQUEST['id'] );
+			}
+			elseif ( 'add' == $_REQUEST['action'] ) {
+				wpmtst_view_settings( $_REQUEST['action'] );
+			}
+			else {
+				echo "<p>Invalid request. Please try again.</p>";
+			}
+
+		}
+		else {
+
+			// View list
+			?>
+			<h2>
+				<?php _e( 'Views', 'strong-testimonials' ); ?>
+				<a href="<?php echo admin_url( 'edit.php?post_type=wpm-testimonial&page=testimonial-views&action=add' ); ?>" class="add-new-h2">Add New</a>
+			</h2>
+			<div class="intro">
+				<p><?php _e( 'A View can display your testimonials, create a slideshow, or show a testimonial submission form.<br>Add it to a page with a shortcode or add it to a sidebar with a widget.', 'strong-testimonials' ); ?></p>
+			</div>
+			<?php
+			$views = wpmtst_get_views();
+			$views_table = new Strong_Views_List_Table();
+			$views_table->prepare_list( wpmtst_unserialize_views( $views ) );
+			$views_table->display();
+
+		}
+		?>
+	</div><!-- .wrap -->
+	<?php
+}
+
+
 /**
  * An individual view settings page.
  *
@@ -16,7 +93,7 @@
  */
 function wpmtst_view_settings( $action = '', $view_id = null ) {
 
-	if ( ( 'edit' == $action || 'duplicate' == $action ) && !$view_id ) return;
+	if ( ( 'edit' == $action || 'duplicate' == $action ) && ! $view_id ) return;
 
 	global $view, $strong_templates;
 	add_thickbox();
@@ -30,10 +107,10 @@ function wpmtst_view_settings( $action = '', $view_id = null ) {
 	$order_list = wpmtst_get_order_list();
 
 	$slideshow_effect_options = array(
-		'none' => 'no transition effect',
-		'fade' => 'fade',
-		'fadeout' => 'fade out',
-		'scrollHorz' => 'scroll horizontally'
+		'none'       => 'no transition effect',
+		'fade'       => 'fade',
+		'fadeout'    => 'fade out',
+		'scrollHorz' => 'scroll horizontally',
 	);
 
 	$slideshow_nav_options = wpmtst_get_slideshow_nav_options();
@@ -107,7 +184,6 @@ function wpmtst_view_settings( $action = '', $view_id = null ) {
 	}
 
 	$view['nav']     = explode( ',', str_replace( ' ', '', $view['nav'] ) );
-	//$view_cats_array = explode( ',', $view['category'] );
 	$view_cats_array = apply_filters( 'wpmtst_l10n_cats', explode( ',', $view['category'] ) );
 
 	// Assemble list of templates
@@ -198,6 +274,156 @@ function wpmtst_view_settings( $action = '', $view_id = null ) {
 
 
 /**
+ * -----------------
+ * POST-REDIRECT-GET
+ * -----------------
+ */
+
+/**
+ * Process form POST after editing.
+ *
+ * Thanks http://stackoverflow.com/a/20003981/51600
+ *
+ * @since 1.21.0
+ */
+function wpmtst_view_edit_form() {
+
+	$goback = wp_get_referer();
+
+	if ( ! empty( $_POST ) && check_admin_referer( 'view_form_submit', 'view_form_nonce' ) ) {
+
+		$view_id    = $_POST['view']['id'];
+		$view_name  = $_POST['view']['name'];
+
+		if ( isset( $_POST['reset'] ) ) {
+
+			// Undo changes
+			$goback = add_query_arg( 'changes-undone', true, $goback );
+
+		}
+		elseif ( isset( $_POST['restore-defaults'] ) ) {
+
+			// Restore defaults
+			$default_view = get_option( 'wpmtst_view_default' );
+
+			$view = array(
+				'id'   => $view_id,
+				'name' => sanitize_text_field( $view_name ),
+				'data' => $default_view
+			);
+			$success = wpmtst_save_view( $view ); // num_rows
+
+			if ( $success ) {
+				$goback = add_query_arg( 'defaults-restored', true, $goback );
+			}
+			else {
+				$goback = add_query_arg( 'error', true, $goback );
+			}
+
+
+		}
+		else {
+
+			// Sanitize & validate
+			$view = array(
+				'id'   => $view_id,
+				'name' => sanitize_text_field( $view_name ),
+				'data' => wpmtst_sanitize_view( $_POST['view']['data'] )
+			);
+			$success = wpmtst_save_view( $view ); // num_rows
+
+			if ( $success ) {
+				$goback = add_query_arg( 'view-saved', true, $goback );
+			}
+			else {
+				$goback = add_query_arg( 'error', true, $goback );
+			}
+
+		}
+
+	}
+	else {
+		$goback = add_query_arg( 'error', true, $goback );
+	}
+
+	wp_redirect( $goback );
+	exit;
+
+}
+add_action( 'admin_post_view_edit_form', 'wpmtst_view_edit_form' );
+
+
+/**
+ * Process form POST after adding.
+ *
+ * @since 1.21.0
+ */
+function wpmtst_view_add_form() {
+
+	$goback = wp_get_referer();
+
+	if ( ! empty( $_POST ) && check_admin_referer( 'view_form_submit', 'view_form_nonce' ) ) {
+
+		$view_id   = 0;
+		$view_name = $_POST['view']['name'];
+
+		if ( isset( $_POST['restore-defaults'] ) ) {
+
+			// Restore defaults
+			$default_view = get_option( 'wpmtst_view_default' );
+
+			$view = array(
+				'id'   => $view_id,
+				'name' => $view_name,
+				'data' => $default_view,
+			);
+			$success = wpmtst_save_view( $view, 'add' ); // num_rows
+
+			$query_arg = 'defaults-restored';
+
+		}
+		else {
+
+			// Sanitize & validate
+			$view = array(
+				'id'   => 0,
+				'name' => sanitize_text_field( $view_name ),
+				'data' => wpmtst_sanitize_view( $_POST['view']['data'] )
+			);
+			$success = wpmtst_save_view( $view, 'add' ); // new id
+
+			$query_arg = 'view-saved';
+
+		}
+
+		$goback = remove_query_arg( 'action', $goback );
+		if ( $success ) {
+			$goback = add_query_arg( array( 'action' => 'edit', 'id' => $success, $query_arg => true ), $goback );
+		}
+		else {
+			$goback = add_query_arg( 'error', true, $goback );
+		}
+
+	}
+	else {
+		$goback = add_query_arg( 'error', true, $goback );
+	}
+
+	wp_redirect( $goback );
+	exit;
+
+}
+add_action( 'admin_post_view_add_form', 'wpmtst_view_add_form' );
+add_action( 'admin_post_view_duplicate_form', 'wpmtst_view_add_form' );
+
+
+/**
+ * --------------
+ * VIEW FUNCTIONS
+ * --------------
+ */
+
+/**
  * Fetch pages, bypass filters.
  *
  * @since 2.10.0
@@ -230,77 +456,6 @@ function wpmtst_get_posts() {
 	return $posts;
 }
 
-
-/**
- * View list page
- *
- * @since 1.21.0
- */
-function wpmtst_views_admin() {
-	if ( ! current_user_can( 'manage_options' ) )
-		wp_die( __( 'You do not have sufficient permissions to access this page.' ) );
-
-	$screen = get_current_screen();
-	$url = $screen->parent_file;
-	?>
-	<div class="wrap wpmtst2">
-
-		<?php
-		// @TODO move to options
-		if ( isset( $_REQUEST['changes-undone'] ) ) {
-			$message = __( 'Changes undone.', 'strong-testimonials' );
-		} elseif ( isset( $_REQUEST['defaults-restored'] ) ) {
-			$message = __( 'Defaults restored.', 'strong-testimonials' );
-		} elseif ( isset( $_REQUEST['view-saved'] ) ) {
-			$message = __( 'View saved.', 'strong-testimonials' );
-		} elseif( isset( $_REQUEST['view-deleted'] ) ) {
-			$message = __( 'View deleted.', 'strong-testimonials' );
-		} else {
-			$message = '';
-		}
-
-		if ( $message )
-			printf( '<div class="notice is-dismissible updated"><p>%s</p></div>', $message );
-
-		// Editing a view
-		if ( isset( $_REQUEST['action'] ) ) {
-
-			if ( 'edit' == $_REQUEST['action'] && isset( $_REQUEST['id'] ) ) {
-				wpmtst_view_settings( $_REQUEST['action'], $_REQUEST['id'] );
-			}
-			elseif ( 'duplicate' == $_REQUEST['action'] && isset( $_REQUEST['id'] ) ) {
-				wpmtst_view_settings( $_REQUEST['action'], $_REQUEST['id'] );
-			}
-			elseif ( 'add' == $_REQUEST['action'] ) {
-				wpmtst_view_settings( $_REQUEST['action'] );
-			}
-			else {
-				echo "<p>Invalid request. Please try again.</p>";
-			}
-
-		}
-		else {
-
-			// View list
-			?>
-			<h2>
-				<?php _e( 'Views', 'strong-testimonials' ); ?>
-				<a href="<?php echo $url; ?>&page=testimonial-views&action=add" class="add-new-h2">Add New</a>
-			</h2>
-			<div class="intro">
-				<p><?php _e( 'A View can display your testimonials, create a slideshow, or show a testimonial submission form.<br>Add it to a page with a shortcode or add it to a sidebar with a widget.', 'strong-testimonials' ); ?></p>
-			</div>
-			<?php
-			$views = wpmtst_get_views();
-			$views_table = new Strong_Views_List_Table();
-			$views_table->prepare_list( wpmtst_unserialize_views( $views ) );
-			$views_table->display();
-
-		}
-		?>
-	</div><!-- .wrap -->
-	<?php
-}
 
 /**
  * The display order options.
@@ -349,6 +504,7 @@ function wpmtst_force_check() {
 	die();
 }
 add_action( 'wp_ajax_wpmtst_force_check', 'wpmtst_force_check' );
+
 
 /**
  * [Add New Field] Ajax receiver
@@ -642,137 +798,6 @@ function wpmtst_delete_view_action_hook() {
 	}
 }
 
-/**
- * -----------------
- * POST-REDIRECT-GET
- * -----------------
- */
-
-/**
- * Process form POST after editing.
- *
- * Thanks http://stackoverflow.com/a/20003981/51600
- *
- * @since 1.21.0
- */
-function wpmtst_view_edit_form() {
-
-	$goback = wp_get_referer();
-
-	if ( ! empty( $_POST ) && check_admin_referer( 'view_form_submit', 'view_form_nonce' ) ) {
-
-		$view_id    = $_POST['view']['id'];
-		$view_name  = $_POST['view']['name'];
-
-		if ( isset( $_POST['reset'] ) ) {
-
-			// Undo changes
-			//$view = wpmtst_get_view( $view_id );
-			$goback = add_query_arg( 'changes-undone', true, $goback );
-
-		}
-		elseif ( isset( $_POST['restore-defaults'] ) ) {
-
-			// Restore defaults
-			$default_view = get_option( 'wpmtst_view_default' );
-
-			/**
-			 * Must save first to get the auto-increment ID.
-			 */
-			$view = array(
-				'id'   => $view_id,
-				'name' => sanitize_text_field( $view_name ),
-				'data' => $default_view
-			);
-			wpmtst_save_view( $view );
-
-			$goback = add_query_arg( 'defaults-restored', true, $goback );
-
-		}
-		else {
-
-			// Sanitize & validate
-			$view = array(
-				'id'   => $view_id,
-				'name' => sanitize_text_field( $view_name ),
-				'data' => wpmtst_sanitize_view( $_POST['view']['data'] )
-			);
-			wpmtst_save_view( $view );
-
-			$goback = add_query_arg( 'view-saved', true, $goback );
-
-		}
-
-	}
-	else {
-		$goback = add_query_arg( 'error', true, $goback );
-	}
-
-	wp_redirect( $goback );
-	exit;
-
-}
-add_action( 'admin_post_view_edit_form', 'wpmtst_view_edit_form' );
-
-
-/**
- * Process form POST after adding.
- *
- * @since 1.21.0
- */
-function wpmtst_view_add_form() {
-
-	$goback = wp_get_referer();
-
-	if ( ! empty( $_POST ) && check_admin_referer( 'view_form_submit', 'view_form_nonce' ) ) {
-
-		$view_id   = 0;
-		$view_name = $_POST['view']['name'];
-
-		if ( isset( $_POST['restore-defaults'] ) ) {
-
-			// Restore defaults
-			$default_view = get_option( 'wpmtst_view_default' );
-
-			$view = array(
-				'id'   => $view_id,
-				'name' => $view_name,
-				'data' => $default_view,
-			);
-			$new_id = wpmtst_save_view( $view, 'add' );
-
-			$query_arg = 'defaults-restored';
-
-		}
-		else {
-
-			// Sanitize & validate
-			$view = array(
-				'id'   => 0,
-				'name' => sanitize_text_field( $view_name ),
-				'data' => wpmtst_sanitize_view( $_POST['view']['data'] )
-			);
-			$new_id = wpmtst_save_view( $view, 'add' );
-
-			$query_arg = 'view-saved';
-
-		}
-
-		$goback = remove_query_arg( 'action', $goback );
-		$goback = add_query_arg( array( 'action' => 'edit', 'id' => $new_id, $query_arg => true ), $goback );
-
-	}
-	else {
-		$goback = add_query_arg( 'error', true, $goback );
-	}
-
-	wp_redirect( $goback );
-	exit;
-
-}
-add_action( 'admin_post_view_add_form', 'wpmtst_view_add_form' );
-add_action( 'admin_post_view_duplicate_form', 'wpmtst_view_add_form' );
-
 
 function wpmtst_category_checklist( $view_cats_array ) {
 	?>
@@ -795,6 +820,7 @@ function wpmtst_category_checklist( $view_cats_array ) {
 	</div>
 	<?php
 }
+
 
 function wpmtst_form_category_checklist( $view_cats_array ) {
 	?>
