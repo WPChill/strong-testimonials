@@ -446,6 +446,7 @@ function wpmtst_get_default_view() {
 		'more_post_ellipsis' => true,
 		'more_post_text'     => _x( 'Read more', 'link', 'strong-testimonials' ),
 		'more_page'          => false,
+		'more_page_hook'     => 'wpmtst_view_footer',
 		'more_page_id'       => 0,
 		'more_page_text'     => _x( 'Read more testimonials', 'link', 'strong-testimonials' ),
 		'nav'                => 'after',

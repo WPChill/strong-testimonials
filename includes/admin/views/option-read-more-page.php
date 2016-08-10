@@ -51,9 +51,20 @@
 				</div>
 			</div>
 		</div>
+
+		<!-- location -->
 		<div class="row">
 			<div class="row-inner">
-				<p class="description"><?php _e( 'The link will appear after the last testimonial. For individual "Read more" links, use the <b>Content</b> option above.', 'strong-testimonials' ); ?></p>
+				<label>
+					<select id="view-more_page_hook" class="" name="view[data][more_page_hook]">
+						<option value="wpmtst_view_footer" <?php selected( 'wpmtst_view_footer', $view['more_page_hook'] ); ?>>
+							<?php _ex( 'after the last testimonial', 'display setting', 'strong-testimonials' ); ?>
+						</option>
+						<option value="wpmtst_after_testimonial" <?php selected( 'wpmtst_after_testimonial', $view['more_page_hook'] ); ?>>
+							<?php _ex( 'in each testimonial', 'display setting', 'strong-testimonials' ); ?>
+						</option>
+					</select>
+				</label>
 			</div>
 		</div>
 

@@ -33,14 +33,16 @@ function wpmtst_the_title( $before = '', $after = '' ) {
 	}
 }
 
+
 /**
  * Display the testimonial content.
  * Used by the plugin and as a template function.
  *
  * @since 1.24.0
- * @since 2.4.0 Run content through selected filters only, instead
- *              of all filters added to the_excerpt() or the_content()
- *              to be compatible with NextGEN Gallery.
+ * @since 2.4.0 Run content through core WordPress filters only, instead of all filters added to the_excerpt()
+ *              or the_content() in order to to be compatible with NextGEN Gallery and to prevent other plugins
+ *              from unconditionally adding content like share buttons, etc.
+ * @since 2.11.5 Run specific filters on `wpmtst_the_content` hook.
  */
 function wpmtst_the_content() {
 	if ( WPMST()->atts( 'truncated' ) ) {
@@ -57,10 +59,14 @@ function wpmtst_the_content() {
 		$content = convert_smilies( $content );
 		$content = wpautop( $content );
 		$content = shortcode_unautop( $content );
+		$content = wp_make_content_images_responsive( $content );
 		$content = do_shortcode( $content );
 
-		$excerpt_more = apply_filters( 'excerpt_more', ' ' . '[&hellip;]' );
-		$content = wp_trim_words( $content, WPMST()->atts( 'excerpt_length' ), $excerpt_more );
+		wpmtst_content_filters();
+
+		$excerpt_more   = apply_filters( 'excerpt_more', ' ' . '[&hellip;]' );
+		$excerpt_length = WPMST()->atts( 'use_default_length' ) ? 55 : WPMST()->atts( 'excerpt_length' );
+		$content        = wp_trim_words( $content, $excerpt_length, $excerpt_more );
 
 	}
 	elseif ( WPMST()->atts( 'excerpt' ) ) {
@@ -83,6 +89,7 @@ function wpmtst_the_content() {
 		$content = convert_smilies( $content );
 		$content = wpautop( $content );
 		$content = shortcode_unautop( $content );
+		$content = wp_make_content_images_responsive( $content );
 		$content = do_shortcode( $content );
 
 	}
@@ -97,11 +104,36 @@ function wpmtst_the_content() {
 		$content = convert_smilies( $content );
 		$content = wpautop( $content );
 		$content = shortcode_unautop( $content );
+		$content = wp_make_content_images_responsive( $content );
 		$content = do_shortcode( $content );
+
+		wpmtst_content_filters();
 
 	}
 
-	echo $content;
+	echo apply_filters( 'wpmtst_the_content', $content );
+}
+
+
+/**
+ * Add compatible filters from other plugins.
+ *
+ * @since 2.11.5
+ * @link https://wordpress.org/support/topic/exclude-shortcode-not-working
+ */
+function wpmtst_content_filters() {
+	// CM Tooltip Glossary plugin
+	if ( class_exists( 'CMTooltipGlossaryFrontend' ) ) {
+		if ( $p = has_filter( 'the_content', array( 'CMTooltipGlossaryFrontend', 'cmtt_glossary_createList' ) ) ) {
+			add_filter( 'wpmtst_the_content', array( 'CMTooltipGlossaryFrontend', 'cmtt_glossary_createList' ), $p );
+		}
+		if ( $p = has_filter( 'the_content', array( 'CMTooltipGlossaryFrontend', 'cmtt_glossary_parse' ) ) ) {
+			add_filter( 'wpmtst_the_content', array( 'CMTooltipGlossaryFrontend', 'cmtt_glossary_parse' ), $p );
+		}
+		if ( $p = has_filter( 'the_content', array( 'CMTooltipGlossaryFrontend', 'cmtt_glossary_addBacklink' ) ) ) {
+			add_filter( 'wpmtst_the_content', array( 'CMTooltipGlossaryFrontend', 'cmtt_glossary_addBacklink' ), $p );
+		}
+	}
 }
 
 
@@ -541,7 +573,7 @@ function wpmtst_read_more() {}
  * @return string
  */
 function wpmtst_read_more_page() {
-	$atts = WPMST()->atts( array( 'more_page', 'more_page_id', 'more_page_text' ) );
+	$atts = WPMST()->atts( array( 'more_page', 'more_page_id', 'more_page_text', 'more_page_hook' ) );
 
 	if ( $atts['more_page'] && $atts['more_page_id'] ) {
 		if ( $permalink = wpmtst_get_permalink( $atts['more_page_id'] ) ) {
@@ -553,8 +585,9 @@ function wpmtst_read_more_page() {
 				$link_text = $view_options['more_page_text'];
 			}
 
-			echo sprintf( '<div class="%s"><a href="%s">%s</a></div>',
-				apply_filters( 'wpmtst_read_more_page_class', 'readmore-page'), $permalink, $link_text );
+			$classname = ( 'wpmtst_after_testimonial' == $atts['more_page_hook'] ? 'readmore' : 'readmore-page' );
+			$classname = apply_filters( 'wpmtst_read_more_page_class', $classname );
+			echo sprintf( '<div class="%s"><a href="%s">%s</a></div>', $classname, $permalink, $link_text );
 		}
 	}
 }

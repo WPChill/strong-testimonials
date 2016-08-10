@@ -4,7 +4,7 @@
  * Plugin URI: https://www.wpmission.com/plugins/strong-testimonials/
  * Description: A full-featured plugin that works right out of the box for beginners and offers advanced features for pros.
  * Author: Chris Dillon
- * Version: 2.11.4
+ * Version: 2.11.5
  * Author URI: https://www.wpmission.com/
  * Text Domain: strong-testimonials
  * Domain Path: /languages
@@ -605,12 +605,13 @@ final class Strong_Testimonials {
 			'menu_order'         => '',
 			'mode'               => '',
 			'more_full_post'     => 0,
-			'more_page'          => '',
-			'more_page_id'       => 0,
-			'more_page_text'     => _x( 'Read more testimonials', 'link', 'strong-testimonials' ),
 			'more_post'          => 1,
 			'more_post_ellipsis' => 1,
 			'more_post_text'     => _x( 'Read more', 'link', 'strong-testimonials' ),
+			'more_page'          => '',
+			'more_page_hook'     => 'wpmtst_view_footer',
+			'more_page_id'       => 0,
+			'more_page_text'     => _x( 'Read more testimonials', 'link', 'strong-testimonials' ),
 			'nav'                => 'after',
 			'newest'             => '',
 			'no_pause'           => 0, // must be zero not boolean or string!

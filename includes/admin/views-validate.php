@@ -8,6 +8,7 @@
  * @since 2.10.0 Provide both more_post and more_page.
  * @since 2.11.0 More slideshow options: effect, slideshow_nav, stretch
  * @since 2.11.4 more_full_post for manual excerpts
+ * @since 2.11.5 more_page_hook
  *
  * @param $input
  *
@@ -161,11 +162,12 @@ function wpmtst_sanitize_view( $input ) {
 			$data['more_page'] = 1;
 		}
 	}
-	if ( !$input['more_page_text'] ) {
+	if ( ! $input['more_page_text'] ) {
 		$data['more_page_text'] = $default_view['more_page_text'];
 	} else {
 		$data['more_page_text'] = sanitize_text_field( $input['more_page_text'] );
 	}
+	$data['more_page_hook'] = sanitize_text_field( $input['more_page_hook'] );
 
 	// Thumbnail
 	$data['thumbnail']        = isset( $input['thumbnail'] ) ? 1 : 0;

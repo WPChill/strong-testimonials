@@ -131,7 +131,7 @@ class Strong_View {
 		}
 
 		// Read more page
-		add_action( 'wpmtst_view_footer', 'wpmtst_read_more_page' );
+		add_action( $this->atts['more_page_hook'] , 'wpmtst_read_more_page' );
 
 		/**
 		 * Locate template.
@@ -164,7 +164,7 @@ class Strong_View {
 			remove_action( 'wpmtst_after_content', array( 'Strong_View_Controls', 'cycle_controls' ) );
 		}
 
-		remove_action( 'wpmtst_view_footer', 'wpmtst_read_more_page' );
+		remove_action( $this->atts['more_page_hook'], 'wpmtst_read_more_page' );
 
 		/**
 		 * Hook to enqueue scripts.
