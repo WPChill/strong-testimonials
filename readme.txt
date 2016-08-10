@@ -155,6 +155,9 @@ Yes. This requires a lightbox so if your theme does not include one, you will ne
 
 == Changelog ==
 
+= 2.11.6 - August 10, 2016 =
+* Remove `wp_make_content_images_responsive` filter.
+
 = 2.11.5 - August 10, 2016 =
 * Compatible with [CM Tooltip Glossary](https://wordpress.org/plugins/enhanced-tooltipglossary/).
 * Reinstate option for "Read more" link to a page from within testimonial.

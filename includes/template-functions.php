@@ -59,7 +59,6 @@ function wpmtst_the_content() {
 		$content = convert_smilies( $content );
 		$content = wpautop( $content );
 		$content = shortcode_unautop( $content );
-		$content = wp_make_content_images_responsive( $content );
 		$content = do_shortcode( $content );
 
 		wpmtst_content_filters();
@@ -89,7 +88,6 @@ function wpmtst_the_content() {
 		$content = convert_smilies( $content );
 		$content = wpautop( $content );
 		$content = shortcode_unautop( $content );
-		$content = wp_make_content_images_responsive( $content );
 		$content = do_shortcode( $content );
 
 	}

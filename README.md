@@ -179,6 +179,9 @@ Yes. With some HTML and CSS knowledge, you can copy any template to your theme a
 
 ## Changelog 
 
+### 2.11.6 - August 10, 2016
+* Remove `wp_make_content_images_responsive` filter.
+
 ### 2.11.5 - August 10, 2016
 * Compatible with [CM Tooltip Glossary](https://wordpress.org/plugins/enhanced-tooltipglossary/).
 * Reinstate option for "Read more" link to a page from within testimonial.
