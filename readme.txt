@@ -155,6 +155,9 @@ Yes. This requires a lightbox so if your theme does not include one, you will ne
 
 == Changelog ==
 
+= 2.11.8 - August 11, 2016 =
+* Maintain line breaks in submitted testimonial content.
+
 = 2.11.7 - August 10, 2016 =
 * Remove `wp_make_content_images_responsive` filter.
 

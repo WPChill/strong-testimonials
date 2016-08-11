@@ -62,6 +62,8 @@ function wpmtst_form_handler() {
 			case 'post':
 				if ( 'file' == $field['input_type'] ) {
 					$testimonial_att[ $field['name'] ] = array( 'field' => isset( $field['map'] ) ? $field['map'] : 'post' );
+				} elseif ( 'textarea' == $field['input_type'] ) {
+					$testimonial_post[ $field['name'] ] = wpmtst_sanitize_textarea( $_POST[ $field['name'] ] );
 				} else {
 					$testimonial_post[ $field['name'] ] = sanitize_text_field( $_POST[ $field['name'] ] );
 				}
@@ -72,8 +74,11 @@ function wpmtst_form_handler() {
 					$testimonial_meta[ $field['name'] ] = sanitize_email( $_POST[ $field['name'] ] );
 				} elseif ( 'url' == $field['input_type'] ) {
 					// wpmtst_get_website() will prefix with "http://" so don't add that to an empty input
-					if ( $_POST[ $field['name'] ] )
+					if ( $_POST[ $field['name'] ] ) {
 						$testimonial_meta[ $field['name'] ] = esc_url_raw( wpmtst_get_website( $_POST[ $field['name'] ] ) );
+					}
+				} elseif ( 'textarea' == $field['input_type'] ) {
+					$testimonial_post[ $field['name'] ] = wpmtst_sanitize_textarea( $_POST[ $field['name'] ] );
 				} elseif ( 'text' == $field['input_type'] ) {
 					$testimonial_meta[ $field['name'] ] = sanitize_text_field( $_POST[ $field['name'] ] );
 				}
@@ -81,7 +86,6 @@ function wpmtst_form_handler() {
 
 			case 'optional':
 				if ( 'categories' == $field['input_type'] ) {
-					//$category   = true;
 					$testimonial_meta[ $field['name'] ] = $_POST[ $field['name'] ];
 				}
 				break;
@@ -206,6 +210,45 @@ function wpmtst_form_handler() {
 	WPMST()->set_form_values( $form_values );
 	WPMST()->set_form_errors( $form_errors );
 	return false;
+}
+
+/**
+ * Sanitize a textarea from user input. Based on sanitize_text_field.
+ *
+ * Check for invalid UTF-8,
+ * Convert single < characters to entity,
+ * strip all tags,
+ * strip octets.
+ *
+ * @since 2.11.8
+ *
+ * @param string $text
+ *
+ * @return string
+ */
+
+function wpmtst_sanitize_textarea( $text ) {
+	$filtered = wp_check_invalid_utf8( $text );
+
+	if ( strpos( $filtered, '<' ) !== false ) {
+		$filtered = wp_pre_kses_less_than( $filtered );
+		// This will NOT strip extra whitespace.
+		$filtered = wp_strip_all_tags( $filtered, false );
+	}
+
+	while ( preg_match('/%[a-f0-9]{2}/i', $filtered, $match ) ) {
+		$filtered = str_replace($match[0], '', $filtered);
+	}
+
+	/**
+	 * Filter a sanitized textarea string.
+	 *
+	 * @since 2.9.0
+	 *
+	 * @param string $filtered The sanitized string.
+	 * @param string $str      The string prior to being sanitized.
+	 */
+	return apply_filters( 'wpmtst_sanitize_textarea', $filtered, $text );
 }
 
 /**

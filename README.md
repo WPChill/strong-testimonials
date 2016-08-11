@@ -179,6 +179,9 @@ Yes. With some HTML and CSS knowledge, you can copy any template to your theme a
 
 ## Changelog 
 
+### 2.11.8 - August 11, 2016
+* Maintain line breaks in submitted testimonial content.
+
 ### 2.11.7 - August 10, 2016
 * Remove `wp_make_content_images_responsive` filter.
 
