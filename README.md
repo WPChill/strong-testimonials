@@ -74,9 +74,6 @@ Some of the options for displaying testimonials in a **list** or **slideshow**:
 * extras like pagination
 * layout and style options
 
-Check out the [screenshots](https://wordpress.org/plugins/strong-testimonials/screenshots/) to see the View editor.
-
-
 ### Style 
 
 Strong Testimonials offers a handful of templates to try in your theme. The default template is just generic enough to look good in most cases with maybe a few tweaks.
@@ -163,19 +160,6 @@ It depends. I have narrowed down the causes of many conflicts and addressed them
 ### I'm familiar with template files. Can I customize the template? 
 
 Yes. With some HTML and CSS knowledge, you can copy any template to your theme and customize it as you see fit. You can also have multiple custom templates. A [tutorial](https://www.wpmission.com/knowledge-base/strong-testimonials/) is coming soon.
-
-
-## Screenshots 
-
-1. The default View settings and the default template.
-2. Another View and the Simple template.
-3. The form with default fields plus Captcha.
-4. The testimonial admin list.
-5. The testimonial form settings.
-6. The View editor.
-7. The custom fields editor.
-8. Template files and template functions.
-
 
 ## Changelog 
 
