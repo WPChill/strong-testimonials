@@ -16,7 +16,8 @@
 function wpmtst_strong_view_shortcode( $atts, $content = null ) {
 	$out = shortcode_atts(
 		WPMST()->get_view_defaults(),
-		normalize_empty_atts( $atts ), 'testimonial_view'
+		normalize_empty_atts( $atts ),
+		'testimonial_view'
 	);
 
 	return wpmtst_render_view( $out );

@@ -47,8 +47,7 @@ function wpmtst_the_title( $before = '', $after = '' ) {
 function wpmtst_the_content() {
 	if ( WPMST()->atts( 'truncated' ) ) {
 
-		// Force automatic excerpt (bypass manual excerpt).
-		// Based on wp_trim_excerpt
+		// Force automatic excerpt (bypass manual excerpt). Based on wp_trim_excerpt.
 
 		$content = get_the_content();
 
@@ -61,7 +60,7 @@ function wpmtst_the_content() {
 		$content = shortcode_unautop( $content );
 		$content = do_shortcode( $content );
 
-		wpmtst_content_filters();
+		//wpmtst_add_content_filters();
 
 		$excerpt_more   = apply_filters( 'excerpt_more', ' ' . '[&hellip;]' );
 		$excerpt_length = WPMST()->atts( 'use_default_length' ) ? 55 : WPMST()->atts( 'excerpt_length' );
@@ -70,7 +69,7 @@ function wpmtst_the_content() {
 	}
 	elseif ( WPMST()->atts( 'excerpt' ) ) {
 
-		// Based on the_excerpt
+		// Based on the_excerpt.
 
 		$use_default_length = WPMST()->atts( 'use_default_length' );
 
@@ -90,10 +89,11 @@ function wpmtst_the_content() {
 		$content = shortcode_unautop( $content );
 		$content = do_shortcode( $content );
 
+		 //TODO add content filters?
 	}
 	else {
 
-		// Based on the_content
+		// Based on the_content.
 
 		$content = get_the_content( apply_filters( 'wpmtst_more_link_text', null ) );
 
@@ -104,7 +104,7 @@ function wpmtst_the_content() {
 		$content = shortcode_unautop( $content );
 		$content = do_shortcode( $content );
 
-		wpmtst_content_filters();
+		//wpmtst_add_content_filters();
 
 	}
 
@@ -116,21 +116,23 @@ function wpmtst_the_content() {
  * Add compatible filters from other plugins.
  *
  * @since 2.11.5
- * @link https://wordpress.org/support/topic/exclude-shortcode-not-working
+ * @since 2.11.9 disabled
  */
-function wpmtst_content_filters() {
-	// CM Tooltip Glossary plugin
-	if ( class_exists( 'CMTooltipGlossaryFrontend' ) ) {
-		if ( $p = has_filter( 'the_content', array( 'CMTooltipGlossaryFrontend', 'cmtt_glossary_createList' ) ) ) {
-			add_filter( 'wpmtst_the_content', array( 'CMTooltipGlossaryFrontend', 'cmtt_glossary_createList' ), $p );
-		}
-		if ( $p = has_filter( 'the_content', array( 'CMTooltipGlossaryFrontend', 'cmtt_glossary_parse' ) ) ) {
-			add_filter( 'wpmtst_the_content', array( 'CMTooltipGlossaryFrontend', 'cmtt_glossary_parse' ), $p );
-		}
-		if ( $p = has_filter( 'the_content', array( 'CMTooltipGlossaryFrontend', 'cmtt_glossary_addBacklink' ) ) ) {
-			add_filter( 'wpmtst_the_content', array( 'CMTooltipGlossaryFrontend', 'cmtt_glossary_addBacklink' ), $p );
-		}
-	}
+function wpmtst_add_content_filters() {
+	/**
+	 * CM Tooltip Glossary
+	 * This would only be necessary in widget text because CMTG only filters page/post content.
+	 * @link https://wordpress.org/support/topic/exclude-shortcode-not-working
+	 * @todo Add an option for this.
+	 */
+	//if ( class_exists( 'CMTooltipGlossaryFrontend' ) ) {
+	//	if ( $p = has_filter( 'the_content', array( 'CMTooltipGlossaryFrontend', 'cmtt_glossary_parse' ) ) ) {
+	//		add_filter( 'wpmtst_the_content', array( 'CMTooltipGlossaryFrontend', 'cmtt_glossary_parse' ), $p );
+	//	}
+	//	if ( $p = has_filter( 'the_content', array( 'CMTooltipGlossaryFrontend', 'cmtt_glossary_addBacklink' ) ) ) {
+	//		add_filter( 'wpmtst_the_content', array( 'CMTooltipGlossaryFrontend', 'cmtt_glossary_addBacklink' ), $p );
+	//	}
+	//}
 }
 
 

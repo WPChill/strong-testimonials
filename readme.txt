@@ -155,6 +155,9 @@ Yes. This requires a lightbox so if your theme does not include one, you will ne
 
 == Changelog ==
 
+= 2.11.9 - August 13, 2016 =
+* Improve compatibility with [CM Tooltip Glossary](https://wordpress.org/plugins/enhanced-tooltipglossary/).
+
 = 2.11.8 - August 11, 2016 =
 * Maintain line breaks in submitted testimonial content.
 

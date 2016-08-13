@@ -53,8 +53,13 @@ class Strong_Testimonials_View_Widget extends WP_Widget {
 		/**
 		 * Catch undefined view to avoid error in the Customizer.
 		 */
-		if ( isset( $data['view'] ) && $data['view'] )
-			echo wpmtst_strong_view_shortcode( $instance, null );
+		if ( isset( $data['view'] ) && $data['view'] ) {
+			/**
+			 * Intermediate filter because `the_content` filters are not run on widget text.
+			 * @since 2.11.9
+			 */
+			echo apply_filters( 'wpmtst_widget_text', wpmtst_strong_view_shortcode( $instance, null ) );
+		}
 
 		echo $data['after_widget'];
 	}
@@ -122,3 +127,25 @@ function wpmtst_load_view_widget() {
 	register_widget( 'Strong_Testimonials_View_Widget' );
 }
 add_action( 'widgets_init', 'wpmtst_load_view_widget' );
+
+
+/**
+ * Compatibility: CM Tooltip Glossary
+ *
+ * Instead of being registered, the [glossary_exclude] is handled in a late content filter
+ * which leaves the shortcode behind since we don't run that filter on widget content.
+ *
+ * @since 2.11.9
+ *
+ * @param $content
+ *
+ * @return mixed
+ */
+function wpmtst_remove_glossary_exclude( $content ) {
+	if ( class_exists( 'CMTooltipGlossaryFrontend' ) ) {
+		$content = str_replace( array( '[glossary_exclude]', '[/glossary_exclude]' ), array( '', '' ), $content );
+	}
+
+	return $content;
+}
+add_filter( 'wpmtst_widget_text', 'wpmtst_remove_glossary_exclude' );

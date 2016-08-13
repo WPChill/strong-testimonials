@@ -179,6 +179,9 @@ Yes. With some HTML and CSS knowledge, you can copy any template to your theme a
 
 ## Changelog 
 
+### 2.11.9 - August 13, 2016
+* Improve compatibility with [CM Tooltip Glossary](https://wordpress.org/plugins/enhanced-tooltipglossary/).
+
 ### 2.11.8 - August 11, 2016
 * Maintain line breaks in submitted testimonial content.
 

@@ -150,6 +150,7 @@ class Strong_View {
 			include( $this->template_file );
 			$html = ob_get_clean();
 		}
+		// TODO apply content filters
 
 		/**
 		 * Remove filters.
