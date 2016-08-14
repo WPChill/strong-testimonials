@@ -7,7 +7,7 @@
   
 **Requires at least:** 3.6
   
-**Tested up to:** 4.5.3
+**Tested up to:** 4.6
   
 **Stable tag:** trunk
   
