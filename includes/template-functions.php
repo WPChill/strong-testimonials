@@ -252,6 +252,10 @@ function wpmtst_the_thumbnail( $size = null ) {
 
 	// let arg override view setting
 	$size = ( null === $size ) ? WPMST()->atts( 'thumbnail_size' ) : $size ;
+	if ( 'custom' == $size ) {
+		$size = array( WPMST()->atts( 'thumbnail_width' ), WPMST()->atts( 'thumbnail_height' ) );
+	}
+
 	$id   = get_the_ID();
 	$img  = false;
 

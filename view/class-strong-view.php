@@ -52,25 +52,7 @@ class Strong_View {
 	public $page_count = 1;
 
 	public function __construct( $atts = array() ) {
-
-		add_filter( 'wpmtst_view_atts', array( $this, 'atts' ) );
-
 		$this->atts = apply_filters( 'wpmtst_view_atts', $atts );
-
-	}
-
-	/**
-	 * Like a shortcode attribute filter.
-	 *
-	 * @param $atts
-	 * @return mixed
-	 */
-	public function atts( $atts ) {
-		if ( 'custom' == $this->atts['thumbnail_size'] ) {
-			$this->atts['thumbnail_size'] = array( $this->atts['thumbnail_width'], $this->atts['thumbnail_height'] );
-		}
-
-		return $atts;
 	}
 
 	/**

@@ -142,6 +142,9 @@ Yes. This requires a lightbox so if your theme does not include one, you will ne
 
 == Changelog ==
 
+= 2.11.11 - August 19, 2016 =
+* Fix custom image size.
+
 = 2.11.10 - August 19, 2016 =
 * Improve general theme compatibility.
 
