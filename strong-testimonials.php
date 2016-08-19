@@ -4,7 +4,7 @@
  * Plugin URI: https://www.wpmission.com/plugins/strong-testimonials/
  * Description: A full-featured plugin that works right out of the box for beginners and offers advanced features for pros.
  * Author: Chris Dillon
- * Version: 2.11.9
+ * Version: 2.11.10
  * Author URI: https://www.wpmission.com/
  * Text Domain: strong-testimonials
  * Domain Path: /languages
@@ -1149,14 +1149,20 @@ final class Strong_Testimonials {
 	public static function find_views_in_postmeta_encoded() {
 
 		global $post;
-		if ( empty( $post ) )
+		if ( empty( $post ) ) {
 			return false;
+		}
 
 		$meta_content = get_post_meta( $post->ID, 'mfn-page-items', true );
+		if ( ! is_string( $meta_content ) ) {
+			return false;
+		}
+
 		$mfn_tmp_fn   = 'base' . '64_decode';
 		$meta_content = call_user_func( $mfn_tmp_fn, $meta_content );
-		if ( !self::check_content( $meta_content ) )
+		if ( ! self::check_content( $meta_content ) ) {
 			return false;
+		}
 
 		self::process_content( $meta_content );
 
