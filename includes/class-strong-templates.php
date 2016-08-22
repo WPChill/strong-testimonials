@@ -213,7 +213,8 @@ class Strong_Templates {
 			'name'        => 'Template Name',
 			'description' => 'Description',
 			'deps'        => 'Scripts',  // registered scripts
-			'force'       => 'Force',  // dependent options
+			'styles'      => 'Styles',   // registered styles or fonts
+			'force'       => 'Force',    // dependent options
 		) );
 
 		// Bail if requested template type not found

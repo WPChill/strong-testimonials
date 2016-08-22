@@ -163,6 +163,9 @@ Yes. With some HTML and CSS knowledge, you can copy any template to your theme a
 
 ## Changelog 
 
+### 2.11.12 - August 22, 2016
+* Fix bug in loading Font Awesome for Modern template.
+
 ### 2.11.11 - August 19, 2016
 * Fix custom image size.
 

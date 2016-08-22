@@ -4,7 +4,7 @@
  * Plugin URI: https://www.wpmission.com/plugins/strong-testimonials/
  * Description: A full-featured plugin that works right out of the box for beginners and offers advanced features for pros.
  * Author: Chris Dillon
- * Version: 2.11.11
+ * Version: 2.11.12
  * Author URI: https://www.wpmission.com/
  * Text Domain: strong-testimonials
  * Domain Path: /languages
@@ -1608,10 +1608,7 @@ final class Strong_Testimonials {
 		 * @since 1.25.0
 		 */
 		$deps = $strong_templates->get_template_attr( $atts, 'deps', false );
-		$deps_array = array();
-		if ( $deps ) {
-			$deps_array = explode( ',', str_replace( ' ', '', $deps ) );
-		}
+		$deps_array = $deps ? explode( ',', str_replace( ' ', '', $deps ) ) : array();
 
 		$script = $strong_templates->get_template_attr( $atts, 'script', false );
 		if ( $script ) {
@@ -1622,6 +1619,19 @@ final class Strong_Testimonials {
 		else {
 			foreach ( $deps_array as $handle ) {
 				self::add_script( $handle );
+			}
+		}
+
+		/**
+		 * Load template's extra stylesheets.
+		 *
+		 * @since 2.11.12
+		 */
+		$styles = $strong_templates->get_template_attr( $atts, 'styles', false );
+		if ( $styles ) {
+			$styles_array = explode( ',', str_replace( ' ', '', $styles ) );
+			foreach ( $styles_array as $handle ) {
+				self::add_style( $handle );
 			}
 		}
 
