@@ -50,12 +50,14 @@ class Strong_Testimonials_Order {
 	 * Store query vars in transient because they are not available in update_menu_order callback.
 	 */
 	function store_query_vars() {
-		set_transient( 'wpmtst_order_query',
-			array(
-				'paged'          => get_query_var( 'paged' ),
-				'posts_per_page' => get_query_var( 'posts_per_page' )
-			),
-			24 * HOUR_IN_SECONDS );
+		if ( is_admin() ) {
+			set_transient( 'wpmtst_order_query',
+				array(
+					'paged'          => get_query_var( 'paged' ),
+					'posts_per_page' => get_query_var( 'posts_per_page' )
+				),
+				24 * HOUR_IN_SECONDS );
+		}
 	}
 
 	/**
