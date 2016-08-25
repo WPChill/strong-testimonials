@@ -499,25 +499,38 @@ function wpmtst_get_view( $id ) {
  * @return bool|false|int
  */
 function wpmtst_save_view( $view, $action = 'edit' ) {
-	$view = (array) $view;
-	if ( !$view ) return false;
-
 	global $wpdb;
+
+	if ( ! $view ) return false;
+
 	$table_name = $wpdb->prefix . 'strong_views';
+
 	$serialized = serialize( $view['data'] );
+
+	$error_log = ini_get( 'error_log' );
+	ini_set( 'error_log', WP_CONTENT_DIR . '/strong-debug.log' );
+	$wpdb->show_errors();
+
 	if ( 'add' == $action || 'duplicate' == $action ) {
 		$sql = "INSERT INTO {$table_name} (name, value) VALUES (%s, %s)";
 		$sql = $wpdb->prepare( $sql, $view['name'], $serialized );
-		$num_rows = $wpdb->query( $sql );
-		$last_id = $wpdb->insert_id;
-		return $last_id;
+		$wpdb->query( $sql );
+		$return = $wpdb->insert_id;
 	}
 	else {
 		$sql = "UPDATE {$table_name} SET name = %s, value = %s WHERE id = %d";
 		$sql = $wpdb->prepare( $sql, $view['name'], $serialized, intval( $view['id'] ) );
-		$num_rows = $wpdb->query( $sql );
-		return $num_rows;
+		$wpdb->query( $sql );
+		$return = $wpdb->last_error ? 0 : 1;
 	}
+
+	if ( $wpdb->last_error ) {
+		$wpdb->print_error();
+	}
+	$wpdb->hide_errors();
+	ini_set( 'error_log', $error_log );
+
+	return $return;
 }
 
 /**

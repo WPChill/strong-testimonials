@@ -219,7 +219,16 @@ function wpmtst_view_settings( $action = '', $view_id = null ) {
 		<input type="hidden" name="view[data][_form_id]" value="<?php echo $view['form_id']; ?>">
 
 		<div class="view-info">
-			<div class="form-view-name"><span class="title">Name:</span><input type="text" id="view-name" class="view-name" name="view[name]" value="<?php echo $view_name; ?>" tabindex="1"></div>
+			<div class="form-view-name">
+				<?php
+				/**
+				 * Using htmlspecialchars and stripslashes on $view_name to handle quotes, etc. in database.
+				 * @since 2.11.14
+				 */
+				?>
+				<span class="title">Name:</span><input type="text" id="view-name" class="view-name" name="view[name]"
+					   value="<?php echo htmlspecialchars( stripslashes( $view_name ) ); ?>" tabindex="1">
+			</div>
 		</div>
 
 		<?php
@@ -293,7 +302,7 @@ function wpmtst_view_edit_form() {
 	if ( ! empty( $_POST ) && check_admin_referer( 'view_form_submit', 'view_form_nonce' ) ) {
 
 		$view_id    = $_POST['view']['id'];
-		$view_name  = $_POST['view']['name'];
+		$view_name  = wpmtst_validate_view_name( $_POST['view']['name'], $view_id );
 
 		if ( isset( $_POST['reset'] ) ) {
 
@@ -308,7 +317,7 @@ function wpmtst_view_edit_form() {
 
 			$view = array(
 				'id'   => $view_id,
-				'name' => sanitize_text_field( $view_name ),
+				'name' => $view_name,
 				'data' => $default_view
 			);
 			$success = wpmtst_save_view( $view ); // num_rows
@@ -327,7 +336,7 @@ function wpmtst_view_edit_form() {
 			// Sanitize & validate
 			$view = array(
 				'id'   => $view_id,
-				'name' => sanitize_text_field( $view_name ),
+				'name' => $view_name,
 				'data' => wpmtst_sanitize_view( $_POST['view']['data'] )
 			);
 			$success = wpmtst_save_view( $view ); // num_rows
@@ -365,7 +374,7 @@ function wpmtst_view_add_form() {
 	if ( ! empty( $_POST ) && check_admin_referer( 'view_form_submit', 'view_form_nonce' ) ) {
 
 		$view_id   = 0;
-		$view_name = $_POST['view']['name'];
+		$view_name = wpmtst_validate_view_name( $_POST['view']['name'], $view_id );
 
 		if ( isset( $_POST['restore-defaults'] ) ) {
 
@@ -387,7 +396,7 @@ function wpmtst_view_add_form() {
 			// Sanitize & validate
 			$view = array(
 				'id'   => 0,
-				'name' => sanitize_text_field( $view_name ),
+				'name' => $view_name,
 				'data' => wpmtst_sanitize_view( $_POST['view']['data'] )
 			);
 			$success = wpmtst_save_view( $view, 'add' ); // new id

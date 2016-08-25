@@ -1,4 +1,26 @@
 <?php
+
+/**
+ * Validate a View's name.
+ *
+ * @since 2.11.14
+ *
+ * @param $name
+ * @param $view_id
+ *
+ * @return string
+ */
+function wpmtst_validate_view_name( $name, $view_id ){
+	if ( '' == $name ) {
+		$name = "Testimonial View $view_id";
+	}
+	else {
+		$name = sanitize_text_field( stripslashes( $name ) );
+	}
+	return $name;
+}
+
+
 /**
  * Sanitize and validate a View.
  * TODO break down into separate validators

@@ -104,7 +104,7 @@ OR
 1. Download the zip file.
 1. Upload the zip file via Plugins > Add New > Upload.
 
-Finally, activate the plugin.
+Activate the plugin. Look for "Testimonials" in the admin menu.
 
 == Frequently Asked Questions ==
 
@@ -141,6 +141,9 @@ Yes. With some HTML and CSS knowledge, you can copy any template to your theme a
 Yes. This requires a lightbox so if your theme does not include one, you will need a plugin like [Simple Colorbox](https://wordpress.org/plugins/simple-colorbox/).
 
 == Changelog ==
+
+= 2.11.14 - August 25,2015 =
+* Handle special characters in View name.
 
 = 2.11.13 - August 24, 2016 =
 * Improve theme compatibility.
@@ -220,30 +223,3 @@ Yes. This requires a lightbox so if your theme does not include one, you will ne
 * Compatible with [Max Mega Menu](https://wordpress.org/plugins/megamenu/) plugin.
 * Disable redirect to Guide page after update.
 * Disable console log output in Cycle script.
-
-= 2.8.1 - June 1, 2016 =
-* Fix bug: "Array" in client fields output.
-
-= 2.8 - May 31, 2016 =
-* Add option for notification mail queue.
-* Updated Spanish translation.
-
-= 2.7.1 - May 20, 2016 =
-* Fix grid height and margins.
-
-= 2.7 - May 19, 2016 =
-* Add option for slideshow z-index to improve compatibility.
-* Fix bug in gradient background setting.
-* Improve Client Details meta box style.
-* Ensure custom template plugin paths are found.
-* Fix improper enqueue of Dashicons.
-* Latest FontAwesome.
-
-= 2.6.1 - May 18, 2016 =
-* Update the Guide.
-* Improve responsive style.
-
-= 2.6 - May 17, 2016 =
-* Bypass WordPress empty post check.
-* Enable embeds (YouTube, Twitter, etc.).
-* Add setting for embed frame width.
