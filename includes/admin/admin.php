@@ -696,9 +696,9 @@ function wpmtst_version_check() {
 			$message .= sprintf( _x( 'Unable to load %s', 'installation', 'strong-testimonials' ), $plugin_info['Name'] );
 			$message .= '</h2>';
 			/* translators: %s is a WordPress version number. */
-			$message .= '<p>' . sprintf( _x( 'This plugin requires <strong>WordPress %s</strong> or higher so it has been deactivated.', 'installation', 'strong-testimonials' ), $require_wp ) . '<p>';
-			$message .= '<p>' . _x( 'Please upgrade WordPress and try again.', 'installation', 'strong-testimonials' ) . '<p>';
-			$message .= '<p>' . sprintf( _x( 'Back to the WordPress <a href="%s">Plugins page</a>', 'installation', 'strong-testimonials' ), get_admin_url( null, 'plugins.php' ) ) . '<p>';
+			$message .= '<p>' . sprintf( _x( 'This plugin requires <strong>WordPress %s</strong> or higher so it has been deactivated.', 'installation', 'strong-testimonials' ), $require_wp ) . '</p>';
+			$message .= '<p>' . _x( 'Please upgrade WordPress and try again.', 'installation', 'strong-testimonials' ) . '</p>';
+			$message .= '<p>' . sprintf( _x( 'Back to the WordPress <a href="%s">Plugins page</a>', 'installation', 'strong-testimonials' ), get_admin_url( null, 'plugins.php' ) ) . '</p>';
 			wp_die( $message );
 		}
 	}
@@ -788,8 +788,8 @@ add_action( 'wp_ajax_wpmtst_get_background_preset_colors', 'wpmtst_get_backgroun
  * @return mixed
  */
 function wpmtst_pending_indicator( $menu ) {
-	if ( ! current_user_can('edit_posts') )
-		return;
+	if ( ! current_user_can( 'edit_posts' ) )
+		return $menu;
 
 	$options = get_option( 'wpmtst_options' );
 	if ( ! isset( $options['pending_indicator'] ) || ! $options['pending_indicator'] )

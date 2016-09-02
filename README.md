@@ -163,38 +163,41 @@ Yes. With some HTML and CSS knowledge, you can copy any template to your theme a
 
 ## Changelog 
 
-### 2.11.14 - August 25,2015
+### 2.11.15 - Sep 2, 2016
+* Fix bug in menu for subscribers.
+
+### 2.11.14 - Aug 25, 2016
 * Handle special characters in View name.
 
-### 2.11.13 - August 24, 2016
+### 2.11.13 - Aug 24, 2016
 * Improve theme compatibility.
 
-### 2.11.12 - August 22, 2016
+### 2.11.12 - Aug 22, 2016
 * Fix bug in loading Font Awesome for Modern template.
 
-### 2.11.11 - August 19, 2016
+### 2.11.11 - Aug 19, 2016
 * Fix custom image size.
 
-### 2.11.10 - August 19, 2016
+### 2.11.10 - Aug 19, 2016
 * Improve general theme compatibility.
 
-### 2.11.9 - August 13, 2016
+### 2.11.9 - Aug 13, 2016
 * Improve compatibility with [CM Tooltip Glossary](https://wordpress.org/plugins/enhanced-tooltipglossary/).
 
-### 2.11.8 - August 11, 2016
+### 2.11.8 - Aug 11, 2016
 * Maintain line breaks in submitted testimonial content.
 
-### 2.11.7 - August 10, 2016
+### 2.11.7 - Aug 10, 2016
 * Remove `wp_make_content_images_responsive` filter.
 
-### 2.11.6 - August 10, 2016
+### 2.11.6 - Aug 10, 2016
 * Remove `wp_make_content_images_responsive` filter.
 
-### 2.11.5 - August 10, 2016
+### 2.11.5 - Aug 10, 2016
 * Compatible with [CM Tooltip Glossary](https://wordpress.org/plugins/enhanced-tooltipglossary/).
 * Reinstate option for "Read more" link to a page from within testimonial.
 
-### 2.11.4 - August 9, 2016
+### 2.11.4 - Aug 9, 2016
 * Reinstate "Read more" option for manual excerpts.
 
 ### 2.11.3 - July 25, 2016

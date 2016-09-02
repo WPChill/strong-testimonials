@@ -92,7 +92,7 @@ function wpmtst_single_form_field( $field ) {
 			echo '<input id="wpmtst_' . $field['name'] . '" type="file" name="' . $field['name'] . '">';
 			break;
 
-		default: // test, email, url
+		default: // text, email, url
 
 			/**
 			 * Switching out url type until more themes adopt it.
