@@ -142,6 +142,9 @@ Yes. This requires a lightbox so if your theme does not include one, you will ne
 
 == Changelog ==
 
+= 2.11.16 - Sep 3, 2016 =
+* Fix conflict with [Styles](https://wordpress.org/plugins/styles/) plugin.
+
 = 2.11.15 - Sep 2, 2016 =
 * Fix bug in menu for subscribers.
 

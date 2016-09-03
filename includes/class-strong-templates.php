@@ -321,9 +321,13 @@ endif;
 
 /**
  * Assemble template list after any custom plugins are loaded.
+ * Priority 30 to be compatible with Styles: Twentyfourteen plugin.
+ * @link https://wordpress.org/plugins/styles/
+ * @link https://wordpress.org/support/topic/styles-twentyfourteen-stopped-working/#post-8072997
  */
 function strong_templates_init() {
 	global $strong_templates;
 	$strong_templates = new Strong_Templates();
 }
-add_action( 'plugins_loaded', 'strong_templates_init', 20 );
+//add_action( 'plugins_loaded', 'strong_templates_init', 20 );
+add_action( 'plugins_loaded', 'strong_templates_init', 30 );

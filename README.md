@@ -163,6 +163,9 @@ Yes. With some HTML and CSS knowledge, you can copy any template to your theme a
 
 ## Changelog 
 
+### 2.11.16 - Sep 3, 2016
+* Fix conflict with [Styles](https://wordpress.org/plugins/styles/) plugin.
+
 ### 2.11.15 - Sep 2, 2016
 * Fix bug in menu for subscribers.
 
