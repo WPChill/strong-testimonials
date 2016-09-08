@@ -487,6 +487,7 @@ function wpmtst_get_default_l10n_contexts() {
 		'strong-testimonials-form-fields'   => __( 'Testimonial Form Fields', 'strong-testimonials' ),
 		'strong-testimonials-form-messages' => __( 'Testimonial Form Messages', 'strong-testimonials' ),
 		'strong-testimonials-notification'  => __( 'Testimonial Notification Options', 'strong-testimonials' ),
+		'strong-testimonials-read-more'     => __( '"Read More" Link Text', 'strong-testimonials' ),
 	);
 	return $contexts;
 }

@@ -163,6 +163,9 @@ Yes. With some HTML and CSS knowledge, you can copy any template to your theme a
 
 ## Changelog 
 
+### 2.11.17 - Sep 8, 2016 
+* Add "Read more" link text to WPML and Polylang translation strings.
+
 ### 2.11.16 - Sep 3, 2016
 * Fix conflict with [Styles](https://wordpress.org/plugins/styles/) plugin.
 

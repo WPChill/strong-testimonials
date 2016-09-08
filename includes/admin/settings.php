@@ -363,7 +363,12 @@ function wpmtst_on_update_form_options( $oldvalue, $newvalue ) {
 	$form_options = get_option( 'wpmtst_form_options' );
 	if ( ! $form_options ) return;
 
+	// WPML
 	wpmtst_form_messages_wpml( $form_options['messages'] );
 	wpmtst_form_options_wpml( $form_options );
+
+	// Polylang
+	wpmtst_form_messages_polylang( $form_options['messages'] );
+	wpmtst_form_options_polylang( $form_options );
 }
 add_action( 'update_option_wpmtst_form_options', 'wpmtst_on_update_form_options', 10, 2 );

@@ -142,6 +142,9 @@ Yes. This requires a lightbox so if your theme does not include one, you will ne
 
 == Changelog ==
 
+= 2.11.17 - Sep 8, 2016 =
+* Add "Read more" link text to WPML and Polylang translation strings.
+
 = 2.11.16 - Sep 3, 2016 =
 * Fix conflict with [Styles](https://wordpress.org/plugins/styles/) plugin.
 

@@ -135,6 +135,12 @@ function wpmtst_add_content_filters() {
 	//}
 }
 
+/**
+ * Read More link to the post or a page.
+ *
+ * @deprecated 2.10.0
+ */
+function wpmtst_read_more() {}
 
 /**
  * Add "Read more" to *manual* excerpts after content and custom fields.
@@ -157,7 +163,6 @@ function wpmtst_trim_excerpt( $text, $raw_excerpt ) {
 }
 add_filter( 'wp_trim_excerpt', 'wpmtst_trim_excerpt', 10, 2 );
 
-
 /**
  * Modify the excerpt length.
  *
@@ -175,7 +180,6 @@ function wpmtst_excerpt_length( $words ) {
 
 	return $words;
 }
-
 
 /**
  * Modify the excerpt "Read more" link.
@@ -214,13 +218,64 @@ function wpmtst_get_excerpt_more_link() {
 	$link = sprintf( '<a href="%1$s" class="readmore">%2$s</a>',
 		esc_url( get_permalink() ),
 		sprintf( '%s<span class="screen-reader-text"> "%s"</span>',
-			WPMST()->atts( 'more_post_text' ),
+			apply_filters( 'wpmtst_l10n',
+				WPMST()->atts( 'more_post_text' ),
+				'strong-testimonials-read-more',
+				sprintf( __( 'View %s : Read more (testimonial)', 'strong-testimonials' ), WPMST()->atts( 'view' ) )
+			),
 			get_the_title() )
 	);
 
 	return $link;
 }
 
+/**
+ * Assemble link to designated "Read more" page.
+
+ * @since 2.10.0
+ *
+ * @return string
+ */
+function wpmtst_read_more_page() {
+	$atts = WPMST()->atts( array( 'view', 'more_page', 'more_page_id', 'more_page_text', 'more_page_hook' ) );
+
+	if ( $atts['more_page'] && $atts['more_page_id'] ) {
+		if ( $permalink = wpmtst_get_permalink( $atts['more_page_id'] ) ) {
+			$view_options = get_option( 'wpmtst_view_default' );
+			if ( isset( $atts['more_page_text'] ) && $atts['more_page_text'] ) {
+				$link_text = $atts['more_page_text'];
+			}
+			else {
+				$link_text = $view_options['more_page_text'];
+			}
+			$link_text = apply_filters( 'wpmtst_l10n',
+				$atts['more_page_text'],
+				'strong-testimonials-read-more',
+				sprintf( __( 'View %s : Read more (page or post)', 'strong-testimonials' ), $atts['view'] )
+			);
+
+			$classname = ( 'wpmtst_after_testimonial' == $atts['more_page_hook'] ? 'readmore' : 'readmore-page' );
+			$classname = apply_filters( 'wpmtst_read_more_page_class', $classname );
+			echo sprintf( '<div class="%s"><a href="%s">%s</a></div>', $classname, esc_url( $permalink ), $link_text );
+		}
+	}
+}
+
+/**
+ * Get permalink by ID or slug.
+ *
+ * @since 1.25.0
+ * @param $page_id
+ *
+ * @return false|string
+ */
+function wpmtst_get_permalink( $page_id ) {
+	if ( ! is_numeric( $page_id ) ) {
+		$page = get_page_by_path( $page_id );
+		$page_id = $page->ID;
+	}
+	return get_permalink( $page_id );
+}
 
 /**
  * Prevent page scroll when clicking the More link.
@@ -558,57 +613,6 @@ function wpmtst_client_section( $client_section ) {
 	}
 
 	return $html;
-}
-
-/**
- * Read More link to the post or a page.
- *
- * @deprecated 2.10.0
- */
-function wpmtst_read_more() {}
-
-
-/**
- * Assemble link to designated "Read more" page.
-
- * @since 2.10.0
- *
- * @return string
- */
-function wpmtst_read_more_page() {
-	$atts = WPMST()->atts( array( 'more_page', 'more_page_id', 'more_page_text', 'more_page_hook' ) );
-
-	if ( $atts['more_page'] && $atts['more_page_id'] ) {
-		if ( $permalink = wpmtst_get_permalink( $atts['more_page_id'] ) ) {
-			$view_options = get_option( 'wpmtst_view_default' );
-			if ( isset( $atts['more_page_text'] ) && $atts['more_page_text'] ) {
-				$link_text = $atts['more_page_text'];
-			}
-			else {
-				$link_text = $view_options['more_page_text'];
-			}
-
-			$classname = ( 'wpmtst_after_testimonial' == $atts['more_page_hook'] ? 'readmore' : 'readmore-page' );
-			$classname = apply_filters( 'wpmtst_read_more_page_class', $classname );
-			echo sprintf( '<div class="%s"><a href="%s">%s</a></div>', $classname, $permalink, $link_text );
-		}
-	}
-}
-
-/**
- * Get permalink by ID or slug.
- *
- * @since 1.25.0
- * @param $page_id
- *
- * @return false|string
- */
-function wpmtst_get_permalink( $page_id ) {
-	if ( ! is_numeric( $page_id ) ) {
-		$page = get_page_by_path( $page_id );
-		$page_id = $page->ID;
-	}
-	return get_permalink( $page_id );
 }
 
 function wpmtst_container_class() {

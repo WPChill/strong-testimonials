@@ -4,7 +4,7 @@
  * Plugin URI: https://www.wpmission.com/plugins/strong-testimonials/
  * Description: A full-featured plugin that works right out of the box for beginners and offers advanced features for pros.
  * Author: Chris Dillon
- * Version: 2.11.16
+ * Version: 2.11.17
  * Author URI: https://www.wpmission.com/
  * Text Domain: strong-testimonials
  * Domain Path: /languages
@@ -51,7 +51,7 @@ final class Strong_Testimonials {
 	public static $shortcode2;
 	public static $shortcode2_lb;
 	public static $view_defaults = array();
-	public static $strong_atts = array();
+	public static $view_atts = array();
 	public static $form_values;
 	public static $form_errors;
 	public static $post_list = array();
@@ -195,7 +195,6 @@ final class Strong_Testimonials {
 			require_once WPMTST_INC . 'admin/custom-fields.php';
 			require_once WPMTST_INC . 'admin/guide/guide.php';
 			require_once WPMTST_INC . 'admin/install.php';
-			//require_once WPMTST_INC . 'admin/pointers.php';
 			require_once WPMTST_INC . 'admin/settings.php';
 			require_once WPMTST_INC . 'admin/upgrade.php';
 			require_once WPMTST_INC . 'admin/views.php';
@@ -241,6 +240,7 @@ final class Strong_Testimonials {
 
 			/**
 			 * Actions on 'wp' hook allow us to properly enqueue styles and scripts.
+			 * TODO Consolidate. Make conditional where possible; i.e. only check for Page Builder widgets if that plugin is active.
 			 */
 
 			// Preprocess the post content for our shortcodes.
@@ -295,16 +295,6 @@ final class Strong_Testimonials {
 		 * @since 1.21.0
 		 */
 		add_action( 'admin_action_delete-strong-view', 'wpmtst_delete_view_action_hook' );
-
-		/**
-		 * Flush rewrite rules after theme switch.
-		 *
-		 * In case a theme skips this and it has a "testimonial" post type.
-		 *
-		 * @since 1.21.0
-		 * @since 2.4.0  Change to a later priority.
-		 */
-		add_action( 'after_switch_theme', 'flush_rewrite_rules', 20 );
 
 		/**
 		 * @since 1.14.1
@@ -644,7 +634,7 @@ final class Strong_Testimonials {
 	 * @param $atts
 	 */
 	public function set_atts( $atts ) {
-		self::$strong_atts = $atts;
+		self::$view_atts = $atts;
 	}
 
 	/**
@@ -657,22 +647,22 @@ final class Strong_Testimonials {
 	public function atts( $keys = null ) {
 		// return all
 		if ( ! $keys )
-			return self::$strong_atts;
+			return self::$view_atts;
 
 		// return some
 		if ( is_array( $keys ) ) {
 			$found = array();
 			foreach ( $keys as $key ) {
-				if ( isset( self::$strong_atts[ $key ] ) ) {
-					$found[ $key ] = self::$strong_atts[ $key ];
+				if ( isset( self::$view_atts[ $key ] ) ) {
+					$found[ $key ] = self::$view_atts[ $key ];
 				}
 			}
 			return $found;
 		}
 
 		// return one
-		if ( isset( self::$strong_atts[ $keys ] ) )
-			return self::$strong_atts[ $keys ];
+		if ( isset( self::$view_atts[ $keys ] ) )
+			return self::$view_atts[ $keys ];
 
 		// return none
 		return false;

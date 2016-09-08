@@ -49,7 +49,7 @@ add_filter( 'shortcode_atts_testimonial_view', 'wpmtst_strong_view_shortcode_fil
 function wpmtst_render_view( $out ) {
 	// Did we find this view?
 	if ( isset( $out['view_not_found'] ) && $out['view_not_found'] ) {
-		return '<p style="color:red">' . __( sprintf( 'Strong Testimonials error: View %s not found', $out['view'] ) ) . '</p>';
+		return '<p style="color:red">' . sprintf( __( 'Strong Testimonials error: View %s not found' ), $out['view'] ) . '</p>';
 	}
 
 	// Container class is shared by display and form in templates.
@@ -80,6 +80,7 @@ function wpmtst_render_view( $out ) {
  * The form.
  *
  * @param $atts
+ * @todo Move this into View object
  *
  * @return mixed|string|void
  */
@@ -92,19 +93,19 @@ function wpmtst_form_view( $atts ) {
 		return apply_filters( 'wpmtst_form_success_message', '<div class="testimonial-success">' .  wpmtst_get_form_message( 'submission-success' ) . '</div>' );
 	}
 
-	// TODO no need to extract
-	extract( normalize_empty_atts( $atts ) );
+	$atts            = normalize_empty_atts( $atts );
+	$fields          = wpmtst_get_form_fields( $atts['form_id'] );
+	$form_values     = array( 'category' => $atts['category'] );
 
-	$fields = wpmtst_get_form_fields( $form_id );
-
-	$form_values = array( 'category' => $category );
 	foreach ( $fields as $key => $field ) {
 		$form_values[ $field['name'] ] = '';
 	}
+
 	$previous_values = WPMST()->get_form_values();
 	if ( $previous_values ) {
 		$form_values = array_merge( $form_values, $previous_values );
 	}
+
 	WPMST()->set_form_values( $form_values );
 
 	/**

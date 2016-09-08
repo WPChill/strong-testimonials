@@ -471,6 +471,15 @@ function wpmtst_default_settings() {
 		unlink( WP_CONTENT_DIR  . '/install.log' );
 	}
 
+	/**
+	 * Flush rewrite rules.
+	 *
+	 * In case a theme or plugin skips this and it has a "testimonial" post type.
+	 *
+	 * @since 2.11.17
+	 */
+	add_action( 'shutdown', 'flush_rewrite_rules' );
+
 }
 
 

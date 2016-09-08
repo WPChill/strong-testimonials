@@ -457,7 +457,7 @@ function wpmtst_get_category_list() {
 function wpmtst_get_views() {
 	global $wpdb;
 	$table_name = $wpdb->prefix . 'strong_views';
-	$results = $wpdb->get_results( $wpdb->prepare( 'SELECT * FROM ' . $table_name . ' WHERE name != %s ORDER BY 1', '_default' ), ARRAY_A );
+	$results = $wpdb->get_results( $wpdb->prepare( 'SELECT * FROM ' . $table_name . ' WHERE name != %s ORDER BY id ASC', '_default' ), ARRAY_A );
 
 	return $results;
 }
@@ -493,6 +493,8 @@ function wpmtst_get_view( $id ) {
 }
 
 /**
+ * Save a View.
+ *
  * @param        $view
  * @param string $action
  *
@@ -504,9 +506,9 @@ function wpmtst_save_view( $view, $action = 'edit' ) {
 	if ( ! $view ) return false;
 
 	$table_name = $wpdb->prefix . 'strong_views';
-
 	$serialized = serialize( $view['data'] );
 
+	// temporary error log
 	$error_log = ini_get( 'error_log' );
 	ini_set( 'error_log', WP_CONTENT_DIR . '/strong-debug.log' );
 	$wpdb->show_errors();
@@ -515,7 +517,8 @@ function wpmtst_save_view( $view, $action = 'edit' ) {
 		$sql = "INSERT INTO {$table_name} (name, value) VALUES (%s, %s)";
 		$sql = $wpdb->prepare( $sql, $view['name'], $serialized );
 		$wpdb->query( $sql );
-		$return = $wpdb->insert_id;
+		$view['id'] = $wpdb->insert_id;
+		$return  = $view['id'];
 	}
 	else {
 		$sql = "UPDATE {$table_name} SET name = %s, value = %s WHERE id = %d";
@@ -524,14 +527,52 @@ function wpmtst_save_view( $view, $action = 'edit' ) {
 		$return = $wpdb->last_error ? 0 : 1;
 	}
 
+	// log any error and restore error log
 	if ( $wpdb->last_error ) {
 		$wpdb->print_error();
 	}
 	$wpdb->hide_errors();
 	ini_set( 'error_log', $error_log );
 
+	do_action( 'wpmtst_view_saved', $view );
+
 	return $return;
 }
+
+
+/**
+ * Do stuff after a View is saved.
+ *
+ * @since 2.11.17
+ * @param $view
+ */
+function wpmtst_on_save_view( $view ) {
+
+	// WPML
+	if ( defined( 'ICL_SITEPRESS_VERSION' ) ) {
+		wpmtst_readmore_wpml(
+			array(
+				'id'             => $view['id'],
+				'more_post_text' => $view['data']['more_post_text'],
+				'more_page_text' => $view['data']['more_page_text'],
+			)
+		);
+	}
+
+	// Polylang
+	if ( defined( 'POLYLANG_VERSION' ) ) {
+		wpmtst_readmore_polylang(
+			array(
+				'id'             => $view['id'],
+				'more_post_text' => $view['data']['more_post_text'],
+				'more_page_text' => $view['data']['more_page_text'],
+			)
+		);
+	}
+
+}
+add_action( 'wpmtst_view_saved', 'wpmtst_on_save_view' );
+
 
 /**
  * @param $field
