@@ -233,10 +233,16 @@ function wpmtst_view_settings( $action = '', $view_id = null ) {
 
 		<?php
 		// avoiding the tab character before the shortcode for better copy-n-paste
-		if ( 'edit' == $action )
-			$shortcode = '<span class="saved">[testimonial_view id=' . $view_id . ']</span>';
-		else
+		if ( 'edit' == $action ) {
+			$shortcode = '<span class="saved">';
+			$shortcode .= '<input id="view-shortcode" type="text" value="[testimonial_view id=' . $view_id . ']" readonly />';
+			$shortcode .= '<input id="copy-shortcode" class="button small" type="button" value="' . __( 'copy to clipboard', 'strong-testimonials' ) . '" data-copytarget="#view-shortcode" />';
+			$shortcode .= '<span id="copy-message">copied</span>';
+			$shortcode .= '</span>';
+		}
+		else {
 			$shortcode = '<span class="unsaved">' . _x( 'will be available after you save this', 'The shortcode for a new View.', 'strong-testimonials' ) . '</span>';
+		}
 		?>
 
 		<div class="view-info">
@@ -600,41 +606,64 @@ function wpmtst_get_default_template_function() {
 function wpmtst_view_field_inputs( $key, $field, $adding = false ) {
 	$custom_fields = wpmtst_get_custom_fields();
 
-	// the date is a special field
-	$custom_fields[] = array(
-		'name'        => 'post_date',
-		'input_type'  => 'date',
-		'type'        => 'date',
-		'record_type' => 'builtin',
+	$builtin_fields = array(
+		array(
+			'name'        => 'post_date',
+			'input_type'  => 'date',
+			'type'        => 'date',
+			'record_type' => 'builtin',
+		),
+		array(
+			'name'        => 'submit_date',
+			'input_type'  => 'date',
+			'type'        => 'date',
+			'record_type' => 'builtin',
+		),
+	);
+
+	$all_fields = array(
+		__( 'custom', 'strong-testimonials' ) => $custom_fields,
+		__( 'built-in', 'strong-testimonials' ) => $builtin_fields
 	);
 
 	// TODO Move this to view defaults option.
 	$types = array(
-		'text'  => __( 'text', 'strong-testimonials' ),
-		'link'  => __( 'link with field', 'strong-testimonials' ),  // the original link type
-		'link2' => __( 'link (must be URL)', 'strong-testimonials' ),  // @since 1.24.0
-		'date'  => __( 'date', 'strong-testimonials' )
+		'text'      => __( 'text', 'strong-testimonials' ),
+		'link'      => __( 'link with field', 'strong-testimonials' ),  // the original link type
+		'link2'     => __( 'link (must be URL)', 'strong-testimonials' ),  // @since 1.24.0
+		'date'      => __( 'date', 'strong-testimonials' ),
+		'category'  => __( 'category', 'strong-testimonials' ),
+		'rating'    => __( 'rating', 'strong-testimonials' ),
+		'shortcode' => __( 'shortcode', 'strong-testimonials' ),
 	);
 
-	$allowed = array( 'custom', 'builtin' );
+	$allowed = array( 'custom', 'optional', 'builtin' );
 	?>
 	<tr class="field2" id="field-<?php echo $key; ?>">
 
-		<?php // Name ?>
+		<!-- Name -->
 		<td class="field-name">
 			<label>
-				<select name="view[data][client_section][<?php echo $key; ?>][field]">
+				<select class="full" name="view[data][client_section][<?php echo $key; ?>][field]">
 					<option value=""></option>
-					<?php foreach ( $custom_fields as $key2 => $field2 ) : ?>
-						<?php if ( in_array( $field2['record_type'], $allowed ) && 'email' != $field2['input_type'] ) : ?>
-							<option value="<?php echo $field2['name']; ?>" <?php selected( $field2['name'], $field['field'] ); ?>><?php echo $field2['name']; ?></option>
-						<?php endif; ?>
+
+					<?php foreach ( $all_fields as $group_name => $group ) : ?>
+					<optgroup label="<?php echo $group_name; ?>">;
+
+					<?php foreach ( $group as $key2 => $field2 ) : ?>
+					<?php if ( in_array( $field2['record_type'], $allowed ) && 'email' != $field2['input_type'] ) : ?>
+					<option value="<?php echo $field2['name']; ?>" data-type="<?php echo $field2['input_type']; ?>"<?php selected( $field2['name'], $field['field'] ); ?>><?php echo $field2['name']; ?></option>
+							<?php endif; ?>
 					<?php endforeach; ?>
+
+					</optgroup>
+					<?php endforeach; ?>
+
 				</select>
 			</label>
 		</td>
 
-		<?php // Type ?>
+		<!-- Type -->
 		<td class="field-type">
 			<label>
 				<select name="view[data][client_section][<?php echo $key; ?>][type]">
@@ -645,7 +674,7 @@ function wpmtst_view_field_inputs( $key, $field, $adding = false ) {
 			</label>
 		</td>
 
-		<?php // Meta ?>
+		<!-- Meta -->
 		<td class="field-meta">
 			<?php
 				if ( 'link' == $field['type'] || 'link2' == $field['type'] )
@@ -656,14 +685,14 @@ function wpmtst_view_field_inputs( $key, $field, $adding = false ) {
 			?>
 		</td>
 
-		<?php // Class ?>
+		<!-- Class -->
 		<td class="field-class">
 			<label>
 				<input type="text" name="view[data][client_section][<?php echo $key; ?>][class]" value="<?php echo $field['class']; ?>">
 			</label>
 		</td>
 
-		<?php // Controls ?>
+		<!-- Controls -->
 		<td class="controls">
 			<span class="delete-field" title="delete"><span class="dashicons dashicons-no"></span></span>
 			<span class="handle" title="drag and drop to reorder"><span class="dashicons dashicons-menu"></span></span>

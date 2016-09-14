@@ -231,3 +231,17 @@ function wpmtst_strong_view_html( $html ) {
 	return $html;
 }
 add_filter( 'strong_view_html', 'wpmtst_strong_view_html' );
+
+
+/**
+ * For testing shortcode field in forms.
+ *
+ * @param      $atts
+ * @param null $content
+ *
+ * @return string
+ */
+function wpmtst_hello( $atts, $content = null ) {
+	return 'Hello!';
+}
+add_shortcode( 'wpmtst_hello', 'wpmtst_hello' );

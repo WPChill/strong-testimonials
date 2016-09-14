@@ -2,6 +2,10 @@
 	margin: 0 auto;
 	padding: 20px;
 
+	.form-field {
+		margin-bottom: 1.5em;
+	}
+
 	.required.symbol:after {
 		content: '*';
 		color: #FF0000;
@@ -34,11 +38,11 @@
 		display: block;
 	}
 
-	.form-field .before {
+	.before {
 		display: block;
 	}
 
-	.form-field .after {
+	.after {
 		display: block;
 	}
 }

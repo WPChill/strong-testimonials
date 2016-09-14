@@ -31,8 +31,8 @@ $tags = array( 'a' => array( 'href' => array(), 'target' => array(), 'class' => 
 
 	$links[] = sprintf( '<a href="%s" target="_blank">%s</a>',
 		esc_url( 'https://www.wpmission.com/tutorials/youtube-twitter-instagram-strong-testimonials/' ),
-		__( 'Adding video testimonials', 'strong-testimonials' ) )
-		. '<span class="new-doc">NEW</span>';
+		__( 'Adding video testimonials', 'strong-testimonials' ) );
+		//. '<span class="new-doc">NEW</span>';
 
 	$links[] = sprintf( '<a href="%s" target="_blank">%s</a>',
 			esc_url( 'https://www.wpmission.com/tutorials/how-to-add-custom-css-in-strong-testimonials/' ),

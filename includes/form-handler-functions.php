@@ -88,6 +88,9 @@ function wpmtst_form_handler() {
 				if ( 'categories' == $field['input_type'] ) {
 					$testimonial_meta[ $field['name'] ] = $_POST[ $field['name'] ];
 				}
+				if ( 'rating' == $field['input_type'] ) {
+					$testimonial_meta[ $field['name'] ] = $_POST[ $field['name'] ];
+				}
 				break;
 
 			default:
@@ -169,6 +172,9 @@ function wpmtst_form_handler() {
 				}
 			}
 
+			// save submit date
+			$testimonial_meta['submit_date'] = current_time( 'mysql' );
+				
 			// save custom fields
 			foreach ( $testimonial_meta as $key => $field ) {
 				add_post_meta( $testimonial_id, $key, $field );

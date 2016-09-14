@@ -76,3 +76,84 @@ function wpmtst_register_cpt() {
 
 }
 add_action( 'init', 'wpmtst_register_cpt', 5 );
+
+
+/**
+ * Modify testimonial features.
+ *
+ * @since 2.4.0
+ * @param $supports
+ *
+ * @return array
+ */
+function wpmtst_testimonial_supports( $supports ) {
+	$options = get_option( 'wpmtst_options' );
+
+	if ( isset( $options['support_custom_fields'] ) && $options['support_custom_fields'] )
+		$supports[] = 'custom-fields';
+
+	if ( isset( $options['support_comments'] ) && $options['support_comments'] )
+		$supports[] = 'comments';
+
+	return $supports;
+}
+add_filter( 'wpmtst_testimonial_supports', 'wpmtst_testimonial_supports' );
+
+
+/**
+ * Add testimonial-specific messages.
+ *
+ * @param $messages
+ * @todo Action Hook
+ *
+ * @return mixed
+ */
+function wpmtst_updated_messages( $messages ) {
+	global $post;
+
+	$preview_url = get_preview_post_link( $post );
+
+	$permalink = get_permalink( $post->ID );
+	if ( ! $permalink ) {
+		$permalink = '';
+	}
+
+	// Preview post link.
+	$preview_post_link_html = sprintf( ' <a target="_blank" href="%1$s">%2$s</a>',
+		esc_url( $preview_url ),
+		__( 'Preview testimonial' )
+	);
+
+	// View post link.
+	$view_post_link_html = sprintf( ' <a href="%1$s">%2$s</a>',
+		esc_url( $permalink ),
+		__( 'View testimonial' )
+	);
+
+	// Scheduled post preview link.
+	$scheduled_post_link_html = sprintf( ' <a target="_blank" href="%1$s">%2$s</a>',
+		esc_url( $permalink ),
+		__( 'Preview testimonial' )
+	);
+
+	/* translators: Publish box date format, see https://secure.php.net/date */
+	$scheduled_date = date_i18n( __( 'M j, Y @ H:i' ), strtotime( $post->post_date ) );
+
+	$messages['wpm-testimonial'] = array(
+		0 => '', // Unused. Messages start at index 1.
+		1 => __( 'Testimonial updated.' ) . $view_post_link_html,
+		2 => __( 'Custom field updated.' ),
+		3 => __( 'Custom field deleted.' ),
+		4 => __( 'Testimonial updated.' ),
+		/* translators: %s: date and time of the revision */
+		5 => isset($_GET['revision']) ? sprintf( __( 'Testimonial restored to revision from %s.' ), wp_post_revision_title( (int) $_GET['revision'], false ) ) : false,
+		6 => __( 'Testimonial published.' ) . $view_post_link_html,
+		7 => __( 'Testimonial saved.' ),
+		8 => __( 'Testimonial submitted.' ) . $preview_post_link_html,
+		9 => sprintf( __( 'Testimonial scheduled for: %s.' ), '<strong>' . $scheduled_date . '</strong>' ) . $scheduled_post_link_html,
+		10 => __( 'Testimonial draft updated.' ) . $preview_post_link_html,
+	);
+
+	return $messages;
+}
+add_filter( 'post_updated_messages', 'wpmtst_updated_messages' );

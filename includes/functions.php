@@ -219,6 +219,7 @@ function wpmtst_get_form_fields( $form_id = 1 ) {
 		$form = $forms[1];
 	}
 	$fields = $form['fields'];
+
 	return $fields;
 }
 
@@ -238,7 +239,8 @@ function wpmtst_get_custom_fields() {
 
 	// replace key with field name
 	foreach ( $fields as $field ) {
-		if ( 'custom' == $field['record_type'] ) {
+		//if ( 'custom' == $field['record_type'] ) {
+		if ( 'post' != $field['record_type'] ) {
 			$all_fields[ $field['name'] ] = $field;
 		}
 	}
@@ -248,7 +250,8 @@ function wpmtst_get_custom_fields() {
 		$custom_fields = array();
 		$fields = $form['fields'];
 		foreach ( $fields as $field ) {
-			if ( 'custom' == $field['record_type'] ) {
+			//if ( 'custom' == $field['record_type'] ) {
+			if ( 'post' != $field['record_type'] ) {
 				$custom_fields[ $field['name'] ] = $field;
 			}
 		}
@@ -593,6 +596,42 @@ function wpmtst_get_field_label( $field ) {
 }
 
 /**
+ * @param $field
+ *
+ * @return mixed
+ */
+function wpmtst_get_field_default_display_value( $field ) {
+	if ( isset( $field['field'] ) ) {
+		$custom_fields = wpmtst_get_custom_fields();
+		foreach ( $custom_fields as $key => $custom_field ) {
+			if ( $custom_field['name'] == $field['field'] ) {
+				return $custom_field['default_display_value'];
+			}
+		}
+	}
+
+	return '';
+}
+
+/**
+ * @param $field
+ *
+ * @return mixed
+ */
+function wpmtst_get_field_shortcode_on_display( $field ) {
+	if ( isset( $field['field'] ) ) {
+		$custom_fields = wpmtst_get_custom_fields();
+		foreach ( $custom_fields as $key => $custom_field ) {
+			if ( $custom_field['name'] == $field['field'] ) {
+				return $custom_field['shortcode_on_display'];
+			}
+		}
+	}
+
+	return '';
+}
+
+/**
  * @param string $field_name
  *
  * @return mixed
@@ -623,28 +662,6 @@ function wpmtst_sort_array_by_name( $a, $b ) {
 function wpmtst_using_form_validation_script() {
 	return apply_filters( 'wpmtst_field_required_tag', true ) && apply_filters( 'wpmtst_form_validation_script', true );
 }
-
-
-/**
- * Modify testimonial features.
- *
- * @since 2.4.0
- * @param $supports
- *
- * @return array
- */
-function wpmtst_testimonial_supports( $supports ) {
-	$options = get_option( 'wpmtst_options' );
-
-	if ( isset( $options['support_custom_fields'] ) && $options['support_custom_fields'] )
-		$supports[] = 'custom-fields';
-
-	if ( isset( $options['support_comments'] ) && $options['support_comments'] )
-		$supports[] = 'comments';
-
-	return $supports;
-}
-add_filter( 'wpmtst_testimonial_supports', 'wpmtst_testimonial_supports' );
 
 
 /**
@@ -686,3 +703,27 @@ function wpmtst_insert_post_empty_content( $maybe_empty, $postarr ) {
 	return $maybe_empty;
 }
 add_filter( 'wp_insert_post_empty_content', 'wpmtst_insert_post_empty_content', 10, 2 );
+
+
+/**
+ * Display submit_date in Publish meta box under Published date.
+ *
+ * @param $post
+ * @since 2.12.0
+ */
+function wpmtst_post_submitbox_misc_actions( $post ) {
+	if ( 'wpm-testimonial' == $post->post_type ) {
+		echo '<div class="wpmtst-pub-section">';
+		echo '<span id="submit-timestamp">&nbsp;';
+		$submit_date = get_post_meta( $post->ID, 'submit_date', true );
+		if ( $submit_date ) {
+			echo 'Submitted on: <strong>' . date_i18n( __( 'M j, Y @ H:i' ), strtotime( $submit_date ) ) . '</strong>';
+		}
+		else {
+			echo 'No submit date';
+		}
+		echo '</span>';
+		echo '</div>';
+	}
+}
+add_action( 'post_submitbox_misc_actions', 'wpmtst_post_submitbox_misc_actions' );

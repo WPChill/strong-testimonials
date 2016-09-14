@@ -527,17 +527,23 @@ function wpmtst_the_client() {
  */
 function wpmtst_client_section( $client_section ) {
 	global $post;
-	$html = '';
+	$html = $output = '';
 
 	foreach ( $client_section as $field ) {
 
-		// Get label.
+		// Get field meta.
 		$field['label'] = wpmtst_get_field_label( $field );
+		if ( $default_display_value = wpmtst_get_field_default_display_value( $field ) ) {
+			$field['default_display_value'] = $default_display_value;
+		}
+		if ( $shortcode_on_display = wpmtst_get_field_shortcode_on_display( $field ) ) {
+			$field['shortcode_on_display'] = $shortcode_on_display;
+		}
 
 		switch ( $field['type'] ) {
 
-			case 'link':
-			case 'link2':
+			case 'link' :
+			case 'link2' :
 				// use default if missing
 				if ( ! isset( $field['link_text'] ) )
 					$field['link_text'] = 'value';
@@ -581,10 +587,10 @@ function wpmtst_client_section( $client_section ) {
 				}
 				break;
 
-			case 'date':
-				$format   = isset( $field['format'] ) && $field['format'] ? $field['format'] : get_option( 'date_format' );
+			case 'date' :
+				$format = isset( $field['format'] ) && $field['format'] ? $field['format'] : get_option( 'date_format' );
 
-				if ( 'post_date' == $field['field'] ) {
+				if ( 'post_date' == $field['field'] || 'submit_date' == $field['field'] ) {
 					$the_date = mysql2date( $format, $post->post_date );
 				}
 				else {
@@ -602,14 +608,43 @@ function wpmtst_client_section( $client_section ) {
 				$output = apply_filters( 'wpmtst_the_date', $the_date, $format, $post );
 				break;
 
-			default:
+			case 'category' :
+				$categories = get_the_terms( $post->ID, 'wpm-testimonial-category' );
+				if ( $categories && ! is_wp_error( $categories ) ) {
+					$list = array();
+					foreach ( $categories as $cat ) {
+						$list[] = $cat->name;
+					}
+					$output = join( ", ", $list );
+				}
+				break;
+
+			case 'shortcode' :
+				$output = do_shortcode( get_post_meta( $post->ID, $field['field'], true ) );
+				if ( isset( $field['shortcode_on_display'] ) && $field['shortcode_on_display'] ) {
+					$output = do_shortcode( $field['shortcode_on_display'] );
+				}
+				break;
+
+			case 'rating' :
+				$output = get_post_meta( $post->ID, $field['field'], true );
+				if ( $output ) {
+					$output = wpmtst_star_rating_display( $field, $output, 'in-view', false );
+				}
+				break;
+
+			default :
 				// text field
 				$output = get_post_meta( $post->ID, $field['field'], true );
+				if ( '' == $output && isset( $field['default_display_value'] ) && $field['default_display_value'] ) {
+					$output = $field['default_display_value'];
+				}
 
 		}
 
-		if ( $output )
+		if ( $output ) {
 			$html .= '<div class="' . $field['class'] . '">' . $output . '</div>';
+		}
 	}
 
 	return $html;

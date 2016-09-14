@@ -1,24 +1,43 @@
 /**
  *	Strong Testimonials > Custom Fields Editor
  */
-jQuery(document).ready(function($) {
 
-	// Function to get the Max value in Array
-	Array.max = function( array ){
-		return Math.max.apply( Math, array );
-	};
+// Function to get the Max value in Array
+Array.max = function( array ){
+	return Math.max.apply( Math, array );
+};
 
-	// Convert "A String" to "a_string"
-	function convertLabel(label) {
-		return label.replace(/\s+/g, "_").replace(/\W/g, "").toLowerCase();
+// Convert "A String" to "a_string"
+function convertLabel(label) {
+	return label.replace(/\s+/g, "_").replace(/\W/g, "").toLowerCase();
+}
+
+(function($) {
+
+	/**
+	 * Preview
+	 */
+
+	var $form = $("#wpmtst-custom-fields-form");
+	var formPreview = function() {
+		var data = {
+			'action' : 'wpmtst_get_form_preview',
+			'fields' : $form.find("[name^='fields']").serialize()
+		};
+		$.post( ajaxurl, data, function( response ) {
+			var newDiv = $("<div></div>").hide().html(response)
+			$("#fields-editor-preview")
+				.children().first()
+				 	.after( newDiv )
+					.fadeOut(400, function() {
+						newDiv.show();
+						$(this).remove();
+					});
+		});
 	}
-
-	// Remove invalid characters
-	function removeSpaces(word) {
-		//return word.replace(/\s+/g, "_");
-		return word.replace(/[^\w\s(?!\-)]/gi, '')
-	}
-
+	formPreview();
+	$form.on( "change", formPreview );
+	
 	/**
 	 * Custom fields
 	 */
@@ -27,7 +46,7 @@ jQuery(document).ready(function($) {
 	var $fieldList = $("#custom-field-list");
 
 	// check all field names
-	$("#wpmtst-custom-fields-form").submit(function(event){
+	$form.submit(function(event){
 		$("input.field-name").each(function(index){
 			if( 'name' == $(this).val() || 'date' == $(this).val() ) {
 				$(this).focus().parent().find('.field-name-help.important').addClass('error');
@@ -48,20 +67,22 @@ jQuery(document).ready(function($) {
 		forcePlaceholderSize: true,
 		handle: ".handle",
 		cursor: "move",
+		update: function( event, ui ) { $form.change(); }
 	});
 
 	// click handler (delegated)
-	$fieldList.on("click", "a.field", function(e){
+	$fieldList.on("click", "span.link", function(e){
 		$(this)
-			.blur()
+			// .blur()
+			.toggleClass("open")
 			.closest("li")
-			.toggleClass("open")
-			.find(".custom-field")
-			.toggleClass("open")
-			.slideToggle("slow")
-			.find(".first-field")
-			.focus()
-			.select();
+				.toggleClass("open")
+				.find(".custom-field")
+					.toggleClass("open")
+					.slideToggle()
+					.find(".first-field")
+						.focus()
+						.select();
 		return false;
 	});
 
@@ -111,9 +132,8 @@ jQuery(document).ready(function($) {
 	$fieldList.on("click", ".delete-field", function(){
 		var thisField = $(this).closest("li");
 		var thisLabel = thisField.find(".field").html();
-		var yesno = confirm('Delete "' + thisLabel + '"?');
-		if( yesno ) {
-			thisField.fadeOut(function(){$(this).remove()});
+		if( confirm('Delete "' + thisLabel + '"?') ) {
+			$.when( thisField.fadeOut(), thisField.remove() ).then( $form.change() );
 			// enable "Add New Field" button
 			$("#add-field").removeAttr("disabled");
 		}
@@ -124,10 +144,13 @@ jQuery(document).ready(function($) {
 		$(this)
 			.blur()
 			.closest("li")
-			.toggleClass("open")
-			.find(".custom-field")
-			.toggleClass("open")
-			.slideToggle();
+				.toggleClass("open")
+				.find("span.link")
+					.toggleClass("open")
+					.end()
+				.find(".custom-field")
+					.toggleClass("open")
+					.slideToggle();
 		return false;
 	});
 
@@ -156,7 +179,7 @@ jQuery(document).ready(function($) {
 			var $li = $('<li id="field-'+nextKey+'">').append( response );
 
 			// append to list
-			$fieldList.append($li);
+			$.when( $fieldList.append($li) ).then( $form.change() );
 
 			// ---------------------------------------------------------
 			// Disable any Post fields already in use.
@@ -410,4 +433,4 @@ jQuery(document).ready(function($) {
 
 		}); // on(change)
 
-});
+})(jQuery);

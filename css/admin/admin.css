@@ -339,7 +339,7 @@ input.custom-input {
 }
 
 div.url input.custom-input {
-	width: calc( 100% - 150px );
+	width: calc( 100% - 180px );
 }
 
 .input-nofollow {
@@ -575,7 +575,7 @@ td.column-shortcode {
 /* Plugin Sidebar
 ------------------------------------------------*/
 #plugin-sidebar {
-	width: 320px;
+	width: 340px;
 	float: right;
 	margin-left: 3em;
 	margin-bottom: 2em;
@@ -664,4 +664,47 @@ td.column-shortcode {
 .strong-view-error a {
 	color: red;
 	font-weight: 700;
+}
+
+
+/* Post Publish Meta Box
+--------------------------------------*/
+.wpmtst-pub-section {
+	padding: 6px 10px 8px;
+}
+#submit-timestamp {
+	padding: 2px 0 1px 0;
+}
+#submit-timestamp:before {
+	content: "\f175";
+	top: -1px;
+	color: #82878c;
+	font: normal 20px/1 dashicons;
+	display: inline-block;
+	padding: 0 2px 0 0;
+	left: -1px;
+	position: relative;
+	vertical-align: top;
+}
+
+/* Star rating in post editor
+--------------------------------------------------*/
+#edit-rating-box {
+}
+.rating .inner,
+#edit-rating-buttons-1,
+#edit-rating-buttons-2,
+#edit-rating-success {
+	display: inline-block;
+	margin: 0 0.3em;
+	vertical-align: middle;
+}
+.rating button.button-link {
+	line-height: 24px;
+}
+
+/* Star rating in list table
+--------------------------------------------------*/
+.column-rating {
+	width: auto !important;
 }

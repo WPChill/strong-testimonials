@@ -20,6 +20,10 @@ jQuery(document).ready(function($) {
 		return word.replace(/[^\w\s(?!\-)]/gi, '')
 	}
 
+	$.fn.showInlineBlock = function () {
+		return this.css('display', 'inline-block');
+	};
+
 	// --------------
 	// General events
 	// --------------

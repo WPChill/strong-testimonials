@@ -20,12 +20,13 @@ function wpmtst_form_admin2() {
  * @return bool
  */
 // TODO is $action still used?
+// TODO use admin-post.php instead
 function wpmtst_settings_custom_fields( $action = '', $form_id = null ) {
 	if ( ! current_user_can( 'manage_options' ) )
 		wp_die( __( 'You do not have sufficient permissions to access this page.' ) );
 
-	if ( !$form_id ) {
-		echo '<div class="wrap wpmtst"><p>No fields selected.</p></div>';
+	if ( ! $form_id ) {
+		echo '<div class="wrap wpmtst"><p>' . __( 'No fields selected.', 'strong-testimonials' ) .'</p></div>';
 		return false;
 	}
 
@@ -51,11 +52,12 @@ function wpmtst_settings_custom_fields( $action = '', $form_id = null ) {
 		elseif ( isset( $_POST['restore-defaults'] ) ) {
 
 			// Restore defaults
-			// ----------------
 			include_once WPMTST_INC . 'defaults.php';
 			$default_forms = wpmtst_get_default_base_forms();
 			$fields = $default_forms['default']['fields'];
 			$forms[ $form_id ]['fields'] = $fields;
+			update_option( 'wpmtst_fields', $field_options );
+			update_option( 'wpmtst_custom_forms', $forms );
 			do_action( 'wpmtst_fields_updated', $fields );
 
 			echo sprintf( $message_format, __( 'Defaults restored.', 'strong-testimonials' ) );
@@ -75,18 +77,37 @@ function wpmtst_settings_custom_fields( $action = '', $form_id = null ) {
 			$post_fields = stripslashes_deep( $_POST['fields'] );
 
 			foreach ( $post_fields as $key => $field ) {
+
+				/*
+				 * Before merging onto base field, catch fields that are "off"
+				 * which the form does not submit. Otherwise, the default "on"
+				 * would override the requested (but not submitted) "off".
+				 */
+				$field['show_label']              = isset( $field['show_label'] ) ? 1 : 0;
+				$field['required']                = isset( $field['required'] ) ? 1 : 0;
+
 				$field = array_merge( $field_options['field_base'], $field );
 
-				// sanitize & validate
 				$field['name']                    = sanitize_text_field( $field['name'] );
 				$field['label']                   = sanitize_text_field( $field['label'] );
+
+				$field['default_form_value']      = sanitize_text_field( $field['default_form_value'] );
+				$field['default_display_value']   = sanitize_text_field( $field['default_display_value'] );
+
 				$field['placeholder']             = sanitize_text_field( $field['placeholder'] );
-				$field['show_placeholder_option'] = $field['show_placeholder_option'] ? 1 : 0;
+
 				$field['before']                  = sanitize_text_field( $field['before'] );
 				$field['after']                   = sanitize_text_field( $field['after'] );
-				$field['required']                = $field['required'] ? 1 : 0;
+
+				$field['shortcode_on_form']      = sanitize_text_field( $field['shortcode_on_form'] );
+				$field['shortcode_on_display']   = sanitize_text_field( $field['shortcode_on_display'] );
+				$field['show_shortcode_options'] = $field['show_shortcode_options'] ? 1 : 0;
+
+				// Hidden options (no need to check if isset)
 				$field['admin_table']             = $field['admin_table'] ? 1 : 0;
 				$field['show_admin_table_option'] = $field['show_admin_table_option'] ? 1 : 0;
+				$field['show_placeholder_option'] = $field['show_placeholder_option'] ? 1 : 0;
+				$field['show_default_options']    = $field['show_default_options'] ? 1 : 0;
 
 				// add to fields array in display order
 				$fields[ $new_key++ ] = $field;
@@ -109,7 +130,7 @@ function wpmtst_settings_custom_fields( $action = '', $form_id = null ) {
 			echo sprintf( $message_format, __( 'Fields saved.', 'strong-testimonials' ) );
 		}
 
-	}
+	} // if POST
 
 	// ------------------
 	// Custom Fields Form
@@ -121,26 +142,27 @@ function wpmtst_settings_custom_fields( $action = '', $form_id = null ) {
 
 		<?php do_action( 'wpmtst_fields_editor_before_fields_intro' ); ?>
 
-		<div id="fields-editor-intro">
-			<p><?php _e( 'Fields will appear in this order on the form.', 'strong-testimonials' ); ?></p>
-			<p><?php printf( __( 'Reorder by grabbing the %s icon.', 'strong-testimonials' ), '<span class="dashicons dashicons-menu"></span>' ); ?></p>
-			<p><?php _e( 'Click the field name to expand its options panel.', 'strong-testimonials' ); ?></p>
-			<p><a href="https://www.wpmission.com/tutorials/how-to-customize-the-form-in-strong-testimonials/" target="_blank"><?php _ex( 'Full tutorial', 'link', 'strong-testimonials' ); ?></a></p>
-			<p><em><?php printf( __( 'More form settings <a href="%s">here</a>.', 'strong-testimonials' ), admin_url( 'edit.php?post_type=wpm-testimonial&page=testimonial-settings&tab=form' ) ); ?></em></p>
-		</div>
+		<div id="left-col">
+			<div>
+				<h3>Editor</h3>
+				<p>
+					<?php _e( 'Click a field to open its options panel.', 'strong-testimonials' ); ?>
+					<?php _e( 'More on the <strong>Help</strong> tab above.', 'strong-testimonials' ); ?>
+				</p>
+			</div>
 
-		<div id="fields-editor-wrap">
 			<!-- Custom Fields Form -->
-			<?php // TODO use admin-post.php ?>
 			<form id="wpmtst-custom-fields-form" method="post" action="" autocomplete="off">
 				<?php wp_nonce_field( 'wpmtst_custom_fields_form', 'wpmtst_form_submitted' ); ?>
 
 				<?php do_action( 'wpmtst_fields_editor_before_fields_editor', $forms[ $form_id ] ); ?>
 
 				<ul id="custom-field-list">
-					<?php foreach ( $fields as $key => $field ) : ?>
-					<li id="field-<?php echo $key; ?>"><?php echo wpmtst_show_field( $key, $field, false ); ?></li>
-					<?php endforeach; ?>
+					<?php
+					foreach ( $fields as $key => $field ) {
+						echo '<li id="field-' . $key . '">' . wpmtst_show_field( $key, $field, false ) . '</li>' . "\n";
+					}
+					?>
 				</ul>
 
 				<div id="add-field-bar">
@@ -154,9 +176,18 @@ function wpmtst_settings_custom_fields( $action = '', $form_id = null ) {
 					submit_button( __( 'Restore Defaults', 'strong-testimonials' ), 'secondary', 'restore-defaults', false );
 					?>
 				</p>
+			</form>
+		</div><!-- #left-col -->
 
-			</form><!-- Custom Fields -->
-		</div>
+		<div id="right-col">
+			<div class="intro">
+				<h3><?php _e( 'Basic Preview', 'strong-testimonials' ); ?></h3>
+				<p><?php _e( 'Only to demonstrate the fields. May look different in your theme.', 'strong-testimonials' ); ?></p>
+			</div>
+			<div id="fields-editor-preview">
+				<div><!-- placeholder --></div>
+			</div>
+		</div><!-- #right-col -->
 
 	</div><!-- wrap -->
 	<?php
@@ -184,50 +215,51 @@ function wpmtst_htmlspecialchars( $string ) {
  * @return string
  */
 function wpmtst_show_field( $key, $field, $adding ) {
-	$fields = get_option( 'wpmtst_fields' );
+	$fields      = get_option( 'wpmtst_fields' );
 	$field_types = $fields['field_types'];
-	$field_link = $field['label'] ? $field['label'] : ucwords( $field['name'] );
-	$is_core = ( isset( $field['core'] ) && $field['core'] );
+	$field_link  = $field['label'] ? $field['label'] : ucwords( $field['name'] );
+	$is_core     = ( isset( $field['core'] ) && $field['core'] );
 
 	// ------------
 	// Field Header
 	// ------------
-	$html = '<div class="custom-field-header">';
-	$html .= '<span class="handle" title="drag and drop to reorder"><div class="dashicons dashicons-menu"></div></span>';
-	$html .= '<span class="link"><a class="field" href="#">' . $field_link . '</a></span>';
-	$html .= '</div>';
+	$html = '<div class="custom-field-header">' . "\n";
+	$html .= '<span class="handle" title="' . __( 'drag and drop to reorder', 'strong-testimonials' ) . '"><div class="dashicons dashicons-menu"></div></span>';
+	$html .= '<span class="link" title="' . __( 'click to open or close', 'strong-testimonials' ) . '"><a class="field" href="#">' . $field_link . '</a><span class="toggle"></span></span>';
+	$html .= '</div>' . "\n";
 
-	$html .= '<div class="custom-field">';
+	$html .= '<div class="custom-field">' . "\n";
 
-	$html .= '<table class="field-table">';
+	$html .= '<table class="field-table">' . "\n";
 
 	// -----------
 	// Field Label
 	// -----------
-	$html .= '<tr>';
-	$html .= '<th>' . _x( 'Label', 'noun', 'strong-testimonials' ) . '</th>';
+	$html .= '<tr>' . "\n";
+	$html .= '<th>' . _x( 'Label', 'noun', 'strong-testimonials' ) . '</th>' . "\n";
 	$html .= '<td>';
 	$html .= '<input type="text" class="first-field field-label" name="fields[' . $key . '][label]" value="' . wpmtst_htmlspecialchars( $field['label'] ). '">';
-	$html .= '<span class="help">' . __( 'This appears on the form.', 'strong-testimonials' ) . '</span>';
-	$html .= '</td>';
-	$html .= '</td>';
+	//$html .= '<span class="help">' . __( 'This appears on the form.', 'strong-testimonials' ) . '</span>';
+	$html .= '<label><span class="help"><input type="checkbox"  name="fields[' . $key . '][show_label]" ' . checked( $field['show_label'], true, false ) . '>' . __( 'Show this label on the form.', 'strong-testimonials' ) . '</span></label>';
+	$html .= '</td>' . "\n";
+	$html .= '</tr>' . "\n";
 
 	// ----------
 	// Field Name
 	// ----------
-	$html .= '<tr>';
-	$html .= '<th>' . _x( 'Name', 'noun', 'strong-testimonials' ) . '</th>';
-	$html .= '<td>';
+	$html .= '<tr>' . "\n";
+	$html .= '<th>' . _x( 'Name', 'noun', 'strong-testimonials' ) . '</th>' . "\n";
+	$html .= '<td>' . "\n";
 
 	/**
-	 * Field names for Optional record types (i.e. category selector) are now read-only.
+	 * Field names for special record types (i.e. category selector) are now read-only.
 	 *
 	 * Since 2.2.2
 	 */
 	if ( 'custom' == $field['record_type'] ) {
 
 		// if adding, the field Name is blank so it can be populated from Label
-		$html .= '<input type="text" class="field-name" name="fields['.$key.'][name]" value="' . ( isset( $field['name'] ) ? wpmtst_htmlspecialchars( $field['name'] ) : '' ) . '">';
+		$html .= '<input type="text" class="field-name" name="fields[' . $key . '][name]" value="' . ( isset( $field['name'] ) ? wpmtst_htmlspecialchars( $field['name'] ) : '' ) . '">';
 		$html .= '<span class="help field-name-help">' . __( 'Use only lowercase letters, numbers, and underscores.', 'strong-testimonials' ) . '</span>';
 		$html .= '<span class="help field-name-help important">' . __( 'Cannot be "name" or "date".', 'strong-testimonials' ) . '</span>';
 
@@ -239,19 +271,19 @@ function wpmtst_show_field( $key, $field, $adding ) {
 		$html .= '<input type="hidden" name="fields[' . $key . '][name]" value="' . $field['name'] . '">';
 
 	}
-	$html .= '</td>';
-	$html .= '</tr>';
+	$html .= '</td>' . "\n";
+	$html .= '</tr>' . "\n";
 
 	// ---------------------------
 	// Field Type (Post or Custom)
 	// ---------------------------
 	// If disabled, create <select> with single option
 	// and add hidden input with current value.
-	// Separate code! Readability trumps ultra-minor efficiency.
+	// Separate code! Readability is better than ultra-minor efficiency.
 
-	$html .= '<tr>';
-	$html .= '<th>' . _x( 'Type', 'noun', 'strong-testimonials' ) . '</th>';
-	$html .= '<td>';
+	$html .= '<tr>' . "\n";
+	$html .= '<th>' . _x( 'Type', 'noun', 'strong-testimonials' ) . '</th>' . "\n";
+	$html .= '<td>' . "\n";
 
 	// Restrict field choice to this record type
 	// unless we're adding a new field.
@@ -289,11 +321,11 @@ function wpmtst_show_field( $key, $field, $adding ) {
 		$html .= '</optgroup>';
 
 		/**
-		 * Optional fields
+		 * Special fields
 		 *
 		 * @since 1.18
 		 */
-		$html .= '<optgroup class="optional" label="' . __( 'Optional Fields', 'strong-testimonials' ) . '">';
+		$html .= '<optgroup class="optional" label="' . __( 'Special Fields', 'strong-testimonials' ) . '">';
 		foreach ( $field_types['optional'] as $field_key => $field_parts ) {
 			$html .= '<option value="' . $field_key . '">' . $field_parts['option_label'] . '</option>';
 		}
@@ -301,9 +333,11 @@ function wpmtst_show_field( $key, $field, $adding ) {
 
 		$html .= '</select>';
 
-	} else {
+	} // adding
+	else {
 
 		if ( 'post' == $field['record_type'] ) {
+
 			// -----------
 			// Post fields
 			// -----------
@@ -317,7 +351,10 @@ function wpmtst_show_field( $key, $field, $adding ) {
 					$html .= '<option value="' . $field_key . '" selected="selected">' . $field_parts['option_label'] . '</option>';
 			}
 			$html .= '</select>';
-		} elseif ( 'custom' == $field['record_type'] ) {
+
+		}
+		elseif ( 'custom' == $field['record_type'] ) {
+
 			// -------------
 			// Custom fields
 			// -------------
@@ -330,12 +367,15 @@ function wpmtst_show_field( $key, $field, $adding ) {
 			}
 			$html .= '</optgroup>';
 			$html .= '</select>';
-		} elseif ( 'optional' == $field['record_type'] ) {
+
+		}
+		elseif ( 'optional' == $field['record_type'] ) {
+
 			// -------------
-			// Optional fields
+			// Special fields
 			// -------------
 			$html .= '<select class="field-type" name="fields[' . $key . '][input_type]">';
-			$html .= '<optgroup class="optional" label="Optional Fields">';
+			$html .= '<optgroup class="optional" label="' . __( 'Special Fields', 'strong-testimonials' ) . '">';
 			foreach ( $field_types['optional'] as $field_key => $field_parts ) {
 				// compare field *type*
 				$selected = selected( $field['input_type'], $field_key, false );
@@ -343,38 +383,42 @@ function wpmtst_show_field( $key, $field, $adding ) {
 			}
 			$html .= '</optgroup>';
 			$html .= '</select>';
+
 		}
 
-	} // adding
-	$html .= '</td>';
+	} // editing
+
+	$html .= '</td>' . "\n";
+	$html .= '</tr>' . "\n";
 
 	if ( ! $adding ) {
 		$html .= wpmtst_show_field_secondary( $key, $field );
 		$html .= wpmtst_show_field_admin_table( $key, $field );
 	}
 
-	$html .= '</table>';
+	$html .= '</table>' . "\n";
 
-	if ( ! $adding )
+	if ( ! $adding ) {
 		$html .= wpmtst_show_field_hidden( $key, $field );
+	}
 
 	// --------
 	// Controls
 	// --------
-	$html .= '<div class="controls">';
+	$html .= '<div class="controls">' . "\n";
 	if ( $adding || ! $is_core ) {
-		$html .= '<span><a href="#" class="delete-field">' . __( 'Delete' ) . '</a></span>';
+		$html .= '<span><a href="#" class="delete-field">' . __( 'Delete' ) . '</a></span>' . "\n";
 	}
-	$html .= '<span class="close-field"><a href="#">' . _x( 'Close', 'verb', 'strong-testimonials' ) . '</a></span>';
-	$html .= '</div>';
+	$html .= '<span class="close-field"><a href="#">' . _x( 'Close', 'verb', 'strong-testimonials' ) . '</a></span>' . "\n";
+	$html .= '</div><!-- .controls -->' . "\n";
 
-	$html .= '</div><!-- .custom-field -->';
+	$html .= '</div><!-- .custom-field -->' . "\n";
 
 	return $html;
 }
 
 
-/*
+/**
  * Create the secondary inputs for a new custom field.
  * Called after field type is chosen (Post or Custom).
  */
@@ -388,51 +432,105 @@ function wpmtst_show_field_secondary( $key, $field ) {
 	else
 		$disabled = false;
 
-	$html = '<tr>';
-	$html .= '<th>' . __( 'Required', 'strong-testimonials' ) . '</th>';
-	$html .= '<td>';
+	$html = '<tr>' . "\n";
+	$html .= '<th>' . __( 'Required', 'strong-testimonials' ) . '</th>' . "\n";
+	$html .= '<td>' . "\n";
 	if ( $disabled ) {
 		$html .= '<input type="hidden" name="fields[' . $key . '][required]" value="' . $field['required'] . '">';
 		$html .= '<input type="checkbox" ' . checked( $field['required'], true, false ) . $disabled . '>';
 	} else {
 		$html .= '<input type="checkbox" name="fields[' . $key . '][required]" ' . checked( $field['required'], true, false ) . '>';
 	}
-	$html .= '</td>';
-	$html .= '</td>';
+	$html .= '</td>' . "\n";
+	$html .= '</tr>' . "\n";
 
 	// -----------
 	// Placeholder
 	// -----------
 	if ( $field['show_placeholder_option'] ) {
 		if ( isset( $field['placeholder'] ) ) {
-			$html .= '<tr>';
-			$html .= '<th>' . __( 'Placeholder', 'strong-testimonials' ) . '</th>';
-			$html .= '<td><input type="text" name="fields[' . $key . '][placeholder]" value="' . wpmtst_htmlspecialchars( $field['placeholder'] ) . '"></td>';
-			$html .= '</td>';
+			$html .= '<tr>' . "\n";
+			$html .= '<th>' . __( 'Placeholder', 'strong-testimonials' ) . '</th>' . "\n";
+			$html .= '<td><input type="text" name="fields[' . $key . '][placeholder]" value="' . wpmtst_htmlspecialchars( $field['placeholder'] ) . '"></td>' . "\n";
+			$html .= '</tr>' . "\n";
 		}
 	}
 
 	// ------
 	// Before
 	// ------
-	$html .= '<tr>';
-	$html .= '<th>' . __( 'Before', 'strong-testimonials' ) . '</th>';
-	$html .= '<td><input type="text" name="fields[' . $key . '][before]" value="' . wpmtst_htmlspecialchars( $field['before'] ) . '"></td>';
-	$html .= '</td>';
+	$html .= '<tr>' . "\n";
+	$html .= '<th>' . __( 'Before', 'strong-testimonials' ) . '</th>' . "\n";
+	$html .= '<td><input type="text" name="fields[' . $key . '][before]" value="' . wpmtst_htmlspecialchars( $field['before'] ) . '"></td>' . "\n";
+	$html .= '</tr>' . "\n";
 
 	// -----
 	// After
 	// -----
-	$html .= '<tr>';
-	$html .= '<th>' . __( 'After', 'strong-testimonials' ) . '</th>';
-	$html .= '<td><input type="text" name="fields[' . $key . '][after]" value="' . wpmtst_htmlspecialchars( $field['after'] ) . '"></td>';
-	$html .= '</td>';
+	$html .= '<tr>' . "\n";
+	$html .= '<th>' . __( 'After', 'strong-testimonials' ) . '</th>' . "\n";
+	$html .= '<td><input type="text" name="fields[' . $key . '][after]" value="' . wpmtst_htmlspecialchars( $field['after'] ) . '"></td>' . "\n";
+	$html .= '</tr>' . "\n";
+
+	// ------------------
+	// Default Form Value
+	// ------------------
+	if ( $field['show_default_options'] ) {
+		if ( isset( $field['default_form_value'] ) ) {
+			$html .= '<tr>' . "\n";
+			$html .= '<th>' . __( 'Default Form Value', 'strong-testimonials' ) . '</th>' . "\n";
+			$html .= '<td>' . "\n";
+			$html .= '<input type="text" name="fields[' . $key . '][default_form_value]" value="' . wpmtst_htmlspecialchars( $field['default_form_value'] ) . '">';
+			$html .= '<span class="help">' . __( 'Populate the field with this value.', 'strong-testimonials' ) . '</span>';
+			$html .= '</td>' . "\n";
+			$html .= '</tr>' . "\n";
+		}
+	}
+
+	// ---------------------
+	// Default Display Value
+	// ---------------------
+	if ( $field['show_default_options'] ) {
+		if ( isset( $field['default_display_value'] ) ) {
+			$html .= '<tr>' . "\n";
+			$html .= '<th>' . __( 'Default Display Value', 'strong-testimonials' ) . '</th>' . "\n";
+			$html .= '<td>' . "\n";
+			$html .= '<input type="text" name="fields[' . $key . '][default_display_value]" value="' . wpmtst_htmlspecialchars( $field['default_display_value'] ) . '">';
+			$html .= '<span class="help">' . __( 'Display this on the testimonial if no value is submitted.', 'strong-testimonials' ) . '</span>';
+			$html .= '</td>' . "\n";
+			$html .= '</tr>' . "\n";
+		}
+	}
+
+	// ---------------------
+	// Shortcode Options
+	// ---------------------
+	if ( $field['show_shortcode_options'] ) {
+		if ( isset( $field['shortcode_on_form'] ) ) {
+			$html .= '<tr>' . "\n";
+			$html .= '<th>' . __( 'Shortcode on form', 'strong-testimonials' ) . '</th>' . "\n";
+			$html .= '<td>' . "\n";
+			$html .= '<input type="text" name="fields[' . $key . '][shortcode_on_form]" value="' . wpmtst_htmlspecialchars( $field['shortcode_on_form'] ) . '">';
+			//$html .= '<span class="help">' . __( 'Display this on the testimonial if no value is submitted.', 'strong-testimonials' ) . '</span>';
+			$html .= '</td>' . "\n";
+			$html .= '</tr>' . "\n";
+		}
+		if ( isset( $field['shortcode_on_display'] ) ) {
+			$html .= '<tr>' . "\n";
+			$html .= '<th>' . __( 'Shortcode on display', 'strong-testimonials' ) . '</th>' . "\n";
+			$html .= '<td>' . "\n";
+			$html .= '<input type="text" name="fields[' . $key . '][shortcode_on_display]" value="' . wpmtst_htmlspecialchars( $field['shortcode_on_display'] ) . '">';
+			//$html .= '<span class="help">' . __( 'Display this on the testimonial if no value is submitted.', 'strong-testimonials' ) . '</span>';
+			$html .= '</td>' . "\n";
+			$html .= '</tr>' . "\n";
+		}
+	}
 
 	return $html;
 }
 
 
-/*
+/**
  * Add type-specific [Admin Table] setting to form.
  */
 function wpmtst_show_field_admin_table( $key, $field ) {
@@ -444,54 +542,70 @@ function wpmtst_show_field_admin_table( $key, $field ) {
 		return $html;
 	}
 
-	$html = '<tr class="field-admin-table">';
-	$html .= '<th>' . __( 'Admin Table', 'strong-testimonials' ) . '</th>';
-	$html .= '<td>';
+	$html = '<tr class="field-admin-table">' . "\n";
+	$html .= '<th>' . __( 'Admin List', 'strong-testimonials' ) . '</th>' . "\n";
+	$html .= '<td>' . "\n";
 	if ( $field['admin_table_option'] ) {
-		$html .= '<input type="checkbox" class="field-admin-table" name="fields[' . $key . '][admin_table]" ' . checked( $field['admin_table'], 1, false ) . '>';
+		$html .= '<label><input type="checkbox" class="field-admin-table" name="fields[' . $key . '][admin_table]" ' . checked( $field['admin_table'], 1, false ) . '>';
 	} else {
 		$html .= '<input type="checkbox" ' . checked( $field['admin_table'], 1, false ) . ' disabled="disabled"> <em>' . __( 'required', 'strong-testimonials' ) . '</em>';
 		$html .= '<input type="hidden" name="fields[' . $key . '][admin_table]" value="' . $field['admin_table'] . '">';
 	}
-	$html .= '</td>';
+	$html .= '<span class="help inline">' . __( 'Show this field in the admin list table.', 'strong-testimonials' ) . '</span>';
+	$html .= '</label>';
+	$html .= '</td>' . "\n";
+	$html .= '</tr>' . "\n";
 
 	return $html;
 }
 
 
-/*
+/**
  * Add hidden fields to form.
+ *
+ * @param $key
+ * @param $field
+ *
+ * @return string
  */
 function wpmtst_show_field_hidden( $key, $field ) {
-	// -------------
-	// Hidden Values
-	// -------------
-	$html = '<input type="hidden" name="fields[' . $key . '][record_type]" value="' . $field['record_type'] . '">';
-	$html .= '<input type="hidden" name="fields[' . $key . '][input_type]" value="' . $field['input_type'] . '">';
-	$html .= '<input type="hidden" name="fields[' . $key . '][show_placeholder_option]" value="' . $field['show_placeholder_option'] . '">';
-	$html .= '<input type="hidden" name="fields[' . $key . '][admin_table_option]" value="' . $field['admin_table_option'] . '">';
-	$html .= '<input type="hidden" name="fields[' . $key . '][show_admin_table_option]" value="' . $field['show_admin_table_option'] . '">';
+	$pattern = '<input type="hidden" name="fields[%s][%s]" value="%s">';
+
+	$html = sprintf( $pattern, $key, 'record_type', $field['record_type'] ) . "\n";
+	$html .= sprintf( $pattern, $key, 'input_type', $field['input_type'] ) . "\n";
+	$html .= sprintf( $pattern, $key, 'show_placeholder_option', $field['show_placeholder_option'] ) . "\n";
+	$html .= sprintf( $pattern, $key, 'show_default_options', $field['show_default_options'] ) . "\n";
+	$html .= sprintf( $pattern, $key, 'admin_table_option', $field['admin_table_option'] ) . "\n";
+	$html .= sprintf( $pattern, $key, 'show_admin_table_option', $field['show_admin_table_option'] ) . "\n";
+
+	$html .= sprintf( $pattern, $key, 'show_shortcode_options', $field['show_shortcode_options'] ) . "\n";
 
 	if ( isset( $field['map'] ) ) {
-		$html .= '<input type="hidden" name="fields[' . $key . '][map]" value="' . $field['map'] . '">';
+		$html .= sprintf( $pattern, $key, 'map', $field['map'] ) . "\n";
 	}
 
 	if ( isset( $field['core'] ) ) {
-		$html .= '<input type="hidden" name="fields[' . $key . '][core]" value="' . $field['core'] . '">';
+		$html .= sprintf( $pattern, $key, 'core', $field['core'] ) . "\n";
 	}
 
 	return $html;
 }
 
 
-/*
+/**
+ * --------------------------------------------------
+ * Ajax Functions
+ * --------------------------------------------------
+ */
+
+/**
  * [Add New Field] Ajax receiver
  */
 function wpmtst_add_field_function() {
 	$new_key = intval( $_REQUEST['key'] );
 	//$fields = get_option( 'wpmtst_fields' );
 	// when adding, leave Name empty so it will be populated from Label
-	$empty_field = array( 'record_type' => 'custom', 'label' => 'New Field' );
+	$empty_field = array( 'record_type' => 'custom', 'label' => 'New Field', 'show_label' => 1 );
 	$new_field = wpmtst_show_field( $new_key, $empty_field, true );
 	echo $new_field;
 	die();
@@ -499,7 +613,7 @@ function wpmtst_add_field_function() {
 add_action( 'wp_ajax_wpmtst_add_field', 'wpmtst_add_field_function' );
 
 
-/*
+/**
  * [Add New Field 2] Ajax receiver
  */
 function wpmtst_add_field_2_function() {
@@ -518,7 +632,7 @@ function wpmtst_add_field_2_function() {
 add_action( 'wp_ajax_wpmtst_add_field_2', 'wpmtst_add_field_2_function' );
 
 
-/*
+/**
  * [Add New Field 3] Ajax receiver
  */
 function wpmtst_add_field_3_function() {
@@ -537,7 +651,7 @@ function wpmtst_add_field_3_function() {
 add_action( 'wp_ajax_wpmtst_add_field_3', 'wpmtst_add_field_3_function' );
 
 
-/*
+/**
  * [Add New Field 4] Ajax receiver
  */
 function wpmtst_add_field_4_function() {

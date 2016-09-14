@@ -506,6 +506,9 @@ table.fields tr {
 table.fields select {
 	min-width: 0;
 }
+table.fields select.full {
+	width: 100%;
+}
 
 table.fields .controls {
 	max-width: 110px;
@@ -570,14 +573,75 @@ select option {
 	}
 }
 
-.form-view-shortcode .title {
-    /*font-family: "Open Sans",sans-serif;*/
+#copy-shortcode {
+	display: inline-block;
+	margin: 2px 1em;
+	height: 28px;
+	line-height: 24px;
 }
 
-.form-view-shortcode .saved {
-    direction: ltr;
-    font-family: Consolas,Monaco,monospace;
-    unicode-bidi: embed;
+/*
+.copied:after {
+	position: absolute;
+	top: 12%;
+	right: 110%;
+	display: block;
+	content: "copied";
+	font-size: 0.75em;
+	padding: 2px 3px;
+	color: #fff;
+	background-color: #22a;
+	border-radius: 3px;
+	opacity: 0;
+	will-change: opacity, transform;
+	animation: showcopied 1.5s ease;
+}
+*/
+
+#copy-message {
+	opacity: 0;
+	font-size: 14px;
+	line-height: 22px;
+	height: 24px;
+	padding: 0 5px;
+	display: inline-block;
+	background: #00A4F3;
+	color: #FFF;
+	border-radius: 3px;
+	box-shadow: 2px 2px 3px rgba(0,0,0,0.4);
+	position: relative;
+	top: -2px;
+}
+
+#copy-message.copied {
+	opacity: 0;
+	/*will-change: opacity, transform;*/
+	will-change: opacity;
+	animation: showcopied 2s ease;
+}
+
+@keyframes showcopied {
+	0% {
+		opacity: 0;
+		/*transform: translateX(30px);*/
+	}
+	70% {
+		opacity: 1;
+		/*transform: translateX(0);*/
+	}
+	100% {
+		opacity: 0;
+	}
+}
+
+#view-shortcode {
+	direction: ltr;
+	font-family: Consolas, Monaco, monospace;
+	unicode-bidi: embed;
+	display: inline-block;
+	width: 300px;
+	color: #00A4F3;
+	background: #FFF;
 }
 
 .form-view-shortcode .unsaved {

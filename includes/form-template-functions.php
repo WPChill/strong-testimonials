@@ -4,7 +4,7 @@
  */
 
 function wpmtst_form_info() {
-	echo 'id="wpmtst-submission-form" method="post" enctype="multipart/form-data"';
+	echo 'id="wpmtst-submission-form" method="post" enctype="multipart/form-data" autocomplete="off"';
 }
 
 function wpmtst_form_setup() {
@@ -27,8 +27,10 @@ function wpmtst_get_form_message( $part ) {
 	}
 }
 
-function wpmtst_all_form_fields() {
-	$fields = wpmtst_get_form_fields( WPMST()->atts( 'form_id' ) );
+function wpmtst_all_form_fields( $fields = null ) {
+	if ( ! $fields ) {
+		$fields = wpmtst_get_form_fields( WPMST()->atts( 'form_id' ) );
+	}
 
 	foreach ( $fields as $key => $field ) {
 		wpmtst_single_form_field( $field );
@@ -48,15 +50,19 @@ function wpmtst_form_field( $field_name ) {
 function wpmtst_single_form_field( $field ) {
 	$form_values = WPMST()->get_form_values();
 
-	echo '<p class="form-field">';
-	echo '<label for="wpmtst_' . $field['name'] . '">' . apply_filters( 'wpmtst_l10n', $field['label'], 'strong-testimonials-form-fields', $field['name'] . ' : label' ) . '</label>';
+	echo '<div class="form-field">';
+
+	if ( ! isset( $field['show_label'] ) || $field['show_label'] ) {
+		$label = '<label for="wpmtst_' . $field['name'] . '">' . apply_filters( 'wpmtst_l10n', $field['label'], 'strong-testimonials-form-fields', $field['name'] . ' : label' ) . '</label>';
+		echo $label;
+	}
 
 	wpmtst_field_required_symbol( $field );
 	wpmtst_field_before( $field );
 
 	switch ( $field['input_type'] ) {
 
-		case 'categories':
+		case 'categories' :
 
 			$value = isset( $form_values[ $field['name'] ] ) ? $form_values[ $field['name'] ] : '';
 
@@ -65,7 +71,7 @@ function wpmtst_single_form_field( $field ) {
 			echo '<select id="wpmtst_' . $field['name']. '"'
 				. ' name="' . $field['name'] . '"'
 				. ' class="' . wpmtst_field_classes( $field['input_type'], $field['name'] ) . '"'
-				. wpmtst_field_required_tag( $field ) . ' autocomplete="off">';
+				. wpmtst_field_required_tag( $field ) . '>';
 			echo '<option value="">&mdash;</option>';
 			foreach ( $category_list as $category ) {
 				echo '<option value="' . $category->term_id . '" ' . selected( $category->term_id, $value ) . '>';
@@ -75,7 +81,7 @@ function wpmtst_single_form_field( $field ) {
 			echo '</select>';
 			break;
 
-		case 'textarea':
+		case 'textarea' :
 
 			$value = ( isset( $form_values[ $field['name'] ] ) && $form_values[ $field['name'] ] ) ? $form_values[ $field['name'] ] : '';
 
@@ -83,34 +89,46 @@ function wpmtst_single_form_field( $field ) {
 			echo '<textarea id="wpmtst_' . $field['name'] . '"'
 			     . ' class="' . wpmtst_field_classes( $field['input_type'], $field['name'] ) . '"'
 			     . ' name="' . $field['name'] . '"'
-			     . wpmtst_field_required_tag( $field ) . wpmtst_field_placeholder( $field )
+			     . wpmtst_field_required_tag( $field )
+				 . wpmtst_field_placeholder( $field )
 			     . '>' . $value . '</textarea>';
 			break;
 
-		case 'file':
+		case 'file' :
 
 			echo '<input id="wpmtst_' . $field['name'] . '" type="file" name="' . $field['name'] . '">';
 			break;
 
-		default: // text, email, url
+		case 'shortcode' :
+			if ( isset( $field['shortcode_on_form'] ) && $field['shortcode_on_form'] ) {
+				echo do_shortcode( $field['shortcode_on_form'], true );
+			}
+			break;
 
+		case 'rating' :
+			wpmtst_star_rating_form( $field, 0, 'in-form' );
+			break;
+
+		default: // text, email, url
 			/**
 			 * Switching out url type until more themes adopt it.
 			 * @since 1.11.0
 			 */
 			$input_type = ( $field['input_type'] = 'url' ? 'text' : $field['input_type'] );
-			$value = isset( $form_values[ $field['name'] ] ) ? $form_values[ $field['name'] ] : '';
+
 			echo '<input id="wpmtst_' . $field['name'] . '"'
 			     . ' type="' . $input_type . '"'
 			     . ' class="' . wpmtst_field_classes( $field['input_type'], $field['name'] ) . '"'
 			     . ' name="' . $field['name'] . '"'
-			     . ' value="' . $value . '"'
-			     . wpmtst_field_placeholder( $field ) . wpmtst_field_required_tag( $field )
-			     . '>';
+			     . wpmtst_field_value( $field, $form_values )
+			     . wpmtst_field_placeholder( $field )
+				 . wpmtst_field_required_tag( $field ) . '>';
 	}
+
 	wpmtst_field_error( $field );
 	wpmtst_field_after( $field );
-	echo '</p>'."\n";
+	echo '</div><!-- .form-field -->' . "\n";
+
 }
 
 function wpmtst_field_classes( $type = null, $name = null ) {
@@ -138,6 +156,18 @@ function wpmtst_field_classes( $type = null, $name = null ) {
 	}
 
 	return apply_filters( 'wpmtst_form_field_class', implode( ' ', $class_list ), $type, $name );
+}
+
+function wpmtst_field_value( $field, $form_values ) {
+	$value = '';
+	if ( isset( $form_values[ $field['name'] ] ) && $form_values[ $field['name'] ] ) {
+		$value = $form_values[ $field['name'] ];
+	}
+	elseif ( isset( $field['default_form_value'] ) && $field['default_form_value'] ) {
+		$value = $field['default_form_value'];
+	}
+
+	return ' value="' . $value . '"';
 }
 
 function wpmtst_field_placeholder( $field ) {
@@ -216,16 +246,18 @@ function wpmtst_form_captcha() {
 }
 add_action( 'wpmtst_form_after_fields', 'wpmtst_form_captcha' );
 
-function wpmtst_form_submit_button() {
+function wpmtst_form_submit_button( $preview = false ) {
 	$form_options = get_option( 'wpmtst_form_options' );
 	$messages     = $form_options['messages'];
 
 	$string  = $messages['form-submit-button']['text'];
 	$context = 'strong-testimonials-form-messages';
 	$name    = $messages['form-submit-button']['description'];
+
+	$type = $preview ? 'button' : 'submit';
 	?>
 	<p class="form-field submit">
-		<input type="submit" id="wpmtst_submit_testimonial" name="wpmtst_submit_testimonial" value="<?php echo apply_filters( 'wpmtst_l10n', $string, $context, $name ); ?>" class="button">
+		<input type="<?php echo $type; ?>" id="wpmtst_submit_testimonial" name="wpmtst_submit_testimonial" value="<?php echo apply_filters( 'wpmtst_l10n', $string, $context, $name ); ?>" class="button">
 	</p>
 	<?php
 	// validate="required:true"

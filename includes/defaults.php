@@ -48,16 +48,29 @@ function wpmtst_get_default_fields() {
 	$field_base = array(
 		'name'                    => '',
 		'label'                   => '',
+		'show_label'              => 1,
 		'input_type'              => '',
 		'required'                => 0,
+
+		'default_form_value'      => '',
+		'default_display_value'   => '',
+		'show_default_options'    => 1,
+
 		'error'                   => __( 'This field is required.', 'strong-testimonials' ),
+
 		'placeholder'             => '',
 		'show_placeholder_option' => 1,
+
 		'before'                  => '',
 		'after'                   => '',
+
 		'admin_table'             => 0,
 		'admin_table_option'      => 1,
 		'show_admin_table_option' => 1,
+
+		'shortcode_on_form'       => '',
+		'shortcode_on_display'    => '',
+		'show_shortcode_options'  => 0,
 	);
 
 	// Assemble field type groups.
@@ -69,6 +82,7 @@ function wpmtst_get_default_fields() {
 			'input_type'         => 'text',
 			'option_label'       => __( 'Testimonial Title', 'strong-testimonials' ),
 			'map'                => 'post_title',
+			'show_default_options' => 0,
 			'admin_table'        => 1,
 			'admin_table_option' => 0,
 			'show_admin_table_option' => 0,
@@ -78,6 +92,7 @@ function wpmtst_get_default_fields() {
 			'option_label' => __( 'Testimonial Content', 'strong-testimonials' ),
 			'map'          => 'post_content',
 			'required'     => 1,
+			'show_default_options' => 0,
 			'core'         => 0,
 			'admin_table'  => 0,
 			'show_admin_table_option' => 0,
@@ -86,6 +101,7 @@ function wpmtst_get_default_fields() {
 			'input_type'              => 'file',
 			'option_label'            => __( 'Featured Image', 'strong-testimonials' ),
 			'map'                     => 'featured_image',
+			'show_default_options'    => 0,
 			'show_placeholder_option' => 0,
 			'admin_table'             => 0,
 		),
@@ -103,10 +119,12 @@ function wpmtst_get_default_fields() {
 		'email' => array(
 			'input_type'   => 'email',
 			'option_label' => __( 'email', 'strong-testimonials' ),
+			'show_default_options' => 0,
 		),
 		'url'   => array(
 			'input_type'   => 'url',
 			'option_label' => __( 'URL', 'strong-testimonials' ),
+			'show_default_options' => 0,
 		)
 	);
 	foreach ( $field_types['custom'] as $key => $array ) {
@@ -114,7 +132,7 @@ function wpmtst_get_default_fields() {
 	}
 
 	/**
-	 * Optional field types
+	 * Special field types (FKA Optional)
 	 *
 	 * @since 1.18
 	 * @since 2.2.2 Fix bug caused by localizing 'categories'
@@ -123,10 +141,30 @@ function wpmtst_get_default_fields() {
 		'categories' => array(
 			'input_type'              => 'categories',
 			'option_label'            => __( 'category selector', 'strong-testimonials' ),
+			'show_default_options'    => 0,
 			'show_placeholder_option' => 0,
 			'show_admin_table_option' => 0,
+		),
+		'shortcode' => array(
+			'input_type'              => 'shortcode',
+			'option_label'            => __( 'shortcode', 'strong-testimonials' ),
+			'show_label'              => 0,
+			'show_default_options'    => 0,
+			'show_placeholder_option' => 0,
+			'show_admin_table_option' => 0,
+			'show_shortcode_options'  => 1,
+		),
+		'rating' => array(
+			'input_type'              => 'rating',
+			'option_label'            => __( 'star rating', 'strong-testimonials' ),
+			'show_default_options'    => 0,
+			'show_placeholder_option' => 0,
+
+			'admin_table'             => 1,
+			'admin_table_option'      => 1,
+			'show_admin_table_option' => 1,
 		)
-	);
+);
 	foreach ( $field_types['optional'] as $key => $array ) {
 		$field_types['optional'][ $key ] = array_merge( $field_base, $array );
 	}

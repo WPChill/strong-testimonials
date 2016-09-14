@@ -2,9 +2,9 @@
 # This file is distributed under the same license as the Strong Testimonials package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Strong Testimonials 2.11\n"
+"Project-Id-Version: Strong Testimonials 2.12\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/strong-testimonials\n"
-"POT-Creation-Date: 2016-07-19 14:21:21+00:00\n"
+"POT-Creation-Date: 2016-09-14 16:08:32+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -31,209 +31,260 @@ msgstr ""
 msgid "Error"
 msgstr ""
 
-#: includes/admin/admin.php:312
+#: includes/admin/admin.php:330
 msgctxt "post editor"
 msgid "Client Details"
 msgstr ""
 
-#: includes/admin/admin.php:327
+#: includes/admin/admin.php:347
 msgctxt "post editor"
 msgid "To add a photo or logo, use the Featured Image option."
 msgstr ""
 
-#: includes/admin/admin.php:398
+#: includes/admin/admin.php:403
+msgid "OK"
+msgstr ""
+
+#: includes/admin/admin.php:405
+msgid "Cancel"
+msgstr ""
+
+#: includes/admin/admin.php:418 includes/class-strong-views-list-table.php:75
+msgid "Edit"
+msgstr ""
+
+#: includes/admin/admin.php:493
 msgid "Excerpt"
 msgstr ""
 
-#: includes/admin/admin.php:409 includes/admin/admin.php:535
+#: includes/admin/admin.php:504 includes/admin/admin.php:645
 msgid "Thumbnail"
 msgstr ""
 
+#: includes/admin/admin.php:507
+msgid "Rating"
+msgstr ""
+
 #. translators: On the Views admin screen.
-#: includes/admin/admin.php:422 includes/admin/views/option-category.php:4
+#: includes/admin/admin.php:520 includes/admin/views/option-category.php:4
 #: includes/post-types.php:65
 msgid "Categories"
 msgstr ""
 
-#: includes/admin/admin.php:427
+#: includes/admin/admin.php:525
 msgid "Date"
 msgstr ""
 
-#: includes/admin/admin.php:504
+#: includes/admin/admin.php:614
 msgid "Y/m/d g:i:s A"
 msgstr ""
 
-#: includes/admin/admin.php:547
+#: includes/admin/admin.php:657
 msgid "ID"
 msgstr ""
 
-#: includes/admin/admin.php:548 includes/admin/settings/email-from.php:19
+#: includes/admin/admin.php:658 includes/admin/settings/email-from.php:19
 #: includes/admin/settings/email-to.php:12
-#: includes/admin/views/option-client-section.php:11 includes/defaults.php:232
+#: includes/admin/views/option-client-section.php:10 includes/defaults.php:270
 msgid "Name"
 msgstr ""
 
-#: includes/admin/admin.php:549
+#: includes/admin/admin.php:659
 msgid "Slug"
 msgstr ""
 
-#: includes/admin/admin.php:550
+#: includes/admin/admin.php:660
 msgid "Posts"
 msgstr ""
 
 #. translators: %s is the name of the plugin.
-#: includes/admin/admin.php:696
+#: includes/admin/admin.php:808
 msgctxt "installation"
 msgid "Unable to load %s"
 msgstr ""
 
 #. translators: %s is a WordPress version number.
-#: includes/admin/admin.php:699
+#: includes/admin/admin.php:810
 msgctxt "installation"
 msgid ""
 "This plugin requires <strong>WordPress %s</strong> or higher so it has been "
 "deactivated."
 msgstr ""
 
-#: includes/admin/admin.php:700
+#: includes/admin/admin.php:811
 msgctxt "installation"
 msgid "Please upgrade WordPress and try again."
 msgstr ""
 
-#: includes/admin/admin.php:701
+#: includes/admin/admin.php:812
 msgctxt "installation"
 msgid "Back to the WordPress <a href=\"%s\">Plugins page</a>"
 msgstr ""
 
-#: includes/admin/custom-fields.php:25 includes/admin/settings.php:217
-#: includes/admin/views.php:241
+#: includes/admin/custom-fields.php:26 includes/admin/settings.php:217
+#: includes/admin/views.php:17
 msgid "You do not have sufficient permissions to access this page."
 msgstr ""
 
-#: includes/admin/custom-fields.php:48 includes/admin/views.php:251
+#: includes/admin/custom-fields.php:29
+msgid "No fields selected."
+msgstr ""
+
+#: includes/admin/custom-fields.php:49 includes/admin/views.php:24
 msgid "Changes undone."
 msgstr ""
 
-#: includes/admin/custom-fields.php:61 includes/admin/views.php:253
+#: includes/admin/custom-fields.php:63 includes/admin/views.php:26
 msgid "Defaults restored."
 msgstr ""
 
-#: includes/admin/custom-fields.php:109
+#: includes/admin/custom-fields.php:130
 msgid "Fields saved."
 msgstr ""
 
 #. translators: On the Views admin screen.
-#: includes/admin/custom-fields.php:120 includes/admin/settings.php:20
+#: includes/admin/custom-fields.php:141 includes/admin/settings.php:20
 #: includes/admin/settings.php:21 includes/admin/views/group-fields.php:4
 msgid "Fields"
 msgstr ""
 
-#: includes/admin/custom-fields.php:125
-msgid "Fields will appear in this order on the form."
+#: includes/admin/custom-fields.php:149
+msgid "Click a field to open its options panel."
 msgstr ""
 
-#: includes/admin/custom-fields.php:126
-msgid "Reorder by grabbing the %s icon."
+#: includes/admin/custom-fields.php:150
+msgid "More on the <strong>Help</strong> tab above."
 msgstr ""
 
-#: includes/admin/custom-fields.php:127
-msgid "Click the field name to expand its options panel."
-msgstr ""
-
-#: includes/admin/custom-fields.php:128
-msgctxt "link"
-msgid "Full tutorial"
-msgstr ""
-
-#: includes/admin/custom-fields.php:129
-msgid "More form settings <a href=\"%s\">here</a>."
-msgstr ""
-
-#: includes/admin/custom-fields.php:147
+#: includes/admin/custom-fields.php:169
 msgid "Add New Field"
 msgstr ""
 
-#: includes/admin/custom-fields.php:153 includes/admin/views.php:191
+#: includes/admin/custom-fields.php:175 includes/admin/views.php:282
 msgid "Undo Changes"
 msgstr ""
 
-#: includes/admin/custom-fields.php:154 includes/admin/views.php:192
+#: includes/admin/custom-fields.php:176 includes/admin/views.php:283
 msgid "Restore Defaults"
 msgstr ""
 
-#: includes/admin/custom-fields.php:208
+#: includes/admin/custom-fields.php:184
+msgid "Basic Preview"
+msgstr ""
+
+#: includes/admin/custom-fields.php:185
+msgid "Only to demonstrate the fields. May look different in your theme."
+msgstr ""
+
+#: includes/admin/custom-fields.php:227
+msgid "drag and drop to reorder"
+msgstr ""
+
+#: includes/admin/custom-fields.php:228
+msgid "click to open or close"
+msgstr ""
+
+#: includes/admin/custom-fields.php:239
 msgctxt "noun"
 msgid "Label"
 msgstr ""
 
-#: includes/admin/custom-fields.php:211
-msgid "This appears on the form."
+#: includes/admin/custom-fields.php:243
+msgid "Show this label on the form."
 msgstr ""
 
-#: includes/admin/custom-fields.php:219
+#: includes/admin/custom-fields.php:251
 msgctxt "noun"
 msgid "Name"
 msgstr ""
 
-#: includes/admin/custom-fields.php:231
+#: includes/admin/custom-fields.php:263
 msgid "Use only lowercase letters, numbers, and underscores."
 msgstr ""
 
-#: includes/admin/custom-fields.php:232
+#: includes/admin/custom-fields.php:264
 msgid "Cannot be \"name\" or \"date\"."
 msgstr ""
 
-#: includes/admin/custom-fields.php:253
+#: includes/admin/custom-fields.php:285
 msgctxt "noun"
 msgid "Type"
 msgstr ""
 
-#: includes/admin/custom-fields.php:278
+#: includes/admin/custom-fields.php:310
 msgid "Post Fields"
 msgstr ""
 
 #. translators: On the Views admin screen.
-#: includes/admin/custom-fields.php:285
+#: includes/admin/custom-fields.php:317
 #: includes/admin/views/option-client-section.php:3
 msgid "Custom Fields"
 msgstr ""
 
-#: includes/admin/custom-fields.php:296
-msgid "Optional Fields"
+#: includes/admin/custom-fields.php:328 includes/admin/custom-fields.php:378
+msgid "Special Fields"
 msgstr ""
 
-#: includes/admin/custom-fields.php:366
+#: includes/admin/custom-fields.php:410
 #: includes/class-strong-views-list-table.php:77
 msgid "Delete"
 msgstr ""
 
-#: includes/admin/custom-fields.php:368
+#: includes/admin/custom-fields.php:412
 msgctxt "verb"
 msgid "Close"
 msgstr ""
 
-#: includes/admin/custom-fields.php:392
+#: includes/admin/custom-fields.php:436
 msgid "Required"
 msgstr ""
 
-#: includes/admin/custom-fields.php:409
+#: includes/admin/custom-fields.php:453
 msgid "Placeholder"
 msgstr ""
 
-#: includes/admin/custom-fields.php:419 includes/admin/settings/form.php:105
+#: includes/admin/custom-fields.php:463 includes/admin/settings/form.php:105
 msgid "Before"
 msgstr ""
 
-#: includes/admin/custom-fields.php:427 includes/admin/settings/form.php:112
+#: includes/admin/custom-fields.php:471 includes/admin/settings/form.php:112
 msgid "After"
 msgstr ""
 
-#: includes/admin/custom-fields.php:448
-msgid "Admin Table"
+#: includes/admin/custom-fields.php:481
+msgid "Default Form Value"
 msgstr ""
 
-#: includes/admin/custom-fields.php:453
+#: includes/admin/custom-fields.php:484
+msgid "Populate the field with this value."
+msgstr ""
+
+#: includes/admin/custom-fields.php:496
+msgid "Default Display Value"
+msgstr ""
+
+#: includes/admin/custom-fields.php:499
+msgid "Display this on the testimonial if no value is submitted."
+msgstr ""
+
+#: includes/admin/custom-fields.php:511
+msgid "Shortcode on form"
+msgstr ""
+
+#: includes/admin/custom-fields.php:520
+msgid "Shortcode on display"
+msgstr ""
+
+#: includes/admin/custom-fields.php:546
+msgid "Admin List"
+msgstr ""
+
+#: includes/admin/custom-fields.php:551
 msgid "required"
+msgstr ""
+
+#: includes/admin/custom-fields.php:554
+msgid "Show this field in the admin list table."
 msgstr ""
 
 #: includes/admin/guide/guide.php:15
@@ -250,7 +301,7 @@ msgid "Getting Started"
 msgstr ""
 
 #: includes/admin/guide/guide.php:25 includes/admin/settings.php:13
-#: includes/admin/settings.php:14 includes/admin/views.php:287
+#: includes/admin/settings.php:14 includes/admin/views.php:67
 msgid "Views"
 msgstr ""
 
@@ -373,39 +424,44 @@ msgstr ""
 
 #: includes/admin/guide/templates.php:10
 msgid ""
+"The <strong>Modern</strong> template will look good in the latest themes."
+msgstr ""
+
+#: includes/admin/guide/templates.php:12
+msgid ""
 "The <strong>No Quotes</strong> template is a version of the default template "
 "without the quotation marks in the heading."
 msgstr ""
 
-#: includes/admin/guide/templates.php:12
+#: includes/admin/guide/templates.php:14
 msgid ""
 "The <strong>Simple</strong> template has minimal style and may be the best "
 "option for matching your theme."
 msgstr ""
 
-#: includes/admin/guide/templates.php:14
+#: includes/admin/guide/templates.php:16
 msgid ""
 "The <strong>Widget</strong> template has smaller sizing for use in a sidebar "
 "or other widget area."
 msgstr ""
 
-#: includes/admin/guide/templates.php:16
+#: includes/admin/guide/templates.php:18
 msgid ""
 "The <strong>Unstyled</strong> template includes no style and is a good "
 "foundation for theme experts."
 msgstr ""
 
-#: includes/admin/guide/templates.php:18
+#: includes/admin/guide/templates.php:20
 msgid "Background colors and layout options are available for all templates."
 msgstr ""
 
-#: includes/admin/guide/templates.php:20
+#: includes/admin/guide/templates.php:22
 msgid ""
 "Feel free to ask for help with minor style changes to add to a child theme "
 "or custom CSS."
 msgstr ""
 
-#: includes/admin/guide/templates.php:22
+#: includes/admin/guide/templates.php:24
 msgid "New templates will be added occasionally."
 msgstr ""
 
@@ -510,6 +566,47 @@ msgstr ""
 msgid "What's new"
 msgstr ""
 
+#: includes/admin/help.php:7
+msgid ""
+"The default fields are designed to fit most situations. You can quickly add "
+"or remove fields and change several display properties to meet your needs."
+msgstr ""
+
+#: includes/admin/help.php:9
+msgid "Fields will appear in this order on the form."
+msgstr ""
+
+#: includes/admin/help.php:11
+msgid "Reorder by grabbing the %s icon."
+msgstr ""
+
+#: includes/admin/help.php:13
+msgid "Click a field to open or close its options panel."
+msgstr ""
+
+#: includes/admin/help.php:15
+msgid ""
+"Keep in mind that any changes here also affect the custom fields available "
+"in the post editor and the view editor. In other words, you're really doing "
+"two things: (1) modifying the form as it appears on your site, and (2) "
+"modifying the custom fields."
+msgstr ""
+
+#: includes/admin/help.php:18
+msgctxt "link"
+msgid "Here is a full tutorial on customizing the form"
+msgstr ""
+
+#: includes/admin/help.php:20
+msgid "More form settings <a href=\"%s\">here</a>."
+msgstr ""
+
+#. #-#-#-#-#  strong-testimonials.pot (Strong Testimonials 2.12)  #-#-#-#-#
+#. Plugin Name of the plugin/theme
+#: includes/admin/help.php:24
+msgid "Strong Testimonials"
+msgstr ""
+
 #: includes/admin/pointers.php:51 includes/admin/pointers.php:62
 msgid "New in version %s"
 msgstr ""
@@ -530,8 +627,8 @@ msgstr ""
 
 #: includes/admin/settings/email-from.php:5
 msgid ""
-"Use mail queue. For use with services like Mandrill for transactional email "
-"or plugins like Postman SMTP. Off by default."
+"Use mail queue. For services like Mandrill or plugins like Postman SMTP. Off "
+"by default."
 msgstr ""
 
 #: includes/admin/settings/email-from.php:12
@@ -539,8 +636,8 @@ msgid "From:"
 msgstr ""
 
 #: includes/admin/settings/email-from.php:22
-#: includes/admin/settings/email-to.php:15 includes/defaults.php:171
-#: includes/defaults.php:241
+#: includes/admin/settings/email-to.php:15 includes/defaults.php:209
+#: includes/defaults.php:279
 msgid "Email"
 msgstr ""
 
@@ -555,7 +652,9 @@ msgid "site admin email:"
 msgstr ""
 
 #: includes/admin/settings/email-from.php:41
-msgid "sender's email"
+#: includes/admin/settings/recipient.php:22
+#: includes/admin/settings/recipient.php:29
+msgid "email address"
 msgstr ""
 
 #: includes/admin/settings/email-to.php:5
@@ -877,11 +976,6 @@ msgstr ""
 msgid "Deactivate License"
 msgstr ""
 
-#: includes/admin/settings/recipient.php:22
-#: includes/admin/settings/recipient.php:29
-msgid "email address"
-msgstr ""
-
 #: includes/admin/settings.php:27 includes/admin/settings.php:28
 msgid "Settings"
 msgstr ""
@@ -904,7 +998,7 @@ msgctxt "adjective"
 msgid "General"
 msgstr ""
 
-#: includes/admin/settings.php:235 includes/defaults.php:383
+#: includes/admin/settings.php:235 includes/defaults.php:421
 msgid "Form"
 msgstr ""
 
@@ -1040,19 +1134,19 @@ msgstr ""
 msgid "For advanced users. Separate class names by spaces."
 msgstr ""
 
-#: includes/admin/views/option-client-section.php:12
+#: includes/admin/views/option-client-section.php:11
 msgid "Type"
 msgstr ""
 
-#: includes/admin/views/option-client-section.php:13
+#: includes/admin/views/option-client-section.php:12
 msgid "Properties"
 msgstr ""
 
-#: includes/admin/views/option-client-section.php:14
+#: includes/admin/views/option-client-section.php:13
 msgid "CSS Class Name"
 msgstr ""
 
-#: includes/admin/views/option-client-section.php:31
+#: includes/admin/views/option-client-section.php:30
 msgid "Add Field"
 msgstr ""
 
@@ -1098,87 +1192,99 @@ msgstr ""
 msgid "Content"
 msgstr ""
 
-#: includes/admin/views/option-content.php:11
+#: includes/admin/views/option-content.php:18
 msgctxt "display setting"
-msgid "the full testimonial"
+msgid "entire content"
 msgstr ""
 
-#: includes/admin/views/option-content.php:14
+#: includes/admin/views/option-content.php:21
 msgctxt "display setting"
-msgid "the excerpt"
+msgid "automatic excerpt"
 msgstr ""
 
-#: includes/admin/views/option-content.php:17
+#: includes/admin/views/option-content.php:24
 msgctxt "display setting"
-msgid "abbreviated"
-msgstr ""
-
-#: includes/admin/views/option-content.php:28
-msgid ""
-"If no manual excerpt, use the <a href=\"%s\" target=\"_blank\">automatic "
-"excerpt</a> with"
+msgid "manual excerpt"
 msgstr ""
 
 #: includes/admin/views/option-content.php:33
-msgctxt "display setting"
-msgid "the default length"
-msgstr ""
-
-#: includes/admin/views/option-content.php:36
-msgctxt "display setting"
-msgid "a custom length"
-msgstr ""
-
-#: includes/admin/views/option-content.php:41
-#: includes/admin/views/option-content.php:124
-msgid "as set by your theme"
-msgstr ""
-
-#: includes/admin/views/option-content.php:46
-msgctxt "As in \"the first 20 words\""
-msgid "of the first"
-msgstr ""
-
-#: includes/admin/views/option-content.php:52
-#: includes/admin/views/option-content.php:73
-msgid "words"
-msgstr ""
-
-#: includes/admin/views/option-content.php:67
-msgctxt "As in \"the first 20 words\""
-msgid "using the first"
-msgstr ""
-
-#: includes/admin/views/option-content.php:79
 msgid "This will strip tags like &lt;em&gt; and &lt;strong&gt;."
 msgstr ""
 
-#: includes/admin/views/option-content.php:92
+#: includes/admin/views/option-content.php:42
 msgid ""
 "To create manual excerpts, you may need to enable them in the post editor "
 "like in this <a href=\"%s\" class=\"%s\">screenshot</a>."
 msgstr ""
 
-#: includes/admin/views/option-content.php:107
+#: includes/admin/views/option-content.php:62
+msgid "If no manual excerpt, use the automatic excerpt and"
+msgstr ""
+
+#: includes/admin/views/option-content.php:71
+msgctxt "display setting"
+msgid "default length"
+msgstr ""
+
+#: includes/admin/views/option-content.php:74
+msgctxt "display setting"
+msgid "custom length"
+msgstr ""
+
+#: includes/admin/views/option-content.php:83
+msgid "The default length is 55 words but your theme may override that."
+msgstr ""
+
+#: includes/admin/views/option-content.php:90
+msgctxt "the excerpt length"
+msgid "the first %s words"
+msgstr ""
+
+#: includes/admin/views/option-content.php:104
 msgid "\"Read more\" link"
 msgstr ""
 
-#: includes/admin/views/option-content.php:112
-msgid "using"
-msgstr ""
-
-#: includes/admin/views/option-content.php:116
+#: includes/admin/views/option-content.php:114
 msgctxt "display setting"
-msgid "the default link text"
+msgid "default link text"
 msgstr ""
 
-#: includes/admin/views/option-content.php:119
+#: includes/admin/views/option-content.php:117
 msgctxt "display setting"
-msgid "custom link text"
+msgid "custom link text (recommended)"
 msgstr ""
 
-#: includes/admin/views/option-content.php:137
-msgid "ellipsis between content and link"
+#: includes/admin/views/option-content.php:129
+msgid "enter a phrase"
+msgstr ""
+
+#: includes/admin/views/option-content.php:141
+msgid "ellipsis"
+msgstr ""
+
+#: includes/admin/views/option-content.php:145
+msgid "(automatic excerpt only)"
+msgstr ""
+
+#: includes/admin/views/option-content.php:156
+msgid ""
+"If you only see [&hellip;] without a link then your theme<br> does not "
+"provide this. Use the custom link text instead."
+msgstr ""
+
+#: includes/admin/views/option-content.php:168
+msgctxt "display setting"
+msgid "for automatic excerpt only"
+msgstr ""
+
+#: includes/admin/views/option-content.php:171
+msgctxt "display setting"
+msgid "for both automatic and manual excerpts"
+msgstr ""
+
+#: includes/admin/views/option-content.php:185
+msgid ""
+"<a href=\"%s\" target=\"_blank\">Learn more about WordPress excerpts</a>"
 msgstr ""
 
 #. translators: On the Views admin screen.
@@ -1281,7 +1387,7 @@ msgstr ""
 #: includes/admin/views/option-layout.php:91
 msgid ""
 "Testimonials will be equal height so this works best when they are about the "
-"same length<br>(using the excerpts or setting a length limit)."
+"same length either naturally or using excerpts."
 msgstr ""
 
 #: includes/admin/views/option-layout.php:117
@@ -1320,14 +1426,14 @@ msgstr ""
 msgid "Navigation"
 msgstr ""
 
-#: includes/admin/views/option-pagination.php:24 includes/l10n.php:170
-#: includes/l10n.php:228
+#: includes/admin/views/option-pagination.php:24 includes/l10n.php:169
+#: includes/l10n.php:245
 msgid "before"
 msgstr ""
 
 #. Translators: A form field name on the String Translation screen.
-#: includes/admin/views/option-pagination.php:27 includes/l10n.php:169
-#: includes/l10n.php:227
+#: includes/admin/views/option-pagination.php:27 includes/l10n.php:168
+#: includes/l10n.php:244
 msgid "after"
 msgstr ""
 
@@ -1349,10 +1455,14 @@ msgstr ""
 msgid "with link text"
 msgstr ""
 
-#: includes/admin/views/option-read-more-page.php:56
-msgid ""
-"The link will appear after the last testimonial. For individual \"Read more"
-"\" links, use the <b>Content</b> option above."
+#: includes/admin/views/option-read-more-page.php:61
+msgctxt "display setting"
+msgid "after the last testimonial"
+msgstr ""
+
+#: includes/admin/views/option-read-more-page.php:64
+msgctxt "display setting"
+msgid "in each testimonial"
 msgstr ""
 
 #. translators: On the Views admin screen.
@@ -1393,7 +1503,7 @@ msgid "no description"
 msgstr ""
 
 #. translators: On the Views admin screen.
-#: includes/admin/views/option-thumbnail.php:5 includes/defaults.php:87
+#: includes/admin/views/option-thumbnail.php:5 includes/defaults.php:102
 msgid "Featured Image"
 msgstr ""
 
@@ -1416,8 +1526,8 @@ msgstr ""
 
 #: includes/admin/views/option-thumbnail.php:52
 msgid ""
-"Requires a lightbox in your theme or another plugin like <a href=\"%s\" "
-"target=\"_blank\">Simple Colorbox</a>."
+"Requires a lightbox provided by your theme or another plugin like <a href="
+"\"%s\" target=\"_blank\">Simple Colorbox</a>."
 msgstr ""
 
 #: includes/admin/views/option-thumbnail.php:61
@@ -1473,99 +1583,129 @@ msgstr ""
 msgid "Title"
 msgstr ""
 
-#: includes/admin/views.php:130
-msgid "Edit View"
-msgstr ""
-
-#: includes/admin/views.php:130
-msgid "Add View"
-msgstr ""
-
-#: includes/admin/views.php:154
-msgctxt "The shortcode for a new View."
-msgid "will be available after you save this"
-msgstr ""
-
-#: includes/admin/views.php:255
+#: includes/admin/views.php:28
 msgid "View saved."
 msgstr ""
 
-#: includes/admin/views.php:257
+#: includes/admin/views.php:30
 msgid "View deleted."
 msgstr ""
 
-#: includes/admin/views.php:291
+#: includes/admin/views.php:41 includes/admin/views.php:206
+msgid "Edit View"
+msgstr ""
+
+#: includes/admin/views.php:42
+msgid ""
+"An error occurred. Please <a href=\"%s\" target=\"_blank\">open a support "
+"ticket</a>."
+msgstr ""
+
+#: includes/admin/views.php:71
 msgid ""
 "A View can display your testimonials, create a slideshow, or show a "
 "testimonial submission form.<br>Add it to a page with a shortcode or add it "
 "to a sidebar with a widget."
 msgstr ""
 
-#: includes/admin/views.php:315
+#: includes/admin/views.php:206
+msgid "Add View"
+msgstr ""
+
+#: includes/admin/views.php:239
+msgid "copy to clipboard"
+msgstr ""
+
+#: includes/admin/views.php:244
+msgctxt "The shortcode for a new View."
+msgid "will be available after you save this"
+msgstr ""
+
+#: includes/admin/views.php:485
 msgctxt "display order"
 msgid "random"
 msgstr ""
 
-#: includes/admin/views.php:316
+#: includes/admin/views.php:486
 msgctxt "display order"
 msgid "menu order"
 msgstr ""
 
-#: includes/admin/views.php:317
+#: includes/admin/views.php:487
 msgctxt "display order"
 msgid "newest first"
 msgstr ""
 
-#: includes/admin/views.php:318
+#: includes/admin/views.php:488
 msgctxt "display order"
 msgid "oldest first"
 msgstr ""
 
-#: includes/admin/views.php:331
+#: includes/admin/views.php:501
 msgctxt "slideshow navigation option"
 msgid "simple"
 msgstr ""
 
-#: includes/admin/views.php:332
+#: includes/admin/views.php:502
 msgctxt "slideshow navigation option"
 msgid "buttons 1"
 msgstr ""
 
-#: includes/admin/views.php:333
+#: includes/admin/views.php:503
 msgctxt "slideshow navigation option"
 msgid "buttons 2"
 msgstr ""
 
-#: includes/admin/views.php:334
+#: includes/admin/views.php:504
 msgctxt "slideshow navigation option"
 msgid "indexed"
 msgstr ""
 
-#: includes/admin/views.php:448 includes/defaults.php:101
+#: includes/admin/views.php:625
+msgid "custom"
+msgstr ""
+
+#: includes/admin/views.php:626
+msgid "built-in"
+msgstr ""
+
+#: includes/admin/views.php:631 includes/defaults.php:117
 msgid "text"
 msgstr ""
 
-#: includes/admin/views.php:449
+#: includes/admin/views.php:632
 msgid "link with field"
 msgstr ""
 
-#: includes/admin/views.php:450
+#: includes/admin/views.php:633
 msgid "link (must be URL)"
 msgstr ""
 
-#: includes/admin/views.php:451
+#: includes/admin/views.php:634
 msgid "date"
 msgstr ""
 
-#: includes/admin/views.php:588
+#: includes/admin/views.php:635
+msgid "category"
+msgstr ""
+
+#: includes/admin/views.php:636
+msgid "rating"
+msgstr ""
+
+#: includes/admin/views.php:637 includes/defaults.php:150
+msgid "shortcode"
+msgstr ""
+
+#: includes/admin/views.php:782
 msgid "new tab"
 msgstr ""
 
-#: includes/admin/views.php:609
+#: includes/admin/views.php:803
 msgid "more about date formats"
 msgstr ""
 
-#: includes/admin/views.php:782 includes/admin/views.php:804
+#: includes/admin/views.php:845 includes/admin/views.php:868
 msgid "filter categories"
 msgstr ""
 
@@ -1655,10 +1795,6 @@ msgstr ""
 msgid "Select All"
 msgstr ""
 
-#: includes/class-strong-views-list-table.php:75
-msgid "Edit"
-msgstr ""
-
 #: includes/class-strong-views-list-table.php:76
 msgid "Duplicate"
 msgstr ""
@@ -1667,223 +1803,255 @@ msgstr ""
 msgid "Delete \"%s\"?"
 msgstr ""
 
-#: includes/defaults.php:53
+#: includes/defaults.php:59
 msgid "This field is required."
 msgstr ""
 
-#: includes/defaults.php:70
+#: includes/defaults.php:83
 msgid "Testimonial Title"
 msgstr ""
 
-#: includes/defaults.php:78
+#: includes/defaults.php:92
 msgid "Testimonial Content"
 msgstr ""
 
-#: includes/defaults.php:105
+#: includes/defaults.php:121
 msgid "email"
 msgstr ""
 
-#: includes/defaults.php:109
+#: includes/defaults.php:126
 msgid "URL"
 msgstr ""
 
-#: includes/defaults.php:125
+#: includes/defaults.php:143
 msgid "category selector"
 msgstr ""
 
-#: includes/defaults.php:153
+#: includes/defaults.php:159
+msgid "star rating"
+msgstr ""
+
+#: includes/defaults.php:191
 msgid "Default Form"
 msgstr ""
 
-#: includes/defaults.php:162
+#: includes/defaults.php:200
 msgid "Full Name"
 msgstr ""
 
-#: includes/defaults.php:165
+#: includes/defaults.php:203
 msgid "What is your full name?"
 msgstr ""
 
-#: includes/defaults.php:174
+#: includes/defaults.php:212
 msgid "What is your email address?"
 msgstr ""
 
-#: includes/defaults.php:179
+#: includes/defaults.php:217
 msgid "Company Name"
 msgstr ""
 
-#: includes/defaults.php:181
+#: includes/defaults.php:219
 msgid "What is your company name?"
 msgstr ""
 
-#: includes/defaults.php:186
+#: includes/defaults.php:224
 msgid "Company Website"
 msgstr ""
 
-#: includes/defaults.php:188
+#: includes/defaults.php:226
 msgid "Does your company have a website?"
 msgstr ""
 
-#: includes/defaults.php:196
+#: includes/defaults.php:234
 msgid "Heading"
 msgstr ""
 
-#: includes/defaults.php:199
+#: includes/defaults.php:237
 msgid "A headline for your testimonial."
 msgstr ""
 
-#: includes/defaults.php:204 includes/defaults.php:252
+#: includes/defaults.php:242 includes/defaults.php:290
 msgid "Testimonial"
 msgstr ""
 
-#: includes/defaults.php:207
+#: includes/defaults.php:245
 msgid "What do you think about us?"
 msgstr ""
 
-#: includes/defaults.php:212
+#: includes/defaults.php:250
 msgid "Photo"
 msgstr ""
 
-#: includes/defaults.php:214
+#: includes/defaults.php:252
 msgid "Would you like to include a photo?"
 msgstr ""
 
-#: includes/defaults.php:223
+#: includes/defaults.php:261
 msgid "Minimal Form"
 msgstr ""
 
-#: includes/defaults.php:281
+#: includes/defaults.php:319
 msgid "Custom Form"
 msgstr ""
 
 #. translators: Settings > Forms > Messages tab
 #. translators: Default message for required field message at top of form.
-#: includes/defaults.php:304 includes/defaults.php:306
+#: includes/defaults.php:342 includes/defaults.php:344
 msgid "Required field"
 msgstr ""
 
 #. translators: Settings > Forms > Messages tab
-#: includes/defaults.php:311
+#: includes/defaults.php:349
 msgctxt "description"
 msgid "Captcha label"
 msgstr ""
 
 #. translators: Default label for Captcha field on submission form.
-#: includes/defaults.php:313
+#: includes/defaults.php:351
 msgctxt "strong-testimonials"
 msgid "Captcha"
 msgstr ""
 
 #. translators: Settings > Forms > Messages tab
-#: includes/defaults.php:318
+#: includes/defaults.php:356
 msgctxt "description"
 msgid "Submit button"
 msgstr ""
 
 #. translators: Default label for the Submit button on testimonial form.
-#: includes/defaults.php:320
+#: includes/defaults.php:358
 msgctxt "the Submit button"
 msgid "Add Testimonial"
 msgstr ""
 
 #. translators: Settings > Forms > Messages tab
-#: includes/defaults.php:325
+#: includes/defaults.php:363
 msgctxt "description"
 msgid "Submission error"
 msgstr ""
 
 #. translators: Default message for submission form error.
-#: includes/defaults.php:327
+#: includes/defaults.php:365
 msgctxt "error message"
 msgid "There was a problem processing your testimonial."
 msgstr ""
 
 #. translators: Settings > Forms > Messages tab
-#: includes/defaults.php:332
+#: includes/defaults.php:370
 msgctxt "description"
 msgid "Submission success"
 msgstr ""
 
 #. translators: Default message for submission form success message.
-#: includes/defaults.php:334
+#: includes/defaults.php:372
 msgctxt "success message"
 msgid "Thank you! Your testimonial is awaiting moderation."
 msgstr ""
 
 #. translators: Default subject line for new testimonial notification email.
-#: includes/defaults.php:360
+#: includes/defaults.php:398
 msgid "New testimonial for %BLOGNAME%"
 msgstr ""
 
 #. translators: Default message for new testimonial notification email.
-#: includes/defaults.php:362
+#: includes/defaults.php:400
 msgid ""
 "New testimonial submission for %BLOGNAME%. This is awaiting action from the "
 "website administrator."
 msgstr ""
 
-#: includes/defaults.php:381
+#: includes/defaults.php:419
 msgid "Display"
 msgstr ""
 
-#: includes/defaults.php:382
+#: includes/defaults.php:420
 msgid "Slideshow"
 msgstr ""
 
-#: includes/defaults.php:388
+#: includes/defaults.php:426
 msgid "Random"
 msgstr ""
 
-#: includes/defaults.php:389
+#: includes/defaults.php:427
 msgid "Newest first"
 msgstr ""
 
-#: includes/defaults.php:390
+#: includes/defaults.php:428
 msgid "Oldest first"
 msgstr ""
 
-#: includes/defaults.php:446 strong-testimonials.php:612
+#: includes/defaults.php:485 strong-testimonials.php:624
 msgctxt "link"
 msgid "Read more"
 msgstr ""
 
-#: includes/defaults.php:449 strong-testimonials.php:609
+#: includes/defaults.php:489 strong-testimonials.php:628
 msgctxt "link"
 msgid "Read more testimonials"
 msgstr ""
 
 #. Translators: For string translation in WPML & Polylang plugins.
-#: includes/defaults.php:485
+#: includes/defaults.php:525
 msgid "Testimonial Form Fields"
 msgstr ""
 
-#: includes/defaults.php:486
+#: includes/defaults.php:526
 msgid "Testimonial Form Messages"
 msgstr ""
 
-#: includes/defaults.php:487
+#: includes/defaults.php:527
 msgid "Testimonial Notification Options"
 msgstr ""
 
-#: includes/form-handler-functions.php:260
-#: includes/form-handler-functions.php:272
-#: includes/form-handler-functions.php:284
+#: includes/defaults.php:528
+msgid "\"Read More\" Link Text"
+msgstr ""
+
+#: includes/form-handler-functions.php:309
+#: includes/form-handler-functions.php:321
+#: includes/form-handler-functions.php:333
 msgid "The Captcha failed. Please try again."
 msgstr ""
 
-#: includes/l10n.php:171 includes/l10n.php:229
+#. translators: Publish box date format, see https:secure.php.net/date
+#: includes/functions.php:720 includes/post-types.php:140
+msgid "M j, Y @ H:i"
+msgstr ""
+
+#: includes/l10n.php:170 includes/l10n.php:246
 msgid "placeholder"
 msgstr ""
 
-#: includes/l10n.php:172 includes/l10n.php:230
+#: includes/l10n.php:171 includes/l10n.php:247
 msgid "label"
 msgstr ""
 
-#: includes/l10n.php:204 includes/l10n.php:246
+#: includes/l10n.php:172 includes/l10n.php:248
+msgid "default form value"
+msgstr ""
+
+#: includes/l10n.php:173 includes/l10n.php:249
+msgid "default display value"
+msgstr ""
+
+#: includes/l10n.php:206 includes/l10n.php:266
 msgid "Email message"
 msgstr ""
 
-#: includes/l10n.php:205 includes/l10n.php:245
+#: includes/l10n.php:207 includes/l10n.php:265
 msgid "Email subject"
+msgstr ""
+
+#. Translators: %s is the View ID.
+#: includes/l10n.php:220 includes/l10n.php:279
+#: includes/template-functions.php:224
+msgid "View %s : Read more (testimonial)"
+msgstr ""
+
+#: includes/l10n.php:221 includes/l10n.php:280
+#: includes/template-functions.php:254
+msgid "View %s : Read more (page or post)"
 msgstr ""
 
 #: includes/post-types.php:15
@@ -1960,6 +2128,55 @@ msgstr ""
 msgid "All categories"
 msgstr ""
 
+#: includes/post-types.php:124 includes/post-types.php:136
+msgid "Preview testimonial"
+msgstr ""
+
+#: includes/post-types.php:130
+msgid "View testimonial"
+msgstr ""
+
+#: includes/post-types.php:144 includes/post-types.php:147
+msgid "Testimonial updated."
+msgstr ""
+
+#: includes/post-types.php:145
+msgid "Custom field updated."
+msgstr ""
+
+#: includes/post-types.php:146
+msgid "Custom field deleted."
+msgstr ""
+
+#. translators: %s: date and time of the revision
+#: includes/post-types.php:149
+msgid "Testimonial restored to revision from %s."
+msgstr ""
+
+#: includes/post-types.php:150
+msgid "Testimonial published."
+msgstr ""
+
+#: includes/post-types.php:151
+msgid "Testimonial saved."
+msgstr ""
+
+#: includes/post-types.php:152
+msgid "Testimonial submitted."
+msgstr ""
+
+#: includes/post-types.php:153
+msgid "Testimonial scheduled for: %s."
+msgstr ""
+
+#: includes/post-types.php:154
+msgid "Testimonial draft updated."
+msgstr ""
+
+#: includes/shortcodes.php:52
+msgid "Strong Testimonials error: View %s not found"
+msgstr ""
+
 #: includes/widget2.php:14
 msgctxt "widget description"
 msgid "Add one of your testimonial views."
@@ -1975,57 +2192,53 @@ msgctxt "widget title"
 msgid "Testimonials"
 msgstr ""
 
-#: includes/widget2.php:71
+#: includes/widget2.php:76
 msgid "Title:"
 msgstr ""
 
-#: includes/widget2.php:77
+#: includes/widget2.php:82
 msgid "Content:"
 msgstr ""
 
-#: includes/widget2.php:81
+#: includes/widget2.php:86
 msgid "Automatically add paragraphs to above Content only"
 msgstr ""
 
-#: includes/widget2.php:85
+#: includes/widget2.php:90
 msgctxt "widget setting"
 msgid "View:"
 msgstr ""
 
-#: includes/widget2.php:89
+#: includes/widget2.php:94
 msgid "&mdash; Select &mdash;"
 msgstr ""
 
-#: strong-testimonials.php:100 strong-testimonials.php:112
+#: strong-testimonials.php:101 strong-testimonials.php:113
 msgid "Cheatin&#8217; huh?"
 msgstr ""
 
-#: strong-testimonials.php:495
+#: strong-testimonials.php:509
 msgid "light gray gradient"
 msgstr ""
 
-#: strong-testimonials.php:500
+#: strong-testimonials.php:514
 msgid "light blue gradient"
 msgstr ""
 
-#: strong-testimonials.php:505
+#: strong-testimonials.php:519
 msgid "sky blue gradient"
 msgstr ""
 
-#: strong-testimonials.php:510
+#: strong-testimonials.php:524
 msgid "light latte gradient"
 msgstr ""
 
-#: strong-testimonials.php:515
+#: strong-testimonials.php:529
 msgid "light green mist gradient"
 msgstr ""
 
-#: strong-testimonials.php:520
+#: strong-testimonials.php:534
 msgid "light plum gradient"
-msgstr ""
-
-#. Plugin Name of the plugin/theme
-msgid "Strong Testimonials"
 msgstr ""
 
 #. Plugin URI of the plugin/theme

@@ -169,6 +169,8 @@ function wpmtst_form_fields_wpml( $fields ) {
 		do_action( 'wpml_register_single_string', $context, $name . __( 'before', 'strong-testimonials' ), $field['before'] );
 		do_action( 'wpml_register_single_string', $context, $name . __( 'placeholder', 'strong-testimonials' ), $field['placeholder'] );
 		do_action( 'wpml_register_single_string', $context, $name . __( 'label', 'strong-testimonials' ), $field['label'] );
+		do_action( 'wpml_register_single_string', $context, $name . __( 'default form value', 'strong-testimonials' ), $field['default_form_value'] );
+		do_action( 'wpml_register_single_string', $context, $name . __( 'default display value', 'strong-testimonials' ), $field['default_display_value'] );
 	}
 }
 
@@ -243,6 +245,8 @@ function wpmtst_form_fields_polylang( $fields ) {
 			pll_register_string( $name . __( 'before', 'strong-testimonials' ), $field['before'], $context );
 			pll_register_string( $name . __( 'placeholder', 'strong-testimonials' ), $field['placeholder'], $context );
 			pll_register_string( $name . __( 'label', 'strong-testimonials' ), $field['label'], $context );
+			pll_register_string( $name . __( 'default form value', 'strong-testimonials' ), $field['default_form_value'], $context );
+			pll_register_string( $name . __( 'default display value', 'strong-testimonials' ), $field['default_display_value'], $context );
 		}
 	}
 }

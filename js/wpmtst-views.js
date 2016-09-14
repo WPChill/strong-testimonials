@@ -92,6 +92,12 @@ jQuery(window).on('load', function () {
 jQuery(document).ready(function($) {
 	'use strict';
 
+	// the shortcode code
+	$("#view-shortcode").on("focus", function(){
+		$(this).select();
+	});
+
+
 	// Masonry example
 	var masonryExample = $(".view-layout-masonry .example-container");
 	masonryExample.find(".box").width( $(".grid-sizer").width() ).end().masonry({
@@ -443,14 +449,31 @@ jQuery(document).ready(function($) {
 
 		$(".field-name select").each(function() {
 			var $el = $(this);
-			var fieldValue = $el.val();
 			var $elParent = $el.closest("tr");
+			var fieldValue = $el.val();
+			var fieldType = $el.find("option:selected").data("type");
+			// TODO Use data attribute instead
 			var key = $elParent.attr("id").split('-').slice(-1)[0];
-			var typeSelect = $elParent.find("td.field-type select");
+			var typeSelectParent = $elParent.find("td.field-type");
+			var typeSelect = typeSelectParent.find("select");
+
 			if( fieldValue == 'post_date' ) {
-				$(typeSelect).prop("disabled", true);
-				$(typeSelect).parent().append('<input type="hidden" class="save-type" name="view[data][client_section][' + key + '][type]" value="date">');
-			} else {
+				typeSelect.prop("disabled", true);
+				typeSelect.parent().append('<input type="hidden" class="save-type" name="view[data][client_section][' + key + '][save-type]" value="date">');
+			}
+			else if( fieldValue == 'submit_date' ) {
+				typeSelect.prop("disabled", true);
+				typeSelect.parent().append('<input type="hidden" class="save-type" name="view[data][client_section][' + key + '][save-type]" value="date">');
+			}
+			else if( fieldValue == 'category' ) {
+				typeSelect.prop("disabled", true);
+				typeSelect.parent().append('<input type="hidden" class="save-type" name="view[data][client_section][' + key + '][save-type]" value="category">');
+			}
+			else if( fieldType == 'rating' ) { /* --- type! --- */
+				typeSelect.prop("disabled", true);
+				typeSelectParent.append('<input type="hidden" class="save-type" name="view[data][client_section][' + key + '][save-type]" value="rating">');
+			}
+			else {
 				$(typeSelect).prop("disabled", false);
 				$(typeSelect).parent().find("input.save-type").remove();
 			}
@@ -805,14 +828,19 @@ jQuery(document).ready(function($) {
 	customFieldList.on("change", ".field-name select", function() {
 		var $el = $(this);
 		var $elParent = $el.closest("tr");
+		var fieldType = $el.find("option:selected").data("type");
 		var fieldValue = $el.val();
 		var key = $elParent.attr("id").split('-').slice(-1)[0];
-		var typeSelect = $elParent.find("td.field-type select");
+		var typeSelectParent = $elParent.find("td.field-type");
+		var typeSelect = typeSelectParent.find("select");
 
 		switch( fieldValue ) {
+			// First, the immutables
 			case 'post_date':
-				// Hide type selector if date field.
-				$(typeSelect).val("date").prop("disabled", true);
+			case 'submit_date':
+				// Disable type selector
+				typeSelect.val("date").prop("disabled", true);
+				typeSelectParent.append('<input type="hidden" class="save-type" name="view[data][client_section][' + key + '][save-type]" value="date">');
 
 				// add format field
 				var data = {
@@ -822,7 +850,7 @@ jQuery(document).ready(function($) {
 				$.get( ajaxurl, data, function( response ) {
 					// Insert into placeholder div. Add hidden field because we are
 					// disabling the <select> so its value will not be submitted.
-					$elParent.find(".field-meta").html(response);
+					$elParent.find(".field-meta").html(response); // .find("input").focus();
 					$el.parent().append('<input type="hidden" class="save-type" name="view[data][client_section][' + key + '][type]" value="date">');
 				});
 				break;
@@ -839,9 +867,22 @@ jQuery(document).ready(function($) {
 					var key = $elParent.attr("id").split('-').slice(-1)[0];
 					$("#view-fieldtext" + key + "-label").val(response);
 				});
-				//break;
+				break;
+
+			case 'category':
+				// Disable type selector
+				$(typeSelect).val("category").prop("disabled", true);
+				typeSelectParent.append('<input type="hidden" class="save-type" name="view[data][client_section][' + key + '][save-type]" value="category">');
+				break;
 
 			default:
+				// Special handling
+				if( 'rating' == fieldType ) {
+					// Disable type selector
+					typeSelect.val("rating").prop("disabled", true);
+					typeSelectParent.append('<input type="hidden" class="save-type" name="view[data][client_section][' + key + '][save-type]" value="rating">');
+					break;
+				}
 				$(typeSelect).val("text").prop("disabled",false);
 				// remove meta field
 				$elParent.find(".field-meta").empty();
@@ -862,3 +903,49 @@ jQuery(document).ready(function($) {
 	});
 
 });
+
+/**
+ * Click to copy to keyboard
+ * Thanks https://www.sitepoint.com/javascript-copy-to-clipboard/
+ */
+(function() {
+
+	'use strict';
+
+	// click events
+	document.body.addEventListener('click', copy, true);
+
+	// event handler
+	function copy(e) {
+
+		// find target element
+		var
+			t = e.target,
+			c = t.dataset.copytarget,
+			inp = (c ? document.querySelector(c) : null);
+
+		// is element selectable?
+		if (inp && inp.select) {
+
+			// select text
+			inp.select();
+
+			try {
+				// copy text
+				document.execCommand('copy');
+				inp.blur();
+
+				//t.classList.add('copied');
+				//setTimeout(function() { t.classList.remove('copied'); }, 1500);
+				document.getElementById("copy-message").classList.add("copied");
+				setTimeout(function() { document.getElementById("copy-message").classList.remove('copied'); }, 2000);
+			}
+			catch (err) {
+				alert('Sorry, please press Ctrl/Cmd+C to copy instead.');
+			}
+
+		}
+
+	}
+
+})();

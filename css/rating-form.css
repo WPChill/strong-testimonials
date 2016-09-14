@@ -1,0 +1,95 @@
+/**
+ * Star Ratings
+ *
+ * Pure CSS. No floats or bidi. HTML inputs makes it ideal for use in a form. Simple em-based sizing.
+ *
+ * http://codepen.io/cdillon/pen/vXNbBw
+ *
+ * Based on Pure CSS Star Rating Widget by James Barnett
+ * http://codepen.io/jamesbarnett/pen/vlpkh
+ *
+ * TODO Action Hook
+ */
+
+.strong-rating-wrapper {}
+
+/* the fieldset */
+.strong-rating {
+	border: none;
+	display: inline-block;
+}
+
+
+/* the stars */
+.strong-rating input { display: none; }
+
+.strong-rating label:before {
+	font-family: FontAwesome;
+	content: "\f005";
+	display: inline-block;
+	font-size: 1.25em;
+	line-height: 1.75;
+	/* use padding not margin */
+	padding: 5px;
+	transition: color 0.3s ease;
+}
+
+.strong-rating label:hover { cursor: pointer; }
+
+
+/* fieldset tweaks */
+
+/* in a form */
+.strong-rating-wrapper.in-form .strong-rating {
+	padding: 0;
+}
+
+/* in a view */
+.strong-rating-wrapper.in-view .strong-rating {
+	margin: 0;
+	padding: 0;
+}
+
+/* in the post editor */
+.strong-rating-wrapper.in-metabox .strong-rating {
+	padding-top: 0;
+}
+
+.strong-rating.in-metabox > label:before {
+	font-size: 1.5em;
+	line-height: 1;
+}
+
+
+/* the magic */
+
+/* this is how we highlight stars before the checked one (siblings before): */
+
+/* hide the first label which is initially checked */
+/* added bonus of POSTing the default value so no need for isset(...) */
+.strong-rating label[for=star0] { display: none; }
+
+/* and turn all on */
+.strong-rating label:before { color: #FFB900; }
+
+
+/* turn off stars after the one we're on */
+.strong-rating label:hover ~ label:before { color: #DDD; }
+
+/* turn off stars after the current rating */
+.strong-rating input:checked ~ label:before { color: #DDD; }
+
+/* turn on the current rating */
+.strong-rating input:checked + label:before { color: #FFB900; }
+
+
+/* when hovering the entire fieldset: */
+
+/* (1) turn all on */
+.strong-rating:hover input ~ label:before { color: #FFB900; }
+
+/* (2) indicate current selection (optional) */
+.strong-rating:hover input:checked + label:before { color: #FFE39E; }
+
+/* (3) then turn off siblings after the hovered star */
+.strong-rating:hover label:hover ~ input:not(:checked) + label:before { color: #DDD; }

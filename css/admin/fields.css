@@ -2,13 +2,42 @@
  * Strong Testimonials admin stylesheet
  */
 
-/* Custom fields
----------------------------------------------------------*/
+/* structure */
+
+#left-col,
+#right-col {
+	box-sizing: border-box;
+}
+
+#left-col {
+	width: 50%;
+	float: left;
+	padding: 20px 0;
+}
+
+#right-col {
+	width: calc( 50% - 20px );
+	float: right;
+	padding: 20px 0 20px 20px;
+}
 
 #wpmtst-custom-fields-form {
-	width: 500px;
-	display: inline-block;
+	width: 100%;
 }
+
+#fields-editor-preview {
+	border: 1px solid #CCC;
+	background: #FBFBFB;
+	/*width: 100%;*/
+	min-height: 300px;
+}
+
+.wrap.wpmtst h3 {
+	margin-top: 0;
+}
+
+/* Custom fields
+---------------------------------------------------------*/
 
 #custom-field-list {
 	margin-bottom: 0;
@@ -21,8 +50,36 @@
 }
 
 #custom-field-list .custom-field-header {
-	padding: 10px;
+	/*padding: 10px;*/
 	font-size: 1.1em;
+}
+
+#custom-field-list span.handle {
+	margin: 10px 0 10px 10px;
+}
+
+#custom-field-list span.link {
+	display: inline-block;
+	cursor: pointer;
+	padding: 10px;
+	width: calc( 100% - 50px );
+}
+
+#custom-field-list span.link span.toggle:before {
+	font-family: dashicons;
+	content: "\f140";
+	display: inline-block;
+	float: right;
+	color: #999;
+	font-size: 20px;
+	width: 20px;
+	height: 20px;
+	line-height: 1;
+}
+
+#custom-field-list span.link.open span.toggle:before {
+	content: "\f142";
+	color: #FFF;
 }
 
 #custom-field-list .custom-field {
@@ -118,7 +175,8 @@
 }
 
 #custom-field-list .field-table th {
-	width: 100px;
+	min-width: 120px;
+	white-space: nowrap;
 	vertical-align: top;
 	padding-top: 14px;
 }
@@ -131,9 +189,15 @@
 	display: block;
 	padding: 3px;
 }
+
+#custom-field-list .field-table td span.help.inline {
+	display: inline-block;
+}
+
 #custom-field-list .field-table td span.help:first-of-type {
 	margin-top: 5px;
 }
+
 #custom-field-list .field-table td span.help.error {
 	color: #ee0000;
 	/*color: white;*/
@@ -178,14 +242,26 @@ p.field-group-label-wrap input {
 	width: calc( 100% - 6.5em );
 }
 
-/* intro */
-
-#fields-editor-intro {
-	display: inline-block;
-}
-
 #fields-editor-wrap {
 	display: inline-block;
 	float: left;
 	width: 540px;
+}
+
+/*--------------------------------------------------*
+  Responsive
+ *--------------------------------------------------*/
+@media only screen and (max-width: 768px) {
+
+	#left-col {
+		width: 100%;
+		padding: 20px 15px;
+	}
+
+	#right-col {
+		width: 100%;
+		border-left: 0;
+		padding: 20px;
+	}
+
 }

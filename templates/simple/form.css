@@ -5,6 +5,9 @@
   margin: 0 auto;
   padding: 20px;
 }
+.strong-form .form-field {
+  margin-bottom: 1.5em;
+}
 .strong-form .required.symbol:after {
   content: '*';
   color: #FF0000;
@@ -32,10 +35,10 @@
 .strong-form label.error {
   display: block;
 }
-.strong-form .form-field .before {
+.strong-form .before {
   display: block;
 }
-.strong-form .form-field .after {
+.strong-form .after {
   display: block;
 }
 

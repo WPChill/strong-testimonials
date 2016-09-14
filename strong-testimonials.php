@@ -4,7 +4,7 @@
  * Plugin URI: https://www.wpmission.com/plugins/strong-testimonials/
  * Description: A full-featured plugin that works right out of the box for beginners and offers advanced features for pros.
  * Author: Chris Dillon
- * Version: 2.11.17
+ * Version: 2.12
  * Author URI: https://www.wpmission.com/
  * Text Domain: strong-testimonials
  * Domain Path: /languages
@@ -56,6 +56,7 @@ final class Strong_Testimonials {
 	public static $form_errors;
 	public static $post_list = array();
 	public static $post_list_transient_name = '';
+	public static $plugin_data;
 
 	/**
 	 * A singleton instance.
@@ -122,8 +123,11 @@ final class Strong_Testimonials {
 	private function setup_constants() {
 
 		// plugin slug: `strong-testimonials` used by template search
+		if ( ! defined( 'WPMTST_PLUGIN' ) )
+			define( 'WPMTST_PLUGIN', plugin_basename( __FILE__ ) );
+
 		if ( ! defined( 'WPMTST' ) )
-			define( 'WPMTST', dirname( plugin_basename( __FILE__ ) ) );
+			define( 'WPMTST', dirname( WPMTST_PLUGIN ) );
 
 		if ( ! defined( 'WPMTST_URL' ) )
 			define( 'WPMTST_URL', plugin_dir_url( __FILE__ ) );
@@ -170,6 +174,7 @@ final class Strong_Testimonials {
 		require_once WPMTST_INC . 'l10n.php';
 		require_once WPMTST_INC . 'post-types.php';
 		require_once WPMTST_INC . 'functions.php';
+		require_once WPMTST_INC . 'rating-functions.php';
 		require_once WPMTST_INC . 'widget2.php';
 
 		/**
@@ -192,8 +197,12 @@ final class Strong_Testimonials {
 			require_once WPMTST_INC . 'class-walker-wpmst-category-checklist.php';
 			require_once WPMTST_INC . 'class-walker-wpmst-form-category-checklist.php';
 			require_once WPMTST_INC . 'admin/admin.php';
+			require_once WPMTST_INC . 'admin/admin-ajax.php';
+			require_once WPMTST_INC . 'admin/compat.php';
 			require_once WPMTST_INC . 'admin/custom-fields.php';
+			require_once WPMTST_INC . 'admin/form-preview.php';
 			require_once WPMTST_INC . 'admin/guide/guide.php';
+			require_once WPMTST_INC . 'admin/help.php';
 			require_once WPMTST_INC . 'admin/install.php';
 			require_once WPMTST_INC . 'admin/settings.php';
 			require_once WPMTST_INC . 'admin/upgrade.php';
@@ -215,6 +224,19 @@ final class Strong_Testimonials {
 	 */
 	public function load_textdomain() {
 		load_plugin_textdomain( 'strong-testimonials', FALSE, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+	}
+
+	/**
+	 * Plugin data.
+	 *
+	 * @since 2.12.0
+	 */
+	public function set_plugin_data() {
+		self::$plugin_data = get_plugin_data( __FILE__, false );
+	}
+
+	public function get_plugin_data() {
+		return self::$plugin_data;
 	}
 
 	/**
@@ -378,7 +400,6 @@ final class Strong_Testimonials {
 	 * @param $atts
 	 */
 	public function view_rendered( $atts ) {
-
 		$handle = self::find_stylesheet( $atts, false );
 
 		if ( ( isset( $atts['compat'] ) && $atts['compat'] ) || ! wp_script_is( $handle ) ) {
@@ -423,6 +444,9 @@ final class Strong_Testimonials {
 			}
 		}
 
+		if ( ! wp_style_is('wpmtst-rating-display' ) ) {
+			wp_enqueue_style( 'wpmtst-rating-display' );
+		}
 	}
 
 	/**
@@ -1338,6 +1362,10 @@ final class Strong_Testimonials {
 			wp_enqueue_script( 'wpmtst-validation-lang' );
 		}
 
+		if ( ! wp_style_is( 'wpmtst-rating-form' ) ) {
+			wp_enqueue_style( 'wpmtst-rating-form' );
+		}
+
 		if ( wpmtst_using_form_validation_script() ) {
 			wp_localize_script( 'wpmtst-form-script', 'form_ajax_object', array(
 				'ajaxUrl' => admin_url( 'admin-ajax.php' ),
@@ -1590,6 +1618,7 @@ final class Strong_Testimonials {
 				self::add_script( 'wpmtst-grid-script' );
 				self::add_style( 'wpmtst-grid-style' );
 			}
+
 		}
 
 		/**
@@ -1626,6 +1655,7 @@ final class Strong_Testimonials {
 		}
 
 		self::custom_background( $atts['view'], $atts['background'], $handle );
+		self::add_style( 'wpmtst-rating-display' );
 	}
 
 	/**
@@ -1706,6 +1736,8 @@ final class Strong_Testimonials {
 			self::get_view_defaults(),
 			$view['atts']
 		) );
+
+		self::add_style( 'wpmtst-rating-form' );
 	}
 
 	/**

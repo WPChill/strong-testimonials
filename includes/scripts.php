@@ -21,6 +21,9 @@ function wpmtst_scripts() {
 	wp_register_script( 'wpmtst-grid-script', WPMTST_URL . 'js/wpmtst-grid.js', array( 'jquery' ), $plugin_version, true );
 	wp_register_style( 'wpmtst-grid-style', WPMTST_URL . 'css/wpmtst-grid.css', array(), $plugin_version );
 
+	wp_register_style( 'wpmtst-rating-form', WPMTST_URL . 'css/rating-form.css', array(), $plugin_version );
+	wp_register_style( 'wpmtst-rating-display', WPMTST_URL . 'css/rating-display.css', array(), $plugin_version );
+
 	if ( wpmtst_using_form_validation_script() ) {
 
 		wp_register_script( 'wpmtst-validation-plugin', WPMTST_URL . 'js/validate/jquery.validate.min.js', array( 'jquery' ), false, true );

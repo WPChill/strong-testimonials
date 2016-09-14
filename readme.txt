@@ -23,7 +23,9 @@ If that describes your situation, this plugin will work for you right out of the
 
 = Primary Features =
 
+* Star ratings (NEW!)
 * A front-end form
+* Custom form fields editor
 * Categories
 * Excerpts, both manual and automatic
 * Featured Images (thumbnails)
@@ -33,7 +35,7 @@ If that describes your situation, this plugin will work for you right out of the
 * Built-in templates with several layout options
 * Template files and functions for deep customization
 * Gravatar support
-* Fully localized, ready for translations
+* Ready for translations
 * Compatible with [WPML](https://wpml.org/), [Polylang](https://wordpress.org/plugins/polylang/) and [WPGlobus](https://wordpress.org/plugins/wpglobus/)
 
 Strong Testimonials [plays well with other plugins and themes](https://www.wpmission.com/theme-plugin-compatibility-fund/), and I strive to adhere to WordPress coding standards and best practices.
@@ -46,7 +48,7 @@ The form also offers **anti-spam** options like honeypots and Captcha via these 
 
 **Notification emails** can be sent to multiple admins when new testimonials are submitted. New testimonials can also be assigned to a specific category.
 
-The form can be submitted via Ajax so it's compatible with the popular [Popup Maker](https://wordpress.org/plugins/popup-maker/) plugin.
+The form can be submitted via Ajax so it's compatible with popular plugins like [Popup Maker](https://wordpress.org/plugins/popup-maker/).
 
 = Display =
 
@@ -141,6 +143,28 @@ Yes. With some HTML and CSS knowledge, you can copy any template to your theme a
 Yes. This requires a lightbox so if your theme does not include one, you will need a plugin like [Simple Colorbox](https://wordpress.org/plugins/simple-colorbox/).
 
 == Changelog ==
+
+= 2.12 - Sep 14, 2016 =
+* Star ratings!
+    * Get rating on a form
+    * Display in a view
+    * Edit on the testimonial
+    * Show in admin list
+* Store the date a testimonial was submitted for displaying in a view.
+* Improve fields:
+    * Add form preview.
+    * Add contextual help (the Help tab).
+    * Add option to hide the label.
+    * Add option for default form value (translatable).
+    * Add option for default display value  (translatable).
+    * Add option to include a shortcode.
+    * Fix bug: Save fields after restoring defaults.
+    * Improve fields editor UI.
+* Add feature to copy the testimonial shortcode to the clipboard.
+* Fix function that checks for minimum required WordPress version.
+* Remove unused Font Awesome files.
+* Update POT file.
+* Minor refactoring.
 
 = 2.11.17 - Sep 8, 2016 =
 * Add "Read more" link text to WPML and Polylang translation strings.

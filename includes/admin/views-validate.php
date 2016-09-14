@@ -254,10 +254,18 @@ function wpmtst_sanitize_view( $input ) {
 			}
 
 			$data['client_section'][ $key ]['field'] = sanitize_text_field( $field['field'] );
-			$data['client_section'][ $key ]['type']  = sanitize_text_field( $field['type'] );
+
+			if ( isset( $field['type'] ) ) {
+				$type = sanitize_text_field( $field['type'] );
+			}
+			else {
+				$type = sanitize_text_field( $field['save-type'] );
+			}
+			$data['client_section'][ $key ]['type'] = $type;
+
 			$data['client_section'][ $key ]['class'] = sanitize_text_field( $field['class'] );
 
-			switch ( $field['type'] ) {
+			switch ( $type ) {
 				case 'link':
 				case 'link2':
 					/**
