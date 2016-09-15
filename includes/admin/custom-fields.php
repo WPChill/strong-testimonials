@@ -223,14 +223,14 @@ function wpmtst_show_field( $key, $field, $adding ) {
 	// ------------
 	// Field Header
 	// ------------
-	$html = '<div class="custom-field-header">' . "\n";
-	$html .= '<span class="handle" title="' . __( 'drag and drop to reorder', 'strong-testimonials' ) . '"><div class="dashicons dashicons-menu"></div></span>';
-	$html .= '<span class="link" title="' . __( 'click to open or close', 'strong-testimonials' ) . '"><a class="field" href="#">' . $field_link . '</a><span class="toggle"></span></span>';
-	$html .= '</div>' . "\n";
+	$html = '<div class="custom-field-header">';
+	$html .= '<span class="link" title="' . __( 'click to open or close', 'strong-testimonials' ) . '"><a class="field" href="#">' . $field_link . '</a>';
+	$html .= '<span class="handle" title="' . __( 'drag and drop to reorder', 'strong-testimonials' ) . '"></span>';
+	$html .= '<span class="toggle"></span></span>';
+	$html .= '</div>';
 
-	$html .= '<div class="custom-field">' . "\n";
-
-	$html .= '<table class="field-table">' . "\n";
+	$html .= '<div class="custom-field">';
+	$html .= '<table class="field-table">';
 
 	// -----------
 	// Field Label

@@ -163,6 +163,11 @@ Yes. This requires a lightbox so if your theme does not include one, you will ne
 
 ## Changelog 
 
+### 2.12.2 - Sep 15, 2016
+* Fix compatibility with versions of WordPress before 4.4.
+* Fix bug in fields editor.
+* Remove disabling of title, thumbnail, and category fields in view editor if those fields were not found in form fields.
+
 ### 2.12.1 - Sep 15, 2016
 * Fix bug in loading Font Awesome.
 * Fix bug in new submit_date field.
@@ -285,25 +290,3 @@ Yes. This requires a lightbox so if your theme does not include one, you will ne
 * Separate option for a "Read more" link to a page/post.
 * Option to show an indicator bubble for pending testimonials.
 * Include Font Awesome instead of loading via CDN.
-
-
-### 2.9.4 - July 2, 2016 
-* Compatible with FooBox Image Lightbox [Free](https://wordpress.org/plugins/foobox-image-lightbox/) and [Pro](http://fooplugins.com/plugins/foobox/) versions.
-
-
-### 2.9.3 - June 28, 2016 
-* Fix conflict with themes and plugins that also include Font Awesome.
-
-
-### 2.9.2 - June 28, 2016 
-* Fix bug.
-
-
-### 2.9.1 - June 28, 2016 
-* Fix conflict with WooCommerce.
-
-
-### 2.9 - June 3, 2016 
-* Compatible with [Max Mega Menu](https://wordpress.org/plugins/megamenu/) plugin.
-* Disable redirect to Guide page after update.
-* Disable console log output in Cycle script.

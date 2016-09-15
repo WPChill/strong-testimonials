@@ -28,7 +28,6 @@
 #fields-editor-preview {
 	border: 1px solid #CCC;
 	background: #FBFBFB;
-	/*width: 100%;*/
 	min-height: 300px;
 }
 
@@ -52,44 +51,39 @@
 #custom-field-list .custom-field-header {
 	/*padding: 10px;*/
 	font-size: 1.1em;
-}
-
-#custom-field-list span.handle {
-	margin: 10px 0 10px 10px;
+	height: 40px;
 }
 
 #custom-field-list span.link {
 	display: inline-block;
 	cursor: pointer;
 	padding: 10px;
-	width: calc( 100% - 50px );
+	width: calc( 100% - 20px );
 }
+
+/* toggle */
 
 #custom-field-list span.link span.toggle:before {
-	font-family: dashicons;
 	content: "\f140";
 	display: inline-block;
+	font: normal 20px/1 dashicons;
 	float: right;
 	color: #999;
-	font-size: 20px;
 	width: 20px;
 	height: 20px;
-	line-height: 1;
 }
 
-#custom-field-list span.link.open span.toggle:before {
-	content: "\f142";
-	color: #FFF;
-}
+/* handle */
 
-#custom-field-list .custom-field {
-	display: none;
-}
-
-#custom-field-list .handle {
+#custom-field-list .handle:before {
+	content: "\f333";
 	display: inline-block;
-	margin-right: 10px;
+	font: normal 20px/1 dashicons;
+	float: left;
 	color: #999;
+	width: 20px;
+	height: 20px;
+	margin-right: 10px;
 }
 
 #custom-field-list .handle:hover {
@@ -111,9 +105,20 @@
 	background: #2ea2cc;
 }
 
-#custom-field-list .open .handle,
-#custom-field-list .open .link a {
+#custom-field-list li.open span.toggle:before {
+	content: "\f142";
+}
+
+#custom-field-list li.open span.handle:before,
+#custom-field-list li.open span.link a,
+#custom-field-list li.open span.toggle:before {
 	color: #fff;
+}
+
+/* field inputs */
+
+#custom-field-list .custom-field {
+	display: none;
 }
 
 #custom-field-list select.field-type {
@@ -121,7 +126,6 @@
 }
 
 #custom-field-list option {
-	font-family: "Open Sans", sans-serif;
 }
 
 #custom-field-list option[disabled] {
@@ -132,7 +136,6 @@
 	color: #333;
 	content: attr(label);
 	display: block;
-	font-family: "Open Sans", sans-serif;
 	font-style: normal;
 	padding-left: 4px;
 }
@@ -144,7 +147,6 @@
 
 #wpmtst-custom-fields-form .controls {
 	padding: 10px 15px;
-	background: #f8f8f8;
 	background: #e7f5fa;
 	border-top: 1px solid #ddd;
 }
@@ -176,9 +178,10 @@
 
 #custom-field-list .field-table th {
 	min-width: 120px;
-	white-space: nowrap;
-	vertical-align: top;
 	padding-top: 14px;
+	text-align: left;
+	vertical-align: top;
+	white-space: nowrap;
 }
 
 #custom-field-list .field-table td input[type="text"] {
@@ -200,7 +203,6 @@
 
 #custom-field-list .field-table td span.help.error {
 	color: #ee0000;
-	/*color: white;*/
 	padding-left: 6px;
 	border: 1px solid #EE0000;
 	background: rgba(242,0,0,0.05);

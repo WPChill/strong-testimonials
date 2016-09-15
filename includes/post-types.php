@@ -104,6 +104,7 @@ add_filter( 'wpmtst_testimonial_supports', 'wpmtst_testimonial_supports' );
  * Add testimonial-specific messages.
  *
  * @param $messages
+ * @since 2.12.0
  * @todo Action Hook
  *
  * @return mixed

@@ -65,7 +65,13 @@ function convertLabel(label) {
 		});
 	});
 
-	// sortable
+	// Prevent single click on handle from opening accordion
+	$fieldList.on("click", "span.handle", function(e){
+		event.stopImmediatePropagation();
+		event.preventDefault();
+	});
+
+	// Sortable
 	$fieldList.sortable({
 		placeholder: "sortable-placeholder",
 		forcePlaceholderSize: true,

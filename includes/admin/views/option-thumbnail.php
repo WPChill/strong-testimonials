@@ -1,14 +1,11 @@
 <?php /* translators: On the Views admin screen. */ ?>
 <th>
-	<input type="checkbox" id="view-images" class="checkbox if toggle" name="view[data][thumbnail]" value="1" <?php checked( $view['thumbnail'] ); ?> <?php disabled( $has_thumbnail_field, false ); ?>>
+	<input type="checkbox" id="view-images" class="checkbox if toggle" name="view[data][thumbnail]" value="1" <?php checked( $view['thumbnail'] ); ?>>
 	<label for="view-images">
 		<?php _e( 'Featured Image', 'strong-testimonials' ); ?>
 	</label>
 </th>
 <td colspan="2">
-	<?php if ( !$has_thumbnail_field ): ?>
-	<p class="description tall"><?php _e( 'not found in Fields', 'strong-testimonials' ); ?></p>
-	<?php endif; ?>
 
 	<div class="then then_images" style="display: none;">
 

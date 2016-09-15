@@ -870,7 +870,6 @@ jQuery(document).ready(function($) {
 				break;
 
 			case 'category':
-				// Disable type selector
 				$(typeSelect).val("category").prop("disabled", true);
 				typeSelectParent.append('<input type="hidden" class="save-type" name="view[data][client_section][' + key + '][save-type]" value="category">');
 				break;
@@ -878,11 +877,11 @@ jQuery(document).ready(function($) {
 			default:
 				// Special handling
 				if( 'rating' == fieldType ) {
-					// Disable type selector
 					typeSelect.val("rating").prop("disabled", true);
 					typeSelectParent.append('<input type="hidden" class="save-type" name="view[data][client_section][' + key + '][save-type]" value="rating">');
 					break;
 				}
+
 				$(typeSelect).val("text").prop("disabled",false);
 				// remove meta field
 				$elParent.find(".field-meta").empty();

@@ -708,10 +708,14 @@ add_filter( 'wp_insert_post_empty_content', 'wpmtst_insert_post_empty_content', 
 /**
  * Display submit_date in Publish meta box under Published date.
  *
- * @param $post
+ * @param $post @since WordPress 4.4
  * @since 2.12.0
  */
 function wpmtst_post_submitbox_misc_actions( $post ) {
+	if ( ! $post ) {
+		global $post;
+	}
+
 	if ( 'wpm-testimonial' == $post->post_type ) {
 		echo '<div class="wpmtst-pub-section">';
 		echo '<span id="submit-timestamp">&nbsp;';

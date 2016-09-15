@@ -157,24 +157,6 @@ function wpmtst_view_settings( $action = '', $view_id = null ) {
 		$view_name = 'new';
 	}
 
-	// Deselect title & thumbnail if not in field group
-	$has_title_field     = false;
-	$has_thumbnail_field = false;
-	foreach( $all_fields as $key => $field ) {
-		if ( 'post_title' == $field['name'] ) {
-			$has_title_field = true;
-		}
-		if ( 'featured_image' == $field['name'] ) {
-			$has_thumbnail_field = true;
-		}
-	}
-	if ( !$has_title_field ) {
-		$view['title'] = false;
-	}
-	if ( !$has_thumbnail_field ) {
-		$view['thumbnail'] = false;
-	}
-
 	// Select default template if necessary
 	if ( !$view['template'] ) {
 		if ( 'form' == $view['mode'] )
@@ -617,6 +599,12 @@ function wpmtst_view_field_inputs( $key, $field, $adding = false ) {
 			'name'        => 'submit_date',
 			'input_type'  => 'date',
 			'type'        => 'date',
+			'record_type' => 'builtin',
+		),
+		array(
+			'name'        => 'category',
+			'input_type'  => 'category',
+			'type'        => 'category',
 			'record_type' => 'builtin',
 		),
 	);
