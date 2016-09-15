@@ -75,6 +75,7 @@ function wpmtst_admin_register() {
 
 	wp_register_style( 'wpmtst-admin-guide-style', WPMTST_URL . 'css/admin/guide.css', array(), $plugin_version );
 
+	wp_register_style( 'wpmtst-font-awesome', WPMTST_URL . 'fonts/font-awesome-4.6.3/css/font-awesome.min.css', array(), '4.6.3' );
 }
 add_action( 'admin_init', 'wpmtst_admin_register' );
 
@@ -92,8 +93,6 @@ function wpmtst_admin_enqueue_scripts( $hook ) {
 		wp_enqueue_script( 'wpmtst-admin-script' );
 		wp_enqueue_script( 'wpmtst-validation-plugin' );
 	}
-
-	//wp_enqueue_style( 'wpmtst-font-awesome' );
 
 }
 add_action( 'admin_enqueue_scripts', 'wpmtst_admin_enqueue_scripts' );

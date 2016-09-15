@@ -7,7 +7,7 @@
 
 		<p><?php _e( 'The plugin is compatible with WPML and Polylang.', 'strong-testimonials' ); ?></p>
 
-		<p><?php _e( 'In WPML, three domains are added to the String Translation screen.', 'strong-testimonials' ); ?></p>
+		<p><?php _e( 'In WPML, four domains are added to the String Translation screen.', 'strong-testimonials' ); ?></p>
 
 		<p><?php _e( 'In Polylang, the domains are added to the String Translation tab on the Languages screen.', 'strong-testimonials' ); ?></p>
 
@@ -28,6 +28,12 @@
 				strong-testimonials-notification
 				<ul>
 					<li>The text for the notification email subject and message.</li>
+				</ul>
+			</li>
+			<li>
+				strong-testimonials-read-more
+				<ul>
+					<li>The text for the custom "Read more" texts for each View.</li>
 				</ul>
 			</li>
 		</ul>

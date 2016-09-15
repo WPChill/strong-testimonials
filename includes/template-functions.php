@@ -590,17 +590,21 @@ function wpmtst_client_section( $client_section ) {
 			case 'date' :
 				$format = isset( $field['format'] ) && $field['format'] ? $field['format'] : get_option( 'date_format' );
 
-				if ( 'post_date' == $field['field'] || 'submit_date' == $field['field'] ) {
-					$the_date = mysql2date( $format, $post->post_date );
+				// Fall back to post_date if submit_date missing.
+				$fallback = $post->post_date;
+				$the_date = get_post_meta( $post->ID, $field['field'], true );
+				if ( ! $the_date ) {
+					$the_date = $fallback;
 				}
-				else {
-					$the_date = get_post_meta( $post->ID, $field['field'], true );
-					if ( get_option( 'date_format' ) != $format ) {
-						// Requires PHP 5.3+
-						if ( version_compare( PHP_VERSION, '5.3' ) >= 0 ) {
-							$new_date = DateTime::createFromFormat( get_option( 'date_format' ), $the_date );
-							if ( $new_date )
-								$the_date = $new_date->format( $format );
+
+				$the_date = mysql2date( $format, $the_date );
+
+				if ( get_option( 'date_format' ) != $format ) {
+					// Requires PHP 5.3+
+					if ( version_compare( PHP_VERSION, '5.3' ) >= 0 ) {
+						$new_date = DateTime::createFromFormat( get_option( 'date_format' ), $the_date );
+						if ( $new_date ) {
+							$the_date = $new_date->format( $format );
 						}
 					}
 				}

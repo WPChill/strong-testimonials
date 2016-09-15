@@ -119,6 +119,13 @@ section {
 .wrap.welcome ol,
 .wrap.welcome ul {
 	font-size: 1.2em;
+	line-height: 1.5;
+}
+
+.wrap.welcome ul > li {
+	list-style-type: disc;
+	margin-left: 1.3em;
+	padding-left: .3em;
 }
 
 .wrap.welcome code {

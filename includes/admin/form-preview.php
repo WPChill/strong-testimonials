@@ -1,11 +1,12 @@
 <?php
 
 function wpmtst_get_form_preview() {
+	if ( ! isset( $_POST['fields'] ) ) exit;
+
+	parse_str( urldecode( $_POST['fields'] ) ); // --> $fields
 
 	$new_fields = array();
 	$field_options = get_option( 'wpmtst_fields' );
-
-	parse_str( urldecode( $_POST['fields'] ) ); // --> $fields
 
 	/** @noinspection PhpUndefinedVariableInspection */
 	foreach ( $fields as $key => $field ) {

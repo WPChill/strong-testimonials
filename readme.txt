@@ -144,6 +144,11 @@ Yes. This requires a lightbox so if your theme does not include one, you will ne
 
 == Changelog ==
 
+= 2.12.1 - Sep 15, 2016 =
+* Fix bug in loading Font Awesome.
+* Fix bug in new submit_date field.
+* Fix bug in form preview.
+
 = 2.12 - Sep 14, 2016 =
 * Star ratings!
     * Get rating on a form
@@ -156,7 +161,7 @@ Yes. This requires a lightbox so if your theme does not include one, you will ne
     * Add contextual help (the Help tab).
     * Add option to hide the label.
     * Add option for default form value (translatable).
-    * Add option for default display value  (translatable).
+    * Add option for default display value (translatable).
     * Add option to include a shortcode.
     * Fix bug: Save fields after restoring defaults.
     * Improve fields editor UI.

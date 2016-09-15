@@ -18,11 +18,15 @@ function convertLabel(label) {
 	 * Preview
 	 */
 
-	var $form = $("#wpmtst-custom-fields-form");
+	var theForm = $("#wpmtst-custom-fields-form");
+
 	var formPreview = function() {
+		var formFields = theForm.find("[name^='fields']");
+		if( !formFields.length ) return;
+		
 		var data = {
 			'action' : 'wpmtst_get_form_preview',
-			'fields' : $form.find("[name^='fields']").serialize()
+			'fields' : formFields.serialize()
 		};
 		$.post( ajaxurl, data, function( response ) {
 			var newDiv = $("<div></div>").hide().html(response)
@@ -36,7 +40,7 @@ function convertLabel(label) {
 		});
 	}
 	formPreview();
-	$form.on( "change", formPreview );
+	theForm.on( "change", formPreview );
 	
 	/**
 	 * Custom fields
@@ -46,7 +50,7 @@ function convertLabel(label) {
 	var $fieldList = $("#custom-field-list");
 
 	// check all field names
-	$form.submit(function(event){
+	theForm.submit(function(event){
 		$("input.field-name").each(function(index){
 			if( 'name' == $(this).val() || 'date' == $(this).val() ) {
 				$(this).focus().parent().find('.field-name-help.important').addClass('error');
@@ -67,7 +71,7 @@ function convertLabel(label) {
 		forcePlaceholderSize: true,
 		handle: ".handle",
 		cursor: "move",
-		update: function( event, ui ) { $form.change(); }
+		update: function( event, ui ) { theForm.change(); }
 	});
 
 	// click handler (delegated)
@@ -133,7 +137,7 @@ function convertLabel(label) {
 		var thisField = $(this).closest("li");
 		var thisLabel = thisField.find(".field").html();
 		if( confirm('Delete "' + thisLabel + '"?') ) {
-			$.when( thisField.fadeOut(), thisField.remove() ).then( $form.change() );
+			$.when( thisField.fadeOut(), thisField.remove() ).then( theForm.change() );
 			// enable "Add New Field" button
 			$("#add-field").removeAttr("disabled");
 		}
@@ -179,7 +183,7 @@ function convertLabel(label) {
 			var $li = $('<li id="field-'+nextKey+'">').append( response );
 
 			// append to list
-			$.when( $fieldList.append($li) ).then( $form.change() );
+			$.when( $fieldList.append($li) ).then( theForm.change() );
 
 			// ---------------------------------------------------------
 			// Disable any Post fields already in use.

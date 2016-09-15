@@ -18,27 +18,21 @@ $major_minor    = strtok( $plugin_version, '.' ) . '.' . strtok( '.' );
 
 	<h4 class="large"><?php _e( 'What\'s new' ); ?></h4>
 
-	<h5>New features from your requests</h5>
+	<p>Star ratings!</p>
 
-	<p>A new template named "Modern".</p>
+	<p>Several features have been added to the form fields.</p>
+	<ul>
+		<li>Form preview makes it easier to see how the field labels, placeholders, etc. will look.</li>
+		<li>Text fields can have a <strong>default form value</strong> to display on the form.</li>
+		<li>Text fields can also have a <strong>default display value</strong> to display on the testimonial if that field is left blank on the form.</li>
+		<li>Field labels are now optional.</li>
+		<li>A field can contain a shortcode to display custom messages or other code snippets.</li>
+		<li>The Help tab (in the upper right corner) now contains more helpful information.</li>
+	</ul>
 
-	<p>The slideshow now has several navigation options. Finally!</p>
+	<p>The form now collects the date upon submission. That date is displayed in the post editor "Publish" box and is available as a custom field in the View editor.</p>
 
-	<p>An indicator bubble when new submissions are awaiting moderation.</p>
-
-	<p>The "Read more" link now works in the same way as blog posts for a consistent user experience. The excerpt length and link text are customizable.</p>
-
-	<p>Adding a "Read more" to <b>another page</b> is now a separate option and allows linking to a post as well.</p>
-
-	<p>YouTube, Twitter, Instagram and more can now be embedded in testimonial content. <a href="<?php echo admin_url( 'edit.php?post_type=wpm-testimonial&page=testimonial-settings' ); ?>">Embed width setting</a> | <a href="https://codex.wordpress.org/Embeds">More on embeds</a> | <a href="https://www.wpmission.com/tutorials/youtube-twitter-instagram-strong-testimonials/" target="_blank">Tutorial</a></p>
-
-	<h5>Compatibility</h5>
-
-	<p>Compatible with <a href="https://wordpress.org/plugins/megamenu/">Max Mega Menu</a>, <a href="https://wordpress.org/plugins/foobox-image-lightbox/">FooBox Image Lightbox</a> and <a href="http://fooplugins.com/plugins/foobox/">FooBox Pro</a>.</p>
-
-	<p>An option to queue the notification emails when using services like <a href="https://www.mandrill.com/">Mandrill</a> or plugins like <a href="https://wordpress.org/plugins/postman-smtp/">Postman SMTP</a> that replace the standard <code>wp_mail</code> function.</p>
-
-	<p>To adhere to WordPress guidelines, Font Awesome is now included in the plugin instead of loading via CDN.</p>
+	<p>The view editor has a button to copy the view's shortcode to the clipboard!</p>
 
 	<?php do_action( 'wpmtst_guide_after_content' ); ?>
 
