@@ -163,6 +163,9 @@ Yes. This requires a lightbox so if your theme does not include one, you will ne
 
 ## Changelog 
 
+### 2.12.3 - Sep 23, 2016
+* Enforce email and URL input types.
+
 ### 2.12.2 - Sep 15, 2016
 * Fix compatibility with versions of WordPress before 4.4.
 * Fix bug in fields editor.

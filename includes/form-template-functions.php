@@ -110,14 +110,8 @@ function wpmtst_single_form_field( $field ) {
 			break;
 
 		default: // text, email, url
-			/**
-			 * Switching out url type until more themes adopt it.
-			 * @since 1.11.0
-			 */
-			$input_type = ( $field['input_type'] = 'url' ? 'text' : $field['input_type'] );
-
 			echo '<input id="wpmtst_' . $field['name'] . '"'
-			     . ' type="' . $input_type . '"'
+			     . ' type="' . $field['input_type'] . '"'
 			     . ' class="' . wpmtst_field_classes( $field['input_type'], $field['name'] ) . '"'
 			     . ' name="' . $field['name'] . '"'
 			     . wpmtst_field_value( $field, $form_values )

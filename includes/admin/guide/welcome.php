@@ -20,6 +20,8 @@ $major_minor    = strtok( $plugin_version, '.' ) . '.' . strtok( '.' );
 
 	<p>Star ratings!</p>
 
+	<p>The view editor has a button to copy the view's shortcode to the clipboard.</p>
+
 	<p>Several features have been added to the form fields.</p>
 	<ul>
 		<li>Form preview makes it easier to see how the field labels, placeholders, etc. will look.</li>
@@ -30,9 +32,9 @@ $major_minor    = strtok( $plugin_version, '.' ) . '.' . strtok( '.' );
 		<li>The Help tab (in the upper right corner) now contains more helpful information.</li>
 	</ul>
 
-	<p>The form now collects the date upon submission. That date is displayed in the post editor "Publish" box and is available as a custom field in the View editor.</p>
+	<p>The form now <strong>collects the date</strong> upon submission. That date is displayed in the post editor "Publish" box and is available as a custom field in the View editor.</p>
 
-	<p>The view editor has a button to copy the view's shortcode to the clipboard!</p>
+	<p>The form now enforces valid <strong>email</strong> addresses and <strong>URL</strong>s. Those field types may appear different if your theme does not style them. If so, start a support request or contact me for help.</p>
 
 	<?php do_action( 'wpmtst_guide_after_content' ); ?>
 

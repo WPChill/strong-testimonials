@@ -4,8 +4,17 @@
  * @package Strong_Testimonials
  */
 
-jQuery(document).ready(function($) {
+(function($) {
 
+	// Add protocol if missing
+	// Thanks http://stackoverflow.com/a/36429927/51600
+	$("input[type=url]").change(function() {
+		if (!/^https*:\/\//.test(this.value)) {
+			this.value = "http://" + this.value;
+		}
+	});
+
+	// Validate upon normal or AJAX submission
 	//noinspection JSUnresolvedVariable
 	if (typeof( form_ajax_object ) !== 'undefined' && form_ajax_object.ajaxSubmit == "1") {
 
@@ -51,4 +60,4 @@ jQuery(document).ready(function($) {
 		}
 	}
 
-});
+})( jQuery );

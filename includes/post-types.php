@@ -119,22 +119,23 @@ function wpmtst_updated_messages( $messages ) {
 		$permalink = '';
 	}
 
+	// TODO Use WordPress translations as a basis for adding these to existing translation files.
 	// Preview post link.
 	$preview_post_link_html = sprintf( ' <a target="_blank" href="%1$s">%2$s</a>',
 		esc_url( $preview_url ),
-		__( 'Preview testimonial' )
+		__( 'Preview testimonial', 'strong-testimonials' )
 	);
 
 	// View post link.
 	$view_post_link_html = sprintf( ' <a href="%1$s">%2$s</a>',
 		esc_url( $permalink ),
-		__( 'View testimonial' )
+		__( 'View testimonial', 'strong-testimonials' )
 	);
 
 	// Scheduled post preview link.
 	$scheduled_post_link_html = sprintf( ' <a target="_blank" href="%1$s">%2$s</a>',
 		esc_url( $permalink ),
-		__( 'Preview testimonial' )
+		__( 'Preview testimonial', 'strong-testimonials' )
 	);
 
 	/* translators: Publish box date format, see https://secure.php.net/date */
@@ -142,17 +143,17 @@ function wpmtst_updated_messages( $messages ) {
 
 	$messages['wpm-testimonial'] = array(
 		0 => '', // Unused. Messages start at index 1.
-		1 => __( 'Testimonial updated.' ) . $view_post_link_html,
-		2 => __( 'Custom field updated.' ),
-		3 => __( 'Custom field deleted.' ),
-		4 => __( 'Testimonial updated.' ),
+		1 => __( 'Testimonial updated.', 'strong-testimonials' ) . $view_post_link_html,
+		2 => __( 'Custom field updated.', 'strong-testimonials' ),
+		3 => __( 'Custom field deleted.', 'strong-testimonials' ),
+		4 => __( 'Testimonial updated.', 'strong-testimonials' ),
 		/* translators: %s: date and time of the revision */
-		5 => isset($_GET['revision']) ? sprintf( __( 'Testimonial restored to revision from %s.' ), wp_post_revision_title( (int) $_GET['revision'], false ) ) : false,
-		6 => __( 'Testimonial published.' ) . $view_post_link_html,
-		7 => __( 'Testimonial saved.' ),
-		8 => __( 'Testimonial submitted.' ) . $preview_post_link_html,
-		9 => sprintf( __( 'Testimonial scheduled for: %s.' ), '<strong>' . $scheduled_date . '</strong>' ) . $scheduled_post_link_html,
-		10 => __( 'Testimonial draft updated.' ) . $preview_post_link_html,
+		5 => isset($_GET['revision']) ? sprintf( __( 'Testimonial restored to revision from %s.', 'strong-testimonials' ), wp_post_revision_title( (int) $_GET['revision'], false ) ) : false,
+		6 => __( 'Testimonial published.', 'strong-testimonials' ) . $view_post_link_html,
+		7 => __( 'Testimonial saved.', 'strong-testimonials' ),
+		8 => __( 'Testimonial submitted.', 'strong-testimonials' ) . $preview_post_link_html,
+		9 => sprintf( __( 'Testimonial scheduled for: %s.', 'strong-testimonials' ), '<strong>' . $scheduled_date . '</strong>' ) . $scheduled_post_link_html,
+		10 => __( 'Testimonial draft updated.', 'strong-testimonials' ) . $preview_post_link_html,
 	);
 
 	return $messages;
