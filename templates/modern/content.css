@@ -187,6 +187,7 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
   font-size: 1.1em;
 }
 .strong-view.modern .testimonial-image {
+  display: inline-block;
   margin-bottom: 10px;
 }
 .strong-view.modern .testimonial-image img {

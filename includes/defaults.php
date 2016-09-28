@@ -2,8 +2,6 @@
 /**
  * Default options.
  *
- * Populates default_options and default_fields.
- *
  * @since 1.8.0
  * @package Strong_Testimonials
  */
@@ -325,7 +323,7 @@ function wpmtst_get_default_custom_forms() {
 }
 
 /**
- * Form
+ * Form options.
  *
  * @return array
  */
@@ -528,4 +526,21 @@ function wpmtst_get_default_l10n_contexts() {
 		'strong-testimonials-read-more'     => __( '"Read More" Link Text', 'strong-testimonials' ),
 	);
 	return $contexts;
+}
+
+
+/**
+ * Update and conversion history.
+ *
+ * @since 2.12.4
+ *
+ * @return array|mixed|void
+ */
+function wpmtst_get_update_history() {
+	$history = get_option( 'wpmtst_history' );
+	if ( ! $history ) {
+		$history = array();
+	}
+
+	return $history;
 }

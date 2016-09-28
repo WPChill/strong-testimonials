@@ -144,6 +144,11 @@ Yes. This requires a lightbox so if your theme does not include one, you will ne
 
 == Changelog ==
 
+= 2.12.4 - Sep 28, 2016 =
+* Add title to Modern template.
+* Fix left-aligned image in Modern template in some themes.
+* Fix conflict with Styles: Twentyfourteen plugin.
+
 = 2.12.3 - Sep 23, 2016 =
 * Enforce email and URL input types.
 

@@ -20,6 +20,7 @@
 					<?php do_action( 'wpmtst_before_testimonial' ); ?>
 
 					<div class="testimonial-content">
+						<?php wpmtst_the_title( '<h3 class="testimonial-heading">', '</h3>' ); ?>
 						<?php wpmtst_the_content(); ?>
 					</div>
 

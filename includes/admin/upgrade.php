@@ -29,6 +29,8 @@ function wpmtst_default_settings() {
 	$default_view          = apply_filters( 'wpmtst_view_default', wpmtst_get_default_view() );
 	$default_l10n_contexts = wpmtst_get_default_l10n_contexts();
 
+	$history = wpmtst_get_update_history();
+
 	/**
 	 * -2- GET OPTIONS
 	 */
@@ -422,6 +424,15 @@ function wpmtst_default_settings() {
 				$view_data['stretch'] = 0;
 			}
 
+			/**
+			 * Disable title on Modern template because new version of template has the title.
+			 * Only if updating from version earlier than 2.12.4.
+			 */
+			if ( 'modern:content' == $view_data['template'] ) {
+				if ( ! isset( $history['2.12.4_convert_modern_template'] ) ) {
+					$view_data['title'] = 0;
+				}
+			}
 
 			// Merge in new default values
 			$view['data'] = array_merge( $new_default_view, $view_data );
@@ -449,6 +460,17 @@ function wpmtst_default_settings() {
 		$contexts = array_merge( $default_l10n_contexts, $contexts );
 		update_option( 'wpmtst_l10n_contexts', $contexts );
 	}
+
+	/**
+	 * After all is said and done, update history log.
+	 *
+	 * @since 2.12.4
+	 */
+	if ( ! isset( $history['2.12.4_convert_modern_template'] ) ) {
+		$history['2.12.4_convert_modern_template'] = current_time( 'mysql' );
+		update_option( 'wpmtst_history', $history );
+	}
+
 
 	/**
 	 * Update the plugin version.
