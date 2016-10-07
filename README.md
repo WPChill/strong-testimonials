@@ -15,11 +15,12 @@ A full-featured testimonials plugin that works right out of the box for beginner
 
 All the features you need to quickly add and customize testimonials on your site.
 
-**[See demos of various templates, slideshows, and forms here!](http://demos.wpmission.com/strong-testimonials/)**
+[See demos of various templates, slideshows, and forms here!](http://demos.wpmission.com/strong-testimonials/)
 
+**[Try Strong Testimonials on Postonomy for a complete back to front demo!](https://postonomy.com/demo/strong-testimonials/)**
 
 ### Is this the right plugin for you? 
-It's important to understand this plugin's intended use case: A small business with up to a few hundred testimonials, maybe organized into 5-10 categories, and displaying them a few different ways like a full page of testimonials and some slideshows, plus allowing customers to submit new testimonials.
+It's important to understand this plugin's intended use case: A small business with up to a few hundred testimonials, maybe organized into multiple categories, and displaying them a few different ways like a full page of testimonials and a slideshow widget, plus a form for accepting new testimonials.
 
 If that describes your situation, this plugin will work for you right out of the box with just a few steps.
 
