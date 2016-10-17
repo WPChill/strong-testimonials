@@ -374,13 +374,13 @@ function wpmtst_get_default_form_options() {
 	uasort( $default_messages, 'wpmtst_uasort' );
 
 	$default_form_options = array(
-		'post_status'       => 'pending',
-		'admin_notify'      => 0,
-		'mail_queue'        => 0,
-		'sender_name'       => get_bloginfo( 'name' ),
-		'sender_site_email' => 1,
-		'sender_email'      => '',
-		'recipients'        => array(
+		'post_status'              => 'pending',
+		'admin_notify'             => 0,
+		'mail_queue'               => 0,
+		'sender_name'              => get_bloginfo( 'name' ),
+		'sender_site_email'        => 1,
+		'sender_email'             => '',
+		'recipients'               => array(
 			array(
 				'admin_name'       => '',
 				'admin_email'      => '',
@@ -388,18 +388,22 @@ function wpmtst_get_default_form_options() {
 				'primary'          => 1,  // cannot be deleted
 			),
 		),
-		'default_recipient' => array(
+		'default_recipient'        => array(
 			'admin_name'  => '',
 			'admin_email' => '',
 		),
 		/* translators: Default subject line for new testimonial notification email. */
-		'email_subject'     => __( 'New testimonial for %BLOGNAME%', 'strong-testimonials' ),
+		'email_subject'            => __( 'New testimonial for %BLOGNAME%', 'strong-testimonials' ),
 		/* translators: Default message for new testimonial notification email. */
-		'email_message'     => __( 'New testimonial submission for %BLOGNAME%. This is awaiting action from the website administrator.', 'strong-testimonials' ),
-		'captcha'           => '',
-		'honeypot_before'   => 0,
-		'honeypot_after'    => 0,
-		'messages'          => $default_messages,
+		'email_message'            => __( 'New testimonial submission for %BLOGNAME%. This is awaiting action from the website administrator.', 'strong-testimonials' ),
+		'captcha'                  => '',
+		'honeypot_before'          => 0,
+		'honeypot_after'           => 0,
+		'messages'                 => $default_messages,
+		'scrolltop_success'        => true,
+		'scrolltop_success_offset' => 40,
+		'scrolltop_error'          => true,
+		'scrolltop_error_offset'   => 40,
 	);
 
 	return $default_form_options;

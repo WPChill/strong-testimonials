@@ -67,6 +67,26 @@
 
 	<tr>
 		<td class="tall">
+			<?php _e( 'Scroll', 'strong-testimonials' ); ?>
+		</td>
+		<td>
+			<fieldset>
+				<label>
+					<input type="checkbox" name="wpmtst_form_options[scrolltop_error]" <?php checked( $form_options['scrolltop_error'] ); ?>>
+					<?php printf( __( 'If errors, scroll to the first error minus %s pixels. On by default.', 'strong-testimonials' ), '<input type="text" name="wpmtst_form_options[scrolltop_error_offset]" value="' . $form_options['scrolltop_error_offset'] . '" size="3">' ); ?>
+				</label>
+			</fieldset>
+			<fieldset>
+				<label>
+					<input type="checkbox" name="wpmtst_form_options[scrolltop_success]" <?php checked( $form_options['scrolltop_success'] ); ?>>
+					<?php printf( __( 'If success, scroll to the success message minus %s pixels. On by default.', 'strong-testimonials' ), '<input type="text" name="wpmtst_form_options[scrolltop_success_offset]" value="' . $form_options['scrolltop_success_offset'] . '" size="3">' ); ?>
+				</label>
+			</fieldset>
+		</td>
+	</tr>
+
+	<tr>
+		<td class="tall">
 			<div><?php _e( 'Notification', 'strong-testimonials' ); ?></div>
 		</td>
 

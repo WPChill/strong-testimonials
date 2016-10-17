@@ -89,7 +89,7 @@ function wpmtst_form_view( $atts ) {
 
 	if ( isset( $_GET['success'] ) ) {
 		// Load stylesheet
-		do_action( 'wpmtst_form_rendered', $atts );
+		do_action( 'wpmtst_form_success', $atts );
 		return apply_filters( 'wpmtst_form_success_message', '<div class="testimonial-success">' .  wpmtst_get_form_message( 'submission-success' ) . '</div>' );
 	}
 

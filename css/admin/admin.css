@@ -424,6 +424,7 @@ input[readonly] {
 ------------------------------------------------*/
 td.tall {
 	vertical-align: top;
+	padding-top: 20px;
 }
 
 .subsection .subsection-title {

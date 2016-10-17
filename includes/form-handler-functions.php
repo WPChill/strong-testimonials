@@ -207,13 +207,14 @@ function wpmtst_form_handler() {
 
 	if ( ! count( $form_errors ) ) {
 		// Clear saved form data and errors.
-		WPMST()->set_form_values( null );
-		WPMST()->set_form_errors( null );
+		WPMST()->set_form_values( NULL );
+		WPMST()->set_form_errors( NULL );
 		wpmtst_notify_admin( $form_values, $form_name );
 		return true;
 	}
 
-	WPMST()->set_form_values( $form_values );
+	// Redisplay form with submitted values and error messages.
+	WPMST()->set_form_values( stripslashes_deep( $form_values ) );
 	WPMST()->set_form_errors( $form_errors );
 	return false;
 }
@@ -248,8 +249,6 @@ function wpmtst_sanitize_textarea( $text ) {
 
 	/**
 	 * Filter a sanitized textarea string.
-	 *
-	 * @since 2.9.0
 	 *
 	 * @param string $filtered The sanitized string.
 	 * @param string $str      The string prior to being sanitized.

@@ -365,16 +365,16 @@ function wpmtst_meta_options() {
 					<?php
 					switch ( $field['input_type'] ) {
 
-						case 'categories' :
-							$categories = get_the_terms( $post->ID, 'wpm-testimonial-category' );
-							if ( $categories && ! is_wp_error( $categories ) ) {
-								$list = array();
-								foreach ( $categories as $cat ) {
-									$list[] = $cat->name;
-								}
-								echo join( ", ", $list );
-							}
-							break;
+						//case 'categories' :
+						//	$categories = get_the_terms( $post->ID, 'wpm-testimonial-category' );
+						//	if ( $categories && ! is_wp_error( $categories ) ) {
+						//		$list = array();
+						//		foreach ( $categories as $cat ) {
+						//			$list[] = $cat->name;
+						//		}
+						//		echo join( ", ", $list );
+						//	}
+						//	break;
 
 						case 'rating' :
 							if ( $is_new ) {
@@ -426,7 +426,7 @@ function wpmtst_meta_options() {
 							break;
 
 						default :
-							echo sprintf( '<input id="%2$s" type="%1$s" class="custom-input" name="custom[%2$s]" value="%3$s" size="">', $field['input_type'], $field['name'], $post->{$field['name']} );
+							echo sprintf( '<input id="%2$s" type="%1$s" class="custom-input" name="custom[%2$s]" value="%3$s" size="">', $field['input_type'], $field['name'], esc_attr( $post->{$field['name']} ) );
 							if ( 'url' == $field['input_type'] ) {
 								echo '<div class="input-nofollow">';
 								echo '<label class="nowrap"><input type="checkbox" name="custom[nofollow]"' . checked( $post->nofollow, 'on', false ) . '> <code>rel="nofollow"</code></label>';
@@ -781,10 +781,9 @@ function wpmtst_save_details() {
 		}
 	}
 
-	// Rating is saved Ajaxically.
-	//if ( isset( $_POST['rating'] ) ) {
-	//	update_post_meta( $_POST['post_ID'], 'rating', $_POST['rating'] );
-	//}
+	if ( isset( $_POST['rating'] ) ) {
+		update_post_meta( $_POST['post_ID'], 'rating', $_POST['rating'] );
+	}
 
 }
 // add_action( 'save_post_wpm-testimonial', 'wpmtst_save_details' ); // WP 3.7+  Soon...

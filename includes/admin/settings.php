@@ -98,7 +98,7 @@ function wpmtst_sanitize_options( $input ) {
 	$input['reorder'] = wpmtst_sanitize_checkbox( $input, 'reorder' );
 
 	$input['scrolltop']        = wpmtst_sanitize_checkbox( $input, 'scrolltop' );
-	$input['scrolltop_offset'] = sanitize_text_field( $input['scrolltop_offset'] );
+	$input['scrolltop_offset'] = intval( sanitize_text_field( $input['scrolltop_offset'] ) );
 
 	$input['remove_whitespace'] = wpmtst_sanitize_checkbox( $input, 'remove_whitespace' );
 
@@ -205,6 +205,11 @@ function wpmtst_sanitize_form( $input ) {
 	foreach ( $input['messages'] as $key => $message ) {
 		$input['messages'][ $key ]['text'] = wp_kses_data( $message['text'] );
 	}
+
+	$input['scrolltop_error']          = wpmtst_sanitize_checkbox( $input, 'scrolltop_error' );
+	$input['scrolltop_error_offset']   = intval( sanitize_text_field( $input['scrolltop_error_offset'] ) );
+	$input['scrolltop_success']        = wpmtst_sanitize_checkbox( $input, 'scrolltop_success' );
+	$input['scrolltop_success_offset'] = intval( sanitize_text_field( $input['scrolltop_success_offset'] ) );
 
 	return $input;
 }

@@ -130,7 +130,7 @@ function wpmtst_default_settings() {
 			}
 			elseif ( 'url' == $field_name ) {
 				$new_field_types['custom'][$field_name]['input_type']   = 'url';
-				$new_field_types['custom'][$field_name]['option_label'] = 'url';
+				$new_field_types['custom'][$field_name]['option_label'] = 'URL';
 			}
 		}
 

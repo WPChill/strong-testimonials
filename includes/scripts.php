@@ -24,11 +24,14 @@ function wpmtst_scripts() {
 	wp_register_style( 'wpmtst-rating-form', WPMTST_URL . 'css/rating-form.css', array(), $plugin_version );
 	wp_register_style( 'wpmtst-rating-display', WPMTST_URL . 'css/rating-display.css', array(), $plugin_version );
 
+	wp_register_script( 'wpmtst-form', WPMTST_URL . 'js/wpmtst-form.js', array( 'jquery' ), $plugin_version, true );
+	wp_register_script( 'wpmtst-form-success', WPMTST_URL . 'js/wpmtst-form-success.js', array( 'jquery' ), $plugin_version, true );
+
 	if ( wpmtst_using_form_validation_script() ) {
 
 		wp_register_script( 'wpmtst-validation-plugin', WPMTST_URL . 'js/validate/jquery.validate.min.js', array( 'jquery' ), false, true );
 
-		wp_register_script( 'wpmtst-form-script', WPMTST_URL . 'js/wpmtst-form.js', array( 'wpmtst-validation-plugin', 'jquery-form' ), $plugin_version, true );
+		wp_register_script( 'wpmtst-form-validation', WPMTST_URL . 'js/wpmtst-form-validation.js', array( 'wpmtst-validation-plugin', 'jquery-form' ), $plugin_version, true );
 
 		/**
 		 * Localize jQuery Validate plugin.

@@ -4,7 +4,7 @@
  * Plugin URI: https://www.wpmission.com/plugins/strong-testimonials/
  * Description: A full-featured plugin that works right out of the box for beginners and offers advanced features for pros.
  * Author: Chris Dillon
- * Version: 2.12.4
+ * Version: 2.13
  * Author URI: https://www.wpmission.com/
  * Text Domain: strong-testimonials
  * Domain Path: /languages
@@ -336,8 +336,9 @@ final class Strong_Testimonials {
 		/**
 		 * Action hooks after a view has been rendered.
 		 */
-		add_action( 'wpmtst_form_rendered', array( $this, 'form_rendered' ), 10, 1 );
 		add_action( 'wpmtst_view_rendered', array( $this, 'view_rendered' ), 10, 1 );
+		add_action( 'wpmtst_form_rendered', array( $this, 'form_rendered' ), 10, 1 );
+		add_action( 'wpmtst_form_success', array( $this, 'form_success' ), 10, 1 );
 
 		/**
 		 * Ajax form submission handler
@@ -384,6 +385,18 @@ final class Strong_Testimonials {
 		}
 
 		self::after_form( $atts );
+	}
+
+	public function form_success( $atts ) {
+		$handle = self::find_stylesheet( $atts, false );
+
+		if ( ( isset( $atts['compat'] ) && $atts['compat'] ) || ! wp_script_is( $handle ) ) {
+
+			self::find_stylesheet( $atts, true, false );
+
+		}
+
+		self::after_form_success();
 	}
 
 	/**
@@ -471,7 +484,8 @@ final class Strong_Testimonials {
 		 *
 		 * @since 1.21.0
 		 */
-		add_image_size( 'widget-thumbnail', 75, 75, false );
+		// name, width, height, crop = false
+		add_image_size( 'widget-thumbnail', 75, 75, true );
 	}
 
 	/**
@@ -1359,20 +1373,26 @@ final class Strong_Testimonials {
 	private static function after_form( $atts = array() ) {
 		$form_options = get_option('wpmtst_form_options');
 
-		if ( wp_script_is( 'wpmtst-validation-lang', 'registered' ) ) {
-			wp_enqueue_script( 'wpmtst-validation-lang' );
-		}
-
 		if ( ! wp_style_is( 'wpmtst-rating-form' ) ) {
 			wp_enqueue_style( 'wpmtst-rating-form' );
 		}
 
+		wp_localize_script( 'wpmtst-form', 'formError', array(
+			'scrollTop' => $form_options['scrolltop_error'],
+			'offset'    => $form_options['scrolltop_error_offset']
+		) );
+		wp_enqueue_script( 'wpmtst-form' );
+
 		if ( wpmtst_using_form_validation_script() ) {
-			wp_localize_script( 'wpmtst-form-script', 'form_ajax_object', array(
+			if ( wp_script_is( 'wpmtst-validation-lang', 'registered' ) ) {
+				wp_enqueue_script( 'wpmtst-validation-lang' );
+			}
+
+			wp_localize_script( 'wpmtst-form-validation', 'form_ajax_object', array(
 				'ajaxUrl' => admin_url( 'admin-ajax.php' ),
 				'ajaxSubmit' => isset( $atts['form_ajax'] ) && $atts['form_ajax'] ? 1 : 0,
 			) );
-			wp_enqueue_script( 'wpmtst-form-script' );
+			wp_enqueue_script( 'wpmtst-form-validation' );
 		}
 
 		if ( $form_options['honeypot_before'] ) {
@@ -1382,6 +1402,15 @@ final class Strong_Testimonials {
 		if ( $form_options['honeypot_after'] ) {
 			add_action( 'wp_footer', 'wpmtst_honeypot_after_script' );
 		}
+	}
+
+	private static function after_form_success() {
+		$form_options = get_option( 'wpmtst_form_options' );
+		wp_localize_script( 'wpmtst-form-success', 'formSuccess', array(
+			'scrollTop' => $form_options['scrolltop_success'],
+			'offset'    => $form_options['scrolltop_success_offset']
+		) );
+		wp_enqueue_script( 'wpmtst-form-success' );
 	}
 
 	/**

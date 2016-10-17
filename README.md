@@ -164,6 +164,12 @@ Yes. This requires a lightbox so if your theme does not include one, you will ne
 
 ## Changelog 
 
+### 2.13 - Oct 17, 2016
+* Fix bug in saving star rating in post editor.
+* Fix bug when clearing a URL field.
+* Fix bug in redisplaying form values when form has errors.
+* Add options for scrolling to the form success message or first form error.
+
 ### 2.12.4 - Sep 28, 2016
 * Add title to Modern template.
 * Fix left-aligned image in Modern template in some themes.

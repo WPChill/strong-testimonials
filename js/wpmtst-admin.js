@@ -31,7 +31,7 @@ jQuery(document).ready(function($) {
 	// Add protocol if missing
 	// Thanks http://stackoverflow.com/a/36429927/51600
 	$("input[type=url]").change(function() {
-		if (!/^https*:\/\//.test(this.value)) {
+		if ( this.value.length && !/^https*:\/\//.test(this.value) ) {
 			this.value = "http://" + this.value;
 		}
 	});
