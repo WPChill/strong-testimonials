@@ -403,14 +403,21 @@ function wpmtst_notify_admin( $post, $form_name = 'custom' ) {
 
 			$headers  = 'MIME-Version: 1.0' . "\n";
 			$headers .= 'Content-Type: text/plain; charset="' . get_option('blog_charset') . '"' . "\n";
-			if ( $form_options['sender_name'] )
+			if ( $form_options['sender_name'] ) {
 				$headers .= sprintf( 'From: %s <%s>', $form_options['sender_name'], $sender_email ) . "\n";
-			else
+			} else {
 				$headers .= sprintf( 'From: %s', $sender_email ) . "\n";
+			}
 
-			WPMST()->enqueue_mail( $to, $subject, $message, $headers );
+			$email = array( 'to' => $to, 'subject' => $subject, 'message' => $message, 'headers' => $headers );
+			if ( $form_options['mail_queue'] ) {
+				WPMST()->enqueue_mail( $email );
+			} else {
+				WPMST()->send_mail( $email );
+			}
 
 		} // for each recipient
 
 	} // if notify
+
 }

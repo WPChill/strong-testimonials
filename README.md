@@ -164,6 +164,10 @@ Yes. This requires a lightbox so if your theme does not include one, you will ne
 
 ## Changelog 
 
+### 2.13.1 - Oct 18, 2016
+* Fix bug in pagination settings.
+* Fix bug in mail queue.
+
 ### 2.13 - Oct 17, 2016
 * Fix bug in saving star rating in post editor.
 * Fix bug when clearing a URL field.

@@ -4,7 +4,7 @@
  * Plugin URI: https://www.wpmission.com/plugins/strong-testimonials/
  * Description: A full-featured plugin that works right out of the box for beginners and offers advanced features for pros.
  * Author: Chris Dillon
- * Version: 2.13
+ * Version: 2.13.1
  * Author URI: https://www.wpmission.com/
  * Text Domain: strong-testimonials
  * Domain Path: /languages
@@ -408,16 +408,15 @@ final class Strong_Testimonials {
 	 * Required for the template function strong_testimonials_view.
 	 *
 	 * @since 1.25.0 Checking $atts['compat']
-	 * @since 2.3    Added wp_script_is( $handle ) as last check.
 	 * @since 2.5.2  Added pagination. When using `strong_testimonials_view` template function.
 	 *
 	 * @param $atts
 	 */
 	public function view_rendered( $atts ) {
-		$handle = self::find_stylesheet( $atts, false );
 
-		if ( ( isset( $atts['compat'] ) && $atts['compat'] ) || ! wp_script_is( $handle ) ) {
+		if ( isset( $atts['compat'] ) && $atts['compat'] ) {
 
+			$handle = self::find_stylesheet( $atts, false );
 			wp_enqueue_style( $handle );
 
 			self::custom_background( $atts['view'], $atts['background'] );
@@ -1516,7 +1515,6 @@ final class Strong_Testimonials {
 	 * @param array $atts
 	 */
 	private static function after_pagination( $atts = array() ) {
-
 		$options = get_option( 'wpmtst_options' );
 
 		// Populate variable for QuickPager script.
@@ -1525,8 +1523,9 @@ final class Strong_Testimonials {
 			$nav = 'both';
 		}
 
+		//TODO DRY
 		$pager = array(
-			'id'            => '.strong-paginated',
+			'id'            => ".strong-view-id-{$atts['view']} .strong-paginated",
 			'pageSize'      => $atts['per_page'],
 			'currentPage'   => 1,
 			'pagerLocation' => $nav,
@@ -1622,8 +1621,9 @@ final class Strong_Testimonials {
 					$nav = 'both';
 				}
 
+				//TODO DRY
 				$pager = array(
-					'id'            => '.strong-paginated',
+					'id'            => ".strong-view-id-{$atts['view']} .strong-paginated",
 					'pageSize'      => $atts['per_page'],
 					'currentPage'   => 1,
 					'pagerLocation' => $nav,
@@ -1972,19 +1972,17 @@ final class Strong_Testimonials {
 	 * Enqueue mail.
 	 *
 	 * @since 2.8.0
-	 * @param $to
-	 * @param $subject
-	 * @param $message
-	 * @param $headers
+	 * @param $email
 	 */
-	public function enqueue_mail( $to, $subject, $message, $headers ) {
+	public function enqueue_mail( $email ) {
 		$current_queue = get_transient( 'wpmtst_mail_queue' );
-		if ( $current_queue )
+		if ( $current_queue ) {
 			delete_transient( 'wpmtst_mail_queue' );
-		else
+		} else {
 			$current_queue = array();
+		}
 
-		$current_queue[] = array( 'to' => $to, 'subject' => $subject, 'message' => $message, 'headers' => $headers );
+		$current_queue[] = $email;
 		set_transient( 'wpmtst_mail_queue', $current_queue, DAY_IN_SECONDS );
 	}
 
@@ -2000,30 +1998,36 @@ final class Strong_Testimonials {
 			return;
 
 		foreach ( $current_queue as $email ) {
-			$mail_sent = wp_mail( $email['to'], $email['subject'], $email['message'], $email['headers'] );
-
-			// Log email action
-			//TODO Deeper integration with Mandrill
-			$options = get_option( 'wpmtst_options' );
-			if ( isset( $options['email_log_level'] ) && $options['email_log_level'] ) {
-
-				// for both levels, log failure only
-				// for level 2, log both success and failure
-				if ( ! $mail_sent || 2 == $options['email_log_level'] ) {
-					$log_entry = array(
-						'response' => $mail_sent ? 'mail successful' : 'mail failed',
-						'to'       => $email['to'],
-						'subject'  => $email['subject'],
-						'message'  => $email['message'],
-						'headers'  => $email['headers'],
-					);
-					WPMST()->log( $log_entry, __FUNCTION__ );
-				}
-
-			}
+			$this->send_mail( $email );
 		}
 
 		delete_transient( 'wpmtst_mail_queue' );
+	}
+
+
+	public function send_mail( $email ) {
+		$mail_sent = wp_mail( $email['to'], $email['subject'], $email['message'], $email['headers'] );
+
+		// Log email action
+		//TODO Deeper integration with Mandrill
+		$options = get_option( 'wpmtst_options' );
+		if ( isset( $options['email_log_level'] ) && $options['email_log_level'] ) {
+
+			// for both levels, log failure only
+			// for level 2, log both success and failure
+			if ( ! $mail_sent || 2 == $options['email_log_level'] ) {
+				$log_entry = array(
+					'response' => $mail_sent ? 'mail successful' : 'mail failed',
+					'to'       => $email['to'],
+					'subject'  => $email['subject'],
+					'message'  => $email['message'],
+					'headers'  => $email['headers'],
+				);
+				WPMST()->log( $log_entry, __FUNCTION__ );
+			}
+
+		}
+
 	}
 
 }
