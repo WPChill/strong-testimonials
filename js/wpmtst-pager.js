@@ -7,16 +7,38 @@
 
 jQuery(document).ready(function($) {
 
-	if( typeof( pagerVar ) !== 'undefined' ) {
+	var pagerObject = {
 
-		$(pagerVar.id).quickPager({
-			pageSize: pagerVar.pageSize,
-			currentPage: pagerVar.currentPage,
-			pagerLocation: pagerVar.pagerLocation,
-			scrollTop: pagerVar.scrollTop,
-			offset: pagerVar.offset
-		});
+		setOpts: function (parms) {
+			return {
+				id: parms.id,
+				pageSize: parseInt(parms.pageSize),
+				currentPage: parseInt(parms.currentPage),
+				pagerLocation: parms.pagerLocation,
+				scrollTop: parseInt(parms.scrollTop),
+				offset: parseInt(parms.offset)
+			}
+		},
+
+		getPagerVar: function ($el) {
+			return jQuery.grep($el.prop('class').split(/\s+/), function (v, i) {
+				return v.indexOf('strong_pager_') === 0;
+			}).join();
+		},
+
+		initPager: function (el) {
+			var $el = jQuery(el);
+			var pagerVar = this.getPagerVar($el);
+			if (typeof( window[pagerVar] ) !== 'undefined') {
+				var opts = this.setOpts(window[pagerVar]);
+				$el.quickPager(opts);
+			}
+		}
 
 	}
+
+	$(".strong-paginated").each( function() {
+		pagerObject.initPager(this);
+	});
 
 });

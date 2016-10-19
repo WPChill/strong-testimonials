@@ -205,6 +205,7 @@ class Strong_View {
 				&& 'masonry' != $this->atts['layout'] )
 			{
 				$content_class_list[] = 'strong-paginated';
+				$content_class_list[] = WPMST()->get_pager_signature( $this->atts );
 			}
 
 			// layouts

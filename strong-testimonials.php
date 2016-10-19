@@ -4,7 +4,7 @@
  * Plugin URI: https://www.wpmission.com/plugins/strong-testimonials/
  * Description: A full-featured plugin that works right out of the box for beginners and offers advanced features for pros.
  * Author: Chris Dillon
- * Version: 2.13.1
+ * Version: 2.13.2
  * Author URI: https://www.wpmission.com/
  * Text Domain: strong-testimonials
  * Domain Path: /languages
@@ -1448,6 +1448,20 @@ final class Strong_Testimonials {
 	}
 
 	/**
+	 * Create unique pager signature.
+	 *
+	 * @since 2.13.2
+	 * @private
+	 *
+	 * @param $atts
+	 *
+	 * @return string
+	 */
+	private static function pager_signature( $atts ) {
+		return 'strong_pager_id_' . $atts['view'];
+	}
+
+	/**
 	 * Return slideshow signature.
 	 *
 	 * @since 2.7.0
@@ -1458,6 +1472,19 @@ final class Strong_Testimonials {
 	 */
 	public function get_slideshow_signature( $atts ) {
 		return self::slideshow_signature( $atts );
+	}
+
+	/**
+	 * Return pager signature.
+	 *
+	 * @since 2.13.2
+	 *
+	 * @param $atts
+	 *
+	 * @return string
+	 */
+	public function get_pager_signature( $atts ) {
+		return self::pager_signature( $atts );
 	}
 
 	/**
@@ -1509,32 +1536,54 @@ final class Strong_Testimonials {
 	}
 
 	/**
-	 * Set up the pagination.
+	 * Assemble pager settings.
 	 *
-	 * @since 2.5.2
-	 * @param array $atts
+	 * @since 2.13.2
+	 * @private
+	 * @param $atts
+	 *
+	 * @return array
 	 */
-	private static function after_pagination( $atts = array() ) {
+	private static function pager_args( $atts ) {
 		$options = get_option( 'wpmtst_options' );
 
-		// Populate variable for QuickPager script.
 		$nav = $atts['nav'];
 		if ( false !== strpos( $atts['nav'], 'before' ) && false !== strpos( $atts['nav'], 'after' ) ) {
 			$nav = 'both';
 		}
 
-		//TODO DRY
 		$pager = array(
-			'id'            => ".strong-view-id-{$atts['view']} .strong-paginated",
 			'pageSize'      => $atts['per_page'],
 			'currentPage'   => 1,
 			'pagerLocation' => $nav,
 			'scrollTop'     => $options['scrolltop'],
 			'offset'        => apply_filters( 'wpmtst_pagination_scroll_offset', $options['scrolltop_offset'] ),
 		);
-		wp_enqueue_script( 'wpmtst-pager-plugin' );
+
+		return $pager;
+	}
+
+	/**
+	 * Return pager settings.
+	 *
+	 * @since 2.13.2
+	 * @param $atts
+	 *
+	 * @return array
+	 */
+	public function get_pager_args( $atts ) {
+		return self::pager_args( $atts );
+	}
+
+	/**
+	 * Set up the pagination.
+	 *
+	 * @since 2.5.2
+	 * @param array $atts
+	 */
+	private static function after_pagination( $atts = array() ) {
 		wp_enqueue_script( 'wpmtst-pager-script' );
-		wp_localize_script( 'wpmtst-pager-script', 'pagerVar', $pager );
+		wp_localize_script( 'wpmtst-pager-script', self::pager_signature( $atts ), self::pager_args( $atts ) );
 	}
 
 	/**
@@ -1615,23 +1664,8 @@ final class Strong_Testimonials {
 				&& $new_view->query->post_count > $atts['per_page']
 				&& apply_filters( 'wpmtst_use_default_pagination', true, $atts ) )
 			{
-				// Populate variable for QuickPager script.
-				$nav = $atts['nav'];
-				if ( false !== strpos( $atts['nav'], 'before' ) && false !== strpos( $atts['nav'], 'after' ) ) {
-					$nav = 'both';
-				}
-
-				//TODO DRY
-				$pager = array(
-					'id'            => ".strong-view-id-{$atts['view']} .strong-paginated",
-					'pageSize'      => $atts['per_page'],
-					'currentPage'   => 1,
-					'pagerLocation' => $nav,
-					'scrollTop'     => $options['scrolltop'],
-					'offset'        => apply_filters( 'wpmtst_pagination_scroll_offset', $options['scrolltop_offset'] ),
-				);
 				self::add_script( 'wpmtst-pager-script' );
-				self::add_script_var( 'wpmtst-pager-script', 'pagerVar', $pager );
+				self::add_script_var( 'wpmtst-pager-script', self::pager_signature( $atts ), self::pager_args( $atts ) );
 			}
 
 			/**
