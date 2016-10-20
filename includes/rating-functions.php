@@ -35,16 +35,22 @@ function wpmtst_star_rating_form( $field, $value = 0, $class, $echo = true ) {
 }
 
 function wpmtst_star_rating_display( $field, $value = 0, $class, $echo = true ) {
+	if ( $field && is_array( $field ) && isset( $field['name'] ) ) {
+		$name = $field['name'];
+	}
+	else {
+		$name = '';
+	}
 	ob_start(); ?>
 	<div class="strong-rating-wrapper <?php echo $class; ?>">
 		<div class="strong-rating"><!--
 			cheap trick to collapse whitespace around inline-blocks
-			--><div class="star0 star <?php echo $field['name']; ?>-star0 <?php echo ( 0 == $value ) ? 'current' : '' ; ?>"></div><!--
-			--><div class="star <?php echo $field['name']; ?>-star1 <?php echo ( 1 == $value ) ? 'current' : '' ; ?>"></div><!--
-			--><div class="star <?php echo $field['name']; ?>-star2 <?php echo ( 2 == $value ) ? 'current' : '' ; ?>"></div><!--
-			--><div class="star <?php echo $field['name']; ?>-star3 <?php echo ( 3 == $value ) ? 'current' : '' ; ?>"></div><!--
-			--><div class="star <?php echo $field['name']; ?>-star4 <?php echo ( 4 == $value ) ? 'current' : '' ; ?>"></div><!--
-			--><div class="star <?php echo $field['name']; ?>-star5 <?php echo ( 5 == $value ) ? 'current' : '' ; ?>"></div><!--
+			--><div class="star0 star <?php echo $name; ?>-star0 <?php echo ( 0 == $value ) ? 'current' : '' ; ?>"></div><!--
+			--><div class="star <?php echo $name; ?>-star1 <?php echo ( 1 == $value ) ? 'current' : '' ; ?>"></div><!--
+			--><div class="star <?php echo $name; ?>-star2 <?php echo ( 2 == $value ) ? 'current' : '' ; ?>"></div><!--
+			--><div class="star <?php echo $name; ?>-star3 <?php echo ( 3 == $value ) ? 'current' : '' ; ?>"></div><!--
+			--><div class="star <?php echo $name; ?>-star4 <?php echo ( 4 == $value ) ? 'current' : '' ; ?>"></div><!--
+			--><div class="star <?php echo $name; ?>-star5 <?php echo ( 5 == $value ) ? 'current' : '' ; ?>"></div><!--
 		--></div>
 	</div>
 	<?php

@@ -146,6 +146,9 @@ Yes. This requires a lightbox so if your theme does not include one, you will ne
 
 == Changelog ==
 
+= 2.13.4 - Oct 20, 2016 =
+* Fix bug in loading view resources.
+
 = 2.13.3 - Oct 20, 2016 =
 * Handle multiple rating fields.
 

@@ -580,7 +580,7 @@ function wpmtst_custom_columns( $column ) {
 
 		default :
 			// custom field?
-			$custom  = get_post_custom();
+			$custom = get_post_custom();
 			if ( isset( $custom[$column] ) ) {
 				if ( 'rating' == $column ) {
 					wpmtst_star_rating_display( array(), $custom[ $column ][0], 'in-table-list' );
