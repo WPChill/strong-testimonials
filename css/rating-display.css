@@ -46,6 +46,9 @@
 }
 
 /* in a view */
+.strong-rating-wrapper.in-view {
+	display: inline-block;
+}
 .strong-rating-wrapper.in-view .strong-rating {
 	margin: 0;
 	padding: 0;

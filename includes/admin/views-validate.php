@@ -257,11 +257,12 @@ function wpmtst_sanitize_view( $input ) {
 
 			if ( isset( $field['type'] ) ) {
 				$type = sanitize_text_field( $field['type'] );
-			}
-			else {
+			} else {
 				$type = sanitize_text_field( $field['save-type'] );
 			}
 			$data['client_section'][ $key ]['type'] = $type;
+
+			$data['client_section'][ $key ]['label'] = sanitize_text_field( $field['label'] );
 
 			$data['client_section'][ $key ]['class'] = sanitize_text_field( $field['class'] );
 

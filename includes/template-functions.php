@@ -532,7 +532,7 @@ function wpmtst_client_section( $client_section ) {
 	foreach ( $client_section as $field ) {
 
 		// Get field meta.
-		$field['label'] = wpmtst_get_field_label( $field );
+		$field['field_label'] = wpmtst_get_field_label( $field );
 		if ( $default_display_value = wpmtst_get_field_default_display_value( $field ) ) {
 			$field['default_display_value'] = $default_display_value;
 		}
@@ -559,7 +559,7 @@ function wpmtst_client_section( $client_section ) {
 						$output = '';
 						break;
 					case 'label' :
-						$text = $field['label'];
+						$text = $field['field_label'];
 						$output = '';
 						break;
 					default : // value
@@ -647,6 +647,9 @@ function wpmtst_client_section( $client_section ) {
 		}
 
 		if ( $output ) {
+			if ( isset( $field['label'] ) && $field['label'] ) {
+				$output = '<span class="testimonial-field-label">' . $field['label'] . '</span>' . $output;
+			}
 			$html .= '<div class="' . $field['class'] . '">' . $output . '</div>';
 		}
 	}

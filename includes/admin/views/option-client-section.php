@@ -1,14 +1,18 @@
 <?php /* translators: On the Views admin screen. */ ?>
-<th>
-	<?php _e( 'Custom Fields', 'strong-testimonials' ); ?>
-</th>
-<td colspan="2">
+<!--<th>-->
+<!--	--><?php //_e( 'Custom Fields', 'strong-testimonials' ); ?>
+<!--</th>-->
+<td colspan="3">
+	<div class="mimic-th">
+		<?php _e( 'Custom Fields', 'strong-testimonials' ); ?>
+	</div>
 	<div id="client-section-table">
 		<table id="custom-field-list2" class="fields" cellpadding="0" cellspacing="0">
 			<thead>
 			<tr>
 				<th><?php _e( 'Name', 'strong-testimonials' ); ?></th>
 				<th><?php _e( 'Type', 'strong-testimonials' ); ?></th>
+				<th><?php _e( 'Label', 'strong-testimonials' ); ?></th>
 				<th><?php _e( 'Properties', 'strong-testimonials' ); ?></th>
 				<th><?php _e( 'CSS Class Name', 'strong-testimonials' ); ?></th>
 				<th class="controls">&nbsp;</th>

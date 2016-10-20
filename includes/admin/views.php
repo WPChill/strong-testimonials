@@ -662,6 +662,13 @@ function wpmtst_view_field_inputs( $key, $field, $adding = false ) {
 			</label>
 		</td>
 
+		<!-- Label -->
+		<td class="field-label">
+			<label>
+				<input type="text" name="view[data][client_section][<?php echo $key; ?>][label]" value="<?php echo isset( $field['label'] ) ? $field['label'] : ''; ?>">
+			</label>
+		</td>
+
 		<!-- Meta -->
 		<td class="field-meta">
 			<?php

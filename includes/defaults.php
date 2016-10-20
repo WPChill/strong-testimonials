@@ -456,11 +456,13 @@ function wpmtst_get_default_view() {
 			0 => array(
 				'field' => 'client_name',
 				'type'  => 'text',
+				'label' => '',
 				'class' => 'testimonial-name',
 			),
 			1 => array(
 				'field'   => 'company_name',
 				'type'    => 'link',
+				'label'   => '',
 				'url'     => 'company_website',
 				'class'   => 'testimonial-company',
 				'new_tab' => true,
