@@ -146,6 +146,9 @@ Yes. This requires a lightbox so if your theme does not include one, you will ne
 
 == Changelog ==
 
+= 2.13.3 - Oct 20, 2016 =
+* Handle multiple rating fields.
+
 = 2.13.2 - Oct 19, 2016 =
 * Handle multiple paginated views on same page.
 

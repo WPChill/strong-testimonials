@@ -252,23 +252,24 @@ function wpmtst_show_field( $key, $field, $adding ) {
 	$html .= '<td>' . "\n";
 
 	/**
-	 * Field names for special record types (i.e. category selector) are now read-only.
+	 * Field names for certain types are read-only.
 	 *
-	 * Since 2.2.2
+	 * @todo Move to field options.
+	 * @since 2.2.2
 	 */
-	if ( 'custom' == $field['record_type'] ) {
+	if ( 'post' == $field['record_type'] || 'categories' == $field['input_type'] ) {
+
+		$html .= '<input type="text" class="field-name" value="' . $field['name'] . '" disabled="disabled">';
+		// disabled inputs are not posted so store the field name in a hidden input
+		$html .= '<input type="hidden" name="fields[' . $key . '][name]" value="' . $field['name'] . '">';
+
+	}
+	else {
 
 		// if adding, the field Name is blank so it can be populated from Label
 		$html .= '<input type="text" class="field-name" name="fields[' . $key . '][name]" value="' . ( isset( $field['name'] ) ? wpmtst_htmlspecialchars( $field['name'] ) : '' ) . '">';
 		$html .= '<span class="help field-name-help">' . __( 'Use only lowercase letters, numbers, and underscores.', 'strong-testimonials' ) . '</span>';
 		$html .= '<span class="help field-name-help important">' . __( 'Cannot be "name" or "date".', 'strong-testimonials' ) . '</span>';
-
-	}
-	else {
-
-		$html .= '<input type="text" class="field-name" value="' . $field['name'] . '" disabled="disabled">';
-		// disabled inputs are not posted so store the field name in a hidden input
-		$html .= '<input type="hidden" name="fields[' . $key . '][name]" value="' . $field['name'] . '">';
 
 	}
 	$html .= '</td>' . "\n";
@@ -333,7 +334,7 @@ function wpmtst_show_field( $key, $field, $adding ) {
 
 		$html .= '</select>';
 
-	} // adding
+	}
 	else {
 
 		if ( 'post' == $field['record_type'] ) {
@@ -605,7 +606,7 @@ function wpmtst_add_field_function() {
 	$new_key = intval( $_REQUEST['key'] );
 	//$fields = get_option( 'wpmtst_fields' );
 	// when adding, leave Name empty so it will be populated from Label
-	$empty_field = array( 'record_type' => 'custom', 'label' => 'New Field', 'show_label' => 1 );
+	$empty_field = array( 'record_type' => 'custom', 'input_type' => '', 'label' => 'New Field', 'show_label' => 1 );
 	$new_field = wpmtst_show_field( $new_key, $empty_field, true );
 	echo $new_field;
 	die();

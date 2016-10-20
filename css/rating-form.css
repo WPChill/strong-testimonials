@@ -55,7 +55,7 @@
 	padding-top: 0;
 }
 
-.strong-rating.in-metabox > label:before {
+.strong-rating-wrapper.in-metabox .strong-rating > label:before {
 	font-size: 1.5em;
 	line-height: 1;
 }
@@ -67,7 +67,7 @@
 
 /* hide the first label which is initially checked */
 /* added bonus of POSTing the default value so no need for isset(...) */
-.strong-rating label[for=star0] { display: none; }
+.strong-rating label[for$="star0"] { display: none; }
 
 /* and turn all on */
 .strong-rating label:before { color: #FFB900; }

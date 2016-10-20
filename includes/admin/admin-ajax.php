@@ -6,19 +6,19 @@
  * @since 2.12.0
  */
 function wpmtst_ajax_edit_rating() {
-	check_ajax_referer( 'editrating', 'editratingnonce' );
-
 	$message  = '';
 	$post_id  = isset( $_POST['post_id'] ) ? (int) $_POST['post_id'] : 0;
 	$rating   = isset( $_POST['rating'] ) ? (int) $_POST['rating'] : 0;
 	$name     = isset( $_POST['field_name'] ) ? $_POST['field_name'] : 'rating';
+
+	check_ajax_referer( 'editrating', 'editratingnonce' );
 
 	if ( $post_id ) {
 		update_post_meta( $post_id, $name, $rating );
 		$message = 'New rating saved';
 	}
 
-	$display = wpmtst_star_rating_display( array(), $rating, 'in-metabox', false );
+	$display = wpmtst_star_rating_display( array( 'name' => $name ), $rating, 'in-metabox', false );
 	$response = array( 'display' => $display, 'message' => $message );
 	echo json_encode($response);
 	exit;

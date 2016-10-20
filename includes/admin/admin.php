@@ -386,19 +386,19 @@ function wpmtst_meta_options() {
 								}
 							}
 							?>
-							<div id="edit-rating-box" class="hide-if-no-js">
+							<div class="edit-rating-box hide-if-no-js" data-field="<?php echo $field['name']; ?>">
 
-								<?php wp_nonce_field( 'editrating', 'editratingnonce', false ); ?>
-								<input type="hidden" id="current-rating" value="<?php echo $rating; ?>">
+								<?php wp_nonce_field( 'editrating', "edit-{$field['name']}-nonce", false ); ?>
+								<input type="hidden" class="current-rating" value="<?php echo $rating; ?>">
 
 								<!-- form -->
-								<div id="rating-form" style="<?php echo ( $is_new ) ? 'display: inline-block;' : 'display: none;'; ?>">
+								<div class="rating-form" style="<?php echo ( $is_new ) ? 'display: inline-block;' : 'display: none;'; ?>">
 									<span class="inner">
 										<?php wpmtst_star_rating_form( $field, $rating, 'in-metabox' ); ?>
 									</span>
 
 									<?php if ( ! $is_new ) : ?>
-									<span id="edit-rating-buttons-2" style="">
+									<span class="edit-rating-buttons-2" style="">
 										<button type="button" class="save button button-small"><?php _e( 'OK' ); ?></button>
 										&nbsp;
 										<button type="button" class="cancel button-link"><?php _e( 'Cancel' ); ?></button>
@@ -407,19 +407,19 @@ function wpmtst_meta_options() {
 								</div><!-- #rating-form -->
 
 								<!-- display -->
-								<div id="rating-display" style="<?php echo $is_new ? 'display: none;' : 'display: inline-block;'; ?>">
+								<div class="rating-display" style="<?php echo $is_new ? 'display: none;' : 'display: inline-block;'; ?>">
 									<span class="inner">
 										<?php wpmtst_star_rating_display( $field, $rating, 'in-metabox' ); ?>
 									</span>
 
 									<?php if ( ! $is_new ) : ?>
-									<span id="edit-rating-buttons-1">
-										<button type="button" id="edit-rating" class="button button-small hide-if-no-js" aria-label="Edit rating"><?php _e( 'Edit' ); ?></button>
+									<span class="edit-rating-buttons-1">
+										<button type="button" id="" class="edit-rating button button-small hide-if-no-js" aria-label="Edit rating"><?php _e( 'Edit' ); ?></button>
 									</span>
 									<?php endif; ?>
 								</div><!-- #rating-display -->
 
-								<span id="edit-rating-success"></span>
+								<span class="edit-rating-success"></span>
 
 							</div><!-- #edit-rating-box -->
 							<?php

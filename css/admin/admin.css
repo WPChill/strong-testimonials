@@ -693,11 +693,11 @@ td.column-shortcode {
 #edit-rating-box {
 }
 .rating .inner,
-#edit-rating-buttons-1,
-#edit-rating-buttons-2,
-#edit-rating-success {
+.edit-rating-buttons-1,
+.edit-rating-buttons-2,
+.edit-rating-success {
 	display: inline-block;
-	margin: 0 0.3em;
+	margin: 0 4px;
 	vertical-align: middle;
 }
 .rating button.button-link {

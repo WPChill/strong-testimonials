@@ -4,15 +4,15 @@
 
 jQuery(document).ready(function($) {
 
-	var ratingForm = $('#rating-form'),
-		ratingDisplay = $('#rating-display');
-
-	//ratingDisplay.show();
-
 	var editRating = function() {
-		var revert_e,
+		var ratingBox = $(this).closest(".edit-rating-box"),
+			ratingField = ratingBox.data("field"),
+			ratingForm = ratingBox.find('.rating-form'),
+			ratingDisplay = ratingBox.find('.rating-display'),
+			box = ratingBox.find('.edit-rating-success'),
+			revert_e,
 			postId = $('#post_ID').val() || 0,
-			buttons2 = $('#edit-rating-buttons-2');
+			buttons2 = ratingBox.find('.edit-rating-buttons-2');
 
 		//TODO REFACTOR so "off" isn't necssary!
 		buttons2.children('.save').off( "click");
@@ -21,12 +21,11 @@ jQuery(document).ready(function($) {
 		ratingDisplay.hide();
 		ratingForm.showInlineBlock();
 
-		var box = $('#edit-rating-success');
 		box.html('');
 
-		revert_e = $( '#current-rating' ).val();
+		revert_e = ratingBox.find('.current-rating').val();
 
-		buttons2.children( '.save' ).on( "click", function() {
+		buttons2.children('.save').on( "click", function() {
 			var new_rating = ratingForm.find("input:checked").val();
 			var field_name = ratingForm.find("input:checked").attr("name");
 
@@ -40,7 +39,7 @@ jQuery(document).ready(function($) {
 				post_id: postId,
 				field_name: field_name,
 				rating: new_rating,
-				editratingnonce: $('#editratingnonce').val()
+				editratingnonce: $('#edit-'+ratingField+'-nonce').val()
 			}, function(data) {
 				var obj = JSON.parse( data );
 
@@ -72,6 +71,6 @@ jQuery(document).ready(function($) {
 
 	}
 
-	$("#edit-rating").click( editRating );
+	$(".edit-rating").click( editRating );
 
 });
