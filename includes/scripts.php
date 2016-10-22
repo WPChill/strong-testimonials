@@ -21,8 +21,8 @@ function wpmtst_scripts() {
 	wp_register_script( 'wpmtst-grid-script', WPMTST_URL . 'js/wpmtst-grid.js', array( 'jquery' ), $plugin_version, true );
 	wp_register_style( 'wpmtst-grid-style', WPMTST_URL . 'css/wpmtst-grid.css', array(), $plugin_version );
 
-	wp_register_style( 'wpmtst-rating-form', WPMTST_URL . 'css/rating-form.css', array(), $plugin_version );
-	wp_register_style( 'wpmtst-rating-display', WPMTST_URL . 'css/rating-display.css', array(), $plugin_version );
+	wp_register_style( 'wpmtst-rating-form', WPMTST_URL . 'css/rating-form.css', array( 'wpmtst-font-awesome' ), $plugin_version );
+	wp_register_style( 'wpmtst-rating-display', WPMTST_URL . 'css/rating-display.css', array( 'wpmtst-font-awesome' ), $plugin_version );
 
 	wp_register_script( 'wpmtst-form', WPMTST_URL . 'js/wpmtst-form.js', array( 'jquery' ), $plugin_version, true );
 	wp_register_script( 'wpmtst-form-success', WPMTST_URL . 'js/wpmtst-form-success.js', array( 'jquery' ), $plugin_version, true );

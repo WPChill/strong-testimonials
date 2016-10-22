@@ -45,6 +45,9 @@ function wpmtst_admin_register() {
 
 	wp_register_style( 'wpmtst-admin-style', WPMTST_URL . 'css/admin/admin.css', array(), $plugin_version );
 
+	wp_register_style( 'wpmtst-font-awesome', WPMTST_URL . 'fonts/font-awesome-4.6.3/css/font-awesome.min.css', array(), '4.6.3' );
+
+	// for Page Builder?
 	wp_register_script( 'wpmtst-validation-plugin', WPMTST_URL . 'js/validate/jquery.validate.min.js', array( 'jquery' ), $plugin_version );
 
 
@@ -54,8 +57,8 @@ function wpmtst_admin_register() {
 	wp_register_script( 'wpmtst-admin-fields-script', WPMTST_URL . 'js/wpmtst-admin-fields.js', array( 'jquery', 'jquery-ui-sortable' ), $plugin_version, true );
 
 	// Ratings
-	wp_register_style( 'wpmtst-rating-display', WPMTST_URL . 'css/rating-display.css', array(), $plugin_version );
-	wp_register_style( 'wpmtst-rating-form', WPMTST_URL . 'css/rating-form.css', array(), $plugin_version );
+	wp_register_style( 'wpmtst-rating-display', WPMTST_URL . 'css/rating-display.css', array( 'wpmtst-font-awesome' ), $plugin_version );
+	wp_register_style( 'wpmtst-rating-form', WPMTST_URL . 'css/rating-form.css', array( 'wpmtst-font-awesome' ), $plugin_version );
 	wp_register_script( 'wpmtst-rating-script', WPMTST_URL . 'js/rating-edit.js', array( 'jquery' ), $plugin_version, true );
 
 	// Views
@@ -74,8 +77,6 @@ function wpmtst_admin_register() {
 	wp_register_script( 'wpmtst-view-category-filter-script', WPMTST_URL . 'js/wpmtst-view-category-filter.js', array( 'jquery' ), $plugin_version, true );
 
 	wp_register_style( 'wpmtst-admin-guide-style', WPMTST_URL . 'css/admin/guide.css', array(), $plugin_version );
-
-	wp_register_style( 'wpmtst-font-awesome', WPMTST_URL . 'fonts/font-awesome-4.6.3/css/font-awesome.min.css', array(), '4.6.3' );
 }
 add_action( 'admin_init', 'wpmtst_admin_register' );
 
@@ -193,8 +194,6 @@ function wpmtst_hook__admin_load_edit() {
 		wp_enqueue_script( 'wpmtst-admin-script' );
 
 		wp_enqueue_style( 'wpmtst-rating-display' );
-
-		wp_enqueue_style( 'wpmtst-font-awesome' );
 	}
 }
 add_action( 'admin_head-edit.php', 'wpmtst_hook__admin_load_edit' );
@@ -220,8 +219,6 @@ function wpmtst_hook__admin_load_post() {
 		wp_enqueue_style( 'wpmtst-rating-display' );
 		wp_enqueue_style( 'wpmtst-rating-form' );
 		wp_enqueue_script( 'wpmtst-rating-script' );
-
-		wp_enqueue_style( 'wpmtst-font-awesome' );
 	}
 }
 add_action( 'admin_head-post.php', 'wpmtst_hook__admin_load_post' );
@@ -237,8 +234,6 @@ function wpmtst_hook__admin_load_post_new() {
 		wp_enqueue_style( 'wpmtst-rating-display' );
 		wp_enqueue_style( 'wpmtst-rating-form' );
 		wp_enqueue_script( 'wpmtst-rating-script' );
-
-		wp_enqueue_style( 'wpmtst-font-awesome' );
 	}
 }
 add_action( 'admin_head-post-new.php', 'wpmtst_hook__admin_load_post_new' );

@@ -4,7 +4,7 @@
  * Plugin URI: https://www.wpmission.com/plugins/strong-testimonials/
  * Description: A full-featured plugin that works right out of the box for beginners and offers advanced features for pros.
  * Author: Chris Dillon
- * Version: 2.13.4
+ * Version: 2.13.5
  * Author URI: https://www.wpmission.com/
  * Text Domain: strong-testimonials
  * Domain Path: /languages
@@ -459,9 +459,19 @@ final class Strong_Testimonials {
 			}
 		}
 
-		if ( ! wp_style_is('wpmtst-rating-display' ) ) {
-			wp_enqueue_style( 'wpmtst-rating-display' );
+		/**
+		 * Stars
+		 */
+		if ( isset( $atts['client_section'] ) ) {
+			foreach ( $atts['client_section'] as $field ) {
+				if ( 'rating' == $field['type'] ) {
+					if ( ! wp_style_is('wpmtst-rating-display' ) ) {
+						wp_enqueue_style( 'wpmtst-rating-display' );
+					}
+				}
+			}
 		}
+
 	}
 
 	/**
@@ -1660,6 +1670,17 @@ final class Strong_Testimonials {
 		else {
 
 			/**
+			 * Stars
+			 */
+			if ( isset( $atts['client_section'] ) ) {
+				foreach ( $atts['client_section'] as $field ) {
+					if ( 'rating' == $field['type'] ) {
+						self::add_style( 'wpmtst-rating-display' );
+					}
+				}
+			}
+
+			/**
 			 * Pagination
 			 */
 			if ( $atts['per_page']
@@ -1721,7 +1742,6 @@ final class Strong_Testimonials {
 		}
 
 		self::custom_background( $atts['view'], $atts['background'], $handle );
-		self::add_style( 'wpmtst-rating-display' );
 	}
 
 	/**
@@ -1932,6 +1952,7 @@ final class Strong_Testimonials {
 
 	/**
 	 * Process the form.
+	 * @todo Move to form object.
 	 */
 	public function set_form_values( $form_values ) {
 		self::$form_values = $form_values;

@@ -146,18 +146,15 @@ Yes. This requires a lightbox so if your theme does not include one, you will ne
 
 == Changelog ==
 
+= 2.13.5 - Oct 22, 2016 =
+* Fix loading of FontAwesome.
+
 = 2.13.4 - Oct 20, 2016 =
 * Fix bug in loading view resources.
-
-= 2.13.3 - Oct 20, 2016 =
-* Handle multiple rating fields.
-
-= 2.13.2 - Oct 19, 2016 =
-* Handle multiple paginated views on same page.
-
-= 2.13.1 - Oct 18, 2016 =
 * Fix bug in pagination settings.
 * Fix bug in mail queue.
+* Handle multiple paginated views on same page.
+* Handle multiple rating fields.
 
 = 2.13 - Oct 17, 2016 =
 * Fix bug in saving star rating in post editor.
