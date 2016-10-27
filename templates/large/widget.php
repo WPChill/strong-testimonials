@@ -5,7 +5,6 @@
  * Force: view-layout-normal
  */
 ?>
-<!-- Strong Testimonials: Large Widget Template -->
 <?php do_action( 'wpmtst_before_view' ); ?>
 
 <div class="strong-view strong-widget <?php wpmtst_container_class(); ?>">

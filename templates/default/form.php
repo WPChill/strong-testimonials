@@ -4,7 +4,6 @@
  * Description: The default form template.
  */
 ?>
-<!-- Strong Testimonials: Default Form Template -->
 <div class="strong-view strong-form <?php wpmtst_container_class(); ?>">
 
 	<div id="wpmtst-form">

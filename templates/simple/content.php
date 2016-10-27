@@ -4,7 +4,6 @@
  * Description: A simple template.
  */
 ?>
-<!-- Strong Testimonials: Simple Template -->
 <?php do_action( 'wpmtst_before_view' ); ?>
 
 <div class="strong-view <?php wpmtst_container_class(); ?>">

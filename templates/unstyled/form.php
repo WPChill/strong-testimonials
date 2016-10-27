@@ -4,7 +4,6 @@
  * Description: A completely unstyled form template.
  */
 ?>
-<!-- Strong Testimonials: Unstyled Form Template -->
 <div class="strong-view strong-form <?php wpmtst_container_class(); ?>">
 
 	<div id="wpmtst-form">
