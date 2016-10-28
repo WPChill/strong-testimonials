@@ -617,8 +617,8 @@ function wpmtst_view_field_inputs( $key, $field, $adding = false ) {
 	// TODO Move this to view defaults option.
 	$types = array(
 		'text'      => __( 'text', 'strong-testimonials' ),
-		'link'      => __( 'link with field', 'strong-testimonials' ),  // the original link type
-		'link2'     => __( 'link (must be URL)', 'strong-testimonials' ),  // @since 1.24.0
+		'link'      => __( 'link with another field', 'strong-testimonials' ),  // the original link type
+		'link2'     => __( 'link (must be URL type)', 'strong-testimonials' ),  // @since 1.24.0
 		'date'      => __( 'date', 'strong-testimonials' ),
 		'category'  => __( 'category', 'strong-testimonials' ),
 		'rating'    => __( 'rating', 'strong-testimonials' ),
@@ -627,73 +627,95 @@ function wpmtst_view_field_inputs( $key, $field, $adding = false ) {
 
 	$allowed = array( 'custom', 'optional', 'builtin' );
 	?>
-	<tr class="field2" id="field-<?php echo $key; ?>">
+	<div id="field-<?php echo $key; ?>" class="field2">
 
-		<!-- Name -->
-		<td class="field-name">
-			<label>
-				<select class="full" name="view[data][client_section][<?php echo $key; ?>][field]">
-					<option value=""></option>
+		<div class="field3" data-key="<?php echo $key; ?>">
 
-					<?php foreach ( $all_fields as $group_name => $group ) : ?>
-					<optgroup label="<?php echo $group_name; ?>">;
+			<span class="link" title="click to open or close">
 
-					<?php foreach ( $group as $key2 => $field2 ) : ?>
-					<?php if ( in_array( $field2['record_type'], $allowed ) && 'email' != $field2['input_type'] ) : ?>
-					<option value="<?php echo $field2['name']; ?>" data-type="<?php echo $field2['input_type']; ?>"<?php selected( $field2['name'], $field['field'] ); ?>><?php echo $field2['name']; ?></option>
-							<?php endif; ?>
-					<?php endforeach; ?>
+				<a href="#" class="field-description">
+					<?php echo $field['field']; ?>
+				</a>
 
-					</optgroup>
-					<?php endforeach; ?>
+				<div class="controls2 left">
+					<span class="handle ui-sortable-handle icon-wrap"
+						  title="<?php _e( 'drag and drop to reorder', 'strong-testimonials' ); ?>"></span>
+					<span class="delete icon-wrap"
+						  title="<?php _e( 'remove this field', 'strong-testimonials' ); ?>"></span>
+				</div>
 
-				</select>
-			</label>
-		</td>
+				<div class="controls2 right">
+					<span class="toggle icon-wrap"
+						  title="<?php _e( 'click to open or close', 'strong-testimonials' ); ?>"></span>
+				</div>
 
-		<!-- Type -->
-		<td class="field-type">
-			<label>
-				<select name="view[data][client_section][<?php echo $key; ?>][type]">
-				<?php foreach ( $types as $type => $type_label ) : ?>
-					<option value="<?php echo $type; ?>" <?php selected( $type, $field['type'] ); ?>><?php echo $type_label; ?></option>
-				<?php endforeach; ?>
-				</select>
-			</label>
-		</td>
+			</span>
 
-		<!-- Label -->
-		<td class="field-label">
-			<label>
-				<input type="text" name="view[data][client_section][<?php echo $key; ?>][label]" value="<?php echo isset( $field['label'] ) ? $field['label'] : ''; ?>">
-			</label>
-		</td>
+			<div class="field-properties" style="display: none;">
 
-		<!-- Meta -->
-		<td class="field-meta">
-			<?php
-				if ( 'link' == $field['type'] || 'link2' == $field['type'] )
-					wpmtst_view_field_link( $key, $field['field'], $field['type'], $field );
+					<div class="field-property field-name">
+						<label for="client_section_<?php echo $key; ?>_field">
+							<?php _e( 'Name', 'strong-testimonials' ); ?>
+						</label>
+						<select id="client_section_<?php echo $key; ?>_field" name="view[data][client_section][<?php echo $key; ?>][field]" class="first-field">
+							<option value=""></option>
 
-				if ( 'date' == $field['type'] )
-					wpmtst_view_field_date( $key, $field );
-			?>
-		</td>
+							<?php foreach ( $all_fields as $group_name => $group ) : ?>
+							<optgroup label="<?php echo $group_name; ?>">;
 
-		<!-- Class -->
-		<td class="field-class">
-			<label>
-				<input type="text" name="view[data][client_section][<?php echo $key; ?>][class]" value="<?php echo $field['class']; ?>">
-			</label>
-		</td>
+							<?php foreach ( $group as $key2 => $field2 ) : ?>
+							<?php if ( in_array( $field2['record_type'], $allowed ) && 'email' != $field2['input_type'] ) : ?>
+							<option value="<?php echo $field2['name']; ?>" data-type="<?php echo $field2['input_type']; ?>"<?php selected( $field2['name'], $field['field'] ); ?>><?php echo $field2['name']; ?></option>
+									<?php endif; ?>
+							<?php endforeach; ?>
 
-		<!-- Controls -->
-		<td class="controls">
-			<span class="delete-field" title="delete"><span class="dashicons dashicons-no"></span></span>
-			<span class="handle" title="drag and drop to reorder"><span class="dashicons dashicons-menu"></span></span>
-		</td>
+							</optgroup>
+							<?php endforeach; ?>
+						</select>
+					</div>
 
-	</tr>
+					<div class="field-property field-type">
+						<label for="client_section_<?php echo $key; ?>_type">
+							<?php _e( 'Display Type', 'strong-testimonials' ); ?>
+						</label>
+						<select id="client_section_<?php echo $key; ?>_type" name="view[data][client_section][<?php echo $key; ?>][type]">
+							<?php foreach ( $types as $type => $type_label ) : ?>
+								<option value="<?php echo $type; ?>" <?php selected( $type, $field['type'] ); ?>><?php echo $type_label; ?></option>
+							<?php endforeach; ?>
+						</select>
+					</div>
+
+					<div class="field-property-box">
+						<?php
+						if ( 'link' == $field['type'] || 'link2' == $field['type'] ) {
+							wpmtst_view_field_link( $key, $field['field'], $field['type'], $field );
+						}
+
+						if ( 'date' == $field['type'] ) {
+							wpmtst_view_field_date( $key, $field );
+						}
+						?>
+					</div>
+
+					<div class="field-property">
+						<label for="client_section_<?php echo $key; ?>_label">
+							<?php _e( 'Before', 'strong-testimonials' ); ?>
+						</label>
+						<input id="client_section_<?php echo $key; ?>_label" type="text" name="view[data][client_section][<?php echo $key; ?>][label]" value="<?php echo isset( $field['label'] ) ? $field['label'] : ''; ?>">
+					</div>
+
+					<div class="field-property">
+						<label for="client_section_<?php echo $key; ?>_class">
+							<?php _e( 'CSS Class', 'strong-testimonials' ); ?>
+						</label>
+						<input id="client_section_<?php echo $key; ?>_class" type="text" name="view[data][client_section][<?php echo $key; ?>][class]" value="<?php echo $field['class']; ?>">
+					</div>
+
+				</div>
+
+		</div>
+
+	</div>
 	<?php
 }
 
@@ -729,9 +751,9 @@ function wpmtst_view_field_link( $key, $field_name, $type, $field, $adding = fal
 	$field['label'] = wpmtst_get_field_label( $field );
 	?>
 
-	<!-- the link text -->
-	<div class="field-meta-row link-text">
-		<label for="view-fieldtext<?php echo $key; ?>">Text</label>
+	<?php // the link text ?>
+	<div class="flex">
+		<label for="view-fieldtext<?php echo $key; ?>"><?php _e( 'Link Text', 'strong-testimonials' ); ?></label>
 		<select id="view-fieldtext<?php echo $key; ?>" name="view[data][client_section][<?php echo $key; ?>][link_text]" class="if selectgroup">
 			<option value="value" <?php selected( $field['link_text'], 'value' ); ?>>this field's value</option>
 			<option value="label" <?php selected( $field['link_text'], 'label' ); ?>>this field's label</option>
@@ -739,23 +761,20 @@ function wpmtst_view_field_link( $key, $field_name, $type, $field, $adding = fal
 		</select>
 	</div>
 
-	<!-- the link text options -->
-	<div class="field-meta-row link-text">
-		<div class="then_fieldtext<?php echo $key; ?> then_value then_not_label then_not_custom" style="display: none;">
-			<!-- placeholder -->
-		</div>
-		<div class="then_fieldtext<?php echo $key; ?> then_label then_not_value then_not_custom" style="display: none;">
-			<input type="text" id="view-fieldtext<?php echo $key; ?>-label" value="<?php echo $field['label']; ?>" readonly>
-		</div>
-		<div class="then_fieldtext<?php echo $key; ?> then_custom then_not_value then_not_label" style="display: none;">
-			<input type="text" id="view-fieldtext<?php echo $key; ?>-custom" name="view[data][client_section][<?php echo $key; ?>][link_text_custom]" value="<?php echo $field['link_text_custom']; ?>">
-		</div>
+	<?php // the link text options ?>
+	<div class="flex then_fieldtext<?php echo $key; ?> then_label then_not_value then_not_custom" style="display: none;">
+		<div class="nolabel">&nbsp;</div>
+		<input type="text" id="view-fieldtext<?php echo $key; ?>-label" value="<?php echo $field['label']; ?>" readonly>
+	</div>
+	<div class="flex then_fieldtext<?php echo $key; ?> then_custom then_not_value then_not_label" style="display: none;">
+		<div class="nolabel">&nbsp;</div>
+		<input type="text" id="view-fieldtext<?php echo $key; ?>-custom" name="view[data][client_section][<?php echo $key; ?>][link_text_custom]" value="<?php echo $field['link_text_custom']; ?>">
 	</div>
 
-	<!-- the URL -->
+	<?php // the URL ?>
 	<?php if ( 'link' == $type ) : // URL = another field ?>
-	<div class="field-meta-row">
-		<label for="view-fieldurl<?php echo $key; ?>">URL</label>
+	<div class="flex">
+		<label for="view-fieldurl<?php echo $key; ?>"><?php _e( 'URL Field', 'strong-testimonials' ); ?></label>
 		<select id="view-fieldurl<?php echo $key; ?>" name="view[data][client_section][<?php echo $key; ?>][url]" class="field-type-select">
 			<?php foreach ( $custom_fields as $key2 => $field2 ) : ?>
 				<?php if ( 'url' == $field2['input_type'] ) : ?>
@@ -764,21 +783,23 @@ function wpmtst_view_field_link( $key, $field_name, $type, $field, $adding = fal
 			<?php endforeach; ?>
 		</select>
 	</div>
+	<div class="flex">
+		<?php // the URL options ?>
+		<div class="nolabel"></div>
+		<div class="new_tab">
+			<input type="checkbox" id="view-fieldurl<?php echo $key; ?>-newtab"
+				   name="view[data][client_section][<?php echo $key; ?>][new_tab]"
+				   value="1" <?php checked( $field['new_tab'] ); ?>>
+			<label for="view-fieldurl<?php echo $key; ?>-newtab">
+				<?php _e( 'new tab', 'strong-testimonials' ); ?>
+			</label>
+		</div>
+
+	</div>
 	<?php else : // URL = this field ?>
 		<input type="hidden" name="view[data][client_section][<?php echo $key; ?>][url]" value="<?php echo $field['name']; ?>">
 	<?php endif; ?>
 
-	<!-- the URL options -->
-	<div class="field-meta-row checkbox">
-		<label>
-			<div class="new_tab">
-				<input type="checkbox" id="<?php echo $key; ?>-newtab" name="view[data][client_section][<?php echo $key; ?>][new_tab]" value="1" <?php checked( $field['new_tab'] ); ?>>
-				<label for="<?php echo $key; ?>-newtab">
-					<?php _e( 'new tab', 'strong-testimonials' ); ?>
-				</label>
-			</div>
-		</label>
-	</div>
 	<?php
 }
 
@@ -790,12 +811,17 @@ function wpmtst_view_field_link( $key, $field_name, $type, $field, $adding = fal
  */
 function wpmtst_view_field_date( $key, $field, $adding = false ) {
 	?>
-	<label for="view-<?php echo $key; ?>-client-date-format"><span>Format</span></label>
-	<input id="view-<?php echo $key; ?>-client-date-format" type="text" name="view[data][client_section][<?php echo $key; ?>][format]" class="field-type-date" value="<?php echo isset( $field['format'] ) ? $field['format'] : ''; ?>">
-	<div class="help minor">
-		<?php printf( '<a href="%s" target="_blank">%s</a>',
-			esc_url( 'https://codex.wordpress.org/Formatting_Date_and_Time' ),
-			__( 'more about date formats', 'strong-testimonials' ) ); ?>
+	<div class="flex">
+		<label for="view-<?php echo $key; ?>-client-date-format"><span>Format</span></label>
+		<input id="view-<?php echo $key; ?>-client-date-format" type="text" name="view[data][client_section][<?php echo $key; ?>][format]" class="field-type-date" value="<?php echo isset( $field['format'] ) ? $field['format'] : ''; ?>">
+	</div>
+	<div class="flex">
+		<div class="nolabel">&nbsp;</div>
+		<div class="help minor">
+			<?php printf( '<a href="%s" target="_blank">%s</a>',
+				esc_url( 'https://codex.wordpress.org/Formatting_Date_and_Time' ),
+				__( 'more about date formats', 'strong-testimonials' ) ); ?>
+		</div>
 	</div>
 	<?php
 }

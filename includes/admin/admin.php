@@ -50,7 +50,6 @@ function wpmtst_admin_register() {
 	// for Page Builder?
 	wp_register_script( 'wpmtst-validation-plugin', WPMTST_URL . 'js/validate/jquery.validate.min.js', array( 'jquery' ), $plugin_version );
 
-
 	// Fields
 	wp_register_style( 'wpmtst-admin-fields-style', WPMTST_URL . 'css/admin/fields.css', array(), $plugin_version );
 	wp_register_style( 'wpmtst-admin-form-preview', WPMTST_URL . 'css/admin/form-preview.css', array(), $plugin_version );

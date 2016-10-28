@@ -23,8 +23,7 @@ function convertLabel(label) {
  * Copyright (c) 2011 Pete Boere (the-echoplex.net)
  * Free under terms of the MIT license: http://www.opensource.org/licenses/mit-license.php
  */
-(function ( $ ) {
-
+(function($){
 	$.fn.alterClass = function ( removals, additions ) {
 
 		var self = this;
@@ -52,14 +51,13 @@ function convertLabel(label) {
 
 		return !additions ? self : self.addClass( additions );
 	};
-
-})( jQuery );
+})(jQuery);
 
 
 /**
  * Special handling after toggling certain options.
  */
-(function ( $ ) {
+(function($){
 	$.fn.afterToggle = function() {
 		// custom handling
 		var $categoryDivs = $('.view-category-list-panel');
@@ -70,8 +68,7 @@ function convertLabel(label) {
 		}
 		return this;
 	}
-}
-( jQuery ));
+}(jQuery));
 
 
 jQuery(window).on('load', function () {
@@ -449,11 +446,12 @@ jQuery(document).ready(function($) {
 
 		$(".field-name select").each(function() {
 			var $el = $(this);
-			var $elParent = $el.closest("tr");
+			var $elParent = $el.closest(".field3");
 			var fieldValue = $el.val();
 			var fieldType = $el.find("option:selected").data("type");
 			// TODO Use data attribute instead
-			var key = $elParent.attr("id").split('-').slice(-1)[0];
+			// var key = $elParent.attr("id").split('-').slice(-1)[0];
+			var key = $elParent.data("key");
 			var typeSelectParent = $elParent.find("td.field-type");
 			var typeSelect = typeSelectParent.find("select");
 
@@ -489,7 +487,7 @@ jQuery(document).ready(function($) {
 	function textChangeListener() {
 		$('select[id^="view-fieldtext"]').on("change", function () {
 			if ($(this).val() == 'custom') {
-				var key = $(this).closest("tr").attr("id").split('-').slice(-1)[0];
+				var key = $(this).closest(".field3").data("key");
 				$("#view-fieldtext" + key + "-custom").focus();
 			}
 		});
@@ -709,25 +707,26 @@ jQuery(document).ready(function($) {
 
 	// First, set width on header cells to prevent collapse
 	// when dragging a row without column 3.
-	$("table.fields th").each(function(index){
-		$(this).width($(this).outerWidth());
-	});
+	// $("table.fields th").each(function(index){
+	// 	$(this).width($(this).outerWidth());
+	// });
 
 	var customFieldList = $("#custom-field-list2");
-	customFieldList.find("tbody").sortable({
+
+	// Prevent single click on handle from opening accordion
+	customFieldList.on("click", "span.handle", function(e){
+		e.stopImmediatePropagation();
+		e.preventDefault();
+	});
+
+	// customFieldList.find(".field-properties").hide();
+
+	customFieldList.sortable({
 		placeholder: "sortable-placeholder",
 		// forcePlaceholderSize: true,
 		handle: ".handle",
 		cursor: "move",
-		helper: function(e, tr) {
-			var $originals = tr.children();
-			var $helper = tr.clone();
-			$helper.children().each(function(index) {
-				// Set helper cell sizes to match the original sizes
-				$(this).width($originals.eq(index).width());
-			});
-			return $helper;
-		},
+		helper: "clone",
 		start: function(e, ui){
 			ui.placeholder.height(ui.item.height());
 		}
@@ -738,8 +737,8 @@ jQuery(document).ready(function($) {
 	 * Add client field
 	 */
 	$("#add-field").click(function(e) {
-		var keys = $("#custom-field-list2").find("tbody tr").map(function() {
-			return $(this).attr("id").split('-').slice(-1)[0];
+		var keys = $(".field3").map(function() {
+			return $(this).data("key");
 		}).get();
 		var nextKey = Array.max(keys)+1;
 		var data = {
@@ -747,8 +746,7 @@ jQuery(document).ready(function($) {
 			'key'    : nextKey,
 		};
 		$.get( ajaxurl, data, function( response ) {
-			// append to list
-			$("#custom-field-list2").find("tbody").append(response);
+			customFieldList.append( response ).find("#field-"+nextKey+" span.link").click();
 		});
 	});
 
@@ -757,10 +755,11 @@ jQuery(document).ready(function($) {
 	 */
 	customFieldList.on("change", ".field-type select", function() {
 		var $el = $(this);
-		var $elParent = $el.closest("tr");
+		var $elParent = $el.closest(".field3");
 		var fieldType = $el.val();
 		var fieldName = $elParent.find(".field-name").find("select").val();
-		var key = $elParent.attr("id").split('-').slice(-1)[0];
+		// var key = $elParent.attr("id").split('-').slice(-1)[0];
+		var key = $elParent.data("key");
 		var data;
 
 		switch (fieldType) {
@@ -776,7 +775,7 @@ jQuery(document).ready(function($) {
 				};
 				$.get( ajaxurl, data, function( response ) {
 					// insert into placeholder div
-					$elParent.find(".field-meta").html(response);
+					$elParent.find(".field-property-box").html(response);
 
 					// Trigger conditional select
 					var $newFieldSelect = $elParent.find(".if.selectgroup");
@@ -793,7 +792,7 @@ jQuery(document).ready(function($) {
 						'name': fieldName,
 					};
 					$.get( ajaxurl, data2, function( response ) {
-						var key = $elParent.attr("id").split('-').slice(-1)[0];
+					// 	var key = $elParent.attr("id").split('-').slice(-1)[0];
 						$("#view-fieldtext" + key + "-label").val(response);
 					});
 
@@ -803,18 +802,18 @@ jQuery(document).ready(function($) {
 			case 'date':
 				// if changing to [date], add date fields
 				data = {
-					'action' : 'wpmtst_view_add_field_date',
-					'key'    : key,
+					'action': 'wpmtst_view_add_field_date',
+					'key': key,
 				};
 				$.get( ajaxurl, data, function( response ) {
 					// insert into placeholder div
-					$elParent.find(".field-meta").html(response);
+					$elParent.find(".field-property-box").html(response);
 				});
 				break;
 
 			case 'text':
 				// if changing to [text], remove meta fields
-				$elParent.find(".field-meta").empty();
+				$elParent.find(".field-property-box").empty();
 				break;
 
 			default:
@@ -827,11 +826,13 @@ jQuery(document).ready(function($) {
 	 */
 	customFieldList.on("change", ".field-name select", function() {
 		var $el = $(this);
-		var $elParent = $el.closest("tr");
+		var $elParent = $el.closest(".field3");
+		$elParent.not(".open").addClass("open").find(".field-properties").addClass("open").slideDown();
 		var fieldType = $el.find("option:selected").data("type");
 		var fieldValue = $el.val();
-		var key = $elParent.attr("id").split('-').slice(-1)[0];
-		var typeSelectParent = $elParent.find("td.field-type");
+		$elParent.find(".field-description").html(fieldValue);
+		var key = $elParent.data("key");
+		var typeSelectParent = $elParent.find(".field-type");
 		var typeSelect = typeSelectParent.find("select");
 
 		switch( fieldValue ) {
@@ -850,7 +851,7 @@ jQuery(document).ready(function($) {
 				$.get( ajaxurl, data, function( response ) {
 					// Insert into placeholder div. Add hidden field because we are
 					// disabling the <select> so its value will not be submitted.
-					$elParent.find(".field-meta").html(response); // .find("input").focus();
+					$elParent.find(".field-property-box").html(response); // .find("input").focus();
 					$el.parent().append('<input type="hidden" class="save-type" name="view[data][client_section][' + key + '][type]" value="date">');
 				});
 				break;
@@ -884,7 +885,7 @@ jQuery(document).ready(function($) {
 
 				$(typeSelect).val("text").prop("disabled",false);
 				// remove meta field
-				$elParent.find(".field-meta").empty();
+				$elParent.find(".field-property-box").empty();
 				// remove the saved type that's only necessary when we disable the input (above)
 				$el.parent().find("input.save-type").remove();
 		}
@@ -893,12 +894,25 @@ jQuery(document).ready(function($) {
 	/**
 	 * Delete a client field
 	 */
-	customFieldList.on("click", ".delete-field", function(){
-		var thisField = $(this).closest("tr");
+	customFieldList.on("click", "span.delete", function(e){
+		var thisField = $(this).closest(".field2");
+		console.log(thisField);
 		var yesno = confirm("Remove this field?");
 		if( yesno ) {
 			thisField.fadeOut(function(){$(this).remove()});
 		}
+		// Prevent click from expanding accordion
+		e.stopImmediatePropagation();
+		e.preventDefault();
+	});
+
+	customFieldList.on("click", "span.link", function(e){
+		$(this)
+			.closest(".field2")
+				.toggleClass("open")
+			.find(".field-properties")
+				.slideToggle()
+		return false;
 	});
 
 });
