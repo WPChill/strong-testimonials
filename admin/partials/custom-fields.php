@@ -603,6 +603,8 @@ function wpmtst_show_field_hidden( $key, $field ) {
  * [Add New Field] Ajax receiver
  */
 function wpmtst_add_field_function() {
+	check_ajax_referer( 'wpmtst-admin', 'security', false );
+
 	$new_key = intval( $_REQUEST['key'] );
 	//$fields = get_option( 'wpmtst_fields' );
 	// when adding, leave Name empty so it will be populated from Label
@@ -618,6 +620,8 @@ add_action( 'wp_ajax_wpmtst_add_field', 'wpmtst_add_field_function' );
  * [Add New Field 2] Ajax receiver
  */
 function wpmtst_add_field_2_function() {
+	check_ajax_referer( 'wpmtst-admin', 'security', false );
+
 	$new_key = intval( $_REQUEST['key'] );
 	$new_field_type = $_REQUEST['fieldType'];
 	$new_field_class = $_REQUEST['fieldClass'];
@@ -637,6 +641,8 @@ add_action( 'wp_ajax_wpmtst_add_field_2', 'wpmtst_add_field_2_function' );
  * [Add New Field 3] Ajax receiver
  */
 function wpmtst_add_field_3_function() {
+	check_ajax_referer( 'wpmtst-admin', 'security', false );
+
 	$new_key = intval( $_REQUEST['key'] );
 	$new_field_type = $_REQUEST['fieldType'];
 	$new_field_class = $_REQUEST['fieldClass'];
@@ -656,6 +662,8 @@ add_action( 'wp_ajax_wpmtst_add_field_3', 'wpmtst_add_field_3_function' );
  * [Add New Field 4] Ajax receiver
  */
 function wpmtst_add_field_4_function() {
+	check_ajax_referer( 'wpmtst-admin', 'security', false );
+
 	$new_key = intval( $_REQUEST['key'] );
 	$new_field_type = $_REQUEST['fieldType'];
 	$new_field_class = $_REQUEST['fieldClass'];

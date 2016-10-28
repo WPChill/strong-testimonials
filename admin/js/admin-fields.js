@@ -180,6 +180,7 @@ function convertLabel(label) {
 			'key'        : nextKey,
 			'fieldClass' : null,
 			'fieldType'  : null,
+			'security'   : wpmtst_ajax_object.ajax_nonce
 		};
 		$.get( ajaxurl, data, function( response ) {
 			// disable Add button
@@ -339,6 +340,7 @@ function convertLabel(label) {
 					'key'        : key,
 					'fieldClass' : fieldClass,
 					'fieldType'  : fieldType,
+					'security'   : wpmtst_ajax_object.ajax_nonce
 				};
 				$.get( ajaxurl, data, function( response ) {
 					$table.find("tr.field-admin-table").replaceWith(response);
@@ -393,6 +395,7 @@ function convertLabel(label) {
 					'key'        : key,
 					'fieldClass' : fieldClass,
 					'fieldType'  : fieldType,
+					'security'   : wpmtst_ajax_object.ajax_nonce
 				};
 				$.get( ajaxurl, data1, function( response ) {
 
@@ -404,6 +407,8 @@ function convertLabel(label) {
 						'key'        : key,
 						'fieldClass' : fieldClass,
 						'fieldType'  : fieldType,
+						'security'   : wpmtst_ajax_object.ajax_nonce
+
 					};
 					$.get( ajaxurl, data2, function( response ) {
 
@@ -415,6 +420,7 @@ function convertLabel(label) {
 							'key'        : key,
 							'fieldClass' : fieldClass,
 							'fieldType'  : fieldType,
+							'security'   : wpmtst_ajax_object.ajax_nonce
 						};
 						$.get( ajaxurl, data3, function( response ) {
 
