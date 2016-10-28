@@ -698,10 +698,10 @@ function wpmtst_view_field_inputs( $key, $field, $adding = false ) {
 					</div>
 
 					<div class="field-property">
-						<label for="client_section_<?php echo $key; ?>_label">
+						<label for="client_section_<?php echo $key; ?>_before">
 							<?php _e( 'Before', 'strong-testimonials' ); ?>
 						</label>
-						<input id="client_section_<?php echo $key; ?>_label" type="text" name="view[data][client_section][<?php echo $key; ?>][label]" value="<?php echo isset( $field['label'] ) ? $field['label'] : ''; ?>">
+						<input id="client_section_<?php echo $key; ?>_before" type="text" name="view[data][client_section][<?php echo $key; ?>][before]" value="<?php echo isset( $field['before'] ) ? $field['before'] : ''; ?>">
 					</div>
 
 					<div class="field-property">

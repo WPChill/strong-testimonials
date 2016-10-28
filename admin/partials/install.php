@@ -22,7 +22,7 @@ register_activation_hook( __FILE__, 'wpmtst_plugin_activation' );
 function wpmtst_welcome_screen_activate() {
 	set_transient( 'wpmtst_welcome_screen_activation_redirect', true, 30 );
 }
-register_activation_hook( __FILE__, 'wpmtst_welcome_screen_activate' );
+//register_activation_hook( __FILE__, 'wpmtst_welcome_screen_activate' );
 
 /**
  * @since 2.4.0
@@ -44,7 +44,7 @@ function wpmtst_welcome_screen_do_activation_redirect() {
 	wp_safe_redirect( admin_url( 'edit.php?post_type=wpm-testimonial&page=testimonial-guide') );
 
 }
-add_action( 'admin_init', 'wpmtst_welcome_screen_do_activation_redirect' );
+//add_action( 'admin_init', 'wpmtst_welcome_screen_do_activation_redirect' );
 
 /**
  * Plugin deactivation

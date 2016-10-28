@@ -262,7 +262,7 @@ function wpmtst_sanitize_view( $input ) {
 			}
 			$data['client_section'][ $key ]['type'] = $type;
 
-			$data['client_section'][ $key ]['label'] = sanitize_text_field( $field['label'] );
+			$data['client_section'][ $key ]['before'] = sanitize_text_field( $field['before'] );
 
 			$data['client_section'][ $key ]['class'] = sanitize_text_field( $field['class'] );
 

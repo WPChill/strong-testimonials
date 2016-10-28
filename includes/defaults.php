@@ -454,15 +454,15 @@ function wpmtst_get_default_view() {
 		'class'              => '',
 		'client_section'     => array(
 			0 => array(
-				'field' => 'client_name',
-				'type'  => 'text',
-				'label' => '',
-				'class' => 'testimonial-name',
+				'field'  => 'client_name',
+				'type'   => 'text',
+				'before' => '',
+				'class'  => 'testimonial-name',
 			),
 			1 => array(
 				'field'   => 'company_name',
 				'type'    => 'link',
-				'label'   => '',
+				'before'  => '',
 				'url'     => 'company_website',
 				'class'   => 'testimonial-company',
 				'new_tab' => true,
