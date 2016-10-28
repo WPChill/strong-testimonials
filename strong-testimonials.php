@@ -219,8 +219,10 @@ final class Strong_Testimonials {
 
 			require_once WPMTST_ADMIN . 'admin.php';
 			require_once WPMTST_ADMIN . 'admin-ajax.php';
+
 			require_once WPMTST_ADMIN . 'partials/compat.php';
 			require_once WPMTST_ADMIN . 'partials/custom-fields.php';
+			require_once WPMTST_ADMIN . 'partials/custom-fields-ajax.php';
 			require_once WPMTST_ADMIN . 'partials/form-preview.php';
 			require_once WPMTST_ADMIN . 'partials/guide.php';
 			require_once WPMTST_ADMIN . 'partials/help.php';

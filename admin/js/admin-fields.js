@@ -177,7 +177,7 @@ function convertLabel(label) {
 
 		var data = {
 			'action'     : 'wpmtst_add_field',
-			'key'        : nextKey,
+			'nextKey'    : nextKey,
 			'fieldClass' : null,
 			'fieldType'  : null,
 			'security'   : wpmtst_ajax_object.ajax_nonce
@@ -337,7 +337,7 @@ function convertLabel(label) {
 				// update admin_table setting
 				var data = {
 					'action'     : 'wpmtst_add_field_4',
-					'key'        : key,
+					'nextKey'    : key,
 					'fieldClass' : fieldClass,
 					'fieldType'  : fieldType,
 					'security'   : wpmtst_ajax_object.ajax_nonce
@@ -392,7 +392,7 @@ function convertLabel(label) {
 				// secondary form fields
 				var data1 = {
 					'action'     : 'wpmtst_add_field_2',
-					'key'        : key,
+					'nextKey'    : key,
 					'fieldClass' : fieldClass,
 					'fieldType'  : fieldType,
 					'security'   : wpmtst_ajax_object.ajax_nonce
@@ -404,7 +404,7 @@ function convertLabel(label) {
 					// admin-table field
 					var data2 = {
 						'action'     : 'wpmtst_add_field_4',
-						'key'        : key,
+						'nextKey'    : key,
 						'fieldClass' : fieldClass,
 						'fieldType'  : fieldType,
 						'security'   : wpmtst_ajax_object.ajax_nonce
@@ -417,7 +417,7 @@ function convertLabel(label) {
 						// hidden inputs
 						var data3 = {
 							'action'     : 'wpmtst_add_field_3',
-							'key'        : key,
+							'nextKey'    : key,
 							'fieldClass' : fieldClass,
 							'fieldType'  : fieldType,
 							'security'   : wpmtst_ajax_object.ajax_nonce
