@@ -230,6 +230,7 @@ final class Strong_Testimonials {
 			require_once WPMTST_ADMIN . 'partials/settings.php';
 			require_once WPMTST_ADMIN . 'partials/upgrade.php';
 			require_once WPMTST_ADMIN . 'partials/views.php';
+			require_once WPMTST_ADMIN . 'partials/views-ajax.php';
 			require_once WPMTST_ADMIN . 'partials/views-validate.php';
 
 		}
