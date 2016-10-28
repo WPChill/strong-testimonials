@@ -33,7 +33,7 @@ function wpmtst_add_recipient_function() {
 	$key = $_REQUEST['key'];
 	$form_options = get_option( 'wpmtst_form_options' );
 	$recipient = $form_options['default_recipient'];
-	include WPMTST_INC . 'admin/settings/recipient.php';
+	include WPMTST_ADMIN . 'partials/settings/recipient.php';
 	die();
 }
 add_action( 'wp_ajax_wpmtst_add_recipient', 'wpmtst_add_recipient_function' );

@@ -34,19 +34,19 @@ function wpmtst_guide() {
 		<?php
 		switch ( $tab ) {
 			case 'translation':
-				include 'translation.php';
+				include 'guide/translation.php';
 				break;
 			case 'templates':
-				include 'templates.php';
+				include 'guide/templates.php';
 				break;
 			case 'views':
-				include 'views.php';
+				include 'guide/views.php';
 				break;
 			case 'start':
-				include 'start.php';
+				include 'guide/start.php';
 				break;
 			default:
-				include 'welcome.php';
+				include 'guide/welcome.php';
 		}
 		?>
 	</div>
@@ -54,7 +54,7 @@ function wpmtst_guide() {
 }
 
 function wpmtst_guide_before_content() {
-	include 'plugin-sidebar.php';
+	include 'guide/plugin-sidebar.php';
 }
 add_action( 'wpmtst_guide_before_content', 'wpmtst_guide_before_content' );
 

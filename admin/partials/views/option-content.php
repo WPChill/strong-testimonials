@@ -42,7 +42,7 @@
 					printf( wp_kses( __( 'To create manual excerpts, you may need to enable them in the post editor like in this <a href="%s" class="%s">screenshot</a>.', 'strong-testimonials' ), $allowed_html ), esc_url( $url ), 'thickbox' );
 					?>
 					<span class="screenshot" id="screenshot-screen-options" style="display: none;">
-						<img src="<?php echo WPMTST_URL; ?>images/screen-options.png" width="600">
+						<img src="<?php echo WPMTST_ADMIN_URL; ?>img/screen-options.png" width="600">
 					</span>
 				</p>
 			</div>

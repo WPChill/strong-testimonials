@@ -129,30 +129,49 @@ final class Strong_Testimonials {
 		if ( ! defined( 'WPMTST' ) )
 			define( 'WPMTST', dirname( WPMTST_PLUGIN ) );
 
-		if ( ! defined( 'WPMTST_URL' ) )
-			define( 'WPMTST_URL', plugin_dir_url( __FILE__ ) );
 
 		if ( ! defined( 'WPMTST_DIR' ) )
 			define( 'WPMTST_DIR', plugin_dir_path( __FILE__ ) );
+		if ( ! defined( 'WPMTST_URL' ) )
+			define( 'WPMTST_URL', plugin_dir_url( __FILE__ ) );
+
 
 		if ( ! defined( 'WPMTST_INC' ) )
 			define( 'WPMTST_INC', plugin_dir_path( __FILE__ ) . 'includes/' );
 
-		if ( ! defined( 'WPMTST_VIEW_DIR' ) )
-			define( 'WPMTST_VIEW_DIR', plugin_dir_path( __FILE__ ) . 'view/' );
 
+		if ( ! defined( 'WPMTST_ADMIN' ) )
+			define( 'WPMTST_ADMIN', plugin_dir_path( __FILE__ ) . 'admin/' );
+		if ( ! defined( 'WPMTST_ADMIN_URL' ) )
+			define( 'WPMTST_ADMIN_URL', plugin_dir_url( __FILE__ ) . 'admin/' );
+
+
+		if ( ! defined( 'WPMTST_PUBLIC' ) )
+			define( 'WPMTST_PUBLIC', plugin_dir_path( __FILE__ ) . 'public/' );
+		if ( ! defined( 'WPMTST_PUBLIC_URL' ) )
+			define( 'WPMTST_PUBLIC_URL', plugin_dir_url( __FILE__ ) . 'public/' );
+
+
+		if ( ! defined( 'WPMTST_COMMON' ) )
+			define( 'WPMTST_COMMON', plugin_dir_path( __FILE__ ) . 'common/' );
+		if ( ! defined( 'WPMTST_COMMON_URL' ) )
+			define( 'WPMTST_COMMON_URL', plugin_dir_url( __FILE__ ) . 'common/' );
+
+
+		if ( ! defined( 'WPMTST_VIEW_DIR' ) )
+			define( 'WPMTST_VIEW_DIR', plugin_dir_path( __FILE__ ) . 'includes/view/' );
 		if ( ! defined( 'WPMTST_VIEW_URL' ) )
-			define( 'WPMTST_VIEW_URL', plugin_dir_url( __FILE__ ) . 'view/' );
+			define( 'WPMTST_VIEW_URL', plugin_dir_url( __FILE__ ) . 'includes/view/' );
+
 
 		if ( ! defined( 'WPMTST_DEF_TPL' ) )
 			define( 'WPMTST_DEF_TPL', plugin_dir_path( __FILE__ ) . 'templates/default/' );
-
 		if ( ! defined( 'WPMTST_DEF_TPL_URI' ) )
 			define( 'WPMTST_DEF_TPL_URI', plugin_dir_url( __FILE__ ) . 'templates/default/' );
 
+
 		if ( ! defined( 'WPMTST_TPL' ) )
 			define( 'WPMTST_TPL', plugin_dir_path( __FILE__ ) . 'templates' );
-
 		if ( ! defined( 'WPMTST_TPL_URI' ) )
 			define( 'WPMTST_TPL_URI', plugin_dir_url( __FILE__ ) . 'templates' );
 
@@ -197,18 +216,19 @@ final class Strong_Testimonials {
 			require_once WPMTST_INC . 'class-strong-views-list-table.php';
 			require_once WPMTST_INC . 'class-walker-wpmst-category-checklist.php';
 			require_once WPMTST_INC . 'class-walker-wpmst-form-category-checklist.php';
-			require_once WPMTST_INC . 'admin/admin.php';
-			require_once WPMTST_INC . 'admin/admin-ajax.php';
-			require_once WPMTST_INC . 'admin/compat.php';
-			require_once WPMTST_INC . 'admin/custom-fields.php';
-			require_once WPMTST_INC . 'admin/form-preview.php';
-			require_once WPMTST_INC . 'admin/guide/guide.php';
-			require_once WPMTST_INC . 'admin/help.php';
-			require_once WPMTST_INC . 'admin/install.php';
-			require_once WPMTST_INC . 'admin/settings.php';
-			require_once WPMTST_INC . 'admin/upgrade.php';
-			require_once WPMTST_INC . 'admin/views.php';
-			require_once WPMTST_INC . 'admin/views-validate.php';
+
+			require_once WPMTST_ADMIN . 'admin.php';
+			require_once WPMTST_ADMIN . 'admin-ajax.php';
+			require_once WPMTST_ADMIN . 'partials/compat.php';
+			require_once WPMTST_ADMIN . 'partials/custom-fields.php';
+			require_once WPMTST_ADMIN . 'partials/form-preview.php';
+			require_once WPMTST_ADMIN . 'partials/guide.php';
+			require_once WPMTST_ADMIN . 'partials/help.php';
+			require_once WPMTST_ADMIN . 'partials/install.php';
+			require_once WPMTST_ADMIN . 'partials/settings.php';
+			require_once WPMTST_ADMIN . 'partials/upgrade.php';
+			require_once WPMTST_ADMIN . 'partials/views.php';
+			require_once WPMTST_ADMIN . 'partials/views-validate.php';
 
 		}
 
@@ -217,7 +237,7 @@ final class Strong_Testimonials {
 		 *
 		 * @since 2.1
 		 */
-		require_once WPMTST_INC . 'WPMST_Plugin_Updater.php';
+		require_once WPMTST_INC . 'edd/WPMST_Plugin_Updater.php';
 	}
 
 	/**

@@ -3,7 +3,7 @@
 		<!-- Name field -->
 		<span class="controls">
 			<?php if ( ! isset( $recipient['primary'] ) ) : ?>
-			<span class="delete-recipient dashicons dashicons-dismiss"></span>
+			<span class="delete-recipient dashicons dashicons-no"></span>
 			<?php endif; ?>
 		</span>
 		<input type="text" class="name-email" size="30" placeholder="<?php _e( '(optional)', 'strong-testimonials' ); ?>" name="wpmtst_form_options[recipients][<?php echo $key; ?>][admin_name]" value="<?php echo esc_attr( $recipient['admin_name'] ); ?>">
