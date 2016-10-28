@@ -631,7 +631,7 @@ function wpmtst_view_field_inputs( $key, $field, $adding = false ) {
 
 		<div class="field3" data-key="<?php echo $key; ?>">
 
-			<span class="link" title="click to open or close">
+			<span class="link" title="<?php _e( 'click to open or close', 'strong-testimonials' ); ?>">
 
 				<a href="#" class="field-description">
 					<?php echo $field['field']; ?>
@@ -755,9 +755,9 @@ function wpmtst_view_field_link( $key, $field_name, $type, $field, $adding = fal
 	<div class="flex">
 		<label for="view-fieldtext<?php echo $key; ?>"><?php _e( 'Link Text', 'strong-testimonials' ); ?></label>
 		<select id="view-fieldtext<?php echo $key; ?>" name="view[data][client_section][<?php echo $key; ?>][link_text]" class="if selectgroup">
-			<option value="value" <?php selected( $field['link_text'], 'value' ); ?>>this field's value</option>
-			<option value="label" <?php selected( $field['link_text'], 'label' ); ?>>this field's label</option>
-			<option value="custom" <?php selected( $field['link_text'], 'custom' ); ?>>custom text</option>
+			<option value="value" <?php selected( $field['link_text'], 'value' ); ?>><?php _e( "this field's value", 'strong-testimonials' ); ?></option>
+			<option value="label" <?php selected( $field['link_text'], 'label' ); ?>><?php _e( "this field's label", 'strong-testimonials' ); ?></option>
+			<option value="custom" <?php selected( $field['link_text'], 'custom' ); ?>><?php _e( 'custom text', 'strong-testimonials' ); ?></option>
 		</select>
 	</div>
 
@@ -814,7 +814,7 @@ function wpmtst_view_field_link( $key, $field_name, $type, $field, $adding = fal
 function wpmtst_view_field_date( $key, $field, $adding = false ) {
 	?>
 	<div class="flex">
-		<label for="view-<?php echo $key; ?>-client-date-format"><span>Format</span></label>
+		<label for="view-<?php echo $key; ?>-client-date-format"><span><?php _e( 'Format', 'strong-testimonials' ); ?></span></label>
 		<input id="view-<?php echo $key; ?>-client-date-format" type="text" name="view[data][client_section][<?php echo $key; ?>][format]" class="field-type-date" value="<?php echo isset( $field['format'] ) ? $field['format'] : ''; ?>">
 	</div>
 	<div class="flex">
