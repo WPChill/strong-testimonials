@@ -12,7 +12,7 @@ function wpmtst_guide() {
 	$tags = array( 'a' => array( 'href' => array(), 'target' => array(), 'class' => array() ), 'br' => array() );
 	?>
 	<div class="wrap wpmtst guide">
-		<h1><?php _e( 'Strong Testimonials Guide', 'strong-testimonials' ); ?></h1>
+		<!--<h1>--><?php //_e( 'Strong Testimonials Guide', 'strong-testimonials' ); ?><!--</h1>-->
 		<?php /* translators: In the Guide. */ ?>
 		<h2 class="nav-tab-wrapper">
 			<a href="<?php echo $page; ?>" class="nav-tab <?php echo $tab == 'welcome' ? 'nav-tab-active' : ''; ?>">
@@ -24,9 +24,6 @@ function wpmtst_guide() {
 			<a href="<?php echo $page; ?>&tab=views" class="nav-tab <?php echo $tab == 'views' ? 'nav-tab-active' : ''; ?>">
 				<?php _e( 'Views', 'strong-testimonials' ); ?>
 			</a>
-			<a href="<?php echo $page; ?>&tab=templates" class="nav-tab <?php echo $tab == 'templates' ? 'nav-tab-active' : ''; ?>">
-				<?php _e( 'Templates', 'strong-testimonials' ); ?>
-			</a>
 			<a href="<?php echo $page; ?>&tab=translation" class="nav-tab <?php echo $tab == 'translation' ? 'nav-tab-active' : ''; ?>">
 				<?php _e( 'Translation', 'strong-testimonials' ); ?>
 			</a>
@@ -35,9 +32,6 @@ function wpmtst_guide() {
 		switch ( $tab ) {
 			case 'translation':
 				include 'guide/translation.php';
-				break;
-			case 'templates':
-				include 'guide/templates.php';
 				break;
 			case 'views':
 				include 'guide/views.php';
