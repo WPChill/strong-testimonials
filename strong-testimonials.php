@@ -297,9 +297,6 @@ final class Strong_Testimonials {
 			// Process form data.
 			add_action( 'init', array( $this, 'process_form' ) );
 
-			// Process mail queue.
-			add_action( 'wp_loaded', array( $this, 'process_mail_queue' ), 20 );
-
 			// Catch email errors.
 			add_action( 'wp_mail_failed', array( $this, 'catch_mail_failed' ) );
 
@@ -2064,10 +2061,6 @@ final class Strong_Testimonials {
 
 		error_log( $entry, 3, $filepath );
 
-	}
-
-	public function process_mail_queue() {
-		$this->mail->process_mail_queue();
 	}
 
 }

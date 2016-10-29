@@ -1,4 +1,4 @@
-[2016-10-29 12:03:50] WP_Error Object
+[2016-10-29 13:42:10] WP_Error Object
 (
     [errors] => Array
         (
@@ -34,7 +34,7 @@
         )
 
 )
-[2016-10-29 12:03:50] SEND_MAIL = Array
+[2016-10-29 13:42:10] SEND_MAIL = Array
 (
     [response] => mail failed
     [to] => chrisdillon.us@gmail.com
