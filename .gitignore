@@ -21,4 +21,6 @@ $RECYCLE.BIN/
 # Mac crap
 .DS_Store
 
+# Plugin logs
+strong-debug.log
 strong-testimonials.log
