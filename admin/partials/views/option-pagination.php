@@ -10,16 +10,15 @@
 
 		<div class="inline">
 			<label for="view-pagination_type">
-				<?php _e( 'Type', 'strong-testimonials' ); ?>
+				<select id="view-pagination_type" name="view[data][pagination_type]">
+					<option value="simple" <?php selected( 'simple', $view['pagination_type'] ); ?>>
+						<?php _e( 'simple', 'strong-testimonials' ); ?>
+					</option>
+					<option value="standard" <?php selected( 'standard', $view['pagination_type'] ); ?>>
+						<?php _e( 'standard', 'strong-testimonials' ); ?>
+					</option>
+				</select>
 			</label>
-			<select id="view-pagination_type" name="view[data][pagination_type]">
-				<option value="simple" <?php selected( 'simple', $view['pagination_type'] ); ?>>
-					<?php _e( 'simple', 'strong-testimonials' ); ?>
-				</option>
-				<option value="standard" <?php selected( 'standard', $view['pagination_type'] ); ?>>
-					<?php _e( 'standard', 'strong-testimonials' ); ?>
-				</option>
-			</select>
 		</div>
 
 		<div class="inline">
