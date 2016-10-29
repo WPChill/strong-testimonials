@@ -546,7 +546,7 @@ function wpmtst_view_field_inputs( $key, $field, $adding = false ) {
 			<span class="link" title="<?php _e( 'click to open or close', 'strong-testimonials' ); ?>">
 
 				<a href="#" class="field-description">
-					<?php echo $field['field']; ?>
+					<?php echo wpmtst_get_field_label( $field ); ?>
 				</a>
 
 				<div class="controls2 left">

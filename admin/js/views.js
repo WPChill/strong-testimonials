@@ -827,13 +827,26 @@ jQuery(document).ready(function($) {
 	customFieldList.on("change", ".field-name select", function() {
 		var $el = $(this);
 		var $elParent = $el.closest(".field3");
-		$elParent.not(".open").addClass("open").find(".field-properties").addClass("open").slideDown();
 		var fieldType = $el.find("option:selected").data("type");
 		var fieldValue = $el.val();
-		$elParent.find(".field-description").html(fieldValue);
 		var key = $elParent.data("key");
 		var typeSelectParent = $elParent.find(".field-type");
 		var typeSelect = typeSelectParent.find("select");
+		var data;
+
+		$elParent.not(".open").addClass("open").find(".field-properties").addClass("open").slideDown();
+
+		// Update field label
+		data = {
+			'action': 'wpmtst_view_get_label',
+			'name': fieldValue,
+			'key': key,
+		};
+		$.get( ajaxurl, data, function( response ) {
+			if( response ) {
+				$elParent.find(".field-description").html(response);
+			}
+		});
 
 		switch( fieldValue ) {
 			// First, the immutables
@@ -844,7 +857,7 @@ jQuery(document).ready(function($) {
 				typeSelectParent.append('<input type="hidden" class="save-type" name="view[data][client_section][' + key + '][save-type]" value="date">');
 
 				// add format field
-				var data = {
+				data = {
 					'action': 'wpmtst_view_add_field_date',
 					'key': key,
 				};
