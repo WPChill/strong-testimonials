@@ -37,6 +37,7 @@ if ( ! class_exists( 'Strong_Testimonials' ) ) :
 /**
  * Main plugin class.
  *
+ * @property mail
  * @since 1.15.0
  */
 final class Strong_Testimonials {
@@ -59,6 +60,11 @@ final class Strong_Testimonials {
 	public static $plugin_data;
 
 	/**
+	 * @var Strong_Mail
+	 */
+	public $mail;
+
+	/**
 	 * A singleton instance.
 	 *
 	 * Used for preprocessing shortcodes and widgets to properly enqueue styles and scripts
@@ -76,12 +82,13 @@ final class Strong_Testimonials {
 		if ( ! isset( self::$instance ) && ! ( self::$instance instanceof Strong_Testimonials ) ) {
 			self::$instance = new Strong_Testimonials;
 			self::$instance->setup_constants();
-
-			add_action( 'plugins_loaded', array( self::$instance, 'load_textdomain' ) );
-
 			self::$instance->includes();
-			self::$instance->set_shortcodes();
+
+			add_action( 'init', array( self::$instance, 'init' ) );
+
+
 			self::$instance->add_actions();
+			self::$instance->set_shortcodes();
 		}
 		return self::$instance;
 	}
@@ -177,6 +184,15 @@ final class Strong_Testimonials {
 
 	}
 
+
+	/**
+	 * Instantiate our classes.
+	 */
+	public function init() {
+		self::$instance->mail = new Strong_Mail();
+	}
+
+
 	/**
 	 * Include required files
 	 *
@@ -190,6 +206,7 @@ final class Strong_Testimonials {
 		require_once WPMTST_VIEW_DIR . 'class-strong-view-controls.php';
 
 		require_once WPMTST_INC . 'class-strong-templates.php';
+		require_once WPMTST_INC . 'class-strong-mail.php';
 		require_once WPMTST_INC . 'l10n.php';
 		require_once WPMTST_INC . 'post-types.php';
 		require_once WPMTST_INC . 'functions.php';
@@ -267,6 +284,8 @@ final class Strong_Testimonials {
 	 * Action hooks.
 	 */
 	private function add_actions() {
+
+		add_action( 'plugins_loaded', array( self::$instance, 'load_textdomain' ) );
 
 		if ( is_admin() ) {
 
@@ -2047,67 +2066,8 @@ final class Strong_Testimonials {
 
 	}
 
-
-	/**
-	 * Enqueue mail.
-	 *
-	 * @since 2.8.0
-	 * @param $email
-	 */
-	public function enqueue_mail( $email ) {
-		$current_queue = get_transient( 'wpmtst_mail_queue' );
-		if ( $current_queue ) {
-			delete_transient( 'wpmtst_mail_queue' );
-		} else {
-			$current_queue = array();
-		}
-
-		$current_queue[] = $email;
-		set_transient( 'wpmtst_mail_queue', $current_queue, DAY_IN_SECONDS );
-	}
-
-
-	/**
-	 * Process mail queue
-	 *
-	 * @since 2.8.0
-	 */
 	public function process_mail_queue() {
-		$current_queue = get_transient( 'wpmtst_mail_queue' );
-		if ( ! $current_queue )
-			return;
-
-		foreach ( $current_queue as $email ) {
-			$this->send_mail( $email );
-		}
-
-		delete_transient( 'wpmtst_mail_queue' );
-	}
-
-
-	public function send_mail( $email ) {
-		$mail_sent = wp_mail( $email['to'], $email['subject'], $email['message'], $email['headers'] );
-
-		// Log email action
-		//TODO Deeper integration with Mandrill
-		$options = get_option( 'wpmtst_options' );
-		if ( isset( $options['email_log_level'] ) && $options['email_log_level'] ) {
-
-			// for both levels, log failure only
-			// for level 2, log both success and failure
-			if ( ! $mail_sent || 2 == $options['email_log_level'] ) {
-				$log_entry = array(
-					'response' => $mail_sent ? 'mail successful' : 'mail failed',
-					'to'       => $email['to'],
-					'subject'  => $email['subject'],
-					'message'  => $email['message'],
-					'headers'  => $email['headers'],
-				);
-				WPMST()->log( $log_entry, __FUNCTION__ );
-			}
-
-		}
-
+		$this->mail->process_mail_queue();
 	}
 
 }

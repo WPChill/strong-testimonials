@@ -1,0 +1,47 @@
+[2016-10-29 12:03:50] WP_Error Object
+(
+    [errors] => Array
+        (
+            [2] => Array
+                (
+                    [0] => Could not instantiate mail function.
+                )
+
+        )
+
+    [error_data] => Array
+        (
+            [2] => Array
+                (
+                    [to] => Array
+                        (
+                            [0] => chrisdillon.us@gmail.com
+                        )
+
+                    [subject] => New testimonial for Strong Testimonials
+                    [message] => New testimonial submission for Strong Testimonials. This is awaiting action from the website administrator.
+                    [headers] => Array
+                        (
+                            [MIME-Version] => 1.0
+                        )
+
+                    [attachments] => Array
+                        (
+                        )
+
+                )
+
+        )
+
+)
+[2016-10-29 12:03:50] SEND_MAIL = Array
+(
+    [response] => mail failed
+    [to] => chrisdillon.us@gmail.com
+    [subject] => New testimonial for Strong Testimonials
+    [message] => New testimonial submission for Strong Testimonials. This is awaiting action from the website administrator.
+    [headers] => MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
+From: Strong Testimonials <chris@local.dev>
+
+)
