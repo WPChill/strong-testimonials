@@ -110,10 +110,10 @@ class Strong_View {
 		// Standard pagination
 		if ( $this->atts['pagination'] && 'standard' == $this->atts['pagination_type'] ) {
 			if ( false !== strpos( $this->atts['nav'], 'before' ) ) {
-				add_action( 'wpmtst_before_content', 'wpmtst_standard_pagination' );
+				add_action( 'wpmtst_view_header', 'wpmtst_standard_pagination' );
 			}
 			if ( false !== strpos( $this->atts['nav'], 'after' ) ) {
-				add_action( 'wpmtst_after_content', 'wpmtst_standard_pagination' );
+				add_action( 'wpmtst_view_footer', 'wpmtst_standard_pagination' );
 			}
 		}
 
@@ -155,8 +155,8 @@ class Strong_View {
 		 */
 		remove_action( 'wpmtst_after_content', array( 'Strong_View_Controls', 'cycle_controls' ) );
 		remove_action( $this->atts['more_page_hook'], 'wpmtst_read_more_page' );
-		remove_action( 'wpmtst_before_content', 'wpmtst_standard_pagination' );
-		remove_action( 'wpmtst_after_content', 'wpmtst_standard_pagination' );
+		remove_action( 'wpmtst_view_header', 'wpmtst_standard_pagination' );
+		remove_action( 'wpmtst_view_footer', 'wpmtst_standard_pagination' );
 
 		/**
 		 * Hook to enqueue scripts.
