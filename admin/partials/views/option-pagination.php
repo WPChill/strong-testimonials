@@ -9,10 +9,25 @@
 	<div class="row then then_pagination" style="display: none;">
 
 		<div class="inline">
+			<label for="view-pagination_type">
+				<?php _e( 'Type', 'strong-testimonials' ); ?>
+			</label>
+			<select id="view-pagination_type" name="view[data][pagination_type]">
+				<option value="simple" <?php selected( 'simple', $view['pagination_type'] ); ?>>
+					<?php _e( 'simple', 'strong-testimonials' ); ?>
+				</option>
+				<option value="standard" <?php selected( 'standard', $view['pagination_type'] ); ?>>
+					<?php _e( 'standard', 'strong-testimonials' ); ?>
+				</option>
+			</select>
+		</div>
+
+		<div class="inline">
 			<label for="view-per_page">
 				<?php _ex( 'Per page', 'quantity', 'strong-testimonials' ); ?>
 			</label>
-			<input id="view-per_page" class="input-incremental" type="number" min="1" name="view[data][per_page]" value="<?php echo $view['per_page']; ?>" size="3">
+			<input id="view-per_page" class="input-incremental" type="number" min="1" name="view[data][per_page]"
+				   value="<?php echo $view['per_page']; ?>" size="3">
 		</div>
 
 		<div class="inline">

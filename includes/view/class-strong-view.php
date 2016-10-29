@@ -107,6 +107,16 @@ class Strong_View {
 		 * Add actions.
 		 */
 
+		// Standard pagination
+		if ( $this->atts['pagination'] && 'standard' == $this->atts['pagination_type'] ) {
+			if ( false !== strpos( $this->atts['nav'], 'before' ) ) {
+				add_action( 'wpmtst_before_content', 'wpmtst_standard_pagination' );
+			}
+			if ( false !== strpos( $this->atts['nav'], 'after' ) ) {
+				add_action( 'wpmtst_after_content', 'wpmtst_standard_pagination' );
+			}
+		}
+
 		// Slideshow controls
 		if ( $this->atts['slideshow'] && $this->atts['slideshow_nav'] ) {
 			add_action( 'wpmtst_after_content', array( 'Strong_View_Controls', 'cycle_controls' ) );
@@ -143,11 +153,10 @@ class Strong_View {
 		/**
 		 * Remove actions.
 		 */
-		if ( $this->atts['slideshow'] ) {
-			remove_action( 'wpmtst_after_content', array( 'Strong_View_Controls', 'cycle_controls' ) );
-		}
-
+		remove_action( 'wpmtst_after_content', array( 'Strong_View_Controls', 'cycle_controls' ) );
 		remove_action( $this->atts['more_page_hook'], 'wpmtst_read_more_page' );
+		remove_action( 'wpmtst_before_content', 'wpmtst_standard_pagination' );
+		remove_action( 'wpmtst_after_content', 'wpmtst_standard_pagination' );
 
 		/**
 		 * Hook to enqueue scripts.
@@ -245,10 +254,23 @@ class Strong_View {
 		$ids        = explode( ',', $this->atts['id'] );
 
 		$args = array(
-			'post_type'      => 'wpm-testimonial',
-			'posts_per_page' => -1,
-			'post_status'    => 'publish',
+			'post_type'   => 'wpm-testimonial',
+			'post_status' => 'publish',
 		);
+
+		if ( $this->atts['pagination'] ) {
+			switch ( $this->atts['pagination_type'] ) {
+				case 'simple':
+					$args['posts_per_page'] = -1;
+					$args['paged']          = null;
+					break;
+				case 'standard':
+					$args['posts_per_page'] = $this->atts['per_page'];
+					$args['paged']          = wpmtst_get_paged();
+					break;
+				default:
+			}
+		}
 
 		// id overrides category
 		if ( $this->atts['id'] ) {
@@ -311,6 +333,8 @@ class Strong_View {
 
 		$this->post_count  = $query->post_count;
 		$this->found_posts = $query->found_posts;
+
+		WPMST()->set_query( $query );
 
 		return $query;
 	}

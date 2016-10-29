@@ -52,6 +52,7 @@ final class Strong_Testimonials {
 	public static $shortcode2_lb;
 	public static $view_defaults = array();
 	public static $view_atts = array();
+	public static $query;
 	public static $form_values;
 	public static $form_errors;
 	public static $post_list = array();
@@ -681,6 +682,7 @@ final class Strong_Testimonials {
 			'note'               => '',
 			'oldest'             => '',
 			'pagination'         => '',
+			'pagination_type'    => 'simple',
 			'per_page'           => '',
 			'random'             => '',
 			'show_for'           => '8',
@@ -739,6 +741,14 @@ final class Strong_Testimonials {
 
 		// return none
 		return false;
+	}
+
+
+	public function set_query( $query ) {
+		self::$query = $query;
+	}
+	public function get_query() {
+		return self::$query;
 	}
 
 	/**
@@ -1617,8 +1627,10 @@ final class Strong_Testimonials {
 	 * @param array $atts
 	 */
 	private static function after_pagination( $atts = array() ) {
-		wp_enqueue_script( 'wpmtst-pager-script' );
-		wp_localize_script( 'wpmtst-pager-script', self::pager_signature( $atts ), self::pager_args( $atts ) );
+		if ( 'simple' == $atts['pagination_type'] ) {
+			wp_enqueue_script( 'wpmtst-pager-script' );
+			wp_localize_script( 'wpmtst-pager-script', self::pager_signature( $atts ), self::pager_args( $atts ) );
+		}
 	}
 
 	/**
@@ -1708,6 +1720,7 @@ final class Strong_Testimonials {
 			 */
 			if ( $atts['per_page']
 				&& $new_view->query->post_count > $atts['per_page']
+				&& 'simple' == $atts['pagination_type']
 				&& apply_filters( 'wpmtst_use_default_pagination', true, $atts ) )
 			{
 				self::add_script( 'wpmtst-pager-script' );

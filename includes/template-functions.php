@@ -710,3 +710,83 @@ function wpmtst_get_field( $field, $args = array() ) {
 	}
 	return $html;
 }
+
+/**
+ * Custom pagination. Pluggable.
+ *
+ * Thanks http://callmenick.com/post/custom-wordpress-loop-with-pagination
+ *
+ * @param string $numpages
+ * @param string $pagerange
+ */
+if ( ! function_exists( 'wpmtst_standard_pagination' ) ) :
+function wpmtst_standard_pagination() {
+
+	$query = WPMST()->get_query();
+	$paged = wpmtst_get_paged();
+
+	$numpages = $query->max_num_pages;
+	if ( ! $numpages ) {
+		$numpages = 1;
+	}
+
+	$pagination_args = array(
+		'base'               => get_pagenum_link( 1 ) . '%_%',
+		'format'             => 'page/%#%',
+		'total'              => $numpages,
+		'current'            => $paged,
+		'show_all'           => false,
+		'end_size'           => 1,
+		'mid_size'           => 2,
+		'prev_next'          => false,
+		//'prev_text'          => __( '&laquo;' ),
+		//'next_text'          => __( '&raquo;' ),
+		'type'               => 'list',
+		'add_args'           => false,
+		'add_fragment'       => '', // a string to append to each link
+		'before_page_number' => '',
+		'after_page_number'  => '',
+	);
+
+	$paginate_links = paginate_links( apply_filters( 'wpmtst_pagination_args', $pagination_args ) );
+
+	if ( $paginate_links ) {
+		echo "<nav class='standard-pagination'>";
+		//echo "<span class='page-numbers page-num'>Page " . $paged . " of " . $numpages . "</span> ";
+		echo $paginate_links;
+		echo "</nav>";
+	}
+}
+endif;
+
+
+function wpmtst_get_paged() {
+	if ( get_query_var( 'paged' ) ) {
+		$paged = get_query_var( 'paged' );
+	}
+	elseif ( get_query_var( 'page' ) ) { // static front page
+		$paged = get_query_var( 'page' );
+	}
+	else {
+		$paged = 1;
+	}
+
+	return $paged;
+}
+
+/*
+// alternate pagination style
+function wpmtst_new_pagination_2() {
+	$query = WPMST()->get_query();
+	if ($query->max_num_pages > 1) { ?>
+		<nav class="prev-next-posts">
+			<div class="prev-posts-link">
+				<?php echo get_next_posts_link( 'Older Entries', $query->max_num_pages ); // display older posts link ?>
+			</div>
+			<div class="next-posts-link">
+				<?php echo get_previous_posts_link( 'Newer Entries' ); // display newer posts link ?>
+			</div>
+		</nav>
+	<?php }
+}
+*/
