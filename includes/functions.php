@@ -583,12 +583,12 @@ add_action( 'wpmtst_view_saved', 'wpmtst_on_save_view' );
  * @return mixed
  */
 function wpmtst_get_field_label( $field ) {
-	if ( isset( $field['field'] ) ) {
-		$custom_fields = wpmtst_get_custom_fields();
-		foreach ( $custom_fields as $key => $custom_field ) {
-			if ( $custom_field['name'] == $field['field'] ) {
-				return $custom_field['label'];
-			}
+	if ( ! isset( $field['field'] ) ) return '';
+
+	$custom_fields = wpmtst_get_custom_fields();
+	foreach ( $custom_fields as $key => $custom_field ) {
+		if ( $custom_field['name'] == $field['field'] ) {
+			return $custom_field['label'];
 		}
 	}
 
