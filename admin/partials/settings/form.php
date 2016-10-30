@@ -11,11 +11,25 @@
 
 <h3><?php _e( 'Form Labels & Messages', 'strong-testimonials' ); ?></h3>
 
+<?php
+// WPML
+if ( wpmtst_is_plugin_active( 'wpml' ) ) {
+	printf( __( 'Translate these fields in <a href="%s">WPML String Translations</a>', 'strong-testimonials' ),
+		admin_url( 'admin.php?page=wpml-string-translation%2Fmenu%2Fstring-translation.php&context=strong-testimonials-form-messages' ) );
+}
+
+// Polylang
+if ( wpmtst_is_plugin_active( 'polylang' ) ) {
+	printf( __( 'Translate these fields in <a href="%s">Polylang String Translations</a>', 'strong-testimonials' ),
+		admin_url( 'options-general.php?page=mlang&tab=strings&s&group=strong-testimonials-form-messages&paged=1' ) );
+}
+?>
+
 <table class="form-table compact" cellpadding="0" cellspacing="0">
 	<?php $messages = $form_options['messages']; ?>
 	<?php foreach ( $messages as $key => $message ) : ?>
 	<tr>
-		<td>
+		<th scope="row">
 			<?php
 			if ( 'required-field' == $key )
 				_e( $messages[$key]['description'], 'strong-testimonials' );
@@ -23,7 +37,7 @@
 				_ex( $messages[$key]['description'], 'description', 'strong-testimonials' );
 			?>
 			<input type="hidden" name="wpmtst_form_options[messages][<?php echo $key; ?>][description]" value="<?php esc_attr_e( $messages[$key]['description'] ); ?>">
-		</td>
+		</th>
 		<td>
 			<input type="text" id="<?php echo $key; ?>" name="wpmtst_form_options[messages][<?php echo $key; ?>][text]" value="<?php echo esc_attr( apply_filters( 'wpmtst_l10n', $messages[$key]['text'], wpmtst_get_l10n_context( 'form-messages' ), $key . ' : text' ) ); ?>" required />
 		</td>
@@ -42,11 +56,11 @@
 
 <h3><?php _e( 'Form Actions', 'strong-testimonials' ); ?></h3>
 
-<table class="form-table multiple" cellpadding="0" cellspacing="0">
+<table class="form-table" cellpadding="0" cellspacing="0">
 	<tr>
-		<td>
+		<th scope="row">
 			<?php _e( 'Post status', 'strong-testimonials' ); ?>
-		</td>
+		</th>
 		<td>
 			<ul class="compact">
 				<li>
@@ -66,17 +80,15 @@
 	</tr>
 
 	<tr>
-		<td class="tall">
+		<th scope="row" class="tall">
 			<?php _e( 'Scroll', 'strong-testimonials' ); ?>
-		</td>
+		</th>
 		<td>
 			<fieldset>
 				<label>
 					<input type="checkbox" name="wpmtst_form_options[scrolltop_error]" <?php checked( $form_options['scrolltop_error'] ); ?>>
 					<?php printf( __( 'If errors, scroll to the first error minus %s pixels. On by default.', 'strong-testimonials' ), '<input type="text" name="wpmtst_form_options[scrolltop_error_offset]" value="' . $form_options['scrolltop_error_offset'] . '" size="3">' ); ?>
 				</label>
-			</fieldset>
-			<fieldset>
 				<label>
 					<input type="checkbox" name="wpmtst_form_options[scrolltop_success]" <?php checked( $form_options['scrolltop_success'] ); ?>>
 					<?php printf( __( 'If success, scroll to the success message minus %s pixels. On by default.', 'strong-testimonials' ), '<input type="text" name="wpmtst_form_options[scrolltop_success_offset]" value="' . $form_options['scrolltop_success_offset'] . '" size="3">' ); ?>
@@ -86,23 +98,36 @@
 	</tr>
 
 	<tr>
-		<td class="tall">
+		<th scope="row" class="tall">
 			<div><?php _e( 'Notification', 'strong-testimonials' ); ?></div>
-		</td>
+		</th>
 
 		<td class="subsection">
 
-			<p>
+			<fieldset>
 				<label>
 					<input id="wpmtst-options-admin-notify" type="checkbox" name="wpmtst_form_options[admin_notify]" <?php checked( $form_options['admin_notify'] ); ?>>
 					<?php _e( 'Send an email upon new testimonial submission.', 'strong-testimonials' ); ?>
 				</label>
-			</p>
+			</fieldset>
 
 			<div id="admin-notify-fields" style="display: none;">
 				<?php include 'email-from.php'; ?>
 				<?php include 'email-to.php'; ?>
 				<?php include 'email.php'; ?>
+				<?php
+				// WPML
+				if ( wpmtst_is_plugin_active( 'wpml' ) ) {
+					echo '<p>' . sprintf( __( 'Translate these fields in <a href="%s">WPML String Translations</a>', 'strong-testimonials' ),
+						admin_url( 'admin.php?page=wpml-string-translation%2Fmenu%2Fstring-translation.php&context=strong-testimonials-notification' ) ) . '</p>';
+				}
+
+				// Polylang
+				if ( wpmtst_is_plugin_active( 'polylang' ) ) {
+					echo '<p>' . sprintf( __( 'Translate these fields in <a href="%s">Polylang String Translations</a>', 'strong-testimonials' ),
+						admin_url( 'options-general.php?page=mlang&tab=strings&s&group=strong-testimonials-notification&paged=1' ) ) . '</p>';
+				}
+				?>
 			</div>
 
 		</td><!-- .subsection -->
@@ -111,11 +136,11 @@
 
 <h3><?php _e( 'Form Spam Control', 'strong-testimonials' );?></h3>
 
-<table class="form-table multiple" cellpadding="0" cellspacing="0">
+<table class="form-table" cellpadding="0" cellspacing="0">
 	<tr>
-		<td class="align-top">
+		<th scope="row">
 			<p><?php _ex( 'Honeypot', 'spam control techniques', 'strong-testimonials' ); ?></p>
-		</td>
+		</th>
 		<td>
 			<p><?php _e( 'These methods are both time-tested and widely used. They can be used simultaneously for more protection.', 'strong-testimonials' ); ?></p>
 			<ul>
@@ -137,9 +162,9 @@
 		</td>
 	</tr>
 	<tr valign="top">
-		<td class="align-top">
+		<th scope="row">
 			<p><?php _e( 'Captcha', 'strong-testimonials' ); ?></p>
-		</td>
+		</th>
 		<td class="stackem">
 			<p><?php _e( 'Can be used alongside honeypot methods. Be sure to configure any plugins first, if necessary.', 'strong-testimonials' ); ?></p>
 			<ul>

@@ -76,7 +76,7 @@ div.help.minor {
 ---------------------------------------------------------*/
 
 .stackem ul {
-	margin: 0;
+	margin: 14px 0 0 0;
 }
 
 .stackem li {
@@ -218,10 +218,8 @@ div.radio:hover {
 .wpmtst .form-table.compact td {
 	border-top: none;
 	border-bottom: none;
-	padding: 5px 0;
-}
-.wpmtst .form-table.compact td:first-child {
-	padding-left: 10px;
+	padding: 5px 10px 5px 0;
+	vertical-align: middle;
 }
 
 .wpmtst .form-table.compact tr:first-child th,
@@ -258,9 +256,6 @@ div.radio:hover {
 	display: block;
 }
 
-.form-table td.align-top {
-	vertical-align: top;
-}
 
 /* end: form-table */
 
@@ -428,15 +423,11 @@ td.tall {
 }
 
 .subsection .subsection-title {
-	font-weight: 700;
+	/*font-weight: 700;*/
 }
 
 .subsubsection {
 	width: 100%;
-}
-
-#admin-notify-fields {
-	padding-top: 10px;
 }
 
 .subsubsection.ib {
@@ -519,9 +510,9 @@ td.tall {
 }
 
 .subsection a {
-	display: inline-block;
-	margin: 0 .3em;
-	font-size: .9em;
+	/*display: inline-block;*/
+	/*margin: 0 .3em;*/
+	/*font-size: .9em;*/
 }
 
 .subsection div > label > span {
