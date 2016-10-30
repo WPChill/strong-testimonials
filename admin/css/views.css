@@ -893,5 +893,27 @@ div.help {
   select optgroup {
     font-style: normal;
     margin-left: 3px; } }
+/* =help tab
+--------------------------------------------------*/
+table.wpmtst-help-tab {
+  border-collapse: collapse;
+  margin: 20px 0;
+  width: 100%; }
+  table.wpmtst-help-tab tr:hover td {
+    background: #FFFFAA; }
+  table.wpmtst-help-tab th,
+  table.wpmtst-help-tab td {
+    padding: 5px 10px;
+    text-align: center; }
+  table.wpmtst-help-tab th {
+    border-bottom: 1px solid #AAA; }
+  table.wpmtst-help-tab td {
+    border-bottom: 1px solid #E1E1E1; }
+    table.wpmtst-help-tab td:first-child {
+      text-align: right;
+      font-weight: 600;
+      white-space: nowrap; }
+    table.wpmtst-help-tab td:not(:last-child) {
+      border-right: 1px dotted #E1E1E1; }
 
 /*# sourceMappingURL=views.css.map */
