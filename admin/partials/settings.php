@@ -31,8 +31,8 @@ function wpmtst_settings_menu() {
 		'wpmtst_settings_page' );
 
 	add_submenu_page( 'edit.php?post_type=wpm-testimonial',
-		_x( 'Guide', 'noun', 'strong-testimonials' ),
-		_x( 'Guide', 'noun', 'strong-testimonials' ),
+		_x( 'About', 'noun', 'strong-testimonials' ),
+		_x( 'About', 'noun', 'strong-testimonials' ),
 		'manage_options',
 		'testimonial-guide',
 		'wpmtst_guide' );
