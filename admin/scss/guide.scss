@@ -1,0 +1,174 @@
+/**
+ * Strong Testimonials > Guide pages
+ */
+
+.wpmtst-guide {
+	p,
+	ol,
+	ul {
+		font-size: 1.2em;
+		line-height: 1.5;
+	}
+
+	ul > li {
+		list-style-type: disc;
+		margin-left: 1.3em;
+		padding-left: .3em;
+	}
+
+	h1.large {
+		color: #00A4F3;
+		font-size: 36px;
+		font-weight: 400;
+		margin: 1em 0;
+	}
+
+	h2 {
+		font-size: 1.7em;
+		margin: 1em 0;
+	}
+
+	.dashicons {
+		color: #00A4F3;
+		position: relative;
+		top: 2px;
+		margin-right: 0.5em;
+	}
+}
+
+.guide-wrapper {
+	display: flex;
+}
+
+#about {
+	flex: 0 2 auto;
+
+	.section {
+		&:first-child p {
+			margin-top: 0;
+		}
+	}
+}
+
+.highlight {
+	background: #FFFF99;
+	border: 1px solid #EEEE00;
+	display: inline-block;
+	padding: 3px 6px 2px;
+}
+
+@media screen and (max-width: 667px) {
+	h1.large {
+		font-size: 30px;
+		line-height: 1.5;
+	}
+}
+
+/* Plugin Sidebar
+------------------------------------------------*/
+#plugin-sidebar {
+	margin-left: 2em;
+
+	> div {
+		padding: 1em;
+		background: #EDF2F8;
+		border: 1px solid #9AC8FE;
+		border-top-width: 5px;
+		box-sizing: border-box;
+
+		.sig {
+			font-style: italic;
+			margin-bottom: 1em;
+			text-align: center;
+		}
+
+		div {
+			margin: 20px 0 20px 45px;
+			font-size: 1.1em;
+
+			&:last-child {
+				margin-bottom: 0;
+			}
+		}
+
+		p {
+			margin: 0;
+		}
+
+		ul {
+			font-size: 1em;
+			margin: 0;
+		}
+
+		li {
+			list-style-type: none;
+			padding-left: 0;
+			margin: 0.5em 0;
+		}
+
+		.has-icon:before {
+			font-family: fontawesome;
+			color: #9AC8FE;
+			float: left;
+			font-size: 34px;
+			margin-left: -45px;
+			position: relative;
+			top: 10px;
+		}
+
+		.icon-help:before {
+			content: "\f059";
+		}
+
+		.icon-document:before {
+			content: "\f05a";
+		}
+
+		.icon-donate:before {
+			content: "\f118";
+		}
+
+		.new-doc {
+			background: #FF8900;
+			color: #FFF;
+			font-size: 0.8em;
+			padding: 1px 5px;
+			border-radius: 1px;
+			margin-left: 8px;
+		}
+	}
+}
+
+@media screen and (max-width: 320px) {
+	#plugin-sidebar {
+		div {
+			margin-left: 0 !important;
+		}
+
+		.has-icon::before {
+			display: none;
+		}
+	}
+}
+
+@media screen and (max-width: 667px) {
+	.guide-wrapper {
+		display: block;
+	}
+
+	#plugin-sidebar {
+		margin-left: 0;
+	}
+}
+
+@media screen and (min-width: 668px) and (max-width: 782px) {
+	#plugin-sidebar {
+		div {
+			margin-left: 0 !important;
+		}
+
+		.has-icon::before {
+			display: none;
+		}
+	}
+}

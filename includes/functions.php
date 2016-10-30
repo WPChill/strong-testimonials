@@ -731,3 +731,24 @@ function wpmtst_post_submitbox_misc_actions( $post ) {
 	}
 }
 add_action( 'post_submitbox_misc_actions', 'wpmtst_post_submitbox_misc_actions' );
+
+
+/**
+ * Frequent plugin checks.
+ *
+ * @param $name
+ *
+ * @return bool
+ */
+function wpmtst_is_plugin_active( $name = '' ) {
+	$plugins = array(
+		'wpml'     => 'sitepress-multilingual-cms/sitepress.php',
+		'polylang' => 'polylang/polylang.php'
+	);
+
+	if ( ! $name || ! isset( $plugins['name'] ) ) {
+		return false;
+	}
+
+	return is_plugin_active( $plugins[ $name ] );
+}
