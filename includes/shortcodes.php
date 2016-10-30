@@ -85,8 +85,6 @@ function wpmtst_render_view( $out ) {
  * @return mixed|string|void
  */
 function wpmtst_form_view( $atts ) {
-	global $strong_templates;
-
 	if ( isset( $_GET['success'] ) ) {
 		// Load stylesheet
 		do_action( 'wpmtst_form_success', $atts );
@@ -115,7 +113,7 @@ function wpmtst_form_view( $atts ) {
 	/**
 	 * Load template
 	 */
-	$template_file = $strong_templates->get_template_attr( $atts, 'template' );
+	$template_file = WPMST()->templates->get_template_attr( $atts, 'template' );
 	ob_start();
 	/** @noinspection PhpIncludeInspection */
 	include $template_file;

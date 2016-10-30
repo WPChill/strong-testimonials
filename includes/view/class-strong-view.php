@@ -80,8 +80,6 @@ class Strong_View {
 	 */
 	public function build() {
 
-		global $strong_templates;
-
 		/**
 		 * Reset any hooks and filters that may have been set by other Views on the page.
 		 * @since 2.11.4
@@ -118,7 +116,7 @@ class Strong_View {
 		/**
 		 * Locate template.
 		 */
-		$this->template_file = $strong_templates->get_template_attr( $this->atts, 'template' );
+		$this->template_file = WPMST()->templates->get_template_attr( $this->atts, 'template' );
 
 		/**
 		 * Allow add-ons to hijack the output generation.

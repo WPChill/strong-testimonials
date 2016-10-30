@@ -10,9 +10,8 @@
  * @since 1.25.0
  */
 function wpmtst_force_check() {
-	global $strong_templates;
 	$atts = array( 'template' => $_REQUEST['template'] );
-	$force = $strong_templates->get_template_attr( $atts, 'force', false );
+	$force = WPMST()->templates->get_template_attr( $atts, 'force', false );
 	echo $force;
 	die();
 }

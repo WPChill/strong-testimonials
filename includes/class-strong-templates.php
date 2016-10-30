@@ -317,17 +317,3 @@ class Strong_Templates {
 }
 
 endif;
-
-
-/**
- * Assemble template list after any custom plugins are loaded.
- *
- * Don't do this on plugins_loaded hook to avoid conflicts.
- *
- * @todo Move this to main WPMST object
- */
-function strong_templates_init() {
-	global $strong_templates;
-	$strong_templates = new Strong_Templates();
-}
-add_action( 'init', 'strong_templates_init' );

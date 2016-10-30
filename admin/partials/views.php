@@ -95,7 +95,7 @@ function wpmtst_view_settings( $action = '', $view_id = null ) {
 
 	if ( ( 'edit' == $action || 'duplicate' == $action ) && ! $view_id ) return;
 
-	global $view, $strong_templates;
+	global $view;
 	add_thickbox();
 
 	$screen = get_current_screen();
@@ -169,8 +169,8 @@ function wpmtst_view_settings( $action = '', $view_id = null ) {
 	$view_cats_array = apply_filters( 'wpmtst_l10n_cats', explode( ',', $view['category'] ) );
 
 	// Assemble list of templates
-	$templates      = $strong_templates->get_templates( array( 'content', 'widget' ) );
-	$form_templates = $strong_templates->get_templates( 'form' );
+	$templates      = WPMST()->templates->get_templates( array( 'content', 'widget' ) );
+	$form_templates = WPMST()->templates->get_templates( 'form' );
 
 	$group = strtok( $view['template'], ':' );
 	$type  = strtok( ':' );

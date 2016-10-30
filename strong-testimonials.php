@@ -37,7 +37,8 @@ if ( ! class_exists( 'Strong_Testimonials' ) ) :
 /**
  * Main plugin class.
  *
- * @property mail
+ * @property  Strong_Mail mail
+ * @property  Strong_Templates templates
  * @since 1.15.0
  */
 final class Strong_Testimonials {
@@ -65,6 +66,11 @@ final class Strong_Testimonials {
 	public $mail;
 
 	/**
+	 * @var Strong_Templates
+	 */
+	public $templates;
+
+	/**
 	 * A singleton instance.
 	 *
 	 * Used for preprocessing shortcodes and widgets to properly enqueue styles and scripts
@@ -85,7 +91,6 @@ final class Strong_Testimonials {
 			self::$instance->includes();
 
 			add_action( 'init', array( self::$instance, 'init' ) );
-
 
 			self::$instance->add_actions();
 			self::$instance->set_shortcodes();
@@ -189,7 +194,8 @@ final class Strong_Testimonials {
 	 * Instantiate our classes.
 	 */
 	public function init() {
-		self::$instance->mail = new Strong_Mail();
+		self::$instance->mail      = new Strong_Mail();
+		self::$instance->templates = new Strong_Templates();
 	}
 
 
@@ -1653,10 +1659,9 @@ final class Strong_Testimonials {
 		if ( !isset( $atts['template'] ) || !$atts['template'] )
 			return false;
 
-		global $strong_templates;
 		$plugin_version = get_option( 'wpmtst_plugin_version' );
 		$handle = false;
-		$stylesheet = $strong_templates->get_template_attr( $atts, 'stylesheet', false );
+		$stylesheet = self::$instance->templates->get_template_attr( $atts, 'stylesheet', false );
 		if ( $stylesheet ) {
 			$handle = 'testimonials-' . str_replace( ':', '-', $atts['template'] );
 			wp_register_style( $handle, $stylesheet, array(), $plugin_version );
@@ -1684,8 +1689,6 @@ final class Strong_Testimonials {
 	 * @return string
 	 */
 	private static function preprocess( $view, $handle = false ) {
-		global $strong_templates;
-
 		$options = get_option( 'wpmtst_options' );
 
 		// subset of all shortcode atts
@@ -1752,10 +1755,10 @@ final class Strong_Testimonials {
 		 *
 		 * @since 1.25.0
 		 */
-		$deps = $strong_templates->get_template_attr( $atts, 'deps', false );
+		$deps = self::$instance->templates->get_template_attr( $atts, 'deps', false );
 		$deps_array = $deps ? explode( ',', str_replace( ' ', '', $deps ) ) : array();
 
-		$script = $strong_templates->get_template_attr( $atts, 'script', false );
+		$script = self::$instance->templates->get_template_attr( $atts, 'script', false );
 		if ( $script ) {
 			$handle = 'testimonials-' . str_replace( ':', '-', $atts['template'] );
 			wp_register_script( $handle, $script, $deps_array );
@@ -1772,7 +1775,7 @@ final class Strong_Testimonials {
 		 *
 		 * @since 2.11.12
 		 */
-		$styles = $strong_templates->get_template_attr( $atts, 'styles', false );
+		$styles = self::$instance->templates->get_template_attr( $atts, 'styles', false );
 		if ( $styles ) {
 			$styles_array = explode( ',', str_replace( ' ', '', $styles ) );
 			foreach ( $styles_array as $handle ) {
