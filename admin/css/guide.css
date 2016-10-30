@@ -1,175 +1,107 @@
 /**
  * Strong Testimonials > Guide pages
  */
+.wpmtst-guide p,
+.wpmtst-guide ol,
+.wpmtst-guide ul {
+  font-size: 1.2em;
+  line-height: 1.5; }
+.wpmtst-guide ul > li {
+  list-style-type: disc;
+  margin-left: 1.3em;
+  padding-left: .3em; }
+.wpmtst-guide h1.large {
+  color: #00A4F3;
+  font-size: 36px;
+  font-weight: 400;
+  margin: 1em 0; }
+.wpmtst-guide h2 {
+  font-size: 1.7em;
+  margin: 1.5em 0 1em; }
+.wpmtst-guide .dashicons {
+  color: #00A4F3;
+  position: relative;
+  top: 2px;
+  margin-right: 0.5em; }
 
-/*
- * Guide page
- */
+.guide-wrapper {
+  display: flex; }
 
-.wpmtst h1 {
-	margin-bottom: 1em;
-}
-
-section {
-}
+#about {
+  flex: 0 2 auto; }
+  #about .section:first-child p {
+    margin-top: 0; }
 
 .highlight {
-	background: #FFFF99;
-	border: 1px solid #EEEE00;
-	display: inline-block;
-	padding: 3px 6px 2px;
-}
-
-.guide-content {
-	padding: 0 1em;
-}
-
-.guide-content p {
-	font-size: 1.1em;
-}
-
-.guide-content h3 {
-	color: #00A4F3;
-	font-size: 1.5em;
-	margin: 1.5em 0 1em;
-}
-
-.guide-content h4 {
-	font-size: 16px;
-	margin: 2em 0 1em;
-}
-/*
-.guide-content h4.current:after {
-	content: "(current)";
-	font-style: italic;
-	color: #CD0000;
-	margin-left: 0.5em;
-}
-*/
-.guide-content code {
-	margin: 0;
-	font-size: 1.05em;
-	line-height: 22px;
-	background: none;
-	padding: 0;
-	font-weight: 400;
-}
-
-.guide-content ul {
-	font-size: 14px;
-}
-
-.guide-content ul:not(.ui-tabs-nav) > li {
-	list-style-type: disc;
-	margin-left: 1.3em;
-	padding-left: .3em;
-}
-
-.guide-content ul ul {
-	margin-top: 0.3em;
-	margin-bottom: 1.2em;
-}
-
-.guide-content.translation section > ul > li {
-	font-weight: 700;
-}
-
-.guide-content.translation ul ul li {
-	font-weight: 400;
-	list-style-type: none;
-	margin-left: 0;
-	padding: 0;
-}
-
-.guide-content p.first {
-	margin-top: 2em;
-	margin-bottom: 2em;
-}
-
-/* Welcome page
-------------------------------------------------*/
-.wrap.welcome {
-	padding: 10px 0 10px 10px;
-}
-
-.wrap.welcome h3.large {
-	color: #00A4F3;
-	font-size: 36px;
-	font-weight: 400;
-	margin: 0.7em 0 1.4em;
-}
-
-.wrap.welcome h5 {
-	font-size: 16px;
-	font-style: italic;
-}
+  background: #FFFF99;
+  border: 1px solid #EEEE00;
+  display: inline-block;
+  padding: 3px 6px 2px; }
 
 @media screen and (max-width: 667px) {
-	.wrap.welcome h3.large {
-		font-size: 30px;
-		line-height: 1.5;
-	}
-}
+  h1.large {
+    font-size: 30px;
+    line-height: 1.5; } }
+/* Plugin Sidebar
+------------------------------------------------*/
+#plugin-sidebar {
+  margin-left: 2em; }
+  #plugin-sidebar > div {
+    padding: 1em;
+    background: #EDF2F8;
+    border: 1px solid #9AC8FE;
+    border-top-width: 5px;
+    box-sizing: border-box; }
+    #plugin-sidebar > div .sig {
+      font-style: italic;
+      margin: 1em 0;
+      text-align: center; }
+    #plugin-sidebar > div div {
+      margin: 20px 0 20px 45px;
+      font-size: 1.1em; }
+      #plugin-sidebar > div div:last-child {
+        margin-bottom: 0; }
+    #plugin-sidebar > div p {
+      margin: 0; }
+    #plugin-sidebar > div ul {
+      font-size: 1em;
+      margin: 0; }
+    #plugin-sidebar > div li {
+      list-style-type: none;
+      padding-left: 0;
+      margin: 0.5em 0; }
+    #plugin-sidebar > div .has-icon:before {
+      font-family: fontawesome;
+      color: #9AC8FE;
+      float: left;
+      font-size: 34px;
+      margin-left: -45px;
+      position: relative;
+      top: 10px; }
+    #plugin-sidebar > div .icon-help:before {
+      content: "\f059"; }
+    #plugin-sidebar > div .icon-document:before {
+      content: "\f05a"; }
+    #plugin-sidebar > div .icon-donate:before {
+      content: "\f118"; }
+    #plugin-sidebar > div .new-doc {
+      background: #FF8900;
+      color: #FFF;
+      font-size: 0.8em;
+      padding: 1px 5px;
+      border-radius: 1px;
+      margin-left: 8px; }
 
-.wrap.welcome h4.large {
-	font-size: 1.6em;
-}
+@media screen and (max-width: 667px) {
+  #plugin-sidebar {
+    float: none;
+    width: 100%;
+    margin-left: 0; } }
+@media screen and (min-width: 668px) and (max-width: 782px) {
+  #plugin-sidebar div {
+    margin-left: 20px !important; }
 
-.wrap.welcome p,
-.wrap.welcome ol,
-.wrap.welcome ul {
-	font-size: 1.2em;
-	line-height: 1.5;
-}
+  #plugin-sidebar .has-icon::before {
+    display: none; } }
 
-.wrap.welcome ul > li {
-	list-style-type: disc;
-	margin-left: 1.3em;
-	padding-left: .3em;
-}
-
-.wrap.welcome code {
-	font-size: 1.1em;
-	background: none;
-	padding: 0;
-	margin: 0;
-}
-
-#plugin-sidebar p.sig {
-	font-style: italic;
-	text-align: center;
-	margin-top: 20px;
-}
-
-/*
- * Guide table
- */
-table.guide {
-	margin: 2em 0 1em;
-	border-collapse: collapse;
-	width: 100%;
-}
-table.guide td {
-	padding: 10px;
-	font-size: 1.1em;
-	vertical-align: top;
-}
-table.guide th {
-	text-shadow: rgb(255, 255, 255) 0px 1px 0px;
-	padding: 20px 0 0;
-	font-size: 1.2em;
-}
-table.guide.compat th:nth-child(2),
-table.guide.compat td:nth-child(2) {
-	border-right: 2px solid #F1F1F1;
-	border-left: 2px solid #F1F1F1;
-}
-table.guide .works {
-	background: rgb(223, 240, 216);
-}
-table.guide .conflict {
-	background: rgb(242, 222, 222);
-}
-table.guide .request {
-	background: rgb(217, 237, 247);
-}
+/*# sourceMappingURL=guide.css.map */
