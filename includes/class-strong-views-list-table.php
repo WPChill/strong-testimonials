@@ -95,8 +95,7 @@ class Strong_Views_List_Table extends Strong_Testimonials_List_Table {
 	}
 
 	public function find_template( $atts = '' ) {
-		global $strong_templates;
-		$name = $strong_templates->get_template_attr( $atts, 'name', false );
+		$name = WPMST()->templates->get_template_attr( $atts, 'name', false );
 		return $name ? $name : '<span class="error"><span class="dashicons dashicons-warning"></span> not found</span>';
 	}
 

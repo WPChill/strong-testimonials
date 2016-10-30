@@ -7,31 +7,31 @@ function wpmtst_scripts() {
 
 	$plugin_version = get_option( 'wpmtst_plugin_version' );
 
-	wp_register_script( 'wpmtst-pager-plugin', WPMTST_URL . 'js/quickpager.jquery.js', array( 'jquery' ), false, true );
-	wp_register_script( 'wpmtst-pager-script', WPMTST_URL . 'js/wpmtst-pager.js', array( 'wpmtst-pager-plugin' ), $plugin_version, true );
+	wp_register_script( 'wpmtst-pager-plugin', WPMTST_PUBLIC_URL . 'js/quickpager.jquery.js', array( 'jquery' ), false, true );
+	wp_register_script( 'wpmtst-pager-script', WPMTST_PUBLIC_URL . 'js/pager.js', array( 'wpmtst-pager-plugin' ), $plugin_version, true );
 
-	wp_register_style( 'wpmtst-custom-style', WPMTST_URL . 'css/wpmtst-custom.css' );
+	wp_register_style( 'wpmtst-custom-style', WPMTST_PUBLIC_URL . 'css/custom.css' );
 
-	wp_register_script( 'imagesloaded-script', WPMTST_URL . 'js/imagesloaded.pkgd.min.js', array(), false, true );
-	wp_register_script( 'wpmtst-masonry-script', WPMTST_URL . 'js/wpmtst-masonry.js', array( 'jquery-masonry', 'imagesloaded-script' ), $plugin_version, true );
-	wp_register_style( 'wpmtst-masonry-style', WPMTST_URL . 'css/wpmtst-masonry.css', array(), $plugin_version );
+	wp_register_script( 'imagesloaded-script', WPMTST_PUBLIC_URL . 'js/lib/imagesloaded/imagesloaded.pkgd.min.js', array(), false, true );
+	wp_register_script( 'wpmtst-masonry-script', WPMTST_PUBLIC_URL . 'js/masonry.js', array( 'jquery-masonry', 'imagesloaded-script' ), $plugin_version, true );
+	wp_register_style( 'wpmtst-masonry-style', WPMTST_PUBLIC_URL . 'css/masonry.css', array(), $plugin_version );
 
-	wp_register_style( 'wpmtst-columns-style', WPMTST_URL . 'css/wpmtst-columns.css', array(), $plugin_version );
+	wp_register_style( 'wpmtst-columns-style', WPMTST_PUBLIC_URL . 'css/columns.css', array(), $plugin_version );
 
-	wp_register_script( 'wpmtst-grid-script', WPMTST_URL . 'js/wpmtst-grid.js', array( 'jquery' ), $plugin_version, true );
-	wp_register_style( 'wpmtst-grid-style', WPMTST_URL . 'css/wpmtst-grid.css', array(), $plugin_version );
+	wp_register_script( 'wpmtst-grid-script', WPMTST_PUBLIC_URL . 'js/grid.js', array( 'jquery' ), $plugin_version, true );
+	wp_register_style( 'wpmtst-grid-style', WPMTST_PUBLIC_URL . 'css/grid.css', array(), $plugin_version );
 
-	wp_register_style( 'wpmtst-rating-form', WPMTST_URL . 'css/rating-form.css', array( 'wpmtst-font-awesome' ), $plugin_version );
-	wp_register_style( 'wpmtst-rating-display', WPMTST_URL . 'css/rating-display.css', array( 'wpmtst-font-awesome' ), $plugin_version );
+	wp_register_style( 'wpmtst-rating-form', WPMTST_COMMON_URL . 'css/rating-form.css', array( 'wpmtst-font-awesome' ), $plugin_version );
+	wp_register_style( 'wpmtst-rating-display', WPMTST_COMMON_URL . 'css/rating-display.css', array( 'wpmtst-font-awesome' ), $plugin_version );
 
-	wp_register_script( 'wpmtst-form', WPMTST_URL . 'js/wpmtst-form.js', array( 'jquery' ), $plugin_version, true );
-	wp_register_script( 'wpmtst-form-success', WPMTST_URL . 'js/wpmtst-form-success.js', array( 'jquery' ), $plugin_version, true );
+	wp_register_script( 'wpmtst-form', WPMTST_PUBLIC_URL . 'js/form.js', array( 'jquery' ), $plugin_version, true );
+	wp_register_script( 'wpmtst-form-success', WPMTST_PUBLIC_URL . 'js/form-success.js', array( 'jquery' ), $plugin_version, true );
 
 	if ( wpmtst_using_form_validation_script() ) {
 
-		wp_register_script( 'wpmtst-validation-plugin', WPMTST_URL . 'js/validate/jquery.validate.min.js', array( 'jquery' ), false, true );
+		wp_register_script( 'wpmtst-validation-plugin', WPMTST_PUBLIC_URL . 'js/lib/validate/jquery.validate.min.js', array( 'jquery' ), false, true );
 
-		wp_register_script( 'wpmtst-form-validation', WPMTST_URL . 'js/wpmtst-form-validation.js', array( 'wpmtst-validation-plugin', 'jquery-form' ), $plugin_version, true );
+		wp_register_script( 'wpmtst-form-validation', WPMTST_PUBLIC_URL . 'js/wpmtst-form-validation.js', array( 'wpmtst-validation-plugin', 'jquery-form' ), $plugin_version, true );
 
 		/**
 		 * Localize jQuery Validate plugin.
@@ -49,7 +49,7 @@ function wpmtst_scripts() {
 
 	}
 
-	wp_register_style( 'wpmtst-font-awesome', WPMTST_URL . 'fonts/font-awesome-4.6.3/css/font-awesome.min.css', array(), '4.6.3' );
+	wp_register_style( 'wpmtst-font-awesome', WPMTST_COMMON_URL . 'fonts/font-awesome-4.6.3/css/font-awesome.min.css', array(), '4.6.3' );
 }
 add_action( 'wp_enqueue_scripts', 'wpmtst_scripts' );
 
@@ -128,10 +128,10 @@ function wpmtst_register_cycle() {
 	if ( ! $cycle_handle ) {
 		// Using unique handle and loading Cycle2 for better dimension handling.
 		$cycle_handle = 'jquery-cycle-in-wpmtst';
-		wp_register_script( $cycle_handle, WPMTST_URL . 'js/cycle/jquery.cycle2.min.js', array( 'jquery' ), '2.1.6', true );
+		wp_register_script( $cycle_handle, WPMTST_PUBLIC_URL . 'js/lib/cycle/jquery.cycle2.min.js', array( 'jquery' ), '2.1.6', true );
 	}
 
 	// Our slider handler, dependent on whichever jQuery Cycle plugin is being used.
-	wp_register_script( 'jquery-actual', WPMTST_URL . 'js/actual/jquery.actual.min.js', array( 'jquery' ), false, true );
-	wp_register_script( 'wpmtst-slider', WPMTST_URL . 'js/wpmtst-cycle.js', array( $cycle_handle, 'jquery-actual' ), $plugin_version, true );
+	wp_register_script( 'jquery-actual', WPMTST_PUBLIC_URL . 'js/lib/actual/jquery.actual.min.js', array( 'jquery' ), false, true );
+	wp_register_script( 'wpmtst-slider', WPMTST_PUBLIC_URL . 'js/cycle.js', array( $cycle_handle, 'jquery-actual' ), $plugin_version, true );
 }

@@ -647,8 +647,8 @@ function wpmtst_client_section( $client_section ) {
 		}
 
 		if ( $output ) {
-			if ( isset( $field['label'] ) && $field['label'] ) {
-				$output = '<span class="testimonial-field-label">' . $field['label'] . '</span>' . $output;
+			if ( isset( $field['before'] ) && $field['before'] ) {
+				$output = '<span class="testimonial-field-before">' . $field['before'] . '</span>' . $output;
 			}
 			$html .= '<div class="' . $field['class'] . '">' . $output . '</div>';
 		}

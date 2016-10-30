@@ -592,7 +592,7 @@ function wpmtst_get_field_label( $field ) {
 		}
 	}
 
-	return '';
+	return ucwords( str_replace( '_', ' ', $field['field'] ) );
 }
 
 /**

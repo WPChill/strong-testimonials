@@ -351,15 +351,15 @@ function wpmtst_captcha_check( $captcha, $errors ) {
 function wpmtst_notify_admin( $post, $form_name = 'custom' ) {
 	$fields = wpmtst_get_form_fields( $form_name );
 
-	$options      = get_option( 'wpmtst_options' );
+	//$options      = get_option( 'wpmtst_options' );
 	$form_options = get_option( 'wpmtst_form_options' );
 
-	if ( $form_options['sender_site_email'] )
-		$sender_email = get_bloginfo( 'admin_email' );
-	else
-		$sender_email = $form_options['sender_email'];
-
 	if ( $form_options['admin_notify'] ) {
+
+		if ( $form_options['sender_site_email'] )
+			$sender_email = get_bloginfo( 'admin_email' );
+		else
+			$sender_email = $form_options['sender_email'];
 
 		foreach ( $form_options['recipients'] as $recipient ) {
 
@@ -411,9 +411,9 @@ function wpmtst_notify_admin( $post, $form_name = 'custom' ) {
 
 			$email = array( 'to' => $to, 'subject' => $subject, 'message' => $message, 'headers' => $headers );
 			if ( $form_options['mail_queue'] ) {
-				WPMST()->enqueue_mail( $email );
+				WPMST()->mail->enqueue_mail( $email );
 			} else {
-				WPMST()->send_mail( $email );
+				WPMST()->mail->send_mail( $email );
 			}
 
 		} // for each recipient
