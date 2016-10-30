@@ -86,12 +86,21 @@ jQuery(window).on('load', function () {
 });
 
 
-jQuery(document).ready(function($) {
+(function($) {
 	'use strict';
 
 	// the shortcode code
 	$("#view-shortcode").on("focus", function(){
 		$(this).select();
+	});
+
+
+	$(".open-help-tab").on("click", function(){
+		if( $("#screen-meta").is(":hidden") ) {
+			$("#contextual-help-link").click();
+		}
+		$("html, body").animate({scrollTop: 0}, 800);
+		return false;
 	});
 
 
@@ -928,7 +937,7 @@ jQuery(document).ready(function($) {
 		return false;
 	});
 
-});
+})(jQuery);
 
 /**
  * Click to copy to keyboard

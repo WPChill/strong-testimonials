@@ -497,6 +497,7 @@ function wpmtst_get_default_view() {
 		'order'              => 'oldest',
 		'page'               => '',
 		'pagination'         => false,
+		'pagination_type'    => 'simple',
 		'per_page'           => 5,
 		'show_for'           => 8,
 		'slideshow_nav'      => 'simple',

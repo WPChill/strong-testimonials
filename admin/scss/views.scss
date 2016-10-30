@@ -1116,3 +1116,48 @@ div.help {
 		margin-left: 3px;
 	}
 }
+
+
+/* =help tab
+--------------------------------------------------*/
+table.wpmtst-help-tab {
+	border-collapse: collapse;
+	margin: 20px 0;
+	width: 100%;
+
+	tr {
+		&:hover {
+			td {
+				background: #FFFFAA;
+			}
+		}
+	}
+
+	th,
+	td {
+		padding: 5px 10px;
+		text-align: center;
+	}
+
+	th {
+		&:first-child {
+		}
+		//&:not(:first-child) {
+			border-bottom: 1px solid #AAA;
+		//}
+	}
+
+	td {
+		border-bottom: 1px solid #E1E1E1;
+
+		&:first-child {
+			//border-bottom: 0;
+			text-align: right;
+			font-weight: 600;
+			white-space: nowrap;
+		}
+		&:not(:last-child) {
+			border-right: 1px dotted #E1E1E1;
+		}
+	}
+}
