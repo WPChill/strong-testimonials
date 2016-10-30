@@ -54,7 +54,7 @@
     box-sizing: border-box; }
     #plugin-sidebar > div .sig {
       font-style: italic;
-      margin: 1em 0;
+      margin-bottom: 1em;
       text-align: center; }
     #plugin-sidebar > div div {
       margin: 20px 0 20px 45px;
@@ -92,15 +92,20 @@
       border-radius: 1px;
       margin-left: 8px; }
 
+@media screen and (max-width: 320px) {
+  #plugin-sidebar div {
+    margin-left: 0 !important; }
+  #plugin-sidebar .has-icon::before {
+    display: none; } }
 @media screen and (max-width: 667px) {
+  .guide-wrapper {
+    display: block; }
+
   #plugin-sidebar {
-    float: none;
-    width: 100%;
     margin-left: 0; } }
 @media screen and (min-width: 668px) and (max-width: 782px) {
   #plugin-sidebar div {
-    margin-left: 20px !important; }
-
+    margin-left: 0 !important; }
   #plugin-sidebar .has-icon::before {
     display: none; } }
 
