@@ -77,10 +77,13 @@ function wpmtst_add_field_4_function() {
 	$new_field_type  = $_REQUEST['fieldType'];
 	$new_field_class = $_REQUEST['fieldClass'];
 	$fields          = get_option( 'wpmtst_fields' );
-	$empty_field = array_merge(
-		$fields['field_types'][$new_field_class][$new_field_type],
-		array( 'record_type' => $new_field_class )
-	);
+	$empty_field     = array();
+	if ( isset( $fields['field_types'][$new_field_class][$new_field_type] ) ) {
+		$empty_field = array_merge(
+			$fields['field_types'][ $new_field_class ][ $new_field_type ],
+			array( 'record_type' => $new_field_class )
+		);
+	}
 	$new_field = wpmtst_show_field_admin_table( $new_key, $empty_field );
 	echo $new_field;
 	die();

@@ -14,6 +14,15 @@ function convertLabel(label) {
 
 (function($) {
 
+	$.fn.scrollUp = function() {
+		this.each(function() {
+			var containerOffset = parseInt( $(this).offset().top ) - 72;
+			$("html, body").animate({scrollTop: containerOffset}, 800);
+		});
+
+		return this;
+	};
+
 	/**
 	 * Preview
 	 */
@@ -169,7 +178,7 @@ function convertLabel(label) {
 	// Add new field
 	// -------------
 	$("#add-field").click(function(e) {
-		var keys = $("#custom-field-list > li").map(function() {
+		var keys = $fieldList.find("li").map(function() {
 			var key_id = $(this).attr("id");
 			return key_id.substr( key_id.lastIndexOf("-")+1 );
 		}).get();
@@ -211,7 +220,7 @@ function convertLabel(label) {
 			$("span.close-field").hide();
 
 			// click it to open
-			$li.find("a.field").click();
+			$li.scrollUp().find("a.field").click();
 		});
 	});
 
@@ -270,6 +279,8 @@ function convertLabel(label) {
 				// changing
 				// --------
 				// could be changing after being *added* but before being *saved*
+				//TODO Refresh secondary type-specific fields -- wpmtst_add_field_2
+				//$table.find(".field-secondary").remove();
 
 				switch( fieldClass ) {
 					case "post":

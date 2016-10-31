@@ -2,15 +2,13 @@
 
 	<div class="section">
 
-		<p><?php _e( 'This plugin is a little different. There is only one shortcode and one widget.', 'strong-testimonials' ); ?></p>
+		<h2><?php _e( 'Create a view for anything you want to display', 'strong-testimonials' ); ?></h2>
 
-		<h2><?php _e( 'Views make it simpler', 'strong-testimonials' ); ?></h2>
-
-		<p><?php _e( 'A view is simply of group of settings. Create a <strong>view</strong> for anything you want to display. You can create an unlimited number of views.', 'strong-testimonials' ); ?></p>
+		<p><?php _e( 'A <strong>view</strong> is simply of group of settings. You can create an unlimited number of views.', 'strong-testimonials' ); ?></p>
 
 		<p><?php _e( 'For example, you might have one view to <strong>display a grid</strong> of your testimonials, another view for a testimonial <strong>submission form</strong>, and another view for a <strong>slideshow</strong>.', 'strong-testimonials' ); ?></p>
 
-		<p><?php _e( 'Add the view to your site using its unique shortcode or by selecting the view in the widget.', 'strong-testimonials' ); ?></p>
+		<p><?php _e( 'Add the view to your site using its unique <strong>shortcode</strong> or by selecting the view in the <strong>widget</strong>.', 'strong-testimonials' ); ?></p>
 
 	</div>
 
@@ -70,6 +68,21 @@
 				)
 			),
 			esc_url( 'https://www.wpmission.com/strong-testimonials-version-2-coming-soon/' )
+		);
+		?></p>
+
+		<p><?php
+		printf(
+			wp_kses(
+				__( 'Visit <a href="%" target="_blank">WP Mission</a> for more documentation.', 'strong-testimonials' ),
+				array(
+					'a'      => array( 'href' => array(), 'target' => array(), 'class' => array() ),
+					'br'     => array(),
+					'em'     => array(),
+					'strong' => array(),
+				)
+			),
+			esc_url( 'https://www.wpmission.com' )
 		);
 		?></p>
 

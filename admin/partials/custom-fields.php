@@ -433,7 +433,7 @@ function wpmtst_show_field_secondary( $key, $field ) {
 	else
 		$disabled = false;
 
-	$html = '<tr>' . "\n";
+	$html = '<tr class="field-secondary">' . "\n";
 	$html .= '<th>' . __( 'Required', 'strong-testimonials' ) . '</th>' . "\n";
 	$html .= '<td>' . "\n";
 	if ( $disabled ) {
@@ -450,7 +450,7 @@ function wpmtst_show_field_secondary( $key, $field ) {
 	// -----------
 	if ( $field['show_placeholder_option'] ) {
 		if ( isset( $field['placeholder'] ) ) {
-			$html .= '<tr>' . "\n";
+			$html .= '<tr class="field-secondary">' . "\n";
 			$html .= '<th>' . __( 'Placeholder', 'strong-testimonials' ) . '</th>' . "\n";
 			$html .= '<td><input type="text" name="fields[' . $key . '][placeholder]" value="' . wpmtst_htmlspecialchars( $field['placeholder'] ) . '"></td>' . "\n";
 			$html .= '</tr>' . "\n";
@@ -460,7 +460,7 @@ function wpmtst_show_field_secondary( $key, $field ) {
 	// ------
 	// Before
 	// ------
-	$html .= '<tr>' . "\n";
+	$html .= '<tr class="field-secondary">' . "\n";
 	$html .= '<th>' . __( 'Before', 'strong-testimonials' ) . '</th>' . "\n";
 	$html .= '<td><input type="text" name="fields[' . $key . '][before]" value="' . wpmtst_htmlspecialchars( $field['before'] ) . '"></td>' . "\n";
 	$html .= '</tr>' . "\n";
@@ -468,7 +468,7 @@ function wpmtst_show_field_secondary( $key, $field ) {
 	// -----
 	// After
 	// -----
-	$html .= '<tr>' . "\n";
+	$html .= '<tr class="field-secondary">' . "\n";
 	$html .= '<th>' . __( 'After', 'strong-testimonials' ) . '</th>' . "\n";
 	$html .= '<td><input type="text" name="fields[' . $key . '][after]" value="' . wpmtst_htmlspecialchars( $field['after'] ) . '"></td>' . "\n";
 	$html .= '</tr>' . "\n";
@@ -478,7 +478,7 @@ function wpmtst_show_field_secondary( $key, $field ) {
 	// ------------------
 	if ( $field['show_default_options'] ) {
 		if ( isset( $field['default_form_value'] ) ) {
-			$html .= '<tr>' . "\n";
+			$html .= '<tr class="field-secondary">' . "\n";
 			$html .= '<th>' . __( 'Default Form Value', 'strong-testimonials' ) . '</th>' . "\n";
 			$html .= '<td>' . "\n";
 			$html .= '<input type="text" name="fields[' . $key . '][default_form_value]" value="' . wpmtst_htmlspecialchars( $field['default_form_value'] ) . '">';
@@ -493,7 +493,7 @@ function wpmtst_show_field_secondary( $key, $field ) {
 	// ---------------------
 	if ( $field['show_default_options'] ) {
 		if ( isset( $field['default_display_value'] ) ) {
-			$html .= '<tr>' . "\n";
+			$html .= '<tr class="field-secondary">' . "\n";
 			$html .= '<th>' . __( 'Default Display Value', 'strong-testimonials' ) . '</th>' . "\n";
 			$html .= '<td>' . "\n";
 			$html .= '<input type="text" name="fields[' . $key . '][default_display_value]" value="' . wpmtst_htmlspecialchars( $field['default_display_value'] ) . '">';
@@ -508,7 +508,7 @@ function wpmtst_show_field_secondary( $key, $field ) {
 	// ---------------------
 	if ( $field['show_shortcode_options'] ) {
 		if ( isset( $field['shortcode_on_form'] ) ) {
-			$html .= '<tr>' . "\n";
+			$html .= '<tr class="field-secondary">' . "\n";
 			$html .= '<th>' . __( 'Shortcode on form', 'strong-testimonials' ) . '</th>' . "\n";
 			$html .= '<td>' . "\n";
 			$html .= '<input type="text" name="fields[' . $key . '][shortcode_on_form]" value="' . wpmtst_htmlspecialchars( $field['shortcode_on_form'] ) . '">';
@@ -517,7 +517,7 @@ function wpmtst_show_field_secondary( $key, $field ) {
 			$html .= '</tr>' . "\n";
 		}
 		if ( isset( $field['shortcode_on_display'] ) ) {
-			$html .= '<tr>' . "\n";
+			$html .= '<tr class="field-secondary">' . "\n";
 			$html .= '<th>' . __( 'Shortcode on display', 'strong-testimonials' ) . '</th>' . "\n";
 			$html .= '<td>' . "\n";
 			$html .= '<input type="text" name="fields[' . $key . '][shortcode_on_display]" value="' . wpmtst_htmlspecialchars( $field['shortcode_on_display'] ) . '">';

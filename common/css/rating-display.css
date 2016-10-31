@@ -29,9 +29,9 @@
 	content: "\f005";
 	display: inline-block;
 	font-size: 1.25em;
-	line-height: 1.75;
+	/*line-height: 1.75;*/
 	/* use padding not margin */
-	padding: 5px;
+	padding: 0 5px;
 	transition: color 0.3s ease;
 }
 
