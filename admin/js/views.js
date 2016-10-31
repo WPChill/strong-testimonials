@@ -918,7 +918,6 @@ jQuery(window).on('load', function () {
 	 */
 	customFieldList.on("click", "span.delete", function(e){
 		var thisField = $(this).closest(".field2");
-		console.log(thisField);
 		var yesno = confirm("Remove this field?");
 		if( yesno ) {
 			thisField.fadeOut(function(){$(this).remove()});
