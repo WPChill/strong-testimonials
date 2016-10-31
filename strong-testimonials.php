@@ -4,7 +4,7 @@
  * Plugin URI: https://www.wpmission.com/plugins/strong-testimonials/
  * Description: A full-featured plugin that works right out of the box for beginners and offers advanced features for pros.
  * Author: Chris Dillon
- * Version: 2.13.5
+ * Version: 2.14
  * Author URI: https://www.wpmission.com/
  * Text Domain: strong-testimonials
  * Domain Path: /languages
@@ -37,6 +37,8 @@ if ( ! class_exists( 'Strong_Testimonials' ) ) :
 /**
  * Main plugin class.
  *
+ * @property  Strong_Mail mail
+ * @property  Strong_Templates templates
  * @since 1.15.0
  */
 final class Strong_Testimonials {
@@ -52,11 +54,22 @@ final class Strong_Testimonials {
 	public static $shortcode2_lb;
 	public static $view_defaults = array();
 	public static $view_atts = array();
+	public static $query;
 	public static $form_values;
 	public static $form_errors;
 	public static $post_list = array();
 	public static $post_list_transient_name = '';
 	public static $plugin_data;
+
+	/**
+	 * @var Strong_Mail
+	 */
+	public $mail;
+
+	/**
+	 * @var Strong_Templates
+	 */
+	public $templates;
 
 	/**
 	 * A singleton instance.
@@ -76,12 +89,12 @@ final class Strong_Testimonials {
 		if ( ! isset( self::$instance ) && ! ( self::$instance instanceof Strong_Testimonials ) ) {
 			self::$instance = new Strong_Testimonials;
 			self::$instance->setup_constants();
-
-			add_action( 'plugins_loaded', array( self::$instance, 'load_textdomain' ) );
-
 			self::$instance->includes();
-			self::$instance->set_shortcodes();
+
+			add_action( 'init', array( self::$instance, 'init' ) );
+
 			self::$instance->add_actions();
+			self::$instance->set_shortcodes();
 		}
 		return self::$instance;
 	}
@@ -129,34 +142,63 @@ final class Strong_Testimonials {
 		if ( ! defined( 'WPMTST' ) )
 			define( 'WPMTST', dirname( WPMTST_PLUGIN ) );
 
-		if ( ! defined( 'WPMTST_URL' ) )
-			define( 'WPMTST_URL', plugin_dir_url( __FILE__ ) );
 
 		if ( ! defined( 'WPMTST_DIR' ) )
 			define( 'WPMTST_DIR', plugin_dir_path( __FILE__ ) );
+		if ( ! defined( 'WPMTST_URL' ) )
+			define( 'WPMTST_URL', plugin_dir_url( __FILE__ ) );
+
 
 		if ( ! defined( 'WPMTST_INC' ) )
 			define( 'WPMTST_INC', plugin_dir_path( __FILE__ ) . 'includes/' );
 
-		if ( ! defined( 'WPMTST_VIEW_DIR' ) )
-			define( 'WPMTST_VIEW_DIR', plugin_dir_path( __FILE__ ) . 'view/' );
 
+		if ( ! defined( 'WPMTST_ADMIN' ) )
+			define( 'WPMTST_ADMIN', plugin_dir_path( __FILE__ ) . 'admin/' );
+		if ( ! defined( 'WPMTST_ADMIN_URL' ) )
+			define( 'WPMTST_ADMIN_URL', plugin_dir_url( __FILE__ ) . 'admin/' );
+
+
+		if ( ! defined( 'WPMTST_PUBLIC' ) )
+			define( 'WPMTST_PUBLIC', plugin_dir_path( __FILE__ ) . 'public/' );
+		if ( ! defined( 'WPMTST_PUBLIC_URL' ) )
+			define( 'WPMTST_PUBLIC_URL', plugin_dir_url( __FILE__ ) . 'public/' );
+
+
+		if ( ! defined( 'WPMTST_COMMON' ) )
+			define( 'WPMTST_COMMON', plugin_dir_path( __FILE__ ) . 'common/' );
+		if ( ! defined( 'WPMTST_COMMON_URL' ) )
+			define( 'WPMTST_COMMON_URL', plugin_dir_url( __FILE__ ) . 'common/' );
+
+
+		if ( ! defined( 'WPMTST_VIEW_DIR' ) )
+			define( 'WPMTST_VIEW_DIR', plugin_dir_path( __FILE__ ) . 'includes/view/' );
 		if ( ! defined( 'WPMTST_VIEW_URL' ) )
-			define( 'WPMTST_VIEW_URL', plugin_dir_url( __FILE__ ) . 'view/' );
+			define( 'WPMTST_VIEW_URL', plugin_dir_url( __FILE__ ) . 'includes/view/' );
+
 
 		if ( ! defined( 'WPMTST_DEF_TPL' ) )
 			define( 'WPMTST_DEF_TPL', plugin_dir_path( __FILE__ ) . 'templates/default/' );
-
 		if ( ! defined( 'WPMTST_DEF_TPL_URI' ) )
 			define( 'WPMTST_DEF_TPL_URI', plugin_dir_url( __FILE__ ) . 'templates/default/' );
 
+
 		if ( ! defined( 'WPMTST_TPL' ) )
 			define( 'WPMTST_TPL', plugin_dir_path( __FILE__ ) . 'templates' );
-
 		if ( ! defined( 'WPMTST_TPL_URI' ) )
 			define( 'WPMTST_TPL_URI', plugin_dir_url( __FILE__ ) . 'templates' );
 
 	}
+
+
+	/**
+	 * Instantiate our classes.
+	 */
+	public function init() {
+		self::$instance->mail      = new Strong_Mail();
+		self::$instance->templates = new Strong_Templates();
+	}
+
 
 	/**
 	 * Include required files
@@ -171,6 +213,7 @@ final class Strong_Testimonials {
 		require_once WPMTST_VIEW_DIR . 'class-strong-view-controls.php';
 
 		require_once WPMTST_INC . 'class-strong-templates.php';
+		require_once WPMTST_INC . 'class-strong-mail.php';
 		require_once WPMTST_INC . 'l10n.php';
 		require_once WPMTST_INC . 'post-types.php';
 		require_once WPMTST_INC . 'functions.php';
@@ -197,18 +240,22 @@ final class Strong_Testimonials {
 			require_once WPMTST_INC . 'class-strong-views-list-table.php';
 			require_once WPMTST_INC . 'class-walker-wpmst-category-checklist.php';
 			require_once WPMTST_INC . 'class-walker-wpmst-form-category-checklist.php';
-			require_once WPMTST_INC . 'admin/admin.php';
-			require_once WPMTST_INC . 'admin/admin-ajax.php';
-			require_once WPMTST_INC . 'admin/compat.php';
-			require_once WPMTST_INC . 'admin/custom-fields.php';
-			require_once WPMTST_INC . 'admin/form-preview.php';
-			require_once WPMTST_INC . 'admin/guide/guide.php';
-			require_once WPMTST_INC . 'admin/help.php';
-			require_once WPMTST_INC . 'admin/install.php';
-			require_once WPMTST_INC . 'admin/settings.php';
-			require_once WPMTST_INC . 'admin/upgrade.php';
-			require_once WPMTST_INC . 'admin/views.php';
-			require_once WPMTST_INC . 'admin/views-validate.php';
+
+			require_once WPMTST_ADMIN . 'admin.php';
+			require_once WPMTST_ADMIN . 'admin-ajax.php';
+
+			require_once WPMTST_ADMIN . 'partials/compat.php';
+			require_once WPMTST_ADMIN . 'partials/custom-fields.php';
+			require_once WPMTST_ADMIN . 'partials/custom-fields-ajax.php';
+			require_once WPMTST_ADMIN . 'partials/form-preview.php';
+			require_once WPMTST_ADMIN . 'partials/guide.php';
+			require_once WPMTST_ADMIN . 'partials/help.php';
+			require_once WPMTST_ADMIN . 'partials/install.php';
+			require_once WPMTST_ADMIN . 'partials/settings.php';
+			require_once WPMTST_ADMIN . 'partials/upgrade.php';
+			require_once WPMTST_ADMIN . 'partials/views.php';
+			require_once WPMTST_ADMIN . 'partials/views-ajax.php';
+			require_once WPMTST_ADMIN . 'partials/views-validate.php';
 
 		}
 
@@ -217,7 +264,7 @@ final class Strong_Testimonials {
 		 *
 		 * @since 2.1
 		 */
-		require_once WPMTST_INC . 'WPMST_Plugin_Updater.php';
+		require_once WPMTST_INC . 'edd/WPMST_Plugin_Updater.php';
 	}
 
 	/**
@@ -245,6 +292,8 @@ final class Strong_Testimonials {
 	 */
 	private function add_actions() {
 
+		add_action( 'plugins_loaded', array( self::$instance, 'load_textdomain' ) );
+
 		if ( is_admin() ) {
 
 			add_action( 'wpmtst_form_admin', 'wpmtst_form_admin2' );
@@ -254,9 +303,6 @@ final class Strong_Testimonials {
 
 			// Process form data.
 			add_action( 'init', array( $this, 'process_form' ) );
-
-			// Process mail queue.
-			add_action( 'wp_loaded', array( $this, 'process_mail_queue' ), 20 );
 
 			// Catch email errors.
 			add_action( 'wp_mail_failed', array( $this, 'catch_mail_failed' ) );
@@ -658,6 +704,7 @@ final class Strong_Testimonials {
 			'note'               => '',
 			'oldest'             => '',
 			'pagination'         => '',
+			'pagination_type'    => 'simple',
 			'per_page'           => '',
 			'random'             => '',
 			'show_for'           => '8',
@@ -716,6 +763,14 @@ final class Strong_Testimonials {
 
 		// return none
 		return false;
+	}
+
+
+	public function set_query( $query ) {
+		self::$query = $query;
+	}
+	public function get_query() {
+		return self::$query;
 	}
 
 	/**
@@ -1594,8 +1649,10 @@ final class Strong_Testimonials {
 	 * @param array $atts
 	 */
 	private static function after_pagination( $atts = array() ) {
-		wp_enqueue_script( 'wpmtst-pager-script' );
-		wp_localize_script( 'wpmtst-pager-script', self::pager_signature( $atts ), self::pager_args( $atts ) );
+		if ( 'simple' == $atts['pagination_type'] ) {
+			wp_enqueue_script( 'wpmtst-pager-script' );
+			wp_localize_script( 'wpmtst-pager-script', self::pager_signature( $atts ), self::pager_args( $atts ) );
+		}
 	}
 
 	/**
@@ -1614,10 +1671,9 @@ final class Strong_Testimonials {
 		if ( !isset( $atts['template'] ) || !$atts['template'] )
 			return false;
 
-		global $strong_templates;
 		$plugin_version = get_option( 'wpmtst_plugin_version' );
 		$handle = false;
-		$stylesheet = $strong_templates->get_template_attr( $atts, 'stylesheet', false );
+		$stylesheet = self::$instance->templates->get_template_attr( $atts, 'stylesheet', false );
 		if ( $stylesheet ) {
 			$handle = 'testimonials-' . str_replace( ':', '-', $atts['template'] );
 			wp_register_style( $handle, $stylesheet, array(), $plugin_version );
@@ -1645,8 +1701,6 @@ final class Strong_Testimonials {
 	 * @return string
 	 */
 	private static function preprocess( $view, $handle = false ) {
-		global $strong_templates;
-
 		$options = get_option( 'wpmtst_options' );
 
 		// subset of all shortcode atts
@@ -1685,6 +1739,7 @@ final class Strong_Testimonials {
 			 */
 			if ( $atts['per_page']
 				&& $new_view->query->post_count > $atts['per_page']
+				&& 'simple' == $atts['pagination_type']
 				&& apply_filters( 'wpmtst_use_default_pagination', true, $atts ) )
 			{
 				self::add_script( 'wpmtst-pager-script' );
@@ -1713,10 +1768,10 @@ final class Strong_Testimonials {
 		 *
 		 * @since 1.25.0
 		 */
-		$deps = $strong_templates->get_template_attr( $atts, 'deps', false );
+		$deps = self::$instance->templates->get_template_attr( $atts, 'deps', false );
 		$deps_array = $deps ? explode( ',', str_replace( ' ', '', $deps ) ) : array();
 
-		$script = $strong_templates->get_template_attr( $atts, 'script', false );
+		$script = self::$instance->templates->get_template_attr( $atts, 'script', false );
 		if ( $script ) {
 			$handle = 'testimonials-' . str_replace( ':', '-', $atts['template'] );
 			wp_register_script( $handle, $script, $deps_array );
@@ -1733,7 +1788,7 @@ final class Strong_Testimonials {
 		 *
 		 * @since 2.11.12
 		 */
-		$styles = $strong_templates->get_template_attr( $atts, 'styles', false );
+		$styles = self::$instance->templates->get_template_attr( $atts, 'styles', false );
 		if ( $styles ) {
 			$styles_array = explode( ',', str_replace( ' ', '', $styles ) );
 			foreach ( $styles_array as $handle ) {
@@ -2021,69 +2076,6 @@ final class Strong_Testimonials {
 		$filepath = WPMTST_DIR . $filename;
 
 		error_log( $entry, 3, $filepath );
-
-	}
-
-
-	/**
-	 * Enqueue mail.
-	 *
-	 * @since 2.8.0
-	 * @param $email
-	 */
-	public function enqueue_mail( $email ) {
-		$current_queue = get_transient( 'wpmtst_mail_queue' );
-		if ( $current_queue ) {
-			delete_transient( 'wpmtst_mail_queue' );
-		} else {
-			$current_queue = array();
-		}
-
-		$current_queue[] = $email;
-		set_transient( 'wpmtst_mail_queue', $current_queue, DAY_IN_SECONDS );
-	}
-
-
-	/**
-	 * Process mail queue
-	 *
-	 * @since 2.8.0
-	 */
-	public function process_mail_queue() {
-		$current_queue = get_transient( 'wpmtst_mail_queue' );
-		if ( ! $current_queue )
-			return;
-
-		foreach ( $current_queue as $email ) {
-			$this->send_mail( $email );
-		}
-
-		delete_transient( 'wpmtst_mail_queue' );
-	}
-
-
-	public function send_mail( $email ) {
-		$mail_sent = wp_mail( $email['to'], $email['subject'], $email['message'], $email['headers'] );
-
-		// Log email action
-		//TODO Deeper integration with Mandrill
-		$options = get_option( 'wpmtst_options' );
-		if ( isset( $options['email_log_level'] ) && $options['email_log_level'] ) {
-
-			// for both levels, log failure only
-			// for level 2, log both success and failure
-			if ( ! $mail_sent || 2 == $options['email_log_level'] ) {
-				$log_entry = array(
-					'response' => $mail_sent ? 'mail successful' : 'mail failed',
-					'to'       => $email['to'],
-					'subject'  => $email['subject'],
-					'message'  => $email['message'],
-					'headers'  => $email['headers'],
-				);
-				WPMST()->log( $log_entry, __FUNCTION__ );
-			}
-
-		}
 
 	}
 

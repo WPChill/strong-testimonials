@@ -4,13 +4,13 @@
  * Description: A completely unstyled template for CSS experts. If using this template in a slideshow, you will probably need to add some structural CSS &ndash; use the default template as a guide.
  */
 ?>
-<!-- Strong Testimonials: Unstyled Template -->
 <?php do_action( 'wpmtst_before_view' ); ?>
 
 <div class="strong-view <?php wpmtst_container_class(); ?>">
 	<?php do_action( 'wpmtst_view_header' ); ?>
 
 	<div class="strong-content <?php wpmtst_content_class(); ?>">
+		<?php do_action( 'wpmtst_before_content' ); ?>
 
 		<?php while ( $query->have_posts() ) : $query->the_post(); ?>
 			<div class="<?php wpmtst_post_class(); ?>">

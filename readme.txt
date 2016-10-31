@@ -33,7 +33,7 @@ If that describes your situation, this plugin will work for you right out of the
 * Featured Images (thumbnails)
 * Slideshows with several navigation options
 * Sort by oldest, newest, random, or menu order (drag-and-drop)
-* Simple pagination
+* Pagination
 * Built-in templates with several layout options
 * Template files and functions for deep customization
 * Gravatar support
@@ -145,6 +145,14 @@ Yes. With some HTML and CSS knowledge, you can copy any template to your theme a
 Yes. This requires a lightbox so if your theme does not include one, you will need a plugin like [Simple Colorbox](https://wordpress.org/plugins/simple-colorbox/).
 
 == Changelog ==
+
+= 2.14 - Oct 31, 2016 =
+* Add option for using standard WordPress pagination.
+* Add option for displaying text before a custom field.
+* Redesign fields section in view editor.
+* Begin conversion to SCSS.
+* Improve contextual help and links.
+* Improve compatibility and performance.
 
 = 2.13.5 - Oct 22, 2016 =
 * Fix loading of FontAwesome.

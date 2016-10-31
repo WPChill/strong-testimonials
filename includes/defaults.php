@@ -454,13 +454,15 @@ function wpmtst_get_default_view() {
 		'class'              => '',
 		'client_section'     => array(
 			0 => array(
-				'field' => 'client_name',
-				'type'  => 'text',
-				'class' => 'testimonial-name',
+				'field'  => 'client_name',
+				'type'   => 'text',
+				'before' => '',
+				'class'  => 'testimonial-name',
 			),
 			1 => array(
 				'field'   => 'company_name',
 				'type'    => 'link',
+				'before'  => '',
 				'url'     => 'company_website',
 				'class'   => 'testimonial-company',
 				'new_tab' => true,
@@ -495,6 +497,7 @@ function wpmtst_get_default_view() {
 		'order'              => 'oldest',
 		'page'               => '',
 		'pagination'         => false,
+		'pagination_type'    => 'simple',
 		'per_page'           => 5,
 		'show_for'           => 8,
 		'slideshow_nav'      => 'simple',

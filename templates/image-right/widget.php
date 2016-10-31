@@ -5,6 +5,4 @@
  * Force: view-layout-normal
  */
 ?>
-<!-- Strong Testimonials: Image on Right Widget Template -->
-
 <?php include WPMTST_DEF_TPL . 'widget.php'; ?>

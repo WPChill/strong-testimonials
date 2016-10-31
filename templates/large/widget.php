@@ -5,13 +5,13 @@
  * Force: view-layout-normal
  */
 ?>
-<!-- Strong Testimonials: Large Widget Template -->
 <?php do_action( 'wpmtst_before_view' ); ?>
 
 <div class="strong-view strong-widget <?php wpmtst_container_class(); ?>">
 	<?php do_action( 'wpmtst_view_header' ); ?>
 
 	<div class="strong-content <?php wpmtst_content_class(); ?>">
+		<?php do_action( 'wpmtst_before_content' ); ?>
 
 		<?php while ( $query->have_posts() ) : $query->the_post(); ?>
 		<div class="<?php wpmtst_post_class(); ?>">

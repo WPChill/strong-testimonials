@@ -4,7 +4,6 @@
  * Description: A version of the default form template for dark themes.
  */
 ?>
-<!-- Strong Testimonials: Default Dark Form Template -->
 <div class="strong-view strong-form <?php wpmtst_container_class(); ?>">
 
 	<div id="wpmtst-form">

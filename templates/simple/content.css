@@ -43,6 +43,9 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
   width: 100%;
   height: 100%;
 }
+.strong-view.simple .testimonial-field-before {
+  margin-right: 0.5em;
+}
 .strong-view.simple .strong_cycle .testimonial {
   /* remove margin in slideshow */
   margin-top: 0;
@@ -110,6 +113,47 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
 }
 
 .strong-view.rtl ul.simplePagerNav li {
+  float: right;
+}
+
+/* Paging controls
+-----------------------------------------------*/
+.standard-pagination {
+  /* match .strong-content container */
+  margin: 20px auto;
+  text-align: center;
+}
+
+.strong-view ul.page-numbers {
+  margin: 0 auto;
+  padding: 0;
+  display: inline-block;
+}
+.strong-view ul.page-numbers li {
+  display: inline;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.strong-view ul.page-numbers li span, .strong-view ul.page-numbers li a {
+  margin: 0 0.2em;
+  padding: 0.1em 0.3em;
+}
+.strong-view ul.page-numbers li a {
+  outline: none;
+  text-decoration: none;
+  transition: background 0.2s ease;
+}
+.strong-view ul.page-numbers li a:hover {
+  background: #BBB;
+  color: #FFF;
+}
+.strong-view ul.page-numbers li span.current {
+  background: #999;
+  color: #FFF;
+}
+
+.strong-view.rtl ul.page-numbers li {
   float: right;
 }
 

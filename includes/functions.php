@@ -583,16 +583,16 @@ add_action( 'wpmtst_view_saved', 'wpmtst_on_save_view' );
  * @return mixed
  */
 function wpmtst_get_field_label( $field ) {
-	if ( isset( $field['field'] ) ) {
-		$custom_fields = wpmtst_get_custom_fields();
-		foreach ( $custom_fields as $key => $custom_field ) {
-			if ( $custom_field['name'] == $field['field'] ) {
-				return $custom_field['label'];
-			}
+	if ( ! isset( $field['field'] ) ) return '';
+
+	$custom_fields = wpmtst_get_custom_fields();
+	foreach ( $custom_fields as $key => $custom_field ) {
+		if ( $custom_field['name'] == $field['field'] ) {
+			return $custom_field['label'];
 		}
 	}
 
-	return '';
+	return ucwords( str_replace( '_', ' ', $field['field'] ) );
 }
 
 /**
@@ -731,3 +731,24 @@ function wpmtst_post_submitbox_misc_actions( $post ) {
 	}
 }
 add_action( 'post_submitbox_misc_actions', 'wpmtst_post_submitbox_misc_actions' );
+
+
+/**
+ * Frequent plugin checks.
+ *
+ * @param $name
+ *
+ * @return bool
+ */
+function wpmtst_is_plugin_active( $name = '' ) {
+	$plugins = array(
+		'wpml'     => 'sitepress-multilingual-cms/sitepress.php',
+		'polylang' => 'polylang/polylang.php'
+	);
+
+	if ( ! $name || ! isset( $plugins['name'] ) ) {
+		return false;
+	}
+
+	return is_plugin_active( $plugins[ $name ] );
+}
