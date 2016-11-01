@@ -256,18 +256,13 @@ class Strong_View {
 			'post_status' => 'publish',
 		);
 
-		if ( $this->atts['pagination'] ) {
-			switch ( $this->atts['pagination_type'] ) {
-				case 'simple':
-					$args['posts_per_page'] = -1;
-					$args['paged']          = null;
-					break;
-				case 'standard':
-					$args['posts_per_page'] = $this->atts['per_page'];
-					$args['paged']          = wpmtst_get_paged();
-					break;
-				default:
-			}
+		if ( $this->atts['pagination'] && 'standard' == $this->atts['pagination_type'] ) {
+			$args['posts_per_page'] = $this->atts['per_page'];
+			$args['paged']          = wpmtst_get_paged();
+		}
+		else {
+			$args['posts_per_page'] = -1;
+			$args['paged']          = null;
 		}
 
 		// id overrides category

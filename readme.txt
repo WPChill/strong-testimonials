@@ -25,7 +25,7 @@ If that describes your situation, this plugin will work for you right out of the
 
 = Primary Features =
 
-* Star ratings (NEW!)
+* Star ratings
 * A front-end form
 * Custom form fields editor
 * Categories
@@ -54,9 +54,9 @@ The form can be submitted via Ajax so it's compatible with popular plugins like 
 
 = Display =
 
-Everything happens in a **View**. Instead of learning multiple shortcodes with dozens of options, a View contains all the options in a simple, intuitive editor that no other testimonial plugin has. Display the View using a single shortcode or the widget.
+Everything happens in a **view**. Instead of learning multiple shortcodes with dozens of options, a view contains all the options in a simple, intuitive editor that no other testimonial plugin has. Display the view using a single shortcode or the widget.
 
-You can create unlimited Views. For example, one View for the form, another View for a list, another for a slideshow, and so on.
+You can create unlimited views. For example, one view for the form, another view for a list, another for a slideshow, and so on.
 
 Some of the options for displaying testimonials in a **list** or **slideshow**:
 
@@ -72,7 +72,7 @@ Strong Testimonials offers a handful of templates to try in your theme. The defa
 
 Need help matching your theme? Got some weird spacing or floating? I'm here to help.
 
-For ultimate control and seamless integration, any template can be copied to your theme and customized (a tutorial and more templates coming soon). There is also a template function that can display any View.
+For ultimate control and seamless integration, any template can be copied to your theme and customized (a tutorial and more templates coming soon). There is also a template function that can display any view.
 
 = Try these plugins too =
 
@@ -126,7 +126,7 @@ Yes. You can completely customize the email and send it to multiple recipients, 
 
 = Can I change which client fields appear below the testimonial? =
 
-Yes. In Views, these custom fields can be changed with a few clicks.
+Yes. In views, these custom fields can be changed with a few clicks.
 
 = Can I change "testimonial" to "review", for example? =
 
@@ -145,6 +145,9 @@ Yes. With some HTML and CSS knowledge, you can copy any template to your theme a
 Yes. This requires a lightbox so if your theme does not include one, you will need a plugin like [Simple Colorbox](https://wordpress.org/plugins/simple-colorbox/).
 
 == Changelog ==
+
+= 2.14.1 - Nov 1, 2016 =
+* Fix bug in non-paginated query.
 
 = 2.14 - Oct 31, 2016 =
 * Add option for using standard WordPress pagination.
@@ -220,7 +223,7 @@ Yes. This requires a lightbox so if your theme does not include one, you will ne
 * Fix bug in menu for subscribers.
 
 = 2.11.14 - Aug 25, 2016 =
-* Handle special characters in View name.
+* Handle special characters in view name.
 
 = 2.11.13 - Aug 24, 2016 =
 * Improve theme compatibility.
@@ -261,7 +264,7 @@ Yes. This requires a lightbox so if your theme does not include one, you will ne
 
 = 2.11.1 - July 20, 2016 =
 * Fix bug in pagination.
-* Fix bug in View class name option.
+* Fix bug in view class name option.
 
 = 2.11 - July 19, 2016 =
 * Slideshow navigation options.
