@@ -13,7 +13,7 @@ function wpmtst_register_cpt() {
 
 	$testimonial_labels = array(
 		'name'               => _x( 'Testimonials', 'post type general name', 'strong-testimonials' ),
-		'menu_name'          => apply_filters( 'wpmtst_testimonials_menu_name', _x( 'Testimonials', 'admin menu name', 'strong-testimonials' ) ),
+		'menu_name'          => _x( 'Testimonials', 'admin menu name', 'strong-testimonials' ),
 		'singular_name'      => _x( 'Testimonial', 'post type singular name', 'strong-testimonials' ),
 		'add_new'            => _x( 'Add New', 'post type', 'strong-testimonials' ),
 		'add_new_item'       => __( 'Add New Testimonial', 'strong-testimonials' ),
@@ -27,30 +27,30 @@ function wpmtst_register_cpt() {
 		'parent_item_colon'  => ''
 	);
 
-	$supports = apply_filters( 'wpmtst_testimonial_supports', array(
+	$supports = array(
 		'title',
 		'excerpt',
 		'editor',
 		'thumbnail',
 		'page-attributes',
-	) );
+	);
 
 	$testimonial_args = array(
-		'labels'              => $testimonial_labels,
+		'labels'              => apply_filters( 'wpmtst_testimonial_labels', $testimonial_labels ),
 		'singular_label'      => _x( 'testimonial', 'post type singular label', 'strong-testimonials' ),
 		'public'              => true,
 		'show_ui'             => true,
 		'capability_type'     => 'post',
 		'hierarchical'        => false,
-		'rewrite'             => array( 'slug' => _x( 'testimonial', 'slug', 'strong-testimonials' ) ), // @since 1.8
+		'rewrite'             => array( 'slug' => _x( 'testimonial', 'slug', 'strong-testimonials' ) ),
 		'menu_icon'           => 'dashicons-editor-quote',
 		'menu_position'       => 20,
 		'exclude_from_search' => apply_filters( 'wpmtst_exclude_from_search', false ),
-		'supports'            => $supports,
+		'supports'            => apply_filters( 'wpmtst_testimonial_supports', $supports ),
 		'taxonomies'          => array( 'wpm-testimonial-category' ),
 	);
 
-	register_post_type( 'wpm-testimonial', $testimonial_args );
+	register_post_type( 'wpm-testimonial', apply_filters( 'wpmtst_post_type', $testimonial_args ) );
 
 	/**
 	 * Additional permastructure.
@@ -59,20 +59,20 @@ function wpmtst_register_cpt() {
 	// add_permastruct( 'wpm-testimonial', "review/%wpm-testimonial%", array( 'slug' => __( 'review', 'strong-testimonials' ) ) );
 
 
-	$categories_labels = array(
-		'name'               => __( 'Testimonial Categories', 'strong-testimonials' ),
-		'singular_name'      => __( 'Testimonial Category', 'strong-testimonials' ),
-		'menu_name'          => __( 'Categories' ),
-		'all_items'          => __( 'All categories' ),
+	$category_labels = array(
+		'name'          => __( 'Testimonial Categories', 'strong-testimonials' ),
+		'singular_name' => __( 'Testimonial Category', 'strong-testimonials' ),
+		'menu_name'     => __( 'Categories' ),
+		'all_items'     => __( 'All categories' ),
 	);
 
-	register_taxonomy( 'wpm-testimonial-category', array( 'wpm-testimonial' ), array(
+	$category_args = array(
 		'hierarchical' => true,
-		'labels'       => $categories_labels,
-		'rewrite'      => array(
-			'slug' => 'view',
-		)
-	) );
+		'labels'       => $category_labels,
+		'rewrite'      => array( 'slug' => _x( 'testimonial-category', 'slug', 'strong-testimonials' ) )
+	);
+
+	register_taxonomy( 'wpm-testimonial-category', array( 'wpm-testimonial' ), apply_filters( 'wpmtst_taxonomy', $category_args ) );
 
 }
 add_action( 'init', 'wpmtst_register_cpt', 5 );

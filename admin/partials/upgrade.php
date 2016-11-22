@@ -7,12 +7,14 @@
 
 function wpmtst_default_settings() {
 
-	$old_plugin_version     = get_option( 'wpmtst_plugin_version' );
-	$plugin_data            = get_plugin_data( dirname( dirname( dirname( __FILE__ ) ) ) . '/strong-testimonials.php', false );
-	$plugin_version         = $plugin_data['Version'];
+	$old_plugin_version = get_option( 'wpmtst_plugin_version' );
+	$plugin_data        = WPMST()->get_plugin_data();
+	$plugin_version     = $plugin_data['Version'];
 
 	if ( $old_plugin_version == $plugin_version )
 		return;
+
+	wpmtst_update_db_check();
 
 	delete_option( 'wpmtst_cycle' );
 
@@ -517,32 +519,32 @@ function wpmtst_default_settings() {
 
 
 /**
- * Used to convert length to word_count
+ * Convert length to excerpt_length.
  *
  * @since 2.10.0
  */
 function wpmtst_get_average_word_length() {
 
-		$args = array(
-			'posts_per_page'   => -1,
-			'post_type'        => 'wpm-testimonial',
-			'post_status'      => 'publish',
-			'suppress_filters' => true
-		);
-		$posts = get_posts( $args );
-		if ( ! $posts )
-			return 5;
+	$args = array(
+		'posts_per_page'   => -1,
+		'post_type'        => 'wpm-testimonial',
+		'post_status'      => 'publish',
+		'suppress_filters' => true
+	);
+	$posts = get_posts( $args );
+	if ( ! $posts )
+		return 5;
 
-		$allwords = array();
+	$allwords = array();
 
-		foreach ( $posts as $post ) {
-			$words = explode( ' ', $post->post_content );
-			if ( count( $words ) > 5 ) {
-				$allwords = $allwords + $words;
-			}
+	foreach ( $posts as $post ) {
+		$words = explode( ' ', $post->post_content );
+		if ( count( $words ) > 5 ) {
+			$allwords = $allwords + $words;
 		}
+	}
 
-		$wordstring = join( '', $allwords );
+	$wordstring = join( '', $allwords );
 
-		return round( strlen( $wordstring ) / count( $allwords) );
+	return round( strlen( $wordstring ) / count( $allwords) );
 }
