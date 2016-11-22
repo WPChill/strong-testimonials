@@ -502,7 +502,7 @@ function wpmtst_edit_columns( $columns ) {
 				$fields_to_add['thumbnail'] = __( 'Thumbnail', 'strong-testimonials' );
 			}
 			elseif( 'rating' == $field['input_type'] ) {
-				$fields_to_add['rating'] = __( 'Rating', 'strong-testimonials' );
+				$fields_to_add[ $field['name'] ] = __( 'Rating', 'strong-testimonials' );
 			}
 			else {
 				$fields_to_add[ $field['name'] ] = apply_filters( 'wpmtst_l10n', $field['label'], wpmtst_get_l10n_context( 'form-fields' ), $field['name'] . ' : label' );
@@ -581,7 +581,8 @@ function wpmtst_custom_columns( $column ) {
 			// custom field?
 			$custom = get_post_custom();
 			if ( isset( $custom[$column] ) ) {
-				if ( 'rating' == $column ) {
+				$fields = wpmtst_get_custom_fields();
+				if ( isset( $fields[$column] ) && 'rating' == $fields[$column]['input_type'] ) {
 					wpmtst_star_rating_display( array(), $custom[ $column ][0], 'in-table-list' );
 				}
 				else {
