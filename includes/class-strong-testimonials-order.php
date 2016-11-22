@@ -39,10 +39,10 @@ class Strong_Testimonials_Order {
 		if ( wpmtst_is_column_sorted() )
 			return;
 
-		wp_enqueue_script( 'wpmtst-admin-order-script', WPMTST_URL . 'js/admin-order.js', array( 'jquery-effects-highlight', 'jquery-ui-sortable' ), null, true );
+		wp_enqueue_script( 'wpmtst-admin-order-script', WPMTST_ADMIN_URL . 'js/admin-order.js', array( 'jquery-effects-highlight', 'jquery-ui-sortable' ), null, true );
 		wp_localize_script( 'wpmtst-admin-order-script', 'ajax_object', array( 'ajaxurl' => admin_url( 'admin-ajax.php' ) ) );
 
-		wp_enqueue_style( 'wpmtst-admin-order-style', WPMTST_URL . '/css/admin/order.css', array(), null );
+		wp_enqueue_style( 'wpmtst-admin-order-style', WPMTST_ADMIN_URL . '/css/order.css', array(), null );
 
 	}
 
@@ -260,4 +260,4 @@ class Strong_Testimonials_Order {
 
 }
 
-new Strong_Testimonials_Order();
+$reorder = new Strong_Testimonials_Order();
