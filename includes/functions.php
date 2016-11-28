@@ -82,6 +82,8 @@ function wpmtst_get_website( $url ) {
  * Check whether a common script is already registered by file name
  * instead of handle.
  *
+ * === Used in older versions to check for Cycle script. ===
+ *
  * Why? Plugins are loaded before themes. Our plugin includes the Cycle
  * slider. Some themes include it too. We only want to load it once.
  *
