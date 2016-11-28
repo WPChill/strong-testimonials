@@ -1487,11 +1487,7 @@ final class Strong_Testimonials {
 	 */
 	private static function after_slideshow( $atts = array() ) {
 
-		if ( ! wp_script_is( 'wpmtst-slider', 'registered' ) ) {
-			wpmtst_register_cycle();
-		}
-
-		if ( ! wp_script_is( 'wpmtst-slider', 'enqueued' ) ) {
+		if ( ! wp_script_is( 'wpmtst-slider' ) ) {
 			wp_enqueue_script( 'wpmtst-slider' );
 		}
 
