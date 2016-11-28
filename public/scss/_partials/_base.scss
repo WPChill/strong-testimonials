@@ -1,0 +1,64 @@
+/* =bxSlider structure
+---------------------------------------------------------*/
+/* reset and layout from jquery.bxslider.css */
+.strong-view {
+	.bx-wrapper {
+		position: relative;
+		margin: 0 auto;
+		padding: 0;
+		*zoom: 1;
+		-ms-touch-action: pan-y;
+		touch-action: pan-y;
+	}
+
+	.bxslider {
+		margin: 0;
+		padding: 0;
+	}
+
+	.bx-viewport {
+		/* fix other elements on the page moving (on Chrome) */
+		-webkit-transform: translatez(0);
+	}
+}
+
+/* =pager
+---------------------------------------------------------*/
+.strong-view {
+	.bx-wrapper {
+		.bx-pager {
+			display: inline-block;
+		}
+		.bx-pager-item {
+			display: inline-block;
+		}
+		.bx-pager-link {
+			text-decoration: none;
+		}
+	}
+}
+
+/* =controls
+---------------------------------------------------------*/
+.strong-view {
+	.bx-wrapper {
+		.bx-controls-auto,
+		.bx-controls-auto-item,
+		.bx-controls-full,
+		.bx-controls-full-item,
+		.bx-controls-direction {
+			display: inline-block;
+			vertical-align: middle;
+		}
+
+		.bx-controls a {
+			box-shadow: none; /* Twenty Sixteen */
+
+			&:hover,
+			&:active,
+			&:focus {
+				outline: 0;
+			}
+		}
+	}
+}

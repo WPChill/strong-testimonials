@@ -1,0 +1,16 @@
+.strong-view {
+	&.controls-type-sides {
+		.bx-prev {
+			left: 8px;
+		}
+		.bx-next {
+			right: 8px;
+		}
+		.bx-prev,
+		.bx-next {
+			position: absolute;
+			width: auto;
+			top: calc( 50% - 14px );
+		}
+	}
+}
