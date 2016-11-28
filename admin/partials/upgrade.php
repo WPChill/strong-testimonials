@@ -5,7 +5,7 @@
  * @package Strong_Testimonials
  */
 
-function wpmtst_default_settings() {
+function wpmtst_upgrade() {
 
 	$old_plugin_version = get_option( 'wpmtst_plugin_version' );
 	$plugin_data        = WPMST()->get_plugin_data();
