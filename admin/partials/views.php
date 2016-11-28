@@ -104,17 +104,6 @@ function wpmtst_view_settings( $action = '', $view_id = null ) {
 	$fields     = wpmtst_get_custom_fields();
 	$all_fields = wpmtst_get_all_fields();
 
-	$order_list = wpmtst_get_order_list();
-
-	$slideshow_effect_options = array(
-		'none'       => 'no transition effect',
-		'fade'       => 'fade',
-		'fadeout'    => 'fade out',
-		'scrollHorz' => 'scroll horizontally',
-	);
-
-	$slideshow_nav_options = wpmtst_get_slideshow_nav_options();
-
 	$testimonials_list = get_posts( array(
 		'orderby'          => 'post_date',
 		'order'            => 'ASC',
@@ -451,40 +440,6 @@ function wpmtst_get_posts() {
 	$posts = $wpdb->get_results( $query );
 
 	return $posts;
-}
-
-
-/**
- * The display order options.
- *
- * @since 2.1.0
- * @todo DRY
- *
- * @return array
- */
-function wpmtst_get_order_list() {
-	return array(
-		'random'     => _x( 'random', 'display order', 'strong-testimonials' ),
-		'menu_order' => _x( 'menu order', 'display order', 'strong-testimonials' ),
-		'newest'     => _x( 'newest first', 'display order', 'strong-testimonials' ),
-		'oldest'     => _x( 'oldest first', 'display order', 'strong-testimonials' ),
-	);
-}
-
-
-/**
- * Slideshow navigation options.
- *
- * @since 2.11.0
- * @todo Assemble list from component directories just like we do for templates.
- */
-function wpmtst_get_slideshow_nav_options() {
-	return array(
-		'simple'   => _x( 'simple', 'slideshow navigation option', 'strong-testimonials' ),
-		'buttons1' => _x( 'buttons 1', 'slideshow navigation option', 'strong-testimonials' ),
-		'buttons2' => _x( 'buttons 2', 'slideshow navigation option', 'strong-testimonials' ),
-		'indexed'  => _x( 'indexed', 'slideshow navigation option', 'strong-testimonials' ),
-	);
 }
 
 
