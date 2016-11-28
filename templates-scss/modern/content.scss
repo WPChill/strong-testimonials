@@ -19,19 +19,12 @@ $template: modern;
 
 	.testimonial {
 		@include no-top-bottom-margin;
-		margin: 20px auto;
+		margin: 20px auto 0;
 		width: 100%;
 	}
 
 	.testimonial-inner {
 		padding: 30px;
-	}
-
-	&.ui-slideshow-bottom .testimonial-inner {
-		padding-bottom: 60px;
-	}
-
-	&.ui-slideshow-bookends .testimonial-inner {
 	}
 
 	.testimonial-content {
@@ -46,6 +39,7 @@ $template: modern;
 
 	.testimonial-content:before,
 	.testimonial-content:after {
+		//noinspection CssNoGenericFontName
 		font-family: fontawesome;
 		color: #CDCDCD;
 		font-size: 36px;
@@ -105,25 +99,49 @@ $template: modern;
 		text-align: center;
 	}
 
-	.strong-cycle-controls {
-		.cycle-pager span::before {
+	.strong-slider-controls {
+		.slider-pager span::before {
 			color: #808080;
 		}
-		span.cycle-pager-active::before {
+		span.slider-pager-active::before {
 		}
 		&.indexed {
 			line-height: 22px;
 			padding: 19px 0;
-			.cycle-pager span {
+			.slider-pager span {
 				height: 22px;
 				width: 22px;
 			}
-			span.cycle-pager-active {
+			span.slider-pager-active {
 				border-radius: 50%;
 				background: #CDCDCD;
 				font-weight: 400;
 			}
 		}
+	}
+}
+
+/* Slideshow
+-----------------------------------------------*/
+.strong-view.#{$template} {
+	&.slider-container {
+		.strong-content {
+			margin: 0 auto;
+		}
+		.testimonial:not(:first-child) {
+			display: none;
+		}
+	}
+
+	&.nav-position-inside {
+		.testimonial-inner {
+			padding-bottom: 60px;
+		}
+	}
+
+	&.controls-type-sides .testimonial-inner {
+		padding-left: 50px;
+		padding-right: 50px;
 	}
 }
 
@@ -134,11 +152,11 @@ $template: modern;
 		padding: 20px;
 	}
 
-	&.ui-slideshow-bottom .testimonial-inner {
+	&.slider-bottom .testimonial-inner {
 		padding-bottom: 40px;
 	}
 
-	.strong-cycle-controls {
+	.strong-slider-controls {
 		line-height: 40px;
 	}
 
@@ -164,7 +182,6 @@ $template: modern;
 
 /* Responsive
 -----------------------------------------------*/
-//@import "../_partials/responsive";
 @media only screen and (max-width: 320px) {
 	.strong-view.#{$template} .testimonial-inner {
 		padding: 15px;

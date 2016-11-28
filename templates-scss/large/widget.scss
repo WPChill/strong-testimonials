@@ -24,15 +24,6 @@ $template: large-widget;
 		border-radius: 3px;
 	}
 
-	&.ui-slideshow-bottom .testimonial-inner {
-		padding-bottom: 60px;
-	}
-
-	&.ui-slideshow-bookends .testimonial-inner {
-		padding-left: 48px;
-		padding-right: 48px;
-	}
-
 	.testimonial-content {
 		@include paragraphs;
 	}
@@ -77,5 +68,29 @@ $template: large-widget;
 		border-radius: 3px;
 		padding: 1em;
 		text-align: center;
+	}
+}
+
+/* Slideshow
+-----------------------------------------------*/
+.strong-view.#{$template} {
+	&.slider-container {
+		.strong-content {
+			margin: 0 auto;
+		}
+		.testimonial:not(:first-child) {
+			display: none;
+		}
+	}
+
+	&.nav-position-inside {
+		.testimonial-inner {
+			padding-bottom: 60px;
+		}
+	}
+
+	&.controls-type-sides .testimonial-inner {
+		padding-left: 50px;
+		padding-right: 50px;
 	}
 }

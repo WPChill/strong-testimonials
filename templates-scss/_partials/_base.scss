@@ -2,15 +2,18 @@
 -----------------------------------------------*/
 .strong-view.#{$template} {
 	display: block;
-	/* this handles short content */
+	/* setting a width handles short content */
 	width: 100%;
 
 	* {
 		box-sizing: border-box;
 	}
 
-	.strong-content {
-		position: relative;
+	.testimonial {
+		&.t-slide {
+			margin-top: 0;
+			margin-bottom: 0;
+		}
 	}
 
 	.testimonial-inner {
@@ -22,31 +25,6 @@
 
 	.testimonial-field-before {
 		margin-right: 0.5em;
-	}
-
-	.strong_cycle .testimonial {
-		/* remove margin in slideshow */
-		margin-top: 0;
-		margin-bottom: 0;
-
-		&:not(:first-child) {
-			/* prevents flash on slow page load */
-			display: none;
-		}
-	}
-
-	&.stretch .strong_cycle .testimonial {
-		/* to force same height for all slides */
-		height: 100%;
-	}
-
-	&.ui-slideshow-bottom .strong-cycle-controls {
-		position: absolute;
-		bottom: 0;
-		width: 100%;
-	}
-
-	&.ui-slideshow-bookends .strong-cycle-controls {
 	}
 
 }
