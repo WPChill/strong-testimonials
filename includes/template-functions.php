@@ -661,6 +661,17 @@ function wpmtst_container_class() {
 	echo apply_filters( 'wpmtst_container_class', WPMST()->atts( 'container_class' ) );
 }
 
+function wpmtst_container_data() {
+	$data_array = apply_filters( 'wpmtst_container_data', WPMST()->atts( 'container_data' ) );
+	if ( $data_array ) {
+		$data = '';
+		foreach ( $data_array as $attr => $value ) {
+			$data .= " data-$attr=$value";
+		}
+		echo $data;
+	}
+}
+
 function wpmtst_content_class() {
 	echo apply_filters( 'wpmtst_content_class', WPMST()->atts( 'content_class' ) );
 }
