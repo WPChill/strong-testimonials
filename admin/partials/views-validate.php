@@ -132,7 +132,6 @@ function wpmtst_sanitize_view( $input ) {
 
 	$data['title']              = isset( $input['title'] ) ? 1 : 0;
 	$data['content']            = sanitize_text_field( $input['content'] );
-	$data['word_count']         = isset( $input['word_count'] ) ? (int) sanitize_text_field( $input['word_count'] ) : 0;
 	$data['excerpt_length']     = (int) sanitize_text_field( $input['excerpt_length'] );
 	$data['use_default_length'] = sanitize_text_field( $input['use_default_length'] );
 
@@ -235,17 +234,7 @@ function wpmtst_sanitize_view( $input ) {
 
 	$data['column_count'] = sanitize_text_field( $input['column_count'] );
 
-	// Slideshow
-	$data['show_for']          = floatval( sanitize_text_field( $input['show_for'] ) );
-	$data['effect']            = sanitize_text_field( $input['effect'] );
-	$data['effect_for']        = floatval( sanitize_text_field( $input['effect_for'] ) );
-	$data['no_pause']          = isset( $input['no_pause'] ) ? 0 : 1;
-	if ( 'none' == $input['slideshow_nav'] ) {
-		$data['slideshow_nav'] = '';
-	} else {
-		$data['slideshow_nav'] = sanitize_text_field( $input['slideshow_nav'] );
-	}
-	$data['stretch']           = isset( $input['stretch'] ) ? 1 : 0;
+	$data['slideshow_settings'] = wpmtst_sanitize_view_slideshow( $input['slideshow_settings'] );
 
 	// Custom fields
 	if ( isset( $input['client_section'] ) ) {
@@ -316,4 +305,55 @@ function wpmtst_sanitize_view( $input ) {
 	ksort( $data );
 
 	return $data;
+}
+
+
+/**
+ * Sanitize slideshow settings.
+ *
+ * @param $in
+ * @since 2.15.0
+ *
+ * @return array
+ */
+function wpmtst_sanitize_view_slideshow( $in ) {
+	$out = array();
+
+	$out['effect']             = sanitize_text_field( $in['effect'] );
+	$out['pause']              = floatval( sanitize_text_field( $in['pause'] ) );
+	$out['speed']              = floatval( sanitize_text_field( $in['speed'] ) );
+	$out['auto_hover']         = isset( $in['auto_hover'] ) ? 1 : 0;
+	$out['stop_auto_on_click'] = isset( $in['stop_auto_on_click'] ) ? 1 : 0;
+
+	if ( 'dynamic' == $in['height'] ) {
+		$out['adapt_height'] = 1;
+	} else {
+		$out['adapt_height'] = 0;
+	}
+	$out['adapt_height_speed'] = floatval( sanitize_text_field( $in['adapt_height_speed'] ) );
+	$out['stretch']            = isset( $in['stretch'] ) ? 1 : 0;
+
+	// If no navigation, must start automatically.
+	if ( 'none' == $in['pager_type'] && 'none' == $in['controls_type'] ) {
+		$out['auto_start'] = 1;
+	} else {
+		$out['auto_start'] = isset( $in['auto_start'] ) ? 1 : 0;
+	}
+
+	// Controls
+	$out['controls_type'] = sanitize_text_field( $in['controls_type'] );
+	$out['controls_style'] = sanitize_text_field( $in['controls_style'] );
+
+	// Pagination
+	$out['pager_type']  = sanitize_text_field( $in['pager_type'] );
+	$out['pager_style'] = sanitize_text_field( $in['pager_style'] );
+
+	// Position is shared by Controls and Pagination
+	if ( $out['controls_type'] || $out['pager_type'] ) {
+		$out['nav_position'] = sanitize_text_field( $in['nav_position'] );
+	}
+
+	ksort( $out );
+
+	return $out;
 }
