@@ -75,6 +75,13 @@ function wpmtst_upgrade() {
 		if ( isset( $options['client_section'] ) )
 			unset( $options['client_section'] );
 
+		/**
+		 * Remove slideshow z-index (Cycle)
+		 * @since 2.15.0
+		 */
+		if ( isset( $options['slideshow_zindex'] ) )
+			unset( $options['slideshow_zindex'] );
+
 		// Merge in new options
 		$options = array_merge( $default_options, $options );
 		update_option( 'wpmtst_options', $options );
