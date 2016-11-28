@@ -171,12 +171,6 @@ final class Strong_Testimonials {
 			define( 'WPMTST_COMMON_URL', plugin_dir_url( __FILE__ ) . 'common/' );
 
 
-		if ( ! defined( 'WPMTST_VIEW_DIR' ) )
-			define( 'WPMTST_VIEW_DIR', plugin_dir_path( __FILE__ ) . 'includes/view/' );
-		if ( ! defined( 'WPMTST_VIEW_URL' ) )
-			define( 'WPMTST_VIEW_URL', plugin_dir_url( __FILE__ ) . 'includes/view/' );
-
-
 		if ( ! defined( 'WPMTST_DEF_TPL' ) )
 			define( 'WPMTST_DEF_TPL', plugin_dir_path( __FILE__ ) . 'templates/default/' );
 		if ( ! defined( 'WPMTST_DEF_TPL_URI' ) )
@@ -209,9 +203,7 @@ final class Strong_Testimonials {
 	 */
 	private function includes() {
 
-		require_once WPMTST_VIEW_DIR . 'class-strong-view.php';
-		require_once WPMTST_VIEW_DIR . 'class-strong-view-controls.php';
-
+		require_once WPMTST_INC . 'class-strong-view.php';
 		require_once WPMTST_INC . 'class-strong-templates.php';
 		require_once WPMTST_INC . 'class-strong-mail.php';
 		require_once WPMTST_INC . 'l10n.php';
