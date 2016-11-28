@@ -115,11 +115,6 @@ class Strong_View {
 			}
 		}
 
-		// Slideshow controls
-		if ( $this->atts['slideshow'] && $this->atts['slideshow_nav'] ) {
-			add_action( 'wpmtst_after_content', array( 'Strong_View_Controls', 'cycle_controls' ) );
-		}
-
 		// Read more page
 		add_action( $this->atts['more_page_hook'] , 'wpmtst_read_more_page' );
 
@@ -151,7 +146,6 @@ class Strong_View {
 		/**
 		 * Remove actions.
 		 */
-		remove_action( 'wpmtst_after_content', array( 'Strong_View_Controls', 'cycle_controls' ) );
 		remove_action( $this->atts['more_page_hook'], 'wpmtst_read_more_page' );
 		remove_action( 'wpmtst_view_header', 'wpmtst_standard_pagination' );
 		remove_action( 'wpmtst_view_footer', 'wpmtst_standard_pagination' );
@@ -171,19 +165,23 @@ class Strong_View {
 	 * Build class list based on view attributes.
 	 */
 	public function build_classes() {
+
+		$options = get_option( 'wpmtst_view_options' );
+
 		$container_class_list = array(
 			'strong-view-id-' . $this->atts['view'],
-			$this->atts['class'],
 			$this->get_template_css_class(),
 		);
-		$content_class_list   = array();
-		$post_class_list      = array( 'testimonial' );
+		if ( $this->atts['class'] ) {
+			$container_class_list[] = $this->atts['class'];
+		}
+		$container_data_list = array();
+		$content_class_list  = array();
+		$post_class_list     = array( 'testimonial' );
 
 		// excerpt overrides length
 		if ( $this->atts['excerpt'] ) {
 			$post_class_list[] = 'excerpt';
-		} elseif ( $this->atts['word_count'] ) {
-			$post_class_list[] = 'truncated';
 		}
 
 		/**
@@ -191,21 +189,62 @@ class Strong_View {
 		 */
 		if ( $this->atts['slideshow'] ) {
 
-			if ( $this->atts['slideshow_nav'] ) {
-				if ( 'buttons1' == $this->atts['slideshow_nav'] ) {
-					$container_class_list[] = 'stretch ui-slideshow-bookends';
-				} else {
-					$container_class_list[] = 'stretch ui-slideshow-bottom';
-				}
-			} elseif ( $this->atts['stretch'] ) {
-				$container_class_list[] = 'stretch';
+			$settings = $this->atts['slideshow_settings'];
+
+			$container_class_list[] = 'slider-container';
+
+			$container_class_list[] = 'slider-mode-' . $settings['effect'];
+
+			if ( $settings['adapt_height'] ) {
+				$container_class_list[] = 'slider-adaptive';
+			}
+			elseif ( $settings['stretch'] ) {
+				$container_class_list[] = 'slider-stretch';
 			}
 
-			$content_class_list[] = 'strong_cycle';
-			$content_class_list[] = WPMST()->get_slideshow_signature( $this->atts );
-			$post_class_list[]    = 't-slide';
 
-		} else {
+			$nav_methods   = $options['slideshow_nav_method'];
+			$nav_styles    = $options['slideshow_nav_style'];
+			$control       = $settings['controls_type'];
+			$control_style = $settings['controls_style'];
+			$pager         = $settings['pager_type'];
+			$pager_style   = $settings['pager_style'];
+
+			// Controls
+			if ( isset( $nav_methods['controls'][ $control ]['class'] ) && $nav_methods['controls'][ $control ]['class'] ) {
+				$container_class_list[] = $nav_methods['controls'][ $control ]['class'];
+			}
+
+			if ( 'none' != $control ) {
+				if ( isset( $nav_styles['controls'][ $control_style ]['class'] ) && $nav_styles['controls'][ $control_style ]['class'] ) {
+					$container_class_list[] = $nav_styles['controls'][ $control_style ]['class'];
+				}
+			}
+
+			// Pager
+			if ( isset( $nav_methods['pager'][ $pager ]['class'] ) && $nav_methods['pager'][ $pager ]['class'] ) {
+				$container_class_list[] = $nav_methods['pager'][ $pager ]['class'];
+			}
+
+			if ( 'none' != $pager ) {
+				if ( isset( $nav_styles['pager'][ $pager_style ]['class'] ) && $nav_styles['pager'][ $pager_style ]['class'] ) {
+					$container_class_list[] = $nav_styles['pager'][ $pager_style ]['class'];
+				}
+			}
+
+			// Position
+			if ( 'none' != $pager || ( 'none' != $control && 'sides' != $control ) ) {
+				$container_class_list[] = 'nav-position-' . $settings['nav_position'];
+			}
+
+			$container_data_list['slider-var'] = WPMST()->get_slideshow_signature( $this->atts );
+
+			$content_class_list[] = 'slider-wrapper';
+
+			$post_class_list[] = 't-slide';
+
+		}
+		else {
 
 			if ( $this->atts['per_page']
 				&& $this->post_count > $this->atts['per_page']
@@ -224,6 +263,7 @@ class Strong_View {
 		/**
 		 * Filter classes and store updated atts.
 		 */
+		$this->atts['container_data']  = apply_filters( 'wpmtst_view_container_data', $container_data_list );
 		$this->atts['container_class'] = join( ' ', apply_filters( 'wpmtst_view_container_class', $container_class_list ) );
 		$this->atts['content_class']   = join( ' ', apply_filters( 'wpmtst_view_content_class', $content_class_list ) );
 		$this->atts['post_class']      = join( ' ', apply_filters( 'wpmtst_view_post_class', $post_class_list ) );
