@@ -1507,7 +1507,7 @@ final class Strong_Testimonials {
 	 * @return string
 	 */
 	private static function slideshow_signature( $atts ) {
-		return 'strong_cycle_view_id_' . $atts['view'];
+		return 'strong_slider_id_' . $atts['view'];
 	}
 
 	/**
