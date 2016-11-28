@@ -355,13 +355,15 @@ label.nowrap code {
 /* Descriptions
 ------------------------------------------------*/
 
-.form-table th p.description,
-.form-table td p.description {
+.form-table th .description,
+.form-table td .description {
 	font-size: 14px;
+	font-style: italic;
 }
 
 .description.inline {
 	display: inline-block;
+	margin-left: 1em;
 }
 
 .description a {
@@ -618,4 +620,10 @@ td.column-shortcode {
 --------------------------------------------------*/
 .column-rating {
 	width: auto !important;
+}
+
+/* Views list table
+--------------------------------------------------*/
+.wp-list-table.fixed.wpm-testimonial_page_testimonial-views {
+	table-layout: auto;
 }
