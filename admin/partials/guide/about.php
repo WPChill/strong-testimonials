@@ -2,13 +2,22 @@
 
 	<div class="section">
 
-		<h2><?php _e( 'Create a view for anything you want to display', 'strong-testimonials' ); ?></h2>
+		<h2>Looking for shortcodes?</h2>
 
-		<p><?php _e( 'A <strong>view</strong> is simply of group of settings. You can create an unlimited number of views.', 'strong-testimonials' ); ?></p>
+		<p>
+			<?php _e( '<strong>You must create a view first.</strong>', 'strong-testimonials' ); ?>
+			<?php _e( 'A view is simply of group of settings for what you want to display. ', 'strong-testimonials' ); ?>
+		</p>
 
-		<p><?php _e( 'For example, you might have one view to <strong>display a grid</strong> of your testimonials, another view for a testimonial <strong>submission form</strong>, and another view for a <strong>slideshow</strong>.', 'strong-testimonials' ); ?></p>
+		<p>
+			<?php _e( 'Instead of learning multiple shortcodes with dozens of options, a view contains all the options in an easy-to-use editor.', 'strong-testimonials' ); ?>
+			<?php _e( 'Display the view using its simple shortcode (which you will see after you save it) or the widget.', 'strong-testimonials' ); ?>
+		</p>
 
-		<p><?php _e( 'Add the view to your site using its unique <strong>shortcode</strong> or by selecting the view in the <strong>widget</strong>.', 'strong-testimonials' ); ?></p>
+		<p>
+			<?php _e( 'You can create an unlimited number of views.', 'strong-testimonials' ); ?>
+			<?php _e( 'For example, you might have one view to <strong>display a grid</strong> of your testimonials, another view for a testimonial <strong>submission form</strong>, and another view for a <strong>slideshow</strong>.', 'strong-testimonials' ); ?>
+		</p>
 
 	</div>
 
@@ -59,7 +68,7 @@
 		<p><?php
 		printf(
 			wp_kses(
-				__( 'The &#91;strong&#93;, &#91;wpmtst&#93; and &#91;read_more&#93; shortcodes and the original widget were <a href="%" target="_blank">removed in version 2</a>. <em>I promise this is the last major change.</em> Everything now happens in <strong>views</strong>.', 'strong-testimonials' ),
+				__( 'The &#91;strong&#93;, &#91;wpmtst&#93; and &#91;read_more&#93; shortcodes and the original widget were <a href="%s" target="_blank">removed in version 2</a>. Everything now happens in <strong>views</strong>. <em>I promise this is the last major change.</em>', 'strong-testimonials' ),
 				array(
 					'a'      => array( 'href' => array(), 'target' => array(), 'class' => array() ),
 					'br'     => array(),
@@ -74,7 +83,7 @@
 		<p><?php
 		printf(
 			wp_kses(
-				__( 'Visit <a href="%" target="_blank">WP Mission</a> for more documentation.', 'strong-testimonials' ),
+				__( 'Visit <a href="%s" target="_blank">WP Mission</a> for more documentation.', 'strong-testimonials' ),
 				array(
 					'a'      => array( 'href' => array(), 'target' => array(), 'class' => array() ),
 					'br'     => array(),

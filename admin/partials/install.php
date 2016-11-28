@@ -16,6 +16,7 @@ function wpmtst_plugin_activation() {
 }
 register_activation_hook( __FILE__, 'wpmtst_plugin_activation' );
 
+
 /**
  * @since 2.4.0
  */
@@ -23,6 +24,7 @@ function wpmtst_welcome_screen_activate() {
 	set_transient( 'wpmtst_welcome_screen_activation_redirect', true, 30 );
 }
 //register_activation_hook( __FILE__, 'wpmtst_welcome_screen_activate' );
+
 
 /**
  * @since 2.4.0
@@ -46,6 +48,7 @@ function wpmtst_welcome_screen_do_activation_redirect() {
 }
 //add_action( 'admin_init', 'wpmtst_welcome_screen_do_activation_redirect' );
 
+
 /**
  * Plugin deactivation
  */
@@ -53,6 +56,7 @@ function wpmtst_plugin_deactivation() {
 	flush_rewrite_rules();
 }
 register_deactivation_hook( __FILE__, 'wpmtst_plugin_deactivation' );
+
 
 /**
  * Add tables for Views.
@@ -81,19 +85,14 @@ function wpmtst_update_tables() {
 	update_option( 'wpmtst_db_version', WPMST()->get_db_version() );
 }
 
+
 /**
  * Update tables.
  *
  * @since 1.21.0 Checking for new table version.
- * @since 2.4.0  Checking for missing table.
  */
 function wpmtst_update_db_check() {
-	global $wpdb;
-	$table_name = $wpdb->prefix . 'strong_views';
-	if ( get_option( 'wpmtst_db_version' ) != WPMST()->get_db_version()
-		|| $wpdb->get_var( "SHOW TABLES LIKE '$table_name'") != $table_name )
-	{
+	if ( get_option( 'wpmtst_db_version' ) != WPMST()->get_db_version() ) {
 		wpmtst_update_tables();
 	}
 }
-add_action( 'plugins_loaded', 'wpmtst_update_db_check' );
