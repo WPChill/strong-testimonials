@@ -1568,7 +1568,7 @@ final class Strong_Testimonials {
 			'speed'   => 'none' == $atts['effect'] ? 1 : $atts['effect_for'] * 1000,
 			'timeout' => $atts['show_for'] * 1000,
 			'pause'   => $atts['no_pause'] ? 0 : 1,
-			'maxZ'    => (int) $options['slideshow_zindex'],
+			//'maxZ'    => (int) $options['slideshow_zindex'],
 			'pager'   => ".$sig .cycle-pager",
 			'pagerTemplate' => '',
 			'next'    => ".$sig .cycle-next",
