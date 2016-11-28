@@ -2010,17 +2010,10 @@ final class Strong_Testimonials {
 			unset( $view_data['per_page'] );
 		}
 
-		//if ( 'entire' == $view_data['content'] ) {
-		//	unset( $view_data['length'] );
-		//}
-
 		if ( 'slideshow' == $view_data['mode'] ) {
 			unset( $view_data['id'] );
-			// $view_data['no_pause'] = ! $view_data['pause'];
 		} else {
-			unset( $view_data['show_for'] );
-			unset( $view_data['effect_for'] );
-			unset( $view_data['no_pause'] );
+			unset( $view_data['slideshow_settings'] );
 		}
 
 		// ------------------------------
