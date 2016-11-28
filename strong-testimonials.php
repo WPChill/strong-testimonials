@@ -1740,13 +1740,13 @@ final class Strong_Testimonials {
 	 * @return string
 	 */
 	private static function preprocess( $view, $handle = false ) {
-		$options = get_option( 'wpmtst_options' );
-
 		// subset of all shortcode atts
 		$atts = shortcode_atts(
 			self::get_view_defaults(),
 			$view['atts']
 		);
+
+		$plugin_version = get_option( 'wpmtst_plugin_version' );
 
 		$new_view = new Strong_View( $atts );
 		$new_view->process();
@@ -1756,8 +1756,42 @@ final class Strong_Testimonials {
 		 */
 		if ( $atts['slideshow'] ) {
 
-			// TODO Is this still beneficial?
-			self::add_script( 'wpmtst-slider', 'later' );
+			$settings          = $atts['slideshow_settings'];
+			$not_full_controls = ( 'none' != $settings['controls_type'] || 'full' != $settings['controls_type'] );
+
+			/** Controls with or without Pagination */
+			if ( isset( $settings['controls_type'] ) && 'none' != $settings['controls_type'] ) {
+
+				$filename = 'slider-controls-' . $settings['controls_type'] . '-' . $settings['controls_style'];
+
+				if ( 'full' != $settings['controls_type'] ) {
+					if ( isset( $settings['pager_style'] ) && 'none' != $settings['pager_style'] ) {
+						$filename .= '-pager-' . $settings['pager_style'];
+					}
+				}
+
+				if ( file_exists( WPMTST_PUBLIC . "css/$filename.css" ) ) {
+					wp_register_style( "wpmtst-$filename", WPMTST_PUBLIC_URL . "css/$filename.css", array(), $plugin_version );
+					self::add_style( "wpmtst-$filename", 'later' );
+				}
+
+			}
+			elseif ( $not_full_controls ) {
+
+				/** Pagination only */
+				if ( isset( $settings['pager_type'] ) && 'none' != $settings['pager_type'] ) {
+
+					//TODO Adapt for multiple pager types (only one right now).
+					$filename = 'slider-pager-' . $settings['pager_style'] ;
+
+					if ( file_exists( WPMTST_PUBLIC . "css/$filename.css" ) ) {
+						wp_register_style( "wpmtst-$filename", WPMTST_PUBLIC_URL . "css/$filename.css", array(), $plugin_version );
+						self::add_style( "wpmtst-$filename", 'later' );
+					}
+
+				}
+
+			}
 
 		}
 		else {
