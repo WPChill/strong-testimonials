@@ -29,7 +29,6 @@ function wpmtst_get_default_options() {
 		'support_comments'      => false,
 		'email_log_level'       => 1,
 		'embed_width'           => '',
-		'slideshow_zindex'      => 9,
 		'pending_indicator'     => true,
 	);
 
