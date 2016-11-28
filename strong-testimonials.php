@@ -1564,26 +1564,65 @@ final class Strong_Testimonials {
 	 * @return array
 	 */
 	private static function slideshow_args( $atts ) {
-		$options = get_option( 'wpmtst_options' );
-		$sig = self::slideshow_signature( $atts );
+
+		$view_options = get_option( 'wpmtst_view_options' );
 
 		$args = array(
-			'fx'      => $atts['effect'],
-			'speed'   => 'none' == $atts['effect'] ? 1 : $atts['effect_for'] * 1000,
-			'timeout' => $atts['show_for'] * 1000,
-			'pause'   => $atts['no_pause'] ? 0 : 1,
-			//'maxZ'    => (int) $options['slideshow_zindex'],
-			'pager'   => ".$sig .cycle-pager",
-			'pagerTemplate' => '',
-			'next'    => ".$sig .cycle-next",
-			'prev'    => ".$sig .cycle-prev",
+			'mode'                => $atts['slideshow_settings']['effect'],
+			'speed'               => $atts['slideshow_settings']['speed'] * 1000,
+			'pause'               => $atts['slideshow_settings']['pause'] * 1000,
+			'autoHover'           => $atts['slideshow_settings']['auto_hover'] ? 1 : 0,
+			'autoStart'           => $atts['slideshow_settings']['auto_start'] ? 1 : 0,
+			'stopAutoOnClick'     => $atts['slideshow_settings']['stop_auto_on_click'] ? 1 : 0,
+			'adaptiveHeight'      => $atts['slideshow_settings']['adapt_height'] ? 1 : 0,
+			'adaptiveHeightSpeed' => $atts['slideshow_settings']['adapt_height_speed'] * 1000,
+			'controls'            => 0,
+			'autoControls'        => 0,
+			'pager'               => 0
 		);
+		if ( ! $atts['slideshow_settings']['adapt_height'] ) {
+			$args['stretch'] = $atts['slideshow_settings']['stretch'] ? 1 : 0;
+		}
 
-		if ( $atts['slideshow_nav'] ) {
-			if ( 'indexed' == $atts['slideshow_nav'] ) {
-				$args['pagerTemplate'] = '<span class="slide-num">{{slideNum}}</span>';
-			} else {
-				$args['pagerTemplate'] = '<span class="slide-num" data-slideNum="{{slideNum}}"></span>';
+		// Controls
+		$options = $view_options['slideshow_nav_method']['controls'];
+		$control_setting = $atts['slideshow_settings']['controls_type'];
+		if ( ! $control_setting ) {
+			$control_setting = 'none';
+		}
+		if ( isset( $options[ $control_setting ] ) && isset( $options[ $control_setting ]['args'] ) ) {
+			$args = array_merge( $args, $options[ $control_setting ]['args'] );
+		}
+
+		if ( 'none' != $control_setting ) {
+			$options = $view_options['slideshow_nav_style']['controls'];
+			$setting = $atts['slideshow_settings']['controls_style'];
+			if ( ! $setting ) {
+				$setting = 'none';
+			}
+			if ( isset( $options[ $setting ] ) && isset( $options[ $setting ]['args'] ) ) {
+				$args = array_merge( $args, $options[ $setting ]['args'] );
+			}
+		}
+
+		// Pager
+		$options = $view_options['slideshow_nav_method']['pager'];
+		$pager_setting = $atts['slideshow_settings']['pager_type'];
+		if ( ! $pager_setting ) {
+			$pager_setting = 'none';
+		}
+		if ( isset( $options[ $pager_setting ] ) && isset( $options[ $pager_setting ]['args'] ) ) {
+			$args = array_merge( $args, $options[ $pager_setting ]['args'] );
+		}
+
+		if ( 'none' != $pager_setting ) {
+			$options = $view_options['slideshow_nav_style']['pager'];
+			$setting = $atts['slideshow_settings']['pager_style'];
+			if ( ! $setting ) {
+				$setting = 'none';
+			}
+			if ( isset( $options[ $setting ] ) && isset( $options[ $setting ]['args'] ) ) {
+				$args = array_merge( $args, $options[ $setting ]['args'] );
 			}
 		}
 
