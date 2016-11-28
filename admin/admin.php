@@ -293,7 +293,7 @@ add_action( 'admin_enqueue_scripts', 'wpmtst_admin_dequeue_scripts', 500 );
  */
 function wpmtst_admin_scripts_wpml() {
 	$plugin_version = get_option( 'wpmtst_plugin_version' );
-	wp_enqueue_style( 'wpmtst-admin-style-wpml', WPMTST_URL . 'css/admin/wpml.css', array(), $plugin_version );
+	wp_enqueue_style( 'wpmtst-admin-style-wpml', WPMTST_ADMIN_URL . 'css/wpml.css', array(), $plugin_version );
 }
 add_action( 'admin_head-wpml-string-translation/menu/string-translation.php', 'wpmtst_admin_scripts_wpml' );
 add_action( 'admin_head-edit-tags.php', 'wpmtst_admin_scripts_wpml' );
@@ -309,7 +309,7 @@ function wpmtst_admin_polylang() {
 		return;
 
 	$plugin_version = get_option( 'wpmtst_plugin_version' );
-	wp_enqueue_style( 'wpmtst-admin-style-polylang', WPMTST_URL . 'css/admin/polylang.css', array(), $plugin_version );
+	wp_enqueue_style( 'wpmtst-admin-style-polylang', WPMTST_ADMIN_URL . 'css/polylang.css', array(), $plugin_version );
 
 	include_once WPMTST_INC . 'defaults.php';
 	$fields = wpmtst_get_all_fields();
