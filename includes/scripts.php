@@ -88,8 +88,6 @@ add_action( 'wp_enqueue_scripts', 'wpmtst_scripts_normal' );
  */
 function wpmtst_scripts_after_theme() {
 
-	wpmtst_register_cycle();
-
 	$styles = WPMST()->get_styles();
 
 	if ( $styles ) {
@@ -107,31 +105,3 @@ function wpmtst_scripts_after_theme() {
 	}
 }
 add_action( 'wp_enqueue_scripts', 'wpmtst_scripts_after_theme', 200 );
-
-
-/**
- * Register our slider if necessary.
- *
- * @since 2.3 As separate function.
- */
-function wpmtst_register_cycle() {
-	$plugin_version = get_option( 'wpmtst_plugin_version' );
-	$filenames = array(
-		'jquery.cycle.all.min.js',
-		'jquery.cycle.all.js',
-		'jquery.cycle2.min.js',
-		'jquery.cycle2.js'
-	);
-
-	$cycle_handle = wpmtst_is_registered( $filenames );
-
-	if ( ! $cycle_handle ) {
-		// Using unique handle and loading Cycle2 for better dimension handling.
-		$cycle_handle = 'jquery-cycle-in-wpmtst';
-		wp_register_script( $cycle_handle, WPMTST_PUBLIC_URL . 'js/lib/cycle/jquery.cycle2.min.js', array( 'jquery' ), '2.1.6', true );
-	}
-
-	// Our slider handler, dependent on whichever jQuery Cycle plugin is being used.
-	wp_register_script( 'jquery-actual', WPMTST_PUBLIC_URL . 'js/lib/actual/jquery.actual.min.js', array( 'jquery' ), false, true );
-	wp_register_script( 'wpmtst-slider', WPMTST_PUBLIC_URL . 'js/cycle.js', array( $cycle_handle, 'jquery-actual' ), $plugin_version, true );
-}
