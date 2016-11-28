@@ -28,14 +28,15 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
 -----------------------------------------------*/
 .strong-view.modern {
   display: block;
-  /* this handles short content */
+  /* setting a width handles short content */
   width: 100%;
 }
 .strong-view.modern * {
   box-sizing: border-box;
 }
-.strong-view.modern .strong-content {
-  position: relative;
+.strong-view.modern .testimonial.t-slide {
+  margin-top: 0;
+  margin-bottom: 0;
 }
 .strong-view.modern .testimonial-inner {
   display: block;
@@ -45,24 +46,6 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
 }
 .strong-view.modern .testimonial-field-before {
   margin-right: 0.5em;
-}
-.strong-view.modern .strong_cycle .testimonial {
-  /* remove margin in slideshow */
-  margin-top: 0;
-  margin-bottom: 0;
-}
-.strong-view.modern .strong_cycle .testimonial:not(:first-child) {
-  /* prevents flash on slow page load */
-  display: none;
-}
-.strong-view.modern.stretch .strong_cycle .testimonial {
-  /* to force same height for all slides */
-  height: 100%;
-}
-.strong-view.modern.ui-slideshow-bottom .strong-cycle-controls {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
 }
 
 .strong-view .screen-reader-text {
@@ -162,7 +145,7 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
 /* Template
 -----------------------------------------------*/
 .strong-view.modern .testimonial {
-  margin: 20px auto;
+  margin: 20px auto 0;
   width: 100%;
 }
 .strong-view.modern .testimonial:first-child {
@@ -173,9 +156,6 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
 }
 .strong-view.modern .testimonial-inner {
   padding: 30px;
-}
-.strong-view.modern.ui-slideshow-bottom .testimonial-inner {
-  padding-bottom: 60px;
 }
 .strong-view.modern .testimonial-content {
   color: #434343;
@@ -242,21 +222,37 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
   padding: 0.7em;
   text-align: center;
 }
-.strong-view.modern .strong-cycle-controls .cycle-pager span::before {
+.strong-view.modern .strong-slider-controls .slider-pager span::before {
   color: #808080;
 }
-.strong-view.modern .strong-cycle-controls.indexed {
+.strong-view.modern .strong-slider-controls.indexed {
   line-height: 22px;
   padding: 19px 0;
 }
-.strong-view.modern .strong-cycle-controls.indexed .cycle-pager span {
+.strong-view.modern .strong-slider-controls.indexed .slider-pager span {
   height: 22px;
   width: 22px;
 }
-.strong-view.modern .strong-cycle-controls.indexed span.cycle-pager-active {
+.strong-view.modern .strong-slider-controls.indexed span.slider-pager-active {
   border-radius: 50%;
   background: #CDCDCD;
   font-weight: 400;
+}
+
+/* Slideshow
+-----------------------------------------------*/
+.strong-view.modern.slider-container .strong-content {
+  margin: 0 auto;
+}
+.strong-view.modern.slider-container .testimonial:not(:first-child) {
+  display: none;
+}
+.strong-view.modern.nav-position-inside .testimonial-inner {
+  padding-bottom: 60px;
+}
+.strong-view.modern.controls-type-sides .testimonial-inner {
+  padding-left: 50px;
+  padding-right: 50px;
 }
 
 /* Widget
@@ -264,10 +260,10 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
 .widget .strong-view.modern .testimonial-inner {
   padding: 20px;
 }
-.widget .strong-view.modern.ui-slideshow-bottom .testimonial-inner {
+.widget .strong-view.modern.slider-bottom .testimonial-inner {
   padding-bottom: 40px;
 }
-.widget .strong-view.modern .strong-cycle-controls {
+.widget .strong-view.modern .strong-slider-controls {
   line-height: 40px;
 }
 .widget .strong-view.modern .testimonial-content {
