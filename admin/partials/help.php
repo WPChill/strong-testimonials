@@ -1,5 +1,6 @@
 <?php
 
+add_action( 'load-wpm-testimonial_page_testimonial-fields', 'wpmtst_help_fields_editor' );
 function wpmtst_help_fields_editor() {
 
 	$content = '<p>' . __( 'The default fields are designed to fit most situations. You can quickly add or remove fields and change several display properties to meet your needs.', 'strong-testimonials' ) . '</p>';
@@ -39,10 +40,10 @@ function wpmtst_help_fields_editor() {
 		'content' => $content,
 	) );
 }
-add_action( 'load-wpm-testimonial_page_testimonial-fields', 'wpmtst_help_fields_editor' );
 
 
-function wpmtst_help_view_editor() {
+add_action( 'load-wpm-testimonial_page_testimonial-views', 'wpmtst_help_view_editor_pagination' );
+function wpmtst_help_view_editor_pagination() {
 	ob_start();
 	?>
 	<p><?php _e( 'Some of the features and drawbacks for each method.', 'strong-testimonials' ); ?></p>
@@ -93,4 +94,22 @@ function wpmtst_help_view_editor() {
 		'content' => $content,
 	) );
 }
-add_action( 'load-wpm-testimonial_page_testimonial-views', 'wpmtst_help_view_editor' );
+
+
+add_action( 'load-wpm-testimonial_page_testimonial-views', 'wpmtst_help_view_editor_stretch' );
+function wpmtst_help_view_editor_stretch() {
+	ob_start();
+	?>
+	<p>
+		<?php _e( 'This setting will set the height of the <b>slideshow container</b> to match the tallest slide in order to keep elements below it from bouncing up and down during slide transitions. With testimonials of uneven length, the result is whitespace underneath the shorter testimonials. Select the <b>Stretch</b> option to stretch the borders and background vertically to compensate. Use the excerpt or abbreviated content if you want to minimize the whitespace.', 'strong-testimonials' ); ?>
+	</p>
+	<?php
+	$content = ob_get_contents();
+	ob_end_clean();
+
+	get_current_screen()->add_help_tab( array(
+		'id'      => 'wpmtst-help-stretch',
+		'title'   => __( 'Stretch', 'strong-testimonials' ),
+		'content' => $content,
+	) );
+}
