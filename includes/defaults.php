@@ -29,7 +29,6 @@ function wpmtst_get_default_options() {
 		'support_comments'      => false,
 		'email_log_level'       => 1,
 		'embed_width'           => '',
-		'slideshow_zindex'      => 9,
 		'pending_indicator'     => true,
 	);
 
@@ -410,25 +409,167 @@ function wpmtst_get_default_form_options() {
 }
 
 /**
- * Some default view options.
+ * Default view options.
  *
  * @since 1.21.0
  */
 function wpmtst_get_default_view_options() {
 	$default_view_options = array(
-		'mode'    => array(
-			'options' => array(
-				array( 'name' => 'display', 'label' => __( 'Display', 'strong-testimonials' ), 'description' => '', 'help' => '' ),
-				array( 'name' => 'slideshow', 'label' => __( 'Slideshow', 'strong-testimonials' ), 'description' => '', 'help' => '' ),
-				array( 'name' => 'form', 'label' => __( 'Form', 'strong-testimonials' ), 'description' => '', 'help' => '' ),
+
+		'mode' => array(
+			array( 'name' => 'display', 'label' => __( 'Display', 'strong-testimonials' ), 'description' => '' ),
+			array( 'name' => 'slideshow', 'label' => __( 'Slideshow', 'strong-testimonials' ), 'description' => '' ),
+			array( 'name' => 'form', 'label' => __( 'Form', 'strong-testimonials' ), 'description' => '' ),
+		),
+
+		'order' => array(
+			'random'     => _x( 'random', 'display order', 'strong-testimonials' ),
+			'menu_order' => _x( 'menu order', 'display order', 'strong-testimonials' ),
+			'newest'     => _x( 'newest first', 'display order', 'strong-testimonials' ),
+			'oldest'     => _x( 'oldest first', 'display order', 'strong-testimonials' ),
+		),
+
+		'slideshow_effect' => array(
+			'none'       => _x( 'no transition effect', 'slideshow transition option', 'strong-testimonials' ),
+			'fade'       => _x( 'fade', 'slideshow transition option', 'strong-testimonials' ),
+			'horizontal' => _x( 'scroll horizontally', 'slideshow transition option', 'strong-testimonials' ),
+			'vertical'   => _x( 'scroll vertically', 'slideshow transition option', 'strong-testimonials' ),
+		),
+
+		'slideshow_height' => array(
+			'dynamic' => _x( 'Adjust height for each slide', 'slideshow option', 'strong-testimonials' ),
+			'static'  => _x( 'Set height to match the tallest slide', 'slideshow option', 'strong-testimonials' ),
+		),
+
+		/* METHODS */
+		'slideshow_nav_method' => array(
+			'controls' => array(
+				'none'   => array(
+					'label' => _x( 'none', 'slideshow controls option', 'strong-testimonials' ),
+					'args'  => array(  // base args; style will add more args
+						'controls' => 0,
+						'pager' => 0,
+                        'autoControls' => 0,
+					),
+				),
+				'full'   => array(
+					'label' => _x( 'Bottom: previous / play-pause / next', 'slideshow controls option', 'strong-testimonials' ),
+					'class' => 'controls-type-full',
+					'add_position_class' => 1,
+					'args'  => array(
+						'pager' => 0,
+						//'controls' => 1, // our slider.js script adds the controls
+						'autoControls' => 1,
+						'autoControlsCombine' => 1,
+						'fullSetButtons' => 1,
+						'fullSetText' => 1,
+					)
+				),
+				'simple' => array(
+					'label' => _x( 'Bottom: previous / next', 'slideshow controls option', 'strong-testimonials' ),
+					'class' => 'controls-type-simple',
+					'add_position_class' => 1,
+					'args'  => array(
+						'controls' => 1,
+						'autoControls' => 0,
+					)
+				),
+				'sides'  => array(
+					'label' => _x( 'Sides: previous / next', 'slideshow controls option', 'strong-testimonials' ),
+					'class' => 'controls-type-sides',
+					'add_position_class' => 0,
+					'args'  => array(
+						'controls' => 1,
+						'autoControls' => 0,
+						'prevText' => '',
+						'nextText' => '',
+					)
+				)
+			),
+			'pager'    => array(
+				'none'   => array(
+					'label' => _x( 'none', 'slideshow navigation option', 'strong-testimonials' ),
+					'args'  => array(),
+				),
+				'full'   => array(
+					'label' => _x( 'full', 'slideshow navigation option', 'strong-testimonials' ),
+					//'class' => 'controls-pager-full',
+					'class' => 'pager-type-full',
+					'args'  => array(
+						'pager' => 1,
+					)
+				),
 			)
 		),
-		'order'   => array(
-			'options' => array(
-				array( 'name' => 'random', 'label' => __( 'Random', 'strong-testimonials' ), 'description' => '', 'help' => '' ),
-				array( 'name' => 'newest', 'label' => __( 'Newest first', 'strong-testimonials' ), 'description' => '', 'help' => '' ),
-				array( 'name' => 'oldest', 'label' => __( 'Oldest first', 'strong-testimonials' ), 'description' => '', 'help' => '' )
+
+	    /* STYLES */
+		'slideshow_nav_style' => array(
+			'controls' => array(
+				'buttons'  => array(
+					'label' => _x( 'buttons 1', 'slideshow navigation option', 'strong-testimonials' ),
+				    'class' => 'controls-style-buttons',
+					'args'  => array(
+					    'startText' => '',
+					    'stopText' => '',
+						'prevText' => '',
+						'nextText' => '',
+				    )
+				),
+				'buttons2' => array(
+					'label' => _x( 'buttons 2', 'slideshow navigation option', 'strong-testimonials' ),
+					'class' => 'controls-style-buttons2',
+					'args'  => array(
+					    'startText' => '',
+					    'stopText' => '',
+						'prevText' => '',
+						'nextText' => '',
+					)
+				),
+				'buttons3' => array(
+					'label' => _x( 'buttons 3', 'slideshow navigation option', 'strong-testimonials' ),
+					'class' => 'controls-style-buttons3',
+					'args'  => array(
+					    'startText' => '',
+					    'stopText' => '',
+						'prevText' => '',
+						'nextText' => '',
+					)
+				),
+				'text' => array(
+					'label' => _x( 'text', 'slideshow navigation option', 'strong-testimonials' ),
+					'class' => 'controls-style-text',
+					'args' => array(
+						'startText' => _x( 'Play', 'slideshow control', 'strong-testimonials' ),
+						'stopText' => _x( 'Pause', 'slideshow control', 'strong-testimonials' ),
+						'prevText' => _x( 'Previous', 'slideshow_control', 'strong-testimonials' ),
+						'nextText' => _x( 'Next', 'slideshow_control', 'strong-testimonials' ),
+					)
+				)
+			),
+			'pager' => array(
+				'buttons'  => array(
+					'label' => _x( 'buttons', 'slideshow navigation option', 'strong-testimonials' ),
+					'class' => 'pager-style-buttons',
+					'args'  => array(
+					    'buildPager' => 'icons',
+					    'simpleSetPager' => 1,
+					)
+				),
+				'text'     => array(
+					'label' => _x( 'text', 'slideshow navigation option', 'strong-testimonials' ),
+					'class' => 'pager-style-text',
+					'args'  => array(
+						'buildPager' => null,
+					    'simpleSetText' => 1,
+					)
+				)
 			)
+		),
+
+		/* Position is shared by Controls and Pagination. */
+		'slideshow_nav_position' => array(
+			'inside'  => _x( 'inside', 'slideshow navigation option', 'strong-testimonials' ),
+			'outside' => _x( 'outside', 'slideshow navigation option', 'strong-testimonials' ),
 		),
 	);
 	return $default_view_options;
@@ -471,10 +612,9 @@ function wpmtst_get_default_view() {
 		'column_count'       => 2,
 		'compat'             => 0,
 		'container_class'    => '',
+		'container_data'     => '',
 		'content'            => 'entire',
 		'count'              => 1,
-		'effect'             => 'fade',
-		'effect_for'         => 1.5,
 		'excerpt_length'     => 55,
 		'form_ajax'          => 0,
 		'form_id'            => 1,
@@ -492,16 +632,29 @@ function wpmtst_get_default_view() {
 		'more_page_id'       => 0,
 		'more_page_text'     => _x( 'Read more testimonials', 'link', 'strong-testimonials' ),
 		'nav'                => 'after',
-		'no_pause'           => false,
 		'note'               => '',
 		'order'              => 'oldest',
 		'page'               => '',
 		'pagination'         => false,
 		'pagination_type'    => 'simple',
 		'per_page'           => 5,
-		'show_for'           => 8,
-		'slideshow_nav'      => 'simple',
-		'stretch'            => 1,
+		'slideshow'          => 0,
+		'slideshow_settings' => array(
+			'effect'             => 'fade',
+			'speed'              => 1,
+			'pause'              => 8,
+			'auto_start'         => true,
+			'auto_hover'         => true,
+			'adapt_height'       => true,
+			'adapt_height_speed' => .5,
+			'stretch'            => 0,
+			'stop_auto_on_click' => true,
+			'controls_type'      => 'none',
+			'controls_style'     => 'buttons',
+			'pager_type'         => 'none',
+			'pager_style'        => 'buttons',
+			'nav_position'       => 'inside',
+		),
 		'template'           => 'default:content',
 		'thumbnail'          => true,
 		'thumbnail_size'     => 'thumbnail',
@@ -510,7 +663,6 @@ function wpmtst_get_default_view() {
 		'title'              => true,
 		'use_default_length' => true,
 		'use_default_more'   => false,
-		'word_count'         => 40,
 	);
 	ksort( $default_view );
 

@@ -4,7 +4,7 @@
  * Description: The default form template.
  */
 ?>
-<div class="strong-view strong-form <?php wpmtst_container_class(); ?>">
+<div class="strong-view strong-form <?php wpmtst_container_class(); ?>"<?php wpmtst_container_data(); ?>>
 
 	<div id="wpmtst-form">
 

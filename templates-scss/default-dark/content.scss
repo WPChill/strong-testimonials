@@ -15,7 +15,7 @@ $template: default-dark;
 -----------------------------------------------*/
 .strong-view.#{$template} {
 	.strong-content {
-		margin: 20px auto;
+		margin: 20px auto 0;
 	}
 
 	.testimonial {
@@ -29,16 +29,8 @@ $template: default-dark;
 		text-align: left;
 	}
 
-	&.ui-slideshow-bottom .testimonial-inner {
-		padding-bottom: 60px;
-	}
-
-	&.ui-slideshow-bookends .testimonial-inner {
-		padding-left: 48px;
-		padding-right: 48px;
-	}
-
 	.testimonial-heading {
+		//noinspection CssUnknownTarget
 		background: url("img/quotes.png") no-repeat scroll left center transparent;
 		margin-top: 0;
 		padding-left: 40px;
@@ -59,6 +51,7 @@ $template: default-dark;
 			background: none repeat scroll 0 0 #FFFFFF;
 			border: 1px solid #EFEFEF;
 			padding: 6px;
+			margin: 0 auto;
 		}
 	}
 
@@ -75,9 +68,46 @@ $template: default-dark;
 		margin-top: 1em;
 	}
 
+	.strong-view-footer {
+		margin-bottom: 20px;
+	}
+
 	.readmore-page {
 		@include readmore-page;
 		border: 2px solid #777;
+	}
+}
+
+/* Slideshow
+-----------------------------------------------*/
+.strong-view.#{$template} {
+	&.slider-container {
+		/* If vertical or fade slideshow, move border from individual testimonials to viewport. */
+		&.slider-adaptive:not(.slider-mode-horizontal) {
+			.bx-viewport {
+				border: 1px solid #E6E6E6;
+			}
+			.testimonial {
+				border: 0;
+			}
+		}
+		.strong-content {
+			margin: 0 auto;
+		}
+		.testimonial:not(:first-child) {
+			display: none;
+		}
+	}
+
+	&.nav-position-inside {
+		.testimonial-inner {
+			padding-bottom: 48px;
+		}
+	}
+
+	&.controls-type-sides .testimonial-inner {
+		padding-left: 50px;
+		padding-right: 50px;
 	}
 }
 
@@ -100,7 +130,17 @@ $template: default-dark;
 	}
 }
 
+/* Responsive
+-----------------------------------------------*/
 @import "../_partials/responsive";
 @import "../_partials/responsive-no-heading-background";
 
+/* RTL
+-----------------------------------------------*/
 @import "../_partials/rtl";
+.strong-view.#{$template}.rtl {
+	.testimonial-heading {
+		padding-right: 40px;
+		background-position: right;
+	}
+}

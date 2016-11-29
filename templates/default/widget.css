@@ -28,14 +28,15 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
 -----------------------------------------------*/
 .strong-view.default-widget {
   display: block;
-  /* this handles short content */
+  /* setting a width handles short content */
   width: 100%;
 }
 .strong-view.default-widget * {
   box-sizing: border-box;
 }
-.strong-view.default-widget .strong-content {
-  position: relative;
+.strong-view.default-widget .testimonial.t-slide {
+  margin-top: 0;
+  margin-bottom: 0;
 }
 .strong-view.default-widget .testimonial-inner {
   display: block;
@@ -45,24 +46,6 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
 }
 .strong-view.default-widget .testimonial-field-before {
   margin-right: 0.5em;
-}
-.strong-view.default-widget .strong_cycle .testimonial {
-  /* remove margin in slideshow */
-  margin-top: 0;
-  margin-bottom: 0;
-}
-.strong-view.default-widget .strong_cycle .testimonial:not(:first-child) {
-  /* prevents flash on slow page load */
-  display: none;
-}
-.strong-view.default-widget.stretch .strong_cycle .testimonial {
-  /* to force same height for all slides */
-  height: 100%;
-}
-.strong-view.default-widget.ui-slideshow-bottom .strong-cycle-controls {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
 }
 
 .strong-view .screen-reader-text {
@@ -87,13 +70,6 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
 }
 .strong-view.default-widget .testimonial-inner {
   padding: 10px;
-}
-.strong-view.default-widget.ui-slideshow-bottom .testimonial-inner {
-  padding-bottom: 60px;
-}
-.strong-view.default-widget.ui-slideshow-bookends .testimonial-inner {
-  padding-left: 48px;
-  padding-right: 48px;
 }
 .strong-view.default-widget .testimonial-heading {
   margin-bottom: 1em;
@@ -128,6 +104,24 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
   text-align: center;
 }
 
+/* Slideshow
+-----------------------------------------------*/
+.strong-view.default-widget.slider-container .strong-content {
+  margin: 0 auto;
+}
+.strong-view.default-widget.slider-container .testimonial:not(:first-child) {
+  display: none;
+}
+.strong-view.default-widget.nav-position-inside .testimonial-inner {
+  padding-bottom: 48px;
+}
+.strong-view.default-widget.controls-type-sides .testimonial-inner {
+  padding-left: 50px;
+  padding-right: 50px;
+}
+
+/* Responsive
+-----------------------------------------------*/
 @media only screen and (max-width: 320px) {
   .strong-view.default-widget .testimonial-image {
     float: none;
@@ -135,6 +129,8 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
     margin-right: auto;
   }
 }
+/* RTL
+-----------------------------------------------*/
 .strong-view.default-widget.rtl .testimonial,
 .strong-view.default-widget.rtl .testimonial-inner,
 .strong-view.default-widget.rtl .testimonial-heading {

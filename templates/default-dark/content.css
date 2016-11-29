@@ -28,14 +28,15 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
 -----------------------------------------------*/
 .strong-view.default-dark {
   display: block;
-  /* this handles short content */
+  /* setting a width handles short content */
   width: 100%;
 }
 .strong-view.default-dark * {
   box-sizing: border-box;
 }
-.strong-view.default-dark .strong-content {
-  position: relative;
+.strong-view.default-dark .testimonial.t-slide {
+  margin-top: 0;
+  margin-bottom: 0;
 }
 .strong-view.default-dark .testimonial-inner {
   display: block;
@@ -45,24 +46,6 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
 }
 .strong-view.default-dark .testimonial-field-before {
   margin-right: 0.5em;
-}
-.strong-view.default-dark .strong_cycle .testimonial {
-  /* remove margin in slideshow */
-  margin-top: 0;
-  margin-bottom: 0;
-}
-.strong-view.default-dark .strong_cycle .testimonial:not(:first-child) {
-  /* prevents flash on slow page load */
-  display: none;
-}
-.strong-view.default-dark.stretch .strong_cycle .testimonial {
-  /* to force same height for all slides */
-  height: 100%;
-}
-.strong-view.default-dark.ui-slideshow-bottom .strong-cycle-controls {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
 }
 
 .strong-view .screen-reader-text {
@@ -160,7 +143,7 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
 /* Template
 -----------------------------------------------*/
 .strong-view.default-dark .strong-content {
-  margin: 20px auto;
+  margin: 20px auto 0;
 }
 .strong-view.default-dark .testimonial {
   margin: 20px auto;
@@ -179,13 +162,6 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
   border: 1px solid #333;
   padding: 20px;
   text-align: left;
-}
-.strong-view.default-dark.ui-slideshow-bottom .testimonial-inner {
-  padding-bottom: 60px;
-}
-.strong-view.default-dark.ui-slideshow-bookends .testimonial-inner {
-  padding-left: 48px;
-  padding-right: 48px;
 }
 .strong-view.default-dark .testimonial-heading {
   background: url("img/quotes.png") no-repeat scroll left center transparent;
@@ -211,6 +187,7 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
   background: none repeat scroll 0 0 #FFFFFF;
   border: 1px solid #EFEFEF;
   padding: 6px;
+  margin: 0 auto;
 }
 .strong-view.default-dark .testimonial-client {
   margin-top: 1em;
@@ -222,11 +199,39 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
 .strong-view.default-dark .readmore {
   margin-top: 1em;
 }
+.strong-view.default-dark .strong-view-footer {
+  margin-bottom: 20px;
+}
 .strong-view.default-dark .readmore-page {
   margin-top: 20px;
   padding: 1em;
   text-align: center;
   border: 2px solid #777;
+}
+
+/* Slideshow
+-----------------------------------------------*/
+.strong-view.default-dark.slider-container {
+  /* If vertical or fade slideshow, move border from individual testimonials to viewport. */
+}
+.strong-view.default-dark.slider-container.slider-adaptive:not(.slider-mode-horizontal) .bx-viewport {
+  border: 1px solid #E6E6E6;
+}
+.strong-view.default-dark.slider-container.slider-adaptive:not(.slider-mode-horizontal) .testimonial {
+  border: 0;
+}
+.strong-view.default-dark.slider-container .strong-content {
+  margin: 0 auto;
+}
+.strong-view.default-dark.slider-container .testimonial:not(:first-child) {
+  display: none;
+}
+.strong-view.default-dark.nav-position-inside .testimonial-inner {
+  padding-bottom: 48px;
+}
+.strong-view.default-dark.controls-type-sides .testimonial-inner {
+  padding-left: 50px;
+  padding-right: 50px;
 }
 
 /* Template variant overrides
@@ -240,6 +245,8 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
   color: #FFF;
 }
 
+/* Responsive
+-----------------------------------------------*/
 @media only screen and (max-width: 320px) {
   .strong-view.default-dark .testimonial-image {
     float: none;
@@ -247,12 +254,15 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
     margin-right: auto;
   }
 }
+/* Remove quote background image */
 @media only screen and (max-width: 320px) and (orientation: portrait) {
   .strong-view.default-dark .testimonial-heading {
     background: none;
     padding-left: 0;
   }
 }
+/* RTL
+-----------------------------------------------*/
 .strong-view.default-dark.rtl .testimonial,
 .strong-view.default-dark.rtl .testimonial-inner,
 .strong-view.default-dark.rtl .testimonial-heading {
@@ -264,4 +274,9 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
 }
 .strong-view.default-dark.rtl .testimonial-client {
   text-align: left;
+}
+
+.strong-view.default-dark.rtl .testimonial-heading {
+  padding-right: 40px;
+  background-position: right;
 }
