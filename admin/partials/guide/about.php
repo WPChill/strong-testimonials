@@ -27,13 +27,11 @@
 
 		<h2><?php _e( 'What\'s new' ); ?></h2>
 
+		<p><span class="dashicons dashicons-controls-play"></span><?php _e( 'More slideshow options.', 'strong-testimonials' ); ?></p>
+
 		<p><span class="dashicons dashicons-star-filled"></span><?php _e( 'Star ratings.', 'strong-testimonials' ); ?></p>
 
 		<p><span class="dashicons dashicons-admin-page"></span><?php _e( 'Use standard WordPress pagination just like standard blog posts.', 'strong-testimonials' ); ?></p>
-
-		<p><span class="dashicons dashicons-edit"></span><?php _e( 'A redesigned fields section in the view editor.', 'strong-testimonials' ); ?></p>
-
-		<p><span class="dashicons dashicons-editor-paste-text"></span><?php _e( 'Display some text before a field; for example "Service" or "Rating".', 'strong-testimonials' ); ?></p>
 
 		<p><span class="dashicons dashicons-performance"></span><?php _e( 'Improved compatibility and performance.', 'strong-testimonials' ); ?></p>
 
