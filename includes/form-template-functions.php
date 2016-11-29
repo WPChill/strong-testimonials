@@ -96,7 +96,7 @@ function wpmtst_single_form_field( $field ) {
 
 		case 'file' :
 
-			echo '<input id="wpmtst_' . $field['name'] . '" type="file" name="' . $field['name'] . '">';
+			echo '<input id="wpmtst_' . $field['name'] . '" type="file" name="' . $field['name'] . '"' . wpmtst_field_required_tag( $field ) . '>';
 			break;
 
 		case 'shortcode' :

@@ -58,14 +58,52 @@ function convertLabel(label) {
  * Special handling after toggling certain options.
  */
 (function($){
+	// custom handling
 	$.fn.afterToggle = function() {
-		// custom handling
+
+		// Category selector
 		var $categoryDivs = $('.view-category-list-panel');
 		// Set initial width to compensate for narrowed box due to checkbox being hidden first
 		// and to prevent horizontal jumpiness as filter is applied.
 		if ( !$categoryDivs.hasClass("fixed") ) {
 			$categoryDivs.width( $categoryDivs.outerWidth(true) ).addClass("fixed");
 		}
+
+		// Slideshow controls
+		var $controls = $('#view-slideshow_controls_type');
+		var $pager    = $('#view-slideshow_pager_type');
+		var controlsValue = $controls.val();
+		var pagerValue    = $pager.val();
+
+		if ( 'full' == controlsValue ) {
+			$('.then_has-pager').fadeOut();
+			$('option[value="text"]','#view-slideshow_controls_style').prop('disabled',false);
+		}
+		else if ( 'sides' == controlsValue ) {
+			$('.then_has-pager').fadeIn();
+			var $style = $('#view-slideshow_controls_style');
+			if ( 'text' == $style.val() ) {
+				$('option:first', $style).prop('selected', true);
+			}
+			$('option[value="text"]', $style).prop('disabled',true);
+		}
+		else {
+			$('.then_has-pager').fadeIn();
+			$('option[value="text"]','#view-slideshow_controls_style').prop('disabled',false);
+		}
+
+		if ( 'none' == pagerValue && ( 'none' == controlsValue || 'sides' == controlsValue ) ) {
+			$('.then_has-position').fadeOut();
+		}
+		else {
+			$('.then_has-position').fadeIn();
+		}
+
+		// If no navigation, must start automatically.
+		if ( 'none' == pagerValue && 'none' == controlsValue ) {
+			$('#view-auto_start').val('1').prop('checked', true);
+		}
+
 		return this;
 	}
 }(jQuery));
@@ -94,15 +132,15 @@ jQuery(window).on('load', function () {
 		$(this).select();
 	});
 
-
 	$(".open-help-tab").on("click", function(){
+		var tab = this.hash;
+		var tabLink = $('#contextual-help-columns').find('a[href="'+tab+'"]');
 		if( $("#screen-meta").is(":hidden") ) {
-			$("#contextual-help-link").click();
+			$("#contextual-help-link").click().promise().done( function() { tabLink.click(); } );
 		}
 		$("html, body").animate({scrollTop: 0}, 800);
 		return false;
 	});
-
 
 	// Masonry example
 	var masonryExample = $(".view-layout-masonry .example-container");
@@ -234,11 +272,14 @@ jQuery(window).on('load', function () {
 		var option = $(el).attr("id").split("-").pop();
 		var checked = $(el).prop("checked");
 		var deps = ".then_" + option;
+		var indeps = ".then_not_" + option;
 		if(checked) {
 			$(deps).fadeIn(speed);
+			$(indeps).fadeOut(speed);
 		}
 		else {
 			$(deps).fadeOut(speed);
+			$(indeps).fadeIn(speed);
 		}
 		return this;
 	}
@@ -352,6 +393,7 @@ jQuery(window).on('load', function () {
 	 *
 	 * Show/hide other option groups depending on value (1:1 relationshsip).
 	 * Using both option and value, which is different method than other functions.
+	 * class="if selectgroup"
 	 *
 	 * @since 1.20.0
 	 */
@@ -428,7 +470,7 @@ jQuery(window).on('load', function () {
 		$(".if.selectnot").each(function(index,el) {
 			$.fn.selectNotOption(this);
 			$(this).on("change", function() {
-				$.fn.selectNotOption(this);
+				$.fn.selectNotOption(this).afterToggle();
 			});
 		});
 
@@ -458,8 +500,6 @@ jQuery(window).on('load', function () {
 			var $elParent = $el.closest(".field3");
 			var fieldValue = $el.val();
 			var fieldType = $el.find("option:selected").data("type");
-			// TODO Use data attribute instead
-			// var key = $elParent.attr("id").split('-').slice(-1)[0];
 			var key = $elParent.data("key");
 			var typeSelectParent = $elParent.find("td.field-type");
 			var typeSelect = typeSelectParent.find("select");

@@ -1,0 +1,46 @@
+.strong-view {
+	&.controls-style-buttons2 {
+		.bx-wrapper {
+			.bx-start,
+			.bx-stop,
+			.bx-next,
+			.bx-prev {
+				font-family: fontawesome;
+				display: inline-block;
+				background: #C0C0C0;
+				border-radius: 5px;
+				color: #FFF;
+				cursor: pointer;
+				font-size: 16px;
+				line-height: 28px;
+				width: 28px;
+				height: 28px;
+				margin: 0 5px;
+				text-align: center;
+				transition: all 0.2s ease;
+			}
+			.bx-start,
+			.bx-stop {
+				margin: 0 4px;
+			}
+			.bx-start:before {
+				content: "\f04b";
+			}
+			.bx-stop:before {
+				content: "\f04c";
+			}
+			.bx-prev:before {
+				content: "\f053";
+			}
+			.bx-next:before {
+				content: "\f054";
+			}
+			.bx-start:hover,
+			.bx-stop:hover,
+			.bx-next:hover,
+			.bx-prev:hover {
+				background: #333;
+			}
+		}
+	}
+}

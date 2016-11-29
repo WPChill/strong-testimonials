@@ -162,15 +162,33 @@ function wpmtst_form_fields_wpml( $fields ) {
 	$wpml = $fields;
 	krsort( $wpml );
 	foreach ( $wpml as $field ) {
-		$name = $field['name'] . ' : ';
+		$name    = $field['name'] . ' : ';
 		$context = 'strong-testimonials-form-fields';
-		/* Translators: A form field name on the String Translation screen. */
-		do_action( 'wpml_register_single_string', $context, $name . __( 'after', 'strong-testimonials' ), $field['after'] );
-		do_action( 'wpml_register_single_string', $context, $name . __( 'before', 'strong-testimonials' ), $field['before'] );
-		do_action( 'wpml_register_single_string', $context, $name . __( 'placeholder', 'strong-testimonials' ), $field['placeholder'] );
-		do_action( 'wpml_register_single_string', $context, $name . __( 'label', 'strong-testimonials' ), $field['label'] );
-		do_action( 'wpml_register_single_string', $context, $name . __( 'default form value', 'strong-testimonials' ), $field['default_form_value'] );
-		do_action( 'wpml_register_single_string', $context, $name . __( 'default display value', 'strong-testimonials' ), $field['default_display_value'] );
+
+		/* Translators: A form field on the String Translation screen. */
+		if ( isset( $field['after'] ) ) {
+			do_action( 'wpml_register_single_string', $context, $name . __( 'after', 'strong-testimonials' ), $field['after'] );
+		}
+
+		if ( isset( $field['before'] ) ) {
+			do_action( 'wpml_register_single_string', $context, $name . __( 'before', 'strong-testimonials' ), $field['before'] );
+		}
+
+		if ( isset( $field['placeholder'] ) ) {
+			do_action( 'wpml_register_single_string', $context, $name . __( 'placeholder', 'strong-testimonials' ), $field['placeholder'] );
+		}
+
+		if ( isset( $field['label'] ) ) {
+			do_action( 'wpml_register_single_string', $context, $name . __( 'label', 'strong-testimonials' ), $field['label'] );
+		}
+
+		if ( isset( $field['default_form_value'] ) ) {
+			do_action( 'wpml_register_single_string', $context, $name . __( 'default form value', 'strong-testimonials' ), $field['default_form_value'] );
+		}
+
+		if ( isset( $field['default_display_value'] ) ) {
+			do_action( 'wpml_register_single_string', $context, $name . __( 'default display value', 'strong-testimonials' ), $field['default_display_value'] );
+		}
 	}
 }
 

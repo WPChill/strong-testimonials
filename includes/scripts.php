@@ -7,23 +7,46 @@ function wpmtst_scripts() {
 
 	$plugin_version = get_option( 'wpmtst_plugin_version' );
 
-	wp_register_script( 'wpmtst-pager-plugin', WPMTST_PUBLIC_URL . 'js/quickpager.jquery.js', array( 'jquery' ), false, true );
+	/**
+	 * Simple pagination
+	 */
+	wp_register_script( 'wpmtst-pager-plugin', WPMTST_PUBLIC_URL . 'js/jquery.quickpager.js', array( 'jquery' ), false, true );
 	wp_register_script( 'wpmtst-pager-script', WPMTST_PUBLIC_URL . 'js/pager.js', array( 'wpmtst-pager-plugin' ), $plugin_version, true );
+	wp_register_style( 'wpmtst-pager-simple-style', WPMTST_PUBLIC_URL . 'css/pagination-simple.css', array(), $plugin_version );
+	wp_register_style( 'wpmtst-pager-standard-style', WPMTST_PUBLIC_URL . 'css/pagination-standard.css', array(), $plugin_version );
 
+	/**
+	 * View custom style
+	 */
 	wp_register_style( 'wpmtst-custom-style', WPMTST_PUBLIC_URL . 'css/custom.css' );
 
+	/**
+	 * Masonry
+	 */
 	wp_register_script( 'imagesloaded-script', WPMTST_PUBLIC_URL . 'js/lib/imagesloaded/imagesloaded.pkgd.min.js', array(), false, true );
 	wp_register_script( 'wpmtst-masonry-script', WPMTST_PUBLIC_URL . 'js/masonry.js', array( 'jquery-masonry', 'imagesloaded-script' ), $plugin_version, true );
 	wp_register_style( 'wpmtst-masonry-style', WPMTST_PUBLIC_URL . 'css/masonry.css', array(), $plugin_version );
 
+	/**
+	 * Columns
+	 */
 	wp_register_style( 'wpmtst-columns-style', WPMTST_PUBLIC_URL . 'css/columns.css', array(), $plugin_version );
 
+	/**
+	 * Grid
+	 */
 	wp_register_script( 'wpmtst-grid-script', WPMTST_PUBLIC_URL . 'js/grid.js', array( 'jquery' ), $plugin_version, true );
 	wp_register_style( 'wpmtst-grid-style', WPMTST_PUBLIC_URL . 'css/grid.css', array(), $plugin_version );
 
+	/**
+	 * Ratings
+	 */
 	wp_register_style( 'wpmtst-rating-form', WPMTST_COMMON_URL . 'css/rating-form.css', array( 'wpmtst-font-awesome' ), $plugin_version );
 	wp_register_style( 'wpmtst-rating-display', WPMTST_COMMON_URL . 'css/rating-display.css', array( 'wpmtst-font-awesome' ), $plugin_version );
 
+	/**
+	 * Form handling
+	 */
 	wp_register_script( 'wpmtst-form', WPMTST_PUBLIC_URL . 'js/form.js', array( 'jquery' ), $plugin_version, true );
 	wp_register_script( 'wpmtst-form-success', WPMTST_PUBLIC_URL . 'js/form-success.js', array( 'jquery' ), $plugin_version, true );
 
@@ -49,7 +72,23 @@ function wpmtst_scripts() {
 
 	}
 
+	/**
+	 * Fonts
+	 */
 	wp_register_style( 'wpmtst-font-awesome', WPMTST_COMMON_URL . 'fonts/font-awesome-4.6.3/css/font-awesome.min.css', array(), '4.6.3' );
+
+	/**
+	 * Slider
+	 */
+	wp_register_script( 'jquery-actual', WPMTST_PUBLIC_URL . 'js/lib/actual/jquery.actual.js', array( 'jquery' ), false, true );
+	wp_register_script( 'wpmslider', WPMTST_PUBLIC_URL . 'js/lib/wpmslider/jquery.wpmslider.js', array( 'jquery-actual' ), $plugin_version, true );
+	wp_register_script( 'strongslider', WPMTST_PUBLIC_URL . 'js/jquery.strongslider.js', array( 'wpmslider' ), $plugin_version, true );
+	if ( defined( 'MEGAMENU_VERSION' ) ) {
+		wp_register_script( 'wpmtst-slider', WPMTST_PUBLIC_URL . 'js/slider-megamenu.js', array( 'strongslider' ), $plugin_version, true );
+	} else {
+		wp_register_script( 'wpmtst-slider', WPMTST_PUBLIC_URL . 'js/slider.js', array( 'strongslider' ), $plugin_version, true );
+	}
+
 }
 add_action( 'wp_enqueue_scripts', 'wpmtst_scripts' );
 
@@ -88,8 +127,6 @@ add_action( 'wp_enqueue_scripts', 'wpmtst_scripts_normal' );
  */
 function wpmtst_scripts_after_theme() {
 
-	wpmtst_register_cycle();
-
 	$styles = WPMST()->get_styles();
 
 	if ( $styles ) {
@@ -107,31 +144,3 @@ function wpmtst_scripts_after_theme() {
 	}
 }
 add_action( 'wp_enqueue_scripts', 'wpmtst_scripts_after_theme', 200 );
-
-
-/**
- * Register our slider if necessary.
- *
- * @since 2.3 As separate function.
- */
-function wpmtst_register_cycle() {
-	$plugin_version = get_option( 'wpmtst_plugin_version' );
-	$filenames = array(
-		'jquery.cycle.all.min.js',
-		'jquery.cycle.all.js',
-		'jquery.cycle2.min.js',
-		'jquery.cycle2.js'
-	);
-
-	$cycle_handle = wpmtst_is_registered( $filenames );
-
-	if ( ! $cycle_handle ) {
-		// Using unique handle and loading Cycle2 for better dimension handling.
-		$cycle_handle = 'jquery-cycle-in-wpmtst';
-		wp_register_script( $cycle_handle, WPMTST_PUBLIC_URL . 'js/lib/cycle/jquery.cycle2.min.js', array( 'jquery' ), '2.1.6', true );
-	}
-
-	// Our slider handler, dependent on whichever jQuery Cycle plugin is being used.
-	wp_register_script( 'jquery-actual', WPMTST_PUBLIC_URL . 'js/lib/actual/jquery.actual.min.js', array( 'jquery' ), false, true );
-	wp_register_script( 'wpmtst-slider', WPMTST_PUBLIC_URL . 'js/cycle.js', array( $cycle_handle, 'jquery-actual' ), $plugin_version, true );
-}

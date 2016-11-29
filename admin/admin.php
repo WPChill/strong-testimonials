@@ -16,7 +16,7 @@ function wpmtst_admin_init() {
 	wpmtst_version_check();
 
 	// Check for new options in plugin activation/update
-	wpmtst_default_settings();
+	wpmtst_upgrade();
 
 	// Remove ad banner from Captcha by BestWebSoft plugin
 	remove_action( 'admin_notices', 'cptch_plugin_banner' );
@@ -48,7 +48,7 @@ function wpmtst_admin_register() {
 	wp_register_style( 'wpmtst-font-awesome', WPMTST_COMMON_URL . 'fonts/font-awesome-4.6.3/css/font-awesome.min.css', array(), '4.6.3' );
 
 	// for Page Builder?
-	wp_register_script( 'wpmtst-validation-plugin', WPMTST_PUBLIC_URL . 'js/validate/jquery.validate.min.js', array( 'jquery' ), $plugin_version );
+	wp_register_script( 'wpmtst-validation-plugin', WPMTST_PUBLIC_URL . 'js/lib/validate/jquery.validate.min.js', array( 'jquery' ), $plugin_version );
 
 	// Fields
 	wp_register_style( 'wpmtst-admin-fields-style', WPMTST_ADMIN_URL . 'css/fields.css', array(), $plugin_version );
@@ -293,7 +293,7 @@ add_action( 'admin_enqueue_scripts', 'wpmtst_admin_dequeue_scripts', 500 );
  */
 function wpmtst_admin_scripts_wpml() {
 	$plugin_version = get_option( 'wpmtst_plugin_version' );
-	wp_enqueue_style( 'wpmtst-admin-style-wpml', WPMTST_URL . 'css/admin/wpml.css', array(), $plugin_version );
+	wp_enqueue_style( 'wpmtst-admin-style-wpml', WPMTST_ADMIN_URL . 'css/wpml.css', array(), $plugin_version );
 }
 add_action( 'admin_head-wpml-string-translation/menu/string-translation.php', 'wpmtst_admin_scripts_wpml' );
 add_action( 'admin_head-edit-tags.php', 'wpmtst_admin_scripts_wpml' );
@@ -309,7 +309,7 @@ function wpmtst_admin_polylang() {
 		return;
 
 	$plugin_version = get_option( 'wpmtst_plugin_version' );
-	wp_enqueue_style( 'wpmtst-admin-style-polylang', WPMTST_URL . 'css/admin/polylang.css', array(), $plugin_version );
+	wp_enqueue_style( 'wpmtst-admin-style-polylang', WPMTST_ADMIN_URL . 'css/polylang.css', array(), $plugin_version );
 
 	include_once WPMTST_INC . 'defaults.php';
 	$fields = wpmtst_get_all_fields();

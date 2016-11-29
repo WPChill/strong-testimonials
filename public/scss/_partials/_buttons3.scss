@@ -1,0 +1,44 @@
+.strong-view {
+	&.controls-style-buttons3 {
+		.bx-wrapper {
+			.bx-start,
+			.bx-stop,
+			.bx-next,
+			.bx-prev {
+				//noinspection CssNoGenericFontName
+				font-family: fontawesome;
+				display: inline-block;
+				color: #999;
+				cursor: pointer;
+				font-size: 28px;
+				line-height: 28px;
+				width: 28px;
+				height: 28px;
+				text-align: center;
+				transition: all 0.2s ease;
+			}
+			.bx-start,
+			.bx-stop {
+				margin: 0 4px;
+			}
+			.bx-start:before {
+				content: "\f144";
+			}
+			.bx-stop:before {
+				content: "\f28b";
+			}
+			.bx-prev:before {
+				content: "\f137";
+			}
+			.bx-next:before {
+				content: "\f138";
+			}
+			.bx-start:hover,
+			.bx-stop:hover,
+			.bx-next:hover,
+			.bx-prev:hover {
+				color: #333;
+			}
+		}
+	}
+}

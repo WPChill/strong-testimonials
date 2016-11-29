@@ -249,8 +249,9 @@ function wpmtst_read_more_page() {
 				$link_text = $view_options['more_page_text'];
 			}
 			$link_text = apply_filters( 'wpmtst_l10n',
-				$atts['more_page_text'],
+				$link_text,
 				'strong-testimonials-read-more',
+                /* translators: String name on Translation screen */
 				sprintf( __( 'View %s : Read more (page or post)', 'strong-testimonials' ), $atts['view'] )
 			);
 
@@ -659,6 +660,17 @@ function wpmtst_client_section( $client_section ) {
 
 function wpmtst_container_class() {
 	echo apply_filters( 'wpmtst_container_class', WPMST()->atts( 'container_class' ) );
+}
+
+function wpmtst_container_data() {
+	$data_array = apply_filters( 'wpmtst_container_data', WPMST()->atts( 'container_data' ) );
+	if ( $data_array ) {
+		$data = '';
+		foreach ( $data_array as $attr => $value ) {
+			$data .= " data-$attr=$value";
+		}
+		echo $data;
+	}
 }
 
 function wpmtst_content_class() {

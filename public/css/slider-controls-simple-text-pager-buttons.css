@@ -1,0 +1,115 @@
+/* =bxSlider structure
+---------------------------------------------------------*/
+/* reset and layout from jquery.bxslider.css */
+.strong-view .bx-wrapper {
+  position: relative;
+  margin: 0 auto;
+  padding: 0;
+  *zoom: 1;
+  -ms-touch-action: pan-y;
+  touch-action: pan-y; }
+.strong-view .bxslider {
+  margin: 0;
+  padding: 0; }
+.strong-view .bx-viewport {
+  /* fix other elements on the page moving (on Chrome) */
+  -webkit-transform: translatez(0); }
+
+/* =pager
+---------------------------------------------------------*/
+.strong-view .bx-wrapper .bx-pager {
+  display: inline-block; }
+.strong-view .bx-wrapper .bx-pager-item {
+  display: inline-block; }
+.strong-view .bx-wrapper .bx-pager-link {
+  text-decoration: none; }
+
+/* =controls
+---------------------------------------------------------*/
+.strong-view .bx-wrapper .bx-controls-auto,
+.strong-view .bx-wrapper .bx-controls-auto-item,
+.strong-view .bx-wrapper .bx-controls-full,
+.strong-view .bx-wrapper .bx-controls-full-item,
+.strong-view .bx-wrapper .bx-controls-direction {
+  display: inline-block;
+  vertical-align: middle; }
+.strong-view .bx-wrapper .bx-controls a {
+  box-shadow: none;
+  /* Twenty Sixteen */ }
+  .strong-view .bx-wrapper .bx-controls a:hover, .strong-view .bx-wrapper .bx-controls a:active, .strong-view .bx-wrapper .bx-controls a:focus {
+    outline: 0; }
+
+.strong-view.controls-style-buttons .bx-wrapper .bx-start,
+.strong-view.controls-style-buttons .bx-wrapper .bx-stop,
+.strong-view.controls-style-buttons .bx-wrapper .bx-next,
+.strong-view.controls-style-buttons .bx-wrapper .bx-prev {
+  font-family: fontawesome;
+  display: inline-block;
+  color: #999;
+  cursor: pointer;
+  font-size: 24px;
+  line-height: 24px;
+  width: 24px;
+  height: 24px;
+  text-align: center;
+  transition: all 0.2s ease; }
+.strong-view.controls-style-buttons .bx-wrapper .bx-start,
+.strong-view.controls-style-buttons .bx-wrapper .bx-stop {
+  margin: 0 4px; }
+.strong-view.controls-style-buttons .bx-wrapper .bx-start:before {
+  content: "\f04b"; }
+.strong-view.controls-style-buttons .bx-wrapper .bx-stop:before {
+  content: "\f04c"; }
+.strong-view.controls-style-buttons .bx-wrapper .bx-prev:before {
+  content: "\f053"; }
+.strong-view.controls-style-buttons .bx-wrapper .bx-next:before {
+  content: "\f054"; }
+.strong-view.controls-style-buttons .bx-wrapper .bx-start:hover,
+.strong-view.controls-style-buttons .bx-wrapper .bx-stop:hover,
+.strong-view.controls-style-buttons .bx-wrapper .bx-next:hover,
+.strong-view.controls-style-buttons .bx-wrapper .bx-prev:hover {
+  color: #111; }
+
+.strong-view.controls-style-text .bx-wrapper .bx-start,
+.strong-view.controls-style-text .bx-wrapper .bx-stop,
+.strong-view.controls-style-text .bx-wrapper .bx-next,
+.strong-view.controls-style-text .bx-wrapper .bx-prev {
+  display: inline-block;
+  cursor: pointer;
+  margin: 0 0.5em;
+  text-align: center;
+  transition: all 0.2s ease; }
+
+.strong-view.pager-style-buttons .bx-wrapper .bx-pager {
+  line-height: 24px;
+  margin: 0 4px;
+  text-align: center; }
+.strong-view.pager-style-buttons .bx-wrapper .bx-pager-link:before {
+  font-family: fontawesome;
+  content: "\f10c";
+  display: inline-block;
+  color: #999;
+  cursor: pointer;
+  font-size: 12px;
+  width: 18px;
+  text-align: center; }
+.strong-view.pager-style-buttons .bx-wrapper .bx-pager-link:hover:before {
+  content: "\f111";
+  color: #111; }
+.strong-view.pager-style-buttons .bx-wrapper .bx-pager-link.active:before {
+  content: "\f111"; }
+
+.strong-view.nav-position-inside:not(.controls-type-sides) .bx-controls {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  line-height: 1;
+  padding-bottom: 15px;
+  text-align: center;
+  z-index: 99; }
+
+.strong-view.nav-position-outside .bx-controls {
+  line-height: 1;
+  padding: 10px 0 20px;
+  text-align: center;
+  z-index: 99; }

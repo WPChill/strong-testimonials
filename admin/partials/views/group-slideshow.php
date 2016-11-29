@@ -1,17 +1,17 @@
-<?php /* translators: On the Views admin screen. */ ?>
+<?php /* translators: In the view editor. */ ?>
 <div class="then then_not_display then_not_form then_slideshow" style="display: none;">
 	<h3>
-		<?php _e( 'Appearance', 'strong-testimonials' ); ?>
+		<?php _e( 'Slideshow', 'strong-testimonials' ); ?>
 	</h3>
 	<table class="form-table multiple group-select">
 		<tr>
-			<?php include( 'option-timing.php' ); ?>
+			<?php include( 'option-slideshow-transition.php' ); ?>
 		</tr>
 		<tr>
-			<?php include( 'option-slideshow-nav.php' ); ?>
+			<?php include( 'option-slideshow-behavior.php' ); ?>
 		</tr>
-		<tr class="then then_slideshow_nav" style="display: none;">
-			<?php include( 'option-stretch.php' ); ?>
+		<tr>
+			<?php include( 'option-slideshow-navigation.php' ); ?>
 		</tr>
 	</table>
 </div>

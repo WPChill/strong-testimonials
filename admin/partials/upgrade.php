@@ -5,14 +5,13 @@
  * @package Strong_Testimonials
  */
 
-function wpmtst_default_settings() {
+function wpmtst_upgrade() {
 
 	$old_plugin_version = get_option( 'wpmtst_plugin_version' );
 	$plugin_data        = WPMST()->get_plugin_data();
 	$plugin_version     = $plugin_data['Version'];
 
-	if ( $old_plugin_version == $plugin_version )
-		return;
+	if ( $old_plugin_version == $plugin_version ) return;
 
 	wpmtst_update_db_check();
 
@@ -74,6 +73,13 @@ function wpmtst_default_settings() {
 
 		if ( isset( $options['client_section'] ) )
 			unset( $options['client_section'] );
+
+		/**
+		 * Remove slideshow z-index (Cycle)
+		 * @since 2.15.0
+		 */
+		if ( isset( $options['slideshow_zindex'] ) )
+			unset( $options['slideshow_zindex'] );
 
 		// Merge in new options
 		$options = array_merge( $default_options, $options );
@@ -256,63 +262,40 @@ function wpmtst_default_settings() {
 	wpmtst_form_messages_wpml( $form_options['messages'] );
 	wpmtst_form_options_wpml( $form_options );
 
+
 	/**
-	 * -6- GET VIEW OPTIONS
+	 * -6- VIEW OPTIONS
+	 *
+	 * Overwrite default view options.
+	 * @since 2.15.0
 	 */
-	$view_options = get_option( 'wpmtst_view_options' );
-	if ( ! $view_options ) {
-		// -6A- NEW ACTIVATION
-		update_option( 'wpmtst_view_options', $default_view_options );
-	}
-	else {
-		// -6B- UPDATE
-		// Merge in new options
-		$view_options = array_merge( $default_view_options, $view_options );
-		update_option( 'wpmtst_view_options', $view_options );
-	}
+	update_option( 'wpmtst_view_options', $default_view_options );
+
 
 	/**
 	 * -7- VIEWS
 	 */
-	$current_default_view = get_option( 'wpmtst_view_default' );
 
-	if ( ! $current_default_view ) {
+	/**
+	 * -7A-
+	 * Overwrite default view settings.
+	 * @since 2.15.0
+	 */
+	update_option( 'wpmtst_view_default', $default_view );
 
-		// -7A- NEW ACTIVATION
-		update_option( 'wpmtst_view_default', $default_view );
+	/**
+	 * -7B-
+	 * Update each view.
+	 */
+	$views = wpmtst_get_views();
 
-	}
-	else {
-
-		// -7B- UPDATE
-
-		// Remove any options that have new default settings or are obsolete
-		unset(
-			$current_default_view['template'],
-			$current_default_view['background'],
-			$current_default_view['length'],
-			$current_default_view['more_text']
-		);
-
-		// Convert 'form-ajax' (hyphen) to 'form_ajax' (underscore)
-		if ( isset( $current_default_view['form-ajax'] ) ) {
-			$current_default_view['form_ajax'] = $current_default_view['form-ajax'];
-			unset( $current_default_view['form-ajax'] );
-		}
-
-		$new_default_view = array_merge( $current_default_view, $default_view );
-		ksort($new_default_view);
-		update_option( 'wpmtst_view_default', $new_default_view );
-
-		/**
-		 * Update each View
-		 */
-		$views = wpmtst_get_views();
+	if ( $views ) {
 
 		// Only used in upgrading to version 2.10.0
 		$average_word_length = false;
 
-		foreach ( $views as $view ) {
+		foreach ( $views as $key => $view ) {
+
 			$view_data = unserialize( $view['value'] );
 			if ( ! is_array( $view_data ) )
 				continue;
@@ -416,17 +399,6 @@ function wpmtst_default_settings() {
 			}
 
 			/**
-			 * Don't force navigation or stretch on existing slideshows.
-			 * @since 2.11.0
-			 */
-			if ( ! isset( $view_data['slideshow_nav'] ) ) {
-				$view_data['slideshow_nav'] = '';
-			}
-			if ( ! isset( $view_data['stretch'] ) ) {
-				$view_data['stretch'] = 0;
-			}
-
-			/**
 			 * Disable title on Modern template because new version of template has the title.
 			 * Only if updating from version earlier than 2.12.4.
 			 */
@@ -436,11 +408,82 @@ function wpmtst_default_settings() {
 				}
 			}
 
-			// Merge in new default values
-			$view['data'] = array_merge( $new_default_view, $view_data );
+			/**
+			 * Convert slideshow settings.
+			 * @since 2.15.0
+			 */
+			if ( 'slideshow' == $view_data['mode'] ) {
+				$view_data['slideshow'] = 1;
+			}
+			if ( ! isset( $view_data['slideshow_settings'] ) ) {
+
+				if ( 'scrollHorz' == $view_data['effect'] ) {
+					$view_data['effect'] = 'horizontal';
+				}
+
+				$view_data['slideshow_settings'] = array(
+					'effect'             => $view_data['effect'],
+					'speed'              => $view_data['effect_for'],
+					'pause'              => $view_data['show_for'],
+					'auto_hover'         => ! $view_data['no_pause'],
+					'adapt_height'       => false,
+					'adapt_height_speed' => .5,
+					'stretch'            => isset( $view_data['stretch'] ) ? 1 : 0,
+				);
+
+				unset(
+					$view_data['effect'],
+					$view_data['effect_for'],
+					$view_data['no_pause'],
+					$view_data['show_for'],
+					$view_data['stretch']
+				);
+
+				if ( isset( $view_data['slideshow_nav'] ) ) {
+					switch ( $view_data['slideshow_nav'] ) {
+						case 'simple':
+							$view_data['slideshow_settings']['controls_type']  = 'none';
+							$view_data['slideshow_settings']['controls_style'] = 'buttons';
+							$view_data['slideshow_settings']['pager_type']     = 'full';
+							$view_data['slideshow_settings']['pager_style']    = 'buttons';
+							$view_data['slideshow_settings']['nav_position']   = 'inside';
+							break;
+						case 'buttons1':
+							$view_data['slideshow_settings']['controls_type']  = 'sides';
+							$view_data['slideshow_settings']['controls_style'] = 'buttons';
+							$view_data['slideshow_settings']['pager_type']     = 'none';
+							$view_data['slideshow_settings']['pager_style']    = 'buttons';
+							$view_data['slideshow_settings']['nav_position']   = 'inside';
+							break;
+						case 'buttons2':
+							$view_data['slideshow_settings']['controls_type']  = 'simple';
+							$view_data['slideshow_settings']['controls_style'] = 'buttons2';
+							$view_data['slideshow_settings']['pager_type']     = 'none';
+							$view_data['slideshow_settings']['pager_style']    = 'buttons';
+							$view_data['slideshow_settings']['nav_position']   = 'inside';
+							break;
+						case 'indexed':
+							$view_data['slideshow_settings']['controls_type']  = 'none';
+							$view_data['slideshow_settings']['controls_style'] = 'buttons';
+							$view_data['slideshow_settings']['pager_type']     = 'full';
+							$view_data['slideshow_settings']['pager_style']    = 'text';
+							$view_data['slideshow_settings']['nav_position']   = 'inside';
+							break;
+						default:
+							// none
+					}
+					unset( $view_data['slideshow_nav'] );
+				}
+
+			}
+
+			// Merge in new default values.
+			$view['data'] = array_merge( $default_view, $view_data );
 
 			// Merge nested arrays individually. Don't use array_merge_recursive.
-			$view['data']['background'] = array_merge( $new_default_view['background'], $view_data['background'] );
+			$view['data']['background']         = array_merge( $default_view['background'], $view_data['background'] );
+			$view['data']['slideshow_settings'] = array_merge( $default_view['slideshow_settings'], $view_data['slideshow_settings'] );
+			ksort( $view['data']['slideshow_settings'] );
 
 			wpmtst_save_view( $view );
 

@@ -4,7 +4,7 @@
  * Plugin URI: https://www.wpmission.com/plugins/strong-testimonials/
  * Description: A full-featured plugin that works right out of the box for beginners and offers advanced features for pros.
  * Author: Chris Dillon
- * Version: 2.14.3
+ * Version: 2.15
  * Author URI: https://www.wpmission.com/
  * Text Domain: strong-testimonials
  * Domain Path: /languages
@@ -171,12 +171,6 @@ final class Strong_Testimonials {
 			define( 'WPMTST_COMMON_URL', plugin_dir_url( __FILE__ ) . 'common/' );
 
 
-		if ( ! defined( 'WPMTST_VIEW_DIR' ) )
-			define( 'WPMTST_VIEW_DIR', plugin_dir_path( __FILE__ ) . 'includes/view/' );
-		if ( ! defined( 'WPMTST_VIEW_URL' ) )
-			define( 'WPMTST_VIEW_URL', plugin_dir_url( __FILE__ ) . 'includes/view/' );
-
-
 		if ( ! defined( 'WPMTST_DEF_TPL' ) )
 			define( 'WPMTST_DEF_TPL', plugin_dir_path( __FILE__ ) . 'templates/default/' );
 		if ( ! defined( 'WPMTST_DEF_TPL_URI' ) )
@@ -209,9 +203,7 @@ final class Strong_Testimonials {
 	 */
 	private function includes() {
 
-		require_once WPMTST_VIEW_DIR . 'class-strong-view.php';
-		require_once WPMTST_VIEW_DIR . 'class-strong-view-controls.php';
-
+		require_once WPMTST_INC . 'class-strong-view.php';
 		require_once WPMTST_INC . 'class-strong-templates.php';
 		require_once WPMTST_INC . 'class-strong-mail.php';
 		require_once WPMTST_INC . 'l10n.php';
@@ -676,10 +668,9 @@ final class Strong_Testimonials {
 			'column_count'       => 2,
 			'compat'             => 0,
 			'container_class'    => '',
+			'container_data'     => '',
 			'count'              => 1,
 			'display'            => '',
-			'effect'             => 'fade',
-			'effect_for'         => '1.5',
 			'excerpt'            => '',
 			'excerpt_length'     => 55,
 			'form'               => '',
@@ -700,17 +691,29 @@ final class Strong_Testimonials {
 			'more_page_text'     => _x( 'Read more testimonials', 'link', 'strong-testimonials' ),
 			'nav'                => 'after',
 			'newest'             => '',
-			'no_pause'           => 0, // must be zero not boolean or string!
 			'note'               => '',
 			'oldest'             => '',
 			'pagination'         => '',
 			'pagination_type'    => 'simple',
 			'per_page'           => '',
 			'random'             => '',
-			'show_for'           => '8',
 			'slideshow'          => '',
-			'slideshow_nav'      => 'simple',
-			'stretch'            => 1,
+			'slideshow_settings' => array(
+				'effect'             => 'fade',
+				'speed'              => 1,
+				'pause'              => 8,
+				'auto_start'         => true,
+				'auto_hover'         => true,
+				'adapt_height'       => true,
+				'adapt_height_speed' => '.5',
+				'stretch'            => 0,
+				'stop_auto_on_click' => true,
+				'controls_type'      => 'none',
+				'controls_style'     => 'buttons',
+				'pager_type'         => 'none',
+				'pager_style'        => 'buttons',
+				'nav_position'       => 'inside',
+			),
 			'template'           => '',
 			'thumbnail'          => '',
 			'thumbnail_size'     => 'thumbnail',
@@ -720,7 +723,6 @@ final class Strong_Testimonials {
 			'use_default_length' => 1,
 			'use_default_more'   => 0,
 			'view'               => '',
-			'word_count'         => 0,
 		);
 		self::$view_defaults = $defaults;
 	}
@@ -1487,17 +1489,15 @@ final class Strong_Testimonials {
 	 */
 	private static function after_slideshow( $atts = array() ) {
 
-		if ( ! wp_script_is( 'wpmtst-slider', 'registered' ) ) {
-			wpmtst_register_cycle();
-		}
-
-		if ( ! wp_script_is( 'wpmtst-slider', 'enqueued' ) ) {
+		// Script
+		if ( ! wp_script_is( 'wpmtst-slider' ) ) {
 			wp_enqueue_script( 'wpmtst-slider' );
 		}
 
-		// Populate variable for Cycle script.
+		// Populate variable
+		$sig  = self::slideshow_signature( $atts );
 		$args = self::slideshow_args( $atts );
-		wp_localize_script( 'wpmtst-slider', self::slideshow_signature( $atts ), $args );
+		wp_localize_script( 'wpmtst-slider', $sig, $args );
 	}
 
 	/**
@@ -1511,7 +1511,7 @@ final class Strong_Testimonials {
 	 * @return string
 	 */
 	private static function slideshow_signature( $atts ) {
-		return 'strong_cycle_view_id_' . $atts['view'];
+		return 'strong_slider_id_' . $atts['view'];
 	}
 
 	/**
@@ -1564,26 +1564,65 @@ final class Strong_Testimonials {
 	 * @return array
 	 */
 	private static function slideshow_args( $atts ) {
-		$options = get_option( 'wpmtst_options' );
-		$sig = self::slideshow_signature( $atts );
+
+		$view_options = get_option( 'wpmtst_view_options' );
 
 		$args = array(
-			'fx'      => $atts['effect'],
-			'speed'   => 'none' == $atts['effect'] ? 1 : $atts['effect_for'] * 1000,
-			'timeout' => $atts['show_for'] * 1000,
-			'pause'   => $atts['no_pause'] ? 0 : 1,
-			'maxZ'    => (int) $options['slideshow_zindex'],
-			'pager'   => ".$sig .cycle-pager",
-			'pagerTemplate' => '',
-			'next'    => ".$sig .cycle-next",
-			'prev'    => ".$sig .cycle-prev",
+			'mode'                => $atts['slideshow_settings']['effect'],
+			'speed'               => $atts['slideshow_settings']['speed'] * 1000,
+			'pause'               => $atts['slideshow_settings']['pause'] * 1000,
+			'autoHover'           => $atts['slideshow_settings']['auto_hover'] ? 1 : 0,
+			'autoStart'           => $atts['slideshow_settings']['auto_start'] ? 1 : 0,
+			'stopAutoOnClick'     => $atts['slideshow_settings']['stop_auto_on_click'] ? 1 : 0,
+			'adaptiveHeight'      => $atts['slideshow_settings']['adapt_height'] ? 1 : 0,
+			'adaptiveHeightSpeed' => $atts['slideshow_settings']['adapt_height_speed'] * 1000,
+			'controls'            => 0,
+			'autoControls'        => 0,
+			'pager'               => 0
 		);
+		if ( ! $atts['slideshow_settings']['adapt_height'] ) {
+			$args['stretch'] = $atts['slideshow_settings']['stretch'] ? 1 : 0;
+		}
 
-		if ( $atts['slideshow_nav'] ) {
-			if ( 'indexed' == $atts['slideshow_nav'] ) {
-				$args['pagerTemplate'] = '<span class="slide-num">{{slideNum}}</span>';
-			} else {
-				$args['pagerTemplate'] = '<span class="slide-num" data-slideNum="{{slideNum}}"></span>';
+		// Controls
+		$options = $view_options['slideshow_nav_method']['controls'];
+		$control_setting = $atts['slideshow_settings']['controls_type'];
+		if ( ! $control_setting ) {
+			$control_setting = 'none';
+		}
+		if ( isset( $options[ $control_setting ] ) && isset( $options[ $control_setting ]['args'] ) ) {
+			$args = array_merge( $args, $options[ $control_setting ]['args'] );
+		}
+
+		if ( 'none' != $control_setting ) {
+			$options = $view_options['slideshow_nav_style']['controls'];
+			$setting = $atts['slideshow_settings']['controls_style'];
+			if ( ! $setting ) {
+				$setting = 'none';
+			}
+			if ( isset( $options[ $setting ] ) && isset( $options[ $setting ]['args'] ) ) {
+				$args = array_merge( $args, $options[ $setting ]['args'] );
+			}
+		}
+
+		// Pager
+		$options = $view_options['slideshow_nav_method']['pager'];
+		$pager_setting = $atts['slideshow_settings']['pager_type'];
+		if ( ! $pager_setting ) {
+			$pager_setting = 'none';
+		}
+		if ( isset( $options[ $pager_setting ] ) && isset( $options[ $pager_setting ]['args'] ) ) {
+			$args = array_merge( $args, $options[ $pager_setting ]['args'] );
+		}
+
+		if ( 'none' != $pager_setting ) {
+			$options = $view_options['slideshow_nav_style']['pager'];
+			$setting = $atts['slideshow_settings']['pager_style'];
+			if ( ! $setting ) {
+				$setting = 'none';
+			}
+			if ( isset( $options[ $setting ] ) && isset( $options[ $setting ]['args'] ) ) {
+				$args = array_merge( $args, $options[ $setting ]['args'] );
 			}
 		}
 
@@ -1701,13 +1740,13 @@ final class Strong_Testimonials {
 	 * @return string
 	 */
 	private static function preprocess( $view, $handle = false ) {
-		$options = get_option( 'wpmtst_options' );
-
 		// subset of all shortcode atts
 		$atts = shortcode_atts(
 			self::get_view_defaults(),
 			$view['atts']
 		);
+
+		$plugin_version = get_option( 'wpmtst_plugin_version' );
 
 		$new_view = new Strong_View( $atts );
 		$new_view->process();
@@ -1717,8 +1756,42 @@ final class Strong_Testimonials {
 		 */
 		if ( $atts['slideshow'] ) {
 
-			// TODO Is this still beneficial?
-			self::add_script( 'wpmtst-slider', 'later' );
+			$settings          = $atts['slideshow_settings'];
+			$not_full_controls = ( 'none' != $settings['controls_type'] || 'full' != $settings['controls_type'] );
+
+			/** Controls with or without Pagination */
+			if ( isset( $settings['controls_type'] ) && 'none' != $settings['controls_type'] ) {
+
+				$filename = 'slider-controls-' . $settings['controls_type'] . '-' . $settings['controls_style'];
+
+				if ( 'full' != $settings['controls_type'] ) {
+					if ( isset( $settings['pager_style'] ) && 'none' != $settings['pager_style'] ) {
+						$filename .= '-pager-' . $settings['pager_style'];
+					}
+				}
+
+				if ( file_exists( WPMTST_PUBLIC . "css/$filename.css" ) ) {
+					wp_register_style( "wpmtst-$filename", WPMTST_PUBLIC_URL . "css/$filename.css", array(), $plugin_version );
+					self::add_style( "wpmtst-$filename", 'later' );
+				}
+
+			}
+			elseif ( $not_full_controls ) {
+
+				/** Pagination only */
+				if ( isset( $settings['pager_type'] ) && 'none' != $settings['pager_type'] ) {
+
+					//TODO Adapt for multiple pager types (only one right now).
+					$filename = 'slider-pager-' . $settings['pager_style'] ;
+
+					if ( file_exists( WPMTST_PUBLIC . "css/$filename.css" ) ) {
+						wp_register_style( "wpmtst-$filename", WPMTST_PUBLIC_URL . "css/$filename.css", array(), $plugin_version );
+						self::add_style( "wpmtst-$filename", 'later' );
+					}
+
+				}
+
+			}
 
 		}
 		else {
@@ -1971,17 +2044,10 @@ final class Strong_Testimonials {
 			unset( $view_data['per_page'] );
 		}
 
-		//if ( 'entire' == $view_data['content'] ) {
-		//	unset( $view_data['length'] );
-		//}
-
 		if ( 'slideshow' == $view_data['mode'] ) {
 			unset( $view_data['id'] );
-			// $view_data['no_pause'] = ! $view_data['pause'];
 		} else {
-			unset( $view_data['show_for'] );
-			unset( $view_data['effect_for'] );
-			unset( $view_data['no_pause'] );
+			unset( $view_data['slideshow_settings'] );
 		}
 
 		// ------------------------------

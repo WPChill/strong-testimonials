@@ -40,7 +40,6 @@
 					echo '<div class="template-description template-' . $view['template'] . '">';
 					echo '<p>';
 					echo '<span class="dashicons dashicons-warning error"></span> not found';
-					//TODO Add template key and explain this could be due to switching themes or deactivating template plugin. It's OK to leave this setting as is.
 					echo '</p>';
 					echo '</div>';
 				}

@@ -28,14 +28,15 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
 -----------------------------------------------*/
 .strong-view.default {
   display: block;
-  /* this handles short content */
+  /* setting a width handles short content */
   width: 100%;
 }
 .strong-view.default * {
   box-sizing: border-box;
 }
-.strong-view.default .strong-content {
-  position: relative;
+.strong-view.default .testimonial.t-slide {
+  margin-top: 0;
+  margin-bottom: 0;
 }
 .strong-view.default .testimonial-inner {
   display: block;
@@ -45,24 +46,6 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
 }
 .strong-view.default .testimonial-field-before {
   margin-right: 0.5em;
-}
-.strong-view.default .strong_cycle .testimonial {
-  /* remove margin in slideshow */
-  margin-top: 0;
-  margin-bottom: 0;
-}
-.strong-view.default .strong_cycle .testimonial:not(:first-child) {
-  /* prevents flash on slow page load */
-  display: none;
-}
-.strong-view.default.stretch .strong_cycle .testimonial {
-  /* to force same height for all slides */
-  height: 100%;
-}
-.strong-view.default.ui-slideshow-bottom .strong-cycle-controls {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
 }
 
 .strong-view .screen-reader-text {
@@ -180,13 +163,6 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
   padding: 20px;
   text-align: left;
 }
-.strong-view.default.ui-slideshow-bottom .testimonial-inner {
-  padding-bottom: 60px;
-}
-.strong-view.default.ui-slideshow-bookends .testimonial-inner {
-  padding-left: 48px;
-  padding-right: 48px;
-}
 .strong-view.default .testimonial-heading {
   background: url("img/quotes.png") no-repeat scroll left center transparent;
   margin-top: 0;
@@ -233,6 +209,35 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
   border: 1px solid #E6E6E6;
 }
 
+/* Slideshow
+-----------------------------------------------*/
+.strong-view.default.slider-container {
+  /* If vertical or fade slideshow, move border from individual testimonials to viewport. */
+}
+.strong-view.default.slider-container.slider-adaptive:not(.slider-mode-horizontal) .bx-viewport {
+  border: 1px solid #E6E6E6;
+}
+.strong-view.default.slider-container.slider-adaptive:not(.slider-mode-horizontal) .testimonial {
+  border: 0;
+}
+.strong-view.default.slider-container .strong-content {
+  margin: 0 auto;
+}
+.strong-view.default.slider-container .testimonial:not(:first-child) {
+  display: none;
+}
+.strong-view.default.nav-position-inside .testimonial-inner {
+  padding-bottom: 48px;
+}
+.strong-view.default.controls-type-sides .testimonial-inner {
+  padding-left: 50px;
+  padding-right: 50px;
+}
+.strong-view.default.slider-stretch .testimonial-inner {
+  /* to force same height for all slides */
+  height: 100%;
+}
+
 /* Responsive
 -----------------------------------------------*/
 @media only screen and (max-width: 320px) {
@@ -242,6 +247,7 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
     margin-right: auto;
   }
 }
+/* Remove quote background image */
 @media only screen and (max-width: 320px) and (orientation: portrait) {
   .strong-view.default .testimonial-heading {
     background: none;
