@@ -7,28 +7,22 @@
   padding: 0;
   *zoom: 1;
   -ms-touch-action: pan-y;
-  touch-action: pan-y;
-}
+  touch-action: pan-y; }
 .strong-view .bxslider {
   margin: 0;
-  padding: 0;
-}
+  padding: 0; }
 .strong-view .bx-viewport {
   /* fix other elements on the page moving (on Chrome) */
-  -webkit-transform: translatez(0);
-}
+  -webkit-transform: translatez(0); }
 
 /* =pager
 ---------------------------------------------------------*/
 .strong-view .bx-wrapper .bx-pager {
-  display: inline-block;
-}
+  display: inline-block; }
 .strong-view .bx-wrapper .bx-pager-item {
-  display: inline-block;
-}
+  display: inline-block; }
 .strong-view .bx-wrapper .bx-pager-link {
-  text-decoration: none;
-}
+  text-decoration: none; }
 
 /* =controls
 ---------------------------------------------------------*/
@@ -38,15 +32,12 @@
 .strong-view .bx-wrapper .bx-controls-full-item,
 .strong-view .bx-wrapper .bx-controls-direction {
   display: inline-block;
-  vertical-align: middle;
-}
+  vertical-align: middle; }
 .strong-view .bx-wrapper .bx-controls a {
   box-shadow: none;
-  /* Twenty Sixteen */
-}
-.strong-view .bx-wrapper .bx-controls a:hover, .strong-view .bx-wrapper .bx-controls a:active, .strong-view .bx-wrapper .bx-controls a:focus {
-  outline: 0;
-}
+  /* Twenty Sixteen */ }
+  .strong-view .bx-wrapper .bx-controls a:hover, .strong-view .bx-wrapper .bx-controls a:active, .strong-view .bx-wrapper .bx-controls a:focus {
+    outline: 0; }
 
 .strong-view.controls-style-buttons3 .bx-wrapper .bx-start,
 .strong-view.controls-style-buttons3 .bx-wrapper .bx-stop,
@@ -61,30 +52,23 @@
   width: 28px;
   height: 28px;
   text-align: center;
-  transition: all 0.2s ease;
-}
+  transition: all 0.2s ease; }
 .strong-view.controls-style-buttons3 .bx-wrapper .bx-start,
 .strong-view.controls-style-buttons3 .bx-wrapper .bx-stop {
-  margin: 0 4px;
-}
+  margin: 0 4px; }
 .strong-view.controls-style-buttons3 .bx-wrapper .bx-start:before {
-  content: "\f144";
-}
+  content: "\f144"; }
 .strong-view.controls-style-buttons3 .bx-wrapper .bx-stop:before {
-  content: "\f28b";
-}
+  content: "\f28b"; }
 .strong-view.controls-style-buttons3 .bx-wrapper .bx-prev:before {
-  content: "\f137";
-}
+  content: "\f137"; }
 .strong-view.controls-style-buttons3 .bx-wrapper .bx-next:before {
-  content: "\f138";
-}
+  content: "\f138"; }
 .strong-view.controls-style-buttons3 .bx-wrapper .bx-start:hover,
 .strong-view.controls-style-buttons3 .bx-wrapper .bx-stop:hover,
 .strong-view.controls-style-buttons3 .bx-wrapper .bx-next:hover,
 .strong-view.controls-style-buttons3 .bx-wrapper .bx-prev:hover {
-  color: #333;
-}
+  color: #333; }
 
 .strong-view.nav-position-inside:not(.controls-type-sides) .bx-controls {
   position: absolute;
@@ -93,27 +77,20 @@
   line-height: 1;
   padding-bottom: 15px;
   text-align: center;
-  z-index: 99;
-}
+  z-index: 99; }
 
 .strong-view.nav-position-outside .bx-controls {
   line-height: 1;
   padding: 10px 0 20px;
   text-align: center;
-  z-index: 99;
-}
+  z-index: 99; }
 
 .strong-view.controls-type-sides .bx-prev {
-  left: 8px;
-}
+  left: 8px; }
 .strong-view.controls-type-sides .bx-next {
-  right: 8px;
-}
+  right: 8px; }
 .strong-view.controls-type-sides .bx-prev,
 .strong-view.controls-type-sides .bx-next {
   position: absolute;
   width: auto;
-  top: calc( 50% - 14px );
-}
-
-/*# sourceMappingURL=slider-controls-sides-buttons3.css.map */
+  top: calc( 50% - 14px ); }
