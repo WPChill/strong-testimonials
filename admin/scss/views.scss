@@ -36,6 +36,11 @@
 	padding-top: 10px;
 }
 
+optgroup,
+optgroup option {
+	font-family: inherit; /* Firefox */
+}
+
 /*-----------------------------------------------*
  * category checklist
  *-----------------------------------------------*/
@@ -100,6 +105,7 @@ input[type=checkbox] {
 
 /* keep the inherited margins, adjust width if more space is necessary */
 input[type=checkbox] + label:before {
+	//noinspection CssNoGenericFontName
 	font-family: FontAwesome;
 	display: inline-block;
 	color: #00A4F3;
@@ -197,6 +203,7 @@ td.column-name strong {
 
 .form-table td p.description {
 	margin-top: 0;
+	font-style: italic;
 }
 
 p.description.tall {
@@ -533,15 +540,14 @@ ul.checkbox-horizontal li {
  * List radio buttons
  *-----------------------------------------------*/
 /*
-┼
- ┌──[radio-wrap]─────────────┬────────────────────────┐
- │                           │                        │
- │   ┌──[radio-buttons]──┐   │  [radio-description]   │
- │   │                   │   │                        │
- │   │   [radio-list]    │   │                        │
- │   │                   │   │                        │
- │   └───────────────────┘   │                        │
- └───────────────────────────┴────────────────────────┘
+ +--[radio-wrap]-------------+------------------------+
+ |                           |                        |
+ |   +--[radio-buttons]--+   |  [radio-description]   |
+ |   |                   |   |                        |
+ |   |   [radio-list]    |   |                        |
+ |   |                   |   |                        |
+ |   +-------------------+   |                        |
+ +---------------------------+------------------------+
 */
 
 .radio-wrap {
@@ -560,6 +566,7 @@ ul.checkbox-horizontal li {
 }
 
 .radio-buttons input[type=radio] + label:before {
+	//noinspection CssNoGenericFontName
 	font-family: FontAwesome;
 	display: inline-block;
 	color: #999;

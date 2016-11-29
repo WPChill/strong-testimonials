@@ -1,4 +1,3 @@
-@charset "UTF-8";
 /**
  * Strong Testimonials View editor
  */
@@ -27,6 +26,11 @@
 
 .is-below {
   padding-top: 10px; }
+
+optgroup,
+optgroup option {
+  font-family: inherit;
+  /* Firefox */ }
 
 /*-----------------------------------------------*
  * category checklist
@@ -162,7 +166,8 @@ td.column-name strong {
   margin-top: 1.5em; }
 
 .form-table td p.description {
-  margin-top: 0; }
+  margin-top: 0;
+  font-style: italic; }
 
 p.description.tall {
   line-height: 32px;
@@ -434,15 +439,14 @@ ul.checkbox-horizontal li {
  * List radio buttons
  *-----------------------------------------------*/
 /*
-Γö╝
- ΓöîΓöÇΓöÇ[radio-wrap]ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö¼ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÉ
- Γöé                           Γöé                        Γöé
- Γöé   ΓöîΓöÇΓöÇ[radio-buttons]ΓöÇΓöÇΓöÉ   Γöé  [radio-description]   Γöé
- Γöé   Γöé                   Γöé   Γöé                        Γöé
- Γöé   Γöé   [radio-list]    Γöé   Γöé                        Γöé
- Γöé   Γöé                   Γöé   Γöé                        Γöé
- Γöé   ΓööΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÿ   Γöé                        Γöé
- ΓööΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓö┤ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÿ
+ +--[radio-wrap]-------------+------------------------+
+ |                           |                        |
+ |   +--[radio-buttons]--+   |  [radio-description]   |
+ |   |                   |   |                        |
+ |   |   [radio-list]    |   |                        |
+ |   |                   |   |                        |
+ |   +-------------------+   |                        |
+ +---------------------------+------------------------+
 */
 .radio-wrap {
   display: table; }
@@ -898,5 +902,3 @@ table.wpmtst-help-tab {
       white-space: nowrap; }
     table.wpmtst-help-tab td:not(:last-child) {
       border-right: 1px dotted #E1E1E1; }
-
-/*# sourceMappingURL=views.css.map */

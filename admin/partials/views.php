@@ -330,6 +330,7 @@ function wpmtst_view_edit_form() {
 			$success = wpmtst_save_view( $view ); // num_rows
 
 			if ( $success ) {
+				$goback = remove_query_arg( 'defaults-restored', $goback );
 				$goback = add_query_arg( 'view-saved', true, $goback );
 			}
 			else {

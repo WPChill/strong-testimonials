@@ -74,18 +74,3 @@ function wpmtst_view_add_field_date_function() {
 	die();
 }
 add_action( 'wp_ajax_wpmtst_view_add_field_date', 'wpmtst_view_add_field_date_function' );
-
-
-/**
- * [Mode Change: Set Default Template] Ajax receiver
- *
- * @since 1.21.0
- */
-//function wpmtst_get_default_template_function() {
-//	$mode = $_REQUEST['mode'];
-//	$view_options = get_option( 'wpmtst_view_options' );
-//	$default_template = $view_options['default_templates'][$mode];
-//	echo $default_template;
-//	die();
-//}
-// add_action( 'wp_ajax_wpmtst_get_default_template', 'wpmtst_get_default_template_function' );

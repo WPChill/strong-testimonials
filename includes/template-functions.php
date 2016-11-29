@@ -249,8 +249,9 @@ function wpmtst_read_more_page() {
 				$link_text = $view_options['more_page_text'];
 			}
 			$link_text = apply_filters( 'wpmtst_l10n',
-				$atts['more_page_text'],
+				$link_text,
 				'strong-testimonials-read-more',
+                /* translators: String name on Translation screen */
 				sprintf( __( 'View %s : Read more (page or post)', 'strong-testimonials' ), $atts['view'] )
 			);
 
