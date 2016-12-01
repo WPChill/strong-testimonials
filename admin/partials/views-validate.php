@@ -207,7 +207,7 @@ function wpmtst_sanitize_view( $input ) {
 	$data['class'] = sanitize_text_field( trim( preg_replace( '/\{.*?\}|\./', '', $input['class'] ) ) );
 
 	// Background
-	$data['background'] = WPMST()->get_background_defaults();
+	$data['background'] = wpmtst_get_background_defaults();
 	if ( !isset( $input['background']['type'] ) || 'none' == $input['background']['type'] ) {
 		$data['background']['type'] = '';
 	}

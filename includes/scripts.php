@@ -64,9 +64,9 @@ function wpmtst_scripts() {
 		$locale = get_locale();
 		if ( 'en_US' != $locale ) {
 			$lang_parts = explode( '_', $locale );
-			$lang_file  = 'js/validate/localization/messages_' . $lang_parts[0] . '.min.js';
+			$lang_file  = 'js/lib/validate/localization/messages_' . $lang_parts[0] . '.min.js';
 			if ( file_exists( WPMTST_DIR . $lang_file ) ) {
-				wp_register_script( 'wpmtst-validation-lang', WPMTST_URL . $lang_file, array( 'wpmtst-validation-plugin' ), false, true );
+				wp_register_script( 'wpmtst-validation-lang', WPMTST_PUBLIC_URL . $lang_file, array( 'wpmtst-validation-plugin' ), false, true );
 			}
 		}
 
@@ -94,53 +94,24 @@ add_action( 'wp_enqueue_scripts', 'wpmtst_scripts' );
 
 
 /**
- * Enqueue "normal" scripts and styles
+ * Enqueue scripts and styles
  *
  * @since 1.15.0
- * @since 2.3 As separate function.
+ * @since 2.3.0 As separate function.
+ * @since 2.16.0 As one array without separate priorities.
  */
-function wpmtst_scripts_normal() {
-
+function wpmtst_view_scripts() {
 	$styles = WPMST()->get_styles();
-
 	if ( $styles ) {
-		foreach ( $styles['normal'] as $key => $style ) {
+		foreach ( $styles as $key => $style ) {
 			wp_enqueue_style( $style );
 		}
 	}
 
 	$scripts = WPMST()->get_scripts();
-
 	if ( $scripts ) {
-		foreach ( $scripts['normal'] as $key => $script ) {
+		foreach ( $scripts as $key => $script ) {
 			wp_enqueue_script( $script );
 		}
 	}
 }
-add_action( 'wp_enqueue_scripts', 'wpmtst_scripts_normal' );
-
-
-/**
- * Enqueue styles and scripts after theme.
- *
- * @since 1.15.0
- */
-function wpmtst_scripts_after_theme() {
-
-	$styles = WPMST()->get_styles();
-
-	if ( $styles ) {
-		foreach ( $styles['later'] as $key => $style ) {
-			wp_enqueue_style( $style );
-		}
-	}
-
-	$scripts = WPMST()->get_scripts();
-
-	if ( $scripts ) {
-		foreach ( $scripts['later'] as $key => $script ) {
-			wp_enqueue_script( $script );
-		}
-	}
-}
-add_action( 'wp_enqueue_scripts', 'wpmtst_scripts_after_theme', 200 );

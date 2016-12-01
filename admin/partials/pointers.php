@@ -34,7 +34,7 @@ function wpmtst_pointer_load( $hook_suffix ) {
 		return;
 
 	wp_enqueue_style( 'wp-pointer' );
-	wp_enqueue_script( 'wpmtst-pointer', WPMTST_URL . 'js/pointers.js', array( 'wp-pointer' ) );
+	wp_enqueue_script( 'wpmtst-pointer', WPMTST_ADMIN_URL . 'js/pointers.js', array( 'wp-pointer' ) );
 	wp_localize_script( 'wpmtst-pointer', 'wpmtstPointer', $valid_pointers );
 }
 add_action( 'admin_enqueue_scripts', 'wpmtst_pointer_load', 1000 );

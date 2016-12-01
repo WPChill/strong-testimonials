@@ -52,83 +52,18 @@ function wpmtst_render_view( $out ) {
 		return '<p style="color:red">' . sprintf( __( 'Strong Testimonials error: View %s not found' ), $out['view'] ) . '</p>';
 	}
 
-	// Container class is shared by display and form in templates.
-	if ( $out['class'] ) {
-		$out['container_class'] .= ' ' . str_replace( ',', ' ', $out['class'] );
+	if ( $out['form'] ) {
+		$view = new Strong_View_Form( $out );
 	}
-	if ( is_rtl() ) {
-		$out['container_class'] .= ' rtl';
+	elseif ( $out['slideshow'] ) {
+		$view = new Strong_View_Slideshow( $out );
 	}
-	WPMST()->set_atts( $out );
-
-	/**
-	 * MODE: FORM
-	 */
-	if ( $out['form'] )
-		return wpmtst_form_view( $out );
-
-	/**
-	 * MODE: DISPLAY (default)
-	 */
-	global $view;
-	$view = new Strong_View( $out );
+	else {
+    	$view = new Strong_View_Display( $out );
+	}
 	$view->build();
+
 	return $view->output();
-}
-
-/**
- * The form.
- *
- * @param $atts
- * @todo Move this into View object
- *
- * @return mixed|string|void
- */
-function wpmtst_form_view( $atts ) {
-	if ( isset( $_GET['success'] ) ) {
-		// Load stylesheet
-		do_action( 'wpmtst_form_success', $atts );
-		return apply_filters( 'wpmtst_form_success_message', '<div class="testimonial-success">' .  wpmtst_get_form_message( 'submission-success' ) . '</div>' );
-	}
-
-	$atts            = normalize_empty_atts( $atts );
-	$fields          = wpmtst_get_form_fields( $atts['form_id'] );
-	$form_values     = array( 'category' => $atts['category'] );
-
-	foreach ( $fields as $key => $field ) {
-		$form_values[ $field['name'] ] = '';
-	}
-
-	$previous_values = WPMST()->get_form_values();
-	if ( $previous_values ) {
-		$form_values = array_merge( $form_values, $previous_values );
-	}
-
-	WPMST()->set_form_values( $form_values );
-
-	/**
-	 * Add filters here.
-	 */
-
-	/**
-	 * Load template
-	 */
-	$template_file = WPMST()->templates->get_template_attr( $atts, 'template' );
-	ob_start();
-	/** @noinspection PhpIncludeInspection */
-	include $template_file;
-	$html = ob_get_contents();
-	ob_end_clean();
-
-	/**
-	 * Remove filters here.
-	 */
-
-	do_action( 'wpmtst_form_rendered', $atts );
-
-	$html = apply_filters( 'strong_view_form_html', $html );
-
-	return $html;
 }
 
 /**
@@ -230,16 +165,12 @@ function wpmtst_strong_view_html( $html ) {
 }
 add_filter( 'strong_view_html', 'wpmtst_strong_view_html' );
 
-
 /**
  * For testing shortcode field in forms.
  *
- * @param      $atts
- * @param null $content
- *
  * @return string
  */
-function wpmtst_hello( $atts, $content = null ) {
+function wpmtst_hello() {
 	return 'Hello!';
 }
 add_shortcode( 'wpmtst_hello', 'wpmtst_hello' );
