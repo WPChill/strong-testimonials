@@ -221,7 +221,7 @@ function wpmtst_get_excerpt_more_link() {
 			apply_filters( 'wpmtst_l10n',
 				WPMST()->atts( 'more_post_text' ),
 				'strong-testimonials-read-more',
-				sprintf( __( 'View %s : Read more (testimonial)', 'strong-testimonials' ), WPMST()->atts( 'view' ) )
+				sprintf( 'View %s : Read more (testimonial)', WPMST()->atts( 'view' ) )
 			),
 			get_the_title() )
 	);
@@ -248,12 +248,7 @@ function wpmtst_read_more_page() {
 			else {
 				$link_text = $view_options['more_page_text'];
 			}
-			$link_text = apply_filters( 'wpmtst_l10n',
-				$link_text,
-				'strong-testimonials-read-more',
-                /* translators: String name on Translation screen */
-				sprintf( __( 'View %s : Read more (page or post)', 'strong-testimonials' ), $atts['view'] )
-			);
+			$link_text = apply_filters( 'wpmtst_l10n', $link_text, 'strong-testimonials-read-more', sprintf( 'View %s : Read more (page or post)', $atts['view'] ) );
 
 			$classname = ( 'wpmtst_after_testimonial' == $atts['more_page_hook'] ? 'readmore' : 'readmore-page' );
 			$classname = apply_filters( 'wpmtst_read_more_page_class', $classname );

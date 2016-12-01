@@ -40,7 +40,7 @@ add_action( 'wp_ajax_wpmtst_add_recipient', 'wpmtst_add_recipient_function' );
 
 
 function wpmtst_get_background_preset_colors() {
-	$preset = WPMST()->get_background_presets( $_REQUEST['key'] );
+	$preset = wpmtst_get_background_presets( $_REQUEST['key'] );
 	echo json_encode( $preset );
 	die();
 }

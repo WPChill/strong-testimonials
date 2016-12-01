@@ -155,7 +155,6 @@ function wpmtst_hook__admin_fields() {
 	wp_enqueue_style( 'wpmtst-rating-form' );
 
 	wp_enqueue_style( 'wpmtst-font-awesome' );
-
 }
 add_action( 'admin_head-wpm-testimonial_page_testimonial-fields', 'wpmtst_hook__admin_fields' );
 
