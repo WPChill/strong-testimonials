@@ -206,8 +206,13 @@ final class Strong_Testimonials {
 	private function includes() {
 
 		require_once WPMTST_INC . 'class-strong-view.php';
+		require_once WPMTST_INC . 'class-strong-view-display.php';
+		require_once WPMTST_INC . 'class-strong-view-slideshow.php';
+		require_once WPMTST_INC . 'class-strong-view-form.php';
+
 		require_once WPMTST_INC . 'class-strong-templates.php';
 		require_once WPMTST_INC . 'class-strong-mail.php';
+
 		require_once WPMTST_INC . 'l10n.php';
 		require_once WPMTST_INC . 'post-types.php';
 		require_once WPMTST_INC . 'functions.php';
@@ -341,9 +346,9 @@ final class Strong_Testimonials {
 		/**
 		 * Action hooks after a view has been rendered.
 		 */
-		add_action( 'wpmtst_view_rendered', array( $this, 'view_rendered' ), 10, 1 );
-		add_action( 'wpmtst_form_rendered', array( $this, 'form_rendered' ), 10, 1 );
-		add_action( 'wpmtst_form_success', array( $this, 'form_success' ), 10, 1 );
+		add_action( 'wpmtst_view_rendered', array( $this, 'view_rendered' ) );
+		add_action( 'wpmtst_form_rendered', array( $this, 'view_rendered' ) );
+		add_action( 'wpmtst_form_success', array( $this, 'view_rendered' ) );
 
 		/**
 		 * Ajax form submission handler
@@ -356,30 +361,34 @@ final class Strong_Testimonials {
 
 	/**
 	 * Actions on 'wp' hook allow us to properly enqueue styles and scripts.
-	 * TODO Consolidate. Make conditional where possible; i.e. only check for Page Builder widgets if that plugin is active.
 	 */
 	private function add_actions_wp() {
 
 		if ( is_admin() ) return;
 
-		// Preprocess the post content for our shortcodes.
+		// Look for our shortcodes in post content and widgets.
 		add_action( 'wp', array( $this, 'find_views' ), 20 );
 		add_action( 'wp', array( $this, 'find_views_in_postmeta' ), 20 );
 		add_action( 'wp', array( $this, 'find_views_in_postexcerpt' ), 20 );
-
-		// Page Builder by Site Origin
-		add_action( 'wp', array( $this, 'find_pagebuilder_widgets' ), 20 );
-
-		// Beaver Builder
-		add_action( 'wp', array( $this, 'find_beaverbuilder_widgets' ), 20 );
-
-		// Black Studio TinyMCE Widget
-		add_action( 'wp', array( $this, 'find_blackstudio_widgets' ), 20 );
-
-		// Preprocess the page for widgets.
 		add_action( 'wp', array( $this, 'find_widgets' ), 20 );
 
-		//TODO Are these edge cases necessary? Or can resources be loaded when shortcode is rendered?
+
+		// Page Builder by Site Origin
+		if ( defined( 'SITEORIGIN_PANELS_VERSION' ) ) {
+			add_action( 'wp', array( $this, 'find_pagebuilder_widgets' ), 20 );
+		}
+
+		// Beaver Builder
+		if ( defined( 'FL_BUILDER_VERSION' ) ) {
+			add_action( 'wp', array( $this, 'find_beaverbuilder_widgets' ), 20 );
+		}
+
+		// Black Studio TinyMCE Widget
+		if ( class_exists( 'Black_Studio_TinyMCE_Plugin' ) ) {
+			add_action( 'wp', array( $this, 'find_blackstudio_widgets' ), 20 );
+		}
+
+		//TODO Are these edge cases still necessary with new approach (2.16)?
 
 		// Elegant Themes - Home page content areas
 		add_action( 'wp', array( $this, 'find_views_elegant_themes' ), 20 );
@@ -410,26 +419,13 @@ final class Strong_Testimonials {
 	}
 
 	/**
-	 * Do stuff after the form is rendered like load stylesheets and scripts.
-	 * For compatibility with page builders and popup makers.
+	 * Load stylesheet and scripts if not preprocessed.
 	 *
-	 * @param $atts
-	 */
-	public function form_rendered( $atts ) {
-		$this->find_stylesheet( $atts );
-		$this->after_form( $atts );
-	}
-
-	public function form_success( $atts ) {
-		$this->find_stylesheet( $atts );
-		$this->after_form_success();
-	}
-
-	/**
-	 * Load stylesheet and scripts if not already.
-	 * For compatibility with page builders and plugins like
-	 * Posts For Page and Custom Content Shortcode
-	 * that pull in other posts so this plugin cannot preprocess them.
+	 * For compatibility with
+	 * (1) page builders,
+	 * (2) plugins like [Posts For Page] and [Custom Content Shortcode]
+	 *     that pull in other posts so this plugin cannot preprocess them,
+	 * (3) using the form in popup makers.
 	 */
 	public function view_rendered() {
 		wpmtst_view_scripts();
@@ -510,6 +506,7 @@ final class Strong_Testimonials {
 	 * Set the defaults for a parsed View.
 	 * These are different than the default settings used by the View editor.
 	 * DO NOT COMBINE!
+	 * @todo Find a way to DRY up.
 	 */
 	public function set_view_defaults() {
 		$defaults = array(
@@ -595,7 +592,7 @@ final class Strong_Testimonials {
 	}
 
 	/**
-	 * Get att(s). Return false if not found.
+	 * Get att(s).
 	 *
 	 * @param null $keys
 	 *
@@ -880,7 +877,7 @@ final class Strong_Testimonials {
 								if ( $this->view_not_found( $parsed_atts ) )
 									continue;
 
-								$this->find_single_view( $parsed_atts );
+								$this->preprocess( $parsed_atts );
 							}
 
 						}
@@ -951,7 +948,7 @@ final class Strong_Testimonials {
 						if ( $this->view_not_found( $parsed_atts ) )
 							continue;
 
-						$this->find_single_view( $parsed_atts );
+						$this->preprocess( $parsed_atts );
 					}
 
 				}
@@ -996,7 +993,7 @@ final class Strong_Testimonials {
 					if ( $this->view_not_found( $parsed_atts ) )
 						continue;
 
-					$this->find_single_view( $parsed_atts );
+					$this->preprocess( $parsed_atts );
 				}
 
 			}
@@ -1164,7 +1161,7 @@ final class Strong_Testimonials {
 				if ( $this->view_not_found( $parsed_atts ) )
 					continue;
 
-				$this->find_single_view( $parsed_atts );
+				$this->preprocess( $parsed_atts );
 
 			}
 			else {
@@ -1201,107 +1198,9 @@ final class Strong_Testimonials {
 			$original_atts = array( 'id' => $view_id );
 			$parsed_atts = $this->parse_view( $original_atts, $this->get_view_defaults(), $original_atts );
 
-			$this->find_single_view( $parsed_atts );
+			$this->preprocess( $parsed_atts );
 
 		}
-	}
-
-	/**
-	 * Process a single [testimonial_view] shortcode.
-	 *
-	 * @since 1.21.0 [testimonial_view]
-	 * @param $atts
-	 * @return array
-	 */
-	private function find_single_view( $atts ) {
-		$atts = normalize_empty_atts( $atts );
-
-		$preprocess      = false;
-		$preprocess_form = false;
-
-		/**
-		 * ==============================
-		 * Modes
-		 * ==============================
-		 */
-
-		if ( isset( $atts['form'] ) ) {
-			// Form
-			$preprocess_form = true;
-			$this->after_form( $atts );
-		}
-		elseif ( isset( $atts['slideshow'] ) ) {
-			// Slideshow
-			$preprocess = true;
-		}
-		else {
-			// Display (default)
-			$preprocess = true;
-		}
-
-		/**
-		 * Process attributes to check for required styles & scripts.
-		 *
-		 * Add check for compatibility mode @since 1.25.0
-		 */
-		//if ( ! isset( $atts['compat'] ) || ! $atts['compat'] ) {
-			if ( $preprocess ) {
-				$this->preprocess( $atts );
-			}
-			elseif ( $preprocess_form ) {
-				$this->preprocess_form();
-			}
-		//}
-	}
-
-	/**
-	 * Load form validation and add honeypot actions.
-	 *
-	 * @since 1.25.0
-	 *
-	 * @param array $atts
-	 */
-	private function after_form( $atts = array() ) {
-		$form_options = get_option('wpmtst_form_options');
-
-		if ( ! wp_style_is( 'wpmtst-rating-form' ) ) {
-			wp_enqueue_style( 'wpmtst-rating-form' );
-		}
-
-		wp_localize_script( 'wpmtst-form', 'formError', array(
-			'scrollTop' => $form_options['scrolltop_error'],
-			'offset'    => $form_options['scrolltop_error_offset']
-		) );
-		wp_enqueue_script( 'wpmtst-form' );
-
-		if ( wpmtst_using_form_validation_script() ) {
-			if ( wp_script_is( 'wpmtst-validation-lang', 'registered' ) ) {
-				wp_enqueue_script( 'wpmtst-validation-lang' );
-			}
-
-			wp_localize_script( 'wpmtst-form-validation', 'form_ajax_object', array(
-				'ajaxUrl' => admin_url( 'admin-ajax.php' ),
-				'ajaxSubmit' => isset( $atts['form_ajax'] ) && $atts['form_ajax'] ? 1 : 0,
-			) );
-			wp_enqueue_script( 'wpmtst-form-validation' );
-		}
-
-		if ( $form_options['honeypot_before'] ) {
-			add_action( 'wp_footer', 'wpmtst_honeypot_before_script' );
-		}
-
-		if ( $form_options['honeypot_after'] ) {
-			add_action( 'wp_footer', 'wpmtst_honeypot_after_script' );
-		}
-	}
-
-	private function after_form_success() {
-		$form_options = get_option( 'wpmtst_form_options' );
-		wp_localize_script( 'wpmtst-form-success', 'formSuccess', array(
-			'scrollTop' => $form_options['scrolltop_success'],
-			'offset'    => $form_options['scrolltop_success_offset']
-		) );
-		wp_enqueue_script( 'wpmtst-form-success' );
 	}
 
 	/**
@@ -1372,34 +1271,9 @@ final class Strong_Testimonials {
 	}
 
 	/**
-	 * Find a template's associated stylesheet.
+	 * Preprocess a view to gather styles, scripts, and script vars.
 	 *
-	 * @since 1.23.0
-	 *
-	 * @param array $atts      Our View attributes
-	 * @param bool  $enqueue   True = enqueue the stylesheet, @since 2.3
-	 *
-	 * @return bool|string
-	 */
-	private function find_stylesheet( $atts, $enqueue = true ) {
-		// In case of deactivated widgets still referencing deleted Views
-		if ( !isset( $atts['template'] ) || !$atts['template'] )
-			return false;
-
-		$plugin_version = get_option( 'wpmtst_plugin_version' );
-
-		$stylesheet = $this->templates->get_template_attr( $atts, 'stylesheet', false );
-		if ( $stylesheet ) {
-			$handle = 'testimonials-' . str_replace( ':', '-', $atts['template'] );
-			wp_register_style( $handle, $stylesheet, array(), $plugin_version );
-			if ( $enqueue ) {
-				wp_enqueue_style( $handle );
-			}
-		}
-	}
-
-	/**
-	 * Preprocess a view to gather styles, scripts and script vars.
+	 * Similar to wpmtst_render_view in shortcodes.php.
 	 *
 	 * @param $atts
 	 * @since 1.25.0
@@ -1407,25 +1281,28 @@ final class Strong_Testimonials {
 	 * @since 2.16.0 Move all processing to Strong_View class.
 	 */
 	private function preprocess( $atts ) {
-		// subset of all shortcode atts
 		$atts = shortcode_atts(
 			$this->get_view_defaults(),
 			$atts
 		);
 		$this->view_atts = $atts;
 
-		$new_view = new Strong_View( $atts );
+		if ( $atts['form'] ) {
+			$new_view = new Strong_View_Form( $atts );
+		}
+		elseif ( $atts['slideshow'] ) {
+			$new_view = new Strong_View_Slideshow( $atts );
+		}
+		else {
+			$new_view = new Strong_View_Display( $atts );
+		}
 		$new_view->process();
-		add_action( 'wp_enqueue_scripts', 'wpmtst_view_scripts' );
-	}
 
-	/**
-	 * Preprocess a form.
-	 *
-	 * @todo Move to a view object like preprocess()
-	 */
-	private function preprocess_form() {
-		$this->add_style( 'wpmtst-rating-form' );
+		/**
+		 * The whole purpose of preprocessing is to load our styles
+		 * in <head> to avoid FOUC.
+		 */
+		add_action( 'wp_enqueue_scripts', 'wpmtst_view_scripts' );
 	}
 
 	/**
