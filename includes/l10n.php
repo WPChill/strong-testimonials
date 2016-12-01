@@ -235,8 +235,8 @@ function wpmtst_form_options_wpml( $options ) {
 function wpmtst_readmore_wpml( $options ) {
 	$context = 'strong-testimonials-read-more';
 	/* Translators: %s is the View ID. */
-	do_action( 'wpml_register_single_string', $context, sprintf( __( 'View %s : Read more (testimonial)', 'strong-testimonials' ), $options['id'] ), $options['more_post_text'] );
-	do_action( 'wpml_register_single_string', $context, sprintf( __( 'View %s : Read more (page or post)', 'strong-testimonials' ), $options['id'] ), $options['more_page_text'] );
+	do_action( 'wpml_register_single_string', $context, sprintf( 'View %s : Read more (testimonial)', $options['id'] ), $options['more_post_text'] );
+	do_action( 'wpml_register_single_string', $context, sprintf( 'View %s : Read more (page or post)', $options['id'] ), $options['more_page_text'] );
 }
 
 
