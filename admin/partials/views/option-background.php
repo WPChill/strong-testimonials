@@ -72,7 +72,7 @@
 								<label for="view-background-preset">
 									<select id="view-background-preset" name="view[data][background][preset]">
 										<?php
-										$presets = WPMST()->get_background_presets();
+										$presets = wpmtst_get_background_presets();
 										$current_preset = ( isset( $view['background']['preset'] ) && $view['background']['preset'] ) ? $view['background']['preset'] : '';
 										echo '<option value="" ' . selected( $current_preset, '', false ) . '>&mdash;</option>';
 										foreach ( $presets as $key => $preset ) {

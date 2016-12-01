@@ -52,25 +52,16 @@ function wpmtst_render_view( $out ) {
 		return '<p style="color:red">' . sprintf( __( 'Strong Testimonials error: View %s not found' ), $out['view'] ) . '</p>';
 	}
 
-	// Container class is shared by display and form in templates.
-	if ( $out['class'] ) {
-		$out['container_class'] .= ' ' . str_replace( ',', ' ', $out['class'] );
-	}
-	if ( is_rtl() ) {
-		$out['container_class'] .= ' rtl';
-	}
-	WPMST()->set_atts( $out );
-
 	/**
 	 * MODE: FORM
 	 */
-	if ( $out['form'] )
+	if ( $out['form'] ) {
 		return wpmtst_form_view( $out );
+	}
 
 	/**
 	 * MODE: DISPLAY (default)
 	 */
-	global $view;
 	$view = new Strong_View( $out );
 	$view->build();
 	return $view->output();
@@ -90,6 +81,14 @@ function wpmtst_form_view( $atts ) {
 		do_action( 'wpmtst_form_success', $atts );
 		return apply_filters( 'wpmtst_form_success_message', '<div class="testimonial-success">' .  wpmtst_get_form_message( 'submission-success' ) . '</div>' );
 	}
+
+	if ( $atts['class'] ) {
+		$atts['container_class'] .= ' ' . str_replace( ',', ' ', $atts['class'] );
+	}
+	if ( is_rtl() ) {
+		$atts['container_class'] .= ' rtl';
+	}
+	WPMST()->set_atts( $atts );
 
 	$atts            = normalize_empty_atts( $atts );
 	$fields          = wpmtst_get_form_fields( $atts['form_id'] );
