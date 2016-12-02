@@ -129,8 +129,10 @@ class Strong_View_Slideshow extends Strong_View_Display {
 		$ids = explode( ',', $this->atts['id'] );
 
 		$args = array(
-			'post_type'   => 'wpm-testimonial',
-			'post_status' => 'publish',
+			'post_type'      => 'wpm-testimonial',
+			'post_status'    => 'publish',
+			'posts_per_page' => -1,
+			'paged'          => null,
 		);
 
 		// id overrides category
@@ -289,7 +291,7 @@ class Strong_View_Slideshow extends Strong_View_Display {
 
 			$container_data_list['slider-var'] = $this->slideshow_signature( $this->atts );
 
-			$content_class_list[] = 'slider-wrapper';
+			$content_class_list[] = 'wpmslider-wrapper';
 
 			$post_class_list[] = 't-slide';
 

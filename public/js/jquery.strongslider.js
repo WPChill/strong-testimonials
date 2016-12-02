@@ -68,7 +68,7 @@
 		var settings = $.extend({}, userSettings);
 
 		// Instantiate slider object
-		var slider = this.children('.slider-wrapper').wpmSlider(settings);
+		var slider = this.children('.wpmslider-wrapper').wpmSlider(settings);
 
 		// Custom control sets
 		if (settings.fullSetButtons || settings.fullSetText) {
