@@ -12,6 +12,8 @@ function wpmtst_form_handler() {
 	if ( ! check_admin_referer( 'wpmtst_form_action', 'wpmtst_form_nonce' ) )
 		return false;
 
+	$new_post = stripslashes_deep( $_POST );
+
 	add_filter( 'upload_mimes', 'wpmtst_restrict_mime' );
 
 	$form_options = get_option( 'wpmtst_form_options' );
@@ -29,7 +31,7 @@ function wpmtst_form_handler() {
 	$form_options = get_option( 'wpmtst_form_options' );
 	$messages     = $form_options['messages'];
 
-	$form_name = isset( $_POST['form_id'] ) ? $_POST['form_id'] : 'custom';
+	$form_name = isset( $new_post['form_id'] ) ? $new_post['form_id'] : 'custom';
 	$fields = wpmtst_get_form_fields( $form_name );
 
 	if ( $form_options['captcha'] )
@@ -52,7 +54,7 @@ function wpmtst_form_handler() {
 					$form_errors[ $field['name'] ] = $field['error'];
 					continue;
 				}
-			} elseif ( empty( $_POST[ $field['name'] ] ) ) {
+			} elseif ( empty( $new_post[ $field['name'] ] ) ) {
 				$form_errors[ $field['name'] ] = $field['error'];
 				continue;
 			}
@@ -63,33 +65,33 @@ function wpmtst_form_handler() {
 				if ( 'file' == $field['input_type'] ) {
 					$testimonial_att[ $field['name'] ] = array( 'field' => isset( $field['map'] ) ? $field['map'] : 'post' );
 				} elseif ( 'textarea' == $field['input_type'] ) {
-					$testimonial_post[ $field['name'] ] = wpmtst_sanitize_textarea( $_POST[ $field['name'] ] );
+					$testimonial_post[ $field['name'] ] = wpmtst_sanitize_textarea( $new_post[ $field['name'] ] );
 				} else {
-					$testimonial_post[ $field['name'] ] = sanitize_text_field( $_POST[ $field['name'] ] );
+					$testimonial_post[ $field['name'] ] = sanitize_text_field( $new_post[ $field['name'] ] );
 				}
 				break;
 
 			case 'custom':
 				if ( 'email' == $field['input_type'] ) {
-					$testimonial_meta[ $field['name'] ] = sanitize_email( $_POST[ $field['name'] ] );
+					$testimonial_meta[ $field['name'] ] = sanitize_email( $new_post[ $field['name'] ] );
 				} elseif ( 'url' == $field['input_type'] ) {
 					// wpmtst_get_website() will prefix with "http://" so don't add that to an empty input
-					if ( $_POST[ $field['name'] ] ) {
-						$testimonial_meta[ $field['name'] ] = esc_url_raw( wpmtst_get_website( $_POST[ $field['name'] ] ) );
+					if ( $new_post[ $field['name'] ] ) {
+						$testimonial_meta[ $field['name'] ] = esc_url_raw( wpmtst_get_website( $new_post[ $field['name'] ] ) );
 					}
 				} elseif ( 'textarea' == $field['input_type'] ) {
-					$testimonial_post[ $field['name'] ] = wpmtst_sanitize_textarea( $_POST[ $field['name'] ] );
+					$testimonial_post[ $field['name'] ] = wpmtst_sanitize_textarea( $new_post[ $field['name'] ] );
 				} elseif ( 'text' == $field['input_type'] ) {
-					$testimonial_meta[ $field['name'] ] = sanitize_text_field( $_POST[ $field['name'] ] );
+					$testimonial_meta[ $field['name'] ] = sanitize_text_field( $new_post[ $field['name'] ] );
 				}
 				break;
 
 			case 'optional':
 				if ( 'categories' == $field['input_type'] ) {
-					$testimonial_meta[ $field['name'] ] = $_POST[ $field['name'] ];
+					$testimonial_meta[ $field['name'] ] = $new_post[ $field['name'] ];
 				}
 				if ( 'rating' == $field['input_type'] ) {
-					$testimonial_meta[ $field['name'] ] = $_POST[ $field['name'] ];
+					$testimonial_meta[ $field['name'] ] = $new_post[ $field['name'] ];
 				}
 				break;
 
@@ -164,8 +166,8 @@ function wpmtst_form_handler() {
 		else {
 
 			// add to categories
-			if ( $_POST['category'] ) {
-				$categories = explode( ',', $_POST['category'] );
+			if ( $new_post['category'] ) {
+				$categories = explode( ',', $new_post['category'] );
 				$category_success = wp_set_post_terms( $testimonial_id, $categories, 'wpm-testimonial-category' );
 				if ( $categories && ! $category_success ) {
 					// TODO improve error handling

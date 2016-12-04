@@ -314,7 +314,7 @@ function wpmtst_view_edit_form() {
 			$view = array(
 				'id'   => $view_id,
 				'name' => $view_name,
-				'data' => wpmtst_sanitize_view( $_POST['view']['data'] )
+				'data' => wpmtst_sanitize_view( stripslashes_deep( $_POST['view']['data'] ) ),
 			);
 			$success = wpmtst_save_view( $view ); // num_rows
 
@@ -375,7 +375,7 @@ function wpmtst_view_add_form() {
 			$view = array(
 				'id'   => 0,
 				'name' => $view_name,
-				'data' => wpmtst_sanitize_view( $_POST['view']['data'] )
+				'data' => wpmtst_sanitize_view( stripslashes_deep( $_POST['view']['data'] ) ),
 			);
 			$success = wpmtst_save_view( $view, 'add' ); // new id
 
