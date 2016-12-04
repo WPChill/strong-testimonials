@@ -776,7 +776,7 @@ function wpmtst_save_details() {
 
 		foreach ( $_POST['custom'] as $key => $value ) {
 			// empty values replace existing values
-			update_post_meta( $_POST['post_ID'], $key, $value );
+			update_post_meta( $_POST['post_ID'], $key, stripslashes( $value ) );
 		}
 	}
 
