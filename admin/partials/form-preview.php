@@ -3,7 +3,7 @@
 function wpmtst_get_form_preview() {
 	if ( ! isset( $_POST['fields'] ) ) exit;
 
-	parse_str( urldecode( $_POST['fields'] ) ); // --> $fields
+	parse_str( urldecode( stripslashes_deep( $_POST['fields'] ) ) ); // --> $fields
 
 	$new_fields = array();
 	$field_options = get_option( 'wpmtst_fields' );
