@@ -388,17 +388,6 @@ final class Strong_Testimonials {
 			add_action( 'wp', array( $this, 'find_blackstudio_widgets' ), 20 );
 		}
 
-		//TODO Are these edge cases still necessary with new approach (2.16)?
-
-		// Elegant Themes - Home page content areas
-		add_action( 'wp', array( $this, 'find_views_elegant_themes' ), 20 );
-
-		// Profit Builder - stores the rendered shortcode (!)
-		add_action( 'wp', array( $this, 'find_rendered_views' ), 20 );
-
-		// Bretheon theme - stores content in post_meta using base 64 encode (!)
-		add_action( 'wp', array( $this, 'find_views_in_postmeta_encoded' ), 20 );
-
 	}
 
 	public function form_handler2() {
@@ -1023,99 +1012,6 @@ final class Strong_Testimonials {
 			return;
 
 		$this->process_content( $widget_content_serialized );
-
-	}
-
-	/**
-	 * Build list of all shortcode views in the various convolutions of Elegant Themes.
-	 *
-	 * @since 1.23
-	 * @access public
-	 */
-	public function find_views_elegant_themes() {
-
-		global $post;
-		if ( empty( $post ) )
-			return;
-
-		if ( get_option( 'mycuisine_home_page_1' ) ) {
-			$target = get_post( get_option( 'mycuisine_home_page_1' ) );
-			if ( $target ) {
-				$content = $target->post_content;
-				if ( $this->check_content( $content ) ) {
-					$this->process_content( $content );
-				}
-			}
-		}
-		if ( get_option( 'mycuisine_home_page_2' ) ) {
-			$target = get_post( get_option( 'mycuisine_home_page_2' ) );
-			if ( $target ) {
-				$content = $target->post_content;
-				if ( $this->check_content( $content ) ) {
-					$this->process_content( $content );
-				}
-			}
-		}
-		if ( get_option( 'mycuisine_home_page_3' ) ) {
-			$target = get_post( get_option( 'mycuisine_home_page_3' ) );
-			if ( $target ) {
-				$content = $target->post_content;
-				if ( $this->check_content( $content ) ) {
-					$this->process_content( $content );
-				}
-			}
-		}
-
-	}
-
-	/**
-	 * Build list of all shortcode views on a page.
-	 *
-	 * @access public
-	 */
-	public function find_rendered_views() {
-
-		global $post;
-		if ( empty( $post ) )
-			return;
-
-		$content = $post->post_content;
-		$view_ids = $this->check_content_for_rendered_shortcodes( $content );
-		if ( !$view_ids )
-			return;
-
-		$this->process_content_for_rendered_shortcodes( $view_ids );
-
-	}
-
-	/**
-	 * Build list of all encoded shortcode views in a page's meta fields.
-	 *
-	 * To handle page builders that encode and store shortcodes and widgets in post meta.
-	 * - Bretheon theme
-	 *
-	 * @access public
-	 * @since 2.5.6
-	 */
-	public function find_views_in_postmeta_encoded() {
-
-		global $post;
-		if ( empty( $post ) ) {
-			return false;
-		}
-
-		$meta_content = get_post_meta( $post->ID, 'mfn-page-items', true );
-		if ( ! is_string( $meta_content ) ) {
-			return false;
-		}
-
-		$mfn_tmp_fn   = 'base' . '64_decode';
-		$meta_content = call_user_func( $mfn_tmp_fn, $meta_content );
-		if ( ! $this->check_content( $meta_content ) ) {
-			return false;
-		}
-
-		$this->process_content( $meta_content );
 
 	}
 
