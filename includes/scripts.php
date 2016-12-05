@@ -65,7 +65,7 @@ function wpmtst_scripts() {
 		if ( 'en_US' != $locale ) {
 			$lang_parts = explode( '_', $locale );
 			$lang_file  = 'js/lib/validate/localization/messages_' . $lang_parts[0] . '.min.js';
-			if ( file_exists( WPMTST_DIR . $lang_file ) ) {
+			if ( file_exists( WPMTST_PUBLIC . $lang_file ) ) {
 				wp_register_script( 'wpmtst-validation-lang', WPMTST_PUBLIC_URL . $lang_file, array( 'wpmtst-validation-plugin' ), false, true );
 			}
 		}
