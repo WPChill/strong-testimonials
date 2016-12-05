@@ -340,11 +340,16 @@
 			  return jQuery(this).actual('outerHeight');
 		  }).get();
 
-		  var maxHeight = Array.max(heights);
+		  var maxHeight = arrayMax(heights);
 		  slider.children.height(maxHeight);
 	  };
 
-    /**
+	  // Function to get the max value in array
+	  var arrayMax = function (array) {
+		  return Math.max.apply(Math, array);
+	  };
+
+	  /**
      * Returns the calculated height of the viewport, used to determine either adaptiveHeight or the maxHeight value
      */
     var getViewportHeight = function() {

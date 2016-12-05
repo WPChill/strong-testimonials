@@ -10,13 +10,13 @@
 }
 
 #left-col {
-	width: 50%;
+	width: 55%;
 	float: left;
 	padding: 20px 0;
 }
 
 #right-col {
-	width: calc( 50% - 20px );
+	width: calc( 45% - 20px );
 	float: right;
 	padding: 20px 0 20px 20px;
 }
@@ -222,6 +222,20 @@
 #add-field-bar input {
 	margin-right: 0;
 	margin-left: 10px;
+}
+
+/* field group actions */
+
+#field-group-actions {
+	margin-top: 2em;
+}
+
+#field-group-actions > div {
+	display: inline-block;
+	margin-bottom: 1em;
+}
+#field-group-actions > div:last-child input {
+	margin-right: 0;
 }
 
 /* field group label */

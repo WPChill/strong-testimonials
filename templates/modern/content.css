@@ -145,7 +145,7 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
 /* Template
 -----------------------------------------------*/
 .strong-view.modern .testimonial {
-  margin: 20px auto 0;
+  margin: 20px auto;
   width: 100%;
 }
 .strong-view.modern .testimonial:first-child {
@@ -239,22 +239,6 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
   font-weight: 400;
 }
 
-/* Slideshow
------------------------------------------------*/
-.strong-view.modern.slider-container .strong-content {
-  margin: 0 auto;
-}
-.strong-view.modern.slider-container .testimonial:not(:first-child) {
-  display: none;
-}
-.strong-view.modern.nav-position-inside .testimonial-inner {
-  padding-bottom: 60px;
-}
-.strong-view.modern.controls-type-sides .testimonial-inner {
-  padding-left: 50px;
-  padding-right: 50px;
-}
-
 /* Widget
 -----------------------------------------------*/
 .widget .strong-view.modern .testimonial-inner {
@@ -281,6 +265,22 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
   display: block;
 }
 
+/* Slideshow
+-----------------------------------------------*/
+.strong-view.modern.slider-container .strong-content {
+  margin: 0 auto;
+}
+.strong-view.modern.slider-container .testimonial:not(:first-child) {
+  display: none;
+}
+.strong-view.modern.nav-position-inside .testimonial-inner {
+  padding-bottom: 60px;
+}
+.strong-view.modern.controls-type-sides .testimonial-inner {
+  padding-left: 50px;
+  padding-right: 50px;
+}
+
 /* Responsive
 -----------------------------------------------*/
 @media only screen and (max-width: 320px) {
@@ -302,18 +302,4 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
     float: right;
     margin-top: 10px;
   }
-}
-/* RTL
------------------------------------------------*/
-.strong-view.modern.rtl .testimonial,
-.strong-view.modern.rtl .testimonial-inner,
-.strong-view.modern.rtl .testimonial-heading {
-  text-align: right;
-}
-.strong-view.modern.rtl .testimonial-image {
-  float: right;
-  margin-left: 1em;
-}
-.strong-view.modern.rtl .testimonial-client {
-  text-align: left;
 }
