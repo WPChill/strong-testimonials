@@ -2,12 +2,12 @@
  *	Strong Testimonials > admin screens
  */
 
-jQuery(document).ready(function($) {
+// Function to get the Max value in Array
+Array.max = function( array ){
+	return Math.max.apply( Math, array );
+};
 
-	// Function to get the Max value in Array
-	Array.max = function( array ){
-		return Math.max.apply( Math, array );
-	};
+jQuery(document).ready(function($) {
 
 	// Convert "A String" to "a_string"
 	function convertLabel(label) {
