@@ -3,13 +3,14 @@
 function wpmtst_get_form_preview() {
 	if ( ! isset( $_POST['fields'] ) ) exit;
 
-	parse_str( urldecode( stripslashes_deep( $_POST['fields'] ) ) ); // --> $fields
+	// parse_str decodes too; no need to use urldecode
+	parse_str( stripslashes_deep( $_POST['fields'] ), $preview );
 
 	$new_fields = array();
 	$field_options = get_option( 'wpmtst_fields' );
 
 	/** @noinspection PhpUndefinedVariableInspection */
-	foreach ( $fields as $key => $field ) {
+	foreach ( $preview['fields'] as $key => $field ) {
 		/*
 		 * Before merging onto base field, catch fields that are "off"
 		 * which the form does not submit. Otherwise, the default "on"
