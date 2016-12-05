@@ -169,13 +169,11 @@ function wpmtst_settings_custom_fields( $action = '', $form_id = null ) {
 					<input id="add-field" type="button" class="button" name="add-field" value="<?php _e( 'Add New Field', 'strong-testimonials' ); ?>">
 				</div>
 
-				<p>
-					<?php
-					submit_button( '', 'primary', 'submit', false );
-					submit_button( __( 'Undo Changes', 'strong-testimonials' ), 'secondary', 'reset', false );
-					submit_button( __( 'Restore Defaults', 'strong-testimonials' ), 'secondary', 'restore-defaults', false );
-					?>
-				</p>
+				<div id="field-group-actions">
+                    <div><?php submit_button( '', 'primary', 'submit', false ); ?></div>
+                    <div><?php submit_button( __( 'Undo Changes', 'strong-testimonials' ), 'secondary', 'reset', false ); ?></div>
+                    <div><?php submit_button( __( 'Restore Defaults', 'strong-testimonials' ), 'secondary', 'restore-defaults', false ); ?></div>
+				</div>
 			</form>
 		</div><!-- #left-col -->
 
