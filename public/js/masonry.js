@@ -4,12 +4,12 @@
 
 jQuery(document).ready( function ($) {
 
-	var $grid = jQuery('.strong-masonry');
+	var $grid = $('.strong-masonry');
 
 	// Add our element sizing.
 	$grid.prepend('<div class="grid-sizer"></div><div class="gutter-sizer"></div>');
 
-	// Initialize Masonry after images are loaded. This is a fix for Chrome and Safari.
+	// Initialize Masonry after images are loaded.
 	$grid.imagesLoaded( function () {
 		$grid.masonry({
 			columnWidth: '.grid-sizer',

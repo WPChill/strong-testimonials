@@ -85,21 +85,25 @@ if ( wpmtst_is_plugin_active( 'polylang' ) ) {
 		</th>
 		<td>
 			<fieldset>
-				<label>
-					<input type="checkbox" name="wpmtst_form_options[scrolltop_error]" <?php checked( $form_options['scrolltop_error'] ); ?>>
-					<?php printf( __( 'If errors, scroll to the first error minus %s pixels. On by default.', 'strong-testimonials' ), '<input type="text" name="wpmtst_form_options[scrolltop_error_offset]" value="' . $form_options['scrolltop_error_offset'] . '" size="3">' ); ?>
-				</label>
-				<label>
-					<input type="checkbox" name="wpmtst_form_options[scrolltop_success]" <?php checked( $form_options['scrolltop_success'] ); ?>>
-					<?php printf( __( 'If success, scroll to the success message minus %s pixels. On by default.', 'strong-testimonials' ), '<input type="text" name="wpmtst_form_options[scrolltop_success_offset]" value="' . $form_options['scrolltop_success_offset'] . '" size="3">' ); ?>
-				</label>
+                <div>
+                    <label>
+                        <input type="checkbox" name="wpmtst_form_options[scrolltop_error]" <?php checked( $form_options['scrolltop_error'] ); ?>>
+                        <?php printf( __( 'If errors, scroll to the first error minus %s pixels. On by default.', 'strong-testimonials' ), '<input type="text" name="wpmtst_form_options[scrolltop_error_offset]" value="' . $form_options['scrolltop_error_offset'] . '" size="3">' ); ?>
+                    </label>
+                </div>
+                <div>
+                    <label class="block">
+                        <input type="checkbox" name="wpmtst_form_options[scrolltop_success]" <?php checked( $form_options['scrolltop_success'] ); ?>>
+                        <?php printf( __( 'If success, scroll to the success message minus %s pixels. On by default.', 'strong-testimonials' ), '<input type="text" name="wpmtst_form_options[scrolltop_success_offset]" value="' . $form_options['scrolltop_success_offset'] . '" size="3">' ); ?>
+                    </label>
+                </div>
 			</fieldset>
 		</td>
 	</tr>
 
 	<tr>
 		<th scope="row" class="tall">
-			<div><?php _e( 'Notification', 'strong-testimonials' ); ?></div>
+			<?php _e( 'Notification', 'strong-testimonials' ); ?>
 		</th>
 
 		<td class="subsection">
@@ -139,7 +143,7 @@ if ( wpmtst_is_plugin_active( 'polylang' ) ) {
 <table class="form-table" cellpadding="0" cellspacing="0">
 	<tr>
 		<th scope="row">
-			<p><?php _ex( 'Honeypot', 'spam control techniques', 'strong-testimonials' ); ?></p>
+			<?php _ex( 'Honeypot', 'spam control techniques', 'strong-testimonials' ); ?>
 		</th>
 		<td>
 			<p><?php _e( 'These methods are both time-tested and widely used. They can be used simultaneously for more protection.', 'strong-testimonials' ); ?></p>
@@ -163,7 +167,7 @@ if ( wpmtst_is_plugin_active( 'polylang' ) ) {
 	</tr>
 	<tr valign="top">
 		<th scope="row">
-			<p><?php _e( 'Captcha', 'strong-testimonials' ); ?></p>
+			<?php _e( 'Captcha', 'strong-testimonials' ); ?>
 		</th>
 		<td class="stackem">
 			<p><?php _e( 'Can be used alongside honeypot methods. Be sure to configure any plugins first, if necessary.', 'strong-testimonials' ); ?></p>

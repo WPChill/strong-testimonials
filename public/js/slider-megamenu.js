@@ -1,16 +1,11 @@
 /**
- * Slider Handler
+ * Slider Handler for Max Mega Menu plugin.
  */
-
-// Function to get the max value in array
-Array.max = function (array) {
-	return Math.max.apply(Math, array);
-};
 
 jQuery(document).ready(function( $ ) {
 
 	// Find Mega Menu items
-	var megaMenuItems = jQuery('li.mega-menu-item');
+	var megaMenuItems = $('li.mega-menu-item');
 
 	// Load up our slideshows
 	var strongSlideshows = $('.strong-view.slider-container');
@@ -25,12 +20,15 @@ jQuery(document).ready(function( $ ) {
 
 	// Start normal slideshows.
 	strongSlideshows.not('.noinit').each(function () {
-		$(this).strongSlider();
+		var $this = $(this);
+		$this.imagesLoaded( function () {
+			$this.strongSlider();
+		});
 	});
 
 	// Start slideshow when menu item opens.
 	megaMenuItems.on('open_panel', function () {
-		jQuery(this).find('.strong-view.slider-container').each(function () {
+		$(this).find('.strong-view.slider-container').each(function () {
 			$(this).strongSlider();
 		});
 	});

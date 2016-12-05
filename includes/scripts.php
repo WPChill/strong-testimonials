@@ -65,7 +65,7 @@ function wpmtst_scripts() {
 		if ( 'en_US' != $locale ) {
 			$lang_parts = explode( '_', $locale );
 			$lang_file  = 'js/lib/validate/localization/messages_' . $lang_parts[0] . '.min.js';
-			if ( file_exists( WPMTST_DIR . $lang_file ) ) {
+			if ( file_exists( WPMTST_PUBLIC . $lang_file ) ) {
 				wp_register_script( 'wpmtst-validation-lang', WPMTST_PUBLIC_URL . $lang_file, array( 'wpmtst-validation-plugin' ), false, true );
 			}
 		}
@@ -83,14 +83,27 @@ function wpmtst_scripts() {
 	wp_register_script( 'jquery-actual', WPMTST_PUBLIC_URL . 'js/lib/actual/jquery.actual.js', array( 'jquery' ), false, true );
 	wp_register_script( 'wpmslider', WPMTST_PUBLIC_URL . 'js/lib/wpmslider/jquery.wpmslider.js', array( 'jquery-actual' ), $plugin_version, true );
 	wp_register_script( 'strongslider', WPMTST_PUBLIC_URL . 'js/jquery.strongslider.js', array( 'wpmslider' ), $plugin_version, true );
-	if ( defined( 'MEGAMENU_VERSION' ) ) {
-		wp_register_script( 'wpmtst-slider', WPMTST_PUBLIC_URL . 'js/slider-megamenu.js', array( 'strongslider' ), $plugin_version, true );
-	} else {
+	if ( ! defined( 'MEGAMENU_VERSION' ) ) {
 		wp_register_script( 'wpmtst-slider', WPMTST_PUBLIC_URL . 'js/slider.js', array( 'strongslider' ), $plugin_version, true );
 	}
 
 }
 add_action( 'wp_enqueue_scripts', 'wpmtst_scripts' );
+
+
+function wpmtst_scripts_later() {
+
+	$plugin_version = get_option( 'wpmtst_plugin_version' );
+
+	/**
+	 * Custom slider handler for Max Mega Menu plugin.
+	 */
+	if ( defined( 'MEGAMENU_VERSION' ) ) {
+		wp_register_script( 'wpmtst-slider', WPMTST_PUBLIC_URL . 'js/slider-megamenu.js', array( 'strongslider' ), $plugin_version, true );
+	}
+
+}
+add_action( 'wp_enqueue_scripts', 'wpmtst_scripts_later', 20 );
 
 
 /**
