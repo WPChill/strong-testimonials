@@ -4,7 +4,7 @@ Donate link: https://www.wpmission.com/donate/
 Tags: testimonials, testimonial widget, random testimonial, testimonial shortcode, testimonial slider, testimonial form
 Requires at least: 3.6
 Tested up to: 4.6.1
-Stable tag: 2.16.2
+Stable tag: 2.16.3
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -138,13 +138,18 @@ It depends. I have narrowed down the causes of many conflicts and addressed them
 
 = I'm familiar with template files. Can I customize the template? =
 
-Yes. With some HTML and CSS knowledge, you can copy any template to your theme and customize it as you see fit. You can also have multiple custom templates. A [tutorial](https://www.wpmission.com/knowledge-base/strong-testimonials/) is coming soon.
+Yes. With some HTML and CSS knowledge, you can copy any template to your theme and customize it as you see fit. You can also have multiple custom templates.
 
 = Can I display a large version of the featured image in a lightbox? =
 
 Yes. This requires a lightbox so if your theme does not include one, you will need a plugin like [Simple Colorbox](https://wordpress.org/plugins/simple-colorbox/).
 
 == Changelog ==
+
+= 2.16.3 - Dec 5, 2016 =
+* Fix bug when loading form validation translation files.
+* Fix bug that initialized slideshows before images are loaded.
+* Improve admin UI.
 
 = 2.16.2 - Dec 4, 2016 =
 * Strip slashes from custom fields and submitted form values.
