@@ -9,7 +9,6 @@ function wpmtst_get_form_preview() {
 	$new_fields = array();
 	$field_options = get_option( 'wpmtst_fields' );
 
-	/** @noinspection PhpUndefinedVariableInspection */
 	foreach ( $preview['fields'] as $key => $field ) {
 		/*
 		 * Before merging onto base field, catch fields that are "off"
