@@ -3,7 +3,7 @@ Contributors: cdillon27
 Donate link: https://www.wpmission.com/donate/
 Tags: testimonials, testimonial widget, random testimonial, testimonial shortcode, testimonial slider, testimonial form
 Requires at least: 3.6
-Tested up to: 4.6.1
+Tested up to: 4.7
 Stable tag: 2.16.3
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
