@@ -214,7 +214,7 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
 .strong-view.default-dark.slider-container {
   /* If vertical or fade slideshow, move border from individual testimonials to viewport. */
 }
-.strong-view.default-dark.slider-container.slider-adaptive:not(.slider-mode-horizontal) .bx-viewport {
+.strong-view.default-dark.slider-container.slider-adaptive:not(.slider-mode-horizontal) .wpmslider-viewport {
   border: 1px solid #E6E6E6;
 }
 .strong-view.default-dark.slider-container.slider-adaptive:not(.slider-mode-horizontal) .testimonial {

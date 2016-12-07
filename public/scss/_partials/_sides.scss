@@ -1,13 +1,13 @@
 .strong-view {
 	&.controls-type-sides {
-		.bx-prev {
+		.wpmslider-prev {
 			left: 8px;
 		}
-		.bx-next {
+		.wpmslider-next {
 			right: 8px;
 		}
-		.bx-prev,
-		.bx-next {
+		.wpmslider-prev,
+		.wpmslider-next {
 			position: absolute;
 			width: auto;
 			top: calc( 50% - 14px );

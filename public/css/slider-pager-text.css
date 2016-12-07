@@ -1,7 +1,6 @@
 /* =bxSlider structure
 ---------------------------------------------------------*/
-/* reset and layout from jquery.bxslider.css */
-.strong-view .bx-wrapper {
+.strong-view .wpmslider-wrapper {
   position: relative;
   margin: 0 auto;
   padding: 0;
@@ -9,49 +8,49 @@
   -ms-touch-action: pan-y;
   touch-action: pan-y;
 }
-.strong-view .bxslider {
+.strong-view .wpmslider {
   margin: 0;
   padding: 0;
 }
-.strong-view .bx-viewport {
+.strong-view .wpmslider-viewport {
   /* fix other elements on the page moving (on Chrome) */
   -webkit-transform: translatez(0);
 }
 
 /* =pager
 ---------------------------------------------------------*/
-.strong-view .bx-wrapper .bx-pager {
+.strong-view .wpmslider-wrapper .wpmslider-pager {
   display: inline-block;
 }
-.strong-view .bx-wrapper .bx-pager-item {
+.strong-view .wpmslider-wrapper .wpmslider-pager-item {
   display: inline-block;
 }
-.strong-view .bx-wrapper .bx-pager-link {
+.strong-view .wpmslider-wrapper .wpmslider-pager-link {
   text-decoration: none;
 }
 
 /* =controls
 ---------------------------------------------------------*/
-.strong-view .bx-wrapper .bx-controls-auto,
-.strong-view .bx-wrapper .bx-controls-auto-item,
-.strong-view .bx-wrapper .bx-controls-full,
-.strong-view .bx-wrapper .bx-controls-full-item,
-.strong-view .bx-wrapper .bx-controls-direction {
+.strong-view .wpmslider-wrapper .wpmslider-controls-auto,
+.strong-view .wpmslider-wrapper .wpmslider-controls-auto-item,
+.strong-view .wpmslider-wrapper .wpmslider-controls-full,
+.strong-view .wpmslider-wrapper .wpmslider-controls-full-item,
+.strong-view .wpmslider-wrapper .wpmslider-controls-direction {
   display: inline-block;
   vertical-align: middle;
 }
-.strong-view .bx-wrapper .bx-controls a {
+.strong-view .wpmslider-wrapper .wpmslider-controls a {
   box-shadow: none;
   /* Twenty Sixteen */
 }
-.strong-view .bx-wrapper .bx-controls a:hover, .strong-view .bx-wrapper .bx-controls a:active, .strong-view .bx-wrapper .bx-controls a:focus {
+.strong-view .wpmslider-wrapper .wpmslider-controls a:hover, .strong-view .wpmslider-wrapper .wpmslider-controls a:active, .strong-view .wpmslider-wrapper .wpmslider-controls a:focus {
   outline: 0;
 }
 
-.strong-view.controls-style-text .bx-wrapper .bx-start,
-.strong-view.controls-style-text .bx-wrapper .bx-stop,
-.strong-view.controls-style-text .bx-wrapper .bx-next,
-.strong-view.controls-style-text .bx-wrapper .bx-prev {
+.strong-view.controls-style-text .wpmslider-wrapper .wpmslider-start,
+.strong-view.controls-style-text .wpmslider-wrapper .wpmslider-stop,
+.strong-view.controls-style-text .wpmslider-wrapper .wpmslider-next,
+.strong-view.controls-style-text .wpmslider-wrapper .wpmslider-prev {
   display: inline-block;
   cursor: pointer;
   margin: 0 0.5em;
@@ -59,7 +58,7 @@
   transition: all 0.2s ease;
 }
 
-.strong-view.nav-position-inside:not(.controls-type-sides) .bx-controls {
+.strong-view.nav-position-inside:not(.controls-type-sides) .wpmslider-controls {
   position: absolute;
   bottom: 0;
   width: 100%;
@@ -69,26 +68,24 @@
   z-index: 99;
 }
 
-.strong-view.nav-position-outside .bx-controls {
+.strong-view.nav-position-outside .wpmslider-controls {
   line-height: 1;
   padding: 10px 0 20px;
   text-align: center;
   z-index: 99;
 }
 
-.strong-view .bx-wrapper .bx-pager {
+.strong-view .wpmslider-wrapper .wpmslider-pager {
   line-height: 24px;
   margin: 0 4px;
   text-align: center;
 }
-.strong-view .bx-wrapper .bx-pager-link {
+.strong-view .wpmslider-wrapper .wpmslider-pager-link {
   display: inline-block;
 }
-.strong-view .bx-wrapper .bx-pager-link.active {
+.strong-view .wpmslider-wrapper .wpmslider-pager-link.active {
   color: #111;
 }
-.strong-view.pager-style-text .bx-pager-link {
+.strong-view.pager-style-text .wpmslider-pager-link {
   padding: 0 0.3em;
 }
-
-/*# sourceMappingURL=slider-pager-text.css.map */
