@@ -513,11 +513,6 @@ function wpmtst_save_view( $view, $action = 'edit' ) {
 	$table_name = $wpdb->prefix . 'strong_views';
 	$serialized = serialize( $view['data'] );
 
-	// temporary error log
-	$error_log = ini_get( 'error_log' );
-	ini_set( 'error_log', WP_CONTENT_DIR . '/strong-debug.log' );
-	$wpdb->show_errors();
-
 	if ( 'add' == $action || 'duplicate' == $action ) {
 		$sql = "INSERT INTO {$table_name} (name, value) VALUES (%s, %s)";
 		$sql = $wpdb->prepare( $sql, $view['name'], $serialized );
@@ -531,13 +526,6 @@ function wpmtst_save_view( $view, $action = 'edit' ) {
 		$wpdb->query( $sql );
 		$return = $wpdb->last_error ? 0 : 1;
 	}
-
-	// log any error and restore error log
-	if ( $wpdb->last_error ) {
-		$wpdb->print_error();
-	}
-	$wpdb->hide_errors();
-	ini_set( 'error_log', $error_log );
 
 	do_action( 'wpmtst_view_saved', $view );
 

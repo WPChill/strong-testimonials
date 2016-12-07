@@ -1,12 +1,12 @@
 .strong-view {
 	&.pager-style-buttons {
-		.bx-wrapper {
-			.bx-pager {
+		.wpmslider-wrapper {
+			.wpmslider-pager {
 				line-height: 24px;
 				margin: 0 4px;
 				text-align: center;
 			}
-			.bx-pager-link:before {
+			.wpmslider-pager-link:before {
 				//noinspection CssNoGenericFontName
 				font-family: fontawesome;
 				content: "\f10c";
@@ -17,11 +17,11 @@
 				width: 18px;
 				text-align: center;
 			}
-			.bx-pager-link:hover:before {
+			.wpmslider-pager-link:hover:before {
 				content: "\f111";
 				color: #111;
 			}
-			.bx-pager-link.active:before {
+			.wpmslider-pager-link.active:before {
 				content: "\f111";
 			}
 		}

@@ -1,10 +1,10 @@
 .strong-view {
 	&.controls-style-buttons {
-		.bx-wrapper {
-			.bx-start,
-			.bx-stop,
-			.bx-next,
-			.bx-prev {
+		.wpmslider-wrapper {
+			.wpmslider-start,
+			.wpmslider-stop,
+			.wpmslider-next,
+			.wpmslider-prev {
 				font-family: fontawesome;
 				display: inline-block;
 				color: #999;
@@ -16,26 +16,26 @@
 				text-align: center;
 				transition: all 0.2s ease;
 			}
-			.bx-start,
-			.bx-stop {
+			.wpmslider-start,
+			.wpmslider-stop {
 				margin: 0 4px;
 			}
-			.bx-start:before {
+			.wpmslider-start:before {
 				content: "\f04b";
 			}
-			.bx-stop:before {
+			.wpmslider-stop:before {
 				content: "\f04c";
 			}
-			.bx-prev:before {
+			.wpmslider-prev:before {
 				content: "\f053";
 			}
-			.bx-next:before {
+			.wpmslider-next:before {
 				content: "\f054";
 			}
-			.bx-start:hover,
-			.bx-stop:hover,
-			.bx-next:hover,
-			.bx-prev:hover {
+			.wpmslider-start:hover,
+			.wpmslider-stop:hover,
+			.wpmslider-next:hover,
+			.wpmslider-prev:hover {
 				color: #111;
 			}
 		}

@@ -1,11 +1,11 @@
 .strong-view {
-	.bx-wrapper {
-		.bx-pager {
+	.wpmslider-wrapper {
+		.wpmslider-pager {
 			line-height: 24px;
 			margin: 0 4px;
 			text-align: center;
 		}
-		.bx-pager-link {
+		.wpmslider-pager-link {
 			display: inline-block;
 			&.active {
 				color: #111;
@@ -13,7 +13,7 @@
 		}
 	}
 	&.pager-style-text {
-		.bx-pager-link {
+		.wpmslider-pager-link {
 			padding: 0 0.3em;
 		}
 	}

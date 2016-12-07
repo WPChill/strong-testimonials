@@ -83,7 +83,7 @@ $template: image-right;
 	&.slider-container {
 		/* If vertical or fade slideshow, move border from individual testimonials to viewport. */
 		&.slider-adaptive:not(.slider-mode-horizontal) {
-			.bx-viewport {
+			.wpmslider-viewport {
 				border: 1px solid #E6E6E6;
 			}
 			.testimonial {
