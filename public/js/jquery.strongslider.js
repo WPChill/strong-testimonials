@@ -73,17 +73,17 @@
 		// Custom control sets
 		if (settings.fullSetButtons || settings.fullSetText) {
 			// Add prev/next buttons
-			this.find('.bx-controls')
-				.addClass('bx-has-controls-full')
-				.append('<div class="bx-controls-full"><div class="bx-controls-full-item"><a class="bx-next">'+settings.nextText+'</a></div></div>')
-				.prepend('<div class="bx-controls-full"><div class="bx-controls-full-item"><a class="bx-prev">'+settings.prevText+'</a></div></div>');
+			this.find('.wpmslider-controls')
+				.addClass('wpmslider-has-controls-full')
+				.append('<div class="wpmslider-controls-full"><div class="wpmslider-controls-full-item"><a class="wpmslider-next">'+settings.nextText+'</a></div></div>')
+				.prepend('<div class="wpmslider-controls-full"><div class="wpmslider-controls-full-item"><a class="wpmslider-prev">'+settings.prevText+'</a></div></div>');
 
 			// Bind new event handlers
-			this.find('.bx-next', '.bx-controls-full').on('click', function () {
+			this.find('.wpmslider-next', '.wpmslider-controls-full').on('click', function () {
 				slider.goToNextSlide();
 				slider.stopAuto();
 			});
-			this.find('.bx-prev', '.bx-controls-full').on('click', function () {
+			this.find('.wpmslider-prev', '.wpmslider-controls-full').on('click', function () {
 				slider.goToPrevSlide();
 				slider.stopAuto();
 			});
@@ -91,7 +91,7 @@
 
 		// Move <next> to bookend pagination
 		if ( settings.pager && ( settings.simpleSetText || settings.simpleSetPager ) ) {
-			this.find('.bx-next').appendTo( this.find( '.bx-controls') ).wrap('<div class="bx-controls-direction"></div>');
+			this.find('.wpmslider-next').appendTo( this.find( '.wpmslider-controls') ).wrap('<div class="wpmslider-controls-direction"></div>');
 		}
 
 		return this;

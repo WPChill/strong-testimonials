@@ -32,7 +32,7 @@
     preloadImages: 'visible',
     responsive: true,
     slideZIndex: 50,
-    wrapperClass: 'bx-wrapper',
+    wrapperClass: 'wpmslider-wrapper',
 
     // TOUCH
     touchEnabled: true,
@@ -195,8 +195,8 @@
       var preloadSelector = slider.children.eq(slider.settings.startSlide); // set the default preload selector (visible)
 
       // wrap el in a wrapper
-      el.wrap('<div class="' + slider.settings.wrapperClass + '"><div class="bx-viewport"></div></div>');
-      // store a namespace reference to .bx-viewport
+      el.wrap('<div class="' + slider.settings.wrapperClass + '"><div class="wpmslider-viewport"></div></div>');
+      // store a namespace reference to .wpmslider-viewport
       slider.viewport = el.parent();
 
       // add aria-live if the setting is enabled and ticker mode is disabled
@@ -204,7 +204,7 @@
         slider.viewport.attr('aria-live', 'polite');
       }
       // add a loading div to display while images are loading
-      slider.loader = $('<div class="bx-loading" />');
+      slider.loader = $('<div class="wpmslider-loading" />');
       slider.viewport.prepend(slider.loader);
       // set el to a massive width, to hold any needed slides
       // also strip any margin and padding from el
@@ -219,7 +219,7 @@
       } else if (!slider.settings.easing) {
         slider.settings.easing = 'swing';
       }
-      // make modifications to the viewport (.bx-viewport)
+      // make modifications to the viewport (.wpmslider-viewport)
       slider.viewport.css({
         width: '100%',
         overflow: 'hidden',
@@ -228,7 +228,7 @@
       slider.viewport.parent().css({
         maxWidth: getViewportMaxWidth()
       });
-      // make modification to the wrapper (.bx-wrapper)
+      // make modification to the wrapper (.wpmslider-wrapper)
       if (!slider.settings.pager && !slider.settings.controls) {
         slider.viewport.parent().css({
           margin: '0 auto 0px'
@@ -261,7 +261,7 @@
 		  });
 	  }
       // create an element to contain all slider controls (pager, start / stop, etc)
-      slider.controls.el = $('<div class="bx-controls" />');
+      slider.controls.el = $('<div class="wpmslider-controls" />');
       // if captions are requested, add them
       if (slider.settings.captions) { appendCaptions(); }
       // check if startSlide is last slide
@@ -293,8 +293,8 @@
       // if infinite loop, prepare additional slides
       if (slider.settings.infiniteLoop && slider.settings.mode !== 'fade' && !slider.settings.ticker) {
         var slice    = slider.settings.mode === 'vertical' ? slider.settings.minSlides : slider.settings.maxSlides,
-        sliceAppend  = slider.children.slice(0, slice).clone(true).addClass('bx-clone'),
-        slicePrepend = slider.children.slice(-slice).clone(true).addClass('bx-clone');
+        sliceAppend  = slider.children.slice(0, slice).clone(true).addClass('wpmslider-clone'),
+        slicePrepend = slider.children.slice(-slice).clone(true).addClass('wpmslider-clone');
         if (slider.settings.ariaHidden) {
           sliceAppend.attr('aria-hidden', true);
           slicePrepend.attr('aria-hidden', true);
@@ -637,14 +637,14 @@
         // if a buildPager function is supplied, use it to get pager link value, else use index + 1
         if (slider.settings.buildPager && $.isFunction(slider.settings.buildPager) || slider.settings.pagerCustom) {
           linkContent = slider.settings.buildPager(i);
-          slider.pagerEl.addClass('bx-custom-pager');
+          slider.pagerEl.addClass('wpmslider-custom-pager');
         } else {
           linkContent = i + 1;
-          slider.pagerEl.addClass('bx-default-pager');
+          slider.pagerEl.addClass('wpmslider-default-pager');
         }
         // var linkContent = slider.settings.buildPager && $.isFunction(slider.settings.buildPager) ? slider.settings.buildPager(i) : i + 1;
         // add the markup to the string
-        pagerHtml += '<div class="bx-pager-item"><a href="" data-slide-index="' + i + '" class="bx-pager-link">' + linkContent + '</a></div>';
+        pagerHtml += '<div class="wpmslider-pager-item"><a href="" data-slide-index="' + i + '" class="wpmslider-pager-link">' + linkContent + '</a></div>';
       }
       // populate the pager element with pager links
       slider.pagerEl.html(pagerHtml);
@@ -656,13 +656,13 @@
     var appendPager = function() {
       if (!slider.settings.pagerCustom) {
         // create the pager DOM element
-        slider.pagerEl = $('<div class="bx-pager" />');
+        slider.pagerEl = $('<div class="wpmslider-pager" />');
         // if a pager selector was supplied, populate it with the pager
         if (slider.settings.pagerSelector) {
           $(slider.settings.pagerSelector).html(slider.pagerEl);
         // if no pager selector was supplied, add it after the wrapper
         } else {
-          slider.controls.el.addClass('bx-has-pager').append(slider.pagerEl);
+          slider.controls.el.addClass('wpmslider-has-pager').append(slider.pagerEl);
         }
         // populate the pager
         populatePager();
@@ -677,8 +677,8 @@
      * Appends prev / next controls to the controls element
      */
     var appendControls = function() {
-      slider.controls.next = $('<a class="bx-next" href="">' + slider.settings.nextText + '</a>');
-      slider.controls.prev = $('<a class="bx-prev" href="">' + slider.settings.prevText + '</a>');
+      slider.controls.next = $('<a class="wpmslider-next" href="">' + slider.settings.nextText + '</a>');
+      slider.controls.prev = $('<a class="wpmslider-prev" href="">' + slider.settings.prevText + '</a>');
       // bind click actions to the controls
       slider.controls.next.bind('click touchend', clickNextBind);
       slider.controls.prev.bind('click touchend', clickPrevBind);
@@ -693,11 +693,11 @@
       // if no custom selectors were supplied
       if (!slider.settings.nextSelector && !slider.settings.prevSelector) {
         // add the controls to the DOM
-        slider.controls.directionEl = $('<div class="bx-controls-direction" />');
+        slider.controls.directionEl = $('<div class="wpmslider-controls-direction" />');
         // add the control elements to the directionEl
         slider.controls.directionEl.append(slider.controls.prev).append(slider.controls.next);
         // slider.viewport.append(slider.controls.directionEl);
-        slider.controls.el.addClass('bx-has-controls-direction').append(slider.controls.directionEl);
+        slider.controls.el.addClass('wpmslider-has-controls-direction').append(slider.controls.directionEl);
       }
     };
 
@@ -705,13 +705,13 @@
      * Appends start / stop auto controls to the controls element
      */
     var appendControlsAuto = function() {
-      slider.controls.start = $('<div class="bx-controls-auto-item"><a class="bx-start" href="">' + slider.settings.startText + '</a></div>');
-      slider.controls.stop = $('<div class="bx-controls-auto-item"><a class="bx-stop" href="">' + slider.settings.stopText + '</a></div>');
+      slider.controls.start = $('<div class="wpmslider-controls-auto-item"><a class="wpmslider-start" href="">' + slider.settings.startText + '</a></div>');
+      slider.controls.stop = $('<div class="wpmslider-controls-auto-item"><a class="wpmslider-stop" href="">' + slider.settings.stopText + '</a></div>');
       // add the controls to the DOM
-      slider.controls.autoEl = $('<div class="bx-controls-auto" />');
+      slider.controls.autoEl = $('<div class="wpmslider-controls-auto" />');
       // bind click actions to the controls
-      slider.controls.autoEl.on('click', '.bx-start', clickStartBind);
-      slider.controls.autoEl.on('click', '.bx-stop', clickStopBind);
+      slider.controls.autoEl.on('click', '.wpmslider-start', clickStartBind);
+      slider.controls.autoEl.on('click', '.wpmslider-stop', clickStopBind);
       // if autoControlsCombine, insert only the "start" control
       if (slider.settings.autoControlsCombine) {
         slider.controls.autoEl.append(slider.controls.start);
@@ -724,7 +724,7 @@
         $(slider.settings.autoControlsSelector).html(slider.controls.autoEl);
       // if auto controls selector was not supplied, add it after the wrapper
       } else {
-        slider.controls.el.addClass('bx-has-controls-auto').append(slider.controls.autoEl);
+        slider.controls.el.addClass('wpmslider-has-controls-auto').append(slider.controls.autoEl);
       }
       // update the auto controls
       updateAutoControls(slider.settings.autoStart ? 'stop' : 'start');
@@ -740,7 +740,7 @@
         var title = $(this).find('img:first').attr('title');
         // append the caption
         if (title !== undefined && ('' + title).length) {
-          $(this).append('<div class="bx-caption"><span>' + title + '</span></div>');
+          $(this).append('<div class="wpmslider-caption"><span>' + title + '</span></div>');
         }
       });
     };
@@ -881,7 +881,7 @@
       // if autoControlsCombine is false, apply the "active" class to the appropriate control
       } else {
         slider.controls.autoEl.find('a').removeClass('active');
-        slider.controls.autoEl.find('a:not(.bx-' + state + ')').addClass('active');
+        slider.controls.autoEl.find('a:not(.wpmslider-' + state + ')').addClass('active');
       }
     };
 
@@ -958,10 +958,10 @@
       position, transform, value, idx, ratio, property, newSpeed, totalDimens;
       // if autoDirection is "next", append a clone of the entire slider
       if (slider.settings.autoDirection === 'next') {
-        el.append(slider.children.clone().addClass('bx-clone'));
+        el.append(slider.children.clone().addClass('wpmslider-clone'));
       // if autoDirection is "prev", prepend a clone of the entire slider, and set the left position
       } else {
-        el.prepend(slider.children.clone().addClass('bx-clone'));
+        el.prepend(slider.children.clone().addClass('wpmslider-clone'));
         position = slider.children.first().position();
         startPosition = slider.settings.mode === 'horizontal' ? -position.left : -position.top;
       }
@@ -1026,7 +1026,7 @@
 
       // if "next" animate left position to last child, then reset left to 0
       if (slider.settings.autoDirection === 'next') {
-        position = el.find('.bx-clone').first().position();
+        position = el.find('.wpmslider-clone').first().position();
       // if "prev" animate left position to 0, then reset left to first non-clone child
       } else {
         reset = slider.children.first().position();
@@ -1089,7 +1089,7 @@
 
       //for browsers that have implemented pointer events and fire a click after
       //every pointerup regardless of whether pointerup is on same screen location as pointerdown or not
-      slider.viewport.on('click', '.bxslider a', function(e) {
+      slider.viewport.on('click', '.wpmslider a', function(e) {
         if (slider.viewport.hasClass('click-disabled')) {
           e.preventDefault();
           slider.viewport.removeClass('click-disabled');
@@ -1419,12 +1419,12 @@
         } else if (slider.carousel && slider.active.last && direction === 'prev') {
           // get the last child position
           eq = slider.settings.moveSlides === 1 ? slider.settings.maxSlides - getMoveBy() : ((getPagerQty() - 1) * getMoveBy()) - (slider.children.length - slider.settings.maxSlides);
-          lastChild = el.children('.bx-clone').eq(eq);
+          lastChild = el.children('.wpmslider-clone').eq(eq);
           position = lastChild.position();
         // if infinite loop and "Next" is clicked on the last slide
         } else if (direction === 'next' && slider.active.index === 0) {
           // get the last clone position
-          position = el.find('> .bx-clone').eq(slider.settings.maxSlides).position();
+          position = el.find('> .wpmslider-clone').eq(slider.settings.maxSlides).position();
           slider.active.last = false;
         // normal non-zero requests
         } else if (slideIndex >= 0) {
@@ -1547,7 +1547,7 @@
      */
     el.redrawSlider = function() {
       // resize all children in ratio to new screen size
-      slider.children.add(el.find('.bx-clone')).outerWidth(getSlideWidth());
+      slider.children.add(el.find('.wpmslider-clone')).outerWidth(getSlideWidth());
       // adjust the height
       slider.viewport.css('height', getViewportHeight());
       // update the slide position
@@ -1572,7 +1572,7 @@
       // don't do anything if slider has already been destroyed
       if (!slider.initialized) { return; }
       slider.initialized = false;
-      $('.bx-clone', this).remove();
+      $('.wpmslider-clone', this).remove();
       slider.children.each(function() {
         if ($(this).data('origStyle') !== undefined) {
           $(this).attr('style', $(this).data('origStyle'));
@@ -1590,7 +1590,7 @@
       if (slider.controls.next) { slider.controls.next.remove(); }
       if (slider.controls.prev) { slider.controls.prev.remove(); }
       if (slider.pagerEl && slider.settings.controls && !slider.settings.pagerCustom) { slider.pagerEl.remove(); }
-      $('.bx-caption', this).remove();
+      $('.wpmslider-caption', this).remove();
       if (slider.controls.autoEl) { slider.controls.autoEl.remove(); }
       clearInterval(slider.interval);
       if (slider.settings.responsive) { $(window).unbind('resize', resizeWindow); }
