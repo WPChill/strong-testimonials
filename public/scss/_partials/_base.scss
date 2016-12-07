@@ -1,8 +1,8 @@
 /* =bxSlider structure
 ---------------------------------------------------------*/
-/* reset and layout from jquery.bxslider.css */
+
 .strong-view {
-	.bx-wrapper {
+	.wpmslider-wrapper {
 		position: relative;
 		margin: 0 auto;
 		padding: 0;
@@ -11,12 +11,12 @@
 		touch-action: pan-y;
 	}
 
-	.bxslider {
+	.wpmslider {
 		margin: 0;
 		padding: 0;
 	}
 
-	.bx-viewport {
+	.wpmslider-viewport {
 		/* fix other elements on the page moving (on Chrome) */
 		-webkit-transform: translatez(0);
 	}
@@ -25,14 +25,14 @@
 /* =pager
 ---------------------------------------------------------*/
 .strong-view {
-	.bx-wrapper {
-		.bx-pager {
+	.wpmslider-wrapper {
+		.wpmslider-pager {
 			display: inline-block;
 		}
-		.bx-pager-item {
+		.wpmslider-pager-item {
 			display: inline-block;
 		}
-		.bx-pager-link {
+		.wpmslider-pager-link {
 			text-decoration: none;
 		}
 	}
@@ -41,17 +41,17 @@
 /* =controls
 ---------------------------------------------------------*/
 .strong-view {
-	.bx-wrapper {
-		.bx-controls-auto,
-		.bx-controls-auto-item,
-		.bx-controls-full,
-		.bx-controls-full-item,
-		.bx-controls-direction {
+	.wpmslider-wrapper {
+		.wpmslider-controls-auto,
+		.wpmslider-controls-auto-item,
+		.wpmslider-controls-full,
+		.wpmslider-controls-full-item,
+		.wpmslider-controls-direction {
 			display: inline-block;
 			vertical-align: middle;
 		}
 
-		.bx-controls a {
+		.wpmslider-controls a {
 			box-shadow: none; /* Twenty Sixteen */
 
 			&:hover,
