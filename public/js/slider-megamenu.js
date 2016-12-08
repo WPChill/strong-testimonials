@@ -2,13 +2,13 @@
  * Slider Handler for Max Mega Menu plugin.
  */
 
-jQuery(document).ready(function( $ ) {
+jQuery(window).on("load", function () {
 
 	// Find Mega Menu items
-	var megaMenuItems = $('li.mega-menu-item');
+	var megaMenuItems = jQuery('li.mega-menu-item');
 
 	// Load up our slideshows
-	var strongSlideshows = $('.strong-view.slider-container');
+	var strongSlideshows = jQuery('.strong-view.slider-container');
 
 	if( megaMenuItems.length ) {
 		// Add class to not auto-start and set height to zero to avoid flash
@@ -20,16 +20,13 @@ jQuery(document).ready(function( $ ) {
 
 	// Start normal slideshows.
 	strongSlideshows.not('.noinit').each(function () {
-		var $this = $(this);
-		$this.imagesLoaded( function () {
-			$this.strongSlider();
-		});
+		jQuery(this).strongSlider();
 	});
 
 	// Start slideshow when menu item opens.
 	megaMenuItems.on('open_panel', function () {
-		$(this).find('.strong-view.slider-container').each(function () {
-			$(this).strongSlider();
+		jQuery(this).find('.strong-view.slider-container').each(function () {
+			jQuery(this).strongSlider();
 		});
 	});
 
