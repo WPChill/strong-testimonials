@@ -83,3 +83,15 @@ function wpmtst_add_field_4_function() {
 	die();
 }
 add_action( 'wp_ajax_wpmtst_add_field_4', 'wpmtst_add_field_4_function' );
+
+
+/**
+ * Return the category count.
+ */
+function wpmtst_get_cat_count() {
+	check_ajax_referer( 'wpmtst-admin', 'security', false );
+
+	echo count( wpmtst_get_category_list() );
+	die();
+}
+add_action( 'wp_ajax_wpmtst_get_cat_count', 'wpmtst_get_cat_count' );
