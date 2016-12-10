@@ -59,7 +59,9 @@ function wpmtst_admin_register() {
         array( 'jquery', 'jquery-ui-sortable', 'wpmtst-help' ), $plugin_version, true );
 	$params = array(
 		'ajax_nonce' => wp_create_nonce( 'wpmtst-admin' ),
-        'newField'   => __( 'New Field', 'strong_testimonials' ),
+        'newField'   => _x( 'New Field', 'Field editor: The default label for new fields', 'strong_testimonials' ),
+        'inUse'      => _x( '(in use)', 'Fields editor: To indicate when a field type can only be used once.', 'strong-testimonials' ),
+        'noneFound'  => _x( '(none found)', 'Fields editor: To indicate when no categories have been found.', 'strong-testimonials' ),
 	);
 	wp_localize_script( 'wpmtst-admin-fields-script', 'wpmtstAdmin', $params );
 
