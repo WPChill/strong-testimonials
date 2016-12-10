@@ -8,20 +8,18 @@ function wpmtst_form_admin() {
 }
 
 function wpmtst_form_admin2() {
-	wpmtst_settings_custom_fields( 'edit', 1 );
+	wpmtst_settings_custom_fields( 1 );
 }
 
 /**
  * Custom Fields page
  *
- * @param string $action
  * @param null   $form_id
  *
  * @return bool
  */
-// TODO is $action still used?
 // TODO use admin-post.php instead
-function wpmtst_settings_custom_fields( $action = '', $form_id = null ) {
+function wpmtst_settings_custom_fields( $form_id = null ) {
 	if ( ! current_user_can( 'manage_options' ) )
 		wp_die( __( 'You do not have sufficient permissions to access this page.' ) );
 
@@ -56,7 +54,6 @@ function wpmtst_settings_custom_fields( $action = '', $form_id = null ) {
 			$default_forms = wpmtst_get_default_base_forms();
 			$fields = $default_forms['default']['fields'];
 			$forms[ $form_id ]['fields'] = $fields;
-			update_option( 'wpmtst_fields', $field_options );
 			update_option( 'wpmtst_custom_forms', $forms );
 			do_action( 'wpmtst_fields_updated', $fields );
 
@@ -122,9 +119,7 @@ function wpmtst_settings_custom_fields( $action = '', $form_id = null ) {
 				$forms[ $form_id ]['label'] = $new_label;
 			}
 
-			update_option( 'wpmtst_fields', $field_options );
 			update_option( 'wpmtst_custom_forms', $forms );
-
 			do_action( 'wpmtst_fields_updated', $fields );
 
 			echo sprintf( $message_format, __( 'Fields saved.', 'strong-testimonials' ) );
