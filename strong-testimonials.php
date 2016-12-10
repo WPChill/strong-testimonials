@@ -815,31 +815,6 @@ final class Strong_Testimonials {
 
 		// Get active strong widgets
 		$strong_widgets = get_option( 'widget_strong-testimonials-view-widget' );
-		/*
-		Array
-		(
-			[wp_inactive_widgets] => Array
-				(
-				)
-
-			[pinbin_footer] => Array
-				(
-					[0] => search-2
-					[1] => recent-posts-2
-					[2] => recent-comments-2
-					[3] => archives-2
-					[4] => categories-2
-					[5] => meta-2
-				)
-
-			[mega-menu] => Array
-				(
-					[0] => strong-testimonials-view-widget-3
-				)
-
-			[array_version] => 3
-		)
-		 */
 
 		foreach ( $all_widgets as $sidebar => $widgets ) {
 
