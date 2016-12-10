@@ -41,6 +41,8 @@ function wpmtst_admin_register() {
 
 	$plugin_version = get_option( 'wpmtst_plugin_version' );
 
+	wp_register_script( 'wpmtst-help', WPMTST_ADMIN_URL . 'js/help.js', array( 'jquery' ), $plugin_version, true );
+
 	wp_register_script( 'wpmtst-admin-script', WPMTST_ADMIN_URL . 'js/admin.js', array( 'jquery' ), $plugin_version, true );
 
 	wp_register_style( 'wpmtst-admin-style', WPMTST_ADMIN_URL . 'css/admin.css', array(), $plugin_version );
@@ -53,7 +55,8 @@ function wpmtst_admin_register() {
 	// Fields
 	wp_register_style( 'wpmtst-admin-fields-style', WPMTST_ADMIN_URL . 'css/fields.css', array(), $plugin_version );
 	wp_register_style( 'wpmtst-admin-form-preview', WPMTST_ADMIN_URL . 'css/form-preview.css', array(), $plugin_version );
-	wp_register_script( 'wpmtst-admin-fields-script', WPMTST_ADMIN_URL . 'js/admin-fields.js', array( 'jquery', 'jquery-ui-sortable' ), $plugin_version, true );
+	wp_register_script( 'wpmtst-admin-fields-script', WPMTST_ADMIN_URL . 'js/admin-fields.js',
+        array( 'jquery', 'jquery-ui-sortable', 'wpmtst-help' ), $plugin_version, true );
 	$params = array(
 		'ajaxurl'    => admin_url( 'admin-ajax.php' ),
 		'ajax_nonce' => wp_create_nonce( 'wpmtst-admin' ),
@@ -69,7 +72,7 @@ function wpmtst_admin_register() {
 	// Views
 	wp_register_style( 'wpmtst-admin-views-style', WPMTST_ADMIN_URL . 'css/views.css', array(), $plugin_version );
 	wp_register_script( 'wpmtst-admin-views-script', WPMTST_ADMIN_URL . 'js/views.js',
-		array( 'jquery', 'jquery-ui-sortable', 'wp-color-picker', 'jquery-masonry' ), $plugin_version, true );
+		array( 'jquery', 'jquery-ui-sortable', 'wp-color-picker', 'jquery-masonry', 'wpmtst-help' ), $plugin_version, true );
 
 	/**
 	 * Category filter in View editor.
