@@ -185,7 +185,22 @@ function wpmtst_upgrade() {
 			// custom fields are in display order (not associative)
 			// so we must find them by name
 			foreach ( $group_array['fields'] as $key => $new_field ) {
-				$updated_default = null;
+
+				/**
+				 * Convert categories to category-selector.
+				 *
+				 * @since 2.17.0
+				 */
+				if ( 'categories' == $new_field['input_type'] ) {
+					$custom_forms[ $form_id ]['fields'][ $key ]['input_type'] = 'category-selector';
+				}
+
+				/**
+				 * Merge in new default.
+				 *
+				 * Custom fields are in display order (not associative) so we must find them by name.
+				 */
+				$updated_default = false;
 				foreach ( $default_base_forms['default']['fields'] as $a_field ) {
 					if ( $a_field['name'] == $new_field['name'] ) {
 						$updated_default = $a_field;

@@ -62,9 +62,9 @@ function wpmtst_single_form_field( $field ) {
 
 	switch ( $field['input_type'] ) {
 
-		case 'categories' :
+		case 'category-selector' :
 
-			$value = isset( $form_values[ $field['name'] ] ) ? $form_values[ $field['name'] ] : '';
+			$value = isset( $form_values[ $field['name'] ] ) ? (array) $form_values[ $field['name'] ] : array();
 
 			$category_list = wpmtst_get_category_list();
 
@@ -74,11 +74,18 @@ function wpmtst_single_form_field( $field ) {
 				. wpmtst_field_required_tag( $field ) . '>';
 			echo '<option value="">&mdash;</option>';
 			foreach ( $category_list as $category ) {
-				echo '<option value="' . $category->term_id . '" ' . selected( $category->term_id, $value ) . '>';
-				echo $category->name;
-				echo '</option>';
+			    $selected = in_array( $category->term_id, $value ) ? ' selected' : '' ;
+				echo '<option value="' . $category->term_id . '"' . $selected . '>' . $category->name . '</option>';
 			}
 			echo '</select>';
+
+			break;
+
+		case 'category-checklist' :
+
+			$value = isset( $form_values[ $field['name'] ] ) ? (array) $form_values[ $field['name'] ] : array();
+			wpmtst_form_category_checklist_frontend( $value );
+
 			break;
 
 		case 'textarea' :

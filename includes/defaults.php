@@ -139,9 +139,17 @@ function wpmtst_get_default_fields() {
 	 * @since 2.2.2 Fix bug caused by localizing 'categories'
 	 */
 	$field_types['optional'] = array(
-		'categories' => array(
-			'input_type'              => 'categories',
+		'category-selector' => array(
+			'input_type'              => 'category-selector',
 			'option_label'            => __( 'category selector', 'strong-testimonials' ),
+			'show_default_options'    => 0,
+			'show_placeholder_option' => 0,
+			'show_admin_table_option' => 0,
+			'name_mutable'            => 0,
+		),
+		'category-checklist' => array(
+			'input_type'              => 'category-checklist',
+			'option_label'            => __( 'category checklist', 'strong-testimonials' ),
 			'show_default_options'    => 0,
 			'show_placeholder_option' => 0,
 			'show_admin_table_option' => 0,
