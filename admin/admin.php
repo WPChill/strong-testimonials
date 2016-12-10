@@ -350,7 +350,7 @@ function wpmtst_meta_options() {
 		<?php foreach ( $fields as $key => $field ) : ?>
 		<?php
 			// short-circuit
-			if ( 'shortcode' == $field['input_type'] || 'categories' == $field['input_type'] ) {
+			if ( 'shortcode' == $field['input_type'] || 'category' == strtok( $field['input_type'], '-' ) ) {
 				continue;
 			}
 		?>
@@ -365,17 +365,6 @@ function wpmtst_meta_options() {
 
 					<?php
 					switch ( $field['input_type'] ) {
-
-						//case 'categories' :
-						//	$categories = get_the_terms( $post->ID, 'wpm-testimonial-category' );
-						//	if ( $categories && ! is_wp_error( $categories ) ) {
-						//		$list = array();
-						//		foreach ( $categories as $cat ) {
-						//			$list[] = $cat->name;
-						//		}
-						//		echo join( ", ", $list );
-						//	}
-						//	break;
 
 						case 'rating' :
 							if ( $is_new ) {
