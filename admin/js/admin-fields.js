@@ -50,10 +50,25 @@ function convertLabel(label) {
 		return this;
 	}
 
+	/**
+	 * Initialize
+	 */
+
+	var catCount = 0;
+	$.get(ajaxurl, {
+			'action': 'wpmtst_get_cat_count',
+			'security': wpmtstAdmin.ajax_nonce
+		},
+		function (response) {
+			catCount = parseInt( response );
+		});
+
+
 	var $theForm = $("#wpmtst-custom-fields-form");
 	var $fieldList = $("#custom-field-list");
 
 	formPreview();
+	toggleCategoryFields();
 
 
 	/**
@@ -385,19 +400,42 @@ function convertLabel(label) {
 	// Only allow one category field
 	function toggleCategoryFields() {
 		var categoryInUse = false;
+
 		$fieldList.find('input[name$="[record_type]"]').each(function () {
 			var $parent = $(this).closest("li");
 			var value = $(this).val();
 			if ('optional' == value) {
 				var fieldType = $parent.find('input[name$="[input_type]"]').val();
-				categoryInUse = ('category' == fieldType.split('-')[0] );
+				if (!categoryInUse) {
+					categoryInUse = ( 'category' == fieldType.split('-')[0] );
+				}
 			}
 		});
 
+		var $options = $fieldList.find('option[value^="category"]');
 		if (categoryInUse) {
-			$fieldList.find('option[value^="category"]').attr("disabled", "disabled");
+			$options.each( function () {
+				var text = $(this).text();
+				$(this)
+					.attr("disabled", "disabled")
+					.text(text + ' ' + wpmtstAdmin.inUse)
+					.data('origText', text);
+			});
+		}
+		else if (0 === catCount) {
+			$options.each( function () {
+				var text = $(this).text();
+				$(this)
+					.attr("disabled", "disabled")
+					.text(text + ' ' + wpmtstAdmin.noneFound)
+					.data('origText', text);
+			});
 		} else {
-			$fieldList.find('option[value^="category"]').removeAttr("disabled");
+			$options.each( function () {
+				$(this)
+					.removeAttr("disabled")
+					.text( $(this).data('origText') );
+			});
 		}
 	}
 
