@@ -150,11 +150,6 @@ optgroup option {
 	padding-left: 4px;
 }
 
-#custom-field-list option[disabled]:after {
-	content: " (in use)";
-	font-style: italic;
-}
-
 #wpmtst-custom-fields-form .controls {
 	padding: 10px 15px;
 	background: #e7f5fa;
