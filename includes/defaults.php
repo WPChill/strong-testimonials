@@ -118,15 +118,15 @@ function wpmtst_get_default_fields() {
 			'option_label' => __( 'text', 'strong-testimonials' ),
 		),
 		'email' => array(
-			'input_type'   => 'email',
-			'option_label' => __( 'email', 'strong-testimonials' ),
+			'input_type'           => 'email',
+			'option_label'         => __( 'email', 'strong-testimonials' ),
 			'show_default_options' => 0,
 		),
 		'url'   => array(
-			'input_type'   => 'url',
-			'option_label' => __( 'URL', 'strong-testimonials' ),
+			'input_type'           => 'url',
+			'option_label'         => __( 'URL', 'strong-testimonials' ),
 			'show_default_options' => 0,
-		)
+		),
 	);
 	foreach ( $field_types['custom'] as $key => $array ) {
 		$field_types['custom'][ $key ] = array_merge( $field_base, $array );
@@ -169,12 +169,13 @@ function wpmtst_get_default_fields() {
 			'option_label'            => __( 'star rating', 'strong-testimonials' ),
 			'show_default_options'    => 0,
 			'show_placeholder_option' => 0,
-
 			'admin_table'             => 1,
 			'admin_table_option'      => 1,
 			'show_admin_table_option' => 1,
 		)
-);
+	);
+
+	// merge each one onto base field
 	foreach ( $field_types['optional'] as $key => $array ) {
 		$field_types['optional'][ $key ] = array_merge( $field_base, $array );
 	}

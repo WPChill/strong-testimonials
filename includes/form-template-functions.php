@@ -255,19 +255,22 @@ function wpmtst_form_captcha() {
 }
 add_action( 'wpmtst_form_after_fields', 'wpmtst_form_captcha' );
 
+/**
+ * Print the submit button.
+ *
+ * @param bool $preview
+ */
 function wpmtst_form_submit_button( $preview = false ) {
 	$form_options = get_option( 'wpmtst_form_options' );
 	$messages     = $form_options['messages'];
-
-	$string  = $messages['form-submit-button']['text'];
-	$context = 'strong-testimonials-form-messages';
-	$name    = $messages['form-submit-button']['description'];
-
-	$type = $preview ? 'button' : 'submit';
+	$string       = $messages['form-submit-button']['text'];
+	$context      = 'strong-testimonials-form-messages';
+	$name         = $messages['form-submit-button']['description'];
+	$type         = $preview ? 'button' : 'submit';
 	?>
-	<p class="form-field submit">
-		<input type="<?php echo $type; ?>" id="wpmtst_submit_testimonial" name="wpmtst_submit_testimonial" value="<?php echo esc_attr( apply_filters( 'wpmtst_l10n', $string, $context, $name ) ); ?>" class="button">
-	</p>
+	<div class="form-field submit">
+		<label><input type="<?php echo $type; ?>" id="wpmtst_submit_testimonial" name="wpmtst_submit_testimonial" value="<?php echo esc_attr( apply_filters( 'wpmtst_l10n', $string, $context, $name ) ); ?>" class="button"></label>
+	</div>
 	<?php
 	// validate="required:true"
 }
