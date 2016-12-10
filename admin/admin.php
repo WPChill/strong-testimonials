@@ -57,8 +57,9 @@ function wpmtst_admin_register() {
 	$params = array(
 		'ajaxurl'    => admin_url( 'admin-ajax.php' ),
 		'ajax_nonce' => wp_create_nonce( 'wpmtst-admin' ),
+        'newField'   => __( 'New Field', 'strong_testimonials' ),
 	);
-	wp_localize_script( 'wpmtst-admin-fields-script', 'wpmtst_ajax_object', $params );
+	wp_localize_script( 'wpmtst-admin-fields-script', 'wpmtstAdmin', $params );
 
 	// Ratings
 	wp_register_style( 'wpmtst-rating-display', WPMTST_COMMON_URL . 'css/rating-display.css', array( 'wpmtst-font-awesome' ), $plugin_version );
