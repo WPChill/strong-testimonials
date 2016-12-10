@@ -4,7 +4,7 @@ Donate link: https://www.wpmission.com/donate/
 Tags: testimonials, testimonial widget, random testimonial, testimonial shortcode, testimonial slider, testimonial form
 Requires at least: 3.6
 Tested up to: 4.7
-Stable tag: 2.16.5
+Stable tag: 2.17
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -147,7 +147,7 @@ Yes. This requires a lightbox so if your theme does not include one, you will ne
 == Changelog ==
 
 = 2.16.5 - Dec 8, 2015 =
-* Fix conflict with [Max Mega Menu](https://wordpress.org/plugins/megamenu/) plugin.
+* Fix bug when [Max Mega Menu](https://wordpress.org/plugins/megamenu/) plugin installed.
 
 = 2.16.4 - Dec 7, 2016 =
 * Fix conflict with [Huge IT Slider](https://wordpress.org/plugins/slider-image/) plugin.
