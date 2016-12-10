@@ -32,7 +32,7 @@ function wpmtst_get_form_preview() {
 	}
 
 	ob_start();
-	include WPMTST_ADMIN . 'partials/form-preview-template.php';
+	include WPMTST_ADMIN . 'partials/templates/form-preview-template.php';
 	$html = ob_get_contents();
 	ob_end_clean();
 	echo $html;
