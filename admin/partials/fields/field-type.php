@@ -9,29 +9,28 @@
 	<th><?php _ex( 'Type', 'noun', 'strong-testimonials' ); ?></th>
 	<td>
 		<?php
-		// Restrict field choice to this record type unless we're adding a new field.
 		if ( $adding ) :
 		?>
 			<select class="first-field field-type new" name="fields[<?php echo $key; ?>][input_type]">
 
-				<?php // start with a blank option with event trigger to update optgroups ?>
+				<?php /* Start with a blank option with event trigger to update optgroups */ ?>
 				<option class="no-selection" value="none" name="none">&mdash;</option>
 
-				<?php // Post fields ?>
+				<?php /* Post fields */ ?>
 				<optgroup class="post" label="<?php _e( 'Post Fields', 'strong-testimonials' ); ?>">
 				<?php foreach ( $field_types['post'] as $field_key => $field_parts ) : ?>
 					<option value="<?php echo $field_key; ?>"><?php echo $field_parts['option_label']; ?></option>
 				<?php endforeach; ?>
 				</optgroup>
 
-				<?php // Custom fields ?>
+				<?php /* Custom fields */ ?>
 				<optgroup class="custom" label="<?php _e( 'Custom Fields', 'strong-testimonials' ); ?>">
 				<?php foreach ( $field_types['custom'] as $field_key => $field_parts ) : ?>
 					<option value="<?php echo $field_key; ?>"><?php echo $field_parts['option_label']; ?></option>
 				<?php endforeach; ?>
 				</optgroup>
 
-				<?php // Special fields ?>
+				<?php /* Special fields */ ?>
 				<optgroup class="optional" label="<?php _e( 'Special Fields', 'strong-testimonials' ); ?>">
 				<?php foreach ( $field_types['optional'] as $field_key => $field_parts ) : ?>
 					<option value="<?php echo $field_key; ?>"><?php echo $field_parts['option_label']; ?></option>
