@@ -221,29 +221,29 @@ function wpmtst_view_settings( $action = '', $view_id = null ) {
 		</div>
 
 		<?php
-		include( 'views/mode.php' );
+		include( 'partials/views/mode.php' );
 
 		// TODO Generify both hook and include
 		do_action( 'wpmtst_view_editor_before_group_select' );
-		include( 'views/group-select.php' );
+		include( 'partials/views/group-select.php' );
 
 		do_action( 'wpmtst_view_editor_before_group_slideshow' );
-		include( 'views/group-slideshow.php' );
+		include( 'partials/views/group-slideshow.php' );
 
 		do_action( 'wpmtst_view_editor_before_group_fields' );
-		include( 'views/group-fields.php' );
+		include( 'partials/views/group-fields.php' );
 
 		do_action( 'wpmtst_view_editor_before_group_form' );
-		include( 'views/group-form.php' );
+		include( 'partials/views/group-form.php' );
 
 		do_action( 'wpmtst_view_editor_before_group_extra' );
-		include( 'views/group-extra.php' );
+		include( 'partials/views/group-extra.php' );
 
 		do_action( 'wpmtst_view_editor_before_group_style' );
-		include( 'views/group-style.php' );
+		include( 'partials/views/group-style.php' );
 
 		do_action( 'wpmtst_view_editor_before_group_general' );
-		include( 'views/group-general.php' );
+		include( 'partials/views/group-general.php' );
 
 		do_action( 'wpmtst_view_editor_after_groups' );
 		?>

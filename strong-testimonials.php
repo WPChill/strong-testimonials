@@ -242,19 +242,18 @@ final class Strong_Testimonials {
 
 			require_once WPMTST_ADMIN . 'admin.php';
 			require_once WPMTST_ADMIN . 'admin-ajax.php';
-
-			require_once WPMTST_ADMIN . 'partials/compat.php';
-			require_once WPMTST_ADMIN . 'partials/custom-fields.php';
-			require_once WPMTST_ADMIN . 'partials/custom-fields-ajax.php';
-			require_once WPMTST_ADMIN . 'partials/form-preview.php';
-			require_once WPMTST_ADMIN . 'partials/guide.php';
-			require_once WPMTST_ADMIN . 'partials/help.php';
-			require_once WPMTST_ADMIN . 'partials/install.php';
-			require_once WPMTST_ADMIN . 'partials/settings.php';
-			require_once WPMTST_ADMIN . 'partials/upgrade.php';
-			require_once WPMTST_ADMIN . 'partials/views.php';
-			require_once WPMTST_ADMIN . 'partials/views-ajax.php';
-			require_once WPMTST_ADMIN . 'partials/views-validate.php';
+			require_once WPMTST_ADMIN . 'compat.php';
+			require_once WPMTST_ADMIN . 'custom-fields.php';
+			require_once WPMTST_ADMIN . 'custom-fields-ajax.php';
+			require_once WPMTST_ADMIN . 'form-preview.php';
+			require_once WPMTST_ADMIN . 'guide.php';
+			require_once WPMTST_ADMIN . 'help.php';
+			require_once WPMTST_ADMIN . 'install.php';
+			require_once WPMTST_ADMIN . 'settings.php';
+			require_once WPMTST_ADMIN . 'upgrade.php';
+			require_once WPMTST_ADMIN . 'views.php';
+			require_once WPMTST_ADMIN . 'views-ajax.php';
+			require_once WPMTST_ADMIN . 'views-validate.php';
 
 		}
 
