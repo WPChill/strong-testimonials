@@ -264,3 +264,135 @@ function wpmtst_form_submit_button( $preview = false ) {
 	<?php
 	// validate="required:true"
 }
+
+/**
+ * Print a category checklist.
+ *
+ * @since 2.17.0
+ * @param array $default_cats
+ */
+function wpmtst_form_category_checklist_frontend( $default_cats = array() ) {
+	?>
+    <div class="strong-category-list-panel">
+        <ul class="strong-category-list">
+			<?php $args = array(
+				'selected_cats' => $default_cats,
+				'checked_ontop' => false,
+			); ?>
+			<?php wpmtst_terms_checklist( $args ); ?>
+        </ul>
+    </div>
+	<?php
+}
+
+/**
+ * Output an unordered list of checkbox input elements labelled with term names.
+ *
+ * Copied wp_terms_checklist().
+ *
+ * @since 2.16.4
+ *
+ * @param array|string $args {
+ *     Optional. Array or string of arguments for generating a terms checklist. Default empty array.
+ *
+ *     @type int    $descendants_and_self ID of the category to output along with its descendants.
+ *                                        Default 0.
+ *     @type array  $selected_cats        List of categories to mark as checked. Default false.
+ *     @type array  $popular_cats         List of categories to receive the "popular-category" class.
+ *                                        Default false.
+ *     @type object $walker               Walker object to use to build the output.
+ *                                        Default is a Walker_Strong_Category_Checklist_Front instance.
+ *     @type string $taxonomy             Taxonomy to generate the checklist for. Default 'wpm-testimonial-category'.
+ *     @type bool   $checked_ontop        Whether to move checked items out of the hierarchy and to
+ *                                        the top of the list. Default true.
+ *     @type bool   $echo                 Whether to echo the generated markup. False to return the markup instead
+ *                                        of echoing it. Default true.
+ * }
+ *
+ * @return string
+ */
+function wpmtst_terms_checklist( $args = array() ) {
+	$defaults = array(
+		'descendants_and_self' => 0,
+		'selected_cats'        => false,
+		'popular_cats'         => false,
+		'walker'               => null,
+		'taxonomy'             => 'wpm-testimonial-category',
+		'checked_ontop'        => true,
+		'echo'                 => true,
+	);
+
+	$params = apply_filters( 'wpmtst_terms_checklist_args', $args );
+
+	$r = wp_parse_args( $params, $defaults );
+
+	if ( empty( $r['walker'] ) || ! ( $r['walker'] instanceof Walker ) ) {
+		$walker = new Walker_Strong_Category_Checklist_Front;
+	} else {
+		$walker = $r['walker'];
+	}
+
+	$taxonomy = $r['taxonomy'];
+	$descendants_and_self = (int) $r['descendants_and_self'];
+
+	$args = array( 'taxonomy' => $taxonomy );
+
+	if ( is_array( $r['selected_cats'] ) ) {
+		$args['selected_cats'] = $r['selected_cats'];
+	} else {
+		$args['selected_cats'] = array();
+	}
+
+	if ( is_array( $r['popular_cats'] ) ) {
+		$args['popular_cats'] = $r['popular_cats'];
+	} else {
+		$args['popular_cats'] = get_terms( $taxonomy, array(
+			'fields'       => 'ids',
+			'orderby'      => 'count',
+			'order'        => 'DESC',
+			'number'       => 10,
+			'hierarchical' => false,
+		) );
+	}
+
+	// Select a _single_ sibling and its descendants.
+	// Assembling a list of _multiple_ siblings would go here.
+	if ( $descendants_and_self ) {
+		$categories = (array) get_terms( $taxonomy, array(
+			'child_of'     => $descendants_and_self,
+			'hierarchical' => 0,
+			'hide_empty'   => 0,
+		) );
+		$self = get_term( $descendants_and_self, $taxonomy );
+		array_unshift( $categories, $self );
+	} else {
+		$categories = (array) get_terms( $taxonomy, array( 'get' => 'all' ) );
+	}
+
+	$output = '';
+
+	if ( $r['checked_ontop'] ) {
+		// Post-process $categories rather than adding an exclude to the get_terms() query
+        // to keep the query the same across all posts (for any query cache)
+		$checked_categories = array();
+		$keys = array_keys( $categories );
+
+		foreach ( $keys as $k ) {
+			if ( in_array( $categories[$k]->term_id, $args['selected_cats'] ) ) {
+				$checked_categories[] = $categories[$k];
+				unset( $categories[$k] );
+			}
+		}
+
+		// Put checked cats on top
+		$output .= call_user_func_array( array( $walker, 'walk' ), array( $checked_categories, 0, $args ) );
+	}
+	// Then the rest of them
+	$output .= call_user_func_array( array( $walker, 'walk' ), array( $categories, 0, $args ) );
+
+	if ( $r['echo'] ) {
+		echo $output;
+	}
+
+	return $output;
+}
