@@ -58,7 +58,6 @@ function wpmtst_admin_register() {
 	wp_register_script( 'wpmtst-admin-fields-script', WPMTST_ADMIN_URL . 'js/admin-fields.js',
         array( 'jquery', 'jquery-ui-sortable', 'wpmtst-help' ), $plugin_version, true );
 	$params = array(
-		'ajaxurl'    => admin_url( 'admin-ajax.php' ),
 		'ajax_nonce' => wp_create_nonce( 'wpmtst-admin' ),
         'newField'   => __( 'New Field', 'strong_testimonials' ),
 	);
