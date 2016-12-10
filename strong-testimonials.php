@@ -232,6 +232,7 @@ final class Strong_Testimonials {
 		require_once WPMTST_INC . 'form-template-functions.php';
 		require_once WPMTST_INC . 'captcha.php';
 		require_once WPMTST_INC . 'scripts.php';
+		require_once WPMTST_INC . 'class-walker-strong-category-checklist-front.php';
 
 		if ( is_admin() ) {
 
