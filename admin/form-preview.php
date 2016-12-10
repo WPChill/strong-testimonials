@@ -20,6 +20,10 @@ function wpmtst_get_form_preview() {
 
 		$field = array_merge( $field_options['field_base'], $field );
 
+		if ( 'none' == $field['input_type'] ) {
+			$field['input_type'] = 'text';
+		}
+
 		$field['name']               = sanitize_text_field( $field['name'] );
 		$field['label']              = sanitize_text_field( $field['label'] );
 		$field['default_form_value'] = sanitize_text_field( $field['default_form_value'] );
