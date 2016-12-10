@@ -87,7 +87,7 @@ function wpmtst_form_handler() {
 				break;
 
 			case 'optional':
-				if ( 'categories' == $field['input_type'] ) {
+				if ( 'category' == strtok( $field['input_type'], '-' ) ) {
 					$testimonial_meta[ $field['name'] ] = $new_post[ $field['name'] ];
 				}
 				if ( 'rating' == $field['input_type'] ) {
@@ -165,20 +165,31 @@ function wpmtst_form_handler() {
 		}
 		else {
 
-			// add to categories
+			/**
+			 * Add categories.
+			 *
+			 * @since 2.17.0 Handle arrays (if using checklist) or strings (if using <select>).
+			 */
 			if ( $new_post['category'] ) {
-				$categories = explode( ',', $new_post['category'] );
-				$category_success = wp_set_post_terms( $testimonial_id, $categories, 'wpm-testimonial-category' );
-				if ( $categories && ! $category_success ) {
+				if ( is_string( $new_post['category'] ) ) {
+					$new_post['category'] = explode( ',', $new_post['category'] );
+				}
+				$category_success = wp_set_post_terms( $testimonial_id, $new_post['category'], 'wpm-testimonial-category' );
+				if ( $new_post['category'] && ! $category_success ) {
 					// TODO improve error handling
 				}
 			}
 
 			// save submit date
 			$testimonial_meta['submit_date'] = current_time( 'mysql' );
-				
-			// save custom fields
-			foreach ( $testimonial_meta as $key => $field ) {
+
+			/**
+			 * Save custom fields.
+			 *
+			 * @since 2.17.0 Exclude categories.
+			 */
+			$new_meta = array_diff_key( $testimonial_meta, array( 'category' => '' ) );
+			foreach ( $new_meta as $key => $field ) {
 				add_post_meta( $testimonial_id, $key, $field );
 			}
 
