@@ -41,7 +41,7 @@
 }
 .strong-view .wpmslider-wrapper .wpmslider-controls a {
   box-shadow: none;
-  /* Twenty Sixteen */
+  text-decoration: none;
 }
 .strong-view .wpmslider-wrapper .wpmslider-controls a:hover, .strong-view .wpmslider-wrapper .wpmslider-controls a:active, .strong-view .wpmslider-wrapper .wpmslider-controls a:focus {
   outline: 0;
