@@ -237,8 +237,8 @@ final class Strong_Testimonials {
 
 			require_once WPMTST_INC . 'class-strong-testimonials-list-table.php';
 			require_once WPMTST_INC . 'class-strong-views-list-table.php';
-			require_once WPMTST_INC . 'class-walker-wpmst-category-checklist.php';
-			require_once WPMTST_INC . 'class-walker-wpmst-form-category-checklist.php';
+			require_once WPMTST_INC . 'class-walker-strong-category-checklist.php';
+			require_once WPMTST_INC . 'class-walker-strong-form-category-checklist.php';
 
 			require_once WPMTST_ADMIN . 'admin.php';
 			require_once WPMTST_ADMIN . 'admin-ajax.php';

@@ -740,7 +740,7 @@ function wpmtst_category_checklist( $view_cats_array ) {
 				'descendants_and_self' => 0,
 				'selected_cats'        => $view_cats_array,
 				'popular_cats'         => false,
-				'walker'               => new Walker_WPMST_Category_Checklist(),
+				'walker'               => new Walker_Strong_Category_Checklist(),
 				'taxonomy'             => "wpm-testimonial-category",
 				'checked_ontop'        => true,
 			); ?>
@@ -763,7 +763,7 @@ function wpmtst_form_category_checklist( $view_cats_array ) {
 				'descendants_and_self' => 0,
 				'selected_cats'        => $view_cats_array,
 				'popular_cats'         => false,
-				'walker'               => new Walker_WPMST_Form_Category_Checklist(),
+				'walker'               => new Walker_Strong_Form_Category_Checklist(),
 				'taxonomy'             => "wpm-testimonial-category",
 				'checked_ontop'        => true,
 			); ?>
