@@ -13,10 +13,12 @@ function wpmtst_add_field_function() {
 	$new_key = intval( $_REQUEST['nextKey'] );
 	// when adding, leave Name empty so it will be populated from Label
 	$empty_field = array(
-		'record_type' => 'custom',
-		'input_type'  => '',
-		'label'       => 'New Field',
-		'show_label'  => 1,
+		'name'         => '',
+		'name_mutable' => 1,
+		'record_type'  => 'custom',
+		'input_type'   => 'text',
+		'label'        => __( 'New Field', 'strong-testimonials' ),
+		'show_label'   => 1,
 	);
 	$new_field = wpmtst_show_field( $new_key, $empty_field, true );
 	echo $new_field;

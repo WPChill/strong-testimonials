@@ -572,6 +572,7 @@ function wpmtst_show_field_hidden( $key, $field ) {
 
 	$html = sprintf( $pattern, $key, 'record_type', $field['record_type'] ) . "\n";
 	$html .= sprintf( $pattern, $key, 'input_type', $field['input_type'] ) . "\n";
+	$html .= sprintf( $pattern, $key, 'name_mutable', $field['name_mutable'] ) . "\n";
 	$html .= sprintf( $pattern, $key, 'show_placeholder_option', $field['show_placeholder_option'] ) . "\n";
 	$html .= sprintf( $pattern, $key, 'show_default_options', $field['show_default_options'] ) . "\n";
 	$html .= sprintf( $pattern, $key, 'admin_table_option', $field['admin_table_option'] ) . "\n";

@@ -44,6 +44,7 @@ function wpmtst_get_default_fields() {
 	// common field properties
 	$field_base = array(
 		'name'                    => '',
+		'name_mutable'            => 1,
 		'label'                   => '',
 		'show_label'              => 1,
 		'input_type'              => '',
@@ -76,23 +77,25 @@ function wpmtst_get_default_fields() {
 	// Post
 	$field_types['post'] = array(
 		'post_title'     => array(
-			'input_type'         => 'text',
-			'option_label'       => __( 'Testimonial Title', 'strong-testimonials' ),
-			'map'                => 'post_title',
-			'show_default_options' => 0,
-			'admin_table'        => 1,
-			'admin_table_option' => 0,
+			'input_type'              => 'text',
+			'option_label'            => __( 'Testimonial Title', 'strong-testimonials' ),
+			'map'                     => 'post_title',
+			'show_default_options'    => 0,
+			'admin_table'             => 1,
+			'admin_table_option'      => 0,
 			'show_admin_table_option' => 0,
+			'name_mutable'            => 0,
 		),
 		'post_content'   => array(
-			'input_type'   => 'textarea',
-			'option_label' => __( 'Testimonial Content', 'strong-testimonials' ),
-			'map'          => 'post_content',
-			'required'     => 1,
-			'show_default_options' => 0,
-			'core'         => 0,
-			'admin_table'  => 0,
+			'input_type'              => 'textarea',
+			'option_label'            => __( 'Testimonial Content', 'strong-testimonials' ),
+			'map'                     => 'post_content',
+			'required'                => 1,
+			'show_default_options'    => 0,
+			'core'                    => 0,
+			'admin_table'             => 0,
 			'show_admin_table_option' => 0,
+			'name_mutable'            => 0,
 		),
 		'featured_image' => array(
 			'input_type'              => 'file',
@@ -101,6 +104,7 @@ function wpmtst_get_default_fields() {
 			'show_default_options'    => 0,
 			'show_placeholder_option' => 0,
 			'admin_table'             => 0,
+			'name_mutable'            => 0,
 		),
 	);
 	foreach ( $field_types['post'] as $key => $array ) {
@@ -141,6 +145,7 @@ function wpmtst_get_default_fields() {
 			'show_default_options'    => 0,
 			'show_placeholder_option' => 0,
 			'show_admin_table_option' => 0,
+			'name_mutable'            => 0,
 		),
 		'shortcode' => array(
 			'input_type'              => 'shortcode',
