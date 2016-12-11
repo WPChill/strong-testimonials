@@ -80,7 +80,7 @@ function wpmtst_active_addons() {
  * Our add-on licenses.
  */
 function wpmtst_licenses_settings() {
-	include( 'settings/licenses.php' );
+	include( 'partials/settings/licenses.php' );
 }
 
 /**
@@ -254,7 +254,7 @@ function wpmtst_settings_page() {
 					break;
 				default :
 					settings_fields( 'wpmtst-settings-group' );
-					include( 'settings/general.php' );
+					include( 'partials/settings/general.php' );
 			}
 			?>
 			<p>
@@ -322,7 +322,7 @@ function wpmtst_form_settings() {
 
 	}
 
-	include( 'settings/form.php' );
+	include( 'partials/settings/form.php' );
 }
 
 /**
