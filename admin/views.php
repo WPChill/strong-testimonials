@@ -456,6 +456,18 @@ function wpmtst_get_posts() {
 function wpmtst_view_field_inputs( $key, $field, $adding = false ) {
 	$custom_fields = wpmtst_get_custom_fields();
 
+	/**
+	 * Remove [category] from custom because it's included in [optional].
+	 *
+	 * @since 2.17.0
+	 */
+	foreach ( $custom_fields as $name1 => $field1 ) {
+	    if ( 'category' == strtok( $field1['input_type'], '-' ) ) {
+	        unset( $custom_fields[ $name1 ] );
+		}
+	}
+
+	// TODO Move this to view defaults option.
 	$builtin_fields = array(
 		array(
 			'name'        => 'post_date',
@@ -482,6 +494,8 @@ function wpmtst_view_field_inputs( $key, $field, $adding = false ) {
 		__( 'built-in', 'strong-testimonials' ) => $builtin_fields
 	);
 
+	$allowed = array( 'custom', 'optional', 'builtin' );
+
 	// TODO Move this to view defaults option.
 	$types = array(
 		'text'      => __( 'text', 'strong-testimonials' ),
@@ -493,7 +507,23 @@ function wpmtst_view_field_inputs( $key, $field, $adding = false ) {
 		'shortcode' => __( 'shortcode', 'strong-testimonials' ),
 	);
 
-	$allowed = array( 'custom', 'optional', 'builtin' );
+	if ( isset( $custom_fields[ $field['field'] ] ) ) {
+		$field_label = $custom_fields[ $field['field'] ]['label'];
+	} else {
+	    $field_label = ucwords( str_replace( '_', ' ', $field['field'] ) );
+	}
+
+	/**
+	 * Catch and highlight fields not found in custom fields; i.e. it has been deleted.
+	 *
+     * @since 2.17.0
+	 */
+	$all_field_names = array_merge( array_keys( $custom_fields), array( 'post_date', 'submit_date', 'category' ) );
+	$label_class = '';
+	if ( ! $adding && ! in_array( $field['field'], $all_field_names ) ) {
+	    $field_label .= ' < ERROR - not found >';
+	    $label_class = 'error';
+	}
 	?>
 	<div id="field-<?php echo $key; ?>" class="field2">
 
@@ -501,9 +531,7 @@ function wpmtst_view_field_inputs( $key, $field, $adding = false ) {
 
 			<span class="link" title="<?php _e( 'click to open or close', 'strong-testimonials' ); ?>">
 
-				<a href="#" class="field-description">
-					<?php echo wpmtst_get_field_label( $field ); ?>
-				</a>
+				<a href="#" class="field-description <?php echo $label_class; ?>"><?php echo $field_label; ?></a>
 
 				<div class="controls2 left">
 					<span class="handle ui-sortable-handle icon-wrap"
@@ -529,12 +557,13 @@ function wpmtst_view_field_inputs( $key, $field, $adding = false ) {
 							<option value=""></option>
 
 							<?php foreach ( $all_fields as $group_name => $group ) : ?>
-							<optgroup label="<?php echo $group_name; ?>">;
+							<optgroup label="<?php echo $group_name; ?>">
 
 							<?php foreach ( $group as $key2 => $field2 ) : ?>
 							<?php if ( in_array( $field2['record_type'], $allowed ) && 'email' != $field2['input_type'] ) : ?>
-							<option value="<?php echo $field2['name']; ?>" data-type="<?php echo $field2['input_type']; ?>"<?php selected( $field2['name'], $field['field'] ); ?>><?php echo $field2['name']; ?></option>
-									<?php endif; ?>
+							<option value="<?php echo $field2['name']; ?>" data-type="<?php echo $field2['input_type']; ?>"
+                                <?php selected( $field2['name'], $field['field'] ); ?>><?php echo $field2['name']; ?></option>
+							<?php endif; ?>
 							<?php endforeach; ?>
 
 							</optgroup>
