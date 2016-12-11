@@ -9,7 +9,7 @@ Array.max = function (array) {
 
 // Convert "A String" to "a_string"
 function convertLabel(label) {
-	return label.replace(/\s+/g, "_").replace(/\W/g, "").toLowerCase();
+	return label.replace(/\W/g, " ").replace(/\s+/g, "_").toLowerCase();
 }
 
 (function ($) {
@@ -158,9 +158,10 @@ function convertLabel(label) {
 
 	// delete field
 	$fieldList.on("click", ".delete-field", function () {
+		$(this).blur();
 		dismissNotice();
 		var thisField = $(this).closest("li");
-		var thisLabel = thisField.find(".field").html();
+		var thisLabel = thisField.find(".field").text();
 		if (confirm('Delete "' + thisLabel + '"?')) {
 			thisField.fadeOut(function () {
 				$.when(thisField.remove()).then(function () {
@@ -463,6 +464,7 @@ function convertLabel(label) {
 		names = names.filter(function (x) {
 			return (x !== (undefined || ''));
 		});
+		console.log(names);
 
 		var uniqueName = fieldName;
 		var i = 1;
