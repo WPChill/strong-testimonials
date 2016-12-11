@@ -39,8 +39,14 @@ function wpmtst_views_admin() {
 		if ( isset( $_REQUEST['error'] ) ) {
 
 			echo '<h2>' . __( 'Edit View', 'strong-testimonials' ) . '</h2>';
-			$message = sprintf( wp_kses( __( 'An error occurred. Please <a href="%s" target="_blank">open a support ticket</a>.', 'strong-testimonials' ), array( 'a' => array( 'href' => array(), 'target' => array(), 'class' => array() ) ) ), esc_url( 'https://www.wpmission.com/submit-ticket/' ) );
-			printf( '<div class="error strong-view-error"><p>%s</p></div>', $message );
+			$message = sprintf(
+				wp_kses(
+					__( 'An error occurred. Please <a href="%s" target="_blank">open a support ticket</a>.', 'strong-testimonials' ),
+					array( 'a' => array( 'href' => array(), 'target' => array(), 'class' => array() ) )
+				),
+				esc_url( 'https://www.wpmission.com/submit-ticket/' )
+			);
+			wp_die( sprintf( '<div class="error strong-view-error"><p>%s</p></div>', $message ) );
 
 		}
 		elseif ( isset( $_REQUEST['action'] ) ) {
@@ -67,11 +73,14 @@ function wpmtst_views_admin() {
 				<?php _e( 'Views', 'strong-testimonials' ); ?>
 				<a href="<?php echo admin_url( 'edit.php?post_type=wpm-testimonial&page=testimonial-views&action=add' ); ?>" class="add-new-h2">Add New</a>
 			</h2>
+			<?php
+			// Fetch views after heading and before intro in case we need to display any database errors.
+			$views = wpmtst_get_views();
+			?>
 			<div class="intro">
 				<p><?php _e( 'A View can display your testimonials, create a slideshow, or show a testimonial submission form.<br>Add it to a page with a shortcode or add it to a sidebar with a widget.', 'strong-testimonials' ); ?></p>
 			</div>
 			<?php
-			$views = wpmtst_get_views();
 			$views_table = new Strong_Views_List_Table();
 			$views_table->prepare_list( wpmtst_unserialize_views( $views ) );
 			$views_table->display();
