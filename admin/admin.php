@@ -604,28 +604,6 @@ add_action( 'manage_wpm-testimonial_posts_custom_column', 'wpmtst_custom_columns
 
 
 /**
- * Filter the published time of the post.
- *
- * This filter is documented in wp-admin/includes/class-wp-posts-list-table.php.
- *
- * @since 1.16.0
- * @param        $t_time
- * @param null   $post
- * @param string $column_name
- * @param string $mode
- *
- * @return false|int|string
- */
-function wpmtst_post_date_column_time( $t_time, $post = null, $column_name = 'date', $mode = 'list' ) {
-	if ( $post && 'wpm-testimonial' == $post->post_type && 'date' == $column_name ) {
-		$t_time = get_post_time( __( 'Y/m/d g:i:s A' ), true, $post );
-	}
-	return $t_time;
-}
-add_filter( 'post_date_column_time', 'wpmtst_post_date_column_time', 10, 4 );
-
-
-/**
  * Check if a column in admin list table is sorted.
  *
  * @since 1.16.0
