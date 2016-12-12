@@ -50,6 +50,11 @@ $template: no-quotes;
 			padding: 6px;
 			margin: 0 auto;
 		}
+
+		a {
+			text-decoration: none;
+			box-shadow: none;
+		}
 	}
 
 	.testimonial-client {

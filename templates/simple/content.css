@@ -181,6 +181,10 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
 .strong-view.simple .testimonial-image img {
   background: none;
 }
+.strong-view.simple .testimonial-image a {
+  text-decoration: none;
+  box-shadow: none;
+}
 .strong-view.simple .testimonial-client {
   clear: both;
   margin-top: 1em;

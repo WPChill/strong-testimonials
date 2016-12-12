@@ -85,6 +85,7 @@
 }
 .strong-view .wpmslider-wrapper .wpmslider-pager-link.active {
   color: #111;
+  font-weight: 700;
 }
 .strong-view.pager-style-text .wpmslider-pager-link {
   padding: 0 0.3em;

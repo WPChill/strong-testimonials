@@ -30,7 +30,7 @@
 					</div>
 					<div class="clear"></div>
 
-					<?php do_action( 'wpmtst_after_testimonial' ); ?>
+                    <?php do_action( 'wpmtst_after_testimonial' ); ?>
 				</div>
 
 			</div>
