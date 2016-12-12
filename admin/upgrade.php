@@ -120,65 +120,6 @@ function wpmtst_upgrade() {
 			}
 		}
 
-		/**
-		 * Fix bug that localized 'categories'
-		 *
-		 * since 2.2.2
-		 */
-		//$fields['field_types']['optional']['categories']['input_type'] = 'categories';
-
-		/*
-		// ----------
-		// field base
-		// ----------
-		$new_field_base = array_merge( $default_fields['field_base'], $fields['field_base'] );
-
-		// -----------
-		// field types
-		// -----------
-		$new_field_types = $fields['field_types'];
-		// convert url and email to HTML5 types
-		// @since 1.24.0
-		foreach ( $new_field_types['custom'] as $field_name => $field_atts ) {
-			if ( 'email' == $field_name ) {
-				$new_field_types['custom'][$field_name]['input_type']   = 'email';
-				$new_field_types['custom'][$field_name]['option_label'] = 'email';
-			}
-			elseif ( 'url' == $field_name ) {
-				$new_field_types['custom'][$field_name]['input_type']   = 'url';
-				$new_field_types['custom'][$field_name]['option_label'] = 'URL';
-			}
-		}
-
-		// (1) check for new default types (not fields) like "optional" before the array merge in next step
-		foreach ( $default_fields['field_types'] as $type_name => $type_array ) {
-			if ( ! isset( $new_field_types[ $type_name ] ) ) {
-				$new_field_types[ $type_name ] = $type_array;
-			}
-		}
-
-		// (2) update *existing* fields in types like "post" and "custom"
-		foreach ( $new_field_types as $type_name => $type_array ) {
-			foreach ( $type_array as $field_name => $field_atts ) {
-				$new_field_types[ $type_name ][ $field_name ] = array_merge( $default_fields['field_types'][ $type_name ][ $field_name ], $field_atts );
-			}
-		}
-
-		// (3) add *new* field like "rating"
-		$default_optional_field_keys = array_keys( $default_fields['field_types']['optional'] );
-		$current_optional_field_keys = array_keys( $fields['field_types']['optional'] );
-		$missing_fields              = array_diff( $default_optional_field_keys, $current_optional_field_keys );
-		foreach ( $missing_fields as $field_name ) {
-			$new_field_types['optional'][ $field_name ] = $default_fields['field_types']['optional'][ $field_name ];
-		}
-
-		// (4) Re-assemble fields and save.
-		$fields['field_base']  = $new_field_base;
-		$fields['field_types'] = $new_field_types;
-		*/
-
-		//$fields['field_base']  = $default_fields['field_base'];
-		//$fields['field_types'] = $default_fields['field_types'];
 		update_option( 'wpmtst_fields', $default_fields );
 	}
 
