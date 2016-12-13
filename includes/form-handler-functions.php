@@ -17,6 +17,7 @@ function wpmtst_form_handler() {
 	add_filter( 'upload_mimes', 'wpmtst_restrict_mime' );
 
 	$form_options = get_option( 'wpmtst_form_options' );
+	$messages     = $form_options['messages'];
 
 	// Init three arrays: post, post_meta, attachment(s).
 	$testimonial_post = array(
@@ -27,9 +28,6 @@ function wpmtst_form_handler() {
 	$testimonial_att  = array();
 
 	$form_errors = array();
-
-	$form_options = get_option( 'wpmtst_form_options' );
-	$messages     = $form_options['messages'];
 
 	$form_name = isset( $new_post['form_id'] ) ? $new_post['form_id'] : 'custom';
 	$fields = wpmtst_get_form_fields( $form_name );
