@@ -16,7 +16,7 @@ All the features you need to quickly add and customize testimonials on your site
 
 [See demos of various templates, slideshows, and forms here.](http://demos.wpmission.com/strong-testimonials/)
 
-**[Try Strong Testimonials on Postonomy for a complete back to front demo!](https://postonomy.com/demo/strong-testimonials/)**
+[Try Strong Testimonials on **Postonomy** for a complete back to front demo!](https://postonomy.com/demo/strong-testimonials/)
 
 = Is this the right plugin for you? =
 It's important to understand this plugin's intended use case: A small business with up to a few hundred testimonials, maybe organized into multiple categories, and displaying them a few different ways like a full page of testimonials and a slideshow widget, plus a form for accepting new testimonials.
@@ -95,8 +95,6 @@ For ultimate control and seamless integration, any template can be copied to you
 
 Many, many thanks to these translators.
 
-[Contact me](https://www.wpmission.com/contact/) to contribute a full translation.
-
 == Installation ==
 
 1. Go to Plugins > Add New.
@@ -118,7 +116,7 @@ Yes. There is a custom field editor where you can add or remove fields, change f
 
 = I want to use categories. Can I add a category selector to the submission form? =
 
-Yes. After setting up your categories, you can add a category dropdown element to the form.
+Yes. After setting up your categories, you can add a category dropdown or checklist to the form.
 
 = Can I edit the notification email that goes out when a new testimonial has been submitted? =
 
@@ -145,6 +143,12 @@ Yes. With some HTML and CSS knowledge, you can copy any template to your theme a
 Yes. This requires a lightbox so if your theme does not include one, you will need a plugin like [Simple Colorbox](https://wordpress.org/plugins/simple-colorbox/).
 
 == Changelog ==
+
+= 2.17 - Dec 13, 2016 =
+* Add category checklist option to form fields.
+* Fix bug that allowed double underscores in custom field name.
+* Improve admin UI in fields and view editors.
+* Improve slideshow controls style.
 
 = 2.16.5 - Dec 8, 2015 =
 * Fix bug when [Max Mega Menu](https://wordpress.org/plugins/megamenu/) plugin installed.
