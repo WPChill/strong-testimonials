@@ -41,7 +41,7 @@
 }
 .strong-view .wpmslider-wrapper .wpmslider-controls a {
   box-shadow: none;
-  /* Twenty Sixteen */
+  text-decoration: none;
 }
 .strong-view .wpmslider-wrapper .wpmslider-controls a:hover, .strong-view .wpmslider-wrapper .wpmslider-controls a:active, .strong-view .wpmslider-wrapper .wpmslider-controls a:focus {
   outline: 0;
@@ -109,6 +109,7 @@
 }
 .strong-view .wpmslider-wrapper .wpmslider-pager-link.active {
   color: #111;
+  font-weight: 700;
 }
 .strong-view.pager-style-text .wpmslider-pager-link {
   padding: 0 0.3em;

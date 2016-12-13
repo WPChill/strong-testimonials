@@ -27,3 +27,21 @@
 		color: #B50007;
 	}
 }
+
+/* category checklist */
+.strong-category-list-panel {}
+
+.strong-category-list,
+.strong-category-list ul {
+	list-style-type: none;
+}
+
+.strong-category-list {
+	margin: 0;
+
+	label {
+		font-weight: 400;
+		white-space: nowrap;
+		word-wrap: break-word;
+	}
+}

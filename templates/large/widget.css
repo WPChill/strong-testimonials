@@ -87,6 +87,10 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
   border-radius: 3px;
   box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.4);
 }
+.strong-view.large-widget .testimonial-image a {
+  text-decoration: none;
+  box-shadow: none;
+}
 .strong-view.large-widget .testimonial-content {
   font-size: 2.2em;
   line-height: 1.4;
@@ -98,7 +102,7 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
 .strong-view.large-widget .testimonial-name {
   font-weight: 700;
 }
-.strong-view.large-widget .readmore {
+.strong-view.large-widget .testimonial-readmore {
   margin-top: 1.2em;
 }
 .strong-view.large-widget .readmore a {

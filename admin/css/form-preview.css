@@ -94,3 +94,38 @@ img.captcha {
 .strong-form label.error {
 	color: #B50007;
 }
+
+/* category checklist */
+
+.strong-category-list-panel {
+	margin: 3px 0;
+}
+
+.strong-category-list,
+.strong-category-list ul {
+	list-style-type: none;
+}
+
+.strong-category-list {
+	margin: 0;
+}
+
+.strong-category-list ul {
+	margin-left: 20px;
+}
+
+.strong-category-list li {
+	line-height: normal;
+	margin-bottom: 0;
+}
+
+.strong-category-list input[type="checkbox"] {
+	margin: 0;
+}
+
+.strong-category-list label {
+	font-weight: 400;
+	white-space: nowrap;
+	word-wrap: break-word;
+}
+

@@ -52,6 +52,11 @@ $template: image-right;
 			border: 1px solid #EFEFEF;
 			padding: 6px;
 		}
+
+		a {
+			text-decoration: none;
+			box-shadow: none;
+		}
 	}
 
 	.testimonial-client {

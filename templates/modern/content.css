@@ -156,6 +156,7 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
 }
 .strong-view.modern .testimonial-inner {
   padding: 30px;
+  text-align: center;
 }
 .strong-view.modern .testimonial-content {
   color: #434343;
@@ -216,6 +217,13 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
 }
 .strong-view.modern .testimonial-image img {
   border-radius: 50%;
+}
+.strong-view.modern .testimonial-image a {
+  text-decoration: none;
+  box-shadow: none;
+}
+.strong-view.modern .testimonial-readmore {
+  margin-top: 1em;
 }
 .strong-view.modern .readmore-page {
   background: #F4F4F4;

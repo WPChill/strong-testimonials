@@ -1,6 +1,6 @@
 <?php
 /**
- * Taxonomy API: Walker_Category_Checklist class
+ * Taxonomy API: Walker_Strong_Category_Checklist class
  *
  * @package Strong_Testimonials
  * @since 2.2.0
@@ -15,7 +15,7 @@
  * @see wp_category_checklist()
  * @see wp_terms_checklist()
  */
-class Walker_WPMST_Category_Checklist extends Walker {
+class Walker_Strong_Category_Checklist extends Walker {
 	public $tree_type = 'category';
 	public $db_fields = array ('parent' => 'parent', 'id' => 'term_id'); //TODO: decouple this
 

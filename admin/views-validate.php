@@ -236,60 +236,9 @@ function wpmtst_sanitize_view( $input ) {
 
 	$data['slideshow_settings'] = wpmtst_sanitize_view_slideshow( $input['slideshow_settings'] );
 
-	// Custom fields
 	if ( isset( $input['client_section'] ) ) {
-		foreach ( $input['client_section'] as $key => $field ) {
-			if ( empty( $field['field'] ) ) {
-				break;
-			}
-
-			$data['client_section'][ $key ]['field'] = sanitize_text_field( $field['field'] );
-
-			if ( isset( $field['type'] ) ) {
-				$type = sanitize_text_field( $field['type'] );
-			} else {
-				$type = sanitize_text_field( $field['save-type'] );
-			}
-			$data['client_section'][ $key ]['type'] = $type;
-
-			$data['client_section'][ $key ]['before'] = sanitize_text_field( $field['before'] );
-
-			$data['client_section'][ $key ]['class'] = sanitize_text_field( $field['class'] );
-
-			switch ( $type ) {
-				case 'link':
-				case 'link2':
-					/**
-					 * If no URL, change field type to 'text'. This happens when a URL field
-					 * (e.g. company_name) is removed from Custom Fields.
-					 * @since 2.10.0
-					 */
-					if ( ! isset( $field['url'] ) ) {
-						$data['client_section'][ $key ]['type'] = 'text';
-						unset( $data['client_section'][ $key ]['link_text'] );
-						unset( $data['client_section'][ $key ]['link_text_custom'] );
-						unset( $data['client_section'][ $key ]['new_tab'] );
-					}
-					else {
-						$data['client_section'][ $key ]['url'] = sanitize_text_field( $field['url'] );
-
-						$data['client_section'][ $key ]['link_text'] = isset( $field['link_text'] ) ? sanitize_text_field( $field['link_text'] ) : '';
-
-						$data['client_section'][ $key ]['link_text_custom'] = isset( $field['link_text_custom'] ) ? sanitize_text_field( $field['link_text_custom'] ) : '';
-
-						$data['client_section'][ $key ]['new_tab'] = isset( $field['new_tab'] ) ? 1 : 0;
-					}
-					break;
-				case 'date':
-					$format = isset( $field['format'] ) ? sanitize_text_field( $field['format'] ) : '';
-					$data['client_section'][ $key ]['format'] = $format;
-					break;
-				default:
-			}
-
-		}
-	}
-	else {
+		$data['client_section'] = wpmtst_sanitize_view_client_section( $input['client_section'] );
+	} else {
 		$data['client_section'] = null;
 	}
 
@@ -354,6 +303,72 @@ function wpmtst_sanitize_view_slideshow( $in ) {
 	}
 
 	ksort( $out );
+
+	return $out;
+}
+
+
+/**
+ * Sanitize client section (custom fields).
+ *
+ * @param $in
+ * @since 2.17.0
+ *
+ * @return array
+ */
+function wpmtst_sanitize_view_client_section( $in ) {
+	$out = array();
+
+	foreach ( $in as $key => $field ) {
+		if ( empty( $field['field'] ) ) {
+			continue;
+		}
+
+		$out[ $key ]['field'] = sanitize_text_field( $field['field'] );
+
+		if ( isset( $field['type'] ) ) {
+			$type = sanitize_text_field( $field['type'] );
+		} else {
+			$type = sanitize_text_field( $field['save-type'] );
+		}
+		$out[ $key ]['type'] = $type;
+
+		$out[ $key ]['before'] = sanitize_text_field( $field['before'] );
+
+		$out[ $key ]['class'] = sanitize_text_field( $field['class'] );
+
+		switch ( $type ) {
+			case 'link':
+			case 'link2':
+				/**
+				 * If no URL, change field type to 'text'. This happens when a URL field
+				 * (e.g. company_name) is removed from Custom Fields.
+				 * @since 2.10.0
+				 */
+				if ( ! isset( $field['url'] ) ) {
+					$out[ $key ]['type'] = 'text';
+					unset( $out[ $key ]['link_text'] );
+					unset( $out[ $key ]['link_text_custom'] );
+					unset( $out[ $key ]['new_tab'] );
+				}
+				else {
+					$out[ $key ]['url'] = sanitize_text_field( $field['url'] );
+
+					$out[ $key ]['link_text'] = isset( $field['link_text'] ) ? sanitize_text_field( $field['link_text'] ) : '';
+
+					$out[ $key ]['link_text_custom'] = isset( $field['link_text_custom'] ) ? sanitize_text_field( $field['link_text_custom'] ) : '';
+
+					$out[ $key ]['new_tab'] = isset( $field['new_tab'] ) ? 1 : 0;
+				}
+				break;
+			case 'date':
+				$format = isset( $field['format'] ) ? sanitize_text_field( $field['format'] ) : '';
+				$out[ $key ]['format'] = $format;
+				break;
+			default:
+		}
+
+	}
 
 	return $out;
 }

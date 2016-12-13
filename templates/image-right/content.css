@@ -188,6 +188,10 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
   border: 1px solid #EFEFEF;
   padding: 6px;
 }
+.strong-view.image-right .testimonial-image a {
+  text-decoration: none;
+  box-shadow: none;
+}
 .strong-view.image-right .testimonial-client {
   margin-top: 1em;
   text-align: left;

@@ -122,8 +122,6 @@ class Strong_View_Slideshow extends Strong_View_Display {
 
 	/**
 	 * Build our query based on view attributes.
-	 *
-	 * @return WP_Query
 	 */
 	public function build_query() {
 		$ids = explode( ',', $this->atts['id'] );

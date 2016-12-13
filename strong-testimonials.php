@@ -4,7 +4,7 @@
  * Plugin URI: https://www.wpmission.com/plugins/strong-testimonials/
  * Description: A full-featured plugin that works right out of the box for beginners and offers advanced features for pros.
  * Author: Chris Dillon
- * Version: 2.16.5
+ * Version: 2.17
  * Author URI: https://www.wpmission.com/
  * Text Domain: strong-testimonials
  * Domain Path: /languages
@@ -232,29 +232,29 @@ final class Strong_Testimonials {
 		require_once WPMTST_INC . 'form-template-functions.php';
 		require_once WPMTST_INC . 'captcha.php';
 		require_once WPMTST_INC . 'scripts.php';
+		require_once WPMTST_INC . 'class-walker-strong-category-checklist-front.php';
 
 		if ( is_admin() ) {
 
 			require_once WPMTST_INC . 'class-strong-testimonials-list-table.php';
 			require_once WPMTST_INC . 'class-strong-views-list-table.php';
-			require_once WPMTST_INC . 'class-walker-wpmst-category-checklist.php';
-			require_once WPMTST_INC . 'class-walker-wpmst-form-category-checklist.php';
+			require_once WPMTST_INC . 'class-walker-strong-category-checklist.php';
+			require_once WPMTST_INC . 'class-walker-strong-form-category-checklist.php';
 
 			require_once WPMTST_ADMIN . 'admin.php';
 			require_once WPMTST_ADMIN . 'admin-ajax.php';
-
-			require_once WPMTST_ADMIN . 'partials/compat.php';
-			require_once WPMTST_ADMIN . 'partials/custom-fields.php';
-			require_once WPMTST_ADMIN . 'partials/custom-fields-ajax.php';
-			require_once WPMTST_ADMIN . 'partials/form-preview.php';
-			require_once WPMTST_ADMIN . 'partials/guide.php';
-			require_once WPMTST_ADMIN . 'partials/help.php';
-			require_once WPMTST_ADMIN . 'partials/install.php';
-			require_once WPMTST_ADMIN . 'partials/settings.php';
-			require_once WPMTST_ADMIN . 'partials/upgrade.php';
-			require_once WPMTST_ADMIN . 'partials/views.php';
-			require_once WPMTST_ADMIN . 'partials/views-ajax.php';
-			require_once WPMTST_ADMIN . 'partials/views-validate.php';
+			require_once WPMTST_ADMIN . 'compat.php';
+			require_once WPMTST_ADMIN . 'custom-fields.php';
+			require_once WPMTST_ADMIN . 'custom-fields-ajax.php';
+			require_once WPMTST_ADMIN . 'form-preview.php';
+			require_once WPMTST_ADMIN . 'guide.php';
+			require_once WPMTST_ADMIN . 'help.php';
+			require_once WPMTST_ADMIN . 'install.php';
+			require_once WPMTST_ADMIN . 'settings.php';
+			require_once WPMTST_ADMIN . 'upgrade.php';
+			require_once WPMTST_ADMIN . 'views.php';
+			require_once WPMTST_ADMIN . 'views-ajax.php';
+			require_once WPMTST_ADMIN . 'views-validate.php';
 
 		}
 
@@ -815,31 +815,6 @@ final class Strong_Testimonials {
 
 		// Get active strong widgets
 		$strong_widgets = get_option( 'widget_strong-testimonials-view-widget' );
-		/*
-		Array
-		(
-			[wp_inactive_widgets] => Array
-				(
-				)
-
-			[pinbin_footer] => Array
-				(
-					[0] => search-2
-					[1] => recent-posts-2
-					[2] => recent-comments-2
-					[3] => archives-2
-					[4] => categories-2
-					[5] => meta-2
-				)
-
-			[mega-menu] => Array
-				(
-					[0] => strong-testimonials-view-widget-3
-				)
-
-			[array_version] => 3
-		)
-		 */
 
 		foreach ( $all_widgets as $sidebar => $widgets ) {
 

@@ -52,7 +52,8 @@
 		}
 
 		.wpmslider-controls a {
-			box-shadow: none; /* Twenty Sixteen */
+			box-shadow: none;
+			text-decoration: none;
 
 			&:hover,
 			&:active,
