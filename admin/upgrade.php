@@ -44,42 +44,47 @@ function wpmtst_upgrade() {
 		// -2B- UPDATE
 
 		// Remove version 1 options
-		if ( isset( $options['captcha'] ) )
-			unset( $options['captcha'] );
+		if ( version_compare( '2.0', $old_plugin_version ) ) {
 
-		if ( isset( $options['plugin_version'] ) )
-			unset( $options['plugin_version'] );
+			if ( isset( $options['captcha'] ) )
+				unset( $options['captcha'] );
 
-		if ( isset( $options['per_page'] ) )
-			unset( $options['per_page'] );
+			if ( isset( $options['plugin_version'] ) )
+				unset( $options['plugin_version'] );
 
-		if ( isset( $options['load_page_style'] ) )
-			unset( $options['load_page_style'] );
+			if ( isset( $options['per_page'] ) )
+				unset( $options['per_page'] );
 
-		if ( isset( $options['load_widget_style'] ) )
-			unset( $options['load_widget_style'] );
+			if ( isset( $options['load_page_style'] ) )
+				unset( $options['load_page_style'] );
 
-		if ( isset( $options['load_form_style'] ) )
-			unset( $options['load_form_style'] );
+			if ( isset( $options['load_widget_style'] ) )
+				unset( $options['load_widget_style'] );
 
-		if ( isset( $options['load_rtl_style'] ) )
-			unset( $options['load_rtl_style'] );
+			if ( isset( $options['load_form_style'] ) )
+				unset( $options['load_form_style'] );
 
-		if ( isset( $options['shortcode'] ) )
-			unset( $options['shortcode'] );
+			if ( isset( $options['load_rtl_style'] ) )
+				unset( $options['load_rtl_style'] );
 
-		if ( isset( $options['default_template'] ) )
-			unset( $options['default_template'] );
+			if ( isset( $options['shortcode'] ) )
+				unset( $options['shortcode'] );
 
-		if ( isset( $options['client_section'] ) )
-			unset( $options['client_section'] );
+			if ( isset( $options['default_template'] ) )
+				unset( $options['default_template'] );
+
+			if ( isset( $options['client_section'] ) )
+				unset( $options['client_section'] );
+
+		}
 
 		/**
 		 * Remove slideshow z-index (Cycle)
 		 * @since 2.15.0
 		 */
-		if ( isset( $options['slideshow_zindex'] ) )
+		if ( isset( $options['slideshow_zindex'] ) ) {
 			unset( $options['slideshow_zindex'] );
+		}
 
 		// Merge in new options
 		$options = array_merge( $default_options, $options );
@@ -103,72 +108,19 @@ function wpmtst_upgrade() {
 		 * Copy current custom fields to the new default custom form which will be added in the next step.
 		 *
 		 * @since 2.0.1
+		 * @since 2.17 Added version check.
 		 */
-		if ( isset( $fields['field_groups'] ) ) {
-			$current_custom_fields = $fields['field_groups']['custom'];
-			$default_custom_forms[1]['fields'] = $current_custom_fields['fields'];
-			unset( $fields['field_groups'] );
-		}
-		if ( isset( $fields['current_field_group'] ) ) {
-			unset( $fields['current_field_group'] );
-		}
-
-		/**
-		 * Fix bug that localized 'categories'
-		 *
-		 * since 2.2.2
-		 */
-		$fields['field_types']['optional']['categories']['input_type'] = 'categories';
-
-		// ----------
-		// field base
-		// ----------
-		$new_field_base = array_merge( $default_fields['field_base'], $fields['field_base'] );
-
-		// -----------
-		// field types
-		// -----------
-		$new_field_types = $fields['field_types'];
-		// convert url and email to HTML5 types
-		// @since 1.24.0
-		foreach ( $new_field_types['custom'] as $field_name => $field_atts ) {
-			if ( 'email' == $field_name ) {
-				$new_field_types['custom'][$field_name]['input_type']   = 'email';
-				$new_field_types['custom'][$field_name]['option_label'] = 'email';
+		if ( version_compare( '2.0', $old_plugin_version ) ) {
+			if ( isset( $fields['field_groups'] ) ) {
+				$default_custom_forms[1]['fields'] = $fields['field_groups']['custom']['fields'];
+				unset( $fields['field_groups'] );
 			}
-			elseif ( 'url' == $field_name ) {
-				$new_field_types['custom'][$field_name]['input_type']   = 'url';
-				$new_field_types['custom'][$field_name]['option_label'] = 'URL';
+			if ( isset( $fields['current_field_group'] ) ) {
+				unset( $fields['current_field_group'] );
 			}
 		}
 
-		// (1) check for new default types (not fields) like "optional" before the array merge in next step
-		foreach ( $default_fields['field_types'] as $type_name => $type_array ) {
-			if ( ! isset( $new_field_types[ $type_name ] ) ) {
-				$new_field_types[ $type_name ] = $type_array;
-			}
-		}
-
-		// (2) update *existing* fields in types like "post" and "custom"
-		foreach ( $new_field_types as $type_name => $type_array ) {
-			foreach ( $type_array as $field_name => $field_atts ) {
-				$new_field_types[ $type_name ][ $field_name ] = array_merge( $default_fields['field_types'][ $type_name ][ $field_name ], $field_atts );
-			}
-		}
-
-		// (3) add *new* field like "rating"
-		// TODO Build generic routine to do this for all field types (post, custom).
-		$default_optional_field_keys = array_keys( $default_fields['field_types']['optional'] );
-		$current_optional_field_keys = array_keys( $fields['field_types']['optional'] );
-		$missing_fields              = array_diff( $default_optional_field_keys, $current_optional_field_keys );
-		foreach ( $missing_fields as $field_name ) {
-			$new_field_types['optional'][ $field_name ] = $default_fields['field_types']['optional'][ $field_name ];
-		}
-
-		// (4) Re-assemble fields and save.
-		$fields['field_base']  = $new_field_base;
-		$fields['field_types'] = $new_field_types;
-		update_option( 'wpmtst_fields', $fields );
+		update_option( 'wpmtst_fields', $default_fields );
 	}
 
 	/**
@@ -182,10 +134,23 @@ function wpmtst_upgrade() {
 	}
 	else {
 		foreach ( $custom_forms as $form_id => $group_array ) {
-			// custom fields are in display order (not associative)
-			// so we must find them by name
 			foreach ( $group_array['fields'] as $key => $new_field ) {
-				$updated_default = null;
+
+				/**
+				 * Convert categories to category-selector.
+				 *
+				 * @since 2.17.0
+				 */
+				if ( 'categories' == $new_field['input_type'] ) {
+					$custom_forms[ $form_id ]['fields'][ $key ]['input_type'] = 'category-selector';
+				}
+
+				/**
+				 * Merge in new default.
+				 *
+				 * Custom fields are in display order (not associative) so we must find them by name.
+				 */
+				$updated_default = false;
 				foreach ( $default_base_forms['default']['fields'] as $a_field ) {
 					if ( $a_field['name'] == $new_field['name'] ) {
 						$updated_default = $a_field;
@@ -195,6 +160,7 @@ function wpmtst_upgrade() {
 				if ( $updated_default ) {
 					$custom_forms[ $form_id ]['fields'][ $key ] = array_merge( $updated_default, $new_field );
 				}
+
 			}
 		}
 		update_option( 'wpmtst_custom_forms', $custom_forms );

@@ -39,8 +39,14 @@ function wpmtst_views_admin() {
 		if ( isset( $_REQUEST['error'] ) ) {
 
 			echo '<h2>' . __( 'Edit View', 'strong-testimonials' ) . '</h2>';
-			$message = sprintf( wp_kses( __( 'An error occurred. Please <a href="%s" target="_blank">open a support ticket</a>.', 'strong-testimonials' ), array( 'a' => array( 'href' => array(), 'target' => array(), 'class' => array() ) ) ), esc_url( 'https://www.wpmission.com/submit-ticket/' ) );
-			printf( '<div class="error strong-view-error"><p>%s</p></div>', $message );
+			$message = sprintf(
+				wp_kses(
+					__( 'An error occurred. Please <a href="%s" target="_blank">open a support ticket</a>.', 'strong-testimonials' ),
+					array( 'a' => array( 'href' => array(), 'target' => array(), 'class' => array() ) )
+				),
+				esc_url( 'https://www.wpmission.com/submit-ticket/' )
+			);
+			wp_die( sprintf( '<div class="error strong-view-error"><p>%s</p></div>', $message ) );
 
 		}
 		elseif ( isset( $_REQUEST['action'] ) ) {
@@ -67,11 +73,14 @@ function wpmtst_views_admin() {
 				<?php _e( 'Views', 'strong-testimonials' ); ?>
 				<a href="<?php echo admin_url( 'edit.php?post_type=wpm-testimonial&page=testimonial-views&action=add' ); ?>" class="add-new-h2">Add New</a>
 			</h2>
+			<?php
+			// Fetch views after heading and before intro in case we need to display any database errors.
+			$views = wpmtst_get_views();
+			?>
 			<div class="intro">
 				<p><?php _e( 'A View can display your testimonials, create a slideshow, or show a testimonial submission form.<br>Add it to a page with a shortcode or add it to a sidebar with a widget.', 'strong-testimonials' ); ?></p>
 			</div>
 			<?php
-			$views = wpmtst_get_views();
 			$views_table = new Strong_Views_List_Table();
 			$views_table->prepare_list( wpmtst_unserialize_views( $views ) );
 			$views_table->display();
@@ -221,29 +230,29 @@ function wpmtst_view_settings( $action = '', $view_id = null ) {
 		</div>
 
 		<?php
-		include( 'views/mode.php' );
+		include( 'partials/views/mode.php' );
 
 		// TODO Generify both hook and include
 		do_action( 'wpmtst_view_editor_before_group_select' );
-		include( 'views/group-select.php' );
+		include( 'partials/views/group-select.php' );
 
 		do_action( 'wpmtst_view_editor_before_group_slideshow' );
-		include( 'views/group-slideshow.php' );
+		include( 'partials/views/group-slideshow.php' );
 
 		do_action( 'wpmtst_view_editor_before_group_fields' );
-		include( 'views/group-fields.php' );
+		include( 'partials/views/group-fields.php' );
 
 		do_action( 'wpmtst_view_editor_before_group_form' );
-		include( 'views/group-form.php' );
+		include( 'partials/views/group-form.php' );
 
 		do_action( 'wpmtst_view_editor_before_group_extra' );
-		include( 'views/group-extra.php' );
+		include( 'partials/views/group-extra.php' );
 
 		do_action( 'wpmtst_view_editor_before_group_style' );
-		include( 'views/group-style.php' );
+		include( 'partials/views/group-style.php' );
 
 		do_action( 'wpmtst_view_editor_before_group_general' );
-		include( 'views/group-general.php' );
+		include( 'partials/views/group-general.php' );
 
 		do_action( 'wpmtst_view_editor_after_groups' );
 		?>
@@ -456,6 +465,18 @@ function wpmtst_get_posts() {
 function wpmtst_view_field_inputs( $key, $field, $adding = false ) {
 	$custom_fields = wpmtst_get_custom_fields();
 
+	/**
+	 * Remove [category] from custom because it's included in [optional].
+	 *
+	 * @since 2.17.0
+	 */
+	foreach ( $custom_fields as $name1 => $field1 ) {
+	    if ( 'category' == strtok( $field1['input_type'], '-' ) ) {
+	        unset( $custom_fields[ $name1 ] );
+		}
+	}
+
+	// TODO Move this to view defaults option.
 	$builtin_fields = array(
 		array(
 			'name'        => 'post_date',
@@ -482,6 +503,8 @@ function wpmtst_view_field_inputs( $key, $field, $adding = false ) {
 		__( 'built-in', 'strong-testimonials' ) => $builtin_fields
 	);
 
+	$allowed = array( 'custom', 'optional', 'builtin' );
+
 	// TODO Move this to view defaults option.
 	$types = array(
 		'text'      => __( 'text', 'strong-testimonials' ),
@@ -493,7 +516,23 @@ function wpmtst_view_field_inputs( $key, $field, $adding = false ) {
 		'shortcode' => __( 'shortcode', 'strong-testimonials' ),
 	);
 
-	$allowed = array( 'custom', 'optional', 'builtin' );
+	if ( isset( $custom_fields[ $field['field'] ] ) ) {
+		$field_label = $custom_fields[ $field['field'] ]['label'];
+	} else {
+	    $field_label = ucwords( str_replace( '_', ' ', $field['field'] ) );
+	}
+
+	/**
+	 * Catch and highlight fields not found in custom fields; i.e. it has been deleted.
+	 *
+     * @since 2.17.0
+	 */
+	$all_field_names = array_merge( array_keys( $custom_fields), array( 'post_date', 'submit_date', 'category' ) );
+	$label_class = '';
+	if ( ! $adding && ! in_array( $field['field'], $all_field_names ) ) {
+	    $field_label .= ' < ERROR - not found >';
+	    $label_class = 'error';
+	}
 	?>
 	<div id="field-<?php echo $key; ?>" class="field2">
 
@@ -501,9 +540,7 @@ function wpmtst_view_field_inputs( $key, $field, $adding = false ) {
 
 			<span class="link" title="<?php _e( 'click to open or close', 'strong-testimonials' ); ?>">
 
-				<a href="#" class="field-description">
-					<?php echo wpmtst_get_field_label( $field ); ?>
-				</a>
+				<a href="#" class="field-description <?php echo $label_class; ?>"><?php echo $field_label; ?></a>
 
 				<div class="controls2 left">
 					<span class="handle ui-sortable-handle icon-wrap"
@@ -529,12 +566,13 @@ function wpmtst_view_field_inputs( $key, $field, $adding = false ) {
 							<option value=""></option>
 
 							<?php foreach ( $all_fields as $group_name => $group ) : ?>
-							<optgroup label="<?php echo $group_name; ?>">;
+							<optgroup label="<?php echo $group_name; ?>">
 
 							<?php foreach ( $group as $key2 => $field2 ) : ?>
 							<?php if ( in_array( $field2['record_type'], $allowed ) && 'email' != $field2['input_type'] ) : ?>
-							<option value="<?php echo $field2['name']; ?>" data-type="<?php echo $field2['input_type']; ?>"<?php selected( $field2['name'], $field['field'] ); ?>><?php echo $field2['name']; ?></option>
-									<?php endif; ?>
+							<option value="<?php echo $field2['name']; ?>" data-type="<?php echo $field2['input_type']; ?>"
+                                <?php selected( $field2['name'], $field['field'] ); ?>><?php echo $field2['name']; ?></option>
+							<?php endif; ?>
 							<?php endforeach; ?>
 
 							</optgroup>
@@ -740,7 +778,7 @@ function wpmtst_category_checklist( $view_cats_array ) {
 				'descendants_and_self' => 0,
 				'selected_cats'        => $view_cats_array,
 				'popular_cats'         => false,
-				'walker'               => new Walker_WPMST_Category_Checklist(),
+				'walker'               => new Walker_Strong_Category_Checklist(),
 				'taxonomy'             => "wpm-testimonial-category",
 				'checked_ontop'        => true,
 			); ?>
@@ -763,7 +801,7 @@ function wpmtst_form_category_checklist( $view_cats_array ) {
 				'descendants_and_self' => 0,
 				'selected_cats'        => $view_cats_array,
 				'popular_cats'         => false,
-				'walker'               => new Walker_WPMST_Form_Category_Checklist(),
+				'walker'               => new Walker_Strong_Form_Category_Checklist(),
 				'taxonomy'             => "wpm-testimonial-category",
 				'checked_ontop'        => true,
 			); ?>

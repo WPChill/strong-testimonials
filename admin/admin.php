@@ -41,6 +41,8 @@ function wpmtst_admin_register() {
 
 	$plugin_version = get_option( 'wpmtst_plugin_version' );
 
+	wp_register_script( 'wpmtst-help', WPMTST_ADMIN_URL . 'js/help.js', array( 'jquery' ), $plugin_version, true );
+
 	wp_register_script( 'wpmtst-admin-script', WPMTST_ADMIN_URL . 'js/admin.js', array( 'jquery' ), $plugin_version, true );
 
 	wp_register_style( 'wpmtst-admin-style', WPMTST_ADMIN_URL . 'css/admin.css', array(), $plugin_version );
@@ -53,12 +55,15 @@ function wpmtst_admin_register() {
 	// Fields
 	wp_register_style( 'wpmtst-admin-fields-style', WPMTST_ADMIN_URL . 'css/fields.css', array(), $plugin_version );
 	wp_register_style( 'wpmtst-admin-form-preview', WPMTST_ADMIN_URL . 'css/form-preview.css', array(), $plugin_version );
-	wp_register_script( 'wpmtst-admin-fields-script', WPMTST_ADMIN_URL . 'js/admin-fields.js', array( 'jquery', 'jquery-ui-sortable' ), $plugin_version, true );
+	wp_register_script( 'wpmtst-admin-fields-script', WPMTST_ADMIN_URL . 'js/admin-fields.js',
+        array( 'jquery', 'jquery-ui-sortable', 'wpmtst-help' ), $plugin_version, true );
 	$params = array(
-		'ajaxurl'    => admin_url( 'admin-ajax.php' ),
 		'ajax_nonce' => wp_create_nonce( 'wpmtst-admin' ),
+        'newField'   => _x( 'New Field', 'Field editor: The default label for new fields', 'strong_testimonials' ),
+        'inUse'      => _x( '(in use)', 'Fields editor: To indicate when a field type can only be used once.', 'strong-testimonials' ),
+        'noneFound'  => _x( '(none found)', 'Fields editor: To indicate when no categories have been found.', 'strong-testimonials' ),
 	);
-	wp_localize_script( 'wpmtst-admin-fields-script', 'wpmtst_ajax_object', $params );
+	wp_localize_script( 'wpmtst-admin-fields-script', 'wpmtstAdmin', $params );
 
 	// Ratings
 	wp_register_style( 'wpmtst-rating-display', WPMTST_COMMON_URL . 'css/rating-display.css', array( 'wpmtst-font-awesome' ), $plugin_version );
@@ -68,7 +73,7 @@ function wpmtst_admin_register() {
 	// Views
 	wp_register_style( 'wpmtst-admin-views-style', WPMTST_ADMIN_URL . 'css/views.css', array(), $plugin_version );
 	wp_register_script( 'wpmtst-admin-views-script', WPMTST_ADMIN_URL . 'js/views.js',
-		array( 'jquery', 'jquery-ui-sortable', 'wp-color-picker', 'jquery-masonry' ), $plugin_version, true );
+		array( 'jquery', 'jquery-ui-sortable', 'wp-color-picker', 'jquery-masonry', 'wpmtst-help' ), $plugin_version, true );
 
 	/**
 	 * Category filter in View editor.
@@ -126,96 +131,109 @@ function wpmtst_is_testimonial_screen() {
 
 /**
  * Views
+ *
+ * @param $hook
  */
-function wpmtst_hook__admin_views() {
-	wp_enqueue_style( 'wpmtst-admin-style' );
-	wp_enqueue_script( 'wpmtst-admin-script' );
+function wpmtst_hook__admin_views( $hook ) {
+    if ( 'wpm-testimonial_page_testimonial-views' == $hook ) {
+		wp_enqueue_style( 'wpmtst-admin-style' );
+		wp_enqueue_script( 'wpmtst-admin-script' );
 
-	wp_enqueue_style( 'wpmtst-admin-views-style' );
-	wp_enqueue_script( 'wpmtst-admin-views-script' );
-	wp_enqueue_script( 'wpmtst-view-category-filter-script' );
+		wp_enqueue_style( 'wpmtst-admin-views-style' );
+		wp_enqueue_script( 'wpmtst-admin-views-script' );
+		wp_enqueue_script( 'wpmtst-view-category-filter-script' );
 
-	wp_enqueue_style( 'wp-color-picker' );
-	wp_enqueue_style( 'wpmtst-font-awesome' );
+		wp_enqueue_style( 'wp-color-picker' );
+		wp_enqueue_style( 'wpmtst-font-awesome' );
+	}
 }
-add_action( 'admin_head-wpm-testimonial_page_testimonial-views', 'wpmtst_hook__admin_views' );
+add_action( 'admin_enqueue_scripts', 'wpmtst_hook__admin_views' );
 
 /**
  * Fields
+ *
+ * @param $hook
  */
-function wpmtst_hook__admin_fields() {
-	wp_enqueue_style( 'wpmtst-admin-style' );
-	wp_enqueue_script( 'wpmtst-admin-script' );
+function wpmtst_hook__admin_fields( $hook ) {
+    if ( 'wpm-testimonial_page_testimonial-fields' == $hook ) {
+		wp_enqueue_style( 'wpmtst-admin-style' );
+		wp_enqueue_script( 'wpmtst-admin-script' );
 
-	wp_enqueue_style( 'wpmtst-admin-fields-style' );
-	wp_enqueue_script( 'wpmtst-admin-fields-script' );
+		wp_enqueue_style( 'wpmtst-admin-fields-style' );
+		wp_enqueue_script( 'wpmtst-admin-fields-script' );
 
-	wp_enqueue_style( 'wpmtst-admin-form-preview' );
+		wp_enqueue_style( 'wpmtst-admin-form-preview' );
 
-	wp_enqueue_style( 'wpmtst-rating-form' );
+		wp_enqueue_style( 'wpmtst-rating-form' );
 
-	wp_enqueue_style( 'wpmtst-font-awesome' );
+		wp_enqueue_style( 'wpmtst-font-awesome' );
+	}
 }
-add_action( 'admin_head-wpm-testimonial_page_testimonial-fields', 'wpmtst_hook__admin_fields' );
+add_action( 'admin_enqueue_scripts', 'wpmtst_hook__admin_fields' );
 
 /**
  * Settings
+ *
+ * @param $hook
  */
-function wpmtst_hook__admin_settings() {
-	wp_enqueue_style( 'wpmtst-admin-style' );
-	wp_enqueue_script( 'wpmtst-admin-script' );
+function wpmtst_hook__admin_settings( $hook ) {
+    if ( 'wpm-testimonial_page_testimonial-settings' == $hook ) {
+		wp_enqueue_style( 'wpmtst-admin-style' );
+		wp_enqueue_script( 'wpmtst-admin-script' );
+	}
 }
-add_action( 'admin_head-wpm-testimonial_page_testimonial-settings', 'wpmtst_hook__admin_settings' );
+add_action( 'admin_enqueue_scripts', 'wpmtst_hook__admin_settings' );
 
 /**
  * Guide
+ *
+ * @param $hook
  */
-function wpmtst_hook__admin_guide() {
-	wp_enqueue_style( 'wpmtst-admin-style' );
-	wp_enqueue_script( 'wpmtst-admin-script' );
+function wpmtst_hook__admin_guide( $hook ) {
+    if ( 'wpm-testimonial_page_testimonial-guide' == $hook ) {
+		wp_enqueue_style( 'wpmtst-admin-style' );
+		wp_enqueue_script( 'wpmtst-admin-script' );
 
-	wp_enqueue_style( 'wpmtst-admin-guide-style' );
-	wp_enqueue_style( 'wpmtst-font-awesome' );
+		wp_enqueue_style( 'wpmtst-admin-guide-style' );
+		wp_enqueue_style( 'wpmtst-font-awesome' );
+	}
 }
-add_action( 'admin_head-wpm-testimonial_page_testimonial-guide', 'wpmtst_hook__admin_guide' );
-
-/**
- * Welcome
- */
-function wpmtst_hook__admin_welcome() {
-	wp_enqueue_style( 'wpmtst-admin-style' );
-	wp_enqueue_style( 'wpmtst-font-awesome' );
-}
-add_action( 'admin_head-settings_page_strong-testimonials-welcome', 'wpmtst_hook__admin_welcome' );
+add_action( 'admin_enqueue_scripts', 'wpmtst_hook__admin_guide' );
 
 /**
  * List table
+ *
+ * @param $hook
  */
-function wpmtst_hook__admin_load_edit() {
-	if ( wpmtst_is_testimonial_screen() ) {
+function wpmtst_hook__admin_load_edit( $hook ) {
+	if ( 'edit.php' == $hook && wpmtst_is_testimonial_screen() ) {
 		wp_enqueue_style( 'wpmtst-admin-style' );
 		wp_enqueue_script( 'wpmtst-admin-script' );
 
 		wp_enqueue_style( 'wpmtst-rating-display' );
 	}
 }
-add_action( 'admin_head-edit.php', 'wpmtst_hook__admin_load_edit' );
+add_action( 'admin_enqueue_scripts', 'wpmtst_hook__admin_load_edit' );
 
 /**
  * Categories
+ *
+ * @param $hook
  */
-function wpmtst_hook__admin_load_edit_tags() {
-	if ( wpmtst_is_testimonial_screen() ) {
+function wpmtst_hook__admin_load_edit_tags( $hook ) {
+	if ( 'edit-tags.php' == $hook && wpmtst_is_testimonial_screen() ) {
 		wp_enqueue_style( 'wpmtst-admin-style' );
 	}
 }
-add_action( 'admin_head-edit-tags.php', 'wpmtst_hook__admin_load_edit_tags' );
+add_action( 'admin_enqueue_scripts', 'wpmtst_hook__admin_load_edit_tags' );
 
 /**
  * Edit post
+ *
+ * @param $hook
  */
-function wpmtst_hook__admin_load_post() {
-	if ( wpmtst_is_testimonial_screen() ) {
+function wpmtst_hook__admin_load_post( $hook ) {
+	if ( 'post.php' == $hook && wpmtst_is_testimonial_screen() ) {
 		wp_enqueue_style( 'wpmtst-admin-style' );
 		wp_enqueue_script( 'wpmtst-admin-script' );
 
@@ -224,13 +242,15 @@ function wpmtst_hook__admin_load_post() {
 		wp_enqueue_script( 'wpmtst-rating-script' );
 	}
 }
-add_action( 'admin_head-post.php', 'wpmtst_hook__admin_load_post' );
+add_action( 'admin_enqueue_scripts', 'wpmtst_hook__admin_load_post' );
 
 /**
  * Add post
+ *
+ * @param $hook
  */
-function wpmtst_hook__admin_load_post_new() {
-	if ( wpmtst_is_testimonial_screen() ) {
+function wpmtst_hook__admin_load_post_new( $hook ) {
+	if ( 'post-new.php' == $hook && wpmtst_is_testimonial_screen() ) {
 		wp_enqueue_style( 'wpmtst-admin-style' );
 		wp_enqueue_style( 'wpmtst-admin-script' );
 
@@ -239,7 +259,7 @@ function wpmtst_hook__admin_load_post_new() {
 		wp_enqueue_script( 'wpmtst-rating-script' );
 	}
 }
-add_action( 'admin_head-post-new.php', 'wpmtst_hook__admin_load_post_new' );
+add_action( 'admin_enqueue_scripts', 'wpmtst_hook__admin_load_post_new' );
 
 /**
  * --------------------------------
@@ -347,7 +367,7 @@ function wpmtst_meta_options() {
 		<?php foreach ( $fields as $key => $field ) : ?>
 		<?php
 			// short-circuit
-			if ( 'shortcode' == $field['input_type'] || 'categories' == $field['input_type'] ) {
+			if ( 'shortcode' == $field['input_type'] || 'category' == strtok( $field['input_type'], '-' ) ) {
 				continue;
 			}
 		?>
@@ -362,17 +382,6 @@ function wpmtst_meta_options() {
 
 					<?php
 					switch ( $field['input_type'] ) {
-
-						//case 'categories' :
-						//	$categories = get_the_terms( $post->ID, 'wpm-testimonial-category' );
-						//	if ( $categories && ! is_wp_error( $categories ) ) {
-						//		$list = array();
-						//		foreach ( $categories as $cat ) {
-						//			$list[] = $cat->name;
-						//		}
-						//		echo join( ", ", $list );
-						//	}
-						//	break;
 
 						case 'rating' :
 							if ( $is_new ) {
@@ -592,28 +601,6 @@ function wpmtst_custom_columns( $column ) {
 	}
 }
 add_action( 'manage_wpm-testimonial_posts_custom_column', 'wpmtst_custom_columns' );
-
-
-/**
- * Filter the published time of the post.
- *
- * This filter is documented in wp-admin/includes/class-wp-posts-list-table.php.
- *
- * @since 1.16.0
- * @param        $t_time
- * @param null   $post
- * @param string $column_name
- * @param string $mode
- *
- * @return false|int|string
- */
-function wpmtst_post_date_column_time( $t_time, $post = null, $column_name = 'date', $mode = 'list' ) {
-	if ( $post && 'wpm-testimonial' == $post->post_type && 'date' == $column_name ) {
-		$t_time = get_post_time( __( 'Y/m/d g:i:s A' ), true, $post );
-	}
-	return $t_time;
-}
-add_filter( 'post_date_column_time', 'wpmtst_post_date_column_time', 10, 4 );
 
 
 /**

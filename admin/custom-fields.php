@@ -8,20 +8,18 @@ function wpmtst_form_admin() {
 }
 
 function wpmtst_form_admin2() {
-	wpmtst_settings_custom_fields( 'edit', 1 );
+	wpmtst_settings_custom_fields( 1 );
 }
 
 /**
  * Custom Fields page
  *
- * @param string $action
  * @param null   $form_id
  *
  * @return bool
  */
-// TODO is $action still used?
 // TODO use admin-post.php instead
-function wpmtst_settings_custom_fields( $action = '', $form_id = null ) {
+function wpmtst_settings_custom_fields( $form_id = null ) {
 	if ( ! current_user_can( 'manage_options' ) )
 		wp_die( __( 'You do not have sufficient permissions to access this page.' ) );
 
@@ -56,7 +54,6 @@ function wpmtst_settings_custom_fields( $action = '', $form_id = null ) {
 			$default_forms = wpmtst_get_default_base_forms();
 			$fields = $default_forms['default']['fields'];
 			$forms[ $form_id ]['fields'] = $fields;
-			update_option( 'wpmtst_fields', $field_options );
 			update_option( 'wpmtst_custom_forms', $forms );
 			do_action( 'wpmtst_fields_updated', $fields );
 
@@ -122,9 +119,7 @@ function wpmtst_settings_custom_fields( $action = '', $form_id = null ) {
 				$forms[ $form_id ]['label'] = $new_label;
 			}
 
-			update_option( 'wpmtst_fields', $field_options );
 			update_option( 'wpmtst_custom_forms', $forms );
-
 			do_action( 'wpmtst_fields_updated', $fields );
 
 			echo sprintf( $message_format, __( 'Fields saved.', 'strong-testimonials' ) );
@@ -147,7 +142,7 @@ function wpmtst_settings_custom_fields( $action = '', $form_id = null ) {
 				<h3>Editor</h3>
 				<p>
 					<?php _e( 'Click a field to open its options panel.', 'strong-testimonials' ); ?>
-					<?php _e( 'More on the <strong>Help</strong> tab above.', 'strong-testimonials' ); ?>
+					<a class="open-help-tab" href="#tab-panel-wpmtst-help"><?php _e( 'Help' ); ?></a>
 				</p>
 			</div>
 
@@ -215,203 +210,36 @@ function wpmtst_htmlspecialchars( $string ) {
 function wpmtst_show_field( $key, $field, $adding ) {
 	$fields      = get_option( 'wpmtst_fields' );
 	$field_types = $fields['field_types'];
-	$field_link  = $field['label'] ? $field['label'] : ucwords( $field['name'] );
-	$is_core     = ( isset( $field['core'] ) && $field['core'] );
 
-	// ------------
-	// Field Header
-	// ------------
-	$html = '<div class="custom-field-header">';
-	$html .= '<span class="link" title="' . __( 'click to open or close', 'strong-testimonials' ) . '"><a class="field" href="#">' . $field_link . '</a>';
-	$html .= '<span class="handle" title="' . __( 'drag and drop to reorder', 'strong-testimonials' ) . '"></span>';
-	$html .= '<span class="toggle"></span></span>';
-	$html .= '</div>';
+    ob_start();
 
-	$html .= '<div class="custom-field">';
-	$html .= '<table class="field-table">';
+	include 'partials/fields/field-header.php';
+    ?>
+	<div class="custom-field" style="display: none;">
+        <table class="field-table">
+            <?php
+            include 'partials/fields/field-type.php';
+            include 'partials/fields/field-label.php';
+            include 'partials/fields/field-name.php';
 
-	// -----------
-	// Field Label
-	// -----------
-	$html .= '<tr>' . "\n";
-	$html .= '<th>' . _x( 'Label', 'noun', 'strong-testimonials' ) . '</th>' . "\n";
-	$html .= '<td>';
-	$html .= '<input type="text" class="first-field field-label" name="fields[' . $key . '][label]" value="' . wpmtst_htmlspecialchars( $field['label'] ). '">';
-	//$html .= '<span class="help">' . __( 'This appears on the form.', 'strong-testimonials' ) . '</span>';
-	$html .= '<label><span class="help"><input type="checkbox"  name="fields[' . $key . '][show_label]" ' . checked( $field['show_label'], true, false ) . '>' . __( 'Show this label on the form.', 'strong-testimonials' ) . '</span></label>';
-	$html .= '</td>' . "\n";
-	$html .= '</tr>' . "\n";
+            if ( ! $adding ) {
+                echo wpmtst_show_field_secondary( $key, $field );
+                echo wpmtst_show_field_admin_table( $key, $field );
+            }
+            ?>
+        </table>
 
-	// ----------
-	// Field Name
-	// ----------
-	$html .= '<tr>' . "\n";
-	$html .= '<th>' . _x( 'Name', 'noun', 'strong-testimonials' ) . '</th>' . "\n";
-	$html .= '<td>' . "\n";
+        <?php
+        if ( ! $adding ) {
+            echo wpmtst_show_field_hidden( $key, $field );
+        }
+        include 'partials/fields/field-controls.php';
+        ?>
+	</div><!-- .custom-field -->
 
-	/**
-	 * Field names for certain types are read-only.
-	 *
-	 * @todo Move to field options.
-	 * @since 2.2.2
-	 */
-	if ( 'post' == $field['record_type'] || 'categories' == $field['input_type'] ) {
-
-		$html .= '<input type="text" class="field-name" value="' . $field['name'] . '" disabled="disabled">';
-		// disabled inputs are not posted so store the field name in a hidden input
-		$html .= '<input type="hidden" name="fields[' . $key . '][name]" value="' . $field['name'] . '">';
-
-	}
-	else {
-
-		// if adding, the field Name is blank so it can be populated from Label
-		$html .= '<input type="text" class="field-name" name="fields[' . $key . '][name]" value="' . ( isset( $field['name'] ) ? wpmtst_htmlspecialchars( $field['name'] ) : '' ) . '">';
-		$html .= '<span class="help field-name-help">' . __( 'Use only lowercase letters, numbers, and underscores.', 'strong-testimonials' ) . '</span>';
-		$html .= '<span class="help field-name-help important">' . __( 'Cannot be "name" or "date".', 'strong-testimonials' ) . '</span>';
-
-	}
-	$html .= '</td>' . "\n";
-	$html .= '</tr>' . "\n";
-
-	// ---------------------------
-	// Field Type (Post or Custom)
-	// ---------------------------
-	// If disabled, create <select> with single option
-	// and add hidden input with current value.
-	// Separate code! Readability is better than ultra-minor efficiency.
-
-	$html .= '<tr>' . "\n";
-	$html .= '<th>' . _x( 'Type', 'noun', 'strong-testimonials' ) . '</th>' . "\n";
-	$html .= '<td>' . "\n";
-
-	// Restrict field choice to this record type
-	// unless we're adding a new field.
-	if ( $adding ) {
-
-		$html .= '<select class="field-type new" name="fields[' . $key . '][input_type]">';
-
-		// start with a blank option with event trigger to update optgroups...
-		$html .= '<option class="no-selection" value="none" name="none">&mdash;</option>';
-
-		// If pre-selecting a record type in event handler:
-		/*
-		if ( 'custom' == $field['record_type'] ) {
-			// compare field *name*
-			$selected = selected( $field['name'], $field_key, false );
-		} elseif ( 'post' == $field['record_type'] {
-			// compare field *type*
-			$selected = selected( $field['input_type'], $field_key, false );
-		}
-		*/
-		// ...then add $selected to <option>.
-
-		// Post fields
-		$html .= '<optgroup class="post" label="' . __( 'Post Fields', 'strong-testimonials' ) . '">';
-		foreach ( $field_types['post'] as $field_key => $field_parts ) {
-			$html .= '<option value="' . $field_key . '">' . $field_parts['option_label'] . '</option>';
-		}
-		$html .= '</optgroup>';
-
-		// Custom fields
-		$html .= '<optgroup class="custom" label="' . __( 'Custom Fields', 'strong-testimonials' ) . '">';
-		foreach ( $field_types['custom'] as $field_key => $field_parts ) {
-			$html .= '<option value="' . $field_key . '">' . $field_parts['option_label'] . '</option>';
-		}
-		$html .= '</optgroup>';
-
-		/**
-		 * Special fields
-		 *
-		 * @since 1.18
-		 */
-		$html .= '<optgroup class="optional" label="' . __( 'Special Fields', 'strong-testimonials' ) . '">';
-		foreach ( $field_types['optional'] as $field_key => $field_parts ) {
-			$html .= '<option value="' . $field_key . '">' . $field_parts['option_label'] . '</option>';
-		}
-		$html .= '</optgroup>';
-
-		$html .= '</select>';
-
-	}
-	else {
-
-		if ( 'post' == $field['record_type'] ) {
-
-			// -----------
-			// Post fields
-			// -----------
-			// Disable <select>. Display current value as only option.
-			// Disabled inputs are not posted so store the value in hidden field.
-			$html .= '<input type="hidden" name="fields[' . $key . '][input_type]" value="' . $field['name'] . '">';
-			$html .= '<select id="current-field-type" class="field-type" disabled="disabled">';
-			foreach ( $field_types['post'] as $field_key => $field_parts ) {
-				// compare field *name*
-				if ( $field['name'] == $field_key )
-					$html .= '<option value="' . $field_key . '" selected="selected">' . $field_parts['option_label'] . '</option>';
-			}
-			$html .= '</select>';
-
-		}
-		elseif ( 'custom' == $field['record_type'] ) {
-
-			// -------------
-			// Custom fields
-			// -------------
-			$html .= '<select class="field-type" name="fields[' . $key . '][input_type]">';
-			$html .= '<optgroup class="custom" label="Custom Fields">';
-			foreach ( $field_types['custom'] as $field_key => $field_parts ) {
-				// compare field *type*
-				$selected = selected( $field['input_type'], $field_key, false );
-				$html .= '<option value="' . $field_key . '" ' . $selected . '>' . $field_parts['option_label'] . '</option>';
-			}
-			$html .= '</optgroup>';
-			$html .= '</select>';
-
-		}
-		elseif ( 'optional' == $field['record_type'] ) {
-
-			// -------------
-			// Special fields
-			// -------------
-			$html .= '<select class="field-type" name="fields[' . $key . '][input_type]">';
-			$html .= '<optgroup class="optional" label="' . __( 'Special Fields', 'strong-testimonials' ) . '">';
-			foreach ( $field_types['optional'] as $field_key => $field_parts ) {
-				// compare field *type*
-				$selected = selected( $field['input_type'], $field_key, false );
-				$html .= '<option value="' . $field_key . '" ' . $selected . '>' . $field_parts['option_label'] . '</option>';
-			}
-			$html .= '</optgroup>';
-			$html .= '</select>';
-
-		}
-
-	} // editing
-
-	$html .= '</td>' . "\n";
-	$html .= '</tr>' . "\n";
-
-	if ( ! $adding ) {
-		$html .= wpmtst_show_field_secondary( $key, $field );
-		$html .= wpmtst_show_field_admin_table( $key, $field );
-	}
-
-	$html .= '</table>' . "\n";
-
-	if ( ! $adding ) {
-		$html .= wpmtst_show_field_hidden( $key, $field );
-	}
-
-	// --------
-	// Controls
-	// --------
-	$html .= '<div class="controls">' . "\n";
-	if ( $adding || ! $is_core ) {
-		$html .= '<span><a href="#" class="delete-field">' . __( 'Delete' ) . '</a></span>' . "\n";
-	}
-	$html .= '<span class="close-field"><a href="#">' . _x( 'Close', 'verb', 'strong-testimonials' ) . '</a></span>' . "\n";
-	$html .= '</div><!-- .controls -->' . "\n";
-
-	$html .= '</div><!-- .custom-field -->' . "\n";
+    <?php
+	$html = ob_get_contents();
+	ob_end_clean();
 
 	return $html;
 }
@@ -572,11 +400,11 @@ function wpmtst_show_field_hidden( $key, $field ) {
 
 	$html = sprintf( $pattern, $key, 'record_type', $field['record_type'] ) . "\n";
 	$html .= sprintf( $pattern, $key, 'input_type', $field['input_type'] ) . "\n";
+	$html .= sprintf( $pattern, $key, 'name_mutable', $field['name_mutable'] ) . "\n";
 	$html .= sprintf( $pattern, $key, 'show_placeholder_option', $field['show_placeholder_option'] ) . "\n";
 	$html .= sprintf( $pattern, $key, 'show_default_options', $field['show_default_options'] ) . "\n";
 	$html .= sprintf( $pattern, $key, 'admin_table_option', $field['admin_table_option'] ) . "\n";
 	$html .= sprintf( $pattern, $key, 'show_admin_table_option', $field['show_admin_table_option'] ) . "\n";
-
 	$html .= sprintf( $pattern, $key, 'show_shortcode_options', $field['show_shortcode_options'] ) . "\n";
 
 	if ( isset( $field['map'] ) ) {

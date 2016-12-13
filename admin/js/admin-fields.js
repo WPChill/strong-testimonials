@@ -1,22 +1,32 @@
 /**
- *	Strong Testimonials > Custom Fields Editor
+ * Strong Testimonials Custom Fields Editor
  */
 
 // Function to get the Max value in Array
-Array.max = function( array ){
-	return Math.max.apply( Math, array );
+Array.max = function (array) {
+	return Math.max.apply(Math, array);
 };
 
 // Convert "A String" to "a_string"
 function convertLabel(label) {
-	return label.replace(/\s+/g, "_").replace(/\W/g, "").toLowerCase();
+	return label.replace(/\W/g, " ").replace(/\s+/g, "_").toLowerCase();
 }
 
-(function($) {
+(function ($) {
 
-	$.fn.scrollUp = function() {
-		this.each(function() {
-			var containerOffset = parseInt( $(this).offset().top ) - 72;
+	/**
+	 * If open, scroll field into view.
+	 * If closed, scroll all the way up.
+	 *
+	 * @returns {jQuery}
+	 */
+	$.fn.scrollUp = function () {
+		var containerOffset;
+		this.each(function () {
+			containerOffset = 0;
+			if( $(this).hasClass("open") ) {
+				containerOffset = parseInt($(this).offset().top) - 72;
+			}
 			$("html, body").animate({scrollTop: containerOffset}, 800);
 		});
 
@@ -24,47 +34,56 @@ function convertLabel(label) {
 	};
 
 	/**
-	 * Preview
+	 * Replace the field type selector with its value. Better than readonly.
+	 *
+	 * @returns {jQuery}
 	 */
-
-	var theForm = $("#wpmtst-custom-fields-form");
-
-	var formPreview = function() {
-		var formFields = theForm.find("[name^='fields']");
-		if( !formFields.length ) return;
-		
-		var data = {
-			'action' : 'wpmtst_get_form_preview',
-			'fields' : formFields.serialize()
-		};
-		$.post( ajaxurl, data, function( response ) {
-			var newDiv = $("<div></div>").hide().html(response)
-			$("#fields-editor-preview")
-				.children().first()
-				 	.after( newDiv )
-					.fadeOut(400, function() {
-						newDiv.show();
-						$(this).remove();
-					});
+	$.fn.replaceSelect = function () {
+		this.each(function () {
+			if( $(this).hasClass("open") ) {
+				$(this).find("select.field-type").each(function (index, el) {
+					$(el).replaceWith(el.value);
+				});
+			}
 		});
+
+		return this;
 	}
-	formPreview();
-	theForm.on( "change", formPreview );
-	
+
 	/**
-	 * Custom fields
+	 * Initialize
 	 */
 
-	$(".custom-field").hide();
+	var catCount = 0;
+	$.get(ajaxurl, {
+			'action': 'wpmtst_get_cat_count',
+			'security': wpmtstAdmin.ajax_nonce
+		},
+		function (response) {
+			catCount = parseInt( response );
+		});
+
+
+	var $theForm = $("#wpmtst-custom-fields-form");
 	var $fieldList = $("#custom-field-list");
 
+	formPreview();
+	toggleCategoryFields();
+
+
+	/**
+	 * Events
+	 */
+
+	$theForm.on("change", "input", function() { dismissNotice(); formPreview(); });
+
 	// check all field names
-	theForm.submit(function(event){
-		$("input.field-name").each(function(index){
-			if( 'name' == $(this).val() || 'date' == $(this).val() ) {
+	$theForm.submit(function (event) {
+		$("input.field-name").each(function (index) {
+			if ('name' == $(this).val() || 'date' == $(this).val()) {
 				$(this).focus().parent().find('.field-name-help.important').addClass('error');
 				var $parent = $(this).closest("li");
-				if(!$parent.hasClass("open")) {
+				if (!$parent.hasClass("open")) {
 					$parent.find("a.field").click();
 				}
 				event.preventDefault();
@@ -75,7 +94,7 @@ function convertLabel(label) {
 	});
 
 	// Prevent single click on handle from opening accordion
-	$fieldList.on("click", "span.handle", function(e){
+	$fieldList.on("click", "span.handle", function () {
 		event.stopImmediatePropagation();
 		event.preventDefault();
 	});
@@ -86,33 +105,26 @@ function convertLabel(label) {
 		forcePlaceholderSize: true,
 		handle: ".handle",
 		cursor: "move",
-		update: function( event, ui ) { theForm.change(); }
+		update: function (event, ui) {
+			dismissNotice();
+			formPreview();
+		}
 	});
 
-	// click handler (delegated)
-	$fieldList.on("click", "span.link", function(e){
-		$(this)
-			// .blur()
-			.toggleClass("open")
-			.closest("li")
-				.toggleClass("open")
-				.find(".custom-field")
-					.toggleClass("open")
-					.slideToggle()
-					.find(".first-field")
-						.focus()
-						.select();
+	// open/close
+	$fieldList.on("click", "span.link", function () {
+		toggleField( $(this).closest("li") );
 		return false;
 	});
 
-	// update list item label when field label changes
-	$fieldList.on("change blur", "input.field-label", function(e){
+	// validate field label
+	$fieldList.on("change blur", "input.field-label", function () {
 		var newLabel = $(this).val();
 		var $parent = $(this).closest("li");
 
 		// fill in blank label
-		if( ! $(this).val() ) {
-			$(this).val("New Field");
+		if (!$(this).val()) {
+			$(this).val(wpmtstAdmin.newField);
 		}
 
 		// update parent list item
@@ -120,344 +132,352 @@ function convertLabel(label) {
 
 		// fill in blank field name
 		var $fieldName = $parent.find("input.field-name");
-		if( ! $fieldName.val() ) {
+		if (!$fieldName.val()) {
 			var newFieldName = convertLabel(newLabel);
-			$fieldName.val(newFieldName);
+			$fieldName.val(getUniqueName(newFieldName));
 		}
 	});
 
-	// fill in blank field name
-	$fieldList.on("blur", "input.field-name", function(e){
-		var fieldLabel = $(this).closest(".field-table").find(".field-label").val();
-
-		if( ! $(this).val() ) {
+	// validate field name
+	$fieldList.on("change", "input.field-name", function () {
+		var fieldName = $(this).val();
+		if (fieldName) {
+			$(this).val(getUniqueName(fieldName));
+		} else {
+			var fieldLabel = $(this).closest(".field-table").find(".field-label").val();
 			var newFieldName = convertLabel(fieldLabel);
-			$(this).val(newFieldName);
+			$(this).val(getUniqueName(newFieldName));
 			return;
 		}
-		if( 'name' == $(this).val() || 'date' == $(this).val() ) {
+		if ('name' == $(this).val() || 'date' == $(this).val()) {
 			$(this).focus().parent().find('.field-name-help.important').addClass('error');
 		} else {
 			$(this).parent().find('.field-name-help').removeClass('error');
 		}
 	});
 
-	// restore defaults
-	$("#restore-defaults").click(function(){
-		return confirm("Restore the default fields?");
-	});
-
 	// delete field
-	$fieldList.on("click", ".delete-field", function(){
+	$fieldList.on("click", ".delete-field", function () {
+		$(this).blur();
+		dismissNotice();
 		var thisField = $(this).closest("li");
-		var thisLabel = thisField.find(".field").html();
-		if( confirm('Delete "' + thisLabel + '"?') ) {
-			$.when( thisField.fadeOut(), thisField.remove() ).then( theForm.change() );
-			// enable "Add New Field" button
-			$("#add-field").removeAttr("disabled");
+		var thisLabel = thisField.find(".field").text();
+		if (confirm('Delete "' + thisLabel + '"?')) {
+			thisField.fadeOut(function () {
+				$.when(thisField.remove()).then(function () {
+					formPreview();
+					toggleCategoryFields();
+					$("#add-field, #submit").removeAttr("disabled");
+				})
+			});
 		}
 	});
 
 	// close field
-	$fieldList.on("click", "span.close-field a", function(){
-		$(this)
-			.blur()
-			.closest("li")
-				.toggleClass("open")
-				.find("span.link")
-					.toggleClass("open")
-					.end()
-				.find(".custom-field")
-					.toggleClass("open")
-					.slideToggle();
+	$fieldList.on("click", "span.close-field a", function () {
+		toggleField( $(this).closest("li") );
 		return false;
 	});
 
-
-	// -------------
 	// Add new field
-	// -------------
-	$("#add-field").click(function(e) {
-		var keys = $fieldList.find("li").map(function() {
+	$("#add-field").click(function () {
+		dismissNotice();
+		var keys = $fieldList.find("li").map(function () {
 			var key_id = $(this).attr("id");
-			return key_id.substr( key_id.lastIndexOf("-")+1 );
+			return key_id.substr(key_id.lastIndexOf("-") + 1);
 		}).get();
-		var nextKey = Array.max(keys)+1;
+		var nextKey = Array.max(keys) + 1;
 
 		var data = {
-			'action'     : 'wpmtst_add_field',
-			'nextKey'    : nextKey,
-			'fieldClass' : null,
-			'fieldType'  : null,
-			'security'   : wpmtst_ajax_object.ajax_nonce
+			'action': 'wpmtst_add_field',
+			'nextKey': nextKey,
+			'fieldClass': null,
+			'fieldType': null,
+			'security': wpmtstAdmin.ajax_nonce
 		};
-		$.get( ajaxurl, data, function( response ) {
-			// disable Add button
-			$("#add-field").attr("disabled","disabled");
+		$.get(ajaxurl, data, function (response) {
+			$("#add-field, #submit").attr("disabled", "disabled");
 
 			// create list item
-			var $li = $('<li id="field-'+nextKey+'">').append( response );
+			var $li = $('<li id="field-' + nextKey + '" data-status="new">').append(response);
 
 			// append to list
-			$.when( $fieldList.append($li) ).then( theForm.change() );
+			$.when($fieldList.append($li)).then(function () {
+				formPreview();
+				togglePostFields();
+				toggleCategoryFields();
 
-			// ---------------------------------------------------------
-			// Disable any Post fields already in use.
-			// ---------------------------------------------------------
-			// Doing this client-side so a Post field can be added
-			// but not saved before adding more fields;
-			// i.e. add multiple fields of either type without risk
-			// of duplicating single Post fields before clicking "Save".
-			// ---------------------------------------------------------
-			$fieldList.find('input[name$="[record_type]"]').each(function(index) {
-				if( "post" == $(this).val() ) {
-					var name = $(this).closest("li").find(".field-name").val();
-					$li.find("select.field-type.new").find('option[value="'+name+'"]').attr("disabled","disabled");
-				}
+				// hide "Close" link until Type is selected
+				$li.find("span.close-field").hide();
+
+				// click it to open
+				$li.find("span.link").click();
 			});
-
-			// hide "Close" link until Type is selected
-			$("span.close-field").hide();
-
-			// click it to open
-			$li.scrollUp().find("a.field").click();
 		});
 	});
 
-
-	// -----------------
 	// Field type change
-	// -----------------
-	$fieldList
-		.on("focus", ".field-type", function() {
-			// store existing values on parent element
+	$fieldList.on("change", ".field-type", function () {
+		var fieldType = $(this).val();
+		var $table = $(this).closest("table");
+		var $parent = $(this).closest('li');
 
-			// find parent element
-			var fieldType = $(this).val();
-			var $parent = $(this).closest("li");
-			$parent.data('fieldType',fieldType);
+		if ($parent.data('status') != 'new') {
+			$table.find(".field-secondary, .field-admin-table").remove();
+		}
 
-			// label
-			var $fieldLabel = $parent.find('input.field-label');
-			$fieldLabel.data('oldValue',$fieldLabel.val());
+		if ('none' == fieldType) {
+			// Hide "Close" link
+			$parent.find("span.close-field").hide();
 
-			// name
-			var $fieldName = $parent.find('input.field-name');
-			$fieldName.data('oldValue',$fieldName.val());
+			$("#add-field, #submit").attr("disabled", "disabled");
 
-			// input_type
-			var $fieldInputType = $parent.find('input[name$="[input_type]"]');
-			$fieldInputType.data('oldValue',$fieldInputType.val());
+			return;
+		}
 
-		})
-		.on("change", ".field-type", function() {
+		var key_id = $parent.attr("id");
+		var key = key_id.substr(key_id.lastIndexOf("-") + 1);
 
-			var fieldType = $(this).val();
+		var $fieldLabel = $parent.find('input.field-label');
+		var $fieldName = $parent.find('input.field-name');
 
-			var $table = $(this).closest("table");
-			var $parent = $(this).closest('li');
+		// get type of field from its optgroup
+		var fieldClass = $(this)
+			.find("option[value='" + fieldType + "']")
+			.closest("optgroup")
+			.attr("class");
 
-			var key_id = $parent.attr("id");
-			var key = key_id.substr( key_id.lastIndexOf("-")+1 );
-
-			var $fieldLabel = $parent.find('input.field-label');
-			var $fieldName  = $parent.find('input.field-name');
-			var $fieldInputType = $parent.find('input[name$="[input_type]"]');
-
-			// Force values if selecting a Post field.
-
-			// get type of field from its optgroup
-			var fieldClass = $(this)
-				.find("option[value='"+fieldType+"']")
-				.closest("optgroup")
-				.attr("class");
-
-			// Are we adding a new field or changing an existing one?
-			if( $parent.data('fieldType') != 'none' ) {
-
-				// --------
-				// changing
-				// --------
-				// could be changing after being *added* but before being *saved*
-				//TODO Refresh secondary type-specific fields -- wpmtst_add_field_2
-				//$table.find(".field-secondary").remove();
-
-				switch( fieldClass ) {
-					case "post":
-
-						if( fieldType == 'post_title' ) {
-							$fieldLabel.val('Testimonial Title');
-							$fieldName.val('post_title').attr('disabled','disabled');
-							// move value to hidden input
-							$fieldName.after('<input type="hidden" name="'+$fieldName.attr("name")+'" value="'+$fieldName.val()+'" />');
-							// change input_type
-							$parent.find('input[name$="[input_type]"]').val("text");
-							// hide help message
-							$parent.find(".field-name-help").hide();
-						}
-						else if( fieldType == 'featured_image' ) {
-							$fieldLabel.val('Photo');
-							$fieldName.val('featured_image').attr('disabled','disabled');
-							// move value to hidden input
-							$fieldName.after('<input type="hidden" name="'+$fieldName.attr("name")+'" value="'+$fieldName.val()+'" />');
-							// change input_type
-							$parent.find('input[name$="[input_type]"]').val("file");
-						}
-						else if( fieldType == 'post_content' ) {
-							$fieldLabel.val('Testimonial');
-							$fieldName.val('post_content').attr('disabled','disabled');
-							// move value to hidden input
-							$fieldName.after('<input type="hidden" name="'+$fieldName.attr("name")+'" value="'+$fieldName.val()+'" />');
-							// hide help message
-							$parent.find(".field-name-help").hide();
-						}
-						break;
-
-					case "custom":
-
-						// if switching back from Post field to Custom field
-						var fieldName = $fieldName.val();
-						if( fieldName == 'post_title' || fieldName == 'featured_image' ) {
-							// restore previous values
-							$fieldLabel.val($fieldLabel.data('oldValue'));
-							$fieldName.val($fieldName.data('oldValue')).removeAttr('disabled');
-							$fieldInputType.val($fieldInputType.data('oldValue'));
-							$parent.find(".custom-field-header a.field").html( $fieldLabel.val() );
-							// remove hidden input
-							$fieldName.next('input:hidden').remove();
-							// show help message
-							$parent.find(".field-name-help").show();
-						}
-
-						break;
-
-					case "optional":
-
-						if( fieldType == 'categories' ) {
-							$fieldName.val('category').attr('disabled','disabled');
-							// move value to hidden input
-							$fieldName.after('<input type="hidden" name="'+$fieldName.attr("name")+'" value="'+$fieldName.val()+'" />');
-							// hide help message
-							$parent.find(".field-name-help").hide();
-						}
-						break;
-
-					default:
+		switch (fieldClass) {
+			case 'post':
+				// Force values if selecting a Post field.
+				if (fieldType == 'post_title') {
+					$fieldLabel.val('Testimonial Title');
+					$fieldName.val('post_title').attr('disabled', 'disabled');
 				}
-
-				// update admin_table setting
-				var data = {
-					'action'     : 'wpmtst_add_field_4',
-					'nextKey'    : key,
-					'fieldClass' : fieldClass,
-					'fieldType'  : fieldType,
-					'security'   : wpmtst_ajax_object.ajax_nonce
-				};
-				$.get( ajaxurl, data, function( response ) {
-					$table.find("tr.field-admin-table").replaceWith(response);
-				});
-
-			}
-			else {
-
-				// ------
-				// adding
-				// ------
-
-				if( fieldClass == 'post' ) {
-
-					if( fieldType == 'post_title' ) {
-						$fieldLabel.val('Testimonial Title');
-						$fieldName.val('post_title').attr('disabled','disabled');
-						// add hidden input
-						$fieldName.after('<input type="hidden" name="'+$fieldName.attr("name")+'" value="'+$fieldName.val()+'" />');
-						// hide help message
-						$parent.find(".field-name-help").hide();
-					}
-					else if( fieldType == 'featured_image' ) {
-						$fieldLabel.val('Photo');
-						$fieldName.val('featured_image').attr('disabled','disabled');
-						// add hidden input
-						$fieldName.after('<input type="hidden" name="'+$fieldName.attr("name")+'" value="'+$fieldName.val()+'" />');
-					}
-					else if( fieldType == 'post_content' ) {
-						$fieldLabel.val('Testimonial');
-						$fieldName.val('post_content').attr('disabled','disabled');
-						// add hidden input
-						$fieldName.after('<input type="hidden" name="'+$fieldName.attr("name")+'" value="'+$fieldName.val()+'" />');
-						// hide help message
-						$parent.find(".field-name-help").hide();
-					}
-
+				else if (fieldType == 'featured_image') {
+					$fieldLabel.val('Photo');
+					$fieldName.val('featured_image').attr('disabled', 'disabled');
 				}
-
-				if( fieldType == 'categories' ) {
-					$fieldName.val('category').attr('disabled','disabled');
+				else if (fieldType == 'post_content') {
+					$fieldLabel.val('Testimonial');
+					$fieldName.val('post_content').attr('disabled', 'disabled');
+				}
+				// move value to hidden input
+				$fieldName.after('<input type="hidden" name="' + $fieldName.attr("name") + '" value="' + $fieldName.val() + '" />');
+				// hide help message
+				$parent.find(".field-name-help").hide();
+				break;
+			case 'optional':
+				if ('category' == fieldType.split('-')[0]) {
+					$fieldName.val('category').attr('disabled', 'disabled');
 					// move value to hidden input
-					$fieldName.after('<input type="hidden" name="'+$fieldName.attr("name")+'" value="'+$fieldName.val()+'" />');
+					$fieldName.after('<input type="hidden" name="' + $fieldName.attr("name") + '" value="' + $fieldName.val() + '" />');
 					// hide help message
 					$parent.find(".field-name-help").hide();
 				}
-
-				// Nesting Ajax calls for now.
-				// secondary form fields
-				var data1 = {
-					'action'     : 'wpmtst_add_field_2',
-					'nextKey'    : key,
-					'fieldClass' : fieldClass,
-					'fieldType'  : fieldType,
-					'security'   : wpmtst_ajax_object.ajax_nonce
-				};
-				$.get( ajaxurl, data1, function( response ) {
-
-					$table.append(response);
-
-					// admin-table field
-					var data2 = {
-						'action'     : 'wpmtst_add_field_4',
-						'nextKey'    : key,
-						'fieldClass' : fieldClass,
-						'fieldType'  : fieldType,
-						'security'   : wpmtst_ajax_object.ajax_nonce
-
-					};
-					$.get( ajaxurl, data2, function( response ) {
-
-						$table.append(response);
-
-						// hidden inputs
-						var data3 = {
-							'action'     : 'wpmtst_add_field_3',
-							'nextKey'    : key,
-							'fieldClass' : fieldClass,
-							'fieldType'  : fieldType,
-							'security'   : wpmtst_ajax_object.ajax_nonce
-						};
-						$.get( ajaxurl, data3, function( response ) {
-
-							$table.parent().append(response);
-
-						});
-
-					});
-
-				});
+				$fieldLabel.val(wpmtstAdmin.newField).focus().select();
+				break;
+			default:
+				$fieldLabel.val(wpmtstAdmin.newField).focus().select();
+				$fieldName.val('').removeAttr('disabled');
+				$parent.find(".field-name-help").show();
+		}
 
 
-				// Successfully added so show "Close" link...
-				$("span.close-field").show();
-				// ...and enable "Add New Field" button.
-				$("#add-field").removeAttr("disabled");
-			}
+		// secondary form fields
+		var data1 = {
+			'action': 'wpmtst_add_field_2',
+			'nextKey': key,
+			'fieldClass': fieldClass,
+			'fieldType': fieldType,
+			'security': wpmtstAdmin.ajax_nonce
+		};
 
-			// update parent list item...
-			$parent.find(".custom-field-header a.field").html( $fieldLabel.val() );
-			// ...and stored fieldType
-			$parent.data('fieldType',fieldType);
+		var ajax1 = $.get(ajaxurl, data1, function (response) {
+			$table.append(response);
+		});
 
+
+		// admin-table field
+		var data2 = {
+			'action': 'wpmtst_add_field_4',
+			'nextKey': key,
+			'fieldClass': fieldClass,
+			'fieldType': fieldType,
+			'security': wpmtstAdmin.ajax_nonce
+		};
+
+		var ajax2 = ajax1.then(function () {
+			return $.get(ajaxurl, data2, function (response) {
+				$table.append(response);
+			});
+		});
+
+
+		// hidden inputs
+		var data3 = {
+			'action': 'wpmtst_add_field_3',
+			'nextKey': key,
+			'fieldClass': fieldClass,
+			'fieldType': fieldType,
+			'security': wpmtstAdmin.ajax_nonce
+		};
+
+		var ajax3 = ajax2.then(function () {
+			return $.get(ajaxurl, data3, function (response) {
+				$table.parent().append(response);
+			});
+		});
+
+		ajax3.done(function () {
+
+			formPreview();
+			$("#add-field, #submit").removeAttr("disabled");
+
+			// Successfully added so show "Close" link
+			$("span.close-field").show();
+
+			$parent
+			// Reset temporary status
+				.removeData("status").removeAttr("data-status")
+			// update parent list item
+				.find(".custom-field-header a.field").html($fieldLabel.val()).end()
 			// update hidden [record_type] input
-			$parent.find('input[name$="[record_type]"]').val(fieldClass);
+				.find('input[name$="[record_type]"]').val(fieldClass);
 
-		}); // on(change)
+		});
+
+	});
+
+	// Restore defaults
+	$("#restore-defaults").click(function () {
+		return confirm("Restore the default fields?");
+	});
+
+	/**
+	 * Functions
+	 */
+
+	// Preview
+	function formPreview() {
+		var formFields = $theForm.find("[name^='fields']");
+		if (!formFields.length) return;
+
+		var data = {
+			'action': 'wpmtst_get_form_preview',
+			'fields': formFields.serialize()
+		};
+		$.post(ajaxurl, data, function (response) {
+			var newDiv = $("<div></div>").hide().html(response)
+			$("#fields-editor-preview")
+				.children().first()
+				.after(newDiv)
+				.fadeOut(300, function () {
+					newDiv.show();
+					$(this).remove();
+				});
+		});
+	}
+
+	/*
+	 * Disable any Post fields already in use.
+	 *
+	 * Doing this client-side so a Post field can be added
+	 * but not saved before adding more fields;
+	 * i.e. add multiple fields of either type without risk
+	 * of duplicating single Post fields before clicking "Save".
+	 */
+	function togglePostFields() {
+		$fieldList.find('input[name$="[record_type]"]').each(function () {
+			var $parent = $(this).closest("li");
+			var value = $(this).val();
+			if ("post" == value) {
+				var name = $parent.find(".field-name").val();
+				$fieldList.find("select.field-type.new").find('option[value="' + name + '"]').attr("disabled", "disabled");
+			}
+		});
+	}
+
+	// Only allow one category field
+	function toggleCategoryFields() {
+		var categoryInUse = false;
+
+		$fieldList.find('input[name$="[record_type]"]').each(function () {
+			var $parent = $(this).closest("li");
+			var value = $(this).val();
+			if ('optional' == value) {
+				var fieldType = $parent.find('input[name$="[input_type]"]').val();
+				if (!categoryInUse) {
+					categoryInUse = ( 'category' == fieldType.split('-')[0] );
+				}
+			}
+		});
+
+		var $options = $fieldList.find('option[value^="category"]');
+		if (categoryInUse) {
+			$options.each( function () {
+				var text = $(this).text();
+				$(this)
+					.attr("disabled", "disabled")
+					.text(text + ' ' + wpmtstAdmin.inUse)
+					.data('origText', text);
+			});
+		}
+		else if (0 === catCount) {
+			$options.each( function () {
+				var text = $(this).text();
+				$(this)
+					.attr("disabled", "disabled")
+					.text(text + ' ' + wpmtstAdmin.noneFound)
+					.data('origText', text);
+			});
+		} else {
+			$options.each( function () {
+				$(this)
+					.removeAttr("disabled")
+					.text( $(this).data('origText') );
+			});
+		}
+	}
+
+	// Actions on opening/closing the field
+	function toggleField( $field ) {
+		$field.replaceSelect()
+			.toggleClass("open")
+			.scrollUp()
+			.find("span.link")
+				.toggleClass("open")
+				.end()
+			.find(".custom-field")
+				.toggleClass("open")
+				.slideToggle()
+				.find(".first-field")
+					.focus();
+	}
+
+	// Build a unique name
+	function getUniqueName(fieldName) {
+		var names = $theForm.find("input.field-name").map(function () {
+			return this.value;
+		}).get();
+
+		names = names.filter(function (x) {
+			return (x !== (undefined || ''));
+		});
+		console.log(names);
+
+		var uniqueName = fieldName;
+		var i = 1;
+
+		while ($.inArray(uniqueName, names) >= 1) {
+			uniqueName = fieldName + '_' + i++;
+		}
+		return uniqueName;
+	}
+
+	// Dismis the "Fields saved" notice.
+	function dismissNotice() {
+		$("#message").find(".notice-dismiss").click();
+	}
 
 })(jQuery);

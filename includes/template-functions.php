@@ -202,15 +202,19 @@ add_filter( 'excerpt_more', 'wpmtst_excerpt_more', 20 );
 
 
 function wpmtst_excerpt_more_full_post() {
+    echo '<div class="testimonial-readmore">';
 	echo apply_filters( 'wpmtst_manual_excerpt_read_more', wpmtst_get_excerpt_more_link() );
+	echo '</div>';
 }
 
 
 function wpmtst_get_excerpt_more_post() {
-	if ( WPMST()->atts( 'excerpt' ) && WPMST()->atts( 'more_full_post' ) )
+	if ( WPMST()->atts( 'excerpt' ) && WPMST()->atts( 'more_full_post' ) ) {
 		return ( WPMST()->atts( 'more_post_ellipsis' ) ? ' &hellip;' : '' );
-	else
+	}
+	else {
 		return ( WPMST()->atts( 'more_post_ellipsis' ) ? ' &hellip; ' : ' ' ) . wpmtst_get_excerpt_more_link();
+	}
 }
 
 

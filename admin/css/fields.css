@@ -2,6 +2,12 @@
  * Strong Testimonials admin stylesheet
  */
 
+optgroup,
+optgroup option {
+	/* Firefox */
+	font-family: inherit;
+}
+
 /* structure */
 
 #left-col,
@@ -18,7 +24,7 @@
 #right-col {
 	width: calc( 45% - 20px );
 	float: right;
-	padding: 20px 0 20px 20px;
+	padding: 20px 0 20px 0;
 }
 
 #wpmtst-custom-fields-form {
@@ -101,6 +107,10 @@
 	border-color: #2ea2cc;
 }
 
+#custom-field-list li .custom-field-header {
+	transition: background 0.2s ease;
+}
+
 #custom-field-list li.open .custom-field-header {
 	background: #2ea2cc;
 }
@@ -140,11 +150,6 @@
 	padding-left: 4px;
 }
 
-#custom-field-list option[disabled]:after {
-	content: " (in use)";
-	font-style: italic;
-}
-
 #wpmtst-custom-fields-form .controls {
 	padding: 10px 15px;
 	background: #e7f5fa;
@@ -177,7 +182,7 @@
 }
 
 #custom-field-list .field-table th {
-	min-width: 120px;
+	width: 160px;
 	padding-top: 14px;
 	text-align: left;
 	vertical-align: top;
@@ -232,6 +237,7 @@
 
 #field-group-actions > div {
 	display: inline-block;
+	float: left;
 	margin-bottom: 1em;
 }
 #field-group-actions > div:last-child input {

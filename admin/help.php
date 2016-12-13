@@ -1,16 +1,23 @@
 <?php
+/**
+ * Contextual help.
+ */
 
 add_action( 'load-wpm-testimonial_page_testimonial-fields', 'wpmtst_help_fields_editor' );
 function wpmtst_help_fields_editor() {
 
-	$content = '<p>' . __( 'The default fields are designed to fit most situations. You can quickly add or remove fields and change several display properties to meet your needs.', 'strong-testimonials' ) . '</p>';
+	$content = '<p>' . __( 'These fields let you customize your testimonials to gather the information you need.', 'strong-testimonials' ) . '</p>';
 
-	$content .= '<p>' . __( 'Fields will appear in this order on the form.', 'strong-testimonials' ) . '&nbsp;';
+	$content .= '<p>' . __( 'This editor serves two purposes: (1) to modify the form as it appears on your site, and (2) to modify the custom fields added to each testimonial.', 'strong-testimonials' ) . '</p>';
 
-	$content .= sprintf( __( 'Reorder by grabbing the %s icon.', 'strong-testimonials' ), '<span class="dashicons dashicons-menu"></span>' ) . '</p>';
+	$content .= '<p>' . __( 'The default fields are designed to fit most situations. You can quickly add or remove fields and change several display properties.', 'strong-testimonials' ) . '</p>';
 
-	$content .= '<p>' . __( 'Keep in mind that any changes here also affect the custom fields available in the post editor and the view editor. In other words, you\'re really doing two things: (1) modifying the form as it appears on your site, and (2) modifying the custom fields.', 'strong-testimonials' ) . '</p>';
+	$content .= '<p>';
+	$content .= __( 'Fields will appear in this order on the form.', 'strong-testimonials' ) . '&nbsp;';
+	$content .= sprintf( __( 'Reorder by grabbing the %s icon.', 'strong-testimonials' ), '<span class="dashicons dashicons-menu"></span>' );
+	$content .= '</p>';
 
+	$content .= '<p>' . __( 'To display this form, create a view and select Form mode.', 'strong-testimonials' ) . '</p>';
 
 	// Links
 
@@ -32,7 +39,6 @@ function wpmtst_help_fields_editor() {
 	}
 
 	$content .= '<p>' . implode( ' | ', $links ) . '</p>';
-
 
 	get_current_screen()->add_help_tab( array(
 		'id'      => 'wpmtst-help',

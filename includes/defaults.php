@@ -44,6 +44,7 @@ function wpmtst_get_default_fields() {
 	// common field properties
 	$field_base = array(
 		'name'                    => '',
+		'name_mutable'            => 1,
 		'label'                   => '',
 		'show_label'              => 1,
 		'input_type'              => '',
@@ -76,23 +77,25 @@ function wpmtst_get_default_fields() {
 	// Post
 	$field_types['post'] = array(
 		'post_title'     => array(
-			'input_type'         => 'text',
-			'option_label'       => __( 'Testimonial Title', 'strong-testimonials' ),
-			'map'                => 'post_title',
-			'show_default_options' => 0,
-			'admin_table'        => 1,
-			'admin_table_option' => 0,
+			'input_type'              => 'text',
+			'option_label'            => __( 'Testimonial Title', 'strong-testimonials' ),
+			'map'                     => 'post_title',
+			'show_default_options'    => 0,
+			'admin_table'             => 1,
+			'admin_table_option'      => 0,
 			'show_admin_table_option' => 0,
+			'name_mutable'            => 0,
 		),
 		'post_content'   => array(
-			'input_type'   => 'textarea',
-			'option_label' => __( 'Testimonial Content', 'strong-testimonials' ),
-			'map'          => 'post_content',
-			'required'     => 1,
-			'show_default_options' => 0,
-			'core'         => 0,
-			'admin_table'  => 0,
+			'input_type'              => 'textarea',
+			'option_label'            => __( 'Testimonial Content', 'strong-testimonials' ),
+			'map'                     => 'post_content',
+			'required'                => 1,
+			'show_default_options'    => 0,
+			'core'                    => 0,
+			'admin_table'             => 0,
 			'show_admin_table_option' => 0,
+			'name_mutable'            => 0,
 		),
 		'featured_image' => array(
 			'input_type'              => 'file',
@@ -101,6 +104,7 @@ function wpmtst_get_default_fields() {
 			'show_default_options'    => 0,
 			'show_placeholder_option' => 0,
 			'admin_table'             => 0,
+			'name_mutable'            => 0,
 		),
 	);
 	foreach ( $field_types['post'] as $key => $array ) {
@@ -114,15 +118,15 @@ function wpmtst_get_default_fields() {
 			'option_label' => __( 'text', 'strong-testimonials' ),
 		),
 		'email' => array(
-			'input_type'   => 'email',
-			'option_label' => __( 'email', 'strong-testimonials' ),
+			'input_type'           => 'email',
+			'option_label'         => __( 'email', 'strong-testimonials' ),
 			'show_default_options' => 0,
 		),
 		'url'   => array(
-			'input_type'   => 'url',
-			'option_label' => __( 'URL', 'strong-testimonials' ),
+			'input_type'           => 'url',
+			'option_label'         => __( 'URL', 'strong-testimonials' ),
 			'show_default_options' => 0,
-		)
+		),
 	);
 	foreach ( $field_types['custom'] as $key => $array ) {
 		$field_types['custom'][ $key ] = array_merge( $field_base, $array );
@@ -135,12 +139,21 @@ function wpmtst_get_default_fields() {
 	 * @since 2.2.2 Fix bug caused by localizing 'categories'
 	 */
 	$field_types['optional'] = array(
-		'categories' => array(
-			'input_type'              => 'categories',
+		'category-selector' => array(
+			'input_type'              => 'category-selector',
 			'option_label'            => __( 'category selector', 'strong-testimonials' ),
 			'show_default_options'    => 0,
 			'show_placeholder_option' => 0,
 			'show_admin_table_option' => 0,
+			'name_mutable'            => 0,
+		),
+		'category-checklist' => array(
+			'input_type'              => 'category-checklist',
+			'option_label'            => __( 'category checklist', 'strong-testimonials' ),
+			'show_default_options'    => 0,
+			'show_placeholder_option' => 0,
+			'show_admin_table_option' => 0,
+			'name_mutable'            => 0,
 		),
 		'shortcode' => array(
 			'input_type'              => 'shortcode',
@@ -156,12 +169,13 @@ function wpmtst_get_default_fields() {
 			'option_label'            => __( 'star rating', 'strong-testimonials' ),
 			'show_default_options'    => 0,
 			'show_placeholder_option' => 0,
-
 			'admin_table'             => 1,
 			'admin_table_option'      => 1,
 			'show_admin_table_option' => 1,
 		)
-);
+	);
+
+	// merge each one onto base field
 	foreach ( $field_types['optional'] as $key => $array ) {
 		$field_types['optional'][ $key ] = array_merge( $field_base, $array );
 	}

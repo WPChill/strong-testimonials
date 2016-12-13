@@ -461,8 +461,24 @@ function wpmtst_get_category_list() {
  */
 function wpmtst_get_views() {
 	global $wpdb;
+	$wpdb->show_errors();
 	$table_name = $wpdb->prefix . 'strong_views';
-	$results = $wpdb->get_results( $wpdb->prepare( 'SELECT * FROM ' . $table_name . ' WHERE name != %s ORDER BY id ASC', '_default' ), ARRAY_A );
+	$results = $wpdb->get_results( $wpdb->prepare(
+		"SELECT * FROM $table_name WHERE name != %s ORDER BY id ASC", '_default'
+	), ARRAY_A );
+	$wpdb->hide_errors();
+
+	if ( $wpdb->last_error ) {
+		$message = sprintf(
+			wp_kses(
+				__( 'An error occurred: <code>%s</code>. Please <a href="%s" target="_blank">open a support ticket</a>.', 'strong-testimonials' ),
+				array( 'code' => array(), 'a' => array( 'href' => array(), 'target' => array(), 'class' => array() ) )
+			),
+			$wpdb->last_error,
+			esc_url( 'https://www.wpmission.com/submit-ticket/' )
+		);
+		wp_die( sprintf( '<div class="error strong-view-error"><p>%s</p></div>', $message ) );
+	}
 
 	return $results;
 }
@@ -745,7 +761,7 @@ function wpmtst_is_plugin_active( $name = '' ) {
 
 
 /**
- * @return mixed|void
+ * @return mixed
  */
 function wpmtst_get_background_defaults() {
 	return apply_filters( 'wpmtst_default_template_background', array(

@@ -25,6 +25,7 @@ $template: modern;
 
 	.testimonial-inner {
 		padding: 30px;
+		text-align: center;
 	}
 
 	.testimonial-content {
@@ -88,9 +89,15 @@ $template: modern;
 		}
 		display: inline-block;
 		margin-bottom: 10px;
+
+		a {
+			text-decoration: none;
+			box-shadow: none;
+		}
 	}
 
-	.readmore {
+	.testimonial-readmore {
+		margin-top: 1em;
 	}
 
 	.readmore-page {

@@ -3,7 +3,7 @@
  */
 
 .error {
-	color: red;
+	color: red !important;
 }
 
 li.warning {

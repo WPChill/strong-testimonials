@@ -17,8 +17,8 @@ function wpmtst_guide() {
 		<h1 class="large"><?php printf( __( 'Welcome to Strong Testimonials %s', 'strong-testimonials' ), $major_minor ); ?></h1>
 
 		<div class="guide-wrapper">
-			<?php include 'guide/about.php'; ?>
-			<?php include 'guide/sidebar.php'; ?>
+			<?php include 'partials/guide/about.php'; ?>
+			<?php include 'partials/guide/sidebar.php'; ?>
 		</div>
 
 	</div>

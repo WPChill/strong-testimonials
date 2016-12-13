@@ -20,6 +20,10 @@ function wpmtst_get_form_preview() {
 
 		$field = array_merge( $field_options['field_base'], $field );
 
+		if ( 'none' == $field['input_type'] ) {
+			$field['input_type'] = 'text';
+		}
+
 		$field['name']               = sanitize_text_field( $field['name'] );
 		$field['label']              = sanitize_text_field( $field['label'] );
 		$field['default_form_value'] = sanitize_text_field( $field['default_form_value'] );
@@ -32,7 +36,7 @@ function wpmtst_get_form_preview() {
 	}
 
 	ob_start();
-	include WPMTST_ADMIN . 'partials/form-preview-template.php';
+	include WPMTST_ADMIN . 'partials/templates/form-preview-template.php';
 	$html = ob_get_contents();
 	ob_end_clean();
 	echo $html;
