@@ -4,7 +4,7 @@
  * Plugin URI: https://www.wpmission.com/plugins/strong-testimonials/
  * Description: A full-featured plugin that works right out of the box for beginners and offers advanced features for pros.
  * Author: Chris Dillon
- * Version: 2.17
+ * Version: 2.17.1
  * Author URI: https://www.wpmission.com/
  * Text Domain: strong-testimonials
  * Domain Path: /languages
@@ -128,6 +128,21 @@ final class Strong_Testimonials {
 		_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'strong-testimonials' ), '1.21' );
 	}
 
+	/**
+	 * Plugin activation
+	 */
+	static function plugin_activation() {
+		wpmtst_register_cpt();
+		flush_rewrite_rules();
+		wpmtst_update_tables();
+	}
+
+	/**
+	 * Plugin deactivation
+	 */
+	static function plugin_deactivation() {
+		flush_rewrite_rules();
+	}
 
 	/**
 	 * Setup plugin constants
@@ -249,7 +264,6 @@ final class Strong_Testimonials {
 			require_once WPMTST_ADMIN . 'form-preview.php';
 			require_once WPMTST_ADMIN . 'guide.php';
 			require_once WPMTST_ADMIN . 'help.php';
-			require_once WPMTST_ADMIN . 'install.php';
 			require_once WPMTST_ADMIN . 'settings.php';
 			require_once WPMTST_ADMIN . 'upgrade.php';
 			require_once WPMTST_ADMIN . 'views.php';
@@ -1372,6 +1386,9 @@ final class Strong_Testimonials {
 }
 
 endif; // class_exists check
+
+register_activation_hook( __FILE__, array( 'Strong_Testimonials', 'plugin_activation' ) );
+register_deactivation_hook( __FILE__, array( 'Strong_Testimonials', 'plugin_deactivation' ) );
 
 function WPMST() {
 	return Strong_Testimonials::instance();
