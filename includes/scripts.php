@@ -8,6 +8,11 @@ function wpmtst_scripts() {
 	$plugin_version = get_option( 'wpmtst_plugin_version' );
 
 	/**
+	 * Fonts
+	 */
+	wp_register_style( 'wpmtst-font-awesome', WPMTST_COMMON_URL . 'fonts/font-awesome-4.6.3/css/font-awesome.min.css', array(), '4.6.3' );
+
+	/**
 	 * Simple pagination
 	 */
 	wp_register_script( 'wpmtst-pager-plugin', WPMTST_PUBLIC_URL . 'js/jquery.quickpager.js', array( 'jquery' ), false, true );
@@ -71,11 +76,6 @@ function wpmtst_scripts() {
 		}
 
 	}
-
-	/**
-	 * Fonts
-	 */
-	wp_register_style( 'wpmtst-font-awesome', WPMTST_COMMON_URL . 'fonts/font-awesome-4.6.3/css/font-awesome.min.css', array(), '4.6.3' );
 
 	/**
 	 * Slider
