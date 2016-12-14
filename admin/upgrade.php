@@ -495,18 +495,6 @@ function wpmtst_upgrade() {
 	delete_option( 'wpmtst_news_flag' );
 
 	/**
-	 * Our welcome page
-	 */
-	//$old_parts       = explode( '.', $old_plugin_version );
-	//$new_parts       = explode( '.', $plugin_version );
-	//$old_major_minor = implode( '.', array( $old_parts[0], isset( $old_parts[1] ) ? $old_parts[1] : '0' ) );
-	//$new_major_minor = implode( '.', array( $new_parts[0], isset( $new_parts[1] ) ? $new_parts[1] : '0' ) );
-
-	//if ( version_compare( $new_major_minor, $old_major_minor ) ) {
-		//set_transient( 'wpmtst_welcome_screen_activation_redirect', true, 30 );
-	//}
-
-	/**
 	 * Delete old install log.
 	 *
 	 * @since 2.4.0
@@ -556,4 +544,45 @@ function wpmtst_get_average_word_length() {
 	$wordstring = join( '', $allwords );
 
 	return round( strlen( $wordstring ) / count( $allwords) );
+}
+
+
+/**
+ * Update tables.
+ *
+ * @since 1.21.0 Checking for new table version.
+ */
+function wpmtst_update_db_check() {
+	if ( get_option( 'wpmtst_db_version' ) != WPMST()->get_db_version() ) {
+		wpmtst_update_tables();
+	}
+}
+
+
+/**
+ * Add tables for Views.
+ *
+ * @since 1.21.0
+ */
+function wpmtst_update_tables() {
+	global $wpdb;
+	require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+
+	$charset_collate = $wpdb->get_charset_collate();
+
+	$table_name = $wpdb->prefix . 'strong_views';
+
+	$sql = "CREATE TABLE $table_name (
+			id mediumint(9) NOT NULL AUTO_INCREMENT,
+			name varchar(100) NOT NULL,
+			value text NOT NULL,
+			PRIMARY KEY  (id)
+		) $charset_collate;";
+
+	$result = dbDelta( $sql );
+	if ( $result ) {
+		WPMST()->log( $result, __FUNCTION__ );
+	}
+
+	update_option( 'wpmtst_db_version', WPMST()->get_db_version() );
 }
