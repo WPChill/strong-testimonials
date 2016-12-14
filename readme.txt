@@ -4,7 +4,7 @@ Donate link: https://www.wpmission.com/donate/
 Tags: testimonials, testimonial widget, random testimonial, testimonial shortcode, testimonial slider, testimonial form
 Requires at least: 3.6
 Tested up to: 4.7
-Stable tag: 2.17
+Stable tag: 2.17.1
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -144,9 +144,14 @@ Yes. This requires a lightbox so if your theme does not include one, you will ne
 
 == Changelog ==
 
+= 2.17.1 - Dec 14, 2016 =
+* Fix bug in plugin activation process.
+* Improve category checklist style in default form template.
+
 = 2.17 - Dec 13, 2016 =
 * Add category checklist option to form fields.
 * Fix bug that allowed double underscores in custom field name.
+* Fix date column formatting in testimonials admin list.
 * Improve admin UI in fields and view editors.
 * Improve slideshow controls style.
 
