@@ -3,15 +3,15 @@ msgstr ""
 "Project-Id-Version: Strong Testimonials v1.8\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-07-19 10:37-0400\n"
-"PO-Revision-Date: 2016-07-19 10:37-0400\n"
-"Last-Translator: Chris Dillon <chris@wpmission.com>\n"
+"PO-Revision-Date: 2016-12-27 23:29+0100\n"
+"Last-Translator: Diego Ferrández <drdelco@live.com>\n"
 "Language-Team: \n"
 "Language: es_ES\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.8.2\n"
+"X-Generator: Poedit 1.8.11\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;"
 "_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2\n"
@@ -86,8 +86,7 @@ msgstr "A/m/d g:i:s A"
 msgid "ID"
 msgstr "ID"
 
-#: ../includes/admin/admin.php:548
-#: ../includes/admin/settings/email-from.php:19
+#: ../includes/admin/admin.php:548 ../includes/admin/settings/email-from.php:19
 #: ../includes/admin/settings/email-to.php:12
 #: ../includes/admin/views/option-client-section.php:11
 #: ../includes/defaults.php:232
@@ -161,8 +160,7 @@ msgstr "Campos grabados"
 # @ strong-testimonials
 #. translators: On the Views admin screen.
 #: ../includes/admin/custom-fields.php:120 ../includes/admin/settings.php:20
-#: ../includes/admin/settings.php:21
-#: ../includes/admin/views/group-fields.php:4
+#: ../includes/admin/settings.php:21 ../includes/admin/views/group-fields.php:4
 msgid "Fields"
 msgstr "Campos"
 
@@ -314,8 +312,7 @@ msgstr "Cómo Empezar"
 msgid "Views"
 msgstr "Vistas"
 
-#: ../includes/admin/guide/guide.php:28
-#: ../includes/admin/guide/templates.php:6
+#: ../includes/admin/guide/guide.php:28 ../includes/admin/guide/templates.php:6
 msgid "Templates"
 msgstr "Plantillas"
 
@@ -347,31 +344,31 @@ msgstr "Ayuda? Idea? Error?"
 
 #: ../includes/admin/guide/plugin-sidebar.php:34
 msgid "Adding video testimonials"
-msgstr ""
+msgstr "Agregar testimonios en video"
 
 #: ../includes/admin/guide/plugin-sidebar.php:39
 msgid "Using custom CSS"
-msgstr ""
+msgstr "Usando CSS personalizado"
 
 #: ../includes/admin/guide/plugin-sidebar.php:43
 msgid "Enabling comments"
-msgstr ""
+msgstr "Activando Comentarios"
 
 #: ../includes/admin/guide/plugin-sidebar.php:47
 msgid "Customize the form"
-msgstr ""
+msgstr "Personalizar el formulario"
 
 #: ../includes/admin/guide/plugin-sidebar.php:51
 msgid "See the demos"
-msgstr ""
+msgstr "Vea las demos"
 
 #: ../includes/admin/guide/plugin-sidebar.php:55
 msgid "Subscribe to the newsletter"
-msgstr ""
+msgstr "Suscríbete al boletín de noticias"
 
 #: ../includes/admin/guide/plugin-sidebar.php:58
 msgid "Knowledge Base"
-msgstr ""
+msgstr "Base de Conocimiento"
 
 #: ../includes/admin/guide/plugin-sidebar.php:70
 #, php-format
@@ -392,7 +389,7 @@ msgstr ""
 
 #: ../includes/admin/guide/plugin-sidebar.php:80
 msgid "Give Back"
-msgstr ""
+msgstr "Devolver"
 
 #: ../includes/admin/guide/start.php:7
 msgid "How to display your testimonials"
@@ -405,10 +402,12 @@ msgstr "1. Introducir cualquier testimonio existente y categorías opcionales"
 #: ../includes/admin/guide/start.php:11
 msgid "2. Create a new <b>View</b> to display them in a list or a slideshow."
 msgstr ""
+"2. Crear una nueva <b>Vista</b> para mostrarlas en una lista o pase de "
+"diapositivas."
 
 #: ../includes/admin/guide/start.php:13
 msgid "3. Display the View using its <b>shortcode</b> or a <b>widget</b>."
-msgstr ""
+msgstr "3. Mostrar la Vista con su <b>shortcode</b> o un <b>widget</b>."
 
 #: ../includes/admin/guide/start.php:17
 #, php-format
@@ -416,6 +415,8 @@ msgid ""
 "Views provide many features. Learn more on the <a href=\"%s\">Views</a> tab "
 "or jump right in!"
 msgstr ""
+"Las Vistas permiten muchas características. Lea más acerca de las <a href="
+"\"%s\">Vistas</a> o métase de lleno!"
 
 #: ../includes/admin/guide/start.php:20
 msgid "How to add a testimonial submission form"
@@ -423,11 +424,11 @@ msgstr "Cómo añadir un formulario de envío de testimonios"
 
 #: ../includes/admin/guide/start.php:22
 msgid "1. Create a new View and select <b>Form</b> mode."
-msgstr ""
+msgstr "1. Crear una nueva Vista y seleccionar el modo <b>Formulario</b>."
 
 #: ../includes/admin/guide/start.php:24
 msgid "2. Display the View using its <b>shortcode</b> or a <b>widget</b>."
-msgstr ""
+msgstr "2. Muestre la Vista con su <b>shortcode</b> o un <b>widget</b>."
 
 #: ../includes/admin/guide/start.php:28
 #, php-format
@@ -435,6 +436,8 @@ msgid ""
 "3. Go to the <a href=\"%s\">Fields</a> screen if you want to customize the "
 "form fields."
 msgstr ""
+"3. Vaya a la pantalla de <a href=\"%s\">Campos</a> si desea personalizar los "
+"campos del formulario."
 
 #: ../includes/admin/guide/start.php:33
 #, php-format
@@ -442,6 +445,8 @@ msgid ""
 "The form has more options like messages and anti-spam on the <a href=\"%s"
 "\">Settings</a> screen."
 msgstr ""
+"El formulario tiene más opciones como mensajes y anti-spam en la página de "
+"<a href=\"%s\">Ajustes</a>."
 
 #: ../includes/admin/guide/templates.php:8
 msgid "The <strong>Default</strong> template is a good place to start."
@@ -453,6 +458,8 @@ msgid ""
 "The <strong>No Quotes</strong> template is a version of the default template "
 "without the quotation marks in the heading."
 msgstr ""
+"La plantilla <strong>Sin Citas</strong> es una versión de la plantilla "
+"predeterminada sin las comillas en el título."
 
 #: ../includes/admin/guide/templates.php:12
 msgid ""
@@ -475,6 +482,8 @@ msgid ""
 "The <strong>Unstyled</strong> template includes no style and is a good "
 "foundation for theme experts."
 msgstr ""
+"La plantilla <strong>Unstyled</strong> no incluye ninguna hoja de estilo y "
+"es una buena base para los expertos en Temas."
 
 #: ../includes/admin/guide/templates.php:18
 msgid "Background colors and layout options are available for all templates."
@@ -487,10 +496,12 @@ msgid ""
 "Feel free to ask for help with minor style changes to add to a child theme "
 "or custom CSS."
 msgstr ""
+"No dude en pedir ayuda para añadir pequeñas modificaciones de estilo a un "
+"tema heredado (child) o para CSS personalizado."
 
 #: ../includes/admin/guide/templates.php:22
 msgid "New templates will be added occasionally."
-msgstr ""
+msgstr "De vez en cuando se añadirá nuevas plantillas."
 
 #: ../includes/admin/guide/translation.php:8
 msgid "The plugin is compatible with WPML and Polylang."
@@ -529,6 +540,11 @@ msgid ""
 "Display any View by using its unique shortcode or by selecting it in the "
 "widget."
 msgstr ""
+"Vistas puede mostrar sus testimonios en una <b>lista</b>, crear una "
+"<b>presentación de diapositivas</b>o mostrar el <b>formulario</b> de "
+"entrada. Son fáciles de aprender y ajustar, ya que combinan todas las "
+"características en una única pantalla de configuración intuitiva. Muestre "
+"cualquier Vista utilizando su shortcode único o seleccionándolo en el widget."
 
 #: ../includes/admin/guide/views.php:11
 msgid "Display Mode - to show one or more testimonials"
@@ -548,7 +564,7 @@ msgstr "el orden"
 
 #: ../includes/admin/guide/views.php:16
 msgid "the full content or an excerpt"
-msgstr ""
+msgstr "el contenido completo o un fragmento"
 
 # @ strong-testimonials
 #: ../includes/admin/guide/views.php:17
@@ -561,11 +577,11 @@ msgstr "Modo Presentación - para crear presentaciones de sus testimonios"
 
 #: ../includes/admin/guide/views.php:22
 msgid "All the options of Display mode plus:"
-msgstr ""
+msgstr "Todas las opciones de modo Visualización más:"
 
 #: ../includes/admin/guide/views.php:24
 msgid "navigation controls"
-msgstr ""
+msgstr "controles de navegación"
 
 #: ../includes/admin/guide/views.php:25
 msgid "how long each slide is displayed"
@@ -577,7 +593,7 @@ msgstr "determinar cuánto dura el efecto de transición"
 
 #: ../includes/admin/guide/views.php:27
 msgid "whether to pause on cursor hover"
-msgstr ""
+msgstr "si pausar al señalar con el ratón"
 
 #: ../includes/admin/guide/views.php:30
 msgid "Form Mode - to add a testimonial submission form"
@@ -590,11 +606,11 @@ msgstr "asignar nuevos testimonios a categorías específicas"
 #: ../includes/admin/guide/welcome.php:8
 #, php-format
 msgid "Welcome to Strong Testimonials %s"
-msgstr ""
+msgstr "Bienvenido a Strong Testimonials %s"
 
 #: ../includes/admin/guide/welcome.php:12
 msgid "Upgrading from version 1?"
-msgstr ""
+msgstr "¿Actualizando de la versión 1?"
 
 #: ../includes/admin/guide/welcome.php:19
 msgid "What's new"
@@ -667,6 +683,8 @@ msgid ""
 "Use mail queue. For use with services like Mandrill for transactional email "
 "or plugins like Postman SMTP. Off by default."
 msgstr ""
+"Usar cola de correo. Para uso con servicios como Mandrill para correo "
+"electrónico transaccional o plugins como Postman SMTP. OFF por defecto."
 
 #: ../includes/admin/settings/email-from.php:12
 msgid "From:"
@@ -779,7 +797,7 @@ msgstr "Notificación"
 
 #: ../includes/admin/settings/form.php:78
 msgid "Send an email upon new testimonial submission."
-msgstr ""
+msgstr "Enviar un email al recibir un nuevo testimonio"
 
 #: ../includes/admin/settings/form.php:92
 msgid "Form Spam Control"
@@ -864,13 +882,15 @@ msgstr "página de plugin"
 
 #: ../includes/admin/settings/general.php:17
 msgid "Pending Indicator"
-msgstr ""
+msgstr "Indicador de Pendiente"
 
 #: ../includes/admin/settings/general.php:23
 msgid ""
 "Show indicator bubble when new submissions are awaiting moderation. On by "
 "default."
 msgstr ""
+"Mostrar el bocadillo del indicador cuando nuevas envíos estén pendientes de "
+"moderar. ON por defecto."
 
 #: ../includes/admin/settings/general.php:31
 msgid "Reordering"
@@ -885,7 +905,7 @@ msgstr ""
 
 #: ../includes/admin/settings/general.php:38
 msgid "Then set <b>Order</b> to \"menu order\" in the View."
-msgstr ""
+msgstr "Luego establezca <b>Orden</b> como \"orden de menú\" en la Vista."
 
 #: ../includes/admin/settings/general.php:46
 msgid "Custom Fields Meta Box"
@@ -903,7 +923,7 @@ msgstr ""
 
 #: ../includes/admin/settings/general.php:53
 msgid "For advanced users."
-msgstr ""
+msgstr "Para usuarios avanzados."
 
 #: ../includes/admin/settings/general.php:61
 msgid "Troubleshooting"
@@ -923,11 +943,11 @@ msgstr "Registrar emails enviados y fallados"
 
 #: ../includes/admin/settings/general.php:81
 msgid "Download the log file"
-msgstr ""
+msgstr "Descargar archivo de registro"
 
 #: ../includes/admin/settings/general.php:83
 msgid "No log file yet."
-msgstr ""
+msgstr "No hay archivo de registro todavía."
 
 #: ../includes/admin/settings/general.php:95
 msgid "Scroll Top"
@@ -939,6 +959,8 @@ msgid ""
 "When a new page is selected in paginated Views, scroll to the top of the "
 "container minus %s pixels. On by default."
 msgstr ""
+"Cuando se selecciona una nueva página en Vista paginada, se desplaza hasta "
+"la parte superior del contenedor menos %s píxeles. ON por defecto."
 
 #: ../includes/admin/settings/general.php:109
 msgid "Remove Whitespace"
@@ -954,45 +976,54 @@ msgstr ""
 
 #: ../includes/admin/settings/general.php:123
 msgid "Comments"
-msgstr ""
+msgstr "Comentarios"
 
 #: ../includes/admin/settings/general.php:129
 msgid ""
 "Allow comments on testimonials. Requires using your theme's single post "
 "template. Off by default."
 msgstr ""
+"Permitir comentarios en testimonios. Requiere usar la plantilla para "
+"entradas simples de su Tema. OFF por defecto."
 
 #: ../includes/admin/settings/general.php:132
 msgid "To enable comments:"
-msgstr ""
+msgstr "Activar comentarios:"
 
 #: ../includes/admin/settings/general.php:134
 msgid ""
 "For individual testimonials, use the <strong>Discussion</strong> meta box in "
 "the post editor or <strong>Quick Edit</strong> in the testimonial list."
 msgstr ""
+"Para testimonios individuales, use la casilla meta <strong>Discusión</"
+"strong> en el editor de post o <strong>Edición Rápida</strong> en la lista "
+"de testimonios."
 
 #: ../includes/admin/settings/general.php:135
 msgid ""
 "For multiple testimonials, use <strong>Bulk Edit</strong> in the testimonial "
 "list."
 msgstr ""
+"Para múltiples testimonios, utilice <strong>Editar en bloque</strong> en la "
+"lista de testimonios."
 
 #: ../includes/admin/settings/general.php:139
 #: ../includes/admin/settings/general.php:160
 #: ../includes/admin/views/option-classes.php:13
 msgid "Tutorial"
-msgstr ""
+msgstr "Tutorial"
 
 #: ../includes/admin/settings/general.php:145
 msgid "Embed Width"
-msgstr ""
+msgstr "Ancho del integrado"
 
 #: ../includes/admin/settings/general.php:152
 #, php-format
 msgid ""
 "For embedded links (YouTube, Twitter, etc.) set the frame width to %s pixels."
 msgstr ""
+"Para enlaces integrados (YouTube, Twitter, etc.) ajuste la anchura de marco "
+"a %s píxeles."
 
 #: ../includes/admin/settings/general.php:154
 #, php-format
@@ -1000,14 +1031,17 @@ msgid ""
 "Leave empty for default width (usually 100% for videos). Height will be "
 "calculated automatically. This setting only applies to Views."
 msgstr ""
+"Deje en blanco para el ancho predeterminado (generalmente 100% en videos). "
+"La altura se calculará automáticamente. Esta configuración sólo se aplica a "
+"Vistas."
 
 #: ../includes/admin/settings/general.php:157
 msgid "More on embeds"
-msgstr ""
+msgstr "Más sobre integrados"
 
 #: ../includes/admin/settings/general.php:168
 msgid "Slideshow z-index"
-msgstr ""
+msgstr "Índice Z de presentación"
 
 #: ../includes/admin/settings/general.php:174
 #, php-format
@@ -1016,6 +1050,9 @@ msgid ""
 "decrement this by 1 until it underlays correctly. If the problem persists, "
 "open a <a href=\"%s\">support ticket</a>."
 msgstr ""
+"Por defecto es 9. Si las diapositivas se superponen sobre otro elementos "
+"como menús imantados, disminuya esto de 1 en 1 hasta corregirlo. Si el "
+"problema persiste, abra un <a href=\"%s\">ticket de soporte</a>."
 
 #: ../includes/admin/settings/licenses.php:19
 msgid "Multiple Forms License Key"
@@ -1050,7 +1087,7 @@ msgstr "Añadir Vista"
 #: ../includes/admin/views.php:154
 msgctxt "The shortcode for a new View."
 msgid "will be available after you save this"
-msgstr ""
+msgstr "estará disponible después de guardar esto"
 
 #: ../includes/admin/views.php:255
 msgid "View saved."
@@ -1093,22 +1130,22 @@ msgstr "antiguos primero"
 #: ../includes/admin/views.php:331
 msgctxt "slideshow navigation option"
 msgid "simple"
-msgstr ""
+msgstr "simple"
 
 #: ../includes/admin/views.php:332
 msgctxt "slideshow navigation option"
 msgid "buttons 1"
-msgstr ""
+msgstr "botones 1"
 
 #: ../includes/admin/views.php:333
 msgctxt "slideshow navigation option"
 msgid "buttons 2"
-msgstr ""
+msgstr "botones 2"
 
 #: ../includes/admin/views.php:334
 msgctxt "slideshow navigation option"
 msgid "indexed"
-msgstr ""
+msgstr "indexada"
 
 #: ../includes/admin/views.php:448 ../includes/defaults.php:101
 msgid "text"
@@ -1120,7 +1157,7 @@ msgstr "enlace con campo"
 
 #: ../includes/admin/views.php:450
 msgid "link (must be URL)"
-msgstr ""
+msgstr "enlace (debe ser una URL)"
 
 #: ../includes/admin/views.php:451
 msgid "date"
@@ -1132,7 +1169,7 @@ msgstr "nueva pestaña"
 
 #: ../includes/admin/views.php:609
 msgid "more about date formats"
-msgstr ""
+msgstr "más sobre formatos de fecha"
 
 #: ../includes/admin/views.php:782 ../includes/admin/views.php:804
 msgid "filter categories"
@@ -1161,7 +1198,7 @@ msgstr "Seleccionar"
 #. translators: On the Views admin screen.
 #: ../includes/admin/views/group-slideshow.php:4
 msgid "Appearance"
-msgstr ""
+msgstr "Apariencia"
 
 #. translators: On the Views admin screen.
 #: ../includes/admin/views/group-style.php:4
@@ -1256,23 +1293,23 @@ msgstr "No se han encontrado categorías."
 
 #: ../includes/admin/views/option-classes.php:3
 msgid "CSS Class Names"
-msgstr ""
+msgstr "Nombres de clases CSS"
 
 #: ../includes/admin/views/option-classes.php:10
 msgid "For advanced users. Separate class names by spaces."
-msgstr ""
+msgstr "Para usuarios avanzados. Nombres de clases separadas por espacios."
 
 #: ../includes/admin/views/option-client-section.php:12
 msgid "Type"
-msgstr ""
+msgstr "Tipo"
 
 #: ../includes/admin/views/option-client-section.php:13
 msgid "Properties"
-msgstr ""
+msgstr "Propiedades"
 
 #: ../includes/admin/views/option-client-section.php:14
 msgid "CSS Class Name"
-msgstr ""
+msgstr "Nombre de Clase CSS"
 
 #: ../includes/admin/views/option-client-section.php:31
 msgid "Add Field"
@@ -1341,7 +1378,7 @@ msgstr "el extracto"
 #: ../includes/admin/views/option-content.php:17
 msgctxt "display setting"
 msgid "abbreviated"
-msgstr ""
+msgstr "Abreviado"
 
 #: ../includes/admin/views/option-content.php:28
 #, php-format
@@ -1349,40 +1386,42 @@ msgid ""
 "If no manual excerpt, use the <a href=\"%s\" target=\"_blank\">automatic "
 "excerpt</a> with"
 msgstr ""
+"Si no hay extracto manual, utilice el <a href=\"%s\" target=\"_blank"
+"\">Extracto automático</a> con"
 
 #: ../includes/admin/views/option-content.php:33
 msgctxt "display setting"
 msgid "the default length"
-msgstr ""
+msgstr "la longitud por defecto"
 
 #: ../includes/admin/views/option-content.php:36
 msgctxt "display setting"
 msgid "a custom length"
-msgstr ""
+msgstr "una longitud personalizada"
 
 #: ../includes/admin/views/option-content.php:41
 #: ../includes/admin/views/option-content.php:124
 msgid "as set by your theme"
-msgstr ""
+msgstr "como está definido por su Tema"
 
 #: ../includes/admin/views/option-content.php:46
 msgctxt "As in \"the first 20 words\""
 msgid "of the first"
-msgstr ""
+msgstr "de las primeras"
 
 #: ../includes/admin/views/option-content.php:52
 #: ../includes/admin/views/option-content.php:73
 msgid "words"
-msgstr ""
+msgstr "palabras"
 
 #: ../includes/admin/views/option-content.php:67
 msgctxt "As in \"the first 20 words\""
 msgid "using the first"
-msgstr ""
+msgstr "usando las primeras"
 
 #: ../includes/admin/views/option-content.php:79
 msgid "This will strip tags like &lt;em&gt; and &lt;strong&gt;."
-msgstr ""
+msgstr "Se eliminarán etiquetas como &lt;em&gt; and &lt;strong&gt;."
 
 #: ../includes/admin/views/option-content.php:92
 #, php-format
@@ -1390,6 +1429,9 @@ msgid ""
 "To create manual excerpts, you may need to enable them in the post editor "
 "like in this <a href=\"%s\" class=\"%s\">screenshot</a>."
 msgstr ""
+"Para crear extractos manualmente, puede que necesite habilitarlos en el "
+"editor de post como en esta <a href=\"%s\" class=\"%s\">captura de pantalla</"
+"a>."
 
 #: ../includes/admin/views/option-content.php:107
 msgid "\"Read more\" link"
@@ -1397,21 +1439,21 @@ msgstr "enlace \"Leer más\""
 
 #: ../includes/admin/views/option-content.php:112
 msgid "using"
-msgstr ""
+msgstr "empleando"
 
 #: ../includes/admin/views/option-content.php:116
 msgctxt "display setting"
 msgid "the default link text"
-msgstr ""
+msgstr "el texto de enlace predeterminado"
 
 #: ../includes/admin/views/option-content.php:119
 msgctxt "display setting"
 msgid "custom link text"
-msgstr ""
+msgstr "Texto de enlace personalizado"
 
 #: ../includes/admin/views/option-content.php:137
 msgid "ellipsis between content and link"
-msgstr ""
+msgstr "puntos suspensivos entre contenido y enlace"
 
 #. translators: On the Views admin screen.
 #: ../includes/admin/views/option-form-ajax.php:5
@@ -1584,7 +1626,7 @@ msgstr "antes y después"
 #. translators: On the Views admin screen.
 #: ../includes/admin/views/option-read-more-page.php:10
 msgid "\"Read more\" link to a page or post"
-msgstr ""
+msgstr "Enlace \"Leer más\" a una página o entrada"
 
 #: ../includes/admin/views/option-read-more-page.php:36
 msgctxt "to select a target page"
@@ -1593,13 +1635,15 @@ msgstr "o introduzca su ID o slug"
 
 #: ../includes/admin/views/option-read-more-page.php:47
 msgid "with link text"
-msgstr ""
+msgstr "con texto de enlace"
 
 #: ../includes/admin/views/option-read-more-page.php:56
 msgid ""
 "The link will appear after the last testimonial. For individual \"Read more"
 "\" links, use the <b>Content</b> option above."
 msgstr ""
+"El enlace aparecerá después del último testimonio. Para enlaces individuales "
+"\"Leer más\" individual, utilice la opción <b>Contenido</b> de arriba."
 
 #. translators: On the Views admin screen.
 #: ../includes/admin/views/option-show.php:3
@@ -1617,12 +1661,14 @@ msgstr "testimonio único"
 
 #: ../includes/admin/views/option-stretch.php:4
 msgid "Stretch Vertically"
-msgstr ""
+msgstr "Expandir verticalmente"
 
 #: ../includes/admin/views/option-stretch.php:9
 msgid ""
 "Stretch each slide to fill the vertical space of the slideshow container."
 msgstr ""
+"Expandir cada diapositiva para llenar el espacio vertical del contenedor de "
+"diapositivas."
 
 #: ../includes/admin/views/option-stretch.php:13
 msgid ""
@@ -1633,6 +1679,13 @@ msgid ""
 "stretches the borders and background vertically to compensate. Use the "
 "excerpt or abbreviated content if you want to minimize the whitespace."
 msgstr ""
+"La altura del <b>contenedor de diapositivas</b>está ajustado a la "
+"diapositiva más alta para evitar que los elementos menores reboten arriba y "
+"abajo durante las transiciones. Con testimonios desiguales el resultado es "
+"un espacio en blanco por debajo de los testimonios más breves. Este ajuste "
+"simplemente expande los bordes y el fondo verticalmente para compensar. "
+"Utilice extractos o contenido abreviado si desea minimizar el espacio en "
+"blanco."
 
 #: ../includes/admin/views/option-template-list.php:57
 msgid "no description"
@@ -1659,7 +1712,7 @@ msgstr "alto"
 
 #: ../includes/admin/views/option-thumbnail.php:48
 msgid "Open full-size image in a lightbox"
-msgstr ""
+msgstr "Abrir imagen completa en  lightbox"
 
 #: ../includes/admin/views/option-thumbnail.php:52
 #, php-format
@@ -1667,10 +1720,12 @@ msgid ""
 "Requires a lightbox in your theme or another plugin like <a href=\"%s\" "
 "target=\"_blank\">Simple Colorbox</a>."
 msgstr ""
+"Requiere una caja de luz en su Tema u otro plugin como <a href=\"%s\" target="
+"\"_blank\">Simple Colorbox</a>."
 
 #: ../includes/admin/views/option-thumbnail.php:61
 msgid "If no Featured Image"
-msgstr ""
+msgstr "Si no hay Imagen Destacada"
 
 #: ../includes/admin/views/option-thumbnail.php:64
 msgid "show nothing"
@@ -1708,11 +1763,11 @@ msgstr "segundos"
 
 #: ../includes/admin/views/option-timing.php:18
 msgid "then"
-msgstr ""
+msgstr "entonces"
 
 #: ../includes/admin/views/option-timing.php:29
 msgid "for"
-msgstr ""
+msgstr "para"
 
 # @ strong-testimonials
 #: ../includes/admin/views/option-timing.php:38
@@ -2015,7 +2070,7 @@ msgstr "Leer más"
 #: ../includes/defaults.php:449 ../strong-testimonials.php:609
 msgctxt "link"
 msgid "Read more testimonials"
-msgstr ""
+msgstr "Leer más testimonios"
 
 #: ../includes/defaults.php:485
 msgid "Testimonial Form Fields"
@@ -2060,7 +2115,7 @@ msgstr "Testimonios"
 #: ../includes/post-types.php:16
 msgctxt "admin menu name"
 msgid "Testimonials"
-msgstr "Testimonos"
+msgstr "Testimonios"
 
 # @ strong-testimonials
 #: ../includes/post-types.php:17
