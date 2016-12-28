@@ -558,66 +558,71 @@ function wpmtst_view_field_inputs( $key, $field, $adding = false ) {
 
 			<div class="field-properties" style="display: none;">
 
-					<div class="field-property field-name">
-						<label for="client_section_<?php echo $key; ?>_field">
-							<?php _e( 'Name', 'strong-testimonials' ); ?>
-						</label>
-						<select id="client_section_<?php echo $key; ?>_field" name="view[data][client_section][<?php echo $key; ?>][field]" class="first-field">
-							<option value=""></option>
+                <!-- FIELD NAME -->
+                <div class="field-property field-name">
+                    <label for="client_section_<?php echo $key; ?>_field">
+                        <?php _e( 'Name', 'strong-testimonials' ); ?>
+                    </label>
+                    <select id="client_section_<?php echo $key; ?>_field" name="view[data][client_section][<?php echo $key; ?>][field]" class="first-field">
+                        <option value="">&mdash; select a field &mdash;</option>
 
-							<?php foreach ( $all_fields as $group_name => $group ) : ?>
-							<optgroup label="<?php echo $group_name; ?>">
+                        <?php foreach ( $all_fields as $group_name => $group ) : ?>
+                        <optgroup label="<?php echo $group_name; ?>">
 
-							<?php foreach ( $group as $key2 => $field2 ) : ?>
-							<?php if ( in_array( $field2['record_type'], $allowed ) && 'email' != $field2['input_type'] ) : ?>
-							<option value="<?php echo $field2['name']; ?>" data-type="<?php echo $field2['input_type']; ?>"
-                                <?php selected( $field2['name'], $field['field'] ); ?>><?php echo $field2['name']; ?></option>
-							<?php endif; ?>
-							<?php endforeach; ?>
+                        <?php foreach ( $group as $key2 => $field2 ) : ?>
+                        <?php if ( in_array( $field2['record_type'], $allowed ) && 'email' != $field2['input_type'] ) : ?>
+                        <option value="<?php echo $field2['name']; ?>" data-type="<?php echo $field2['input_type']; ?>"
+                            <?php selected( $field2['name'], $field['field'] ); ?>><?php echo $field2['name']; ?></option>
+                        <?php endif; ?>
+                        <?php endforeach; ?>
 
-							</optgroup>
-							<?php endforeach; ?>
-						</select>
-					</div>
+                        </optgroup>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
 
-					<div class="field-property field-type">
-						<label for="client_section_<?php echo $key; ?>_type">
-							<?php _e( 'Display Type', 'strong-testimonials' ); ?>
-						</label>
-						<select id="client_section_<?php echo $key; ?>_type" name="view[data][client_section][<?php echo $key; ?>][type]">
-							<?php foreach ( $types as $type => $type_label ) : ?>
-								<option value="<?php echo $type; ?>" <?php selected( $type, $field['type'] ); ?>><?php echo $type_label; ?></option>
-							<?php endforeach; ?>
-						</select>
-					</div>
+                <!-- FIELD TYPE -->
+                <div class="field-property field-type field-dep" <?php if ( $adding ) echo ' style="display: none;"'; ?>>
+                    <label for="client_section_<?php echo $key; ?>_type">
+                        <?php _e( 'Display Type', 'strong-testimonials' ); ?>
+                    </label>
+                    <select id="client_section_<?php echo $key; ?>_type" name="view[data][client_section][<?php echo $key; ?>][type]">
+                        <?php foreach ( $types as $type => $type_label ) : ?>
+                        <option value="<?php echo $type; ?>" <?php selected( $type, $field['type'] ); ?>><?php echo $type_label; ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
 
-					<div class="field-property-box">
-						<?php
-						if ( 'link' == $field['type'] || 'link2' == $field['type'] ) {
-							wpmtst_view_field_link( $key, $field['field'], $field['type'], $field );
-						}
+                <!-- FIELD META -->
+                <div class="field-property-box field-meta field-dep" <?php if ( $adding ) echo ' style="display: none;"'; ?>>
+                    <?php
+                    if ( 'link' == $field['type'] || 'link2' == $field['type'] ) {
+                        wpmtst_view_field_link( $key, $field['field'], $field['type'], $field );
+                    }
 
-						if ( 'date' == $field['type'] ) {
-							wpmtst_view_field_date( $key, $field );
-						}
-						?>
-					</div>
+                    if ( 'date' == $field['type'] ) {
+                        wpmtst_view_field_date( $key, $field );
+                    }
+                    ?>
+                </div>
 
-					<div class="field-property">
-						<label for="client_section_<?php echo $key; ?>_before">
-							<?php _e( 'Before', 'strong-testimonials' ); ?>
-						</label>
-						<input id="client_section_<?php echo $key; ?>_before" type="text" name="view[data][client_section][<?php echo $key; ?>][before]" value="<?php echo isset( $field['before'] ) ? $field['before'] : ''; ?>">
-					</div>
+                <!-- FIELD BEFORE -->
+                <div class="field-property field-before field-dep" <?php if ( $adding ) echo ' style="display: none;"'; ?>>
+                    <label for="client_section_<?php echo $key; ?>_before">
+                        <?php _e( 'Before', 'strong-testimonials' ); ?>
+                    </label>
+                    <input id="client_section_<?php echo $key; ?>_before" type="text" name="view[data][client_section][<?php echo $key; ?>][before]" value="<?php echo isset( $field['before'] ) ? $field['before'] : ''; ?>">
+                </div>
 
-					<div class="field-property">
-						<label for="client_section_<?php echo $key; ?>_class">
-							<?php _e( 'CSS Class', 'strong-testimonials' ); ?>
-						</label>
-						<input id="client_section_<?php echo $key; ?>_class" type="text" name="view[data][client_section][<?php echo $key; ?>][class]" value="<?php echo $field['class']; ?>">
-					</div>
+                <!-- FIELD CSS CLASS -->
+                <div class="field-property field-css field-dep" <?php if ( $adding ) echo ' style="display: none;"'; ?>>
+                    <label for="client_section_<?php echo $key; ?>_class">
+                        <?php _e( 'CSS Class', 'strong-testimonials' ); ?>
+                    </label>
+                    <input id="client_section_<?php echo $key; ?>_class" type="text" name="view[data][client_section][<?php echo $key; ?>][class]" value="<?php echo $field['class']; ?>">
+                </div>
 
-				</div>
+            </div>
 
 		</div>
 

@@ -152,7 +152,7 @@ class Strong_View {
 	}
 
 	/**
-	 * Construct template CSS class name.
+	 * Add template name as CSS class.
 	 *
 	 * @since 2.11.0
 	 *

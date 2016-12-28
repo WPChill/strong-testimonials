@@ -4,14 +4,14 @@
  * Plugin URI: https://www.wpmission.com/plugins/strong-testimonials/
  * Description: A full-featured plugin that works right out of the box for beginners and offers advanced features for pros.
  * Author: Chris Dillon
- * Version: 2.17.2
+ * Version: 2.17.3
  * Author URI: https://www.wpmission.com/
  * Text Domain: strong-testimonials
  * Domain Path: /languages
  * Requires: 3.6 or higher
  * License: GPLv3 or later
  *
- * Copyright 2014-2016 Chris Dillon chris@wpmission.com
+ * Copyright 2014 Chris Dillon chris@wpmission.com
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

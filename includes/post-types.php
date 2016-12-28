@@ -24,7 +24,8 @@ function wpmtst_register_cpt() {
 		'search_items'       => __( 'Search Testimonials', 'strong-testimonials' ),
 		'not_found'          => __( 'Nothing Found', 'strong-testimonials' ),
 		'not_found_in_trash' => __( 'Nothing found in Trash', 'strong-testimonials' ),
-		'parent_item_colon'  => ''
+		'parent_item_colon'  => '',
+		'attributes'         => __( 'Attributes', 'strong-testimonials' ),
 	);
 
 	$supports = array(
@@ -75,7 +76,7 @@ function wpmtst_register_cpt() {
 	register_taxonomy( 'wpm-testimonial-category', array( 'wpm-testimonial' ), apply_filters( 'wpmtst_taxonomy', $category_args ) );
 
 }
-add_action( 'init', 'wpmtst_register_cpt', 5 );
+add_action( 'init', 'wpmtst_register_cpt' );
 
 
 /**
