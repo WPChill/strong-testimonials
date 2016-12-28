@@ -7,10 +7,6 @@ Array.max = function( array ){
 	return Math.max.apply( Math, array );
 };
 
-// Convert "A String" to "a_string"
-function convertLabel(label) {
-	return label.replace(/\s+/g, "_").replace(/\W/g, "").toLowerCase();
-}
 
 /**
  * jQuery alterClass plugin
@@ -785,7 +781,14 @@ jQuery(window).on('load', function () {
 			'key'    : nextKey,
 		};
 		$.get( ajaxurl, data, function( response ) {
-			customFieldList.append( response ).find("#field-"+nextKey+" span.link").click();
+			//customFieldList.append( response ).find("#field-"+nextKey+" span.link").click();
+			$.when( customFieldList.append( response ) ).then( function() {
+				var $newField = customFieldList.find("#field-" + nextKey);
+				$newField
+					.find("span.link").click().end()
+					.find(".field-dep").hide().end()
+					.find(".first-field").focus();
+			});
 		});
 	});
 
@@ -875,17 +878,28 @@ jQuery(window).on('load', function () {
 
 		$elParent.not(".open").addClass("open").find(".field-properties").addClass("open").slideDown();
 
-		// Update field label
-		data = {
-			'action': 'wpmtst_view_get_label',
-			'name': fieldValue,
-			'key': key,
-		};
-		$.get( ajaxurl, data, function( response ) {
-			if( response ) {
-				$elParent.find(".field-description").html(response);
-			}
-		});
+
+		if( '' == fieldValue ) {
+			$elParent.find(".field-description").html('');
+			// Hide dependent inputs if nothing has been selected
+			$elParent.find(".field-dep").hide();
+		}
+		else {
+			// Update field label
+			data = {
+				'action': 'wpmtst_view_get_label',
+				'name': fieldValue,
+				'key': key,
+			};
+			$.get( ajaxurl, data, function( response ) {
+				if( response ) {
+					$elParent.find(".field-description").html(response);
+				}
+			});
+
+			// Show dependent inputs
+			$elParent.find(".field-dep").show();
+		}
 
 		switch( fieldValue ) {
 			// First, the immutables
@@ -925,6 +939,7 @@ jQuery(window).on('load', function () {
 			case 'category':
 				$(typeSelect).val("category").prop("disabled", true);
 				typeSelectParent.append('<input type="hidden" class="save-type" name="view[data][client_section][' + key + '][save-type]" value="category">');
+				$elParent.find(".field-property-box").empty();
 				break;
 
 			default:
@@ -932,6 +947,7 @@ jQuery(window).on('load', function () {
 				if( 'rating' == fieldType ) {
 					typeSelect.val("rating").prop("disabled", true);
 					typeSelectParent.append('<input type="hidden" class="save-type" name="view[data][client_section][' + key + '][save-type]" value="rating">');
+					$elParent.find(".field-property-box").empty();
 					break;
 				}
 
