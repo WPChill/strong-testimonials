@@ -76,7 +76,7 @@ function wpmtst_register_cpt() {
 	register_taxonomy( 'wpm-testimonial-category', array( 'wpm-testimonial' ), apply_filters( 'wpmtst_taxonomy', $category_args ) );
 
 }
-add_action( 'init', 'wpmtst_register_cpt', 5 );
+add_action( 'init', 'wpmtst_register_cpt' );
 
 
 /**
