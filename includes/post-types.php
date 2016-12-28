@@ -24,7 +24,8 @@ function wpmtst_register_cpt() {
 		'search_items'       => __( 'Search Testimonials', 'strong-testimonials' ),
 		'not_found'          => __( 'Nothing Found', 'strong-testimonials' ),
 		'not_found_in_trash' => __( 'Nothing found in Trash', 'strong-testimonials' ),
-		'parent_item_colon'  => ''
+		'parent_item_colon'  => '',
+		'attributes'         => __( 'Attributes', 'strong-testimonials' ),
 	);
 
 	$supports = array(
