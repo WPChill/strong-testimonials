@@ -4,7 +4,7 @@ Donate link: https://www.wpmission.com/donate/
 Tags: testimonials, testimonial widget, random testimonial, testimonial shortcode, testimonial slider, testimonial form
 Requires at least: 3.6
 Tested up to: 4.7
-Stable tag: 2.17.2
+Stable tag: 2.17.3
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -143,6 +143,11 @@ Yes. With some HTML and CSS knowledge, you can copy any template to your theme a
 Yes. This requires a lightbox so if your theme does not include one, you will need a plugin like [Simple Colorbox](https://wordpress.org/plugins/simple-colorbox/).
 
 == Changelog ==
+
+= 2.17.3 - Dec 28, 2016 =
+* Fix bug that allowed unsanitized custom field names.
+* Improve admin UI.
+* Update Spanish translation.
 
 = 2.17.2 - Dec 14, 2016 =
 * Fix incomplete loading of FontAwesome for slideshows.

@@ -8,7 +8,7 @@ Array.max = function (array) {
 };
 
 // Convert "A String" to "a_string"
-function convertLabel(label) {
+function sanitizeName(label) {
 	return label.replace(/\W/g, " ").replace(/\s+/g, "_").toLowerCase();
 }
 
@@ -121,6 +121,7 @@ function convertLabel(label) {
 	$fieldList.on("change blur", "input.field-label", function () {
 		var newLabel = $(this).val();
 		var $parent = $(this).closest("li");
+		var fieldIndex = $parent.index();
 
 		// fill in blank label
 		if (!$(this).val()) {
@@ -133,22 +134,24 @@ function convertLabel(label) {
 		// fill in blank field name
 		var $fieldName = $parent.find("input.field-name");
 		if (!$fieldName.val()) {
-			var newFieldName = convertLabel(newLabel);
-			$fieldName.val(getUniqueName(newFieldName));
+			$fieldName.val(getUniqueName(newLabel, fieldIndex));
 		}
 	});
 
 	// validate field name
 	$fieldList.on("change", "input.field-name", function () {
+		var $parent = $(this).closest("li");
+		var fieldIndex = $parent.index();
 		var fieldName = $(this).val();
+
 		if (fieldName) {
-			$(this).val(getUniqueName(fieldName));
+			$(this).val(getUniqueName(fieldName, fieldIndex));
 		} else {
 			var fieldLabel = $(this).closest(".field-table").find(".field-label").val();
-			var newFieldName = convertLabel(fieldLabel);
-			$(this).val(getUniqueName(newFieldName));
+			$(this).val(getUniqueName(fieldLabel, fieldIndex));
 			return;
 		}
+
 		if ('name' == $(this).val() || 'date' == $(this).val()) {
 			$(this).focus().parent().find('.field-name-help.important').addClass('error');
 		} else {
@@ -456,18 +459,20 @@ function convertLabel(label) {
 	}
 
 	// Build a unique name
-	function getUniqueName(fieldName) {
-		var names = $theForm.find("input.field-name").map(function () {
+	function getUniqueName(fieldName, fieldIndex) {
+		fieldName = sanitizeName(fieldName);
+
+		// Get names of *other* fields
+		var names = $theForm.find("input.field-name").not(":eq(" + fieldIndex + ")").map(function () {
 			return this.value;
 		}).get();
 
 		names = names.filter(function (x) {
 			return (x !== (undefined || ''));
 		});
-		console.log(names);
 
 		var uniqueName = fieldName;
-		var i = 1;
+		var i = 2;
 
 		while ($.inArray(uniqueName, names) >= 1) {
 			uniqueName = fieldName + '_' + i++;

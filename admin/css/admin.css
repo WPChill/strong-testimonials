@@ -359,6 +359,7 @@ label.nowrap code {
 .form-table td .description {
 	font-size: 14px;
 	font-style: italic;
+	/*text-indent: 24px;*/
 }
 
 .description.inline {
@@ -626,4 +627,21 @@ td.column-shortcode {
 --------------------------------------------------*/
 .wp-list-table.fixed.wpm-testimonial_page_testimonial-views {
 	table-layout: auto;
+}
+
+/* WordPress fixes
+--------------------------------------------------*/
+
+/* settings page */
+@media screen and (max-width: 782px) {
+	.wpm-testimonial_page_testimonial-settings .form-table td input[type="text"] {
+		display: inline-block;
+		width: auto;
+	}
+}
+
+/* checkbox hanging indent */
+.wpm-testimonial_page_testimonial-settings .form-table label {
+	padding-left: 24px;
+	text-indent: -24px;
 }

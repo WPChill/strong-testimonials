@@ -9,7 +9,6 @@
 		<input type="text" class="field-label"
 			   name="fields[<?php echo $key; ?>][label]"
 			   value="<?php echo wpmtst_htmlspecialchars( $field['label'] ); ?>">
-		<span class="help"><?php _e( 'This appears on the form.', 'strong-testimonials' ); ?></span>
 		<label>
 			<span class="help">
 				<input type="checkbox" name="fields[<?php echo $key; ?>][show_label]"
