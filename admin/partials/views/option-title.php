@@ -4,6 +4,6 @@
 		<?php _e( 'Title', 'strong-testimonials' ); ?>
 	</label>
 </th>
-<td>
-	<p class="description tall"></p>
+<td colspan="2">
+	&nbsp;
 </td>

@@ -4,7 +4,7 @@
 		<?php _e( 'Content', 'strong-testimonials' ); ?>
 	</label>
 </th>
-<td>
+<td colspan="2">
 
 	<!-- Content type -->
 	<div id="option-content" class="row">
