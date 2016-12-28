@@ -214,8 +214,8 @@ optgroup option {
 	font-weight: 700;
 }
 
-#custom-field-list .field-table tr:last-child th,
-#custom-field-list .field-table tr:last-child td {
+#custom-field-list .field-table tr:last-of-type th,
+#custom-field-list .field-table tr:last-of-type td {
 	border-bottom: 0;
 }
 
