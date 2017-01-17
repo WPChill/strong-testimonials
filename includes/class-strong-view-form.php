@@ -150,6 +150,7 @@ class Strong_View_Form extends Strong_View {
 			'scrollTop' => $form_options['scrolltop_error'],
 			'offset'    => $form_options['scrolltop_error_offset'],
 		);
+
 		WPMST()->add_script( 'wpmtst-form' );
 		WPMST()->add_script_var( 'wpmtst-form', 'formError', $args );
 
@@ -160,7 +161,7 @@ class Strong_View_Form extends Strong_View {
 
 			$args = array(
 				'ajaxUrl'    => admin_url( 'admin-ajax.php' ),
-				'ajaxSubmit' => isset( $atts['form_ajax'] ) && $atts['form_ajax'] ? 1 : 0,
+				'ajaxSubmit' => isset( $this->atts['form_ajax'] ) && $this->atts['form_ajax'] ? 1 : 0,
 			);
 			WPMST()->add_script( 'wpmtst-form-validation' );
 			WPMST()->add_script_var( 'wpmtst-form-validation', 'form_ajax_object', $args );

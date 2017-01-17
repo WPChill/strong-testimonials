@@ -73,6 +73,7 @@ Array.max = function( array ){
 
 		if ( 'full' == controlsValue ) {
 			$('.then_has-pager').fadeOut();
+			$("#view-slideshow_pager_type").val('none');
 			$('option[value="text"]','#view-slideshow_controls_style').prop('disabled',false);
 		}
 		else if ( 'sides' == controlsValue ) {
