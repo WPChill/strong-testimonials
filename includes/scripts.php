@@ -7,6 +7,8 @@ function wpmtst_scripts() {
 
 	$plugin_version = get_option( 'wpmtst_plugin_version' );
 
+	$min = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
+
 	/**
 	 * Fonts
 	 */
@@ -81,8 +83,11 @@ function wpmtst_scripts() {
 	 * Slider
 	 */
 	wp_register_script( 'jquery-actual', WPMTST_PUBLIC_URL . 'js/lib/actual/jquery.actual.js', array( 'jquery' ), false, true );
-	wp_register_script( 'wpmslider', WPMTST_PUBLIC_URL . 'js/lib/wpmslider/jquery.wpmslider.js', array( 'jquery-actual' ), $plugin_version, true );
+
+	wp_register_script( 'wpmslider', WPMTST_PUBLIC_URL . "js/lib/wpmslider/jquery.wpmslider{$min}.js", array( 'jquery-actual' ), $plugin_version, true );
+
 	wp_register_script( 'strongslider', WPMTST_PUBLIC_URL . 'js/jquery.strongslider.js', array( 'wpmslider' ), $plugin_version, true );
+
 	if ( ! defined( 'MEGAMENU_VERSION' ) ) {
 		wp_register_script( 'wpmtst-slider', WPMTST_PUBLIC_URL . 'js/slider.js', array( 'strongslider' ), $plugin_version, true );
 	}
