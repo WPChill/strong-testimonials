@@ -1,5 +1,9 @@
 /**
+<<<<<<< HEAD
  *  Strong Testimonials > admin screens
+=======
+ *	Strong Testimonials admin
+>>>>>>> Make ready for rich markup add-on
  */
 
 // Function to get the Max value in Array

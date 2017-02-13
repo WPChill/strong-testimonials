@@ -86,6 +86,25 @@ function wpmtst_admin_register() {
 	wp_register_script( 'wpmtst-view-category-filter-script', WPMTST_ADMIN_URL . 'js/view-category-filter.js', array( 'jquery' ), $plugin_version, true );
 
 	wp_register_style( 'wpmtst-admin-guide-style', WPMTST_ADMIN_URL . 'css/guide.css', array(), $plugin_version );
+
+	/**
+	 * Add-on licenses
+	 *
+	 * @since 2.18
+	 */
+	wp_register_script( 'wpmtst-addons-script', WPMTST_ADMIN_URL . 'js/addon-licenses.js', array( 'jquery' ), $plugin_version, true );
+	$params = array(
+		'ajax_nonce' => wp_create_nonce( 'wpmtst-admin' ),
+		'errorMessage' => __( 'An error occurred, please try again.', 'strong-testimonials' ),
+	);
+	wp_localize_script( 'wpmtst-addons-script', 'wpmtstAdmin', $params );
+
+	/**
+	 * Are You Sure? for dirty forms
+	 *
+	 * @since 2.18
+	 */
+	wp_register_script( 'wpmtst-ays-script', WPMTST_ADMIN_URL . 'js/lib/are-you-sure/jquery.are-you-sure.js', array( 'jquery' ), $plugin_version, true );
 }
 add_action( 'admin_init', 'wpmtst_admin_register' );
 
@@ -177,6 +196,7 @@ function wpmtst_hook__admin_settings( $hook ) {
     if ( 'wpm-testimonial_page_testimonial-settings' == $hook ) {
 		wp_enqueue_style( 'wpmtst-admin-style' );
 		wp_enqueue_script( 'wpmtst-admin-script' );
+		wp_enqueue_script( 'wpmtst-addons-script' );
 	}
 }
 add_action( 'admin_enqueue_scripts', 'wpmtst_hook__admin_settings' );
@@ -860,3 +880,21 @@ function wpmtst_pending_indicator( $menu ) {
 	return $menu;
 }
 add_filter( 'add_menu_classes', 'wpmtst_pending_indicator' );
+
+
+/**
+ * The [restore default] icon.
+ *
+ * @param $for
+ *
+ * @since 2.18.0
+ */
+function wpmtst_restore_default_icon( $for ) {
+	if ( !$for ) return;
+	?>
+	<input type="button" class="button secondary restore-default"
+		   title="<?php _e( 'restore default', 'strong-testimonials' ); ?>"
+		   value="&#xf171"
+		   data-for="<?php echo $for; ?>"/>
+	<?php
+}

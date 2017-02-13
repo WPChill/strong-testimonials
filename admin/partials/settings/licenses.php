@@ -2,44 +2,25 @@
 /**
  * Licenses
  *
- * Only works for one add-on, Multiple Forms, for now.
- *
  * @package Strong_Testimonials
  * @since 2.1
+ * @since 2.18 As a partial file. Using action hook for add-ons to add their info.
+ * @todo Add link to member account on wpmission.com.
  */
-
-$license = get_option( 'wpmst_mf_license_key' );
-$status  = get_option( 'wpmst_mf_license_status' );
 ?>
+<div class="tab-header">
+<p class="description"><?php _e( 'Valid license keys allow you to receive automatic updates.', 'strong-testimonials' ); ?></p>
+<p class="description"><?php _e( 'If you want to transfer a license to another site or you plan to uninstall the add-on, you must deactivate the license here first.', 'strong-testimonials' ); ?></p>
+</div>
 <table class="form-table">
-	<tbody>
+	<thead>
 	<tr>
-		<th scope="row">
-			<label for="wpmst_mf_license_key">
-				<?php _e( 'Multiple Forms License Key' ); ?>
-			</label>
-		</th>
-		<td>
-			<input id="wpmst_mf_license_key" name="wpmst_mf_license_key" type="text" class="regular-text" value="<?php esc_attr_e( $license ); ?>"/>
-		</td>
+		<th><?php _e( 'Add-On', 'strong-testimonials' ); ?></th>
+		<th><?php _e( 'License Key', 'strong-testimonials' ); ?></th>
+		<th><?php _e( 'Status', 'strong-testimonials' ); ?></th>
 	</tr>
-	<?php if ( false !== $license ) { ?>
-		<tr>
-			<th scope="row">
-				<?php _e( 'Activate License' ); ?>
-			</th>
-			<td>
-				<?php if ( $status !== false && $status == 'valid' ) { ?>
-					<span style="color:green;"><?php _e( 'active' ); ?></span>
-					<?php wp_nonce_field( 'wpmst_mf_nonce', 'wpmst_mf_nonce' ); ?>
-					<input type="submit" class="button-secondary" name="wpmst_mf_license_deactivate" value="<?php _e( 'Deactivate License' ); ?>"/>
-				<?php }
-				else {
-					wp_nonce_field( 'wpmst_mf_nonce', 'wpmst_mf_nonce' ); ?>
-					<input type="submit" class="button-secondary" name="wpmst_mf_license_activate" value="<?php _e( 'Activate License' ); ?>"/>
-				<?php } ?>
-			</td>
-		</tr>
-	<?php } ?>
+	</thead>
+	<tbody>
+	<?php do_action( 'wpmtst_licenses' ); ?>
 	</tbody>
 </table>

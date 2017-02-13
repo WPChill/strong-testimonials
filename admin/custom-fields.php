@@ -133,7 +133,7 @@ function wpmtst_settings_custom_fields( $form_id = null ) {
 	?>
 	<div class="wrap wpmtst">
 
-		<h2><?php _e( 'Fields', 'strong-testimonials' ); ?></h2>
+		<h1><?php _e( 'Fields', 'strong-testimonials' ); ?></h1>
 
 		<?php do_action( 'wpmtst_fields_editor_before_fields_intro' ); ?>
 

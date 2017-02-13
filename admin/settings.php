@@ -31,8 +31,8 @@ function wpmtst_settings_menu() {
 		'wpmtst_settings_page' );
 
 	add_submenu_page( 'edit.php?post_type=wpm-testimonial',
-		_x( 'About', 'noun', 'strong-testimonials' ),
-		_x( 'About', 'noun', 'strong-testimonials' ),
+		__( 'About', 'strong-testimonials' ),
+		__( 'About', 'strong-testimonials' ),
 		'manage_options',
 		'testimonial-guide',
 		'wpmtst_guide' );
@@ -45,9 +45,10 @@ add_action( 'admin_menu', 'wpmtst_settings_menu' );
 function wpmtst_register_settings() {
 	register_setting( 'wpmtst-settings-group', 'wpmtst_options', 'wpmtst_sanitize_options' );
 	register_setting( 'wpmtst-form-group', 'wpmtst_form_options', 'wpmtst_sanitize_form' );
-	register_setting( 'wpmtst-mf-license', 'wpmst_mf_license_key', 'wpmtst_sanitize_license' );
+	register_setting( 'wpmtst-license-group', 'wpmtst_addons', 'wpmtst_sanitize_licenses' );
 }
 add_action( 'admin_init', 'wpmtst_register_settings' );
+
 
 /**
  * Sanitize licenses.
@@ -56,13 +57,21 @@ add_action( 'admin_init', 'wpmtst_register_settings' );
  *
  * @return mixed
  */
-function wpmtst_sanitize_license( $new ) {
-	$old = get_option( 'wpmst_mf_license_key' );
-	if( $old && $old != $new ) {
-		delete_option( 'wpmst_mf_license_status' ); // new license has been entered, so must reactivate
+function wpmtst_sanitize_licenses( $new ) {
+	$old = get_option( 'wpmtst_addons' );
+	// Check existence. May have been erased by Reset plugin.
+	if ( $old ) {
+		foreach ( $new as $addon => $addon_info ) {
+			$old_license = isset( $old[ $addon ]['license'] ) ? $old[ $addon ]['license'] : '';
+			if ( $old_license['key'] && $old_license['key'] != $addon_info['license']['key'] ) {
+				// new license has been entered, so must reactivate
+				unset( $new[ $addon ]['license']['status'] );
+			}
+		}
 	}
 	return $new;
 }
+
 
 /**
  * Check for active add-ons.
@@ -70,18 +79,9 @@ function wpmtst_sanitize_license( $new ) {
  * @since 2.1
  */
 function wpmtst_active_addons() {
-	$addons = array (
-		'strong-testimonials-multiple-forms/strong-testimonials-multiple-forms.php',
-	);
-	return array_intersect( $addons, get_option( 'active_plugins' ) );
+	return has_action( 'wpmtst_licenses' );
 }
 
-/**
- * Our add-on licenses.
- */
-function wpmtst_licenses_settings() {
-	include( 'partials/settings/licenses.php' );
-}
 
 /**
  * Sanitize general settings
@@ -111,11 +111,11 @@ function wpmtst_sanitize_options( $input ) {
 
 /**
  * Store values as 1 or 0 (never blank).
- * Checked checkbox value is "on"
- * but unchecked checkboxes are _not_ submitted.
+ *
+ * Checked checkbox value is "on" but unchecked checkboxes are _not_ submitted.
  *
  * @param $input
- * @param $key
+ * @param $key string  Must be explicit. Do not simply loop through an input array.
  *
  * @return int
  */
@@ -271,7 +271,7 @@ function wpmtst_settings_page() {
 	?>
 	<div class="wrap wpmtst">
 
-		<h2><?php _e( 'Testimonial Settings', 'strong-testimonials' ); ?></h2>
+		<h1><?php _e( 'Testimonial Settings', 'strong-testimonials' ); ?></h1>
 
 		<?php if( isset( $_GET['settings-updated'] ) ) : ?>
 			<div id="message" class="updated notice is-dismissible">
@@ -284,95 +284,56 @@ function wpmtst_settings_page() {
 		$url        = admin_url( 'edit.php?post_type=wpm-testimonial&page=testimonial-settings' );
 		?>
 		<h2 class="nav-tab-wrapper">
+
 			<a href="<?php echo add_query_arg( 'tab', 'general', $url ); ?>" class="nav-tab <?php echo $active_tab == 'general' ? 'nav-tab-active' : ''; ?>"><?php _ex( 'General', 'adjective', 'strong-testimonials' ); ?></a>
+
 			<a href="<?php echo add_query_arg( 'tab', 'form', $url ); ?>" class="nav-tab <?php echo $active_tab == 'form' ? 'nav-tab-active' : ''; ?>"><?php _e( 'Form', 'strong-testimonials' ); ?></a>
+
+			<?php do_action( 'wpmtst_settings_tabs', $active_tab, $url ); ?>
+
 			<?php if ( wpmtst_active_addons() ): ?>
-			<a href="<?php echo add_query_arg( 'tab', 'licenses', $url ); ?>" class="nav-tab <?php echo $active_tab == 'licenses' ? 'nav-tab-active' : ''; ?>"><?php _e( 'Licenses', 'strong-testimonials' ); ?></a>
+				<a href="<?php echo add_query_arg( 'tab', 'licenses', $url ); ?>" class="nav-tab <?php echo $active_tab == 'licenses' ? 'nav-tab-active' : ''; ?>"><?php _e( 'Licenses', 'strong-testimonials' ); ?></a>
 			<?php endif; ?>
+
 		</h2>
 
 		<form id="<?php echo $active_tab; ?>-form" method="post" action="options.php">
 			<?php
-			switch( $active_tab ) {
-				case 'licenses' :
-					settings_fields( 'wpmtst-mf-license' );
-					wpmtst_licenses_settings();
-					break;
-				case 'form' :
-					settings_fields( 'wpmtst-form-group' );
-					wpmtst_form_settings();
-					break;
-				default :
-					settings_fields( 'wpmtst-settings-group' );
-					include( 'partials/settings/general.php' );
+			$callbacks = apply_filters( 'wpmtst_settings_callbacks', array(
+				'general'  => 'wpmtst_settings_general',
+				'form'     => 'wpmtst_settings_form',
+				'licenses' => 'wpmtst_settings_licenses',
+			) );
+			if ( isset( $callbacks[ $active_tab ] ) && wpmtst_callback_exists( $callbacks[ $active_tab ] ) ) {
+				call_user_func( $callbacks[ $active_tab ] );
+			} else {
+				call_user_func( $callbacks['general'] );
 			}
 			?>
-			<p>
-				<input id="submit" class="button button-primary" type="submit" value="<?php _e( 'Save Changes' ); ?>" name="submit">
+			<p class="submit-row">
+				<?php submit_button( '', 'primary', 'submit', false ); ?>
+				<?php do_action( 'wpmtst_settings_submit_row'); ?>
+				<span id="submit-row-message"></span>
 			</p>
 		</form>
 
-	</div><!-- wrap -->
+	</div><!-- .wrap -->
 	<?php
 }
 
-/**
- * Our form settings.
- */
-function wpmtst_form_settings() {
-	$form_options = get_option( 'wpmtst_form_options' );
+function wpmtst_settings_general() {
+	settings_fields( 'wpmtst-settings-group' );
+	include( 'partials/settings/general.php' );
+}
 
-	/**
-	 * Build list of supported Captcha plugins.
-	 *
-	 * TODO - Move this to options array and add filter
-	 */
-	$plugins = array(
-		'bwsmath' => array(
-			'name'      => 'Captcha by BestWebSoft',
-			'file'      => 'captcha/captcha.php',
-			'settings'  => 'admin.php?page=captcha.php',
-			'search'    => 'plugin-install.php?tab=search&s=Captcha',
-			'url'       => 'http://wordpress.org/plugins/captcha/',
-			'installed' => false,
-			'active'    => false,
-		),
-		'miyoshi' => array(
-			'name'      => 'Really Simple Captcha by Takayuki Miyoshi',
-			'file'      => 'really-simple-captcha/really-simple-captcha.php',
-			'search'    => 'plugin-install.php?tab=search&s=Really+Simple+Captcha',
-			'url'       => 'http://wordpress.org/plugins/really-simple-captcha/',
-			'installed' => false,
-			'active'    => false,
-		),
-		'advnore' => array(
-			'name'      => 'Advanced noCaptcha reCaptcha by Shamim Hasan',
-			'file'      => 'advanced-nocaptcha-recaptcha/advanced-nocaptcha-recaptcha.php',
-			'settings'  => 'admin.php?page=anr-admin-settings',
-			'search'    => 'plugin-install.php?tab=search&s=Advanced+noCaptcha+reCaptcha',
-			'url'       => 'http://wordpress.org/plugins/advanced-nocaptcha-recaptcha',
-			'installed' => false,
-			'active'    => false,
-		),
-	);
-
-	foreach ( $plugins as $key => $plugin ) {
-
-		if ( file_exists( WP_PLUGIN_DIR . '/' . $plugin['file'] ) )
-			$plugins[ $key ]['installed'] = true;
-
-		$plugins[ $key ]['active'] = is_plugin_active( $plugin['file'] );
-
-		// If current Captcha plugin has been deactivated, disable Captcha
-		// so corresponding div does not appear on front-end form.
-		if ( $key == $form_options['captcha'] && !$plugins[ $key ]['active'] ) {
-			$form_options['captcha'] = '';
-			update_option( 'wpmtst_form_options', $form_options );
-		}
-
-	}
-
+function wpmtst_settings_form() {
+	settings_fields( 'wpmtst-form-group' );
 	include( 'partials/settings/form.php' );
+}
+
+function wpmtst_settings_licenses() {
+	settings_fields( 'wpmtst-license-group' );
+	include( 'partials/settings/licenses.php' );
 }
 
 /**

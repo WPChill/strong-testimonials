@@ -159,40 +159,45 @@ final class Strong_Testimonials {
 		if ( ! defined( 'WPMTST' ) )
 			define( 'WPMTST', dirname( WPMTST_PLUGIN ) );
 
-
 		if ( ! defined( 'WPMTST_DIR' ) )
 			define( 'WPMTST_DIR', plugin_dir_path( __FILE__ ) );
 		if ( ! defined( 'WPMTST_URL' ) )
 			define( 'WPMTST_URL', plugin_dir_url( __FILE__ ) );
 
-
 		if ( ! defined( 'WPMTST_INC' ) )
 			define( 'WPMTST_INC', plugin_dir_path( __FILE__ ) . 'includes/' );
-
 
 		if ( ! defined( 'WPMTST_ADMIN' ) )
 			define( 'WPMTST_ADMIN', plugin_dir_path( __FILE__ ) . 'admin/' );
 		if ( ! defined( 'WPMTST_ADMIN_URL' ) )
 			define( 'WPMTST_ADMIN_URL', plugin_dir_url( __FILE__ ) . 'admin/' );
 
-
 		if ( ! defined( 'WPMTST_PUBLIC' ) )
 			define( 'WPMTST_PUBLIC', plugin_dir_path( __FILE__ ) . 'public/' );
 		if ( ! defined( 'WPMTST_PUBLIC_URL' ) )
 			define( 'WPMTST_PUBLIC_URL', plugin_dir_url( __FILE__ ) . 'public/' );
-
 
 		if ( ! defined( 'WPMTST_DEF_TPL' ) )
 			define( 'WPMTST_DEF_TPL', plugin_dir_path( __FILE__ ) . 'templates/default/' );
 		if ( ! defined( 'WPMTST_DEF_TPL_URI' ) )
 			define( 'WPMTST_DEF_TPL_URI', plugin_dir_url( __FILE__ ) . 'templates/default/' );
 
-
 		if ( ! defined( 'WPMTST_TPL' ) )
 			define( 'WPMTST_TPL', plugin_dir_path( __FILE__ ) . 'templates' );
 		if ( ! defined( 'WPMTST_TPL_URI' ) )
 			define( 'WPMTST_TPL_URI', plugin_dir_url( __FILE__ ) . 'templates' );
 
+		/**
+		 * EDD
+		 */
+		// This is the URL our updater / license checker pings. This should be the URL of the site with EDD installed.
+		if ( ! defined( 'WPMISSION_STORE_URL' ) ) {
+			if ( '127.0.0.1' == $_SERVER['SERVER_ADDR'] ) {
+				define( 'WPMISSION_STORE_URL', 'http://wpmission.dev' );
+			} else {
+				define( 'WPMISSION_STORE_URL', 'https://www.wpmission.com' );
+			}
+		}
 	}
 
 
@@ -264,14 +269,16 @@ final class Strong_Testimonials {
 			require_once WPMTST_ADMIN . 'views-ajax.php';
 			require_once WPMTST_ADMIN . 'views-validate.php';
 
+			/**
+			 * Add-on plugin updater.
+			 *
+			 * @since 2.1
+			 */
+			if ( !class_exists( 'EDD_SL_Plugin_Updater' ) ) {
+				include WPMTST_INC . 'edd/EDD_SL_Plugin_Updater.php';
+			}
+			include WPMTST_INC . 'edd/WPMTST_Plugin_Updater.php';
 		}
-
-		/**
-		 * Add-on plugin updater.
-		 *
-		 * @since 2.1
-		 */
-		require_once WPMTST_INC . 'edd/WPMST_Plugin_Updater.php';
 	}
 
 	/**
@@ -1118,15 +1125,15 @@ final class Strong_Testimonials {
 			$nav = 'both';
 		}
 
-		$pager = array(
+		$args = array(
 			'pageSize'      => $atts['per_page'],
 			'currentPage'   => 1,
 			'pagerLocation' => $nav,
 			'scrollTop'     => $options['scrolltop'],
-			'offset'        => apply_filters( 'wpmtst_pagination_scroll_offset', $options['scrolltop_offset'] ),
+			'offset'        => $options['scrolltop_offset'],
 		);
 
-		return $pager;
+		return apply_filters( 'wpmtst_view_pagination', $args, $atts['view'] );
 	}
 
 	/**

@@ -44,7 +44,7 @@ add_filter( 'shortcode_atts_testimonial_view', 'wpmtst_strong_view_shortcode_fil
  *
  * @param $out
  *
- * @return mixed|string|void
+ * @return mixed|string
  */
 function wpmtst_render_view( $out ) {
 	// Did we find this view?
@@ -158,7 +158,6 @@ function wpmtst_strong_view_html( $html ) {
 	$options = get_option( 'wpmtst_options' );
 	if ( $options['remove_whitespace'] ) {
 		$html = preg_replace( '~>\s+<~', '><', $html );
-		//$html = preg_replace('~[\r\n]+~', '', $html);
 	}
 
 	return $html;

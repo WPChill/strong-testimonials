@@ -43,7 +43,7 @@ function wpmtst_get_l10n_context( $name = '' ) {
  * @param $context
  * @param $name
  *
- * @return mixed|void
+ * @return mixed
  */
 function wpmtst_l10n_wpml( $string, $context, $name ) {
 	return apply_filters( 'wpml_translate_single_string', $string, $context, $name );
@@ -56,7 +56,7 @@ function wpmtst_l10n_wpml( $string, $context, $name ) {
  * @param $context
  * @param $name
  *
- * @return bool|string|void
+ * @return bool|string
  */
 function wpmtst_l10n_polylang( $string, $context, $name ) {
 	if ( function_exists( 'pll__' ) ) {

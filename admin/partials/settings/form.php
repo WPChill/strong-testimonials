@@ -1,23 +1,67 @@
 <?php
 /**
- * Settings
+ * Form Settings
  *
  * @package Strong_Testimonials
  * @since 1.13
  */
-
 $pages_list = wpmtst_get_pages();
+$form_options = get_option( 'wpmtst_form_options' );
+
+/**
+ * Build list of supported Captcha plugins.
+ *
+ * TODO - Move this to options array and add filter
+ */
+$plugins = array(
+	'bwsmath' => array(
+		'name'      => 'Captcha by BestWebSoft',
+		'file'      => 'captcha/captcha.php',
+		'settings'  => 'admin.php?page=captcha.php',
+		'search'    => 'plugin-install.php?tab=search&s=Captcha',
+		'url'       => 'http://wordpress.org/plugins/captcha/',
+		'installed' => false,
+		'active'    => false,
+	),
+	'miyoshi' => array(
+		'name'      => 'Really Simple Captcha by Takayuki Miyoshi',
+		'file'      => 'really-simple-captcha/really-simple-captcha.php',
+		'search'    => 'plugin-install.php?tab=search&s=Really+Simple+Captcha',
+		'url'       => 'http://wordpress.org/plugins/really-simple-captcha/',
+		'installed' => false,
+		'active'    => false,
+	),
+	'advnore' => array(
+		'name'      => 'Advanced noCaptcha reCaptcha by Shamim Hasan',
+		'file'      => 'advanced-nocaptcha-recaptcha/advanced-nocaptcha-recaptcha.php',
+		'settings'  => 'admin.php?page=anr-admin-settings',
+		'search'    => 'plugin-install.php?tab=search&s=Advanced+noCaptcha+reCaptcha',
+		'url'       => 'http://wordpress.org/plugins/advanced-nocaptcha-recaptcha',
+		'installed' => false,
+		'active'    => false,
+	),
+);
+
+foreach ( $plugins as $key => $plugin ) {
+
+	if ( file_exists( WP_PLUGIN_DIR . '/' . $plugin['file'] ) ) {
+		$plugins[ $key ]['installed'] = true;
+	}
+
+	$plugins[ $key ]['active'] = is_plugin_active( $plugin['file'] );
+
+	// If current Captcha plugin has been deactivated, disable Captcha
+	// so corresponding div does not appear on front-end form.
+	if ( $key == $form_options['captcha'] && !$plugins[ $key ]['active'] ) {
+		$form_options['captcha'] = '';
+		update_option( 'wpmtst_form_options', $form_options );
+	}
+
+}
 ?>
 <input type="hidden" name="wpmtst_form_options[default_recipient]" value="<?php echo htmlentities( serialize( $form_options['default_recipient'] ) ); ?>">
 
-<?php
-/**
- * ========================================
- * Labels & Messages
- * ========================================
- */
-?>
-<h3><?php _e( 'Form Labels & Messages', 'strong-testimonials' ); ?></h3>
+<h2><?php _e( 'Form Labels & Messages', 'strong-testimonials' ); ?></h2>
 
 <?php
 // WPML
