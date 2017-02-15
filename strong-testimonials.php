@@ -710,6 +710,7 @@ final class Strong_Testimonials {
 	 * @access public
 	 */
 	public function localize_vars() {
+		echo "<!-- wp_footer called -->\n";
 		$vars = $this->script_vars;
 		if ( $vars ) {
 			foreach ( $vars as $var ) {
@@ -1346,7 +1347,7 @@ final class Strong_Testimonials {
 			$plugin_info['name'] . ' ' . $plugin_info['version'],
 		);
 
-		echo "\n" . '<!-- versions: ' . implode( ' | ', $comment ) . ' -->' . "\n";
+		echo "<!-- versions: " . implode( ' | ', $comment ) . " -->\n";
 	}
 
 	/**
