@@ -2,6 +2,10 @@
  * Strong Testimonials admin stylesheet
  */
 
+.icon-blue {
+	color: #0073aa;
+}
+
 .error {
 	color: red !important;
 }

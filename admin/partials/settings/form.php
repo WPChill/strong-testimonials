@@ -5,21 +5,29 @@
  * @package Strong_Testimonials
  * @since 1.13
  */
-
 ?>
 <input type="hidden" name="wpmtst_form_options[default_recipient]" value="<?php echo htmlentities( serialize( $form_options['default_recipient'] ) ); ?>">
 
+<?php
+/**
+ * ========================================
+ * Labels & Messages
+ * ========================================
+ */
+?>
 <h3><?php _e( 'Form Labels & Messages', 'strong-testimonials' ); ?></h3>
 
 <?php
 // WPML
 if ( wpmtst_is_plugin_active( 'wpml' ) ) {
+    echo '<span class="dashicons dashicons-info icon-blue"></span>&nbsp;';
 	printf( __( 'Translate these fields in <a href="%s">WPML String Translations</a>', 'strong-testimonials' ),
 		admin_url( 'admin.php?page=wpml-string-translation%2Fmenu%2Fstring-translation.php&context=strong-testimonials-form-messages' ) );
 }
 
 // Polylang
 if ( wpmtst_is_plugin_active( 'polylang' ) ) {
+	echo '<span class="dashicons dashicons-info icon-blue"></span>&nbsp;';
 	printf( __( 'Translate these fields in <a href="%s">Polylang String Translations</a>', 'strong-testimonials' ),
 		admin_url( 'options-general.php?page=mlang&tab=strings&s&group=strong-testimonials-form-messages&paged=1' ) );
 }
@@ -53,7 +61,13 @@ if ( wpmtst_is_plugin_active( 'polylang' ) ) {
 	</tr>
 </table>
 
-
+<?php
+/**
+ * ========================================
+ * Actions
+ * ========================================
+ */
+?>
 <h3><?php _e( 'Form Actions', 'strong-testimonials' ); ?></h3>
 
 <table class="form-table" cellpadding="0" cellspacing="0">
@@ -138,6 +152,13 @@ if ( wpmtst_is_plugin_active( 'polylang' ) ) {
 	</tr>
 </table>
 
+<?php
+/**
+ * ========================================
+ * Spam Control
+ * ========================================
+ */
+?>
 <h3><?php _e( 'Form Spam Control', 'strong-testimonials' );?></h3>
 
 <table class="form-table" cellpadding="0" cellspacing="0">
