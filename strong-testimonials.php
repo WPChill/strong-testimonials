@@ -734,22 +734,6 @@ final class Strong_Testimonials {
 	}
 
 	/**
-	 * Check the content for shortcodes that have been rendered already.
-	 * For some hacky page builders.
-	 *
-	 * @param $content
-	 *
-	 * @return bool
-	 */
-	private function check_content_for_rendered_shortcodes( $content ) {
-		if ( preg_match_all( '/div class=(.*?) (strong-view-id-([0-9]*))/', $content, $matches ) ) {
-			return $matches[3];
-		}
-
-		return false;
-	}
-
-	/**
 	 * Build list of all shortcode views on a page.
 	 *
 	 * @access public
