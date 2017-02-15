@@ -38,27 +38,36 @@ if ( wpmtst_is_plugin_active( 'polylang' ) ) {
 <table class="form-table compact" cellpadding="0" cellspacing="0">
 	<?php $messages = $form_options['messages']; ?>
 	<?php foreach ( $messages as $key => $message ) : ?>
-	<tr>
-		<th scope="row">
-			<?php
-			if ( 'required-field' == $key )
-				_e( $messages[$key]['description'], 'strong-testimonials' );
-			else
-				_ex( $messages[$key]['description'], 'description', 'strong-testimonials' );
-			?>
-			<input type="hidden" name="wpmtst_form_options[messages][<?php echo $key; ?>][description]" value="<?php esc_attr_e( $messages[$key]['description'] ); ?>">
-		</th>
-		<td>
-			<input type="text" id="<?php echo $key; ?>" name="wpmtst_form_options[messages][<?php echo $key; ?>][text]" value="<?php echo esc_attr( apply_filters( 'wpmtst_l10n', $messages[$key]['text'], wpmtst_get_l10n_context( 'form-messages' ), $key . ' : text' ) ); ?>" required />
-		</td>
-		<td class="actions">
-			<input type="button" class="button secondary restore-default-message" value="<?php _ex( 'restore default', 'singular', 'strong-testimonials' ); ?>">
-		</td>
-	</tr>
+
+        <tr>
+            <th scope="row">
+                <?php
+                if ( 'required-field' == $key ) {
+					_e( $messages[ $key ]['description'], 'strong-testimonials' );
+				} else {
+					_ex( $messages[ $key ]['description'], 'description', 'strong-testimonials' );
+				}
+                ?>
+                <input type="hidden" name="wpmtst_form_options[messages][<?php echo $key; ?>][description]" value="<?php esc_attr_e( $messages[$key]['description'] ); ?>"/>
+            </th>
+            <td>
+                <input type="text" id="<?php echo $key; ?>"
+                       name="wpmtst_form_options[messages][<?php echo $key; ?>][text]"
+                       value="<?php echo esc_attr( apply_filters( 'wpmtst_l10n', $messages[$key]['text'], wpmtst_get_l10n_context( 'form-messages' ), $key . ' : text' ) ); ?>" required />
+            </td>
+            <td class="actions">
+                <input type="button" class="button secondary restore-default-message"
+                       value="<?php _ex( 'restore default', 'singular', 'strong-testimonials' ); ?>"/>
+            </td>
+        </tr>
+
 	<?php endforeach; ?>
+
 	<tr>
 		<td colspan="3">
-			<input type="button" value="<?php _ex( 'Restore Defaults', 'multiple', 'strong-testimonials' ); ?>" class="button" id="restore-default-messages" name="restore-default-messages">
+			<input type="button" id="restore-default-messages" class="button"
+                   name="restore-default-messages"
+                   value="<?php _ex( 'Restore Defaults', 'multiple', 'strong-testimonials' ); ?>"/>
 		</td>
 	</tr>
 </table>
@@ -72,13 +81,13 @@ if ( wpmtst_is_plugin_active( 'polylang' ) ) {
             <fieldset>
                 <div>
                     <label>
-                        <input type="checkbox" name="wpmtst_form_options[scrolltop_error]" <?php checked( $form_options['scrolltop_error'] ); ?>>
+                        <input type="checkbox" name="wpmtst_form_options[scrolltop_error]" <?php checked( $form_options['scrolltop_error'] ); ?>/>
 						<?php printf( __( 'If errors, scroll to the first error minus %s pixels. On by default.', 'strong-testimonials' ), '<input type="text" name="wpmtst_form_options[scrolltop_error_offset]" value="' . $form_options['scrolltop_error_offset'] . '" size="3">' ); ?>
                     </label>
                 </div>
                 <div>
                     <label class="block">
-                        <input type="checkbox" name="wpmtst_form_options[scrolltop_success]" <?php checked( $form_options['scrolltop_success'] ); ?>>
+                        <input type="checkbox" name="wpmtst_form_options[scrolltop_success]" <?php checked( $form_options['scrolltop_success'] ); ?>/>
 						<?php printf( __( 'If success, scroll to the success message minus %s pixels. On by default.', 'strong-testimonials' ), '<input type="text" name="wpmtst_form_options[scrolltop_success_offset]" value="' . $form_options['scrolltop_success_offset'] . '" size="3">' ); ?>
                     </label>
                 </div>
@@ -123,7 +132,7 @@ if ( wpmtst_is_plugin_active( 'polylang' ) ) {
                 <label for="redirect-page-2">
                     &nbsp;<?php _ex( 'or enter its ID or slug', 'to select a target page', 'strong-testimonials' ); ?>&nbsp;
                 </label>
-                <input type="text" id="redirect-page-2" name="wpmtst_form_options[success_redirect_2]" size="30">
+                <input type="text" id="redirect-page-2" name="wpmtst_form_options[success_redirect_2]" size="30"/>
             </div>
 
             <p class="description"><?php _e( 'This will override the <strong>Submission Success</strong> message.', 'strong-testimonials' ); ?></p>
@@ -139,13 +148,15 @@ if ( wpmtst_is_plugin_active( 'polylang' ) ) {
 			<ul class="compact">
 				<li>
 					<label>
-						<input type="radio" name="wpmtst_form_options[post_status]" <?php checked( 'pending', $form_options['post_status'] ); ?> value="pending">
+						<input type="radio" name="wpmtst_form_options[post_status]" value="pending"
+                            <?php checked( 'pending', $form_options['post_status'] ); ?>/>
 						<?php _e( 'Pending', 'strong-testimonials' ); ?>
 					</label>
 				</li>
 				<li>
 					<label>
-						<input type="radio" name="wpmtst_form_options[post_status]" <?php checked( 'publish', $form_options['post_status'] ); ?> value="publish">
+						<input type="radio" name="wpmtst_form_options[post_status]" value="publish"
+                            <?php checked( 'publish', $form_options['post_status'] ); ?>/>
 						<?php _e( 'Published' ); ?>
 					</label>
 				</li>
@@ -162,7 +173,8 @@ if ( wpmtst_is_plugin_active( 'polylang' ) ) {
 
 			<fieldset>
 				<label>
-					<input id="wpmtst-options-admin-notify" type="checkbox" name="wpmtst_form_options[admin_notify]" <?php checked( $form_options['admin_notify'] ); ?>>
+					<input id="wpmtst-options-admin-notify" type="checkbox" name="wpmtst_form_options[admin_notify]"
+                        <?php checked( $form_options['admin_notify'] ); ?>/>
 					<?php _e( 'Send an email upon new testimonial submission.', 'strong-testimonials' ); ?>
 				</label>
 			</fieldset>
@@ -209,14 +221,14 @@ if ( wpmtst_is_plugin_active( 'polylang' ) ) {
 			<ul>
 				<li class="checkbox">
 					<label>
-						<input type="checkbox" name="wpmtst_form_options[honeypot_before]" <?php checked( $form_options['honeypot_before'] ); ?>>
+						<input type="checkbox" name="wpmtst_form_options[honeypot_before]" <?php checked( $form_options['honeypot_before'] ); ?>/>
 						<?php _e( 'Before', 'strong-testimonials' ); ?>
 					</label>
 					<p class="description"><strong><?php _e( 'Recommended.', 'strong-testimonials' ); ?></strong>&nbsp;<?php _e( 'Traps spambots by adding an extra empty field that is invisible to humans but not to spambots which tend to fill in every field they find in the form code. Empty field = human. Not empty = spambot.', 'strong-testimonials' ); ?></p>
 				</li>
 				<li class="checkbox">
 					<label>
-						<input type="checkbox" name="wpmtst_form_options[honeypot_after]" <?php checked( $form_options['honeypot_after'] ); ?>>
+						<input type="checkbox" name="wpmtst_form_options[honeypot_after]" <?php checked( $form_options['honeypot_after'] ); ?>/>
 						<?php _e( 'After', 'strong-testimonials' ); ?>
 					</label>
 					<p class="description"><?php _e( 'Traps spambots by using JavaScript to add a new field as soon as the form is submitted. Since spambots cannot run JavaScript, the new field never gets added. New field = human. Missing = spambot.', 'strong-testimonials' ); ?></p>
@@ -233,14 +245,14 @@ if ( wpmtst_is_plugin_active( 'polylang' ) ) {
 			<ul>
 				<li>
 					<label>
-						<input type="radio" id="" name="wpmtst_form_options[captcha]" <?php checked( '', $form_options['captcha'] ); ?> value=""> none
+						<input type="radio" id="" name="wpmtst_form_options[captcha]" <?php checked( '', $form_options['captcha'] ); ?> value=""/> none
 					</label>
 				</li>
 
 				<?php foreach ( $plugins as $key => $plugin ) : ?>
 				<li>
 					<label class="inline <?php if ( ! $plugin['active'] ) echo 'disabled'; ?>">
-						<input type="radio" id="" name="wpmtst_form_options[captcha]" <?php disabled( ! $plugin['active'] ); ?><?php checked( $key, $form_options['captcha'] ); ?> value="<?php echo $key; ?>">
+						<input type="radio" id="" name="wpmtst_form_options[captcha]" <?php disabled( ! $plugin['active'] ); ?><?php checked( $key, $form_options['captcha'] ); ?> value="<?php echo $key; ?>"/>
 						<?php echo $plugin['name']; ?>
 					</label>
 
