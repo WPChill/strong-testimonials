@@ -639,9 +639,3 @@ td.column-shortcode {
 		width: auto;
 	}
 }
-
-/* checkbox hanging indent */
-.wpm-testimonial_page_testimonial-settings .form-table label {
-	padding-left: 24px;
-	text-indent: -24px;
-}
