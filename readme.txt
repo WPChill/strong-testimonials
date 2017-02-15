@@ -1,6 +1,5 @@
 === Strong Testimonials ===
 Contributors: cdillon27
-Donate link: https://www.wpmission.com/donate/
 Tags: testimonials, testimonial widget, random testimonial, testimonial shortcode, testimonial slider, testimonial form
 Requires at least: 3.6
 Tested up to: 4.7.2
@@ -112,7 +111,7 @@ Activate the plugin. Look for "Testimonials" in the admin menu.
 
 Yes. There is a custom field editor where you can add or remove fields, change field details, and drag-and-drop to reorder them. You can also customize the form error & success messages and the Submit button.
 
-= After the form has been submitted, can I redirect them to another page?
+= After the form has been submitted, can I redirect them to another page? =
 
 Yes.
 
@@ -127,10 +126,6 @@ Yes. You can completely customize the email and send it to multiple recipients, 
 = Can I change which client fields appear below the testimonial? =
 
 Yes. In views, these custom fields can be changed with a few clicks.
-
-= Can I change "testimonial" to "review", for example? =
-
-Maybe. Instructions are [here](https://wordpress.org/support/topic/how-to-change-the-slug). However, this does not seem to work for all theme/plugin combinations so I plan to build this into the plugin soon.
 
 = My theme also includes testimonials. Will that be a problem? =
 
@@ -163,6 +158,8 @@ Yes. This requires a lightbox so if your theme does not include one, you will ne
 * Process shortcodes in the form success message.
 * Fix bug when slideshows are in hidden tabs.
 * Fix bug in edit rating script.
+* Improve Modern template responsive style.
+* Minor refactoring.
 
 = 2.17.5 - Jan 18, 2017 =
 * Fix bug when page has multiple slideshows.
@@ -368,3 +365,7 @@ Yes. This requires a lightbox so if your theme does not include one, you will ne
 * Separate option for a "Read more" link to a page/post.
 * Option to show an indicator bubble for pending testimonials.
 * Include Font Awesome instead of loading via CDN.
+
+== Upgrade Notice ==
+
+Fix minor bugs. New form success redirect options. Clear your caches!
