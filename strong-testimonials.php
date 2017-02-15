@@ -4,7 +4,7 @@
  * Plugin URI: https://www.wpmission.com/plugins/strong-testimonials/
  * Description: A full-featured plugin that works right out of the box for beginners and offers advanced features for pros.
  * Author: Chris Dillon
- * Version: 2.17.5
+ * Version: 2.18
  * Author URI: https://www.wpmission.com/
  * Text Domain: strong-testimonials
  * Domain Path: /languages
@@ -180,12 +180,6 @@ final class Strong_Testimonials {
 			define( 'WPMTST_PUBLIC', plugin_dir_path( __FILE__ ) . 'public/' );
 		if ( ! defined( 'WPMTST_PUBLIC_URL' ) )
 			define( 'WPMTST_PUBLIC_URL', plugin_dir_url( __FILE__ ) . 'public/' );
-
-
-		if ( ! defined( 'WPMTST_COMMON' ) )
-			define( 'WPMTST_COMMON', plugin_dir_path( __FILE__ ) . 'common/' );
-		if ( ! defined( 'WPMTST_COMMON_URL' ) )
-			define( 'WPMTST_COMMON_URL', plugin_dir_url( __FILE__ ) . 'common/' );
 
 
 		if ( ! defined( 'WPMTST_DEF_TPL' ) )
@@ -410,9 +404,11 @@ final class Strong_Testimonials {
 			require_once WPMTST_INC . 'form-handler-functions.php';
 			$success = wpmtst_form_handler();
 			if ( $success ) {
-				$return = array( 'success' => true, 'message' => '<div class="testimonial-success">' . wpmtst_get_form_message( 'submission-success' ) . '</div>' );
-			}
-			else {
+				$return = array(
+					'success' => true,
+					'message' => wpmtst_get_success_message(),
+				);
+			} else {
 				$return = array( 'success' => false, 'errors' => WPMST()->get_form_errors() );
 			}
 			echo json_encode( $return );
@@ -710,6 +706,7 @@ final class Strong_Testimonials {
 	 * @access public
 	 */
 	public function localize_vars() {
+		echo "<!-- wp_footer called -->\n";
 		$vars = $this->script_vars;
 		if ( $vars ) {
 			foreach ( $vars as $var ) {
@@ -730,22 +727,6 @@ final class Strong_Testimonials {
 			return false;
 
 		return true;
-	}
-
-	/**
-	 * Check the content for shortcodes that have been rendered already.
-	 * For some hacky page builders.
-	 *
-	 * @param $content
-	 *
-	 * @return bool
-	 */
-	private function check_content_for_rendered_shortcodes( $content ) {
-		if ( preg_match_all( '/div class=(.*?) (strong-view-id-([0-9]*))/', $content, $matches ) ) {
-			return $matches[3];
-		}
-
-		return false;
 	}
 
 	/**
@@ -1200,10 +1181,21 @@ final class Strong_Testimonials {
 	 */
 	public function process_form() {
 		if ( isset( $_POST['wpmtst_form_nonce'] ) ) {
+			$form_options = get_option( 'wpmtst_form_options' );
 			require_once WPMTST_INC . 'form-handler-functions.php';
 			$success = wpmtst_form_handler();
 			if ( $success ) {
-				$goback = add_query_arg( 'success', 1, wp_get_referer() );
+
+				switch ( $form_options['success_action'] ) {
+					case 'id':
+						$goback = get_permalink( $form_options['success_redirect_id'] );
+						break;
+					case 'url':
+						$goback = $form_options['success_redirect_url'];
+						break;
+					default:
+						$goback = add_query_arg( 'success', 'yes', wp_get_referer() );
+				}
 				wp_redirect( $goback );
 				exit;
 			}
@@ -1346,7 +1338,7 @@ final class Strong_Testimonials {
 			$plugin_info['name'] . ' ' . $plugin_info['version'],
 		);
 
-		echo "\n" . '<!-- versions: ' . implode( ' | ', $comment ) . ' -->' . "\n";
+		echo "<!-- versions: " . implode( ' | ', $comment ) . " -->\n";
 	}
 
 	/**

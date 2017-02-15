@@ -41,7 +41,7 @@ function wpmtst_admin_register() {
 
 	$plugin_version = get_option( 'wpmtst_plugin_version' );
 
-	wp_register_style( 'wpmtst-font-awesome', WPMTST_COMMON_URL . 'fonts/font-awesome-4.6.3/css/font-awesome.min.css', array(), '4.6.3' );
+	wp_register_style( 'wpmtst-font-awesome', WPMTST_PUBLIC_URL . 'fonts/font-awesome-4.6.3/css/font-awesome.min.css', array(), '4.6.3' );
 
 	wp_register_script( 'wpmtst-help', WPMTST_ADMIN_URL . 'js/help.js', array( 'jquery' ), $plugin_version, true );
 
@@ -66,8 +66,8 @@ function wpmtst_admin_register() {
 	wp_localize_script( 'wpmtst-admin-fields-script', 'wpmtstAdmin', $params );
 
 	// Ratings
-	wp_register_style( 'wpmtst-rating-display', WPMTST_COMMON_URL . 'css/rating-display.css', array( 'wpmtst-font-awesome' ), $plugin_version );
-	wp_register_style( 'wpmtst-rating-form', WPMTST_COMMON_URL . 'css/rating-form.css', array( 'wpmtst-font-awesome' ), $plugin_version );
+	wp_register_style( 'wpmtst-rating-display', WPMTST_PUBLIC_URL . 'css/rating-display.css', array( 'wpmtst-font-awesome' ), $plugin_version );
+	wp_register_style( 'wpmtst-rating-form', WPMTST_PUBLIC_URL . 'css/rating-form.css', array( 'wpmtst-font-awesome' ), $plugin_version );
 	wp_register_script( 'wpmtst-rating-script', WPMTST_ADMIN_URL . 'js/rating-edit.js', array( 'jquery' ), $plugin_version, true );
 
 	// Views

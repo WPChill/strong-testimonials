@@ -206,7 +206,7 @@ function wpmtst_view_settings( $action = '', $view_id = null ) {
 				 * @since 2.11.14
 				 */
 				?>
-				<span class="title">Name:</span><input type="text" id="view-name" class="view-name" name="view[name]"
+				<span class="title"><?php _e( 'Name', 'strong-testimonials' ); ?></span><input type="text" id="view-name" class="view-name" name="view[name]"
 					   value="<?php echo htmlspecialchars( stripslashes( $view_name ) ); ?>" tabindex="1">
 			</div>
 		</div>
@@ -226,7 +226,7 @@ function wpmtst_view_settings( $action = '', $view_id = null ) {
 		?>
 
 		<div class="view-info">
-			<div class="form-view-shortcode"><span class="title">Shortcode:</span><?php echo $shortcode; ?></div>
+			<div class="form-view-shortcode"><span class="title"><?php _e( 'Shortcode', 'strong-testimonials' ); ?></span><?php echo $shortcode; ?></div>
 		</div>
 
 		<?php

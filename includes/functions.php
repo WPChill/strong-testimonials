@@ -315,6 +315,9 @@ function wpmtst_cleanup_header_comment( $str ) {
  *
  * @link http://codex.wordpress.org/Function_Reference/get_intermediate_image_sizes
  * @since 1.21.0
+ * @param string $size
+ *
+ * @return array|bool|mixed
  */
 /*
 	wpmtst_get_image_sizes = Array
@@ -747,12 +750,16 @@ add_action( 'post_submitbox_misc_actions', 'wpmtst_post_submitbox_misc_actions' 
  * @return bool
  */
 function wpmtst_is_plugin_active( $name = '' ) {
+	if ( !$name ) {
+		return false;
+	}
+
 	$plugins = array(
 		'wpml'     => 'sitepress-multilingual-cms/sitepress.php',
 		'polylang' => 'polylang/polylang.php'
 	);
 
-	if ( ! $name || ! isset( $plugins['name'] ) ) {
+	if ( !isset( $plugins[ $name ] ) ) {
 		return false;
 	}
 
@@ -824,4 +831,18 @@ function wpmtst_get_background_presets( $preset = null ) {
 		return $presets[ $preset ];
 
 	return false;
+}
+
+/**
+ * Return the form success message.
+ *
+ * @since 2.18.0
+ *
+ * @return mixed|void
+ */
+function wpmtst_get_success_message() {
+	$message = wpautop( do_shortcode( wpmtst_get_form_message( 'submission-success' ) ) );
+	$message = sprintf( '<div class="%s">%s</div>', 'testimonial-success', $message );
+
+	return apply_filters( 'wpmtst_form_success_message', $message );
 }
