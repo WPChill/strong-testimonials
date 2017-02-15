@@ -36,28 +36,40 @@ if ( wpmtst_is_plugin_active( 'polylang' ) ) {
 ?>
 
 <table class="form-table compact" cellpadding="0" cellspacing="0">
-	<?php $messages = $form_options['messages']; ?>
-	<?php foreach ( $messages as $key => $message ) : ?>
+	<?php
+    $messages = $form_options['messages'];
+	foreach ( $messages as $key => $message ):
+        $elid = str_replace( '-', '_', $key );
+        $content = apply_filters( 'wpmtst_l10n', $message['text'], wpmtst_get_l10n_context( 'form-messages' ), $key . ' : text' );
+        ?>
 
         <tr>
             <th scope="row">
-                <?php
-                if ( 'required-field' == $key ) {
-					_e( $messages[ $key ]['description'], 'strong-testimonials' );
-				} else {
-					_ex( $messages[ $key ]['description'], 'description', 'strong-testimonials' );
-				}
-                ?>
-                <input type="hidden" name="wpmtst_form_options[messages][<?php echo $key; ?>][description]" value="<?php esc_attr_e( $messages[$key]['description'] ); ?>"/>
+                <label for="<?php echo $elid; ?>">
+                    <?php _ex( $message['description'], 'description', 'strong-testimonials' ); ?>
+                </label>
+                <input type="hidden" name="wpmtst_form_options[messages][<?php echo $key; ?>][description]"
+                       value="<?php esc_attr_e( $message['description'] ); ?>"/>
             </th>
             <td>
-                <input type="text" id="<?php echo $key; ?>"
-                       name="wpmtst_form_options[messages][<?php echo $key; ?>][text]"
-                       value="<?php echo esc_attr( apply_filters( 'wpmtst_l10n', $messages[$key]['text'], wpmtst_get_l10n_context( 'form-messages' ), $key . ' : text' ) ); ?>" required />
+                <?php if ( 'submission_success' == $elid ): ?>
+				    <?php
+					$settings = array(
+						'textarea_name' => "wpmtst_form_options[messages][$key][text]",
+                        'textarea_rows' => 10,
+					);
+                    wp_editor( $content, $elid, $settings );
+                    ?>
+				<?php else: ?>
+                    <input type="text" id="<?php echo $elid; ?>"
+                           name="wpmtst_form_options[messages][<?php echo $key; ?>][text]"
+                           value="<?php echo esc_attr( $content ); ?>" required />
+                <?php endif; ?>
             </td>
             <td class="actions">
                 <input type="button" class="button secondary restore-default-message"
-                       value="<?php _ex( 'restore default', 'singular', 'strong-testimonials' ); ?>"/>
+                       value="<?php _ex( 'restore default', 'singular', 'strong-testimonials' ); ?>"
+                       data-target-id="<?php echo $elid; ?>"/>
             </td>
         </tr>
 
@@ -67,7 +79,7 @@ if ( wpmtst_is_plugin_active( 'polylang' ) ) {
 		<td colspan="3">
 			<input type="button" id="restore-default-messages" class="button"
                    name="restore-default-messages"
-                   value="<?php _ex( 'Restore Defaults', 'multiple', 'strong-testimonials' ); ?>"/>
+                   value="<?php _e( 'Restore Default Messages', 'strong-testimonials' ); ?>"/>
 		</td>
 	</tr>
 </table>
@@ -103,46 +115,69 @@ if ( wpmtst_is_plugin_active( 'polylang' ) ) {
  * ========================================
  */
 ?>
+<hr>
 <h3><?php _e( 'Form Actions', 'strong-testimonials' ); ?></h3>
 
 <table class="form-table" cellpadding="0" cellspacing="0">
 	<tr>
 		<th scope="row">
-			<?php _e( 'Success Redirect', 'strong-testimonials' ); ?>
+            <label for="redirect-page">
+			    <?php _e( 'Upon Successful Submission', 'strong-testimonials' ); ?>
+            </label>
 		</th>
-		<td>
-            <!-- Select page -->
-            <label>
-                <select id="redirect-page" name="wpmtst_form_options[success_redirect]">
+        <td>
+            <div>
+                <label class="success-action">
+                    <input type="radio" name="wpmtst_form_options[success_action]" value="message" <?php checked( 'message', $form_options['success_action'] ); ?>/> <?php _e( 'display message', 'strong-testimonials' ); ?>
+                </label>
+            </div>
 
-                    <option value=""><?php _e( '&mdash; select &mdash;' ); ?></option>
+            <div>
+                <label class="success-action">
+                    <input type="radio" name="wpmtst_form_options[success_action]" value="id" <?php checked( 'id', $form_options['success_action'] ); ?>/> <?php _e( 'redirect to a page', 'strong-testimonials' ); ?>
+                </label>
+
+                <select id="redirect-page" name="wpmtst_form_options[success_redirect_id]">
+
+                    <option value=""><?php _e( '&mdash; select a page &mdash;' ); ?></option>
 
                     <?php foreach ( $pages_list as $pages ) : ?>
 
-                        <option value="<?php echo $pages->ID; ?>" <?php selected( isset( $form_options['success_redirect'] ) ? $form_options['success_redirect'] : 0, $pages->ID ); ?>>
+                        <option value="<?php echo $pages->ID; ?>" <?php selected( isset( $form_options['success_redirect_id'] ) ? $form_options['success_redirect_id'] : 0, $pages->ID ); ?>>
                             <?php echo $pages->post_title; ?>
                         </option>
 
                     <?php endforeach; ?>
 
                 </select>
-            </label>
 
-            <div style="display: inline-block;">
-                <label for="redirect-page-2">
-                    &nbsp;<?php _ex( 'or enter its ID or slug', 'to select a target page', 'strong-testimonials' ); ?>&nbsp;
-                </label>
-                <input type="text" id="redirect-page-2" name="wpmtst_form_options[success_redirect_2]" size="30"/>
+                <div style="display: inline-block;">
+                    <label>
+                        &nbsp;<?php _ex( 'or enter its ID or slug', 'to select a redirect page', 'strong-testimonials' ); ?>&nbsp;
+                        <input type="text" id="redirect-page-2" name="wpmtst_form_options[success_redirect_2]" size="30"/>
+                    </label>
+                </div>
             </div>
 
-            <p class="description"><?php _e( 'This will override the <strong>Submission Success</strong> message.', 'strong-testimonials' ); ?></p>
+            <div>
+                <label class="success-action">
+                    <input type="radio" name="wpmtst_form_options[success_action]" value="url" <?php checked( 'url', $form_options['success_action'] ); ?>/> <?php _e( 'redirect to a URL', 'strong-testimonials' ); ?>
+                </label>
+                <label>
+                    <input type="text" id="redirect-page-3"
+                           name="wpmtst_form_options[success_redirect_url]"
+                           value="<?php echo $form_options['success_redirect_url']; ?>" size="75"/>
+                </label>
+            </div>
 
 		</td>
 	</tr>
 
 	<tr>
 		<th scope="row">
-			<?php _e( 'Post Status', 'strong-testimonials' ); ?>
+            <label>
+			    <?php _e( 'Post Status', 'strong-testimonials' ); ?>
+            </label>
 		</th>
 		<td>
 			<ul class="compact">
@@ -166,7 +201,9 @@ if ( wpmtst_is_plugin_active( 'polylang' ) ) {
 
 	<tr>
 		<th scope="row" class="tall">
-			<?php _e( 'Notification', 'strong-testimonials' ); ?>
+            <label for="wpmtst-options-admin-notify">
+			    <?php _e( 'Notification', 'strong-testimonials' ); ?>
+            </label>
 		</th>
 
 		<td class="subsection">
@@ -209,12 +246,15 @@ if ( wpmtst_is_plugin_active( 'polylang' ) ) {
  * ========================================
  */
 ?>
+<hr>
 <h3><?php _e( 'Form Spam Control', 'strong-testimonials' );?></h3>
 
 <table class="form-table" cellpadding="0" cellspacing="0">
 	<tr>
 		<th scope="row">
-			<?php _ex( 'Honeypot', 'spam control techniques', 'strong-testimonials' ); ?>
+            <label>
+			    <?php _ex( 'Honeypot', 'spam control techniques', 'strong-testimonials' ); ?>
+            </label>
 		</th>
 		<td>
 			<p><?php _e( 'These methods are both time-tested and widely used. They can be used simultaneously for more protection.', 'strong-testimonials' ); ?></p>
@@ -238,14 +278,16 @@ if ( wpmtst_is_plugin_active( 'polylang' ) ) {
 	</tr>
 	<tr valign="top">
 		<th scope="row">
-			<?php _e( 'Captcha', 'strong-testimonials' ); ?>
+            <label>
+			    <?php _e( 'Captcha', 'strong-testimonials' ); ?>
+            </label>
 		</th>
 		<td class="stackem">
 			<p><?php _e( 'Can be used alongside honeypot methods. Be sure to configure any plugins first, if necessary.', 'strong-testimonials' ); ?></p>
 			<ul>
 				<li>
 					<label>
-						<input type="radio" id="" name="wpmtst_form_options[captcha]" <?php checked( '', $form_options['captcha'] ); ?> value=""/> none
+						<input type="radio" name="wpmtst_form_options[captcha]" <?php checked( '', $form_options['captcha'] ); ?> value=""/> none
 					</label>
 				</li>
 

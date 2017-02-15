@@ -196,12 +196,17 @@ function wpmtst_sanitize_form( $input ) {
 	$input['default_recipient'] = maybe_unserialize( $input['default_recipient'] );
 	$input['email_subject']     = isset( $input['email_subject'] ) ? sanitize_text_field( $input['email_subject'] ) : '';
 	$input['email_message']     = isset( $input['email_message'] ) ? wp_kses_post( $input['email_message'] ) : '';
+
 	$input['honeypot_before']   = isset( $input['honeypot_before'] ) ? 1 : 0;
 	$input['honeypot_after']    = isset( $input['honeypot_after'] ) ? 1 : 0;
 	$input['captcha']           = sanitize_text_field( $input['captcha'] );
 
 	foreach ( $input['messages'] as $key => $message ) {
-		$input['messages'][ $key ]['text'] = wp_kses_data( $message['text'] );
+	    if ( 'submission-success' == $key ) {
+			$input['messages'][ $key ]['text'] = $message['text'];
+		} else {
+			$input['messages'][ $key ]['text'] = wp_kses_data( $message['text'] );
+		}
 	}
 
 	$input['scrolltop_error']          = wpmtst_sanitize_checkbox( $input, 'scrolltop_error' );
@@ -211,37 +216,45 @@ function wpmtst_sanitize_form( $input ) {
 
 	/**
 	 * Success redirect
-     * @since 2.17.6
+     * @since 2.18.0
 	 */
-	// Check the "ID or slug" field first
-	if ( $input['success_redirect_2'] ) {
 
-		// is post ID?
-		$id = sanitize_text_field( $input['success_redirect_2'] );
-		if ( is_numeric( $id ) ) {
-			if ( !get_posts( array( 'p' => $id, 'post_type' => array( 'page' ), 'post_status' => 'publish' ) ) ) {
-				$id = null;
-			}
-		} else {
-			// is post slug?
-			$target = get_posts( array( 'name' => $id, 'post_type' => array( 'page' ), 'post_status' => 'publish' ) );
-			if ( $target ) {
-				$id = $target[0]->ID;
-			}
-		}
+	$input['success_action'] = sanitize_text_field( $input['success_action'] );
 
-		if ( $id ) {
-			$input['success_redirect'] = $id;
-		}
-
-
+	if ( filter_var( $input['success_redirect_url'], FILTER_VALIDATE_URL ) ) {
+		$input['success_redirect_url'] = wp_validate_redirect( $input['success_redirect_url'] );
 	} else {
-
-		if ( $input['success_redirect'] ) {
-			$input['success_redirect'] = (int) sanitize_text_field( $input['success_redirect'] );
-		}
-
+		$input['success_redirect_url'] = '';
 	}
+
+	// Check the "ID or slug" field next
+    if ( isset( $input['success_redirect_2']) && $input['success_redirect_2'] ) {
+
+        // is post ID?
+        $id = sanitize_text_field( $input['success_redirect_2'] );
+        if ( is_numeric( $id ) ) {
+            if ( ! get_posts( array( 'p' => $id, 'post_type' => array( 'page' ), 'post_status' => 'publish' ) ) ) {
+                $id = null;
+            }
+        } else {
+            // is post slug?
+            $target = get_posts( array( 'name' => $id, 'post_type' => array( 'page' ), 'post_status' => 'publish' ) );
+            if ( $target ) {
+                $id = $target[0]->ID;
+            }
+        }
+
+        if ( $id ) {
+            $input['success_redirect_id'] = $id;
+        }
+
+    } else {
+
+        if ( isset( $input['success_redirect_id'] ) ) {
+            $input['success_redirect_id'] = (int) sanitize_text_field( $input['success_redirect_id'] );
+        }
+
+    }
 
     unset( $input['success_redirect_2'] );
 	ksort( $input );
@@ -383,7 +396,7 @@ add_action( 'wp_ajax_wpmtst_restore_default_messages', 'wpmtst_restore_default_m
  * @since 1.13
  */
 function wpmtst_restore_default_message_function() {
-	$input = $_REQUEST['field'];
+	$input = str_replace( '_', '-', $_REQUEST['field'] );
 	// hard restore from file
 	include_once WPMTST_INC . 'defaults.php';
 	$default_form_options = wpmtst_get_default_form_options();

@@ -410,9 +410,11 @@ final class Strong_Testimonials {
 			require_once WPMTST_INC . 'form-handler-functions.php';
 			$success = wpmtst_form_handler();
 			if ( $success ) {
-				$return = array( 'success' => true, 'message' => '<div class="testimonial-success">' . wpmtst_get_form_message( 'submission-success' ) . '</div>' );
-			}
-			else {
+				$return = array(
+					'success' => true,
+					'message' => wpmtst_get_success_message(),
+				);
+			} else {
 				$return = array( 'success' => false, 'errors' => WPMST()->get_form_errors() );
 			}
 			echo json_encode( $return );
@@ -1189,11 +1191,16 @@ final class Strong_Testimonials {
 			require_once WPMTST_INC . 'form-handler-functions.php';
 			$success = wpmtst_form_handler();
 			if ( $success ) {
-				$success_redirect = isset( $form_options['success_redirect'] ) ? $form_options['success_redirect'] : false;
-				if ( $success_redirect ) {
-					$goback = get_permalink( $success_redirect );
-				} else {
-					$goback = add_query_arg( 'success', 1, wp_get_referer() );
+
+				switch ( $form_options['success_action'] ) {
+					case 'id':
+						$goback = get_permalink( $form_options['success_redirect_id'] );
+						break;
+					case 'url':
+						$goback = $form_options['success_redirect_url'];
+						break;
+					default:
+						$goback = add_query_arg( 'success', 'yes', wp_get_referer() );
 				}
 				wp_redirect( $goback );
 				exit;

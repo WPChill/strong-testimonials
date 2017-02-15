@@ -350,7 +350,7 @@ function wpmtst_get_default_form_options() {
 		'required-field'     => array(
 			'order'       => 1,
 			/* translators: Settings > Forms > Messages tab */
-			'description' => __( 'Required field', 'strong-testimonials' ),
+			'description' => __( 'Required Field', 'strong-testimonials' ),
 			/* translators: Default message for required field message at top of form. */
 			'text'        => __( 'Required Field', 'strong-testimonials' ),
 		),
@@ -417,12 +417,9 @@ function wpmtst_get_default_form_options() {
 		'scrolltop_success_offset' => 40,
 		'scrolltop_error'          => true,
 		'scrolltop_error_offset'   => 40,
-
-		/**
-		 * Success redirect
-		 * @since 2.17.6
-		 */
-		'success_redirect'         => '',
+		'success_action'           => 'message', // id | url
+		'success_redirect_id'      => '',
+		'success_redirect_url'     => '',
 	);
 
 	return $default_form_options;

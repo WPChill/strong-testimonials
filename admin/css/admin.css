@@ -216,24 +216,25 @@ div.radio:hover {
 	display: inline-block;
 }
 
-/* compact */
-
-.wpmtst .form-table.compact th,
-.wpmtst .form-table.compact td {
-	border-top: none;
-	border-bottom: none;
-	padding: 5px 10px 5px 0;
-	vertical-align: middle;
+.wpmtst label.success-action {
+	display: inline-block;
+	width: 11em;
+	padding: 10px 0;
 }
 
-.wpmtst .form-table.compact tr:first-child th,
-.wpmtst .form-table.compact tr:first-child td {
-	padding-top: 10px;
+/* compact */
+
+.wpmtst .form-table.compact th {
+	vertical-align: top;
+}
+
+.wpmtst .form-table.compact td {
+	vertical-align: middle;
 }
 
 .wpmtst .form-table.compact td:nth-child(3) {
 	width: 100px;
-	padding-left: 10px;
+	vertical-align: top;
 }
 
 .wpmtst .form-table.compact td:nth-child(3) input.button {
