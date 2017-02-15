@@ -209,6 +209,43 @@ function wpmtst_sanitize_form( $input ) {
 	$input['scrolltop_success']        = wpmtst_sanitize_checkbox( $input, 'scrolltop_success' );
 	$input['scrolltop_success_offset'] = intval( sanitize_text_field( $input['scrolltop_success_offset'] ) );
 
+	/**
+	 * Success redirect
+     * @since 2.17.6
+	 */
+	// Check the "ID or slug" field first
+	if ( $input['success_redirect_2'] ) {
+
+		// is post ID?
+		$id = sanitize_text_field( $input['success_redirect_2'] );
+		if ( is_numeric( $id ) ) {
+			if ( !get_posts( array( 'p' => $id, 'post_type' => array( 'page' ), 'post_status' => 'publish' ) ) ) {
+				$id = null;
+			}
+		} else {
+			// is post slug?
+			$target = get_posts( array( 'name' => $id, 'post_type' => array( 'page' ), 'post_status' => 'publish' ) );
+			if ( $target ) {
+				$id = $target[0]->ID;
+			}
+		}
+
+		if ( $id ) {
+			$input['success_redirect'] = $id;
+		}
+
+
+	} else {
+
+		if ( $input['success_redirect'] ) {
+			$input['success_redirect'] = (int) sanitize_text_field( $input['success_redirect'] );
+		}
+
+	}
+
+    unset( $input['success_redirect_2'] );
+	ksort( $input );
+
 	return $input;
 }
 

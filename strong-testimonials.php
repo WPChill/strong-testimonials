@@ -1185,10 +1185,16 @@ final class Strong_Testimonials {
 	 */
 	public function process_form() {
 		if ( isset( $_POST['wpmtst_form_nonce'] ) ) {
+			$form_options = get_option( 'wpmtst_form_options' );
 			require_once WPMTST_INC . 'form-handler-functions.php';
 			$success = wpmtst_form_handler();
 			if ( $success ) {
-				$goback = add_query_arg( 'success', 1, wp_get_referer() );
+				$success_redirect = isset( $form_options['success_redirect'] ) ? $form_options['success_redirect'] : false;
+				if ( $success_redirect ) {
+					$goback = get_permalink( $success_redirect );
+				} else {
+					$goback = add_query_arg( 'success', 1, wp_get_referer() );
+				}
 				wp_redirect( $goback );
 				exit;
 			}

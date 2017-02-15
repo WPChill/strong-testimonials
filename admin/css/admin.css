@@ -231,11 +231,6 @@ div.radio:hover {
 	padding-top: 10px;
 }
 
-.wpmtst .form-table.compact tr:last-child th,
-.wpmtst .form-table.compact tr:last-child td {
-	padding-bottom: 10px;
-}
-
 .wpmtst .form-table.compact td:nth-child(3) {
 	width: 100px;
 	padding-left: 10px;

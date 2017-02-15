@@ -5,6 +5,8 @@
  * @package Strong_Testimonials
  * @since 1.13
  */
+
+$pages_list = wpmtst_get_pages();
 ?>
 <input type="hidden" name="wpmtst_form_options[default_recipient]" value="<?php echo htmlentities( serialize( $form_options['default_recipient'] ) ); ?>">
 
@@ -61,6 +63,30 @@ if ( wpmtst_is_plugin_active( 'polylang' ) ) {
 	</tr>
 </table>
 
+<table class="form-table" cellpadding="0" cellspacing="0">
+    <tr>
+        <th scope="row" class="tall">
+			<?php _e( 'Scroll', 'strong-testimonials' ); ?>
+        </th>
+        <td>
+            <fieldset>
+                <div>
+                    <label>
+                        <input type="checkbox" name="wpmtst_form_options[scrolltop_error]" <?php checked( $form_options['scrolltop_error'] ); ?>>
+						<?php printf( __( 'If errors, scroll to the first error minus %s pixels. On by default.', 'strong-testimonials' ), '<input type="text" name="wpmtst_form_options[scrolltop_error_offset]" value="' . $form_options['scrolltop_error_offset'] . '" size="3">' ); ?>
+                    </label>
+                </div>
+                <div>
+                    <label class="block">
+                        <input type="checkbox" name="wpmtst_form_options[scrolltop_success]" <?php checked( $form_options['scrolltop_success'] ); ?>>
+						<?php printf( __( 'If success, scroll to the success message minus %s pixels. On by default.', 'strong-testimonials' ), '<input type="text" name="wpmtst_form_options[scrolltop_success_offset]" value="' . $form_options['scrolltop_success_offset'] . '" size="3">' ); ?>
+                    </label>
+                </div>
+            </fieldset>
+        </td>
+    </tr>
+</table>
+
 <?php
 /**
  * ========================================
@@ -73,7 +99,41 @@ if ( wpmtst_is_plugin_active( 'polylang' ) ) {
 <table class="form-table" cellpadding="0" cellspacing="0">
 	<tr>
 		<th scope="row">
-			<?php _e( 'Post status', 'strong-testimonials' ); ?>
+			<?php _e( 'Success Redirect', 'strong-testimonials' ); ?>
+		</th>
+		<td>
+            <!-- Select page -->
+            <label>
+                <select id="redirect-page" name="wpmtst_form_options[success_redirect]">
+
+                    <option value=""><?php _e( '&mdash; select &mdash;' ); ?></option>
+
+                    <?php foreach ( $pages_list as $pages ) : ?>
+
+                        <option value="<?php echo $pages->ID; ?>" <?php selected( isset( $form_options['success_redirect'] ) ? $form_options['success_redirect'] : 0, $pages->ID ); ?>>
+                            <?php echo $pages->post_title; ?>
+                        </option>
+
+                    <?php endforeach; ?>
+
+                </select>
+            </label>
+
+            <div style="display: inline-block;">
+                <label for="redirect-page-2">
+                    &nbsp;<?php _ex( 'or enter its ID or slug', 'to select a target page', 'strong-testimonials' ); ?>&nbsp;
+                </label>
+                <input type="text" id="redirect-page-2" name="wpmtst_form_options[success_redirect_2]" size="30">
+            </div>
+
+            <p class="description"><?php _e( 'This will override the <strong>Submission Success</strong> message.', 'strong-testimonials' ); ?></p>
+
+		</td>
+	</tr>
+
+	<tr>
+		<th scope="row">
+			<?php _e( 'Post Status', 'strong-testimonials' ); ?>
 		</th>
 		<td>
 			<ul class="compact">
@@ -90,28 +150,6 @@ if ( wpmtst_is_plugin_active( 'polylang' ) ) {
 					</label>
 				</li>
 			</ul>
-		</td>
-	</tr>
-
-	<tr>
-		<th scope="row" class="tall">
-			<?php _e( 'Scroll', 'strong-testimonials' ); ?>
-		</th>
-		<td>
-			<fieldset>
-                <div>
-                    <label>
-                        <input type="checkbox" name="wpmtst_form_options[scrolltop_error]" <?php checked( $form_options['scrolltop_error'] ); ?>>
-                        <?php printf( __( 'If errors, scroll to the first error minus %s pixels. On by default.', 'strong-testimonials' ), '<input type="text" name="wpmtst_form_options[scrolltop_error_offset]" value="' . $form_options['scrolltop_error_offset'] . '" size="3">' ); ?>
-                    </label>
-                </div>
-                <div>
-                    <label class="block">
-                        <input type="checkbox" name="wpmtst_form_options[scrolltop_success]" <?php checked( $form_options['scrolltop_success'] ); ?>>
-                        <?php printf( __( 'If success, scroll to the success message minus %s pixels. On by default.', 'strong-testimonials' ), '<input type="text" name="wpmtst_form_options[scrolltop_success_offset]" value="' . $form_options['scrolltop_success_offset'] . '" size="3">' ); ?>
-                    </label>
-                </div>
-			</fieldset>
 		</td>
 	</tr>
 

@@ -352,33 +352,33 @@ function wpmtst_get_default_form_options() {
 			/* translators: Settings > Forms > Messages tab */
 			'description' => __( 'Required field', 'strong-testimonials' ),
 			/* translators: Default message for required field message at top of form. */
-			'text'        => __( 'Required field', 'strong-testimonials' ),
+			'text'        => __( 'Required Field', 'strong-testimonials' ),
 		),
 		'captcha'            => array(
 			'order'       => 2,
 			/* translators: Settings > Forms > Messages tab */
-			'description' => _x( 'Captcha label', 'description', 'strong-testimonials' ),
+			'description' => _x( 'Captcha Label', 'description', 'strong-testimonials' ),
 			/* translators: Default label for Captcha field on submission form. */
 			'text'        => _x( 'Captcha', 'strong-testimonials' ),
 		),
 		'form-submit-button' => array(
 			'order'       => 3,
 			/* translators: Settings > Forms > Messages tab */
-			'description' => _x( 'Submit button', 'description', 'strong-testimonials' ),
+			'description' => _x( 'Submit Button', 'description', 'strong-testimonials' ),
 			/* translators: Default label for the Submit button on testimonial form. */
 			'text'        => _x( 'Add Testimonial', 'the Submit button', 'strong-testimonials' ),
 		),
 		'submission-error'   => array(
 			'order'       => 4,
 			/* translators: Settings > Forms > Messages tab */
-			'description' => _x( 'Submission error', 'description', 'strong-testimonials' ),
+			'description' => _x( 'Submission Error', 'description', 'strong-testimonials' ),
 			/* translators: Default message for submission form error. */
 			'text'        => _x( 'There was a problem processing your testimonial.', 'error message', 'strong-testimonials' ),
 		),
 		'submission-success' => array(
 			'order'       => 5,
 			/* translators: Settings > Forms > Messages tab */
-			'description' => _x( 'Submission success', 'description', 'strong-testimonials' ),
+			'description' => _x( 'Submission Success', 'description', 'strong-testimonials' ),
 			/* translators: Default message for submission form success message. */
 			'text'        => _x( 'Thank you! Your testimonial is awaiting moderation.', 'success message', 'strong-testimonials' ),
 		),
@@ -417,6 +417,12 @@ function wpmtst_get_default_form_options() {
 		'scrolltop_success_offset' => 40,
 		'scrolltop_error'          => true,
 		'scrolltop_error_offset'   => 40,
+
+		/**
+		 * Success redirect
+		 * @since 2.17.6
+		 */
+		'success_redirect'         => '',
 	);
 
 	return $default_form_options;
