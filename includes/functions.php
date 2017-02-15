@@ -747,12 +747,16 @@ add_action( 'post_submitbox_misc_actions', 'wpmtst_post_submitbox_misc_actions' 
  * @return bool
  */
 function wpmtst_is_plugin_active( $name = '' ) {
+	if ( !$name ) {
+		return false;
+	}
+
 	$plugins = array(
 		'wpml'     => 'sitepress-multilingual-cms/sitepress.php',
 		'polylang' => 'polylang/polylang.php'
 	);
 
-	if ( ! $name || ! isset( $plugins['name'] ) ) {
+	if ( !isset( $plugins[ $name ] ) ) {
 		return false;
 	}
 
