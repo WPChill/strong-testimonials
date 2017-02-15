@@ -27,6 +27,10 @@
 
 		<h2><?php _e( 'What\'s new' ); ?></h2>
 
+        <p><span class="dashicons dashicons-external"></span><?php _e( 'Form success redirect options.', 'strong-testimonials' ); ?></p>
+
+        <p><span class="dashicons dashicons-editor-kitchensink"></span><?php _e( 'Form success message editor.', 'strong-testimonials' ); ?></p>
+
 		<p><span class="dashicons dashicons-controls-play"></span><?php _e( 'More slideshow options.', 'strong-testimonials' ); ?></p>
 
 		<p><span class="dashicons dashicons-star-filled"></span><?php _e( 'Star ratings.', 'strong-testimonials' ); ?></p>
@@ -54,12 +58,6 @@
 	<div class="section">
 
 		<h2><?php _e( 'Troubleshooting' ); ?></h2>
-
-		<h3><?php _e( 'Try clearing your caches' ); ?></h3>
-
-		<p><?php _e( 'Why? CSS and JavaScript files change occasionally. The plugin tries to load the latest version of each file but sometimes caches still need to be cleared. That includes caching and minifying plugins, server-side caching, and your individual browsers.', 'strong-testimonials' ); ?></p>
-
-		<p><?php _e( '<strong>Pro Tip:</strong> Make it a habit to clear your caches after updating any plugin with front-end output.', 'strong-testimonials' ); ?></p>
 
 		<h3><?php _e( 'Upgrading from version 1?', 'strong-testimonials' ); ?></h3>
 
