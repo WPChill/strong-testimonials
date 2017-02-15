@@ -158,6 +158,9 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
   padding: 30px;
   text-align: center;
 }
+.strong-view.modern .testimonial-heading {
+  font-weight: 700;
+}
 .strong-view.modern .testimonial-content {
   color: #434343;
   margin: 0 56px;
@@ -291,13 +294,13 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
 
 /* Responsive
 -----------------------------------------------*/
-@media only screen and (max-width: 320px) {
+@media only screen and (max-width: 480px) {
   .strong-view.modern .testimonial-inner {
     padding: 15px;
   }
-
   .strong-view.modern .testimonial-content {
     margin: 0;
+    font-size: 1.1em;
     /* move quotes from left/right to top/bottom */
   }
   .strong-view.modern .testimonial-content:before {
@@ -309,5 +312,8 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
     position: static;
     float: right;
     margin-top: 10px;
+  }
+  .strong-view.modern .testimonial-name {
+    font-size: 1.1em;
   }
 }
