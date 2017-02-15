@@ -3,8 +3,8 @@ Contributors: cdillon27
 Donate link: https://www.wpmission.com/donate/
 Tags: testimonials, testimonial widget, random testimonial, testimonial shortcode, testimonial slider, testimonial form
 Requires at least: 3.6
-Tested up to: 4.7.1
-Stable tag: 2.17.5
+Tested up to: 4.7.2
+Stable tag: 2.18
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -14,7 +14,7 @@ A full-featured testimonials plugin that works right out of the box for beginner
 
 All the features you need to quickly add and customize testimonials on your site.
 
-[See demos of various templates, slideshows, and forms here.](http://demos.wpmission.com/strong-testimonials/)
+> [See demos of the display, slideshow, and form options here!](http://demos.wpmission.com/strong-testimonials/)
 
 = Is this the right plugin for you? =
 It's important to understand this plugin's intended use case: A small business with up to a few hundred testimonials, maybe organized into multiple categories, and displaying them a few different ways like a full page of testimonials and a slideshow widget, plus a form for accepting new testimonials.
@@ -112,6 +112,10 @@ Activate the plugin. Look for "Testimonials" in the admin menu.
 
 Yes. There is a custom field editor where you can add or remove fields, change field details, and drag-and-drop to reorder them. You can also customize the form error & success messages and the Submit button.
 
+= After the form has been submitted, can I redirect them to another page?
+
+Yes.
+
 = I want to use categories. Can I add a category selector to the submission form? =
 
 Yes. After setting up your categories, you can add a category dropdown or checklist to the form.
@@ -152,6 +156,13 @@ Yes. This requires a lightbox so if your theme does not include one, you will ne
 8. View editor
 
 == Changelog ==
+
+= 2.18 =
+* Add form success redirect options.
+* Add visual editor (TinyMCE) to the form success message.
+* Process shortcodes in the form success message.
+* Fix bug when slideshows are in hidden tabs.
+* Fix bug in edit rating script.
 
 = 2.17.5 - Jan 18, 2017 =
 * Fix bug when page has multiple slideshows.
