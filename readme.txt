@@ -4,7 +4,7 @@ Donate link: https://www.wpmission.com/donate/
 Tags: testimonials, testimonial widget, random testimonial, testimonial shortcode, testimonial slider, testimonial form
 Requires at least: 3.6
 Tested up to: 4.7.1
-Stable tag: 2.17.4
+Stable tag: 2.17.5
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -152,6 +152,9 @@ Yes. This requires a lightbox so if your theme does not include one, you will ne
 8. View editor
 
 == Changelog ==
+
+= 2.17.5 - Jan 18, 2017 =
+* Fix bug when page has multiple slideshows.
 
 = 2.17.4 - Jan 17, 2017 =
 * Fix bug in form Ajax.

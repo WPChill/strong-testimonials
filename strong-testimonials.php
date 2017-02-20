@@ -4,7 +4,7 @@
  * Plugin URI: https://www.wpmission.com/plugins/strong-testimonials/
  * Description: A full-featured plugin that works right out of the box for beginners and offers advanced features for pros.
  * Author: Chris Dillon
- * Version: 2.17.4
+ * Version: 2.17.5
  * Author URI: https://www.wpmission.com/
  * Text Domain: strong-testimonials
  * Domain Path: /languages
@@ -694,10 +694,10 @@ final class Strong_Testimonials {
 	 * @param string $var_name The script variable name.
 	 * @param string $var The script variable.
 	 *
-	 * @since 2.17.4 Using script handle as key to avoid duplicate variables.
+	 * @since 2.17.5 Using variable name as key to avoid duplicate variables.
 	 */
 	public function add_script_var( $script_name, $var_name, $var ) {
-		$this->script_vars[ $script_name ] = array(
+		$this->script_vars[ $var_name ] = array(
 			'script_name' => $script_name,
 			'var_name'    => $var_name,
 			'var'         => $var,
