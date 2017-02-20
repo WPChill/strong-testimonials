@@ -87,7 +87,11 @@ class WPMTST_Plugin_Updater {
 
 				$license_data = json_decode( wp_remote_retrieve_body( $response ) );
 
-				if ( false === $license_data->success ) {
+				if ( !isset( $license_data->success ) ) {
+
+					$message = __( 'An error occurred, please contact support.' );
+
+				} elseif ( false === $license_data->success ) {
 
 					switch( $license_data->error ) {
 

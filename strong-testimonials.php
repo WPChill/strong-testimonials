@@ -193,7 +193,7 @@ final class Strong_Testimonials {
 		// This is the URL our updater / license checker pings. This should be the URL of the site with EDD installed.
 		if ( ! defined( 'WPMISSION_STORE_URL' ) ) {
 			if ( '127.0.0.1' == $_SERVER['SERVER_ADDR'] ) {
-				define( 'WPMISSION_STORE_URL', 'http://wpmission.dev' );
+				define( 'WPMISSION_STORE_URL', 'http://store.wpmission.dev' );
 			} else {
 				define( 'WPMISSION_STORE_URL', 'https://www.wpmission.com' );
 			}

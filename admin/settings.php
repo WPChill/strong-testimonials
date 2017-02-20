@@ -53,23 +53,24 @@ add_action( 'admin_init', 'wpmtst_register_settings' );
 /**
  * Sanitize licenses.
  *
- * @param $new
+ * @param $new_licenses
  *
  * @return mixed
  */
-function wpmtst_sanitize_licenses( $new ) {
-	$old = get_option( 'wpmtst_addons' );
+function wpmtst_sanitize_licenses( $new_licenses ) {
+	$old_licenses = get_option( 'wpmtst_addons' );
 	// Check existence. May have been erased by Reset plugin.
-	if ( $old ) {
-		foreach ( $new as $addon => $addon_info ) {
-			$old_license = isset( $old[ $addon ]['license'] ) ? $old[ $addon ]['license'] : '';
-			if ( $old_license['key'] && $old_license['key'] != $addon_info['license']['key'] ) {
+	if ( $old_licenses ) {
+		foreach ( $new_licenses as $addon => $new_info ) {
+			$old_license = isset( $old_licenses[ $addon ]['license'] ) ? $old_licenses[ $addon ]['license'] : '';
+			if ( isset( $old_license['key'] ) && $old_license['key'] != $new_info['license']['key'] ) {
 				// new license has been entered, so must reactivate
-				unset( $new[ $addon ]['license']['status'] );
+				unset( $new_licenses[ $addon ]['license']['status'] );
 			}
 		}
 	}
-	return $new;
+
+	return $new_licenses;
 }
 
 
