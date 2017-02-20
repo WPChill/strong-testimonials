@@ -4,14 +4,14 @@
  * Plugin URI: https://www.wpmission.com/plugins/strong-testimonials/
  * Description: A full-featured plugin that works right out of the box for beginners and offers advanced features for pros.
  * Author: Chris Dillon
- * Version: 2.17.3
+ * Version: 2.17.4
  * Author URI: https://www.wpmission.com/
  * Text Domain: strong-testimonials
  * Domain Path: /languages
  * Requires: 3.6 or higher
  * License: GPLv3 or later
  *
- * Copyright 2014 Chris Dillon chris@wpmission.com
+ * Copyright 2014-2017 Chris Dillon chris@wpmission.com
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -532,7 +532,7 @@ final class Strong_Testimonials {
 			'excerpt'            => '',
 			'excerpt_length'     => 55,
 			'form'               => '',
-			'form-ajax'          => 0,
+			'form_ajax'          => 0,
 			'gravatar'           => 'no',
 			'id'                 => '',
 			'layout'             => '',
@@ -679,27 +679,29 @@ final class Strong_Testimonials {
 	/**
 	 * Add a script handle for enqueueing.
 	 *
-	 * @access private
-	 *
 	 * @param string $script_name The script handle.
+	 *
+	 * @since 2.17.4 Using script handle as key.
 	 */
 	public function add_script( $script_name ) {
-		if ( ! in_array( $script_name, $this->scripts ) ) {
-			$this->scripts[] = $script_name;
-		}
+		$this->scripts[ $script_name ] = $script_name;
 	}
 
 	/**
 	 * Add a script variable for localizing.
 	 *
-	 * @access private
-	 *
 	 * @param string $script_name The script handle.
 	 * @param string $var_name The script variable name.
 	 * @param string $var The script variable.
+	 *
+	 * @since 2.17.4 Using script handle as key to avoid duplicate variables.
 	 */
 	public function add_script_var( $script_name, $var_name, $var ) {
-		$this->script_vars[] = array( 'script_name' => $script_name, 'var_name' => $var_name, 'var' => $var );
+		$this->script_vars[ $script_name ] = array(
+			'script_name' => $script_name,
+			'var_name'    => $var_name,
+			'var'         => $var,
+		);
 	}
 
 	/**

@@ -3,8 +3,8 @@ Contributors: cdillon27
 Donate link: https://www.wpmission.com/donate/
 Tags: testimonials, testimonial widget, random testimonial, testimonial shortcode, testimonial slider, testimonial form
 Requires at least: 3.6
-Tested up to: 4.7
-Stable tag: 2.17.3
+Tested up to: 4.7.1
+Stable tag: 2.17.4
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -15,8 +15,6 @@ A full-featured testimonials plugin that works right out of the box for beginner
 All the features you need to quickly add and customize testimonials on your site.
 
 [See demos of various templates, slideshows, and forms here.](http://demos.wpmission.com/strong-testimonials/)
-
-[Try Strong Testimonials on **Postonomy** for a complete back to front demo!](https://postonomy.com/demo/strong-testimonials/)
 
 = Is this the right plugin for you? =
 It's important to understand this plugin's intended use case: A small business with up to a few hundred testimonials, maybe organized into multiple categories, and displaying them a few different ways like a full page of testimonials and a slideshow widget, plus a form for accepting new testimonials.
@@ -142,7 +140,21 @@ Yes. With some HTML and CSS knowledge, you can copy any template to your theme a
 
 Yes. This requires a lightbox so if your theme does not include one, you will need a plugin like [Simple Colorbox](https://wordpress.org/plugins/simple-colorbox/).
 
+== Screenshots ==
+
+1. Slideshow
+2. Default template
+3. Default form
+4. Admin list table
+5. General settings
+6. Form settings
+7. Fields editor
+8. View editor
+
 == Changelog ==
+
+= 2.17.4 - Jan 17, 2017 =
+* Fix bug in form Ajax.
 
 = 2.17.3 - Dec 28, 2016 =
 * Fix bug that allowed unsanitized custom field names.
@@ -342,5 +354,3 @@ Yes. This requires a lightbox so if your theme does not include one, you will ne
 * Separate option for a "Read more" link to a page/post.
 * Option to show an indicator bubble for pending testimonials.
 * Include Font Awesome instead of loading via CDN.
-
-
