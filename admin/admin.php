@@ -898,3 +898,42 @@ function wpmtst_restore_default_icon( $for ) {
 		   data-for="<?php echo $for; ?>"/>
 	<?php
 }
+
+
+/**
+ * Build list of supported Captcha plugins.
+ *
+ * TODO - Move this to options array and add filter
+ */
+function wpmtst_get_captcha_plugins() {
+	$plugins = array(
+		'bwsmath' => array(
+			'name'      => 'Captcha by BestWebSoft',
+			'file'      => 'captcha/captcha.php',
+			'settings'  => 'admin.php?page=captcha.php',
+			'search'    => 'plugin-install.php?tab=search&s=Captcha',
+			'url'       => 'http://wordpress.org/plugins/captcha/',
+			'installed' => false,
+			'active'    => false,
+		),
+		'miyoshi' => array(
+			'name'      => 'Really Simple Captcha by Takayuki Miyoshi',
+			'file'      => 'really-simple-captcha/really-simple-captcha.php',
+			'search'    => 'plugin-install.php?tab=search&s=Really+Simple+Captcha',
+			'url'       => 'http://wordpress.org/plugins/really-simple-captcha/',
+			'installed' => false,
+			'active'    => false,
+		),
+		'advnore' => array(
+			'name'      => 'Advanced noCaptcha reCaptcha by Shamim Hasan',
+			'file'      => 'advanced-nocaptcha-recaptcha/advanced-nocaptcha-recaptcha.php',
+			'settings'  => 'admin.php?page=anr-admin-settings',
+			'search'    => 'plugin-install.php?tab=search&s=Advanced+noCaptcha+reCaptcha',
+			'url'       => 'http://wordpress.org/plugins/advanced-nocaptcha-recaptcha',
+			'installed' => false,
+			'active'    => false,
+		),
+	);
+
+	return $plugins;
+}

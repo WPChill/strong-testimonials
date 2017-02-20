@@ -5,42 +5,9 @@
  * @package Strong_Testimonials
  * @since 1.13
  */
-$pages_list = wpmtst_get_pages();
+$pages_list   = wpmtst_get_pages();
 $form_options = get_option( 'wpmtst_form_options' );
-
-/**
- * Build list of supported Captcha plugins.
- *
- * TODO - Move this to options array and add filter
- */
-$plugins = array(
-	'bwsmath' => array(
-		'name'      => 'Captcha by BestWebSoft',
-		'file'      => 'captcha/captcha.php',
-		'settings'  => 'admin.php?page=captcha.php',
-		'search'    => 'plugin-install.php?tab=search&s=Captcha',
-		'url'       => 'http://wordpress.org/plugins/captcha/',
-		'installed' => false,
-		'active'    => false,
-	),
-	'miyoshi' => array(
-		'name'      => 'Really Simple Captcha by Takayuki Miyoshi',
-		'file'      => 'really-simple-captcha/really-simple-captcha.php',
-		'search'    => 'plugin-install.php?tab=search&s=Really+Simple+Captcha',
-		'url'       => 'http://wordpress.org/plugins/really-simple-captcha/',
-		'installed' => false,
-		'active'    => false,
-	),
-	'advnore' => array(
-		'name'      => 'Advanced noCaptcha reCaptcha by Shamim Hasan',
-		'file'      => 'advanced-nocaptcha-recaptcha/advanced-nocaptcha-recaptcha.php',
-		'settings'  => 'admin.php?page=anr-admin-settings',
-		'search'    => 'plugin-install.php?tab=search&s=Advanced+noCaptcha+reCaptcha',
-		'url'       => 'http://wordpress.org/plugins/advanced-nocaptcha-recaptcha',
-		'installed' => false,
-		'active'    => false,
-	),
-);
+$plugins      = wpmtst_get_captcha_plugins();
 
 foreach ( $plugins as $key => $plugin ) {
 
@@ -61,6 +28,13 @@ foreach ( $plugins as $key => $plugin ) {
 ?>
 <input type="hidden" name="wpmtst_form_options[default_recipient]" value="<?php echo htmlentities( serialize( $form_options['default_recipient'] ) ); ?>">
 
+<?php
+/**
+ * ========================================
+ * Labels & Messages
+ * ========================================
+ */
+?>
 <h2><?php _e( 'Form Labels & Messages', 'strong-testimonials' ); ?></h2>
 
 <?php
