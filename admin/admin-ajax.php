@@ -6,7 +6,6 @@
  * @since 2.12.0
  */
 function wpmtst_ajax_edit_rating() {
-	q2($_POST);
 	$message  = '';
 	$post_id  = isset( $_POST['post_id'] ) ? (int) $_POST['post_id'] : 0;
 	$rating   = isset( $_POST['rating'] ) ? (int) $_POST['rating'] : 0;

@@ -3,9 +3,9 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 /**
- * Class WPMTST_Plugin_Updater
+ * Class Strong_Plugin_Updater
  */
-class WPMTST_Plugin_Updater {
+class Strong_Plugin_Updater {
 
 	public function __construct() {
 
@@ -211,4 +211,4 @@ class WPMTST_Plugin_Updater {
 
 }
 
-new WPMTST_Plugin_Updater();
+new Strong_Plugin_Updater();

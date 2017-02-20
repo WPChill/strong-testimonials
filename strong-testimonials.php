@@ -277,7 +277,7 @@ final class Strong_Testimonials {
 			if ( !class_exists( 'EDD_SL_Plugin_Updater' ) ) {
 				include WPMTST_INC . 'edd/EDD_SL_Plugin_Updater.php';
 			}
-			include WPMTST_INC . 'edd/WPMTST_Plugin_Updater.php';
+			include WPMTST_INC . 'edd/Strong_Plugin_Updater.php';
 		}
 	}
 
