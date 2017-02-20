@@ -56,6 +56,7 @@ jQuery(document).ready(function($) {
 					});
 				}
 
+				revert_e = new_rating;
 				ratingForm.hide();
 				ratingDisplay.showInlineBlock();
 			});

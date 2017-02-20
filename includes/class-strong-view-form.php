@@ -43,13 +43,10 @@ class Strong_View_Form extends Strong_View {
 		do_action( 'wpmtst_view_build_before', $this );
 
 		if ( isset( $_GET['success'] ) ) {
-
 			$this->find_stylesheet();
 			$this->on_form_success();
 			do_action( 'wpmtst_form_success', $this->atts );
-
-			$this->html = apply_filters( 'wpmtst_form_success_message', '<div class="testimonial-success">' . wpmtst_get_form_message( 'submission-success' ) . '</div>' );
-
+			$this->html = wpmtst_get_success_message();
 			return;
 		}
 

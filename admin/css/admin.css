@@ -2,6 +2,10 @@
  * Strong Testimonials admin stylesheet
  */
 
+.icon-blue {
+	color: #0073aa;
+}
+
 .error {
 	color: red !important;
 }
@@ -212,29 +216,25 @@ div.radio:hover {
 	display: inline-block;
 }
 
+.wpmtst label.success-action {
+	display: inline-block;
+	width: 11em;
+	padding: 10px 0;
+}
+
 /* compact */
 
-.wpmtst .form-table.compact th,
+.wpmtst .form-table.compact th {
+	vertical-align: top;
+}
+
 .wpmtst .form-table.compact td {
-	border-top: none;
-	border-bottom: none;
-	padding: 5px 10px 5px 0;
 	vertical-align: middle;
-}
-
-.wpmtst .form-table.compact tr:first-child th,
-.wpmtst .form-table.compact tr:first-child td {
-	padding-top: 10px;
-}
-
-.wpmtst .form-table.compact tr:last-child th,
-.wpmtst .form-table.compact tr:last-child td {
-	padding-bottom: 10px;
 }
 
 .wpmtst .form-table.compact td:nth-child(3) {
 	width: 100px;
-	padding-left: 10px;
+	vertical-align: top;
 }
 
 .wpmtst .form-table.compact td:nth-child(3) input.button {
@@ -638,10 +638,4 @@ td.column-shortcode {
 		display: inline-block;
 		width: auto;
 	}
-}
-
-/* checkbox hanging indent */
-.wpm-testimonial_page_testimonial-settings .form-table label {
-	padding-left: 24px;
-	text-indent: -24px;
 }

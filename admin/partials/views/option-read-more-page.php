@@ -32,7 +32,7 @@
 						</optgroup>
 					</select>
 				</label>
-				<label for="view-page_id">
+				<label for="view-page_id2">
 					<?php _ex( 'or enter its ID or slug', 'to select a target page', 'strong-testimonials' ); ?>
 				</label>
 				<input type="text" id="view-page_id2" name="view[data][more_page_id2]" size="30">
