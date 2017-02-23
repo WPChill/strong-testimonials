@@ -3,7 +3,7 @@ Contributors: cdillon27
 Tags: testimonials, testimonial widget, random testimonial, testimonial shortcode, testimonial slider, testimonial form
 Requires at least: 3.6
 Tested up to: 4.7.2
-Stable tag: 2.18
+Stable tag: 2.18.1
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -152,7 +152,10 @@ Yes. This requires a lightbox so if your theme does not include one, you will ne
 
 == Changelog ==
 
-= 2.18 =
+= 2.18.1 - Feb 23, 2017 =
+* Fix bug in form success/error scrolling.
+
+= 2.18 - Feb 15, 2017 =
 * Add form success redirect options.
 * Add visual editor (TinyMCE) to the form success message.
 * Process shortcodes in the form success message.
@@ -368,4 +371,4 @@ Yes. This requires a lightbox so if your theme does not include one, you will ne
 
 == Upgrade Notice ==
 
-Fix minor bugs. New form success redirect options. Clear your caches!
+Fix bug in form success/error scrolling. Clear your caches!

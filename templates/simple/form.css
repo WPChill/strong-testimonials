@@ -3,7 +3,6 @@
  */
 .strong-form {
   margin: 0 auto;
-  padding: 20px;
 }
 .strong-form .form-field {
   margin-bottom: 1.5em;
@@ -40,6 +39,10 @@
 }
 .strong-form .after {
   display: block;
+}
+
+.strong-form-inner {
+  padding: 20px;
 }
 
 input.captcha {

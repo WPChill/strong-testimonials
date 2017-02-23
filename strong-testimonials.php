@@ -4,7 +4,7 @@
  * Plugin URI: https://www.wpmission.com/plugins/strong-testimonials/
  * Description: A full-featured plugin that works right out of the box for beginners and offers advanced features for pros.
  * Author: Chris Dillon
- * Version: 2.18
+ * Version: 2.18.1
  * Author URI: https://www.wpmission.com/
  * Text Domain: strong-testimonials
  * Domain Path: /languages
@@ -409,7 +409,10 @@ final class Strong_Testimonials {
 					'message' => wpmtst_get_success_message(),
 				);
 			} else {
-				$return = array( 'success' => false, 'errors' => WPMST()->get_form_errors() );
+				$return = array(
+					'success' => false,
+					'errors'  => WPMST()->get_form_errors()
+				);
 			}
 			echo json_encode( $return );
 		}
@@ -1185,7 +1188,6 @@ final class Strong_Testimonials {
 			require_once WPMTST_INC . 'form-handler-functions.php';
 			$success = wpmtst_form_handler();
 			if ( $success ) {
-
 				switch ( $form_options['success_action'] ) {
 					case 'id':
 						$goback = get_permalink( $form_options['success_redirect_id'] );

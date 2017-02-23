@@ -54,29 +54,22 @@ function wpmtst_scripts() {
 	/**
 	 * Form handling
 	 */
-	wp_register_script( 'wpmtst-form', WPMTST_PUBLIC_URL . 'js/form.js', array( 'jquery' ), $plugin_version, true );
-	wp_register_script( 'wpmtst-form-success', WPMTST_PUBLIC_URL . 'js/form-success.js', array( 'jquery' ), $plugin_version, true );
+	wp_register_script( 'wpmtst-validation-plugin', WPMTST_PUBLIC_URL . 'js/lib/validate/jquery.validate.min.js', array( 'jquery' ), false, true );
 
-	if ( wpmtst_using_form_validation_script() ) {
+	wp_register_script( 'wpmtst-form-validation', WPMTST_PUBLIC_URL . 'js/form-validation.js', array( 'wpmtst-validation-plugin', 'jquery-form' ), $plugin_version, true );
 
-		wp_register_script( 'wpmtst-validation-plugin', WPMTST_PUBLIC_URL . 'js/lib/validate/jquery.validate.min.js', array( 'jquery' ), false, true );
-
-		wp_register_script( 'wpmtst-form-validation', WPMTST_PUBLIC_URL . 'js/form-validation.js', array( 'wpmtst-validation-plugin', 'jquery-form' ), $plugin_version, true );
-
-		/**
-		 * Localize jQuery Validate plugin.
-		 *
-		 * @since 1.16.0
-		 */
-		$locale = get_locale();
-		if ( 'en_US' != $locale ) {
-			$lang_parts = explode( '_', $locale );
-			$lang_file  = 'js/lib/validate/localization/messages_' . $lang_parts[0] . '.min.js';
-			if ( file_exists( WPMTST_PUBLIC . $lang_file ) ) {
-				wp_register_script( 'wpmtst-validation-lang', WPMTST_PUBLIC_URL . $lang_file, array( 'wpmtst-validation-plugin' ), false, true );
-			}
+	/**
+	 * Localize jQuery Validate plugin.
+	 *
+	 * @since 1.16.0
+	 */
+	$locale = get_locale();
+	if ( 'en_US' != $locale ) {
+		$lang_parts = explode( '_', $locale );
+		$lang_file  = 'js/lib/validate/localization/messages_' . $lang_parts[0] . '.min.js';
+		if ( file_exists( WPMTST_PUBLIC . $lang_file ) ) {
+			wp_register_script( 'wpmtst-validation-lang', WPMTST_PUBLIC_URL . $lang_file, array( 'wpmtst-validation-plugin' ), false, true );
 		}
-
 	}
 
 	/**
@@ -88,7 +81,7 @@ function wpmtst_scripts() {
 
 	wp_register_script( 'strongslider', WPMTST_PUBLIC_URL . 'js/jquery.strongslider.js', array( 'wpmslider' ), $plugin_version, true );
 
-	if ( ! defined( 'MEGAMENU_VERSION' ) ) {
+	if ( !defined( 'MEGAMENU_VERSION' ) ) {
 		wp_register_script( 'wpmtst-slider', WPMTST_PUBLIC_URL . 'js/slider.js', array( 'strongslider' ), $plugin_version, true );
 	}
 
