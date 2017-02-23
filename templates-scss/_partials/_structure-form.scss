@@ -1,6 +1,5 @@
 .strong-form {
 	margin: 0 auto;
-	padding: 20px;
 
 	.form-field {
 		margin-bottom: 1.5em;
@@ -45,6 +44,10 @@
 	.after {
 		display: block;
 	}
+}
+
+.strong-form-inner {
+	padding: 20px;
 }
 
 input.captcha {

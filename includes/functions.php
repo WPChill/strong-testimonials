@@ -667,9 +667,10 @@ function wpmtst_sort_array_by_name( $a, $b ) {
  * Allow disabling of client-side form validation via filter.
  *
  * @since 1.21.0
+ * @deprecated since 2.18.1
  */
 function wpmtst_using_form_validation_script() {
-	return apply_filters( 'wpmtst_field_required_tag', true ) && apply_filters( 'wpmtst_form_validation_script', true );
+	return true;
 }
 
 
