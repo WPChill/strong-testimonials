@@ -165,12 +165,4 @@ jQuery(document).ready(function ($) {
 
   });
 
-  // var redirect = $('[name="redirect-target"]');
-  // redirect.change(function(){
-  //   console.log(this.value);
-  //   if ('id' == this.value) {
-  //     $("#redirect-page-3").
-  //   }
-  // });
-
 });
