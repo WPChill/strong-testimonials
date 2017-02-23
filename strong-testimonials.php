@@ -409,7 +409,10 @@ final class Strong_Testimonials {
 					'message' => wpmtst_get_success_message(),
 				);
 			} else {
-				$return = array( 'success' => false, 'errors' => WPMST()->get_form_errors() );
+				$return = array(
+					'success' => false,
+					'errors'  => WPMST()->get_form_errors()
+				);
 			}
 			echo json_encode( $return );
 		}
@@ -1185,7 +1188,6 @@ final class Strong_Testimonials {
 			require_once WPMTST_INC . 'form-handler-functions.php';
 			$success = wpmtst_form_handler();
 			if ( $success ) {
-
 				switch ( $form_options['success_action'] ) {
 					case 'id':
 						$goback = get_permalink( $form_options['success_redirect_id'] );
