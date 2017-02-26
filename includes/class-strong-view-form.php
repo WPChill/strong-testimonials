@@ -142,12 +142,12 @@ class Strong_View_Form extends Strong_View {
 	public function load_special() {
 
 		// Load rating stylesheet if necessary
-		if ( isset( $this->atts['client_section'] ) ) {
-			foreach ( $this->atts['client_section'] as $field ) {
-				if ( isset( $field['type'] ) && 'rating' == $field['type'] ) {
-					WPMST()->add_style( 'wpmtst-rating-form' );
-					break;
-				}
+		$form_id = isset( $this->atts['form_id'] ) ? $this->atts['form_id'] : 1;
+		$fields  = wpmtst_get_form_fields( $form_id );
+		foreach ( $fields as $field ) {
+			if ( isset( $field['input_type'] ) && 'rating' == $field['input_type'] ) {
+				WPMST()->add_style( 'wpmtst-rating-form' );
+				break;
 			}
 		}
 
