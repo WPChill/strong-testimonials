@@ -216,8 +216,7 @@ function wpmtst_get_form_fields( $form_id = 1 ) {
 	$forms = get_option( 'wpmtst_custom_forms' );
 	if ( isset( $forms[ $form_id ] ) ) {
 		$form = $forms[ $form_id ];
-	}
-	else {
+	} else {
 		$form = $forms[1];
 	}
 	$fields = $form['fields'];

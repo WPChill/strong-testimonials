@@ -3,7 +3,7 @@ Contributors: cdillon27
 Tags: testimonials, testimonial widget, random testimonial, testimonial shortcode, testimonial slider, testimonial form
 Requires at least: 3.6
 Tested up to: 4.7.2
-Stable tag: 2.18.1
+Stable tag: 2.18.2
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -152,6 +152,9 @@ Yes. This requires a lightbox so if your theme does not include one, you will ne
 
 == Changelog ==
 
+= 2.18.2 - Feb 26, 2017 =
+* Fix bug in conditional loading of star rating stylesheet.
+
 = 2.18.1 - Feb 23, 2017 =
 * Fix bug in form success/error scrolling.
 
@@ -215,4 +218,4 @@ Yes. This requires a lightbox so if your theme does not include one, you will ne
 
 == Upgrade Notice ==
 
-Fix bug in form success/error scrolling. Clear your caches!
+Fix bug in star ratings on forms. Clear your caches!
