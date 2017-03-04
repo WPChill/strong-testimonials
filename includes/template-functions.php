@@ -633,7 +633,7 @@ function wpmtst_client_section( $client_section ) {
 			case 'rating' :
 				$output = get_post_meta( $post->ID, $field['field'], true );
 				if ( $output ) {
-					$output = wpmtst_star_rating_display( $field, $output, 'in-view', false );
+					$output = wpmtst_star_rating_display( $output, 'in-view', false );
 				}
 				break;
 
