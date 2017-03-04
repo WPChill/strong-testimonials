@@ -15,9 +15,9 @@
 <table class="form-table">
 	<thead>
 	<tr>
-		<th><?php _e( 'Add-On', 'strong-testimonials' ); ?></th>
-		<th><?php _e( 'License Key', 'strong-testimonials' ); ?></th>
-		<th><?php _e( 'Status', 'strong-testimonials' ); ?></th>
+		<th><?php _e( 'Add-on', 'strong-testimonials' ); ?></th>
+		<th class="for-license-key"><?php _e( 'License Key', 'strong-testimonials' ); ?></th>
+		<th class="for-license-status"><?php _e( 'Status', 'strong-testimonials' ); ?></th>
 	</tr>
 	</thead>
 	<tbody>
