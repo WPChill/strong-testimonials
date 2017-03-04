@@ -784,18 +784,11 @@ td.column-shortcode {
 
 /* Admin > Shortcode example table
 --------------------------------------------------*/
-.form-table.shortcodes {
-	/*width: auto;*/
-}
 .form-table.shortcodes tbody tr:hover {
 	background: #FFF;
 }
 .form-table.shortcodes th {
 	padding-left: 10px;
-}
-.form-table.shortcodes th,
-.form-table.shortcodes td {
-	white-space: nowrap;
 }
 .form-table.shortcodes td {
 	border: 1px solid #DDD;
