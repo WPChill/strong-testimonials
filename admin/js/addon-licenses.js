@@ -18,17 +18,17 @@
 	$(".activator").on("click", function () {
 
 		var parent = $(this).closest("td");
-		parent.find(".response").html("").removeClass("error");
+		parent.find(".response").html("").removeClass("activation-error");
 
 		$.get(ajaxurl, {
 			'action': 'wpmtst_activate_license',
 			'plugin': parent.data("addon"),
-			'security': wpmtstAdmin.ajax_nonce
+			'security': strongAddonAdmin.ajax_nonce
 		},
 		function (response) {
 			parent.find(".indicator").removeClass("doing-ajax");
 			if ( 0 == response ) {
-				response = { failure: true, data: wpmtstAdmin.errorMessage };
+				response = { failure: true, data: strongAddonAdmin.errorMessage };
 			}
 			if ( response.success ) {
 				parent.find(".addon-inactive").hide();
@@ -36,7 +36,7 @@
 			} else {
 				parent.find(".addon-active").hide();
 				parent.find(".addon-inactive").showInlineBlock();
-				parent.find(".response").html( response.data ).addClass("error");
+				parent.find(".response").html( response.data ).addClass("activation-error");
 			}
 		});
 
@@ -49,17 +49,17 @@
 	$(".deactivator").on("click", function () {
 
 		var parent = $(this).closest("td");
-		parent.find(".response").html("").removeClass("error");
+		parent.find(".response").html("").removeClass("activation-error");
 
 		$.get(ajaxurl, {
 				'action': 'wpmtst_deactivate_license',
 				'plugin': parent.data("addon"),
-				'security': wpmtstAdmin.ajax_nonce
+				'security': strongAddonAdmin.ajax_nonce
 			},
 			function (response) {
 				parent.find(".indicator").removeClass("doing-ajax");
 				if ( 0 == response ) {
-					response = { failure: true, data: wpmtstAdmin.errorMessage };
+					response = { failure: true, data: strongAddonAdmin.errorMessage };
 				}
 				if ( response.success ) {
 					parent.find(".addon-active").hide();
@@ -67,7 +67,7 @@
 				} else {
 					parent.find(".addon-inactive").hide();
 					parent.find(".addon-active").showInlineBlock();
-					parent.find(".response").html( response.data ).addClass("error");
+					parent.find(".response").html( response.data ).addClass("activation-error");
 				}
 			});
 
