@@ -49,17 +49,17 @@ class Strong_Plugin_Updater {
 	 */
 	function activate_license() {
 
-		if ( ! check_ajax_referer( 'wpmtst-admin', 'security', false ) ) {
+		if ( !check_ajax_referer( 'wpmtst-admin', 'security', false ) ) {
 			wp_send_json_error();
 		}
 
-		if ( isset( $_REQUEST['action'] ) && 'wpmtst_activate_license' == $_REQUEST['action'] ) {
+		if ( isset( $_GET['action'] ) && 'wpmtst_activate_license' == $_GET['action'] ) {
 
-			$plugin = $_REQUEST['plugin'];
+			$plugin = $_GET['plugin'];
 
 			// retrieve the license from the database
-			$addons = get_option( 'wpmtst_addons' );
-			$addon = $addons[ $plugin ];
+			$addons  = get_option( 'wpmtst_addons' );
+			$addon   = $addons[ $plugin ];
 			$license = trim( $addon['license']['key'] );
 
 			// data to send in our API request
@@ -69,6 +69,9 @@ class Strong_Plugin_Updater {
 				'item_name'  => $addon['name'], // the name of our product in EDD
 				'url'        => home_url()
 			);
+
+			$license_data = new stdClass();
+			$license_data->license = '';
 
 			// Call the custom API.
 			$response = wp_remote_post( WPMISSION_STORE_URL, array( 'timeout' => 15, 'sslverify' => false, 'body' => $api_params ) );
@@ -82,8 +85,7 @@ class Strong_Plugin_Updater {
 					$message = __( 'An error occurred, please try again.' );
 				}
 
-			}
-			else {
+			} else {
 
 				$license_data = json_decode( wp_remote_retrieve_body( $response ) );
 
@@ -140,13 +142,11 @@ class Strong_Plugin_Updater {
 			}
 
 			// Check if anything passed on a message constituting a failure
-			if ( ! empty( $message ) ) {
+			if ( !empty( $message ) ) {
 				wp_send_json_error( $message );
 			}
 
 			// $license_data->license will be either "valid" or "invalid"
-
-			/** @noinspection PhpUndefinedVariableInspection */
 			$addon['license']['status'] = $license_data->license;
 			$addons[ $plugin ] = $addon;
 			update_option( 'wpmtst_addons', $addons );
@@ -163,13 +163,13 @@ class Strong_Plugin_Updater {
 			wp_send_json_error();
 		}
 
-		if ( isset( $_REQUEST['action'] ) && 'wpmtst_deactivate_license' == $_REQUEST['action'] ) {
+		if ( isset( $_GET['action'] ) && 'wpmtst_deactivate_license' == $_GET['action'] ) {
 
-			$plugin = $_REQUEST['plugin'];
+			$plugin = $_GET['plugin'];
 
 			// retrieve the license from the database
-			$addons = get_option( 'wpmtst_addons' );
-			$addon = $addons[ $plugin ];
+			$addons  = get_option( 'wpmtst_addons' );
+			$addon   = $addons[ $plugin ];
 			$license = trim( $addon['license']['key'] );
 
 			// data to send in our API request
