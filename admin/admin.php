@@ -94,10 +94,12 @@ function wpmtst_admin_register() {
 	 */
 	wp_register_script( 'wpmtst-addons-script', WPMTST_ADMIN_URL . 'js/addon-licenses.js', array( 'jquery' ), $plugin_version, true );
 	$params = array(
-		'ajax_nonce' => wp_create_nonce( 'wpmtst-admin' ),
-		'errorMessage' => __( 'An error occurred, please try again.', 'strong-testimonials' ),
+		'ajax_nonce'     => wp_create_nonce( 'wpmtst-admin' ),
+		'requiredField'  => __( 'This field is required.', 'strong-testimonials' ),
+		'errorMessage'   => __( 'An error occurred, please try again.', 'strong-testimonials' ),
+		'restoreDefault' => __( 'Restore the default settings?', 'strong-testimonials' ),
 	);
-	wp_localize_script( 'wpmtst-addons-script', 'wpmtstAdmin', $params );
+	wp_localize_script( 'wpmtst-addons-script', 'strongAddonAdmin', $params );
 
 	/**
 	 * Are You Sure? for dirty forms
@@ -432,7 +434,7 @@ function wpmtst_meta_options() {
 								<!-- display -->
 								<div class="rating-display" style="<?php echo $is_new ? 'display: none;' : 'display: inline-block;'; ?>">
 									<span class="inner">
-										<?php wpmtst_star_rating_display( $field, $rating, 'in-metabox' ); ?>
+										<?php wpmtst_star_rating_display( $rating, 'in-metabox' ); ?>
 									</span>
 
 									<?php if ( ! $is_new ) : ?>
@@ -607,7 +609,7 @@ function wpmtst_custom_columns( $column ) {
 			if ( isset( $custom[$column] ) ) {
 				$fields = wpmtst_get_custom_fields();
 				if ( isset( $fields[$column] ) && 'rating' == $fields[$column]['input_type'] ) {
-					wpmtst_star_rating_display( array(), $custom[ $column ][0], 'in-table-list' );
+					wpmtst_star_rating_display( $custom[ $column ][0], 'in-table-list' );
 				}
 				else {
 					echo $custom[ $column ][0];

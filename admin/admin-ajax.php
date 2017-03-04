@@ -18,7 +18,7 @@ function wpmtst_ajax_edit_rating() {
 		$message = 'New rating saved';
 	}
 
-	$display = wpmtst_star_rating_display( array( 'name' => $name ), $rating, 'in-metabox', false );
+	$display = wpmtst_star_rating_display( $rating, 'in-metabox', false );
 	$response = array( 'display' => $display, 'message' => $message );
 	echo json_encode($response);
 	exit;
