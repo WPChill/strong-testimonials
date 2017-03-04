@@ -312,9 +312,8 @@ function wpmtst_settings_page() {
 			}
 			?>
 			<p class="submit-row">
-				<?php submit_button( '', 'primary', 'submit', false ); ?>
+				<?php submit_button( '', 'primary', 'submit-form', false ); ?>
 				<?php do_action( 'wpmtst_settings_submit_row'); ?>
-				<span id="submit-row-message"></span>
 			</p>
 		</form>
 
