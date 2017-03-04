@@ -38,6 +38,8 @@ foreach ( $plugins as $key => $plugin ) {
 <h2><?php _e( 'Form Labels & Messages', 'strong-testimonials' ); ?></h2>
 
 <?php
+do_action( 'wpmtst_before_form_settings' );
+
 // WPML
 if ( wpmtst_is_plugin_active( 'wpml' ) ) {
     echo '<span class="dashicons dashicons-info icon-blue"></span>&nbsp;';
