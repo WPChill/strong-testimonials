@@ -20,10 +20,10 @@ function wpmtst_form_admin2() {
  */
 // TODO use admin-post.php instead
 function wpmtst_settings_custom_fields( $form_id = null ) {
-	if ( ! current_user_can( 'manage_options' ) )
+	if ( !current_user_can( 'manage_options' ) )
 		wp_die( __( 'You do not have sufficient permissions to access this page.' ) );
 
-	if ( ! $form_id ) {
+	if ( !$form_id ) {
 		echo '<div class="wrap wpmtst"><p>' . __( 'No fields selected.', 'strong-testimonials' ) .'</p></div>';
 		return false;
 	}
@@ -46,8 +46,7 @@ function wpmtst_settings_custom_fields( $form_id = null ) {
 			$fields = $forms[ $form_id ]['fields'];
 			echo sprintf( $message_format, __( 'Changes undone.', 'strong-testimonials' ) );
 
-		}
-		elseif ( isset( $_POST['restore-defaults'] ) ) {
+		} elseif ( isset( $_POST['restore-defaults'] ) ) {
 
 			// Restore defaults
 			include_once WPMTST_INC . 'defaults.php';
@@ -59,8 +58,7 @@ function wpmtst_settings_custom_fields( $form_id = null ) {
 
 			echo sprintf( $message_format, __( 'Defaults restored.', 'strong-testimonials' ) );
 
-		}
-		else {
+		} else {
 
 			// Save changes
 			$fields = array();
@@ -131,58 +129,56 @@ function wpmtst_settings_custom_fields( $form_id = null ) {
 	// Custom Fields Form
 	// ------------------
 	?>
-	<div class="wrap wpmtst">
 
-		<h1><?php _e( 'Fields', 'strong-testimonials' ); ?></h1>
+    <h1><?php _e( 'Fields', 'strong-testimonials' ); ?></h1>
 
-		<?php do_action( 'wpmtst_fields_editor_before_fields_intro' ); ?>
+    <?php do_action( 'wpmtst_fields_editor_before_fields_intro' ); ?>
 
-		<div id="left-col">
-			<div>
-				<h3>Editor</h3>
-				<p>
-					<?php _e( 'Click a field to open its options panel.', 'strong-testimonials' ); ?>
-					<a class="open-help-tab" href="#tab-panel-wpmtst-help"><?php _e( 'Help' ); ?></a>
-				</p>
-			</div>
+    <div id="left-col">
+        <div>
+            <h3>Editor</h3>
+            <p>
+                <?php _e( 'Click a field to open its options panel.', 'strong-testimonials' ); ?>
+                <a class="open-help-tab" href="#tab-panel-wpmtst-help"><?php _e( 'Help' ); ?></a>
+            </p>
+        </div>
 
-			<!-- Custom Fields Form -->
-			<form id="wpmtst-custom-fields-form" method="post" action="" autocomplete="off">
-				<?php wp_nonce_field( 'wpmtst_custom_fields_form', 'wpmtst_form_submitted' ); ?>
+        <!-- Custom Fields Form -->
+        <form id="wpmtst-custom-fields-form" method="post" action="" autocomplete="off">
+            <?php wp_nonce_field( 'wpmtst_custom_fields_form', 'wpmtst_form_submitted' ); ?>
 
-				<?php do_action( 'wpmtst_fields_editor_before_fields_editor', $forms[ $form_id ] ); ?>
+            <?php do_action( 'wpmtst_fields_editor_before_fields_editor', $forms[ $form_id ] ); ?>
 
-				<ul id="custom-field-list">
-					<?php
-					foreach ( $fields as $key => $field ) {
-						echo '<li id="field-' . $key . '">' . wpmtst_show_field( $key, $field, false ) . '</li>' . "\n";
-					}
-					?>
-				</ul>
+            <ul id="custom-field-list">
+                <?php
+                foreach ( $fields as $key => $field ) {
+                    echo '<li id="field-' . $key . '">' . wpmtst_show_field( $key, $field, false ) . '</li>' . "\n";
+                }
+                ?>
+            </ul>
 
-				<div id="add-field-bar">
-					<input id="add-field" type="button" class="button" name="add-field" value="<?php _e( 'Add New Field', 'strong-testimonials' ); ?>">
-				</div>
+            <div id="add-field-bar">
+                <input id="add-field" type="button" class="button" name="add-field" value="<?php _e( 'Add New Field', 'strong-testimonials' ); ?>">
+            </div>
 
-				<div id="field-group-actions">
-                    <div><?php submit_button( '', 'primary', 'submit', false ); ?></div>
-                    <div><?php submit_button( __( 'Undo Changes', 'strong-testimonials' ), 'secondary', 'reset', false ); ?></div>
-                    <div><?php submit_button( __( 'Restore Defaults', 'strong-testimonials' ), 'secondary', 'restore-defaults', false ); ?></div>
-				</div>
-			</form>
-		</div><!-- #left-col -->
+            <div id="field-group-actions">
+                <div><?php submit_button( '', 'primary', 'submit-form', false ); ?></div>
+                <div><?php submit_button( __( 'Undo Changes', 'strong-testimonials' ), 'secondary', 'reset', false ); ?></div>
+                <div><?php submit_button( __( 'Restore Defaults', 'strong-testimonials' ), 'secondary', 'restore-defaults', false ); ?></div>
+            </div>
+        </form>
+    </div><!-- #left-col -->
 
-		<div id="right-col">
-			<div class="intro">
-				<h3><?php _e( 'Basic Preview', 'strong-testimonials' ); ?></h3>
-				<p><?php _e( 'Only to demonstrate the fields. May look different in your theme.', 'strong-testimonials' ); ?></p>
-			</div>
-			<div id="fields-editor-preview">
-				<div><!-- placeholder --></div>
-			</div>
-		</div><!-- #right-col -->
+    <div id="right-col">
+        <div class="intro">
+            <h3><?php _e( 'Basic Preview', 'strong-testimonials' ); ?></h3>
+            <p><?php _e( 'Only to demonstrate the fields. May look different in your theme.', 'strong-testimonials' ); ?></p>
+        </div>
+        <div id="fields-editor-preview">
+            <div><!-- placeholder --></div>
+        </div>
+    </div><!-- #right-col -->
 
-	</div><!-- wrap -->
 	<?php
 }
 
