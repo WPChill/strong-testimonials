@@ -4,13 +4,14 @@
  *
  * @package Strong_Testimonials
  * @since 2.1
- * @since 2.18 As a partial file. Using action hook for add-ons to add their info.
- * @todo Add link to member account on wpmission.com.
+ * @since 2.18 As a partial file. Using action hook for add-ons to append their info.
+ *
+ * TODO Add link to member account on website.
  */
 ?>
 <div class="tab-header">
-<p class="description"><?php _e( 'Valid license keys allow you to receive automatic updates.', 'strong-testimonials' ); ?></p>
-<p class="description"><?php _e( 'If you want to transfer a license to another site or you plan to uninstall the add-on, you must deactivate the license here first.', 'strong-testimonials' ); ?></p>
+<p><?php _e( 'Valid license keys allow you to receive automatic updates.', 'strong-testimonials' ); ?></p>
+<p><?php _e( 'If you want to transfer a license to another site or you plan to uninstall the add-on, you must deactivate the license here first.', 'strong-testimonials' ); ?></p>
 </div>
 <table class="form-table">
 	<thead>
