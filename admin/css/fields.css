@@ -240,8 +240,9 @@ optgroup option {
 	float: left;
 	margin-bottom: 1em;
 }
-#field-group-actions > div:last-child input {
-	margin-right: 0;
+
+#field-group-actions > div:not(:last-child) {
+	margin-right: 1em;
 }
 
 /* field group label */

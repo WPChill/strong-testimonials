@@ -14,21 +14,23 @@ function wpmtst_form_admin2() {
 /**
  * Custom Fields page
  *
- * @param null   $form_id
- *
- * @return bool
+ * @param int $form_id
  */
 // TODO use admin-post.php instead
-function wpmtst_settings_custom_fields( $form_id = null ) {
+function wpmtst_settings_custom_fields( $form_id = 1 ) {
 	if ( !current_user_can( 'manage_options' ) )
 		wp_die( __( 'You do not have sufficient permissions to access this page.' ) );
 
 	if ( !$form_id ) {
 		echo '<div class="wrap wpmtst"><p>' . __( 'No fields selected.', 'strong-testimonials' ) .'</p></div>';
-		return false;
+		return;
 	}
+	?>
+    <div class="wrap wpmtst">
+    <h1><?php _e( 'Fields', 'strong-testimonials' ); ?></h1>
 
-	$field_options = get_option( 'wpmtst_fields' );
+    <?php
+    $field_options = get_option( 'wpmtst_fields' );
 	$forms         = get_option( 'wpmtst_custom_forms' );
 	$fields        = $forms[ $form_id ]['fields'];
 
@@ -130,8 +132,6 @@ function wpmtst_settings_custom_fields( $form_id = null ) {
 	// ------------------
 	?>
 
-    <h1><?php _e( 'Fields', 'strong-testimonials' ); ?></h1>
-
     <?php do_action( 'wpmtst_fields_editor_before_fields_intro' ); ?>
 
     <div id="left-col">
@@ -179,6 +179,7 @@ function wpmtst_settings_custom_fields( $form_id = null ) {
         </div>
     </div><!-- #right-col -->
 
+    </div><!-- .wrap -->
 	<?php
 }
 
