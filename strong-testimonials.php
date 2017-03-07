@@ -1338,6 +1338,7 @@ final class Strong_Testimonials {
 	 * For troubleshooting only.
 	 *
 	 * @since 1.12.0
+	 * @since 2.19.0 Including add-ons.
 	 */
 	function show_version_info() {
 		global $wp_version;
@@ -1346,6 +1347,12 @@ final class Strong_Testimonials {
 			'WordPress ' . $wp_version,
 			$plugin_info['name'] . ' ' . $plugin_info['version'],
 		);
+		$addons = get_option( 'wpmtst_addons' );
+		if ( $addons ) {
+			foreach( $addons as $addon ) {
+				$comment[] = $addon['name'] . ' ' . $addon['version'];
+			}
+		}
 
 		echo "<!-- versions: " . implode( ' | ', $comment ) . " -->\n";
 	}
