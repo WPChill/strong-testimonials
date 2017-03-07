@@ -25,9 +25,9 @@
 .guide-wrapper {
   display: flex; }
 
-#about {
+#guide {
   flex: 0 2 auto; }
-  #about .section:first-child p {
+  #guide .section:first-child p {
     margin-top: 0; }
 
 .highlight {

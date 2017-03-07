@@ -1,4 +1,4 @@
-<div id="about">
+<div id="guide">
 
 	<div class="section">
 

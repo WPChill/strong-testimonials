@@ -61,23 +61,16 @@
 		</div>
 
 		<?php
-		// How to help
 		$link1 = sprintf(
 			wp_kses(
 				__( 'Post an honest <a href="%s" target="_blank">review</a> on wordpress.org.', 'strong-testimonials' ), $tags
 			), esc_url( 'https://wordpress.org/support/view/plugin-reviews/strong-testimonials' ) );
 
-		$link2 = sprintf(
-			wp_kses(
-				__( '<a href="%s" target="_blank">Donate</a> to the Theme & Plugin Compatibility Fund.', 'strong-testimonials' ), $tags
-			), esc_url( 'https://www.wpmission.com/donate' )
-		);
 		?>
 		<div class="has-icon icon-donate">
-			<p><strong><?php _e( 'Give Back', 'strong-testimonials' ); ?></strong></p>
+			<p><strong><?php _e( 'Contribute', 'strong-testimonials' ); ?></strong></p>
 			<ul>
 				<li><?php echo $link1; ?></li>
-				<li><?php echo $link2; ?></li>
 			</ul>
 		</div>
 
