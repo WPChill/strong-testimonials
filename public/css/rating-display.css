@@ -7,8 +7,6 @@
  *
  * Based on Pure CSS Star Rating Widget by James Barnett
  * http://codepen.io/jamesbarnett/pen/vlpkh
- *
- * TODO Action Hook
  */
 
 .strong-rating-wrapper {}
@@ -22,20 +20,19 @@
 
 /* the stars */
 
-.strong-rating div.star { display: inline-block; }
+.strong-rating span.star { display: inline-block; }
 
-.strong-rating div.star:before {
+.strong-rating span.star:before {
 	font-family: FontAwesome;
 	content: "\f005";
 	display: inline-block;
 	font-size: 1.25em;
-	/*line-height: 1.75;*/
 	/* use padding not margin */
 	padding: 0 5px;
 	transition: color 0.3s ease;
 }
 
-.strong-rating div.star:hover { cursor: default; }
+.strong-rating span.star:hover { cursor: default; }
 
 
 /* fieldset tweaks */
@@ -64,12 +61,12 @@
 	padding-top: 0;
 }
 
-.strong-rating-wrapper.in-metabox .strong-rating div.star:before {
+.strong-rating-wrapper.in-metabox .strong-rating span.star:before {
 	font-size: 1.5em;
 	line-height: 1;
 }
 
-.strong-rating-wrapper.in-table-list .strong-rating div.star:before {
+.strong-rating-wrapper.in-table-list .strong-rating span.star:before {
 	/* use padding not margin */
 	padding: 1px;
 }
@@ -80,13 +77,13 @@
 /* this is how we highlight stars before the checked one (siblings before): */
 
 /* hide the first label because our rating may be zero */
-.strong-rating div.star0 { display: none; }
+.strong-rating span.star0 { display: none; }
 
 /* and turn all on */
-.strong-rating div.star:before { color: #FFB900; }
+.strong-rating span.star:before { color: #FFB900; }
 
 /* then turn off stars after the current rating */
-.strong-rating div.current ~ div.star:before { color: #DDD; }
+.strong-rating span.current ~ span.star:before { color: #DDD; }
 
 /* and turn on the current rating */
-.strong-rating div.current:before { color: #FFB900; }
+.strong-rating span.current:before { color: #FFB900; }

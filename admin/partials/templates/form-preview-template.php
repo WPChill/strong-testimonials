@@ -8,17 +8,21 @@
 
 	<div id="wpmtst-form">
 
-		<p class="required-notice">
-			<span class="required symbol"></span><?php wpmtst_form_message( 'required-field' ); ?>
-		</p>
+        <div class="strong-form-inner">
 
-		<form enctype="multipart/form-data" autocomplete="off">
+            <p class="required-notice">
+                <span class="required symbol"></span><?php wpmtst_form_message( 'required-field' ); ?>
+            </p>
 
-			<?php wpmtst_all_form_fields( $new_fields ); ?>
+            <form enctype="multipart/form-data" autocomplete="off">
 
-			<?php wpmtst_form_submit_button( true ); ?>
+                <?php wpmtst_all_form_fields( $new_fields ); ?>
 
-		</form>
+                <?php wpmtst_form_submit_button( true ); ?>
+
+            </form>
+
+        </div>
 
 	</div>
 

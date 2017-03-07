@@ -140,29 +140,37 @@ class Strong_View_Form extends Strong_View {
 	 * Load extra scripts and styles.
 	 */
 	public function load_special() {
-		WPMST()->add_style( 'wpmtst-rating-form' );
+
+		// Load rating stylesheet if necessary
+		$form_id = isset( $this->atts['form_id'] ) ? $this->atts['form_id'] : 1;
+		$fields  = wpmtst_get_form_fields( $form_id );
+		foreach ( $fields as $field ) {
+			if ( isset( $field['input_type'] ) && 'rating' == $field['input_type'] ) {
+				WPMST()->add_style( 'wpmtst-rating-form' );
+				break;
+			}
+		}
+
+		// Load validation scripts
+		WPMST()->add_script( 'wpmtst-form-validation' );
+		if ( wp_script_is( 'wpmtst-validation-lang', 'registered' ) ) {
+			WPMST()->add_script( 'wpmtst-validation-lang' );
+		}
 
 		$form_options = get_option( 'wpmtst_form_options' );
-		$args         = array(
-			'scrollTop' => $form_options['scrolltop_error'],
-			'offset'    => $form_options['scrolltop_error_offset'],
+
+		$args = array(
+			'scrollTopError'         => $form_options['scrolltop_error'],
+			'scrollTopErrorOffset'   => $form_options['scrolltop_error_offset'],
+			'scrollTopSuccess'       => $form_options['scrolltop_success'],
+			'scrollTopSuccessOffset' => $form_options['scrolltop_success_offset'],
 		);
 
-		WPMST()->add_script( 'wpmtst-form' );
-		WPMST()->add_script_var( 'wpmtst-form', 'formError', $args );
-
-		if ( wpmtst_using_form_validation_script() ) {
-			if ( wp_script_is( 'wpmtst-validation-lang', 'registered' ) ) {
-				WPMST()->add_script( 'wpmtst-validation-lang' );
-			}
-
-			$args = array(
-				'ajaxUrl'    => admin_url( 'admin-ajax.php' ),
-				'ajaxSubmit' => isset( $this->atts['form_ajax'] ) && $this->atts['form_ajax'] ? 1 : 0,
-			);
-			WPMST()->add_script( 'wpmtst-form-validation' );
-			WPMST()->add_script_var( 'wpmtst-form-validation', 'form_ajax_object', $args );
+		if ( $this->atts['form_ajax'] ) {
+			$args['ajaxUrl'] = admin_url( 'admin-ajax.php' );
 		}
+
+		WPMST()->add_script_var( 'wpmtst-form-validation', 'strongForm', $args );
 
 		if ( $form_options['honeypot_before'] ) {
 			add_action( 'wp_footer', 'wpmtst_honeypot_before_script' );
@@ -173,15 +181,25 @@ class Strong_View_Form extends Strong_View {
 		}
 	}
 
+	/**
+	 * Load scripts on form success.
+	 *
+	 * When using normal form submission (not Ajax)
+	 * and displaying a success message (not redirecting).
+	 */
 	public function on_form_success() {
 		$form_options = get_option( 'wpmtst_form_options' );
-		$args         = array(
-			'scrollTop' => $form_options['scrolltop_success'],
-			'offset'    => $form_options['scrolltop_success_offset'],
+
+		$args = array(
+			'displaySuccessMessage'  => 1,
+			'scrollTopSuccess'       => $form_options['scrolltop_success'],
+			'scrollTopSuccessOffset' => $form_options['scrolltop_success_offset'],
 		);
-		WPMST()->add_script( 'wpmtst-form-success' );
-		WPMST()->add_script_var( 'wpmtst-form-success', 'formSuccess', $args );
+
+		WPMST()->add_script( 'wpmtst-form-validation' );
+		WPMST()->add_script_var( 'wpmtst-form-validation', 'strongForm', $args );
 	}
+
 }
 
 endif;

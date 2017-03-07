@@ -30,6 +30,7 @@ jQuery(document).ready(function($) {
 			var field_name = ratingForm.find("input:checked").attr("name");
 
 			if ( new_rating == revert_e ) {
+			  console.log('cancel');
 				buttons2.children('.cancel').click();
 				return;
 			}
@@ -72,6 +73,6 @@ jQuery(document).ready(function($) {
 
 	}
 
-	$(".edit-rating").click( editRating );
+	$(".edit-rating").on('click', editRating);
 
 });

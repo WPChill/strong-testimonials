@@ -38,7 +38,7 @@ function wpmtst_views_admin() {
 
 		if ( isset( $_REQUEST['error'] ) ) {
 
-			echo '<h2>' . __( 'Edit View', 'strong-testimonials' ) . '</h2>';
+			echo '<h1>' . __( 'Edit View', 'strong-testimonials' ) . '</h1>';
 			$message = sprintf(
 				wp_kses(
 					__( 'An error occurred. Please <a href="%s" target="_blank">open a support ticket</a>.', 'strong-testimonials' ),
@@ -69,10 +69,10 @@ function wpmtst_views_admin() {
 
 			// View list
 			?>
-			<h2>
+			<h1>
 				<?php _e( 'Views', 'strong-testimonials' ); ?>
 				<a href="<?php echo admin_url( 'edit.php?post_type=wpm-testimonial&page=testimonial-views&action=add' ); ?>" class="add-new-h2">Add New</a>
-			</h2>
+			</h1>
 			<?php
 			// Fetch views after heading and before intro in case we need to display any database errors.
 			$views = wpmtst_get_views();
@@ -173,19 +173,20 @@ function wpmtst_view_settings( $action = '', $view_id = null ) {
 	$group = strtok( $view['template'], ':' );
 	$type  = strtok( ':' );
 
-	if ( 'form' == $type )
+	if ( 'form' == $type ) {
 		$template_found = in_array( $view['template'], array_keys( $form_templates ) );
-	else
+	} else {
 		$template_found = in_array( $view['template'], array_keys( $templates ) );
+	}
 
 	// Get list of image sizes
 	$image_sizes = wpmtst_get_image_sizes();
 
 	?>
-	<h2>
+	<h1>
 		<?php 'edit' == $action ? _e( 'Edit View', 'strong-testimonials' ) : _e( 'Add View', 'strong-testimonials' ); ?>
 		<a href="<?php echo $url; ?>&page=testimonial-views&action=add" class="add-new-h2">Add New</a>
-	</h2>
+	</h1>
 
 	<p><a href="<?php echo admin_url( 'edit.php?post_type=wpm-testimonial&page=testimonial-views' ); ?>">Return to list</a></p>
 
@@ -258,7 +259,7 @@ function wpmtst_view_settings( $action = '', $view_id = null ) {
 		?>
 
 		<p class="wpmtst-submit">
-			<?php submit_button( '', 'primary', 'submit', false ); ?>
+			<?php submit_button( '', 'primary', 'submit-form', false ); ?>
 			<?php submit_button( __( 'Undo Changes', 'strong-testimonials' ), 'secondary', 'reset', false ); ?>
 			<?php submit_button( __( 'Restore Defaults', 'strong-testimonials' ), 'secondary', 'restore-defaults', false ); ?>
 		</p>

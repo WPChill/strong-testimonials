@@ -1,5 +1,5 @@
 /**
- *  Strong Testimonials > admin screens
+ *	Strong Testimonials admin
  */
 
 // Function to get the Max value in Array
@@ -164,13 +164,5 @@ jQuery(document).ready(function ($) {
     });
 
   });
-
-  // var redirect = $('[name="redirect-target"]');
-  // redirect.change(function(){
-  //   console.log(this.value);
-  //   if ('id' == this.value) {
-  //     $("#redirect-page-3").
-  //   }
-  // });
 
 });

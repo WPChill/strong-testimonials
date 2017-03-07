@@ -216,8 +216,7 @@ function wpmtst_get_form_fields( $form_id = 1 ) {
 	$forms = get_option( 'wpmtst_custom_forms' );
 	if ( isset( $forms[ $form_id ] ) ) {
 		$form = $forms[ $form_id ];
-	}
-	else {
+	} else {
 		$form = $forms[1];
 	}
 	$fields = $form['fields'];
@@ -667,9 +666,10 @@ function wpmtst_sort_array_by_name( $a, $b ) {
  * Allow disabling of client-side form validation via filter.
  *
  * @since 1.21.0
+ * @deprecated since 2.18.1
  */
 function wpmtst_using_form_validation_script() {
-	return apply_filters( 'wpmtst_field_required_tag', true ) && apply_filters( 'wpmtst_form_validation_script', true );
+	return true;
 }
 
 
@@ -833,6 +833,7 @@ function wpmtst_get_background_presets( $preset = null ) {
 	return false;
 }
 
+
 /**
  * Return the form success message.
  *
@@ -845,4 +846,24 @@ function wpmtst_get_success_message() {
 	$message = sprintf( '<div class="%s">%s</div>', 'testimonial-success', $message );
 
 	return apply_filters( 'wpmtst_form_success_message', $message );
+}
+
+
+/**
+ * Does callback exist?
+ *
+ * @param $callback
+ * @since 2.18.0
+ * @todo Action Hook
+ *
+ * @return bool
+ */
+function wpmtst_callback_exists( $callback ) {
+	if ( is_array( $callback ) ) {
+		$exists = method_exists( $callback[0], $callback[1] );
+	} else {
+		$exists = function_exists( $callback );
+	}
+
+	return $exists;
 }
