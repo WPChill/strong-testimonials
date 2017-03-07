@@ -60,26 +60,23 @@ function wpmtst_the_content() {
 		$content = shortcode_unautop( $content );
 		$content = do_shortcode( $content );
 
-		//wpmtst_add_content_filters();
-
 		$excerpt_more   = apply_filters( 'excerpt_more', ' ' . '[&hellip;]' );
 		$excerpt_length = WPMST()->atts( 'use_default_length' ) ? 55 : WPMST()->atts( 'excerpt_length' );
 		$content        = wp_trim_words( $content, $excerpt_length, $excerpt_more );
 
-	}
-	elseif ( WPMST()->atts( 'excerpt' ) ) {
+	} elseif ( WPMST()->atts( 'excerpt' ) ) {
 
 		// Based on the_excerpt.
 
 		$use_default_length = WPMST()->atts( 'use_default_length' );
 
-		if ( ! $use_default_length ) {
+		if ( !$use_default_length ) {
 			add_filter( 'excerpt_length', 'wpmtst_excerpt_length', 20 );
 		}
 
 		$content = get_the_excerpt();
 
-		if ( ! $use_default_length ) {
+		if ( !$use_default_length ) {
 			remove_filter( 'excerpt_length', 'wpmtst_excerpt_length', 20 );
 		}
 
@@ -89,9 +86,7 @@ function wpmtst_the_content() {
 		$content = shortcode_unautop( $content );
 		$content = do_shortcode( $content );
 
-		 //TODO add content filters?
-	}
-	else {
+	} else {
 
 		// Based on the_content.
 
@@ -104,35 +99,9 @@ function wpmtst_the_content() {
 		$content = shortcode_unautop( $content );
 		$content = do_shortcode( $content );
 
-		//wpmtst_add_content_filters();
-
 	}
 
 	echo apply_filters( 'wpmtst_the_content', $content );
-}
-
-
-/**
- * Add compatible filters from other plugins.
- *
- * @since 2.11.5
- * @since 2.11.9 disabled
- */
-function wpmtst_add_content_filters() {
-	/**
-	 * CM Tooltip Glossary
-	 * This would only be necessary in widget text because CMTG only filters page/post content.
-	 * @link https://wordpress.org/support/topic/exclude-shortcode-not-working
-	 * @todo Add an option for this.
-	 */
-	//if ( class_exists( 'CMTooltipGlossaryFrontend' ) ) {
-	//	if ( $p = has_filter( 'the_content', array( 'CMTooltipGlossaryFrontend', 'cmtt_glossary_parse' ) ) ) {
-	//		add_filter( 'wpmtst_the_content', array( 'CMTooltipGlossaryFrontend', 'cmtt_glossary_parse' ), $p );
-	//	}
-	//	if ( $p = has_filter( 'the_content', array( 'CMTooltipGlossaryFrontend', 'cmtt_glossary_addBacklink' ) ) ) {
-	//		add_filter( 'wpmtst_the_content', array( 'CMTooltipGlossaryFrontend', 'cmtt_glossary_addBacklink' ), $p );
-	//	}
-	//}
 }
 
 /**
