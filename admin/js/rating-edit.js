@@ -14,8 +14,8 @@ jQuery(document).ready(function($) {
 			postId = $('#post_ID').val() || 0,
 			buttons2 = ratingBox.find('.edit-rating-buttons-2');
 
-		//TODO REFACTOR so "off" isn't necssary!
-		buttons2.children('.save').off( "click");
+		//TODO Refactor so "off" isn't necssary!
+		buttons2.children('.save').off("click");
 		buttons2.children('.cancel').off("click");
 
 		ratingDisplay.hide();
@@ -30,7 +30,6 @@ jQuery(document).ready(function($) {
 			var field_name = ratingForm.find("input:checked").attr("name");
 
 			if ( new_rating == revert_e ) {
-			  console.log('cancel');
 				buttons2.children('.cancel').click();
 				return;
 			}

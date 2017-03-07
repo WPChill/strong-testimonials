@@ -419,17 +419,15 @@ function wpmtst_meta_options() {
 								<!-- form -->
 								<div class="rating-form" style="<?php echo ( $is_new ) ? 'display: inline-block;' : 'display: none;'; ?>">
 									<span class="inner">
-										<?php wpmtst_star_rating_form( $field, $rating, 'in-metabox' ); ?>
-									</span>
-
+                                        <?php wpmtst_star_rating_form( $field, $rating, 'in-metabox' ); ?>
+                                    </span>
 									<?php if ( ! $is_new ) : ?>
-									<span class="edit-rating-buttons-2" style="">
-										<button type="button" class="save button button-small"><?php _e( 'OK' ); ?></button>
-										&nbsp;
-										<button type="button" class="cancel button-link"><?php _e( 'Cancel' ); ?></button>
-									</span>
-									<?php endif; ?>
-								</div><!-- #rating-form -->
+                                        <span class="edit-rating-buttons-2">
+                                            <button type="button" class="save button button-small"><?php _e( 'OK' ); ?></button>&nbsp;
+                                            <button type="button" class="cancel button-link"><?php _e( 'Cancel' ); ?></button>
+                                        </span>
+                                    <?php endif; ?>
+								</div>
 
 								<!-- display -->
 								<div class="rating-display" style="<?php echo $is_new ? 'display: none;' : 'display: inline-block;'; ?>">
@@ -442,11 +440,11 @@ function wpmtst_meta_options() {
 										<button type="button" id="" class="edit-rating button button-small hide-if-no-js" aria-label="Edit rating"><?php _e( 'Edit' ); ?></button>
 									</span>
 									<?php endif; ?>
-								</div><!-- #rating-display -->
+								</div>
 
 								<span class="edit-rating-success"></span>
 
-							</div><!-- #edit-rating-box -->
+							</div>
 							<?php
 							break;
 
@@ -606,12 +604,11 @@ function wpmtst_custom_columns( $column ) {
 		default :
 			// custom field?
 			$custom = get_post_custom();
-			if ( isset( $custom[$column] ) ) {
+			if ( isset( $custom[ $column ] ) && $custom[ $column ][0] ) {
 				$fields = wpmtst_get_custom_fields();
-				if ( isset( $fields[$column] ) && 'rating' == $fields[$column]['input_type'] ) {
+				if ( isset( $fields[ $column ] ) && 'rating' == $fields[ $column ]['input_type'] ) {
 					wpmtst_star_rating_display( $custom[ $column ][0], 'in-table-list' );
-				}
-				else {
+				} else {
 					echo $custom[ $column ][0];
 				}
 			}

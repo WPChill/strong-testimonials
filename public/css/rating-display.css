@@ -54,16 +54,12 @@
 /* in the post editor */
 .strong-rating-wrapper.in-metabox {
 	display: inline-block;
-	margin-right: 5px;
-}
-
-.strong-rating-wrapper.in-metabox .strong-rating {
-	padding-top: 0;
+	/*margin-right: 5px;*/
 }
 
 .strong-rating-wrapper.in-metabox .strong-rating span.star:before {
-	font-size: 1.5em;
-	line-height: 1;
+	font-size: 20px;
+	line-height: 27px;
 }
 
 .strong-rating-wrapper.in-table-list .strong-rating span.star:before {

@@ -16,6 +16,7 @@ function wpmtst_register_cpt() {
 		$args = wpmtst_get_cpt_defaults();
 
 		$args['labels']              = apply_filters( 'wpmtst_testimonial_labels', $args['labels'] );
+		$args['supports']            = apply_filters( 'wpmtst_testimonial_supports', $args['support'] );
 		$args['exclude_from_search'] = apply_filters( 'wpmtst_exclude_from_search', $args['exclude_from_search'] );
 		$args['taxonomies']          = apply_filters( 'wpmtst_testimonial_taxonomies', $args['taxonomies'] );
 

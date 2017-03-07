@@ -1,10 +1,17 @@
 <?php
 
+/**
+ * @param $field
+ * @param int $value
+ * @param $class
+ * @param bool $echo
+ *
+ * @return mixed|string
+ */
 function wpmtst_star_rating_form( $field, $value = 0, $class, $echo = true ) {
 	if ( $field && is_array( $field ) && isset( $field['name'] ) ) {
 		$name = $field['name'];
-	}
-	else {
+	} else {
 		$name = 'rating';
 	}
 	ob_start(); ?>
@@ -28,18 +35,23 @@ function wpmtst_star_rating_form( $field, $value = 0, $class, $echo = true ) {
 	$html = ob_get_contents();
 	ob_end_clean();
 	$html = preg_replace( '/<!--(.|\s)*?-->/', '', $html );
-	if ( ! $echo ) {
+	if ( !$echo ) {
 		return $html;
 	}
 	echo $html;
 }
 
-
+/**
+ * @param int $value
+ * @param $class
+ * @param bool $echo
+ *
+ * @return mixed|string
+ */
 function wpmtst_star_rating_display( $value = 0, $class, $echo = true ) {
 	ob_start(); ?>
 	<span class="strong-rating-wrapper <?php echo $class; ?>">
-		<span class="strong-rating"><!--
-			cheap trick to collapse whitespace around inline-blocks
+		<span class="strong-rating"><!-- cheap trick to collapse whitespace around inline-blocks
 			--><span class="star0 star <?php echo ( 0 == $value ) ? 'current' : '' ; ?>"></span><!--
 			--><span class="star <?php echo ( 1 == $value ) ? 'current' : '' ; ?>"></span><!--
 			--><span class="star <?php echo ( 2 == $value ) ? 'current' : '' ; ?>"></span><!--
@@ -52,7 +64,7 @@ function wpmtst_star_rating_display( $value = 0, $class, $echo = true ) {
 	$html = ob_get_contents();
 	ob_end_clean();
 	$html = preg_replace( '/<!--(.|\s)*?-->/', '', $html );
-	if ( ! $echo ) {
+	if ( !$echo ) {
 		return $html;
 	}
 	echo $html;

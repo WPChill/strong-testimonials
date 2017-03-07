@@ -726,7 +726,15 @@ td.column-shortcode {
 
 /* Star rating in post editor
 --------------------------------------------------*/
-#edit-rating-box {
+.edit-rating-box {
+	height: 27px;
+	line-height: 27px;
+}
+.edit-rating-box .cancel {
+	padding: 0;
+	text-decoration: underline;
+	color: #0073aa;
+	margin-left: 5px;
 }
 .rating .inner,
 .edit-rating-buttons-1,
@@ -735,9 +743,6 @@ td.column-shortcode {
 	display: inline-block;
 	margin: 0 4px;
 	vertical-align: middle;
-}
-.rating button.button-link {
-	line-height: 24px;
 }
 
 /* Star rating in list table
