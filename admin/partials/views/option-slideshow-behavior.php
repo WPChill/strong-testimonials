@@ -4,7 +4,7 @@
 </th>
 <td>
 
-	<div class="row">
+    <div class="row">
 		<div class="inline inline-middle">
 			<input type="checkbox" id="view-auto_start" name="view[data][slideshow_settings][auto_start]" value="0"
 				<?php checked( $view['slideshow_settings']['auto_start'] ); ?> class="checkbox">
@@ -85,5 +85,9 @@
 
 		</div>
 	</div>
+
+    <div class="row tall">
+        <p class="description"><?php _e( 'The slideshow will pause if the browser window becomes inactive.', 'strong-testimonials' ); ?></p>
+    </div>
 
 </td>

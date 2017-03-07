@@ -368,8 +368,12 @@ td.w2 {
 
 .row,
 .row p {
-	vertical-align: middle;
-	line-height: 32px;
+  vertical-align: middle;
+  line-height: 32px;
+}
+.row.tall,
+.row.tall p {
+  line-height: 40px;
 }
 
 .row.links {

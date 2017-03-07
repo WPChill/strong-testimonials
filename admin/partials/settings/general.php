@@ -88,6 +88,7 @@ $tags    = array( 'a' => array( 'href' => array(), 'target' => array(), 'class' 
 
 </table>
 
+<hr/>
 <h2><?php _e( 'Output', 'strong-testimonials' ); ?></h2>
 
 <table class="form-table" cellpadding="0" cellspacing="0">
