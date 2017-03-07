@@ -423,6 +423,7 @@ function wpmtst_meta_options() {
                                     </span>
 									<?php if ( ! $is_new ) : ?>
                                         <span class="edit-rating-buttons-2">
+                                            <button type="button" class="zero button-link"><?php _e( 'Zero', 'strong-testimonials' ); ?></button>&nbsp;
                                             <button type="button" class="save button button-small"><?php _e( 'OK' ); ?></button>&nbsp;
                                             <button type="button" class="cancel button-link"><?php _e( 'Cancel' ); ?></button>
                                         </span>

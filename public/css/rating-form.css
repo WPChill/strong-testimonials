@@ -68,7 +68,7 @@
 
 /* hide the first label which is initially checked */
 /* added bonus of POSTing the default value so no need for isset(...) */
-.strong-rating-wrapper:not(.in-metabox) .strong-rating label[for$="star0"] { display: none; }
+.strong-rating label[for$="star0"] { display: none; }
 
 /* and turn all on */
 .strong-rating label:before { color: #FFB900; }
@@ -88,7 +88,6 @@
 .strong-rating-wrapper.in-metabox .strong-rating label[for$="star0"]:before {
 	content: "\f05e";
 	color: #999 !important;
-	/*float: right;*/
 	position: relative;
 	top: 1px;
 }

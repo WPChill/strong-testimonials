@@ -54,7 +54,6 @@
 /* in the post editor */
 .strong-rating-wrapper.in-metabox {
 	display: inline-block;
-	/*margin-right: 5px;*/
 }
 
 .strong-rating-wrapper.in-metabox .strong-rating span.star:before {

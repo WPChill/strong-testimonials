@@ -730,11 +730,14 @@ td.column-shortcode {
 	height: 27px;
 	line-height: 27px;
 }
-.edit-rating-box .cancel {
+.wp-core-ui .edit-rating-box button {
+	margin-left: 10px;
+}
+.edit-rating-box .cancel,
+.edit-rating-box .zero {
 	padding: 0;
 	text-decoration: underline;
 	color: #0073aa;
-	margin-left: 5px;
 }
 .rating .inner,
 .edit-rating-buttons-1,
