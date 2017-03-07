@@ -274,7 +274,7 @@ p.field-group-label-wrap input {
 /*--------------------------------------------------*
   Responsive
  *--------------------------------------------------*/
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 1024px) {
 
 	#left-col {
 		width: 100%;
