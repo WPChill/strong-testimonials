@@ -11,7 +11,7 @@
  * @param      $atts
  * @param null $content
  *
- * @return mixed|string|void
+ * @return mixed|string
  */
 function wpmtst_strong_view_shortcode( $atts, $content = null ) {
 	$out = shortcode_atts(
@@ -164,12 +164,37 @@ function wpmtst_strong_view_html( $html ) {
 }
 add_filter( 'strong_view_html', 'wpmtst_strong_view_html' );
 
+
 /**
- * For testing shortcode field in forms.
+ * A shortcode to display the number of testimonials.
  *
- * @return string
+ * For all: [testimonial_count]
+ * For a specific category (by slug): [testimonial_count category="abc"]
+ *
+ * @param      $atts
+ * @param null $content
+ *
+ * @since 2.19.0
+ *
+ * @return int
  */
-function wpmtst_hello() {
-	return 'Hello!';
+function wpmtst_testimonial_count( $atts, $content = null ) {
+	$atts = shortcode_atts(
+		array(
+			'category' => '',
+		),
+		$atts
+	);
+
+	$args = array(
+		'posts_per_page'           => -1,
+		'post_type'                => 'wpm-testimonial',
+		'post_status'              => 'publish',
+		'wpm-testimonial-category' => $atts['category'],
+		'suppress_filters'         => true,
+	);
+	$posts_array = get_posts( $args );
+
+	return count( $posts_array );
 }
-add_shortcode( 'wpmtst_hello', 'wpmtst_hello' );
+add_shortcode( 'testimonial_count', 'wpmtst_testimonial_count' );
