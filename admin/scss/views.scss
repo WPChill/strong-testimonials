@@ -570,7 +570,8 @@ ul.checkbox-horizontal li {
 	font-family: FontAwesome;
 	display: inline-block;
 	color: #999;
-	letter-spacing: 0.7em; /* space between radio and label */
+	/* space between radio and label */
+	letter-spacing: 0.7em;
 }
 
 .radio-buttons input[type=radio] + label:before {
@@ -627,9 +628,7 @@ ul.radio-list {
 	width: 100%;
 }
 .radio-list input[type="radio"]:checked + label {
-	/*background: rgba(0,160,210,0.08); */
 	background: #EAF7FB;
-	/*border-color: rgba(0,160,210,0.16);*/
 	border-color: #D5EFF7;
 }
 
@@ -778,7 +777,6 @@ ul.radio-list {
 }
 
 .example-container .box span {
-	/*box-sizing: border-box;*/
 	display: block;
 	margin: 0 auto;
 }
@@ -1130,18 +1128,13 @@ table.wpmtst-help-tab {
 	}
 
 	th {
-		&:first-child {
-		}
-		//&:not(:first-child) {
-			border-bottom: 1px solid #AAA;
-		//}
+		border-bottom: 1px solid #AAA;
 	}
 
 	td {
 		border-bottom: 1px solid #E1E1E1;
 
 		&:first-child {
-			//border-bottom: 0;
 			text-align: right;
 			font-weight: 600;
 			white-space: nowrap;
