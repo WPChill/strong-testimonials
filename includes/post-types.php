@@ -25,12 +25,6 @@ function wpmtst_register_cpt() {
 	}
 
 	/**
-	 * Additional permastructure.
-	 * This will override other CPTs with same slug.
-	 */
-	// add_permastruct( 'wpm-testimonial', "review/%wpm-testimonial%", array( 'slug' => __( 'review', 'strong-testimonials' ) ) );
-
-	/**
 	 * Our taxonomy.
 	 */
 	if ( !taxonomy_exists( 'wpm-testimonial-category' ) && apply_filters( 'wpmtst_register_taxonomy', true ) ) {
