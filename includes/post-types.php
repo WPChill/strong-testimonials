@@ -16,7 +16,7 @@ function wpmtst_register_cpt() {
 		$args = wpmtst_get_cpt_defaults();
 
 		$args['labels']              = apply_filters( 'wpmtst_testimonial_labels', $args['labels'] );
-		$args['supports']            = apply_filters( 'wpmtst_testimonial_supports', $args['support'] );
+		$args['supports']            = apply_filters( 'wpmtst_testimonial_supports', $args['supports'] );
 		$args['exclude_from_search'] = apply_filters( 'wpmtst_exclude_from_search', $args['exclude_from_search'] );
 		$args['taxonomies']          = apply_filters( 'wpmtst_testimonial_taxonomies', $args['taxonomies'] );
 
@@ -67,6 +67,7 @@ add_action( 'init', 'wpmtst_register_cpt', 20 );
  */
 function wpmtst_get_cpt_defaults() {
 
+	/** @noinspection SqlResolve */
 	$labels = array(
 		'name'                  => _x( 'Testimonials', 'post type general name', 'strong-testimonials' ),
 		'singular_name'         => _x( 'Testimonial', 'post type singular name', 'strong-testimonials' ),
