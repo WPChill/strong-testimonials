@@ -2,9 +2,9 @@
 # This file is distributed under the same license as the Strong Testimonials package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Strong Testimonials 2.18.2\n"
+"Project-Id-Version: Strong Testimonials 2.19\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/strong-testimonials\n"
-"POT-Creation-Date: 2017-03-06 15:05:33+00:00\n"
+"POT-Creation-Date: 2017-03-08 08:44:26+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -51,84 +51,88 @@ msgctxt "post editor"
 msgid "To add a photo or logo, use the Featured Image option."
 msgstr ""
 
+#: admin/admin.php:426
+msgid "Zero"
+msgstr ""
+
 #: admin/admin.php:427
 msgid "OK"
 msgstr ""
 
-#: admin/admin.php:429
+#: admin/admin.php:428
 msgid "Cancel"
 msgstr ""
 
-#: admin/admin.php:442 includes/class-strong-views-list-table.php:75
+#: admin/admin.php:441 includes/class-strong-views-list-table.php:75
 msgid "Edit"
 msgstr ""
 
-#: admin/admin.php:517
+#: admin/admin.php:516
 msgid "Excerpt"
 msgstr ""
 
-#: admin/admin.php:528 admin/admin.php:648
+#: admin/admin.php:527 admin/admin.php:646
 msgid "Thumbnail"
 msgstr ""
 
-#: admin/admin.php:531
+#: admin/admin.php:530
 msgid "Rating"
 msgstr ""
 
 #. translators: On the Views admin screen.
 
-#: admin/admin.php:544 admin/partials/views/option-category.php:4
-#: includes/post-types.php:40
+#: admin/admin.php:543 admin/partials/views/option-category.php:4
+#: includes/post-types.php:35
 msgid "Categories"
 msgstr ""
 
-#: admin/admin.php:549
+#: admin/admin.php:548
 msgid "Date"
 msgstr ""
 
-#: admin/admin.php:660
+#: admin/admin.php:658
 msgid "ID"
 msgstr ""
 
-#: admin/admin.php:661 admin/partials/settings/email-from.php:19
+#: admin/admin.php:659 admin/partials/settings/email-from.php:19
 #: admin/partials/settings/email-to.php:12 admin/views.php:210
 #: admin/views.php:565 includes/defaults.php:281
 msgid "Name"
 msgstr ""
 
-#: admin/admin.php:662
+#: admin/admin.php:660
 msgid "Slug"
 msgstr ""
 
-#: admin/admin.php:663
+#: admin/admin.php:661
 msgid "Posts"
 msgstr ""
 
 #. translators: %s is the name of the plugin.
 
-#: admin/admin.php:810
+#: admin/admin.php:808
 msgctxt "installation"
 msgid "Unable to load %s"
 msgstr ""
 
 #. translators: %s is a WordPress version number.
 
-#: admin/admin.php:812
+#: admin/admin.php:810
 msgctxt "installation"
 msgid "This plugin requires <strong>WordPress %s</strong> or higher so it has been deactivated."
 msgstr ""
 
-#: admin/admin.php:813
+#: admin/admin.php:811
 msgctxt "installation"
 msgid "Please upgrade WordPress and try again."
 msgstr ""
 
-#: admin/admin.php:814
+#: admin/admin.php:812
 msgctxt "installation"
 msgid "Back to the WordPress <a href=\"%s\">Plugins page</a>"
 msgstr ""
 
-#: admin/admin.php:898
+#: admin/admin.php:896
 msgid "restore default"
 msgstr ""
 
@@ -274,8 +278,8 @@ msgstr ""
 msgid "To display this form, create a view and select Form mode."
 msgstr ""
 
-#: admin/help.php:25 admin/partials/settings/general.php:141
-#: admin/partials/settings/general.php:161
+#: admin/help.php:25 admin/partials/settings/general.php:142
+#: admin/partials/settings/general.php:162
 #: admin/partials/views/option-classes.php:13
 msgid "Tutorial"
 msgstr ""
@@ -371,8 +375,16 @@ msgstr ""
 msgid "Pagination"
 msgstr ""
 
+#: admin/help.php:109
+msgid "This setting will set the height of the <b>slideshow container</b> to match the tallest slide in order to keep elements below it from bouncing up and down during slide transitions. With testimonials of uneven length, the result is whitespace underneath the shorter testimonials."
+msgstr ""
+
 #: admin/help.php:110
-msgid "This setting will set the height of the <b>slideshow container</b> to match the tallest slide in order to keep elements below it from bouncing up and down during slide transitions. With testimonials of uneven length, the result is whitespace underneath the shorter testimonials. Select the <b>Stretch</b> option to stretch the borders and background vertically to compensate. Use the excerpt or abbreviated content if you want to minimize the whitespace."
+msgid "Select the <b>Stretch</b> option to stretch the borders and background vertically to compensate."
+msgstr ""
+
+#: admin/help.php:111
+msgid "Use the excerpt or abbreviated content if you want to minimize the whitespace."
 msgstr ""
 
 #: admin/help.php:118
@@ -440,83 +452,83 @@ msgstr ""
 msgid "Special Fields"
 msgstr ""
 
-#: admin/partials/guide/about.php:8
+#: admin/partials/guide/guide.php:8
 msgid "<strong>You must create a view first.</strong>"
 msgstr ""
 
-#: admin/partials/guide/about.php:9
+#: admin/partials/guide/guide.php:9
 msgid "A view is simply of group of settings for what you want to display. "
 msgstr ""
 
-#: admin/partials/guide/about.php:13
+#: admin/partials/guide/guide.php:13
 msgid "Instead of learning multiple shortcodes with dozens of options, a view contains all the options in an easy-to-use editor."
 msgstr ""
 
-#: admin/partials/guide/about.php:14
+#: admin/partials/guide/guide.php:14
 msgid "Display the view using its simple shortcode (which you will see after you save it) or the widget."
 msgstr ""
 
-#: admin/partials/guide/about.php:18
+#: admin/partials/guide/guide.php:18
 msgid "You can create an unlimited number of views."
 msgstr ""
 
-#: admin/partials/guide/about.php:19
+#: admin/partials/guide/guide.php:19
 msgid "For example, you might have one view to <strong>display a grid</strong> of your testimonials, another view for a testimonial <strong>submission form</strong>, and another view for a <strong>slideshow</strong>."
 msgstr ""
 
-#: admin/partials/guide/about.php:28
+#: admin/partials/guide/guide.php:28
 msgid "What's new"
 msgstr ""
 
-#: admin/partials/guide/about.php:30
+#: admin/partials/guide/guide.php:30
 msgid "Form success redirect options."
 msgstr ""
 
-#: admin/partials/guide/about.php:32
+#: admin/partials/guide/guide.php:32
 msgid "Form success message editor."
 msgstr ""
 
-#: admin/partials/guide/about.php:34
+#: admin/partials/guide/guide.php:34
 msgid "More slideshow options."
 msgstr ""
 
-#: admin/partials/guide/about.php:36
+#: admin/partials/guide/guide.php:36
 msgid "Star ratings."
 msgstr ""
 
-#: admin/partials/guide/about.php:38
+#: admin/partials/guide/guide.php:38
 msgid "Use standard WordPress pagination just like standard blog posts."
 msgstr ""
 
-#: admin/partials/guide/about.php:40
+#: admin/partials/guide/guide.php:40
 msgid "Improved compatibility and performance."
 msgstr ""
 
-#: admin/partials/guide/about.php:48
+#: admin/partials/guide/guide.php:48
 msgid "Translation"
 msgstr ""
 
-#: admin/partials/guide/about.php:50
+#: admin/partials/guide/guide.php:50
 msgid "Strong Testimonials is compatible with WPML and Polylang."
 msgstr ""
 
-#: admin/partials/guide/about.php:52
+#: admin/partials/guide/guide.php:52
 msgid "In each plugin, domains are added to the <strong>String Translation</strong> screens. Those domains encompass the form fields, the form messages, the notification email, and the \"Read more\" link text in your views. They are updated automatically when your form fields or settings change."
 msgstr ""
 
-#: admin/partials/guide/about.php:60 admin/partials/settings/general.php:62
+#: admin/partials/guide/guide.php:60 admin/partials/settings/general.php:62
 msgid "Troubleshooting"
 msgstr ""
 
-#: admin/partials/guide/about.php:62
+#: admin/partials/guide/guide.php:62
 msgid "Upgrading from version 1?"
 msgstr ""
 
-#: admin/partials/guide/about.php:67
+#: admin/partials/guide/guide.php:67
 msgid "The &#91;strong&#93;, &#91;wpmtst&#93; and &#91;read_more&#93; shortcodes and the original widget were <a href=\"%s\" target=\"_blank\">removed in version 2</a>. Everything now happens in <strong>views</strong>. <em>I promise this is the last major change.</em>"
 msgstr ""
 
-#: admin/partials/guide/about.php:82
+#: admin/partials/guide/guide.php:82
 msgid "Visit <a href=\"%s\" target=\"_blank\">WP Mission</a> for more documentation."
 msgstr ""
 
@@ -563,16 +575,12 @@ msgstr ""
 msgid "Knowledge Base"
 msgstr ""
 
-#: admin/partials/guide/sidebar.php:67
+#: admin/partials/guide/sidebar.php:66
 msgid "Post an honest <a href=\"%s\" target=\"_blank\">review</a> on wordpress.org."
 msgstr ""
 
-#: admin/partials/guide/sidebar.php:72
-msgid "<a href=\"%s\" target=\"_blank\">Donate</a> to the Theme & Plugin Compatibility Fund."
-msgstr ""
-
-#: admin/partials/guide/sidebar.php:77
-msgid "Give Back"
+#: admin/partials/guide/sidebar.php:71
+msgid "Contribute"
 msgstr ""
 
 #: admin/partials/settings/email-from.php:5
@@ -844,61 +852,61 @@ msgstr ""
 msgid "No log file yet."
 msgstr ""
 
-#: admin/partials/settings/general.php:91
+#: admin/partials/settings/general.php:92
 msgid "Output"
 msgstr ""
 
-#: admin/partials/settings/general.php:97
+#: admin/partials/settings/general.php:98
 msgid "Scroll Top"
 msgstr ""
 
-#: admin/partials/settings/general.php:103
+#: admin/partials/settings/general.php:104
 msgid "When a new page is selected in paginated Views, scroll to the top of the container minus %s pixels. On by default."
 msgstr ""
 
-#: admin/partials/settings/general.php:111
+#: admin/partials/settings/general.php:112
 msgid "Remove Whitespace"
 msgstr ""
 
-#: admin/partials/settings/general.php:117
+#: admin/partials/settings/general.php:118
 msgid "Remove space between HTML tags in View output to prevent double paragraphs <em>(wpautop)</em>. On by default."
 msgstr ""
 
-#: admin/partials/settings/general.php:125
+#: admin/partials/settings/general.php:126
 msgid "Comments"
 msgstr ""
 
-#: admin/partials/settings/general.php:131
+#: admin/partials/settings/general.php:132
 msgid "Allow comments on testimonials. Requires using your theme's single post template. Off by default."
 msgstr ""
 
-#: admin/partials/settings/general.php:134
+#: admin/partials/settings/general.php:135
 msgid "To enable comments:"
 msgstr ""
 
-#: admin/partials/settings/general.php:136
+#: admin/partials/settings/general.php:137
 msgid "For individual testimonials, use the <strong>Discussion</strong> meta box in the post editor or <strong>Quick Edit</strong> in the testimonial list."
 msgstr ""
 
-#: admin/partials/settings/general.php:137
+#: admin/partials/settings/general.php:138
 msgid "For multiple testimonials, use <strong>Bulk Edit</strong> in the testimonial list."
 msgstr ""
 
-#: admin/partials/settings/general.php:147
+#: admin/partials/settings/general.php:148
 msgid "Embed Width"
 msgstr ""
 
 #. Translators: %s is an input field.
 
-#: admin/partials/settings/general.php:153
+#: admin/partials/settings/general.php:154
 msgid "For embedded links (YouTube, Twitter, etc.) set the frame width to %s pixels."
 msgstr ""
 
-#: admin/partials/settings/general.php:155
+#: admin/partials/settings/general.php:156
 msgid "Leave empty for default width (usually 100% for videos). Height will be calculated automatically. This setting only applies to Views."
 msgstr ""
 
-#: admin/partials/settings/general.php:158
+#: admin/partials/settings/general.php:159
 msgid "More on embeds"
 msgstr ""
 
@@ -1025,7 +1033,7 @@ msgid "Maybe"
 msgstr ""
 
 #: admin/partials/views/option-category.php:16
-#: admin/partials/views/option-limit.php:11
+#: admin/partials/views/option-limit.php:12
 msgid "all"
 msgstr ""
 
@@ -1289,7 +1297,7 @@ msgstr ""
 msgid "Quantity"
 msgstr ""
 
-#: admin/partials/views/option-limit.php:14
+#: admin/partials/views/option-limit.php:15
 msgctxt "noun"
 msgid "count"
 msgstr ""
@@ -1431,6 +1439,10 @@ msgstr ""
 msgid "Stretch slides vertically"
 msgstr ""
 
+#: admin/partials/views/option-slideshow-behavior.php:90
+msgid "The slideshow will pause if the browser window becomes inactive."
+msgstr ""
+
 #: admin/partials/views/option-slideshow-navigation.php:15
 msgid "Controls"
 msgstr ""
@@ -1469,7 +1481,7 @@ msgstr ""
 #. translators: On the Views admin screen.
 
 #: admin/partials/views/option-thumbnail.php:5 includes/defaults.php:102
-#: includes/post-types.php:86
+#: includes/post-types.php:82
 msgid "Featured Image"
 msgstr ""
 
@@ -1534,7 +1546,7 @@ msgid "Settings"
 msgstr ""
 
 #: admin/settings.php:34 admin/settings.php:35
-msgid "About"
+msgid "Guide"
 msgstr ""
 
 #: admin/settings.php:275
@@ -2164,7 +2176,7 @@ msgstr ""
 
 #. translators: Publish box date format, see https://secure.php.net/date
 
-#: includes/functions.php:733 includes/post-types.php:194
+#: includes/functions.php:733 includes/post-types.php:190
 msgid "M j, Y @ H:i"
 msgstr ""
 
@@ -2224,203 +2236,203 @@ msgstr ""
 msgid "View %s : Read more (page or post)"
 msgstr ""
 
-#: includes/post-types.php:38
+#: includes/post-types.php:33
 msgid "Testimonial Categories"
 msgstr ""
 
-#: includes/post-types.php:39
+#: includes/post-types.php:34
 msgid "Testimonial Category"
 msgstr ""
 
-#: includes/post-types.php:41
+#: includes/post-types.php:36
 msgid "All categories"
 msgstr ""
 
-#: includes/post-types.php:47
+#: includes/post-types.php:42
 msgctxt "slug"
 msgid "testimonial-category"
 msgstr ""
 
-#: includes/post-types.php:70
+#: includes/post-types.php:66
 msgctxt "post type general name"
 msgid "Testimonials"
 msgstr ""
 
-#: includes/post-types.php:71
+#: includes/post-types.php:67
 msgctxt "post type singular name"
 msgid "Testimonial"
 msgstr ""
 
-#: includes/post-types.php:72
+#: includes/post-types.php:68
 msgid "Add New"
 msgstr ""
 
-#: includes/post-types.php:73
+#: includes/post-types.php:69
 msgid "Add New Testimonial"
 msgstr ""
 
-#: includes/post-types.php:74
+#: includes/post-types.php:70
 msgid "Edit Testimonial"
 msgstr ""
 
-#: includes/post-types.php:75
+#: includes/post-types.php:71
 msgid "New Testimonial"
 msgstr ""
 
-#: includes/post-types.php:76
+#: includes/post-types.php:72
 msgid "View Testimonial"
 msgstr ""
 
-#: includes/post-types.php:77
+#: includes/post-types.php:73
 msgid "View Testimonials"
 msgstr ""
 
-#: includes/post-types.php:78
+#: includes/post-types.php:74
 msgid "Search Testimonials"
 msgstr ""
 
-#: includes/post-types.php:79
+#: includes/post-types.php:75
 msgid "Nothing Found"
 msgstr ""
 
-#: includes/post-types.php:80
+#: includes/post-types.php:76
 msgid "Nothing found in Trash"
 msgstr ""
 
-#: includes/post-types.php:81
+#: includes/post-types.php:77
 msgid "All Testimonials"
 msgstr ""
 
-#: includes/post-types.php:82
+#: includes/post-types.php:78
 msgid "Testimonial Archives"
 msgstr ""
 
-#: includes/post-types.php:83
+#: includes/post-types.php:79
 msgid "Attributes"
 msgstr ""
 
-#: includes/post-types.php:84
+#: includes/post-types.php:80
 msgid "Insert into testimonial"
 msgstr ""
 
-#: includes/post-types.php:85
+#: includes/post-types.php:81
 msgid "Uploaded to this testimonial"
 msgstr ""
 
-#: includes/post-types.php:87
+#: includes/post-types.php:83
 msgid "Set featured image"
 msgstr ""
 
-#: includes/post-types.php:88
+#: includes/post-types.php:84
 msgid "Remove featured image"
 msgstr ""
 
-#: includes/post-types.php:89
+#: includes/post-types.php:85
 msgid "Use as featured image"
 msgstr ""
 
-#: includes/post-types.php:90
+#: includes/post-types.php:86
 msgid "Filter testimonials list"
 msgstr ""
 
-#: includes/post-types.php:91
+#: includes/post-types.php:87
 msgid "Testimonials list navigation"
 msgstr ""
 
-#: includes/post-types.php:92
+#: includes/post-types.php:88
 msgid "Testimonials list"
 msgstr ""
 
-#: includes/post-types.php:93
+#: includes/post-types.php:89
 msgctxt "admin menu name"
 msgid "Testimonials"
 msgstr ""
 
-#: includes/post-types.php:94
+#: includes/post-types.php:90
 msgctxt "admin bar menu name"
 msgid "Testimonial"
 msgstr ""
 
-#: includes/post-types.php:121
+#: includes/post-types.php:117
 msgctxt "slug"
 msgid "testimonial"
 msgstr ""
 
-#: includes/post-types.php:178 includes/post-types.php:190
+#: includes/post-types.php:174 includes/post-types.php:186
 msgid "Preview testimonial"
 msgstr ""
 
-#: includes/post-types.php:184
+#: includes/post-types.php:180
 msgid "View testimonial"
 msgstr ""
 
-#: includes/post-types.php:198 includes/post-types.php:201
+#: includes/post-types.php:194 includes/post-types.php:197
 msgid "Testimonial updated."
 msgstr ""
 
-#: includes/post-types.php:199
+#: includes/post-types.php:195
 msgid "Custom field updated."
 msgstr ""
 
-#: includes/post-types.php:200
+#: includes/post-types.php:196
 msgid "Custom field deleted."
 msgstr ""
 
 #. translators: %s: date and time of the revision
 
-#: includes/post-types.php:203
+#: includes/post-types.php:199
 msgid "Testimonial restored to revision from %s."
 msgstr ""
 
-#: includes/post-types.php:204
+#: includes/post-types.php:200
 msgid "Testimonial published."
 msgstr ""
 
-#: includes/post-types.php:205
+#: includes/post-types.php:201
 msgid "Testimonial saved."
 msgstr ""
 
-#: includes/post-types.php:206
+#: includes/post-types.php:202
 msgid "Testimonial submitted."
 msgstr ""
 
-#: includes/post-types.php:207
+#: includes/post-types.php:203
 msgid "Testimonial scheduled for: %s."
 msgstr ""
 
-#: includes/post-types.php:208
+#: includes/post-types.php:204
 msgid "Testimonial draft updated."
 msgstr ""
 
-#: includes/post-types.php:231
+#: includes/post-types.php:227
 msgid "%s testimonial updated."
 msgid_plural "%s testimonials updated."
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/post-types.php:232
+#: includes/post-types.php:228
 msgid "1 testimonial not updated, somebody is editing it."
 msgstr ""
 
-#: includes/post-types.php:232
+#: includes/post-types.php:228
 msgid "%s testimonial not updated, somebody is editing it."
 msgid_plural "%s testimonials not updated, somebody is editing them."
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/post-types.php:233
+#: includes/post-types.php:229
 msgid "%s testimonial permanently deleted."
 msgid_plural "%s testimonials permanently deleted."
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/post-types.php:234
+#: includes/post-types.php:230
 msgid "%s testimonial moved to the Trash."
 msgid_plural "%s testimonials moved to the Trash."
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/post-types.php:235
+#: includes/post-types.php:231
 msgid "%s testimonial restored from the Trash."
 msgid_plural "%s testimonials restored from the Trash."
 msgstr[0] ""
