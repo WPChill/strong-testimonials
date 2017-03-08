@@ -937,3 +937,33 @@ function wpmtst_get_captcha_plugins() {
 
 	return $plugins;
 }
+
+
+/**
+ * Add plugin links.
+ *
+ * @param        $plugin_meta
+ * @param        $plugin_file
+ * @param array  $plugin_data
+ * @param string $status
+ *
+ * @return array
+ */
+function wpmtst_plugin_row_meta( $plugin_meta, $plugin_file, $plugin_data = array(), $status = '' ) {
+
+    if ( $plugin_file == WPMTST_PLUGIN ) {
+
+		$url = 'https://www.wpmission.com/knowledge-base/strong-testimonials/';
+		$plugin_meta[] = sprintf( '<a href="%s" target="_blank">%s</a>', $url, '<span class="dashicons dashicons-info"></span> ' . __( 'Knowledge Base', 'strong-testimonials' ) );
+
+		$url = 'https://www.wpmission.com/support/';
+		$plugin_meta[] = sprintf( '<a href="%s" target="_blank">%s</a>', $url, '<span class="dashicons dashicons-editor-help"></span> ' . __( 'Support', 'strong-testimonials' ) );
+
+		$url = 'https://www.wpmission.com/downloads/';
+		$plugin_meta[] = sprintf( '<a href="%s" target="_blank">%s</a>', $url, '<span class="dashicons dashicons-admin-plugins"></span> ' . __( 'Add-ons', 'strong-testimonials' ) );
+
+	}
+
+	return $plugin_meta;
+}
+add_filter( 'plugin_row_meta', 'wpmtst_plugin_row_meta' , 10, 4 );
