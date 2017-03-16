@@ -195,7 +195,7 @@ final class Strong_Testimonials {
 			if ( '127.0.0.1' == $_SERVER['SERVER_ADDR'] ) {
 				define( 'WPMISSION_STORE_URL', 'http://store.wpmission.dev' );
 			} else {
-				define( 'WPMISSION_STORE_URL', 'https://www.wpmission.com' );
+				define( 'WPMISSION_STORE_URL', 'https://strongplugins.com' );
 			}
 		}
 	}
