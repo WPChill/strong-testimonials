@@ -150,7 +150,7 @@ Yes. This requires a lightbox so if your theme does not include one, you will ne
 
 == Changelog ==
 
-= 2.19 - Mar 17, 2017 =
+= 2.19 - Mar 18, 2017 =
 * Improve add-on integration.
 * Prevent conflict between Advanced noCaptcha reCaptcha plugin and page builders.
 * Add simple WP-CLI compatibility.
@@ -222,4 +222,4 @@ Yes. This requires a lightbox so if your theme does not include one, you will ne
 
 == Upgrade Notice ==
 
-Ready for add-on plugins available at strongplugins.com.
+Improved compatibility. Add-on plugins available at strongplugins.com.
