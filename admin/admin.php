@@ -953,13 +953,10 @@ function wpmtst_plugin_row_meta( $plugin_meta, $plugin_file, $plugin_data = arra
 
     if ( $plugin_file == WPMTST_PLUGIN ) {
 
-		$url = 'https://www.wpmission.com/knowledge-base/strong-testimonials/';
-		$plugin_meta[] = sprintf( '<a href="%s" target="_blank">%s</a>', $url, '<span class="dashicons dashicons-info"></span> ' . __( 'Knowledge Base', 'strong-testimonials' ) );
-
-		$url = 'https://www.wpmission.com/support/';
+		$url = 'https://support.strongplugins.com/';
 		$plugin_meta[] = sprintf( '<a href="%s" target="_blank">%s</a>', $url, '<span class="dashicons dashicons-editor-help"></span> ' . __( 'Support', 'strong-testimonials' ) );
 
-		$url = 'https://www.wpmission.com/downloads/';
+		$url = 'https://strongplugins.com/';
 		$plugin_meta[] = sprintf( '<a href="%s" target="_blank">%s</a>', $url, '<span class="dashicons dashicons-admin-plugins"></span> ' . __( 'Add-ons', 'strong-testimonials' ) );
 
 	}
