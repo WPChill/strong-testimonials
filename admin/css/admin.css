@@ -927,3 +927,7 @@ input.code {
 .tab-header {
 	padding: 1em 0;
 }
+
+.striped > tbody > tr.readonly {
+	background: lightyellow;
+}
