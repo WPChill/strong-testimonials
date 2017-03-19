@@ -503,15 +503,6 @@ function wpmtst_upgrade() {
 		unlink( WP_CONTENT_DIR  . '/install.log' );
 	}
 
-	/**
-	 * Flush rewrite rules.
-	 *
-	 * In case a theme or plugin skips this and it has a "testimonial" post type.
-	 *
-	 * @since 2.11.17
-	 */
-	add_action( 'shutdown', 'flush_rewrite_rules' );
-
 }
 
 
@@ -580,9 +571,6 @@ function wpmtst_update_tables() {
 		) $charset_collate;";
 
 	$result = dbDelta( $sql );
-	if ( $result ) {
-		WPMST()->log( $result, __FUNCTION__ );
-	}
 
 	update_option( 'wpmtst_db_version', WPMST()->get_db_version() );
 }

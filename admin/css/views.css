@@ -369,6 +369,11 @@ td.w2 {
   line-height: 32px;
 }
 
+.row.tall,
+.row.tall p {
+  line-height: 40px;
+}
+
 .row.links {
   margin-top: 10px;
 }
@@ -559,8 +564,8 @@ ul.checkbox-horizontal li {
   font-family: FontAwesome;
   display: inline-block;
   color: #999;
-  letter-spacing: 0.7em;
   /* space between radio and label */
+  letter-spacing: 0.7em;
 }
 
 .radio-buttons input[type=radio] + label:before {
@@ -625,9 +630,7 @@ ul.radio-list {
 }
 
 .radio-list input[type="radio"]:checked + label {
-  /*background: rgba(0,160,210,0.08); */
   background: #EAF7FB;
-  /*border-color: rgba(0,160,210,0.16);*/
   border-color: #D5EFF7;
 }
 
@@ -779,7 +782,6 @@ ul.radio-list {
 }
 
 .example-container .box span {
-  /*box-sizing: border-box;*/
   display: block;
   margin: 0 auto;
 }

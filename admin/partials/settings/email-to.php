@@ -15,8 +15,10 @@
 				<td><?php _e( "Email", 'strong-testimonials' ); ?></td>
 			</tr>
 			<?php
-			foreach ( $form_options['recipients'] as $key => $recipient ) {
-				include 'recipient.php';
+            if ( isset( $form_options['recipients'] ) && $form_options['recipients'] ) {
+	            foreach ( $form_options['recipients'] as $key => $recipient ) {
+		            include 'recipient.php';
+	            }
             }
 			?>
 			<tr>

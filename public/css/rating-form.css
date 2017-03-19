@@ -56,8 +56,9 @@
 }
 
 .strong-rating-wrapper.in-metabox .strong-rating > label:before {
-	font-size: 1.5em;
-	line-height: 1;
+	font-size: 20px;
+	line-height: 27px;
+	padding: 0 5px;
 }
 
 
@@ -81,6 +82,18 @@
 
 /* turn on the current rating */
 .strong-rating input:checked + label:before { color: #FFB900; }
+
+
+/* option to clear rating in post editor */
+.strong-rating-wrapper.in-metabox .strong-rating label[for$="star0"]:before {
+	content: "\f05e";
+	color: #999 !important;
+	position: relative;
+	top: 1px;
+}
+.strong-rating-wrapper.in-metabox .strong-rating label[for$="star0"]:hover:before {
+	color: #CD0000 !important;
+}
 
 
 /* when hovering the entire fieldset: */

@@ -1,12 +1,30 @@
 <?php
 /**
- * Settings
+ * Form Settings
  *
  * @package Strong_Testimonials
  * @since 1.13
  */
+$pages_list   = wpmtst_get_pages();
+$form_options = get_option( 'wpmtst_form_options' );
+$plugins      = wpmtst_get_captcha_plugins();
 
-$pages_list = wpmtst_get_pages();
+foreach ( $plugins as $key => $plugin ) {
+
+	if ( file_exists( WP_PLUGIN_DIR . '/' . $plugin['file'] ) ) {
+		$plugins[ $key ]['installed'] = true;
+	}
+
+	$plugins[ $key ]['active'] = is_plugin_active( $plugin['file'] );
+
+	// If current Captcha plugin has been deactivated, disable Captcha
+	// so corresponding div does not appear on front-end form.
+	if ( $key == $form_options['captcha'] && !$plugins[ $key ]['active'] ) {
+		$form_options['captcha'] = '';
+		update_option( 'wpmtst_form_options', $form_options );
+	}
+
+}
 ?>
 <input type="hidden" name="wpmtst_form_options[default_recipient]" value="<?php echo htmlentities( serialize( $form_options['default_recipient'] ) ); ?>">
 
@@ -17,9 +35,11 @@ $pages_list = wpmtst_get_pages();
  * ========================================
  */
 ?>
-<h3><?php _e( 'Form Labels & Messages', 'strong-testimonials' ); ?></h3>
+<h2><?php _e( 'Form Labels & Messages', 'strong-testimonials' ); ?></h2>
 
 <?php
+do_action( 'wpmtst_before_form_settings' );
+
 // WPML
 if ( wpmtst_is_plugin_active( 'wpml' ) ) {
     echo '<span class="dashicons dashicons-info icon-blue"></span>&nbsp;';

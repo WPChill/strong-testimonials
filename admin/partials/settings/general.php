@@ -9,7 +9,8 @@
 $options = get_option( 'wpmtst_options' );
 $tags    = array( 'a' => array( 'href' => array(), 'target' => array(), 'class' => array() ), 'br' => array() );
 ?>
-<h3>Admin</h3>
+<h2><?php _e( 'Admin', 'strong-testimonials' ); ?></h2>
+
 <table class="form-table" cellpadding="0" cellspacing="0">
 
 	<tr valign="top">
@@ -49,7 +50,7 @@ $tags    = array( 'a' => array( 'href' => array(), 'target' => array(), 'class' 
 			<fieldset>
 			<label>
 				<input type="checkbox" name="wpmtst_options[support_custom_fields]" <?php checked( $options['support_custom_fields'] ); ?>>
-				<?php _e( 'Show the <strong>Custom Fields</strong> meta box in the testimonial post editor. This does not affect the <strong>Client Fields</strong> meta box. Off by default.', 'strong-testimonials' ); ?>
+				<?php _e( 'Show the <strong>Custom Fields</strong> meta box in the testimonial post editor. This does not affect the <strong>Client Details</strong> meta box. Off by default.', 'strong-testimonials' ); ?>
 				<p class="description"><?php _e( 'For advanced users.', 'strong-testimonials' ); ?></p>
 			</label>
 			</fieldset>
@@ -87,7 +88,9 @@ $tags    = array( 'a' => array( 'href' => array(), 'target' => array(), 'class' 
 
 </table>
 
-<h3>Output</h3>
+<hr/>
+<h2><?php _e( 'Output', 'strong-testimonials' ); ?></h2>
+
 <table class="form-table" cellpadding="0" cellspacing="0">
 
 	<tr valign="top">

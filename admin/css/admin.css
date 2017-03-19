@@ -9,13 +9,40 @@
 .error {
 	color: red !important;
 }
+.required-phrase {
+	color: red;
+	font-style: normal;
+	font-weight: 400;
+	font-size: 0.9em;
+}
+.required-phrase:before,
+label.required:after {
+	content: '*';
+	display: inline-block;
+	color: red;
+	font-size: 27px;
+	line-height: 19px;
+	height: 19px;
+	font-weight: 600;
+	vertical-align: middle;
+	position: relative;
+	top: 1px;
+}
+.has-input {
+	display: inline-block;
+}
+
+.error-message {
+	display: inline-block;
+	margin-left: 0.5em;
+}
+
+button.nogo {
+	margin: 0 3px;
+}
 
 li.warning {
 	background: lightyellow;
-}
-
-.wpmtst input.button.restore-default-shortcode {
-	margin-right: 0;
 }
 
 .between-inputs {
@@ -27,7 +54,7 @@ li.warning {
 	font-size: 14px;
 }
 
-.wrap.wpmtst h3 {
+.wrap.wpmtst h2 {
 	margin: 2em 0 1em;
 }
 
@@ -37,10 +64,6 @@ li.warning {
 
 .wrap.wpmtst .notice p {
 	font-size: 13px;
-}
-
-.wpmtst h2 {
-	margin-bottom: 1em;
 }
 
 .wpmtst .list-wrap {
@@ -151,6 +174,10 @@ div.radio:hover {
 	vertical-align: middle;
 }
 
+.wpmtst .form-table .actions {
+	/*vertical-align: top;*/
+}
+
 .wpmtst .form-table td:nth-child(1) {
 	width: 200px;
 }
@@ -178,7 +205,7 @@ div.radio:hover {
 .wpmtst .form-table input,
 .wpmtst .form-table select,
 .wpmtst .form-table textarea {
-	line-height: 1.5em;
+	/*line-height: 1.5em;*/
 }
 
 .wpmtst .form-table input[type="button"] {
@@ -256,7 +283,6 @@ div.radio:hover {
 	display: block;
 }
 
-
 /* end: form-table */
 
 .code {
@@ -269,8 +295,8 @@ div.radio:hover {
 	border-radius: 2px;
 }
 
-.wpmtst input.button {
-	margin-right: 10px;
+.submit-row input.button {
+	margin-right: 5px;
 }
 
 .custom-input {
@@ -306,6 +332,103 @@ ul.compact {
 ul.compact li {
 	display: inline-block;
 	margin: 6px 30px 6px 0;
+}
+
+/* Add-on license table
+------------------------------------------------*/
+
+#licenses-form .form-table {
+	width: auto;
+}
+
+#licenses-form .form-table label {
+	/* to match text inputs */
+	line-height: 27px;
+}
+
+#licenses-form .form-table th,
+#licenses-form .form-table td {
+	vertical-align: top;
+}
+
+#licenses-form th.for-license-key,
+#licenses-form th.for-license-status {
+	width: 375px;
+}
+
+#licenses-form .form-table th {
+	padding: 15px;
+}
+
+#licenses-form .form-table td {
+	white-space: nowrap;
+	padding: 15px;
+}
+
+#licenses-form .form-table th:first-child,
+#licenses-form .form-table td:first-child {
+	padding-left: 0;
+}
+
+#licenses-form .form-table input[type="text"] {
+	width: 100%;
+}
+
+#licenses-form .form-table label {
+	padding-left: 0;
+	text-indent: 0;
+}
+
+#licenses-form .doing-ajax:before {
+	display: inline-block;
+	font: normal 22px/29px dashicons;
+	content: "\f463";
+	text-align: center;
+	vertical-align: middle;
+
+	-webkit-animation-name: rotate;
+	-webkit-animation-duration: 1.5s;
+	-webkit-animation-iteration-count: infinite;
+	-webkit-animation-timing-function: linear;
+	-moz-animation-name: rotate;
+	-moz-animation-duration: 1.5s;
+	-moz-animation-iteration-count: infinite;
+	-moz-animation-timing-function: linear;
+	animation-name: rotate;
+	animation-duration: 1.5s;
+	animation-iteration-count: infinite;
+	animation-timing-function: linear;
+}
+
+#licenses-form span.license-status {
+	display: inline-block;
+	font-size: 0.9em;
+	line-height: 28px;
+	height: 27px;
+	margin: 1px 10px 1px 0;
+	padding: 0 8px;
+	text-transform: uppercase;
+	border-radius: 3px;
+	vertical-align: middle;
+}
+
+#licenses-form span.active {
+	background: green;
+	color: #FFF;
+}
+
+#licenses-form span.inactive {
+	background: #999;
+	color: #FFF;
+}
+
+#licenses-form span.ib {
+	display: inline-block;
+	vertical-align: middle;
+}
+
+.activation-error {
+	color: red;
 }
 
 /* Client details meta box
@@ -603,7 +726,18 @@ td.column-shortcode {
 
 /* Star rating in post editor
 --------------------------------------------------*/
-#edit-rating-box {
+.edit-rating-box {
+	height: 27px;
+	line-height: 27px;
+}
+.wp-core-ui .edit-rating-box button {
+	margin-left: 10px;
+}
+.edit-rating-box .cancel,
+.edit-rating-box .zero {
+	padding: 0;
+	text-decoration: underline;
+	color: #0073aa;
 }
 .rating .inner,
 .edit-rating-buttons-1,
@@ -612,9 +746,6 @@ td.column-shortcode {
 	display: inline-block;
 	margin: 0 4px;
 	vertical-align: middle;
-}
-.rating button.button-link {
-	line-height: 24px;
 }
 
 /* Star rating in list table
@@ -638,4 +769,165 @@ td.column-shortcode {
 		display: inline-block;
 		width: auto;
 	}
+}
+
+
+/* Animation
+--------------------------------------------------*/
+
+@-webkit-keyframes rotate {
+	from {-webkit-transform: rotate(0deg);}
+	to {-webkit-transform: rotate(360deg);}
+}
+
+@-moz-keyframes rotate {
+	from {-moz-transform: rotate(0deg);}
+	to {-moz-transform: rotate(360deg);}
+}
+
+@keyframes rotate {
+	from {transform: rotate(0deg);}
+	to {transform: rotate(360deg);}
+}
+
+/* Admin > Shortcode example table
+--------------------------------------------------*/
+.form-table.shortcodes tbody tr:hover {
+	background: #FFF;
+}
+.form-table.shortcodes th {
+	padding-left: 10px;
+}
+.form-table.shortcodes td {
+	border: 1px solid #DDD;
+}
+.form-table.shortcodes td.shortcode {
+	font-family: Consolas, Monaco, monospace;
+}
+
+/* Misc
+--------------------------------------------------*/
+.slug-example {
+	font-weight: bold;
+	color: #0073aa;
+}
+
+.form-table.width-auto {
+	width: auto;
+}
+
+.form-table td p:first-child {
+	margin-top: 6px;
+}
+
+.current-dashicon {
+	display: inline-block;
+	background: #0073aa;
+	color: #FFF;
+	border-radius: 2px;
+	text-align: center;
+	vertical-align: middle;
+	width: 28px;
+	height: 28px;
+	position: relative;
+	top: -3px;
+}
+.current-dashicon .dashicons {
+	vertical-align: middle;
+	line-height: 1.3;
+}
+
+/*
+Back these out to have normal "reset" buttons
+TODO Action Hook
+*/
+
+/* wp-includes/css/buttons.css:109 */
+/*
+.wp-core-ui input[type="reset"],
+.wp-core-ui input[type="reset"]:hover,
+.wp-core-ui input[type="reset"]:active,
+.wp-core-ui input[type="reset"]:focus {
+	background: none;
+	border: none;
+	-webkit-box-shadow: none;
+	box-shadow: none;
+	padding: 0 2px 1px;
+	width: auto;
+}
+*/
+.wp-core-ui input[type="reset"],
+.wp-core-ui input[type="reset"]:hover,
+.wp-core-ui input[type="reset"]:active,
+.wp-core-ui input[type="reset"]:focus {
+	background: #F7F7F7;
+	border: 1px solid #CCC;
+	-webkit-box-shadow: 0 1px 0 #CCC;
+	box-shadow: 0 1px 0 #CCC;
+	padding: 0 10px 1px;
+	width: auto;
+}
+
+/* wp-admin/css/forms.css:102 */
+/*
+.wp-core-ui input[type="reset"]:hover,
+.wp-core-ui input[type="reset"]:active {
+	color: #00a0d2;
+}
+*/
+/* Based on section 2.0 in wp-includes/css/buttons.css:125 */
+.wp-core-ui input[type="reset"]:hover,
+.wp-core-ui input[type="reset"]:focus {
+	background: #fafafa;
+	border-color: #999;
+	color: #23282d;
+}
+.wp-core-ui input[type="reset"]:focus {
+	border-color: #5b9dd9;
+	-webkit-box-shadow: 0 0 3px rgba( 0, 115, 170, .8 );
+	box-shadow: 0 0 3px rgba( 0, 115, 170, .8 );
+}
+.wp-core-ui input[type="reset"]:active {
+	background: #eee;
+	border-color: #999;
+	-webkit-box-shadow: inset 0 2px 5px -3px rgba( 0, 0, 0, 0.5 );
+	box-shadow: inset 0 2px 5px -3px rgba( 0, 0, 0, 0.5 );
+	-webkit-transform: translateY(1px);
+	-ms-transform: translateY(1px);
+	transform: translateY(1px);
+}
+
+
+input.button.restore-default {
+	font: normal 20px/1 dashicons;
+	padding: 0 3px;
+}
+
+.wpmtst .subsubsub {
+	float: none;
+	margin-left: 16px;
+}
+
+.regular-text.half {
+	width: 12.5em;
+}
+
+.regular-text.third {
+	width: 20em;
+}
+
+input.code {
+	font-size: 13px;
+}
+
+.wrap h2.nav-tab-wrapper {
+	margin-top: 6px;
+}
+
+.tab-header {
+	padding: 1em 0;
+}
+
+.striped > tbody > tr.readonly {
+	background: lightyellow;
 }

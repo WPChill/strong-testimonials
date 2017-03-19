@@ -188,6 +188,7 @@ jQuery(window).on('load', function () {
 	/**
 	 * Restore defaults
  	 */
+	// TODO i18n
 	$("#restore-defaults").click(function(){
 		return confirm("Restore the default settings?");
 	});

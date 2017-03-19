@@ -9,7 +9,7 @@ Array.max = function (array) {
 
 // Convert "A String" to "a_string"
 function sanitizeName(label) {
-	return label.replace(/\W/g, " ").replace(/\s+/g, "_").toLowerCase();
+	return label.trim().replace(/\W/g, " ").replace(/\s+/g, "_").toLowerCase();
 }
 
 (function ($) {
@@ -119,7 +119,9 @@ function sanitizeName(label) {
 
 	// validate field label
 	$fieldList.on("change blur", "input.field-label", function () {
-		var newLabel = $(this).val();
+		var newLabel = $(this).val().trim();
+		$(this).val(newLabel);
+
 		var $parent = $(this).closest("li");
 		var fieldIndex = $parent.index();
 

@@ -14,11 +14,15 @@ function wpmtst_ajax_edit_rating() {
 	check_ajax_referer( 'editrating', 'editratingnonce' );
 
 	if ( $post_id ) {
-		update_post_meta( $post_id, $name, $rating );
+		if ( $rating ) {
+			update_post_meta( $post_id, $name, $rating );
+		} else {
+			delete_post_meta( $post_id, $name );
+		}
 		$message = 'New rating saved';
 	}
 
-	$display = wpmtst_star_rating_display( array( 'name' => $name ), $rating, 'in-metabox', false );
+	$display = wpmtst_star_rating_display( $rating, 'in-metabox', false );
 	$response = array( 'display' => $display, 'message' => $message );
 	echo json_encode($response);
 	exit;

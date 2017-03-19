@@ -106,9 +106,9 @@ add_action( 'load-wpm-testimonial_page_testimonial-views', 'wpmtst_help_view_edi
 function wpmtst_help_view_editor_stretch() {
 	ob_start();
 	?>
-	<p>
-		<?php _e( 'This setting will set the height of the <b>slideshow container</b> to match the tallest slide in order to keep elements below it from bouncing up and down during slide transitions. With testimonials of uneven length, the result is whitespace underneath the shorter testimonials. Select the <b>Stretch</b> option to stretch the borders and background vertically to compensate. Use the excerpt or abbreviated content if you want to minimize the whitespace.', 'strong-testimonials' ); ?>
-	</p>
+	<p><?php _e( 'This setting will set the height of the <b>slideshow container</b> to match the tallest slide in order to keep elements below it from bouncing up and down during slide transitions. With testimonials of uneven length, the result is whitespace underneath the shorter testimonials.', 'strong-testimonials' ); ?></p>
+    <p><?php _e( 'Select the <b>Stretch</b> option to stretch the borders and background vertically to compensate.', 'strong-testimonials' ); ?></p>
+    <p><?php _e( 'Use the excerpt or abbreviated content if you want to minimize the whitespace.', 'strong-testimonials' ); ?></p>
 	<?php
 	$content = ob_get_contents();
 	ob_end_clean();

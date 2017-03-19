@@ -1,5 +1,7 @@
 <div id="plugin-sidebar">
-	<div>
+
+    <div class="sidebar-block sidebar-links">
+
 		<p class="sig"><?php _e( 'Thanks for choosing Strong Testimonials!', 'strong-testimonials' ); ?></p>
 
 		<?php
@@ -16,7 +18,7 @@
 		);
 		?>
 		<div class="has-icon icon-help">
-			<p><strong><?php _e( 'Help? Idea? Bug?', 'strong-testimonials' ); ?></strong></p>
+			<h3><?php _e( 'Help? Idea? Bug?', 'strong-testimonials' ); ?></h3>
 			<ul>
 				<li><?php echo $link; ?></li>
 			</ul>
@@ -27,20 +29,20 @@
 		$links = array();
 
 		$links[] = sprintf( '<a href="%s" target="_blank">%s</a>',
-			esc_url( 'https://www.wpmission.com/tutorials/youtube-twitter-instagram-strong-testimonials/' ),
+			esc_url( 'https://www.wpmission.com/docs/youtube-twitter-instagram-strong-testimonials/' ),
 			__( 'Adding video testimonials', 'strong-testimonials' ) );
 			//. '<span class="new-doc">NEW</span>';
 
 		$links[] = sprintf( '<a href="%s" target="_blank">%s</a>',
-				esc_url( 'https://www.wpmission.com/tutorials/how-to-add-custom-css-in-strong-testimonials/' ),
-				__( 'Using custom CSS', 'strong-testimonials' ) );
+				esc_url( 'https://www.wpmission.com/docs/custom-css-strong-testimonials/' ),
+				__( 'Add custom CSS', 'strong-testimonials' ) );
 
 		$links[] = sprintf( '<a href="%s" target="_blank">%s</a>',
-			esc_url( 'https://www.wpmission.com/tutorials/how-to-add-comments-in-strong-testimonials/' ),
-			__( 'Enabling comments', 'strong-testimonials' ) );
+			esc_url( 'https://www.wpmission.com/docs/enable-comments-strong-testimonials/' ),
+			__( 'Enable comments', 'strong-testimonials' ) );
 
 		$links[] = sprintf( '<a href="%s" target="_blank">%s</a>',
-			esc_url( 'https://www.wpmission.com/tutorials/how-to-customize-the-form-in-strong-testimonials/' ),
+			esc_url( 'https://www.wpmission.com/docs/complete-example-customizing-form/' ),
 			__( 'Customize the form', 'strong-testimonials' ) );
 
 		$links[] = sprintf( '<a href="%s" target="_blank">%s</a>',
@@ -51,8 +53,8 @@
 			esc_url( 'https://www.wpmission.com/newsletter' ),
 			__( 'Subscribe to the newsletter', 'strong-testimonials' ) );
 		?>
-		<div class="has-icon icon-document">
-			<p><strong><?php _e( 'Knowledge Base', 'strong-testimonials' ); ?></strong></p>
+        <div class="has-icon icon-document">
+                <h3><?php _e( 'Knowledge Base', 'strong-testimonials' ); ?></h3>
 			<ul>
 				<?php foreach ( $links as $link ) : ?>
 				<li><?php echo $link; ?></li>
@@ -61,25 +63,41 @@
 		</div>
 
 		<?php
-		// How to help
 		$link1 = sprintf(
-			wp_kses(
-				__( 'Post an honest <a href="%s" target="_blank">review</a> on wordpress.org.', 'strong-testimonials' ), $tags
-			), esc_url( 'https://wordpress.org/support/view/plugin-reviews/strong-testimonials' ) );
-
-		$link2 = sprintf(
-			wp_kses(
-				__( '<a href="%s" target="_blank">Donate</a> to the Theme & Plugin Compatibility Fund.', 'strong-testimonials' ), $tags
-			), esc_url( 'https://www.wpmission.com/donate' )
-		);
+			wp_kses( __( 'Post an honest <a href="%s" target="_blank">review</a> on wordpress.org.', 'strong-testimonials' ), $tags ),
+            esc_url( 'https://wordpress.org/support/view/plugin-reviews/strong-testimonials' ) );
 		?>
 		<div class="has-icon icon-donate">
-			<p><strong><?php _e( 'Give Back', 'strong-testimonials' ); ?></strong></p>
+			<h3><?php _e( 'Contribute', 'strong-testimonials' ); ?></h3>
 			<ul>
 				<li><?php echo $link1; ?></li>
-				<li><?php echo $link2; ?></li>
 			</ul>
 		</div>
 
 	</div>
+
+    <div class="sidebar-block sidebar-news">
+        <h2>Review Markup Add-on</h2>
+        <p>Improve your search engine results by adding review markup to your testimonials. </p>
+        <div class="actions">
+            <button><a href="https://www.wpmission.com/downloads/strong-testimonials-review-markup" target="_blank">Learn more</a></button>
+        </div>
+    </div>
+
+    <div class="sidebar-block sidebar-news">
+        <h2>Multiple Forms Add-on</h2>
+        <p>Need more forms for different products or services? No problem. Create unlimited forms.</p>
+        <div class="actions">
+            <button><a href="https://www.wpmission.com/downloads/strong-testimonials-multiple-forms" target="_blank">Learn more</a></button>
+        </div>
+    </div>
+
+    <div class="sidebar-block sidebar-news">
+        <h2>Properties Add-on</h2>
+        <p>Want to rename 'testimonials' to 'reviews'? Want to change which features are available in the post editor? Gain maximum control.</p>
+        <div class="actions">
+            <button><a href="https://www.wpmission.com/downloads/strong-testimonials-properties" target="_blank">Learn more</a></button>
+        </div>
+    </div>
+
 </div>

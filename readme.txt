@@ -2,8 +2,8 @@
 Contributors: cdillon27
 Tags: testimonials, testimonial widget, random testimonial, testimonial shortcode, testimonial slider, testimonial form
 Requires at least: 3.6
-Tested up to: 4.7.2
-Stable tag: 2.18.2
+Tested up to: 4.7.3
+Stable tag: 2.19
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -13,7 +13,7 @@ A full-featured testimonials plugin that works right out of the box for beginner
 
 All the features you need to quickly add and customize testimonials on your site.
 
-> [See demos of the display, slideshow, and form options here!](http://demos.wpmission.com/strong-testimonials/)
+> [Display Demos](http://demos.wpmission.com/strong-testimonials/group-1-display/) | [Slideshow Demos](http://demos.wpmission.com/strong-testimonials/group-2-slideshow/) | [Form Demos](http://demos.wpmission.com/strong-testimonials/group-3-form/)
 
 = Is this the right plugin for you? =
 It's important to understand this plugin's intended use case: A small business with up to a few hundred testimonials, maybe organized into multiple categories, and displaying them a few different ways like a full page of testimonials and a slideshow widget, plus a form for accepting new testimonials.
@@ -36,8 +36,6 @@ If that describes your situation, this plugin will work for you right out of the
 * Gravatar support
 * Ready for translations
 * Compatible with [WPML](https://wpml.org/), [Polylang](https://wordpress.org/plugins/polylang/) and [WPGlobus](https://wordpress.org/plugins/wpglobus/)
-
-Strong Testimonials [plays well with other plugins and themes](https://www.wpmission.com/theme-plugin-compatibility-fund/), and I strive to adhere to WordPress coding standards and best practices.
 
 = The Form =
 
@@ -152,6 +150,12 @@ Yes. This requires a lightbox so if your theme does not include one, you will ne
 
 == Changelog ==
 
+= 2.19 - Mar 18, 2017 =
+* Improve add-on integration.
+* Prevent conflict between Advanced noCaptcha reCaptcha plugin and page builders.
+* Add simple WP-CLI compatibility.
+* Add option to clear star rating value.
+
 = 2.18.2 - Feb 26, 2017 =
 * Fix bug in conditional loading of star rating stylesheet.
 
@@ -218,4 +222,4 @@ Yes. This requires a lightbox so if your theme does not include one, you will ne
 
 == Upgrade Notice ==
 
-Fix bug in star ratings on forms. Clear your caches!
+Improved compatibility. Add-on plugins available at strongplugins.com.

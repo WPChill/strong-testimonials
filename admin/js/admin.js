@@ -1,5 +1,5 @@
 /**
- *  Strong Testimonials > admin screens
+ *	Strong Testimonials admin
  */
 
 // Function to get the Max value in Array

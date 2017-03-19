@@ -10,20 +10,20 @@ jQuery(document).ready(function($) {
 			ratingForm = ratingBox.find('.rating-form'),
 			ratingDisplay = ratingBox.find('.rating-display'),
 			box = ratingBox.find('.edit-rating-success'),
-			revert_e,
+			revert_e = ratingBox.find('.current-rating').val(),
 			postId = $('#post_ID').val() || 0,
 			buttons2 = ratingBox.find('.edit-rating-buttons-2');
 
-		//TODO REFACTOR so "off" isn't necssary!
-		buttons2.children('.save').off( "click");
+    ratingForm.find("input[value="+revert_e+"]").prop("checked", true);
+
+		//TODO Refactor so "off" isn't necssary!
+		buttons2.children('.save').off("click");
 		buttons2.children('.cancel').off("click");
 
 		ratingDisplay.hide();
 		ratingForm.showInlineBlock();
 
 		box.html('');
-
-		revert_e = ratingBox.find('.current-rating').val();
 
 		buttons2.children('.save').on( "click", function() {
 			var new_rating = ratingForm.find("input:checked").val();
@@ -57,6 +57,7 @@ jQuery(document).ready(function($) {
 				}
 
 				revert_e = new_rating;
+        ratingBox.find('.current-rating').val(new_rating);
 				ratingForm.hide();
 				ratingDisplay.showInlineBlock();
 			});
@@ -70,8 +71,14 @@ jQuery(document).ready(function($) {
 			return false;
 		});
 
+		buttons2.children( '.zero' ).on("click", function() {
+      ratingForm.find("input[value=0]").prop("checked", true);
+      $(this).blur();
+			return false;
+		});
+
 	}
 
-	$(".edit-rating").click( editRating );
+	$(".edit-rating").on('click', editRating);
 
 });

@@ -833,6 +833,7 @@ function wpmtst_get_background_presets( $preset = null ) {
 	return false;
 }
 
+
 /**
  * Return the form success message.
  *
@@ -845,4 +846,24 @@ function wpmtst_get_success_message() {
 	$message = sprintf( '<div class="%s">%s</div>', 'testimonial-success', $message );
 
 	return apply_filters( 'wpmtst_form_success_message', $message );
+}
+
+
+/**
+ * Does callback exist?
+ *
+ * @param $callback
+ * @since 2.18.0
+ * @todo Action Hook
+ *
+ * @return bool
+ */
+function wpmtst_callback_exists( $callback ) {
+	if ( is_array( $callback ) ) {
+		$exists = method_exists( $callback[0], $callback[1] );
+	} else {
+		$exists = function_exists( $callback );
+	}
+
+	return $exists;
 }

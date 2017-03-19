@@ -1,17 +1,17 @@
 <?php
 /**
  * Plugin Name: Strong Testimonials
- * Plugin URI: https://www.wpmission.com/plugins/strong-testimonials/
+ * Plugin URI: https://strongplugins.com/plugins/strong-testimonials/
  * Description: A full-featured plugin that works right out of the box for beginners and offers advanced features for pros.
  * Author: Chris Dillon
- * Version: 2.18.2
- * Author URI: https://www.wpmission.com/
+ * Version: 2.19
+ * Author URI: https://strongplugins.com/
  * Text Domain: strong-testimonials
  * Domain Path: /languages
  * Requires: 3.6 or higher
  * License: GPLv3 or later
  *
- * Copyright 2014-2017 Chris Dillon chris@wpmission.com
+ * Copyright 2014-2017 Chris Dillon chris@strongplugins.com
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -159,40 +159,45 @@ final class Strong_Testimonials {
 		if ( ! defined( 'WPMTST' ) )
 			define( 'WPMTST', dirname( WPMTST_PLUGIN ) );
 
-
 		if ( ! defined( 'WPMTST_DIR' ) )
 			define( 'WPMTST_DIR', plugin_dir_path( __FILE__ ) );
 		if ( ! defined( 'WPMTST_URL' ) )
 			define( 'WPMTST_URL', plugin_dir_url( __FILE__ ) );
 
-
 		if ( ! defined( 'WPMTST_INC' ) )
 			define( 'WPMTST_INC', plugin_dir_path( __FILE__ ) . 'includes/' );
-
 
 		if ( ! defined( 'WPMTST_ADMIN' ) )
 			define( 'WPMTST_ADMIN', plugin_dir_path( __FILE__ ) . 'admin/' );
 		if ( ! defined( 'WPMTST_ADMIN_URL' ) )
 			define( 'WPMTST_ADMIN_URL', plugin_dir_url( __FILE__ ) . 'admin/' );
 
-
 		if ( ! defined( 'WPMTST_PUBLIC' ) )
 			define( 'WPMTST_PUBLIC', plugin_dir_path( __FILE__ ) . 'public/' );
 		if ( ! defined( 'WPMTST_PUBLIC_URL' ) )
 			define( 'WPMTST_PUBLIC_URL', plugin_dir_url( __FILE__ ) . 'public/' );
-
 
 		if ( ! defined( 'WPMTST_DEF_TPL' ) )
 			define( 'WPMTST_DEF_TPL', plugin_dir_path( __FILE__ ) . 'templates/default/' );
 		if ( ! defined( 'WPMTST_DEF_TPL_URI' ) )
 			define( 'WPMTST_DEF_TPL_URI', plugin_dir_url( __FILE__ ) . 'templates/default/' );
 
-
 		if ( ! defined( 'WPMTST_TPL' ) )
 			define( 'WPMTST_TPL', plugin_dir_path( __FILE__ ) . 'templates' );
 		if ( ! defined( 'WPMTST_TPL_URI' ) )
 			define( 'WPMTST_TPL_URI', plugin_dir_url( __FILE__ ) . 'templates' );
 
+		/**
+		 * EDD
+		 */
+		// This is the URL our updater / license checker pings. This should be the URL of the site with EDD installed.
+		if ( ! defined( 'WPMISSION_STORE_URL' ) ) {
+			if ( '127.0.0.1' == $_SERVER['SERVER_ADDR'] ) {
+				define( 'WPMISSION_STORE_URL', 'http://store.wpmission.dev' );
+			} else {
+				define( 'WPMISSION_STORE_URL', 'https://strongplugins.com' );
+			}
+		}
 	}
 
 
@@ -243,7 +248,7 @@ final class Strong_Testimonials {
 		require_once WPMTST_INC . 'scripts.php';
 		require_once WPMTST_INC . 'class-walker-strong-category-checklist-front.php';
 
-		if ( is_admin() ) {
+		if ( is_admin() || ( defined( 'WP_CLI' ) && WP_CLI ) ) {
 
 			require_once WPMTST_INC . 'class-strong-testimonials-list-table.php';
 			require_once WPMTST_INC . 'class-strong-views-list-table.php';
@@ -264,14 +269,16 @@ final class Strong_Testimonials {
 			require_once WPMTST_ADMIN . 'views-ajax.php';
 			require_once WPMTST_ADMIN . 'views-validate.php';
 
+			/**
+			 * Add-on plugin updater.
+			 *
+			 * @since 2.1
+			 */
+			if ( !class_exists( 'EDD_SL_Plugin_Updater' ) ) {
+				include WPMTST_INC . 'edd/EDD_SL_Plugin_Updater.php';
+			}
+			include WPMTST_INC . 'edd/Strong_Plugin_Updater.php';
 		}
-
-		/**
-		 * Add-on plugin updater.
-		 *
-		 * @since 2.1
-		 */
-		require_once WPMTST_INC . 'edd/WPMST_Plugin_Updater.php';
 	}
 
 	/**
@@ -1118,15 +1125,15 @@ final class Strong_Testimonials {
 			$nav = 'both';
 		}
 
-		$pager = array(
+		$args = array(
 			'pageSize'      => $atts['per_page'],
 			'currentPage'   => 1,
 			'pagerLocation' => $nav,
 			'scrollTop'     => $options['scrolltop'],
-			'offset'        => apply_filters( 'wpmtst_pagination_scroll_offset', $options['scrolltop_offset'] ),
+			'offset'        => $options['scrolltop_offset'],
 		);
 
-		return $pager;
+		return apply_filters( 'wpmtst_view_pagination', $args, $atts['view'] );
 	}
 
 	/**
@@ -1331,6 +1338,7 @@ final class Strong_Testimonials {
 	 * For troubleshooting only.
 	 *
 	 * @since 1.12.0
+	 * @since 2.19.0 Including add-ons.
 	 */
 	function show_version_info() {
 		global $wp_version;
@@ -1339,6 +1347,12 @@ final class Strong_Testimonials {
 			'WordPress ' . $wp_version,
 			$plugin_info['name'] . ' ' . $plugin_info['version'],
 		);
+		$addons = get_option( 'wpmtst_addons' );
+		if ( $addons ) {
+			foreach( $addons as $addon ) {
+				$comment[] = $addon['name'] . ' ' . $addon['version'];
+			}
+		}
 
 		echo "<!-- versions: " . implode( ' | ', $comment ) . " -->\n";
 	}

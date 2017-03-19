@@ -1,10 +1,17 @@
 <?php
 
+/**
+ * @param $field
+ * @param int $value
+ * @param $class
+ * @param bool $echo
+ *
+ * @return mixed|string
+ */
 function wpmtst_star_rating_form( $field, $value = 0, $class, $echo = true ) {
 	if ( $field && is_array( $field ) && isset( $field['name'] ) ) {
 		$name = $field['name'];
-	}
-	else {
+	} else {
 		$name = 'rating';
 	}
 	ob_start(); ?>
@@ -28,36 +35,36 @@ function wpmtst_star_rating_form( $field, $value = 0, $class, $echo = true ) {
 	$html = ob_get_contents();
 	ob_end_clean();
 	$html = preg_replace( '/<!--(.|\s)*?-->/', '', $html );
-	if ( ! $echo ) {
+	if ( !$echo ) {
 		return $html;
 	}
 	echo $html;
 }
 
-function wpmtst_star_rating_display( $field, $value = 0, $class, $echo = true ) {
-	if ( $field && is_array( $field ) && isset( $field['name'] ) ) {
-		$name = $field['name'];
-	}
-	else {
-		$name = '';
-	}
+/**
+ * @param int $value
+ * @param $class
+ * @param bool $echo
+ *
+ * @return mixed|string
+ */
+function wpmtst_star_rating_display( $value = 0, $class, $echo = true ) {
 	ob_start(); ?>
-	<div class="strong-rating-wrapper <?php echo $class; ?>">
-		<div class="strong-rating"><!--
-			cheap trick to collapse whitespace around inline-blocks
-			--><div class="star0 star <?php echo $name; ?>-star0 <?php echo ( 0 == $value ) ? 'current' : '' ; ?>"></div><!--
-			--><div class="star <?php echo $name; ?>-star1 <?php echo ( 1 == $value ) ? 'current' : '' ; ?>"></div><!--
-			--><div class="star <?php echo $name; ?>-star2 <?php echo ( 2 == $value ) ? 'current' : '' ; ?>"></div><!--
-			--><div class="star <?php echo $name; ?>-star3 <?php echo ( 3 == $value ) ? 'current' : '' ; ?>"></div><!--
-			--><div class="star <?php echo $name; ?>-star4 <?php echo ( 4 == $value ) ? 'current' : '' ; ?>"></div><!--
-			--><div class="star <?php echo $name; ?>-star5 <?php echo ( 5 == $value ) ? 'current' : '' ; ?>"></div><!--
-		--></div>
-	</div>
+	<span class="strong-rating-wrapper <?php echo $class; ?>">
+		<span class="strong-rating"><!-- cheap trick to collapse whitespace around inline-blocks
+			--><span class="star0 star <?php echo ( 0 == $value ) ? 'current' : '' ; ?>"></span><!--
+			--><span class="star <?php echo ( 1 == $value ) ? 'current' : '' ; ?>"></span><!--
+			--><span class="star <?php echo ( 2 == $value ) ? 'current' : '' ; ?>"></span><!--
+			--><span class="star <?php echo ( 3 == $value ) ? 'current' : '' ; ?>"></span><!--
+			--><span class="star <?php echo ( 4 == $value ) ? 'current' : '' ; ?>"></span><!--
+			--><span class="star <?php echo ( 5 == $value ) ? 'current' : '' ; ?>"></span><!--
+		--></span>
+	</span>
 	<?php
 	$html = ob_get_contents();
 	ob_end_clean();
 	$html = preg_replace( '/<!--(.|\s)*?-->/', '', $html );
-	if ( ! $echo ) {
+	if ( !$echo ) {
 		return $html;
 	}
 	echo $html;
