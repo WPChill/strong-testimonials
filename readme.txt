@@ -3,7 +3,7 @@ Contributors: cdillon27
 Tags: testimonials, testimonial widget, random testimonial, testimonial shortcode, testimonial slider, testimonial form
 Requires at least: 3.6
 Tested up to: 4.7.3
-Stable tag: 2.19
+Stable tag: 2.19.1
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -149,6 +149,10 @@ Yes. This requires a lightbox so if your theme does not include one, you will ne
 8. View editor
 
 == Changelog ==
+
+= 2.19.1 - Mar 24, 2017 =
+* Fix bug in category assignment on new submissions.
+* Add `wpmtst_field_value` filter.
 
 = 2.19 - Mar 18, 2017 =
 * Improve add-on integration.
