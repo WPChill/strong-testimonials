@@ -4,7 +4,7 @@
  * Plugin URI: https://strongplugins.com/plugins/strong-testimonials/
  * Description: A full-featured plugin that works right out of the box for beginners and offers advanced features for pros.
  * Author: Chris Dillon
- * Version: 2.19
+ * Version: 2.19.1
  * Author URI: https://strongplugins.com/
  * Text Domain: strong-testimonials
  * Domain Path: /languages
@@ -313,7 +313,7 @@ final class Strong_Testimonials {
 		}
 		else {
 			// Process form data.
-			add_action( 'init', array( $this, 'process_form' ) );
+			add_action( 'init', array( $this, 'process_form' ), 100 );
 
 			// Catch email errors.
 			add_action( 'wp_mail_failed', array( $this, 'catch_mail_failed' ) );

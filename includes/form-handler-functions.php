@@ -167,13 +167,27 @@ function wpmtst_form_handler() {
 			 * Add categories.
 			 *
 			 * @since 2.17.0 Handle arrays (if using checklist) or strings (if using <select>).
+			 * @since 2.19.1 Storing default category (as set in view) in separate hidden field.
 			 */
+			$cats = array();
+
+			if ( $new_post['default_category'] ) {
+				$cats = explode( ',', $new_post['default_category'] );
+			}
+
 			if ( $new_post['category'] ) {
 				if ( is_string( $new_post['category'] ) ) {
 					$new_post['category'] = explode( ',', $new_post['category'] );
 				}
-				$category_success = wp_set_post_terms( $testimonial_id, $new_post['category'], 'wpm-testimonial-category' );
-				if ( $new_post['category'] && ! $category_success ) {
+				$cats = array_merge( $cats, $new_post['category'] );
+			}
+
+			$cats = array_map( 'intval', array_unique( $cats ) );
+
+			if ( array_filter( $cats ) ) {
+				$category_success = wp_set_object_terms( $testimonial_id, $cats, 'wpm-testimonial-category' );
+
+				if ( ! $category_success ) {
 					// TODO improve error handling
 				}
 			}
