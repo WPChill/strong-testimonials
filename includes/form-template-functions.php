@@ -170,6 +170,8 @@ function wpmtst_field_classes( $type = null, $name = null ) {
  * @param $field
  * @param $form_values
  *
+ * @since 2.19.1 wpmtst_field_value filter
+ *
  * @return string
  */
 function wpmtst_field_value( $field, $form_values ) {
@@ -180,6 +182,8 @@ function wpmtst_field_value( $field, $form_values ) {
 	elseif ( isset( $field['default_form_value'] ) && $field['default_form_value'] ) {
 		$value = $field['default_form_value'];
 	}
+
+	$value = apply_filters( 'wpmtst_field_value', $value, $field, $form_values );
 
 	return ' value="' . esc_attr( $value ) . '"';
 }
