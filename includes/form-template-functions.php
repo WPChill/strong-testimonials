@@ -12,9 +12,12 @@ function wpmtst_form_setup() {
 	wp_nonce_field( 'wpmtst_form_action', 'wpmtst_form_nonce', true, true );
 	echo '<input type="hidden" name="action" value="wpmtst_form">'."\n";
 	echo '<input type="hidden" name="form_id" value="'. WPMST()->atts( 'form_id' ) .'">'."\n";
-	//TODO Is this hidden field still necessary?
-	$cats = is_string( $form_values['category'] ) ? $form_values['category'] : implode( ',', $form_values['category'] );
-	echo '<input type="hidden" name="category" value="'. $cats .'">'."\n";
+
+	echo '<input type="hidden" name="default_category" value="'. WPMST()->atts( 'category' ) .'">'."\n";
+
+    $cats = (array) $form_values['category'];
+	echo '<input type="hidden" name="category" value="'. implode( ',', $cats ) .'">'."\n";
+
 }
 
 function wpmtst_form_message( $part ) {

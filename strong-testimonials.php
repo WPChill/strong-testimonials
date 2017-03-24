@@ -313,7 +313,7 @@ final class Strong_Testimonials {
 		}
 		else {
 			// Process form data.
-			add_action( 'init', array( $this, 'process_form' ) );
+			add_action( 'init', array( $this, 'process_form' ), 100 );
 
 			// Catch email errors.
 			add_action( 'wp_mail_failed', array( $this, 'catch_mail_failed' ) );
