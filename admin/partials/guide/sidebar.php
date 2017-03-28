@@ -13,8 +13,8 @@
 					or <a href="%s" target="_blank">contact me</a>.', 'strong-testimonials' ), $tags
 			),
 			esc_url( 'http://wordpress.org/support/plugin/strong-testimonials' ),
-			esc_url( 'https://www.wpmission.com/support/' ),
-			esc_url( 'https://www.wpmission.com/contact/' )
+			esc_url( 'https://support.strongplugins.com' ),
+			esc_url( 'https://strongplugins.com/contact/' )
 		);
 		?>
 		<div class="has-icon icon-help">
@@ -29,20 +29,20 @@
 		$links = array();
 
 		$links[] = sprintf( '<a href="%s" target="_blank">%s</a>',
-			esc_url( 'https://www.wpmission.com/docs/youtube-twitter-instagram-strong-testimonials/' ),
+			esc_url( 'https://support.strongplugins.com/article/youtube-twitter-instagram-strong-testimonials/' ),
 			__( 'Adding video testimonials', 'strong-testimonials' ) );
 			//. '<span class="new-doc">NEW</span>';
 
 		$links[] = sprintf( '<a href="%s" target="_blank">%s</a>',
-				esc_url( 'https://www.wpmission.com/docs/custom-css-strong-testimonials/' ),
+				esc_url( 'https://support.strongplugins.com/article/custom-css-strong-testimonials/' ),
 				__( 'Add custom CSS', 'strong-testimonials' ) );
 
 		$links[] = sprintf( '<a href="%s" target="_blank">%s</a>',
-			esc_url( 'https://www.wpmission.com/docs/enable-comments-strong-testimonials/' ),
+			esc_url( 'https://support.strongplugins.com/article/enable-comments-strong-testimonials/' ),
 			__( 'Enable comments', 'strong-testimonials' ) );
 
 		$links[] = sprintf( '<a href="%s" target="_blank">%s</a>',
-			esc_url( 'https://www.wpmission.com/docs/complete-example-customizing-form/' ),
+			esc_url( 'https://support.strongplugins.com/article/complete-example-customizing-form/' ),
 			__( 'Customize the form', 'strong-testimonials' ) );
 
 		$links[] = sprintf( '<a href="%s" target="_blank">%s</a>',
@@ -50,7 +50,7 @@
 			__( 'See the demos', 'strong-testimonials' ) );
 
 		$links[] = sprintf( '<a href="%s" target="_blank">%s</a>',
-			esc_url( 'https://www.wpmission.com/newsletter' ),
+			esc_url( 'https://strongplugins.com/newsletter' ),
 			__( 'Subscribe to the newsletter', 'strong-testimonials' ) );
 		?>
         <div class="has-icon icon-document">
@@ -80,7 +80,7 @@
         <h2>Review Markup Add-on</h2>
         <p>Improve your search engine results by adding review markup to your testimonials. </p>
         <div class="actions">
-            <button><a href="https://www.wpmission.com/downloads/strong-testimonials-review-markup" target="_blank">Learn more</a></button>
+            <button><a href="https://strongplugins.com/plugins/strong-testimonials-review-markup" target="_blank">Learn more</a></button>
         </div>
     </div>
 
@@ -88,7 +88,7 @@
         <h2>Multiple Forms Add-on</h2>
         <p>Need more forms for different products or services? No problem. Create unlimited forms.</p>
         <div class="actions">
-            <button><a href="https://www.wpmission.com/downloads/strong-testimonials-multiple-forms" target="_blank">Learn more</a></button>
+            <button><a href="https://strongplugins.com/plugins/strong-testimonials-multiple-forms" target="_blank">Learn more</a></button>
         </div>
     </div>
 
@@ -96,7 +96,7 @@
         <h2>Properties Add-on</h2>
         <p>Want to rename 'testimonials' to 'reviews'? Want to change which features are available in the post editor? Gain maximum control.</p>
         <div class="actions">
-            <button><a href="https://www.wpmission.com/downloads/strong-testimonials-properties" target="_blank">Learn more</a></button>
+            <button><a href="https://strongplugins.com/plugins/strong-testimonials-properties" target="_blank">Learn more</a></button>
         </div>
     </div>
 

@@ -477,7 +477,7 @@ function wpmtst_get_views() {
 				array( 'code' => array(), 'a' => array( 'href' => array(), 'target' => array(), 'class' => array() ) )
 			),
 			$wpdb->last_error,
-			esc_url( 'https://www.wpmission.com/submit-ticket/' )
+			esc_url( 'https://support.strongplugins.com/tickets/submit-ticket/' )
 		);
 		wp_die( sprintf( '<div class="error strong-view-error"><p>%s</p></div>', $message ) );
 	}

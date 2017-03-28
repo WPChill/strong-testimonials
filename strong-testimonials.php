@@ -4,7 +4,7 @@
  * Plugin URI: https://strongplugins.com/plugins/strong-testimonials/
  * Description: A full-featured plugin that works right out of the box for beginners and offers advanced features for pros.
  * Author: Chris Dillon
- * Version: 2.19.1
+ * Version: 2.19.2
  * Author URI: https://strongplugins.com/
  * Text Domain: strong-testimonials
  * Domain Path: /languages
@@ -95,7 +95,6 @@ final class Strong_Testimonials {
 			add_action( 'init', array( self::$instance, 'init' ) );
 
 			self::$instance->add_actions();
-			self::$instance->add_actions_wp();
 			self::$instance->set_shortcodes();
 		}
 		return self::$instance;
@@ -310,8 +309,7 @@ final class Strong_Testimonials {
 
 		if ( is_admin() ) {
 			add_action( 'wpmtst_form_admin', 'wpmtst_form_admin2' );
-		}
-		else {
+		} else {
 			// Process form data.
 			add_action( 'init', array( $this, 'process_form' ), 100 );
 
@@ -367,44 +365,42 @@ final class Strong_Testimonials {
 
 		/**
 		 * Ajax form submission handler
-		 *
-		 * @since 1.25.0
 		 */
 		add_action( 'wp_ajax_wpmtst_form2', array( $this, 'form_handler2' ) );
 		add_action( 'wp_ajax_nopriv_wpmtst_form2', array( $this, 'form_handler2' ) );
-	}
 
-	/**
-	 * Actions on 'wp' hook allow us to properly enqueue styles and scripts.
-	 */
-	private function add_actions_wp() {
-
-		if ( is_admin() ) return;
+		/**
+		 * Conditionally enqueue styles and scripts.
+		 */
 
 		// Look for our shortcodes in post content and widgets.
-		add_action( 'wp', array( $this, 'find_views' ), 20 );
-		add_action( 'wp', array( $this, 'find_views_in_postmeta' ), 20 );
-		add_action( 'wp', array( $this, 'find_views_in_postexcerpt' ), 20 );
-		add_action( 'wp', array( $this, 'find_widgets' ), 20 );
-
+		add_action( 'wp_enqueue_scripts', array( $this, 'find_views' ), 1 );
+		add_action( 'wp_enqueue_scripts', array( $this, 'find_views_in_postmeta' ), 1 );
+		add_action( 'wp_enqueue_scripts', array( $this, 'find_views_in_postexcerpt' ), 1 );
+		add_action( 'wp_enqueue_scripts', array( $this, 'find_widgets' ), 1 );
 
 		// Page Builder by Site Origin
 		if ( defined( 'SITEORIGIN_PANELS_VERSION' ) ) {
-			add_action( 'wp', array( $this, 'find_pagebuilder_widgets' ), 20 );
+			add_action( 'wp_enqueue_scripts', array( $this, 'find_pagebuilder_widgets' ), 1 );
 		}
 
 		// Beaver Builder
 		if ( defined( 'FL_BUILDER_VERSION' ) ) {
-			add_action( 'wp', array( $this, 'find_beaverbuilder_widgets' ), 20 );
+			add_action( 'wp_enqueue_scripts', array( $this, 'find_beaverbuilder_widgets' ), 1 );
 		}
 
 		// Black Studio TinyMCE Widget
 		if ( class_exists( 'Black_Studio_TinyMCE_Plugin' ) ) {
-			add_action( 'wp', array( $this, 'find_blackstudio_widgets' ), 20 );
+			add_action( 'wp_enqueue_scripts', array( $this, 'find_blackstudio_widgets' ), 1 );
 		}
 
 	}
 
+	/**
+	 * Ajax form submission handler
+	 *
+	 * @since 1.25.0
+	 */
 	public function form_handler2() {
 		if ( isset( $_POST['wpmtst_form_nonce'] ) ) {
 			require_once WPMTST_INC . 'shortcodes.php';
@@ -748,11 +744,11 @@ final class Strong_Testimonials {
 
 		global $post;
 		if ( empty( $post ) )
-			return false;
+			return;
 
 		$content = $post->post_content;
 		if ( ! $this->check_content( $content ) )
-			return false;
+			return;
 
 		$this->process_content( $content );
 
@@ -884,7 +880,7 @@ final class Strong_Testimonials {
 	/**
 	 * Find widgets in a page to gather styles, scripts and script vars.
 	 *
-	 * For widgets in [Page Builder by SiteOrigin] panels.
+	 * For widgets in Page Builder by SiteOrigin.
 	 */
 	public function find_pagebuilder_widgets() {
 
@@ -938,7 +934,7 @@ final class Strong_Testimonials {
 	/**
 	 * Find widgets in a page to gather styles, scripts and script vars.
 	 *
-	 * For widgets in [Page Builder by SiteOrigin] panels.
+	 * For widgets in Beaver Builder.
 	 */
 	public function find_beaverbuilder_widgets() {
 
@@ -1015,13 +1011,11 @@ final class Strong_Testimonials {
 	 * @access private
 	 *
 	 * @param string $content Post content or widget content.
-	 *
-	 * @return bool
 	 */
 	private function process_content( $content ) {
 		preg_match_all( '/' . get_shortcode_regex() . '/s', $content, $matches, PREG_SET_ORDER );
 		if ( empty( $matches ) )
-			return false;
+			return;
 
 		foreach ( $matches as $key => $shortcode ) {
 
@@ -1055,28 +1049,6 @@ final class Strong_Testimonials {
 				$this->process_content( $shortcode[5] );
 
 			}
-
-		}
-	}
-
-	/**
-	 * Process content for rendered shortcodes.
-	 *
-	 * @access private
-	 *
-	 * @param array|null $view_ids
-	 */
-	private function process_content_for_rendered_shortcodes( $view_ids = null ) {
-		if ( !$view_ids )
-			return;
-
-		foreach ( $view_ids as $view_id ) {
-
-			// Incorporate attributes from the View and defaults.
-			$original_atts = array( 'id' => $view_id );
-			$parsed_atts = $this->parse_view( $original_atts, $this->get_view_defaults(), $original_atts );
-
-			$this->preprocess( $parsed_atts );
 
 		}
 	}

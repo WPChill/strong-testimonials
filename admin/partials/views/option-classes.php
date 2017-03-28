@@ -9,7 +9,7 @@
 		<p class="inline description tall">
 			<?php _e( 'For advanced users. Separate class names by spaces.', 'strong-testimonials' ); ?>
 			<?php printf( '<a href="%s" target="_blank">%s</a>',
-				esc_url( 'https://www.wpmission.com/tutorials/how-to-add-custom-css-in-strong-testimonials/' ),
+				esc_url( 'https://support.strongplugins.com/article/custom-css-strong-testimonials/' ),
 				__( 'Tutorial', 'strong-testimonials' ) ); ?>
 		</p>
 	</div>
