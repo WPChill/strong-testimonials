@@ -23,13 +23,15 @@
 			<div class="inline then fast then_simple then_not_standard" style="display: none;">
 				<p class="description">
 					<?php _e( 'Using JavaScript. Intended for small scale.', 'strong-testimonials' ); ?>
-					<a href="#tab-panel-wpmtst-help-pagination" class="open-help-tab"><?php _e( 'Help' ); ?></a> | <a href="https://www.wpmission.com/comparing-pagination-methods-strong-testimonials/" target="_blank"><?php _e( 'Compare methods', 'strong-testimonials' ); ?></a>
+					<a href="#tab-panel-wpmtst-help-pagination" class="open-help-tab"><?php _e( 'Help' ); ?></a> |
+                    <a href="https://support.strongplugins.com/article/comparing-pagination-methods-strong-testimonials/" target="_blank"><?php _e( 'Compare methods', 'strong-testimonials' ); ?></a>
 				</p>
 			</div>
 			<div class="inline then fast then_not_simple then_standard" style="display: none;">
 				<p class="description">
 					<?php _e( 'Using paged URLs: /page/2, /page/3, etc. Best for large scale.', 'strong-testimonials' ); ?>
-					<a href="#" class="open-help-tab"><?php _e( 'Help' ); ?></a> | <a href="https://www.wpmission.com/comparing-pagination-methods-strong-testimonials/" target="_blank"><?php _e( 'Compare methods', 'strong-testimonials' ); ?></a>
+					<a href="#" class="open-help-tab"><?php _e( 'Help' ); ?></a> |
+                    <a href="https://support.strongplugins.com/article/comparing-pagination-methods-strong-testimonials/" target="_blank"><?php _e( 'Compare methods', 'strong-testimonials' ); ?></a>
 				</p>
 			</div>
 		</div>

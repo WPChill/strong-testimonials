@@ -22,7 +22,7 @@ function wpmtst_help_fields_editor() {
 	// Links
 
 	$links = array(
-		'<a href="https://www.wpmission.com/tutorials/how-to-customize-the-form-in-strong-testimonials/" target="_blank">' . __( 'Tutorial', 'strong-testimonials' ) . '</a>',
+		'<a href="https://support.strongplugins.com/article/complete-example-customizing-form/" target="_blank">' . __( 'Tutorial', 'strong-testimonials' ) . '</a>',
 		'<a href="' . admin_url( 'edit.php?post_type=wpm-testimonial&page=testimonial-settings&tab=form' ) . '">' . __( 'Form settings', 'strong-testimonials' ) . '</a>'
 	);
 

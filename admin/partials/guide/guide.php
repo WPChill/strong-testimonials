@@ -102,7 +102,7 @@
 		<p><?php
 		printf(
 			wp_kses( __( 'The original shortcodes and widget were <a href="%s" target="_blank">removed in version 2</a>. Everything now happens in <strong>views</strong>.', 'strong-testimonials' ), $tags ),
-			esc_url( 'https://www.wpmission.com/strong-testimonials-version-2-coming-soon/' )
+			esc_url( 'https://strongplugins.com/strong-testimonials-version-2-coming-soon/' )
 		);
 		?></p>
 

@@ -44,7 +44,7 @@ function wpmtst_views_admin() {
 					__( 'An error occurred. Please <a href="%s" target="_blank">open a support ticket</a>.', 'strong-testimonials' ),
 					array( 'a' => array( 'href' => array(), 'target' => array(), 'class' => array() ) )
 				),
-				esc_url( 'https://www.wpmission.com/submit-ticket/' )
+				esc_url( 'https://support.strongplugins.com/tickets/submit-ticket/' )
 			);
 			wp_die( sprintf( '<div class="error strong-view-error"><p>%s</p></div>', $message ) );
 

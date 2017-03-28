@@ -138,7 +138,7 @@ $tags    = array( 'a' => array( 'href' => array(), 'target' => array(), 'class' 
 				<li><?php _e( 'For multiple testimonials, use <strong>Bulk Edit</strong> in the testimonial list.', 'strong-testimonials' ); ?></li>
 			</ul>
 			<p class="description"><?php printf( '<a href="%s" target="_blank">%s</a>',
-				esc_url( 'https://www.wpmission.com/tutorials/how-to-add-comments-in-strong-testimonials/' ),
+				esc_url( 'https://support.strongplugins.com/article/enable-comments-strong-testimonials/' ),
 				__( 'Tutorial', 'strong-testimonials' ) ); ?></p>
 		</td>
 	</tr>
@@ -158,7 +158,7 @@ $tags    = array( 'a' => array( 'href' => array(), 'target' => array(), 'class' 
                         esc_url( 'https://codex.wordpress.org/Embeds' ),
                         __( 'More on embeds', 'strong-testimonials' ) ); ?> |
                     <?php printf( '<a href="%s" target="_blank">%s</a>',
-                        esc_url( 'https://www.wpmission.com/tutorials/youtube-twitter-instagram-strong-testimonials/' ),
+                        esc_url( 'https://support.strongplugins.com/article/youtube-twitter-instagram-strong-testimonials/' ),
                         __( 'Tutorial', 'strong-testimonials' ) ); ?></p>
 			</fieldset>
 		</td>
