@@ -1,7 +1,7 @@
 /**
  * Strong Slider
  *
- * Version: 1.0
+ * Version: 1.1
  */
 
 ;(function($) {
@@ -94,7 +94,20 @@
 			this.find('.wpmslider-next').appendTo( this.find( '.wpmslider-controls') ).wrap('<div class="wpmslider-controls-direction"></div>');
 		}
 
-		return this;
+    // Listen for orientation changes
+    window.addEventListener("orientationchange", function() {
+      slider.resetHeight();
+    }, false);
+
+		// Listen for window resize or emulator device change
+    var updateLayout = _.debounce(function(e) {
+      slider.reloadSlider();
+    }, 250);
+
+    window.addEventListener("resize", updateLayout, false);
+
+
+    return this;
 	};
 
 })(jQuery);
