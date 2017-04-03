@@ -158,8 +158,7 @@ function wpmtst_form_handler() {
 			// TODO report errors in admin
 			$form_errors['post'] = $messages['submission-error']['text'];
 
-		}
-		else {
+		} else {
 
 			/**
 			 * Add categories.
