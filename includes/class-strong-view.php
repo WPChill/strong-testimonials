@@ -159,9 +159,11 @@ class Strong_View {
 	 * @return mixed
 	 */
 	public function get_template_css_class() {
-		return str_replace( ':', '-', str_replace( ':content', '', $this->atts['template'] ) );
+		$class = str_replace( ':content', '', $this->atts['template'] );
+		$class = str_replace( ':', '-', $class );
+		$class = str_replace( '-form-form', '-form', $class );
+		return $class;
 	}
-
 }
 
 endif;
