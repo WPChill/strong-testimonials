@@ -584,7 +584,7 @@ final class Strong_Testimonials {
 			'use_default_more'   => 0,
 			'view'               => '',
 		);
-		$this->view_defaults = $defaults;
+		$this->view_defaults = apply_filters( 'wpmtst_view_defaults', $defaults );
 	}
 
 	/**

@@ -226,13 +226,15 @@ function wpmtst_read_more_page() {
 
 	if ( $atts['more_page'] && $atts['more_page_id'] ) {
 		if ( $permalink = wpmtst_get_permalink( $atts['more_page_id'] ) ) {
-			$view_options = get_option( 'wpmtst_view_default' );
+
+			$default_view = apply_filters( 'wpmtst_view_default', get_option( 'wpmtst_view_default' ) );
+
 			if ( isset( $atts['more_page_text'] ) && $atts['more_page_text'] ) {
 				$link_text = $atts['more_page_text'];
+			} else {
+				$link_text = $default_view['more_page_text'];
 			}
-			else {
-				$link_text = $view_options['more_page_text'];
-			}
+
 			$link_text = apply_filters( 'wpmtst_l10n', $link_text, 'strong-testimonials-read-more', sprintf( 'View %s : Read more (page or post)', $atts['view'] ) );
 
 			$classname = ( 'wpmtst_after_testimonial' == $atts['more_page_hook'] ? 'readmore' : 'readmore-page' );
@@ -657,8 +659,8 @@ function wpmtst_content_class() {
 	echo apply_filters( 'wpmtst_content_class', WPMST()->atts( 'content_class' ) );
 }
 
-function wpmtst_post_class() {
-	echo apply_filters( 'wpmtst_post_class', WPMST()->atts( 'post_class' ) . ' post-' . get_the_ID() );
+function wpmtst_post_class( $args = null ) {
+	echo apply_filters( 'wpmtst_post_class', WPMST()->atts( 'post_class' ) . ' post-' . get_the_ID(), $args );
 }
 
 /**

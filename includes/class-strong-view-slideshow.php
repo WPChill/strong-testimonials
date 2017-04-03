@@ -403,7 +403,7 @@ class Strong_View_Slideshow extends Strong_View_Display {
 	 */
 	private function slideshow_args( $atts ) {
 
-		$view_options = get_option( 'wpmtst_view_options' );
+		$view_options = apply_filters( 'wpmtst_view_options', get_option( 'wpmtst_view_options' ) );
 
 		$args = array(
 			'mode'                => $atts['slideshow_settings']['effect'],

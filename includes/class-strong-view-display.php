@@ -186,6 +186,7 @@ class Strong_View_Display extends Strong_View {
 		}
 
 		// order by
+		// TODO improve for allowable custom order
 		if ( $this->atts['menu_order'] ) {
 			$args['orderby'] = 'menu_order';
 			$args['order']   = 'ASC';
@@ -203,7 +204,7 @@ class Strong_View_Display extends Strong_View {
 		// For Post Types Order plugin
 		$args['ignore_custom_sort'] = true;
 
-		$query = new WP_Query( apply_filters( 'wpmtst_query_args', $args ) );
+		$query = new WP_Query( apply_filters( 'wpmtst_query_args', $args, $this->atts ) );
 
 		/**
 		 * Shuffle array in PHP instead of SQL.
@@ -308,14 +309,17 @@ class Strong_View_Display extends Strong_View {
 	 * @since 2.16.0 In Strong_View class.
 	 */
 	public function has_layouts() {
-		if ( 'masonry' == $this->atts['layout'] ) {
+		if ( 'masonry' == $this->atts['layout'] && apply_filters( 'wpmtst_load_masonry', true ) ) {
+
 			WPMST()->add_script( 'wpmtst-masonry-script' );
 			WPMST()->add_style( 'wpmtst-masonry-style' );
-		}
-		elseif ( 'columns' == $this->atts['layout'] ) {
+
+		} elseif ( 'columns' == $this->atts['layout'] && apply_filters( 'wpmtst_load_columns', true ) ) {
+
 			WPMST()->add_style( 'wpmtst-columns-style' );
-		}
-		elseif ( 'grid' == $this->atts['layout'] ) {
+
+		} elseif ( 'grid' == $this->atts['layout'] && apply_filters( 'wpmtst_load_grid', true ) ) {
+
 			WPMST()->add_script( 'wpmtst-grid-script' );
 			WPMST()->add_style( 'wpmtst-grid-style' );
 		}
