@@ -443,13 +443,17 @@ ul.compact li {
 	font-weight: 400;
 	text-align: right;
 	vertical-align: top;
-	width: 30%;
+	/*width: 30%;*/
 	padding-top: 8px;
 }
 
 #details td {
 	margin: 5px;
 	padding: 5px;
+}
+
+#details tr:first-child td > p:first-child {
+  margin-top: 0;
 }
 
 input.custom-input {

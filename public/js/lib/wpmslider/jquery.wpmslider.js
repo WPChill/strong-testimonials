@@ -1,5 +1,5 @@
 /**
- * wpmSlider v4.2.5.2
+ * wpmSlider v4.2.5.3
  *
  * A fork of:
  *
@@ -1863,6 +1863,30 @@
       //store reference to self in order to access public functions later
       $(el).data('wpmSlider', this);
     };
+
+    /**
+     * Adjust the height after orientation change.
+     */
+    el.resetHeight = function () {
+      var settings     = slider.settings;
+      var currentSlide = slider.active.index;
+
+      // reset height
+      slider.children.height('auto');
+
+      // set the viewport height
+      slider.viewport.height(getViewportHeight());
+
+      // if stretch, set t-slide height to 100%
+      if (slider.settings.stretch) {
+        setSlideHeight();
+      }
+
+      // Restart with current slide
+      settings.startSlide = currentSlide;
+      el.reloadSlider(settings);
+    }
+
 
     init();
 

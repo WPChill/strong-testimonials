@@ -376,12 +376,14 @@ function wpmtst_meta_options() {
 	$fields = wpmtst_get_custom_fields();
 	$is_new = ( 'post-new.php' == $pagenow );
 	?>
+    <?php do_action( 'wpmtst_before_client_fields_table' ); ?>
 	<table class="options">
 		<tr>
 			<td colspan="2">
-				<?php _ex( 'To add a photo or logo, use the Featured Image option.', 'post editor', 'strong-testimonials' ); ?>
+				<p><?php _ex( 'To add a photo or logo, use the Featured Image option.', 'post editor', 'strong-testimonials' ); ?></p>
 			</td>
 		</tr>
+        <?php do_action( 'wpmtst_before_client_fields' ); ?>
 		<?php foreach ( $fields as $key => $field ) : ?>
 		<?php
 			// short-circuit
@@ -463,7 +465,9 @@ function wpmtst_meta_options() {
 			</td>
 		</tr>
 		<?php endforeach; ?>
+		<?php do_action( 'wpmtst_after_client_fields' ); ?>
 	</table>
+    <?php do_action( 'wpmtst_after_client_fields_table' ); ?>
 	<?php
 }
 

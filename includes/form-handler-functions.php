@@ -6,11 +6,9 @@
  */
 function wpmtst_form_handler() {
 
-	if ( empty( $_POST ) )
+	if ( empty( $_POST ) || ! wp_verify_nonce( $_POST['wpmtst_form_nonce'], 'wpmtst_form_action' ) ) {
 		return false;
-
-	if ( ! check_admin_referer( 'wpmtst_form_action', 'wpmtst_form_nonce' ) )
-		return false;
+	}
 
 	$new_post = stripslashes_deep( $_POST );
 
@@ -160,8 +158,7 @@ function wpmtst_form_handler() {
 			// TODO report errors in admin
 			$form_errors['post'] = $messages['submission-error']['text'];
 
-		}
-		else {
+		} else {
 
 			/**
 			 * Add categories.

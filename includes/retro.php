@@ -74,3 +74,15 @@ function is_post_type_viewable( $post_type ) {
 }
 
 endif;
+
+
+/**
+ * wp_make_content_images_responsive in WP 4.4.0+
+ */
+if ( ! function_exists( 'wp_make_content_images_responsive' ) ) :
+
+function wp_make_content_images_responsive( $content ) {
+	return $content;
+}
+
+endif;

@@ -135,8 +135,8 @@ function wpmtst_view_settings( $action = '', $view_id = null ) {
 
 	$pages_list   = wpmtst_get_pages();
 	$posts_list   = wpmtst_get_posts();
-	$view_options = get_option( 'wpmtst_view_options' );
-	$default_view = get_option( 'wpmtst_view_default' );
+	$view_options = apply_filters( 'wpmtst_view_options', get_option( 'wpmtst_view_options' ) );
+	$default_view = apply_filters( 'wpmtst_view_default', get_option( 'wpmtst_view_default' ) );
 
 	if ( 'edit' == $action ) {
 		$view_array = wpmtst_get_view( $view_id );
