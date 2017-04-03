@@ -3,7 +3,7 @@ Contributors: cdillon27
 Tags: testimonials, testimonial widget, random testimonial, testimonial shortcode, testimonial slider, testimonial form
 Requires at least: 3.6
 Tested up to: 4.7.3
-Stable tag: 2.19.2
+Stable tag: 2.20
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -149,6 +149,13 @@ Yes. This requires a lightbox so if your theme does not include one, you will ne
 8. View editor
 
 == Changelog ==
+
+= 2.20 - Apr 3, 2017 =
+* Handle screen resize and orientation change in slider.
+* Add `wpautop` to automatic excerpts for consistent style.
+* Improve form nonce check.
+* Update EDD integration.
+* Add filters for custom sort order.
 
 = 2.19.2 - Mar 27, 2017 =
 * Fix conflict with Wonderflux framework.
