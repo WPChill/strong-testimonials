@@ -43,11 +43,14 @@ function wpmtst_the_title( $before = '', $after = '' ) {
  *              or the_content() in order to to be compatible with NextGEN Gallery and to prevent other plugins
  *              from unconditionally adding content like share buttons, etc.
  * @since 2.11.5 Run specific filters on `wpmtst_the_content` hook.
+ * @since 2.20.0 For automatic excerpts, run `wpautop` after truncating.
+ *               Add `wp_make_content_images_responsive`.
  */
 function wpmtst_the_content() {
+
 	if ( WPMST()->atts( 'truncated' ) ) {
 
-		// Force automatic excerpt (bypass manual excerpt). Based on wp_trim_excerpt.
+	    // Force automatic excerpt. Based on wp_trim_excerpt.
 
 		$content = get_the_content();
 
@@ -55,14 +58,18 @@ function wpmtst_the_content() {
 
 		$content = $GLOBALS['wp_embed']->autoembed( $content );
 		$content = wptexturize( $content );
-		$content = convert_smilies( $content );
-		$content = wpautop( $content );
-		$content = shortcode_unautop( $content );
-		$content = do_shortcode( $content );
 
 		$excerpt_more   = apply_filters( 'excerpt_more', ' ' . '[&hellip;]' );
 		$excerpt_length = WPMST()->atts( 'use_default_length' ) ? 55 : WPMST()->atts( 'excerpt_length' );
+		// wp_trim_words will remove line breaks. So no paragraphs.
 		$content        = wp_trim_words( $content, $excerpt_length, $excerpt_more );
+
+		// Run wpautop just to wrap entire string in <p> for consistent style.
+		$content = wpautop( $content );
+
+		$content = wp_make_content_images_responsive( $content );
+
+		$content = convert_smilies( $content );
 
 	} elseif ( WPMST()->atts( 'excerpt' ) ) {
 
@@ -70,21 +77,23 @@ function wpmtst_the_content() {
 
 		$use_default_length = WPMST()->atts( 'use_default_length' );
 
-		if ( !$use_default_length ) {
+		if ( ! $use_default_length ) {
 			add_filter( 'excerpt_length', 'wpmtst_excerpt_length', 20 );
 		}
 
 		$content = get_the_excerpt();
 
-		if ( !$use_default_length ) {
+		if ( ! $use_default_length ) {
 			remove_filter( 'excerpt_length', 'wpmtst_excerpt_length', 20 );
 		}
 
 		$content = wptexturize( $content );
-		$content = convert_smilies( $content );
+
 		$content = wpautop( $content );
 		$content = shortcode_unautop( $content );
 		$content = do_shortcode( $content );
+
+		$content = convert_smilies( $content );
 
 	} else {
 
@@ -94,10 +103,13 @@ function wpmtst_the_content() {
 
 		$content = $GLOBALS['wp_embed']->autoembed( $content );
 		$content = wptexturize( $content );
-		$content = convert_smilies( $content );
+
 		$content = wpautop( $content );
 		$content = shortcode_unautop( $content );
 		$content = do_shortcode( $content );
+		$content = wp_make_content_images_responsive( $content );
+
+		$content = convert_smilies( $content );
 
 	}
 
