@@ -309,20 +309,30 @@ class Strong_View_Display extends Strong_View {
 	 * @since 2.16.0 In Strong_View class.
 	 */
 	public function has_layouts() {
-		if ( 'masonry' == $this->atts['layout'] && apply_filters( 'wpmtst_load_masonry', true ) ) {
+
+		if ( 'masonry' == $this->atts['layout'] ) {
 
 			WPMST()->add_script( 'wpmtst-masonry-script' );
-			WPMST()->add_style( 'wpmtst-masonry-style' );
 
-		} elseif ( 'columns' == $this->atts['layout'] && apply_filters( 'wpmtst_load_columns', true ) ) {
+			if ( apply_filters( 'wpmtst_load_masonry_style', true ) ) {
+				WPMST()->add_style( 'wpmtst-masonry-style' );
+			}
 
-			WPMST()->add_style( 'wpmtst-columns-style' );
+		} elseif ( 'columns' == $this->atts['layout'] ) {
 
-		} elseif ( 'grid' == $this->atts['layout'] && apply_filters( 'wpmtst_load_grid', true ) ) {
+			if ( apply_filters( 'wpmtst_load_columns_style', true ) ) {
+				WPMST()->add_style( 'wpmtst-columns-style' );
+			}
+
+		} elseif ( 'grid' == $this->atts['layout'] ) {
 
 			WPMST()->add_script( 'wpmtst-grid-script' );
-			WPMST()->add_style( 'wpmtst-grid-style' );
+
+			if ( apply_filters( 'wpmtst_load_grid_style', true ) ) {
+				WPMST()->add_style( 'wpmtst-grid-style' );
+			}
 		}
+
 	}
 
 	/**
