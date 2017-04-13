@@ -61,7 +61,7 @@ function wpmtst_views_admin() {
 				wpmtst_view_settings( $_REQUEST['action'] );
 			}
 			else {
-				echo "<p>Invalid request. Please try again.</p>";
+				echo '<p>' . __( 'Invalid request. Please try again.', 'strong-testimonials' ) . '</p>';
 			}
 
 		}

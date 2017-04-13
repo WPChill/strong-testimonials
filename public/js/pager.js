@@ -5,7 +5,7 @@
  * @since 1.11.0
  */
 
-jQuery(document).ready(function($) {
+jQuery(document).ready(function ($) {
 
 	var pagerObject = {
 
@@ -21,13 +21,13 @@ jQuery(document).ready(function($) {
 		},
 
 		getPagerVar: function ($el) {
-			return jQuery.grep($el.prop('class').split(/\s+/), function (v, i) {
+			return $.grep($el.prop('class').split(/\s+/), function (v, i) {
 				return v.indexOf('strong_pager_') === 0;
 			}).join();
 		},
 
 		initPager: function (el) {
-			var $el = jQuery(el);
+			var $el = $(el);
 			var pagerVar = this.getPagerVar($el);
 			if (typeof( window[pagerVar] ) !== 'undefined') {
 				var opts = this.setOpts(window[pagerVar]);
