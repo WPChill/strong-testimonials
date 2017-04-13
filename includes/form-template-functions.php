@@ -55,7 +55,7 @@ function wpmtst_form_field( $field_name ) {
 function wpmtst_single_form_field( $field ) {
 	$form_values = WPMST()->get_form_values();
 
-	echo '<div class="form-field">';
+	echo '<div class="form-field field-'.$field['name'].'">';
 
 	if ( ! isset( $field['show_label'] ) || $field['show_label'] ) {
 		$label = '<label for="wpmtst_' . $field['name'] . '">' . apply_filters( 'wpmtst_l10n', $field['label'], 'strong-testimonials-form-fields', $field['name'] . ' : label' ) . '</label>';
