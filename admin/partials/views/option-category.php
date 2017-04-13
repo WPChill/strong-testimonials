@@ -17,13 +17,15 @@
                     </div>
                     <div class="table-cell then then_not_allcats then_somecats" style="display: none;">
                         <div class="table">
+							<?php if ( count( $category_list ) > 5 ) : ?>
                             <div class="table-row">
                                 <div class="table-cell">
                                     <div class="row" style="text-align: right; padding-bottom: 5px;">
-                                        <input type="button" id="expand-cats" class="button" value="expand list"/>
+                                        <input type="button" class="expand-cats button" value="expand list"/>
                                     </div>
                                 </div>
                             </div>
+                            <?php endif; ?>
                             <div class="table-row">
                                 <div class="table-cell">
 									<?php wpmtst_category_checklist( $view_cats_array ); ?>

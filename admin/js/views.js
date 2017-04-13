@@ -129,7 +129,7 @@ jQuery(window).on('load', function () {
 		$(this).select();
 	});
 
-	$("#expand-cats").on("click", function(){
+	$(".expand-cats").on("click", function(){
     // TODO i18n
     var $categoryDivs = $('.view-category-list-panel');
     if ( $categoryDivs.hasClass("tall-panel") ) {
