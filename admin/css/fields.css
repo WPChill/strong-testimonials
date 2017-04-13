@@ -32,9 +32,14 @@ optgroup option {
 }
 
 #fields-editor-preview {
-	border: 1px solid #CCC;
-	background: #FBFBFB;
+	background: #fdfdfd;
+	border: 1px solid #e0e0e0;
+	box-shadow: 4px 4px 8px rgba(0,0,0,0.4);
 	min-height: 300px;
+}
+
+.wrap.wpmtst {
+	max-width: 1024px;
 }
 
 .wrap.wpmtst h3 {
@@ -135,11 +140,12 @@ optgroup option {
 	min-width: 120px;
 }
 
-#custom-field-list option {
-}
-
 #custom-field-list option[disabled] {
 	color: #999;
+}
+
+#custom-field-list optgroup {
+	font-weight: 600;
 }
 
 #custom-field-list optgroup:before {
@@ -182,6 +188,7 @@ optgroup option {
 }
 
 #custom-field-list .field-table th {
+	font-weight: 600;
 	width: 160px;
 	padding-top: 14px;
 	text-align: left;
