@@ -33,8 +33,8 @@ optgroup option {
 
 #fields-editor-preview {
 	background: #fdfdfd;
-	border: 1px solid #e0e0e0;
-	box-shadow: 4px 4px 8px rgba(0,0,0,0.4);
+	border: 1px solid #bbb;
+	box-shadow: 0 0 12px rgba(0,0,0,0.4);
 	min-height: 300px;
 }
 
