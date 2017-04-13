@@ -774,7 +774,7 @@ function wpmtst_delete_view_action_hook() {
 
 function wpmtst_category_checklist( $view_cats_array ) {
 	?>
-	<div class="view-category-list-panel">
+	<div class="view-category-list-panel short-panel">
 		<div class="fc-search-wrap">
 			<input type="search" class="fc-search-field"
 				   placeholder="<?php _e( 'filter categories', 'strong-testimonials' ); ?>"/>
