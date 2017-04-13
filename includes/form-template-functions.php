@@ -118,7 +118,7 @@ function wpmtst_single_form_field( $field ) {
 			break;
 
 		case 'rating' :
-			wpmtst_star_rating_form( $field, 0, 'in-form' );
+			wpmtst_star_rating_form( $field, $field['default_form_value'], 'in-form' );
 			break;
 
 		default: // text, email, url

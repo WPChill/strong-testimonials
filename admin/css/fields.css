@@ -200,6 +200,10 @@ optgroup option {
 	width: 100%;
 }
 
+#custom-field-list .field-table td input[type="text"].as-number {
+	width: 4em;
+}
+
 #custom-field-list .field-table td span.help {
 	display: block;
 	padding: 3px;
@@ -207,6 +211,7 @@ optgroup option {
 
 #custom-field-list .field-table td span.help.inline {
 	display: inline-block;
+	margin-left: 4px;
 }
 
 #custom-field-list .field-table td span.help:first-of-type {

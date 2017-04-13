@@ -615,6 +615,11 @@ function wpmtst_client_section( $client_section ) {
 
 			case 'rating' :
 				$output = get_post_meta( $post->ID, $field['field'], true );
+				// Check default value
+				if ( '' == $output && isset( $field['default_display_value'] ) && $field['default_display_value'] ) {
+					$output = $field['default_display_value'];
+				}
+				// Convert number to stars
 				if ( $output ) {
 					$output = wpmtst_star_rating_display( $output, 'in-view', false );
 				}
