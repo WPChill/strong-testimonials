@@ -99,8 +99,9 @@ input[type=checkbox] {
 /* keep the inherited margins, adjust width if more space is necessary */
 input[type=checkbox] + label:before {
   font-family: FontAwesome;
-  display: inline-block;
   color: #00A4F3;
+  display: inline-block;
+  font-size: 18px;
   width: 1em;
 }
 
@@ -160,7 +161,7 @@ input[type=checkbox]:disabled + label:hover:before {
 }
 
 input.view-name {
-  width: calc( 100% - 120px );
+  width: calc(100% - 120px);
   display: inline-block;
   font-size: 20px;
   margin: 0;
@@ -176,6 +177,10 @@ td.column-name strong {
 /*-----------------------------------------------
  * Elements
  *-----------------------------------------------*/
+.wpmtst2 {
+  max-width: 1024px;
+}
+
 /*
  The generic classname `submit` conflicts with an unknown plugin or theme overzealous style.
 */
@@ -515,10 +520,10 @@ ul.checkbox-horizontal li {
   font-family: Consolas, Monaco, monospace;
   unicode-bidi: embed;
   display: inline-block;
-  font-size: 20px;
-  padding: 4px 8px;
+  font-size: 18px;
+  padding: 7px 8px 6px;
   width: 300px;
-  color: #00A4F3;
+  color: #777;
   background: #FFF;
 }
 
@@ -564,6 +569,8 @@ ul.checkbox-horizontal li {
   font-family: FontAwesome;
   display: inline-block;
   color: #999;
+  font-size: 18px;
+  line-height: 1;
   /* space between radio and label */
   letter-spacing: 0.7em;
 }
@@ -574,7 +581,13 @@ ul.checkbox-horizontal li {
 }
 
 .radio-buttons input[type=radio] + label:hover {
-  background: rgba(0, 160, 210, 0.16);
+  background: #FFF6ED;
+  border-color: #FFE9D2;
+  border-color-right: transparent;
+}
+
+.radio-buttons input[type=radio] + label:hover:before {
+  color: #333;
 }
 
 .radio-buttons input[type=radio]:checked + label:before {
@@ -621,7 +634,7 @@ ul.radio-list {
 }
 
 .radio-list li label {
-  padding: 4px 20px 3px 8px;
+  padding: 5px 20px 2px 8px;
   box-sizing: border-box;
   border-radius: 12px 0 0 12px;
   border: 1px solid transparent;
@@ -906,7 +919,7 @@ ul.radio-list {
 }
 
 .subgroup-heading {
-  font-weight: 700;
+  font-weight: 600;
 }
 
 .subgroup .subgroup-heading + .row-inner {
@@ -1101,3 +1114,5 @@ table.wpmtst-help-tab td:first-child {
 table.wpmtst-help-tab td:not(:last-child) {
   border-right: 1px dotted #E1E1E1;
 }
+
+/*# sourceMappingURL=views.css.map */
