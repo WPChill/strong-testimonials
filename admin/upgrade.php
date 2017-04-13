@@ -2,6 +2,17 @@
 /**
  * Plugin activation and upgrade.
  *
+ * ---------
+ * REMEMBER!
+ * ---------
+ * If you are changing the value of a default field property,
+ * then you need to unset that value in the current field
+ * before merging in the new default values.
+ *
+ * For example, when changing a rating field property from
+ * disabled (0) to enabled (1) in order for the property to
+ * be displayed in the form editor.
+ *
  * @package Strong_Testimonials
  */
 
@@ -39,8 +50,7 @@ function wpmtst_upgrade() {
 	if ( ! $options ) {
 		// -2A- NEW ACTIVATION
 		update_option( 'wpmtst_options', $default_options );
-	}
-	else {
+	} else {
 		// -2B- UPDATE
 
 		// Remove version 1 options
@@ -80,6 +90,7 @@ function wpmtst_upgrade() {
 
 		/**
 		 * Remove slideshow z-index (Cycle)
+		 *
 		 * @since 2.15.0
 		 */
 		if ( isset( $options['slideshow_zindex'] ) ) {
@@ -98,8 +109,7 @@ function wpmtst_upgrade() {
 	if ( ! $fields ) {
 		// -3A- NEW ACTIVATION
 		update_option( 'wpmtst_fields', $default_fields );
-	}
-	else {
+	} else {
 		// -3B- UPDATE
 
 		/**
@@ -128,37 +138,52 @@ function wpmtst_upgrade() {
 	 */
 	update_option( 'wpmtst_base_forms', $default_base_forms );
 
+	$fields       = get_option( 'wpmtst_fields' );
 	$custom_forms = get_option( 'wpmtst_custom_forms' );
-	if ( ! $custom_forms ) {
-		update_option( 'wpmtst_custom_forms', $default_custom_forms );
-	}
-	else {
-		foreach ( $custom_forms as $form_id => $group_array ) {
-			foreach ( $group_array['fields'] as $key => $new_field ) {
 
-				/**
+	if ( ! $custom_forms ) {
+
+		update_option( 'wpmtst_custom_forms', $default_custom_forms );
+
+	} else {
+
+		foreach ( $custom_forms as $form_id => $form_properties ) {
+			foreach ( $form_properties['fields'] as $key => $form_field ) {
+
+				/*
 				 * Convert categories to category-selector.
-				 *
 				 * @since 2.17.0
 				 */
-				if ( 'categories' == $new_field['input_type'] ) {
+				if ( 'categories' == $form_field['input_type'] ) {
 					$custom_forms[ $form_id ]['fields'][ $key ]['input_type'] = 'category-selector';
 				}
 
-				/**
-				 * Merge in new default.
-				 *
-				 * Custom fields are in display order (not associative) so we must find them by name.
+				/*
+				 * Unset `show_default_options` for rating field. Going from 0 to 1.
+				 * @since 2.21.0
 				 */
-				$updated_default = false;
-				foreach ( $default_base_forms['default']['fields'] as $a_field ) {
-					if ( $a_field['name'] == $new_field['name'] ) {
-						$updated_default = $a_field;
-						break;
+				if ( 'rating' == $form_field['input_type'] ) {
+					unset( $form_field['show_default_options'] );
+				}
+
+				/*
+				 * Merge in new default.
+				 * Custom fields are in display order (not associative) so we must find them by `input_type`.
+				 * @since 2.21.0 Using default fields instead of default form as source
+				 */
+				$new_default = false;
+
+				foreach ( $fields['field_types'] as $field_type_group_key => $field_type_group ) {
+					foreach ( $field_type_group as $field_type_key => $field_type_field ) {
+						if ( $field_type_field['input_type'] == $form_field['input_type'] ) {
+							$new_default = $field_type_field;
+							break;
+						}
 					}
 				}
-				if ( $updated_default ) {
-					$custom_forms[ $form_id ]['fields'][ $key ] = array_merge( $updated_default, $new_field );
+
+				if ( $new_default ) {
+					$custom_forms[ $form_id ]['fields'][ $key ] = array_merge( $new_default, $form_field );
 				}
 
 			}
@@ -197,22 +222,21 @@ function wpmtst_upgrade() {
 		}
 
 		update_option( 'wpmtst_form_options', $form_options );
-	}
-	else {
+	} else {
 		// -5C- UPDATE
 		/**
 		 * Update single email recipient to multiple.
 		 *
 		 * @since 1.18
 		 */
-		if ( !isset( $form_options['recipients'] ) ) {
+		if ( ! isset( $form_options['recipients'] ) ) {
 			$form_options['recipients'] = array(
 				array(
 					'admin_name'       => isset( $form_options['admin_name'] ) ? $form_options['admin_name'] : '',
 					'admin_site_email' => isset( $form_options['admin_site_email'] ) ? $form_options['admin_site_email'] : 1,
 					'admin_email'      => isset( $form_options['admin_email'] ) ? $form_options['admin_email'] : '',
 					'primary'          => 1,  // cannot be deleted
-				)
+				),
 			);
 		}
 
@@ -233,6 +257,7 @@ function wpmtst_upgrade() {
 	 * -6- VIEW OPTIONS
 	 *
 	 * Overwrite default view options.
+	 *
 	 * @since 2.15.0
 	 */
 	update_option( 'wpmtst_view_options', $default_view_options );
@@ -245,6 +270,7 @@ function wpmtst_upgrade() {
 	/**
 	 * -7A-
 	 * Overwrite default view settings.
+	 *
 	 * @since 2.15.0
 	 */
 	update_option( 'wpmtst_view_default', $default_view );
@@ -274,13 +300,11 @@ function wpmtst_upgrade() {
 					$type = 'content'; // list or slideshow
 
 				$view_data['template'] = "default:$type";
-			}
-			else {
+			} else {
 				// Convert name; e.g. 'simple/testimonials.php'
 				if ( 'widget/testimonials.php' == $view_data['template'] ) {
 					$view_data['template'] = 'default:widget';
-				}
-				else {
+				} else {
 					$view_data['template'] = str_replace( '/', ':', $view_data['template'] );
 					$view_data['template'] = str_replace( 'testimonials.php', 'content', $view_data['template'] );
 					$view_data['template'] = str_replace( 'testimonial-form.php', 'form', $view_data['template'] );
@@ -294,7 +318,7 @@ function wpmtst_upgrade() {
 			}
 
 			// Convert background color
-			if ( !is_array( $view_data['background'] ) ) {
+			if ( ! is_array( $view_data['background'] ) ) {
 				$view_data['background'] = array(
 					'color' => $view_data['background'],
 					'type'  => 'single',
@@ -339,8 +363,7 @@ function wpmtst_upgrade() {
 					$word_count                  = $word_count < 5 ? 5 : $word_count;
 					$word_count                  = $word_count > 300 ? 300 : $word_count;
 					$view_data['excerpt_length'] = $word_count;
-				}
-				else {
+				} else {
 					$view_data['excerpt_length'] = $default_view['excerpt_length'];
 				}
 
@@ -349,6 +372,7 @@ function wpmtst_upgrade() {
 
 			/**
 			 * Convert more_text to post or page.
+			 *
 			 * @since 2.10.0
 			 */
 			if ( isset( $view_data['more_text'] ) ) {
@@ -376,6 +400,7 @@ function wpmtst_upgrade() {
 
 			/**
 			 * Convert slideshow settings.
+			 *
 			 * @since 2.15.0
 			 */
 			if ( 'slideshow' == $view_data['mode'] ) {
@@ -481,6 +506,10 @@ function wpmtst_upgrade() {
 		$history['2.12.4_convert_modern_template'] = current_time( 'mysql' );
 		update_option( 'wpmtst_history', $history );
 	}
+	if ( ! isset( $history['2.21.0_enable_rating_default_options'] ) ) {
+		$history['2.21.0_enable_rating_default_options'] = current_time( 'mysql' );
+		update_option( 'wpmtst_history', $history );
+	}
 
 
 	/**
@@ -499,8 +528,8 @@ function wpmtst_upgrade() {
 	 *
 	 * @since 2.4.0
 	 */
-	if ( file_exists( WP_CONTENT_DIR  . '/install.log' ) ) {
-		unlink( WP_CONTENT_DIR  . '/install.log' );
+	if ( file_exists( WP_CONTENT_DIR . '/install.log' ) ) {
+		unlink( WP_CONTENT_DIR . '/install.log' );
 	}
 
 }
@@ -513,11 +542,11 @@ function wpmtst_upgrade() {
  */
 function wpmtst_get_average_word_length() {
 
-	$args = array(
+	$args  = array(
 		'posts_per_page'   => -1,
 		'post_type'        => 'wpm-testimonial',
 		'post_status'      => 'publish',
-		'suppress_filters' => true
+		'suppress_filters' => true,
 	);
 	$posts = get_posts( $args );
 	if ( ! $posts )
@@ -534,7 +563,7 @@ function wpmtst_get_average_word_length() {
 
 	$wordstring = join( '', $allwords );
 
-	return round( strlen( $wordstring ) / count( $allwords) );
+	return round( strlen( $wordstring ) / count( $allwords ) );
 }
 
 
