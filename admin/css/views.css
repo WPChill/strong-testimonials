@@ -50,7 +50,7 @@ optgroup option {
 }
 
 .fc-search-field {
-  margin: 10px 0 0 0;
+  margin: 12px 0 4px 0;
   width: 100%;
 }
 
@@ -62,12 +62,20 @@ optgroup option {
 .view-category-list-panel {
   box-sizing: border-box;
   min-height: 42px;
-  max-height: 180px;
   min-width: 220px;
   overflow: auto;
-  padding: 0 11px;
+  padding: 0 10px;
   border: 1px solid #DFDFDF;
   background-color: #FDFDFD;
+  transition: all 0.2s ease;
+}
+
+.short-panel {
+  max-height: 177px;
+}
+
+.tall-panel {
+  max-height: none;
 }
 
 .view-category-list {
