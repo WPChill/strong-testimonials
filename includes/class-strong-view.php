@@ -164,6 +164,18 @@ class Strong_View {
 		$class = str_replace( '-form-form', '-form', $class );
 		return $class;
 	}
+
+	public function gradient_rules( $c1, $c2 ) {
+		return "background: {$c1};\n"
+			. "background: -moz-linear-gradient(top, {$c1} 0%, {$c2} 100%);\n"
+			. "background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, {$c1}), color-stop(100%, {$c2}));\n"
+			. "background: -webkit-linear-gradient(top,  {$c1} 0%, {$c2} 100%);\n"
+			. "background: -o-linear-gradient(top, {$c1} 0%, {$c2} 100%);\n"
+			. "background: -ms-linear-gradient(top, {$c1} 0%, {$c2} 100%);\n"
+			. "background: linear-gradient(to bottom, {$c1} 0%, {$c2} 100%);"
+			. "filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='{$c1}', endColorstr='{$c2}', GradientType=0);\n";
+	}
+
 }
 
 endif;

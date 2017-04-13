@@ -236,4 +236,4 @@ Yes. This requires a lightbox so if your theme does not include one, you will ne
 
 == Upgrade Notice ==
 
-Improved compatibility. Add-on plugins available at strongplugins.com.
+Some new features. Clear your caches!
