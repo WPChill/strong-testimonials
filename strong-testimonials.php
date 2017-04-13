@@ -266,6 +266,7 @@ final class Strong_Testimonials {
 			require_once WPMTST_ADMIN . 'upgrade.php';
 			require_once WPMTST_ADMIN . 'views.php';
 			require_once WPMTST_ADMIN . 'views-ajax.php';
+			require_once WPMTST_ADMIN . 'view-list-order.php';
 			require_once WPMTST_ADMIN . 'views-validate.php';
 
 			/**

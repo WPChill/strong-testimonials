@@ -939,3 +939,8 @@ input.code {
 .striped > tbody > tr.readonly {
 	background: lightyellow;
 }
+
+ul.standard {
+  list-style: disc;
+  padding-left: 1.5em;
+}
