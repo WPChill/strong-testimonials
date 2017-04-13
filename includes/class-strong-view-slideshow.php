@@ -320,6 +320,10 @@ class Strong_View_Slideshow extends Strong_View_Display {
 			foreach ( $this->atts['client_section'] as $field ) {
 				if ( 'rating' == $field['type'] ) {
 					WPMST()->add_style( 'wpmtst-rating-display' );
+					if ( apply_filters( 'wpmtst_load_font_awesome', true ) ) {
+						WPMST()->add_style( 'wpmtst-font-awesome' );
+					}
+					break;
 				}
 			}
 		}
@@ -332,12 +336,16 @@ class Strong_View_Slideshow extends Strong_View_Display {
 	 */
 	public function has_slideshow() {
 
-		WPMST()->add_style( "wpmtst-font-awesome" );
+		if ( apply_filters( 'wpmtst_load_font_awesome', true ) ) {
+			WPMST()->add_style( 'wpmtst-font-awesome' );
+		}
 
 		$settings          = $this->atts['slideshow_settings'];
 		$not_full_controls = ( 'none' != $settings['controls_type'] || 'full' != $settings['controls_type'] );
 
-		/** Controls with or without Pagination */
+		/*
+		 * Controls with or without Pagination
+		 */
 		if ( isset( $settings['controls_type'] ) && 'none' != $settings['controls_type'] ) {
 
 			$filename = 'slider-controls-' . $settings['controls_type'] . '-' . $settings['controls_style'];
@@ -356,7 +364,9 @@ class Strong_View_Slideshow extends Strong_View_Display {
 		}
 		elseif ( $not_full_controls ) {
 
-			/** Pagination only */
+			/*
+			 * Pagination only
+			 */
 			if ( isset( $settings['pager_type'] ) && 'none' != $settings['pager_type'] ) {
 
 				//TODO Adapt for multiple pager types (only one right now).

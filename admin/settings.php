@@ -107,6 +107,8 @@ function wpmtst_sanitize_options( $input ) {
 
 	$input['email_log_level'] = !isset( $input['email_log_level'] ) ? 1 : (int) $input['email_log_level'];
 
+	$input['load_font_awesome'] = wpmtst_sanitize_checkbox( $input, 'load_font_awesome' );
+
 	return $input;
 }
 
