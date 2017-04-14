@@ -102,6 +102,10 @@ div.help.minor {
 /* Settings table
 ---------------------------------------------------------*/
 
+.wpmtst i.fa.example {
+	color: #0073aa;
+}
+
 .stackem ul {
 	margin: 14px 0 0 0;
 }
@@ -519,7 +523,7 @@ ul.description {
 	color: #666;
 	margin-top: 4px;
 	list-style-type: disc;
-	margin-left: 16px;
+	margin-left: 21px;
 	margin-bottom: 0;
 }
 
@@ -934,4 +938,9 @@ input.code {
 
 .striped > tbody > tr.readonly {
 	background: lightyellow;
+}
+
+ul.standard {
+  list-style: disc;
+  padding-left: 1.5em;
 }

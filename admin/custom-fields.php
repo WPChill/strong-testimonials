@@ -304,7 +304,13 @@ function wpmtst_show_field_secondary( $key, $field ) {
 			$html .= '<tr class="field-secondary">' . "\n";
 			$html .= '<th>' . __( 'Default Form Value', 'strong-testimonials' ) . '</th>' . "\n";
 			$html .= '<td>' . "\n";
-			$html .= '<input type="text" name="fields[' . $key . '][default_form_value]" value="' . wpmtst_htmlspecialchars( $field['default_form_value'] ) . '">';
+			// TODO Replace this special handling
+			if ( 'rating' == $field['input_type'] ) {
+    			$html .= '<input type="text" name="fields[' . $key . '][default_form_value]" value="' . wpmtst_htmlspecialchars( $field['default_form_value'] ) . '" class="as-number">';
+			    $html .= '<span class="help inline">' . __( 'stars', 'strong-testimonials' ) . '</span>';
+			} else {
+				$html .= '<input type="text" name="fields[' . $key . '][default_form_value]" value="' . wpmtst_htmlspecialchars( $field['default_form_value'] ) . '">';
+			}
 			$html .= '<span class="help">' . __( 'Populate the field with this value.', 'strong-testimonials' ) . '</span>';
 			$html .= '</td>' . "\n";
 			$html .= '</tr>' . "\n";
@@ -319,7 +325,13 @@ function wpmtst_show_field_secondary( $key, $field ) {
 			$html .= '<tr class="field-secondary">' . "\n";
 			$html .= '<th>' . __( 'Default Display Value', 'strong-testimonials' ) . '</th>' . "\n";
 			$html .= '<td>' . "\n";
-			$html .= '<input type="text" name="fields[' . $key . '][default_display_value]" value="' . wpmtst_htmlspecialchars( $field['default_display_value'] ) . '">';
+			// TODO Replace this special handling
+			if ( 'rating' == $field['input_type'] ) {
+				$html .= '<input type="text" name="fields[' . $key . '][default_display_value]" value="' . wpmtst_htmlspecialchars( $field['default_display_value'] ) . '" class="as-number">';
+				$html .= '<span class="help inline">' . __( 'stars', 'strong-testimonials' ) . '</span>';
+			} else {
+				$html .= '<input type="text" name="fields[' . $key . '][default_display_value]" value="' . wpmtst_htmlspecialchars( $field['default_display_value'] ) . '">';
+			}
 			$html .= '<span class="help">' . __( 'Display this on the testimonial if no value is submitted.', 'strong-testimonials' ) . '</span>';
 			$html .= '</td>' . "\n";
 			$html .= '</tr>' . "\n";

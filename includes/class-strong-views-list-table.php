@@ -22,10 +22,11 @@ class Strong_Views_List_Table extends Strong_Testimonials_List_Table {
 
 	public function get_columns() {
 		$columns = array(
-			'name'      => 'Name',
-			'mode'      => 'Mode',
-			'template'  => 'Template',
-			'shortcode' => 'Shortcode',
+			'id'        => __( 'ID', 'strong-testimonials' ),
+			'name'      => __( 'Name', 'strong-testimonials' ),
+			'mode'      => __( 'Mode', 'strong-testimonials' ),
+			'template'  => __( 'Template', 'strong-testimonials' ),
+			'shortcode' => __( 'Shortcode', 'strong-testimonials' ),
 		);
 
 		return $columns;
@@ -37,22 +38,35 @@ class Strong_Views_List_Table extends Strong_Testimonials_List_Table {
 
 	public function get_sortable_columns() {
 		return array(
+			'id'   => array( 'id', false ),
 			'name' => array( 'name', false ),
 		);
 	}
 
 	public function usort_reorder( $a, $b ) {
-		// If no sort, default to title
+		// If no sort, default to name
 		$orderby = ( ! empty( $_GET['orderby'] ) ) ? $_GET['orderby'] : 'name';
 
 		// If no order, default to asc
 		$order = ( ! empty($_GET['order'] ) ) ? $_GET['order'] : 'asc';
 
 		// Determine sort order
+		if ( 'id' == $orderby ) {
+			$result = $this->cmp( intval( $a[ $orderby ] ), intval( $b[ $orderby ] ) );
+		} else {
 		$result = strcasecmp( $a[$orderby], $b[$orderby] );
+		}
 
 		// Send final sort direction to usort
 		return ( $order === 'asc' ) ? $result : -$result;
+	}
+
+	public function cmp($a, $b) {
+		if ($a == $b) {
+			return 0;
+		}
+
+		return ($a < $b) ? -1 : 1;
 	}
 
 	public function column_name( $item ) {
@@ -81,22 +95,69 @@ class Strong_Views_List_Table extends Strong_Testimonials_List_Table {
 
 	public function column_default( $item, $column_name ) {
 		switch ( $column_name ) {
+			case 'id':
+				$text = $item['id'];
+				break;
 			case 'name':
-				return $item[ $column_name ];
+				$text = $item['name'];
+				break;
 			case 'mode':
-				return $item['data'][ $column_name ];
+				$text = $item['data']['mode'];
+				break;
 			case 'template':
-				return $this->find_template( array( 'template' => $item['data'][ $column_name ] ) );
+				$text = $this->find_template( array( 'template' => $item['data']['template'] ) );
+				break;
 			case 'shortcode':
-				return "[testimonial_view id={$item['id']}]";
+				$text = "[testimonial_view id={$item['id']}]";
+				break;
 			default:
-				return print_r( $item, true );
+				$text = print_r( $item, true );
 		}
+
+		return apply_filters( "wpmtst_view_list_column_$column_name", $text, $item );
 	}
 
 	public function find_template( $atts = '' ) {
 		$name = WPMST()->templates->get_template_attr( $atts, 'name', false );
 		return $name ? $name : '<span class="error"><span class="dashicons dashicons-warning"></span> not found</span>';
+	}
+
+	/**
+	 * Display the table
+	 *
+	 * @since 3.1.0
+	 * @access public
+	 */
+	public function display() {
+		$singular = $this->_args['singular'];
+
+		// Disabling the table nav options to regain some real estate.
+		//$this->display_tablenav( 'top' );
+
+		?>
+		<table class="wp-list-table <?php echo implode( ' ', $this->get_table_classes() ); ?>">
+			<thead>
+			<tr>
+				<?php $this->print_column_headers(); ?>
+			</tr>
+			</thead>
+
+			<tbody id="the-list"<?php
+			if ( $singular ) {
+				echo " data-wp-lists='list:$singular'";
+			} ?>>
+			<?php $this->display_rows_or_placeholder(); ?>
+			</tbody>
+
+			<tfoot>
+			<tr>
+				<?php $this->print_column_headers( false ); ?>
+			</tr>
+			</tfoot>
+
+		</table>
+		<?php
+		//$this->display_tablenav( 'bottom' );
 	}
 
 }

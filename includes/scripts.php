@@ -48,8 +48,10 @@ function wpmtst_scripts() {
 	/**
 	 * Ratings
 	 */
-	wp_register_style( 'wpmtst-rating-form', WPMTST_PUBLIC_URL . 'css/rating-form.css', array( 'wpmtst-font-awesome' ), $plugin_version );
-	wp_register_style( 'wpmtst-rating-display', WPMTST_PUBLIC_URL . 'css/rating-display.css', array( 'wpmtst-font-awesome' ), $plugin_version );
+	//wp_register_style( 'wpmtst-rating-form', WPMTST_PUBLIC_URL . 'css/rating-form.css', array( 'wpmtst-font-awesome' ), $plugin_version );
+	wp_register_style( 'wpmtst-rating-form', WPMTST_PUBLIC_URL . 'css/rating-form.css', array(), $plugin_version );
+	//wp_register_style( 'wpmtst-rating-display', WPMTST_PUBLIC_URL . 'css/rating-display.css', array( 'wpmtst-font-awesome' ), $plugin_version );
+	wp_register_style( 'wpmtst-rating-display', WPMTST_PUBLIC_URL . 'css/rating-display.css', array(), $plugin_version );
 
 	/**
 	 * Form handling

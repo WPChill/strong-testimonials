@@ -129,6 +129,19 @@ jQuery(window).on('load', function () {
 		$(this).select();
 	});
 
+	$(".expand-cats").on("click", function(){
+    // TODO i18n
+    var $categoryDivs = $('.view-category-list-panel');
+    if ( $categoryDivs.hasClass("tall-panel") ) {
+      $categoryDivs.addClass("short-panel").removeClass("tall-panel");
+      $(this).val("expand list");
+    } else {
+      $categoryDivs.removeClass("short-panel").addClass("tall-panel");
+      $(this).val("collapse list");
+    }
+    $(this).blur();
+  });
+
 	// Masonry example
 	var masonryExample = $(".view-layout-masonry .example-container");
 	masonryExample.find(".box").width( $(".grid-sizer").width() ).end().masonry({

@@ -54,6 +54,7 @@ class Strong_View_Form extends Strong_View {
 		$this->find_stylesheet();
 		$this->load_dependent_scripts();
 		$this->load_extra_stylesheets();
+		$this->custom_background();
 		$this->load_special();
 
 		$fields      = wpmtst_get_form_fields( $this->atts['form_id'] );
@@ -198,6 +199,55 @@ class Strong_View_Form extends Strong_View {
 
 		WPMST()->add_script( 'wpmtst-form-validation' );
 		WPMST()->add_script_var( 'wpmtst-form-validation', 'strongForm', $args );
+	}
+
+	/**
+	 * Build CSS for custom background.
+	 *
+	 * @param string $handle
+	 */
+	public function custom_background( $handle = 'wpmtst-custom-style' ) {
+		$background = $this->atts['background'];
+		if ( ! isset( $background['type'] ) ) return;
+
+		$c1 = '';
+		$c2 = '';
+
+		switch ( $background['type'] ) {
+			case 'preset':
+				$preset = wpmtst_get_background_presets( $background['preset'] );
+				$c1     = $preset['color'];
+				if ( isset( $preset['color2'] ) ) {
+					$c2 = $preset['color2'];
+				}
+				break;
+			case 'gradient':
+				$c1 = $background['gradient1'];
+				$c2 = $background['gradient2'];
+				break;
+			case 'single':
+				$c1 = $background['color'];
+				break;
+			default:
+		}
+
+		if ( ! wp_style_is( $handle ) ) {
+			wp_enqueue_style( $handle );
+		}
+
+		// Includes special handling for Large Widget template.
+		// TODO Add option to include background for all templates.
+		// TODO Make target class variable so we can use same code for display or forms.
+		if ( $c1 && $c2 ) {
+
+			$gradient = self::gradient_rules( $c1, $c2 );
+			wp_add_inline_style( $handle, ".strong-view-id-{$this->atts['view']} { $gradient }" );
+
+		} elseif ( $c1 ) {
+
+			wp_add_inline_style( $handle, ".strong-view-id-{$this->atts['view']} { background: $c1; }" );
+
+		}
 	}
 
 }

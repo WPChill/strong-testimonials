@@ -72,8 +72,8 @@ function wpmtst_admin_register() {
 
 	// Views
 	wp_register_style( 'wpmtst-admin-views-style', WPMTST_ADMIN_URL . 'css/views.css', array(), $plugin_version );
-	wp_register_script( 'wpmtst-admin-views-script', WPMTST_ADMIN_URL . 'js/views.js',
-		array( 'jquery', 'jquery-ui-sortable', 'wp-color-picker', 'jquery-masonry', 'wpmtst-help' ), $plugin_version, true );
+	$deps = array( 'jquery', 'jquery-ui-sortable', 'wp-color-picker', 'jquery-masonry', 'wpmtst-help' );
+	wp_register_script( 'wpmtst-admin-views-script', WPMTST_ADMIN_URL . 'js/views.js', $deps, $plugin_version, true );
 
 	/**
 	 * Category filter in View editor.

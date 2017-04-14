@@ -309,20 +309,30 @@ class Strong_View_Display extends Strong_View {
 	 * @since 2.16.0 In Strong_View class.
 	 */
 	public function has_layouts() {
-		if ( 'masonry' == $this->atts['layout'] && apply_filters( 'wpmtst_load_masonry', true ) ) {
+
+		if ( 'masonry' == $this->atts['layout'] ) {
 
 			WPMST()->add_script( 'wpmtst-masonry-script' );
-			WPMST()->add_style( 'wpmtst-masonry-style' );
 
-		} elseif ( 'columns' == $this->atts['layout'] && apply_filters( 'wpmtst_load_columns', true ) ) {
+			if ( apply_filters( 'wpmtst_load_masonry_style', true ) ) {
+				WPMST()->add_style( 'wpmtst-masonry-style' );
+			}
 
-			WPMST()->add_style( 'wpmtst-columns-style' );
+		} elseif ( 'columns' == $this->atts['layout'] ) {
 
-		} elseif ( 'grid' == $this->atts['layout'] && apply_filters( 'wpmtst_load_grid', true ) ) {
+			if ( apply_filters( 'wpmtst_load_columns_style', true ) ) {
+				WPMST()->add_style( 'wpmtst-columns-style' );
+			}
+
+		} elseif ( 'grid' == $this->atts['layout'] ) {
 
 			WPMST()->add_script( 'wpmtst-grid-script' );
-			WPMST()->add_style( 'wpmtst-grid-style' );
+
+			if ( apply_filters( 'wpmtst_load_grid_style', true ) ) {
+				WPMST()->add_style( 'wpmtst-grid-style' );
+			}
 		}
+
 	}
 
 	/**
@@ -407,17 +417,6 @@ class Strong_View_Display extends Strong_View {
 			}
 
 		}
-	}
-
-	public function gradient_rules( $c1, $c2 ) {
-		return "background: {$c1};
-	background: -moz-linear-gradient(top, {$c1} 0%, {$c2} 100%);
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, {$c1}), color-stop(100%, {$c2}));
-	background: -webkit-linear-gradient(top,  {$c1} 0%, {$c2} 100%);
-	background: -o-linear-gradient(top, {$c1} 0%, {$c2} 100%);
-	background: -ms-linear-gradient(top, {$c1} 0%, {$c2} 100%);
-	background: linear-gradient(to bottom, {$c1} 0%, {$c2} 100%);
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='{$c1}', endColorstr='{$c2}', GradientType=0);";
 	}
 
 }

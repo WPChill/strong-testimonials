@@ -4,30 +4,33 @@
 
 		<h2>How to get started</h2>
 
+        <p class="highlight"><?php _e( 'This plugin is different than others you may have tried.', 'strong-testimonials' ); ?></p>
+
 		<p>
-			<?php _e( 'This plugin is different than others you may have tried.', 'strong-testimonials' ); ?>
             <strong><?php
 			printf(
-				wp_kses( __( 'You must create a <a href="%s">view</a> first.', 'strong-testimonials' ), $tags ),
+				wp_kses( __( 'Start by creating a <a href="%s">view</a>.', 'strong-testimonials' ), $tags ),
 				admin_url( 'edit.php?post_type=wpm-testimonial&page=testimonial-views' )
 			);
 			?></strong>
-			<?php _e( 'A view is simply of group of settings with an easy-to-use editor. ', 'strong-testimonials' ); ?>
+			<?php _e( 'A view is simply a group of settings with an easy-to-use editor.', 'strong-testimonials' ); ?>
 		</p>
+
 		<p>
-			<?php _e( 'You can create an unlimited number of views.', 'strong-testimonials' ); ?>
+			<?php _e( 'You can create an <em>unlimited</em> number of views.', 'strong-testimonials' ); ?>
 			<?php _e( 'For example:', 'strong-testimonials' ); ?>
         </p>
+
         <ul>
-        <li><?php _e( 'a view to <b>display</b> your testimonials in a list or a grid', 'strong-testimonials' ); ?></li>
-        <li><?php _e( 'another view to display testimonials from a specific <b>category</b>', 'strong-testimonials' ); ?></li>
-        <li><?php _e( 'another view for the testimonial submission <b>form</b>', 'strong-testimonials' ); ?></li>
-        <li><?php _e( 'another view for a <b>slideshow</b> widget', 'strong-testimonials' ); ?></li>
+            <li><?php _e( 'a view to <b>display</b> your testimonials in a list or a grid', 'strong-testimonials' ); ?></li>
+            <li><?php _e( 'another view to display testimonials from a specific <b>category</b>', 'strong-testimonials' ); ?></li>
+            <li><?php _e( 'another view for the testimonial submission <b>form</b>', 'strong-testimonials' ); ?></li>
+            <li><?php _e( 'another view for a <b>slideshow</b> widget', 'strong-testimonials' ); ?></li>
         </ul>
+
         <p>
 			<?php _e( 'Add the view using its unique shortcode (which you will see after you save it) or the widget.', 'strong-testimonials' ); ?>
 		</p>
-
 
 	</div>
 
@@ -42,7 +45,7 @@
             <?php _e( 'For example:', 'strong-testimonials' ); ?>
         </p>
         <p>
-            <span style="background: white; font-family: Consolas, Monaco, monospace; padding: 3px 8px; display: inline-block;">
+            <span class="code">
 			    <?php printf( __( 'Read some of our %s testimonials!', 'strong-testimonials' ), '&#91;testimonial_count&#93;' ); ?>
             </span>
         </p>
@@ -52,7 +55,7 @@
 			<?php _e( 'For example:', 'strong-testimonials' ); ?>
         </p>
         <p>
-            <span style="background: white; font-family: Consolas, Monaco, monospace; padding: 3px 8px; display: inline-block;">
+            <span class="code">
 			    <?php printf( __( 'Here\'s what %s local clients say', 'strong-testimonials' ), '&#91;testimonial_count category="local"&#93;' ); ?>
             </span>
         </p>
@@ -107,5 +110,7 @@
 		?></p>
 
 	</div>
+
+    <p class="sig"><?php _e( 'Thanks for choosing Strong Testimonials!', 'strong-testimonials' ); ?></p>
 
 </div>

@@ -63,16 +63,3 @@ function wpmtst_dismiss_notice() {
 	}
 }
 add_action( 'wp_ajax_wpmtst_dismiss_notice', 'wpmtst_dismiss_notice' );
-
-
-function wpmtst_countdown() {
-	$datetime1 = new DateTime();
-	$datetime2 = new DateTime('2016-02-02');
-	$interval = $datetime1->diff($datetime2);
-	if ( $interval->invert )
-		echo 'in the next update';
-	else
-		echo $interval->format('in %a days');
-	die();
-}
-//add_action( 'wp_ajax_wpmtst_countdown', 'wpmtst_countdown' );

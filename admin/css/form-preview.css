@@ -10,6 +10,11 @@
 	margin-bottom: 1.5em;
 }
 
+.strong-form .form-field.submit {
+	margin-bottom: 1em;
+	padding: 0;
+}
+
 .strong-form .required.symbol:after {
 	content: '*';
 	color: #FF0000;

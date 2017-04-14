@@ -39,8 +39,8 @@
 		<div class="row">
 			<div class="row-inner">
 				<div class="inline">
-					<input type="checkbox" id="view-lightbox" class="if toggle" name="view[data][lightbox]"
-						   value="1" <?php checked( $view['lightbox'] ); ?> class="checkbox">
+					<input type="checkbox" id="view-lightbox" class="if toggle checkbox" name="view[data][lightbox]"
+						   value="1" <?php checked( $view['lightbox'] ); ?>>
 					<label for="view-lightbox">
 						<?php _e( 'Open full-size image in a lightbox', 'strong-testimonials' ); ?>
 					</label>
@@ -54,7 +54,7 @@
 		<div class="row">
 			<div class="row-inner">
 				<div class="inline">
-					<label for="view-gravatar" class="">
+					<label for="view-gravatar">
 						<?php _e( 'If no Featured Image', 'strong-testimonials' ); ?>
 					</label>
 					<select id="view-gravatar" class="if select selectper" name="view[data][gravatar]">

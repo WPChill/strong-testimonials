@@ -4,7 +4,7 @@
  * Plugin URI: https://strongplugins.com/plugins/strong-testimonials/
  * Description: A full-featured plugin that works right out of the box for beginners and offers advanced features for pros.
  * Author: Chris Dillon
- * Version: 2.20
+ * Version: 2.21
  * Author URI: https://strongplugins.com/
  * Text Domain: strong-testimonials
  * Domain Path: /languages
@@ -266,6 +266,7 @@ final class Strong_Testimonials {
 			require_once WPMTST_ADMIN . 'upgrade.php';
 			require_once WPMTST_ADMIN . 'views.php';
 			require_once WPMTST_ADMIN . 'views-ajax.php';
+			require_once WPMTST_ADMIN . 'view-list-order.php';
 			require_once WPMTST_ADMIN . 'views-validate.php';
 
 			/**
@@ -324,6 +325,7 @@ final class Strong_Testimonials {
 		add_action( 'admin_init', array( $this, 'theme_support' ) );
 
 		add_action( 'init', array( $this, 'reorder_check' ) );
+		add_action( 'init', array( $this, 'font_check' ) );
 		add_action( 'init', array( $this, 'set_view_defaults' ) );
 
 		/**
@@ -468,6 +470,16 @@ final class Strong_Testimonials {
 		$options = get_option( 'wpmtst_options' );
 		if ( isset( $options['reorder'] ) && $options['reorder'] ) {
 			require_once WPMTST_INC . 'class-strong-testimonials-order.php';
+		}
+	}
+
+	/**
+	 * Forgo Font Awesome.
+	 */
+	public function font_check() {
+		$options = get_option( 'wpmtst_options' );
+		if ( isset( $options['load_font_awesome'] ) && ! $options['load_font_awesome'] ) {
+			add_filter( 'wpmtst_load_font_awesome', '__return_false' );
 		}
 	}
 

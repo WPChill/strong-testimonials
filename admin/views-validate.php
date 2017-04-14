@@ -47,7 +47,7 @@ function wpmtst_sanitize_view( $input ) {
 	// Compatibility
 	$data['compat'] = ( 'compat_on' == $input['compat'] ? 1 : 0 );
 
-	/**
+	/*
 	 * Single testimonial
 	 */
 	// Clear single ID if "multiple" selected
@@ -199,7 +199,7 @@ function wpmtst_sanitize_view( $input ) {
 	$data['lightbox']         = isset( $input['lightbox'] ) ? 1 : 0;
 	$data['gravatar']         = sanitize_text_field( $input['gravatar'] );
 
-	/**
+	/*
 	 * CSS Class Names
 	 * This field is being confused with custom CSS rules like `.testimonial { border: none; }`
 	 * so strip periods and anything between and including curly braces.

@@ -1,64 +1,68 @@
 .strong-form {
-	margin: 0 auto;
+  margin: 0 auto;
 
-	.form-field {
-		margin-bottom: 1.5em;
-	}
+  .form-field {
+    margin-bottom: 1.5em;
 
-	.required.symbol:after {
-		content: '*';
-		color: #FF0000;
-		margin: 0 4px;
-	}
+    &.submit {
+      margin-bottom: 0;
+    }
+  }
 
-	label {
-		display: inline-block;
-		float: none;
-	}
+  .required.symbol:after {
+    content: '*';
+    color: #FF0000;
+    margin: 0 4px;
+  }
 
-	input[type="text"],
-	input[type="email"],
-	input[type="url"],
-	input[type="file"],
-	select,
-	textarea {
-		box-sizing: border-box;
-		display: block;
-		float: none;
-		width: 100%;
-	}
+  label {
+    display: inline-block;
+    float: none;
+  }
 
-	textarea {
-		height: 16em;
-	}
+  input[type="text"],
+  input[type="email"],
+  input[type="url"],
+  input[type="file"],
+  select,
+  textarea {
+    box-sizing: border-box;
+    display: block;
+    float: none;
+    width: 100%;
+  }
 
-	span.error,
-	label.error {
-		display: block;
-	}
+  textarea {
+    height: 16em;
+  }
 
-	.before {
-		display: block;
-	}
+  span.error,
+  label.error {
+    display: block;
+  }
 
-	.after {
-		display: block;
-	}
+  .before {
+    display: block;
+  }
+
+  .after {
+    display: block;
+  }
 }
 
 .strong-form-inner {
-	padding: 20px;
+  padding: 20px;
 }
 
 input.captcha {
-	display: block;
-	width: auto;
+  display: block;
+  width: auto;
 }
 
 img.captcha {
-	border: 0;
+  border: 0;
 }
 
 .wpmtst-captcha {
-	margin-bottom: 1em;
+  margin-bottom: 1em;
 }

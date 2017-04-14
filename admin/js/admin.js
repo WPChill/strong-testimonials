@@ -165,4 +165,22 @@ jQuery(document).ready(function ($) {
 
   });
 
+  /**
+   * ========================================
+   * View List Table
+   * ========================================
+   */
+
+  $('table.wpm-testimonial_page_testimonial-views th.manage-column').on('click',function(e){
+    var columnName = $(this).attr('id');
+    // get the opposite class
+    var columnOrder = $(this).hasClass('asc') ? 'desc' : $(this).hasClass('desc') ? 'asc' : '';
+    var data = {
+      'action': 'wpmtst_save_view_list_order',
+      'name': columnName,
+      'order': columnOrder
+    };
+     $.get(ajaxurl, data, function (response) {});
+  });
+
 });

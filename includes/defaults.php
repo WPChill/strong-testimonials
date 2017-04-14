@@ -16,6 +16,7 @@
  * @since 2.6.0  embed width
  * @since 2.6.2  slideshow z-index
  * @since 2.10.0 pending indicator
+ * @since 2.21.0 load Font Awesome
  *
  * @return array
  */
@@ -30,6 +31,7 @@ function wpmtst_get_default_options() {
 		'email_log_level'       => 1,
 		'embed_width'           => '',
 		'pending_indicator'     => true,
+		'load_font_awesome'     => true,
 	);
 
 	return $default_options;
@@ -167,7 +169,7 @@ function wpmtst_get_default_fields() {
 		'rating' => array(
 			'input_type'              => 'rating',
 			'option_label'            => __( 'star rating', 'strong-testimonials' ),
-			'show_default_options'    => 0,
+			//'show_default_options'    => 0,
 			'show_placeholder_option' => 0,
 			'admin_table'             => 1,
 			'admin_table_option'      => 1,
