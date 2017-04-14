@@ -15,7 +15,7 @@ All the features you need to handle testimonials.
 
 = Is this the right plugin for you? =
 
-[GO DEMO](http://demos.wpmission.com/strong-testimonials/)
+**[GO DEMO](http://demos.wpmission.com/strong-testimonials/)**
 
 It's important to understand this plugin's intended use case: A small business with up to a few hundred testimonials, maybe organized into multiple categories, and displaying them a few different ways like a full page of testimonials and a slideshow widget, plus a form for accepting new testimonials.
 
@@ -44,7 +44,7 @@ You can customize the form to your needs by adding or removing fields, or changi
 
 The form also offers **anti-spam** options like honeypots and Captcha via these plugins: [Captcha](http://wordpress.org/plugins/captcha/), [Really Simple Captcha](http://wordpress.org/plugins/really-simple-captcha/), and [Advanced noCaptcha reCaptcha](https://wordpress.org/plugins/advanced-nocaptcha-recaptcha/).
 
-**Notification emails** can be sent to multiple admins when new testimonials are submitted. New testimonials can also be assigned to a specific category.
+**Notification emails** can be sent to multiple admins when testimonials are submitted. New testimonials can also be assigned to a specific category.
 
 The form can be submitted via Ajax so it's compatible with popular plugins like [Popup Maker](https://wordpress.org/plugins/popup-maker/).
 
@@ -56,9 +56,9 @@ You can create unlimited views. For example, one view for the form, another view
 
 Some of the options for displaying testimonials in a **list** or **slideshow**:
 
-* select which testimonials to show
-* set the sort order
-* select which fields to include
+* which ones to show
+* in what order
+* which fields to include
 * extras like pagination
 * layout and style options
 
@@ -109,18 +109,15 @@ Activate the plugin. Look for "Testimonials" in the admin menu.
 
 = What are the shortcodes? =
 
-1. [testimonial_view] - To display your testimonials as a list or a slideshow, or to display the form. There is no complicated shortcode "language" to learn. Instead, a **view** manages all the options with an easy-to-use (some call it fun!) editor for creating and configuring multiple views.
+[testimonial_view] - To display your testimonials as a list or a slideshow, or to display the form. There is no complicated shortcode "language" to learn. Instead, a **view** manages all the options with an easy-to-use (some call it fun!) editor for creating and configuring multiple views.
 
-For example, after saving your first view (which, again, could be a static list as a single column or a grid or Masonry, a slideshow, or a form):
+For example, after saving your first view (which, again, could be a list, a grid, a slideshow, or a form):
 
-`
-[testimonial_view id=1]
-`
+`[testimonial_view id=1]`
 
-2. [testimonial_count] - To display the number of testimonials you have. For example:
-`
-Read some of our [testimonial_count] testimonials!
-`
+[testimonial_count] - To display the number of testimonials you have. For example:
+
+`Read some of our [testimonial_count] testimonials!`
 
 = Is it WPML compatible? =
 
@@ -172,7 +169,7 @@ Yes. In views, these custom fields can be changed with a few clicks.
 
 = My theme also includes testimonials. Will that be a problem? =
 
-It depends. I have narrowed down the causes of many conflicts and addressed them in the plugin. If you encounter trouble, use the support form and we'll sort it out. If you want help disabling testimonials in your theme, even better :)
+It depends. I have narrowed down the causes of many conflicts and addressed them in the plugin. If you encounter trouble, use the support form and we'll sort it out. If you want help disabling testimonials in your theme, even better. :)
 
 = Can I import my existing testimonials? =
 
@@ -206,7 +203,7 @@ This [screenshot](http://www.screencast.com/t/TPMRWM0yug) shows where I immediat
 
 I can determine what theme you're using, what plugins are active, whether you're using any caching/minification/optimization (do you need to clear your cache?), if there are any JavaScript errors in your theme or another plugin (more common than you may think), and somewhat how the testimonial view is configured.
 
-Then, I may attempt to reproduce the problem by creating a test site on my local server and installing your theme and other plugins. I own a copy of several popular premium themes and plugins for this purpose. If there is a major conflict between your theme/plugin and Strong Testimonials, and I don't own the theme/plugin, I may buy it or I may ask you for more information about it like what features it offers or how you have it set up.
+Then, I may attempt to reproduce the problem by creating a test site on my local server and installing your theme and other plugins.
 
 If you prefer not to post your URL publicly, start a private support ticket at [support.strongplugins.com](https://support.strongplugins.com).
 
@@ -223,10 +220,14 @@ If you prefer not to post your URL publicly, start a private support ticket at [
 
 == Changelog ==
 
+= 2.21.1 - Apr 18, 2017 =
+* Fix bug in Font Awesome loading.
+
 = 2.21 - Apr 14, 2017 =
 * Add option for default rating value on the form.
 * Add custom field name to form HTML elements.
 * Add option to skip loading Font Awesome.
+* Add background color option to the form.
 * Add filters to bypass layout stylesheets if not needed.
 * Minor admin UI improvements.
 

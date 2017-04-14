@@ -9,6 +9,7 @@
  * @return mixed|string
  */
 function wpmtst_star_rating_form( $field, $value = 0, $class, $echo = true ) {
+    $value = (int) $value;
 	if ( $field && is_array( $field ) && isset( $field['name'] ) ) {
 		$name = $field['name'];
 	} else {
@@ -49,6 +50,7 @@ function wpmtst_star_rating_form( $field, $value = 0, $class, $echo = true ) {
  * @return mixed|string
  */
 function wpmtst_star_rating_display( $value = 0, $class, $echo = true ) {
+    $value = (int) $value;
 	ob_start(); ?>
 	<span class="strong-rating-wrapper <?php echo $class; ?>">
 		<span class="strong-rating"><!-- cheap trick to collapse whitespace around inline-blocks

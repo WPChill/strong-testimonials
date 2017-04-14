@@ -6,6 +6,7 @@
 function wpmtst_scripts() {
 
 	$plugin_version = get_option( 'wpmtst_plugin_version' );
+	$options        = get_option( 'wpmtst_options' );
 
 	$min = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 
@@ -48,10 +49,12 @@ function wpmtst_scripts() {
 	/**
 	 * Ratings
 	 */
-	//wp_register_style( 'wpmtst-rating-form', WPMTST_PUBLIC_URL . 'css/rating-form.css', array( 'wpmtst-font-awesome' ), $plugin_version );
-	wp_register_style( 'wpmtst-rating-form', WPMTST_PUBLIC_URL . 'css/rating-form.css', array(), $plugin_version );
-	//wp_register_style( 'wpmtst-rating-display', WPMTST_PUBLIC_URL . 'css/rating-display.css', array( 'wpmtst-font-awesome' ), $plugin_version );
-	wp_register_style( 'wpmtst-rating-display', WPMTST_PUBLIC_URL . 'css/rating-display.css', array(), $plugin_version );
+	$deps = array();
+	if ( isset( $options['load_font_awesome'] ) && $options['load_font_awesome'] ) {
+		$deps = array( 'wpmtst-font-awesome' );
+	}
+	wp_register_style( 'wpmtst-rating-form', WPMTST_PUBLIC_URL . 'css/rating-form.css', $deps, $plugin_version );
+	wp_register_style( 'wpmtst-rating-display', WPMTST_PUBLIC_URL . 'css/rating-display.css', $deps, $plugin_version );
 
 	/**
 	 * Form handling
@@ -83,7 +86,7 @@ function wpmtst_scripts() {
 
 	wp_register_script( 'strongslider', WPMTST_PUBLIC_URL . 'js/jquery.strongslider.js', array( 'wpmslider', 'underscore' ), $plugin_version, true );
 
-	if ( !defined( 'MEGAMENU_VERSION' ) ) {
+	if ( ! defined( 'MEGAMENU_VERSION' ) ) {
 		wp_register_script( 'wpmtst-slider', WPMTST_PUBLIC_URL . 'js/slider.js', array( 'strongslider' ), $plugin_version, true );
 	}
 

@@ -320,9 +320,6 @@ class Strong_View_Slideshow extends Strong_View_Display {
 			foreach ( $this->atts['client_section'] as $field ) {
 				if ( 'rating' == $field['type'] ) {
 					WPMST()->add_style( 'wpmtst-rating-display' );
-					if ( apply_filters( 'wpmtst_load_font_awesome', true ) ) {
-						WPMST()->add_style( 'wpmtst-font-awesome' );
-					}
 					break;
 				}
 			}

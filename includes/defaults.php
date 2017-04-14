@@ -31,7 +31,7 @@ function wpmtst_get_default_options() {
 		'email_log_level'       => 1,
 		'embed_width'           => '',
 		'pending_indicator'     => true,
-		'load_font_awesome'     => true,
+		'load_font_awesome'     => 1,
 	);
 
 	return $default_options;
