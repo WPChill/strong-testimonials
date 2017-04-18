@@ -3,7 +3,7 @@ Contributors: cdillon27
 Tags: testimonials, testimonial widget, random testimonial, testimonial shortcode, testimonial slider, testimonial form
 Requires at least: 3.6
 Tested up to: 4.7.3
-Stable tag: 2.21
+Stable tag: 2.21.2
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -219,6 +219,9 @@ If you prefer not to post your URL publicly, start a private support ticket at [
 8. View editor
 
 == Changelog ==
+
+= 2.21.2 - Apr 21, 2017 =
+* Fix bug in add-on license activation process.
 
 = 2.21.1 - Apr 18, 2017 =
 * Fix bug in Font Awesome loading.

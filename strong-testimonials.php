@@ -4,7 +4,7 @@
  * Plugin URI: https://strongplugins.com/plugins/strong-testimonials/
  * Description: A full-featured plugin that works right out of the box for beginners and offers advanced features for pros.
  * Author: Chris Dillon
- * Version: 2.21.1
+ * Version: 2.21.2
  * Author URI: https://strongplugins.com/
  * Text Domain: strong-testimonials
  * Domain Path: /languages
@@ -319,14 +319,17 @@ final class Strong_Testimonials {
 		}
 
 		/**
+		 * Plugin setup.
+		 */
+		add_action( 'init', array( $this, 'reorder_check' ) );
+		add_action( 'init', array( $this, 'font_check' ) );
+		add_action( 'init', array( $this, 'set_view_defaults' ) );
+
+		/**
 		 * Theme support for thumbnails.
 		 */
 		add_action( 'after_setup_theme', array( $this, 'theme_support' ) );
 		add_action( 'admin_init', array( $this, 'theme_support' ) );
-
-		add_action( 'init', array( $this, 'reorder_check' ) );
-		add_action( 'init', array( $this, 'font_check' ) );
-		add_action( 'init', array( $this, 'set_view_defaults' ) );
 
 		/**
 		 * Localize scripts.

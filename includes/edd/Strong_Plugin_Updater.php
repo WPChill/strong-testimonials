@@ -24,6 +24,30 @@ class Strong_Plugin_Updater {
 		if ( !$addons ) return;
 
 		foreach ( $addons as $addon => $addon_info ) {
+
+			/**
+			 * Repair missing file name due to bug in license activation process.
+			 *
+			 * @since 2.21.2
+			 */
+			if ( ! isset( $addon_info['file'] ) ) {
+				switch ( $addon ) {
+					case 'review-markup':
+						$addon_info['file'] = WP_PLUGIN_DIR . '/strong-testimonials-review-markup/strong-testimonials-review-markup.php';
+						break;
+					case 'multiple-forms':
+						$addon_info['file'] = WP_PLUGIN_DIR . '/strong-testimonials-multiple-forms/strong-testimonials-multiple-forms.php';
+						break;
+					case 'properties':
+						$addon_info['file'] = WP_PLUGIN_DIR . '/strong-testimonials-properties/strong-testimonials-properties.php';
+						break;
+					default:
+				}
+
+				$addons[ $addon ] = $addon_info;
+				update_option( 'wpmtst_addons', $addons );
+			}
+
 			$license_key = trim( $addon_info['license']['key'] );
 			$version     = $addon_info['version'];
 
