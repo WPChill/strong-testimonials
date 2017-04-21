@@ -89,6 +89,10 @@ function wpmtst_the_content() {
 
 		$content = wptexturize( $content );
 
+		$excerpt_more = apply_filters( 'excerpt_more', ' ' . '[&hellip;]' );
+		$excerpt_more = wpmtst_excerpt_more_full_post();
+		$content .= $excerpt_more;
+
 		$content = wpautop( $content );
 		$content = shortcode_unautop( $content );
 		$content = do_shortcode( $content );
@@ -137,7 +141,7 @@ function wpmtst_read_more() {}
  */
 function wpmtst_trim_excerpt( $text, $raw_excerpt ) {
 	if ( 'wpm-testimonial' == get_post_type() && WPMST()->atts( 'excerpt' ) && WPMST()->atts( 'more_full_post' ) ) {
-		add_action( 'wpmtst_after_testimonial', 'wpmtst_excerpt_more_full_post' );
+		//add_action( 'wpmtst_after_testimonial_content', 'wpmtst_excerpt_more_full_post' );
 	}
 
 	return $text;
@@ -182,10 +186,15 @@ function wpmtst_excerpt_more( $more ) {
 add_filter( 'excerpt_more', 'wpmtst_excerpt_more', 20 );
 
 
+//function wpmtst_excerpt_more_full_post() {
+//    echo '<div class="testimonial-readmore">';
+//	echo apply_filters( 'wpmtst_manual_excerpt_read_more', wpmtst_get_excerpt_more_link() );
+//	echo '</div>';
+//}
+
+
 function wpmtst_excerpt_more_full_post() {
-    echo '<div class="testimonial-readmore">';
-	echo apply_filters( 'wpmtst_manual_excerpt_read_more', wpmtst_get_excerpt_more_link() );
-	echo '</div>';
+    return ' <span class="testimonial-readmore">' . apply_filters( 'wpmtst_manual_excerpt_read_more', wpmtst_get_excerpt_more_link() ) . '</span>';
 }
 
 
