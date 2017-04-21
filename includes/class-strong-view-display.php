@@ -65,7 +65,7 @@ class Strong_View_Display extends Strong_View {
 		 *
 		 * @since 2.11.4
 		 */
-		remove_action( 'wpmtst_after_testimonial', 'wpmtst_excerpt_more_full_post' );
+		remove_action( 'wpmtst_after_testimonial_content', 'wpmtst_excerpt_more_full_post' );
 
 		do_action( 'wpmtst_view_build_before', $this );
 
@@ -287,14 +287,13 @@ class Strong_View_Display extends Strong_View {
 		$content_class_list[] = 'strong-' . ( $this->atts['layout'] ? $this->atts['layout'] : 'normal' );
 		$content_class_list[] = 'columns-' . ( $this->atts['layout'] ? $this->atts['column_count'] : '1' );
 
-
 		/**
 		 * Filter classes.
 		 */
-		$this->atts['container_data']  = apply_filters( 'wpmtst_view_container_data', $container_data_list );
-		$this->atts['container_class'] = join( ' ', apply_filters( 'wpmtst_view_container_class', $container_class_list ) );
-		$this->atts['content_class']   = join( ' ', apply_filters( 'wpmtst_view_content_class', $content_class_list ) );
-		$this->atts['post_class']      = join( ' ', apply_filters( 'wpmtst_view_post_class', $post_class_list ) );
+		$this->atts['container_data']  = apply_filters( 'wpmtst_view_container_data', $container_data_list, $this->atts );
+		$this->atts['container_class'] = join( ' ', apply_filters( 'wpmtst_view_container_class', $container_class_list, $this->atts ) );
+		$this->atts['content_class']   = join( ' ', apply_filters( 'wpmtst_view_content_class', $content_class_list, $this->atts ) );
+		$this->atts['post_class']      = join( ' ', apply_filters( 'wpmtst_view_post_class', $post_class_list, $this->atts ) );
 
 		/**
 		 * Store updated atts.
