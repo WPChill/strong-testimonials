@@ -22,6 +22,7 @@
 				<div class="testimonial-content">
 					<?php wpmtst_the_thumbnail(); ?>
 					<?php wpmtst_the_content(); ?>
+					<?php do_action( 'wpmtst_after_testimonial_content' ); ?>
 				</div>
 
 				<div class="testimonial-client">
