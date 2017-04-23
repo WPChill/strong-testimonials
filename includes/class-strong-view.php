@@ -223,10 +223,10 @@ class Strong_View {
 				wp_add_inline_style( 'wpmtst-custom-style', "$view_el .strong-form-inner { $gradient }\n" );
 			} else {
 				wp_add_inline_style( 'wpmtst-custom-style', "$view_el .testimonial-inner { $gradient }\n" );
-			}
 
-			if ( 'large-widget:widget' == WPMST()->atts( 'template' ) ) {
-				wp_add_inline_style( 'wpmtst-custom-style', "$view_el .readmore-page { background: $c2 }\n" );
+				if ( 'large-widget:widget' == WPMST()->atts( 'template' ) ) {
+					wp_add_inline_style( 'wpmtst-custom-style', "$view_el .readmore-page { background: $c2 }\n" );
+				}
 			}
 
 		} elseif ( $c1 ) {
@@ -235,10 +235,10 @@ class Strong_View {
 				wp_add_inline_style( 'wpmtst-custom-style', "$view_el .strong-form-inner { background: $c1; }\n" );
 			} else {
 				wp_add_inline_style( 'wpmtst-custom-style', "$view_el .testimonial-inner { background: $c1; }\n" );
-			}
 
-			if ( 'large-widget:widget' == WPMST()->atts( 'template' ) ) {
-				wp_add_inline_style( 'wpmtst-custom-style', "$view_el .readmore-page { background: $c1 }\n" );
+				if ( 'large-widget:widget' == WPMST()->atts( 'template' ) ) {
+					wp_add_inline_style( 'wpmtst-custom-style', "$view_el .readmore-page { background: $c1 }\n" );
+				}
 			}
 
 		}

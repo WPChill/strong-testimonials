@@ -370,61 +370,6 @@ class Strong_View_Display extends Strong_View {
 		}
 	}
 
-	/**
-	 * Build CSS for custom background.
-	 *
-	 * @param string $handle
-	 */
-	public function custom_background( $handle = 'wpmtst-custom-style' ) {
-		$background = $this->atts['background'];
-		if ( ! isset( $background['type'] ) ) return;
-
-		$c1 = '';
-		$c2 = '';
-
-		switch ( $background['type'] ) {
-			case 'preset':
-				$preset = wpmtst_get_background_presets( $background['preset'] );
-				$c1     = $preset['color'];
-				if ( isset( $preset['color2'] ) ) {
-					$c2 = $preset['color2'];
-				}
-				break;
-			case 'gradient':
-				$c1 = $background['gradient1'];
-				$c2 = $background['gradient2'];
-				break;
-			case 'single':
-				$c1 = $background['color'];
-				break;
-			default:
-		}
-
-		if ( ! wp_style_is( $handle ) ) {
-			wp_enqueue_style( $handle );
-		}
-
-		// Includes special handling for Large Widget template.
-		// TODO Add option to include background for all templates.
-		if ( $c1 && $c2 ) {
-
-			$gradient = self::gradient_rules( $c1, $c2 );
-			wp_add_inline_style( $handle, ".strong-view-id-{$this->atts['view']} .testimonial-inner { $gradient }" );
-			if ( 'large-widget:widget' == WPMST()->atts( 'template' ) ) {
-				wp_add_inline_style( $handle, ".strong-view-id-{$this->atts['view']} .readmore-page { background: $c2 }" );
-			}
-
-		}
-		elseif ( $c1 ) {
-
-			wp_add_inline_style( $handle, ".strong-view-id-{$this->atts['view']} .testimonial-inner { background: $c1; }" );
-			if ( 'large-widget:widget' == WPMST()->atts( 'template' ) ) {
-				wp_add_inline_style( $handle, ".strong-view-id-{$this->atts['view']} .readmore-page { background: $c1 }" );
-			}
-
-		}
-	}
-
 }
 
 endif;
