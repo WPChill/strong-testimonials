@@ -63,12 +63,7 @@ class Strong_View_Display extends Strong_View {
 	 * Build the view.
 	 */
 	public function build() {
-		/**
-		 * Reset any hooks and filters that may have been set by other Views on the page.
-		 *
-		 * @since 2.11.4
-		 */
-		remove_action( 'wpmtst_after_testimonial_content', 'wpmtst_excerpt_more_full_post' );
+		// May need to remove any hooks or filters that were set by other Views on the page.
 
 		do_action( 'wpmtst_view_build_before', $this );
 
