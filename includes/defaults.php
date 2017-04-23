@@ -634,6 +634,7 @@ function wpmtst_get_default_view() {
 		'container_data'     => '',
 		'content'            => 'entire',
 		'count'              => 1,
+		'divi_builder'       => 0,
 		'excerpt_length'     => 55,
 		'form_ajax'          => 0,
 		'form_id'            => 1,

@@ -546,6 +546,7 @@ final class Strong_Testimonials {
 			'container_data'     => '',
 			'count'              => 1,
 			'display'            => '',
+			'divi_builder'       => 0,
 			'excerpt'            => '',
 			'excerpt_length'     => 55,
 			'form'               => '',

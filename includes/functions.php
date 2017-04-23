@@ -867,3 +867,25 @@ function wpmtst_callback_exists( $callback ) {
 
 	return $exists;
 }
+
+
+/**
+ * Check for Divi Builder plugin.
+ *
+ * Its plugin version constant is inaccurate so get the version from the file header.
+ *
+ * @since 2.22.0
+ *
+ * @return bool
+ */
+function wpmtst_divi_builder_active() {
+	$active = false;
+	if ( is_plugin_active( 'divi-builder/divi-builder.php' ) ) {
+		$plugin = get_file_data( WP_PLUGIN_DIR . '/divi-builder/divi-builder.php', array( 'version' => 'Version' ) );
+		if ( isset( $plugin['version'] ) && version_compare( $plugin['version'], '2' ) > 0 ) {
+			$active = true;
+		}
+	}
+
+	return $active;
+}

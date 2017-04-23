@@ -199,7 +199,7 @@ function wpmtst_sanitize_view( $input ) {
 	$data['lightbox']         = isset( $input['lightbox'] ) ? 1 : 0;
 	$data['gravatar']         = sanitize_text_field( $input['gravatar'] );
 
-	/*
+	/**
 	 * CSS Class Names
 	 * This field is being confused with custom CSS rules like `.testimonial { border: none; }`
 	 * so strip periods and anything between and including curly braces.
@@ -249,6 +249,9 @@ function wpmtst_sanitize_view( $input ) {
 	else {
 		$data['form_id'] = $input['_form_id'];
 	}
+
+	// Divi Builder
+	$data['divi_builder'] = isset( $input['divi_builder'] ) ? 1 : 0;
 
 	$data = apply_filters( 'wpmtst_sanitized_view', $data, $input );
 	ksort( $data );

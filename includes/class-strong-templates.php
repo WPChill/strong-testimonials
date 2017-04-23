@@ -51,6 +51,7 @@ class Strong_Templates {
 			$new_files = $this->scandir_top( $bases['path'], $bases['uri'], $type );
 			if ( is_array( $new_files ) ) {
 				$files = array_merge( $files, $new_files );
+				ksort( $files );
 			}
 		}
 
@@ -104,18 +105,6 @@ class Strong_Templates {
 	/**
 	 * Get template attribute.
 	 *
-	 * Array
-	 * 	(
-	 * [stylesheet] => http://strong.dev/wp-content/plugins/strong-testimonials/templates/default-dark/content.css
-	 * [template] => M:\wp\work\strong\master\wp-content\plugins\strong-testimonials/templates/default-dark/content.php
-	 * [name] => Default Dark
-	 * [description] => A version of the default template for dark themes.
-	 * [deps] =>
-	 * [force] =>
-	 * [group] => default-dark
-	 * [type] => content
-	 * )
-	 *
 	 * @param           $atts
 	 * @param string    $part
 	 * @param bool|true $use_default
@@ -124,22 +113,44 @@ class Strong_Templates {
 	 */
 	public function get_template_attr( $atts, $part = 'template', $use_default = true ) {
 
-		// establish default
-		$default_template = isset( $atts['form'] ) ? 'default:form' : 'default:content';
-		$default_template = apply_filters( 'wpmtst_default_template', $default_template, $atts );
+		// Build a list of potential template part names.
 
-		$template = isset( $atts['template'] ) ? $atts['template'] : $default_template;
+		$template_search = array();
 
-		// check existence
-		$found = in_array( $template, array_keys( $this->templates ) );
+		// [1]
+		/*
+		 * Divi Builder compatibility. Everybody has to be special.
+		 * @since 2.22.0
+		 * TODO Abstract this.
+		 */
+		if ( 'stylesheet' == $part ) {
+			if ( isset( $atts['divi_builder'] ) && $atts['divi_builder'] && wpmtst_divi_builder_active() ) {
+				$template_search[] = $atts['template'] .= '-divi';
+			}
+		}
+
+		// [2]
+		if ( isset( $atts['template'] ) ) {
+			$template_search[] = $atts['template'];
+		}
+
+		// [3]
+		if ( $use_default ) {
+			$template_search[] = apply_filters( 'wpmtst_default_template', 'default:content', $atts );
+		}
+
+		// Search list of already found template files. Stop at first match.
 
 		$template_info = false;
 
-		if ( $found ) {
-			$template_info = $this->templates[ $template ];
-		} elseif ( $use_default ) {
-			$template_info = $this->templates[ $default_template ];
+		foreach ( $template_search as $template_key ) {
+			if ( isset( $this->templates[ $template_key ] ) ) {
+				$template_info = $this->templates[ $template_key ];
+				break;
 		}
+		}
+
+		// Return the requested part (name, template, stylesheet,etc.)
 
 		if ( $template_info && isset( $template_info[ $part ] ) && $template_info[ $part ] ) {
 			return $template_info[ $part ];
