@@ -50,13 +50,11 @@
 				foreach ( $templates as $key => $template ) {
 					echo '<div class="template-description template-' . str_replace( ':', '-', $key ) . '">';
 
-					echo '<p>';
 					if ( isset( $template['description'] ) && $template['description'] ) {
 						echo $template['description'];
 					} else {
 						_e( 'no description', 'strong-testimonials' );
 					}
-					echo '</p>';
 
 					if ( isset( $template['screenshot'] ) && $template['screenshot'] ) {
 						echo '<div class="template-screenshot"><img src="' . $template['screenshot'] . '" width="128" height="128"></div>';

@@ -87,7 +87,7 @@ function wpmtst_views_admin() {
 
 			foreach ( $views as $view ) {
 			    $view_data = unserialize( $view['value'] );
-			    if ( 'single-template' == $view_data['mode'] ) {
+			    if ( 'single_template' == $view_data['mode'] ) {
 			        $views_single_template[] = $view;
 				} else {
 			        $views_standard[] = $view;
