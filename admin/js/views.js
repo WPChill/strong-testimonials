@@ -31,10 +31,7 @@ Array.max = function( array ){
 		}
 
 		var patt = new RegExp( '\\s' +
-			removals.
-			replace( /\*/g, '[A-Za-z0-9-_]+' ).
-			split( ' ' ).
-			join( '\\s|\\s' ) +
+      removals.replace(/\*/g, '[A-Za-z0-9-_]+').split(' ').join('\\s|\\s') +
 			'\\s', 'g' );
 
 		self.each( function ( i, it ) {
@@ -566,7 +563,7 @@ jQuery(window).on('load', function () {
 			$("input.forced").removeProp("disabled").removeClass("forced");
 			var data = {
 				'action': 'wpmtst_force_check',
-				'template': template,
+				'template': template
 			};
 			$.get(ajaxurl, data, function (response) {
 				if (response) {
@@ -981,7 +978,9 @@ jQuery(window).on('load', function () {
 		var thisField = $(this).closest(".field2");
 		var yesno = confirm("Remove this field?");
 		if( yesno ) {
-			thisField.fadeOut(function(){$(this).remove()});
+      thisField.fadeOut(function () {
+        $(this).remove()
+      });
 		}
 		// Prevent click from expanding accordion
 		e.stopImmediatePropagation();
@@ -1033,7 +1032,9 @@ jQuery(window).on('load', function () {
 				//t.classList.add('copied');
 				//setTimeout(function() { t.classList.remove('copied'); }, 1500);
 				document.getElementById("copy-message").classList.add("copied");
-				setTimeout(function() { document.getElementById("copy-message").classList.remove('copied'); }, 2000);
+        setTimeout(function () {
+          document.getElementById("copy-message").classList.remove('copied');
+        }, 2000);
 			}
 			catch (err) {
 				alert('Sorry, please press Ctrl/Cmd+C to copy instead.');

@@ -436,9 +436,21 @@ function wpmtst_get_default_view_options() {
 	$default_view_options = array(
 
 		'mode' => array(
-			array( 'name' => 'display', 'label' => __( 'Display', 'strong-testimonials' ), 'description' => '' ),
-			array( 'name' => 'slideshow', 'label' => __( 'Slideshow', 'strong-testimonials' ), 'description' => '' ),
-			array( 'name' => 'form', 'label' => __( 'Form', 'strong-testimonials' ), 'description' => '' ),
+			'display'   => array(
+				'name'        => 'display',
+				'label'       => __( 'Display', 'strong-testimonials' ),
+				'description' => __( 'Display your testimonials in a list or a grid.', 'strong-testimonials' ),
+			),
+			'slideshow' => array(
+				'name'        => 'slideshow',
+				'label'       => __( 'Slideshow', 'strong-testimonials' ),
+				'description' => __( 'Create a slideshow of your testimonials.', 'strong-testimonials' ),
+			),
+			'form'      => array(
+				'name'        => 'form',
+				'label'       => __( 'Form', 'strong-testimonials' ),
+				'description' => __( 'Display a testimonial submission form.', 'strong-testimonials' ),
+			),
 		),
 
 		'order' => array(
@@ -460,7 +472,9 @@ function wpmtst_get_default_view_options() {
 			'static'  => _x( 'Set height to match the tallest slide', 'slideshow option', 'strong-testimonials' ),
 		),
 
-		/* METHODS */
+		/*
+		 * METHODS
+		 */
 		'slideshow_nav_method' => array(
 			'controls' => array(
 				'none'   => array(
@@ -521,7 +535,9 @@ function wpmtst_get_default_view_options() {
 			)
 		),
 
-	    /* STYLES */
+	    /*
+	     * STYLES
+	     */
 		'slideshow_nav_style' => array(
 			'controls' => array(
 				'buttons'  => array(
@@ -585,7 +601,9 @@ function wpmtst_get_default_view_options() {
 			)
 		),
 
-		/* Position is shared by Controls and Pagination. */
+		/*
+		 * Position is shared by Controls and Pagination.
+		 */
 		'slideshow_nav_position' => array(
 			'inside'  => _x( 'inside', 'slideshow navigation option', 'strong-testimonials' ),
 			'outside' => _x( 'outside', 'slideshow navigation option', 'strong-testimonials' ),

@@ -460,15 +460,15 @@ function wpmtst_colorbox_manual_settings() {
 }
 
 /**
+ * Print the date.
+ *
  * @param string $format
  * @param string $class
- *
- * @return bool
  */
 function wpmtst_the_date( $format = '', $class = '' ) {
 	global $post;
 	if ( ! $post )
-		return false;
+		return;
 
 	if ( ! $format )
 		$format = get_option( 'date_format' );
@@ -613,6 +613,8 @@ function wpmtst_client_section( $client_section ) {
 						$list[] = $cat->name;
 					}
 					$output = join( ", ", $list );
+				} else {
+				    $output = '';
 				}
 				break;
 

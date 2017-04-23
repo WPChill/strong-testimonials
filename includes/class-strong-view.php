@@ -70,8 +70,6 @@ class Strong_View {
 
 	/**
 	 * Build our query based on view attributes.
-	 *
-	 * @return WP_Query
 	 */
 	public function build_query() {}
 
@@ -113,8 +111,7 @@ class Strong_View {
 			$handle = 'testimonials-' . str_replace( ':', '-', $this->atts['template'] );
 			wp_register_script( $handle, $script, $deps_array );
 			WPMST()->add_script( $handle );
-		}
-		else {
+		} else {
 			foreach ( $deps_array as $handle ) {
 				WPMST()->add_script( $handle );
 			}
@@ -142,8 +139,7 @@ class Strong_View {
 			wp_register_style( $handle, $stylesheet, array(), $this->plugin_version );
 			if ( $enqueue ) {
 				WPMST()->add_style( $handle );
-			}
-			else {
+			} else {
 				return $handle;
 			}
 		}

@@ -506,11 +506,7 @@ function wpmtst_unserialize_views( $views ) {
 function wpmtst_get_view( $id ) {
 	global $wpdb;
 	$table_name = $wpdb->prefix . 'strong_views';
-
-	if ( is_numeric( $id ) )
-		$row = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM $table_name WHERE id = %d", $id ), ARRAY_A );
-	else
-		$row = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM $table_name WHERE name = %s", $id ), ARRAY_A );
+	$row = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM $table_name WHERE id = %d", (int) $id ), ARRAY_A );
 
 	return $row;
 }
@@ -839,7 +835,7 @@ function wpmtst_get_background_presets( $preset = null ) {
  *
  * @since 2.18.0
  *
- * @return mixed|void
+ * @return mixed
  */
 function wpmtst_get_success_message() {
 	$message = wpautop( do_shortcode( wpmtst_get_form_message( 'submission-success' ) ) );
