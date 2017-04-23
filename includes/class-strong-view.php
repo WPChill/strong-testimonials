@@ -212,12 +212,18 @@ class Strong_View {
 		}
 
 		$view_el = "$prefix.strong-view-id-{$this->atts['view']}";
+		$is_form = ( isset( $this->atts['form'] ) && $this->atts['form'] );
 
 		// Includes special handling for Large Widget template.
 		if ( $c1 && $c2 ) {
 
 			$gradient = self::gradient_rules( $c1, $c2 );
-			wp_add_inline_style( 'wpmtst-custom-style', "$view_el .testimonial-inner { $gradient }\n" );
+
+			if ( $is_form ) {
+				wp_add_inline_style( 'wpmtst-custom-style', "$view_el .strong-form-inner { $gradient }\n" );
+			} else {
+				wp_add_inline_style( 'wpmtst-custom-style', "$view_el .testimonial-inner { $gradient }\n" );
+			}
 
 			if ( 'large-widget:widget' == WPMST()->atts( 'template' ) ) {
 				wp_add_inline_style( 'wpmtst-custom-style', "$view_el .readmore-page { background: $c2 }\n" );
@@ -225,7 +231,11 @@ class Strong_View {
 
 		} elseif ( $c1 ) {
 
-			wp_add_inline_style( 'wpmtst-custom-style', "$view_el .testimonial-inner { background: $c1; }\n" );
+			if ( $is_form ) {
+				wp_add_inline_style( 'wpmtst-custom-style', "$view_el .strong-form-inner { background: $c1; }\n" );
+			} else {
+				wp_add_inline_style( 'wpmtst-custom-style', "$view_el .testimonial-inner { background: $c1; }\n" );
+			}
 
 			if ( 'large-widget:widget' == WPMST()->atts( 'template' ) ) {
 				wp_add_inline_style( 'wpmtst-custom-style', "$view_el .readmore-page { background: $c1 }\n" );

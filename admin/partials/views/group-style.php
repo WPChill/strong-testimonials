@@ -16,7 +16,7 @@
 			<?php include( 'option-layout.php' ); ?>
 		</tr>
 		<?php do_action( 'wpmtst_view_editor_before_background' ); ?>
-        <tr id="group-style-option-background" class="then then_display then_not_form then_slideshow" style="display: none;">
+        <tr id="group-style-option-background" class="then then_display then_form then_slideshow" style="display: none;">
 			<?php include( 'option-background.php' ); ?>
 		</tr>
 		<?php do_action( 'wpmtst_view_editor_before_classes' ); ?>
