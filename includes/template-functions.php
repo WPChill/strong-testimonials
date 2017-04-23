@@ -274,10 +274,27 @@ add_filter( 'the_content_more_link', 'wpmtst_remove_more_link_scroll' );
  * TODO WP 4.2+ has better filters.
  *
  * @param null $size
+ * @param string $before
+ * @param string $after
  */
-function wpmtst_the_thumbnail( $size = null ) {
+function wpmtst_the_thumbnail( $size = null, $before = '<div class="testimonial-image">', $after = '</div>' ) {
 	if ( ! WPMST()->atts( 'thumbnail' ) )
 		return;
+
+	$img = wpmtst_get_thumbnail( $size );
+	if ( $img ) {
+		echo $before . $img . $after;
+	}
+}
+
+/**
+ * @param null $size
+ *
+ * @return mixed|string
+ */
+function wpmtst_get_thumbnail( $size = null ) {
+	if ( ! WPMST()->atts( 'thumbnail' ) )
+		return '';
 
 	// let arg override view setting
 	$size = ( null === $size ) ? WPMST()->atts( 'thumbnail_size' ) : $size ;
@@ -286,7 +303,7 @@ function wpmtst_the_thumbnail( $size = null ) {
 	}
 
 	$id   = get_the_ID();
-	$img  = false;
+	$img  = '';
 
 	// check for a featured image
 	if ( has_post_thumbnail( $id ) ) {
@@ -298,10 +315,13 @@ function wpmtst_the_thumbnail( $size = null ) {
 
 		// no featured image, now what?
 
+        $dimensions = apply_filters( 'wpmtst_gravatar_size', $size );
+
 		if ( 'yes' == WPMST()->atts( 'gravatar' ) ) {
 			// view > gravatar > show gravatar (use default, if not found)
 
 			$img = get_avatar( wpmtst_get_field( 'email' ), apply_filters( 'wpmtst_gravatar_size', $size ) );
+            //$img = get_avatar( wpmtst_get_field( 'email' ), $dimensions['width'], '', '', $dimensions );
 
 		} elseif ( 'if' == WPMST()->atts( 'gravatar' ) ) {
 			// view > gravatar > show gravatar only if found (and has email)
@@ -309,15 +329,13 @@ function wpmtst_the_thumbnail( $size = null ) {
 			if ( wpmtst_get_field( 'email' ) ) {
 				// get_avatar will return false if not found (via filter)
 				$img = get_avatar( wpmtst_get_field( 'email' ), apply_filters( 'wpmtst_gravatar_size', $size ) );
+				//$img = get_avatar( wpmtst_get_field( 'email' ), $dimensions['width'], '', '', $dimensions );
 			}
 		}
 
 	}
 
-	if ( $img ) {
-		// TODO Move class to arg and filter.
-		echo '<div class="testimonial-image">' . apply_filters( 'wpmtst_thumbnail_img', $img, $id ) . '</div>';
-	}
+	return apply_filters( 'wpmtst_thumbnail_img', $img, $id );
 }
 
 /**
@@ -386,6 +404,7 @@ function wpmtst_gravatar_size_filter( $size = array( 150, 150 ) ) {
 		// if named size
 		$image_sizes   = wpmtst_get_image_sizes();
 		$gravatar_size = $image_sizes[$size]['width'];
+		//$gravatar_size = array( 'width' => $image_sizes[$size]['width'], 'height' => $image_sizes[$size]['height'] );
 	}
 	return $gravatar_size;
 }
