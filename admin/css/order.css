@@ -24,27 +24,27 @@ td.column-handle {
 td.column-handle .help:before,
 td.column-handle .help-in-motion:before {
 	font-family: fontawesome;
-	font-size: 14px;
+  font-size: 20px;
 	width: 1em;
 	margin: 0 auto;
 	color: #aaa;
 }
 
 td.column-handle .help:before {
-	content: "\f047";
+  content: "\f0c9";
 }
 
 td.column-handle .help-in-motion:before {
 	content: "\f255";
 	color: #111;
-	font-size: 16px;
+  font-size: 20px;
 	display: none;
 }
 
 #the-list:not(.ui-sortable-disabled) td.column-handle:not(.refresh):hover .help:before {
 	content: "\f256";
 	color: #111;
-	font-size: 16px;
+  font-size: 20px;
 }
 
 .ui-sortable tr.ui-sortable-helper {
@@ -93,77 +93,10 @@ td.column-handle .help-in-motion:before {
 td.column-handle.refresh .help:before {
 	content: "\f110";
 	color: #0073AA;
-	font-size: 16px;
+  font-size: 20px;
 }
 
 td.column-handle.refresh .help {
 	-webkit-animation: spin 1.5s linear infinite;
 	animation: spin 1.5s linear infinite;
-}
-
-/* Help icon 2
----------------------------------------------------------*/
-span.help-reorder {
-	color: #777;
-}
-
-span.help-reorder:hover {
-	color: #1E8CBE;
-	cursor: pointer !important;
-	display: inline-block;
-	position: relative;
-}
-
-/* tooltip */
-span.help-reorder span {
-	position: absolute;
-	visibility: hidden;
-	width: 180px;
-	height: auto;
-	padding: 8px 8px 10px;
-	color: #FFFFFF;
-	background: #222;
-	text-align: center;
-	border-radius: 4px;
-	font-family: "Open Sans", sans-serif;
-	font-size: 13px;
-	line-height: 19px;
-}
-
-span.help-reorder .help-pointer {
-	/*font-family: "dashicons";*/
-	/*content: "\f342";*/
-	font-style: normal;
-	color: yellow;
-	transform: rotate(75deg);
-	position: absolute;
-	right: 8px;
-	bottom: 4px;
-}
-
-/* triangle */
-span.help-reorder span:after {
-	content: '';
-	position: absolute;
-	top: 100%;
-	left: 18px;
-	/*margin-left: -10px;*/
-	width: 0;
-	height: 0;
-	border-top: 8px solid #222;
-	border-right: 8px solid transparent;
-	border-left: 8px solid transparent;
-}
-
-span.help-reorder:hover span,
-span.help-reorder span.showing {
-	visibility: visible;
-	opacity: 0.9;
-	bottom: 30px;
-	left: -20px;
-	/*margin-left: -20px;*/
-	z-index: 999;
-	-webkit-box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.8);
-	-moz-box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.8);
-	box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.8);
 }
