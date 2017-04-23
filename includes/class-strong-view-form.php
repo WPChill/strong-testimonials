@@ -93,10 +93,10 @@ class Strong_View_Form extends Strong_View {
 		/**
 		 * Allow add-ons to hijack the output generation.
 		 */
+		$atts = $this->atts;
 		if ( has_filter( 'wpmtst_render_view_template' ) ) {
 			$html = apply_filters( 'wpmtst_render_view_template', '', $this );
-		}
-		else {
+		} else {
 			ob_start();
 			/** @noinspection PhpIncludeInspection */
 			include( $this->template_file );

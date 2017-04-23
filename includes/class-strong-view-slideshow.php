@@ -97,10 +97,10 @@ class Strong_View_Slideshow extends Strong_View_Display {
 		 * Allow add-ons to hijack the output generation.
 		 */
 		$query = $this->query;
+		$atts  = $this->atts;
 		if ( has_filter( 'wpmtst_render_view_template' ) ) {
 			$html = apply_filters( 'wpmtst_render_view_template', '', $this );
-		}
-		else {
+		} else {
 			ob_start();
 			/** @noinspection PhpIncludeInspection */
 			include( $this->template_file );
@@ -176,7 +176,7 @@ class Strong_View_Slideshow extends Strong_View_Display {
 		// For Post Types Order plugin
 		$args['ignore_custom_sort'] = true;
 
-		$query = new WP_Query( apply_filters( 'wpmtst_query_args', $args ) );
+		$query = new WP_Query( apply_filters( 'wpmtst_query_args', $args, $this->atts ) );
 
 		/**
 		 * Shuffle array in PHP instead of SQL.

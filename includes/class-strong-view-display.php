@@ -122,10 +122,10 @@ class Strong_View_Display extends Strong_View {
 		 * Allow add-ons to hijack the output generation.
 		 */
 		$query = $this->query;
+		$atts  = $this->atts;
 		if ( has_filter( 'wpmtst_render_view_template' ) ) {
 			$html = apply_filters( 'wpmtst_render_view_template', '', $this );
-		}
-		else {
+		} else {
 			ob_start();
 			/** @noinspection PhpIncludeInspection */
 			include( $this->template_file );
@@ -262,8 +262,6 @@ class Strong_View_Display extends Strong_View {
 	 * This must happen after the query.
 	 */
 	public function build_classes() {
-
-		$options = get_option( 'wpmtst_view_options' );
 
 		$container_class_list = array(
 			'strong-view-id-' . $this->atts['view'],
