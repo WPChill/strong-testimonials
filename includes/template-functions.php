@@ -128,27 +128,6 @@ function wpmtst_the_content() {
 function wpmtst_read_more() {}
 
 /**
- * Add "Read more" to *manual* excerpts after content and custom fields.
- *
- * Using the wp_trim_excerpt filter as a trigger instead of checking content/excerpt fields manually.
- *
- * @since 2.11.4
- *
- * @param $text
- * @param $raw_excerpt
- *
- * @return mixed
- */
-function wpmtst_trim_excerpt( $text, $raw_excerpt ) {
-	if ( 'wpm-testimonial' == get_post_type() && WPMST()->atts( 'excerpt' ) && WPMST()->atts( 'more_full_post' ) ) {
-		//add_action( 'wpmtst_after_testimonial_content', 'wpmtst_excerpt_more_full_post' );
-	}
-
-	return $text;
-}
-add_filter( 'wp_trim_excerpt', 'wpmtst_trim_excerpt', 10, 2 );
-
-/**
  * Modify the excerpt length.
  *
  * @since 2.10.0
@@ -158,7 +137,8 @@ add_filter( 'wp_trim_excerpt', 'wpmtst_trim_excerpt', 10, 2 );
  */
 function wpmtst_excerpt_length( $words ) {
 	if ( 'wpm-testimonial' == get_post_type() ) {
-		if ( $excerpt_length = WPMST()->atts( 'excerpt_length' ) ) {
+		$excerpt_length = WPMST()->atts( 'excerpt_length' );
+		if ( $excerpt_length ) {
 			$words = $excerpt_length;
 		}
 	}
@@ -167,7 +147,7 @@ function wpmtst_excerpt_length( $words ) {
 }
 
 /**
- * Modify the excerpt "Read more" link.
+ * Modify the automatic excerpt "Read more" link (via WP filter).
  *
  * @since 2.10.0
  * @param $more
@@ -186,28 +166,32 @@ function wpmtst_excerpt_more( $more ) {
 add_filter( 'excerpt_more', 'wpmtst_excerpt_more', 20 );
 
 
-//function wpmtst_excerpt_more_full_post() {
-//    echo '<div class="testimonial-readmore">';
-//	echo apply_filters( 'wpmtst_manual_excerpt_read_more', wpmtst_get_excerpt_more_link() );
-//	echo '</div>';
-//}
-
-
-function wpmtst_excerpt_more_full_post() {
-    return ' <span class="testimonial-readmore">' . apply_filters( 'wpmtst_manual_excerpt_read_more', wpmtst_get_excerpt_more_link() ) . '</span>';
-}
-
-
 function wpmtst_get_excerpt_more_post() {
+    $dots = WPMST()->atts( 'more_post_ellipsis' ) ? ' &hellip;' : '';
 	if ( WPMST()->atts( 'excerpt' ) && WPMST()->atts( 'more_full_post' ) ) {
-		return ( WPMST()->atts( 'more_post_ellipsis' ) ? ' &hellip;' : '' );
+		return $dots;
+	} else {
+		return $dots . ' ' . wpmtst_get_excerpt_more_link();
 	}
-	else {
-		return ( WPMST()->atts( 'more_post_ellipsis' ) ? ' &hellip; ' : ' ' ) . wpmtst_get_excerpt_more_link();
 	}
+
+
+/**
+ * Return "Read more" for manual excerpts.
+ *
+ * @return string
+ */
+function wpmtst_excerpt_more_full_post() {
+    $link = apply_filters( 'wpmtst_manual_excerpt_read_more', wpmtst_get_excerpt_more_link() );
+	return '<div class="testimonial-readmore">' . $link . '</div>';
 }
 
 
+/**
+ * Construct the "Read more" link (both automatic and manual).
+ *
+ * @return string
+ */
 function wpmtst_get_excerpt_more_link() {
 	$link = sprintf( '<a href="%1$s" class="readmore">%2$s</a>',
 		esc_url( get_permalink() ),
@@ -224,11 +208,9 @@ function wpmtst_get_excerpt_more_link() {
 }
 
 /**
- * Assemble link to designated "Read more" page.
+ * Assemble link to secondary "Read more" page.
 
  * @since 2.10.0
- *
- * @return string
  */
 function wpmtst_read_more_page() {
 	$atts = WPMST()->atts( array( 'view', 'more_page', 'more_page_id', 'more_page_text', 'more_page_hook' ) );
