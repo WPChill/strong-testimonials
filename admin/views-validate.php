@@ -44,9 +44,6 @@ function wpmtst_sanitize_view( $input ) {
 	$data         = array();
 	$data['mode'] = sanitize_text_field( $input['mode'] );
 
-	// Compatibility
-	$data['compat'] = ( 'compat_on' == $input['compat'] ? 1 : 0 );
-
 	/*
 	 * Single testimonial
 	 */

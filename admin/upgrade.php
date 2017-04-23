@@ -292,6 +292,13 @@ function wpmtst_upgrade() {
 			if ( ! is_array( $view_data ) )
 				continue;
 
+			/**
+			 * Compat mode no longer needed.
+			 *
+			 * @since 2.22.0
+			 */
+			unset( $view_data['compat'] );
+
 			// Change default template from empty to 'default:{type}'
 			if ( ! $view_data['template'] ) {
 				if ( 'form' == $view_data['mode'] )

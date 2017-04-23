@@ -647,7 +647,6 @@ function wpmtst_get_default_view() {
 			),
 		),
 		'column_count'       => 2,
-		'compat'             => 0,
 		'container_class'    => '',
 		'container_data'     => '',
 		'content'            => 'entire',

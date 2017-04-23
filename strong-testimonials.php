@@ -541,7 +541,6 @@ final class Strong_Testimonials {
 			'class'              => '',
 			'client_section'     => null,
 			'column_count'       => 2,
-			'compat'             => 0,
 			'container_class'    => '',
 			'container_data'     => '',
 			'count'              => 1,
