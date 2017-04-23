@@ -13,35 +13,35 @@
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-(function ( $ ) {
+(function ($) {
 
-	'use strict';
+  'use strict';
 
-	var $categoryDivs = $('.view-category-list-panel');
+  var $categoryDivs = $('.view-category-list-panel');
 
-	$(function () {
+  $(function () {
 
-		$(".fc-search-wrap").show();
+    $(".fc-search-wrap").show();
 
-        $categoryDivs.on('keyup search', '.fc-search-field', function (event) {
+    $categoryDivs.on('keyup search', '.fc-search-field', function (event) {
 
-            var searchTerm = event.target.value,
-                $listItems = $(this).closest(".view-category-list-panel").find('.view-category-list li');
+      var searchTerm = event.target.value,
+        $listItems = $(this).closest(".view-category-list-panel").find('.view-category-list li');
 
-            if ($.trim(searchTerm)) {
+      if ($.trim(searchTerm)) {
 
-                $listItems.hide().filter(function () {
-                    return $(this).text().toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1;
-                }).show();
+        $listItems.hide().filter(function () {
+          return $(this).text().toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1;
+        }).show();
 
-            } else {
+      } else {
 
-                $listItems.show();
+        $listItems.show();
 
-            }
+      }
 
-        });
+    });
 
-	});
+  });
 
 }(jQuery));

@@ -30,7 +30,7 @@
  v1.3   01/05/2016 -- added offset
 
  v1.4   03/01/2016 -- added scrollTop
-*/
+ */
 
 (function ($) {
 
