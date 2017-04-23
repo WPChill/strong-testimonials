@@ -38,6 +38,9 @@ class Strong_View_Slideshow extends Strong_View_Display {
 		$this->load_dependent_scripts();
 		$this->load_extra_stylesheets();
 
+		// If we can preprocess, we can add the inline style in the <head>.
+		add_action( 'wp_enqueue_scripts', array( $this, 'add_custom_style' ), 20 );
+
 		wp_reset_postdata();
 	}
 
@@ -64,6 +67,13 @@ class Strong_View_Slideshow extends Strong_View_Display {
 		$this->load_dependent_scripts();
 		$this->load_extra_stylesheets();
 		$this->custom_background();
+
+		/*
+		 * If we cannot preprocess, add the inline style to the footer.
+		 * If we were able to preprocess, this will not duplicate the code
+		 * since `wpmtst-custom-style` was already enqueued (I think).
+		 */
+		add_action( 'wp_footer', array( $this, 'add_custom_style' ) );
 
 		/**
 		 * Add filters.
