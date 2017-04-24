@@ -579,10 +579,18 @@ jQuery(window).on('load', function () {
     if ('unstyled:content' === template) {
       $("input[name='view[data][background][type]']").prop("disabled", true);
       $("#font-color-switcher").hide();
-    }
-    else {
+    } else {
       $("input[name='view[data][background][type]']").prop("disabled", false);
       $("#font-color-switcher").show();
+    }
+
+    // Special handling for Lucid add-on until I can incorporate a template group config file
+    if ('lucid' === template.substr(0,5)) {
+      console.log(template,'on');
+      $(".then_lucid").show();
+    } else {
+      console.log(template,'off');
+      $(".then_lucid").hide();
     }
   }
 
