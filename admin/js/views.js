@@ -573,24 +573,24 @@ jQuery(window).on('load', function () {
           $("input[name='" + inputName + "']").prop("disabled", true).addClass("forced");
         }
       });
-    }
 
-    // Special handling
-    if ('unstyled:content' === template) {
-      $("input[name='view[data][background][type]']").prop("disabled", true);
-      $("#font-color-switcher").hide();
-    } else {
-      $("input[name='view[data][background][type]']").prop("disabled", false);
-      $("#font-color-switcher").show();
-    }
+      // Special handling
+      if ('unstyled:content' === template) {
+        $("input[name='view[data][background][type]']").prop("disabled", true);
+        $("#font-color-switcher").hide();
+      } else {
+        $("input[name='view[data][background][type]']").prop("disabled", false);
+        $("#font-color-switcher").show();
+      }
 
-    // Special handling for Lucid add-on until I can incorporate a template group config file
-    if ('lucid' === template.substr(0,5)) {
-      console.log(template,'on');
-      $(".then_lucid").show();
-    } else {
-      console.log(template,'off');
-      $(".then_lucid").hide();
+      // Special handling for Lucid add-on until I can incorporate a template group config file
+      if ('lucid' === template.substr(0,5)) {
+        console.log(template,'on');
+        $(".then_lucid").show();
+      } else {
+        console.log(template,'off');
+        $(".then_lucid").hide();
+      }
     }
   }
 
