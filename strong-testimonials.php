@@ -781,12 +781,12 @@ final class Strong_Testimonials {
 
 		global $post;
 		if ( empty( $post ) )
-			return false;
+			return;
 
 		$meta_content            = get_post_meta( $post->ID );
 		$meta_content_serialized = maybe_serialize( $meta_content );
 		if ( ! $this->check_content( $meta_content_serialized ) )
-			return false;
+			return;
 
 		$this->process_content( $meta_content_serialized );
 
@@ -804,10 +804,10 @@ final class Strong_Testimonials {
 
 		global $post;
 		if ( empty( $post ) )
-			return false;
+			return;
 
 		if ( ! $this->check_content( $post->post_excerpt ) )
-			return false;
+			return;
 
 		$this->process_content( $post->post_excerpt );
 
