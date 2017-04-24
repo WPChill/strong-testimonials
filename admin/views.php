@@ -211,15 +211,12 @@ function wpmtst_view_settings( $action = '', $view_id = null ) {
 	// Assemble list of templates
 	$templates      = WPMST()->templates->get_templates( array( 'content', 'widget' ) );
 	$form_templates = WPMST()->templates->get_templates( 'form' );
+	$template_keys  = WPMST()->templates->get_template_keys();
 
 	$group = strtok( $view['template'], ':' );
 	$type  = strtok( ':' );
 
-	if ( 'form' == $type ) {
-		$template_found = in_array( $view['template'], array_keys( $form_templates ) );
-	} else {
-		$template_found = in_array( $view['template'], array_keys( $templates ) );
-	}
+	$template_found = in_array( $view['template'], $template_keys );
 
 	// Get list of image sizes
 	$image_sizes = wpmtst_get_image_sizes();

@@ -29,15 +29,23 @@ class Strong_Templates {
 	public function find_templates( $type = null ) {
 
 		$search = array(
-			'plugin'       => array(
-				'path' => WPMTST_TPL,
-				'uri'  => WPMTST_TPL_URI, ),
-			'parent_theme' => array(
-				'path' => get_template_directory() . '/' . WPMTST,
-				'uri'  => get_template_directory_uri() . '/' . WPMTST, ),
 			'child_theme'  => array(
-				'path' => get_stylesheet_directory() . '/' . WPMTST,
-				'uri'  => get_stylesheet_directory_uri() . '/' . WPMTST,
+				'source' => __( 'Child Theme', 'strong-testimonials' ),
+				'path'   => get_stylesheet_directory() . '/' . WPMTST,
+				'uri'    => get_stylesheet_directory_uri() . '/' . WPMTST,
+				'order'  => 2,
+			),
+			'parent_theme' => array(
+				'source' => __( 'Parent Theme', 'strong-testimonials' ),
+				'path'   => get_template_directory() . '/' . WPMTST,
+				'uri'    => get_template_directory_uri() . '/' . WPMTST,
+				'order'  => 3,
+			),
+			'plugin'       => array(
+				'source' => __( 'Default', 'strong-testimonials' ),
+				'path'   => WPMTST_TPL,
+				'uri'    => WPMTST_TPL_URI,
+				'order'  => 4,
 			),
 		);
 
@@ -46,25 +54,33 @@ class Strong_Templates {
 		 */
 		$search = apply_filters( 'wpmtst_template_search_paths', $search );
 
-		$files = array();
-		foreach ( $search as $key => $bases ) {
-			$new_files = $this->scandir_top( $bases['path'], $bases['uri'], $type );
-			if ( is_array( $new_files ) ) {
-				$files = array_merge( $files, $new_files );
-				ksort( $files );
+		/**
+		 * Insert order if necessary so custom templates appear first.
+		 *
+		 * @since 2.22
+		 */
+		foreach ( $search as $key => $where ) {
+			if ( ! isset( $where['source'] ) ) {
+				$search[ $key ]['source'] = __( 'Custom', 'strong-testimonials' );
+			}
+			if ( ! isset( $where['order'] ) ) {
+				$search[ $key ]['order'] = 1;
 			}
 		}
 
-		/**
-		 * Filter the list of found templates.
-		 */
+		uasort( $search, array( $this, 'sort_array_by_order' ) );
+
+		$files = array();
+		foreach ( $search as $key => $bases ) {
+			$new_files = $this->scandir_top( $bases['path'], $bases['uri'], $type );
+			if ( is_array( $new_files ) && $new_files ) {
+				uasort( $new_files, array( $this, 'sort_array_by_name' ) );
+				$files[ $bases['source'] ] = $new_files;
+			}
+		}
+
+		// Filter the list of found templates
 		$files = array_filter( apply_filters( 'wpmtst_templates_found', array_filter( $files ) ) );
-
-		// Sort by name
-		uasort( $files, array( $this, 'sort_array_by_name' ) );
-
-		// Sort by key
-		//ksort( $files );
 
 		return $files;
 	}
@@ -84,22 +100,35 @@ class Strong_Templates {
 	 * @return array
 	 */
 	public function get_templates_by_type( $types = null ) {
-		if ( !$types )
+		if ( ! $types )
 			return $this->templates;
 
-		$types = (array) $types;
-
+		$types    = (array) $types;
 		$filtered = array();
-		foreach( $this->templates as $key => $template ) {
-			// Thanks http://stackoverflow.com/a/4260168/51600
-			//$filtered[$group] = array_intersect_key( $templates, array_flip( $types ) );
-			// Instead:
-			if ( in_array( $template['type'], $types ) ) {
-				$filtered[ $key ] = $template;
+
+		foreach ( $this->templates as $source => $source_templates ) {
+			foreach ( $source_templates as $key => $template ) {
+				if ( isset( $template['type'] ) && in_array( $template['type'], $types ) ) {
+					$filtered[ $source ][ $key ] = $template;
+				}
 			}
 		}
 
 		return array_filter( $filtered );
+	}
+
+	/**
+	 * Return list of templates by key.
+	 *
+	 * @return array
+	 */
+	public function get_template_keys() {
+		$template_keys = array();
+		foreach ( $this->templates as $source => $source_templates ) {
+			$template_keys = array_merge( $template_keys, array_keys( $source_templates ) );
+		}
+
+		return $template_keys;
 	}
 
 	/**
@@ -112,9 +141,7 @@ class Strong_Templates {
 	 * @return string
 	 */
 	public function get_template_attr( $atts, $part = 'template', $use_default = true ) {
-
 		// Build a list of potential template part names.
-
 		$template_search = array();
 
 		// [1]
@@ -142,12 +169,13 @@ class Strong_Templates {
 		// Search list of already found template files. Stop at first match.
 
 		$template_info = false;
-
 		foreach ( $template_search as $template_key ) {
-			if ( isset( $this->templates[ $template_key ] ) ) {
-				$template_info = $this->templates[ $template_key ];
-				break;
-		}
+			foreach ( $this->templates as $source => $source_templates ) {
+				if ( isset( $source_templates[ $template_key ] ) ) {
+					$template_info = $source_templates[ $template_key ];
+					break 2;
+				}
+			}
 		}
 
 		// Return the requested part (name, template, stylesheet,etc.)
@@ -316,13 +344,46 @@ class Strong_Templates {
 	 * @return int
 	 */
 	public function sort_array_by_name( $a, $b ) {
-		if ( !isset( $a['name'] ) || !isset( $b['name'] ) )
+		if ( ! isset( $a['name'] ) ) {
+			$a['name'] = '';
+		}
+		if ( ! isset( $b['name'] ) ) {
+			$b['name'] = '';
+		}
+
+		return strcmp( $a['name'], $b['name'] );
+	}
+
+	/**
+	 * @param $a
+	 * @param $b
+	 *
+	 * @return int
+	 */
+	public function sort_array_by_order( $a, $b ) {
+		if ( ! isset( $a['order'] ) || ! isset( $b['order'] ) )
 			return 0;
 
-		if ( $a['name'] == $b['name'] )
+		if ( $a['order'] == $b['order'] )
 			return 0;
 
-		return ( $a['name'] < $b['name'] ) ? -1 : 1;
+		return ( $a['order'] < $b['order'] ) ? -1 : 1;
+	}
+
+	/**
+	 * @param $a
+	 * @param $b
+	 *
+	 * @return int
+	 */
+	public function sort_array_by_order_name( $a, $b ) {
+		if ( ! isset( $a['name'] ) || ! isset( $b['name'] ) )
+			return 0;
+
+		if ( $a['order'] == $b['order'] )
+			return strcasecmp( $a['name'], $b['name'] );
+
+		return ( $a['order'] < $b['order'] ) ? -1 : 1;
 	}
 
 }
