@@ -287,10 +287,6 @@ input[type="text"].long {
 /*-----------------------------------------------
  * Inputs
  *-----------------------------------------------*/
-.input-pct {
-  width: 5em;
-}
-
 .input-number {
   width: 5em;
   text-align: right;
@@ -984,8 +980,6 @@ ul.radio-list {
   /* icons */
 }
 .controls2 > div {
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
 }
 .controls2 .icon-wrap {
@@ -1059,8 +1053,6 @@ ul.radio-list {
 
 .field-property,
 .field-property-box .flex {
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
   margin: 5px 0;
 }
@@ -1135,14 +1127,9 @@ table.wpmtst-help-tab td:not(:last-child) {
   border-right: 1px dotted #E1E1E1;
 }
 
-.mode-description {
-  margin-left: 130px;
-}
-
-/* =add-ons
---------------------------------------------------*/
-.has-color-picker {
-  line-height: 1.3;
+.template-optgroup {
+  font-weight: 600;
+  margin: 15px 10px 10px 5px;
 }
 
 /*# sourceMappingURL=views.css.map */
