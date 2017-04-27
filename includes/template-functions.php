@@ -81,7 +81,9 @@ function wpmtst_the_content() {
 			add_filter( 'excerpt_length', 'wpmtst_excerpt_length', 20 );
 		}
 
+		add_filter( 'excerpt_more', 'wpmtst_excerpt_more', 20 );
 		$content = get_the_excerpt();
+		remove_filter( 'excerpt_more', 'wpmtst_excerpt_more', 20 );
 
 		if ( ! $use_default_length ) {
 			remove_filter( 'excerpt_length', 'wpmtst_excerpt_length', 20 );
@@ -89,11 +91,13 @@ function wpmtst_the_content() {
 
 		$content = wptexturize( $content );
 
-		$excerpt_more = apply_filters( 'excerpt_more', ' ' . '[&hellip;]' );
-		$excerpt_more = wpmtst_excerpt_more_full_post();
-		$content .= $excerpt_more;
+        if ( WPMST()->atts( 'more_full_post' ) ) {
+			$excerpt_more = wpmtst_excerpt_more_full_post();
+			$content      .= $excerpt_more;
+		}
 
 		$content = wpautop( $content );
+
 		$content = shortcode_unautop( $content );
 		$content = do_shortcode( $content );
 
@@ -163,17 +167,22 @@ function wpmtst_excerpt_more( $more ) {
 
 	return $more;
 }
-add_filter( 'excerpt_more', 'wpmtst_excerpt_more', 20 );
 
 
+/**
+ * Return "Read more" for automatic excerpts.
+ *
+ * @return string
+ */
 function wpmtst_get_excerpt_more_post() {
     $dots = WPMST()->atts( 'more_post_ellipsis' ) ? ' &hellip;' : '';
+    // This is where the "for both automatic and manual excerpts" happens
 	if ( WPMST()->atts( 'excerpt' ) && WPMST()->atts( 'more_full_post' ) ) {
 		return $dots;
 	} else {
 		return $dots . ' ' . wpmtst_get_excerpt_more_link();
 	}
-	}
+}
 
 
 /**
