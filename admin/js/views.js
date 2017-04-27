@@ -585,10 +585,8 @@ jQuery(window).on('load', function () {
 
       // Special handling for Lucid add-on until I can incorporate a template group config file
       if ('lucid' === template.substr(0,5)) {
-        console.log(template,'on');
         $(".then_lucid").show();
       } else {
-        console.log(template,'off');
         $(".then_lucid").hide();
       }
     }
