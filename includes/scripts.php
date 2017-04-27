@@ -31,7 +31,6 @@ function wpmtst_scripts() {
 	/**
 	 * Masonry
 	 */
-	//wp_register_script( 'imagesloaded-script', WPMTST_PUBLIC_URL . 'js/lib/imagesloaded/imagesloaded.pkgd.min.js', array(), false, true );
 	wp_register_script( 'wpmtst-masonry-script', WPMTST_PUBLIC_URL . 'js/masonry.js', array( 'jquery-masonry', 'imagesloaded' ), $plugin_version, true );
 	wp_register_style( 'wpmtst-masonry-style', WPMTST_PUBLIC_URL . 'css/masonry.css', array(), $plugin_version );
 
