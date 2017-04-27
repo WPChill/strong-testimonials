@@ -175,9 +175,6 @@ function wpmtst_view_settings( $action = '', $view_id = null ) {
 		wp_enqueue_script( 'wpmtst-view-category-filter-script' );
 	}
 
-	$pages_list   = wpmtst_get_pages();
-	$posts_list   = wpmtst_get_posts();
-	$view_options = apply_filters( 'wpmtst_view_options', get_option( 'wpmtst_view_options' ) );
 	$default_view = apply_filters( 'wpmtst_view_default', get_option( 'wpmtst_view_default' ) );
 
 	if ( 'edit' == $action ) {
@@ -196,6 +193,12 @@ function wpmtst_view_settings( $action = '', $view_id = null ) {
 		$view      = $default_view;
 		$view_name = 'new';
 	}
+
+	$custom_list  = apply_filters( 'wpmtst_custom_pages_list', array(), $view );
+	$pages_list   = apply_filters( 'wpmtst_pages_list', wpmtst_get_pages() );
+	$posts_list   = apply_filters( 'wpmtst_posts_list', wpmtst_get_posts() );
+
+	$view_options = apply_filters( 'wpmtst_view_options', get_option( 'wpmtst_view_options' ) );
 
 	// Select default template if necessary
 	if ( !$view['template'] ) {

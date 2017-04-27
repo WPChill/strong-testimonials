@@ -171,7 +171,11 @@ function wpmtst_sanitize_view( $input ) {
 		} else {
 
 			if ( $input['more_page_id'] ) {
-				$data['more_page_id'] = (int) sanitize_text_field( $input['more_page_id'] );
+				if ( is_numeric( $input['more_page_id'] ) ) {
+					$data['more_page_id'] = (int) sanitize_text_field( $input['more_page_id'] );
+				} else {
+					$data['more_page_id'] = sanitize_text_field( $input['more_page_id'] );
+				}
 			}
 
 		}

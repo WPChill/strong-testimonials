@@ -216,8 +216,14 @@ function wpmtst_read_more_page() {
 	$atts = WPMST()->atts( array( 'view', 'more_page', 'more_page_id', 'more_page_text', 'more_page_hook' ) );
 
 	if ( $atts['more_page'] && $atts['more_page_id'] ) {
-		if ( $permalink = wpmtst_get_permalink( $atts['more_page_id'] ) ) {
 
+		$permalink = '';
+		if ( is_numeric( $atts['more_page_id'] ) ) {
+			$permalink = wpmtst_get_permalink( $atts['more_page_id'] );
+		}
+		$permalink = apply_filters( 'wpmtst_readmore_page_link', $permalink, $atts );
+
+		if ( $permalink ) {
 			$default_view = apply_filters( 'wpmtst_view_default', get_option( 'wpmtst_view_default' ) );
 
 			if ( isset( $atts['more_page_text'] ) && $atts['more_page_text'] ) {
@@ -232,6 +238,7 @@ function wpmtst_read_more_page() {
 			$classname = apply_filters( 'wpmtst_read_more_page_class', $classname );
 			echo sprintf( '<div class="%s"><a href="%s">%s</a></div>', $classname, esc_url( $permalink ), $link_text );
 		}
+
 	}
 }
 
