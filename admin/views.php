@@ -103,7 +103,7 @@ function wpmtst_views_admin() {
                 <ul class="standard">
                     <li><?php _e( 'display your testimonials in a list, grid, or slideshow', 'strong-testimonials' ); ?></li>
                     <li><?php _e( 'display a testimonial submission form', 'strong-testimonials' ); ?></li>
-                    <li><?php _e( 'add your custom fields to the individual testimonial using your theme\'s single post template', 'strong-testimonials' ); ?></li>
+                    <?php do_action( 'wpmtst_views_intro_list' ); ?>
                 </ul>
 				<p><?php _e( 'Add a view to a page with a shortcode or add it to a sidebar with a widget.', 'strong-testimonials' ); ?></p>
 			</div>
