@@ -268,7 +268,7 @@ function wpmtst_view_settings( $action = '', $view_id = null ) {
 		}
 		?>
 
-		<div class="view-info then then_display then_form then_slideshow <?php echo apply_filters( 'wpmtst_view_section', '', 'shortcode' ); ?>">
+		<div class="view-info then then_display then_form then_slideshow then_not_single_template <?php echo apply_filters( 'wpmtst_view_section', '', 'shortcode' ); ?>">
 			<div class="form-view-shortcode"><span class="title"><?php _e( 'Shortcode', 'strong-testimonials' ); ?></span><?php echo $shortcode; ?></div>
 		</div>
 

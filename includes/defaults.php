@@ -451,6 +451,11 @@ function wpmtst_get_default_view_options() {
 				'label'       => __( 'Form', 'strong-testimonials' ),
 				'description' => __( 'Display a testimonial submission form.', 'strong-testimonials' ),
 			),
+			'single_template' => array(
+				'name'        => 'single_template',
+				'label'       => __( 'Single Template', 'strong-testimonials-lucid-theme' ),
+				'description' => __( 'Options for the single template, including which custom fields to add to the testimonial.', 'strong-testimonials' ),
+			),
 		),
 
 		'order' => array(

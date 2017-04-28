@@ -253,6 +253,8 @@ jQuery(window).on('load', function () {
         // update single/multiple selector ONLY
         $.fn.selectPerOption($("#view-single_or_multiple"));
         break;
+      case 'single_template':
+        break;
       default:
     }
 
@@ -584,7 +586,7 @@ jQuery(window).on('load', function () {
       }
 
       // Special handling for Lucid add-on until I can incorporate a template group config file
-      if ('lucid' === template.substr(0,5)) {
+      if ('lucid' === template.substr(0,5) || 'single_template' === currentMode ) {
         $(".then_lucid").show();
       } else {
         $(".then_lucid").hide();

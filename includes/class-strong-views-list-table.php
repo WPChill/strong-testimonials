@@ -105,10 +105,18 @@ class Strong_Views_List_Table extends Strong_Testimonials_List_Table {
 				$text = $item['data']['mode'];
 				break;
 			case 'template':
-				$text = $this->find_template( array( 'template' => $item['data']['template'] ) );
+				if ( 'single_template' == $item['data']['mode'] ) {
+					$text = __( 'theme\'s single post template', 'strong-testimonials' );
+				} else {
+					$text = $this->find_template( array( 'template' => $item['data']['template'] ) );
+				}
 				break;
 			case 'shortcode':
-				$text = "[testimonial_view id={$item['id']}]";
+				if ( 'single_template' == $item['data']['mode'] ) {
+					$text = '';
+				} else {
+					$text = "[testimonial_view id={$item['id']}]";
+				}
 				break;
 			default:
 				$text = print_r( $item, true );

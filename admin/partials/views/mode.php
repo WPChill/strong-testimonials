@@ -9,6 +9,7 @@
 				<?php echo $mode['label']; ?>
 			</label>
 		<?php endforeach; ?>
+        <?php //TODO abstract this ?>
         <div class="mode-description">
             <div class="then fast then_display then_not_slideshow then_not_form then_not_single_template" style="display: none;">
                 <p><?php echo $view_options['mode']['display']['description'];?></p>

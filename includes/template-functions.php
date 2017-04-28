@@ -817,3 +817,27 @@ function wpmtst_new_pagination_2() {
 	<?php }
 }
 */
+
+/**
+ * Single testimonial custom fields. Pluggable.
+ *
+ * @since 2.22.0
+ */
+if ( ! function_exists( 'wpmtst_single_template_client' ) ) :
+
+function wpmtst_single_template_client() {
+
+    $client_section = '';
+
+    $view = wpmtst_find_single_template_view();
+    if ( $view && isset( $view['client_section'] ) ) {
+        $client_section = $view['client_section'];
+    }
+
+    if ( $client_section ) {
+        echo wpmtst_client_section( $client_section );
+    }
+
+}
+
+endif;

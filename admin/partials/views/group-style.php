@@ -1,5 +1,5 @@
 <?php /* translators: On the Views admin screen. */ ?>
-<div class="then then_display then_form then_slideshow <?php echo apply_filters( 'wpmtst_view_section', '', 'style' ); ?>" style="display: none;">
+<div class="then then_display then_form then_slideshow then_not_single_template <?php echo apply_filters( 'wpmtst_view_section', '', 'style' ); ?>" style="display: none;">
 	<h3>
 		<?php _e( 'Style', 'strong-testimonials' ); ?>
 	</h3>

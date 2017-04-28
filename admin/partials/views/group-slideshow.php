@@ -1,5 +1,5 @@
 <?php /* translators: In the view editor. */ ?>
-<div class="then then_not_display then_not_form then_slideshow <?php echo apply_filters( 'wpmtst_view_section', '', 'slideshow' ); ?>" style="display: none;">
+<div class="then then_not_display then_not_form then_slideshow then_not_single_template <?php echo apply_filters( 'wpmtst_view_section', '', 'slideshow' ); ?>" style="display: none;">
 	<h3>
 		<?php _e( 'Slideshow', 'strong-testimonials' ); ?>
 	</h3>

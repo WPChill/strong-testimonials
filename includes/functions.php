@@ -885,3 +885,53 @@ function wpmtst_divi_builder_active() {
 
 	return $active;
 }
+
+
+/**
+ * Append custom fields to testimonial content in theme's single post template.
+ *
+ * @param $content
+ * @since 2.22.0
+ *
+ * @return string
+ */
+function wpmtst_single_template_add_content( $content ) {
+	if ( is_singular( 'wpm-testimonial' ) ) {
+		ob_start();
+		?>
+		<div class="testimonial-client normal">
+			<?php wpmtst_single_template_client(); ?>
+		</div>
+		<?php
+		$html = ob_get_contents();
+		ob_end_clean();
+		$content .= $html;
+	}
+
+	return $content;
+}
+add_filter( 'the_content', 'wpmtst_single_template_add_content' );
+
+
+/**
+ * Find the view for the single template.
+ *
+ * @return bool|array
+ */
+function wpmtst_find_single_template_view() {
+	$views = wpmtst_get_views();
+	/*
+	 * [id] => 1
+     * [name] => TEST
+     * [value] => {serialized_array}
+	 */
+
+	foreach ( $views as $view ) {
+		$view_data = maybe_unserialize( $view['value'] );
+		if ( isset( $view_data['mode'] ) && 'single_template' == $view_data['mode'] ) {
+			return $view_data;
+		}
+	}
+
+	return false;
+}
