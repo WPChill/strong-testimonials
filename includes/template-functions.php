@@ -59,8 +59,12 @@ function wpmtst_the_content() {
 		$content = $GLOBALS['wp_embed']->autoembed( $content );
 		$content = wptexturize( $content );
 
-		$excerpt_more   = apply_filters( 'excerpt_more', ' ' . '[&hellip;]' );
+		add_filter( 'excerpt_more', 'wpmtst_excerpt_more', 20 );
+		$excerpt_more = apply_filters( 'excerpt_more', ' ' . '[&hellip;]' );
+		remove_filter( 'excerpt_more', 'wpmtst_excerpt_more', 20 );
+
 		$excerpt_length = WPMST()->atts( 'use_default_length' ) ? 55 : WPMST()->atts( 'excerpt_length' );
+
 		// wp_trim_words will remove line breaks. So no paragraphs.
 		$content        = wp_trim_words( $content, $excerpt_length, $excerpt_more );
 
