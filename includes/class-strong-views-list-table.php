@@ -102,11 +102,16 @@ class Strong_Views_List_Table extends Strong_Testimonials_List_Table {
 				$text = $item['name'];
 				break;
 			case 'mode':
-				$text = $item['data']['mode'];
+				$mode = $item['data']['mode'];
+			    $text = $mode;
+				$view_options = apply_filters( 'wpmtst_view_options', get_option( 'wpmtst_view_options' ) );
+				if ( isset( $view_options['mode'][ $mode ]['label'] ) ) {
+				    $text = $view_options['mode'][ $mode ]['label'];
+				}
 				break;
 			case 'template':
 				if ( 'single_template' == $item['data']['mode'] ) {
-					$text = __( 'theme\'s single post template', 'strong-testimonials' );
+					$text = __( 'theme single post template', 'strong-testimonials' );
 				} else {
 					$text = $this->find_template( array( 'template' => $item['data']['template'] ) );
 				}

@@ -181,14 +181,12 @@ function wpmtst_view_settings( $action = '', $view_id = null ) {
 		$view_array = wpmtst_get_view( $view_id );
 		$view       = unserialize( $view_array['value'] );
 		$view_name  = $view_array['name'];
-	}
-	elseif ( 'duplicate' == $action ) {
+	} elseif ( 'duplicate' == $action ) {
 		$view_array = wpmtst_get_view( $view_id );
 		$view       = unserialize( $view_array['value'] );
 		$view_id    = 0;
 		$view_name  = $view_array['name'] . ' - COPY';
-	}
-	else {
+	} else {
 		$view_id   = 1;
 		$view      = $default_view;
 		$view_name = 'new';
