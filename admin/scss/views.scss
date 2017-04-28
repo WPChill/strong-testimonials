@@ -441,12 +441,47 @@ span.title {
 
 #view-mode label {
   color: #888;
+  position: relative;
 }
 
 #view-mode label.checked {
+  position: relative;
   background: #00A4F3;
   color: #FFF;
   border: 1px solid transparent;
+  transition: all 0.1s ease;
+}
+
+.mode-list {
+  display: inline-block;
+}
+
+.mode-line {
+  display: none;
+  position: absolute;
+  border-left: 2px solid #00A4F3;
+  height: 18px;
+  top: 100%;
+  left: calc( 50% - 1px );
+  z-index: -1;
+}
+
+.mode-description {
+  box-sizing: border-box;
+  background: #FFF;
+  margin: 15px 10px 0 127px;
+  padding: 8px 20px;
+  border: 2px solid #00A4F3;
+  color: #00A4F3;
+  text-align: center;
+  border-radius: 20px;
+  font-size: 16px;
+  line-height: 1.3;
+  min-height: 40px;
+}
+
+label.checked .mode-line {
+  display: block;
 }
 
 .wpmtst2 select.large {

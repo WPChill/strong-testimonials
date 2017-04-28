@@ -258,6 +258,22 @@ jQuery(window).on('load', function () {
       default:
     }
 
+    /**
+     * Update description
+     *
+     * @since 2.22.0
+     */
+    var data = {
+      'action': 'wpmtst_view_get_mode_description',
+      'mode': mode
+    };
+    $.get(ajaxurl, data, function (response) {
+      if ( response ) {
+        $('.mode-description').html( response ).fadeIn();
+      }
+    });
+
+
     return this;
   }
 

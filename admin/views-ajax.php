@@ -74,3 +74,19 @@ function wpmtst_view_add_field_date_function() {
 	die();
 }
 add_action( 'wp_ajax_wpmtst_view_add_field_date', 'wpmtst_view_add_field_date_function' );
+
+
+/**
+ * Fetch the view mode description.
+ *
+ * @since 2.22.0
+ */
+function wpmtst_view_get_mode_description() {
+	$mode = $_REQUEST['mode'];
+	$options = get_option( 'wpmtst_view_options' );
+	if ( isset( $options['mode'][ $mode ]['description'] ) ) {
+		echo $options['mode'][ $mode ]['description'];
+	}
+	die();
+}
+add_action( 'wp_ajax_wpmtst_view_get_mode_description', 'wpmtst_view_get_mode_description' );

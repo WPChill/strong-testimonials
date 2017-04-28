@@ -150,9 +150,6 @@ function wpmtst_view_settings( $action = '', $view_id = null ) {
 	global $view;
 	add_thickbox();
 
-	$screen = get_current_screen();
-	$url    = $screen->parent_file;
-
 	$fields     = wpmtst_get_custom_fields();
 	$all_fields = wpmtst_get_all_fields();
 
@@ -223,13 +220,18 @@ function wpmtst_view_settings( $action = '', $view_id = null ) {
 	// Get list of image sizes
 	$image_sizes = wpmtst_get_image_sizes();
 
+	$url = admin_url( 'edit.php?post_type=wpm-testimonial&page=testimonial-views' );
+	$url1 = $url . '&action=add';
+	$url2 = $url . '&action=duplicate&id=' . $view_id;
 	?>
 	<h1>
 		<?php 'edit' == $action ? _e( 'Edit View', 'strong-testimonials' ) : _e( 'Add View', 'strong-testimonials' ); ?>
-		<a href="<?php echo $url; ?>&page=testimonial-views&action=add" class="add-new-h2">Add New</a>
+		<a href="<?php echo esc_url( $url1 ); ?>" class="add-new-h2"><?php _e( 'Add New' ); ?></a>
+        <a href="<?php echo esc_url( $url ); ?>" class="add-new-h2"><?php _e( 'Return to List', 'strong-testimonials' ); ?></a>
+        <?php if ( 'edit' == $action ) : ?>
+        <a href="<?php echo esc_url( $url2 ); ?>" class="add-new-h2"><?php _e( 'Duplicate This View', 'strong-testimonials' ); ?></a>
+        <?php endif; ?>
 	</h1>
-
-	<p><a href="<?php echo admin_url( 'edit.php?post_type=wpm-testimonial&page=testimonial-views' ); ?>">Return to list</a></p>
 
 	<form id="wpmtst-views-form" method="post" action="<?php echo get_admin_url() . 'admin-post.php'; ?>" autocomplete="off">
 

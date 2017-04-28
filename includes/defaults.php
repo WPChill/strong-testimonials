@@ -454,7 +454,7 @@ function wpmtst_get_default_view_options() {
 			'single_template' => array(
 				'name'        => 'single_template',
 				'label'       => __( 'Single Template', 'strong-testimonials-lucid-theme' ),
-				'description' => __( 'Options for the single template, including which custom fields to add to the testimonial.', 'strong-testimonials' ),
+				'description' => __( 'When viewing the testimonial using a theme\'s single post template.', 'strong-testimonials' ),
 			),
 		),
 
