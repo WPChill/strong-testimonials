@@ -312,8 +312,7 @@ function wpmtst_view_edit_form() {
 			// Undo changes
 			$goback = add_query_arg( 'changes-undone', true, $goback );
 
-		}
-		elseif ( isset( $_POST['restore-defaults'] ) ) {
+		} elseif ( isset( $_POST['restore-defaults'] ) ) {
 
 			// Restore defaults
 			$default_view = get_option( 'wpmtst_view_default' );
@@ -327,14 +326,11 @@ function wpmtst_view_edit_form() {
 
 			if ( $success ) {
 				$goback = add_query_arg( 'defaults-restored', true, $goback );
-			}
-			else {
+			} else {
 				$goback = add_query_arg( 'error', true, $goback );
 			}
 
-
-		}
-		else {
+		} else {
 
 			// Sanitize & validate
 			$view = array(
@@ -347,15 +343,13 @@ function wpmtst_view_edit_form() {
 			if ( $success ) {
 				$goback = remove_query_arg( 'defaults-restored', $goback );
 				$goback = add_query_arg( 'view-saved', true, $goback );
-			}
-			else {
+			} else {
 				$goback = add_query_arg( 'error', true, $goback );
 			}
 
 		}
 
-	}
-	else {
+	} else {
 		$goback = add_query_arg( 'error', true, $goback );
 	}
 
@@ -394,8 +388,7 @@ function wpmtst_view_add_form() {
 
 			$query_arg = 'defaults-restored';
 
-		}
-		else {
+		} else {
 
 			// Sanitize & validate
 			$view = array(
@@ -412,13 +405,11 @@ function wpmtst_view_add_form() {
 		$goback = remove_query_arg( 'action', $goback );
 		if ( $success ) {
 			$goback = add_query_arg( array( 'action' => 'edit', 'id' => $success, $query_arg => true ), $goback );
-		}
-		else {
+		} else {
 			$goback = add_query_arg( 'error', true, $goback );
 		}
 
-	}
-	else {
+	} else {
 		$goback = add_query_arg( 'error', true, $goback );
 	}
 
