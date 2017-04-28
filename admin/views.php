@@ -103,7 +103,8 @@ function wpmtst_views_admin() {
                 <ul class="standard">
                     <li><?php _e( 'display your testimonials in a list, grid, or slideshow', 'strong-testimonials' ); ?></li>
                     <li><?php _e( 'display a testimonial submission form', 'strong-testimonials' ); ?></li>
-                    <?php do_action( 'wpmtst_views_intro_list' ); ?>
+                    <li><?php _e( 'add your custom fields to the individual testimonial using your theme single post template', 'strong-testimonials' ); ?></li>
+					<?php do_action( 'wpmtst_views_intro_list' ); ?>
                 </ul>
 				<p><?php _e( 'Add a view to a page with a shortcode or add it to a sidebar with a widget.', 'strong-testimonials' ); ?></p>
 			</div>
@@ -856,3 +857,25 @@ function wpmtst_form_category_checklist( $view_cats_array ) {
 	</div>
 	<?php
 }
+
+
+/**
+ * Save sticky view
+ *
+ * @since 2.22.0
+ */
+function wpmtst_save_view_sticky() {
+	$id = $_REQUEST['id'];
+	$stickies = get_option( 'wpmtst_sticky_views', array() );
+	if ( in_array( $id, $stickies ) ) {
+		$stickies = array_diff( $stickies, array( $id ) );
+		$is_sticky = false;
+	} else {
+		$stickies[] = $id;
+		$is_sticky = true;
+	}
+	update_option( 'wpmtst_sticky_views', $stickies );
+	echo json_encode( $is_sticky );
+	die();
+}
+add_action( 'wp_ajax_wpmtst_save_view_sticky', 'wpmtst_save_view_sticky' );

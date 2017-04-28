@@ -171,6 +171,9 @@ jQuery(document).ready(function ($) {
    * ========================================
    */
 
+  /**
+   * Save sort order
+   */
   $('table.wpm-testimonial_page_testimonial-views th.manage-column').on('click',function(e){
     var columnName = $(this).attr('id');
     // get the opposite class
@@ -181,6 +184,25 @@ jQuery(document).ready(function ($) {
       'order': columnOrder
     };
      $.get(ajaxurl, data, function (response) {});
+  });
+
+  /**
+   * Sticky views
+   */
+  $('table.wpm-testimonial_page_testimonial-views').on('click', '.stickit', function(e) {
+    var icon = $(this);
+    icon.closest('.wp-list-table-wrap').find('.overlay').fadeIn(200);
+    icon.toggleClass('stuck')
+    var id = $(this).closest('tr').find('td.id').html();
+    var data = {
+      'action': 'wpmtst_save_view_sticky',
+      'id': id
+    };
+    $.get(ajaxurl, data, function (response) {
+      if ( response ) {
+        window.location.reload();
+      }
+    });
   });
 
 });
