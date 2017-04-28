@@ -1,7 +1,8 @@
-<?php /* translators: On the Views admin screen. */ ?>
-<div class="view-info mode-select">
-	<div id="view-mode" class="large">
-		<span class="title"><?php _e( 'Mode', 'strong-testimonials' ); ?></span>
+<div id="view-mode" class="table-row mode-select">
+    <div class="table-cell">
+        <?php _e( 'Mode', 'strong-testimonials' ); ?>
+    </div>
+    <div class="table-cell">
         <div class="mode-list">
             <?php foreach ( $view_options['mode'] as $mode ) : ?>
                 <label>
@@ -13,5 +14,5 @@
             <?php endforeach; ?>
         </div>
         <div class="mode-description"></div>
-	</div>
+    </div>
 </div>

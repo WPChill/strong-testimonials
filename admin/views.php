@@ -242,40 +242,13 @@ function wpmtst_view_settings( $action = '', $view_id = null ) {
 		<input type="hidden" name="view_original_mode" value="<?php echo $view['mode']; ?>">
 		<input type="hidden" name="view[data][_form_id]" value="<?php echo $view['form_id']; ?>">
 
-		<div class="view-info">
-			<div class="form-view-name">
-				<?php
-				/**
-				 * Using htmlspecialchars and stripslashes on $view_name to handle quotes, etc. in database.
-				 * @since 2.11.14
-				 */
-				?>
-				<span class="title"><?php _e( 'Name', 'strong-testimonials' ); ?></span><input type="text" id="view-name" class="view-name" name="view[name]"
-					   value="<?php echo htmlspecialchars( stripslashes( $view_name ) ); ?>" tabindex="1">
-			</div>
-		</div>
+        <div class="table view-info">
+			<?php include( 'partials/views/view-name.php' ); ?>
+    		<?php include( 'partials/views/view-shortcode.php' ); ?>
+	    	<?php include( 'partials/views/view-mode.php' ); ?>
+        </div>
 
-		<?php
-		// avoiding the tab character before the shortcode for better copy-n-paste
-		if ( 'edit' == $action ) {
-			$shortcode = '<span class="saved">';
-			$shortcode .= '<input id="view-shortcode" type="text" value="[testimonial_view id=' . $view_id . ']" readonly />';
-			$shortcode .= '<input id="copy-shortcode" class="button small" type="button" value="' . __( 'copy to clipboard', 'strong-testimonials' ) . '" data-copytarget="#view-shortcode" />';
-			$shortcode .= '<span id="copy-message">copied</span>';
-			$shortcode .= '</span>';
-		}
-		else {
-			$shortcode = '<span class="unsaved">' . _x( 'will be available after you save this', 'The shortcode for a new View.', 'strong-testimonials' ) . '</span>';
-		}
-		?>
-
-		<div class="view-info then then_display then_form then_slideshow then_not_single_template <?php echo apply_filters( 'wpmtst_view_section', '', 'shortcode' ); ?>">
-			<div class="form-view-shortcode"><span class="title"><?php _e( 'Shortcode', 'strong-testimonials' ); ?></span><?php echo $shortcode; ?></div>
-		</div>
-
-		<?php
-		include( 'partials/views/mode.php' );
-
+        <?php
 		// TODO Generify both hook and include
 		do_action( 'wpmtst_view_editor_before_group_select' );
 		include( 'partials/views/group-select.php' );

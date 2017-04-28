@@ -237,6 +237,8 @@ jQuery(window).on('load', function () {
     if (!mode)
       return;
 
+    var modeDesc = $('.mode-description');
+    modeDesc.html('');
     $(".then_" + mode).fadeIn(speed);
     $(".then_not_" + mode).fadeOut(speed);
 
@@ -268,8 +270,8 @@ jQuery(window).on('load', function () {
       'mode': mode
     };
     $.get(ajaxurl, data, function (response) {
-      if ( response ) {
-        $('.mode-description').html( response ).fadeIn();
+      if( response ) {
+        modeDesc.html(response);
       }
     });
 
