@@ -192,7 +192,7 @@ jQuery(document).ready(function ($) {
   $('table.wpm-testimonial_page_testimonial-views').on('click', '.stickit', function(e) {
     var icon = $(this);
     icon.closest('.wp-list-table-wrap').find('.overlay').fadeIn(200);
-    icon.toggleClass('stuck')
+    icon.blur().toggleClass('stuck')
     var id = $(this).closest('tr').find('td.id').html();
     var data = {
       'action': 'wpmtst_save_view_sticky',
