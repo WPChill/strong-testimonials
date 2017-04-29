@@ -46,7 +46,7 @@ function wpmtst_settings_custom_fields( $form_id = 1 ) {
 
 			// Undo changes
 			$fields = $forms[ $form_id ]['fields'];
-			echo sprintf( $message_format, __( 'Changes undone.', 'strong-testimonials' ) );
+			echo sprintf( $message_format, __( 'Changes cancelled.', 'strong-testimonials' ) );
 
 		} elseif ( isset( $_POST['restore-defaults'] ) ) {
 
@@ -163,7 +163,7 @@ function wpmtst_settings_custom_fields( $form_id = 1 ) {
 
             <div id="field-group-actions">
                 <div><?php submit_button( '', 'primary', 'submit-form', false ); ?></div>
-                <div><?php submit_button( __( 'Undo Changes', 'strong-testimonials' ), 'secondary', 'reset', false ); ?></div>
+                <div><?php submit_button( __( 'Cancel Changes', 'strong-testimonials' ), 'secondary', 'reset', false ); ?></div>
                 <div><?php submit_button( __( 'Restore Defaults', 'strong-testimonials' ), 'secondary', 'restore-defaults', false ); ?></div>
             </div>
         </form>

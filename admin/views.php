@@ -20,8 +20,8 @@ function wpmtst_views_admin() {
 	<div class="wrap wpmtst2">
 
 		<?php
-		if ( isset( $_REQUEST['changes-undone'] ) ) {
-			$message = __( 'Changes undone.', 'strong-testimonials' );
+		if ( isset( $_REQUEST['cancelled'] ) ) {
+			$message = __( 'Changes cancelled.', 'strong-testimonials' );
 		} elseif ( isset( $_REQUEST['defaults-restored'] ) ) {
 			$message = __( 'Defaults restored.', 'strong-testimonials' );
 		} elseif ( isset( $_REQUEST['view-saved'] ) ) {
@@ -276,7 +276,7 @@ function wpmtst_view_settings( $action = '', $view_id = null ) {
 
 		<p class="wpmtst-submit">
 			<?php submit_button( '', 'primary', 'submit-form', false ); ?>
-			<?php submit_button( __( 'Undo Changes', 'strong-testimonials' ), 'secondary', 'reset', false ); ?>
+			<?php submit_button( __( 'Cancel Changes', 'strong-testimonials' ), 'secondary', 'reset', false ); ?>
 			<?php submit_button( __( 'Restore Defaults', 'strong-testimonials' ), 'secondary', 'restore-defaults', false ); ?>
 		</p>
 
@@ -310,7 +310,7 @@ function wpmtst_view_edit_form() {
 		if ( isset( $_POST['reset'] ) ) {
 
 			// Undo changes
-			$goback = add_query_arg( 'changes-undone', true, $goback );
+			$goback = add_query_arg( 'cancelled', true, $goback );
 
 		} elseif ( isset( $_POST['restore-defaults'] ) ) {
 
