@@ -268,8 +268,8 @@ function wpmtst_view_settings( $action = '', $view_id = null ) {
 		do_action( 'wpmtst_view_editor_before_group_style' );
 		include( 'partials/views/group-style.php' );
 
-		do_action( 'wpmtst_view_editor_before_group_general' );
-		include( 'partials/views/group-general.php' );
+		do_action( 'wpmtst_view_editor_before_group_compat' );
+		include( 'partials/views/group-compat.php' );
 
 		do_action( 'wpmtst_view_editor_after_groups' );
 		?>
@@ -845,3 +845,23 @@ function wpmtst_save_view_sticky() {
 	die();
 }
 add_action( 'wp_ajax_wpmtst_save_view_sticky', 'wpmtst_save_view_sticky' );
+
+
+/**
+ * Return classes for toggling sections.
+ *
+ * @param $classes
+ * @param $section
+ *
+ * @since 2.22.0
+ *
+ * @return string
+ */
+function wpmtst_view_section_filter( $classes, $section ) {
+    if ( 'compat' == $section && wpmtst_divi_builder_active() ) {
+        $classes = 'then_display then_form then_slideshow then_not_single_template';
+	}
+
+    return $classes;
+}
+add_filter( 'wpmtst_view_section', 'wpmtst_view_section_filter', 10, 2 );

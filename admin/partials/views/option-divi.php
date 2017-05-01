@@ -11,10 +11,13 @@ global $view;
             <input type="checkbox" id="view-divi_builder" class="if toggle checkbox"
                    name="view[data][divi_builder]" value="1" <?php checked( $view['divi_builder'] ); ?>/>
             <label for="view-divi_builder">
-                <?php _e( 'Check this if using Divi Builder version 2+', 'strong-testimonials-lucid-theme' ); ?>
+                <?php _e( 'Check this if adding this view (via shortcode or widget) using the Visual Builder in <b>Divi Builder version 2</b>.', 'strong-testimonials' ); ?>
             </label>
             <p class="description short">
-                <?php _e( 'This is only required if adding this view using the Visual Builder in <b>version 2</b> of the Divi Builder plugin by Elegant Themes.', 'strong-testimonials-lucid-theme' ); ?>
+                <?php _e( 'Not required if simply adding this view in the default editor.', 'strong-testimonials' ); ?>
+            </p>
+            <p class="description short">
+                <?php _e( 'Not required if simply adding this view in the <b>Divi theme</b> using either the default editor or Divi Builder.', 'strong-testimonials' ); ?>
             </p>
         </div>
     </div>

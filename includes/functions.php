@@ -739,31 +739,6 @@ add_action( 'post_submitbox_misc_actions', 'wpmtst_post_submitbox_misc_actions' 
 
 
 /**
- * Frequent plugin checks.
- *
- * @param $name
- *
- * @return bool
- */
-function wpmtst_is_plugin_active( $name = '' ) {
-	if ( !$name ) {
-		return false;
-	}
-
-	$plugins = array(
-		'wpml'     => 'sitepress-multilingual-cms/sitepress.php',
-		'polylang' => 'polylang/polylang.php'
-	);
-
-	if ( !isset( $plugins[ $name ] ) ) {
-		return false;
-	}
-
-	return is_plugin_active( $plugins[ $name ] );
-}
-
-
-/**
  * @return mixed
  */
 function wpmtst_get_background_defaults() {
@@ -876,7 +851,7 @@ function wpmtst_callback_exists( $callback ) {
  */
 function wpmtst_divi_builder_active() {
 	$active = false;
-	if ( is_plugin_active( 'divi-builder/divi-builder.php' ) ) {
+	if ( wpmtst_is_plugin_active( 'divi-builder/divi-builder.php' ) ) {
 		$plugin = get_file_data( WP_PLUGIN_DIR . '/divi-builder/divi-builder.php', array( 'version' => 'Version' ) );
 		if ( isset( $plugin['version'] ) && version_compare( $plugin['version'], '2' ) > 0 ) {
 			$active = true;
@@ -932,6 +907,42 @@ function wpmtst_find_single_template_view() {
 			return $view_data;
 		}
 	}
+
+	return false;
+}
+
+
+/**
+ * Frequent plugin checks.
+ *
+ * A combination of an array of frequent plugin names, and core's is_plugin_active functions
+ * which are not available in front-end without loading plugin.php which is uncecessary.
+ *
+ * @param $plugin
+ *
+ * @return bool
+ */
+function wpmtst_is_plugin_active( $plugin = '' ) {
+	if ( ! $plugin )
+		return false;
+
+	$plugins = array(
+		'wpml'     => 'sitepress-multilingual-cms/sitepress.php',
+		'polylang' => 'polylang/polylang.php'
+	);
+	if ( isset( $plugins[ $plugin ] ) ) {
+		$plugin = $plugins[ $plugin ];
+	}
+
+	if ( in_array( $plugin, (array) get_option( 'active_plugins', array() ) ) )
+	    return true;
+
+	if ( ! is_multisite() )
+		return false;
+
+	$plugins = get_site_option( 'active_sitewide_plugins');
+	if ( isset( $plugins[ $plugin ] ) )
+		return true;
 
 	return false;
 }
