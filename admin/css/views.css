@@ -550,27 +550,6 @@ span.title {
   margin-right: 1em;
 }
 
-.wpmtst2 select.large {
-  font-size: 2em;
-}
-
-.wpmtst2 select.large {
-  font-size: 2em;
-  height: auto;
-  vertical-align: baseline;
-  border: 0;
-}
-
-.wpmtst2 h3.large {
-  color: #444;
-  background: transparent;
-  display: inline-block;
-  font-size: 2em;
-  margin-top: 0;
-  margin-bottom: 0;
-  margin-right: 10px;
-}
-
 /*-----------------------------------------------
  * Category checkboxes
  *-----------------------------------------------*/
