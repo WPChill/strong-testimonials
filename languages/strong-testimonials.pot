@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Strong Testimonials 2.22\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/strong-testimonials\n"
-"POT-Creation-Date: 2017-04-29 08:13:39+00:00\n"
+"POT-Creation-Date: 2017-05-01 11:43:36+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -95,9 +95,9 @@ msgid "ID"
 msgstr ""
 
 #: admin/admin.php:663 admin/partials/settings/email-from.php:19
-#: admin/partials/settings/email-to.php:12 admin/views.php:253
-#: admin/views.php:608 includes/class-strong-views-list-table.php:54
-#: includes/defaults.php:283
+#: admin/partials/settings/email-to.php:12
+#: admin/partials/views/view-name.php:10 admin/views.php:572
+#: includes/class-strong-views-list-table.php:54 includes/defaults.php:283
 msgid "Name"
 msgstr ""
 
@@ -165,7 +165,7 @@ msgid "Fields"
 msgstr ""
 
 #: admin/custom-fields.php:49 admin/views.php:24
-msgid "Changes undone."
+msgid "Changes cancelled."
 msgstr ""
 
 #: admin/custom-fields.php:61 admin/views.php:26
@@ -190,11 +190,11 @@ msgstr ""
 msgid "Add New Field"
 msgstr ""
 
-#: admin/custom-fields.php:166 admin/views.php:306
-msgid "Undo Changes"
+#: admin/custom-fields.php:166 admin/views.php:279
+msgid "Cancel Changes"
 msgstr ""
 
-#: admin/custom-fields.php:167 admin/views.php:307
+#: admin/custom-fields.php:167 admin/views.php:280
 msgid "Restore Defaults"
 msgstr ""
 
@@ -215,7 +215,7 @@ msgid "Placeholder"
 msgstr ""
 
 #: admin/custom-fields.php:287 admin/partials/settings/form.php:285
-#: admin/views.php:656
+#: admin/views.php:620
 msgid "Before"
 msgstr ""
 
@@ -414,12 +414,12 @@ msgctxt "verb"
 msgid "Close"
 msgstr ""
 
-#: admin/partials/fields/field-header.php:8 admin/views.php:585
-#: admin/views.php:598
+#: admin/partials/fields/field-header.php:8 admin/views.php:549
+#: admin/views.php:562
 msgid "click to open or close"
 msgstr ""
 
-#: admin/partials/fields/field-header.php:10 admin/views.php:591
+#: admin/partials/fields/field-header.php:10 admin/views.php:555
 msgid "drag and drop to reorder"
 msgstr ""
 
@@ -531,15 +531,15 @@ msgid "Recently added features"
 msgstr ""
 
 #: admin/partials/guide/guide.php:71
-msgid "Form success redirect options."
+msgid "Add your custom fields to the theme single post template."
 msgstr ""
 
 #: admin/partials/guide/guide.php:73
-msgid "Form success message editor."
+msgid "Form success redirect options."
 msgstr ""
 
 #: admin/partials/guide/guide.php:75
-msgid "More slideshow options."
+msgid "Form success message editor."
 msgstr ""
 
 #: admin/partials/guide/guide.php:77
@@ -1022,6 +1022,10 @@ msgstr ""
 msgid "Status"
 msgstr ""
 
+#: admin/partials/views/group-compat.php:3
+msgid "Compatibility"
+msgstr ""
+
 #. translators: On the Views admin screen.
 
 #: admin/partials/views/group-extra.php:4
@@ -1032,10 +1036,6 @@ msgstr ""
 
 #: admin/partials/views/group-form.php:4
 msgid "Actions"
-msgstr ""
-
-#: admin/partials/views/group-general.php:7
-msgid "Options"
 msgstr ""
 
 #. translators: On the Views admin screen.
@@ -1056,13 +1056,6 @@ msgstr ""
 #: admin/partials/views/option-slideshow-navigation.php:29
 #: admin/partials/views/option-slideshow-navigation.php:60
 msgid "Style"
-msgstr ""
-
-#. translators: On the Views admin screen.
-
-#: admin/partials/views/mode.php:4
-#: includes/class-strong-views-list-table.php:55
-msgid "Mode"
 msgstr ""
 
 #: admin/partials/views/option-background.php:3
@@ -1253,11 +1246,15 @@ msgid "Divi Builder"
 msgstr ""
 
 #: admin/partials/views/option-divi.php:14
-msgid "Check this if using Divi Builder version 2+"
+msgid "Check this if adding this view (via shortcode or widget) using the Visual Builder in <b>Divi Builder version 2</b>."
 msgstr ""
 
 #: admin/partials/views/option-divi.php:17
-msgid "This is only required if adding this view using the Visual Builder in <b>version 2</b> of the Divi Builder plugin by Elegant Themes."
+msgid "Not required if simply adding this view in the default editor."
+msgstr ""
+
+#: admin/partials/views/option-divi.php:20
+msgid "Not required if simply adding this view in the <b>Divi theme</b> using either the default editor or Divi Builder."
 msgstr ""
 
 #. translators: On the Views admin screen.
@@ -1513,7 +1510,7 @@ msgid "Stop on interaction"
 msgstr ""
 
 #: admin/partials/views/option-slideshow-behavior.php:37
-msgid "Recommended if using navigation"
+msgid "Recommended if using navigation."
 msgstr ""
 
 #: admin/partials/views/option-slideshow-behavior.php:66
@@ -1611,6 +1608,25 @@ msgstr ""
 
 #: admin/partials/views/option-title.php:4
 msgid "Title"
+msgstr ""
+
+#: admin/partials/views/view-mode.php:3
+#: includes/class-strong-views-list-table.php:55
+msgid "Mode"
+msgstr ""
+
+#: admin/partials/views/view-shortcode.php:6
+msgid "copy to clipboard"
+msgstr ""
+
+#: admin/partials/views/view-shortcode.php:10
+msgctxt "The shortcode for a new View."
+msgid "will be available after you save this"
+msgstr ""
+
+#: admin/partials/views/view-shortcode.php:17
+#: includes/class-strong-views-list-table.php:57
+msgid "Shortcode"
 msgstr ""
 
 #: admin/pointers.php:51 admin/pointers.php:62
@@ -1718,100 +1734,87 @@ msgstr ""
 msgid "Duplicate This View"
 msgstr ""
 
-#: admin/views.php:263
-msgid "copy to clipboard"
-msgstr ""
-
-#: admin/views.php:268
-msgctxt "The shortcode for a new View."
-msgid "will be available after you save this"
-msgstr ""
-
-#: admin/views.php:273 includes/class-strong-views-list-table.php:57
-msgid "Shortcode"
-msgstr ""
-
-#: admin/views.php:546
+#: admin/views.php:510
 msgid "custom"
 msgstr ""
 
-#: admin/views.php:547
+#: admin/views.php:511
 msgid "built-in"
 msgstr ""
 
-#: admin/views.php:554 includes/defaults.php:120
+#: admin/views.php:518 includes/defaults.php:120
 msgid "text"
 msgstr ""
 
-#: admin/views.php:555
+#: admin/views.php:519
 msgid "link with another field"
 msgstr ""
 
-#: admin/views.php:556
+#: admin/views.php:520
 msgid "link (must be URL type)"
 msgstr ""
 
-#: admin/views.php:557
+#: admin/views.php:521
 msgid "date"
 msgstr ""
 
-#: admin/views.php:558
+#: admin/views.php:522
 msgid "category"
 msgstr ""
 
-#: admin/views.php:559
+#: admin/views.php:523
 msgid "rating"
 msgstr ""
 
-#: admin/views.php:560 includes/defaults.php:162
+#: admin/views.php:524 includes/defaults.php:162
 msgid "shortcode"
 msgstr ""
 
-#: admin/views.php:593
+#: admin/views.php:557
 msgid "remove this field"
 msgstr ""
 
-#: admin/views.php:631
+#: admin/views.php:595
 msgid "Display Type"
 msgstr ""
 
-#: admin/views.php:664
+#: admin/views.php:628
 msgid "CSS Class"
 msgstr ""
 
-#: admin/views.php:711
+#: admin/views.php:675
 msgid "Link Text"
 msgstr ""
 
-#: admin/views.php:713
+#: admin/views.php:677
 msgid "this field's value"
 msgstr ""
 
-#: admin/views.php:714
+#: admin/views.php:678
 msgid "this field's label"
 msgstr ""
 
-#: admin/views.php:715
+#: admin/views.php:679
 msgid "custom text"
 msgstr ""
 
-#: admin/views.php:734
+#: admin/views.php:698
 msgid "URL Field"
 msgstr ""
 
-#: admin/views.php:751
+#: admin/views.php:715
 msgid "new tab"
 msgstr ""
 
-#: admin/views.php:772
+#: admin/views.php:736
 msgid "Format"
 msgstr ""
 
-#: admin/views.php:780
+#: admin/views.php:744
 msgid "more about date formats"
 msgstr ""
 
-#: admin/views.php:823 admin/views.php:846
+#: admin/views.php:787 admin/views.php:810
 msgid "filter categories"
 msgstr ""
 
@@ -2344,27 +2347,27 @@ msgstr ""
 msgid "M j, Y @ H:i"
 msgstr ""
 
-#: includes/functions.php:790
+#: includes/functions.php:765
 msgid "light gray gradient"
 msgstr ""
 
-#: includes/functions.php:795
+#: includes/functions.php:770
 msgid "light blue gradient"
 msgstr ""
 
-#: includes/functions.php:800
+#: includes/functions.php:775
 msgid "sky blue gradient"
 msgstr ""
 
-#: includes/functions.php:805
+#: includes/functions.php:780
 msgid "light latte gradient"
 msgstr ""
 
-#: includes/functions.php:810
+#: includes/functions.php:785
 msgid "light green mist gradient"
 msgstr ""
 
-#: includes/functions.php:815
+#: includes/functions.php:790
 msgid "light plum gradient"
 msgstr ""
 

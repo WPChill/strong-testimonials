@@ -1,3 +1,52 @@
+= 2.17.5 - Jan 18, 2017 =
+* Fix bug when page has multiple slideshows.
+
+= 2.17.4 - Jan 17, 2017 =
+* Fix bug in form Ajax.
+
+= 2.17.3 - Dec 28, 2016 =
+* Fix bug that allowed unsanitized custom field names.
+* Improve admin UI.
+* Update Spanish translation.
+
+= 2.17.2 - Dec 14, 2016 =
+* Fix incomplete loading of FontAwesome for slideshows.
+
+= 2.17.1 - Dec 14, 2016 =
+* Fix bug in plugin activation process.
+* Improve category checklist style in default form template.
+
+= 2.17 - Dec 13, 2016 =
+* Add category checklist option to form fields.
+* Fix bug that allowed double underscores in custom field name.
+* Fix date column formatting in testimonials admin list.
+* Improve admin UI in fields and view editors.
+* Improve slideshow controls style.
+
+= 2.16.5 - Dec 8, 2015 =
+* Fix bug when [Max Mega Menu](https://wordpress.org/plugins/megamenu/) plugin installed.
+
+= 2.16.4 - Dec 7, 2016 =
+* Fix conflict with [Huge IT Slider](https://wordpress.org/plugins/slider-image/) plugin.
+* Remove some unnecessary edge case functions.
+
+= 2.16.3 - Dec 5, 2016 =
+* Fix bug when loading form validation translation files.
+* Fix bug that initialized slideshows before images are loaded.
+* Improve admin UI.
+
+= 2.16.2 - Dec 4, 2016 =
+* Strip slashes from custom fields and submitted form values.
+
+= 2.16.1 - Dec 2, 2016 =
+* Fix bug in slideshow query.
+* Fix conflict with Dream Theme themes.
+
+= 2.16 - Dec 1, 2016 =
+* Fix missing icons (start, quotes, pager buttons).
+* Fix incorrect WPML string registration (read-more texts).
+* Improve compatibility.
+
 = 2.15 - Nov 29, 2016 =
 * Add 'required' attribute to file input field.
 * Add slideshow behavior options.
