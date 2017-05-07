@@ -245,32 +245,42 @@ function wpmtst_show_field( $key, $field, $adding ) {
 /**
  * Create the secondary inputs for a new custom field.
  * Called after field type is chosen (Post or Custom).
+ *
+ * @param $key
+ * @param $field
+ *
+ * @return string
  */
 function wpmtst_show_field_secondary( $key, $field ) {
-	// --------
-	// Required
-	// --------
-	// Disable option if this is a core field like post_content.
-	if ( isset( $field['core'] ) && $field['core'] )
-		$disabled = ' disabled="disabled"';
-	else
-		$disabled = false;
+    $html = '';
 
-	$html = '<tr class="field-secondary">' . "\n";
-	$html .= '<th>' . __( 'Required', 'strong-testimonials' ) . '</th>' . "\n";
-	$html .= '<td>' . "\n";
-	if ( $disabled ) {
-		$html .= '<input type="hidden" name="fields[' . $key . '][required]" value="' . $field['required'] . '">';
-		$html .= '<input type="checkbox" ' . checked( $field['required'], true, false ) . $disabled . '>';
-	} else {
-		$html .= '<input type="checkbox" name="fields[' . $key . '][required]" ' . checked( $field['required'], true, false ) . '>';
-	}
-	$html .= '</td>' . "\n";
-	$html .= '</tr>' . "\n";
+	/*
+	 * Required
+	 */
+    if ( isset( $field['show_required_option'] ) && $field['show_required_option'] ) {
+	    // Disable option if this is a core field like post_content.
+	    if ( isset( $field['core'] ) && $field['core'] ) {
+		    $disabled = ' disabled="disabled"';
+	    } else {
+		    $disabled = false;
+	    }
 
-	// -----------
-	// Placeholder
-	// -----------
+	    $html .= '<tr class="field-secondary">' . "\n";
+	    $html .= '<th>' . __( 'Required', 'strong-testimonials' ) . '</th>' . "\n";
+	    $html .= '<td>' . "\n";
+	    if ( $disabled ) {
+		    $html .= '<input type="hidden" name="fields[' . $key . '][required]" value="' . $field['required'] . '">';
+		    $html .= '<input type="checkbox" ' . checked( $field['required'], true, false ) . $disabled . '>';
+	    } else {
+		    $html .= '<input type="checkbox" name="fields[' . $key . '][required]" ' . checked( $field['required'], true, false ) . '>';
+	    }
+	    $html .= '</td>' . "\n";
+	    $html .= '</tr>' . "\n";
+    }
+
+	/*
+	 * Placeholder
+	 */
 	if ( $field['show_placeholder_option'] ) {
 		if ( isset( $field['placeholder'] ) ) {
 			$html .= '<tr class="field-secondary">' . "\n";
@@ -280,25 +290,25 @@ function wpmtst_show_field_secondary( $key, $field ) {
 		}
 	}
 
-	// ------
-	// Before
-	// ------
+	/*
+	 * Before
+	 */
 	$html .= '<tr class="field-secondary">' . "\n";
 	$html .= '<th>' . __( 'Before', 'strong-testimonials' ) . '</th>' . "\n";
 	$html .= '<td><input type="text" name="fields[' . $key . '][before]" value="' . wpmtst_htmlspecialchars( $field['before'] ) . '"></td>' . "\n";
 	$html .= '</tr>' . "\n";
 
-	// -----
-	// After
-	// -----
+	/*
+	 * After
+	 */
 	$html .= '<tr class="field-secondary">' . "\n";
 	$html .= '<th>' . __( 'After', 'strong-testimonials' ) . '</th>' . "\n";
 	$html .= '<td><input type="text" name="fields[' . $key . '][after]" value="' . wpmtst_htmlspecialchars( $field['after'] ) . '"></td>' . "\n";
 	$html .= '</tr>' . "\n";
 
-	// ------------------
-	// Default Form Value
-	// ------------------
+	/*
+	 * Default Form Value
+	 */
 	if ( $field['show_default_options'] ) {
 		if ( isset( $field['default_form_value'] ) ) {
 			$html .= '<tr class="field-secondary">' . "\n";
@@ -317,9 +327,9 @@ function wpmtst_show_field_secondary( $key, $field ) {
 		}
 	}
 
-	// ---------------------
-	// Default Display Value
-	// ---------------------
+	/*
+	 * Default Display Value
+	 */
 	if ( $field['show_default_options'] ) {
 		if ( isset( $field['default_display_value'] ) ) {
 			$html .= '<tr class="field-secondary">' . "\n";
@@ -338,9 +348,9 @@ function wpmtst_show_field_secondary( $key, $field ) {
 		}
 	}
 
-	// ---------------------
-	// Shortcode Options
-	// ---------------------
+	/*
+	 * Shortcode Options
+	 */
 	if ( $field['show_shortcode_options'] ) {
 		if ( isset( $field['shortcode_on_form'] ) ) {
 			$html .= '<tr class="field-secondary">' . "\n";

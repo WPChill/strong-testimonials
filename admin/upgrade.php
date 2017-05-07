@@ -167,6 +167,14 @@ function wpmtst_upgrade() {
 				}
 
 				/*
+				 * Add `show_required_option` to shortcode field. Initial value is false.
+				 * @since 2.22.0
+				 */
+				if ( 'shortcode' == $form_field['input_type'] ) {
+					$form_field['show_required_option'] = false;
+				}
+
+				/*
 				 * Merge in new default.
 				 * Custom fields are in display order (not associative) so we must find them by `input_type`.
 				 * @since 2.21.0 Using default fields instead of default form as source
