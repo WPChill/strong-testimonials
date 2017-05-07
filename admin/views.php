@@ -227,7 +227,7 @@ function wpmtst_view_settings( $action = '', $view_id = null ) {
 	<h1>
 		<?php 'edit' == $action ? _e( 'Edit View', 'strong-testimonials' ) : _e( 'Add View', 'strong-testimonials' ); ?>
 		<a href="<?php echo esc_url( $url1 ); ?>" class="add-new-h2"><?php _e( 'Add New' ); ?></a>
-        <a href="<?php echo esc_url( $url ); ?>" class="add-new-h2"><?php _e( 'Return to List', 'strong-testimonials' ); ?></a>
+        <a href="<?php echo esc_url( $url ); ?>" class="add-new-h2"><?php _e( 'Return To List', 'strong-testimonials' ); ?></a>
         <?php if ( 'edit' == $action ) : ?>
         <a href="<?php echo esc_url( $url2 ); ?>" class="add-new-h2"><?php _e( 'Duplicate This View', 'strong-testimonials' ); ?></a>
         <?php endif; ?>

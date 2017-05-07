@@ -133,7 +133,7 @@ function wpmtst_single_form_field( $field ) {
 
 	wpmtst_field_error( $field );
 	wpmtst_field_after( $field );
-	echo '</div><!-- .form-field -->' . "\n";
+	echo '</div>' . "\n";
 
 }
 
