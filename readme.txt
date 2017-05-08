@@ -17,7 +17,7 @@ Everything you need to receive and display testimonials.
 
 **[GO DEMO](http://demos.wpmission.com/strong-testimonials/)** | **[SUPPORT ARTICLES](https://support.strongplugins.com/article-category/strong-testimonials/)** | **[ADD-ONS](https://strongplugins.com/plugins/category/strong-testimonials/)**
 
-It's important to understand this plugin's intended use case: A small business with up to a few hundred testimonials or reviews, maybe organized into multiple categories, and displaying them a few different ways like a full page of testimonials and a slideshow widget, plus a form for accepting new testimonials.
+It's important to understand this plugin's intended use case: A small business with up to a few hundred testimonials or reviews, maybe organized into multiple categories, and displaying them different ways like a full page of testimonials and a slideshow widget, plus a form for accepting new testimonials.
 
 If that describes your situation, this plugin will work for you right out of the box with just a few steps.
 
@@ -237,8 +237,8 @@ If you prefer not to post your URL publicly, start a private support ticket at [
 
 == Changelog ==
 
-= 2.22 - May 2, 2017 =
-* Add option to stick views to top of the list.
+= 2.22 - May 9, 2017 =
+* Add option for sticky views.
 * Add view mode for single post template.
 * Add view mode description.
 * Move custom style to `<head>` to avoid FUOC.
