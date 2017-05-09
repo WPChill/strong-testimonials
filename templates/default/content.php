@@ -24,6 +24,7 @@
 					<?php wpmtst_the_thumbnail(); ?>
 					<div class="maybe-clear"></div>
 					<?php wpmtst_the_content(); ?>
+					<?php do_action( 'wpmtst_after_testimonial_content' ); ?>
 				</div>
 
 				<div class="testimonial-client">

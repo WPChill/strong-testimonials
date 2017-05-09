@@ -70,8 +70,6 @@ class Strong_View {
 
 	/**
 	 * Build our query based on view attributes.
-	 *
-	 * @return WP_Query
 	 */
 	public function build_query() {}
 
@@ -113,8 +111,7 @@ class Strong_View {
 			$handle = 'testimonials-' . str_replace( ':', '-', $this->atts['template'] );
 			wp_register_script( $handle, $script, $deps_array );
 			WPMST()->add_script( $handle );
-		}
-		else {
+		} else {
 			foreach ( $deps_array as $handle ) {
 				WPMST()->add_script( $handle );
 			}
@@ -142,8 +139,7 @@ class Strong_View {
 			wp_register_style( $handle, $stylesheet, array(), $this->plugin_version );
 			if ( $enqueue ) {
 				WPMST()->add_style( $handle );
-			}
-			else {
+			} else {
 				return $handle;
 			}
 		}
@@ -165,15 +161,106 @@ class Strong_View {
 		return $class;
 	}
 
+	/**
+	 * Print our custom style.
+	 *
+	 * @since 2.22.0
+	 */
+	public function add_custom_style() {
+		$this->custom_background();
+
+		/**
+		 * Hook to add more inline style to `wpmtst-custom-style` handle.
+		 * @since 2.22.0
+		 */
+		do_action( 'wpmtst_view_custom_style', $this );
+	}
+
+	/**
+	 * Build CSS for custom background.
+	 */
+	public function custom_background() {
+		$background = $this->atts['background'];
+		if ( ! isset( $background['type'] ) )
+			return;
+
+		$c1 = '';
+		$c2 = '';
+
+		switch ( $background['type'] ) {
+			case 'preset':
+				$preset = wpmtst_get_background_presets( $background['preset'] );
+				$c1     = $preset['color'];
+				if ( isset( $preset['color2'] ) ) {
+					$c2 = $preset['color2'];
+				}
+				break;
+			case 'gradient':
+				$c1 = $background['gradient1'];
+				$c2 = $background['gradient2'];
+				break;
+			case 'single':
+				$c1 = $background['color'];
+				break;
+			default:
+		}
+
+		// Special handling for Divi Builder
+		$prefix = '';
+		if ( isset( $this->atts['divi_builder'] ) && $this->atts['divi_builder'] && wpmtst_divi_builder_active() ) {
+			$prefix = '#et_builder_outer_content ';
+		}
+
+		$view_el = "$prefix.strong-view-id-{$this->atts['view']}";
+		$is_form = ( isset( $this->atts['form'] ) && $this->atts['form'] );
+
+		// Includes special handling for Large Widget template.
+		if ( $c1 && $c2 ) {
+
+			$gradient = self::gradient_rules( $c1, $c2 );
+
+			if ( $is_form ) {
+				wp_add_inline_style( 'wpmtst-custom-style', "$view_el .strong-form-inner { $gradient }\n" );
+			} else {
+				wp_add_inline_style( 'wpmtst-custom-style', "$view_el .testimonial-inner { $gradient }\n" );
+
+				if ( 'large-widget:widget' == WPMST()->atts( 'template' ) ) {
+					wp_add_inline_style( 'wpmtst-custom-style', "$view_el .readmore-page { background: $c2 }\n" );
+				}
+			}
+
+		} elseif ( $c1 ) {
+
+			if ( $is_form ) {
+				wp_add_inline_style( 'wpmtst-custom-style', "$view_el .strong-form-inner { background: $c1; }\n" );
+			} else {
+				wp_add_inline_style( 'wpmtst-custom-style', "$view_el .testimonial-inner { background: $c1; }\n" );
+
+				if ( 'large-widget:widget' == WPMST()->atts( 'template' ) ) {
+					wp_add_inline_style( 'wpmtst-custom-style', "$view_el .readmore-page { background: $c1 }\n" );
+				}
+			}
+
+		}
+	}
+
+	/**
+	 * Print gradient rules.
+	 *
+	 * @param $c1
+	 * @param $c2
+	 *
+	 * @return string
+	 */
 	public function gradient_rules( $c1, $c2 ) {
-		return "background: {$c1};\n"
-			. "background: -moz-linear-gradient(top, {$c1} 0%, {$c2} 100%);\n"
-			. "background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, {$c1}), color-stop(100%, {$c2}));\n"
-			. "background: -webkit-linear-gradient(top,  {$c1} 0%, {$c2} 100%);\n"
-			. "background: -o-linear-gradient(top, {$c1} 0%, {$c2} 100%);\n"
-			. "background: -ms-linear-gradient(top, {$c1} 0%, {$c2} 100%);\n"
-			. "background: linear-gradient(to bottom, {$c1} 0%, {$c2} 100%);"
-			. "filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='{$c1}', endColorstr='{$c2}', GradientType=0);\n";
+		return "background: {$c1};
+	background: -moz-linear-gradient(top, {$c1} 0%, {$c2} 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, {$c1}), color-stop(100%, {$c2}));
+	background: -webkit-linear-gradient(top,  {$c1} 0%, {$c2} 100%);
+	background: -o-linear-gradient(top, {$c1} 0%, {$c2} 100%);
+	background: -ms-linear-gradient(top, {$c1} 0%, {$c2} 100%);
+	background: linear-gradient(to bottom, {$c1} 0%, {$c2} 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='{$c1}', endColorstr='{$c2}', GradientType=0);";
 	}
 
 }

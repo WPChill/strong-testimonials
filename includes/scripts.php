@@ -31,8 +31,7 @@ function wpmtst_scripts() {
 	/**
 	 * Masonry
 	 */
-	wp_register_script( 'imagesloaded-script', WPMTST_PUBLIC_URL . 'js/lib/imagesloaded/imagesloaded.pkgd.min.js', array(), false, true );
-	wp_register_script( 'wpmtst-masonry-script', WPMTST_PUBLIC_URL . 'js/masonry.js', array( 'jquery-masonry', 'imagesloaded-script' ), $plugin_version, true );
+	wp_register_script( 'wpmtst-masonry-script', WPMTST_PUBLIC_URL . 'js/masonry.js', array( 'jquery-masonry', 'imagesloaded' ), $plugin_version, true );
 	wp_register_style( 'wpmtst-masonry-style', WPMTST_PUBLIC_URL . 'css/masonry.css', array(), $plugin_version );
 
 	/**
@@ -82,7 +81,7 @@ function wpmtst_scripts() {
 	 */
 	wp_register_script( 'jquery-actual', WPMTST_PUBLIC_URL . 'js/lib/actual/jquery.actual.js', array( 'jquery' ), false, true );
 
-	wp_register_script( 'wpmslider', WPMTST_PUBLIC_URL . "js/lib/wpmslider/jquery.wpmslider{$min}.js", array( 'jquery-actual' ), $plugin_version, true );
+	wp_register_script( 'wpmslider', WPMTST_PUBLIC_URL . "js/lib/wpmslider/jquery.wpmslider{$min}.js", array( 'jquery-actual', 'imagesloaded' ), $plugin_version, true );
 
 	wp_register_script( 'strongslider', WPMTST_PUBLIC_URL . 'js/jquery.strongslider.js', array( 'wpmslider', 'underscore' ), $plugin_version, true );
 
@@ -115,6 +114,7 @@ add_action( 'wp_enqueue_scripts', 'wpmtst_scripts_later', 20 );
  * @since 1.15.0
  * @since 2.3.0 As separate function.
  * @since 2.16.0 As one array without separate priorities.
+ * @since 2.22.0 Enqueue custom style placeholder file here.
  */
 function wpmtst_view_scripts() {
 	$styles = WPMST()->get_styles();
@@ -123,6 +123,8 @@ function wpmtst_view_scripts() {
 			wp_enqueue_style( $style );
 		}
 	}
+
+	wp_enqueue_style( 'wpmtst-custom-style' );
 
 	$scripts = WPMST()->get_scripts();
 	if ( $scripts ) {

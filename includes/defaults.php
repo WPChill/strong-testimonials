@@ -50,6 +50,8 @@ function wpmtst_get_default_fields() {
 		'label'                   => '',
 		'show_label'              => 1,
 		'input_type'              => '',
+
+		'show_required_option'    => 1,
 		'required'                => 0,
 
 		'default_form_value'      => '',
@@ -94,7 +96,7 @@ function wpmtst_get_default_fields() {
 			'map'                     => 'post_content',
 			'required'                => 1,
 			'show_default_options'    => 0,
-			'core'                    => 0,
+			'core'                    => 0,  // TODO Remove 'core' property.
 			'admin_table'             => 0,
 			'show_admin_table_option' => 0,
 			'name_mutable'            => 0,
@@ -161,6 +163,8 @@ function wpmtst_get_default_fields() {
 			'input_type'              => 'shortcode',
 			'option_label'            => __( 'shortcode', 'strong-testimonials' ),
 			'show_label'              => 0,
+			'required'                => 0,
+			'show_required_option'    => 0,
 			'show_default_options'    => 0,
 			'show_placeholder_option' => 0,
 			'show_admin_table_option' => 0,
@@ -436,9 +440,26 @@ function wpmtst_get_default_view_options() {
 	$default_view_options = array(
 
 		'mode' => array(
-			array( 'name' => 'display', 'label' => __( 'Display', 'strong-testimonials' ), 'description' => '' ),
-			array( 'name' => 'slideshow', 'label' => __( 'Slideshow', 'strong-testimonials' ), 'description' => '' ),
-			array( 'name' => 'form', 'label' => __( 'Form', 'strong-testimonials' ), 'description' => '' ),
+			'display'   => array(
+				'name'        => 'display',
+				'label'       => __( 'Display', 'strong-testimonials' ),
+				'description' => __( 'Display your testimonials in a list or a grid.', 'strong-testimonials' ),
+			),
+			'slideshow' => array(
+				'name'        => 'slideshow',
+				'label'       => __( 'Slideshow', 'strong-testimonials' ),
+				'description' => __( 'Create a slideshow of your testimonials.', 'strong-testimonials' ),
+			),
+			'form'      => array(
+				'name'        => 'form',
+				'label'       => __( 'Form', 'strong-testimonials' ),
+				'description' => __( 'Display a testimonial submission form.', 'strong-testimonials' ),
+			),
+			'single_template' => array(
+				'name'        => 'single_template',
+				'label'       => __( 'Single Template', 'strong-testimonials-lucid-theme' ),
+				'description' => __( 'When viewing the testimonial using a theme\'s single post template.', 'strong-testimonials' ),
+			),
 		),
 
 		'order' => array(
@@ -460,7 +481,9 @@ function wpmtst_get_default_view_options() {
 			'static'  => _x( 'Set height to match the tallest slide', 'slideshow option', 'strong-testimonials' ),
 		),
 
-		/* METHODS */
+		/*
+		 * METHODS
+		 */
 		'slideshow_nav_method' => array(
 			'controls' => array(
 				'none'   => array(
@@ -521,7 +544,9 @@ function wpmtst_get_default_view_options() {
 			)
 		),
 
-	    /* STYLES */
+	    /*
+	     * STYLES
+	     */
 		'slideshow_nav_style' => array(
 			'controls' => array(
 				'buttons'  => array(
@@ -585,7 +610,9 @@ function wpmtst_get_default_view_options() {
 			)
 		),
 
-		/* Position is shared by Controls and Pagination. */
+		/*
+		 * Position is shared by Controls and Pagination.
+		 */
 		'slideshow_nav_position' => array(
 			'inside'  => _x( 'inside', 'slideshow navigation option', 'strong-testimonials' ),
 			'outside' => _x( 'outside', 'slideshow navigation option', 'strong-testimonials' ),
@@ -629,11 +656,11 @@ function wpmtst_get_default_view() {
 			),
 		),
 		'column_count'       => 2,
-		'compat'             => 0,
 		'container_class'    => '',
 		'container_data'     => '',
 		'content'            => 'entire',
 		'count'              => 1,
+		'divi_builder'       => 0,
 		'excerpt_length'     => 55,
 		'form_ajax'          => 0,
 		'form_id'            => 1,

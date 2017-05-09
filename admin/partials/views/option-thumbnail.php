@@ -39,8 +39,8 @@
 		<div class="row">
 			<div class="row-inner">
 				<div class="inline">
-					<input type="checkbox" id="view-lightbox" class="if toggle checkbox" name="view[data][lightbox]"
-						   value="1" <?php checked( $view['lightbox'] ); ?>>
+					<input type="checkbox" id="view-lightbox" class="if toggle" name="view[data][lightbox]"
+						   value="1" <?php checked( $view['lightbox'] ); ?> class="checkbox">
 					<label for="view-lightbox">
 						<?php _e( 'Open full-size image in a lightbox', 'strong-testimonials' ); ?>
 					</label>

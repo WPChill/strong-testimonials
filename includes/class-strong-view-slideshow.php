@@ -38,6 +38,9 @@ class Strong_View_Slideshow extends Strong_View_Display {
 		$this->load_dependent_scripts();
 		$this->load_extra_stylesheets();
 
+		// If we can preprocess, we can add the inline style in the <head>.
+		add_action( 'wp_enqueue_scripts', array( $this, 'add_custom_style' ), 20 );
+
 		wp_reset_postdata();
 	}
 
@@ -45,12 +48,7 @@ class Strong_View_Slideshow extends Strong_View_Display {
 	 * Build the view.
 	 */
 	public function build() {
-		/**
-		 * Reset any hooks and filters that may have been set by other Views on the page.
-		 *
-		 * @since 2.11.4
-		 */
-		remove_action( 'wpmtst_after_testimonial', 'wpmtst_excerpt_more_full_post' );
+		// May need to remove any hooks or filters that were set by other Views on the page.
 
 		do_action( 'wpmtst_view_build_before', $this );
 
@@ -64,6 +62,13 @@ class Strong_View_Slideshow extends Strong_View_Display {
 		$this->load_dependent_scripts();
 		$this->load_extra_stylesheets();
 		$this->custom_background();
+
+		/*
+		 * If we cannot preprocess, add the inline style to the footer.
+		 * If we were able to preprocess, this will not duplicate the code
+		 * since `wpmtst-custom-style` was already enqueued (I think).
+		 */
+		add_action( 'wp_footer', array( $this, 'add_custom_style' ) );
 
 		/**
 		 * Add filters.
@@ -87,10 +92,10 @@ class Strong_View_Slideshow extends Strong_View_Display {
 		 * Allow add-ons to hijack the output generation.
 		 */
 		$query = $this->query;
+		$atts  = $this->atts;
 		if ( has_filter( 'wpmtst_render_view_template' ) ) {
 			$html = apply_filters( 'wpmtst_render_view_template', '', $this );
-		}
-		else {
+		} else {
 			ob_start();
 			/** @noinspection PhpIncludeInspection */
 			include( $this->template_file );
@@ -166,7 +171,7 @@ class Strong_View_Slideshow extends Strong_View_Display {
 		// For Post Types Order plugin
 		$args['ignore_custom_sort'] = true;
 
-		$query = new WP_Query( apply_filters( 'wpmtst_query_args', $args ) );
+		$query = new WP_Query( apply_filters( 'wpmtst_query_args', $args, $this->atts ) );
 
 		/**
 		 * Shuffle array in PHP instead of SQL.
@@ -298,10 +303,10 @@ class Strong_View_Slideshow extends Strong_View_Display {
 		/**
 		 * Filter classes.
 		 */
-		$this->atts['container_data']  = apply_filters( 'wpmtst_view_container_data', $container_data_list );
-		$this->atts['container_class'] = join( ' ', apply_filters( 'wpmtst_view_container_class', $container_class_list ) );
-		$this->atts['content_class']   = join( ' ', apply_filters( 'wpmtst_view_content_class', $content_class_list ) );
-		$this->atts['post_class']      = join( ' ', apply_filters( 'wpmtst_view_post_class', $post_class_list ) );
+		$this->atts['container_data']  = apply_filters( 'wpmtst_view_container_data', $container_data_list, $this->atts );
+		$this->atts['container_class'] = join( ' ', apply_filters( 'wpmtst_view_container_class', $container_class_list, $this->atts ) );
+		$this->atts['content_class']   = join( ' ', apply_filters( 'wpmtst_view_content_class', $content_class_list, $this->atts ) );
+		$this->atts['post_class']      = join( ' ', apply_filters( 'wpmtst_view_post_class', $post_class_list, $this->atts ) );
 
 		/**
 		 * Store updated atts.

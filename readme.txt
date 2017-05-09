@@ -1,9 +1,9 @@
 === Strong Testimonials ===
 Contributors: cdillon27
-Tags: testimonials, testimonial widget, random testimonial, testimonial shortcode, testimonial slider, testimonial form
+Tags: testimonials, widget, shortcode, random testimonial, testimonial slider, testimonial form, reviews, star ratings, review markup
 Requires at least: 3.6
-Tested up to: 4.7.3
-Stable tag: 2.21.2
+Tested up to: 4.7.4
+Stable tag: 2.22
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -11,66 +11,79 @@ A full-featured testimonials plugin that works right out of the box for beginner
 
 == Description ==
 
-All the features you need to handle testimonials.
+Everything you need to receive and display testimonials.
 
-= Is this the right plugin for you? =
+### Is this the right plugin for you?
 
-**[GO DEMO](http://demos.wpmission.com/strong-testimonials/)**
+**[GO DEMO](http://demos.wpmission.com/strong-testimonials/)** | **[SUPPORT ARTICLES](https://support.strongplugins.com/article-category/strong-testimonials/)** | **[ADD-ONS](https://strongplugins.com/plugins/category/strong-testimonials/)**
 
-It's important to understand this plugin's intended use case: A small business with up to a few hundred testimonials, maybe organized into multiple categories, and displaying them a few different ways like a full page of testimonials and a slideshow widget, plus a form for accepting new testimonials.
+It's important to understand this plugin's intended use case: A small business with up to a few hundred testimonials or reviews, maybe organized into multiple categories, and displaying them different ways like a full page of testimonials and a slideshow widget, plus a form for accepting new testimonials.
 
 If that describes your situation, this plugin will work for you right out of the box with just a few steps.
 
-= Primary Features =
+### Primary Features
 
 * No complicated shortcode "language"
-* A front-end form with an easy-to-use editor
+* A front-end form with custom fields
 * Star ratings
-* Categories
-* Excerpts, both manual and automatic
-* Featured Images (thumbnails)
-* Pagination
 * Slideshows with several navigation options
-* Sort by oldest, newest, random, or menu order (drag-and-drop)
-* Templates with several layout options including grids and Masonry
-* Hooks, filters, and functions for deep customization
-* Gravatar support
-* Compatible with [WPML](https://wpml.org/), [Polylang](https://wordpress.org/plugins/polylang/) and [WPGlobus](https://wordpress.org/plugins/wpglobus/)
+* Grid, columns, and Masonry
+* Ready for translation with [WPML](https://wpml.org/), [Polylang](https://wordpress.org/plugins/polylang/), and [WPGlobus](https://wordpress.org/plugins/wpglobus/)
 * A developer who's on your side :)
 
-= The Form =
+### More Features
 
-You can customize the form to your needs by adding or removing fields, or changing properties like the order, the text before or after, and the placeholder text.
+* Sort by oldest, newest, random, or menu order (drag-and-drop)
+* Categories
+* Excerpts, both manual and automatic, and customizable "Read more" links
+* Featured Images (thumbnails) and Gravatars
+* Pagination
+* Comments (using your theme's single post template)
+* Hooks, filters, and functions for deep customization
 
-The form also offers **anti-spam** options like honeypots and Captcha via these plugins: [Captcha](http://wordpress.org/plugins/captcha/), [Really Simple Captcha](http://wordpress.org/plugins/really-simple-captcha/), and [Advanced noCaptcha reCaptcha](https://wordpress.org/plugins/advanced-nocaptcha-recaptcha/).
+### Testimonial Submission Form
 
-**Notification emails** can be sent to multiple admins when testimonials are submitted. New testimonials can also be assigned to a specific category.
+You can customize the form by adding or removing fields, or changing properties like the order, the text before or after, and the placeholder text.
+
+**Anti-spam** measures include honeypots and Captcha via these plugins: [Captcha](http://wordpress.org/plugins/captcha/), [Really Simple Captcha](http://wordpress.org/plugins/really-simple-captcha/), and [Advanced noCaptcha reCaptcha](https://wordpress.org/plugins/advanced-nocaptcha-recaptcha/).
+
+New testimonial **notification emails** can be sent to multiple admins. New testimonials can also be assigned to a specific category.
 
 The form can be submitted via Ajax so it's compatible with popular plugins like [Popup Maker](https://wordpress.org/plugins/popup-maker/).
 
-= Display =
+### Displaying Testimonials
 
 Everything happens in a **view**. Instead of learning multiple shortcodes with dozens of options, a view contains all the options in a simple, intuitive editor that no other testimonial plugin has. Display the view using a single shortcode or the widget.
 
-You can create unlimited views. For example, one view for the form, another view for a list, another for a slideshow, and so on.
+You can create unlimited views. For example, one view for a form, another view for a list, another for a slideshow, and so on.
 
-Some of the options for displaying testimonials in a **list** or **slideshow**:
-
-* which ones to show
-* in what order
-* which fields to include
-* extras like pagination
-* layout and style options
-
-= Style =
+### Style
 
 Strong Testimonials offers a handful of templates to try in your theme. The default template is just generic enough to look good in most cases with maybe a few tweaks.
 
 Need help matching your theme? Got some weird spacing or floating? I'm here to help.
 
-For ultimate control and seamless integration, any template can be copied to your theme and customized (a tutorial and more templates coming soon). There is also a template function that can display any view.
+For ultimate control and seamless integration, any template can be copied to your theme and customized. There is also a template function `<?php strong_testimonials_view( $id ); ?>`.
 
-= Try these plugins too =
+### Pro Add-ons
+
+#### Review Markup
+
+Testimonials are essentially five-star reviews. By adding review markup to your testimonials, you will be encouraging search engines to display rich snippets and star ratings in search results. [Learn more](https://strongplugins.com/plugins/strong-testimonials-review-markup/)
+
+#### Multiple Forms
+
+Are your testimonials not "one size fits all"? Need more forms for different products or services? No problem. Create unlimited forms. [Learn more](https://strongplugins.com/plugins/strong-testimonials-multiple-forms/)
+
+#### Properties
+
+Want to rename 'testimonials' to 'reviews'? Want to change which features are available in the post editor? Gain maximum control. [Learn more](https://strongplugins.com/plugins/strong-testimonials-properties/)
+
+### Support
+
+Given the chance, I will [move mountains](https://strongplugins.com/testimonials/) to help you get the most out of this plugin.
+
+### Try these plugins too
 
 * [tinyWYM Editor](https://wordpress.org/plugins/tinywym-editor/) to improve the WordPress Visual editor.
 * [Simple Colorbox](https://wordpress.org/plugins/simple-colorbox/) to open thumbnails into full-size images. Nice!
@@ -78,7 +91,7 @@ For ultimate control and seamless integration, any template can be copied to you
 * [Post State Tags](https://wordpress.org/plugins/post-state-tags/) helps quickly differentiate Published / Pending / Draft and more.
 * [Wider Admin Menu](http://wordpress.org/plugins/wider-admin-menu/) lets your admin menu b r e a t h e.
 
-= Translations =
+### Translations
 
 * Arabic (ar_AR) - Ahmad Yousef
 * French (fr_FR) - Jean-Paul Radet
@@ -109,15 +122,19 @@ Activate the plugin. Look for "Testimonials" in the admin menu.
 
 = What are the shortcodes? =
 
-[testimonial_view] - To display your testimonials as a list or a slideshow, or to display the form. There is no complicated shortcode "language" to learn. Instead, a **view** manages all the options with an easy-to-use (some call it fun!) editor for creating and configuring multiple views.
+[testimonial_view] - To display your testimonials as a list or a slideshow, or to display the form. There is no complicated shortcode "language" to learn. Instead, a **view** manages all the options with an easy-to-use (some call it fun!) editor for creating and configuring unlimited views.
 
-For example, after saving your first view (which, again, could be a list, a grid, a slideshow, or a form):
+For example, after saving your first view (which could be a list, a grid, a slideshow, or a form):
 
 `[testimonial_view id=1]`
 
 [testimonial_count] - To display the number of testimonials you have. For example:
 
 `Read some of our [testimonial_count] testimonials!`
+
+= Can I add testimonials from YouTube, Twitter, and Instagram? =
+
+Yes. The plugin supports the [WordPress embed](https://codex.wordpress.org/Embeds) feature so you can add testimonials from [these sources](https://codex.wordpress.org/Embeds#Does_This_Work_With_Any_URL.3F).
 
 = Is it WPML compatible? =
 
@@ -130,6 +147,10 @@ Yes. There is a custom fields editor where you can add or remove fields, change 
 = Can I customize the form error message and the "Submit" button? =
 
 Yes.
+
+= After the form has been submitted, can I redirect them to another page or display a custom message? =
+
+Yes and yes.
 
 = Can I add Captcha to the form? =
 
@@ -146,10 +167,6 @@ Yes, and you can send it multiple recipients.
 = Can I edit the notification email? =
 
 Yes. You can completely customize the email content and include any submitted information.
-
-= After the form has been submitted, can I redirect them to another page or display a custom message? =
-
-Yes and yes.
 
 = Can I set the status of the newly submitted testimonial? =
 
@@ -185,13 +202,13 @@ Yes. This requires a lightbox so if your theme does not include one, you will ne
 
 = Can I accept comments on my testimonials just like my blog posts? =
 
-Yes.
+Yes, using your theme's single post template.
 
 = Can I embed testimonials from YouTube, Twitter, or Instagram? =
 
 Yes.
 
-= Can I request a new feature, template function, action hook, or filter? =
+= Can I request a new feature, action hook, or filter? =
 
 I'm all ears!
 
@@ -199,7 +216,7 @@ I'm all ears!
 
 Undeniably, yes.
 
-This [screenshot](http://www.screencast.com/t/TPMRWM0yug) shows where I immediately start looking for clues instead of asking you for more information and potentially waiting hours or days for a response (it happens).
+This [screenshot](http://www.screencast.com/t/TPMRWM0yug) shows where I immediately start looking for clues before asking for more information and potentially waiting hours or days for a response (it happens).
 
 I can determine what theme you're using, what plugins are active, whether you're using any caching/minification/optimization (do you need to clear your cache?), if there are any JavaScript errors in your theme or another plugin (more common than you may think), and somewhat how the testimonial view is configured.
 
@@ -219,6 +236,17 @@ If you prefer not to post your URL publicly, start a private support ticket at [
 8. View editor
 
 == Changelog ==
+
+= 2.22 - May 9, 2017 =
+* Add option for sticky views.
+* Add view mode for single post template.
+* Add view mode description.
+* Move custom style to `<head>` to avoid FUOC.
+* Use built-in `imagesLoaded` script instead.
+* Move manual excerpt read-more to appear after testimonial content.
+* Fix bug that caused some double read-more's.
+* Improve compatibility with Divi Builder 2.
+* Remove general compatibility mode; no longer needed.
 
 = 2.21.2 - Apr 21, 2017 =
 * Fix bug in add-on license activation process.
@@ -269,55 +297,6 @@ If you prefer not to post your URL publicly, start a private support ticket at [
 * Improve Modern template responsive style.
 * Minor refactoring.
 
-= 2.17.5 - Jan 18, 2017 =
-* Fix bug when page has multiple slideshows.
-
-= 2.17.4 - Jan 17, 2017 =
-* Fix bug in form Ajax.
-
-= 2.17.3 - Dec 28, 2016 =
-* Fix bug that allowed unsanitized custom field names.
-* Improve admin UI.
-* Update Spanish translation.
-
-= 2.17.2 - Dec 14, 2016 =
-* Fix incomplete loading of FontAwesome for slideshows.
-
-= 2.17.1 - Dec 14, 2016 =
-* Fix bug in plugin activation process.
-* Improve category checklist style in default form template.
-
-= 2.17 - Dec 13, 2016 =
-* Add category checklist option to form fields.
-* Fix bug that allowed double underscores in custom field name.
-* Fix date column formatting in testimonials admin list.
-* Improve admin UI in fields and view editors.
-* Improve slideshow controls style.
-
-= 2.16.5 - Dec 8, 2015 =
-* Fix bug when [Max Mega Menu](https://wordpress.org/plugins/megamenu/) plugin installed.
-
-= 2.16.4 - Dec 7, 2016 =
-* Fix conflict with [Huge IT Slider](https://wordpress.org/plugins/slider-image/) plugin.
-* Remove some unnecessary edge case functions.
-
-= 2.16.3 - Dec 5, 2016 =
-* Fix bug when loading form validation translation files.
-* Fix bug that initialized slideshows before images are loaded.
-* Improve admin UI.
-
-= 2.16.2 - Dec 4, 2016 =
-* Strip slashes from custom fields and submitted form values.
-
-= 2.16.1 - Dec 2, 2016 =
-* Fix bug in slideshow query.
-* Fix conflict with Dream Theme themes.
-
-= 2.16 - Dec 1, 2016 =
-* Fix missing icons (start, quotes, pager buttons).
-* Fix incorrect WPML string registration (read-more texts).
-* Improve compatibility.
-
 == Upgrade Notice ==
 
-Some new features. Clear your caches!
+Clear your caches! Add custom fields to single post template, new view admin features, improved performance and compatibility.

@@ -34,7 +34,7 @@
 			</label>
 		</div>
 		<div class="inline inline-middle">
-			<p class="description"><?php _e( 'Recommended if using navigation', 'strong-testimonials' ); ?></p>
+			<p class="description"><?php _e( 'Recommended if using navigation.', 'strong-testimonials' ); ?></p>
 		</div>
 	</div>
 

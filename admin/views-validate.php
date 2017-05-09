@@ -44,9 +44,6 @@ function wpmtst_sanitize_view( $input ) {
 	$data         = array();
 	$data['mode'] = sanitize_text_field( $input['mode'] );
 
-	// Compatibility
-	$data['compat'] = ( 'compat_on' == $input['compat'] ? 1 : 0 );
-
 	/*
 	 * Single testimonial
 	 */
@@ -174,7 +171,11 @@ function wpmtst_sanitize_view( $input ) {
 		} else {
 
 			if ( $input['more_page_id'] ) {
-				$data['more_page_id'] = (int) sanitize_text_field( $input['more_page_id'] );
+				if ( is_numeric( $input['more_page_id'] ) ) {
+					$data['more_page_id'] = (int) sanitize_text_field( $input['more_page_id'] );
+				} else {
+					$data['more_page_id'] = sanitize_text_field( $input['more_page_id'] );
+				}
 			}
 
 		}
@@ -199,7 +200,7 @@ function wpmtst_sanitize_view( $input ) {
 	$data['lightbox']         = isset( $input['lightbox'] ) ? 1 : 0;
 	$data['gravatar']         = sanitize_text_field( $input['gravatar'] );
 
-	/*
+	/**
 	 * CSS Class Names
 	 * This field is being confused with custom CSS rules like `.testimonial { border: none; }`
 	 * so strip periods and anything between and including curly braces.
@@ -249,6 +250,9 @@ function wpmtst_sanitize_view( $input ) {
 	else {
 		$data['form_id'] = $input['_form_id'];
 	}
+
+	// Divi Builder
+	$data['divi_builder'] = isset( $input['divi_builder'] ) ? 1 : 0;
 
 	$data = apply_filters( 'wpmtst_sanitized_view', $data, $input );
 	ksort( $data );

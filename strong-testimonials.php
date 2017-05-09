@@ -4,7 +4,7 @@
  * Plugin URI: https://strongplugins.com/plugins/strong-testimonials/
  * Description: A full-featured plugin that works right out of the box for beginners and offers advanced features for pros.
  * Author: Chris Dillon
- * Version: 2.21.2
+ * Version: 2.22
  * Author URI: https://strongplugins.com/
  * Text Domain: strong-testimonials
  * Domain Path: /languages
@@ -541,11 +541,11 @@ final class Strong_Testimonials {
 			'class'              => '',
 			'client_section'     => null,
 			'column_count'       => 2,
-			'compat'             => 0,
 			'container_class'    => '',
 			'container_data'     => '',
 			'count'              => 1,
 			'display'            => '',
+			'divi_builder'       => 0,
 			'excerpt'            => '',
 			'excerpt_length'     => 55,
 			'form'               => '',
@@ -599,7 +599,7 @@ final class Strong_Testimonials {
 			'use_default_more'   => 0,
 			'view'               => '',
 		);
-		$this->view_defaults = apply_filters( 'wpmtst_view_defaults', $defaults );
+		$this->view_defaults = apply_filters( 'wpmtst_view_default', $defaults );
 	}
 
 	/**
@@ -781,12 +781,12 @@ final class Strong_Testimonials {
 
 		global $post;
 		if ( empty( $post ) )
-			return false;
+			return;
 
 		$meta_content            = get_post_meta( $post->ID );
 		$meta_content_serialized = maybe_serialize( $meta_content );
 		if ( ! $this->check_content( $meta_content_serialized ) )
-			return false;
+			return;
 
 		$this->process_content( $meta_content_serialized );
 
@@ -804,10 +804,10 @@ final class Strong_Testimonials {
 
 		global $post;
 		if ( empty( $post ) )
-			return false;
+			return;
 
 		if ( ! $this->check_content( $post->post_excerpt ) )
-			return false;
+			return;
 
 		$this->process_content( $post->post_excerpt );
 
@@ -1168,6 +1168,13 @@ final class Strong_Testimonials {
 		 * in <head> to avoid FOUC.
 		 */
 		add_action( 'wp_enqueue_scripts', 'wpmtst_view_scripts' );
+
+		/**
+		 * Allow themes and plugins to do stuff like add extra stylesheets.
+		 *
+		 * @since 2.22.0
+		 */
+		do_action( 'wpmtst_view_found', $atts );
 	}
 
 	/**

@@ -68,11 +68,11 @@
 
 		<h2><?php _e( 'Recently added features' ); ?></h2>
 
+        <p><span class="dashicons dashicons-format-quote"></span><?php _e( 'Add your custom fields to the theme single post template.', 'strong-testimonials' ); ?></p>
+
         <p><span class="dashicons dashicons-external"></span><?php _e( 'Form success redirect options.', 'strong-testimonials' ); ?></p>
 
         <p><span class="dashicons dashicons-editor-kitchensink"></span><?php _e( 'Form success message editor.', 'strong-testimonials' ); ?></p>
-
-		<p><span class="dashicons dashicons-controls-play"></span><?php _e( 'More slideshow options.', 'strong-testimonials' ); ?></p>
 
 		<p><span class="dashicons dashicons-star-filled"></span><?php _e( 'Star ratings.', 'strong-testimonials' ); ?></p>
 

@@ -59,8 +59,12 @@ function wpmtst_the_content() {
 		$content = $GLOBALS['wp_embed']->autoembed( $content );
 		$content = wptexturize( $content );
 
-		$excerpt_more   = apply_filters( 'excerpt_more', ' ' . '[&hellip;]' );
+		add_filter( 'excerpt_more', 'wpmtst_excerpt_more', 20 );
+		$excerpt_more = apply_filters( 'excerpt_more', ' ' . '[&hellip;]' );
+		remove_filter( 'excerpt_more', 'wpmtst_excerpt_more', 20 );
+
 		$excerpt_length = WPMST()->atts( 'use_default_length' ) ? 55 : WPMST()->atts( 'excerpt_length' );
+
 		// wp_trim_words will remove line breaks. So no paragraphs.
 		$content        = wp_trim_words( $content, $excerpt_length, $excerpt_more );
 
@@ -81,7 +85,9 @@ function wpmtst_the_content() {
 			add_filter( 'excerpt_length', 'wpmtst_excerpt_length', 20 );
 		}
 
+		add_filter( 'excerpt_more', 'wpmtst_excerpt_more', 20 );
 		$content = get_the_excerpt();
+		remove_filter( 'excerpt_more', 'wpmtst_excerpt_more', 20 );
 
 		if ( ! $use_default_length ) {
 			remove_filter( 'excerpt_length', 'wpmtst_excerpt_length', 20 );
@@ -89,7 +95,13 @@ function wpmtst_the_content() {
 
 		$content = wptexturize( $content );
 
+        if ( WPMST()->atts( 'more_full_post' ) ) {
+			$excerpt_more = wpmtst_excerpt_more_full_post();
+			$content      .= $excerpt_more;
+		}
+
 		$content = wpautop( $content );
+
 		$content = shortcode_unautop( $content );
 		$content = do_shortcode( $content );
 
@@ -124,27 +136,6 @@ function wpmtst_the_content() {
 function wpmtst_read_more() {}
 
 /**
- * Add "Read more" to *manual* excerpts after content and custom fields.
- *
- * Using the wp_trim_excerpt filter as a trigger instead of checking content/excerpt fields manually.
- *
- * @since 2.11.4
- *
- * @param $text
- * @param $raw_excerpt
- *
- * @return mixed
- */
-function wpmtst_trim_excerpt( $text, $raw_excerpt ) {
-	if ( 'wpm-testimonial' == get_post_type() && WPMST()->atts( 'excerpt' ) && WPMST()->atts( 'more_full_post' ) ) {
-		add_action( 'wpmtst_after_testimonial', 'wpmtst_excerpt_more_full_post' );
-	}
-
-	return $text;
-}
-add_filter( 'wp_trim_excerpt', 'wpmtst_trim_excerpt', 10, 2 );
-
-/**
  * Modify the excerpt length.
  *
  * @since 2.10.0
@@ -154,7 +145,8 @@ add_filter( 'wp_trim_excerpt', 'wpmtst_trim_excerpt', 10, 2 );
  */
 function wpmtst_excerpt_length( $words ) {
 	if ( 'wpm-testimonial' == get_post_type() ) {
-		if ( $excerpt_length = WPMST()->atts( 'excerpt_length' ) ) {
+		$excerpt_length = WPMST()->atts( 'excerpt_length' );
+		if ( $excerpt_length ) {
 			$words = $excerpt_length;
 		}
 	}
@@ -163,7 +155,7 @@ function wpmtst_excerpt_length( $words ) {
 }
 
 /**
- * Modify the excerpt "Read more" link.
+ * Modify the automatic excerpt "Read more" link (via WP filter).
  *
  * @since 2.10.0
  * @param $more
@@ -179,26 +171,40 @@ function wpmtst_excerpt_more( $more ) {
 
 	return $more;
 }
-add_filter( 'excerpt_more', 'wpmtst_excerpt_more', 20 );
 
 
-function wpmtst_excerpt_more_full_post() {
-    echo '<div class="testimonial-readmore">';
-	echo apply_filters( 'wpmtst_manual_excerpt_read_more', wpmtst_get_excerpt_more_link() );
-	echo '</div>';
-}
-
-
+/**
+ * Return "Read more" for automatic excerpts.
+ *
+ * @return string
+ */
 function wpmtst_get_excerpt_more_post() {
+    $dots = WPMST()->atts( 'more_post_ellipsis' ) ? ' &hellip;' : '';
+    // This is where the "for both automatic and manual excerpts" happens
 	if ( WPMST()->atts( 'excerpt' ) && WPMST()->atts( 'more_full_post' ) ) {
-		return ( WPMST()->atts( 'more_post_ellipsis' ) ? ' &hellip;' : '' );
-	}
-	else {
-		return ( WPMST()->atts( 'more_post_ellipsis' ) ? ' &hellip; ' : ' ' ) . wpmtst_get_excerpt_more_link();
+		return $dots;
+	} else {
+		return $dots . ' ' . wpmtst_get_excerpt_more_link();
 	}
 }
 
 
+/**
+ * Return "Read more" for manual excerpts.
+ *
+ * @return string
+ */
+function wpmtst_excerpt_more_full_post() {
+    $link = apply_filters( 'wpmtst_manual_excerpt_read_more', wpmtst_get_excerpt_more_link() );
+	return '<div class="testimonial-readmore">' . $link . '</div>';
+}
+
+
+/**
+ * Construct the "Read more" link (both automatic and manual).
+ *
+ * @return string
+ */
 function wpmtst_get_excerpt_more_link() {
 	$link = sprintf( '<a href="%1$s" class="readmore">%2$s</a>',
 		esc_url( get_permalink() ),
@@ -215,18 +221,22 @@ function wpmtst_get_excerpt_more_link() {
 }
 
 /**
- * Assemble link to designated "Read more" page.
+ * Assemble link to secondary "Read more" page.
 
  * @since 2.10.0
- *
- * @return string
  */
 function wpmtst_read_more_page() {
 	$atts = WPMST()->atts( array( 'view', 'more_page', 'more_page_id', 'more_page_text', 'more_page_hook' ) );
 
 	if ( $atts['more_page'] && $atts['more_page_id'] ) {
-		if ( $permalink = wpmtst_get_permalink( $atts['more_page_id'] ) ) {
 
+		$permalink = '';
+		if ( is_numeric( $atts['more_page_id'] ) ) {
+			$permalink = wpmtst_get_permalink( $atts['more_page_id'] );
+		}
+		$permalink = apply_filters( 'wpmtst_readmore_page_link', $permalink, $atts );
+
+		if ( $permalink ) {
 			$default_view = apply_filters( 'wpmtst_view_default', get_option( 'wpmtst_view_default' ) );
 
 			if ( isset( $atts['more_page_text'] ) && $atts['more_page_text'] ) {
@@ -241,6 +251,7 @@ function wpmtst_read_more_page() {
 			$classname = apply_filters( 'wpmtst_read_more_page_class', $classname );
 			echo sprintf( '<div class="%s"><a href="%s">%s</a></div>', $classname, esc_url( $permalink ), $link_text );
 		}
+
 	}
 }
 
@@ -283,10 +294,27 @@ add_filter( 'the_content_more_link', 'wpmtst_remove_more_link_scroll' );
  * TODO WP 4.2+ has better filters.
  *
  * @param null $size
+ * @param string $before
+ * @param string $after
  */
-function wpmtst_the_thumbnail( $size = null ) {
+function wpmtst_the_thumbnail( $size = null, $before = '<div class="testimonial-image">', $after = '</div>' ) {
 	if ( ! WPMST()->atts( 'thumbnail' ) )
 		return;
+
+	$img = wpmtst_get_thumbnail( $size );
+	if ( $img ) {
+		echo $before . $img . $after;
+	}
+}
+
+/**
+ * @param null $size
+ *
+ * @return mixed|string
+ */
+function wpmtst_get_thumbnail( $size = null ) {
+	if ( ! WPMST()->atts( 'thumbnail' ) )
+		return '';
 
 	// let arg override view setting
 	$size = ( null === $size ) ? WPMST()->atts( 'thumbnail_size' ) : $size ;
@@ -295,7 +323,7 @@ function wpmtst_the_thumbnail( $size = null ) {
 	}
 
 	$id   = get_the_ID();
-	$img  = false;
+	$img  = '';
 
 	// check for a featured image
 	if ( has_post_thumbnail( $id ) ) {
@@ -307,10 +335,13 @@ function wpmtst_the_thumbnail( $size = null ) {
 
 		// no featured image, now what?
 
+        $dimensions = apply_filters( 'wpmtst_gravatar_size', $size );
+
 		if ( 'yes' == WPMST()->atts( 'gravatar' ) ) {
 			// view > gravatar > show gravatar (use default, if not found)
 
 			$img = get_avatar( wpmtst_get_field( 'email' ), apply_filters( 'wpmtst_gravatar_size', $size ) );
+            //$img = get_avatar( wpmtst_get_field( 'email' ), $dimensions['width'], '', '', $dimensions );
 
 		} elseif ( 'if' == WPMST()->atts( 'gravatar' ) ) {
 			// view > gravatar > show gravatar only if found (and has email)
@@ -318,15 +349,13 @@ function wpmtst_the_thumbnail( $size = null ) {
 			if ( wpmtst_get_field( 'email' ) ) {
 				// get_avatar will return false if not found (via filter)
 				$img = get_avatar( wpmtst_get_field( 'email' ), apply_filters( 'wpmtst_gravatar_size', $size ) );
+				//$img = get_avatar( wpmtst_get_field( 'email' ), $dimensions['width'], '', '', $dimensions );
 			}
 		}
 
 	}
 
-	if ( $img ) {
-		// TODO Move class to arg and filter.
-		echo '<div class="testimonial-image">' . apply_filters( 'wpmtst_thumbnail_img', $img, $id ) . '</div>';
-	}
+	return apply_filters( 'wpmtst_thumbnail_img', $img, $id );
 }
 
 /**
@@ -395,6 +424,7 @@ function wpmtst_gravatar_size_filter( $size = array( 150, 150 ) ) {
 		// if named size
 		$image_sizes   = wpmtst_get_image_sizes();
 		$gravatar_size = $image_sizes[$size]['width'];
+		//$gravatar_size = array( 'width' => $image_sizes[$size]['width'], 'height' => $image_sizes[$size]['height'] );
 	}
 	return $gravatar_size;
 }
@@ -450,15 +480,15 @@ function wpmtst_colorbox_manual_settings() {
 }
 
 /**
+ * Print the date.
+ *
  * @param string $format
  * @param string $class
- *
- * @return bool
  */
 function wpmtst_the_date( $format = '', $class = '' ) {
 	global $post;
 	if ( ! $post )
-		return false;
+		return;
 
 	if ( ! $format )
 		$format = get_option( 'date_format' );
@@ -603,6 +633,8 @@ function wpmtst_client_section( $client_section ) {
 						$list[] = $cat->name;
 					}
 					$output = join( ", ", $list );
+				} else {
+				    $output = '';
 				}
 				break;
 
@@ -789,3 +821,27 @@ function wpmtst_new_pagination_2() {
 	<?php }
 }
 */
+
+/**
+ * Single testimonial custom fields. Pluggable.
+ *
+ * @since 2.22.0
+ */
+if ( ! function_exists( 'wpmtst_single_template_client' ) ) :
+
+function wpmtst_single_template_client() {
+
+    $client_section = '';
+
+    $view = wpmtst_find_single_template_view();
+    if ( $view && isset( $view['client_section'] ) ) {
+        $client_section = $view['client_section'];
+    }
+
+    if ( $client_section ) {
+        echo wpmtst_client_section( $client_section );
+    }
+
+}
+
+endif;

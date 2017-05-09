@@ -506,11 +506,7 @@ function wpmtst_unserialize_views( $views ) {
 function wpmtst_get_view( $id ) {
 	global $wpdb;
 	$table_name = $wpdb->prefix . 'strong_views';
-
-	if ( is_numeric( $id ) )
-		$row = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM $table_name WHERE id = %d", $id ), ARRAY_A );
-	else
-		$row = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM $table_name WHERE name = %s", $id ), ARRAY_A );
+	$row = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM $table_name WHERE id = %d", (int) $id ), ARRAY_A );
 
 	return $row;
 }
@@ -743,31 +739,6 @@ add_action( 'post_submitbox_misc_actions', 'wpmtst_post_submitbox_misc_actions' 
 
 
 /**
- * Frequent plugin checks.
- *
- * @param $name
- *
- * @return bool
- */
-function wpmtst_is_plugin_active( $name = '' ) {
-	if ( !$name ) {
-		return false;
-	}
-
-	$plugins = array(
-		'wpml'     => 'sitepress-multilingual-cms/sitepress.php',
-		'polylang' => 'polylang/polylang.php'
-	);
-
-	if ( !isset( $plugins[ $name ] ) ) {
-		return false;
-	}
-
-	return is_plugin_active( $plugins[ $name ] );
-}
-
-
-/**
  * @return mixed
  */
 function wpmtst_get_background_defaults() {
@@ -839,7 +810,7 @@ function wpmtst_get_background_presets( $preset = null ) {
  *
  * @since 2.18.0
  *
- * @return mixed|void
+ * @return mixed
  */
 function wpmtst_get_success_message() {
 	$message = wpautop( do_shortcode( wpmtst_get_form_message( 'submission-success' ) ) );
@@ -866,4 +837,112 @@ function wpmtst_callback_exists( $callback ) {
 	}
 
 	return $exists;
+}
+
+
+/**
+ * Check for Divi Builder plugin.
+ *
+ * Its plugin version constant is inaccurate so get the version from the file header.
+ *
+ * @since 2.22.0
+ *
+ * @return bool
+ */
+function wpmtst_divi_builder_active() {
+	$active = false;
+	if ( wpmtst_is_plugin_active( 'divi-builder/divi-builder.php' ) ) {
+		$plugin = get_file_data( WP_PLUGIN_DIR . '/divi-builder/divi-builder.php', array( 'version' => 'Version' ) );
+		if ( isset( $plugin['version'] ) && version_compare( $plugin['version'], '2' ) > 0 ) {
+			$active = true;
+		}
+	}
+
+	return $active;
+}
+
+
+/**
+ * Append custom fields to testimonial content in theme's single post template.
+ *
+ * @param $content
+ * @since 2.22.0
+ *
+ * @return string
+ */
+function wpmtst_single_template_add_content( $content ) {
+	if ( is_singular( 'wpm-testimonial' ) ) {
+		ob_start();
+		?>
+		<div class="testimonial-client normal">
+			<?php wpmtst_single_template_client(); ?>
+		</div>
+		<?php
+		$html = ob_get_contents();
+		ob_end_clean();
+		$content .= $html;
+	}
+
+	return $content;
+}
+add_filter( 'the_content', 'wpmtst_single_template_add_content' );
+
+
+/**
+ * Find the view for the single template.
+ *
+ * @return bool|array
+ */
+function wpmtst_find_single_template_view() {
+	$views = wpmtst_get_views();
+	/*
+	 * [id] => 1
+     * [name] => TEST
+     * [value] => {serialized_array}
+	 */
+
+	foreach ( $views as $view ) {
+		$view_data = maybe_unserialize( $view['value'] );
+		if ( isset( $view_data['mode'] ) && 'single_template' == $view_data['mode'] ) {
+			return $view_data;
+		}
+	}
+
+	return false;
+}
+
+
+/**
+ * Frequent plugin checks.
+ *
+ * A combination of an array of frequent plugin names, and core's is_plugin_active functions
+ * which are not available in front-end without loading plugin.php which is uncecessary.
+ *
+ * @param $plugin
+ *
+ * @return bool
+ */
+function wpmtst_is_plugin_active( $plugin = '' ) {
+	if ( ! $plugin )
+		return false;
+
+	$plugins = array(
+		'wpml'     => 'sitepress-multilingual-cms/sitepress.php',
+		'polylang' => 'polylang/polylang.php'
+	);
+	if ( isset( $plugins[ $plugin ] ) ) {
+		$plugin = $plugins[ $plugin ];
+	}
+
+	if ( in_array( $plugin, (array) get_option( 'active_plugins', array() ) ) )
+	    return true;
+
+	if ( ! is_multisite() )
+		return false;
+
+	$plugins = get_site_option( 'active_sitewide_plugins');
+	if ( isset( $plugins[ $plugin ] ) )
+		return true;
+
+	return false;
 }

@@ -2,6 +2,168 @@
  * Strong Testimonials View editor
  */
 /* TODO Consolidate with admin.css */
+/*-----------------------------------------------
+ The view info section at the top
+-----------------------------------------------*/
+.view-info {
+  width: 100%;
+  font-size: 20px;
+  margin-top: 1em;
+}
+.view-info .table-cell {
+  padding-bottom: 15px;
+}
+.view-info .table-cell:first-child {
+  padding-top: 9px;
+  min-width: 130px;
+}
+.view-info .table-row:last-child .table-cell {
+  padding-bottom: 0;
+}
+.view-info label {
+  vertical-align: top;
+  margin: 0;
+  display: block;
+}
+.view-info input {
+  font-size: 20px;
+}
+.view-info input.view-name {
+  width: 100%;
+  margin: 0;
+  padding: 4px 8px;
+}
+
+/*-----------------------------------------------
+ Shortcode read-only input
+-----------------------------------------------*/
+#view-shortcode {
+  direction: ltr;
+  font-family: Consolas, Monaco, monospace;
+  unicode-bidi: embed;
+  display: inline-block;
+  font-size: 18px;
+  padding: 0 8px;
+  line-height: 35px;
+  width: 300px;
+  color: #777;
+  background: #FFF;
+}
+
+.form-view-shortcode .unsaved {
+  color: #888;
+  font-style: italic;
+  line-height: 37px;
+}
+
+/*-----------------------------------------------
+ Copy shortcode button
+-----------------------------------------------*/
+#copy-shortcode {
+  display: inline-block;
+  margin: 5px 1em 0;
+  line-height: 26px;
+}
+
+#copy-message {
+  opacity: 0;
+  font-size: 14px;
+  line-height: 22px;
+  height: 24px;
+  padding: 0 6px;
+  display: inline-block;
+  background: #00A4F3;
+  color: #FFF;
+  border-radius: 3px;
+  box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.4);
+  position: relative;
+  top: -2px;
+}
+
+#copy-message.copied {
+  opacity: 0;
+  will-change: opacity;
+  animation: showcopied 2s ease;
+}
+
+@keyframes showcopied {
+  0% {
+    opacity: 0;
+  }
+  70% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+/*-----------------------------------------------
+ Mode selector
+-----------------------------------------------*/
+#view-mode {
+  margin-top: 1em;
+}
+#view-mode label {
+  display: inline-block;
+  margin: 0 5px 0 0;
+  padding: 0.5em 18px 0.5em 12px;
+  border: 2px solid #ccc;
+  border-radius: 20px;
+  color: #888;
+  position: relative;
+  background: #fff;
+}
+#view-mode label.checked {
+  position: relative;
+  background: #00A4F3;
+  color: #FFF;
+  border-color: transparent;
+  transition: all 0.1s ease;
+}
+#view-mode label:hover {
+  background: #FFF;
+  color: #444;
+  border-color: #00A4F3;
+}
+#view-mode input[type="radio"] {
+  margin-right: 7px;
+}
+
+.mode-list {
+  display: inline-block;
+}
+
+.mode-line {
+  display: none;
+  position: absolute;
+  border-left: 2px solid #00A4F3;
+  height: 18px;
+  top: 100%;
+  left: calc( 50% - 1px );
+  z-index: -1;
+}
+label.checked .mode-line {
+  display: block;
+}
+
+.mode-description {
+  box-sizing: border-box;
+  background: #FFF;
+  margin: 15px 5px 0 0;
+  padding: 8px 20px;
+  border: 2px solid #00A4F3;
+  color: #00A4F3;
+  text-align: center;
+  border-radius: 20px;
+  font-size: 16px;
+  line-height: 1.3;
+  min-height: 40px;
+  transition: all 0.2s ease;
+}
+
+/*-----------------------------------------------
+ Structure
+-----------------------------------------------*/
 .clear {
   clear: both;
 }
@@ -157,29 +319,6 @@ input[type=checkbox]:disabled + label:hover:before {
   margin-right: 10px;
 }
 
-.view-info {
-  font-size: 1.5em;
-  margin-top: 1em;
-}
-
-.view-info input {
-  font-size: 1em;
-}
-
-.view-info .title {
-  width: 120px;
-  display: inline-block;
-  margin: 0;
-}
-
-input.view-name {
-  width: calc(100% - 120px);
-  display: inline-block;
-  font-size: 20px;
-  margin: 0;
-  padding: 4px 8px;
-}
-
 td.column-name strong {
   display: block;
   margin-bottom: .2em;
@@ -243,7 +382,7 @@ input[type="text"].long {
 .inline {
   display: inline-block;
   /*white-space: nowrap;*/
-  margin-right: 1.5em;
+  margin-right: 0.5em;
   vertical-align: top;
 }
 
@@ -412,62 +551,6 @@ span.title {
 }
 
 /*-----------------------------------------------
- * Mode selector
- *-----------------------------------------------*/
-#view-mode {
-  margin-top: 1em;
-}
-
-#view-mode label {
-  display: inline-block;
-  margin: 0 5px 0 0;
-  padding: 0.5em 18px 0.5em 12px;
-  border: 1px solid #ccc;
-  border-radius: 20px;
-}
-
-#view-mode label:hover {
-  background: #FFF;
-  color: #444;
-  border-color: #AAA;
-}
-
-#view-mode input[type="radio"] {
-  margin-right: 7px;
-}
-
-#view-mode label {
-  color: #888;
-}
-
-#view-mode label.checked {
-  background: #00A4F3;
-  color: #FFF;
-  border: 1px solid transparent;
-}
-
-.wpmtst2 select.large {
-  font-size: 2em;
-}
-
-.wpmtst2 select.large {
-  font-size: 2em;
-  height: auto;
-  vertical-align: baseline;
-  border: 0;
-}
-
-.wpmtst2 h3.large {
-  color: #444;
-  background: transparent;
-  display: inline-block;
-  font-size: 2em;
-  margin-top: 0;
-  margin-bottom: 0;
-  margin-right: 10px;
-}
-
-/*-----------------------------------------------
  * Category checkboxes
  *-----------------------------------------------*/
 ul.checkbox-horizontal {
@@ -484,68 +567,6 @@ ul.checkbox-horizontal li {
 
 .select-cell {
   padding-right: 2em;
-}
-
-/*-----------------------------------------------
- * Copy shortcode button
- *-----------------------------------------------*/
-#copy-shortcode {
-  display: inline-block;
-  margin: 5px 1em 0;
-  line-height: 26px;
-}
-
-#copy-message {
-  opacity: 0;
-  font-size: 14px;
-  line-height: 22px;
-  height: 24px;
-  padding: 0 6px;
-  display: inline-block;
-  background: #00A4F3;
-  color: #FFF;
-  border-radius: 3px;
-  box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.4);
-  position: relative;
-  top: -2px;
-}
-
-#copy-message.copied {
-  opacity: 0;
-  will-change: opacity;
-  animation: showcopied 2s ease;
-}
-
-@keyframes showcopied {
-  0% {
-    opacity: 0;
-  }
-  70% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-  }
-}
-#view-shortcode {
-  direction: ltr;
-  font-family: Consolas, Monaco, monospace;
-  unicode-bidi: embed;
-  display: inline-block;
-  font-size: 18px;
-  padding: 7px 8px 6px;
-  width: 300px;
-  color: #777;
-  background: #FFF;
-}
-
-.form-view-shortcode .unsaved {
-  color: #888;
-  font-style: italic;
-}
-
-.indented {
-  margin-left: 24px;
 }
 
 /*-----------------------------------------------
@@ -1125,6 +1146,60 @@ table.wpmtst-help-tab td:first-child {
 }
 table.wpmtst-help-tab td:not(:last-child) {
   border-right: 1px dotted #E1E1E1;
+}
+
+.template-optgroup {
+  font-weight: 600;
+  margin: 15px 10px 10px 5px;
+}
+
+/* ==Views list table sticky
+-----------------------------------------------*/
+.wp-list-table-wrap {
+  position: relative;
+}
+
+.stickit {
+  cursor: pointer;
+}
+
+.stickit, .stickit:before {
+  content: "\f154";
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  color: #aaa;
+  font-size: 20px;
+  line-height: 1;
+  font-family: dashicons;
+  text-decoration: inherit;
+  font-weight: normal;
+  font-style: normal;
+  vertical-align: top;
+  text-align: center;
+  -webkit-transition: color .1s ease-in;
+  transition: color .1s ease-in;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.stickit.stuck:before {
+  content: "\f155";
+  color: #0073aa;
+}
+
+.stickit:hover:before {
+  content: "\f155";
+  color: #0096dd;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: rgba(96, 96, 96, 0.3);
 }
 
 /*# sourceMappingURL=views.css.map */

@@ -20,8 +20,8 @@ function wpmtst_views_admin() {
 	<div class="wrap wpmtst2">
 
 		<?php
-		if ( isset( $_REQUEST['changes-undone'] ) ) {
-			$message = __( 'Changes undone.', 'strong-testimonials' );
+		if ( isset( $_REQUEST['cancelled'] ) ) {
+			$message = __( 'Changes cancelled.', 'strong-testimonials' );
 		} elseif ( isset( $_REQUEST['defaults-restored'] ) ) {
 			$message = __( 'Defaults restored.', 'strong-testimonials' );
 		} elseif ( isset( $_REQUEST['view-saved'] ) ) {
@@ -87,7 +87,7 @@ function wpmtst_views_admin() {
 
 			foreach ( $views as $view ) {
 			    $view_data = unserialize( $view['value'] );
-			    if ( 'single-template' == $view_data['mode'] ) {
+			    if ( 'single_template' == $view_data['mode'] ) {
 			        $views_single_template[] = $view;
 				} else {
 			        $views_standard[] = $view;
@@ -103,7 +103,8 @@ function wpmtst_views_admin() {
                 <ul class="standard">
                     <li><?php _e( 'display your testimonials in a list, grid, or slideshow', 'strong-testimonials' ); ?></li>
                     <li><?php _e( 'display a testimonial submission form', 'strong-testimonials' ); ?></li>
-                    <li><?php _e( 'add your custom fields to the individual testimonial using your theme\'s single post template', 'strong-testimonials' ); ?></li>
+                    <li><?php _e( 'add your custom fields to the individual testimonial using your theme single post template', 'strong-testimonials' ); ?></li>
+					<?php do_action( 'wpmtst_views_intro_list' ); ?>
                 </ul>
 				<p><?php _e( 'Add a view to a page with a shortcode or add it to a sidebar with a widget.', 'strong-testimonials' ); ?></p>
 			</div>
@@ -149,9 +150,6 @@ function wpmtst_view_settings( $action = '', $view_id = null ) {
 	global $view;
 	add_thickbox();
 
-	$screen = get_current_screen();
-	$url    = $screen->parent_file;
-
 	$fields     = wpmtst_get_custom_fields();
 	$all_fields = wpmtst_get_all_fields();
 
@@ -175,27 +173,28 @@ function wpmtst_view_settings( $action = '', $view_id = null ) {
 		wp_enqueue_script( 'wpmtst-view-category-filter-script' );
 	}
 
-	$pages_list   = wpmtst_get_pages();
-	$posts_list   = wpmtst_get_posts();
-	$view_options = apply_filters( 'wpmtst_view_options', get_option( 'wpmtst_view_options' ) );
 	$default_view = apply_filters( 'wpmtst_view_default', get_option( 'wpmtst_view_default' ) );
 
 	if ( 'edit' == $action ) {
 		$view_array = wpmtst_get_view( $view_id );
 		$view       = unserialize( $view_array['value'] );
 		$view_name  = $view_array['name'];
-	}
-	elseif ( 'duplicate' == $action ) {
+	} elseif ( 'duplicate' == $action ) {
 		$view_array = wpmtst_get_view( $view_id );
 		$view       = unserialize( $view_array['value'] );
 		$view_id    = 0;
 		$view_name  = $view_array['name'] . ' - COPY';
-	}
-	else {
+	} else {
 		$view_id   = 1;
 		$view      = $default_view;
 		$view_name = 'new';
 	}
+
+	$custom_list  = apply_filters( 'wpmtst_custom_pages_list', array(), $view );
+	$pages_list   = apply_filters( 'wpmtst_pages_list', wpmtst_get_pages() );
+	$posts_list   = apply_filters( 'wpmtst_posts_list', wpmtst_get_posts() );
+
+	$view_options = apply_filters( 'wpmtst_view_options', get_option( 'wpmtst_view_options' ) );
 
 	// Select default template if necessary
 	if ( !$view['template'] ) {
@@ -211,26 +210,28 @@ function wpmtst_view_settings( $action = '', $view_id = null ) {
 	// Assemble list of templates
 	$templates      = WPMST()->templates->get_templates( array( 'content', 'widget' ) );
 	$form_templates = WPMST()->templates->get_templates( 'form' );
+	$template_keys  = WPMST()->templates->get_template_keys();
 
 	$group = strtok( $view['template'], ':' );
 	$type  = strtok( ':' );
 
-	if ( 'form' == $type ) {
-		$template_found = in_array( $view['template'], array_keys( $form_templates ) );
-	} else {
-		$template_found = in_array( $view['template'], array_keys( $templates ) );
-	}
+	$template_found = in_array( $view['template'], $template_keys );
 
 	// Get list of image sizes
 	$image_sizes = wpmtst_get_image_sizes();
 
+	$url = admin_url( 'edit.php?post_type=wpm-testimonial&page=testimonial-views' );
+	$url1 = $url . '&action=add';
+	$url2 = $url . '&action=duplicate&id=' . $view_id;
 	?>
 	<h1>
 		<?php 'edit' == $action ? _e( 'Edit View', 'strong-testimonials' ) : _e( 'Add View', 'strong-testimonials' ); ?>
-		<a href="<?php echo $url; ?>&page=testimonial-views&action=add" class="add-new-h2">Add New</a>
+		<a href="<?php echo esc_url( $url1 ); ?>" class="add-new-h2"><?php _e( 'Add New' ); ?></a>
+        <a href="<?php echo esc_url( $url ); ?>" class="add-new-h2"><?php _e( 'Return To List', 'strong-testimonials' ); ?></a>
+        <?php if ( 'edit' == $action ) : ?>
+        <a href="<?php echo esc_url( $url2 ); ?>" class="add-new-h2"><?php _e( 'Duplicate This View', 'strong-testimonials' ); ?></a>
+        <?php endif; ?>
 	</h1>
-
-	<p><a href="<?php echo admin_url( 'edit.php?post_type=wpm-testimonial&page=testimonial-views' ); ?>">Return to list</a></p>
 
 	<form id="wpmtst-views-form" method="post" action="<?php echo get_admin_url() . 'admin-post.php'; ?>" autocomplete="off">
 
@@ -241,40 +242,13 @@ function wpmtst_view_settings( $action = '', $view_id = null ) {
 		<input type="hidden" name="view_original_mode" value="<?php echo $view['mode']; ?>">
 		<input type="hidden" name="view[data][_form_id]" value="<?php echo $view['form_id']; ?>">
 
-		<div class="view-info">
-			<div class="form-view-name">
-				<?php
-				/**
-				 * Using htmlspecialchars and stripslashes on $view_name to handle quotes, etc. in database.
-				 * @since 2.11.14
-				 */
-				?>
-				<span class="title"><?php _e( 'Name', 'strong-testimonials' ); ?></span><input type="text" id="view-name" class="view-name" name="view[name]"
-					   value="<?php echo htmlspecialchars( stripslashes( $view_name ) ); ?>" tabindex="1">
-			</div>
-		</div>
+        <div class="table view-info">
+			<?php include( 'partials/views/view-name.php' ); ?>
+    		<?php include( 'partials/views/view-shortcode.php' ); ?>
+	    	<?php include( 'partials/views/view-mode.php' ); ?>
+        </div>
 
-		<?php
-		// avoiding the tab character before the shortcode for better copy-n-paste
-		if ( 'edit' == $action ) {
-			$shortcode = '<span class="saved">';
-			$shortcode .= '<input id="view-shortcode" type="text" value="[testimonial_view id=' . $view_id . ']" readonly />';
-			$shortcode .= '<input id="copy-shortcode" class="button small" type="button" value="' . __( 'copy to clipboard', 'strong-testimonials' ) . '" data-copytarget="#view-shortcode" />';
-			$shortcode .= '<span id="copy-message">copied</span>';
-			$shortcode .= '</span>';
-		}
-		else {
-			$shortcode = '<span class="unsaved">' . _x( 'will be available after you save this', 'The shortcode for a new View.', 'strong-testimonials' ) . '</span>';
-		}
-		?>
-
-		<div class="view-info then then_display then_form then_slideshow <?php echo apply_filters( 'wpmtst_view_section', '', 'shortcode' ); ?>">
-			<div class="form-view-shortcode"><span class="title"><?php _e( 'Shortcode', 'strong-testimonials' ); ?></span><?php echo $shortcode; ?></div>
-		</div>
-
-		<?php
-		include( 'partials/views/mode.php' );
-
+        <?php
 		// TODO Generify both hook and include
 		do_action( 'wpmtst_view_editor_before_group_select' );
 		include( 'partials/views/group-select.php' );
@@ -294,15 +268,15 @@ function wpmtst_view_settings( $action = '', $view_id = null ) {
 		do_action( 'wpmtst_view_editor_before_group_style' );
 		include( 'partials/views/group-style.php' );
 
-		do_action( 'wpmtst_view_editor_before_group_general' );
-		include( 'partials/views/group-general.php' );
+		do_action( 'wpmtst_view_editor_before_group_compat' );
+		include( 'partials/views/group-compat.php' );
 
 		do_action( 'wpmtst_view_editor_after_groups' );
 		?>
 
 		<p class="wpmtst-submit">
 			<?php submit_button( '', 'primary', 'submit-form', false ); ?>
-			<?php submit_button( __( 'Undo Changes', 'strong-testimonials' ), 'secondary', 'reset', false ); ?>
+			<?php submit_button( __( 'Cancel Changes', 'strong-testimonials' ), 'secondary', 'reset', false ); ?>
 			<?php submit_button( __( 'Restore Defaults', 'strong-testimonials' ), 'secondary', 'restore-defaults', false ); ?>
 		</p>
 
@@ -336,10 +310,9 @@ function wpmtst_view_edit_form() {
 		if ( isset( $_POST['reset'] ) ) {
 
 			// Undo changes
-			$goback = add_query_arg( 'changes-undone', true, $goback );
+			$goback = add_query_arg( 'cancelled', true, $goback );
 
-		}
-		elseif ( isset( $_POST['restore-defaults'] ) ) {
+		} elseif ( isset( $_POST['restore-defaults'] ) ) {
 
 			// Restore defaults
 			$default_view = get_option( 'wpmtst_view_default' );
@@ -353,14 +326,11 @@ function wpmtst_view_edit_form() {
 
 			if ( $success ) {
 				$goback = add_query_arg( 'defaults-restored', true, $goback );
-			}
-			else {
+			} else {
 				$goback = add_query_arg( 'error', true, $goback );
 			}
 
-
-		}
-		else {
+		} else {
 
 			// Sanitize & validate
 			$view = array(
@@ -373,15 +343,13 @@ function wpmtst_view_edit_form() {
 			if ( $success ) {
 				$goback = remove_query_arg( 'defaults-restored', $goback );
 				$goback = add_query_arg( 'view-saved', true, $goback );
-			}
-			else {
+			} else {
 				$goback = add_query_arg( 'error', true, $goback );
 			}
 
 		}
 
-	}
-	else {
+	} else {
 		$goback = add_query_arg( 'error', true, $goback );
 	}
 
@@ -420,8 +388,7 @@ function wpmtst_view_add_form() {
 
 			$query_arg = 'defaults-restored';
 
-		}
-		else {
+		} else {
 
 			// Sanitize & validate
 			$view = array(
@@ -438,13 +405,11 @@ function wpmtst_view_add_form() {
 		$goback = remove_query_arg( 'action', $goback );
 		if ( $success ) {
 			$goback = add_query_arg( array( 'action' => 'edit', 'id' => $success, $query_arg => true ), $goback );
-		}
-		else {
+		} else {
 			$goback = add_query_arg( 'error', true, $goback );
 		}
 
-	}
-	else {
+	} else {
 		$goback = add_query_arg( 'error', true, $goback );
 	}
 
@@ -858,3 +823,45 @@ function wpmtst_form_category_checklist( $view_cats_array ) {
 	</div>
 	<?php
 }
+
+
+/**
+ * Save sticky view
+ *
+ * @since 2.22.0
+ */
+function wpmtst_save_view_sticky() {
+	$id = $_REQUEST['id'];
+	$stickies = get_option( 'wpmtst_sticky_views', array() );
+	if ( in_array( $id, $stickies ) ) {
+		$stickies = array_diff( $stickies, array( $id ) );
+		$is_sticky = false;
+	} else {
+		$stickies[] = $id;
+		$is_sticky = true;
+	}
+	update_option( 'wpmtst_sticky_views', $stickies );
+	echo json_encode( $is_sticky );
+	die();
+}
+add_action( 'wp_ajax_wpmtst_save_view_sticky', 'wpmtst_save_view_sticky' );
+
+
+/**
+ * Return classes for toggling sections.
+ *
+ * @param $classes
+ * @param $section
+ *
+ * @since 2.22.0
+ *
+ * @return string
+ */
+function wpmtst_view_section_filter( $classes, $section ) {
+    if ( 'compat' == $section && wpmtst_divi_builder_active() ) {
+        $classes = 'then_display then_form then_slideshow then_not_single_template';
+	}
+
+    return $classes;
+}
+add_filter( 'wpmtst_view_section', 'wpmtst_view_section_filter', 10, 2 );

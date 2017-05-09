@@ -53,6 +53,9 @@ class Strong_View_Display extends Strong_View {
 		$this->load_dependent_scripts();
 		$this->load_extra_stylesheets();
 
+		// If we can preprocess, we can add the inline style in the <head>.
+		add_action( 'wp_enqueue_scripts', array( $this, 'add_custom_style' ), 20 );
+
 		wp_reset_postdata();
 	}
 
@@ -60,12 +63,7 @@ class Strong_View_Display extends Strong_View {
 	 * Build the view.
 	 */
 	public function build() {
-		/**
-		 * Reset any hooks and filters that may have been set by other Views on the page.
-		 *
-		 * @since 2.11.4
-		 */
-		remove_action( 'wpmtst_after_testimonial', 'wpmtst_excerpt_more_full_post' );
+		// May need to remove any hooks or filters that were set by other Views on the page.
 
 		do_action( 'wpmtst_view_build_before', $this );
 
@@ -79,7 +77,13 @@ class Strong_View_Display extends Strong_View {
 
 		$this->load_dependent_scripts();
 		$this->load_extra_stylesheets();
-		$this->custom_background();
+
+		/*
+		 * If we cannot preprocess, add the inline style to the footer.
+		 * If we were able to preprocess, this will not duplicate the code
+		 * since `wpmtst-custom-style` was already enqueued (I think).
+		 */
+		add_action( 'wp_footer', array( $this, 'add_custom_style' ) );
 
 		/**
 		 * Add filters.
@@ -113,10 +117,10 @@ class Strong_View_Display extends Strong_View {
 		 * Allow add-ons to hijack the output generation.
 		 */
 		$query = $this->query;
+		$atts  = $this->atts;
 		if ( has_filter( 'wpmtst_render_view_template' ) ) {
 			$html = apply_filters( 'wpmtst_render_view_template', '', $this );
-		}
-		else {
+		} else {
 			ob_start();
 			/** @noinspection PhpIncludeInspection */
 			include( $this->template_file );
@@ -254,8 +258,6 @@ class Strong_View_Display extends Strong_View {
 	 */
 	public function build_classes() {
 
-		$options = get_option( 'wpmtst_view_options' );
-
 		$container_class_list = array(
 			'strong-view-id-' . $this->atts['view'],
 			$this->get_template_css_class(),
@@ -287,14 +289,13 @@ class Strong_View_Display extends Strong_View {
 		$content_class_list[] = 'strong-' . ( $this->atts['layout'] ? $this->atts['layout'] : 'normal' );
 		$content_class_list[] = 'columns-' . ( $this->atts['layout'] ? $this->atts['column_count'] : '1' );
 
-
 		/**
 		 * Filter classes.
 		 */
-		$this->atts['container_data']  = apply_filters( 'wpmtst_view_container_data', $container_data_list );
-		$this->atts['container_class'] = join( ' ', apply_filters( 'wpmtst_view_container_class', $container_class_list ) );
-		$this->atts['content_class']   = join( ' ', apply_filters( 'wpmtst_view_content_class', $content_class_list ) );
-		$this->atts['post_class']      = join( ' ', apply_filters( 'wpmtst_view_post_class', $post_class_list ) );
+		$this->atts['container_data']  = apply_filters( 'wpmtst_view_container_data', $container_data_list, $this->atts );
+		$this->atts['container_class'] = join( ' ', apply_filters( 'wpmtst_view_container_class', $container_class_list, $this->atts ) );
+		$this->atts['content_class']   = join( ' ', apply_filters( 'wpmtst_view_content_class', $content_class_list, $this->atts ) );
+		$this->atts['post_class']      = join( ' ', apply_filters( 'wpmtst_view_post_class', $post_class_list, $this->atts ) );
 
 		/**
 		 * Store updated atts.
@@ -361,61 +362,6 @@ class Strong_View_Display extends Strong_View {
 					WPMST()->add_style( 'wpmtst-rating-display' );
 				}
 			}
-		}
-	}
-
-	/**
-	 * Build CSS for custom background.
-	 *
-	 * @param string $handle
-	 */
-	public function custom_background( $handle = 'wpmtst-custom-style' ) {
-		$background = $this->atts['background'];
-		if ( ! isset( $background['type'] ) ) return;
-
-		$c1 = '';
-		$c2 = '';
-
-		switch ( $background['type'] ) {
-			case 'preset':
-				$preset = wpmtst_get_background_presets( $background['preset'] );
-				$c1     = $preset['color'];
-				if ( isset( $preset['color2'] ) ) {
-					$c2 = $preset['color2'];
-				}
-				break;
-			case 'gradient':
-				$c1 = $background['gradient1'];
-				$c2 = $background['gradient2'];
-				break;
-			case 'single':
-				$c1 = $background['color'];
-				break;
-			default:
-		}
-
-		if ( ! wp_style_is( $handle ) ) {
-			wp_enqueue_style( $handle );
-		}
-
-		// Includes special handling for Large Widget template.
-		// TODO Add option to include background for all templates.
-		if ( $c1 && $c2 ) {
-
-			$gradient = self::gradient_rules( $c1, $c2 );
-			wp_add_inline_style( $handle, ".strong-view-id-{$this->atts['view']} .testimonial-inner { $gradient }" );
-			if ( 'large-widget:widget' == WPMST()->atts( 'template' ) ) {
-				wp_add_inline_style( $handle, ".strong-view-id-{$this->atts['view']} .readmore-page { background: $c2 }" );
-			}
-
-		}
-		elseif ( $c1 ) {
-
-			wp_add_inline_style( $handle, ".strong-view-id-{$this->atts['view']} .testimonial-inner { background: $c1; }" );
-			if ( 'large-widget:widget' == WPMST()->atts( 'template' ) ) {
-				wp_add_inline_style( $handle, ".strong-view-id-{$this->atts['view']} .readmore-page { background: $c1 }" );
-			}
-
 		}
 	}
 
