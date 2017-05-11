@@ -309,6 +309,7 @@ function wpmtst_wp_handle_upload( $file_handler, $overrides ) {
 	require_once( ABSPATH . 'wp-admin/includes/media.php' );
 
 	$upload = wp_handle_upload( $file_handler, $overrides );
+
 	return $upload;
 }
 

@@ -1,21 +1,21 @@
 === Strong Testimonials ===
 Contributors: cdillon27
-Tags: testimonials, widget, shortcode, random testimonial, testimonial slider, testimonial form, reviews, star ratings, review markup
+Tags: testimonials, testimonial slider, testimonial form, reviews, star ratings, review markup
 Requires at least: 3.6
 Tested up to: 4.7.4
-Stable tag: 2.22
+Stable tag: 2.22.1
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
-A full-featured testimonials plugin that works right out of the box for beginners and offers advanced features for pros, all backed by strong support.
+A full-featured testimonials plugin that works right out of the box for beginners and offers advanced features for pros.
 
 == Description ==
 
 Everything you need to receive and display testimonials.
 
-### Is this the right plugin for you?
+**[Go Demo](http://demos.wpmission.com/strong-testimonials/)** | **[Support Articles](https://support.strongplugins.com/article-category/strong-testimonials/)** | **[Add-ons](https://strongplugins.com/plugins/category/strong-testimonials/)**
 
-**[GO DEMO](http://demos.wpmission.com/strong-testimonials/)** | **[SUPPORT ARTICLES](https://support.strongplugins.com/article-category/strong-testimonials/)** | **[ADD-ONS](https://strongplugins.com/plugins/category/strong-testimonials/)**
+### Is this the right plugin for you?
 
 It's important to understand this plugin's intended use case: A small business with up to a few hundred testimonials or reviews, maybe organized into multiple categories, and displaying them different ways like a full page of testimonials and a slideshow widget, plus a form for accepting new testimonials.
 
@@ -43,11 +43,11 @@ If that describes your situation, this plugin will work for you right out of the
 
 ### Testimonial Submission Form
 
-You can customize the form by adding or removing fields, or changing properties like the order, the text before or after, and the placeholder text.
+You can customize the form by adding or removing fields and changing properties like the order, the text before or after, and the placeholder text.
 
 **Anti-spam** measures include honeypots and Captcha via these plugins: [Captcha](http://wordpress.org/plugins/captcha/), [Really Simple Captcha](http://wordpress.org/plugins/really-simple-captcha/), and [Advanced noCaptcha reCaptcha](https://wordpress.org/plugins/advanced-nocaptcha-recaptcha/).
 
-New testimonial **notification emails** can be sent to multiple admins. New testimonials can also be assigned to a specific category.
+New testimonial **notification emails** can be customized and sent to multiple admins.
 
 The form can be submitted via Ajax so it's compatible with popular plugins like [Popup Maker](https://wordpress.org/plugins/popup-maker/).
 
@@ -81,7 +81,7 @@ Want to rename 'testimonials' to 'reviews'? Want to change which features are av
 
 ### Support
 
-Given the chance, I will [move mountains](https://strongplugins.com/testimonials/) to help you get the most out of this plugin.
+I will [move mountains](https://strongplugins.com/testimonials/) to help you get the most out of this plugin.
 
 ### Try these plugins too
 
@@ -236,6 +236,9 @@ If you prefer not to post your URL publicly, start a private support ticket at [
 8. View editor
 
 == Changelog ==
+
+= 2.22.1 - May 11, 2017 =
+* Fix bug in displaying add-on sections in view editor.
 
 = 2.22 - May 9, 2017 =
 * Add option for sticky views.
