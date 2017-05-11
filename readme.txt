@@ -3,7 +3,7 @@ Contributors: cdillon27
 Tags: testimonials, testimonial slider, testimonial form, reviews, star ratings, review markup
 Requires at least: 3.6
 Tested up to: 4.7.4
-Stable tag: 2.22
+Stable tag: 2.22.1
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -236,6 +236,9 @@ If you prefer not to post your URL publicly, start a private support ticket at [
 8. View editor
 
 == Changelog ==
+
+= 2.22.1 - May 11, 2017 =
+* Fix bug in displaying add-on sections in view editor.
 
 = 2.22 - May 9, 2017 =
 * Add option for sticky views.
