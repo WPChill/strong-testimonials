@@ -63,7 +63,7 @@ class Strong_Plugin_Updater {
 				'author'    => 'Chris Dillon',    // author of this plugin
 				'url'       => home_url()
 			);
-			$edd_updater = new EDD_SL_Plugin_Updater( WPMISSION_STORE_URL, $addon_info['file'], $args );
+			$edd_updater = new EDD_SL_Plugin_Updater( STRONGPLUGINS_STORE_URL, $addon_info['file'], $args );
 		}
 
 	}
@@ -98,7 +98,7 @@ class Strong_Plugin_Updater {
 			$license_data->license = '';
 
 			// Call the custom API.
-			$response = wp_remote_post( WPMISSION_STORE_URL, array( 'timeout' => 15, 'sslverify' => false, 'body' => $api_params ) );
+			$response = wp_remote_post( STRONGPLUGINS_STORE_URL, array( 'timeout' => 15, 'sslverify' => false, 'body' => $api_params ) );
 
 			// make sure the response came back okay
 			if ( is_wp_error( $response ) || 200 !== wp_remote_retrieve_response_code( $response ) ) {
@@ -205,7 +205,7 @@ class Strong_Plugin_Updater {
 			);
 
 			// Call the custom API.
-			$response = wp_remote_post( WPMISSION_STORE_URL, array( 'timeout' => 15, 'sslverify' => false, 'body' => $api_params ) );
+			$response = wp_remote_post( STRONGPLUGINS_STORE_URL, array( 'timeout' => 15, 'sslverify' => false, 'body' => $api_params ) );
 
 			// make sure the response came back okay
 			if ( is_wp_error( $response ) || 200 !== wp_remote_retrieve_response_code( $response ) ) {

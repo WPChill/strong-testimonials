@@ -4,7 +4,7 @@
  * Plugin URI: https://strongplugins.com/plugins/strong-testimonials/
  * Description: A full-featured plugin that works right out of the box for beginners and offers advanced features for pros.
  * Author: Chris Dillon
- * Version: 2.22.1
+ * Version: 2.22.2
  * Author URI: https://strongplugins.com/
  * Text Domain: strong-testimonials
  * Domain Path: /languages
@@ -186,17 +186,10 @@ final class Strong_Testimonials {
 		if ( ! defined( 'WPMTST_TPL_URI' ) )
 			define( 'WPMTST_TPL_URI', plugin_dir_url( __FILE__ ) . 'templates' );
 
-		/**
-		 * EDD
-		 */
 		// This is the URL our updater / license checker pings. This should be the URL of the site with EDD installed.
-		if ( ! defined( 'WPMISSION_STORE_URL' ) ) {
-			if ( '127.0.0.1' == $_SERVER['SERVER_ADDR'] ) {
-				define( 'WPMISSION_STORE_URL', 'http://store.wpmission.dev' );
-			} else {
-				define( 'WPMISSION_STORE_URL', 'https://strongplugins.com' );
-			}
-		}
+		if ( ! defined( 'STRONGPLUGINS_STORE_URL' ) )
+			define( 'STRONGPLUGINS_STORE_URL', 'https://strongplugins.com' );
+
 	}
 
 
