@@ -411,7 +411,7 @@ class Strong_View_Slideshow extends Strong_View_Display {
 	 *
 	 * @param $atts
 	 *
-	 * @return string|bool
+	 * @return array
 	 */
 	private function slideshow_args( $atts ) {
 
