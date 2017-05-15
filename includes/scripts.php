@@ -93,6 +93,9 @@ function wpmtst_scripts() {
 add_action( 'wp_enqueue_scripts', 'wpmtst_scripts' );
 
 
+/**
+ * Load scripts later.
+ */
 function wpmtst_scripts_later() {
 
 	$plugin_version = get_option( 'wpmtst_plugin_version' );
@@ -106,30 +109,3 @@ function wpmtst_scripts_later() {
 
 }
 add_action( 'wp_enqueue_scripts', 'wpmtst_scripts_later', 20 );
-
-
-/**
- * Enqueue scripts and styles
- *
- * @since 1.15.0
- * @since 2.3.0 As separate function.
- * @since 2.16.0 As one array without separate priorities.
- * @since 2.22.0 Enqueue custom style placeholder file here.
- */
-function wpmtst_view_scripts() {
-	$styles = WPMST()->get_styles();
-	if ( $styles ) {
-		foreach ( $styles as $key => $style ) {
-			wp_enqueue_style( $style );
-		}
-	}
-
-	wp_enqueue_style( 'wpmtst-custom-style' );
-
-	$scripts = WPMST()->get_scripts();
-	if ( $scripts ) {
-		foreach ( $scripts as $key => $script ) {
-			wp_enqueue_script( $script );
-		}
-	}
-}

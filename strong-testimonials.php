@@ -325,15 +325,6 @@ final class Strong_Testimonials {
 		add_action( 'admin_init', array( $this, 'theme_support' ) );
 
 		/**
-		 * Localize scripts.
-		 *
-		 * TODO Check if theme does not call wp_footer.
-		 *
-		 * @since 1.16.11
-		 */
-		add_action( 'wp_footer', array( $this, 'localize_vars' ) );
-
-		/**
 		 * Action hook: Delete a view.
 		 *
 		 * @since 1.21.0
@@ -353,13 +344,21 @@ final class Strong_Testimonials {
 		add_filter( 'widget_text', 'do_shortcode' );
 
 		add_action( 'wp_head', array( $this, 'show_version_info' ), 999 );
+		add_action( 'wp_footer', array( $this, 'on_wp_footer' ), 999 );
 
 		/**
-		 * Action hooks after a view has been rendered.
+		 * Load scripts and styles.
+		 *
+		 * The default behavior is to enqueue the stylesheets and scripts for
+		 * a view when the shortcode is rendered, like every other plugin.
+		 *
+		 * We will attempt to preprocess the content in order to move the
+		 * stylesheets to `wp_enqueue_scripts` in order to load them in the
+		 * <head> section.
 		 */
 		add_action( 'wpmtst_view_rendered', array( $this, 'view_rendered' ) );
 		add_action( 'wpmtst_form_rendered', array( $this, 'view_rendered' ) );
-		add_action( 'wpmtst_form_success', array( $this, 'view_rendered' ) );
+		add_action( 'wpmtst_form_success',  array( $this, 'view_rendered' ) );
 
 		/**
 		 * Ajax form submission handler
@@ -431,7 +430,9 @@ final class Strong_Testimonials {
 	 * (3) using the form in popup makers.
 	 */
 	public function view_rendered() {
-		wpmtst_view_scripts();
+		$this->load_styles();
+		$this->load_scripts();
+		$this->localize_vars();
 	}
 
 	/**
@@ -654,26 +655,6 @@ final class Strong_Testimonials {
 	}
 
 	/**
-	 * Access to the stylesheets needed for this page.
-	 *
-	 * @access public
-	 * @return array  An array of stylesheet handles.
-	 */
-	public function get_styles() {
-		return $this->styles;
-	}
-
-	/**
-	 * Access to the scripts needed for this page.
-	 *
-	 * @access public
-	 * @return array  An array of script handles.
-	 */
-	public function get_scripts() {
-		return $this->scripts;
-	}
-
-	/**
 	 * Add a stylesheet handle for enqueueing.
 	 *
 	 * @access private
@@ -702,7 +683,7 @@ final class Strong_Testimonials {
 	 *
 	 * @param string $script_name The script handle.
 	 * @param string $var_name The script variable name.
-	 * @param string $var The script variable.
+	 * @param array $var The script variable.
 	 *
 	 * @since 2.17.5 Using variable name as key to avoid duplicate variables.
 	 */
@@ -715,12 +696,45 @@ final class Strong_Testimonials {
 	}
 
 	/**
-	 * Localize scripts with their variables.
+	 * Enqueue stylesheets for the view being processed.
+	 *
+	 * @since 2.22.3
+	 */
+	public function load_styles() {
+		$styles = $this->styles;
+		if ( $styles ) {
+			foreach ( $styles as $key => $style ) {
+				if ( ! wp_style_is( $style ) ) {
+					wp_enqueue_style( $style );
+				}
+			}
+		}
+		wp_enqueue_style( 'wpmtst-custom-style' );
+	}
+
+	/**
+	 * Enqueue scripts for the view being processed.
+	 *
+	 * @since 2.22.3
+	 */
+	public function load_scripts() {
+		$scripts = $this->scripts;
+		if ( $scripts ) {
+			foreach ( $scripts as $key => $script ) {
+				if ( ! wp_script_is( $script ) ) {
+					wp_enqueue_script( $script );
+				}
+			}
+		}
+	}
+
+	/**
+	 * Print script variables for the view being processed..
 	 *
 	 * @access public
+	 * @since 2.22.3
 	 */
 	public function localize_vars() {
-		echo "<!-- wp_footer called -->\n";
 		$vars = $this->script_vars;
 		if ( $vars ) {
 			foreach ( $vars as $var ) {
@@ -1147,20 +1161,22 @@ final class Strong_Testimonials {
 
 		if ( $atts['form'] ) {
 			$new_view = new Strong_View_Form( $atts );
-		}
-		elseif ( $atts['slideshow'] ) {
+		}  elseif ( $atts['slideshow'] ) {
 			$new_view = new Strong_View_Slideshow( $atts );
-		}
-		else {
+		}  else {
 			$new_view = new Strong_View_Display( $atts );
 		}
 		$new_view->process();
 
 		/**
+		 * Move scripts and styles to normal hook.
 		 * The whole purpose of preprocessing is to load our styles
 		 * in <head> to avoid FOUC.
 		 */
-		add_action( 'wp_enqueue_scripts', 'wpmtst_view_scripts' );
+		add_action( 'wp_enqueue_scripts', array( $this, 'view_rendered' ) );
+		remove_action( 'wpmtst_view_rendered', array( $this, 'view_rendered' ) );
+		remove_action( 'wpmtst_form_rendered', array( $this, 'view_rendered' ) );
+		remove_action( 'wpmtst_form_success',  array( $this, 'view_rendered' ) );
 
 		/**
 		 * Allow themes and plugins to do stuff like add extra stylesheets.
@@ -1342,6 +1358,15 @@ final class Strong_Testimonials {
 		}
 
 		echo "<!-- versions: " . implode( ' | ', $comment ) . " -->\n";
+	}
+
+	/**
+	 * Did the theme call wp_footer?
+	 *
+	 * @since 2.22.3 As separate function
+	 */
+	public function on_wp_footer() {
+		echo "<!-- wp_footer called -->\n";
 	}
 
 	/**
