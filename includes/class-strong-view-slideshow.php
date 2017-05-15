@@ -363,8 +363,7 @@ class Strong_View_Slideshow extends Strong_View_Display {
 				WPMST()->add_style( "wpmtst-$filename" );
 			}
 
-		}
-		elseif ( $not_full_controls ) {
+		} elseif ( $not_full_controls ) {
 
 			/*
 			 * Pagination only
@@ -383,8 +382,8 @@ class Strong_View_Slideshow extends Strong_View_Display {
 
 		}
 
-		$sig  = $this->slideshow_signature( $this->atts );
-		$args = $this->slideshow_args( $this->atts );
+		$sig  = $this->slideshow_signature();
+		$args = $this->slideshow_args();
 		WPMST()->add_script( 'wpmtst-slider' );
 		WPMST()->add_script_var( 'wpmtst-slider', $sig, $args );
 	}
@@ -395,12 +394,10 @@ class Strong_View_Slideshow extends Strong_View_Display {
 	 * @since 2.7.0
 	 * @private
 	 *
-	 * @param $atts
-	 *
 	 * @return string
 	 */
-	private function slideshow_signature( $atts ) {
-		return 'strong_slider_id_' . $atts['view'];
+	private function slideshow_signature() {
+		return 'strong_slider_id_' . $this->atts['view'];
 	}
 
 	/**
@@ -409,34 +406,32 @@ class Strong_View_Slideshow extends Strong_View_Display {
 	 * @since 2.7.0
 	 * @private
 	 *
-	 * @param $atts
-	 *
 	 * @return array
 	 */
-	private function slideshow_args( $atts ) {
+	private function slideshow_args() {
 
 		$view_options = apply_filters( 'wpmtst_view_options', get_option( 'wpmtst_view_options' ) );
 
 		$args = array(
-			'mode'                => $atts['slideshow_settings']['effect'],
-			'speed'               => $atts['slideshow_settings']['speed'] * 1000,
-			'pause'               => $atts['slideshow_settings']['pause'] * 1000,
-			'autoHover'           => $atts['slideshow_settings']['auto_hover'] ? 1 : 0,
-			'autoStart'           => $atts['slideshow_settings']['auto_start'] ? 1 : 0,
-			'stopAutoOnClick'     => $atts['slideshow_settings']['stop_auto_on_click'] ? 1 : 0,
-			'adaptiveHeight'      => $atts['slideshow_settings']['adapt_height'] ? 1 : 0,
-			'adaptiveHeightSpeed' => $atts['slideshow_settings']['adapt_height_speed'] * 1000,
+			'mode'                => $this->atts['slideshow_settings']['effect'],
+			'speed'               => $this->atts['slideshow_settings']['speed'] * 1000,
+			'pause'               => $this->atts['slideshow_settings']['pause'] * 1000,
+			'autoHover'           => $this->atts['slideshow_settings']['auto_hover'] ? 1 : 0,
+			'autoStart'           => $this->atts['slideshow_settings']['auto_start'] ? 1 : 0,
+			'stopAutoOnClick'     => $this->atts['slideshow_settings']['stop_auto_on_click'] ? 1 : 0,
+			'adaptiveHeight'      => $this->atts['slideshow_settings']['adapt_height'] ? 1 : 0,
+			'adaptiveHeightSpeed' => $this->atts['slideshow_settings']['adapt_height_speed'] * 1000,
 			'controls'            => 0,
 			'autoControls'        => 0,
 			'pager'               => 0,
 		);
-		if ( ! $atts['slideshow_settings']['adapt_height'] ) {
-			$args['stretch'] = $atts['slideshow_settings']['stretch'] ? 1 : 0;
+		if ( ! $this->atts['slideshow_settings']['adapt_height'] ) {
+			$args['stretch'] = $this->atts['slideshow_settings']['stretch'] ? 1 : 0;
 		}
 
 		// Controls
 		$options         = $view_options['slideshow_nav_method']['controls'];
-		$control_setting = $atts['slideshow_settings']['controls_type'];
+		$control_setting = $this->atts['slideshow_settings']['controls_type'];
 		if ( ! $control_setting ) {
 			$control_setting = 'none';
 		}
@@ -446,7 +441,7 @@ class Strong_View_Slideshow extends Strong_View_Display {
 
 		if ( 'none' != $control_setting ) {
 			$options = $view_options['slideshow_nav_style']['controls'];
-			$setting = $atts['slideshow_settings']['controls_style'];
+			$setting = $this->atts['slideshow_settings']['controls_style'];
 			if ( ! $setting ) {
 				$setting = 'none';
 			}
@@ -457,7 +452,7 @@ class Strong_View_Slideshow extends Strong_View_Display {
 
 		// Pager
 		$options       = $view_options['slideshow_nav_method']['pager'];
-		$pager_setting = $atts['slideshow_settings']['pager_type'];
+		$pager_setting = $this->atts['slideshow_settings']['pager_type'];
 		if ( ! $pager_setting ) {
 			$pager_setting = 'none';
 		}
@@ -467,7 +462,7 @@ class Strong_View_Slideshow extends Strong_View_Display {
 
 		if ( 'none' != $pager_setting ) {
 			$options = $view_options['slideshow_nav_style']['pager'];
-			$setting = $atts['slideshow_settings']['pager_style'];
+			$setting = $this->atts['slideshow_settings']['pager_style'];
 			if ( ! $setting ) {
 				$setting = 'none';
 			}
