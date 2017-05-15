@@ -224,7 +224,6 @@ class Strong_View_Display extends Strong_View {
 		 *
 		 * Use lesser value: requested count or actual count.
 		 * Thanks chestozo.
-		 *
 		 * @link  https://github.com/cdillon/strong-testimonials/pull/5
 		 *
 		 * @since 1.16.1
@@ -282,7 +281,7 @@ class Strong_View_Display extends Strong_View {
 
 		if ( $this->atts['pagination'] && 'masonry' != $this->atts['layout'] ) {
 			$content_class_list[] = 'strong-paginated';
-			$content_class_list[] = WPMST()->get_pager_signature( $this->atts );
+			$content_class_list[] = $this->pager_signature();
 		}
 
 		// layouts
@@ -343,11 +342,50 @@ class Strong_View_Display extends Strong_View {
 	 */
 	public function has_pagination() {
 		if ( $this->atts['pagination'] && 'simple' == $this->atts['pagination_type'] ) {
-			$sig  = WPMST()->pager_signature( $this->atts );
-			$args = WPMST()->pager_args( $this->atts );
+			$sig  = $this->pager_signature();
+			$args = $this->pager_args();
 			WPMST()->add_script( 'wpmtst-pager-script' );
 			WPMST()->add_script_var( 'wpmtst-pager-script', $sig, $args );
 		}
+	}
+
+	/**
+	 * Create unique pager signature.
+	 *
+	 * @since 2.13.2
+	 * @since 2.22.3 In this class.
+	 *
+	 * @return string
+	 */
+	public function pager_signature() {
+		return 'strong_pager_id_' . $this->atts['view'];
+	}
+
+	/**
+	 * Assemble pager settings.
+	 *
+	 * @since 2.13.2
+	 * @since 2.22.3 In this class.
+	 *
+	 * @return array
+	 */
+	public function pager_args() {
+		$options = get_option( 'wpmtst_options' );
+
+		$nav = $this->atts['nav'];
+		if ( false !== strpos( $this->atts['nav'], 'before' ) && false !== strpos( $this->atts['nav'], 'after' ) ) {
+			$nav = 'both';
+		}
+
+		$args = array(
+			'pageSize'      => $this->atts['per_page'],
+			'currentPage'   => 1,
+			'pagerLocation' => $nav,
+			'scrollTop'     => $options['scrolltop'],
+			'offset'        => $options['scrolltop_offset'],
+		);
+
+		return apply_filters( 'wpmtst_view_pagination', $args, $this->atts['view'] );
 	}
 
 	/**
