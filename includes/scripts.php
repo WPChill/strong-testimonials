@@ -29,6 +29,13 @@ function wpmtst_scripts() {
 	wp_register_style( 'wpmtst-custom-style', WPMTST_PUBLIC_URL . 'css/custom.css' );
 
 	/**
+	 * imagesLoaded, if less than WordPress 4.6
+	 */
+	if ( ! wp_script_is( 'imagesloaded', 'registered' ) ) {
+		wp_register_script( 'imagesloaded', WPMTST_PUBLIC_URL . 'js/lib/imagesloaded/imagesloaded.pkgd.min.js', array(), '3.2.0', true );
+	}
+
+	/**
 	 * Masonry
 	 */
 	wp_register_script( 'wpmtst-masonry-script', WPMTST_PUBLIC_URL . 'js/masonry.js', array( 'jquery-masonry', 'imagesloaded' ), $plugin_version, true );
@@ -79,7 +86,7 @@ function wpmtst_scripts() {
 	/**
 	 * Slider
 	 */
-	wp_register_script( 'jquery-actual', WPMTST_PUBLIC_URL . 'js/lib/actual/jquery.actual.js', array( 'jquery' ), false, true );
+	wp_register_script( 'jquery-actual', WPMTST_PUBLIC_URL . "js/lib/actual/jquery.actual{$min}.js", array( 'jquery' ), '1.0.16', true );
 
 	wp_register_script( 'wpmslider', WPMTST_PUBLIC_URL . "js/lib/wpmslider/jquery.wpmslider{$min}.js", array( 'jquery-actual', 'imagesloaded' ), $plugin_version, true );
 
