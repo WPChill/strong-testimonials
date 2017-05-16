@@ -432,7 +432,7 @@ final class Strong_Testimonials {
 	public function view_rendered() {
 		$this->load_styles();
 		$this->load_scripts();
-		$this->localize_vars();
+		$this->localize_scripts();
 	}
 
 	/**
@@ -734,7 +734,7 @@ final class Strong_Testimonials {
 	 * @access public
 	 * @since 2.22.3
 	 */
-	public function localize_vars() {
+	public function localize_scripts() {
 		$vars = $this->script_vars;
 		if ( $vars ) {
 			foreach ( $vars as $var ) {
