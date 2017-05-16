@@ -20,8 +20,6 @@ function wpmtst_scripts() {
 	 */
 	wp_register_script( 'wpmtst-pager-plugin', WPMTST_PUBLIC_URL . 'js/jquery.quickpager.js', array( 'jquery' ), false, true );
 	wp_register_script( 'wpmtst-pager-script', WPMTST_PUBLIC_URL . 'js/pager.js', array( 'wpmtst-pager-plugin' ), $plugin_version, true );
-	wp_register_style( 'wpmtst-pager-simple-style', WPMTST_PUBLIC_URL . 'css/pagination-simple.css', array(), $plugin_version );
-	wp_register_style( 'wpmtst-pager-standard-style', WPMTST_PUBLIC_URL . 'css/pagination-standard.css', array(), $plugin_version );
 
 	/**
 	 * View custom style
@@ -65,7 +63,7 @@ function wpmtst_scripts() {
 	/**
 	 * Form handling
 	 */
-	wp_register_script( 'wpmtst-validation-plugin', WPMTST_PUBLIC_URL . 'js/lib/validate/jquery.validate.min.js', array( 'jquery' ), false, true );
+	wp_register_script( 'wpmtst-validation-plugin', WPMTST_PUBLIC_URL . 'js/lib/validate/jquery.validate.min.js', array( 'jquery' ), '1.13.1', true );
 
 	wp_register_script( 'wpmtst-form-validation', WPMTST_PUBLIC_URL . 'js/form-validation.js', array( 'wpmtst-validation-plugin', 'jquery-form' ), $plugin_version, true );
 
