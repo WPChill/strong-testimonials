@@ -13,10 +13,14 @@
 function wpmtst_update_l10n_strings( $fields ) {
 
 	// WPML
-	wpmtst_form_fields_wpml( $fields );
+	if ( defined( 'ICL_SITEPRESS_VERSION' ) ) {
+		wpmtst_form_fields_wpml( $fields );
+	}
 
 	// Polylang
-	wpmtst_form_fields_polylang( $fields );
+	if ( defined( 'POLYLANG_VERSION') ) {
+		wpmtst_form_fields_polylang( $fields );
+	}
 
 }
 add_action( 'wpmtst_fields_updated', 'wpmtst_update_l10n_strings', 10 );
