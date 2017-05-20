@@ -157,7 +157,13 @@ function wpmtst_scripts() {
 		$plugin_version,
 		true );
 
-	if ( ! defined( 'MEGAMENU_VERSION' ) ) {
+	if ( defined( 'MEGAMENU_VERSION' ) ) {
+		wp_register_script( 'wpmtst-slider',
+			WPMTST_PUBLIC_URL . 'js/slider-megamenu.js',
+			array( 'strongslider' ),
+			$plugin_version,
+			true );
+	} else {
 		wp_register_script( 'wpmtst-slider',
 			WPMTST_PUBLIC_URL . 'js/slider.js',
 			array( 'strongslider' ),
@@ -167,25 +173,3 @@ function wpmtst_scripts() {
 
 }
 add_action( 'wp_enqueue_scripts', 'wpmtst_scripts' );
-
-
-/**
- * Load scripts later.
- */
-function wpmtst_scripts_later() {
-
-	$plugin_version = get_option( 'wpmtst_plugin_version' );
-
-	/**
-	 * Custom slider handler for Max Mega Menu plugin.
-	 */
-	if ( defined( 'MEGAMENU_VERSION' ) ) {
-		wp_register_script( 'wpmtst-slider',
-			WPMTST_PUBLIC_URL . 'js/slider-megamenu.js',
-			array( 'strongslider' ),
-			$plugin_version,
-			true );
-	}
-
-}
-add_action( 'wp_enqueue_scripts', 'wpmtst_scripts_later', 20 );
