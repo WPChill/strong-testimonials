@@ -3,7 +3,7 @@ Contributors: cdillon27
 Tags: testimonials, testimonial slider, testimonial form, reviews, star ratings, review markup
 Requires at least: 3.6
 Tested up to: 4.7.5
-Stable tag: 2.22.4
+Stable tag: 2.22.5
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -237,14 +237,17 @@ If you prefer not to post your URL publicly, start a private support ticket at [
 
 == Changelog ==
 
+= 2.22.5 - May 25, 2017 =
+* Fix bug in adding nofollow attribute to outbound links.
+
 = 2.22.4 - May 20, 2017 =
 * Fix compatibility with Max Mega Menu plugin.
 
 = 2.22.3 - May 18, 2017 =
 * Improve style and script loading.
-* Fix bug in slideshow in WordPress version less than 4.6
-* Fix WPML slug translation
-* Minor refactoring
+* Fix bug in slideshow in WordPress version less than 4.6.
+* Fix WPML slug translation.
+* Minor refactoring.
 
 = 2.22.2 - May 14, 2017 =
 * Fix bug in add-on license activation for localhost sites.
