@@ -589,6 +589,7 @@ function wpmtst_client_section( $client_section ) {
 
 						// TODO Make this a global plugin option.
 						$nofollow = get_post_meta( $post->ID, 'nofollow', true );
+						$nofollow = 'on' == $nofollow ? true : false;
 
 						// if field empty, use domain instead
 						if ( ! $text || is_array( $text ) )

@@ -3,7 +3,7 @@ Contributors: cdillon27
 Tags: testimonials, testimonial slider, testimonial form, reviews, star ratings, review markup
 Requires at least: 3.6
 Tested up to: 4.7.5
-Stable tag: 2.22.4
+Stable tag: 2.22.5
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -237,14 +237,17 @@ If you prefer not to post your URL publicly, start a private support ticket at [
 
 == Changelog ==
 
+= 2.22.5 - May 25, 2017 =
+* Fix bug in adding nofollow attribute to outbound links.
+
 = 2.22.4 - May 20, 2017 =
 * Fix compatibility with Max Mega Menu plugin.
 
 = 2.22.3 - May 18, 2017 =
 * Improve style and script loading.
-* Fix bug in slideshow in WordPress version less than 4.6
-* Fix WPML slug translation
-* Minor refactoring
+* Fix bug in slideshow in WordPress version less than 4.6.
+* Fix WPML slug translation.
+* Minor refactoring.
 
 = 2.22.2 - May 14, 2017 =
 * Fix bug in add-on license activation for localhost sites.
@@ -283,34 +286,6 @@ If you prefer not to post your URL publicly, start a private support ticket at [
 * Improve form nonce check.
 * Update EDD integration.
 * Add filters for custom sort order.
-
-= 2.19.2 - Mar 27, 2017 =
-* Fix conflict with Wonderflux framework.
-
-= 2.19.1 - Mar 24, 2017 =
-* Fix bug in category assignment on new submissions.
-* Add `wpmtst_field_value` filter.
-
-= 2.19 - Mar 18, 2017 =
-* Improve add-on integration.
-* Prevent conflict between Advanced noCaptcha reCaptcha plugin and page builders.
-* Add simple WP-CLI compatibility.
-* Add option to clear star rating value.
-
-= 2.18.2 - Feb 26, 2017 =
-* Fix bug in conditional loading of star rating stylesheet.
-
-= 2.18.1 - Feb 23, 2017 =
-* Fix bug in form success/error scrolling.
-
-= 2.18 - Feb 15, 2017 =
-* Add form success redirect options.
-* Add visual editor (TinyMCE) to the form success message.
-* Process shortcodes in the form success message.
-* Fix bug when slideshows are in hidden tabs.
-* Fix bug in edit rating script.
-* Improve Modern template responsive style.
-* Minor refactoring.
 
 == Upgrade Notice ==
 

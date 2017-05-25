@@ -1,3 +1,31 @@
+= 2.19.2 - Mar 27, 2017 =
+* Fix conflict with Wonderflux framework.
+
+= 2.19.1 - Mar 24, 2017 =
+* Fix bug in category assignment on new submissions.
+* Add `wpmtst_field_value` filter.
+
+= 2.19 - Mar 18, 2017 =
+* Improve add-on integration.
+* Prevent conflict between Advanced noCaptcha reCaptcha plugin and page builders.
+* Add simple WP-CLI compatibility.
+* Add option to clear star rating value.
+
+= 2.18.2 - Feb 26, 2017 =
+* Fix bug in conditional loading of star rating stylesheet.
+
+= 2.18.1 - Feb 23, 2017 =
+* Fix bug in form success/error scrolling.
+
+= 2.18 - Feb 15, 2017 =
+* Add form success redirect options.
+* Add visual editor (TinyMCE) to the form success message.
+* Process shortcodes in the form success message.
+* Fix bug when slideshows are in hidden tabs.
+* Fix bug in edit rating script.
+* Improve Modern template responsive style.
+* Minor refactoring.
+
 = 2.17.5 - Jan 18, 2017 =
 * Fix bug when page has multiple slideshows.
 
