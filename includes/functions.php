@@ -166,33 +166,6 @@ if ( ! function_exists( 'reverse_wpautop' ) ) {
 	}
 }
 
-/**
- * Open links in new tab.
- *
- * @since 1.11.0
- */
-if ( ! function_exists( 'link_new_tab' ) ) {
-	function link_new_tab( $new_tab = true, $echo = true ) {
-		if ( ! $new_tab ) return;
-		$t = ' target="_blank"';
-		if ( $echo ) echo $t;
-		else return $t;
-	}
-}
-
-/**
- * Add nofollow to links.
- *
- * @since 1.11.0
- */
-if ( ! function_exists( 'link_nofollow' ) ) {
-	function link_nofollow( $nofollow = true, $echo = true ) {
-		if ( ! $nofollow ) return;
-		$t = ' rel="nofollow"';
-		if ( $echo ) echo $t;
-		else return $t;
-	}
-}
 
 /**
  * Sort array based on 'order' element.

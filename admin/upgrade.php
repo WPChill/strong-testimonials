@@ -100,6 +100,9 @@ function wpmtst_upgrade() {
 		// Merge in new options
 		$options = array_merge( $default_options, $options );
 		update_option( 'wpmtst_options', $options );
+
+		// Convert nofollow
+		wpmtst_convert_nofollow();
 	}
 
 	/**
@@ -547,6 +550,38 @@ function wpmtst_upgrade() {
 		unlink( WP_CONTENT_DIR . '/install.log' );
 	}
 
+}
+
+
+/**
+ * Convert nofollow from (on|off) to (1|0).
+ *
+ * @since 2.22.5
+ */
+function wpmtst_convert_nofollow() {
+	$args  = array(
+		'posts_per_page'   => -1,
+		'post_type'        => 'wpm-testimonial',
+		'post_status'      => 'publish',
+		'suppress_filters' => true,
+	);
+	$posts = get_posts( $args );
+	if ( ! $posts )
+		return;
+
+	foreach ( $posts as $post ) {
+		$nofollow = get_post_meta( $post->ID, 'nofollow', true );
+		if ( 'on' == $nofollow ) {
+			$new_value = 'yes';
+		} elseif ( 0 === $nofollow ) {
+			$new_value = 'no';
+		} elseif ( is_bool( $nofollow && $nofollow ) ) {
+			$new_value = 'yes';
+		} else {
+			$new_value = 'default';
+		}
+		update_post_meta( $post->ID, 'nofollow', $new_value );
+	}
 }
 
 

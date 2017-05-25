@@ -22,8 +22,8 @@ $tags    = array( 'a' => array( 'href' => array(), 'target' => array(), 'class' 
 				<label>
 					<input type="checkbox" name="wpmtst_options[pending_indicator]" <?php checked( $options['pending_indicator'] ); ?>>
 					<?php _e( 'Show indicator bubble when new submissions are awaiting moderation.', 'strong-testimonials' ); ?>
+                    <?php _e( 'On by default.', 'strong-testimonials' ); ?>
 				</label>
-                <?php _e( 'On by default.', 'strong-testimonials' ); ?>
 			</fieldset>
 		</td>
 	</tr>
@@ -105,8 +105,8 @@ $tags    = array( 'a' => array( 'href' => array(), 'target' => array(), 'class' 
 			<label>
 				<input type="checkbox" name="wpmtst_options[scrolltop]" <?php checked( $options['scrolltop'] ); ?>>
 				<?php printf( __( 'When a new page is selected in paginated Views, scroll to the top of the container minus %s pixels.', 'strong-testimonials' ), '<input type="text" name="wpmtst_options[scrolltop_offset]" value="' . $options['scrolltop_offset'] . '" size="3">' ); ?>
+                <?php _e( 'On by default.', 'strong-testimonials' ); ?>
 			</label>
-            <?php _e( 'On by default.', 'strong-testimonials' ); ?>
 			</fieldset>
 		</td>
 	</tr>
@@ -120,8 +120,8 @@ $tags    = array( 'a' => array( 'href' => array(), 'target' => array(), 'class' 
 			<label>
 				<input type="checkbox" name="wpmtst_options[remove_whitespace]" <?php checked( $options['remove_whitespace'] ); ?>>
 				<?php _e( 'Remove space between HTML tags in View output to prevent double paragraphs <em>(wpautop)</em>.', 'strong-testimonials' ); ?>
+                <?php _e( 'On by default.', 'strong-testimonials' ); ?>
 			</label>
-            <?php _e( 'On by default.', 'strong-testimonials' ); ?>
 			</fieldset>
 		</td>
 	</tr>
@@ -135,8 +135,8 @@ $tags    = array( 'a' => array( 'href' => array(), 'target' => array(), 'class' 
                 <label>
                     <input type="checkbox" name="wpmtst_options[support_comments]" <?php checked( $options['support_comments'] ); ?>>
                     <?php _e( 'Allow comments on testimonials. Requires using your theme\'s single post template.', 'strong-testimonials' ); ?>
+                    <?php _e( 'Off by default.', 'strong-testimonials' ); ?>
                 </label>
-                <?php _e( 'Off by default.', 'strong-testimonials' ); ?>
 			</fieldset>
 			<p class="description"><?php _e( 'To enable comments:', 'strong-testimonials' ); ?></p>
 			<ul class="description">
@@ -192,13 +192,33 @@ $tags    = array( 'a' => array( 'href' => array(), 'target' => array(), 'class' 
                 <ul class="description">
                     <li>
                         <?php _e( 'Your theme or another plugin also loads Font Awesome and you want to make your site more efficient by only loading one copy.', 'strong-testimonials' ); ?>
-                        <?php printf( 'Try <a href="%s" target="_blank">%s</a> for more control.',
+                        <?php printf( 'Try <a href="%s" target="_blank">%s</a> for even more control.',
 							esc_url( 'https://wordpress.org/plugins/better-font-awesome/' ),
 							__( 'Better Font Awesome', 'strong-testimonials' ) ); ?></li>
                     <li><?php _e( 'You are overriding the icon CSS with images or another icon font.', 'strong-testimonials' ); ?></li>
                     <li><?php _e( 'You have no need for stars, slideshow controls, or quotation mark icons.', 'strong-testimonials' ); ?></li>
                     <li><?php _e( 'You know what you\'re doing.', 'strong-testimonials' ); ?></li>
                 </ul>
+            </fieldset>
+        </td>
+    </tr>
+
+    <tr valign="top">
+        <th scope="row">
+			<?php _e( 'Default Nofollow Link', 'strong-testimonials' ); ?>
+        </th>
+        <td>
+            <fieldset>
+                <label>
+                    <input type="checkbox" name="wpmtst_options[nofollow]" <?php checked( $options['nofollow'] ); ?>>
+					<?php _e( 'Add <code>rel="nofollow"</code> to URL custom fields.', 'strong-testimonials' ); ?>
+                    <?php _e( 'Off by default.', 'strong-testimonials' ); ?>
+                </label>
+                <p class="description">
+	                <?php printf( 'To edit your existing testimonials in bulk, try <a href="%s" target="_blank">%s</a> and set <code>nofollow</code> to <b>default</b>, <b>yes</b>, or <b>no</b>.',
+		                esc_url( 'https://wordpress.org/plugins/custom-field-bulk-editor/' ),
+		                __( 'Custom Field Bulk Editor', 'strong-testimonials' ) ); ?>
+                </p>
             </fieldset>
         </td>
     </tr>

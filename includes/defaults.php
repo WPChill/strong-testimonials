@@ -17,21 +17,23 @@
  * @since 2.6.2  slideshow z-index
  * @since 2.10.0 pending indicator
  * @since 2.21.0 load Font Awesome
+ * @since 2.22.5 nofollow
  *
  * @return array
  */
 function wpmtst_get_default_options() {
 	$default_options = array(
-		'reorder'               => false,
-		'scrolltop'             => true,
-		'scrolltop_offset'      => 40,
-		'remove_whitespace'     => true,
-		'support_custom_fields' => false,
-		'support_comments'      => false,
 		'email_log_level'       => 1,
 		'embed_width'           => '',
-		'pending_indicator'     => true,
 		'load_font_awesome'     => 1,
+		'nofollow'              => 0,
+		'pending_indicator'     => true,
+		'remove_whitespace'     => true,
+		'reorder'               => false,
+		'support_comments'      => false,
+		'support_custom_fields' => false,
+		'scrolltop'             => true,
+		'scrolltop_offset'      => 40,
 	);
 
 	return $default_options;

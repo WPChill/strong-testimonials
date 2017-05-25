@@ -553,6 +553,8 @@ function wpmtst_the_client() {
  */
 function wpmtst_client_section( $client_section ) {
 	global $post;
+
+	$options = get_option( 'wpmtst_options' );
 	$html = $output = '';
 
 	foreach ( $client_section as $field ) {
@@ -598,17 +600,30 @@ function wpmtst_client_section( $client_section ) {
 
 					$url = get_post_meta( $post->ID, $field['url'], true );
 					if ( $url ) {
-						$new_tab = isset( $field['new_tab'] ) ? $field['new_tab'] : false;
+						if ( isset( $field['new_tab'] ) && $field['new_tab'] ) {
+						    $newtab = ' target="_blank"';
+						} else {
+						    $newtab = '';
+						}
 
-						// TODO Make this a global plugin option.
-						$nofollow = get_post_meta( $post->ID, 'nofollow', true );
-						$nofollow = 'on' == $nofollow ? true : false;
+						// TODO Abstract this global fallback technique.
+						$is_nofollow = get_post_meta( $post->ID, 'nofollow', true );
+						if ( 'default' == $is_nofollow ) {
+						    // convert default to (yes|no)
+						    $is_nofollow = $options['nofollow'] ? 'yes' : 'no';
+						}
+						if ( 'yes' == $is_nofollow ) {
+							$nofollow = ' rel="nofollow"';
+						} else {
+							$nofollow = '';
+						}
 
 						// if field empty, use domain instead
-						if ( ! $text || is_array( $text ) )
+						if ( ! $text || is_array( $text ) ) {
 							$text = preg_replace( '(^https?://)', '', $url );
+						}
 
-						$output = sprintf( '<a href="%s"%s%s>%s</a>', $url, link_new_tab( $new_tab, false ), link_nofollow( $nofollow, false ), $text );
+						$output = sprintf( '<a href="%s"%s%s>%s</a>', $url, $newtab, $nofollow, $text );
 					}
 
 				}
