@@ -8,8 +8,12 @@
     font-weight: 700;
   }
 
-  input[type="checkbox"] + label {
-    font-weight: 400;
+  input[type="checkbox"] {
+    margin-right: 0.5em;
+
+    + label {
+      font-weight: 400;
+    }
   }
 
   .form-field .after {

@@ -64,6 +64,9 @@ img.captcha {
 .strong-form label {
   font-weight: 700;
 }
+.strong-form input[type="checkbox"] {
+  margin-right: 0.5em;
+}
 .strong-form input[type="checkbox"] + label {
   font-weight: 400;
 }
