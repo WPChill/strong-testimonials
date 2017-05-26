@@ -450,7 +450,6 @@ ul.compact li {
   font-weight: 400;
   text-align: right;
   vertical-align: top;
-  /*width: 30%;*/
   padding-top: 8px;
 }
 
@@ -463,12 +462,23 @@ ul.compact li {
   margin-top: 0;
 }
 
-input.custom-input {
+input[type="text"].custom-input,
+input[type="email"].custom-input,
+input[type="url"].custom-input {
   width: 100%;
 }
 
 div.url input.custom-input {
   width: calc(100% - 180px);
+}
+
+div.checkbox {
+  height: 28px;
+  padding: 3px 0 5px;
+}
+div.checkbox input[type="checkbox"] {
+  margin: 1px;
+  padding: 3px 5px;
 }
 
 .input-nofollow {
