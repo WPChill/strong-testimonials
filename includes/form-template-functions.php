@@ -63,9 +63,9 @@ function wpmtst_single_form_field( $field ) {
 			echo $label;
 		}
 	    wpmtst_field_required_symbol( $field );
+	    wpmtst_field_before( $field );
 	}
 
-	wpmtst_field_before( $field );
 
 	switch ( $field['input_type'] ) {
 
@@ -128,7 +128,8 @@ function wpmtst_single_form_field( $field ) {
 		        $label = '<label for="wpmtst_' . $field['name'] . '">' . apply_filters( 'wpmtst_l10n', $field['label'], 'strong-testimonials-form-fields', $field['name'] . ' : label' ) . '</label>';
 		        echo $label;
 	        }
-
+	        wpmtst_field_before( $field );
+	        
 	        echo '<div>';
 	        // TODO Convert to printf!
 	        echo '<input id="wpmtst_' . $field['name'] . '"'
