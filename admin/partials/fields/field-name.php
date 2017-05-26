@@ -2,7 +2,7 @@
 /**
  * Field Name
  *
- * Disabled inputs are not posted so store the field name in a hidden inpu.
+ * Disabled inputs are not posted so store the field name in a hidden input.
  */
 ?>
 <tr class="field-name-row">
