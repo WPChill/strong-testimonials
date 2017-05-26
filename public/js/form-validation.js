@@ -45,7 +45,10 @@
       } else {
 
         $("#wpmtst-submission-form").validate({
-          showErrors: strongShowErrors
+          showErrors: strongShowErrors,
+          errorPlacement: function(error, element) {
+            error.appendTo( element.parent("div") );
+          }
         });
 
       }
