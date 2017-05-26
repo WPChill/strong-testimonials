@@ -57,12 +57,14 @@ function wpmtst_single_form_field( $field ) {
 
 	echo '<div class="form-field field-'.$field['name'].'">';
 
-	if ( ! isset( $field['show_label'] ) || $field['show_label'] ) {
-		$label = '<label for="wpmtst_' . $field['name'] . '">' . apply_filters( 'wpmtst_l10n', $field['label'], 'strong-testimonials-form-fields', $field['name'] . ' : label' ) . '</label>';
-		echo $label;
+	if ( 'checkbox' != $field['input_type'] ) {
+		if ( ! isset( $field['show_label'] ) || $field['show_label'] ) {
+			$label = '<label for="wpmtst_' . $field['name'] . '">' . apply_filters( 'wpmtst_l10n', $field['label'], 'strong-testimonials-form-fields', $field['name'] . ' : label' ) . '</label>';
+			echo $label;
+		}
+	    wpmtst_field_required_symbol( $field );
 	}
 
-	wpmtst_field_required_symbol( $field );
 	wpmtst_field_before( $field );
 
 	switch ( $field['input_type'] ) {
@@ -120,6 +122,28 @@ function wpmtst_single_form_field( $field ) {
 		case 'rating' :
 			wpmtst_star_rating_form( $field, $field['default_form_value'], 'in-form' );
 			break;
+
+        case 'checkbox' :
+	        if ( ! isset( $field['show_label'] ) || $field['show_label'] ) {
+		        $label = '<label for="wpmtst_' . $field['name'] . '">' . apply_filters( 'wpmtst_l10n', $field['label'], 'strong-testimonials-form-fields', $field['name'] . ' : label' ) . '</label>';
+		        echo $label;
+	        }
+
+	        echo '<div>';
+	        // TODO Convert to printf!
+	        echo '<input id="wpmtst_' . $field['name'] . '"'
+	             . ' type="' . $field['input_type'] . '"'
+	             . ' class="' . wpmtst_field_classes( $field['input_type'], $field['name'] ) . '"'
+	             . ' name="' . $field['name'] . '"'
+	             . wpmtst_field_required_tag( $field ) . '>';
+	        if ( isset( $field['text'] ) ) {
+		        echo '<label for="wpmtst_' . $field['name'] . '">' . $field['text'] . '</label>';
+	        }
+	        wpmtst_field_required_symbol( $field );
+            echo '</div>';
+
+
+            break;
 
 		default: // text, email, url
 			echo '<input id="wpmtst_' . $field['name'] . '"'

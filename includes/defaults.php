@@ -51,8 +51,11 @@ function wpmtst_get_default_fields() {
 		'show_label'              => 1,
 		'input_type'              => '',
 
-		'show_required_option'    => 1,
+		'text'                    => '',
+		'show_text_option'        => 0,
+
 		'required'                => 0,
+		'show_required_option'    => 1,
 
 		'default_form_value'      => '',
 		'default_display_value'   => '',
@@ -130,6 +133,13 @@ function wpmtst_get_default_fields() {
 			'input_type'           => 'url',
 			'option_label'         => __( 'URL', 'strong-testimonials' ),
 			'show_default_options' => 0,
+		),
+		'checkbox' => array(
+			'input_type'           => 'checkbox',
+			'option_label'         => __( 'checkbox', 'strong-testimonials' ),
+			'show_text_option'     => 1,
+			'show_default_options' => 0,
+			'show_placeholder_option' => 0,
 		),
 	);
 	foreach ( $field_types['custom'] as $key => $array ) {

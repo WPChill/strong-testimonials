@@ -216,8 +216,11 @@ function wpmtst_show_field( $key, $field, $adding ) {
         <table class="field-table">
             <?php
             include 'partials/fields/field-type.php';
-            include 'partials/fields/field-label.php';
+	        include 'partials/fields/field-label.php';
             include 'partials/fields/field-name.php';
+            if ( 'checkbox' == $field['input_type'] ) {
+	            include 'partials/fields/field-text.php';
+            }
 
             if ( ! $adding ) {
                 echo wpmtst_show_field_secondary( $key, $field );
