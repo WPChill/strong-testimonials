@@ -50,7 +50,6 @@
             error.appendTo( element.closest("div.form-field") );
           },
           highlight: function(element, errorClass, validClass) {
-            console.log(element.type);
             if ( element.type === 'checkbox' ) {
               $(element).closest(".field-wrap").addClass(errorClass).removeClass(validClass);
             } else {

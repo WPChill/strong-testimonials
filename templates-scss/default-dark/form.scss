@@ -23,10 +23,15 @@
 
   input.error,
   textarea.error,
-  select.error {
+  select.error,
+  .field-wrap.error {
     background: #F9E5E6;
     border: 1px solid #FF6666;
     color: #B50007;
+  }
+
+  .field-wrap.error {
+    padding-left: 0.5em;
   }
 
   span.error,
