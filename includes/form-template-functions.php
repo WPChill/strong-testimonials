@@ -129,7 +129,7 @@ function wpmtst_single_form_field( $field ) {
 		        echo $label;
 	        }
 	        wpmtst_field_before( $field );
-	        
+
 	        echo '<div>';
 	        // TODO Convert to printf!
 	        echo '<input id="wpmtst_' . $field['name'] . '"'
@@ -143,7 +143,6 @@ function wpmtst_single_form_field( $field ) {
 	        wpmtst_field_required_symbol( $field );
             echo '</div>';
 
-
             break;
 
 		default: // text, email, url
@@ -156,8 +155,8 @@ function wpmtst_single_form_field( $field ) {
 				 . wpmtst_field_required_tag( $field ) . '>';
 	}
 
-	wpmtst_field_error( $field );
 	wpmtst_field_after( $field );
+	wpmtst_field_error( $field );
 	echo '</div>' . "\n";
 
 }
