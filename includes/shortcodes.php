@@ -196,3 +196,14 @@ function wpmtst_testimonial_count( $atts, $content = null ) {
 	return count( $posts_array );
 }
 add_shortcode( 'testimonial_count', 'wpmtst_testimonial_count' );
+
+
+/**
+ * A simple shortcode for testing.
+ *
+ * @return string
+ */
+function wpmtst_hello() {
+    return 'Hello';
+}
+add_shortcode ( 'wpmtst_hello', 'wpmtst_hello' );
