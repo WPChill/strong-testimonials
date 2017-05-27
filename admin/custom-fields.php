@@ -93,8 +93,11 @@ function wpmtst_settings_custom_fields( $form_id = 1 ) {
 
 				$field['placeholder']             = sanitize_text_field( $field['placeholder'] );
 
-				$field['before']                  = sanitize_text_field( $field['before'] );
-				$field['after']                   = sanitize_text_field( $field['after'] );
+				if ( isset( $field['text'] ) ) {
+					$field['text'] = wp_kses_post( $field['text'] );
+				}
+				$field['before'] = wp_kses_post( $field['before'] );
+				$field['after']  = wp_kses_post( $field['after'] );
 
 				$field['shortcode_on_form']      = sanitize_text_field( $field['shortcode_on_form'] );
 				$field['shortcode_on_display']   = sanitize_text_field( $field['shortcode_on_display'] );

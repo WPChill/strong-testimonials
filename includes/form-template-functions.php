@@ -234,15 +234,16 @@ function wpmtst_field_required_symbol( $field ) {
 		echo '<span class="required symbol"></span>';
 }
 
+// TODO do_shortcode
 function wpmtst_field_before( $field ) {
 	if ( isset( $field['before'] ) && $field['before'] ) {
-		echo '<span class="before">' . esc_html( apply_filters( 'wpmtst_l10n', $field['before'], 'strong-testimonials-form-fields', $field['name'] . ' : before' ) ) . '</span>';
+		echo '<span class="before">' . apply_filters( 'wpmtst_l10n', $field['before'], 'strong-testimonials-form-fields', $field['name'] . ' : before' ) . '</span>';
 	}
 }
 
 function wpmtst_field_after( $field ) {
 	if ( isset( $field['after'] ) && $field['after'] ) {
-		echo '<span class="after">' . esc_html( apply_filters( 'wpmtst_l10n', $field['after'], 'strong-testimonials-form-fields', $field['name'] . ' : after' ) ) . '</span>';
+		echo '<span class="after">' . apply_filters( 'wpmtst_l10n', $field['after'], 'strong-testimonials-form-fields', $field['name'] . ' : after' ) . '</span>';
 	}
 }
 
