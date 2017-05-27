@@ -103,6 +103,7 @@ function wpmtst_settings_custom_fields( $form_id = 1 ) {
 				// Hidden options (no need to check if isset)
 				$field['admin_table']             = $field['admin_table'] ? 1 : 0;
 				$field['show_admin_table_option'] = $field['show_admin_table_option'] ? 1 : 0;
+				$field['show_text_option']        = $field['show_text_option'] ? 1 : 0;
 				$field['show_placeholder_option'] = $field['show_placeholder_option'] ? 1 : 0;
 				$field['show_default_options']    = $field['show_default_options'] ? 1 : 0;
 
@@ -218,9 +219,6 @@ function wpmtst_show_field( $key, $field, $adding ) {
             include 'partials/fields/field-type.php';
 	        include 'partials/fields/field-label.php';
             include 'partials/fields/field-name.php';
-            if ( 'checkbox' == $field['input_type'] ) {
-	            include 'partials/fields/field-text.php';
-            }
 
             if ( ! $adding ) {
                 echo wpmtst_show_field_secondary( $key, $field );
@@ -289,6 +287,20 @@ function wpmtst_show_field_secondary( $key, $field ) {
 			$html .= '<tr class="field-secondary">' . "\n";
 			$html .= '<th>' . __( 'Placeholder', 'strong-testimonials' ) . '</th>' . "\n";
 			$html .= '<td><input type="text" name="fields[' . $key . '][placeholder]" value="' . wpmtst_htmlspecialchars( $field['placeholder'] ) . '"></td>' . "\n";
+			$html .= '</tr>' . "\n";
+		}
+	}
+
+	/**
+	 * Text (checkbox, radio)
+     *
+     * @since 2.23.0
+	 */
+	if ( $field['show_text_option'] ) {
+		if ( isset( $field['text'] ) ) {
+			$html .= '<tr class="field-secondary">' . "\n";
+			$html .= '<th>' . __( 'Text', 'strong-testimonials' ) . '</th>' . "\n";
+			$html .= '<td><input type="text" name="fields[' . $key . '][text]" value="' . wpmtst_htmlspecialchars( $field['text'] ) . '" placeholder="' . __( 'next to the checkbox', 'strong-testimonials' ) . '"></td>' . "\n";
 			$html .= '</tr>' . "\n";
 		}
 	}
@@ -423,6 +435,7 @@ function wpmtst_show_field_hidden( $key, $field ) {
 	$html = sprintf( $pattern, $key, 'record_type', $field['record_type'] ) . "\n";
 	$html .= sprintf( $pattern, $key, 'input_type', $field['input_type'] ) . "\n";
 	$html .= sprintf( $pattern, $key, 'name_mutable', $field['name_mutable'] ) . "\n";
+	$html .= sprintf( $pattern, $key, 'show_text_option', $field['show_text_option'] ) . "\n";
 	$html .= sprintf( $pattern, $key, 'show_placeholder_option', $field['show_placeholder_option'] ) . "\n";
 	$html .= sprintf( $pattern, $key, 'show_default_options', $field['show_default_options'] ) . "\n";
 	$html .= sprintf( $pattern, $key, 'admin_table_option', $field['admin_table_option'] ) . "\n";
