@@ -28,9 +28,17 @@ function wpmtst_get_form_message( $part ) {
 	$form_options = get_option( 'wpmtst_form_options' );
 	$messages = $form_options['messages'];
 	if ( isset( $messages[$part]['text'] ) ) {
-		return apply_filters( 'wpmtst_l10n', $messages[$part]['text'], 'strong-testimonials-form-messages', $messages[$part]['description'] );
+	    return apply_filters( 'wpmtst_form_message', $messages[ $part ]['text'], $messages[ $part ] );
 	}
 }
+
+function wpmtst_form_message_l10n( $text, $message ) {
+	$text = apply_filters( 'wpmtst_l10n', $text, 'strong-testimonials-form-messages', $message['description'] );
+
+	return $text;
+}
+add_filter( 'wpmtst_form_message', 'wpmtst_form_message_l10n', 10, 2 );
+
 
 function wpmtst_all_form_fields( $fields = null ) {
 	if ( ! $fields ) {
@@ -59,10 +67,12 @@ function wpmtst_single_form_field( $field ) {
 
 	if ( 'checkbox' != $field['input_type'] ) {
 		if ( ! isset( $field['show_label'] ) || $field['show_label'] ) {
-			$label = '<label for="wpmtst_' . $field['name'] . '">' . apply_filters( 'wpmtst_l10n', $field['label'], 'strong-testimonials-form-fields', $field['name'] . ' : label' ) . '</label>';
+			$label = '<label for="wpmtst_' . $field['name'] . '">' . wpmtst_form_field_meta_l10n( $field['label'], $field, 'label' ) . '</label>';
 			echo $label;
 		}
-	    wpmtst_field_required_symbol( $field );
+		if ( isset( $field['required'] ) && $field['required'] ) {
+			wpmtst_field_required_symbol();
+		}
 	    wpmtst_field_before( $field );
 	}
 
@@ -125,7 +135,7 @@ function wpmtst_single_form_field( $field ) {
 
         case 'checkbox' :
 	        if ( ! isset( $field['show_label'] ) || $field['show_label'] ) {
-		        $label = '<label for="wpmtst_' . $field['name'] . '">' . apply_filters( 'wpmtst_l10n', $field['label'], 'strong-testimonials-form-fields', $field['name'] . ' : label' ) . '</label>';
+		        $label = '<label for="wpmtst_' . $field['name'] . '">' . wpmtst_form_field_meta_l10n( $field['label'], $field, 'label' ) . '</label>';
 		        echo $label;
 	        }
 	        wpmtst_field_before( $field );
@@ -140,7 +150,9 @@ function wpmtst_single_form_field( $field ) {
 	        if ( isset( $field['text'] ) ) {
 		        echo '<label for="wpmtst_' . $field['name'] . '">' . $field['text'] . '</label>';
 	        }
-	        wpmtst_field_required_symbol( $field );
+	        if ( isset( $field['required'] ) && $field['required'] ) {
+		        wpmtst_field_required_symbol();
+	        }
             echo '</div>';
 
             break;
@@ -214,7 +226,7 @@ function wpmtst_field_value( $field, $form_values ) {
 
 function wpmtst_field_placeholder( $field ) {
 	if ( isset( $field['placeholder'] ) && $field['placeholder'] ) {
-		return ' placeholder="' . esc_attr( apply_filters( 'wpmtst_l10n', $field['placeholder'], 'strong-testimonials-form-fields', $field['name'] . ' : placeholder' ) ) . '"';
+		return ' placeholder="' . esc_attr( wpmtst_form_field_meta_l10n( $field['placeholder'], $field, 'placeholder' ) ) . '"';
 	}
 }
 
@@ -229,24 +241,79 @@ function wpmtst_field_required_tag( $field ) {
 		return ' required';
 }
 
-function wpmtst_field_required_symbol( $field ) {
-	if ( isset( $field['required'] ) && $field['required'] )
-		echo '<span class="required symbol"></span>';
+/**
+ * Print "Required field" HTML.
+ *
+ * @since 2.23.0
+ */
+function wpmtst_field_required_notice() {
+    ob_start();
+    ?>
+    <p class="required-notice">
+    <?php wpmtst_field_required_symbol(); ?>
+    <?php wpmtst_form_message( 'required-field' ); ?>
+    </p>
+    <?php
+    $html = ob_end_clean();
+
+    return ( apply_filters( 'wpmtst_field_required', $html ) );
 }
 
-// TODO do_shortcode
+/**
+ *
+ */
+function wpmtst_field_required_symbol() {
+	echo apply_filters( 'wpmtst_field_required_symbol', '<span class="required symbol"></span>' );
+}
+
+/**
+ * @param $field
+ */
 function wpmtst_field_before( $field ) {
-	if ( isset( $field['before'] ) && $field['before'] ) {
-		echo '<span class="before">' . apply_filters( 'wpmtst_l10n', $field['before'], 'strong-testimonials-form-fields', $field['name'] . ' : before' ) . '</span>';
-	}
+    echo '<span class="before">';
+	echo wpmtst_get_form_field_meta( $field, 'before' );
+	echo '</span>';
 }
 
+/**
+ * @param $field
+ */
 function wpmtst_field_after( $field ) {
-	if ( isset( $field['after'] ) && $field['after'] ) {
-		echo '<span class="after">' . apply_filters( 'wpmtst_l10n', $field['after'], 'strong-testimonials-form-fields', $field['name'] . ' : after' ) . '</span>';
-	}
+    echo '<span class="after">';
+	echo wpmtst_get_form_field_meta( $field, 'after' );
+	echo '</span>';
 }
 
+/**
+ * @param $field
+ * @param $meta
+ *
+ * @return mixed|string|void
+ */
+function wpmtst_get_form_field_meta( $field, $meta ) {
+    if ( isset( $field[ $meta ] ) && $field[ $meta ] ) {
+        return apply_filters( 'wpmtst_form_field_meta', $field[ $meta ], $field, $meta );
+    }
+
+    return '';
+}
+
+/**
+ * @param $field_meta
+ * @param $field
+ * @param $meta
+ *
+ * @return mixed|void
+ */
+function wpmtst_form_field_meta_l10n( $field_meta, $field, $meta ) {
+	return apply_filters( 'wpmtst_l10n', $field_meta, 'strong-testimonials-form-fields', $field['name'] . ' : ' . $meta );
+}
+add_filter( 'wpmtst_form_field_meta', 'wpmtst_form_field_meta_l10n', 10, 3 );
+add_filter( 'wpmtst_form_field_meta', 'do_shortcode' );
+
+/**
+ * @param $field
+ */
 function wpmtst_field_error( $field ) {
 	$errors = WPMST()->get_form_errors();
 	if ( isset( $errors[ $field['name'] ] ) ) {
@@ -295,18 +362,14 @@ add_action( 'wpmtst_form_after_fields', 'wpmtst_form_captcha' );
  * @param bool $preview
  */
 function wpmtst_form_submit_button( $preview = false ) {
-	$form_options = get_option( 'wpmtst_form_options' );
-	$messages     = $form_options['messages'];
-	$string       = $messages['form-submit-button']['text'];
-	$context      = 'strong-testimonials-form-messages';
-	$name         = $messages['form-submit-button']['description'];
-	$type         = $preview ? 'button' : 'submit';
 	?>
 	<div class="form-field submit">
-		<label><input type="<?php echo $type; ?>" id="wpmtst_submit_testimonial" name="wpmtst_submit_testimonial" value="<?php echo esc_attr( apply_filters( 'wpmtst_l10n', $string, $context, $name ) ); ?>" class="button"></label>
+		<label><input type="<?php echo $preview ? 'button' : 'submit'; ?>"
+                      id="wpmtst_submit_testimonial" name="wpmtst_submit_testimonial"
+                      value="<?php esc_attr_e( wpmtst_get_form_message( 'form-submit-button' ) ); ?>"
+                      class="button"></label>
 	</div>
 	<?php
-	// validate="required:true"
 }
 
 /**
