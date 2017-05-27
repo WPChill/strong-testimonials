@@ -190,6 +190,8 @@ function wpmtst_settings_custom_fields( $form_id = 1 ) {
 /**
  * Our version of htmlspecialchars.
  *
+ * @deprecated
+ *
  * @since 2.0.0
  * @param $string
  *
@@ -289,7 +291,7 @@ function wpmtst_show_field_secondary( $key, $field ) {
 		if ( isset( $field['placeholder'] ) ) {
 			$html .= '<tr class="field-secondary">' . "\n";
 			$html .= '<th>' . __( 'Placeholder', 'strong-testimonials' ) . '</th>' . "\n";
-			$html .= '<td><input type="text" name="fields[' . $key . '][placeholder]" value="' . wpmtst_htmlspecialchars( $field['placeholder'] ) . '"></td>' . "\n";
+			$html .= '<td><input type="text" name="fields[' . $key . '][placeholder]" value="' . esc_attr( $field['placeholder'] ) . '"></td>' . "\n";
 			$html .= '</tr>' . "\n";
 		}
 	}
@@ -303,7 +305,7 @@ function wpmtst_show_field_secondary( $key, $field ) {
 		if ( isset( $field['text'] ) ) {
 			$html .= '<tr class="field-secondary">' . "\n";
 			$html .= '<th>' . __( 'Text', 'strong-testimonials' ) . '</th>' . "\n";
-			$html .= '<td><input type="text" name="fields[' . $key . '][text]" value="' . wpmtst_htmlspecialchars( $field['text'] ) . '" placeholder="' . __( 'next to the checkbox', 'strong-testimonials' ) . '"></td>' . "\n";
+			$html .= '<td><input type="text" name="fields[' . $key . '][text]" value="' . esc_attr( $field['text'] ) . '" placeholder="' . __( 'next to the checkbox', 'strong-testimonials' ) . '"></td>' . "\n";
 			$html .= '</tr>' . "\n";
 		}
 	}
@@ -313,7 +315,7 @@ function wpmtst_show_field_secondary( $key, $field ) {
 	 */
 	$html .= '<tr class="field-secondary">' . "\n";
 	$html .= '<th>' . __( 'Before', 'strong-testimonials' ) . '</th>' . "\n";
-	$html .= '<td><input type="text" name="fields[' . $key . '][before]" value="' . wpmtst_htmlspecialchars( $field['before'] ) . '"></td>' . "\n";
+	$html .= '<td><input type="text" name="fields[' . $key . '][before]" value="' . esc_attr( $field['before'] ) . '"></td>' . "\n";
 	$html .= '</tr>' . "\n";
 
 	/*
@@ -321,7 +323,7 @@ function wpmtst_show_field_secondary( $key, $field ) {
 	 */
 	$html .= '<tr class="field-secondary">' . "\n";
 	$html .= '<th>' . __( 'After', 'strong-testimonials' ) . '</th>' . "\n";
-	$html .= '<td><input type="text" name="fields[' . $key . '][after]" value="' . wpmtst_htmlspecialchars( $field['after'] ) . '"></td>' . "\n";
+	$html .= '<td><input type="text" name="fields[' . $key . '][after]" value="' . esc_attr( $field['after'] ) . '"></td>' . "\n";
 	$html .= '</tr>' . "\n";
 
 	/*
@@ -334,10 +336,10 @@ function wpmtst_show_field_secondary( $key, $field ) {
 			$html .= '<td>' . "\n";
 			// TODO Replace this special handling
 			if ( 'rating' == $field['input_type'] ) {
-    			$html .= '<input type="text" name="fields[' . $key . '][default_form_value]" value="' . wpmtst_htmlspecialchars( $field['default_form_value'] ) . '" class="as-number">';
+    			$html .= '<input type="text" name="fields[' . $key . '][default_form_value]" value="' . esc_attr( $field['default_form_value'] ) . '" class="as-number">';
 			    $html .= '<span class="help inline">' . __( 'stars', 'strong-testimonials' ) . '</span>';
 			} else {
-				$html .= '<input type="text" name="fields[' . $key . '][default_form_value]" value="' . wpmtst_htmlspecialchars( $field['default_form_value'] ) . '">';
+				$html .= '<input type="text" name="fields[' . $key . '][default_form_value]" value="' . esc_attr( $field['default_form_value'] ) . '">';
 			}
 			$html .= '<span class="help">' . __( 'Populate the field with this value.', 'strong-testimonials' ) . '</span>';
 			$html .= '</td>' . "\n";
@@ -355,10 +357,10 @@ function wpmtst_show_field_secondary( $key, $field ) {
 			$html .= '<td>' . "\n";
 			// TODO Replace this special handling
 			if ( 'rating' == $field['input_type'] ) {
-				$html .= '<input type="text" name="fields[' . $key . '][default_display_value]" value="' . wpmtst_htmlspecialchars( $field['default_display_value'] ) . '" class="as-number">';
+				$html .= '<input type="text" name="fields[' . $key . '][default_display_value]" value="' . esc_attr( $field['default_display_value'] ) . '" class="as-number">';
 				$html .= '<span class="help inline">' . __( 'stars', 'strong-testimonials' ) . '</span>';
 			} else {
-				$html .= '<input type="text" name="fields[' . $key . '][default_display_value]" value="' . wpmtst_htmlspecialchars( $field['default_display_value'] ) . '">';
+				$html .= '<input type="text" name="fields[' . $key . '][default_display_value]" value="' . esc_attr( $field['default_display_value'] ) . '">';
 			}
 			$html .= '<span class="help">' . __( 'Display this on the testimonial if no value is submitted.', 'strong-testimonials' ) . '</span>';
 			$html .= '</td>' . "\n";
@@ -374,7 +376,7 @@ function wpmtst_show_field_secondary( $key, $field ) {
 			$html .= '<tr class="field-secondary">' . "\n";
 			$html .= '<th>' . __( 'Shortcode on form', 'strong-testimonials' ) . '</th>' . "\n";
 			$html .= '<td>' . "\n";
-			$html .= '<input type="text" name="fields[' . $key . '][shortcode_on_form]" value="' . wpmtst_htmlspecialchars( $field['shortcode_on_form'] ) . '">';
+			$html .= '<input type="text" name="fields[' . $key . '][shortcode_on_form]" value="' . esc_attr( $field['shortcode_on_form'] ) . '">';
 			//$html .= '<span class="help">' . __( 'Display this on the testimonial if no value is submitted.', 'strong-testimonials' ) . '</span>';
 			$html .= '</td>' . "\n";
 			$html .= '</tr>' . "\n";
@@ -383,7 +385,7 @@ function wpmtst_show_field_secondary( $key, $field ) {
 			$html .= '<tr class="field-secondary">' . "\n";
 			$html .= '<th>' . __( 'Shortcode on display', 'strong-testimonials' ) . '</th>' . "\n";
 			$html .= '<td>' . "\n";
-			$html .= '<input type="text" name="fields[' . $key . '][shortcode_on_display]" value="' . wpmtst_htmlspecialchars( $field['shortcode_on_display'] ) . '">';
+			$html .= '<input type="text" name="fields[' . $key . '][shortcode_on_display]" value="' . esc_attr( $field['shortcode_on_display'] ) . '">';
 			//$html .= '<span class="help">' . __( 'Display this on the testimonial if no value is submitted.', 'strong-testimonials' ) . '</span>';
 			$html .= '</td>' . "\n";
 			$html .= '</tr>' . "\n";

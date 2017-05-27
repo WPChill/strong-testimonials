@@ -8,7 +8,7 @@
     <td>
         <input type="text" class="field-label"
                name="fields[<?php echo $key; ?>][label]"
-               value="<?php echo wpmtst_htmlspecialchars( $field['label'] ); ?>">
+               value="<?php echo esc_attr( $field['label'] ); ?>">
         <label>
             <input type="checkbox" name="fields[<?php echo $key; ?>][show_label]" <?php checked( $field['show_label'], true ); ?>><span class="help inline"><?php _e( 'Show this label on the form.', 'strong-testimonials' ); ?></span>
         </label>

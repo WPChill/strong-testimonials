@@ -8,7 +8,7 @@
 	<td>
 		<input type="text" class="field-label"
 			   name="fields[<?php echo $key; ?>][text]"
-			   value="<?php echo wpmtst_htmlspecialchars( $field['text'] ); ?>"
-               placeholder="<?php _e(' next to the checkbox', 'strong-testimonials' ); ?>">
+			   value="<?php echo esc_attr( $field['text'] ); ?>"
+               placeholder="<?php _e('next to the checkbox', 'strong-testimonials' ); ?>">
 	</td>
 </tr>

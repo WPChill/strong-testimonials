@@ -13,7 +13,7 @@
 		if ( $field['name_mutable'] ) : ?>
 			<input type="text" class="field-name"
 				   name="fields[<?php echo $key; ?>][name]"
-				   value="<?php echo isset( $field['name'] ) ? wpmtst_htmlspecialchars( $field['name'] ) : ''; ?>">
+				   value="<?php echo isset( $field['name'] ) ? esc_attr( $field['name'] ) : ''; ?>">
 			<span class="help field-name-help"><?php _e( 'Use only lowercase letters, numbers, and underscores.', 'strong-testimonials' ); ?></span>
 			<span class="help field-name-help important"><?php _e( 'Cannot be "name" or "date".', 'strong-testimonials' ); ?></span>
 		<?php else : ?>
