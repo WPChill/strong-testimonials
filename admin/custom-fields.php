@@ -136,7 +136,7 @@ function wpmtst_settings_custom_fields( $form_id = 1 ) {
 
     <div id="left-col">
         <div>
-            <h3>Editor</h3>
+            <h3><?php _e( 'Editor', 'strong-testimonials' ); ?></h3>
             <p>
                 <?php _e( 'Click a field to open its options panel.', 'strong-testimonials' ); ?>
                 <a class="open-help-tab" href="#tab-panel-wpmtst-help"><?php _e( 'Help' ); ?></a>
