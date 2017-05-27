@@ -242,7 +242,7 @@ function wpmtst_field_required_tag( $field ) {
 }
 
 /**
- * Print "Required field" HTML.
+ * Print "Required field" notice.
  *
  * @since 2.23.0
  */
@@ -260,13 +260,15 @@ function wpmtst_field_required_notice() {
 }
 
 /**
- *
+ * Print required field symbol.
  */
 function wpmtst_field_required_symbol() {
 	echo apply_filters( 'wpmtst_field_required_symbol', '<span class="required symbol"></span>' );
 }
 
 /**
+ * Print form field "before" value.
+ *
  * @param $field
  */
 function wpmtst_field_before( $field ) {
@@ -276,6 +278,8 @@ function wpmtst_field_before( $field ) {
 }
 
 /**
+ * Print form field "after" value.
+ *
  * @param $field
  */
 function wpmtst_field_after( $field ) {
@@ -285,6 +289,8 @@ function wpmtst_field_after( $field ) {
 }
 
 /**
+ * Get form field meta value.
+ *
  * @param $field
  * @param $meta
  *
@@ -299,6 +305,8 @@ function wpmtst_get_form_field_meta( $field, $meta ) {
 }
 
 /**
+ * Return localized form field meta value.
+ *
  * @param $field_meta
  * @param $field
  * @param $meta
@@ -312,6 +320,8 @@ add_filter( 'wpmtst_form_field_meta', 'wpmtst_form_field_meta_l10n', 10, 3 );
 add_filter( 'wpmtst_form_field_meta', 'do_shortcode' );
 
 /**
+ * Print honeypot after.
+ *
  * @param $field
  */
 function wpmtst_field_error( $field ) {
@@ -321,6 +331,9 @@ function wpmtst_field_error( $field ) {
 	}
 }
 
+/**
+ * Print honeypot before.
+ */
 function wpmtst_form_honeypot_before() {
 	$form_options = get_option( 'wpmtst_form_options' );
 	if ( $form_options['honeypot_before'] ) {
@@ -332,6 +345,9 @@ function wpmtst_form_honeypot_before() {
 }
 add_action( 'wpmtst_form_after_fields', 'wpmtst_form_honeypot_before' );
 
+/**
+ * Print form catpcha.
+ */
 function wpmtst_form_captcha() {
 	$errors = WPMST()->get_form_errors();
 	$form_options = get_option( 'wpmtst_form_options' );
