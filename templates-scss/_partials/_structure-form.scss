@@ -32,6 +32,14 @@
     width: 100%;
   }
 
+  input[type="checkbox"] {
+    -webkit-transform: scale(1.4);
+    -moz-transform:    scale(1.4);
+    -ms-transform:     scale(1.4);
+    transform:         scale(1.4);
+    margin: 0 0.5em 0 0;
+  }
+
   textarea {
     height: 16em;
   }
