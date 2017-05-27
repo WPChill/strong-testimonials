@@ -130,7 +130,7 @@ function wpmtst_single_form_field( $field ) {
 	        }
 	        wpmtst_field_before( $field );
 
-	        echo '<div>';
+	        echo '<div class="field-wrap">';
 	        // TODO Convert to printf!
 	        echo '<input id="wpmtst_' . $field['name'] . '"'
 	             . ' type="' . $field['input_type'] . '"'
