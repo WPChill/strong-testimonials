@@ -102,7 +102,10 @@ function wpmtst_upgrade() {
 		update_option( 'wpmtst_options', $options );
 
 		// Convert nofollow
-		wpmtst_convert_nofollow();
+		if ( ! isset( $history['2.23.0_convert_nofollow'] ) ) {
+			wpmtst_convert_nofollow();
+		}
+
 	}
 
 	/**
@@ -528,6 +531,10 @@ function wpmtst_upgrade() {
 		$history['2.21.0_enable_rating_default_options'] = current_time( 'mysql' );
 		update_option( 'wpmtst_history', $history );
 	}
+	if ( ! isset( $history['2.23.0_convert_nofollow'] ) ) {
+		$history['2.23.0_convert_nofollow'] = current_time( 'mysql' );
+		update_option( 'wpmtst_history', $history );
+	}
 
 
 	/**
@@ -569,17 +576,29 @@ function wpmtst_convert_nofollow() {
 	if ( ! $posts )
 		return;
 
+	/**
+	 * Remove the equivocation. There is no false.
+	 */
 	foreach ( $posts as $post ) {
 		$nofollow = get_post_meta( $post->ID, 'nofollow', true );
+		$new_value = 'default';
+
 		if ( 'on' == $nofollow ) {
 			$new_value = 'yes';
+		} elseif ( 1 === $nofollow ) {
+			$new_value = 'yes';
+		} elseif ( 'off' == $nofollow ) {
+			$new_value = 'no';
 		} elseif ( 0 === $nofollow ) {
 			$new_value = 'no';
-		} elseif ( is_bool( $nofollow && $nofollow ) ) {
-			$new_value = 'yes';
-		} else {
-			$new_value = 'default';
+		} elseif ( is_bool( $nofollow ) ) {
+			if ( $nofollow ) {
+				$new_value = 'yes';
+			} else {
+				$new_value = 'default';
+			}
 		}
+
 		update_post_meta( $post->ID, 'nofollow', $new_value );
 	}
 }
