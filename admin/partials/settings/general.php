@@ -205,7 +205,7 @@ $tags    = array( 'a' => array( 'href' => array(), 'target' => array(), 'class' 
 
     <tr valign="top">
         <th scope="row">
-			<?php _e( 'Default Nofollow Link', 'strong-testimonials' ); ?>
+			<?php _e( 'Nofollow Links', 'strong-testimonials' ); ?>
         </th>
         <td>
             <fieldset>
@@ -215,7 +215,7 @@ $tags    = array( 'a' => array( 'href' => array(), 'target' => array(), 'class' 
                     <?php _e( 'Off by default.', 'strong-testimonials' ); ?>
                 </label>
                 <p class="description">
-	                <?php printf( 'To edit your existing testimonials in bulk, try <a href="%s" target="_blank">%s</a> and set <code>nofollow</code> to <b>default</b>, <b>yes</b>, or <b>no</b>.',
+	                <?php printf( 'To edit this value on your existing testimonials in bulk, try <a href="%s" target="_blank">%s</a> and set <code>nofollow</code> to <b>default</b>, <b>yes</b>, or <b>no</b>.',
 		                esc_url( 'https://wordpress.org/plugins/custom-field-bulk-editor/' ),
 		                __( 'Custom Field Bulk Editor', 'strong-testimonials' ) ); ?>
                 </p>

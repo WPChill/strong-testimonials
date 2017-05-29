@@ -563,7 +563,7 @@ function wpmtst_upgrade() {
 /**
  * Convert nofollow from (on|off) to (1|0).
  *
- * @since 2.22.5
+ * @since 2.23.0
  */
 function wpmtst_convert_nofollow() {
 	$args  = array(
