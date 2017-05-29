@@ -4,7 +4,7 @@
  * Plugin URI: https://strongplugins.com/plugins/strong-testimonials/
  * Description: A full-featured plugin that works right out of the box for beginners and offers advanced features for pros.
  * Author: Chris Dillon
- * Version: 2.22.5
+ * Version: 2.22.6
  * Author URI: https://strongplugins.com/
  * Text Domain: strong-testimonials
  * Domain Path: /languages
@@ -1107,9 +1107,6 @@ final class Strong_Testimonials {
 		 * in <head> to avoid FOUC.
 		 */
 		add_action( 'wp_enqueue_scripts', array( $this, 'view_rendered' ) );
-		remove_action( 'wpmtst_view_rendered', array( $this, 'view_rendered' ) );
-		remove_action( 'wpmtst_form_rendered', array( $this, 'view_rendered' ) );
-		remove_action( 'wpmtst_form_success',  array( $this, 'view_rendered' ) );
 
 		/**
 		 * Allow themes and plugins to do stuff like add extra stylesheets.
