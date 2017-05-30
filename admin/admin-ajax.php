@@ -49,17 +49,3 @@ function wpmtst_get_background_preset_colors() {
 	die();
 }
 add_action( 'wp_ajax_wpmtst_get_background_preset_colors', 'wpmtst_get_background_preset_colors' );
-
-
-/**
- * Dismiss admin notices
- *
- * @since 1.18.4
- */
-function wpmtst_dismiss_notice() {
-	if ( isset( $_REQUEST['action'] ) && 'wpmtst_dismiss_notice' == $_REQUEST['action'] ) {
-		delete_option( 'wpmtst_admin_notices' );
-		die;
-	}
-}
-add_action( 'wp_ajax_wpmtst_dismiss_notice', 'wpmtst_dismiss_notice' );

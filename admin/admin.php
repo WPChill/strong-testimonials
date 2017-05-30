@@ -946,32 +946,6 @@ function wpmtst_version_check() {
 
 
 /**
- * Admin notices
- *
- * @since 1.18.4
- */
-function wpmtst_admin_notices() {
-	if ( $notices = get_option( 'wpmtst_admin_notices' ) ) {
-		foreach ( $notices as $notice ) {
-			echo "<div class='wpmtst updated notice is-dismissible'><p>$notice</p></div>";
-		}
-		?>
-		<script>
-		jQuery(document).ready(function($) {
-			$(".wrap").on("click", ".notice-dismiss", function() {
-				$.get(ajaxurl,{'action':'wpmtst_dismiss_notice'},function(response){})
-			}).on("click", ".notice-dismiss-text", function() {
-				$(this).closest(".notice").find(".notice-dismiss").click();
-			});
-		});
-		</script>
-	<?php
-	}
-}
-add_action( 'admin_notices', 'wpmtst_admin_notices' );
-
-
-/**
  * Add pending numbers to post types on admin menu.
  * Thanks http://wordpress.stackexchange.com/a/105470/32076
  *
