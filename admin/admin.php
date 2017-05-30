@@ -451,8 +451,18 @@ function wpmtst_meta_options() {
 							<?php
 							break;
 
+                        case 'checkbox' :
+	                        echo sprintf(
+	                                '<input id="%2$s" type="%1$s" class="custom-input" name="custom[%2$s]" %3$s>',
+                                    $field['input_type'],
+                                    $field['name'],
+                                    checked( $post->{$field['name']}, true , false )
+                            );
+                            break;
+
 						default :
 							echo sprintf( '<input id="%2$s" type="%1$s" class="custom-input" name="custom[%2$s]" value="%3$s" size="">', $field['input_type'], $field['name'], esc_attr( $post->{$field['name']} ) );
+
 							if ( 'url' == $field['input_type'] ) {
 								echo '<div class="input-nofollow">';
 								echo '<label class="nowrap"><input type="checkbox" name="custom[nofollow]"' . checked( $post->nofollow, 'on', false ) . '> <code>rel="nofollow"</code></label>';
@@ -609,13 +619,33 @@ function wpmtst_custom_columns( $column ) {
 		default :
 			// custom field?
 			$custom = get_post_custom();
+            $fields = wpmtst_get_custom_fields();
+
 			if ( isset( $custom[ $column ] ) && $custom[ $column ][0] ) {
-				$fields = wpmtst_get_custom_fields();
-				if ( isset( $fields[ $column ] ) && 'rating' == $fields[ $column ]['input_type'] ) {
-					wpmtst_star_rating_display( $custom[ $column ][0], 'in-table-list' );
+
+                if ( isset( $fields[ $column ] ) ) {
+
+                    switch ( $fields[ $column ]['input_type'] ) {
+                        case 'rating' :
+                            wpmtst_star_rating_display( $custom[ $column ][0], 'in-table-list' );
+                            break;
+                        case 'checkbox' :
+                            echo $custom[ $column ][0] ? 'yes' : 'no';
+                            break;
+                        default :
+                            echo $custom[ $column ][0];
+                    }
+
+                }
+
+			} else {
+
+				if ( 'checkbox' == $fields[ $column ]['input_type'] ) {
+					echo 'no';
 				} else {
-					echo $custom[ $column ][0];
+				    // display nothing
 				}
+
 			}
 
 	}
@@ -754,12 +784,8 @@ add_action( 'restrict_manage_posts', 'wpmtst_add_taxonomy_filters' );
  */
 function wpmtst_pre_get_posts( $query ) {
 	// Only in main WP query AND if an orderby query variable is designated.
-	if ( is_admin()
-		&& $query->is_main_query()
-		&& 'wpm-testimonial' == $query->get( 'post_type' )
-		&& ( $orderby = $query->get( 'orderby' ) )
-	) {
-		if ( 'client_name' == $orderby ) {
+	if ( is_admin() && $query->is_main_query() && 'wpm-testimonial' == $query->get( 'post_type' ) ) {
+		if ( 'client_name' == $query->get( 'orderby' ) ) {
 			$query->set( 'meta_key', 'client_name' );
 			$query->set( 'orderby', 'meta_value' );
 		}
@@ -777,9 +803,23 @@ function wpmtst_save_details() {
 		return;
 
 	if ( isset( $_POST['custom'] ) ) {
-		// {missing 'nofollow'} = {unchecked checkbox} = 'off'
+
+        // Nofollow is different in dev-nofollow branch so leave this here for now
+		// missing checkbox value == unchecked checkbox == 'off'
 		if ( ! array_key_exists( 'nofollow', $_POST['custom'] ) )
 			$_POST['custom']['nofollow'] = 'off';
+
+	    // WordPress is stupid. Let's change (on|off) to (1|0).
+		$custom_fields = wpmtst_get_custom_fields();
+		foreach ( $custom_fields as $key => $field ) {
+			if ( 'checkbox' == $field['input_type'] ) {
+				if ( array_key_exists( $key, $_POST['custom'] ) ) {
+					$_POST['custom'][ $key ] = 'on' === $_POST['custom'][ $key ] ? 1 : 0;
+				} else {
+					$_POST['custom'][ $key ] = 0;
+				}
+			}
+		}
 
 		foreach ( $_POST['custom'] as $key => $value ) {
 			// empty values replace existing values

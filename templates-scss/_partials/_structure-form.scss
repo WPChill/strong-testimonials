@@ -32,6 +32,14 @@
     width: 100%;
   }
 
+  input[type="checkbox"] {
+    -webkit-transform: scale(1.4);
+    -moz-transform:    scale(1.4);
+    -ms-transform:     scale(1.4);
+    transform:         scale(1.4);
+    margin: 0 0.5em 0 0;
+  }
+
   textarea {
     height: 16em;
   }
@@ -65,4 +73,32 @@ img.captcha {
 
 .wpmtst-captcha {
   margin-bottom: 1em;
+}
+
+/* category checklist */
+.strong-form {
+  .strong-category-list-panel {
+  }
+
+  ul.strong-category-list,
+  ul.strong-category-list ul.children {
+    list-style-type: none;
+
+    label {
+      font-weight: 400;
+      white-space: nowrap;
+      word-wrap: break-word;
+    }
+  }
+
+  ul.strong-category-list {
+    margin: 0;
+    padding-left: 0;
+  }
+
+  ul.strong-category-list ul.children {
+    margin-left: 1.5em;
+    padding-left: 0;
+  }
+
 }

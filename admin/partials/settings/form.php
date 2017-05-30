@@ -37,23 +37,7 @@ foreach ( $plugins as $key => $plugin ) {
 ?>
 <h2><?php _e( 'Form Labels & Messages', 'strong-testimonials' ); ?></h2>
 
-<?php
-do_action( 'wpmtst_before_form_settings' );
-
-// WPML
-if ( wpmtst_is_plugin_active( 'wpml' ) ) {
-    echo '<span class="dashicons dashicons-info icon-blue"></span>&nbsp;';
-	printf( __( 'Translate these fields in <a href="%s">WPML String Translations</a>', 'strong-testimonials' ),
-		admin_url( 'admin.php?page=wpml-string-translation%2Fmenu%2Fstring-translation.php&context=strong-testimonials-form-messages' ) );
-}
-
-// Polylang
-if ( wpmtst_is_plugin_active( 'polylang' ) ) {
-	echo '<span class="dashicons dashicons-info icon-blue"></span>&nbsp;';
-	printf( __( 'Translate these fields in <a href="%s">Polylang String Translations</a>', 'strong-testimonials' ),
-		admin_url( 'options-general.php?page=mlang&tab=strings&s&group=strong-testimonials-form-messages&paged=1' ) );
-}
-?>
+<?php do_action( 'wpmtst_before_form_settings' ); ?>
 
 <table class="form-table compact" cellpadding="0" cellspacing="0">
 	<?php
@@ -237,22 +221,12 @@ if ( wpmtst_is_plugin_active( 'polylang' ) ) {
 			</fieldset>
 
 			<div id="admin-notify-fields" style="display: none;">
-				<?php include 'email-from.php'; ?>
-				<?php include 'email-to.php'; ?>
-				<?php include 'email.php'; ?>
 				<?php
-				// WPML
-				if ( wpmtst_is_plugin_active( 'wpml' ) ) {
-					echo '<p>' . sprintf( __( 'Translate these fields in <a href="%s">WPML String Translations</a>', 'strong-testimonials' ),
-						admin_url( 'admin.php?page=wpml-string-translation%2Fmenu%2Fstring-translation.php&context=strong-testimonials-notification' ) ) . '</p>';
-				}
-
-				// Polylang
-				if ( wpmtst_is_plugin_active( 'polylang' ) ) {
-					echo '<p>' . sprintf( __( 'Translate these fields in <a href="%s">Polylang String Translations</a>', 'strong-testimonials' ),
-						admin_url( 'options-general.php?page=mlang&tab=strings&s&group=strong-testimonials-notification&paged=1' ) ) . '</p>';
-				}
-				?>
+                include 'email-from.php';
+                include 'email-to.php';
+                include 'email.php';
+                do_action( 'wpmtst_after_notification_fields' );
+                ?>
 			</div>
 
 		</td><!-- .subsection -->

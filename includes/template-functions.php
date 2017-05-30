@@ -209,13 +209,7 @@ function wpmtst_get_excerpt_more_link() {
 	$link = sprintf( '<a href="%1$s" class="readmore">%2$s</a>',
 		esc_url( get_permalink() ),
 		sprintf( '%s<span class="screen-reader-text"> "%s"</span>',
-			apply_filters( 'wpmtst_l10n',
-				WPMST()->atts( 'more_post_text' ),
-				'strong-testimonials-read-more',
-				sprintf( 'View %s : Read more (testimonial)', WPMST()->atts( 'view' ) )
-			),
-			get_the_title() )
-	);
+			apply_filters( 'wpmtst_read_more_page_link_text', WPMST()->atts( 'more_post_text' ), WPMST()->atts() ), get_the_title() ) );
 
 	return $link;
 }
@@ -226,7 +220,7 @@ function wpmtst_get_excerpt_more_link() {
  * @since 2.10.0
  */
 function wpmtst_read_more_page() {
-	$atts = WPMST()->atts( array( 'view', 'more_page', 'more_page_id', 'more_page_text', 'more_page_hook' ) );
+	$atts = WPMST()->atts();
 
 	if ( $atts['more_page'] && $atts['more_page_id'] ) {
 
@@ -245,15 +239,34 @@ function wpmtst_read_more_page() {
 				$link_text = $default_view['more_page_text'];
 			}
 
-			$link_text = apply_filters( 'wpmtst_l10n', $link_text, 'strong-testimonials-read-more', sprintf( 'View %s : Read more (page or post)', $atts['view'] ) );
+			$link_text = apply_filters( 'wpmtst_read_more_page_link_text', $link_text, $atts );
 
-			$classname = ( 'wpmtst_after_testimonial' == $atts['more_page_hook'] ? 'readmore' : 'readmore-page' );
+			if ( 'wpmtst_after_testimonial' == $atts['more_page_hook'] ) {
+				$classname = 'readmore';
+			} else {
+				$classname = 'readmore-page';
+			}
 			$classname = apply_filters( 'wpmtst_read_more_page_class', $classname );
 			echo sprintf( '<div class="%s"><a href="%s">%s</a></div>', $classname, esc_url( $permalink ), $link_text );
 		}
 
 	}
 }
+
+/**
+ * Localization filter.
+ *
+ * @since 2.23.0 As separate function.
+ * @param $text
+ * @param $atts
+ *
+ * @return string
+ */
+function wpmtst_read_more_page_link_text_l10n( $text, $atts ) {
+	return apply_filters( 'wpmtst_l10n', $text, 'strong-testimonials-read-more', sprintf( 'View %s : Read more (page or post)', $atts['view'] ) );
+
+}
+add_filter( 'wpmtst_read_more_page_link_text', 'wpmtst_read_more_page_link_text_l10n', 10, 2 );
 
 /**
  * Get permalink by ID or slug.
