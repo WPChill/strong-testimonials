@@ -393,7 +393,7 @@ function wpmtst_thumbnail_img( $img, $post_id ) {
 			 * TODO do the same for other lightbox plugins
 			 */
 			if ( defined( 'SIMPLECOLORBOX_VERSION' ) ) {
-				add_action( 'wp_footer', 'wpmtst_colorbox_manual_settings', 100 );
+                wp_enqueue_script( 'wpmtst-colorbox' );
 			}
 		}
 	}
@@ -476,20 +476,6 @@ function wpmtst_get_avatar( $url, $id_or_email, $args ) {
 		return false;
 
 	return $url;
-}
-
-/**
- * Colorbox settings for testimonials only.
- */
-function wpmtst_colorbox_manual_settings() {
-	?>
-	<script>
-	// de-focus and disable grouping
-	jQuery(function($){
-		$(".testimonial-image a").colorbox({rel:"nofollow",returnFocus:false});
-	});
-	</script>
-	<?php
 }
 
 /**
