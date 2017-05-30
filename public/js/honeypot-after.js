@@ -1,5 +1,4 @@
 (function($){
-  'use strict';
   var forms = "#wpmtst-submission-form";
   $( forms ).submit( function() {
     $( "<input>" ).attr( "type", "hidden" )

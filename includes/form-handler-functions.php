@@ -246,6 +246,41 @@ function wpmtst_form_handler() {
 }
 
 /**
+ * Honeypot preprocessor
+ */
+function wpmtst_honeypot_before() {
+	if ( isset( $_POST['wpmtst_if_visitor'] ) && ! empty( $_POST['wpmtst_if_visitor'] ) ) {
+		do_action( 'honeypot_before_spam_testimonial', $_POST );
+	}
+}
+
+/**
+ * Honeypot preprocessor
+ */
+function wpmtst_honeypot_after() {
+	if ( ! isset ( $_POST['wpmtst_after'] ) ) {
+		do_action( 'honeypot_after_spam_testimonial', $_POST );
+	}
+}
+
+/**
+ * Honeypot error
+ */
+function wpmtst_honeypot_error() {
+	$form_options = get_option( 'wpmtst_form_options' );
+	$messages     = $form_options['messages'];
+	$part         = 'submission-error';
+	if ( isset( $messages[ $part ]['text'] ) ) {
+		$message = apply_filters( 'wpmtst_form_message', $messages['submission-error']['text'], $messages[ $part ] );
+	} else {
+		$message = __( 'Unknown error.', 'strong-testimonials' );
+	}
+	die( $message );
+}
+add_action( 'honeypot_before_spam_testimonial', 'wpmtst_honeypot_error' );
+add_action( 'honeypot_after_spam_testimonial', 'wpmtst_honeypot_error' );
+
+/**
  * Sanitize a textarea from user input. Based on sanitize_text_field.
  *
  * Check for invalid UTF-8,

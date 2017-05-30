@@ -84,38 +84,6 @@ if ( ! function_exists( 'normalize_empty_atts' ) ) {
 	}
 }
 
-/**
- * Honeypot preprocessor
- */
-function wpmtst_honeypot_before() {
-	if ( isset( $_POST['wpmtst_if_visitor'] ) && ! empty( $_POST['wpmtst_if_visitor'] ) ) {
-		do_action( 'honeypot_before_spam_testimonial', $_POST );
-	}
-}
-
-/**
- * Honeypot preprocessor
- */
-function wpmtst_honeypot_after() {
-	// TODO Something is preventing JS from adding this so the form fails.
-	if ( ! isset ( $_POST['wpmtst_after'] ) ) {
-		do_action( 'honeypot_after_spam_testimonial', $_POST );
-	}
-}
-
-function wpmtst_honeypot_error() {
-	$form_options = get_option( 'wpmtst_form_options' );
-	$messages     = $form_options['messages'];
-	if ( isset( $messages['submission-error']['text'] ) ) {
-		$message = apply_filters( 'wpmtst_form_message', $messages['submission-error']['text'], 'submission-error' );
-	} else {
-		$message = __( 'Unknown error.', 'strong-testimonials' );
-	}
-	die( $message );
-}
-add_action( 'honeypot_before_spam_testimonial', 'wpmtst_honeypot_error' );
-add_action( 'honeypot_after_spam_testimonial', 'wpmtst_honeypot_error' );
-
 
 /**
  * Remove whitespace between tags. Helps prevent double wpautop in plugins
