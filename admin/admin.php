@@ -383,102 +383,107 @@ function wpmtst_meta_options() {
 				<p><?php _ex( 'To add a photo or logo, use the Featured Image option.', 'post editor', 'strong-testimonials' ); ?></p>
 			</td>
 		</tr>
-        <?php do_action( 'wpmtst_before_client_fields' ); ?>
-		<?php foreach ( $fields as $key => $field ) : ?>
-		<?php
+        <?php
+        do_action( 'wpmtst_before_client_fields' );
+		foreach ( $fields as $key => $field ) :
 			// short-circuit
 			if ( 'shortcode' == $field['input_type'] || 'category' == strtok( $field['input_type'], '-' ) ) {
 				continue;
 			}
+            ?>
+            <tr>
+                <th>
+                    <label for="<?php echo $field['name']; ?>">
+                        <?php echo apply_filters( 'wpmtst_l10n', $field['label'], wpmtst_get_l10n_context( 'form-fields' ), $field['name'] . ' : label' ); ?>
+                    </label>
+                </th>
+                <td>
+                    <div class="<?php echo $field['input_type']; ?>">
+                        <?php wpmtst_meta_option( $field, $post, $is_new ); ?>
+                    </div>
+                </td>
+            </tr>
+		    <?php
+		endforeach;
+		do_action( 'wpmtst_after_client_fields' );
 		?>
-		<tr>
-			<th>
-				<label for="<?php echo $field['name']; ?>">
-					<?php echo apply_filters( 'wpmtst_l10n', $field['label'], wpmtst_get_l10n_context( 'form-fields' ), $field['name'] . ' : label' ); ?>
-				</label>
-			</th>
-			<td>
-				<div class="<?php echo $field['input_type']; ?>">
-
-					<?php
-					switch ( $field['input_type'] ) {
-
-						case 'rating' :
-							if ( $is_new ) {
-								$rating = 0;
-							} else {
-								$rating = get_post_meta( $post->ID, $field['name'], true );
-								if ( ! $rating ) {
-									$rating = 0;
-								}
-							}
-							?>
-							<div class="edit-rating-box hide-if-no-js" data-field="<?php echo $field['name']; ?>">
-
-								<?php wp_nonce_field( 'editrating', "edit-{$field['name']}-nonce", false ); ?>
-								<input type="hidden" class="current-rating" value="<?php echo $rating; ?>">
-
-								<!-- form -->
-								<div class="rating-form" style="<?php echo ( $is_new ) ? 'display: inline-block;' : 'display: none;'; ?>">
-									<span class="inner">
-                                        <?php wpmtst_star_rating_form( $field, $rating, 'in-metabox' ); ?>
-                                    </span>
-									<?php if ( ! $is_new ) : ?>
-                                        <span class="edit-rating-buttons-2">
-                                            <button type="button" class="zero button-link"><?php _e( 'Zero', 'strong-testimonials' ); ?></button>&nbsp;
-                                            <button type="button" class="save button button-small"><?php _e( 'OK' ); ?></button>&nbsp;
-                                            <button type="button" class="cancel button-link"><?php _e( 'Cancel' ); ?></button>
-                                        </span>
-                                    <?php endif; ?>
-								</div>
-
-								<!-- display -->
-								<div class="rating-display" style="<?php echo $is_new ? 'display: none;' : 'display: inline-block;'; ?>">
-									<span class="inner">
-										<?php wpmtst_star_rating_display( $rating, 'in-metabox' ); ?>
-									</span>
-
-									<?php if ( ! $is_new ) : ?>
-									<span class="edit-rating-buttons-1">
-										<button type="button" id="" class="edit-rating button button-small hide-if-no-js" aria-label="Edit rating"><?php _e( 'Edit' ); ?></button>
-									</span>
-									<?php endif; ?>
-								</div>
-
-								<span class="edit-rating-success"></span>
-
-							</div>
-							<?php
-							break;
-
-                        case 'checkbox' :
-	                        echo sprintf(
-	                                '<input id="%2$s" type="%1$s" class="custom-input" name="custom[%2$s]" %3$s>',
-                                    $field['input_type'],
-                                    $field['name'],
-                                    checked( $post->{$field['name']}, true , false )
-                            );
-                            break;
-
-						default :
-							echo sprintf( '<input id="%2$s" type="%1$s" class="custom-input" name="custom[%2$s]" value="%3$s" size="">', $field['input_type'], $field['name'], esc_attr( $post->{$field['name']} ) );
-
-							if ( 'url' == $field['input_type'] ) {
-								echo '<div class="input-nofollow">';
-								echo '<label class="nowrap"><input type="checkbox" name="custom[nofollow]"' . checked( $post->nofollow, 'on', false ) . '> <code>rel="nofollow"</code></label>';
-								echo '</div>';
-							}
-					}
-					?>
-
-				</div>
-			</td>
-		</tr>
-		<?php endforeach; ?>
-		<?php do_action( 'wpmtst_after_client_fields' ); ?>
 	</table>
-    <?php do_action( 'wpmtst_after_client_fields_table' ); ?>
-	<?php
+    <?php
+    do_action( 'wpmtst_after_client_fields_table' );
+}
+
+
+function wpmtst_meta_option( $field, $post, $is_new ) {
+	?>
+    <div class="<?php echo $field['input_type']; ?>">
+    <?php
+    switch ( $field['input_type'] ) {
+
+        case 'rating' :
+            if ( $is_new ) {
+                $rating = 0;
+            } else {
+                $rating = get_post_meta( $post->ID, $field['name'], true );
+                if ( ! $rating ) {
+                    $rating = 0;
+                }
+            }
+            ?>
+            <div class="edit-rating-box hide-if-no-js" data-field="<?php echo $field['name']; ?>">
+
+                <?php wp_nonce_field( 'editrating', "edit-{$field['name']}-nonce", false ); ?>
+                <input type="hidden" class="current-rating" value="<?php echo $rating; ?>">
+
+                <!-- form -->
+                <div class="rating-form" style="<?php echo ( $is_new ) ? 'display: inline-block;' : 'display: none;'; ?>">
+                    <span class="inner">
+                        <?php wpmtst_star_rating_form( $field, $rating, 'in-metabox' ); ?>
+                    </span>
+                    <?php if ( ! $is_new ) : ?>
+                        <span class="edit-rating-buttons-2">
+                            <button type="button" class="zero button-link"><?php _e( 'Zero', 'strong-testimonials' ); ?></button>&nbsp;
+                            <button type="button" class="save button button-small"><?php _e( 'OK' ); ?></button>&nbsp;
+                            <button type="button" class="cancel button-link"><?php _e( 'Cancel' ); ?></button>
+                        </span>
+                    <?php endif; ?>
+                </div>
+
+                <!-- display -->
+                <div class="rating-display" style="<?php echo $is_new ? 'display: none;' : 'display: inline-block;'; ?>">
+                    <span class="inner">
+                        <?php wpmtst_star_rating_display( $rating, 'in-metabox' ); ?>
+                    </span>
+
+                    <?php if ( ! $is_new ) : ?>
+                    <span class="edit-rating-buttons-1">
+                        <button type="button" id="" class="edit-rating button button-small hide-if-no-js" aria-label="Edit rating"><?php _e( 'Edit' ); ?></button>
+                    </span>
+                    <?php endif; ?>
+                </div>
+
+                <span class="edit-rating-success"></span>
+
+            </div>
+            <?php
+            break;
+
+        default :
+            printf( '<input id="%2$s" type="%1$s" class="custom-input" name="custom[%2$s]" value="%3$s" size="">',
+                    $field['input_type'], $field['name'], esc_attr( $post->{$field['name']} ) );
+
+            if ( 'url' == $field['input_type'] ) {
+                ?>
+                <div class="input-nofollow">
+                    <label for="custom_nofollow"><code>rel="nofollow"</code></label>
+                    <select id="custom_nofollow" name="custom[nofollow]">
+                        <option value="default" <?php selected( $post->nofollow, 'default' ); ?>><?php _e( 'default', 'strong-testimonials' ); ?></option>
+                        <option value="yes" <?php selected( $post->nofollow, 'yes' ); ?>><?php _e( 'yes', 'strong-testimonials' ); ?></option>
+                        <option value="no" <?php selected( $post->nofollow, 'no' ); ?>><?php _e( 'no', 'strong-testimonials' ); ?></option>
+                    </select>
+                </div>
+                <?php
+            }
+    }
 }
 
 
@@ -803,24 +808,6 @@ function wpmtst_save_details() {
 		return;
 
 	if ( isset( $_POST['custom'] ) ) {
-
-        // Nofollow is different in dev-nofollow branch so leave this here for now
-		// missing checkbox value == unchecked checkbox == 'off'
-		if ( ! array_key_exists( 'nofollow', $_POST['custom'] ) )
-			$_POST['custom']['nofollow'] = 'off';
-
-	    // WordPress is stupid. Let's change (on|off) to (1|0).
-		$custom_fields = wpmtst_get_custom_fields();
-		foreach ( $custom_fields as $key => $field ) {
-			if ( 'checkbox' == $field['input_type'] ) {
-				if ( array_key_exists( $key, $_POST['custom'] ) ) {
-					$_POST['custom'][ $key ] = 'on' === $_POST['custom'][ $key ] ? 1 : 0;
-				} else {
-					$_POST['custom'][ $key ] = 0;
-				}
-			}
-		}
-
 		foreach ( $_POST['custom'] as $key => $value ) {
 			// empty values replace existing values
 			update_post_meta( $_POST['post_ID'], $key, stripslashes( $value ) );
@@ -997,11 +984,17 @@ function wpmtst_plugin_row_meta( $plugin_meta, $plugin_file, $plugin_data = arra
 
     if ( $plugin_file == WPMTST_PLUGIN ) {
 
-		$url = 'https://support.strongplugins.com/';
-		$plugin_meta[] = sprintf( '<a href="%s" target="_blank">%s</a>', $url, '<span class="dashicons dashicons-editor-help"></span> ' . __( 'Support', 'strong-testimonials' ) );
+		$plugin_meta[] = sprintf(
+		    '<a href="%s" target="_blank" title="%s" style="color: #8224e3; font-weight: 600;">%s</a>',
+			'https://support.strongplugins.com/',
+            __( 'For direct support requests and documentation', 'strong-testimonials' ),
+            __( 'Support', 'strong-testimonials' ) );
 
-		$url = 'https://strongplugins.com/';
-		$plugin_meta[] = sprintf( '<a href="%s" target="_blank">%s</a>', $url, '<span class="dashicons dashicons-admin-plugins"></span> ' . __( 'Add-ons', 'strong-testimonials' ) );
+		$plugin_meta[] = sprintf(
+            '<a href="%s" target="_blank" title="%s" style="color: #8224e3; font-weight: 600;">%s</a>',
+			'https://strongplugins.com/',
+            __( 'Get more features with premium add-ons', 'strong-testimonials' ),
+            __( 'Add-ons', 'strong-testimonials' ) );
 
 	}
 

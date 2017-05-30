@@ -14,6 +14,7 @@ function wpmtst_form_handler() {
 
 	add_filter( 'upload_mimes', 'wpmtst_restrict_mime' );
 
+	$options      = get_option( 'wpmtst_options' );
 	$form_options = get_option( 'wpmtst_form_options' );
 	$messages     = $form_options['messages'];
 
@@ -197,8 +198,11 @@ function wpmtst_form_handler() {
 			 *
 			 * @since 2.17.0 Exclude categories.
 			 */
-			$new_meta = array_diff_key( $testimonial_meta, array( 'category' => '' ) );
-			foreach ( $new_meta as $key => $field ) {
+			foreach ( $testimonial_meta as $key => $field ) {
+				if ( 'category' == $key ) {
+					continue;
+				}
+
 				add_post_meta( $testimonial_id, $key, $field );
 			}
 
