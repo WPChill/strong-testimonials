@@ -63,6 +63,11 @@ function wpmtst_admin_register() {
         array( 'wpmtst-font-awesome' ),
         $plugin_version );
 
+	wp_register_style( 'wpmtst-post-editor',
+        WPMTST_ADMIN_URL . 'css/post-editor.css',
+        array( 'wpmtst-font-awesome' ),
+        $plugin_version );
+
 	// for Page Builder?
 	wp_register_script( 'wpmtst-validation-plugin',
         WPMTST_PUBLIC_URL . 'js/lib/validate/jquery.validate.min.js',
@@ -351,7 +356,7 @@ add_action( 'admin_enqueue_scripts', 'wpmtst_hook__admin_load_edit_tags' );
  */
 function wpmtst_hook__admin_load_post( $hook ) {
 	if ( 'post.php' == $hook && wpmtst_is_testimonial_screen() ) {
-		wp_enqueue_style( 'wpmtst-admin-style' );
+		wp_enqueue_style( 'wpmtst-post-editor' );
 		wp_enqueue_script( 'wpmtst-admin-script' );
 
 		wp_enqueue_style( 'wpmtst-rating-display' );
@@ -368,7 +373,7 @@ add_action( 'admin_enqueue_scripts', 'wpmtst_hook__admin_load_post' );
  */
 function wpmtst_hook__admin_load_post_new( $hook ) {
 	if ( 'post-new.php' == $hook && wpmtst_is_testimonial_screen() ) {
-		wp_enqueue_style( 'wpmtst-admin-style' );
+		wp_enqueue_style( 'wpmtst-post-editor' );
 		wp_enqueue_style( 'wpmtst-admin-script' );
 
 		wp_enqueue_style( 'wpmtst-rating-display' );
@@ -513,9 +518,6 @@ function wpmtst_meta_options() {
 
 
 function wpmtst_meta_option( $field, $post, $is_new ) {
-	?>
-    <div class="<?php echo $field['input_type']; ?>">
-    <?php
     switch ( $field['input_type'] ) {
 
         case 'rating' :
@@ -567,11 +569,12 @@ function wpmtst_meta_option( $field, $post, $is_new ) {
             break;
 
         default :
-            printf( '<input id="%2$s" type="%1$s" class="custom-input" name="custom[%2$s]" value="%3$s" size="">',
-                    $field['input_type'], $field['name'], esc_attr( $post->{$field['name']} ) );
-
             if ( 'url' == $field['input_type'] ) {
                 ?>
+                <div class="input-url">
+                    <?php printf( '<input id="%2$s" type="%1$s" class="custom-input" name="custom[%2$s]" value="%3$s" size="">',
+	                    $field['input_type'], $field['name'], esc_attr( $post->{$field['name']} ) ); ?>
+                </div>
                 <div class="input-nofollow">
                     <label for="custom_nofollow"><code>rel="nofollow"</code></label>
                     <select id="custom_nofollow" name="custom[nofollow]">
@@ -581,6 +584,9 @@ function wpmtst_meta_option( $field, $post, $is_new ) {
                     </select>
                 </div>
                 <?php
+            } else {
+	            printf( '<input id="%2$s" type="%1$s" class="custom-input" name="custom[%2$s]" value="%3$s" size="">',
+		            $field['input_type'], $field['name'], esc_attr( $post->{$field['name']} ) );
             }
     }
 }
