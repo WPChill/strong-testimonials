@@ -462,6 +462,28 @@ function wpmtst_get_posts() {
 	return $posts;
 }
 
+/**
+ * Filter the custom fields.
+ * Until WordPress abandons PHP 5.2
+ *
+ * @since 2.17.0 Remove [category] from custom because it's included in [optional].
+ * @since 2.23.0 Remove checkboxes.
+ *
+ * @param $field
+ *
+ * @return bool
+ */
+function wpmtst_array_filter__custom_fields( $field ) {
+	if ( 'category' == strtok( $field['input_type'], '-' ) ) {
+		return false;
+	}
+	if ( 'checkbox' == $field['input_type'] ) {
+		return false;
+	}
+
+	return true;
+}
+
 
 /**
  * Show a single client field's inputs.
@@ -473,18 +495,7 @@ function wpmtst_get_posts() {
  * @param bool $adding
  */
 function wpmtst_view_field_inputs( $key, $field, $adding = false ) {
-	$custom_fields = wpmtst_get_custom_fields();
-
-	/**
-	 * Remove [category] from custom because it's included in [optional].
-	 *
-	 * @since 2.17.0
-	 */
-	foreach ( $custom_fields as $name1 => $field1 ) {
-	    if ( 'category' == strtok( $field1['input_type'], '-' ) ) {
-	        unset( $custom_fields[ $name1 ] );
-		}
-	}
+	$custom_fields = array_filter( wpmtst_get_custom_fields(), 'wpmtst_array_filter__custom_fields' );
 
 	// TODO Move this to view defaults option.
 	$builtin_fields = array(
@@ -731,6 +742,10 @@ function wpmtst_view_field_link( $key, $field_name, $type, $field, $adding = fal
  * Show a single client date field inputs.
  *
  * @since 1.21.0
+ *
+ * @param $key
+ * @param $field
+ * @param bool $adding
  */
 function wpmtst_view_field_date( $key, $field, $adding = false ) {
 	?>
