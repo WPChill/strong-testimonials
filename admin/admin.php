@@ -930,8 +930,6 @@ add_action( 'save_post', 'wpmtst_save_details' );
 
 /**
  * Check WordPress version
- *
- * @todo Action Hook
  */
 function wpmtst_version_check() {
 	global $wp_version;

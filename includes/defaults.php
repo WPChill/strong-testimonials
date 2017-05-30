@@ -101,7 +101,7 @@ function wpmtst_get_default_fields() {
 			'map'                     => 'post_content',
 			'required'                => 1,
 			'show_default_options'    => 0,
-			'core'                    => 0,  // TODO Remove 'core' property.
+			'core'                    => 0,
 			'admin_table'             => 0,
 			'show_admin_table_option' => 0,
 			'name_mutable'            => 0,

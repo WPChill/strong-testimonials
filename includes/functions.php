@@ -766,7 +766,6 @@ function wpmtst_get_success_message() {
  *
  * @param $callback
  * @since 2.18.0
- * @todo Action Hook
  *
  * @return bool
  */
