@@ -192,7 +192,6 @@ final class Strong_Testimonials {
 
 	}
 
-
 	/**
 	 * Instantiate our classes.
 	 */
@@ -200,7 +199,6 @@ final class Strong_Testimonials {
 		$this->mail      = new Strong_Mail();
 		$this->templates = new Strong_Templates();
 	}
-
 
 	/**
 	 * Include required files
@@ -283,7 +281,7 @@ final class Strong_Testimonials {
 	}
 
 	/**
-	 * Plugin data.
+	 * Set plugin data.
 	 *
 	 * @since 2.12.0
 	 */
@@ -291,6 +289,13 @@ final class Strong_Testimonials {
 		$this->plugin_data = get_plugin_data( __FILE__, false );
 	}
 
+	/**
+	 * Get plugin data.
+	 *
+	 * @since 2.12.0
+	 *
+	 * @return array
+	 */
 	public function get_plugin_data() {
 		return $this->plugin_data;
 	}
@@ -503,7 +508,7 @@ final class Strong_Testimonials {
 	 * @param $shortcodes
 	 * @return array
 	 */
-	function no_texturize_shortcodes( $shortcodes ) {
+	public function no_texturize_shortcodes( $shortcodes ) {
 		$shortcodes[] = $this->shortcode2;
 		return $shortcodes;
 	}
@@ -638,10 +643,20 @@ final class Strong_Testimonials {
 	}
 
 
+	/**
+	 * Store current query.
+	 *
+	 * @param $query
+	 */
 	public function set_query( $query ) {
 		$this->query = $query;
 	}
 
+	/**
+	 * Return current query.
+	 *
+	 * @return mixed
+	 */
 	public function get_query() {
 		return $this->query;
 	}
@@ -1245,8 +1260,9 @@ final class Strong_Testimonials {
 	}
 
 	/**
-	 * Process the form.
-	 * @todo Move to form object.
+	 * Store form values.
+	 *
+	 * TODO Move to form object.
 	 *
 	 * @param $form_values
 	 */
@@ -1254,14 +1270,29 @@ final class Strong_Testimonials {
 		$this->form_values = $form_values;
 	}
 
+	/**
+	 * Return form values.
+	 *
+	 * @return mixed
+	 */
 	public function get_form_values() {
 		return $this->form_values;
 	}
 
+	/**
+	 * Store from errors.
+	 *
+	 * @param $form_errors
+	 */
 	public function set_form_errors( $form_errors ) {
 		$this->form_errors = $form_errors;
 	}
 
+	/**
+	 * Return form errors.
+	 *
+	 * @return mixed
+	 */
 	public function get_form_errors() {
 		return $this->form_errors;
 	}

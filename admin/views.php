@@ -796,6 +796,11 @@ function wpmtst_delete_view_action_hook() {
 }
 
 
+/**
+ * Category selector in Display mode in view editor.
+ *
+ * @param $view_cats_array
+ */
 function wpmtst_category_checklist( $view_cats_array ) {
 	?>
 	<div class="view-category-list-panel short-panel">
@@ -819,6 +824,11 @@ function wpmtst_category_checklist( $view_cats_array ) {
 }
 
 
+/**
+ * Category selector in Form mode in view editor.
+ *
+ * @param $view_cats_array
+ */
 function wpmtst_form_category_checklist( $view_cats_array ) {
 	?>
 	<div class="view-category-list-panel short-panel">

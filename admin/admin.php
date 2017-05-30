@@ -517,6 +517,15 @@ function wpmtst_meta_options() {
 }
 
 
+/**
+ * Input type for a single custom field.
+ *
+ * @since 2.23.0
+ *
+ * @param $field
+ * @param $post
+ * @param $is_new
+ */
 function wpmtst_meta_option( $field, $post, $is_new ) {
     switch ( $field['input_type'] ) {
 
