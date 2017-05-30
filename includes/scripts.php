@@ -184,10 +184,18 @@ add_action( 'wp_enqueue_scripts', 'wpmtst_scripts' );
  */
 function wpmtst_defer_scripts( $tag, $handle ) {
 	$scripts_to_defer = array(
+		// layouts
+		'wpmtst-grid-script',
 		'wpmtst-masonry-script',
+		// pagination
+		'wpmtst-pager-plugin',
+		'wpmtst-pager-script',
+		// form
 		'wpmtst-validation-plugin',
-		'wpmtst-form-validation',
 		'wpmtst-validation-lang',
+		'wpmtst-form-validation',
+		// slider
+		'jquery-actual',
 		'wpmslider',
 		'strongslider',
 		'wpmtst-slider',
