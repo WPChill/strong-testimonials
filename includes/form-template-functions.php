@@ -254,9 +254,9 @@ function wpmtst_field_required_notice() {
     <?php wpmtst_form_message( 'required-field' ); ?>
     </p>
     <?php
-    $html = ob_end_clean();
+    $html = ob_get_clean();
 
-    return ( apply_filters( 'wpmtst_field_required', $html ) );
+    echo ( apply_filters( 'wpmtst_field_required', $html ) );
 }
 
 /**
