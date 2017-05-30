@@ -116,37 +116,6 @@ function wpmtst_honeypot_error() {
 add_action( 'honeypot_before_spam_testimonial', 'wpmtst_honeypot_error' );
 add_action( 'honeypot_after_spam_testimonial', 'wpmtst_honeypot_error' );
 
-/**
- * Honeypot
- */
-function wpmtst_honeypot_before_script() {
-	?>
-	<script type="text/javascript">jQuery('#wpmtst_if_visitor').val('');</script>
-	<?php
-}
-
-/**
- * Honeypot
- */
-function wpmtst_honeypot_after_script() {
-	?>
-	<script type='text/javascript'>
-		//<![CDATA[
-		( function( $ ) {
-			'use strict';
-			var forms = "#wpmtst-submission-form";
-			$( forms ).submit( function() {
-				$( "<input>" ).attr( "type", "hidden" )
-					.attr( "name", "wpmtst_after" )
-					.attr( "value", "1" )
-					.appendTo( forms );
-				return true;
-			});
-		})( jQuery );
-		//]]>
-	</script>
-	<?php
-}
 
 /**
  * Remove whitespace between tags. Helps prevent double wpautop in plugins

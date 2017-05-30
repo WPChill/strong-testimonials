@@ -181,6 +181,21 @@ function wpmtst_scripts() {
 		$plugin_version,
 		true );
 
+	/**
+	 * Honeypots
+	 */
+	wp_register_script( 'wpmtst-honepot-before',
+		WPMTST_PUBLIC_URL . 'js/honeypot-before.js',
+		array( 'jquery' ),
+		$plugin_version,
+		true );
+
+	wp_register_script( 'wpmtst-honepot-after',
+		WPMTST_PUBLIC_URL . 'js/honeypot-after.js',
+		array( 'jquery' ),
+		$plugin_version,
+		true );
+
 }
 add_action( 'wp_enqueue_scripts', 'wpmtst_scripts' );
 
@@ -203,6 +218,9 @@ function wpmtst_defer_scripts( $tag, $handle ) {
 		'wpmtst-validation-plugin',
 		'wpmtst-validation-lang',
 		'wpmtst-form-validation',
+		// honeypots
+		'wpmtst-honepot-before',
+		'wpmtst-honepot-after',
 		// slider
 		'jquery-actual',
 		'wpmslider',
