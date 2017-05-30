@@ -54,7 +54,8 @@ function wpmtst_scripts() {
 	 * Masonry
 	 */
 	wp_register_script( 'wpmtst-masonry-script',
-		WPMTST_PUBLIC_URL . 'js/masonry.js', array( 'jquery-masonry', 'imagesloaded' ),
+		WPMTST_PUBLIC_URL . 'js/masonry.js',
+		array( 'jquery-masonry', 'imagesloaded' ),
 		$plugin_version,
 		true );
 
@@ -173,3 +174,29 @@ function wpmtst_scripts() {
 
 }
 add_action( 'wp_enqueue_scripts', 'wpmtst_scripts' );
+
+
+/**
+ * @param $tag
+ * @param $handle
+ *
+ * @return mixed
+ */
+function wpmtst_defer_scripts( $tag, $handle ) {
+	$scripts_to_defer = array(
+		'wpmtst-masonry-script',
+		'wpmtst-validation-plugin',
+		'wpmtst-form-validation',
+		'wpmtst-validation-lang',
+		'wpmslider',
+		'strongslider',
+		'wpmtst-slider',
+	);
+
+	if ( in_array( $handle, $scripts_to_defer ) ) {
+		return str_replace( ' src', ' defer src', $tag );
+	}
+
+	return $tag;
+}
+add_filter( 'script_loader_tag', 'wpmtst_defer_scripts', 10, 2 );

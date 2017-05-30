@@ -41,22 +41,53 @@ function wpmtst_admin_register() {
 
 	$plugin_version = get_option( 'wpmtst_plugin_version' );
 
-	wp_register_style( 'wpmtst-font-awesome', WPMTST_PUBLIC_URL . 'fonts/font-awesome-4.6.3/css/font-awesome.min.css', array(), '4.6.3' );
+	wp_register_style( 'wpmtst-font-awesome',
+        WPMTST_PUBLIC_URL . 'fonts/font-awesome-4.6.3/css/font-awesome.min.css',
+        array(),
+        '4.6.3' );
 
-	wp_register_script( 'wpmtst-help', WPMTST_ADMIN_URL . 'js/help.js', array( 'jquery' ), $plugin_version, true );
+	wp_register_script( 'wpmtst-help',
+        WPMTST_ADMIN_URL . 'js/help.js',
+        array( 'jquery' ),
+        $plugin_version,
+        true );
 
-	wp_register_script( 'wpmtst-admin-script', WPMTST_ADMIN_URL . 'js/admin.js', array( 'jquery' ), $plugin_version, true );
+	wp_register_script( 'wpmtst-admin-script',
+        WPMTST_ADMIN_URL . 'js/admin.js',
+        array( 'jquery' ),
+        $plugin_version,
+        true );
 
-	wp_register_style( 'wpmtst-admin-style', WPMTST_ADMIN_URL . 'css/admin.css', array( 'wpmtst-font-awesome' ), $plugin_version );
+	wp_register_style( 'wpmtst-admin-style',
+        WPMTST_ADMIN_URL . 'css/admin.css',
+        array( 'wpmtst-font-awesome' ),
+        $plugin_version );
 
 	// for Page Builder?
-	wp_register_script( 'wpmtst-validation-plugin', WPMTST_PUBLIC_URL . 'js/lib/validate/jquery.validate.min.js', array( 'jquery' ), $plugin_version );
+	wp_register_script( 'wpmtst-validation-plugin',
+        WPMTST_PUBLIC_URL . 'js/lib/validate/jquery.validate.min.js',
+        array( 'jquery' ),
+        $plugin_version );
 
-	// Fields
-	wp_register_style( 'wpmtst-admin-fields-style', WPMTST_ADMIN_URL . 'css/fields.css', array(), $plugin_version );
-	wp_register_style( 'wpmtst-admin-form-preview', WPMTST_ADMIN_URL . 'css/form-preview.css', array(), $plugin_version );
-	wp_register_script( 'wpmtst-admin-fields-script', WPMTST_ADMIN_URL . 'js/admin-fields.js',
-        array( 'jquery', 'jquery-ui-sortable', 'wpmtst-help' ), $plugin_version, true );
+	/**
+     * Fields
+     */
+	wp_register_style( 'wpmtst-admin-fields-style',
+        WPMTST_ADMIN_URL . 'css/fields.css',
+        array(),
+        $plugin_version );
+
+	wp_register_style( 'wpmtst-admin-form-preview',
+        WPMTST_ADMIN_URL . 'css/form-preview.css',
+        array(),
+        $plugin_version );
+
+	wp_register_script( 'wpmtst-admin-fields-script',
+        WPMTST_ADMIN_URL . 'js/admin-fields.js',
+        array( 'jquery', 'jquery-ui-sortable', 'wpmtst-help' ),
+        $plugin_version,
+        true );
+
 	$params = array(
 		'ajax_nonce' => wp_create_nonce( 'wpmtst-admin' ),
         'newField'   => _x( 'New Field', 'Field editor: The default label for new fields', 'strong_testimonials' ),
@@ -65,15 +96,38 @@ function wpmtst_admin_register() {
 	);
 	wp_localize_script( 'wpmtst-admin-fields-script', 'wpmtstAdmin', $params );
 
-	// Ratings
-	wp_register_style( 'wpmtst-rating-display', WPMTST_PUBLIC_URL . 'css/rating-display.css', array( 'wpmtst-font-awesome' ), $plugin_version );
-	wp_register_style( 'wpmtst-rating-form', WPMTST_PUBLIC_URL . 'css/rating-form.css', array( 'wpmtst-font-awesome' ), $plugin_version );
-	wp_register_script( 'wpmtst-rating-script', WPMTST_ADMIN_URL . 'js/rating-edit.js', array( 'jquery' ), $plugin_version, true );
+	/**
+     * Ratings
+     */
+    wp_register_style( 'wpmtst-rating-display',
+        WPMTST_PUBLIC_URL . 'css/rating-display.css',
+        array( 'wpmtst-font-awesome' ),
+        $plugin_version );
 
-	// Views
-	wp_register_style( 'wpmtst-admin-views-style', WPMTST_ADMIN_URL . 'css/views.css', array(), $plugin_version );
-	$deps = array( 'jquery', 'jquery-ui-sortable', 'wp-color-picker', 'jquery-masonry', 'wpmtst-help' );
-	wp_register_script( 'wpmtst-admin-views-script', WPMTST_ADMIN_URL . 'js/views.js', $deps, $plugin_version, true );
+	wp_register_style( 'wpmtst-rating-form',
+        WPMTST_PUBLIC_URL . 'css/rating-form.css',
+        array( 'wpmtst-font-awesome' ),
+        $plugin_version );
+
+	wp_register_script( 'wpmtst-rating-script',
+        WPMTST_ADMIN_URL . 'js/rating-edit.js',
+        array( 'jquery' ),
+        $plugin_version,
+        true );
+
+	/**
+     * Views
+     */
+	wp_register_style( 'wpmtst-admin-views-style',
+        WPMTST_ADMIN_URL . 'css/views.css',
+        array(),
+        $plugin_version );
+
+	wp_register_script( 'wpmtst-admin-views-script',
+        WPMTST_ADMIN_URL . 'js/views.js',
+		array( 'jquery', 'jquery-ui-sortable', 'wp-color-picker', 'jquery-masonry', 'wpmtst-help' ),
+        $plugin_version,
+        true );
 
 	/**
 	 * Category filter in View editor.
@@ -83,16 +137,28 @@ function wpmtst_admin_register() {
 	 *
 	 * @since 2.2.0
 	 */
-	wp_register_script( 'wpmtst-view-category-filter-script', WPMTST_ADMIN_URL . 'js/view-category-filter.js', array( 'jquery' ), $plugin_version, true );
+	wp_register_script( 'wpmtst-view-category-filter-script',
+        WPMTST_ADMIN_URL . 'js/view-category-filter.js',
+        array( 'jquery' ),
+        $plugin_version,
+        true );
 
-	wp_register_style( 'wpmtst-admin-guide-style', WPMTST_ADMIN_URL . 'css/guide.css', array(), $plugin_version );
+	wp_register_style( 'wpmtst-admin-guide-style',
+        WPMTST_ADMIN_URL . 'css/guide.css',
+        array(),
+        $plugin_version );
 
 	/**
 	 * Add-on licenses
 	 *
 	 * @since 2.18
 	 */
-	wp_register_script( 'wpmtst-addons-script', WPMTST_ADMIN_URL . 'js/addon-licenses.js', array( 'jquery' ), $plugin_version, true );
+	wp_register_script( 'wpmtst-addons-script',
+        WPMTST_ADMIN_URL . 'js/addon-licenses.js',
+        array( 'jquery' ),
+        $plugin_version,
+        true );
+
 	$params = array(
 		'ajax_nonce'     => wp_create_nonce( 'wpmtst-admin' ),
 		'requiredField'  => __( 'This field is required.', 'strong-testimonials' ),
@@ -106,7 +172,11 @@ function wpmtst_admin_register() {
 	 *
 	 * @since 2.18
 	 */
-	wp_register_script( 'wpmtst-ays-script', WPMTST_ADMIN_URL . 'js/lib/are-you-sure/jquery.are-you-sure.js', array( 'jquery' ), $plugin_version, true );
+	wp_register_script( 'wpmtst-ays-script',
+        WPMTST_ADMIN_URL . 'js/lib/are-you-sure/jquery.are-you-sure.js',
+        array( 'jquery' ),
+        $plugin_version,
+        true );
 }
 add_action( 'admin_init', 'wpmtst_admin_register' );
 
@@ -127,6 +197,35 @@ function wpmtst_admin_enqueue_scripts( $hook ) {
 
 }
 add_action( 'admin_enqueue_scripts', 'wpmtst_admin_enqueue_scripts' );
+
+
+/**
+ * Defer admin scripts.
+ *
+ * @param $tag
+ * @param $handle
+ *
+ * @return mixed
+ */
+function wpmtst_admin_defer_scripts( $tag, $handle ) {
+	$scripts_to_defer = array(
+        'wpmtst-addons-script',
+        'wpmtst-admin-script',
+        'wpmtst-admin-fields-script',
+        'wpmtst-admin-views-script',
+        'wpmtst-ays-script',
+        'wpmtst-help',
+        'wpmtst-rating-script',
+        'wpmtst-view-category-filter-script',
+    );
+
+	if ( in_array( $handle, $scripts_to_defer ) ) {
+		return str_replace( ' src', ' defer src', $tag );
+	}
+
+	return $tag;
+}
+add_filter( 'script_loader_tag', 'wpmtst_admin_defer_scripts', 10, 2 );
 
 
 /**
