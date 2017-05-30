@@ -129,13 +129,6 @@ function wpmtst_the_content() {
 }
 
 /**
- * Read More link to the post or a page.
- *
- * @deprecated 2.10.0
- */
-function wpmtst_read_more() {}
-
-/**
  * Modify the excerpt length.
  *
  * @since 2.10.0

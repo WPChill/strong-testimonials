@@ -6,38 +6,6 @@
  */
 
 /**
- * Truncate post content
- *
- * Find first space after char_limit (e.g. 200).
- * If not found then char_limit is in the middle of the
- * last word (e.g. string length = 203) so no need to truncate.
- *
- * @param $content
- * @param $limit
- * @deprecated
- *
- * @return string
- */
-function wpmtst_truncate( $content, $limit ) {
-	/**
-	 * Strip tags.
-	 *
-	 * @since 1.15.12
-	 */
-	$content = strip_tags( $content );
-
-	if ( strlen( $content ) > $limit ) {
-		$space_pos = strpos( $content, ' ', $limit );
-		if ( $space_pos ) {
-			$content = substr( $content, 0, $space_pos );
-			//$content .= '&hellip;';
-		}
-	}
-
-	return $content;
-}
-
-/**
  * Append custom fields to post object.
  * Add thumbnail if included in field group.
  *

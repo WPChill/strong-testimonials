@@ -225,6 +225,7 @@ final class Strong_Testimonials {
 		require_once WPMTST_INC . 'rating-functions.php';
 		require_once WPMTST_INC . 'retro.php';
 		require_once WPMTST_INC . 'widget2.php';
+		require_once WPMTST_INC . 'deprecated.php';
 
 		/**
 		 * These are not normally needed in admin.
@@ -267,7 +268,7 @@ final class Strong_Testimonials {
 			 *
 			 * @since 2.1
 			 */
-			if ( !class_exists( 'EDD_SL_Plugin_Updater' ) ) {
+			if ( ! class_exists( 'EDD_SL_Plugin_Updater' ) ) {
 				include WPMTST_INC . 'edd/EDD_SL_Plugin_Updater.php';
 			}
 			include WPMTST_INC . 'edd/Strong_Plugin_Updater.php';

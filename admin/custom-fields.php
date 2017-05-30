@@ -188,20 +188,6 @@ function wpmtst_settings_custom_fields( $form_id = 1 ) {
 }
 
 /**
- * Our version of htmlspecialchars.
- *
- * @deprecated
- *
- * @since 2.0.0
- * @param $string
- *
- * @return string
- */
-function wpmtst_htmlspecialchars( $string ) {
-	return htmlspecialchars( $string, ENT_QUOTES, get_bloginfo( 'charset' ) );
-}
-
-/**
  * Add a field to the form
  *
  * @param $key
