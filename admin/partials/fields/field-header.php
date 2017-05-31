@@ -2,7 +2,7 @@
 /**
  * Field Header
  */
-$field_link  = $field['label'] ? $field['label'] : ucwords( $field['name'] );
+$field_link = $field['label'] ? $field['label'] : ucwords( $field['name'] );
 ?>
 <div class="custom-field-header">
 <span class="link" title="<?php _e( 'click to open or close', 'strong-testimonials' ); ?>">

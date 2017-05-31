@@ -438,54 +438,6 @@ ul.compact li {
   color: red;
 }
 
-/* Client details meta box
-------------------------------------------------*/
-
-#details table {
-  border: none;
-  width: 98%;
-}
-
-#details th {
-  font-weight: 400;
-  text-align: right;
-  vertical-align: top;
-  /*width: 30%;*/
-  padding-top: 8px;
-}
-
-#details td {
-  margin: 5px;
-  padding: 5px;
-}
-
-#details tr:first-child td > p:first-child {
-  margin-top: 0;
-}
-
-input.custom-input {
-  width: 100%;
-}
-
-div.url input.custom-input {
-  width: calc(100% - 180px);
-}
-
-.input-nofollow {
-  float: right;
-  padding: 5px;
-}
-
-label.nowrap {
-  word-break: keep-all;
-  white-space: nowrap;
-}
-
-label.nowrap code {
-  position: relative;
-  top: -2px;
-}
-
 /* Descriptions
 ------------------------------------------------*/
 
@@ -875,7 +827,6 @@ td.column-id {
 
 /*
 Back these out to have normal "reset" buttons
-TODO Action Hook
 */
 
 /* wp-includes/css/buttons.css:109 */

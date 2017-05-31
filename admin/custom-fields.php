@@ -93,8 +93,11 @@ function wpmtst_settings_custom_fields( $form_id = 1 ) {
 
 				$field['placeholder']             = sanitize_text_field( $field['placeholder'] );
 
-				$field['before']                  = sanitize_text_field( $field['before'] );
-				$field['after']                   = sanitize_text_field( $field['after'] );
+				if ( isset( $field['text'] ) ) {
+					$field['text'] = wp_kses_post( $field['text'] );
+				}
+				$field['before'] = wp_kses_post( $field['before'] );
+				$field['after']  = wp_kses_post( $field['after'] );
 
 				$field['shortcode_on_form']      = sanitize_text_field( $field['shortcode_on_form'] );
 				$field['shortcode_on_display']   = sanitize_text_field( $field['shortcode_on_display'] );
@@ -103,6 +106,7 @@ function wpmtst_settings_custom_fields( $form_id = 1 ) {
 				// Hidden options (no need to check if isset)
 				$field['admin_table']             = $field['admin_table'] ? 1 : 0;
 				$field['show_admin_table_option'] = $field['show_admin_table_option'] ? 1 : 0;
+				$field['show_text_option']        = $field['show_text_option'] ? 1 : 0;
 				$field['show_placeholder_option'] = $field['show_placeholder_option'] ? 1 : 0;
 				$field['show_default_options']    = $field['show_default_options'] ? 1 : 0;
 
@@ -136,7 +140,7 @@ function wpmtst_settings_custom_fields( $form_id = 1 ) {
 
     <div id="left-col">
         <div>
-            <h3>Editor</h3>
+            <h3><?php _e( 'Editor', 'strong-testimonials' ); ?></h3>
             <p>
                 <?php _e( 'Click a field to open its options panel.', 'strong-testimonials' ); ?>
                 <a class="open-help-tab" href="#tab-panel-wpmtst-help"><?php _e( 'Help' ); ?></a>
@@ -184,18 +188,6 @@ function wpmtst_settings_custom_fields( $form_id = 1 ) {
 }
 
 /**
- * Our version of htmlspecialchars.
- *
- * @since 2.0.0
- * @param $string
- *
- * @return string
- */
-function wpmtst_htmlspecialchars( $string ) {
-	return htmlspecialchars( $string, ENT_QUOTES, get_bloginfo( 'charset' ) );
-}
-
-/**
  * Add a field to the form
  *
  * @param $key
@@ -216,7 +208,7 @@ function wpmtst_show_field( $key, $field, $adding ) {
         <table class="field-table">
             <?php
             include 'partials/fields/field-type.php';
-            include 'partials/fields/field-label.php';
+	        include 'partials/fields/field-label.php';
             include 'partials/fields/field-name.php';
 
             if ( ! $adding ) {
@@ -285,7 +277,21 @@ function wpmtst_show_field_secondary( $key, $field ) {
 		if ( isset( $field['placeholder'] ) ) {
 			$html .= '<tr class="field-secondary">' . "\n";
 			$html .= '<th>' . __( 'Placeholder', 'strong-testimonials' ) . '</th>' . "\n";
-			$html .= '<td><input type="text" name="fields[' . $key . '][placeholder]" value="' . wpmtst_htmlspecialchars( $field['placeholder'] ) . '"></td>' . "\n";
+			$html .= '<td><input type="text" name="fields[' . $key . '][placeholder]" value="' . esc_attr( $field['placeholder'] ) . '"></td>' . "\n";
+			$html .= '</tr>' . "\n";
+		}
+	}
+
+	/**
+	 * Text (checkbox, radio)
+     *
+     * @since 2.23.0
+	 */
+	if ( $field['show_text_option'] ) {
+		if ( isset( $field['text'] ) ) {
+			$html .= '<tr class="field-secondary">' . "\n";
+			$html .= '<th>' . __( 'Text', 'strong-testimonials' ) . '</th>' . "\n";
+			$html .= '<td><input type="text" name="fields[' . $key . '][text]" value="' . esc_attr( $field['text'] ) . '" placeholder="' . __( 'next to the checkbox', 'strong-testimonials' ) . '"></td>' . "\n";
 			$html .= '</tr>' . "\n";
 		}
 	}
@@ -295,7 +301,7 @@ function wpmtst_show_field_secondary( $key, $field ) {
 	 */
 	$html .= '<tr class="field-secondary">' . "\n";
 	$html .= '<th>' . __( 'Before', 'strong-testimonials' ) . '</th>' . "\n";
-	$html .= '<td><input type="text" name="fields[' . $key . '][before]" value="' . wpmtst_htmlspecialchars( $field['before'] ) . '"></td>' . "\n";
+	$html .= '<td><input type="text" name="fields[' . $key . '][before]" value="' . esc_attr( $field['before'] ) . '"></td>' . "\n";
 	$html .= '</tr>' . "\n";
 
 	/*
@@ -303,7 +309,7 @@ function wpmtst_show_field_secondary( $key, $field ) {
 	 */
 	$html .= '<tr class="field-secondary">' . "\n";
 	$html .= '<th>' . __( 'After', 'strong-testimonials' ) . '</th>' . "\n";
-	$html .= '<td><input type="text" name="fields[' . $key . '][after]" value="' . wpmtst_htmlspecialchars( $field['after'] ) . '"></td>' . "\n";
+	$html .= '<td><input type="text" name="fields[' . $key . '][after]" value="' . esc_attr( $field['after'] ) . '"></td>' . "\n";
 	$html .= '</tr>' . "\n";
 
 	/*
@@ -316,10 +322,10 @@ function wpmtst_show_field_secondary( $key, $field ) {
 			$html .= '<td>' . "\n";
 			// TODO Replace this special handling
 			if ( 'rating' == $field['input_type'] ) {
-    			$html .= '<input type="text" name="fields[' . $key . '][default_form_value]" value="' . wpmtst_htmlspecialchars( $field['default_form_value'] ) . '" class="as-number">';
+    			$html .= '<input type="text" name="fields[' . $key . '][default_form_value]" value="' . esc_attr( $field['default_form_value'] ) . '" class="as-number">';
 			    $html .= '<span class="help inline">' . __( 'stars', 'strong-testimonials' ) . '</span>';
 			} else {
-				$html .= '<input type="text" name="fields[' . $key . '][default_form_value]" value="' . wpmtst_htmlspecialchars( $field['default_form_value'] ) . '">';
+				$html .= '<input type="text" name="fields[' . $key . '][default_form_value]" value="' . esc_attr( $field['default_form_value'] ) . '">';
 			}
 			$html .= '<span class="help">' . __( 'Populate the field with this value.', 'strong-testimonials' ) . '</span>';
 			$html .= '</td>' . "\n";
@@ -337,10 +343,10 @@ function wpmtst_show_field_secondary( $key, $field ) {
 			$html .= '<td>' . "\n";
 			// TODO Replace this special handling
 			if ( 'rating' == $field['input_type'] ) {
-				$html .= '<input type="text" name="fields[' . $key . '][default_display_value]" value="' . wpmtst_htmlspecialchars( $field['default_display_value'] ) . '" class="as-number">';
+				$html .= '<input type="text" name="fields[' . $key . '][default_display_value]" value="' . esc_attr( $field['default_display_value'] ) . '" class="as-number">';
 				$html .= '<span class="help inline">' . __( 'stars', 'strong-testimonials' ) . '</span>';
 			} else {
-				$html .= '<input type="text" name="fields[' . $key . '][default_display_value]" value="' . wpmtst_htmlspecialchars( $field['default_display_value'] ) . '">';
+				$html .= '<input type="text" name="fields[' . $key . '][default_display_value]" value="' . esc_attr( $field['default_display_value'] ) . '">';
 			}
 			$html .= '<span class="help">' . __( 'Display this on the testimonial if no value is submitted.', 'strong-testimonials' ) . '</span>';
 			$html .= '</td>' . "\n";
@@ -356,7 +362,7 @@ function wpmtst_show_field_secondary( $key, $field ) {
 			$html .= '<tr class="field-secondary">' . "\n";
 			$html .= '<th>' . __( 'Shortcode on form', 'strong-testimonials' ) . '</th>' . "\n";
 			$html .= '<td>' . "\n";
-			$html .= '<input type="text" name="fields[' . $key . '][shortcode_on_form]" value="' . wpmtst_htmlspecialchars( $field['shortcode_on_form'] ) . '">';
+			$html .= '<input type="text" name="fields[' . $key . '][shortcode_on_form]" value="' . esc_attr( $field['shortcode_on_form'] ) . '">';
 			//$html .= '<span class="help">' . __( 'Display this on the testimonial if no value is submitted.', 'strong-testimonials' ) . '</span>';
 			$html .= '</td>' . "\n";
 			$html .= '</tr>' . "\n";
@@ -365,7 +371,7 @@ function wpmtst_show_field_secondary( $key, $field ) {
 			$html .= '<tr class="field-secondary">' . "\n";
 			$html .= '<th>' . __( 'Shortcode on display', 'strong-testimonials' ) . '</th>' . "\n";
 			$html .= '<td>' . "\n";
-			$html .= '<input type="text" name="fields[' . $key . '][shortcode_on_display]" value="' . wpmtst_htmlspecialchars( $field['shortcode_on_display'] ) . '">';
+			$html .= '<input type="text" name="fields[' . $key . '][shortcode_on_display]" value="' . esc_attr( $field['shortcode_on_display'] ) . '">';
 			//$html .= '<span class="help">' . __( 'Display this on the testimonial if no value is submitted.', 'strong-testimonials' ) . '</span>';
 			$html .= '</td>' . "\n";
 			$html .= '</tr>' . "\n";
@@ -420,6 +426,7 @@ function wpmtst_show_field_hidden( $key, $field ) {
 	$html = sprintf( $pattern, $key, 'record_type', $field['record_type'] ) . "\n";
 	$html .= sprintf( $pattern, $key, 'input_type', $field['input_type'] ) . "\n";
 	$html .= sprintf( $pattern, $key, 'name_mutable', $field['name_mutable'] ) . "\n";
+	$html .= sprintf( $pattern, $key, 'show_text_option', $field['show_text_option'] ) . "\n";
 	$html .= sprintf( $pattern, $key, 'show_placeholder_option', $field['show_placeholder_option'] ) . "\n";
 	$html .= sprintf( $pattern, $key, 'show_default_options', $field['show_default_options'] ) . "\n";
 	$html .= sprintf( $pattern, $key, 'admin_table_option', $field['admin_table_option'] ) . "\n";

@@ -84,64 +84,6 @@ if ( ! function_exists( 'normalize_empty_atts' ) ) {
 	}
 }
 
-/**
- * Honeypot preprocessor
- */
-function wpmtst_honeypot_before() {
-	if ( isset( $_POST['wpmtst_if_visitor'] ) && ! empty( $_POST['wpmtst_if_visitor'] ) ) {
-		do_action( 'honeypot_before_spam_testimonial', $_POST );
-		$form_options = get_option( 'wpmtst_form_options' );
-		$messages     = $form_options['messages'];
-		die( apply_filters( 'wpmtst_l10n', $messages['submission-error']['text'], 'strong-testimonials-form-messages', $messages['submission-error']['description'] ) );
-	}
-	return;
-}
-
-/**
- * Honeypot preprocessor
- */
-function wpmtst_honeypot_after() {
-	// TODO Something is preventing JS from adding this so the form fails.
-	if ( ! isset ( $_POST['wpmtst_after'] ) ) {
-		do_action( 'honeypot_after_spam_testimonial', $_POST );
-		$form_options = get_option( 'wpmtst_form_options' );
-		$messages     = $form_options['messages'];
-		die( apply_filters( 'wpmtst_l10n', $messages['submission-error']['text'], 'strong-testimonials-form-messages', $messages['submission-error']['description'] ) );
-	}
-	return;
-}
-
-/**
- * Honeypot
- */
-function wpmtst_honeypot_before_script() {
-	?>
-	<script type="text/javascript">jQuery('#wpmtst_if_visitor').val('');</script>
-	<?php
-}
-
-/**
- * Honeypot
- */
-function wpmtst_honeypot_after_script() {
-	?>
-	<script type='text/javascript'>
-		//<![CDATA[
-		( function( $ ) {
-			'use strict';
-			var forms = "#wpmtst-submission-form";
-			$( forms ).submit( function() {
-				$( "<input>" ).attr( "type", "hidden" )
-					.attr( "name", "wpmtst_after" )
-					.attr( "value", "1" )
-					.appendTo( forms );
-				return true;
-			});
-		})( jQuery );
-		//]]>
-	</script>
-	<?php
-}
 
 /**
  * Remove whitespace between tags. Helps prevent double wpautop in plugins
@@ -196,3 +138,14 @@ function wpmtst_testimonial_count( $atts, $content = null ) {
 	return count( $posts_array );
 }
 add_shortcode( 'testimonial_count', 'wpmtst_testimonial_count' );
+
+
+/**
+ * A simple shortcode for testing.
+ *
+ * @return string
+ */
+function wpmtst_hello() {
+    return 'Hello';
+}
+add_shortcode ( 'wpmtst_hello', 'wpmtst_hello' );

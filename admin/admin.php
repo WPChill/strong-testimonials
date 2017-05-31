@@ -41,22 +41,58 @@ function wpmtst_admin_register() {
 
 	$plugin_version = get_option( 'wpmtst_plugin_version' );
 
-	wp_register_style( 'wpmtst-font-awesome', WPMTST_PUBLIC_URL . 'fonts/font-awesome-4.6.3/css/font-awesome.min.css', array(), '4.6.3' );
+	wp_register_style( 'wpmtst-font-awesome',
+        WPMTST_PUBLIC_URL . 'fonts/font-awesome-4.6.3/css/font-awesome.min.css',
+        array(),
+        '4.6.3' );
 
-	wp_register_script( 'wpmtst-help', WPMTST_ADMIN_URL . 'js/help.js', array( 'jquery' ), $plugin_version, true );
+	wp_register_script( 'wpmtst-help',
+        WPMTST_ADMIN_URL . 'js/help.js',
+        array( 'jquery' ),
+        $plugin_version,
+        true );
 
-	wp_register_script( 'wpmtst-admin-script', WPMTST_ADMIN_URL . 'js/admin.js', array( 'jquery' ), $plugin_version, true );
+	wp_register_script( 'wpmtst-admin-script',
+        WPMTST_ADMIN_URL . 'js/admin.js',
+        array( 'jquery' ),
+        $plugin_version,
+        true );
 
-	wp_register_style( 'wpmtst-admin-style', WPMTST_ADMIN_URL . 'css/admin.css', array( 'wpmtst-font-awesome' ), $plugin_version );
+	wp_register_style( 'wpmtst-admin-style',
+        WPMTST_ADMIN_URL . 'css/admin.css',
+        array( 'wpmtst-font-awesome' ),
+        $plugin_version );
+
+	wp_register_style( 'wpmtst-post-editor',
+        WPMTST_ADMIN_URL . 'css/post-editor.css',
+        array( 'wpmtst-font-awesome' ),
+        $plugin_version );
 
 	// for Page Builder?
-	wp_register_script( 'wpmtst-validation-plugin', WPMTST_PUBLIC_URL . 'js/lib/validate/jquery.validate.min.js', array( 'jquery' ), $plugin_version );
+	wp_register_script( 'wpmtst-validation-plugin',
+        WPMTST_PUBLIC_URL . 'js/lib/validate/jquery.validate.min.js',
+        array( 'jquery' ),
+        $plugin_version );
 
-	// Fields
-	wp_register_style( 'wpmtst-admin-fields-style', WPMTST_ADMIN_URL . 'css/fields.css', array(), $plugin_version );
-	wp_register_style( 'wpmtst-admin-form-preview', WPMTST_ADMIN_URL . 'css/form-preview.css', array(), $plugin_version );
-	wp_register_script( 'wpmtst-admin-fields-script', WPMTST_ADMIN_URL . 'js/admin-fields.js',
-        array( 'jquery', 'jquery-ui-sortable', 'wpmtst-help' ), $plugin_version, true );
+	/**
+     * Fields
+     */
+	wp_register_style( 'wpmtst-admin-fields-style',
+        WPMTST_ADMIN_URL . 'css/fields.css',
+        array(),
+        $plugin_version );
+
+	wp_register_style( 'wpmtst-admin-form-preview',
+        WPMTST_ADMIN_URL . 'css/form-preview.css',
+        array(),
+        $plugin_version );
+
+	wp_register_script( 'wpmtst-admin-fields-script',
+        WPMTST_ADMIN_URL . 'js/admin-fields.js',
+        array( 'jquery', 'jquery-ui-sortable', 'wpmtst-help' ),
+        $plugin_version,
+        true );
+
 	$params = array(
 		'ajax_nonce' => wp_create_nonce( 'wpmtst-admin' ),
         'newField'   => _x( 'New Field', 'Field editor: The default label for new fields', 'strong_testimonials' ),
@@ -65,15 +101,38 @@ function wpmtst_admin_register() {
 	);
 	wp_localize_script( 'wpmtst-admin-fields-script', 'wpmtstAdmin', $params );
 
-	// Ratings
-	wp_register_style( 'wpmtst-rating-display', WPMTST_PUBLIC_URL . 'css/rating-display.css', array( 'wpmtst-font-awesome' ), $plugin_version );
-	wp_register_style( 'wpmtst-rating-form', WPMTST_PUBLIC_URL . 'css/rating-form.css', array( 'wpmtst-font-awesome' ), $plugin_version );
-	wp_register_script( 'wpmtst-rating-script', WPMTST_ADMIN_URL . 'js/rating-edit.js', array( 'jquery' ), $plugin_version, true );
+	/**
+     * Ratings
+     */
+    wp_register_style( 'wpmtst-rating-display',
+        WPMTST_PUBLIC_URL . 'css/rating-display.css',
+        array( 'wpmtst-font-awesome' ),
+        $plugin_version );
 
-	// Views
-	wp_register_style( 'wpmtst-admin-views-style', WPMTST_ADMIN_URL . 'css/views.css', array(), $plugin_version );
-	$deps = array( 'jquery', 'jquery-ui-sortable', 'wp-color-picker', 'jquery-masonry', 'wpmtst-help' );
-	wp_register_script( 'wpmtst-admin-views-script', WPMTST_ADMIN_URL . 'js/views.js', $deps, $plugin_version, true );
+	wp_register_style( 'wpmtst-rating-form',
+        WPMTST_PUBLIC_URL . 'css/rating-form.css',
+        array( 'wpmtst-font-awesome' ),
+        $plugin_version );
+
+	wp_register_script( 'wpmtst-rating-script',
+        WPMTST_ADMIN_URL . 'js/rating-edit.js',
+        array( 'jquery' ),
+        $plugin_version,
+        true );
+
+	/**
+     * Views
+     */
+	wp_register_style( 'wpmtst-admin-views-style',
+        WPMTST_ADMIN_URL . 'css/views.css',
+        array(),
+        $plugin_version );
+
+	wp_register_script( 'wpmtst-admin-views-script',
+        WPMTST_ADMIN_URL . 'js/views.js',
+		array( 'jquery', 'jquery-ui-sortable', 'wp-color-picker', 'jquery-masonry', 'wpmtst-help' ),
+        $plugin_version,
+        true );
 
 	/**
 	 * Category filter in View editor.
@@ -83,16 +142,28 @@ function wpmtst_admin_register() {
 	 *
 	 * @since 2.2.0
 	 */
-	wp_register_script( 'wpmtst-view-category-filter-script', WPMTST_ADMIN_URL . 'js/view-category-filter.js', array( 'jquery' ), $plugin_version, true );
+	wp_register_script( 'wpmtst-view-category-filter-script',
+        WPMTST_ADMIN_URL . 'js/view-category-filter.js',
+        array( 'jquery' ),
+        $plugin_version,
+        true );
 
-	wp_register_style( 'wpmtst-admin-guide-style', WPMTST_ADMIN_URL . 'css/guide.css', array(), $plugin_version );
+	wp_register_style( 'wpmtst-admin-guide-style',
+        WPMTST_ADMIN_URL . 'css/guide.css',
+        array(),
+        $plugin_version );
 
 	/**
 	 * Add-on licenses
 	 *
 	 * @since 2.18
 	 */
-	wp_register_script( 'wpmtst-addons-script', WPMTST_ADMIN_URL . 'js/addon-licenses.js', array( 'jquery' ), $plugin_version, true );
+	wp_register_script( 'wpmtst-addons-script',
+        WPMTST_ADMIN_URL . 'js/addon-licenses.js',
+        array( 'jquery' ),
+        $plugin_version,
+        true );
+
 	$params = array(
 		'ajax_nonce'     => wp_create_nonce( 'wpmtst-admin' ),
 		'requiredField'  => __( 'This field is required.', 'strong-testimonials' ),
@@ -106,7 +177,11 @@ function wpmtst_admin_register() {
 	 *
 	 * @since 2.18
 	 */
-	wp_register_script( 'wpmtst-ays-script', WPMTST_ADMIN_URL . 'js/lib/are-you-sure/jquery.are-you-sure.js', array( 'jquery' ), $plugin_version, true );
+	wp_register_script( 'wpmtst-ays-script',
+        WPMTST_ADMIN_URL . 'js/lib/are-you-sure/jquery.are-you-sure.js',
+        array( 'jquery' ),
+        $plugin_version,
+        true );
 }
 add_action( 'admin_init', 'wpmtst_admin_register' );
 
@@ -127,6 +202,35 @@ function wpmtst_admin_enqueue_scripts( $hook ) {
 
 }
 add_action( 'admin_enqueue_scripts', 'wpmtst_admin_enqueue_scripts' );
+
+
+/**
+ * Defer admin scripts.
+ *
+ * @param $tag
+ * @param $handle
+ *
+ * @return mixed
+ */
+function wpmtst_admin_defer_scripts( $tag, $handle ) {
+	$scripts_to_defer = array(
+        'wpmtst-addons-script',
+        'wpmtst-admin-script',
+        'wpmtst-admin-fields-script',
+        'wpmtst-admin-views-script',
+        'wpmtst-ays-script',
+        'wpmtst-help',
+        'wpmtst-rating-script',
+        'wpmtst-view-category-filter-script',
+    );
+
+	if ( in_array( $handle, $scripts_to_defer ) ) {
+		return str_replace( ' src', ' defer src', $tag );
+	}
+
+	return $tag;
+}
+add_filter( 'script_loader_tag', 'wpmtst_admin_defer_scripts', 10, 2 );
 
 
 /**
@@ -252,7 +356,7 @@ add_action( 'admin_enqueue_scripts', 'wpmtst_hook__admin_load_edit_tags' );
  */
 function wpmtst_hook__admin_load_post( $hook ) {
 	if ( 'post.php' == $hook && wpmtst_is_testimonial_screen() ) {
-		wp_enqueue_style( 'wpmtst-admin-style' );
+		wp_enqueue_style( 'wpmtst-post-editor' );
 		wp_enqueue_script( 'wpmtst-admin-script' );
 
 		wp_enqueue_style( 'wpmtst-rating-display' );
@@ -269,7 +373,7 @@ add_action( 'admin_enqueue_scripts', 'wpmtst_hook__admin_load_post' );
  */
 function wpmtst_hook__admin_load_post_new( $hook ) {
 	if ( 'post-new.php' == $hook && wpmtst_is_testimonial_screen() ) {
-		wp_enqueue_style( 'wpmtst-admin-style' );
+		wp_enqueue_style( 'wpmtst-post-editor' );
 		wp_enqueue_style( 'wpmtst-admin-script' );
 
 		wp_enqueue_style( 'wpmtst-rating-display' );
@@ -383,92 +487,117 @@ function wpmtst_meta_options() {
 				<p><?php _ex( 'To add a photo or logo, use the Featured Image option.', 'post editor', 'strong-testimonials' ); ?></p>
 			</td>
 		</tr>
-        <?php do_action( 'wpmtst_before_client_fields' ); ?>
-		<?php foreach ( $fields as $key => $field ) : ?>
-		<?php
+        <?php
+        do_action( 'wpmtst_before_client_fields' );
+		foreach ( $fields as $key => $field ) :
 			// short-circuit
 			if ( 'shortcode' == $field['input_type'] || 'category' == strtok( $field['input_type'], '-' ) ) {
 				continue;
 			}
+            ?>
+            <tr>
+                <th>
+                    <label for="<?php echo $field['name']; ?>">
+                        <?php echo apply_filters( 'wpmtst_l10n', $field['label'], wpmtst_get_l10n_context( 'form-fields' ), $field['name'] . ' : label' ); ?>
+                    </label>
+                </th>
+                <td>
+                    <div class="<?php echo $field['input_type']; ?>">
+                        <?php wpmtst_meta_option( $field, $post, $is_new ); ?>
+                    </div>
+                </td>
+            </tr>
+		    <?php
+		endforeach;
+		do_action( 'wpmtst_after_client_fields' );
 		?>
-		<tr>
-			<th>
-				<label for="<?php echo $field['name']; ?>">
-					<?php echo apply_filters( 'wpmtst_l10n', $field['label'], wpmtst_get_l10n_context( 'form-fields' ), $field['name'] . ' : label' ); ?>
-				</label>
-			</th>
-			<td>
-				<div class="<?php echo $field['input_type']; ?>">
-
-					<?php
-					switch ( $field['input_type'] ) {
-
-						case 'rating' :
-							if ( $is_new ) {
-								$rating = 0;
-							} else {
-								$rating = get_post_meta( $post->ID, $field['name'], true );
-								if ( ! $rating ) {
-									$rating = 0;
-								}
-							}
-							?>
-							<div class="edit-rating-box hide-if-no-js" data-field="<?php echo $field['name']; ?>">
-
-								<?php wp_nonce_field( 'editrating', "edit-{$field['name']}-nonce", false ); ?>
-								<input type="hidden" class="current-rating" value="<?php echo $rating; ?>">
-
-								<!-- form -->
-								<div class="rating-form" style="<?php echo ( $is_new ) ? 'display: inline-block;' : 'display: none;'; ?>">
-									<span class="inner">
-                                        <?php wpmtst_star_rating_form( $field, $rating, 'in-metabox' ); ?>
-                                    </span>
-									<?php if ( ! $is_new ) : ?>
-                                        <span class="edit-rating-buttons-2">
-                                            <button type="button" class="zero button-link"><?php _e( 'Zero', 'strong-testimonials' ); ?></button>&nbsp;
-                                            <button type="button" class="save button button-small"><?php _e( 'OK' ); ?></button>&nbsp;
-                                            <button type="button" class="cancel button-link"><?php _e( 'Cancel' ); ?></button>
-                                        </span>
-                                    <?php endif; ?>
-								</div>
-
-								<!-- display -->
-								<div class="rating-display" style="<?php echo $is_new ? 'display: none;' : 'display: inline-block;'; ?>">
-									<span class="inner">
-										<?php wpmtst_star_rating_display( $rating, 'in-metabox' ); ?>
-									</span>
-
-									<?php if ( ! $is_new ) : ?>
-									<span class="edit-rating-buttons-1">
-										<button type="button" id="" class="edit-rating button button-small hide-if-no-js" aria-label="Edit rating"><?php _e( 'Edit' ); ?></button>
-									</span>
-									<?php endif; ?>
-								</div>
-
-								<span class="edit-rating-success"></span>
-
-							</div>
-							<?php
-							break;
-
-						default :
-							echo sprintf( '<input id="%2$s" type="%1$s" class="custom-input" name="custom[%2$s]" value="%3$s" size="">', $field['input_type'], $field['name'], esc_attr( $post->{$field['name']} ) );
-							if ( 'url' == $field['input_type'] ) {
-								echo '<div class="input-nofollow">';
-								echo '<label class="nowrap"><input type="checkbox" name="custom[nofollow]"' . checked( $post->nofollow, 'on', false ) . '> <code>rel="nofollow"</code></label>';
-								echo '</div>';
-							}
-					}
-					?>
-
-				</div>
-			</td>
-		</tr>
-		<?php endforeach; ?>
-		<?php do_action( 'wpmtst_after_client_fields' ); ?>
 	</table>
-    <?php do_action( 'wpmtst_after_client_fields_table' ); ?>
-	<?php
+    <?php
+    do_action( 'wpmtst_after_client_fields_table' );
+}
+
+
+/**
+ * Input type for a single custom field.
+ *
+ * @since 2.23.0
+ *
+ * @param $field
+ * @param $post
+ * @param $is_new
+ */
+function wpmtst_meta_option( $field, $post, $is_new ) {
+    switch ( $field['input_type'] ) {
+
+        case 'rating' :
+            if ( $is_new ) {
+                $rating = 0;
+            } else {
+                $rating = get_post_meta( $post->ID, $field['name'], true );
+                if ( ! $rating ) {
+                    $rating = 0;
+                }
+            }
+            ?>
+            <div class="edit-rating-box hide-if-no-js" data-field="<?php echo $field['name']; ?>">
+
+                <?php wp_nonce_field( 'editrating', "edit-{$field['name']}-nonce", false ); ?>
+                <input type="hidden" class="current-rating" value="<?php echo $rating; ?>">
+
+                <!-- form -->
+                <div class="rating-form" style="<?php echo ( $is_new ) ? 'display: inline-block;' : 'display: none;'; ?>">
+                    <span class="inner">
+                        <?php wpmtst_star_rating_form( $field, $rating, 'in-metabox' ); ?>
+                    </span>
+                    <?php if ( ! $is_new ) : ?>
+                        <span class="edit-rating-buttons-2">
+                            <button type="button" class="zero button-link"><?php _e( 'Zero', 'strong-testimonials' ); ?></button>&nbsp;
+                            <button type="button" class="save button button-small"><?php _e( 'OK' ); ?></button>&nbsp;
+                            <button type="button" class="cancel button-link"><?php _e( 'Cancel' ); ?></button>
+                        </span>
+                    <?php endif; ?>
+                </div>
+
+                <!-- display -->
+                <div class="rating-display" style="<?php echo $is_new ? 'display: none;' : 'display: inline-block;'; ?>">
+                    <span class="inner">
+                        <?php wpmtst_star_rating_display( $rating, 'in-metabox' ); ?>
+                    </span>
+
+                    <?php if ( ! $is_new ) : ?>
+                    <span class="edit-rating-buttons-1">
+                        <button type="button" id="" class="edit-rating button button-small hide-if-no-js" aria-label="Edit rating"><?php _e( 'Edit' ); ?></button>
+                    </span>
+                    <?php endif; ?>
+                </div>
+
+                <span class="edit-rating-success"></span>
+
+            </div>
+            <?php
+            break;
+
+        default :
+            if ( 'url' == $field['input_type'] ) {
+                ?>
+                <div class="input-url">
+                    <?php printf( '<input id="%2$s" type="%1$s" class="custom-input" name="custom[%2$s]" value="%3$s" size="">',
+	                    $field['input_type'], $field['name'], esc_attr( $post->{$field['name']} ) ); ?>
+                </div>
+                <div class="input-nofollow">
+                    <label for="custom_nofollow"><code>rel="nofollow"</code></label>
+                    <select id="custom_nofollow" name="custom[nofollow]">
+                        <option value="default" <?php selected( $post->nofollow, 'default' ); ?>><?php _e( 'default', 'strong-testimonials' ); ?></option>
+                        <option value="yes" <?php selected( $post->nofollow, 'yes' ); ?>><?php _e( 'yes', 'strong-testimonials' ); ?></option>
+                        <option value="no" <?php selected( $post->nofollow, 'no' ); ?>><?php _e( 'no', 'strong-testimonials' ); ?></option>
+                    </select>
+                </div>
+                <?php
+            } else {
+	            printf( '<input id="%2$s" type="%1$s" class="custom-input" name="custom[%2$s]" value="%3$s" size="">',
+		            $field['input_type'], $field['name'], esc_attr( $post->{$field['name']} ) );
+            }
+    }
 }
 
 
@@ -609,13 +738,33 @@ function wpmtst_custom_columns( $column ) {
 		default :
 			// custom field?
 			$custom = get_post_custom();
+            $fields = wpmtst_get_custom_fields();
+
 			if ( isset( $custom[ $column ] ) && $custom[ $column ][0] ) {
-				$fields = wpmtst_get_custom_fields();
-				if ( isset( $fields[ $column ] ) && 'rating' == $fields[ $column ]['input_type'] ) {
-					wpmtst_star_rating_display( $custom[ $column ][0], 'in-table-list' );
+
+                if ( isset( $fields[ $column ] ) ) {
+
+                    switch ( $fields[ $column ]['input_type'] ) {
+                        case 'rating' :
+                            wpmtst_star_rating_display( $custom[ $column ][0], 'in-table-list' );
+                            break;
+                        case 'checkbox' :
+                            echo $custom[ $column ][0] ? 'yes' : 'no';
+                            break;
+                        default :
+                            echo $custom[ $column ][0];
+                    }
+
+                }
+
+			} else {
+
+				if ( 'checkbox' == $fields[ $column ]['input_type'] ) {
+					echo 'no';
 				} else {
-					echo $custom[ $column ][0];
+				    // display nothing
 				}
+
 			}
 
 	}
@@ -754,12 +903,8 @@ add_action( 'restrict_manage_posts', 'wpmtst_add_taxonomy_filters' );
  */
 function wpmtst_pre_get_posts( $query ) {
 	// Only in main WP query AND if an orderby query variable is designated.
-	if ( is_admin()
-		&& $query->is_main_query()
-		&& 'wpm-testimonial' == $query->get( 'post_type' )
-		&& ( $orderby = $query->get( 'orderby' ) )
-	) {
-		if ( 'client_name' == $orderby ) {
+	if ( is_admin() && $query->is_main_query() && 'wpm-testimonial' == $query->get( 'post_type' ) ) {
+		if ( 'client_name' == $query->get( 'orderby' ) ) {
 			$query->set( 'meta_key', 'client_name' );
 			$query->set( 'orderby', 'meta_value' );
 		}
@@ -777,10 +922,6 @@ function wpmtst_save_details() {
 		return;
 
 	if ( isset( $_POST['custom'] ) ) {
-		// {missing 'nofollow'} = {unchecked checkbox} = 'off'
-		if ( ! array_key_exists( 'nofollow', $_POST['custom'] ) )
-			$_POST['custom']['nofollow'] = 'off';
-
 		foreach ( $_POST['custom'] as $key => $value ) {
 			// empty values replace existing values
 			update_post_meta( $_POST['post_ID'], $key, stripslashes( $value ) );
@@ -798,8 +939,6 @@ add_action( 'save_post', 'wpmtst_save_details' );
 
 /**
  * Check WordPress version
- *
- * @todo Action Hook
  */
 function wpmtst_version_check() {
 	global $wp_version;
@@ -817,32 +956,6 @@ function wpmtst_version_check() {
 		wp_die( $message );
 	}
 }
-
-
-/**
- * Admin notices
- *
- * @since 1.18.4
- */
-function wpmtst_admin_notices() {
-	if ( $notices = get_option( 'wpmtst_admin_notices' ) ) {
-		foreach ( $notices as $notice ) {
-			echo "<div class='wpmtst updated notice is-dismissible'><p>$notice</p></div>";
-		}
-		?>
-		<script>
-		jQuery(document).ready(function($) {
-			$(".wrap").on("click", ".notice-dismiss", function() {
-				$.get(ajaxurl,{'action':'wpmtst_dismiss_notice'},function(response){})
-			}).on("click", ".notice-dismiss-text", function() {
-				$(this).closest(".notice").find(".notice-dismiss").click();
-			});
-		});
-		</script>
-	<?php
-	}
-}
-add_action( 'admin_notices', 'wpmtst_admin_notices' );
 
 
 /**
@@ -905,45 +1018,6 @@ function wpmtst_restore_default_icon( $for ) {
 
 
 /**
- * Build list of supported Captcha plugins.
- *
- * TODO - Move this to options array and add filter
- */
-function wpmtst_get_captcha_plugins() {
-	$plugins = array(
-		'bwsmath' => array(
-			'name'      => 'Captcha by BestWebSoft',
-			'file'      => 'captcha/captcha.php',
-			'settings'  => 'admin.php?page=captcha.php',
-			'search'    => 'plugin-install.php?tab=search&s=Captcha',
-			'url'       => 'http://wordpress.org/plugins/captcha/',
-			'installed' => false,
-			'active'    => false,
-		),
-		'miyoshi' => array(
-			'name'      => 'Really Simple Captcha by Takayuki Miyoshi',
-			'file'      => 'really-simple-captcha/really-simple-captcha.php',
-			'search'    => 'plugin-install.php?tab=search&s=Really+Simple+Captcha',
-			'url'       => 'http://wordpress.org/plugins/really-simple-captcha/',
-			'installed' => false,
-			'active'    => false,
-		),
-		'advnore' => array(
-			'name'      => 'Advanced noCaptcha reCaptcha by Shamim Hasan',
-			'file'      => 'advanced-nocaptcha-recaptcha/advanced-nocaptcha-recaptcha.php',
-			'settings'  => 'admin.php?page=anr-admin-settings',
-			'search'    => 'plugin-install.php?tab=search&s=Advanced+noCaptcha+reCaptcha',
-			'url'       => 'http://wordpress.org/plugins/advanced-nocaptcha-recaptcha',
-			'installed' => false,
-			'active'    => false,
-		),
-	);
-
-	return $plugins;
-}
-
-
-/**
  * Add plugin links.
  *
  * @param        $plugin_meta
@@ -957,11 +1031,17 @@ function wpmtst_plugin_row_meta( $plugin_meta, $plugin_file, $plugin_data = arra
 
     if ( $plugin_file == WPMTST_PLUGIN ) {
 
-		$url = 'https://support.strongplugins.com/';
-		$plugin_meta[] = sprintf( '<a href="%s" target="_blank">%s</a>', $url, '<span class="dashicons dashicons-editor-help"></span> ' . __( 'Support', 'strong-testimonials' ) );
+		$plugin_meta[] = sprintf(
+		    '<a href="%s" target="_blank" title="%s" style="color: #8224e3; font-weight: 600;">%s</a>',
+			'https://support.strongplugins.com/',
+            __( 'For direct support requests and documentation', 'strong-testimonials' ),
+            __( 'Support', 'strong-testimonials' ) );
 
-		$url = 'https://strongplugins.com/';
-		$plugin_meta[] = sprintf( '<a href="%s" target="_blank">%s</a>', $url, '<span class="dashicons dashicons-admin-plugins"></span> ' . __( 'Add-ons', 'strong-testimonials' ) );
+		$plugin_meta[] = sprintf(
+            '<a href="%s" target="_blank" title="%s" style="color: #8224e3; font-weight: 600;">%s</a>',
+			'https://strongplugins.com/',
+            __( 'Get more features with premium add-ons', 'strong-testimonials' ),
+            __( 'Add-ons', 'strong-testimonials' ) );
 
 	}
 

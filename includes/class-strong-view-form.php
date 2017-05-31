@@ -184,11 +184,11 @@ class Strong_View_Form extends Strong_View {
 		WPMST()->add_script_var( 'wpmtst-form-validation', 'strongForm', $args );
 
 		if ( $form_options['honeypot_before'] ) {
-			add_action( 'wp_footer', 'wpmtst_honeypot_before_script' );
+			WPMST()->add_script( 'wpmtst-honeypot-before' );
 		}
 
 		if ( $form_options['honeypot_after'] ) {
-			add_action( 'wp_footer', 'wpmtst_honeypot_after_script' );
+			WPMST()->add_script( 'wpmtst-honeypot-after' );
 		}
 	}
 

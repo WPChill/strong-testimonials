@@ -103,8 +103,8 @@ Array.max = function (array) {
 }(jQuery));
 
 
+/*
 jQuery(window).on('load', function () {
-
   // Masonry
   jQuery(".view-layout-masonry .example-container")
     .find(".box")
@@ -114,7 +114,38 @@ jQuery(window).on('load', function () {
 
   // Category select width
   jQuery.fn.afterToggle();
+});
+*/
 
+
+/*
+(function ($) {
+  // Masonry
+  jQuery(".view-layout-masonry .example-container")
+    .find(".box")
+    .width(jQuery(".grid-sizer").width())
+    .end()
+    .masonry();
+
+  // Category select width
+  jQuery.fn.afterToggle();
+}(jQuery));
+*/
+
+
+/**
+ * Masonry in the Layout section.
+ */
+jQuery(document).ready(function( $ ) {
+  // Masonry
+  $(".view-layout-masonry .example-container")
+    .find(".box")
+    .width(jQuery(".grid-sizer").width())
+    .end()
+    .masonry();
+
+  // Category select width
+  $.fn.afterToggle();
 });
 
 

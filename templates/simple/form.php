@@ -10,9 +10,7 @@
 
         <div class="strong-form-inner">
 
-            <p class="required-notice">
-                <span class="required symbol"></span><?php wpmtst_form_message( 'required-field' ); ?>
-            </p>
+	        <?php wpmtst_field_required_notice(); ?>
 
             <form <?php wpmtst_form_info(); ?>>
 

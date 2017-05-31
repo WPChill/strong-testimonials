@@ -14,6 +14,7 @@ function wpmtst_form_handler() {
 
 	add_filter( 'upload_mimes', 'wpmtst_restrict_mime' );
 
+	$options      = get_option( 'wpmtst_options' );
 	$form_options = get_option( 'wpmtst_form_options' );
 	$messages     = $form_options['messages'];
 
@@ -197,8 +198,11 @@ function wpmtst_form_handler() {
 			 *
 			 * @since 2.17.0 Exclude categories.
 			 */
-			$new_meta = array_diff_key( $testimonial_meta, array( 'category' => '' ) );
-			foreach ( $new_meta as $key => $field ) {
+			foreach ( $testimonial_meta as $key => $field ) {
+				if ( 'category' == $key ) {
+					continue;
+				}
+
 				add_post_meta( $testimonial_id, $key, $field );
 			}
 
@@ -240,6 +244,41 @@ function wpmtst_form_handler() {
 	WPMST()->set_form_errors( $form_errors );
 	return false;
 }
+
+/**
+ * Honeypot preprocessor
+ */
+function wpmtst_honeypot_before() {
+	if ( isset( $_POST['wpmtst_if_visitor'] ) && ! empty( $_POST['wpmtst_if_visitor'] ) ) {
+		do_action( 'honeypot_before_spam_testimonial', $_POST );
+	}
+}
+
+/**
+ * Honeypot preprocessor
+ */
+function wpmtst_honeypot_after() {
+	if ( ! isset ( $_POST['wpmtst_after'] ) ) {
+		do_action( 'honeypot_after_spam_testimonial', $_POST );
+	}
+}
+
+/**
+ * Honeypot error
+ */
+function wpmtst_honeypot_error() {
+	$form_options = get_option( 'wpmtst_form_options' );
+	$messages     = $form_options['messages'];
+	$part         = 'submission-error';
+	if ( isset( $messages[ $part ]['text'] ) ) {
+		$message = apply_filters( 'wpmtst_form_message', $messages['submission-error']['text'], $messages[ $part ] );
+	} else {
+		$message = __( 'Unknown error.', 'strong-testimonials' );
+	}
+	die( $message );
+}
+add_action( 'honeypot_before_spam_testimonial', 'wpmtst_honeypot_error' );
+add_action( 'honeypot_after_spam_testimonial', 'wpmtst_honeypot_error' );
 
 /**
  * Sanitize a textarea from user input. Based on sanitize_text_field.
@@ -311,56 +350,6 @@ function wpmtst_wp_handle_upload( $file_handler, $overrides ) {
 	$upload = wp_handle_upload( $file_handler, $overrides );
 
 	return $upload;
-}
-
-/**
- * Check form input
- *
- * @param $captcha
- * @param $errors
- *
- * @return mixed
- */
-function wpmtst_captcha_check( $captcha, $errors ) {
-
-	switch ( $captcha ) {
-
-		// Captcha by BestWebSoft
-		case 'bwsmath' :
-			if ( function_exists( 'cptch_check_custom_form' ) && cptch_check_custom_form() !== true ) {
-				$errors['captcha'] = __( 'The Captcha failed. Please try again.', 'strong-testimonials' );
-			}
-			break;
-
-		// Really Simple Captcha by Takayuki Miyoshi
-		case 'miyoshi' :
-			if ( class_exists( 'ReallySimpleCaptcha' ) ) {
-				$captcha_instance = new ReallySimpleCaptcha();
-				$prefix = isset( $_POST['captchac'] ) ? (string) $_POST['captchac'] : '';
-				$response = isset( $_POST['captchar'] ) ? (string) $_POST['captchar'] : '';
-				$correct = $captcha_instance->check( $prefix, $response );
-				if ( !$correct ) {
-					$errors['captcha'] = __( 'The Captcha failed. Please try again.', 'strong-testimonials' );
-				}
-				// remove the temporary image and text files (except on Windows)
-				if ( '127.0.0.1' != $_SERVER['SERVER_ADDR'] ) {
-					$captcha_instance->remove( $prefix );
-				}
-			}
-			break;
-
-		// Advanced noCaptcha reCaptcha by Shamim Hasan
-		case 'advnore' :
-			if ( function_exists( 'anr_verify_captcha' ) && !anr_verify_captcha() ) {
-				$errors['captcha'] = __( 'The Captcha failed. Please try again.', 'strong-testimonials' );
-			}
-			break;
-
-		default :
-	}
-
-	return $errors;
-
 }
 
 /**

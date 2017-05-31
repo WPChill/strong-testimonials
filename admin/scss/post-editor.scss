@@ -1,0 +1,63 @@
+/* Client details meta box
+------------------------------------------------*/
+
+#details table {
+  border: none;
+  width: 100%;
+}
+
+#details th {
+  font-weight: 400;
+  text-align: right;
+  vertical-align: top;
+  padding-top: 8px;
+}
+
+#details td {
+  margin: 5px;
+  padding: 5px;
+}
+
+#details tr:first-child td > p:first-child {
+  margin-top: 0;
+}
+
+input[type="text"].custom-input,
+input[type="email"].custom-input,
+input[type="url"].custom-input {
+  width: 100%;
+}
+
+div.checkbox {
+  height: 28px;
+  padding: 3px 0 5px;
+}
+
+div.checkbox input[type="checkbox"] {
+  margin: 1px;
+  padding: 3px 5px;
+}
+
+.input-url,
+.input-nofollow {
+  display: inline-block;
+}
+
+.input-url {
+  width: calc(100% - 210px);
+}
+
+.input-nofollow {
+  float: right;
+}
+
+label.nowrap {
+  word-break: keep-all;
+  white-space: nowrap;
+}
+
+label.nowrap code {
+  position: relative;
+  top: -2px;
+}
+
