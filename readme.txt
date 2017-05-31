@@ -244,17 +244,16 @@ If you prefer not to post your URL publicly, start a private support ticket at [
 
 = 2.23 - May 31, 2017 =
 * Add nofollow default setting.
-* Defer front-end javascript to improve compatibility.
 * Add checkbox input type.
 * Add support for Captcha Pro by BestWebSoft.
+* Defer front-end javascript to improve compatibility.
 * Allow shortcodes and basic HTML in the "Before", "After", "Text" fields.
 * Add filter on "Required Field" notice.
 * Remove `link_new_tab` and `link_nofollow` functions.
-* Remove unused functions for admin notices.
 * Minor refactoring.
 
 = 2.22.6 - May 29, 2017 =
-* Fix conflict with some themes and prerendering.
+* Fix conflict with prerender and some themes.
 
 = 2.22.5 - May 25, 2017 =
 * Fix bug in adding nofollow attribute to outbound links.
