@@ -4,257 +4,258 @@
 
 optgroup,
 optgroup option {
-	/* Firefox */
-	font-family: inherit;
+  /* Firefox */
+  font-family: inherit;
 }
 
 /* structure */
 
 #left-col,
 #right-col {
-	box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 #left-col {
-	width: 55%;
-	float: left;
-	padding: 20px 0;
+  width: 55%;
+  float: left;
+  padding: 20px 0;
 }
 
 #right-col {
-	width: calc( 45% - 30px );
-	float: right;
-	padding: 20px 0 20px 0;
+  width: calc(45% - 30px);
+  float: right;
+  padding: 20px 0 20px 0;
 }
 
 #wpmtst-custom-fields-form {
-	width: 100%;
+  width: 100%;
 }
 
 #fields-editor-preview {
-	background: #fdfdfd;
-	border: 1px solid #bbb;
-	box-shadow: 0 0 12px rgba(0,0,0,0.4);
-	min-height: 300px;
+  background: #fdfdfd;
+  border: 1px solid #bbb;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.4);
+  min-height: 300px;
 }
 
 .wrap.wpmtst {
-	max-width: 1024px;
+  /*max-width: 1024px;*/
+	max-width: 1366px;
 }
 
 .wrap.wpmtst h3 {
-	margin-top: 0;
+  margin-top: 0;
 }
 
 /* Custom fields
 ---------------------------------------------------------*/
 
 #custom-field-list {
-	margin-bottom: 0;
+  margin-bottom: 0;
 }
 
 #custom-field-list li {
-	background: #fff;
-	border: 1px solid #ddd;
-	margin: 0;
+  background: #fff;
+  border: 1px solid #ddd;
+  margin: 0;
 }
 
 #custom-field-list .custom-field-header {
-	/*padding: 10px;*/
-	font-size: 1.1em;
-	height: 40px;
+  /*padding: 10px;*/
+  font-size: 1.1em;
+  height: 40px;
 }
 
 #custom-field-list span.link {
-	display: inline-block;
-	cursor: pointer;
-	padding: 10px;
-	width: calc( 100% - 20px );
+  display: inline-block;
+  cursor: pointer;
+  padding: 10px;
+  width: calc(100% - 20px);
 }
 
 /* toggle */
 
 #custom-field-list span.link span.toggle:before {
-	content: "\f140";
-	display: inline-block;
-	font: normal 20px/1 dashicons;
-	float: right;
-	color: #999;
-	width: 20px;
-	height: 20px;
+  content: "\f140";
+  display: inline-block;
+  font: normal 20px/1 dashicons;
+  float: right;
+  color: #999;
+  width: 20px;
+  height: 20px;
 }
 
 /* handle */
 
 #custom-field-list .handle:before {
-	content: "\f333";
-	display: inline-block;
-	font: normal 20px/1 dashicons;
-	float: left;
-	color: #999;
-	width: 20px;
-	height: 20px;
-	margin-right: 10px;
+  content: "\f333";
+  display: inline-block;
+  font: normal 20px/1 dashicons;
+  float: left;
+  color: #999;
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
 }
 
 #custom-field-list .handle:hover {
-	color: #111;
-	cursor: move;
+  color: #111;
+  cursor: move;
 }
 
 #custom-field-list a.field {
-	text-decoration: none;
+  text-decoration: none;
 }
 
 /* open */
 
 #custom-field-list li.open {
-	border-color: #2ea2cc;
+  border-color: #2ea2cc;
 }
 
 #custom-field-list li .custom-field-header {
-	transition: background 0.2s ease;
+  transition: background 0.2s ease;
 }
 
 #custom-field-list li.open .custom-field-header {
-	background: #2ea2cc;
+  background: #2ea2cc;
 }
 
 #custom-field-list li.open span.toggle:before {
-	content: "\f142";
+  content: "\f142";
 }
 
 #custom-field-list li.open span.handle:before,
 #custom-field-list li.open span.link a,
 #custom-field-list li.open span.toggle:before {
-	color: #fff;
+  color: #fff;
 }
 
 /* field inputs */
 
 #custom-field-list .custom-field {
-	display: none;
+  display: none;
 }
 
 #custom-field-list select.field-type {
-	min-width: 120px;
+  min-width: 120px;
 }
 
 #custom-field-list option[disabled] {
-	color: #999;
+  color: #999;
 }
 
 #custom-field-list optgroup {
-	font-weight: 600;
+  font-weight: 600;
 }
 
 #custom-field-list optgroup:before {
-	color: #333;
-	content: attr(label);
-	display: block;
-	font-style: normal;
-	padding-left: 4px;
+  color: #333;
+  content: attr(label);
+  display: block;
+  font-style: normal;
+  padding-left: 4px;
 }
 
 #wpmtst-custom-fields-form .controls {
-	padding: 10px 15px;
-	background: #e7f5fa;
-	border-top: 1px solid #ddd;
+  padding: 10px 15px;
+  background: #e7f5fa;
+  border-top: 1px solid #ddd;
 }
 
 #wpmtst-custom-fields-form .controls > span:nth-child(n+2):before {
-	content: " | ";
+  content: " | ";
 }
 
 #wpmtst-custom-fields-form .controls a.delete-field {
-	color: #F00;
+  color: #F00;
 }
 
 #custom-field-list .sortable-placeholder {
-	border: 1px dashed #ccc !important;
-	background: lightyellow !important;
-	height: 40px;
+  border: 1px dashed #ccc !important;
+  background: lightyellow !important;
+  height: 40px;
 }
 
 #custom-field-list .field-table {
-	border-collapse: collapse;
-	width: 100%;
+  border-collapse: collapse;
+  width: 100%;
 }
 
 #custom-field-list .field-table th,
 #custom-field-list .field-table td {
-	border-bottom: 1px solid #ccc;
-	padding: 10px;
+  border-bottom: 1px solid #ccc;
+  padding: 10px;
 }
 
 #custom-field-list .field-table th {
-	font-weight: 600;
-	width: 160px;
-	padding-top: 14px;
-	text-align: left;
-	vertical-align: top;
-	white-space: nowrap;
+  font-weight: 600;
+  width: 160px;
+  padding-top: 14px;
+  text-align: left;
+  vertical-align: top;
+  white-space: nowrap;
 }
 
 #custom-field-list .field-table td input[type="text"] {
-	width: 100%;
+  width: 100%;
 }
 
 #custom-field-list .field-table td input[type="text"].as-number {
-	width: 4em;
+  width: 4em;
 }
 
 #custom-field-list .field-table td span.help {
-	display: block;
-	padding: 3px;
+  display: block;
+  padding: 3px;
 }
 
 #custom-field-list .field-table td span.help.inline {
-	display: inline-block;
-	margin-left: 4px;
+  display: inline-block;
+  margin-left: 4px;
 }
 
 #custom-field-list .field-table td span.help:first-of-type {
-	margin-top: 5px;
+  margin-top: 5px;
 }
 
 #custom-field-list .field-table td span.help.error {
-	color: #ee0000;
-	padding-left: 6px;
-	border: 1px solid #EE0000;
-	background: rgba(242,0,0,0.05);
-	font-weight: 700;
+  color: #ee0000;
+  padding-left: 6px;
+  border: 1px solid #EE0000;
+  background: rgba(242, 0, 0, 0.05);
+  font-weight: 700;
 }
 
 #custom-field-list .field-table tr:last-of-type th,
 #custom-field-list .field-table tr:last-of-type td {
-	border-bottom: 0;
+  border-bottom: 0;
 }
 
 #add-field-bar {
-	padding-top: 10px;
-	text-align: right;
+  padding-top: 10px;
+  text-align: right;
 }
 
 #add-field-bar input {
-	margin-right: 0;
-	margin-left: 10px;
+  margin-right: 0;
+  margin-left: 10px;
 }
 
 /* field group actions */
 
 #field-group-actions {
-	margin-top: 2em;
+  margin-top: 2em;
 }
 
 #field-group-actions > div {
-	display: inline-block;
-	float: left;
-	margin-bottom: 1em;
+  display: inline-block;
+  float: left;
+  margin-bottom: 1em;
 }
 
 #field-group-actions > div:not(:last-child) {
-	margin-right: 1em;
+  margin-right: 1em;
 }
 
 /* field group label */
@@ -264,23 +265,24 @@ p.field-group-label-wrap {
 
 p.field-group-label-wrap > label,
 p.field-group-label-wrap > input {
-	display: inline-block;
-	font-size: 1.5em;
-	vertical-align: middle;
+  display: inline-block;
+  font-size: 1.5em;
+  vertical-align: middle;
 }
 
 p.field-group-label-wrap label {
-	width: 6.5em;
+  width: 6.5em;
 }
+
 p.field-group-label-wrap input {
-	margin: 0;
-	width: calc( 100% - 6.5em );
+  margin: 0;
+  width: calc(100% - 6.5em);
 }
 
 #fields-editor-wrap {
-	display: inline-block;
-	float: left;
-	width: 540px;
+  display: inline-block;
+  float: left;
+  width: 540px;
 }
 
 /*--------------------------------------------------*
@@ -288,15 +290,15 @@ p.field-group-label-wrap input {
  *--------------------------------------------------*/
 @media only screen and (max-width: 1024px) {
 
-	#left-col {
-		width: 100%;
-		padding: 20px 0;
-	}
+  #left-col {
+    width: 100%;
+    padding: 20px 0;
+  }
 
-	#right-col {
-		width: 100%;
-		border-left: 0;
-		padding: 20px;
-	}
+  #right-col {
+    width: 100%;
+    border-left: 0;
+    padding: 20px;
+  }
 
 }
