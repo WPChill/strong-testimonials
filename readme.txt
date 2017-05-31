@@ -3,7 +3,7 @@ Contributors: cdillon27
 Tags: testimonials, testimonial slider, testimonial form, reviews, star ratings, review markup
 Requires at least: 3.6
 Tested up to: 4.7.5
-Stable tag: 2.22.6
+Stable tag: 2.23
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -45,7 +45,12 @@ If that describes your situation, this plugin will work for you right out of the
 
 You can customize the form by adding or removing fields and changing properties like the order, the text before or after, and the placeholder text.
 
-**Anti-spam** measures include honeypots and Captcha via these plugins: [Captcha](http://wordpress.org/plugins/captcha/), [Really Simple Captcha](http://wordpress.org/plugins/really-simple-captcha/), and [Advanced noCaptcha reCaptcha](https://wordpress.org/plugins/advanced-nocaptcha-recaptcha/).
+**Anti-spam** measures include honeypots and Captcha via these plugins:
+
+* [Advanced noCaptcha reCaptcha](https://wordpress.org/plugins/advanced-nocaptcha-recaptcha/)
+* [Captcha](http://wordpress.org/plugins/captcha/)
+* [Captcha Pro](https://bestwebsoft.com/products/wordpress/plugins/captcha/)
+* [Really Simple Captcha](http://wordpress.org/plugins/really-simple-captcha/)
 
 New testimonial **notification emails** can be customized and sent to multiple admins.
 
@@ -77,7 +82,7 @@ Are your testimonials not "one size fits all"? Need more forms for different pro
 
 #### Properties
 
-Want to rename 'testimonials' to 'reviews'? Want to change which features are available in the post editor? Gain maximum control. [Learn more](https://strongplugins.com/plugins/strong-testimonials-properties/)
+Want to rename "testimonials" to "reviews"? Want to change which features are available in the post editor? Gain maximum control. [Learn more](https://strongplugins.com/plugins/strong-testimonials-properties/)
 
 ### Support
 
@@ -237,6 +242,17 @@ If you prefer not to post your URL publicly, start a private support ticket at [
 
 == Changelog ==
 
+= 2.23 - May 31, 2017 =
+* Add nofollow default setting.
+* Defer front-end javascript to improve compatibility.
+* Add checkbox input type.
+* Add support for Captcha Pro by BestWebSoft.
+* Allow shortcodes and basic HTML in the "Before", "After", "Text" fields.
+* Add filter on "Required Field" notice.
+* Remove `link_new_tab` and `link_nofollow` functions.
+* Remove unused functions for admin notices.
+* Minor refactoring.
+
 = 2.22.6 - May 29, 2017 =
 * Fix conflict with some themes and prerendering.
 
@@ -292,4 +308,4 @@ If you prefer not to post your URL publicly, start a private support ticket at [
 
 == Upgrade Notice ==
 
-Clear your caches! Add custom fields to single post template, new view admin features, improved performance and compatibility.
+Clear your caches! Default setting for `nofollow` links. Checkbox field type. Deferred JavaScript. Support for Captcha Pro.
