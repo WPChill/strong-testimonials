@@ -406,7 +406,7 @@ final class Strong_Testimonials {
 	 */
 	public function form_handler2() {
 		if ( isset( $_POST['wpmtst_form_nonce'] ) ) {
-			require_once WPMTST_INC . 'shortcodes.php';
+			require_once WPMTST_INC . 'captcha.php';
 			require_once WPMTST_INC . 'form-handler-functions.php';
 			$success = wpmtst_form_handler();
 			if ( $success ) {
@@ -1141,6 +1141,7 @@ final class Strong_Testimonials {
 	public function process_form() {
 		if ( isset( $_POST['wpmtst_form_nonce'] ) ) {
 			$form_options = get_option( 'wpmtst_form_options' );
+			require_once WPMTST_INC . 'captcha.php';
 			require_once WPMTST_INC . 'form-handler-functions.php';
 			$success = wpmtst_form_handler();
 			if ( $success ) {
