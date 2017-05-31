@@ -68,15 +68,19 @@
 
 		<h2><?php _e( 'Recently added features' ); ?></h2>
 
+        <p><span class="dashicons dashicons-admin-links"></span><?php _e( 'A default setting for <code>nofollow</code> links.', 'strong-testimonials' ); ?></p>
+
+        <p><span class="dashicons dashicons-yes"></span><?php _e( 'Checkbox field type for requesting consent to terms, policies, etc.', 'strong-testimonials' ); ?></p>
+
         <p><span class="dashicons dashicons-format-quote"></span><?php _e( 'Add your custom fields to the theme single post template.', 'strong-testimonials' ); ?></p>
 
-        <p><span class="dashicons dashicons-external"></span><?php _e( 'Form success redirect options.', 'strong-testimonials' ); ?></p>
-
-        <p><span class="dashicons dashicons-editor-kitchensink"></span><?php _e( 'Form success message editor.', 'strong-testimonials' ); ?></p>
+        <p><span class="dashicons dashicons-external"></span><?php _e( 'Form success message and redirect options.', 'strong-testimonials' ); ?></p>
 
 		<p><span class="dashicons dashicons-star-filled"></span><?php _e( 'Star ratings.', 'strong-testimonials' ); ?></p>
 
+		<!--
 		<p><span class="dashicons dashicons-performance"></span><?php _e( 'Improved compatibility and performance.', 'strong-testimonials' ); ?></p>
+		-->
 
         <p></p>
 

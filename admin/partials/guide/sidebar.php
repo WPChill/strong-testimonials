@@ -34,6 +34,11 @@
 		$links = array();
 
 		$links[] = sprintf( '<a href="%s" target="_blank">%s</a>',
+			esc_url( 'https://support.strongplugins.com/article/troubleshooting-strong-testimonials/' ),
+			__( 'Troubleshoot', 'strong-testimonials' ) )
+			. '<span class="new-doc">NEW</span>';
+
+		$links[] = sprintf( '<a href="%s" target="_blank">%s</a>',
 			esc_url( 'https://support.strongplugins.com/article/youtube-twitter-instagram-strong-testimonials/' ),
 			__( 'Add YouTube or Twitter', 'strong-testimonials' ) );
 			//. '<span class="new-doc">NEW</span>';
