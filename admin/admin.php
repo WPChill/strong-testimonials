@@ -768,12 +768,15 @@ function wpmtst_custom_columns( $column ) {
 
 			} else {
 
-				if ( 'checkbox' == $fields[ $column ]['input_type'] ) {
-					echo 'no';
-				} else {
-				    // display nothing
-				}
+				if ( isset( $fields[ $column ] ) ) {
 
+					if ( 'checkbox' == $fields[ $column ]['input_type'] ) {
+						echo 'no';
+					} else {
+						// display nothing
+					}
+
+				}
 			}
 
 	}
