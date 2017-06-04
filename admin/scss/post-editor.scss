@@ -61,3 +61,52 @@ label.nowrap code {
   top: -2px;
 }
 
+/* Post Publish Meta Box
+--------------------------------------*/
+.wpmtst-pub-section {
+  padding: 6px 10px 8px;
+}
+
+#submit-timestamp {
+  padding: 2px 0 1px 0;
+}
+
+#submit-timestamp:before {
+  content: "\f175";
+  top: -1px;
+  color: #82878c;
+  font: normal 20px/1 dashicons;
+  display: inline-block;
+  padding: 0 2px 0 0;
+  left: -1px;
+  position: relative;
+  vertical-align: top;
+}
+
+/* Star rating in post editor
+--------------------------------------------------*/
+.edit-rating-box {
+  height: 27px;
+  line-height: 27px;
+}
+
+.wp-core-ui .edit-rating-box button {
+  margin-left: 10px;
+}
+
+.edit-rating-box .cancel,
+.edit-rating-box .zero {
+  padding: 0;
+  text-decoration: underline;
+  color: #0073aa;
+}
+
+.rating .inner,
+.edit-rating-buttons-1,
+.edit-rating-buttons-2,
+.edit-rating-success {
+  display: inline-block;
+  margin: 0 4px;
+  vertical-align: middle;
+}
+
