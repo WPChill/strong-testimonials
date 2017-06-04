@@ -67,11 +67,13 @@ class Strong_View_Form extends Strong_View {
 		 */
 		add_action( 'wp_footer', array( $this, 'add_custom_style' ) );
 
-		$fields      = wpmtst_get_form_fields( $this->atts['form_id'] );
 		$form_values = array( 'category' => $this->atts['category'] );
 
-		foreach ( $fields as $key => $field ) {
-			$form_values[ $field['name'] ] = '';
+		$fields = wpmtst_get_form_fields( $this->atts['form_id'] );
+		if ( $fields ) {
+			foreach ( $fields as $key => $field ) {
+				$form_values[ $field['name'] ] = '';
+			}
 		}
 
 		$previous_values = WPMST()->get_form_values();
