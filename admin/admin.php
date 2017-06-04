@@ -579,6 +579,7 @@ function wpmtst_meta_option( $field, $post, $is_new ) {
 
         default :
             if ( 'url' == $field['input_type'] ) {
+
                 ?>
                 <div class="input-url">
                     <?php printf( '<input id="%2$s" type="%1$s" class="custom-input" name="custom[%2$s]" value="%3$s" size="">',
@@ -593,9 +594,17 @@ function wpmtst_meta_option( $field, $post, $is_new ) {
                     </select>
                 </div>
                 <?php
+
             } else {
-	            printf( '<input id="%2$s" type="%1$s" class="custom-input" name="custom[%2$s]" value="%3$s" size="">',
-		            $field['input_type'], $field['name'], esc_attr( $post->{$field['name']} ) );
+
+                if ( 'checkbox' == $field['input_type'] ) {
+	                printf( '<input id="%2$s" type="%1$s" class="custom-input" name="custom[%2$s]" value="%3$s" %4$s>',
+		                $field['input_type'], $field['name'], 1, checked( $post->{$field['name']}, 1, false ) );
+                } else {
+	                printf( '<input id="%2$s" type="%1$s" class="custom-input" name="custom[%2$s]" value="%3$s">',
+		                $field['input_type'], $field['name'], esc_attr( $post->{$field['name']} ) );
+                }
+
             }
     }
 }
@@ -759,12 +768,15 @@ function wpmtst_custom_columns( $column ) {
 
 			} else {
 
-				if ( 'checkbox' == $fields[ $column ]['input_type'] ) {
-					echo 'no';
-				} else {
-				    // display nothing
-				}
+				if ( isset( $fields[ $column ] ) ) {
 
+					if ( 'checkbox' == $fields[ $column ]['input_type'] ) {
+						echo 'no';
+					} else {
+						// display nothing
+					}
+
+				}
 			}
 
 	}
@@ -918,14 +930,32 @@ add_action( 'pre_get_posts', 'wpmtst_pre_get_posts', 10 );
  */
 function wpmtst_save_details() {
 	// check post type
-	if ( ! isset( $_POST['post_type'] ) || 'wpm-testimonial' != $_POST['post_type'] )
+	if ( ! isset( $_POST['post_type'] ) || 'wpm-testimonial' != $_POST['post_type'] ) {
 		return;
+	}
 
 	if ( isset( $_POST['custom'] ) ) {
-		foreach ( $_POST['custom'] as $key => $value ) {
+
+	    $custom = $_POST['custom'];
+
+		$custom_fields = wpmtst_get_custom_fields();
+
+		// Construct array of checkbox empty values because blank checkboxes are not POSTed.
+        $checkboxes = array();
+        foreach ( $custom_fields as $key => $field ) {
+            if ( 'checkbox' == $field['input_type'] ) {
+                $checkboxes[ $key ] = 0;
+            }
+        }
+        if ( $checkboxes ) {
+            $custom = array_merge( $checkboxes, $custom );
+        }
+
+		foreach ( $custom as $key => $value ) {
 			// empty values replace existing values
 			update_post_meta( $_POST['post_ID'], $key, stripslashes( $value ) );
 		}
+
 	}
 
 	if ( isset( $_POST['rating'] ) ) {
@@ -933,6 +963,7 @@ function wpmtst_save_details() {
 	}
 
 }
+
 // add_action( 'save_post_wpm-testimonial', 'wpmtst_save_details' ); // WP 3.7+  Soon...
 add_action( 'save_post', 'wpmtst_save_details' );
 

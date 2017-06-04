@@ -587,7 +587,7 @@ function wpmtst_client_section( $client_section ) {
 
 						// TODO Abstract this global fallback technique.
 						$is_nofollow = get_post_meta( $post->ID, 'nofollow', true );
-						if ( 'default' == $is_nofollow ) {
+						if ( 'default' == $is_nofollow || '' == $is_nofollow ) {
 						    // convert default to (yes|no)
 						    $is_nofollow = $options['nofollow'] ? 'yes' : 'no';
 						}

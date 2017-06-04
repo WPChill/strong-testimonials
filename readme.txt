@@ -2,8 +2,8 @@
 Contributors: cdillon27
 Tags: testimonials, testimonial slider, testimonial form, reviews, star ratings, review markup
 Requires at least: 3.6
-Tested up to: 4.7.5
-Stable tag: 2.23
+Tested up to: 4.8
+Stable tag: 2.23.1
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
