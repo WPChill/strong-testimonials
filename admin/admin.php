@@ -547,7 +547,7 @@ function wpmtst_meta_option( $field, $post, $is_new ) {
                 <!-- form -->
                 <div class="rating-form" style="<?php echo ( $is_new ) ? 'display: inline-block;' : 'display: none;'; ?>">
                     <span class="inner">
-                        <?php wpmtst_star_rating_form( $field, $rating, 'in-metabox' ); ?>
+                        <?php wpmtst_star_rating_form( $field, $rating, 'in-metabox', true, 'custom' ); ?>
                     </span>
                     <?php if ( ! $is_new ) : ?>
                         <span class="edit-rating-buttons-2">
@@ -927,6 +927,8 @@ add_action( 'pre_get_posts', 'wpmtst_pre_get_posts', 10 );
 
 /**
  * Save custom fields
+ *
+ * @since 2.23.2 Delete meta record when rating is zero to allow default display value.
  */
 function wpmtst_save_details() {
 	// check post type
@@ -951,15 +953,25 @@ function wpmtst_save_details() {
             $custom = array_merge( $checkboxes, $custom );
         }
 
+        // Determine whether to update or delete.
+        // Similar to wpmtst_ajax_edit_rating() in admin-ajax.php.
+        $action = 'update';
 		foreach ( $custom as $key => $value ) {
-			// empty values replace existing values
-			update_post_meta( $_POST['post_ID'], $key, stripslashes( $value ) );
+            if ( isset( $custom_fields[ $key ] ) ) {
+                if ( 'rating' == $custom_fields[ $key ]['input_type'] && ! $value ) {
+					$action = 'delete';
+				}
+			}
+
+            if ( 'update' == $action ) {
+				// empty values replace existing values
+				update_post_meta( $_POST['post_ID'], $key, stripslashes( $value ) );
+			} else {
+                // delete value; e.g. zero rating
+                delete_post_meta( $_POST['post_ID'], $key );
+			}
 		}
 
-	}
-
-	if ( isset( $_POST['rating'] ) ) {
-		update_post_meta( $_POST['post_ID'], 'rating', $_POST['rating'] );
 	}
 
 }

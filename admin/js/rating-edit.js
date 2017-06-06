@@ -27,7 +27,8 @@ jQuery(document).ready(function ($) {
 
     buttons2.children('.save').on("click", function () {
       var new_rating = ratingForm.find("input:checked").val();
-      var field_name = ratingForm.find("input:checked").attr("name");
+      var name_on_form = ratingForm.find("input:checked").attr("name");
+      var field_name = name_on_form.match(/\[(.*)\]/).pop();
 
       if (new_rating === revert_e) {
         buttons2.children('.cancel').click();
