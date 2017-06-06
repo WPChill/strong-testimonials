@@ -247,6 +247,7 @@ final class Strong_Testimonials {
 			require_once WPMTST_INC . 'class-walker-strong-form-category-checklist.php';
 
 			require_once WPMTST_ADMIN . 'admin.php';
+			require_once WPMTST_ADMIN . 'admin-notices.php';
 			require_once WPMTST_ADMIN . 'admin-ajax.php';
 			require_once WPMTST_ADMIN . 'compat.php';
 			require_once WPMTST_ADMIN . 'custom-fields.php';
