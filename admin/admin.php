@@ -54,7 +54,7 @@ function wpmtst_admin_register() {
 
 	wp_register_script( 'wpmtst-admin-script',
         WPMTST_ADMIN_URL . 'js/admin.js',
-        array( 'jquery' ),
+        array( 'jquery', 'underscore' ),
         $plugin_version,
         true );
 
