@@ -5,6 +5,22 @@
  * @since 1.21.0
  */
 
+/**
+ * Return default translation from po/mo files if no active translation plugin.
+ *
+ * @since 2.23.2
+ * @param $string
+ *
+ * @return string
+ */
+function wpmtst_l10n_default( $string ) {
+	return __( $string, 'strong-testimonials' );
+}
+add_filter( 'wpmtst_l10n', 'wpmtst_l10n_default' );
+
+/**
+ * Help link on form settings screen.
+ */
 function wpmtst_l10n_before_form_settings() {
 
 	// WPML
@@ -28,6 +44,9 @@ function wpmtst_l10n_before_form_settings() {
 }
 add_action( 'wpmtst_before_form_settings', 'wpmtst_l10n_before_form_settings' );
 
+/**
+ * Help link on form notification settings screen.
+ */
 function wpmtst_l10n_after_notification_fields() {
 
 	// WPML
@@ -122,6 +141,7 @@ function wpmtst_l10n_polylang( $string, $context, $name ) {
 function wpmtst_l10n_filters() {
 	// WPML
 	if ( defined( 'ICL_SITEPRESS_VERSION' ) ) {
+		remove_filter( 'wpmtst_l10n', 'wpmtst_l10n_default' );
 		add_filter( 'wpmtst_l10n', 'wpmtst_l10n_wpml', 10, 3 );
 		add_filter( 'wpmtst_l10n_cats', 'wpmtst_wpml_translate_object_ids', 10, 2 );
 		add_filter( 'get_term', 'wpmtst_wpml_get_term', 10, 2 );
@@ -129,6 +149,7 @@ function wpmtst_l10n_filters() {
 
 	// Polylang
 	if ( defined( 'POLYLANG_VERSION' ) ) {
+		remove_filter( 'wpmtst_l10n', 'wpmtst_l10n_default' );
 		add_filter( 'wpmtst_l10n', 'wpmtst_l10n_polylang', 20, 3 );
 		// TODO handle cat IDs like WPML
 	}
@@ -157,7 +178,7 @@ function wpmtst_wpml_get_term( $term, $tax ) {
  *
  * @param $object_id integer|string|array The ID/s of the objects to check and return
  * @param object|string $type object type: post, page, {custom post type name}, nav_menu, nav_menu_item, category, tag etc.
- * @return string or array of object ids
+ * @return string|array of object ids
  */
 function wpmtst_wpml_translate_object_ids( $object_id, $type = 'wpm-testimonial-category' ) {
 
