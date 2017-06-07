@@ -3,7 +3,7 @@ Contributors: cdillon27
 Tags: testimonials, testimonial slider, testimonial form, reviews, star ratings, review markup
 Requires at least: 3.6
 Tested up to: 4.8
-Stable tag: 2.23.1
+Stable tag: 2.23.2
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -241,6 +241,14 @@ If you prefer not to post your URL publicly, start a private support ticket at [
 8. View editor
 
 == Changelog ==
+
+= 2.23.2 - June 7, 2017 =
+* Fix default translation filters.
+
+= 2.23.1 - June 4, 2017 =
+* Fix bug in default nofollow links.
+* Fix bug when saving checkbox value in post editor.
+* fix bug in admin list checkbox colum.
 
 = 2.23 - May 31, 2017 =
 * Add nofollow default setting.
