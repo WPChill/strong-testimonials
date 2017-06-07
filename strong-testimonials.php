@@ -158,6 +158,13 @@ final class Strong_Testimonials {
 		if ( ! defined( 'WPMTST' ) )
 			define( 'WPMTST', dirname( WPMTST_PLUGIN ) );
 
+		$upload_dir = wp_upload_dir();
+		$log        = 'strong-debug.log';
+		if ( ! defined( 'WPMTST_DEBUG_LOG_PATH' ) )
+			define( 'WPMTST_DEBUG_LOG_PATH', trailingslashit( $upload_dir['basedir'] ) . $log );
+		if ( ! defined( 'WPMTST_DEBUG_LOG_URL' ) )
+			define( 'WPMTST_DEBUG_LOG_URL', trailingslashit( $upload_dir['baseurl'] ) . $log );
+
 		if ( ! defined( 'WPMTST_DIR' ) )
 			define( 'WPMTST_DIR', plugin_dir_path( __FILE__ ) );
 		if ( ! defined( 'WPMTST_URL' ) )
@@ -1347,11 +1354,8 @@ final class Strong_Testimonials {
 	 *
 	 * @param string $log
 	 * @param bool   $label
-	 * @param string $filename
 	 */
-	public function log( $log = '', $label = false, $filename = 'strong-debug.log' )  {
-
-		if ( ! $log ) return;
+	public function log( $log = '', $label = false )  {
 
 		$entry = '[' . date('Y-m-d H:i:s') . '] ';
 
@@ -1363,9 +1367,7 @@ final class Strong_Testimonials {
 		else
 			$entry .= $log . PHP_EOL;
 
-		$filepath = WPMTST_DIR . $filename;
-
-		error_log( $entry, 3, $filepath );
+		error_log( $entry, 3, WPMTST_DEBUG_LOG_PATH );
 
 	}
 

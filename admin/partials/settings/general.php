@@ -81,8 +81,8 @@ $tags    = array( 'a' => array( 'href' => array(), 'target' => array(), 'class' 
 					</select>
 				</label>
 			</fieldset>
-			<?php if ( file_exists( WPMTST_DIR . 'strong-debug.log' ) ) : ?>
-				<p><a href="<?php echo WPMTST_URL . 'strong-debug.log'; ?>" download="strong-testimonials.log"><?php _e( 'Download the log file', 'strong-testimonials' ); ?></a></p>
+			<?php if ( file_exists( WPMTST_DEBUG_LOG_PATH ) ) : ?>
+				<p><a href="<?php echo WPMTST_DEBUG_LOG_URL; ?>" download="strong-testimonials.log"><?php _e( 'Download the log file', 'strong-testimonials' ); ?></a></p>
 			<?php else : ?>
 				<p><em><?php _e( 'No log file yet.', 'strong-testimonials' ); ?></em></p>
 			<?php endif; ?>
