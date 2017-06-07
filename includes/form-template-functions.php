@@ -30,6 +30,8 @@ function wpmtst_get_form_message( $part ) {
 	if ( isset( $messages[$part]['text'] ) ) {
 	    return apply_filters( 'wpmtst_form_message', $messages[ $part ]['text'], $messages[ $part ] );
 	}
+
+	return '';
 }
 
 function wpmtst_form_message_l10n( $text, $message ) {
@@ -173,6 +175,14 @@ function wpmtst_single_form_field( $field ) {
 
 }
 
+/**
+ * Print form field CSS classes.
+ *
+ * @param null $type
+ * @param null $name
+ *
+ * @return mixed
+ */
 function wpmtst_field_classes( $type = null, $name = null ) {
 	$errors = WPMST()->get_form_errors();
 	$class_list = array();
@@ -214,8 +224,7 @@ function wpmtst_field_value( $field, $form_values ) {
 	$value = '';
 	if ( isset( $form_values[ $field['name'] ] ) && $form_values[ $field['name'] ] ) {
 		$value = $form_values[ $field['name'] ];
-	}
-	elseif ( isset( $field['default_form_value'] ) && $field['default_form_value'] ) {
+	} elseif ( isset( $field['default_form_value'] ) && $field['default_form_value'] ) {
 		$value = $field['default_form_value'];
 	}
 
@@ -224,10 +233,19 @@ function wpmtst_field_value( $field, $form_values ) {
 	return ' value="' . esc_attr( $value ) . '"';
 }
 
+/**
+ * Print placeholder tag.
+ *
+ * @param $field
+ *
+ * @return string
+ */
 function wpmtst_field_placeholder( $field ) {
 	if ( isset( $field['placeholder'] ) && $field['placeholder'] ) {
 		return ' placeholder="' . esc_attr( wpmtst_form_field_meta_l10n( $field['placeholder'], $field, 'placeholder' ) ) . '"';
 	}
+
+	return '';
 }
 
 /**
@@ -237,8 +255,11 @@ function wpmtst_field_placeholder( $field ) {
  * @return string
  */
 function wpmtst_field_required_tag( $field ) {
-	if ( isset( $field['required'] ) && apply_filters( 'wpmtst_field_required_tag', $field['required'] ) )
+	if ( isset( $field['required'] ) && apply_filters( 'wpmtst_field_required_tag', $field['required'] ) ) {
 		return ' required';
+	}
+
+	return '';
 }
 
 /**
@@ -294,7 +315,7 @@ function wpmtst_field_after( $field ) {
  * @param $field
  * @param $meta
  *
- * @return mixed|string|void
+ * @return mixed|string
  */
 function wpmtst_get_form_field_meta( $field, $meta ) {
     if ( isset( $field[ $meta ] ) && $field[ $meta ] ) {
@@ -311,7 +332,7 @@ function wpmtst_get_form_field_meta( $field, $meta ) {
  * @param $field
  * @param $meta
  *
- * @return mixed|void
+ * @return mixed
  */
 function wpmtst_form_field_meta_l10n( $field_meta, $field, $meta ) {
 	return apply_filters( 'wpmtst_l10n', $field_meta, 'strong-testimonials-form-fields', $field['name'] . ' : ' . $meta );
