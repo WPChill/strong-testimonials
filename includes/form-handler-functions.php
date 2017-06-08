@@ -155,7 +155,7 @@ function wpmtst_form_handler() {
 		$testimonial_id = wp_insert_post( $testimonial_post );
 		if ( is_wp_error( $testimonial_id ) ) {
 
-			WPMST()->log( $testimonial_id, __FUNCTION__ );
+			WPMST()->log( $testimonial_id, 'error on insert post', __FUNCTION__ );
 			// TODO report errors in admin
 			$form_errors['post'] = $messages['submission-error']['text'];
 

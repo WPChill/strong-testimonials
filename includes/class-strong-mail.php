@@ -52,7 +52,7 @@ class Strong_Mail {
 					'message'  => $email['message'],
 					'headers'  => $email['headers'],
 				);
-				WPMST()->log( $log_entry, __FUNCTION__ );
+				WPMST()->log( $log_entry, '', __FUNCTION__ );
 			}
 
 		}

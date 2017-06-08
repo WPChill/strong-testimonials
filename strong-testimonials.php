@@ -1352,23 +1352,41 @@ final class Strong_Testimonials {
 	/**
 	 * Generic logging function.
 	 *
-	 * @param string $log
-	 * @param bool   $label
+	 * @param string $data     string|array
+	 * @param string $label    string
+	 * @param string $function string
 	 */
-	public function log( $log = '', $label = false )  {
+	public function log( $data, $label = '', $function = '' )  {
 
-		$entry = '[' . date('Y-m-d H:i:s') . '] ';
+		$entry = '[' . date('Y-m-d H:i:s') . ']';
 
-		if ( $label )
-			$entry .= strtoupper( $label ) . ' = ';
+		if ( wp_doing_ajax() ) {
+			$entry .= ' | DOING_AJAX';
+		}
 
-		if ( is_array( $log ) || is_object( $log ) )
-			$entry .= print_r( $log, true );
-		else
-			$entry .= $log . PHP_EOL;
+		if ( $function ) {
+			$entry .= ' | FN: ' . $function;
+		}
+
+		$entry .= ' | ';
+
+		if ( $label ) {
+			$entry .= $label . ' = ';
+		}
+
+		if ( is_array( $data ) || is_object( $data ) ) {
+			$entry .= print_r( $data, true );
+		} elseif ( is_bool( $data ) ) {
+			$entry .= ( $entry ? 'true' : 'false' ) . PHP_EOL;
+		} else {
+			$entry .= $data . PHP_EOL;
+		}
+
+		$entry .= PHP_EOL;
 
 		error_log( $entry, 3, WPMTST_DEBUG_LOG_PATH );
 
+		set_transient( 'strong_debug_log', true );
 	}
 
 }
