@@ -73,6 +73,11 @@ final class Strong_Testimonials {
 	public $templates;
 
 	/**
+	 * @var Strong_Debug
+	 */
+	public $debug;
+
+	/**
 	 * A singleton instance.
 	 *
 	 * Used for preprocessing shortcodes and widgets to properly enqueue styles and scripts
@@ -158,13 +163,6 @@ final class Strong_Testimonials {
 		if ( ! defined( 'WPMTST' ) )
 			define( 'WPMTST', dirname( WPMTST_PLUGIN ) );
 
-		$upload_dir = wp_upload_dir();
-		$log        = 'strong-debug.log';
-		if ( ! defined( 'WPMTST_DEBUG_LOG_PATH' ) )
-			define( 'WPMTST_DEBUG_LOG_PATH', trailingslashit( $upload_dir['basedir'] ) . $log );
-		if ( ! defined( 'WPMTST_DEBUG_LOG_URL' ) )
-			define( 'WPMTST_DEBUG_LOG_URL', trailingslashit( $upload_dir['baseurl'] ) . $log );
-
 		if ( ! defined( 'WPMTST_DIR' ) )
 			define( 'WPMTST_DIR', plugin_dir_path( __FILE__ ) );
 		if ( ! defined( 'WPMTST_URL' ) )
@@ -205,6 +203,7 @@ final class Strong_Testimonials {
 	public function init() {
 		$this->mail      = new Strong_Mail();
 		$this->templates = new Strong_Templates();
+		$this->debug     = new Strong_Debug();
 	}
 
 	/**
@@ -223,6 +222,7 @@ final class Strong_Testimonials {
 
 		require_once WPMTST_INC . 'class-strong-templates.php';
 		require_once WPMTST_INC . 'class-strong-mail.php';
+		require_once WPMTST_INC . 'class-strong-debug-log.php';
 
 		require_once WPMTST_INC . 'l10n.php';
 		require_once WPMTST_INC . 'post-types.php';
@@ -1178,7 +1178,7 @@ final class Strong_Testimonials {
 	 * @param $error
 	 */
 	public function catch_mail_failed( $error ) {
-		$this->log( $error );
+		$this->debug_log->log( $error );
 	}
 
 
@@ -1347,46 +1347,6 @@ final class Strong_Testimonials {
 	 */
 	public function get_plugin_info() {
 		return get_file_data( __FILE__, array( 'name' => 'Plugin Name', 'version' => 'Version' ) );
-	}
-
-	/**
-	 * Generic logging function.
-	 *
-	 * @param string $data     string|array
-	 * @param string $label    string
-	 * @param string $function string
-	 */
-	public function log( $data, $label = '', $function = '' )  {
-
-		$entry = '[' . date('Y-m-d H:i:s') . ']';
-
-		if ( wp_doing_ajax() ) {
-			$entry .= ' | DOING_AJAX';
-		}
-
-		if ( $function ) {
-			$entry .= ' | FN: ' . $function;
-		}
-
-		$entry .= ' | ';
-
-		if ( $label ) {
-			$entry .= $label . ' = ';
-		}
-
-		if ( is_array( $data ) || is_object( $data ) ) {
-			$entry .= print_r( $data, true );
-		} elseif ( is_bool( $data ) ) {
-			$entry .= ( $entry ? 'true' : 'false' ) . PHP_EOL;
-		} else {
-			$entry .= $data . PHP_EOL;
-		}
-
-		$entry .= PHP_EOL;
-
-		error_log( $entry, 3, WPMTST_DEBUG_LOG_PATH );
-
-		set_transient( 'strong_debug_log', true );
 	}
 
 }
