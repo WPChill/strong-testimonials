@@ -248,7 +248,7 @@ If you prefer not to post your URL publicly, start a private support ticket at [
 = 2.23.1 - June 4, 2017 =
 * Fix bug in default nofollow links.
 * Fix bug when saving checkbox value in post editor.
-* fix bug in admin list checkbox colum.
+* fix bug in admin list checkbox column.
 
 = 2.23 - May 31, 2017 =
 * Add nofollow default setting.
