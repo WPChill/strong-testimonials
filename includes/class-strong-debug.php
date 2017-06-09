@@ -9,34 +9,56 @@ if ( ! class_exists( 'Strong_Debug' ) ) :
 
 class Strong_Debug {
 
+	public $filename;
+
+	public $action;
+
 	public function __construct() {
-		$this->define_constants();
+
 		$this->add_actions();
-	}
 
-	public function define_constants() {
-		$upload_dir = wp_upload_dir();
-		$log        = 'strong-debug.log';
+		$this->filename = 'strong-debug.log';
 
-		if ( ! defined( 'WPMTST_DEBUG_LOG_PATH' ) )
-			define( 'WPMTST_DEBUG_LOG_PATH', trailingslashit( $upload_dir['basedir'] ) . $log );
+		$this->action = 'strong_debug_log';
 
-		if ( ! defined( 'WPMTST_DEBUG_LOG_URL' ) )
-			define( 'WPMTST_DEBUG_LOG_URL', trailingslashit( $upload_dir['baseurl'] ) . $log );
 	}
 
 	public function add_actions() {
 		add_action( 'init', array( $this, 'init' ), 20 );
+		add_action( 'shutdown', array( $this, 'on_shutdown' ) );
 	}
 
 	public function init() {
-		$options = get_option( 'wpmtst_options' );
-		if ( ( isset( $options['debug_log'] ) && $options['debug_log'] )
-			|| apply_filters( 'strong_debug_log', false ) )
-		{
-			add_action( 'strong_debug_log', array( $this, 'debug_log' ), 10, 3 );
-			add_action( 'shutdown', array( $this, 'on_shutdown' ) );
+		if ( $this->is_enabled() ) {
+			add_action( $this->action, array( $this, 'debug_log' ), 10, 3 );
 		}
+	}
+
+	private function is_enabled() {
+		$options    = get_option( 'wpmtst_options' );
+		$is_enabled = ( isset( $options['debug_log'] ) && $options['debug_log'] );
+
+		return apply_filters( $this->action, $is_enabled );
+	}
+
+	public function get_log_file_path() {
+		return $this->get_log_file_base( 'basedir' ) . $this->filename;
+	}
+
+	public function get_log_file_url() {
+		return $this->get_log_file_base( 'baseurl' ) . $this->filename;
+	}
+
+	public function get_log_file_base( $base = 'basedir' ) {
+		$upload_dir = wp_upload_dir();
+
+		if ( isset( $upload_dir[ $base ] ) ) {
+			$log_file_base = $upload_dir[ $base ];
+		} else {
+			$log_file_base = $upload_dir['basedir'];
+		}
+
+		return trailingslashit( $log_file_base );
 	}
 
 	/**
@@ -54,9 +76,9 @@ class Strong_Debug {
 	 * Disable debug logging on shutdown.
 	 */
 	public function on_shutdown() {
-		if ( get_transient( 'strong_debug_log' ) ) {
-			do_action( 'strong_debug_log', str_repeat( '-', 50 ), '', current_filter() );
-			delete_transient( 'strong_debug_log' );
+		if ( get_transient( $this->action ) ) {
+			do_action( $this->action, str_repeat( '-', 50 ), '', current_filter() );
+			delete_transient( $this->action );
 		}
 	}
 
@@ -95,9 +117,10 @@ class Strong_Debug {
 
 		$entry .= PHP_EOL;
 
-		error_log( $entry, 3, WPMTST_DEBUG_LOG_PATH );
+		error_log( $entry, 3, $this->get_log_file_path() );
 
-		set_transient( 'strong_debug_log', true );
+		set_transient( $this->action, true );
+
 	}
 
 }

@@ -25,7 +25,7 @@ function wpmtst_ajax_edit_rating() {
 	$display = wpmtst_star_rating_display( $rating, 'in-metabox', false );
 	$response = array( 'display' => $display, 'message' => $message );
 	echo json_encode($response);
-	exit;
+	die();
 }
 add_action( 'wp_ajax_wpmtst_edit_rating', 'wpmtst_ajax_edit_rating' );
 

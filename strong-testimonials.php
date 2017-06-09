@@ -39,6 +39,7 @@ if ( ! class_exists( 'Strong_Testimonials' ) ) :
  *
  * @property  Strong_Mail mail
  * @property  Strong_Templates templates
+ * @property  Strong_Debug debug
  * @since 1.15.0
  */
 final class Strong_Testimonials {
@@ -222,7 +223,7 @@ final class Strong_Testimonials {
 
 		require_once WPMTST_INC . 'class-strong-templates.php';
 		require_once WPMTST_INC . 'class-strong-mail.php';
-		require_once WPMTST_INC . 'class-strong-debug-log.php';
+		require_once WPMTST_INC . 'class-strong-debug.php';
 
 		require_once WPMTST_INC . 'l10n.php';
 		require_once WPMTST_INC . 'post-types.php';
@@ -1178,7 +1179,7 @@ final class Strong_Testimonials {
 	 * @param $error
 	 */
 	public function catch_mail_failed( $error ) {
-		$this->debug_log->log( $error );
+		$this->debug->log( $error );
 	}
 
 
