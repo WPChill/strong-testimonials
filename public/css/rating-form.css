@@ -9,56 +9,73 @@
  * http://codepen.io/jamesbarnett/pen/vlpkh
  */
 
-.strong-rating-wrapper {}
+.strong-rating-wrapper {
+}
 
 /* the fieldset */
 .strong-rating {
-	border: none;
-	display: inline-block;
+  border: none;
+  display: inline-block;
+  margin: 0;
+  cursor: none;
 }
-
+.strong-rating:active,
+.strong-rating:focus {
+  outline: 0;
+  cursor: none;
+}
+.strong-rating {
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+}
 
 /* the stars */
-.strong-rating input { display: none; }
-
-.strong-rating label:before {
-	font-family: FontAwesome;
-	content: "\f005";
-	display: inline-block;
-	font-size: 1.25em;
-	line-height: 1.75;
-	/* use padding not margin */
-	padding: 5px;
-	transition: color 0.3s ease;
+.strong-rating input {
+  display: none;
 }
 
-.strong-rating label:hover { cursor: pointer; }
+.strong-rating label:before {
+  font-family: FontAwesome;
+  content: "\f005";
+  display: inline-block;
+  font-size: 1.25em;
+  line-height: 1.75;
+  /* use padding not margin */
+  padding: 5px;
+  transition: color 0.3s ease;
+  background: blue;
+}
 
+.strong-rating label:hover {
+  cursor: pointer;
+}
 
 /* fieldset tweaks */
 
 /* in a form */
 .strong-rating-wrapper.in-form .strong-rating {
-	padding: 0;
+  display: block;
+  padding: 0;
 }
 
 /* in a view */
 .strong-rating-wrapper.in-view .strong-rating {
-	margin: 0;
-	padding: 0;
+  margin: 0;
+  padding: 0;
 }
 
 /* in the post editor */
 .strong-rating-wrapper.in-metabox .strong-rating {
-	padding-top: 0;
+  padding-top: 0;
 }
 
 .strong-rating-wrapper.in-metabox .strong-rating > label:before {
-	font-size: 20px;
-	line-height: 27px;
-	padding: 0 5px;
+  font-size: 20px;
+  line-height: 27px;
+  padding: 0 5px;
 }
-
 
 /* the magic */
 
@@ -66,41 +83,55 @@
 
 /* hide the first label which is initially checked */
 /* added bonus of POSTing the default value so no need for isset(...) */
-.strong-rating label[for$="star0"] { display: none; }
+.strong-rating label[for$="star0"] {
+  display: none;
+}
 
 /* and turn all on */
-.strong-rating label:before { color: #FFB900; }
-
+.strong-rating label:before {
+  color: #FFB900;
+}
 
 /* turn off stars after the one we're on */
-.strong-rating label:hover ~ label:before { color: #DDD; }
+.strong-rating label:hover ~ label:before {
+  color: #DDD;
+}
 
 /* turn off stars after the current rating */
-.strong-rating input:checked ~ label:before { color: #DDD; }
+.strong-rating input:checked ~ label:before {
+  color: #DDD;
+}
 
 /* turn on the current rating */
-.strong-rating input:checked + label:before { color: #FFB900; }
-
+.strong-rating input:checked + label:before {
+  color: #FFB900;
+}
 
 /* option to clear rating in post editor */
 .strong-rating-wrapper.in-metabox .strong-rating label[for$="star0"]:before {
-	content: "\f05e";
-	color: #999 !important;
-	position: relative;
-	top: 1px;
-}
-.strong-rating-wrapper.in-metabox .strong-rating label[for$="star0"]:hover:before {
-	color: #CD0000 !important;
+  content: "\f05e";
+  color: #999 !important;
+  position: relative;
+  top: 1px;
 }
 
+.strong-rating-wrapper.in-metabox .strong-rating label[for$="star0"]:hover:before {
+  color: #CD0000 !important;
+}
 
 /* when hovering the entire fieldset: */
 
 /* (1) turn all on */
-.strong-rating:hover input ~ label:before { color: #FFB900; }
+.strong-rating:hover input ~ label:before {
+  color: #FFB900;
+}
 
 /* (2) indicate current selection (optional) */
-.strong-rating:hover input:checked + label:before { color: #FFE39E; }
+.strong-rating:hover input:checked + label:before {
+  color: #FFE39E;
+}
 
 /* (3) then turn off siblings after the hovered star */
-.strong-rating:hover label:hover ~ input:not(:checked) + label:before { color: #DDD; }
+.strong-rating:hover label:hover ~ input:not(:checked) + label:before {
+  color: #DDD;
+}

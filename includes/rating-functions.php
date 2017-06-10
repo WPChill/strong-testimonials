@@ -6,13 +6,13 @@
  * @since 2.12.0
  * @since 2.23.2 $field_array
  *
- * @param $field
+ * @param array|string $field
  * @param int $value
- * @param $class
+ * @param string $class
  * @param bool $echo
  * @param string $field_array If included, set field name in array. In post editor meta box.
  *
- * @return mixed|string
+ * @return string
  */
 function wpmtst_star_rating_form( $field, $value = 0, $class, $echo = true, $field_array = '' ) {
     $value = (int) $value;
@@ -25,8 +25,9 @@ function wpmtst_star_rating_form( $field, $value = 0, $class, $echo = true, $fie
 		$name = 'rating';
 	}
 	ob_start(); ?>
-	<div class="strong-rating-wrapper <?php echo $class; ?>"><!-- cheap trick to collapse whitespace around inline-blocks
-		--><div id="wpmtst_<?php echo $field['name']; ?>" class="strong-rating"><!--
+	<div class="strong-rating-wrapper field-wrap <?php echo $class; ?>" tabindex="0"><!-- cheap trick to collapse whitespace around inline-blocks
+		--><fieldset contenteditable id="wpmtst_<?php echo $field['name']; ?>" name="strongrating" class="strong-rating"
+            <?php //echo $field['required'] ? 'required' : ''; ?>><!--
 			--><input type="radio" id="<?php echo $field['name']; ?>-star0" name="<?php echo $name; ?>" value="0" <?php checked( $value, 0 ); ?> /><!--
 			--><label for="<?php echo $field['name']; ?>-star0" title="No stars"></label><!--
 			--><input type="radio" id="<?php echo $field['name']; ?>-star1" name="<?php echo $name; ?>" value="1" <?php checked( $value, 1 ); ?> /><!--
@@ -39,16 +40,19 @@ function wpmtst_star_rating_form( $field, $value = 0, $class, $echo = true, $fie
 			--><label for="<?php echo $field['name']; ?>-star4" title="4 stars"></label><!--
 			--><input type="radio" id="<?php echo $field['name']; ?>-star5" name="<?php echo $name; ?>" value="5" <?php checked( $value, 5 ); ?> /><!--
 			--><label for="<?php echo $field['name']; ?>-star5" title="5 stars"></label><!--
-		--></div><!--
+		--></fieldset><!--
 	--></div>
 	<?php
 	$html = ob_get_contents();
 	ob_end_clean();
 	$html = preg_replace( '/<!--(.|\s)*?-->/', '', $html );
-	if ( !$echo ) {
-		return $html;
+
+	if ( $echo ) {
+	    echo $html;
+	    return true;
 	}
-	echo $html;
+
+    return $html;
 }
 
 /**
@@ -56,7 +60,7 @@ function wpmtst_star_rating_form( $field, $value = 0, $class, $echo = true, $fie
  * @param $class
  * @param bool $echo
  *
- * @return mixed|string
+ * @return string
  */
 function wpmtst_star_rating_display( $value = 0, $class, $echo = true ) {
     $value = (int) $value;
@@ -75,8 +79,11 @@ function wpmtst_star_rating_display( $value = 0, $class, $echo = true ) {
 	$html = ob_get_contents();
 	ob_end_clean();
 	$html = preg_replace( '/<!--(.|\s)*?-->/', '', $html );
-	if ( !$echo ) {
-		return $html;
+
+	if ( $echo ) {
+	    echo $html;
+	    return true;
 	}
-	echo $html;
+
+    return $html;
 }

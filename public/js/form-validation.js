@@ -14,6 +14,12 @@
     }
   });
 
+  // Click star --> Focus next field
+  $(".strong-rating").click( function(){
+    if ( $(this).valid() ) {
+      $(this).closest(".form-field").next().find("[tabindex]").focus();
+    }
+  });
 
 	// Validate upon normal or Ajax submission
 	if (typeof strongForm !== 'undefined') {
@@ -44,25 +50,57 @@
 
       } else {
 
+        /**
+         * Only use elements that can legitimately have a 'name' attribute:
+         * <button>, <form>, <fieldset>, <iframe>, <input>, <keygen>, <object>,
+         * <output>, <select>, <textarea>, <map>, <meta>, <param>
+         *
+         * @link https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes
+         *
+         * jQuery Validate v1.16.1
+         * As of 6/10/2017
+         */
+        // TODO Only if field is required!
+        $.validator.addMethod("ratingRequired", function (value, element) {
+          // console.log('validator',value,element);
+          return $(element).find("input:checked").val() > 0;
+        },'Please enter a rating');
+
+
         $("#wpmtst-submission-form").validate({
+
+          // Add custom validation rule to star-rating pseudo elements
+          rules: {
+            strongrating: { ratingRequired: true }
+          },
+
           showErrors: strongShowErrors,
+
           errorPlacement: function(error, element) {
             error.appendTo( element.closest("div.form-field") );
           },
+
           highlight: function(element, errorClass, validClass) {
+
             if ( element.type === 'checkbox' ) {
+              $(element).closest(".field-wrap").addClass(errorClass).removeClass(validClass);
+            } else if ( element.name === 'strongrating' ) {
               $(element).closest(".field-wrap").addClass(errorClass).removeClass(validClass);
             } else {
               $(element).addClass(errorClass).removeClass(validClass);
             }
           },
+
           unhighlight: function(element, errorClass, validClass) {
             if ( element.type === 'checkbox' ) {
+              $(element).closest(".field-wrap").removeClass(errorClass).addClass(validClass);
+            } else if ( element.name === "strongrating" ) {
               $(element).closest(".field-wrap").removeClass(errorClass).addClass(validClass);
             } else {
               $(element).removeClass(errorClass).addClass(validClass);
             }
           }
+
         });
 
       }
@@ -86,9 +124,9 @@
 		  return;
 		}
 
-    if (strongForm.scrollTopError == "1" ) {
+    if (strongForm.scrollTopError === "1" ) {
 
-			if (typeof errorList[0] != "undefined") {
+			if (typeof errorList[0] !== "undefined") {
 				var fieldOffset, scrollTop;
 				fieldOffset = $(errorList[0].element).closest(".form-field").offset();
 				scrollTop = fieldOffset.top - strongForm.scrollTopErrorOffset;

@@ -90,7 +90,7 @@ function wpmtst_single_form_field( $field ) {
 			echo '<select id="wpmtst_' . $field['name']. '"'
 				. ' name="' . $field['name'] . '"'
 				. ' class="' . wpmtst_field_classes( $field['input_type'], $field['name'] ) . '"'
-				. wpmtst_field_required_tag( $field ) . '>';
+				. wpmtst_field_required_tag( $field ) . ' tabindex="0">';
 			echo '<option value="">&mdash;</option>';
 			foreach ( $category_list as $category ) {
 			    $selected = in_array( $category->term_id, $value ) ? ' selected' : '' ;
@@ -117,12 +117,12 @@ function wpmtst_single_form_field( $field ) {
 			     . ' name="' . $field['name'] . '"'
 			     . wpmtst_field_required_tag( $field )
 				 . wpmtst_field_placeholder( $field )
-			     . '>' . esc_textarea( $value ) . '</textarea>';
+			     . ' tabindex="0">' . esc_textarea( $value ) . '</textarea>';
 			break;
 
 		case 'file' :
 
-			echo '<input id="wpmtst_' . $field['name'] . '" type="file" name="' . $field['name'] . '"' . wpmtst_field_required_tag( $field ) . '>';
+			echo '<input id="wpmtst_' . $field['name'] . '" type="file" name="' . $field['name'] . '"' . wpmtst_field_required_tag( $field ) . ' tabindex="0">';
 			break;
 
 		case 'shortcode' :
@@ -148,7 +148,7 @@ function wpmtst_single_form_field( $field ) {
 	             . ' type="' . $field['input_type'] . '"'
 	             . ' class="' . wpmtst_field_classes( $field['input_type'], $field['name'] ) . '"'
 	             . ' name="' . $field['name'] . '"'
-	             . wpmtst_field_required_tag( $field ) . '>';
+	             . wpmtst_field_required_tag( $field ) . ' tabindex="0">';
 	        if ( isset( $field['text'] ) ) {
 		        echo '<label for="wpmtst_' . $field['name'] . '">' . $field['text'] . '</label>';
 	        }
@@ -166,7 +166,7 @@ function wpmtst_single_form_field( $field ) {
 			     . ' name="' . $field['name'] . '"'
 			     . wpmtst_field_value( $field, $form_values )
 			     . wpmtst_field_placeholder( $field )
-				 . wpmtst_field_required_tag( $field ) . '>';
+				 . wpmtst_field_required_tag( $field ) . ' tabindex="0">';
 	}
 
 	wpmtst_field_after( $field );
