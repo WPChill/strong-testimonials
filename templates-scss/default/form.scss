@@ -6,10 +6,16 @@
 .strong-form {
   label {
     font-weight: 700;
+
+    // checkbox
+    &.field-wrap {
+      font-weight: 400;
+      display: block;
+    }
   }
 
   input[type="checkbox"] {
-    margin-right: 0.5em;
+    margin: 0 0.5em 0 .3em;
 
     + label {
       font-weight: 400;

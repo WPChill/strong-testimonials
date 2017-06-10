@@ -4,6 +4,20 @@
 .strong-form {
   margin: 0 auto;
 }
+.strong-form .field-wrap .strong-rating {
+  border: 1px solid transparent;
+}
+.strong-form .field-wrap .strong-rating:focus {
+  border: 1px solid #CCC;
+  border-radius: 4px;
+}
+.strong-form input[type=checkbox] + label {
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+.strong-form input[type=checkbox]:focus + label {
+  border-color: #CCC;
+}
 .strong-form .form-field {
   margin-bottom: 1.5em;
 }
@@ -91,8 +105,12 @@ img.captcha {
 .strong-form label {
   font-weight: 700;
 }
+.strong-form label.field-wrap {
+  font-weight: 400;
+  display: block;
+}
 .strong-form input[type="checkbox"] {
-  margin-right: 0.5em;
+  margin: 0 0.5em 0 .3em;
 }
 .strong-form input[type="checkbox"] + label {
   font-weight: 400;

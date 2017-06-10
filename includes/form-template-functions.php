@@ -140,22 +140,24 @@ function wpmtst_single_form_field( $field ) {
 		        $label = '<label for="wpmtst_' . $field['name'] . '">' . wpmtst_form_field_meta_l10n( $field['label'], $field, 'label' ) . '</label>';
 		        echo $label;
 	        }
+
 	        wpmtst_field_before( $field );
 
 	        echo '<div class="field-wrap">';
-	        // TODO Convert to printf!
-	        echo '<input id="wpmtst_' . $field['name'] . '"'
-	             . ' type="' . $field['input_type'] . '"'
-	             . ' class="' . wpmtst_field_classes( $field['input_type'], $field['name'] ) . '"'
-	             . ' name="' . $field['name'] . '"'
-	             . wpmtst_field_required_tag( $field ) . ' tabindex="0">';
+
+	        printf( '<input id="wpmtst_%s" type="%s" class="%s" name="%s" %s tabindex="0">',
+		        $field['name'], $field['input_type'], wpmtst_field_classes( $field['input_type'], $field['name'] ), $field['name'], wpmtst_field_required_tag( $field ) );
+
+
 	        if ( isset( $field['text'] ) ) {
 		        echo '<label for="wpmtst_' . $field['name'] . '">' . $field['text'] . '</label>';
 	        }
+
 	        if ( isset( $field['required'] ) && $field['required'] ) {
 		        wpmtst_field_required_symbol();
 	        }
-            echo '</div>';
+
+	        echo '</div>';
 
             break;
 
