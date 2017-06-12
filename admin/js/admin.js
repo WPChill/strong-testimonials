@@ -205,4 +205,53 @@ jQuery(document).ready(function ($) {
     });
   });
 
+  /**
+   * ========================================
+   * Update config error admin notices
+   * ========================================
+   */
+  var data = {
+    'action': 'wpmtst_get_admin_notices'
+  };
+  $.get(ajaxurl, data, function (response) {
+    if (response) {
+      if (_.has(response,'success') && response.success) {
+        if (_.has(response,'data')) {
+
+          // get list of visible notices
+          var visibleNotices = $(".wpmtst.notice");
+          var visibleNoticesErrors = visibleNotices.map(function(){ return this.getAttribute('data-error'); }).get();
+
+          // remove notices that are no longer relevant
+          /** --- This is only necessary if using standard admin_notices hook. --- */
+          visibleNotices.each(function (i, el) {
+            if (-1 === _.indexOf(response.data, el.getAttribute('data-error'))) {
+              $(el).remove();
+            }
+          });
+
+          // add new notices
+          for (var i=0; i < response.data.length; i++) {
+            if (-1 === _.indexOf(visibleNoticesErrors, response.data[i])) {
+              var data = {
+                'action': 'wpmtst_get_single_admin_notice',
+                'key': response.data[i]
+              };
+              $.get(ajaxurl, data, function (response) {
+                if (response) {
+                  if (_.has(response, 'success') && response.success) {
+                    if (_.has(response, 'data')) {
+                      $(".wrap h1").after(response.data);
+                    }
+                  }
+                }
+              });
+            }
+          }
+
+        }
+      }
+    }
+  });
+
 });

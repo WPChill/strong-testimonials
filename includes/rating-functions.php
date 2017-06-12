@@ -1,17 +1,26 @@
 <?php
 
 /**
+ * Print the star rating form.
+ *
+ * @since 2.12.0
+ * @since 2.23.2 $field_array
+ *
  * @param $field
  * @param int $value
  * @param $class
  * @param bool $echo
+ * @param string $field_array If included, set field name in array. In post editor meta box.
  *
  * @return mixed|string
  */
-function wpmtst_star_rating_form( $field, $value = 0, $class, $echo = true ) {
+function wpmtst_star_rating_form( $field, $value = 0, $class, $echo = true, $field_array = '' ) {
     $value = (int) $value;
 	if ( $field && is_array( $field ) && isset( $field['name'] ) ) {
 		$name = $field['name'];
+		if ( $field_array ) {
+		    $name = $field_array . '[' . $name . ']';
+		}
 	} else {
 		$name = 'rating';
 	}

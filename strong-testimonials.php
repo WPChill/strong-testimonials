@@ -4,7 +4,7 @@
  * Plugin URI: https://strongplugins.com/plugins/strong-testimonials/
  * Description: A full-featured plugin that works right out of the box for beginners and offers advanced features for pros.
  * Author: Chris Dillon
- * Version: 2.23.2
+ * Version: 2.24
  * Author URI: https://strongplugins.com/
  * Text Domain: strong-testimonials
  * Domain Path: /languages
@@ -39,6 +39,7 @@ if ( ! class_exists( 'Strong_Testimonials' ) ) :
  *
  * @property  Strong_Mail mail
  * @property  Strong_Templates templates
+ * @property  Strong_Debug debug
  * @since 1.15.0
  */
 final class Strong_Testimonials {
@@ -71,6 +72,11 @@ final class Strong_Testimonials {
 	 * @var Strong_Templates
 	 */
 	public $templates;
+
+	/**
+	 * @var Strong_Debug
+	 */
+	public $debug;
 
 	/**
 	 * A singleton instance.
@@ -198,6 +204,7 @@ final class Strong_Testimonials {
 	public function init() {
 		$this->mail      = new Strong_Mail();
 		$this->templates = new Strong_Templates();
+		$this->debug     = new Strong_Debug();
 	}
 
 	/**
@@ -216,6 +223,7 @@ final class Strong_Testimonials {
 
 		require_once WPMTST_INC . 'class-strong-templates.php';
 		require_once WPMTST_INC . 'class-strong-mail.php';
+		require_once WPMTST_INC . 'class-strong-debug.php';
 
 		require_once WPMTST_INC . 'l10n.php';
 		require_once WPMTST_INC . 'post-types.php';
@@ -247,6 +255,7 @@ final class Strong_Testimonials {
 			require_once WPMTST_INC . 'class-walker-strong-form-category-checklist.php';
 
 			require_once WPMTST_ADMIN . 'admin.php';
+			require_once WPMTST_ADMIN . 'admin-notices.php';
 			require_once WPMTST_ADMIN . 'admin-ajax.php';
 			require_once WPMTST_ADMIN . 'compat.php';
 			require_once WPMTST_ADMIN . 'custom-fields.php';
@@ -1170,7 +1179,7 @@ final class Strong_Testimonials {
 	 * @param $error
 	 */
 	public function catch_mail_failed( $error ) {
-		$this->log( $error );
+		$this->debug->log( $error );
 	}
 
 
@@ -1339,33 +1348,6 @@ final class Strong_Testimonials {
 	 */
 	public function get_plugin_info() {
 		return get_file_data( __FILE__, array( 'name' => 'Plugin Name', 'version' => 'Version' ) );
-	}
-
-	/**
-	 * Generic logging function.
-	 *
-	 * @param string $log
-	 * @param bool   $label
-	 * @param string $filename
-	 */
-	public function log( $log = '', $label = false, $filename = 'strong-debug.log' )  {
-
-		if ( ! $log ) return;
-
-		$entry = '[' . date('Y-m-d H:i:s') . '] ';
-
-		if ( $label )
-			$entry .= strtoupper( $label ) . ' = ';
-
-		if ( is_array( $log ) || is_object( $log ) )
-			$entry .= print_r( $log, true );
-		else
-			$entry .= $log . PHP_EOL;
-
-		$filepath = WPMTST_DIR . $filename;
-
-		error_log( $entry, 3, $filepath );
-
 	}
 
 }

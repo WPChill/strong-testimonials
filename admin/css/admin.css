@@ -3,439 +3,440 @@
  */
 
 .icon-blue {
-  color: #0073aa;
+	color: #0073aa;
 }
 
 .error {
-  color: red !important;
+	color: red !important;
 }
 
 .required-phrase {
-  color: red;
-  font-style: normal;
-  font-weight: 400;
-  font-size: 0.9em;
+	color: red;
+	font-style: normal;
+	font-weight: 400;
+	font-size: 0.9em;
 }
 
 .required-phrase:before,
 label.required:after {
-  content: '*';
-  display: inline-block;
-  color: red;
-  font-size: 27px;
-  line-height: 19px;
-  height: 19px;
-  font-weight: 600;
-  vertical-align: middle;
-  position: relative;
-  top: 1px;
+	content: '*';
+	display: inline-block;
+	color: red;
+	font-size: 27px;
+	line-height: 19px;
+	height: 19px;
+	font-weight: 600;
+	vertical-align: middle;
+	position: relative;
+	top: 1px;
 }
 
 .has-input {
-  display: inline-block;
+	display: inline-block;
 }
 
 .error-message {
-  display: inline-block;
-  margin-left: 0.5em;
+	display: inline-block;
+	margin-left: 0.5em;
 }
 
 button.nogo {
-  margin: 0 3px;
+	margin: 0 3px;
 }
 
 li.warning {
-  background: lightyellow;
+	background: lightyellow;
 }
 
 .between-inputs {
-  margin-left: 0.3em;
-  margin-right: 0.3em;
+	margin-left: 0.3em;
+	margin-right: 0.3em;
 }
 
 .intro p {
-  font-size: 14px;
+	font-size: 14px;
 }
 
 .wrap.wpmtst h2 {
-  margin: 2em 0 1em;
+	margin: 2em 0 1em;
 }
 
 .wrap.wpmtst p {
-  font-size: 14px;
+	font-size: 14px;
 }
 
 .wrap.wpmtst .notice p {
-  font-size: 13px;
+	font-size: 13px;
 }
 
 .wpmtst .list-wrap {
-  padding: .5em;
+	padding: .5em;
 }
 
 .wp-core-ui .button-primary.active,
 .wp-core-ui .button-primary.active:hover,
 .wp-core-ui .button-primary.active:focus,
 .wp-core-ui .button-primary:active {
-  vertical-align: baseline;
+	vertical-align: baseline;
 }
 
 /* Firefox fix */
 a.widget-action:focus {
-  outline: none;
+	outline: none;
 }
 
 /* Slug field */
 input#post_name {
-  width: 98%;
+	width: 98%;
 }
 
 /* Help sections
 ---------------------------------------------------------*/
 
 div.help {
-  margin-left: 0;
+	margin-left: 0;
 }
 
 div.help.minor {
-  font-size: 0.9em;
-  text-align: left;
+	font-size: 0.9em;
+	text-align: left;
 }
 
 /* Settings table
 ---------------------------------------------------------*/
 
 .wpmtst i.fa.example {
-  color: #0073aa;
+	color: #0073aa;
 }
 
 .stackem ul {
-  margin: 14px 0 0 0;
+	margin: 14px 0 0 0;
 }
 
 .stackem li {
-  margin-bottom: 0;
+	margin-bottom: 0;
 }
 
 .stackem label {
-  display: inline-block;
-  line-height: 28px;
-  margin-right: 0.5em;
-  vertical-align: baseline;
+	display: inline-block;
+	line-height: 28px;
+	margin-right: 0.5em;
+	vertical-align: baseline;
 }
 
 .stackem label.inline {
-  display: inline-block;
+	display: inline-block;
 }
 
 .stackem .notice {
-  background: none;
-  border: none;
-  box-shadow: none;
-  display: inline-block;
-  font-size: .9em;
-  font-style: italic;
-  margin: 0 .2em;
-  padding: 0;
-  color: #868686;
+	background: none;
+	border: none;
+	box-shadow: none;
+	display: inline-block;
+	font-size: .9em;
+	font-style: italic;
+	margin: 0 .2em;
+	padding: 0;
+	color: #868686;
 }
 
 .stackem span.link {
-  display: inline-block;
-  margin: 0 .3em;
-  font-size: .9em;
-  line-height: 28px;
+	display: inline-block;
+	margin: 0 .3em;
+	font-size: .9em;
+	line-height: 28px;
 }
 
 .stackem label.disabled {
-  color: #888;
+	color: #888;
 }
 
 div.radio {
-  line-height: 1.5em;
+	line-height: 1.5em;
 }
 
 div.radio:hover {
-  color: #000;
+	color: #000;
 }
 
 #screenshot-screen-options,
 #help-section {
-  display: none;
+	display: none;
 }
 
 .screenshot > div {
-  display: inline-block;
-  -webkit-box-shadow: inset 0px 0px 40px rgba(0, 0, 0, 0.8);
-  -moz-box-shadow: inset 0px 0px 40px rgba(0, 0, 0, 0.8);
-  box-shadow: inset 0px 0px 40px rgba(0, 0, 0, 0.8);
+	display: inline-block;
+	-webkit-box-shadow: inset 0px 0px 40px rgba(0, 0, 0, 0.8);
+	-moz-box-shadow: inset 0px 0px 40px rgba(0, 0, 0, 0.8);
+	box-shadow: inset 0px 0px 40px rgba(0, 0, 0, 0.8);
 }
 
 .help-text {
-  padding: 0.5em 0;
+	padding: 0.5em 0;
 }
 
 /* form table */
 
 .wpmtst .form-table {
-  vertical-align: middle;
+	vertical-align: middle;
 }
 
 .wpmtst .form-table .actions {
-  /*vertical-align: top;*/
+	/*vertical-align: top;*/
 }
 
 .wpmtst .form-table td:nth-child(1) {
-  width: 200px;
+	width: 200px;
 }
 
 .wpmtst .form-table .parent {
-  border-bottom: 0;
-  vertical-align: top;
+	border-bottom: 0;
+	vertical-align: top;
 }
 
 .wpmtst .form-table th.parent + td {
 }
 
 .wpmtst .form-table .child {
-  border-top: 0;
+	border-top: 0;
 }
 
 .wpmtst .form-table p {
-  /*margin-bottom: 1em;*/
+	/*margin-bottom: 1em;*/
 }
 
 .wpmtst .form-table td p:last-child {
-  margin-bottom: 0;
+	margin-bottom: 0;
 }
 
 .wpmtst .form-table input,
 .wpmtst .form-table select,
 .wpmtst .form-table textarea {
-  /*line-height: 1.5em;*/
+	/*line-height: 1.5em;*/
 }
 
 .wpmtst .form-table input[type="button"] {
-  line-height: 26px;
-  height: 28px;
+	line-height: 26px;
+	height: 28px;
 }
 
 .wpmtst select {
-  min-width: 120px;
+	min-width: 120px;
 }
 
 .wpmtst option {
-  padding-left: 5px;
+	padding-left: 5px;
 }
 
 .wpmtst .form-table div.box {
-  border: 1px solid #DDD;
-  display: inline-block;
-  padding: 10px;
+	border: 1px solid #DDD;
+	display: inline-block;
+	padding: 10px;
 }
 
 .wpmtst .form-table .row {
-  line-height: 2.5em;
+	line-height: 2.5em;
 }
 
 .wpmtst .form-table .alpha {
-  width: 120px;
+	width: 120px;
 }
 
 .wpmtst .form-table .alpha.alpha-110 {
-  width: 110px;
+	width: 110px;
 }
 
 .wpmtst .form-table .alpha + div {
-  display: inline-block;
+	display: inline-block;
 }
 
 .wpmtst label.success-action {
-  display: inline-block;
-  width: 11em;
-  padding: 10px 0;
+	display: inline-block;
+	width: 11em;
+	padding: 10px 0;
 }
 
 /* compact */
 
 .wpmtst .form-table.compact th {
-  vertical-align: top;
+	vertical-align: top;
 }
 
 .wpmtst .form-table.compact td {
-  vertical-align: middle;
+	vertical-align: middle;
 }
 
 .wpmtst .form-table.compact td:nth-child(3) {
-  width: 100px;
-  vertical-align: top;
+	width: 100px;
+	vertical-align: top;
 }
 
 .wpmtst .form-table.compact td:nth-child(3) input.button {
-  margin-right: 0;
+	margin-right: 0;
 }
 
 .wpmtst .form-table.compact input[type="text"] {
-  width: 100%;
+	width: 100%;
 }
 
 .wpmtst .form-table.compact input.error {
-  border-color: red;
-  border-radius: 2px;
-  box-shadow: none;
+	border-color: red;
+	border-radius: 2px;
+	box-shadow: none;
 }
 
 .wpmtst .form-table.compact label.error {
-  color: red;
-  display: block;
+	color: red;
+	display: block;
 }
 
 /* end: form-table */
 
 .code {
-  background: #FFF;
+	background: #FFF;
 }
 
 .code.wide {
-  padding: 2px 5px;
-  margin: 3px;
-  border-radius: 2px;
+	padding: 2px 5px;
+	margin: 3px;
+	border-radius: 2px;
 }
 
 .submit-row input.button {
-  margin-right: 5px;
+	margin-right: 5px;
 }
 
 .custom-input {
-  line-height: 1.3em;
+	line-height: 1.3em;
 }
 
 .indent {
-  margin-left: 2em;
+	margin-left: 2em;
 }
 
 .outdent {
-  margin-left: -2em;
+	margin-left: -2em;
 }
 
 .hilite {
-  background: lightyellow;
-  border-radius: 4px;
-  display: inline-block;
-  padding: .25em .75em;
-  -webkit-box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-  -moz-box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+	background: lightyellow;
+	border-radius: 4px;
+	display: inline-block;
+	padding: .25em .75em;
+	-webkit-box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+	-moz-box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+	box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 p.description.hilite {
-  margin-bottom: 2em;
+	margin-bottom: 2em;
 }
 
 ul.compact {
-  margin: 0;
+	margin: 0;
 }
 
 ul.compact li {
-  display: inline-block;
-  margin: 6px 30px 6px 0;
+	display: inline-block;
+	margin: 6px 30px 6px 0;
 }
 
 /* Add-on license table
 ------------------------------------------------*/
 
 #licenses-form .form-table {
-  width: auto;
+	width: auto;
 }
 
 #licenses-form .form-table label {
-  /* to match text inputs */
-  line-height: 27px;
+	/* to match text inputs */
+	line-height: 27px;
 }
 
 #licenses-form .form-table th,
 #licenses-form .form-table td {
-  vertical-align: top;
+	vertical-align: top;
 }
 
 #licenses-form th.for-license-key,
 #licenses-form th.for-license-status {
-  width: 375px;
+	width: 350px;
 }
 
 #licenses-form .form-table th {
-  padding: 15px;
+	padding: 15px;
 }
 
 #licenses-form .form-table td {
-  white-space: nowrap;
-  padding: 15px;
+	white-space: nowrap;
+	padding: 15px;
 }
 
 #licenses-form .form-table th:first-child,
 #licenses-form .form-table td:first-child {
-  padding-left: 0;
+	padding-left: 0;
 }
 
 #licenses-form .form-table input[type="text"] {
-  width: 100%;
+	font-family: Consolas, Monaco, monospace;
+	width: 100%;
 }
 
 #licenses-form .form-table label {
-  padding-left: 0;
-  text-indent: 0;
+	padding-left: 0;
+	text-indent: 0;
 }
 
 #licenses-form .doing-ajax:before {
-  display: inline-block;
-  font: normal 22px/29px dashicons;
-  content: "\f463";
-  text-align: center;
-  vertical-align: middle;
+	display: inline-block;
+	font: normal 22px/29px dashicons;
+	content: "\f463";
+	text-align: center;
+	vertical-align: middle;
 
-  -webkit-animation-name: rotate;
-  -webkit-animation-duration: 1.5s;
-  -webkit-animation-iteration-count: infinite;
-  -webkit-animation-timing-function: linear;
-  -moz-animation-name: rotate;
-  -moz-animation-duration: 1.5s;
-  -moz-animation-iteration-count: infinite;
-  -moz-animation-timing-function: linear;
-  animation-name: rotate;
-  animation-duration: 1.5s;
-  animation-iteration-count: infinite;
-  animation-timing-function: linear;
+	-webkit-animation-name: rotate;
+	-webkit-animation-duration: 1.5s;
+	-webkit-animation-iteration-count: infinite;
+	-webkit-animation-timing-function: linear;
+	-moz-animation-name: rotate;
+	-moz-animation-duration: 1.5s;
+	-moz-animation-iteration-count: infinite;
+	-moz-animation-timing-function: linear;
+	animation-name: rotate;
+	animation-duration: 1.5s;
+	animation-iteration-count: infinite;
+	animation-timing-function: linear;
 }
 
 #licenses-form span.license-status {
-  display: inline-block;
-  font-size: 0.9em;
-  line-height: 28px;
-  height: 27px;
-  margin: 1px 10px 1px 0;
-  padding: 0 8px;
-  text-transform: uppercase;
-  border-radius: 3px;
-  vertical-align: middle;
+	display: inline-block;
+	font-size: 0.9em;
+	line-height: 28px;
+	height: 27px;
+	margin: 1px 10px 1px 0;
+	padding: 0 8px;
+	text-transform: uppercase;
+	border-radius: 3px;
+	vertical-align: middle;
 }
 
 #licenses-form span.active {
-  background: green;
-  color: #FFF;
+	background: green;
+	color: #FFF;
 }
 
 #licenses-form span.inactive {
-  background: #999;
-  color: #FFF;
+	background: #999;
+	color: #FFF;
 }
 
 #licenses-form span.ib {
-  display: inline-block;
-  vertical-align: middle;
+	display: inline-block;
+	vertical-align: middle;
 }
 
 .activation-error {
-  color: red;
+	color: red;
 }
 
 /* Descriptions
@@ -443,245 +444,247 @@ ul.compact li {
 
 .form-table th .description,
 .form-table td .description {
-  font-size: 14px;
-  font-style: italic;
-  /*text-indent: 24px;*/
+	font-size: 14px;
+	font-style: italic;
+	/*text-indent: 24px;*/
 }
 
 .description.inline {
-  display: inline-block;
-  margin-left: 1em;
+	display: inline-block;
+	margin-left: 1em;
 }
 
 .description a {
-  text-decoration: underline;
+	text-decoration: underline;
 }
 
 .description a:hover {
-  text-decoration: none;
+	text-decoration: none;
 }
 
 .radio .description {
-  padding-left: 20px;
+	padding-left: 20px;
 }
 
 li.checkbox {
-  margin-bottom: 10px;
+	margin-bottom: 10px;
 }
 
 .checkbox .description {
-  padding-left: 24px;
+	padding-left: 24px;
 }
 
 ul.description {
-  font-style: italic;
-  color: #666;
-  margin-top: 4px;
-  list-style-type: disc;
-  margin-left: 21px;
-  margin-bottom: 0;
+	font-style: italic;
+	color: #666;
+	margin-top: 4px;
+	list-style-type: disc;
+	margin-left: 21px;
+	margin-bottom: 0;
 }
 
 /* Widget
 ------------------------------------------------*/
 .wpmtst-widget-form {
-  margin-bottom: 1em;
+	margin-bottom: 1em;
 }
 
 .widget-inside p {
-  margin: .5em 0;
+	margin: .5em 0;
 }
 
 input[disabled],
 input[readonly] {
-  color: #999;
-  background: rgba(0, 0, 0, 0.04);
+	color: #999;
+	background: rgba(0, 0, 0, 0.04);
 }
 
 /* Categories admin list
 ------------------------------------------------*/
 .widefat th.column-ID {
-  width: 2.2em;
+	width: 2.2em;
 }
 
 /* The notification email settings tab
 ------------------------------------------------*/
 td.tall {
-  vertical-align: top;
-  padding-top: 20px;
+	vertical-align: top;
+	padding-top: 20px;
 }
 
 .subsection .subsection-title {
-  /*font-weight: 700;*/
+	/*font-weight: 700;*/
 }
 
 .subsubsection {
-  width: 100%;
+	width: 100%;
 }
 
 .subsubsection.ib {
-  display: inline-block;
+	display: inline-block;
 }
 
 .subsection table {
-  border-spacing: 0;
-  margin-top: 20px;
+	border-spacing: 0;
+	margin-top: 20px;
 }
 
 .subsection table.wide {
-  width: 100%;
+	width: 100%;
 }
 
 .subsection table.half-width {
-  width: 50%;
+	width: 50%;
 }
 
 .subsection table thead {
-  width: 100%;
+	width: 100%;
 }
 
 .subsection table tbody tr {
-  border: 1px solid #EEE !important;
+	border: 1px solid #EEE !important;
 }
 
 /* reset */
 .subsection table th,
 .subsection table td {
-  vertical-align: top;
-  border-top: 0 !important;
-  width: auto !important;
-  border-bottom: inherit !important;
+	vertical-align: top;
+	border-top: 0 !important;
+	width: auto !important;
+	border-bottom: inherit !important;
 }
 
 .subsection table th {
-  padding: 0 0 7px 0 !important;
+	padding: 0 0 7px 0 !important;
 }
 
 .subsection table td {
-  padding: 7px 10px !important;
+	padding: 7px 10px !important;
 }
 
 .subsection tbody {
-  background: #FFF;
+	background: #FFF;
 }
 
 .subsection table td.single-field {
-  padding: 0 !important;
-  background: #F1F1F1 !important;
+	padding: 0 !important;
+	background: #F1F1F1 !important;
 }
 
 .subsection label.block {
-  display: block;
-  line-height: 1.5em;
-  padding: 5px 0;
+	display: block;
+	line-height: 1.5em;
+	padding: 5px 0;
 }
 
 .subsection label.indent {
-  display: block;
-  line-height: 1.5em;
-  margin-left: 23px;
+	display: block;
+	line-height: 1.5em;
+	margin-left: 23px;
 }
 
 .subsection .controls {
-  display: inline-block;
-  width: 20px;
+	display: inline-block;
+	width: 20px;
 }
 
 /* delete email recipient */
 .delete-recipient {
-  color: #BBB;
-  display: inline-block;
+	color: #BBB;
+	display: inline-block;
 }
 
 .delete-recipient:hover {
-  color: #EE0000;
-  cursor: pointer;
+	color: #EE0000;
+	cursor: pointer;
 }
 
 .subsection a {
-  /*display: inline-block;*/
-  /*margin: 0 .3em;*/
-  /*font-size: .9em;*/
+	/*display: inline-block;*/
+	/*margin: 0 .3em;*/
+	/*font-size: .9em;*/
 }
 
 .subsection div > label > span {
-  display: inline-block;
-  margin-right: 5px;
-  width: 4.5em;
+	display: inline-block;
+	margin-right: 5px;
+	width: 4.5em;
 }
 
 .subsection textarea,
 .subsection input.wide {
-  width: 100%;
+	width: 100%;
 }
 
 .subsection textarea {
-  white-space: pre-wrap;
+	white-space: pre-wrap;
 }
 
 .subsection .template-tags-help {
-  float: right;
-  display: inline-block;
-  background: #FFFFE0;
-  width: 320px;
-  padding: 0;
-  margin-top: 45px;
-  margin-left: 2em;
+	float: right;
+	display: inline-block;
+	background: #FFFFE0;
+	width: 320px;
+	padding: 0;
+	margin-top: 45px;
+	margin-left: 2em;
 }
 
 .template-tags-help ul {
-  margin: 0;
+	margin: 0;
 }
 
 .template-tags-help .title {
-  background: rgba(0, 0, 0, 0.1);
-  padding: 5px;
+	background: rgba(0, 0, 0, 0.1);
+	padding: 5px;
 }
 
 .template-tags-help .content {
-  padding: 5px;
+	padding: 5px;
 }
 
 .name-email {
-  margin-right: 1.5em;
+	margin-right: 1.5em;
 }
 
 /* Post list table
 ------------------------------------------------*/
 td.column-shortcode,
 td.column-id {
-  white-space: nowrap;
-  font-family: Consolas, Monaco, monospace;
+	white-space: nowrap;
+	font-family: Consolas, Monaco, monospace;
 }
+
 th.sortable.column-id a span {
-  float: right;
+	float: right;
 }
+
 td.column-id {
-  text-align: right;
+	text-align: right;
 }
 
 /* Pointers
 --------------------------------------*/
 .wp-pointer-content ul {
-  list-style-type: disc;
-  padding-left: 2em;
+	list-style-type: disc;
+	padding-left: 2em;
 }
 
 .strong-view-error a {
-  color: red;
-  font-weight: 700;
+	color: red;
+	font-weight: 700;
 }
 
 /* Star rating in list table
 --------------------------------------------------*/
 .column-rating {
-  width: auto !important;
+	width: auto !important;
 }
 
 /* Views list table
 --------------------------------------------------*/
 .wp-list-table.fixed.wpm-testimonial_page_testimonial-views {
-  table-layout: auto;
+	table-layout: auto;
 }
 
 /* WordPress fixes
@@ -689,91 +692,91 @@ td.column-id {
 
 /* settings page */
 @media screen and (max-width: 782px) {
-  .wpm-testimonial_page_testimonial-settings .form-table td input[type="text"] {
-    display: inline-block;
-    width: auto;
-  }
+	.wpm-testimonial_page_testimonial-settings .form-table td input[type="text"] {
+		display: inline-block;
+		width: auto;
+	}
 }
 
 /* Animation
 --------------------------------------------------*/
 
 @-webkit-keyframes rotate {
-  from {
-    -webkit-transform: rotate(0deg);
-  }
-  to {
-    -webkit-transform: rotate(360deg);
-  }
+	from {
+		-webkit-transform: rotate(0deg);
+	}
+	to {
+		-webkit-transform: rotate(360deg);
+	}
 }
 
 @-moz-keyframes rotate {
-  from {
-    -moz-transform: rotate(0deg);
-  }
-  to {
-    -moz-transform: rotate(360deg);
-  }
+	from {
+		-moz-transform: rotate(0deg);
+	}
+	to {
+		-moz-transform: rotate(360deg);
+	}
 }
 
 @keyframes rotate {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+	from {
+		transform: rotate(0deg);
+	}
+	to {
+		transform: rotate(360deg);
+	}
 }
 
 /* Admin > Shortcode example table
 --------------------------------------------------*/
 .form-table.shortcodes tbody tr:hover {
-  background: #FFF;
+	background: #FFF;
 }
 
 .form-table.shortcodes th {
-  padding-left: 10px;
+	padding-left: 10px;
 }
 
 .form-table.shortcodes td {
-  border: 1px solid #DDD;
+	border: 1px solid #DDD;
 }
 
 .form-table.shortcodes td.shortcode {
-  font-family: Consolas, Monaco, monospace;
+	font-family: Consolas, Monaco, monospace;
 }
 
 /* Misc
 --------------------------------------------------*/
 .slug-example {
-  font-weight: bold;
-  color: #0073aa;
+	font-weight: bold;
+	color: #0073aa;
 }
 
 .form-table.width-auto {
-  width: auto;
+	width: auto;
 }
 
 .form-table td p:first-child {
-  margin-top: 6px;
+	margin-top: 6px;
 }
 
 .current-dashicon {
-  display: inline-block;
-  background: #0073aa;
-  color: #FFF;
-  border-radius: 2px;
-  text-align: center;
-  vertical-align: middle;
-  width: 28px;
-  height: 28px;
-  position: relative;
-  top: -3px;
+	display: inline-block;
+	background: #0073aa;
+	color: #FFF;
+	border-radius: 2px;
+	text-align: center;
+	vertical-align: middle;
+	width: 28px;
+	height: 28px;
+	position: relative;
+	top: -3px;
 }
 
 .current-dashicon .dashicons {
-  vertical-align: middle;
-  line-height: 1.3;
+	vertical-align: middle;
+	line-height: 1.3;
 }
 
 /*
@@ -798,12 +801,12 @@ Back these out to have normal "reset" buttons
 .wp-core-ui input[type="reset"]:hover,
 .wp-core-ui input[type="reset"]:active,
 .wp-core-ui input[type="reset"]:focus {
-  background: #F7F7F7;
-  border: 1px solid #CCC;
-  -webkit-box-shadow: 0 1px 0 #CCC;
-  box-shadow: 0 1px 0 #CCC;
-  padding: 0 10px 1px;
-  width: auto;
+	background: #F7F7F7;
+	border: 1px solid #CCC;
+	-webkit-box-shadow: 0 1px 0 #CCC;
+	box-shadow: 0 1px 0 #CCC;
+	padding: 0 10px 1px;
+	width: auto;
 }
 
 /* wp-admin/css/forms.css:102 */
@@ -816,62 +819,66 @@ Back these out to have normal "reset" buttons
 /* Based on section 2.0 in wp-includes/css/buttons.css:125 */
 .wp-core-ui input[type="reset"]:hover,
 .wp-core-ui input[type="reset"]:focus {
-  background: #fafafa;
-  border-color: #999;
-  color: #23282d;
+	background: #fafafa;
+	border-color: #999;
+	color: #23282d;
 }
 
 .wp-core-ui input[type="reset"]:focus {
-  border-color: #5b9dd9;
-  -webkit-box-shadow: 0 0 3px rgba(0, 115, 170, .8);
-  box-shadow: 0 0 3px rgba(0, 115, 170, .8);
+	border-color: #5b9dd9;
+	-webkit-box-shadow: 0 0 3px rgba(0, 115, 170, .8);
+	box-shadow: 0 0 3px rgba(0, 115, 170, .8);
 }
 
 .wp-core-ui input[type="reset"]:active {
-  background: #eee;
-  border-color: #999;
-  -webkit-box-shadow: inset 0 2px 5px -3px rgba(0, 0, 0, 0.5);
-  box-shadow: inset 0 2px 5px -3px rgba(0, 0, 0, 0.5);
-  -webkit-transform: translateY(1px);
-  -ms-transform: translateY(1px);
-  transform: translateY(1px);
+	background: #eee;
+	border-color: #999;
+	-webkit-box-shadow: inset 0 2px 5px -3px rgba(0, 0, 0, 0.5);
+	box-shadow: inset 0 2px 5px -3px rgba(0, 0, 0, 0.5);
+	-webkit-transform: translateY(1px);
+	-ms-transform: translateY(1px);
+	transform: translateY(1px);
 }
 
 input.button.restore-default {
-  font: normal 20px/1 dashicons;
-  padding: 0 3px;
+	font: normal 20px/1 dashicons;
+	padding: 0 3px;
 }
 
 .wpmtst .subsubsub {
-  float: none;
-  margin-left: 16px;
+	float: none;
+	margin-left: 16px;
 }
 
 .regular-text.half {
-  width: 12.5em;
+	width: 12.5em;
 }
 
 .regular-text.third {
-  width: 20em;
+	width: 20em;
 }
 
 input.code {
-  font-size: 13px;
+	font-size: 13px;
 }
 
 .wrap h2.nav-tab-wrapper {
-  margin-top: 6px;
+	margin-top: 6px;
 }
 
 .tab-header {
-  padding: 1em 0;
+	padding: 1em 0;
 }
 
 .striped > tbody > tr.readonly {
-  background: lightyellow;
+	background: lightyellow;
 }
 
 ul.standard {
-  list-style: disc;
-  padding-left: 1.5em;
+	list-style: disc;
+	padding-left: 1.5em;
+}
+
+.form-table p.error {
+	margin: 0.5em 0;
 }

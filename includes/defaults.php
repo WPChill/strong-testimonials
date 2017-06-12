@@ -23,6 +23,7 @@
  */
 function wpmtst_get_default_options() {
 	$default_options = array(
+		'debug_log'             => 0,
 		'email_log_level'       => 1,
 		'embed_width'           => '',
 		'load_font_awesome'     => 1,
