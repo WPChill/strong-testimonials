@@ -1,9 +1,9 @@
 === Strong Testimonials ===
 Contributors: cdillon27
-Tags: testimonials, testimonial slider, testimonial form, reviews, star ratings, review markup
+Tags: testimonials, testimonial slider, testimonial form, reviews, star ratings
 Requires at least: 3.6
 Tested up to: 4.8
-Stable tag: 2.23.2
+Stable tag: 2.24
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -90,10 +90,8 @@ I will [move mountains](https://strongplugins.com/testimonials/) to help you get
 
 ### Try these plugins too
 
-* [tinyWYM Editor](https://wordpress.org/plugins/tinywym-editor/) to improve the WordPress Visual editor.
 * [Simple Colorbox](https://wordpress.org/plugins/simple-colorbox/) to open thumbnails into full-size images. Nice!
 * [Simple Custom CSS](https://wordpress.org/plugins/simple-custom-css/) for quick CSS tweaks.
-* [Post State Tags](https://wordpress.org/plugins/post-state-tags/) helps quickly differentiate Published / Pending / Draft and more.
 * [Wider Admin Menu](http://wordpress.org/plugins/wider-admin-menu/) lets your admin menu b r e a t h e.
 
 ### Translations
@@ -241,6 +239,12 @@ If you prefer not to post your URL publicly, start a private support ticket at [
 8. View editor
 
 == Changelog ==
+
+= 2.24 - June 12, 2017 =
+* Fix bug in saving a zero rating.
+* Fix bug in add-on license activation screen.
+* Add real-time configuration checks.
+* Improve debug logger.
 
 = 2.23.2 - June 7, 2017 =
 * Fix default translation filters.
