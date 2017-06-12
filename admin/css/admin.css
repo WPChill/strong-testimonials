@@ -360,7 +360,7 @@ ul.compact li {
 
 #licenses-form th.for-license-key,
 #licenses-form th.for-license-status {
-	width: 375px;
+	width: 350px;
 }
 
 #licenses-form .form-table th {
@@ -378,6 +378,7 @@ ul.compact li {
 }
 
 #licenses-form .form-table input[type="text"] {
+	font-family: Consolas, Monaco, monospace;
 	width: 100%;
 }
 
