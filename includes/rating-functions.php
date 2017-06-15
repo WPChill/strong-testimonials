@@ -26,7 +26,7 @@ function wpmtst_star_rating_form( $field, $value = 0, $class, $echo = true, $fie
 	}
 	ob_start(); ?>
 	<div class="strong-rating-wrapper field-wrap <?php echo $class; ?>"><!-- cheap trick to collapse whitespace around inline-blocks
-		--><fieldset contenteditable=false id="wpmtst_<?php echo $field['name']; ?>" name="strongrating" class="strong-rating" tabindex="0" <?php //echo $field['required'] ? 'required' : ''; ?>><!--
+		--><fieldset contenteditable=false id="wpmtst_<?php echo $field['name']; ?>" name="rating-fieldset" class="strong-rating" tabindex="0" <?php //echo $field['required'] ? 'required' : ''; ?>><!--
 
 			--><input type="radio" id="<?php echo $field['name']; ?>-star0" name="<?php echo $name; ?>" value="0" <?php checked( $value, 0 ); ?> /><!--
 			--><label for="<?php echo $field['name']; ?>-star0" title="No stars"></label><!--

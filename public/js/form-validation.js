@@ -108,7 +108,7 @@
            },
 
            submitHandler: function(form) {
-            if ( !$("[name='strongrating']").valid() ) {
+            if ( !$("[name='rating-fieldset']").valid() ) {
               return false;
             }
             form.submit();
@@ -116,7 +116,7 @@
 
           // Add custom validation rule to star-rating pseudo elements
           rules: {
-            strongrating: {
+            "rating-fieldset": {
               // required: true,
               ratingRequired: true
             }
@@ -130,9 +130,9 @@
 
           highlight: function(element, errorClass, validClass) {
 
-            if ( element.type === 'checkbox' ) {
+            if ( element.type === "checkbox" ) {
               $(element).closest(".field-wrap").addClass(errorClass).removeClass(validClass);
-            } else if ( element.name === 'strongrating' ) {
+            } else if ( element.name === "rating-fieldset" ) {
               $(element).closest(".field-wrap").addClass(errorClass).removeClass(validClass);
             } else {
               $(element).addClass(errorClass).removeClass(validClass);
@@ -140,9 +140,9 @@
           },
 
           unhighlight: function(element, errorClass, validClass) {
-            if ( element.type === 'checkbox' ) {
+            if ( element.type === "checkbox" ) {
               $(element).closest(".field-wrap").removeClass(errorClass).addClass(validClass);
-            } else if ( element.name === "strongrating" ) {
+            } else if ( element.name === "rating-fieldset" ) {
               $(element).closest(".field-wrap").removeClass(errorClass).addClass(validClass);
             } else {
               $(element).removeClass(errorClass).addClass(validClass);
