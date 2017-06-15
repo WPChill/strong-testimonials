@@ -18,18 +18,8 @@
   label {
     display: inline-block;
     float: none;
-
-    &.checkbox-label {
-      padding: 0.3em;
-      border: 1px solid transparent;
-      border-radius: 3px;
-      font-weight: 400;
-
-      &:focus {
-        border-color: #CCC;
-      }
-    }
   }
+
 
   input[type="text"],
   input[type="email"],
@@ -44,11 +34,23 @@
   }
 
   input[type="checkbox"] {
+    // normally 13px, this adds 5px, new size = 18px
     -webkit-transform: scale(1.4);
     -moz-transform:    scale(1.4);
     -ms-transform:     scale(1.4);
     transform:         scale(1.4);
-    margin: 0 0.5em 0 0;
+    margin-left: 14px;
+    margin-right: 6px;
+
+    + label {
+      font-weight: 400;
+      padding: 8px 5px;
+
+    }
+
+    &:focus + label {
+      outline: 1px solid #CCC;
+    }
   }
 
   textarea {

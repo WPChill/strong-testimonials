@@ -6,24 +6,12 @@
 .strong-form {
   label {
     font-weight: 700;
-
-    /* field-wrap is used for checkboxes, radios, star ratings */
-    &.field-wrap {
-      font-weight: 400;
-      display: block;
-
-      &.error {
-        //padding: 0.5em;
-      }
-    }
   }
 
-  input[type="checkbox"] {
-    margin: 0 0.5em 0 .3em;
-
-    + label {
-      font-weight: 400;
-    }
+  /* field-wrap is used for checkboxes, radios, star ratings */
+  .field-wrap {
+    display: block;
+    font-weight: 400;
   }
 
   .form-field .after {
@@ -52,5 +40,13 @@
     background: #F9E5E6;
     border: 1px solid #E8AAAD;
     color: #B50007;
+
+    .checkbox-label {
+      outline: none;
+    }
+
+    .strong-rating {
+      outline-color: #E8AAAD;
+    }
   }
 }

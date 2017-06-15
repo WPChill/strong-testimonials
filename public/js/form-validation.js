@@ -26,30 +26,6 @@
 })(jQuery);
 
 
-// Checkboxes
-//
-// Thanks https://stackoverflow.com/a/27891665/51600
-//    and http://www.456bereastreet.com/archive/201302/making_elements_keyboard_focusable_and_clickable/
-(function ($) {
-  var checkboxes = document.getElementsByClassName('checkbox-label');
-
-  function handleCheckboxEvent(e) {
-    // If spacebar fired the event, trigger a click.
-    if (e.keyCode === 32) {
-      $(this).click();
-    }
-    // Maintain focus too; it's losing it somewhere.
-    // NOPE. This breaks Firefox.
-    // $(this).focus();
-  }
-
-  for ( var i = 0; i < checkboxes.length; i++ ) {
-    checkboxes[i].addEventListener("click", handleCheckboxEvent, true);
-    checkboxes[i].addEventListener("keyup", handleCheckboxEvent, true);
-  }
-})(jQuery);
-
-
 // Star ratings
 
 (function ($) {
@@ -115,14 +91,23 @@
          */
         // TODO Only if field is required!
         $.validator.addMethod("ratingRequired", function (value, element) {
-          // console.log('validator',value,element);
+          console.log('validator',value,element);
           return $(element).find("input:checked").val() > 0;
         },'Please enter a rating');
 
 
          $("#wpmtst-submission-form").validate({
 
-          submitHandler: function(form) {
+           onfocusout: false,
+
+           invalidHandler: function(form, validator) {
+             var errors = validator.numberOfInvalids();
+             if (errors) {
+               validator.errorList[0].element.focus();
+             }
+           },
+
+           submitHandler: function(form) {
             if ( !$("[name='strongrating']").valid() ) {
               return false;
             }
@@ -192,9 +177,9 @@
     if (strongForm.scrollTopError === "1" ) {
 
       if (typeof errorList[0] !== "undefined") {
-        var fieldOffset, scrollTop;
-        fieldOffset = $(errorList[0].element).closest(".form-field").offset();
-        scrollTop = fieldOffset.top - strongForm.scrollTopErrorOffset;
+        var firstError = $(errorList[0].element);
+        var fieldOffset = firstError.closest(".form-field").offset();
+        var scrollTop = fieldOffset.top - strongForm.scrollTopErrorOffset;
         $('html, body').animate({scrollTop: scrollTop}, 800);
       }
 

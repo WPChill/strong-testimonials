@@ -19,15 +19,6 @@
   display: inline-block;
   float: none;
 }
-.strong-form label.checkbox-label {
-  padding: 0.3em;
-  border: 1px solid transparent;
-  border-radius: 3px;
-  font-weight: 400;
-}
-.strong-form label.checkbox-label:focus {
-  border-color: #CCC;
-}
 .strong-form input[type="text"],
 .strong-form input[type="email"],
 .strong-form input[type="url"],
@@ -44,7 +35,15 @@
   -moz-transform: scale(1.4);
   -ms-transform: scale(1.4);
   transform: scale(1.4);
-  margin: 0 0.5em 0 0;
+  margin-left: 14px;
+  margin-right: 6px;
+}
+.strong-form input[type="checkbox"] + label {
+  font-weight: 400;
+  padding: 8px 5px;
+}
+.strong-form input[type="checkbox"]:focus + label {
+  outline: 1px solid #CCC;
 }
 .strong-form textarea {
   height: 16em;
@@ -98,21 +97,15 @@ img.captcha {
 }
 
 .strong-form {
+  /* field-wrap is used for checkboxes, radios, star ratings */
   /* Error indicators */
   /* field-wrap is used for checkboxes, radios, star ratings */
 }
 .strong-form label {
   font-weight: 700;
-  /* field-wrap is used for checkboxes, radios, star ratings */
 }
-.strong-form label.field-wrap {
-  font-weight: 400;
+.strong-form .field-wrap {
   display: block;
-}
-.strong-form input[type="checkbox"] {
-  margin: 0 0.5em 0 .3em;
-}
-.strong-form input[type="checkbox"] + label {
   font-weight: 400;
 }
 .strong-form .form-field .after {
@@ -135,4 +128,10 @@ img.captcha {
   background: #F9E5E6;
   border: 1px solid #E8AAAD;
   color: #B50007;
+}
+.strong-form .field-wrap.error .checkbox-label {
+  outline: none;
+}
+.strong-form .field-wrap.error .strong-rating {
+  outline-color: #E8AAAD;
 }

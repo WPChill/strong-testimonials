@@ -14,9 +14,6 @@
 
 /* the fieldset */
 .strong-rating {
-  /*border: none;*/
-  border: 1px solid transparent;
-  border-radius: 3px;
   display: inline-block;
   margin: 0;
   padding: 5px;
@@ -24,7 +21,7 @@
 }
 
 .strong-rating:focus {
-  border-color: #CCC;
+  outline: 1px solid #CCC;
 }
 
 /* the stars */

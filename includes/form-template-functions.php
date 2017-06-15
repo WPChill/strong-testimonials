@@ -143,32 +143,28 @@ function wpmtst_single_form_field( $field ) {
 
 	        wpmtst_field_before( $field );
 
-	        echo '<div class="field-wrap">';
+            echo '<div class="field-wrap">';
 
-	        //echo '<label id="checkbox-label" for="wpmtst_' . $field['name'] . '" class="checkbox-label" role="checkbox" tabindex="0">';
-	        echo '<label id="checkbox-label" for="wpmtst_' . $field['name'] . '" class="checkbox-label" tabindex="0">';
-
-	        //printf( '<input id="wpmtst_%s" type="%s" class="%s" name="%s" %s tabindex="0">',
-	        printf( '<input id="wpmtst_%s" type="%s" class="%s" name="%s" %s tabindex="-1">',
-		        $field['name'],
+            printf( '<input id="wpmtst_%s" type="%s" class="%s" name="%s" %s tabindex="0">',
+                $field['name'],
                 $field['input_type'],
                 wpmtst_field_classes( $field['input_type'], $field['name'] ),
                 $field['name'],
                 wpmtst_field_required_tag( $field ) );
-	        //echo '</label>';
 
-	        if ( isset( $field['text'] ) ) {
-		        //echo '<label for="wpmtst_' . $field['name'] . '" class="checkbox-wrap">' . $field['text'] . '</label>';
-		        echo $field['text'];
-	        }
+            echo '<label for="wpmtst_' . $field['name'] . '" class="checkbox-label">';
 
+            if ( isset( $field['text'] ) ) {
+                echo $field['text'];
+            }
 
-	        if ( isset( $field['required'] ) && $field['required'] ) {
-		        wpmtst_field_required_symbol();
-	        }
-	        echo '</label>';
+            if ( isset( $field['required'] ) && $field['required'] ) {
+                wpmtst_field_required_symbol();
+            }
 
-	        echo '</div>';
+            echo '</label>';
+
+            echo '</div><!-- .field-wrap -->';
 
             break;
 
@@ -182,15 +178,6 @@ function wpmtst_single_form_field( $field ) {
                 wpmtst_field_placeholder( $field ),
                 wpmtst_field_required_tag( $field ) );
 
-		/*
-			echo '<input id="wpmtst_' . $field['name'] . '"'
-			     . ' type="' . $field['input_type'] . '"'
-			     . ' class="' . wpmtst_field_classes( $field['input_type'], $field['name'] ) . '"'
-			     . ' name="' . $field['name'] . '"'
-			     . wpmtst_field_value( $field, $form_values )
-			     . wpmtst_field_placeholder( $field )
-				 . wpmtst_field_required_tag( $field ) . ' tabindex="0">';
-		*/
 	}
 
 	wpmtst_field_after( $field );
