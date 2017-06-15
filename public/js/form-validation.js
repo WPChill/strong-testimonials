@@ -4,6 +4,8 @@
  * @package Strong_Testimonials
  */
 
+// Change events
+
 (function($) {
 
   // Add protocol if missing
@@ -14,12 +16,63 @@
     }
   });
 
-  // Click star --> Focus next field
-  $(".strong-rating").click( function(){
+  // Click star --> Focus next field if valid
+  $(".strong-rating").on( "change", function(){
     if ( $(this).valid() ) {
-      $(this).closest(".form-field").next().find("[tabindex]").focus();
+      //$(this).closest(".form-field").next().find("[tabindex=0]").focus();
     }
   });
+
+})(jQuery);
+
+
+// Checkboxes
+//
+// Thanks https://stackoverflow.com/a/27891665/51600
+//    and http://www.456bereastreet.com/archive/201302/making_elements_keyboard_focusable_and_clickable/
+(function ($) {
+  var checkboxes = document.getElementsByClassName('checkbox-label');
+
+  function handleCheckboxEvent(e) {
+    // If spacebar fired the event, trigger a click.
+    if (e.keyCode === 32) {
+      $(this).click();
+    }
+    // Maintain focus too; it's losing it somewhere.
+    // NOPE. This breaks Firefox.
+    // $(this).focus();
+  }
+
+  for ( var i = 0; i < checkboxes.length; i++ ) {
+    checkboxes[i].addEventListener("click", handleCheckboxEvent, true);
+    checkboxes[i].addEventListener("keyup", handleCheckboxEvent, true);
+  }
+})(jQuery);
+
+
+// Star ratings
+
+(function ($) {
+  var ratings = document.getElementsByClassName('strong-rating');
+
+  function handleRadioEvent(e) {
+    // If key 0-5 fired the event, trigger click on that star (including hidden zero).
+    if ( e.keyCode >= 48 && e.keyCode <= 53 ) {
+      var key = e.keyCode - 48;
+      $(this).find("input[type='radio'][value=" + key + "]").click();
+    }
+  }
+
+  for ( var i = 0; i < ratings.length; i++ ) {
+    ratings[i].addEventListener("click", handleRadioEvent, true);
+    ratings[i].addEventListener("keyup", handleRadioEvent, true);
+  }
+})(jQuery);
+
+
+// Validate the form
+
+(function($) {
 
 	// Validate upon normal or Ajax submission
 	if (typeof strongForm !== 'undefined') {
@@ -57,7 +110,7 @@
          *
          * @link https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes
          *
-         * jQuery Validate v1.16.1
+         * jQuery Validate v1.16.0
          * As of 6/10/2017
          */
         // TODO Only if field is required!
@@ -67,11 +120,21 @@
         },'Please enter a rating');
 
 
-        $("#wpmtst-submission-form").validate({
+         $("#wpmtst-submission-form").validate({
+
+          submitHandler: function(form) {
+            if ( !$("[name='strongrating']").valid() ) {
+              return false;
+            }
+            form.submit();
+          },
 
           // Add custom validation rule to star-rating pseudo elements
           rules: {
-            strongrating: { ratingRequired: true }
+            strongrating: {
+              // required: true,
+              ratingRequired: true
+            }
           },
 
           showErrors: strongShowErrors,
@@ -124,18 +187,20 @@
 		  return;
 		}
 
+		// console.log(errorMap);
+
     if (strongForm.scrollTopError === "1" ) {
 
-			if (typeof errorList[0] !== "undefined") {
-				var fieldOffset, scrollTop;
-				fieldOffset = $(errorList[0].element).closest(".form-field").offset();
-				scrollTop = fieldOffset.top - strongForm.scrollTopErrorOffset;
-				$('html, body').animate({scrollTop: scrollTop}, 800);
-			}
-
-			this.defaultShowErrors();
+      if (typeof errorList[0] !== "undefined") {
+        var fieldOffset, scrollTop;
+        fieldOffset = $(errorList[0].element).closest(".form-field").offset();
+        scrollTop = fieldOffset.top - strongForm.scrollTopErrorOffset;
+        $('html, body').animate({scrollTop: scrollTop}, 800);
+      }
 
 		}
+
+		this.defaultShowErrors();
 
 	}
 
@@ -179,7 +244,7 @@
       return;
     }
 
-    if (strongForm.scrollTopSuccess == "1") {
+    if (strongForm.scrollTopSuccess === "1") {
 
       var containerOffset, scrollTop;
 

@@ -7,10 +7,14 @@
   label {
     font-weight: 700;
 
-    // checkbox
+    /* field-wrap is used for checkboxes, radios, star ratings */
     &.field-wrap {
       font-weight: 400;
       display: block;
+
+      &.error {
+        //padding: 0.5em;
+      }
     }
   }
 
@@ -27,21 +31,26 @@
     font-style: italic;
   }
 
+  /* Error indicators */
+
   input.error,
   textarea.error,
-  select.error,
-  .field-wrap.error {
+  select.error {
     background: #F9E5E6;
     border: 1px solid #E8AAAD;
     color: #B50007;
   }
 
-  .field-wrap.error {
-    padding-left: 0.5em;
-  }
-
   span.error,
   label.error {
+    color: #B50007;
+  }
+
+  /* field-wrap is used for checkboxes, radios, star ratings */
+  .field-wrap.error {
+    border-radius: 4px;
+    background: #F9E5E6;
+    border: 1px solid #E8AAAD;
     color: #B50007;
   }
 }

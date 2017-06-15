@@ -1,31 +1,6 @@
 .strong-form {
   margin: 0 auto;
 
-  .field-wrap {
-
-    // artificial field container
-    .strong-rating {
-      border: 1px solid transparent;
-
-      &:focus {
-        border: 1px solid #CCC;
-        border-radius: 4px;
-      }
-    }
-  }
-
-  // checkbox wrap
-  input[type=checkbox] {
-    + label {
-      border: 1px solid transparent;
-      border-radius: 4px;
-    }
-
-    &:focus + label {
-      border-color: #CCC;
-    }
-  }
-
   .form-field {
     margin-bottom: 1.5em;
 
@@ -43,6 +18,17 @@
   label {
     display: inline-block;
     float: none;
+
+    &.checkbox-label {
+      padding: 0.3em;
+      border: 1px solid transparent;
+      border-radius: 3px;
+      font-weight: 400;
+
+      &:focus {
+        border-color: #CCC;
+      }
+    }
   }
 
   input[type="text"],

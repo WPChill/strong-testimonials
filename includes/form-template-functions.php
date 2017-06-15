@@ -145,23 +145,44 @@ function wpmtst_single_form_field( $field ) {
 
 	        echo '<div class="field-wrap">';
 
-	        printf( '<input id="wpmtst_%s" type="%s" class="%s" name="%s" %s tabindex="0">',
-		        $field['name'], $field['input_type'], wpmtst_field_classes( $field['input_type'], $field['name'] ), $field['name'], wpmtst_field_required_tag( $field ) );
+	        //echo '<label id="checkbox-label" for="wpmtst_' . $field['name'] . '" class="checkbox-label" role="checkbox" tabindex="0">';
+	        echo '<label id="checkbox-label" for="wpmtst_' . $field['name'] . '" class="checkbox-label" tabindex="0">';
 
+	        //printf( '<input id="wpmtst_%s" type="%s" class="%s" name="%s" %s tabindex="0">',
+	        printf( '<input id="wpmtst_%s" type="%s" class="%s" name="%s" %s tabindex="-1">',
+		        $field['name'],
+                $field['input_type'],
+                wpmtst_field_classes( $field['input_type'], $field['name'] ),
+                $field['name'],
+                wpmtst_field_required_tag( $field ) );
+	        //echo '</label>';
 
 	        if ( isset( $field['text'] ) ) {
-		        echo '<label for="wpmtst_' . $field['name'] . '">' . $field['text'] . '</label>';
+		        //echo '<label for="wpmtst_' . $field['name'] . '" class="checkbox-wrap">' . $field['text'] . '</label>';
+		        echo $field['text'];
 	        }
+
 
 	        if ( isset( $field['required'] ) && $field['required'] ) {
 		        wpmtst_field_required_symbol();
 	        }
+	        echo '</label>';
 
 	        echo '</div>';
 
             break;
 
 		default: // text, email, url
+			printf( '<input id="wpmtst_%s" type="%s" class="%s" name="%s" %s %s %s tabindex="0">',
+				$field['name'],
+                $field['input_type'],
+                wpmtst_field_classes( $field['input_type'], $field['name'] ),
+                $field['name'],
+                wpmtst_field_value( $field, $form_values ),
+                wpmtst_field_placeholder( $field ),
+                wpmtst_field_required_tag( $field ) );
+
+		/*
 			echo '<input id="wpmtst_' . $field['name'] . '"'
 			     . ' type="' . $field['input_type'] . '"'
 			     . ' class="' . wpmtst_field_classes( $field['input_type'], $field['name'] ) . '"'
@@ -169,6 +190,7 @@ function wpmtst_single_form_field( $field ) {
 			     . wpmtst_field_value( $field, $form_values )
 			     . wpmtst_field_placeholder( $field )
 				 . wpmtst_field_required_tag( $field ) . ' tabindex="0">';
+		*/
 	}
 
 	wpmtst_field_after( $field );
@@ -406,7 +428,7 @@ function wpmtst_form_submit_button( $preview = false ) {
 		<label><input type="<?php echo $preview ? 'button' : 'submit'; ?>"
                       id="wpmtst_submit_testimonial" name="wpmtst_submit_testimonial"
                       value="<?php esc_attr_e( wpmtst_get_form_message( 'form-submit-button' ) ); ?>"
-                      class="button"></label>
+                      class="button" tabindex="0"></label>
 	</div>
 	<?php
 }

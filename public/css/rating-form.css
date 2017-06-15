@@ -14,15 +14,22 @@
 
 /* the fieldset */
 .strong-rating {
-  border: none;
+  /*border: none;*/
+  border: 1px solid transparent;
+  border-radius: 3px;
   display: inline-block;
   margin: 0;
-  cursor: none;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.strong-rating:focus {
+  border-color: #CCC;
 }
 
 /* the stars */
-.strong-rating input {
-  display: none;
+.strong-rating input[type=radio] {
+  display: none !important;
 }
 
 .strong-rating label:before {
@@ -30,7 +37,8 @@
   content: "\f005";
   display: inline-block;
   font-size: 1.25em;
-  line-height: 1.75;
+  /*line-height: 1.75;*/
+  line-height: 1;
   /* use padding not margin */
   padding: 5px;
   transition: color 0.3s ease;
@@ -43,9 +51,7 @@
 /* fieldset tweaks */
 
 /* in a form */
-.strong-rating-wrapper.in-form .strong-rating {
-  padding: 0;
-}
+.strong-rating-wrapper.in-form .strong-rating {}
 
 /* in a view */
 .strong-rating-wrapper.in-view .strong-rating {
@@ -71,7 +77,7 @@
 /* hide the first label which is initially checked */
 /* added bonus of POSTing the default value so no need for isset(...) */
 .strong-rating label[for$="star0"] {
-  display: none;
+  display: none !important;
 }
 
 /* and turn all on */

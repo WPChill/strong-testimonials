@@ -108,14 +108,15 @@ function wpmtst_scripts() {
 	 * Form handling
 	 */
 	wp_register_script( 'wpmtst-validation-plugin',
-		WPMTST_PUBLIC_URL . 'js/lib/validate/jquery.validate.min.js',
+		WPMTST_PUBLIC_URL . "js/lib/validate/jquery.validate{$min}.js",
 		array( 'jquery' ),
-		'1.13.1',
+		'1.16.0',
 		true );
 
 	wp_register_script( 'wpmtst-form-validation',
 		WPMTST_PUBLIC_URL . 'js/form-validation.js',
-		array( 'wpmtst-validation-plugin', 'jquery-form' ),
+		//array( 'wpmtst-validation-plugin', 'jquery-form' ),
+		array( 'wpmtst-validation-plugin' ),
 		$plugin_version,
 		true );
 
