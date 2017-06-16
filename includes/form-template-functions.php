@@ -152,17 +152,15 @@ function wpmtst_single_form_field( $field ) {
                 $field['name'],
                 wpmtst_field_required_tag( $field ) );
 
-            echo '<label for="wpmtst_' . $field['name'] . '" class="checkbox-label">';
-
             if ( isset( $field['text'] ) ) {
+                echo '<label for="wpmtst_' . $field['name'] . '" class="checkbox-label">';
                 echo $field['text'];
+                echo '</label>';
             }
 
             if ( isset( $field['required'] ) && $field['required'] ) {
                 wpmtst_field_required_symbol();
             }
-
-            echo '</label>';
 
             echo '</div><!-- .field-wrap -->';
 
@@ -282,8 +280,7 @@ function wpmtst_field_required_notice() {
     ob_start();
     ?>
     <p class="required-notice">
-    <?php wpmtst_field_required_symbol(); ?>
-    <?php wpmtst_form_message( 'required-field' ); ?>
+        <?php wpmtst_field_required_symbol(); ?><?php wpmtst_form_message( 'required-field' ); ?>
     </p>
     <?php
     $html = ob_get_clean();

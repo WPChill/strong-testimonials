@@ -15,9 +15,9 @@
 /* the fieldset */
 .strong-rating {
   display: inline-block;
+  border: 0;
   margin: 0;
   padding: 5px;
-  cursor: pointer;
 }
 
 .strong-rating:focus {

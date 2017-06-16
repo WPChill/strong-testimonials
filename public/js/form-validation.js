@@ -18,9 +18,7 @@
 
   // Click star --> Focus next field if valid
   $(".strong-rating").on( "change", function(){
-    if ( $(this).valid() ) {
-      //$(this).closest(".form-field").next().find("[tabindex=0]").focus();
-    }
+    $(this).valid();
   });
 
 })(jQuery);

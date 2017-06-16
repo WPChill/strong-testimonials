@@ -13,7 +13,11 @@
 .strong-form .required.symbol:after {
   content: '*';
   color: #FF0000;
-  margin: 0 4px;
+  font-size: 1.5em;
+  font-weight: 400;
+  margin: 0 5px;
+  position: relative;
+  top: 5px;
 }
 .strong-form label {
   display: inline-block;
@@ -35,12 +39,12 @@
   -moz-transform: scale(1.4);
   -ms-transform: scale(1.4);
   transform: scale(1.4);
-  margin-left: 14px;
+  margin-left: 12px;
   margin-right: 6px;
 }
 .strong-form input[type="checkbox"] + label {
   font-weight: 400;
-  padding: 8px 5px;
+  padding: 5px;
 }
 .strong-form input[type="checkbox"]:focus + label {
   outline: 1px solid #CCC;

@@ -13,7 +13,11 @@
 .strong-form .required.symbol:after {
   content: '*';
   color: #FF0000;
-  margin: 0 4px;
+  font-size: 1.5em;
+  font-weight: 400;
+  margin: 0 5px;
+  position: relative;
+  top: 5px;
 }
 .strong-form label {
   display: inline-block;
@@ -35,12 +39,12 @@
   -moz-transform: scale(1.4);
   -ms-transform: scale(1.4);
   transform: scale(1.4);
-  margin-left: 14px;
+  margin-left: 12px;
   margin-right: 6px;
 }
 .strong-form input[type="checkbox"] + label {
   font-weight: 400;
-  padding: 8px 5px;
+  padding: 5px;
 }
 .strong-form input[type="checkbox"]:focus + label {
   outline: 1px solid #CCC;
@@ -97,16 +101,11 @@ img.captcha {
 }
 
 .strong-form {
-  /* field-wrap is used for checkboxes, radios, star ratings */
   /* Error indicators */
   /* field-wrap is used for checkboxes, radios, star ratings */
 }
 .strong-form label {
   font-weight: 700;
-}
-.strong-form .field-wrap {
-  display: block;
-  font-weight: 400;
 }
 .strong-form .form-field .after {
   font-size: .9em;
@@ -123,8 +122,13 @@ img.captcha {
 .strong-form label.error {
   color: #B50007;
 }
+.strong-form .field-wrap {
+  display: block;
+  font-weight: 400;
+  border: 1px solid transparent;
+}
 .strong-form .field-wrap.error {
-  border-radius: 4px;
+  border-radius: 3px;
   background: #F9E5E6;
   border: 1px solid #E8AAAD;
   color: #B50007;
@@ -134,4 +138,7 @@ img.captcha {
 }
 .strong-form .field-wrap.error .strong-rating {
   outline-color: #E8AAAD;
+}
+.strong-form .field-wrap input + label + .required.symbol:after {
+  margin-left: 0;
 }
