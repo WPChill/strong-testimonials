@@ -16,7 +16,7 @@
     }
   });
 
-  // Click star --> Focus next field if valid
+  // Validate star-rating on change
   $(".strong-rating").on("change", function () {
     $(this).valid();
   });
@@ -50,7 +50,6 @@
 
   // Validate upon normal or Ajax submission
   if (typeof strongForm !== 'undefined') {
-    console.log('strongForm =', strongForm);
 
     if (strongForm.displaySuccessMessage) {
 
@@ -68,11 +67,20 @@
        * jQuery Validate v1.16.0
        * As of 6/10/2017
        */
-      // TODO Only if field is required!
       $.validator.addMethod("ratingRequired", function (value, element) {
-        // console.log('validator',value,element);
         return $(element).find("input:checked").val() > 0;
       }, $.validator.messages.required);
+
+      // Add custom validation rule to star-rating pseudo elements
+      var rules = {};
+
+      for (var i=0; i < strongForm.fields.length; i++) {
+        if ("rating" === strongForm.fields[i].type) {
+          if (1 === strongForm.fields[i].required) {
+            rules[strongForm.fields[i].name] = { ratingRequired: true };
+          }
+        }
+      }
 
       /**
        * Validate the form
@@ -90,7 +98,7 @@
 
         submitHandler: function (form) {
 
-          if (!$("[name='rating-fieldset']").valid()) {
+          if (!$(".strong-rating").valid()) {
             return false;
           }
 
@@ -114,12 +122,7 @@
           }
         },
 
-        // Add custom validation rule to star-rating pseudo elements
-        rules: {
-          "rating-fieldset": {
-            ratingRequired: strongForm.ratingRequired
-          }
-        },
+        rules: rules,
 
         showErrors: strongShowErrors,
 
@@ -130,7 +133,7 @@
         highlight: function (element, errorClass, validClass) {
           if (element.type === "checkbox") {
             $(element).closest(".field-wrap").addClass(errorClass).removeClass(validClass);
-          } else if (element.name === "rating-fieldset") {
+          } else if ("rating" === $(element).data("fieldType")) {
             $(element).closest(".field-wrap").addClass(errorClass).removeClass(validClass);
           } else {
             $(element).addClass(errorClass).removeClass(validClass);
@@ -140,7 +143,7 @@
         unhighlight: function (element, errorClass, validClass) {
           if (element.type === "checkbox") {
             $(element).closest(".field-wrap").removeClass(errorClass).addClass(validClass);
-          } else if (element.name === "rating-fieldset") {
+          } else if ("rating" === $(element).data("fieldType")) {
             $(element).closest(".field-wrap").removeClass(errorClass).addClass(validClass);
           } else {
             $(element).removeClass(errorClass).addClass(validClass);
@@ -167,8 +170,6 @@
     if (typeof strongForm === 'undefined') {
       return;
     }
-
-    // console.log(errorMap);
 
     if (strongForm.scrollTopError === "1") {
 

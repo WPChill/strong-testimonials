@@ -154,20 +154,24 @@ class Strong_View_Form extends Strong_View {
 	 */
 	public function load_special() {
 
-		// TODO Move to has_rating_field()
-		// Load rating stylesheet if necessary
-		$form_id = isset( $this->atts['form_id'] ) ? $this->atts['form_id'] : 1;
+		// Assemble list of field properties for validation script.
+		// Load rating stylesheet if necessary.
+		$form_id     = isset( $this->atts['form_id'] ) ? $this->atts['form_id'] : 1;
+		$form_fields = wpmtst_get_form_fields( $form_id );
+		$fields      = array();
 
-		$fields  = wpmtst_get_form_fields( $form_id );
-		$rating_required = false;
-		foreach ( $fields as $field ) {
+		foreach ( $form_fields as $field ) {
+
+			$fields[] = array(
+				'name'     => $field['name'],
+				'type'     => $field['input_type'],
+				'required' => $field['required'],
+			);
+
 			if ( isset( $field['input_type'] ) && 'rating' == $field['input_type'] ) {
-				if ( isset( $field['required'] ) && $field['required'] ) {
-					$rating_required = true;
-				}
 				WPMST()->add_style( 'wpmtst-rating-form' );
-				break;
 			}
+
 		}
 
 		// Load validation scripts
@@ -183,7 +187,7 @@ class Strong_View_Form extends Strong_View {
 			'scrollTopErrorOffset'   => $form_options['scrolltop_error_offset'],
 			'scrollTopSuccess'       => $form_options['scrolltop_success'],
 			'scrollTopSuccessOffset' => $form_options['scrolltop_success_offset'],
-			'ratingRequired'         => $rating_required,
+			'fields'                 => $fields,
 		);
 
 		if ( $this->atts['form_ajax'] ) {
