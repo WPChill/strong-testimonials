@@ -154,8 +154,10 @@ class Strong_View_Form extends Strong_View {
 	 */
 	public function load_special() {
 
+		// TODO Move to has_rating_field()
 		// Load rating stylesheet if necessary
 		$form_id = isset( $this->atts['form_id'] ) ? $this->atts['form_id'] : 1;
+
 		$fields  = wpmtst_get_form_fields( $form_id );
 		foreach ( $fields as $field ) {
 			if ( isset( $field['input_type'] ) && 'rating' == $field['input_type'] ) {
