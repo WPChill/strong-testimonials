@@ -4,59 +4,98 @@
  * @package Strong_Testimonials
  */
 
-// Change events
 
 (function ($) {
 
-  // Add protocol if missing
-  // Thanks http://stackoverflow.com/a/36429927/51600
-  $("input[type=url]").change(function () {
-    if (this.value.length && !/^https*:\/\//.test(this.value)) {
-      this.value = "http://" + this.value;
-    }
-  });
+  var strongValidation = {
 
-  // Validate star-rating on change
-  $(".strong-rating").on("change", function () {
-    $(this).valid();
-  });
+    defaults: {
+      displaySuccessMessage: false,
+      ajaxUrl: '',
+      scrollTopError: 1,
+      scrollTopErrorOffset: 100,
+      scrollTopSuccess: 1,
+      scrollTopSuccessOffset: 100,
+      fields: {}
+    },
 
-})(jQuery);
+    settings: {},
 
+    setOpts: function (options) {
+      this.settings = $.extend({}, this.defaults, options);
+    },
 
-// Star ratings
+    /**
+     * Add custom validation rule to star-rating pseudo elements.
+     */
+    rules: {},
 
-(function ($) {
-  var ratings = document.getElementsByClassName('strong-rating');
+    setRules: function () {
+      for (var i = 0; i < this.settings.fields.length; i++) {
+        if ("rating" === this.settings.fields[i].type) {
+          if (1 === this.settings.fields[i].required) {
+            this.rules[this.settings.fields[i].name] = {ratingRequired: true};
+          }
+        }
+      }
+    },
 
-  function handleRadioEvent(e) {
-    // If key 0-5 fired the event, trigger click on that star (including hidden zero).
-    if (e.keyCode >= 48 && e.keyCode <= 53) {
-      var key = e.keyCode - 48;
-      $(this).find("input[type='radio'][value=" + key + "]").click();
-    }
-  }
+    /**
+     * Initialize.
+     */
+    init: function () {
 
-  for (var i = 0; i < ratings.length; i++) {
-    ratings[i].addEventListener("click", handleRadioEvent, true);
-    ratings[i].addEventListener("keyup", handleRadioEvent, true);
-  }
-})(jQuery);
+      var strongForm = {};
+      if (typeof window['strongForm'] !== 'undefined') {
+        strongForm = window['strongForm'];
+      }
+      this.setOpts(strongForm);
 
+      this.setRules();
 
-// Validate the form
+      if (this.settings.displaySuccessMessage) {
+        this.scrollOnSuccess();
+      } else {
+        this.changeEvents();
+        this.customValidators();
+        this.validateForm();
+      }
 
-(function ($) {
+    },
 
-  // Validate upon normal or Ajax submission
-  if (typeof strongForm !== 'undefined') {
+    changeEvents: function () {
 
-    if (strongForm.displaySuccessMessage) {
+      // Star ratings
+      var ratings = document.getElementsByClassName('strong-rating');
+      for (var i = 0; i < ratings.length; i++) {
+        ratings[i].addEventListener("click", this.handleRadioEvent, true);
+        ratings[i].addEventListener("keyup", this.handleRadioEvent, true);
+      }
 
-      strongScrollOnSuccess();
+      // Validate star-rating on change
+      $(".strong-rating").on("change", function () {
+        $(this).valid();
+      });
 
-    } else {
+      // Add protocol if missing
+      // Thanks http://stackoverflow.com/a/36429927/51600
+      $("input[type=url]").change(function () {
+        if (this.value.length && !/^https*:\/\//.test(this.value)) {
+          this.value = "http://" + this.value;
+        }
+      });
 
+    },
+
+    handleRadioEvent: function (e) {
+      // If key 0-5 fired the event, trigger click on that star (including hidden zero).
+      if (e.keyCode >= 48 && e.keyCode <= 53) {
+        var key = e.keyCode - 48;
+        $(this).find("input[type='radio'][value=" + key + "]").click();
+      }
+    },
+
+    customValidators: function () {
       /**
        * Only use elements that can legitimately have a 'name' attribute:
        * <button>, <form>, <fieldset>, <iframe>, <input>, <keygen>, <object>,
@@ -70,17 +109,9 @@
       $.validator.addMethod("ratingRequired", function (value, element) {
         return $(element).find("input:checked").val() > 0;
       }, $.validator.messages.required);
+    },
 
-      // Add custom validation rule to star-rating pseudo elements
-      var rules = {};
-
-      for (var i=0; i < strongForm.fields.length; i++) {
-        if ("rating" === strongForm.fields[i].type) {
-          if (1 === strongForm.fields[i].required) {
-            rules[strongForm.fields[i].name] = { ratingRequired: true };
-          }
-        }
-      }
+    validateForm: function () {
 
       /**
        * Validate the form
@@ -97,34 +128,28 @@
         },
 
         submitHandler: function (form) {
-
+          // validate rating fields first
           if (!$(".strong-rating").valid()) {
             return false;
           }
-
           // If Ajax
-          if (strongForm.hasOwnProperty("ajaxUrl")) {
-
+          if (strongValidation.settings.ajaxUrl !== '') {
             var formOptions = {
-              url: strongForm.ajaxUrl,
+              url: strongValidation.settings.ajaxUrl,
               data: {
                 action: 'wpmtst_form2'
               },
-              success: strongShowResponse
+              success: strongValidation.showResponse
             }
-
             $(form).ajaxSubmit(formOptions);
-
           } else {
-
             form.submit();
-
           }
         },
 
-        rules: rules,
+        rules: strongValidation.rules,
 
-        showErrors: strongShowErrors,
+        showErrors: strongValidation.showErrors,
 
         errorPlacement: function (error, element) {
           error.appendTo(element.closest("div.form-field"));
@@ -152,99 +177,70 @@
 
       });
 
-    }
+    },
 
-  }
-
-
-  /**
-   * Custom error handler
-   *
-   * Thanks http://stackoverflow.com/a/30652843/51600
-   *
-   * @param errorMap
-   * @param errorList
-   */
-  function strongShowErrors(errorMap, errorList) {
-
-    if (typeof strongForm === 'undefined') {
-      return;
-    }
-
-    if (strongForm.scrollTopError === "1") {
-
-      if (typeof errorList[0] !== "undefined") {
-        var firstError = $(errorList[0].element);
-        var fieldOffset = firstError.closest(".form-field").offset();
-        var scrollTop = fieldOffset.top - strongForm.scrollTopErrorOffset;
-        $('html, body').animate({scrollTop: scrollTop}, 800);
-      }
-
-    }
-
-    this.defaultShowErrors();
-
-  }
-
-
-  /**
-   * Display message/errors upon Ajax submission
-   *
-   * @param response
-   */
-  function strongShowResponse(response) {
-    var obj = JSON.parse(response);
-
-    if (obj.success) {
-
-      $("#wpmtst-form").html(obj.message);
-      strongScrollOnSuccess();
-
-    } else {
-
-      for (var key in obj.errors) {
-        if (obj.errors.hasOwnProperty(key)) {
-          $("div.wpmtst-" + key)
-            .find('span.error')
-            .remove()
-            .end()
-            .append('<span class="error">' + obj.errors[key] + '</span>');
+    /**
+     * Custom error handler
+     *
+     * Thanks http://stackoverflow.com/a/30652843/51600
+     *
+     * @param errorMap
+     * @param errorList
+     */
+    showErrors: function (errorMap, errorList) {
+      if (strongValidation.settings.scrollTopError === "1") {
+        if (typeof errorList[0] !== "undefined") {
+          var firstError = $(errorList[0].element);
+          var fieldOffset = firstError.closest(".form-field").offset();
+          var scrollTop = fieldOffset.top - strongValidation.settings.scrollTopErrorOffset;
+          $('html, body').animate({scrollTop: scrollTop}, 800);
         }
       }
+      this.defaultShowErrors();
+    },
 
-    }
-
-  }
-
-
-  /**
-   * Scroll to success message
-   */
-  function strongScrollOnSuccess() {
-
-    if (typeof strongForm === 'undefined') {
-      return;
-    }
-
-    if (strongForm.scrollTopSuccess === "1") {
-
-      var containerOffset, scrollTop;
-
-      containerOffset = $(".testimonial-success").offset();
-
-      if (containerOffset) {
-        scrollTop = containerOffset.top - strongForm.scrollTopSuccessOffset;
-
-        // is WordPress admin bar showing?
-        if ($("#wpadminbar").length) {
-          scrollTop -= 32;
+    /**
+     * Display message/errors upon Ajax submission
+     *
+     * @param response
+     */
+    showResponse: function (response) {
+      var obj = JSON.parse(response);
+      if (obj.success) {
+        $("#wpmtst-form").html(obj.message);
+        strongValidation.scrollOnSuccess();
+      } else {
+        for (var key in obj.errors) {
+          if (obj.errors.hasOwnProperty(key)) {
+            $("div.wpmtst-" + key)
+              .find('span.error')
+              .remove()
+              .end()
+              .append('<span class="error">' + obj.errors[key] + '</span>');
+          }
         }
-
-        $("html, body").animate({scrollTop: scrollTop}, 800);
       }
+    },
 
+    /**
+     * Scroll to success message
+     */
+    scrollOnSuccess: function () {
+      if (strongValidation.settings.scrollTopSuccess === "1") {
+        var containerOffset, scrollTop;
+        containerOffset = $(".testimonial-success").offset();
+        if (containerOffset) {
+          scrollTop = containerOffset.top - strongValidation.settings.scrollTopSuccessOffset;
+          // is WordPress admin bar showing?
+          if ($("#wpadminbar").length) {
+            scrollTop -= 32;
+          }
+          $("html, body").animate({scrollTop: scrollTop}, 800);
+        }
+      }
     }
-
   }
+
+  strongValidation.init();
 
 })(jQuery);

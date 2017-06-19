@@ -115,8 +115,7 @@ function wpmtst_scripts() {
 
 	wp_register_script( 'wpmtst-form-validation',
 		WPMTST_PUBLIC_URL . 'js/form-validation.js',
-		//array( 'wpmtst-validation-plugin', 'jquery-form' ),
-		array( 'wpmtst-validation-plugin' ),
+		array( 'wpmtst-validation-plugin', 'jquery-form' ),
 		$plugin_version,
 		true );
 
