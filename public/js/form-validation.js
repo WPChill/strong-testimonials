@@ -50,6 +50,7 @@
 
 	// Validate upon normal or Ajax submission
 	if (typeof strongForm !== 'undefined') {
+	  console.log('strongForm =', strongForm);
 
     if (strongForm.displaySuccessMessage) {
 
@@ -89,9 +90,9 @@
          */
         // TODO Only if field is required!
         $.validator.addMethod("ratingRequired", function (value, element) {
-          console.log('validator',value,element);
+          // console.log('validator',value,element);
           return $(element).find("input:checked").val() > 0;
-        },'Please enter a rating');
+        }, $.validator.messages.required);
 
 
          $("#wpmtst-submission-form").validate({
@@ -115,7 +116,6 @@
           // Add custom validation rule to star-rating pseudo elements
           rules: {
             "rating-fieldset": {
-              // required: true,
               ratingRequired: true
             }
           },
