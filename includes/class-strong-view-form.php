@@ -159,8 +159,12 @@ class Strong_View_Form extends Strong_View {
 		$form_id = isset( $this->atts['form_id'] ) ? $this->atts['form_id'] : 1;
 
 		$fields  = wpmtst_get_form_fields( $form_id );
+		$rating_required = false;
 		foreach ( $fields as $field ) {
 			if ( isset( $field['input_type'] ) && 'rating' == $field['input_type'] ) {
+				if ( isset( $field['required'] ) && $field['required'] ) {
+					$rating_required = true;
+				}
 				WPMST()->add_style( 'wpmtst-rating-form' );
 				break;
 			}
@@ -179,6 +183,7 @@ class Strong_View_Form extends Strong_View {
 			'scrollTopErrorOffset'   => $form_options['scrolltop_error_offset'],
 			'scrollTopSuccess'       => $form_options['scrolltop_success'],
 			'scrollTopSuccessOffset' => $form_options['scrolltop_success_offset'],
+			'ratingRequired'         => $rating_required,
 		);
 
 		if ( $this->atts['form_ajax'] ) {
