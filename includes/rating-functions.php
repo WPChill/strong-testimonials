@@ -26,18 +26,19 @@ function wpmtst_star_rating_form( $field, $value = 0, $class, $echo = true, $fie
 	}
 	ob_start(); ?>
 	<div class="strong-rating-wrapper field-wrap <?php echo $class; ?>"><!-- cheap trick to collapse whitespace around inline-blocks
-		--><fieldset contenteditable=false id="wpmtst_<?php echo $field['name']; ?>"
+		--><fieldset contenteditable=false
+                     id="wpmtst_<?php echo $field['name']; ?>"
                      name="<?php echo $field['name']; ?>"
                      class="strong-rating"
                      data-field-type="rating"
-                     tabindex="0" <?php //echo $field['required'] ? 'required' : ''; ?>><!--
+                     tabindex="0"><!--
 
 			--><input type="radio" id="<?php echo $field['name']; ?>-star0" name="<?php echo $name; ?>" value="0" <?php checked( $value, 0 ); ?> /><!--
 			--><label for="<?php echo $field['name']; ?>-star0" title="No stars"></label><!--
 
 			--><input type="radio" id="<?php echo $field['name']; ?>-star1" name="<?php echo $name; ?>" value="1" <?php checked( $value, 1 ); ?> /><!--
-
 			--><label for="<?php echo $field['name']; ?>-star1" title="1 star"></label><!--
+
 			--><input type="radio" id="<?php echo $field['name']; ?>-star2" name="<?php echo $name; ?>" value="2" <?php checked( $value, 2 ); ?> /><!--
 			--><label for="<?php echo $field['name']; ?>-star2" title="2 stars"></label><!--
 

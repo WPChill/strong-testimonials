@@ -47,21 +47,32 @@ final class Strong_Testimonials {
 	private static $instance;
 
 	private $db_version = '1.0';
+
 	public $plugin_data;
 
 	public $styles = array();
+
 	public $scripts = array();
+
 	public $css = array();
-	public $script_vars;
+
+	public $script_vars = array();
+
 	public $shortcode2;
+
 	public $shortcode2_lb;
+
 	public $view_defaults = array();
+
 	public $view_atts = array();
+
 	public $query;
+
 	public $form_values;
+
 	public $form_errors;
+
 	public $post_list = array();
-	public $post_list_transient_name = '';
 
 	/**
 	 * @var Strong_Mail
@@ -710,14 +721,18 @@ final class Strong_Testimonials {
 	 * @param string $var_name The script variable name.
 	 * @param array $var The script variable.
 	 *
-	 * @since 2.17.5 Using variable name as key to avoid duplicate variables.
+	 * @since 2.17.5 Using variable name as key.
+	 * @since 2.24.1 Adding 'registered' state.
 	 */
 	public function add_script_var( $script_name, $var_name, $var ) {
-		$this->script_vars[ $var_name ] = array(
-			'script_name' => $script_name,
-			'var_name'    => $var_name,
-			'var'         => $var,
-		);
+		if ( ! array_key_exists( $var_name, $this->script_vars ) ) {
+			$this->script_vars[ $var_name ] = array(
+				'script_name' => $script_name,
+				'var_name'    => $var_name,
+				'var'         => $var,
+				'state'       => 'registered',
+			);
+		}
 	}
 
 	/**
@@ -754,17 +769,22 @@ final class Strong_Testimonials {
 	}
 
 	/**
-	 * Print script variables for the view being processed..
+	 * Print script variables for the view being processed.
 	 *
 	 * @access public
 	 * @since 2.22.3
+	 * @since 2.24.1 Setting state to 'printed'.
 	 */
 	public function localize_scripts() {
 		$vars = $this->script_vars;
 		if ( $vars ) {
-			foreach ( $vars as $var ) {
-				wp_localize_script( $var['script_name'], $var['var_name'], $var['var'] );
+			foreach ( $vars as $key => $var ) {
+				if ( 'registered' == $var['state'] ) {
+					wp_localize_script( $var['script_name'], $var['var_name'], $var['var'] );
+					$vars[ $key ]['state'] = 'printed';
+				}
 			}
+			$this->script_vars = $vars;
 		}
 	}
 
