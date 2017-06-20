@@ -40,7 +40,7 @@ if ( ! class_exists( 'Strong_Testimonials' ) ) :
  * @property  Strong_Mail mail
  * @property  Strong_Templates templates
  * @property  Strong_Debug debug
- * @property  Strong_Testimonials_Form_Handler form_handler
+ * @property  Strong_Testimonials_Form form
  * @since 1.15.0
  */
 final class Strong_Testimonials {
@@ -91,9 +91,9 @@ final class Strong_Testimonials {
 	public $debug;
 
 	/**
-	 * @var Strong_Testimonials_Form_Handler
+	 * @var Strong_Testimonials_Form
 	 */
-	public $form_handler;
+	public $form;
 
 	/**
 	 * A singleton instance.
@@ -222,7 +222,7 @@ final class Strong_Testimonials {
 		$this->mail      = new Strong_Mail();
 		$this->templates = new Strong_Templates();
 		$this->debug     = new Strong_Debug();
-		$this->form_handler = new Strong_Testimonials_Form_Handler();
+		$this->form      = new Strong_Testimonials_Form();
 	}
 
 	/**

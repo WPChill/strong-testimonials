@@ -1,9 +1,9 @@
 <?php
 /**
- * Form handler functions
+ * Form class
  */
 
-class Strong_Testimonials_Form_Handler {
+class Strong_Testimonials_Form {
 
 	public function __construct() {
 
