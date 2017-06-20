@@ -886,3 +886,41 @@ function wpmtst_is_plugin_active( $plugin = '' ) {
 
 	return false;
 }
+
+
+/**
+ * Sanitize a textarea from user input. Based on sanitize_text_field.
+ *
+ * Check for invalid UTF-8,
+ * Convert single < characters to entity,
+ * strip all tags,
+ * strip octets.
+ *
+ * @since 2.11.8
+ *
+ * @param string $text
+ *
+ * @return string
+ */
+function wpmtst_sanitize_textarea( $text ) {
+	$filtered = wp_check_invalid_utf8( $text );
+
+	if ( strpos( $filtered, '<' ) !== false ) {
+		$filtered = wp_pre_kses_less_than( $filtered );
+		// This will NOT strip extra whitespace.
+		$filtered = wp_strip_all_tags( $filtered, false );
+	}
+
+	while ( preg_match( '/%[a-f0-9]{2}/i', $filtered, $match ) ) {
+		$filtered = str_replace( $match[0], '', $filtered );
+	}
+
+	/**
+	 * Filter a sanitized textarea string.
+	 *
+	 * @param string $filtered The sanitized string.
+	 * @param string $str The string prior to being sanitized.
+	 */
+	return apply_filters( 'wpmtst_sanitize_textarea', $filtered, $text );
+}
+

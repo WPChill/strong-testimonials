@@ -242,10 +242,9 @@ final class Strong_Testimonials {
 		require_once WPMTST_INC . 'class-strong-templates.php';
 		require_once WPMTST_INC . 'class-strong-mail.php';
 		require_once WPMTST_INC . 'class-strong-debug.php';
-		//require_once WPMTST_INC . 'class-strong-form-handler.php';
+		require_once WPMTST_INC . 'class-strong-form.php';
 
 		require_once WPMTST_INC . 'captcha.php';
-		require_once WPMTST_INC . 'form-handler-functions.php';
 		require_once WPMTST_INC . 'l10n.php';
 		require_once WPMTST_INC . 'post-types.php';
 		require_once WPMTST_INC . 'functions.php';
