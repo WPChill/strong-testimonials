@@ -135,8 +135,8 @@
                 var scrollTop = fieldOffset.top - strongValidation.settings.scroll.onErrorOffset;
                 $('html, body').animate({scrollTop: scrollTop}, 800, function() { firstError.focus(); });
               }
-            // } else {
-            //   validator.errorList[0].element.focus();
+            } else {
+              validator.errorList[0].element.focus();
             }
           }
         },
