@@ -1,5 +1,67 @@
 <?php
 /**
+ * Form handler functions
+ */
+
+
+/**
+ * Process a form.
+ * Moved to `init` hook for strong_testimonials_view() template function.
+ *
+ * @since 2.3.0
+ */
+function wpmtst_process_form() {
+	if ( ! ( defined( 'DOING_AJAX' ) && DOING_AJAX ) ) {
+		if ( isset( $_POST['wpmtst_form_nonce'] ) ) {
+			$form_options = get_option( 'wpmtst_form_options' );
+			$success = wpmtst_form_handler();
+			if ( $success ) {
+				switch ( $form_options['success_action'] ) {
+					case 'id':
+						$goback = get_permalink( $form_options['success_redirect_id'] );
+						break;
+					case 'url':
+						$goback = $form_options['success_redirect_url'];
+						break;
+					default:
+						$goback = add_query_arg( 'success', 'yes', wp_get_referer() );
+				}
+				wp_redirect( $goback );
+				exit;
+			}
+		}
+	}
+}
+add_action( 'init', 'wpmtst_process_form', 20 );
+
+
+/**
+ * Ajax form submission handler
+ */
+function wpmtst_process_form_ajax() {
+	if ( isset( $_POST['wpmtst_form_nonce'] ) ) {
+		$success = wpmtst_form_handler();
+		if ( $success ) {
+			$return = array(
+				'success' => true,
+				'message' => wpmtst_get_success_message(),
+			);
+		} else {
+			$return = array(
+				'success' => false,
+				'errors'  => WPMST()->get_form_errors()
+			);
+		}
+		echo json_encode( $return );
+	}
+
+	die();
+}
+add_action( 'wp_ajax_wpmtst_form2', 'wpmtst_process_form_ajax' );
+add_action( 'wp_ajax_nopriv_wpmtst_form2', 'wpmtst_process_form_ajax' );
+
+
+/**
  * Testimonial form handler.
  *
  * @since 1.21.0

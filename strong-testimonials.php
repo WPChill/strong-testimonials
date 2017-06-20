@@ -236,6 +236,8 @@ final class Strong_Testimonials {
 		require_once WPMTST_INC . 'class-strong-mail.php';
 		require_once WPMTST_INC . 'class-strong-debug.php';
 
+		require_once WPMTST_INC . 'captcha.php';
+		require_once WPMTST_INC . 'form-handler-functions.php';
 		require_once WPMTST_INC . 'l10n.php';
 		require_once WPMTST_INC . 'post-types.php';
 		require_once WPMTST_INC . 'functions.php';
@@ -254,7 +256,6 @@ final class Strong_Testimonials {
 		require_once WPMTST_INC . 'shortcodes.php';
 		require_once WPMTST_INC . 'template-functions.php';
 		require_once WPMTST_INC . 'form-template-functions.php';
-		require_once WPMTST_INC . 'captcha.php';
 		require_once WPMTST_INC . 'scripts.php';
 		require_once WPMTST_INC . 'class-walker-strong-category-checklist-front.php';
 
@@ -328,11 +329,9 @@ final class Strong_Testimonials {
 		add_action( 'plugins_loaded', array( $this, 'load_textdomain' ) );
 
 		if ( is_admin() ) {
+			// Custom fields editor
 			add_action( 'wpmtst_form_admin', 'wpmtst_form_admin2' );
 		} else {
-			// Process form data.
-			add_action( 'init', array( $this, 'process_form' ), 100 );
-
 			// Catch email errors.
 			add_action( 'wp_mail_failed', array( $this, 'catch_mail_failed' ) );
 		}
@@ -396,12 +395,6 @@ final class Strong_Testimonials {
 		add_action( 'wpmtst_form_success',  array( $this, 'view_rendered_after' ) );
 
 		/**
-		 * Ajax form submission handler
-		 */
-		add_action( 'wp_ajax_wpmtst_form2', array( $this, 'form_handler2' ) );
-		add_action( 'wp_ajax_nopriv_wpmtst_form2', array( $this, 'form_handler2' ) );
-
-		/**
 		 * Conditionally enqueue styles and scripts.
 		 */
 
@@ -426,33 +419,6 @@ final class Strong_Testimonials {
 			add_action( 'wp_enqueue_scripts', array( $this, 'find_blackstudio_widgets' ), 1 );
 		}
 
-	}
-
-	/**
-	 * Ajax form submission handler
-	 *
-	 * @since 1.25.0
-	 */
-	public function form_handler2() {
-		if ( isset( $_POST['wpmtst_form_nonce'] ) ) {
-			require_once WPMTST_INC . 'captcha.php';
-			require_once WPMTST_INC . 'form-handler-functions.php';
-			$success = wpmtst_form_handler();
-			if ( $success ) {
-				$return = array(
-					'success' => true,
-					'message' => wpmtst_get_success_message(),
-				);
-			} else {
-				$return = array(
-					'success' => false,
-					'errors'  => WPMST()->get_form_errors()
-				);
-			}
-			echo json_encode( $return );
-		}
-
-		die();
 	}
 
 	/**
@@ -1170,35 +1136,6 @@ final class Strong_Testimonials {
 		 * @since 2.22.0
 		 */
 		do_action( 'wpmtst_view_found', $atts );
-	}
-
-	/**
-	 * Process a form.
-	 * Moved to `init` hook for strong_testimonials_view() template function.
-	 *
-	 * @since 2.3.0
-	 */
-	public function process_form() {
-		if ( isset( $_POST['wpmtst_form_nonce'] ) ) {
-			$form_options = get_option( 'wpmtst_form_options' );
-			require_once WPMTST_INC . 'captcha.php';
-			require_once WPMTST_INC . 'form-handler-functions.php';
-			$success = wpmtst_form_handler();
-			if ( $success ) {
-				switch ( $form_options['success_action'] ) {
-					case 'id':
-						$goback = get_permalink( $form_options['success_redirect_id'] );
-						break;
-					case 'url':
-						$goback = $form_options['success_redirect_url'];
-						break;
-					default:
-						$goback = add_query_arg( 'success', 'yes', wp_get_referer() );
-				}
-				wp_redirect( $goback );
-				exit;
-			}
-		}
 	}
 
 	/**
