@@ -67,18 +67,6 @@
 
     changeEvents: function () {
 
-      // Star ratings
-      var ratings = document.getElementsByClassName('strong-rating');
-      for (var i = 0; i < ratings.length; i++) {
-        ratings[i].addEventListener("click", this.handleRadioEvent, true);
-        ratings[i].addEventListener("keyup", this.handleRadioEvent, true);
-      }
-
-      // Validate star-rating on change
-      $(".strong-rating").on("change", function () {
-        $(this).valid();
-      });
-
       // Add protocol if missing
       // Thanks http://stackoverflow.com/a/36429927/51600
       $("input[type=url]").change(function () {
@@ -86,6 +74,16 @@
           this.value = "http://" + this.value;
         }
       });
+
+      // Star ratings
+      var ratings = document.getElementsByClassName('strong-rating');
+      for (var i = 0; i < ratings.length; i++) {
+        // Handle keystrokes
+        ratings[i].addEventListener("click", this.handleRadioEvent, true);
+        ratings[i].addEventListener("keyup", this.handleRadioEvent, true);
+        // Validate on change
+        ratings[i].addEventListener("change", function(){ $(this).valid(); }, true);
+      }
 
     },
 
