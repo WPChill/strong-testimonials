@@ -40,6 +40,7 @@ if ( ! class_exists( 'Strong_Testimonials' ) ) :
  * @property  Strong_Mail mail
  * @property  Strong_Templates templates
  * @property  Strong_Debug debug
+ * @property  Strong_Testimonials_Form_Handler form_handler
  * @since 1.15.0
  */
 final class Strong_Testimonials {
@@ -88,6 +89,11 @@ final class Strong_Testimonials {
 	 * @var Strong_Debug
 	 */
 	public $debug;
+
+	/**
+	 * @var Strong_Testimonials_Form_Handler
+	 */
+	public $form_handler;
 
 	/**
 	 * A singleton instance.
@@ -216,6 +222,7 @@ final class Strong_Testimonials {
 		$this->mail      = new Strong_Mail();
 		$this->templates = new Strong_Templates();
 		$this->debug     = new Strong_Debug();
+		$this->form_handler = new Strong_Testimonials_Form_Handler();
 	}
 
 	/**
@@ -235,6 +242,7 @@ final class Strong_Testimonials {
 		require_once WPMTST_INC . 'class-strong-templates.php';
 		require_once WPMTST_INC . 'class-strong-mail.php';
 		require_once WPMTST_INC . 'class-strong-debug.php';
+		//require_once WPMTST_INC . 'class-strong-form-handler.php';
 
 		require_once WPMTST_INC . 'captcha.php';
 		require_once WPMTST_INC . 'form-handler-functions.php';

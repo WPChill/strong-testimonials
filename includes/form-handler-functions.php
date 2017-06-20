@@ -3,15 +3,34 @@
  * Form handler functions
  */
 
+class Strong_Testimonials_Form_Handler {
 
-/**
- * Process a form.
- * Moved to `init` hook for strong_testimonials_view() template function.
- *
- * @since 2.3.0
- */
-function wpmtst_process_form() {
-	if ( ! ( defined( 'DOING_AJAX' ) && DOING_AJAX ) ) {
+	public function __construct() {
+
+		$this->add_actions();
+
+	}
+
+	public function add_actions() {
+
+		add_action( 'init', array( $this, 'process_form'), 20 );
+
+		add_action( 'wp_ajax_wpmtst_form2', array( $this, 'process_form_ajax' ) );
+		add_action( 'wp_ajax_nopriv_wpmtst_form2', array( $this, 'process_form_ajax' ) );
+
+	}
+
+	/**
+	 * Process a form.
+	 * Moved to `init` hook for strong_testimonials_view() template function.
+	 *
+	 * @since 2.3.0
+	 */
+	public function process_form() {
+		if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
+			return;
+		}
+
 		if ( isset( $_POST['wpmtst_form_nonce'] ) ) {
 			$form_options = get_option( 'wpmtst_form_options' );
 			$success = wpmtst_form_handler();
@@ -31,35 +50,31 @@ function wpmtst_process_form() {
 			}
 		}
 	}
-}
-add_action( 'init', 'wpmtst_process_form', 20 );
 
-
-/**
- * Ajax form submission handler
- */
-function wpmtst_process_form_ajax() {
-	if ( isset( $_POST['wpmtst_form_nonce'] ) ) {
-		$success = wpmtst_form_handler();
-		if ( $success ) {
-			$return = array(
-				'success' => true,
-				'message' => wpmtst_get_success_message(),
-			);
-		} else {
-			$return = array(
-				'success' => false,
-				'errors'  => WPMST()->get_form_errors()
-			);
+	/**
+	 * Ajax form submission handler
+	 */
+	public function process_form_ajax() {
+		if ( isset( $_POST['wpmtst_form_nonce'] ) ) {
+			$success = wpmtst_form_handler();
+			if ( $success ) {
+				$return = array(
+					'success' => true,
+					'message' => wpmtst_get_success_message(),
+				);
+			} else {
+				$return = array(
+					'success' => false,
+					'errors'  => WPMST()->get_form_errors()
+				);
+			}
+			echo json_encode( $return );
 		}
-		echo json_encode( $return );
+
+		die();
 	}
 
-	die();
 }
-add_action( 'wp_ajax_wpmtst_form2', 'wpmtst_process_form_ajax' );
-add_action( 'wp_ajax_nopriv_wpmtst_form2', 'wpmtst_process_form_ajax' );
-
 
 /**
  * Testimonial form handler.
