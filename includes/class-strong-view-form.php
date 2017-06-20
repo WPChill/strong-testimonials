@@ -182,7 +182,8 @@ class Strong_View_Form extends Strong_View {
 
 		$form_options = get_option( 'wpmtst_form_options' );
 
-		// Assemble script variable
+		// Assemble script variable.
+		// Remember: top level is converted to strings!
 		$scroll = array(
 			'onError'         => $form_options['scrolltop_error'] ? true : false,
 			'onErrorOffset'   => $form_options['scrolltop_error_offset'],
@@ -219,10 +220,15 @@ class Strong_View_Form extends Strong_View {
 	public function on_form_success() {
 		$form_options = get_option( 'wpmtst_form_options' );
 
+		// Remember: top level is converted to strings!
 		$args = array(
-			'displaySuccessMessage'  => 1,
-			'scrollTopSuccess'       => $form_options['scrolltop_success'],
-			'scrollTopSuccessOffset' => $form_options['scrolltop_success_offset'],
+			'display' => array(
+				'successMessage' => true,
+			),
+			'scroll'  => array(
+				'onSuccess'       => $form_options['scrolltop_success'],
+				'onSuccessOffset' => $form_options['scrolltop_success_offset'],
+			),
 		);
 
 		WPMST()->add_script( 'wpmtst-form-validation' );

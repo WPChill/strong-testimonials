@@ -10,8 +10,10 @@
   var strongValidation = {
 
     defaults: {
-      displaySuccessMessage: false,
       ajaxUrl: '',
+      display: {
+        successMessage: false
+      },
       scroll: {
         onError: true,
         onErrorOffset: 100,
@@ -25,7 +27,7 @@
 
     setOpts: function (options) {
       this.settings = $.extend({}, this.defaults, options);
-    },
+      },
 
     /**
      * Add custom validation rule to star-rating pseudo elements.
@@ -55,7 +57,7 @@
 
       this.setRules();
 
-      if (this.settings.displaySuccessMessage) {
+      if (this.settings.display.successMessage) {
         this.scrollOnSuccess();
       } else {
         this.changeEvents();

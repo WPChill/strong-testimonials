@@ -387,6 +387,15 @@ final class Strong_Testimonials {
 		add_action( 'wpmtst_form_success',  array( $this, 'view_rendered' ) );
 
 		/**
+		 * Print script variables only after view is rendered.
+		 *
+		 * @since 2.24.1
+		 */
+		add_action( 'wpmtst_view_rendered', array( $this, 'view_rendered_after' ) );
+		add_action( 'wpmtst_form_rendered', array( $this, 'view_rendered_after' ) );
+		add_action( 'wpmtst_form_success',  array( $this, 'view_rendered_after' ) );
+
+		/**
 		 * Ajax form submission handler
 		 */
 		add_action( 'wp_ajax_wpmtst_form2', array( $this, 'form_handler2' ) );
@@ -458,6 +467,15 @@ final class Strong_Testimonials {
 	public function view_rendered() {
 		$this->load_styles();
 		$this->load_scripts();
+	}
+
+	/**
+	 * Add script variables only after view is rendered.
+	 * To prevent duplicate variables.
+	 *
+	 * @since 2.24.1
+	 */
+	public function view_rendered_after() {
 		$this->localize_scripts();
 	}
 
@@ -722,17 +740,14 @@ final class Strong_Testimonials {
 	 * @param array $var The script variable.
 	 *
 	 * @since 2.17.5 Using variable name as key.
-	 * @since 2.24.1 Adding 'registered' state.
 	 */
 	public function add_script_var( $script_name, $var_name, $var ) {
-		if ( ! array_key_exists( $var_name, $this->script_vars ) ) {
-			$this->script_vars[ $var_name ] = array(
-				'script_name' => $script_name,
-				'var_name'    => $var_name,
-				'var'         => $var,
-				'state'       => 'registered',
-			);
-		}
+		unset($this->script_vars[ $var_name ]);
+		$this->script_vars[ $var_name ] = array(
+			'script_name' => $script_name,
+			'var_name'    => $var_name,
+			'var'         => $var,
+		);
 	}
 
 	/**
@@ -779,12 +794,8 @@ final class Strong_Testimonials {
 		$vars = $this->script_vars;
 		if ( $vars ) {
 			foreach ( $vars as $key => $var ) {
-				if ( 'registered' == $var['state'] ) {
-					wp_localize_script( $var['script_name'], $var['var_name'], $var['var'] );
-					$vars[ $key ]['state'] = 'printed';
-				}
+				wp_localize_script( $var['script_name'], $var['var_name'], $var['var'] );
 			}
-			$this->script_vars = $vars;
 		}
 	}
 
