@@ -122,18 +122,26 @@
 
         onfocusout: false,
 
+        focusInvalid: false,
+
         invalidHandler: function (form, validator) {
+          // Focus first invalid input
           var errors = validator.numberOfInvalids();
           if (errors) {
-            validator.errorList[0].element.focus();
+            if (strongValidation.settings.scroll.onError) {
+              if (typeof validator.errorList[0] !== "undefined") {
+                var firstError = $(validator.errorList[0].element);
+                var fieldOffset = firstError.closest(".form-field").offset();
+                var scrollTop = fieldOffset.top - strongValidation.settings.scroll.onErrorOffset;
+                $('html, body').animate({scrollTop: scrollTop}, 800, function() { firstError.focus(); });
+              }
+            // } else {
+            //   validator.errorList[0].element.focus();
+            }
           }
         },
 
         submitHandler: function (form) {
-          // validate rating fields first
-          if (!$(".strong-rating").valid()) {
-            return false;
-          }
           // If Ajax
           if (strongValidation.settings.ajaxUrl !== '') {
             var formOptions = {
@@ -150,8 +158,6 @@
         },
 
         rules: strongValidation.rules,
-
-        showErrors: strongValidation.showErrors,
 
         errorPlacement: function (error, element) {
           error.appendTo(element.closest("div.form-field"));
@@ -179,26 +185,6 @@
 
       });
 
-    },
-
-    /**
-     * Custom error handler
-     *
-     * Thanks http://stackoverflow.com/a/30652843/51600
-     *
-     * @param errorMap
-     * @param errorList
-     */
-    showErrors: function (errorMap, errorList) {
-      if (strongValidation.settings.scroll.onError) {
-        if (typeof errorList[0] !== "undefined") {
-          var firstError = $(errorList[0].element);
-          var fieldOffset = firstError.closest(".form-field").offset();
-          var scrollTop = fieldOffset.top - strongValidation.settings.scroll.onErrorOffset;
-          $('html, body').animate({scrollTop: scrollTop}, 800);
-        }
-      }
-      this.defaultShowErrors();
     },
 
     /**
