@@ -58,7 +58,7 @@
 
 /* in the post editor */
 .strong-rating-wrapper.in-metabox .strong-rating {
-  padding-top: 0;
+  padding: 0;
 }
 
 .strong-rating-wrapper.in-metabox .strong-rating > label:before {
