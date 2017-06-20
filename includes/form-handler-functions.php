@@ -91,7 +91,6 @@ function wpmtst_form_handler() {
 
 	add_filter( 'upload_mimes', 'wpmtst_restrict_mime' );
 
-	$options      = get_option( 'wpmtst_options' );
 	$form_options = get_option( 'wpmtst_form_options' );
 	$messages     = $form_options['messages'];
 
@@ -440,7 +439,6 @@ function wpmtst_wp_handle_upload( $file_handler, $overrides ) {
 function wpmtst_notify_admin( $post, $form_name = 'custom' ) {
 	$fields = wpmtst_get_form_fields( $form_name );
 
-	//$options      = get_option( 'wpmtst_options' );
 	$form_options = get_option( 'wpmtst_form_options' );
 
 	if ( $form_options['admin_notify'] ) {
