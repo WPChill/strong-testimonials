@@ -155,7 +155,6 @@ class Strong_View_Form extends Strong_View {
 	public function load_special() {
 
 		// Assemble list of field properties for validation script.
-		// Load rating stylesheet if necessary.
 		$form_id     = isset( $this->atts['form_id'] ) ? $this->atts['form_id'] : 1;
 		$form_fields = wpmtst_get_form_fields( $form_id );
 		$fields      = array();
@@ -168,6 +167,7 @@ class Strong_View_Form extends Strong_View {
 				'required' => $field['required'],
 			);
 
+			// Load rating stylesheet if necessary.
 			if ( isset( $field['input_type'] ) && 'rating' == $field['input_type'] ) {
 				WPMST()->add_style( 'wpmtst-rating-form' );
 			}
@@ -182,12 +182,17 @@ class Strong_View_Form extends Strong_View {
 
 		$form_options = get_option( 'wpmtst_form_options' );
 
+		// Assemble script variable
+		$scroll = array(
+			'onError'         => $form_options['scrolltop_error'] ? true : false,
+			'onErrorOffset'   => $form_options['scrolltop_error_offset'],
+			'onSuccess'       => $form_options['scrolltop_success'] ? true : false,
+			'onSuccessOffset' => $form_options['scrolltop_success_offset'],
+		);
+
 		$args = array(
-			'scrollTopError'         => $form_options['scrolltop_error'],
-			'scrollTopErrorOffset'   => $form_options['scrolltop_error_offset'],
-			'scrollTopSuccess'       => $form_options['scrolltop_success'],
-			'scrollTopSuccessOffset' => $form_options['scrolltop_success_offset'],
-			'fields'                 => $fields,
+			'scroll' => $scroll,
+			'fields' => $fields,
 		);
 
 		if ( $this->atts['form_ajax'] ) {

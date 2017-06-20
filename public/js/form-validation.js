@@ -12,10 +12,12 @@
     defaults: {
       displaySuccessMessage: false,
       ajaxUrl: '',
-      scrollTopError: 1,
-      scrollTopErrorOffset: 100,
-      scrollTopSuccess: 1,
-      scrollTopSuccessOffset: 100,
+      scroll: {
+        onError: true,
+        onErrorOffset: 100,
+        onSuccess: true,
+        onSuccessOffset: 100
+      },
       fields: {}
     },
 
@@ -188,11 +190,11 @@
      * @param errorList
      */
     showErrors: function (errorMap, errorList) {
-      if (strongValidation.settings.scrollTopError === "1") {
+      if (strongValidation.settings.scroll.onError) {
         if (typeof errorList[0] !== "undefined") {
           var firstError = $(errorList[0].element);
           var fieldOffset = firstError.closest(".form-field").offset();
-          var scrollTop = fieldOffset.top - strongValidation.settings.scrollTopErrorOffset;
+          var scrollTop = fieldOffset.top - strongValidation.settings.scroll.onErrorOffset;
           $('html, body').animate({scrollTop: scrollTop}, 800);
         }
       }
@@ -226,11 +228,11 @@
      * Scroll to success message
      */
     scrollOnSuccess: function () {
-      if (strongValidation.settings.scrollTopSuccess === "1") {
+      if (strongValidation.settings.scroll.onSuccess) {
         var containerOffset, scrollTop;
         containerOffset = $(".testimonial-success").offset();
         if (containerOffset) {
-          scrollTop = containerOffset.top - strongValidation.settings.scrollTopSuccessOffset;
+          scrollTop = containerOffset.top - strongValidation.settings.scroll.onSuccessOffset;
           // is WordPress admin bar showing?
           if ($("#wpadminbar").length) {
             scrollTop -= 32;
