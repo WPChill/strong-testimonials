@@ -55,14 +55,17 @@
       }
       this.setOpts(strongForm);
 
-      this.setRules();
-
       if (this.settings.display.successMessage) {
+
         this.scrollOnSuccess();
+
       } else {
+
+        this.setRules();
         this.changeEvents();
         this.customValidators();
         this.validateForm();
+
       }
 
     },
