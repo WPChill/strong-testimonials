@@ -154,7 +154,7 @@ function wpmtst_single_form_field( $field ) {
 
             if ( isset( $field['text'] ) ) {
                 echo '<label for="wpmtst_' . $field['name'] . '" class="checkbox-label">';
-                echo $field['text'];
+	            echo wpmtst_form_field_meta_l10n( $field['text'], $field, 'text' );
                 echo '</label>';
             }
 
