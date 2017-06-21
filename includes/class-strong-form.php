@@ -105,12 +105,13 @@ class Strong_Testimonials_Form {
 		$form_options = get_option( 'wpmtst_form_options' );
 		$messages     = $form_options['messages'];
 
-		// Init three arrays: post, post_meta, attachment(s).
+		// Init four arrays: post, post_meta, categories, attachment(s).
 		$testimonial_post = array(
 			'post_status' => $form_options['post_status'],
 			'post_type'   => 'wpm-testimonial'
 		);
 		$testimonial_meta = array();
+		$testimonial_cats = array();
 		$testimonial_att  = array();
 
 		$form_errors = array();
@@ -257,23 +258,22 @@ class Strong_Testimonials_Form {
 				 * @since 2.17.0 Handle arrays (if using checklist) or strings (if using <select>).
 				 * @since 2.19.1 Storing default category (as set in view) in separate hidden field.
 				 */
-				$cats = array();
 
 				if ( $new_post['default_category'] ) {
-					$cats = explode( ',', $new_post['default_category'] );
+					$testimonial_cats = explode( ',', $new_post['default_category'] );
 				}
 
 				if ( $new_post['category'] ) {
 					if ( is_string( $new_post['category'] ) ) {
 						$new_post['category'] = explode( ',', $new_post['category'] );
 					}
-					$cats = array_merge( $cats, $new_post['category'] );
+					$testimonial_cats = array_merge( $testimonial_cats, $new_post['category'] );
 				}
 
-				$cats = array_map( 'intval', array_unique( $cats ) );
+				$testimonial_cats = array_map( 'intval', array_unique( $testimonial_cats ) );
 
-				if ( array_filter( $cats ) ) {
-					$category_success = wp_set_object_terms( $testimonial_id, $cats, 'wpm-testimonial-category' );
+				if ( array_filter( $testimonial_cats ) ) {
+					$category_success = wp_set_object_terms( $testimonial_id, $testimonial_cats, 'wpm-testimonial-category' );
 
 					if ( ! $category_success ) {
 						// TODO improve error handling
