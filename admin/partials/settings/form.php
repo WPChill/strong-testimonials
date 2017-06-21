@@ -65,15 +65,24 @@ foreach ( $plugins as $key => $plugin ) {
                     wp_editor( $content, $elid, $settings );
                     ?>
 				<?php else: ?>
+	                <?php if ( 'required_field' == $elid ): ?>
+                        <fieldset>
+                            <label>
+                                <input type="checkbox" name="wpmtst_form_options[messages][<?php echo $key; ?>][enabled]"
+                                    <?php checked( $message['enabled'] ); ?>"/>
+                                <?php _e( 'Display required notice at top of form', 'strong-testimonials' ); ?>
+                            </label
+                        </fieldset>
+                    <?php endif; ?>
                     <input type="text" id="<?php echo $elid; ?>"
                            name="wpmtst_form_options[messages][<?php echo $key; ?>][text]"
-                           value="<?php echo esc_attr( $content ); ?>" required />
+                           value="<?php esc_attr_e( $content ); ?>" required />
                 <?php endif; ?>
             </td>
             <td class="actions">
                 <input type="button" class="button secondary restore-default-message"
                        value="<?php _ex( 'restore default', 'singular', 'strong-testimonials' ); ?>"
-                       data-target-id="<?php echo $elid; ?>"/>
+                       data-target-id="<?php esc_attr_e( $elid ); ?>"/>
             </td>
         </tr>
 

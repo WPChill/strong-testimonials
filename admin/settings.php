@@ -202,6 +202,9 @@ function wpmtst_sanitize_form( $input ) {
 	    if ( 'submission-success' == $key ) {
 			$input['messages'][ $key ]['text'] = $message['text'];
 		} else {
+	        if ( 'required-field' == $key ) {
+	            $input['messages'][ $key ]['enabled'] = wpmtst_sanitize_checkbox( $input['messages'][ $key ], 'enabled' );
+	        }
 			$input['messages'][ $key ]['text'] = wp_kses_data( $message['text'] );
 		}
 	}

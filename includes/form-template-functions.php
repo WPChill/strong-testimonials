@@ -275,17 +275,23 @@ function wpmtst_field_required_tag( $field ) {
  * Print "Required field" notice.
  *
  * @since 2.23.0
+ * @since 2.24.1 Print only if enabled.
  */
 function wpmtst_field_required_notice() {
-    ob_start();
-    ?>
-    <p class="required-notice">
-        <?php wpmtst_field_required_symbol(); ?><?php wpmtst_form_message( 'required-field' ); ?>
-    </p>
-    <?php
-    $html = ob_get_clean();
-
-    echo ( apply_filters( 'wpmtst_field_required', $html ) );
+	$html         = '';
+	$form_options = get_option( 'wpmtst_form_options' );
+	$notice       = $form_options['messages']['required-field'];
+	if ( isset( $notice['enabled'] ) && $notice['enabled'] ) {
+		ob_start();
+		?>
+        <p class="required-notice">
+			<?php wpmtst_field_required_symbol(); ?><?php wpmtst_form_message( 'required-field' ); ?>
+        </p>
+		<?php
+		$html = ob_get_clean();
+	}
+	// Echo even if disabled to allow a custom notice.
+    echo( apply_filters( 'wpmtst_field_required', $html ) );
 }
 
 /**
