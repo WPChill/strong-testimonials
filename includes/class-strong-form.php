@@ -98,12 +98,13 @@ class Strong_Testimonials_Form {
 			return false;
 		}
 
+		do_action( 'wpmtst_form_submission' );
+
 		$new_post = stripslashes_deep( $_POST );
 
 		add_filter( 'upload_mimes', array( $this, 'restrict_mime' ) );
 
 		$form_options = get_option( 'wpmtst_form_options' );
-		$messages     = $form_options['messages'];
 
 		// Init four arrays: post, post_meta, categories, attachment(s).
 		$testimonial_post = array(
@@ -243,12 +244,13 @@ class Strong_Testimonials_Form {
 		if ( ! count( $form_errors ) ) {
 
 			// create new testimonial post
-			$testimonial_id = wp_insert_post( $testimonial_post );
+			$testimonial_id = wp_insert_post( apply_filters( 'wpmtst_new_testimonial_post', $testimonial_post ) );
+
 			if ( is_wp_error( $testimonial_id ) ) {
 
 				WPMST()->log( $testimonial_id, __FUNCTION__ );
 				// TODO report errors in admin
-				$form_errors['post'] = $messages['submission-error']['text'];
+				$form_errors['post'] = $form_options['messages']['submission-error']['text'];
 
 			} else {
 
@@ -288,15 +290,14 @@ class Strong_Testimonials_Form {
 				 *
 				 * @since 2.17.0 Exclude categories.
 				 */
-				foreach ( $testimonial_meta as $key => $field ) {
-					if ( 'category' == $key ) {
-						continue;
-					}
-
+				$new_meta = array_diff_key( $testimonial_meta, array( 'category' => '' ) );
+				$new_meta = apply_filters( 'wpmtst_new_testimonial_meta', $new_meta );
+				foreach ( $new_meta as $key => $field ) {
 					add_post_meta( $testimonial_id, $key, $field );
 				}
 
 				// save attachments
+				$testimonial_att = apply_filters( 'wpmtst_new_testimonial_attachments', $testimonial_att );
 				foreach ( $testimonial_att as $name => $atts ) {
 					if ( isset( $atts['attachment'] ) ) {
 						$atts['attachment']['post_parent'] = $testimonial_id;
@@ -320,6 +321,8 @@ class Strong_Testimonials_Form {
 		 * Post inserted successfully, carry on.
 		 */
 		$form_values = array_merge( $testimonial_post, $testimonial_meta );
+
+		do_action( 'wpmtst_new_testimonial_added', $testimonial_post, $testimonial_meta, $testimonial_cats, $testimonial_att );
 
 		if ( ! count( $form_errors ) ) {
 			// Clear saved form data and errors.
