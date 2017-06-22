@@ -939,6 +939,12 @@ ul.radio-list {
 /*--------------------------------------------------
  * misc
  *--------------------------------------------------*/
+span.shortcode-att-highlight,
+.inline span.shortcode-att-highlight {
+  color: #FF0000;
+  margin: 0;
+}
+
 .highlight-on {
   /* 00A4F3 */
   background: rgba(0, 164, 255, 0.05);
