@@ -75,7 +75,7 @@
 		<?php
 		$link1 = sprintf(
 			wp_kses( __( 'Good <a href="%s" target="_blank">reviews</a> are appreciated!', 'strong-testimonials' ), $tags ),
-            esc_url( 'https://wordpress.org/support/view/plugin-reviews/strong-testimonials' ) );
+            esc_url( 'https://wordpress.org/support/plugin/strong-testimonials/reviews/#new-post' ) );
 		?>
 		<div class="has-icon icon-donate">
 			<h3><?php _e( 'Like It?', 'strong-testimonials' ); ?></h3>
