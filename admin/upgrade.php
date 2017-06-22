@@ -302,6 +302,7 @@ function wpmtst_upgrade() {
 	 * -7B-
 	 * Update each view.
 	 */
+	// TODO Make this a function accessible by add-ons; i.e. update_view( array ( {parameter} => {value} ) );
 	$views = wpmtst_get_views();
 
 	if ( $views ) {

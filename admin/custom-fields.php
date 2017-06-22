@@ -363,7 +363,6 @@ function wpmtst_show_field_secondary( $key, $field ) {
 			$html .= '<th>' . __( 'Shortcode on form', 'strong-testimonials' ) . '</th>' . "\n";
 			$html .= '<td>' . "\n";
 			$html .= '<input type="text" name="fields[' . $key . '][shortcode_on_form]" value="' . esc_attr( $field['shortcode_on_form'] ) . '">';
-			//$html .= '<span class="help">' . __( 'Display this on the testimonial if no value is submitted.', 'strong-testimonials' ) . '</span>';
 			$html .= '</td>' . "\n";
 			$html .= '</tr>' . "\n";
 		}
@@ -372,7 +371,6 @@ function wpmtst_show_field_secondary( $key, $field ) {
 			$html .= '<th>' . __( 'Shortcode on display', 'strong-testimonials' ) . '</th>' . "\n";
 			$html .= '<td>' . "\n";
 			$html .= '<input type="text" name="fields[' . $key . '][shortcode_on_display]" value="' . esc_attr( $field['shortcode_on_display'] ) . '">';
-			//$html .= '<span class="help">' . __( 'Display this on the testimonial if no value is submitted.', 'strong-testimonials' ) . '</span>';
 			$html .= '</td>' . "\n";
 			$html .= '</tr>' . "\n";
 		}
