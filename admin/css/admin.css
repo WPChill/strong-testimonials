@@ -739,6 +739,7 @@ td.column-id {
 
 .form-table.shortcodes th {
   padding-left: 10px;
+  width: auto;
 }
 
 .form-table.shortcodes td {
@@ -747,6 +748,28 @@ td.column-id {
 
 .form-table.shortcodes td.shortcode {
   font-family: Consolas, Monaco, monospace;
+}
+
+.form-table.shortcodes td p {
+  margin: 1em 0;
+}
+
+.form-table.shortcodes td p:first-child {
+  margin-top: 0;
+}
+
+.form-table.shortcodes td p:last-child {
+  margin-bottom: 0;
+}
+
+/* special */
+
+.form-table.shortcodes tr.important {
+  background: #FFF;
+}
+
+.form-table.shortcodes tr.important td {
+  border: 1px solid #CCC;
 }
 
 /* Misc
