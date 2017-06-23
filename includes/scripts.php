@@ -22,7 +22,7 @@ function wpmtst_scripts() {
 	 * Simple pagination
 	 */
 	wp_register_script( 'wpmtst-pager-plugin',
-		WPMTST_PUBLIC_URL . 'js/lib/quickpager/jquery.quickpager.js',
+		WPMTST_PUBLIC_URL . "js/lib/quickpager/jquery.quickpager{$min}.js",
 		array( 'jquery' ),
 		false,
 		true );
@@ -114,7 +114,7 @@ function wpmtst_scripts() {
 		true );
 
 	wp_register_script( 'wpmtst-form-validation',
-		WPMTST_PUBLIC_URL . 'js/lib/form-validation/form-validation.js',
+		WPMTST_PUBLIC_URL . "js/lib/form-validation/form-validation{$min}.js",
 		array( 'wpmtst-validation-plugin', 'jquery-form' ),
 		$plugin_version,
 		true );
@@ -168,7 +168,7 @@ function wpmtst_scripts() {
 		true );
 
 	wp_register_script( 'strongslider',
-		WPMTST_PUBLIC_URL . 'js/lib/strongslider/jquery.strongslider.js',
+		WPMTST_PUBLIC_URL . "js/lib/strongslider/jquery.strongslider{$min}.js",
 		array( 'wpmslider', 'underscore' ),
 		$plugin_version,
 		true );
