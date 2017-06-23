@@ -40,117 +40,117 @@
       pageSize: 10,
       currentPage: 1,
       holder: null,
-      pagerLocation: "after",
+      pagerLocation: 'after',
       scrollTop: 1,
       offset: 40
-    };
+    }
 
-    options = $.extend(defaults, options);
+    options = $.extend(defaults, options)
 
     return this.each(function () {
 
-      var selector = $(this);
-      var pageCounter = 1;
+      var selector = $(this)
+      var pageCounter = 1
 
-      selector.wrap("<div class='simplePagerContainer'></div>");
+      selector.wrap('<div class=\'simplePagerContainer\'></div>')
 
       selector.children().each(function (i) {
 
         if (i < pageCounter * options.pageSize && i >= (pageCounter - 1) * options.pageSize) {
-          $(this).addClass("simplePagerPage" + pageCounter);
+          $(this).addClass('simplePagerPage' + pageCounter)
         }
         else {
-          $(this).addClass("simplePagerPage" + (pageCounter + 1));
-          pageCounter++;
+          $(this).addClass('simplePagerPage' + (pageCounter + 1))
+          pageCounter++
         }
 
-      });
+      })
 
       // show/hide the appropriate regions
-      selector.children().hide();
-      selector.children(".simplePagerPage" + options.currentPage).show();
+      selector.children().hide()
+      selector.children('.simplePagerPage' + options.currentPage).show()
 
       if (pageCounter <= 1) {
-        return;
+        return
       }
 
       //Build pager navigation
-      var pageNav = "<ul class='simplePagerNav'>";
+      var pageNav = '<ul class=\'simplePagerNav\'>'
       for (var i = 1; i <= pageCounter; i++) {
         if (i === options.currentPage) {
-          pageNav += "<li class='currentPage simplePageNav" + i + "'><a rel='" + i + "' href='#'>" + i + "</a></li>";
+          pageNav += '<li class=\'currentPage simplePageNav' + i + '\'><a rel=\'' + i + '\' href=\'#\'>' + i + '</a></li>'
         }
         else {
-          pageNav += "<li class='simplePageNav" + i + "'><a rel='" + i + "' href='#'>" + i + "</a></li>";
+          pageNav += '<li class=\'simplePageNav' + i + '\'><a rel=\'' + i + '\' href=\'#\'>' + i + '</a></li>'
         }
       }
-      pageNav += "</ul>";
-      pageNav = "<div class='simplePagerList'>" + pageNav + "</div>";
+      pageNav += '</ul>'
+      pageNav = '<div class=\'simplePagerList\'>' + pageNav + '</div>'
 
       if (!options.holder) {
         switch (options.pagerLocation) {
-          case "before":
-            selector.before(pageNav);
-            break;
-          case "both":
-            selector.before(pageNav);
-            selector.after(pageNav);
-            break;
+          case 'before':
+            selector.before(pageNav)
+            break
+          case 'both':
+            selector.before(pageNav)
+            selector.after(pageNav)
+            break
           default:
-            selector.after(pageNav);
+            selector.after(pageNav)
         }
       }
       else {
-        $(options.holder).append(pageNav);
+        $(options.holder).append(pageNav)
       }
 
       //pager navigation behaviour
-      selector.parent().find(".simplePagerNav a").click(function () {
+      selector.parent().find('.simplePagerNav a').click(function () {
 
         //grab the REL attribute
-        var clickedLink = $(this).attr("rel");
-        options.currentPage = clickedLink;
+        var clickedLink = $(this).attr('rel')
+        options.currentPage = clickedLink
 
         if (options.holder) {
-          $(this).closest(options.holder).find("li.currentPage").removeClass("currentPage");
-          $(this).closest(options.holder).find("a[rel='" + clickedLink + "']").parent("li").addClass("currentPage");
+          $(this).closest(options.holder).find('li.currentPage').removeClass('currentPage')
+          $(this).closest(options.holder).find('a[rel=\'' + clickedLink + '\']').parent('li').addClass('currentPage')
         }
         else {
           // Remove current page highlight
-          $(this).closest(".simplePagerContainer").find("li.currentPage").removeClass("currentPage");
+          $(this).closest('.simplePagerContainer').find('li.currentPage').removeClass('currentPage')
           // Add current page highlight
-          $(this).closest(".simplePagerContainer").find("a[rel='" + clickedLink + "']").parent("li").addClass("currentPage");
+          $(this).closest('.simplePagerContainer').find('a[rel=\'' + clickedLink + '\']').parent('li').addClass('currentPage')
         }
 
         // Hide and show relevant links
-        selector.children().hide();
-        selector.find(".simplePagerPage" + clickedLink).show();
+        selector.children().hide()
+        selector.find('.simplePagerPage' + clickedLink).show()
 
         // Scroll up for any nav click
         if (parseInt(options.scrollTop)) {
-          var containerOffset;
+          var containerOffset
 
           // Special cases:
           //   WooCommerce product tabs
-          if (selector.closest(".woocommerce-tabs").length) {
-            containerOffset = selector.closest(".woocommerce-tabs").offset();
+          if (selector.closest('.woocommerce-tabs').length) {
+            containerOffset = selector.closest('.woocommerce-tabs').offset()
           } else {
-            containerOffset = selector.closest(".simplePagerContainer").offset();
+            containerOffset = selector.closest('.simplePagerContainer').offset()
           }
 
-          var scrollto = containerOffset.top - options.offset;
+          var scrollto = containerOffset.top - options.offset
 
           // is WordPress admin bar showing?
-          if ($("#wpadminbar").length) {
-            scrollto -= 32;
+          if ($('#wpadminbar').length) {
+            scrollto -= 32
           }
 
-          $("html, body").animate({scrollTop: scrollto}, 800);
+          $('html, body').animate({scrollTop: scrollto}, 800)
         }
 
-        return false;
-      });
-    });
+        return false
+      })
+    })
   }
 
-})(jQuery);
+})(jQuery)
