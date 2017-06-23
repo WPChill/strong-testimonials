@@ -271,7 +271,8 @@ function wpmtst_view_settings( $action = '', $view_id = null ) {
 		do_action( 'wpmtst_view_editor_before_group_compat' );
 		include( 'partials/views/group-compat.php' );
 
-        do_action( 'wpmtst_view_editor_before_group_general' );
+        // For back-compat. General group no longer used.
+		do_action( 'wpmtst_view_editor_before_group_general' );
 
 		do_action( 'wpmtst_view_editor_after_groups' );
 		?>

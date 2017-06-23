@@ -254,6 +254,10 @@ function wpmtst_form_fields_wpml( $fields ) {
 			do_action( 'wpml_register_single_string', $context, $name . __( 'label', 'strong-testimonials' ), $field['label'] );
 		}
 
+		if ( isset( $field['text'] ) ) {
+			do_action( 'wpml_register_single_string', $context, $name . __( 'text', 'strong-testimonials' ), $field['text'] );
+		}
+
 		if ( isset( $field['default_form_value'] ) ) {
 			do_action( 'wpml_register_single_string', $context, $name . __( 'default form value', 'strong-testimonials' ), $field['default_form_value'] );
 		}

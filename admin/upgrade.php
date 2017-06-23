@@ -258,6 +258,15 @@ function wpmtst_upgrade() {
 		unset( $form_options['admin_site_email'] );
 		unset( $form_options['admin_email'] );
 
+		/**
+		 * Add default required-notice setting
+		 *
+		 * @since 2.24.1
+		 */
+		if ( ! isset( $form_options['messages']['required-field']['enabled'] ) ) {
+			$form_options['messages']['required-field']['enabled'] = 1;
+		}
+
 		// Merge in new options
 		$form_options = array_merge( $default_form_options, $form_options );
 		update_option( 'wpmtst_form_options', $form_options );
@@ -293,6 +302,7 @@ function wpmtst_upgrade() {
 	 * -7B-
 	 * Update each view.
 	 */
+	// TODO Make this a function accessible by add-ons; i.e. update_view( array ( {parameter} => {value} ) );
 	$views = wpmtst_get_views();
 
 	if ( $views ) {

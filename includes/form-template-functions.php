@@ -90,7 +90,7 @@ function wpmtst_single_form_field( $field ) {
 			echo '<select id="wpmtst_' . $field['name']. '"'
 				. ' name="' . $field['name'] . '"'
 				. ' class="' . wpmtst_field_classes( $field['input_type'], $field['name'] ) . '"'
-				. wpmtst_field_required_tag( $field ) . '>';
+				. wpmtst_field_required_tag( $field ) . ' tabindex="0">';
 			echo '<option value="">&mdash;</option>';
 			foreach ( $category_list as $category ) {
 			    $selected = in_array( $category->term_id, $value ) ? ' selected' : '' ;
@@ -117,12 +117,12 @@ function wpmtst_single_form_field( $field ) {
 			     . ' name="' . $field['name'] . '"'
 			     . wpmtst_field_required_tag( $field )
 				 . wpmtst_field_placeholder( $field )
-			     . '>' . esc_textarea( $value ) . '</textarea>';
+			     . ' tabindex="0">' . esc_textarea( $value ) . '</textarea>';
 			break;
 
 		case 'file' :
 
-			echo '<input id="wpmtst_' . $field['name'] . '" type="file" name="' . $field['name'] . '"' . wpmtst_field_required_tag( $field ) . '>';
+			echo '<input id="wpmtst_' . $field['name'] . '" type="file" name="' . $field['name'] . '"' . wpmtst_field_required_tag( $field ) . ' tabindex="0">';
 			break;
 
 		case 'shortcode' :
@@ -140,33 +140,42 @@ function wpmtst_single_form_field( $field ) {
 		        $label = '<label for="wpmtst_' . $field['name'] . '">' . wpmtst_form_field_meta_l10n( $field['label'], $field, 'label' ) . '</label>';
 		        echo $label;
 	        }
+
 	        wpmtst_field_before( $field );
 
-	        echo '<div class="field-wrap">';
-	        // TODO Convert to printf!
-	        echo '<input id="wpmtst_' . $field['name'] . '"'
-	             . ' type="' . $field['input_type'] . '"'
-	             . ' class="' . wpmtst_field_classes( $field['input_type'], $field['name'] ) . '"'
-	             . ' name="' . $field['name'] . '"'
-	             . wpmtst_field_required_tag( $field ) . '>';
-	        if ( isset( $field['text'] ) ) {
-		        echo '<label for="wpmtst_' . $field['name'] . '">' . $field['text'] . '</label>';
-	        }
-	        if ( isset( $field['required'] ) && $field['required'] ) {
-		        wpmtst_field_required_symbol();
-	        }
-            echo '</div>';
+            echo '<div class="field-wrap">';
+
+            printf( '<input id="wpmtst_%s" type="%s" class="%s" name="%s" %s tabindex="0">',
+                $field['name'],
+                $field['input_type'],
+                wpmtst_field_classes( $field['input_type'], $field['name'] ),
+                $field['name'],
+                wpmtst_field_required_tag( $field ) );
+
+            if ( isset( $field['text'] ) ) {
+                echo '<label for="wpmtst_' . $field['name'] . '" class="checkbox-label">';
+	            echo wpmtst_form_field_meta_l10n( $field['text'], $field, 'text' );
+                echo '</label>';
+            }
+
+            if ( isset( $field['required'] ) && $field['required'] ) {
+                wpmtst_field_required_symbol();
+            }
+
+            echo '</div><!-- .field-wrap -->';
 
             break;
 
 		default: // text, email, url
-			echo '<input id="wpmtst_' . $field['name'] . '"'
-			     . ' type="' . $field['input_type'] . '"'
-			     . ' class="' . wpmtst_field_classes( $field['input_type'], $field['name'] ) . '"'
-			     . ' name="' . $field['name'] . '"'
-			     . wpmtst_field_value( $field, $form_values )
-			     . wpmtst_field_placeholder( $field )
-				 . wpmtst_field_required_tag( $field ) . '>';
+			printf( '<input id="wpmtst_%s" type="%s" class="%s" name="%s" %s %s %s tabindex="0">',
+				$field['name'],
+                $field['input_type'],
+                wpmtst_field_classes( $field['input_type'], $field['name'] ),
+                $field['name'],
+                wpmtst_field_value( $field, $form_values ),
+                wpmtst_field_placeholder( $field ),
+                wpmtst_field_required_tag( $field ) );
+
 	}
 
 	wpmtst_field_after( $field );
@@ -266,18 +275,23 @@ function wpmtst_field_required_tag( $field ) {
  * Print "Required field" notice.
  *
  * @since 2.23.0
+ * @since 2.24.1 Print only if enabled.
  */
 function wpmtst_field_required_notice() {
-    ob_start();
-    ?>
-    <p class="required-notice">
-    <?php wpmtst_field_required_symbol(); ?>
-    <?php wpmtst_form_message( 'required-field' ); ?>
-    </p>
-    <?php
-    $html = ob_get_clean();
-
-    echo ( apply_filters( 'wpmtst_field_required', $html ) );
+	$html         = '';
+	$form_options = get_option( 'wpmtst_form_options' );
+	$notice       = $form_options['messages']['required-field'];
+	if ( isset( $notice['enabled'] ) && $notice['enabled'] ) {
+		ob_start();
+		?>
+        <p class="required-notice">
+			<?php wpmtst_field_required_symbol(); ?><?php wpmtst_form_message( 'required-field' ); ?>
+        </p>
+		<?php
+		$html = ob_get_clean();
+	}
+	// Echo even if disabled to allow a custom notice.
+    echo( apply_filters( 'wpmtst_field_required', $html ) );
 }
 
 /**
@@ -404,7 +418,7 @@ function wpmtst_form_submit_button( $preview = false ) {
 		<label><input type="<?php echo $preview ? 'button' : 'submit'; ?>"
                       id="wpmtst_submit_testimonial" name="wpmtst_submit_testimonial"
                       value="<?php esc_attr_e( wpmtst_get_form_message( 'form-submit-button' ) ); ?>"
-                      class="button"></label>
+                      class="button" tabindex="0"></label>
 	</div>
 	<?php
 }

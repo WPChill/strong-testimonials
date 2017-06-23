@@ -369,16 +369,15 @@ function wpmtst_get_default_form_options() {
 		'required-field'     => array(
 			'order'       => 1,
 			/* translators: Settings > Forms > Messages tab */
-			'description' => __( 'Required Field', 'strong-testimonials' ),
-			/* translators: Default message for required field message at top of form. */
-			'text'        => __( 'Required Field', 'strong-testimonials' ),
+			'description' => _x( 'Required Field', 'setting description', 'strong-testimonials' ),
+			'text'        => _x( 'Required Field', 'Default message for required notice at top of form.', 'strong-testimonials' ),
+			'enabled'     => 1,
 		),
 		'captcha'            => array(
 			'order'       => 2,
 			/* translators: Settings > Forms > Messages tab */
 			'description' => _x( 'Captcha Label', 'description', 'strong-testimonials' ),
-			/* translators: Default label for Captcha field on submission form. */
-			'text'        => _x( 'Captcha', 'strong-testimonials' ),
+			'text'        => _x( 'Captcha', 'Default label for Captcha field on submission form.', 'strong-testimonials' ),
 		),
 		'form-submit-button' => array(
 			'order'       => 3,

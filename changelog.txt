@@ -1,3 +1,56 @@
+= 2.22.6 - May 29, 2017 =
+* Fix conflict with prerender and some themes.
+
+= 2.22.5 - May 25, 2017 =
+* Fix bug in adding nofollow attribute to outbound links.
+
+= 2.22.4 - May 20, 2017 =
+* Fix compatibility with Max Mega Menu plugin.
+
+= 2.22.3 - May 18, 2017 =
+* Improve style and script loading.
+* Fix bug in slideshow in WordPress version less than 4.6.
+* Fix WPML slug translation.
+* Minor refactoring.
+
+= 2.22.2 - May 14, 2017 =
+* Fix bug in add-on license activation for localhost sites.
+
+= 2.22.1 - May 11, 2017 =
+* Fix bug in displaying add-on sections in view editor.
+
+= 2.22 - May 9, 2017 =
+* Add option for sticky views.
+* Add view mode for single post template.
+* Add view mode description.
+* Move custom style to `<head>` to avoid FUOC.
+* Use built-in `imagesLoaded` script instead.
+* Move manual excerpt read-more to appear after testimonial content.
+* Fix bug that caused some double read-more's.
+* Improve compatibility with Divi Builder 2.
+* Remove general compatibility mode; no longer needed.
+
+= 2.21.2 - Apr 21, 2017 =
+* Fix bug in add-on license activation process.
+
+= 2.21.1 - Apr 18, 2017 =
+* Fix bug in Font Awesome loading.
+
+= 2.21 - Apr 14, 2017 =
+* Add option for default rating value on the form.
+* Add custom field name to form HTML elements.
+* Add option to skip loading Font Awesome.
+* Add background color option to the form.
+* Add filters to bypass layout stylesheets if not needed.
+* Minor admin UI improvements.
+
+= 2.20 - Apr 3, 2017 =
+* Handle screen resize and orientation change in slider.
+* Add `wpautop` to automatic excerpts for consistent style.
+* Improve form nonce check.
+* Update EDD integration.
+* Add filters for custom sort order.
+
 = 2.19.2 - Mar 27, 2017 =
 * Fix conflict with Wonderflux framework.
 

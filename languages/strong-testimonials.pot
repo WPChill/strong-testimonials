@@ -2,9 +2,9 @@
 # This file is distributed under the same license as the Strong Testimonials package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Strong Testimonials 2.22.6\n"
+"Project-Id-Version: Strong Testimonials 2.24\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/strong-testimonials\n"
-"POT-Creation-Date: 2017-05-31 08:54:01+00:00\n"
+"POT-Creation-Date: 2017-06-23 09:20:55+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -27,7 +27,7 @@ msgctxt "Fields editor: To indicate when no categories have been found."
 msgid "(none found)"
 msgstr ""
 
-#: admin/admin.php:169 includes/defaults.php:66
+#: admin/admin.php:169 includes/defaults.php:67
 msgid "This field is required."
 msgstr ""
 
@@ -67,103 +67,103 @@ msgstr ""
 msgid "Edit"
 msgstr ""
 
-#: admin/admin.php:590
+#: admin/admin.php:591
 msgid "default"
 msgstr ""
 
-#: admin/admin.php:591 admin/help.php:83 admin/help.php:88
+#: admin/admin.php:592 admin/help.php:83 admin/help.php:88
 #: admin/partials/views/option-boilerplate.php:11
 msgid "yes"
 msgstr ""
 
-#: admin/admin.php:592 admin/help.php:84 admin/help.php:89
+#: admin/admin.php:593 admin/help.php:84 admin/help.php:89
 #: admin/partials/views/option-boilerplate.php:14
 msgid "no"
 msgstr ""
 
-#: admin/admin.php:649
+#: admin/admin.php:658
 msgid "Excerpt"
 msgstr ""
 
-#: admin/admin.php:660 admin/admin.php:799
+#: admin/admin.php:669 admin/admin.php:811
 msgid "Thumbnail"
 msgstr ""
 
-#: admin/admin.php:663
+#: admin/admin.php:672
 msgid "Rating"
 msgstr ""
 
 #. translators: On the Views admin screen.
 
-#: admin/admin.php:676 admin/partials/views/option-category.php:4
+#: admin/admin.php:685 admin/partials/views/option-category.php:4
 #: includes/post-types.php:35
 msgid "Categories"
 msgstr ""
 
-#: admin/admin.php:681
+#: admin/admin.php:690
 msgid "Date"
 msgstr ""
 
-#: admin/admin.php:811 includes/class-strong-views-list-table.php:51
+#: admin/admin.php:823 includes/class-strong-views-list-table.php:51
 msgid "ID"
 msgstr ""
 
-#: admin/admin.php:812 admin/partials/settings/email-from.php:19
+#: admin/admin.php:824 admin/partials/settings/email-from.php:19
 #: admin/partials/settings/email-to.php:12
-#: admin/partials/views/view-name.php:10 admin/views.php:585
-#: includes/class-strong-views-list-table.php:54 includes/defaults.php:299
+#: admin/partials/views/view-name.php:10 admin/views.php:586
+#: includes/class-strong-views-list-table.php:54 includes/defaults.php:300
 msgid "Name"
 msgstr ""
 
-#: admin/admin.php:813
+#: admin/admin.php:825
 msgid "Slug"
 msgstr ""
 
-#: admin/admin.php:814 admin/partials/views/option-read-more-page.php:42
+#: admin/admin.php:826 admin/partials/views/option-read-more-page.php:42
 msgid "Posts"
 msgstr ""
 
 #. translators: %s is the name of the plugin.
 
-#: admin/admin.php:951
+#: admin/admin.php:994
 msgctxt "installation"
 msgid "Unable to load %s"
 msgstr ""
 
 #. translators: %s is a WordPress version number.
 
-#: admin/admin.php:953
+#: admin/admin.php:996
 msgctxt "installation"
 msgid "This plugin requires <strong>WordPress %s</strong> or higher so it has been deactivated."
 msgstr ""
 
-#: admin/admin.php:954
+#: admin/admin.php:997
 msgctxt "installation"
 msgid "Please upgrade WordPress and try again."
 msgstr ""
 
-#: admin/admin.php:955
+#: admin/admin.php:998
 msgctxt "installation"
 msgid "Back to the WordPress <a href=\"%s\">Plugins page</a>"
 msgstr ""
 
-#: admin/admin.php:1013
+#: admin/admin.php:1056
 msgid "restore default"
 msgstr ""
 
-#: admin/admin.php:1037
+#: admin/admin.php:1080
 msgid "For direct support requests and documentation"
 msgstr ""
 
-#: admin/admin.php:1038
+#: admin/admin.php:1081
 msgid "Support"
 msgstr ""
 
-#: admin/admin.php:1043
+#: admin/admin.php:1086
 msgid "Get more features with premium add-ons"
 msgstr ""
 
-#: admin/admin.php:1044
+#: admin/admin.php:1087
 msgid "Add-ons"
 msgstr ""
 
@@ -171,7 +171,7 @@ msgstr ""
 msgid "New Field"
 msgstr ""
 
-#: admin/custom-fields.php:22 admin/settings.php:267 admin/views.php:17
+#: admin/custom-fields.php:22 admin/settings.php:270 admin/views.php:17
 msgid "You do not have sufficient permissions to access this page."
 msgstr ""
 
@@ -216,11 +216,11 @@ msgstr ""
 msgid "Add New Field"
 msgstr ""
 
-#: admin/custom-fields.php:170 admin/views.php:281
+#: admin/custom-fields.php:170 admin/views.php:282
 msgid "Cancel Changes"
 msgstr ""
 
-#: admin/custom-fields.php:171 admin/views.php:282
+#: admin/custom-fields.php:171 admin/views.php:283
 msgid "Restore Defaults"
 msgstr ""
 
@@ -248,12 +248,12 @@ msgstr ""
 msgid "next to the checkbox"
 msgstr ""
 
-#: admin/custom-fields.php:303 admin/partials/settings/form.php:259
-#: admin/views.php:633
+#: admin/custom-fields.php:303 admin/partials/settings/form.php:268
+#: admin/views.php:634
 msgid "Before"
 msgstr ""
 
-#: admin/custom-fields.php:311 admin/partials/settings/form.php:266
+#: admin/custom-fields.php:311 admin/partials/settings/form.php:275
 msgid "After"
 msgstr ""
 
@@ -281,19 +281,19 @@ msgstr ""
 msgid "Shortcode on form"
 msgstr ""
 
-#: admin/custom-fields.php:372
+#: admin/custom-fields.php:371
 msgid "Shortcode on display"
 msgstr ""
 
-#: admin/custom-fields.php:398
+#: admin/custom-fields.php:396
 msgid "Admin List"
 msgstr ""
 
-#: admin/custom-fields.php:403
+#: admin/custom-fields.php:401
 msgid "required"
 msgstr ""
 
-#: admin/custom-fields.php:406
+#: admin/custom-fields.php:404
 msgid "Show this field in the admin list table."
 msgstr ""
 
@@ -335,11 +335,11 @@ msgstr ""
 msgid "Form settings"
 msgstr ""
 
-#: admin/help.php:31 includes/l10n.php:14 includes/l10n.php:37
+#: admin/help.php:31 includes/l10n.php:30 includes/l10n.php:56
 msgid "Translate these fields in <a href=\"%s\">WPML String Translations</a>"
 msgstr ""
 
-#: admin/help.php:37 includes/l10n.php:23 includes/l10n.php:46
+#: admin/help.php:37 includes/l10n.php:39 includes/l10n.php:65
 msgid "Translate these fields in <a href=\"%s\">Polylang String Translations</a>"
 msgstr ""
 
@@ -436,12 +436,12 @@ msgctxt "verb"
 msgid "Close"
 msgstr ""
 
-#: admin/partials/fields/field-header.php:8 admin/views.php:562
-#: admin/views.php:575
+#: admin/partials/fields/field-header.php:8 admin/views.php:563
+#: admin/views.php:576
 msgid "click to open or close"
 msgstr ""
 
-#: admin/partials/fields/field-header.php:10 admin/views.php:568
+#: admin/partials/fields/field-header.php:10 admin/views.php:569
 msgid "drag and drop to reorder"
 msgstr ""
 
@@ -558,50 +558,54 @@ msgid "Recently added features"
 msgstr ""
 
 #: admin/partials/guide/guide.php:71
-msgid "Add your custom fields to the theme single post template."
+msgid "A default setting for <code>nofollow</code> links."
 msgstr ""
 
 #: admin/partials/guide/guide.php:73
-msgid "Form success redirect options."
+msgid "Checkbox field type for requesting consent to terms, policies, etc."
 msgstr ""
 
 #: admin/partials/guide/guide.php:75
-msgid "Form success message editor."
+msgid "Add your custom fields to the theme single post template."
 msgstr ""
 
 #: admin/partials/guide/guide.php:77
-msgid "Star ratings."
+msgid "Form success message and redirect options."
 msgstr ""
 
 #: admin/partials/guide/guide.php:79
+msgid "Star ratings."
+msgstr ""
+
+#: admin/partials/guide/guide.php:82
 msgid "Improved compatibility and performance."
 msgstr ""
 
-#: admin/partials/guide/guide.php:89
+#: admin/partials/guide/guide.php:93
 msgid "Translation"
 msgstr ""
 
-#: admin/partials/guide/guide.php:91
+#: admin/partials/guide/guide.php:95
 msgid "Strong Testimonials is compatible with WPML and Polylang."
 msgstr ""
 
-#: admin/partials/guide/guide.php:93
+#: admin/partials/guide/guide.php:97
 msgid "In each plugin, domains are added to the <strong>String Translation</strong> screens. Those domains encompass the form fields, the form messages, the notification email, and the \"Read more\" link text in your views. They are updated automatically when your form fields or settings change."
 msgstr ""
 
-#: admin/partials/guide/guide.php:101 admin/partials/settings/general.php:65
+#: admin/partials/guide/guide.php:105 admin/partials/settings/general.php:65
 msgid "Troubleshooting"
 msgstr ""
 
-#: admin/partials/guide/guide.php:103
+#: admin/partials/guide/guide.php:107
 msgid "Upgrading from version 1?"
 msgstr ""
 
-#: admin/partials/guide/guide.php:107
+#: admin/partials/guide/guide.php:111
 msgid "The original shortcodes and widget were <a href=\"%s\" target=\"_blank\">removed in version 2</a>. Everything now happens in <strong>views</strong>."
 msgstr ""
 
-#: admin/partials/guide/guide.php:114
+#: admin/partials/guide/guide.php:118
 msgid "Thanks for choosing Strong Testimonials!"
 msgstr ""
 
@@ -626,34 +630,38 @@ msgid "Help? Idea? Bug?"
 msgstr ""
 
 #: admin/partials/guide/sidebar.php:38
-msgid "Add YouTube or Twitter"
+msgid "Troubleshoot"
 msgstr ""
 
 #: admin/partials/guide/sidebar.php:43
+msgid "Add YouTube or Twitter"
+msgstr ""
+
+#: admin/partials/guide/sidebar.php:48
 msgid "Add custom CSS"
 msgstr ""
 
-#: admin/partials/guide/sidebar.php:47
+#: admin/partials/guide/sidebar.php:52
 msgid "Enable comments"
 msgstr ""
 
-#: admin/partials/guide/sidebar.php:51
+#: admin/partials/guide/sidebar.php:56
 msgid "Customize the form"
 msgstr ""
 
-#: admin/partials/guide/sidebar.php:55
+#: admin/partials/guide/sidebar.php:60
 msgid "See the demos"
 msgstr ""
 
-#: admin/partials/guide/sidebar.php:62
+#: admin/partials/guide/sidebar.php:67
 msgid "How To"
 msgstr ""
 
-#: admin/partials/guide/sidebar.php:72
+#: admin/partials/guide/sidebar.php:77
 msgid "Good <a href=\"%s\" target=\"_blank\">reviews</a> are appreciated!"
 msgstr ""
 
-#: admin/partials/guide/sidebar.php:76
+#: admin/partials/guide/sidebar.php:81
 msgid "Like It?"
 msgstr ""
 
@@ -666,8 +674,8 @@ msgid "From:"
 msgstr ""
 
 #: admin/partials/settings/email-from.php:22
-#: admin/partials/settings/email-to.php:15 includes/defaults.php:238
-#: includes/defaults.php:308
+#: admin/partials/settings/email-to.php:15 includes/defaults.php:239
+#: includes/defaults.php:309
 msgid "Email"
 msgstr ""
 
@@ -739,133 +747,137 @@ msgstr ""
 msgid "Form Labels & Messages"
 msgstr ""
 
-#: admin/partials/settings/form.php:75
+#: admin/partials/settings/form.php:73
+msgid "Display required notice at top of form"
+msgstr ""
+
+#: admin/partials/settings/form.php:84
 msgctxt "singular"
 msgid "restore default"
 msgstr ""
 
-#: admin/partials/settings/form.php:86
+#: admin/partials/settings/form.php:95
 msgid "Restore Default Messages"
 msgstr ""
 
-#: admin/partials/settings/form.php:94
+#: admin/partials/settings/form.php:103
 msgid "Scroll"
 msgstr ""
 
-#: admin/partials/settings/form.php:101
+#: admin/partials/settings/form.php:110
 msgid "If errors, scroll to the first error minus %s pixels. On by default."
 msgstr ""
 
-#: admin/partials/settings/form.php:107
+#: admin/partials/settings/form.php:116
 msgid "If success, scroll to the success message minus %s pixels. On by default."
 msgstr ""
 
-#: admin/partials/settings/form.php:123
+#: admin/partials/settings/form.php:132
 msgid "Form Actions"
 msgstr ""
 
-#: admin/partials/settings/form.php:129
+#: admin/partials/settings/form.php:138
 msgid "Upon Successful Submission"
 msgstr ""
 
-#: admin/partials/settings/form.php:135
+#: admin/partials/settings/form.php:144
 msgid "display message"
 msgstr ""
 
-#: admin/partials/settings/form.php:141
+#: admin/partials/settings/form.php:150
 msgid "redirect to a page"
 msgstr ""
 
-#: admin/partials/settings/form.php:146
+#: admin/partials/settings/form.php:155
 msgid "&mdash; select a page &mdash;"
 msgstr ""
 
-#: admin/partials/settings/form.php:160
+#: admin/partials/settings/form.php:169
 msgctxt "to select a redirect page"
 msgid "or enter its ID or slug"
 msgstr ""
 
-#: admin/partials/settings/form.php:168
+#: admin/partials/settings/form.php:177
 msgid "redirect to a URL"
 msgstr ""
 
-#: admin/partials/settings/form.php:183
+#: admin/partials/settings/form.php:192
 msgid "Post Status"
 msgstr ""
 
-#: admin/partials/settings/form.php:192
+#: admin/partials/settings/form.php:201
 msgid "Pending"
 msgstr ""
 
-#: admin/partials/settings/form.php:199
+#: admin/partials/settings/form.php:208
 msgid "Published"
 msgstr ""
 
-#: admin/partials/settings/form.php:209
+#: admin/partials/settings/form.php:218
 msgid "Notification"
 msgstr ""
 
-#: admin/partials/settings/form.php:219
+#: admin/partials/settings/form.php:228
 msgid "Send an email upon new testimonial submission."
 msgstr ""
 
-#: admin/partials/settings/form.php:244
+#: admin/partials/settings/form.php:253
 msgid "Form Spam Control"
 msgstr ""
 
-#: admin/partials/settings/form.php:250
+#: admin/partials/settings/form.php:259
 msgctxt "spam control techniques"
 msgid "Honeypot"
 msgstr ""
 
-#: admin/partials/settings/form.php:254
+#: admin/partials/settings/form.php:263
 msgid "These methods are both time-tested and widely used. They can be used simultaneously for more protection."
 msgstr ""
 
-#: admin/partials/settings/form.php:261
+#: admin/partials/settings/form.php:270
 msgid "Recommended."
 msgstr ""
 
-#: admin/partials/settings/form.php:261
+#: admin/partials/settings/form.php:270
 msgid "Traps spambots by adding an extra empty field that is invisible to humans but not to spambots which tend to fill in every field they find in the form code. Empty field = human. Not empty = spambot."
 msgstr ""
 
-#: admin/partials/settings/form.php:268
+#: admin/partials/settings/form.php:277
 msgid "Traps spambots by using JavaScript to add a new field as soon as the form is submitted. Since spambots cannot run JavaScript, the new field never gets added. New field = human. Missing = spambot."
 msgstr ""
 
-#: admin/partials/settings/form.php:276
+#: admin/partials/settings/form.php:285
 msgid "Captcha"
 msgstr ""
 
-#: admin/partials/settings/form.php:280
+#: admin/partials/settings/form.php:289
 msgid "Can be used alongside honeypot methods. Be sure to configure any plugins first, if necessary."
 msgstr ""
 
-#: admin/partials/settings/form.php:300
+#: admin/partials/settings/form.php:309
 msgctxt "link"
 msgid "settings"
 msgstr ""
 
-#: admin/partials/settings/form.php:302
+#: admin/partials/settings/form.php:311
 msgid "no settings"
 msgstr ""
 
-#: admin/partials/settings/form.php:307
+#: admin/partials/settings/form.php:316
 msgctxt "adjective"
 msgid "inactive"
 msgstr ""
 
-#: admin/partials/settings/form.php:313
+#: admin/partials/settings/form.php:322
 msgid "not installed"
 msgstr ""
 
-#: admin/partials/settings/form.php:314
+#: admin/partials/settings/form.php:323
 msgctxt "link"
 msgid "install plugin"
 msgstr ""
 
-#: admin/partials/settings/form.php:318
+#: admin/partials/settings/form.php:327
 msgctxt "link"
 msgid "plugin page"
 msgstr ""
@@ -1043,22 +1055,26 @@ msgid "Custom Field Bulk Editor"
 msgstr ""
 
 #: admin/partials/settings/licenses.php:13
-msgid "Valid license keys allow you to receive automatic updates."
+msgid "Valid license keys allow you to receive automatic updates and priority support."
 msgstr ""
 
 #: admin/partials/settings/licenses.php:14
-msgid "If you want to transfer a license to another site or you plan to uninstall the add-on, you must deactivate the license here first."
+msgid "To transfer a license to another site or to uninstall the add-on, please deactivate the license here first."
 msgstr ""
 
-#: admin/partials/settings/licenses.php:19
-msgid "Add-on"
+#: admin/partials/settings/licenses.php:15
+msgid "<a href=\"%s\" target=\"_blank\">Access your downloads and license keys</a>."
 msgstr ""
 
 #: admin/partials/settings/licenses.php:20
-msgid "License Key"
+msgid "Add-on"
 msgstr ""
 
 #: admin/partials/settings/licenses.php:21
+msgid "License Key"
+msgstr ""
+
+#: admin/partials/settings/licenses.php:22
 msgid "Status"
 msgstr ""
 
@@ -1462,16 +1478,16 @@ msgstr ""
 msgid "Navigation"
 msgstr ""
 
-#: admin/partials/views/option-pagination.php:56 includes/l10n.php:225
-#: includes/l10n.php:314
+#: admin/partials/views/option-pagination.php:56 includes/l10n.php:246
+#: includes/l10n.php:339
 msgid "before"
 msgstr ""
 
 #. Translators: A form field on the String Translation screen.
 #. Translators: %s is the View ID.
 
-#: admin/partials/views/option-pagination.php:59 includes/l10n.php:221
-#: includes/l10n.php:313
+#: admin/partials/views/option-pagination.php:59 includes/l10n.php:242
+#: includes/l10n.php:338
 msgid "after"
 msgstr ""
 
@@ -1605,7 +1621,7 @@ msgstr ""
 
 #. translators: On the Views admin screen.
 
-#: admin/partials/views/option-thumbnail.php:5 includes/defaults.php:111
+#: admin/partials/views/option-thumbnail.php:5 includes/defaults.php:112
 #: includes/post-types.php:83
 msgid "Featured Image"
 msgstr ""
@@ -1693,24 +1709,24 @@ msgstr ""
 msgid "Guide"
 msgstr ""
 
-#: admin/settings.php:271
+#: admin/settings.php:274
 msgid "Testimonial Settings"
 msgstr ""
 
-#: admin/settings.php:275
+#: admin/settings.php:278
 msgid "Settings saved."
 msgstr ""
 
-#: admin/settings.php:285
+#: admin/settings.php:288
 msgctxt "adjective"
 msgid "General"
 msgstr ""
 
-#: admin/settings.php:287 includes/defaults.php:467
+#: admin/settings.php:290 includes/defaults.php:467
 msgid "Form"
 msgstr ""
 
-#: admin/settings.php:292
+#: admin/settings.php:295
 msgid "Licenses"
 msgstr ""
 
@@ -1774,87 +1790,87 @@ msgstr ""
 msgid "Duplicate This View"
 msgstr ""
 
-#: admin/views.php:523
+#: admin/views.php:524
 msgid "custom"
 msgstr ""
 
-#: admin/views.php:524
+#: admin/views.php:525
 msgid "built-in"
 msgstr ""
 
-#: admin/views.php:531 includes/defaults.php:127
+#: admin/views.php:532 includes/defaults.php:128 includes/l10n.php:258
 msgid "text"
 msgstr ""
 
-#: admin/views.php:532
+#: admin/views.php:533
 msgid "link with another field"
 msgstr ""
 
-#: admin/views.php:533
+#: admin/views.php:534
 msgid "link (must be URL type)"
 msgstr ""
 
-#: admin/views.php:534
+#: admin/views.php:535
 msgid "date"
 msgstr ""
 
-#: admin/views.php:535
+#: admin/views.php:536
 msgid "category"
 msgstr ""
 
-#: admin/views.php:536
+#: admin/views.php:537
 msgid "rating"
 msgstr ""
 
-#: admin/views.php:537 includes/defaults.php:176
+#: admin/views.php:538 includes/defaults.php:177
 msgid "shortcode"
 msgstr ""
 
-#: admin/views.php:570
+#: admin/views.php:571
 msgid "remove this field"
 msgstr ""
 
-#: admin/views.php:608
+#: admin/views.php:609
 msgid "Display Type"
 msgstr ""
 
-#: admin/views.php:641
+#: admin/views.php:642
 msgid "CSS Class"
 msgstr ""
 
-#: admin/views.php:688
+#: admin/views.php:689
 msgid "Link Text"
 msgstr ""
 
-#: admin/views.php:690
+#: admin/views.php:691
 msgid "this field's value"
 msgstr ""
 
-#: admin/views.php:691
+#: admin/views.php:692
 msgid "this field's label"
 msgstr ""
 
-#: admin/views.php:692
+#: admin/views.php:693
 msgid "custom text"
 msgstr ""
 
-#: admin/views.php:711
+#: admin/views.php:712
 msgid "URL Field"
 msgstr ""
 
-#: admin/views.php:728
+#: admin/views.php:729
 msgid "new tab"
 msgstr ""
 
-#: admin/views.php:753
+#: admin/views.php:754
 msgid "Format"
 msgstr ""
 
-#: admin/views.php:761
+#: admin/views.php:762
 msgid "more about date formats"
 msgstr ""
 
-#: admin/views.php:809 admin/views.php:837
+#: admin/views.php:810 admin/views.php:838
 msgid "filter categories"
 msgstr ""
 
@@ -1865,6 +1881,10 @@ msgstr ""
 
 #: includes/captcha.php:77 includes/captcha.php:85 includes/captcha.php:97
 msgid "The Captcha failed. Please try again."
+msgstr ""
+
+#: includes/class-strong-form.php:371
+msgid "Unknown error."
 msgstr ""
 
 #: includes/class-strong-templates.php:33
@@ -1977,120 +1997,123 @@ msgstr ""
 msgid "theme single post template"
 msgstr ""
 
-#: includes/defaults.php:90
+#: includes/defaults.php:91
 msgid "Testimonial Title"
 msgstr ""
 
-#: includes/defaults.php:100
+#: includes/defaults.php:101
 msgid "Testimonial Content"
 msgstr ""
 
-#: includes/defaults.php:131
+#: includes/defaults.php:132
 msgid "email"
 msgstr ""
 
-#: includes/defaults.php:136
+#: includes/defaults.php:137
 msgid "URL"
 msgstr ""
 
-#: includes/defaults.php:141
+#: includes/defaults.php:142
 msgid "checkbox"
 msgstr ""
 
-#: includes/defaults.php:160
+#: includes/defaults.php:161
 msgid "category selector"
 msgstr ""
 
-#: includes/defaults.php:168
+#: includes/defaults.php:169
 msgid "category checklist"
 msgstr ""
 
-#: includes/defaults.php:187
+#: includes/defaults.php:188
 msgid "star rating"
 msgstr ""
 
-#: includes/defaults.php:220
+#: includes/defaults.php:221
 msgid "Default Form"
 msgstr ""
 
-#: includes/defaults.php:229
+#: includes/defaults.php:230
 msgid "Full Name"
 msgstr ""
 
-#: includes/defaults.php:232
+#: includes/defaults.php:233
 msgid "What is your full name?"
 msgstr ""
 
-#: includes/defaults.php:241
+#: includes/defaults.php:242
 msgid "What is your email address?"
 msgstr ""
 
-#: includes/defaults.php:246
+#: includes/defaults.php:247
 msgid "Company Name"
 msgstr ""
 
-#: includes/defaults.php:248
+#: includes/defaults.php:249
 msgid "What is your company name?"
 msgstr ""
 
-#: includes/defaults.php:253
+#: includes/defaults.php:254
 msgid "Company Website"
 msgstr ""
 
-#: includes/defaults.php:255
+#: includes/defaults.php:256
 msgid "Does your company have a website?"
 msgstr ""
 
-#: includes/defaults.php:263
+#: includes/defaults.php:264
 msgid "Heading"
 msgstr ""
 
-#: includes/defaults.php:266
+#: includes/defaults.php:267
 msgid "A headline for your testimonial."
 msgstr ""
 
-#: includes/defaults.php:271 includes/defaults.php:319
+#: includes/defaults.php:272 includes/defaults.php:320
 msgid "Testimonial"
 msgstr ""
 
-#: includes/defaults.php:274
+#: includes/defaults.php:275
 msgid "What do you think about us?"
 msgstr ""
 
-#: includes/defaults.php:279
+#: includes/defaults.php:280
 msgid "Photo"
 msgstr ""
 
-#: includes/defaults.php:281
+#: includes/defaults.php:282
 msgid "Would you like to include a photo?"
 msgstr ""
 
-#: includes/defaults.php:290
+#: includes/defaults.php:291
 msgid "Minimal Form"
 msgstr ""
 
-#: includes/defaults.php:348
+#: includes/defaults.php:349
 msgid "Custom Form"
 msgstr ""
 
 #. translators: Settings > Forms > Messages tab
-#. translators: Default message for required field message at top of form.
 
-#: includes/defaults.php:371 includes/defaults.php:373
+#: includes/defaults.php:372
+msgctxt "setting description"
+msgid "Required Field"
+msgstr ""
+
+#: includes/defaults.php:373
+msgctxt "Default message for required notice at top of form."
 msgid "Required Field"
 msgstr ""
 
 #. translators: Settings > Forms > Messages tab
 
-#: includes/defaults.php:378
+#: includes/defaults.php:379
 msgctxt "description"
 msgid "Captcha Label"
 msgstr ""
 
-#. translators: Default label for Captcha field on submission form.
-
 #: includes/defaults.php:380
-msgctxt "strong-testimonials"
+msgctxt "Default label for Captcha field on submission form."
 msgid "Captcha"
 msgstr ""
 
@@ -2307,12 +2330,12 @@ msgctxt "slideshow navigation option"
 msgid "outside"
 msgstr ""
 
-#: includes/defaults.php:687 strong-testimonials.php:562
+#: includes/defaults.php:687 strong-testimonials.php:573
 msgctxt "link"
 msgid "Read more"
 msgstr ""
 
-#: includes/defaults.php:691 strong-testimonials.php:566
+#: includes/defaults.php:691 strong-testimonials.php:577
 msgctxt "link"
 msgid "Read more testimonials"
 msgstr ""
@@ -2379,10 +2402,6 @@ msgstr ""
 msgid "Your license key has reached its activation limit."
 msgstr ""
 
-#: includes/form-handler-functions.php:276
-msgid "Unknown error."
-msgstr ""
-
 #: includes/functions.php:417
 msgid "An error occurred: <code>%s</code>. Please <a href=\"%s\" target=\"_blank\">open a support ticket</a>."
 msgstr ""
@@ -2417,35 +2436,35 @@ msgstr ""
 msgid "light plum gradient"
 msgstr ""
 
-#: includes/l10n.php:229 includes/l10n.php:315
+#: includes/l10n.php:250 includes/l10n.php:340
 msgid "placeholder"
 msgstr ""
 
-#: includes/l10n.php:233 includes/l10n.php:316
+#: includes/l10n.php:254 includes/l10n.php:341
 msgid "label"
 msgstr ""
 
-#: includes/l10n.php:237 includes/l10n.php:317
+#: includes/l10n.php:262 includes/l10n.php:342
 msgid "default form value"
 msgstr ""
 
-#: includes/l10n.php:241 includes/l10n.php:318
+#: includes/l10n.php:266 includes/l10n.php:343
 msgid "default display value"
 msgstr ""
 
-#: includes/l10n.php:275 includes/l10n.php:335
+#: includes/l10n.php:300 includes/l10n.php:360
 msgid "Email message"
 msgstr ""
 
-#: includes/l10n.php:276 includes/l10n.php:334
+#: includes/l10n.php:301 includes/l10n.php:359
 msgid "Email subject"
 msgstr ""
 
-#: includes/l10n.php:348
+#: includes/l10n.php:373
 msgid "View %s : Read more (testimonial)"
 msgstr ""
 
-#: includes/l10n.php:349
+#: includes/l10n.php:374
 msgid "View %s : Read more (page or post)"
 msgstr ""
 
@@ -2687,7 +2706,7 @@ msgstr ""
 msgid "&mdash; Select &mdash;"
 msgstr ""
 
-#: strong-testimonials.php:115 strong-testimonials.php:127
+#: strong-testimonials.php:138 strong-testimonials.php:150
 msgid "Cheatin&#8217; huh?"
 msgstr ""
 #. Plugin Name of the plugin/theme

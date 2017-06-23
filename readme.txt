@@ -3,17 +3,17 @@ Contributors: cdillon27
 Tags: testimonials, testimonial slider, testimonial form, reviews, star ratings
 Requires at least: 3.6
 Tested up to: 4.8
-Stable tag: 2.24
+Stable tag: 2.25
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
-A full-featured testimonials plugin that works right out of the box for beginners and offers advanced features for pros.
+The most customizable free testimonials plugin.
 
 == Description ==
 
-Everything you need to receive and display testimonials.
+A full-featured testimonials plugin that works right out of the box for beginners with advanced features for pros.
 
-**[Go Demo](http://demos.wpmission.com/strong-testimonials/)** | **[Support Articles](https://support.strongplugins.com/article-category/strong-testimonials/)** | **[Add-ons](https://strongplugins.com/plugins/category/strong-testimonials/)**
+**[Go Demo](http://demos.wpmission.com/strong-testimonials/)** | **[Strong Support](https://support.strongplugins.com/article-category/strong-testimonials/)** | **[Add-ons](https://strongplugins.com/plugins/category/strong-testimonials/)**
 
 ### Is this the right plugin for you?
 
@@ -125,9 +125,7 @@ Activate the plugin. Look for "Testimonials" in the admin menu.
 
 = What are the shortcodes? =
 
-[testimonial_view] - To display your testimonials as a list or a slideshow, or to display the form. There is no complicated shortcode "language" to learn. Instead, a **view** manages all the options with an easy-to-use (some call it fun!) editor for creating and configuring unlimited views.
-
-For example, after saving your first view (which could be a list, a grid, a slideshow, or a form):
+[testimonial_view] - To display your testimonials as a list or a slideshow, or to display the form. There are no complicated shortcode options. Instead, a **view** manages all the options with an easy-to-use (some call it fun!) editor for creating unlimited views.
 
 `[testimonial_view id=1]`
 
@@ -145,7 +143,7 @@ Yes. Polylang too.
 
 = Can I change the fields on the form? =
 
-Yes. There is a custom fields editor where you can add or remove fields, change field details, and drag-and-drop to reorder them. That includes star ratings.
+Yes. There is a custom fields editor where you can add or remove fields, change field details, and drag-and-drop to reorder them.
 
 = Can I customize the form error message and the "Submit" button? =
 
@@ -165,11 +163,7 @@ Yes, with the excellent [Popup Maker](https://wordpress.org/plugins/popup-maker/
 
 = Can I receive a notification email when a new testimonial has been submitted? =
 
-Yes, and you can send it multiple recipients.
-
-= Can I edit the notification email? =
-
-Yes. You can completely customize the email content and include any submitted information.
+Yes, and you can send it multiple recipients. You can completely customize the email content and include any submitted information.
 
 = Can I set the status of the newly submitted testimonial? =
 
@@ -189,7 +183,11 @@ Yes. In views, these custom fields can be changed with a few clicks.
 
 = My theme also includes testimonials. Will that be a problem? =
 
-It depends. I have narrowed down the causes of many conflicts and addressed them in the plugin. If you encounter trouble, use the support form and we'll sort it out. If you want help disabling testimonials in your theme, even better. :)
+It depends. If you encounter trouble, use the support forum and we'll sort it out. If you want help disabling testimonials in your theme, even better. :)
+
+= Will it automatically use my existing testimonials? =
+
+No. If you already have testimonials in another plugin or theme, you will have to re-enter them. Why? Because every theme and plugin stores data differently.
 
 = Can I import my existing testimonials? =
 
@@ -203,14 +201,6 @@ Yes. With some HTML and CSS knowledge, you can copy any template to your theme a
 
 Yes. This requires a lightbox so if your theme does not include one, you will need a plugin like [Simple Colorbox](https://wordpress.org/plugins/simple-colorbox/).
 
-= Can I accept comments on my testimonials just like my blog posts? =
-
-Yes, using your theme's single post template.
-
-= Can I embed testimonials from YouTube, Twitter, or Instagram? =
-
-Yes.
-
 = Can I request a new feature, action hook, or filter? =
 
 I'm all ears!
@@ -222,8 +212,6 @@ Undeniably, yes.
 This [screenshot](http://www.screencast.com/t/TPMRWM0yug) shows where I immediately start looking for clues before asking for more information and potentially waiting hours or days for a response (it happens).
 
 I can determine what theme you're using, what plugins are active, whether you're using any caching/minification/optimization (do you need to clear your cache?), if there are any JavaScript errors in your theme or another plugin (more common than you may think), and somewhat how the testimonial view is configured.
-
-Then, I may attempt to reproduce the problem by creating a test site on my local server and installing your theme and other plugins.
 
 If you prefer not to post your URL publicly, start a private support ticket at [support.strongplugins.com](https://support.strongplugins.com).
 
@@ -239,6 +227,20 @@ If you prefer not to post your URL publicly, start a private support ticket at [
 8. View editor
 
 == Changelog ==
+
+= 2.25 - June 23, 2017 =
+* Improve form validation
+  * Update jQuery Validation plugin (1.16.0)
+  * Add tabindex
+  * Add custom validation to star rating field
+  * Improve form error indicator style
+* Fix bug that was printing duplicate script variables
+* Make checkbox field text translatable
+* Add hooks and filters in form submission
+* Add option to disable "* Required Field" notice
+* Update link to wordpress.org review form
+* Update style for Review Markup add-on
+* Lint and compress JavaScript files
 
 = 2.24 - June 12, 2017 =
 * Fix bug in saving a zero rating.
@@ -264,59 +266,8 @@ If you prefer not to post your URL publicly, start a private support ticket at [
 * Remove `link_new_tab` and `link_nofollow` functions.
 * Minor refactoring.
 
-= 2.22.6 - May 29, 2017 =
-* Fix conflict with prerender and some themes.
-
-= 2.22.5 - May 25, 2017 =
-* Fix bug in adding nofollow attribute to outbound links.
-
-= 2.22.4 - May 20, 2017 =
-* Fix compatibility with Max Mega Menu plugin.
-
-= 2.22.3 - May 18, 2017 =
-* Improve style and script loading.
-* Fix bug in slideshow in WordPress version less than 4.6.
-* Fix WPML slug translation.
-* Minor refactoring.
-
-= 2.22.2 - May 14, 2017 =
-* Fix bug in add-on license activation for localhost sites.
-
-= 2.22.1 - May 11, 2017 =
-* Fix bug in displaying add-on sections in view editor.
-
-= 2.22 - May 9, 2017 =
-* Add option for sticky views.
-* Add view mode for single post template.
-* Add view mode description.
-* Move custom style to `<head>` to avoid FUOC.
-* Use built-in `imagesLoaded` script instead.
-* Move manual excerpt read-more to appear after testimonial content.
-* Fix bug that caused some double read-more's.
-* Improve compatibility with Divi Builder 2.
-* Remove general compatibility mode; no longer needed.
-
-= 2.21.2 - Apr 21, 2017 =
-* Fix bug in add-on license activation process.
-
-= 2.21.1 - Apr 18, 2017 =
-* Fix bug in Font Awesome loading.
-
-= 2.21 - Apr 14, 2017 =
-* Add option for default rating value on the form.
-* Add custom field name to form HTML elements.
-* Add option to skip loading Font Awesome.
-* Add background color option to the form.
-* Add filters to bypass layout stylesheets if not needed.
-* Minor admin UI improvements.
-
-= 2.20 - Apr 3, 2017 =
-* Handle screen resize and orientation change in slider.
-* Add `wpautop` to automatic excerpts for consistent style.
-* Improve form nonce check.
-* Update EDD integration.
-* Add filters for custom sort order.
+See changelog.txt for previous versions.
 
 == Upgrade Notice ==
 
-Clear your caches! Default setting for `nofollow` links. Checkbox field type. Deferred JavaScript. Support for Captcha Pro.
+Clear your caches! Improved form validation. Minor bug fixes. JavaScript file compression.

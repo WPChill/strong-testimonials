@@ -12,13 +12,18 @@
   .required.symbol:after {
     content: '*';
     color: #FF0000;
-    margin: 0 4px;
+    font-size: 1.5em;
+    font-weight: 400;
+    margin: 0 5px;
+    position: relative;
+    top: 5px;
   }
 
   label {
     display: inline-block;
     float: none;
   }
+
 
   input[type="text"],
   input[type="email"],
@@ -33,11 +38,23 @@
   }
 
   input[type="checkbox"] {
+    // normally 13px, this adds 5px, new size = 18px
     -webkit-transform: scale(1.4);
     -moz-transform:    scale(1.4);
     -ms-transform:     scale(1.4);
     transform:         scale(1.4);
-    margin: 0 0.5em 0 0;
+    margin-left: 12px;
+    margin-right: 6px;
+
+    + label {
+      font-weight: 400;
+      padding: 5px;
+
+    }
+
+    &:focus + label {
+      outline: 1px solid #CCC;
+    }
   }
 
   textarea {

@@ -32,7 +32,8 @@ class Strong_View_Form extends Strong_View {
 		$this->find_stylesheet();
 		$this->load_dependent_scripts();
 		$this->load_extra_stylesheets();
-		$this->load_special();
+		$this->load_validator();
+		$this->load_honeypots();
 
 		// If we can preprocess, we can add the inline style in the <head>.
 		add_action( 'wp_enqueue_scripts', array( $this, 'add_custom_style' ), 20 );
@@ -58,7 +59,8 @@ class Strong_View_Form extends Strong_View {
 		$this->load_dependent_scripts();
 		$this->load_extra_stylesheets();
 		$this->custom_background();
-		$this->load_special();
+		$this->load_validator();
+		$this->load_honeypots();
 
 		/*
 		 * If we cannot preprocess, add the inline style to the footer.
@@ -150,18 +152,28 @@ class Strong_View_Form extends Strong_View {
 	}
 
 	/**
-	 * Load extra scripts and styles.
+	 * Load validator script.
 	 */
-	public function load_special() {
+	public function load_validator() {
 
-		// Load rating stylesheet if necessary
-		$form_id = isset( $this->atts['form_id'] ) ? $this->atts['form_id'] : 1;
-		$fields  = wpmtst_get_form_fields( $form_id );
-		foreach ( $fields as $field ) {
+		// Assemble list of field properties for validation script.
+		$form_id     = isset( $this->atts['form_id'] ) ? $this->atts['form_id'] : 1;
+		$form_fields = wpmtst_get_form_fields( $form_id );
+		$fields      = array();
+
+		foreach ( $form_fields as $field ) {
+
+			$fields[] = array(
+				'name'     => $field['name'],
+				'type'     => $field['input_type'],
+				'required' => $field['required'],
+			);
+
+			// Load rating stylesheet if necessary.
 			if ( isset( $field['input_type'] ) && 'rating' == $field['input_type'] ) {
 				WPMST()->add_style( 'wpmtst-rating-form' );
-				break;
 			}
+
 		}
 
 		// Load validation scripts
@@ -172,11 +184,18 @@ class Strong_View_Form extends Strong_View {
 
 		$form_options = get_option( 'wpmtst_form_options' );
 
+		// Assemble script variable.
+		// Remember: top level is converted to strings!
+		$scroll = array(
+			'onError'         => $form_options['scrolltop_error'] ? true : false,
+			'onErrorOffset'   => $form_options['scrolltop_error_offset'],
+			'onSuccess'       => $form_options['scrolltop_success'] ? true : false,
+			'onSuccessOffset' => $form_options['scrolltop_success_offset'],
+		);
+
 		$args = array(
-			'scrollTopError'         => $form_options['scrolltop_error'],
-			'scrollTopErrorOffset'   => $form_options['scrolltop_error_offset'],
-			'scrollTopSuccess'       => $form_options['scrolltop_success'],
-			'scrollTopSuccessOffset' => $form_options['scrolltop_success_offset'],
+			'scroll' => $scroll,
+			'fields' => $fields,
 		);
 
 		if ( $this->atts['form_ajax'] ) {
@@ -184,6 +203,13 @@ class Strong_View_Form extends Strong_View {
 		}
 
 		WPMST()->add_script_var( 'wpmtst-form-validation', 'strongForm', $args );
+	}
+
+	/**
+	 * Load honeypots.
+	 */
+	public function load_honeypots() {
+		$form_options = get_option( 'wpmtst_form_options' );
 
 		if ( $form_options['honeypot_before'] ) {
 			WPMST()->add_script( 'wpmtst-honeypot-before' );
@@ -203,10 +229,15 @@ class Strong_View_Form extends Strong_View {
 	public function on_form_success() {
 		$form_options = get_option( 'wpmtst_form_options' );
 
+		// Remember: top level is converted to strings!
 		$args = array(
-			'displaySuccessMessage'  => 1,
-			'scrollTopSuccess'       => $form_options['scrolltop_success'],
-			'scrollTopSuccessOffset' => $form_options['scrolltop_success_offset'],
+			'display' => array(
+				'successMessage' => true,
+			),
+			'scroll'  => array(
+				'onSuccess'       => $form_options['scrolltop_success'],
+				'onSuccessOffset' => $form_options['scrolltop_success_offset'],
+			),
 		);
 
 		WPMST()->add_script( 'wpmtst-form-validation' );

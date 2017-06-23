@@ -4,7 +4,7 @@
  * Plugin URI: https://strongplugins.com/plugins/strong-testimonials/
  * Description: A full-featured plugin that works right out of the box for beginners and offers advanced features for pros.
  * Author: Chris Dillon
- * Version: 2.24
+ * Version: 2.25
  * Author URI: https://strongplugins.com/
  * Text Domain: strong-testimonials
  * Domain Path: /languages
@@ -40,6 +40,7 @@ if ( ! class_exists( 'Strong_Testimonials' ) ) :
  * @property  Strong_Mail mail
  * @property  Strong_Templates templates
  * @property  Strong_Debug debug
+ * @property  Strong_Testimonials_Form form
  * @since 1.15.0
  */
 final class Strong_Testimonials {
@@ -47,21 +48,32 @@ final class Strong_Testimonials {
 	private static $instance;
 
 	private $db_version = '1.0';
+
 	public $plugin_data;
 
 	public $styles = array();
+
 	public $scripts = array();
+
 	public $css = array();
-	public $script_vars;
+
+	public $script_vars = array();
+
 	public $shortcode2;
+
 	public $shortcode2_lb;
+
 	public $view_defaults = array();
+
 	public $view_atts = array();
+
 	public $query;
+
 	public $form_values;
+
 	public $form_errors;
+
 	public $post_list = array();
-	public $post_list_transient_name = '';
 
 	/**
 	 * @var Strong_Mail
@@ -77,6 +89,11 @@ final class Strong_Testimonials {
 	 * @var Strong_Debug
 	 */
 	public $debug;
+
+	/**
+	 * @var Strong_Testimonials_Form
+	 */
+	public $form;
 
 	/**
 	 * A singleton instance.
@@ -205,6 +222,7 @@ final class Strong_Testimonials {
 		$this->mail      = new Strong_Mail();
 		$this->templates = new Strong_Templates();
 		$this->debug     = new Strong_Debug();
+		$this->form      = new Strong_Testimonials_Form();
 	}
 
 	/**
@@ -224,7 +242,9 @@ final class Strong_Testimonials {
 		require_once WPMTST_INC . 'class-strong-templates.php';
 		require_once WPMTST_INC . 'class-strong-mail.php';
 		require_once WPMTST_INC . 'class-strong-debug.php';
+		require_once WPMTST_INC . 'class-strong-form.php';
 
+		require_once WPMTST_INC . 'captcha.php';
 		require_once WPMTST_INC . 'l10n.php';
 		require_once WPMTST_INC . 'post-types.php';
 		require_once WPMTST_INC . 'functions.php';
@@ -243,7 +263,6 @@ final class Strong_Testimonials {
 		require_once WPMTST_INC . 'shortcodes.php';
 		require_once WPMTST_INC . 'template-functions.php';
 		require_once WPMTST_INC . 'form-template-functions.php';
-		require_once WPMTST_INC . 'captcha.php';
 		require_once WPMTST_INC . 'scripts.php';
 		require_once WPMTST_INC . 'class-walker-strong-category-checklist-front.php';
 
@@ -317,11 +336,9 @@ final class Strong_Testimonials {
 		add_action( 'plugins_loaded', array( $this, 'load_textdomain' ) );
 
 		if ( is_admin() ) {
+			// Custom fields editor
 			add_action( 'wpmtst_form_admin', 'wpmtst_form_admin2' );
 		} else {
-			// Process form data.
-			add_action( 'init', array( $this, 'process_form' ), 100 );
-
 			// Catch email errors.
 			add_action( 'wp_mail_failed', array( $this, 'catch_mail_failed' ) );
 		}
@@ -376,10 +393,13 @@ final class Strong_Testimonials {
 		add_action( 'wpmtst_form_success',  array( $this, 'view_rendered' ) );
 
 		/**
-		 * Ajax form submission handler
+		 * Print script variables only after view is rendered.
+		 *
+		 * @since 2.24.1
 		 */
-		add_action( 'wp_ajax_wpmtst_form2', array( $this, 'form_handler2' ) );
-		add_action( 'wp_ajax_nopriv_wpmtst_form2', array( $this, 'form_handler2' ) );
+		add_action( 'wpmtst_view_rendered', array( $this, 'view_rendered_after' ) );
+		add_action( 'wpmtst_form_rendered', array( $this, 'view_rendered_after' ) );
+		add_action( 'wpmtst_form_success',  array( $this, 'view_rendered_after' ) );
 
 		/**
 		 * Conditionally enqueue styles and scripts.
@@ -409,33 +429,6 @@ final class Strong_Testimonials {
 	}
 
 	/**
-	 * Ajax form submission handler
-	 *
-	 * @since 1.25.0
-	 */
-	public function form_handler2() {
-		if ( isset( $_POST['wpmtst_form_nonce'] ) ) {
-			require_once WPMTST_INC . 'captcha.php';
-			require_once WPMTST_INC . 'form-handler-functions.php';
-			$success = wpmtst_form_handler();
-			if ( $success ) {
-				$return = array(
-					'success' => true,
-					'message' => wpmtst_get_success_message(),
-				);
-			} else {
-				$return = array(
-					'success' => false,
-					'errors'  => WPMST()->get_form_errors()
-				);
-			}
-			echo json_encode( $return );
-		}
-
-		die();
-	}
-
-	/**
 	 * Load stylesheet and scripts if not preprocessed.
 	 *
 	 * For compatibility with
@@ -447,6 +440,15 @@ final class Strong_Testimonials {
 	public function view_rendered() {
 		$this->load_styles();
 		$this->load_scripts();
+	}
+
+	/**
+	 * Add script variables only after view is rendered.
+	 * To prevent duplicate variables.
+	 *
+	 * @since 2.24.1
+	 */
+	public function view_rendered_after() {
 		$this->localize_scripts();
 	}
 
@@ -710,9 +712,10 @@ final class Strong_Testimonials {
 	 * @param string $var_name The script variable name.
 	 * @param array $var The script variable.
 	 *
-	 * @since 2.17.5 Using variable name as key to avoid duplicate variables.
+	 * @since 2.17.5 Using variable name as key.
 	 */
 	public function add_script_var( $script_name, $var_name, $var ) {
+		unset($this->script_vars[ $var_name ]);
 		$this->script_vars[ $var_name ] = array(
 			'script_name' => $script_name,
 			'var_name'    => $var_name,
@@ -754,15 +757,16 @@ final class Strong_Testimonials {
 	}
 
 	/**
-	 * Print script variables for the view being processed..
+	 * Print script variables for the view being processed.
 	 *
 	 * @access public
 	 * @since 2.22.3
+	 * @since 2.24.1 Setting state to 'printed'.
 	 */
 	public function localize_scripts() {
 		$vars = $this->script_vars;
 		if ( $vars ) {
-			foreach ( $vars as $var ) {
+			foreach ( $vars as $key => $var ) {
 				wp_localize_script( $var['script_name'], $var['var_name'], $var['var'] );
 			}
 		}
@@ -1139,35 +1143,6 @@ final class Strong_Testimonials {
 		 * @since 2.22.0
 		 */
 		do_action( 'wpmtst_view_found', $atts );
-	}
-
-	/**
-	 * Process a form.
-	 * Moved to `init` hook for strong_testimonials_view() template function.
-	 *
-	 * @since 2.3.0
-	 */
-	public function process_form() {
-		if ( isset( $_POST['wpmtst_form_nonce'] ) ) {
-			$form_options = get_option( 'wpmtst_form_options' );
-			require_once WPMTST_INC . 'captcha.php';
-			require_once WPMTST_INC . 'form-handler-functions.php';
-			$success = wpmtst_form_handler();
-			if ( $success ) {
-				switch ( $form_options['success_action'] ) {
-					case 'id':
-						$goback = get_permalink( $form_options['success_redirect_id'] );
-						break;
-					case 'url':
-						$goback = $form_options['success_redirect_url'];
-						break;
-					default:
-						$goback = add_query_arg( 'success', 'yes', wp_get_referer() );
-				}
-				wp_redirect( $goback );
-				exit;
-			}
-		}
 	}
 
 	/**
