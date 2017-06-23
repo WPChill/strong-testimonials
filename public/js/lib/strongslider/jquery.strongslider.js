@@ -1,7 +1,6 @@
 /**
  * Strong Slider
  *
- * Version: 1.1
  */
 
 ;(function ($) {
