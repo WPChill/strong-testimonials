@@ -263,6 +263,22 @@ class Strong_View {
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='{$c1}', endColorstr='{$c2}', GradientType=0);";
 	}
 
+	/**
+	 * Stars
+	 *
+	 * @since 2.16.0 In Strong_View class.
+	 */
+	public function has_stars() {
+		if ( isset( $this->atts['client_section'] ) ) {
+			foreach ( $this->atts['client_section'] as $field ) {
+				if ( 'rating' == $field['type'] ) {
+					WPMST()->add_style( 'wpmtst-rating-display' );
+					break;
+				}
+			}
+		}
+	}
+
 }
 
 endif;
