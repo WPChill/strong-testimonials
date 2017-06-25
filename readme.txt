@@ -7,26 +7,26 @@ Stable tag: 2.25
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
-The most customizable free testimonials plugin.
+THE most customizable free testimonials plugin.
 
 == Description ==
 
-A full-featured testimonials plugin that works right out of the box for beginners with advanced features for pros.
+A full-featured testimonials plugin that works right out of the box for beginners with advanced features for pros, backed by strong support.
 
-**[Go Demo](http://demos.wpmission.com/strong-testimonials/)** | **[Strong Support](https://support.strongplugins.com/article-category/strong-testimonials/)** | **[Add-ons](https://strongplugins.com/plugins/category/strong-testimonials/)**
+**[Go Demo](http://demos.wpmission.com/strong-testimonials/)** | **[Knowledge Base](https://support.strongplugins.com/article-category/strong-testimonials/)** | **[Add-ons](https://strongplugins.com/plugins/category/strong-testimonials/)**
 
 ### Is this the right plugin for you?
 
-It's important to understand this plugin's intended use case: A small business with up to a few hundred testimonials or reviews, maybe organized into multiple categories, and displaying them different ways like a full page of testimonials and a slideshow widget, plus a form for accepting new testimonials.
+It's important to understand this plugin's intended use case: A small business with up to a few hundred testimonials or reviews, maybe using categories for different products or services, that needs flexible display options and a customizable form for accepting new testimonials.
 
-If that describes your situation, this plugin will work for you right out of the box with just a few steps.
+If that describes you, this plugin will work in just a few steps.
 
 ### Primary Features
 
 * No complicated shortcode "language"
 * A front-end form with custom fields
 * Star ratings
-* Slideshows with several navigation options
+* Slider with several navigation options
 * Grid, columns, and Masonry
 * Ready for translation with [WPML](https://wpml.org/), [Polylang](https://wordpress.org/plugins/polylang/), and [WPGlobus](https://wordpress.org/plugins/wpglobus/)
 * A developer who's on your side :)
@@ -35,32 +35,32 @@ If that describes your situation, this plugin will work for you right out of the
 
 * Sort by oldest, newest, random, or menu order (drag-and-drop)
 * Categories
-* Excerpts, both manual and automatic, and customizable "Read more" links
+* Excerpts and "Read more" links
 * Featured Images (thumbnails) and Gravatars
 * Pagination
-* Comments (using your theme's single post template)
-* Hooks, filters, and functions for deep customization
+* Developer-friendly
 
 ### Testimonial Submission Form
 
-You can customize the form by adding or removing fields and changing properties like the order, the text before or after, and the placeholder text.
+Customize the form by adding or removing fields and changing properties like the order, label, and placeholder.
 
 **Anti-spam** measures include honeypots and Captcha via these plugins:
 
 * [Advanced noCaptcha reCaptcha](https://wordpress.org/plugins/advanced-nocaptcha-recaptcha/)
-* [Captcha](http://wordpress.org/plugins/captcha/)
-* [Captcha Pro](https://bestwebsoft.com/products/wordpress/plugins/captcha/)
+* [Captcha](http://wordpress.org/plugins/captcha/) and [Captcha Pro](https://bestwebsoft.com/products/wordpress/plugins/captcha/)
 * [Really Simple Captcha](http://wordpress.org/plugins/really-simple-captcha/)
 
-New testimonial **notification emails** can be customized and sent to multiple admins.
+Send custom **notification emails** to multiple admins.
 
-The form can be submitted via Ajax so it's compatible with popular plugins like [Popup Maker](https://wordpress.org/plugins/popup-maker/).
+Submit the form via Ajax to use with popular plugins like [Popup Maker](https://wordpress.org/plugins/popup-maker/).
 
 ### Displaying Testimonials
 
-Everything happens in a **view**. Instead of learning multiple shortcodes with dozens of options, a view contains all the options in a simple, intuitive editor that no other testimonial plugin has. Display the view using a single shortcode or the widget.
+Everything happens in a **view**. Instead of learning multiple shortcodes with dozens of options, a view contains all the options in a simple, intuitive editor that no other testimonial plugin has.
 
-You can create unlimited views. For example, one view for a form, another view for a list, another for a slideshow, and so on.
+Display the view using a single shortcode or the widget.
+
+Create unlimited views. For example, one view for a form, another for a static grid, another for a slideshow, and so on.
 
 ### Style
 
@@ -68,21 +68,21 @@ Strong Testimonials offers a handful of templates to try in your theme. The defa
 
 Need help matching your theme? Got some weird spacing or floating? I'm here to help.
 
-For ultimate control and seamless integration, any template can be copied to your theme and customized. There is also a template function `<?php strong_testimonials_view( $id ); ?>`.
+For ultimate control and seamless integration, copy any template to your theme and customize it. There is also a template function `<?php strong_testimonials_view( $id ); ?>`.
 
 ### Pro Add-ons
 
 #### Review Markup
 
-Testimonials are essentially five-star reviews. By adding review markup to your testimonials, you will be encouraging search engines to display rich snippets and star ratings in search results. [Learn more](https://strongplugins.com/plugins/strong-testimonials-review-markup/)
+Testimonials are essentially five-star reviews. Adding review markup will encourage search engines to display rich snippets in search results. [Learn more](https://strongplugins.com/plugins/strong-testimonials-review-markup/)
 
 #### Multiple Forms
 
-Are your testimonials not "one size fits all"? Need more forms for different products or services? No problem. Create unlimited forms. [Learn more](https://strongplugins.com/plugins/strong-testimonials-multiple-forms/)
+Need more forms for different products or services? No problem. Create unlimited forms. [Learn more](https://strongplugins.com/plugins/strong-testimonials-multiple-forms/)
 
 #### Properties
 
-Want to rename "testimonials" to "reviews"? Want to change which features are available in the post editor? Gain maximum control. [Learn more](https://strongplugins.com/plugins/strong-testimonials-properties/)
+Want to rename "testimonials" to "reviews"? Want to change the permalink structure? [Learn more](https://strongplugins.com/plugins/strong-testimonials-properties/)
 
 ### Support
 
@@ -135,35 +135,15 @@ Activate the plugin. Look for "Testimonials" in the admin menu.
 
 = Can I add testimonials from YouTube, Twitter, and Instagram? =
 
-Yes. The plugin supports the [WordPress embed](https://codex.wordpress.org/Embeds) feature so you can add testimonials from [these sources](https://codex.wordpress.org/Embeds#Does_This_Work_With_Any_URL.3F).
-
-= Is it WPML compatible? =
-
-Yes. Polylang too.
+Yes. The plugin supports the [WordPress embed](https://codex.wordpress.org/Embeds) feature for inserting testimonials from [these sources](https://codex.wordpress.org/Embeds#Does_This_Work_With_Any_URL.3F).
 
 = Can I change the fields on the form? =
 
-Yes. There is a custom fields editor where you can add or remove fields, change field details, and drag-and-drop to reorder them.
-
-= Can I customize the form error message and the "Submit" button? =
-
-Yes.
+Yes. There is a custom fields editor to add or remove fields, change field details, and drag-and-drop to reorder them.
 
 = After the form has been submitted, can I redirect them to another page or display a custom message? =
 
 Yes and yes.
-
-= Can I add Captcha to the form? =
-
-Yes, the plugin integrates with three popular Captcha plugins.
-
-= Can I add the form to a popup? =
-
-Yes, with the excellent [Popup Maker](https://wordpress.org/plugins/popup-maker/) plugin.
-
-= Can I receive a notification email when a new testimonial has been submitted? =
-
-Yes, and you can send it multiple recipients. You can completely customize the email content and include any submitted information.
 
 = Can I set the status of the newly submitted testimonial? =
 
@@ -173,17 +153,13 @@ Yes, either pending or published.
 
 Yes.
 
-= I want to use categories. Can I add a category selector to the submission form? =
+= Can I change the fields that appear below the testimonial? =
 
-Yes. After setting up your categories, you can add a category dropdown or checklist to the form.
+Yes. In views, change these custom fields in a few clicks.
 
-= Can I change which client fields appear below the testimonial? =
+= Can I display a large version of the featured image in a popup? =
 
-Yes. In views, these custom fields can be changed with a few clicks.
-
-= My theme also includes testimonials. Will that be a problem? =
-
-It depends. If you encounter trouble, use the support forum and we'll sort it out. If you want help disabling testimonials in your theme, even better. :)
+Yes. This requires a lightbox so if your theme does not include one, you will need a plugin like [Simple Colorbox](https://wordpress.org/plugins/simple-colorbox/).
 
 = Will it automatically use my existing testimonials? =
 
@@ -192,18 +168,6 @@ No. If you already have testimonials in another plugin or theme, you will have t
 = Can I import my existing testimonials? =
 
 It depends. The plugin does not provide an import tool because every situation is different. With some technical skills, you may be able to successfully export your existing testimonials to a CSV file and import them into Strong Testimonials. Contact me if you want help with that. Otherwise, it may be simpler and easier to migrate them manually.
-
-= I'm familiar with template files. Can I customize the template? =
-
-Yes. With some HTML and CSS knowledge, you can copy any template to your theme and customize it as you see fit. You can also have multiple custom templates. Contact me for help.
-
-= Can I display a large version of the featured image in a popup? =
-
-Yes. This requires a lightbox so if your theme does not include one, you will need a plugin like [Simple Colorbox](https://wordpress.org/plugins/simple-colorbox/).
-
-= Can I request a new feature, action hook, or filter? =
-
-I'm all ears!
 
 = Is it true that including a link to my site in my support requests really helps you troubleshoot problems? =
 
