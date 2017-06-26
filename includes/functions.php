@@ -668,8 +668,7 @@ function wpmtst_post_submitbox_misc_actions( $post ) {
 		$submit_date = get_post_meta( $post->ID, 'submit_date', true );
 		if ( $submit_date ) {
 			echo 'Submitted on: <strong>' . date_i18n( __( 'M j, Y @ H:i' ), strtotime( $submit_date ) ) . '</strong>';
-		}
-		else {
+		} else {
 			echo 'No submit date';
 		}
 		echo '</span>';
@@ -811,7 +810,7 @@ function wpmtst_divi_builder_active() {
  * @return string
  */
 function wpmtst_single_template_add_content( $content ) {
-	if ( is_singular( 'wpm-testimonial' ) ) {
+	if ( is_singular( 'wpm-testimonial' ) || is_tax( 'wpm-testimonial-category' ) ) {
 		ob_start();
 		?>
 		<div class="testimonial-client normal">

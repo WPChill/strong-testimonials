@@ -31,6 +31,12 @@
 	padding: 0 5px;
 	transition: color 0.3s ease;
 }
+.strong-rating span.star:first-child:before {
+	padding-left: 0;
+}
+.strong-rating span.star:last-child:before {
+	padding-right: 0;
+}
 
 .strong-rating span.star:hover { cursor: default; }
 

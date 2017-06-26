@@ -838,18 +838,16 @@ function wpmtst_new_pagination_2() {
 if ( ! function_exists( 'wpmtst_single_template_client' ) ) :
 
 function wpmtst_single_template_client() {
-
-    $client_section = '';
-
     $view = wpmtst_find_single_template_view();
     if ( $view && isset( $view['client_section'] ) ) {
-        $client_section = $view['client_section'];
+	    foreach ( $view['client_section'] as $field ) {
+		    if ( 'rating' == $field['type'] ) {
+			    wp_enqueue_style( 'wpmtst-rating-display' );
+			    break;
+		    }
+	    }
+	    echo wpmtst_client_section( $view['client_section'] );
     }
-
-    if ( $client_section ) {
-        echo wpmtst_client_section( $client_section );
-    }
-
 }
 
 endif;

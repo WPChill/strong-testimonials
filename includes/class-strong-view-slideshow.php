@@ -316,22 +316,6 @@ class Strong_View_Slideshow extends Strong_View_Display {
 	}
 
 	/**
-	 * Stars
-	 *
-	 * @since 2.16.0 In Strong_View class.
-	 */
-	public function has_stars() {
-		if ( isset( $this->atts['client_section'] ) ) {
-			foreach ( $this->atts['client_section'] as $field ) {
-				if ( 'rating' == $field['type'] ) {
-					WPMST()->add_style( 'wpmtst-rating-display' );
-					break;
-				}
-			}
-		}
-	}
-
-	/**
 	 * Slideshow
 	 *
 	 * @since 2.16.0 In Strong_View class.
