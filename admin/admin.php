@@ -205,35 +205,6 @@ add_action( 'admin_enqueue_scripts', 'wpmtst_admin_enqueue_scripts' );
 
 
 /**
- * Defer admin scripts.
- *
- * @param $tag
- * @param $handle
- *
- * @return mixed
- */
-function wpmtst_admin_defer_scripts( $tag, $handle ) {
-	$scripts_to_defer = array(
-        'wpmtst-addons-script',
-        'wpmtst-admin-script',
-        'wpmtst-admin-fields-script',
-        'wpmtst-admin-views-script',
-        'wpmtst-ays-script',
-        'wpmtst-help',
-        'wpmtst-rating-script',
-        'wpmtst-view-category-filter-script',
-    );
-
-	if ( in_array( $handle, $scripts_to_defer ) ) {
-		return str_replace( ' src', ' defer src', $tag );
-	}
-
-	return $tag;
-}
-add_filter( 'script_loader_tag', 'wpmtst_admin_defer_scripts', 10, 2 );
-
-
-/**
  * ----------------------------------
  * START: Enqueue styles and scripts.
  * ----------------------------------

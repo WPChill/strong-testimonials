@@ -101,10 +101,8 @@ function wpmtst_the_content() {
 		}
 
 		$content = wpautop( $content );
-
 		$content = shortcode_unautop( $content );
 		$content = do_shortcode( $content );
-
 		$content = convert_smilies( $content );
 
 	} else {
@@ -120,7 +118,6 @@ function wpmtst_the_content() {
 		$content = shortcode_unautop( $content );
 		$content = do_shortcode( $content );
 		$content = wp_make_content_images_responsive( $content );
-
 		$content = convert_smilies( $content );
 
 	}
