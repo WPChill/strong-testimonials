@@ -393,15 +393,6 @@ final class Strong_Testimonials {
 		add_action( 'wpmtst_form_success',  array( $this, 'view_rendered' ) );
 
 		/**
-		 * Print script variables only after view is rendered.
-		 *
-		 * @since 2.24.1
-		 */
-		add_action( 'wpmtst_view_rendered', array( $this, 'view_rendered_after' ) );
-		add_action( 'wpmtst_form_rendered', array( $this, 'view_rendered_after' ) );
-		add_action( 'wpmtst_form_success',  array( $this, 'view_rendered_after' ) );
-
-		/**
 		 * Conditionally enqueue styles and scripts.
 		 */
 
@@ -440,6 +431,12 @@ final class Strong_Testimonials {
 	public function view_rendered() {
 		$this->load_styles();
 		$this->load_scripts();
+
+		/**
+		 * Print script variables on footer hook.
+		 * @since 2.25.2
+		 */
+		add_action( 'wp_footer',  array( $this, 'view_rendered_after' ) );
 	}
 
 	/**
