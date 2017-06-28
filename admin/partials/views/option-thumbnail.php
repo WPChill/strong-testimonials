@@ -21,14 +21,13 @@
 						<?php endforeach; ?>
 					</select>
 				</div>
-				<div class="inline then then_thumbnail_size">
+				<div class="inline then then_thumbnail_size" style="margin-left: 1em;">
 					<label for="thumbnail_width" class="">
 						<?php _e( 'width', 'strong-testimonials' ); ?>
 					</label>
 					<input id="thumbnail_width" class="input-number-px" type="text" name="view[data][thumbnail_width]" value="<?php echo $view['thumbnail_width']; ?>"> px
-				</div>
-				<div class="inline then then_thumbnail_size">
-					<label for="thumbnail_height" class="">
+					<span style="display: inline-block; color: #BBB; margin: 0 1em;">|</span>
+                    <label for="thumbnail_height" class="">
 						<?php _e( 'height', 'strong-testimonials' ); ?>
 					</label>
 					<input id="thumbnail_height" class="input-number-px" type="text" name="view[data][thumbnail_height]" value="<?php echo $view['thumbnail_height']; ?>"> px
@@ -45,7 +44,7 @@
 						<?php _e( 'Open full-size image in a lightbox', 'strong-testimonials' ); ?>
 					</label>
 				</div>
-				<div class="inline then then_lightbox">
+				<div class="then then_lightbox">
 					<p class="description"><?php printf( wp_kses( __( 'Requires a lightbox provided by your theme or another plugin like <a href="%s" target="_blank">Simple Colorbox</a>.', 'strong-testimonials' ), array( 'a' => array( 'href' => array(), 'target' => array(), 'class' => array() ) ) ), esc_url( 'https://wordpress.org/plugins/simple-colorbox/' ) ); ?></p>
 				</div>
 			</div>
