@@ -192,7 +192,7 @@ If you prefer not to post your URL publicly, start a private support ticket at [
 
 == Changelog ==
 
-= 2.26.2 - June 28, 2017 =
+= 2.25.2 - June 28, 2017 =
 * Fix conflict with OptimizePress page builder.
 * Remove defer on admin scripts.
 
