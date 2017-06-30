@@ -338,9 +338,6 @@ final class Strong_Testimonials {
 		if ( is_admin() ) {
 			// Custom fields editor
 			add_action( 'wpmtst_form_admin', 'wpmtst_form_admin2' );
-		} else {
-			// Catch email errors.
-			add_action( 'wp_mail_failed', array( $this, 'catch_mail_failed' ) );
 		}
 
 		/**

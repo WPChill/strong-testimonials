@@ -26,11 +26,18 @@ class Strong_Mail {
 		if ( ! $current_queue )
 			return;
 
+		add_action( 'wp_mail_failed', array( $this, 'catch_mail_failed' ) );
 		foreach ( $current_queue as $email ) {
 			$this->send_mail( $email );
 		}
+		remove_action( 'wp_mail_failed', array( $this, 'catch_mail_failed' ) );
 
 		delete_transient( 'wpmtst_mail_queue' );
+	}
+
+
+	public function catch_mail_failed( $error ) {
+		WPMST()->debug->log( $error );
 	}
 
 
