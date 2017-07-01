@@ -248,7 +248,9 @@ final class Strong_Testimonials {
 		require_once WPMTST_INC . 'l10n.php';
 		require_once WPMTST_INC . 'post-types.php';
 		require_once WPMTST_INC . 'functions.php';
-		require_once WPMTST_INC . 'rating-functions.php';
+		require_once WPMTST_INC . 'functions-content.php';
+		require_once WPMTST_INC . 'functions-rating.php';
+		require_once WPMTST_INC . 'functions-image.php';
 		require_once WPMTST_INC . 'retro.php';
 		require_once WPMTST_INC . 'widget2.php';
 		require_once WPMTST_INC . 'deprecated.php';
@@ -261,8 +263,8 @@ final class Strong_Testimonials {
 		 * @todo Load only when needed.
 		 */
 		require_once WPMTST_INC . 'shortcodes.php';
-		require_once WPMTST_INC . 'template-functions.php';
-		require_once WPMTST_INC . 'form-template-functions.php';
+		require_once WPMTST_INC . 'functions-template.php';
+		require_once WPMTST_INC . 'functions-template-form.php';
 		require_once WPMTST_INC . 'scripts.php';
 		require_once WPMTST_INC . 'class-walker-strong-category-checklist-front.php';
 
