@@ -711,60 +711,36 @@ ul.radio-list {
   width: 80%;
 }
 
+/* demo color switcher */
 #font-color-switcher {
-  text-align: right;
+  text-align: center;
   margin-bottom: 10px;
+  font-style: italic;
 }
 
 #font-color-switcher .inner {
   display: inline-block;
-  background: #222;
-  padding: 1px;
-  overflow: hidden;
 }
 
 #font-color-switcher .inner-help {
   display: inline-block;
-  height: 30px;
-  vertical-align: middle;
-  float: right;
-  line-height: 30px;
-  padding: 0 10px;
-  font-style: italic;
-}
-
-#font-color-switcher input[type="radio"] {
-  display: none;
-  margin: 0;
+  padding: 1px 10px;
 }
 
 #font-color-switcher input[type="radio"] + label {
-  color: #333;
-  background: #e0e0e0;
-  margin: 0;
-  padding: 6px 12px;
-  text-transform: uppercase;
-  font-size: 0.9em;
+  margin-right: 10px;
 }
 
-#font-color-switcher input[type="radio"]:not(:first-of-type) + label {
-  margin-left: -5px;
+#font-color-switcher input[type=radio] + label:before {
+  letter-spacing: 0.3em;
+  font-style: normal;
 }
 
-#font-color-switcher input[type="radio"]:checked + label {
-  background: #00A4F3;
-  color: #FFF;
+#font-color-switcher input[type=radio] + label:hover {
+  background: transparent;
 }
 
-#font-color-switcher input[type="radio"]:checked + label:hover {
-  cursor: auto;
-}
-
-#font-color-switcher input[type="radio"]:not(:checked) + label:hover {
-  background: #444;
-  color: #FFF;
-}
-
+/* gradient */
 .background-description.bg-gradient label {
   padding-right: 1em;
   padding-bottom: 2em;
