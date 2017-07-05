@@ -105,9 +105,6 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
 .strong-view.large-widget .testimonial-name {
   font-weight: 700;
 }
-.strong-view.large-widget .testimonial-readmore {
-  margin-top: 1.2em;
-}
 .strong-view.large-widget .readmore a {
   background: rgba(255, 255, 255, 0.3);
   border-radius: 3px;

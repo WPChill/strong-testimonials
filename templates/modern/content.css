@@ -228,9 +228,6 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
   text-decoration: none;
   box-shadow: none;
 }
-.strong-view.modern .testimonial-readmore {
-  margin-top: 1em;
-}
 .strong-view.modern .readmore-page {
   background: #F4F4F4;
   padding: 0.7em;
