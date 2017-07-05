@@ -243,30 +243,22 @@ final class Strong_Testimonials {
 		require_once WPMTST_INC . 'class-strong-mail.php';
 		require_once WPMTST_INC . 'class-strong-debug.php';
 		require_once WPMTST_INC . 'class-strong-form.php';
+		require_once WPMTST_INC . 'class-walker-strong-category-checklist-front.php';
 
 		require_once WPMTST_INC . 'captcha.php';
+		require_once WPMTST_INC . 'deprecated.php';
 		require_once WPMTST_INC . 'l10n.php';
-		require_once WPMTST_INC . 'post-types.php';
 		require_once WPMTST_INC . 'functions.php';
 		require_once WPMTST_INC . 'functions-content.php';
 		require_once WPMTST_INC . 'functions-rating.php';
 		require_once WPMTST_INC . 'functions-image.php';
-		require_once WPMTST_INC . 'retro.php';
-		require_once WPMTST_INC . 'widget2.php';
-		require_once WPMTST_INC . 'deprecated.php';
-
-		/**
-		 * These are not normally needed in admin.
-		 * Including here for compatibility with page builders.
-		 *
-		 * @since 1.25.3
-		 * @todo Load only when needed.
-		 */
-		require_once WPMTST_INC . 'shortcodes.php';
 		require_once WPMTST_INC . 'functions-template.php';
 		require_once WPMTST_INC . 'functions-template-form.php';
+		require_once WPMTST_INC . 'post-types.php';
+		require_once WPMTST_INC . 'retro.php';
 		require_once WPMTST_INC . 'scripts.php';
-		require_once WPMTST_INC . 'class-walker-strong-category-checklist-front.php';
+		require_once WPMTST_INC . 'shortcodes.php';
+		require_once WPMTST_INC . 'widget2.php';
 
 		if ( is_admin() || ( defined( 'WP_CLI' ) && WP_CLI ) ) {
 
