@@ -53,6 +53,7 @@ function wpmtst_the_title( $before = '', $after = '' ) {
 	$title = get_the_title();
 	if ( WPMST()->atts( 'title' ) && $title ) {
 		echo $before . $title . $after;
+		/* <a href="<?php the_permalink()  ?>" title="<?php the_title_attribute(); ?>"> */
 	}
 }
 
@@ -96,6 +97,11 @@ function wpmtst_the_content() {
 
 		echo wpmtst_the_excerpt_filtered();
 
+		remove_filter( 'wpmtst_excerpt_length', 'wpmtst_excerpt_length' );
+		remove_filter( 'wpmtst_excerpt_more', 'wpmtst_excerpt_more' );
+		remove_filter( 'wpmtst_get_the_excerpt', 'wpmtst_trim_excerpt' );
+		remove_filter( 'wpmtst_get_the_excerpt', 'wpmtst_bypass_excerpt', 1 );
+
 	} elseif ( WPMST()->atts( 'excerpt' ) ) {
 
 		add_filter( 'wpmtst_excerpt_length', 'wpmtst_excerpt_length' );
@@ -106,6 +112,11 @@ function wpmtst_the_content() {
 		add_filter( 'wpmtst_get_the_excerpt', 'wpmtst_custom_excerpt_more', 20 );
 
 		echo wpmtst_the_excerpt_filtered();
+
+		remove_filter( 'wpmtst_excerpt_length', 'wpmtst_excerpt_length' );
+		remove_filter( 'wpmtst_excerpt_more', 'wpmtst_excerpt_more' );
+		remove_filter( 'wpmtst_get_the_excerpt', 'wpmtst_trim_excerpt' );
+		remove_filter( 'wpmtst_get_the_excerpt', 'wpmtst_custom_excerpt_more', 20 );
 
 	} else {
 
