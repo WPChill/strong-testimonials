@@ -5,6 +5,30 @@
  * @package Strong_Testimonials
  */
 
+// Display filters
+
+add_filter( 'wpmtst_the_content', array( $GLOBALS['wp_embed'], 'run_shortcode' ), 8 );
+add_filter( 'wpmtst_the_content', array( $GLOBALS['wp_embed'], 'autoembed' ), 8 );
+add_filter( 'wpmtst_the_content', 'wptexturize' );
+add_filter( 'wpmtst_the_content', 'wpautop' );
+add_filter( 'wpmtst_the_content', 'shortcode_unautop' );
+add_filter( 'wpmtst_the_content', 'prepend_attachment' );
+add_filter( 'wpmtst_the_content', 'wp_make_content_images_responsive' );
+add_filter( 'wpmtst_the_content', 'do_shortcode', 11 );
+add_filter( 'wpmtst_the_content', 'convert_smilies', 20 );
+
+add_filter( 'wpmtst_the_excerpt', 'wptexturize' );
+add_filter( 'wpmtst_the_excerpt', 'convert_smilies' );
+add_filter( 'wpmtst_the_excerpt', 'convert_chars' );
+add_filter( 'wpmtst_the_excerpt', 'wpautop' );
+add_filter( 'wpmtst_the_excerpt', 'shortcode_unautop' );
+add_filter( 'wpmtst_the_excerpt', 'do_shortcode', 11 );
+add_filter( 'wpmtst_the_excerpt', 'convert_smilies', 20 );
+
+add_filter( 'wpmtst_excerpt_length', 'wpmtst_excerpt_length' );
+add_filter( 'wpmtst_excerpt_more', 'wpmtst_excerpt_more' );
+add_filter( 'wpmtst_get_the_excerpt', 'wpmtst_trim_excerpt' );
+
 /**
  * Template function for showing a View.
  *
@@ -24,184 +48,73 @@ function strong_testimonials_view( $id = null ) {
 }
 
 /**
+ * Print the current post title with optional markup.
+ *
+ * @since 2.26.0 Add optional link to post.
+ *
  * @param string $before
  * @param string $after
  */
 function wpmtst_the_title( $before = '', $after = '' ) {
-	if ( WPMST()->atts( 'title' ) && get_the_title() ) {
-		echo $before . get_the_title() . $after;
+	$title = get_the_title();
+
+	if ( WPMST()->atts( 'title' ) && $title ) {
+
+		if ( WPMST()->atts( 'title_link' ) ) {
+			$before .= '<a href="' . esc_url( get_permalink() ) . '" rel="bookmark">';
+			$after = '</a>' . $after;
+		}
+
+		the_title( $before, $after );
+
 	}
 }
-
 
 /**
  * Display the testimonial content.
- * Used by the plugin and as a template function.
  *
  * @since 1.24.0
- * @since 2.4.0 Run content through core WordPress filters only, instead of all filters added to the_excerpt()
- *              or the_content() in order to to be compatible with NextGEN Gallery and to prevent other plugins
- *              from unconditionally adding content like share buttons, etc.
+ *
+ * @since 2.4.0  Run content through core WordPress filters only, instead of all filters
+ *               added to the_excerpt() or the_content() in order to to be compatible with
+ *               NextGEN Gallery and to prevent other plugins from unconditionally adding
+ *               content like share buttons, etc.
+ *
  * @since 2.11.5 Run specific filters on `wpmtst_the_content` hook.
+ *
  * @since 2.20.0 For automatic excerpts, run `wpautop` after truncating.
  *               Add `wp_make_content_images_responsive`.
+ *
+ * @since 2.26.0 Using content filters instead of direct function calls.
+ *               Using custom get_*() functions to allow filter selectivity.
  */
 function wpmtst_the_content() {
 
-	if ( WPMST()->atts( 'truncated' ) ) {
+	/**
+	 * Use this hook to remove specific _core_ content filters.
+	 *
+	 * @since 2.26.0
+	 */
+	do_action( 'wpmtst_before_content_filters' );
 
-	    // Force automatic excerpt. Based on wp_trim_excerpt.
+	if ( WPMST()->atts( 'truncated' ) || WPMST()->atts( 'excerpt' ) ) {
 
-		$content = get_the_content();
-
-		$content = strip_shortcodes( $content );
-
-		$content = $GLOBALS['wp_embed']->autoembed( $content );
-		$content = wptexturize( $content );
-
-		add_filter( 'excerpt_more', 'wpmtst_excerpt_more', 20 );
-		$excerpt_more = apply_filters( 'excerpt_more', ' ' . '[&hellip;]' );
-		remove_filter( 'excerpt_more', 'wpmtst_excerpt_more', 20 );
-
-		$excerpt_length = WPMST()->atts( 'use_default_length' ) ? 55 : WPMST()->atts( 'excerpt_length' );
-
-		// wp_trim_words will remove line breaks. So no paragraphs.
-		$content        = wp_trim_words( $content, $excerpt_length, $excerpt_more );
-
-		// Run wpautop just to wrap entire string in <p> for consistent style.
-		$content = wpautop( $content );
-
-		$content = wp_make_content_images_responsive( $content );
-
-		$content = convert_smilies( $content );
-
-	} elseif ( WPMST()->atts( 'excerpt' ) ) {
-
-		// Based on the_excerpt.
-
-		$use_default_length = WPMST()->atts( 'use_default_length' );
-
-		if ( ! $use_default_length ) {
-			add_filter( 'excerpt_length', 'wpmtst_excerpt_length', 20 );
-		}
-
-		add_filter( 'excerpt_more', 'wpmtst_excerpt_more', 20 );
-		$content = get_the_excerpt();
-		remove_filter( 'excerpt_more', 'wpmtst_excerpt_more', 20 );
-
-		if ( ! $use_default_length ) {
-			remove_filter( 'excerpt_length', 'wpmtst_excerpt_length', 20 );
-		}
-
-		$content = wptexturize( $content );
-
-        if ( WPMST()->atts( 'more_full_post' ) ) {
-			$excerpt_more = wpmtst_excerpt_more_full_post();
-			$content      .= $excerpt_more;
-		}
-
-		$content = wpautop( $content );
-		$content = shortcode_unautop( $content );
-		$content = do_shortcode( $content );
-		$content = convert_smilies( $content );
+		// Excerpt filters added in view class.
+		echo wpmtst_the_excerpt_filtered();
 
 	} else {
 
-		// Based on the_content.
-
-		$content = get_the_content( apply_filters( 'wpmtst_more_link_text', null ) );
-
-		$content = $GLOBALS['wp_embed']->autoembed( $content );
-		$content = wptexturize( $content );
-
-		$content = wpautop( $content );
-		$content = shortcode_unautop( $content );
-		$content = do_shortcode( $content );
-		$content = wp_make_content_images_responsive( $content );
-		$content = convert_smilies( $content );
+		echo wpmtst_the_content_filtered();
 
 	}
 
-	echo apply_filters( 'wpmtst_the_content', $content );
-}
+	/**
+	 * Restore content filters that were removed.
+	 *
+	 * @since 2.26.0
+	 */
+	do_action( 'wpmtst_after_content_filters' );
 
-/**
- * Modify the excerpt length.
- *
- * @since 2.10.0
- * @param $words
- *
- * @return int
- */
-function wpmtst_excerpt_length( $words ) {
-	if ( 'wpm-testimonial' == get_post_type() ) {
-		$excerpt_length = WPMST()->atts( 'excerpt_length' );
-		if ( $excerpt_length ) {
-			$words = $excerpt_length;
-		}
-	}
-
-	return $words;
-}
-
-/**
- * Modify the automatic excerpt "Read more" link (via WP filter).
- *
- * @since 2.10.0
- * @param $more
- *
- * @return string
- */
-function wpmtst_excerpt_more( $more ) {
-	if ( 'wpm-testimonial' == get_post_type() ) {
-		if ( WPMST()->atts( 'more_post' ) && ! WPMST()->atts( 'use_default_more' ) ) {
-			return wpmtst_get_excerpt_more_post();
-		}
-	}
-
-	return $more;
-}
-
-
-/**
- * Return "Read more" for automatic excerpts.
- *
- * @return string
- */
-function wpmtst_get_excerpt_more_post() {
-    $dots = WPMST()->atts( 'more_post_ellipsis' ) ? ' &hellip;' : '';
-    // This is where the "for both automatic and manual excerpts" happens
-	if ( WPMST()->atts( 'excerpt' ) && WPMST()->atts( 'more_full_post' ) ) {
-		return $dots;
-	} else {
-		return $dots . ' ' . wpmtst_get_excerpt_more_link();
-	}
-}
-
-
-/**
- * Return "Read more" for manual excerpts.
- *
- * @return string
- */
-function wpmtst_excerpt_more_full_post() {
-    $link = apply_filters( 'wpmtst_manual_excerpt_read_more', wpmtst_get_excerpt_more_link() );
-	return '<div class="testimonial-readmore">' . $link . '</div>';
-}
-
-
-/**
- * Construct the "Read more" link (both automatic and manual).
- *
- * @return string
- */
-function wpmtst_get_excerpt_more_link() {
-	$link = sprintf( '<a href="%1$s" class="readmore">%2$s</a>',
-		esc_url( get_permalink() ),
-		sprintf( '%s<span class="screen-reader-text"> "%s"</span>',
-			apply_filters( 'wpmtst_read_more_page_link_text', WPMST()->atts( 'more_post_text' ), WPMST()->atts() ), get_the_title() ) );
-
-	return $link;
 }
 
 /**
@@ -290,7 +203,6 @@ function wpmtst_remove_more_link_scroll( $link ) {
 }
 add_filter( 'the_content_more_link', 'wpmtst_remove_more_link_scroll' );
 
-
 /**
  * Display the thumbnail.
  *
@@ -308,164 +220,6 @@ function wpmtst_the_thumbnail( $size = null, $before = '<div class="testimonial-
 	if ( $img ) {
 		echo $before . $img . $after;
 	}
-}
-
-/**
- * @param null $size
- *
- * @return mixed|string
- */
-function wpmtst_get_thumbnail( $size = null ) {
-	if ( ! WPMST()->atts( 'thumbnail' ) )
-		return '';
-
-	// let arg override view setting
-	$size = ( null === $size ) ? WPMST()->atts( 'thumbnail_size' ) : $size ;
-	if ( 'custom' == $size ) {
-		$size = array( WPMST()->atts( 'thumbnail_width' ), WPMST()->atts( 'thumbnail_height' ) );
-	}
-
-	$id   = get_the_ID();
-	$img  = '';
-
-	// check for a featured image
-	if ( has_post_thumbnail( $id ) ) {
-
-		// show featured image
-		$img = get_the_post_thumbnail( $id, $size );
-
-	} else {
-
-		// no featured image, now what?
-
-        $dimensions = apply_filters( 'wpmtst_gravatar_size', $size );
-
-		if ( 'yes' == WPMST()->atts( 'gravatar' ) ) {
-			// view > gravatar > show gravatar (use default, if not found)
-
-			$img = get_avatar( wpmtst_get_field( 'email' ), apply_filters( 'wpmtst_gravatar_size', $size ) );
-            //$img = get_avatar( wpmtst_get_field( 'email' ), $dimensions['width'], '', '', $dimensions );
-
-		} elseif ( 'if' == WPMST()->atts( 'gravatar' ) ) {
-			// view > gravatar > show gravatar only if found (and has email)
-
-			if ( wpmtst_get_field( 'email' ) ) {
-				// get_avatar will return false if not found (via filter)
-				$img = get_avatar( wpmtst_get_field( 'email' ), apply_filters( 'wpmtst_gravatar_size', $size ) );
-				//$img = get_avatar( wpmtst_get_field( 'email' ), $dimensions['width'], '', '', $dimensions );
-			}
-		}
-
-	}
-
-	return apply_filters( 'wpmtst_thumbnail_img', $img, $id );
-}
-
-/**
- * Filter the thumbnail image.
- * Used to add link for a lightbox. Will not affect avatars.
- *
- * @param $img
- * @param $post_id
- * @since 1.23.0
- * @since 2.9.4 classes and filter
- *
- * @return string
- */
-function wpmtst_thumbnail_img( $img, $post_id ) {
-	if ( WPMST()->atts( 'lightbox' ) ) {
-		$url = wp_get_attachment_url( get_post_thumbnail_id( $post_id ) );
-		if ( $url ) {
-			$classes = join( ' ', array_unique( apply_filters( 'wpmtst_thumbnail_link_class', array() ) ) );
-			$img = '<a class="' . $classes . '" href="' . $url . '">' . $img . '</a>';
-			/**
-			 * Adjust settings for Simple Colorbox plugin.
-			 * TODO do the same for other lightbox plugins
-			 */
-			if ( defined( 'SIMPLECOLORBOX_VERSION' ) ) {
-                wp_enqueue_script( 'wpmtst-colorbox' );
-			}
-		}
-	}
-	return $img;
-}
-add_filter( 'wpmtst_thumbnail_img', 'wpmtst_thumbnail_img', 10, 2 );
-
-/**
- * Filter thumbnail link classes.
- *
- * @since 2.9.4
- * @param $classes
- *
- * @return array
- */
-function wpmtst_thumbnail_link_class( $classes ) {
-	if ( ! is_array( $classes ) )
-		$classes = preg_split( '#\s+#', $classes );
-
-	// FooBox (both free and pro versions)
-	if ( defined( 'FOOBOXFREE_VERSION' ) || class_exists( 'fooboxV2' ) )
-		$classes[] = 'foobox';
-
-	return $classes;
-}
-add_filter( 'wpmtst_thumbnail_link_class', 'wpmtst_thumbnail_link_class' );
-
-/**
- * Filter the gravatar size.
- *
- * @param array $size
- * @since 1.23.0
- * @return mixed
- */
-function wpmtst_gravatar_size_filter( $size = array( 150, 150 ) ) {
-	// avatars are square so get the width of the requested size
-	if ( is_array( $size ) ) {
-		// if dimension array
-		$gravatar_size = $size[0];
-	} else {
-		// if named size
-		$image_sizes   = wpmtst_get_image_sizes();
-		$gravatar_size = $image_sizes[$size]['width'];
-		//$gravatar_size = array( 'width' => $image_sizes[$size]['width'], 'height' => $image_sizes[$size]['height'] );
-	}
-	return $gravatar_size;
-}
-add_filter( 'wpmtst_gravatar_size', 'wpmtst_gravatar_size_filter' );
-
-/**
- * Checks to see if the specified email address has a Gravatar image.
- *
- * Thanks Tom McFarlin https://tommcfarlin.com/check-if-a-user-has-a-gravatar/
- * @param $email_address string The email of the address of the user to check
- * @return bool Whether or not the user has a gravatar
- * @since 1.23.0
- */
-function wpmtst_has_gravatar( $email_address ) {
-	// Build the Gravatar URL by hashing the email address
-	$url = 'http://www.gravatar.com/avatar/' . md5( strtolower( trim ( $email_address ) ) ) . '?d=404';
-
-	// Now check the headers...
-	$headers = @get_headers( $url );
-
-	// If 200 is found, the user has a Gravatar; otherwise, they don't.
-	return preg_match( '|200|', $headers[0] ) ? true : false;
-}
-
-/**
- * Before assembling avatar HTML.
- *
- * @param $url
- * @param $id_or_email
- * @param $args
- *
- * @return bool
- */
-function wpmtst_get_avatar( $url, $id_or_email, $args ) {
-	if ( 'if' == WPMST()->atts( 'gravatar' ) && ! wpmtst_has_gravatar( $id_or_email ) )
-		return false;
-
-	return $url;
 }
 
 /**
@@ -796,6 +550,11 @@ function wpmtst_standard_pagination() {
 endif;
 
 
+/**
+ * If paged, return the current page number.
+ *
+ * @return int|mixed
+ */
 function wpmtst_get_paged() {
 	if ( get_query_var( 'paged' ) ) {
 		$paged = get_query_var( 'paged' );

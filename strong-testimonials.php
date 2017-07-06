@@ -4,7 +4,7 @@
  * Plugin URI: https://strongplugins.com/plugins/strong-testimonials/
  * Description: A full-featured plugin that works right out of the box for beginners and offers advanced features for pros.
  * Author: Chris Dillon
- * Version: 2.25.2
+ * Version: 2.26
  * Author URI: https://strongplugins.com/
  * Text Domain: strong-testimonials
  * Domain Path: /languages
@@ -243,28 +243,22 @@ final class Strong_Testimonials {
 		require_once WPMTST_INC . 'class-strong-mail.php';
 		require_once WPMTST_INC . 'class-strong-debug.php';
 		require_once WPMTST_INC . 'class-strong-form.php';
+		require_once WPMTST_INC . 'class-walker-strong-category-checklist-front.php';
 
 		require_once WPMTST_INC . 'captcha.php';
-		require_once WPMTST_INC . 'l10n.php';
-		require_once WPMTST_INC . 'post-types.php';
-		require_once WPMTST_INC . 'functions.php';
-		require_once WPMTST_INC . 'rating-functions.php';
-		require_once WPMTST_INC . 'retro.php';
-		require_once WPMTST_INC . 'widget2.php';
 		require_once WPMTST_INC . 'deprecated.php';
-
-		/**
-		 * These are not normally needed in admin.
-		 * Including here for compatibility with page builders.
-		 *
-		 * @since 1.25.3
-		 * @todo Load only when needed.
-		 */
-		require_once WPMTST_INC . 'shortcodes.php';
-		require_once WPMTST_INC . 'template-functions.php';
-		require_once WPMTST_INC . 'form-template-functions.php';
+		require_once WPMTST_INC . 'l10n.php';
+		require_once WPMTST_INC . 'functions.php';
+		require_once WPMTST_INC . 'functions-content.php';
+		require_once WPMTST_INC . 'functions-rating.php';
+		require_once WPMTST_INC . 'functions-image.php';
+		require_once WPMTST_INC . 'functions-template.php';
+		require_once WPMTST_INC . 'functions-template-form.php';
+		require_once WPMTST_INC . 'post-types.php';
+		require_once WPMTST_INC . 'retro.php';
 		require_once WPMTST_INC . 'scripts.php';
-		require_once WPMTST_INC . 'class-walker-strong-category-checklist-front.php';
+		require_once WPMTST_INC . 'shortcodes.php';
+		require_once WPMTST_INC . 'widget2.php';
 
 		if ( is_admin() || ( defined( 'WP_CLI' ) && WP_CLI ) ) {
 
@@ -338,9 +332,6 @@ final class Strong_Testimonials {
 		if ( is_admin() ) {
 			// Custom fields editor
 			add_action( 'wpmtst_form_admin', 'wpmtst_form_admin2' );
-		} else {
-			// Catch email errors.
-			add_action( 'wp_mail_failed', array( $this, 'catch_mail_failed' ) );
 		}
 
 		/**
@@ -603,6 +594,7 @@ final class Strong_Testimonials {
 			'thumbnail_height'   => null,
 			'thumbnail_width'    => null,
 			'title'              => '',
+			'title_link'         => 0,
 			'use_default_length' => 1,
 			'use_default_more'   => 0,
 			'view'               => '',

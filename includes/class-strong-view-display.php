@@ -88,6 +88,7 @@ class Strong_View_Display extends Strong_View {
 		/**
 		 * Add filters.
 		 */
+		$this->add_content_filters();
 		add_filter( 'get_avatar', 'wpmtst_get_avatar', 10, 3 );
 		add_filter( 'embed_defaults', 'wpmtst_embed_size', 10, 2 );
 
@@ -126,11 +127,11 @@ class Strong_View_Display extends Strong_View {
 			include( $this->template_file );
 			$html = ob_get_clean();
 		}
-		// TODO apply content filters
 
 		/**
 		 * Remove filters.
 		 */
+		$this->remove_content_filters();
 		remove_filter( 'get_avatar', 'wpmtst_get_avatar' );
 		remove_filter( 'embed_defaults', 'wpmtst_embed_size' );
 

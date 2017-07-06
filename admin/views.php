@@ -313,6 +313,7 @@ function wpmtst_view_edit_form() {
 		if ( isset( $_POST['reset'] ) ) {
 
 			// Undo changes
+			$goback = remove_query_arg( array( 'defaults-restored', 'view-saved' ), $goback );
 			$goback = add_query_arg( 'cancelled', true, $goback );
 
 		} elseif ( isset( $_POST['restore-defaults'] ) ) {
@@ -344,7 +345,7 @@ function wpmtst_view_edit_form() {
 			$success = wpmtst_save_view( $view ); // num_rows
 
 			if ( $success ) {
-				$goback = remove_query_arg( 'defaults-restored', $goback );
+				$goback = remove_query_arg( array( 'defaults-restored', 'cancelled' ), $goback );
 				$goback = add_query_arg( 'view-saved', true, $goback );
 			} else {
 				$goback = add_query_arg( 'error', true, $goback );
@@ -405,7 +406,7 @@ function wpmtst_view_add_form() {
 
 		}
 
-		$goback = remove_query_arg( 'action', $goback );
+		$goback = remove_query_arg( array( 'action', 'defaults-restored', 'cancelled' ), $goback );
 		if ( $success ) {
 			$goback = add_query_arg( array( 'action' => 'edit', 'id' => $success, $query_arg => true ), $goback );
 		} else {

@@ -44,6 +44,9 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
   width: 100%;
   height: 100%;
 }
+.strong-view.large-widget .testimonial-image {
+  max-width: 100%;
+}
 .strong-view.large-widget .testimonial-field-before {
   margin-right: 0.5em;
 }
@@ -101,9 +104,6 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
 }
 .strong-view.large-widget .testimonial-name {
   font-weight: 700;
-}
-.strong-view.large-widget .testimonial-readmore {
-  margin-top: 1.2em;
 }
 .strong-view.large-widget .readmore a {
   background: rgba(255, 255, 255, 0.3);

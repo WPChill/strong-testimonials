@@ -128,6 +128,8 @@ function wpmtst_sanitize_view( $input ) {
 	$data['nav']             = str_replace( ' ', '', sanitize_text_field( $input['nav'] ) );
 
 	$data['title']              = isset( $input['title'] ) ? 1 : 0;
+	$data['title_link']         = isset( $input['title_link'] ) ? 1 : 0;
+
 	$data['content']            = sanitize_text_field( $input['content'] );
 	$data['excerpt_length']     = (int) sanitize_text_field( $input['excerpt_length'] );
 	$data['use_default_length'] = sanitize_text_field( $input['use_default_length'] );

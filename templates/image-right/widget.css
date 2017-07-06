@@ -44,6 +44,9 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
   width: 100%;
   height: 100%;
 }
+.strong-view.image-right-widget .testimonial-image {
+  max-width: 100%;
+}
 .strong-view.image-right-widget .testimonial-field-before {
   margin-right: 0.5em;
 }

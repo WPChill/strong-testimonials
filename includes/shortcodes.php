@@ -146,6 +146,6 @@ add_shortcode( 'testimonial_count', 'wpmtst_testimonial_count' );
  * @return string
  */
 function wpmtst_hello() {
-    return 'Hello';
+    return 'Hello :) &bull;&nbsp;';
 }
 add_shortcode ( 'wpmtst_hello', 'wpmtst_hello' );

@@ -89,17 +89,17 @@
 				<div class="view-background-info-inner background-preview-wrap">
 
 					<div id="font-color-switcher">
-						<div class="inner">
+						<div class="inner radio-buttons">
 							<input type="radio" id="dark-font-folor" name="view[data][background][example-font-color]" value="dark" <?php checked( $view['background']['example-font-color'], 'dark' ); ?>>
-							<label for="dark-font-folor"><?php _e( 'dark', 'strong-testimonials' ); ?></label>
+							<label for="dark-font-folor"><?php _e( 'dark text', 'strong-testimonials' ); ?></label>
 							<input type="radio" id="light-font-color" name="view[data][background][example-font-color]" value="light" <?php checked( $view['background']['example-font-color'], 'light' ); ?>>
-							<label for="light-font-color"><?php _e( 'light', 'strong-testimonials' ); ?></label>
+							<label for="light-font-color"><?php _e( 'light text', 'strong-testimonials' ); ?></label>
 						</div>
-						<div class="inner-help">for demo only</div>
+						<div class="inner-help"><?php _e( '(for demo only)', 'strong-testimonials' ); ?></div>
 					</div>
 
 					<div id="background-preview" class="<?php echo $view['background']['example-font-color']; ?>">
-						Lorem ipsum dolor sit amet, accusam complectitur an eos, cum cu habeo consulatu. No vix perpetua adolescens, vix vidisse maiorum in. No erat falli scripta qui, vis ubique scripta electram ad. Vix prompta adipisci no, ad vidisse expetendis definitiones ius.
+						Lorem ipsum dolor sit amet, accusam complectitur an eos. No vix perpetua adolescens, vix vidisse maiorum in. No erat falli scripta qui, vis ubique scripta electram ad. Vix prompta adipisci no, ad vidisse expetendis.
 					</div>
 
 				</div>

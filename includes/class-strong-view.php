@@ -69,6 +69,50 @@ class Strong_View {
 	public function build() {}
 
 	/**
+	 * Add content filters.
+	 */
+	public function add_content_filters() {
+
+		if ( isset( $this->atts['truncated'] ) && $this->atts['truncated'] ) {
+
+			// Force use of content instead of manual excerpt.
+			add_filter( 'wpmtst_get_the_excerpt', 'wpmtst_bypass_excerpt', 1 );
+
+		} elseif ( isset( $this->atts['excerpt'] ) && $this->atts['excerpt'] ) {
+
+			// Maybe add read-more to manual excerpts.
+			add_filter( 'wpmtst_get_the_excerpt', 'wpmtst_custom_excerpt_more', 20 );
+
+		} else {
+
+			// no filters
+
+		}
+
+	}
+
+	/**
+	 * Add content filters.
+	 */
+	public function remove_content_filters() {
+
+		if ( isset( $this->atts['truncated'] ) && $this->atts['truncated'] ) {
+
+			remove_filter( 'wpmtst_get_the_excerpt', 'wpmtst_bypass_excerpt', 1 );
+
+		} elseif ( isset( $this->atts['excerpt'] ) && $this->atts['excerpt'] ) {
+
+			remove_filter( 'wpmtst_get_the_excerpt', 'wpmtst_custom_excerpt_more', 20 );
+
+		} else {
+
+			// no filters
+
+		}
+
+	}
+
+	/**
 	 * Build our query based on view attributes.
 	 */
 	public function build_query() {}
