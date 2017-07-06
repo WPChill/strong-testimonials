@@ -594,6 +594,7 @@ final class Strong_Testimonials {
 			'thumbnail_height'   => null,
 			'thumbnail_width'    => null,
 			'title'              => '',
+			'title_link'         => 0,
 			'use_default_length' => 1,
 			'use_default_more'   => 0,
 			'view'               => '',

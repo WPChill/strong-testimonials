@@ -719,6 +719,7 @@ function wpmtst_get_default_view() {
 		'thumbnail_height'   => null,
 		'thumbnail_width'    => null,
 		'title'              => true,
+		'title_link'         => false,
 		'use_default_length' => true,
 		'use_default_more'   => false,
 	);

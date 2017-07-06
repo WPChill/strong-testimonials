@@ -48,14 +48,25 @@ function strong_testimonials_view( $id = null ) {
 }
 
 /**
+ * Print the current post title with optional markup.
+ *
+ * @since 2.26.0 Add optional link to post.
+ *
  * @param string $before
  * @param string $after
  */
 function wpmtst_the_title( $before = '', $after = '' ) {
 	$title = get_the_title();
+
 	if ( WPMST()->atts( 'title' ) && $title ) {
-		echo $before . $title . $after;
-		/* <a href="<?php the_permalink()  ?>" title="<?php the_title_attribute(); ?>"> */
+
+		if ( WPMST()->atts( 'title_link' ) ) {
+			$before .= '<a href="' . esc_url( get_permalink() ) . '" rel="bookmark">';
+			$after = '</a>' . $after;
+		}
+
+		the_title( $before, $after );
+
 	}
 }
 
