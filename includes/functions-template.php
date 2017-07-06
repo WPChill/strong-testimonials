@@ -25,6 +25,8 @@ add_filter( 'wpmtst_the_excerpt', 'shortcode_unautop' );
 add_filter( 'wpmtst_the_excerpt', 'do_shortcode', 11 );
 add_filter( 'wpmtst_the_excerpt', 'convert_smilies', 20 );
 
+add_filter( 'wpmtst_excerpt_length', 'wpmtst_excerpt_length' );
+add_filter( 'wpmtst_excerpt_more', 'wpmtst_excerpt_more' );
 add_filter( 'wpmtst_get_the_excerpt', 'wpmtst_trim_excerpt' );
 
 /**
@@ -78,45 +80,16 @@ function wpmtst_the_title( $before = '', $after = '' ) {
 function wpmtst_the_content() {
 
 	/**
-	 * Use this hook to remove specific content filters.
+	 * Use this hook to remove specific _core_ content filters.
 	 *
 	 * @since 2.26.0
 	 */
 	do_action( 'wpmtst_before_content_filters' );
 
-	// Supplanting the normal excerpt process.
+	if ( WPMST()->atts( 'truncated' ) || WPMST()->atts( 'excerpt' ) ) {
 
-	if ( WPMST()->atts( 'truncated' ) ) {
-
-		add_filter( 'wpmtst_excerpt_length', 'wpmtst_excerpt_length' );
-		add_filter( 'wpmtst_excerpt_more', 'wpmtst_excerpt_more' );
-		add_filter( 'wpmtst_get_the_excerpt', 'wpmtst_trim_excerpt' );
-
-		// Force use of content instead of manual excerpt.
-		add_filter( 'wpmtst_get_the_excerpt', 'wpmtst_bypass_excerpt', 1 );
-
+		// Excerpt filters added in view class.
 		echo wpmtst_the_excerpt_filtered();
-
-		remove_filter( 'wpmtst_excerpt_length', 'wpmtst_excerpt_length' );
-		remove_filter( 'wpmtst_excerpt_more', 'wpmtst_excerpt_more' );
-		remove_filter( 'wpmtst_get_the_excerpt', 'wpmtst_trim_excerpt' );
-		remove_filter( 'wpmtst_get_the_excerpt', 'wpmtst_bypass_excerpt', 1 );
-
-	} elseif ( WPMST()->atts( 'excerpt' ) ) {
-
-		add_filter( 'wpmtst_excerpt_length', 'wpmtst_excerpt_length' );
-		add_filter( 'wpmtst_excerpt_more', 'wpmtst_excerpt_more' );
-		add_filter( 'wpmtst_get_the_excerpt', 'wpmtst_trim_excerpt' );
-
-		// Maybe add read-more to manual excerpts.
-		add_filter( 'wpmtst_get_the_excerpt', 'wpmtst_custom_excerpt_more', 20 );
-
-		echo wpmtst_the_excerpt_filtered();
-
-		remove_filter( 'wpmtst_excerpt_length', 'wpmtst_excerpt_length' );
-		remove_filter( 'wpmtst_excerpt_more', 'wpmtst_excerpt_more' );
-		remove_filter( 'wpmtst_get_the_excerpt', 'wpmtst_trim_excerpt' );
-		remove_filter( 'wpmtst_get_the_excerpt', 'wpmtst_custom_excerpt_more', 20 );
 
 	} else {
 
