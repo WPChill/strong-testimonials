@@ -499,6 +499,13 @@ function wpmtst_upgrade() {
 
 			}
 
+			/**
+			 * Title link
+			 *
+			 * @since 2.26.0
+			 */
+			$view_data['title_link'] = 0;
+
 			// Merge in new default values.
 			$view['data'] = array_merge( $default_view, $view_data );
 
