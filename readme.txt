@@ -3,7 +3,7 @@ Contributors: cdillon27
 Tags: testimonials, testimonial slider, testimonial form, reviews, star ratings
 Requires at least: 3.6
 Tested up to: 4.8
-Stable tag: 2.25.2
+Stable tag: 2.26
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -17,7 +17,7 @@ A full-featured testimonials plugin that works right out of the box for beginner
 
 ### Is this the right plugin for you?
 
-It's important to understand this plugin's intended use case: A small business with up to a few hundred testimonials or reviews, maybe using categories for different products or services, that needs flexible display options and a customizable form for accepting new testimonials.
+Intended use case: A small business with up to a few hundred testimonials or reviews, maybe using categories for different products or services, that needs flexible display options and a customizable form for accepting new testimonials.
 
 If that describes you, this plugin will work in just a few steps.
 
@@ -192,6 +192,12 @@ If you prefer not to post your URL publicly, start a private support ticket at [
 
 == Changelog ==
 
+= 2.26 - July 6, 2017 =
+* Improve excerpt handling.
+* Add option for linking title to testimonial post.
+* Improve featured image responsive style.
+* Minor UI improvements in view editor.
+
 = 2.25.2 - June 28, 2017 =
 * Fix conflict with OptimizePress page builder.
 * Remove defer on admin scripts.
@@ -200,18 +206,18 @@ If you prefer not to post your URL publicly, start a private support ticket at [
 * Fix bug when adding star rating to single template and category archive.
 
 = 2.25 - June 23, 2017 =
-* Improve form validation
-  * Update jQuery Validation plugin (1.16.0)
-  * Add tabindex
-  * Add custom validation to star rating field
-  * Improve form error indicator style
-* Fix bug that was printing duplicate script variables
-* Make checkbox field text translatable
-* Add hooks and filters in form submission
-* Add option to disable "* Required Field" notice
-* Update link to wordpress.org review form
-* Update style for Review Markup add-on
-* Lint and compress JavaScript files
+* Improve form validation.
+  * Update jQuery Validation plugin (1.16.0).
+  * Add tabindex.
+  * Add custom validation to star rating field.
+  * Improve form error indicator style.
+* Fix bug that was printing duplicate script variables.
+* Make checkbox field text translatable.
+* Add hooks and filters in form submission.
+* Add option to disable "* Required Field" notice.
+* Update link to wordpress.org review form.
+* Update style for Review Markup add-on.
+* Lint and compress JavaScript files.
 
 = 2.24 - June 12, 2017 =
 * Fix bug in saving a zero rating.
@@ -241,4 +247,4 @@ See changelog.txt for previous versions.
 
 == Upgrade Notice ==
 
-Clear your caches! Improved form validation. Minor bug fixes. JavaScript file compression.
+Clear your caches! Improved theme compatibility. Option to link title to testimonial post.
