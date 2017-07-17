@@ -93,6 +93,7 @@ function wpmtst_active_addons() {
  */
 function wpmtst_sanitize_options( $input ) {
 	$input['email_log_level']       = ! isset( $input['email_log_level'] ) ? 1 : (int) $input['email_log_level'];
+	$input['embed_width']           = intval( sanitize_text_field( $input['embed_width'] ) );
 	$input['load_font_awesome']     = wpmtst_sanitize_checkbox( $input, 'load_font_awesome' );
 	$input['nofollow']              = wpmtst_sanitize_checkbox( $input, 'nofollow' );
 	$input['pending_indicator']     = wpmtst_sanitize_checkbox( $input, 'pending_indicator' );
@@ -104,31 +105,6 @@ function wpmtst_sanitize_options( $input ) {
 	$input['support_custom_fields'] = wpmtst_sanitize_checkbox( $input, 'support_custom_fields' );
 
 	return $input;
-}
-
-/**
- * Store values as 1 or 0 (never blank).
- *
- * Checked checkbox value is "on" but unchecked checkboxes are _not_ submitted.
- *
- * @param $input
- * @param $key string  Must be explicit. Do not simply loop through an input array.
- *
- * @return int
- */
-function wpmtst_sanitize_checkbox( $input, $key ) {
-	/* LONGHAND
-	if ( isset( $input['reorder'] ) ) {
-		if ( 'on' == $input['reorder'] ) { // checked checkbox
-			$new_input['reorder'] = 1;
-		} else { // hidden input
-			$new_input['reorder'] = $input['reorder']; // 0 or 1
-		}
-	} else { // unchecked checkbox
-		$new_input['reorder'] = 0;
-	}
-	*/
-	return ( isset( $input[ $key ] ) ? ( 'on' == $input[ $key ] ? 1 : $input[ $key ] ) : 0 );
 }
 
 /**

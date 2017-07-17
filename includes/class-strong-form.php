@@ -170,7 +170,9 @@ class Strong_Testimonials_Form {
 						}
 					} elseif ( 'textarea' == $field['input_type'] ) {
 						$testimonial_post[ $field['name'] ] = wpmtst_sanitize_textarea( $new_post[ $field['name'] ] );
-					} elseif ( 'text' == $field['input_type'] ) {
+					} elseif ( 'checkbox' == $field['input_type'] ) {
+						$testimonial_meta[ $field['name'] ] = wpmtst_sanitize_checkbox( $new_post, $field['name'] );
+					} else {
 						$testimonial_meta[ $field['name'] ] = sanitize_text_field( $new_post[ $field['name'] ] );
 					}
 					break;
