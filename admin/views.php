@@ -44,7 +44,7 @@ function wpmtst_views_admin() {
 					__( 'An error occurred. Please <a href="%s" target="_blank">open a support ticket</a>.', 'strong-testimonials' ),
 					array( 'a' => array( 'href' => array(), 'target' => array(), 'class' => array() ) )
 				),
-				esc_url( 'https://support.strongplugins.com/tickets/submit-ticket/' )
+				esc_url( 'https://support.strongplugins.com/new-ticket/' )
 			);
 			wp_die( sprintf( '<div class="error strong-view-error"><p>%s</p></div>', $message ) );
 
@@ -73,7 +73,7 @@ function wpmtst_views_admin() {
 			?>
 			<h1>
 				<?php _e( 'Views', 'strong-testimonials' ); ?>
-				<a href="<?php echo admin_url( 'edit.php?post_type=wpm-testimonial&page=testimonial-views&action=add' ); ?>" class="add-new-h2">Add New</a>
+				<a href="<?php echo admin_url( 'edit.php?post_type=wpm-testimonial&page=testimonial-views&action=add' ); ?>" class="add-new-h2"><?php _e( 'Add New' ); ?></a>
 			</h1>
 			<?php
 			// Fetch views after heading and before intro in case we need to display any database errors.

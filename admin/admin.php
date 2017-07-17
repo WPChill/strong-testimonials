@@ -95,7 +95,7 @@ function wpmtst_admin_register() {
 
 	$params = array(
 		'ajax_nonce' => wp_create_nonce( 'wpmtst-admin' ),
-        'newField'   => _x( 'New Field', 'Field editor: The default label for new fields', 'strong_testimonials' ),
+        'newField'   => _x( 'New Field', 'Field editor: The default label for new fields', 'strong-testimonials' ),
         'inUse'      => _x( '(in use)', 'Fields editor: To indicate when a field type can only be used once.', 'strong-testimonials' ),
         'noneFound'  => _x( '(none found)', 'Fields editor: To indicate when no categories have been found.', 'strong-testimonials' ),
 	);

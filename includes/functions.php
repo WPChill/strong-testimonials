@@ -923,3 +923,28 @@ function wpmtst_sanitize_textarea( $text ) {
 	return apply_filters( 'wpmtst_sanitize_textarea', $filtered, $text );
 }
 
+
+/**
+ * Store values as 1 or 0 (never blank).
+ *
+ * Checked checkbox value is "on" but unchecked checkboxes are _not_ submitted.
+ *
+ * @param $input
+ * @param $key string  Must be explicit. Do not simply loop through an input array.
+ *
+ * @return int
+ */
+function wpmtst_sanitize_checkbox( $input, $key ) {
+	/* LONGHAND
+	if ( isset( $input['reorder'] ) ) {
+		if ( 'on' == $input['reorder'] ) { // checked checkbox
+			$new_input['reorder'] = 1;
+		} else { // hidden input
+			$new_input['reorder'] = $input['reorder']; // 0 or 1
+		}
+	} else { // unchecked checkbox
+		$new_input['reorder'] = 0;
+	}
+	*/
+	return ( isset( $input[ $key ] ) ? ( 'on' == $input[ $key ] ? 1 : $input[ $key ] ) : 0 );
+}
