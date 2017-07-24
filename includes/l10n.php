@@ -84,7 +84,7 @@ function wpmtst_update_l10n_strings( $fields ) {
 	}
 
 	// Polylang
-	if ( defined( 'POLYLANG_VERSION') ) {
+	if ( defined( 'POLYLANG_VERSION' ) ) {
 		wpmtst_form_fields_polylang( $fields );
 	}
 
@@ -136,6 +136,16 @@ function wpmtst_l10n_polylang( $string, $context, $name ) {
 }
 
 /**
+ * WPGlobus
+ *
+ * @since 2.26.2
+ */
+function wpmtst_l10n_wpglobus() {
+	add_filter( 'wpmtst_the_content', array( 'WPGlobus_Filters', 'filter__text' ), 0 );
+	add_filter( 'wpmtst_get_the_excerpt', array( 'WPGlobus_Filters', 'filter__text' ), 0 );
+}
+
+/**
  * Add our translation filters.
  */
 function wpmtst_l10n_filters() {
@@ -152,6 +162,12 @@ function wpmtst_l10n_filters() {
 		remove_filter( 'wpmtst_l10n', 'wpmtst_l10n_default' );
 		add_filter( 'wpmtst_l10n', 'wpmtst_l10n_polylang', 20, 3 );
 		// TODO handle cat IDs like WPML
+	}
+
+	// WPGlobus
+	if ( defined( 'WPGLOBUS_VERSION' ) ) {
+		remove_filter( 'wpmtst_l10n', 'wpmtst_l10n_default' );
+		wpmtst_l10n_wpglobus();
 	}
 }
 add_action( 'plugins_loaded', 'wpmtst_l10n_filters' );
