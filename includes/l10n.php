@@ -141,7 +141,6 @@ function wpmtst_l10n_polylang( $string, $context, $name ) {
  * @since 2.26.2
  */
 function wpmtst_l10n_wpglobus() {
-	add_filter( 'the_title', array( 'WPGlobus_Filters', 'filter__text' ), 0 );
 	add_filter( 'wpmtst_the_content', array( 'WPGlobus_Filters', 'filter__text' ), 0 );
 	add_filter( 'wpmtst_get_the_excerpt', array( 'WPGlobus_Filters', 'filter__text' ), 0 );
 }
