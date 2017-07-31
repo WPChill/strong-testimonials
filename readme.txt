@@ -3,7 +3,7 @@ Contributors: cdillon27
 Tags: testimonials, testimonial slider, testimonial form, reviews, star ratings
 Requires at least: 3.6
 Tested up to: 4.8
-Stable tag: 2.26.3
+Stable tag: 2.26.4
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -191,6 +191,9 @@ If you prefer not to post your URL publicly, start a private support ticket at [
 8. View editor
 
 == Changelog ==
+
+= 2.26.4 - July 31, 2017 =
+* Fix bug in WPML String Translations.
 
 = 2.26.3 - July 27, 2017 =
 * Fix bug when displaying empty rating in post editor.
