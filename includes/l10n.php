@@ -92,21 +92,6 @@ function wpmtst_update_l10n_strings( $fields ) {
 add_action( 'wpmtst_fields_updated', 'wpmtst_update_l10n_strings', 10 );
 
 /**
- * Get the translated context description.
- *
- * @param string $name
- *
- * @return mixed
- */
-function wpmtst_get_l10n_context( $name = '' ) {
-	$contexts = get_option( 'wpmtst_l10n_contexts' );
-	if ( $name && isset( $contexts[$name] ) )
-		return __( $contexts[$name], 'strong-testimonials' );
-
-	return 'default';
-}
-
-/**
  * WPML
  *
  * @param $string
@@ -293,16 +278,11 @@ function wpmtst_form_messages_wpml( $fields ) {
 	// Reverse field order to match the form.
 	$wpml = $fields;
 	krsort( $wpml );
+	$context = 'strong-testimonials-form-messages';
+
 	foreach ( $wpml as $key => $field ) {
-
-		// Method 1 -- To also add the admin label to the String Translation list:
-		//$name = $key . ' : ';
-		//do_action( 'wpml_register_single_string', $domain, $name . __( 'text', 'strong-testimonials' ), $field['text'] );
-		//do_action( 'wpml_register_single_string', $domain, $name . __( 'label on admin screen', 'strong-testimonials' ), $field['description'] );
-
-		// Method 2 -- To use the plugin's translation for the admin label:
 		// We can translate here because the description was localized when added.
-		do_action( 'wpml_register_single_string', 'strong-testimonials-form-messages', __( $field['description'], 'strong-testimonials' ), $field['text'] );
+		do_action( 'wpml_register_single_string', $context, __( $field['description'], 'strong-testimonials' ), $field['text'] );
 	}
 }
 
@@ -327,8 +307,8 @@ function wpmtst_form_options_wpml( $options ) {
 function wpmtst_readmore_wpml( $options ) {
 	$context = 'strong-testimonials-read-more';
 	/* Translators: %s is the View ID. */
-	do_action( 'wpml_register_single_string', $context, sprintf( 'View %s : Read more (testimonial)', $options['id'] ), $options['more_post_text'] );
-	do_action( 'wpml_register_single_string', $context, sprintf( 'View %s : Read more (page or post)', $options['id'] ), $options['more_page_text'] );
+	do_action( 'wpml_register_single_string', $context, sprintf( __( 'View %s : Read more (testimonial)', 'strong-testimonials' ), $options['id'] ), $options['more_post_text'] );
+	do_action( 'wpml_register_single_string', $context, sprintf( __( 'View %s : Read more (page or post)', 'strong-testimonials' ), $options['id'] ), $options['more_page_text'] );
 }
 
 

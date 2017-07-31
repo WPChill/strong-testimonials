@@ -39,7 +39,6 @@ function wpmtst_upgrade() {
 	$default_form_options  = wpmtst_get_default_form_options();
 	$default_view_options  = wpmtst_get_default_view_options();
 	$default_view          = apply_filters( 'wpmtst_view_default', wpmtst_get_default_view() );
-	$default_l10n_contexts = wpmtst_get_default_l10n_contexts();
 
 	$history = wpmtst_get_update_history();
 
@@ -151,6 +150,9 @@ function wpmtst_upgrade() {
 
 		update_option( 'wpmtst_custom_forms', $default_custom_forms );
 
+		// WPML
+		wpmtst_form_fields_wpml( $default_custom_forms[1]['fields'] );
+
 	} else {
 
 		foreach ( $custom_forms as $form_id => $form_properties ) {
@@ -202,6 +204,7 @@ function wpmtst_upgrade() {
 
 			}
 		}
+
 		update_option( 'wpmtst_custom_forms', $custom_forms );
 
 		// WPML
@@ -523,17 +526,10 @@ function wpmtst_upgrade() {
 
 	/**
 	 * -8- GET L10N CONTEXTS
+	 * @deprecated
 	 */
-	$contexts = get_option( 'wpmtst_l10n_contexts' );
-	if ( ! $contexts ) {
-		// -8A- NEW ACTIVATION
-		update_option( 'wpmtst_l10n_contexts', $default_l10n_contexts );
-	} else {
-		// -8B- UPDATE
-		// Merge in new options
-		$contexts = array_merge( $default_l10n_contexts, $contexts );
-		update_option( 'wpmtst_l10n_contexts', $contexts );
-	}
+	delete_option( 'wpmtst_l10n_contexts' );
+
 
 	/**
 	 * After all is said and done, update history log.

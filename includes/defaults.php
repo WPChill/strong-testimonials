@@ -729,30 +729,11 @@ function wpmtst_get_default_view() {
 }
 
 /**
- * The contexts for string translation in WPML & Polylang plugins.
- *
- * @since 1.21.0
- *
- * @return array
- */
-function wpmtst_get_default_l10n_contexts() {
-	/* Translators: For string translation in WPML & Polylang plugins. */
-	$contexts = array(
-		'strong-testimonials-form-fields'   => __( 'Testimonial Form Fields', 'strong-testimonials' ),
-		'strong-testimonials-form-messages' => __( 'Testimonial Form Messages', 'strong-testimonials' ),
-		'strong-testimonials-notification'  => __( 'Testimonial Notification Options', 'strong-testimonials' ),
-		'strong-testimonials-read-more'     => __( '"Read More" Link Text', 'strong-testimonials' ),
-	);
-	return $contexts;
-}
-
-
-/**
  * Update and conversion history.
  *
  * @since 2.12.4
  *
- * @return array|mixed|void
+ * @return array
  */
 function wpmtst_get_update_history() {
 	$history = get_option( 'wpmtst_history' );
