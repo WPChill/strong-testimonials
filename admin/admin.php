@@ -469,7 +469,7 @@ function wpmtst_meta_options() {
             <tr>
                 <th>
                     <label for="<?php echo $field['name']; ?>">
-                        <?php echo apply_filters( 'wpmtst_l10n', $field['label'], wpmtst_get_l10n_context( 'form-fields' ), $field['name'] . ' : label' ); ?>
+                        <?php echo apply_filters( 'wpmtst_l10n', $field['label'], 'strong-testimonials-form-fields', $field['name'] . ' : label' ); ?>
                     </label>
                 </th>
                 <td>

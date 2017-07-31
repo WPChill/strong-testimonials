@@ -92,21 +92,6 @@ function wpmtst_update_l10n_strings( $fields ) {
 add_action( 'wpmtst_fields_updated', 'wpmtst_update_l10n_strings', 10 );
 
 /**
- * Get the translated context description.
- *
- * @param string $name
- *
- * @return mixed
- */
-function wpmtst_get_l10n_context( $name = '' ) {
-	$contexts = get_option( 'wpmtst_l10n_contexts' );
-	if ( $name && isset( $contexts[$name] ) )
-		return __( $contexts[$name], 'strong-testimonials' );
-
-	return 'default';
-}
-
-/**
  * WPML
  *
  * @param $string
