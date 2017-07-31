@@ -150,6 +150,9 @@ function wpmtst_upgrade() {
 
 		update_option( 'wpmtst_custom_forms', $default_custom_forms );
 
+		// WPML
+		wpmtst_form_fields_wpml( $default_custom_forms[1]['fields'] );
+
 	} else {
 
 		foreach ( $custom_forms as $form_id => $form_properties ) {
@@ -201,6 +204,7 @@ function wpmtst_upgrade() {
 
 			}
 		}
+
 		update_option( 'wpmtst_custom_forms', $custom_forms );
 
 		// WPML
