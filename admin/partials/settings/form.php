@@ -44,7 +44,8 @@ foreach ( $plugins as $key => $plugin ) {
     $messages = $form_options['messages'];
 	foreach ( $messages as $key => $message ):
         $elid = str_replace( '-', '_', $key );
-        $content = apply_filters( 'wpmtst_l10n', $message['text'], wpmtst_get_l10n_context( 'form-messages' ), $key . ' : text' );
+        // $string, $context, $name
+        $content = apply_filters( 'wpmtst_l10n', $message['text'], 'strong-testimonials-form-messages', $message['description'] );
         ?>
 
         <tr>
