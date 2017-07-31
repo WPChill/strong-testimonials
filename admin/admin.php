@@ -595,14 +595,14 @@ function wpmtst_edit_columns( $columns ) {
 	$comments = isset( $columns['comments'] ) ? $columns['comments'] : '';
 
 	/*
-		INCOMING COLUMNS = Array (
-			[cb] => <input type="checkbox" />
-			[title] => Title
-			[comments] => <span class="vers comment-grey-bubble" title="Comments"><span class="screen-reader-text">Comments</span></span>
-			[date] => Date
-			[search_exclude] => Search Exclude   // other plugin
-			[thumbnail] => Thumbnail
-		)
+    INCOMING COLUMNS = Array (
+        [cb] => <input type="checkbox" />
+        [title] => Title
+        [comments] => <span class="vers comment-grey-bubble" title="Comments"><span class="screen-reader-text">Comments</span></span>
+        [date] => Date
+        [search_exclude] => Search Exclude   // other plugin
+        [thumbnail] => Thumbnail
+    )
 	*/
 
 	// 1. remove [thumbnail] (may be re-added in custom field loop) and [date]
@@ -635,15 +635,12 @@ function wpmtst_edit_columns( $columns ) {
 
 			if ( 'post_title' == $field['name'] ) {
 				continue;
-			}
-			elseif ( 'featured_image' == $field['name'] ) {
+			} elseif ( 'featured_image' == $field['name'] ) {
 				$fields_to_add['thumbnail'] = __( 'Thumbnail', 'strong-testimonials' );
-			}
-			elseif( 'rating' == $field['input_type'] ) {
+			} elseif( 'rating' == $field['input_type'] ) {
 				$fields_to_add[ $field['name'] ] = __( 'Rating', 'strong-testimonials' );
-			}
-			else {
-				$fields_to_add[ $field['name'] ] = apply_filters( 'wpmtst_l10n', $field['label'], wpmtst_get_l10n_context( 'form-fields' ), $field['name'] . ' : label' );
+			} else {
+				$fields_to_add[ $field['name'] ] = apply_filters( 'wpmtst_l10n', $field['label'], 'strong-testimonials-form-fields', $field['name'] . ' : label' );
 			}
 
 		}
@@ -652,11 +649,13 @@ function wpmtst_edit_columns( $columns ) {
 
 	// 5. add [category], [comments] and [date]
 	// 'categories' is reserved by WordPress.
-	if ( wpmtst_get_category_list() )
+	if ( wpmtst_get_category_list() ) {
 		$fields_to_add['category'] = __( 'Categories', 'strong-testimonials' );
+	}
 
-	if ( $comments )
+	if ( $comments ) {
 		$fields_to_add['comments'] = $comments;
+	}
 
 	$fields_to_add['date'] = __( 'Date', 'strong-testimonials' );
 
@@ -806,10 +805,11 @@ add_filter( 'manage_edit-wpm-testimonial-category_columns', 'wpmtst_manage_categ
  * Show custom column
  */
 function wpmtst_manage_columns( $out, $column_name, $id ) {
-	if ( 'ID' == $column_name )
+	if ( 'ID' == $column_name ) {
 		$output = $id;
-	else
+	} else {
 		$output = '';
+	}
 
 	return $output;
 }
@@ -829,6 +829,7 @@ function wpmtst_manage_sortable_columns( $columns ) {
 	$columns['client_name'] = 'client_name';
 	$columns['category'] = 'categories';
 	$columns['date'] = 'date';
+
 	return $columns;
 }
 add_filter( 'manage_edit-wpm-testimonial_sortable_columns', 'wpmtst_manage_sortable_columns' );
@@ -946,7 +947,6 @@ function wpmtst_save_details() {
 	}
 
 }
-
 // add_action( 'save_post_wpm-testimonial', 'wpmtst_save_details' ); // WP 3.7+  Soon...
 add_action( 'save_post', 'wpmtst_save_details' );
 

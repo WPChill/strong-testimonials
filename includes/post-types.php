@@ -62,7 +62,6 @@ add_action( 'init', 'wpmtst_register_cpt', 12 );
  */
 function wpmtst_get_cpt_defaults() {
 
-	/** @noinspection SqlResolve */
 	$labels = array(
 		'name'                  => _x( 'Testimonials', 'post type general name', 'strong-testimonials' ),
 		'singular_name'         => _x( 'Testimonial', 'post type singular name', 'strong-testimonials' ),
