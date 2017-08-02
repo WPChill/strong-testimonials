@@ -4,7 +4,7 @@
  * Plugin URI: https://strongplugins.com/plugins/strong-testimonials/
  * Description: A full-featured plugin that works right out of the box for beginners and offers advanced features for pros.
  * Author: Chris Dillon
- * Version: 2.26.4
+ * Version: 2.26.5
  * Author URI: https://strongplugins.com/
  * Text Domain: strong-testimonials
  * Domain Path: /languages
@@ -344,8 +344,12 @@ final class Strong_Testimonials {
 		/**
 		 * Theme support for thumbnails.
 		 */
-		add_action( 'after_setup_theme', array( $this, 'theme_support' ) );
-		add_action( 'admin_init', array( $this, 'theme_support' ) );
+		add_action( 'after_setup_theme', array( $this, 'add_theme_support' ) );
+
+		/**
+		 * Add image size for widget.
+		 */
+		add_action( 'after_setup_theme', array( $this, 'add_image_size' ) );
 
 		/**
 		 * Action hook: Delete a view.
@@ -354,9 +358,6 @@ final class Strong_Testimonials {
 		 */
 		add_action( 'admin_action_delete-strong-view', 'wpmtst_delete_view_action_hook' );
 
-		/**
-		 * @since 1.14.1
-		 */
 		add_filter( 'no_texturize_shortcodes', array( $this, 'no_texturize_shortcodes' ) );
 
 		/**
@@ -366,6 +367,9 @@ final class Strong_Testimonials {
 		 */
 		add_filter( 'widget_text', 'do_shortcode' );
 
+		/**
+		 * Debug info.
+		 */
 		add_action( 'wp_head', array( $this, 'show_version_info' ), 999 );
 		add_action( 'wp_footer', array( $this, 'on_wp_footer' ), 999 );
 
@@ -443,24 +447,29 @@ final class Strong_Testimonials {
 	/**
 	 * Add theme support for this custom post type only.
 	 *
-	 * Since 1.19.1, this appends our testimonial post type to the existing array,
-	 * at a later priority, and only if thumbnails are not already global for all
-	 * post types (an array means not global).
-	 *
 	 * @since 1.4.0
-	 * @since 1.19.1
+	 * @since 1.19.1 Appends our testimonial post type to the existing array.
+	 * @since 2.26.5 Simply using add_theme_support(). Let the chips fall where they may.
 	 */
-	public function theme_support() {
-		global $_wp_theme_features;
-		if ( isset( $_wp_theme_features['post-thumbnails']) && is_array( $_wp_theme_features['post-thumbnails'] ) ) {
-			$_wp_theme_features['post-thumbnails'][0][] = 'wpm-testimonial';
-		}
-
+	public function add_theme_support() {
 		/**
-		 * Add widget thumbnail size.
+		 * This will fail if the theme uses add_theme_support incorrectly;
+		 * e.g. add_theme_support( 'post-thumbnails', 'post' );
+		 * which WordPress does not catch.
 		 *
-		 * @since 1.21.0
+		 * The plugin attempted to handle this in versions 1.19.1 - 2.26.4
+		 * but now it lets the condition occur so the underlying problem
+		 * will surface and can be fixed.
 		 */
+		add_theme_support( 'post-thumbnails', array( 'wpm-testimonial' ) );
+	}
+
+	/**
+	 * Add widget thumbnail size.
+	 *
+	 * @since 1.21.0
+	 */
+	public function add_image_size() {
 		// name, width, height, crop = false
 		add_image_size( 'widget-thumbnail', 75, 75, true );
 	}
