@@ -30,6 +30,12 @@ function wpmtst_add_captcha( $captcha ) {
 
 		// Captcha
 		case 'bwsmath' :
+			if ( function_exists( 'hctpc_display_captcha_custom' ) ) {
+				$html .= hctpc_display_captcha_custom();
+			}
+			break;
+
+		// Captcha
 		case 'bwsmathpro' :
 			if ( function_exists( 'cptch_display_captcha_custom' ) ) {
 				$html .= '<input type="hidden" name="cntctfrm_contact_action" value="true">';
@@ -80,6 +86,11 @@ function wpmtst_captcha_check( $captcha, $errors ) {
 
 		// Captcha
 		case 'bwsmath' :
+			if ( function_exists( 'hctpc_check_custom_form' ) && hctpc_check_custom_form() !== true ) {
+				$errors['captcha'] = __( 'The Captcha failed. Please try again.', 'strong-testimonials' );
+			}
+			break;
+
 		// Captcha Pro by BestWebSoft
 		case 'bwsmathpro' :
 			if ( function_exists( 'cptch_check_custom_form' ) && cptch_check_custom_form() !== true ) {
