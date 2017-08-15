@@ -28,7 +28,7 @@ function wpmtst_add_captcha( $captcha ) {
 			}
 			break;
 
-		// Captcha by BestWebSoft
+		// Captcha
 		case 'bwsmath' :
 		case 'bwsmathpro' :
 			if ( function_exists( 'cptch_display_captcha_custom' ) ) {
@@ -78,8 +78,9 @@ function wpmtst_captcha_check( $captcha, $errors ) {
 			}
 			break;
 
-		// Captcha by BestWebSoft
+		// Captcha
 		case 'bwsmath' :
+		// Captcha Pro by BestWebSoft
 		case 'bwsmathpro' :
 			if ( function_exists( 'cptch_check_custom_form' ) && cptch_check_custom_form() !== true ) {
 				$errors['captcha'] = __( 'The Captcha failed. Please try again.', 'strong-testimonials' );
@@ -128,7 +129,7 @@ function wpmtst_get_captcha_plugins() {
 			'active'    => false,
 		),
 		'bwsmath' => array(
-			'name'      => 'Captcha by BestWebSoft',
+			'name'      => 'Captcha',
 			'file'      => 'captcha/captcha.php',
 			'settings'  => 'admin.php?page=captcha.php',
 			'search'    => 'plugin-install.php?tab=search&s=Captcha',

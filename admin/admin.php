@@ -18,7 +18,7 @@ function wpmtst_admin_init() {
 	// Check for new options in plugin activation/update
 	wpmtst_upgrade();
 
-	// Remove ad banner from Captcha by BestWebSoft plugin
+	// Remove ad banner from Captcha plugin
 	remove_action( 'admin_notices', 'cptch_plugin_banner' );
 
 	/**
