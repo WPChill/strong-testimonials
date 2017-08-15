@@ -28,18 +28,20 @@
       this.settings = $.extend({}, this.defaults, options)
     },
 
+    rules: {},
+
     /**
      * Add custom validation rule to star-rating pseudo elements.
      */
-    rules: {},
-
     setRules: function () {
       for (var i = 0; i < this.settings.fields.length; i++) {
+
         if ('rating' === this.settings.fields[i].type) {
           if (1 === this.settings.fields[i].required) {
             this.rules[this.settings.fields[i].name] = {ratingRequired: true}
           }
         }
+
       }
     },
 
@@ -159,6 +161,11 @@
           }
         },
 
+        /* Normalizer not working */
+        // normalizer: function( value ) {
+        //   return $.trim( value )
+        // },
+
         rules: strongValidation.rules,
 
         errorPlacement: function (error, element) {
@@ -232,5 +239,9 @@
   }
 
   strongValidation.init()
+
+  $('input[type="text"], input[type="url"], input[type="email"], textarea', '#wpmtst-submission-form').on('change blur', function (e) {
+    e.target.value = e.target.value.trim()
+  })
 
 })(jQuery)

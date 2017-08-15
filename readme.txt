@@ -3,7 +3,7 @@ Contributors: cdillon27
 Tags: testimonials, testimonial slider, testimonial form, reviews, star ratings
 Requires at least: 3.6
 Tested up to: 4.8.1
-Stable tag: 2.26.5
+Stable tag: 2.26.6
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -17,9 +17,7 @@ A flexible testimonials plugin that works right out of the box for beginners wit
 
 ### Is this the right plugin for you?
 
-Intended use case: A small business with up to a few hundred testimonials or reviews, maybe using categories for different products or services, that needs flexible display options and a customizable form for accepting new testimonials.
-
-If that describes you, this plugin will work in just a few steps.
+If you are a small business with up to several hundred testimonials or reviews, maybe using categories for different products or services, that needs flexible display options and a customizable form for accepting new testimonials, this plugin will work in just a few steps.
 
 ### Primary Features
 
@@ -192,6 +190,9 @@ If you prefer not to post your URL publicly, start a private support ticket at [
 
 == Changelog ==
 
+= 2.26.6 - Aug 15, 2017 =
+* Trim leading and trailing spaces on form input values.
+
 = 2.26.5 - Aug 2, 2017 =
 * Improve adding thumbnail support.
 
@@ -262,4 +263,4 @@ See changelog.txt for previous versions.
 
 == Upgrade Notice ==
 
-Clear your caches! Improved theme compatibility. Option to link title to testimonial post.
+Clear your caches!

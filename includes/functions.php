@@ -948,3 +948,24 @@ function wpmtst_sanitize_checkbox( $input, $key ) {
 	*/
 	return ( isset( $input[ $key ] ) ? ( 'on' == $input[ $key ] ? 1 : $input[ $key ] ) : 0 );
 }
+
+
+/**
+ * Trims a entire array recursively.
+ *
+ * @since 2.26.6
+ *
+ * @author      Jonas John
+ * @version     0.2
+ * @link        http://www.jonasjohn.de/snippets/php/trim-array.htm
+ * @param       $input array|string
+ *
+ * @return array|string
+ */
+function wpmtst_trim_array( $input ) {
+	if ( ! is_array( $input ) ) {
+		return trim( $input );
+	}
+
+	return array_map( 'wpmtst_trim_array', $input );
+}

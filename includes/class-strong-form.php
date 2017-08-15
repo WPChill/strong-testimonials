@@ -86,7 +86,6 @@ class Strong_Testimonials_Form {
 		die();
 	}
 
-
 	/**
 	 * Testimonial form processor.
 	 *
@@ -101,6 +100,11 @@ class Strong_Testimonials_Form {
 		do_action( 'wpmtst_form_submission' );
 
 		$new_post = stripslashes_deep( $_POST );
+		/**
+		 * Trim spaces
+		 * @since 2.26.6
+		 */
+		$new_post = wpmtst_trim_array( $new_post );
 
 		add_filter( 'upload_mimes', array( $this, 'restrict_mime' ) );
 
