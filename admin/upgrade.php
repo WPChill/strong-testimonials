@@ -681,6 +681,7 @@ function wpmtst_update_tables() {
 			PRIMARY KEY  (id)
 		) $charset_collate;";
 
+	// TODO Error handling
 	$result = dbDelta( $sql );
 
 	update_option( 'wpmtst_db_version', WPMST()->get_db_version() );
