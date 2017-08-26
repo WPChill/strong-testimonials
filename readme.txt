@@ -3,7 +3,7 @@ Contributors: cdillon27
 Tags: testimonials, testimonial slider, testimonial form, reviews, star ratings
 Requires at least: 3.6
 Tested up to: 4.8.1
-Stable tag: 2.26.7
+Stable tag: 2.26.8
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -89,22 +89,8 @@ I will [move mountains](https://strongplugins.com/testimonials/) to help you get
 ### Try these plugins too
 
 * [Simple Colorbox](https://wordpress.org/plugins/simple-colorbox/) to open thumbnails into full-size images. Nice!
-* [Simple Custom CSS](https://wordpress.org/plugins/simple-custom-css/) for quick CSS tweaks.
+* [Simple Custom CSS](https://wordpress.org/plugins/simple-custom-css/) still works great for quick CSS tweaks.
 * [Wider Admin Menu](http://wordpress.org/plugins/wider-admin-menu/) lets your admin menu b r e a t h e.
-
-### Translations
-
-* Arabic (ar_AR) - Ahmad Yousef
-* French (fr_FR) - Jean-Paul Radet
-* German (de_DE) - Richard Hopp
-* Hebrew (he_IL) - Haim Asher
-* Persian (fa_IR) - Mahmoud Zooroofchi
-* Portuguese (pt_BR) - Mauricio Richieri
-* Russian (ru_RU) - Матвеев Валерий
-* Spanish (es_ES) - Diego Ferrández
-* Swedish (sv_SE) - Tom Stone
-
-Many thanks to these translators.
 
 == Installation ==
 
@@ -189,6 +175,9 @@ If you prefer not to post your URL publicly, start a private support ticket at [
 8. View editor
 
 == Changelog ==
+
+= 2.26.8 - Aug 26, 2017 =
+* Fix form whitespace problem in some themes.
 
 = 2.26.7 - Aug 15, 2017 =
 * Fix compatibility with Captcha plugin version 4.3.1.

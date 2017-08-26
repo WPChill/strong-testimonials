@@ -9,15 +9,15 @@ function wpmtst_form_info() {
 
 function wpmtst_form_setup() {
 	$form_values = WPMST()->get_form_values();
-	wp_nonce_field( 'wpmtst_form_action', 'wpmtst_form_nonce', true, true );
-	echo '<input type="hidden" name="action" value="wpmtst_form">'."\n";
-	echo '<input type="hidden" name="form_id" value="'. WPMST()->atts( 'form_id' ) .'">'."\n";
-
-	echo '<input type="hidden" name="default_category" value="'. WPMST()->atts( 'category' ) .'">'."\n";
-
     $cats = (array) $form_values['category'];
-	echo '<input type="hidden" name="category" value="'. implode( ',', $cats ) .'">'."\n";
 
+	echo '<div style="display: none;">';
+	wp_nonce_field( 'wpmtst_form_action', 'wpmtst_form_nonce', true, true );
+	echo '<input type="hidden" name="action" value="wpmtst_form">';
+	echo '<input type="hidden" name="form_id" value="'. WPMST()->atts( 'form_id' ) .'">';
+	echo '<input type="hidden" name="default_category" value="'. WPMST()->atts( 'category' ) .'">';
+	echo '<input type="hidden" name="category" value="'. implode( ',', $cats ) .'">';
+	echo '</div>';
 }
 
 function wpmtst_form_message( $part ) {
@@ -415,10 +415,7 @@ add_action( 'wpmtst_form_after_fields', 'wpmtst_form_captcha' );
 function wpmtst_form_submit_button( $preview = false ) {
 	?>
 	<div class="form-field submit">
-		<label><input type="<?php echo $preview ? 'button' : 'submit'; ?>"
-                      id="wpmtst_submit_testimonial" name="wpmtst_submit_testimonial"
-                      value="<?php esc_attr_e( wpmtst_get_form_message( 'form-submit-button' ) ); ?>"
-                      class="button" tabindex="0"></label>
+		<label><input type="<?php echo $preview ? 'button' : 'submit'; ?>" id="wpmtst_submit_testimonial" name="wpmtst_submit_testimonial" value="<?php esc_attr_e( wpmtst_get_form_message( 'form-submit-button' ) ); ?>" class="button" tabindex="0"></label>
 	</div>
 	<?php
 }

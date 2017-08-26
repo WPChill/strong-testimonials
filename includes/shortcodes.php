@@ -103,6 +103,7 @@ function wpmtst_strong_view_html( $html ) {
 	return $html;
 }
 add_filter( 'strong_view_html', 'wpmtst_strong_view_html' );
+add_filter( 'strong_view_form_html', 'wpmtst_strong_view_html' );
 
 
 /**

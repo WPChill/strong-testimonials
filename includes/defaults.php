@@ -398,7 +398,7 @@ function wpmtst_get_default_form_options() {
 			/* translators: Settings > Forms > Messages tab */
 			'description' => _x( 'Submission Success', 'description', 'strong-testimonials' ),
 			/* translators: Default message for submission form success message. */
-			'text'        => _x( 'Thank you! Your testimonial is awaiting moderation.', 'success message', 'strong-testimonials' ),
+			'text'        => _x( 'Thank you! Your testimonial is waiting to be approved.', 'success message', 'strong-testimonials' ),
 		),
 	);
 
