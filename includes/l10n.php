@@ -289,31 +289,23 @@ function wpmtst_form_fields_wpml( $fields ) {
 }
 
 /**
- * Register form message strings.
+ * Register form option strings.
  *
- * @param $fields
+ * @param $options
  */
-function wpmtst_form_messages_wpml( $fields ) {
+function wpmtst_form_wpml( $options ) {
 	if ( defined( 'ICL_SITEPRESS_VERSION' ) ) {
-		// Reverse field order to match the form.
-		$wpml = $fields;
-		krsort( $wpml );
+		// Form messages
 		$context = 'strong-testimonials-form-messages';
-
+		// Reverse field order to match the form.
+		$wpml = $options['messages'];
+		krsort( $wpml );
 		foreach ( $wpml as $key => $field ) {
 			// We can translate here because the description was localized when added.
 			do_action( 'wpml_register_single_string', $context, __( $field['description'], 'strong-testimonials' ), $field['text'] );
 		}
-	}
-}
 
-/**
- * Register form notification strings.
- *
- * @param $options
- */
-function wpmtst_form_options_wpml( $options ) {
-	if ( defined( 'ICL_SITEPRESS_VERSION' ) ) {
+		// Form notification
 		$context = 'strong-testimonials-notification';
 		do_action( 'wpml_register_single_string', $context, __( 'Email message', 'strong-testimonials' ), $options['email_message'] );
 		do_action( 'wpml_register_single_string', $context, __( 'Email subject', 'strong-testimonials' ), $options['email_subject'] );
@@ -332,13 +324,11 @@ function wpmtst_readmore_wpml( $options ) {
 		$context = 'strong-testimonials-read-more';
 
 		/* Translators: %s is the View ID. */
-		do_action( 'wpml_register_single_string', $context,
-			sprintf( __( 'View %s : Read more (testimonial)', 'strong-testimonials' ), $options['id'] ),
-			$options['more_post_text'] );
+		$string = sprintf( __( 'View %s : Read more (testimonial)', 'strong-testimonials' ), $options['id'] );
+		do_action( 'wpml_register_single_string', $context, $string, $options['more_post_text'] );
 
-		do_action( 'wpml_register_single_string', $context,
-			sprintf( __( 'View %s : Read more (page or post)', 'strong-testimonials' ), $options['id'] ),
-			$options['more_page_text'] );
+		$string = sprintf( __( 'View %s : Read more (page or post)', 'strong-testimonials' ), $options['id'] );
+		do_action( 'wpml_register_single_string', $context, $string, $options['more_page_text'] );
 	}
 }
 
@@ -365,40 +355,44 @@ function wpmtst_form_fields_polylang( $fields ) {
 		$context = 'strong-testimonials-form-fields';
 		foreach ( $fields as $field ) {
 			$name = $field['name'] . ' : ';
-			// TODO if not empty
-			pll_register_string( $name . __( 'after', 'strong-testimonials' ), $field['after'], $context, false );
-			pll_register_string( $name . __( 'before', 'strong-testimonials' ), $field['before'], $context, false );
-			pll_register_string( $name . __( 'placeholder', 'strong-testimonials' ), $field['placeholder'], $context, false );
-			pll_register_string( $name . __( 'label', 'strong-testimonials' ), $field['label'], $context, false );
-			pll_register_string( $name . __( 'default form value', 'strong-testimonials' ), $field['default_form_value'], $context, false );
-			pll_register_string( $name . __( 'default display value', 'strong-testimonials' ), $field['default_display_value'], $context, false );
+			if ( isset( $field['after'] ) && $field['after'] ) {
+				pll_register_string( $name . __( 'after', 'strong-testimonials' ), $field['after'], $context );
+			}
+			if ( isset( $field['before'] ) && $field['before'] ) {
+				pll_register_string( $name . __( 'before', 'strong-testimonials' ), $field['before'], $context );
+			}
+			if ( isset( $field['placeholder'] ) && $field['placeholder'] ) {
+				pll_register_string( $name . __( 'placeholder', 'strong-testimonials' ), $field['placeholder'], $context );
+			}
+			if ( isset( $field['label'] ) && $field['label'] ) {
+				pll_register_string( $name . __( 'label', 'strong-testimonials' ), $field['label'], $context );
+			}
+			if ( isset( $field['default_form_value'] ) && $field['default_form_value'] ) {
+				pll_register_string( $name . __( 'default form value', 'strong-testimonials' ), $field['default_form_value'], $context );
+			}
+			if ( isset( $field['default_display_value'] ) && $field['default_display_value'] ) {
+				pll_register_string( $name . __( 'default display value', 'strong-testimonials' ), $field['default_display_value'], $context );
+			}
 		}
 	}
 }
 
 /**
- * Register form message strings.
- *
- * @param $fields
- */
-function wpmtst_form_messages_polylang( $fields ) {
-	if ( function_exists( 'pll_register_string' ) ) {
-		$context = 'strong-testimonials-form-messages';
-		foreach ( $fields as $key => $field ) {
-			pll_register_string( __( $field['description'], 'strong-testimonials' ), $field['text'], $context, false );
-		}
-	}
-}
-
-/**
- * Register form notification strings.
+ * Register form strings.
  *
  * @param $options
  */
-function wpmtst_form_options_polylang( $options ) {
+function wpmtst_form_polylang( $options ) {
 	if ( function_exists( 'pll_register_string' ) ) {
+		// Form messages
+		$context = 'strong-testimonials-form-messages';
+		foreach ( $options['messages'] as $key => $field ) {
+			pll_register_string( __( $field['description'], 'strong-testimonials' ), $field['text'], $context );
+		}
+
+		// Form notification
 		$context = 'strong-testimonials-notification';
-		pll_register_string( __( 'Email subject', 'strong-testimonials' ), $options['email_subject'], $context, false );
+		pll_register_string( __( 'Email subject', 'strong-testimonials' ), $options['email_subject'], $context );
 		pll_register_string( __( 'Email message', 'strong-testimonials' ), $options['email_message'], $context, true );
 	}
 }
@@ -445,9 +439,10 @@ function wpmtst_admin_polylang() {
 
 		// Register strings for translation
 		wpmtst_form_fields_polylang( wpmtst_get_all_fields() );
-		$form_options = get_option( 'wpmtst_form_options' );
-		wpmtst_form_messages_polylang( $form_options['messages'] );
-		wpmtst_form_options_polylang( $form_options );
+		//$form_options = get_option( 'wpmtst_form_options' );
+		//wpmtst_form_messages_polylang( $form_options['messages'] );
+		//wpmtst_form_options_polylang( $form_options );
+		wpmtst_form_polylang( get_option( 'wpmtst_form_options' ) );
 		wpmtst_readmore_polylang();
 	}
 }

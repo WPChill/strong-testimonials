@@ -349,14 +349,8 @@ add_action( 'wp_ajax_wpmtst_restore_default_message', 'wpmtst_restore_default_me
  * @param $newvalue
  */
 function wpmtst_on_update_form_options( $oldvalue, $newvalue ) {
-    //q2($newvalue);
-	//$form_options = get_option( 'wpmtst_form_options' );
-	//q2($form_options);
-	//if ( ! $form_options ) return;
-
 	// WPML
-	wpmtst_form_messages_wpml( $newvalue['messages'] );
-	wpmtst_form_options_wpml( $newvalue );
+	wpmtst_form_wpml( $newvalue);
 
 	// Polylang - nothing to do
 

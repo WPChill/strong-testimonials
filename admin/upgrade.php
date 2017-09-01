@@ -148,10 +148,7 @@ function wpmtst_upgrade() {
 
 	if ( ! $custom_forms ) {
 
-		update_option( 'wpmtst_custom_forms', $default_custom_forms );
-
-		// WPML
-		wpmtst_form_fields_wpml( $default_custom_forms[1]['fields'] );
+		$custom_forms = $default_custom_forms;
 
 	} else {
 
@@ -205,11 +202,12 @@ function wpmtst_upgrade() {
 			}
 		}
 
-		update_option( 'wpmtst_custom_forms', $custom_forms );
-
-		// WPML
-		wpmtst_form_fields_wpml( $custom_forms[1]['fields'] );
 	}
+
+	update_option( 'wpmtst_custom_forms', $custom_forms );
+
+	// WPML
+	wpmtst_form_fields_wpml( $custom_forms[1]['fields'] );
 
 	/**
 	 * -5- GET FORM OPTIONS
@@ -237,8 +235,6 @@ function wpmtst_upgrade() {
 			unset( $options['honeypot_after'] );
 			update_option( 'wpmtst_options', $options );
 		}
-
-		update_option( 'wpmtst_form_options', $form_options );
 
 	} else {
 
@@ -274,14 +270,13 @@ function wpmtst_upgrade() {
 
 		// Merge in new options
 		$form_options = array_merge( $default_form_options, $form_options );
-		update_option( 'wpmtst_form_options', $form_options );
 
 	}
 
+	update_option( 'wpmtst_form_options', $form_options );
+
 	// WPML
-	// TODO Send entire options var instead
-	wpmtst_form_messages_wpml( $form_options['messages'] );
-	wpmtst_form_options_wpml( $form_options );
+	wpmtst_form_wpml( $form_options );
 
 
 	/**
