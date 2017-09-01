@@ -247,7 +247,6 @@ final class Strong_Testimonials {
 
 		require_once WPMTST_INC . 'captcha.php';
 		require_once WPMTST_INC . 'deprecated.php';
-		require_once WPMTST_INC . 'l10n.php';
 		require_once WPMTST_INC . 'functions.php';
 		require_once WPMTST_INC . 'functions-content.php';
 		require_once WPMTST_INC . 'functions-rating.php';
@@ -337,6 +336,7 @@ final class Strong_Testimonials {
 		/**
 		 * Plugin setup.
 		 */
+		add_action( 'init', array( $this, 'l10n_check' ) );
 		add_action( 'init', array( $this, 'reorder_check' ) );
 		add_action( 'init', array( $this, 'font_check' ) );
 		add_action( 'init', array( $this, 'set_view_defaults' ) );
@@ -472,6 +472,26 @@ final class Strong_Testimonials {
 	public function add_image_size() {
 		// name, width, height, crop = false
 		add_image_size( 'widget-thumbnail', 75, 75, true );
+	}
+
+	/**
+	 * Load specific files for translation plugins.
+	 */
+	public function l10n_check() {
+		// WPML
+		if ( defined( 'ICL_SITEPRESS_VERSION' ) ) {
+			require_once WPMTST_INC . 'l10n.php';
+			require_once WPMTST_INC . 'l10n-wpml.php';
+		}
+		// Polylang
+		if ( defined( 'POLYLANG_VERSION' ) ) {
+			require_once WPMTST_INC . 'l10n.php';
+			require_once WPMTST_INC . 'l10n-polylang.php';
+		}
+		// WP Globus
+		if ( defined( 'WPGLOBUS_VERSION' ) ) {
+			require_once WPMTST_INC . 'l10n.php';
+		}
 	}
 
 	/**

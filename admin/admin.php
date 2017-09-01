@@ -33,13 +33,6 @@ function wpmtst_admin_init() {
 }
 add_action( 'admin_init', 'wpmtst_admin_init', 5 );
 
-function wpmtst_update_polylang() {
-	$forms = get_option( 'wpmtst_custom_forms' );
-	$fields = $forms[1]['fields'];
-	wpmtst_update_l10n_strings( $fields );
-}
-//add_action( 'admin_init', 'wpmtst_update_polylang', 11 );
-
 
 /**
  * Register admin scripts.

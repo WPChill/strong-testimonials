@@ -6,6 +6,19 @@
  */
 
 /**
+ * Return default translation from po/mo files if no active translation plugin.
+ *
+ * @since 2.23.2
+ * @param $string
+ *
+ * @return string
+ */
+function wpmtst_l10n_default( $string ) {
+	return __( $string, 'strong-testimonials' );
+}
+add_filter( 'wpmtst_l10n', 'wpmtst_l10n_default' );
+
+/**
  * Append custom fields to post object.
  * Add thumbnail if included in field group.
  *
@@ -486,33 +499,6 @@ function wpmtst_save_view( $view, $action = 'edit' ) {
 
 	return $return;
 }
-
-
-/**
- * Do stuff after a View is saved.
- *
- * @since 2.11.17
- * @param $view
- */
-function wpmtst_on_save_view( $view ) {
-
-	// WPML
-	if ( defined( 'ICL_SITEPRESS_VERSION' ) ) {
-		wpmtst_readmore_wpml(
-			array(
-				'id'             => $view['id'],
-				'more_post_text' => $view['data']['more_post_text'],
-				'more_page_text' => $view['data']['more_page_text'],
-			)
-		);
-	}
-
-	// Polylang - nothing to do
-
-    // WP Globus - nothing to do
-
-}
-add_action( 'wpmtst_view_saved', 'wpmtst_on_save_view' );
 
 
 /**

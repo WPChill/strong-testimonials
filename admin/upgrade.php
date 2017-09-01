@@ -48,7 +48,7 @@ function wpmtst_upgrade() {
 	$options = get_option( 'wpmtst_options' );
 	if ( ! $options ) {
 		// -2A- NEW ACTIVATION
-		update_option( 'wpmtst_options', $default_options );
+		$options = $default_options;
 	} else {
 		// -2B- UPDATE
 
@@ -98,14 +98,13 @@ function wpmtst_upgrade() {
 
 		// Merge in new options
 		$options = array_merge( $default_options, $options );
-		update_option( 'wpmtst_options', $options );
 
 		// Convert nofollow
 		if ( ! isset( $history['2.23.0_convert_nofollow'] ) ) {
 			wpmtst_convert_nofollow();
 		}
-
 	}
+	update_option( 'wpmtst_options', $options );
 
 	/**
 	 * -3- GET FIELDS
@@ -113,7 +112,7 @@ function wpmtst_upgrade() {
 	$fields = get_option( 'wpmtst_fields', array() );
 	if ( ! $fields ) {
 		// -3A- NEW ACTIVATION
-		update_option( 'wpmtst_fields', $default_fields );
+		$fields = $default_fields;
 	} else {
 		// -3B- UPDATE
 
@@ -135,23 +134,19 @@ function wpmtst_upgrade() {
 			}
 		}
 
-		update_option( 'wpmtst_fields', $fields );
 	}
+	update_option( 'wpmtst_fields', $fields );
 
 	/**
 	 * -4- GET FORMS
 	 */
 	update_option( 'wpmtst_base_forms', $default_base_forms );
 
-	$fields       = get_option( 'wpmtst_fields' );
 	$custom_forms = get_option( 'wpmtst_custom_forms' );
 
 	if ( ! $custom_forms ) {
-
 		$custom_forms = $default_custom_forms;
-
 	} else {
-
 		foreach ( $custom_forms as $form_id => $form_properties ) {
 			foreach ( $form_properties['fields'] as $key => $form_field ) {
 
@@ -201,13 +196,8 @@ function wpmtst_upgrade() {
 
 			}
 		}
-
 	}
-
 	update_option( 'wpmtst_custom_forms', $custom_forms );
-
-	// WPML
-	wpmtst_form_fields_wpml( $custom_forms[1]['fields'] );
 
 	/**
 	 * -5- GET FORM OPTIONS
@@ -272,11 +262,7 @@ function wpmtst_upgrade() {
 		$form_options = array_merge( $default_form_options, $form_options );
 
 	}
-
 	update_option( 'wpmtst_form_options', $form_options );
-
-	// WPML
-	wpmtst_form_wpml( $form_options );
 
 
 	/**

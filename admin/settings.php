@@ -341,19 +341,3 @@ function wpmtst_restore_default_message_function() {
 	die();
 }
 add_action( 'wp_ajax_wpmtst_restore_default_message', 'wpmtst_restore_default_message_function' );
-
-/**
- * Update WPML string translations.
- *
- * @param $oldvalue
- * @param $newvalue
- */
-function wpmtst_on_update_form_options( $oldvalue, $newvalue ) {
-	// WPML
-	wpmtst_form_wpml( $newvalue);
-
-	// Polylang - nothing to do
-
-    // WP Globus - nothing to do
-}
-add_action( 'update_option_wpmtst_form_options', 'wpmtst_on_update_form_options', 10, 2 );
