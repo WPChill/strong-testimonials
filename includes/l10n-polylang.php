@@ -6,6 +6,24 @@
  */
 
 /**
+ * Add translation actions & filters.
+ */
+function wpmtst_l10n_filters_polylang() {
+
+	// Translate
+	remove_filter( 'wpmtst_l10n', 'wpmtst_l10n_default' );
+	add_filter( 'wpmtst_l10n', 'wpmtst_l10n_polylang', 20, 3 );
+	// TODO handle cat IDs like WPML
+
+	// Help
+	add_action( 'wpmtst_before_form_settings', 'wpmtst_help_link_polylang' );
+	add_action( 'wpmtst_before_fields_settings', 'wpmtst_help_link_polylang' );
+	add_action( 'wpmtst_after_notification_fields', 'wpmtst_help_link_polylang' );
+
+}
+add_action( 'init', 'wpmtst_l10n_filters_polylang', 20 );
+
+/**
  * @param $string
  * @param $context
  * @param $name
@@ -64,7 +82,7 @@ function wpmtst_form_fields_polylang( $fields ) {
  *
  * @param $options
  */
-function wpmtst_form_polylang( $options ) {
+function wpmtst_form_options_polylang( $options ) {
 	if ( function_exists( 'pll_register_string' ) ) {
 		// Form messages
 		$context = 'strong-testimonials-form-messages';
@@ -114,16 +132,14 @@ function wpmtst_readmore_polylang() {
  * @since 1.21.0
  */
 function wpmtst_admin_polylang() {
-	if ( defined( 'POLYLANG_VERSION' ) ) {
-		// Minor improvements to list table style
-		$plugin_version = get_option( 'wpmtst_plugin_version' );
-		wp_enqueue_style( 'wpmtst-admin-style-polylang', WPMTST_ADMIN_URL . 'css/polylang.css', array(), $plugin_version );
+	// Minor improvements to list table style
+	$plugin_version = get_option( 'wpmtst_plugin_version' );
+	wp_enqueue_style( 'wpmtst-admin-style-polylang', WPMTST_ADMIN_URL . 'css/polylang.css', array(), $plugin_version );
 
-		// Register strings for translation
-		wpmtst_form_fields_polylang( wpmtst_get_all_fields() );
-		wpmtst_form_polylang( get_option( 'wpmtst_form_options' ) );
-		wpmtst_readmore_polylang();
-	}
+	// Register strings for translation
+	wpmtst_form_fields_polylang( wpmtst_get_all_fields() );
+	wpmtst_form_options_polylang( get_option( 'wpmtst_form_options' ) );
+	wpmtst_readmore_polylang();
 }
 add_action( 'load-languages_page_mlang_strings', 'wpmtst_admin_polylang' );
 

@@ -480,17 +480,20 @@ final class Strong_Testimonials {
 	public function l10n_check() {
 		// WPML
 		if ( defined( 'ICL_SITEPRESS_VERSION' ) ) {
-			require_once WPMTST_INC . 'l10n.php';
 			require_once WPMTST_INC . 'l10n-wpml.php';
 		}
+
 		// Polylang
 		if ( defined( 'POLYLANG_VERSION' ) ) {
-			require_once WPMTST_INC . 'l10n.php';
 			require_once WPMTST_INC . 'l10n-polylang.php';
 		}
+
 		// WP Globus
 		if ( defined( 'WPGLOBUS_VERSION' ) ) {
-			require_once WPMTST_INC . 'l10n.php';
+			// Translate
+			remove_filter( 'wpmtst_l10n', 'wpmtst_l10n_default' );
+			add_filter( 'wpmtst_the_content', array( 'WPGlobus_Filters', 'filter__text' ), 0 );
+			add_filter( 'wpmtst_get_the_excerpt', array( 'WPGlobus_Filters', 'filter__text' ), 0 );
 		}
 	}
 

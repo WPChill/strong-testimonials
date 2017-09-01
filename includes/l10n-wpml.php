@@ -6,6 +6,34 @@
  */
 
 /**
+ * Add translation actions & filters.
+ */
+function wpmtst_l10n_filters_wpml() {
+
+	// Admin style
+	add_action( 'admin_head-wpml-string-translation/menu/string-translation.php', 'wpmtst_admin_scripts_wpml' );
+	add_action( 'admin_head-edit-tags.php', 'wpmtst_admin_scripts_wpml' );
+
+	// Translate
+	remove_filter( 'wpmtst_l10n', 'wpmtst_l10n_default' );
+	add_filter( 'wpmtst_l10n', 'wpmtst_l10n_wpml', 10, 3 );
+	add_filter( 'wpmtst_l10n_cats', 'wpmtst_wpml_translate_object_ids', 10, 2 );
+	add_filter( 'get_term', 'wpmtst_wpml_get_term', 10, 2 );
+
+	// Update strings
+	add_action( 'update_option_wpmtst_custom_forms', 'wpmtst_form_fields_wpml', 10, 2 );
+	add_action( 'update_option_wpmtst_form_options', 'wpmtst_form_options_wpml', 10, 2 );
+	add_action( 'wpmtst_view_saved', 'wpmtst_update_view_wpml' );
+
+	// Help
+	add_action( 'wpmtst_before_form_settings', 'wpmtst_help_link_wpml' );
+	add_action( 'wpmtst_before_fields_settings', 'wpmtst_help_link_wpml' );
+	add_action( 'wpmtst_after_notification_fields', 'wpmtst_help_link_wpml' );
+
+}
+add_action( 'init', 'wpmtst_l10n_filters_wpml', 20 );
+
+/**
  * @param $string
  * @param $context
  * @param $name
@@ -84,13 +112,9 @@ function wpmtst_wpml_translate_object_ids( $object_id, $type = 'wpm-testimonial-
  * @since 1.21.0
  */
 function wpmtst_admin_scripts_wpml() {
-	if ( defined( 'ICL_SITEPRESS_VERSION' ) ) {
-		$plugin_version = get_option( 'wpmtst_plugin_version' );
-		wp_enqueue_style( 'wpmtst-admin-style-wpml', WPMTST_ADMIN_URL . 'css/wpml.css', array(), $plugin_version );
-	}
+	$plugin_version = get_option( 'wpmtst_plugin_version' );
+	wp_enqueue_style( 'wpmtst-admin-style-wpml', WPMTST_ADMIN_URL . 'css/wpml.css', array(), $plugin_version );
 }
-add_action( 'admin_head-wpml-string-translation/menu/string-translation.php', 'wpmtst_admin_scripts_wpml' );
-add_action( 'admin_head-edit-tags.php', 'wpmtst_admin_scripts_wpml' );
 
 /**
  * Register form field strings.
@@ -145,7 +169,7 @@ function wpmtst_form_fields_wpml( $oldvalue, $newvalue, $option = 'wpmtst_custom
  * @param $newvalue
  * @param string $option
  */
-function wpmtst_form_wpml( $oldvalue, $newvalue, $option = 'wpmtst_form_options' ) {
+function wpmtst_form_options_wpml( $oldvalue, $newvalue, $option = 'wpmtst_form_options' ) {
 	// Form messages. Reverse field order to match the form.
 	$context = 'strong-testimonials-form-messages';
 	$wpml    = $newvalue['messages'];
@@ -169,16 +193,14 @@ function wpmtst_form_wpml( $oldvalue, $newvalue, $option = 'wpmtst_form_options'
  * @param $options
  */
 function wpmtst_readmore_wpml( $options ) {
-	if ( defined( 'ICL_SITEPRESS_VERSION' ) ) {
-		$context = 'strong-testimonials-read-more';
+	$context = 'strong-testimonials-read-more';
 
-		/* Translators: %s is the View ID. */
-		$string = sprintf( __( 'View %s : Read more (testimonial)', 'strong-testimonials' ), $options['id'] );
-		do_action( 'wpml_register_single_string', $context, $string, $options['more_post_text'] );
+	/* Translators: %s is the View ID. */
+	$string = sprintf( __( 'View %s : Read more (testimonial)', 'strong-testimonials' ), $options['id'] );
+	do_action( 'wpml_register_single_string', $context, $string, $options['more_post_text'] );
 
-		$string = sprintf( __( 'View %s : Read more (page or post)', 'strong-testimonials' ), $options['id'] );
-		do_action( 'wpml_register_single_string', $context, $string, $options['more_page_text'] );
-	}
+	$string = sprintf( __( 'View %s : Read more (page or post)', 'strong-testimonials' ), $options['id'] );
+	do_action( 'wpml_register_single_string', $context, $string, $options['more_page_text'] );
 }
 
 /**
