@@ -613,8 +613,8 @@ function wpmtst_edit_columns( $columns ) {
 	}
 
 	// 5. add [category], [comments] and [date]
-	// 'categories' is reserved by WordPress.
-	if ( wpmtst_get_category_list() ) {
+	// The slug "categories" slug is reserved by WordPress.
+	if ( wpmtst_get_cat_count() ) {
 		$fields_to_add['category'] = __( 'Categories', 'strong-testimonials' );
 	}
 

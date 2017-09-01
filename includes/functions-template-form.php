@@ -85,17 +85,14 @@ function wpmtst_single_form_field( $field ) {
 
 			$value = isset( $form_values[ $field['name'] ] ) ? (array) $form_values[ $field['name'] ] : array();
 
-			$category_list = wpmtst_get_category_list();
+			printf( '<select id="wpmtst_%s" name="%s" class="%s" %s tabindex="0">',
+                $field['name'],
+				$field['name'],
+				wpmtst_field_classes( $field['input_type'], $field['name'] ),
+				wpmtst_field_required_tag( $field ) );
 
-			echo '<select id="wpmtst_' . $field['name']. '"'
-				. ' name="' . $field['name'] . '"'
-				. ' class="' . wpmtst_field_classes( $field['input_type'], $field['name'] ) . '"'
-				. wpmtst_field_required_tag( $field ) . ' tabindex="0">';
 			echo '<option value="">&mdash;</option>';
-			foreach ( $category_list as $category ) {
-			    $selected = in_array( $category->term_id, $value ) ? ' selected' : '' ;
-				echo '<option value="' . $category->term_id . '"' . $selected . '>' . $category->name . '</option>';
-			}
+			wpmtst_nested_cats( $value );
 			echo '</select>';
 
 			break;
@@ -112,12 +109,14 @@ function wpmtst_single_form_field( $field ) {
 			$value = ( isset( $form_values[ $field['name'] ] ) && $form_values[ $field['name'] ] ) ? $form_values[ $field['name'] ] : '';
 
 			// textarea tags must be on same line for placeholder to work
-			echo '<textarea id="wpmtst_' . $field['name'] . '"'
-			     . ' class="' . wpmtst_field_classes( $field['input_type'], $field['name'] ) . '"'
-			     . ' name="' . $field['name'] . '"'
-			     . wpmtst_field_required_tag( $field )
-				 . wpmtst_field_placeholder( $field )
-			     . ' tabindex="0">' . esc_textarea( $value ) . '</textarea>';
+			printf( '<textarea id="wpmtst_%s" name="%s" class="%s" %s %s tabindex="0">%s</textarea>',
+				$field['name'],
+				$field['name'],
+				wpmtst_field_classes( $field['input_type'], $field['name'] ),
+				wpmtst_field_required_tag( $field ),
+				wpmtst_field_placeholder( $field ),
+				esc_textarea( $value ) );
+
 			break;
 
 		case 'file' :

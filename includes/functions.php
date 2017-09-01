@@ -396,20 +396,44 @@ function wpmtst_compare_width( $a, $b ) {
 }
 
 /**
+ * @return int
+ */
+function wpmtst_get_cat_count() {
+	return count( get_terms( 'wpm-testimonial-category', array( 'hide_empty' => false ) ) );
+}
+
+/**
  * Return a list of categories after removing any orderby filters.
  *
  * @since 2.2.3 If WPML is active, will find corresponding term ID in current language.
  *
+ * @param int $parent
+ *
  * @return array|int|WP_Error
  */
-function wpmtst_get_category_list() {
-	$category_list = get_terms( 'wpm-testimonial-category', array(
+function wpmtst_get_cats( $parent = 0 ) {
+	$cats = get_terms( 'wpm-testimonial-category', array(
 		'hide_empty' => false,
-		'order_by'   => 'name',
-		'pad_counts' => true,
+        'parent'     => $parent,
 	) );
 
-	return $category_list;
+	return $cats;
+}
+
+/**
+ * @param $value
+ * @param int $parent
+ * @param int $level
+ */
+function wpmtst_nested_cats( $value, $parent = 0, $level = 0 ) {
+	$cats = wpmtst_get_cats( $parent );
+	if ( $cats ) {
+		foreach ( $cats as $cat ) {
+			$selected = in_array( $cat->term_id, $value ) ? ' selected' : '';
+			printf( '<option value="%s"%s>%s%s</option>', $cat->term_id, $selected, str_repeat( '&nbsp;&nbsp;&nbsp;', $level ), $cat->name );
+			wpmtst_nested_cats( $value, $cat->term_id, $level + 1 );
+		}
+	}
 }
 
 /**
@@ -431,7 +455,7 @@ function wpmtst_get_views() {
 				array( 'code' => array(), 'a' => array( 'href' => array(), 'target' => array(), 'class' => array() ) )
 			),
 			$wpdb->last_error,
-			esc_url( 'https://support.strongplugins.com/tickets/submit-ticket/' )
+			esc_url( 'https://support.strongplugins.com/new-ticket/' )
 		);
 		wp_die( sprintf( '<div class="error strong-view-error"><p>%s</p></div>', $message ) );
 	}

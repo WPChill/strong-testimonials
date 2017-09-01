@@ -6,7 +6,7 @@
 </th>
 <td>
     <div id="view-category" class="row">
-		<?php if ( $category_list ) : ?>
+		<?php if ( $cat_count ) : ?>
             <div class="table">
                 <div class="table-row">
                     <div class="table-cell select-cell then_display then_slideshow then_not_form">
@@ -17,7 +17,7 @@
                     </div>
                     <div class="table-cell then then_not_allcats then_somecats" style="display: none;">
                         <div class="table">
-							<?php if ( count( $category_list ) > 5 ) : ?>
+							<?php if ( $cat_count > 5 ) : ?>
                             <div class="table-row">
                                 <div class="table-cell">
                                     <div class="row" style="text-align: right; padding-bottom: 5px;">

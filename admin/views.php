@@ -162,14 +162,14 @@ function wpmtst_view_settings( $action = '', $view_id = null ) {
 		'suppress_filters' => true,
 	) );
 
-	$category_list = wpmtst_get_category_list();
+	$cat_count = wpmtst_get_cat_count();
 
 	/**
 	 * Show category filter if necessary.
 	 *
 	 * @since 2.2.0
 	 */
-	if ( count( $category_list ) > 5 ) {
+	if ( $cat_count > 5 ) {
 		wp_enqueue_script( 'wpmtst-view-category-filter-script' );
 	}
 
