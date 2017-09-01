@@ -64,7 +64,6 @@ function wpmtst_l10n_after_notification_fields() {
 		echo '<span class="dashicons dashicons-info icon-blue"></span>&nbsp;';
 		printf( __( 'Translate these fields in <a href="%s">Polylang String Translations</a>', 'strong-testimonials' ),
 				admin_url( 'options-general.php?page=mlang&tab=strings&s&group=strong-testimonials-notification&paged=1' ) );
-
 		echo '<p>';
 	}
 
@@ -83,13 +82,17 @@ function wpmtst_update_l10n_strings( $fields ) {
 		wpmtst_form_fields_wpml( $fields );
 	}
 
-	// Polylang
-	if ( defined( 'POLYLANG_VERSION' ) ) {
-		wpmtst_form_fields_polylang( $fields );
-	}
+	/*
+	 * Polylang - nothing to do
+	 *
+	 * Polylang does not store the source string, only the translated string.
+	 * The source strings are added only when needed:
+	 * for the Strings Translations screen on the 'load-languages_page_mlang_strings' hook.
+	 */
 
+	/* WP Globus - nothing to do */
 }
-add_action( 'wpmtst_fields_updated', 'wpmtst_update_l10n_strings', 10 );
+add_action( 'wpmtst_fields_updated', 'wpmtst_update_l10n_strings' );
 
 /**
  * WPML
@@ -158,6 +161,12 @@ function wpmtst_l10n_filters() {
 add_action( 'plugins_loaded', 'wpmtst_l10n_filters' );
 
 /**
+ * ----------------------------------------
+ * WPML
+ * ----------------------------------------
+ */
+
+/**
  * Find the equivalent term ID in the current language.
  *
  * @since 2.2.3
@@ -220,95 +229,117 @@ function wpmtst_wpml_translate_object_ids( $object_id, $type = 'wpm-testimonial-
 }
 
 /**
- * ----------------------------------------
- * WPML
- * ----------------------------------------
+ * Load custom style for WPML.
+ *
+ * @since 1.21.0
  */
+function wpmtst_admin_scripts_wpml() {
+	if ( defined( 'ICL_SITEPRESS_VERSION' ) ) {
+		$plugin_version = get_option( 'wpmtst_plugin_version' );
+		wp_enqueue_style( 'wpmtst-admin-style-wpml', WPMTST_ADMIN_URL . 'css/wpml.css', array(), $plugin_version );
+	}
+}
+add_action( 'admin_head-wpml-string-translation/menu/string-translation.php', 'wpmtst_admin_scripts_wpml' );
+add_action( 'admin_head-edit-tags.php', 'wpmtst_admin_scripts_wpml' );
 
 /**
- * Add form fields to WPML String Translation.
+ * Register form field strings.
  *
  * @param $fields
  */
 function wpmtst_form_fields_wpml( $fields ) {
-	// Reverse field order to match the form.
-	$wpml = $fields;
-	krsort( $wpml );
-	foreach ( $wpml as $field ) {
-		$name    = $field['name'] . ' : ';
-		$context = 'strong-testimonials-form-fields';
+	if ( defined( 'ICL_SITEPRESS_VERSION' ) ) {
+		// Reverse field order to match the form.
+		$wpml = $fields;
+		krsort( $wpml );
+		foreach ( $wpml as $field ) {
+			$name    = $field['name'] . ' : ';
+			$context = 'strong-testimonials-form-fields';
 
-		/* Translators: A form field on the String Translation screen. */
-		if ( isset( $field['after'] ) ) {
-			do_action( 'wpml_register_single_string', $context, $name . __( 'after', 'strong-testimonials' ), $field['after'] );
-		}
+			/* Translators: A form field on the String Translation screen. */
+			if ( isset( $field['after'] ) ) {
+				do_action( 'wpml_register_single_string', $context, $name . __( 'after', 'strong-testimonials' ), $field['after'] );
+			}
 
-		if ( isset( $field['before'] ) ) {
-			do_action( 'wpml_register_single_string', $context, $name . __( 'before', 'strong-testimonials' ), $field['before'] );
-		}
+			if ( isset( $field['before'] ) ) {
+				do_action( 'wpml_register_single_string', $context, $name . __( 'before', 'strong-testimonials' ), $field['before'] );
+			}
 
-		if ( isset( $field['placeholder'] ) ) {
-			do_action( 'wpml_register_single_string', $context, $name . __( 'placeholder', 'strong-testimonials' ), $field['placeholder'] );
-		}
+			if ( isset( $field['placeholder'] ) ) {
+				do_action( 'wpml_register_single_string', $context, $name . __( 'placeholder', 'strong-testimonials' ), $field['placeholder'] );
+			}
 
-		if ( isset( $field['label'] ) ) {
-			do_action( 'wpml_register_single_string', $context, $name . __( 'label', 'strong-testimonials' ), $field['label'] );
-		}
+			if ( isset( $field['label'] ) ) {
+				do_action( 'wpml_register_single_string', $context, $name . __( 'label', 'strong-testimonials' ), $field['label'] );
+			}
 
-		if ( isset( $field['text'] ) ) {
-			do_action( 'wpml_register_single_string', $context, $name . __( 'text', 'strong-testimonials' ), $field['text'] );
-		}
+			if ( isset( $field['text'] ) ) {
+				do_action( 'wpml_register_single_string', $context, $name . __( 'text', 'strong-testimonials' ), $field['text'] );
+			}
 
-		if ( isset( $field['default_form_value'] ) ) {
-			do_action( 'wpml_register_single_string', $context, $name . __( 'default form value', 'strong-testimonials' ), $field['default_form_value'] );
-		}
+			if ( isset( $field['default_form_value'] ) ) {
+				do_action( 'wpml_register_single_string', $context, $name . __( 'default form value', 'strong-testimonials' ), $field['default_form_value'] );
+			}
 
-		if ( isset( $field['default_display_value'] ) ) {
-			do_action( 'wpml_register_single_string', $context, $name . __( 'default display value', 'strong-testimonials' ), $field['default_display_value'] );
+			if ( isset( $field['default_display_value'] ) ) {
+				do_action( 'wpml_register_single_string', $context, $name . __( 'default display value', 'strong-testimonials' ), $field['default_display_value'] );
+			}
 		}
 	}
 }
 
 /**
- * Add form messages to WPML String Translation.
+ * Register form message strings.
  *
  * @param $fields
  */
 function wpmtst_form_messages_wpml( $fields ) {
-	// Reverse field order to match the form.
-	$wpml = $fields;
-	krsort( $wpml );
-	$context = 'strong-testimonials-form-messages';
+	if ( defined( 'ICL_SITEPRESS_VERSION' ) ) {
+		// Reverse field order to match the form.
+		$wpml = $fields;
+		krsort( $wpml );
+		$context = 'strong-testimonials-form-messages';
 
-	foreach ( $wpml as $key => $field ) {
-		// We can translate here because the description was localized when added.
-		do_action( 'wpml_register_single_string', $context, __( $field['description'], 'strong-testimonials' ), $field['text'] );
+		foreach ( $wpml as $key => $field ) {
+			// We can translate here because the description was localized when added.
+			do_action( 'wpml_register_single_string', $context, __( $field['description'], 'strong-testimonials' ), $field['text'] );
+		}
 	}
 }
 
 /**
- * Add form notification messages to WPML String Translation.
+ * Register form notification strings.
  *
  * @param $options
  */
 function wpmtst_form_options_wpml( $options ) {
-	$context = 'strong-testimonials-notification';
-	do_action( 'wpml_register_single_string', $context, __( 'Email message', 'strong-testimonials' ), $options['email_message'] );
-	do_action( 'wpml_register_single_string', $context, __( 'Email subject', 'strong-testimonials' ), $options['email_subject'] );
+	if ( defined( 'ICL_SITEPRESS_VERSION' ) ) {
+		$context = 'strong-testimonials-notification';
+		do_action( 'wpml_register_single_string', $context, __( 'Email message', 'strong-testimonials' ), $options['email_message'] );
+		do_action( 'wpml_register_single_string', $context, __( 'Email subject', 'strong-testimonials' ), $options['email_subject'] );
+	}
 }
 
 /**
- * Add "Read more" link text to WPML String Translation.
+ * Register "Read more" link text.
  *
  * @since 2.11.17
  *
  * @param $options
  */
 function wpmtst_readmore_wpml( $options ) {
-	$context = 'strong-testimonials-read-more';
-	/* Translators: %s is the View ID. */
-	do_action( 'wpml_register_single_string', $context, sprintf( __( 'View %s : Read more (testimonial)', 'strong-testimonials' ), $options['id'] ), $options['more_post_text'] );
-	do_action( 'wpml_register_single_string', $context, sprintf( __( 'View %s : Read more (page or post)', 'strong-testimonials' ), $options['id'] ), $options['more_page_text'] );
+	if ( defined( 'ICL_SITEPRESS_VERSION' ) ) {
+		$context = 'strong-testimonials-read-more';
+
+		/* Translators: %s is the View ID. */
+		do_action( 'wpml_register_single_string', $context,
+			sprintf( __( 'View %s : Read more (testimonial)', 'strong-testimonials' ), $options['id'] ),
+			$options['more_post_text'] );
+
+		do_action( 'wpml_register_single_string', $context,
+			sprintf( __( 'View %s : Read more (page or post)', 'strong-testimonials' ), $options['id'] ),
+			$options['more_page_text'] );
+	}
 }
 
 
@@ -316,57 +347,108 @@ function wpmtst_readmore_wpml( $options ) {
  * ----------------------------------------
  * POLYLANG
  * ----------------------------------------
+ *
+ * pll_register_string($name, $string, $group, $multiline);
+ *   '$name' => (required) name provided for sorting convenience (ex: ‘myplugin’)
+ *   '$string' => (required) the string to translate
+ *   '$group' => (optional) the group in which the string is registered, defaults to ‘polylang’
+ *   '$multiline' => (optional) if set to true, the translation text field will be multiline, defaults to false
  */
 
-/*
-	pll_register_string($name, $string, $group, $multiline);
-	'$name' => (required) name provided for sorting convenience (ex: ‘myplugin’)
-	'$string' => (required) the string to translate
-	'$group' => (optional) the group in which the string is registered, defaults to ‘polylang’
-	'$multiline' => (optional) if set to true, the translation text field will be multiline, defaults to false
-*/
-
+/**
+ * Register form field strings.
+ *
+ * @param $fields
+ */
 function wpmtst_form_fields_polylang( $fields ) {
 	if ( function_exists( 'pll_register_string' ) ) {
+		$context = 'strong-testimonials-form-fields';
 		foreach ( $fields as $field ) {
 			$name = $field['name'] . ' : ';
-			$context = 'strong-testimonials-form-fields';
-			pll_register_string( $name . __( 'after', 'strong-testimonials' ), $field['after'], $context );
-			pll_register_string( $name . __( 'before', 'strong-testimonials' ), $field['before'], $context );
-			pll_register_string( $name . __( 'placeholder', 'strong-testimonials' ), $field['placeholder'], $context );
-			pll_register_string( $name . __( 'label', 'strong-testimonials' ), $field['label'], $context );
-			pll_register_string( $name . __( 'default form value', 'strong-testimonials' ), $field['default_form_value'], $context );
-			pll_register_string( $name . __( 'default display value', 'strong-testimonials' ), $field['default_display_value'], $context );
+			// TODO if not empty
+			pll_register_string( $name . __( 'after', 'strong-testimonials' ), $field['after'], $context, false );
+			pll_register_string( $name . __( 'before', 'strong-testimonials' ), $field['before'], $context, false );
+			pll_register_string( $name . __( 'placeholder', 'strong-testimonials' ), $field['placeholder'], $context, false );
+			pll_register_string( $name . __( 'label', 'strong-testimonials' ), $field['label'], $context, false );
+			pll_register_string( $name . __( 'default form value', 'strong-testimonials' ), $field['default_form_value'], $context, false );
+			pll_register_string( $name . __( 'default display value', 'strong-testimonials' ), $field['default_display_value'], $context, false );
 		}
 	}
 }
 
+/**
+ * Register form message strings.
+ *
+ * @param $fields
+ */
 function wpmtst_form_messages_polylang( $fields ) {
 	if ( function_exists( 'pll_register_string' ) ) {
+		$context = 'strong-testimonials-form-messages';
 		foreach ( $fields as $key => $field ) {
-			pll_register_string( __( $field['description'], 'strong-testimonials' ), $field['text'], 'strong-testimonials-form-messages' );
+			pll_register_string( __( $field['description'], 'strong-testimonials' ), $field['text'], $context, false );
 		}
 	}
 }
 
+/**
+ * Register form notification strings.
+ *
+ * @param $options
+ */
 function wpmtst_form_options_polylang( $options ) {
 	if ( function_exists( 'pll_register_string' ) ) {
 		$context = 'strong-testimonials-notification';
-		pll_register_string( __( 'Email subject', 'strong-testimonials' ), $options['email_subject'], $context );
+		pll_register_string( __( 'Email subject', 'strong-testimonials' ), $options['email_subject'], $context, false );
 		pll_register_string( __( 'Email message', 'strong-testimonials' ), $options['email_message'], $context, true );
 	}
 }
 
 /**
- * "Read more" link text
+ * Register "Read more" link text.
  *
  * @since 2.11.17
- * @param $options
  */
-function wpmtst_readmore_polylang( $options ) {
+function wpmtst_readmore_polylang() {
 	if ( function_exists( 'pll_register_string' ) ) {
-		$context = 'strong-testimonials-notification';
-		pll_register_string( sprintf( __( 'View %s : Read more (testimonial)', 'strong-testimonials' ), $options['id'] ), $options['more_post_text'], $context );
-		pll_register_string( sprintf( __( 'View %s : Read more (page or post)', 'strong-testimonials' ), $options['id'] ), $options['more_page_text'], $context );
+		$context = 'strong-testimonials-views';
+
+		$views = wpmtst_get_views();
+		if ( ! $views ) {
+			return;
+		}
+
+		foreach ( $views as $key => $view ) {
+			$view_data = unserialize( $view['value'] );
+			if ( ! is_array( $view_data ) ) {
+				continue;
+			}
+
+			pll_register_string( sprintf( __( 'View %s : Read more (testimonial)', 'strong-testimonials', false ),
+				$view['id'] ), $view_data['more_post_text'], $context );
+
+			pll_register_string( sprintf( __( 'View %s : Read more (page or post)', 'strong-testimonials', false ),
+				$view['id'] ), $view_data['more_page_text'], $context );
+		}
 	}
 }
+
+/**
+ * Polylang conditional loading
+ *
+ * @since 1.21.0
+ */
+function wpmtst_admin_polylang() {
+	if ( defined( 'POLYLANG_VERSION' ) ) {
+		// Minor improvements to list table style
+		$plugin_version = get_option( 'wpmtst_plugin_version' );
+		wp_enqueue_style( 'wpmtst-admin-style-polylang', WPMTST_ADMIN_URL . 'css/polylang.css', array(), $plugin_version );
+
+		// Register strings for translation
+		wpmtst_form_fields_polylang( wpmtst_get_all_fields() );
+		$form_options = get_option( 'wpmtst_form_options' );
+		wpmtst_form_messages_polylang( $form_options['messages'] );
+		wpmtst_form_options_polylang( $form_options );
+		wpmtst_readmore_polylang();
+	}
+}
+add_action( 'load-languages_page_mlang_strings', 'wpmtst_admin_polylang' );

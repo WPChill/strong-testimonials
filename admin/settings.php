@@ -349,15 +349,17 @@ add_action( 'wp_ajax_wpmtst_restore_default_message', 'wpmtst_restore_default_me
  * @param $newvalue
  */
 function wpmtst_on_update_form_options( $oldvalue, $newvalue ) {
-	$form_options = get_option( 'wpmtst_form_options' );
-	if ( ! $form_options ) return;
+    //q2($newvalue);
+	//$form_options = get_option( 'wpmtst_form_options' );
+	//q2($form_options);
+	//if ( ! $form_options ) return;
 
 	// WPML
-	wpmtst_form_messages_wpml( $form_options['messages'] );
-	wpmtst_form_options_wpml( $form_options );
+	wpmtst_form_messages_wpml( $newvalue['messages'] );
+	wpmtst_form_options_wpml( $newvalue );
 
-	// Polylang
-	wpmtst_form_messages_polylang( $form_options['messages'] );
-	wpmtst_form_options_polylang( $form_options );
+	// Polylang - nothing to do
+
+    // WP Globus - nothing to do
 }
 add_action( 'update_option_wpmtst_form_options', 'wpmtst_on_update_form_options', 10, 2 );

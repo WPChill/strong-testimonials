@@ -211,7 +211,6 @@ function wpmtst_upgrade() {
 		wpmtst_form_fields_wpml( $custom_forms[1]['fields'] );
 	}
 
-
 	/**
 	 * -5- GET FORM OPTIONS
 	 *
@@ -219,6 +218,7 @@ function wpmtst_upgrade() {
 	 */
 	$form_options = get_option( 'wpmtst_form_options', array() );
 	if ( ! $form_options ) {
+
 		// -5A- NEW ACTIVATION
 		$form_options = $default_form_options;
 
@@ -239,7 +239,9 @@ function wpmtst_upgrade() {
 		}
 
 		update_option( 'wpmtst_form_options', $form_options );
+
 	} else {
+
 		// -5C- UPDATE
 		/**
 		 * Update single email recipient to multiple.
@@ -273,8 +275,11 @@ function wpmtst_upgrade() {
 		// Merge in new options
 		$form_options = array_merge( $default_form_options, $form_options );
 		update_option( 'wpmtst_form_options', $form_options );
+
 	}
+
 	// WPML
+	// TODO Send entire options var instead
 	wpmtst_form_messages_wpml( $form_options['messages'] );
 	wpmtst_form_options_wpml( $form_options );
 
@@ -560,15 +565,6 @@ function wpmtst_upgrade() {
 	 */
 	delete_option( 'wpmtst_admin_notices' );
 	delete_option( 'wpmtst_news_flag' );
-
-	/**
-	 * Delete old install log.
-	 *
-	 * @since 2.4.0
-	 */
-	if ( file_exists( WP_CONTENT_DIR . '/install.log' ) ) {
-		unlink( WP_CONTENT_DIR . '/install.log' );
-	}
 
 }
 

@@ -507,16 +507,9 @@ function wpmtst_on_save_view( $view ) {
 		);
 	}
 
-	// Polylang
-	if ( defined( 'POLYLANG_VERSION' ) ) {
-		wpmtst_readmore_polylang(
-			array(
-				'id'             => $view['id'],
-				'more_post_text' => $view['data']['more_post_text'],
-				'more_page_text' => $view['data']['more_page_text'],
-			)
-		);
-	}
+	// Polylang - nothing to do
+
+    // WP Globus - nothing to do
 
 }
 add_action( 'wpmtst_view_saved', 'wpmtst_on_save_view' );
