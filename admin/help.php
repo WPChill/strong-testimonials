@@ -35,7 +35,7 @@ function wpmtst_help_fields_editor() {
 	// Polylang
 	if ( wpmtst_is_plugin_active( 'polylang' ) ) {
 		$links[] = sprintf( __( 'Translate these fields in <a href="%s">Polylang String Translations</a>', 'strong-testimonials' ),
-			admin_url( 'options-general.php?page=mlang&tab=strings&s&group=strong-testimonials-form-fields&paged=1' ) );
+			admin_url( 'admin.php?page=mlang_strings&group=strong-testimonials-form-fields&paged=1' ) );
 	}
 
 	$content .= '<p>' . implode( ' | ', $links ) . '</p>';

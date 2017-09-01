@@ -37,7 +37,7 @@ function wpmtst_l10n_before_form_settings() {
 		echo '<p>';
 		echo '<span class="dashicons dashicons-info icon-blue"></span>&nbsp;';
 		printf( __( 'Translate these fields in <a href="%s">Polylang String Translations</a>', 'strong-testimonials' ),
-			admin_url( 'options-general.php?page=mlang&tab=strings&s&group=strong-testimonials-form-messages&paged=1' ) );
+			admin_url( 'admin.php?page=mlang_strings&group=strong-testimonials-form-messages&paged=1' ) );
 		echo '</p>';
 	}
 
@@ -63,7 +63,7 @@ function wpmtst_l10n_after_notification_fields() {
 		echo '<p>';
 		echo '<span class="dashicons dashicons-info icon-blue"></span>&nbsp;';
 		printf( __( 'Translate these fields in <a href="%s">Polylang String Translations</a>', 'strong-testimonials' ),
-				admin_url( 'options-general.php?page=mlang&tab=strings&s&group=strong-testimonials-notification&paged=1' ) );
+				admin_url( 'admin.php?page=mlang_strings&group=strong-testimonials-notification&paged=1' ) );
 		echo '<p>';
 	}
 
