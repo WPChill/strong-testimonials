@@ -12,8 +12,6 @@
  * For example, when changing a rating field property from
  * disabled (0) to enabled (1) in order for the property to
  * be displayed in the form editor.
- *
- * @package Strong_Testimonials
  */
 
 function wpmtst_upgrade() {
@@ -22,7 +20,9 @@ function wpmtst_upgrade() {
 	$plugin_data        = WPMST()->get_plugin_data();
 	$plugin_version     = $plugin_data['Version'];
 
-	if ( $old_plugin_version == $plugin_version ) return;
+	if ( $old_plugin_version == $plugin_version ) {
+		return;
+	}
 
 	wpmtst_update_db_check();
 
@@ -135,7 +135,7 @@ function wpmtst_upgrade() {
 			}
 		}
 
-		update_option( 'wpmtst_fields', $default_fields );
+		update_option( 'wpmtst_fields', $fields );
 	}
 
 	/**
