@@ -19,16 +19,18 @@ function wpmtst_l10n_default( $string ) {
 add_filter( 'wpmtst_l10n', 'wpmtst_l10n_default' );
 
 /**
- * Help link on form settings screen.
+ * Help link on various settings screens.
+ *
+ * @param $context
  */
-function wpmtst_l10n_before_form_settings() {
+function wpmtst_l10n_help_links( $context ) {
 
 	// WPML
 	if ( wpmtst_is_plugin_active( 'wpml' ) ) {
 		echo '<p>';
 		echo '<span class="dashicons dashicons-info icon-blue"></span>&nbsp;';
 		printf( __( 'Translate these fields in <a href="%s">WPML String Translations</a>', 'strong-testimonials' ),
-			admin_url( 'admin.php?page=wpml-string-translation%2Fmenu%2Fstring-translation.php&context=strong-testimonials-form-messages' ) );
+			admin_url( 'admin.php?page=wpml-string-translation%2Fmenu%2Fstring-translation.php&context=strong-testimonials-' . $context ) );
 		echo '</p>';
 	}
 
@@ -37,38 +39,14 @@ function wpmtst_l10n_before_form_settings() {
 		echo '<p>';
 		echo '<span class="dashicons dashicons-info icon-blue"></span>&nbsp;';
 		printf( __( 'Translate these fields in <a href="%s">Polylang String Translations</a>', 'strong-testimonials' ),
-			admin_url( 'admin.php?page=mlang_strings&group=strong-testimonials-form-messages&paged=1' ) );
+			admin_url( 'admin.php?page=mlang_strings&group=strong-testimonials-' . $context . '&paged=1' ) );
 		echo '</p>';
 	}
 
 }
-add_action( 'wpmtst_before_form_settings', 'wpmtst_l10n_before_form_settings' );
-
-/**
- * Help link on form notification settings screen.
- */
-function wpmtst_l10n_after_notification_fields() {
-
-	// WPML
-	if ( wpmtst_is_plugin_active( 'wpml' ) ) {
-		echo '<p>';
-		echo '<span class="dashicons dashicons-info icon-blue"></span>&nbsp;';
-		printf( __( 'Translate these fields in <a href="%s">WPML String Translations</a>', 'strong-testimonials' ),
-				admin_url( 'admin.php?page=wpml-string-translation%2Fmenu%2Fstring-translation.php&context=strong-testimonials-notification' ) );
-		echo '</p>';
-	}
-
-	// Polylang
-	if ( wpmtst_is_plugin_active( 'polylang' ) ) {
-		echo '<p>';
-		echo '<span class="dashicons dashicons-info icon-blue"></span>&nbsp;';
-		printf( __( 'Translate these fields in <a href="%s">Polylang String Translations</a>', 'strong-testimonials' ),
-				admin_url( 'admin.php?page=mlang_strings&group=strong-testimonials-notification&paged=1' ) );
-		echo '<p>';
-	}
-
-}
-add_action( 'wpmtst_after_notification_fields', 'wpmtst_l10n_after_notification_fields' );
+add_action( 'wpmtst_before_form_settings', 'wpmtst_l10n_help_links' );
+add_action( 'wpmtst_before_fields_settings', 'wpmtst_l10n_help_links' );
+add_action( 'wpmtst_after_notification_fields', 'wpmtst_l10n_help_links' );
 
 /**
  * Update strings when custom fields change.
@@ -439,9 +417,6 @@ function wpmtst_admin_polylang() {
 
 		// Register strings for translation
 		wpmtst_form_fields_polylang( wpmtst_get_all_fields() );
-		//$form_options = get_option( 'wpmtst_form_options' );
-		//wpmtst_form_messages_polylang( $form_options['messages'] );
-		//wpmtst_form_options_polylang( $form_options );
 		wpmtst_form_polylang( get_option( 'wpmtst_form_options' ) );
 		wpmtst_readmore_polylang();
 	}
