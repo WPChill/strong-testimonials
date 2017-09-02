@@ -1,3 +1,27 @@
+= 2.24 - June 12, 2017 =
+* Fix bug in saving a zero rating.
+* Fix bug in add-on license activation screen.
+* Add real-time configuration checks.
+* Improve debug logger.
+
+= 2.23.2 - June 7, 2017 =
+* Fix default translation filters.
+
+= 2.23.1 - June 4, 2017 =
+* Fix bug in default nofollow links.
+* Fix bug when saving checkbox value in post editor.
+* fix bug in admin list checkbox column.
+
+= 2.23 - May 31, 2017 =
+* Add nofollow default setting.
+* Add checkbox input type.
+* Add support for Captcha Pro by BestWebSoft.
+* Defer front-end javascript to improve compatibility.
+* Allow shortcodes and basic HTML in the "Before", "After", "Text" fields.
+* Add filter on "Required Field" notice.
+* Remove `link_new_tab` and `link_nofollow` functions.
+* Minor refactoring.
+
 = 2.22.6 - May 29, 2017 =
 * Fix conflict with prerender and some themes.
 

@@ -3,7 +3,7 @@ Contributors: cdillon27
 Tags: testimonials, testimonial slider, testimonial form, reviews, star ratings
 Requires at least: 3.6
 Tested up to: 4.8.1
-Stable tag: 2.26.8
+Stable tag: 2.26.9
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -13,7 +13,7 @@ Simple yet powerful. Very customizable. Developer-friendly. Free support.
 
 A flexible testimonials plugin that works right out of the box for beginners with advanced features for pros, backed by strong support.
 
-**[Go Demo](http://demos.wpmission.com/strong-testimonials/)** | **[Knowledge Base](https://support.strongplugins.com/article-category/strong-testimonials/)** | **[Add-ons](https://strongplugins.com/plugins/category/strong-testimonials/)**
+**[Go Demo](https://strongdemos.com/strong-testimonials/)** | **[Knowledge Base](https://support.strongplugins.com/article-category/strong-testimonials/)** | **[Add-ons](https://strongplugins.com/plugins/category/strong-testimonials/)**
 
 ### Is this the right plugin for you?
 
@@ -45,8 +45,8 @@ Customize the form by adding or removing fields and changing properties like the
 **Anti-spam** measures include honeypots and Captcha via these plugins:
 
 * [Advanced noCaptcha reCaptcha](https://wordpress.org/plugins/advanced-nocaptcha-recaptcha/)
-* [Captcha](http://wordpress.org/plugins/captcha/) and [Captcha Pro](https://bestwebsoft.com/products/wordpress/plugins/captcha/)
-* [Really Simple Captcha](http://wordpress.org/plugins/really-simple-captcha/)
+* [Captcha](https://wordpress.org/plugins/captcha/) and [Captcha Pro](https://bestwebsoft.com/products/wordpress/plugins/captcha/)
+* [Really Simple Captcha](https://wordpress.org/plugins/really-simple-captcha/)
 
 Send custom **notification emails** to multiple admins.
 
@@ -90,7 +90,7 @@ I will [move mountains](https://strongplugins.com/testimonials/) to help you get
 
 * [Simple Colorbox](https://wordpress.org/plugins/simple-colorbox/) to open thumbnails into full-size images. Nice!
 * [Simple Custom CSS](https://wordpress.org/plugins/simple-custom-css/) still works great for quick CSS tweaks.
-* [Wider Admin Menu](http://wordpress.org/plugins/wider-admin-menu/) lets your admin menu b r e a t h e.
+* [Wider Admin Menu](https://wordpress.org/plugins/wider-admin-menu/) lets your admin menu b r e a t h e.
 
 == Installation ==
 
@@ -176,6 +176,10 @@ If you prefer not to post your URL publicly, start a private support ticket at [
 
 == Changelog ==
 
+= 2.26.9 - Sep 2, 2017 =
+* Fix integration with Polylang 2.1+.
+* Indent subcategories in the category selector on the form.
+
 = 2.26.8 - Aug 26, 2017 =
 * Fix form whitespace problem in some themes.
 
@@ -226,30 +230,6 @@ If you prefer not to post your URL publicly, start a private support ticket at [
 * Update link to wordpress.org review form.
 * Update style for Review Markup add-on.
 * Lint and compress JavaScript files.
-
-= 2.24 - June 12, 2017 =
-* Fix bug in saving a zero rating.
-* Fix bug in add-on license activation screen.
-* Add real-time configuration checks.
-* Improve debug logger.
-
-= 2.23.2 - June 7, 2017 =
-* Fix default translation filters.
-
-= 2.23.1 - June 4, 2017 =
-* Fix bug in default nofollow links.
-* Fix bug when saving checkbox value in post editor.
-* fix bug in admin list checkbox column.
-
-= 2.23 - May 31, 2017 =
-* Add nofollow default setting.
-* Add checkbox input type.
-* Add support for Captcha Pro by BestWebSoft.
-* Defer front-end javascript to improve compatibility.
-* Allow shortcodes and basic HTML in the "Before", "After", "Text" fields.
-* Add filter on "Required Field" notice.
-* Remove `link_new_tab` and `link_nofollow` functions.
-* Minor refactoring.
 
 See changelog.txt for previous versions.
 
