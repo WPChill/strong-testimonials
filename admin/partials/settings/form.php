@@ -37,7 +37,7 @@ foreach ( $plugins as $key => $plugin ) {
 ?>
 <h2><?php _e( 'Form Labels & Messages', 'strong-testimonials' ); ?></h2>
 
-<?php do_action( 'wpmtst_before_form_settings' ); ?>
+<?php do_action( 'wpmtst_before_form_settings', 'form-messages' ); ?>
 
 <table class="form-table compact" cellpadding="0" cellspacing="0">
 	<?php
@@ -235,7 +235,7 @@ foreach ( $plugins as $key => $plugin ) {
                 include 'email-from.php';
                 include 'email-to.php';
                 include 'email.php';
-                do_action( 'wpmtst_after_notification_fields' );
+                do_action( 'wpmtst_after_notification_fields', 'notification' );
                 ?>
 			</div>
 

@@ -2,10 +2,10 @@
 <th>
 	<?php _e( 'Assign new submissions to a category', 'strong-testimonials' ); ?>
 </th>
-<?php if ( $category_list ) : ?>
+<?php if ( $cat_count ) : ?>
     <td>
         <div class="table">
-            <?php if ( count( $category_list ) > 5 ) : ?>
+            <?php if ( $cat_count > 5 ) : ?>
             <div class="table-row">
                 <div class="table-cell">
                     <div class="row" style="text-align: right; padding-bottom: 5px;">

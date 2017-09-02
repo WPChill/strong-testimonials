@@ -12,8 +12,6 @@
  * For example, when changing a rating field property from
  * disabled (0) to enabled (1) in order for the property to
  * be displayed in the form editor.
- *
- * @package Strong_Testimonials
  */
 
 function wpmtst_upgrade() {
@@ -22,7 +20,9 @@ function wpmtst_upgrade() {
 	$plugin_data        = WPMST()->get_plugin_data();
 	$plugin_version     = $plugin_data['Version'];
 
-	if ( $old_plugin_version == $plugin_version ) return;
+	if ( $old_plugin_version == $plugin_version ) {
+		return;
+	}
 
 	wpmtst_update_db_check();
 
@@ -48,7 +48,7 @@ function wpmtst_upgrade() {
 	$options = get_option( 'wpmtst_options' );
 	if ( ! $options ) {
 		// -2A- NEW ACTIVATION
-		update_option( 'wpmtst_options', $default_options );
+		$options = $default_options;
 	} else {
 		// -2B- UPDATE
 
@@ -98,14 +98,13 @@ function wpmtst_upgrade() {
 
 		// Merge in new options
 		$options = array_merge( $default_options, $options );
-		update_option( 'wpmtst_options', $options );
 
 		// Convert nofollow
 		if ( ! isset( $history['2.23.0_convert_nofollow'] ) ) {
 			wpmtst_convert_nofollow();
 		}
-
 	}
+	update_option( 'wpmtst_options', $options );
 
 	/**
 	 * -3- GET FIELDS
@@ -113,7 +112,7 @@ function wpmtst_upgrade() {
 	$fields = get_option( 'wpmtst_fields', array() );
 	if ( ! $fields ) {
 		// -3A- NEW ACTIVATION
-		update_option( 'wpmtst_fields', $default_fields );
+		$fields = $default_fields;
 	} else {
 		// -3B- UPDATE
 
@@ -135,26 +134,19 @@ function wpmtst_upgrade() {
 			}
 		}
 
-		update_option( 'wpmtst_fields', $default_fields );
 	}
+	update_option( 'wpmtst_fields', $fields );
 
 	/**
 	 * -4- GET FORMS
 	 */
 	update_option( 'wpmtst_base_forms', $default_base_forms );
 
-	$fields       = get_option( 'wpmtst_fields' );
 	$custom_forms = get_option( 'wpmtst_custom_forms' );
 
 	if ( ! $custom_forms ) {
-
-		update_option( 'wpmtst_custom_forms', $default_custom_forms );
-
-		// WPML
-		wpmtst_form_fields_wpml( $default_custom_forms[1]['fields'] );
-
+		$custom_forms = $default_custom_forms;
 	} else {
-
 		foreach ( $custom_forms as $form_id => $form_properties ) {
 			foreach ( $form_properties['fields'] as $key => $form_field ) {
 
@@ -204,13 +196,8 @@ function wpmtst_upgrade() {
 
 			}
 		}
-
-		update_option( 'wpmtst_custom_forms', $custom_forms );
-
-		// WPML
-		wpmtst_form_fields_wpml( $custom_forms[1]['fields'] );
 	}
-
+	update_option( 'wpmtst_custom_forms', $custom_forms );
 
 	/**
 	 * -5- GET FORM OPTIONS
@@ -219,6 +206,7 @@ function wpmtst_upgrade() {
 	 */
 	$form_options = get_option( 'wpmtst_form_options', array() );
 	if ( ! $form_options ) {
+
 		// -5A- NEW ACTIVATION
 		$form_options = $default_form_options;
 
@@ -238,8 +226,8 @@ function wpmtst_upgrade() {
 			update_option( 'wpmtst_options', $options );
 		}
 
-		update_option( 'wpmtst_form_options', $form_options );
 	} else {
+
 		// -5C- UPDATE
 		/**
 		 * Update single email recipient to multiple.
@@ -272,11 +260,9 @@ function wpmtst_upgrade() {
 
 		// Merge in new options
 		$form_options = array_merge( $default_form_options, $form_options );
-		update_option( 'wpmtst_form_options', $form_options );
+
 	}
-	// WPML
-	wpmtst_form_messages_wpml( $form_options['messages'] );
-	wpmtst_form_options_wpml( $form_options );
+	update_option( 'wpmtst_form_options', $form_options );
 
 
 	/**
@@ -560,15 +546,6 @@ function wpmtst_upgrade() {
 	 */
 	delete_option( 'wpmtst_admin_notices' );
 	delete_option( 'wpmtst_news_flag' );
-
-	/**
-	 * Delete old install log.
-	 *
-	 * @since 2.4.0
-	 */
-	if ( file_exists( WP_CONTENT_DIR . '/install.log' ) ) {
-		unlink( WP_CONTENT_DIR . '/install.log' );
-	}
 
 }
 

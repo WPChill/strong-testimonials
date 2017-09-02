@@ -31,7 +31,7 @@ function wpmtst_admin_init() {
 	}
 
 }
-add_action( 'admin_init', 'wpmtst_admin_init' );
+add_action( 'admin_init', 'wpmtst_admin_init', 5 );
 
 
 /**
@@ -399,41 +399,6 @@ add_action( 'admin_enqueue_scripts', 'wpmtst_admin_dequeue_scripts', 500 );
 
 
 /**
- * Load custom style for WPML.
- *
- * @since 1.21.0
- */
-function wpmtst_admin_scripts_wpml() {
-	$plugin_version = get_option( 'wpmtst_plugin_version' );
-	wp_enqueue_style( 'wpmtst-admin-style-wpml', WPMTST_ADMIN_URL . 'css/wpml.css', array(), $plugin_version );
-}
-add_action( 'admin_head-wpml-string-translation/menu/string-translation.php', 'wpmtst_admin_scripts_wpml' );
-add_action( 'admin_head-edit-tags.php', 'wpmtst_admin_scripts_wpml' );
-
-
-/**
- * Polylang conditional loading
- *
- * @since 1.21.0
- */
-function wpmtst_admin_polylang() {
-	if ( ! defined( 'POLYLANG_VERSION' ) )
-		return;
-
-	$plugin_version = get_option( 'wpmtst_plugin_version' );
-	wp_enqueue_style( 'wpmtst-admin-style-polylang', WPMTST_ADMIN_URL . 'css/polylang.css', array(), $plugin_version );
-
-	include_once WPMTST_INC . 'defaults.php';
-	$fields = wpmtst_get_all_fields();
-	wpmtst_form_fields_polylang( $fields );
-	$form_options = get_option( 'wpmtst_form_options', array() );
-	wpmtst_form_messages_polylang( $form_options['messages'] );
-	wpmtst_form_options_polylang( $form_options );
-}
-add_action( 'load-settings_page_mlang', 'wpmtst_admin_polylang' );
-
-
-/**
  * Add meta box to the post editor screen
  */
 function wpmtst_add_meta_boxes() {
@@ -648,8 +613,8 @@ function wpmtst_edit_columns( $columns ) {
 	}
 
 	// 5. add [category], [comments] and [date]
-	// 'categories' is reserved by WordPress.
-	if ( wpmtst_get_category_list() ) {
+	// The slug "categories" slug is reserved by WordPress.
+	if ( wpmtst_get_cat_count() ) {
 		$fields_to_add['category'] = __( 'Categories', 'strong-testimonials' );
 	}
 

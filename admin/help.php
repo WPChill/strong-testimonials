@@ -26,18 +26,6 @@ function wpmtst_help_fields_editor() {
 		'<a href="' . admin_url( 'edit.php?post_type=wpm-testimonial&page=testimonial-settings&tab=form' ) . '">' . __( 'Form settings', 'strong-testimonials' ) . '</a>'
 	);
 
-	// WPML
-	if ( wpmtst_is_plugin_active( 'wpml' ) ) {
-		$links[] = sprintf( __( 'Translate these fields in <a href="%s">WPML String Translations</a>', 'strong-testimonials' ),
-			admin_url( 'admin.php?page=wpml-string-translation%2Fmenu%2Fstring-translation.php&context=strong-testimonials-form-fields' ) );
-	}
-
-	// Polylang
-	if ( wpmtst_is_plugin_active( 'polylang' ) ) {
-		$links[] = sprintf( __( 'Translate these fields in <a href="%s">Polylang String Translations</a>', 'strong-testimonials' ),
-			admin_url( 'options-general.php?page=mlang&tab=strings&s&group=strong-testimonials-form-fields&paged=1' ) );
-	}
-
 	$content .= '<p>' . implode( ' | ', $links ) . '</p>';
 
 	get_current_screen()->add_help_tab( array(

@@ -145,6 +145,7 @@ function wpmtst_settings_custom_fields( $form_id = 1 ) {
                 <?php _e( 'Click a field to open its options panel.', 'strong-testimonials' ); ?>
                 <a class="open-help-tab" href="#tab-panel-wpmtst-help"><?php _e( 'Help' ); ?></a>
             </p>
+            <?php do_action( 'wpmtst_before_fields_settings', 'form-fields' ); ?>
         </div>
 
         <!-- Custom Fields Form -->
