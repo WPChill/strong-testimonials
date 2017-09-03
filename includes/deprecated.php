@@ -59,3 +59,15 @@ function wpmtst_truncate( $content, $limit ) {
  */
 function wpmtst_read_more() {}
 
+
+/**
+ * Return a list of categories after removing any orderby filters.
+ *
+ * @deprecated
+ *
+ * @return array|int|WP_Error
+ */
+function wpmtst_get_category_list() {
+	return get_terms( 'wpm-testimonial-category', array( 'hide_empty' => false ) );
+}
+
