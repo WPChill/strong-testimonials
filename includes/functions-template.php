@@ -398,7 +398,6 @@ function wpmtst_client_section( $client_section ) {
 				break;
 
 			case 'shortcode' :
-				$output = do_shortcode( get_post_meta( $post->ID, $field['field'], true ) );
 				if ( isset( $field['shortcode_on_display'] ) && $field['shortcode_on_display'] ) {
 					$output = do_shortcode( $field['shortcode_on_display'] );
 				}
