@@ -127,21 +127,32 @@ function wpmtst_readmore_polylang() {
 }
 
 /**
- * Polylang conditional loading
+ * Polylang string translations
  *
  * @since 1.21.0
+ * `add_action( 'load-languages_page_mlang_strings', 'wpmtst_admin_polylang' );`
+ *
+ * @since 2.26.10
+ * We can no longer use the page-specific hook because it's constructed using the user's admin language.
+ * Polylang does not provide a hook either.
+ * English: load-languages_page_mlang_strings
+ * French:  load-langues_page_mlang_strings
  */
 function wpmtst_admin_polylang() {
-	// Minor improvements to list table style
-	$plugin_version = get_option( 'wpmtst_plugin_version' );
-	wp_enqueue_style( 'wpmtst-admin-style-polylang', WPMTST_ADMIN_URL . 'css/polylang.css', array(), $plugin_version );
+	global $plugin_page;
 
-	// Register strings for translation
-	wpmtst_form_fields_polylang( wpmtst_get_all_fields() );
-	wpmtst_form_options_polylang( get_option( 'wpmtst_form_options' ) );
-	wpmtst_readmore_polylang();
+	if ( isset( $plugin_page ) && 'mlang_strings' == $plugin_page ) {
+		// Minor improvements to list table style
+		$plugin_version = get_option( 'wpmtst_plugin_version' );
+		wp_enqueue_style( 'wpmtst-admin-style-polylang', WPMTST_ADMIN_URL . 'css/polylang.css', array(), $plugin_version );
+
+		// Register strings for translation
+		wpmtst_form_fields_polylang( wpmtst_get_all_fields() );
+		wpmtst_form_options_polylang( get_option( 'wpmtst_form_options' ) );
+		wpmtst_readmore_polylang();
+	}
 }
-add_action( 'load-languages_page_mlang_strings', 'wpmtst_admin_polylang' );
+add_action( 'admin_init', 'wpmtst_admin_polylang' );
 
 /**
  * Help link on various settings screens.
