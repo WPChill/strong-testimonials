@@ -3,7 +3,7 @@ Contributors: cdillon27
 Tags: testimonials, testimonial slider, testimonial form, reviews, star ratings
 Requires at least: 3.6
 Tested up to: 4.8.1
-Stable tag: 2.26.9
+Stable tag: 2.26.10
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -176,6 +176,13 @@ If you prefer not to post your URL publicly, start a private support ticket at [
 
 == Changelog ==
 
+= 2.26.10 - Sep 12, 2017 =
+* Fix compatibility with Captcha by simplywordpress 4.3.4+.
+* Fix compatibility with Polylang string translations when user's admin language is not English.
+* Improve flex grid style when last row is less than full.
+* Improve rendering of shortcode field type.
+* Add post ID of newly submitted testimonial to action hook.
+
 = 2.26.9 - Sep 2, 2017 =
 * Fix integration with Polylang 2.1+.
 * Indent subcategories in the category selector on the form.
@@ -235,4 +242,4 @@ See changelog.txt for previous versions.
 
 == Upgrade Notice ==
 
-Clear your caches!
+Fixes minor bugs and compatibility issues.
