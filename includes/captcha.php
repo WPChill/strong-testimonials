@@ -30,8 +30,13 @@ function wpmtst_add_captcha( $captcha ) {
 
 		// Captcha
 		case 'bwsmath' :
+			// Captcha version 4.3.1 - 4.3.3
 			if ( function_exists( 'hctpc_display_captcha_custom' ) ) {
 				$html .= hctpc_display_captcha_custom();
+			}
+			// Captcha version 4.3.4+
+			if ( function_exists( 'cptch_display_captcha_custom' ) ) {
+				$html .= cptch_display_captcha_custom();
 			}
 			break;
 
