@@ -412,12 +412,10 @@ function wpmtst_get_cat_count() {
  * @return array|int|WP_Error
  */
 function wpmtst_get_cats( $parent = 0 ) {
-	$cats = get_terms( 'wpm-testimonial-category', array(
+	return get_terms( 'wpm-testimonial-category', array(
 		'hide_empty' => false,
         'parent'     => $parent,
 	) );
-
-	return $cats;
 }
 
 /**

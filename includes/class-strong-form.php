@@ -247,6 +247,8 @@ class Strong_Testimonials_Form {
 		/**
 		 * No faulty uploads, carry on.
 		 */
+		$testimonial_id = false;
+
 		if ( ! count( $form_errors ) ) {
 
 			// create new testimonial post
@@ -259,6 +261,8 @@ class Strong_Testimonials_Form {
 				$form_errors['post'] = $form_options['messages']['submission-error']['text'];
 
 			} else {
+
+				$testimonial_post['id'] = $testimonial_id;
 
 				/**
 				 * Add categories.
