@@ -323,9 +323,7 @@ class Strong_View_Slideshow extends Strong_View_Display {
 	 */
 	public function has_slideshow() {
 
-		if ( apply_filters( 'wpmtst_load_font_awesome', true ) ) {
-			WPMST()->add_style( 'wpmtst-font-awesome' );
-		}
+		WPMST()->add_style( 'wpmtst-font-awesome' );
 
 		$settings          = $this->atts['slideshow_settings'];
 		$not_full_controls = ( 'none' != $settings['controls_type'] || 'full' != $settings['controls_type'] );
