@@ -43,6 +43,7 @@ class Strong_Testimonials_Form {
 			return;
 		}
 
+		// TODO Verify nonce
 		if ( isset( $_POST['wpmtst_form_nonce'] ) ) {
 			$form_options = get_option( 'wpmtst_form_options' );
 			$success      = $this->form_processor();
@@ -311,9 +312,9 @@ class Strong_Testimonials_Form {
 				foreach ( $testimonial_att as $name => $atts ) {
 					if ( isset( $atts['attachment'] ) ) {
 						$atts['attachment']['post_parent'] = $testimonial_id;
-						$attach_id                         = wp_insert_attachment( $atts['attachment'], $atts['uploaded_file']['file'], $testimonial_id );
-						$attach_data                       = wp_generate_attachment_metadata( $attach_id, $atts['uploaded_file']['file'] );
-						$result                            = wp_update_attachment_metadata( $attach_id, $attach_data );
+						$attach_id = wp_insert_attachment( $atts['attachment'], $atts['uploaded_file']['file'], $testimonial_id );
+						$attach_data = wp_generate_attachment_metadata( $attach_id, $atts['uploaded_file']['file'] );
+						$result = wp_update_attachment_metadata( $attach_id, $attach_data );
 						add_post_meta( $testimonial_id, $name, $atts['uploaded_file']['url'] );
 						if ( 'featured_image' == $atts['field'] ) {
 							set_post_thumbnail( $testimonial_id, $attach_id );
