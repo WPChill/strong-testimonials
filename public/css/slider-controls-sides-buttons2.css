@@ -31,6 +31,12 @@
 
 /* =controls
 ---------------------------------------------------------*/
+.strong-view .wpmslider-wrapper .wpmslider-start,
+.strong-view .wpmslider-wrapper .wpmslider-stop,
+.strong-view .wpmslider-wrapper .wpmslider-next,
+.strong-view .wpmslider-wrapper .wpmslider-prev {
+  z-index: 100;
+}
 .strong-view .wpmslider-wrapper .wpmslider-controls-auto,
 .strong-view .wpmslider-wrapper .wpmslider-controls-auto-item,
 .strong-view .wpmslider-wrapper .wpmslider-controls-full,
@@ -41,7 +47,7 @@
 }
 .strong-view .wpmslider-wrapper .wpmslider-controls a {
   box-shadow: none;
-  /* Twenty Sixteen */
+  text-decoration: none;
 }
 .strong-view .wpmslider-wrapper .wpmslider-controls a:hover, .strong-view .wpmslider-wrapper .wpmslider-controls a:active, .strong-view .wpmslider-wrapper .wpmslider-controls a:focus {
   outline: 0;

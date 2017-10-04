@@ -42,6 +42,13 @@
 ---------------------------------------------------------*/
 .strong-view {
   .wpmslider-wrapper {
+    .wpmslider-start,
+    .wpmslider-stop,
+    .wpmslider-next,
+    .wpmslider-prev {
+      z-index: 100;
+    }
+
     .wpmslider-controls-auto,
     .wpmslider-controls-auto-item,
     .wpmslider-controls-full,
