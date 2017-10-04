@@ -666,18 +666,6 @@ td.column-id {
   text-align: right;
 }
 
-/* Pointers
---------------------------------------*/
-.wp-pointer-content ul {
-  list-style-type: disc;
-  padding-left: 2em;
-}
-
-.strong-view-error a {
-  color: red;
-  font-weight: 700;
-}
-
 /* Star rating in list table
 --------------------------------------------------*/
 .column-rating {
