@@ -7,14 +7,16 @@
 
   $.fn.strongSlider = function () {
 
-    var userSettings
+    var userSettings = {
+      slideCount: 0
+    }
 
     // Get unique slider variable from container
     var settingsVar = this.data('slider-var')
 
     // Parse and convert settings
     var parseSettings = function (parms) {
-      if ('none' == parms.mode) {
+      if ('none' === parms.mode) {
         parms.mode = 'fade'
         parms.speed = 0
       }
@@ -26,6 +28,7 @@
         auto: true,  // the master switch
         speed: parseInt(parms.speed),
         pause: parseInt(parms.pause),
+        slideCount: parseInt(parms.postCount),
 
         // Behavior
         autoHover: 1 === parseInt(parms.autoHover),
@@ -70,6 +73,11 @@
 
     // Instantiate slider object
     var slider = this.children('.wpmslider-wrapper').wpmSlider(settings)
+
+    // Hide entire slider if no slides
+    if (0 === settings.slideCount) {
+      this.hide()
+    }
 
     // Custom control sets
     if (settings.fullSetButtons || settings.fullSetText) {

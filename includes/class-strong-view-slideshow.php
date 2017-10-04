@@ -293,7 +293,7 @@ class Strong_View_Slideshow extends Strong_View_Display {
 				$container_class_list[] = 'nav-position-' . $settings['nav_position'];
 			}
 
-			$container_data_list['slider-var'] = $this->slideshow_signature( $this->atts );
+			$container_data_list['slider-var'] = $this->slideshow_signature();
 
 			$content_class_list[] = 'wpmslider-wrapper';
 
@@ -407,6 +407,7 @@ class Strong_View_Slideshow extends Strong_View_Display {
 			'controls'            => 0,
 			'autoControls'        => 0,
 			'pager'               => 0,
+			'postCount'           => $this->post_count,
 		);
 		if ( ! $this->atts['slideshow_settings']['adapt_height'] ) {
 			$args['stretch'] = $this->atts['slideshow_settings']['stretch'] ? 1 : 0;
