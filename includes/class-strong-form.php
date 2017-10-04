@@ -58,7 +58,7 @@ class Strong_Testimonials_Form {
 					default:
 						$goback = add_query_arg( 'success', 'yes', wp_get_referer() );
 				}
-				wp_redirect( $goback );
+				wp_redirect( apply_filters( 'wpmtst_form_redirect_url', $goback ) );
 				exit;
 			}
 		}
