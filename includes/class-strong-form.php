@@ -248,8 +248,6 @@ class Strong_Testimonials_Form {
 		/**
 		 * No faulty uploads, carry on.
 		 */
-		$testimonial_id = false;
-
 		if ( ! count( $form_errors ) ) {
 
 			// create new testimonial post
@@ -333,6 +331,8 @@ class Strong_Testimonials_Form {
 		 */
 		$form_values = array_merge( $testimonial_post, $testimonial_meta );
 
+		ksort( $testimonial_post );
+		ksort( $testimonial_meta );
 		do_action( 'wpmtst_new_testimonial_added', $testimonial_post, $testimonial_meta, $testimonial_cats, $testimonial_att );
 
 		if ( ! count( $form_errors ) ) {
