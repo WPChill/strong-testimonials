@@ -8,10 +8,9 @@
 
 		<p>
             <strong><?php
-			printf(
-				wp_kses( __( 'Start by creating a <a href="%s">view</a>.', 'strong-testimonials' ), $tags ),
-				admin_url( 'edit.php?post_type=wpm-testimonial&page=testimonial-views' )
-			);
+            $text = __( 'Start by creating a <a href="%s">view</a>.', 'strong-testimonials' );
+            $url  = admin_url( 'edit.php?post_type=wpm-testimonial&page=testimonial-views' );
+            echo wpmtst_safe_link( $text, $url );
 			?></strong>
 			<?php _e( 'A view is simply a group of settings with an easy-to-use editor.', 'strong-testimonials' ); ?>
 		</p>
@@ -107,10 +106,9 @@
 		<h3><?php _e( 'Upgrading from version 1?', 'strong-testimonials' ); ?></h3>
 
 		<p><?php
-		printf(
-			wp_kses( __( 'The original shortcodes and widget were <a href="%s" target="_blank">removed in version 2</a>. Everything now happens in <strong>views</strong>.', 'strong-testimonials' ), $tags ),
-			esc_url( 'https://strongplugins.com/strong-testimonials-version-2-coming-soon/' )
-		);
+		$text = __( 'The original shortcodes and widget were <a href="%s" target="_blank">removed in version 2</a>. Everything now happens in <strong>views</strong>.', 'strong-testimonials' );
+		$url  = 'https://strongplugins.com/strong-testimonials-version-2-coming-soon/';
+		echo wpmtst_safe_link( $text, $url );
 		?></p>
 
 	</div>

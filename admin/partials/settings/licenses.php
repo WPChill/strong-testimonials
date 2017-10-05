@@ -12,7 +12,11 @@
 <div class="tab-header">
 <p><?php _e( 'Valid license keys allow you to receive automatic updates and priority support.', 'strong-testimonials' ); ?></p>
 <p><?php _e( 'To transfer a license to another site or to uninstall the add-on, please deactivate the license here first.', 'strong-testimonials' ); ?></p>
-<p><?php printf( wp_kses( __( '<a href="%s" target="_blank">Access your downloads and license keys</a>.', 'strong-testimonials' ), array( 'a' => array( 'href' => array(), 'target' => array(), 'class' => array() ) ) ), esc_url( 'https://strongplugins.com/account/' ) ); ?></p>
+<p><?php
+    $text = __( '<a href="%s" target="_blank">Access your downloads and license keys</a>.', 'strong-testimonials' );
+    $url  = 'https://strongplugins.com/account/';
+    echo wpmtst_safe_link( $text, $url );
+    ?></p>
 </div>
 <table class="form-table">
 	<thead>

@@ -7,7 +7,6 @@
  */
 
 $options = get_option( 'wpmtst_options' );
-$tags    = array( 'a' => array( 'href' => array(), 'target' => array(), 'class' => array() ), 'br' => array() );
 ?>
 <h2><?php _e( 'Admin', 'strong-testimonials' ); ?></h2>
 
@@ -232,8 +231,11 @@ $tags    = array( 'a' => array( 'href' => array(), 'target' => array(), 'class' 
             <fieldset>
                 <label>
                     <input type="checkbox" name="wpmtst_options[no_lazyload]" <?php checked( $options['no_lazyload'] ); ?>>
-                    <?php printf( wp_kses( __( 'Exclude from <a href="%s">Lazy Loading Responsive Images</a> plugin.', 'strong-testimonials' ), $tags ),
-                        esc_url( 'https://wordpress.org/plugins/lazy-loading-responsive-images/' ) ); ?>
+                    <?php
+                    $url  = 'https://wordpress.org/plugins/lazy-loading-responsive-images/';
+                    $text = __( 'Exclude from <a href="%s" target="_blank">Lazy Loading Responsive Images</a> plugin.', 'strong-testimonials' );
+                    echo wpmtst_safe_link( $url, $text );
+                    ?>
                     <?php _e( 'On by default.', 'strong-testimonials' ); ?>
                 </label>
             </fieldset>

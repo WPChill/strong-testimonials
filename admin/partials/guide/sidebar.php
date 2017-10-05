@@ -73,9 +73,9 @@
 		</div>
 
 		<?php
-		$link1 = sprintf(
-			wp_kses( __( 'Good <a href="%s" target="_blank">reviews</a> are appreciated!', 'strong-testimonials' ), $tags ),
-            esc_url( 'https://wordpress.org/support/plugin/strong-testimonials/reviews/#new-post' ) );
+		$text  = __( 'Good <a href="%s" target="_blank">reviews</a> are appreciated!', 'strong-testimonials' );
+		$url   = 'https://wordpress.org/support/plugin/strong-testimonials/reviews/#new-post';
+		$link1 = wpmtst_safe_link( $text, $url );
 		?>
 		<div class="has-icon icon-donate">
 			<h3><?php _e( 'Like It?', 'strong-testimonials' ); ?></h3>

@@ -39,17 +39,13 @@ function wpmtst_views_admin() {
 		if ( isset( $_REQUEST['error'] ) ) {
 
 			echo '<h1>' . __( 'Edit View', 'strong-testimonials' ) . '</h1>';
-			$message = sprintf(
-				wp_kses(
-					__( 'An error occurred. Please <a href="%s" target="_blank">open a support ticket</a>.', 'strong-testimonials' ),
-					array( 'a' => array( 'href' => array(), 'target' => array(), 'class' => array() ) )
-				),
-				esc_url( 'https://support.strongplugins.com/new-ticket/' )
-			);
+			$message = __( 'An error occurred.', 'strong-testimonials' ) . ' ';
+			$text    = __( 'Please <a href="%s" target="_blank">open a support ticket</a>.', 'strong-testimonials' );
+			$url     = 'https://support.strongplugins.com/new-ticket/';
+			$message .= wpmtst_safe_link( $text, $url );
 			wp_die( sprintf( '<div class="error strong-view-error"><p>%s</p></div>', $message ) );
 
-		}
-		elseif ( isset( $_REQUEST['action'] ) ) {
+		} elseif ( isset( $_REQUEST['action'] ) ) {
 
 			if ( 'edit' == $_REQUEST['action'] && isset( $_REQUEST['id'] ) ) {
 				wpmtst_view_settings( $_REQUEST['action'], $_REQUEST['id'] );
@@ -64,8 +60,7 @@ function wpmtst_views_admin() {
 				echo '<p>' . __( 'Invalid request. Please try again.', 'strong-testimonials' ) . '</p>';
 			}
 
-		}
-		else {
+		} else {
 
 			/**
              * View list
@@ -73,7 +68,7 @@ function wpmtst_views_admin() {
 			?>
 			<h1>
 				<?php _e( 'Views', 'strong-testimonials' ); ?>
-				<a href="<?php echo admin_url( 'edit.php?post_type=wpm-testimonial&page=testimonial-views&action=add' ); ?>" class="add-new-h2"><?php _e( 'Add New' ); ?></a>
+				<a href="<?php esc_url( admin_url( 'edit.php?post_type=wpm-testimonial&page=testimonial-views&action=add' ) ); ?>" class="add-new-h2"><?php _e( 'Add New' ); ?></a>
 			</h1>
 			<?php
 			// Fetch views after heading and before intro in case we need to display any database errors.

@@ -37,9 +37,9 @@
 			<div class="inline then fast then_not_truncated then_not_entire then_excerpt" style="display: none;">
 				<p class="description">
 					<?php
-					$url = '#TB_inline?width=&height=210&inlineId=screenshot-screen-options';
-					$allowed_html = array( 'a' => array( 'href' => array(), 'target' => array(), 'class' => array() ) );
-					printf( wp_kses( __( 'To create manual excerpts, you may need to enable them in the post editor like in this <a href="%s" class="%s">screenshot</a>.', 'strong-testimonials' ), $allowed_html ), esc_url( $url ), 'thickbox' );
+					$text = __( 'To create manual excerpts, you may need to enable them in the post editor like in this <a href="%s" class="thickbox">screenshot</a>.', 'strong-testimonials' );
+					$url  = '#TB_inline?width=&height=210&inlineId=screenshot-screen-options';
+					echo wpmtst_safe_link( $text, $url );
 					?>
 					<span class="screenshot" id="screenshot-screen-options" style="display: none;">
 						<img src="<?php echo WPMTST_ADMIN_URL; ?>img/screen-options.png" width="600">
@@ -182,7 +182,11 @@
 
 	<div class="row links then then_not_entire then_truncated then_excerpt" style="display: none;">
 		<p class="description tall solo">
-			<?php printf( wp_kses( __( '<a href="%s" target="_blank">Learn more about WordPress excerpts</a>', 'strong-testimonials' ), array( 'a' => array( 'href' => array(), 'target' => array(), 'class' => array() ) ) ), esc_url( 'http://buildwpyourself.com/wordpress-manual-excerpts-more-tag/' ) ); ?>
+			<?php
+            $text = __( '<a href="%s" target="_blank">Learn more about WordPress excerpts</a>', 'strong-testimonials' );
+            $url  = 'http://buildwpyourself.com/wordpress-manual-excerpts-more-tag/';
+            echo wpmtst_safe_link( $text, $url );
+            ?>
 		</p>
 	</div>
 

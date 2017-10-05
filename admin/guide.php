@@ -7,16 +7,16 @@
  */
 
 function wpmtst_guide() {
-	$tags = array(
-		'a'      => array(
-			'href'   => array(),
-			'target' => array(),
-			'class'  => array() ),
-		'br'     => array(),
-		'em'     => array(),
-		'strong' => array(),
-	);
-
+	//$tags = array(
+	//	'a'      => array(
+	//		'href'   => array(),
+	//		'target' => array(),
+	//		'class'  => array() ),
+	//	'br'     => array(),
+	//	'em'     => array(),
+	//	'strong' => array(),
+	//);
+	//
 	$plugin_data    = WPMST()->get_plugin_data();
 	$plugin_version = $plugin_data['Version'];
 	$major_minor    = strtok( $plugin_version, '.' ) . '.' . strtok( '.' );
