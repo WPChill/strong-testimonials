@@ -43,7 +43,6 @@ class Strong_Testimonials_Form {
 			return;
 		}
 
-		// TODO Verify nonce
 		if ( isset( $_POST['wpmtst_form_nonce'] ) ) {
 			$form_options = get_option( 'wpmtst_form_options' );
 			$success      = $this->form_processor();

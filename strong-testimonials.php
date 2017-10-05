@@ -157,6 +157,13 @@ final class Strong_Testimonials {
 		wpmtst_register_cpt();
 		flush_rewrite_rules();
 		wpmtst_update_tables();
+
+		if ( $admins = wpmtst_get_admins() ) {
+			$admins->add_cap( 'strong_testimonials_views' );
+			$admins->add_cap( 'strong_testimonials_fields' );
+			$admins->add_cap( 'strong_testimonials_options' );
+			$admins->add_cap( 'strong_testimonials_guide' );
+		}
 	}
 
 	/**
@@ -164,6 +171,13 @@ final class Strong_Testimonials {
 	 */
 	static function plugin_deactivation() {
 		flush_rewrite_rules();
+
+		if ( $admins = wpmtst_get_admins() ) {
+			$admins->remove_cap( 'strong_testimonials_views' );
+			$admins->remove_cap( 'strong_testimonials_fields' );
+			$admins->remove_cap( 'strong_testimonials_options' );
+			$admins->remove_cap( 'strong_testimonials_guide' );
+		}
 	}
 
 	/**

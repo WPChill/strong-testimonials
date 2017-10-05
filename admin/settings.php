@@ -12,28 +12,28 @@ function wpmtst_settings_menu() {
 	add_submenu_page( 'edit.php?post_type=wpm-testimonial',
 		__( 'Views', 'strong-testimonials' ),  // page title
 		__( 'Views', 'strong-testimonials' ),  // menu title
-		'manage_options',
+		'strong_testimonials_views',
 		'testimonial-views',
 		'wpmtst_views_admin' );
 
 	add_submenu_page( 'edit.php?post_type=wpm-testimonial',
 		apply_filters( 'wpmtst_fields_page_title', __( 'Fields', 'strong-testimonials' ) ),
 		apply_filters( 'wpmtst_fields_menu_title', __( 'Fields', 'strong-testimonials' ) ),
-		'manage_options',
+		'strong_testimonials_fields',
 		'testimonial-fields',
 		'wpmtst_form_admin' );
 
 	add_submenu_page( 'edit.php?post_type=wpm-testimonial',
 		__( 'Settings', 'strong-testimonials' ),
 		__( 'Settings', 'strong-testimonials' ),
-		'manage_options',
+		'strong_testimonials_options',
 		'testimonial-settings',
 		'wpmtst_settings_page' );
 
 	add_submenu_page( 'edit.php?post_type=wpm-testimonial',
 		__( 'Guide', 'strong-testimonials' ),
 		__( 'Guide', 'strong-testimonials' ),
-		'manage_options',
+		'strong_testimonials_guide',
 		'testimonial-guide',
 		'wpmtst_guide' );
 }
@@ -242,7 +242,7 @@ function wpmtst_sanitize_form( $input ) {
  * Settings page
  */
 function wpmtst_settings_page() {
-	if ( ! current_user_can( 'manage_options' ) )
+	if ( ! current_user_can( 'strong_testimonials_options' ) )
 		wp_die( __( 'You do not have sufficient permissions to access this page.' ) );
 	?>
 	<div class="wrap wpmtst">

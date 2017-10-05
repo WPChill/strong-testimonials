@@ -13,7 +13,7 @@
  * @since 1.21.0
  */
 function wpmtst_views_admin() {
-	if ( ! current_user_can( 'manage_options' ) )
+	if ( ! current_user_can( 'strong_testimonials_views' ) )
 		wp_die( __( 'You do not have sufficient permissions to access this page.' ) );
 
 	?>

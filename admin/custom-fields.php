@@ -18,7 +18,7 @@ function wpmtst_form_admin2() {
  */
 // TODO use admin-post.php instead
 function wpmtst_settings_custom_fields( $form_id = 1 ) {
-	if ( !current_user_can( 'manage_options' ) )
+	if ( !current_user_can( 'strong_testimonials_fields' ) )
 		wp_die( __( 'You do not have sufficient permissions to access this page.' ) );
 
 	if ( !$form_id ) {
