@@ -867,8 +867,9 @@ function wpmtst_is_plugin_active( $plugin = '' ) {
 		return false;
 
 	$plugins = array(
-		'wpml'     => 'sitepress-multilingual-cms/sitepress.php',
-		'polylang' => 'polylang/polylang.php'
+		'wpml' => 'sitepress-multilingual-cms/sitepress.php',
+		'polylang' => 'polylang/polylang.php',
+        'lazy-loading-responsive-images' => 'lazy-loading-responsive-images/lazy-load-responsive-images.php',
 	);
 	if ( isset( $plugins[ $plugin ] ) ) {
 		$plugin = $plugins[ $plugin ];

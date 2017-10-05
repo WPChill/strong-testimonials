@@ -103,6 +103,7 @@ function wpmtst_sanitize_options( $input ) {
 	$input['scrolltop_offset']      = intval( sanitize_text_field( $input['scrolltop_offset'] ) );
 	$input['support_comments']      = wpmtst_sanitize_checkbox( $input, 'support_comments' );
 	$input['support_custom_fields'] = wpmtst_sanitize_checkbox( $input, 'support_custom_fields' );
+	$input['no_lazyload']           = wpmtst_sanitize_checkbox( $input, 'no_lazyload' );
 
 	return $input;
 }

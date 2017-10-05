@@ -18,6 +18,7 @@
  * @since 2.10.0 pending indicator
  * @since 2.21.0 load Font Awesome
  * @since 2.22.5 nofollow
+ * @since 2.27.0 no_lazyload
  *
  * @return array
  */
@@ -35,6 +36,7 @@ function wpmtst_get_default_options() {
 		'support_custom_fields' => false,
 		'scrolltop'             => true,
 		'scrolltop_offset'      => 40,
+		'no_lazyload'           => true,
 	);
 
 	return $default_options;
