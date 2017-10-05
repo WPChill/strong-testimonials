@@ -68,7 +68,7 @@ function wpmtst_views_admin() {
 			?>
 			<h1>
 				<?php _e( 'Views', 'strong-testimonials' ); ?>
-				<a href="<?php esc_url( admin_url( 'edit.php?post_type=wpm-testimonial&page=testimonial-views&action=add' ) ); ?>" class="add-new-h2"><?php _e( 'Add New' ); ?></a>
+				<a href="<?php echo esc_url( admin_url( 'edit.php?post_type=wpm-testimonial&page=testimonial-views&action=add' ) ); ?>" class="add-new-h2"><?php _e( 'Add New' ); ?></a>
 			</h1>
 			<?php
 			// Fetch views after heading and before intro in case we need to display any database errors.
