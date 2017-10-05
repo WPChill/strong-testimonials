@@ -143,7 +143,6 @@ function wpmtst_get_default_fields() {
 			'input_type'           => 'checkbox',
 			'option_label'         => __( 'checkbox', 'strong-testimonials' ),
 			'show_text_option'     => 1,
-			'show_default_options' => 0,
 			'show_placeholder_option' => 0,
 		),
 	);
@@ -188,7 +187,6 @@ function wpmtst_get_default_fields() {
 		'rating' => array(
 			'input_type'              => 'rating',
 			'option_label'            => __( 'star rating', 'strong-testimonials' ),
-			//'show_default_options'    => 0,
 			'show_placeholder_option' => 0,
 			'admin_table'             => 1,
 			'admin_table_option'      => 1,

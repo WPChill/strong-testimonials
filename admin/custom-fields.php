@@ -88,7 +88,12 @@ function wpmtst_settings_custom_fields( $form_id = 1 ) {
 				$field['name']                    = sanitize_text_field( $field['name'] );
 				$field['label']                   = sanitize_text_field( $field['label'] );
 
-				$field['default_form_value']      = sanitize_text_field( $field['default_form_value'] );
+				// TODO Replace this special handling
+				if ( 'checkbox' == $field['input_type'] ) {
+					$field['default_form_value'] = wpmtst_sanitize_checkbox( $field, 'default_form_value' );
+				} else {
+					$field['default_form_value'] = sanitize_text_field( $field['default_form_value'] );
+				}
 				$field['default_display_value']   = sanitize_text_field( $field['default_display_value'] );
 
 				$field['placeholder']             = sanitize_text_field( $field['placeholder'] );
@@ -321,14 +326,28 @@ function wpmtst_show_field_secondary( $key, $field ) {
 			$html .= '<tr class="field-secondary">' . "\n";
 			$html .= '<th>' . __( 'Default Form Value', 'strong-testimonials' ) . '</th>' . "\n";
 			$html .= '<td>' . "\n";
+
 			// TODO Replace this special handling
 			if ( 'rating' == $field['input_type'] ) {
-    			$html .= '<input type="text" name="fields[' . $key . '][default_form_value]" value="' . esc_attr( $field['default_form_value'] ) . '" class="as-number">';
-			    $html .= '<span class="help inline">' . __( 'stars', 'strong-testimonials' ) . '</span>';
-			} else {
+
+				$html .= '<input type="text" name="fields[' . $key . '][default_form_value]" value="' . esc_attr( $field['default_form_value'] ) . '" class="as-number">';
+				$html .= '<span class="help inline">' . __( 'stars', 'strong-testimonials' ) . '</span>';
+			    $html .= '<span class="help">' . __( 'Populate the field with this value.', 'strong-testimonials' ) . '</span>';
+
+			} elseif ( 'checkbox' == $field['input_type'] ) {
+
+			    $html .= '<label>';
+                $html .= '<input type="checkbox" name="fields[' . $key . '][default_form_value]" ' . checked( $field['default_form_value'], true, false ) . '>';
+				$html .= '<span class="help inline">' . __( 'Checked by default.', 'strong-testimonials' ) . '</span>';
+				$html .= '</label>';
+
+            } else {
+
 				$html .= '<input type="text" name="fields[' . $key . '][default_form_value]" value="' . esc_attr( $field['default_form_value'] ) . '">';
+			    $html .= '<span class="help">' . __( 'Populate the field with this value.', 'strong-testimonials' ) . '</span>';
+
 			}
-			$html .= '<span class="help">' . __( 'Populate the field with this value.', 'strong-testimonials' ) . '</span>';
+
 			$html .= '</td>' . "\n";
 			$html .= '</tr>' . "\n";
 		}
@@ -338,20 +357,25 @@ function wpmtst_show_field_secondary( $key, $field ) {
 	 * Default Display Value
 	 */
 	if ( $field['show_default_options'] ) {
-		if ( isset( $field['default_display_value'] ) ) {
-			$html .= '<tr class="field-secondary">' . "\n";
-			$html .= '<th>' . __( 'Default Display Value', 'strong-testimonials' ) . '</th>' . "\n";
-			$html .= '<td>' . "\n";
-			// TODO Replace this special handling
-			if ( 'rating' == $field['input_type'] ) {
-				$html .= '<input type="text" name="fields[' . $key . '][default_display_value]" value="' . esc_attr( $field['default_display_value'] ) . '" class="as-number">';
-				$html .= '<span class="help inline">' . __( 'stars', 'strong-testimonials' ) . '</span>';
-			} else {
-				$html .= '<input type="text" name="fields[' . $key . '][default_display_value]" value="' . esc_attr( $field['default_display_value'] ) . '">';
+        // TODO Replace this special handling for checkbox type
+		if ( 'checkbox' != $field['input_type'] ) {
+			if ( isset( $field['default_display_value'] ) ) {
+				$html .= '<tr class="field-secondary">' . "\n";
+				$html .= '<th>' . __( 'Default Display Value', 'strong-testimonials' ) . '</th>' . "\n";
+				$html .= '<td>' . "\n";
+
+				// TODO Replace this special handling
+				if ( 'rating' == $field['input_type'] ) {
+					$html .= '<input type="text" name="fields[' . $key . '][default_display_value]" value="' . esc_attr( $field['default_display_value'] ) . '" class="as-number">';
+					$html .= '<span class="help inline">' . __( 'stars', 'strong-testimonials' ) . '</span>';
+				} else {
+					$html .= '<input type="text" name="fields[' . $key . '][default_display_value]" value="' . esc_attr( $field['default_display_value'] ) . '">';
+				}
+
+				$html .= '<span class="help">' . __( 'Display this on the testimonial if no value is submitted.', 'strong-testimonials' ) . '</span>';
+				$html .= '</td>' . "\n";
+				$html .= '</tr>' . "\n";
 			}
-			$html .= '<span class="help">' . __( 'Display this on the testimonial if no value is submitted.', 'strong-testimonials' ) . '</span>';
-			$html .= '</td>' . "\n";
-			$html .= '</tr>' . "\n";
 		}
 	}
 

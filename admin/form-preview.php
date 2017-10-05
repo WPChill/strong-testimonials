@@ -26,7 +26,12 @@ function wpmtst_get_form_preview() {
 
 		$field['name']               = sanitize_text_field( $field['name'] );
 		$field['label']              = sanitize_text_field( $field['label'] );
-		$field['default_form_value'] = sanitize_text_field( $field['default_form_value'] );
+		// TODO Replace this special handling
+		if ( 'checkbox' == $field['input_type'] ) {
+			$field['default_form_value'] = wpmtst_sanitize_checkbox( $field, 'default_form_value' );
+		} else {
+			$field['default_form_value'] = sanitize_text_field( $field['default_form_value'] );
+		}
 		$field['placeholder']        = sanitize_text_field( $field['placeholder'] );
 		$field['before']             = sanitize_text_field( $field['before'] );
 		$field['after']              = sanitize_text_field( $field['after'] );

@@ -175,6 +175,15 @@ function wpmtst_upgrade() {
 				}
 
 				/*
+				 * Add `show_default_options` to checkbox field.
+				 *
+				 * @since 2.27.0
+				 */
+				if ( 'checkbox' == $form_field['input_type'] ) {
+					$form_field['show_default_options'] = 1;
+				}
+
+				/*
 				 * Merge in new default.
 				 * Custom fields are in display order (not associative) so we must find them by `input_type`.
 				 * @since 2.21.0 Using default fields instead of default form as source
