@@ -280,6 +280,7 @@ final class Strong_Testimonials {
 			require_once WPMTST_INC . 'class-walker-strong-category-checklist.php';
 			require_once WPMTST_INC . 'class-walker-strong-form-category-checklist.php';
 
+			require_once WPMTST_ADMIN . 'class-strong-testimonials-help.php';
 			require_once WPMTST_ADMIN . 'admin.php';
 			require_once WPMTST_ADMIN . 'admin-notices.php';
 			require_once WPMTST_ADMIN . 'admin-ajax.php';
@@ -288,7 +289,6 @@ final class Strong_Testimonials {
 			require_once WPMTST_ADMIN . 'custom-fields-ajax.php';
 			require_once WPMTST_ADMIN . 'form-preview.php';
 			require_once WPMTST_ADMIN . 'guide.php';
-			require_once WPMTST_ADMIN . 'help.php';
 			require_once WPMTST_ADMIN . 'settings.php';
 			require_once WPMTST_ADMIN . 'upgrade.php';
 			require_once WPMTST_ADMIN . 'views.php';
