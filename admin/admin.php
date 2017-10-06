@@ -426,6 +426,7 @@ function wpmtst_meta_options() {
         <?php
         do_action( 'wpmtst_before_client_fields' );
 		foreach ( $fields as $key => $field ) :
+            // TODO Use field property to bypass instead
 			// short-circuit
 			if ( 'shortcode' == $field['input_type'] || 'category' == strtok( $field['input_type'], '-' ) ) {
 				continue;
@@ -433,12 +434,12 @@ function wpmtst_meta_options() {
             ?>
             <tr>
                 <th>
-                    <label for="<?php echo $field['name']; ?>">
+                    <label for="<?php esc_attr_e( $field['name'] ); ?>">
                         <?php echo apply_filters( 'wpmtst_l10n', $field['label'], 'strong-testimonials-form-fields', $field['name'] . ' : label' ); ?>
                     </label>
                 </th>
                 <td>
-                    <div class="<?php echo $field['input_type']; ?>">
+                    <div class="<?php esc_attr_e( $field['input_type'] ); ?>">
                         <?php wpmtst_meta_option( $field, $post, $is_new ); ?>
                     </div>
                 </td>
