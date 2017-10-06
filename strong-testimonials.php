@@ -754,10 +754,10 @@ final class Strong_Testimonials {
 	 * @param string $var_name The script variable name.
 	 * @param array $var The script variable.
 	 *
-	 * @since 2.17.5 Using variable name as key.
+	 * @since 2.17.5 Replace using variable name as key.
 	 */
 	public function add_script_var( $script_name, $var_name, $var ) {
-		unset($this->script_vars[ $var_name ]);
+		unset( $this->script_vars[ $var_name ] );
 		$this->script_vars[ $var_name ] = array(
 			'script_name' => $script_name,
 			'var_name'    => $var_name,
@@ -771,7 +771,7 @@ final class Strong_Testimonials {
 	 * @since 2.22.3
 	 */
 	public function load_styles() {
-		$styles = $this->styles;
+		$styles = apply_filters( 'wpmtst_styles', $this->styles );
 		if ( $styles ) {
 			foreach ( $styles as $key => $style ) {
 				if ( ! wp_style_is( $style ) ) {
@@ -788,7 +788,7 @@ final class Strong_Testimonials {
 	 * @since 2.22.3
 	 */
 	public function load_scripts() {
-		$scripts = $this->scripts;
+		$scripts = apply_filters( 'wpmtst_scripts', $this->scripts );
 		if ( $scripts ) {
 			foreach ( $scripts as $key => $script ) {
 				if ( ! wp_script_is( $script ) ) {
@@ -801,12 +801,10 @@ final class Strong_Testimonials {
 	/**
 	 * Print script variables for the view being processed.
 	 *
-	 * @access public
 	 * @since 2.22.3
-	 * @since 2.24.1 Setting state to 'printed'.
 	 */
 	public function localize_scripts() {
-		$vars = $this->script_vars;
+		$vars = apply_filters( 'wpmtst_script_vars', $this->script_vars );
 		if ( $vars ) {
 			foreach ( $vars as $key => $var ) {
 				wp_localize_script( $var['script_name'], $var['var_name'], $var['var'] );
