@@ -1155,8 +1155,13 @@ final class Strong_Testimonials {
 	 * @since 1.25.0
 	 * @since 2.5.0  Move some processing to Strong_View class.
 	 * @since 2.16.0 Move all processing to Strong_View class.
+	 * @since 2.27.0 Can be skipped via `prerender` filter.
 	 */
 	private function preprocess( $atts ) {
+		if ( ! apply_filters( 'strong_testimonials_prerender', true ) ) {
+			return;
+		}
+
 		$atts = shortcode_atts(
 			$this->get_view_defaults(),
 			$atts
