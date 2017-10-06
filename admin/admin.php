@@ -148,8 +148,8 @@ function wpmtst_admin_register() {
         $plugin_version,
         true );
 
-	wp_register_style( 'wpmtst-admin-guide-style',
-        WPMTST_ADMIN_URL . 'css/guide.css',
+	wp_register_style( 'wpmtst-about-style',
+        WPMTST_ADMIN_URL . 'css/about.css',
         array(),
         $plugin_version );
 
@@ -283,15 +283,15 @@ add_action( 'admin_enqueue_scripts', 'wpmtst_hook__admin_settings' );
  *
  * @param $hook
  */
-function wpmtst_hook__admin_guide( $hook ) {
-    if ( 'wpm-testimonial_page_testimonial-guide' == $hook ) {
+function wpmtst_hook__admin_about( $hook ) {
+    if ( 'wpm-testimonial_page_about-strong-testimonials' == $hook ) {
 		wp_enqueue_style( 'wpmtst-admin-style' );
 		wp_enqueue_script( 'wpmtst-admin-script' );
 
-		wp_enqueue_style( 'wpmtst-admin-guide-style' );
+		wp_enqueue_style( 'wpmtst-about-style' );
 	}
 }
-add_action( 'admin_enqueue_scripts', 'wpmtst_hook__admin_guide' );
+add_action( 'admin_enqueue_scripts', 'wpmtst_hook__admin_about' );
 
 /**
  * List table
@@ -376,7 +376,7 @@ function wpmtst_admin_dequeue_scripts( $hook ) {
 		'wpm-testimonial_page_testimonial-views',
 		'wpm-testimonial_page_testimonial-fields',
 		'wpm-testimonial_page_testimonial-settings',
-		'wpm-testimonial_page_testimonial-guide',
+		'wpm-testimonial_page_about-strong-testimonials',
 	);
 
 	$screen = get_current_screen();

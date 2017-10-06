@@ -31,11 +31,11 @@ function wpmtst_settings_menu() {
 		'wpmtst_settings_page' );
 
 	add_submenu_page( 'edit.php?post_type=wpm-testimonial',
-		__( 'Guide', 'strong-testimonials' ),
-		__( 'Guide', 'strong-testimonials' ),
-		'strong_testimonials_guide',
-		'testimonial-guide',
-		'wpmtst_guide' );
+		__( 'About' ),
+		__( 'About' ),
+		'strong_testimonials_about',
+		'about-strong-testimonials',
+		'wpmtst_about_page' );
 }
 add_action( 'admin_menu', 'wpmtst_settings_menu' );
 
