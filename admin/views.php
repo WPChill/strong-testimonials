@@ -69,56 +69,24 @@ function wpmtst_views_admin() {
 			<h1>
 				<?php _e( 'Views', 'strong-testimonials' ); ?>
 				<a href="<?php echo esc_url( admin_url( 'edit.php?post_type=wpm-testimonial&page=testimonial-views&action=add' ) ); ?>" class="add-new-h2"><?php _e( 'Add New' ); ?></a>
+                <a href="#tab-panel-wpmtst-help-views" class="add-new-h2 open-help-tab"><?php _e( 'Help' ); ?></a>
 			</h1>
+
 			<?php
 			// Fetch views after heading and before intro in case we need to display any database errors.
 			$views = wpmtst_get_views();
 
-			// Sort views putting single template(s) first.
-            // Needed until db table is refactored to use 'type' field.
-            /*
-		    $views_standard = array();
-		    $views_single_template = array();
-
-			foreach ( $views as $view ) {
-			    $view_data = unserialize( $view['value'] );
-			    if ( 'single_template' == $view_data['mode'] ) {
-			        $views_single_template[] = $view;
-				} else {
-			        $views_standard[] = $view;
-				}
-			}
-
-			$views_ordered = array_merge( $views_single_template, $views_standard );
-            */
-			?>
-			<div class="intro">
-				<p><?php _e( 'You can create an unlimited number of views.', 'strong-testimonials' ); ?>
-				<?php _e( 'A view can:', 'strong-testimonials' ); ?></p>
-                <ul class="standard">
-                    <li><?php _e( 'display your testimonials in a list, grid, or slideshow', 'strong-testimonials' ); ?></li>
-                    <li><?php _e( 'display a testimonial submission form', 'strong-testimonials' ); ?></li>
-                    <li><?php _e( 'add your custom fields to the individual testimonial using your theme single post template', 'strong-testimonials' ); ?></li>
-					<?php do_action( 'wpmtst_views_intro_list' ); ?>
-                </ul>
-				<p><?php _e( 'Add a view to a page with a shortcode or add it to a sidebar with a widget.', 'strong-testimonials' ); ?></p>
-			</div>
-			<?php
-			/**
-			 * Add button to clear sort value.
-			 */
+			// Add button to clear sort value.
 			if ( isset( $_GET['orderby'] ) ) {
 				?>
-                <form action="<?php echo admin_url( 'admin-post.php' ); ?>" method="post" style="margin-bottom: 10px;">
+                <form action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" method="post" style="margin-bottom: 4px;">
                     <input type="hidden" name="action" value="clear-view-sort">
                     <input type="submit" value="clear sort" class="button">
                 </form>
 				<?php
 			}
 
-			/**
-			 * Display the table
-			 */
+            // Display the table
 			$views_table = new Strong_Views_List_Table();
 			$views_table->prepare_list( wpmtst_unserialize_views( $views ) );
 			$views_table->display();

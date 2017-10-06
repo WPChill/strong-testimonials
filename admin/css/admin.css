@@ -678,6 +678,10 @@ td.column-id {
   table-layout: auto;
 }
 
+.wpmtst2 > h1 {
+  margin-bottom: 15px;
+}
+
 /* WordPress fixes
 --------------------------------------------------*/
 

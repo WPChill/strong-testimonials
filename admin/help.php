@@ -82,8 +82,7 @@ function wpmtst_help_view_editor_pagination() {
 		</tbody>
 	</table>
 	<?php
-	$content = ob_get_contents();
-	ob_end_clean();
+	$content = ob_get_clean();
 
 	get_current_screen()->add_help_tab( array(
 		'id'      => 'wpmtst-help-pagination',
@@ -105,8 +104,7 @@ function wpmtst_help_view_editor_stretch() {
     <p><?php _e( 'Select the <b>Stretch</b> option to stretch the borders and background vertically to compensate.', 'strong-testimonials' ); ?></p>
     <p><?php _e( 'Use the excerpt or abbreviated content if you want to minimize the whitespace.', 'strong-testimonials' ); ?></p>
 	<?php
-	$content = ob_get_contents();
-	ob_end_clean();
+	$content = ob_get_clean();
 
 	get_current_screen()->add_help_tab( array(
 		'id'      => 'wpmtst-help-stretch',
@@ -115,3 +113,29 @@ function wpmtst_help_view_editor_stretch() {
 	) );
 }
 add_action( 'load-wpm-testimonial_page_testimonial-views', 'wpmtst_help_view_editor_stretch' );
+
+function wpmtst_help_view_editor_intro() {
+    ob_start();
+	?>
+    <div class="">
+        <p><?php _e( 'A view is simply a group of settings with an easy-to-use editor.', 'strong-testimonials' ); ?>
+        <p><?php _e( 'You can create an <strong>unlimited</strong> number of views.', 'strong-testimonials' ); ?></p>
+        <p><?php _e( 'For example:', 'strong-testimonials' ); ?></p>
+        <ul class="standard">
+            <li><?php _e( 'Create a view to display your testimonials in a list, grid, or slideshow.', 'strong-testimonials' ); ?></li>
+            <li><?php _e( 'Create a view to show a testimonial submission form', 'strong-testimonials.' ); ?></li>
+            <li><?php _e( 'Create a view to append your custom fields to the individual testimonial using your theme single post template.', 'strong-testimonials' ); ?></li>
+			<?php do_action( 'wpmtst_views_intro_list' ); ?>
+        </ul>
+        <p><?php _e( 'Add a view to a page with its unique shortcode or add it to a sidebar with the Strong Testimonials widget.', 'strong-testimonials' ); ?></p>
+    </div>
+	<?php
+	$content = ob_get_clean();
+
+	get_current_screen()->add_help_tab( array(
+		'id'      => 'wpmtst-help-views',
+		'title'   => __( 'About Views', 'strong-testimonials' ),
+		'content' => $content,
+	) );
+}
+add_action( 'load-wpm-testimonial_page_testimonial-views', 'wpmtst_help_view_editor_intro' );
