@@ -39,10 +39,7 @@ function wpmtst_views_admin() {
 		if ( isset( $_REQUEST['error'] ) ) {
 
 			echo '<h1>' . __( 'Edit View', 'strong-testimonials' ) . '</h1>';
-			$message = __( 'An error occurred.', 'strong-testimonials' ) . ' ';
-			$text    = __( 'Please <a href="%s" target="_blank">open a support ticket</a>.', 'strong-testimonials' );
-			$url     = 'https://support.strongplugins.com/new-ticket/';
-			$message .= wpmtst_safe_link( $text, $url );
+			$message = __( 'An error occurred.', 'strong-testimonials' ) . ' ' . sprintf( __( 'Please <a href="%s" target="_blank">open a support ticket</a>.', 'strong-testimonials' ), esc_url( 'https://support.strongplugins.com/new-ticket/' ) );
 			wp_die( sprintf( '<div class="error strong-view-error"><p>%s</p></div>', $message ) );
 
 		} elseif ( isset( $_REQUEST['action'] ) ) {

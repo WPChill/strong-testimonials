@@ -434,10 +434,7 @@ function wpmtst_get_views() {
 	$wpdb->hide_errors();
 
 	if ( $wpdb->last_error ) {
-		$message = sprintf( __( 'An error occurred: <code>%s</code>.', 'strong-testimonials' ), $wpdb->last_error ) . ' ';
-		$text    = __( 'Please <a href="%s" target="_blank">open a support ticket</a>.', 'strong-testimonials' );
-		$url     = 'https://support.strongplugins.com/new-ticket/';
-		$message .= wpmtst_safe_link( $text, $url );
+		$message = sprintf( __( 'An error occurred: <code>%s</code>.', 'strong-testimonials' ), $wpdb->last_error ) . ' ' . sprintf( __( 'Please <a href="%s" target="_blank">open a support ticket</a>.', 'strong-testimonials' ), esc_url( 'https://support.strongplugins.com/new-ticket/' ) );
 		wp_die( sprintf( '<div class="error strong-view-error"><p>%s</p></div>', $message ) );
 	}
 
@@ -969,22 +966,4 @@ function wpmtst_get_admins() {
 	} else {
 		return get_role( 'administrator' );
 	}
-}
-
-
-function wpmtst_safe_link( $text, $url, $url2 = '' ) {
-	$tags = array(
-		'a'      => array(
-			'href'   => array(),
-			'target' => array(),
-			'class'  => array() ),
-		'br'     => array(),
-		'em'     => array(),
-		'strong' => array(),
-	);
-
-	if ( $url2 )
-	    return sprintf( wp_kses( $text, $tags ), esc_url( $url ), esc_url( $url2 ) );
-	else
-	    return sprintf( wp_kses( $text, $tags ), esc_url( $url ) );
 }

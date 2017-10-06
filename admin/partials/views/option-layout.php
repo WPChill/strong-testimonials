@@ -50,11 +50,7 @@
 				</div>
 
 				<div class="layout-description view-layout-masonry">
-					<p><?php
-                        $text = __( 'A cascading, responsive grid using the jQuery plugin <a href="%s" target="_blank">Masonry</a>.', 'strong-testimonials' );
-                        $url  = 'http://masonry.desandro.com/';
-                        echo wpmtst_safe_link( $text, $url );
-                        ?></p>
+					<p><?php printf( __( 'A cascading, responsive grid using the jQuery plugin <a href="%s" target="_blank">Masonry</a>.', 'strong-testimonials' ), esc_url( 'http://masonry.desandro.com/' ) ); ?></p>
 					<p><?php _e( 'The universal solution that works well regardless of testimonial lengths.', 'strong-testimonials' ); ?></p>
 					<p><?php _e( 'Not compatible with pagination.', 'strong-testimonials' ); ?></p>
 					<div class="example-container col-2">
@@ -72,11 +68,7 @@
 				</div>
 
 				<div class="layout-description view-layout-columns">
-					<p><?php
-                        $text = __( 'Using <a href="%s" target="_blank">CSS multi-column</a>. Fill from top to bottom, then over to next column.', 'strong-testimonials' );
-                        $url  = 'https://css-tricks.com/guide-responsive-friendly-css-columns/';
-                        echo wpmtst_safe_link( $text, $url );
-                        ?></p>
+					<p><?php printf( __( 'Using <a href="%s" target="_blank">CSS multi-column</a>. Fill from top to bottom, then over to next column.', 'strong-testimonials' ), esc_url( 'https://css-tricks.com/guide-responsive-friendly-css-columns/' ) ); ?></p>
 					<p><?php _e( 'Works well with both long and short testimonials.', 'strong-testimonials' ); ?></p>
 					<p><?php _e( 'Compatible with pagination.', 'strong-testimonials' ); ?></p>
 					<div class="example-container col-2">
@@ -95,10 +87,9 @@
 				<div class="layout-description view-layout-grid">
 
 					<p><?php
-                        $text = __( 'Using <a href="%s" target="_blank">CSS flexbox</a> with <a href="%s" target="_blank">JavaScript fallback</a> for older browsers.', 'strong-testimonials' );
                         $url  = 'https://scotch.io/tutorials/a-visual-guide-to-css3-flexbox-properties';
                         $url2 = 'http://osvaldas.info/flexbox-based-responsive-equal-height-blocks-with-javascript-fallback';
-                        echo wpmtst_safe_link( $text, $url, $url2 );
+                        printf( __( 'Using <a href="%s" target="_blank">CSS flexbox</a> with <a href="%s" target="_blank">JavaScript fallback</a> for older browsers.', 'strong-testimonials' ), esc_url( $url ), esc_url( $url2 ) );
                         ?></p>
 					<p><?php _e( 'Testimonials will be equal height so this works best when they are about the same length either naturally or using excerpts.', 'strong-testimonials' ); ?></p>
 					<p><?php _e( 'Compatible with pagination.', 'strong-testimonials' ); ?></p>
