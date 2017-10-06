@@ -194,7 +194,6 @@ function wpmtst_get_custom_fields() {
 
 	// replace key with field name
 	foreach ( $fields as $field ) {
-		//if ( 'custom' == $field['record_type'] ) {
 		if ( 'post' != $field['record_type'] ) {
 			$all_fields[ $field['name'] ] = $field;
 		}
@@ -205,7 +204,6 @@ function wpmtst_get_custom_fields() {
 		$custom_fields = array();
 		$fields = $form['fields'];
 		foreach ( $fields as $field ) {
-			//if ( 'custom' == $field['record_type'] ) {
 			if ( 'post' != $field['record_type'] ) {
 				$custom_fields[ $field['name'] ] = $field;
 			}
@@ -250,17 +248,6 @@ function wpmtst_get_all_fields() {
 	}
 
 	return $all_fields;
-}
-
-/**
- * Strip close comment and close php tags from file headers used by WP.
- *
- * @since 1.21.0
- * @param string $str Header comment to clean up.
- * @return string
- */
-function wpmtst_cleanup_header_comment( $str ) {
-	return trim(preg_replace("/\s*(?:\*\/|\?>).*/", '', $str));
 }
 
 /**
