@@ -280,7 +280,6 @@ function wpmtst_upgrade() {
 	}
 	update_option( 'wpmtst_form_options', $form_options );
 
-
 	/**
 	 * -6- VIEW OPTIONS
 	 *
@@ -289,7 +288,6 @@ function wpmtst_upgrade() {
 	 * @since 2.15.0
 	 */
 	update_option( 'wpmtst_view_options', $default_view_options );
-
 
 	/**
 	 * -7- VIEWS
@@ -525,13 +523,11 @@ function wpmtst_upgrade() {
 
 	}
 
-
 	/**
 	 * -8- GET L10N CONTEXTS
 	 * @deprecated
 	 */
 	delete_option( 'wpmtst_l10n_contexts' );
-
 
 	/**
 	 * After all is said and done, update history log.
@@ -551,7 +547,6 @@ function wpmtst_upgrade() {
 		update_option( 'wpmtst_history', $history );
 	}
 
-
 	/**
 	 * Update the plugin version.
 	 */
@@ -562,6 +557,11 @@ function wpmtst_upgrade() {
 	 */
 	delete_option( 'wpmtst_admin_notices' );
 	delete_option( 'wpmtst_news_flag' );
+
+	/**
+	 * Set redirect flag.
+	 */
+	add_option( 'wpmtst_do_activation_redirect', true );
 
 }
 

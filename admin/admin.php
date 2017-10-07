@@ -35,6 +35,19 @@ add_action( 'admin_init', 'wpmtst_admin_init', 5 );
 
 
 /**
+ * Redirect to About page.
+ */
+function wpmtst_plugin_redirect() {
+	if ( get_option( 'wpmtst_do_activation_redirect', false ) ) {
+		delete_option( 'wpmtst_do_activation_redirect' );
+		wp_redirect( admin_url( 'edit.php?post_type=wpm-testimonial&page=about-strong-testimonials' ) );
+		exit;
+	}
+}
+add_action( 'admin_init', 'wpmtst_plugin_redirect' );
+
+
+/**
  * Register admin scripts.
  */
 function wpmtst_admin_register() {

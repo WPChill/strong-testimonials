@@ -1,4 +1,4 @@
-<h2><?php _e( 'How to Get Started', 'strong-testimonials' ); ?></h2>
+<h2><?php _e( 'Let\'s Get Started', 'strong-testimonials' ); ?></h2>
 <p class="lead-description"><?php _e( 'This plugin is different than others you may have tried.', 'strong-testimonials' ); ?></p>
 
 <div class="feature-section two-col">
