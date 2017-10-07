@@ -92,15 +92,15 @@ function wpmtst_active_addons() {
  * @return mixed
  */
 function wpmtst_sanitize_options( $input ) {
-	$input['email_log_level']       = ! isset( $input['email_log_level'] ) ? 1 : (int) $input['email_log_level'];
-	$input['embed_width']           = intval( sanitize_text_field( $input['embed_width'] ) );
+	$input['email_log_level']       = isset( $input['email_log_level'] ) ? (int) $input['email_log_level'] : 1;
+	$input['embed_width']           = $input['embed_width'] ? (int) sanitize_text_field( $input['embed_width'] ) : '';
 	$input['load_font_awesome']     = wpmtst_sanitize_checkbox( $input, 'load_font_awesome' );
 	$input['nofollow']              = wpmtst_sanitize_checkbox( $input, 'nofollow' );
 	$input['pending_indicator']     = wpmtst_sanitize_checkbox( $input, 'pending_indicator' );
 	$input['remove_whitespace']     = wpmtst_sanitize_checkbox( $input, 'remove_whitespace' );
 	$input['reorder']               = wpmtst_sanitize_checkbox( $input, 'reorder' );
 	$input['scrolltop']             = wpmtst_sanitize_checkbox( $input, 'scrolltop' );
-	$input['scrolltop_offset']      = intval( sanitize_text_field( $input['scrolltop_offset'] ) );
+	$input['scrolltop_offset']      = (int) sanitize_text_field( $input['scrolltop_offset'] );
 	$input['support_comments']      = wpmtst_sanitize_checkbox( $input, 'support_comments' );
 	$input['support_custom_fields'] = wpmtst_sanitize_checkbox( $input, 'support_custom_fields' );
 	$input['no_lazyload']           = wpmtst_sanitize_checkbox( $input, 'no_lazyload' );

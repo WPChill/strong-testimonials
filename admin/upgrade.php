@@ -96,6 +96,13 @@ function wpmtst_upgrade() {
 			unset( $options['slideshow_zindex'] );
 		}
 
+		/**
+		 * Replace zero embed_width with empty value.
+		 *
+		 * @since 2.27.0
+		 */
+		$options['embed_width'] = $options['embed_width'] ? (int) sanitize_text_field( $options['embed_width'] ) : '';
+
 		// Merge in new options
 		$options = array_merge( $default_options, $options );
 
