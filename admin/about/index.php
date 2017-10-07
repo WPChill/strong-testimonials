@@ -17,6 +17,8 @@ function wpmtst_about_page() {
 
         <p class="about-text"><?php _e( 'Thank you for updating to the latest version!' ); ?> <?php printf( 'Strong Testimonials %s contains several small but important improvements.', $major_minor ); ?></p>
 
+        <div class="wp-badge strong-testimonials"><?php printf( __( 'Version %s' ), $major_minor ); ?></div>
+
         <h2 class="nav-tab-wrapper wp-clearfix">
 
             <a href="<?php echo $url; ?>" class="nav-tab <?php echo $active_tab == 'about' ? 'nav-tab-active' : ''; ?>"><?php _e( 'About' ); ?></a>

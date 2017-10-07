@@ -33,4 +33,9 @@
   align-self: flex-start;
 }
 
+.wp-badge.strong-testimonials {
+  background-image: url(../img/strong-testimonials-badge.png);
+  background-color: #8224E3;
+}
+
 /*# sourceMappingURL=about.css.map */
