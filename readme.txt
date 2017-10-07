@@ -2,8 +2,8 @@
 Contributors: cdillon27
 Tags: testimonials, testimonial slider, testimonial form, reviews, star ratings
 Requires at least: 3.6
-Tested up to: 4.8.1
-Stable tag: 2.26.10
+Tested up to: 4.8.2
+Stable tag: 2.27
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -72,19 +72,19 @@ For ultimate control and seamless integration, copy any template to your theme a
 
 #### Review Markup
 
-Testimonials are essentially five-star reviews. Adding review markup will encourage search engines to display rich snippets in search results. [Learn more](https://strongplugins.com/plugins/strong-testimonials-review-markup/)
+Testimonials are essentially five-star reviews. Adding review markup will encourage search engines to display rich snippets in search results. [Learn more](https://strongplugins.com/plugins/strong-testimonials-review-markup/?utm_source=wordpressorg&utm_medium=readme)
 
 #### Multiple Forms
 
-Need more forms for different products or services? No problem. Create unlimited forms. [Learn more](https://strongplugins.com/plugins/strong-testimonials-multiple-forms/)
+Need more forms for different products or services? No problem. Create unlimited forms. [Learn more](https://strongplugins.com/plugins/strong-testimonials-multiple-forms/?utm_source=wordpressorg&utm_medium=readme)
 
 #### Properties
 
-Want to rename "testimonials" to "reviews"? Want to change the permalink structure? [Learn more](https://strongplugins.com/plugins/strong-testimonials-properties/)
+Want to rename "testimonials" to "reviews"? Want to change the permalink structure? [Learn more](https://strongplugins.com/plugins/strong-testimonials-properties/?utm_source=wordpressorg&utm_medium=readme)
 
 ### Support
 
-I will [move mountains](https://strongplugins.com/testimonials/) to help you get the most out of this plugin.
+I will [move mountains](https://strongplugins.com/testimonials/?utm_source=wordpressorg&utm_medium=readme) to help you get the most out of this plugin.
 
 ### Try these plugins too
 
@@ -176,6 +176,21 @@ If you prefer not to post your URL publicly, start a private support ticket at [
 
 == Changelog ==
 
+= 2.27 - Oct 7, 2017 =
+* Fix optional loading of Font Awesome.
+* Fix width on double-digit pagination controls in Modern template.
+* Fix hiding slider controls if no slides are present.
+* Fix CSS for slider controls in Internet Explorer 11.
+* Add unique user capabilities for workflow control.
+* Add option to set checkbox field on by default.
+* Add option to exclude from Lazy Loading Responsive Images plugin (on by default).
+* Add filters to "Read more" link text and URL.
+* Add filter to form redirect URL.
+* Add filter to skip prerender (for compatibility).
+* Add filters for styles, scripts and script vars.
+* New About page.
+* Minor refactoring for improved performance.
+
 = 2.26.10 - Sep 12, 2017 =
 * Fix compatibility with Captcha by simplywordpress 4.3.4+.
 * Fix compatibility with Polylang string translations when user's admin language is not English.
@@ -242,4 +257,5 @@ See changelog.txt for previous versions.
 
 == Upgrade Notice ==
 
-Fixes minor bugs and compatibility issues.
+= 2.27.0 =
+Minor bug fixes. New filters. Improved compatibility.

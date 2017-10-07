@@ -4,7 +4,7 @@
  * Plugin URI: https://strongplugins.com/plugins/strong-testimonials/
  * Description: A full-featured plugin that works right out of the box for beginners and offers advanced features for pros.
  * Author: Chris Dillon
- * Version: 2.26.10
+ * Version: 2.27
  * Author URI: https://strongplugins.com/
  * Text Domain: strong-testimonials
  * Domain Path: /languages
@@ -189,7 +189,7 @@ final class Strong_Testimonials {
 	 */
 	private function setup_constants() {
 
-		defined( 'WPMTST_VERSION' ) || define( 'WPMTST_VERSION', '2.26.10' );
+		defined( 'WPMTST_VERSION' ) || define( 'WPMTST_VERSION', '2.27' );
 
 		// plugin slug: `strong-testimonials` used by template search
 		defined( 'WPMTST_PLUGIN' ) || define( 'WPMTST_PLUGIN', plugin_basename( __FILE__ ) );
