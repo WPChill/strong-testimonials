@@ -46,6 +46,7 @@ function wpmtst_about_page() {
 	            include WPMTST_ADMIN. 'about/about.php';
         }
 
+        include WPMTST_ADMIN. 'about/links.php';
         include WPMTST_ADMIN. 'about/addons.php';
         ?>
 
