@@ -160,7 +160,7 @@ final class Strong_Testimonials {
 	static function plugin_activation() {
 		wpmtst_register_cpt();
 		flush_rewrite_rules();
-		wpmtst_update_tables();
+		wpmtst_upgrade();
 
 		if ( $admins = wpmtst_get_admins() ) {
 			$admins->add_cap( 'strong_testimonials_views' );

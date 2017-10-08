@@ -186,11 +186,17 @@ function wpmtst_get_form_fields( $form_id = 1 ) {
  * @return array
  */
 function wpmtst_get_custom_fields() {
-	$forms = get_option( 'wpmtst_custom_forms' );
 	$all_fields = array();
+	$forms = get_option( 'wpmtst_custom_forms' );
+	if ( ! $forms ) {
+	    return $all_fields;
+	}
 
 	// use default group as base
 	$fields = $forms[1]['fields'];
+	if ( ! $fields ) {
+	    return $all_fields;
+	}
 
 	// replace key with field name
 	foreach ( $fields as $field ) {
