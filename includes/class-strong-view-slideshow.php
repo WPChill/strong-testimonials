@@ -293,7 +293,7 @@ class Strong_View_Slideshow extends Strong_View_Display {
 				$container_class_list[] = 'nav-position-' . $settings['nav_position'];
 			}
 
-			$container_data_list['slider-var'] = $this->slideshow_signature( $this->atts );
+			$container_data_list['slider-var'] = $this->slideshow_signature();
 
 			$content_class_list[] = 'wpmslider-wrapper';
 
@@ -323,9 +323,7 @@ class Strong_View_Slideshow extends Strong_View_Display {
 	 */
 	public function has_slideshow() {
 
-		if ( apply_filters( 'wpmtst_load_font_awesome', true ) ) {
-			WPMST()->add_style( 'wpmtst-font-awesome' );
-		}
+		WPMST()->add_style( 'wpmtst-font-awesome' );
 
 		$settings          = $this->atts['slideshow_settings'];
 		$not_full_controls = ( 'none' != $settings['controls_type'] || 'full' != $settings['controls_type'] );
@@ -409,6 +407,7 @@ class Strong_View_Slideshow extends Strong_View_Display {
 			'controls'            => 0,
 			'autoControls'        => 0,
 			'pager'               => 0,
+			'postCount'           => $this->post_count,
 		);
 		if ( ! $this->atts['slideshow_settings']['adapt_height'] ) {
 			$args['stretch'] = $this->atts['slideshow_settings']['stretch'] ? 1 : 0;

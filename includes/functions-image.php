@@ -33,13 +33,10 @@ function wpmtst_get_thumbnail( $size = null ) {
 
 		// no featured image, now what?
 
-		$dimensions = apply_filters( 'wpmtst_gravatar_size', $size );
-
 		if ( 'yes' == WPMST()->atts( 'gravatar' ) ) {
 			// view > gravatar > show gravatar (use default, if not found)
 
 			$img = get_avatar( wpmtst_get_field( 'email' ), apply_filters( 'wpmtst_gravatar_size', $size ) );
-			//$img = get_avatar( wpmtst_get_field( 'email' ), $dimensions['width'], '', '', $dimensions );
 
 		} elseif ( 'if' == WPMST()->atts( 'gravatar' ) ) {
 			// view > gravatar > show gravatar only if found (and has email)
@@ -47,7 +44,6 @@ function wpmtst_get_thumbnail( $size = null ) {
 			if ( wpmtst_get_field( 'email' ) ) {
 				// get_avatar will return false if not found (via filter)
 				$img = get_avatar( wpmtst_get_field( 'email' ), apply_filters( 'wpmtst_gravatar_size', $size ) );
-				//$img = get_avatar( wpmtst_get_field( 'email' ), $dimensions['width'], '', '', $dimensions );
 			}
 		}
 
@@ -87,6 +83,40 @@ function wpmtst_thumbnail_img( $img, $post_id ) {
 add_filter( 'wpmtst_thumbnail_img', 'wpmtst_thumbnail_img', 10, 2 );
 
 /**
+ * Exclude testimonial thumbnails from Lazy Loading Responsive Images plugin.
+ *
+ * @param $attr
+ * @param $attachment
+ * @param $size
+ *
+ * @since 2.27.0
+ *
+ * @return array
+ */
+function wpmtst_exclude_from_lazyload( $attr, $attachment, $size ) {
+	$options = get_option( 'wpmtst_options' );
+	if ( isset( $options['no_lazyload'] ) && $options['no_lazyload'] ) {
+		if ( 'wpm-testimonial' == get_post_type( $attachment->post_parent ) ) {
+			$attr['data-no-lazyload'] = 1;
+		}
+	}
+
+	return $attr;
+}
+
+/**
+ * Add filter if Lazy Loading Responsive Images plugin is active.
+ *
+ * @since 2.27.0
+ */
+function wpmtst_lazyload_check() {
+	if ( wpmtst_is_plugin_active( 'lazy-loading-responsive-images' ) ) {
+		add_filter( 'wp_get_attachment_image_attributes', 'wpmtst_exclude_from_lazyload', 10, 3 );
+	}
+}
+add_action( 'init', 'wpmtst_lazyload_check' );
+
+/**
  * Filter thumbnail link classes.
  *
  * @since 2.9.4
@@ -109,7 +139,7 @@ add_filter( 'wpmtst_thumbnail_link_class', 'wpmtst_thumbnail_link_class' );
 /**
  * Filter the gravatar size.
  *
- * @param array $size
+ * @param array|string $size
  * @since 1.23.0
  * @return mixed
  */
@@ -122,8 +152,8 @@ function wpmtst_gravatar_size_filter( $size = array( 150, 150 ) ) {
 		// if named size
 		$image_sizes   = wpmtst_get_image_sizes();
 		$gravatar_size = $image_sizes[$size]['width'];
-		//$gravatar_size = array( 'width' => $image_sizes[$size]['width'], 'height' => $image_sizes[$size]['height'] );
 	}
+
 	return $gravatar_size;
 }
 add_filter( 'wpmtst_gravatar_size', 'wpmtst_gravatar_size_filter' );

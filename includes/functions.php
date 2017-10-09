@@ -186,15 +186,20 @@ function wpmtst_get_form_fields( $form_id = 1 ) {
  * @return array
  */
 function wpmtst_get_custom_fields() {
-	$forms = get_option( 'wpmtst_custom_forms' );
 	$all_fields = array();
+	$forms = get_option( 'wpmtst_custom_forms' );
+	if ( ! $forms ) {
+	    return $all_fields;
+	}
 
 	// use default group as base
 	$fields = $forms[1]['fields'];
+	if ( ! $fields ) {
+	    return $all_fields;
+	}
 
 	// replace key with field name
 	foreach ( $fields as $field ) {
-		//if ( 'custom' == $field['record_type'] ) {
 		if ( 'post' != $field['record_type'] ) {
 			$all_fields[ $field['name'] ] = $field;
 		}
@@ -205,7 +210,6 @@ function wpmtst_get_custom_fields() {
 		$custom_fields = array();
 		$fields = $form['fields'];
 		foreach ( $fields as $field ) {
-			//if ( 'custom' == $field['record_type'] ) {
 			if ( 'post' != $field['record_type'] ) {
 				$custom_fields[ $field['name'] ] = $field;
 			}
@@ -250,17 +254,6 @@ function wpmtst_get_all_fields() {
 	}
 
 	return $all_fields;
-}
-
-/**
- * Strip close comment and close php tags from file headers used by WP.
- *
- * @since 1.21.0
- * @param string $str Header comment to clean up.
- * @return string
- */
-function wpmtst_cleanup_header_comment( $str ) {
-	return trim(preg_replace("/\s*(?:\*\/|\?>).*/", '', $str));
 }
 
 /**
@@ -447,14 +440,7 @@ function wpmtst_get_views() {
 	$wpdb->hide_errors();
 
 	if ( $wpdb->last_error ) {
-		$message = sprintf(
-			wp_kses(
-				__( 'An error occurred: <code>%s</code>. Please <a href="%s" target="_blank">open a support ticket</a>.', 'strong-testimonials' ),
-				array( 'code' => array(), 'a' => array( 'href' => array(), 'target' => array(), 'class' => array() ) )
-			),
-			$wpdb->last_error,
-			esc_url( 'https://support.strongplugins.com/new-ticket/' )
-		);
+		$message = sprintf( __( 'An error occurred: <code>%s</code>.', 'strong-testimonials' ), $wpdb->last_error ) . ' ' . sprintf( __( 'Please <a href="%s" target="_blank">open a support ticket</a>.', 'strong-testimonials' ), esc_url( 'https://support.strongplugins.com/new-ticket/' ) );
 		wp_die( sprintf( '<div class="error strong-view-error"><p>%s</p></div>', $message ) );
 	}
 
@@ -867,8 +853,9 @@ function wpmtst_is_plugin_active( $plugin = '' ) {
 		return false;
 
 	$plugins = array(
-		'wpml'     => 'sitepress-multilingual-cms/sitepress.php',
-		'polylang' => 'polylang/polylang.php'
+		'wpml' => 'sitepress-multilingual-cms/sitepress.php',
+		'polylang' => 'polylang/polylang.php',
+        'lazy-loading-responsive-images' => 'lazy-loading-responsive-images/lazy-load-responsive-images.php',
 	);
 	if ( isset( $plugins[ $plugin ] ) ) {
 		$plugin = $plugins[ $plugin ];
@@ -969,4 +956,20 @@ function wpmtst_trim_array( $input ) {
 	}
 
 	return array_map( 'wpmtst_trim_array', $input );
+}
+
+
+/**
+ * Return admin role.
+ *
+ * @since 2.27.0
+ *
+ * @return bool|null|WP_Role
+ */
+function wpmtst_get_admins() {
+	if ( is_multisite() ) {
+		return false;
+	} else {
+		return get_role( 'administrator' );
+	}
 }

@@ -89,7 +89,7 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
   outline: none;
   text-decoration: none;
   transition: background 0.2s ease;
-  width: 1.7em;
+  min-width: 1.7em;
 }
 .strong-view ul.simplePagerNav li a:hover {
   background: #CDCDCD;

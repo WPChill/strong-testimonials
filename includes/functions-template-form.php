@@ -144,12 +144,13 @@ function wpmtst_single_form_field( $field ) {
 
             echo '<div class="field-wrap">';
 
-            printf( '<input id="wpmtst_%s" type="%s" class="%s" name="%s" %s tabindex="0">',
+            printf( '<input id="wpmtst_%s" type="%s" class="%s" name="%s" %s %s tabindex="0">',
                 $field['name'],
                 $field['input_type'],
                 wpmtst_field_classes( $field['input_type'], $field['name'] ),
                 $field['name'],
-                wpmtst_field_required_tag( $field ) );
+                wpmtst_field_required_tag( $field ),
+                checked( $field['default_form_value'], 1, false ) );
 
             if ( isset( $field['text'] ) ) {
                 echo '<label for="wpmtst_' . $field['name'] . '" class="checkbox-label">';

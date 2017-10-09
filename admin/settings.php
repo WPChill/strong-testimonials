@@ -12,30 +12,30 @@ function wpmtst_settings_menu() {
 	add_submenu_page( 'edit.php?post_type=wpm-testimonial',
 		__( 'Views', 'strong-testimonials' ),  // page title
 		__( 'Views', 'strong-testimonials' ),  // menu title
-		'manage_options',
+		'strong_testimonials_views',
 		'testimonial-views',
 		'wpmtst_views_admin' );
 
 	add_submenu_page( 'edit.php?post_type=wpm-testimonial',
 		apply_filters( 'wpmtst_fields_page_title', __( 'Fields', 'strong-testimonials' ) ),
 		apply_filters( 'wpmtst_fields_menu_title', __( 'Fields', 'strong-testimonials' ) ),
-		'manage_options',
+		'strong_testimonials_fields',
 		'testimonial-fields',
 		'wpmtst_form_admin' );
 
 	add_submenu_page( 'edit.php?post_type=wpm-testimonial',
 		__( 'Settings', 'strong-testimonials' ),
 		__( 'Settings', 'strong-testimonials' ),
-		'manage_options',
+		'strong_testimonials_options',
 		'testimonial-settings',
 		'wpmtst_settings_page' );
 
 	add_submenu_page( 'edit.php?post_type=wpm-testimonial',
-		__( 'Guide', 'strong-testimonials' ),
-		__( 'Guide', 'strong-testimonials' ),
-		'manage_options',
-		'testimonial-guide',
-		'wpmtst_guide' );
+		__( 'About' ),
+		__( 'About' ),
+		'strong_testimonials_about',
+		'about-strong-testimonials',
+		'wpmtst_about_page' );
 }
 add_action( 'admin_menu', 'wpmtst_settings_menu' );
 
@@ -92,17 +92,18 @@ function wpmtst_active_addons() {
  * @return mixed
  */
 function wpmtst_sanitize_options( $input ) {
-	$input['email_log_level']       = ! isset( $input['email_log_level'] ) ? 1 : (int) $input['email_log_level'];
-	$input['embed_width']           = intval( sanitize_text_field( $input['embed_width'] ) );
+	$input['email_log_level']       = isset( $input['email_log_level'] ) ? (int) $input['email_log_level'] : 1;
+	$input['embed_width']           = $input['embed_width'] ? (int) sanitize_text_field( $input['embed_width'] ) : '';
 	$input['load_font_awesome']     = wpmtst_sanitize_checkbox( $input, 'load_font_awesome' );
 	$input['nofollow']              = wpmtst_sanitize_checkbox( $input, 'nofollow' );
 	$input['pending_indicator']     = wpmtst_sanitize_checkbox( $input, 'pending_indicator' );
 	$input['remove_whitespace']     = wpmtst_sanitize_checkbox( $input, 'remove_whitespace' );
 	$input['reorder']               = wpmtst_sanitize_checkbox( $input, 'reorder' );
 	$input['scrolltop']             = wpmtst_sanitize_checkbox( $input, 'scrolltop' );
-	$input['scrolltop_offset']      = intval( sanitize_text_field( $input['scrolltop_offset'] ) );
+	$input['scrolltop_offset']      = (int) sanitize_text_field( $input['scrolltop_offset'] );
 	$input['support_comments']      = wpmtst_sanitize_checkbox( $input, 'support_comments' );
 	$input['support_custom_fields'] = wpmtst_sanitize_checkbox( $input, 'support_custom_fields' );
+	$input['no_lazyload']           = wpmtst_sanitize_checkbox( $input, 'no_lazyload' );
 
 	return $input;
 }
@@ -242,7 +243,7 @@ function wpmtst_sanitize_form( $input ) {
  * Settings page
  */
 function wpmtst_settings_page() {
-	if ( ! current_user_can( 'manage_options' ) )
+	if ( ! current_user_can( 'strong_testimonials_options' ) )
 		wp_die( __( 'You do not have sufficient permissions to access this page.' ) );
 	?>
 	<div class="wrap wpmtst">

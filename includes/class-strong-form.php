@@ -57,7 +57,7 @@ class Strong_Testimonials_Form {
 					default:
 						$goback = add_query_arg( 'success', 'yes', wp_get_referer() );
 				}
-				wp_redirect( $goback );
+				wp_redirect( apply_filters( 'wpmtst_form_redirect_url', $goback ) );
 				exit;
 			}
 		}
@@ -200,15 +200,29 @@ class Strong_Testimonials_Form {
 		 */
 		if ( ! count( $form_errors ) ) {
 
-			// special handling:
-			// if post_title is not required, create one from post_content
+			// Special handling: if post_title is not required, create one from post_content
 			if ( ! isset( $testimonial_post['post_title'] ) || ! $testimonial_post['post_title'] ) {
 				$words_array                    = explode( ' ', $testimonial_post['post_content'] );
 				$five_words                     = array_slice( $words_array, 0, 5 );
 				$testimonial_post['post_title'] = implode( ' ', $five_words );
 			}
 
-			// validate image attachments and store WP error messages
+			/**
+			 * Validate image attachments and store WP error messages.
+			 */
+			/*
+			 * $_FILES = Array
+			 * (
+			 *   [featured_image] => Array
+			 *     (
+			 *       [name] => Screenshot.png
+			 *       [type] => image/png
+			 *       [tmp_name] => C:\wamp64\tmp\php7EA4.tmp
+			 *       [error] => 0
+			 *       [size] => 615273
+			 *     )
+			 * )
+			 */
 			foreach ( $testimonial_att as $name => $atts ) {
 				if ( isset( $_FILES[ $name ] ) && $_FILES[ $name ]['size'] > 1 ) {
 					$file = $_FILES[ $name ];
@@ -217,10 +231,12 @@ class Strong_Testimonials_Form {
 					$overrides     = array( 'test_form' => false );
 					$uploaded_file = $this->handle_upload( $file, $overrides );
 					/*
-					 * $uploaded_file = array (size=3)
-					 *   'file' => string 'M:\wp\strong\site/wp-content/uploads/Lotus8.jpg' (length=47)
-					 *   'url' => string 'http://strong.dev/wp-content/uploads/Lotus8.jpg' (length=47)
-					 *   'type' => string 'image/jpeg' (length=10)
+					 * $uploaded_file = Array
+					 * (
+					 *   [file] => string 'M:\wp\strong\site/wp-content/uploads/Lotus8.jpg'
+					 *   [url]  => string 'http://strong.dev/wp-content/uploads/Lotus8.jpg'
+					 *   [type] => string 'image/jpeg'
+					 * )
 					 */
 					if ( isset( $uploaded_file['error'] ) ) {
 						$form_errors[ $name ] = $uploaded_file['error'];
@@ -247,8 +263,6 @@ class Strong_Testimonials_Form {
 		/**
 		 * No faulty uploads, carry on.
 		 */
-		$testimonial_id = false;
-
 		if ( ! count( $form_errors ) ) {
 
 			// create new testimonial post
@@ -311,9 +325,9 @@ class Strong_Testimonials_Form {
 				foreach ( $testimonial_att as $name => $atts ) {
 					if ( isset( $atts['attachment'] ) ) {
 						$atts['attachment']['post_parent'] = $testimonial_id;
-						$attach_id                         = wp_insert_attachment( $atts['attachment'], $atts['uploaded_file']['file'], $testimonial_id );
-						$attach_data                       = wp_generate_attachment_metadata( $attach_id, $atts['uploaded_file']['file'] );
-						$result                            = wp_update_attachment_metadata( $attach_id, $attach_data );
+						$attach_id = wp_insert_attachment( $atts['attachment'], $atts['uploaded_file']['file'], $testimonial_id );
+						$attach_data = wp_generate_attachment_metadata( $attach_id, $atts['uploaded_file']['file'] );
+						$result = wp_update_attachment_metadata( $attach_id, $attach_data );
 						add_post_meta( $testimonial_id, $name, $atts['uploaded_file']['url'] );
 						if ( 'featured_image' == $atts['field'] ) {
 							set_post_thumbnail( $testimonial_id, $attach_id );
@@ -332,6 +346,8 @@ class Strong_Testimonials_Form {
 		 */
 		$form_values = array_merge( $testimonial_post, $testimonial_meta );
 
+		ksort( $testimonial_post );
+		ksort( $testimonial_meta );
 		do_action( 'wpmtst_new_testimonial_added', $testimonial_post, $testimonial_meta, $testimonial_cats, $testimonial_att );
 
 		if ( ! count( $form_errors ) ) {

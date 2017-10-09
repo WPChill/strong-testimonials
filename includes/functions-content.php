@@ -170,26 +170,31 @@ function wpmtst_excerpt_more( $more ) {
 }
 
 /**
- * Construct the "Read more" link (both automatic and manual).
- *
- * @return string
- */
-function wpmtst_get_excerpt_more_link() {
-	$link = sprintf( '<a href="%1$s" class="readmore">%2$s</a>',
-		esc_url( get_permalink() ),
-		sprintf( '%s<span class="screen-reader-text"> "%s"</span>',
-			apply_filters( 'wpmtst_read_more_page_link_text', WPMST()->atts( 'more_post_text' ), WPMST()->atts() ), get_the_title() ) );
-
-	return $link;
-}
-
-/**
  * Return "Read more" for manual excerpts.
  *
  * @return string
  */
 function wpmtst_excerpt_more_full_post() {
 	return ' ' . wpmtst_get_excerpt_more_link();
+}
+
+/**
+ * Construct the "Read more" link (both automatic and manual).
+ *
+ * @since 2.27.0 Filters on URL and full link.
+ *
+ * @return string
+ */
+function wpmtst_get_excerpt_more_link() {
+	$url = apply_filters( 'wpmtst_read_more_page_url', get_permalink(), WPMST()->atts() );
+
+	$link_text = sprintf( '%s<span class="screen-reader-text"> "%s"</span>',
+		apply_filters( 'wpmtst_read_more_page_link_text', WPMST()->atts( 'more_post_text' ), WPMST()->atts() ), get_the_title()
+	);
+
+	$link = sprintf( '<a href="%s" class="readmore">%s</a>', esc_url( $url ), $link_text );
+
+	return apply_filters( 'wpmtst_read_more_page_link', $link );
 }
 
 /**

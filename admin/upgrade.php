@@ -96,6 +96,13 @@ function wpmtst_upgrade() {
 			unset( $options['slideshow_zindex'] );
 		}
 
+		/**
+		 * Replace zero embed_width with empty value.
+		 *
+		 * @since 2.27.0
+		 */
+		$options['embed_width'] = $options['embed_width'] ? (int) sanitize_text_field( $options['embed_width'] ) : '';
+
 		// Merge in new options
 		$options = array_merge( $default_options, $options );
 
@@ -172,6 +179,15 @@ function wpmtst_upgrade() {
 				 */
 				if ( 'shortcode' == $form_field['input_type'] ) {
 					$form_field['show_required_option'] = false;
+				}
+
+				/*
+				 * Add `show_default_options` to checkbox field.
+				 *
+				 * @since 2.27.0
+				 */
+				if ( 'checkbox' == $form_field['input_type'] ) {
+					$form_field['show_default_options'] = 1;
 				}
 
 				/*
@@ -264,7 +280,6 @@ function wpmtst_upgrade() {
 	}
 	update_option( 'wpmtst_form_options', $form_options );
 
-
 	/**
 	 * -6- VIEW OPTIONS
 	 *
@@ -273,7 +288,6 @@ function wpmtst_upgrade() {
 	 * @since 2.15.0
 	 */
 	update_option( 'wpmtst_view_options', $default_view_options );
-
 
 	/**
 	 * -7- VIEWS
@@ -509,13 +523,11 @@ function wpmtst_upgrade() {
 
 	}
 
-
 	/**
 	 * -8- GET L10N CONTEXTS
 	 * @deprecated
 	 */
 	delete_option( 'wpmtst_l10n_contexts' );
-
 
 	/**
 	 * After all is said and done, update history log.
@@ -535,7 +547,6 @@ function wpmtst_upgrade() {
 		update_option( 'wpmtst_history', $history );
 	}
 
-
 	/**
 	 * Update the plugin version.
 	 */
@@ -546,6 +557,11 @@ function wpmtst_upgrade() {
 	 */
 	delete_option( 'wpmtst_admin_notices' );
 	delete_option( 'wpmtst_news_flag' );
+
+	/**
+	 * Set redirect flag.
+	 */
+	add_option( 'wpmtst_do_activation_redirect', true );
 
 }
 
