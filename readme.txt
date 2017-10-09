@@ -3,7 +3,7 @@ Contributors: cdillon27
 Tags: testimonials, testimonial slider, testimonial form, reviews, star ratings
 Requires at least: 3.6
 Tested up to: 4.8.2
-Stable tag: 2.27
+Stable tag: 2.27.1
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -176,7 +176,10 @@ If you prefer not to post your URL publicly, start a private support ticket at [
 
 == Changelog ==
 
-= 2.27 - Oct 7, 2017 =
+= 2.27.1 - Oct 9, 2017 =
+* Fix bug in update process.
+
+= 2.27 - Oct 9, 2017 =
 * Fix optional loading of Font Awesome.
 * Fix width on double-digit pagination controls in Modern template.
 * Fix hiding slider controls if no slides are present.
@@ -257,5 +260,5 @@ See changelog.txt for previous versions.
 
 == Upgrade Notice ==
 
-= 2.27.0 =
+= 2.27.1 =
 Minor bug fixes. New filters. Improved compatibility.

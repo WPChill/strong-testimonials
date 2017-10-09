@@ -15,7 +15,7 @@ function wpmtst_admin_init() {
 	// Check WordPress version
 	wpmtst_version_check();
 
-	// Check for new options in plugin activation/update
+	// Check for new options in plugin update
 	wpmtst_upgrade();
 
 	// Remove ad banner from Captcha plugin
@@ -31,7 +31,7 @@ function wpmtst_admin_init() {
 	}
 
 }
-add_action( 'admin_init', 'wpmtst_admin_init', 5 );
+add_action( 'init', 'wpmtst_admin_init' );
 
 
 /**
