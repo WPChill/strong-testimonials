@@ -2,7 +2,7 @@
 	<p>
 		<label>
 			<input id="wpmtst-options-mail-queue" type="checkbox" name="wpmtst_form_options[mail_queue]" <?php checked( $form_options['mail_queue'] ); ?>>
-			<?php _e( 'Use mail queue. For services like Mandrill or plugins like Postman SMTP. Off by default.', 'strong-testimonials' ); ?>
+			<?php _e( 'Use mail queue. For services like Mandrill. Off by default.', 'strong-testimonials' ); ?>
 		</label>
 	</p>
 

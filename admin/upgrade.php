@@ -14,6 +14,24 @@
  * be displayed in the form editor.
  */
 
+function wpmtst_add_caps() {
+	if ( $admins = wpmtst_get_admins() ) {
+		$admins->add_cap( 'strong_testimonials_views' );
+		$admins->add_cap( 'strong_testimonials_fields' );
+		$admins->add_cap( 'strong_testimonials_options' );
+		$admins->add_cap( 'strong_testimonials_about' );
+	}
+}
+
+function wpmtst_remove_caps() {
+	if ( $admins = wpmtst_get_admins() ) {
+		$admins->remove_cap( 'strong_testimonials_views' );
+		$admins->remove_cap( 'strong_testimonials_fields' );
+		$admins->remove_cap( 'strong_testimonials_options' );
+		$admins->remove_cap( 'strong_testimonials_about' );
+	}
+}
+
 function wpmtst_upgrade() {
 
 	$old_plugin_version = get_option( 'wpmtst_plugin_version' );
@@ -24,6 +42,7 @@ function wpmtst_upgrade() {
 		return;
 	}
 
+	wpmtst_add_caps();
 	wpmtst_update_db_check();
 
 	delete_option( 'wpmtst_cycle' );
@@ -561,7 +580,7 @@ function wpmtst_upgrade() {
 	/**
 	 * Set redirect flag.
 	 */
-	add_option( 'wpmtst_do_activation_redirect', true );
+	//add_option( 'wpmtst_do_activation_redirect', true );
 
 }
 
