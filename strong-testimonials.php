@@ -170,6 +170,7 @@ final class Strong_Testimonials {
 	static function plugin_deactivation() {
 		flush_rewrite_rules();
 		wpmtst_remove_caps();
+		wpmtst_unset_version();
 	}
 
 	/**

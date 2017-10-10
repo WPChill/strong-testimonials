@@ -53,6 +53,10 @@ function wpmtst_remove_caps() {
 	}
 }
 
+function wpmtst_unset_version() {
+	delete_option( 'wpmtst_plugin_version');
+}
+
 function wpmtst_upgrade() {
 
 	$old_plugin_version = get_option( 'wpmtst_plugin_version' );
