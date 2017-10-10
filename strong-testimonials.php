@@ -161,7 +161,7 @@ final class Strong_Testimonials {
 	static function plugin_activation() {
 		wpmtst_register_cpt();
 		flush_rewrite_rules();
-		wpmtst_upgrade();
+		Strong_Testimonials_Updater::update();
 	}
 
 	/**
@@ -169,8 +169,6 @@ final class Strong_Testimonials {
 	 */
 	static function plugin_deactivation() {
 		flush_rewrite_rules();
-		wpmtst_remove_caps();
-		wpmtst_unset_version();
 	}
 
 	/**
@@ -261,6 +259,7 @@ final class Strong_Testimonials {
 			require_once WPMTST_INC . 'class-walker-strong-category-checklist.php';
 			require_once WPMTST_INC . 'class-walker-strong-form-category-checklist.php';
 
+			require_once WPMTST_ADMIN . 'class-strong-testimonials-updater.php';
 			require_once WPMTST_ADMIN . 'class-strong-testimonials-help.php';
 			require_once WPMTST_ADMIN . 'admin.php';
 			require_once WPMTST_ADMIN . 'admin-notices.php';
@@ -271,7 +270,6 @@ final class Strong_Testimonials {
 			require_once WPMTST_ADMIN . 'form-preview.php';
 			require_once WPMTST_ADMIN . '/about/index.php';
 			require_once WPMTST_ADMIN . 'settings.php';
-			require_once WPMTST_ADMIN . 'upgrade.php';
 			require_once WPMTST_ADMIN . 'views.php';
 			require_once WPMTST_ADMIN . 'views-ajax.php';
 			require_once WPMTST_ADMIN . 'view-list-order.php';
@@ -302,7 +300,10 @@ final class Strong_Testimonials {
 	 * @since 2.12.0
 	 */
 	public function set_plugin_data() {
-		$this->plugin_data = get_plugin_data( __FILE__, false );
+		//$this->plugin_data = get_plugin_data( __FILE__, false );
+		$this->plugin_data = array(
+			'Version' => WPMTST_VERSION,
+		);
 	}
 
 	/**
@@ -1378,6 +1379,15 @@ final class Strong_Testimonials {
 	 * @return array
 	 */
 	public function get_plugin_info() {
+		if ( ! function_exists( 'get_plugin_data' ) ) {
+			if ( file_exists( ABSPATH . 'wp-admin/includes/plugin.php' ) ) {
+				require_once ABSPATH . 'wp-admin/includes/plugin.php';
+			}
+			if ( file_exists( ABSPATH . 'wp-admin/includes/admin.php' ) ) {
+				require_once ABSPATH . 'wp-admin/includes/admin.php';
+			}
+		}
+
 		return get_file_data( __FILE__, array( 'name' => 'Plugin Name', 'version' => 'Version' ) );
 	}
 

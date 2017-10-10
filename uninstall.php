@@ -6,4 +6,6 @@
 if ( !defined( 'WP_UNINSTALL_PLUGIN' ) )
 	exit();
 
-// we need a Leave No Trace switch
+// TODO Leave No Trace
+
+Strong_Testimonials_Updater::remove_caps();

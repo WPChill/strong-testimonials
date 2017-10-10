@@ -9,17 +9,17 @@
  */
 function wpmtst_admin_init() {
 
-    // Store plugin data from file header
-    WPMST()->set_plugin_data();
+    // Remove ad banner from Captcha plugin
+	remove_action( 'admin_notices', 'cptch_plugin_banner' );
 
-    // Check WordPress version
+	// Check WordPress version
     wpmtst_version_check();
 
-    // Check for new options in plugin update
-    wpmtst_upgrade();
+    // Check for new options
+	Strong_Testimonials_Updater::update();
 
-    // Remove ad banner from Captcha plugin
-    remove_action( 'admin_notices', 'cptch_plugin_banner' );
+	// Redirect to About page for new installs only
+	Strong_Testimonials_Updater::activation_redirect();
 
     /**
      * Custom action hooks
@@ -32,19 +32,6 @@ function wpmtst_admin_init() {
 
 }
 add_action( 'admin_init', 'wpmtst_admin_init' );
-
-
-/**
- * Redirect to About page.
- */
-function wpmtst_plugin_redirect() {
-	if ( get_option( 'wpmtst_do_activation_redirect', false ) ) {
-		delete_option( 'wpmtst_do_activation_redirect' );
-		wp_redirect( admin_url( 'edit.php?post_type=wpm-testimonial&page=about-strong-testimonials' ) );
-		exit;
-	}
-}
-add_action( 'admin_init', 'wpmtst_plugin_redirect' );
 
 
 /**
