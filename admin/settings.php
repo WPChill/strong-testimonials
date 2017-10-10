@@ -49,7 +49,6 @@ function wpmtst_register_settings() {
 }
 add_action( 'admin_init', 'wpmtst_register_settings' );
 
-
 /**
  * Sanitize licenses.
  *
@@ -73,7 +72,6 @@ function wpmtst_sanitize_licenses( $new_licenses ) {
 	return $new_licenses;
 }
 
-
 /**
  * Check for active add-ons.
  *
@@ -82,7 +80,6 @@ function wpmtst_sanitize_licenses( $new_licenses ) {
 function wpmtst_active_addons() {
 	return has_action( 'wpmtst_licenses' );
 }
-
 
 /**
  * Sanitize general settings
@@ -318,9 +315,7 @@ function wpmtst_settings_licenses() {
  * @since 1.13
  */
 function wpmtst_restore_default_messages_function() {
-	// hard restore from file
-	include_once WPMTST_INC . 'defaults.php';
-	$default_form_options = wpmtst_get_default_form_options();
+	$default_form_options = Strong_Testimonials_Defaults::get_form_options();
 	$messages = $default_form_options['messages'];
 	echo json_encode( $messages );
 	die();
@@ -334,9 +329,7 @@ add_action( 'wp_ajax_wpmtst_restore_default_messages', 'wpmtst_restore_default_m
  */
 function wpmtst_restore_default_message_function() {
 	$input = str_replace( '_', '-', $_REQUEST['field'] );
-	// hard restore from file
-	include_once WPMTST_INC . 'defaults.php';
-	$default_form_options = wpmtst_get_default_form_options();
+	$default_form_options = Strong_Testimonials_Defaults::get_form_options();
 	$message = $default_form_options['messages'][$input];
 	echo json_encode( $message );
 	die();

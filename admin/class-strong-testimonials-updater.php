@@ -1,14 +1,29 @@
 <?php
 /**
- * Updater
+ * Class Strong_Testimonials_Updater
+ *
+ * @since 2.28.0
  */
-
 class Strong_Testimonials_Updater {
 
+	/**
+	 * The version before updating.
+	 *
+	 * @var string
+	 */
+	public static $old_version;
+
+	/**
+	 * Strong_Testimonials_Updater constructor.
+	 */
 	public function __construct() {
 	}
 
+	/**
+	 * Static initializer.
+	 */
 	public static function init() {
+		self::$old_version = get_option( 'wpmtst_plugin_version', false );
 	}
 
 	/**
@@ -66,128 +81,198 @@ class Strong_Testimonials_Updater {
 	 */
 	public static function update() {
 
-		$old_plugin_version = get_option( 'wpmtst_plugin_version', false );
-
-		if ( $old_plugin_version == WPMTST_VERSION ) {
+		if ( self::$old_version == WPMTST_VERSION ) {
 			return;
 		}
 
 		// Redirect to About page for new installs only
-		if ( false === $old_plugin_version ) {
+		if ( false === self::$old_version ) {
 			add_option( 'wpmtst_do_activation_redirect', true );
 		}
 
+		/**
+		 * Add custom capablities.
+		 *
+		 * @since 2.27.1
+		 */
 		self::add_caps();
 
+		/**
+		 * Check DB version.
+		 */
 		self::update_db_check();
 
-		delete_option( 'wpmtst_cycle' );
-
 		/**
-		 * -1- DEFAULTS
+		 * Let's start updating.
 		 */
-		include_once WPMTST_INC . 'defaults.php';
-		$default_options      = wpmtst_get_default_options();
-		$default_fields       = wpmtst_get_default_fields();
-		$default_base_forms   = wpmtst_get_default_base_forms();
-		$default_custom_forms = wpmtst_get_default_custom_forms();
-		$default_form_options = wpmtst_get_default_form_options();
-		$default_view_options = wpmtst_get_default_view_options();
-		$default_view         = apply_filters( 'wpmtst_view_default', wpmtst_get_default_view() );
-
 		$history = get_option( 'wpmtst_history', array() );
 
 		/**
-		 * -2- GET OPTIONS
+		 * Options.
 		 */
-		$options = get_option( 'wpmtst_options' );
-		if ( ! $options ) {
-			// -2A- NEW ACTIVATION
-			$options = $default_options;
-		} else {
-			// -2B- UPDATE
-
-			// Remove version 1 options
-			if ( version_compare( '2.0', $old_plugin_version ) ) {
-
-				if ( isset( $options['captcha'] ) ) {
-					unset( $options['captcha'] );
-				}
-
-				if ( isset( $options['plugin_version'] ) ) {
-					unset( $options['plugin_version'] );
-				}
-
-				if ( isset( $options['per_page'] ) ) {
-					unset( $options['per_page'] );
-				}
-
-				if ( isset( $options['load_page_style'] ) ) {
-					unset( $options['load_page_style'] );
-				}
-
-				if ( isset( $options['load_widget_style'] ) ) {
-					unset( $options['load_widget_style'] );
-				}
-
-				if ( isset( $options['load_form_style'] ) ) {
-					unset( $options['load_form_style'] );
-				}
-
-				if ( isset( $options['load_rtl_style'] ) ) {
-					unset( $options['load_rtl_style'] );
-				}
-
-				if ( isset( $options['shortcode'] ) ) {
-					unset( $options['shortcode'] );
-				}
-
-				if ( isset( $options['default_template'] ) ) {
-					unset( $options['default_template'] );
-				}
-
-				if ( isset( $options['client_section'] ) ) {
-					unset( $options['client_section'] );
-				}
-
-			}
-
-			/**
-			 * Remove slideshow z-index (Cycle)
-			 *
-			 * @since 2.15.0
-			 */
-			if ( isset( $options['slideshow_zindex'] ) ) {
-				unset( $options['slideshow_zindex'] );
-			}
-
-			/**
-			 * Replace zero embed_width with empty value.
-			 *
-			 * @since 2.27.0
-			 */
-			$options['embed_width'] = $options['embed_width'] ? (int) sanitize_text_field( $options['embed_width'] ) : '';
-
-			// Merge in new options
-			$options = array_merge( $default_options, $options );
-
-			// Convert nofollow
-			if ( ! isset( $history['2.23.0_convert_nofollow'] ) ) {
-				self::convert_nofollow();
-			}
-		}
-		update_option( 'wpmtst_options', $options );
+		update_option( 'wpmtst_options', self::update_options() );
 
 		/**
-		 * -3- GET FIELDS
+		 * Custom fields.
 		 */
+		update_option( 'wpmtst_fields', self::update_fields() );
+
+		/**
+		 * Forms.
+		 */
+		update_option( 'wpmtst_base_forms', self::update_base_forms() );
+		update_option( 'wpmtst_custom_forms', self::update_custom_forms() );
+		update_option( 'wpmtst_form_options', self::update_form_options() );
+
+		/**
+		 * Overwrite default view options.
+		 *
+		 * @since 2.15.0
+		 */
+		update_option( 'wpmtst_view_options', self::update_view_options() );
+
+		/**
+		 * Overwrite default view settings.
+		 *
+		 * @since 2.15.0
+		 */
+		update_option( 'wpmtst_view_default', self::update_default_view() );
+
+		/**
+		 * Update views.
+		 */
+		self::update_views();
+
+		/**
+		 * Convert nofollow
+		 */
+		if ( ! isset( $history['2.23.0_convert_nofollow'] ) ) {
+			self::convert_nofollow();
+			self::update_history_log( '2.23.0_convert_nofollow' );
+		}
+
+		/**
+		 * Legacy stuff.
+		 */
+		if ( ! isset( $history['2.28_new_update_process'] ) ) {
+			// Upgrade from version 1.x
+			delete_option( 'wpmtst_cycle' );
+
+			// L10n context no longer used.
+			delete_option( 'wpmtst_l10n_contexts' );
+
+			//  Remove older attempts at admin notices.
+			delete_option( 'wpmtst_admin_notices' );
+			delete_option( 'wpmtst_news_flag' );
+
+			self::update_history_log( '2.28_new_update_process' );
+		}
+
+		/**
+		 * Update the plugin version.
+		 */
+		update_option( 'wpmtst_plugin_version', WPMTST_VERSION );
+	}
+
+	/**
+	 * Update history log.
+	 *
+	 * @param $event
+	 */
+	public static function update_history_log( $event ) {
+		$history = get_option( 'wpmtst_history', array() );
+		$history[ $event ] = current_time( 'mysql' );
+		update_option( 'wpmtst_history', $history );
+	}
+
+	/**
+	 * Update options.
+	 *
+	 * @return array
+	 */
+	public static function update_options() {
+		$options = get_option( 'wpmtst_options' );
+		if ( ! $options ) {
+			return Strong_Testimonials_Defaults::get_options();
+		}
+
+		/**
+		 * Remove version 1 options
+		 */
+		if ( version_compare( '2.0', self::$old_version ) ) {
+
+			if ( isset( $options['captcha'] ) ) {
+				unset( $options['captcha'] );
+			}
+
+			if ( isset( $options['plugin_version'] ) ) {
+				unset( $options['plugin_version'] );
+			}
+
+			if ( isset( $options['per_page'] ) ) {
+				unset( $options['per_page'] );
+			}
+
+			if ( isset( $options['load_page_style'] ) ) {
+				unset( $options['load_page_style'] );
+			}
+
+			if ( isset( $options['load_widget_style'] ) ) {
+				unset( $options['load_widget_style'] );
+			}
+
+			if ( isset( $options['load_form_style'] ) ) {
+				unset( $options['load_form_style'] );
+			}
+
+			if ( isset( $options['load_rtl_style'] ) ) {
+				unset( $options['load_rtl_style'] );
+			}
+
+			if ( isset( $options['shortcode'] ) ) {
+				unset( $options['shortcode'] );
+			}
+
+			if ( isset( $options['default_template'] ) ) {
+				unset( $options['default_template'] );
+			}
+
+			if ( isset( $options['client_section'] ) ) {
+				unset( $options['client_section'] );
+			}
+
+		}
+
+		/**
+		 * Remove slideshow z-index (Cycle)
+		 *
+		 * @since 2.15.0
+		 */
+		if ( isset( $options['slideshow_zindex'] ) ) {
+			unset( $options['slideshow_zindex'] );
+		}
+
+		/**
+		 * Replace zero embed_width with empty value.
+		 *
+		 * @since 2.27.0
+		 */
+		$options['embed_width'] = $options['embed_width'] ? (int) sanitize_text_field( $options['embed_width'] ) : '';
+
+		// Merge in new options
+		return array_merge( Strong_Testimonials_Defaults::get_options(), $options );
+	}
+
+	/**
+	 * Custom fields
+	 *
+	 * @return array
+	 */
+	public static function update_fields() {
 		$fields = get_option( 'wpmtst_fields', array() );
 		if ( ! $fields ) {
-			// -3A- NEW ACTIVATION
-			$fields = $default_fields;
+			return Strong_Testimonials_Defaults::get_fields();
 		} else {
-			// -3B- UPDATE
-
 			/**
 			 * Updating from 1.x
 			 *
@@ -196,7 +281,7 @@ class Strong_Testimonials_Updater {
 			 * @since 2.0.1
 			 * @since 2.17 Added version check.
 			 */
-			if ( version_compare( '2.0', $old_plugin_version ) ) {
+			if ( version_compare( '2.0', self::$old_version ) ) {
 				if ( isset( $fields['field_groups'] ) ) {
 					$default_custom_forms[1]['fields'] = $fields['field_groups']['custom']['fields'];
 					unset( $fields['field_groups'] );
@@ -205,19 +290,29 @@ class Strong_Testimonials_Updater {
 					unset( $fields['current_field_group'] );
 				}
 			}
-
 		}
-		update_option( 'wpmtst_fields', $fields );
 
-		/**
-		 * -4- GET FORMS
-		 */
-		update_option( 'wpmtst_base_forms', $default_base_forms );
+		return $fields;
+	}
 
+	/**
+	 * Base forms.
+	 *
+	 * @return array
+	 */
+	public static function update_base_forms() {
+		return Strong_Testimonials_Defaults::get_base_forms();
+	}
+
+	/**
+	 * Custom forms.
+	 *
+	 * @return array
+	 */
+	public static function update_custom_forms() {
 		$custom_forms = get_option( 'wpmtst_custom_forms' );
-
 		if ( ! $custom_forms ) {
-			$custom_forms = $default_custom_forms;
+			return Strong_Testimonials_Defaults::get_custom_forms();
 		} else {
 			foreach ( $custom_forms as $form_id => $form_properties ) {
 				foreach ( $form_properties['fields'] as $key => $form_field ) {
@@ -260,7 +355,8 @@ class Strong_Testimonials_Updater {
 					 * Custom fields are in display order (not associative) so we must find them by `input_type`.
 					 * @since 2.21.0 Using default fields instead of default form as source
 					 */
-					$new_default = false;
+					$new_default = array();
+					$fields = get_option( 'wpmtst_fields', array() );
 
 					foreach ( $fields['field_types'] as $field_type_group_key => $field_type_group ) {
 						foreach ( $field_type_group as $field_type_key => $field_type_field ) {
@@ -278,19 +374,22 @@ class Strong_Testimonials_Updater {
 				}
 			}
 		}
-		update_option( 'wpmtst_custom_forms', $custom_forms );
 
-		/**
-		 * -5- GET FORM OPTIONS
-		 *
-		 * @since 1.13
-		 */
+		return $custom_forms;
+	}
+
+	/**
+	 * Form options.
+	 *
+	 * @return array
+	 */
+	public static function update_form_options() {
 		$form_options = get_option( 'wpmtst_form_options', array() );
 		if ( ! $form_options ) {
+			return Strong_Testimonials_Defaults::get_form_options();
+		} else {
 
-			// -5A- NEW ACTIVATION
-			$form_options = $default_form_options;
-
+			$options = get_option( 'wpmtst_options', array() );
 			// -5B- MOVE EXISTING OPTIONS
 			if ( isset( $options['admin_notify'] ) ) {
 				$form_options['admin_notify']    = $options['admin_notify'];
@@ -306,8 +405,6 @@ class Strong_Testimonials_Updater {
 				unset( $options['honeypot_after'] );
 				update_option( 'wpmtst_options', $options );
 			}
-
-		} else {
 
 			// -5C- UPDATE
 			/**
@@ -340,290 +437,290 @@ class Strong_Testimonials_Updater {
 			}
 
 			// Merge in new options
-			$form_options = array_merge( $default_form_options, $form_options );
+			$form_options = array_merge( Strong_Testimonials_Defaults::get_form_options(), $form_options );
 
 		}
-		update_option( 'wpmtst_form_options', $form_options );
 
-		/**
-		 * -6- VIEW OPTIONS
-		 *
-		 * Overwrite default view options.
-		 *
-		 * @since 2.15.0
-		 */
-		update_option( 'wpmtst_view_options', $default_view_options );
+		return $form_options;
+	}
 
-		/**
-		 * -7- VIEWS
-		 */
+	/**
+	 * View options.
+	 *
+	 * @return array
+	 */
+	public static function update_view_options() {
+		return Strong_Testimonials_Defaults::get_view_options();
+	}
 
-		/**
-		 * -7A-
-		 * Overwrite default view settings.
-		 *
-		 * @since 2.15.0
-		 */
-		update_option( 'wpmtst_view_default', $default_view );
+	/**
+	 * Default view.
+	 *
+	 * @return array
+	 */
+	public static function update_default_view() {
+		return apply_filters( 'wpmtst_view_default', Strong_Testimonials_Defaults::get_default_view() );
+	}
 
-		/**
-		 * -7B-
-		 * Update each view.
-		 */
-		// TODO Make this a function accessible by add-ons; i.e. update_view( array ( {parameter} => {value} ) );
+	/**
+	 * Update views.
+	 */
+	public static function update_views() {
+		// TODO Make this function accessible by add-ons; i.e. update_view( array ( {parameter} => {value} ) );
 		$views = wpmtst_get_views();
 
-		if ( $views ) {
+		if ( ! $views ) {
+			return;
+		}
 
-			// Only used in upgrading to version 2.10.0
-			$average_word_length = false;
+		$default_view = get_option( 'wpmtst_view_default' );
 
-			foreach ( $views as $key => $view ) {
+		foreach ( $views as $key => $view ) {
 
-				$view_data = unserialize( $view['value'] );
-				if ( ! is_array( $view_data ) ) {
-					continue;
-				}
+			$view_data = unserialize( $view['value'] );
+			if ( ! is_array( $view_data ) ) {
+				continue;
+			}
 
-				/**
-				 * Compat mode no longer needed.
-				 *
-				 * @since 2.22.0
-				 */
-				unset( $view_data['compat'] );
+			/**
+			 * Compat mode no longer needed.
+			 *
+			 * @since 2.22.0
+			 */
+			unset( $view_data['compat'] );
 
-				// Change default template from empty to 'default:{type}'
-				if ( ! $view_data['template'] ) {
-					if ( 'form' == $view_data['mode'] ) {
-						$type = 'form';
-					} else {
-						$type = 'content';
-					} // list or slideshow
-
-					$view_data['template'] = "default:$type";
+			// Change default template from empty to 'default:{type}'
+			if ( ! $view_data['template'] ) {
+				if ( 'form' == $view_data['mode'] ) {
+					$type = 'form';
 				} else {
-					// Convert name; e.g. 'simple/testimonials.php'
-					if ( 'widget/testimonials.php' == $view_data['template'] ) {
-						$view_data['template'] = 'default:widget';
-					} else {
-						$view_data['template'] = str_replace( '/', ':', $view_data['template'] );
-						$view_data['template'] = str_replace( 'testimonials.php', 'content', $view_data['template'] );
-						$view_data['template'] = str_replace( 'testimonial-form.php', 'form', $view_data['template'] );
+					$type = 'content';
+				} // list or slideshow
+
+				$view_data['template'] = "default:$type";
+			} else {
+				// Convert name; e.g. 'simple/testimonials.php'
+				if ( 'widget/testimonials.php' == $view_data['template'] ) {
+					$view_data['template'] = 'default:widget';
+				} else {
+					$view_data['template'] = str_replace( '/', ':', $view_data['template'] );
+					$view_data['template'] = str_replace( 'testimonials.php', 'content', $view_data['template'] );
+					$view_data['template'] = str_replace( 'testimonial-form.php', 'form', $view_data['template'] );
+				}
+			}
+
+			// Convert count value of -1 to 'all'
+			if ( - 1 == $view_data['count'] ) {
+				$view_data['count'] = 1;
+				$view_data['all']   = 1;
+			}
+
+			// Convert background color
+			if ( ! is_array( $view_data['background'] ) ) {
+				$view_data['background'] = array(
+					'color' => $view_data['background'],
+					'type'  => 'single',
+				);
+			}
+
+			// Convert 'form-ajax' (hyphen) to 'form_ajax' (underscore)
+			if ( isset( $view_data['form-ajax'] ) ) {
+				$view_data['form_ajax'] = $view_data['form-ajax'];
+				unset( $view_data['form-ajax'] );
+			}
+
+			if ( isset( $view_data['pagination'] ) && $view_data['pagination'] ) {
+				if ( isset( $view_data['layout'] ) && 'masonry' == $view_data['layout'] ) {
+					$view_data['layout'] = '';
+				}
+			}
+
+			/**
+			 * Move word_count to excerpt_length for versions 2.10.0 to 2.11.3.
+			 *
+			 * @since 2.11.4
+			 */
+			if ( isset( $view_data['word_count'] ) ) {
+				$view_data['excerpt_length'] = $view_data['word_count'];
+				unset ( $view_data['word_count'] );
+			}
+
+			/**
+			 * Convert length (characters).
+			 *
+			 * @since 2.10.0 word_count (deprecated)
+			 * @since 2.11.4 excerpt_length
+			 */
+			if ( ! isset( $view_data['excerpt_length'] ) || ! $view_data['excerpt_length'] ) {
+				$average_word_length = self::get_average_word_length();
+
+				if ( isset( $view_data['length'] ) && $view_data['length'] ) {
+					$word_count                  = round( $view_data['length'] / $average_word_length );
+					$word_count                  = $word_count < 5 ? 5 : $word_count;
+					$word_count                  = $word_count > 300 ? 300 : $word_count;
+					$view_data['excerpt_length'] = $word_count;
+				} else {
+					$view_data['excerpt_length'] = $default_view['excerpt_length'];
+				}
+
+				unset( $view_data['length'] );
+			}
+
+			/**
+			 * Convert more_text to post or page.
+			 *
+			 * @since 2.10.0
+			 */
+			if ( isset( $view_data['more_text'] ) ) {
+				if ( isset( $view_data['more_page'] ) && $view_data['more_page'] > 1 ) {
+					// convert more_page to toggle and move page id to more_page_id
+					$view_data['more_page_id']   = $view_data['more_page'];
+					$view_data['more_page']      = 1;
+					$view_data['more_page_text'] = $view_data['more_text'];
+				} elseif ( isset( $view_data['more_post'] ) && $view_data['more_post'] ) {
+					$view_data['more_post_text'] = $view_data['more_text'];
+				}
+				unset( $view_data['more_text'] );
+			}
+
+			/**
+			 * Disable title on Modern template because new version of template has the title.
+			 * Only if updating from version earlier than 2.12.4.
+			 */
+			if ( 'modern:content' == $view_data['template'] ) {
+				if ( ! isset( $history['2.12.4_convert_modern_template'] ) ) {
+					$view_data['title'] = 0;
+					self::update_history_log( '2.12.4_convert_modern_template' );
+				}
+			}
+
+			/**
+			 * Convert slideshow settings.
+			 *
+			 * @since 2.15.0
+			 */
+			if ( 'slideshow' == $view_data['mode'] ) {
+				$view_data['slideshow'] = 1;
+			}
+			if ( ! isset( $view_data['slideshow_settings'] ) ) {
+
+				if ( 'scrollHorz' == $view_data['effect'] ) {
+					$view_data['effect'] = 'horizontal';
+				}
+
+				$view_data['slideshow_settings'] = array(
+					'effect'             => $view_data['effect'],
+					'speed'              => $view_data['effect_for'],
+					'pause'              => $view_data['show_for'],
+					'auto_hover'         => ! $view_data['no_pause'],
+					'adapt_height'       => false,
+					'adapt_height_speed' => .5,
+					'stretch'            => isset( $view_data['stretch'] ) ? 1 : 0,
+				);
+
+				unset(
+					$view_data['effect'],
+					$view_data['effect_for'],
+					$view_data['no_pause'],
+					$view_data['show_for'],
+					$view_data['stretch']
+				);
+
+				if ( isset( $view_data['slideshow_nav'] ) ) {
+					switch ( $view_data['slideshow_nav'] ) {
+						case 'simple':
+							$view_data['slideshow_settings']['controls_type']  = 'none';
+							$view_data['slideshow_settings']['controls_style'] = 'buttons';
+							$view_data['slideshow_settings']['pager_type']     = 'full';
+							$view_data['slideshow_settings']['pager_style']    = 'buttons';
+							$view_data['slideshow_settings']['nav_position']   = 'inside';
+							break;
+						case 'buttons1':
+							$view_data['slideshow_settings']['controls_type']  = 'sides';
+							$view_data['slideshow_settings']['controls_style'] = 'buttons';
+							$view_data['slideshow_settings']['pager_type']     = 'none';
+							$view_data['slideshow_settings']['pager_style']    = 'buttons';
+							$view_data['slideshow_settings']['nav_position']   = 'inside';
+							break;
+						case 'buttons2':
+							$view_data['slideshow_settings']['controls_type']  = 'simple';
+							$view_data['slideshow_settings']['controls_style'] = 'buttons2';
+							$view_data['slideshow_settings']['pager_type']     = 'none';
+							$view_data['slideshow_settings']['pager_style']    = 'buttons';
+							$view_data['slideshow_settings']['nav_position']   = 'inside';
+							break;
+						case 'indexed':
+							$view_data['slideshow_settings']['controls_type']  = 'none';
+							$view_data['slideshow_settings']['controls_style'] = 'buttons';
+							$view_data['slideshow_settings']['pager_type']     = 'full';
+							$view_data['slideshow_settings']['pager_style']    = 'text';
+							$view_data['slideshow_settings']['nav_position']   = 'inside';
+							break;
+						default:
+							// none
 					}
+					unset( $view_data['slideshow_nav'] );
 				}
 
-				// Convert count value of -1 to 'all'
-				if ( - 1 == $view_data['count'] ) {
-					$view_data['count'] = 1;
-					$view_data['all']   = 1;
-				}
+			}
 
-				// Convert background color
-				if ( ! is_array( $view_data['background'] ) ) {
-					$view_data['background'] = array(
-						'color' => $view_data['background'],
-						'type'  => 'single',
-					);
-				}
-
-				// Convert 'form-ajax' (hyphen) to 'form_ajax' (underscore)
-				if ( isset( $view_data['form-ajax'] ) ) {
-					$view_data['form_ajax'] = $view_data['form-ajax'];
-					unset( $view_data['form-ajax'] );
-				}
-
-				if ( isset( $view_data['pagination'] ) && $view_data['pagination'] ) {
-					if ( isset( $view_data['layout'] ) && 'masonry' == $view_data['layout'] ) {
-						$view_data['layout'] = '';
-					}
-				}
-
-				/**
-				 * Move word_count to excerpt_length for versions 2.10.0 to 2.11.3.
-				 *
-				 * @since 2.11.4
-				 */
-				if ( isset( $view_data['word_count'] ) ) {
-					$view_data['excerpt_length'] = $view_data['word_count'];
-					unset ( $view_data['word_count'] );
-				}
-
-				/**
-				 * Convert length (characters).
-				 *
-				 * @since 2.10.0 word_count (deprecated)
-				 * @since 2.11.4 excerpt_length
-				 */
-				if ( ! isset( $view_data['excerpt_length'] ) || ! $view_data['excerpt_length'] ) {
-					if ( ! $average_word_length ) {
-						$average_word_length = self::get_average_word_length();
-					}
-
-					if ( isset( $view_data['length'] ) && $view_data['length'] ) {
-						$word_count                  = round( $view_data['length'] / $average_word_length );
-						$word_count                  = $word_count < 5 ? 5 : $word_count;
-						$word_count                  = $word_count > 300 ? 300 : $word_count;
-						$view_data['excerpt_length'] = $word_count;
-					} else {
-						$view_data['excerpt_length'] = $default_view['excerpt_length'];
-					}
-
-					unset( $view_data['length'] );
-				}
-
-				/**
-				 * Convert more_text to post or page.
-				 *
-				 * @since 2.10.0
-				 */
-				if ( isset( $view_data['more_text'] ) ) {
-					if ( isset( $view_data['more_page'] ) && $view_data['more_page'] > 1 ) {
-						// convert more_page to toggle and move page id to more_page_id
-						$view_data['more_page_id']   = $view_data['more_page'];
-						$view_data['more_page']      = 1;
-						$view_data['more_page_text'] = $view_data['more_text'];
-					} elseif ( isset( $view_data['more_post'] ) && $view_data['more_post'] ) {
-						$view_data['more_post_text'] = $view_data['more_text'];
-					}
-					unset( $view_data['more_text'] );
-				}
-
-				/**
-				 * Disable title on Modern template because new version of template has the title.
-				 * Only if updating from version earlier than 2.12.4.
-				 */
-				if ( 'modern:content' == $view_data['template'] ) {
-					if ( ! isset( $history['2.12.4_convert_modern_template'] ) ) {
-						$view_data['title'] = 0;
-					}
-				}
-
-				/**
-				 * Convert slideshow settings.
-				 *
-				 * @since 2.15.0
-				 */
-				if ( 'slideshow' == $view_data['mode'] ) {
-					$view_data['slideshow'] = 1;
-				}
-				if ( ! isset( $view_data['slideshow_settings'] ) ) {
-
-					if ( 'scrollHorz' == $view_data['effect'] ) {
-						$view_data['effect'] = 'horizontal';
-					}
-
-					$view_data['slideshow_settings'] = array(
-						'effect'             => $view_data['effect'],
-						'speed'              => $view_data['effect_for'],
-						'pause'              => $view_data['show_for'],
-						'auto_hover'         => ! $view_data['no_pause'],
-						'adapt_height'       => false,
-						'adapt_height_speed' => .5,
-						'stretch'            => isset( $view_data['stretch'] ) ? 1 : 0,
-					);
-
-					unset(
-						$view_data['effect'],
-						$view_data['effect_for'],
-						$view_data['no_pause'],
-						$view_data['show_for'],
-						$view_data['stretch']
-					);
-
-					if ( isset( $view_data['slideshow_nav'] ) ) {
-						switch ( $view_data['slideshow_nav'] ) {
-							case 'simple':
-								$view_data['slideshow_settings']['controls_type']  = 'none';
-								$view_data['slideshow_settings']['controls_style'] = 'buttons';
-								$view_data['slideshow_settings']['pager_type']     = 'full';
-								$view_data['slideshow_settings']['pager_style']    = 'buttons';
-								$view_data['slideshow_settings']['nav_position']   = 'inside';
-								break;
-							case 'buttons1':
-								$view_data['slideshow_settings']['controls_type']  = 'sides';
-								$view_data['slideshow_settings']['controls_style'] = 'buttons';
-								$view_data['slideshow_settings']['pager_type']     = 'none';
-								$view_data['slideshow_settings']['pager_style']    = 'buttons';
-								$view_data['slideshow_settings']['nav_position']   = 'inside';
-								break;
-							case 'buttons2':
-								$view_data['slideshow_settings']['controls_type']  = 'simple';
-								$view_data['slideshow_settings']['controls_style'] = 'buttons2';
-								$view_data['slideshow_settings']['pager_type']     = 'none';
-								$view_data['slideshow_settings']['pager_style']    = 'buttons';
-								$view_data['slideshow_settings']['nav_position']   = 'inside';
-								break;
-							case 'indexed':
-								$view_data['slideshow_settings']['controls_type']  = 'none';
-								$view_data['slideshow_settings']['controls_style'] = 'buttons';
-								$view_data['slideshow_settings']['pager_type']     = 'full';
-								$view_data['slideshow_settings']['pager_style']    = 'text';
-								$view_data['slideshow_settings']['nav_position']   = 'inside';
-								break;
-							default:
-								// none
-						}
-						unset( $view_data['slideshow_nav'] );
-					}
-
-				}
-
-				/**
-				 * Title link
-				 *
-				 * @since 2.26.0
-				 */
+			/**
+			 * Title link
+			 *
+			 * @since 2.26.0
+			 */
+			if ( ! isset( $view_data['title_link'] ) ) {
 				$view_data['title_link'] = 0;
+			}
 
-				// Merge in new default values.
-				$view['data'] = array_merge( $default_view, $view_data );
+			// Merge in new default values.
+			$view['data'] = array_merge( $default_view, $view_data );
 
-				// Merge nested arrays individually. Don't use array_merge_recursive.
-				$view['data']['background']         = array_merge( $default_view['background'], $view_data['background'] );
-				$view['data']['slideshow_settings'] = array_merge( $default_view['slideshow_settings'], $view_data['slideshow_settings'] );
-				ksort( $view['data']['slideshow_settings'] );
+			// Merge nested arrays individually. Don't use array_merge_recursive.
+			$view['data']['background']         = array_merge( $default_view['background'], $view_data['background'] );
+			$view['data']['slideshow_settings'] = array_merge( $default_view['slideshow_settings'], $view_data['slideshow_settings'] );
+			ksort( $view['data']['slideshow_settings'] );
 
-				wpmtst_save_view( $view );
+			wpmtst_save_view( $view );
 
-			} // foreach $view
+		} // foreach $view
+	}
 
+	/**
+	 * Update tables.
+	 *
+	 * @since 1.21.0 Checking for new table version.
+	 */
+	public static function update_db_check() {
+		if ( get_option( 'wpmtst_db_version' ) != WPMST()->get_db_version() ) {
+			self::update_tables();
 		}
+	}
 
-		/**
-		 * -8- GET L10N CONTEXTS
-		 * @deprecated
-		 */
-		delete_option( 'wpmtst_l10n_contexts' );
+	/**
+	 * Add tables for Views.
+	 *
+	 * @since 1.21.0
+	 */
+	public static function update_tables() {
+		global $wpdb;
+		require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
 
-		/**
-		 * After all is said and done, update history log.
-		 *
-		 * @since 2.12.4
-		 */
-		if ( ! isset( $history['2.12.4_convert_modern_template'] ) ) {
-			$history['2.12.4_convert_modern_template'] = current_time( 'mysql' );
-			update_option( 'wpmtst_history', $history );
-		}
-		if ( ! isset( $history['2.21.0_enable_rating_default_options'] ) ) {
-			$history['2.21.0_enable_rating_default_options'] = current_time( 'mysql' );
-			update_option( 'wpmtst_history', $history );
-		}
-		if ( ! isset( $history['2.23.0_convert_nofollow'] ) ) {
-			$history['2.23.0_convert_nofollow'] = current_time( 'mysql' );
-			update_option( 'wpmtst_history', $history );
-		}
+		$charset_collate = $wpdb->get_charset_collate();
 
-		/**
-		 * Update the plugin version.
-		 */
-		update_option( 'wpmtst_plugin_version', WPMTST_VERSION );
+		$table_name = $wpdb->prefix . 'strong_views';
 
-		/**
-		 * Remove older attempts at admin notices.
-		 */
-		delete_option( 'wpmtst_admin_notices' );
-		delete_option( 'wpmtst_news_flag' );
+		$sql = "CREATE TABLE $table_name (
+			id mediumint(9) NOT NULL AUTO_INCREMENT,
+			name varchar(100) NOT NULL,
+			value text NOT NULL,
+			PRIMARY KEY  (id)
+		) $charset_collate;";
 
+		// TODO Error handling
+		$result = dbDelta( $sql );
+
+		update_option( 'wpmtst_db_version', WPMST()->get_db_version() );
 	}
 
 	/**
@@ -699,45 +796,6 @@ class Strong_Testimonials_Updater {
 		$wordstring = join( '', $allwords );
 
 		return round( strlen( $wordstring ) / count( $allwords ) );
-	}
-
-
-	/**
-	 * Update tables.
-	 *
-	 * @since 1.21.0 Checking for new table version.
-	 */
-	public static function update_db_check() {
-		if ( get_option( 'wpmtst_db_version' ) != WPMST()->get_db_version() ) {
-			self::update_tables();
-		}
-	}
-
-
-	/**
-	 * Add tables for Views.
-	 *
-	 * @since 1.21.0
-	 */
-	public static function update_tables() {
-		global $wpdb;
-		require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
-
-		$charset_collate = $wpdb->get_charset_collate();
-
-		$table_name = $wpdb->prefix . 'strong_views';
-
-		$sql = "CREATE TABLE $table_name (
-			id mediumint(9) NOT NULL AUTO_INCREMENT,
-			name varchar(100) NOT NULL,
-			value text NOT NULL,
-			PRIMARY KEY  (id)
-		) $charset_collate;";
-
-		// TODO Error handling
-		$result = dbDelta( $sql );
-
-		update_option( 'wpmtst_db_version', WPMST()->get_db_version() );
 	}
 
 	/**

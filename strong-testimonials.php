@@ -254,6 +254,7 @@ final class Strong_Testimonials {
 
 		if ( is_admin() || ( defined( 'WP_CLI' ) && WP_CLI ) ) {
 
+			require_once WPMTST_INC . 'class-strong-testimonials-defaults.php';
 			require_once WPMTST_INC . 'class-strong-testimonials-list-table.php';
 			require_once WPMTST_INC . 'class-strong-views-list-table.php';
 			require_once WPMTST_INC . 'class-walker-strong-category-checklist.php';

@@ -51,8 +51,7 @@ function wpmtst_settings_custom_fields( $form_id = 1 ) {
 		} elseif ( isset( $_POST['restore-defaults'] ) ) {
 
 			// Restore defaults
-			include_once WPMTST_INC . 'defaults.php';
-			$default_forms = wpmtst_get_default_base_forms();
+			$default_forms = Strong_Testimonials_Defaults::get_base_forms();
 			$fields = $default_forms['default']['fields'];
 			$forms[ $form_id ]['fields'] = $fields;
 			update_option( 'wpmtst_custom_forms', $forms );
