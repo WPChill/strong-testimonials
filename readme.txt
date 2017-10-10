@@ -3,7 +3,7 @@ Contributors: cdillon27
 Tags: testimonials, testimonial slider, testimonial form, reviews, star ratings
 Requires at least: 3.6
 Tested up to: 4.8.2
-Stable tag: 2.27.1
+Stable tag: 2.27.2
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -175,6 +175,9 @@ If you prefer not to post your URL publicly, start a private support ticket at [
 8. View editor
 
 == Changelog ==
+
+= 2.27.2 - Oct 10, 2017 =
+* Fix bug in update process.
 
 = 2.27.1 - Oct 9, 2017 =
 * Fix bug in update process.
