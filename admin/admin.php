@@ -935,13 +935,12 @@ add_action( 'save_post', 'wpmtst_save_details' );
  */
 function wpmtst_version_check() {
 	global $wp_version;
-	$plugin_info = WPMST()->get_plugin_data();
 	$require_wp_version = "3.6";
 
 	if ( version_compare( $wp_version, $require_wp_version ) == -1 ) {
 		deactivate_plugins( WPMTST_PLUGIN );
 		/* translators: %s is the name of the plugin. */
-		$message = '<h2>' . sprintf( _x( 'Unable to load %s', 'installation', 'strong-testimonials' ), $plugin_info['Name'] ) . '</h2>';
+		$message = '<h2>' . sprintf( _x( 'Unable to load %s', 'installation', 'strong-testimonials' ), 'Strong Testimonials' ) . '</h2>';
 		/* translators: %s is a WordPress version number. */
 		$message .= '<p>' . sprintf( _x( 'This plugin requires <strong>WordPress %s</strong> or higher so it has been deactivated.', 'installation', 'strong-testimonials' ), $require_wp_version ) . '</p>';
 		$message .= '<p>' . _x( 'Please upgrade WordPress and try again.', 'installation', 'strong-testimonials' ) . '</p>';
