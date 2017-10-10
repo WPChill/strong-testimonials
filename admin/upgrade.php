@@ -14,6 +14,22 @@
  * be displayed in the form editor.
  */
 
+/**
+ * Return admin role.
+ *
+ * @since 2.27.0
+ *
+ * @return bool|null|WP_Role
+ */
+function wpmtst_get_admins() {
+	return get_role( 'administrator' );
+}
+
+/**
+ * Add custom capabilities.
+ *
+ * @since 2.27.1
+ */
 function wpmtst_add_caps() {
 	if ( $admins = wpmtst_get_admins() ) {
 		$admins->add_cap( 'strong_testimonials_views' );
@@ -23,6 +39,11 @@ function wpmtst_add_caps() {
 	}
 }
 
+/**
+ * Remove custom capabilities.
+ *
+ * @since 2.27.1
+ */
 function wpmtst_remove_caps() {
 	if ( $admins = wpmtst_get_admins() ) {
 		$admins->remove_cap( 'strong_testimonials_views' );

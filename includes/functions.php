@@ -957,19 +957,3 @@ function wpmtst_trim_array( $input ) {
 
 	return array_map( 'wpmtst_trim_array', $input );
 }
-
-
-/**
- * Return admin role.
- *
- * @since 2.27.0
- *
- * @return bool|null|WP_Role
- */
-function wpmtst_get_admins() {
-	if ( is_multisite() ) {
-		return false;
-	} else {
-		return get_role( 'administrator' );
-	}
-}
