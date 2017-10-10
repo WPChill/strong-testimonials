@@ -66,6 +66,54 @@ class Strong_Testimonials_Updater {
 	}
 
 	/**
+	 * Update tables.
+	 *
+	 * @since 1.21.0 Checking for new table version.
+	 */
+	public static function update_db_check() {
+		if ( get_option( 'wpmtst_db_version' ) != WPMST()->get_db_version() ) {
+			self::update_tables();
+		}
+	}
+
+	/**
+	 * Add tables for Views.
+	 *
+	 * @since 1.21.0
+	 */
+	public static function update_tables() {
+		global $wpdb;
+		require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+
+		$charset_collate = $wpdb->get_charset_collate();
+
+		$table_name = $wpdb->prefix . 'strong_views';
+
+		$sql = "CREATE TABLE $table_name (
+			id mediumint(9) NOT NULL AUTO_INCREMENT,
+			name varchar(100) NOT NULL,
+			value text NOT NULL,
+			PRIMARY KEY  (id)
+		) $charset_collate;";
+
+		// TODO Error handling
+		$result = dbDelta( $sql );
+
+		update_option( 'wpmtst_db_version', WPMST()->get_db_version() );
+	}
+
+	/**
+	 * Redirect to About page.
+	 */
+	public static function activation_redirect() {
+		if ( get_option( 'wpmtst_do_activation_redirect', false ) ) {
+			delete_option( 'wpmtst_do_activation_redirect' );
+			wp_redirect( admin_url( 'edit.php?post_type=wpm-testimonial&page=about-strong-testimonials' ) );
+			exit;
+		}
+	}
+
+	/**
 	 * Plugin activation and upgrade.
 	 *
 	 * ---------
@@ -80,7 +128,6 @@ class Strong_Testimonials_Updater {
 	 * be displayed in the form editor.
 	 */
 	public static function update() {
-
 		if ( self::$old_version == WPMTST_VERSION ) {
 			return;
 		}
@@ -474,6 +521,7 @@ class Strong_Testimonials_Updater {
 		}
 
 		$default_view = get_option( 'wpmtst_view_default' );
+		$history = get_option( 'wpmtst_history', array() );
 
 		foreach ( $views as $key => $view ) {
 
@@ -482,195 +530,24 @@ class Strong_Testimonials_Updater {
 				continue;
 			}
 
-			/**
-			 * Compat mode no longer needed.
-			 *
-			 * @since 2.22.0
-			 */
-			unset( $view_data['compat'] );
+			if ( ! isset( $history['2.28_new_update_process'] ) ) {
+				/**
+				 * Compat mode no longer needed.
+				 *
+				 * @since 2.22.0
+				 */
+				unset( $view_data['compat'] );
 
-			// Change default template from empty to 'default:{type}'
-			if ( ! $view_data['template'] ) {
-				if ( 'form' == $view_data['mode'] ) {
-					$type = 'form';
-				} else {
-					$type = 'content';
-				} // list or slideshow
-
-				$view_data['template'] = "default:$type";
-			} else {
-				// Convert name; e.g. 'simple/testimonials.php'
-				if ( 'widget/testimonials.php' == $view_data['template'] ) {
-					$view_data['template'] = 'default:widget';
-				} else {
-					$view_data['template'] = str_replace( '/', ':', $view_data['template'] );
-					$view_data['template'] = str_replace( 'testimonials.php', 'content', $view_data['template'] );
-					$view_data['template'] = str_replace( 'testimonial-form.php', 'form', $view_data['template'] );
-				}
-			}
-
-			// Convert count value of -1 to 'all'
-			if ( - 1 == $view_data['count'] ) {
-				$view_data['count'] = 1;
-				$view_data['all']   = 1;
-			}
-
-			// Convert background color
-			if ( ! is_array( $view_data['background'] ) ) {
-				$view_data['background'] = array(
-					'color' => $view_data['background'],
-					'type'  => 'single',
-				);
-			}
-
-			// Convert 'form-ajax' (hyphen) to 'form_ajax' (underscore)
-			if ( isset( $view_data['form-ajax'] ) ) {
-				$view_data['form_ajax'] = $view_data['form-ajax'];
-				unset( $view_data['form-ajax'] );
-			}
-
-			if ( isset( $view_data['pagination'] ) && $view_data['pagination'] ) {
-				if ( isset( $view_data['layout'] ) && 'masonry' == $view_data['layout'] ) {
-					$view_data['layout'] = '';
-				}
-			}
-
-			/**
-			 * Move word_count to excerpt_length for versions 2.10.0 to 2.11.3.
-			 *
-			 * @since 2.11.4
-			 */
-			if ( isset( $view_data['word_count'] ) ) {
-				$view_data['excerpt_length'] = $view_data['word_count'];
-				unset ( $view_data['word_count'] );
-			}
-
-			/**
-			 * Convert length (characters).
-			 *
-			 * @since 2.10.0 word_count (deprecated)
-			 * @since 2.11.4 excerpt_length
-			 */
-			if ( ! isset( $view_data['excerpt_length'] ) || ! $view_data['excerpt_length'] ) {
-				$average_word_length = self::get_average_word_length();
-
-				if ( isset( $view_data['length'] ) && $view_data['length'] ) {
-					$word_count                  = round( $view_data['length'] / $average_word_length );
-					$word_count                  = $word_count < 5 ? 5 : $word_count;
-					$word_count                  = $word_count > 300 ? 300 : $word_count;
-					$view_data['excerpt_length'] = $word_count;
-				} else {
-					$view_data['excerpt_length'] = $default_view['excerpt_length'];
-				}
-
-				unset( $view_data['length'] );
-			}
-
-			/**
-			 * Convert more_text to post or page.
-			 *
-			 * @since 2.10.0
-			 */
-			if ( isset( $view_data['more_text'] ) ) {
-				if ( isset( $view_data['more_page'] ) && $view_data['more_page'] > 1 ) {
-					// convert more_page to toggle and move page id to more_page_id
-					$view_data['more_page_id']   = $view_data['more_page'];
-					$view_data['more_page']      = 1;
-					$view_data['more_page_text'] = $view_data['more_text'];
-				} elseif ( isset( $view_data['more_post'] ) && $view_data['more_post'] ) {
-					$view_data['more_post_text'] = $view_data['more_text'];
-				}
-				unset( $view_data['more_text'] );
-			}
-
-			/**
-			 * Disable title on Modern template because new version of template has the title.
-			 * Only if updating from version earlier than 2.12.4.
-			 */
-			if ( 'modern:content' == $view_data['template'] ) {
-				if ( ! isset( $history['2.12.4_convert_modern_template'] ) ) {
-					$view_data['title'] = 0;
-					self::update_history_log( '2.12.4_convert_modern_template' );
-				}
-			}
-
-			/**
-			 * Convert slideshow settings.
-			 *
-			 * @since 2.15.0
-			 */
-			if ( 'slideshow' == $view_data['mode'] ) {
-				$view_data['slideshow'] = 1;
-			}
-			if ( ! isset( $view_data['slideshow_settings'] ) ) {
-
-				if ( 'scrollHorz' == $view_data['effect'] ) {
-					$view_data['effect'] = 'horizontal';
-				}
-
-				$view_data['slideshow_settings'] = array(
-					'effect'             => $view_data['effect'],
-					'speed'              => $view_data['effect_for'],
-					'pause'              => $view_data['show_for'],
-					'auto_hover'         => ! $view_data['no_pause'],
-					'adapt_height'       => false,
-					'adapt_height_speed' => .5,
-					'stretch'            => isset( $view_data['stretch'] ) ? 1 : 0,
-				);
-
-				unset(
-					$view_data['effect'],
-					$view_data['effect_for'],
-					$view_data['no_pause'],
-					$view_data['show_for'],
-					$view_data['stretch']
-				);
-
-				if ( isset( $view_data['slideshow_nav'] ) ) {
-					switch ( $view_data['slideshow_nav'] ) {
-						case 'simple':
-							$view_data['slideshow_settings']['controls_type']  = 'none';
-							$view_data['slideshow_settings']['controls_style'] = 'buttons';
-							$view_data['slideshow_settings']['pager_type']     = 'full';
-							$view_data['slideshow_settings']['pager_style']    = 'buttons';
-							$view_data['slideshow_settings']['nav_position']   = 'inside';
-							break;
-						case 'buttons1':
-							$view_data['slideshow_settings']['controls_type']  = 'sides';
-							$view_data['slideshow_settings']['controls_style'] = 'buttons';
-							$view_data['slideshow_settings']['pager_type']     = 'none';
-							$view_data['slideshow_settings']['pager_style']    = 'buttons';
-							$view_data['slideshow_settings']['nav_position']   = 'inside';
-							break;
-						case 'buttons2':
-							$view_data['slideshow_settings']['controls_type']  = 'simple';
-							$view_data['slideshow_settings']['controls_style'] = 'buttons2';
-							$view_data['slideshow_settings']['pager_type']     = 'none';
-							$view_data['slideshow_settings']['pager_style']    = 'buttons';
-							$view_data['slideshow_settings']['nav_position']   = 'inside';
-							break;
-						case 'indexed':
-							$view_data['slideshow_settings']['controls_type']  = 'none';
-							$view_data['slideshow_settings']['controls_style'] = 'buttons';
-							$view_data['slideshow_settings']['pager_type']     = 'full';
-							$view_data['slideshow_settings']['pager_style']    = 'text';
-							$view_data['slideshow_settings']['nav_position']   = 'inside';
-							break;
-						default:
-							// none
-					}
-					unset( $view_data['slideshow_nav'] );
-				}
-
-			}
-
-			/**
-			 * Title link
-			 *
-			 * @since 2.26.0
-			 */
-			if ( ! isset( $view_data['title_link'] ) ) {
-				$view_data['title_link'] = 0;
+				$view_data = self::convert_template_name( $view_data );
+				$view_data = self::convert_count( $view_data );
+				$view_data = self::convert_background_color( $view_data );
+				$view_data = self::convert_form_ajax( $view_data );
+				$view_data = self::convert_word_count( $view_data );
+				$view_data = self::convert_excerpt_length( $view_data );
+				$view_data = self::convert_more_text( $view_data );
+				$view_data = self::convert_modern_title( $view_data );
+				$view_data = self::convert_slideshow( $view_data );
+				$view_data = self::convert_title_link( $view_data );
 			}
 
 			// Merge in new default values.
@@ -687,40 +564,278 @@ class Strong_Testimonials_Updater {
 	}
 
 	/**
-	 * Update tables.
+	 * Update template naming structure.
 	 *
-	 * @since 1.21.0 Checking for new table version.
+	 * @param $view_data
+	 *
+	 * @return array
 	 */
-	public static function update_db_check() {
-		if ( get_option( 'wpmtst_db_version' ) != WPMST()->get_db_version() ) {
-			self::update_tables();
+	public static function convert_template_name( $view_data ) {
+		// Change default template from empty to 'default:{type}'
+		if ( ! $view_data['template'] ) {
+			if ( 'form' == $view_data['mode'] ) {
+				$type = 'form';
+			} else {
+				$type = 'content';
+			}
+
+			$view_data['template'] = "default:$type";
+		} else {
+			// Convert name; e.g. 'simple/testimonials.php'
+			if ( 'widget/testimonials.php' == $view_data['template'] ) {
+				$view_data['template'] = 'default:widget';
+			} else {
+				$view_data['template'] = str_replace( '/', ':', $view_data['template'] );
+				$view_data['template'] = str_replace( 'testimonials.php', 'content', $view_data['template'] );
+				$view_data['template'] = str_replace( 'testimonial-form.php', 'form', $view_data['template'] );
+			}
 		}
+
+		return $view_data;
 	}
 
 	/**
-	 * Add tables for Views.
+	 * Convert length (characters).
 	 *
-	 * @since 1.21.0
+	 * @since 2.10.0 word_count (deprecated)
+	 * @since 2.11.4 excerpt_length
+	 *
+	 * @param $view_data
+	 *
+	 * @return array
 	 */
-	public static function update_tables() {
-		global $wpdb;
-		require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+	public static function convert_excerpt_length( $view_data ) {
+		if ( ! isset( $view_data['excerpt_length'] ) || ! $view_data['excerpt_length'] ) {
+			$default_view = Strong_Testimonials_Defaults::get_default_view();
+			$average_word_length = self::get_average_word_length();
 
-		$charset_collate = $wpdb->get_charset_collate();
+			if ( isset( $view_data['length'] ) && $view_data['length'] ) {
+				$word_count                  = round( $view_data['length'] / $average_word_length );
+				$word_count                  = $word_count < 5 ? 5 : $word_count;
+				$word_count                  = $word_count > 300 ? 300 : $word_count;
+				$view_data['excerpt_length'] = $word_count;
+			} else {
+				$view_data['excerpt_length'] = $default_view['excerpt_length'];
+			}
 
-		$table_name = $wpdb->prefix . 'strong_views';
+			unset( $view_data['length'] );
+		}
 
-		$sql = "CREATE TABLE $table_name (
-			id mediumint(9) NOT NULL AUTO_INCREMENT,
-			name varchar(100) NOT NULL,
-			value text NOT NULL,
-			PRIMARY KEY  (id)
-		) $charset_collate;";
+		return $view_data;
+	}
 
-		// TODO Error handling
-		$result = dbDelta( $sql );
+	/**
+	 * Convert more_text to post or page.
+	 *
+	 * @since 2.10.0
+	 *
+	 * @param $view_data
+	 *
+	 * @return array
+	 */
+	public static function convert_more_text( $view_data ) {
+		if ( isset( $view_data['more_text'] ) ) {
+			if ( isset( $view_data['more_page'] ) && $view_data['more_page'] > 1 ) {
+				// convert more_page to toggle and move page id to more_page_id
+				$view_data['more_page_id']   = $view_data['more_page'];
+				$view_data['more_page']      = 1;
+				$view_data['more_page_text'] = $view_data['more_text'];
+			} elseif ( isset( $view_data['more_post'] ) && $view_data['more_post'] ) {
+				$view_data['more_post_text'] = $view_data['more_text'];
+			}
+			unset( $view_data['more_text'] );
+		}
 
-		update_option( 'wpmtst_db_version', WPMST()->get_db_version() );
+		return $view_data;
+	}
+
+	/**
+	 * Convert slideshow settings.
+	 *
+	 * @since 2.15.0
+	 *
+	 * @param $view_data
+	 *
+	 * @return array
+	 */
+	public static function convert_slideshow( $view_data ) {
+		if ( 'slideshow' == $view_data['mode'] ) {
+			$view_data['slideshow'] = 1;
+		}
+
+		if ( ! isset( $view_data['slideshow_settings'] ) ) {
+
+			if ( 'scrollHorz' == $view_data['effect'] ) {
+				$view_data['effect'] = 'horizontal';
+			}
+
+			$view_data['slideshow_settings'] = array(
+				'effect'             => $view_data['effect'],
+				'speed'              => $view_data['effect_for'],
+				'pause'              => $view_data['show_for'],
+				'auto_hover'         => ! $view_data['no_pause'],
+				'adapt_height'       => false,
+				'adapt_height_speed' => .5,
+				'stretch'            => isset( $view_data['stretch'] ) ? 1 : 0,
+			);
+
+			unset(
+				$view_data['effect'],
+				$view_data['effect_for'],
+				$view_data['no_pause'],
+				$view_data['show_for'],
+				$view_data['stretch']
+			);
+
+			if ( isset( $view_data['slideshow_nav'] ) ) {
+				switch ( $view_data['slideshow_nav'] ) {
+					case 'simple':
+						$view_data['slideshow_settings']['controls_type']  = 'none';
+						$view_data['slideshow_settings']['controls_style'] = 'buttons';
+						$view_data['slideshow_settings']['pager_type']     = 'full';
+						$view_data['slideshow_settings']['pager_style']    = 'buttons';
+						$view_data['slideshow_settings']['nav_position']   = 'inside';
+						break;
+					case 'buttons1':
+						$view_data['slideshow_settings']['controls_type']  = 'sides';
+						$view_data['slideshow_settings']['controls_style'] = 'buttons';
+						$view_data['slideshow_settings']['pager_type']     = 'none';
+						$view_data['slideshow_settings']['pager_style']    = 'buttons';
+						$view_data['slideshow_settings']['nav_position']   = 'inside';
+						break;
+					case 'buttons2':
+						$view_data['slideshow_settings']['controls_type']  = 'simple';
+						$view_data['slideshow_settings']['controls_style'] = 'buttons2';
+						$view_data['slideshow_settings']['pager_type']     = 'none';
+						$view_data['slideshow_settings']['pager_style']    = 'buttons';
+						$view_data['slideshow_settings']['nav_position']   = 'inside';
+						break;
+					case 'indexed':
+						$view_data['slideshow_settings']['controls_type']  = 'none';
+						$view_data['slideshow_settings']['controls_style'] = 'buttons';
+						$view_data['slideshow_settings']['pager_type']     = 'full';
+						$view_data['slideshow_settings']['pager_style']    = 'text';
+						$view_data['slideshow_settings']['nav_position']   = 'inside';
+						break;
+					default:
+						// none
+				}
+				unset( $view_data['slideshow_nav'] );
+			}
+
+		}
+
+		return $view_data;
+	}
+
+	/**
+	 * Convert count value of -1 to 'all'.
+	 *
+	 * @param $view_data
+	 *
+	 * @return array
+	 */
+	public static function convert_count( $view_data ) {
+		if ( -1 == $view_data['count'] ) {
+			$view_data['count'] = 1;
+			$view_data['all']   = 1;
+		}
+
+		return $view_data;
+	}
+
+	/**
+	 * Convert background color.
+	 *
+	 * @param $view_data
+	 *
+	 * @return array
+	 */
+	public static function convert_background_color( $view_data ) {
+		if ( ! is_array( $view_data['background'] ) ) {
+			$view_data['background'] = array(
+				'color' => $view_data['background'],
+				'type'  => 'single',
+			);
+		}
+
+		return $view_data;
+	}
+
+	/**
+	 * Convert 'form-ajax' (hyphen) to 'form_ajax' (underscore).
+	 *
+	 * @param $view_data
+	 *
+	 * @return array
+	 */
+	public static function convert_form_ajax( $view_data ) {
+		if ( isset( $view_data['form-ajax'] ) ) {
+			$view_data['form_ajax'] = $view_data['form-ajax'];
+			unset( $view_data['form-ajax'] );
+		}
+
+		if ( isset( $view_data['pagination'] ) && $view_data['pagination'] ) {
+			if ( isset( $view_data['layout'] ) && 'masonry' == $view_data['layout'] ) {
+				$view_data['layout'] = '';
+			}
+		}
+
+		return $view_data;
+	}
+
+	/**
+	 * Move word_count to excerpt_length for versions 2.10.0 to 2.11.3.
+	 *
+	 * @since 2.11.4
+
+	 * @param $view_data
+	 *
+	 * @return array
+	 */
+	public static function convert_word_count( $view_data ) {
+		if ( isset( $view_data['word_count'] ) ) {
+			$view_data['excerpt_length'] = $view_data['word_count'];
+			unset( $view_data['word_count'] );
+		}
+
+		return $view_data;
+	}
+
+	/**
+	 * Disable title on Modern template because new version of template has the title.
+	 * Only if updating from version earlier than 2.12.4.
+	 *
+	 * @param $view_data
+	 *
+	 * @return array
+	 */
+	public static function convert_modern_title( $view_data ) {
+		if ( 'modern:content' == $view_data['template'] ) {
+			if ( ! isset( $history['2.12.4_convert_modern_template'] ) ) {
+				$view_data['title'] = 0;
+				self::update_history_log( '2.12.4_convert_modern_template' );
+			}
+		}
+
+		return $view_data;
+	}
+
+	/**
+	 * Title link
+	 *
+	 * @since 2.26.0
+
+	 * @param $view_data
+	 *
+	 * @return array
+	 */
+	public static function convert_title_link( $view_data ) {
+		if ( ! isset( $view_data['title_link'] ) ) {
+			$view_data['title_link'] = 0;
+		}
+
+		return $view_data;
 	}
 
 	/**
@@ -796,17 +911,6 @@ class Strong_Testimonials_Updater {
 		$wordstring = join( '', $allwords );
 
 		return round( strlen( $wordstring ) / count( $allwords ) );
-	}
-
-	/**
-	 * Redirect to About page.
-	 */
-	public static function activation_redirect() {
-		if ( get_option( 'wpmtst_do_activation_redirect', false ) ) {
-			delete_option( 'wpmtst_do_activation_redirect' );
-			wp_redirect( admin_url( 'edit.php?post_type=wpm-testimonial&page=about-strong-testimonials' ) );
-			exit;
-		}
 	}
 
 }

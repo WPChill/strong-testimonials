@@ -254,13 +254,12 @@ final class Strong_Testimonials {
 
 		if ( is_admin() || ( defined( 'WP_CLI' ) && WP_CLI ) ) {
 
-			require_once WPMTST_INC . 'class-strong-testimonials-defaults.php';
-			require_once WPMTST_INC . 'class-strong-testimonials-list-table.php';
-			require_once WPMTST_INC . 'class-strong-views-list-table.php';
-			require_once WPMTST_INC . 'class-walker-strong-category-checklist.php';
-			require_once WPMTST_INC . 'class-walker-strong-form-category-checklist.php';
-
+			require_once WPMTST_ADMIN . 'class-strong-testimonials-defaults.php';
 			require_once WPMTST_ADMIN . 'class-strong-testimonials-updater.php';
+			require_once WPMTST_ADMIN . 'class-strong-testimonials-list-table.php';
+			require_once WPMTST_ADMIN . 'class-strong-views-list-table.php';
+			require_once WPMTST_ADMIN . 'class-walker-strong-category-checklist.php';
+			require_once WPMTST_ADMIN . 'class-walker-strong-form-category-checklist.php';
 			require_once WPMTST_ADMIN . 'class-strong-testimonials-help.php';
 			require_once WPMTST_ADMIN . 'admin.php';
 			require_once WPMTST_ADMIN . 'admin-notices.php';
@@ -269,12 +268,13 @@ final class Strong_Testimonials {
 			require_once WPMTST_ADMIN . 'custom-fields.php';
 			require_once WPMTST_ADMIN . 'custom-fields-ajax.php';
 			require_once WPMTST_ADMIN . 'form-preview.php';
-			require_once WPMTST_ADMIN . '/about/index.php';
 			require_once WPMTST_ADMIN . 'settings.php';
 			require_once WPMTST_ADMIN . 'views.php';
 			require_once WPMTST_ADMIN . 'views-ajax.php';
 			require_once WPMTST_ADMIN . 'view-list-order.php';
 			require_once WPMTST_ADMIN . 'views-validate.php';
+
+			require_once WPMTST_ADMIN . '/about/index.php';
 
 			/**
 			 * Add-on plugin updater.
@@ -282,9 +282,9 @@ final class Strong_Testimonials {
 			 * @since 2.1
 			 */
 			if ( ! class_exists( 'EDD_SL_Plugin_Updater' ) ) {
-				include WPMTST_INC . 'edd/EDD_SL_Plugin_Updater.php';
+				include WPMTST_ADMIN . 'edd/EDD_SL_Plugin_Updater.php';
 			}
-			include WPMTST_INC . 'edd/Strong_Plugin_Updater.php';
+			include WPMTST_ADMIN . 'edd/Strong_Plugin_Updater.php';
 		}
 	}
 
