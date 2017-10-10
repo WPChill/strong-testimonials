@@ -9,29 +9,29 @@
  */
 function wpmtst_admin_init() {
 
-	// Store plugin data from file header
-	WPMST()->set_plugin_data();
+    // Store plugin data from file header
+    WPMST()->set_plugin_data();
 
-	// Check WordPress version
-	wpmtst_version_check();
+    // Check WordPress version
+    wpmtst_version_check();
 
-	// Check for new options in plugin update
-	wpmtst_upgrade();
+    // Check for new options in plugin update
+    wpmtst_upgrade();
 
-	// Remove ad banner from Captcha plugin
-	remove_action( 'admin_notices', 'cptch_plugin_banner' );
+    // Remove ad banner from Captcha plugin
+    remove_action( 'admin_notices', 'cptch_plugin_banner' );
 
-	/**
-	 * Custom action hooks
-	 *
-	 * @since 1.18.4
-	 */
-	if ( isset( $_REQUEST['action'] ) && '' != $_REQUEST['action'] ) {
-		do_action( 'wpmtst_' . $_REQUEST['action'] );
-	}
+    /**
+     * Custom action hooks
+     *
+     * @since 1.18.4
+     */
+    if ( isset( $_REQUEST['action'] ) && '' != $_REQUEST['action'] ) {
+        do_action( 'wpmtst_' . $_REQUEST['action'] );
+    }
 
 }
-add_action( 'init', 'wpmtst_admin_init' );
+add_action( 'admin_init', 'wpmtst_admin_init' );
 
 
 /**
