@@ -95,7 +95,7 @@ class Strong_Testimonials_Updater {
 		$default_view_options = wpmtst_get_default_view_options();
 		$default_view         = apply_filters( 'wpmtst_view_default', wpmtst_get_default_view() );
 
-		$history = wpmtst_get_update_history();
+		$history = get_option( 'wpmtst_history', array() );
 
 		/**
 		 * -2- GET OPTIONS

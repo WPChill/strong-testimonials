@@ -727,19 +727,3 @@ function wpmtst_get_default_view() {
 
 	return $default_view;
 }
-
-/**
- * Update and conversion history.
- *
- * @since 2.12.4
- *
- * @return array
- */
-function wpmtst_get_update_history() {
-	$history = get_option( 'wpmtst_history' );
-	if ( ! $history ) {
-		$history = array();
-	}
-
-	return $history;
-}
