@@ -422,6 +422,18 @@ final class Strong_Testimonials {
 			add_action( 'wp_enqueue_scripts', array( $this, 'find_blackstudio_widgets' ), 1 );
 		}
 
+		add_action( 'wp_enqueue_scripts', array( $this, 'find_all_views' ), 2 );
+
+	}
+
+	public function find_all_views() {
+		$pages = get_pages();
+		foreach ( $pages as $page ) {
+			if ( $this->check_content( $page->post_content ) ) {
+				$this->process_content( $page->post_content );
+			}
+
+		}
 	}
 
 	/**
@@ -1182,7 +1194,7 @@ final class Strong_Testimonials {
 			return;
 		}
 
-		$atts            = shortcode_atts(
+		$atts = shortcode_atts(
 			$this->get_view_defaults(),
 			$atts
 		);

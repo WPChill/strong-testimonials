@@ -1,6 +1,5 @@
 /**
  * Strong Slider
- *
  */
 
 ;(function ($) {
@@ -73,6 +72,7 @@
 
     // Instantiate slider object
     var slider = this.children('.wpmslider-wrapper').wpmSlider(settings)
+    this.attr("data-state", "init")
 
     // Hide entire slider if no slides
     if (0 === settings.slideCount) {
