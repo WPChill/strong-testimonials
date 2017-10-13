@@ -11,6 +11,19 @@ function wpmtst_scripts() {
 	$min = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 
 	/**
+	 * Page controller
+	 *
+	 * @since 2.28.0
+	 */
+	wp_register_script( 'wpmtst-controller',
+		WPMTST_PUBLIC_URL . 'js/controller.js',
+		array( 'jquery' ),
+		$plugin_version,
+		true );
+
+	//wp_localize_script( 'wpmtst-controller', 'strongController', array( 'version' => '1.0' ) );
+
+	/**
 	 * Fonts
 	 */
 	wp_register_style( 'wpmtst-font-awesome',
@@ -29,7 +42,7 @@ function wpmtst_scripts() {
 
 	wp_register_script( 'wpmtst-pager-script',
 		WPMTST_PUBLIC_URL . 'js/pager.js',
-		array( 'wpmtst-pager-plugin' ),
+		array( 'wpmtst-pager-plugin', 'wpmtst-controller' ),
 		$plugin_version,
 		true );
 
@@ -55,7 +68,7 @@ function wpmtst_scripts() {
 	 */
 	wp_register_script( 'wpmtst-masonry-script',
 		WPMTST_PUBLIC_URL . 'js/masonry.js',
-		array( 'jquery-masonry', 'imagesloaded' ),
+		array( 'jquery-masonry', 'imagesloaded', 'wpmtst-controller' ),
 		$plugin_version,
 		true );
 
@@ -77,7 +90,7 @@ function wpmtst_scripts() {
 	 */
 	wp_register_script( 'wpmtst-grid-script',
 		WPMTST_PUBLIC_URL . 'js/grid.js',
-		array( 'jquery' ),
+		array( 'jquery', 'wpmtst-controller' ),
 		$plugin_version,
 		true );
 
@@ -115,7 +128,7 @@ function wpmtst_scripts() {
 
 	wp_register_script( 'wpmtst-form-validation',
 		WPMTST_PUBLIC_URL . "js/lib/form-validation/form-validation{$min}.js",
-		array( 'wpmtst-validation-plugin', 'jquery-form' ),
+		array( 'wpmtst-validation-plugin', 'jquery-form', 'wpmtst-controller' ),
 		$plugin_version,
 		true );
 
@@ -182,7 +195,7 @@ function wpmtst_scripts() {
 	} else {
 		wp_register_script( 'wpmtst-slider',
 			WPMTST_PUBLIC_URL . 'js/slider.js',
-			array( 'strongslider' ),
+			array( 'strongslider', 'wpmtst-controller' ),
 			$plugin_version,
 			true );
 	}

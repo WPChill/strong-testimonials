@@ -4,6 +4,8 @@
 
 jQuery(document).ready(function ($) {
 
+  return
+
   // Load up our slideshows
   var strongSlideshows = $('.strong-view.slider-container')
 
