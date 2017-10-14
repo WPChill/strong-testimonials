@@ -21,7 +21,20 @@ function wpmtst_scripts() {
 		$plugin_version,
 		true );
 
-	//wp_localize_script( 'wpmtst-controller', 'strongController', array( 'version' => '1.0' ) );
+	/*
+	 * Method 0 - No Pjax support
+	 * Method 1 - Universal (timer)
+	 * Method 2 - Target attribute change (data-pjax)
+	 * Method 3 - Target nodes added
+	 * Method 4 - jQuery event emitter
+	 * Method 5 - JavaScript event emitter
+	 *
+	 * Remember: top level is converted to strings!
+	 */
+	$parms = array(
+		'method' => 3,
+	);
+	wp_localize_script( 'wpmtst-controller', 'strongControllerParms', $parms );
 
 	/**
 	 * Fonts

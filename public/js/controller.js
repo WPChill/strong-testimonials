@@ -4,6 +4,12 @@
 
 var strongController = {
 
+  config: {},
+
+  setup: function (settings) {
+    this.config = jQuery.extend(this.defaults, settings)
+  },
+
   mutationObserver: window.MutationObserver || window.WebKitMutationObserver,
 
   eventListenerSupported: window.addEventListener,
@@ -39,7 +45,7 @@ var strongController = {
    *
    * https://stackoverflow.com/a/14570614/51600
    */
-  observeDOMForAttributes: function (obj, callback) {
+  observeDOMForAttrChanged: function (obj, callback) {
     if (this.mutationObserver) {
 
       // define a new observer
@@ -68,7 +74,7 @@ var strongController = {
    *
    * https://stackoverflow.com/a/14570614/51600
    */
-  observeDOMForAddedOrRemoved: function (obj, callback) {
+  observeDOMForAddedNodes: function (obj, callback) {
     if (this.mutationObserver) {
 
       // define a new observer
@@ -103,44 +109,36 @@ var strongController = {
    * Set up timer
    */
   newTimer: function () {
-      if (this.timerId) return
+    if (this.timerId) return
 
-      this.timerId = setTimeout(function tick () {
-        console.log('tick')
-        if (jQuery('.strong-view.slider-container').is(':visible')) {
-          clearTimeout(strongController.timerId)
-          strongController.timerId = null
-          console.log('ready')
-          strongController.initSliders()
-        } else {
-          strongController.timerId = setTimeout(tick, 1000)
-        }
-      }, 1000)
-    },
+    var self = this
+    this.timerId = setTimeout(function tick () {
+      console.log('tick')
+      if (jQuery('.strong-view.slider-container').is(':visible')) {
+        clearTimeout(self.timerId)
+        self.timerId = null
+        console.log('ready')
+        self.initSliders()
+      } else {
+        self.timerId = setTimeout(tick, 1000)
+      }
+    }, 1000)
+  },
 
   /**
    * Initialize controller
    */
   init: function () {
     console.log('strongController:init')
+
+    var settings = {}
+    /** @namespace window.strongControllerParms */
+    if (typeof window.strongControllerParms !== 'undefined') {
+      settings = window.strongControllerParms
+    }
+    this.setup(settings)
+
     this.initSliders()
-
-    // Method 1
-    /**
-     * Observe a specific DOM element
-     */
-    this.observeDOMForAttributes(document.getElementById('content'), strongController.initSliders)
-
-    // Method 3
-    /**
-     * Observe a specific DOM element on a timer
-     */
-    // Calling initSliders here is too soon; the transition is not complete yet.
-    // this.observeDOMForAddedOrRemoved(document.getElementById('content'), strongController.newTimer)
-
-    // Universal solution: An independent timer
-    // this.newTimer()
-
   }
 
 }
@@ -148,18 +146,40 @@ var strongController = {
 
 jQuery(document).ready(function ($) {
 
+  // TODO Convert to a class
+  // TODO Store target element in config
   strongController.init()
 
-  // Method 2 - The theme/plugin uses a dispatcher or event emitter.
-  if (typeof Barba === 'object' && Barba.hasOwnProperty('Dispatcher')) {
-    // Barba.Dispatcher.on('transitionCompleted', strongController.initSliders)
+  switch (strongController.config.method) {
+    case "1":
+      // New method 1: Universal
+      strongController.newTimer()
+      break;
+    case "2":
+      // Observe a specific DOM element
+      strongController.observeDOMForAttrChanged(document.getElementById('content'), strongController.initSliders)
+      break;
+    case "3":
+      // Observe a specific DOM element on a timer
+      // Calling initSliders here is too soon; the transition is not complete yet.
+      strongController.observeDOMForAddedNodes(document.getElementById('content'), strongController.newTimer)
+      break;
+    case "4": // TODO Test
+      // The theme/plugin uses a custom jQuery plugin that emits an event.
+      // Need to know: Pjax container id/class, event name
+      // For example:
+      $('.pjax-container').on('pjax:end', strongController.initSliders)
+      break;
+    case "5":
+      // The theme/plugin uses a dispatcher or event emitter.
+      if (typeof Barba === 'object' && Barba.hasOwnProperty('Dispatcher')) {
+        // Barba.Dispatcher.on('transitionCompleted', strongController.initSliders)
+      }
+      // other examples:
+      // ee.addListener('addStuff', strongController.initSliders)
+      break;
+    default:
+      // no Pjax support
   }
-  // other examples:
-  // ee.addListener('addStuff', strongController.initSliders)
-
-  // Method 4 - The theme/plugin uses a custom jQuery plugin that emits an event.
-  // Need to know: Pjax container id/class, event name
-  // For example:
-  $('.pjax-container').on('pjax:end', strongController.initSliders)
 
 })
