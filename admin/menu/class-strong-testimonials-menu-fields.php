@@ -1,11 +1,11 @@
 <?php
 /**
- * Class Strong_Testimonials_Settings_Fields
+ * Class Strong_Testimonials_Menu_Fields
  */
-class Strong_Testimonials_Settings_Fields {
+class Strong_Testimonials_Menu_Fields {
 
 	/**
-	 * Strong_Testimonials_Settings_Fields constructor.
+	 * Strong_Testimonials_Menu_Fields constructor.
 	 */
 	public function __construct() {}
 
@@ -52,4 +52,4 @@ class Strong_Testimonials_Settings_Fields {
 
 }
 
-Strong_Testimonials_Settings_Fields::init();
+Strong_Testimonials_Menu_Fields::init();

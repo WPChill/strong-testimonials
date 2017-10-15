@@ -1,11 +1,11 @@
 <?php
 /**
- * Class Strong_Testimonials_Settings_Views
+ * Class Strong_Testimonials_Menu_Views
  */
-class Strong_Testimonials_Settings_Views {
+class Strong_Testimonials_Menu_Views {
 
 	/**
-	 * Strong_Testimonials_Settings_Views constructor.
+	 * Strong_Testimonials_Menu_Views constructor.
 	 */
 	public function __construct() {}
 
@@ -52,4 +52,4 @@ class Strong_Testimonials_Settings_Views {
 
 }
 
-Strong_Testimonials_Settings_Views::init();
+Strong_Testimonials_Menu_Views::init();

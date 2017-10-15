@@ -1,11 +1,11 @@
 <?php
 /**
- * Class Strong_Testimonials_Settings_Licenses_Tab
+ * Class Strong_Testimonials_Settings_Licenses
  */
-class Strong_Testimonials_Settings_Licenses_Tab {
+class Strong_Testimonials_Settings_Licenses {
 
 	/**
-	 * Strong_Testimonials_Settings_Licenses_Tab constructor.
+	 * Strong_Testimonials_Settings_Licenses constructor.
 	 */
 	public function __construct() {}
 
@@ -76,4 +76,4 @@ class Strong_Testimonials_Settings_Licenses_Tab {
 
 }
 
-Strong_Testimonials_Settings_Licenses_Tab::init();
+Strong_Testimonials_Settings_Licenses::init();

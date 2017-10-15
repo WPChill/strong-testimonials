@@ -1,8 +1,8 @@
 <?php
 /**
- * Class Strong_Testimonials_Settings_Menu
+ * Class Strong_Testimonials_Menu
  */
-class Strong_Testimonials_Settings_Menu {
+class Strong_Testimonials_Menu {
 
 	/**
 	 * The common parent slug.
@@ -10,7 +10,7 @@ class Strong_Testimonials_Settings_Menu {
     const PARENT_SLUG = 'edit.php?post_type=wpm-testimonial';
 
 	/**
-	 * Strong_Testimonials_Settings_Menu constructor.
+	 * Strong_Testimonials_Menu constructor.
 	 */
     public function __construct() {}
 
@@ -48,4 +48,4 @@ class Strong_Testimonials_Settings_Menu {
 
 }
 
-Strong_Testimonials_Settings_Menu::init();
+Strong_Testimonials_Menu::init();

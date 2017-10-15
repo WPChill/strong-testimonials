@@ -4,8 +4,6 @@
  */
 class Strong_Testimonials_Settings_General {
 
-    public static $callbacks;
-
 	/**
 	 * Strong_Testimonials_Settings_General constructor.
 	 */
@@ -22,105 +20,59 @@ class Strong_Testimonials_Settings_General {
 	 * Add actions and filters.
 	 */
 	public static function add_actions() {
-		add_filter( 'wpmtst_submenu_pages', array( __CLASS__, 'add_submenu' ) );
-		add_action( 'admin_init', array( __CLASS__, 'register_settings' ) );
+	    add_action( 'wpmtst_register_settings', array( __CLASS__, 'register_settings' ) );
+	    add_filter( 'wpmtst_settings_callbacks', array( __CLASS__, 'register_settings_page' ) );
 	}
 
 	/**
-     * Add submenu page.
+	 * Register settings.
+	 */
+	public static function register_settings() {
+		register_setting( 'wpmtst-settings-group', 'wpmtst_options', array( __CLASS__, 'sanitize_options' ) );
+	}
+
+	/**
+     * Register settings page.
      *
 	 * @param $pages
 	 *
 	 * @return mixed
 	 */
-	public static function add_submenu( $pages ) {
-		$pages[30] = self::get_submenu();
-		return $pages;
+	public static function register_settings_page( $pages ) {
+	    $pages['general'] = array( __CLASS__, 'settings_page' );
+	    return $pages;
 	}
 
 	/**
-     * Return submenu page parameters.
-     *
-	 * @return array
-	 */
-	public static function get_submenu() {
-		return array(
-			'page_title' => __( 'Settings', 'strong-testimonials' ),
-	        'menu_title' => __( 'Settings', 'strong-testimonials' ),
-		    'capability' => 'strong_testimonials_options',
-			'menu_slug'  => 'testimonial-settings',
-			'function'   => array( __CLASS__, 'settings_page' ),
-		);
-	}
-
-	/**
-	 * Check for active add-ons.
-	 *
-	 * @since 2.1
-	 */
-	public static function has_active_addons() {
-		return has_action( 'wpmtst_licenses' );
-	}
-
-	/**
-	 * Register settings
-	 */
-	public static function register_settings() {
-		self::$callbacks = apply_filters( 'wpmtst_settings_callbacks', array() );
-        do_action( 'wpmtst_register_settings' );
-	}
-
-	/**
-	 * Settings page
+	 * Print settings page.
 	 */
 	public static function settings_page() {
-		if ( ! current_user_can( 'strong_testimonials_options' ) )
-			wp_die( __( 'You do not have sufficient permissions to access this page.' ) );
-		?>
-		<div class="wrap wpmtst">
+		settings_fields( 'wpmtst-settings-group' );
+		include( WPMTST_ADMIN . 'partials/settings/general.php' );
+	}
 
-			<h1><?php _e( 'Testimonial Settings', 'strong-testimonials' ); ?></h1>
+	/**
+	 * Sanitize settings.
+	 *
+	 * @param $input
+	 *
+	 * @return array
+	 */
+	public static function sanitize_options( $input ) {
+		$input['email_log_level']       = isset( $input['email_log_level'] ) ? (int) $input['email_log_level'] : 1;
+		$input['embed_width']           = $input['embed_width'] ? (int) sanitize_text_field( $input['embed_width'] ) : '';
+		$input['load_font_awesome']     = wpmtst_sanitize_checkbox( $input, 'load_font_awesome' );
+		$input['nofollow']              = wpmtst_sanitize_checkbox( $input, 'nofollow' );
+		$input['pending_indicator']     = wpmtst_sanitize_checkbox( $input, 'pending_indicator' );
+		$input['remove_whitespace']     = wpmtst_sanitize_checkbox( $input, 'remove_whitespace' );
+		$input['reorder']               = wpmtst_sanitize_checkbox( $input, 'reorder' );
+		$input['scrolltop']             = wpmtst_sanitize_checkbox( $input, 'scrolltop' );
+		$input['scrolltop_offset']      = (int) sanitize_text_field( $input['scrolltop_offset'] );
+		$input['support_comments']      = wpmtst_sanitize_checkbox( $input, 'support_comments' );
+		$input['support_custom_fields'] = wpmtst_sanitize_checkbox( $input, 'support_custom_fields' );
+		$input['no_lazyload']           = wpmtst_sanitize_checkbox( $input, 'no_lazyload' );
 
-			<?php if( isset( $_GET['settings-updated'] ) ) : ?>
-				<div id="message" class="updated notice is-dismissible">
-					<p><?php _e( 'Settings saved.' ) ?></p>
-				</div>
-			<?php endif; ?>
-
-			<?php
-			$active_tab = isset( $_GET['tab'] ) ? $_GET['tab'] : 'general';
-			$url        = admin_url( 'edit.php?post_type=wpm-testimonial&page=testimonial-settings' );
-			?>
-			<h2 class="nav-tab-wrapper">
-
-				<a href="<?php echo add_query_arg( 'tab', 'general', $url ); ?>" class="nav-tab <?php echo $active_tab == 'general' ? 'nav-tab-active' : ''; ?>"><?php _ex( 'General', 'adjective', 'strong-testimonials' ); ?></a>
-
-				<a href="<?php echo add_query_arg( 'tab', 'form', $url ); ?>" class="nav-tab <?php echo $active_tab == 'form' ? 'nav-tab-active' : ''; ?>"><?php _e( 'Form', 'strong-testimonials' ); ?></a>
-
-				<?php do_action( 'wpmtst_settings_tabs', $active_tab, $url ); ?>
-
-				<?php if ( self::has_active_addons() ): ?>
-					<a href="<?php echo add_query_arg( 'tab', 'licenses', $url ); ?>" class="nav-tab <?php echo $active_tab == 'licenses' ? 'nav-tab-active' : ''; ?>"><?php _e( 'Licenses', 'strong-testimonials' ); ?></a>
-				<?php endif; ?>
-
-			</h2>
-
-			<form id="<?php echo $active_tab; ?>-form" method="post" action="options.php">
-				<?php
-				if ( isset( self::$callbacks[ $active_tab ] ) && wpmtst_callback_exists( self::$callbacks[ $active_tab ] ) ) {
-					call_user_func( self::$callbacks[ $active_tab ] );
-				} else {
-					call_user_func( self::$callbacks['general'] );
-				}
-				?>
-				<p class="submit-row">
-					<?php submit_button( '', 'primary', 'submit-form', false ); ?>
-					<?php do_action( 'wpmtst_settings_submit_row'); ?>
-				</p>
-			</form>
-
-		</div><!-- .wrap -->
-		<?php
+		return $input;
 	}
 
 }

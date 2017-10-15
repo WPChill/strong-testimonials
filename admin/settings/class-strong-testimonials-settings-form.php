@@ -1,11 +1,11 @@
 <?php
 /**
- * Class Strong_Testimonials_Settings_Form_Tab
+ * Class Strong_Testimonials_Settings_Form
  */
-class Strong_Testimonials_Settings_Form_Tab {
+class Strong_Testimonials_Settings_Form {
 
 	/**
-	 * Strong_Testimonials_Settings_Form_Tab constructor.
+	 * Strong_Testimonials_Settings_Form constructor.
 	 */
 	public function __construct() {}
 
@@ -209,4 +209,4 @@ class Strong_Testimonials_Settings_Form_Tab {
 
 }
 
-Strong_Testimonials_Settings_Form_Tab::init();
+Strong_Testimonials_Settings_Form::init();

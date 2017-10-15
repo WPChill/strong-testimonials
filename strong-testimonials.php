@@ -254,13 +254,15 @@ final class Strong_Testimonials {
 
 		if ( is_admin() || ( defined( 'WP_CLI' ) && WP_CLI ) ) {
 
-			require_once WPMTST_ADMIN . 'settings/class-strong-testimonials-settings-menu.php';
+			require_once WPMTST_ADMIN . 'menu/class-strong-testimonials-menu.php';
+			require_once WPMTST_ADMIN . 'menu/class-strong-testimonials-menu-fields.php';
+			require_once WPMTST_ADMIN . 'menu/class-strong-testimonials-menu-settings.php';
+			require_once WPMTST_ADMIN . 'menu/class-strong-testimonials-menu-views.php';
+
+			require_once WPMTST_ADMIN . 'settings/class-strong-testimonials-settings.php';
 			require_once WPMTST_ADMIN . 'settings/class-strong-testimonials-settings-general.php';
-			require_once WPMTST_ADMIN . 'settings/class-strong-testimonials-settings-general-tab.php';
-			require_once WPMTST_ADMIN . 'settings/class-strong-testimonials-settings-form-tab.php';
-			require_once WPMTST_ADMIN . 'settings/class-strong-testimonials-settings-licenses-tab.php';
-			require_once WPMTST_ADMIN . 'settings/class-strong-testimonials-settings-fields.php';
-			require_once WPMTST_ADMIN . 'settings/class-strong-testimonials-settings-views.php';
+			require_once WPMTST_ADMIN . 'settings/class-strong-testimonials-settings-form.php';
+			require_once WPMTST_ADMIN . 'settings/class-strong-testimonials-settings-licenses.php';
 
 			require_once WPMTST_ADMIN . 'about/class-strong-testimonials-about.php';
 
