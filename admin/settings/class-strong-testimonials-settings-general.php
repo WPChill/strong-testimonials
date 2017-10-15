@@ -4,6 +4,10 @@
  */
 class Strong_Testimonials_Settings_General {
 
+	const TAB_NAME = 'general';
+
+	const GROUP_NAME = 'wpmtst-settings-group';
+
 	/**
 	 * Strong_Testimonials_Settings_General constructor.
 	 */
@@ -21,14 +25,29 @@ class Strong_Testimonials_Settings_General {
 	 */
 	public static function add_actions() {
 	    add_action( 'wpmtst_register_settings', array( __CLASS__, 'register_settings' ) );
+	    add_action( 'wpmtst_settings_tabs', array( __CLASS__, 'register_tab' ), 10, 2 );
 	    add_filter( 'wpmtst_settings_callbacks', array( __CLASS__, 'register_settings_page' ) );
+	}
+
+	/**
+	 * Register settings tab.
+	 *
+	 * @param $active_tab
+	 * @param $url
+	 */
+	public static function register_tab( $active_tab, $url ) {
+		printf( '<a href="%s" class="nav-tab %s">%s</a>',
+			esc_url( add_query_arg( 'tab', self::TAB_NAME, $url ) ),
+			esc_attr( $active_tab == self::TAB_NAME ? 'nav-tab-active' : '' ),
+			_x( 'General', 'adjective', 'strong-testimonials' )
+		);
 	}
 
 	/**
 	 * Register settings.
 	 */
 	public static function register_settings() {
-		register_setting( 'wpmtst-settings-group', 'wpmtst_options', array( __CLASS__, 'sanitize_options' ) );
+		register_setting( self::GROUP_NAME, 'wpmtst_options', array( __CLASS__, 'sanitize_options' ) );
 	}
 
 	/**
@@ -39,7 +58,7 @@ class Strong_Testimonials_Settings_General {
 	 * @return mixed
 	 */
 	public static function register_settings_page( $pages ) {
-	    $pages['general'] = array( __CLASS__, 'settings_page' );
+	    $pages[ self::TAB_NAME ] = array( __CLASS__, 'settings_page' );
 	    return $pages;
 	}
 
@@ -47,7 +66,7 @@ class Strong_Testimonials_Settings_General {
 	 * Print settings page.
 	 */
 	public static function settings_page() {
-		settings_fields( 'wpmtst-settings-group' );
+		settings_fields( self::GROUP_NAME );
 		include( WPMTST_ADMIN . 'settings/partials/general.php' );
 	}
 

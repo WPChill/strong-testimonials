@@ -4,6 +4,10 @@
  */
 class Strong_Testimonials_Settings_Form {
 
+	const TAB_NAME = 'form';
+
+	const GROUP_NAME = 'wpmtst-form-group';
+
 	/**
 	 * Strong_Testimonials_Settings_Form constructor.
 	 */
@@ -21,6 +25,7 @@ class Strong_Testimonials_Settings_Form {
 	 */
 	public static function add_actions() {
 	    add_action( 'wpmtst_register_settings', array( __CLASS__, 'register_settings' ) );
+		add_action( 'wpmtst_settings_tabs', array( __CLASS__, 'register_tab' ), 20, 2 );
 		add_filter( 'wpmtst_settings_callbacks', array( __CLASS__, 'register_settings_page' ) );
 
 		add_action( 'wp_ajax_wpmtst_restore_default_messages', array( __CLASS__, 'restore_default_messages_function' ) );
@@ -28,10 +33,24 @@ class Strong_Testimonials_Settings_Form {
 	}
 
 	/**
+	 * Register settings tab.
+	 *
+	 * @param $active_tab
+	 * @param $url
+	 */
+	public static function register_tab( $active_tab, $url ) {
+		printf( '<a href="%s" class="nav-tab %s">%s</a>',
+			esc_url( add_query_arg( 'tab', self::TAB_NAME, $url ) ),
+			esc_attr( $active_tab == self::TAB_NAME ? 'nav-tab-active' : '' ),
+			__( 'Form', 'strong-testimonials' )
+		);
+	}
+
+	/**
 	 * Register settings.
 	 */
 	public static function register_settings() {
-		register_setting( 'wpmtst-form-group', 'wpmtst_form_options', array( __CLASS__, 'sanitize_options' ) );
+		register_setting( self::GROUP_NAME, 'wpmtst_form_options', array( __CLASS__, 'sanitize_options' ) );
 	}
 
 	/**
@@ -42,7 +61,7 @@ class Strong_Testimonials_Settings_Form {
 	 * @return mixed
 	 */
 	public static function register_settings_page( $pages ) {
-		$pages['form'] = array( __CLASS__, 'settings_page' );
+		$pages[ self::TAB_NAME ] = array( __CLASS__, 'settings_page' );
 		return $pages;
 	}
 
@@ -50,7 +69,7 @@ class Strong_Testimonials_Settings_Form {
 	 * Print settings page.
 	 */
 	public static function settings_page() {
-		settings_fields( 'wpmtst-form-group' );
+		settings_fields( self::GROUP_NAME );
 		include( WPMTST_ADMIN . 'settings/partials/form.php' );
 	}
 

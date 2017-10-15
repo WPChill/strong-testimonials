@@ -4,6 +4,10 @@
  */
 class Strong_Testimonials_Settings_Licenses {
 
+	const TAB_NAME = 'licenses';
+
+	const GROUP_NAME = 'wpmtst-license-group';
+
 	/**
 	 * Strong_Testimonials_Settings_Licenses constructor.
 	 */
@@ -21,14 +25,40 @@ class Strong_Testimonials_Settings_Licenses {
 	 */
 	public static function add_actions() {
 	    add_action( 'wpmtst_register_settings', array( __CLASS__, 'register_settings' ) );
+		add_action( 'wpmtst_settings_tabs', array( __CLASS__, 'register_tab' ), 90, 2 );
 		add_filter( 'wpmtst_settings_callbacks', array( __CLASS__, 'register_settings_page' ) );
+	}
+
+	/**
+	 * Check for active add-ons.
+	 *
+	 * @since 2.1
+	 */
+	public static function has_active_addons() {
+		return has_action( 'wpmtst_licenses' );
+	}
+
+	/**
+	 * Register settings tab.
+	 *
+	 * @param $active_tab
+	 * @param $url
+	 */
+	public static function register_tab( $active_tab, $url ) {
+		if ( self::has_active_addons() ) {
+			printf( '<a href="%s" class="nav-tab %s">%s</a>',
+				esc_url( add_query_arg( 'tab', self::TAB_NAME, $url ) ),
+				esc_attr( $active_tab == self::TAB_NAME ? 'nav-tab-active' : '' ),
+				__( 'Licenses', 'strong-testimonials' )
+			);
+		}
 	}
 
 	/**
 	 * Register settings.
 	 */
 	public static function register_settings() {
-		register_setting( 'wpmtst-license-group', 'wpmtst_addons', array( __CLASS__, 'sanitize_options' ) );
+		register_setting( self::GROUP_NAME, 'wpmtst_addons', array( __CLASS__, 'sanitize_options' ) );
 	}
 
 	/**
@@ -39,7 +69,7 @@ class Strong_Testimonials_Settings_Licenses {
 	 * @return mixed
 	 */
 	public static function register_settings_page( $pages ) {
-		$pages['licenses'] = array( __CLASS__, 'settings_page' );
+		$pages[ self::TAB_NAME ] = array( __CLASS__, 'settings_page' );
 		return $pages;
 	}
 
@@ -47,7 +77,7 @@ class Strong_Testimonials_Settings_Licenses {
 	 * Print settings page.
 	 */
 	public static function settings_page() {
-		settings_fields( 'wpmtst-license-group' );
+		settings_fields( self::GROUP_NAME );
 		include( WPMTST_ADMIN . 'settings/partials/licenses.php' );
 	}
 

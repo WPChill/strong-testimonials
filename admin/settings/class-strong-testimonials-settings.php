@@ -4,6 +4,8 @@
  */
 class Strong_Testimonials_Settings {
 
+    const DEFAULT_TAB = 'general';
+
     public static $callbacks;
 
 	/**
@@ -26,15 +28,6 @@ class Strong_Testimonials_Settings {
 	}
 
 	/**
-	 * Check for active add-ons.
-	 *
-	 * @since 2.1
-	 */
-	public static function has_active_addons() {
-		return has_action( 'wpmtst_licenses' );
-	}
-
-	/**
 	 * Register settings
 	 */
 	public static function register_settings() {
@@ -48,6 +41,9 @@ class Strong_Testimonials_Settings {
 	public static function settings_page() {
 		if ( ! current_user_can( 'strong_testimonials_options' ) )
 			wp_die( __( 'You do not have sufficient permissions to access this page.' ) );
+
+		$active_tab = isset( $_GET['tab'] ) ? $_GET['tab'] : self::DEFAULT_TAB;
+		$url        = admin_url( 'edit.php?post_type=wpm-testimonial&page=testimonial-settings' );
 		?>
 		<div class="wrap wpmtst">
 
@@ -59,30 +55,16 @@ class Strong_Testimonials_Settings {
 				</div>
 			<?php endif; ?>
 
-			<?php
-			$active_tab = isset( $_GET['tab'] ) ? $_GET['tab'] : 'general';
-			$url        = admin_url( 'edit.php?post_type=wpm-testimonial&page=testimonial-settings' );
-			?>
 			<h2 class="nav-tab-wrapper">
-
-				<a href="<?php echo add_query_arg( 'tab', 'general', $url ); ?>" class="nav-tab <?php echo $active_tab == 'general' ? 'nav-tab-active' : ''; ?>"><?php _ex( 'General', 'adjective', 'strong-testimonials' ); ?></a>
-
-				<a href="<?php echo add_query_arg( 'tab', 'form', $url ); ?>" class="nav-tab <?php echo $active_tab == 'form' ? 'nav-tab-active' : ''; ?>"><?php _e( 'Form', 'strong-testimonials' ); ?></a>
-
 				<?php do_action( 'wpmtst_settings_tabs', $active_tab, $url ); ?>
-
-				<?php if ( self::has_active_addons() ): ?>
-					<a href="<?php echo add_query_arg( 'tab', 'licenses', $url ); ?>" class="nav-tab <?php echo $active_tab == 'licenses' ? 'nav-tab-active' : ''; ?>"><?php _e( 'Licenses', 'strong-testimonials' ); ?></a>
-				<?php endif; ?>
-
 			</h2>
 
-			<form id="<?php echo $active_tab; ?>-form" method="post" action="options.php">
+			<form id="<?php esc_attr_e( $active_tab ); ?>-form" method="post" action="options.php">
 				<?php
 				if ( isset( self::$callbacks[ $active_tab ] ) && wpmtst_callback_exists( self::$callbacks[ $active_tab ] ) ) {
 					call_user_func( self::$callbacks[ $active_tab ] );
 				} else {
-					call_user_func( self::$callbacks['general'] );
+					call_user_func( self::$callbacks[ self::DEFAULT_TAB ] );
 				}
 				?>
 				<p class="submit-row">
