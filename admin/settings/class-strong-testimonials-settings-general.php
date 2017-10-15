@@ -48,7 +48,7 @@ class Strong_Testimonials_Settings_General {
 	 */
 	public static function settings_page() {
 		settings_fields( 'wpmtst-settings-group' );
-		include( WPMTST_ADMIN . 'partials/settings/general.php' );
+		include( WPMTST_ADMIN . 'settings/partials/general.php' );
 	}
 
 	/**

@@ -48,7 +48,7 @@ class Strong_Testimonials_Settings_Licenses {
 	 */
 	public static function settings_page() {
 		settings_fields( 'wpmtst-license-group' );
-		include( WPMTST_ADMIN . 'partials/settings/licenses.php' );
+		include( WPMTST_ADMIN . 'settings/partials/licenses.php' );
 	}
 
 	/**
