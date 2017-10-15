@@ -15,7 +15,7 @@ class Strong_Testimonials_Settings_Menu {
     public function __construct() {}
 
 	/**
-	 * Initiialize.
+	 * Initialize.
 	 */
     public static function init() {
         self::add_actions();

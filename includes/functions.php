@@ -755,6 +755,7 @@ function wpmtst_get_success_message() {
  *
  * @return bool
  */
+// TODO Move to Utils class
 function wpmtst_callback_exists( $callback ) {
 	if ( is_array( $callback ) ) {
 		$exists = method_exists( $callback[0], $callback[1] );
