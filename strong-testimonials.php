@@ -9,7 +9,7 @@
  * Author URI: https://strongplugins.com/
  * Text Domain: strong-testimonials
  * Domain Path: /languages
- * Requires: 3.6 or higher
+ * Requires: 3.7 or higher
  * License: GPLv3 or later
  *
  * Copyright 2014-2017 Chris Dillon chris@strongplugins.com
@@ -254,6 +254,12 @@ final class Strong_Testimonials {
 
 		if ( is_admin() || ( defined( 'WP_CLI' ) && WP_CLI ) ) {
 
+			require_once WPMTST_ADMIN . 'class-strong-testimonials-settings-menu.php';
+			require_once WPMTST_ADMIN . 'class-strong-testimonials-settings-general.php';
+			require_once WPMTST_ADMIN . 'class-strong-testimonials-settings-fields.php';
+			require_once WPMTST_ADMIN . 'class-strong-testimonials-settings-views.php';
+			require_once WPMTST_ADMIN . 'class-strong-testimonials-settings-about.php';
+
 			require_once WPMTST_ADMIN . 'class-strong-testimonials-defaults.php';
 			require_once WPMTST_ADMIN . 'class-strong-testimonials-updater.php';
 			require_once WPMTST_ADMIN . 'class-strong-testimonials-list-table.php';
@@ -261,14 +267,18 @@ final class Strong_Testimonials {
 			require_once WPMTST_ADMIN . 'class-walker-strong-category-checklist.php';
 			require_once WPMTST_ADMIN . 'class-walker-strong-form-category-checklist.php';
 			require_once WPMTST_ADMIN . 'class-strong-testimonials-help.php';
+			require_once WPMTST_ADMIN . 'class-strong-testimonials-admin-scripts.php';
+			require_once WPMTST_ADMIN . 'class-strong-testimonials-admin-list.php';
+			require_once WPMTST_ADMIN . 'class-strong-testimonials-admin-category-list.php';
+			require_once WPMTST_ADMIN . 'class-strong-testimonials-post-editor.php';
+			require_once WPMTST_ADMIN . 'class-strong-testimonials-admin-ajax.php';
+
 			require_once WPMTST_ADMIN . 'admin.php';
 			require_once WPMTST_ADMIN . 'admin-notices.php';
-			require_once WPMTST_ADMIN . 'admin-ajax.php';
 			require_once WPMTST_ADMIN . 'compat.php';
 			require_once WPMTST_ADMIN . 'custom-fields.php';
 			require_once WPMTST_ADMIN . 'custom-fields-ajax.php';
 			require_once WPMTST_ADMIN . 'form-preview.php';
-			require_once WPMTST_ADMIN . 'settings.php';
 			require_once WPMTST_ADMIN . 'views.php';
 			require_once WPMTST_ADMIN . 'views-ajax.php';
 			require_once WPMTST_ADMIN . 'view-list-order.php';

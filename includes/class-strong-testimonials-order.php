@@ -1,46 +1,66 @@
 <?php
 /**
- * Post order class.
+ * Class Strong_Testimonials_Order
  *
  * @since 1.16
  */
 class Strong_Testimonials_Order {
 
-	function __construct() {
+	/**
+	 * Strong_Testimonials_Order constructor.
+	 */
+	public function __construct() {}
 
-		add_action( 'admin_enqueue_scripts', array( $this, 'load_scripts' ) );
+	/**
+	 * Initialize.
+	 */
+	public static function init() {
+		self::add_actions();
+	}
 
-		add_action( 'load-edit.php', array( $this, 'refresh' ) );
+	/**
+	 * Add actions and filters.
+	 */
+	public static function add_actions() {
 
-		add_action( 'wp_ajax_update-menu-order', array( $this, 'update_menu_order' ) );
+		add_action( 'admin_enqueue_scripts', array( __CLASS__, 'load_scripts' ) );
 
-		add_action( 'pre_get_posts', array( $this, 'store_query_vars' ) );
-		add_action( 'pre_get_posts', array( $this, 'pre_get_posts' ), 500 );
+		add_action( 'load-edit.php', array( __CLASS__, 'refresh' ) );
 
-		add_filter( 'posts_orderby', array( $this, 'posts_orderby' ), 500, 2 );
+		add_action( 'wp_ajax_update-menu-order', array( __CLASS__, 'update_menu_order' ) );
 
-		add_filter( 'get_previous_post_where', array( $this, 'get_previous_post_where' ) );
-		add_filter( 'get_previous_post_sort', array( $this, 'get_previous_post_sort' ) );
+		add_action( 'pre_get_posts', array( __CLASS__, 'store_query_vars' ) );
+		add_action( 'pre_get_posts', array( __CLASS__, 'pre_get_posts' ), 500 );
 
-		add_filter( 'get_next_post_where', array( $this, 'get_next_post_where' ) );
-		add_filter( 'get_next_post_sort', array( $this, 'get_next_post_sort' ) );
+		add_filter( 'posts_orderby', array( __CLASS__, 'posts_orderby' ), 500, 2 );
+
+		add_filter( 'get_previous_post_where', array( __CLASS__, 'get_previous_post_where' ) );
+		add_filter( 'get_previous_post_sort', array( __CLASS__, 'get_previous_post_sort' ) );
+
+		add_filter( 'get_next_post_where', array( __CLASS__, 'get_next_post_where' ) );
+		add_filter( 'get_next_post_sort', array( __CLASS__, 'get_next_post_sort' ) );
 
 	}
 
 	/**
 	 * Load admin scripts and styles.
 	 */
-	function load_scripts() {
+	public static function load_scripts() {
 
 		$screen = get_current_screen();
-		if ( !$screen || 'edit-wpm-testimonial' != $screen->id )
+		if ( ! $screen || 'edit-wpm-testimonial' != $screen->id ) {
 			return;
+		}
 
-		if ( wpmtst_is_column_sorted() )
+		if ( Strong_Testimonials_Admin_list::is_column_sorted() ) {
 			return;
+		}
 
-		wp_enqueue_script( 'wpmtst-admin-order-script', WPMTST_ADMIN_URL . 'js/admin-order.js', array( 'jquery-effects-highlight', 'jquery-ui-sortable' ), null, true );
-		wp_localize_script( 'wpmtst-admin-order-script', 'ajax_object', array( 'ajaxurl' => admin_url( 'admin-ajax.php' ) ) );
+		wp_enqueue_script( 'wpmtst-admin-order-script', WPMTST_ADMIN_URL . 'js/admin-order.js', array(
+			'jquery-effects-highlight',
+			'jquery-ui-sortable',
+		), null, true );
+		//wp_localize_script( 'wpmtst-admin-order-script', 'ajax_object', array( 'ajaxurl' => admin_url( 'admin-ajax.php' ) ) );
 
 		wp_enqueue_style( 'wpmtst-admin-order-style', WPMTST_ADMIN_URL . '/css/order.css', array(), null );
 
@@ -49,12 +69,12 @@ class Strong_Testimonials_Order {
 	/**
 	 * Store query vars in transient because they are not available in update_menu_order callback.
 	 */
-	function store_query_vars() {
+	public static function store_query_vars() {
 		if ( is_admin() ) {
 			set_transient( 'wpmtst_order_query',
 				array(
 					'paged'          => get_query_var( 'paged' ),
-					'posts_per_page' => get_query_var( 'posts_per_page' )
+					'posts_per_page' => get_query_var( 'posts_per_page' ),
 				),
 				24 * HOUR_IN_SECONDS );
 		}
@@ -63,12 +83,11 @@ class Strong_Testimonials_Order {
 	/**
 	 * Refresh the post list.
 	 */
-	function refresh() {
+	public static function refresh() {
 
 		global $wpdb;
 
-		$screen = get_current_screen();
-		if ( 'edit-wpm-testimonial' != $screen->id ) {
+		if ( ! wpmtst_is_testimonial_screen() ) {
 			return;
 		}
 
@@ -109,33 +128,38 @@ class Strong_Testimonials_Order {
 	 *
 	 * @param $query
 	 */
-	function pre_get_posts( $query ) {
+	public static function pre_get_posts( $query ) {
 
-		if ( is_admin() )
+		if ( is_admin() ) {
 			return;
+		}
 
-		if ( ! isset( $query->query['post_type'] ) )
+		if ( ! isset( $query->query['post_type'] ) ) {
 			return;
+		}
 
 		if ( is_array( $query->query['post_type'] ) ) {
 
-			if ( ! in_array( 'wpm-testimonial', $query->query['post_type'] ) )
+			if ( ! in_array( 'wpm-testimonial', $query->query['post_type'] ) ) {
 				return;
+			}
 
-		}
-		else {
+		} else {
 
-			if ( 'wpm-testimonial' != $query->query['post_type'] )
+			if ( 'wpm-testimonial' != $query->query['post_type'] ) {
 				return;
+			}
 
 		}
 
 		// disable filter suppression
-		if ( isset( $query->query['suppress_filters'] ) )
+		if ( isset( $query->query['suppress_filters'] ) ) {
 			$query->query['suppress_filters'] = false;
+		}
 
-		if ( isset( $query->query_vars['suppress_filters'] ) )
+		if ( isset( $query->query_vars['suppress_filters'] ) ) {
 			$query->query_vars['suppress_filters'] = false;
+		}
 
 	}
 
@@ -144,9 +168,10 @@ class Strong_Testimonials_Order {
 	 *
 	 * @param $orderby
 	 * @param $query
+	 *
 	 * @return string
 	 */
-	function posts_orderby( $orderby, $query ) {
+	public static function posts_orderby( $orderby, $query ) {
 		/**
 		 * Default query sort with no parameters is post_date descending.
 		 *
@@ -171,9 +196,10 @@ class Strong_Testimonials_Order {
 	 * Add menu order to previous post navigation.
 	 *
 	 * @param $where
+	 *
 	 * @return string
 	 */
-	function get_previous_post_where( $where ) {
+	public static function get_previous_post_where( $where ) {
 		global $post;
 		if ( isset( $post->post_type ) && 'wpm-testimonial' == $post->post_type ) {
 			$where = "WHERE p.menu_order > '{$post->menu_order}' AND p.post_type = '{$post->post_type}' AND p.post_status = 'publish'";
@@ -186,9 +212,10 @@ class Strong_Testimonials_Order {
 	 * Add menu order to next post navigation.
 	 *
 	 * @param $where
+	 *
 	 * @return string
 	 */
-	function get_next_post_where( $where ) {
+	public static function get_next_post_where( $where ) {
 		global $post;
 		if ( isset( $post->post_type ) && 'wpm-testimonial' == $post->post_type ) {
 			$where = "WHERE p.menu_order < '{$post->menu_order}' AND p.post_type = '{$post->post_type}' AND p.post_status = 'publish'";
@@ -201,9 +228,10 @@ class Strong_Testimonials_Order {
 	 * Add menu order to previous post sort.
 	 *
 	 * @param $sort
+	 *
 	 * @return string
 	 */
-	function get_previous_post_sort( $sort ) {
+	public static function get_previous_post_sort( $sort ) {
 		global $post;
 		if ( isset( $post->post_type ) && 'wpm-testimonial' == $post->post_type ) {
 			$sort = 'ORDER BY p.menu_order ASC, p.post_date DESC LIMIT 1';
@@ -216,9 +244,10 @@ class Strong_Testimonials_Order {
 	 * Add menu order to next post sort.
 	 *
 	 * @param $sort
+	 *
 	 * @return string
 	 */
-	function get_next_post_sort( $sort ) {
+	public static function get_next_post_sort( $sort ) {
 		global $post;
 		if ( isset( $post->post_type ) && 'wpm-testimonial' == $post->post_type ) {
 			$sort = 'ORDER BY p.menu_order DESC, p.post_date ASC LIMIT 1';
@@ -230,7 +259,7 @@ class Strong_Testimonials_Order {
 	/**
 	 * Update menu order in back end.
 	 */
-	function update_menu_order() {
+	public static function update_menu_order() {
 		global $wpdb;
 
 		parse_str( $_POST['order'], $data );
@@ -260,4 +289,4 @@ class Strong_Testimonials_Order {
 
 }
 
-$reorder = new Strong_Testimonials_Order();
+Strong_Testimonials_Order::init();

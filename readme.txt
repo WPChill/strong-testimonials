@@ -1,7 +1,7 @@
 === Strong Testimonials ===
 Contributors: cdillon27
 Tags: testimonials, testimonial slider, testimonial form, reviews, star ratings
-Requires at least: 3.6
+Requires at least: 3.7
 Tested up to: 4.8.2
 Stable tag: 2.27.2
 License: GPLv3 or later
