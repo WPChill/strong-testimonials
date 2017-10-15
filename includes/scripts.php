@@ -21,18 +21,19 @@ function wpmtst_scripts() {
 		$plugin_version,
 		true );
 
-	/*
+	/**
 	 * Method 0 - No Pjax support
 	 * Method 1 - Universal (timer)
 	 * Method 2 - Target attribute change (data-pjax)
-	 * Method 3 - Target nodes added
-	 * Method 4 - jQuery event emitter
-	 * Method 5 - JavaScript event emitter
+	 * Method 3 - Target nodes added + timer
+	 * Method 4 - Event emitter or dispatcher
+	 *            Barba @link http://barbajs.org/index.html
+	 *            Pjax by MoOx @link https://github.com/MoOx/pjax
 	 *
-	 * Remember: top level is converted to strings!
+	 * Remember: array top level is converted to strings!
 	 */
 	$parms = array(
-		'method' => 3,
+		'method' => 4,
 	);
 	wp_localize_script( 'wpmtst-controller', 'strongControllerParms', $parms );
 
