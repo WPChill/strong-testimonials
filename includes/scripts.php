@@ -23,22 +23,24 @@ function wpmtst_scripts() {
 		true );
 
 	/**
-	 * Key          Description
+	 * Key         : Description
 	 * --------------------------------------------------------------
-	 * (blank)      No Pjax support
-	 * universal    Universal (timer)
-	 * attrChange   Target attribute change (data-pjax)
-	 * nodesAdded   Target nodes added + timer
-	 * event        Event emitter
+	 * (blank)     : No Pjax support
+	 * universal   : Universal (timer)
+	 * attrChange  : Target attribute change (data-pjax)
+	 * nodesAdded  : Target nodes added + timer
+	 * event       : Event emitter
 	 *               - Pjax by MoOx @link https://github.com/MoOx/pjax
-	 * script       Specific script
+	 * script      : Specific script
 	 *               - Barba @link http://barbajs.org/index.html
 	 *
 	 * Remember: array top level is converted to strings!
 	 */
 	$parms = array(
-		'method' => isset( $compat_options['method'] ) ? $compat_options['method'] : '',
-		'script' => isset( $compat_options['script'] ) ? $compat_options['script'] : '',
+		'method'    => isset( $compat_options['method'] ) ? $compat_options['method'] : '',
+		'script'    => isset( $compat_options['script'] ) ? $compat_options['script'] : '',
+		'elementId' => 'content',
+		'attrName'  => 'data-pjax',
 	);
 	wp_localize_script( 'wpmtst-controller', 'strongControllerParms', $parms );
 

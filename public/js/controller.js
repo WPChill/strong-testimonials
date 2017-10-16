@@ -125,7 +125,7 @@ var strongController = {
   },
 
   /**
-   * Initialize controller
+   * Initialize controller.
    */
   init: function () {
     console.log('strongController:init')
@@ -136,62 +136,82 @@ var strongController = {
       settings = window.strongControllerParms
     }
     this.setup(settings)
-    console.log('config', this.config)
+    console.log('strongController:config', this.config)
+  },
 
+  /**
+   * Start components.
+   */
+  start: function(){
+    console.log('strongController:start')
     this.initSliders()
+  },
+
+  /**
+   * Listen.
+   */
+  listen: function() {
+    console.log('strongController:listen')
+
+    switch (this.config.method) {
+      case 'universal':
+        // Set a timer to check for uninitialized components.
+        this.newTimer()
+        break
+
+      case 'attr_changed':
+        // Observe a specific DOM element.
+        this.observeDOMForAttrChanged(document.getElementById(this.config.elementId), this.initSliders)
+        break
+
+      case 'nodes_added':
+        // Observe a specific DOM element on a timer.
+        // Calling initSliders here is too soon; the transition is not complete yet.
+        this.observeDOMForAddedNodes(document.getElementById(this.config.elementId), this.newTimer)
+        break
+
+      case 'event':
+        // The theme/plugin uses an event emitter.
+
+        // jQuery Pjax -!- Not working in any theme tested yet -!-
+        // document.addEventListener('pjax:end', strongController.initSliders)
+
+        // Pjax by MoOx
+        // @link https://github.com/MoOx/pjax
+        document.addEventListener('pjax:success', this.initSliders)
+
+        // Ajax Pagination and Infinite Scroll by Malinky
+        // @link https://wordpress.org/plugins/malinky-ajax-pagination/
+        document.addEventListener('malinkyLoadPostsComplete', this.initSliders);
+        break
+
+      case 'script':
+        // The theme/plugin uses a dispatcher.
+
+        // Barba
+        // @link http://barbajs.org/
+        if (typeof Barba === 'object' && Barba.hasOwnProperty('Dispatcher')) {
+          Barba.Dispatcher.on('transitionCompleted', this.initSliders)
+        }
+        break
+
+      default:
+      // no Pjax support
+    }
   }
 
 }
 
-jQuery(document).ready(function ($) {
+// jQuery(document).ready(function ($) {
+document.addEventListener("DOMContentLoaded", function(event) {
 
   // Initialize controller.
-  // TODO Convert to a class?
-  // TODO Store target element in config
   strongController.init()
 
-  switch (strongController.config.method) {
-    case 'universal':
-      // Set a timer to check for uninitialized components.
-      strongController.newTimer()
-      break
+  // Start components.
+  strongController.start()
 
-    case 'attr_changed':
-      // Observe a specific DOM element.
-      strongController.observeDOMForAttrChanged(document.getElementById('content'), strongController.initSliders)
-      break
-
-    case 'nodes_added':
-      // Observe a specific DOM element on a timer.
-      // Calling initSliders here is too soon; the transition is not complete yet.
-      strongController.observeDOMForAddedNodes(document.getElementById('content'), strongController.newTimer)
-      break
-
-    case 'event':
-      // The theme/plugin uses an event emitter.
-
-      // jQuery Pjax -!- Not working in any theme tested yet -!-
-      // document.addEventListener('pjax:end', strongController.initSliders)
-
-      // Pjax by MoOx
-      document.addEventListener('pjax:success', strongController.initSliders)
-
-      // Ajax Pagination and Infinite Scroll by Malinky
-      // https://wordpress.org/plugins/malinky-ajax-pagination/
-      document.addEventListener('malinkyLoadPostsComplete', strongController.initSliders);
-      break
-
-    case 'script':
-      // The theme/plugin uses a dispatcher.
-
-      // Barba
-      if (typeof Barba === 'object' && Barba.hasOwnProperty('Dispatcher')) {
-        Barba.Dispatcher.on('transitionCompleted', strongController.initSliders)
-      }
-      break
-
-    default:
-      // no Pjax support
-  }
+  // Listen.
+  strongController.listen()
 
 })
