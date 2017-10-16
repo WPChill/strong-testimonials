@@ -136,6 +136,7 @@ var strongController = {
       settings = window.strongControllerParms
     }
     this.setup(settings)
+    console.log('config', this.config)
 
     this.initSliders()
   }
@@ -144,43 +145,49 @@ var strongController = {
 
 jQuery(document).ready(function ($) {
 
+  // Initialize controller.
   // TODO Convert to a class?
   // TODO Store target element in config
   strongController.init()
 
   switch (strongController.config.method) {
-    case '1':
-      // New method 1: Universal
+    case 'universal':
+      // Set a timer to check for uninitialized components.
       strongController.newTimer()
       break
-    case '2':
-      // Observe a specific DOM element
+
+    case 'attr_changed':
+      // Observe a specific DOM element.
       strongController.observeDOMForAttrChanged(document.getElementById('content'), strongController.initSliders)
       break
-    case '3':
-      // Observe a specific DOM element on a timer
+
+    case 'nodes_added':
+      // Observe a specific DOM element on a timer.
       // Calling initSliders here is too soon; the transition is not complete yet.
       strongController.observeDOMForAddedNodes(document.getElementById('content'), strongController.newTimer)
       break
-    case '4':
-      // The theme/plugin uses a dispatcher or event emitter.
 
-      // Barba
-      if (typeof Barba === 'object' && Barba.hasOwnProperty('Dispatcher')) {
-        Barba.Dispatcher.on('transitionCompleted', strongController.initSliders)
-      }
+    case 'event':
+      // The theme/plugin uses an event emitter.
 
       // jQuery Pjax -!- Not working in any theme tested yet -!-
       // document.addEventListener('pjax:end', strongController.initSliders)
 
       // Pjax by MoOx
-      if (typeof Pjax === 'function') {
-        document.addEventListener('pjax:success', strongController.initSliders)
-      }
-
+      document.addEventListener('pjax:success', strongController.initSliders)
       break
+
+    case 'script':
+      // The theme/plugin uses a dispatcher.
+
+      // Barba
+      if (typeof Barba === 'object' && Barba.hasOwnProperty('Dispatcher')) {
+        Barba.Dispatcher.on('transitionCompleted', strongController.initSliders)
+      }
+      break
+
     default:
-    // no Pjax support
+      // no Pjax support
   }
 
 })

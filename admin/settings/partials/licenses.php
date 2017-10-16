@@ -2,7 +2,6 @@
 /**
  * Licenses
  *
- * @package Strong_Testimonials
  * @since 2.1
  * @since 2.18 As a partial file. Using action hook for add-ons to append their info.
  *

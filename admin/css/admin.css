@@ -159,6 +159,21 @@ div.radio:hover {
   color: #000;
 }
 
+.tab-option-header {
+  margin-bottom: 1.5em;
+}
+div.has-radio {
+  display: table-row;
+}
+div.has-radio label {
+  display: table-cell;
+  width: 160px;
+}
+div.has-radio p.description {
+  display: table-cell;
+  width: calc( 100% - 160px );
+}
+
 #screenshot-screen-options,
 #help-section {
   display: none;

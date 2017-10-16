@@ -1,18 +1,15 @@
 <?php
 /**
- * Default options.
+ * Class Strong_Testimonials_Defaults
  *
- * @since 1.8.0
- * @package Strong_Testimonials
+ * @since 2.28.0
  */
-
 class Strong_Testimonials_Defaults {
 
-	public function __construct() {
-	}
-
-	public static function init() {
-	}
+	/**
+	 * Strong_Testimonials_Defaults constructor.
+	 */
+	public function __construct() {}
 
 	/**
 	 * Settings
@@ -737,6 +734,22 @@ class Strong_Testimonials_Defaults {
 		ksort( $default_view );
 
 		return $default_view;
+	}
+
+	/**
+	 * Compatibility options.
+	 *
+	 * @since 2.28.0
+	 *
+	 * @return array
+	 */
+	public static function get_compat_options() {
+		$options = array(
+			'method' => '', // (blank) | universal | attr_changed | nodes_added | event | script
+			'script' => '',
+		);
+
+		return $options;
 	}
 
 }

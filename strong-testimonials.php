@@ -262,6 +262,7 @@ final class Strong_Testimonials {
 			require_once WPMTST_ADMIN . 'settings/class-strong-testimonials-settings.php';
 			require_once WPMTST_ADMIN . 'settings/class-strong-testimonials-settings-general.php';
 			require_once WPMTST_ADMIN . 'settings/class-strong-testimonials-settings-form.php';
+			require_once WPMTST_ADMIN . 'settings/class-strong-testimonials-settings-compat.php';
 			require_once WPMTST_ADMIN . 'settings/class-strong-testimonials-settings-licenses.php';
 
 			require_once WPMTST_ADMIN . 'about/class-strong-testimonials-about.php';

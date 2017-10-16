@@ -172,6 +172,13 @@ class Strong_Testimonials_Updater {
 		update_option( 'wpmtst_form_options', self::update_form_options() );
 
 		/**
+		 * Compatibility options.
+		 *
+		 * @since 2.28.0
+		 */
+		update_option( 'wpmtst_compat_options', self::update_compat_options() );
+
+		/**
 		 * Overwrite default view options.
 		 *
 		 * @since 2.15.0
@@ -489,6 +496,22 @@ class Strong_Testimonials_Updater {
 		}
 
 		return $form_options;
+	}
+
+	/**
+	 * Compatibility options.
+	 *
+	 * @since 2.28.0
+	 *
+	 * @return array
+	 */
+	public static function update_compat_options() {
+		$options = get_option( 'wpmtst_compat_options' );
+		if ( ! $options ) {
+			return Strong_Testimonials_Defaults::get_compat_options();
+		}
+
+		return $options;
 	}
 
 	/**

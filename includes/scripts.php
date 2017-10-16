@@ -7,6 +7,7 @@ function wpmtst_scripts() {
 
 	$plugin_version = get_option( 'wpmtst_plugin_version' );
 	$options        = get_option( 'wpmtst_options' );
+	$compat_options = get_option( 'wpmtst_compat_options' );
 
 	$min = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 
@@ -22,18 +23,22 @@ function wpmtst_scripts() {
 		true );
 
 	/**
-	 * Method 0 - No Pjax support
-	 * Method 1 - Universal (timer)
-	 * Method 2 - Target attribute change (data-pjax)
-	 * Method 3 - Target nodes added + timer
-	 * Method 4 - Event emitter or dispatcher
-	 *            Barba @link http://barbajs.org/index.html
-	 *            Pjax by MoOx @link https://github.com/MoOx/pjax
+	 * Key          Description
+	 * --------------------------------------------------------------
+	 * (blank)      No Pjax support
+	 * universal    Universal (timer)
+	 * attrChange   Target attribute change (data-pjax)
+	 * nodesAdded   Target nodes added + timer
+	 * event        Event emitter
+	 *               - Pjax by MoOx @link https://github.com/MoOx/pjax
+	 * script       Specific script
+	 *               - Barba @link http://barbajs.org/index.html
 	 *
 	 * Remember: array top level is converted to strings!
 	 */
 	$parms = array(
-		'method' => 4,
+		'method' => isset( $compat_options['method'] ) ? $compat_options['method'] : '',
+		'script' => isset( $compat_options['script'] ) ? $compat_options['script'] : '',
 	);
 	wp_localize_script( 'wpmtst-controller', 'strongControllerParms', $parms );
 
