@@ -69,12 +69,6 @@ class Strong_Testimonials_Admin_Scripts {
 			array( 'wpmtst-font-awesome' ),
 			$plugin_version );
 
-		// for Page Builder?
-		wp_register_script( 'wpmtst-validation-plugin',
-			WPMTST_PUBLIC_URL . 'js/lib/validate/jquery.validate.min.js',
-			array( 'jquery' ),
-			$plugin_version );
-
 		/**
 		 * Fields
 		 */
@@ -190,16 +184,7 @@ class Strong_Testimonials_Admin_Scripts {
 	 *
 	 * @param $hook
 	 */
-	public static function admin_enqueue_scripts( $hook ) {
-
-		// Page Builder compat
-		if ( defined( 'SITEORIGIN_PANELS_VERSION' ) ) {
-			wp_enqueue_style( 'wpmtst-admin-style' );
-			wp_enqueue_script( 'wpmtst-admin-script' );
-			wp_enqueue_script( 'wpmtst-validation-plugin' );
-		}
-
-	}
+	public static function admin_enqueue_scripts( $hook ) {}
 
 	/**
 	 * Enqueue specific styles and scripts.
