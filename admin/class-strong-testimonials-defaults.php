@@ -420,17 +420,17 @@ class Strong_Testimonials_Defaults {
 
 		$default_form_options = array(
 			'post_status'              => 'pending',
-			'admin_notify'             => 0,
-			'mail_queue'               => 0,
+			'admin_notify'             => false,
+			'mail_queue'               => false,
 			'sender_name'              => get_bloginfo( 'name' ),
-			'sender_site_email'        => 1,
+			'sender_site_email'        => true,
 			'sender_email'             => '',
 			'recipients'               => array(
 				array(
 					'admin_name'       => '',
 					'admin_email'      => '',
-					'admin_site_email' => 1,
-					'primary'          => 1,  // cannot be deleted
+					'admin_site_email' => true,
+					'primary'          => true,  // cannot be deleted
 				),
 			),
 			'default_recipient'        => array(
@@ -442,14 +442,14 @@ class Strong_Testimonials_Defaults {
 			/* translators: Default message for new testimonial notification email. */
 			'email_message'            => __( 'New testimonial submission for %BLOGNAME%. This is awaiting action from the website administrator.', 'strong-testimonials' ),
 			'captcha'                  => '',
-			'honeypot_before'          => 0,
-			'honeypot_after'           => 0,
+			'honeypot_before'          => false,
+			'honeypot_after'           => false,
 			'messages'                 => $default_messages,
 			'scrolltop_success'        => true,
 			'scrolltop_success_offset' => 40,
 			'scrolltop_error'          => true,
 			'scrolltop_error_offset'   => 40,
-			'success_action'           => 'message', // id | url
+			'success_action'           => 'message', // message | id | url
 			'success_redirect_id'      => '',
 			'success_redirect_url'     => '',
 		);

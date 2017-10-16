@@ -84,13 +84,13 @@ class Strong_Testimonials_Settings_Form {
 	 */
 	public static function sanitize_options( $input ) {
 		$input['post_status']       = sanitize_text_field( $input['post_status'] );
-		$input['admin_notify']      = isset( $input['admin_notify'] ) ? 1 : 0;
-		$input['mail_queue']        = isset( $input['mail_queue'] ) ? 1 : 0;
+		$input['admin_notify']      = wpmtst_sanitize_checkbox( $input, 'admin_notify' );
+		$input['mail_queue']        = wpmtst_sanitize_checkbox( $input, 'mail_queue' );
 		$input['sender_name']       = sanitize_text_field( $input['sender_name'] );
 		$input['sender_site_email'] = intval( $input['sender_site_email'] );
 		$input['sender_email']      = sanitize_email( $input['sender_email'] );
 		if ( ! $input['sender_email'] && ! $input['sender_site_email'] ) {
-			$input['sender_site_email'] = 1;
+			$input['sender_site_email'] = true;
 		}
 
 		/**
@@ -102,10 +102,10 @@ class Strong_Testimonials_Settings_Form {
 		foreach ( $input['recipients'] as $recipient ) {
 
 			if ( isset( $recipient['primary'] ) ) {
-				$recipient['primary'] = 1;
+				$recipient['primary'] = true;
 				if ( isset( $recipient['admin_site_email'] ) && ! $recipient['admin_site_email'] ) {
 					if ( ! $recipient['admin_email'] ) {
-						$recipient['admin_site_email'] = 1;
+						$recipient['admin_site_email'] = true;
 					}
 				}
 			} else {
@@ -135,8 +135,8 @@ class Strong_Testimonials_Settings_Form {
 		$input['email_subject']     = isset( $input['email_subject'] ) ? sanitize_text_field( $input['email_subject'] ) : '';
 		$input['email_message']     = isset( $input['email_message'] ) ? wp_kses_post( $input['email_message'] ) : '';
 
-		$input['honeypot_before']   = isset( $input['honeypot_before'] ) ? 1 : 0;
-		$input['honeypot_after']    = isset( $input['honeypot_after'] ) ? 1 : 0;
+		$input['honeypot_before']   = wpmtst_sanitize_checkbox( $input, 'honeypot_before' );
+		$input['honeypot_after']    = wpmtst_sanitize_checkbox( $input, 'honeypot_after' );
 		$input['captcha']           = sanitize_text_field( $input['captcha'] );
 
 		foreach ( $input['messages'] as $key => $message ) {
@@ -198,7 +198,7 @@ class Strong_Testimonials_Settings_Form {
 		}
 
 		unset( $input['success_redirect_2'] );
-		ksort( $input );
+		//ksort( $input );
 
 		return $input;
 	}

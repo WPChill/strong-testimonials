@@ -431,7 +431,7 @@ class Strong_Testimonials_Updater {
 	 * @return array
 	 */
 	public static function update_form_options() {
-		$form_options = get_option( 'wpmtst_form_options', array() );
+		$form_options = get_option( 'wpmtst_form_options' );
 		if ( ! $form_options ) {
 			return Strong_Testimonials_Defaults::get_form_options();
 		} else {

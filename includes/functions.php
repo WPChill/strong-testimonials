@@ -924,18 +924,15 @@ function wpmtst_sanitize_textarea( $text ) {
  * @return int
  */
 function wpmtst_sanitize_checkbox( $input, $key ) {
-	/* LONGHAND
-	if ( isset( $input['reorder'] ) ) {
-		if ( 'on' == $input['reorder'] ) { // checked checkbox
-			$new_input['reorder'] = 1;
-		} else { // hidden input
-			$new_input['reorder'] = $input['reorder']; // 0 or 1
+	if ( isset( $input[ $key ] ) ) {
+		if ( 'on' == $input[ $key ] ) {   // checked checkbox
+			return true;
+		} else {   // hidden input
+			return $input[ $key ] ? true : false;   // 0 or 1
 		}
-	} else { // unchecked checkbox
-		$new_input['reorder'] = 0;
+	} else {   // unchecked checkbox
+		return false;
 	}
-	*/
-	return ( isset( $input[ $key ] ) ? ( 'on' == $input[ $key ] ? 1 : $input[ $key ] ) : 0 );
 }
 
 
