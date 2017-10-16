@@ -63,7 +63,7 @@ optgroup option {
 }
 
 .short-panel {
-  max-height: 190px;
+  max-height: 205px;
 }
 
 .tall-panel {
@@ -76,7 +76,7 @@ optgroup option {
 
 .view-category-list li {
   margin-bottom: 0;
-  line-height: normal;
+  line-height: 24px;
 }
 
 .view-category-list li label {
@@ -109,6 +109,8 @@ input[type=checkbox] + label:before {
 
 input[type=checkbox] + label:before {
   content: "\f096"; /* unchecked icon */
+  position: relative;
+  top: 1px;
 }
 
 input[type=checkbox]:checked + label:before {
