@@ -30,6 +30,8 @@ class Strong_Testimonials_Settings_Form {
 
 		add_action( 'wp_ajax_wpmtst_restore_default_messages', array( __CLASS__, 'restore_default_messages_function' ) );
 		add_action( 'wp_ajax_wpmtst_restore_default_message', array( __CLASS__, 'restore_default_message_function' ) );
+
+		add_action( 'wp_ajax_wpmtst_add_recipient', array( __CLASS__, 'add_recipient' ) );
 	}
 
 	/**
@@ -223,6 +225,17 @@ class Strong_Testimonials_Settings_Form {
 		$default_form_options = Strong_Testimonials_Defaults::get_form_options();
 		$message = $default_form_options['messages'][$input];
 		echo json_encode( $message );
+		die();
+	}
+
+	/**
+	 * [Add Recipient] Ajax receiver
+	 */
+	public static function add_recipient() {
+		$key          = $_REQUEST['key'];
+		$form_options = get_option( 'wpmtst_form_options' );
+		$recipient    = $form_options['default_recipient'];
+		include WPMTST_ADMIN . 'settings/partials/recipient.php';
 		die();
 	}
 

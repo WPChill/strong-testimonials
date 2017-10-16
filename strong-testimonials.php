@@ -277,7 +277,6 @@ final class Strong_Testimonials {
 			require_once WPMTST_ADMIN . 'class-strong-testimonials-admin-list.php';
 			require_once WPMTST_ADMIN . 'class-strong-testimonials-admin-category-list.php';
 			require_once WPMTST_ADMIN . 'class-strong-testimonials-post-editor.php';
-			require_once WPMTST_ADMIN . 'class-strong-testimonials-admin-ajax.php';
 
 			require_once WPMTST_ADMIN . 'admin.php';
 			require_once WPMTST_ADMIN . 'admin-notices.php';
