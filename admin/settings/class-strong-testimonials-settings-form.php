@@ -6,6 +6,8 @@ class Strong_Testimonials_Settings_Form {
 
 	const TAB_NAME = 'form';
 
+	const OPTION_NAME = 'wpmtst_form_options';
+
 	const GROUP_NAME = 'wpmtst-form-group';
 
 	/**
@@ -52,7 +54,7 @@ class Strong_Testimonials_Settings_Form {
 	 * Register settings.
 	 */
 	public static function register_settings() {
-		register_setting( self::GROUP_NAME, 'wpmtst_form_options', array( __CLASS__, 'sanitize_options' ) );
+		register_setting( self::GROUP_NAME, self::OPTION_NAME, array( __CLASS__, 'sanitize_options' ) );
 	}
 
 	/**

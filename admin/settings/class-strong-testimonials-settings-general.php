@@ -6,6 +6,8 @@ class Strong_Testimonials_Settings_General {
 
 	const TAB_NAME = 'general';
 
+	const OPTION_NAME = 'wpmtst_options';
+
 	const GROUP_NAME = 'wpmtst-settings-group';
 
 	/**
@@ -47,7 +49,7 @@ class Strong_Testimonials_Settings_General {
 	 * Register settings.
 	 */
 	public static function register_settings() {
-		register_setting( self::GROUP_NAME, 'wpmtst_options', array( __CLASS__, 'sanitize_options' ) );
+		register_setting( self::GROUP_NAME, self::OPTION_NAME, array( __CLASS__, 'sanitize_options' ) );
 	}
 
 	/**

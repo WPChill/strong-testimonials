@@ -6,6 +6,8 @@ class Strong_Testimonials_Settings_Licenses {
 
 	const TAB_NAME = 'licenses';
 
+	const OPTION_NAME = 'wpmtst_addons';
+
 	const GROUP_NAME = 'wpmtst-license-group';
 
 	/**
@@ -58,7 +60,7 @@ class Strong_Testimonials_Settings_Licenses {
 	 * Register settings.
 	 */
 	public static function register_settings() {
-		register_setting( self::GROUP_NAME, 'wpmtst_addons', array( __CLASS__, 'sanitize_options' ) );
+		register_setting( self::GROUP_NAME, self::OPTION_NAME, array( __CLASS__, 'sanitize_options' ) );
 	}
 
 	/**
