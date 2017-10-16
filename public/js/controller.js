@@ -175,6 +175,10 @@ jQuery(document).ready(function ($) {
 
       // Pjax by MoOx
       document.addEventListener('pjax:success', strongController.initSliders)
+
+      // Ajax Pagination and Infinite Scroll by Malinky
+      // https://wordpress.org/plugins/malinky-ajax-pagination/
+      document.addEventListener('malinkyLoadPostsComplete', strongController.initSliders);
       break
 
     case 'script':
