@@ -282,6 +282,7 @@ class Strong_View_Display extends Strong_View {
 
 		if ( $this->is_paginated() && 'masonry' != $this->atts['layout'] ) {
 			$content_class_list[] = 'strong-paginated';
+			$container_class_list[] = 'strong-pager';
 			$container_data_list['pager-var'] = $this->pager_signature();
 		}
 

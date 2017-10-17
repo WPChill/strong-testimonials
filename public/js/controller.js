@@ -9,7 +9,7 @@ var strongController = {
     script: '',
     elementId: 'content',
     attrNam: 'data-pjax',
-    continuous: '1'
+    continuous: true
   },
 
   config: {},
@@ -50,7 +50,7 @@ var strongController = {
    */
   initPaginated: function () {
     console.log('initPaginated')
-    jQuery('.strong-paginated').strongPager().show().closest(".strong-view").attr("data-state","init")
+    jQuery('.strong-pager').strongPager()
   },
 
   initLayouts: function () {
@@ -139,7 +139,7 @@ var strongController = {
           }
         }
 
-      }, 1000)
+      }, 500)
   },
 
   /**

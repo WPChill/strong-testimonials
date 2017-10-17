@@ -8,7 +8,8 @@
     currentPage: 1,
     pagerLocation: 'after',
     scrollTop: 1,
-    offset: 40
+    offset: 40,
+    div: '.strong-content'
   }
 
   $.fn.strongPager = function (options) {
@@ -19,7 +20,7 @@
 
     // create a namespace to be used throughout the plugin
     var pager = {}
-    // set a reference to our slider element
+    // set a reference to our view container
     var el = this
 
     /**
@@ -27,7 +28,7 @@
      */
     var init = function () {
 
-      var pagerVar = el.parent().data('pager-var')
+      var pagerVar = el.data('pager-var')
       var config = {}
 
       if (typeof( window[pagerVar] ) !== 'undefined') {
@@ -37,10 +38,13 @@
       // Merge user options with the defaults
       pager.settings = $.extend(defaults, config, options)
 
+      pager.div = el.find(pager.settings.div)
       pager.pageCounter = 0
       pager.currentPage = pager.settings.currentPage
 
       setup()
+      // Set initialized flag
+      el.attr("data-state","init")
     }
 
     /**
@@ -58,11 +62,11 @@
     var paginate = function () {
       var pageCounter = 1
 
-      el.wrap('<div class="simplePagerContainer"></div>')
+      pager.div.wrap('<div class="simplePagerContainer"></div>')
 
-      el.children().each(function (i) {
+      pager.div.children().each(function (i) {
         var rangeEnd = pageCounter * pager.settings.pageSize - 1
-        if ( i > rangeEnd) {
+        if (i > rangeEnd) {
           pageCounter++
         }
         $(this).addClass('simplePagerPage' + pageCounter)
@@ -81,7 +85,7 @@
       if (el.closest('.woocommerce-tabs').length) {
         containerOffset = el.closest('.woocommerce-tabs').offset()
       } else {
-        containerOffset = el.closest('.simplePagerContainer').offset()
+        containerOffset = el.find('.simplePagerContainer').offset()
       }
 
       pager.scrollto = containerOffset.top - pager.settings.offset
@@ -96,8 +100,13 @@
      * Hide all and show current
      */
     var switchPages = function (fade) {
-      el.children().hide()
-      var newPage = el.children('.simplePagerPage' + pager.currentPage)
+      // Hide the pages
+      pager.div.children().hide()
+      // Show the container which now has paging controls
+      el.show()
+
+      // Show the current page
+      var newPage = pager.div.children('.simplePagerPage' + pager.currentPage)
       if (fade)
         newPage.fadeIn()
       else
@@ -112,9 +121,9 @@
       var cssClass
 
       for (var i = 1; i <= pager.pageCounter; i++) {
-        cssClass = ""
+        cssClass = ''
         if (i === pager.currentPage) {
-          cssClass = "currentPage "
+          cssClass = 'currentPage '
         }
         nav += '<li class="' + cssClass + 'simplePageNav' + i + '"><a rel="' + i + '" href="#">' + i + '</a></li>'
       }
@@ -123,14 +132,14 @@
 
       switch (pager.settings.pagerLocation) {
         case 'before':
-          el.before(nav)
+          pager.div.before(nav)
           break
         case 'both':
-          el.before(nav)
-          el.after(nav)
+          pager.div.before(nav)
+          pager.div.after(nav)
           break
         default:
-          el.after(nav)
+          pager.div.after(nav)
       }
     }
 
@@ -138,7 +147,7 @@
      * Navigation behavior
      */
     var navigationHandler = function () {
-      el.parent().find('.simplePagerNav a').click(function (e) {
+      el.find('.simplePagerNav a').click(function (e) {
         var $this = $(e.target)
         var container
 
@@ -173,9 +182,9 @@
         return
       }
 
-      findOffset()
-      switchPages()
       addNavigation()
+      switchPages()
+      findOffset()
       navigationHandler()
     }
 
