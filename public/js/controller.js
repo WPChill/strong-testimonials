@@ -37,7 +37,7 @@ var strongController = {
    */
   initPaginated: function () {
     console.log('initPaginated')
-    jQuery('.strong-paginated').strongPager()
+    jQuery('.strong-paginated').strongPager().show()
   },
 
   initLayouts: function () {
@@ -121,8 +121,9 @@ var strongController = {
         clearTimeout(strongController.timerId)
         strongController.timerId = null
         console.log('ready')
-        strongController.initSliders()
-        strongController.initPaginated()
+        // strongController.initSliders()
+        // strongController.initPaginated()
+        strongController.start()
       } else {
         strongController.timerId = setTimeout(tick, 1000)
       }

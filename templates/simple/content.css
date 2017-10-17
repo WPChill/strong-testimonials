@@ -62,8 +62,12 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
   word-wrap: normal !important;
 }
 
-/* Paging controls
+/* Simple pagination
 -----------------------------------------------*/
+.strong-paginated {
+  display: none;
+}
+
 .simplePagerList {
   /* match .strong-content container */
   margin: 20px auto;
@@ -102,7 +106,7 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
   float: right;
 }
 
-/* Paging controls
+/* Standard pagination
 -----------------------------------------------*/
 .standard-pagination {
   /* match .strong-content container */
