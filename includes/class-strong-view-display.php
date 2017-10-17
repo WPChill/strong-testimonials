@@ -284,6 +284,7 @@ class Strong_View_Display extends Strong_View {
 			$content_class_list[] = 'strong-paginated';
 			$container_class_list[] = 'strong-pager';
 			$container_data_list['pager-var'] = $this->pager_signature();
+			$container_data_list['state'] = 'idle';
 		}
 
 		// layouts

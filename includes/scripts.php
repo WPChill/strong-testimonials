@@ -41,7 +41,6 @@ function wpmtst_scripts() {
 		'script'     => isset( $compat_options['script'] ) ? $compat_options['script'] : '',
 		'elementId'  => 'content',
 		'attrName'   => 'data-pjax',
-		//'continuous' => false,
 		'continuous' => true,
 	);
 	wp_localize_script( 'wpmtst-controller', 'strongControllerParms', $parms );

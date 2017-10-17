@@ -29,8 +29,7 @@ var strongController = {
   initSliders: function () {
     console.log('initSliders')
     // Load up our slideshows
-    // var strongSlideshows = jQuery('.strong-view.slider-container')
-    var strongSlideshows = jQuery(".strong-view.slider-container[data-state!='init']")
+    var strongSlideshows = jQuery(".strong-view.slider-container[data-state='idle']")
 
     strongSlideshows.each(function () {
       var $that = jQuery(this)
@@ -42,7 +41,7 @@ var strongController = {
   },
 
   checkInit: function () {
-    return jQuery(".strong-view[data-state!='init']").length
+    return jQuery(".strong-view[data-state='idle']").length
   },
 
   /**
@@ -174,7 +173,7 @@ var strongController = {
 
     switch (this.config.method) {
       case 'universal':
-        // Set a timer to check for uninitialized components.
+        // Set a timer to check for idle components.
         this.newTimer()
         break
 

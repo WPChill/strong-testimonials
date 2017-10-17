@@ -294,6 +294,7 @@ class Strong_View_Slideshow extends Strong_View_Display {
 			}
 
 			$container_data_list['slider-var'] = $this->slideshow_signature();
+			$container_data_list['state'] = 'idle';
 
 			$content_class_list[] = 'wpmslider-wrapper';
 
