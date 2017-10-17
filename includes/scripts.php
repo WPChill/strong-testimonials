@@ -37,10 +37,12 @@ function wpmtst_scripts() {
 	 * Remember: array top level is converted to strings!
 	 */
 	$parms = array(
-		'method'    => isset( $compat_options['method'] ) ? $compat_options['method'] : '',
-		'script'    => isset( $compat_options['script'] ) ? $compat_options['script'] : '',
-		'elementId' => 'content',
-		'attrName'  => 'data-pjax',
+		'method'     => isset( $compat_options['method'] ) ? $compat_options['method'] : '',
+		'script'     => isset( $compat_options['script'] ) ? $compat_options['script'] : '',
+		'elementId'  => 'content',
+		'attrName'   => 'data-pjax',
+		//'continuous' => false,
+		'continuous' => true,
 	);
 	wp_localize_script( 'wpmtst-controller', 'strongControllerParms', $parms );
 

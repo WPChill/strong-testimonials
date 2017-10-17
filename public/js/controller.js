@@ -4,10 +4,19 @@
 
 var strongController = {
 
+  default: {
+    method: '',
+    script: '',
+    elementId: 'content',
+    attrNam: 'data-pjax',
+    continuous: '1'
+  },
+
   config: {},
 
   setup: function (settings) {
-    this.config = jQuery.extend({}, settings)
+    settings.continuous = settings.continuous === "1"
+    this.config = jQuery.extend({}, this.defaults, settings)
   },
 
   mutationObserver: window.MutationObserver || window.WebKitMutationObserver,
@@ -32,12 +41,16 @@ var strongController = {
     })
   },
 
+  checkInit: function () {
+    return jQuery(".strong-view[data-state!='init']").length
+  },
+
   /**
    * Initialize paginated views.
    */
   initPaginated: function () {
     console.log('initPaginated')
-    jQuery('.strong-paginated').strongPager().show()
+    jQuery('.strong-paginated').strongPager().show().closest(".strong-view").attr("data-state","init")
   },
 
   initLayouts: function () {
@@ -113,21 +126,20 @@ var strongController = {
    * Set up timer
    */
   newTimer: function () {
-    if (strongController.timerId) return
+      strongController.timerId = setInterval(function tick () {
+        console.log('tick', new Date().getTime())
+        console.log('checkInit', strongController.checkInit())
 
-    strongController.timerId = setTimeout(function tick () {
-      console.log('tick')
-      if (jQuery('.strong-view.slider-container').is(':visible')) {
-        clearTimeout(strongController.timerId)
-        strongController.timerId = null
-        console.log('ready')
-        // strongController.initSliders()
-        // strongController.initPaginated()
-        strongController.start()
-      } else {
-        strongController.timerId = setTimeout(tick, 1000)
-      }
-    }, 1000)
+        // Creating an artificial event by checking for unitialized components (sliders, paginated, layouts)
+        if (strongController.checkInit()) {
+          strongController.start()
+          if (!strongController.config.continuous) {
+            clearTimeout(strongController.timerId)
+            console.log('clear timeout')
+          }
+        }
+
+      }, 1000)
   },
 
   /**

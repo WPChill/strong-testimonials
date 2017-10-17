@@ -47,7 +47,6 @@
      * Scroll upon navigation
      */
     var scroll = function () {
-      // Scroll up for any nav click
       if (pager.settings.scrollTop) {
         $('html, body').animate({scrollTop: pager.scrollto}, 800)
       }
