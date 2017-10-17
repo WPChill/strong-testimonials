@@ -15,7 +15,7 @@ var strongController = {
   eventListenerSupported: window.addEventListener,
 
   /**
-   * Initialize sliders
+   * Initialize sliders.
    */
   initSliders: function () {
     console.log('initSliders')
@@ -32,8 +32,12 @@ var strongController = {
     })
   },
 
-  initPagination: function () {
-    console.log('initPagination')
+  /**
+   * Initialize paginated views.
+   */
+  initPaginated: function () {
+    console.log('initPaginated')
+    jQuery('.strong-paginated').strongPager()
   },
 
   initLayouts: function () {
@@ -118,6 +122,7 @@ var strongController = {
         strongController.timerId = null
         console.log('ready')
         strongController.initSliders()
+        strongController.initPaginated()
       } else {
         strongController.timerId = setTimeout(tick, 1000)
       }
@@ -144,7 +149,8 @@ var strongController = {
    */
   start: function(){
     console.log('strongController:start')
-    this.initSliders()
+    strongController.initSliders()
+    strongController.initPaginated()
   },
 
   /**
@@ -161,7 +167,7 @@ var strongController = {
 
       case 'attr_changed':
         // Observe a specific DOM element.
-        this.observeDOMForAttrChanged(document.getElementById(this.config.elementId), this.initSliders)
+        this.observeDOMForAttrChanged(document.getElementById(this.config.elementId), this.start)
         break
 
       case 'nodes_added':
@@ -178,11 +184,11 @@ var strongController = {
 
         // Pjax by MoOx
         // @link https://github.com/MoOx/pjax
-        document.addEventListener('pjax:success', this.initSliders)
+        document.addEventListener('pjax:success', this.start)
 
         // Ajax Pagination and Infinite Scroll by Malinky
         // @link https://wordpress.org/plugins/malinky-ajax-pagination/
-        document.addEventListener('malinkyLoadPostsComplete', this.initSliders);
+        document.addEventListener('malinkyLoadPostsComplete', this.start);
         break
 
       case 'script':
@@ -191,7 +197,7 @@ var strongController = {
         // Barba
         // @link http://barbajs.org/
         if (typeof Barba === 'object' && Barba.hasOwnProperty('Dispatcher')) {
-          Barba.Dispatcher.on('transitionCompleted', this.initSliders)
+          Barba.Dispatcher.on('transitionCompleted', this.start)
         }
         break
 

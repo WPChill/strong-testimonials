@@ -280,9 +280,9 @@ class Strong_View_Display extends Strong_View {
 			$post_class_list[] = 'excerpt';
 		}
 
-		if ( $this->atts['pagination'] && 'masonry' != $this->atts['layout'] ) {
+		if ( $this->is_paginated() && 'masonry' != $this->atts['layout'] ) {
 			$content_class_list[] = 'strong-paginated';
-			$content_class_list[] = $this->pager_signature();
+			$container_data_list['pager-var'] = $this->pager_signature();
 		}
 
 		// layouts
@@ -302,6 +302,71 @@ class Strong_View_Display extends Strong_View {
 		 */
 		WPMST()->set_atts( $this->atts );
 
+	}
+
+	/**
+	 * Return true if using simple pagination (JavaScript).
+	 *
+	 * @since 2.28.0
+	 *
+	 * @return bool
+	 */
+	public function is_paginated() {
+		return $this->atts['pagination'] && 'simple' == $this->atts['pagination_type'];
+	}
+
+	/**
+	 * Pagination
+	 *
+	 * @since 2.16.0 In Strong_View class.
+	 */
+	public function has_pagination() {
+		if ( $this->is_paginated() ) {
+			WPMST()->add_script( 'wpmtst-strong-pager' );
+			WPMST()->add_script_var( 'wpmtst-strong-pager', $this->pager_signature(), $this->pager_args() );
+		}
+	}
+
+	/**
+	 * Create unique pager signature.
+	 *
+	 * @since 2.13.2
+	 * @since 2.22.3 In this class.
+	 *
+	 * @return string
+	 */
+	public function pager_signature() {
+		return 'strong_pager_id_' . $this->atts['view'];
+	}
+
+	/**
+	 * Assemble pager settings.
+	 *
+	 * @since 2.13.2
+	 * @since 2.22.3 In this class.
+	 *
+	 * @return array
+	 */
+	public function pager_args() {
+		$options = get_option( 'wpmtst_options' );
+
+		$nav = $this->atts['nav'];
+		if ( false !== strpos( $this->atts['nav'], 'before' ) && false !== strpos( $this->atts['nav'], 'after' ) ) {
+			$nav = 'both';
+		}
+
+		// Remember: top level is converted to strings!
+		$args = array(
+			'config' => array(
+				'pageSize'      => $this->atts['per_page'],
+				'currentPage'   => 1,
+				'pagerLocation' => $nav,
+				'scrollTop'     => $options['scrolltop'],
+				'offset'        => $options['scrolltop_offset'],
+			),
+		);
+
+		return apply_filters( 'wpmtst_view_pagination', $args, $this->atts['view'] );
 	}
 
 	/**
@@ -334,59 +399,6 @@ class Strong_View_Display extends Strong_View {
 			}
 		}
 
-	}
-
-	/**
-	 * Pagination
-	 *
-	 * @since 2.16.0 In Strong_View class.
-	 */
-	public function has_pagination() {
-		if ( $this->atts['pagination'] && 'simple' == $this->atts['pagination_type'] ) {
-			$sig  = $this->pager_signature();
-			$args = $this->pager_args();
-			WPMST()->add_script( 'wpmtst-pager-script' );
-			WPMST()->add_script_var( 'wpmtst-pager-script', $sig, $args );
-		}
-	}
-
-	/**
-	 * Create unique pager signature.
-	 *
-	 * @since 2.13.2
-	 * @since 2.22.3 In this class.
-	 *
-	 * @return string
-	 */
-	public function pager_signature() {
-		return 'strong_pager_id_' . $this->atts['view'];
-	}
-
-	/**
-	 * Assemble pager settings.
-	 *
-	 * @since 2.13.2
-	 * @since 2.22.3 In this class.
-	 *
-	 * @return array
-	 */
-	public function pager_args() {
-		$options = get_option( 'wpmtst_options' );
-
-		$nav = $this->atts['nav'];
-		if ( false !== strpos( $this->atts['nav'], 'before' ) && false !== strpos( $this->atts['nav'], 'after' ) ) {
-			$nav = 'both';
-		}
-
-		$args = array(
-			'pageSize'      => $this->atts['per_page'],
-			'currentPage'   => 1,
-			'pagerLocation' => $nav,
-			'scrollTop'     => $options['scrolltop'],
-			'offset'        => $options['scrolltop_offset'],
-		);
-
-		return apply_filters( 'wpmtst_view_pagination', $args, $this->atts['view'] );
 	}
 
 }
