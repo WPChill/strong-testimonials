@@ -29,6 +29,7 @@
     preloadImages: 'visible',
     responsive: true,
     slideZIndex: 50,
+    stretch: false,
     wrapperClass: 'wpmslider-wrapper',
 
     // TOUCH
@@ -432,24 +433,15 @@
       slider.settings.onSliderLoad.call(el, slider.active.index)
 
       // slider has been fully initialized
+      slider.initialized = true
       el.visibilityInterval = setInterval( visibilityCheck, 500 );
 
       // bind the resize call to the window
       if (slider.settings.responsive) {
-        $(window).bind('resize', resizeWindow)
+        window.addEventListener('resize', updateLayout, false)
+        //window.addEventListener('orientationchange', el.resetHeight, false)
+        window.addEventListener('orientationchange', updateLayout, false)
       }
-
-      // Listen for orientation changes
-      window.addEventListener('orientationchange', function () {
-        slider.resetHeight()
-      }, false)
-
-      // Listen for window resize or emulator device change
-      var updateLayout = _.debounce(function (e) {
-        slider.reloadSlider()
-      }, 250)
-
-      window.addEventListener('resize', updateLayout, false)
 
       // if auto is true and has more than 1 page, start the show
       if (slider.settings.auto
@@ -477,6 +469,12 @@
 
       viewEl.attr("data-state", "init")
     }
+
+    // Listen for window resize or emulator device change
+    var updateLayout = _.debounce(function () {
+      // console.log('debounced resize')
+      resizeWindow()
+    }, 250)
 
     var visibilityCheck = function () {
       if (slider.settings.auto) {
@@ -1398,6 +1396,7 @@
       if (slider.working) {
         window.setTimeout(resizeWindow, 10)
       } else {
+        /*
         // get the new window dimens (again, thank you IE)
         var windowWidthNew = $(window).width(),
           windowHeightNew = $(window).height()
@@ -1413,6 +1412,12 @@
           // Call user resize handler
           slider.settings.onSliderResize.call(el, slider.active.index)
         }
+        */
+
+        // update all dynamic elements
+        el.redrawSlider()
+        // Call user resize handler
+        slider.settings.onSliderResize.call(el, slider.active.index)
       }
     }
 
@@ -1436,7 +1441,7 @@
     /**
      * Returns index according to present page range
      *
-     * @param slideOndex (int)
+     * @param slideIndex (int)
      *  - the desired slide index
      */
     var setSlideIndex = function (slideIndex) {
