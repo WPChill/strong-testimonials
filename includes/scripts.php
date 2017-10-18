@@ -190,31 +190,11 @@ function wpmtst_scripts() {
 		'1.0.16',
 		true );
 
-	wp_register_script( 'wpmslider',
+	wp_register_script( 'wpmtst-slider',
 		WPMTST_PUBLIC_URL . "js/lib/wpmslider/jquery.wpmslider{$min}.js",
-		array( 'jquery-actual', 'imagesloaded' ),
+		array( 'jquery-actual', 'imagesloaded', 'underscore' ),
 		$plugin_version,
 		true );
-
-	wp_register_script( 'strongslider',
-		WPMTST_PUBLIC_URL . "js/lib/strongslider/jquery.strongslider{$min}.js",
-		array( 'wpmslider', 'underscore' ),
-		$plugin_version,
-		true );
-
-	if ( defined( 'MEGAMENU_VERSION' ) ) {
-		wp_register_script( 'wpmtst-slider',
-			WPMTST_PUBLIC_URL . 'js/slider-megamenu.js',
-			array( 'strongslider' ),
-			$plugin_version,
-			true );
-	} else {
-		wp_register_script( 'wpmtst-slider',
-			WPMTST_PUBLIC_URL . 'js/slider.js',
-			array( 'strongslider', 'wpmtst-controller' ),
-			$plugin_version,
-			true );
-	}
 
 	/**
 	 * Colorbox settings
@@ -251,8 +231,6 @@ function wpmtst_defer_scripts( $tag, $handle ) {
 		//'wpmtst-honeypot-after',
 		// slider
 		'jquery-actual',
-		'wpmslider',
-		'strongslider',
 		'wpmtst-slider',
 		// Colorbox
 		'wpmtst-colorbox'
