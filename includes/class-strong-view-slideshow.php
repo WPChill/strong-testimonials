@@ -296,7 +296,7 @@ class Strong_View_Slideshow extends Strong_View_Display {
 			$container_data_list['slider-var'] = $this->slideshow_signature();
 			$container_data_list['state'] = 'idle';
 
-			$content_class_list[] = 'wpmslider-wrapper';
+			$content_class_list[] = 'wpmslider-content';
 
 			$post_class_list[] = 't-slide';
 
@@ -366,10 +366,8 @@ class Strong_View_Slideshow extends Strong_View_Display {
 
 		}
 
-		$sig  = $this->slideshow_signature();
-		$args = $this->slideshow_args();
 		WPMST()->add_script( 'wpmtst-slider' );
-		WPMST()->add_script_var( 'wpmtst-slider', $sig, $args );
+		WPMST()->add_script_var( 'wpmtst-slider', $this->slideshow_signature(), $this->slideshow_args() );
 	}
 
 	/**
@@ -408,7 +406,7 @@ class Strong_View_Slideshow extends Strong_View_Display {
 			'controls'            => 0,
 			'autoControls'        => 0,
 			'pager'               => 0,
-			'postCount'           => $this->post_count,
+			'slideCount'          => $this->post_count,
 		);
 		if ( ! $this->atts['slideshow_settings']['adapt_height'] ) {
 			$args['stretch'] = $this->atts['slideshow_settings']['stretch'] ? 1 : 0;
@@ -421,6 +419,7 @@ class Strong_View_Slideshow extends Strong_View_Display {
 			$control_setting = 'none';
 		}
 		if ( isset( $options[ $control_setting ] ) && isset( $options[ $control_setting ]['args'] ) ) {
+			$args['controls'] = 1;
 			$args = array_merge( $args, $options[ $control_setting ]['args'] );
 		}
 
@@ -452,11 +451,12 @@ class Strong_View_Slideshow extends Strong_View_Display {
 				$setting = 'none';
 			}
 			if ( isset( $options[ $setting ] ) && isset( $options[ $setting ]['args'] ) ) {
+				$args['pager'] = 1;
 				$args = array_merge( $args, $options[ $setting ]['args'] );
 			}
 		}
 
-		return $args;
+		return array( 'config' => $args );
 	}
 
 }

@@ -27,15 +27,16 @@ var strongController = {
    * Initialize sliders.
    */
   initSliders: function () {
-    console.log('initSliders')
+    //console.log('initSliders')
     // Load up our slideshows
     var strongSlideshows = jQuery(".strong-view.slider-container[data-state='idle']")
 
     strongSlideshows.each(function () {
       var $that = jQuery(this)
       $that.imagesLoaded(function () {
-        $that.strongSlider()
-        console.log('- init -')
+        // $that.strongSlider()
+        $that.wpmSlider()
+        //console.log('- init -')
       })
     })
   },
@@ -48,12 +49,12 @@ var strongController = {
    * Initialize paginated views.
    */
   initPaginated: function () {
-    console.log('initPaginated')
+    //console.log('initPaginated')
     jQuery('.strong-pager').strongPager()
   },
 
   initLayouts: function () {
-    console.log('initLayouts')
+    //console.log('initLayouts')
   },
 
   /**
@@ -66,7 +67,7 @@ var strongController = {
 
       // define a new observer
       var obs = new this.mutationObserver(function (mutations) {
-        console.log('mutation observed')
+        //console.log('mutation observed')
         callback()
       })
       // have the observer observe obj for changes
@@ -77,7 +78,7 @@ var strongController = {
       obj.addEventListener('DOMAttrModified', function(e){
         /** currentTarget **/
         if ( e.currentTarget.id === obj.id && e.attrName === 'data-pjax' ) {
-          console.log('DOMAttrModified', e.target.id, e.attrName, e.prevValue, e.newValue)
+          //console.log('DOMAttrModified', e.target.id, e.attrName, e.prevValue, e.newValue)
           callback()
         }
       }, false)
@@ -96,7 +97,7 @@ var strongController = {
       // define a new observer
       var obs = new this.mutationObserver(function (mutations) {
         if (mutations[0].addedNodes.length) {
-          console.log('mutation observed')
+          //console.log('mutation observed')
           callback()
         }
       })
@@ -108,7 +109,7 @@ var strongController = {
       obj.addEventListener('DOMNodeInserted', function(e) {
         /** currentTarget **/
         if ( e.currentTarget.id === obj.id ) {
-          console.log('DOMNodeInserted:', e.currentTarget.id)
+          //console.log('DOMNodeInserted:', e.currentTarget.id)
           callback()
         }
       }, false)
@@ -126,15 +127,15 @@ var strongController = {
    */
   newTimer: function () {
       strongController.timerId = setInterval(function tick () {
-        console.log('tick', new Date().getTime())
-        console.log('checkInit', strongController.checkInit())
+        //console.log('tick', new Date().getTime())
+        //console.log('checkInit', strongController.checkInit())
 
         // Creating an artificial event by checking for unitialized components (sliders, paginated, layouts)
         if (strongController.checkInit()) {
           strongController.start()
           if (!strongController.config.continuous) {
             clearTimeout(strongController.timerId)
-            console.log('clear timeout')
+            //console.log('clear timeout')
           }
         }
 
@@ -145,7 +146,7 @@ var strongController = {
    * Initialize controller.
    */
   init: function () {
-    console.log('strongController:init')
+    //console.log('strongController:init')
 
     var settings = {}
     /** @namespace window.strongControllerParms */
@@ -153,14 +154,14 @@ var strongController = {
       settings = window.strongControllerParms
     }
     this.setup(settings)
-    console.log('strongController:config', this.config)
+    //console.log('strongController:config', this.config)
   },
 
   /**
    * Start components.
    */
   start: function(){
-    console.log('strongController:start')
+    //console.log('strongController:start')
     strongController.initSliders()
     strongController.initPaginated()
   },
@@ -169,7 +170,7 @@ var strongController = {
    * Listen.
    */
   listen: function() {
-    console.log('strongController:listen')
+    //console.log('strongController:listen')
 
     switch (this.config.method) {
       case 'universal':

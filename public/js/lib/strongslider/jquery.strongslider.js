@@ -71,7 +71,8 @@
     var settings = $.extend({}, userSettings)
 
     // Instantiate slider object
-    var slider = this.children('.wpmslider-wrapper').wpmSlider(settings)
+    // var slider = this.children('.wpmslider-wrapper').wpmSlider(settings)
+    // var slider = this.wpmSlider()
     this.attr("data-state", "init")
 
     // Hide entire slider if no slides
@@ -80,6 +81,7 @@
     }
 
     // Custom control sets
+    /*
     if (settings.fullSetButtons || settings.fullSetText) {
       // Add prev/next buttons
       this.find('.wpmslider-controls')
@@ -97,11 +99,14 @@
         slider.stopAuto()
       })
     }
+    */
 
     // Move <next> to bookend pagination
+    /*
     if (settings.pager && ( settings.simpleSetText || settings.simpleSetPager )) {
       this.find('.wpmslider-next').appendTo(this.find('.wpmslider-controls')).wrap('<div class="wpmslider-controls-direction"></div>')
     }
+    */
 
     // Listen for orientation changes
     window.addEventListener('orientationchange', function () {

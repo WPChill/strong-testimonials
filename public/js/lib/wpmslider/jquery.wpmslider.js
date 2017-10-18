@@ -14,7 +14,7 @@
 
     // GENERAL
     mode: 'horizontal',
-    slideSelector: '',
+    slideSelector: 'div.t-slide',
     infiniteLoop: true,
     hideControlOnEnd: false,
     speed: 500,
@@ -69,7 +69,7 @@
     autoControlsSelector: null,
 
     // AUTO
-    auto: false,
+    auto: true,
     pause: 4000,
     autoStart: true,
     autoDirection: 'next',
@@ -115,11 +115,15 @@
     // create a namespace to be used throughout the plugin
     var slider = {},
       // set a reference to our slider element
-      el = this,
+      // el = this,
+      viewEl = this,
+      el = this.find(".wpmslider-content"),
       // get the original window dimens (thanks a lot IE)
       windowWidth = $(window).width(),
       windowHeight = $(window).height()
 
+    // console.log('viewEl',viewEl)
+    // console.log('el',el)
     // Return if slider is already initialized
     if ($(el).data('wpmSlider')) {
       return
@@ -146,7 +150,17 @@
       slider.hidden = false
 
       // merge user-supplied options with the defaults
-      slider.settings = $.extend({}, defaults, options)
+      var sliderVar = viewEl.data('slider-var')
+      var config = {}
+
+      if (typeof( window[sliderVar] ) !== 'undefined') {
+        config = window[sliderVar].config
+      }
+      // TODO move into plugin
+      config.buildPager = 'icons' === config.buildPager ? function (slideIndex) { return '' } : null
+
+      slider.settings = $.extend(defaults, config, options)
+      console.log('slider.settings', slider.settings)
 
       // parse slideWidth setting
       slider.settings.slideWidth = parseInt(slider.settings.slideWidth)
@@ -351,8 +365,11 @@
       if (!slider.settings.ticker) {
 
         // if controls are requested, add them
+        // if (slider.settings.controls) {
+        //   appendControls()
+        // }
         if (slider.settings.controls) {
-          appendControls()
+          appendControlPrev()
         }
 
         // if auto is true, and auto controls are requested, add them
@@ -363,6 +380,10 @@
         // if pager is requested, add it
         if (slider.settings.pager) {
           appendPager()
+        }
+
+        if (slider.settings.controls) {
+          appendControlNext()
         }
 
         // if any control option is requested, add the controls wrapper
@@ -434,6 +455,19 @@
         $(window).bind('resize', resizeWindow)
       }
 
+      // Listen for orientation changes
+      window.addEventListener('orientationchange', function () {
+        slider.resetHeight()
+      }, false)
+
+      // Listen for window resize or emulator device change
+      var updateLayout = _.debounce(function (e) {
+        slider.reloadSlider()
+      }, 250)
+
+      window.addEventListener('resize', updateLayout, false)
+
+
       // if auto is true and has more than 1 page, start the show
       if (slider.settings.auto
         && slider.settings.autoStart
@@ -461,6 +495,8 @@
       if (slider.settings.keyboardEnabled && !slider.settings.ticker) {
         $(document).keydown(keyPress)
       }
+
+      viewEl.attr("data-state", "init")
     }
 
     var visibilityCheck = function () {
@@ -843,8 +879,8 @@
         // if a pager selector was supplied, populate it with the pager
         if (slider.settings.pagerSelector) {
           $(slider.settings.pagerSelector).html(slider.pagerEl)
-          // if no pager selector was supplied, add it after the wrapper
         } else {
+          // if no pager selector was supplied, add it after the wrapper
           slider.controls.el.addClass('wpmslider-has-pager').append(slider.pagerEl)
         }
         // populate the pager
@@ -857,30 +893,50 @@
     }
 
     /**
-     * Appends prev / next controls to the controls element
+     * Appends prev control to the controls element
      */
-    var appendControls = function () {
-      slider.controls.next = $('<a class="wpmslider-next" href="">' + slider.settings.nextText + '</a>')
+    var appendControlPrev = function () {
       slider.controls.prev = $('<a class="wpmslider-prev" href="">' + slider.settings.prevText + '</a>')
+
       // bind click actions to the controls
-      slider.controls.next.bind('click touchend', clickNextBind)
       slider.controls.prev.bind('click touchend', clickPrevBind)
-      // if nextSelector was supplied, populate it
-      if (slider.settings.nextSelector) {
-        $(slider.settings.nextSelector).append(slider.controls.next)
-      }
+
       // if prevSelector was supplied, populate it
       if (slider.settings.prevSelector) {
         $(slider.settings.prevSelector).append(slider.controls.prev)
       }
+
       // if no custom selectors were supplied
-      if (!slider.settings.nextSelector && !slider.settings.prevSelector) {
-        // add the controls to the DOM
-        slider.controls.directionEl = $('<div class="wpmslider-controls-direction" />')
-        // add the control elements to the directionEl
-        slider.controls.directionEl.append(slider.controls.prev).append(slider.controls.next)
-        // slider.viewport.append(slider.controls.directionEl);
-        slider.controls.el.addClass('wpmslider-has-controls-direction').append(slider.controls.directionEl)
+      if (!slider.settings.prevSelector) {
+          // add the controls to the DOM
+          slider.controls.directionEl = $('<div class="wpmslider-controls-direction" />')
+          // add the control elements to the directionEl
+          slider.controls.directionEl.append(slider.controls.prev)
+          slider.controls.el.addClass('wpmslider-has-controls-direction').append(slider.controls.directionEl)
+      }
+    }
+
+    /**
+     * Appends prev / next controls to the controls element
+     */
+    var appendControlNext = function () {
+      slider.controls.next = $('<a class="wpmslider-next" href="">' + slider.settings.nextText + '</a>')
+
+      // bind click actions to the controls
+      slider.controls.next.bind('click touchend', clickNextBind)
+
+      // if nextSelector was supplied, populate it
+      if (slider.settings.nextSelector) {
+        $(slider.settings.nextSelector).append(slider.controls.next)
+      }
+
+      // if no custom selectors were supplied
+      if (!slider.settings.nextSelector) {
+          // add the controls to the DOM
+          slider.controls.directionEl = $('<div class="wpmslider-controls-direction" />')
+          // add the control elements to the directionEl
+          slider.controls.directionEl.append(slider.controls.next)
+          slider.controls.el.addClass('wpmslider-has-controls-direction').append(slider.controls.directionEl)
       }
     }
 
@@ -890,11 +946,14 @@
     var appendControlsAuto = function () {
       slider.controls.start = $('<div class="wpmslider-controls-auto-item"><a class="wpmslider-start" href="">' + slider.settings.startText + '</a></div>')
       slider.controls.stop = $('<div class="wpmslider-controls-auto-item"><a class="wpmslider-stop" href="">' + slider.settings.stopText + '</a></div>')
+
       // add the controls to the DOM
       slider.controls.autoEl = $('<div class="wpmslider-controls-auto" />')
+
       // bind click actions to the controls
       slider.controls.autoEl.on('click', '.wpmslider-start', clickStartBind)
       slider.controls.autoEl.on('click', '.wpmslider-stop', clickStopBind)
+
       // if autoControlsCombine, insert only the "start" control
       if (slider.settings.autoControlsCombine) {
         slider.controls.autoEl.append(slider.controls.start)
@@ -902,6 +961,7 @@
       } else {
         slider.controls.autoEl.append(slider.controls.start).append(slider.controls.stop)
       }
+
       // if auto controls selector was supplied, populate it with the controls
       if (slider.settings.autoControlsSelector) {
         $(slider.settings.autoControlsSelector).html(slider.controls.autoEl)
@@ -909,6 +969,7 @@
       } else {
         slider.controls.el.addClass('wpmslider-has-controls-auto').append(slider.controls.autoEl)
       }
+
       // update the auto controls
       updateAutoControls(slider.settings.autoStart ? 'stop' : 'start')
     }
