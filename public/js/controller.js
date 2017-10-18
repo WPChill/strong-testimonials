@@ -34,8 +34,7 @@ var strongController = {
     strongSlideshows.each(function () {
       var $that = jQuery(this)
       $that.imagesLoaded(function () {
-        // $that.strongSlider()
-        $that.wpmSlider()
+        $that.strongSlider()
         //console.log('- init -')
       })
     })

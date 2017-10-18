@@ -191,7 +191,7 @@ function wpmtst_scripts() {
 		true );
 
 	wp_register_script( 'wpmtst-slider',
-		WPMTST_PUBLIC_URL . "js/lib/wpmslider/jquery.wpmslider{$min}.js",
+		WPMTST_PUBLIC_URL . "js/lib/strongslider/jquery.strongslider{$min}.js",
 		array( 'jquery-actual', 'imagesloaded', 'underscore' ),
 		$plugin_version,
 		true );

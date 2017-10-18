@@ -1,5 +1,5 @@
 /**
- * wpmSlider v4.2.5.3
+ * strongSlider v4.3
  *
  * A fork of:
  *
@@ -103,7 +103,7 @@
     }
   }
 
-  $.fn.wpmSlider = function (options) {
+  $.fn.strongSlider = function (options) {
 
     if (this.length === 0) {
       return this
@@ -122,7 +122,7 @@
     // console.log('viewEl',viewEl)
     // console.log('el',el)
     // Return if slider is already initialized
-    if ($(el).data('wpmSlider')) {
+    if ($(el).data('strongSlider')) {
       return
     }
 
@@ -137,7 +137,7 @@
      */
     var init = function () {
       // Return if slider is already initialized
-      if ($(el).data('wpmSlider')) {
+      if ($(el).data('strongSlider')) {
         return
       }
 
@@ -1780,7 +1780,7 @@
         $(document).unbind('keydown', keyPress)
       }
       //remove self reference in data
-      $(this).removeData('wpmSlider')
+      $(this).removeData('strongSlider')
     }
 
     /**
@@ -1793,7 +1793,7 @@
       el.destroySlider()
       init()
       //store reference to self in order to access public functions later
-      $(el).data('wpmSlider', this)
+      $(el).data('strongSlider', this)
     }
 
     /**
@@ -1821,7 +1821,7 @@
 
     init()
 
-    $(el).data('wpmSlider', this)
+    $(el).data('strongSlider', this)
 
     // returns the current jQuery object
     return this
