@@ -190,9 +190,15 @@ function wpmtst_scripts() {
 		'1.0.16',
 		true );
 
+	wp_register_script( 'verge',
+		WPMTST_PUBLIC_URL . "js/lib/verge/verge{$min}.js",
+		array(),
+		'1.10.2',
+		true );
+
 	wp_register_script( 'wpmtst-slider',
 		WPMTST_PUBLIC_URL . "js/lib/strongslider/jquery.strongslider{$min}.js",
-		array( 'jquery-actual', 'imagesloaded', 'underscore' ),
+		array( 'jquery-actual', 'imagesloaded', 'underscore', 'verge' ),
 		$plugin_version,
 		true );
 

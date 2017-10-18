@@ -1,11 +1,12 @@
 /**
- * strongSlider v4.3
+ * strongSlider 2.0
  *
  * A fork of:
+ *   bxSlider v4.2.5
+ *   Copyright 2013-2015 Steven Wanderski
+ *   Licensed under MIT (http://opensource.org/licenses/MIT)
  *
- * bxSlider v4.2.5
- * Copyright 2013-2015 Steven Wanderski
- * Licensed under MIT (http://opensource.org/licenses/MIT)
+ * @namespace verge.inViewport
  */
 
 ;(function ($) {
@@ -30,6 +31,7 @@
     responsive: true,
     slideZIndex: 50,
     stretch: false,
+    imagesLoaded: true,
     wrapperClass: 'wpmslider-wrapper',
 
     // TOUCH
@@ -113,7 +115,6 @@
     // create a namespace to be used throughout the plugin
     var slider = {},
       // set a reference to our slider element
-      // el = this,
       viewEl = this,
       el = this.find(".wpmslider-content")
       // get the original window dimens (thanks a lot IE)
@@ -144,6 +145,7 @@
       slider.visibilityInterval = null
       // slider state
       slider.hidden = false
+      slider.running = false
 
       // merge user-supplied options with the defaults
       var sliderVar = viewEl.data('slider-var')
@@ -237,17 +239,28 @@
         return
       }
 
-      // perform all DOM / CSS modifications
+      /**
+       * ------------------------------
+       * Run setup
+       * ------------------------------
+       */
+
+      // Wait for images loaded
+      if (slider.settings.imagesLoaded) {
+        var imgLoad = imagesLoaded(el)
+        imgLoad.on('always', initVisibilityCheck);
+      } else {
+        initVisibilityCheck()
+      }
+
+    }
+
+    var initVisibilityCheck = function () {
       if (el.is(':visible')) {
         clearInterval(el.visibilityInterval)
         setup()
       } else {
-        el.visibilityInterval = setInterval(function () {
-          if (el.is(':visible')) {
-            clearInterval(el.visibilityInterval)
-            setup()
-          }
-        }, 100)
+        el.visibilityInterval = setInterval(initVisibilityCheck, 100)
       }
     }
 
@@ -432,13 +445,11 @@
 
       // slider has been fully initialized
       slider.initialized = true
+      slider.running = true
       el.visibilityInterval = setInterval( visibilityCheck, 500 );
 
-      // bind the resize call to the window
       if (slider.settings.responsive) {
-        window.addEventListener('resize', updateLayout, false)
-        //window.addEventListener('orientationchange', el.resetHeight, false)
-        window.addEventListener('orientationchange', updateLayout, false)
+        attachListeners()
       }
 
       // if auto is true and has more than 1 page, start the show
@@ -464,28 +475,64 @@
       if (slider.settings.keyboardEnabled) {
         $(document).keydown(keyPress)
       }
-
-      viewEl.attr("data-state", "init")
     }
 
-    // Listen for window resize or emulator device change
+    /**
+     * Window event listeners
+     *
+     * Not checking inViewport on scroll event because we also check that
+     * in the general visibility check.
+     */
+    var attachListeners = function () {
+
+      window.addEventListener('resize', updateLayout, false)
+      window.addEventListener('orientationchange', updateLayout, false)
+
+      // Test this with dev console closed (or click in the document once).
+      window.addEventListener('blur', function () {
+        console.log('blur', slider.running);
+        if (slider.running) {
+          el.stopAuto();
+        }
+      })
+      window.addEventListener('focus', function () {
+        console.log('focus', slider.running);
+        if (slider.running) {
+          el.startAuto()
+        }
+      })
+
+    }
+
+    // Debounced resize event.
     var updateLayout = _.debounce(function () { resizeWindow() }, 250)
 
+    // General visibility check.
     var visibilityCheck = function () {
-      if (slider.settings.auto) {
-        if (!el.is(':visible')) {
+      if (!slider.settings.auto) {
+        return
+      }
+
+      if (el.is(':hidden') || !verge.inViewport(el)) {
+
+        console.log('stop', slider.hidden)
+        if (!slider.hidden) {
           el.stopAuto()
           slider.hidden = true
-        } else {
-          if (slider.settings.autoStart) {
-            // Only start if slider was previously hidden.
-            // Otherwise stopAutoOnClick doesn't work.
-            if (slider.hidden) {
-              el.startAuto()
-              slider.hidden = false
-            }
+        }
+
+      } else { // visible
+
+        if (slider.settings.autoStart) {
+          // Only start if slider was previously hidden.
+          // Otherwise stopAutoOnClick doesn't work.
+          console.log('start', slider.hidden)
+          if (slider.hidden) {
+            el.startAuto()
+            slider.hidden = false
           }
         }
+
       }
     }
 
@@ -1135,14 +1182,8 @@
         // if autoDelay was not supplied, start the auto show normally
       } else {
         el.startAuto()
-
-        //add focus and blur events to ensure its running if timeout gets paused
-        $(window).focus(function () {
-          el.startAuto()
-        }).blur(function () {
-          el.stopAuto()
-        })
       }
+
       // if autoHover is requested
       if (slider.settings.autoHover) {
         // on el hover
@@ -1155,7 +1196,7 @@
             slider.autoPaused = true
           }
         }, function () {
-          // if the autoPaused value was created be the prior "mouseover" event
+          // if the autoPaused value was created by the prior "mouseover" event
           if (slider.autoPaused) {
             // start the auto show and pass true argument which will prevent control update
             el.startAuto(true)
@@ -1643,6 +1684,8 @@
       if (slider.settings.autoControls && preventControlUpdate !== true) {
         updateAutoControls('stop')
       }
+
+      slider.running = true
     }
 
     /**
@@ -1663,7 +1706,8 @@
       if (slider.settings.autoControls && preventControlUpdate !== true) {
         updateAutoControls('start')
       }
-      clearInterval(el.visibilityInterval);
+      //clearInterval(el.visibilityInterval);
+      slider.running = false
     }
 
     /**
@@ -1792,36 +1836,18 @@
       }
       el.destroySlider()
       init()
-      //store reference to self in order to access public functions later
+      // Store reference to self in order to access public functions later
       $(el).data('strongSlider', this)
     }
 
-    /**
-     * Adjust the height after orientation change.
-     */
-    el.resetHeight = function () {
-      var settings = slider.settings
-      var currentSlide = slider.active.index
-
-      // reset height
-      slider.children.height('auto')
-
-      // set the viewport height
-      slider.viewport.height(getViewportHeight())
-
-      // if stretch, set t-slide height to 100%
-      if (slider.settings.stretch) {
-        setSlideHeight()
-      }
-
-      // Restart with current slide
-      settings.startSlide = currentSlide
-      el.reloadSlider(settings)
-    }
-
+    // Fire it up!
     init()
 
+    // Store reference to self in order to access public functions later
     $(el).data('strongSlider', this)
+
+    // Set initialized flag on container
+    viewEl.attr("data-state", "init")
 
     // returns the current jQuery object
     return this
