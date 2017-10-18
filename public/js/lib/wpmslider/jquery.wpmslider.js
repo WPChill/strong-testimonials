@@ -23,8 +23,6 @@
     startSlide: 0,
     randomStart: false,
     captions: false,
-    ticker: false,
-    tickerHover: false,
     adaptiveHeight: false,
     adaptiveHeightSpeed: 500,
     video: false,
@@ -266,8 +264,8 @@
       // store a namespace reference to .wpmslider-viewport
       slider.viewport = el.parent()
 
-      // add aria-live if the setting is enabled and ticker mode is disabled
-      if (slider.settings.ariaLive && !slider.settings.ticker) {
+      // add aria-live if the setting is enabled
+      if (slider.settings.ariaLive) {
         slider.viewport.attr('aria-live', 'polite')
       }
 
@@ -357,45 +355,35 @@
         el.fitVids()
       }
 
-      if (slider.settings.preloadImages === 'all' || slider.settings.ticker) {
+      if (slider.settings.preloadImages === 'all') {
         preloadSelector = slider.children
       }
 
-      // only check for control addition if not in "ticker" mode
-      if (!slider.settings.ticker) {
+      // [ LEFT ]
+      // if controls are requested, add them
+      if (slider.settings.controls) {
+        appendControlPrev()
+      }
 
-        // if controls are requested, add them
-        // if (slider.settings.controls) {
-        //   appendControls()
-        // }
-        if (slider.settings.controls) {
-          appendControlPrev()
-        }
+      // [ MIDDLE ]
+      // if auto is true, and auto controls are requested, add them
+      if (slider.settings.auto && slider.settings.autoControls) {
+        appendControlsAuto()
+      }
 
-        // if auto is true, and auto controls are requested, add them
-        if (slider.settings.auto && slider.settings.autoControls) {
-          appendControlsAuto()
-        }
+      // if pager is requested, add it
+      if (slider.settings.pager) {
+        appendPager()
+      }
 
-        // if pager is requested, add it
-        if (slider.settings.pager) {
-          appendPager()
-        }
+      // [ RIGHT ]
+      if (slider.settings.controls) {
+        appendControlNext()
+      }
 
-        if (slider.settings.controls) {
-          appendControlNext()
-        }
-
-        // if any control option is requested, add the controls wrapper
-        if (slider.settings.controls || slider.settings.autoControls || slider.settings.pager) {
-          slider.viewport.after(slider.controls.el)
-        }
-
-      } else {
-
-        // if ticker mode, do not allow a pager
-        slider.settings.pager = false
-
+      // if any control option is requested, add the controls wrapper
+      if (slider.settings.controls || slider.settings.autoControls || slider.settings.pager) {
+        slider.viewport.after(slider.controls.el)
       }
 
       start()
@@ -407,7 +395,7 @@
     var start = function () {
 
       // if infinite loop, prepare additional slides
-      if (slider.settings.infiniteLoop && slider.settings.mode !== 'fade' && !slider.settings.ticker) {
+      if (slider.settings.infiniteLoop && slider.settings.mode !== 'fade') {
 
         var slice = slider.settings.mode === 'vertical' ? slider.settings.minSlides : slider.settings.maxSlides,
           sliceAppend = slider.children.slice(0, slice).clone(true).addClass('wpmslider-clone'),
@@ -475,10 +463,6 @@
         initAuto()
       }
 
-      // if ticker is true, start the ticker
-      if (slider.settings.ticker) {
-        initTicker()
-      }
       // if pager is requested, make the appropriate pager link active
       if (slider.settings.pager) {
         updatePagerActive(slider.settings.startSlide)
@@ -488,11 +472,11 @@
         updateDirectionControls()
       }
       // if touchEnabled is true, setup the touch events
-      if (slider.settings.touchEnabled && !slider.settings.ticker) {
+      if (slider.settings.touchEnabled) {
         initTouch()
       }
       // if keyboardEnabled is true, setup the keyboard events
-      if (slider.settings.keyboardEnabled && !slider.settings.ticker) {
+      if (slider.settings.keyboardEnabled) {
         $(document).keydown(keyPress)
       }
 
@@ -765,7 +749,7 @@
      * @param value (int)
      *  - the animating property's value
      *
-     * @param type (string) 'slide', 'reset', 'ticker'
+     * @param type (string) 'slide', 'reset'
      *  - the type of instance for which the function is being
      *
      * @param duration (int)
@@ -801,27 +785,6 @@
           }
         } else if (type === 'reset') {
           el.css(slider.animProp, propValue)
-        } else if (type === 'ticker') {
-          // make the transition use 'linear'
-          el.css('-' + slider.cssPrefix + '-transition-timing-function', 'linear')
-          el.css(slider.animProp, propValue)
-          if (duration !== 0) {
-            el.bind('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function (e) {
-              //make sure it's the correct one
-              if (!$(e.target).is(el)) {
-                return
-              }
-              // unbind the callback
-              el.unbind('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd')
-              // reset the position
-              setPositionProperty(params.resetValue, 'reset', 0)
-              // start the loop again
-              tickerLoop()
-            })
-          } else { //duration = 0
-            setPositionProperty(params.resetValue, 'reset', 0)
-            tickerLoop()
-          }
         }
         // use JS animate
       } else {
@@ -833,12 +796,6 @@
           })
         } else if (type === 'reset') {
           el.css(slider.animProp, value)
-        } else if (type === 'ticker') {
-          el.animate(animateObj, duration, 'linear', function () {
-            setPositionProperty(params.resetValue, 'reset', 0)
-            // run the recursive loop after animation
-            tickerLoop()
-          })
         }
       }
     }
@@ -1213,93 +1170,6 @@
     }
 
     /**
-     * Initializes the ticker process
-     */
-    var initTicker = function () {
-      var startPosition = 0,
-        position, transform, value, idx, ratio, property, newSpeed, totalDimens
-      // if autoDirection is "next", append a clone of the entire slider
-      if (slider.settings.autoDirection === 'next') {
-        el.append(slider.children.clone().addClass('wpmslider-clone'))
-        // if autoDirection is "prev", prepend a clone of the entire slider, and set the left position
-      } else {
-        el.prepend(slider.children.clone().addClass('wpmslider-clone'))
-        position = slider.children.first().position()
-        startPosition = slider.settings.mode === 'horizontal' ? -position.left : -position.top
-      }
-      setPositionProperty(startPosition, 'reset', 0)
-      // do not allow controls in ticker mode
-      slider.settings.pager = false
-      slider.settings.controls = false
-      slider.settings.autoControls = false
-      // if autoHover is requested
-      if (slider.settings.tickerHover) {
-        if (slider.usingCSS) {
-          idx = slider.settings.mode === 'horizontal' ? 4 : 5
-          slider.viewport.hover(function () {
-            transform = el.css('-' + slider.cssPrefix + '-transform')
-            value = parseFloat(transform.split(',')[idx])
-            setPositionProperty(value, 'reset', 0)
-          }, function () {
-            totalDimens = 0
-            slider.children.each(function (index) {
-              totalDimens += slider.settings.mode === 'horizontal' ? $(this).outerWidth(true) : $(this).outerHeight(true)
-            })
-            // calculate the speed ratio (used to determine the new speed to finish the paused animation)
-            ratio = slider.settings.speed / totalDimens
-            // determine which property to use
-            property = slider.settings.mode === 'horizontal' ? 'left' : 'top'
-            // calculate the new speed
-            newSpeed = ratio * (totalDimens - (Math.abs(parseInt(value))))
-            tickerLoop(newSpeed)
-          })
-        } else {
-          // on el hover
-          slider.viewport.hover(function () {
-            el.stop()
-          }, function () {
-            // calculate the total width of children (used to calculate the speed ratio)
-            totalDimens = 0
-            slider.children.each(function (index) {
-              totalDimens += slider.settings.mode === 'horizontal' ? $(this).outerWidth(true) : $(this).outerHeight(true)
-            })
-            // calculate the speed ratio (used to determine the new speed to finish the paused animation)
-            ratio = slider.settings.speed / totalDimens
-            // determine which property to use
-            property = slider.settings.mode === 'horizontal' ? 'left' : 'top'
-            // calculate the new speed
-            newSpeed = ratio * (totalDimens - (Math.abs(parseInt(el.css(property)))))
-            tickerLoop(newSpeed)
-          })
-        }
-      }
-      // start the ticker loop
-      tickerLoop()
-    }
-
-    /**
-     * Runs a continuous loop, news ticker-style
-     */
-    var tickerLoop = function (resumeSpeed) {
-      var speed = resumeSpeed ? resumeSpeed : slider.settings.speed,
-        position = {left: 0, top: 0},
-        reset = {left: 0, top: 0},
-        animateProperty, resetValue, params
-
-      // if "next" animate left position to last child, then reset left to 0
-      if (slider.settings.autoDirection === 'next') {
-        position = el.find('.wpmslider-clone').first().position()
-        // if "prev" animate left position to 0, then reset left to first non-clone child
-      } else {
-        reset = slider.children.first().position()
-      }
-      animateProperty = slider.settings.mode === 'horizontal' ? -position.left : -position.top
-      resetValue = slider.settings.mode === 'horizontal' ? -reset.left : -reset.top
-      params = {resetValue: resetValue}
-      setPositionProperty(animateProperty, 'ticker', speed, params)
-    }
-
-    /**
      * Check if el is on screen
      */
     var isOnScreen = function (el) {
@@ -1550,8 +1420,8 @@
      */
     var applyAriaHiddenAttributes = function (startVisibleIndex) {
       var numberOfSlidesShowing = getNumberSlidesShowing()
-      // only apply attributes if the setting is enabled and not in ticker mode
-      if (slider.settings.ariaHidden && !slider.settings.ticker) {
+      // only apply attributes if the setting is enabled
+      if (slider.settings.ariaHidden) {
         // add aria-hidden=true to all elements
         slider.children.attr('aria-hidden', 'true')
         // get the visible elements and change to aria-hidden=false
@@ -1838,9 +1708,7 @@
       // adjust the height
       slider.viewport.css('height', getViewportHeight())
       // update the slide position
-      if (!slider.settings.ticker) {
-        setSlidePosition()
-      }
+      setSlidePosition()
       // if active.last was true before the screen resize, we want
       // to keep it last no matter what screen size we end on
       if (slider.active.last) {
