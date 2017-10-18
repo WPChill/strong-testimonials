@@ -235,6 +235,11 @@
         $(this).data('origStyle', $(this).attr('style'))
       })
 
+      // Bail if no slides
+      if (!el.getSlideCount()) {
+        return
+      }
+
       // perform all DOM / CSS modifications
       if (el.is(':visible')) {
         clearInterval(el.visibilityInterval)
@@ -429,7 +434,6 @@
       slider.settings.onSliderLoad.call(el, slider.active.index)
 
       // slider has been fully initialized
-      // slider.initialized = true
       el.visibilityInterval = setInterval( visibilityCheck, 500 );
 
       // bind the resize call to the window
@@ -448,7 +452,6 @@
       }, 250)
 
       window.addEventListener('resize', updateLayout, false)
-
 
       // if auto is true and has more than 1 page, start the show
       if (slider.settings.auto
