@@ -153,8 +153,6 @@
       if (typeof( window[sliderVar] ) !== 'undefined') {
         config = window[sliderVar].config
       }
-      // TODO move into plugin
-      config.buildPager = 'icons' === config.buildPager ? function (slideIndex) { return '' } : null
 
       slider.settings = $.extend(defaults, config, options)
       console.log('slider.settings', slider.settings)
@@ -804,21 +802,30 @@
       var pagerHtml = '',
         linkContent = '',
         pagerQty = getPagerQty()
+
       // loop through each pager item
       for (var i = 0; i < pagerQty; i++) {
         linkContent = ''
-        // if a buildPager function is supplied, use it to get pager link value, else use index + 1
-        if (slider.settings.buildPager && $.isFunction(slider.settings.buildPager) || slider.settings.pagerCustom) {
-          linkContent = slider.settings.buildPager(i)
+
+        if (slider.settings.buildPager) {
+          // if using icons, use no link text
+          if (slider.settings.buildPager === 'icons') {
+            linkContent = ''
+          }
+          // if a buildPager function is supplied, use it to get pager link value, else use index + 1
+          if ($.isFunction(slider.settings.buildPager) || slider.settings.pagerCustom) {
+            linkContent = slider.settings.buildPager(i)
+          }
           slider.pagerEl.addClass('wpmslider-custom-pager')
         } else {
           linkContent = i + 1
           slider.pagerEl.addClass('wpmslider-default-pager')
         }
-        // var linkContent = slider.settings.buildPager && $.isFunction(slider.settings.buildPager) ? slider.settings.buildPager(i) : i + 1;
+
         // add the markup to the string
         pagerHtml += '<div class="wpmslider-pager-item"><a href="" data-slide-index="' + i + '" class="wpmslider-pager-link">' + linkContent + '</a></div>'
       }
+
       // populate the pager element with pager links
       slider.pagerEl.html(pagerHtml)
     }
