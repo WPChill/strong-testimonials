@@ -435,8 +435,8 @@
       slider.settings.onSliderLoad.call(el, slider.active.index)
 
       // slider has been fully initialized
-      slider.initialized = true
-      // el.visibilityInterval = setInterval( visibilityCheck, 500 );
+      // slider.initialized = true
+      el.visibilityInterval = setInterval( visibilityCheck, 500 );
 
       // bind the resize call to the window
       if (slider.settings.responsive) {
@@ -1659,7 +1659,7 @@
       if (slider.settings.autoControls && preventControlUpdate !== true) {
         updateAutoControls('start')
       }
-      // clearInterval(el.visibilityInterval);
+      clearInterval(el.visibilityInterval);
     }
 
     /**
