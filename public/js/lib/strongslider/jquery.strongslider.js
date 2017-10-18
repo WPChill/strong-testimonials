@@ -115,13 +115,11 @@
       // set a reference to our slider element
       // el = this,
       viewEl = this,
-      el = this.find(".wpmslider-content"),
+      el = this.find(".wpmslider-content")
       // get the original window dimens (thanks a lot IE)
-      windowWidth = $(window).width(),
-      windowHeight = $(window).height()
+      // windowWidth = $(window).width(),
+      // windowHeight = $(window).height()
 
-    // console.log('viewEl',viewEl)
-    // console.log('el',el)
     // Return if slider is already initialized
     if ($(el).data('strongSlider')) {
       return
@@ -156,7 +154,7 @@
       }
 
       slider.settings = $.extend(defaults, config, options)
-      console.log('slider.settings', slider.settings)
+      //console.log('slider.settings', slider.settings)
 
       // parse slideWidth setting
       slider.settings.slideWidth = parseInt(slider.settings.slideWidth)
@@ -471,10 +469,7 @@
     }
 
     // Listen for window resize or emulator device change
-    var updateLayout = _.debounce(function () {
-      // console.log('debounced resize')
-      resizeWindow()
-    }, 250)
+    var updateLayout = _.debounce(function () { resizeWindow() }, 250)
 
     var visibilityCheck = function () {
       if (slider.settings.auto) {
@@ -764,13 +759,13 @@
           el.css(slider.animProp, propValue)
           if (duration !== 0) {
             // bind a callback method - executes when CSS transition completes
-            el.bind('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function (e) {
+            el.on('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function (e) {
               //make sure it's the correct one
               if (!$(e.target).is(el)) {
                 return
               }
               // unbind the callback
-              el.unbind('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd')
+              el.off('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd')
               updateAfterSlideTransition()
             })
           } else { //duration = 0
@@ -858,7 +853,7 @@
       slider.controls.prev = $('<a class="wpmslider-prev" href="">' + slider.settings.prevText + '</a>')
 
       // bind click actions to the controls
-      slider.controls.prev.bind('click touchend', clickPrevBind)
+      slider.controls.prev.on('click touchend', clickPrevBind)
 
       // if prevSelector was supplied, populate it
       if (slider.settings.prevSelector) {
@@ -882,7 +877,7 @@
       slider.controls.next = $('<a class="wpmslider-next" href="">' + slider.settings.nextText + '</a>')
 
       // bind click actions to the controls
-      slider.controls.next.bind('click touchend', clickNextBind)
+      slider.controls.next.on('click touchend', clickNextBind)
 
       // if nextSelector was supplied, populate it
       if (slider.settings.nextSelector) {
@@ -1219,7 +1214,7 @@
         start: {x: 0, y: 0},
         end: {x: 0, y: 0}
       }
-      slider.viewport.bind('touchstart MSPointerDown pointerdown', onTouchStart)
+      slider.viewport.on('touchstart MSPointerDown pointerdown', onTouchStart)
 
       //for browsers that have implemented pointer events and fire a click after
       //every pointerup regardless of whether pointerup is on same screen location as pointerdown or not
@@ -1258,10 +1253,10 @@
           slider.viewport.get(0).setPointerCapture(slider.pointerId)
         }
         // bind a "touchmove" event to the viewport
-        slider.viewport.bind('touchmove MSPointerMove pointermove', onTouchMove)
+        slider.viewport.on('touchmove MSPointerMove pointermove', onTouchMove)
         // bind a "touchend" event to the viewport
-        slider.viewport.bind('touchend MSPointerUp pointerup', onTouchEnd)
-        slider.viewport.bind('MSPointerCancel pointercancel', onPointerCancel)
+        slider.viewport.on('touchend MSPointerUp pointerup', onTouchEnd)
+        slider.viewport.on('MSPointerCancel pointercancel', onPointerCancel)
       }
     }
 
@@ -1278,9 +1273,9 @@
 
       //remove handlers
       slider.controls.el.removeClass('disabled')
-      slider.viewport.unbind('MSPointerCancel pointercancel', onPointerCancel)
-      slider.viewport.unbind('touchmove MSPointerMove pointermove', onTouchMove)
-      slider.viewport.unbind('touchend MSPointerUp pointerup', onTouchEnd)
+      slider.viewport.off('MSPointerCancel pointercancel', onPointerCancel)
+      slider.viewport.off('touchmove MSPointerMove pointermove', onTouchMove)
+      slider.viewport.off('touchend MSPointerUp pointerup', onTouchEnd)
       if (slider.viewport.get(0).releasePointerCapture) {
         slider.viewport.get(0).releasePointerCapture(slider.pointerId)
       }
@@ -1329,7 +1324,7 @@
      *  - DOM event object
      */
     var onTouchEnd = function (e) {
-      slider.viewport.unbind('touchmove MSPointerMove pointermove', onTouchMove)
+      slider.viewport.off('touchmove MSPointerMove pointermove', onTouchMove)
       //enable slider controls as soon as user stops interacing with slides
       slider.controls.el.removeClass('disabled')
       var orig = e.originalEvent,
@@ -1378,7 +1373,7 @@
           }
         }
       }
-      slider.viewport.unbind('touchend MSPointerUp pointerup', onTouchEnd)
+      slider.viewport.off('touchend MSPointerUp pointerup', onTouchEnd)
       if (slider.viewport.get(0).releasePointerCapture) {
         slider.viewport.get(0).releasePointerCapture(slider.pointerId)
       }
@@ -1779,10 +1774,10 @@
       clearInterval(slider.interval)
       clearInterval(el.visibilityInterval)
       if (slider.settings.responsive) {
-        $(window).unbind('resize', resizeWindow)
+        $(window).off('resize', resizeWindow)
       }
       if (slider.settings.keyboardEnabled) {
-        $(document).unbind('keydown', keyPress)
+        $(document).off('keydown', keyPress)
       }
       //remove self reference in data
       $(this).removeData('strongSlider')
