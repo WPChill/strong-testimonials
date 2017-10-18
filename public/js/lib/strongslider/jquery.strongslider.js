@@ -145,7 +145,6 @@
       slider.visibilityInterval = null
       // slider state
       slider.hidden = false
-      slider.running = false
 
       // merge user-supplied options with the defaults
       var sliderVar = viewEl.data('slider-var')
@@ -445,7 +444,6 @@
 
       // slider has been fully initialized
       slider.initialized = true
-      slider.running = true
       el.visibilityInterval = setInterval( visibilityCheck, 500 );
 
       if (slider.settings.responsive) {
@@ -488,18 +486,14 @@
       window.addEventListener('resize', updateLayout, false)
       window.addEventListener('orientationchange', updateLayout, false)
 
-      // Test this with dev console closed (or click in the document once).
+      // Test this with dev console closed
+      // (or click in the document once to establish focus).
       window.addEventListener('blur', function () {
-        console.log('blur', slider.running);
-        if (slider.running) {
-          el.stopAuto();
-        }
+        pauseEvent('blur')
       })
+
       window.addEventListener('focus', function () {
-        console.log('focus', slider.running);
-        if (slider.running) {
-          el.startAuto()
-        }
+        playEvent('blur')
       })
 
     }
@@ -513,26 +507,38 @@
         return
       }
 
-      if (el.is(':hidden') || !verge.inViewport(el)) {
+      if (el.is(':hidden')) {
+        pauseEvent('hide')
+      } else {
+        playEvent('hide')
+      }
 
-        console.log('stop', slider.hidden)
-        if (!slider.hidden) {
-          el.stopAuto()
-          slider.hidden = true
-        }
+      if (!verge.inViewport(el)) {
+        pauseEvent('scroll')
+      } else {
+        playEvent('scroll')
+      }
+    }
 
-      } else { // visible
+    var pauseEvent = function (action) {
+      // if the auto show is currently playing (has an active interval)
+      if (slider.interval) {
+        // stop the auto show and pass true argument which will prevent control update
+        el.stopAuto(true)
+        // create a new autoPaused value which will be used by the corresponding event
+        slider.autoPaused = action
+        console.log('pause', action)
+      }
+    }
 
-        if (slider.settings.autoStart) {
-          // Only start if slider was previously hidden.
-          // Otherwise stopAutoOnClick doesn't work.
-          console.log('start', slider.hidden)
-          if (slider.hidden) {
-            el.startAuto()
-            slider.hidden = false
-          }
-        }
-
+    var playEvent = function (action) {
+      // if the autoPaused value was created by the prior event
+      if (slider.autoPaused === action) {
+        // start the auto show and pass true argument which will prevent control update
+        el.startAuto(true)
+        // reset the autoPaused value
+        slider.autoPaused = null
+        console.log('play', action)
       }
     }
 
@@ -1188,21 +1194,9 @@
       if (slider.settings.autoHover) {
         // on el hover
         el.hover(function () {
-          // if the auto show is currently playing (has an active interval)
-          if (slider.interval) {
-            // stop the auto show and pass true argument which will prevent control update
-            el.stopAuto(true)
-            // create a new autoPaused value which will be used by the relative "mouseout" event
-            slider.autoPaused = true
-          }
+          pauseEvent('hover')
         }, function () {
-          // if the autoPaused value was created by the prior "mouseover" event
-          if (slider.autoPaused) {
-            // start the auto show and pass true argument which will prevent control update
-            el.startAuto(true)
-            // reset the autoPaused value
-            slider.autoPaused = null
-          }
+          playEvent('hover')
         })
       }
     }
@@ -1235,7 +1229,7 @@
         p = new RegExp(activeElementTag, ['i']),
         result = p.exec(tagFilters)
 
-      if (result == null && isOnScreen(el)) {
+      if (result === null && isOnScreen(el)) {
         if (e.keyCode === 39) {
           clickNextBind(e)
           return false
@@ -1684,8 +1678,6 @@
       if (slider.settings.autoControls && preventControlUpdate !== true) {
         updateAutoControls('stop')
       }
-
-      slider.running = true
     }
 
     /**
@@ -1707,7 +1699,6 @@
         updateAutoControls('start')
       }
       //clearInterval(el.visibilityInterval);
-      slider.running = false
     }
 
     /**

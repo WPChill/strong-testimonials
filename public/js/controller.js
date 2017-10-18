@@ -4,7 +4,7 @@
 
 var strongController = {
 
-  default: {
+  defaults: {
     method: '',
     script: '',
     elementId: 'content',
@@ -15,7 +15,6 @@ var strongController = {
   config: {},
 
   setup: function (settings) {
-    settings.continuous = settings.continuous === "1"
     this.config = jQuery.extend({}, this.defaults, settings)
   },
 
@@ -23,29 +22,17 @@ var strongController = {
 
   eventListenerSupported: window.addEventListener,
 
+  checkInit: function () {
+    return jQuery(".strong-view[data-state='idle']").length
+  },
+
   /**
    * Initialize sliders.
    */
   initSliders: function () {
     //console.log('initSliders')
     // Load up our slideshows
-    var strongSlideshows = jQuery(".strong-view.slider-container[data-state='idle']")
-
-    // strongSlideshows.each(function () {
-    // var $that = jQuery(this)
-    // $that.imagesLoaded(function () {
-    //   $that.strongSlider()
-    //console.log('- init -')
-    // })
-    // })
-
-    // strongSlideshows.imagesLoaded().always(function(){console.log('images loaded')})
-    // strongSlideshows.imagesLoaded().strongSlider()
-    strongSlideshows.strongSlider()
-  },
-
-  checkInit: function () {
-    return jQuery(".strong-view[data-state='idle']").length
+    jQuery(".strong-view.slider-container[data-state='idle']").strongSlider()
   },
 
   /**
