@@ -25,7 +25,6 @@
     captions: false,
     adaptiveHeight: false,
     adaptiveHeightSpeed: 500,
-    video: false,
     useCSS: true,
     preloadImages: 'visible',
     responsive: true,
@@ -349,11 +348,6 @@
 
       // check if startSlide is last slide
       slider.active.last = slider.settings.startSlide === getPagerQty() - 1
-
-      // if video is true, set up the fitVids plugin
-      if (slider.settings.video) {
-        el.fitVids()
-      }
 
       if (slider.settings.preloadImages === 'all') {
         preloadSelector = slider.children
