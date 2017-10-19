@@ -9,7 +9,9 @@
     pagerLocation: 'after',
     scrollTop: 1,
     offset: 40,
-    div: '.strong-content'
+    div: '.strong-content',
+    visibilityInterval: null,
+    imagesLoaded: false
   }
 
   $.fn.strongPager = function (options) {
@@ -40,11 +42,24 @@
 
       pager.div = el.find(pager.settings.div)
       pager.pageCounter = 0
+      pager.scrollto = 0
       pager.currentPage = pager.settings.currentPage
 
-      setup()
+      // Wait for images loaded
+      if (pager.settings.imagesLoaded) {
+        var imgLoad = imagesLoaded(el)
+        imgLoad.on('always', initVisibilityCheck);
+      } else {
+        //initVisibilityCheck()
+        setup()
+      }
+
+      // Store reference to self in order to access public functions later
+      $(el).data('strongPager', this)
+
       // Set initialized flag
       el.attr("data-state","init")
+
     }
 
     /**
@@ -88,7 +103,7 @@
         containerOffset = el.find('.simplePagerContainer').offset()
       }
 
-      pager.scrollto = containerOffset.top - pager.settings.offset
+      pager.scrollto = ~~(containerOffset.top - pager.settings.offset)
 
       // WordPress admin bar
       if (document.getElementById('#wpadminbar')) {
@@ -173,6 +188,28 @@
     }
 
     /**
+     * Initial visibility check used with imagesLoaded option.
+     */
+    var initVisibilityCheck = function () {
+      if (el.is(':visible')) {
+        clearInterval(pager.visibilityInterval)
+        setup()
+      } else {
+        pager.visibilityInterval = setInterval(initVisibilityCheck, 100)
+      }
+    }
+
+    /**
+     * Visibility check.
+     */
+    var visibilityCheck = function () {
+      if (el.is(':visible')) {
+        findOffset()
+        clearInterval(pager.visibilityInterval)
+      }
+    }
+
+    /**
      * Setup
      */
     var setup = function () {
@@ -184,8 +221,10 @@
 
       addNavigation()
       switchPages()
-      findOffset()
       navigationHandler()
+
+      // Set up timer to calculate offset which is dependent on visibility
+      pager.visibilityInterval = setInterval( visibilityCheck, 500 );
     }
 
     /**

@@ -365,6 +365,7 @@ class Strong_View_Display extends Strong_View {
 				'pagerLocation' => $nav,
 				'scrollTop'     => $options['scrolltop'],
 				'offset'        => $options['scrolltop_offset'],
+				'imagesLoaded'  => false,
 			),
 		);
 
