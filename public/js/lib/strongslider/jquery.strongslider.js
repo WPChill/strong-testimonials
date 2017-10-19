@@ -557,7 +557,8 @@
     }
 
     /**
-     * Returns the calculated height of the viewport, used to determine either adaptiveHeight or the maxHeight value
+     * Returns the calculated height of the SLIDER viewport (not browser viewport),
+     * used to determine either adaptiveHeight or the maxHeight value
      */
     var getViewportHeight = function () {
 
@@ -635,7 +636,7 @@
     }
 
     /**
-     * Returns the calculated width to be used for the outer wrapper / viewport
+     * Returns the calculated width to be used for the outer wrapper / SLIDER viewport
      */
     var getViewportMaxWidth = function () {
       var width = '100%'
@@ -1203,7 +1204,10 @@
 
     /**
      * Check if el is on screen
+     *
+     * Replaced with verge.inViewport
      */
+    /*
     var isOnScreen = function (el) {
       var win = $(window),
         viewport = {
@@ -1219,6 +1223,7 @@
 
       return (!(viewport.right < bounds.left || viewport.left > bounds.right || viewport.bottom < bounds.top || viewport.top > bounds.bottom))
     }
+    */
 
     /**
      * Initializes keyboard events
@@ -1229,7 +1234,7 @@
         p = new RegExp(activeElementTag, ['i']),
         result = p.exec(tagFilters)
 
-      if (result === null && isOnScreen(el)) {
+      if (result === null && verge.inViewport(el)) {
         if (e.keyCode === 39) {
           clickNextBind(e)
           return false
@@ -1839,6 +1844,8 @@
 
     // Set initialized flag on container
     viewEl.attr("data-state", "init")
+
+    console.log('viewport',verge.viewportW(),verge.viewportH())
 
     // returns the current jQuery object
     return this
