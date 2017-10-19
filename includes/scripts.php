@@ -42,6 +42,7 @@ function wpmtst_scripts() {
 		'elementId'  => 'content',
 		'attrName'   => 'data-pjax',
 		'continuous' => true,
+		'debug'      => true
 	);
 	wp_localize_script( 'wpmtst-controller', 'strongControllerParms', $parms );
 

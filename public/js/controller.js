@@ -9,13 +9,21 @@ var strongController = {
     script: '',
     elementId: 'content',
     attrNam: 'data-pjax',
-    continuous: true
+    continuous: true,
+    debug: false
   },
 
   config: {},
+  
+  debug: false,
+
+  logAs: 'strongController',
 
   setup: function (settings) {
     this.config = jQuery.extend({}, this.defaults, settings)
+    // Convert strings to booleans
+    this.config.continuous = !!this.config.continuous
+    this.debug = !!this.config.debug
   },
 
   mutationObserver: window.MutationObserver || window.WebKitMutationObserver,
@@ -30,7 +38,7 @@ var strongController = {
    * Initialize sliders.
    */
   initSliders: function () {
-    //console.log('initSliders')
+    if (this.debug) console.log(this.logAs, 'initSliders')
     // Load up our slideshows
     jQuery(".strong-view.slider-container[data-state='idle']").strongSlider()
   },
@@ -39,12 +47,12 @@ var strongController = {
    * Initialize paginated views.
    */
   initPaginated: function () {
-    //console.log('initPaginated')
+    if (this.debug) console.log(this.logAs, 'initPaginated')
     jQuery('.strong-pager').strongPager()
   },
 
   initLayouts: function () {
-    //console.log('initLayouts')
+    if (this.debug) console.log(this.logAs, 'initLayouts')
   },
 
   /**
@@ -57,7 +65,7 @@ var strongController = {
 
       // define a new observer
       var obs = new this.mutationObserver(function (mutations) {
-        //console.log('mutation observed')
+        if (this.debug) console.log(this.logAs, 'mutation observed')
         callback()
       })
       // have the observer observe obj for changes
@@ -68,7 +76,7 @@ var strongController = {
       obj.addEventListener('DOMAttrModified', function(e){
         /** currentTarget **/
         if ( e.currentTarget.id === obj.id && e.attrName === 'data-pjax' ) {
-          //console.log('DOMAttrModified', e.target.id, e.attrName, e.prevValue, e.newValue)
+          if (this.debug) console.log(this.logAs, 'DOMAttrModified', e.target.id, e.attrName, e.prevValue, e.newValue)
           callback()
         }
       }, false)
@@ -87,7 +95,7 @@ var strongController = {
       // define a new observer
       var obs = new this.mutationObserver(function (mutations) {
         if (mutations[0].addedNodes.length) {
-          //console.log('mutation observed')
+          if (this.debug) console.log(this.logAs, 'mutation observed')
           callback()
         }
       })
@@ -99,7 +107,7 @@ var strongController = {
       obj.addEventListener('DOMNodeInserted', function(e) {
         /** currentTarget **/
         if ( e.currentTarget.id === obj.id ) {
-          //console.log('DOMNodeInserted:', e.currentTarget.id)
+          if (this.debug) console.log(this.logAs, 'DOMNodeInserted:', e.currentTarget.id)
           callback()
         }
       }, false)
@@ -117,15 +125,14 @@ var strongController = {
    */
   newTimer: function () {
       strongController.timerId = setInterval(function tick () {
-        //console.log('tick', new Date().getTime())
-        //console.log('checkInit', strongController.checkInit())
+        if (this.debug) console.log(this.logAs, 'checkInit', strongController.checkInit())
 
         // Creating an artificial event by checking for unitialized components (sliders, paginated, layouts)
         if (strongController.checkInit()) {
           strongController.start()
           if (!strongController.config.continuous) {
             clearTimeout(strongController.timerId)
-            //console.log('clear timeout')
+            if (this.debug) console.log(this.logAs, 'clear timeout')
           }
         }
 
@@ -136,22 +143,25 @@ var strongController = {
    * Initialize controller.
    */
   init: function () {
-    //console.log('strongController:init')
+    jQuery(document).focus() // if dev console open
+    if (this.debug) console.log(this.logAs, 'init')
 
     var settings = {}
     /** @namespace window.strongControllerParms */
     if (typeof window.strongControllerParms !== 'undefined') {
       settings = window.strongControllerParms
+    } else {
+      if (this.debug) console.log(this.logAs, 'settings not found')
     }
     this.setup(settings)
-    //console.log('strongController:config', this.config)
+    if (this.debug) console.log(this.logAs, 'config', this.config)
   },
 
   /**
    * Start components.
    */
   start: function(){
-    //console.log('strongController:start')
+    if (this.debug) console.log(this.logAs, 'start')
     strongController.initSliders()
     strongController.initPaginated()
   },
@@ -160,7 +170,7 @@ var strongController = {
    * Listen.
    */
   listen: function() {
-    //console.log('strongController:listen')
+    if (this.debug) console.log(this.logAs, 'listen')
 
     switch (this.config.method) {
       case 'universal':
@@ -175,7 +185,7 @@ var strongController = {
 
       case 'nodes_added':
         // Observe a specific DOM element on a timer.
-        // Calling initSliders here is too soon; the transition is not complete yet.
+        // Calling start() here is too soon; the transition is not complete yet.
         this.observeDOMForAddedNodes(document.getElementById(this.config.elementId), this.newTimer)
         break
 
@@ -183,7 +193,7 @@ var strongController = {
         // The theme/plugin uses an event emitter.
 
         // jQuery Pjax -!- Not working in any theme tested yet -!-
-        // document.addEventListener('pjax:end', strongController.initSliders)
+        // document.addEventListener('pjax:end', this.start)
 
         // Pjax by MoOx
         // @link https://github.com/MoOx/pjax

@@ -13,6 +13,9 @@
 
   var defaults = {
 
+    debug: false,
+    logAs: 'strongSlider',
+
     // GENERAL
     mode: 'horizontal',
     slideSelector: 'div.t-slide',
@@ -155,7 +158,9 @@
       }
 
       slider.settings = $.extend(defaults, config, options)
-      //console.log('slider.settings', slider.settings)
+      slider.debug = slider.settings.debug
+      slider.logAs = slider.settings.logAs
+      if (slider.debug) console.log(slider.logAs, 'slider.settings', slider.settings)
 
       // parse slideWidth setting
       slider.settings.slideWidth = parseInt(slider.settings.slideWidth)
@@ -546,7 +551,7 @@
         el.stopAuto(true)
         // create a new autoPaused value which will be used by the corresponding event
         slider.autoPaused = action
-        console.log('pause', action)
+        if (slider.debug) console.log(slider.logAs, 'pause', action)
       }
     }
 
@@ -557,7 +562,7 @@
         el.startAuto(true)
         // reset the autoPaused value
         slider.autoPaused = null
-        console.log('play', action)
+        if (slider.debug) console.log(slider.logAs, 'play', action)
       }
     }
 
@@ -1029,6 +1034,7 @@
       }
       // if auto show is running, stop it
       if (slider.settings.auto && slider.settings.stopAutoOnClick) {
+        if (slider.debug) console.log(slider.logAs, 'stop on navigation')
         el.stopAuto()
       }
       el.goToNextSlide()
@@ -1047,6 +1053,7 @@
       }
       // if auto show is running, stop it
       if (slider.settings.auto && slider.settings.stopAutoOnClick) {
+        if (slider.debug) console.log(slider.logAs, 'stop on navigation')
         el.stopAuto()
       }
       el.goToPrevSlide()
@@ -1088,6 +1095,7 @@
       }
       // if auto show is running, stop it
       if (slider.settings.auto && slider.settings.stopAutoOnClick) {
+        if (slider.debug) console.log(slider.logAs, 'stop on navigation')
         el.stopAuto()
       }
       pagerLink = $(e.currentTarget)
@@ -1864,7 +1872,7 @@
     // Set initialized flag on container
     viewEl.attr("data-state", "init")
 
-    console.log('viewport',verge.viewportW(),verge.viewportH())
+    if (slider.debug) console.log(slider.logAs, 'viewport',verge.viewportW(),'x',verge.viewportH())
 
     // returns the current jQuery object
     return this
