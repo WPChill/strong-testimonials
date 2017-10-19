@@ -476,7 +476,26 @@
     }
 
     /**
-     * Window event listeners
+     * ==============================================================
+     * EVENTS
+     *
+     * Pause/play actions are coupled by method. The slider can only
+     * be restarted by the partner of the mechanism that paused it.
+     * For example, a slider paused by switching windows (blur) will
+     * only restart upon switching back (focus).
+     *
+     * Event                         : Action     : Function
+     * ------------------------------:------------:-------------------
+     * hide/show (ex: tabbed pages)  : pause/play : visibilityCheck
+     * scroll out/in of viewport     : pause/play : visibilityCheck
+     * hover in/out                  : pause/play : initAuto
+     * blur/focus                    : pause/play : attachListeners
+     * resize and orientation change : redraw     : attachListeners
+     * ==============================================================
+     */
+
+    /**
+     * Window event listeners.
      *
      * Not checking inViewport on scroll event because we also check that
      * in the general visibility check.
