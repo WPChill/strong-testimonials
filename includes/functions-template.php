@@ -520,7 +520,7 @@ function wpmtst_standard_pagination() {
 	}
 
 	$pagination_args = array(
-		'base'               => get_pagenum_link( 1 ) . '%_%',
+		'base'               => trailingslashit( get_pagenum_link( 1 ) ). '%_%',
 		'format'             => 'page/%#%',
 		'total'              => $numpages,
 		'current'            => $paged,
