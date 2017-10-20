@@ -1,11 +1,16 @@
+/*!
+ * jQuery Strong Slider Plugin
+ * Version 2.0.0
+ *
+ * Copyright (c) 2017 Chris Dillon
+ * Released under the MIT license
+ *
+ * Forked from bxSlider v4.2.5
+ * Copyright 2013-2015 Steven Wanderski
+ * Licensed under MIT (http://opensource.org/licenses/MIT)
+ */
+
 /**
- * strongSlider 2.0
- *
- * A fork of:
- *   bxSlider v4.2.5
- *   Copyright 2013-2015 Steven Wanderski
- *   Licensed under MIT (http://opensource.org/licenses/MIT)
- *
  * @namespace verge.inViewport
  */
 

@@ -1,5 +1,9 @@
-/**
- * Strong Pager jQuery plugin
+/*!
+ * jQuery Strong Pager Plugin
+ * Version 2.0.0
+ *
+ * Copyright (c) 2017 Chris Dillon
+ * Released under the MIT license
  */
 ;(function ($) {
 
