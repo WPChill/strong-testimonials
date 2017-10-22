@@ -39,7 +39,6 @@ function wpmtst_scripts() {
 		'method'     => isset( $compat_options['method'] ) ? $compat_options['method'] : '',
 		'script'     => isset( $compat_options['script'] ) ? $compat_options['script'] : '',
 		'elementId'  => 'content',
-		'attrName'   => 'data-pjax',
 		'continuous' => true,
 		'debug'      => true
 	);
@@ -56,9 +55,9 @@ function wpmtst_scripts() {
 	/**
 	 * Simple pagination
 	 */
-	wp_register_script( 'wpmtst-strong-pager',
+	wp_register_script( 'wpmtst-pager',
 		WPMTST_PUBLIC_URL . "js/lib/strongpager/jquery.strongpager{$min}.js",
-		array( 'wpmtst-controller' ),
+		array( 'jquery' ),
 		false,
 		true );
 
@@ -82,12 +81,6 @@ function wpmtst_scripts() {
 	/**
 	 * Masonry
 	 */
-	wp_register_script( 'wpmtst-masonry-script',
-		WPMTST_PUBLIC_URL . 'js/masonry.js',
-		array( 'jquery-masonry', 'imagesloaded', 'wpmtst-controller' ),
-		$plugin_version,
-		true );
-
 	wp_register_style( 'wpmtst-masonry-style',
 		WPMTST_PUBLIC_URL . 'css/masonry.css',
 		array(),
@@ -104,12 +97,6 @@ function wpmtst_scripts() {
 	/**
 	 * Grid
 	 */
-	wp_register_script( 'wpmtst-grid-script',
-		WPMTST_PUBLIC_URL . 'js/grid.js',
-		array( 'jquery', 'wpmtst-controller' ),
-		$plugin_version,
-		true );
-
 	wp_register_style( 'wpmtst-grid-style',
 		WPMTST_PUBLIC_URL . 'css/grid.css',
 		array(),
@@ -144,7 +131,7 @@ function wpmtst_scripts() {
 
 	wp_register_script( 'wpmtst-form-validation',
 		WPMTST_PUBLIC_URL . "js/lib/form-validation/form-validation{$min}.js",
-		array( 'wpmtst-validation-plugin', 'jquery-form', 'wpmtst-controller' ),
+		array( 'wpmtst-validation-plugin', 'jquery-form' ),
 		$plugin_version,
 		true );
 
@@ -223,20 +210,17 @@ add_action( 'wp_enqueue_scripts', 'wpmtst_scripts' );
  */
 function wpmtst_defer_scripts( $tag, $handle ) {
 	$scripts_to_defer = array(
-		// layouts
-		'wpmtst-grid-script',
-		'wpmtst-masonry-script',
 		// pagination
-		'wpmtst-strong-pager',
+		'wpmtst-pager',
 		// form
 		'wpmtst-validation-plugin',
 		'wpmtst-validation-lang',
 		'wpmtst-form-validation',
-		// honeypots
-		//'wpmtst-honeypot-before',
-		//'wpmtst-honeypot-after',
 		// slider
 		'jquery-actual',
+		'verge',
+		'underscore',
+		'imagesloaded',
 		'wpmtst-slider',
 		// Colorbox
 		'wpmtst-colorbox'

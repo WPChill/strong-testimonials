@@ -368,6 +368,7 @@ class Strong_View_Slideshow extends Strong_View_Display {
 
 		WPMST()->add_script( 'wpmtst-slider' );
 		WPMST()->add_script_var( 'wpmtst-slider', $this->slideshow_signature(), $this->slideshow_args() );
+		WPMST()->add_script( 'wpmtst-controller' );
 	}
 
 	/**

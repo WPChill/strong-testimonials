@@ -2,13 +2,14 @@
  * Component controller
  */
 
+'use strict'
+
 var strongController = {
 
   defaults: {
     method: '',
     script: '',
     elementId: 'content',
-    attrNam: 'data-pjax',
     continuous: true,
     debug: false
   },
@@ -23,7 +24,7 @@ var strongController = {
     this.config = jQuery.extend({}, this.defaults, settings)
     // Convert strings to booleans
     this.config.continuous = !!this.config.continuous
-    this.debug = !!this.config.debug
+    this.debug = this.config.debug = !!this.config.debug
   },
 
   mutationObserver: window.MutationObserver || window.WebKitMutationObserver,
@@ -39,7 +40,6 @@ var strongController = {
    */
   initSliders: function () {
     if (this.debug) console.log(this.logAs, 'initSliders')
-    // Load up our slideshows
     jQuery(".strong-view.slider-container[data-state='idle']").strongSlider()
   },
 
@@ -48,11 +48,33 @@ var strongController = {
    */
   initPaginated: function () {
     if (this.debug) console.log(this.logAs, 'initPaginated')
-    jQuery('.strong-pager').strongPager()
+    jQuery(".strong-pager[data-state='idle']").strongPager()
   },
 
   initLayouts: function () {
     if (this.debug) console.log(this.logAs, 'initLayouts')
+
+    /*
+     * Masonry
+     */
+    var grids = jQuery(".strong-view[data-state='idle'] .strong-masonry")
+
+    if (grids.length) {
+      // Add our element sizing.
+      grids.prepend('<div class="grid-sizer"></div><div class="gutter-sizer"></div>')
+
+      // Initialize Masonry after images are loaded.
+      grids.imagesLoaded(function () {
+        grids.masonry({
+          columnWidth: '.grid-sizer',
+          gutter: '.gutter-sizer',
+          itemSelector: '.testimonial',
+          percentPosition: true
+        })
+        grids.closest('.strong-view').attr('data-state', 'init')
+      })
+    }
+
   },
 
   /**
@@ -131,10 +153,11 @@ var strongController = {
   /**
    * Start components.
    */
-  start: function(){
+  start: function() {
     if (strongController.debug) console.log(strongController.logAs, 'start')
     strongController.initSliders()
     strongController.initPaginated()
+    strongController.initLayouts()
   },
 
   /**
@@ -187,8 +210,8 @@ var strongController = {
 
 }
 
-// jQuery(document).ready(function ($) {
-document.addEventListener("DOMContentLoaded", function(event) {
+jQuery(document).ready(function ($) {
+// document.addEventListener("DOMContentLoaded", function(event) {
 
   // Initialize controller.
   strongController.init()

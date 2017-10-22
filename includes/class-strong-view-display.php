@@ -287,6 +287,10 @@ class Strong_View_Display extends Strong_View {
 			$container_data_list['state'] = 'idle';
 		}
 
+		if ( 'masonry' == $this->atts['layout'] ) {
+			$container_data_list['state'] = 'idle';
+		}
+
 		// layouts
 		$content_class_list[] = 'strong-' . ( $this->atts['layout'] ? $this->atts['layout'] : 'normal' );
 		$content_class_list[] = 'columns-' . ( $this->atts['layout'] ? $this->atts['column_count'] : '1' );
@@ -324,8 +328,9 @@ class Strong_View_Display extends Strong_View {
 	 */
 	public function has_pagination() {
 		if ( $this->is_paginated() ) {
-			WPMST()->add_script( 'wpmtst-strong-pager' );
-			WPMST()->add_script_var( 'wpmtst-strong-pager', $this->pager_signature(), $this->pager_args() );
+			WPMST()->add_script( 'wpmtst-pager' );
+			WPMST()->add_script_var( 'wpmtst-pager', $this->pager_signature(), $this->pager_args() );
+			WPMST()->add_script( 'wpmtst-controller' );
 		}
 	}
 
@@ -381,7 +386,9 @@ class Strong_View_Display extends Strong_View {
 
 		if ( 'masonry' == $this->atts['layout'] ) {
 
-			WPMST()->add_script( 'wpmtst-masonry-script' );
+			//WPMST()->add_script( 'wpmtst-masonry-script' );
+			WPMST()->add_script( 'jquery-masonry' );
+			WPMST()->add_script( 'imagesloaded' );
 
 			if ( apply_filters( 'wpmtst_load_masonry_style', true ) ) {
 				WPMST()->add_style( 'wpmtst-masonry-style' );
@@ -395,13 +402,14 @@ class Strong_View_Display extends Strong_View {
 
 		} elseif ( 'grid' == $this->atts['layout'] ) {
 
-			WPMST()->add_script( 'wpmtst-grid-script' );
+			// WPMST()->add_script( 'wpmtst-grid-script' );
 
 			if ( apply_filters( 'wpmtst_load_grid_style', true ) ) {
 				WPMST()->add_style( 'wpmtst-grid-style' );
 			}
 		}
 
+		WPMST()->add_script( 'wpmtst-controller' );
 	}
 
 }
