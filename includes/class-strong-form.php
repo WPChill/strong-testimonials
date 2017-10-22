@@ -55,7 +55,7 @@ class Strong_Testimonials_Form {
 						$goback = $form_options['success_redirect_url'];
 						break;
 					default:
-						$goback = add_query_arg( 'success', 'yes', wp_get_referer() );
+						$goback = add_query_arg( 'success', '', wp_get_referer() );
 				}
 				wp_redirect( apply_filters( 'wpmtst_form_redirect_url', $goback ) );
 				exit;
