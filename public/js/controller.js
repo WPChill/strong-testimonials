@@ -96,14 +96,14 @@ var strongController = {
    */
   newTimer: function () {
       strongController.timerId = setInterval(function tick () {
-        if (this.debug) console.log(this.logAs, 'checkInit', strongController.checkInit())
+        if (strongController.debug) console.log(strongController.logAs, 'checkInit', strongController.checkInit())
 
         // Creating an artificial event by checking for unitialized components (sliders, paginated, layouts)
         if (strongController.checkInit()) {
           strongController.start()
           if (!strongController.config.continuous) {
             clearTimeout(strongController.timerId)
-            if (this.debug) console.log(this.logAs, 'clear timeout')
+            if (strongController.debug) console.log(strongController.logAs, 'clear timeout')
           }
         }
 
@@ -115,7 +115,7 @@ var strongController = {
    */
   init: function () {
     jQuery(document).focus() // if dev console open
-    if (this.debug) console.log(this.logAs, 'init')
+    if (strongController.debug) console.log(strongController.logAs, 'init')
 
     var settings = {}
     /** @namespace window.strongControllerParms */
@@ -132,7 +132,7 @@ var strongController = {
    * Start components.
    */
   start: function(){
-    if (this.debug) console.log(this.logAs, 'start')
+    if (strongController.debug) console.log(strongController.logAs, 'start')
     strongController.initSliders()
     strongController.initPaginated()
   },
