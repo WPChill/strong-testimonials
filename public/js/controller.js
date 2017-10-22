@@ -39,26 +39,33 @@ var strongController = {
    * Initialize sliders.
    */
   initSliders: function () {
-    if (this.debug) console.log(this.logAs, 'initSliders')
-    jQuery(".strong-view.slider-container[data-state='idle']").strongSlider()
+    var sliders = jQuery(".strong-view.slider-container[data-state='idle']")
+    if (this.debug) console.log(this.logAs, 'sliders found:', sliders.length)
+    if (sliders.length) {
+      sliders.strongSlider()
+    }
   },
 
   /**
    * Initialize paginated views.
    */
   initPaginated: function () {
-    if (this.debug) console.log(this.logAs, 'initPaginated')
-    jQuery(".strong-pager[data-state='idle']").strongPager()
+    var pagers = jQuery(".strong-pager[data-state='idle']")
+    if (this.debug) console.log(this.logAs, 'pagers found:', pagers.length)
+    if (pagers.length) {
+      pagers.strongPager()
+    }
   },
 
+  /**
+   * Initialize layouts.
+   */
   initLayouts: function () {
-    if (this.debug) console.log(this.logAs, 'initLayouts')
-
     /*
      * Masonry
      */
     var grids = jQuery(".strong-view[data-state='idle'] .strong-masonry")
-
+    if (this.debug) console.log(this.logAs, 'Masonry found:', grids.length)
     if (grids.length) {
       // Add our element sizing.
       grids.prepend('<div class="grid-sizer"></div><div class="gutter-sizer"></div>')
