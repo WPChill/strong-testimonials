@@ -33,7 +33,7 @@ class Strong_View_Form extends Strong_View {
 		$this->load_dependent_scripts();
 		$this->load_extra_stylesheets();
 		$this->load_validator();
-		$this->load_honeypots();
+		//$this->load_honeypots();
 
 		// If we can preprocess, we can add the inline style in the <head>.
 		add_action( 'wp_enqueue_scripts', array( $this, 'add_custom_style' ), 20 );
@@ -60,7 +60,7 @@ class Strong_View_Form extends Strong_View {
 		$this->load_extra_stylesheets();
 		$this->custom_background();
 		$this->load_validator();
-		$this->load_honeypots();
+		//$this->load_honeypots();
 
 		/*
 		 * If we cannot preprocess, add the inline style to the footer.
@@ -68,6 +68,7 @@ class Strong_View_Form extends Strong_View {
 		 * since `wpmtst-custom-style` was already enqueued (I think).
 		 */
 		add_action( 'wp_footer', array( $this, 'add_custom_style' ) );
+		add_action( 'wp_footer', array( $this, 'load_honeypots' ) );
 
 		$form_values = array( 'category' => $this->atts['category'] );
 
@@ -212,11 +213,28 @@ class Strong_View_Form extends Strong_View {
 		$form_options = get_option( 'wpmtst_form_options' );
 
 		if ( $form_options['honeypot_before'] ) {
-			WPMST()->add_script( 'wpmtst-honeypot-before' );
+			?>
+			<script type="text/javascript">
+              (function () { document.getElementById("wpmtst_if_visitor").value = '' })()
+            </script>
+			<?php
 		}
 
 		if ( $form_options['honeypot_after'] ) {
-			WPMST()->add_script( 'wpmtst-honeypot-after' );
+            ?>
+            <script type="text/javascript">
+              (function () {
+                var myForm = document.getElementById("wpmtst-submission-form")
+                myForm.addEventListener("submit", function(e){
+                  var x = document.createElement("input")
+                  x.type = "hidden"
+                  x.name = "wpmtst_after"
+                  x.value = 1
+                  myForm.appendChild(x)
+                });
+              })()
+            </script>
+            <?php
 		}
 	}
 

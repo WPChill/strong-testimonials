@@ -154,21 +154,6 @@ function wpmtst_scripts() {
 	}
 
 	/**
-	 * Honeypots
-	 */
-	wp_register_script( 'wpmtst-honeypot-before',
-		WPMTST_PUBLIC_URL . 'js/honeypot-before.js',
-		array( 'jquery' ),
-		$plugin_version,
-		true );
-
-	wp_register_script( 'wpmtst-honeypot-after',
-		WPMTST_PUBLIC_URL . 'js/honeypot-after.js',
-		array( 'jquery' ),
-		$plugin_version,
-		true );
-
-	/**
 	 * Slider
 	 */
 	wp_register_script( 'jquery-actual',

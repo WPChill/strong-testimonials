@@ -396,7 +396,7 @@ class Strong_Testimonials_Form {
 		} else {
 			$message = __( 'Unknown error.', 'strong-testimonials' );
 		}
-		die( $message );
+		wp_die( $message );
 	}
 
 	/**
