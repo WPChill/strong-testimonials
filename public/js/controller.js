@@ -56,35 +56,6 @@ var strongController = {
   },
 
   /**
-   * Create observer that reacts to a change in attributes, e.g. data-pjax.
-   *
-   * https://stackoverflow.com/a/14570614/51600
-   */
-  observeDOMForAttrChanged: function (obj, callback) {
-    if (this.mutationObserver) {
-
-      // define a new observer
-      var obs = new this.mutationObserver(function (mutations) {
-        if (this.debug) console.log(this.logAs, 'mutation observed')
-        callback()
-      })
-      // have the observer observe obj for changes
-      obs.observe(obj, {childList: false, attributes: true, subtree: false, attributeFilter: ['data-pjax']})
-
-    } else if (this.eventListenerSupported) {
-
-      obj.addEventListener('DOMAttrModified', function(e){
-        /** currentTarget **/
-        if ( e.currentTarget.id === obj.id && e.attrName === 'data-pjax' ) {
-          if (this.debug) console.log(this.logAs, 'DOMAttrModified', e.target.id, e.attrName, e.prevValue, e.newValue)
-          callback()
-        }
-      }, false)
-
-    }
-  },
-
-  /**
    * Create observer that reacts to nodes added or removed.
    *
    * https://stackoverflow.com/a/14570614/51600
@@ -176,11 +147,6 @@ var strongController = {
       case 'universal':
         // Set a timer to check for idle components.
         this.newTimer()
-        break
-
-      case 'attr_changed':
-        // Observe a specific DOM element.
-        this.observeDOMForAttrChanged(document.getElementById(this.config.elementId), this.start)
         break
 
       case 'nodes_added':

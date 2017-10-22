@@ -745,7 +745,7 @@ class Strong_Testimonials_Defaults {
 	 */
 	public static function get_compat_options() {
 		$options = array(
-			'method' => '', // (blank) | universal | attr_changed | nodes_added | event | script
+			'method' => '', // (blank) | universal | nodes_added | event | script
 			'script' => '',
 		);
 

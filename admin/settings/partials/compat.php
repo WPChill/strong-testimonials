@@ -20,7 +20,7 @@ $options = get_option( 'wpmtst_compat_options' );
                 <p><?php printf( __( '<a href="%s" target="_blank">article</a>', 'strong-testimonials' ), esc_url( '' ) ); ?></p>
             </div>
             <fieldset>
-				<?php /* (blank) | universal | attr_changed | nodes_added | event | script */ ?>
+				<?php /* (blank) | universal | nodes_added | event | script */ ?>
                 <div class="has-radio">
                     <label>
                         <input type="radio" name="wpmtst_compat_options[method]" value=""
@@ -34,14 +34,6 @@ $options = get_option( 'wpmtst_compat_options' );
                         <input type="radio" name="wpmtst_compat_options[method]" value="universal"
 							<?php checked( $options['method'], 'universal' ); ?> />
 						<?php _e( 'Universal', 'strong-testimonials' ); ?>
-                    </label>
-                    <p class="description"><?php _e( 'about this option', 'strong-testimonials' ); ?></p>
-                </div>
-                <div class="has-radio">
-                    <label>
-                        <input type="radio" name="wpmtst_compat_options[method]" value="attr_changed"
-							<?php checked( $options['method'], 'attr_changed' ); ?> />
-						<?php _e( 'Attribute Change', 'strong-testimonials' ); ?>
                     </label>
                     <p class="description"><?php _e( 'about this option', 'strong-testimonials' ); ?></p>
                 </div>
