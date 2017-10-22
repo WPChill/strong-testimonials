@@ -69,18 +69,31 @@ function wpmtst_thumbnail_img( $img, $post_id ) {
 		if ( $url ) {
 			$classes = join( ' ', array_unique( apply_filters( 'wpmtst_thumbnail_link_class', array() ) ) );
 			$img = '<a class="' . $classes . '" href="' . $url . '">' . $img . '</a>';
-			/**
-			 * Adjust settings for Simple Colorbox plugin.
-			 * TODO do the same for other lightbox plugins
-			 */
-			if ( defined( 'SIMPLECOLORBOX_VERSION' ) ) {
-				wp_enqueue_script( 'wpmtst-colorbox' );
-			}
 		}
 	}
 	return $img;
 }
 add_filter( 'wpmtst_thumbnail_img', 'wpmtst_thumbnail_img', 10, 2 );
+
+/**
+ * Simple Colorbox settings
+ *
+ * @param $colorbox_settings
+ *
+ * @return mixed
+ */
+function wpmtst_colorbox_settings( $colorbox_settings ) {
+	$colorbox_settings['rel'] = 'nofollow';
+	$colorbox_settings['returnFocus'] = 0;
+	return $colorbox_settings;
+}
+
+function wpmtst_colorbox_filter() {
+	if ( defined( 'SIMPLECOLORBOX_VERSION' ) ) {
+		add_filter( 'simple_colorbox_settings', 'wpmtst_colorbox_settings' );
+	}
+}
+add_action( 'init', 'wpmtst_colorbox_filter' );
 
 /**
  * Exclude testimonial thumbnails from Lazy Loading Responsive Images plugin.

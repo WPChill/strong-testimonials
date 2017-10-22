@@ -174,15 +174,6 @@ function wpmtst_scripts() {
 		$plugin_version,
 		true );
 
-	/**
-	 * Colorbox settings
-	 */
-	wp_register_script( 'wpmtst-colorbox',
-		WPMTST_PUBLIC_URL . 'js/colorbox.js',
-		array( 'jquery' ),
-		$plugin_version,
-		true );
-
 }
 add_action( 'wp_enqueue_scripts', 'wpmtst_scripts' );
 
@@ -207,8 +198,6 @@ function wpmtst_defer_scripts( $tag, $handle ) {
 		'underscore',
 		'imagesloaded',
 		'wpmtst-slider',
-		// Colorbox
-		'wpmtst-colorbox'
 	);
 
 	if ( in_array( $handle, $scripts_to_defer ) ) {
