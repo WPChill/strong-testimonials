@@ -195,8 +195,6 @@ function wpmtst_defer_scripts( $tag, $handle ) {
 		// slider
 		'jquery-actual',
 		'verge',
-		'underscore',
-		'imagesloaded',
 		'wpmtst-slider',
 	);
 
