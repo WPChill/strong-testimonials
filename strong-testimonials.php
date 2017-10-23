@@ -423,7 +423,7 @@ final class Strong_Testimonials {
 			add_action( 'wp_enqueue_scripts', array( $this, 'find_blackstudio_widgets' ), 1 );
 		}
 
-		//add_action( 'wp_enqueue_scripts', array( $this, 'find_all_views' ), 2 );
+		add_action( 'wp_enqueue_scripts', array( $this, 'find_all_views' ), 2 );
 
 	}
 

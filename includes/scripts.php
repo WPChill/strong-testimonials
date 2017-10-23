@@ -39,7 +39,6 @@ function wpmtst_scripts() {
 		'method'     => isset( $compat_options['method'] ) ? $compat_options['method'] : '',
 		'script'     => isset( $compat_options['script'] ) ? $compat_options['script'] : '',
 		'elementId'  => 'content',
-		'continuous' => true,
 		'debug'      => true
 	);
 	wp_localize_script( 'wpmtst-controller', 'strongControllerParms', $parms );

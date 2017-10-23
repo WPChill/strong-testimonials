@@ -1,5 +1,7 @@
 /**
  * Component controller
+ *
+ * @namespace window.strongControllerParms
  */
 
 'use strict'
@@ -9,8 +11,9 @@ var strongController = {
   defaults: {
     method: '',
     script: '',
-    elementId: 'content',
-    continuous: true,
+    // elementId: 'content', // normally holds all page content
+    elementId: 'primary', // used in our Barba example
+    containerId: "main",
     debug: false
   },
 
@@ -18,12 +21,9 @@ var strongController = {
   
   debug: false,
 
-  logAs: 'strongController',
-
   setup: function (settings) {
     this.config = jQuery.extend({}, this.defaults, settings)
     // Convert strings to booleans
-    this.config.continuous = !!this.config.continuous
     this.debug = this.config.debug = !!this.config.debug
   },
 
@@ -35,12 +35,23 @@ var strongController = {
     return jQuery(".strong-view[data-state='idle']").length
   },
 
+  log: function () {
+    if (this.debug) {
+      if (arguments.length === 1)
+        console.log(arguments[0])
+      else if (arguments.length === 2)
+        console.log(arguments[0], arguments[1])
+      else
+        console.log(arguments)
+    }
+  },
+
   /**
    * Initialize sliders.
    */
   initSliders: function () {
     var sliders = jQuery(".strong-view.slider-container[data-state='idle']")
-    if (this.debug) console.log(this.logAs, 'sliders found:', sliders.length)
+    this.log('sliders found:', sliders.length)
     if (sliders.length) {
       sliders.strongSlider()
     }
@@ -51,7 +62,7 @@ var strongController = {
    */
   initPaginated: function () {
     var pagers = jQuery(".strong-pager[data-state='idle']")
-    if (this.debug) console.log(this.logAs, 'pagers found:', pagers.length)
+    this.log('pagers found:', pagers.length)
     if (pagers.length) {
       pagers.strongPager()
     }
@@ -65,7 +76,7 @@ var strongController = {
      * Masonry
      */
     var grids = jQuery(".strong-view[data-state='idle'] .strong-masonry")
-    if (this.debug) console.log(this.logAs, 'Masonry found:', grids.length)
+    this.log('Masonry found:', grids.length)
     if (grids.length) {
       // Add our element sizing.
       grids.prepend('<div class="grid-sizer"></div><div class="gutter-sizer"></div>')
@@ -95,8 +106,13 @@ var strongController = {
       // define a new observer
       var obs = new this.mutationObserver(function (mutations) {
         if (mutations[0].addedNodes.length) {
-          if (this.debug) console.log(this.logAs, 'mutation observed')
-          callback()
+          strongController.log('mutation observed', mutations)
+          for (var i=0; i < mutations[0].addedNodes.length; i++) {
+            if (mutations[0].addedNodes[i].id === strongController.config.containerId) {
+              strongController.log('+ added:', strongController.config.containerId)
+              callback()
+            }
+          }
         }
       })
       // have the observer observe obj for changes
@@ -107,7 +123,7 @@ var strongController = {
       obj.addEventListener('DOMNodeInserted', function(e) {
         /** currentTarget **/
         if ( e.currentTarget.id === obj.id ) {
-          if (this.debug) console.log(this.logAs, 'DOMNodeInserted:', e.currentTarget.id)
+          strongController.log('DOMNodeInserted:', e.currentTarget.id)
           callback()
         }
       }, false)
@@ -116,26 +132,36 @@ var strongController = {
   },
 
   /**
-   * Timer variable
+   * Timer variables
    */
-  timerId: null,
+  intervalId: null,
+  timeoutId: null,
 
   /**
-   * Set up timer
+   * Set up interval
    */
-  newTimer: function () {
-      strongController.timerId = setInterval(function tick () {
-        if (strongController.debug) console.log(strongController.logAs, 'checkInit', strongController.checkInit())
+  newInterval: function () {
+      strongController.intervalId = setInterval(function tick () {
+        strongController.log('checkInit', strongController.checkInit())
 
-        // Creating an artificial event by checking for unitialized components (sliders, paginated, layouts)
+        // Creating an artificial event by checking for uninitialized components (sliders, paginated, layouts)
         if (strongController.checkInit()) {
           strongController.start()
-          if (!strongController.config.continuous) {
-            clearTimeout(strongController.timerId)
-            if (strongController.debug) console.log(strongController.logAs, 'clear timeout')
-          }
         }
+      }, 500)
+  },
 
+  /**
+   * Set up timeout
+   */
+  newTimeout: function () {
+      strongController.timeoutId = setTimeout(function tick () {
+        strongController.log('checkInit', strongController.checkInit())
+
+        // Creating an artificial event by checking for uninitialized components (sliders, paginated, layouts)
+        if (strongController.checkInit()) {
+          strongController.start()
+        }
       }, 500)
   },
 
@@ -144,24 +170,23 @@ var strongController = {
    */
   init: function () {
     jQuery(document).focus() // if dev console open
-    if (strongController.debug) console.log(strongController.logAs, 'init')
+    this.log('strongController init')
 
     var settings = {}
-    /** @namespace window.strongControllerParms */
     if (typeof window.strongControllerParms !== 'undefined') {
       settings = window.strongControllerParms
     } else {
-      if (this.debug) console.log(this.logAs, 'settings not found')
+      this.log('settings not found')
     }
     this.setup(settings)
-    if (this.debug) console.log(this.logAs, 'config', this.config)
+    this.log('config', this.config)
   },
 
   /**
    * Start components.
    */
   start: function() {
-    if (strongController.debug) console.log(strongController.logAs, 'start')
+    strongController.log('start')
     strongController.initSliders()
     strongController.initPaginated()
     strongController.initLayouts()
@@ -171,18 +196,18 @@ var strongController = {
    * Listen.
    */
   listen: function() {
-    if (this.debug) console.log(this.logAs, 'listen')
+    this.log('listen')
 
     switch (this.config.method) {
       case 'universal':
         // Set a timer to check for idle components.
-        this.newTimer()
+        this.newInterval()
         break
 
       case 'nodes_added':
         // Observe a specific DOM element on a timer.
         // Calling start() here is too soon; the transition is not complete yet.
-        this.observeDOMForAddedNodes(document.getElementById(this.config.elementId), this.newTimer)
+        this.observeDOMForAddedNodes(document.getElementById(this.config.elementId), this.newTimeout)
         break
 
       case 'event':
