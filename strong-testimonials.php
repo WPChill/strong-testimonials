@@ -396,21 +396,28 @@ final class Strong_Testimonials {
 	 * Load scripts and styles.
 	 */
 	private function add_enqueue_actions() {
-
 		/**
 		 * The default behavior is to enqueue the stylesheets and scripts for
 		 * a view when the shortcode is rendered.
-		 *
 		 */
 		add_action( 'wpmtst_view_rendered', array( $this, 'view_rendered' ) );
 		add_action( 'wpmtst_form_rendered', array( $this, 'view_rendered' ) );
 		add_action( 'wpmtst_form_success', array( $this, 'view_rendered' ) );
 
-		/**
-		 * We will attempt to preprocess the content in order to move the
-		 * stylesheets to `wp_enqueue_scripts` and load them in the <head> section.
-		 */
+		$options = get_option( 'wpmtst_compat_options' );
+		if ( $options['prerender'] ) {
+			$this->prerender();
+		} else {
+			$this->provision_all_views();
+		}
+	}
 
+	/**
+	 * Find shortcodes in content and prerender the view.
+	 *
+	 * In order to load stylesheets in normal sequence to prevent FOUC.
+	 */
+	private function prerender() {
 		// Look for our shortcodes in post content and widgets.
 		add_action( 'wp_enqueue_scripts', array( $this, 'find_views' ), 1 );
 		add_action( 'wp_enqueue_scripts', array( $this, 'find_views_in_postmeta' ), 1 );
@@ -431,18 +438,17 @@ final class Strong_Testimonials {
 		if ( class_exists( 'Black_Studio_TinyMCE_Plugin' ) ) {
 			add_action( 'wp_enqueue_scripts', array( $this, 'find_blackstudio_widgets' ), 1 );
 		}
-
-		add_action( 'wp_enqueue_scripts', array( $this, 'find_all_views' ), 2 );
-
 	}
 
-	public function find_all_views() {
+	/**
+	 *
+	 */
+	private function provision_all_views() {
 		$pages = get_pages();
 		foreach ( $pages as $page ) {
 			if ( $this->check_content( $page->post_content ) ) {
 				$this->process_content( $page->post_content );
 			}
-
 		}
 	}
 
