@@ -12,9 +12,9 @@ class Strong_Testimonials_Render {
 
 	public $css = array();
 
-	public $shortcode2;
+	public $shortcode;
 
-	public $shortcode2_lb;
+	public $shortcode_lb;
 
 	public $view_defaults = array();
 
@@ -266,15 +266,15 @@ class Strong_Testimonials_Render {
 	 * Set shortcode.
 	 */
 	public function set_shortcodes() {
-		$this->shortcode2    = 'testimonial_view';
-		$this->shortcode2_lb = '[' . $this->shortcode2;
+		$this->shortcode    = 'testimonial_view';
+		$this->shortcode_lb = '[' . $this->shortcode;
 	}
 
 	/**
 	 * Get shortcode.
 	 */
-	public function get_shortcode2() {
-		return $this->shortcode2;
+	public function get_shortcode() {
+		return $this->shortcode;
 	}
 
 	/**
@@ -288,7 +288,7 @@ class Strong_Testimonials_Render {
 	 */
 	// TODO move to shortcodes
 	public function no_texturize_shortcodes( $shortcodes ) {
-		$shortcodes[] = $this->shortcode2;
+		$shortcodes[] = $this->shortcode;
 		$shortcodes[] = 'testimonial_count';
 
 		return $shortcodes;
@@ -398,7 +398,7 @@ class Strong_Testimonials_Render {
 	 * @return bool
 	 */
 	private function check_content( $content ) {
-		if ( false === strpos( $content, $this->shortcode2_lb ) ) {
+		if ( false === strpos( $content, $this->shortcode_lb ) ) {
 			return false;
 		}
 
@@ -661,7 +661,7 @@ class Strong_Testimonials_Render {
 		}
 
 		foreach ( $matches as $key => $shortcode ) {
-			if ( $this->shortcode2 === $shortcode[2] ) {
+			if ( $this->shortcode === $shortcode[2] ) {
 				/**
 				 * Retrieve all attributes from the shortcode.
 				 *
