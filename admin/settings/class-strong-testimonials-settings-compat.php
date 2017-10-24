@@ -80,7 +80,7 @@ class Strong_Testimonials_Settings_Compat {
 	 * @return array
 	 */
 	public static function sanitize_options( $input ) {
-		$input['method'] = sanitize_text_field( $input['method'] );
+		//$input['method'] = sanitize_text_field( $input['method'] );
 
 		return $input;
 	}

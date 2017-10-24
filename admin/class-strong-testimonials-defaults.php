@@ -522,7 +522,6 @@ class Strong_Testimonials_Defaults {
 						'add_position_class' => 1,
 						'args'  => array(
 							'pager' => 0,
-							//'controls' => 1, // our slider.js script adds the controls
 							'autoControls' => 1,
 							'autoControlsCombine' => 1,
 							'fullSetButtons' => 1,
@@ -744,8 +743,13 @@ class Strong_Testimonials_Defaults {
 	 */
 	public static function get_compat_options() {
 		$options = array(
-			'method' => '', // (blank) | universal | nodes_added | event | script
-			'script' => '',
+			'prerender' => true,
+			'provision_all' => false,
+			'ajax' => array(
+				'method' => '', // (blank) | universal | nodes_added | event | script
+				'script' => '',
+				'event' => '',
+			),
 		);
 
 		return $options;

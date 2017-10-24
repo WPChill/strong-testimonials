@@ -12,7 +12,7 @@ $options = get_option( 'wpmtst_compat_options' );
 <table class="form-table" cellpadding="0" cellspacing="0">
     <tr valign="top">
         <th scope="row">
-			<?php _e( 'Theme Page Refresh', 'strong-testimonials' ); ?>
+			<?php _e( 'Ajax Page Loading', 'strong-testimonials' ); ?>
         </th>
         <td>
             <div class="tab-option-header">

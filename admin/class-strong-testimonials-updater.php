@@ -511,7 +511,8 @@ class Strong_Testimonials_Updater {
 			return Strong_Testimonials_Defaults::get_compat_options();
 		}
 
-		return $options;
+		// Merge in new options
+		return array_merge( Strong_Testimonials_Defaults::get_compat_options(), $options );
 	}
 
 	/**
