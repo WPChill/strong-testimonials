@@ -193,7 +193,7 @@ function wpmtst_single_form_field( $field ) {
  * @return mixed
  */
 function wpmtst_field_classes( $type = null, $name = null ) {
-	$errors = WPMST()->get_form_errors();
+	$errors = WPMST()->form->get_form_errors();
 	$class_list = array();
 
 	switch( $type ) {
@@ -360,7 +360,7 @@ add_filter( 'wpmtst_form_field_meta', 'do_shortcode' );
  * @param $field
  */
 function wpmtst_field_error( $field ) {
-	$errors = WPMST()->get_form_errors();
+	$errors = WPMST()->form->get_form_errors();
 	if ( isset( $errors[ $field['name'] ] ) ) {
 		echo '<span class="error">' . esc_html( $errors[ $field['name'] ] ) . '</span>';
 	}
@@ -384,7 +384,7 @@ add_action( 'wpmtst_form_after_fields', 'wpmtst_form_honeypot_before' );
  * Print form catpcha.
  */
 function wpmtst_form_captcha() {
-	$errors = WPMST()->get_form_errors();
+	$errors = WPMST()->form->get_form_errors();
 	$form_options = get_option( 'wpmtst_form_options' );
 	if ( $form_options['captcha'] ) {
 		// Only display Captcha label if properly configured.
