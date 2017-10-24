@@ -1,6 +1,8 @@
 <?php
 /**
  * Class Strong_Testimonials_Render
+ *
+ * @since 2.28.0
  */
 class Strong_Testimonials_Render {
 

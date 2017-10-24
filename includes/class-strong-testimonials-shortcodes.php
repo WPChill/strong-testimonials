@@ -1,13 +1,24 @@
 <?php
 /**
  * Class Strong_Testimonials_Shortcodes
+ *
+ * @since 2.28.0
  */
 class Strong_Testimonials_Shortcodes {
 
+	/**
+	 * Our primary shortcode.
+	 */
 	const SHORTCODE = 'testimonial_view';
 
+	/**
+	 * Strong_Testimonials_Shortcodes constructor.
+	 */
 	public function __construct() {}
 
+	/**
+	 * Initialize.
+	 */
 	public static function initialize() {
 		add_shortcode( self::SHORTCODE, array( __CLASS__, 'testimonial_view_shortcode' ) );
 		add_filter( 'shortcode_atts_' . self::SHORTCODE, array( __CLASS__, 'testimonial_view_filter' ), 10, 3 );
@@ -22,7 +33,7 @@ class Strong_Testimonials_Shortcodes {
 	}
 
 	/**
-	 * Our primary shortcode
+	 * Our primary shortcode.
 	 *
 	 * @param      $atts
 	 * @param null $content
