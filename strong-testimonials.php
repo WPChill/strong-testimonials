@@ -467,21 +467,11 @@ final class Strong_Testimonials {
 	public function provision_all_views() {
 		$views = wpmtst_get_views();
 		foreach ( $views as $view ) {
-			/*
-			 * [id] => 1
-			 * [name] => TEST
-			 * [value] => {serialized_array}
-			 */
+			// Array( [id] => 1, [name] => TEST, [value] => {serialized_array} )
 			$view_data = maybe_unserialize( $view['value'] );
 			if ( isset( $view_data['mode'] ) && 'single_template' != $view_data['mode'] ) {
-
-				$atts        = array( 'id' => $view['id'] );
-				$parsed_atts = $this->parse_view( $atts, $this->get_view_defaults(), $atts );
-				if ( $this->view_not_found( $parsed_atts ) ) {
-					continue;
-				}
-				$this->preprocess( $parsed_atts );
-
+				$atts = array( 'view' => $view['id'] );
+				$this->preprocess( $atts );
 			}
 		}
 	}
@@ -1001,18 +991,7 @@ final class Strong_Testimonials {
 
 						if ( isset( $strong_widgets[ $id ] ) ) {
 							$widget = $strong_widgets[ $id ];
-
-							if ( isset( $widget['view'] ) && $widget['view'] ) {
-								//TODO DRY
-								$atts        = array( 'view' => $widget['view'] );
-								$parsed_atts = $this->parse_view( $atts, $this->get_view_defaults(), $atts );
-								if ( $this->view_not_found( $parsed_atts ) ) {
-									continue;
-								}
-
-								$this->preprocess( $parsed_atts );
-							}
-
+							$this->check_widget( $widget );
 						}
 
 					}
@@ -1073,24 +1052,10 @@ final class Strong_Testimonials {
 			foreach ( $cell_widgets as $key => $widget ) {
 
 				if ( 'Strong_Testimonials_View_Widget' == $widget['panels_info']['class'] ) {
-
-					// Incorporate attributes from the View and defaults, just like the shortcode filter.
-					if ( isset( $widget['view'] ) && $widget['view'] ) {
-						//TODO DRY
-						$atts        = array( 'view' => $widget['view'] );
-						$parsed_atts = $this->parse_view( $atts, $this->get_view_defaults(), $atts );
-						if ( $this->view_not_found( $parsed_atts ) ) {
-							continue;
-						}
-
-						$this->preprocess( $parsed_atts );
-					}
-
+					$this->check_widget( $widget );
 				} elseif ( 'WP_Widget_Text' == $widget['panels_info']['class'] ) {
-
 					// Is a Text widget?
 					$this->process_content( $widget['text'] );
-
 				}
 
 			}
@@ -1121,19 +1086,9 @@ final class Strong_Testimonials {
 			}
 
 			if ( 'Strong_Testimonials_View_Widget' == $node->settings->widget ) {
-
 				$settings = (array) $node->settings;
 				$widget   = (array) $settings['widget-strong-testimonials-view-widget'];
-				if ( isset( $widget['view'] ) && $widget['view'] ) {
-					$atts        = array( 'view' => $widget['view'] );
-					$parsed_atts = $this->parse_view( $atts, $this->get_view_defaults(), $atts );
-					if ( $this->view_not_found( $parsed_atts ) ) {
-						continue;
-					}
-
-					$this->preprocess( $parsed_atts );
-				}
-
+				$this->check_widget( $widget );
 			}
 
 		}
@@ -1168,6 +1123,20 @@ final class Strong_Testimonials {
 	}
 
 	/**
+	 * check and process a widget.
+	 *
+	 * @since 2.28.0
+	 *
+	 * @param $widget
+	 */
+	private function check_widget( $widget ) {
+		if ( isset( $widget['view'] ) && $widget['view'] ) {
+			$atts = array( 'view' => $widget['view'] );
+			$this->preprocess( $atts );
+		}
+	}
+
+	/**
 	 * @param $atts
 	 *
 	 * @return bool
@@ -1193,26 +1162,15 @@ final class Strong_Testimonials {
 		}
 
 		foreach ( $matches as $key => $shortcode ) {
-
 			if ( $this->shortcode2 === $shortcode[2] ) {
-
 				/**
-				 * Adding html_entity_decode.
-				 * @since 1.16.13
+				 * Retrieve all attributes from the shortcode.
+				 *
+				 * @since 1.16.13 Adding html_entity_decode.
 				 */
-				// Retrieve all attributes from the shortcode.
 				$atts = shortcode_parse_atts( html_entity_decode( $shortcode[3] ) );
-
-				// Incorporate attributes from the View and defaults.
-				$parsed_atts = $this->parse_view( $atts, $this->get_view_defaults(), $atts );
-				if ( $this->view_not_found( $parsed_atts ) ) {
-					continue;
-				}
-
-				$this->preprocess( $parsed_atts );
-
+				$this->preprocess( $atts );
 			} else {
-
 				/**
 				 * Recursively process nested shortcodes.
 				 *
@@ -1222,9 +1180,7 @@ final class Strong_Testimonials {
 				 * @since 1.15.5
 				 */
 				$this->process_content( $shortcode[5] );
-
 			}
-
 		}
 	}
 
@@ -1236,15 +1192,19 @@ final class Strong_Testimonials {
 	 * @param $atts
 	 *
 	 * @since 1.25.0
-	 * @since 2.5.0  Move some processing to Strong_View class.
 	 * @since 2.16.0 Move all processing to Strong_View class.
 	 */
-	private function preprocess( $atts ) {
+	public function preprocess( $atts ) {
 		// Just like the shortcode function:
 		$atts = shortcode_atts(
 			$this->get_view_defaults(),
-			$atts
+			normalize_empty_atts( $atts ),
+			'testimonial_view'
 		);
+		if ( $this->view_not_found( $atts ) ) {
+			return;
+		}
+
 		$this->view_atts = $atts;
 
 		if ( $atts['form'] ) {
