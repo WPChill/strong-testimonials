@@ -704,7 +704,6 @@ class Strong_Testimonials_Defaults {
 			'pagination'         => false,
 			'pagination_type'    => 'simple',
 			'per_page'           => 5,
-			'slideshow'          => 0,
 			'slideshow_settings' => array(
 				'effect'             => 'fade',
 				'speed'              => 1,
