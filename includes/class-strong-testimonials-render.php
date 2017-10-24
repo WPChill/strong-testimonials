@@ -121,7 +121,7 @@ class Strong_Testimonials_Render {
 			$view_data = maybe_unserialize( $view['value'] );
 			if ( isset( $view_data['mode'] ) && 'single_template' != $view_data['mode'] ) {
 				$atts = array( 'view' => $view['id'] );
-				$this->preprocess( $atts );
+				$this->prerender( $atts );
 			}
 		}
 	}
@@ -226,12 +226,12 @@ class Strong_Testimonials_Render {
 	}
 
 	/**
-	 * Load stylesheet and scripts if not preprocessed.
+	 * Load stylesheet and scripts if not prerendered.
 	 *
 	 * For compatibility with
 	 * (1) page builders,
 	 * (2) plugins like [Posts For Page] and [Custom Content Shortcode]
-	 *     that pull in other posts so this plugin cannot preprocess them,
+	 *     that pull in other posts so this plugin cannot prerender them,
 	 * (3) using the form in popup makers.
 	 */
 	public function view_rendered() {
@@ -371,6 +371,20 @@ class Strong_Testimonials_Render {
 		}
 
 		return true;
+	}
+
+	/**
+	 * Check and process a widget.
+	 *
+	 * @since 2.28.0
+	 *
+	 * @param $widget
+	 */
+	private function check_widget( $widget ) {
+		if ( isset( $widget['view'] ) && $widget['view'] ) {
+			$atts = array( 'view' => $widget['view'] );
+			$this->prerender( $atts );
+		}
 	}
 
 	/**
@@ -590,20 +604,6 @@ class Strong_Testimonials_Render {
 	}
 
 	/**
-	 * Check and process a widget.
-	 *
-	 * @since 2.28.0
-	 *
-	 * @param $widget
-	 */
-	private function check_widget( $widget ) {
-		if ( isset( $widget['view'] ) && $widget['view'] ) {
-			$atts = array( 'view' => $widget['view'] );
-			$this->preprocess( $atts );
-		}
-	}
-
-	/**
 	 * @param $atts
 	 *
 	 * @return bool
@@ -636,7 +636,7 @@ class Strong_Testimonials_Render {
 				 * @since 1.16.13 Adding html_entity_decode.
 				 */
 				$atts = shortcode_parse_atts( html_entity_decode( $shortcode[3] ) );
-				$this->preprocess( $atts );
+				$this->prerender( $atts );
 			} else {
 				/**
 				 * Recursively process nested shortcodes.
@@ -652,7 +652,7 @@ class Strong_Testimonials_Render {
 	}
 
 	/**
-	 * Preprocess a view to gather styles, scripts, and script vars.
+	 * Prerender a view to gather styles, scripts, and script vars.
 	 *
 	 * Similar to Strong_Testimonials_Shortcodes::render_view().
 	 *
@@ -661,7 +661,7 @@ class Strong_Testimonials_Render {
 	 * @since 1.25.0
 	 * @since 2.16.0 Move all processing to Strong_View class.
 	 */
-	public function preprocess( $atts ) {
+	public function prerender( $atts ) {
 		// Just like the shortcode function:
 		$atts = shortcode_atts(
 			$this->get_view_defaults(),  // $pairs
