@@ -179,7 +179,6 @@ final class Strong_Testimonials {
 	 * @return void
 	 */
 	private function setup_constants() {
-
 		defined( 'WPMTST_VERSION' ) || define( 'WPMTST_VERSION', '2.27.2' );
 
 		// plugin slug: `strong-testimonials` used by template search
@@ -206,7 +205,6 @@ final class Strong_Testimonials {
 
 		// This is the URL our updater / license checker pings. This should be the URL of the site with EDD installed.
 		defined( 'STRONGPLUGINS_STORE_URL' ) || define( 'STRONGPLUGINS_STORE_URL', 'https://strongplugins.com' );
-
 	}
 
 	/**
@@ -227,7 +225,6 @@ final class Strong_Testimonials {
 	 * @return void
 	 */
 	private function includes() {
-
 		require_once WPMTST_INC . 'class-strong-view.php';
 		require_once WPMTST_INC . 'class-strong-view-display.php';
 		require_once WPMTST_INC . 'class-strong-view-slideshow.php';
@@ -337,7 +334,6 @@ final class Strong_Testimonials {
 	 * Action and filters.
 	 */
 	private function add_actions() {
-
 		add_action( 'plugins_loaded', array( $this, 'load_textdomain' ) );
 
 		/**
@@ -389,7 +385,6 @@ final class Strong_Testimonials {
 		 */
 		add_action( 'wp_head', array( $this, 'show_version_info' ), 999 );
 		add_action( 'wp_footer', array( $this, 'on_wp_footer' ), 999 );
-
 	}
 
 	/**
@@ -888,7 +883,6 @@ final class Strong_Testimonials {
 	 * @access public
 	 */
 	public function find_views() {
-
 		global $post;
 		if ( empty( $post ) ) {
 			return;
@@ -900,7 +894,6 @@ final class Strong_Testimonials {
 		}
 
 		$this->process_content( $content );
-
 	}
 
 	/**
@@ -912,7 +905,6 @@ final class Strong_Testimonials {
 	 * @since 1.15.11
 	 */
 	public function find_views_in_postmeta() {
-
 		global $post;
 		if ( empty( $post ) ) {
 			return;
@@ -925,7 +917,6 @@ final class Strong_Testimonials {
 		}
 
 		$this->process_content( $meta_content_serialized );
-
 	}
 
 	/**
@@ -937,7 +928,6 @@ final class Strong_Testimonials {
 	 * @since 1.15.12
 	 */
 	public function find_views_in_postexcerpt() {
-
 		global $post;
 		if ( empty( $post ) ) {
 			return;
@@ -948,7 +938,6 @@ final class Strong_Testimonials {
 		}
 
 		$this->process_content( $post->post_excerpt );
-
 	}
 
 	/**
@@ -963,7 +952,6 @@ final class Strong_Testimonials {
 	 * @access public
 	 */
 	public function find_widgets() {
-
 		// Get all widgets
 		$all_widgets = get_option( 'sidebars_widgets' );
 		if ( ! $all_widgets ) {
@@ -974,14 +962,12 @@ final class Strong_Testimonials {
 		$strong_widgets = get_option( 'widget_strong-testimonials-view-widget' );
 
 		foreach ( $all_widgets as $sidebar => $widgets ) {
-
 			// active widget areas only
 			if ( ! $widgets || 'wp_inactive_widgets' == $sidebar || 'array_version' == $sidebar ) {
 				continue;
 			}
 
 			foreach ( $widgets as $key => $widget_name ) {
-
 				// Is our widget active?
 				if ( 0 === strpos( $widget_name, 'strong-testimonials-view-widget-' ) ) {
 
@@ -999,11 +985,9 @@ final class Strong_Testimonials {
 				} elseif ( 0 === strpos( $widget_name, 'text-' ) ) {
 
 					// Get text widget content to scan for shortcodes.
-
 					$text_widgets = get_option( 'widget_text' );
 
 					if ( $text_widgets ) {
-
 						$name_parts = explode( '-', $widget_name );
 						$id         = array_pop( $name_parts );
 
@@ -1011,13 +995,10 @@ final class Strong_Testimonials {
 							$widget = $text_widgets[ $id ];
 							$this->process_content( $widget['text'] );
 						}
-
 					}
 
 				}
-
 			} // foreach $widgets
-
 		} // foreach $all_widgets
 	}
 
@@ -1027,7 +1008,6 @@ final class Strong_Testimonials {
 	 * For widgets in Page Builder by SiteOrigin.
 	 */
 	public function find_pagebuilder_widgets() {
-
 		// Get all widgets
 		$panels_data = get_post_meta( get_the_ID(), 'panels_data', true );
 		if ( ! $panels_data ) {
@@ -1048,18 +1028,14 @@ final class Strong_Testimonials {
 		}
 
 		foreach ( $cells as $cell_widgets ) {
-
 			foreach ( $cell_widgets as $key => $widget ) {
-
 				if ( 'Strong_Testimonials_View_Widget' == $widget['panels_info']['class'] ) {
 					$this->check_widget( $widget );
 				} elseif ( 'WP_Widget_Text' == $widget['panels_info']['class'] ) {
 					// Is a Text widget?
 					$this->process_content( $widget['text'] );
 				}
-
 			}
-
 		}
 	}
 
@@ -1069,14 +1045,12 @@ final class Strong_Testimonials {
 	 * For widgets in Beaver Builder.
 	 */
 	public function find_beaverbuilder_widgets() {
-
 		$nodes = get_post_meta( get_the_ID(), '_fl_builder_data', true );
 		if ( ! $nodes ) {
 			return;
 		}
 
 		foreach ( $nodes as $key => $node ) {
-
 			if ( 'module' != $node->type ) {
 				continue;
 			}
@@ -1090,7 +1064,6 @@ final class Strong_Testimonials {
 				$widget   = (array) $settings['widget-strong-testimonials-view-widget'];
 				$this->check_widget( $widget );
 			}
-
 		}
 	}
 
@@ -1102,7 +1075,6 @@ final class Strong_Testimonials {
 	 * @since 1.16.14
 	 */
 	public function find_blackstudio_widgets() {
-
 		global $post;
 		if ( empty( $post ) ) {
 			return;
@@ -1119,11 +1091,10 @@ final class Strong_Testimonials {
 		}
 
 		$this->process_content( $widget_content_serialized );
-
 	}
 
 	/**
-	 * check and process a widget.
+	 * Check and process a widget.
 	 *
 	 * @since 2.28.0
 	 *
