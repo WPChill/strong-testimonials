@@ -208,6 +208,7 @@ final class Strong_Testimonials {
 	 * @return void
 	 */
 	private function includes() {
+		require_once WPMTST_INC . 'class-strong-testimonials-shortcodes.php';
 		require_once WPMTST_INC . 'class-strong-testimonials-render.php';
 		require_once WPMTST_INC . 'class-strong-view.php';
 		require_once WPMTST_INC . 'class-strong-view-display.php';
@@ -231,7 +232,6 @@ final class Strong_Testimonials {
 		require_once WPMTST_INC . 'post-types.php';
 		require_once WPMTST_INC . 'retro.php';
 		require_once WPMTST_INC . 'scripts.php';
-		require_once WPMTST_INC . 'shortcodes.php';
 		require_once WPMTST_INC . 'widget2.php';
 
 		if ( is_admin() || ( defined( 'WP_CLI' ) && WP_CLI ) ) {

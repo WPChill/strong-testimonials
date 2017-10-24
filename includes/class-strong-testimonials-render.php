@@ -14,8 +14,6 @@ class Strong_Testimonials_Render {
 
 	public $shortcode;
 
-	public $shortcode_lb;
-
 	public $view_defaults = array();
 
 	public $view_atts = array();
@@ -36,11 +34,6 @@ class Strong_Testimonials_Render {
 	 * Add actions and filters.
 	 */
 	public function add_actions() {
-		/**
-		 * Exclude our shortcodes from texturize.
-		 */
-		add_filter( 'no_texturize_shortcodes', array( $this, 'no_texturize_shortcodes' ) );
-
 		/**
 		 * Process shortcodes in widget.
 		 *
@@ -266,32 +259,7 @@ class Strong_Testimonials_Render {
 	 * Set shortcode.
 	 */
 	public function set_shortcodes() {
-		$this->shortcode    = 'testimonial_view';
-		$this->shortcode_lb = '[' . $this->shortcode;
-	}
-
-	/**
-	 * Get shortcode.
-	 */
-	public function get_shortcode() {
-		return $this->shortcode;
-	}
-
-	/**
-	 * Do not texturize shortcode.
-	 *
-	 * @since 1.11.5
-	 *
-	 * @param $shortcodes
-	 *
-	 * @return array
-	 */
-	// TODO move to shortcodes
-	public function no_texturize_shortcodes( $shortcodes ) {
-		$shortcodes[] = $this->shortcode;
-		$shortcodes[] = 'testimonial_count';
-
-		return $shortcodes;
+		$this->shortcode = Strong_Testimonials_Shortcodes::SHORTCODE;
 	}
 
 	/**
@@ -391,14 +359,14 @@ class Strong_Testimonials_Render {
 	}
 
 	/**
-	 * Check the content for our shortcodes.
+	 * Check the content for our shortcode.
 	 *
 	 * @param $content
 	 *
 	 * @return bool
 	 */
 	private function check_content( $content ) {
-		if ( false === strpos( $content, $this->shortcode_lb ) ) {
+		if ( false === strpos( $content, '[' . $this->shortcode ) ) {
 			return false;
 		}
 
@@ -686,7 +654,7 @@ class Strong_Testimonials_Render {
 	/**
 	 * Preprocess a view to gather styles, scripts, and script vars.
 	 *
-	 * Similar to wpmtst_render_view in shortcodes.php.
+	 * Similar to Strong_Testimonials_Shortcodes::render_view().
 	 *
 	 * @param $atts
 	 *
@@ -696,9 +664,9 @@ class Strong_Testimonials_Render {
 	public function preprocess( $atts ) {
 		// Just like the shortcode function:
 		$atts = shortcode_atts(
-			$this->get_view_defaults(),
-			normalize_empty_atts( $atts ),
-			'testimonial_view'
+			$this->get_view_defaults(),  // $pairs
+			$atts,
+			Strong_Testimonials_Shortcodes::SHORTCODE
 		);
 		if ( $this->view_not_found( $atts ) ) {
 			return;
@@ -707,13 +675,13 @@ class Strong_Testimonials_Render {
 		$this->set_atts( $atts );
 
 		if ( $atts['form'] ) {
-			$new_view = new Strong_View_Form( $atts );
+			$view = new Strong_View_Form( $atts );
 		} elseif ( $atts['slideshow'] ) {
-			$new_view = new Strong_View_Slideshow( $atts );
+			$view = new Strong_View_Slideshow( $atts );
 		} else {
-			$new_view = new Strong_View_Display( $atts );
+			$view = new Strong_View_Display( $atts );
 		}
-		$new_view->process();
+		$view->process();
 
 		/**
 		 * Allow themes and plugins to do stuff like add extra stylesheets.
