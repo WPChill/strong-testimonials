@@ -122,6 +122,7 @@ final class Strong_Testimonials {
 			add_action( 'init', array( self::$instance, 'init' ) );
 
 			self::$instance->add_actions();
+			self::$instance->add_enqueue_actions();
 			self::$instance->set_shortcodes();
 		}
 
@@ -333,14 +334,16 @@ final class Strong_Testimonials {
 	}
 
 	/**
-	 * Action hooks.
+	 * Action and filters.
 	 */
 	private function add_actions() {
 
 		add_action( 'plugins_loaded', array( $this, 'load_textdomain' ) );
 
+		/**
+		 * Custom fields editor.
+		 */
 		if ( is_admin() ) {
-			// Custom fields editor
 			add_action( 'wpmtst_form_admin', 'wpmtst_form_admin2' );
 		}
 
@@ -363,16 +366,19 @@ final class Strong_Testimonials {
 		add_action( 'after_setup_theme', array( $this, 'add_image_size' ) );
 
 		/**
-		 * Action hook: Delete a view.
+		 * Custom action to delete a view.
 		 *
 		 * @since 1.21.0
 		 */
 		add_action( 'admin_action_delete-strong-view', 'wpmtst_delete_view_action_hook' );
 
+		/**
+		 * Exclude our shortcodes from texturize.
+		 */
 		add_filter( 'no_texturize_shortcodes', array( $this, 'no_texturize_shortcodes' ) );
 
 		/**
-		 * Be sure to process shortcodes in widget.
+		 * Process shortcodes in widget.
 		 *
 		 * @since 1.15.5
 		 */
@@ -384,22 +390,25 @@ final class Strong_Testimonials {
 		add_action( 'wp_head', array( $this, 'show_version_info' ), 999 );
 		add_action( 'wp_footer', array( $this, 'on_wp_footer' ), 999 );
 
+	}
+
+	/**
+	 * Load scripts and styles.
+	 */
+	private function add_enqueue_actions() {
+
 		/**
-		 * Load scripts and styles.
-		 *
 		 * The default behavior is to enqueue the stylesheets and scripts for
-		 * a view when the shortcode is rendered, like every other plugin.
+		 * a view when the shortcode is rendered.
 		 *
-		 * We will attempt to preprocess the content in order to move the
-		 * stylesheets to `wp_enqueue_scripts` in order to load them in the
-		 * <head> section.
 		 */
 		add_action( 'wpmtst_view_rendered', array( $this, 'view_rendered' ) );
 		add_action( 'wpmtst_form_rendered', array( $this, 'view_rendered' ) );
 		add_action( 'wpmtst_form_success', array( $this, 'view_rendered' ) );
 
 		/**
-		 * Conditionally enqueue styles and scripts.
+		 * We will attempt to preprocess the content in order to move the
+		 * stylesheets to `wp_enqueue_scripts` and load them in the <head> section.
 		 */
 
 		// Look for our shortcodes in post content and widgets.
@@ -566,6 +575,7 @@ final class Strong_Testimonials {
 	 */
 	public function no_texturize_shortcodes( $shortcodes ) {
 		$shortcodes[] = $this->shortcode2;
+		$shortcodes[] = 'testimonial_count';
 
 		return $shortcodes;
 	}
