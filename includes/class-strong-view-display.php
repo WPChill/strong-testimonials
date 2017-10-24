@@ -50,7 +50,8 @@ class Strong_View_Display extends Strong_View {
 		$this->has_stars();
 		$this->has_pagination();
 		$this->has_layouts();
-		$this->load_dependent_scripts();
+
+		//$this->load_dependent_scripts();
 		$this->load_extra_stylesheets();
 
 		// If we can preprocess, we can add the inline style in the <head>.
