@@ -1,12 +1,12 @@
 <?php
 /**
- * Form class
- */
-
-/**
  * Class Strong_Testimonials_Form
  */
 class Strong_Testimonials_Form {
+
+	public $form_values;
+
+	public $form_errors;
 
 	/**
 	 * Strong_Testimonials_Form constructor.
@@ -77,13 +77,51 @@ class Strong_Testimonials_Form {
 			} else {
 				$return = array(
 					'success' => false,
-					'errors'  => WPMST()->get_form_errors()
+					'errors'  => $this->get_form_errors()
 				);
 			}
 			echo json_encode( $return );
 		}
 
 		die();
+	}
+
+	/**
+	 * Store form values.
+	 *
+	 * TODO Move to form object.
+	 *
+	 * @param $form_values
+	 */
+	public function set_form_values( $form_values ) {
+		$this->form_values = $form_values;
+	}
+
+	/**
+	 * Return form values.
+	 *
+	 * @return mixed
+	 */
+	public function get_form_values() {
+		return $this->form_values;
+	}
+
+	/**
+	 * Store from errors.
+	 *
+	 * @param $form_errors
+	 */
+	public function set_form_errors( $form_errors ) {
+		$this->form_errors = $form_errors;
+	}
+
+	/**
+	 * Return form errors.
+	 *
+	 * @return mixed
+	 */
+	public function get_form_errors() {
+		return $this->form_errors;
 	}
 
 	/**
@@ -352,16 +390,16 @@ class Strong_Testimonials_Form {
 
 		if ( ! count( $form_errors ) ) {
 			// Clear saved form data and errors.
-			WPMST()->set_form_values( null );
-			WPMST()->set_form_errors( null );
+			$this->set_form_values( null );
+			$this->set_form_errors( null );
 			$this->notify_admin( $form_values, $form_name );
 
 			return true;
 		}
 
 		// Redisplay form with submitted values and error messages.
-		WPMST()->set_form_values( stripslashes_deep( $form_values ) );
-		WPMST()->set_form_errors( $form_errors );
+		$this->set_form_values( stripslashes_deep( $form_values ) );
+		$this->set_form_errors( $form_errors );
 
 		return false;
 	}

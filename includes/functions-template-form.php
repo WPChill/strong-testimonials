@@ -8,7 +8,7 @@ function wpmtst_form_info() {
 }
 
 function wpmtst_form_setup() {
-	$form_values = WPMST()->get_form_values();
+	$form_values = WPMST()->form->get_form_values();
     $cats = (array) $form_values['category'];
 
 	echo '<div style="display: none;">';
@@ -63,7 +63,7 @@ function wpmtst_form_field( $field_name ) {
 }
 
 function wpmtst_single_form_field( $field ) {
-	$form_values = WPMST()->get_form_values();
+	$form_values = WPMST()->form->get_form_values();
 
 	echo '<div class="form-field field-'.$field['name'].'">';
 

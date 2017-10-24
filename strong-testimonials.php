@@ -56,10 +56,6 @@ final class Strong_Testimonials {
 
 	public $plugin_data;
 
-	public $form_values;
-
-	public $form_errors;
-
 	public $post_list = array();
 
 	/**
@@ -296,29 +292,6 @@ final class Strong_Testimonials {
 	}
 
 	/**
-	 * Set plugin data.
-	 *
-	 * @since 2.12.0
-	 */
-	public function set_plugin_data() {
-		//$this->plugin_data = get_plugin_data( __FILE__, false );
-		$this->plugin_data = array(
-			'Version' => WPMTST_VERSION,
-		);
-	}
-
-	/**
-	 * Get plugin data.
-	 *
-	 * @since 2.12.0
-	 *
-	 * @return array
-	 */
-	public function get_plugin_data() {
-		return $this->plugin_data;
-	}
-
-	/**
 	 * Action and filters.
 	 */
 	private function add_actions() {
@@ -506,44 +479,6 @@ final class Strong_Testimonials {
 	}
 
 	/**
-	 * Store form values.
-	 *
-	 * TODO Move to form object.
-	 *
-	 * @param $form_values
-	 */
-	public function set_form_values( $form_values ) {
-		$this->form_values = $form_values;
-	}
-
-	/**
-	 * Return form values.
-	 *
-	 * @return mixed
-	 */
-	public function get_form_values() {
-		return $this->form_values;
-	}
-
-	/**
-	 * Store from errors.
-	 *
-	 * @param $form_errors
-	 */
-	public function set_form_errors( $form_errors ) {
-		$this->form_errors = $form_errors;
-	}
-
-	/**
-	 * Return form errors.
-	 *
-	 * @return mixed
-	 */
-	public function get_form_errors() {
-		return $this->form_errors;
-	}
-
-	/**
 	 * Show version number in <head> section.
 	 *
 	 * For troubleshooting only.
@@ -576,6 +511,29 @@ final class Strong_Testimonials {
 	 */
 	public function on_wp_footer() {
 		echo "<!-- wp_footer called -->\n";
+	}
+
+	/**
+	 * Set plugin data.
+	 *
+	 * @since 2.12.0
+	 */
+	public function set_plugin_data() {
+		//$this->plugin_data = get_plugin_data( __FILE__, false );
+		$this->plugin_data = array(
+			'Version' => WPMTST_VERSION,
+		);
+	}
+
+	/**
+	 * Get plugin data.
+	 *
+	 * @since 2.12.0
+	 *
+	 * @return array
+	 */
+	public function get_plugin_data() {
+		return $this->plugin_data;
 	}
 
 	/**

@@ -1,6 +1,6 @@
 <?php
 /**
- * View Form Mode class.
+ * Class Strong_View_Form
  *
  * @since 2.16.0
  */
@@ -79,12 +79,12 @@ class Strong_View_Form extends Strong_View {
 			}
 		}
 
-		$previous_values = WPMST()->get_form_values();
+		$previous_values = WPMST()->form->get_form_values();
 		if ( $previous_values ) {
 			$form_values = array_merge( $form_values, $previous_values );
 		}
 
-		WPMST()->set_form_values( $form_values );
+		WPMST()->form->set_form_values( $form_values );
 
 		/**
 		 * Add filters here.
