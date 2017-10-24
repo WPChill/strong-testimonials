@@ -394,22 +394,41 @@ final class Strong_Testimonials {
 
 	/**
 	 * Load scripts and styles.
+	 *
+	 * @since 2.28.0
 	 */
 	private function add_enqueue_actions() {
-		/**
-		 * The default behavior is to enqueue the stylesheets and scripts for
-		 * a view when the shortcode is rendered.
-		 */
-		add_action( 'wpmtst_view_rendered', array( $this, 'view_rendered' ) );
-		add_action( 'wpmtst_form_rendered', array( $this, 'view_rendered' ) );
-		add_action( 'wpmtst_form_success', array( $this, 'view_rendered' ) );
-
 		$options = get_option( 'wpmtst_compat_options' );
-		//if ( $options['prerender'] ) {
-		//	$this->prerender();
-		//} else {
-			$this->provision_all_views();
-		//}
+
+		if ( apply_filters( 'strong_testimonials_prerender', $options['prerender'] ) ) {
+
+			if ( $options['provision_all'] ) {
+				// Find all views
+				add_action( 'wp_enqueue_scripts', array( $this, 'provision_all_views' ), 1 );
+			} else {
+				// Find views in the current page
+				$this->provision_current_page();
+			}
+
+			/**
+			 * Standard enqueue.
+			 * Load stylesheets in <head> to prevent FOUC.
+			 * Load scripts in footer.
+			 */
+			add_action( 'wp_enqueue_scripts', array( $this, 'view_rendered' ) );
+
+		} else {
+
+			/**
+			 * Fallback enqueue.
+			 * Enqueue the stylesheets and scripts for each view when the
+			 * shortcode is rendered. This results in both loading in the footer.
+			 */
+			add_action( 'wpmtst_view_rendered', array( $this, 'view_rendered' ) );
+			add_action( 'wpmtst_form_rendered', array( $this, 'view_rendered' ) );
+			add_action( 'wpmtst_form_success', array( $this, 'view_rendered' ) );
+
+		}
 	}
 
 	/**
@@ -417,7 +436,7 @@ final class Strong_Testimonials {
 	 *
 	 * In order to load stylesheets in normal sequence to prevent FOUC.
 	 */
-	private function prerender() {
+	private function provision_current_page() {
 		// Look for our shortcodes in post content and widgets.
 		add_action( 'wp_enqueue_scripts', array( $this, 'find_views' ), 1 );
 		add_action( 'wp_enqueue_scripts', array( $this, 'find_views_in_postmeta' ), 1 );
@@ -441,15 +460,11 @@ final class Strong_Testimonials {
 	}
 
 	/**
+	 * Provision all views.
 	 *
+	 * @since 2.28.0
 	 */
-	private function provision_all_views() {
-		//$pages = get_pages();
-		//foreach ( $pages as $page ) {
-		//	if ( $this->check_content( $page->post_content ) ) {
-		//		$this->process_content( $page->post_content );
-		//	}
-		//}
+	public function provision_all_views() {
 		$views = wpmtst_get_views();
 		foreach ( $views as $view ) {
 			/*
@@ -458,7 +473,14 @@ final class Strong_Testimonials {
 			 * [value] => {serialized_array}
 			 */
 			$view_data = maybe_unserialize( $view['value'] );
-			if ( isset( $view_data['mode'] ) && 'single_template' == $view_data['mode'] ) {
+			if ( isset( $view_data['mode'] ) && 'single_template' != $view_data['mode'] ) {
+
+				$atts        = array( 'id' => $view['id'] );
+				$parsed_atts = $this->parse_view( $atts, $this->get_view_defaults(), $atts );
+				if ( $this->view_not_found( $parsed_atts ) ) {
+					continue;
+				}
+				$this->preprocess( $parsed_atts );
 
 			}
 		}
@@ -599,7 +621,7 @@ final class Strong_Testimonials {
 	}
 
 	/**
-	 * Getter for the shortcode defaults.
+	 * Get the shortcode defaults.
 	 *
 	 * @return array
 	 */
@@ -1179,10 +1201,10 @@ final class Strong_Testimonials {
 				 * @since 1.16.13
 				 */
 				// Retrieve all attributes from the shortcode.
-				$original_atts = shortcode_parse_atts( html_entity_decode( $shortcode[3] ) );
+				$atts = shortcode_parse_atts( html_entity_decode( $shortcode[3] ) );
 
 				// Incorporate attributes from the View and defaults.
-				$parsed_atts = $this->parse_view( $original_atts, $this->get_view_defaults(), $original_atts );
+				$parsed_atts = $this->parse_view( $atts, $this->get_view_defaults(), $atts );
 				if ( $this->view_not_found( $parsed_atts ) ) {
 					continue;
 				}
@@ -1216,13 +1238,9 @@ final class Strong_Testimonials {
 	 * @since 1.25.0
 	 * @since 2.5.0  Move some processing to Strong_View class.
 	 * @since 2.16.0 Move all processing to Strong_View class.
-	 * @since 2.27.0 Can be skipped via `prerender` filter.
 	 */
 	private function preprocess( $atts ) {
-		if ( ! apply_filters( 'strong_testimonials_prerender', true ) ) {
-			return;
-		}
-
+		// Just like the shortcode function:
 		$atts = shortcode_atts(
 			$this->get_view_defaults(),
 			$atts
@@ -1237,13 +1255,6 @@ final class Strong_Testimonials {
 			$new_view = new Strong_View_Display( $atts );
 		}
 		$new_view->process();
-
-		/**
-		 * Move scripts and styles to normal hook.
-		 * The whole purpose of preprocessing is to load our styles
-		 * in <head> to avoid FOUC.
-		 */
-		add_action( 'wp_enqueue_scripts', array( $this, 'view_rendered' ) );
 
 		/**
 		 * Allow themes and plugins to do stuff like add extra stylesheets.
@@ -1269,9 +1280,12 @@ final class Strong_Testimonials {
 	/**
 	 * Parse view attributes.
 	 *
-	 * @param array $out The output array of shortcode attributes.
+	 * This is used by the shortcode filter and prerendering to assemble
+	 * the view attributes.
+	 *
+	 * @param array $out   The output array of shortcode attributes.
 	 * @param array $pairs The supported attributes and their defaults.
-	 * @param array $atts The user defined shortcode attributes.
+	 * @param array $atts  The user defined shortcode attributes.
 	 *
 	 * @return array
 	 */
