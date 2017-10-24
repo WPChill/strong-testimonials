@@ -14,6 +14,7 @@ class Strong_Testimonials_Shortcodes {
 
 		add_shortcode( 'testimonial_count', array( __CLASS__, 'testimonial_count' ) );
 
+		add_filter( 'widget_text', 'do_shortcode' );
 		add_filter( 'no_texturize_shortcodes', array( __CLASS__, 'no_texturize_shortcodes' ) );
 
 		add_filter( 'strong_view_html', array( __CLASS__, 'strong_view_html' ) );

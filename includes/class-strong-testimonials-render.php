@@ -27,19 +27,6 @@ class Strong_Testimonials_Render {
 		$this->set_view_defaults();
 		$this->set_shortcodes();
 		$this->add_enqueue_actions();
-		$this->add_actions();
-	}
-
-	/**
-	 * Add actions and filters.
-	 */
-	public function add_actions() {
-		/**
-		 * Process shortcodes in widget.
-		 *
-		 * @since 1.15.5
-		 */
-		add_filter( 'widget_text', 'do_shortcode' );
 	}
 
 	/**
