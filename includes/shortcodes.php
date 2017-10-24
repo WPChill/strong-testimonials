@@ -15,8 +15,8 @@
  */
 function wpmtst_strong_view_shortcode( $atts, $content = null ) {
 	$out = shortcode_atts(
-		WPMST()->get_view_defaults(),
-		normalize_empty_atts( $atts ),
+		WPMST()->get_view_defaults(),   // $pairs
+		normalize_empty_atts( $atts ),  // $atts
 		'testimonial_view'
 	);
 
@@ -28,9 +28,10 @@ add_shortcode( 'testimonial_view', 'wpmtst_strong_view_shortcode' );
  * testimonial_view attribute filter
  *
  * @since 1.21.0
- * @param $out
- * @param $pairs
- * @param $atts
+ *
+ * @param array $out   The output array of shortcode attributes.
+ * @param array $pairs The supported attributes and their defaults.
+ * @param array $atts  The user defined shortcode attributes.
  *
  * @return array
  */

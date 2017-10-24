@@ -405,11 +405,11 @@ final class Strong_Testimonials {
 		add_action( 'wpmtst_form_success', array( $this, 'view_rendered' ) );
 
 		$options = get_option( 'wpmtst_compat_options' );
-		if ( $options['prerender'] ) {
-			$this->prerender();
-		} else {
+		//if ( $options['prerender'] ) {
+		//	$this->prerender();
+		//} else {
 			$this->provision_all_views();
-		}
+		//}
 	}
 
 	/**
@@ -444,10 +444,22 @@ final class Strong_Testimonials {
 	 *
 	 */
 	private function provision_all_views() {
-		$pages = get_pages();
-		foreach ( $pages as $page ) {
-			if ( $this->check_content( $page->post_content ) ) {
-				$this->process_content( $page->post_content );
+		//$pages = get_pages();
+		//foreach ( $pages as $page ) {
+		//	if ( $this->check_content( $page->post_content ) ) {
+		//		$this->process_content( $page->post_content );
+		//	}
+		//}
+		$views = wpmtst_get_views();
+		foreach ( $views as $view ) {
+			/*
+			 * [id] => 1
+			 * [name] => TEST
+			 * [value] => {serialized_array}
+			 */
+			$view_data = maybe_unserialize( $view['value'] );
+			if ( isset( $view_data['mode'] ) && 'single_template' == $view_data['mode'] ) {
+
 			}
 		}
 	}
