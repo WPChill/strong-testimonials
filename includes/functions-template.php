@@ -39,10 +39,10 @@ add_filter( 'wpmtst_get_the_excerpt', 'wpmtst_trim_excerpt' );
 function strong_testimonials_view( $id = null ) {
 	if ( ! $id ) return;
 
-	$out   = WPMST()->get_view_defaults();
+	$out   = WPMST()->render->get_view_defaults();
 	$pairs = array();
 	$atts  = array( 'id' => $id );
-	$out   = WPMST()->parse_view( $out, $pairs, $atts );
+	$out   = WPMST()->render->parse_view( $out, $pairs, $atts );
 
 	echo wpmtst_render_view( $out );
 }

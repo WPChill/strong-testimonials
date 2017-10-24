@@ -15,7 +15,7 @@
  */
 function wpmtst_strong_view_shortcode( $atts, $content = null ) {
 	$out = shortcode_atts(
-		WPMST()->get_view_defaults(),   // $pairs
+		WPMST()->render->get_view_defaults(),   // $pairs
 		normalize_empty_atts( $atts ),  // $atts
 		'testimonial_view'
 	);
@@ -36,7 +36,7 @@ add_shortcode( 'testimonial_view', 'wpmtst_strong_view_shortcode' );
  * @return array
  */
 function wpmtst_strong_view_shortcode_filter( $out, $pairs, $atts ) {
-	return WPMST()->parse_view( $out, $pairs, $atts );
+	return WPMST()->render->parse_view( $out, $pairs, $atts );
 }
 add_filter( 'shortcode_atts_testimonial_view', 'wpmtst_strong_view_shortcode_filter', 10, 3 );
 

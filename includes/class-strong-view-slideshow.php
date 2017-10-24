@@ -324,7 +324,7 @@ class Strong_View_Slideshow extends Strong_View_Display {
 	 */
 	public function has_slideshow() {
 
-		WPMST()->add_style( 'wpmtst-font-awesome' );
+		WPMST()->render->add_style( 'wpmtst-font-awesome' );
 
 		$settings          = $this->atts['slideshow_settings'];
 		$not_full_controls = ( 'none' != $settings['controls_type'] || 'full' != $settings['controls_type'] );
@@ -344,7 +344,7 @@ class Strong_View_Slideshow extends Strong_View_Display {
 
 			if ( file_exists( WPMTST_PUBLIC . "css/$filename.css" ) ) {
 				wp_register_style( "wpmtst-$filename", WPMTST_PUBLIC_URL . "css/$filename.css", array(), $this->plugin_version );
-				WPMST()->add_style( "wpmtst-$filename" );
+				WPMST()->render->add_style( "wpmtst-$filename" );
 			}
 
 		} elseif ( $not_full_controls ) {
@@ -359,16 +359,16 @@ class Strong_View_Slideshow extends Strong_View_Display {
 
 				if ( file_exists( WPMTST_PUBLIC . "css/$filename.css" ) ) {
 					wp_register_style( "wpmtst-$filename", WPMTST_PUBLIC_URL . "css/$filename.css", array(), $this->plugin_version );
-					WPMST()->add_style( "wpmtst-$filename" );
+					WPMST()->render->add_style( "wpmtst-$filename" );
 				}
 
 			}
 
 		}
 
-		WPMST()->add_script( 'wpmtst-slider' );
-		WPMST()->add_script_var( 'wpmtst-slider', $this->slideshow_signature(), $this->slideshow_args() );
-		WPMST()->add_script( 'wpmtst-controller' );
+		WPMST()->render->add_script( 'wpmtst-slider' );
+		WPMST()->render->add_script_var( 'wpmtst-slider', $this->slideshow_signature(), $this->slideshow_args() );
+		WPMST()->render->add_script( 'wpmtst-controller' );
 	}
 
 	/**

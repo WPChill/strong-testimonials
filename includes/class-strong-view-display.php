@@ -329,9 +329,9 @@ class Strong_View_Display extends Strong_View {
 	 */
 	public function has_pagination() {
 		if ( $this->is_paginated() ) {
-			WPMST()->add_script( 'wpmtst-pager' );
-			WPMST()->add_script_var( 'wpmtst-pager', $this->pager_signature(), $this->pager_args() );
-			WPMST()->add_script( 'wpmtst-controller' );
+			WPMST()->render->add_script( 'wpmtst-pager' );
+			WPMST()->render->add_script_var( 'wpmtst-pager', $this->pager_signature(), $this->pager_args() );
+			WPMST()->render->add_script( 'wpmtst-controller' );
 		}
 	}
 
@@ -387,30 +387,30 @@ class Strong_View_Display extends Strong_View {
 
 		if ( 'masonry' == $this->atts['layout'] ) {
 
-			//WPMST()->add_script( 'wpmtst-masonry-script' );
-			WPMST()->add_script( 'jquery-masonry' );
-			WPMST()->add_script( 'imagesloaded' );
+			//WPMST()->render->add_script( 'wpmtst-masonry-script' );
+			WPMST()->render->add_script( 'jquery-masonry' );
+			WPMST()->render->add_script( 'imagesloaded' );
 
 			if ( apply_filters( 'wpmtst_load_masonry_style', true ) ) {
-				WPMST()->add_style( 'wpmtst-masonry-style' );
+				WPMST()->render->add_style( 'wpmtst-masonry-style' );
 			}
 
 		} elseif ( 'columns' == $this->atts['layout'] ) {
 
 			if ( apply_filters( 'wpmtst_load_columns_style', true ) ) {
-				WPMST()->add_style( 'wpmtst-columns-style' );
+				WPMST()->render->add_style( 'wpmtst-columns-style' );
 			}
 
 		} elseif ( 'grid' == $this->atts['layout'] ) {
 
-			// WPMST()->add_script( 'wpmtst-grid-script' );
+			// WPMST()->render->add_script( 'wpmtst-grid-script' );
 
 			if ( apply_filters( 'wpmtst_load_grid_style', true ) ) {
-				WPMST()->add_style( 'wpmtst-grid-style' );
+				WPMST()->render->add_style( 'wpmtst-grid-style' );
 			}
 		}
 
-		WPMST()->add_script( 'wpmtst-controller' );
+		WPMST()->render->add_script( 'wpmtst-controller' );
 	}
 
 }

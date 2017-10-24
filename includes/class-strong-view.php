@@ -135,7 +135,7 @@ class Strong_View {
 		if ( $styles ) {
 			$styles_array = explode( ',', str_replace( ' ', '', $styles ) );
 			foreach ( $styles_array as $handle ) {
-				WPMST()->add_style( $handle );
+				WPMST()->render->add_style( $handle );
 			}
 		}
 	}
@@ -154,10 +154,10 @@ class Strong_View {
 		if ( $script ) {
 			$handle = 'testimonials-' . str_replace( ':', '-', $this->atts['template'] );
 			wp_register_script( $handle, $script, $deps_array );
-			WPMST()->add_script( $handle );
+			WPMST()->render->add_script( $handle );
 		} else {
 			foreach ( $deps_array as $handle ) {
-				WPMST()->add_script( $handle );
+				WPMST()->render->add_script( $handle );
 			}
 		}
 	}
@@ -182,7 +182,7 @@ class Strong_View {
 			$handle = 'testimonials-' . str_replace( ':', '-', $this->atts['template'] );
 			wp_register_style( $handle, $stylesheet, array(), $this->plugin_version );
 			if ( $enqueue ) {
-				WPMST()->add_style( $handle );
+				WPMST()->render->add_style( $handle );
 			} else {
 				return $handle;
 			}
@@ -316,7 +316,7 @@ class Strong_View {
 		if ( isset( $this->atts['client_section'] ) ) {
 			foreach ( $this->atts['client_section'] as $field ) {
 				if ( 'rating' == $field['type'] ) {
-					WPMST()->add_style( 'wpmtst-rating-display' );
+					WPMST()->render->add_style( 'wpmtst-rating-display' );
 					break;
 				}
 			}

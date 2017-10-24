@@ -172,15 +172,15 @@ class Strong_View_Form extends Strong_View {
 
 			// Load rating stylesheet if necessary.
 			if ( isset( $field['input_type'] ) && 'rating' == $field['input_type'] ) {
-				WPMST()->add_style( 'wpmtst-rating-form' );
+				WPMST()->render->add_style( 'wpmtst-rating-form' );
 			}
 
 		}
 
 		// Load validation scripts
-		WPMST()->add_script( 'wpmtst-form-validation' );
+		WPMST()->render->add_script( 'wpmtst-form-validation' );
 		if ( wp_script_is( 'wpmtst-validation-lang', 'registered' ) ) {
-			WPMST()->add_script( 'wpmtst-validation-lang' );
+			WPMST()->render->add_script( 'wpmtst-validation-lang' );
 		}
 
 		$form_options = get_option( 'wpmtst_form_options' );
@@ -203,7 +203,7 @@ class Strong_View_Form extends Strong_View {
 			$args['ajaxUrl'] = admin_url( 'admin-ajax.php' );
 		}
 
-		WPMST()->add_script_var( 'wpmtst-form-validation', 'strongForm', $args );
+		WPMST()->render->add_script_var( 'wpmtst-form-validation', 'strongForm', $args );
 	}
 
 	/**
@@ -258,8 +258,8 @@ class Strong_View_Form extends Strong_View {
 			),
 		);
 
-		WPMST()->add_script( 'wpmtst-form-validation' );
-		WPMST()->add_script_var( 'wpmtst-form-validation', 'strongForm', $args );
+		WPMST()->render->add_script( 'wpmtst-form-validation' );
+		WPMST()->render->add_script_var( 'wpmtst-form-validation', 'strongForm', $args );
 	}
 
 }
