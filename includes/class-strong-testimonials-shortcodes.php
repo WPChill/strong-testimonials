@@ -7,11 +7,6 @@
 class Strong_Testimonials_Shortcodes {
 
 	/**
-	 * Our primary shortcode.
-	 */
-	const SHORTCODE = 'testimonial_view';
-
-	/**
 	 * Strong_Testimonials_Shortcodes constructor.
 	 */
 	public function __construct() {}
@@ -20,16 +15,20 @@ class Strong_Testimonials_Shortcodes {
 	 * Initialize.
 	 */
 	public static function initialize() {
-		add_shortcode( self::SHORTCODE, array( __CLASS__, 'testimonial_view_shortcode' ) );
-		add_filter( 'shortcode_atts_' . self::SHORTCODE, array( __CLASS__, 'testimonial_view_filter' ), 10, 3 );
+		add_shortcode( 'testimonial_view', array( __CLASS__, 'testimonial_view_shortcode' ) );
+		add_filter( 'shortcode_atts_testimonial_view', array( __CLASS__, 'testimonial_view_filter' ), 10, 3 );
 
 		add_shortcode( 'testimonial_count', array( __CLASS__, 'testimonial_count' ) );
 
 		add_filter( 'widget_text', 'do_shortcode' );
 		add_filter( 'no_texturize_shortcodes', array( __CLASS__, 'no_texturize_shortcodes' ) );
 
-		add_filter( 'strong_view_html', array( __CLASS__, 'strong_view_html' ) );
-		add_filter( 'strong_view_form_html', array( __CLASS__, 'strong_view_html' ) );
+		add_filter( 'strong_view_html', array( __CLASS__, 'remove_whitespace' ) );
+		add_filter( 'strong_view_form_html', array( __CLASS__, 'remove_whitespace' ) );
+	}
+
+	public static function get_shortcode() {
+		return 'testimonial_view';
 	}
 
 	/**
@@ -44,7 +43,7 @@ class Strong_Testimonials_Shortcodes {
 		$out = shortcode_atts(
 			WPMST()->render->get_view_defaults(),   // $pairs
 			$atts,
-			self::SHORTCODE
+			'testimonial_view'
 		);
 
 		return self::render_view( $out );
@@ -91,44 +90,6 @@ class Strong_Testimonials_Shortcodes {
 	}
 
 	/**
-	 * Normalize empty shortcode attributes.
-	 *
-	 * Turns atts into tags - brilliant!
-	 * Thanks http://wordpress.stackexchange.com/a/123073/32076
-	 *
-	 * @param $atts
-	 *
-	 * @return mixed
-	 */
-	public static function normalize_empty_atts( $atts ) {
-		if ( !empty( $atts ) ) {
-			foreach ( $atts as $attribute => $value ) {
-				if ( is_int( $attribute ) ) {
-					$atts[ strtolower( $value ) ] = true;
-					unset( $atts[ $attribute ] );
-				}
-			}
-		}
-
-		return $atts;
-	}
-
-	/**
-	 * Do not texturize shortcode.
-	 *
-	 * @since 1.11.5
-	 *
-	 * @param $shortcodes
-	 *
-	 * @return array
-	 */
-	public static function no_texturize_shortcodes( $shortcodes ) {
-		$shortcodes[] = self::SHORTCODE;
-
-		return $shortcodes;
-	}
-
-	/**
 	 * Remove whitespace between tags. Helps prevent double wpautop in plugins
 	 * like Posts For Pages and Custom Content Shortcode.
 	 *
@@ -138,7 +99,7 @@ class Strong_Testimonials_Shortcodes {
 	 *
 	 * @return mixed
 	 */
-	public static function strong_view_html( $html ) {
+	public static function remove_whitespace( $html ) {
 		$options = get_option( 'wpmtst_options' );
 		if ( $options['remove_whitespace'] ) {
 			$html = preg_replace( '~>\s+<~', '><', $html );
@@ -178,6 +139,44 @@ class Strong_Testimonials_Shortcodes {
 		$posts_array = get_posts( $args );
 
 		return count( $posts_array );
+	}
+
+	/**
+	 * Normalize empty shortcode attributes.
+	 *
+	 * Turns atts into tags - brilliant!
+	 * Thanks http://wordpress.stackexchange.com/a/123073/32076
+	 *
+	 * @param $atts
+	 *
+	 * @return mixed
+	 */
+	public static function normalize_empty_atts( $atts ) {
+		if ( !empty( $atts ) ) {
+			foreach ( $atts as $attribute => $value ) {
+				if ( is_int( $attribute ) ) {
+					$atts[ strtolower( $value ) ] = true;
+					unset( $atts[ $attribute ] );
+				}
+			}
+		}
+
+		return $atts;
+	}
+
+	/**
+	 * Do not texturize shortcode.
+	 *
+	 * @since 1.11.5
+	 *
+	 * @param $shortcodes
+	 *
+	 * @return array
+	 */
+	public static function no_texturize_shortcodes( $shortcodes ) {
+		$shortcodes[] = 'testimonial_view';
+
+		return $shortcodes;
 	}
 
 }

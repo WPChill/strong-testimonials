@@ -248,7 +248,7 @@ class Strong_Testimonials_Render {
 	 * Set shortcode.
 	 */
 	public function set_shortcodes() {
-		$this->shortcode = Strong_Testimonials_Shortcodes::SHORTCODE;
+		$this->shortcode = Strong_Testimonials_Shortcodes::get_shortcode();
 	}
 
 	/**
@@ -655,7 +655,7 @@ class Strong_Testimonials_Render {
 		$atts = shortcode_atts(
 			$this->get_view_defaults(),  // $pairs
 			$atts,
-			Strong_Testimonials_Shortcodes::SHORTCODE
+			$this->shortcode
 		);
 		if ( $this->view_not_found( $atts ) ) {
 			return;
