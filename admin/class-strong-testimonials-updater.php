@@ -511,8 +511,11 @@ class Strong_Testimonials_Updater {
 			return Strong_Testimonials_Defaults::get_compat_options();
 		}
 
-		// Merge in new options
-		return array_merge( Strong_Testimonials_Defaults::get_compat_options(), $options );
+		// Merge in new options.
+		// Merge nested arrays individually. Don't use array_merge_recursive.
+		$defaults = Strong_Testimonials_Defaults::get_compat_options();
+		$options['ajax'] = array_merge( $defaults['ajax'], $options['ajax'] );
+		return array_merge( $defaults, $options );
 	}
 
 	/**

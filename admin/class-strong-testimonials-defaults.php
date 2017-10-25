@@ -743,12 +743,16 @@ class Strong_Testimonials_Defaults {
 	 */
 	public static function get_compat_options() {
 		$options = array(
-			'prerender' => 'current', // current | all | none
-			'ajax' => array(
-				'method' => '', // (blank) | universal | nodes_added | event | script
-				'script' => '',
-				'event' => '',
-			),
+				'prerender' => 'current', // current | all | none
+				'ajax'      => array(
+						'method'          => '', // (blank) | universal | nodes_added | event | script
+						'universal_timer' => 0.5,
+						'observer_timer'  => 0.5,
+						'container_id'    => 'page',    // = what we listen to  (try page > content > primary)
+						'addednode_id'    => 'content', // = what we listen for
+						'event'           => '',
+						'script'          => '',
+				),
 		);
 
 		return $options;

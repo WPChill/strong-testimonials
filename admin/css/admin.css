@@ -162,16 +162,19 @@ div.radio:hover {
 .tab-option-header {
   margin-bottom: 1.5em;
 }
+
 div.has-radio {
   display: table-row;
 }
-div.has-radio label {
+
+div.has-radio > label {
   display: table-cell;
   width: 200px;
 }
+
 div.has-radio p.description {
   display: table-cell;
-  width: calc( 100% - 200px );
+  width: calc(100% - 200px);
 }
 
 #screenshot-screen-options,
@@ -893,6 +896,7 @@ input.button.restore-default {
 
 input.code {
   font-size: 13px;
+  font-family: Consolas, Monaco, monospace;
 }
 
 .wrap h2.nav-tab-wrapper {

@@ -9,11 +9,13 @@
 var strongController = {
 
   defaults: {
-    method: '',
-    script: '',
-    // elementId: 'content', // normally holds all page content
-    elementId: 'primary', // used in our Barba example
-    containerId: "main",
+    method: "",
+    universalTimer: 500,
+    observerTimer: 500,
+    containerId: "page",    // = what we listen to  (try page > content > primary)
+    addedNodeId: "content", // = what we listen for
+    event: "",
+    script: "",
     debug: false
   },
 
@@ -22,9 +24,13 @@ var strongController = {
   debug: false,
 
   setup: function (settings) {
-    this.config = jQuery.extend({}, this.defaults, settings)
+    // Convert strings to integers
+    settings.universalTimer = parseInt(settings.universalTimer)
+    settings.observerTimer = parseInt(settings.observerTimer)
     // Convert strings to booleans
-    this.debug = this.config.debug = !!this.config.debug
+    settings.debug = !!settings.debug
+
+    this.config = jQuery.extend({}, this.defaults, settings)
   },
 
   mutationObserver: window.MutationObserver || window.WebKitMutationObserver,
@@ -36,7 +42,7 @@ var strongController = {
   },
 
   log: function () {
-    if (this.debug) {
+    if (this.config.debug) {
       if (arguments.length === 1)
         console.log(arguments[0])
       else if (arguments.length === 2)
@@ -100,22 +106,27 @@ var strongController = {
    *
    * https://stackoverflow.com/a/14570614/51600
    */
-  observeDOMForAddedNodes: function (obj, callback) {
+  observer: function (obj, callback) {
     if (this.mutationObserver) {
 
-      // define a new observer
+      // Define a new observer
       var obs = new this.mutationObserver(function (mutations) {
-        if (mutations[0].addedNodes.length) {
-          strongController.log('mutation observed', mutations)
-          for (var i=0; i < mutations[0].addedNodes.length; i++) {
-            if (mutations[0].addedNodes[i].id === strongController.config.containerId) {
-              strongController.log('+ added:', strongController.config.containerId)
-              callback()
+        // Loop through mutations
+        for (var i=0; i < mutations.length; i++) {
+          if (mutations[i].addedNodes.length) {
+            strongController.log('mutation observed', mutations)
+            // Loop through added nodes
+            for (var j = 0; j < mutations[i].addedNodes.length; j++) {
+              if (mutations[i].addedNodes[j].id === strongController.config.containerId) {
+                strongController.log('+', strongController.config.containerId)
+                callback()
+                return
+              }
             }
           }
         }
       })
-      // have the observer observe obj for changes
+      // Have the observer observe obj for changes
       obs.observe(obj, {childList: true, subtree: true})
 
     } else if (this.eventListenerSupported) {
@@ -142,13 +153,13 @@ var strongController = {
    */
   newInterval: function () {
       strongController.intervalId = setInterval(function tick () {
-        strongController.log('checkInit', strongController.checkInit())
+        strongController.log('tick > checkInit', strongController.checkInit())
 
-        // Creating an artificial event by checking for uninitialized components (sliders, paginated, layouts)
+        // Check for uninitialized components (sliders, paginated, layouts)
         if (strongController.checkInit()) {
           strongController.start()
         }
-      }, 500)
+      }, strongController.config.universalTimer)
   },
 
   /**
@@ -156,13 +167,13 @@ var strongController = {
    */
   newTimeout: function () {
       strongController.timeoutId = setTimeout(function tick () {
-        strongController.log('checkInit', strongController.checkInit())
+        strongController.log('tick > checkInit', strongController.checkInit())
 
-        // Creating an artificial event by checking for uninitialized components (sliders, paginated, layouts)
+        // Check for uninitialized components (sliders, paginated, layouts)
         if (strongController.checkInit()) {
           strongController.start()
         }
-      }, 500)
+      }, strongController.config.observerTimer)
   },
 
   /**
@@ -207,31 +218,38 @@ var strongController = {
       case 'nodes_added':
         // Observe a specific DOM element on a timer.
         // Calling start() here is too soon; the transition is not complete yet.
-        this.observeDOMForAddedNodes(document.getElementById(this.config.elementId), this.newTimeout)
+        this.observer(document.getElementById(this.config.containerId), this.newTimeout)
         break
 
       case 'event':
         // The theme/plugin uses an event emitter.
 
         // jQuery Pjax -!- Not working in any theme tested yet -!-
-        // document.addEventListener('pjax:end', this.start)
+        // event name = pjax:end
 
         // Pjax by MoOx
         // @link https://github.com/MoOx/pjax
-        document.addEventListener('pjax:success', this.start)
+        // event name = pjax:success
 
         // Ajax Pagination and Infinite Scroll by Malinky
         // @link https://wordpress.org/plugins/malinky-ajax-pagination/
-        document.addEventListener('malinkyLoadPostsComplete', this.start);
+        // event name = malinkyLoadPostsComplete
+
+        document.addEventListener(this.config.event, this.start)
         break
 
       case 'script':
         // The theme/plugin uses a dispatcher.
 
-        // Barba
-        // @link http://barbajs.org/
-        if (typeof Barba === 'object' && Barba.hasOwnProperty('Dispatcher')) {
-          Barba.Dispatcher.on('transitionCompleted', this.start)
+        switch (this.config.script) {
+          case 'barba':
+            // Barba
+            // @link http://barbajs.org/
+            if (typeof Barba === 'object' && Barba.hasOwnProperty('Dispatcher')) {
+              Barba.Dispatcher.on('transitionCompleted', this.start)
+            }
+            break
+          default:
         }
         break
 
