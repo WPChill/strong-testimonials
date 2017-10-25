@@ -39,34 +39,34 @@ class Strong_Testimonials_Render {
 	private function add_enqueue_actions() {
 		$options = get_option( 'wpmtst_compat_options' );
 
-		if ( apply_filters( 'strong_testimonials_prerender', $options['prerender'] ) ) {
+		switch ( $options['prerender'] ) {
+			case 'none':
+				/**
+				 * Fallback.
+				 * Provision each view when the shortcode is rendered.
+				 * Enqueue both stylesheets and scripts in footer.
+				 */
+				add_action( 'wpmtst_view_rendered', array( $this, 'view_rendered' ) );
+				add_action( 'wpmtst_form_rendered', array( $this, 'view_rendered' ) );
+				add_action( 'wpmtst_form_success', array( $this, 'view_rendered' ) );
+				break;
 
-			if ( $options['provision_all'] ) {
-				// Find all views
+			case 'all':
+				/**
+				 * Provision all views.
+				 * Enqueue stylesheets in head, scripts in footer.
+				 */
 				add_action( 'wp_enqueue_scripts', array( $this, 'provision_all_views' ), 1 );
-			} else {
-				// Find views in the current page
+				add_action( 'wp_enqueue_scripts', array( $this, 'view_rendered' ) );
+				break;
+
+			default:
+				/**
+				 * Provision views in current page only.
+				 * Enqueue stylesheets in head, scripts in footer.
+				 */
 				$this->provision_current_page();
-			}
-
-			/**
-			 * Standard enqueue.
-			 * Load stylesheets in <head> to prevent FOUC.
-			 * Load scripts in footer.
-			 */
-			add_action( 'wp_enqueue_scripts', array( $this, 'view_rendered' ) );
-
-		} else {
-
-			/**
-			 * Fallback enqueue.
-			 * Enqueue the stylesheets and scripts for each view when the
-			 * shortcode is rendered. This results in both loading in the footer.
-			 */
-			add_action( 'wpmtst_view_rendered', array( $this, 'view_rendered' ) );
-			add_action( 'wpmtst_form_rendered', array( $this, 'view_rendered' ) );
-			add_action( 'wpmtst_form_success', array( $this, 'view_rendered' ) );
-
+				add_action( 'wp_enqueue_scripts', array( $this, 'view_rendered' ) );
 		}
 	}
 
@@ -215,7 +215,9 @@ class Strong_Testimonials_Render {
 	}
 
 	/**
-	 * Load stylesheet and scripts if not prerendered.
+	 * Load stylesheet and scripts.
+	 *
+	 * Refer to add_enqueue_actions() for sequence.
 	 *
 	 * For compatibility with
 	 * (1) page builders,

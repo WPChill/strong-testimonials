@@ -167,11 +167,11 @@ div.has-radio {
 }
 div.has-radio label {
   display: table-cell;
-  width: 160px;
+  width: 200px;
 }
 div.has-radio p.description {
   display: table-cell;
-  width: calc( 100% - 160px );
+  width: calc( 100% - 200px );
 }
 
 #screenshot-screen-options,
