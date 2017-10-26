@@ -215,7 +215,7 @@ var strongController = {
         this.newInterval()
         break
 
-      case 'nodes_added':
+      case 'observer':
         // Observe a specific DOM element on a timer.
         // Calling start() here is too soon; the transition is not complete yet.
         this.observer(document.getElementById(this.config.containerId), this.newTimeout)

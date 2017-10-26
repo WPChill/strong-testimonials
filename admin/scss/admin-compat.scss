@@ -1,0 +1,40 @@
+/**
+ * Compatibility settings tab
+ */
+div.row {
+  display: table-row;
+
+  // Dependent inputs are initially hidden.
+  &[data-sub] {
+    display: none;
+  }
+
+  > div {
+    display: table-cell;
+
+    &:first-child {
+      width: 180px;
+    }
+
+    &.radio-sub {
+      label {
+        text-indent: 24px;
+      }
+    }
+  }
+
+  label.current {
+    font-weight: 600;
+  }
+
+  span.about {
+    &.adjacent {
+      margin-left: 1em;
+    }
+  }
+
+  input[type=number] {
+    width: 4.5em;
+    font-family: Consolas, Monaco, monospace;
+  }
+}

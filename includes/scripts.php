@@ -27,7 +27,7 @@ function wpmtst_scripts() {
 	 * -----------------------------------------------------------------
 	 * (blank)      : No Pjax support
 	 * universal    : Universal (timer)
-	 * nodes_added  : Target nodes added + timer
+	 * observer     : Target nodes added + timer
 	 * event        : Event emitter
 	 *                - Pjax by MoOx @link https://github.com/MoOx/pjax
 	 * script       : Specific script

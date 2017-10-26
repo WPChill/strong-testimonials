@@ -745,7 +745,7 @@ class Strong_Testimonials_Defaults {
 		$options = array(
 				'prerender' => 'current', // current | all | none
 				'ajax'      => array(
-						'method'          => '', // (blank) | universal | nodes_added | event | script
+						'method'          => '', // (blank) | universal | observer | event | script
 						'universal_timer' => 0.5,
 						'observer_timer'  => 0.5,
 						'container_id'    => 'page',    // = what we listen to  (try page > content > primary)

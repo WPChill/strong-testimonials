@@ -1,0 +1,28 @@
+/**
+ * Compatibility settings tab
+ */
+div.row {
+  display: table-row;
+}
+div.row[data-sub] {
+  display: none;
+}
+div.row > div {
+  display: table-cell;
+}
+div.row > div:first-child {
+  width: 180px;
+}
+div.row > div.radio-sub label {
+  text-indent: 24px;
+}
+div.row label.current {
+  font-weight: 600;
+}
+div.row span.about.adjacent {
+  margin-left: 1em;
+}
+div.row input[type=number] {
+  width: 4.5em;
+  font-family: Consolas, Monaco, monospace;
+}
