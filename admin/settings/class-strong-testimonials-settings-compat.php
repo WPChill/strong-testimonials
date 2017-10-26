@@ -10,6 +10,8 @@ class Strong_Testimonials_Settings_Compat {
 
 	const GROUP_NAME = 'wpmtst-compat-group';
 
+	const PARTIALS = WPMTST_ADMIN . 'settings/partials/compat/';
+
 	/**
 	 * Strong_Testimonials_Settings_Compat constructor.
 	 */
@@ -69,7 +71,7 @@ class Strong_Testimonials_Settings_Compat {
 	 */
 	public static function settings_page() {
 		settings_fields( self::GROUP_NAME );
-		include( WPMTST_ADMIN . 'settings/partials/compat.php' );
+		include( self::PARTIALS . 'compat.php' );
 	}
 
 	/**

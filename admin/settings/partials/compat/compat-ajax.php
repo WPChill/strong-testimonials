@@ -13,11 +13,11 @@
       <p><?php printf( __( '<a href="%s" target="_blank">article</a>', 'strong-testimonials' ), esc_url( '' ) ); ?></p>
     </div>
     <fieldset>
-			<?php include( WPMTST_ADMIN . 'settings/partials/compat-ajax-none.php' ); ?>
-			<?php include( WPMTST_ADMIN . 'settings/partials/compat-ajax-universal.php' ); ?>
-			<?php include( WPMTST_ADMIN . 'settings/partials/compat-ajax-observer.php' ); ?>
-			<?php include( WPMTST_ADMIN . 'settings/partials/compat-ajax-event.php' ); ?>
-			<?php include( WPMTST_ADMIN . 'settings/partials/compat-ajax-script.php' ); ?>
+			<?php include( self::PARTIALS . 'compat-ajax-none.php' ); ?>
+			<?php include( self::PARTIALS . 'compat-ajax-universal.php' ); ?>
+			<?php include( self::PARTIALS . 'compat-ajax-observer.php' ); ?>
+			<?php include( self::PARTIALS . 'compat-ajax-event.php' ); ?>
+			<?php include( self::PARTIALS . 'compat-ajax-script.php' ); ?>
     </fieldset>
   </td>
 </tr>
