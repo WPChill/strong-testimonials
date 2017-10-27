@@ -6,6 +6,8 @@
 
 'use strict'
 
+var debugit = false
+
 var strongController = {
 
   defaults: {
@@ -21,14 +23,13 @@ var strongController = {
 
   config: {},
   
-  debug: false,
-
   setup: function (settings) {
     // Convert strings to integers
     settings.universalTimer = parseInt(settings.universalTimer)
     settings.observerTimer = parseInt(settings.observerTimer)
     // Convert strings to booleans
     settings.debug = !!settings.debug
+    debugit = settings.debug
 
     this.config = jQuery.extend({}, this.defaults, settings)
   },
@@ -41,23 +42,12 @@ var strongController = {
     return jQuery(".strong-view[data-state='idle']").length
   },
 
-  log: function () {
-    if (this.config.debug) {
-      if (arguments.length === 1)
-        console.log(arguments[0])
-      else if (arguments.length === 2)
-        console.log(arguments[0], arguments[1])
-      else
-        console.log(arguments)
-    }
-  },
-
   /**
    * Initialize sliders.
    */
   initSliders: function () {
     var sliders = jQuery(".strong-view.slider-container[data-state='idle']")
-    this.log('sliders found:', sliders.length)
+    if (debugit) console.log('sliders found:', sliders.length)
     if (sliders.length) {
       sliders.strongSlider()
     }
@@ -68,7 +58,7 @@ var strongController = {
    */
   initPaginated: function () {
     var pagers = jQuery(".strong-pager[data-state='idle']")
-    this.log('pagers found:', pagers.length)
+    if (debugit) console.log('pagers found:', pagers.length)
     if (pagers.length) {
       pagers.strongPager()
     }
@@ -82,7 +72,7 @@ var strongController = {
      * Masonry
      */
     var grids = jQuery(".strong-view[data-state='idle'] .strong-masonry")
-    this.log('Masonry found:', grids.length)
+    if (debugit) console.log('Masonry found:', grids.length)
     if (grids.length) {
       // Add our element sizing.
       grids.prepend('<div class="grid-sizer"></div><div class="gutter-sizer"></div>')
@@ -114,11 +104,11 @@ var strongController = {
         // Loop through mutations
         for (var i=0; i < mutations.length; i++) {
           if (mutations[i].addedNodes.length) {
-            strongController.log('mutation observed', mutations)
+            if (debugit) console.log('mutation observed', mutations)
             // Loop through added nodes
             for (var j = 0; j < mutations[i].addedNodes.length; j++) {
               if (mutations[i].addedNodes[j].id === strongController.config.containerId) {
-                strongController.log('+', strongController.config.containerId)
+                if (debugit) console.log('+', strongController.config.containerId)
                 callback()
                 return
               }
@@ -134,7 +124,7 @@ var strongController = {
       obj.addEventListener('DOMNodeInserted', function(e) {
         /** currentTarget **/
         if ( e.currentTarget.id === obj.id ) {
-          strongController.log('DOMNodeInserted:', e.currentTarget.id)
+          if (debugit) console.log('DOMNodeInserted:', e.currentTarget.id)
           callback()
         }
       }, false)
@@ -153,7 +143,7 @@ var strongController = {
    */
   newInterval: function () {
       strongController.intervalId = setInterval(function tick () {
-        strongController.log('tick > checkInit', strongController.checkInit())
+        if (debugit) console.log('tick > checkInit', strongController.checkInit())
 
         // Check for uninitialized components (sliders, paginated, layouts)
         if (strongController.checkInit()) {
@@ -167,7 +157,7 @@ var strongController = {
    */
   newTimeout: function () {
       strongController.timeoutId = setTimeout(function tick () {
-        strongController.log('tick > checkInit', strongController.checkInit())
+        if (debugit) console.log('tick > checkInit', strongController.checkInit())
 
         // Check for uninitialized components (sliders, paginated, layouts)
         if (strongController.checkInit()) {
@@ -181,23 +171,23 @@ var strongController = {
    */
   init: function () {
     jQuery(document).focus() // if dev console open
-    this.log('strongController init')
+    if (debugit) console.log('strongController init')
 
     var settings = {}
     if (typeof window.strongControllerParms !== 'undefined') {
       settings = window.strongControllerParms
     } else {
-      this.log('settings not found')
+      if (debugit) console.log('settings not found')
     }
     this.setup(settings)
-    this.log('config', this.config)
+    if (debugit) console.log('config', this.config)
   },
 
   /**
    * Start components.
    */
   start: function() {
-    strongController.log('start')
+    if (debugit) console.log('start')
     strongController.initSliders()
     strongController.initPaginated()
     strongController.initLayouts()
@@ -207,7 +197,7 @@ var strongController = {
    * Listen.
    */
   listen: function() {
-    this.log('listen')
+    if (debugit) console.log('listen')
 
     switch (this.config.method) {
       case 'universal':
