@@ -7,7 +7,7 @@
 
 $options = get_option( 'wpmtst_compat_options' );
 ?>
-<h2><?php _e( 'Prerender' ); ?></h2>
+<h2><?php _e( 'Resource Loading' ); ?></h2>
 <table class="form-table" cellpadding="0" cellspacing="0">
   <?php include( self::PARTIALS . 'compat-prerender.php' ); ?>
 </table>

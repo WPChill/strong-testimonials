@@ -31,8 +31,8 @@
   <div>
     <input type="number" id="observer-timer"
            name="wpmtst_compat_options[ajax][observer_timer]"
-           min=".1" max="5" step=".1"
-           value="<?php echo $options['ajax']['observer_timer']; ?>" size="3">
+           min=".1" max="5" step=".1" size="3"
+           value="<?php echo $options['ajax']['observer_timer']; ?>" autocomplete="off">
 		<?php _ex( 'seconds', 'timer setting', 'strong-testimonials' ); ?>
   </div>
 </div>

@@ -44,7 +44,7 @@ function strong_testimonials_view( $id = null ) {
 	$atts  = array( 'id' => $id );
 	$out   = WPMST()->render->parse_view( $out, $pairs, $atts );
 
-	echo wpmtst_render_view( $out );
+	echo Strong_Testimonials_Shortcodes::render_view( $out );
 }
 
 /**

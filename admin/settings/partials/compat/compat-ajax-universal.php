@@ -25,8 +25,8 @@
   </div>
   <div>
     <input type="number" id="universal-timer" name="wpmtst_compat_options[ajax][universal_timer]"
-           min=".1" max="5" step=".1"
-           value="<?php echo $options['ajax']['universal_timer']; ?>" size="3">
+           min=".1" max="5" step=".1" size="3"
+           value="<?php echo $options['ajax']['universal_timer']; ?>" autocomplete="off">
 		<?php _ex( 'seconds', 'timer setting', 'strong-testimonials' ); ?>
   </div>
 </div>

@@ -1,6 +1,7 @@
 /**
  * Compatibility settings tab
  */
+
 ;(function ($) {
 
   var currentSettings = {}
@@ -56,6 +57,13 @@
     $('input:radio:not(:checked)').closest('label').removeClass('current')
   }
 
+  // Number spinner
+  function initSpinner () {
+    $("input[type='number']").each(function () {
+      $(this).number();
+    });
+  }
+
   // Listen
   $('.form-table').on('change', function (e) {
     updateDisplay()
@@ -64,5 +72,6 @@
   // Start
   saveCurrentSettings()
   updateDisplay()
+  initSpinner()
 
 })(jQuery)

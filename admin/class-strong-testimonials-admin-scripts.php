@@ -69,6 +69,12 @@ class Strong_Testimonials_Admin_Scripts {
 			array( 'wpmtst-font-awesome' ),
 			$plugin_version );
 
+		wp_register_script( 'wpmtst-custom-spinner',
+				WPMTST_ADMIN_URL . 'js/custom-spinner.js',
+				array( 'jquery' ),
+				$plugin_version,
+				true );
+
 		/**
 		 * Compatibility tab
 		 */
@@ -79,7 +85,7 @@ class Strong_Testimonials_Admin_Scripts {
 
 		wp_register_script( 'wpmtst-admin-compat-script',
 				WPMTST_ADMIN_URL . 'js/admin-compat.js',
-				array( 'jquery', 'wpmtst-help' ),
+				array( 'jquery', 'wpmtst-custom-spinner', 'wpmtst-help' ),
 				$plugin_version,
 				true );
 
