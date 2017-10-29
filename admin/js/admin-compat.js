@@ -21,32 +21,38 @@
   function updateDisplay () {
     var quick = 200
 
+    matchMethodSetting()
+    highlightRadioLabel()
+
     $('[data-group]').each(function (index, el) {
       var group = $(this).data('group')
-      var $sub = $('[data-sub=\'' + group + '\']')
+      var $sub = $("[data-sub='" + group + "']")
       if ($(this).is(':checked')) {
         $sub.fadeIn()
       } else {
         $sub.fadeOut(quick)
       }
     })
-
-    matchPrerenderSetting()
-    highlightRadioLabel()
   }
 
-  // Trigger "All views" if necessary
-  function matchPrerenderSetting () {
-    if ($('#method-none').is(':not(:checked)')) {
+  // Update available options
+  function matchMethodSetting () {
+    if ($('#prerender-current').is(':checked')) {
       saveCurrentSettings()
-      $('#prerender-all').prop('checked', true)
-      $('#prerender-current').prop('disabled', true)
-      currentSettings['prerender'].forced = true
+      $('#method-none').prop('checked', true)
+      $('#method-universal').prop('disabled', true)
+      $('#method-observer').prop('disabled', true)
+      $('#method-event').prop('disabled', true)
+      $('#method-script').prop('disabled', true)
+      currentSettings['method'].forced = true
     } else {
-      if (currentSettings['prerender'].forced) {
-        $('#prerender-' + currentSettings['prerender'].value).prop('checked', true)
-        $('#prerender-current').prop('disabled', false)
-        currentSettings['prerender'].forced = false
+      if (currentSettings['method'].forced) {
+        $('#method-' + currentSettings['method'].value).prop('checked', true)
+        $('#method-universal').prop('disabled', false)
+        $('#method-observer').prop('disabled', false)
+        $('#method-event').prop('disabled', false)
+        $('#method-script').prop('disabled', false)
+        currentSettings['method'].forced = false
       }
     }
   }
@@ -64,9 +70,22 @@
     });
   }
 
-  // Listen
+  // Preset
+  function setScenario1() {
+    $('#prerender-all').click()
+    $('#method-universal').click()
+  }
+
+  // Listen for change
   $('.form-table').on('change', function (e) {
     updateDisplay()
+  })
+
+  // Listen for presets
+  $('#set-scenario-1').click(function(e) {
+    $(this).blur()
+    setScenario1()
+    e.preventDefault()
   })
 
   // Start

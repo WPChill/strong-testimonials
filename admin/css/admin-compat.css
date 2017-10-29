@@ -1,14 +1,62 @@
 /**
  * Compatibility settings tab
  */
+/**
+ * Basic structure
+ */
 div.row {
   display: table-row;
 }
+div.row > div {
+  display: table-cell;
+}
+div.row:not(:last-child) > div {
+  padding-bottom: 0.5em;
+}
+div.row p {
+  margin-bottom: 0.5em;
+}
+div.row.header p {
+  margin-bottom: 1em;
+}
+
+/**
+ * Common scenarios table
+ */
+div.scenarios div.row {
+  border: 1px solid #DDD;
+}
+div.scenarios div.row > div {
+  padding: 1em;
+}
+div.scenarios div.row > div:first-child {
+  width: 35%;
+  border-right: 1px dotted #DDD;
+}
+div.scenarios div.row > div:last-child {
+  width: 30%;
+  border-left: 1px dotted #DDD;
+}
+div.scenarios div.row p {
+  font-size: 14px;
+  margin: 0;
+}
+div.scenarios div.row p:not(:last-child) {
+  margin-bottom: 1em;
+}
+div.scenarios div.row.header > div {
+  font-weight: 600;
+  padding: 0.5em 1em;
+}
+
+/**
+ * Settings table
+ */
 div.row[data-sub] {
   display: none;
 }
-div.row > div {
-  display: table-cell;
+div.row:not(:last-child) > div:nth-child(2) {
+  padding-bottom: 0.5em;
 }
 div.row > div:first-child {
   width: 180px;
@@ -16,16 +64,14 @@ div.row > div:first-child {
 div.row > div.radio-sub label {
   text-indent: 24px;
 }
-div.row label.current {
-  font-weight: 600;
-}
-div.row span.about.adjacent {
+div.row p.about.adjacent {
   margin-left: 1em;
 }
-div.row input[type=number] {
-  font-family: Consolas, Monaco, monospace;
-  text-align: center;
-  width: 3.5em;
+div.row p.description {
+  font-size: 14px;
+}
+div.row label.current {
+  font-weight: 600;
 }
 
 /**
@@ -37,6 +83,9 @@ div.row input[type=number] {
 }
 .number-style input {
   margin: 0 5px;
+  font-family: Consolas, Monaco, monospace;
+  text-align: center;
+  width: 3.5em;
 }
 .number-style span {
   cursor: pointer;

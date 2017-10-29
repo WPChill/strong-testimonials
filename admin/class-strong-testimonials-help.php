@@ -12,6 +12,60 @@ class Strong_Testimonials_Help {
 		add_action( 'load-wpm-testimonial_page_testimonial-views',  array( __CLASS__, 'views_list' ) );
 		add_action( 'load-wpm-testimonial_page_testimonial-views',  array( __CLASS__, 'view_editor_pagination' ) );
 		add_action( 'load-wpm-testimonial_page_testimonial-views',  array( __CLASS__, 'view_editor_stretch' ) );
+		add_action( 'load-wpm-testimonial_page_testimonial-settings',  array( __CLASS__, 'settings_compat' ) );
+	}
+
+	public static function _template() {
+		if ( ! isset( $_GET['arg'] ) ) {
+			return;
+		}
+
+		ob_start();
+		?>
+    <p><?php _e( '', 'strong-testimonials' ); ?></p>
+		<?php
+		$content = ob_get_clean();
+
+		get_current_screen()->add_help_tab( array(
+				'id'      => 'wpmtst-help-arg',
+				'title'   => __( '', 'strong-testimonials' ),
+				'content' => $content,
+		) );
+	}
+
+	public static function settings_compat() {
+		if ( ! isset( $_GET['tab'] ) || 'compat' != $_GET['tab'] ) {
+			return;
+		}
+
+		ob_start();
+		?>
+    <p><?php _e( 'Normally, a web page will load its stylesheets (font, color, size, etc.) before the content. When the content is displayed, the style is ready and the page appears as it was designed.', 'strong-testimonials' ); ?></p>
+    <p>
+      <?php _e( 'A flash of unstyled content can occur when a browser displays the content before all the stylesheets have been loaded.', 'strong-testimonials' ); ?>
+    <p>
+		  <?php printf( wp_kses( __( '<a href="%s" target="_blank">Explained further here</a>', 'strong-testimonials' ),
+				array( 'a' => array( 'href' => array(), 'target' => array() ) ) ),
+				esc_url( 'https://en.wikipedia.org/wiki/Flash_of_unstyled_content' ) ); ?>
+      |
+		  <?php printf( wp_kses( __( '<a href="%s" target="_blank">Demonstrated here</a>', 'strong-testimonials' ),
+				array( 'a' => array( 'href' => array(), 'target' => array() ) ) ),
+				esc_url( 'https://codepen.io/micikato/full/JroPNm/' ) ); ?>
+      |
+		  <?php printf( wp_kses( __( '<a href="%s" target="_blank">An expert\'s observations here</a>', 'strong-testimonials' ),
+				array( 'a' => array( 'href' => array(), 'target' => array() ) ) ),
+				esc_url( 'https://css-tricks.com/fout-foit-foft/' ) ); ?>
+    </p>
+    <p><?php _e( 'When this occurs with plugins that use shortcodes, it means the plugin\'s stylesheet was enqueued when the shortcode was rendered so it gets loaded after the content instead of in the normal sequence.', 'strong-testimonials' ); ?></p>
+    <p><?php _e( 'The prerender option ensures this plugin\'s stylesheets are loaded before the content.', 'strong-testimonials' ); ?></p>
+    <?php
+		$content = ob_get_clean();
+
+		get_current_screen()->add_help_tab( array(
+				'id'      => 'wpmtst-help-prerender',
+				'title'   => __( 'Prerender', 'strong-testimonials' ),
+				'content' => $content,
+		) );
 	}
 
 	public static function fields_editor() {

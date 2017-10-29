@@ -12,6 +12,6 @@
 		</label>
 	</div>
 	<div>
-		<span class="about"><?php _e( 'about this option', 'strong-testimonials' ); ?></span>
+		<p class="about"><?php _e( 'No compatibility needed.', 'strong-testimonials' ); ?></p>
 	</div>
 </div>

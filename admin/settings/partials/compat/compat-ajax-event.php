@@ -13,7 +13,8 @@
     </label>
   </div>
   <div>
-    <span class="about"><?php _e( 'about this option', 'strong-testimonials' ); ?></span>
+    <p class="about"><?php _e( 'Listen for specific events.', 'strong-testimonials' ); ?>
+      <span class="description"><?php _e( 'For advanced users.', 'strong-testimonials' ); ?></span></p>
   </div>
 </div>
 

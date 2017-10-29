@@ -13,7 +13,8 @@
     </label>
   </div>
   <div>
-    <span class="about"><?php _e( 'about this option', 'strong-testimonials' ); ?></span>
+    <p class="about"><?php _e( 'Register a callback for a specific Ajax script.', 'strong-testimonials' ); ?>
+      <span class="description"><?php _e( 'For advanced users.', 'strong-testimonials' ); ?></span></p>
   </div>
 </div>
 
@@ -28,9 +29,7 @@
       <option value="" <?php selected( $options['ajax']['script'], '' ); ?>>
 				<?php _e( '&mdash; Select &mdash;' ); ?>
       </option>
-      <option value="barba" <?php selected( $options['ajax']['script'], 'barba' ); ?>>
-				<?php _e( 'Barba.js' ); ?>
-      </option>
+      <option value="barba" <?php selected( $options['ajax']['script'], 'barba' ); ?>>Barba.js</option>
     </select>
   </div>
 </div>

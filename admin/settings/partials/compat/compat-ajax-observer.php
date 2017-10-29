@@ -13,7 +13,7 @@
     </label>
   </div>
   <div>
-    <span class="about"><?php _e( 'about DOM changes', 'strong-testimonials' ); ?></span>
+    <p class="about"><?php _e( 'React to changes in specific page elements.', 'strong-testimonials' ); ?> <span class="description"><?php _e( 'For advanced users.', 'strong-testimonials' ); ?></span></p>
   </div>
 </div>
 
@@ -54,7 +54,7 @@
            value="<?php echo $options['ajax']['container_id']; ?>" size="30"/>
   </div>
   <div>
-    <span class="about adjacent"><?php _e( 'about this option', 'strong-testimonials' ); ?></span>
+    <p class="about adjacent"><?php _e( 'the element to observe', 'strong-testimonials' ); ?></p>
   </div>
 </div>
 
@@ -75,6 +75,6 @@
            value="<?php echo $options['ajax']['addednode_id']; ?>" size="30"/>
   </div>
   <div>
-    <span class="about adjacent"><?php _e( 'about this option', 'strong-testimonials' ); ?></span>
+    <p class="about adjacent"><?php _e( 'the element being added', 'strong-testimonials' ); ?></p>
   </div>
 </div>
