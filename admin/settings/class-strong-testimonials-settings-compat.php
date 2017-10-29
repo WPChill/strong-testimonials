@@ -29,7 +29,7 @@ class Strong_Testimonials_Settings_Compat {
 	 */
 	public static function add_actions() {
 	    add_action( 'wpmtst_register_settings', array( __CLASS__, 'register_settings' ) );
-	    add_action( 'wpmtst_settings_tabs', array( __CLASS__, 'register_tab' ), 25, 2 );
+	    add_action( 'wpmtst_settings_tabs', array( __CLASS__, 'register_tab' ), 3, 2 );
 	    add_filter( 'wpmtst_settings_callbacks', array( __CLASS__, 'register_settings_page' ) );
 	}
 

@@ -27,7 +27,7 @@ class Strong_Testimonials_Settings_Form {
 	 */
 	public static function add_actions() {
 	    add_action( 'wpmtst_register_settings', array( __CLASS__, 'register_settings' ) );
-		add_action( 'wpmtst_settings_tabs', array( __CLASS__, 'register_tab' ), 20, 2 );
+		add_action( 'wpmtst_settings_tabs', array( __CLASS__, 'register_tab' ), 2, 2 );
 		add_filter( 'wpmtst_settings_callbacks', array( __CLASS__, 'register_settings_page' ) );
 
 		add_action( 'wp_ajax_wpmtst_restore_default_messages', array( __CLASS__, 'restore_default_messages_function' ) );
