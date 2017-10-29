@@ -43,7 +43,7 @@ function wpmtst_scripts() {
 			'script'         => isset( $compat_options['ajax']['script'] ) ? $compat_options['ajax']['script'] : '',
 			'containerId'    => isset( $compat_options['ajax']['container_id'] ) ? $compat_options['ajax']['container_id'] : '',
 			'addedNodeId'    => isset( $compat_options['ajax']['addednode_id'] ) ? $compat_options['ajax']['addednode_id'] : '',
-			'debug'          => true,
+			'debug'          => false,
 	);
 	wp_localize_script( 'wpmtst-controller', 'strongControllerParms', $parms );
 
