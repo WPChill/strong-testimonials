@@ -152,6 +152,7 @@ final class Strong_Testimonials {
 	 */
 	static function plugin_deactivation() {
 		flush_rewrite_rules();
+		Strong_Testimonials_Updater::unset_version();
 	}
 
 	/**
