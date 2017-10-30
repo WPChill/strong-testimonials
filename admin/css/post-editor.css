@@ -27,6 +27,11 @@ input[type="url"].custom-input {
   width: 100%;
 }
 
+.custom-input.not-found {
+  line-height: 30px;
+  font-style: italic;
+}
+
 div.checkbox {
   height: 28px;
   padding: 3px 0 5px;

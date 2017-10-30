@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Class Strong_Testimonials_Post_Editor
  *
@@ -9,7 +10,8 @@ class Strong_Testimonials_Post_Editor {
 	/**
 	 * Strong_Testimonials_Post_Editor constructor.
 	 */
-	public function __construct() {}
+	public function __construct() {
+	}
 
 	/**
 	 * Initialize.
@@ -32,13 +34,13 @@ class Strong_Testimonials_Post_Editor {
 	 */
 	public static function add_meta_boxes() {
 		add_meta_box(
-            'details',
-            _x( 'Client Details', 'post editor', 'strong-testimonials' ),
-            array( __CLASS__, 'meta_options' ),
-            'wpm-testimonial',
-            'normal',
-            'high'
-        );
+			'details',
+			_x( 'Client Details', 'post editor', 'strong-testimonials' ),
+			array( __CLASS__, 'meta_options' ),
+			'wpm-testimonial',
+			'normal',
+			'high'
+		);
 	}
 
 	/**
@@ -51,38 +53,38 @@ class Strong_Testimonials_Post_Editor {
 		$is_new = ( 'post-new.php' == $pagenow );
 		?>
 		<?php do_action( 'wpmtst_before_client_fields_table' ); ?>
-		<table class="options">
-			<tr>
-				<td colspan="2">
-					<p><?php _ex( 'To add a photo or logo, use the Featured Image option.', 'post editor', 'strong-testimonials' ); ?></p>
-				</td>
-			</tr>
+        <table class="options">
+            <tr>
+                <td colspan="2">
+                    <p><?php _ex( 'To add a photo or logo, use the Featured Image option.', 'post editor', 'strong-testimonials' ); ?></p>
+                </td>
+            </tr>
 			<?php
 			do_action( 'wpmtst_before_client_fields' );
-			foreach ( $fields as $key => $field ) :
+			foreach ( $fields as $key => $field ) {
 				// TODO Use field property to bypass instead
 				// short-circuit
-				if ( 'shortcode' == $field['input_type'] || 'category' == strtok( $field['input_type'], '-' ) ) {
+				if ( 'category' == strtok( $field['input_type'], '-' ) ) {
 					continue;
 				}
 				?>
-				<tr>
-					<th>
-						<label for="<?php esc_attr_e( $field['name'] ); ?>">
+                <tr>
+                    <th>
+                        <label for="<?php esc_attr_e( $field['name'] ); ?>">
 							<?php echo apply_filters( 'wpmtst_l10n', $field['label'], 'strong-testimonials-form-fields', $field['name'] . ' : label' ); ?>
-						</label>
-					</th>
-					<td>
-						<div class="<?php esc_attr_e( $field['input_type'] ); ?>">
+                        </label>
+                    </th>
+                    <td>
+                        <div class="<?php esc_attr_e( $field['input_type'] ); ?>">
 							<?php self::meta_option( $field, $post, $is_new ); ?>
-						</div>
-					</td>
-				</tr>
+                        </div>
+                    </td>
+                </tr>
 				<?php
-			endforeach;
+			}
 			do_action( 'wpmtst_after_client_fields' );
 			?>
-		</table>
+        </table>
 		<?php
 		do_action( 'wpmtst_after_client_fields_table' );
 	}
@@ -99,22 +101,25 @@ class Strong_Testimonials_Post_Editor {
 	public static function meta_option( $field, $post, $is_new ) {
 		switch ( $field['input_type'] ) {
 			case 'rating' :
-			    self::meta_option__rating( $field, $post, $is_new ) ;
+				self::meta_option__rating( $field, $post, $is_new );
 				break;
 			case 'url' :
-				self::meta_option__url( $field, $post, $is_new ) ;
-                break;
+				self::meta_option__url( $field, $post, $is_new );
+				break;
 			case 'checkbox' :
-				self::meta_option__checkbox( $field, $post, $is_new ) ;
-                break;
+				self::meta_option__checkbox( $field, $post, $is_new );
+				break;
+			case 'shortcode' :
+				self::meta_option__shortcode( $field, $post, $is_new );
+				break;
 			default :
-				self::meta_option__text( $field, $post, $is_new ) ;
+				self::meta_option__text( $field, $post, $is_new );
 		}
 	}
 
 	/**
-     * Rating input.
-     *
+	 * Rating input.
+	 *
 	 * @param $field
 	 * @param $post
 	 * @param $is_new
@@ -137,7 +142,8 @@ class Strong_Testimonials_Post_Editor {
                     </span>
 				<?php if ( ! $is_new ) : ?>
                     <span class="edit-rating-buttons-2">
-                            <button type="button" class="zero button-link"><?php _e( 'Zero', 'strong-testimonials' ); ?></button>&nbsp;
+                            <button type="button"
+                                    class="zero button-link"><?php _e( 'Zero', 'strong-testimonials' ); ?></button>&nbsp;
                             <button type="button" class="save button button-small"><?php _e( 'OK' ); ?></button>&nbsp;
                             <button type="button" class="cancel button-link"><?php _e( 'Cancel' ); ?></button>
                         </span>
@@ -152,7 +158,10 @@ class Strong_Testimonials_Post_Editor {
 
 				<?php if ( ! $is_new ) : ?>
                     <span class="edit-rating-buttons-1">
-                        <button type="button" id="" class="edit-rating button button-small hide-if-no-js" aria-label="Edit rating"><?php _e( 'Edit' ); ?></button>
+                        <button type="button"
+                                id=""
+                                class="edit-rating button button-small hide-if-no-js"
+                                aria-label="Edit rating"><?php _e( 'Edit' ); ?></button>
                     </span>
 				<?php endif; ?>
             </div>
@@ -164,8 +173,8 @@ class Strong_Testimonials_Post_Editor {
 	}
 
 	/**
-     * URL input.
-     *
+	 * URL input.
+	 *
 	 * @param $field
 	 * @param $post
 	 * @param $is_new
@@ -174,7 +183,7 @@ class Strong_Testimonials_Post_Editor {
 		?>
         <div class="input-url">
 			<?php printf( '<input id="%2$s" type="%1$s" class="custom-input" name="custom[%2$s]" value="%3$s" size="">',
-				$field['input_type'], $field['name'], esc_attr( $post->{$field['name']} ) ); ?>
+			              $field['input_type'], $field['name'], esc_attr( $post->{$field['name']} ) ); ?>
         </div>
         <div class="input-nofollow">
             <label for="custom_nofollow"><code>rel="nofollow"</code></label>
@@ -188,27 +197,43 @@ class Strong_Testimonials_Post_Editor {
 	}
 
 	/**
-     * Checkbox input.
-     *
+	 * Checkbox input.
+	 *
 	 * @param $field
 	 * @param $post
 	 * @param $is_new
 	 */
 	private static function meta_option__checkbox( $field, $post, $is_new ) {
 		printf( '<input id="%2$s" type="%1$s" class="custom-input" name="custom[%2$s]" value="%3$s" %4$s>',
-			$field['input_type'], $field['name'], 1, checked( $post->{$field['name']}, 1, false ) );
+		        $field['input_type'], $field['name'], 1, checked( $post->{$field['name']}, 1, false ) );
 	}
 
 	/**
-     * Text input.
-     *
+	 * Text input.
+	 *
 	 * @param $field
 	 * @param $post
 	 * @param $is_new
 	 */
 	private static function meta_option__text( $field, $post, $is_new ) {
 		printf( '<input id="%2$s" type="%1$s" class="custom-input" name="custom[%2$s]" value="%3$s">',
-			$field['input_type'], $field['name'], esc_attr( $post->{$field['name']} ) );
+		        $field['input_type'], $field['name'], esc_attr( $post->{$field['name']} ) );
+	}
+
+	/**
+	 * Shortcode for custom input.
+	 *
+	 * @param $field
+	 * @param $post
+	 * @param $is_new
+	 */
+	public static function meta_option__shortcode( $field, $post, $is_new ) {
+	    $shortcode = str_replace( array( '[', ']' ), array( '', '' ), $field['shortcode_on_display'] );
+	    if ( shortcode_exists( $shortcode ) ) {
+		    echo do_shortcode( $field['shortcode_on_display'] );
+	    } else {
+	        echo '<div class="custom-input not-found">' . sprintf( __( 'shortcode %s not found', 'strong-testimonials' ), '<code>' . $field['shortcode_on_display'] . '</code>' ) . '</div>';
+	    }
 	}
 
 	/**
@@ -221,39 +246,39 @@ class Strong_Testimonials_Post_Editor {
 			return;
 		}
 
-        $custom = $_POST['custom'];
+		$custom = $_POST['custom'];
 
-        $custom_fields = wpmtst_get_custom_fields();
+		$custom_fields = wpmtst_get_custom_fields();
 
-        // Construct array of checkbox empty values because blank checkboxes are not POSTed.
-        $checkboxes = array();
-        foreach ( $custom_fields as $key => $field ) {
-            if ( 'checkbox' == $field['input_type'] ) {
-                $checkboxes[ $key ] = 0;
-            }
-        }
-        if ( $checkboxes ) {
-            $custom = array_merge( $checkboxes, $custom );
-        }
+		// Construct array of checkbox empty values because blank checkboxes are not POSTed.
+		$checkboxes = array();
+		foreach ( $custom_fields as $key => $field ) {
+			if ( 'checkbox' == $field['input_type'] ) {
+				$checkboxes[ $key ] = 0;
+			}
+		}
+		if ( $checkboxes ) {
+			$custom = array_merge( $checkboxes, $custom );
+		}
 
-        // Determine whether to update or delete.
-        // Similar to wpmtst_ajax_edit_rating() in admin-ajax.php.
-        $action = 'update';
-        foreach ( $custom as $key => $value ) {
-            if ( isset( $custom_fields[ $key ] ) ) {
-                if ( 'rating' == $custom_fields[ $key ]['input_type'] && ! $value ) {
-                    $action = 'delete';
-                }
-            }
+		// Determine whether to update or delete.
+		// Similar to wpmtst_ajax_edit_rating() in admin-ajax.php.
+		$action = 'update';
+		foreach ( $custom as $key => $value ) {
+			if ( isset( $custom_fields[ $key ] ) ) {
+				if ( 'rating' == $custom_fields[ $key ]['input_type'] && ! $value ) {
+					$action = 'delete';
+				}
+			}
 
-            if ( 'update' == $action ) {
-                // empty values replace existing values
-                update_post_meta( $_POST['post_ID'], $key, stripslashes( $value ) );
-            } else {
-                // delete value; e.g. zero rating
-                delete_post_meta( $_POST['post_ID'], $key );
-            }
-        }
+			if ( 'update' == $action ) {
+				// empty values replace existing values
+				update_post_meta( $_POST['post_ID'], $key, stripslashes( $value ) );
+			} else {
+				// delete value; e.g. zero rating
+				delete_post_meta( $_POST['post_ID'], $key );
+			}
+		}
 	}
 
 	/**
