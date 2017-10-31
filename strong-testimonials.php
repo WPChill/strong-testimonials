@@ -29,12 +29,16 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-// TODO Remember to update version constant!
-
 // Exit if accessed directly
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
+
+define( 'WPMTST_VERSION', '2.28.0-beta.1' );
+define( 'WPMTST_PLUGIN', plugin_basename( __FILE__ ) ); // strong-testimonials/strong-testimonials.php
+define( 'WPMTST', dirname( WPMTST_PLUGIN ) );           // strong-testimonials
+define( 'STRONGPLUGINS_STORE_URL', 'https://strongplugins.com' );
+
 
 if ( ! class_exists( 'Strong_Testimonials' ) ) :
 
@@ -162,32 +166,22 @@ final class Strong_Testimonials {
 	 * @return void
 	 */
 	private function setup_constants() {
-		defined( 'WPMTST_VERSION' ) || define( 'WPMTST_VERSION', '2.28.0-beta.1' );
-
-		// plugin slug: `strong-testimonials` used by template search
-		defined( 'WPMTST_PLUGIN' ) || define( 'WPMTST_PLUGIN', plugin_basename( __FILE__ ) );
-
-		defined( 'WPMTST' ) || define( 'WPMTST', dirname( WPMTST_PLUGIN ) );
-
 		defined( 'WPMTST_DIR' ) || define( 'WPMTST_DIR', plugin_dir_path( __FILE__ ) );
 		defined( 'WPMTST_URL' ) || define( 'WPMTST_URL', plugin_dir_url( __FILE__ ) );
 
-		defined( 'WPMTST_INC' ) || define( 'WPMTST_INC', plugin_dir_path( __FILE__ ) . 'includes/' );
+		defined( 'WPMTST_INC' ) || define( 'WPMTST_INC', WPMTST_DIR . 'includes/' );
 
-		defined( 'WPMTST_ADMIN' ) || define( 'WPMTST_ADMIN', plugin_dir_path( __FILE__ ) . 'admin/' );
-		defined( 'WPMTST_ADMIN_URL' ) || define( 'WPMTST_ADMIN_URL', plugin_dir_url( __FILE__ ) . 'admin/' );
+		defined( 'WPMTST_ADMIN' ) || define( 'WPMTST_ADMIN', WPMTST_DIR . 'admin/' );
+		defined( 'WPMTST_ADMIN_URL' ) || define( 'WPMTST_ADMIN_URL', WPMTST_URL . 'admin/' );
 
-		defined( 'WPMTST_PUBLIC' ) || define( 'WPMTST_PUBLIC', plugin_dir_path( __FILE__ ) . 'public/' );
-		defined( 'WPMTST_PUBLIC_URL' ) || define( 'WPMTST_PUBLIC_URL', plugin_dir_url( __FILE__ ) . 'public/' );
+		defined( 'WPMTST_PUBLIC' ) || define( 'WPMTST_PUBLIC', WPMTST_DIR . 'public/' );
+		defined( 'WPMTST_PUBLIC_URL' ) || define( 'WPMTST_PUBLIC_URL', WPMTST_URL . 'public/' );
 
-		defined( 'WPMTST_DEF_TPL' ) || define( 'WPMTST_DEF_TPL', plugin_dir_path( __FILE__ ) . 'templates/default/' );
-		defined( 'WPMTST_DEF_TPL_URI' ) || define( 'WPMTST_DEF_TPL_URI', plugin_dir_url( __FILE__ ) . 'templates/default/' );
+		defined( 'WPMTST_DEF_TPL' ) || define( 'WPMTST_DEF_TPL', WPMTST_DIR . 'templates/default/' );
+		defined( 'WPMTST_DEF_TPL_URI' ) || define( 'WPMTST_DEF_TPL_URI', WPMTST_URL . 'templates/default/' );
 
-		defined( 'WPMTST_TPL' ) || define( 'WPMTST_TPL', plugin_dir_path( __FILE__ ) . 'templates' );
-		defined( 'WPMTST_TPL_URI' ) || define( 'WPMTST_TPL_URI', plugin_dir_url( __FILE__ ) . 'templates' );
-
-		// This is the URL our updater / license checker pings. This should be the URL of the site with EDD installed.
-		defined( 'STRONGPLUGINS_STORE_URL' ) || define( 'STRONGPLUGINS_STORE_URL', 'https://strongplugins.com' );
+		defined( 'WPMTST_TPL' ) || define( 'WPMTST_TPL', WPMTST_DIR . 'templates' );
+		defined( 'WPMTST_TPL_URI' ) || define( 'WPMTST_TPL_URI', WPMTST_URL . 'templates' );
 	}
 
 	/**
