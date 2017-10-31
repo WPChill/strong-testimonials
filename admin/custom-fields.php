@@ -30,7 +30,7 @@ function wpmtst_settings_custom_fields( $form_id = 1 ) {
     <h1><?php _e( 'Fields', 'strong-testimonials' ); ?></h1>
 
     <?php
-    $field_options = get_option( 'wpmtst_fields' );
+    $field_options = apply_filters( 'wpmtst_fields', get_option( 'wpmtst_fields' ) );
 	$forms         = get_option( 'wpmtst_custom_forms' );
 	$fields        = $forms[ $form_id ]['fields'];
 
@@ -93,9 +93,11 @@ function wpmtst_settings_custom_fields( $form_id = 1 ) {
 				} else {
 					$field['default_form_value'] = sanitize_text_field( $field['default_form_value'] );
 				}
-				$field['default_display_value']   = sanitize_text_field( $field['default_display_value'] );
+				$field['action'] = sanitize_text_field( $field['action'] );
 
-				$field['placeholder']             = sanitize_text_field( $field['placeholder'] );
+				$field['default_display_value'] = sanitize_text_field( $field['default_display_value'] );
+
+				$field['placeholder'] = sanitize_text_field( $field['placeholder'] );
 
 				if ( isset( $field['text'] ) ) {
 					$field['text'] = wp_kses_post( $field['text'] );
@@ -202,7 +204,7 @@ function wpmtst_settings_custom_fields( $form_id = 1 ) {
  * @return string
  */
 function wpmtst_show_field( $key, $field, $adding ) {
-	$fields      = get_option( 'wpmtst_fields' );
+	$fields      = apply_filters( 'wpmtst_fields', get_option( 'wpmtst_fields' ) );
 	$field_types = $fields['field_types'];
 
     ob_start();
@@ -447,6 +449,7 @@ function wpmtst_show_field_hidden( $key, $field ) {
 
 	$html = sprintf( $pattern, $key, 'record_type', $field['record_type'] ) . "\n";
 	$html .= sprintf( $pattern, $key, 'input_type', $field['input_type'] ) . "\n";
+	$html .= sprintf( $pattern, $key, 'action', $field['action'] ) . "\n";
 	$html .= sprintf( $pattern, $key, 'name_mutable', $field['name_mutable'] ) . "\n";
 	$html .= sprintf( $pattern, $key, 'show_text_option', $field['show_text_option'] ) . "\n";
 	$html .= sprintf( $pattern, $key, 'show_placeholder_option', $field['show_placeholder_option'] ) . "\n";
