@@ -40,7 +40,7 @@ class Strong_Testimonials_Defaults {
 			'support_comments'      => false,
 			'support_custom_fields' => false,
 			'scrolltop'             => true,
-			'scrolltop_offset'      => 40,
+			'scrolltop_offset'      => 80,
 			'no_lazyload'           => true,
 		);
 
@@ -456,9 +456,9 @@ class Strong_Testimonials_Defaults {
 			'honeypot_after'           => false,
 			'messages'                 => $default_messages,
 			'scrolltop_success'        => true,
-			'scrolltop_success_offset' => 40,
+			'scrolltop_success_offset' => 80,
 			'scrolltop_error'          => true,
-			'scrolltop_error_offset'   => 40,
+			'scrolltop_error_offset'   => 80,
 			'success_action'           => 'message', // message | id | url
 			'success_redirect_id'      => '',
 			'success_redirect_url'     => '',
