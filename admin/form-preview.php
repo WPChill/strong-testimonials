@@ -7,7 +7,7 @@ function wpmtst_get_form_preview() {
 	parse_str( stripslashes_deep( $_POST['fields'] ), $preview );
 
 	$new_fields = array();
-	$field_options = get_option( 'wpmtst_fields' );
+	$fields = apply_filters( 'wpmtst_fields', get_option( 'wpmtst_fields' ) );
 
 	foreach ( $preview['fields'] as $key => $field ) {
 		/*
@@ -18,7 +18,7 @@ function wpmtst_get_form_preview() {
 		$field['show_label']         = isset( $field['show_label'] ) ? 1 : 0;
 		$field['required']           = isset( $field['required'] ) ? 1 : 0;
 
-		$field = array_merge( $field_options['field_base'], $field );
+		$field = array_merge( $fields['field_base'], $field );
 
 		if ( 'none' == $field['input_type'] ) {
 			$field['input_type'] = 'text';
