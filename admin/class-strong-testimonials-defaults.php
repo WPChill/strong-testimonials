@@ -48,20 +48,20 @@ class Strong_Testimonials_Defaults {
 	}
 
 	/**
-	 * Custom fields.
+	 * Custom field base.
+	 *
+	 * @since 2.28.0 Use 'action' to register a callback.
 	 *
 	 * @return array
 	 */
-	public static function get_fields() {
-		/*
-		 * Common field properties
-		 */
-		$field_base = array(
+	public static function get_field_base() {
+		return apply_filters( 'wpmtst_field_base', array(
 			'name'                    => '',
 			'name_mutable'            => 1,
 			'label'                   => '',
 			'show_label'              => 1,
 			'input_type'              => '',
+			'action'                  => '',
 
 			'text'                    => '',
 			'show_text_option'        => 0,
@@ -88,16 +88,20 @@ class Strong_Testimonials_Defaults {
 			'shortcode_on_form'       => '',
 			'shortcode_on_display'    => '',
 			'show_shortcode_options'  => 0,
-		);
+		) );
+	}
 
-		/*
-		 * Assemble field type groups.
-		 */
-
+	/**
+	 * Custom fields.
+	 *
+	 * @return array
+	 */
+	public static function get_fields() {
+		$field_base  = self::get_field_base();
 		$field_types = array();
 
 		/*
-		 * Post
+		 * Assemble post field types
 		 */
 		$field_types['post'] = array(
 			'post_title'     => array(
@@ -136,7 +140,7 @@ class Strong_Testimonials_Defaults {
 		}
 
 		/*
-		 * Custom
+		 * Assemble custom field types
 		 */
 		$field_types['custom'] = array(
 			'text'  => array(
@@ -165,7 +169,7 @@ class Strong_Testimonials_Defaults {
 		}
 
 		/*
-		 * Special field types (FKA Optional)
+		 * Assemble special field types (FKA Optional)
 		 *
 		 * @since 1.18
 		 * @since 2.2.2 Fix bug caused by localizing 'categories'
@@ -216,14 +220,14 @@ class Strong_Testimonials_Defaults {
 		}
 
 		/*
-		 * Assemble
+		 * Assemble all fields
 		 */
 		$default_fields = array(
 			'field_base' => $field_base,
 			'field_types' => $field_types,
 		);
 
-		return $default_fields;
+		return apply_filters( 'wpmtst_default_fields', $default_fields );
 	}
 
 	/**

@@ -33,7 +33,8 @@
 				<?php /* Special fields */ ?>
 				<optgroup class="optional" label="<?php _e( 'Special Fields', 'strong-testimonials' ); ?>">
 				<?php foreach ( $field_types['optional'] as $field_key => $field_parts ) : ?>
-					<option value="<?php echo $field_key; ?>"><?php echo $field_parts['option_label']; ?></option>
+					<?php $data = ( $field_parts['name'] ) ? ' data-force-name="'.$field_parts['name'].'"' : ''; ?>
+					<option value="<?php echo $field_key; ?>"<?php echo $data; ?>><?php echo $field_parts['option_label']; ?></option>
 				<?php endforeach; ?>
 				</optgroup>
 

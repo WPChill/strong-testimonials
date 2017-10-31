@@ -191,44 +191,54 @@ class Strong_Testimonials_Form {
 				}
 			}
 
-			switch ( $field['record_type'] ) {
-				case 'post':
-					if ( 'file' == $field['input_type'] ) {
-						$testimonial_att[ $field['name'] ] = array( 'field' => isset( $field['map'] ) ? $field['map'] : 'post' );
-					} elseif ( 'textarea' == $field['input_type'] ) {
-						$testimonial_post[ $field['name'] ] = wpmtst_sanitize_textarea( $new_post[ $field['name'] ] );
-					} else {
-						$testimonial_post[ $field['name'] ] = sanitize_text_field( $new_post[ $field['name'] ] );
-					}
-					break;
-
-				case 'custom':
-					if ( 'email' == $field['input_type'] ) {
-						$testimonial_meta[ $field['name'] ] = sanitize_email( $new_post[ $field['name'] ] );
-					} elseif ( 'url' == $field['input_type'] ) {
-						// wpmtst_get_website() will prefix with "http://" so don't add that to an empty input
-						if ( $new_post[ $field['name'] ] ) {
-							$testimonial_meta[ $field['name'] ] = esc_url_raw( wpmtst_get_website( $new_post[ $field['name'] ] ) );
+			// Check for callback first.
+			if ( isset( $field['action'] ) && $field['action'] ) {
+				if ( isset( $field['action'] ) && $field['action'] ) {
+					// Assuming value can be stored as text field
+					$testimonial_meta[ $field['name'] ] = sanitize_text_field( $new_post[ $field['name'] ] );
+					// TODO Register a validator callback
+				}
+			}
+			else {
+				switch ( $field['record_type'] ) {
+					case 'post':
+						if ( 'file' == $field['input_type'] ) {
+							$testimonial_att[ $field['name'] ] = array( 'field' => isset( $field['map'] ) ? $field['map'] : 'post' );
+						} elseif ( 'textarea' == $field['input_type'] ) {
+							$testimonial_post[ $field['name'] ] = wpmtst_sanitize_textarea( $new_post[ $field['name'] ] );
+						} else {
+							$testimonial_post[ $field['name'] ] = sanitize_text_field( $new_post[ $field['name'] ] );
 						}
-					} elseif ( 'textarea' == $field['input_type'] ) {
-						$testimonial_post[ $field['name'] ] = wpmtst_sanitize_textarea( $new_post[ $field['name'] ] );
-					} elseif ( 'checkbox' == $field['input_type'] ) {
-						$testimonial_meta[ $field['name'] ] = wpmtst_sanitize_checkbox( $new_post, $field['name'] );
-					} else {
-						$testimonial_meta[ $field['name'] ] = sanitize_text_field( $new_post[ $field['name'] ] );
-					}
-					break;
+						break;
 
-				case 'optional':
-					if ( 'category' == strtok( $field['input_type'], '-' ) ) {
-						$testimonial_meta[ $field['name'] ] = $new_post[ $field['name'] ];
-					}
-					if ( 'rating' == $field['input_type'] ) {
-						$testimonial_meta[ $field['name'] ] = $new_post[ $field['name'] ];
-					}
-					break;
+					case 'custom':
+						if ( 'email' == $field['input_type'] ) {
+							$testimonial_meta[ $field['name'] ] = sanitize_email( $new_post[ $field['name'] ] );
+						} elseif ( 'url' == $field['input_type'] ) {
+							// wpmtst_get_website() will prefix with "http://" so don't add that to an empty input
+							if ( $new_post[ $field['name'] ] ) {
+								$testimonial_meta[ $field['name'] ] = esc_url_raw( wpmtst_get_website( $new_post[ $field['name'] ] ) );
+							}
+						} elseif ( 'textarea' == $field['input_type'] ) {
+							$testimonial_post[ $field['name'] ] = wpmtst_sanitize_textarea( $new_post[ $field['name'] ] );
+						} elseif ( 'checkbox' == $field['input_type'] ) {
+							$testimonial_meta[ $field['name'] ] = wpmtst_sanitize_checkbox( $new_post, $field['name'] );
+						} else {
+							$testimonial_meta[ $field['name'] ] = sanitize_text_field( $new_post[ $field['name'] ] );
+						}
+						break;
 
-				default:
+					case 'optional':
+						if ( 'category' == strtok( $field['input_type'], '-' ) ) {
+							$testimonial_meta[ $field['name'] ] = $new_post[ $field['name'] ];
+						}
+						if ( 'rating' == $field['input_type'] ) {
+							$testimonial_meta[ $field['name'] ] = $new_post[ $field['name'] ];
+						}
+						break;
+
+					default:
+				}
 			}
 
 		}

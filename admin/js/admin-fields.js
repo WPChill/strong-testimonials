@@ -83,7 +83,7 @@ function sanitizeName(label) {
   // check all field names
   $theForm.submit(function (event) {
     $("input.field-name").each(function (index) {
-      if ('name' == $(this).val() || 'date' == $(this).val()) {
+      if ('name' === $(this).val() || 'date' === $(this).val()) {
         $(this).focus().parent().find('.field-name-help.important').addClass('error');
         var $parent = $(this).closest("li");
         if (!$parent.hasClass("open")) {
@@ -157,7 +157,7 @@ function sanitizeName(label) {
       return;
     }
 
-    if ('name' == $(this).val() || 'date' == $(this).val()) {
+    if ('name' === $(this).val() || 'date' === $(this).val()) {
       $(this).focus().parent().find('.field-name-help.important').addClass('error');
     } else {
       $(this).parent().find('.field-name-help').removeClass('error');
@@ -225,16 +225,18 @@ function sanitizeName(label) {
   });
 
   // Field type change
-  $fieldList.on("change", ".field-type", function () {
+  $fieldList.on("change", ".field-type", function (e) {
+    console.log(e.target);
     var fieldType = $(this).val();
+    console.log(fieldType);
     var $table = $(this).closest("table");
     var $parent = $(this).closest('li');
 
-    if ($parent.data('status') != 'new') {
+    if ($parent.data('status') !== 'new') {
       $table.find(".field-secondary, .field-admin-table").remove();
     }
 
-    if ('none' == fieldType) {
+    if ('none' === fieldType) {
       // Hide "Close" link
       $parent.find("span.close-field").hide();
 
@@ -250,23 +252,21 @@ function sanitizeName(label) {
     var $fieldName = $parent.find('input.field-name');
 
     // get type of field from its optgroup
-    var fieldClass = $(this)
-      .find("option[value='" + fieldType + "']")
-      .closest("optgroup")
-      .attr("class");
+    var fieldOption = $(this).find("option[value='" + fieldType + "']");
+    var fieldClass = fieldOption.closest("optgroup").attr("class");
 
     switch (fieldClass) {
       case 'post':
         // Force values if selecting a Post field.
-        if (fieldType == 'post_title') {
+        if (fieldType === 'post_title') {
           $fieldLabel.val('Testimonial Title');
           $fieldName.val('post_title').attr('disabled', 'disabled');
         }
-        else if (fieldType == 'featured_image') {
+        else if (fieldType === 'featured_image') {
           $fieldLabel.val('Photo');
           $fieldName.val('featured_image').attr('disabled', 'disabled');
         }
-        else if (fieldType == 'post_content') {
+        else if (fieldType === 'post_content') {
           $fieldLabel.val('Testimonial');
           $fieldName.val('post_content').attr('disabled', 'disabled');
         }
@@ -276,8 +276,16 @@ function sanitizeName(label) {
         $parent.find(".field-name-help").hide();
         break;
       case 'optional':
-        if ('category' == fieldType.split('-')[0]) {
+        if ('category' === fieldType.split('-')[0]) {
           $fieldName.val('category').attr('disabled', 'disabled');
+          // move value to hidden input
+          $fieldName.after('<input type="hidden" name="' + $fieldName.attr("name") + '" value="' + $fieldName.val() + '" />');
+          // hide help message
+          $parent.find(".field-name-help").hide();
+        }
+        var forceName = fieldOption.data('force-name');
+        if (forceName) {
+          $fieldName.val(forceName).attr('disabled', 'disabled');
           // move value to hidden input
           $fieldName.after('<input type="hidden" name="' + $fieldName.attr("name") + '" value="' + $fieldName.val() + '" />');
           // hide help message
@@ -399,7 +407,7 @@ function sanitizeName(label) {
     $fieldList.find('input[name$="[record_type]"]').each(function () {
       var $parent = $(this).closest("li");
       var value = $(this).val();
-      if ("post" == value) {
+      if ("post" === value) {
         var name = $parent.find(".field-name").val();
         $fieldList.find("select.field-type.new").find('option[value="' + name + '"]').attr("disabled", "disabled");
       }
@@ -413,10 +421,10 @@ function sanitizeName(label) {
     $fieldList.find('input[name$="[record_type]"]').each(function () {
       var $parent = $(this).closest("li");
       var value = $(this).val();
-      if ('optional' == value) {
+      if ('optional' === value) {
         var fieldType = $parent.find('input[name$="[input_type]"]').val();
         if (!categoryInUse) {
-          categoryInUse = ( 'category' == fieldType.split('-')[0] );
+          categoryInUse = ( 'category' === fieldType.split('-')[0] );
         }
       }
     });
