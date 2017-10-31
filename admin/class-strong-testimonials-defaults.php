@@ -53,7 +53,9 @@ class Strong_Testimonials_Defaults {
 	 * @return array
 	 */
 	public static function get_fields() {
-		// Common field properties
+		/*
+		 * Common field properties
+		 */
 		$field_base = array(
 			'name'                    => '',
 			'name_mutable'            => 1,
@@ -88,10 +90,15 @@ class Strong_Testimonials_Defaults {
 			'show_shortcode_options'  => 0,
 		);
 
-		// Assemble field type groups.
+		/*
+		 * Assemble field type groups.
+		 */
+
 		$field_types = array();
 
-		// Post
+		/*
+		 * Post
+		 */
 		$field_types['post'] = array(
 			'post_title'     => array(
 				'input_type'              => 'text',
@@ -128,7 +135,9 @@ class Strong_Testimonials_Defaults {
 			$field_types['post'][ $key ] = array_merge( $field_base, $array );
 		}
 
-		// Custom
+		/*
+		 * Custom
+		 */
 		$field_types['custom'] = array(
 			'text'  => array(
 				'input_type'   => 'text',
@@ -155,7 +164,7 @@ class Strong_Testimonials_Defaults {
 			$field_types['custom'][ $key ] = array_merge( $field_base, $array );
 		}
 
-		/**
+		/*
 		 * Special field types (FKA Optional)
 		 *
 		 * @since 1.18
@@ -199,12 +208,16 @@ class Strong_Testimonials_Defaults {
 			)
 		);
 
-		// Merge each one onto base field
+		/*
+		 * Merge each one onto base field
+		 */
 		foreach ( $field_types['optional'] as $key => $array ) {
 			$field_types['optional'][ $key ] = array_merge( $field_base, $array );
 		}
 
-		// Assemble
+		/*
+		 * Assemble
+		 */
 		$default_fields = array(
 			'field_base' => $field_base,
 			'field_types' => $field_types,
