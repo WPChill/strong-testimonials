@@ -99,22 +99,90 @@ class Strong_Testimonials_Post_Editor {
 	 * @param $is_new
 	 */
 	public static function meta_option( $field, $post, $is_new ) {
-		switch ( $field['input_type'] ) {
-			case 'rating' :
-				self::meta_option__rating( $field, $post, $is_new );
-				break;
-			case 'url' :
-				self::meta_option__url( $field, $post, $is_new );
-				break;
-			case 'checkbox' :
-				self::meta_option__checkbox( $field, $post, $is_new );
-				break;
-			case 'shortcode' :
-				self::meta_option__shortcode( $field, $post, $is_new );
-				break;
-			default :
-				self::meta_option__text( $field, $post, $is_new );
+		// Check for callback first.
+		if ( isset( $field['action'] ) && $field['action'] ) {
+			self::meta_option__action( $field, $post, $is_new );
 		}
+		// Check field type.
+		else {
+			switch ( $field['input_type'] ) {
+				case 'rating' :
+					self::meta_option__rating( $field, $post, $is_new );
+					break;
+				case 'url' :
+					self::meta_option__url( $field, $post, $is_new );
+					break;
+				case 'checkbox' :
+					self::meta_option__checkbox( $field, $post, $is_new );
+					break;
+				case 'shortcode' :
+					self::meta_option__shortcode( $field, $post, $is_new );
+					break;
+				default :
+					self::meta_option__text( $field, $post, $is_new );
+			}
+		}
+	}
+
+	/**
+     * Custom action callback.
+     *
+	 * @param $field
+	 * @param $post
+	 * @param $is_new
+	 */
+	private static function meta_option__action( $field, $post, $is_new ) {
+		if ( isset( $field['action'] ) && $field['action'] ) {
+			do_action( $field['action'], $field, $post->{$field['name']} );
+		}
+	}
+
+	/**
+	 * Text input.
+	 *
+	 * @param $field
+	 * @param $post
+	 * @param $is_new
+	 */
+	private static function meta_option__text( $field, $post, $is_new ) {
+		printf( '<input id="%2$s" type="%1$s" class="custom-input" name="custom[%2$s]" value="%3$s">',
+		        $field['input_type'], $field['name'], esc_attr( $post->{$field['name']} ) );
+	}
+
+	/**
+	 * URL input.
+	 *
+	 * @param $field
+	 * @param $post
+	 * @param $is_new
+	 */
+	private static function meta_option__url( $field, $post, $is_new ) {
+		?>
+        <div class="input-url">
+			<?php printf( '<input id="%2$s" type="%1$s" class="custom-input" name="custom[%2$s]" value="%3$s" size="">',
+			              $field['input_type'], $field['name'], esc_attr( $post->{$field['name']} ) ); ?>
+        </div>
+        <div class="input-nofollow">
+            <label for="custom_nofollow"><code>rel="nofollow"</code></label>
+            <select id="custom_nofollow" name="custom[nofollow]">
+                <option value="default" <?php selected( $post->nofollow, 'default' ); ?>><?php _e( 'default', 'strong-testimonials' ); ?></option>
+                <option value="yes" <?php selected( $post->nofollow, 'yes' ); ?>><?php _e( 'yes', 'strong-testimonials' ); ?></option>
+                <option value="no" <?php selected( $post->nofollow, 'no' ); ?>><?php _e( 'no', 'strong-testimonials' ); ?></option>
+            </select>
+        </div>
+		<?php
+	}
+
+	/**
+	 * Checkbox input.
+	 *
+	 * @param $field
+	 * @param $post
+	 * @param $is_new
+	 */
+	private static function meta_option__checkbox( $field, $post, $is_new ) {
+		printf( '<input id="%2$s" type="%1$s" class="custom-input" name="custom[%2$s]" value="%3$s" %4$s>',
+		        $field['input_type'], $field['name'], 1, checked( $post->{$field['name']}, 1, false ) );
 	}
 
 	/**
@@ -170,54 +238,6 @@ class Strong_Testimonials_Post_Editor {
 
         </div>
 		<?php
-	}
-
-	/**
-	 * URL input.
-	 *
-	 * @param $field
-	 * @param $post
-	 * @param $is_new
-	 */
-	private static function meta_option__url( $field, $post, $is_new ) {
-		?>
-        <div class="input-url">
-			<?php printf( '<input id="%2$s" type="%1$s" class="custom-input" name="custom[%2$s]" value="%3$s" size="">',
-			              $field['input_type'], $field['name'], esc_attr( $post->{$field['name']} ) ); ?>
-        </div>
-        <div class="input-nofollow">
-            <label for="custom_nofollow"><code>rel="nofollow"</code></label>
-            <select id="custom_nofollow" name="custom[nofollow]">
-                <option value="default" <?php selected( $post->nofollow, 'default' ); ?>><?php _e( 'default', 'strong-testimonials' ); ?></option>
-                <option value="yes" <?php selected( $post->nofollow, 'yes' ); ?>><?php _e( 'yes', 'strong-testimonials' ); ?></option>
-                <option value="no" <?php selected( $post->nofollow, 'no' ); ?>><?php _e( 'no', 'strong-testimonials' ); ?></option>
-            </select>
-        </div>
-		<?php
-	}
-
-	/**
-	 * Checkbox input.
-	 *
-	 * @param $field
-	 * @param $post
-	 * @param $is_new
-	 */
-	private static function meta_option__checkbox( $field, $post, $is_new ) {
-		printf( '<input id="%2$s" type="%1$s" class="custom-input" name="custom[%2$s]" value="%3$s" %4$s>',
-		        $field['input_type'], $field['name'], 1, checked( $post->{$field['name']}, 1, false ) );
-	}
-
-	/**
-	 * Text input.
-	 *
-	 * @param $field
-	 * @param $post
-	 * @param $is_new
-	 */
-	private static function meta_option__text( $field, $post, $is_new ) {
-		printf( '<input id="%2$s" type="%1$s" class="custom-input" name="custom[%2$s]" value="%3$s">',
-		        $field['input_type'], $field['name'], esc_attr( $post->{$field['name']} ) );
 	}
 
 	/**
