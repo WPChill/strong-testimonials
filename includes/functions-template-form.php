@@ -78,105 +78,110 @@ function wpmtst_single_form_field( $field ) {
 	    wpmtst_field_before( $field );
 	}
 
+	// Check for callback first.
+    if ( isset( $field['action'] ) && $field['action'] ) {
+	    $value = ( isset( $form_values[ $field['name'] ] ) && $form_values[ $field['name'] ] ) ? $form_values[ $field['name'] ] : '';
+	    if ( isset( $field['action'] ) && $field['action'] ) {
+		    do_action( $field['action'], $field, $value );
+	    }
+    }
+    // Check field type.
+    else {
+	    switch ( $field['input_type'] ) {
 
-	switch ( $field['input_type'] ) {
+		    case 'category-selector' :
+			    $value = isset( $form_values[ $field['name'] ] ) ? (array) $form_values[ $field['name'] ] : array();
 
-		case 'category-selector' :
+			    printf( '<select id="wpmtst_%s" name="%s" class="%s" %s tabindex="0">',
+			            $field['name'],
+			            $field['name'],
+			            wpmtst_field_classes( $field['input_type'], $field['name'] ),
+			            wpmtst_field_required_tag( $field ) );
 
-			$value = isset( $form_values[ $field['name'] ] ) ? (array) $form_values[ $field['name'] ] : array();
+			    echo '<option value="">&mdash;</option>';
+			    wpmtst_nested_cats( $value );
+			    echo '</select>';
 
-			printf( '<select id="wpmtst_%s" name="%s" class="%s" %s tabindex="0">',
-                $field['name'],
-				$field['name'],
-				wpmtst_field_classes( $field['input_type'], $field['name'] ),
-				wpmtst_field_required_tag( $field ) );
+			    break;
 
-			echo '<option value="">&mdash;</option>';
-			wpmtst_nested_cats( $value );
-			echo '</select>';
+		    case 'category-checklist' :
+			    $value = isset( $form_values[ $field['name'] ] ) ? (array) $form_values[ $field['name'] ] : array();
+			    wpmtst_form_category_checklist_frontend( $value );
 
-			break;
+			    break;
 
-		case 'category-checklist' :
+		    case 'textarea' :
+			    $value = ( isset( $form_values[ $field['name'] ] ) && $form_values[ $field['name'] ] ) ? $form_values[ $field['name'] ] : '';
 
-			$value = isset( $form_values[ $field['name'] ] ) ? (array) $form_values[ $field['name'] ] : array();
-			wpmtst_form_category_checklist_frontend( $value );
+			    // textarea tags must be on same line for placeholder to work
+			    printf( '<textarea id="wpmtst_%s" name="%s" class="%s" %s %s tabindex="0">%s</textarea>',
+			            $field['name'],
+			            $field['name'],
+			            wpmtst_field_classes( $field['input_type'], $field['name'] ),
+			            wpmtst_field_required_tag( $field ),
+			            wpmtst_field_placeholder( $field ),
+			            esc_textarea( $value ) );
 
-			break;
+			    break;
 
-		case 'textarea' :
+		    case 'file' :
+			    echo '<input id="wpmtst_' . $field['name'] . '" type="file" name="' . $field['name'] . '"' . wpmtst_field_required_tag( $field ) . ' tabindex="0">';
+			    break;
 
-			$value = ( isset( $form_values[ $field['name'] ] ) && $form_values[ $field['name'] ] ) ? $form_values[ $field['name'] ] : '';
+		    case 'shortcode' :
+			    if ( isset( $field['shortcode_on_form'] ) && $field['shortcode_on_form'] ) {
+				    echo do_shortcode( $field['shortcode_on_form'], true );
+			    }
+			    break;
 
-			// textarea tags must be on same line for placeholder to work
-			printf( '<textarea id="wpmtst_%s" name="%s" class="%s" %s %s tabindex="0">%s</textarea>',
-				$field['name'],
-				$field['name'],
-				wpmtst_field_classes( $field['input_type'], $field['name'] ),
-				wpmtst_field_required_tag( $field ),
-				wpmtst_field_placeholder( $field ),
-				esc_textarea( $value ) );
+		    case 'rating' :
+			    wpmtst_star_rating_form( $field, $field['default_form_value'], 'in-form' );
+			    break;
 
-			break;
+		    case 'checkbox' :
+			    if ( ! isset( $field['show_label'] ) || $field['show_label'] ) {
+				    $label = '<label for="wpmtst_' . $field['name'] . '">' . wpmtst_form_field_meta_l10n( $field['label'], $field, 'label' ) . '</label>';
+				    echo $label;
+			    }
 
-		case 'file' :
+			    wpmtst_field_before( $field );
 
-			echo '<input id="wpmtst_' . $field['name'] . '" type="file" name="' . $field['name'] . '"' . wpmtst_field_required_tag( $field ) . ' tabindex="0">';
-			break;
+			    echo '<div class="field-wrap">';
 
-		case 'shortcode' :
-			if ( isset( $field['shortcode_on_form'] ) && $field['shortcode_on_form'] ) {
-				echo do_shortcode( $field['shortcode_on_form'], true );
-			}
-			break;
+			    printf( '<input id="wpmtst_%s" type="%s" class="%s" name="%s" %s %s tabindex="0">',
+			            $field['name'],
+			            $field['input_type'],
+			            wpmtst_field_classes( $field['input_type'], $field['name'] ),
+			            $field['name'],
+			            wpmtst_field_required_tag( $field ),
+			            checked( $field['default_form_value'], 1, false ) );
 
-		case 'rating' :
-			wpmtst_star_rating_form( $field, $field['default_form_value'], 'in-form' );
-			break;
+			    if ( isset( $field['text'] ) ) {
+				    echo '<label for="wpmtst_' . $field['name'] . '" class="checkbox-label">';
+				    echo wpmtst_form_field_meta_l10n( $field['text'], $field, 'text' );
+				    echo '</label>';
+			    }
 
-        case 'checkbox' :
-	        if ( ! isset( $field['show_label'] ) || $field['show_label'] ) {
-		        $label = '<label for="wpmtst_' . $field['name'] . '">' . wpmtst_form_field_meta_l10n( $field['label'], $field, 'label' ) . '</label>';
-		        echo $label;
-	        }
+			    if ( isset( $field['required'] ) && $field['required'] ) {
+				    wpmtst_field_required_symbol();
+			    }
 
-	        wpmtst_field_before( $field );
+			    echo '</div><!-- .field-wrap -->';
 
-            echo '<div class="field-wrap">';
+			    break;
 
-            printf( '<input id="wpmtst_%s" type="%s" class="%s" name="%s" %s %s tabindex="0">',
-                $field['name'],
-                $field['input_type'],
-                wpmtst_field_classes( $field['input_type'], $field['name'] ),
-                $field['name'],
-                wpmtst_field_required_tag( $field ),
-                checked( $field['default_form_value'], 1, false ) );
+		    default: // text, email, url
+			    printf( '<input id="wpmtst_%s" type="%s" class="%s" name="%s" %s %s %s tabindex="0">',
+			            $field['name'],
+			            $field['input_type'],
+			            wpmtst_field_classes( $field['input_type'], $field['name'] ),
+			            $field['name'],
+			            wpmtst_field_value( $field, $form_values ),
+			            wpmtst_field_placeholder( $field ),
+			            wpmtst_field_required_tag( $field ) );
 
-            if ( isset( $field['text'] ) ) {
-                echo '<label for="wpmtst_' . $field['name'] . '" class="checkbox-label">';
-	            echo wpmtst_form_field_meta_l10n( $field['text'], $field, 'text' );
-                echo '</label>';
-            }
-
-            if ( isset( $field['required'] ) && $field['required'] ) {
-                wpmtst_field_required_symbol();
-            }
-
-            echo '</div><!-- .field-wrap -->';
-
-            break;
-
-		default: // text, email, url
-			printf( '<input id="wpmtst_%s" type="%s" class="%s" name="%s" %s %s %s tabindex="0">',
-				$field['name'],
-                $field['input_type'],
-                wpmtst_field_classes( $field['input_type'], $field['name'] ),
-                $field['name'],
-                wpmtst_field_value( $field, $form_values ),
-                wpmtst_field_placeholder( $field ),
-                wpmtst_field_required_tag( $field ) );
-
-	}
+	    }
+    }
 
 	wpmtst_field_after( $field );
 	wpmtst_field_error( $field );
