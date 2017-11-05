@@ -125,9 +125,6 @@
       // set a reference to our slider element
       viewEl = this,
       el = this.find(".wpmslider-content")
-      // get the original window dimens (thanks a lot IE)
-      // windowWidth = $(window).width(),
-      // windowHeight = $(window).height()
 
     // Return if slider is already initialized
     if ($(el).data('strongSlider')) {
@@ -150,7 +147,7 @@
       }
 
       // timer to check visibility; used to control sliders in hidden tabs
-      slider.visibilityInterval = null
+      slider.visibilityInterval = 0
       // slider state
       slider.hidden = false
 
@@ -264,12 +261,18 @@
 
     }
 
+    var reallyVisible = function () {
+      return (viewEl.is(':visible') && viewEl.css('visibility') !== 'hidden');
+    }
+
     var initVisibilityCheck = function () {
-      if (el.is(':visible')) {
-        clearInterval(el.visibilityInterval)
+      if (reallyVisible()) {
+        clearInterval(slider.visibilityInterval)
         setup()
       } else {
-        el.visibilityInterval = setInterval(initVisibilityCheck, 100)
+        if (slider.visibilityInterval === 0) {
+          slider.visibilityInterval = setInterval(initVisibilityCheck, 500)
+        }
       }
     }
 
@@ -454,7 +457,7 @@
 
       // slider has been fully initialized
       slider.initialized = true
-      el.visibilityInterval = setInterval( visibilityCheck, 500 );
+      slider.visibilityInterval = setInterval( visibilityCheck, 500 );
 
       if (slider.settings.responsive) {
         attachListeners()
@@ -536,7 +539,7 @@
         return
       }
 
-      if (el.is(':hidden')) {
+      if (!reallyVisible()) {
         pauseEvent('hide')
       } else {
         playEvent('hide')
@@ -1463,24 +1466,6 @@
       if (slider.working) {
         window.setTimeout(resizeWindow, 10)
       } else {
-        /*
-        // get the new window dimens (again, thank you IE)
-        var windowWidthNew = $(window).width(),
-          windowHeightNew = $(window).height()
-        // make sure that it is a true window resize
-        // *we must check this because our dinosaur friend IE fires a window resize event when certain DOM elements
-        // are resized. Can you just die already?*
-        if (windowWidth !== windowWidthNew || windowHeight !== windowHeightNew) {
-          // set the new window dimens
-          windowWidth = windowWidthNew
-          windowHeight = windowHeightNew
-          // update all dynamic elements
-          el.redrawSlider()
-          // Call user resize handler
-          slider.settings.onSliderResize.call(el, slider.active.index)
-        }
-        */
-
         // update all dynamic elements
         el.redrawSlider()
         // Call user resize handler
@@ -1844,7 +1829,7 @@
         slider.controls.autoEl.remove()
       }
       clearInterval(slider.interval)
-      clearInterval(el.visibilityInterval)
+      clearInterval(slider.visibilityInterval)
       if (slider.settings.responsive) {
         $(window).off('resize', resizeWindow)
       }
