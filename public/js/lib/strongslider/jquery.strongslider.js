@@ -271,7 +271,7 @@
         setup()
       } else {
         if (slider.visibilityInterval === 0) {
-          slider.visibilityInterval = setInterval(initVisibilityCheck, 500)
+          slider.visibilityInterval = setInterval(initVisibilityCheck, 100)
         }
       }
     }
@@ -361,7 +361,7 @@
         slider.children.eq(slider.settings.startSlide).css({zIndex: slider.settings.slideZIndex, display: 'block'})
       } else {
         slider.children.css({
-          display: 'block',
+          display: 'block'
         })
       }
 
@@ -1536,7 +1536,7 @@
     el.goToSlide = function (slideIndex, direction) {
       // onSlideBefore, onSlideNext, onSlidePrev callbacks
       // Allow transition canceling based on returned value
-      var performTransition = true,
+      var performTransition,
         moveBy = 0,
         position = {left: 0, top: 0},
         lastChild = null,
