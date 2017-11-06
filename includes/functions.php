@@ -105,6 +105,7 @@ function wpmtst_is_registered( $filenames ) {
 	return $script_handle;
 }
 
+if ( ! function_exists( 'get_page_by_slug' ) ) {
 /**
  * Get page ID by slug.
  *
@@ -113,15 +114,14 @@ function wpmtst_is_registered( $filenames ) {
  *
  * @since 1.11.0
  */
-if ( ! function_exists( 'get_page_by_slug' ) ) {
-	function get_page_by_slug( $page_slug, $output = OBJECT, $post_type = 'page' ) {
-		global $wpdb;
-		$page = $wpdb->get_var( $wpdb->prepare( "SELECT ID FROM $wpdb->posts WHERE post_name = %s AND post_type= %s AND post_status = 'publish'", $page_slug, $post_type ) );
-		if ( $page )
-			return get_post($page, $output);
-		else
-			return null;
-	}
+function get_page_by_slug( $page_slug, $output = OBJECT, $post_type = 'page' ) {
+    global $wpdb;
+    $page = $wpdb->get_var( $wpdb->prepare( "SELECT ID FROM $wpdb->posts WHERE post_name = %s AND post_type= %s AND post_status = 'publish'", $page_slug, $post_type ) );
+    if ( $page )
+        return get_post($page, $output);
+    else
+        return null;
+}
 }
 
 /**
@@ -147,7 +147,6 @@ if ( ! function_exists( 'reverse_wpautop' ) ) {
 	}
 }
 
-
 /**
  * Sort array based on 'order' element.
  *
@@ -164,7 +163,6 @@ function wpmtst_get_custom_form_count() {
 	$forms = get_option( 'wpmtst_custom_forms' );
 	return count( $forms );
 }
-
 
 function wpmtst_get_form_fields( $form_id = 1 ) {
 	$forms = get_option( 'wpmtst_custom_forms' );
@@ -463,7 +461,7 @@ function wpmtst_unserialize_views( $views ) {
 /**
  * @param $id
  *
- * @return array|mixed|null|object|void
+ * @return array
  */
 function wpmtst_get_view( $id ) {
 	global $wpdb;
@@ -507,7 +505,6 @@ function wpmtst_save_view( $view, $action = 'edit' ) {
 
 	return $return;
 }
-
 
 /**
  * @param $field
@@ -596,7 +593,6 @@ function wpmtst_using_form_validation_script() {
 	return true;
 }
 
-
 /**
  * Set iframe width of embedded videos.
  *
@@ -619,7 +615,6 @@ function wpmtst_embed_size( $dimensions, $url ) {
 	return $dimensions;
 }
 
-
 /**
  * Allow empty posts.
  *
@@ -636,7 +631,6 @@ function wpmtst_insert_post_empty_content( $maybe_empty, $postarr ) {
 	return $maybe_empty;
 }
 add_filter( 'wp_insert_post_empty_content', 'wpmtst_insert_post_empty_content', 10, 2 );
-
 
 /**
  * Display submit_date in Publish meta box under Published date.
@@ -664,7 +658,6 @@ function wpmtst_post_submitbox_misc_actions( $post ) {
 }
 add_action( 'post_submitbox_misc_actions', 'wpmtst_post_submitbox_misc_actions' );
 
-
 /**
  * @return mixed
  */
@@ -678,7 +671,6 @@ function wpmtst_get_background_defaults() {
 		'example-font-color' => 'dark',
 	) );
 }
-
 
 /**
  * @param null $preset
@@ -731,7 +723,6 @@ function wpmtst_get_background_presets( $preset = null ) {
 	return false;
 }
 
-
 /**
  * Return the form success message.
  *
@@ -745,7 +736,6 @@ function wpmtst_get_success_message() {
 
 	return apply_filters( 'wpmtst_form_success_message', $message );
 }
-
 
 /**
  * Does callback exist?
@@ -765,7 +755,6 @@ function wpmtst_callback_exists( $callback ) {
 
 	return $exists;
 }
-
 
 /**
  * Check for Divi Builder plugin.
@@ -787,7 +776,6 @@ function wpmtst_divi_builder_active() {
 
 	return $active;
 }
-
 
 /**
  * Append custom fields to testimonial content in theme's single post template.
@@ -814,7 +802,6 @@ function wpmtst_single_template_add_content( $content ) {
 }
 add_filter( 'the_content', 'wpmtst_single_template_add_content' );
 
-
 /**
  * Find the view for the single template.
  *
@@ -837,7 +824,6 @@ function wpmtst_find_single_template_view() {
 
 	return false;
 }
-
 
 /**
  * Frequent plugin checks.
@@ -875,7 +861,6 @@ function wpmtst_is_plugin_active( $plugin = '' ) {
 	return false;
 }
 
-
 /**
  * Sanitize a textarea from user input. Based on sanitize_text_field.
  *
@@ -912,7 +897,6 @@ function wpmtst_sanitize_textarea( $text ) {
 	return apply_filters( 'wpmtst_sanitize_textarea', $filtered, $text );
 }
 
-
 /**
  * Store values as 1 or 0 (never blank).
  *
@@ -934,7 +918,6 @@ function wpmtst_sanitize_checkbox( $input, $key ) {
 		return false;
 	}
 }
-
 
 /**
  * Trims a entire array recursively.
