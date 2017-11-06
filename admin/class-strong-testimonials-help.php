@@ -42,7 +42,7 @@ class Strong_Testimonials_Help {
 		?>
     <p><?php _e( 'Normally, a web page will load its stylesheets (font, color, size, etc.) before the content. When the content is displayed, the style is ready and the page appears as it was designed.', 'strong-testimonials' ); ?></p>
     <p>
-      <?php _e( 'A flash of unstyled content can occur when a browser displays the content before all the stylesheets have been loaded.', 'strong-testimonials' ); ?>
+      <?php _e( 'When a browser displays the content before all the stylesheets have been loaded, a flash of unstyled content can occur.', 'strong-testimonials' ); ?>
     <p>
 		  <?php printf( wp_kses( __( '<a href="%s" target="_blank">Explained further here</a>', 'strong-testimonials' ),
 				array( 'a' => array( 'href' => array(), 'target' => array() ) ) ),

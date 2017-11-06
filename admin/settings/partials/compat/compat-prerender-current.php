@@ -12,7 +12,7 @@
 		</label>
 	</div>
 	<div>
-		<p class="about"><?php _e( 'Load resources for the current page only.', 'strong-testimonials' ); ?></p>
-		<p class="description"><?php _e( 'This works well for most themes.', 'strong-testimonials' ); ?></p>
+		<p class="about"><?php _e( 'For the current page only.', 'strong-testimonials' ); ?></p>
+		<p class="about"><?php _e( 'This works well for most themes.', 'strong-testimonials' ); ?></p>
 	</div>
 </div>

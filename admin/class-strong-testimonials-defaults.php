@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Class Strong_Testimonials_Defaults
  *
@@ -9,7 +10,7 @@ class Strong_Testimonials_Defaults {
 	/**
 	 * Strong_Testimonials_Defaults constructor.
 	 */
-	public function __construct() {}
+	public function __construct() { }
 
 	/**
 	 * Settings
@@ -56,38 +57,38 @@ class Strong_Testimonials_Defaults {
 	 */
 	public static function get_field_base() {
 		return apply_filters( 'wpmtst_field_base', array(
-			'name'                    => '',
-			'name_mutable'            => 1,
-			'label'                   => '',
-			'show_label'              => 1,
-			'input_type'              => '',
-			'action'                  => '',
+			'name'         => '',
+			'name_mutable' => 1,
+			'label'        => '',
+			'show_label'   => 1,
+			'input_type'   => '',
+			'action'       => '',
 
-			'text'                    => '',
-			'show_text_option'        => 0,
+			'text'             => '',
+			'show_text_option' => 0,
 
-			'required'                => 0,
-			'show_required_option'    => 1,
+			'required'             => 0,
+			'show_required_option' => 1,
 
-			'default_form_value'      => '',
-			'default_display_value'   => '',
-			'show_default_options'    => 1,
+			'default_form_value'    => '',
+			'default_display_value' => '',
+			'show_default_options'  => 1,
 
-			'error'                   => __( 'This field is required.', 'strong-testimonials' ),
+			'error' => __( 'This field is required.', 'strong-testimonials' ),
 
 			'placeholder'             => '',
 			'show_placeholder_option' => 1,
 
-			'before'                  => '',
-			'after'                   => '',
+			'before' => '',
+			'after'  => '',
 
 			'admin_table'             => 0,
 			'admin_table_option'      => 1,
 			'show_admin_table_option' => 1,
 
-			'shortcode_on_form'       => '',
-			'shortcode_on_display'    => '',
-			'show_shortcode_options'  => 0,
+			'shortcode_on_form'      => '',
+			'shortcode_on_display'   => '',
+			'show_shortcode_options' => 0,
 		) );
 	}
 
@@ -143,24 +144,24 @@ class Strong_Testimonials_Defaults {
 		 * Assemble custom field types
 		 */
 		$field_types['custom'] = array(
-			'text'  => array(
+			'text'     => array(
 				'input_type'   => 'text',
 				'option_label' => __( 'text', 'strong-testimonials' ),
 			),
-			'email' => array(
+			'email'    => array(
 				'input_type'           => 'email',
 				'option_label'         => __( 'email', 'strong-testimonials' ),
 				'show_default_options' => 0,
 			),
-			'url'   => array(
+			'url'      => array(
 				'input_type'           => 'url',
 				'option_label'         => __( 'URL', 'strong-testimonials' ),
 				'show_default_options' => 0,
 			),
 			'checkbox' => array(
-				'input_type'           => 'checkbox',
-				'option_label'         => __( 'checkbox', 'strong-testimonials' ),
-				'show_text_option'     => 1,
+				'input_type'              => 'checkbox',
+				'option_label'            => __( 'checkbox', 'strong-testimonials' ),
+				'show_text_option'        => 1,
 				'show_placeholder_option' => 0,
 			),
 		);
@@ -175,7 +176,7 @@ class Strong_Testimonials_Defaults {
 		 * @since 2.2.2 Fix bug caused by localizing 'categories'
 		 */
 		$field_types['optional'] = array(
-			'category-selector' => array(
+			'category-selector'  => array(
 				'input_type'              => 'category-selector',
 				'option_label'            => __( 'category selector', 'strong-testimonials' ),
 				'show_default_options'    => 0,
@@ -191,7 +192,7 @@ class Strong_Testimonials_Defaults {
 				'show_admin_table_option' => 0,
 				'name_mutable'            => 0,
 			),
-			'shortcode' => array(
+			'shortcode'          => array(
 				'input_type'              => 'shortcode',
 				'option_label'            => __( 'shortcode', 'strong-testimonials' ),
 				'show_label'              => 0,
@@ -202,14 +203,14 @@ class Strong_Testimonials_Defaults {
 				'show_admin_table_option' => 0,
 				'show_shortcode_options'  => 1,
 			),
-			'rating' => array(
+			'rating'             => array(
 				'input_type'              => 'rating',
 				'option_label'            => __( 'star rating', 'strong-testimonials' ),
 				'show_placeholder_option' => 0,
 				'admin_table'             => 1,
 				'admin_table_option'      => 1,
 				'show_admin_table_option' => 1,
-			)
+			),
 		);
 
 		/*
@@ -223,7 +224,7 @@ class Strong_Testimonials_Defaults {
 		 * Assemble all fields
 		 */
 		$default_fields = array(
-			'field_base' => $field_base,
+			'field_base'  => $field_base,
 			'field_types' => $field_types,
 		);
 
@@ -241,10 +242,10 @@ class Strong_Testimonials_Defaults {
 		// Assemble field groups.
 		$forms = array(
 			'default' => array(
-				'name'   => 'default',
-				'label'  => __( 'Default Form', 'strong-testimonials' ),
+				'name'     => 'default',
+				'label'    => __( 'Default Form', 'strong-testimonials' ),
 				'readonly' => 1,
-				'fields' => array(
+				'fields'   => array(
 					// ------
 					// CUSTOM
 					// ------
@@ -307,14 +308,14 @@ class Strong_Testimonials_Defaults {
 						'admin_table' => 1,
 					),
 				),
-			)
+			),
 		);
 
 		$forms['minimal'] = array(
-			'name'   => 'minimal',
-			'label'  => __( 'Minimal Form', 'strong-testimonials' ),
+			'name'     => 'minimal',
+			'label'    => __( 'Minimal Form', 'strong-testimonials' ),
 			'readonly' => 1,
-			'fields' => array(
+			'fields'   => array(
 				// ------
 				// CUSTOM
 				// ------
@@ -352,9 +353,9 @@ class Strong_Testimonials_Defaults {
 		foreach ( $forms as $form_name => $form ) {
 			foreach ( $form['fields'] as $key => $array ) {
 				if ( 'post' == $array['record_type'] ) {
-					$forms[$form_name]['fields'][ $key ] = array_merge( $default_fields['field_types']['post'][ $array['name'] ], $array );
+					$forms[ $form_name ]['fields'][ $key ] = array_merge( $default_fields['field_types']['post'][ $array['name'] ], $array );
 				} else {
-					$forms[$form_name]['fields'][ $key ] = array_merge( $default_fields['field_types']['custom'][ $array['input_type'] ], $array );
+					$forms[ $form_name ]['fields'][ $key ] = array_merge( $default_fields['field_types']['custom'][ $array['input_type'] ], $array );
 				}
 			}
 		}
@@ -373,10 +374,10 @@ class Strong_Testimonials_Defaults {
 
 		// Copy default fields to custom fields.
 		$forms[1] = array(
-			'name'   => 'custom',
-			'label'  => __( 'Custom Form', 'strong-testimonials' ),
+			'name'     => 'custom',
+			'label'    => __( 'Custom Form', 'strong-testimonials' ),
 			'readonly' => 0,
-			'fields' => $base_forms['default']['fields'],
+			'fields'   => $base_forms['default']['fields'],
 		);
 
 		return $forms;
@@ -482,17 +483,17 @@ class Strong_Testimonials_Defaults {
 		$default_view_options = array(
 
 			'mode' => array(
-				'display'   => array(
+				'display'         => array(
 					'name'        => 'display',
 					'label'       => __( 'Display', 'strong-testimonials' ),
 					'description' => __( 'Display your testimonials in a list or a grid.', 'strong-testimonials' ),
 				),
-				'slideshow' => array(
+				'slideshow'       => array(
 					'name'        => 'slideshow',
 					'label'       => __( 'Slideshow', 'strong-testimonials' ),
 					'description' => __( 'Create a slideshow of your testimonials.', 'strong-testimonials' ),
 				),
-				'form'      => array(
+				'form'            => array(
 					'name'        => 'form',
 					'label'       => __( 'Form', 'strong-testimonials' ),
 					'description' => __( 'Display a testimonial submission form.', 'strong-testimonials' ),
@@ -528,121 +529,121 @@ class Strong_Testimonials_Defaults {
 					'none'   => array(
 						'label' => _x( 'none', 'slideshow controls option', 'strong-testimonials' ),
 						'args'  => array(  // base args; style will add more args
-							'controls' => 0,
-							'pager' => 0,
-							'autoControls' => 0,
+						                   'controls'     => 0,
+						                   'pager'        => 0,
+						                   'autoControls' => 0,
 						),
 					),
 					'full'   => array(
-						'label' => _x( 'Bottom: previous / play-pause / next', 'slideshow controls option', 'strong-testimonials' ),
-						'class' => 'controls-type-full',
+						'label'              => _x( 'Bottom: previous / play-pause / next', 'slideshow controls option', 'strong-testimonials' ),
+						'class'              => 'controls-type-full',
 						'add_position_class' => 1,
-						'args'  => array(
-							'pager' => 0,
-							'autoControls' => 1,
+						'args'               => array(
+							'pager'               => 0,
+							'autoControls'        => 1,
 							'autoControlsCombine' => 1,
-							'fullSetButtons' => 1,
-							'fullSetText' => 1,
-						)
+							'fullSetButtons'      => 1,
+							'fullSetText'         => 1,
+						),
 					),
 					'simple' => array(
-						'label' => _x( 'Bottom: previous / next', 'slideshow controls option', 'strong-testimonials' ),
-						'class' => 'controls-type-simple',
+						'label'              => _x( 'Bottom: previous / next', 'slideshow controls option', 'strong-testimonials' ),
+						'class'              => 'controls-type-simple',
 						'add_position_class' => 1,
-						'args'  => array(
-							'controls' => 1,
+						'args'               => array(
+							'controls'     => 1,
 							'autoControls' => 0,
-						)
+						),
 					),
 					'sides'  => array(
-						'label' => _x( 'Sides: previous / next', 'slideshow controls option', 'strong-testimonials' ),
-						'class' => 'controls-type-sides',
+						'label'              => _x( 'Sides: previous / next', 'slideshow controls option', 'strong-testimonials' ),
+						'class'              => 'controls-type-sides',
 						'add_position_class' => 0,
-						'args'  => array(
-							'controls' => 1,
+						'args'               => array(
+							'controls'     => 1,
 							'autoControls' => 0,
-							'prevText' => '',
-							'nextText' => '',
-						)
-					)
+							'prevText'     => '',
+							'nextText'     => '',
+						),
+					),
 				),
 				'pager'    => array(
-					'none'   => array(
+					'none' => array(
 						'label' => _x( 'none', 'slideshow navigation option', 'strong-testimonials' ),
 						'args'  => array(),
 					),
-					'full'   => array(
+					'full' => array(
 						'label' => _x( 'full', 'slideshow navigation option', 'strong-testimonials' ),
 						//'class' => 'controls-pager-full',
 						'class' => 'pager-type-full',
 						'args'  => array(
 							'pager' => 1,
-						)
+						),
 					),
-				)
+				),
 			),
 
-			'slideshow_nav_style' => array(
+			'slideshow_nav_style'    => array(
 				'controls' => array(
 					'buttons'  => array(
 						'label' => _x( 'buttons 1', 'slideshow navigation option', 'strong-testimonials' ),
 						'class' => 'controls-style-buttons',
 						'args'  => array(
 							'startText' => '',
-							'stopText' => '',
-							'prevText' => '',
-							'nextText' => '',
-						)
+							'stopText'  => '',
+							'prevText'  => '',
+							'nextText'  => '',
+						),
 					),
 					'buttons2' => array(
 						'label' => _x( 'buttons 2', 'slideshow navigation option', 'strong-testimonials' ),
 						'class' => 'controls-style-buttons2',
 						'args'  => array(
 							'startText' => '',
-							'stopText' => '',
-							'prevText' => '',
-							'nextText' => '',
-						)
+							'stopText'  => '',
+							'prevText'  => '',
+							'nextText'  => '',
+						),
 					),
 					'buttons3' => array(
 						'label' => _x( 'buttons 3', 'slideshow navigation option', 'strong-testimonials' ),
 						'class' => 'controls-style-buttons3',
 						'args'  => array(
 							'startText' => '',
-							'stopText' => '',
-							'prevText' => '',
-							'nextText' => '',
-						)
-					),
-					'text' => array(
-						'label' => _x( 'text', 'slideshow navigation option', 'strong-testimonials' ),
-						'class' => 'controls-style-text',
-						'args' => array(
-							'startText' => _x( 'Play', 'slideshow control', 'strong-testimonials' ),
-							'stopText' => _x( 'Pause', 'slideshow control', 'strong-testimonials' ),
-							'prevText' => _x( 'Previous', 'slideshow_control', 'strong-testimonials' ),
-							'nextText' => _x( 'Next', 'slideshow_control', 'strong-testimonials' ),
-						)
-					)
-				),
-				'pager' => array(
-					'buttons'  => array(
-						'label' => _x( 'buttons', 'slideshow navigation option', 'strong-testimonials' ),
-						'class' => 'pager-style-buttons',
-						'args'  => array(
-							'buildPager' => 'icons',
-							'simpleSetPager' => 1,
-						)
+							'stopText'  => '',
+							'prevText'  => '',
+							'nextText'  => '',
+						),
 					),
 					'text'     => array(
 						'label' => _x( 'text', 'slideshow navigation option', 'strong-testimonials' ),
+						'class' => 'controls-style-text',
+						'args'  => array(
+							'startText' => _x( 'Play', 'slideshow control', 'strong-testimonials' ),
+							'stopText'  => _x( 'Pause', 'slideshow control', 'strong-testimonials' ),
+							'prevText'  => _x( 'Previous', 'slideshow_control', 'strong-testimonials' ),
+							'nextText'  => _x( 'Next', 'slideshow_control', 'strong-testimonials' ),
+						),
+					),
+				),
+				'pager'    => array(
+					'buttons' => array(
+						'label' => _x( 'buttons', 'slideshow navigation option', 'strong-testimonials' ),
+						'class' => 'pager-style-buttons',
+						'args'  => array(
+							'buildPager'     => 'icons',
+							'simpleSetPager' => 1,
+						),
+					),
+					'text'    => array(
+						'label' => _x( 'text', 'slideshow navigation option', 'strong-testimonials' ),
 						'class' => 'pager-style-text',
 						'args'  => array(
-							'buildPager' => null,
+							'buildPager'    => null,
 							'simpleSetText' => 1,
-						)
-					)
-				)
+						),
+					),
+				),
 			),
 
 			// Position is shared by Controls and Pagination.
@@ -760,16 +761,17 @@ class Strong_Testimonials_Defaults {
 	 */
 	public static function get_compat_options() {
 		$options = array(
-				'prerender' => 'current', // current | all | none
-				'ajax'      => array(
-						'method'          => '', // (blank) | universal | observer | event | script
-						'universal_timer' => 0.5,
-						'observer_timer'  => 0.5,
-						'container_id'    => 'page',    // = what we listen to  (try page > content > primary)
-						'addednode_id'    => 'content', // = what we listen for
-						'event'           => '',
-						'script'          => '',
-				),
+			'page_loading' => '', // (blank) | general | advanced
+			'prerender'    => 'current', // current | all | none
+			'ajax'         => array(
+				'method'          => '', // (blank) | universal | observer | event | script
+				'universal_timer' => 0.5,
+				'observer_timer'  => 0.5,
+				'container_id'    => 'page',    // = what we listen to  (try page > content > primary)
+				'addednode_id'    => 'content', // = what we listen for
+				'event'           => '',
+				'script'          => '',
+			),
 		);
 
 		return $options;

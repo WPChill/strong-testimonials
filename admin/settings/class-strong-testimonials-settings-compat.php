@@ -82,6 +82,7 @@ class Strong_Testimonials_Settings_Compat {
 	 * @return array
 	 */
 	public static function sanitize_options( $input ) {
+		$input['page_loading']            = sanitize_text_field( $input['page_loading'] );
 		$input['prerender']               = sanitize_text_field( $input['prerender'] );
 		$input['ajax']['method']          = sanitize_text_field( $input['ajax']['method'] );
 		$input['ajax']['universal_timer'] = floatval( sanitize_text_field( $input['ajax']['universal_timer'] ) );

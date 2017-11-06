@@ -9,7 +9,7 @@
 	</th>
 	<td>
     <div class="row header">
-      <p><?php _e( 'The plugin will determine which stylesheets to load up front.', 'strong-testimonials' ); ?>
+      <p><?php _e( 'Load stylesheets and populate script variables   up front.', 'strong-testimonials' ); ?>
         <a class="open-help-tab" href="#tab-panel-wpmtst-help-prerender"><?php _e( 'Help' ); ?></a>
       </p>
     </div>
@@ -20,4 +20,3 @@
 		</fieldset>
 	</td>
 </tr>
-

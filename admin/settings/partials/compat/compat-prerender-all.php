@@ -12,7 +12,7 @@
 		</label>
 	</div>
 	<div>
-		<p class="about"><?php _e( 'Load resources for all views. Required for Ajax page loading.', 'strong-testimonials' ); ?></p>
-		<p class="description"><?php _e( 'Then select an option for <strong>Ajax Page Loading</strong> below.', 'strong-testimonials' ); ?></p>
+		<p class="about"><?php _e( 'For all views. Required for Ajax page loading.', 'strong-testimonials' ); ?></p>
+		<p class="about"><?php _e( 'Then select an option for <strong>Monitor</strong> below.', 'strong-testimonials' ); ?></p>
 	</div>
 </div>

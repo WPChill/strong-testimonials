@@ -13,7 +13,7 @@
     </label>
   </div>
   <div>
-    <p class="about"><?php _e( 'Monitor page changes on a timer.', 'strong-testimonials' ); ?></p>
+    <p class="about"><?php _e( 'Watch for page changes on a timer.', 'strong-testimonials' ); ?></p>
   </div>
 </div>
 

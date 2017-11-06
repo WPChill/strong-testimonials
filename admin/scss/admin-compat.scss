@@ -28,6 +28,37 @@ div.row {
 }
 
 /**
+ * Elements
+ */
+.wrap.wpmtst {
+  h2 {
+    margin: 2em 0 1em;
+
+    &.nav-tab-wrapper {
+      margin-top: 6px;
+    }
+  }
+}
+
+input {
+  &.element {
+    width: 15em;
+  }
+}
+
+/**
+ * Behavior
+ */
+.hidden {
+  display: none;
+}
+
+// Dependent inputs are initially hidden.
+[data-sub] {
+  display: none;
+}
+
+/**
  * Common scenarios table
  */
 div.scenarios {
@@ -70,11 +101,6 @@ div.scenarios {
  */
 div.row {
 
-  // Dependent inputs are initially hidden.
-  &[data-sub] {
-    display: none;
-  }
-
   &:not(:last-child) > div:nth-child(2) {
     padding-bottom: 0.5em;
   }
@@ -94,12 +120,15 @@ div.row {
 
   p {
     &.about {
+      display: inline-block;
+
       &.adjacent {
-        margin-left: 1em;
+        margin-left: 0.5em;
       }
     }
 
     &.description {
+      display: inline-block;
       font-size: 14px;
     }
   }

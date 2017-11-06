@@ -12,7 +12,6 @@
 		</label>
 	</div>
 	<div>
-		<p class="about"><?php _e( 'Load resources when the shortcode is rendered. May result in a flash of unstyled content.', 'strong-testimonials' ); ?></p>
-		<p class="description"><?php _e( 'Try this if the other options don\'t help.', 'strong-testimonials' ); ?></p>
+		<p class="about"><?php _e( 'When the shortcode is rendered. May result in a flash of unstyled content.', 'strong-testimonials' ); ?></p>
 	</div>
 </div>
