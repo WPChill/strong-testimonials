@@ -500,15 +500,12 @@ function wpmtst_get_field( $field, $args = array() ) {
 	return $html;
 }
 
+if ( ! function_exists( 'wpmtst_standard_pagination' ) ) :
 /**
  * Custom pagination. Pluggable.
  *
  * Thanks http://callmenick.com/post/custom-wordpress-loop-with-pagination
- *
- * @param string $numpages
- * @param string $pagerange
  */
-if ( ! function_exists( 'wpmtst_standard_pagination' ) ) :
 function wpmtst_standard_pagination() {
 
 	$query = WPMST()->get_query();
@@ -520,7 +517,7 @@ function wpmtst_standard_pagination() {
 	}
 
 	$pagination_args = array(
-		'base'               => trailingslashit( get_pagenum_link( 1 ) ). '%_%',
+		'base'               => trailingslashit( get_pagenum_link( 1 ) ) . '%_%',
 		'format'             => 'page/%#%',
 		'total'              => $numpages,
 		'current'            => $paged,
@@ -547,7 +544,6 @@ function wpmtst_standard_pagination() {
 	}
 }
 endif;
-
 
 /**
  * If paged, return the current page number.
@@ -585,13 +581,12 @@ function wpmtst_new_pagination_2() {
 }
 */
 
+if ( ! function_exists( 'wpmtst_single_template_client' ) ) :
 /**
  * Single testimonial custom fields. Pluggable.
  *
  * @since 2.22.0
  */
-if ( ! function_exists( 'wpmtst_single_template_client' ) ) :
-
 function wpmtst_single_template_client() {
     $view = wpmtst_find_single_template_view();
     if ( $view && isset( $view['client_section'] ) ) {
@@ -604,5 +599,4 @@ function wpmtst_single_template_client() {
 	    echo wpmtst_client_section( $view['client_section'] );
     }
 }
-
 endif;
