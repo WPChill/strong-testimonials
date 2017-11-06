@@ -164,7 +164,7 @@ function wpmtst_view_settings( $action = '', $view_id = null ) {
 			$view['template'] = 'default:content';
 	}
 
-	$view['nav']     = explode( ',', str_replace( ' ', '', $view['nav'] ) );
+	$view['pagination_settings']['nav'] = explode( ',', str_replace( ' ', '', $view['pagination_settings']['nav'] ) );
 	$view_cats_array = apply_filters( 'wpmtst_l10n_cats', explode( ',', $view['category'] ) );
 
 	// Assemble list of templates

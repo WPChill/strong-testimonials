@@ -575,13 +575,18 @@ class Strong_Testimonials_Updater {
 				$view_data = self::convert_modern_title( $view_data );
 				$view_data = self::convert_slideshow( $view_data );
 				$view_data = self::convert_title_link( $view_data );
+				$view_data = self::convert_pagination_type( $view_data );
 			}
 
 			// Merge in new default values.
 			$view['data'] = array_merge( $default_view, $view_data );
 
 			// Merge nested arrays individually. Don't use array_merge_recursive.
-			$view['data']['background']         = array_merge( $default_view['background'], $view_data['background'] );
+
+			$view['data']['background'] = array_merge( $default_view['background'], $view_data['background'] );
+
+			$view['data']['pagination_settings'] = array_merge( $default_view['pagination_settings'], $view_data['pagination_settings'] );
+
 			$view['data']['slideshow_settings'] = array_merge( $default_view['slideshow_settings'], $view_data['slideshow_settings'] );
 			ksort( $view['data']['slideshow_settings'] );
 
@@ -907,6 +912,32 @@ class Strong_Testimonials_Updater {
 
 			update_post_meta( $post->ID, 'nofollow', $new_value );
 		}
+	}
+
+	/**
+	 * Convert pagination settings.
+	 *
+	 * @since 2.28.0
+	 *
+	 * @param $view_data
+	 *
+	 * @return mixed
+	 */
+	public static function convert_pagination_type( $view_data ) {
+		if ( isset( $view_data['pagination_type'] ) ) {
+			$view_data['pagination_settings']['type'] = $view_data['pagination_type'];
+			unset( $view_data['pagination_type'] );
+		}
+		if ( isset( $view_data['nav'] ) ) {
+			$view_data['pagination_settings']['nav'] = $view_data['nav'];
+			unset( $view_data['nav'] );
+		}
+		if ( isset( $view_data['per_page'] ) ) {
+			$view_data['pagination_settings']['per_page'] = $view_data['per_page'];
+			unset( $view_data['per_page'] );
+		}
+
+		return $view_data;
 	}
 
 	/**

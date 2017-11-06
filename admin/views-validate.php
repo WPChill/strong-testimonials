@@ -122,10 +122,10 @@ function wpmtst_sanitize_view( $input ) {
 	$data['all']   = sanitize_text_field( $input['all'] );
 	$data['count'] = (int) sanitize_text_field( $input['count'] );
 
-	$data['pagination']      = isset( $input['pagination'] ) ? 1 : 0;
-	$data['pagination_type'] = sanitize_text_field( $input['pagination_type'] );
-	$data['per_page']        = (int) sanitize_text_field( $input['per_page'] );
-	$data['nav']             = str_replace( ' ', '', sanitize_text_field( $input['nav'] ) );
+	$data['pagination']                      = isset( $input['pagination'] ) ? 1 : 0;
+	$data['pagination_settings']['type']     = sanitize_text_field( $input['pagination_settings']['type'] );
+	$data['pagination_settings']['nav']      = str_replace( ' ', '', sanitize_text_field( $input['pagination_settings']['nav'] ) );
+	$data['pagination_settings']['per_page'] = (int) sanitize_text_field( $input['pagination_settings']['per_page'] );
 
 	$data['title']              = isset( $input['title'] ) ? 1 : 0;
 	$data['title_link']         = isset( $input['title_link'] ) ? 1 : 0;

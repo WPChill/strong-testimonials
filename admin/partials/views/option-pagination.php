@@ -10,11 +10,11 @@
 		<div class="row-inner">
 			<div class="inline">
 				<label for="view-pagination_type">
-					<select id="view-pagination_type" name="view[data][pagination_type]" class="if selectper">
-						<option value="simple" <?php selected( 'simple', $view['pagination_type'] ); ?>>
+					<select id="view-pagination_type" name="view[data][pagination_settings][type]" class="if selectper">
+						<option value="simple" <?php selected( 'simple', $view['pagination_settings']['type'] ); ?>>
 							<?php _e( 'simple', 'strong-testimonials' ); ?>
 						</option>
-						<option value="standard" <?php selected( 'standard', $view['pagination_type'] ); ?>>
+						<option value="standard" <?php selected( 'standard', $view['pagination_settings']['type'] ); ?>>
 							<?php _e( 'WordPress standard', 'strong-testimonials' ); ?>
 						</option>
 					</select>
@@ -43,22 +43,22 @@
 				<label for="view-per_page">
 					<?php _ex( 'Per page', 'quantity', 'strong-testimonials' ); ?>
 				</label>
-				<input id="view-per_page" class="input-incremental" type="number" min="1" name="view[data][per_page]"
-					   value="<?php echo $view['per_page']; ?>" size="3">
+				<input id="view-per_page" class="input-incremental" type="number" min="1" name="view[data][pagination_settings][per_page]"
+					   value="<?php echo $view['pagination_settings']['per_page']; ?>" size="3">
 			</div>
 
 			<div class="inline">
 				<label for="view-nav">
 					<?php _e( 'Navigation', 'strong-testimonials' ); ?>
 				</label>
-				<select id="view-nav" name="view[data][nav]">
-					<option value="before" <?php selected( in_array( 'before', $view['nav'] ) ); ?>>
+				<select id="view-nav" name="view[data][pagination_settings][nav]">
+					<option value="before" <?php selected( in_array( 'before', $view['pagination_settings']['nav'] ) ); ?>>
 						<?php _e( 'before', 'strong-testimonials' ); ?>
 					</option>
-					<option value="after" <?php selected( in_array( 'after', $view['nav'] ) ); ?>>
+					<option value="after" <?php selected( in_array( 'after', $view['pagination_settings']['nav'] ) ); ?>>
 						<?php _e( 'after', 'strong-testimonials' ); ?>
 					</option>
-					<option value="before,after" <?php selected( in_array( 'before', $view['nav'] ) && in_array( 'after', $view['nav'] ) ); ?>>
+					<option value="before,after" <?php selected( in_array( 'before', $view['pagination_settings']['nav'] ) && in_array( 'after', $view['pagination_settings']['nav'] ) ); ?>>
 						<?php _e( 'before & after', 'strong-testimonials' ); ?>
 					</option>
 				</select>
