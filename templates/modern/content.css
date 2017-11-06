@@ -110,7 +110,7 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
 
 /* Standard pagination
 -----------------------------------------------*/
-.standard-pagination {
+.nav-links {
   /* match .strong-content container */
   margin: 20px auto;
   text-align: center;
@@ -142,6 +142,16 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
 }
 .strong-view ul.page-numbers li span.current {
   background: #999;
+  color: #FFF;
+}
+.strong-view ul.page-numbers li .prev.page-numbers, .strong-view ul.page-numbers li .next.page-numbers {
+  background: transparent;
+  border-radius: 0;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+.strong-view ul.page-numbers li .prev.page-numbers:hover, .strong-view ul.page-numbers li .next.page-numbers:hover {
+  background: #BBB;
   color: #FFF;
 }
 

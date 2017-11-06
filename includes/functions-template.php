@@ -527,7 +527,7 @@ function wpmtst_standard_pagination() {
 		'show_all'           => false,
 		'end_size'           => 1,
 		'mid_size'           => 2,
-		'prev_next'          => false,
+		//'prev_next'          => false,
 		//'prev_text'          => __( '&laquo;' ),
 		//'next_text'          => __( '&raquo;' ),
 		'type'               => 'list',
@@ -540,7 +540,7 @@ function wpmtst_standard_pagination() {
 	$paginate_links = paginate_links( apply_filters( 'wpmtst_pagination_args', $pagination_args ) );
 
 	if ( $paginate_links ) {
-		echo "<nav class='standard-pagination'>";
+		echo "<nav class='nav-links'>";
 		//echo "<span class='page-numbers page-num'>Page " . $paged . " of " . $numpages . "</span> ";
 		echo $paginate_links;
 		echo "</nav>";
