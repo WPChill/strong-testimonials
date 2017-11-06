@@ -5,6 +5,7 @@
 ;(function ($) {
 
   var currentSettings = {}
+  var quick = 200
 
   // Store current setting(s)
   function saveCurrentSettings () {
@@ -17,13 +18,15 @@
     })
   }
 
-  // Toggle dependent inputs
+  // Update display based on current selections
   function updateDisplay () {
-    var quick = 200
-
-    matchMethodSetting()
+    // matchMethodSetting()
     highlightRadioLabel()
+    toggle()
+  }
 
+  // Toggle dependent inputs
+  function toggle () {
     $('[data-group]').each(function (index, el) {
       var group = $(this).data('group')
       var $sub = $("[data-sub='" + group + "']")
@@ -35,7 +38,7 @@
     })
   }
 
-  // Update available options
+  // Update available options --- not currently used
   function matchMethodSetting () {
     if ($('#prerender-current').is(':checked')) {
       saveCurrentSettings()
@@ -70,15 +73,31 @@
     });
   }
 
-  // Preset
+  // Presets
   function setScenario1() {
-    $('#prerender-all').click()
-    $('#method-universal').click()
+    $('#page-loading-general').click()
+  }
+
+  function setScenarioDefault() {
+    $('#prerender-current').click()
+    $('#method-none').click()
   }
 
   // Listen for change
   $('.form-table').on('change', function (e) {
     updateDisplay()
+    var currentType = $("input[name='wpmtst_compat_options[page_loading]']:checked").val()
+    switch (currentType) {
+      case 'general':
+        setScenario1()
+        break;
+      case 'advanced':
+        // $('#prerender-all').click()
+        // $('#method-universal').click()
+        break;
+      default:
+        setScenarioDefault()
+    }
   })
 
   // Listen for presets
