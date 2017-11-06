@@ -61,7 +61,7 @@ class Strong_Testimonials_Shortcodes {
 	 * @return array
 	 */
 	public static function testimonial_view_filter( $out, $pairs, $atts ) {
-		return WPMST()->render->parse_view( self::normalize_empty_atts( $out ), $pairs, $atts );
+		return WPMST()->render->parse_view( normalize_empty_atts( $out ), $pairs, $atts );
 	}
 
 	/**
@@ -139,29 +139,6 @@ class Strong_Testimonials_Shortcodes {
 		$posts_array = get_posts( $args );
 
 		return count( $posts_array );
-	}
-
-	/**
-	 * Normalize empty shortcode attributes.
-	 *
-	 * Turns atts into tags - brilliant!
-	 * Thanks http://wordpress.stackexchange.com/a/123073/32076
-	 *
-	 * @param $atts
-	 *
-	 * @return mixed
-	 */
-	public static function normalize_empty_atts( $atts ) {
-		if ( !empty( $atts ) ) {
-			foreach ( $atts as $attribute => $value ) {
-				if ( is_int( $attribute ) ) {
-					$atts[ strtolower( $value ) ] = true;
-					unset( $atts[ $attribute ] );
-				}
-			}
-		}
-
-		return $atts;
 	}
 
 	/**

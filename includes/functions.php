@@ -955,3 +955,28 @@ function wpmtst_trim_array( $input ) {
 
 	return array_map( 'wpmtst_trim_array', $input );
 }
+
+if ( ! function_exists( 'normalize_empty_atts' ) ) {
+/**
+ * Normalize empty shortcode attributes.
+ *
+ * Turns atts into tags - brilliant!
+ * Thanks http://wordpress.stackexchange.com/a/123073/32076
+ *
+ * @param $atts
+ *
+ * @return mixed
+ */
+function normalize_empty_atts( $atts ) {
+    if ( ! empty( $atts ) ) {
+        foreach ( $atts as $attribute => $value ) {
+            if ( is_int( $attribute ) ) {
+                $atts[ strtolower( $value ) ] = true;
+                unset( $atts[ $attribute ] );
+            }
+        }
+    }
+
+    return $atts;
+}
+}
