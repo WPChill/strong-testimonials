@@ -383,8 +383,7 @@ input[type="text"].long {
 /* Misc positioning */
 .inline {
   display: inline-block;
-  /*white-space: nowrap;*/
-  margin-right: 0.5em;
+  margin-right: 1em;
   vertical-align: top;
 }
 
@@ -1185,5 +1184,3 @@ table.wpmtst-help-tab td:not(:last-child) {
   right: 0;
   background: rgba(96, 96, 96, 0.3);
 }
-
-/*# sourceMappingURL=views.css.map */
