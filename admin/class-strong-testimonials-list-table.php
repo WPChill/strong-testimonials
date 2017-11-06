@@ -262,7 +262,7 @@ class Strong_Testimonials_List_Table {
 		$args = wp_parse_args( $args, array(
 			'total_items' => 0,
 			'total_pages' => 0,
-			'per_page' => 0,
+			'per_page'    => 0,
 		) );
 
 		if ( !$args['total_pages'] && $args['per_page'] > 0 )

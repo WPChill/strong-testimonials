@@ -166,16 +166,27 @@ class Strong_Testimonials_Render {
 			'more_page_hook'     => 'wpmtst_view_footer',
 			'more_page_id'       => 0,
 			'more_page_text'     => _x( 'Read more testimonials', 'link', 'strong-testimonials' ),
-			'nav'                => 'after',
-			'newest'             => '',
-			'note'               => '',
-			'oldest'             => '',
-			'pagination'         => '',
-			'pagination_type'    => 'simple',
-			'per_page'           => '',
-			'random'             => '',
-			'slideshow'          => '',
-			'slideshow_settings' => array(
+
+			'newest'              => '',
+			'note'                => '',
+			'oldest'              => '',
+			'pagination'          => '',
+			'pagination_settings' => array(
+				'type'               => 'simple',
+				'nav'                => 'after',
+				'per_page'           => '',
+				'show_all'           => '',
+				'end_size'           => 1,
+				'mid_size'           => 1,
+				'prev_next'          => 1,
+				'prev_text'          => '&laquo; Previous',
+				'next_text'          => 'Next &raquo;',
+				'before_page_number' => '',
+				'after_page_number'  => '',
+			),
+			'random'              => '',
+			'slideshow'           => '',
+			'slideshow_settings'  => array(
 				'effect'             => 'fade',
 				'speed'              => 1,
 				'pause'              => 8,
@@ -191,16 +202,16 @@ class Strong_Testimonials_Render {
 				'pager_style'        => 'buttons',
 				'nav_position'       => 'inside',
 			),
-			'template'           => '',
-			'thumbnail'          => '',
-			'thumbnail_size'     => 'thumbnail',
-			'thumbnail_height'   => null,
-			'thumbnail_width'    => null,
-			'title'              => '',
-			'title_link'         => 0,
-			'use_default_length' => 1,
-			'use_default_more'   => 0,
-			'view'               => '',
+			'template'            => '',
+			'thumbnail'           => '',
+			'thumbnail_size'      => 'thumbnail',
+			'thumbnail_height'    => null,
+			'thumbnail_width'     => null,
+			'title'               => '',
+			'title_link'          => 0,
+			'use_default_length'  => 1,
+			'use_default_more'    => 0,
+			'view'                => '',
 		);
 		$this->view_defaults = apply_filters( 'wpmtst_view_default', $defaults );
 	}
@@ -739,7 +750,7 @@ class Strong_Testimonials_Render {
 		}
 
 		if ( ! $view_data['pagination'] ) {
-			unset( $view_data['per_page'] );
+			unset( $view_data['pagination_settings'] );
 		}
 
 		if ( 'slideshow' == $view_data['mode'] ) {
