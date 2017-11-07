@@ -395,6 +395,16 @@ class Strong_View_Slideshow extends Strong_View_Display {
 
 		$view_options = apply_filters( 'wpmtst_view_options', get_option( 'wpmtst_view_options' ) );
 
+		/**
+		 * Compatibility with lazy loading and use of imagesLoaded.
+		 */
+		$compat = array();
+		if ( class_exists( 'FL_LazyLoad_Images' ) && get_theme_mod('lazy_load_images') ) {
+			$compat['flatsome'] = true;
+		} else {
+			$compat['flatsome'] = false;
+		}
+
 		$args = array(
 			'mode'                => $this->atts['slideshow_settings']['effect'],
 			'speed'               => $this->atts['slideshow_settings']['speed'] * 1000,
@@ -408,7 +418,8 @@ class Strong_View_Slideshow extends Strong_View_Display {
 			'autoControls'        => 0,
 			'pager'               => 0,
 			'slideCount'          => $this->post_count,
-			'debug'               => false
+			'debug'               => false,
+			'compat'              => $compat,
 		);
 		if ( ! $this->atts['slideshow_settings']['adapt_height'] ) {
 			$args['stretch'] = $this->atts['slideshow_settings']['stretch'] ? 1 : 0;

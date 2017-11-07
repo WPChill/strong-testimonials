@@ -20,6 +20,7 @@
 
     debug: false,
     logAs: 'strongSlider',
+    compat: {},
 
     // GENERAL
     mode: 'horizontal',
@@ -254,24 +255,48 @@
       // Wait for images loaded
       if (slider.settings.imagesLoaded) {
         var imgLoad = imagesLoaded(el)
-        imgLoad.on('always', initVisibilityCheck);
+        imgLoad.on('always', initVisibilityCheck)
       } else {
         initVisibilityCheck()
       }
 
     }
 
+    /**
+     * Primary
+     *
+     * @returns {boolean}
+     */
     var reallyVisible = function () {
       return (viewEl.is(':visible') && viewEl.css('visibility') !== 'hidden');
     }
 
+    /**
+     * Secondary
+     *
+     * @returns {boolean}
+     */
+    var compatCheck = function () {
+      if (slider.settings.compat.flatsome) {
+        if (viewEl.find('img.lazy-load').length) {
+          if (slider.debug) console.log(slider.logAs, 'lazy loading...')
+          return false
+        }
+      }
+      if (slider.debug) console.log(slider.logAs, 'lazy load complete')
+      return true
+    }
+
+    /**
+     * Check visibility and lazy load status.
+     */
     var initVisibilityCheck = function () {
-      if (reallyVisible()) {
+      if (reallyVisible() && compatCheck()) {
         clearInterval(slider.visibilityInterval)
         setup()
       } else {
         if (slider.visibilityInterval === 0) {
-          slider.visibilityInterval = setInterval(initVisibilityCheck, 100)
+          slider.visibilityInterval = setInterval(initVisibilityCheck, 500)
         }
       }
     }
