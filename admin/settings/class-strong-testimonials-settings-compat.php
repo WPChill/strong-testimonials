@@ -77,8 +77,13 @@ class Strong_Testimonials_Settings_Compat {
 	 */
 	public function sanitize_options( $input ) {
 		$input['page_loading']            = sanitize_text_field( $input['page_loading'] );
-		$input['prerender']               = sanitize_text_field( $input['prerender'] );
-		$input['ajax']['method']          = sanitize_text_field( $input['ajax']['method'] );
+		if ( 'general' == $input['page_loading'] ) {
+			$input['prerender']      = 'all';
+			$input['ajax']['method'] = 'universal';
+		} else {
+			$input['prerender']      = sanitize_text_field( $input['prerender'] );
+			$input['ajax']['method'] = sanitize_text_field( $input['ajax']['method'] );
+		}
 		$input['ajax']['universal_timer'] = floatval( sanitize_text_field( $input['ajax']['universal_timer'] ) );
 		$input['ajax']['observer_timer']  = floatval( sanitize_text_field( $input['ajax']['observer_timer'] ) );
 		$input['ajax']['container_id']    = sanitize_text_field( $input['ajax']['container_id'] );

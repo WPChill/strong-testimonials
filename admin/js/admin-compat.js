@@ -76,6 +76,8 @@
   // Presets
   function setScenario1() {
     $('#page-loading-general').click()
+    $('#prerender-all').click().prop('checked', true)
+    $('#method-universal').click().prop('checked', true)
   }
 
   function setScenarioDefault() {
@@ -92,8 +94,6 @@
         setScenario1()
         break;
       case 'advanced':
-        // $('#prerender-all').click()
-        // $('#method-universal').click()
         break;
       default:
         setScenarioDefault()
