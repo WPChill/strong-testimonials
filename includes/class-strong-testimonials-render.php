@@ -39,16 +39,21 @@ class Strong_Testimonials_Render {
 	private function add_enqueue_actions() {
 		$options = get_option( 'wpmtst_compat_options' );
 
+		/**
+		 * Fallback.
+		 * Provision each view when the shortcode is rendered.
+		 * Enqueue both stylesheets and scripts in footer.
+		 * _!_ Required for template function. _!_
+		 */
+		add_action( 'wpmtst_view_rendered', array( $this, 'view_rendered' ) );
+		add_action( 'wpmtst_form_rendered', array( $this, 'view_rendered' ) );
+		add_action( 'wpmtst_form_success', array( $this, 'view_rendered' ) );
+
 		switch ( $options['prerender'] ) {
 			case 'none':
 				/**
-				 * Fallback.
-				 * Provision each view when the shortcode is rendered.
-				 * Enqueue both stylesheets and scripts in footer.
+				 * Use fallback.
 				 */
-				add_action( 'wpmtst_view_rendered', array( $this, 'view_rendered' ) );
-				add_action( 'wpmtst_form_rendered', array( $this, 'view_rendered' ) );
-				add_action( 'wpmtst_form_success', array( $this, 'view_rendered' ) );
 				break;
 
 			case 'all':
