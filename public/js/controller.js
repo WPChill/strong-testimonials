@@ -49,7 +49,11 @@ var strongController = {
     var sliders = jQuery(".strong-view.slider-container[data-state='idle']")
     if (debugit) console.log('sliders found:', sliders.length)
     if (sliders.length) {
-      sliders.strongSlider()
+      // sliders.strongSlider()
+      // Initialize independently in case the same slider appears twice on a page.
+      sliders.each( function () {
+        jQuery(this).strongSlider()
+      })
     }
   },
 
