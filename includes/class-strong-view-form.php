@@ -138,6 +138,7 @@ class Strong_View_Form extends Strong_View {
 		}
 
 		$container_data_list = array();
+		$container_data_list['state'] = 'idle';
 
 		/**
 		 * Filter classes.
@@ -204,6 +205,7 @@ class Strong_View_Form extends Strong_View {
 		}
 
 		WPMST()->render->add_script_var( 'wpmtst-form-validation', 'strongForm', $args );
+		WPMST()->render->add_script( 'wpmtst-controller' );
 	}
 
 	/**

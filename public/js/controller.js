@@ -4,7 +4,7 @@
  * @namespace window.strongControllerParms
  */
 
-'use strict'
+// 'use strict'
 
 var debugit = false
 
@@ -60,11 +60,13 @@ var strongController = {
   /**
    * Initialize paginated views.
    */
-  initPaginated: function () {
+  initPagers: function () {
     var pagers = jQuery(".strong-pager[data-state='idle']")
     if (debugit) console.log('pagers found:', pagers.length)
     if (pagers.length) {
-      pagers.strongPager()
+      pagers.each( function () {
+        jQuery(this).strongPager()
+      })
     }
   },
 
@@ -93,6 +95,17 @@ var strongController = {
       })
     }
 
+  },
+
+  /**
+   * Initialize form validation.
+   */
+  initForm: function () {
+    var forms = jQuery(".strong-form[data-state='idle']")
+    if (debugit) console.log('forms found:', forms.length)
+    if (forms.length) {
+      strongValidation.init()
+    }
   },
 
   /**
@@ -193,8 +206,9 @@ var strongController = {
   start: function() {
     if (debugit) console.log('start')
     strongController.initSliders()
-    strongController.initPaginated()
+    strongController.initPagers()
     strongController.initLayouts()
+    strongController.initForm()
   },
 
   /**
@@ -255,7 +269,6 @@ var strongController = {
 }
 
 jQuery(document).ready(function ($) {
-// document.addEventListener("DOMContentLoaded", function(event) {
 
   // Initialize controller.
   strongController.init()
