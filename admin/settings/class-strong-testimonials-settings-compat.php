@@ -143,7 +143,7 @@ class Strong_Testimonials_Settings_Compat {
                             </div>
                             <div>
                                 <p><?php _e( 'Your site is using <strong>Ajax page loading</strong> &ndash; also known as page animations, transition effects or Pjax (pushState Ajax) &ndash; provided by your theme or another plugin.', 'strong-testimonials' ); ?></p>
-                                <p><?php _e( 'Instead of loading the entire page, this technique fetches only the new content and inserts it into the page.', 'strong-testimonials' ); ?></p>
+                                <p><?php _e( 'Instead of loading the entire page, this technique fetches only the new content.', 'strong-testimonials' ); ?></p>
                             </div>
                             <div>
                                 <p><strong><?php _e( 'Ajax Page Loading', 'strong-testimonials' ); ?>
