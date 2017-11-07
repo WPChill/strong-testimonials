@@ -58,7 +58,9 @@ class Strong_Testimonials_View_Widget extends WP_Widget {
 			 * Intermediate filter because `the_content` filters are not run on widget text.
 			 * @since 2.11.9
 			 */
-			echo apply_filters( 'wpmtst_widget_text', wpmtst_strong_view_shortcode( $instance, null ) );
+			ob_start();
+			strong_testimonials_view( $instance['view'] );
+			echo apply_filters( 'wpmtst_widget_text', ob_get_clean() );
 		}
 
 		echo $data['after_widget'];
