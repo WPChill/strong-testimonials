@@ -22,7 +22,7 @@ var strongController = {
   },
 
   config: {},
-  
+
   setup: function (settings) {
     // Convert strings to integers
     settings.universalTimer = parseInt(settings.universalTimer)
@@ -30,7 +30,6 @@ var strongController = {
     // Convert strings to booleans
     settings.debug = !!settings.debug
     debugit = settings.debug
-
     this.config = jQuery.extend({}, this.defaults, settings)
   },
 
@@ -49,9 +48,8 @@ var strongController = {
     var sliders = jQuery(".strong-view.slider-container[data-state='idle']")
     if (debugit) console.log('sliders found:', sliders.length)
     if (sliders.length) {
-      // sliders.strongSlider()
-      // Initialize independently in case the same slider appears twice on a page.
-      sliders.each( function () {
+      // Initialize independently
+      sliders.each(function () {
         jQuery(this).strongSlider()
       })
     }

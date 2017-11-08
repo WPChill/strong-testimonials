@@ -20,7 +20,9 @@
 
     debug: false,
     logAs: 'strongSlider',
-    compat: {},
+    compat: {
+      flatsome: false
+    },
 
     // GENERAL
     mode: 'horizontal',
@@ -160,7 +162,7 @@
         config = window[sliderVar].config
       }
 
-      slider.settings = $.extend(defaults, config, options)
+      slider.settings = $.extend({}, defaults, config, options)
       slider.debug = slider.settings.debug
       slider.logAs = slider.settings.logAs
       if (slider.debug) console.log(slider.logAs, 'slider.settings', slider.settings)
@@ -246,16 +248,9 @@
         return
       }
 
-      /**
-       * ------------------------------
-       * Run setup
-       * ------------------------------
-       */
-
       // Wait for images loaded
       if (slider.settings.imagesLoaded) {
-        var imgLoad = imagesLoaded(el)
-        imgLoad.on('always', initVisibilityCheck)
+        viewEl.imagesLoaded(initVisibilityCheck)
       } else {
         initVisibilityCheck()
       }
@@ -305,7 +300,6 @@
      * Performs all DOM and CSS modifications
      */
     var setup = function () {
-
       // set the default preload selector (visible)
       var preloadSelector = slider.children.eq(slider.settings.startSlide)
 
@@ -439,7 +433,6 @@
      * Start the slider
      */
     var start = function () {
-
       // if infinite loop, prepare additional slides
       if (slider.settings.infiniteLoop && slider.settings.mode !== 'fade') {
 
