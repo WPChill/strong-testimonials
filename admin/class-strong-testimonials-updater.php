@@ -585,9 +585,17 @@ class Strong_Testimonials_Updater {
 
 			$view['data']['background'] = array_merge( $default_view['background'], $view_data['background'] );
 
-			$view['data']['pagination_settings'] = array_merge( $default_view['pagination_settings'], $view_data['pagination_settings'] );
+			if ( isset( $view_data['pagination_settings'] ) ) {
+				$view['data']['pagination_settings'] = array_merge( $default_view['pagination_settings'], $view_data['pagination_settings'] );
+			} else {
+				$view['data']['pagination_settings'] = $default_view['pagination_settings'];
+			}
 
-			$view['data']['slideshow_settings'] = array_merge( $default_view['slideshow_settings'], $view_data['slideshow_settings'] );
+			if ( isset( $view_data['slideshow_settings'] ) ) {
+				$view['data']['slideshow_settings'] = array_merge( $default_view['slideshow_settings'], $view_data['slideshow_settings'] );
+			} else {
+				$view['data']['slideshow_settings'] = $default_view['slideshow_settings'];
+			}
 			ksort( $view['data']['slideshow_settings'] );
 
 			wpmtst_save_view( $view );
