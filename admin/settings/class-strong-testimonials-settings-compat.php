@@ -424,7 +424,7 @@ class Strong_Testimonials_Settings_Compat {
             <div>
                 <input type="number" id="universal-timer" name="wpmtst_compat_options[ajax][universal_timer]"
                        min=".1" max="5" step=".1" size="3"
-                       value="<?php echo $this->options['ajax']['universal_timer']; ?>" autocomplete="off">
+                       value="<?php echo $this->options['ajax']['universal_timer']; ?>" formnovalidate/>
 				<?php _ex( 'seconds', 'timer setting', 'strong-testimonials' ); ?>
             </div>
         </div>
@@ -466,7 +466,7 @@ class Strong_Testimonials_Settings_Compat {
                 <input type="number" id="observer-timer"
                        name="wpmtst_compat_options[ajax][observer_timer]"
                        min=".1" max="5" step=".1" size="3"
-                       value="<?php echo $this->options['ajax']['observer_timer']; ?>" autocomplete="off">
+                       value="<?php echo $this->options['ajax']['observer_timer']; ?>" formnovalidate/>
 				<?php _ex( 'seconds', 'timer setting', 'strong-testimonials' ); ?>
             </div>
         </div>

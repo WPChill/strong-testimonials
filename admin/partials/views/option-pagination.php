@@ -52,9 +52,9 @@ $links .= '<a href="https://support.strongplugins.com/article/comparing-paginati
 					<?php _ex( 'Per page', 'quantity', 'strong-testimonials' ); ?>
                 </label>
                 <input type="number" id="view-per_page" class="input-incremental"
-                       min="1" size="3"
+                       min="1" step="1" size="3"
                        name="view[data][pagination_settings][per_page]"
-                       value="<?php echo $view['pagination_settings']['per_page']; ?>"/>
+                       value="<?php echo $view['pagination_settings']['per_page']; ?>" formnovalidate/>
             </div>
 
             <div class="inline">
@@ -99,18 +99,18 @@ $links .= '<a href="https://support.strongplugins.com/article/comparing-paginati
 						<?php _ex( 'End size', 'quantity', 'strong-testimonials' ); ?>
                     </label>
                     <input type="number" id="view-pagination-end_size" class="input-incremental"
-                           min="1" size="3"
+                           min="1" step="1" size="3"
                            name="view[data][pagination_settings][end_size]"
-                           value="<?php echo $view['pagination_settings']['end_size']; ?>"/>
+                           value="<?php echo $view['pagination_settings']['end_size']; ?>" formnovalidate/>
                 </div>
                 <div class="inline">
                     <label for="view-pagination-mid_size">
 						<?php _ex( 'Middle size', 'quantity', 'strong-testimonials' ); ?>
                     </label>
                     <input type="number" id="view-pagination-mid_size" class="input-incremental"
-                           min="1" size="3"
+                           min="1" step="1" size="3"
                            name="view[data][pagination_settings][mid_size]"
-                           value="<?php echo $view['pagination_settings']['mid_size']; ?>"/>
+                           value="<?php echo $view['pagination_settings']['mid_size']; ?>" formnovalidate/>
                 </div>
             </div>
         </div>
