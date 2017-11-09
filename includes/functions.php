@@ -432,14 +432,17 @@ function wpmtst_get_views() {
 	global $wpdb;
 	$wpdb->show_errors();
 	$table_name = $wpdb->prefix . 'strong_views';
-	$results = $wpdb->get_results( $wpdb->prepare(
-		"SELECT * FROM $table_name WHERE name != %s ORDER BY id ASC", '_default'
-	), ARRAY_A );
+	$results = $wpdb->get_results( "SELECT * FROM $table_name ORDER BY id ASC", ARRAY_A );
 	$wpdb->hide_errors();
 
 	if ( $wpdb->last_error ) {
-		$message = sprintf( __( 'An error occurred: <code>%s</code>.', 'strong-testimonials' ), $wpdb->last_error ) . ' ' . sprintf( __( 'Please <a href="%s" target="_blank">open a support ticket</a>.', 'strong-testimonials' ), esc_url( 'https://support.strongplugins.com/new-ticket/' ) );
-		wp_die( sprintf( '<div class="error strong-view-error"><p>%s</p></div>', $message ) );
+		deactivate_plugins( 'strong-testimonials/strong-testimonials.php' );
+		$message = '<p><span style="color: #CD0000;">';
+		$message .= __( 'An error occurred.', 'strong-testimonials' ) . '</span>&nbsp;';
+		$message .= __( 'The plugin has been deactivated.', 'strong-testimonials' ) . '&nbsp;';
+		$message .= sprintf( __( 'Please <a href="%s" target="_blank">open a support ticket</a>.', 'strong-testimonials' ), esc_url( 'https://support.strongplugins.com/new-ticket/' ) ) . '</p>';
+		$message .= '<p>' . sprintf( __( '<a href="%s">Go back to Dashboard</a>', 'strong-testimonials' ), esc_url( admin_url() ) ) . '</p>';
+		wp_die( sprintf( '<div class="error strong-view-error">%s</div>', $message ) );
 	}
 
 	return $results;
