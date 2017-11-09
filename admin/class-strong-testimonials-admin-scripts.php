@@ -42,6 +42,9 @@ class Strong_Testimonials_Admin_Scripts {
 
 		$plugin_version = get_option( 'wpmtst_plugin_version' );
 
+		$min = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
+
+
 		wp_register_style( 'wpmtst-font-awesome',
 			WPMTST_PUBLIC_URL . 'fonts/font-awesome-4.6.3/css/font-awesome.min.css',
 			array(),
@@ -193,7 +196,7 @@ class Strong_Testimonials_Admin_Scripts {
 		 * @since 2.18
 		 */
 		wp_register_script( 'wpmtst-ays-script',
-			WPMTST_ADMIN_URL . 'js/lib/are-you-sure/jquery.are-you-sure.js',
+			WPMTST_ADMIN_URL . "js/lib/are-you-sure/jquery.are-you-sure{$min}.js",
 			array( 'jquery' ),
 			$plugin_version,
 			true );
