@@ -294,8 +294,9 @@ class Strong_View_Slideshow extends Strong_View_Display {
 			}
 
 			$container_data_list['slider-var'] = $this->slideshow_signature();
+			$container_data_list['state'] = 'idle';
 
-			$content_class_list[] = 'wpmslider-wrapper';
+			$content_class_list[] = 'wpmslider-content';
 
 			$post_class_list[] = 't-slide';
 
@@ -323,7 +324,7 @@ class Strong_View_Slideshow extends Strong_View_Display {
 	 */
 	public function has_slideshow() {
 
-		WPMST()->add_style( 'wpmtst-font-awesome' );
+		WPMST()->render->add_style( 'wpmtst-font-awesome' );
 
 		$settings          = $this->atts['slideshow_settings'];
 		$not_full_controls = ( 'none' != $settings['controls_type'] || 'full' != $settings['controls_type'] );
@@ -343,7 +344,7 @@ class Strong_View_Slideshow extends Strong_View_Display {
 
 			if ( file_exists( WPMTST_PUBLIC . "css/$filename.css" ) ) {
 				wp_register_style( "wpmtst-$filename", WPMTST_PUBLIC_URL . "css/$filename.css", array(), $this->plugin_version );
-				WPMST()->add_style( "wpmtst-$filename" );
+				WPMST()->render->add_style( "wpmtst-$filename" );
 			}
 
 		} elseif ( $not_full_controls ) {
@@ -358,17 +359,16 @@ class Strong_View_Slideshow extends Strong_View_Display {
 
 				if ( file_exists( WPMTST_PUBLIC . "css/$filename.css" ) ) {
 					wp_register_style( "wpmtst-$filename", WPMTST_PUBLIC_URL . "css/$filename.css", array(), $this->plugin_version );
-					WPMST()->add_style( "wpmtst-$filename" );
+					WPMST()->render->add_style( "wpmtst-$filename" );
 				}
 
 			}
 
 		}
 
-		$sig  = $this->slideshow_signature();
-		$args = $this->slideshow_args();
-		WPMST()->add_script( 'wpmtst-slider' );
-		WPMST()->add_script_var( 'wpmtst-slider', $sig, $args );
+		WPMST()->render->add_script( 'wpmtst-slider' );
+		WPMST()->render->add_script_var( 'wpmtst-slider', $this->slideshow_signature(), $this->slideshow_args() );
+		WPMST()->render->add_script( 'wpmtst-controller' );
 	}
 
 	/**
@@ -395,6 +395,16 @@ class Strong_View_Slideshow extends Strong_View_Display {
 
 		$view_options = apply_filters( 'wpmtst_view_options', get_option( 'wpmtst_view_options' ) );
 
+		/**
+		 * Compatibility with lazy loading and use of imagesLoaded.
+		 */
+		$compat = array();
+		if ( class_exists( 'FL_LazyLoad_Images' ) && get_theme_mod('lazy_load_images') ) {
+			$compat['flatsome'] = true;
+		} else {
+			$compat['flatsome'] = false;
+		}
+
 		$args = array(
 			'mode'                => $this->atts['slideshow_settings']['effect'],
 			'speed'               => $this->atts['slideshow_settings']['speed'] * 1000,
@@ -407,7 +417,9 @@ class Strong_View_Slideshow extends Strong_View_Display {
 			'controls'            => 0,
 			'autoControls'        => 0,
 			'pager'               => 0,
-			'postCount'           => $this->post_count,
+			'slideCount'          => $this->post_count,
+			'debug'               => false,
+			'compat'              => $compat,
 		);
 		if ( ! $this->atts['slideshow_settings']['adapt_height'] ) {
 			$args['stretch'] = $this->atts['slideshow_settings']['stretch'] ? 1 : 0;
@@ -420,6 +432,7 @@ class Strong_View_Slideshow extends Strong_View_Display {
 			$control_setting = 'none';
 		}
 		if ( isset( $options[ $control_setting ] ) && isset( $options[ $control_setting ]['args'] ) ) {
+			$args['controls'] = 1;
 			$args = array_merge( $args, $options[ $control_setting ]['args'] );
 		}
 
@@ -451,11 +464,12 @@ class Strong_View_Slideshow extends Strong_View_Display {
 				$setting = 'none';
 			}
 			if ( isset( $options[ $setting ] ) && isset( $options[ $setting ]['args'] ) ) {
+				$args['pager'] = 1;
 				$args = array_merge( $args, $options[ $setting ]['args'] );
 			}
 		}
 
-		return $args;
+		return array( 'config' => $args );
 	}
 
 }

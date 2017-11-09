@@ -878,6 +878,7 @@ input.button.restore-default {
 
 input.code {
   font-size: 13px;
+  font-family: Consolas, Monaco, monospace;
 }
 
 .wrap h2.nav-tab-wrapper {

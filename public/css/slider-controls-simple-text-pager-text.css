@@ -38,9 +38,6 @@
   z-index: 100;
 }
 .strong-view .wpmslider-wrapper .wpmslider-controls-auto,
-.strong-view .wpmslider-wrapper .wpmslider-controls-auto-item,
-.strong-view .wpmslider-wrapper .wpmslider-controls-full,
-.strong-view .wpmslider-wrapper .wpmslider-controls-full-item,
 .strong-view .wpmslider-wrapper .wpmslider-controls-direction {
   display: inline-block;
   vertical-align: middle;

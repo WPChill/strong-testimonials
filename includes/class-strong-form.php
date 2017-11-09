@@ -1,12 +1,12 @@
 <?php
 /**
- * Form class
- */
-
-/**
  * Class Strong_Testimonials_Form
  */
 class Strong_Testimonials_Form {
+
+	public $form_values;
+
+	public $form_errors;
 
 	/**
 	 * Strong_Testimonials_Form constructor.
@@ -55,7 +55,7 @@ class Strong_Testimonials_Form {
 						$goback = $form_options['success_redirect_url'];
 						break;
 					default:
-						$goback = add_query_arg( 'success', 'yes', wp_get_referer() );
+						$goback = add_query_arg( 'success', '', wp_get_referer() );
 				}
 				wp_redirect( apply_filters( 'wpmtst_form_redirect_url', $goback ) );
 				exit;
@@ -77,13 +77,51 @@ class Strong_Testimonials_Form {
 			} else {
 				$return = array(
 					'success' => false,
-					'errors'  => WPMST()->get_form_errors()
+					'errors'  => $this->get_form_errors()
 				);
 			}
 			echo json_encode( $return );
 		}
 
 		die();
+	}
+
+	/**
+	 * Store form values.
+	 *
+	 * TODO Move to form object.
+	 *
+	 * @param $form_values
+	 */
+	public function set_form_values( $form_values ) {
+		$this->form_values = $form_values;
+	}
+
+	/**
+	 * Return form values.
+	 *
+	 * @return mixed
+	 */
+	public function get_form_values() {
+		return $this->form_values;
+	}
+
+	/**
+	 * Store from errors.
+	 *
+	 * @param $form_errors
+	 */
+	public function set_form_errors( $form_errors ) {
+		$this->form_errors = $form_errors;
+	}
+
+	/**
+	 * Return form errors.
+	 *
+	 * @return mixed
+	 */
+	public function get_form_errors() {
+		return $this->form_errors;
 	}
 
 	/**
@@ -153,44 +191,57 @@ class Strong_Testimonials_Form {
 				}
 			}
 
-			switch ( $field['record_type'] ) {
-				case 'post':
-					if ( 'file' == $field['input_type'] ) {
-						$testimonial_att[ $field['name'] ] = array( 'field' => isset( $field['map'] ) ? $field['map'] : 'post' );
-					} elseif ( 'textarea' == $field['input_type'] ) {
-						$testimonial_post[ $field['name'] ] = wpmtst_sanitize_textarea( $new_post[ $field['name'] ] );
-					} else {
-						$testimonial_post[ $field['name'] ] = sanitize_text_field( $new_post[ $field['name'] ] );
-					}
-					break;
-
-				case 'custom':
-					if ( 'email' == $field['input_type'] ) {
-						$testimonial_meta[ $field['name'] ] = sanitize_email( $new_post[ $field['name'] ] );
-					} elseif ( 'url' == $field['input_type'] ) {
-						// wpmtst_get_website() will prefix with "http://" so don't add that to an empty input
-						if ( $new_post[ $field['name'] ] ) {
-							$testimonial_meta[ $field['name'] ] = esc_url_raw( wpmtst_get_website( $new_post[ $field['name'] ] ) );
+			// Check for callback first.
+			if ( isset( $field['action'] ) && $field['action'] ) {
+				if ( isset( $field['action'] ) && $field['action'] ) {
+					// Assuming value can be stored as text field
+					$testimonial_meta[ $field['name'] ] = sanitize_text_field( $new_post[ $field['name'] ] );
+					// TODO Register a validator callback
+				}
+			}
+			else {
+				switch ( $field['record_type'] ) {
+					case 'post':
+						if ( 'file' == $field['input_type'] ) {
+							$testimonial_att[ $field['name'] ] = array( 'field' => isset( $field['map'] ) ? $field['map'] : 'post' );
+						} elseif ( 'textarea' == $field['input_type'] ) {
+							$testimonial_post[ $field['name'] ] = wpmtst_sanitize_textarea( $new_post[ $field['name'] ] );
+						} else {
+							$testimonial_post[ $field['name'] ] = sanitize_text_field( $new_post[ $field['name'] ] );
 						}
-					} elseif ( 'textarea' == $field['input_type'] ) {
-						$testimonial_post[ $field['name'] ] = wpmtst_sanitize_textarea( $new_post[ $field['name'] ] );
-					} elseif ( 'checkbox' == $field['input_type'] ) {
-						$testimonial_meta[ $field['name'] ] = wpmtst_sanitize_checkbox( $new_post, $field['name'] );
-					} else {
-						$testimonial_meta[ $field['name'] ] = sanitize_text_field( $new_post[ $field['name'] ] );
-					}
-					break;
+						break;
 
-				case 'optional':
-					if ( 'category' == strtok( $field['input_type'], '-' ) ) {
-						$testimonial_meta[ $field['name'] ] = $new_post[ $field['name'] ];
-					}
-					if ( 'rating' == $field['input_type'] ) {
-						$testimonial_meta[ $field['name'] ] = $new_post[ $field['name'] ];
-					}
-					break;
+					case 'custom':
+						if ( 'email' == $field['input_type'] ) {
+							$testimonial_meta[ $field['name'] ] = sanitize_email( $new_post[ $field['name'] ] );
+						} elseif ( 'url' == $field['input_type'] ) {
+							// wpmtst_get_website() will prefix with "http://" so don't add that to an empty input
+							if ( $new_post[ $field['name'] ] ) {
+								$testimonial_meta[ $field['name'] ] = esc_url_raw( wpmtst_get_website( $new_post[ $field['name'] ] ) );
+							}
+						} elseif ( 'textarea' == $field['input_type'] ) {
+							$testimonial_post[ $field['name'] ] = wpmtst_sanitize_textarea( $new_post[ $field['name'] ] );
+						} elseif ( 'checkbox' == $field['input_type'] ) {
+							$testimonial_meta[ $field['name'] ] = wpmtst_sanitize_checkbox( $new_post, $field['name'] );
+						} else {
+							$testimonial_meta[ $field['name'] ] = sanitize_text_field( $new_post[ $field['name'] ] );
+						}
+						break;
 
-				default:
+					case 'optional':
+						if ( 'category' == strtok( $field['input_type'], '-' ) ) {
+							$testimonial_meta[ $field['name'] ] = $new_post[ $field['name'] ];
+						}
+						elseif ( 'rating' == $field['input_type'] ) {
+							$testimonial_meta[ $field['name'] ] = $new_post[ $field['name'] ];
+						}
+						else {
+							$testimonial_meta[ $field['name'] ] = sanitize_text_field( $new_post[ $field['name'] ] );
+						}
+						break;
+
+					default:
+				}
 			}
 
 		}
@@ -352,16 +403,16 @@ class Strong_Testimonials_Form {
 
 		if ( ! count( $form_errors ) ) {
 			// Clear saved form data and errors.
-			WPMST()->set_form_values( null );
-			WPMST()->set_form_errors( null );
+			$this->set_form_values( null );
+			$this->set_form_errors( null );
 			$this->notify_admin( $form_values, $form_name );
 
 			return true;
 		}
 
 		// Redisplay form with submitted values and error messages.
-		WPMST()->set_form_values( stripslashes_deep( $form_values ) );
-		WPMST()->set_form_errors( $form_errors );
+		$this->set_form_values( stripslashes_deep( $form_values ) );
+		$this->set_form_errors( $form_errors );
 
 		return false;
 	}
@@ -396,7 +447,7 @@ class Strong_Testimonials_Form {
 		} else {
 			$message = __( 'Unknown error.', 'strong-testimonials' );
 		}
-		die( $message );
+		wp_die( $message );
 	}
 
 	/**

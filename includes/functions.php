@@ -105,6 +105,7 @@ function wpmtst_is_registered( $filenames ) {
 	return $script_handle;
 }
 
+if ( ! function_exists( 'get_page_by_slug' ) ) {
 /**
  * Get page ID by slug.
  *
@@ -113,15 +114,14 @@ function wpmtst_is_registered( $filenames ) {
  *
  * @since 1.11.0
  */
-if ( ! function_exists( 'get_page_by_slug' ) ) {
-	function get_page_by_slug( $page_slug, $output = OBJECT, $post_type = 'page' ) {
-		global $wpdb;
-		$page = $wpdb->get_var( $wpdb->prepare( "SELECT ID FROM $wpdb->posts WHERE post_name = %s AND post_type= %s AND post_status = 'publish'", $page_slug, $post_type ) );
-		if ( $page )
-			return get_post($page, $output);
-		else
-			return null;
-	}
+function get_page_by_slug( $page_slug, $output = OBJECT, $post_type = 'page' ) {
+    global $wpdb;
+    $page = $wpdb->get_var( $wpdb->prepare( "SELECT ID FROM $wpdb->posts WHERE post_name = %s AND post_type= %s AND post_status = 'publish'", $page_slug, $post_type ) );
+    if ( $page )
+        return get_post($page, $output);
+    else
+        return null;
+}
 }
 
 /**
@@ -147,7 +147,6 @@ if ( ! function_exists( 'reverse_wpautop' ) ) {
 	}
 }
 
-
 /**
  * Sort array based on 'order' element.
  *
@@ -164,7 +163,6 @@ function wpmtst_get_custom_form_count() {
 	$forms = get_option( 'wpmtst_custom_forms' );
 	return count( $forms );
 }
-
 
 function wpmtst_get_form_fields( $form_id = 1 ) {
 	$forms = get_option( 'wpmtst_custom_forms' );
@@ -434,14 +432,17 @@ function wpmtst_get_views() {
 	global $wpdb;
 	$wpdb->show_errors();
 	$table_name = $wpdb->prefix . 'strong_views';
-	$results = $wpdb->get_results( $wpdb->prepare(
-		"SELECT * FROM $table_name WHERE name != %s ORDER BY id ASC", '_default'
-	), ARRAY_A );
+	$results = $wpdb->get_results( "SELECT * FROM $table_name ORDER BY id ASC", ARRAY_A );
 	$wpdb->hide_errors();
 
 	if ( $wpdb->last_error ) {
-		$message = sprintf( __( 'An error occurred: <code>%s</code>.', 'strong-testimonials' ), $wpdb->last_error ) . ' ' . sprintf( __( 'Please <a href="%s" target="_blank">open a support ticket</a>.', 'strong-testimonials' ), esc_url( 'https://support.strongplugins.com/new-ticket/' ) );
-		wp_die( sprintf( '<div class="error strong-view-error"><p>%s</p></div>', $message ) );
+		deactivate_plugins( 'strong-testimonials/strong-testimonials.php' );
+		$message = '<p><span style="color: #CD0000;">';
+		$message .= __( 'An error occurred.', 'strong-testimonials' ) . '</span>&nbsp;';
+		$message .= __( 'The plugin has been deactivated.', 'strong-testimonials' ) . '&nbsp;';
+		$message .= sprintf( __( 'Please <a href="%s" target="_blank">open a support ticket</a>.', 'strong-testimonials' ), esc_url( 'https://support.strongplugins.com/new-ticket/' ) ) . '</p>';
+		$message .= '<p>' . sprintf( __( '<a href="%s">Go back to Dashboard</a>', 'strong-testimonials' ), esc_url( admin_url() ) ) . '</p>';
+		wp_die( sprintf( '<div class="error strong-view-error">%s</div>', $message ) );
 	}
 
 	return $results;
@@ -463,7 +464,7 @@ function wpmtst_unserialize_views( $views ) {
 /**
  * @param $id
  *
- * @return array|mixed|null|object|void
+ * @return array
  */
 function wpmtst_get_view( $id ) {
 	global $wpdb;
@@ -507,7 +508,6 @@ function wpmtst_save_view( $view, $action = 'edit' ) {
 
 	return $return;
 }
-
 
 /**
  * @param $field
@@ -596,7 +596,6 @@ function wpmtst_using_form_validation_script() {
 	return true;
 }
 
-
 /**
  * Set iframe width of embedded videos.
  *
@@ -619,7 +618,6 @@ function wpmtst_embed_size( $dimensions, $url ) {
 	return $dimensions;
 }
 
-
 /**
  * Allow empty posts.
  *
@@ -636,7 +634,6 @@ function wpmtst_insert_post_empty_content( $maybe_empty, $postarr ) {
 	return $maybe_empty;
 }
 add_filter( 'wp_insert_post_empty_content', 'wpmtst_insert_post_empty_content', 10, 2 );
-
 
 /**
  * Display submit_date in Publish meta box under Published date.
@@ -664,7 +661,6 @@ function wpmtst_post_submitbox_misc_actions( $post ) {
 }
 add_action( 'post_submitbox_misc_actions', 'wpmtst_post_submitbox_misc_actions' );
 
-
 /**
  * @return mixed
  */
@@ -678,7 +674,6 @@ function wpmtst_get_background_defaults() {
 		'example-font-color' => 'dark',
 	) );
 }
-
 
 /**
  * @param null $preset
@@ -731,7 +726,6 @@ function wpmtst_get_background_presets( $preset = null ) {
 	return false;
 }
 
-
 /**
  * Return the form success message.
  *
@@ -746,7 +740,6 @@ function wpmtst_get_success_message() {
 	return apply_filters( 'wpmtst_form_success_message', $message );
 }
 
-
 /**
  * Does callback exist?
  *
@@ -755,6 +748,7 @@ function wpmtst_get_success_message() {
  *
  * @return bool
  */
+// TODO Move to Utils class
 function wpmtst_callback_exists( $callback ) {
 	if ( is_array( $callback ) ) {
 		$exists = method_exists( $callback[0], $callback[1] );
@@ -764,7 +758,6 @@ function wpmtst_callback_exists( $callback ) {
 
 	return $exists;
 }
-
 
 /**
  * Check for Divi Builder plugin.
@@ -786,7 +779,6 @@ function wpmtst_divi_builder_active() {
 
 	return $active;
 }
-
 
 /**
  * Append custom fields to testimonial content in theme's single post template.
@@ -813,7 +805,6 @@ function wpmtst_single_template_add_content( $content ) {
 }
 add_filter( 'the_content', 'wpmtst_single_template_add_content' );
 
-
 /**
  * Find the view for the single template.
  *
@@ -836,7 +827,6 @@ function wpmtst_find_single_template_view() {
 
 	return false;
 }
-
 
 /**
  * Frequent plugin checks.
@@ -874,7 +864,6 @@ function wpmtst_is_plugin_active( $plugin = '' ) {
 	return false;
 }
 
-
 /**
  * Sanitize a textarea from user input. Based on sanitize_text_field.
  *
@@ -911,7 +900,6 @@ function wpmtst_sanitize_textarea( $text ) {
 	return apply_filters( 'wpmtst_sanitize_textarea', $filtered, $text );
 }
 
-
 /**
  * Store values as 1 or 0 (never blank).
  *
@@ -923,20 +911,16 @@ function wpmtst_sanitize_textarea( $text ) {
  * @return int
  */
 function wpmtst_sanitize_checkbox( $input, $key ) {
-	/* LONGHAND
-	if ( isset( $input['reorder'] ) ) {
-		if ( 'on' == $input['reorder'] ) { // checked checkbox
-			$new_input['reorder'] = 1;
-		} else { // hidden input
-			$new_input['reorder'] = $input['reorder']; // 0 or 1
+	if ( isset( $input[ $key ] ) ) {
+		if ( 'on' == $input[ $key ] ) {   // checked checkbox
+			return true;
+		} else {   // hidden input
+			return $input[ $key ] ? true : false;   // 0 or 1
 		}
-	} else { // unchecked checkbox
-		$new_input['reorder'] = 0;
+	} else {   // unchecked checkbox
+		return false;
 	}
-	*/
-	return ( isset( $input[ $key ] ) ? ( 'on' == $input[ $key ] ? 1 : $input[ $key ] ) : 0 );
 }
-
 
 /**
  * Trims a entire array recursively.
@@ -958,18 +942,27 @@ function wpmtst_trim_array( $input ) {
 	return array_map( 'wpmtst_trim_array', $input );
 }
 
-
+if ( ! function_exists( 'normalize_empty_atts' ) ) {
 /**
- * Return admin role.
+ * Normalize empty shortcode attributes.
  *
- * @since 2.27.0
+ * Turns atts into tags - brilliant!
+ * Thanks http://wordpress.stackexchange.com/a/123073/32076
  *
- * @return bool|null|WP_Role
+ * @param $atts
+ *
+ * @return mixed
  */
-function wpmtst_get_admins() {
-	if ( is_multisite() ) {
-		return false;
-	} else {
-		return get_role( 'administrator' );
-	}
+function normalize_empty_atts( $atts ) {
+    if ( ! empty( $atts ) ) {
+        foreach ( $atts as $attribute => $value ) {
+            if ( is_int( $attribute ) ) {
+                $atts[ strtolower( $value ) ] = true;
+                unset( $atts[ $attribute ] );
+            }
+        }
+    }
+
+    return $atts;
+}
 }

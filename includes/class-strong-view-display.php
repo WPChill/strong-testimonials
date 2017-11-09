@@ -50,7 +50,8 @@ class Strong_View_Display extends Strong_View {
 		$this->has_stars();
 		$this->has_pagination();
 		$this->has_layouts();
-		$this->load_dependent_scripts();
+
+		//$this->load_dependent_scripts();
 		$this->load_extra_stylesheets();
 
 		// If we can preprocess, we can add the inline style in the <head>.
@@ -97,11 +98,11 @@ class Strong_View_Display extends Strong_View {
 		 */
 
 		// Standard pagination
-		if ( $this->atts['pagination'] && 'standard' == $this->atts['pagination_type'] ) {
-			if ( false !== strpos( $this->atts['nav'], 'before' ) ) {
+		if ( $this->atts['pagination'] && 'standard' == $this->atts['pagination_settings']['type'] ) {
+			if ( false !== strpos( $this->atts['pagination_settings']['nav'], 'before' ) ) {
 				add_action( 'wpmtst_view_header', 'wpmtst_standard_pagination' );
 			}
-			if ( false !== strpos( $this->atts['nav'], 'after' ) ) {
+			if ( false !== strpos( $this->atts['pagination_settings']['nav'], 'after' ) ) {
 				add_action( 'wpmtst_view_footer', 'wpmtst_standard_pagination' );
 			}
 		}
@@ -166,8 +167,8 @@ class Strong_View_Display extends Strong_View {
 			'post_status' => 'publish',
 		);
 
-		if ( $this->atts['pagination'] && 'standard' == $this->atts['pagination_type'] ) {
-			$args['posts_per_page'] = $this->atts['per_page'];
+		if ( $this->atts['pagination'] && 'standard' == $this->atts['pagination_settings']['type'] ) {
+			$args['posts_per_page'] = $this->atts['pagination_settings']['per_page'];
 			$args['paged']          = wpmtst_get_paged();
 		}
 		else {
@@ -244,7 +245,7 @@ class Strong_View_Display extends Strong_View {
 		$this->query = $query;
 
 		if ( $this->atts['pagination'] ) {
-			if ( $this->query->post_count <= $this->atts['per_page'] ) {
+			if ( $this->query->post_count <= $this->atts['pagination_settings']['per_page'] ) {
 				$this->atts['pagination'] = apply_filters( 'wpmtst_use_default_pagination', true, $this->atts );
 			}
 		}
@@ -280,9 +281,15 @@ class Strong_View_Display extends Strong_View {
 			$post_class_list[] = 'excerpt';
 		}
 
-		if ( $this->atts['pagination'] && 'masonry' != $this->atts['layout'] ) {
+		if ( $this->is_paginated() && 'masonry' != $this->atts['layout'] ) {
 			$content_class_list[] = 'strong-paginated';
-			$content_class_list[] = $this->pager_signature();
+			$container_class_list[] = 'strong-pager';
+			$container_data_list['pager-var'] = $this->pager_signature();
+			$container_data_list['state'] = 'idle';
+		}
+
+		if ( 'masonry' == $this->atts['layout'] ) {
+			$container_data_list['state'] = 'idle';
 		}
 
 		// layouts
@@ -305,35 +312,14 @@ class Strong_View_Display extends Strong_View {
 	}
 
 	/**
-	 * Layouts
+	 * Return true if using simple pagination (JavaScript).
 	 *
-	 * @since 2.16.0 In Strong_View class.
+	 * @since 2.28.0
+	 *
+	 * @return bool
 	 */
-	public function has_layouts() {
-
-		if ( 'masonry' == $this->atts['layout'] ) {
-
-			WPMST()->add_script( 'wpmtst-masonry-script' );
-
-			if ( apply_filters( 'wpmtst_load_masonry_style', true ) ) {
-				WPMST()->add_style( 'wpmtst-masonry-style' );
-			}
-
-		} elseif ( 'columns' == $this->atts['layout'] ) {
-
-			if ( apply_filters( 'wpmtst_load_columns_style', true ) ) {
-				WPMST()->add_style( 'wpmtst-columns-style' );
-			}
-
-		} elseif ( 'grid' == $this->atts['layout'] ) {
-
-			WPMST()->add_script( 'wpmtst-grid-script' );
-
-			if ( apply_filters( 'wpmtst_load_grid_style', true ) ) {
-				WPMST()->add_style( 'wpmtst-grid-style' );
-			}
-		}
-
+	public function is_paginated() {
+		return $this->atts['pagination'] && 'simple' == $this->atts['pagination_settings']['type'];
 	}
 
 	/**
@@ -342,11 +328,10 @@ class Strong_View_Display extends Strong_View {
 	 * @since 2.16.0 In Strong_View class.
 	 */
 	public function has_pagination() {
-		if ( $this->atts['pagination'] && 'simple' == $this->atts['pagination_type'] ) {
-			$sig  = $this->pager_signature();
-			$args = $this->pager_args();
-			WPMST()->add_script( 'wpmtst-pager-script' );
-			WPMST()->add_script_var( 'wpmtst-pager-script', $sig, $args );
+		if ( $this->is_paginated() ) {
+			WPMST()->render->add_script( 'wpmtst-pager' );
+			WPMST()->render->add_script_var( 'wpmtst-pager', $this->pager_signature(), $this->pager_args() );
+			WPMST()->render->add_script( 'wpmtst-controller' );
 		}
 	}
 
@@ -373,20 +358,59 @@ class Strong_View_Display extends Strong_View {
 	public function pager_args() {
 		$options = get_option( 'wpmtst_options' );
 
-		$nav = $this->atts['nav'];
-		if ( false !== strpos( $this->atts['nav'], 'before' ) && false !== strpos( $this->atts['nav'], 'after' ) ) {
+		$nav = $this->atts['pagination_settings']['nav'];
+		if ( false !== strpos( $nav, 'before' ) && false !== strpos( $nav, 'after' ) ) {
 			$nav = 'both';
 		}
 
+		// Remember: top level is converted to strings!
 		$args = array(
-			'pageSize'      => $this->atts['per_page'],
-			'currentPage'   => 1,
-			'pagerLocation' => $nav,
-			'scrollTop'     => $options['scrolltop'],
-			'offset'        => $options['scrolltop_offset'],
+			'config' => array(
+				'pageSize'      => $this->atts['pagination_settings']['per_page'],
+				'currentPage'   => 1,
+				'pagerLocation' => $nav,
+				'scrollTop'     => $options['scrolltop'],
+				'offset'        => $options['scrolltop_offset'],
+				'imagesLoaded'  => false,
+			),
 		);
 
 		return apply_filters( 'wpmtst_view_pagination', $args, $this->atts['view'] );
+	}
+
+	/**
+	 * Layouts
+	 *
+	 * @since 2.16.0 In Strong_View class.
+	 */
+	public function has_layouts() {
+
+		if ( 'masonry' == $this->atts['layout'] ) {
+
+			//WPMST()->render->add_script( 'wpmtst-masonry-script' );
+			WPMST()->render->add_script( 'jquery-masonry' );
+			WPMST()->render->add_script( 'imagesloaded' );
+
+			if ( apply_filters( 'wpmtst_load_masonry_style', true ) ) {
+				WPMST()->render->add_style( 'wpmtst-masonry-style' );
+			}
+
+		} elseif ( 'columns' == $this->atts['layout'] ) {
+
+			if ( apply_filters( 'wpmtst_load_columns_style', true ) ) {
+				WPMST()->render->add_style( 'wpmtst-columns-style' );
+			}
+
+		} elseif ( 'grid' == $this->atts['layout'] ) {
+
+			// WPMST()->render->add_script( 'wpmtst-grid-script' );
+
+			if ( apply_filters( 'wpmtst_load_grid_style', true ) ) {
+				WPMST()->render->add_style( 'wpmtst-grid-style' );
+			}
+		}
+
+		WPMST()->render->add_script( 'wpmtst-controller' );
 	}
 
 }

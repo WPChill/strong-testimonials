@@ -66,7 +66,7 @@ function wpmtst_compat_plugins_loaded() {
 	 * Plugin: Advanced noCaptcha reCaptcha
 	 * ------------------------------------
 	 * ANR does not load its Captcha class in admin.
-	 * This causes a fatal error when editing the form in page builders.
+	 * which causes a fatal error when editing the form in page builders.
 	 */
 	if ( is_admin() ) {
 		// is_plugin_active() does not exist yet

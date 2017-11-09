@@ -33,7 +33,8 @@ function wpmtst_add_field_2_function() {
 
 	$new_field_type  = $_REQUEST['fieldType'];
 	$new_field_class = $_REQUEST['fieldClass'];
-	$fields          = get_option( 'wpmtst_fields' );
+	$fields          = apply_filters( 'wpmtst_fields', get_option( 'wpmtst_fields' ) );
+
 	$empty_field = array_merge(
 		$fields['field_types'][$new_field_class][$new_field_type],
 		array( 'record_type' => $new_field_class )
@@ -52,7 +53,8 @@ function wpmtst_add_field_3_function() {
 
 	$new_field_type  = $_REQUEST['fieldType'];
 	$new_field_class = $_REQUEST['fieldClass'];
-	$fields          = get_option( 'wpmtst_fields' );
+	$fields          = apply_filters( 'wpmtst_fields', get_option( 'wpmtst_fields' ) );
+
 	$empty_field = array_merge(
 		$fields['field_types'][$new_field_class][$new_field_type],
 		array( 'record_type' => $new_field_class )
@@ -71,7 +73,7 @@ function wpmtst_add_field_4_function() {
 
 	$new_field_type  = $_REQUEST['fieldType'];
 	$new_field_class = $_REQUEST['fieldClass'];
-	$fields          = get_option( 'wpmtst_fields' );
+	$fields          = apply_filters( 'wpmtst_fields', get_option( 'wpmtst_fields' ) );
 	$empty_field     = array();
 	if ( isset( $fields['field_types'][$new_field_class][$new_field_type] ) ) {
 		$empty_field = array_merge(

@@ -1,9 +1,9 @@
 === Strong Testimonials ===
 Contributors: cdillon27
 Tags: testimonials, testimonial slider, testimonial form, reviews, star ratings
-Requires at least: 3.6
-Tested up to: 4.8.2
-Stable tag: 2.27.2
+Requires at least: 3.7
+Tested up to: 4.8.3
+Stable tag: 2.28
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -175,6 +175,23 @@ If you prefer not to post your URL publicly, start a private support ticket at [
 8. View editor
 
 == Changelog ==
+
+= 2.28 - Nov 9, 2017 =
+* Add compatibility settings for Ajax page loading.
+* Add subtle transition effect for paginated views.
+* Add standard pagination options.
+  * Previous/Next links
+  * Condensed navigation
+  * Before/after page number text
+* Fix bug where standard pagination failed to add a trailing slash.
+* Fix bug that failed to check plugin-specific capabilities in multisite.
+* Fix bug that caused redirect loop if database error occurs during installation.
+* Add a JavaScript controller to coordinate components.
+* Refactor slider script.
+* Refactor pager script.
+* Refactor honeypots to inline, plain JavaScript.
+* Refactor many functions into classes.
+* Add ability to register a custom field type (experimental).
 
 = 2.27.2 - Oct 10, 2017 =
 * Fix bug in update process.

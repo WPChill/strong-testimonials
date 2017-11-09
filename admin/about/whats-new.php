@@ -1,4 +1,19 @@
 <h2>Now Even Stronger</h2>
+
+<p class="lead-description">Version 2.28 improves compatibility and adds some new features.</p>
+<div class="feature-section one-col">
+    <div class="col">
+        <p>NEW: Compatibility settings for sites that use Ajax page loading via theme or plugin.</p>
+        <p>NEW: Views using simple pagination now provide a subtle transition effect.</p>
+        <p>NEW: Standard pagination options including Previous/Next links and condensed navigation.</p>
+        <p>IMPROVED: A JavaScript controller to coordinate multiple components like slideshows and paginated views.</p>
+        <p>IMPROVED: The slider and pager scripts were refactored to improve performance. <strong style="color: #8224E3;">Clear your caches!</strong></p>
+        <p>FIX: Bug where standard pagination failed to include a trailing slash.</p>
+        <p>FIX: Capabilities check in multisite.</p>
+        <p>IMPROVED: Many functions were refactored into classes to improve performance and future development.</p>
+    </div>
+</div>
+
 <p class="lead-description">Version 2.27 adds some new features, fixes a few bugs and improves compatibility.</p>
 <div class="feature-section one-col">
     <div class="col">

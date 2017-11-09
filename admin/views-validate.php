@@ -50,8 +50,7 @@ function wpmtst_sanitize_view( $input ) {
 	// Clear single ID if "multiple" selected
 	if ( 'multiple' == $input['select'] ) {
 		$data['id'] = 0;  // must be zero not empty or false
-	}
-	else {
+	} else {
 		// Check the "ID or slug" field first
 		if ( ! $input['post_id'] ) {
 			$data['id'] = (int) sanitize_text_field( $input['id'] );
@@ -84,37 +83,29 @@ function wpmtst_sanitize_view( $input ) {
 	$data['form_ajax'] = isset( $input['form_ajax'] ) ? 1 : 0;
 
 	// Template
-	if ( 'form' == $data['mode'] )
+	if ( 'form' == $data['mode'] ) {
 		$data['template'] = isset( $input['form-template'] ) ? sanitize_text_field( $input['form-template'] ) : '';
-	else
+	} else {
 		$data['template'] = isset( $input['template'] ) ? sanitize_text_field( $input['template'] ) : '';
+	}
 
 	// Category
 	if ( 'form' == $data['mode'] ) {
-
 		if ( isset( $input['category-form'] ) ) {
 			$data['category'] = sanitize_text_field( implode( ',', $input['category-form'] ) );
-		}
-		else {
+		} else {
 			$data['category'] = '';
 		}
-
-	}
-	else {
-
+	} else {
 		if ( 'allcats' == $input['category_all'] ) {
 			$data['category'] = 'all';
-		}
-		elseif ( ! isset( $input['category'] ) ) {
+		} elseif ( ! isset( $input['category'] ) ) {
 			$data['category'] = 'all';
-		}
-		elseif ( 'somecats' == $input['category_all'] && ! isset( $input['category'] ) ) {
+		} elseif ( 'somecats' == $input['category_all'] && ! isset( $input['category'] ) ) {
 			$data['category'] = 'all';
-		}
-		else {
+		} else {
 			$data['category'] = sanitize_text_field( implode( ',', $input['category'] ) );
 		}
-
 	}
 
 	$data['order'] = sanitize_text_field( $input['order'] );
@@ -122,10 +113,9 @@ function wpmtst_sanitize_view( $input ) {
 	$data['all']   = sanitize_text_field( $input['all'] );
 	$data['count'] = (int) sanitize_text_field( $input['count'] );
 
-	$data['pagination']      = isset( $input['pagination'] ) ? 1 : 0;
-	$data['pagination_type'] = sanitize_text_field( $input['pagination_type'] );
-	$data['per_page']        = (int) sanitize_text_field( $input['per_page'] );
-	$data['nav']             = str_replace( ' ', '', sanitize_text_field( $input['nav'] ) );
+	// Pagination
+	$data['pagination']          = isset( $input['pagination'] ) ? 1 : 0;
+	$data['pagination_settings'] = wpmtst_sanitize_view_pagination( $input['pagination_settings'] );
 
 	$data['title']              = isset( $input['title'] ) ? 1 : 0;
 	$data['title_link']         = isset( $input['title_link'] ) ? 1 : 0;
@@ -262,6 +252,30 @@ function wpmtst_sanitize_view( $input ) {
 	return $data;
 }
 
+/**
+ * Sanitize slideshow settings.
+ *
+ * @since 2.28.0
+ *
+ * @param $in
+ *
+ * @return array
+ */
+function wpmtst_sanitize_view_pagination( $in ) {
+	$out['type']               = sanitize_text_field( $in['type'] );
+	$out['nav']                = str_replace( ' ', '', sanitize_text_field( $in['nav'] ) );
+	$out['per_page']           = (int) sanitize_text_field( $in['per_page'] );
+	$out['show_all']           = $in['show_all'] === 'on';
+	$out['end_size']           = (int) sanitize_text_field( $in['end_size'] );
+	$out['mid_size']           = (int) sanitize_text_field( $in['mid_size'] );
+	$out['prev_next']          = wpmtst_sanitize_checkbox( $in, 'prev_next' );
+	$out['prev_text']          = sanitize_text_field( $in['prev_text'] );
+	$out['next_text']          = sanitize_text_field( $in['next_text'] );
+	$out['before_page_number'] = sanitize_text_field( $in['before_page_number'] );
+	$out['after_page_number']  = sanitize_text_field( $in['after_page_number'] );
+
+	return $out;
+}
 
 /**
  * Sanitize slideshow settings.

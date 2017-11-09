@@ -1,5 +1,9 @@
-/* Paging controls
+/* Simple pagination
 -----------------------------------------------*/
+.strong-view.strong-pager {
+  display: none;
+}
+
 .simplePagerList {
   /* match .strong-content container */
   margin: 20px auto;

@@ -1,5 +1,7 @@
 /**
- *	Strong Testimonials admin
+ *Strong Testimonials admin
+ *
+ * @namespace jQuery
  */
 
 // Function to get the Max value in Array

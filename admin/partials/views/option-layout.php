@@ -88,8 +88,7 @@
 
 					<p><?php
                         $url  = 'https://scotch.io/tutorials/a-visual-guide-to-css3-flexbox-properties';
-                        $url2 = 'http://osvaldas.info/flexbox-based-responsive-equal-height-blocks-with-javascript-fallback';
-                        printf( __( 'Using <a href="%s" target="_blank">CSS flexbox</a> with <a href="%s" target="_blank">JavaScript fallback</a> for older browsers.', 'strong-testimonials' ), esc_url( $url ), esc_url( $url2 ) );
+                        printf( __( 'Using <a href="%s" target="_blank">CSS flexbox</a>.', 'strong-testimonials' ), esc_url( $url ) );
                         ?></p>
 					<p><?php _e( 'Testimonials will be equal height so this works best when they are about the same length either naturally or using excerpts.', 'strong-testimonials' ); ?></p>
 					<p><?php _e( 'Compatible with pagination.', 'strong-testimonials' ); ?></p>

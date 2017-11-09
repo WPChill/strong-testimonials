@@ -5,7 +5,7 @@
 <div id="addons" class="feature-section three-col">
     <div class="col sidebar-block sidebar-news addon review-markup">
         <h3>Review Markup</h3>
-        <p>Improve your search engine results by adding review markup to your testimonials. </p>
+        <p>Improve your search engine results and get Rich Snippets by adding review markup to your testimonials. </p>
         <div class="actions">
             <a href="https://strongplugins.com/plugins/strong-testimonials-review-markup/?utm_source=plugin&utm_medium=about" target="_blank">Learn more</a>
             &nbsp;&bull;&nbsp;

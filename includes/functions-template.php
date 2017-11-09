@@ -37,14 +37,16 @@ add_filter( 'wpmtst_get_the_excerpt', 'wpmtst_trim_excerpt' );
  * @param null $id
  */
 function strong_testimonials_view( $id = null ) {
-	if ( ! $id ) return;
+	if ( ! $id ) {
+		return;
+	}
 
-	$out   = WPMST()->get_view_defaults();
+	$out   = WPMST()->render->get_view_defaults();
 	$pairs = array();
 	$atts  = array( 'id' => $id );
-	$out   = WPMST()->parse_view( $out, $pairs, $atts );
+	$out   = WPMST()->render->parse_view( $out, $pairs, $atts );
 
-	echo wpmtst_render_view( $out );
+	echo Strong_Testimonials_Shortcodes::render_view( $out );
 }
 
 /**
@@ -62,7 +64,7 @@ function wpmtst_the_title( $before = '', $after = '' ) {
 
 		if ( WPMST()->atts( 'title_link' ) ) {
 			$before .= '<a href="' . esc_url( get_permalink() ) . '" rel="bookmark">';
-			$after = '</a>' . $after;
+			$after  = '</a>' . $after;
 		}
 
 		the_title( $before, $after );
@@ -119,7 +121,7 @@ function wpmtst_the_content() {
 
 /**
  * Assemble link to secondary "Read more" page.
-
+ *
  * @since 2.10.0
  */
 function wpmtst_read_more_page() {
@@ -160,6 +162,7 @@ function wpmtst_read_more_page() {
  * Localization filter.
  *
  * @since 2.23.0 As separate function.
+ *
  * @param $text
  * @param $atts
  *
@@ -175,15 +178,17 @@ add_filter( 'wpmtst_read_more_page_link_text', 'wpmtst_read_more_page_link_text_
  * Get permalink by ID or slug.
  *
  * @since 1.25.0
+ *
  * @param $page_id
  *
  * @return false|string
  */
 function wpmtst_get_permalink( $page_id ) {
 	if ( ! is_numeric( $page_id ) ) {
-		$page = get_page_by_path( $page_id );
+		$page    = get_page_by_path( $page_id );
 		$page_id = $page->ID;
 	}
+
 	return get_permalink( $page_id );
 }
 
@@ -191,13 +196,15 @@ function wpmtst_get_permalink( $page_id ) {
  * Prevent page scroll when clicking the More link.
  *
  * @since 2.10.0
+ *
  * @param $link
  *
  * @return mixed
  */
 function wpmtst_remove_more_link_scroll( $link ) {
-	if ( 'wpm-testimonial' == get_post_type() )
+	if ( 'wpm-testimonial' == get_post_type() ) {
 		$link = preg_replace( '|#more-[0-9]+|', '', $link );
+	}
 
 	return $link;
 }
@@ -208,13 +215,14 @@ add_filter( 'the_content_more_link', 'wpmtst_remove_more_link_scroll' );
  *
  * TODO WP 4.2+ has better filters.
  *
- * @param null $size
+ * @param null   $size
  * @param string $before
  * @param string $after
  */
 function wpmtst_the_thumbnail( $size = null, $before = '<div class="testimonial-image">', $after = '</div>' ) {
-	if ( ! WPMST()->atts( 'thumbnail' ) )
+	if ( ! WPMST()->atts( 'thumbnail' ) ) {
 		return;
+	}
 
 	$img = wpmtst_get_thumbnail( $size );
 	if ( $img ) {
@@ -230,11 +238,13 @@ function wpmtst_the_thumbnail( $size = null, $before = '<div class="testimonial-
  */
 function wpmtst_the_date( $format = '', $class = '' ) {
 	global $post;
-	if ( ! $post )
+	if ( ! $post ) {
 		return;
+	}
 
-	if ( ! $format )
+	if ( ! $format ) {
 		$format = get_option( 'date_format' );
+	}
 
 	$the_date = apply_filters( 'wpmtst_the_date', mysql2date( $format, $post->post_date ), $format, $post );
 	echo '<div class="' . $class . '">' . $the_date . '</div>';
@@ -258,25 +268,25 @@ function wpmtst_the_client() {
  * @since 1.21.0
  *
  * @param array $client_section An array of client fields.
- * Array
- * (
- * 	[0] => Array
- * 	(
- * 		[field] => client_name
- * 		[type] => text
- * 		[class] => testimonial-name
- * 	)
+ *                              Array
+ *                              (
+ *                              [0] => Array
+ *                              (
+ *                              [field] => client_name
+ *                              [type] => text
+ *                              [class] => testimonial-name
+ *                              )
  *
- * 	[1] => Array
- * 	(
- * 		[field] => company_name
- * 		[type] => link
- * 		[class] => testimonial-company
- * 		[url] => company_website
- * 		[link_text] => value
- * 		[link_text_custom] =>
- * 		[new_tab] => 1
- * 	)
+ *    [1] => Array
+ *    (
+ *        [field] => company_name
+ *        [type] => link
+ *        [class] => testimonial-company
+ *        [url] => company_website
+ *        [link_text] => value
+ *        [link_text_custom] =>
+ *        [new_tab] => 1
+ *    )
  * )
  *
  * @return mixed
@@ -285,7 +295,7 @@ function wpmtst_client_section( $client_section ) {
 	global $post;
 
 	$options = get_option( 'wpmtst_options' );
-	$html = $output = '';
+	$html    = $output = '';
 
 	foreach ( $client_section as $field ) {
 
@@ -303,8 +313,9 @@ function wpmtst_client_section( $client_section ) {
 			case 'link' :
 			case 'link2' :
 				// use default if missing
-				if ( ! isset( $field['link_text'] ) )
+				if ( ! isset( $field['link_text'] ) ) {
 					$field['link_text'] = 'value';
+				}
 
 				/**
 				 * Get link text and an alternate in case the URL is empty;
@@ -313,11 +324,11 @@ function wpmtst_client_section( $client_section ) {
 				 */
 				switch ( $field['link_text'] ) {
 					case 'custom' :
-						$text = $field['link_text_custom'];
+						$text   = $field['link_text_custom'];
 						$output = '';
 						break;
 					case 'label' :
-						$text = $field['field_label'];
+						$text   = $field['field_label'];
 						$output = '';
 						break;
 					default : // value
@@ -331,16 +342,16 @@ function wpmtst_client_section( $client_section ) {
 					$url = get_post_meta( $post->ID, $field['url'], true );
 					if ( $url ) {
 						if ( isset( $field['new_tab'] ) && $field['new_tab'] ) {
-						    $newtab = ' target="_blank"';
+							$newtab = ' target="_blank"';
 						} else {
-						    $newtab = '';
+							$newtab = '';
 						}
 
 						// TODO Abstract this global fallback technique.
 						$is_nofollow = get_post_meta( $post->ID, 'nofollow', true );
 						if ( 'default' == $is_nofollow || '' == $is_nofollow ) {
-						    // convert default to (yes|no)
-						    $is_nofollow = $options['nofollow'] ? 'yes' : 'no';
+							// convert default to (yes|no)
+							$is_nofollow = $options['nofollow'] ? 'yes' : 'no';
 						}
 						if ( 'yes' == $is_nofollow ) {
 							$nofollow = ' rel="nofollow"';
@@ -393,7 +404,7 @@ function wpmtst_client_section( $client_section ) {
 					}
 					$output = join( ", ", $list );
 				} else {
-				    $output = '';
+					$output = '';
 				}
 				break;
 
@@ -462,6 +473,7 @@ function wpmtst_post_class( $args = null ) {
  * Echo custom field.
  *
  * @since 1.11.0
+ *
  * @param null  $field
  * @param array $args
  */
@@ -473,19 +485,24 @@ function wpmtst_field( $field = null, $args = array() ) {
  * Fetch custom field.
  *
  * Thanks to Matthew Harris.
- * @link https://github.com/cdillon/strong-testimonials/issues/2
- * @param $field
+ *
+ * @link  https://github.com/cdillon/strong-testimonials/issues/2
+ *
+ * @param       $field
  * @param array $args
+ *
  * @since 1.15.7
  *
  * @return mixed|string
  */
 function wpmtst_get_field( $field, $args = array() ) {
-	if ( ! $field ) return '';
+	if ( ! $field ) {
+		return '';
+	}
 
 	global $post;
 
-	switch( $field ) {
+	switch ( $field ) {
 
 		// Apply a character limit to post content.
 		case 'truncated' :
@@ -497,57 +514,47 @@ function wpmtst_get_field( $field, $args = array() ) {
 			$html = get_post_meta( $post->ID, $field, true );
 
 	}
+
 	return $html;
 }
 
-/**
- * Custom pagination. Pluggable.
- *
- * Thanks http://callmenick.com/post/custom-wordpress-loop-with-pagination
- *
- * @param string $numpages
- * @param string $pagerange
- */
 if ( ! function_exists( 'wpmtst_standard_pagination' ) ) :
-function wpmtst_standard_pagination() {
+	/**
+	 * Custom pagination. Pluggable.
+	 *
+	 * Thanks http://callmenick.com/post/custom-wordpress-loop-with-pagination
+	 */
+	function wpmtst_standard_pagination() {
+		$query    = WPMST()->get_query();
+		$numpages = $query->max_num_pages ? $query->max_num_pages : 1;
+		$paged    = wpmtst_get_paged();
+		$options  = WPMST()->atts( 'pagination_settings' );
 
-	$query = WPMST()->get_query();
-	$paged = wpmtst_get_paged();
+		$pagination_args = array(
+			// Required
+			'total'              => $numpages,
+			'current'            => $paged,
+			// Options
+			'show_all'           => isset( $options['show_all'] ) ? $options['show_all'] : false,
+			'end_size'           => isset( $options['end_size'] ) ? $options['end_size'] : 1,
+			'mid_size'           => isset( $options['mid_size'] ) ? $options['mid_size'] : 2,
+			'prev_next'          => isset( $options['prev_next'] ) ? $options['prev_next'] : true,
+			'prev_text'          => isset( $options['prev_text'] ) ? $options['prev_text'] : __( '&laquo; Previous' ),
+			'next_text'          => isset( $options['next_text'] ) ? $options['next_text'] : __( 'Next &raquo;' ),
+			'before_page_number' => isset( $options['before_page_number'] ) ? $options['before_page_number'] : '',
+			'after_page_number'  => isset( $options['after_page_number'] ) ? $options['after_page_number'] : '',
+		);
 
-	$numpages = $query->max_num_pages;
-	if ( ! $numpages ) {
-		$numpages = 1;
+		$paginate_links = paginate_links( apply_filters( 'wpmtst_pagination_args', $pagination_args ) );
+
+		if ( $paginate_links ) {
+			echo "<nav class='nav-links'>";
+			//echo "<span class='page-numbers page-num'>Page " . $paged . " of " . $numpages . "</span> ";
+			echo $paginate_links;
+			echo "</nav>";
+		}
 	}
-
-	$pagination_args = array(
-		'base'               => get_pagenum_link( 1 ) . '%_%',
-		'format'             => 'page/%#%',
-		'total'              => $numpages,
-		'current'            => $paged,
-		'show_all'           => false,
-		'end_size'           => 1,
-		'mid_size'           => 2,
-		'prev_next'          => false,
-		//'prev_text'          => __( '&laquo;' ),
-		//'next_text'          => __( '&raquo;' ),
-		'type'               => 'list',
-		'add_args'           => false,
-		'add_fragment'       => '', // a string to append to each link
-		'before_page_number' => '',
-		'after_page_number'  => '',
-	);
-
-	$paginate_links = paginate_links( apply_filters( 'wpmtst_pagination_args', $pagination_args ) );
-
-	if ( $paginate_links ) {
-		echo "<nav class='standard-pagination'>";
-		//echo "<span class='page-numbers page-num'>Page " . $paged . " of " . $numpages . "</span> ";
-		echo $paginate_links;
-		echo "</nav>";
-	}
-}
 endif;
-
 
 /**
  * If paged, return the current page number.
@@ -555,17 +562,7 @@ endif;
  * @return int|mixed
  */
 function wpmtst_get_paged() {
-	if ( get_query_var( 'paged' ) ) {
-		$paged = get_query_var( 'paged' );
-	}
-	elseif ( get_query_var( 'page' ) ) { // static front page
-		$paged = get_query_var( 'page' );
-	}
-	else {
-		$paged = 1;
-	}
-
-	return $paged;
+	return get_query_var( 'paged' ) ? intval( get_query_var( 'paged' ) ) : 1;
 }
 
 /*
@@ -585,24 +582,22 @@ function wpmtst_new_pagination_2() {
 }
 */
 
-/**
- * Single testimonial custom fields. Pluggable.
- *
- * @since 2.22.0
- */
 if ( ! function_exists( 'wpmtst_single_template_client' ) ) :
-
-function wpmtst_single_template_client() {
-    $view = wpmtst_find_single_template_view();
-    if ( $view && isset( $view['client_section'] ) ) {
-	    foreach ( $view['client_section'] as $field ) {
-		    if ( 'rating' == $field['type'] ) {
-			    wp_enqueue_style( 'wpmtst-rating-display' );
-			    break;
-		    }
-	    }
-	    echo wpmtst_client_section( $view['client_section'] );
-    }
-}
-
+	/**
+	 * Single testimonial custom fields. Pluggable.
+	 *
+	 * @since 2.22.0
+	 */
+	function wpmtst_single_template_client() {
+		$view = wpmtst_find_single_template_view();
+		if ( $view && isset( $view['client_section'] ) ) {
+			foreach ( $view['client_section'] as $field ) {
+				if ( 'rating' == $field['type'] ) {
+					wp_enqueue_style( 'wpmtst-rating-display' );
+					break;
+				}
+			}
+			echo wpmtst_client_section( $view['client_section'] );
+		}
+	}
 endif;

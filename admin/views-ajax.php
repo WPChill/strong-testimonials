@@ -90,3 +90,14 @@ function wpmtst_view_get_mode_description() {
 	die();
 }
 add_action( 'wp_ajax_wpmtst_view_get_mode_description', 'wpmtst_view_get_mode_description' );
+
+
+/**
+ * Get background color presets in View editor.
+ */
+function wpmtst_get_background_preset_colors() {
+	$preset = wpmtst_get_background_presets( $_REQUEST['key'] );
+	echo json_encode( $preset );
+	die();
+}
+add_action( 'wp_ajax_wpmtst_get_background_preset_colors', 'wpmtst_get_background_preset_colors' );
