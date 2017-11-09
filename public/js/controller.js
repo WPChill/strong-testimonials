@@ -4,7 +4,7 @@
  * @namespace window.strongControllerParms
  */
 
-// 'use strict'
+'use strict'
 
 var debugit = false
 

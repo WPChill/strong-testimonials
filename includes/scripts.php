@@ -17,7 +17,7 @@ function wpmtst_scripts() {
 	 * @since 2.28.0
 	 */
 	wp_register_script( 'wpmtst-controller',
-	                    WPMTST_PUBLIC_URL . 'js/controller.js',
+	                    WPMTST_PUBLIC_URL . "js/controller{$min}.js",
 	                    array( 'jquery' ),
 	                    $plugin_version,
 	                    true );
