@@ -255,27 +255,6 @@ If you prefer not to post your URL publicly, start a private support ticket at [
 * Improve featured image responsive style.
 * Minor UI improvements in view editor.
 
-= 2.25.2 - June 28, 2017 =
-* Fix conflict with OptimizePress page builder.
-* Remove defer on admin scripts.
-
-= 2.25.1 - June 26, 2017 =
-* Fix bug when adding star rating to single template and category archive.
-
-= 2.25 - June 23, 2017 =
-* Improve form validation.
-  * Update jQuery Validation plugin (1.16.0).
-  * Add tabindex.
-  * Add custom validation to star rating field.
-  * Improve form error indicator style.
-* Fix bug that was printing duplicate script variables.
-* Make checkbox field text translatable.
-* Add hooks and filters in form submission.
-* Add option to disable "* Required Field" notice.
-* Update link to wordpress.org review form.
-* Update style for Review Markup add-on.
-* Lint and compress JavaScript files.
-
 See changelog.txt for previous versions.
 
 == Upgrade Notice ==
