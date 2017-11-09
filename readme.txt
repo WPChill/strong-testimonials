@@ -176,7 +176,7 @@ If you prefer not to post your URL publicly, start a private support ticket at [
 
 == Changelog ==
 
-= 2.28 - Nov 10, 2017 =
+= 2.28 - Nov 9, 2017 =
 * Add compatibility settings for Ajax page loading.
 * Add subtle transition effect for paginated views.
 * Add standard pagination options.
