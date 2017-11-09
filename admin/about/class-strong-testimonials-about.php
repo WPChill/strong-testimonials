@@ -9,20 +9,21 @@ class Strong_Testimonials_About {
 	/**
 	 * Strong_Testimonials_About constructor.
 	 */
-	public function __construct() {}
+	public function __construct() {
+        $this->add_actions();
+    }
 
 	/**
 	 * Initialize.
 	 */
-	public static function init() {
-		self::add_actions();
+	public function init() {
 	}
 
 	/**
 	 * Add actions and filters.
 	 */
-	public static function add_actions() {
-		add_filter( 'wpmtst_submenu_pages', array( __CLASS__, 'add_submenu' ) );
+	public function add_actions() {
+		add_filter( 'wpmtst_submenu_pages', array( $this, 'add_submenu' ) );
 	}
 
 	/**
@@ -32,8 +33,8 @@ class Strong_Testimonials_About {
 	 *
 	 * @return mixed
 	 */
-	public static function add_submenu( $pages ) {
-		$pages[90] = self::get_submenu();
+	public function add_submenu( $pages ) {
+		$pages[90] = $this->get_submenu();
 		return $pages;
 	}
 
@@ -42,20 +43,20 @@ class Strong_Testimonials_About {
 	 *
 	 * @return array
 	 */
-	public static function get_submenu() {
+	public function get_submenu() {
 		return array(
 			'page_title' => __( 'About' ),
 	        'menu_title' => __( 'About' ),
 		    'capability' => 'strong_testimonials_about',
 			'menu_slug'  => 'about-strong-testimonials',
-			'function'   => array( __CLASS__, 'about_page' ),
+			'function'   => array( $this, 'about_page' ),
 		);
 	}
 
 	/**
 	 * Print the About page.
 	 */
-	public static function about_page() {
+	public function about_page() {
 		$major_minor = strtok( WPMTST_VERSION, '.' ) . '.' . strtok( '.' );
 		$active_tab  = isset( $_GET['tab'] ) ? $_GET['tab'] : 'about';
 		$url         = admin_url( 'edit.php?post_type=wpm-testimonial&page=about-strong-testimonials' );
@@ -64,7 +65,10 @@ class Strong_Testimonials_About {
 
 			<h1><?php printf( __( 'Welcome to Strong Testimonials %s', 'strong-testimonials' ), $major_minor ); ?></h1>
 
-			<p class="about-text"><?php _e( 'Thank you for updating to the latest version!' ); ?> <?php printf( 'Strong Testimonials %s contains several small but important improvements.', $major_minor ); ?></p>
+			<p class="about-text">
+                <?php _e( 'Thank you for updating to the latest version!' ); ?>
+                <?php printf( 'Strong Testimonials %s improves compatibility and adds some minor features.', $major_minor ); ?>
+            </p>
 
 			<div class="wp-badge strong-testimonials"><?php printf( __( 'Version %s' ), $major_minor ); ?></div>
 
@@ -106,4 +110,4 @@ class Strong_Testimonials_About {
 
 }
 
-Strong_Testimonials_About::init();
+new Strong_Testimonials_About();
