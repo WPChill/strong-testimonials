@@ -1,6 +1,6 @@
 /*!
  * jQuery Strong Pager Plugin
- * Version 2.0.0
+ * Version 2.0.1
  *
  * Copyright (c) 2017 Chris Dillon
  * Released under the MIT license
@@ -14,8 +14,7 @@
     scrollTop: 1,
     offset: 40,
     div: '.strong-content',
-    visibilityInterval: null,
-    imagesLoaded: false
+    imagesLoaded: true
   }
 
   $.fn.strongPager = function (options) {
@@ -33,7 +32,6 @@
      * Initialize
      */
     var init = function () {
-
       var pagerVar = el.data('pager-var')
       var config = {}
 
@@ -42,19 +40,18 @@
       }
 
       // Merge user options with the defaults
-      pager.settings = $.extend(defaults, config, options)
+      pager.settings = $.extend({}, defaults, config, options)
 
       pager.div = el.find(pager.settings.div)
       pager.pageCounter = 0
       pager.scrollto = 0
       pager.currentPage = pager.settings.currentPage
+      pager.visibilityInterval = 0
 
       // Wait for images loaded
       if (pager.settings.imagesLoaded) {
-        var imgLoad = imagesLoaded(el)
-        imgLoad.on('always', initVisibilityCheck);
+        el.imagesLoaded(setup)
       } else {
-        //initVisibilityCheck()
         setup()
       }
 
@@ -121,15 +118,17 @@
     var switchPages = function (fade) {
       // Hide the pages
       pager.div.children().hide()
+
       // Show the container which now has paging controls
       el.show()
 
       // Show the current page
       var newPage = pager.div.children('.simplePagerPage' + pager.currentPage)
-      if (fade)
+      if (fade) {
         newPage.fadeIn()
-      else
+      } else {
         newPage.show()
+      }
     }
 
     /**
@@ -192,24 +191,12 @@
     }
 
     /**
-     * Initial visibility check used with imagesLoaded option.
-     */
-    var initVisibilityCheck = function () {
-      if (el.is(':visible')) {
-        clearInterval(pager.visibilityInterval)
-        setup()
-      } else {
-        pager.visibilityInterval = setInterval(initVisibilityCheck, 100)
-      }
-    }
-
-    /**
      * Visibility check.
      */
     var visibilityCheck = function () {
       if (el.is(':visible')) {
-        findOffset()
         clearInterval(pager.visibilityInterval)
+        findOffset()
       }
     }
 
@@ -219,13 +206,12 @@
     var setup = function () {
       paginate()
       // Bail if only one page
-      if (pager.pageCounter <= 1) {
-        return
+      if (pager.pageCounter > 1) {
+        addNavigation()
+        navigationHandler()
       }
 
-      addNavigation()
       switchPages()
-      navigationHandler()
 
       // Set up timer to calculate offset which is dependent on visibility
       pager.visibilityInterval = setInterval( visibilityCheck, 500 );

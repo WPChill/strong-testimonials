@@ -64,7 +64,7 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
 
 /* Simple pagination
 -----------------------------------------------*/
-.strong-view.strong-pager {
+.strong-view.simple.strong-pager {
   display: none;
 }
 
@@ -114,7 +114,6 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
 }
 .strong-view .nav-links a, .strong-view .nav-links span {
   display: inline-block;
-  font-size: 1rem;
   line-height: 1.5;
   margin: 0 0.2em;
   padding: 0.1em 0.3em;

@@ -13,8 +13,6 @@ class Strong_Testimonials_Settings_Compat {
 
 	const GROUP_NAME = 'wpmtst-compat-group';
 
-	const PARTIALS = WPMTST_ADMIN . 'settings/partials/compat/';
-
 	var $options;
 
 	/**
