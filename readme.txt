@@ -3,7 +3,7 @@ Contributors: cdillon27
 Tags: testimonials, testimonial slider, testimonial form, reviews, star ratings
 Requires at least: 3.7
 Tested up to: 4.8.3
-Stable tag: 2.28.1
+Stable tag: 2.28.2
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -176,6 +176,9 @@ If you prefer not to post your URL publicly, start a private support ticket at [
 
 == Changelog ==
 
+= 2.28.2 - Nov 10, 2017 =
+* Fix bug when only one page in paginated views (count < per_page).
+
 = 2.28.1 - Nov 10, 2017 =
 * Fix conflict with paginated views in some themes.
 
@@ -257,27 +260,6 @@ If you prefer not to post your URL publicly, start a private support ticket at [
 * Add option for linking title to testimonial post.
 * Improve featured image responsive style.
 * Minor UI improvements in view editor.
-
-= 2.25.2 - June 28, 2017 =
-* Fix conflict with OptimizePress page builder.
-* Remove defer on admin scripts.
-
-= 2.25.1 - June 26, 2017 =
-* Fix bug when adding star rating to single template and category archive.
-
-= 2.25 - June 23, 2017 =
-* Improve form validation.
-  * Update jQuery Validation plugin (1.16.0).
-  * Add tabindex.
-  * Add custom validation to star rating field.
-  * Improve form error indicator style.
-* Fix bug that was printing duplicate script variables.
-* Make checkbox field text translatable.
-* Add hooks and filters in form submission.
-* Add option to disable "* Required Field" notice.
-* Update link to wordpress.org review form.
-* Update style for Review Markup add-on.
-* Lint and compress JavaScript files.
 
 See changelog.txt for previous versions.
 
