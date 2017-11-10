@@ -61,7 +61,7 @@ function wpmtst_scripts() {
 	 */
 	wp_register_script( 'wpmtst-pager',
 	                    WPMTST_PUBLIC_URL . "js/lib/strongpager/jquery.strongpager{$min}.js",
-	                    array( 'jquery' ),
+	                    array( 'jquery', 'imagesloaded' ),
 	                    false,
 	                    true );
 
