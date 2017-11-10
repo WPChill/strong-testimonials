@@ -54,7 +54,7 @@ $links .= '<a href="https://support.strongplugins.com/article/comparing-paginati
                 <input type="number" id="view-per_page" class="input-incremental"
                        min="1" step="1" size="3"
                        name="view[data][pagination_settings][per_page]"
-                       value="<?php echo $view['pagination_settings']['per_page']; ?>" formnovalidate/>
+                       value="<?php echo $view['pagination_settings']['per_page']; ?>"/>
             </div>
 
             <div class="inline">
@@ -101,7 +101,7 @@ $links .= '<a href="https://support.strongplugins.com/article/comparing-paginati
                     <input type="number" id="view-pagination-end_size" class="input-incremental"
                            min="1" step="1" size="3"
                            name="view[data][pagination_settings][end_size]"
-                           value="<?php echo $view['pagination_settings']['end_size']; ?>" formnovalidate/>
+                           value="<?php echo $view['pagination_settings']['end_size']; ?>"/>
                 </div>
                 <div class="inline">
                     <label for="view-pagination-mid_size">
@@ -110,7 +110,7 @@ $links .= '<a href="https://support.strongplugins.com/article/comparing-paginati
                     <input type="number" id="view-pagination-mid_size" class="input-incremental"
                            min="1" step="1" size="3"
                            name="view[data][pagination_settings][mid_size]"
-                           value="<?php echo $view['pagination_settings']['mid_size']; ?>" formnovalidate/>
+                           value="<?php echo $view['pagination_settings']['mid_size']; ?>"/>
                 </div>
             </div>
         </div>
