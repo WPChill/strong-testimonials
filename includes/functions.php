@@ -683,47 +683,47 @@ function wpmtst_get_background_defaults() {
  */
 function wpmtst_get_background_presets( $preset = null ) {
 	$presets = array(
-		'light-gray-gradient' => array(
-			'label'  => __( 'light gray gradient', 'strong-testimonials' ),
-			'color'  => '#FBFBFB',
-			'color2' => '#EDEDED',
-		),
 		'light-blue-gradient' => array(
 			'label'  => __( 'light blue gradient', 'strong-testimonials' ),
 			'color'  => '#E7EFFE',
 			'color2' => '#B8CFFB',
 		),
-		'sky-blue-gradient' => array(
-			'label'  => __( 'sky blue gradient', 'strong-testimonials' ),
-			'color'  => '#E9F6FB',
-			'color2' => '#C8E9F6',
-		),
-		'light-latte-gradient' => array(
-			'label'  => __( 'light latte gradient', 'strong-testimonials' ),
-			'color'  => '#F8F3EC',
-			'color2' => '#E0C8AB',
+		'light-gray-gradient' => array(
+			'label'  => __( 'light gray gradient', 'strong-testimonials' ),
+			'color'  => '#FBFBFB',
+			'color2' => '#EDEDED',
 		),
 		'light-green-mist-gradient' => array(
 			'label'  => __( 'light green mist gradient', 'strong-testimonials' ),
 			'color'  => '#F2FBE9',
 			'color2' => '#E0F7CC',
 		),
+		'light-latte-gradient' => array(
+			'label'  => __( 'light latte gradient', 'strong-testimonials' ),
+			'color'  => '#F8F3EC',
+			'color2' => '#E0C8AB',
+		),
 		'light-plum-gradient' => array(
 			'label'  => __( 'light plum gradient', 'strong-testimonials' ),
 			'color'  => '#F7EEF7',
 			'color2' => '#E9D0E9',
 		),
+		'sky-blue-gradient' => array(
+			'label'  => __( 'sky blue gradient', 'strong-testimonials' ),
+			'color'  => '#E9F6FB',
+			'color2' => '#C8E9F6',
+		),
 	);
 
-	ksort( $presets );
+	if ( $preset ) {
+		if ( isset( $presets[ $preset ] ) ) {
+			return $presets[ $preset ];
+		} else {
+		    return wpmtst_get_background_defaults();
+		}
+	}
 
-	if ( !$preset )
-		return $presets;
-
-	if ( isset( $presets[ $preset] ) )
-		return $presets[ $preset ];
-
-	return false;
+	return $presets;
 }
 
 /**
