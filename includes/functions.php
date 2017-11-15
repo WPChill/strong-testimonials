@@ -514,20 +514,14 @@ function wpmtst_save_view( $view, $action = 'edit' ) {
  *
  * @return mixed
  */
+//TODO test this
 function wpmtst_get_field_label( $field ) {
-	if ( ! isset( $field['field'] ) ) return '';
+	if ( isset( $field['field'] ) ) {
+		$custom_fields = wpmtst_get_custom_fields();
+		return $custom_fields[ $field['field'] ]['label'];
+	}
 
-	$custom_fields = wpmtst_get_custom_fields();
-	//TODO test this
-
-	return $custom_fields[ $field['field'] ]['label'];
-	//foreach ( $custom_fields as $key => $custom_field ) {
-	//	if ( $custom_field['name'] == $field['field'] ) {
-	//		return $custom_field['label'];
-	//	}
-	//}
-
-	//return ucwords( str_replace( '_', ' ', $field['field'] ) );
+	return '';
 }
 
 /**
@@ -535,17 +529,14 @@ function wpmtst_get_field_label( $field ) {
  *
  * @return mixed
  */
+//TODO test this
 function wpmtst_get_field_by_name( $field_name = '' ) {
-	$custom_fields = wpmtst_get_custom_fields();
-	//TODO test this
-	return $custom_fields[ $field_name ];
-	//foreach ( $custom_fields as $key => $custom_field ) {
-	//	if ( $custom_field['name'] == $field_name ) {
-	//		return $custom_field;
-	//	}
-	//}
+    if ( $field_name ) {
+	    $custom_fields = wpmtst_get_custom_fields();
+	    return $custom_fields[ $field_name ];
+    }
 
-	//return '';
+	return '';
 }
 
 function wpmtst_sort_array_by_name( $a, $b ) {
