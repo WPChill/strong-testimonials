@@ -283,10 +283,11 @@ class Strong_Testimonials_Post_Editor {
 
 		// Determine whether to update or delete.
 		// Similar to wpmtst_ajax_edit_rating() in admin-ajax.php.
-		$action = 'update';
 		foreach ( $custom as $key => $value ) {
-			if ( isset( $custom_fields[ $key ] ) ) {
-				if ( 'rating' == $custom_fields[ $key ]['input_type'] && ! $value ) {
+		    $action = 'update';
+
+		    if ( isset( $custom_fields[ $key ] ) ) {
+				if ( 'rating' == $custom_fields[ $key ]['input_type'] && !$value ) {
 					$action = 'delete';
 				}
 			}
@@ -294,7 +295,8 @@ class Strong_Testimonials_Post_Editor {
 			if ( 'update' == $action ) {
 				// empty values replace existing values
 				update_post_meta( $_POST['post_ID'], $key, stripslashes( $value ) );
-			} else {
+			}
+			else {
 				// delete value; e.g. zero rating
 				delete_post_meta( $_POST['post_ID'], $key );
 			}
