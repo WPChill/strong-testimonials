@@ -100,7 +100,7 @@ class Strong_Testimonials_Post_Editor {
 	 */
 	public static function meta_option( $field, $post, $is_new ) {
 		// Check for callback first.
-		if ( isset( $field['action'] ) && $field['action'] ) {
+		if ( isset( $field['action_input'] ) && $field['action_input'] ) {
 			self::meta_option__action( $field, $post, $is_new );
 		}
 		// Check field type.
@@ -132,8 +132,8 @@ class Strong_Testimonials_Post_Editor {
 	 * @param $is_new
 	 */
 	private static function meta_option__action( $field, $post, $is_new ) {
-		if ( isset( $field['action'] ) && $field['action'] ) {
-			do_action( $field['action'], $field, $post->{$field['name']} );
+		if ( isset( $field['action_input'] ) && $field['action_input'] ) {
+			do_action( $field['action_input'], $field, $post->{$field['name']} );
 		}
 	}
 

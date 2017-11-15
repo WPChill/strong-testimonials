@@ -192,12 +192,10 @@ class Strong_Testimonials_Form {
 			}
 
 			// Check for callback first.
-			if ( isset( $field['action'] ) && $field['action'] ) {
-				if ( isset( $field['action'] ) && $field['action'] ) {
-					// Assuming value can be stored as text field
-					$testimonial_meta[ $field['name'] ] = sanitize_text_field( $new_post[ $field['name'] ] );
-					// TODO Register a validator callback
-				}
+			if ( isset( $field['action_input'] ) && $field['action_input'] ) {
+				// Assuming value can be stored as text field
+				$testimonial_meta[ $field['name'] ] = sanitize_text_field( $new_post[ $field['name'] ] );
+				// TODO Register a validator callback
 			}
 			else {
 				switch ( $field['record_type'] ) {
