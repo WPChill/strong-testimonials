@@ -518,49 +518,16 @@ function wpmtst_get_field_label( $field ) {
 	if ( ! isset( $field['field'] ) ) return '';
 
 	$custom_fields = wpmtst_get_custom_fields();
-	foreach ( $custom_fields as $key => $custom_field ) {
-		if ( $custom_field['name'] == $field['field'] ) {
-			return $custom_field['label'];
-		}
-	}
+	//TODO test this
 
-	return ucwords( str_replace( '_', ' ', $field['field'] ) );
-}
+	return $custom_fields[ $field['field'] ]['label'];
+	//foreach ( $custom_fields as $key => $custom_field ) {
+	//	if ( $custom_field['name'] == $field['field'] ) {
+	//		return $custom_field['label'];
+	//	}
+	//}
 
-/**
- * @param $field
- *
- * @return mixed
- */
-function wpmtst_get_field_default_display_value( $field ) {
-	if ( isset( $field['field'] ) ) {
-		$custom_fields = wpmtst_get_custom_fields();
-		foreach ( $custom_fields as $key => $custom_field ) {
-			if ( $custom_field['name'] == $field['field'] ) {
-				return $custom_field['default_display_value'];
-			}
-		}
-	}
-
-	return '';
-}
-
-/**
- * @param $field
- *
- * @return mixed
- */
-function wpmtst_get_field_shortcode_on_display( $field ) {
-	if ( isset( $field['field'] ) ) {
-		$custom_fields = wpmtst_get_custom_fields();
-		foreach ( $custom_fields as $key => $custom_field ) {
-			if ( $custom_field['name'] == $field['field'] ) {
-				return $custom_field['shortcode_on_display'];
-			}
-		}
-	}
-
-	return '';
+	//return ucwords( str_replace( '_', ' ', $field['field'] ) );
 }
 
 /**
@@ -570,13 +537,15 @@ function wpmtst_get_field_shortcode_on_display( $field ) {
  */
 function wpmtst_get_field_by_name( $field_name = '' ) {
 	$custom_fields = wpmtst_get_custom_fields();
-	foreach ( $custom_fields as $key => $custom_field ) {
-		if ( $custom_field['name'] == $field_name ) {
-			return $custom_field;
-		}
-	}
+	//TODO test this
+	return $custom_fields[ $field_name ];
+	//foreach ( $custom_fields as $key => $custom_field ) {
+	//	if ( $custom_field['name'] == $field_name ) {
+	//		return $custom_field;
+	//	}
+	//}
 
-	return '';
+	//return '';
 }
 
 function wpmtst_sort_array_by_name( $a, $b ) {
