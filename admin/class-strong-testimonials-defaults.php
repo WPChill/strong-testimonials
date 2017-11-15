@@ -57,38 +57,31 @@ class Strong_Testimonials_Defaults {
 	 */
 	public static function get_field_base() {
 		return apply_filters( 'wpmtst_field_base', array(
-			'name'         => '',
-			'name_mutable' => 1,
-			'label'        => '',
-			'show_label'   => 1,
-			'input_type'   => '',
-			'action'       => '',
-
-			'text'             => '',
-			'show_text_option' => 0,
-
-			'required'             => 0,
-			'show_required_option' => 1,
-
-			'default_form_value'    => '',
-			'default_display_value' => '',
-			'show_default_options'  => 1,
-
-			'error' => __( 'This field is required.', 'strong-testimonials' ),
-
+			'name'                    => '',
+			'name_mutable'            => 1,
+			'label'                   => '',
+			'show_label'              => 1,
+			'input_type'              => '',
+			'action_input'            => '',
+			'action_output'           => '',
+			'text'                    => '',
+			'show_text_option'        => 0,
+			'required'                => 0,
+			'show_required_option'    => 1,
+			'default_form_value'      => '',
+			'default_display_value'   => '',
+			'show_default_options'    => 1,
+			'error'                   => __( 'This field is required.', 'strong-testimonials' ),
 			'placeholder'             => '',
 			'show_placeholder_option' => 1,
-
-			'before' => '',
-			'after'  => '',
-
+			'before'                  => '',
+			'after'                   => '',
 			'admin_table'             => 0,
 			'admin_table_option'      => 1,
 			'show_admin_table_option' => 1,
-
-			'shortcode_on_form'      => '',
-			'shortcode_on_display'   => '',
-			'show_shortcode_options' => 0,
+			'shortcode_on_form'       => '',
+			'shortcode_on_display'    => '',
+			'show_shortcode_options'  => 0,
 		) );
 	}
 
