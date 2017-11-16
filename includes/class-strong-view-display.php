@@ -156,8 +156,6 @@ class Strong_View_Display extends Strong_View {
 
 	/**
 	 * Build our query based on view attributes.
-	 *
-	 * @return WP_Query
 	 */
 	public function build_query() {
 		$ids = explode( ',', $this->atts['id'] );
@@ -236,12 +234,12 @@ class Strong_View_Display extends Strong_View {
 			if ( $this->atts['pagination'] ) {
 				if ( 'simple' == $this->atts['pagination_settings']['type'] ) {
 					$count = min( $this->atts['count'], count( $query->posts ) );
+					$query->posts         = array_slice( $query->posts, 0, $count );
+					$query->post_count    = $count;
+					$query->found_posts   = $count;
+					$query->max_num_pages = ceil( $count / $this->atts['pagination_settings']['per_page'] );
 				}
 			}
-			$query->posts         = array_slice( $query->posts, 0, $count );
-			$query->post_count    = $count;
-			$query->found_posts   = $count;
-			$query->max_num_pages = ceil( $count / $this->atts['pagination_settings']['per_page'] );
 		}
 
 		$this->post_count  = $query->post_count;
@@ -256,7 +254,6 @@ class Strong_View_Display extends Strong_View {
 				$this->atts['pagination'] = apply_filters( 'wpmtst_use_default_pagination', true, $this->atts );
 			}
 		}
-
 	}
 
 	/**
