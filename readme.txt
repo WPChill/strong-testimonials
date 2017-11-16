@@ -177,9 +177,10 @@ If you prefer not to post your URL publicly, start a private support ticket at [
 == Changelog ==
 
 = 2.28.3 - Nov 17, 2017 =
+* Fix bug in slider when not using transition effect.
+* Fix conflict between standard pagination and query limit.
 * Fix bug when saving custom fields in post editor.
 * Add capability for custom input fields.
-* Fix slider when not using transition effect.
 
 = 2.28.2 - Nov 10, 2017 =
 * Fix bug when only one page in paginated views (count < per_page).
