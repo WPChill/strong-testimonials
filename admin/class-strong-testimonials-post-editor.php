@@ -100,7 +100,7 @@ class Strong_Testimonials_Post_Editor {
 	 */
 	public static function meta_option( $field, $post, $is_new ) {
 		// Check for callback first.
-		if ( isset( $field['action'] ) && $field['action'] ) {
+		if ( isset( $field['action_input'] ) && $field['action_input'] ) {
 			self::meta_option__action( $field, $post, $is_new );
 		}
 		// Check field type.
@@ -132,8 +132,8 @@ class Strong_Testimonials_Post_Editor {
 	 * @param $is_new
 	 */
 	private static function meta_option__action( $field, $post, $is_new ) {
-		if ( isset( $field['action'] ) && $field['action'] ) {
-			do_action( $field['action'], $field, $post->{$field['name']} );
+		if ( isset( $field['action_input'] ) && $field['action_input'] ) {
+			do_action( $field['action_input'], $field, $post->{$field['name']} );
 		}
 	}
 
@@ -283,10 +283,11 @@ class Strong_Testimonials_Post_Editor {
 
 		// Determine whether to update or delete.
 		// Similar to wpmtst_ajax_edit_rating() in admin-ajax.php.
-		$action = 'update';
 		foreach ( $custom as $key => $value ) {
-			if ( isset( $custom_fields[ $key ] ) ) {
-				if ( 'rating' == $custom_fields[ $key ]['input_type'] && ! $value ) {
+		    $action = 'update';
+
+		    if ( isset( $custom_fields[ $key ] ) ) {
+				if ( 'rating' == $custom_fields[ $key ]['input_type'] && !$value ) {
 					$action = 'delete';
 				}
 			}
@@ -294,7 +295,8 @@ class Strong_Testimonials_Post_Editor {
 			if ( 'update' == $action ) {
 				// empty values replace existing values
 				update_post_meta( $_POST['post_ID'], $key, stripslashes( $value ) );
-			} else {
+			}
+			else {
 				// delete value; e.g. zero rating
 				delete_post_meta( $_POST['post_ID'], $key );
 			}

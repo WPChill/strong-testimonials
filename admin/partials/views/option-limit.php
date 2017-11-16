@@ -19,7 +19,7 @@
             <label>
                 <input type="number" id="view-count" class="input-incremental then_all"
                        name="view[data][count]" value="<?php echo $view['count']; ?>"
-                       min="1" size="5" formnovalidate style="display: none;">
+                       min="1" size="5" style="display: none;">
             </label>
         </div>
         <div class="inline">

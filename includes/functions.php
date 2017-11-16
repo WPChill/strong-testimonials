@@ -514,50 +514,11 @@ function wpmtst_save_view( $view, $action = 'edit' ) {
  *
  * @return mixed
  */
+//TODO test this
 function wpmtst_get_field_label( $field ) {
-	if ( ! isset( $field['field'] ) ) return '';
-
-	$custom_fields = wpmtst_get_custom_fields();
-	foreach ( $custom_fields as $key => $custom_field ) {
-		if ( $custom_field['name'] == $field['field'] ) {
-			return $custom_field['label'];
-		}
-	}
-
-	return ucwords( str_replace( '_', ' ', $field['field'] ) );
-}
-
-/**
- * @param $field
- *
- * @return mixed
- */
-function wpmtst_get_field_default_display_value( $field ) {
 	if ( isset( $field['field'] ) ) {
 		$custom_fields = wpmtst_get_custom_fields();
-		foreach ( $custom_fields as $key => $custom_field ) {
-			if ( $custom_field['name'] == $field['field'] ) {
-				return $custom_field['default_display_value'];
-			}
-		}
-	}
-
-	return '';
-}
-
-/**
- * @param $field
- *
- * @return mixed
- */
-function wpmtst_get_field_shortcode_on_display( $field ) {
-	if ( isset( $field['field'] ) ) {
-		$custom_fields = wpmtst_get_custom_fields();
-		foreach ( $custom_fields as $key => $custom_field ) {
-			if ( $custom_field['name'] == $field['field'] ) {
-				return $custom_field['shortcode_on_display'];
-			}
-		}
+		return $custom_fields[ $field['field'] ]['label'];
 	}
 
 	return '';
@@ -568,13 +529,12 @@ function wpmtst_get_field_shortcode_on_display( $field ) {
  *
  * @return mixed
  */
+//TODO test this
 function wpmtst_get_field_by_name( $field_name = '' ) {
-	$custom_fields = wpmtst_get_custom_fields();
-	foreach ( $custom_fields as $key => $custom_field ) {
-		if ( $custom_field['name'] == $field_name ) {
-			return $custom_field;
-		}
-	}
+    if ( $field_name ) {
+	    $custom_fields = wpmtst_get_custom_fields();
+	    return $custom_fields[ $field_name ];
+    }
 
 	return '';
 }
@@ -683,47 +643,47 @@ function wpmtst_get_background_defaults() {
  */
 function wpmtst_get_background_presets( $preset = null ) {
 	$presets = array(
-		'light-gray-gradient' => array(
-			'label'  => __( 'light gray gradient', 'strong-testimonials' ),
-			'color'  => '#FBFBFB',
-			'color2' => '#EDEDED',
-		),
 		'light-blue-gradient' => array(
 			'label'  => __( 'light blue gradient', 'strong-testimonials' ),
 			'color'  => '#E7EFFE',
 			'color2' => '#B8CFFB',
 		),
-		'sky-blue-gradient' => array(
-			'label'  => __( 'sky blue gradient', 'strong-testimonials' ),
-			'color'  => '#E9F6FB',
-			'color2' => '#C8E9F6',
-		),
-		'light-latte-gradient' => array(
-			'label'  => __( 'light latte gradient', 'strong-testimonials' ),
-			'color'  => '#F8F3EC',
-			'color2' => '#E0C8AB',
+		'light-gray-gradient' => array(
+			'label'  => __( 'light gray gradient', 'strong-testimonials' ),
+			'color'  => '#FBFBFB',
+			'color2' => '#EDEDED',
 		),
 		'light-green-mist-gradient' => array(
 			'label'  => __( 'light green mist gradient', 'strong-testimonials' ),
 			'color'  => '#F2FBE9',
 			'color2' => '#E0F7CC',
 		),
+		'light-latte-gradient' => array(
+			'label'  => __( 'light latte gradient', 'strong-testimonials' ),
+			'color'  => '#F8F3EC',
+			'color2' => '#E0C8AB',
+		),
 		'light-plum-gradient' => array(
 			'label'  => __( 'light plum gradient', 'strong-testimonials' ),
 			'color'  => '#F7EEF7',
 			'color2' => '#E9D0E9',
 		),
+		'sky-blue-gradient' => array(
+			'label'  => __( 'sky blue gradient', 'strong-testimonials' ),
+			'color'  => '#E9F6FB',
+			'color2' => '#C8E9F6',
+		),
 	);
 
-	ksort( $presets );
+	if ( $preset ) {
+		if ( isset( $presets[ $preset ] ) ) {
+			return $presets[ $preset ];
+		} else {
+		    return wpmtst_get_background_defaults();
+		}
+	}
 
-	if ( !$preset )
-		return $presets;
-
-	if ( isset( $presets[ $preset] ) )
-		return $presets[ $preset ];
-
-	return false;
+	return $presets;
 }
 
 /**
