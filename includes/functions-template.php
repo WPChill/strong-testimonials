@@ -281,13 +281,19 @@ function wpmtst_client_section( $client_section ) {
 	foreach ( $client_section as $field ) {
 		$output        = '';
 		$field_name    = $field['field'];
-		$field['prop'] = $custom_fields[ $field_name ];
+		if ( isset( $custom_fields[ $field_name ] ) ) {
+			$field['prop'] = $custom_fields[ $field_name ];
+		}
+		else {
+			$field['prop'] = array();
+		}
 
 		// Check for callback first.
 		if ( isset( $field['prop']['action_output'] ) && $field['prop']['action_output'] ) {
 			$value  = get_post_meta( $post->ID, $field_name, true );
 			$output = apply_filters( $field['prop']['action_output'], $field, $value );
 		}
+		//TODO Convert all to filters.
 		// Check field type.
 		else {
 			switch ( $field['type'] ) {
