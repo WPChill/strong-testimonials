@@ -418,7 +418,7 @@ class Strong_View_Slideshow extends Strong_View_Display {
 			'autoControls'        => 0,
 			'pager'               => 0,
 			'slideCount'          => $this->post_count,
-			'debug'               => false,
+			'debug'               => defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG,
 			'compat'              => $compat,
 		);
 		if ( ! $this->atts['slideshow_settings']['adapt_height'] ) {

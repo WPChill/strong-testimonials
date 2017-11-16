@@ -86,6 +86,7 @@ $links .= '<a href="https://support.strongplugins.com/article/comparing-paginati
                             </option>
                         </select>
                     </label>
+<<<<<<< HEAD
                 </div>
                 <div class="inline then then_show_all" style="display: none;">
                     <div class="inline">
@@ -106,6 +107,21 @@ $links .= '<a href="https://support.strongplugins.com/article/comparing-paginati
                                type="number" min="1" step="1"
                                value="<?php echo $view['pagination_settings']['mid_size']; ?>"/>
                     </div>
+=======
+                    <input type="number" id="view-pagination-end_size" class="input-incremental"
+                           min="1" step="1" size="3"
+                           name="view[data][pagination_settings][end_size]"
+                           value="<?php echo $view['pagination_settings']['end_size']; ?>"/>
+                </div>
+                <div class="inline">
+                    <label for="view-pagination-mid_size">
+						<?php _ex( 'Middle size', 'quantity', 'strong-testimonials' ); ?>
+                    </label>
+                    <input type="number" id="view-pagination-mid_size" class="input-incremental"
+                           min="1" step="1" size="3"
+                           name="view[data][pagination_settings][mid_size]"
+                           value="<?php echo $view['pagination_settings']['mid_size']; ?>"/>
+>>>>>>> fix/slider
                 </div>
             </div>
         </div>
