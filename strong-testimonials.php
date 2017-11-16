@@ -34,7 +34,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'WPMTST_VERSION', '2.28.2' );
+define( 'WPMTST_VERSION', '2.28.3' );
 define( 'WPMTST_PLUGIN', plugin_basename( __FILE__ ) ); // strong-testimonials/strong-testimonials.php
 define( 'WPMTST', dirname( WPMTST_PLUGIN ) );           // strong-testimonials
 define( 'STRONGPLUGINS_STORE_URL', 'https://strongplugins.com' );
