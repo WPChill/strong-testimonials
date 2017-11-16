@@ -268,26 +268,6 @@ function wpmtst_the_client() {
  * @since 1.21.0
  *
  * @param array $client_section An array of client fields.
- *                              Array
- *                              (
- *                              [0] => Array
- *                              (
- *                              [field] => client_name
- *                              [type] => text
- *                              [class] => testimonial-name
- *                              )
- *
- *    [1] => Array
- *    (
- *        [field] => company_name
- *        [type] => link
- *        [class] => testimonial-company
- *        [url] => company_website
- *        [link_text] => value
- *        [link_text_custom] =>
- *        [new_tab] => 1
- *    )
- * )
  *
  * @return mixed
  */
