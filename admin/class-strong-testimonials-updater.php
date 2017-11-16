@@ -587,6 +587,20 @@ class Strong_Testimonials_Updater {
 
 			if ( isset( $view_data['pagination_settings'] ) ) {
 				$view['data']['pagination_settings'] = array_merge( $default_view['pagination_settings'], $view_data['pagination_settings'] );
+				/**
+				 * Bug fix for 2.28.2
+				 *
+				 * @since 2.28.3
+				 */
+				if ( 0 === $view['data']['pagination_settings']['end_size'] ) {
+					$view['data']['pagination_settings']['end_size'] = 1;
+				}
+				if ( 0 === $view['data']['pagination_settings']['mid_size'] ) {
+					$view['data']['pagination_settings']['mid_size'] = 2;
+				}
+				if ( 0 === $view['data']['pagination_settings']['per_page'] ) {
+					$view['data']['pagination_settings']['per_page'] = 5;
+				}
 			} else {
 				$view['data']['pagination_settings'] = $default_view['pagination_settings'];
 			}
