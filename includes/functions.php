@@ -514,11 +514,12 @@ function wpmtst_save_view( $view, $action = 'edit' ) {
  *
  * @return mixed
  */
-//TODO test this
 function wpmtst_get_field_label( $field ) {
 	if ( isset( $field['field'] ) ) {
 		$custom_fields = wpmtst_get_custom_fields();
-		return $custom_fields[ $field['field'] ]['label'];
+		if ( isset( $custom_fields[ $field['field'] ]['label'] ) ) {
+			return $custom_fields[ $field['field'] ]['label'];
+		}
 	}
 
 	return '';
@@ -529,11 +530,12 @@ function wpmtst_get_field_label( $field ) {
  *
  * @return mixed
  */
-//TODO test this
 function wpmtst_get_field_by_name( $field_name = '' ) {
     if ( $field_name ) {
 	    $custom_fields = wpmtst_get_custom_fields();
-	    return $custom_fields[ $field_name ];
+	    if ( isset( $custom_fields[ $field_name ] ) ) {
+		    return $custom_fields[ $field_name ];
+	    }
     }
 
 	return '';
