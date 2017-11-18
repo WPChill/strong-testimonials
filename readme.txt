@@ -52,6 +52,9 @@ Send custom **notification emails** to multiple admins.
 
 Submit the form via Ajax to use with popular plugins like [Popup Maker](https://wordpress.org/plugins/popup-maker/).
 
+**Free Add-on:** Add a country selector to your form with the
+[Strong Testimonials Country Selector](https://wordpress.org/plugins/strong-testimonials-country-selector/) plugin.
+
 ### Displaying Testimonials
 
 Everything happens in a **view**. Instead of learning multiple shortcodes with dozens of options, a view contains all the options in a simple, intuitive editor that no other testimonial plugin has.
@@ -66,7 +69,8 @@ Strong Testimonials offers a handful of templates to try in your theme. The defa
 
 Need help matching your theme? Got some weird spacing or floating? I'm here to help.
 
-For ultimate control and seamless integration, copy any template to your theme and customize it. There is also a template function `<?php strong_testimonials_view( $id ); ?>`.
+For ultimate control and seamless integration, copy any template to your theme and customize it. There is also a template function:
+`<?php strong_testimonials_view( $id ); ?>`
 
 ### Pro Add-ons
 
@@ -176,7 +180,7 @@ If you prefer not to post your URL publicly, start a private support ticket at [
 
 == Changelog ==
 
-= 2.28.3 - Nov 17, 2017 =
+= 2.28.3 - Nov 18, 2017 =
 * Fix bug in slider when not using transition effect.
 * Fix conflict between standard pagination and query limit.
 * Fix bug when saving custom fields in post editor.
@@ -271,5 +275,5 @@ See changelog.txt for previous versions.
 
 == Upgrade Notice ==
 
-= 2.27.1 =
+= 2.28.3 =
 Minor bug fixes. New filters. Improved compatibility.
