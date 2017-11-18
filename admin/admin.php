@@ -35,6 +35,8 @@ add_action( 'admin_init', 'wpmtst_admin_init' );
 /**
  * Are we on a testimonial admin screen?
  *
+ * Used by add-ons too!
+ *
  * @return bool
  */
 function wpmtst_is_testimonial_screen() {

@@ -66,8 +66,8 @@
 					<?php _e( 'Duration', 'strong-testimonials' ); ?>
 				</label>
 				<input type="number" id="view-adapt_height_speed" class="input-incremental"
-					   name="view[data][slideshow_settings][adapt_height_speed]" min="0.1" step="0.1"
-					   value="<?php echo $view['slideshow_settings']['adapt_height_speed']; ?>" size="3" formnovalidate/>
+					   name="view[data][slideshow_settings][adapt_height_speed]" min="0" step="0.1"
+					   value="<?php echo $view['slideshow_settings']['adapt_height_speed']; ?>" size="3"/>
 				<?php _ex( 'seconds', 'time setting', 'strong-testimonials' ); ?>
 			</div>
 

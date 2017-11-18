@@ -714,6 +714,29 @@ jQuery(document).ready(function( $ ) {
   $("#view-pagination").on("change", paginationChangeListener);
 
   /**
+   * Disallow standard pagination with query limit.
+   */
+  var $viewQuantity = $('#view-all'),
+    $viewPaginationType = $('#view-pagination_type');
+
+  function paginationTypeChangeListener() {
+    if (this.value === 'standard' && $viewQuantity.val() === '0') {
+      alert('Standard pagination is incompatible with Count.');
+      $(this).val('simple').change();
+    }
+  }
+
+  function quantityChangeListener() {
+    if (this.value === '0' && $viewPaginationType.val() === 'standard') {
+      alert('Count is incompatible with Standard pagination.');
+      $(this).val(1).change();
+    }
+  }
+
+  $viewPaginationType.on('change', paginationTypeChangeListener);
+  $viewQuantity.on('change', quantityChangeListener);
+
+  /**
    * Background change listener
    */
   var backgroundRadios = $("input[type=radio][name='view[data][background][type]']"),

@@ -2,8 +2,8 @@
 Contributors: cdillon27
 Tags: testimonials, testimonial slider, testimonial form, reviews, star ratings
 Requires at least: 3.7
-Tested up to: 4.8.3
-Stable tag: 2.28.2
+Tested up to: 4.9
+Stable tag: 2.28.3
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -89,7 +89,7 @@ I will [move mountains](https://strongplugins.com/testimonials/?utm_source=wordp
 ### Try these plugins too
 
 * [Simple Colorbox](https://wordpress.org/plugins/simple-colorbox/) to open thumbnails into full-size images. Nice!
-* [Simple Custom CSS](https://wordpress.org/plugins/simple-custom-css/) still works great for quick CSS tweaks.
+* [Simple CSS](https://wordpress.org/plugins/simple-css/) works great for quick CSS tweaks.
 * [Wider Admin Menu](https://wordpress.org/plugins/wider-admin-menu/) lets your admin menu b r e a t h e.
 
 == Installation ==
@@ -175,6 +175,12 @@ If you prefer not to post your URL publicly, start a private support ticket at [
 8. View editor
 
 == Changelog ==
+
+= 2.28.3 - Nov 17, 2017 =
+* Fix bug in slider when not using transition effect.
+* Fix conflict between standard pagination and query limit.
+* Fix bug when saving custom fields in post editor.
+* Add capability for custom input fields.
 
 = 2.28.2 - Nov 10, 2017 =
 * Fix bug when only one page in paginated views (count < per_page).

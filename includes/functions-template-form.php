@@ -79,11 +79,9 @@ function wpmtst_single_form_field( $field ) {
 	}
 
 	// Check for callback first.
-    if ( isset( $field['action'] ) && $field['action'] ) {
+    if ( isset( $field['action_input'] ) && $field['action_input'] ) {
 	    $value = ( isset( $form_values[ $field['name'] ] ) && $form_values[ $field['name'] ] ) ? $form_values[ $field['name'] ] : '';
-	    if ( isset( $field['action'] ) && $field['action'] ) {
-		    do_action( $field['action'], $field, $value );
-	    }
+        do_action( $field['action_input'], $field, $value );
     }
     // Check field type.
     else {

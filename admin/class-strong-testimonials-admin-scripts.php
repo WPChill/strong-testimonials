@@ -21,7 +21,6 @@ class Strong_Testimonials_Admin_Scripts {
 	 */
 	public static function add_actions() {
 		add_action( 'admin_init', array( __CLASS__, 'admin_register' ) );
-		add_action( 'admin_enqueue_scripts', array( __CLASS__, 'admin_enqueue_scripts' ) );
 		add_action( 'admin_enqueue_scripts', array( __CLASS__, 'admin_dequeue_scripts' ), 500 );
 
 		add_action( 'admin_print_styles-wpm-testimonial_page_testimonial-views', array( __CLASS__, 'admin_views' ) );
@@ -201,13 +200,6 @@ class Strong_Testimonials_Admin_Scripts {
 			$plugin_version,
 			true );
 	}
-
-	/**
-	 * Enqueue common admin scripts.
-	 *
-	 * @param $hook
-	 */
-	public static function admin_enqueue_scripts( $hook ) {}
 
 	/**
 	 * Enqueue specific styles and scripts.

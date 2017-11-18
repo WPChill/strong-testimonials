@@ -11,7 +11,7 @@
 			</label>
 			<input type="number" id="view-pause" class="input-incremental"
 			       name="view[data][slideshow_settings][pause]" min=".1" step=".1"
-			       value="<?php echo $view['slideshow_settings']['pause']; ?>" size="3" formnovalidate/>
+			       value="<?php echo $view['slideshow_settings']['pause']; ?>" size="3"/>
 			<?php _ex( 'seconds', 'time setting', 'strong-testimonials' ); ?>
 		</div>
 
@@ -34,7 +34,7 @@
 			</label>
 			<input type="number" id="view-speed" class="input-incremental"
 			       name="view[data][slideshow_settings][speed]" min=".1" step=".1"
-			       value="<?php echo $view['slideshow_settings']['speed']; ?>" size="3" formnovalidate/>
+			       value="<?php echo $view['slideshow_settings']['speed']; ?>" size="3"/>
 			<?php _ex( 'seconds', 'time setting', 'strong-testimonials' ); ?>
 		</div>
 
