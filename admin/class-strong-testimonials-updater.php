@@ -592,13 +592,13 @@ class Strong_Testimonials_Updater {
 				 *
 				 * @since 2.28.3
 				 */
-				if ( 0 === $view['data']['pagination_settings']['end_size'] ) {
+				if ( ! $view['data']['pagination_settings']['end_size'] ) {
 					$view['data']['pagination_settings']['end_size'] = 1;
 				}
-				if ( 0 === $view['data']['pagination_settings']['mid_size'] ) {
+				if ( ! $view['data']['pagination_settings']['mid_size'] ) {
 					$view['data']['pagination_settings']['mid_size'] = 2;
 				}
-				if ( 0 === $view['data']['pagination_settings']['per_page'] ) {
+				if ( ! $view['data']['pagination_settings']['per_page'] ) {
 					$view['data']['pagination_settings']['per_page'] = 5;
 				}
 			} else {
