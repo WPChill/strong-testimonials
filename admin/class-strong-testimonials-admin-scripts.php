@@ -249,6 +249,7 @@ class Strong_Testimonials_Admin_Scripts {
 				wp_enqueue_script( 'wpmtst-admin-compat-script' );
 				break;
 			case 'licenses':
+				wp_enqueue_style( 'wpmtst-admin-style' );
 				wp_enqueue_script( 'wpmtst-addons-script' );
 				break;
 			default:

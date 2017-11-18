@@ -261,23 +261,28 @@ optgroup option {
 /* field group label */
 
 p.field-group-label-wrap {
+  display: table;
+  width: 100%;
 }
 
 p.field-group-label-wrap > label,
 p.field-group-label-wrap > input {
-  display: inline-block;
-  font-size: 1.5em;
-  vertical-align: middle;
+  display: table-cell;
+  font-size: 20px;
+  line-height: 1.4em;
 }
 
-p.field-group-label-wrap label {
+.field-group-label-wrap label {
   width: 6.5em;
 }
 
 p.field-group-label-wrap input {
+  width: 100%;
   margin: 0;
-  width: calc(100% - 6.5em);
+  padding: 4px 8px;
 }
+
+/* fields editor */
 
 #fields-editor-wrap {
   display: inline-block;

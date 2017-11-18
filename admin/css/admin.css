@@ -349,6 +349,7 @@ ul.compact li {
 
 #licenses-form .form-table {
   width: auto;
+  max-width: 1024px;
 }
 
 #licenses-form .form-table label {
