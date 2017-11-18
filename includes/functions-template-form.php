@@ -417,7 +417,7 @@ add_action( 'wpmtst_form_after_fields', 'wpmtst_form_captcha' );
  */
 function wpmtst_form_submit_button( $preview = false ) {
 	?>
-	<div class="form-field submit">
+	<div class="form-field wpmtst-submit">
 		<label><input type="<?php echo $preview ? 'button' : 'submit'; ?>" id="wpmtst_submit_testimonial" name="wpmtst_submit_testimonial" value="<?php esc_attr_e( wpmtst_get_form_message( 'form-submit-button' ) ); ?>" class="button" tabindex="0"></label>
 	</div>
 	<?php
