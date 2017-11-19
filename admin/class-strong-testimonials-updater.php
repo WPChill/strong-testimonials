@@ -21,82 +21,6 @@ class Strong_Testimonials_Updater {
 	}
 
 	/**
-	 * Return admin role.
-	 *
-	 * @since 2.27.0
-	 *
-	 * @return bool|null|WP_Role
-	 */
-	public function get_admins() {
-		return get_role( 'administrator' );
-	}
-
-	/**
-	 * Add custom capabilities.
-	 *
-	 * @since 2.27.1
-	 */
-	public function add_caps() {
-		if ( $admins = $this->get_admins() ) {
-			$admins->add_cap( 'strong_testimonials_views' );
-			$admins->add_cap( 'strong_testimonials_fields' );
-			$admins->add_cap( 'strong_testimonials_options' );
-			$admins->add_cap( 'strong_testimonials_about' );
-		}
-	}
-
-	/**
-	 * Remove custom capabilities.
-	 *
-	 * @since 2.27.1
-	 */
-	public function remove_caps() {
-		if ( $admins = $this->get_admins() ) {
-			$admins->remove_cap( 'strong_testimonials_views' );
-			$admins->remove_cap( 'strong_testimonials_fields' );
-			$admins->remove_cap( 'strong_testimonials_options' );
-			$admins->remove_cap( 'strong_testimonials_about' );
-		}
-	}
-
-	/**
-	 * Update tables.
-	 *
-	 * @since 1.21.0 Checking for new table version.
-	 */
-	public function update_db_check() {
-		if ( get_option( 'wpmtst_db_version' ) != WPMST()->get_db_version() ) {
-			$this->update_tables();
-		}
-	}
-
-	/**
-	 * Add tables for Views.
-	 *
-	 * @since 1.21.0
-	 */
-	public function update_tables() {
-		global $wpdb;
-		require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
-
-		$charset_collate = $wpdb->get_charset_collate();
-
-		$table_name = $wpdb->prefix . 'strong_views';
-
-		$sql = "CREATE TABLE $table_name (
-			id mediumint(9) NOT NULL AUTO_INCREMENT,
-			name varchar(100) NOT NULL,
-			value text NOT NULL,
-			PRIMARY KEY  (id)
-		) $charset_collate;";
-
-		// TODO Error handling
-		$result = dbDelta( $sql );
-
-		update_option( 'wpmtst_db_version', WPMST()->get_db_version() );
-	}
-
-	/**
 	 * Plugin activation and upgrade.
 	 *
 	 * ---------
@@ -209,6 +133,82 @@ class Strong_Testimonials_Updater {
 		 * Update the plugin version.
 		 */
 		update_option( 'wpmtst_plugin_version', WPMTST_VERSION );
+	}
+
+	/**
+	 * Return admin role.
+	 *
+	 * @since 2.27.0
+	 *
+	 * @return bool|null|WP_Role
+	 */
+	public function get_admins() {
+		return get_role( 'administrator' );
+	}
+
+	/**
+	 * Add custom capabilities.
+	 *
+	 * @since 2.27.1
+	 */
+	public function add_caps() {
+		if ( $admins = $this->get_admins() ) {
+			$admins->add_cap( 'strong_testimonials_views' );
+			$admins->add_cap( 'strong_testimonials_fields' );
+			$admins->add_cap( 'strong_testimonials_options' );
+			$admins->add_cap( 'strong_testimonials_about' );
+		}
+	}
+
+	/**
+	 * Remove custom capabilities.
+	 *
+	 * @since 2.27.1
+	 */
+	public function remove_caps() {
+		if ( $admins = $this->get_admins() ) {
+			$admins->remove_cap( 'strong_testimonials_views' );
+			$admins->remove_cap( 'strong_testimonials_fields' );
+			$admins->remove_cap( 'strong_testimonials_options' );
+			$admins->remove_cap( 'strong_testimonials_about' );
+		}
+	}
+
+	/**
+	 * Update tables.
+	 *
+	 * @since 1.21.0 Checking for new table version.
+	 */
+	public function update_db_check() {
+		if ( get_option( 'wpmtst_db_version' ) != WPMST()->get_db_version() ) {
+			$this->update_tables();
+		}
+	}
+
+	/**
+	 * Add tables for Views.
+	 *
+	 * @since 1.21.0
+	 */
+	public function update_tables() {
+		global $wpdb;
+		require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+
+		$charset_collate = $wpdb->get_charset_collate();
+
+		$table_name = $wpdb->prefix . 'strong_views';
+
+		$sql = "CREATE TABLE $table_name (
+			id mediumint(9) NOT NULL AUTO_INCREMENT,
+			name varchar(100) NOT NULL,
+			value text NOT NULL,
+			PRIMARY KEY  (id)
+		) $charset_collate;";
+
+		// TODO Error handling
+		$result = dbDelta( $sql );
+
+		update_option( 'wpmtst_db_version', WPMST()->get_db_version() );
 	}
 
 	/**
