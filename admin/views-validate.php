@@ -264,15 +264,36 @@ function wpmtst_sanitize_view( $input ) {
 function wpmtst_sanitize_view_pagination( $in ) {
 	$out['type']               = sanitize_text_field( $in['type'] );
 	$out['nav']                = str_replace( ' ', '', sanitize_text_field( $in['nav'] ) );
-	$out['per_page']           = (int) sanitize_text_field( $in['per_page'] );
 	$out['show_all']           = $in['show_all'] === 'on';
-	$out['end_size']           = (int) sanitize_text_field( $in['end_size'] );
-	$out['mid_size']           = (int) sanitize_text_field( $in['mid_size'] );
 	$out['prev_next']          = wpmtst_sanitize_checkbox( $in, 'prev_next' );
 	$out['prev_text']          = sanitize_text_field( $in['prev_text'] );
 	$out['next_text']          = sanitize_text_field( $in['next_text'] );
 	$out['before_page_number'] = sanitize_text_field( $in['before_page_number'] );
 	$out['after_page_number']  = sanitize_text_field( $in['after_page_number'] );
+
+	/**
+	 * Attempt to repair bug from 2.28.2
+	 */
+	if ( isset( $in['end_size'] ) && intval( $in['end_size'] ) ) {
+		$out['end_size'] = (int) sanitize_text_field( $in['end_size'] );
+	}
+	else {
+		$out['end_size'] = 1;
+	}
+
+	if ( isset( $in['mid_size'] ) && intval( $in['mid_size'] ) ) {
+		$out['mid_size'] = (int) sanitize_text_field( $in['mid_size'] );
+	}
+	else {
+		$out['mid_size'] = 2;
+	}
+
+	if ( isset( $in['per_page'] ) && intval( $in['per_page'] ) ) {
+		$out['per_page'] = (int) sanitize_text_field( $in['per_page'] );
+	}
+	else {
+		$out['per_page'] = 5;
+	}
 
 	return $out;
 }
