@@ -148,7 +148,6 @@ final class Strong_Testimonials {
 	static function plugin_activation() {
 		wpmtst_register_cpt();
 		flush_rewrite_rules();
-		Strong_Testimonials_Updater::update();
 	}
 
 	/**
