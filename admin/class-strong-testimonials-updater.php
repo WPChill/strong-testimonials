@@ -981,14 +981,6 @@ class Strong_Testimonials_Updater {
 		return round( strlen( $wordstring ) / count( $allwords ) );
 	}
 
-	/**
-	 * Unset stored version number to allow rollback and beta testing.
-	 *
-	 * @since 2.28.0
-	 */
-	public static function unset_version() {
-		delete_option( 'wpmtst_plugin_version');
-	}
 }
 
 Strong_Testimonials_Updater::init();
