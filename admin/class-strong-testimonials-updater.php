@@ -540,7 +540,6 @@ class Strong_Testimonials_Updater {
 	 * Update views.
 	 */
 	public static function update_views() {
-		// TODO Make this function accessible by add-ons; i.e. update_view( array ( {parameter} => {value} ) );
 		$views = wpmtst_get_views();
 
 		if ( ! $views ) {
