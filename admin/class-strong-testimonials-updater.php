@@ -11,19 +11,13 @@ class Strong_Testimonials_Updater {
 	 *
 	 * @var string
 	 */
-	public static $old_version;
+	private $old_version;
 
 	/**
 	 * Strong_Testimonials_Updater constructor.
 	 */
 	public function __construct() {
-	}
-
-	/**
-	 * Static initializer.
-	 */
-	public static function init() {
-		self::$old_version = get_option( 'wpmtst_plugin_version', false );
+		$this->old_version = get_option( 'wpmtst_plugin_version', false );
 	}
 
 	/**
@@ -33,7 +27,7 @@ class Strong_Testimonials_Updater {
 	 *
 	 * @return bool|null|WP_Role
 	 */
-	public static function get_admins() {
+	public function get_admins() {
 		return get_role( 'administrator' );
 	}
 
@@ -42,8 +36,8 @@ class Strong_Testimonials_Updater {
 	 *
 	 * @since 2.27.1
 	 */
-	public static function add_caps() {
-		if ( $admins = self::get_admins() ) {
+	public function add_caps() {
+		if ( $admins = $this->get_admins() ) {
 			$admins->add_cap( 'strong_testimonials_views' );
 			$admins->add_cap( 'strong_testimonials_fields' );
 			$admins->add_cap( 'strong_testimonials_options' );
@@ -56,8 +50,8 @@ class Strong_Testimonials_Updater {
 	 *
 	 * @since 2.27.1
 	 */
-	public static function remove_caps() {
-		if ( $admins = self::get_admins() ) {
+	public function remove_caps() {
+		if ( $admins = $this->get_admins() ) {
 			$admins->remove_cap( 'strong_testimonials_views' );
 			$admins->remove_cap( 'strong_testimonials_fields' );
 			$admins->remove_cap( 'strong_testimonials_options' );
@@ -70,9 +64,9 @@ class Strong_Testimonials_Updater {
 	 *
 	 * @since 1.21.0 Checking for new table version.
 	 */
-	public static function update_db_check() {
+	public function update_db_check() {
 		if ( get_option( 'wpmtst_db_version' ) != WPMST()->get_db_version() ) {
-			self::update_tables();
+			$this->update_tables();
 		}
 	}
 
@@ -81,7 +75,7 @@ class Strong_Testimonials_Updater {
 	 *
 	 * @since 1.21.0
 	 */
-	public static function update_tables() {
+	public function update_tables() {
 		global $wpdb;
 		require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
 
@@ -116,13 +110,13 @@ class Strong_Testimonials_Updater {
 	 * disabled (0) to enabled (1) in order for the property to
 	 * be displayed in the form editor.
 	 */
-	public static function update() {
-		if ( self::$old_version == WPMTST_VERSION ) {
+	public function update() {
+		if ( $this->old_version == WPMTST_VERSION ) {
 			return;
 		}
 
 		// Redirect to About page for new installs only
-		if ( false === self::$old_version ) {
+		if ( false === $this->old_version ) {
 			add_option( 'wpmtst_do_activation_redirect', true );
 		}
 
@@ -131,12 +125,12 @@ class Strong_Testimonials_Updater {
 		 *
 		 * @since 2.27.1
 		 */
-		self::add_caps();
+		$this->add_caps();
 
 		/**
 		 * Check DB version.
 		 */
-		self::update_db_check();
+		$this->update_db_check();
 
 		/**
 		 * Let's start updating.
@@ -146,52 +140,52 @@ class Strong_Testimonials_Updater {
 		/**
 		 * Options.
 		 */
-		update_option( 'wpmtst_options', self::update_options() );
+		update_option( 'wpmtst_options', $this->update_options() );
 
 		/**
 		 * Custom fields.
 		 */
-		update_option( 'wpmtst_fields', self::update_fields() );
+		update_option( 'wpmtst_fields', $this->update_fields() );
 
 		/**
 		 * Forms.
 		 */
-		update_option( 'wpmtst_base_forms', self::update_base_forms() );
-		update_option( 'wpmtst_custom_forms', self::update_custom_forms() );
-		update_option( 'wpmtst_form_options', self::update_form_options() );
+		update_option( 'wpmtst_base_forms', $this->update_base_forms() );
+		update_option( 'wpmtst_custom_forms', $this->update_custom_forms() );
+		update_option( 'wpmtst_form_options', $this->update_form_options() );
 
 		/**
 		 * Compatibility options.
 		 *
 		 * @since 2.28.0
 		 */
-		update_option( 'wpmtst_compat_options', self::update_compat_options() );
+		update_option( 'wpmtst_compat_options', $this->update_compat_options() );
 
 		/**
 		 * Overwrite default view options.
 		 *
 		 * @since 2.15.0
 		 */
-		update_option( 'wpmtst_view_options', self::update_view_options() );
+		update_option( 'wpmtst_view_options', $this->update_view_options() );
 
 		/**
 		 * Overwrite default view settings.
 		 *
 		 * @since 2.15.0
 		 */
-		update_option( 'wpmtst_view_default', self::update_default_view() );
+		update_option( 'wpmtst_view_default', $this->update_default_view() );
 
 		/**
 		 * Update views.
 		 */
-		self::update_views();
+		$this->update_views();
 
 		/**
 		 * Convert nofollow
 		 */
 		if ( ! isset( $history['2.23.0_convert_nofollow'] ) ) {
-			self::convert_nofollow();
-			self::update_history_log( '2.23.0_convert_nofollow' );
+			$this->convert_nofollow();
+			$this->update_history_log( '2.23.0_convert_nofollow' );
 		}
 
 		/**
@@ -208,7 +202,7 @@ class Strong_Testimonials_Updater {
 			delete_option( 'wpmtst_admin_notices' );
 			delete_option( 'wpmtst_news_flag' );
 
-			self::update_history_log( '2.28_new_update_process' );
+			$this->update_history_log( '2.28_new_update_process' );
 		}
 
 		/**
@@ -222,7 +216,7 @@ class Strong_Testimonials_Updater {
 	 *
 	 * @param $event
 	 */
-	public static function update_history_log( $event ) {
+	public function update_history_log( $event ) {
 		$history = get_option( 'wpmtst_history', array() );
 		$history[ $event ] = current_time( 'mysql' );
 		update_option( 'wpmtst_history', $history );
@@ -233,7 +227,7 @@ class Strong_Testimonials_Updater {
 	 *
 	 * @return array
 	 */
-	public static function update_options() {
+	public function update_options() {
 		$options = get_option( 'wpmtst_options' );
 		if ( ! $options ) {
 			return Strong_Testimonials_Defaults::get_options();
@@ -242,7 +236,7 @@ class Strong_Testimonials_Updater {
 		/**
 		 * Remove version 1 options
 		 */
-		if ( version_compare( '2.0', self::$old_version ) ) {
+		if ( version_compare( '2.0', $this->old_version ) ) {
 
 			if ( isset( $options['captcha'] ) ) {
 				unset( $options['captcha'] );
@@ -311,7 +305,7 @@ class Strong_Testimonials_Updater {
 	 *
 	 * @return array
 	 */
-	public static function update_fields() {
+	public function update_fields() {
 		$fields = get_option( 'wpmtst_fields', array() );
 		if ( ! $fields ) {
 			return Strong_Testimonials_Defaults::get_fields();
@@ -324,7 +318,7 @@ class Strong_Testimonials_Updater {
 			 * @since 2.0.1
 			 * @since 2.17 Added version check.
 			 */
-			if ( version_compare( '2.0', self::$old_version ) ) {
+			if ( version_compare( '2.0', $this->old_version ) ) {
 				if ( isset( $fields['field_groups'] ) ) {
 					$default_custom_forms[1]['fields'] = $fields['field_groups']['custom']['fields'];
 					unset( $fields['field_groups'] );
@@ -343,7 +337,7 @@ class Strong_Testimonials_Updater {
 	 *
 	 * @return array
 	 */
-	public static function update_base_forms() {
+	public function update_base_forms() {
 		return Strong_Testimonials_Defaults::get_base_forms();
 	}
 
@@ -352,7 +346,7 @@ class Strong_Testimonials_Updater {
 	 *
 	 * @return array
 	 */
-	public static function update_custom_forms() {
+	public function update_custom_forms() {
 		$custom_forms = get_option( 'wpmtst_custom_forms' );
 		if ( ! $custom_forms ) {
 			return Strong_Testimonials_Defaults::get_custom_forms();
@@ -426,7 +420,7 @@ class Strong_Testimonials_Updater {
 	 *
 	 * @return array
 	 */
-	public static function update_form_options() {
+	public function update_form_options() {
 		$form_options = get_option( 'wpmtst_form_options' );
 		if ( ! $form_options ) {
 			return Strong_Testimonials_Defaults::get_form_options();
@@ -494,7 +488,7 @@ class Strong_Testimonials_Updater {
 	 *
 	 * @return array
 	 */
-	public static function update_compat_options() {
+	public function update_compat_options() {
 		$options = get_option( 'wpmtst_compat_options' );
 		if ( ! $options ) {
 			return Strong_Testimonials_Defaults::get_compat_options();
@@ -512,7 +506,7 @@ class Strong_Testimonials_Updater {
 	 *
 	 * @return array
 	 */
-	public static function update_view_options() {
+	public function update_view_options() {
 		return Strong_Testimonials_Defaults::get_view_options();
 	}
 
@@ -521,14 +515,14 @@ class Strong_Testimonials_Updater {
 	 *
 	 * @return array
 	 */
-	public static function update_default_view() {
+	public function update_default_view() {
 		return apply_filters( 'wpmtst_view_default', Strong_Testimonials_Defaults::get_default_view() );
 	}
 
 	/**
 	 * Update views.
 	 */
-	public static function update_views() {
+	public function update_views() {
 		$views = wpmtst_get_views();
 
 		if ( ! $views ) {
@@ -553,17 +547,17 @@ class Strong_Testimonials_Updater {
 				 */
 				unset( $view_data['compat'] );
 
-				$view_data = self::convert_template_name( $view_data );
-				$view_data = self::convert_count( $view_data );
-				$view_data = self::convert_background_color( $view_data );
-				$view_data = self::convert_form_ajax( $view_data );
-				$view_data = self::convert_word_count( $view_data );
-				$view_data = self::convert_excerpt_length( $view_data );
-				$view_data = self::convert_more_text( $view_data );
-				$view_data = self::convert_modern_title( $view_data );
-				$view_data = self::convert_slideshow( $view_data );
-				$view_data = self::convert_title_link( $view_data );
-				$view_data = self::convert_pagination_type( $view_data );
+				$view_data = $this->convert_template_name( $view_data );
+				$view_data = $this->convert_count( $view_data );
+				$view_data = $this->convert_background_color( $view_data );
+				$view_data = $this->convert_form_ajax( $view_data );
+				$view_data = $this->convert_word_count( $view_data );
+				$view_data = $this->convert_excerpt_length( $view_data );
+				$view_data = $this->convert_more_text( $view_data );
+				$view_data = $this->convert_modern_title( $view_data );
+				$view_data = $this->convert_slideshow( $view_data );
+				$view_data = $this->convert_title_link( $view_data );
+				$view_data = $this->convert_pagination_type( $view_data );
 			}
 
 			// Merge in new default values.
@@ -612,7 +606,7 @@ class Strong_Testimonials_Updater {
 	 *
 	 * @return array
 	 */
-	public static function convert_template_name( $view_data ) {
+	public function convert_template_name( $view_data ) {
 		// Change default template from empty to 'default:{type}'
 		if ( ! $view_data['template'] ) {
 			if ( 'form' == $view_data['mode'] ) {
@@ -646,10 +640,10 @@ class Strong_Testimonials_Updater {
 	 *
 	 * @return array
 	 */
-	public static function convert_excerpt_length( $view_data ) {
+	public function convert_excerpt_length( $view_data ) {
 		if ( ! isset( $view_data['excerpt_length'] ) || ! $view_data['excerpt_length'] ) {
 			$default_view = Strong_Testimonials_Defaults::get_default_view();
-			$average_word_length = self::get_average_word_length();
+			$average_word_length = $this->get_average_word_length();
 
 			if ( isset( $view_data['length'] ) && $view_data['length'] ) {
 				$word_count                  = round( $view_data['length'] / $average_word_length );
@@ -675,7 +669,7 @@ class Strong_Testimonials_Updater {
 	 *
 	 * @return array
 	 */
-	public static function convert_more_text( $view_data ) {
+	public function convert_more_text( $view_data ) {
 		if ( isset( $view_data['more_text'] ) ) {
 			if ( isset( $view_data['more_page'] ) && $view_data['more_page'] > 1 ) {
 				// convert more_page to toggle and move page id to more_page_id
@@ -700,7 +694,7 @@ class Strong_Testimonials_Updater {
 	 *
 	 * @return array
 	 */
-	public static function convert_slideshow( $view_data ) {
+	public function convert_slideshow( $view_data ) {
 		if ( 'slideshow' == $view_data['mode'] ) {
 			$view_data['slideshow'] = 1;
 		}
@@ -777,7 +771,7 @@ class Strong_Testimonials_Updater {
 	 *
 	 * @return array
 	 */
-	public static function convert_count( $view_data ) {
+	public function convert_count( $view_data ) {
 		if ( -1 == $view_data['count'] ) {
 			$view_data['count'] = 1;
 			$view_data['all']   = 1;
@@ -793,7 +787,7 @@ class Strong_Testimonials_Updater {
 	 *
 	 * @return array
 	 */
-	public static function convert_background_color( $view_data ) {
+	public function convert_background_color( $view_data ) {
 		if ( ! is_array( $view_data['background'] ) ) {
 			$view_data['background'] = array(
 				'color' => $view_data['background'],
@@ -811,7 +805,7 @@ class Strong_Testimonials_Updater {
 	 *
 	 * @return array
 	 */
-	public static function convert_form_ajax( $view_data ) {
+	public function convert_form_ajax( $view_data ) {
 		if ( isset( $view_data['form-ajax'] ) ) {
 			$view_data['form_ajax'] = $view_data['form-ajax'];
 			unset( $view_data['form-ajax'] );
@@ -835,7 +829,7 @@ class Strong_Testimonials_Updater {
 	 *
 	 * @return array
 	 */
-	public static function convert_word_count( $view_data ) {
+	public function convert_word_count( $view_data ) {
 		if ( isset( $view_data['word_count'] ) ) {
 			$view_data['excerpt_length'] = $view_data['word_count'];
 			unset( $view_data['word_count'] );
@@ -852,11 +846,11 @@ class Strong_Testimonials_Updater {
 	 *
 	 * @return array
 	 */
-	public static function convert_modern_title( $view_data ) {
+	public function convert_modern_title( $view_data ) {
 		if ( 'modern:content' == $view_data['template'] ) {
 			if ( ! isset( $history['2.12.4_convert_modern_template'] ) ) {
 				$view_data['title'] = 0;
-				self::update_history_log( '2.12.4_convert_modern_template' );
+				$this->update_history_log( '2.12.4_convert_modern_template' );
 			}
 		}
 
@@ -872,7 +866,7 @@ class Strong_Testimonials_Updater {
 	 *
 	 * @return array
 	 */
-	public static function convert_title_link( $view_data ) {
+	public function convert_title_link( $view_data ) {
 		if ( ! isset( $view_data['title_link'] ) ) {
 			$view_data['title_link'] = 0;
 		}
@@ -885,7 +879,7 @@ class Strong_Testimonials_Updater {
 	 *
 	 * @since 2.23.0
 	 */
-	public static function convert_nofollow() {
+	public function convert_nofollow() {
 		$args  = array(
 			'posts_per_page'   => - 1,
 			'post_type'        => 'wpm-testimonial',
@@ -933,7 +927,7 @@ class Strong_Testimonials_Updater {
 	 *
 	 * @return mixed
 	 */
-	public static function convert_pagination_type( $view_data ) {
+	public function convert_pagination_type( $view_data ) {
 		if ( isset( $view_data['pagination_type'] ) ) {
 			$view_data['pagination_settings']['type'] = $view_data['pagination_type'];
 			unset( $view_data['pagination_type'] );
@@ -955,7 +949,7 @@ class Strong_Testimonials_Updater {
 	 *
 	 * @since 2.10.0
 	 */
-	public static function get_average_word_length() {
+	public function get_average_word_length() {
 		$args  = array(
 			'posts_per_page'   => - 1,
 			'post_type'        => 'wpm-testimonial',
@@ -982,5 +976,3 @@ class Strong_Testimonials_Updater {
 	}
 
 }
-
-Strong_Testimonials_Updater::init();

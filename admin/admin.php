@@ -1,21 +1,52 @@
 <?php
 /**
- * Strong Testimonials - Admin functions
+ * Strong Testimonials admin functions.
+ *
+ * 1. Check for required WordPress version.
+ * 2. Check for plugin update.
+ * 3. Initialize.
  */
 
 /**
- * Init
+ * Check for required WordPress version.
+ */
+function wpmtst_version_check() {
+	global $wp_version;
+	$require_wp_version = "3.7";
+
+	if ( version_compare( $wp_version, $require_wp_version ) == -1 ) {
+		deactivate_plugins( WPMTST_PLUGIN );
+		/* translators: %s is the name of the plugin. */
+		$message = '<h2>' . sprintf( _x( 'Unable to load %s', 'installation', 'strong-testimonials' ), 'Strong Testimonials' ) . '</h2>';
+		/* translators: %s is a WordPress version number. */
+		$message .= '<p>' . sprintf( _x( 'This plugin requires <strong>WordPress %s</strong> or higher so it has been deactivated.', 'installation', 'strong-testimonials' ), $require_wp_version ) . '</p>';
+		$message .= '<p>' . _x( 'Please upgrade WordPress and try again.', 'installation', 'strong-testimonials' ) . '</p>';
+		$message .= '<p>' . sprintf( _x( 'Back to the WordPress <a href="%s">Plugins page</a>', 'installation', 'strong-testimonials' ), get_admin_url( null, 'plugins.php' ) ) . '</p>';
+		wp_die( $message );
+	}
+}
+
+add_action( 'admin_init', 'wpmtst_version_check', 1 );
+
+/**
+ * Check for plugin update.
+ *
+ * @since 2.28.4 Before other admin_init actions.
+ */
+function wpmtst_update_check() {
+	$updater = new Strong_Testimonials_Updater();
+	$updater->update();
+}
+
+add_action( 'admin_init', 'wpmtst_update_check' );
+
+/**
+ * Initialize.
  */
 function wpmtst_admin_init() {
 
     // Remove ad banner from Captcha plugin
 	remove_action( 'admin_notices', 'cptch_plugin_banner' );
-
-	// Check WordPress version
-    wpmtst_version_check();
-
-    // Check for new options
-	Strong_Testimonials_Updater::update();
 
 	// Redirect to About page for new installs only
 	wpmtst_activation_redirect();
@@ -30,7 +61,8 @@ function wpmtst_admin_init() {
     }
 
 }
-add_action( 'admin_init', 'wpmtst_admin_init' );
+
+add_action( 'admin_init', 'wpmtst_admin_init', 20 );
 
 /**
  * Redirect to About page.
@@ -53,25 +85,6 @@ function wpmtst_activation_redirect() {
 function wpmtst_is_testimonial_screen() {
 	$screen = get_current_screen();
 	return ( $screen && 'wpm-testimonial' == $screen->post_type );
-}
-
-/**
- * Check WordPress version
- */
-function wpmtst_version_check() {
-	global $wp_version;
-	$require_wp_version = "3.7";
-
-	if ( version_compare( $wp_version, $require_wp_version ) == -1 ) {
-		deactivate_plugins( WPMTST_PLUGIN );
-		/* translators: %s is the name of the plugin. */
-		$message = '<h2>' . sprintf( _x( 'Unable to load %s', 'installation', 'strong-testimonials' ), 'Strong Testimonials' ) . '</h2>';
-		/* translators: %s is a WordPress version number. */
-		$message .= '<p>' . sprintf( _x( 'This plugin requires <strong>WordPress %s</strong> or higher so it has been deactivated.', 'installation', 'strong-testimonials' ), $require_wp_version ) . '</p>';
-		$message .= '<p>' . _x( 'Please upgrade WordPress and try again.', 'installation', 'strong-testimonials' ) . '</p>';
-		$message .= '<p>' . sprintf( _x( 'Back to the WordPress <a href="%s">Plugins page</a>', 'installation', 'strong-testimonials' ), get_admin_url( null, 'plugins.php' ) ) . '</p>';
-		wp_die( $message );
-	}
 }
 
 /**
