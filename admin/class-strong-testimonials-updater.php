@@ -88,6 +88,12 @@ class Strong_Testimonials_Updater {
 			return;
 		}
 
+		if ( get_transient( 'wpmtst_update_in_progress' ) ) {
+			return;
+		}
+
+		set_transient( 'wpmtst_update_in_progress', 1, 60 * 5 );
+
 		// Redirect to About page afterwards. On new install or (de)activation only.
 		if ( false === $this->old_version ) {
 			add_option( 'wpmtst_do_activation_redirect', true );
@@ -188,6 +194,8 @@ class Strong_Testimonials_Updater {
 		 */
 		$this->log( __FUNCTION__, 'complete' );
 		$this->update_log();
+
+		delete_transient( 'wpmtst_update_in_progress' );
 	}
 
 	/**
@@ -545,19 +553,19 @@ class Strong_Testimonials_Updater {
 		 * Move existing options.
 		 */
 		if ( isset( $options['admin_notify'] ) ) {
-			$form_options['admin_notify']    = $options['admin_notify'];
+			$form_options['admin_notify'] = $options['admin_notify'];
 			unset( $options['admin_notify'] );
 
-			$form_options['admin_email']     = $options['admin_email'];
+			$form_options['admin_email'] = $options['admin_email'];
 			unset( $options['admin_email'] );
 
-			$form_options['captcha']         = $options['captcha'];
+			$form_options['captcha'] = $options['captcha'];
 			unset( $options['captcha'] );
 
 			$form_options['honeypot_before'] = $options['honeypot_before'];
 			unset( $options['honeypot_before'] );
 
-			$form_options['honeypot_after']  = $options['honeypot_after'];
+			$form_options['honeypot_after'] = $options['honeypot_after'];
 			unset( $options['honeypot_after'] );
 
 			update_option( 'wpmtst_options', $options );
@@ -712,21 +720,15 @@ class Strong_Testimonials_Updater {
 				 *
 				 * @since 2.28.3
 				 */
-				if ( ! isset( $view['data']['pagination_settings']['end_size'] )
-				     || ! $view['data']['pagination_settings']['end_size'] )
-				{
+				if ( ! isset( $view['data']['pagination_settings']['end_size'] ) || ! $view['data']['pagination_settings']['end_size'] ) {
 					$view['data']['pagination_settings']['end_size'] = 1;
 					$this->log( __FUNCTION__, 'fix end_size' );
 				}
-				if ( ! isset( $view['data']['pagination_settings']['mid_size'] )
-				     || ! $view['data']['pagination_settings']['mid_size'] )
-				{
+				if ( ! isset( $view['data']['pagination_settings']['mid_size'] ) || ! $view['data']['pagination_settings']['mid_size'] ) {
 					$view['data']['pagination_settings']['mid_size'] = 2;
 					$this->log( __FUNCTION__, 'fix mid_size' );
 				}
-				if ( ! isset( $view['data']['pagination_settings']['per_page'] )
-				     || ! $view['data']['pagination_settings']['per_page'] )
-				{
+				if ( ! isset( $view['data']['pagination_settings']['per_page'] ) || ! $view['data']['pagination_settings']['per_page'] ) {
 					$view['data']['pagination_settings']['per_page'] = 5;
 					$this->log( __FUNCTION__, 'fix per_page' );
 				}
@@ -939,7 +941,7 @@ class Strong_Testimonials_Updater {
 	 * @return array
 	 */
 	public function convert_count( $view_data ) {
-		if ( -1 == $view_data['count'] ) {
+		if ( - 1 == $view_data['count'] ) {
 			$view_data['count'] = 1;
 			$view_data['all']   = 1;
 			$this->log( __FUNCTION__, 'done' );
