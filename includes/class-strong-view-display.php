@@ -231,29 +231,16 @@ class Strong_View_Display extends Strong_View {
 		 * @since 1.16.1
 		 */
 		if ( ! $this->atts['all'] && $this->atts['count'] > 0 ) {
-			if ( $this->atts['pagination'] ) {
-				if ( 'simple' == $this->atts['pagination_settings']['type'] ) {
-					$count = min( $this->atts['count'], count( $query->posts ) );
-					$query->posts         = array_slice( $query->posts, 0, $count );
-					$query->post_count    = $count;
-					$query->found_posts   = $count;
-					$query->max_num_pages = ceil( $count / $this->atts['pagination_settings']['per_page'] );
-				}
-			}
+			$count                = min( $this->atts['count'], count( $query->posts ) );
+			$query->posts         = array_slice( $query->posts, 0, $count );
+			$query->post_count    = $count;
+			$query->found_posts   = $count;
 		}
 
 		$this->post_count  = $query->post_count;
 		$this->found_posts = $query->found_posts;
-
+		$this->query       = $query;
 		WPMST()->set_query( $query );
-
-		$this->query = $query;
-
-		if ( $this->atts['pagination'] ) {
-			if ( $this->query->post_count <= $this->atts['pagination_settings']['per_page'] ) {
-				$this->atts['pagination'] = apply_filters( 'wpmtst_use_default_pagination', true, $this->atts );
-			}
-		}
 	}
 
 	/**
