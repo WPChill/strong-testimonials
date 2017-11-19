@@ -1,51 +1,14 @@
 <?php
 /**
- * Strong Testimonials - Admin functions
- */
-
-/**
- * Init
- */
-function wpmtst_admin_init() {
-
-    // Remove ad banner from Captcha plugin
-	remove_action( 'admin_notices', 'cptch_plugin_banner' );
-
-	// Check WordPress version
-    wpmtst_version_check();
-
-    // Check for new options
-	Strong_Testimonials_Updater::update();
-
-	// Redirect to About page for new installs only
-	Strong_Testimonials_Updater::activation_redirect();
-
-	/**
-     * Custom action hooks
-     *
-     * @since 1.18.4
-     */
-    if ( isset( $_REQUEST['action'] ) && '' != $_REQUEST['action'] ) {
-        do_action( 'wpmtst_' . $_REQUEST['action'] );
-    }
-
-}
-add_action( 'admin_init', 'wpmtst_admin_init' );
-
-/**
- * Are we on a testimonial admin screen?
+ * Strong Testimonials admin functions.
  *
- * Used by add-ons too!
- *
- * @return bool
+ * 1. Check for required WordPress version.
+ * 2. Check for plugin update.
+ * 3. Initialize.
  */
-function wpmtst_is_testimonial_screen() {
-	$screen = get_current_screen();
-	return ( $screen && 'wpm-testimonial' == $screen->post_type );
-}
 
 /**
- * Check WordPress version
+ * Check for required WordPress version.
  */
 function wpmtst_version_check() {
 	global $wp_version;
@@ -61,6 +24,67 @@ function wpmtst_version_check() {
 		$message .= '<p>' . sprintf( _x( 'Back to the WordPress <a href="%s">Plugins page</a>', 'installation', 'strong-testimonials' ), get_admin_url( null, 'plugins.php' ) ) . '</p>';
 		wp_die( $message );
 	}
+}
+
+add_action( 'admin_init', 'wpmtst_version_check', 1 );
+
+/**
+ * Check for plugin update.
+ *
+ * @since 2.28.4 Before other admin_init actions.
+ */
+function wpmtst_update_check() {
+	$updater = new Strong_Testimonials_Updater();
+	$updater->update();
+}
+
+add_action( 'admin_init', 'wpmtst_update_check' );
+
+/**
+ * Initialize.
+ */
+function wpmtst_admin_init() {
+
+    // Remove ad banner from Captcha plugin
+	remove_action( 'admin_notices', 'cptch_plugin_banner' );
+
+	// Redirect to About page for new installs only
+	wpmtst_activation_redirect();
+
+	/**
+     * Custom action hooks
+     *
+     * @since 1.18.4
+     */
+    if ( isset( $_REQUEST['action'] ) && '' != $_REQUEST['action'] ) {
+        do_action( 'wpmtst_' . $_REQUEST['action'] );
+    }
+
+}
+
+add_action( 'admin_init', 'wpmtst_admin_init', 20 );
+
+/**
+ * Redirect to About page.
+ */
+function wpmtst_activation_redirect() {
+	if ( get_option( 'wpmtst_do_activation_redirect', false ) ) {
+		delete_option( 'wpmtst_do_activation_redirect' );
+		wp_redirect( admin_url( 'edit.php?post_type=wpm-testimonial&page=about-strong-testimonials' ) );
+		exit;
+	}
+}
+
+/**
+ * Are we on a testimonial admin screen?
+ *
+ * Used by add-ons too!
+ *
+ * @return bool
+ */
+function wpmtst_is_testimonial_screen() {
+	$screen = get_current_screen();
+	return ( $screen && 'wpm-testimonial' == $screen->post_type );
 }
 
 /**
