@@ -720,24 +720,31 @@ class Strong_Testimonials_Updater {
 
 			if ( isset( $view_data['pagination_settings'] ) ) {
 				$view['data']['pagination_settings'] = array_merge( $default_view['pagination_settings'], $view_data['pagination_settings'] );
-				$this->log( __FUNCTION__, 'attempting bug fix for standard pagination' );
+
 				/**
-				 * Bug fix for 2.28.2
+				 * Attempt to repair bug from 2.28.2
 				 *
 				 * @since 2.28.3
 				 */
-				if ( ! $view['data']['pagination_settings']['end_size'] ) {
+				if ( ! isset( $view['data']['pagination_settings']['end_size'] )
+				     || ! $view['data']['pagination_settings']['end_size'] )
+				{
 					$view['data']['pagination_settings']['end_size'] = 1;
 					$this->log( __FUNCTION__, 'fix end_size' );
 				}
-				if ( ! $view['data']['pagination_settings']['mid_size'] ) {
+				if ( ! isset( $view['data']['pagination_settings']['mid_size'] )
+				     || ! $view['data']['pagination_settings']['mid_size'] )
+				{
 					$view['data']['pagination_settings']['mid_size'] = 2;
 					$this->log( __FUNCTION__, 'fix mid_size' );
 				}
-				if ( ! $view['data']['pagination_settings']['per_page'] ) {
+				if ( ! isset( $view['data']['pagination_settings']['per_page'] )
+				     || ! $view['data']['pagination_settings']['per_page'] )
+				{
 					$view['data']['pagination_settings']['per_page'] = 5;
 					$this->log( __FUNCTION__, 'fix per_page' );
 				}
+
 			}
 			else {
 				$view['data']['pagination_settings'] = $default_view['pagination_settings'];
