@@ -18,7 +18,7 @@ function wpmtst_admin_init() {
 	Strong_Testimonials_Updater::update();
 
 	// Redirect to About page for new installs only
-	Strong_Testimonials_Updater::activation_redirect();
+	wpmtst_activation_redirect();
 
 	/**
      * Custom action hooks
@@ -31,6 +31,17 @@ function wpmtst_admin_init() {
 
 }
 add_action( 'admin_init', 'wpmtst_admin_init' );
+
+/**
+ * Redirect to About page.
+ */
+function wpmtst_activation_redirect() {
+	if ( get_option( 'wpmtst_do_activation_redirect', false ) ) {
+		delete_option( 'wpmtst_do_activation_redirect' );
+		wp_redirect( admin_url( 'edit.php?post_type=wpm-testimonial&page=about-strong-testimonials' ) );
+		exit;
+	}
+}
 
 /**
  * Are we on a testimonial admin screen?

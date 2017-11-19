@@ -103,17 +103,6 @@ class Strong_Testimonials_Updater {
 	}
 
 	/**
-	 * Redirect to About page.
-	 */
-	public static function activation_redirect() {
-		if ( get_option( 'wpmtst_do_activation_redirect', false ) ) {
-			delete_option( 'wpmtst_do_activation_redirect' );
-			wp_redirect( admin_url( 'edit.php?post_type=wpm-testimonial&page=about-strong-testimonials' ) );
-			exit;
-		}
-	}
-
-	/**
 	 * Plugin activation and upgrade.
 	 *
 	 * ---------
