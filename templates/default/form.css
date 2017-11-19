@@ -7,7 +7,7 @@
 .strong-form .form-field {
   margin-bottom: 1.5em;
 }
-.strong-form .form-field.submit {
+.strong-form .form-field.wpmtst-submit {
   margin-bottom: 0;
 }
 .strong-form .required.symbol:after {
