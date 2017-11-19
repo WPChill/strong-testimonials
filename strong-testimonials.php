@@ -48,7 +48,6 @@ if ( ! class_exists( 'Strong_Testimonials' ) ) :
  * @property  Strong_Testimonials_Render render
  * @property  Strong_Mail mail
  * @property  Strong_Templates templates
- * @property  Strong_Debug debug
  * @property  Strong_Testimonials_Form form
  * @since 1.15.0
  */
@@ -76,11 +75,6 @@ final class Strong_Testimonials {
 	 * @var Strong_Templates
 	 */
 	public $templates;
-
-	/**
-	 * @var Strong_Debug
-	 */
-	public $debug;
 
 	/**
 	 * @var Strong_Testimonials_Form
@@ -196,7 +190,6 @@ final class Strong_Testimonials {
 		$this->render    = new Strong_Testimonials_Render();
 		$this->mail      = new Strong_Mail();
 		$this->templates = new Strong_Templates();
-		$this->debug     = new Strong_Debug();
 		$this->form      = new Strong_Testimonials_Form();
 	}
 
@@ -217,7 +210,6 @@ final class Strong_Testimonials {
 
 		require_once WPMTST_INC . 'class-strong-templates.php';
 		require_once WPMTST_INC . 'class-strong-mail.php';
-		require_once WPMTST_INC . 'class-strong-debug.php';
 		require_once WPMTST_INC . 'class-strong-form.php';
 		require_once WPMTST_INC . 'class-walker-strong-category-checklist-front.php';
 

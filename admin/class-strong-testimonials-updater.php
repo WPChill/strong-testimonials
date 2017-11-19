@@ -402,6 +402,15 @@ class Strong_Testimonials_Updater {
 			$options['embed_width'] = '';
 		}
 
+		/**
+		 * Remove email logging.
+		 *
+		 * @since 2.28.4
+		 */
+		if ( isset( $options['email_log_level'] ) ) {
+			unset( $options['email_log_level'] );
+		}
+
 		// Merge in new options
 		$options = array_merge( Strong_Testimonials_Defaults::get_options(), $options );
 

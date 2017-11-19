@@ -26,44 +26,15 @@ class Strong_Mail {
 		if ( ! $current_queue )
 			return;
 
-		add_action( 'wp_mail_failed', array( $this, 'catch_mail_failed' ) );
 		foreach ( $current_queue as $email ) {
 			$this->send_mail( $email );
 		}
-		remove_action( 'wp_mail_failed', array( $this, 'catch_mail_failed' ) );
 
 		delete_transient( 'wpmtst_mail_queue' );
 	}
 
-
-	public function catch_mail_failed( $error ) {
-		WPMST()->debug->log( $error );
-	}
-
-
 	public function send_mail( $email ) {
-		$mail_sent = wp_mail( $email['to'], $email['subject'], $email['message'], $email['headers'] );
-
-		// Log email action
-		//TODO Deeper integration with Mandrill
-		$options = get_option( 'wpmtst_options' );
-		if ( isset( $options['email_log_level'] ) && $options['email_log_level'] ) {
-
-			// for both levels, log failure only
-			// for level 2, log both success and failure
-			if ( ! $mail_sent || 2 == $options['email_log_level'] ) {
-				$log_entry = array(
-					'response' => $mail_sent ? 'mail successful' : 'mail failed',
-					'to'       => $email['to'],
-					'subject'  => $email['subject'],
-					'message'  => $email['message'],
-					'headers'  => $email['headers'],
-				);
-				WPMST()->debug->log( $log_entry, 'mail', __FUNCTION__ );
-			}
-
-		}
-
+		wp_mail( $email['to'], $email['subject'], $email['message'], $email['headers'] );
 	}
 
 	/**
