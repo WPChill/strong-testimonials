@@ -59,35 +59,6 @@ $options = get_option( 'wpmtst_options' );
 		</td>
 	</tr>
 
-	<tr valign="top">
-		<th scope="row">
-			<?php _e( 'Troubleshooting', 'strong-testimonials' ); ?>
-		</th>
-		<td>
-			<fieldset>
-				<span style="display: inline-block; margin-right: 20px; vertical-align: middle;">Notification Emails</span>
-				<label style="display: inline-block; vertical-align: middle;">
-					<select id="email_log_level" name="wpmtst_options[email_log_level]">
-						<option value="0" <?php selected( $options['email_log_level'], 0 ); ?>>
-							<?php _e( 'Log nothing', 'strong-testimonials' ); ?>
-						</option>
-						<option value="1" <?php selected( $options['email_log_level'], 1 ); ?>>
-							<?php _e( 'Log failed emails only (default)', 'strong-testimonials' ); ?>
-						</option>
-						<option value="2" <?php selected( $options['email_log_level'], 2 ); ?>>
-							<?php _e( 'Log both successful and failed emails', 'strong-testimonials' ); ?>
-						</option>
-					</select>
-				</label>
-			</fieldset>
-			<?php if ( file_exists( WPMST()->debug->get_log_file_path() ) ) : ?>
-				<p><a href="<?php echo WPMST()->debug->get_log_file_url(); ?>" download="strong-testimonials.log"><?php _e( 'Download the log file', 'strong-testimonials' ); ?></a></p>
-			<?php else : ?>
-				<p><em><?php _e( 'No log file yet.', 'strong-testimonials' ); ?></em></p>
-			<?php endif; ?>
-		</td>
-	</tr>
-
 </table>
 
 <hr/>
