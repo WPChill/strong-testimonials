@@ -92,7 +92,7 @@ class Strong_Testimonials_Updater {
 			return;
 		}
 
-		set_transient( 'wpmtst_update_in_progress', 1, 60 * 5 );
+		set_transient( 'wpmtst_update_in_progress', 1, 60 );
 
 		// Redirect to About page afterwards. On new install or (de)activation only.
 		if ( false === $this->old_version ) {
@@ -215,7 +215,6 @@ class Strong_Testimonials_Updater {
 	 * @return bool|null|WP_Role
 	 */
 	public function get_admins() {
-		$this->log( __FUNCTION__ );
 		return get_role( 'administrator' );
 	}
 
@@ -226,13 +225,15 @@ class Strong_Testimonials_Updater {
 	 */
 	public function add_caps() {
 		$admins = $this->get_admins();
-		$this->log( __FUNCTION__, 'admins', gettype( $admins ) );
 		if ( $admins ) {
 			$admins->add_cap( 'strong_testimonials_views' );
 			$admins->add_cap( 'strong_testimonials_fields' );
 			$admins->add_cap( 'strong_testimonials_options' );
 			$admins->add_cap( 'strong_testimonials_about' );
-			$this->log( __FUNCTION__, 'done' );
+			$this->log( __FUNCTION__, 'success' );
+		}
+		else {
+			$this->log( __FUNCTION__, 'failed' );
 		}
 	}
 
@@ -321,7 +322,7 @@ class Strong_Testimonials_Updater {
 		$history           = get_option( 'wpmtst_history', array() );
 		$history[ $event ] = current_time( 'mysql' );
 		$success           = update_option( 'wpmtst_history', $history );
-		$this->log( __FUNCTION__, $event, $success ? 'updated' : 'no update' );
+		$this->log( __FUNCTION__, $event, $success ? 'record added' : 'record exists' );
 	}
 
 	/**
@@ -333,7 +334,6 @@ class Strong_Testimonials_Updater {
 		$options = get_option( 'wpmtst_options' );
 		if ( ! $options ) {
 			$this->log( __FUNCTION__, 'default' );
-
 			return Strong_Testimonials_Defaults::get_options();
 		}
 
@@ -382,7 +382,6 @@ class Strong_Testimonials_Updater {
 				unset( $options['client_section'] );
 			}
 
-			$this->log( __FUNCTION__, 'obsolete settings removed' );
 		}
 
 		/**
@@ -392,7 +391,6 @@ class Strong_Testimonials_Updater {
 		 */
 		if ( isset( $options['slideshow_zindex'] ) ) {
 			unset( $options['slideshow_zindex'] );
-			$this->log( __FUNCTION__, 'removing slideshow_zindex' );
 		}
 
 		/**
@@ -402,11 +400,11 @@ class Strong_Testimonials_Updater {
 		 */
 		if ( 0 === $options['embed_width'] ) {
 			$options['embed_width'] = '';
-			$this->log( __FUNCTION__, 'convert zero embed_width' );
 		}
 
 		// Merge in new options
 		$options = array_merge( Strong_Testimonials_Defaults::get_options(), $options );
+
 		$this->log( __FUNCTION__, 'done' );
 
 		return $options;
@@ -440,8 +438,8 @@ class Strong_Testimonials_Updater {
 			if ( isset( $fields['current_field_group'] ) ) {
 				unset( $fields['current_field_group'] );
 			}
-			$this->log( __FUNCTION__, 'convert fields from 1.x', 'done' );
 		}
+
 		$this->log( __FUNCTION__, 'done' );
 
 		return $fields;
@@ -470,7 +468,6 @@ class Strong_Testimonials_Updater {
 		}
 
 		foreach ( $custom_forms as $form_id => $form_properties ) {
-			$this->log( __FUNCTION__, 'convert form', $form_id );
 			foreach ( $form_properties['fields'] as $key => $form_field ) {
 
 				/*
@@ -530,7 +527,7 @@ class Strong_Testimonials_Updater {
 			}
 		}
 
-		$this->log( __FUNCTION__, 'form conversion', 'done' );
+		$this->log( __FUNCTION__, 'convert forms', 'done' );
 
 		return $custom_forms;
 	}
@@ -569,7 +566,6 @@ class Strong_Testimonials_Updater {
 			unset( $options['honeypot_after'] );
 
 			update_option( 'wpmtst_options', $options );
-			$this->log( __FUNCTION__, 'move existing options', 'done' );
 		}
 
 		/**
@@ -590,8 +586,6 @@ class Strong_Testimonials_Updater {
 			unset( $form_options['admin_name'] );
 			unset( $form_options['admin_site_email'] );
 			unset( $form_options['admin_email'] );
-
-			$this->log( __FUNCTION__, 'convert single email recipient to multiple', 'done' );
 		}
 
 		/**
@@ -601,7 +595,6 @@ class Strong_Testimonials_Updater {
 		 */
 		if ( ! isset( $form_options['messages']['required-field']['enabled'] ) ) {
 			$form_options['messages']['required-field']['enabled'] = 1;
-			$this->log( __FUNCTION__, 'add default required-notice setting', 'done' );
 		}
 
 		// Merge in new options
@@ -622,7 +615,7 @@ class Strong_Testimonials_Updater {
 	public function update_compat_options() {
 		$options = get_option( 'wpmtst_compat_options' );
 		if ( ! $options ) {
-			$this->log( __CLASS__, 'default' );
+			$this->log( __FUNCTION__, 'default' );
 			return Strong_Testimonials_Defaults::get_compat_options();
 		}
 
@@ -672,11 +665,10 @@ class Strong_Testimonials_Updater {
 		$history      = get_option( 'wpmtst_history', array() );
 
 		foreach ( $views as $key => $view ) {
-			$this->log( __FUNCTION__, 'view id', $view['id'] );
 
 			$view_data = unserialize( $view['value'] );
 			if ( ! is_array( $view_data ) ) {
-				$this->log( __FUNCTION__, 'view data is not an array' );
+				$this->log( __FUNCTION__, 'view ' . $view['id'] . ' data is not an array' );
 				continue;
 			}
 
@@ -747,7 +739,6 @@ class Strong_Testimonials_Updater {
 			ksort( $view['data']['slideshow_settings'] );
 
 			$success = wpmtst_save_view( $view );
-			$this->log( __FUNCTION__, 'save view', $success ? 'success' : 'failed' );
 
 		} // foreach $view
 
@@ -772,11 +763,9 @@ class Strong_Testimonials_Updater {
 			}
 
 			$view_data['template'] = "default:$type";
-			$this->log( __FUNCTION__, 'change', $view_data['template'] );
 		}
 		else {
 			// Convert name; e.g. 'simple/testimonials.php'
-			$orig = $view_data['template'];
 			if ( 'widget/testimonials.php' == $view_data['template'] ) {
 				$view_data['template'] = 'default:widget';
 			}
@@ -784,10 +773,6 @@ class Strong_Testimonials_Updater {
 				$view_data['template'] = str_replace( '/', ':', $view_data['template'] );
 				$view_data['template'] = str_replace( 'testimonials.php', 'content', $view_data['template'] );
 				$view_data['template'] = str_replace( 'testimonial-form.php', 'form', $view_data['template'] );
-			}
-
-			if ( $orig != $view_data['template'] ) {
-				$this->log( __FUNCTION__, 'convert', $view_data['template'] );
 			}
 		}
 
