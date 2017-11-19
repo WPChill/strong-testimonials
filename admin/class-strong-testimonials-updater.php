@@ -441,59 +441,59 @@ class Strong_Testimonials_Updater {
 		$form_options = get_option( 'wpmtst_form_options' );
 		if ( ! $form_options ) {
 			return Strong_Testimonials_Defaults::get_form_options();
-		} else {
-
-			$options = get_option( 'wpmtst_options', array() );
-			// -5B- MOVE EXISTING OPTIONS
-			if ( isset( $options['admin_notify'] ) ) {
-				$form_options['admin_notify']    = $options['admin_notify'];
-				$form_options['admin_email']     = $options['admin_email'];
-				$form_options['captcha']         = $options['captcha'];
-				$form_options['honeypot_before'] = $options['honeypot_before'];
-				$form_options['honeypot_after']  = $options['honeypot_after'];
-
-				unset( $options['admin_notify'] );
-				unset( $options['admin_email'] );
-				unset( $options['captcha'] );
-				unset( $options['honeypot_before'] );
-				unset( $options['honeypot_after'] );
-				update_option( 'wpmtst_options', $options );
-			}
-
-			// -5C- UPDATE
-			/**
-			 * Update single email recipient to multiple.
-			 *
-			 * @since 1.18
-			 */
-			if ( ! isset( $form_options['recipients'] ) ) {
-				$form_options['recipients'] = array(
-					array(
-						'admin_name'       => isset( $form_options['admin_name'] ) ? $form_options['admin_name'] : '',
-						'admin_site_email' => isset( $form_options['admin_site_email'] ) ? $form_options['admin_site_email'] : 1,
-						'admin_email'      => isset( $form_options['admin_email'] ) ? $form_options['admin_email'] : '',
-						'primary'          => 1,  // cannot be deleted
-					),
-				);
-			}
-
-			unset( $form_options['admin_name'] );
-			unset( $form_options['admin_site_email'] );
-			unset( $form_options['admin_email'] );
-
-			/**
-			 * Add default required-notice setting
-			 *
-			 * @since 2.24.1
-			 */
-			if ( ! isset( $form_options['messages']['required-field']['enabled'] ) ) {
-				$form_options['messages']['required-field']['enabled'] = 1;
-			}
-
-			// Merge in new options
-			$form_options = array_merge( Strong_Testimonials_Defaults::get_form_options(), $form_options );
-
 		}
+
+		$options = get_option( 'wpmtst_options', array() );
+
+		/**
+		 * Move existing options.
+		 */
+		if ( isset( $options['admin_notify'] ) ) {
+			$form_options['admin_notify']    = $options['admin_notify'];
+			$form_options['admin_email']     = $options['admin_email'];
+			$form_options['captcha']         = $options['captcha'];
+			$form_options['honeypot_before'] = $options['honeypot_before'];
+			$form_options['honeypot_after']  = $options['honeypot_after'];
+
+			unset( $options['admin_notify'] );
+			unset( $options['admin_email'] );
+			unset( $options['captcha'] );
+			unset( $options['honeypot_before'] );
+			unset( $options['honeypot_after'] );
+			update_option( 'wpmtst_options', $options );
+		}
+
+		/**
+		 * Update single email recipient to multiple.
+		 *
+		 * @since 1.18
+		 */
+		if ( ! isset( $form_options['recipients'] ) ) {
+			$form_options['recipients'] = array(
+				array(
+					'admin_name'       => isset( $form_options['admin_name'] ) ? $form_options['admin_name'] : '',
+					'admin_site_email' => isset( $form_options['admin_site_email'] ) ? $form_options['admin_site_email'] : 1,
+					'admin_email'      => isset( $form_options['admin_email'] ) ? $form_options['admin_email'] : '',
+					'primary'          => 1,  // cannot be deleted
+				),
+			);
+		}
+
+		unset( $form_options['admin_name'] );
+		unset( $form_options['admin_site_email'] );
+		unset( $form_options['admin_email'] );
+
+		/**
+		 * Add default required-notice setting
+		 *
+		 * @since 2.24.1
+		 */
+		if ( ! isset( $form_options['messages']['required-field']['enabled'] ) ) {
+			$form_options['messages']['required-field']['enabled'] = 1;
+		}
+
+		// Merge in new options
+		$form_options = array_merge( Strong_Testimonials_Defaults::get_form_options(), $form_options );
 
 		return $form_options;
 	}
