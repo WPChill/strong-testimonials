@@ -150,6 +150,19 @@ function wpmtst_view_settings( $action = '', $view_id = null ) {
 		$view_name = 'new';
 	}
 
+	/**
+	 * Attempt to repair bug from 2.28.2
+	 */
+	if ( ! isset( $view['pagination_settings']['end_size'] ) || ! $view['pagination_settings']['end_size'] ) {
+		$view['pagination_settings']['end_size'] = 1;
+	}
+	if ( ! isset( $view['pagination_settings']['mid_size'] ) || ! $view['pagination_settings']['mid_size'] ) {
+		$view['pagination_settings']['mid_size'] = 2;
+	}
+	if ( ! isset( $view['pagination_settings']['per_page'] ) || ! $view['pagination_settings']['per_page'] ) {
+		$view['pagination_settings']['per_page'] = 5;
+	}
+
 	$custom_list  = apply_filters( 'wpmtst_custom_pages_list', array(), $view );
 	$pages_list   = apply_filters( 'wpmtst_pages_list', wpmtst_get_pages() );
 	$posts_list   = apply_filters( 'wpmtst_posts_list', wpmtst_get_posts() );

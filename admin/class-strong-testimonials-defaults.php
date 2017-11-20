@@ -18,7 +18,6 @@ class Strong_Testimonials_Defaults {
 	 * @since 1.13.0 reorder
 	 * @since 2.2.11 scrolltop
 	 * @since 2.3.0  remove whitespace
-	 * @since 2.4.0  email log level for troubleshooting
 	 * @since 2.6.0  embed width
 	 * @since 2.6.2  slideshow z-index
 	 * @since 2.10.0 pending indicator
@@ -30,8 +29,6 @@ class Strong_Testimonials_Defaults {
 	 */
 	public static function get_options() {
 		$default_options = array(
-			'debug_log'             => 0,
-			'email_log_level'       => 1,
 			'embed_width'           => '',
 			'load_font_awesome'     => 1,
 			'nofollow'              => 0,
