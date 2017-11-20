@@ -113,7 +113,6 @@ add_action( 'wp_ajax_wpmtst_get_admin_notices', 'wpmtst_get_admin_notices' );
 /**
  * Return a specific admin notice.
  *
- * TODO A generic error message with a link to export debug log.
  * @since 2.24.0
  */
 function wpmtst_get_single_admin_notice() {
