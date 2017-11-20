@@ -92,7 +92,7 @@ class Strong_Testimonials_Updater {
 			return;
 		}
 
-		set_transient( 'wpmtst_update_in_progress', 1, 60 );
+		set_transient( 'wpmtst_update_in_progress', 1, 10 );
 
 		// Redirect to About page afterwards. On new install or (de)activation only.
 		if ( false === $this->old_version ) {
