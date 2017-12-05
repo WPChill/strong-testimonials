@@ -297,9 +297,11 @@ class Strong_Testimonials_Updater {
 		if ( $wpdb->last_error ) {
 			deactivate_plugins( 'strong-testimonials/strong-testimonials.php' );
 			$message = '<p><span style="color: #CD0000;">';
-			$message .= __( 'An error occurred.', 'strong-testimonials' ) . '</span>&nbsp;';
-			$message .= __( 'The plugin has been deactivated.', 'strong-testimonials' ) . '&nbsp;';
-			$message .= sprintf( __( 'Please <a href="%s" target="_blank">open a support ticket</a>.', 'strong-testimonials' ), esc_url( 'https://support.strongplugins.com/new-ticket/' ) ) . '</p>';
+			$message .= __( 'An error occurred:', 'strong-testimonials' ) . '</span>&nbsp;';
+			$message .= __( 'The plugin has been deactivated.', 'strong-testimonials' );
+			$message .= '</p>';
+			$message .= '<p><code>' . $wpdb->last_error . '</code></p>';
+			$message .= '<p>' . sprintf( __( 'Please <a href="%s" target="_blank">open a support ticket</a>.', 'strong-testimonials' ), esc_url( 'https://support.strongplugins.com/new-ticket/' ) ) . '</p>';
 			$message .= '<p>' . sprintf( __( '<a href="%s">Go back to Dashboard</a>', 'strong-testimonials' ), esc_url( admin_url() ) ) . '</p>';
 
 			$this->log( __FUNCTION__, 'error', $wpdb->last_error );
