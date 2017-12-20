@@ -9,6 +9,16 @@ $pages_list   = wpmtst_get_pages();
 $form_options = get_option( 'wpmtst_form_options' );
 $plugins      = wpmtst_get_captcha_plugins();
 
+/**
+ * If integration with selected Captcha plugin has been removed,
+ * disable Captcha.
+ * TODO Check during update process and throw admin notice.
+ */
+if ( ! in_array( $form_options['captcha'], array_keys( $plugins ) ) ) {
+	$form_options['captcha'] = '';
+	update_option( 'wpmtst_form_options', $form_options );
+}
+
 foreach ( $plugins as $key => $plugin ) {
 
 	if ( file_exists( WP_PLUGIN_DIR . '/' . $plugin['file'] ) ) {
@@ -17,9 +27,11 @@ foreach ( $plugins as $key => $plugin ) {
 
 	$plugins[ $key ]['active'] = is_plugin_active( $plugin['file'] );
 
-	// If current Captcha plugin has been deactivated, disable Captcha
-	// so corresponding div does not appear on front-end form.
-	if ( $key == $form_options['captcha'] && !$plugins[ $key ]['active'] ) {
+	/**
+     * If current Captcha plugin has been deactivated, disable Captcha
+     * so corresponding div does not appear on front-end form.
+     */
+	if ( $key == $form_options['captcha'] && ! $plugins[ $key ]['active'] ) {
 		$form_options['captcha'] = '';
 		update_option( 'wpmtst_form_options', $form_options );
 	}
