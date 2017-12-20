@@ -7,7 +7,7 @@
  */
 $pages_list   = wpmtst_get_pages();
 $form_options = get_option( 'wpmtst_form_options' );
-$plugins      = wpmtst_get_captcha_plugins();
+$plugins      = apply_filters( 'wpmtst_captcha_plugins', get_option( 'wpmtst_captcha_plugins' ) );
 
 /**
  * If integration with selected Captcha plugin has been removed,

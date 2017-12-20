@@ -168,6 +168,13 @@ class Strong_Testimonials_Updater {
 		}
 
 		/**
+		 * Captcha plugin integrations.
+		 *
+		 * @since 2.28.5
+		 */
+		update_option( 'wpmtst_captcha_plugins', $this->update_captcha_plugins() );
+
+		/**
 		 * Legacy stuff.
 		 */
 		if ( ! isset( $history['2.28_new_update_process'] ) ) {
@@ -637,6 +644,16 @@ class Strong_Testimonials_Updater {
 		$this->log( __FUNCTION__, 'done' );
 
 		return $options;
+	}
+
+	/**
+	 * View options.
+	 *
+	 * @return array
+	 */
+	public function update_captcha_plugins() {
+		$this->log( __FUNCTION__, 'default' );
+		return Strong_Testimonials_Defaults::get_captcha_plugins();
 	}
 
 	/**
