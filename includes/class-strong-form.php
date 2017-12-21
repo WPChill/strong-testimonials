@@ -153,8 +153,6 @@ class Strong_Testimonials_Form {
 	/**
 	 * Store form values.
 	 *
-	 * TODO Move to form object.
-	 *
 	 * @param $form_values
 	 */
 	public function set_form_values( $form_values ) {
