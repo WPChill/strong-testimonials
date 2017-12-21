@@ -281,7 +281,7 @@ foreach ( $plugins as $key => $plugin ) {
 						<input type="checkbox" name="wpmtst_form_options[honeypot_before]" <?php checked( $form_options['honeypot_before'] ); ?>/>
 						<?php _e( 'Before', 'strong-testimonials' ); ?>
 					</label>
-					<p class="description"><strong><?php _e( 'Recommended.', 'strong-testimonials' ); ?></strong>&nbsp;<?php _e( 'Traps spambots by adding an extra empty field that is invisible to humans but not to spambots which tend to fill in every field they find in the form code. Empty field = human. Not empty = spambot.', 'strong-testimonials' ); ?></p>
+					<p class="description"><?php _e( 'Traps spambots by adding an extra empty field that is invisible to humans but not to spambots which tend to fill in every field they find in the form code. Empty field = human. Not empty = spambot.', 'strong-testimonials' ); ?></p>
 				</li>
 				<li class="checkbox">
 					<label>
