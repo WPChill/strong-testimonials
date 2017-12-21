@@ -103,6 +103,7 @@ var strongController = {
     if (debugit) console.log('forms found:', forms.length)
     if (forms.length) {
       strongValidation.init()
+      // initialize Captcha plugins here
     }
   },
 
