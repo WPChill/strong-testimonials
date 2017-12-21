@@ -615,31 +615,33 @@ class Strong_Testimonials_Updater {
 
 		/**
 		 * Convert Captcha plugin name.
+		 *
+		 * @since 2.28.5
 		 */
 		switch ( $form_options['captcha'] ) {
 
-			// Google Captcha by BestWebSoft
 			case 'gglcptch' :
+				// Google Captcha by BestWebSoft
 				$form_options['captcha'] = 'google-captcha';
 				break;
 
-			// Captcha Pro by BestWebSoft
 			case 'bwsmathpro' :
+				// Captcha Pro by BestWebSoft
 				$form_options['captcha']  = 'captcha-pro';
 				break;
 
-			// Really Simple Captcha by Takayuki Miyoshi
 			case 'miyoshi' :
+				// Really Simple Captcha by Takayuki Miyoshi
 				$form_options['captcha'] = 'really-simple-captcha';
 				break;
 
-			// Advanced noCaptcha reCaptcha by Shamim Hasan *!* INTEGRATION DROPPED *!*
 			case 'advnore' :
+				// Advanced noCaptcha reCaptcha by Shamim Hasan *!* INTEGRATION DROPPED *!*
 				$form_options['captcha'] = '';
 				break;
 
 			default :
-				// keep existing
+				// no change
 		}
 
 

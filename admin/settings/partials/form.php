@@ -274,7 +274,7 @@ foreach ( $plugins as $key => $plugin ) {
 		</th>
 		<td>
 			<p><?php _e( 'These methods are both time-tested and widely used. They can be used simultaneously for more protection.', 'strong-testimonials' ); ?></p>
-			<p><?php _e( 'However, honeypots are not compatible with WP-SpamShield or Ajax page loading and transition effects).', 'strong-testimonials' ); ?></p>
+			<p><?php _e( 'However, honeypots are not compatible with WP-SpamShield or Ajax page loading and transition effects.', 'strong-testimonials' ); ?></p>
 			<ul>
 				<li class="checkbox">
 					<label>
