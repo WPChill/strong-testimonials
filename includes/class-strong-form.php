@@ -6,6 +6,8 @@ class Strong_Testimonials_Form {
 
 	public $form_options;
 
+	public $plugins;
+
 	public $form_values;
 
 	public $form_errors;
@@ -17,6 +19,7 @@ class Strong_Testimonials_Form {
 	 */
 	public function __construct() {
 		$this->form_options = get_option( 'wpmtst_form_options' );
+		$this->plugins = apply_filters( 'wpmtst_captcha_plugins', get_option( 'wpmtst_captcha_plugins' ) );
 		$this->add_actions();
 		$this->load_captcha();
 		$this->load_honeypots();
@@ -40,48 +43,52 @@ class Strong_Testimonials_Form {
 			return;
 		}
 
+		$method = $this->form_options['captcha'];
+
 		require_once WPMTST_INC . 'integrations/class-integration-captcha.php';
 
-		// just until the key is converted to a class name in updater
+		// just until the key is converted to a slug in updater
 		// and I build an autoloader
-		switch ( $this->form_options['captcha'] ) {
+		switch ( $method ) {
 
 			// Advanced noCaptcha reCaptcha by Shamim Hasan
 			case 'advnore' :
-				$file_name  = 'class-integration-advanced-nocaptcha-recaptcha.php';
-				$class_name = 'Strong_Testimonials_Integration_Advanced_noCaptcha_reCaptcha';
+				$slug = 'advanced-nocaptcha-recaptcha';
 				break;
 
 			// Captcha Pro by BestWebSoft
 			case 'bwsmathpro' :
-				$file_name  = 'class-integration-captcha-pro.php';
-				$class_name = 'Strong_Testimonials_Integration_Captcha_Pro';
+				$slug  = 'captcha-pro';
 				break;
 
 			// Really Simple Captcha by Takayuki Miyoshi
 			case 'miyoshi' :
-				$file_name  = 'class-integration-really-simple-captcha.php';
-				$class_name = 'Strong_Testimonials_Integration_Really_Simple_Captcha';
+				$slug = 'really-simple-captcha';
 				break;
 
 			// no captcha
 			default :
-				$file_name  = '';
-				$class_name = '';
+				$slug  = '';
 
 		}
 
-		if ( ! $class_name ) {
+		if ( ! $slug ) {
 			return;
 		}
 
-		require_once WPMTST_INC . 'integrations/' . $file_name;
+		$file_name  = "class-integration-$slug.php";
+		$file_path  = WPMTST_INC . 'integrations/' . $file_name;
+		$class_name = 'Strong_Testimonials_Integration_' . $this->plugins[ $method ]['class'];
 
-		$this->captcha = new $class_name();
+		if ( file_exists( $file_path ) ) {
+			require_once $file_path;
+		}
 
-		add_filter( 'wpmtst_add_captcha', array( $this->captcha, 'add_captcha' ), 20 );
-
-		add_filter( 'wpmtst_check_captcha', array( $this->captcha, 'check_captcha' ) );
+		if ( class_exists( $class_name ) ) {
+			$this->captcha = new $class_name();
+			add_filter( 'wpmtst_add_captcha', array( $this->captcha, 'add_captcha' ), 20 );
+			add_filter( 'wpmtst_check_captcha', array( $this->captcha, 'check_captcha' ) );
+		}
 
 	}
 

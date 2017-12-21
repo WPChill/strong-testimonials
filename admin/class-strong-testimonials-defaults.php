@@ -784,8 +784,9 @@ class Strong_Testimonials_Defaults {
 	 */
 	public static function get_captcha_plugins() {
 		$plugins = array(
-			'advnore' => array(
+			'advnore'    => array(
 				'name'      => 'Advanced noCaptcha reCaptcha by Shamim Hasan',
+				'class'     => 'Advanced_noCaptcha_reCaptcha',
 				'file'      => 'advanced-nocaptcha-recaptcha/advanced-nocaptcha-recaptcha.php',
 				'settings'  => 'admin.php?page=anr-admin-settings',
 				'search'    => 'plugin-install.php?tab=search&s=Advanced+noCaptcha+reCaptcha',
@@ -795,6 +796,7 @@ class Strong_Testimonials_Defaults {
 			),
 			'bwsmathpro' => array(
 				'name'      => 'Captcha Pro by BestWebSoft',
+				'class'     => 'Captcha_Pro',
 				'file'      => 'captcha-pro/captcha_pro.php',
 				'settings'  => 'admin.php?page=captcha_pro.php',
 				'search'    => 'plugin-install.php?tab=search&s=Captcha+Pro',
@@ -802,8 +804,9 @@ class Strong_Testimonials_Defaults {
 				'installed' => false,
 				'active'    => false,
 			),
-			'miyoshi' => array(
+			'miyoshi'    => array(
 				'name'      => 'Really Simple Captcha by Takayuki Miyoshi',
+				'class'     => 'Really_Simple_Captcha',
 				'file'      => 'really-simple-captcha/really-simple-captcha.php',
 				'search'    => 'plugin-install.php?tab=search&s=Really+Simple+Captcha',
 				'url'       => 'https://wordpress.org/plugins/really-simple-captcha/',
