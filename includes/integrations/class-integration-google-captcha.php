@@ -6,8 +6,8 @@ class Strong_Testimonials_Integration_Google_Captcha extends Strong_Testimonials
 	}
 
 	public function add_captcha() {
-		if ( function_exists( 'gglcptch_display' ) ) {
-			return gglcptch_display();
+		if ( function_exists( 'gglcptch_display_custom' ) ) {
+			return gglcptch_display_custom();
 		}
 
 		return '';
