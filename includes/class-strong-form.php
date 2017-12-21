@@ -40,6 +40,8 @@ class Strong_Testimonials_Form {
 			return;
 		}
 
+		require_once WPMTST_INC . 'integrations/class-integration-captcha.php';
+
 		// just until the key is converted to a class name in updater
 		// and I build an autoloader
 		switch ( $this->form_options['captcha'] ) {
