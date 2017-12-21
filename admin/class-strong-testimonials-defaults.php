@@ -785,7 +785,8 @@ class Strong_Testimonials_Defaults {
 	public static function get_captcha_plugins() {
 		$plugins = array(
 			'google-captcha'    => array(
-				'name'      => 'Google Captcha by BestWebSoft',
+				'name'      => 'Google Captcha by BestWebSoft (free)',
+				'desc'      => __( '<strong>Recommended.</strong> The best choice for both Invisible reCAPTCHA and reCAPTCHA V2 ("I\'m not a robot" checkbox).', 'strong-testimonials' ),
 				'class'     => 'Google_Captcha',
 				'file'      => 'google-captcha/google-captcha.php',
 				'settings'  => 'admin.php?page=google-captcha.php',
@@ -794,18 +795,9 @@ class Strong_Testimonials_Defaults {
 				'installed' => false,
 				'active'    => false,
 			),
-			'advanced-nocaptcha-recaptcha'    => array(
-				'name'      => 'Advanced noCaptcha reCaptcha by Shamim Hasan',
-				'class'     => 'Advanced_noCaptcha_reCaptcha',
-				'file'      => 'advanced-nocaptcha-recaptcha/advanced-nocaptcha-recaptcha.php',
-				'settings'  => 'admin.php?page=anr-admin-settings',
-				'search'    => 'plugin-install.php?tab=search&s=Advanced+noCaptcha+reCaptcha',
-				'url'       => 'https://wordpress.org/plugins/advanced-nocaptcha-recaptcha',
-				'installed' => false,
-				'active'    => false,
-			),
 			'captcha-pro' => array(
-				'name'      => 'Captcha Pro by BestWebSoft',
+				'name'      => 'Captcha Pro by BestWebSoft (premium)',
+				'desc'      => __( 'An excellent plugin for math- and image-based captchas.', 'strong-testimonials' ),
 				'class'     => 'Captcha_Pro',
 				'file'      => 'captcha-pro/captcha_pro.php',
 				'settings'  => 'admin.php?page=captcha_pro.php',
@@ -815,7 +807,7 @@ class Strong_Testimonials_Defaults {
 				'active'    => false,
 			),
 			'really-simple-captcha'    => array(
-				'name'      => 'Really Simple Captcha by Takayuki Miyoshi',
+				'name'      => 'Really Simple Captcha by Takayuki Miyoshi (free)',
 				'class'     => 'Really_Simple_Captcha',
 				'file'      => 'really-simple-captcha/really-simple-captcha.php',
 				'search'    => 'plugin-install.php?tab=search&s=Really+Simple+Captcha',

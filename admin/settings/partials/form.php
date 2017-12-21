@@ -274,7 +274,7 @@ foreach ( $plugins as $key => $plugin ) {
 		</th>
 		<td>
 			<p><?php _e( 'These methods are both time-tested and widely used. They can be used simultaneously for more protection.', 'strong-testimonials' ); ?></p>
-			<p><?php _e( 'However, honeypots are not compatible with WP-SpamShield or Ajax page loading (page animations or transition effects).', 'strong-testimonials' ); ?></p>
+			<p><?php _e( 'However, honeypots are not compatible with WP-SpamShield or Ajax page loading and transition effects).', 'strong-testimonials' ); ?></p>
 			<ul>
 				<li class="checkbox">
 					<label>
@@ -300,7 +300,8 @@ foreach ( $plugins as $key => $plugin ) {
             </label>
 		</th>
 		<td class="stackem">
-			<p><?php _e( 'Can be used alongside honeypot methods. Be sure to configure any plugins first, if necessary.', 'strong-testimonials' ); ?></p>
+			<p><?php _e( 'Enable Captcha using one of these plugins. Be sure to configure any plugins first, if necessary.', 'strong-testimonials' ); ?></p>
+            <p><?php _e( 'Can be used alongside honeypot methods.', 'strong-testimonials' ); ?></p>
 			<ul>
 				<li>
 					<label>
@@ -339,6 +340,10 @@ foreach ( $plugins as $key => $plugin ) {
 					<?php endif; ?>
 
 					<span class="link"><a href="<?php echo $plugin['url']; ?>" target="_blank"><?php _ex( 'plugin page', 'link', 'strong-testimonials' ); ?></a></span>
+
+                    <?php if ( isset( $plugin['desc'] ) && $plugin['desc'] ) : ?>
+                    <p class="description <?php if ( isset( $plugin['style'] ) ) echo $plugin['style']; ?>"><?php echo $plugin['desc']; ?></p>
+                    <?php endif; ?>
 				</li>
 				<?php endforeach; ?>
 			</ul>
