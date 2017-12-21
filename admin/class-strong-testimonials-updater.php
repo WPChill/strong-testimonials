@@ -613,7 +613,39 @@ class Strong_Testimonials_Updater {
 			$form_options['messages']['required-field']['enabled'] = 1;
 		}
 
-		// Merge in new options
+		/**
+		 * Convert Captcha plugin name.
+		 */
+		switch ( $form_options['captcha'] ) {
+
+			// Google Captcha by BestWebSoft
+			case 'gglcptch' :
+				$form_options['captcha'] = 'google-captcha';
+				break;
+
+			// Advanced noCaptcha reCaptcha by Shamim Hasan
+			case 'advnore' :
+				$form_options['captcha'] = 'advanced-nocaptcha-recaptcha';
+				break;
+
+			// Captcha Pro by BestWebSoft
+			case 'bwsmathpro' :
+				$form_options['captcha']  = 'captcha-pro';
+				break;
+
+			// Really Simple Captcha by Takayuki Miyoshi
+			case 'miyoshi' :
+				$form_options['captcha'] = 'really-simple-captcha';
+				break;
+
+			default :
+				// keep existing
+		}
+
+
+		/**
+		 * Merge in new options
+		 */
 		$form_options = array_merge( Strong_Testimonials_Defaults::get_form_options(), $form_options );
 
 		$this->log( __FUNCTION__, 'done' );
