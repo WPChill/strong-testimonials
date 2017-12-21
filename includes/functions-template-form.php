@@ -389,7 +389,7 @@ add_action( 'wpmtst_form_after_fields', 'wpmtst_form_honeypot_before' );
 function wpmtst_form_captcha() {
 	$errors = WPMST()->form->get_form_errors();
 	$form_options = get_option( 'wpmtst_form_options' );
-	if ( $form_options['captcha'] ) {
+	if ( isset( $form_options['captcha'] ) && $form_options['captcha'] ) {
 		// Only display Captcha label if properly configured.
 		$captcha_html = apply_filters( 'wpmtst_add_captcha', $form_options['captcha'] );
 		if ( $captcha_html ) {
@@ -406,7 +406,6 @@ function wpmtst_form_captcha() {
 			<?php
 		}
 	}
-
 }
 add_action( 'wpmtst_form_after_fields', 'wpmtst_form_captcha' );
 

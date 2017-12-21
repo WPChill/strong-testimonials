@@ -784,6 +784,16 @@ class Strong_Testimonials_Defaults {
 	 */
 	public static function get_captcha_plugins() {
 		$plugins = array(
+			'gglcptch'    => array(
+				'name'      => 'Google Captcha by BestWebSoft',
+				'class'     => 'Google_Captcha',
+				'file'      => 'google-captcha/google-captcha.php',
+				'settings'  => 'admin.php?page=google-captcha.php',
+				'search'    => 'plugin-install.php?tab=search&s=Google+Captcha',
+				'url'       => 'https://wordpress.org/plugins/google-captcha',
+				'installed' => false,
+				'active'    => false,
+			),
 			'advnore'    => array(
 				'name'      => 'Advanced noCaptcha reCaptcha by Shamim Hasan',
 				'class'     => 'Advanced_noCaptcha_reCaptcha',
