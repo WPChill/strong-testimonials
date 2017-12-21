@@ -1,20 +1,20 @@
 <?php
-class Strong_Testimonials_Integration_Advanced_noCaptcha_reCaptcha extends Strong_Testimonials_Integration_Captcha {
+class Strong_Testimonials_Integration_Google_Captcha extends Strong_Testimonials_Integration_Captcha {
 
 	public function __contruct() {
 		parent::__construct();
 	}
 
 	public function add_captcha() {
-		if ( function_exists( 'anr_captcha_form_field' ) ) {
-			return anr_captcha_form_field( false );
+		if ( function_exists( 'gglcptch_display' ) ) {
+			return gglcptch_display();
 		}
 
 		return '';
 	}
 
 	public function check_captcha( $form_errors ) {
-		if ( function_exists( 'anr_verify_captcha' ) && !anr_verify_captcha() ) {
+		if ( function_exists( 'gglcptch_check_custom' ) && gglcptch_check_custom() !== true ) {
 			$form_errors['captcha'] = __( 'The Captcha failed. Please try again.', 'strong-testimonials' );
 		}
 

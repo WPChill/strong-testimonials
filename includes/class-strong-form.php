@@ -48,8 +48,11 @@ class Strong_Testimonials_Form {
 		require_once WPMTST_INC . 'integrations/class-integration-captcha.php';
 
 		// just until the key is converted to a slug in updater
-		// and I build an autoloader
 		switch ( $method ) {
+
+			case 'gglcptch' :
+				$slug = 'google-captcha';
+				break;
 
 			// Advanced noCaptcha reCaptcha by Shamim Hasan
 			case 'advnore' :

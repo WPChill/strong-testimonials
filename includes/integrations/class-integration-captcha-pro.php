@@ -1,7 +1,9 @@
 <?php
 class Strong_Testimonials_Integration_Captcha_Pro extends Strong_Testimonials_Integration_Captcha {
 
-	public function __contruct() {}
+	public function __contruct() {
+		parent::__construct();
+	}
 
 	public function add_captcha() {
 		if ( function_exists( 'cptch_display_captcha_custom' ) ) {
