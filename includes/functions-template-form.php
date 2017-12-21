@@ -391,7 +391,7 @@ function wpmtst_form_captcha() {
 	$form_options = get_option( 'wpmtst_form_options' );
 	if ( $form_options['captcha'] ) {
 		// Only display Captcha label if properly configured.
-		$captcha_html = apply_filters( 'wpmtst_captcha', $form_options['captcha'] );
+		$captcha_html = apply_filters( 'wpmtst_add_captcha', $form_options['captcha'] );
 		if ( $captcha_html ) {
 			?>
 			<div class="form-field wpmtst-captcha">

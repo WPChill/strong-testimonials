@@ -4,32 +4,96 @@
  */
 class Strong_Testimonials_Form {
 
+	public $form_options;
+
 	public $form_values;
 
 	public $form_errors;
+
+	public $captcha;
 
 	/**
 	 * Strong_Testimonials_Form constructor.
 	 */
 	public function __construct() {
-
+		$this->form_options = get_option( 'wpmtst_form_options' );
 		$this->add_actions();
-
+		$this->load_captcha();
+		$this->load_honeypots();
 	}
 
 	/**
 	 * Add our actions.
 	 */
 	public function add_actions() {
-
 		add_action( 'init', array( $this, 'process_form' ), 20 );
 
 		add_action( 'wp_ajax_wpmtst_form2', array( $this, 'process_form_ajax' ) );
 		add_action( 'wp_ajax_nopriv_wpmtst_form2', array( $this, 'process_form_ajax' ) );
+	}
 
-		add_action( 'honeypot_before_spam_testimonial', array( $this, 'honeypot_error' ) );
-		add_action( 'honeypot_after_spam_testimonial', array( $this, 'honeypot_error' ) );
+	/**
+	 * Load Captcha class.
+	 */
+	public function load_captcha() {
+		if ( ! isset( $this->form_options['captcha'] ) || ! $this->form_options['captcha'] ) {
+			return;
+		}
 
+		// just until the key is converted to a class name in updater
+		// and I build an autoloader
+		switch ( $this->form_options['captcha'] ) {
+
+			// Advanced noCaptcha reCaptcha by Shamim Hasan
+			case 'advnore' :
+				$file_name  = 'class-integration-advanced-nocaptcha-recaptcha.php';
+				$class_name = 'Strong_Testimonials_Integration_Advanced_noCaptcha_reCaptcha';
+				break;
+
+			// Captcha Pro by BestWebSoft
+			case 'bwsmathpro' :
+				$file_name  = 'class-integration-captcha-pro.php';
+				$class_name = 'Strong_Testimonials_Integration_Captcha_Pro';
+				break;
+
+			// Really Simple Captcha by Takayuki Miyoshi
+			case 'miyoshi' :
+				$file_name  = 'class-integration-really-simple-captcha.php';
+				$class_name = 'Strong_Testimonials_Integration_Really_Simple_Captcha';
+				break;
+
+			// no captcha
+			default :
+				$file_name  = '';
+				$class_name = '';
+
+		}
+
+		if ( ! $class_name ) {
+			return;
+		}
+
+		require_once WPMTST_INC . 'integrations/' . $file_name;
+
+		$this->captcha = new $class_name();
+
+		add_filter( 'wpmtst_add_captcha', array( $this->captcha, 'add_captcha' ), 20 );
+
+		add_filter( 'wpmtst_check_captcha', array( $this->captcha, 'check_captcha' ) );
+
+	}
+
+	/**
+	 * Load honeypots.
+	 */
+	public function load_honeypots() {
+		if ( isset( $this->form_options['honeypot_before'] ) && $this->form_options['honeypot_before'] ) {
+			add_action( 'honeypot_before_spam_testimonial', array( $this, 'honeypot_error' ) );
+		}
+
+		if ( isset( $this->form_options['honeypot_after'] ) && $this->form_options['honeypot_after'] ) {
+			add_action( 'honeypot_after_spam_testimonial', array( $this, 'honeypot_error' ) );
+		}
 	}
 
 	/**
@@ -39,7 +103,7 @@ class Strong_Testimonials_Form {
 	 * @since 2.3.0
 	 */
 	public function process_form() {
-		if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
+		if ( wp_doing_ajax() ) {
 			return;
 		}
 
@@ -163,7 +227,8 @@ class Strong_Testimonials_Form {
 		$fields    = wpmtst_get_form_fields( $form_name );
 
 		if ( $form_options['captcha'] ) {
-			$form_errors = wpmtst_captcha_check( $form_options['captcha'], $form_errors );
+//			$form_errors = wpmtst_captcha_check( $form_options['captcha'], $form_errors );
+			$form_errors = apply_filters( 'wpmtst_check_captcha', $form_errors );
 		}
 
 		if ( $form_options['honeypot_before'] ) {
