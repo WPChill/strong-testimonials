@@ -43,45 +43,13 @@ class Strong_Testimonials_Form {
 			return;
 		}
 
-		$method = $this->form_options['captcha'];
+		$slug = $this->form_options['captcha'];
 
 		require_once WPMTST_INC . 'integrations/class-integration-captcha.php';
 
-		// just until the key is converted to a slug in updater
-		switch ( $method ) {
-
-			case 'gglcptch' :
-				$slug = 'google-captcha';
-				break;
-
-			// Advanced noCaptcha reCaptcha by Shamim Hasan
-			case 'advnore' :
-				$slug = 'advanced-nocaptcha-recaptcha';
-				break;
-
-			// Captcha Pro by BestWebSoft
-			case 'bwsmathpro' :
-				$slug  = 'captcha-pro';
-				break;
-
-			// Really Simple Captcha by Takayuki Miyoshi
-			case 'miyoshi' :
-				$slug = 'really-simple-captcha';
-				break;
-
-			// no captcha
-			default :
-				$slug  = '';
-
-		}
-
-		if ( ! $slug ) {
-			return;
-		}
-
 		$file_name  = "class-integration-$slug.php";
 		$file_path  = WPMTST_INC . 'integrations/' . $file_name;
-		$class_name = 'Strong_Testimonials_Integration_' . $this->plugins[ $method ]['class'];
+		$class_name = 'Strong_Testimonials_Integration_' . $this->plugins[ $slug ]['class'];
 
 		if ( file_exists( $file_path ) ) {
 			require_once $file_path;

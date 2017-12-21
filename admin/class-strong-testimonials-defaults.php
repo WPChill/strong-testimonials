@@ -784,7 +784,7 @@ class Strong_Testimonials_Defaults {
 	 */
 	public static function get_captcha_plugins() {
 		$plugins = array(
-			'gglcptch'    => array(
+			'google-captcha'    => array(
 				'name'      => 'Google Captcha by BestWebSoft',
 				'class'     => 'Google_Captcha',
 				'file'      => 'google-captcha/google-captcha.php',
@@ -794,7 +794,7 @@ class Strong_Testimonials_Defaults {
 				'installed' => false,
 				'active'    => false,
 			),
-			'advnore'    => array(
+			'advanced-nocaptcha-recaptcha'    => array(
 				'name'      => 'Advanced noCaptcha reCaptcha by Shamim Hasan',
 				'class'     => 'Advanced_noCaptcha_reCaptcha',
 				'file'      => 'advanced-nocaptcha-recaptcha/advanced-nocaptcha-recaptcha.php',
@@ -804,7 +804,7 @@ class Strong_Testimonials_Defaults {
 				'installed' => false,
 				'active'    => false,
 			),
-			'bwsmathpro' => array(
+			'captcha-pro' => array(
 				'name'      => 'Captcha Pro by BestWebSoft',
 				'class'     => 'Captcha_Pro',
 				'file'      => 'captcha-pro/captcha_pro.php',
@@ -814,7 +814,7 @@ class Strong_Testimonials_Defaults {
 				'installed' => false,
 				'active'    => false,
 			),
-			'miyoshi'    => array(
+			'really-simple-captcha'    => array(
 				'name'      => 'Really Simple Captcha by Takayuki Miyoshi',
 				'class'     => 'Really_Simple_Captcha',
 				'file'      => 'really-simple-captcha/really-simple-captcha.php',
