@@ -623,11 +623,6 @@ class Strong_Testimonials_Updater {
 				$form_options['captcha'] = 'google-captcha';
 				break;
 
-			// Advanced noCaptcha reCaptcha by Shamim Hasan
-			case 'advnore' :
-				$form_options['captcha'] = 'advanced-nocaptcha-recaptcha';
-				break;
-
 			// Captcha Pro by BestWebSoft
 			case 'bwsmathpro' :
 				$form_options['captcha']  = 'captcha-pro';
@@ -636,6 +631,11 @@ class Strong_Testimonials_Updater {
 			// Really Simple Captcha by Takayuki Miyoshi
 			case 'miyoshi' :
 				$form_options['captcha'] = 'really-simple-captcha';
+				break;
+
+			// Advanced noCaptcha reCaptcha by Shamim Hasan *!* INTEGRATION DROPPED *!*
+			case 'advnore' :
+				$form_options['captcha'] = '';
 				break;
 
 			default :

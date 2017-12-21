@@ -114,7 +114,8 @@ div.help.minor {
 }
 
 .stackem li {
-  margin-bottom: 0;
+  margin-top: 16px;
+  margin-bottom: 16px;
 }
 
 .stackem label {
@@ -126,6 +127,15 @@ div.help.minor {
 
 .stackem label.inline {
   display: inline-block;
+}
+
+.stackem p.description {
+  margin-top: 0;
+  margin-left: 22px;
+}
+
+.stackem p.description.warning {
+  color: #CD0000;
 }
 
 .stackem .notice {
