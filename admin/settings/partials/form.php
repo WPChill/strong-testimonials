@@ -228,7 +228,7 @@ foreach ( $plugins as $key => $plugin ) {
 	<tr>
 		<th scope="row" class="tall">
             <label for="wpmtst-options-admin-notify">
-			    <?php _e( 'Notification', 'strong-testimonials' ); ?>
+			    <?php _e( 'Notification Email', 'strong-testimonials' ); ?>
             </label>
 		</th>
 
@@ -273,22 +273,30 @@ foreach ( $plugins as $key => $plugin ) {
             </label>
 		</th>
 		<td>
-			<p><?php _e( 'These methods are both time-tested and widely used. They can be used simultaneously for more protection.', 'strong-testimonials' ); ?></p>
-			<p><?php _e( 'However, honeypots are not compatible with WP-SpamShield or Ajax page loading and transition effects.', 'strong-testimonials' ); ?></p>
+			<p>
+                <?php _e( 'These methods for trapping spambots are both time-tested and widely used. They can be used simultaneously for more protection.', 'strong-testimonials' ); ?>
+            </p>
+			<p>
+                <?php _e( 'However, honeypots are not compatible with WP-SpamShield or Ajax page loading.', 'strong-testimonials' ); ?>
+            </p>
+			<p>
+			    <?php _e( 'Other conflicts may exist. If your form is not working properly, try disabling these options.', 'strong-testimonials' ); ?>
+            </p>
+            <?php // TODO Add link to article that explains Ajax page loading. ?>
 			<ul>
 				<li class="checkbox">
 					<label>
 						<input type="checkbox" name="wpmtst_form_options[honeypot_before]" <?php checked( $form_options['honeypot_before'] ); ?>/>
 						<?php _e( 'Before', 'strong-testimonials' ); ?>
 					</label>
-					<p class="description"><?php _e( 'Traps spambots by adding an extra empty field that is invisible to humans but not to spambots which tend to fill in every field they find in the form code. Empty field = human. Not empty = spambot.', 'strong-testimonials' ); ?></p>
+					<p class="description"><?php _e( 'Adds a new empty field that is invisible to humans. Spambots tend to fill in every field they find in the form. Empty field = human. Not empty = spambot.', 'strong-testimonials' ); ?></p>
 				</li>
 				<li class="checkbox">
 					<label>
 						<input type="checkbox" name="wpmtst_form_options[honeypot_after]" <?php checked( $form_options['honeypot_after'] ); ?>/>
 						<?php _e( 'After', 'strong-testimonials' ); ?>
 					</label>
-					<p class="description"><?php _e( 'Traps spambots by using JavaScript to add a new field as soon as the form is submitted. Since spambots cannot run JavaScript, the new field never gets added. New field = human. Missing = spambot.', 'strong-testimonials' ); ?></p>
+					<p class="description"><?php _e( 'Adds a new field as soon as the form is submitted. Spambots cannot run JavaScript so the new field never gets added. New field = human. Missing = spambot.', 'strong-testimonials' ); ?></p>
 				</li>
 			</ul>
 		</td>
@@ -302,6 +310,7 @@ foreach ( $plugins as $key => $plugin ) {
 		<td class="stackem">
 			<p><?php _e( 'Enable Captcha using one of these plugins. Be sure to configure any plugins first, if necessary.', 'strong-testimonials' ); ?></p>
             <p><?php _e( 'Can be used alongside honeypot methods.', 'strong-testimonials' ); ?></p>
+            <p><?php _e( 'May not be compatible with Ajax page loading.', 'strong-testimonials' ); ?></p>
 			<ul>
 				<li>
 					<label>
