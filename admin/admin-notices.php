@@ -157,32 +157,3 @@ function wpmtst_delete_config_error( $key ) {
 
 	wpmtst_delete_admin_notice( $key );
 }
-
-
-/**
- * Return all admin notices.
- *
- * @since 2.24.0
- *
- */
-function wpmtst_get_admin_notices() {
-	$notices = get_option( 'wpmtst_admin_notices', array() );
-	wp_send_json_success( $notices );
-}
-add_action( 'wp_ajax_wpmtst_get_admin_notices', 'wpmtst_get_admin_notices' );
-
-
-/**
- * Return a specific admin notice.
- *
- * @since 2.24.0
- */
-function wpmtst_get_single_admin_notice() {
-	$notice = apply_filters( 'wpmtst_admin_notice', '', $_REQUEST['key'] );
-	if ( $notice ) {
-		wp_send_json_success( $notice );
-	} else {
-		wp_send_json_error();
-	}
-}
-add_action( 'wp_ajax_wpmtst_get_single_admin_notice', 'wpmtst_get_single_admin_notice' );
