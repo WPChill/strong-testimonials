@@ -612,6 +612,13 @@ class Strong_Testimonials_Updater {
 			$form_options['messages']['required-field']['enabled'] = 1;
 		}
 
+		// Merge in new options
+		$defaults = Strong_Testimonials_Defaults::get_form_options();
+		$form_options = array_merge( $defaults, $form_options );
+		// Merge nested arrays individually. Don't use array_merge_recursive.
+		$form_options['default_recipient'] = array_merge( $defaults['default_recipient'], $form_options['default_recipient'] );
+		$form_options['messages'] = array_merge( $defaults['messages'], $form_options['messages'] );
+
 		/**
 		 * Convert Captcha plugin name.
 		 *
@@ -643,12 +650,6 @@ class Strong_Testimonials_Updater {
 			default :
 				// no change
 		}
-
-
-		/**
-		 * Merge in new options
-		 */
-		$form_options = array_merge( Strong_Testimonials_Defaults::get_form_options(), $form_options );
 
 		$this->log( __FUNCTION__, 'done' );
 
