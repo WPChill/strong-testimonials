@@ -240,7 +240,7 @@ foreach ( $plugins as $key => $plugin ) {
 				</label>
 			</fieldset>
 
-			<div id="admin-notify-fields" style="display: none;">
+			<div id="admin-notify-fields" <?php echo ( $form_options['admin_notify'] ) ? '' : 'style="display: none;"'; ?>>
 				<?php
                 include 'email-from.php';
                 include 'email-to.php';
