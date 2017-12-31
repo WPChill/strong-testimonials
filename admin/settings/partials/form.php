@@ -7,14 +7,12 @@
  */
 $pages_list   = wpmtst_get_pages();
 $form_options = get_option( 'wpmtst_form_options' );
-$plugins      = apply_filters( 'wpmtst_captcha_plugins', get_option( 'wpmtst_captcha_plugins' ) );
+$plugins      = apply_filters( 'wpmtst_captcha_plugins', get_option( 'wpmtst_captcha_plugins', array() ) );
 
 /**
- * If integration with selected Captcha plugin has been removed,
- * disable Captcha.
- * TODO Check during update process and throw admin notice.
+ * If integration with selected Captcha plugin has been removed, disable Captcha.
  */
-if ( ! in_array( $form_options['captcha'], array_keys( $plugins ) ) ) {
+if ( ! is_array( $plugins ) || ! in_array( $form_options['captcha'], array_keys( $plugins ) ) ) {
 	$form_options['captcha'] = '';
 	update_option( 'wpmtst_form_options', $form_options );
 }
