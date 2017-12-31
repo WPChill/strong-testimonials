@@ -20,7 +20,66 @@ function wpmtst_admin_notices() {
 		}
 	}
 }
-//add_action( 'admin_notices', 'wpmtst_admin_notices' );
+add_action( 'admin_notices', 'wpmtst_admin_notices' );
+
+
+/**
+ * Return specific admin notice text.
+ *
+ * @since 2.28.5
+ * @param string $html
+ * @param $key
+ *
+ * @return string
+ */
+function wpmtst_admin_notice_text( $html = '', $key ) {
+
+	switch ( $key ) {
+		case 'defaults-restored' :
+			ob_start();
+			?>
+			<div class="wpmtst notice notice-success is-dismissible">
+				<p>
+					<?php _e( 'Defaults restored.', 'strong-testimonials' ); ?>
+				</p>
+			</div>
+			<?php
+			$html = ob_get_clean();
+			break;
+
+		case 'fields-saved' :
+			ob_start();
+			?>
+			<div class="wpmtst notice notice-success is-dismissible">
+				<p>
+					<?php _e( 'Fields saved.', 'strong-testimonials' ); ?>
+				</p>
+			</div>
+			<?php
+			$html = ob_get_clean();
+			break;
+
+		case 'changes-cancelled' :
+			ob_start();
+			?>
+			<div class="wpmtst notice notice-success is-dismissible">
+				<p>
+					<?php _e( 'Changes cancelled.', 'strong-testimonials' ); ?>
+				</p>
+			</div>
+			<?php
+			$html = ob_get_clean();
+			break;
+
+		default :
+			// nothing
+	}
+
+	wpmtst_delete_admin_notice( $key );
+
+	return $html;
+}
+add_filter( 'wpmtst_admin_notice', 'wpmtst_admin_notice_text', 10, 2 );
 
 
 /**
@@ -59,6 +118,7 @@ function wpmtst_delete_admin_notice( $key ) {
  * @param $old_value
  * @param $value
  */
+// TODO Move to main class
 function wpmtst_updated_option( $option, $old_value, $value ) {
 	if ( 'wpmtst_' == substr( $option, 0, 7 ) ) {
 		do_action( 'wpmtst_check_config' );
@@ -73,6 +133,7 @@ add_action( 'updated_option', 'wpmtst_updated_option', 10, 3 );
  * @since 2.24.0
  * @param $key
  */
+// TODO Move to main class
 function wpmtst_add_config_error( $key ) {
 	$errors = get_option( 'wpmtst_config_errors', array() );
 	$errors[] = $key;
@@ -88,6 +149,7 @@ function wpmtst_add_config_error( $key ) {
  * @since 2.24.0
  * @param $key
  */
+// TODO Move to main class
 function wpmtst_delete_config_error( $key ) {
 	$errors = get_option( 'wpmtst_config_errors', array() );
 	$errors = array_diff( $errors, array ( $key ) );

@@ -44,11 +44,11 @@ add_action( 'admin_init', 'wpmtst_update_check' );
  * Initialize.
  */
 function wpmtst_admin_init() {
-
-    // Remove ad banner from Captcha plugin
-	remove_action( 'admin_notices', 'cptch_plugin_banner' );
-
-	// Redirect to About page for new installs only
+	/**
+     * Redirect to About page for new installs only
+     *
+     * @since 2.28.4
+     */
 	wpmtst_activation_redirect();
 
 	/**
@@ -59,7 +59,6 @@ function wpmtst_admin_init() {
     if ( isset( $_REQUEST['action'] ) && '' != $_REQUEST['action'] ) {
         do_action( 'wpmtst_' . $_REQUEST['action'] );
     }
-
 }
 
 add_action( 'admin_init', 'wpmtst_admin_init', 20 );
