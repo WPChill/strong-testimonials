@@ -91,8 +91,6 @@ final class Strong_Testimonials {
 	 *
 	 * Also used to store testimonial form data during Post-Redirect-Get.
 	 *
-	 * Heavily copied from Easy Digital Downloads by Pippin Williamson.
-	 *
 	 * @return Strong_Testimonials  Strong_Testimonials object
 	 */
 	public static function instance() {
