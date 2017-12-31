@@ -777,4 +777,47 @@ class Strong_Testimonials_Defaults {
 		return $options;
 	}
 
+	/**
+	 * Build list of supported Captcha plugins.
+	 *
+	 * @since 2.28.5 In this class.
+	 */
+	public static function get_captcha_plugins() {
+		$plugins = array(
+			'google-captcha'    => array(
+				'name'      => 'Google Captcha by BestWebSoft (free)',
+				'desc'      => __( '<strong>Recommended.</strong> The best choice for both Invisible reCAPTCHA and reCAPTCHA V2 ("I\'m not a robot" checkbox).', 'strong-testimonials' ),
+				'class'     => 'Google_Captcha',
+				'file'      => 'google-captcha/google-captcha.php',
+				'settings'  => 'admin.php?page=google-captcha.php',
+				'search'    => 'plugin-install.php?tab=search&s=Google+Captcha',
+				'url'       => 'https://wordpress.org/plugins/google-captcha',
+				'installed' => false,
+				'active'    => false,
+			),
+			'captcha-pro' => array(
+				'name'      => 'Captcha Pro by BestWebSoft (premium)',
+				'desc'      => __( 'An excellent plugin for math- and image-based captchas.', 'strong-testimonials' ),
+				'class'     => 'Captcha_Pro',
+				'file'      => 'captcha-pro/captcha_pro.php',
+				'settings'  => 'admin.php?page=captcha_pro.php',
+				'search'    => 'plugin-install.php?tab=search&s=Captcha+Pro',
+				'url'       => 'https://bestwebsoft.com/products/wordpress/plugins/captcha/',
+				'installed' => false,
+				'active'    => false,
+			),
+			'really-simple-captcha'    => array(
+				'name'      => 'Really Simple Captcha by Takayuki Miyoshi (free)',
+				'class'     => 'Really_Simple_Captcha',
+				'file'      => 'really-simple-captcha/really-simple-captcha.php',
+				'search'    => 'plugin-install.php?tab=search&s=Really+Simple+Captcha',
+				'url'       => 'https://wordpress.org/plugins/really-simple-captcha/',
+				'installed' => false,
+				'active'    => false,
+			),
+		);
+
+		return $plugins;
+	}
+
 }

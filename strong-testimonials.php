@@ -91,8 +91,6 @@ final class Strong_Testimonials {
 	 *
 	 * Also used to store testimonial form data during Post-Redirect-Get.
 	 *
-	 * Heavily copied from Easy Digital Downloads by Pippin Williamson.
-	 *
 	 * @return Strong_Testimonials  Strong_Testimonials object
 	 */
 	public static function instance() {
@@ -213,7 +211,6 @@ final class Strong_Testimonials {
 		require_once WPMTST_INC . 'class-strong-form.php';
 		require_once WPMTST_INC . 'class-walker-strong-category-checklist-front.php';
 
-		require_once WPMTST_INC . 'captcha.php';
 		require_once WPMTST_INC . 'deprecated.php';
 		require_once WPMTST_INC . 'functions.php';
 		require_once WPMTST_INC . 'functions-content.php';
