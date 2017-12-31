@@ -174,3 +174,49 @@ function wpmtst_plugin_row_meta( $plugin_meta, $plugin_file, $plugin_data = arra
 	return $plugin_meta;
 }
 add_filter( 'plugin_row_meta', 'wpmtst_plugin_row_meta' , 10, 4 );
+
+
+/**
+ * Check for configuration issues when options are updated.
+ *
+ * @since 2.24.0
+ * @param $option
+ * @param $old_value
+ * @param $value
+ */
+function wpmtst_updated_option( $option, $old_value, $value ) {
+	if ( 'wpmtst_' == substr( $option, 0, 7 ) ) {
+		do_action( 'wpmtst_check_config' );
+	}
+}
+add_action( 'updated_option', 'wpmtst_updated_option', 10, 3 );
+
+
+/**
+ * Store configuration error.
+ *
+ * @since 2.24.0
+ * @param $key
+ */
+function wpmtst_add_config_error( $key ) {
+	$errors = get_option( 'wpmtst_config_errors', array() );
+	$errors[] = $key;
+	update_option( 'wpmtst_config_errors', array_unique( $errors ) );
+
+	wpmtst_add_admin_notice( array( $key => array( 'persist' => true ) ) );
+}
+
+
+/**
+ * Delete configuration error.
+ *
+ * @since 2.24.0
+ * @param $key
+ */
+function wpmtst_delete_config_error( $key ) {
+	$errors = get_option( 'wpmtst_config_errors', array() );
+	$errors = array_diff( $errors, array ( $key ) );
+	update_option( 'wpmtst_config_errors', $errors );
+
+	wpmtst_delete_admin_notice( $key );
+}
