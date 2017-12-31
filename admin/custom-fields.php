@@ -12,136 +12,151 @@ function wpmtst_form_admin2() {
 }
 
 /**
- * Custom Fields page
+ * Save changes to custom fields.
+ *
+ * @since 2.28.5 As separate function on custom action.
+ */
+function wpmtst_update_custom_fields() {
+
+	$goback = wp_get_referer();
+
+	if ( ! isset( $_POST['wpmtst_form_submitted'] ) ) {
+		wp_redirect( $goback );
+		exit;
+	}
+
+	if ( ! wp_verify_nonce( $_POST['wpmtst_form_submitted'], 'wpmtst_custom_fields_form' ) ) {
+		wp_redirect( $goback );
+		exit;
+	}
+
+    $form_id = $_POST['form_id'];
+    $forms         = get_option( 'wpmtst_custom_forms' );
+    $field_options = apply_filters( 'wpmtst_fields', get_option( 'wpmtst_fields' ) );
+
+    if ( isset( $_POST['reset'] ) ) {
+
+        // Undo changes
+        //$fields = $forms[ $form_id ]['fields'];
+		wpmtst_add_admin_notice( 'changes-cancelled' );
+
+    }
+    elseif ( isset( $_POST['restore-defaults'] ) ) {
+
+        // Restore defaults
+        $default_forms = Strong_Testimonials_Defaults::get_base_forms();
+        $fields = $default_forms['default']['fields'];
+        $forms[ $form_id ]['fields'] = $fields;
+        update_option( 'wpmtst_custom_forms', $forms );
+        do_action( 'wpmtst_fields_updated', $fields );
+
+		wpmtst_add_admin_notice( 'defaults-restored' );
+
+    }
+    else {
+
+        // Save changes
+        $fields = array();
+        $new_key = 0;
+
+        /**
+         * Strip the dang slashes from the dang magic quotes.
+         *
+         * @since 2.0.0
+         */
+        $post_fields = stripslashes_deep( $_POST['fields'] );
+
+        foreach ( $post_fields as $key => $field ) {
+
+            /*
+             * Before merging onto base field, catch fields that are "off"
+             * which the form does not submit. Otherwise, the default "on"
+             * would override the requested (but not submitted) "off".
+             */
+            $field['show_label']              = isset( $field['show_label'] ) ? 1 : 0;
+            $field['required']                = isset( $field['required'] ) ? 1 : 0;
+
+            $field = array_merge( $field_options['field_base'], $field );
+
+            $field['name']                    = sanitize_text_field( $field['name'] );
+            $field['label']                   = sanitize_text_field( $field['label'] );
+
+            // TODO Replace this special handling
+            if ( 'checkbox' == $field['input_type'] ) {
+                $field['default_form_value'] = wpmtst_sanitize_checkbox( $field, 'default_form_value' );
+            } else {
+                $field['default_form_value'] = sanitize_text_field( $field['default_form_value'] );
+            }
+            $field['action_input']  = sanitize_text_field( $field['action_input'] );
+            $field['action_output'] = sanitize_text_field( $field['action_output'] );
+
+            $field['default_display_value'] = sanitize_text_field( $field['default_display_value'] );
+
+            $field['placeholder'] = sanitize_text_field( $field['placeholder'] );
+
+            if ( isset( $field['text'] ) ) {
+                $field['text'] = wp_kses_post( $field['text'] );
+            }
+            $field['before'] = wp_kses_post( $field['before'] );
+            $field['after']  = wp_kses_post( $field['after'] );
+
+            $field['shortcode_on_form']      = sanitize_text_field( $field['shortcode_on_form'] );
+            $field['shortcode_on_display']   = sanitize_text_field( $field['shortcode_on_display'] );
+            $field['show_shortcode_options'] = $field['show_shortcode_options'] ? 1 : 0;
+
+            // Hidden options (no need to check if isset)
+            $field['admin_table']             = $field['admin_table'] ? 1 : 0;
+            $field['show_admin_table_option'] = $field['show_admin_table_option'] ? 1 : 0;
+            $field['show_text_option']        = $field['show_text_option'] ? 1 : 0;
+            $field['show_placeholder_option'] = $field['show_placeholder_option'] ? 1 : 0;
+            $field['show_default_options']    = $field['show_default_options'] ? 1 : 0;
+
+            // add to fields array in display order
+            $fields[ $new_key++ ] = $field;
+
+        }
+
+        $forms[ $form_id ]['fields'] = $fields;
+
+        if ( isset( $_POST['field_group_label'] ) ) {
+            // TODO Catch if empty.
+            $new_label = sanitize_text_field( $_POST['field_group_label'] );
+            $forms[ $form_id ]['label'] = $new_label;
+        }
+
+        update_option( 'wpmtst_custom_forms', $forms );
+        do_action( 'wpmtst_fields_updated', $fields );
+
+		wpmtst_add_admin_notice( 'fields-saved' );
+
+	}
+
+	wp_redirect( $goback );
+	exit;
+}
+
+add_action( 'admin_post_wpmtst_update_custom_fields', 'wpmtst_update_custom_fields' );
+
+/**
+ * Custom Fields form
  *
  * @param int $form_id
  */
-// TODO use admin-post.php instead
 function wpmtst_settings_custom_fields( $form_id = 1 ) {
-	if ( !current_user_can( 'strong_testimonials_fields' ) )
+	if ( ! current_user_can( 'strong_testimonials_fields' ) ) {
 		wp_die( __( 'You do not have sufficient permissions to access this page.' ) );
+	}
 
-	if ( !$form_id ) {
+	if ( ! $form_id ) {
 		echo '<div class="wrap wpmtst"><p>' . __( 'No fields selected.', 'strong-testimonials' ) .'</p></div>';
 		return;
 	}
+
+	$forms  = get_option( 'wpmtst_custom_forms' );
+	$fields = $forms[$form_id]['fields'];
 	?>
     <div class="wrap wpmtst">
     <h1><?php _e( 'Fields', 'strong-testimonials' ); ?></h1>
-
-    <?php
-    $field_options = apply_filters( 'wpmtst_fields', get_option( 'wpmtst_fields' ) );
-	$forms         = get_option( 'wpmtst_custom_forms' );
-	$fields        = $forms[ $form_id ]['fields'];
-
-	$message_format = '<div id="message" class="updated notice is-dismissible"><p>%s</p></div>';
-
-	// ------------
-	// Form Actions
-	// ------------
-	if ( isset( $_POST['wpmtst_form_submitted'] )
-			&& wp_verify_nonce( $_POST['wpmtst_form_submitted'], 'wpmtst_custom_fields_form' ) ) {
-
-		if ( isset( $_POST['reset'] ) ) {
-
-			// Undo changes
-			$fields = $forms[ $form_id ]['fields'];
-			echo sprintf( $message_format, __( 'Changes cancelled.', 'strong-testimonials' ) );
-
-		} elseif ( isset( $_POST['restore-defaults'] ) ) {
-
-			// Restore defaults
-			$default_forms = Strong_Testimonials_Defaults::get_base_forms();
-			$fields = $default_forms['default']['fields'];
-			$forms[ $form_id ]['fields'] = $fields;
-			update_option( 'wpmtst_custom_forms', $forms );
-			do_action( 'wpmtst_fields_updated', $fields );
-
-			echo sprintf( $message_format, __( 'Defaults restored.', 'strong-testimonials' ) );
-
-		} else {
-
-			// Save changes
-			$fields = array();
-			$new_key = 0;
-
-			/**
-			 * Strip the dang slashes from the dang magic quotes.
-			 *
-			 * @since 2.0.0
-			 */
-			$post_fields = stripslashes_deep( $_POST['fields'] );
-
-			foreach ( $post_fields as $key => $field ) {
-
-				/*
-				 * Before merging onto base field, catch fields that are "off"
-				 * which the form does not submit. Otherwise, the default "on"
-				 * would override the requested (but not submitted) "off".
-				 */
-				$field['show_label']              = isset( $field['show_label'] ) ? 1 : 0;
-				$field['required']                = isset( $field['required'] ) ? 1 : 0;
-
-				$field = array_merge( $field_options['field_base'], $field );
-
-				$field['name']                    = sanitize_text_field( $field['name'] );
-				$field['label']                   = sanitize_text_field( $field['label'] );
-
-				// TODO Replace this special handling
-				if ( 'checkbox' == $field['input_type'] ) {
-					$field['default_form_value'] = wpmtst_sanitize_checkbox( $field, 'default_form_value' );
-				} else {
-					$field['default_form_value'] = sanitize_text_field( $field['default_form_value'] );
-				}
-				$field['action_input']  = sanitize_text_field( $field['action_input'] );
-				$field['action_output'] = sanitize_text_field( $field['action_output'] );
-
-				$field['default_display_value'] = sanitize_text_field( $field['default_display_value'] );
-
-				$field['placeholder'] = sanitize_text_field( $field['placeholder'] );
-
-				if ( isset( $field['text'] ) ) {
-					$field['text'] = wp_kses_post( $field['text'] );
-				}
-				$field['before'] = wp_kses_post( $field['before'] );
-				$field['after']  = wp_kses_post( $field['after'] );
-
-				$field['shortcode_on_form']      = sanitize_text_field( $field['shortcode_on_form'] );
-				$field['shortcode_on_display']   = sanitize_text_field( $field['shortcode_on_display'] );
-				$field['show_shortcode_options'] = $field['show_shortcode_options'] ? 1 : 0;
-
-				// Hidden options (no need to check if isset)
-				$field['admin_table']             = $field['admin_table'] ? 1 : 0;
-				$field['show_admin_table_option'] = $field['show_admin_table_option'] ? 1 : 0;
-				$field['show_text_option']        = $field['show_text_option'] ? 1 : 0;
-				$field['show_placeholder_option'] = $field['show_placeholder_option'] ? 1 : 0;
-				$field['show_default_options']    = $field['show_default_options'] ? 1 : 0;
-
-				// add to fields array in display order
-				$fields[ $new_key++ ] = $field;
-
-			}
-
-			$forms[ $form_id ]['fields'] = $fields;
-
-			if ( isset( $_POST['field_group_label'] ) ) {
-				// TODO Catch if empty.
-				$new_label = sanitize_text_field( $_POST['field_group_label'] );
-				$forms[ $form_id ]['label'] = $new_label;
-			}
-
-			update_option( 'wpmtst_custom_forms', $forms );
-			do_action( 'wpmtst_fields_updated', $fields );
-
-			echo sprintf( $message_format, __( 'Fields saved.', 'strong-testimonials' ) );
-		}
-
-	} // if POST
-
-	// ------------------
-	// Custom Fields Form
-	// ------------------
-	?>
 
     <?php do_action( 'wpmtst_fields_editor_before_fields_intro' ); ?>
 
@@ -155,9 +170,10 @@ function wpmtst_settings_custom_fields( $form_id = 1 ) {
             <?php do_action( 'wpmtst_before_fields_settings', 'form-fields' ); ?>
         </div>
 
-        <!-- Custom Fields Form -->
-        <form id="wpmtst-custom-fields-form" method="post" action="" autocomplete="off">
+        <form id="wpmtst-custom-fields-form" method="post" action="<?php echo admin_url( 'admin-post.php' ); ?>" autocomplete="off">
             <?php wp_nonce_field( 'wpmtst_custom_fields_form', 'wpmtst_form_submitted' ); ?>
+            <input type="hidden" name="action" value="wpmtst_update_custom_fields">
+            <input type="hidden" name="form_id" value="<?php echo $form_id; ?>">
 
             <?php do_action( 'wpmtst_fields_editor_before_fields_editor', $forms[ $form_id ] ); ?>
 
