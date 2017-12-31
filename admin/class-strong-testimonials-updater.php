@@ -170,7 +170,7 @@ class Strong_Testimonials_Updater {
 		/**
 		 * Captcha plugin integrations.
 		 *
-		 * @since 2.28.5
+		 * @since 2.29.0
 		 */
 		update_option( 'wpmtst_captcha_plugins', $this->update_captcha_plugins() );
 
@@ -653,6 +653,11 @@ class Strong_Testimonials_Updater {
 
 			default :
 				// no change
+		}
+
+		if ( ! isset( $history['2.29_captcha_options_changed'] ) ) {
+			$this->update_history_log( '2.29_captcha_options_changed' );
+			wpmtst_add_admin_notice( 'captcha-options-changed', true );
 		}
 
 		$this->log( __FUNCTION__, 'done' );
