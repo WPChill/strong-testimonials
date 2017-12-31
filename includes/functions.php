@@ -37,12 +37,15 @@ function wpmtst_get_post( $post ) {
 			$post->thumbnail_id = get_post_thumbnail_id( $post->ID );
 		}
 		else {
-			if ( isset( $custom[ $name ] ) )
+			if ( isset( $custom[ $name ] ) ) {
 				$post->$name = $custom[ $name ][0];
-			else
+			}
+			else {
 				$post->$name = '';
+			}
 		}
 	}
+
 	return $post;
 }
 

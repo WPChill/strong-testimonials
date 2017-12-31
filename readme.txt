@@ -70,7 +70,7 @@ Strong Testimonials offers a handful of templates to try in your theme. The defa
 Need help matching your theme? Got some weird spacing or floating? I'm here to help.
 
 For ultimate control and seamless integration, copy any template to your theme and customize it. There is also a template function:
-`<?php strong_testimonials_view( $id ); ?>`
+`strong_testimonials_view( $id );`
 
 ### Pro Add-ons
 
