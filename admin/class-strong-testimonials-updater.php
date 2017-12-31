@@ -185,7 +185,6 @@ class Strong_Testimonials_Updater {
 			delete_option( 'wpmtst_l10n_contexts' );
 
 			// Remove older attempts at admin notices.
-			delete_option( 'wpmtst_admin_notices' );
 			delete_option( 'wpmtst_news_flag' );
 
 			$this->update_history_log( '2.28_new_update_process' );
@@ -636,7 +635,8 @@ class Strong_Testimonials_Updater {
 				break;
 
 			case 'advnore' :
-				// Advanced noCaptcha reCaptcha by Shamim Hasan *!* INTEGRATION DROPPED *!*
+				// Advanced noCaptcha reCaptcha by Shamim Hasan
+				// Integration dropped @since 2.28.5
 				$form_options['captcha'] = '';
 				break;
 
