@@ -297,9 +297,11 @@ class Strong_Testimonials_Updater {
 		if ( $wpdb->last_error ) {
 			deactivate_plugins( 'strong-testimonials/strong-testimonials.php' );
 			$message = '<p><span style="color: #CD0000;">';
-			$message .= __( 'An error occurred.', 'strong-testimonials' ) . '</span>&nbsp;';
-			$message .= __( 'The plugin has been deactivated.', 'strong-testimonials' ) . '&nbsp;';
-			$message .= sprintf( __( 'Please <a href="%s" target="_blank">open a support ticket</a>.', 'strong-testimonials' ), esc_url( 'https://support.strongplugins.com/new-ticket/' ) ) . '</p>';
+			$message .= __( 'An error occurred:', 'strong-testimonials' ) . '</span>&nbsp;';
+			$message .= __( 'The plugin has been deactivated.', 'strong-testimonials' );
+			$message .= '</p>';
+			$message .= '<p><code>' . $wpdb->last_error . '</code></p>';
+			$message .= '<p>' . sprintf( __( 'Please <a href="%s" target="_blank">open a support ticket</a>.', 'strong-testimonials' ), esc_url( 'https://support.strongplugins.com/new-ticket/' ) ) . '</p>';
 			$message .= '<p>' . sprintf( __( '<a href="%s">Go back to Dashboard</a>', 'strong-testimonials' ), esc_url( admin_url() ) ) . '</p>';
 
 			$this->log( __FUNCTION__, 'error', $wpdb->last_error );
@@ -607,7 +609,11 @@ class Strong_Testimonials_Updater {
 		}
 
 		// Merge in new options
-		$form_options = array_merge( Strong_Testimonials_Defaults::get_form_options(), $form_options );
+		$defaults = Strong_Testimonials_Defaults::get_form_options();
+		$form_options = array_merge( $defaults, $form_options );
+		// Merge nested arrays individually. Don't use array_merge_recursive.
+		$form_options['default_recipient'] = array_merge( $defaults['default_recipient'], $form_options['default_recipient'] );
+		$form_options['messages'] = array_merge( $defaults['messages'], $form_options['messages'] );
 
 		$this->log( __FUNCTION__, 'done' );
 
