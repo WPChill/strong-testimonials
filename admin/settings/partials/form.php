@@ -304,7 +304,7 @@ foreach ( $plugins as $key => $plugin ) {
 	<tr valign="top">
 		<th scope="row">
             <label>
-			    <?php _e( 'Captcha', 'strong-testimonials' ); ?>
+                <a id="captcha-section"></a><?php _e( 'Captcha', 'strong-testimonials' ); ?>
             </label>
 		</th>
 		<td class="stackem">
