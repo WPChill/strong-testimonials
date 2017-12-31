@@ -387,28 +387,82 @@ add_action( 'wpmtst_form_after_fields', 'wpmtst_form_honeypot_before' );
  * Print form catpcha.
  */
 function wpmtst_form_captcha() {
-	$errors = WPMST()->form->get_form_errors();
 	$form_options = get_option( 'wpmtst_form_options' );
-	if ( $form_options['captcha'] ) {
-		// Only display Captcha label if properly configured.
-		$captcha_html = apply_filters( 'wpmtst_captcha', $form_options['captcha'] );
-		if ( $captcha_html ) {
-			?>
-			<div class="form-field wpmtst-captcha">
-				<label for="wpmtst_captcha"><?php wpmtst_form_message('captcha'); ?></label><span class="required symbol"></span>
-				<div>
-					<?php echo $captcha_html; ?>
-					<?php if ( isset( $errors['captcha'] ) ) : ?>
-						<p><label class="error"><?php echo esc_html( $errors['captcha'] ); ?></label></p>
-					<?php endif; ?>
-				</div>
-			</div>
-			<?php
+	if ( ! isset( $form_options['captcha'] ) || ! $form_options['captcha'] ) {
+		return;
+	}
+
+	/**
+	 * Only display Captcha label if properly configured.
+	 */
+	$captcha_html = apply_filters( 'wpmtst_add_captcha', $form_options['captcha'] );
+	if ( ! $captcha_html ) {
+		return;
+	}
+
+	$invisible = wpmtst_form_captcha_invisible();
+	$errors    = WPMST()->form->get_form_errors();
+
+	/**
+	 * To display or not to display.
+	 */
+    if ( $invisible && 'captcha-pro' == $form_options['captcha']) {
+        echo '<div class="form-field wpmtst-captcha">';
+        echo $captcha_html;
+        echo '</div>';
+    }
+    elseif ( $invisible ) {
+        echo $captcha_html;
+    }
+    else {
+        ?>
+        <div class="form-field wpmtst-captcha">
+            <label for="wpmtst_captcha"><?php wpmtst_form_message( 'captcha' ); ?></label><span class="required symbol"></span>
+            <div>
+                <?php echo $captcha_html; ?>
+                <?php if ( isset( $errors['captcha'] ) ) : ?>
+                    <p><label class="error"><?php echo esc_html( $errors['captcha'] ); ?></label></p>
+                <?php endif; ?>
+            </div>
+        </div>
+        <?php
+    }
+}
+add_action( 'wpmtst_form_after_fields', 'wpmtst_form_captcha' );
+
+/**
+ * Determine if we are using Invisible reCAPTCHA.
+ *
+ * @since 2.28.5
+ *
+ * @return bool
+ */
+function wpmtst_form_captcha_invisible() {
+	$invisible    = false;
+	$form_options = get_option( 'wpmtst_form_options' );
+
+	/**
+	 * Google Captcha plugin integration.
+	 */
+	if ( 'google-captcha' == $form_options['captcha'] ) {
+		$gglcptch_options = get_option( 'gglcptch_options' );
+		if ( isset( $gglcptch_options['recaptcha_version'] ) && 'invisible' == $gglcptch_options['recaptcha_version'] ) {
+			$invisible = true;
 		}
 	}
 
+	/**
+	 * Captcha Pro plugin integration.
+	 */
+	if ( 'captcha-pro' == $form_options['captcha'] ) {
+		$cptch_options = get_option( 'cptch_options' );
+		if ( isset( $cptch_options['type'] ) && 'invisible' == $cptch_options['type'] ) {
+			$invisible = true;
+		}
+	}
+
+	return $invisible;
 }
-add_action( 'wpmtst_form_after_fields', 'wpmtst_form_captcha' );
 
 /**
  * Print the submit button.

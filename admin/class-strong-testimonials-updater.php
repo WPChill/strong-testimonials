@@ -168,6 +168,13 @@ class Strong_Testimonials_Updater {
 		}
 
 		/**
+		 * Captcha plugin integrations.
+		 *
+		 * @since 2.28.5
+		 */
+		update_option( 'wpmtst_captcha_plugins', $this->update_captcha_plugins() );
+
+		/**
 		 * Legacy stuff.
 		 */
 		if ( ! isset( $history['2.28_new_update_process'] ) ) {
@@ -178,7 +185,6 @@ class Strong_Testimonials_Updater {
 			delete_option( 'wpmtst_l10n_contexts' );
 
 			// Remove older attempts at admin notices.
-			delete_option( 'wpmtst_admin_notices' );
 			delete_option( 'wpmtst_news_flag' );
 
 			$this->update_history_log( '2.28_new_update_process' );
@@ -608,12 +614,46 @@ class Strong_Testimonials_Updater {
 			$form_options['messages']['required-field']['enabled'] = 1;
 		}
 
-		// Merge in new options
+		/**
+		 * Merge in new options.
+		 */
 		$defaults = Strong_Testimonials_Defaults::get_form_options();
 		$form_options = array_merge( $defaults, $form_options );
 		// Merge nested arrays individually. Don't use array_merge_recursive.
 		$form_options['default_recipient'] = array_merge( $defaults['default_recipient'], $form_options['default_recipient'] );
 		$form_options['messages'] = array_merge( $defaults['messages'], $form_options['messages'] );
+
+		/**
+		 * Convert Captcha plugin name.
+		 *
+		 * @since 2.28.5
+		 */
+		switch ( $form_options['captcha'] ) {
+
+			case 'gglcptch' :
+				// Google Captcha by BestWebSoft
+				$form_options['captcha'] = 'google-captcha';
+				break;
+
+			case 'bwsmathpro' :
+				// Captcha Pro by BestWebSoft
+				$form_options['captcha']  = 'captcha-pro';
+				break;
+
+			case 'miyoshi' :
+				// Really Simple Captcha by Takayuki Miyoshi
+				$form_options['captcha'] = 'really-simple-captcha';
+				break;
+
+			case 'advnore' :
+				// Advanced noCaptcha reCaptcha by Shamim Hasan
+				// Integration dropped @since 2.28.5
+				$form_options['captcha'] = '';
+				break;
+
+			default :
+				// no change
+		}
 
 		$this->log( __FUNCTION__, 'done' );
 
@@ -643,6 +683,16 @@ class Strong_Testimonials_Updater {
 		$this->log( __FUNCTION__, 'done' );
 
 		return $options;
+	}
+
+	/**
+	 * View options.
+	 *
+	 * @return array
+	 */
+	public function update_captcha_plugins() {
+		$this->log( __FUNCTION__, 'default' );
+		return Strong_Testimonials_Defaults::get_captcha_plugins();
 	}
 
 	/**
