@@ -195,6 +195,10 @@ div.radio:hover {
   /*vertical-align: top;*/
 }
 
+.wpmtst .form-table td {
+  padding-top: 15px; /* override PopupMaker's override */
+}
+
 .wpmtst .form-table td:nth-child(1) {
   width: 200px;
 }
