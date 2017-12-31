@@ -562,6 +562,7 @@ class Strong_Testimonials_Updater {
 		}
 
 		$options = get_option( 'wpmtst_options', array() );
+		$history = get_option( 'wpmtst_history', array() );
 
 		/**
 		 * Move existing options.
