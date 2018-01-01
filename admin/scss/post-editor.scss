@@ -91,7 +91,7 @@ label.nowrap code {
 }
 
 .wp-core-ui .edit-rating-box button {
-  margin-left: 10px;
+  margin-left: 0;
 }
 
 .edit-rating-box .cancel,
@@ -106,7 +106,6 @@ label.nowrap code {
 .edit-rating-buttons-2,
 .edit-rating-success {
   display: inline-block;
-  //margin: 0 4px;
+  margin-left: 5px;
   vertical-align: middle;
 }
-
