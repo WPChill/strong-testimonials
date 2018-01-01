@@ -287,13 +287,6 @@ final class Strong_Testimonials {
 		add_action( 'plugins_loaded', array( $this, 'load_textdomain' ) );
 
 		/**
-		 * Custom fields editor.
-		 */
-		if ( is_admin() ) {
-			add_action( 'wpmtst_form_admin', 'wpmtst_form_admin2' );
-		}
-
-		/**
 		 * Plugin setup.
 		 */
 		add_action( 'init', array( $this, 'l10n_check' ) );
@@ -309,13 +302,6 @@ final class Strong_Testimonials {
 		 * Add image size for widget.
 		 */
 		add_action( 'after_setup_theme', array( $this, 'add_image_size' ) );
-
-		/**
-		 * Custom action to delete a view.
-		 *
-		 * @since 1.21.0
-		 */
-		add_action( 'admin_action_delete-strong-view', 'wpmtst_delete_view_action_hook' );
 
 		/**
 		 * Debug info.
