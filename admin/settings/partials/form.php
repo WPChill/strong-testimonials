@@ -275,10 +275,10 @@ foreach ( $plugins as $key => $plugin ) {
                 <?php _e( 'These methods for trapping spambots are both time-tested and widely used. May be used simultaneously for more protection.', 'strong-testimonials' ); ?>
             </p>
 			<p>
-                <?php _e( 'However, honeypots are not compatible with WP-SpamShield or Ajax page loading.', 'strong-testimonials' ); ?>
+                <?php _e( 'However, honeypots may not be compatible with WP-SpamShield, Ajax page loading, caching or minification.', 'strong-testimonials' ); ?>
             </p>
 			<p>
-			    <?php _e( 'Other conflicts may exist. If your form is not working properly, try disabling these options.', 'strong-testimonials' ); ?>
+			    <?php _e( 'If your form is not working properly, try disabling these.', 'strong-testimonials' ); ?>
             </p>
             <?php // TODO Add link to article that explains Ajax page loading. ?>
 			<ul>
