@@ -96,7 +96,8 @@ function wpmtst_admin_notice_text( $html = '', $key, $persist = false ) {
 
 		case 'captcha-options-changed' :
 			$tags          = array( 'a' => array( 'class' => array(), 'href' => array() ) );
-			$settings_url  = admin_url( 'edit.php?post_type=wpm-testimonial&page=testimonial-settings&tab=form#captcha-section' );
+			//$settings_url  = admin_url( 'edit.php?post_type=wpm-testimonial&page=testimonial-settings&tab=form#captcha-section' );
+			$settings_url  = admin_url( '?action=captcha-options-changed' );
 			$settings_link = sprintf( wp_kses( __( 'Please check your <a href="%s">%s</a>.', 'strong-testimonials' ), $tags ), esc_url( $settings_url ), __( 'settings', 'strong-testimonials' ) );
 
 			ob_start();
@@ -131,7 +132,7 @@ add_filter( 'wpmtst_admin_notice', 'wpmtst_admin_notice_text', 10, 2 );
 function wpmtst_add_admin_notice( $key, $persist = false ) {
 	$notices = get_option( 'wpmtst_admin_notices', array() );
 	$notices[ $key ] = array( 'persist' => $persist );
-	update_option( 'wpmtst_admin_notices', array_unique( $notices ) );
+	update_option( 'wpmtst_admin_notices', $notices );
 }
 
 

@@ -61,10 +61,25 @@ function wpmtst_admin_init() {
     }
 }
 
-add_action( 'admin_init', 'wpmtst_admin_init', 20 );
+add_action( 'admin_init', 'wpmtst_admin_init', 11 );
+
+/**
+ * Custom action link in admin notice.
+ *
+ * @since 2.29.0
+ */
+function wpmtst_action_captcha_options_changed() {
+	wpmtst_delete_admin_notice( 'captcha-options-changed' );
+    wp_redirect( admin_url( 'edit.php?post_type=wpm-testimonial&page=testimonial-settings&tab=form#captcha-section' ) );
+    exit;
+}
+
+add_action( 'admin_action_captcha-options-changed', 'wpmtst_action_captcha_options_changed' );
 
 /**
  * Redirect to About page.
+ *
+ * @since 2.28.4
  */
 function wpmtst_activation_redirect() {
 	if ( get_option( 'wpmtst_do_activation_redirect', false ) ) {
