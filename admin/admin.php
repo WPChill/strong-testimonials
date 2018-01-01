@@ -235,3 +235,79 @@ function wpmtst_delete_config_error( $key ) {
 
 	wpmtst_delete_admin_notice( $key );
 }
+
+
+/**
+ * Save a View.
+ *
+ * @param        $view
+ * @param string $action
+ * @usedby Strong_Testimonials_Update:update_views
+ *
+ * @return bool|false|int
+ */
+function wpmtst_save_view( $view, $action = 'edit' ) {
+	global $wpdb;
+
+	if ( ! $view ) return false;
+
+	$table_name = $wpdb->prefix . 'strong_views';
+	$serialized = serialize( $view['data'] );
+
+	if ( 'add' == $action || 'duplicate' == $action ) {
+		$sql = "INSERT INTO {$table_name} (name, value) VALUES (%s, %s)";
+		$sql = $wpdb->prepare( $sql, $view['name'], $serialized );
+		$wpdb->query( $sql );
+		$view['id'] = $wpdb->insert_id;
+		$return  = $view['id'];
+	}
+	else {
+		$sql = "UPDATE {$table_name} SET name = %s, value = %s WHERE id = %d";
+		$sql = $wpdb->prepare( $sql, $view['name'], $serialized, intval( $view['id'] ) );
+		$wpdb->query( $sql );
+		$return = $wpdb->last_error ? 0 : 1;
+	}
+
+	do_action( 'wpmtst_view_saved', $view );
+
+	return $return;
+}
+
+
+/**
+ * @param $field
+ *
+ * @return mixed
+ */
+function wpmtst_get_field_label( $field ) {
+	if ( isset( $field['field'] ) ) {
+		$custom_fields = wpmtst_get_custom_fields();
+		if ( isset( $custom_fields[ $field['field'] ]['label'] ) ) {
+			return $custom_fields[ $field['field'] ]['label'];
+		}
+		$builtin_fields = wpmtst_get_builtin_fields();
+		if ( isset( $builtin_fields[ $field['field'] ]['label'] ) ) {
+			return $builtin_fields[ $field['field'] ]['label'];
+		}
+	}
+
+	return '';
+}
+
+
+/**
+ * @param string $field_name
+ *
+ * @return mixed
+ */
+function wpmtst_get_field_by_name( $field_name = '' ) {
+	if ( $field_name ) {
+		$custom_fields = wpmtst_get_custom_fields();
+		if ( isset( $custom_fields[ $field_name ] ) ) {
+			return $custom_fields[ $field_name ];
+		}
+	}
+
+	return '';
+}
+
