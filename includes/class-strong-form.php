@@ -44,6 +44,9 @@ class Strong_Testimonials_Form {
 		}
 
 		$slug = $this->form_options['captcha'];
+		if ( ! $slug || ! isset( $this->plugins[ $slug ]['class'] ) ) {
+			return;
+		}
 
 		require_once WPMTST_INC . 'integrations/class-integration-captcha.php';
 
