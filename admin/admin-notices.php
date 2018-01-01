@@ -153,13 +153,17 @@ function wpmtst_delete_admin_notice( $key ) {
  * Automatically dismiss specific notices when settings are saved.
  *
  * @since 2.29.0
+ * @param $option
+ * @param $old_value
+ * @param $value
  */
-function wpmtst_auto_dismiss_notices() {
-    $notices = get_option( 'wpmtst_admin_notices', array() );
-    if ( isset( $notices['captcha-options-changed'] ) ) {
-        unset( $notices['captcha-options-changed'] );
-        update_option( 'wpmtst_admin_notices', $notices );
-    }
+function wpmtst_auto_dismiss_notices( $option, $old_value, $value ) {
+	if ( 'wpmtst_form_options' == $option ) {
+		$notices = get_option( 'wpmtst_admin_notices', array() );
+		if ( isset( $notices['captcha-options-changed'] ) ) {
+			unset( $notices['captcha-options-changed'] );
+			update_option( 'wpmtst_admin_notices', $notices );
+		}
+	}
 }
-add_action( 'wpmtst_check_config', 'wpmtst_auto_dismiss_notices', 10, 3 );
-
+add_action( 'update_option', 'wpmtst_auto_dismiss_notices', 10, 3 );
