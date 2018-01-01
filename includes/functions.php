@@ -258,6 +258,37 @@ function wpmtst_get_all_fields() {
 }
 
 /**
+ * Get the built-in fields.
+ *
+ * @since 2.29.0
+ */
+function wpmtst_get_builtin_fields() {
+	return array(
+		'post_date' => array(
+			'name'        => 'post_date',
+			'label'       => 'Post Date',
+			'input_type'  => 'date',
+			'type'        => 'date',
+			'record_type' => 'builtin',
+		),
+		'submit_date' => array(
+			'name'        => 'submit_date',
+			'label'       => 'Submit Date',
+			'input_type'  => 'date',
+			'type'        => 'date',
+			'record_type' => 'builtin',
+		),
+		'category' => array(
+			'name'        => 'category',
+			'label'       => 'Category',
+			'input_type'  => 'category',
+			'type'        => 'category',
+			'record_type' => 'builtin',
+		),
+	);
+}
+
+/**
  * Get defined images sizes.
  *
  * @link http://codex.wordpress.org/Function_Reference/get_intermediate_image_sizes
@@ -522,6 +553,10 @@ function wpmtst_get_field_label( $field ) {
 		$custom_fields = wpmtst_get_custom_fields();
 		if ( isset( $custom_fields[ $field['field'] ]['label'] ) ) {
 			return $custom_fields[ $field['field'] ]['label'];
+		}
+		$builtin_fields = wpmtst_get_builtin_fields();
+		if ( isset( $builtin_fields[ $field['field'] ]['label'] ) ) {
+			return $builtin_fields[ $field['field'] ]['label'];
 		}
 	}
 
