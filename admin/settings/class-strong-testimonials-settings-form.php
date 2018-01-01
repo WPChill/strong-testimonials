@@ -134,7 +134,8 @@ class Strong_Testimonials_Settings_Form {
 		$input['recipients'] = $new_recipients;
 
 		$input['default_recipient'] = maybe_unserialize( $input['default_recipient'] );
-		$input['email_subject']     = isset( $input['email_subject'] ) ? sanitize_text_field( $input['email_subject'] ) : '';
+		//$input['email_subject']     = isset( $input['email_subject'] ) ? sanitize_text_field( $input['email_subject'] ) : '';
+		$input['email_subject']     = isset( $input['email_subject'] ) ? wp_kses_post( $input['email_subject'] ) : '';
 		$input['email_message']     = isset( $input['email_message'] ) ? wp_kses_post( $input['email_message'] ) : '';
 
 		$input['honeypot_before']   = wpmtst_sanitize_checkbox( $input, 'honeypot_before' );
