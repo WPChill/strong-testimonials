@@ -14,7 +14,7 @@ function wpmtst_save_view_list_order() {
 		$success = update_user_meta( get_current_user_id(), 'strong_view_list_order', array( $name, $order ) );
 	}
 	echo $success;
-	die();
+	wp_die();
 }
 add_action( 'wp_ajax_wpmtst_save_view_list_order', 'wpmtst_save_view_list_order' );
 

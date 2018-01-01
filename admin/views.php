@@ -825,7 +825,7 @@ function wpmtst_save_view_sticky() {
 	}
 	update_option( 'wpmtst_sticky_views', $stickies );
 	echo json_encode( $is_sticky );
-	die();
+	wp_die();
 }
 add_action( 'wp_ajax_wpmtst_save_view_sticky', 'wpmtst_save_view_sticky' );
 

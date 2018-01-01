@@ -12,12 +12,12 @@
 function wpmtst_dismiss_notice_ajax() {
 	if ( ! isset( $_POST['key'] ) || ! $_POST['key'] ) {
 		echo 0;
-		exit;
+		wp_die();
 	}
 
 	check_ajax_referer( 'wpmtst-admin', 'nonce' );
 	wpmtst_delete_admin_notice( $_POST['key'] );
-	exit;
+	wp_die();
 }
 
 add_action( 'wp_ajax_wpmtst_dismiss_notice', 'wpmtst_dismiss_notice_ajax' );

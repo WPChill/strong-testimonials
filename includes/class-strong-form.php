@@ -130,7 +130,7 @@ class Strong_Testimonials_Form {
 			echo json_encode( $return );
 		}
 
-		die();
+		wp_die();
 	}
 
 	/**
