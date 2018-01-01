@@ -97,7 +97,7 @@ function wpmtst_admin_notice_text( $html = '', $key, $persist = false ) {
 		case 'captcha-options-changed' :
 			$tags          = array( 'a' => array( 'class' => array(), 'href' => array() ) );
 			$settings_url  = admin_url( 'edit.php?post_type=wpm-testimonial&page=testimonial-settings&tab=form#captcha-section' );
-			$settings_link = sprintf( wp_kses( __( '<a href="%s">%s</a>', 'strong-testimonials' ), $tags ), esc_url( $settings_url ), __( 'Go to settings', 'strong-testimonials' ) );
+			$settings_link = sprintf( wp_kses( __( 'Please check your <a href="%s">%s</a>.', 'strong-testimonials' ), $tags ), esc_url( $settings_url ), __( 'settings', 'strong-testimonials' ) );
 
 			ob_start();
 			?>
