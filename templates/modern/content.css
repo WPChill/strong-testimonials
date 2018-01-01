@@ -177,7 +177,7 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
 }
 .strong-view.modern .testimonial-content:before,
 .strong-view.modern .testimonial-content:after {
-  font-family: fontawesome;
+  font-family: FontAwesome;
   color: #CDCDCD;
   font-size: 36px;
   font-style: normal;

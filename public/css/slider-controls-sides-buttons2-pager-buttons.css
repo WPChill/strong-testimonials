@@ -54,7 +54,7 @@
 .strong-view.controls-style-buttons2 .wpmslider-wrapper .wpmslider-stop,
 .strong-view.controls-style-buttons2 .wpmslider-wrapper .wpmslider-next,
 .strong-view.controls-style-buttons2 .wpmslider-wrapper .wpmslider-prev {
-  font-family: fontawesome;
+  font-family: FontAwesome;
   display: inline-block;
   background: #C0C0C0;
   border-radius: 5px;
@@ -97,7 +97,7 @@
   text-align: center;
 }
 .strong-view.pager-style-buttons .wpmslider-wrapper .wpmslider-pager-link:before {
-  font-family: fontawesome;
+  font-family: FontAwesome;
   content: "\f10c";
   display: inline-block;
   color: #999;
