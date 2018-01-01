@@ -729,6 +729,8 @@ class Strong_Testimonials_Updater {
 
 	/**
 	 * Update views.
+	 *
+	 * @uses wpmtst_save_view
 	 */
 	public function update_views() {
 		$views = wpmtst_get_views();
