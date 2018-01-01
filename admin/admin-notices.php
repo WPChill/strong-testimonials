@@ -158,12 +158,19 @@ function wpmtst_delete_admin_notice( $key ) {
  * @param $value
  */
 function wpmtst_auto_dismiss_notices( $option, $old_value, $value ) {
-	if ( 'wpmtst_form_options' == $option ) {
-		$notices = get_option( 'wpmtst_admin_notices', array() );
-		if ( isset( $notices['captcha-options-changed'] ) ) {
-			unset( $notices['captcha-options-changed'] );
-			update_option( 'wpmtst_admin_notices', $notices );
-		}
-	}
+    if ( ! function_exists( 'get_current_screen' ) ) {
+	    return;
+    }
+    
+    $screen = get_current_screen();
+    if ( $screen && 'options' == $screen->base ) {
+        if ( 'wpmtst_form_options' == $option ) {
+            $notices = get_option( 'wpmtst_admin_notices', array() );
+            if ( isset( $notices['captcha-options-changed'] ) ) {
+                unset( $notices['captcha-options-changed'] );
+                update_option( 'wpmtst_admin_notices', $notices );
+            }
+        }
+    }
 }
 add_action( 'update_option', 'wpmtst_auto_dismiss_notices', 10, 3 );
