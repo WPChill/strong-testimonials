@@ -101,7 +101,7 @@
 }
 
 /* turn on the current rating */
-.strong-rating input:checked + label:before,
+.strong-rating input[type="radio"]:checked + label:before,
 .error .strong-rating input:checked + label:before {
   color: #FFB900;
 }
