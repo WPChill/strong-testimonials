@@ -471,31 +471,11 @@ function wpmtst_array_filter__custom_fields( $field ) {
 function wpmtst_view_field_inputs( $key, $field, $adding = false ) {
 	$custom_fields = array_filter( wpmtst_get_custom_fields(), 'wpmtst_array_filter__custom_fields' );
 
-	// TODO Move this to view defaults option.
-	$builtin_fields = array(
-		array(
-			'name'        => 'post_date',
-			'input_type'  => 'date',
-			'type'        => 'date',
-			'record_type' => 'builtin',
-		),
-		array(
-			'name'        => 'submit_date',
-			'input_type'  => 'date',
-			'type'        => 'date',
-			'record_type' => 'builtin',
-		),
-		array(
-			'name'        => 'category',
-			'input_type'  => 'category',
-			'type'        => 'category',
-			'record_type' => 'builtin',
-		),
-	);
+	$builtin_fields = wpmtst_get_builtin_fields();
 
 	$all_fields = array(
-		__( 'custom', 'strong-testimonials' ) => $custom_fields,
-		__( 'built-in', 'strong-testimonials' ) => $builtin_fields
+		__( 'custom', 'strong-testimonials' )  => $custom_fields,
+		__( 'builtin', 'strong-testimonials' ) => $builtin_fields
 	);
 
 	$allowed = array( 'custom', 'optional', 'builtin' );
