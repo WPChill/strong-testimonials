@@ -634,31 +634,37 @@ class Strong_Testimonials_Updater {
 			case 'gglcptch' :
 				// Google Captcha by BestWebSoft
 				$form_options['captcha'] = 'google-captcha';
+				$notice                  = false;
 				break;
 
 			case 'bwsmathpro' :
 				// Captcha Pro by BestWebSoft
-				$form_options['captcha']  = 'captcha-pro';
+				$form_options['captcha'] = 'captcha-pro';
+				$notice                  = false;
 				break;
 
 			case 'miyoshi' :
 				// Really Simple Captcha by Takayuki Miyoshi
 				$form_options['captcha'] = 'really-simple-captcha';
+				$notice                  = false;
 				break;
 
 			case 'advnore' :
 				// Advanced noCaptcha reCaptcha by Shamim Hasan
-				// Integration dropped @since 2.28.5
+				// Integration dropped @since 2.29.0
 				$form_options['captcha'] = '';
+				$notice                  = true;
 				break;
 
 			default :
-				// no change
+				$notice = false;
 		}
 
 		if ( ! isset( $history['2.29_captcha_options_changed'] ) ) {
 			$this->update_history_log( '2.29_captcha_options_changed' );
-			wpmtst_add_admin_notice( 'captcha-options-changed', true );
+			if ( $notice ) {
+				wpmtst_add_admin_notice( 'captcha-options-changed', true );
+			}
 		}
 
 		$this->log( __FUNCTION__, 'done' );
