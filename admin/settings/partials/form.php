@@ -272,7 +272,7 @@ foreach ( $plugins as $key => $plugin ) {
 		</th>
 		<td>
 			<p>
-                <?php _e( 'These methods for trapping spambots are both time-tested and widely used. They can be used simultaneously for more protection.', 'strong-testimonials' ); ?>
+                <?php _e( 'These methods for trapping spambots are both time-tested and widely used. May be used simultaneously for more protection.', 'strong-testimonials' ); ?>
             </p>
 			<p>
                 <?php _e( 'However, honeypots are not compatible with WP-SpamShield or Ajax page loading.', 'strong-testimonials' ); ?>
@@ -306,9 +306,13 @@ foreach ( $plugins as $key => $plugin ) {
             </label>
 		</th>
 		<td class="stackem">
-			<p><?php _e( 'Enable Captcha using one of these plugins. Be sure to configure any plugins first, if necessary.', 'strong-testimonials' ); ?></p>
-            <p><?php _e( 'Can be used alongside honeypot methods.', 'strong-testimonials' ); ?></p>
-            <p><?php _e( 'May not be compatible with Ajax page loading.', 'strong-testimonials' ); ?></p>
+			<p>
+                <?php _e( 'Enable Captcha using one of these plugins. Be sure to configure any plugins first, if necessary.', 'strong-testimonials' ); ?>
+                <?php _e( 'May be used alongside honeypot methods.', 'strong-testimonials' ); ?>
+            </p>
+            <p>
+                <?php _e( 'May not be compatible with Ajax page loading.', 'strong-testimonials' ); ?>
+            </p>
 			<ul>
 				<li>
 					<label>
