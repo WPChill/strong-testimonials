@@ -530,88 +530,121 @@ class Strong_Testimonials_Form {
 	}
 
 	/**
-	 * Notify admin upon testimonial submission.
+	 * Send notification email upon testimonial submission.
 	 *
 	 * @param array $post
 	 * @param string $form_name
 	 *
 	 * @since 1.7.0
-	 * @since 2.4.0 Logging mail failure.
 	 */
 	public function notify_admin( $post, $form_name = 'custom' ) {
+		$form_options = get_option( 'wpmtst_form_options' );
+		if ( ! $form_options['admin_notify'] ) {
+			return;
+		}
+
 		$fields = wpmtst_get_form_fields( $form_name );
 
-		$form_options = get_option( 'wpmtst_form_options' );
+		if ( $form_options['sender_site_email'] ) {
+			$sender_email = get_bloginfo( 'admin_email' );
+		}
+		else {
+			$sender_email = $form_options['sender_email'];
+		}
 
-		if ( $form_options['admin_notify'] ) {
+		// Subject line
+		$subject = $form_options['email_subject'];
+		$subject = str_replace( '%BLOGNAME%', get_bloginfo( 'name' ), $subject );
+		$subject = str_replace( '%TITLE%', $post['post_title'], $subject );
+		$subject = str_replace( '%STATUS%', $post['post_status'], $subject );
+		$subject = $this->replace_custom_fields( $subject, $fields, $post );
 
-			if ( $form_options['sender_site_email'] ) {
-				$sender_email = get_bloginfo( 'admin_email' );
-			} else {
-				$sender_email = $form_options['sender_email'];
+		// Message text
+		$message = $form_options['email_message'];
+		$message = str_replace( '%BLOGNAME%', get_bloginfo( 'name' ), $message );
+		$message = str_replace( '%TITLE%', $post['post_title'], $message );
+		$message = str_replace( '%CONTENT%', $post['post_content'], $message );
+		$message = str_replace( '%STATUS%', $post['post_status'], $message );
+		$message = $this->replace_custom_fields( $message, $fields, $post );
+
+		foreach ( $form_options['recipients'] as $recipient ) {
+
+			if ( isset( $recipient['admin_site_email'] ) && $recipient['admin_site_email'] ) {
+				$admin_email = get_bloginfo( 'admin_email' );
+			}
+			else {
+				$admin_email = $recipient['admin_email'];
 			}
 
-			foreach ( $form_options['recipients'] as $recipient ) {
+			// Mandrill rejects the 'name <email>' format
+			if ( $recipient['admin_name'] && ! $form_options['mail_queue'] ) {
+				$to = sprintf( '%s <%s>', $recipient['admin_name'], $admin_email );
+			}
+			else {
+				$to = sprintf( '%s', $admin_email );
+			}
 
-				if ( isset( $recipient['admin_site_email'] ) && $recipient['admin_site_email'] ) {
-					$admin_email = get_bloginfo( 'admin_email' );
-				} else {
-					$admin_email = $recipient['admin_email'];
+			// Headers
+			$headers = 'MIME-Version: 1.0' . "\n";
+			$headers .= 'Content-Type: text/plain; charset="' . get_option( 'blog_charset' ) . '"' . "\n";
+			if ( $form_options['sender_name'] ) {
+				$headers .= sprintf( 'From: %s <%s>', $form_options['sender_name'], $sender_email ) . "\n";
+			}
+			else {
+				$headers .= sprintf( 'From: %s', $sender_email ) . "\n";
+			}
+
+			$email = array( 'to' => $to, 'subject' => $subject, 'message' => $message, 'headers' => $headers );
+
+			if ( $form_options['mail_queue'] ) {
+				WPMST()->mail->enqueue_mail( $email );
+			}
+			else {
+				WPMST()->mail->send_mail( $email );
+			}
+
+		} // for each recipient
+	}
+
+	/**
+	 * Replace tags for custom fields.
+	 *
+	 * @param $text
+	 * @param $fields
+	 * @param $post
+	 *
+	 * @return string
+	 */
+	private function replace_custom_fields( $text, $fields, $post ) {
+		foreach ( $fields as $field ) {
+
+			$replace    = '(blank)';
+			$post_field = isset( $post[ $field['name'] ] ) ? $post[ $field['name'] ] : false;
+
+			if ( $post_field ) {
+				if ( 'category' == $field['name'] ) {
+					$term = get_term( $post_field, 'wpm-testimonial-category' );
+					if ( $term && ! is_wp_error( $term ) ) {
+						$replace = $term->name;
+					}
 				}
-
-				// Mandrill rejects the 'name <email>' format
-				if ( $recipient['admin_name'] && ! $form_options['mail_queue'] ) {
-					$to = sprintf( '%s <%s>', $recipient['admin_name'], $admin_email );
-				} else {
-					$to = sprintf( '%s', $admin_email );
+				elseif ( 'rating' == $field['input_type'] ) {
+					$replace = $post_field . ' ' . _n( 'star', 'stars', $post_field, 'strong-testimonials' );
 				}
-
-				// Subject line
-				$subject = $form_options['email_subject'];
-				$subject = str_replace( '%BLOGNAME%', get_bloginfo( 'name' ), $subject );
-				$subject = str_replace( '%TITLE%', $post['post_title'], $subject );
-				$subject = str_replace( '%STATUS%', $post['post_status'], $subject );
-
-				// custom fields
-				foreach ( $fields as $field ) {
-					$replace      = isset( $post[ $field['name'] ] ) ? $post[ $field['name'] ] : '(blank)';
-					$field_as_tag = '%' . strtoupper( $field['name'] ) . '%';
-					$subject      = str_replace( $field_as_tag, $replace, $subject );
+				elseif ( 'checkbox' == $field['input_type'] ) {
+					$replace = $post_field ? 'yes' : 'no';
 				}
-
-				// Message text
-				$message = $form_options['email_message'];
-				$message = str_replace( '%BLOGNAME%', get_bloginfo( 'name' ), $message );
-				$message = str_replace( '%TITLE%', $post['post_title'], $message );
-				$message = str_replace( '%CONTENT%', $post['post_content'], $message );
-				$message = str_replace( '%STATUS%', $post['post_status'], $message );
-
-				// custom fields
-				foreach ( $fields as $field ) {
-					$replace      = isset( $post[ $field['name'] ] ) ? $post[ $field['name'] ] : '(blank)';
-					$field_as_tag = '%' . strtoupper( $field['name'] ) . '%';
-					$message      = str_replace( $field_as_tag, $replace, $message );
+				else {
+					$replace = $post_field;
 				}
+			}
 
-				$headers = 'MIME-Version: 1.0' . "\n";
-				$headers .= 'Content-Type: text/plain; charset="' . get_option( 'blog_charset' ) . '"' . "\n";
-				if ( $form_options['sender_name'] ) {
-					$headers .= sprintf( 'From: %s <%s>', $form_options['sender_name'], $sender_email ) . "\n";
-				} else {
-					$headers .= sprintf( 'From: %s', $sender_email ) . "\n";
-				}
+			$replace   = apply_filters( 'wpmtst_notification_custom_field_value', $replace, $field, $post );
+			$field_tag = '%' . strtoupper( $field['name'] ) . '%';
+			$text      = str_replace( $field_tag, $replace, $text );
+		}
 
-				$email = array( 'to' => $to, 'subject' => $subject, 'message' => $message, 'headers' => $headers );
-				if ( $form_options['mail_queue'] ) {
-					WPMST()->mail->enqueue_mail( $email );
-				} else {
-					WPMST()->mail->send_mail( $email );
-				}
-
-			} // for each recipient
-
-		} // if notify
-
+		return $text;
 	}
 
 }
