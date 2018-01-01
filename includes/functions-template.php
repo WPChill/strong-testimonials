@@ -152,8 +152,7 @@ function wpmtst_read_more_page() {
 				$classname = 'readmore-page';
 			}
 			$classname = apply_filters( 'wpmtst_read_more_page_class', $classname );
-			// TODO Add filter for entire output.
-			echo sprintf( '<div class="%s"><a href="%s">%s</a></div>', $classname, esc_url( $permalink ), $link_text );
+			echo apply_filters('wpmtst_read_more_page_output', sprintf( '<div class="%s"><a href="%s">%s</a></div>', $classname, esc_url( $permalink ), $link_text ));
 		}
 
 	}
