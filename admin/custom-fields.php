@@ -11,6 +11,8 @@ function wpmtst_form_admin2() {
 	wpmtst_settings_custom_fields( 1 );
 }
 
+add_action( 'wpmtst_form_admin', 'wpmtst_form_admin2' );
+
 /**
  * Save changes to custom fields.
  *
