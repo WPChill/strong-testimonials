@@ -138,6 +138,7 @@ final class Strong_Testimonials {
 	 * Plugin activation
 	 */
 	static function plugin_activation() {
+		wpmtst_update_tables();
 		wpmtst_register_cpt();
 		flush_rewrite_rules();
 	}
@@ -153,7 +154,7 @@ final class Strong_Testimonials {
 		 *
 		 * @since 2.28.0
 		 */
-		delete_option( 'wpmtst_plugin_version');
+		delete_option( 'wpmtst_plugin_version' );
 	}
 
 	/**
