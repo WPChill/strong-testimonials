@@ -258,7 +258,7 @@ function wpmtst_add_config_error( $key ) {
 	$errors[] = $key;
 	update_option( 'wpmtst_config_errors', array_unique( $errors ) );
 
-	wpmtst_add_admin_notice( array( $key => array( 'persist' => true ) ) );
+	wpmtst_add_admin_notice( $key, true );
 }
 
 
