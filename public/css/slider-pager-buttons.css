@@ -67,7 +67,7 @@
   text-align: center;
 }
 .strong-view.pager-style-buttons .wpmslider-wrapper .wpmslider-pager-link:before {
-  font-family: fontawesome;
+  font-family: FontAwesome;
   content: "\f10c";
   display: inline-block;
   color: #999;

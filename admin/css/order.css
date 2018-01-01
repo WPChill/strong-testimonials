@@ -23,7 +23,7 @@ td.column-handle {
 
 td.column-handle .help:before,
 td.column-handle .help-in-motion:before {
-	font-family: fontawesome;
+	font-family: FontAwesome;
   font-size: 20px;
 	width: 1em;
 	margin: 0 auto;
