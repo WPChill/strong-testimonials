@@ -215,7 +215,7 @@ class Strong_Testimonials_Settings_Form {
 		$default_form_options = Strong_Testimonials_Defaults::get_form_options();
 		$messages = $default_form_options['messages'];
 		echo json_encode( $messages );
-		die();
+		wp_die();
 	}
 
 	/**
@@ -228,7 +228,7 @@ class Strong_Testimonials_Settings_Form {
 		$default_form_options = Strong_Testimonials_Defaults::get_form_options();
 		$message = $default_form_options['messages'][$input];
 		echo json_encode( $message );
-		die();
+		wp_die();
 	}
 
 	/**
@@ -239,7 +239,7 @@ class Strong_Testimonials_Settings_Form {
 		$form_options = get_option( 'wpmtst_form_options' );
 		$recipient    = $form_options['default_recipient'];
 		include WPMTST_ADMIN . 'settings/partials/recipient.php';
-		die();
+		wp_die();
 	}
 
 }
