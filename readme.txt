@@ -92,7 +92,6 @@ I will [move mountains](https://strongplugins.com/testimonials/?utm_source=wordp
 
 ### Try these plugins too
 
-* [Simple Colorbox](https://wordpress.org/plugins/simple-colorbox/) to open thumbnails into full-size images. Nice!
 * [Simple CSS](https://wordpress.org/plugins/simple-css/) works great for quick CSS tweaks.
 * [Wider Admin Menu](https://wordpress.org/plugins/wider-admin-menu/) lets your admin menu b r e a t h e.
 
@@ -147,7 +146,7 @@ Yes. In views, change these custom fields in a few clicks.
 
 = Can I display a large version of the featured image in a popup? =
 
-Yes. This requires a lightbox so if your theme does not include one, you will need a plugin like [Simple Colorbox](https://wordpress.org/plugins/simple-colorbox/).
+Yes. This requires a lightbox so if your theme does not include one, you will need a lightbox plugin.
 
 = Will it automatically use my existing testimonials? =
 
