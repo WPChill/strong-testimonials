@@ -87,18 +87,18 @@ jQuery(document).ready(function ($) {
 
   $('#add-recipient').click(function (e) {
     var $this = $(this)
-    var key = $this.closest('tr').siblings().length - 1
+    var key = $this.parent().siblings('.recipient').length
     var data = {
       'action': 'wpmtst_add_recipient',
       'key': key,
     }
     $.get(ajaxurl, data, function (response) {
-      $this.closest('tr').before(response).prev('tr').find('.name-email').first().focus()
+      $this.parent().before(response).prev().find('.admin_name').first().focus()
     })
   })
 
   $notifyFields.on('click', '.delete-recipient', function (e) {
-    $(this).closest('tr').remove()
+    $(this).closest('.email-option.recipient').remove()
   })
 
   /**
