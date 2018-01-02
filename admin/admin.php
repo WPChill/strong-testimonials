@@ -34,11 +34,44 @@ add_action( 'admin_init', 'wpmtst_version_check', 1 );
  * @since 2.28.4 Before other admin_init actions.
  */
 function wpmtst_update_check() {
+	$version = get_option( 'wpmtst_plugin_version', false );
+	if ( $version == WPMTST_VERSION ) {
+		return;
+	}
+	// Redirect to About page afterwards. On new install or (de)activation only.
+	if ( false === $version ) {
+		add_option( 'wpmtst_do_activation_redirect', true );
+	}
+
+	require_once WPMTST_ADMIN . 'class-strong-testimonials-updater.php';
 	$updater = new Strong_Testimonials_Updater();
 	$updater->update();
 }
 
-add_action( 'admin_init', 'wpmtst_update_check' );
+add_action( 'admin_init', 'wpmtst_update_check', 5 );
+
+/**
+ * Initialize.
+ */
+function wpmtst_admin_init() {
+	/**
+	 * Redirect to About page for new installs only
+	 *
+	 * @since 2.28.4
+	 */
+	wpmtst_activation_redirect();
+
+	/**
+	 * Custom action hooks
+	 *
+	 * @since 1.18.4
+	 */
+	if ( isset( $_REQUEST['action'] ) && '' != $_REQUEST['action'] ) {
+		do_action( 'wpmtst_' . $_REQUEST['action'] );
+	}
+}
+
+add_action( 'admin_init', 'wpmtst_admin_init' );
 
 /**
  * Add tables for Views.
@@ -79,29 +112,6 @@ function wpmtst_update_tables() {
 
 	update_option( 'wpmtst_db_version', WPMST()->get_db_version() );
 }
-
-/**
- * Initialize.
- */
-function wpmtst_admin_init() {
-	/**
-     * Redirect to About page for new installs only
-     *
-     * @since 2.28.4
-     */
-	wpmtst_activation_redirect();
-
-	/**
-     * Custom action hooks
-     *
-     * @since 1.18.4
-     */
-    if ( isset( $_REQUEST['action'] ) && '' != $_REQUEST['action'] ) {
-        do_action( 'wpmtst_' . $_REQUEST['action'] );
-    }
-}
-
-add_action( 'admin_init', 'wpmtst_admin_init', 11 );
 
 /**
  * Custom action link in admin notice.
