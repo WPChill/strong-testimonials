@@ -610,6 +610,13 @@ class Strong_Testimonials_Updater {
 				$notice                  = true;
 				break;
 
+			case 'bwsmath' :
+				// Craptcha by simplywordpress
+				// Integration dropped @since 2.29.0
+				$form_options['captcha'] = '';
+				$notice                  = true;
+				break;
+
 			default :
 				$notice = false;
 		}
