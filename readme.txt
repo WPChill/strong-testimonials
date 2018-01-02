@@ -2,10 +2,10 @@
 Contributors: cdillon27
 Tags: testimonials, testimonial slider, testimonial form, reviews, star ratings
 Requires at least: 3.7
-Tested up to: 4.9
-Stable tag: 2.29.0-rc.1
-License: GPLv3 or later
-License URI: http://www.gnu.org/licenses/gpl-3.0.html
+Tested up to: 4.9.1
+Stable tag: 2.29
+License: GPLv2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 Simple yet powerful. Very customizable. Developer-friendly. Free support.
 
@@ -179,6 +179,19 @@ If you prefer not to post your URL publicly, start a private support ticket at [
 
 == Changelog ==
 
+= 2.29 - Jan 4, 2018 =
+* Add integration with Google Captcha by BestWebSoft.
+* Remove integration with Captcha plugin.
+* Remove integration with Advanced noCaptcha reCaptcha plugin.
+* Fix CSS conflict with Cherry Slider.
+* Fix bug when adding the category field to the notification email.
+* Improved the notification email admin UI.
+* Refactor form submission handler.
+* Add filter: `wpmtst_read_more_page_output`
+* Add dismissible persistent admin notice capability.
+* Improve add-on configuration check.
+* Minor refactoring for improved performance.
+
 = 2.28.4 - Nov 20, 2017 =
 * Fix bug when using count in views.
 * Fix bug that prevented saving views.
@@ -216,71 +229,9 @@ If you prefer not to post your URL publicly, start a private support ticket at [
 * Refactor many functions into classes.
 * Add ability to register a custom field type (experimental).
 
-= 2.27.2 - Oct 10, 2017 =
-* Fix bug in update process.
-
-= 2.27.1 - Oct 9, 2017 =
-* Fix bug in update process.
-
-= 2.27 - Oct 9, 2017 =
-* Fix optional loading of Font Awesome.
-* Fix width on double-digit pagination controls in Modern template.
-* Fix hiding slider controls if no slides are present.
-* Fix CSS for slider controls in Internet Explorer 11.
-* Add unique user capabilities for workflow control.
-* Add option to set checkbox field on by default.
-* Add option to exclude from Lazy Loading Responsive Images plugin (on by default).
-* Add filters to "Read more" link text and URL.
-* Add filter to form redirect URL.
-* Add filter to skip prerender (for compatibility).
-* Add filters for styles, scripts and script vars.
-* New About page.
-* Minor refactoring for improved performance.
-
-= 2.26.10 - Sep 12, 2017 =
-* Fix compatibility with Captcha by simplywordpress 4.3.4+.
-* Fix compatibility with Polylang string translations when user's admin language is not English.
-* Improve flex grid style when last row is less than full.
-* Improve rendering of shortcode field type.
-* Add post ID of newly submitted testimonial to action hook.
-
-= 2.26.9 - Sep 2, 2017 =
-* Fix integration with Polylang 2.1+.
-* Indent subcategories in the category selector on the form.
-
-= 2.26.8 - Aug 26, 2017 =
-* Fix form whitespace problem in some themes.
-
-= 2.26.7 - Aug 15, 2017 =
-* Fix compatibility with Captcha plugin version 4.3.1.
-
-= 2.26.6 - Aug 15, 2017 =
-* Trim leading and trailing spaces on form input values.
-
-= 2.26.5 - Aug 2, 2017 =
-* Improve adding thumbnail support.
-
-= 2.26.4 - July 31, 2017 =
-* Fix bug in WPML String Translations.
-
-= 2.26.3 - July 27, 2017 =
-* Fix bug when displaying empty rating in post editor.
-
-= 2.26.2 - July 24, 2017 =
-* Fix WPGlobus compatibility.
-
-= 2.26.1 - July 17, 2017 =
-* Fix bug in saving checkbox field.
-
-= 2.26 - July 6, 2017 =
-* Improve excerpt handling.
-* Add option for linking title to testimonial post.
-* Improve featured image responsive style.
-* Minor UI improvements in view editor.
-
 See changelog.txt for previous versions.
 
 == Upgrade Notice ==
 
-= 2.28.3 =
-Minor bug fixes. New filters. Improved compatibility.
+= 2.29 =
+Captcha options have changed. Please double-check your form settings.
