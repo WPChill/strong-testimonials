@@ -45,7 +45,7 @@
 					</label>
 				</div>
 				<div class="then then_lightbox">
-					<p class="description"><?php printf( __( 'Requires a lightbox provided by your theme or another plugin like <a href="%s" target="_blank">Simple Colorbox</a>.', 'strong-testimonials' ), esc_url( 'https://wordpress.org/plugins/simple-colorbox/' ) ); ?></p>
+					<p class="description"><?php _e( 'Requires a lightbox provided by your theme or another plugin.', 'strong-testimonials' ); ?></p>
 				</div>
 			</div>
 		</div>
