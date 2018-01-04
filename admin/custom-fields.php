@@ -89,8 +89,8 @@ function wpmtst_update_custom_fields() {
             } else {
                 $field['default_form_value'] = sanitize_text_field( $field['default_form_value'] );
             }
-            $field['action_input']  = sanitize_text_field( $field['action_input'] );
-            $field['action_output'] = sanitize_text_field( $field['action_output'] );
+            $field['action_input']  = isset( $field['action_input'] ) ? sanitize_text_field( $field['action_input'] ) : '';
+            $field['action_output'] = isset( $field['action_output'] ) ? sanitize_text_field( $field['action_output'] ) : '';
 
             $field['default_display_value'] = sanitize_text_field( $field['default_display_value'] );
 
@@ -468,8 +468,12 @@ function wpmtst_show_field_hidden( $key, $field ) {
 
 	$html = sprintf( $pattern, $key, 'record_type', $field['record_type'] ) . "\n";
 	$html .= sprintf( $pattern, $key, 'input_type', $field['input_type'] ) . "\n";
-	$html .= sprintf( $pattern, $key, 'action_input', $field['action_input'] ) . "\n";
-	$html .= sprintf( $pattern, $key, 'action_output', $field['action_output'] ) . "\n";
+	if ( isset( $field['action_input'] ) ) {
+		$html .= sprintf( $pattern, $key, 'action_input', $field['action_input'] ) . "\n";
+	}
+	if ( isset( $field['action_output'] ) ) {
+		$html .= sprintf( $pattern, $key, 'action_output', $field['action_output'] ) . "\n";
+	}
 	$html .= sprintf( $pattern, $key, 'name_mutable', $field['name_mutable'] ) . "\n";
 	$html .= sprintf( $pattern, $key, 'show_text_option', $field['show_text_option'] ) . "\n";
 	$html .= sprintf( $pattern, $key, 'show_placeholder_option', $field['show_placeholder_option'] ) . "\n";
