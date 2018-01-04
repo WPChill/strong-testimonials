@@ -550,6 +550,10 @@ input[readonly] {
   background: #FFF;
 }
 
+.email-option-row.column {
+  flex-direction: column;
+}
+
 .email-option-desc {
   flex: 0 0 10%;
   min-width: 100px;

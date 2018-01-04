@@ -39,23 +39,17 @@
 
 </div>
 
-<div class="email-option-row">
+<div class="email-option-row column">
 
     <div class="template-tags-help">
         <div class="title"><?php _e( "Tags for Subject and Message", 'strong-testimonials' ); ?></div>
         <div class="content">
-            <ul>
-                <li>%BLOGNAME%</li>
-                <li>%TITLE%</li>
-                <li>%CONTENT%</li>
-                <li>%STATUS%</li>
-				<?php
+            <ul><li>%BLOGNAME%</li><li>%TITLE%</li><li>%CONTENT%</li><li>%STATUS%</li><?php
 				$custom_fields = wpmtst_get_custom_fields();
 				foreach ( $custom_fields as $field ) {
 					echo '<li>%' . strtoupper( $field['name'] ) . '%</li>';
 				}
-				?>
-            </ul>
+				?></ul>
         </div>
     </div>
 
