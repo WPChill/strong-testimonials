@@ -186,15 +186,15 @@ function wpmtst_excerpt_more_full_post() {
  * @return string
  */
 function wpmtst_get_excerpt_more_link() {
-	$url = apply_filters( 'wpmtst_read_more_page_url', get_permalink(), WPMST()->atts() );
+	$url = apply_filters( 'wpmtst_read_more_post_url', get_permalink(), WPMST()->atts() );
 
 	$link_text = sprintf( '%s<span class="screen-reader-text"> "%s"</span>',
-		apply_filters( 'wpmtst_read_more_page_link_text', WPMST()->atts( 'more_post_text' ), WPMST()->atts() ), get_the_title()
+		apply_filters( 'wpmtst_read_more_post_link_text', WPMST()->atts( 'more_post_text' ), WPMST()->atts() ), get_the_title()
 	);
 
 	$link = sprintf( '<a href="%s" class="readmore">%s</a>', esc_url( $url ), $link_text );
 
-	return apply_filters( 'wpmtst_read_more_page_link', $link );
+	return apply_filters( 'wpmtst_read_more_post_link', $link );
 }
 
 /**
