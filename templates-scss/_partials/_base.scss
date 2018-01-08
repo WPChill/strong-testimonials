@@ -30,10 +30,12 @@
   .testimonial-field-before {
     margin-right: 0.5em;
   }
-
 }
 
 .strong-view {
+  &.slider-container {
+    opacity: 1;
+  }
 
   .screen-reader-text {
     /* copied from Twenty Sixteen theme */
@@ -45,5 +47,4 @@
     /* many screen reader and browser combinations announce broken words as they would appear visually */
     word-wrap: normal !important;
   }
-
 }

@@ -54,7 +54,7 @@
 .strong-view.controls-style-buttons .wpmslider-wrapper .wpmslider-stop,
 .strong-view.controls-style-buttons .wpmslider-wrapper .wpmslider-next,
 .strong-view.controls-style-buttons .wpmslider-wrapper .wpmslider-prev {
-  font-family: fontawesome;
+  font-family: FontAwesome;
   display: inline-block;
   color: #999;
   cursor: pointer;

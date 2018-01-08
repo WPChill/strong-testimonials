@@ -264,7 +264,7 @@ class Strong_Testimonials_Order {
 
 		parse_str( $_POST['order'], $data );
 		if ( ! is_array( $data ) ) {
-			die();
+			wp_die();
 		}
 
 		$id_arr         = $data['post'];
@@ -284,7 +284,7 @@ class Strong_Testimonials_Order {
 		}
 
 		echo json_encode( $menu_order_arr );
-		die();
+		wp_die();
 	}
 
 }

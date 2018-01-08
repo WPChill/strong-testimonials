@@ -37,12 +37,15 @@ function wpmtst_get_post( $post ) {
 			$post->thumbnail_id = get_post_thumbnail_id( $post->ID );
 		}
 		else {
-			if ( isset( $custom[ $name ] ) )
+			if ( isset( $custom[ $name ] ) ) {
 				$post->$name = $custom[ $name ][0];
-			else
+			}
+			else {
 				$post->$name = '';
+			}
 		}
 	}
+
 	return $post;
 }
 
@@ -252,6 +255,37 @@ function wpmtst_get_all_fields() {
 	}
 
 	return $all_fields;
+}
+
+/**
+ * Get the built-in fields.
+ *
+ * @since 2.29.0
+ */
+function wpmtst_get_builtin_fields() {
+	return array(
+		'post_date' => array(
+			'name'        => 'post_date',
+			'label'       => 'Post Date',
+			'input_type'  => 'date',
+			'type'        => 'date',
+			'record_type' => 'builtin',
+		),
+		'submit_date' => array(
+			'name'        => 'submit_date',
+			'label'       => 'Submit Date',
+			'input_type'  => 'date',
+			'type'        => 'date',
+			'record_type' => 'builtin',
+		),
+		'category' => array(
+			'name'        => 'category',
+			'label'       => 'Category',
+			'input_type'  => 'category',
+			'type'        => 'category',
+			'record_type' => 'builtin',
+		),
+	);
 }
 
 /**
@@ -472,73 +506,6 @@ function wpmtst_get_view( $id ) {
 	$row = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM $table_name WHERE id = %d", (int) $id ), ARRAY_A );
 
 	return $row;
-}
-
-/**
- * Save a View.
- *
- * @param        $view
- * @param string $action
- *
- * @return bool|false|int
- */
-function wpmtst_save_view( $view, $action = 'edit' ) {
-	global $wpdb;
-
-	if ( ! $view ) return false;
-
-	$table_name = $wpdb->prefix . 'strong_views';
-	$serialized = serialize( $view['data'] );
-
-	if ( 'add' == $action || 'duplicate' == $action ) {
-		$sql = "INSERT INTO {$table_name} (name, value) VALUES (%s, %s)";
-		$sql = $wpdb->prepare( $sql, $view['name'], $serialized );
-		$wpdb->query( $sql );
-		$view['id'] = $wpdb->insert_id;
-		$return  = $view['id'];
-	}
-	else {
-		$sql = "UPDATE {$table_name} SET name = %s, value = %s WHERE id = %d";
-		$sql = $wpdb->prepare( $sql, $view['name'], $serialized, intval( $view['id'] ) );
-		$wpdb->query( $sql );
-		$return = $wpdb->last_error ? 0 : 1;
-	}
-
-	do_action( 'wpmtst_view_saved', $view );
-
-	return $return;
-}
-
-/**
- * @param $field
- *
- * @return mixed
- */
-function wpmtst_get_field_label( $field ) {
-	if ( isset( $field['field'] ) ) {
-		$custom_fields = wpmtst_get_custom_fields();
-		if ( isset( $custom_fields[ $field['field'] ]['label'] ) ) {
-			return $custom_fields[ $field['field'] ]['label'];
-		}
-	}
-
-	return '';
-}
-
-/**
- * @param string $field_name
- *
- * @return mixed
- */
-function wpmtst_get_field_by_name( $field_name = '' ) {
-    if ( $field_name ) {
-	    $custom_fields = wpmtst_get_custom_fields();
-	    if ( isset( $custom_fields[ $field_name ] ) ) {
-		    return $custom_fields[ $field_name ];
-	    }
-    }
-
-	return '';
 }
 
 function wpmtst_sort_array_by_name( $a, $b ) {

@@ -90,6 +90,10 @@ input#post_name {
   width: 98%;
 }
 
+fieldset > div {
+  min-height: 30px;
+}
+
 /* Help sections
 ---------------------------------------------------------*/
 
@@ -114,7 +118,8 @@ div.help.minor {
 }
 
 .stackem li {
-  margin-bottom: 0;
+  margin-top: 16px;
+  margin-bottom: 16px;
 }
 
 .stackem label {
@@ -126,6 +131,15 @@ div.help.minor {
 
 .stackem label.inline {
   display: inline-block;
+}
+
+.stackem p.description {
+  margin-top: 0;
+  margin-left: 22px;
+}
+
+.stackem p.description.warning {
+  color: #CD0000;
 }
 
 .stackem .notice {
@@ -183,6 +197,10 @@ div.radio:hover {
 
 .wpmtst .form-table .actions {
   /*vertical-align: top;*/
+}
+
+.wpmtst .form-table td {
+  padding-top: 15px; /* override PopupMaker's override */
 }
 
 .wpmtst .form-table td:nth-child(1) {
@@ -509,129 +527,108 @@ input[readonly] {
   width: 2.2em;
 }
 
-/* The notification email settings tab
+/* Notification email settings tab
 ------------------------------------------------*/
-td.tall {
-  vertical-align: top;
-  padding-top: 20px;
+.match-height {
+  /* match WordPress - divs with text inputs are taller than ones with radio buttons */
+  margin: 0.25em 0 0.5em !important;
 }
 
-.subsection .subsection-title {
-  /*font-weight: 700;*/
+.email-container {
+  display: flex;
+  flex-direction: column;
+  max-width: 800px;
 }
 
-.subsubsection {
-  width: 100%;
+.email-container > div {
+  margin-bottom: 2px;
 }
 
-.subsubsection.ib {
-  display: inline-block;
-}
-
-.subsection table {
-  border-spacing: 0;
-  margin-top: 20px;
-}
-
-.subsection table.wide {
-  width: 100%;
-}
-
-.subsection table.half-width {
-  width: 50%;
-}
-
-.subsection table thead {
-  width: 100%;
-}
-
-.subsection table tbody tr {
-  border: 1px solid #EEE !important;
-}
-
-/* reset */
-.subsection table th,
-.subsection table td {
-  vertical-align: top;
-  border-top: 0 !important;
-  width: auto !important;
-  border-bottom: inherit !important;
-}
-
-.subsection table th {
-  padding: 0 0 7px 0 !important;
-}
-
-.subsection table td {
-  padding: 7px 10px !important;
-}
-
-.subsection tbody {
+.email-option-row {
+  display: flex;
+  flex-direction: row;
   background: #FFF;
 }
 
-.subsection table td.single-field {
-  padding: 0 !important;
-  background: #F1F1F1 !important;
+.email-option-row.column {
+  flex-direction: column;
 }
 
-.subsection label.block {
-  display: block;
-  line-height: 1.5em;
-  padding: 5px 0;
+.email-option-desc {
+  flex: 0 0 10%;
+  min-width: 100px;
+  padding: 12px 10px;
+  font-weight: 600;
 }
 
-.subsection label.indent {
-  display: block;
-  line-height: 1.5em;
-  margin-left: 23px;
+.email-option-inputs {
+  flex: 1 0 auto;
+  flex-direction: column;
 }
 
-.subsection .controls {
-  display: inline-block;
-  width: 20px;
+.email-option {
+  flex: 1 0 100%;
+  display: flex;
+  flex-direction: row;
+  padding: 10px;
 }
 
-/* delete email recipient */
-.delete-recipient {
-  color: #BBB;
-  display: inline-block;
+.email-option-first {
+  margin-top: 10px ;
 }
 
-.delete-recipient:hover {
-  color: #EE0000;
-  cursor: pointer;
+.email-option:not(:last-child) {
+  border-bottom: 1px solid #F2F2F2;
 }
 
-.subsection a {
-  /*display: inline-block;*/
-  /*margin: 0 .3em;*/
-  /*font-size: .9em;*/
+.email-option-part { /* 2 columns */
+  flex: 1 0 50%;
+  display: flex;
+  flex-direction: column;
 }
 
-.subsection div > label > span {
-  display: inline-block;
-  margin-right: 5px;
-  width: 4.5em;
+.email-option-label {
+  padding: 0 0 0 30px;
 }
 
-.subsection textarea,
-.subsection input.wide {
+.email-option-fieldset {
+  display: flex;
+  flex-direction: row;
+}
+
+.email-option-fieldset .controls {
+  flex: 0 0 30px;
+  justify-content: center;
+}
+
+.email-option-fieldset .controls input[type="radio"] {
+  margin-top: 2px;
+}
+
+.email-option-fieldset .fields {
+  flex: 2 0 auto;
+}
+
+.email-option-fieldset .controls,
+.email-option-fieldset .fields {
+  display: flex;
+  height: 30px;
+  align-items: center;
+}
+
+.email-container textarea {
+  white-space: pre-wrap;
   width: 100%;
 }
 
-.subsection textarea {
-  white-space: pre-wrap;
+.email-container input[type="text"],
+.email-container input[type="email"] {
 }
 
-.subsection .template-tags-help {
-  float: right;
-  display: inline-block;
+/* template tags */
+.template-tags-help {
+  flex: 2 0 auto;
   background: #FFFFE0;
-  width: 320px;
-  padding: 0;
-  margin-top: 45px;
-  margin-left: 2em;
 }
 
 .template-tags-help ul {
@@ -640,15 +637,30 @@ td.tall {
 
 .template-tags-help .title {
   background: rgba(0, 0, 0, 0.1);
-  padding: 5px;
+  padding: 10px;
 }
 
 .template-tags-help .content {
-  padding: 5px;
+  padding: 10px;
 }
 
-.name-email {
-  margin-right: 1.5em;
+.template-tags-help ul li {
+  display: inline-block;
+  margin-right: 1em;
+}
+
+/* delete email recipient */
+.delete-recipient {
+  color: #999;
+  display: inline-block;
+  transition: all 0.2s ease;
+}
+
+.delete-recipient:hover {
+  cursor: pointer;
+  color: #FFF;
+  background: #FF0000;
+  border-radius: 1px;
 }
 
 /* Post list table

@@ -84,20 +84,11 @@ class Strong_Testimonials_Updater {
 	 * be displayed in the form editor.
 	 */
 	public function update() {
-		if ( $this->old_version == WPMTST_VERSION ) {
-			return;
-		}
-
 		if ( get_transient( 'wpmtst_update_in_progress' ) ) {
 			return;
 		}
 
 		set_transient( 'wpmtst_update_in_progress', 1, 10 );
-
-		// Redirect to About page afterwards. On new install or (de)activation only.
-		if ( false === $this->old_version ) {
-			add_option( 'wpmtst_do_activation_redirect', true );
-		}
 
 		/**
 		 * Add custom capablities.
@@ -168,6 +159,13 @@ class Strong_Testimonials_Updater {
 		}
 
 		/**
+		 * Captcha plugin integrations.
+		 *
+		 * @since 2.29.0
+		 */
+		update_option( 'wpmtst_captcha_plugins', $this->update_captcha_plugins() );
+
+		/**
 		 * Legacy stuff.
 		 */
 		if ( ! isset( $history['2.28_new_update_process'] ) ) {
@@ -178,7 +176,6 @@ class Strong_Testimonials_Updater {
 			delete_option( 'wpmtst_l10n_contexts' );
 
 			// Remove older attempts at admin notices.
-			delete_option( 'wpmtst_admin_notices' );
 			delete_option( 'wpmtst_news_flag' );
 
 			$this->update_history_log( '2.28_new_update_process' );
@@ -192,7 +189,6 @@ class Strong_Testimonials_Updater {
 		/**
 		 * Update log.
 		 */
-		$this->log( __FUNCTION__, 'complete' );
 		$this->update_log();
 
 		delete_transient( 'wpmtst_update_in_progress' );
@@ -230,7 +226,6 @@ class Strong_Testimonials_Updater {
 			$admins->add_cap( 'strong_testimonials_fields' );
 			$admins->add_cap( 'strong_testimonials_options' );
 			$admins->add_cap( 'strong_testimonials_about' );
-			$this->log( __FUNCTION__, 'success' );
 		}
 		else {
 			$this->log( __FUNCTION__, 'failed' );
@@ -262,55 +257,9 @@ class Strong_Testimonials_Updater {
 	 */
 	public function update_db_check() {
 		if ( get_option( 'wpmtst_db_version' ) != WPMST()->get_db_version() ) {
-			$this->update_tables();
+			wpmtst_update_tables();
+			$this->log( __FUNCTION__, 'tables updated' );
 		}
-		else {
-			$this->log( __FUNCTION__, 'tables up to date' );
-		}
-	}
-
-	/**
-	 * Add tables for Views.
-	 *
-	 * @since 1.21.0
-	 */
-	public function update_tables() {
-		global $wpdb;
-		require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
-		$this->log( __FUNCTION__, 'start' );
-
-		$charset_collate = $wpdb->get_charset_collate();
-
-		$table_name = $wpdb->prefix . 'strong_views';
-
-		$sql = "CREATE TABLE $table_name (
-			id mediumint(9) NOT NULL AUTO_INCREMENT,
-			name varchar(100) NOT NULL,
-			value text NOT NULL,
-			PRIMARY KEY  (id)
-		) $charset_collate;";
-
-		$wpdb->show_errors();
-		$result = dbDelta( $sql );
-		$wpdb->hide_errors();
-
-		if ( $wpdb->last_error ) {
-			deactivate_plugins( 'strong-testimonials/strong-testimonials.php' );
-			$message = '<p><span style="color: #CD0000;">';
-			$message .= __( 'An error occurred.', 'strong-testimonials' ) . '</span>&nbsp;';
-			$message .= __( 'The plugin has been deactivated.', 'strong-testimonials' ) . '&nbsp;';
-			$message .= sprintf( __( 'Please <a href="%s" target="_blank">open a support ticket</a>.', 'strong-testimonials' ), esc_url( 'https://support.strongplugins.com/new-ticket/' ) ) . '</p>';
-			$message .= '<p>' . sprintf( __( '<a href="%s">Go back to Dashboard</a>', 'strong-testimonials' ), esc_url( admin_url() ) ) . '</p>';
-
-			$this->log( __FUNCTION__, 'error', $wpdb->last_error );
-			$this->update_log();
-
-			wp_die( sprintf( '<div class="error strong-view-error">%s</div>', $message ) );
-		}
-
-		update_option( 'wpmtst_db_version', WPMST()->get_db_version() );
-
-		$this->log( __FUNCTION__, 'dbDelta', $result ? $result : 'no change' );
 	}
 
 	/**
@@ -321,8 +270,7 @@ class Strong_Testimonials_Updater {
 	public function update_history_log( $event ) {
 		$history           = get_option( 'wpmtst_history', array() );
 		$history[ $event ] = current_time( 'mysql' );
-		$success           = update_option( 'wpmtst_history', $history );
-		$this->log( __FUNCTION__, $event, $success ? 'record added' : 'record exists' );
+		update_option( 'wpmtst_history', $history );
 	}
 
 	/**
@@ -333,7 +281,6 @@ class Strong_Testimonials_Updater {
 	public function update_options() {
 		$options = get_option( 'wpmtst_options' );
 		if ( ! $options ) {
-			$this->log( __FUNCTION__, 'default' );
 			return Strong_Testimonials_Defaults::get_options();
 		}
 
@@ -414,8 +361,6 @@ class Strong_Testimonials_Updater {
 		// Merge in new options
 		$options = array_merge( Strong_Testimonials_Defaults::get_options(), $options );
 
-		$this->log( __FUNCTION__, 'done' );
-
 		return $options;
 	}
 
@@ -427,7 +372,6 @@ class Strong_Testimonials_Updater {
 	public function update_fields() {
 		$fields = get_option( 'wpmtst_fields', array() );
 		if ( ! $fields ) {
-			$this->log( __FUNCTION__, 'default' );
 			return Strong_Testimonials_Defaults::get_fields();
 		}
 
@@ -449,8 +393,6 @@ class Strong_Testimonials_Updater {
 			}
 		}
 
-		$this->log( __FUNCTION__, 'done' );
-
 		return $fields;
 	}
 
@@ -460,7 +402,6 @@ class Strong_Testimonials_Updater {
 	 * @return array
 	 */
 	public function update_base_forms() {
-		$this->log( __FUNCTION__, 'default' );
 		return Strong_Testimonials_Defaults::get_base_forms();
 	}
 
@@ -472,7 +413,6 @@ class Strong_Testimonials_Updater {
 	public function update_custom_forms() {
 		$custom_forms = get_option( 'wpmtst_custom_forms' );
 		if ( ! $custom_forms ) {
-			$this->log( __FUNCTION__, 'default' );
 			return Strong_Testimonials_Defaults::get_custom_forms();
 		}
 
@@ -536,8 +476,6 @@ class Strong_Testimonials_Updater {
 			}
 		}
 
-		$this->log( __FUNCTION__, 'convert forms', 'done' );
-
 		return $custom_forms;
 	}
 
@@ -549,11 +487,11 @@ class Strong_Testimonials_Updater {
 	public function update_form_options() {
 		$form_options = get_option( 'wpmtst_form_options' );
 		if ( ! $form_options ) {
-			$this->log( __FUNCTION__, 'default' );
 			return Strong_Testimonials_Defaults::get_form_options();
 		}
 
 		$options = get_option( 'wpmtst_options', array() );
+		$history = get_option( 'wpmtst_history', array() );
 
 		/**
 		 * Move existing options.
@@ -606,10 +544,64 @@ class Strong_Testimonials_Updater {
 			$form_options['messages']['required-field']['enabled'] = 1;
 		}
 
-		// Merge in new options
-		$form_options = array_merge( Strong_Testimonials_Defaults::get_form_options(), $form_options );
+		/**
+		 * Merge in new options.
+		 */
+		$defaults = Strong_Testimonials_Defaults::get_form_options();
+		$form_options = array_merge( $defaults, $form_options );
+		// Merge nested arrays individually. Don't use array_merge_recursive.
+		$form_options['default_recipient'] = array_merge( $defaults['default_recipient'], $form_options['default_recipient'] );
+		$form_options['messages'] = array_merge( $defaults['messages'], $form_options['messages'] );
 
-		$this->log( __FUNCTION__, 'done' );
+		/**
+		 * Convert Captcha plugin name.
+		 *
+		 * @since 2.28.5
+		 */
+		switch ( $form_options['captcha'] ) {
+
+			case 'gglcptch' :
+				// Google Captcha by BestWebSoft
+				$form_options['captcha'] = 'google-captcha';
+				$notice                  = false;
+				break;
+
+			case 'bwsmathpro' :
+				// Captcha Pro by BestWebSoft
+				$form_options['captcha'] = 'captcha-pro';
+				$notice                  = false;
+				break;
+
+			case 'miyoshi' :
+				// Really Simple Captcha by Takayuki Miyoshi
+				$form_options['captcha'] = 'really-simple-captcha';
+				$notice                  = false;
+				break;
+
+			case 'advnore' :
+				// Advanced noCaptcha reCaptcha by Shamim Hasan
+				// Integration dropped @since 2.29.0
+				$form_options['captcha'] = '';
+				$notice                  = true;
+				break;
+
+			case 'bwsmath' :
+				// Craptcha by simplywordpress
+				// Integration dropped @since 2.29.0
+				$form_options['captcha'] = '';
+				$notice                  = true;
+				break;
+
+			default :
+				$notice = false;
+		}
+
+		if ( ! isset( $history['2.29_captcha_options_changed'] ) ) {
+			$this->update_history_log( '2.29_captcha_options_changed' );
+			if ( $notice ) {
+				wpmtst_add_admin_notice( 'captcha-options-changed', true );
+			}
+		}
 
 		return $form_options;
 	}
@@ -624,7 +616,6 @@ class Strong_Testimonials_Updater {
 	public function update_compat_options() {
 		$options = get_option( 'wpmtst_compat_options' );
 		if ( ! $options ) {
-			$this->log( __FUNCTION__, 'default' );
 			return Strong_Testimonials_Defaults::get_compat_options();
 		}
 
@@ -634,8 +625,6 @@ class Strong_Testimonials_Updater {
 		$options['ajax'] = array_merge( $defaults['ajax'], $options['ajax'] );
 		$options         = array_merge( $defaults, $options );
 
-		$this->log( __FUNCTION__, 'done' );
-
 		return $options;
 	}
 
@@ -644,8 +633,16 @@ class Strong_Testimonials_Updater {
 	 *
 	 * @return array
 	 */
+	public function update_captcha_plugins() {
+		return Strong_Testimonials_Defaults::get_captcha_plugins();
+	}
+
+	/**
+	 * View options.
+	 *
+	 * @return array
+	 */
 	public function update_view_options() {
-		$this->log( __FUNCTION__, 'default' );
 		return Strong_Testimonials_Defaults::get_view_options();
 	}
 
@@ -655,18 +652,18 @@ class Strong_Testimonials_Updater {
 	 * @return array
 	 */
 	public function update_default_view() {
-		$this->log( __FUNCTION__, 'default' );
 		return apply_filters( 'wpmtst_view_default', Strong_Testimonials_Defaults::get_default_view() );
 	}
 
 	/**
 	 * Update views.
+	 *
+	 * @uses wpmtst_save_view
 	 */
 	public function update_views() {
 		$views = wpmtst_get_views();
 
 		if ( ! $views ) {
-			$this->log( __FUNCTION__, 'no views found' );
 			return;
 		}
 
@@ -681,10 +678,7 @@ class Strong_Testimonials_Updater {
 				continue;
 			}
 
-			if ( isset( $history['2.28_new_update_process'] ) ) {
-				$this->log( __FUNCTION__, 'already been thru 2.28 update process' );
-			}
-			else {
+			if ( ! isset( $history['2.28_new_update_process'] ) ) {
 				/**
 				 * Compat mode no longer needed.
 				 *
@@ -723,15 +717,12 @@ class Strong_Testimonials_Updater {
 				 */
 				if ( ! isset( $view['data']['pagination_settings']['end_size'] ) || ! $view['data']['pagination_settings']['end_size'] ) {
 					$view['data']['pagination_settings']['end_size'] = 1;
-					$this->log( __FUNCTION__, 'fix end_size' );
 				}
 				if ( ! isset( $view['data']['pagination_settings']['mid_size'] ) || ! $view['data']['pagination_settings']['mid_size'] ) {
 					$view['data']['pagination_settings']['mid_size'] = 2;
-					$this->log( __FUNCTION__, 'fix mid_size' );
 				}
 				if ( ! isset( $view['data']['pagination_settings']['per_page'] ) || ! $view['data']['pagination_settings']['per_page'] ) {
 					$view['data']['pagination_settings']['per_page'] = 5;
-					$this->log( __FUNCTION__, 'fix per_page' );
 				}
 
 			}
@@ -750,8 +741,6 @@ class Strong_Testimonials_Updater {
 			$success = wpmtst_save_view( $view );
 
 		} // foreach $view
-
-		$this->log( __FUNCTION__, 'done' );
 	}
 
 	/**
@@ -814,7 +803,6 @@ class Strong_Testimonials_Updater {
 			}
 
 			unset( $view_data['length'] );
-			$this->log( __FUNCTION__, 'done' );
 		}
 
 		return $view_data;
@@ -841,7 +829,6 @@ class Strong_Testimonials_Updater {
 				$view_data['more_post_text'] = $view_data['more_text'];
 			}
 			unset( $view_data['more_text'] );
-			$this->log( __FUNCTION__, 'done' );
 		}
 
 		return $view_data;
@@ -921,7 +908,6 @@ class Strong_Testimonials_Updater {
 				unset( $view_data['slideshow_nav'] );
 			}
 
-			$this->log( __FUNCTION__, 'done' );
 		}
 
 		return $view_data;
@@ -938,7 +924,6 @@ class Strong_Testimonials_Updater {
 		if ( - 1 == $view_data['count'] ) {
 			$view_data['count'] = 1;
 			$view_data['all']   = 1;
-			$this->log( __FUNCTION__, 'done' );
 		}
 
 		return $view_data;
@@ -957,7 +942,6 @@ class Strong_Testimonials_Updater {
 				'color' => $view_data['background'],
 				'type'  => 'single',
 			);
-			$this->log( __FUNCTION__, 'done' );
 		}
 
 		return $view_data;
@@ -974,7 +958,6 @@ class Strong_Testimonials_Updater {
 		if ( isset( $view_data['form-ajax'] ) ) {
 			$view_data['form_ajax'] = $view_data['form-ajax'];
 			unset( $view_data['form-ajax'] );
-			$this->log( __FUNCTION__, 'done' );
 		}
 
 		return $view_data;
@@ -991,7 +974,6 @@ class Strong_Testimonials_Updater {
 		if ( isset( $view_data['pagination'] ) && $view_data['pagination'] ) {
 			if ( isset( $view_data['layout'] ) && 'masonry' == $view_data['layout'] ) {
 				$view_data['layout'] = '';
-				$this->log( __FUNCTION__, 'done' );
 			}
 		}
 
@@ -1011,7 +993,6 @@ class Strong_Testimonials_Updater {
 		if ( isset( $view_data['word_count'] ) ) {
 			$view_data['excerpt_length'] = $view_data['word_count'];
 			unset( $view_data['word_count'] );
-			$this->log( __FUNCTION__, 'done' );
 		}
 
 		return $view_data;
@@ -1030,7 +1011,6 @@ class Strong_Testimonials_Updater {
 			if ( ! isset( $history['2.12.4_convert_modern_template'] ) ) {
 				$view_data['title'] = 0;
 				$this->update_history_log( '2.12.4_convert_modern_template' );
-				$this->log( __FUNCTION__, 'done' );
 			}
 		}
 
@@ -1049,7 +1029,6 @@ class Strong_Testimonials_Updater {
 	public function convert_title_link( $view_data ) {
 		if ( ! isset( $view_data['title_link'] ) ) {
 			$view_data['title_link'] = 0;
-			$this->log( __FUNCTION__, 'done' );
 		}
 
 		return $view_data;
@@ -1102,7 +1081,6 @@ class Strong_Testimonials_Updater {
 
 			update_post_meta( $post->ID, 'nofollow', $new_value );
 		}
-		$this->log( __FUNCTION__, 'done' );
 	}
 
 	/**
@@ -1118,19 +1096,16 @@ class Strong_Testimonials_Updater {
 		if ( isset( $view_data['pagination_type'] ) ) {
 			$view_data['pagination_settings']['type'] = $view_data['pagination_type'];
 			unset( $view_data['pagination_type'] );
-			$this->log( __FUNCTION__, 'type', $view_data['pagination_settings']['type'] );
 		}
 
 		if ( isset( $view_data['nav'] ) ) {
 			$view_data['pagination_settings']['nav'] = $view_data['nav'];
 			unset( $view_data['nav'] );
-			$this->log( __FUNCTION__, 'nav', $view_data['pagination_settings']['nav'] );
 		}
 
 		if ( isset( $view_data['per_page'] ) ) {
 			$view_data['pagination_settings']['per_page'] = $view_data['per_page'];
 			unset( $view_data['per_page'] );
-			$this->log( __FUNCTION__, 'per_page', $view_data['pagination_settings']['per_page'] );
 		}
 
 		return $view_data;

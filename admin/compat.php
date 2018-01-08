@@ -56,52 +56,6 @@ add_action( 'admin_init', 'wpmtst_compat_admin_init', 1 );
 
 
 /**
- * Plugin and theme compatibility in admin.
- *
- * @since 2.19.0 Advanced noCaptcha reCaptcha
- */
-function wpmtst_compat_plugins_loaded() {
-
-	/* ------------------------------------
-	 * Plugin: Advanced noCaptcha reCaptcha
-	 * ------------------------------------
-	 * ANR does not load its Captcha class in admin.
-	 * which causes a fatal error when editing the form in page builders.
-	 */
-	if ( is_admin() ) {
-		// is_plugin_active() does not exist yet
-		$plugin = 'advanced-nocaptcha-recaptcha/advanced-nocaptcha-recaptcha.php';
-		if ( in_array( $plugin, (array) get_option( 'active_plugins', array() ) ) ) {
-			add_filter( 'anr_include_files', 'wpmtst_compat_anr_plugin' );
-		}
-	}
-
-}
-add_action( 'plugins_loaded', 'wpmtst_compat_plugins_loaded' );
-
-
-/**
- * Load class from Advanced noCaptcha reCaptcha plugin in admin.
- *
- * @param $fep_files
- *
- * @since 2.19.0
- *
- * @return mixed
- */
-function wpmtst_compat_anr_plugin( $fep_files ) {
-
-	if ( !isset( $fep_files['main'] ) ) {
-		if ( defined( 'ANR_PLUGIN_DIR' ) && file_exists( ANR_PLUGIN_DIR . 'anr-captcha-class.php' ) ) {
-			$fep_files['main'] = ANR_PLUGIN_DIR . 'anr-captcha-class.php';
-		}
-	}
-
-	return $fep_files;
-}
-
-
-/**
  * Prevent other post ordering plugins, in admin_init hook.
  *
  * @since 1.16.0

@@ -134,7 +134,7 @@ class Strong_Testimonials_Settings_Form {
 		$input['recipients'] = $new_recipients;
 
 		$input['default_recipient'] = maybe_unserialize( $input['default_recipient'] );
-		$input['email_subject']     = isset( $input['email_subject'] ) ? sanitize_text_field( $input['email_subject'] ) : '';
+		$input['email_subject']     = isset( $input['email_subject'] ) ? wp_kses_post( $input['email_subject'] ) : '';
 		$input['email_message']     = isset( $input['email_message'] ) ? wp_kses_post( $input['email_message'] ) : '';
 
 		$input['honeypot_before']   = wpmtst_sanitize_checkbox( $input, 'honeypot_before' );
@@ -214,7 +214,7 @@ class Strong_Testimonials_Settings_Form {
 		$default_form_options = Strong_Testimonials_Defaults::get_form_options();
 		$messages = $default_form_options['messages'];
 		echo json_encode( $messages );
-		die();
+		wp_die();
 	}
 
 	/**
@@ -227,7 +227,7 @@ class Strong_Testimonials_Settings_Form {
 		$default_form_options = Strong_Testimonials_Defaults::get_form_options();
 		$message = $default_form_options['messages'][$input];
 		echo json_encode( $message );
-		die();
+		wp_die();
 	}
 
 	/**
@@ -238,7 +238,7 @@ class Strong_Testimonials_Settings_Form {
 		$form_options = get_option( 'wpmtst_form_options' );
 		$recipient    = $form_options['default_recipient'];
 		include WPMTST_ADMIN . 'settings/partials/recipient.php';
-		die();
+		wp_die();
 	}
 
 }

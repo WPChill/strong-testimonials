@@ -51,6 +51,9 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
   margin-right: 0.5em;
 }
 
+.strong-view.slider-container {
+  opacity: 1;
+}
 .strong-view .screen-reader-text {
   /* copied from Twenty Sixteen theme */
   clip: rect(1px, 1px, 1px, 1px);
@@ -174,7 +177,7 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
 }
 .strong-view.modern .testimonial-content:before,
 .strong-view.modern .testimonial-content:after {
-  font-family: fontawesome;
+  font-family: FontAwesome;
   color: #CDCDCD;
   font-size: 36px;
   font-style: normal;

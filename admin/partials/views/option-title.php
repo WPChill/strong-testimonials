@@ -12,7 +12,7 @@
                 <input type="checkbox" id="view-title_link" name="view[data][title_link]"
                        value="1" <?php checked( $view['title_link'] ); ?> class="checkbox">
                 <label for="view-title_link">
-					<?php _e( 'Link to full testimonial', 'strong-testimonials' ); ?>
+					<?php printf( _x( 'Link to full %s', 'The name of this post type. "Testimonial" by default.', 'strong-testimonials' ), strtolower( apply_filters( 'wpmtst_cpt_singular_name', __( 'Testimonial', 'strong-testimonials' ) ) ) ); ?>
                 </label>
             </div>
         </div>
