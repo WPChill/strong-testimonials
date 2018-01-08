@@ -17,6 +17,8 @@
 
   /* to center items in a less-than-full row: */
   justify-content: space-around;
+  /* to left-justify items in a less-than-full row: */
+  /*justify-content: space-between;*/
 }
 
 /* specificity required */

@@ -152,14 +152,14 @@ function wpmtst_read_more_page() {
 				$classname = 'readmore-page';
 			}
 			$classname = apply_filters( 'wpmtst_read_more_page_class', $classname );
-			echo sprintf( '<div class="%s"><a href="%s">%s</a></div>', $classname, esc_url( $permalink ), $link_text );
+			echo apply_filters('wpmtst_read_more_page_output', sprintf( '<div class="%s"><a href="%s">%s</a></div>', $classname, esc_url( $permalink ), $link_text ));
 		}
 
 	}
 }
 
 /**
- * Localization filter.
+ * L10n filter on read-more-page link.
  *
  * @since 2.23.0 As separate function.
  *
@@ -169,10 +169,28 @@ function wpmtst_read_more_page() {
  * @return string
  */
 function wpmtst_read_more_page_link_text_l10n( $text, $atts ) {
-	return apply_filters( 'wpmtst_l10n', $text, 'strong-testimonials-read-more', sprintf( 'View %s : Read more (page or post)', $atts['view'] ) );
+	return apply_filters( 'wpmtst_l10n', $text, 'strong-testimonials-read-more',
+		sprintf( 'View %s : Read more (page or post)', $atts['view'] ) );
 
 }
 add_filter( 'wpmtst_read_more_page_link_text', 'wpmtst_read_more_page_link_text_l10n', 10, 2 );
+
+/**
+ * L10n filter on read-more-post link.
+ *
+ * @since 2.29.0
+ *
+ * @param $text
+ * @param $atts
+ *
+ * @return string
+ */
+function wpmtst_read_more_post_link_text_l10n( $text, $atts ) {
+	return apply_filters( 'wpmtst_l10n', $text, 'strong-testimonials-read-more',
+		sprintf( 'View %s : Read more (testimonial)', $atts['view'] ) );
+
+}
+add_filter( 'wpmtst_read_more_post_link_text', 'wpmtst_read_more_post_link_text_l10n', 10, 2 );
 
 /**
  * Get permalink by ID or slug.

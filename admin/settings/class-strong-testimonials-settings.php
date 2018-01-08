@@ -47,7 +47,7 @@ class Strong_Testimonials_Settings {
 		?>
 		<div class="wrap wpmtst">
 
-			<h1><?php _e( 'Testimonial Settings', 'strong-testimonials' ); ?></h1>
+			<h1><?php echo apply_filters( 'wpmtst_cpt_singular_name', __( 'Testimonial', 'strong-testimonials' ) ); ?> <?php _e( 'Settings' ); ?></h1>
 
 			<?php if( isset( $_GET['settings-updated'] ) ) : ?>
 				<div id="message" class="updated notice is-dismissible">

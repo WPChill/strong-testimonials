@@ -13,7 +13,7 @@ function wpmtst_force_check() {
 	$atts = array( 'template' => $_REQUEST['template'] );
 	$force = WPMST()->templates->get_template_attr( $atts, 'force', false );
 	echo $force;
-	die();
+	wp_die();
 }
 add_action( 'wp_ajax_wpmtst_force_check', 'wpmtst_force_check' );
 
@@ -27,7 +27,7 @@ function wpmtst_view_add_field_function() {
 	$new_key = (int) $_REQUEST['key'];
 	$empty_field = array( 'field' => '', 'type' => 'text', 'class' => '' );
 	wpmtst_view_field_inputs( $new_key, $empty_field, true );
-	die();
+	wp_die();
 }
 add_action( 'wp_ajax_wpmtst_view_add_field', 'wpmtst_view_add_field_function' );
 
@@ -43,7 +43,7 @@ function wpmtst_view_add_field_link_function() {
 	$type        = $_REQUEST['fieldType'];
 	$empty_field = array( 'url' => '', 'link_text' => '', 'new_tab' => true );
 	wpmtst_view_field_link( $key, $field_name, $type, $empty_field );
-	die();
+	wp_die();
 }
 add_action( 'wp_ajax_wpmtst_view_add_field_link', 'wpmtst_view_add_field_link_function' );
 
@@ -57,7 +57,7 @@ function wpmtst_view_get_label_function() {
 	$field = array( 'field' => $_REQUEST['name'] );
 	$label = wpmtst_get_field_label( $field );
 	echo $label;
-	die();
+	wp_die();
 }
 add_action( 'wp_ajax_wpmtst_view_get_label', 'wpmtst_view_get_label_function' );
 
@@ -71,7 +71,7 @@ function wpmtst_view_add_field_date_function() {
 	$key = (int) $_REQUEST['key'];
 	$empty_field = array( 'format' => '' );
 	wpmtst_view_field_date( $key, $empty_field );
-	die();
+	wp_die();
 }
 add_action( 'wp_ajax_wpmtst_view_add_field_date', 'wpmtst_view_add_field_date_function' );
 
@@ -87,7 +87,7 @@ function wpmtst_view_get_mode_description() {
 	if ( isset( $options['mode'][ $mode ]['description'] ) ) {
 		echo $options['mode'][ $mode ]['description'];
 	}
-	die();
+	wp_die();
 }
 add_action( 'wp_ajax_wpmtst_view_get_mode_description', 'wpmtst_view_get_mode_description' );
 
@@ -98,6 +98,6 @@ add_action( 'wp_ajax_wpmtst_view_get_mode_description', 'wpmtst_view_get_mode_de
 function wpmtst_get_background_preset_colors() {
 	$preset = wpmtst_get_background_presets( $_REQUEST['key'] );
 	echo json_encode( $preset );
-	die();
+	wp_die();
 }
 add_action( 'wp_ajax_wpmtst_get_background_preset_colors', 'wpmtst_get_background_preset_colors' );

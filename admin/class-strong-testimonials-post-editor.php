@@ -328,7 +328,7 @@ class Strong_Testimonials_Post_Editor {
 		$display  = wpmtst_star_rating_display( $rating, 'in-metabox', false );
 		$response = array( 'display' => $display, 'message' => $message );
 		echo json_encode( $response );
-		die();
+		wp_die();
 	}
 
 }

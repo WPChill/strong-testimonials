@@ -2,10 +2,10 @@
 Contributors: cdillon27
 Tags: testimonials, testimonial slider, testimonial form, reviews, star ratings
 Requires at least: 3.7
-Tested up to: 4.9
-Stable tag: 2.28.4
-License: GPLv3 or later
-License URI: http://www.gnu.org/licenses/gpl-3.0.html
+Tested up to: 4.9.1
+Stable tag: 2.29
+License: GPLv2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 Simple yet powerful. Very customizable. Developer-friendly. Free support.
 
@@ -21,11 +21,12 @@ If you are a small business with up to several hundred testimonials or reviews, 
 
 ### Primary Features
 
-* No complicated shortcode "language"
-* A front-end form with custom fields
+* No complicated shortcodes
+* A front-end form
+* Custom fields
 * Star ratings
 * Slider with several navigation options
-* Grid, columns, and Masonry
+* Grids and Masonry
 * Ready for translation with [WPML](https://wpml.org/), [Polylang](https://wordpress.org/plugins/polylang/), and [WPGlobus](https://wordpress.org/plugins/wpglobus/)
 * A developer who's on your side :)
 
@@ -36,6 +37,8 @@ If you are a small business with up to several hundred testimonials or reviews, 
 * Excerpts and "Read more" links
 * Featured Images (thumbnails) and Gravatars
 * Pagination
+* Embeds (YouTube, Twitter, Instagram, Facebook)
+* Custom capabilities
 * Developer-friendly
 
 ### Testimonial Submission Form
@@ -44,13 +47,13 @@ Customize the form by adding or removing fields and changing properties like the
 
 **Anti-spam** measures include honeypots and Captcha via these plugins:
 
-* [Advanced noCaptcha reCaptcha](https://wordpress.org/plugins/advanced-nocaptcha-recaptcha/)
-* [Captcha](https://wordpress.org/plugins/captcha/) and [Captcha Pro](https://bestwebsoft.com/products/wordpress/plugins/captcha/)
+* [Google Captcha (reCAPTCHA) by BestWebSoft](https://wordpress.org/plugins/google-captcha/) *recommended*
+* [Captcha Pro](https://bestwebsoft.com/products/wordpress/plugins/captcha/)
 * [Really Simple Captcha](https://wordpress.org/plugins/really-simple-captcha/)
 
 Send custom **notification emails** to multiple admins.
 
-Submit the form via Ajax to use with popular plugins like [Popup Maker](https://wordpress.org/plugins/popup-maker/).
+Submit the form via Ajax to use with plugins like [Popup Maker](https://wordpress.org/plugins/popup-maker/).
 
 **Free Add-on:** Add a country selector to your form with the
 [Strong Testimonials Country Selector](https://wordpress.org/plugins/strong-testimonials-country-selector/) plugin.
@@ -70,21 +73,21 @@ Strong Testimonials offers a handful of templates to try in your theme. The defa
 Need help matching your theme? Got some weird spacing or floating? I'm here to help.
 
 For ultimate control and seamless integration, copy any template to your theme and customize it. There is also a template function:
-`<?php strong_testimonials_view( $id ); ?>`
+`strong_testimonials_view( $id );`
 
 ### Pro Add-ons
 
 #### Review Markup
 
-Testimonials are essentially five-star reviews. Adding review markup will encourage search engines to display rich snippets in search results. [Learn more](https://strongplugins.com/plugins/strong-testimonials-review-markup/?utm_source=wordpressorg&utm_medium=readme)
+Testimonials are essentially five-star reviews. Adding review markup will improve search results and encourage search engines to display rich snippets (the stars). [Learn more](https://strongplugins.com/plugins/strong-testimonials-review-markup/?utm_source=wordpressorg&utm_medium=readme)
 
 #### Multiple Forms
 
-Need more forms for different products or services? No problem. Create unlimited forms. [Learn more](https://strongplugins.com/plugins/strong-testimonials-multiple-forms/?utm_source=wordpressorg&utm_medium=readme)
+Create unlimited forms, each with their own custom fields, to tailor testimonials for different products, services and markets. [Learn more](https://strongplugins.com/plugins/strong-testimonials-multiple-forms/?utm_source=wordpressorg&utm_medium=readme)
 
 #### Properties
 
-Want to rename "testimonials" to "reviews"? Want to change the permalink structure? [Learn more](https://strongplugins.com/plugins/strong-testimonials-properties/?utm_source=wordpressorg&utm_medium=readme)
+Want to rebrand "testimonials" as "reviews", "feedback", "customer stories" or something else? Control every aspect front and back. [Learn more](https://strongplugins.com/plugins/strong-testimonials-properties/?utm_source=wordpressorg&utm_medium=readme)
 
 ### Support
 
@@ -92,7 +95,7 @@ I will [move mountains](https://strongplugins.com/testimonials/?utm_source=wordp
 
 ### Try these plugins too
 
-* [Simple Colorbox](https://wordpress.org/plugins/simple-colorbox/) to open thumbnails into full-size images. Nice!
+* [FooBox Image Lightbox](https://wordpress.org/plugins/foobox-image-lightbox/) to view thumbnails as full-size images. Nice!
 * [Simple CSS](https://wordpress.org/plugins/simple-css/) works great for quick CSS tweaks.
 * [Wider Admin Menu](https://wordpress.org/plugins/wider-admin-menu/) lets your admin menu b r e a t h e.
 
@@ -113,7 +116,7 @@ Activate the plugin. Look for "Testimonials" in the admin menu.
 
 = What are the shortcodes? =
 
-[testimonial_view] - To display your testimonials as a list or a slideshow, or to display the form. There are no complicated shortcode options. Instead, a **view** manages all the options with an easy-to-use (some call it fun!) editor for creating unlimited views.
+[testimonial_view] - To display your testimonials as a list or a slideshow, or to display the form. The first step is to create a **view** which manages all the options in an easy-to-use (some call it fun!) editor.
 
 `[testimonial_view id=1]`
 
@@ -121,7 +124,7 @@ Activate the plugin. Look for "Testimonials" in the admin menu.
 
 `Read some of our [testimonial_count] testimonials!`
 
-= Can I add testimonials from YouTube, Twitter, and Instagram? =
+= Can I add testimonials from YouTube, Twitter, Instagram and Facebook? =
 
 Yes. The plugin supports the [WordPress embed](https://codex.wordpress.org/Embeds) feature for inserting testimonials from [these sources](https://codex.wordpress.org/Embeds#Does_This_Work_With_Any_URL.3F).
 
@@ -147,7 +150,7 @@ Yes. In views, change these custom fields in a few clicks.
 
 = Can I display a large version of the featured image in a popup? =
 
-Yes. This requires a lightbox so if your theme does not include one, you will need a plugin like [Simple Colorbox](https://wordpress.org/plugins/simple-colorbox/).
+Yes. This requires a lightbox so if your theme does not include one, you will need a lightbox plugin.
 
 = Will it automatically use my existing testimonials? =
 
@@ -179,6 +182,21 @@ If you prefer not to post your URL publicly, start a private support ticket at [
 8. View editor
 
 == Changelog ==
+
+= 2.29 - Jan 8, 2018 =
+* Add integration with Google Captcha by BestWebSoft.
+* Remove integration with Captcha plugin.
+* Remove integration with Advanced noCaptcha reCaptcha plugin.
+* Fix CSS conflict with Cherry Slider.
+* Fix bug when adding the category field to the notification email.
+* Fix read-more filter usage for WPML and Polylang.
+* Add filter: `wpmtst_read_more_page_output`.
+* Add support for FooBoo Image Lightbox.
+* Improved the notification email admin UI.
+* Handle form submission on custom action.
+* Add dismissible persistent admin notice capability.
+* Improve add-on configuration check.
+* Minor refactoring for improved performance.
 
 = 2.28.4 - Nov 20, 2017 =
 * Fix bug when using count in views.
@@ -217,71 +235,9 @@ If you prefer not to post your URL publicly, start a private support ticket at [
 * Refactor many functions into classes.
 * Add ability to register a custom field type (experimental).
 
-= 2.27.2 - Oct 10, 2017 =
-* Fix bug in update process.
-
-= 2.27.1 - Oct 9, 2017 =
-* Fix bug in update process.
-
-= 2.27 - Oct 9, 2017 =
-* Fix optional loading of Font Awesome.
-* Fix width on double-digit pagination controls in Modern template.
-* Fix hiding slider controls if no slides are present.
-* Fix CSS for slider controls in Internet Explorer 11.
-* Add unique user capabilities for workflow control.
-* Add option to set checkbox field on by default.
-* Add option to exclude from Lazy Loading Responsive Images plugin (on by default).
-* Add filters to "Read more" link text and URL.
-* Add filter to form redirect URL.
-* Add filter to skip prerender (for compatibility).
-* Add filters for styles, scripts and script vars.
-* New About page.
-* Minor refactoring for improved performance.
-
-= 2.26.10 - Sep 12, 2017 =
-* Fix compatibility with Captcha by simplywordpress 4.3.4+.
-* Fix compatibility with Polylang string translations when user's admin language is not English.
-* Improve flex grid style when last row is less than full.
-* Improve rendering of shortcode field type.
-* Add post ID of newly submitted testimonial to action hook.
-
-= 2.26.9 - Sep 2, 2017 =
-* Fix integration with Polylang 2.1+.
-* Indent subcategories in the category selector on the form.
-
-= 2.26.8 - Aug 26, 2017 =
-* Fix form whitespace problem in some themes.
-
-= 2.26.7 - Aug 15, 2017 =
-* Fix compatibility with Captcha plugin version 4.3.1.
-
-= 2.26.6 - Aug 15, 2017 =
-* Trim leading and trailing spaces on form input values.
-
-= 2.26.5 - Aug 2, 2017 =
-* Improve adding thumbnail support.
-
-= 2.26.4 - July 31, 2017 =
-* Fix bug in WPML String Translations.
-
-= 2.26.3 - July 27, 2017 =
-* Fix bug when displaying empty rating in post editor.
-
-= 2.26.2 - July 24, 2017 =
-* Fix WPGlobus compatibility.
-
-= 2.26.1 - July 17, 2017 =
-* Fix bug in saving checkbox field.
-
-= 2.26 - July 6, 2017 =
-* Improve excerpt handling.
-* Add option for linking title to testimonial post.
-* Improve featured image responsive style.
-* Minor UI improvements in view editor.
-
 See changelog.txt for previous versions.
 
 == Upgrade Notice ==
 
-= 2.28.3 =
-Minor bug fixes. New filters. Improved compatibility.
+= 2.29 =
+Captcha options have changed. Please double-check your form settings.

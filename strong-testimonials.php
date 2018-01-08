@@ -4,15 +4,15 @@
  * Plugin URI: https://strongplugins.com/plugins/strong-testimonials/
  * Description: A full-featured plugin that works right out of the box for beginners and offers advanced features for pros.
  * Author: Chris Dillon
- * Version: 2.28.4
+ * Version: 2.29
  *
  * Author URI: https://strongplugins.com/
  * Text Domain: strong-testimonials
  * Domain Path: /languages
  * Requires: 3.7 or higher
- * License: GPLv3 or later
+ * License: GPLv2 or later
  *
- * Copyright 2014-2017 Chris Dillon chris@strongplugins.com
+ * Copyright 2014-2018 Chris Dillon chris@strongplugins.com
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -34,7 +34,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'WPMTST_VERSION', '2.28.4' );
+define( 'WPMTST_VERSION', '2.29' );
 define( 'WPMTST_PLUGIN', plugin_basename( __FILE__ ) ); // strong-testimonials/strong-testimonials.php
 define( 'WPMTST', dirname( WPMTST_PLUGIN ) );           // strong-testimonials
 define( 'STRONGPLUGINS_STORE_URL', 'https://strongplugins.com' );
@@ -91,8 +91,6 @@ final class Strong_Testimonials {
 	 *
 	 * Also used to store testimonial form data during Post-Redirect-Get.
 	 *
-	 * Heavily copied from Easy Digital Downloads by Pippin Williamson.
-	 *
 	 * @return Strong_Testimonials  Strong_Testimonials object
 	 */
 	public static function instance() {
@@ -140,6 +138,7 @@ final class Strong_Testimonials {
 	 * Plugin activation
 	 */
 	static function plugin_activation() {
+		wpmtst_update_tables();
 		wpmtst_register_cpt();
 		flush_rewrite_rules();
 	}
@@ -155,7 +154,7 @@ final class Strong_Testimonials {
 		 *
 		 * @since 2.28.0
 		 */
-		delete_option( 'wpmtst_plugin_version');
+		delete_option( 'wpmtst_plugin_version' );
 	}
 
 	/**
@@ -213,12 +212,12 @@ final class Strong_Testimonials {
 		require_once WPMTST_INC . 'class-strong-form.php';
 		require_once WPMTST_INC . 'class-walker-strong-category-checklist-front.php';
 
-		require_once WPMTST_INC . 'captcha.php';
 		require_once WPMTST_INC . 'deprecated.php';
 		require_once WPMTST_INC . 'functions.php';
 		require_once WPMTST_INC . 'functions-content.php';
 		require_once WPMTST_INC . 'functions-rating.php';
 		require_once WPMTST_INC . 'functions-image.php';
+		require_once WPMTST_INC . 'functions-lightbox.php';
 		require_once WPMTST_INC . 'functions-template.php';
 		require_once WPMTST_INC . 'functions-template-form.php';
 		require_once WPMTST_INC . 'post-types.php';
@@ -242,7 +241,6 @@ final class Strong_Testimonials {
 			require_once WPMTST_ADMIN . 'about/class-strong-testimonials-about.php';
 
 			require_once WPMTST_ADMIN . 'class-strong-testimonials-defaults.php';
-			require_once WPMTST_ADMIN . 'class-strong-testimonials-updater.php';
 			require_once WPMTST_ADMIN . 'class-strong-testimonials-list-table.php';
 			require_once WPMTST_ADMIN . 'class-strong-views-list-table.php';
 			require_once WPMTST_ADMIN . 'class-walker-strong-category-checklist.php';
@@ -290,13 +288,6 @@ final class Strong_Testimonials {
 		add_action( 'plugins_loaded', array( $this, 'load_textdomain' ) );
 
 		/**
-		 * Custom fields editor.
-		 */
-		if ( is_admin() ) {
-			add_action( 'wpmtst_form_admin', 'wpmtst_form_admin2' );
-		}
-
-		/**
 		 * Plugin setup.
 		 */
 		add_action( 'init', array( $this, 'l10n_check' ) );
@@ -312,13 +303,6 @@ final class Strong_Testimonials {
 		 * Add image size for widget.
 		 */
 		add_action( 'after_setup_theme', array( $this, 'add_image_size' ) );
-
-		/**
-		 * Custom action to delete a view.
-		 *
-		 * @since 1.21.0
-		 */
-		add_action( 'admin_action_delete-strong-view', 'wpmtst_delete_view_action_hook' );
 
 		/**
 		 * Debug info.

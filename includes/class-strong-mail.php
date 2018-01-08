@@ -11,9 +11,7 @@ if ( ! class_exists( 'Strong_Mail' ) ) :
 class Strong_Mail {
 
 	public function __construct() {
-
 		add_action( 'wp_loaded', array( $this, 'process_mail_queue' ), 20 );
-
 	}
 
 	/**
