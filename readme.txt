@@ -191,6 +191,7 @@ If you prefer not to post your URL publicly, start a private support ticket at [
 * Fix bug when adding the category field to the notification email.
 * Fix read-more filter usage for WPML and Polylang.
 * Add filter: `wpmtst_read_more_page_output`.
+* Add support for FooBoo Image Lightbox.
 * Improved the notification email admin UI.
 * Handle form submission on custom action.
 * Add dismissible persistent admin notice capability.
