@@ -21,11 +21,12 @@ If you are a small business with up to several hundred testimonials or reviews, 
 
 ### Primary Features
 
-* No complicated shortcode "language"
-* A front-end form with custom fields
+* No complicated shortcodes
+* A front-end form
+* Custom fields
 * Star ratings
 * Slider with several navigation options
-* Grid, columns, and Masonry
+* Grids and Masonry
 * Ready for translation with [WPML](https://wpml.org/), [Polylang](https://wordpress.org/plugins/polylang/), and [WPGlobus](https://wordpress.org/plugins/wpglobus/)
 * A developer who's on your side :)
 
@@ -36,6 +37,8 @@ If you are a small business with up to several hundred testimonials or reviews, 
 * Excerpts and "Read more" links
 * Featured Images (thumbnails) and Gravatars
 * Pagination
+* Embeds (YouTube, Twitter, Instagram, Facebook)
+* Custom capabilities
 * Developer-friendly
 
 ### Testimonial Submission Form
@@ -44,13 +47,13 @@ Customize the form by adding or removing fields and changing properties like the
 
 **Anti-spam** measures include honeypots and Captcha via these plugins:
 
-* [Advanced noCaptcha reCaptcha](https://wordpress.org/plugins/advanced-nocaptcha-recaptcha/)
-* [Captcha](https://wordpress.org/plugins/captcha/) and [Captcha Pro](https://bestwebsoft.com/products/wordpress/plugins/captcha/)
+* [Google Captcha (reCAPTCHA) by BestWebSoft](https://wordpress.org/plugins/google-captcha/) *recommended*
+* [Captcha Pro](https://bestwebsoft.com/products/wordpress/plugins/captcha/)
 * [Really Simple Captcha](https://wordpress.org/plugins/really-simple-captcha/)
 
 Send custom **notification emails** to multiple admins.
 
-Submit the form via Ajax to use with popular plugins like [Popup Maker](https://wordpress.org/plugins/popup-maker/).
+Submit the form via Ajax to use with plugins like [Popup Maker](https://wordpress.org/plugins/popup-maker/).
 
 **Free Add-on:** Add a country selector to your form with the
 [Strong Testimonials Country Selector](https://wordpress.org/plugins/strong-testimonials-country-selector/) plugin.
@@ -76,15 +79,15 @@ For ultimate control and seamless integration, copy any template to your theme a
 
 #### Review Markup
 
-Testimonials are essentially five-star reviews. Adding review markup will encourage search engines to display rich snippets in search results. [Learn more](https://strongplugins.com/plugins/strong-testimonials-review-markup/?utm_source=wordpressorg&utm_medium=readme)
+Testimonials are essentially five-star reviews. Adding review markup will improve search results and encourage search engines to display rich snippets (the stars). [Learn more](https://strongplugins.com/plugins/strong-testimonials-review-markup/?utm_source=wordpressorg&utm_medium=readme)
 
 #### Multiple Forms
 
-Need more forms for different products or services? No problem. Create unlimited forms. [Learn more](https://strongplugins.com/plugins/strong-testimonials-multiple-forms/?utm_source=wordpressorg&utm_medium=readme)
+Create unlimited forms, each with their own custom fields, to tailor testimonials for different products, services and markets. [Learn more](https://strongplugins.com/plugins/strong-testimonials-multiple-forms/?utm_source=wordpressorg&utm_medium=readme)
 
 #### Properties
 
-Want to rename "testimonials" to "reviews"? Want to change the permalink structure? [Learn more](https://strongplugins.com/plugins/strong-testimonials-properties/?utm_source=wordpressorg&utm_medium=readme)
+Want to rebrand "testimonials" as "reviews", "feedback", "customer stories" or something else? Control every aspect front and back. [Learn more](https://strongplugins.com/plugins/strong-testimonials-properties/?utm_source=wordpressorg&utm_medium=readme)
 
 ### Support
 
@@ -92,6 +95,7 @@ I will [move mountains](https://strongplugins.com/testimonials/?utm_source=wordp
 
 ### Try these plugins too
 
+* [FooBox Image Lightbox](https://wordpress.org/plugins/foobox-image-lightbox/) to view thumbnails as full-size images. Nice!
 * [Simple CSS](https://wordpress.org/plugins/simple-css/) works great for quick CSS tweaks.
 * [Wider Admin Menu](https://wordpress.org/plugins/wider-admin-menu/) lets your admin menu b r e a t h e.
 
@@ -112,7 +116,7 @@ Activate the plugin. Look for "Testimonials" in the admin menu.
 
 = What are the shortcodes? =
 
-[testimonial_view] - To display your testimonials as a list or a slideshow, or to display the form. There are no complicated shortcode options. Instead, a **view** manages all the options with an easy-to-use (some call it fun!) editor for creating unlimited views.
+[testimonial_view] - To display your testimonials as a list or a slideshow, or to display the form. The first step is to create a **view** which manages all the options in an easy-to-use (some call it fun!) editor.
 
 `[testimonial_view id=1]`
 
@@ -120,7 +124,7 @@ Activate the plugin. Look for "Testimonials" in the admin menu.
 
 `Read some of our [testimonial_count] testimonials!`
 
-= Can I add testimonials from YouTube, Twitter, and Instagram? =
+= Can I add testimonials from YouTube, Twitter, Instagram and Facebook? =
 
 Yes. The plugin supports the [WordPress embed](https://codex.wordpress.org/Embeds) feature for inserting testimonials from [these sources](https://codex.wordpress.org/Embeds#Does_This_Work_With_Any_URL.3F).
 
@@ -179,15 +183,16 @@ If you prefer not to post your URL publicly, start a private support ticket at [
 
 == Changelog ==
 
-= 2.29 - Jan 4, 2018 =
+= 2.29 - Jan 8, 2018 =
 * Add integration with Google Captcha by BestWebSoft.
 * Remove integration with Captcha plugin.
 * Remove integration with Advanced noCaptcha reCaptcha plugin.
 * Fix CSS conflict with Cherry Slider.
 * Fix bug when adding the category field to the notification email.
+* Fix read-more filter usage for WPML and Polylang.
+* Add filter: `wpmtst_read_more_page_output`.
 * Improved the notification email admin UI.
-* Refactor form submission handler.
-* Add filter: `wpmtst_read_more_page_output`
+* Handle form submission on custom action.
 * Add dismissible persistent admin notice capability.
 * Improve add-on configuration check.
 * Minor refactoring for improved performance.
