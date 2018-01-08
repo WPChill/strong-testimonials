@@ -3,7 +3,7 @@ Contributors: cdillon27
 Tags: testimonials, testimonial slider, testimonial form, reviews, star ratings
 Requires at least: 3.7
 Tested up to: 4.9.1
-Stable tag: 2.29
+Stable tag: 2.29.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -87,7 +87,7 @@ Create unlimited forms, each with their own custom fields, to tailor testimonial
 
 #### Properties
 
-Want to rebrand "testimonials" as "reviews", "feedback", "customer stories" or something else? Control every aspect front and back. [Learn more](https://strongplugins.com/plugins/strong-testimonials-properties/?utm_source=wordpressorg&utm_medium=readme)
+Want to rebrand "testimonials" as "reviews", "customer stories" or something else? Control every aspect front and back. [Learn more](https://strongplugins.com/plugins/strong-testimonials-properties/?utm_source=wordpressorg&utm_medium=readme)
 
 ### Support
 
@@ -95,7 +95,7 @@ I will [move mountains](https://strongplugins.com/testimonials/?utm_source=wordp
 
 ### Try these plugins too
 
-* [FooBox Image Lightbox](https://wordpress.org/plugins/foobox-image-lightbox/) to view thumbnails as full-size images. Nice!
+* [FooBox Image Lightbox](https://wordpress.org/plugins/foobox-image-lightbox/) to view thumbnails as full-size images.
 * [Simple CSS](https://wordpress.org/plugins/simple-css/) works great for quick CSS tweaks.
 * [Wider Admin Menu](https://wordpress.org/plugins/wider-admin-menu/) lets your admin menu b r e a t h e.
 
@@ -183,6 +183,9 @@ If you prefer not to post your URL publicly, start a private support ticket at [
 
 == Changelog ==
 
+= 2.29.1 - Jan 8, 2018 =
+* Only to trigger update because the SVN version was incomplete.
+
 = 2.29 - Jan 8, 2018 =
 * Add integration with Google Captcha by BestWebSoft.
 * Remove integration with Captcha plugin.
@@ -191,7 +194,7 @@ If you prefer not to post your URL publicly, start a private support ticket at [
 * Fix bug when adding the category field to the notification email.
 * Fix read-more filter usage for WPML and Polylang.
 * Add filter: `wpmtst_read_more_page_output`.
-* Add support for FooBoo Image Lightbox.
+* Add support for FooBox Image Lightbox.
 * Improved the notification email admin UI.
 * Handle form submission on custom action.
 * Add dismissible persistent admin notice capability.

@@ -4,7 +4,7 @@
  * Plugin URI: https://strongplugins.com/plugins/strong-testimonials/
  * Description: A full-featured plugin that works right out of the box for beginners and offers advanced features for pros.
  * Author: Chris Dillon
- * Version: 2.29
+ * Version: 2.29.1
  *
  * Author URI: https://strongplugins.com/
  * Text Domain: strong-testimonials
