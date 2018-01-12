@@ -35,7 +35,7 @@
 .strong-view .wpmslider-wrapper .wpmslider-stop,
 .strong-view .wpmslider-wrapper .wpmslider-next,
 .strong-view .wpmslider-wrapper .wpmslider-prev {
-  z-index: 100;
+  z-index: 5;
 }
 .strong-view .wpmslider-wrapper .wpmslider-controls-auto,
 .strong-view .wpmslider-wrapper .wpmslider-controls-direction {
@@ -98,14 +98,14 @@
   line-height: 1;
   padding-bottom: 15px;
   text-align: center;
-  z-index: 99;
+  z-index: 5;
 }
 
 .strong-view.nav-position-outside .wpmslider-controls {
   line-height: 1;
   padding: 10px 0 20px;
   text-align: center;
-  z-index: 99;
+  z-index: 5;
 }
 
 .strong-view.controls-type-sides .wpmslider-prev {
