@@ -201,7 +201,7 @@ function wpmtst_sanitize_view( $input ) {
 
 	// Background
 	$data['background'] = wpmtst_get_background_defaults();
-	if ( !isset( $input['background']['type'] ) || 'none' == $input['background']['type'] ) {
+	if ( ! isset( $input['background']['type'] ) ) {
 		$data['background']['type'] = '';
 	}
 	else {
@@ -211,7 +211,15 @@ function wpmtst_sanitize_view( $input ) {
 	$data['background']['gradient1'] = sanitize_text_field( $input['background']['gradient1'] );
 	$data['background']['gradient2'] = sanitize_text_field( $input['background']['gradient2'] );
 	$data['background']['preset']    = sanitize_text_field( $input['background']['preset'] );
-	$data['background']['example-font-color'] = sanitize_text_field( $input['background']['example-font-color'] );
+
+	// Font color
+	if ( ! isset( $input['font-color']['type'] ) ) {
+		$data['font-color']['type'] = '';
+	}
+	else {
+		$data['font-color']['type'] = sanitize_text_field( $input['font-color']['type'] );
+	}
+	$data['font-color']['color'] = sanitize_hex_color( $input['font-color']['color'] );
 
 	// Layout input may have been disabled by selecting the widget template so no value is posted.
 	if ( ! isset( $input['layout'] ) ) {
