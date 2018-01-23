@@ -707,6 +707,15 @@ class Strong_Testimonials_Updater {
 
 			$view['data']['background'] = array_merge( $default_view['background'], $view_data['background'] );
 
+			/**
+			 * Remove obsolete example font color.
+			 *
+			 * @since 2.30.0
+			 */
+			if ( isset( $view['background']['example-font-color'] ) ) {
+				unset( $view['background']['example-font-color'] );
+			}
+
 			if ( isset( $view_data['pagination_settings'] ) ) {
 				$view['data']['pagination_settings'] = array_merge( $default_view['pagination_settings'], $view_data['pagination_settings'] );
 
