@@ -142,7 +142,6 @@ class Strong_Testimonials_Render {
 				'color'              => '',
 				'type'               => '',
 				'preset'             => '',
-				'example-font-color' => 'dark',
 			),
 			'category'           => '',
 			'class'              => '',
@@ -155,6 +154,10 @@ class Strong_Testimonials_Render {
 			'divi_builder'       => 0,
 			'excerpt'            => '',
 			'excerpt_length'     => 55,
+			'font-color'         => array(
+				'color' => '',
+				'type'  => '',
+			),
 			'form'               => '',
 			'form_ajax'          => 0,
 			'gravatar'           => 'no',
