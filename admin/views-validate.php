@@ -190,6 +190,7 @@ function wpmtst_sanitize_view( $input ) {
 	$data['thumbnail_width']  = sanitize_text_field( $input['thumbnail_width'] );
 	$data['thumbnail_height'] = sanitize_text_field( $input['thumbnail_height'] );
 	$data['lightbox']         = isset( $input['lightbox'] ) ? 1 : 0;
+	$data['lightbox_class']   = sanitize_text_field( $input['lightbox_class'] );
 	$data['gravatar']         = sanitize_text_field( $input['gravatar'] );
 
 	/**

@@ -698,6 +698,7 @@ class Strong_Testimonials_Defaults {
 			'id'                  => '',
 			'layout'              => '',
 			'lightbox'            => '',
+			'lightbox_class'      => '',
 			'mode'                => 'display',
 			'more_full_post'      => false,
 			'more_post'           => true,
