@@ -213,11 +213,11 @@ final class Strong_Testimonials {
 		require_once WPMTST_INC . 'class-walker-strong-category-checklist-front.php';
 
 		require_once WPMTST_INC . 'deprecated.php';
+		require_once WPMTST_INC . 'filters.php';
 		require_once WPMTST_INC . 'functions.php';
 		require_once WPMTST_INC . 'functions-content.php';
 		require_once WPMTST_INC . 'functions-rating.php';
 		require_once WPMTST_INC . 'functions-image.php';
-		require_once WPMTST_INC . 'functions-lightbox.php';
 		require_once WPMTST_INC . 'functions-template.php';
 		require_once WPMTST_INC . 'functions-template-form.php';
 		require_once WPMTST_INC . 'post-types.php';
