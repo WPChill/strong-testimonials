@@ -155,13 +155,13 @@ class Strong_View_Slideshow extends Strong_View_Display {
 		}
 
 		// order by
-		if ( $this->atts['menu_order'] ) {
+		if ( 'menu_order' == $this->atts['order'] ) {
 			$args['orderby'] = 'menu_order';
 			$args['order']   = 'ASC';
 		}
 		else {
 			$args['orderby'] = 'post_date';
-			if ( $this->atts['newest'] ) {
+			if ( 'newest' == $this->atts['order'] ) {
 				$args['order'] = 'DESC';
 			}
 			else {
@@ -179,7 +179,7 @@ class Strong_View_Slideshow extends Strong_View_Display {
 		 *
 		 * @since 1.16
 		 */
-		if ( $this->atts['random'] ) {
+		if ( 'random' == $this->atts['order'] ) {
 			shuffle( $query->posts );
 		}
 
@@ -235,15 +235,14 @@ class Strong_View_Slideshow extends Strong_View_Display {
 		$content_class_list  = array();
 		$post_class_list     = array( 'testimonial' );
 
-		// excerpt overrides length
-		if ( $this->atts['excerpt'] ) {
+		if ( 'excerpt' == $this->atts['content'] ) {
 			$post_class_list[] = 'excerpt';
 		}
 
 		/**
 		 * Slideshow
 		 */
-		if ( $this->atts['slideshow'] ) {
+		if ( 'slideshow' == $this->atts['mode'] ) {
 
 			$settings = $this->atts['slideshow_settings'];
 
