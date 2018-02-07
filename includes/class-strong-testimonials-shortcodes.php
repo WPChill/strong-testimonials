@@ -9,25 +9,20 @@ class Strong_Testimonials_Shortcodes {
 	/**
 	 * Strong_Testimonials_Shortcodes constructor.
 	 */
-	public function __construct() {}
+	public function __construct() {
+		add_shortcode( 'testimonial_view', array( $this, 'testimonial_view_shortcode' ) );
+		add_filter( 'shortcode_atts_testimonial_view', array( $this, 'testimonial_view_filter' ), 10, 3 );
 
-	/**
-	 * Initialize.
-	 */
-	public static function initialize() {
-		add_shortcode( 'testimonial_view', array( __CLASS__, 'testimonial_view_shortcode' ) );
-		add_filter( 'shortcode_atts_testimonial_view', array( __CLASS__, 'testimonial_view_filter' ), 10, 3 );
-
-		add_shortcode( 'testimonial_count', array( __CLASS__, 'testimonial_count' ) );
+		add_shortcode( 'testimonial_count', array( $this, 'testimonial_count' ) );
 
 		add_filter( 'widget_text', 'do_shortcode' );
-		add_filter( 'no_texturize_shortcodes', array( __CLASS__, 'no_texturize_shortcodes' ) );
+		add_filter( 'no_texturize_shortcodes', array( $this, 'no_texturize_shortcodes' ) );
 
-		add_filter( 'strong_view_html', array( __CLASS__, 'remove_whitespace' ) );
-		add_filter( 'strong_view_form_html', array( __CLASS__, 'remove_whitespace' ) );
+		add_filter( 'strong_view_html', array( $this, 'remove_whitespace' ) );
+		add_filter( 'strong_view_form_html', array( $this, 'remove_whitespace' ) );
 	}
 
-	public static function get_shortcode() {
+	public function get_shortcode() {
 		return 'testimonial_view';
 	}
 
@@ -39,14 +34,14 @@ class Strong_Testimonials_Shortcodes {
 	 *
 	 * @return mixed|string
 	 */
-	public static function testimonial_view_shortcode( $atts, $content = null ) {
+	public function testimonial_view_shortcode( $atts, $content = null ) {
 		$out = shortcode_atts(
 			WPMST()->render->get_view_defaults(),   // $pairs
 			$atts,
 			'testimonial_view'
 		);
 
-		return self::render_view( $out );
+		return $this->render_view( $out );
 	}
 
 	/**
@@ -60,7 +55,7 @@ class Strong_Testimonials_Shortcodes {
 	 *
 	 * @return array
 	 */
-	public static function testimonial_view_filter( $out, $pairs, $atts ) {
+	public function testimonial_view_filter( $out, $pairs, $atts ) {
 		return WPMST()->render->parse_view( normalize_empty_atts( $out ), $pairs, $atts );
 	}
 
@@ -71,7 +66,7 @@ class Strong_Testimonials_Shortcodes {
 	 *
 	 * @return mixed|string
 	 */
-	public static function render_view( $out ) {
+	public function render_view( $out ) {
 		// Did we find this view?
 		if ( isset( $out['view_not_found'] ) && $out['view_not_found'] ) {
 			if ( current_user_can( 'strong_testimonials_views' ) ) {
@@ -101,7 +96,7 @@ class Strong_Testimonials_Shortcodes {
 	 *
 	 * @return mixed
 	 */
-	public static function remove_whitespace( $html ) {
+	public function remove_whitespace( $html ) {
 		$options = get_option( 'wpmtst_options' );
 		if ( $options['remove_whitespace'] ) {
 			$html = preg_replace( '~>\s+<~', '><', $html );
@@ -123,7 +118,7 @@ class Strong_Testimonials_Shortcodes {
 	 *
 	 * @return int
 	 */
-	public static function testimonial_count( $atts, $content = null ) {
+	public function testimonial_count( $atts, $content = null ) {
 		$atts = shortcode_atts(
 			array(
 				'category' => '',
@@ -152,12 +147,10 @@ class Strong_Testimonials_Shortcodes {
 	 *
 	 * @return array
 	 */
-	public static function no_texturize_shortcodes( $shortcodes ) {
+	public function no_texturize_shortcodes( $shortcodes ) {
 		$shortcodes[] = 'testimonial_view';
 
 		return $shortcodes;
 	}
 
 }
-
-Strong_Testimonials_Shortcodes::initialize();

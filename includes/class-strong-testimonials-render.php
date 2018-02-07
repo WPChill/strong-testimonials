@@ -269,7 +269,7 @@ class Strong_Testimonials_Render {
 	 * Set shortcode.
 	 */
 	public function set_shortcodes() {
-		$this->shortcode = Strong_Testimonials_Shortcodes::get_shortcode();
+		$this->shortcode = WPMST()->shortcodes->get_shortcode();
 	}
 
 	/**

@@ -45,6 +45,7 @@ if ( ! class_exists( 'Strong_Testimonials' ) ) :
 /**
  * Main plugin class.
  *
+ * @property  Strong_Testimonials_Shortcodes shortcodes
  * @property  Strong_Testimonials_Render render
  * @property  Strong_Mail mail
  * @property  Strong_Templates templates
@@ -60,6 +61,11 @@ final class Strong_Testimonials {
 	public $plugin_data;
 
 	public $post_list = array();
+
+	/**
+	 * @var Strong_Testimonials_Shortcodes
+	 */
+	public $shortcodes;
 
 	/**
 	 * @var Strong_Testimonials_Render
@@ -186,10 +192,11 @@ final class Strong_Testimonials {
 	 * Instantiate our classes.
 	 */
 	public function init() {
-		$this->render    = new Strong_Testimonials_Render();
-		$this->mail      = new Strong_Mail();
-		$this->templates = new Strong_Templates();
-		$this->form      = new Strong_Testimonials_Form();
+		$this->shortcodes = new Strong_Testimonials_Shortcodes();
+		$this->render     = new Strong_Testimonials_Render();
+		$this->mail       = new Strong_Mail();
+		$this->templates  = new Strong_Templates();
+		$this->form       = new Strong_Testimonials_Form();
 	}
 
 	/**
