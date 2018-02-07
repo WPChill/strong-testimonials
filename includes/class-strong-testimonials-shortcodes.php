@@ -38,7 +38,7 @@ class Strong_Testimonials_Shortcodes {
 	 */
 	public function testimonial_view_shortcode( $atts, $content = null ) {
 		$out = shortcode_atts(
-			WPMST()->render->get_view_defaults(),   // $pairs
+			array(),
 			$atts,
 			$this->shortcode
 		);
