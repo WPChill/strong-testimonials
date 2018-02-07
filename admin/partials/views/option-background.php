@@ -100,7 +100,7 @@
 
         <div class="view-background-info-inner background-preview-wrap">
 
-            <div id="background-preview" class="<?php echo $view['background']['example-font-color']; ?>">
+            <div id="background-preview">
                 Lorem ipsum dolor sit amet, accusam complectitur an eos. No vix perpetua adolescens, vix vidisse maiorum in. No erat falli scripta qui, vis ubique scripta electram ad. Vix prompta adipisci no, ad vidisse expetendis.
             </div>
 
