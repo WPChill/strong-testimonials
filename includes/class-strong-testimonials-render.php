@@ -596,12 +596,15 @@ class Strong_Testimonials_Render {
 
 		$this->set_atts( $atts );
 
-		if ( $atts['form'] ) {
-			$view = new Strong_View_Form( $atts );
-		} elseif ( $atts['slideshow'] ) {
-			$view = new Strong_View_Slideshow( $atts );
-		} else {
-			$view = new Strong_View_Display( $atts );
+		switch ( $atts['mode'] ) {
+			case 'form' :
+				$view = new Strong_View_Form( $atts );
+				break;
+			case 'slideshow' :
+				$view = new Strong_View_Slideshow( $atts );
+				break;
+			default :
+				$view = new Strong_View_Display( $atts );
 		}
 		$view->process();
 
@@ -664,16 +667,16 @@ class Strong_Testimonials_Render {
 		if ( isset( $atts['category'] ) ) {
 			$cats  = array();
 			$items = explode( ',', $atts['category'] );
-			foreach( $items as $item ) {
+			foreach ( $items as $item ) {
 				if ( is_numeric( $item ) ) {
 					$cats[] = $item;
-		}
+				}
 				else {
 					$term = get_term_by( 'slug', $item, 'wpm-testimonial-category' );
 					if ( $term ) {
 						$cats[] = $term->term_id;
-		}
-		}
+					}
+				}
 			}
 			if ( $cats ) {
 				$atts['category'] = implode( ',', $cats );
