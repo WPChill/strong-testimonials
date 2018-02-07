@@ -35,6 +35,25 @@ class Strong_View_Display extends Strong_View {
 	public function __construct( $atts = array() ) {
 		parent::__construct();
 		$this->atts = apply_filters( 'wpmtst_view_atts', $atts );
+		add_filter( 'wpmtst_build_query', array( $this, 'query_pagination' ) );
+	}
+
+	/**
+	 * Adjust query for standard pagination.
+	 *
+	 * @param $args
+	 *
+	 * @return mixed
+	 */
+	public function query_pagination( $args ) {
+		if ( $this->atts['pagination'] && 'standard' == $this->atts['pagination_settings']['type'] ) {
+			// Limit is not compatible with standard pagination.
+			$this->atts['count'] = -1;
+			$args['posts_per_page'] = $this->atts['pagination_settings']['per_page'];
+			$args['paged']          = wpmtst_get_paged();
+		}
+
+		return $args;
 	}
 
 	/**
@@ -155,7 +174,7 @@ class Strong_View_Display extends Strong_View {
 	}
 
 	/**
-	 * Build our query based on view attributes.
+	 * Build our query.
 	 */
 	public function build_query() {
 		$ids = explode( ',', $this->atts['id'] );
@@ -163,20 +182,12 @@ class Strong_View_Display extends Strong_View {
 		$args = array(
 			'post_type'   => 'wpm-testimonial',
 			'post_status' => 'publish',
+			'posts_per_page' => -1,
+			'paged'          => null,
 		);
+		$args = apply_filters( 'wpmtst_build_query', $args );
 
-		if ( $this->atts['pagination'] && 'standard' == $this->atts['pagination_settings']['type'] ) {
-			// Limit is not compatible with standard pagination.
-			$this->atts['all'] = true;
-			$args['posts_per_page'] = $this->atts['pagination_settings']['per_page'];
-			$args['paged']          = wpmtst_get_paged();
-		}
-		else {
-			$args['posts_per_page'] = -1;
-			$args['paged']          = null;
-		}
-
-		// id overrides category
+		// id's override category
 		if ( $this->atts['id'] ) {
 			$args['post__in'] = $ids;
 		}
@@ -230,7 +241,7 @@ class Strong_View_Display extends Strong_View {
 		 *
 		 * @since 1.16.1
 		 */
-		if ( ! $this->atts['all'] && $this->atts['count'] > 0 ) {
+		if ( $this->atts['count'] > 0 ) {
 			$count                = min( $this->atts['count'], count( $query->posts ) );
 			$query->posts         = array_slice( $query->posts, 0, $count );
 			$query->post_count    = $count;
@@ -250,10 +261,8 @@ class Strong_View_Display extends Strong_View {
 	 */
 	public function build_classes() {
 
-		$container_class_list = array(
-			'strong-view-id-' . $this->atts['view'],
-			$this->get_template_css_class(),
-		);
+		$container_class_list = array( 'strong-view-id-' . $this->atts['view'] );
+		$container_class_list = array_merge( $container_class_list, $this->get_template_css_class() );
 
 		if ( is_rtl() ) {
 			$container_class_list[] = 'rtl';

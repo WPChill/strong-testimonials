@@ -687,7 +687,7 @@ class Strong_Testimonials_Updater {
 				unset( $view_data['compat'] );
 
 				$view_data = $this->convert_template_name( $view_data );
-				$view_data = $this->convert_count( $view_data );
+				//$view_data = $this->convert_count( $view_data );
 				$view_data = $this->convert_background_color( $view_data );
 				$view_data = $this->convert_form_ajax( $view_data );
 				$view_data = $this->convert_layout( $view_data );
@@ -926,10 +926,10 @@ class Strong_Testimonials_Updater {
 	 * @return array
 	 */
 	public function convert_count( $view_data ) {
-		if ( - 1 == $view_data['count'] ) {
-			$view_data['count'] = 1;
-			$view_data['all']   = 1;
-		}
+		//if ( - 1 == $view_data['count'] ) {
+		//	$view_data['count'] = 1;
+		//	$view_data['all']   = 1;
+		//}
 
 		return $view_data;
 	}
