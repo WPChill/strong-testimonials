@@ -595,12 +595,11 @@ add_action( 'post_submitbox_misc_actions', 'wpmtst_post_submitbox_misc_actions' 
  */
 function wpmtst_get_background_defaults() {
 	return apply_filters( 'wpmtst_default_template_background', array(
-		'color'              => '',
-		'type'               => '',
-		'preset'             => '',
-		'gradient1'          => '',
-		'gradient2'          => '',
-		'example-font-color' => 'dark',
+		'color'     => '',
+		'type'      => '',
+		'preset'    => '',
+		'gradient1' => '',
+		'gradient2' => '',
 	) );
 }
 
