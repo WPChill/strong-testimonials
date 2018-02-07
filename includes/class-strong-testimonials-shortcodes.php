@@ -6,12 +6,14 @@
  */
 class Strong_Testimonials_Shortcodes {
 
+	public $shortcode = 'testimonial_view';
+
 	/**
 	 * Strong_Testimonials_Shortcodes constructor.
 	 */
 	public function __construct() {
-		add_shortcode( 'testimonial_view', array( $this, 'testimonial_view_shortcode' ) );
-		add_filter( 'shortcode_atts_testimonial_view', array( $this, 'testimonial_view_filter' ), 10, 3 );
+		add_shortcode( $this->shortcode, array( $this, 'testimonial_view_shortcode' ) );
+		add_filter( 'shortcode_atts_' . $this->shortcode, array( $this, 'testimonial_view_filter' ), 10, 3 );
 
 		add_shortcode( 'testimonial_count', array( $this, 'testimonial_count' ) );
 
@@ -23,7 +25,7 @@ class Strong_Testimonials_Shortcodes {
 	}
 
 	public function get_shortcode() {
-		return 'testimonial_view';
+		return $this->shortcode;
 	}
 
 	/**
@@ -38,7 +40,7 @@ class Strong_Testimonials_Shortcodes {
 		$out = shortcode_atts(
 			WPMST()->render->get_view_defaults(),   // $pairs
 			$atts,
-			'testimonial_view'
+			$this->shortcode
 		);
 
 		return $this->render_view( $out );
@@ -148,7 +150,7 @@ class Strong_Testimonials_Shortcodes {
 	 * @return array
 	 */
 	public function no_texturize_shortcodes( $shortcodes ) {
-		$shortcodes[] = 'testimonial_view';
+		$shortcodes[] = $this->shortcode;
 
 		return $shortcodes;
 	}
