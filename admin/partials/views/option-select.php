@@ -1,6 +1,6 @@
 <?php /* translators: On the Views admin screen. */ ?>
 <th>
-	<label for="view-single_or_multiple"><?php _ex( 'Show', 'verb', 'strong-testimonials' ); ?></label>
+	<label for="view-single_or_multiple"><?php _e( 'Select', 'strong-testimonials' ); ?></label>
 </th>
 <td>
 

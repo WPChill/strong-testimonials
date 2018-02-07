@@ -223,7 +223,7 @@ function wpmtst_view_settings( $action = '', $view_id = null ) {
         <?php
 		// TODO Generify both hook and include
 		do_action( 'wpmtst_view_editor_before_group_select' );
-		include( 'partials/views/group-select.php' );
+		include( 'partials/views/group-query.php' );
 
 		do_action( 'wpmtst_view_editor_before_group_slideshow' );
 		include( 'partials/views/group-slideshow.php' );
@@ -259,12 +259,6 @@ function wpmtst_view_settings( $action = '', $view_id = null ) {
 	<?php
 }
 
-
-/**
- * -----------------
- * POST-REDIRECT-GET
- * -----------------
- */
 
 /**
  * Process form POST after editing.
