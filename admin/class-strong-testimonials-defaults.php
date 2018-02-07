@@ -686,9 +686,7 @@ class Strong_Testimonials_Defaults {
 			'container_data'      => '',
 			'content'             => 'entire',
 			'count'               => 1,
-			'display' => '',
 			'divi_builder'        => 0,
-			'excerpt' => '',
 			'excerpt_length'      => 55,
 			'font-color'         => array(
 				'color' => '',
@@ -710,10 +708,7 @@ class Strong_Testimonials_Defaults {
 			'more_page_hook'      => 'wpmtst_view_footer',
 			'more_page_id'        => 0,
 			'more_page_text'      => _x( 'Read more testimonials', 'link', 'strong-testimonials' ),
-			'menu_order' => '',
-			'newest' => '',
 			'note'                => '',
-			'oldest' => '',
 			'order'               => 'oldest',
 			'page'                => '',
 			'pagination'          => false,
@@ -730,8 +725,6 @@ class Strong_Testimonials_Defaults {
 				'before_page_number' => '',
 				'after_page_number'  => '',
 			),
-			'random' => '',
-			'slideshow' => '',
 			'slideshow_settings'  => array(
 				'effect'             => 'fade',
 				'speed'              => 1,
@@ -757,7 +750,7 @@ class Strong_Testimonials_Defaults {
 			'title_link'          => false,
 			'use_default_length'  => true,
 			'use_default_more'    => false,
-			'view' => '',
+			'view'                => '',
 		);
 		ksort( $default_view );
 
