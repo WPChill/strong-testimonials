@@ -15,7 +15,7 @@ class Strong_Testimonials_Shortcodes {
 		add_shortcode( $this->shortcode, array( $this, 'testimonial_view_shortcode' ) );
 		add_filter( 'shortcode_atts_' . $this->shortcode, array( $this, 'testimonial_view_filter' ), 10, 3 );
 
-		add_shortcode( 'testimonial_count', array( $this, 'testimonial_count' ) );
+		add_shortcode( 'testimonial_count', array( $this, 'testimonial_count_shortcode' ) );
 
 		add_filter( 'widget_text', 'do_shortcode' );
 		add_filter( 'no_texturize_shortcodes', array( $this, 'no_texturize_shortcodes' ) );
@@ -120,7 +120,7 @@ class Strong_Testimonials_Shortcodes {
 	 *
 	 * @return int
 	 */
-	public function testimonial_count( $atts, $content = null ) {
+	public function testimonial_count_shortcode( $atts, $content = null ) {
 		$atts = shortcode_atts(
 			array(
 				'category' => '',
