@@ -22,12 +22,12 @@
 					</select>
 				</div>
 				<div class="inline then then_thumbnail_size" style="margin-left: 1em;">
-					<label for="thumbnail_width" class="">
+					<label for="thumbnail_width">
 						<?php _e( 'width', 'strong-testimonials' ); ?>
 					</label>
 					<input id="thumbnail_width" class="input-number-px" type="text" name="view[data][thumbnail_width]" value="<?php echo $view['thumbnail_width']; ?>"> px
 					<span style="display: inline-block; color: #BBB; margin: 0 1em;">|</span>
-                    <label for="thumbnail_height" class="">
+                    <label for="thumbnail_height">
 						<?php _e( 'height', 'strong-testimonials' ); ?>
 					</label>
 					<input id="thumbnail_height" class="input-number-px" type="text" name="view[data][thumbnail_height]" value="<?php echo $view['thumbnail_height']; ?>"> px
@@ -44,9 +44,23 @@
 						<?php _e( 'Open full-size image in a lightbox', 'strong-testimonials' ); ?>
 					</label>
 				</div>
-				<div class="then then_lightbox">
+				<div class="inline then then_lightbox">
 					<p class="description"><?php _e( 'Requires a lightbox provided by your theme or another plugin.', 'strong-testimonials' ); ?></p>
 				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="row-inner">
+                <div class="inline then then_lightbox input" style="display: none;">
+                    <label for="view-lightbox_class">
+		                <?php _e( 'CSS class', 'strong-testimonials' ); ?>
+                    </label>
+                    <input type="text" id="view-lightbox_class" class="medium inline" name="view[data][lightbox_class]" value="<?php echo $view['lightbox_class']; ?>">
+                    <p class="inline description tall">
+						<?php _e( 'To add a class to the image link.', 'strong-testimonials' ); ?>
+                    </p>
+                </div>
 			</div>
 		</div>
 
