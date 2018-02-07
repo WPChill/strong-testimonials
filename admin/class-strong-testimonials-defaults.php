@@ -655,7 +655,6 @@ class Strong_Testimonials_Defaults {
 	 */
 	public static function get_default_view() {
 		$default_view = array(
-			'all'                 => 1,
 			'background'          => array(
 				'color'              => '',
 				'type'               => '',
@@ -685,7 +684,7 @@ class Strong_Testimonials_Defaults {
 			'container_class'     => '',
 			'container_data'      => '',
 			'content'             => 'entire',
-			'count'               => 1,
+			'count'               => -1,
 			'divi_builder'        => 0,
 			'excerpt_length'      => 55,
 			'font-color'         => array(
@@ -750,6 +749,7 @@ class Strong_Testimonials_Defaults {
 			'title_link'          => false,
 			'use_default_length'  => true,
 			'use_default_more'    => false,
+			'view'                => '',
 		);
 		ksort( $default_view );
 

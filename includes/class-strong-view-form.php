@@ -124,10 +124,8 @@ class Strong_View_Form extends Strong_View {
 	 */
 	public function build_classes() {
 
-		$container_class_list = array(
-			'strong-view-id-' . $this->atts['view'],
-			$this->get_template_css_class(),
-		);
+		$container_class_list = array( 'strong-view-id-' . $this->atts['view'] );
+		$container_class_list = array_merge( $container_class_list, $this->get_template_css_class() );
 
 		if ( is_rtl() ) {
 			$container_class_list[] = 'rtl';

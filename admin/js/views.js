@@ -720,14 +720,14 @@ jQuery(document).ready(function( $ ) {
     $viewPaginationType = $('#view-pagination_type');
 
   function paginationTypeChangeListener() {
-    if (this.value === 'standard' && $viewQuantity.val() === '0') {
+    if (this.value === 'standard' && $viewQuantity.val() === '0' && $("#view-pagination").is(":checked")) {
       alert('Standard pagination is incompatible with Count.');
       $(this).val('simple').change();
     }
   }
 
   function quantityChangeListener() {
-    if (this.value === '0' && $viewPaginationType.val() === 'standard') {
+    if (this.value === '0' && $viewPaginationType.val() === 'standard' && $("#view-pagination").is(":checked")) {
       alert('Count is incompatible with Standard pagination.');
       $(this).val(1).change();
     }

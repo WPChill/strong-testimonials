@@ -1,6 +1,6 @@
 <?php /* translators: On the Views admin screen. */ ?>
 <th>
-	<label for="view-single_or_multiple"><?php _ex( 'Show', 'verb', 'strong-testimonials' ); ?></label>
+	<label for="view-single_or_multiple"><?php _ex( 'Select', 'verb', 'strong-testimonials' ); ?></label>
 </th>
 <td>
 
@@ -17,4 +17,13 @@
 		<?php include( 'option-id.php' ); ?>
 	</div>
 
+</td>
+<td class="divider">
+    <p><?php _e( '<code>post_ids</code>' , 'strong-testimonials' ); ?></p>
+</td>
+<td>
+    <p><?php _e( 'a comma-separated list of post ID\'s' , 'strong-testimonials' ); ?></p>
+</td>
+<td>
+    <p><?php _e( '<code>post_ids="123,456"</code>', 'strong-testimonials' ); ?></p>
 </td>

@@ -123,90 +123,6 @@ class Strong_View_Slideshow extends Strong_View_Display {
 		wp_reset_postdata();
 
 		$this->html = apply_filters( 'strong_view_html', $html, $this );
-
-	}
-
-	/**
-	 * Build our query based on view attributes.
-	 */
-	public function build_query() {
-		$ids = explode( ',', $this->atts['id'] );
-
-		$args = array(
-			'post_type'      => 'wpm-testimonial',
-			'post_status'    => 'publish',
-			'posts_per_page' => -1,
-			'paged'          => null,
-		);
-
-		// id overrides category
-		if ( $this->atts['id'] ) {
-			$args['post__in'] = $ids;
-		}
-		elseif ( $this->atts['category'] ) {
-			$categories        = apply_filters( 'wpmtst_l10n_cats', explode( ',', $this->atts['category'] ) );
-			$args['tax_query'] = array(
-				array(
-					'taxonomy' => 'wpm-testimonial-category',
-					'field'    => 'id',
-					'terms'    => $categories,
-				),
-			);
-		}
-
-		// order by
-		if ( $this->atts['menu_order'] ) {
-			$args['orderby'] = 'menu_order';
-			$args['order']   = 'ASC';
-		}
-		else {
-			$args['orderby'] = 'post_date';
-			if ( $this->atts['newest'] ) {
-				$args['order'] = 'DESC';
-			}
-			else {
-				$args['order'] = 'ASC';
-			}
-		}
-
-		// For Post Types Order plugin
-		$args['ignore_custom_sort'] = true;
-
-		$query = new WP_Query( apply_filters( 'wpmtst_query_args', $args, $this->atts ) );
-
-		/**
-		 * Shuffle array in PHP instead of SQL.
-		 *
-		 * @since 1.16
-		 */
-		if ( $this->atts['random'] ) {
-			shuffle( $query->posts );
-		}
-
-		/**
-		 * Extract slice of array, which may be shuffled.
-		 *
-		 * Use lesser value: requested count or actual count.
-		 * Thanks chestozo.
-		 *
-		 * @link  https://github.com/cdillon/strong-testimonials/pull/5
-		 *
-		 * @since 1.16.1
-		 */
-		if ( ! $this->atts['all'] && $this->atts['count'] > 0 ) {
-			$count              = min( $this->atts['count'], count( $query->posts ) );
-			$query->posts       = array_slice( $query->posts, 0, $count );
-			$query->post_count  = $count;
-			$query->found_posts = $count;
-		}
-
-		$this->post_count  = $query->post_count;
-		$this->found_posts = $query->found_posts;
-
-		WPMST()->set_query( $query );
-
-		$this->query = $query;
-
 	}
 
 	/**
@@ -218,10 +134,8 @@ class Strong_View_Slideshow extends Strong_View_Display {
 
 		$options = get_option( 'wpmtst_view_options' );
 
-		$container_class_list = array(
-			'strong-view-id-' . $this->atts['view'],
-			$this->get_template_css_class(),
-		);
+		$container_class_list = array( 'strong-view-id-' . $this->atts['view'] );
+		$container_class_list = array_merge( $container_class_list, $this->get_template_css_class() );
 
 		if ( is_rtl() ) {
 			$container_class_list[] = 'rtl';
@@ -235,15 +149,14 @@ class Strong_View_Slideshow extends Strong_View_Display {
 		$content_class_list  = array();
 		$post_class_list     = array( 'testimonial' );
 
-		// excerpt overrides length
-		if ( $this->atts['excerpt'] ) {
+		if ( 'excerpt' == $this->atts['content'] ) {
 			$post_class_list[] = 'excerpt';
 		}
 
 		/**
 		 * Slideshow
 		 */
-		if ( $this->atts['slideshow'] ) {
+		if ( 'slideshow' == $this->atts['mode'] ) {
 
 			$settings = $this->atts['slideshow_settings'];
 
