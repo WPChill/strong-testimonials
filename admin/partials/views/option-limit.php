@@ -22,11 +22,12 @@
                        min="1" size="5" style="display: none;">
             </label>
         </div>
-        <div class="inline">
-            <p class="description">How many testimonials to select for this view.</p>
-        </div>
-        <div class="inline then then_slideshow then_not_display then_not_form" style="display: none;">
-            <p class="description">Slideshows will display one a time.</p>
-        </div>
 	</div>
+</td>
+<td class="divider">
+    <p><?php _e( '<code>count</code>', 'strong-testimonials' ); ?></p>
+</td>
+<td></td>
+<td>
+    <p><?php _e( '<code>count=5</code>', 'strong-testimonials' ); ?></p>
 </td>
