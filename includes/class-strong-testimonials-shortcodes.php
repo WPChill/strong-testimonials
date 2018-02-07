@@ -74,7 +74,9 @@ class Strong_Testimonials_Shortcodes {
 	public static function render_view( $out ) {
 		// Did we find this view?
 		if ( isset( $out['view_not_found'] ) && $out['view_not_found'] ) {
-			return '<p style="color:red">' . sprintf( __( 'Strong Testimonials error: View %s not found' ), $out['view'] ) . '</p>';
+			if ( current_user_can( 'strong_testimonials_views' ) ) {
+				return '<p style="color: red;">' . sprintf( __( 'Strong Testimonials View %s not found', 'strong-testimonials' ), $out['view'] ) . '</p>';
+			}
 		}
 
 		if ( $out['form'] ) {
