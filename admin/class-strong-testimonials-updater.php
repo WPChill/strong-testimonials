@@ -853,70 +853,66 @@ class Strong_Testimonials_Updater {
 	 * @return array
 	 */
 	public function convert_slideshow( $view_data ) {
-		if ( 'slideshow' == $view_data['mode'] ) {
-			$view_data['slideshow'] = 1;
+		if ( isset( $view_data['slideshow_settings'] ) ) {
+			return $view_data;
 		}
 
-		if ( ! isset( $view_data['slideshow_settings'] ) ) {
+		if ( 'scrollHorz' == $view_data['effect'] ) {
+			$view_data['effect'] = 'horizontal';
+		}
 
-			if ( 'scrollHorz' == $view_data['effect'] ) {
-				$view_data['effect'] = 'horizontal';
+		$view_data['slideshow_settings'] = array(
+			'effect'             => $view_data['effect'],
+			'speed'              => $view_data['effect_for'],
+			'pause'              => $view_data['show_for'],
+			'auto_hover'         => ! $view_data['no_pause'],
+			'adapt_height'       => false,
+			'adapt_height_speed' => .5,
+			'stretch'            => isset( $view_data['stretch'] ) ? 1 : 0,
+		);
+
+		unset(
+			$view_data['effect'],
+			$view_data['effect_for'],
+			$view_data['no_pause'],
+			$view_data['show_for'],
+			$view_data['stretch']
+		);
+
+		if ( isset( $view_data['slideshow_nav'] ) ) {
+			switch ( $view_data['slideshow_nav'] ) {
+				case 'simple':
+					$view_data['slideshow_settings']['controls_type']  = 'none';
+					$view_data['slideshow_settings']['controls_style'] = 'buttons';
+					$view_data['slideshow_settings']['pager_type']     = 'full';
+					$view_data['slideshow_settings']['pager_style']    = 'buttons';
+					$view_data['slideshow_settings']['nav_position']   = 'inside';
+					break;
+				case 'buttons1':
+					$view_data['slideshow_settings']['controls_type']  = 'sides';
+					$view_data['slideshow_settings']['controls_style'] = 'buttons';
+					$view_data['slideshow_settings']['pager_type']     = 'none';
+					$view_data['slideshow_settings']['pager_style']    = 'buttons';
+					$view_data['slideshow_settings']['nav_position']   = 'inside';
+					break;
+				case 'buttons2':
+					$view_data['slideshow_settings']['controls_type']  = 'simple';
+					$view_data['slideshow_settings']['controls_style'] = 'buttons2';
+					$view_data['slideshow_settings']['pager_type']     = 'none';
+					$view_data['slideshow_settings']['pager_style']    = 'buttons';
+					$view_data['slideshow_settings']['nav_position']   = 'inside';
+					break;
+				case 'indexed':
+					$view_data['slideshow_settings']['controls_type']  = 'none';
+					$view_data['slideshow_settings']['controls_style'] = 'buttons';
+					$view_data['slideshow_settings']['pager_type']     = 'full';
+					$view_data['slideshow_settings']['pager_style']    = 'text';
+					$view_data['slideshow_settings']['nav_position']   = 'inside';
+					break;
+				default:
+					// none
 			}
-
-			$view_data['slideshow_settings'] = array(
-				'effect'             => $view_data['effect'],
-				'speed'              => $view_data['effect_for'],
-				'pause'              => $view_data['show_for'],
-				'auto_hover'         => ! $view_data['no_pause'],
-				'adapt_height'       => false,
-				'adapt_height_speed' => .5,
-				'stretch'            => isset( $view_data['stretch'] ) ? 1 : 0,
-			);
-
-			unset(
-				$view_data['effect'],
-				$view_data['effect_for'],
-				$view_data['no_pause'],
-				$view_data['show_for'],
-				$view_data['stretch']
-			);
-
-			if ( isset( $view_data['slideshow_nav'] ) ) {
-				switch ( $view_data['slideshow_nav'] ) {
-					case 'simple':
-						$view_data['slideshow_settings']['controls_type']  = 'none';
-						$view_data['slideshow_settings']['controls_style'] = 'buttons';
-						$view_data['slideshow_settings']['pager_type']     = 'full';
-						$view_data['slideshow_settings']['pager_style']    = 'buttons';
-						$view_data['slideshow_settings']['nav_position']   = 'inside';
-						break;
-					case 'buttons1':
-						$view_data['slideshow_settings']['controls_type']  = 'sides';
-						$view_data['slideshow_settings']['controls_style'] = 'buttons';
-						$view_data['slideshow_settings']['pager_type']     = 'none';
-						$view_data['slideshow_settings']['pager_style']    = 'buttons';
-						$view_data['slideshow_settings']['nav_position']   = 'inside';
-						break;
-					case 'buttons2':
-						$view_data['slideshow_settings']['controls_type']  = 'simple';
-						$view_data['slideshow_settings']['controls_style'] = 'buttons2';
-						$view_data['slideshow_settings']['pager_type']     = 'none';
-						$view_data['slideshow_settings']['pager_style']    = 'buttons';
-						$view_data['slideshow_settings']['nav_position']   = 'inside';
-						break;
-					case 'indexed':
-						$view_data['slideshow_settings']['controls_type']  = 'none';
-						$view_data['slideshow_settings']['controls_style'] = 'buttons';
-						$view_data['slideshow_settings']['pager_type']     = 'full';
-						$view_data['slideshow_settings']['pager_style']    = 'text';
-						$view_data['slideshow_settings']['nav_position']   = 'inside';
-						break;
-					default:
-						// none
-				}
-				unset( $view_data['slideshow_nav'] );
-			}
-
+			unset( $view_data['slideshow_nav'] );
 		}
 
 		return $view_data;
