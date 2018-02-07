@@ -72,44 +72,34 @@ class Strong_View {
 	 * Add content filters.
 	 */
 	public function add_content_filters() {
-
-		if ( isset( $this->atts['truncated'] ) && $this->atts['truncated'] ) {
+		if ( isset( $this->atts['content'] ) && 'truncated' == $this->atts['content'] ) {
 
 			// Force use of content instead of manual excerpt.
 			add_filter( 'wpmtst_get_the_excerpt', 'wpmtst_bypass_excerpt', 1 );
 
-		} elseif ( isset( $this->atts['excerpt'] ) && $this->atts['excerpt'] ) {
+		} elseif ( isset( $this->atts['content'] ) && 'excerpt' == $this->atts['content'] ) {
 
 			// Maybe add read-more to manual excerpts.
 			add_filter( 'wpmtst_get_the_excerpt', 'wpmtst_custom_excerpt_more', 20 );
 
-		} else {
-
-			// no filters
-
 		}
-
+		// else no filters
 	}
 
 	/**
 	 * Add content filters.
 	 */
 	public function remove_content_filters() {
-
-		if ( isset( $this->atts['truncated'] ) && $this->atts['truncated'] ) {
+		if ( isset( $this->atts['content'] ) && 'truncated' == $this->atts['content'] ) {
 
 			remove_filter( 'wpmtst_get_the_excerpt', 'wpmtst_bypass_excerpt', 1 );
 
-		} elseif ( isset( $this->atts['excerpt'] ) && $this->atts['excerpt'] ) {
+		} elseif ( isset( $this->atts['content'] ) && 'excerpt' == $this->atts['content'] ) {
 
 			remove_filter( 'wpmtst_get_the_excerpt', 'wpmtst_custom_excerpt_more', 20 );
 
-		} else {
-
-			// no filters
-
 		}
-
+		// else no filters
 	}
 
 	/**
@@ -202,7 +192,7 @@ class Strong_View {
 		$class = str_replace( ':content', '', $this->atts['template'] );
 		$class = str_replace( ':', '-', $class );
 		$class = str_replace( '-form-form', '-form', $class );
-		return $class;
+		return array( $class );
 	}
 
 	/**
