@@ -41,12 +41,12 @@ function strong_testimonials_view( $id = null ) {
 		return;
 	}
 
-	$out   = WPMST()->render->get_view_defaults();
+	$out   = array();
 	$pairs = array();
 	$atts  = array( 'id' => $id );
 	$out   = WPMST()->render->parse_view( $out, $pairs, $atts );
 
-	echo Strong_Testimonials_Shortcodes::render_view( $out );
+	echo WPMST()->shortcodes->render_view( $out );
 }
 
 /**
