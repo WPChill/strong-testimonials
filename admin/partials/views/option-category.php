@@ -4,10 +4,10 @@
 		<?php _e( 'Categories', 'strong-testimonials' ); ?>
     </label>
 </th>
+<?php if ( $cat_count ) : ?>
 <td>
     <div id="view-category" class="row">
-		<?php if ( $cat_count ) : ?>
-            <div class="table">
+        <div class="table inline">
                 <div class="table-row">
                     <div class="table-cell select-cell then_display then_slideshow then_not_form">
                         <select id="view-category-select" class="if selectper" name="view[data][category_all]">
@@ -35,9 +35,22 @@
                     </div>
                 </div>
             </div>
+    </div>
+</td>
 		<?php else : ?>
+<td>
+    <div id="view-category" class="row">
             <input type="hidden" name="view[data][category_all]" value="all">
             <p class="description tall"><?php _e( 'No categories found', 'strong-testimonials' ); ?></p>
-		<?php endif; ?>
     </div>
+</td>
+<?php endif; ?>
+<td class="divider">
+    <p><?php _e( '<code>category</code>', 'strong-testimonials' ); ?></p>
+</td>
+<td>
+    <p><?php _e( 'a comma-separated list of category slugs or ID\'s', 'strong-testimonials' ); ?></p>
+</td>
+<td>
+    <p><?php _e( '<code>category="accounting"</code>', 'strong-testimonials' ); ?></p>
 </td>
