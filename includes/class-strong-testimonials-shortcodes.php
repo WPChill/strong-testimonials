@@ -58,7 +58,7 @@ class Strong_Testimonials_Shortcodes {
 	 * @return array
 	 */
 	public function testimonial_view_filter( $out, $pairs, $atts ) {
-		return WPMST()->render->parse_view( normalize_empty_atts( $out ), $pairs, $atts );
+		return WPMST()->render->parse_view( $out, $pairs, $atts );
 	}
 
 	/**
