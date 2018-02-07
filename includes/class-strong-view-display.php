@@ -193,13 +193,13 @@ class Strong_View_Display extends Strong_View {
 
 		// order by
 		// TODO improve for allowable custom order
-		if ( $this->atts['menu_order'] ) {
+		if ( 'menu_order' == $this->atts['order'] ) {
 			$args['orderby'] = 'menu_order';
 			$args['order']   = 'ASC';
 		}
 		else {
 			$args['orderby'] = 'post_date';
-			if ( $this->atts['newest'] ) {
+			if ( 'newest' == $this->atts['order'] ) {
 				$args['order'] = 'DESC';
 			}
 			else {
@@ -217,7 +217,7 @@ class Strong_View_Display extends Strong_View {
 		 *
 		 * @since 1.16
 		 */
-		if ( $this->atts['random'] ) {
+		if ( 'random' == $this->atts['order'] ) {
 			shuffle( $query->posts );
 		}
 
@@ -267,8 +267,7 @@ class Strong_View_Display extends Strong_View {
 		$content_class_list  = array();
 		$post_class_list     = array( 'testimonial' );
 
-		// excerpt overrides length
-		if ( $this->atts['excerpt'] ) {
+		if ( 'excerpt' == $this->atts['content'] ) {
 			$post_class_list[] = 'excerpt';
 		}
 
@@ -299,7 +298,6 @@ class Strong_View_Display extends Strong_View {
 		 * Store updated atts.
 		 */
 		WPMST()->set_atts( $this->atts );
-
 	}
 
 	/**
