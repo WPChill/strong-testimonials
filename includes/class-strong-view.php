@@ -192,7 +192,7 @@ class Strong_View {
 		$class = str_replace( ':content', '', $this->atts['template'] );
 		$class = str_replace( ':', '-', $class );
 		$class = str_replace( '-form-form', '-form', $class );
-		return $class;
+		return array( $class );
 	}
 
 	/**
