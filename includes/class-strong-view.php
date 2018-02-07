@@ -212,6 +212,7 @@ class Strong_View {
 	 */
 	public function add_custom_style() {
 		$this->custom_background();
+		$this->custom_font_color();
 
 		/**
 		 * Hook to add more inline style to `wpmtst-custom-style` handle.
@@ -221,12 +222,36 @@ class Strong_View {
 	}
 
 	/**
+	 * Build CSS for custom font color.
+	 */
+	public function custom_font_color() {
+		$font_color = $this->atts['font-color'];
+		if ( ! isset( $font_color['type'] ) || 'custom' != $font_color['type'] ) {
+			return;
+		}
+
+		$c1 = isset( $font_color['color'] ) ? $font_color['color'] : '';
+
+		if ( $c1 ) {
+			$view_el = ".strong-view-id-{$this->atts['view']}";
+			$is_form = ( isset( $this->atts['form'] ) && $this->atts['form'] );
+
+			if ( $is_form ) {
+				wp_add_inline_style( 'wpmtst-custom-style', "$view_el .strong-form-inner { color: $c1; }" );
+			} else {
+				wp_add_inline_style( 'wpmtst-custom-style', "$view_el .testimonial-content p, $view_el .testimonial-client div { color: $c1; }" );
+			}
+		}
+	}
+
+	/**
 	 * Build CSS for custom background.
 	 */
 	public function custom_background() {
 		$background = $this->atts['background'];
-		if ( ! isset( $background['type'] ) )
+		if ( ! isset( $background['type'] ) ) {
 			return;
+		}
 
 		$c1 = '';
 		$c2 = '';
@@ -264,24 +289,24 @@ class Strong_View {
 			$gradient = self::gradient_rules( $c1, $c2 );
 
 			if ( $is_form ) {
-				wp_add_inline_style( 'wpmtst-custom-style', "$view_el .strong-form-inner { $gradient }\n" );
+				wp_add_inline_style( 'wpmtst-custom-style', "$view_el .strong-form-inner { $gradient }" );
 			} else {
-				wp_add_inline_style( 'wpmtst-custom-style', "$view_el .testimonial-inner { $gradient }\n" );
+				wp_add_inline_style( 'wpmtst-custom-style', "$view_el .testimonial-inner { $gradient }" );
 
 				if ( 'large-widget:widget' == WPMST()->atts( 'template' ) ) {
-					wp_add_inline_style( 'wpmtst-custom-style', "$view_el .readmore-page { background: $c2 }\n" );
+					wp_add_inline_style( 'wpmtst-custom-style', "$view_el .readmore-page { background: $c2 }" );
 				}
 			}
 
 		} elseif ( $c1 ) {
 
 			if ( $is_form ) {
-				wp_add_inline_style( 'wpmtst-custom-style', "$view_el .strong-form-inner { background: $c1; }\n" );
+				wp_add_inline_style( 'wpmtst-custom-style', "$view_el .strong-form-inner { background: $c1; }" );
 			} else {
-				wp_add_inline_style( 'wpmtst-custom-style', "$view_el .testimonial-inner { background: $c1; }\n" );
+				wp_add_inline_style( 'wpmtst-custom-style', "$view_el .testimonial-inner { background: $c1; }" );
 
 				if ( 'large-widget:widget' == WPMST()->atts( 'template' ) ) {
-					wp_add_inline_style( 'wpmtst-custom-style', "$view_el .readmore-page { background: $c1 }\n" );
+					wp_add_inline_style( 'wpmtst-custom-style', "$view_el .readmore-page { background: $c1 }" );
 				}
 			}
 

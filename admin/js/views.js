@@ -737,12 +737,73 @@ jQuery(document).ready(function( $ ) {
   $viewQuantity.on('change', quantityChangeListener);
 
   /**
-   * Background change listener
+   * ----------------------------------------------------------------------
+   * Background and Font colors
+   * ----------------------------------------------------------------------
    */
+  function updateBackgroundPreview() {
+    var c1,
+      c2,
+      c3,
+      background = backgroundRadios.filter(":checked").val(),
+      fontColor = fontColorRadios.filter(":checked").val()
+
+    if ('custom' === fontColor) {
+      c3 = document.getElementById("fc-color").value;
+      backgroundPreview.css("color", c3);
+    } else {
+      backgroundPreview.css("color", "inherit");
+    }
+    switch (background) {
+      case '':
+        backgroundPreview.css("background", "transparent");
+        break;
+      case 'single':
+        c1 = document.getElementById("bg-color").value;
+        backgroundPreview.css("background", c1);
+        break;
+      case 'gradient':
+        c1 = document.getElementById("bg-gradient1").value;
+        c2 = document.getElementById("bg-gradient2").value;
+        backgroundPreview.css(constructGradientCSS(c1, c2));
+        break;
+      case 'preset':
+        backgroundPreset(backgroundPresetSelector.val());
+        break;
+      default:
+    }
+
+  }
+
   var backgroundRadios = $("input[type=radio][name='view[data][background][type]']"),
     backgroundPreview = $("#background-preview"),
     backgroundPresetSelector = $("#view-background-preset");
 
+  /**
+   * Font-color change listener
+   */
+  var fontColorRadios = $("input[type=radio][name='view[data][font-color][type]']")
+
+  function fontColorDescriptions() {
+    var fontColorID = fontColorRadios.filter(":checked").attr("id");
+
+    $("#view-font-color-info")
+      .find(".font-color-description:visible")
+      .hide()
+      .end()
+      .find("." + fontColorID)
+      .show();
+
+    updateBackgroundPreview();
+  }
+
+  fontColorDescriptions();
+
+  fontColorRadios.on("change", fontColorDescriptions);
+
+  /**
+   * Background change listener
+   */
   function backgroundDescriptions() {
     var backgroundID = backgroundRadios.filter(":checked").attr("id");
 
@@ -763,32 +824,6 @@ jQuery(document).ready(function( $ ) {
   backgroundPresetSelector.on("change", function () {
     backgroundPreset($(this).val());
   });
-
-  function updateBackgroundPreview() {
-    var c1,
-      c2,
-      background = backgroundRadios.filter(":checked").val();
-
-    switch (background) {
-      case 'none':
-        backgroundPreview.css("background", "transparent");
-        break;
-      case 'single':
-        c1 = document.getElementById("bg-color").value;
-        backgroundPreview.css("background", c1);
-        break;
-      case 'gradient':
-        c1 = document.getElementById("bg-gradient1").value;
-        c2 = document.getElementById("bg-gradient2").value;
-        backgroundPreview.css(constructGradientCSS(c1, c2));
-        break;
-      case 'preset':
-        backgroundPreset(backgroundPresetSelector.val());
-        break;
-      default:
-    }
-
-  }
 
   function backgroundPreset(preset) {
     if (!preset) {
