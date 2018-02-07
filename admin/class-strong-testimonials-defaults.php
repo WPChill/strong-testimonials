@@ -662,7 +662,6 @@ class Strong_Testimonials_Defaults {
 				'preset'             => '',
 				'gradient1'          => '',
 				'gradient2'          => '',
-				'example-font-color' => 'dark',
 			),
 			'category'            => 'all',
 			'class'               => '',
@@ -689,6 +688,10 @@ class Strong_Testimonials_Defaults {
 			'count'               => 1,
 			'divi_builder'        => 0,
 			'excerpt_length'      => 55,
+			'font-color'         => array(
+				'color' => '',
+				'type'  => '',
+			),
 			'form_ajax'           => 0,
 			'form_id'             => 1,
 			'gravatar'            => 'no',
