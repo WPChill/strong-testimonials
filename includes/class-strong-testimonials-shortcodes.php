@@ -76,12 +76,15 @@ class Strong_Testimonials_Shortcodes {
 			}
 		}
 
-		if ( $out['form'] ) {
-			$view = new Strong_View_Form( $out );
-		} elseif ( $out['slideshow'] ) {
-			$view = new Strong_View_Slideshow( $out );
-		} else {
-			$view = new Strong_View_Display( $out );
+		switch ( $out['mode'] ) {
+			case 'form' :
+				$view = new Strong_View_Form( $out );
+				break;
+			case 'slideshow' :
+				$view = new Strong_View_Slideshow( $out );
+				break;
+			default :
+				$view = new Strong_View_Display( $out );
 		}
 		$view->build();
 
