@@ -115,20 +115,23 @@ class Strong_Testimonials_Shortcodes {
 	 *
 	 * For all: [testimonial_count]
 	 * For a specific category (by slug): [testimonial_count category="abc"]
+	 * Unformatted: [testimonial_count unformatted]
 	 *
 	 * @param      $atts
 	 * @param null $content
 	 *
 	 * @since 2.19.0
+	 * @since 2.30.0 unformatted attribute
 	 *
 	 * @return int
 	 */
 	public function testimonial_count_shortcode( $atts, $content = null ) {
 		$atts = shortcode_atts(
 			array(
-				'category' => '',
+				'category'    => '',
+				'unformatted' => 0,
 			),
-			$atts
+			normalize_empty_atts( $atts )
 		);
 
 		$args = array(
@@ -140,7 +143,11 @@ class Strong_Testimonials_Shortcodes {
 		);
 		$posts_array = get_posts( $args );
 
-		return count( $posts_array );
+		if ( $atts['unformatted'] ) {
+			return count( $posts_array );
+		}
+
+		return number_format_i18n( count( $posts_array ) );
 	}
 
 	/**
