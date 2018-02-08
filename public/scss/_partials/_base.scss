@@ -25,46 +25,42 @@
 /* =pager
 ---------------------------------------------------------*/
 .strong-view {
-  .wpmslider-wrapper {
-    .wpmslider-pager {
-      display: inline-block;
-    }
-    .wpmslider-pager-item {
-      display: inline-block;
-    }
-    .wpmslider-pager-link {
-      text-decoration: none;
-    }
+  .wpmslider-pager {
+    display: inline-block;
+  }
+  .wpmslider-pager-item {
+    display: inline-block;
+  }
+  .wpmslider-pager-link {
+    text-decoration: none;
   }
 }
 
 /* =controls
 ---------------------------------------------------------*/
 .strong-view {
-  .wpmslider-wrapper {
-    .wpmslider-start,
-    .wpmslider-stop,
-    .wpmslider-next,
-    .wpmslider-prev {
-      z-index: 5;
-    }
+  .wpmslider-start,
+  .wpmslider-stop,
+  .wpmslider-next,
+  .wpmslider-prev {
+    z-index: 5;
+  }
 
-    .wpmslider-controls-auto,
-    .wpmslider-controls-direction {
-      display: inline-block;
-      vertical-align: middle;
-    }
+  .wpmslider-controls-auto,
+  .wpmslider-controls-direction {
+    display: inline-block;
+    vertical-align: middle;
+  }
 
-    .wpmslider-controls {
-      a {
-        box-shadow: none;
-        text-decoration: none;
+  .wpmslider-controls {
+    a {
+      box-shadow: none;
+      text-decoration: none;
 
-        &:hover,
-        &:active,
-        &:focus {
-          outline: 0;
-        }
+      &:hover,
+      &:active,
+      &:focus {
+        outline: 0;
       }
     }
   }
