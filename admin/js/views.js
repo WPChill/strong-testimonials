@@ -560,11 +560,11 @@ jQuery(document).ready(function ($) {
     var templateRadioOff, templateRadioOn, template;
 
     templateRadioOff = templateRadios.filter(':not(:checked)');
-    templateRadioOff.closest('li').removeClass('current-selection').find('.options').hide(200);
+    templateRadioOff.closest('li').removeClass('current-selection').find('.options').hide();
 
     templateRadioOn = templateRadios.filter(':checked');
     template = templateRadioOn.val();
-    templateRadioOn.closest('li').addClass('current-selection').find('.options').show(200);
+    templateRadioOn.closest('li').addClass('current-selection').find('.options').show();
 
     // Check for forced options
     if (template) {
@@ -613,11 +613,11 @@ jQuery(document).ready(function ($) {
     var formTemplateRadioOff, formTemplateRadioOn, formTemplate;
 
     formTemplateRadioOff = formTemplateRadios.filter(':not(:checked)');
-    formTemplateRadioOff.closest('li').removeClass('current-selection').find('.options').hide(200);
+    formTemplateRadioOff.closest('li').removeClass('current-selection').find('.options').hide();
 
     formTemplateRadioOn = formTemplateRadios.filter(':checked');
     formTemplate = formTemplateRadioOn.val();
-    formTemplateRadioOn.closest('li').addClass('current-selection').find('.options').show(200);
+    formTemplateRadioOn.closest('li').addClass('current-selection').find('.options').show();
   }
 
   formTemplateDescriptions();
@@ -634,14 +634,14 @@ jQuery(document).ready(function ($) {
     var layoutRadioOff, layoutRadioOn, layout;
 
     layoutRadioOff = layoutRadios.filter(':not(:checked)');
-    layoutRadioOff.closest('li').removeClass('current-selection').find('.options').hide(200);
+    layoutRadioOff.closest('li').removeClass('current-selection').find('.options').hide();
 
     layoutRadioOn = layoutRadios.filter(':checked');
     layout = layoutRadioOn.attr('id');
-    layoutRadioOn.closest('li').addClass('current-selection').find('.options').show(200);
+    layoutRadioOn.closest('li').addClass('current-selection').find('.options').show();
 
-    $('.layout-description, .layout-example').hide(200);
-    $('.' + layout).show(200);
+    $('.layout-description, .layout-example').hide();
+    $('.' + layout).show();
 
     // Special handling
 
@@ -779,11 +779,11 @@ jQuery(document).ready(function ($) {
     var backgroundRadioOff, backgroundRadioOn, backgroundID;
 
     backgroundRadioOff = backgroundRadios.filter(':not(:checked)');
-    backgroundRadioOff.closest('li').removeClass('current-selection').find('.options').hide(200);
+    backgroundRadioOff.closest('li').removeClass('current-selection').find('.options').hide();
 
     backgroundRadioOn = backgroundRadios.filter(':checked');
     backgroundID = backgroundRadioOn.filter(':checked').attr('id');
-    backgroundRadioOn.closest('li').addClass('current-selection').find('.options').show(200);
+    backgroundRadioOn.closest('li').addClass('current-selection').find('.options').show();
 
     $('#view-background-info')
       .find('.background-description:visible')
