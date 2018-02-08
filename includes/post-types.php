@@ -11,8 +11,7 @@
  */
 function wpmtst_register_cpt() {
 
-	if ( !post_type_exists( 'wpm-testimonial' ) ) {
-
+	if ( ! post_type_exists( 'wpm-testimonial' ) ) {
 		$args = wpmtst_get_cpt_defaults();
 
 		$args['labels']              = apply_filters( 'wpmtst_testimonial_labels', $args['labels'] );
@@ -27,22 +26,12 @@ function wpmtst_register_cpt() {
 	/**
 	 * Our taxonomy.
 	 */
-	if ( !taxonomy_exists( 'wpm-testimonial-category' ) && apply_filters( 'wpmtst_register_taxonomy', true ) ) {
+	if ( ! taxonomy_exists( 'wpm-testimonial-category' ) && apply_filters( 'wpmtst_register_taxonomy', true ) ) {
+		$args = wpmtst_get_tax_defaults();
 
-		$category_labels = array(
-			'name'          => __( 'Testimonial Categories', 'strong-testimonials' ),
-			'singular_name' => __( 'Testimonial Category', 'strong-testimonials' ),
-			'menu_name'     => __( 'Categories' ),
-			'all_items'     => __( 'All categories' ),
-		);
+		$args['labels'] = apply_filters( 'wpmtst_taxonomy_labels', $args['labels'] );
 
-		$category_args = array(
-			'labels'       => $category_labels,
-			'hierarchical' => true,
-			'rewrite'      => array( 'slug' => _x( 'testimonial-category', 'slug', 'strong-testimonials' ) ),
-		);
-
-		register_taxonomy( 'wpm-testimonial-category', array( 'wpm-testimonial' ), apply_filters( 'wpmtst_taxonomy', $category_args ) );
+		register_taxonomy( 'wpm-testimonial-category', array( 'wpm-testimonial' ), apply_filters( 'wpmtst_taxonomy', $args ) );
 	}
 }
 // Less than 15 for WPML compatibility.
@@ -50,7 +39,7 @@ add_action( 'init', 'wpmtst_register_cpt', 12 );
 
 
 /**
- * Return default values for registering our custom post type.
+ * Return default values for our custom post type.
  *
  * ---------------------------------------------------------------
  * For the [restore default] button to work, every value needs
@@ -61,7 +50,6 @@ add_action( 'init', 'wpmtst_register_cpt', 12 );
  * @return array|string
  */
 function wpmtst_get_cpt_defaults() {
-
 	$labels = array(
 		'name'                  => _x( 'Testimonials', 'post type general name', 'strong-testimonials' ),
 		'singular_name'         => _x( 'Testimonial', 'post type singular name', 'strong-testimonials' ),
@@ -120,6 +108,31 @@ function wpmtst_get_cpt_defaults() {
 			'pages'      => true,
 		),
 		'can_export'          => true,
+	);
+
+	return $args;
+}
+
+
+/**
+ * Return our custom taxonomy default values.
+ *
+ * @since 2.30.0
+ *
+ * @return array
+ */
+function wpmtst_get_tax_defaults() {
+	$labels = array(
+		'name'          => __( 'Testimonial Categories', 'strong-testimonials' ),
+		'singular_name' => __( 'Testimonial Category', 'strong-testimonials' ),
+		'menu_name'     => __( 'Categories' ),
+		'all_items'     => __( 'All categories' ),
+	);
+
+	$args = array(
+		'labels'       => $labels,
+		'hierarchical' => true,
+		'rewrite'      => array( 'slug' => _x( 'testimonial-category', 'slug', 'strong-testimonials' ) ),
 	);
 
 	return $args;
