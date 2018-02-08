@@ -70,7 +70,7 @@
 		<div class="row">
 			<div class="row-inner">
 				<label>
-					<select id="view-more_page_hook" class="" name="view[data][more_page_hook]">
+					<select id="view-more_page_hook" name="view[data][more_page_hook]">
 						<option value="wpmtst_view_footer" <?php selected( 'wpmtst_view_footer', $view['more_page_hook'] ); ?>>
 							<?php _ex( 'after the last testimonial', 'display setting', 'strong-testimonials' ); ?>
 						</option>

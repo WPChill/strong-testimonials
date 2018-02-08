@@ -33,7 +33,6 @@ class Strong_View_Form extends Strong_View {
 		$this->load_dependent_scripts();
 		$this->load_extra_stylesheets();
 		$this->load_validator();
-		//$this->load_honeypots();
 
 		// If we can preprocess, we can add the inline style in the <head>.
 		add_action( 'wp_enqueue_scripts', array( $this, 'add_custom_style' ), 20 );

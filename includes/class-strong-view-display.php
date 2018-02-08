@@ -237,6 +237,7 @@ class Strong_View_Display extends Strong_View {
 		 *
 		 * Use lesser value: requested count or actual count.
 		 * Thanks chestozo.
+		 *
 		 * @link  https://github.com/cdillon/strong-testimonials/pull/5
 		 *
 		 * @since 1.16.1
@@ -258,6 +259,7 @@ class Strong_View_Display extends Strong_View {
 	 * Build class list based on view attributes.
 	 *
 	 * This must happen after the query.
+	 * TODO DRY
 	 */
 	public function build_classes() {
 

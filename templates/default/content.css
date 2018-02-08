@@ -65,79 +65,6 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
   word-wrap: normal !important;
 }
 
-/* Simple pagination
------------------------------------------------*/
-.strong-view.default.strong-pager {
-  display: none;
-}
-
-.simplePagerList {
-  /* match .strong-content container */
-  margin: 20px auto;
-  text-align: center;
-}
-
-.strong-view ul.simplePagerNav {
-  margin: 0 auto;
-  padding: 0;
-  display: inline-block;
-}
-.strong-view ul.simplePagerNav li {
-  display: inline;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-.strong-view ul.simplePagerNav li a {
-  margin: 0 0.2em;
-  padding: 0.1em 0.3em;
-  outline: none;
-  text-decoration: none;
-  transition: background 0.2s ease;
-}
-.strong-view ul.simplePagerNav li a:hover {
-  background: #BBB;
-  color: #FFF;
-}
-.strong-view ul.simplePagerNav li.currentPage a {
-  text-decoration: none;
-  background: #999;
-  color: #FFF;
-}
-
-.strong-view.rtl ul.simplePagerNav li {
-  float: right;
-}
-
-/* Standard pagination
------------------------------------------------*/
-.strong-view .nav-links {
-  margin: 20px auto;
-  text-align: center;
-}
-.strong-view .nav-links a, .strong-view .nav-links span {
-  display: inline-block;
-  line-height: 1.5;
-  margin: 0 0.2em;
-  padding: 0.1em 0.3em;
-  transition: background 0.2s ease;
-}
-.strong-view .nav-links a.current, .strong-view .nav-links span.current {
-  background: #999;
-  color: #FFF;
-}
-.strong-view .nav-links a {
-  outline: none;
-  text-decoration: none;
-}
-.strong-view .nav-links a:hover,
-.strong-view .nav-links a.prev:hover,
-.strong-view .nav-links a.next:hover,
-.strong-view .nav-links span:hover {
-  background: #BBB;
-  color: #FFF;
-}
-
 /* Template
 -----------------------------------------------*/
 .strong-view.default .strong-content {
@@ -211,6 +138,81 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
   border: 1px solid #E6E6E6;
 }
 
+/* Pagination
+-----------------------------------------------*/
+/* Simple pagination
+-----------------------------------------------*/
+.strong-view.default.strong-pager {
+  display: none;
+}
+
+.simplePagerList {
+  /* match .strong-content container */
+  margin: 20px auto;
+  text-align: center;
+}
+
+.strong-view ul.simplePagerNav {
+  margin: 0 auto;
+  padding: 0;
+  display: inline-block;
+}
+.strong-view ul.simplePagerNav li {
+  display: inline;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.strong-view ul.simplePagerNav li a {
+  margin: 0 0.2em;
+  padding: 0.1em 0.3em;
+  outline: none;
+  text-decoration: none;
+  transition: background 0.2s ease;
+}
+.strong-view ul.simplePagerNav li a:hover {
+  background: #BBB;
+  color: #FFF;
+}
+.strong-view ul.simplePagerNav li.currentPage a {
+  text-decoration: none;
+  background: #999;
+  color: #FFF;
+}
+
+.strong-view.rtl ul.simplePagerNav li {
+  float: right;
+}
+
+/* Standard pagination
+-----------------------------------------------*/
+.strong-view .nav-links {
+  margin: 20px auto;
+  text-align: center;
+}
+.strong-view .nav-links a, .strong-view .nav-links span {
+  display: inline-block;
+  line-height: 1.5;
+  margin: 0 0.2em;
+  padding: 0.1em 0.3em;
+  transition: background 0.2s ease;
+}
+.strong-view .nav-links a.current, .strong-view .nav-links span.current {
+  background: #999;
+  color: #FFF;
+}
+.strong-view .nav-links a {
+  outline: none;
+  text-decoration: none;
+}
+.strong-view .nav-links a:hover,
+.strong-view .nav-links a.prev:hover,
+.strong-view .nav-links a.next:hover,
+.strong-view .nav-links span:hover {
+  background: #BBB;
+  color: #FFF;
+}
+
 /* Slideshow
 -----------------------------------------------*/
 .strong-view.default.slider-container {
@@ -274,4 +276,58 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
 .strong-view.default.rtl .testimonial-heading {
   padding-right: 40px;
   background-position: right;
+}
+
+/* Option: Image Right
+-----------------------------------------------*/
+.strong-view.default.image-right .strong-content {
+  margin: 20px auto;
+}
+.strong-view.default.image-right .testimonial-image {
+  float: right;
+  margin-top: .25em;
+  margin-bottom: 0.25em;
+  margin-left: 1em;
+}
+.strong-view.default.image-right .testimonial-client {
+  margin-top: 1em;
+  text-align: left;
+}
+
+.strong-view.default.image-right.rtl .testimonial-image {
+  float: left;
+  margin-left: 0;
+  margin-right: 1em;
+}
+.strong-view.default.image-right.rtl .testimonial-client {
+  text-align: right;
+}
+
+/* Option: No Quotes
+-----------------------------------------------*/
+.strong-view.default.no-quotes .testimonial-heading {
+  background: none;
+  margin-top: 0;
+  padding-left: 0;
+  text-align: left;
+}
+
+/* Option: Dark Theme
+-----------------------------------------------*/
+.strong-view.default.dark .testimonial {
+  border: 1px solid #777;
+}
+.strong-view.default.dark .testimonial-inner {
+  border: 1px solid #333;
+}
+.strong-view.default.dark .readmore-page {
+  border: 2px solid #777;
+}
+.strong-view.default.dark ul.simplePagerNav li a:hover {
+  background: #777;
+  color: #FFF;
+}
+.strong-view.default.dark ul.simplePagerNav li.currentPage a {
+  background: #555;
+  color: #FFF;
 }

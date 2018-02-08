@@ -48,12 +48,7 @@ function wpmtst_sanitize_view( $input ) {
 
 	$data = wpmtst_sanitize_view_post_id( $data, $input );
 
-	// Template
-	if ( 'form' == $data['mode'] ) {
-		$data['template'] = isset( $input['form-template'] ) ? sanitize_text_field( $input['form-template'] ) : '';
-	} else {
-		$data['template'] = isset( $input['template'] ) ? sanitize_text_field( $input['template'] ) : '';
-	}
+	$data = wpmtst_sanitize_view_template( $data, $input );
 
 	// Category
 	if ( 'form' == $data['mode'] ) {
@@ -167,7 +162,7 @@ function wpmtst_sanitize_view( $input ) {
 	/**
 	 * CSS Class Names
 	 * This field is being confused with custom CSS rules like `.testimonial { border: none; }`
-	 * so strip periods and anything between and including curly braces.
+	 * so strip periods and declarations.
 	 */
 	$data['class'] = sanitize_text_field( trim( preg_replace( '/\{.*?\}|\./', '', $input['class'] ) ) );
 
@@ -179,9 +174,9 @@ function wpmtst_sanitize_view( $input ) {
 	else {
 		$data['background']['type'] = sanitize_text_field( $input['background']['type'] );
 	}
-	$data['background']['color']     = sanitize_text_field( $input['background']['color'] );
-	$data['background']['gradient1'] = sanitize_text_field( $input['background']['gradient1'] );
-	$data['background']['gradient2'] = sanitize_text_field( $input['background']['gradient2'] );
+	$data['background']['color']     = sanitize_hex_color( $input['background']['color'] );
+	$data['background']['gradient1'] = sanitize_hex_color( $input['background']['gradient1'] );
+	$data['background']['gradient2'] = sanitize_hex_color( $input['background']['gradient2'] );
 	$data['background']['preset']    = sanitize_text_field( $input['background']['preset'] );
 
 	// Font color
@@ -220,6 +215,7 @@ function wpmtst_sanitize_view( $input ) {
 		$data['form_id'] = $input['form_id'];
 	}
 	else {
+		// hidden
 		$data['form_id'] = $input['_form_id'];
 	}
 
@@ -446,4 +442,30 @@ function wpmtst_sanitize_view_client_section( $in ) {
 	}
 
 	return $out;
+}
+
+/**
+ * Template settings.
+ *
+ * @param $data
+ * @param $input
+ *
+ * @return array
+ */
+function wpmtst_sanitize_view_template( $data, $input ) {
+	if ( 'form' == $data['mode'] ) {
+		$data['template'] = isset( $input['form-template'] ) ? sanitize_text_field( $input['form-template'] ) : '';
+	} else {
+		$data['template'] = isset( $input['template'] ) ? sanitize_text_field( $input['template'] ) : '';
+	}
+
+	// To save all template settings:
+	foreach ( $input['template_settings'] as $template => $settings ) {
+		foreach ( $settings as $key => $setting ) {
+			// This does not work for checkboxes yet.
+			$data['template_settings'][ $template ][ $key ] = sanitize_text_field( $setting );
+		}
+	}
+
+	return $data;
 }
