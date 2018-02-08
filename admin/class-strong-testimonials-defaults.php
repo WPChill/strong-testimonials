@@ -806,7 +806,7 @@ class Strong_Testimonials_Defaults {
 				'class'     => 'Captcha_Pro',
 				'file'      => 'captcha-pro/captcha_pro.php',
 				'settings'  => 'admin.php?page=captcha_pro.php',
-				'search'    => 'plugin-install.php?tab=search&s=Captcha+Pro',
+				'search' => '',
 				'url'       => 'https://bestwebsoft.com/products/wordpress/plugins/captcha/',
 				'installed' => false,
 				'active'    => false,

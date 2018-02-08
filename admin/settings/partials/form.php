@@ -341,47 +341,45 @@ foreach ( $plugins as $key => $plugin ) {
 
 				<?php foreach ( $plugins as $key => $plugin ) : ?>
                     <li>
-                        <label class="inline <?php if ( ! $plugin['active'] ) {
-							echo 'disabled';
-						} ?>">
+                        <label class="inline <?php if ( ! $plugin['active'] ) echo 'disabled'; ?>">
                             <input type="radio"
-                                   id=""
                                    name="wpmtst_form_options[captcha]" <?php disabled( ! $plugin['active'] ); ?><?php checked( $key, $form_options['captcha'] ); ?>
                                    value="<?php echo $key; ?>"/>
 							<?php echo $plugin['name']; ?>
                         </label>
 
-						<?php if ( isset( $plugin['installed'] ) && $plugin['installed'] ) : ?>
+						<?php if ( isset( $plugin['installed'] ) && $plugin['installed'] ) : // installed ?>
 
-							<?php if ( $plugin['active'] ) : ?>
+							<?php if ( $plugin['active'] ) : // active ?>
 
 								<?php if ( isset( $plugin['settings'] ) && $plugin['settings'] ) : ?>
-                                    <span class="link"><a href="<?php echo $plugin['settings']; ?>"><?php _ex( 'settings', 'link', 'strong-testimonials' ); ?></a></span> |
+                                    <span class="link"><a href="<?php echo $plugin['settings']; ?>"><?php _ex( 'settings', 'link', 'strong-testimonials' ); ?></a></span>
 								<?php else : ?>
-                                    <span class="notice"><?php _e( 'no settings', 'strong-testimonials' ); ?></span> |
+                                    <span class="notice"><?php _e( 'no settings', 'strong-testimonials' ); ?></span>
 								<?php endif; ?>
 
-							<?php else : ?>
+							<?php else : // inactive ?>
 
-                                <span class="notice disabled"><?php _ex( 'inactive', 'adjective', 'strong-testimonials' ); ?></span> |
+                                <span class="notice disabled"><?php _ex( 'inactive', 'adjective', 'strong-testimonials' ); ?></span>
 
 							<?php endif; ?>
+                            |
 
-						<?php else : ?>
+						<?php else : // not installed ?>
 
-                            <span class="notice disabled">(<?php _e( 'not installed', 'strong-testimonials' ); ?>
-                                )</span> |
-                            <span class="link"><a href="<?php echo $plugin['search']; ?>"><?php _ex( 'install plugin', 'link', 'strong-testimonials' ); ?></a></span> |
+                            <span class="notice disabled">(<?php _e( 'not installed', 'strong-testimonials' ); ?>)</span>
 
-						<?php endif; ?>
+                            <?php if ( isset( $plugin['search'] ) && $plugin['search'] ) : ?>
+                                <span class="link"><a href="<?php echo $plugin['search']; ?>"><?php _ex( 'install plugin', 'link', 'strong-testimonials' ); ?></a></span>
+                                |
+                            <?php endif; ?>
 
-                        <span class="link"><a href="<?php echo $plugin['url']; ?>"
-                                              target="_blank"><?php _ex( 'plugin page', 'link', 'strong-testimonials' ); ?></a></span>
+						<?php endif; // whether installed ?>
+
+                        <span class="link"><a href="<?php echo $plugin['url']; ?>" target="_blank"><?php _ex( 'plugin page', 'link', 'strong-testimonials' ); ?></a></span>
 
 						<?php if ( isset( $plugin['desc'] ) && $plugin['desc'] ) : ?>
-                            <p class="description <?php if ( isset( $plugin['style'] ) ) {
-								echo $plugin['style'];
-							} ?>"><?php echo $plugin['desc']; ?></p>
+                            <p class="description <?php if ( isset( $plugin['style'] ) ) echo $plugin['style']; ?>"><?php echo $plugin['desc']; ?></p>
 						<?php endif; ?>
                     </li>
 				<?php endforeach; ?>
