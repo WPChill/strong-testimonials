@@ -208,7 +208,6 @@ class Strong_Testimonials_Form {
 		$fields    = wpmtst_get_form_fields( $form_name );
 
 		if ( $form_options['captcha'] ) {
-//			$form_errors = wpmtst_captcha_check( $form_options['captcha'], $form_errors );
 			$form_errors = apply_filters( 'wpmtst_check_captcha', $form_errors );
 		}
 
