@@ -810,7 +810,7 @@ class Strong_Testimonials_Updater {
 				$view_data['template_settings'] = array( 'theme' => 'dark' );
 				break;
 			case 'default:form' :
-				$view_data['template'] = 'default';
+				$view_data['template'] = 'default-form';
 				break;
 			case 'image-right:content' :
 				$view_data['template'] = 'default';
