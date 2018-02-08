@@ -308,12 +308,6 @@ final class Strong_Testimonials {
 		 * Add image size for widget.
 		 */
 		add_action( 'after_setup_theme', array( $this, 'add_image_size' ) );
-
-		/**
-		 * Debug info.
-		 */
-		add_action( 'wp_head', array( $this, 'show_version_info' ), 999 );
-		add_action( 'wp_footer', array( $this, 'on_wp_footer' ), 999 );
 	}
 
 	/**
@@ -457,41 +451,6 @@ final class Strong_Testimonials {
 	 */
 	public function get_db_version() {
 		return $this->db_version;
-	}
-
-	/**
-	 * Show version number in <head> section.
-	 *
-	 * For troubleshooting only.
-	 *
-	 * @since 1.12.0
-	 * @since 2.19.0 Including add-ons.
-	 */
-	function show_version_info() {
-		global $wp_version;
-
-		$comment = array(
-			'WordPress ' . $wp_version,
-			'Strong Testimonials ' . WPMTST_VERSION,
-		);
-
-		$addons = get_option( 'wpmtst_addons' );
-		if ( $addons ) {
-			foreach ( $addons as $addon ) {
-				$comment[] = $addon['name'] . ' ' . $addon['version'];
-			}
-		}
-
-		echo "<!-- versions: " . implode( ' | ', $comment ) . " -->\n";
-	}
-
-	/**
-	 * Did the theme call wp_footer?
-	 *
-	 * @since 2.22.3 As separate function
-	 */
-	public function on_wp_footer() {
-		echo "<!-- wp_footer called -->\n";
 	}
 
 	/**
