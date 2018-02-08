@@ -65,6 +65,65 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
   word-wrap: normal !important;
 }
 
+/* Template
+-----------------------------------------------*/
+.strong-view.simple .strong-content {
+  margin: 1em auto;
+}
+.strong-view.simple .testimonial {
+  margin: 1em auto;
+  text-align: left;
+}
+.strong-view.simple .testimonial:first-child {
+  margin-top: 0;
+}
+.strong-view.simple .testimonial:last-child {
+  margin-bottom: 0;
+}
+.strong-view.simple .testimonial-inner {
+  padding: 1em;
+  text-align: left;
+}
+.strong-view.simple .testimonial-heading {
+  margin-top: 0;
+  margin-bottom: 1em;
+  text-align: left;
+}
+.strong-view.simple .testimonial-content p:first-of-type {
+  margin-top: 0;
+  padding-top: 0;
+}
+.strong-view.simple .testimonial-content p:last-of-type {
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+.strong-view.simple .testimonial-image {
+  float: left;
+  margin-top: .25em;
+  margin-right: 1em;
+  margin-bottom: 1em;
+}
+.strong-view.simple .testimonial-image img {
+  background: none;
+}
+.strong-view.simple .testimonial-image a {
+  text-decoration: none;
+  box-shadow: none;
+}
+.strong-view.simple .testimonial-client {
+  clear: both;
+  margin-top: 1em;
+}
+.strong-view.simple .readmore {
+  margin-top: 1em;
+}
+.strong-view.simple .readmore-page {
+  padding: 1em;
+  text-align: center;
+}
+
+/* Pagination
+-----------------------------------------------*/
 /* Simple pagination
 -----------------------------------------------*/
 .strong-view.simple.strong-pager {
@@ -136,63 +195,6 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
 .strong-view .nav-links span:hover {
   background: #BBB;
   color: #FFF;
-}
-
-/* Template
------------------------------------------------*/
-.strong-view.simple .strong-content {
-  margin: 1em auto;
-}
-.strong-view.simple .testimonial {
-  margin: 1em auto;
-  text-align: left;
-}
-.strong-view.simple .testimonial:first-child {
-  margin-top: 0;
-}
-.strong-view.simple .testimonial:last-child {
-  margin-bottom: 0;
-}
-.strong-view.simple .testimonial-inner {
-  padding: 1em;
-  text-align: left;
-}
-.strong-view.simple .testimonial-heading {
-  margin-top: 0;
-  margin-bottom: 1em;
-  text-align: left;
-}
-.strong-view.simple .testimonial-content p:first-of-type {
-  margin-top: 0;
-  padding-top: 0;
-}
-.strong-view.simple .testimonial-content p:last-of-type {
-  margin-bottom: 0;
-  padding-bottom: 0;
-}
-.strong-view.simple .testimonial-image {
-  float: left;
-  margin-top: .25em;
-  margin-right: 1em;
-  margin-bottom: 1em;
-}
-.strong-view.simple .testimonial-image img {
-  background: none;
-}
-.strong-view.simple .testimonial-image a {
-  text-decoration: none;
-  box-shadow: none;
-}
-.strong-view.simple .testimonial-client {
-  clear: both;
-  margin-top: 1em;
-}
-.strong-view.simple .readmore {
-  margin-top: 1em;
-}
-.strong-view.simple .readmore-page {
-  padding: 1em;
-  text-align: center;
 }
 
 /* Slideshow
