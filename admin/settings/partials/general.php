@@ -68,6 +68,22 @@ $options = get_option( 'wpmtst_options' );
 
 	<tr valign="top">
 		<th scope="row">
+			<?php _e( 'Enable Touch', 'strong-testimonials' ); ?>
+		</th>
+		<td>
+			<fieldset>
+			<label>
+				<input type="checkbox" name="wpmtst_options[touch_enabled]" <?php checked( $options['touch_enabled'] ); ?>>
+				<?php _e( 'Enable touch swipe navigation in slideshows.', 'strong-testimonials' ); ?>
+                <?php _e( 'On by default.', 'strong-testimonials' ); ?>
+			</label>
+            <p class="description"><?php _e( 'If you are having trouble scrolling long testimonials on a small screen, try disabling this.', 'strong-testimonials' ); ?></p>
+			</fieldset>
+		</td>
+	</tr>
+
+	<tr valign="top">
+		<th scope="row">
 			<?php _e( 'Scroll Top', 'strong-testimonials' ); ?>
 		</th>
 		<td>

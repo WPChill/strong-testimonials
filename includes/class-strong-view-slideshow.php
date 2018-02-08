@@ -304,6 +304,7 @@ class Strong_View_Slideshow extends Strong_View_Display {
 	 */
 	private function slideshow_args() {
 
+		$options      = get_option( 'wpmtst_options' );
 		$view_options = apply_filters( 'wpmtst_view_options', get_option( 'wpmtst_view_options' ) );
 
 		/**
@@ -331,6 +332,7 @@ class Strong_View_Slideshow extends Strong_View_Display {
 			'slideCount'          => $this->post_count,
 			'debug'               => defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG,
 			'compat'              => $compat,
+			'touchEnabled'        => $options['touch_enabled'],
 		);
 		if ( ! $this->atts['slideshow_settings']['adapt_height'] ) {
 			$args['stretch'] = $this->atts['slideshow_settings']['stretch'] ? 1 : 0;
