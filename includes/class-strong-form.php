@@ -257,7 +257,12 @@ class Strong_Testimonials_Form {
 
 					case 'custom':
 						if ( 'email' == $field['input_type'] ) {
-							$testimonial_meta[ $field['name'] ] = sanitize_email( $new_post[ $field['name'] ] );
+							if ( is_email( $new_post[ $field['name'] ] ) ) {
+								$testimonial_meta[ $field['name'] ] = sanitize_email( $new_post[ $field['name'] ] );
+							}
+							else {
+								$form_errors[ $field['name'] ] = $field['error'];
+							}
 						} elseif ( 'url' == $field['input_type'] ) {
 							// wpmtst_get_website() will prefix with "http://" so don't add that to an empty input
 							if ( $new_post[ $field['name'] ] ) {
