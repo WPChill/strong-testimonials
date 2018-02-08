@@ -5,11 +5,8 @@
 $template: simple;
 
 @import "../_mixins/testimonial";
-
 @import "../_partials/clear";
 @import "../_partials/base";
-@import "../_partials/pagination-simple";
-@import "../_partials/pagination-standard";
 
 /* Template
 -----------------------------------------------*/
@@ -70,6 +67,11 @@ $template: simple;
   }
 }
 
+/* Pagination
+-----------------------------------------------*/
+@import "../_partials/pagination-simple";
+@import "../_partials/pagination-standard";
+
 /* Slideshow
 -----------------------------------------------*/
 .strong-view.#{$template} {
@@ -77,6 +79,7 @@ $template: simple;
     .strong-content {
       margin: 0 auto;
     }
+
     .testimonial:not(:first-child) {
       display: none;
     }

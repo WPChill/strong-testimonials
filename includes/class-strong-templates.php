@@ -42,7 +42,7 @@ class Strong_Templates {
 				'order'  => 3,
 			),
 			'plugin'       => array(
-				'source' => __( 'Default', 'strong-testimonials' ),
+				'source' => __( 'Plugin', 'strong-testimonials' ),
 				'path'   => WPMTST_TPL,
 				'uri'    => WPMTST_TPL_URI,
 				'order'  => 4,
@@ -68,13 +68,14 @@ class Strong_Templates {
 			}
 		}
 
-		uasort( $search, array( $this, 'sort_array_by_order' ) );
+		uasort( $search, array( $this, 'sort_array_by_search_order' ) );
 
 		$files = array();
 		foreach ( $search as $key => $bases ) {
 			$new_files = $this->scandir_top( $bases['path'], $bases['uri'], $type );
 			if ( is_array( $new_files ) && $new_files ) {
-				uasort( $new_files, array( $this, 'sort_array_by_name' ) );
+				//uasort( $new_files, array( $this, 'sort_array_by_name' ) );
+				uasort( $new_files, array( $this, 'sort_array_by_order' ) );
 				$files[ $bases['source'] ] = $new_files;
 			}
 		}
@@ -83,6 +84,23 @@ class Strong_Templates {
 		$files = array_filter( apply_filters( 'wpmtst_templates_found', array_filter( $files ) ) );
 
 		return $files;
+	}
+
+	/**
+	 * @param string $name
+	 *
+	 * @return array|bool
+	 */
+	public function get_template_by_name( $name = '' ) {
+		foreach ( $this->templates as $source => $source_templates ) {
+			foreach ( $source_templates as $key => $template ) {
+				if ( $key == $name ) {
+					return $template;
+				}
+			}
+		}
+
+		return false;
 	}
 
 	/**
@@ -100,16 +118,28 @@ class Strong_Templates {
 	 * @return array
 	 */
 	public function get_templates_by_type( $types = null ) {
-		if ( ! $types )
+		if ( ! $types ) {
 			return $this->templates;
+		}
 
 		$types    = (array) $types;
 		$filtered = array();
 
 		foreach ( $this->templates as $source => $source_templates ) {
 			foreach ( $source_templates as $key => $template ) {
-				if ( isset( $template['type'] ) && in_array( $template['type'], $types ) ) {
+				if ( isset( $template['config']['type'] ) ) {
+					if ( in_array( $template['config']['type'], $types ) ) {
 					$filtered[ $source ][ $key ] = $template;
+				}
+				} else {
+					$key_parts = explode( ':', $key );
+					$type = $key_parts[1];
+					if ( 'content' == $type ) {
+						$type = 'display';
+					}
+					if ( in_array( $type, $types ) ) {
+						$filtered[ $source ][ $key] = $template;
+					}
 				}
 			}
 		}
@@ -163,7 +193,63 @@ class Strong_Templates {
 
 		// [3]
 		if ( $use_default ) {
-			$template_search[] = apply_filters( 'wpmtst_default_template', 'default:content', $atts );
+			$template_search[] = apply_filters( 'wpmtst_default_template', 'default', $atts );
+		}
+
+		// Search list of already found template files. Stop at first match.
+
+		$template_info = false;
+		foreach ( $template_search as $template_key ) {
+			foreach ( $this->templates as $source => $source_templates ) {
+				if ( isset( $source_templates[ $template_key ] ) ) {
+					$template_info = $source_templates[ $template_key ];
+					break 2;
+				}
+			}
+		}
+
+		// Return the requested part
+
+		if ( $template_info && isset( $template_info[ $part ] ) && $template_info[ $part ] ) {
+			return $template_info[ $part ];
+		}
+
+		return '';
+	}
+
+	/**
+	 * Get template attribute.
+	 *
+	 * @param           $atts
+	 * @param string    $part
+	 * @param bool|true $use_default
+	 *
+	 * @return string
+	 */
+	public function get_template_config( $atts, $part = 'name', $use_default = true ) {
+		// Build a list of potential template part names.
+		$template_search = array();
+
+		// [1]
+		/*
+		 * Divi Builder compatibility. Everybody has to be special.
+		 * @since 2.22.0
+		 * TODO Abstract this.
+		 */
+		if ( 'stylesheet' == $part ) {
+			if ( isset( $atts['divi_builder'] ) && $atts['divi_builder'] && wpmtst_divi_builder_active() ) {
+				$template_search[] = $atts['template'] .= '-divi';
+			}
+		}
+
+		// [2]
+		if ( isset( $atts['template'] ) ) {
+			$template_search[] = $atts['template'];
+		}
+
+		// [3]
+		if ( $use_default ) {
+			$template_search[] = apply_filters( 'wpmtst_default_template', 'default', $atts );
 		}
 
 		// Search list of already found template files. Stop at first match.
@@ -180,8 +266,8 @@ class Strong_Templates {
 
 		// Return the requested part (name, template, stylesheet,etc.)
 
-		if ( $template_info && isset( $template_info[ $part ] ) && $template_info[ $part ] ) {
-			return $template_info[ $part ];
+		if ( $template_info && isset( $template_info['config'][ $part ] ) && $template_info['config'][ $part ] ) {
+			return $template_info['config'][ $part ];
 		}
 
 		return '';
@@ -195,31 +281,38 @@ class Strong_Templates {
 	 * @return array|bool
 	 */
 	public function scandir_top( $path, $uri, $type ) {
-
-		if ( !is_dir( $path ) )
+		if ( ! is_dir( $path ) ) {
 			return false;
+		}
 
 		$files = array();
-
-		$groups = scandir( $path );
-		foreach ( $groups as $group ) {
-
-			if ( '.' == $group[0] )
+		$templates = scandir( $path );
+		foreach ( $templates as $template ) {
+			if ( '.' == $template[0] ) {
 				continue;
+			}
 
-			if ( is_dir( $path . '/' . $group ) ) {
+			if ( ! is_dir( $path . '/' . $template ) ) {
+				continue;
+			}
 
-				// find files in this directory
-				$files_found = $this->scandir( $group, $path, $uri, array( 'php', 'css', 'js' ), $type );
+			// Find files in this directory
+			$files_found = $this->scandir( $template, $path, $uri, array( 'json', 'php', 'css', 'js' ), $type );
 
-				// directory becomes group name
-				if ( $files_found ) {
-					foreach ( $files_found as $template_type => $template_files ) {
-						$new_key = $group . ':' . $template_type;
-						$template_files['group'] = $group;
-						$template_files['type']  = $template_type;
+			if ( ! $files_found ) {
+				continue;
+			}
+
+			foreach ( $files_found as $key => $template_files ) {
+				if ( isset( $template_files['config']['format_version'] ) && '1.0' == $template_files['config']['format_version'] ) {
+					// Template format version 1 (no config file)
+					$template_name     = basename( $template_files['template'], '.php' );
+					$new_key           = $template . ':' . $template_name;
 						$files[ $new_key ]       = $template_files;
 					}
+				else {
+					// Template format version 2 (has config.json)
+					$files[ $template ] = $template_files;
 				}
 
 			}
@@ -229,7 +322,7 @@ class Strong_Templates {
 	}
 
 	/**
-	 * @param      $group
+	 * @param      $template
 	 * @param      $path
 	 * @param      $uri
 	 * @param null $extensions
@@ -237,17 +330,25 @@ class Strong_Templates {
 	 *
 	 * @return array|bool
 	 */
-	public function scandir( $group, $path, $uri, $extensions = null, $type ) {
-
-		if ( !is_dir( $path . '/' . $group ) )
+	public function scandir( $template, $path, $uri, $extensions = null, $type ) {
+		if ( ! is_dir( $path . '/' . $template ) ) {
 			return false;
+		}
 
-		if ( $extensions )
+		if ( $extensions ) {
 			$extensions = (array) $extensions;
+		}
+
+		// Bail if requested template type not found
+		if ( $type && ! file_exists( $path . '/' . $template . '/' . $type . '.php' ) ) {
+			return false;
+		}
 
 		$files = array();
 
-		// Template header tags
+		/**
+		 * Template header tags for template format version 1
+		 */
 		$tags = apply_filters( 'wpmtst_template_header_tags', array(
 			'name'        => 'Template Name',
 			'description' => 'Description',
@@ -256,27 +357,55 @@ class Strong_Templates {
 			'force'       => 'Force',    // dependent options
 		) );
 
-		// Bail if requested template type not found
-		if ( $type && !file_exists( $path . '/' . $group . '/' . $type . '.php' ) )
-			return false;
+		/**
+		 * Check for config file first.
+		 *
+		 * @since 2.30.0
+		 */
+		$config_found = false;
+		if ( file_exists( $path . '/' . $template . '/config.json' ) ) {
+			$files[ $template ]['config'] = (array) json_decode( file_get_contents( $path . '/' . $template . '/config.json' ) );
+			$config_found = true;
+		}
 
-		// Process the files
-		$results = scandir( $path . '/' . $group);
+		/**
+		 * Process the files.
+		 * This creates an array of properties: file paths and config parameters.
+		 */
+		$results = scandir( $path . '/' . $template);
 		foreach ( $results as $result ) {
-
-			if ( '.' == $result[0] )
+			if ( '.' == $result[0] ) {
 				continue;
+			}
 
-			if ( is_dir( $path . '/' . $group . '/' . $result ) )
+			if ( is_dir( $path . '/' . $template . '/' . $result ) ) {
 				continue;
+			}
 
+			// If no extensions specified or if extension matches
 			if ( !$extensions || preg_match( '~\.(' . implode( '|', $extensions ) . ')$~', $result ) ) {
+
+				$default_config = array(
+					'name'           => '',
+					'description'    => '',
+					'type'           => 'display',
+					'order'          => 10,
+					'scripts'        => '',
+					'styles'         => '',
+					'force'          => '',
+					'options'        => '',
+					'format_version' => '2.0',
+				);
 
 				$filename = pathinfo( $result, PATHINFO_FILENAME );
 				$ext      = pathinfo( $result, PATHINFO_EXTENSION );
 
 				// Template, stylesheet, script, or other?
 				switch ( $ext ) {
+					//case 'json':
+					//	$key  = 'config';
+					//	$base = $uri;
+					//	break;
 					case 'php':
 						$key  = 'template';
 						$base = $path;
@@ -294,46 +423,54 @@ class Strong_Templates {
 						$base ='';
 				}
 
-				if ( $key )
-					$files[ $filename ][$key] = $base . '/' . $group . '/' . $result;
+				if ( $key ) {
+					$files[ $template ][ $key ] = $base . '/' . $template . '/' . $result;
+				}
 
-				// Process tags
+				// Convert V1 templates to V2 by creating config array from main template file.
 				if ( 'template' == $key ) {
+					if ( ! $config_found ) {
+						$file_data = get_file_data( $path . '/' . $template . '/' . $result, $tags );
 
-					$file_data = get_file_data( $path . '/' . $group . '/' . $result, $tags );
+						// Start config array
+						$config = array(
+							'format_version' => '1.0',
+						);
 
+						// Store header tags
 					foreach ( $tags as $tag => $label ) {
 
 						if ( 'name' == $tag ) {
-							// Get the name
+								// Get the template name
 							if ( isset( $file_data['name'] ) && $file_data['name'] ) {
-								$files[ $filename ]['name'] = $file_data['name'];
+									$config['name'] = $file_data['name'];
 							}
 							else {
 								// Use the directory name
-								$files[ $filename ]['name'] = ucwords( str_replace( array( '_', '-' ), ' ', basename( $path ) ) );
+									$config['name'] = ucwords( str_replace( array( '_', '-' ), ' ', basename( $path ) ) );
 							}
 						}
 						else {
-							$files[ $filename ][$tag] = $file_data[$tag];
+								$config[ $tag ] = $file_data[ $tag ];
 						}
 
 					}
 
-					// Each template type may have its own screenshot
-					if ( file_exists( $path . '/' . $group . '/' . $filename . '.png' ) ) {
-						$files[ $filename ]['screenshot'] = $uri . '/' . $group. '/' . $filename . '.png';
+						// Set the template type
+						if ( 'form.php' == $filename ) {
+							$config['type'] = 'form';
 					}
-					elseif ( file_exists( $path . '/' . $group. '/' . $filename . '.jpg' ) ) {
-						$files[ $filename ]['screenshot'] = $uri . '/' . $group. '/' . $filename . '.jpg';
+						elseif ( 'widget.php' == $filename ) {
+							$config['type'] = 'widget';
 					}
 
+						$files[ $template ]['config'] = array_merge( $default_config, $config );
 				}
 			}
 
 		}
+		}
 
-		ksort( $files );
 		return $files;
 	}
 
@@ -361,11 +498,33 @@ class Strong_Templates {
 	 * @return int
 	 */
 	public function sort_array_by_order( $a, $b ) {
+		if ( ! isset( $a['config']['order'] ) ) {
+			$a['config']['order'] = 0;
+		}
+		if ( ! isset( $b['config']['order'] ) ) {
+			$b['config']['order'] = 0;
+		}
+
+		if ( $a['config']['order'] == $b['config']['order'] ) {
+			return 0;
+		}
+
+		return ( $a['config']['order'] < $b['config']['order'] ) ? -1 : 1;
+	}
+
+	/**
+	 * @param $a
+	 * @param $b
+	 *
+	 * @return int
+	 */
+	public function sort_array_by_search_order( $a, $b ) {
 		if ( ! isset( $a['order'] ) || ! isset( $b['order'] ) )
 			return 0;
 
-		if ( $a['order'] == $b['order'] )
+		if ( $a['order'] == $b['order'] ) {
 			return 0;
+		}
 
 		return ( $a['order'] < $b['order'] ) ? -1 : 1;
 	}

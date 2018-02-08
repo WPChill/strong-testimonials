@@ -5,11 +5,8 @@
 $template: modern;
 
 @import "../_mixins/testimonial";
-
 @import "../_partials/clear";
 @import "../_partials/base";
-@import "../_partials/pagination-modern";
-@import "../_partials/pagination-standard";
 
 /* Template
 -----------------------------------------------*/
@@ -34,7 +31,7 @@ $template: modern;
 
   .testimonial-content {
     @include paragraphs;
-    color: #434343;
+    //color: #434343;
     margin: 0 56px;
     font-size: 1.3em;
     font-style: italic;
@@ -44,7 +41,6 @@ $template: modern;
 
   .testimonial-content:before,
   .testimonial-content:after {
-    //noinspection CssNoGenericFontName
     font-family: FontAwesome;
     color: #CDCDCD;
     font-size: 36px;
@@ -73,7 +69,7 @@ $template: modern;
   }
 
   .testimonial-name {
-    color: #434343;
+    //color: #434343;
     font-size: 1.3em;
     font-weight: 700;
   }
@@ -110,15 +106,19 @@ $template: modern;
     .slider-pager span::before {
       color: #808080;
     }
+
     span.slider-pager-active::before {
     }
+
     &.indexed {
       line-height: 22px;
       padding: 19px 0;
+
       .slider-pager span {
         height: 22px;
         width: 22px;
       }
+
       span.slider-pager-active {
         border-radius: 50%;
         background: #CDCDCD;
@@ -128,7 +128,7 @@ $template: modern;
   }
 }
 
-/* Widget
+/* In Widget
 -----------------------------------------------*/
 .widget .strong-view.#{$template} {
   .testimonial-inner {
@@ -161,6 +161,11 @@ $template: modern;
     display: block;
   }
 }
+
+/* Pagination
+-----------------------------------------------*/
+@import "../_partials/pagination-modern";
+@import "../_partials/pagination-standard";
 
 /* Slideshow
 -----------------------------------------------*/
@@ -216,5 +221,4 @@ $template: modern;
       font-size: 1.1em;
     }
   }
-
 }
