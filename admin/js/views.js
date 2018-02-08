@@ -7,7 +7,6 @@ Array.max = function (array) {
   return Math.max.apply(Math, array);
 };
 
-
 /**
  * jQuery alterClass plugin
  *
@@ -46,7 +45,6 @@ Array.max = function (array) {
   };
 })(jQuery);
 
-
 /**
  * Special handling after toggling certain options.
  */
@@ -58,8 +56,8 @@ Array.max = function (array) {
     var $categoryDivs = $('.view-category-list-panel');
     // Set initial width to compensate for narrowed box due to checkbox being hidden first
     // and to prevent horizontal jumpiness as filter is applied.
-    if (!$categoryDivs.hasClass("fixed")) {
-      $categoryDivs.width($categoryDivs.outerWidth(true)).addClass("fixed");
+    if (!$categoryDivs.hasClass('fixed')) {
+      $categoryDivs.width($categoryDivs.outerWidth(true)).addClass('fixed');
     }
 
     // Slideshow controls
@@ -86,7 +84,7 @@ Array.max = function (array) {
       $('option[value="text"]', '#view-slideshow_controls_style').prop('disabled', false);
     }
 
-    if ('none' === pagerValue && ( 'none' === controlsValue || 'sides' === controlsValue )) {
+    if ('none' === pagerValue && ('none' === controlsValue || 'sides' === controlsValue)) {
       $('.then_has-position').fadeOut();
     }
     else {
@@ -99,48 +97,17 @@ Array.max = function (array) {
     }
 
     return this;
-  }
+  };
 }(jQuery));
-
-
-/*
-jQuery(window).on('load', function () {
-  // Masonry
-  jQuery(".view-layout-masonry .example-container")
-    .find(".box")
-    .width(jQuery(".grid-sizer").width())
-    .end()
-    .masonry();
-
-  // Category select width
-  jQuery.fn.afterToggle();
-});
-*/
-
-
-/*
-(function ($) {
-  // Masonry
-  jQuery(".view-layout-masonry .example-container")
-    .find(".box")
-    .width(jQuery(".grid-sizer").width())
-    .end()
-    .masonry();
-
-  // Category select width
-  jQuery.fn.afterToggle();
-}(jQuery));
-*/
-
 
 /**
  * Masonry in the Layout section.
  */
-jQuery(document).ready(function( $ ) {
+jQuery(document).ready(function ($) {
   // Masonry
-  $(".view-layout-masonry .example-container")
-    .find(".box")
-    .width(jQuery(".grid-sizer").width())
+  $('.view-layout-masonry .example-container')
+    .find('.box')
+    .width(jQuery('.grid-sizer').width())
     .end()
     .masonry();
 
@@ -148,31 +115,30 @@ jQuery(document).ready(function( $ ) {
   $.fn.afterToggle();
 });
 
-
 (function ($) {
   'use strict';
 
   // the shortcode code
-  $("#view-shortcode").on("focus", function () {
+  $('#view-shortcode').on('focus', function () {
     $(this).select();
   });
 
-  $(".expand-cats").on("click", function () {
+  $('.expand-cats').on('click', function () {
     // TODO i18n
     var $categoryDivs = $('.view-category-list-panel');
-    if ($categoryDivs.hasClass("tall-panel")) {
-      $categoryDivs.addClass("short-panel").removeClass("tall-panel");
-      $(this).val("expand list");
+    if ($categoryDivs.hasClass('tall-panel')) {
+      $categoryDivs.addClass('short-panel').removeClass('tall-panel');
+      $(this).val('expand list');
     } else {
-      $categoryDivs.removeClass("short-panel").addClass("tall-panel");
-      $(this).val("collapse list");
+      $categoryDivs.removeClass('short-panel').addClass('tall-panel');
+      $(this).val('collapse list');
     }
     $(this).blur();
   });
 
   // Masonry example
-  var masonryExample = $(".view-layout-masonry .example-container");
-  masonryExample.find(".box").width($(".grid-sizer").width()).end().masonry({
+  var masonryExample = $('.view-layout-masonry .example-container');
+  masonryExample.find('.box').width($('.grid-sizer').width()).end().masonry({
     columnWidth: '.grid-sizer',
     gutter: 10,
     itemSelector: '.box',
@@ -180,22 +146,22 @@ jQuery(document).ready(function( $ ) {
   });
 
   // Column count selector
-  var columnCount = $("#view-column-count");
+  var columnCount = $('#view-column-count');
   var columnCountChange = function () {
     var col = columnCount.val();
-    $(".example-container").alterClass("col-*", "col-" + col);
-    masonryExample.find(".box").width($(".grid-sizer").width()).end().masonry();
-  }
+    $('.example-container').alterClass('col-*', 'col-' + col);
+    masonryExample.find('.box').width($('.grid-sizer').width()).end().masonry();
+  };
 
   columnCountChange();
-  columnCount.on("change", columnCountChange);
-  $("input[name='view[data][layout]']").on("change", function () {
+  columnCount.on('change', columnCountChange);
+  $('input[name=\'view[data][layout]\']').on('change', function () {
     if ('masonry' === $(this).val()) {
       setTimeout(columnCountChange, 200);
     }
   });
 
-  // Background color picker
+  // Color pickers
   var myOptions = {
     // you can declare a default color here, or in the data-default-color attribute on the input
     //defaultColor: '#FFFFFF',
@@ -220,18 +186,11 @@ jQuery(document).ready(function( $ ) {
   $('.wp-color-picker-field').wpColorPicker(myOptions);
 
   /**
-   * Example font color toggle
-   */
-  $("input[name='view[data][background][example-font-color]']").on("change", function () {
-    $("#background-preview").toggleClass("light dark");
-  });
-
-  /**
    * Restore defaults
    */
   // TODO i18n
-  $("#restore-defaults").click(function () {
-    return confirm("Restore the default settings?");
+  $('#restore-defaults').click(function () {
+    return confirm('Restore the default settings?');
   });
 
   /**
@@ -245,20 +204,19 @@ jQuery(document).ready(function( $ ) {
    * TODO Use a technique similar to if-then for adding/removing classes
    */
 
-  var viewContent = $("#view-content");
+  var viewContent = $('#view-content');
   var viewContentChange = function () {
     var thisValue = viewContent.val();
-    viewContent.closest("td").find(".highlight2").each(function (index, el) {
-      if ("excerpt" === thisValue) {
-        $(el).addClass("highlight-on");
+    viewContent.closest('td').find('.highlight2').each(function (index, el) {
+      if ('excerpt' === thisValue) {
+        $(el).addClass('highlight-on');
       } else {
-        $(el).removeClass("highlight-on");
+        $(el).removeClass('highlight-on');
       }
     });
-  }
+  };
   viewContentChange();
-  viewContent.on("change", viewContentChange);
-
+  viewContent.on('change', viewContentChange);
 
   /**
    * Plugin: Show/Hide parts based on current Mode
@@ -270,21 +228,22 @@ jQuery(document).ready(function( $ ) {
 
     var modeDesc = $('.mode-description');
     modeDesc.html('');
-    $(".then_" + mode).fadeIn(speed);
-    $(".then_not_" + mode).fadeOut(speed);
+    $('.then_' + mode).fadeIn(speed);
+    $('.then_not_' + mode).fadeOut(speed);
 
     /**
      * Special handling
      */
     switch (mode) {
       case 'form':
-        //formTemplateDescriptions();
+        // hack
+        setTimeout(formTemplateDescriptions, 500);
         break;
       case 'slideshow':
         break;
       case 'display':
         // update single/multiple selector ONLY
-        $.fn.selectPerOption($("#view-single_or_multiple"));
+        $.fn.selectPerOption($('#view-single_or_multiple'));
         break;
       case 'single_template':
         break;
@@ -301,14 +260,13 @@ jQuery(document).ready(function( $ ) {
       'mode': mode
     };
     $.get(ajaxurl, data, function (response) {
-      if( response ) {
+      if (response) {
         modeDesc.html(response);
       }
     });
 
-
     return this;
-  }
+  };
 
   /**
    * Plugin: Toggle dependent options for checkboxes.
@@ -318,10 +276,10 @@ jQuery(document).ready(function( $ ) {
    */
   $.fn.toggleOption = function (el, speed) {
     speed = speed || 400;
-    var option = $(el).attr("id").split("-").pop();
-    var checked = $(el).prop("checked");
-    var deps = ".then_" + option;
-    var indeps = ".then_not_" + option;
+    var option = $(el).attr('id').split('-').pop();
+    var checked = $(el).prop('checked');
+    var deps = '.then_' + option;
+    var indeps = '.then_not_' + option;
     if (checked) {
       $(deps).fadeIn(speed);
       $(indeps).fadeOut(speed);
@@ -331,7 +289,7 @@ jQuery(document).ready(function( $ ) {
       $(indeps).fadeIn(speed);
     }
     return this;
-  }
+  };
 
   /**
    * Plugin: Toggle dependent options for checkboxes.
@@ -346,29 +304,29 @@ jQuery(document).ready(function( $ ) {
     var fast = 0;
     //var option = $(el).attr("id").split("-").pop();
     var currentValue = $(el).val();
-    var deps = ".then_" + currentValue;
-    var depsFast = deps + ".fast";
-    var indeps = ".then_not_" + currentValue;
-    var indepsFast = indeps + ".fast";
+    var deps = '.then_' + currentValue;
+    var depsFast = deps + '.fast';
+    var indeps = '.then_not_' + currentValue;
+    var indepsFast = indeps + '.fast';
     if (currentValue) {
 
-      $(depsFast).not(".then_not_" + currentMode).fadeIn(fast);
-      $(deps).not(".fast, .then_not_" + currentMode).fadeIn(speed);
+      $(depsFast).not('.then_not_' + currentMode).fadeIn(fast);
+      $(deps).not('.fast, .then_not_' + currentMode).fadeIn(speed);
 
       $(indepsFast).fadeOut(fast);
-      $(indeps).not(".fast").fadeOut(speed);
+      $(indeps).not('.fast').fadeOut(speed);
 
     } else {
 
       $(indepsFast).fadeIn(fast);
-      $(indeps).not(".fast").fadeIn(speed);
+      $(indeps).not('.fast').fadeIn(speed);
 
       $(depsFast).fadeOut(fast);
-      $(deps).not(".fast").fadeOut(speed);
+      $(deps).not('.fast').fadeOut(speed);
 
     }
     return this;
-  }
+  };
 
   /**
    * Plugin: Toggle dependent options for selects.
@@ -380,9 +338,9 @@ jQuery(document).ready(function( $ ) {
   $.fn.selectOption = function (el, speed) {
     speed = speed || 400;
     var currentValue = $(el).val();
-    var tripValue = $(el).find(".trip").val();
-    var option = $(el).attr("id").split("-").pop();
-    var deps = ".then_" + option;
+    var tripValue = $(el).find('.trip').val();
+    var option = $(el).attr('id').split('-').pop();
+    var deps = '.then_' + option;
     if (currentValue === tripValue) {
       $(deps).fadeIn(speed);
     }
@@ -390,7 +348,7 @@ jQuery(document).ready(function( $ ) {
       $(deps).fadeOut(speed);
     }
     return this;
-  }
+  };
 
   /**
    * Plugin: Toggle dependent options for selects.
@@ -402,9 +360,9 @@ jQuery(document).ready(function( $ ) {
   $.fn.selectNotOption = function (el, speed) {
     speed = speed || 400;
     var currentValue = $(el).val();
-    var tripValue = $(el).find(".trip").val();
-    var option = $(el).attr("id").split("-").pop();
-    var deps = ".then_" + option;
+    var tripValue = $(el).find('.trip').val();
+    var option = $(el).attr('id').split('-').pop();
+    var deps = '.then_' + option;
     if (currentValue === tripValue) {
       $(deps).fadeOut(speed);
     }
@@ -412,7 +370,7 @@ jQuery(document).ready(function( $ ) {
       $(deps).fadeIn(speed);
     }
     return this;
-  }
+  };
 
   /**
    * Plugin: Toggle dependent options for selects.
@@ -423,9 +381,9 @@ jQuery(document).ready(function( $ ) {
   $.fn.selectAnyOption = function (el, speed) {
     speed = speed || 400;
     var currentValue = $(el).val();
-    var option = $(el).attr("id").split("-").pop();
-    var deps = ".then_" + option + ".then_" + currentValue;
-    var indeps = ".then_not_" + option + ".then_" + currentValue;
+    var option = $(el).attr('id').split('-').pop();
+    var deps = '.then_' + option + '.then_' + currentValue;
+    var indeps = '.then_not_' + option + '.then_' + currentValue;
     if (currentValue) {
       $(deps).fadeIn(speed);
       $(indeps).fadeOut(speed);
@@ -435,7 +393,7 @@ jQuery(document).ready(function( $ ) {
       $(indeps).fadeIn(speed);
     }
     return this;
-  }
+  };
 
   /**
    * Plugin: Toggle dependent options.
@@ -450,50 +408,49 @@ jQuery(document).ready(function( $ ) {
     var speed = 400,
       fastOut = 0,
       fastIn = 100;
-    var option = $(el).attr("id").split("-").pop();
+    var option = $(el).attr('id').split('-').pop();
     var currentValue = $(el).val();
-    var deps = ".then_" + option + ".then_" + currentValue;
-    var depsFast = deps + ".fast";
-    var indeps = ".then_" + option + ".then_not_" + currentValue;
-    var indepsFast = indeps + ".fast";
+    var deps = '.then_' + option + '.then_' + currentValue;
+    var depsFast = deps + '.fast';
+    var indeps = '.then_' + option + '.then_not_' + currentValue;
+    var indepsFast = indeps + '.fast';
     if (currentValue) {
       $(depsFast).fadeIn(fastIn);
-      $(deps).not(".fast").fadeIn(speed);
+      $(deps).not('.fast').fadeIn(speed);
       $(indepsFast).fadeOut(fastOut);
-      $(indeps).not(".fast").fadeOut(speed);
+      $(indeps).not('.fast').fadeOut(speed);
     }
     else {
       $(indepsFast).fadeIn(fastIn);
-      $(indeps).not(".fast").fadeIn(speed);
+      $(indeps).not('.fast').fadeIn(speed);
       $(depsFast).fadeOut(fastOut);
-      $(deps).not(".fast").fadeOut(speed);
+      $(deps).not('.fast').fadeOut(speed);
     }
     return this;
-  }
-
+  };
 
   /**
    * Initial state
    */
-  var $mode = $("#view-mode");
-  var currentMode = $mode.find("input:checked").val();
-  $mode.find("input:checked").closest("label").addClass("checked");
+  var $mode = $('#view-mode');
+  var currentMode = $mode.find('input:checked').val();
+  $mode.find('input:checked').closest('label').addClass('checked');
   $.fn.updateScreen(currentMode);
 
   /**
    * Mode listener
    */
-  $mode.find("input").on("change", function () {
+  $mode.find('input').on('change', function () {
     currentMode = $(this).val();
-    $mode.find("input").not(":checked").closest("label").removeClass("checked");
-    $mode.find("input:checked").closest("label").addClass("checked");
+    $mode.find('input').not(':checked').closest('label').removeClass('checked');
+    $mode.find('input:checked').closest('label').addClass('checked');
     $.fn.updateScreen(currentMode);
 
     // Force default template since we have more than one group of templates.
-    $("input[type=radio][name='view[data][template]'][value='default:content']").prop("checked", true);
+    $('input[type=radio][name=\'view[data][template]\'][value=\'default\']').prop('checked', true);
     templateRadios.change();
-    $("input[type=radio][name='view[data][form-template]'][value='default:form']").prop("checked", true);
-    formTemplateRadios.change();
+    $('input[type=radio][name=\'view[data][form-template]\'][value=\'default-form\']').prop('checked', true);
+    // formTemplateRadios.change();
     layoutRadios.change();
     backgroundRadios.change();
   });
@@ -501,77 +458,77 @@ jQuery(document).ready(function( $ ) {
   /**
    * Initial state & Change listeners
    */
-  function initialize() {
-    $(".if.toggle").each(function (index, el) {
+  function initialize () {
+    $('.if.toggle').each(function (index, el) {
       $.fn.toggleOption(this);
-      $(this).on("change", function () {
+      $(this).on('change', function () {
         $.fn.toggleOption(this);
       });
     });
 
-    $(".if.select").each(function (index, el) {
+    $('.if.select').each(function (index, el) {
       $.fn.selectOption(this);
-      $(this).on("change", function () {
+      $(this).on('change', function () {
         $.fn.selectOption(this);
       });
     });
 
-    $(".if.selectnot").each(function (index, el) {
+    $('.if.selectnot').each(function (index, el) {
       $.fn.selectNotOption(this);
-      $(this).on("change", function () {
+      $(this).on('change', function () {
         $.fn.selectNotOption(this).afterToggle();
       });
     });
 
-    $(".if.selectany").each(function (index, el) {
+    $('.if.selectany').each(function (index, el) {
       $.fn.selectAnyOption(this);
-      $(this).on("change", function () {
+      $(this).on('change', function () {
         $.fn.selectAnyOption(this);
       });
     });
 
-    $(".if.selectper").each(function (index, el) {
+    $('.if.selectper').each(function (index, el) {
       $.fn.selectPerOption(this);
-      $(this).on("change", function () {
+      $(this).on('change', function () {
         $.fn.selectPerOption(this).afterToggle();
       });
     });
 
-    $(".if.selectgroup").each(function (index, el) {
+    $('.if.selectgroup').each(function (index, el) {
       $.fn.selectGroupOption(this);
-      $(this).on("change", function () {
+      $(this).on('change', function () {
         $.fn.selectGroupOption(this);
       });
     });
 
-    $(".field-name select").each(function () {
+    $('.field-name select').each(function () {
       var $el = $(this);
-      var $elParent = $el.closest(".field3");
+      var $elParent = $el.closest('.field3');
       var fieldValue = $el.val();
-      var fieldType = $el.find("option:selected").data("type");
-      var key = $elParent.data("key");
-      var typeSelectParent = $elParent.find("td.field-type");
-      var typeSelect = typeSelectParent.find("select");
+      var fieldType = $el.find('option:selected').data('type');
+      var key = $elParent.data('key');
+      var typeSelectParent = $elParent.find('td.field-type');
+      var typeSelect = typeSelectParent.find('select');
 
       if (fieldValue === 'post_date') {
-        typeSelect.prop("disabled", true);
+        typeSelect.prop('disabled', true);
         typeSelect.parent().append('<input type="hidden" class="save-type" name="view[data][client_section][' + key + '][save-type]" value="date">');
       }
       else if (fieldValue === 'submit_date') {
-        typeSelect.prop("disabled", true);
+        typeSelect.prop('disabled', true);
         typeSelect.parent().append('<input type="hidden" class="save-type" name="view[data][client_section][' + key + '][save-type]" value="date">');
       }
       else if (fieldValue === 'category') {
-        typeSelect.prop("disabled", true);
+        typeSelect.prop('disabled', true);
         typeSelect.parent().append('<input type="hidden" class="save-type" name="view[data][client_section][' + key + '][save-type]" value="category">');
       }
       else if (fieldType === 'rating') { /* --- type! --- */
-        typeSelect.prop("disabled", true);
+        typeSelect.prop('disabled', true);
         typeSelectParent.append('<input type="hidden" class="save-type" name="view[data][client_section][' + key + '][save-type]" value="rating">');
       }
       else {
-        $(typeSelect).prop("disabled", false);
-        $(typeSelect).parent().find("input.save-type").remove();
+        $(typeSelect).prop('disabled', false);
+        $(typeSelect).parent().find('input.save-type').remove();
       }
     });
 
@@ -582,11 +539,11 @@ jQuery(document).ready(function( $ ) {
   /**
    * Link field text change listener
    */
-  function textChangeListener() {
-    $('select[id^="view-fieldtext"]').on("change", function () {
+  function textChangeListener () {
+    $('select[id^="view-fieldtext"]').on('change', function () {
       if ($(this).val() === 'custom') {
-        var key = $(this).closest(".field3").data("key");
-        $("#view-fieldtext" + key + "-custom").focus();
+        var key = $(this).closest('.field3').data('key');
+        $('#view-fieldtext' + key + '-custom').focus();
       }
     });
   }
@@ -596,122 +553,128 @@ jQuery(document).ready(function( $ ) {
   /**
    * Template change listener
    */
-  var templateRadios = $("input[type=radio][name='view[data][template]']");
+    // TODO Use ID
+  var templateRadios = $('input[type=radio][name=\'view[data][template]\']');
 
-  function templateDescriptions() {
-    var templateID = templateRadios.filter(":checked").attr("id");
-    var template = templateRadios.filter(":checked").val();
+  function templateDescriptions () {
+    var templateRadioOff, templateRadioOn, template;
 
-    $("#view-template-info")
-      .find(".template-description:visible")
-      .hide()
-      .end()
-      .find("." + templateID)
-      .show();
+    templateRadioOff = templateRadios.filter(':not(:checked)');
+    templateRadioOff.closest('li').removeClass('current-selection').find('.options').hide(200);
+
+    templateRadioOn = templateRadios.filter(':checked');
+    template = templateRadioOn.val();
+    templateRadioOn.closest('li').addClass('current-selection').find('.options').show(200);
 
     // Check for forced options
     if (template) {
-      $("input.forced").removeProp("disabled").removeClass("forced");
+      $('input.forced').removeProp('disabled').removeClass('forced');
       var data = {
         'action': 'wpmtst_force_check',
         'template': template
       };
       $.get(ajaxurl, data, function (response) {
         if (response) {
-          var $el = $("#" + response);
-          $el.prop("checked", true).change();
-          var inputName = $el.prop("name");
-          $("input[name='" + inputName + "']").prop("disabled", true).addClass("forced");
+          var $el = $('#' + response);
+          $el.prop('checked', true).change();
+          var inputName = $el.prop('name');
+          $('input[name=\'' + inputName + '\']').prop('disabled', true).addClass('forced');
         }
       });
 
       // Special handling
-      if ('unstyled:content' === template) {
-        $("input[name='view[data][background][type]']").prop("disabled", true);
-        $("#font-color-switcher").hide();
+      if ('unstyled' === template) {
+        $('input[name=\'view[data][background][type]\']').prop('disabled', true);
+        $('input[name=\'view[data][font-color][type]\']').prop('disabled', true);
       } else {
-        $("input[name='view[data][background][type]']").prop("disabled", false);
-        $("#font-color-switcher").show();
+        $('input[name=\'view[data][background][type]\']').prop('disabled', false);
+        $('input[name=\'view[data][font-color][type]\']').prop('disabled', false);
       }
 
       // Special handling for Lucid add-on until I can incorporate a template group config file
-      if ('lucid' === template.substr(0,5) || 'single_template' === currentMode ) {
-        $(".then_lucid").show();
+      if ('lucid' === template.substr(0, 5) || 'single_template' === currentMode) {
+        $('.then_lucid').show();
       } else {
-        $(".then_lucid").hide();
+        $('.then_lucid').hide();
       }
     }
   }
 
   templateDescriptions();
 
-  templateRadios.on("change", templateDescriptions);
+  templateRadios.on('change', templateDescriptions);
 
   /**
    * Form template change listener
    */
-  var formTemplateRadios = $("input[type=radio][name='view[data][form-template]']");
+  var formTemplateRadios = $('input[type=radio][name=\'view[data][form-template]\']');
 
-  function formTemplateDescriptions() {
-    var template = formTemplateRadios.filter(":checked").attr("id");
-    $("#view-form-template-info")
-      .find(".template-description:visible")
-      .hide()
-      .end()
-      .find("." + template)
-      .show();
+  function formTemplateDescriptions () {
+    var formTemplateRadioOff, formTemplateRadioOn, formTemplate;
+
+    formTemplateRadioOff = formTemplateRadios.filter(':not(:checked)');
+    formTemplateRadioOff.closest('li').removeClass('current-selection').find('.options').hide(200);
+
+    formTemplateRadioOn = formTemplateRadios.filter(':checked');
+    formTemplate = formTemplateRadioOn.val();
+    formTemplateRadioOn.closest('li').addClass('current-selection').find('.options').show(200);
   }
 
   formTemplateDescriptions();
 
-  formTemplateRadios.on("change", formTemplateDescriptions);
+  formTemplateRadios.on('change', formTemplateDescriptions);
 
   /**
    * Layout change listener
    */
-  var layoutRadios = $("input[type=radio][name='view[data][layout]']");
+    // TODO Use ID instead.
+  var layoutRadios = $('input[type=radio][name=\'view[data][layout]\']');
 
-  function layoutDescriptions() {
-    var layout = layoutRadios.filter(":checked").attr("id");
-    // TODO Can use alterClass here instead?
-    $("#view-layout-info")
-      .find(".layout-description")
-      .hide()
-      .end()
-      .find("." + layout)
-      .show();
+  function layoutDescriptions () {
+    var layoutRadioOff, layoutRadioOn, layout;
+
+    layoutRadioOff = layoutRadios.filter(':not(:checked)');
+    layoutRadioOff.closest('li').removeClass('current-selection').find('.options').hide(200);
+
+    layoutRadioOn = layoutRadios.filter(':checked');
+    layout = layoutRadioOn.attr('id');
+    layoutRadioOn.closest('li').addClass('current-selection').find('.options').show(200);
+
+    $('.layout-description, .layout-example').hide(200);
+    $('.' + layout).show(200);
 
     // Special handling
 
     if ('view-layout-normal' === layout)
-      $("#column-count-wrapper").fadeOut();
+      $('#column-count-wrapper').fadeOut();
     else
-      $("#column-count-wrapper").fadeIn();
+      $('#column-count-wrapper').fadeIn();
 
     if ('view-layout-masonry' === layout) {
-      if ($("#view-pagination").is(":checked")) {
+      if ($('#view-pagination').is(':checked')) {
         alert('Masonry is incompatible with pagination. Please disable pagination first.');
-        $("#view-layout-normal").prop("checked", true).change();
+        $('#view-layout-normal').prop('checked', true).change();
       }
     }
   }
 
   layoutDescriptions();
 
-  layoutRadios.on("change", layoutDescriptions);
+  layoutRadios.on('change', layoutDescriptions);
 
   /**
    * Pagination change listener
    */
-  function paginationChangeListener() {
+  function paginationChangeListener () {
     // Pagination is incompatible with Masonry
-    if ($(this).is(":checked") && "masonry" === layoutRadios.filter(":checked").val()) {
+    // TODO DRY
+    if ($(this).is(':checked') && 'masonry' === layoutRadios.filter(':checked').val()) {
       alert('Pagination is incompatible with Masonry. Please select another layout first.');
-      $(this).prop("checked", false).change();
+      $(this).prop('checked', false).change();
     }
   }
 
-  $("#view-pagination").on("change", paginationChangeListener);
+  $('#view-pagination').on('change', paginationChangeListener);
 
   /**
    * Disallow standard pagination with query limit.
@@ -719,15 +682,15 @@ jQuery(document).ready(function( $ ) {
   var $viewQuantity = $('#view-all'),
     $viewPaginationType = $('#view-pagination_type');
 
-  function paginationTypeChangeListener() {
-    if (this.value === 'standard' && $viewQuantity.val() === '0' && $("#view-pagination").is(":checked")) {
+  function paginationTypeChangeListener () {
+    if (this.value === 'standard' && $viewQuantity.val() === '0' && $('#view-pagination').is(':checked')) {
       alert('Standard pagination is incompatible with Count.');
       $(this).val('simple').change();
     }
   }
 
-  function quantityChangeListener() {
-    if (this.value === '0' && $viewPaginationType.val() === 'standard' && $("#view-pagination").is(":checked")) {
+  function quantityChangeListener () {
+    if (this.value === '0' && $viewPaginationType.val() === 'standard' && $('#view-pagination').is(':checked')) {
       alert('Count is incompatible with Standard pagination.');
       $(this).val(1).change();
     }
@@ -741,30 +704,30 @@ jQuery(document).ready(function( $ ) {
    * Background and Font colors
    * ----------------------------------------------------------------------
    */
-  function updateBackgroundPreview() {
+  function updateBackgroundPreview () {
     var c1,
       c2,
       c3,
-      background = backgroundRadios.filter(":checked").val(),
-      fontColor = fontColorRadios.filter(":checked").val()
+      background = backgroundRadios.filter(':checked').val(),
+      fontColor = fontColorRadios.filter(':checked').val();
 
     if ('custom' === fontColor) {
-      c3 = document.getElementById("fc-color").value;
-      backgroundPreview.css("color", c3);
+      c3 = document.getElementById('fc-color').value;
+      backgroundPreview.css('color', c3);
     } else {
-      backgroundPreview.css("color", "inherit");
+      backgroundPreview.css('color', 'inherit');
     }
     switch (background) {
       case '':
-        backgroundPreview.css("background", "transparent");
+        backgroundPreview.css('background', 'transparent');
         break;
       case 'single':
-        c1 = document.getElementById("bg-color").value;
-        backgroundPreview.css("background", c1);
+        c1 = document.getElementById('bg-color').value;
+        backgroundPreview.css('background', c1);
         break;
       case 'gradient':
-        c1 = document.getElementById("bg-gradient1").value;
-        c2 = document.getElementById("bg-gradient2").value;
+        c1 = document.getElementById('bg-gradient1').value;
+        c2 = document.getElementById('bg-gradient2').value;
         backgroundPreview.css(constructGradientCSS(c1, c2));
         break;
       case 'preset':
@@ -775,23 +738,31 @@ jQuery(document).ready(function( $ ) {
 
   }
 
-  var backgroundRadios = $("input[type=radio][name='view[data][background][type]']"),
-    backgroundPreview = $("#background-preview"),
-    backgroundPresetSelector = $("#view-background-preset");
+  var backgroundRadios = $('input[type=radio][name=\'view[data][background][type]\']'),
+    backgroundPreview = $('#background-preview'),
+    backgroundPresetSelector = $('#view-background-preset');
 
   /**
    * Font-color change listener
    */
-  var fontColorRadios = $("input[type=radio][name='view[data][font-color][type]']")
+    // TODO Use ID instead.
+  var fontColorRadios = $('input[type=radio][name=\'view[data][font-color][type]\']');
 
-  function fontColorDescriptions() {
-    var fontColorID = fontColorRadios.filter(":checked").attr("id");
+  function fontColorDescriptions () {
+    var fontColorRadioOff, fontColorRadioOn, fontColorID;
 
-    $("#view-font-color-info")
-      .find(".font-color-description:visible")
+    fontColorRadioOff = fontColorRadios.filter(':not(:checked)');
+    fontColorRadioOff.closest('li').removeClass('current-selection');
+
+    fontColorRadioOn = fontColorRadios.filter(':checked');
+    fontColorID = fontColorRadioOn.filter(':checked').attr('id');
+    fontColorRadioOn.closest('li').addClass('current-selection');
+
+    $('#view-font-color-info')
+      .find('.font-color-description:visible')
       .hide()
       .end()
-      .find("." + fontColorID)
+      .find('.' + fontColorID)
       .show();
 
     updateBackgroundPreview();
@@ -799,19 +770,26 @@ jQuery(document).ready(function( $ ) {
 
   fontColorDescriptions();
 
-  fontColorRadios.on("change", fontColorDescriptions);
+  fontColorRadios.on('change', fontColorDescriptions);
 
   /**
    * Background change listener
    */
-  function backgroundDescriptions() {
-    var backgroundID = backgroundRadios.filter(":checked").attr("id");
+  function backgroundDescriptions () {
+    var backgroundRadioOff, backgroundRadioOn, backgroundID;
 
-    $("#view-background-info")
-      .find(".background-description:visible")
+    backgroundRadioOff = backgroundRadios.filter(':not(:checked)');
+    backgroundRadioOff.closest('li').removeClass('current-selection').find('.options').hide(200);
+
+    backgroundRadioOn = backgroundRadios.filter(':checked');
+    backgroundID = backgroundRadioOn.filter(':checked').attr('id');
+    backgroundRadioOn.closest('li').addClass('current-selection').find('.options').show(200);
+
+    $('#view-background-info')
+      .find('.background-description:visible')
       .hide()
       .end()
-      .find("." + backgroundID)
+      .find('.' + backgroundID)
       .show();
 
     updateBackgroundPreview();
@@ -819,15 +797,15 @@ jQuery(document).ready(function( $ ) {
 
   backgroundDescriptions();
 
-  backgroundRadios.on("change", backgroundDescriptions);
+  backgroundRadios.on('change', backgroundDescriptions);
 
-  backgroundPresetSelector.on("change", function () {
+  backgroundPresetSelector.on('change', function () {
     backgroundPreset($(this).val());
   });
 
-  function backgroundPreset(preset) {
+  function backgroundPreset (preset) {
     if (!preset) {
-      backgroundPreview.css("background", "transparent");
+      backgroundPreview.css('background', 'transparent');
       return;
     }
 
@@ -841,18 +819,18 @@ jQuery(document).ready(function( $ ) {
         backgroundPreview.css(constructGradientCSS(presetObj.color, presetObj.color2));
       }
       else if (presetObj.color) {
-        backgroundPreview.css("background", presetObj.color);
+        backgroundPreview.css('background', presetObj.color);
       }
       else {
-        backgroundPreview.css("background", "transparent");
+        backgroundPreview.css('background', 'transparent');
       }
     });
   }
 
-  function constructGradientCSS(c1, c2) {
+  function constructGradientCSS (c1, c2) {
     return {
-      "background": "linear-gradient(to bottom, " + c1 + " 0%, " + c2 + " 100%)"
-    }
+      'background': 'linear-gradient(to bottom, ' + c1 + ' 0%, ' + c2 + ' 100%)'
+    };
   }
 
   //$.fn.updateScreen(currentMode);
@@ -867,16 +845,10 @@ jQuery(document).ready(function( $ ) {
    * Make client fields sortable
    */
 
-    // First, set width on header cells to prevent collapse
-    // when dragging a row without column 3.
-    // $("table.fields th").each(function(index){
-    // 	$(this).width($(this).outerWidth());
-    // });
-
-  var customFieldList = $("#custom-field-list2");
+  var customFieldList = $('#custom-field-list2');
 
   // Prevent single click on handle from opening accordion
-  customFieldList.on("click", "span.handle", function (e) {
+  customFieldList.on('click', 'span.handle', function (e) {
     e.stopImmediatePropagation();
     e.preventDefault();
   });
@@ -884,11 +856,11 @@ jQuery(document).ready(function( $ ) {
   // customFieldList.find(".field-properties").hide();
 
   customFieldList.sortable({
-    placeholder: "sortable-placeholder",
+    placeholder: 'sortable-placeholder',
     // forcePlaceholderSize: true,
-    handle: ".handle",
-    cursor: "move",
-    helper: "clone",
+    handle: '.handle',
+    cursor: 'move',
+    helper: 'clone',
     start: function (e, ui) {
       ui.placeholder.height(ui.item.height());
     }
@@ -898,9 +870,9 @@ jQuery(document).ready(function( $ ) {
   /**
    * Add client field
    */
-  $("#add-field").click(function (e) {
-    var keys = $(".field3").map(function () {
-      return $(this).data("key");
+  $('#add-field').click(function (e) {
+    var keys = $('.field3').map(function () {
+      return $(this).data('key');
     }).get();
     var nextKey = Array.max(keys) + 1;
     var data = {
@@ -910,11 +882,11 @@ jQuery(document).ready(function( $ ) {
     $.get(ajaxurl, data, function (response) {
       //customFieldList.append( response ).find("#field-"+nextKey+" span.link").click();
       $.when(customFieldList.append(response)).then(function () {
-        var $newField = customFieldList.find("#field-" + nextKey);
+        var $newField = customFieldList.find('#field-' + nextKey);
         $newField
-          .find("span.link").click().end()
-          .find(".field-dep").hide().end()
-          .find(".first-field").focus();
+          .find('span.link').click().end()
+          .find('.field-dep').hide().end()
+          .find('.first-field').focus();
       });
     });
   });
@@ -922,13 +894,13 @@ jQuery(document).ready(function( $ ) {
   /**
    * Field type change listener
    */
-  customFieldList.on("change", ".field-type select", function () {
+  customFieldList.on('change', '.field-type select', function () {
     var $el = $(this);
-    var $elParent = $el.closest(".field3");
+    var $elParent = $el.closest('.field3');
     var fieldType = $el.val();
-    var fieldName = $elParent.find(".field-name").find("select").val();
+    var fieldName = $elParent.find('.field-name').find('select').val();
     // var key = $elParent.attr("id").split('-').slice(-1)[0];
-    var key = $elParent.data("key");
+    var key = $elParent.data('key');
     var data;
 
     switch (fieldType) {
@@ -944,25 +916,25 @@ jQuery(document).ready(function( $ ) {
         };
         $.get(ajaxurl, data, function (response) {
           // insert into placeholder div
-          $elParent.find(".field-property-box").html(response);
+          $elParent.find('.field-property-box').html(response);
 
           // Trigger conditional select
-          var $newFieldSelect = $elParent.find(".if.selectgroup");
+          var $newFieldSelect = $elParent.find('.if.selectgroup');
           $.fn.selectGroupOption($newFieldSelect);
-          $newFieldSelect.on("change", function () {
+          $newFieldSelect.on('change', function () {
             $.fn.selectGroupOption($newFieldSelect);
           });
           textChangeListener();
 
           // Get field name --> Get field label --> Populate link_text label
-          var fieldName = $elParent.find(".field-name").find("select").val();
+          var fieldName = $elParent.find('.field-name').find('select').val();
           var data2 = {
             'action': 'wpmtst_view_get_label',
             'name': fieldName,
           };
           $.get(ajaxurl, data2, function (response) {
             // 	var key = $elParent.attr("id").split('-').slice(-1)[0];
-            $("#view-fieldtext" + key + "-label").val(response);
+            $('#view-fieldtext' + key + '-label').val(response);
           });
 
         });
@@ -976,13 +948,13 @@ jQuery(document).ready(function( $ ) {
         };
         $.get(ajaxurl, data, function (response) {
           // insert into placeholder div
-          $elParent.find(".field-property-box").html(response);
+          $elParent.find('.field-property-box').html(response);
         });
         break;
 
       case 'text':
         // if changing to [text], remove meta fields
-        $elParent.find(".field-property-box").empty();
+        $elParent.find('.field-property-box').empty();
         break;
 
       default:
@@ -993,23 +965,22 @@ jQuery(document).ready(function( $ ) {
   /**
    * Field name change listener.
    */
-  customFieldList.on("change", ".field-name select", function () {
+  customFieldList.on('change', '.field-name select', function () {
     var $el = $(this);
-    var $elParent = $el.closest(".field3");
-    var fieldType = $el.find("option:selected").data("type");
+    var $elParent = $el.closest('.field3');
+    var fieldType = $el.find('option:selected').data('type');
     var fieldValue = $el.val();
-    var key = $elParent.data("key");
-    var typeSelectParent = $elParent.find(".field-type");
-    var typeSelect = typeSelectParent.find("select");
+    var key = $elParent.data('key');
+    var typeSelectParent = $elParent.find('.field-type');
+    var typeSelect = typeSelectParent.find('select');
     var data;
 
-    $elParent.not(".open").addClass("open").find(".field-properties").addClass("open").slideDown();
-
+    $elParent.not('.open').addClass('open').find('.field-properties').addClass('open').slideDown();
 
     if ('' === fieldValue) {
-      $elParent.find(".field-description").html('');
+      $elParent.find('.field-description').html('');
       // Hide dependent inputs if nothing has been selected
-      $elParent.find(".field-dep").hide();
+      $elParent.find('.field-dep').hide();
     }
     else {
       // Update field label
@@ -1020,12 +991,12 @@ jQuery(document).ready(function( $ ) {
       };
       $.get(ajaxurl, data, function (response) {
         if (response) {
-          $elParent.find(".field-description").html(response);
+          $elParent.find('.field-description').html(response);
         }
       });
 
       // Show dependent inputs
-      $elParent.find(".field-dep").show();
+      $elParent.find('.field-dep').show();
     }
 
     switch (fieldValue) {
@@ -1033,7 +1004,7 @@ jQuery(document).ready(function( $ ) {
       case 'post_date':
       case 'submit_date':
         // Disable type selector
-        typeSelect.val("date").prop("disabled", true);
+        typeSelect.val('date').prop('disabled', true);
         typeSelectParent.append('<input type="hidden" class="save-type" name="view[data][client_section][' + key + '][save-type]" value="date">');
 
         // add format field
@@ -1044,7 +1015,7 @@ jQuery(document).ready(function( $ ) {
         $.get(ajaxurl, data, function (response) {
           // Insert into placeholder div. Add hidden field because we are
           // disabling the <select> so its value will not be submitted.
-          $elParent.find(".field-property-box").html(response); // .find("input").focus();
+          $elParent.find('.field-property-box').html(response); // .find("input").focus();
           $el.parent().append('<input type="hidden" class="save-type" name="view[data][client_section][' + key + '][type]" value="date">');
         });
         break;
@@ -1052,49 +1023,49 @@ jQuery(document).ready(function( $ ) {
       case 'link2':
       case 'link':
         // Get field name --> Get field label --> Populate link_text label
-        var fieldName = $elParent.find(".field-name").find("select").val();
+        var fieldName = $elParent.find('.field-name').find('select').val();
         var data2 = {
           'action': 'wpmtst_view_get_label',
           'name': fieldName,
         };
         $.get(ajaxurl, data2, function (response) {
-          var key = $elParent.attr("id").split('-').slice(-1)[0];
-          $("#view-fieldtext" + key + "-label").val(response);
+          var key = $elParent.attr('id').split('-').slice(-1)[0];
+          $('#view-fieldtext' + key + '-label').val(response);
         });
         break;
 
       case 'category':
-        $(typeSelect).val("category").prop("disabled", true);
+        $(typeSelect).val('category').prop('disabled', true);
         typeSelectParent.append('<input type="hidden" class="save-type" name="view[data][client_section][' + key + '][save-type]" value="category">');
-        $elParent.find(".field-property-box").empty();
+        $elParent.find('.field-property-box').empty();
         break;
 
       default:
         // Special handling
         if ('rating' === fieldType) {
-          typeSelect.val("rating").prop("disabled", true);
+          typeSelect.val('rating').prop('disabled', true);
           typeSelectParent.append('<input type="hidden" class="save-type" name="view[data][client_section][' + key + '][save-type]" value="rating">');
-          $elParent.find(".field-property-box").empty();
+          $elParent.find('.field-property-box').empty();
           break;
         }
 
-        $(typeSelect).val("text").prop("disabled", false);
+        $(typeSelect).val('text').prop('disabled', false);
         // remove meta field
-        $elParent.find(".field-property-box").empty();
+        $elParent.find('.field-property-box').empty();
         // remove the saved type that's only necessary when we disable the input (above)
-        $el.parent().find("input.save-type").remove();
+        $el.parent().find('input.save-type').remove();
     }
   });
 
   /**
    * Delete a client field
    */
-  customFieldList.on("click", "span.delete", function (e) {
-    var thisField = $(this).closest(".field2");
-    var yesno = confirm("Remove this field?");
+  customFieldList.on('click', 'span.delete', function (e) {
+    var thisField = $(this).closest('.field2');
+    var yesno = confirm('Remove this field?');
     if (yesno) {
       thisField.fadeOut(function () {
-        $(this).remove()
+        $(this).remove();
       });
     }
     // Prevent click from expanding accordion
@@ -1102,12 +1073,12 @@ jQuery(document).ready(function( $ ) {
     e.preventDefault();
   });
 
-  customFieldList.on("click", "span.link", function (e) {
+  customFieldList.on('click', 'span.link', function (e) {
     $(this)
-      .closest(".field2")
-      .toggleClass("open")
-      .find(".field-properties")
-      .slideToggle()
+      .closest('.field2')
+      .toggleClass('open')
+      .find('.field-properties')
+      .slideToggle();
     return false;
   });
 
@@ -1125,7 +1096,7 @@ jQuery(document).ready(function( $ ) {
   document.body.addEventListener('click', copy, true);
 
   // event handler
-  function copy(e) {
+  function copy (e) {
 
     // find target element
     var
@@ -1146,9 +1117,9 @@ jQuery(document).ready(function( $ ) {
 
         //t.classList.add('copied');
         //setTimeout(function() { t.classList.remove('copied'); }, 1500);
-        document.getElementById("copy-message").classList.add("copied");
+        document.getElementById('copy-message').classList.add('copied');
         setTimeout(function () {
-          document.getElementById("copy-message").classList.remove('copied');
+          document.getElementById('copy-message').classList.remove('copied');
         }, 2000);
       }
       catch (err) {

@@ -1,0 +1,11 @@
+{
+  "name": "Unstyled",
+  "description": "A completely unstyled template for CSS experts. If using this template in a slideshow, you will probably need to add some structural CSS &ndash; use the default template as a guide.",
+  "type": "display",
+  "order": 100,
+  "scripts": "",
+  "styles": "",
+  "force": "",
+  "options": "",
+  "format_version": "2.0"
+}

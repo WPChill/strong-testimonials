@@ -121,7 +121,7 @@ class Strong_View {
 	 * @since 2.16.0 In Strong_View class.
 	 */
 	public function load_extra_stylesheets() {
-		$styles = WPMST()->templates->get_template_attr( $this->atts, 'styles', false );
+		$styles = WPMST()->templates->get_template_config( $this->atts, 'styles', false );
 		if ( $styles ) {
 			$styles_array = explode( ',', str_replace( ' ', '', $styles ) );
 			foreach ( $styles_array as $handle ) {
@@ -137,15 +137,19 @@ class Strong_View {
 	 * @since 2.16.0 In Strong_View class.
 	 */
 	public function load_dependent_scripts() {
-		$deps = WPMST()->templates->get_template_attr( $this->atts, 'deps', false );
+		// Scripts that are already registered.
+		$deps = WPMST()->templates->get_template_config( $this->atts, 'scripts', false );
 		$deps_array = $deps ? explode( ',', str_replace( ' ', '', $deps ) ) : array();
 
-		$script = WPMST()->templates->get_template_attr( $this->atts, 'script', false );
+		// A single script included in directory.
+		$script = WPMST()->templates->get_template_config( $this->atts, 'script', false );
+
 		if ( $script ) {
-			$handle = 'testimonials-' . str_replace( ':', '-', $this->atts['template'] );
+			$handle = 'testimonials-' . $this->atts['template'];
 			wp_register_script( $handle, $script, $deps_array );
 			WPMST()->render->add_script( $handle );
-		} else {
+		}
+		else {
 			foreach ( $deps_array as $handle ) {
 				WPMST()->render->add_script( $handle );
 			}
@@ -164,8 +168,9 @@ class Strong_View {
 	 */
 	public function find_stylesheet( $enqueue = true ) {
 		// In case of deactivated widgets still referencing deleted Views
-		if ( ! isset( $this->atts['template'] ) || ! $this->atts['template'] )
+		if ( ! isset( $this->atts['template'] ) || ! $this->atts['template'] ) {
 			return false;
+		}
 
 		$stylesheet = WPMST()->templates->get_template_attr( $this->atts, 'stylesheet', false );
 		if ( $stylesheet ) {
@@ -182,17 +187,45 @@ class Strong_View {
 	}
 
 	/**
-	 * Add template name as CSS class.
+	 * Assemble list of CSS classes.
 	 *
 	 * @since 2.11.0
+	 * @since 2.30.0 Adding template option classes.
 	 *
-	 * @return mixed
+	 * @return array
 	 */
 	public function get_template_css_class() {
-		$class = str_replace( ':content', '', $this->atts['template'] );
+		$template_name = $this->atts['template'];
+
+		// Maintain back-compat with template format version 1.0.
+		$class = str_replace( ':content', '', $template_name );
 		$class = str_replace( ':', '-', $class );
 		$class = str_replace( '-form-form', '-form', $class );
-		return array( $class );
+		$class_list = array( $class );
+
+		$template_object = WPMST()->templates->get_template_by_name( $template_name );
+
+		if ( isset( $template_object['config']['options'] ) && is_array( ( $template_object['config']['options'] ) ) ) {
+
+			foreach ( $template_object['config']['options'] as $option ) {
+
+				if ( isset( $this->atts['template_settings'][ $template_name ][ $option->name ] ) ) {
+
+					foreach ( $option->values as $value ) {
+						if ( $value->value == $this->atts['template_settings'][ $template_name ][ $option->name ] ) {
+							if ( isset( $value->class_name ) ) {
+								$class_list[] = $value->class_name;
+							}
+						}
+					}
+
+				}
+
+			}
+
+		}
+
+		return $class_list;
 	}
 
 	/**
@@ -212,7 +245,20 @@ class Strong_View {
 	}
 
 	/**
+	 * Is this a form view?
+	 *
+	 * @since 2.30.0
+	 *
+	 * @return bool
+	 */
+	public function is_form() {
+		return ( isset( $this->atts['mode'] ) && 'form' == $this->atts['mode'] );
+	}
+
+	/**
 	 * Build CSS for custom font color.
+	 *
+	 * @since 2.30.0
 	 */
 	public function custom_font_color() {
 		$font_color = $this->atts['font-color'];
@@ -224,12 +270,18 @@ class Strong_View {
 
 		if ( $c1 ) {
 			$view_el = ".strong-view-id-{$this->atts['view']}";
-			$is_form = ( isset( $this->atts['form'] ) && $this->atts['form'] );
 
-			if ( $is_form ) {
-				wp_add_inline_style( 'wpmtst-custom-style', "$view_el .strong-form-inner { color: $c1; }" );
-			} else {
-				wp_add_inline_style( 'wpmtst-custom-style', "$view_el .testimonial-content p, $view_el .testimonial-client div { color: $c1; }" );
+			if ( $this->is_form() ) {
+				wp_add_inline_style( 'wpmtst-custom-style',
+				                     "$view_el .strong-form-inner { color: $c1; }" );
+			}
+			else {
+				wp_add_inline_style( 'wpmtst-custom-style',
+				                     "$view_el .testimonial-heading, " .
+				                     "$view_el .testimonial-content p, " .
+				                     "$view_el .testimonial-content a.readmore, " .
+				                     "$view_el .testimonial-client div, " .
+				                     "$view_el .testimonial-client a { color: $c1; }" );
 			}
 		}
 	}
@@ -271,32 +323,40 @@ class Strong_View {
 		}
 
 		$view_el = "$prefix.strong-view-id-{$this->atts['view']}";
-		$is_form = ( isset( $this->atts['form'] ) && $this->atts['form'] );
 
-		// Includes special handling for Large Widget template.
+		// Includes special handling for Bold template.
 		if ( $c1 && $c2 ) {
 
 			$gradient = self::gradient_rules( $c1, $c2 );
 
-			if ( $is_form ) {
-				wp_add_inline_style( 'wpmtst-custom-style', "$view_el .strong-form-inner { $gradient }" );
-			} else {
-				wp_add_inline_style( 'wpmtst-custom-style', "$view_el .testimonial-inner { $gradient }" );
+			if ( $this->is_form() ) {
+				wp_add_inline_style( 'wpmtst-custom-style',
+				                     "$view_el .strong-form-inner { $gradient }" );
+			}
+			else {
+				wp_add_inline_style( 'wpmtst-custom-style',
+				                     "$view_el .testimonial-inner { $gradient }" );
 
-				if ( 'large-widget:widget' == WPMST()->atts( 'template' ) ) {
-					wp_add_inline_style( 'wpmtst-custom-style', "$view_el .readmore-page { background: $c2 }" );
+				if ( 'bold' == WPMST()->atts( 'template' ) ) {
+					wp_add_inline_style( 'wpmtst-custom-style',
+					                     "$view_el .readmore-page { background: $c2 }" );
 				}
 			}
 
-		} elseif ( $c1 ) {
+		}
+		elseif ( $c1 ) {
 
-			if ( $is_form ) {
-				wp_add_inline_style( 'wpmtst-custom-style', "$view_el .strong-form-inner { background: $c1; }" );
-			} else {
-				wp_add_inline_style( 'wpmtst-custom-style', "$view_el .testimonial-inner { background: $c1; }" );
+			if ( $this->is_form() ) {
+				wp_add_inline_style( 'wpmtst-custom-style',
+				                     "$view_el .strong-form-inner { background: $c1; }" );
+			}
+			else {
+				wp_add_inline_style( 'wpmtst-custom-style',
+				                     "$view_el .testimonial-inner { background: $c1; }" );
 
-				if ( 'large-widget:widget' == WPMST()->atts( 'template' ) ) {
-					wp_add_inline_style( 'wpmtst-custom-style', "$view_el .readmore-page { background: $c1 }" );
+				if ( 'bold' == WPMST()->atts( 'template' ) ) {
+					wp_add_inline_style( 'wpmtst-custom-style',
+					                     "$view_el .readmore-page { background: $c1 }" );
 				}
 			}
 

@@ -171,22 +171,22 @@ function wpmtst_view_settings( $action = '', $view_id = null ) {
 
 	// Select default template if necessary
 	if ( !$view['template'] ) {
-		if ( 'form' == $view['mode'] )
-			$view['template'] = 'default:form';
-		else
-			$view['template'] = 'default:content';
+		if ( 'form' == $view['mode'] ) {
+			$view['template'] = 'default-form';
+		}
+		else {
+			$view['template'] = 'default';
+		}
 	}
 
 	$view_cats_array = apply_filters( 'wpmtst_l10n_cats', explode( ',', $view['category'] ) );
 
 	// Assemble list of templates
-	$templates      = WPMST()->templates->get_templates( array( 'content', 'widget' ) );
-	$form_templates = WPMST()->templates->get_templates( 'form' );
+	$templates = array(
+		'display' => WPMST()->templates->get_templates( 'display' ),
+		'form'    => WPMST()->templates->get_templates( 'form' ),
+	);
 	$template_keys  = WPMST()->templates->get_template_keys();
-
-	$group = strtok( $view['template'], ':' );
-	$type  = strtok( ':' );
-
 	$template_found = in_array( $view['template'], $template_keys );
 
 	// Get list of image sizes

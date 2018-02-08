@@ -35,7 +35,7 @@ class Strong_View_Slideshow extends Strong_View_Display {
 		$this->has_slideshow();
 		$this->has_stars();
 
-		$this->load_dependent_scripts();
+		//$this->load_dependent_scripts();
 		$this->load_extra_stylesheets();
 
 		// If we can preprocess, we can add the inline style in the <head>.
@@ -61,7 +61,7 @@ class Strong_View_Slideshow extends Strong_View_Display {
 
 		$this->load_dependent_scripts();
 		$this->load_extra_stylesheets();
-		$this->custom_background();
+		//$this->custom_background();
 
 		/*
 		 * If we cannot preprocess, add the inline style to the footer.
@@ -129,6 +129,7 @@ class Strong_View_Slideshow extends Strong_View_Display {
 	 * Build class list based on view attributes.
 	 *
 	 * This must happen after the query.
+	 * TODO DRY
 	 */
 	public function build_classes() {
 
@@ -156,7 +157,6 @@ class Strong_View_Slideshow extends Strong_View_Display {
 		/**
 		 * Slideshow
 		 */
-		if ( 'slideshow' == $this->atts['mode'] ) {
 
 			$settings = $this->atts['slideshow_settings'];
 
@@ -212,8 +212,6 @@ class Strong_View_Slideshow extends Strong_View_Display {
 			$content_class_list[] = 'wpmslider-content';
 
 			$post_class_list[] = 't-slide';
-
-		}
 
 		/**
 		 * Filter classes.

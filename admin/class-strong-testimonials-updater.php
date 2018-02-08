@@ -687,6 +687,7 @@ class Strong_Testimonials_Updater {
 				unset( $view_data['compat'] );
 
 				$view_data = $this->convert_template_name( $view_data );
+				$view_data = $this->convert_count( $view_data );
 				$view_data = $this->convert_background_color( $view_data );
 				$view_data = $this->convert_form_ajax( $view_data );
 				$view_data = $this->convert_layout( $view_data );
@@ -707,20 +708,13 @@ class Strong_Testimonials_Updater {
 			$view['data']['background'] = array_merge( $default_view['background'], $view_data['background'] );
 
 			/**
-			 * Version 2.30.0
+			 * Remove obsolete example font color.
+			 *
+			 * @since 2.30.0
 			 */
-			if ( ! isset( $history['2.30'] ) ) {
-				// Convert 'all' to 'count'
-				$view_data = $this->convert_count( $view_data );
-
-				// Remove example font color
 				if ( isset( $view['background']['example-font-color'] ) ) {
 					unset( $view['background']['example-font-color'] );
 				}
-
-				$this->update_history_log( '2.30' );
-			}
-
 
 			if ( isset( $view_data['pagination_settings'] ) ) {
 				$view['data']['pagination_settings'] = array_merge( $default_view['pagination_settings'], $view_data['pagination_settings'] );
@@ -859,9 +853,11 @@ class Strong_Testimonials_Updater {
 	 * @return array
 	 */
 	public function convert_slideshow( $view_data ) {
-		if ( isset( $view_data['slideshow_settings'] ) ) {
-			return $view_data;
+		if ( 'slideshow' == $view_data['mode'] ) {
+			$view_data['slideshow'] = 1;
 		}
+
+		if ( ! isset( $view_data['slideshow_settings'] ) ) {
 
 		if ( 'scrollHorz' == $view_data['effect'] ) {
 			$view_data['effect'] = 'horizontal';
@@ -921,6 +917,8 @@ class Strong_Testimonials_Updater {
 			unset( $view_data['slideshow_nav'] );
 		}
 
+		}
+
 		return $view_data;
 	}
 
@@ -932,9 +930,9 @@ class Strong_Testimonials_Updater {
 	 * @return array
 	 */
 	public function convert_count( $view_data ) {
-		if ( isset( $view_data['all'] ) && $view_data['all'] ) {
-			$view_data['count'] = -1;
-			unset( $view_data['all'] );
+		if ( -1 == $view_data['count'] ) {
+			$view_data['count'] = 1;
+			$view_data['all']   = 1;
 		}
 
 		return $view_data;

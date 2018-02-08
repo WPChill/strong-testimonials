@@ -631,13 +631,13 @@ class Strong_Testimonials_Render {
 	public function parse_view( $out, $pairs, $atts ) {
 		// Convert "id" to "view"
 		if ( isset( $atts['id'] ) && $atts['id'] ) {
-			$out['view'] = $atts['id'];
-			$out['id']   = null;
+			$atts['view'] = $atts['id'];
+			//$out['id']   = null;
 			unset( $atts['id'] );
 		}
 
 		// Fetch the view
-		$view = wpmtst_get_view( $out['view'] );
+		$view = wpmtst_get_view( $atts['view'] );
 
 		/**
 		 * Add error attribute for shortcode handler.

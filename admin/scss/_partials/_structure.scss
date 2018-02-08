@@ -19,3 +19,23 @@
   vertical-align: top;
 }
 
+.option-wrap {
+  margin-right: 2em;
+}
+
+.half-width {
+  display: inline-block;
+  box-sizing: border-box;
+  width: 50%;
+  float: left;
+}
+
+optgroup,
+optgroup option {
+  font-family: inherit; // Firefox
+}
+
+.intro {
+  margin-bottom: 2em;
+}
+

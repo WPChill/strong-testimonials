@@ -60,8 +60,6 @@ final class Strong_Testimonials {
 
 	public $plugin_data;
 
-	public $post_list = array();
-
 	/**
 	 * @var Strong_Testimonials_Shortcodes
 	 */
