@@ -19,41 +19,41 @@
 
 /* =pager
 ---------------------------------------------------------*/
-.strong-view .wpmslider-wrapper .wpmslider-pager {
+.strong-view .wpmslider-pager {
   display: inline-block;
 }
-.strong-view .wpmslider-wrapper .wpmslider-pager-item {
+.strong-view .wpmslider-pager-item {
   display: inline-block;
 }
-.strong-view .wpmslider-wrapper .wpmslider-pager-link {
+.strong-view .wpmslider-pager-link {
   text-decoration: none;
 }
 
 /* =controls
 ---------------------------------------------------------*/
-.strong-view .wpmslider-wrapper .wpmslider-start,
-.strong-view .wpmslider-wrapper .wpmslider-stop,
-.strong-view .wpmslider-wrapper .wpmslider-next,
-.strong-view .wpmslider-wrapper .wpmslider-prev {
+.strong-view .wpmslider-start,
+.strong-view .wpmslider-stop,
+.strong-view .wpmslider-next,
+.strong-view .wpmslider-prev {
   z-index: 5;
 }
-.strong-view .wpmslider-wrapper .wpmslider-controls-auto,
-.strong-view .wpmslider-wrapper .wpmslider-controls-direction {
+.strong-view .wpmslider-controls-auto,
+.strong-view .wpmslider-controls-direction {
   display: inline-block;
   vertical-align: middle;
 }
-.strong-view .wpmslider-wrapper .wpmslider-controls a {
+.strong-view .wpmslider-controls a {
   box-shadow: none;
   text-decoration: none;
 }
-.strong-view .wpmslider-wrapper .wpmslider-controls a:hover, .strong-view .wpmslider-wrapper .wpmslider-controls a:active, .strong-view .wpmslider-wrapper .wpmslider-controls a:focus {
+.strong-view .wpmslider-controls a:hover, .strong-view .wpmslider-controls a:active, .strong-view .wpmslider-controls a:focus {
   outline: 0;
 }
 
-.strong-view.controls-style-buttons2 .wpmslider-wrapper .wpmslider-start,
-.strong-view.controls-style-buttons2 .wpmslider-wrapper .wpmslider-stop,
-.strong-view.controls-style-buttons2 .wpmslider-wrapper .wpmslider-next,
-.strong-view.controls-style-buttons2 .wpmslider-wrapper .wpmslider-prev {
+.strong-view.controls-style-buttons2 .wpmslider-start,
+.strong-view.controls-style-buttons2 .wpmslider-stop,
+.strong-view.controls-style-buttons2 .wpmslider-next,
+.strong-view.controls-style-buttons2 .wpmslider-prev {
   font-family: FontAwesome;
   display: inline-block;
   background: #C0C0C0;
@@ -68,26 +68,26 @@
   text-align: center;
   transition: all 0.2s ease;
 }
-.strong-view.controls-style-buttons2 .wpmslider-wrapper .wpmslider-start,
-.strong-view.controls-style-buttons2 .wpmslider-wrapper .wpmslider-stop {
+.strong-view.controls-style-buttons2 .wpmslider-start,
+.strong-view.controls-style-buttons2 .wpmslider-stop {
   margin: 0 4px;
 }
-.strong-view.controls-style-buttons2 .wpmslider-wrapper .wpmslider-start:before {
+.strong-view.controls-style-buttons2 .wpmslider-start:before {
   content: "\f04b";
 }
-.strong-view.controls-style-buttons2 .wpmslider-wrapper .wpmslider-stop:before {
+.strong-view.controls-style-buttons2 .wpmslider-stop:before {
   content: "\f04c";
 }
-.strong-view.controls-style-buttons2 .wpmslider-wrapper .wpmslider-prev:before {
+.strong-view.controls-style-buttons2 .wpmslider-prev:before {
   content: "\f053";
 }
-.strong-view.controls-style-buttons2 .wpmslider-wrapper .wpmslider-next:before {
+.strong-view.controls-style-buttons2 .wpmslider-next:before {
   content: "\f054";
 }
-.strong-view.controls-style-buttons2 .wpmslider-wrapper .wpmslider-start:hover,
-.strong-view.controls-style-buttons2 .wpmslider-wrapper .wpmslider-stop:hover,
-.strong-view.controls-style-buttons2 .wpmslider-wrapper .wpmslider-next:hover,
-.strong-view.controls-style-buttons2 .wpmslider-wrapper .wpmslider-prev:hover {
+.strong-view.controls-style-buttons2 .wpmslider-start:hover,
+.strong-view.controls-style-buttons2 .wpmslider-stop:hover,
+.strong-view.controls-style-buttons2 .wpmslider-next:hover,
+.strong-view.controls-style-buttons2 .wpmslider-prev:hover {
   background: #333;
 }
 
