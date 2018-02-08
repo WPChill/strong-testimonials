@@ -40,6 +40,7 @@ class Strong_Testimonials_Defaults {
 			'scrolltop'             => true,
 			'scrolltop_offset'      => 80,
 			'no_lazyload'           => true,
+			'touch_enabled'         => true,
 		);
 
 		return $default_options;
