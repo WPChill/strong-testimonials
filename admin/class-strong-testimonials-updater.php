@@ -803,22 +803,22 @@ class Strong_Testimonials_Updater {
 				break;
 			case 'default-dark:form' :
 				$view_data['template'] = 'default-form';
-				$view_data['template_settings'] = array( 'theme' => 'dark' );
+				$view_data['template_settings'][ $view_data['template'] ] = array( 'theme' => 'dark' );
 				break;
 			case 'default-dark:content' :
 				$view_data['template'] = 'default';
-				$view_data['template_settings'] = array( 'theme' => 'dark' );
+				$view_data['template_settings'][ $view_data['template'] ] = array( 'theme' => 'dark' );
 				break;
 			case 'default:form' :
 				$view_data['template'] = 'default-form';
 				break;
 			case 'image-right:content' :
 				$view_data['template'] = 'default';
-				$view_data['template_settings'] = array( 'image_position' => 'right' );
+				$view_data['template_settings'][ $view_data['template'] ] = array( 'image_position' => 'right' );
 				break;
 			case 'no-quotes:content' :
 				$view_data['template'] = 'default';
-				$view_data['template_settings'] = array( 'quotes' => 'off' );
+				$view_data['template_settings'][ $view_data['template'] ] = array( 'quotes' => 'off' );
 				break;
 			case 'large:widget' :
 				$view_data['template'] = 'bold';
@@ -843,7 +843,7 @@ class Strong_Testimonials_Updater {
 				break;
 			case 'image-right:widget' :
 				$view_data['template'] = 'small-widget';
-				$view_data['template_settings'] = array( 'image_position' => 'right' );
+				$view_data['template_settings'][ $view_data['template'] ] = array( 'image_position' => 'right' );
 				break;
 			default:
 				// Keep existing value; it's probably a custom template.
