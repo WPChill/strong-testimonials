@@ -3,7 +3,7 @@ Contributors: cdillon27
 Tags: testimonials, testimonial slider, testimonial form, reviews, star ratings
 Requires at least: 3.7
 Tested up to: 4.9.4
-Stable tag: 2.29.1
+Stable tag: 2.30
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -190,6 +190,18 @@ If you prefer not to post your URL publicly, start a private support ticket at [
 
 == Changelog ==
 
+= 2.30.0 - Feb 10, 2018 =
+* Add option for font color in view editor.
+* Add option for a custom CSS class on the image link for lightboxes.
+* Add shortcode attributes for post_ids, category, order, and count.
+* Use `is_email()` to validate email addresses.
+* Use `number_format_i18n()` in testimonial_count shortcode.
+* Refactor template groups into base templates with options.
+* Add option to disable touch swipe navigation in slideshows.
+* Simplify slideshow CSS.
+* Fix bug in slider script in Chrome.
+
+
 = 2.29.1 - Jan 8, 2018 =
 * Only to trigger update because the SVN version was incomplete.
 
@@ -208,46 +220,9 @@ If you prefer not to post your URL publicly, start a private support ticket at [
 * Improve add-on configuration check.
 * Minor refactoring for improved performance.
 
-= 2.28.4 - Nov 20, 2017 =
-* Fix bug when using count in views.
-* Fix bug that prevented saving views.
-* Fix bug that prevented deleting the plugin.
-* Rename the form's submit button CSS class to `wpmtst-submit` to prevent conflicts. Thanks @chestozo.
-* Remove mail debug logger.
-* Improved update process to prevent simultaneous execution.
-
-= 2.28.3 - Nov 18, 2017 =
-* Fix bug in slider when not using transition effect.
-* Fix conflict between standard pagination and query limit.
-* Fix bug when saving custom fields in post editor.
-* Add capability for custom input fields.
-
-= 2.28.2 - Nov 10, 2017 =
-* Fix bug when only one page in paginated views (count < per_page).
-
-= 2.28.1 - Nov 10, 2017 =
-* Fix conflict with paginated views in some themes.
-
-= 2.28 - Nov 9, 2017 =
-* Add compatibility settings for Ajax page loading.
-* Add subtle transition effect for paginated views.
-* Add standard pagination options.
-  * Previous/Next links
-  * Condensed navigation
-  * Before/after page number text
-* Fix bug where standard pagination failed to add a trailing slash.
-* Fix bug that failed to check plugin-specific capabilities in multisite.
-* Fix bug that caused redirect loop if database error occurs during installation.
-* Add a JavaScript controller to coordinate components.
-* Refactor slider script.
-* Refactor pager script.
-* Refactor honeypots to inline, plain JavaScript.
-* Refactor many functions into classes.
-* Add ability to register a custom field type (experimental).
-
 See changelog.txt for previous versions.
 
 == Upgrade Notice ==
 
-= 2.29 =
-Captcha options have changed. Please double-check your form settings.
+= 2.30 =
+Better template options.
