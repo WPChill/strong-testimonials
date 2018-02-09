@@ -102,7 +102,6 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
 .strong-view.modern .testimonial-content:before,
 .strong-view.modern .testimonial-content:after {
   font-family: FontAwesome;
-  color: #CDCDCD;
   font-size: 36px;
   font-style: normal;
   line-height: 36px;
@@ -130,7 +129,6 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
 }
 .strong-view.modern .testimonial-date {
   font-size: 0.9em;
-  color: #777;
 }
 .strong-view.modern .testimonial-company {
   font-size: 1.1em;
@@ -151,9 +149,6 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
   padding: 0.7em;
   text-align: center;
 }
-.strong-view.modern .strong-slider-controls .slider-pager span::before {
-  color: #808080;
-}
 .strong-view.modern .strong-slider-controls.indexed {
   line-height: 22px;
   padding: 19px 0;
@@ -164,7 +159,6 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
 }
 .strong-view.modern .strong-slider-controls.indexed span.slider-pager-active {
   border-radius: 50%;
-  background: #CDCDCD;
   font-weight: 400;
 }
 
