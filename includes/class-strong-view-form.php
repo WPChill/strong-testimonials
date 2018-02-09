@@ -18,8 +18,7 @@ class Strong_View_Form extends Strong_View {
 	 * @param array $atts
 	 */
 	public function __construct( $atts = array() ) {
-		parent::__construct();
-		$this->atts = apply_filters( 'wpmtst_view_atts', $atts );
+		parent::__construct( $atts );
 	}
 
 	/**
