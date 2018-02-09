@@ -65,7 +65,7 @@ class Strong_Testimonials_Help {
 		// Links
 
 		$links = array(
-			'<a href="https://support.strongplugins.com/article/complete-example-customizing-form/" target="_blank">' . __( 'Tutorial', 'strong-testimonials' ) . '</a>',
+			'<a href="https://strongplugins.com/document/strong-testimonials/complete-example-customizing-form/" target="_blank">' . __( 'Tutorial', 'strong-testimonials' ) . '</a>',
 			'<a href="' . admin_url( 'edit.php?post_type=wpm-testimonial&page=testimonial-settings&tab=form' ) . '">' . __( 'Form settings', 'strong-testimonials' ) . '</a>',
 		);
 
