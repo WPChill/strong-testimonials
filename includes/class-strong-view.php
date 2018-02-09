@@ -43,7 +43,13 @@ class Strong_View {
 	 */
 	public $plugin_version;
 
-	function __construct() {
+	/**
+	 * Strong_View constructor.
+	 *
+	 * @param array $atts
+	 */
+	function __construct( $atts = array() ) {
+		$this->atts = apply_filters( 'wpmtst_view_atts', $atts );
 		$this->plugin_version = get_option( 'wpmtst_plugin_version' );
 	}
 

@@ -33,8 +33,7 @@ class Strong_View_Display extends Strong_View {
 	 * @param array $atts
 	 */
 	public function __construct( $atts = array() ) {
-		parent::__construct();
-		$this->atts = apply_filters( 'wpmtst_view_atts', $atts );
+		parent::__construct( $atts );
 		add_filter( 'wpmtst_build_query', array( $this, 'query_pagination' ) );
 	}
 

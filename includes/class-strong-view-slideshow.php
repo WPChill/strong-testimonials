@@ -18,8 +18,7 @@ class Strong_View_Slideshow extends Strong_View_Display {
 	 * @param array $atts
 	 */
 	public function __construct( $atts = array() ) {
-		parent::__construct();
-		$this->atts = apply_filters( 'wpmtst_view_atts', $atts );
+		parent::__construct( $atts );
 	}
 
 	/**
