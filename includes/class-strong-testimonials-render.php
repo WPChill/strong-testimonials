@@ -632,7 +632,6 @@ class Strong_Testimonials_Render {
 		// Convert "id" to "view"
 		if ( isset( $atts['id'] ) && $atts['id'] ) {
 			$atts['view'] = $atts['id'];
-			//$out['id']   = null;
 			unset( $atts['id'] );
 		}
 
@@ -649,6 +648,15 @@ class Strong_Testimonials_Render {
 		}
 
 		$view_data = unserialize( $view['value'] );
+
+		/**
+		 * Adjust for defaults.
+		 *
+		 * @since 2.30.0
+		 */
+		if ( isset( $view_data['category'] ) && 'all' == $view_data['category'] ) {
+			$view_data['category'] = '';
+		}
 
 		/**
 		 * Saner approach.
