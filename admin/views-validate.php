@@ -44,50 +44,11 @@ function wpmtst_sanitize_view( $input ) {
 	$data         = array();
 	$data['mode'] = sanitize_text_field( $input['mode'] );
 
-	/*
-	 * Single testimonial
-	 */
-	// Clear single ID if "multiple" selected
-	if ( 'multiple' == $input['select'] ) {
-		$data['id'] = 0;  // must be zero not empty or false
-	} else {
-		// Check the "ID or slug" field first
-		if ( ! $input['post_id'] ) {
-			$data['id'] = (int) sanitize_text_field( $input['id'] );
-		}
-		else {
-			// is post ID?
-			$id = (int) $input['post_id'];
-			if ( $id ) {
-				if ( ! get_posts( array( 'p' => $id, 'post_type' => 'wpm-testimonial', 'post_status' => 'publish' ) ) ) {
-					$id = null;
-				}
-			}
-			else {
-				// is post slug?
-				$target = get_posts( array(
-					'name'        => $input['post_id'],
-					'post_type'   => 'wpm-testimonial',
-					'post_status' => 'publish'
-				) );
-				if ( $target ) {
-					$id = $target[0]->ID;
-				}
-			}
-
-			$data['id']      = $id;
-			$data['post_id'] = '';
-		}
-	}
-
 	$data['form_ajax'] = isset( $input['form_ajax'] ) ? 1 : 0;
 
-	// Template
-	if ( 'form' == $data['mode'] ) {
-		$data['template'] = isset( $input['form-template'] ) ? sanitize_text_field( $input['form-template'] ) : '';
-	} else {
-		$data['template'] = isset( $input['template'] ) ? sanitize_text_field( $input['template'] ) : '';
-	}
+	$data = wpmtst_sanitize_view_post_id( $data, $input );
+
+	$data = wpmtst_sanitize_view_template( $data, $input );
 
 	// Category
 	if ( 'form' == $data['mode'] ) {
@@ -110,8 +71,13 @@ function wpmtst_sanitize_view( $input ) {
 
 	$data['order'] = sanitize_text_field( $input['order'] );
 
-	$data['all']   = sanitize_text_field( $input['all'] );
+	// Limit
+	if ( isset( $input['all'] ) && $input['all'] ) {
+		$data['count'] = -1;
+	}
+	else {
 	$data['count'] = (int) sanitize_text_field( $input['count'] );
+	}
 
 	// Pagination
 	$data['pagination']          = isset( $input['pagination'] ) ? 1 : 0;
@@ -190,28 +156,37 @@ function wpmtst_sanitize_view( $input ) {
 	$data['thumbnail_width']  = sanitize_text_field( $input['thumbnail_width'] );
 	$data['thumbnail_height'] = sanitize_text_field( $input['thumbnail_height'] );
 	$data['lightbox']         = isset( $input['lightbox'] ) ? 1 : 0;
+	$data['lightbox_class']   = sanitize_text_field( $input['lightbox_class'] );
 	$data['gravatar']         = sanitize_text_field( $input['gravatar'] );
 
 	/**
 	 * CSS Class Names
 	 * This field is being confused with custom CSS rules like `.testimonial { border: none; }`
-	 * so strip periods and anything between and including curly braces.
+	 * so strip periods and declarations.
 	 */
 	$data['class'] = sanitize_text_field( trim( preg_replace( '/\{.*?\}|\./', '', $input['class'] ) ) );
 
 	// Background
 	$data['background'] = wpmtst_get_background_defaults();
-	if ( !isset( $input['background']['type'] ) || 'none' == $input['background']['type'] ) {
+	if ( ! isset( $input['background']['type'] ) ) {
 		$data['background']['type'] = '';
 	}
 	else {
 		$data['background']['type'] = sanitize_text_field( $input['background']['type'] );
 	}
-	$data['background']['color']     = sanitize_text_field( $input['background']['color'] );
-	$data['background']['gradient1'] = sanitize_text_field( $input['background']['gradient1'] );
-	$data['background']['gradient2'] = sanitize_text_field( $input['background']['gradient2'] );
+	$data['background']['color']     = sanitize_hex_color( $input['background']['color'] );
+	$data['background']['gradient1'] = sanitize_hex_color( $input['background']['gradient1'] );
+	$data['background']['gradient2'] = sanitize_hex_color( $input['background']['gradient2'] );
 	$data['background']['preset']    = sanitize_text_field( $input['background']['preset'] );
-	$data['background']['example-font-color'] = sanitize_text_field( $input['background']['example-font-color'] );
+
+	// Font color
+	if ( ! isset( $input['font-color']['type'] ) ) {
+		$data['font-color']['type'] = '';
+	}
+	else {
+		$data['font-color']['type'] = sanitize_text_field( $input['font-color']['type'] );
+	}
+	$data['font-color']['color'] = sanitize_hex_color( $input['font-color']['color'] );
 
 	// Layout input may have been disabled by selecting the widget template so no value is posted.
 	if ( ! isset( $input['layout'] ) ) {
@@ -240,6 +215,7 @@ function wpmtst_sanitize_view( $input ) {
 		$data['form_id'] = $input['form_id'];
 	}
 	else {
+		// hidden
 		$data['form_id'] = $input['_form_id'];
 	}
 
@@ -248,6 +224,66 @@ function wpmtst_sanitize_view( $input ) {
 
 	$data = apply_filters( 'wpmtst_sanitized_view', $data, $input );
 	ksort( $data );
+
+	return $data;
+}
+
+/**
+ * Single testimonial
+ *
+ * @since 2.30.0 As separate function.
+ *
+ * @param $data array
+ * @param $input array
+ *
+ * @return array
+ */
+function wpmtst_sanitize_view_post_id( $data, $input ) {
+	// Clear single ID if "multiple" selected
+	if ( 'multiple' == $input['select'] ) {
+		$data['id'] = 0;  // must be zero not empty or false
+		return $data;
+	}
+
+	// Clear single ID if mode:slideshow selected
+	if ( 'slideshow' == $input['mode'] ) {
+		$data['id'] = 0;  // must be zero not empty or false
+		return $data;
+	}
+
+	// Check the "ID or slug" field first
+	if ( ! $input['post_id'] ) {
+		$data['id'] = (int) sanitize_text_field( $input['id'] );
+		return $data;
+	}
+
+	// Is post ID?
+	$id = (int) $input['post_id'];
+	if ( $id ) {
+		$args = array(
+			'p'           => $id,
+			'post_type'   => 'wpm-testimonial',
+			'post_status' => 'publish',
+		);
+		if ( ! get_posts( $args ) ) {
+			$id = null;
+		}
+	}
+	else {
+		// Is post slug?
+		$args = array(
+			'name'        => $input['post_id'],
+			'post_type'   => 'wpm-testimonial',
+			'post_status' => 'publish',
+		);
+		$target = get_posts( $args );
+		if ( $target ) {
+			$id = $target[0]->ID;
+		}
+	}
+
+	$data['id']      = $id;
+	$data['post_id'] = '';
 
 	return $data;
 }
@@ -412,4 +448,30 @@ function wpmtst_sanitize_view_client_section( $in ) {
 	}
 
 	return $out;
+}
+
+/**
+ * Template settings.
+ *
+ * @param $data
+ * @param $input
+ *
+ * @return array
+ */
+function wpmtst_sanitize_view_template( $data, $input ) {
+	if ( 'form' == $data['mode'] ) {
+		$data['template'] = isset( $input['form-template'] ) ? sanitize_text_field( $input['form-template'] ) : '';
+	} else {
+		$data['template'] = isset( $input['template'] ) ? sanitize_text_field( $input['template'] ) : '';
+	}
+
+	// To save all template settings:
+	foreach ( $input['template_settings'] as $template => $settings ) {
+		foreach ( $settings as $key => $setting ) {
+			// This does not work for checkboxes yet.
+			$data['template_settings'][ $template ][ $key ] = sanitize_text_field( $setting );
+		}
+	}
+
+	return $data;
 }

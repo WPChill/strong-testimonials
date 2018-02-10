@@ -18,8 +18,7 @@ class Strong_View_Form extends Strong_View {
 	 * @param array $atts
 	 */
 	public function __construct( $atts = array() ) {
-		parent::__construct();
-		$this->atts = apply_filters( 'wpmtst_view_atts', $atts );
+		parent::__construct( $atts );
 	}
 
 	/**
@@ -33,7 +32,6 @@ class Strong_View_Form extends Strong_View {
 		$this->load_dependent_scripts();
 		$this->load_extra_stylesheets();
 		$this->load_validator();
-		//$this->load_honeypots();
 
 		// If we can preprocess, we can add the inline style in the <head>.
 		add_action( 'wp_enqueue_scripts', array( $this, 'add_custom_style' ), 20 );
@@ -124,10 +122,8 @@ class Strong_View_Form extends Strong_View {
 	 */
 	public function build_classes() {
 
-		$container_class_list = array(
-			'strong-view-id-' . $this->atts['view'],
-			$this->get_template_css_class(),
-		);
+		$container_class_list = array( 'strong-view-id-' . $this->atts['view'] );
+		$container_class_list = array_merge( $container_class_list, $this->get_template_css_class() );
 
 		if ( is_rtl() ) {
 			$container_class_list[] = 'rtl';

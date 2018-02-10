@@ -40,6 +40,7 @@ class Strong_Testimonials_Defaults {
 			'scrolltop'             => true,
 			'scrolltop_offset'      => 80,
 			'no_lazyload'           => true,
+			'touch_enabled'         => true,
 		);
 
 		return $default_options;
@@ -655,14 +656,12 @@ class Strong_Testimonials_Defaults {
 	 */
 	public static function get_default_view() {
 		$default_view = array(
-			'all'                 => 1,
 			'background'          => array(
 				'color'              => '',
 				'type'               => '',
 				'preset'             => '',
 				'gradient1'          => '',
 				'gradient2'          => '',
-				'example-font-color' => 'dark',
 			),
 			'category'            => 'all',
 			'class'               => '',
@@ -686,15 +685,20 @@ class Strong_Testimonials_Defaults {
 			'container_class'     => '',
 			'container_data'      => '',
 			'content'             => 'entire',
-			'count'               => 1,
+			'count'               => -1,
 			'divi_builder'        => 0,
 			'excerpt_length'      => 55,
+			'font-color'         => array(
+				'color' => '',
+				'type'  => '',
+			),
 			'form_ajax'           => 0,
 			'form_id'             => 1,
 			'gravatar'            => 'no',
 			'id'                  => '',
 			'layout'              => '',
 			'lightbox'            => '',
+			'lightbox_class'      => '',
 			'mode'                => 'display',
 			'more_full_post'      => false,
 			'more_post'           => true,
@@ -737,7 +741,8 @@ class Strong_Testimonials_Defaults {
 				'pager_style'        => 'buttons',
 				'nav_position'       => 'inside',
 			),
-			'template'            => 'default:content',
+			'template'            => 'default',
+			'template_settings'   => array(),
 			'thumbnail'           => true,
 			'thumbnail_size'      => 'thumbnail',
 			'thumbnail_height'    => null,
@@ -746,6 +751,7 @@ class Strong_Testimonials_Defaults {
 			'title_link'          => false,
 			'use_default_length'  => true,
 			'use_default_more'    => false,
+			'view'                => '',
 		);
 		ksort( $default_view );
 
@@ -801,7 +807,7 @@ class Strong_Testimonials_Defaults {
 				'class'     => 'Captcha_Pro',
 				'file'      => 'captcha-pro/captcha_pro.php',
 				'settings'  => 'admin.php?page=captcha_pro.php',
-				'search'    => 'plugin-install.php?tab=search&s=Captcha+Pro',
+				'search' => '',
 				'url'       => 'https://bestwebsoft.com/products/wordpress/plugins/captcha/',
 				'installed' => false,
 				'active'    => false,

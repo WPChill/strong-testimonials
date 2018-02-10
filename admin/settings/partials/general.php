@@ -68,6 +68,22 @@ $options = get_option( 'wpmtst_options' );
 
 	<tr valign="top">
 		<th scope="row">
+			<?php _e( 'Enable Touch', 'strong-testimonials' ); ?>
+		</th>
+		<td>
+			<fieldset>
+			<label>
+				<input type="checkbox" name="wpmtst_options[touch_enabled]" <?php checked( $options['touch_enabled'] ); ?>>
+				<?php _e( 'Enable touch swipe navigation in slideshows.', 'strong-testimonials' ); ?>
+                <?php _e( 'On by default.', 'strong-testimonials' ); ?>
+			</label>
+            <p class="description"><?php _e( 'If you are having trouble scrolling long testimonials on a small screen, try disabling this.', 'strong-testimonials' ); ?></p>
+			</fieldset>
+		</td>
+	</tr>
+
+	<tr valign="top">
+		<th scope="row">
 			<?php _e( 'Scroll Top', 'strong-testimonials' ); ?>
 		</th>
 		<td>
@@ -114,7 +130,7 @@ $options = get_option( 'wpmtst_options' );
 				<li><?php _e( 'For multiple testimonials, use <strong>Bulk Edit</strong> in the testimonial list.', 'strong-testimonials' ); ?></li>
 			</ul>
 			<p class="description"><?php printf( '<a href="%s" target="_blank">%s</a>',
-				esc_url( 'https://support.strongplugins.com/article/enable-comments-strong-testimonials/' ),
+				esc_url( 'https://strongplugins.com/document/strong-testimonials/enable-comments/' ),
 				__( 'Tutorial', 'strong-testimonials' ) ); ?></p>
 		</td>
 	</tr>
@@ -135,7 +151,7 @@ $options = get_option( 'wpmtst_options' );
                         esc_url( 'https://codex.wordpress.org/Embeds' ),
                         __( 'More on embeds', 'strong-testimonials' ) ); ?> |
                     <?php printf( '<a href="%s" target="_blank">%s</a>',
-                        esc_url( 'https://support.strongplugins.com/article/youtube-twitter-instagram-strong-testimonials/' ),
+                        esc_url( 'https://strongplugins.com/document/strong-testimonials/embed-social-media/' ),
                         __( 'Tutorial', 'strong-testimonials' ) ); ?>
                 </p>
 			</fieldset>

@@ -678,6 +678,9 @@ class Strong_Testimonials_Updater {
 				continue;
 			}
 
+			/**
+			 * For version 2.28.
+			 */
 			if ( ! isset( $history['2.28_new_update_process'] ) ) {
 				/**
 				 * Compat mode no longer needed.
@@ -687,7 +690,6 @@ class Strong_Testimonials_Updater {
 				unset( $view_data['compat'] );
 
 				$view_data = $this->convert_template_name( $view_data );
-				$view_data = $this->convert_count( $view_data );
 				$view_data = $this->convert_background_color( $view_data );
 				$view_data = $this->convert_form_ajax( $view_data );
 				$view_data = $this->convert_layout( $view_data );
@@ -700,21 +702,39 @@ class Strong_Testimonials_Updater {
 				$view_data = $this->convert_pagination_type( $view_data );
 			}
 
-			// Merge in new default values.
+			/**
+			 * For version 2.30.
+			 */
+			if ( ! isset( $history['2.30_new_template_structure'] ) ) {
+				$view_data = $this->convert_template_structure( $view_data );
+				$view_data = $this->convert_count( $view_data );
+				if ( isset( $view_data['background']['example-font-color'] ) ) {
+					unset( $view_data['background']['example-font-color'] );
+				}
+
+				$this->update_history_log( '2.30_new_template_structure' );
+			}
+
+			/**
+			 * Merge in new default values.
+			 * Merge nested arrays individually. Don't use array_merge_recursive.
+			 */
 			$view['data'] = array_merge( $default_view, $view_data );
 
-			// Merge nested arrays individually. Don't use array_merge_recursive.
-
+			/**
+			 * Background defaults.
+			 */
 			$view['data']['background'] = array_merge( $default_view['background'], $view_data['background'] );
 
+			/**
+			 * Pagination defaults.
+			 * Attempt to repair bug from 2.28.2
+			 *
+			 * @since 2.28.3
+			 */
 			if ( isset( $view_data['pagination_settings'] ) ) {
 				$view['data']['pagination_settings'] = array_merge( $default_view['pagination_settings'], $view_data['pagination_settings'] );
 
-				/**
-				 * Attempt to repair bug from 2.28.2
-				 *
-				 * @since 2.28.3
-				 */
 				if ( ! isset( $view['data']['pagination_settings']['end_size'] ) || ! $view['data']['pagination_settings']['end_size'] ) {
 					$view['data']['pagination_settings']['end_size'] = 1;
 				}
@@ -724,12 +744,14 @@ class Strong_Testimonials_Updater {
 				if ( ! isset( $view['data']['pagination_settings']['per_page'] ) || ! $view['data']['pagination_settings']['per_page'] ) {
 					$view['data']['pagination_settings']['per_page'] = 5;
 				}
-
 			}
 			else {
 				$view['data']['pagination_settings'] = $default_view['pagination_settings'];
 			}
 
+			/**
+			 * Slideshow defaults.
+			 */
 			if ( isset( $view_data['slideshow_settings'] ) ) {
 				$view['data']['slideshow_settings'] = array_merge( $default_view['slideshow_settings'], $view_data['slideshow_settings'] );
 			}
@@ -738,9 +760,96 @@ class Strong_Testimonials_Updater {
 			}
 			ksort( $view['data']['slideshow_settings'] );
 
-			$success = wpmtst_save_view( $view );
+			/**
+			 * Save it.
+			 */
+			wpmtst_save_view( $view );
 
 		} // foreach $view
+	}
+
+	/**
+	 * Convert template naming structure.
+	 *
+	 * @since 2.30.0
+	 *
+	 * @param $view_data
+	 *
+	 * @return array
+	 */
+	public function convert_template_structure( $view_data ) {
+		/*
+		Array
+		(
+		    [0] => default:content
+		    [1] => default-dark:form
+		    [2] => default-dark:content
+		    [3] => default:form
+		    [4] => image-right:content
+		    [5] => no-quotes:content
+		    [6] => large:widget
+		    [7] => modern:content
+		    [8] => simple:content
+		    [9] => simple:form
+		    [10] => unstyled:content
+		    [11] => unstyled:form
+		    [12] => default:widget
+		    [13] => image-right:widget
+		)
+		*/
+		switch ( $view_data['template'] ) {
+			case 'default:content' :
+				$view_data['template'] = 'default';
+				break;
+			case 'default-dark:form' :
+				$view_data['template'] = 'default-form';
+				$view_data['template_settings'][ $view_data['template'] ] = array( 'theme' => 'dark' );
+				break;
+			case 'default-dark:content' :
+				$view_data['template'] = 'default';
+				$view_data['template_settings'][ $view_data['template'] ] = array( 'theme' => 'dark' );
+				break;
+			case 'default:form' :
+				$view_data['template'] = 'default-form';
+				break;
+			case 'image-right:content' :
+				$view_data['template'] = 'default';
+				$view_data['template_settings'][ $view_data['template'] ] = array( 'image_position' => 'right' );
+				break;
+			case 'no-quotes:content' :
+				$view_data['template'] = 'default';
+				$view_data['template_settings'][ $view_data['template'] ] = array( 'quotes' => 'off' );
+				break;
+			case 'large:widget' :
+				$view_data['template'] = 'bold';
+				break;
+			case 'modern:content' :
+				$view_data['template'] = 'modern';
+				break;
+			case 'simple:content' :
+				$view_data['template'] = 'simple';
+				break;
+			case 'simple:form' :
+				$view_data['template'] = 'simple-form';
+				break;
+			case 'unstyled:content' :
+				$view_data['template'] = 'unstyled';
+				break;
+			case 'unstyled:form' :
+				$view_data['template'] = 'unstyled-form';
+				break;
+			case 'default:widget' :
+				$view_data['template'] = 'small-widget';
+				break;
+			case 'image-right:widget' :
+				$view_data['template'] = 'small-widget';
+				$view_data['template_settings'][ $view_data['template'] ] = array( 'image_position' => 'right' );
+				break;
+			default:
+				// Keep existing value; it's probably a custom template.
+		}
+
+		return $view_data;
 	}
 
 	/**
@@ -844,86 +953,84 @@ class Strong_Testimonials_Updater {
 	 * @return array
 	 */
 	public function convert_slideshow( $view_data ) {
-		if ( 'slideshow' == $view_data['mode'] ) {
-			$view_data['slideshow'] = 1;
+		if ( isset( $view_data['slideshow_settings'] ) ) {
+			return $view_data;
 		}
 
-		if ( ! isset( $view_data['slideshow_settings'] ) ) {
+		if ( 'scrollHorz' == $view_data['effect'] ) {
+			$view_data['effect'] = 'horizontal';
+		}
 
-			if ( 'scrollHorz' == $view_data['effect'] ) {
-				$view_data['effect'] = 'horizontal';
+		$view_data['slideshow_settings'] = array(
+			'effect'             => $view_data['effect'],
+			'speed'              => $view_data['effect_for'],
+			'pause'              => $view_data['show_for'],
+			'auto_hover'         => ! $view_data['no_pause'],
+			'adapt_height'       => false,
+			'adapt_height_speed' => .5,
+			'stretch'            => isset( $view_data['stretch'] ) ? 1 : 0,
+		);
+
+		unset(
+			$view_data['effect'],
+			$view_data['effect_for'],
+			$view_data['no_pause'],
+			$view_data['show_for'],
+			$view_data['stretch']
+		);
+
+		if ( isset( $view_data['slideshow_nav'] ) ) {
+			switch ( $view_data['slideshow_nav'] ) {
+				case 'simple':
+					$view_data['slideshow_settings']['controls_type']  = 'none';
+					$view_data['slideshow_settings']['controls_style'] = 'buttons';
+					$view_data['slideshow_settings']['pager_type']     = 'full';
+					$view_data['slideshow_settings']['pager_style']    = 'buttons';
+					$view_data['slideshow_settings']['nav_position']   = 'inside';
+					break;
+				case 'buttons1':
+					$view_data['slideshow_settings']['controls_type']  = 'sides';
+					$view_data['slideshow_settings']['controls_style'] = 'buttons';
+					$view_data['slideshow_settings']['pager_type']     = 'none';
+					$view_data['slideshow_settings']['pager_style']    = 'buttons';
+					$view_data['slideshow_settings']['nav_position']   = 'inside';
+					break;
+				case 'buttons2':
+					$view_data['slideshow_settings']['controls_type']  = 'simple';
+					$view_data['slideshow_settings']['controls_style'] = 'buttons2';
+					$view_data['slideshow_settings']['pager_type']     = 'none';
+					$view_data['slideshow_settings']['pager_style']    = 'buttons';
+					$view_data['slideshow_settings']['nav_position']   = 'inside';
+					break;
+				case 'indexed':
+					$view_data['slideshow_settings']['controls_type']  = 'none';
+					$view_data['slideshow_settings']['controls_style'] = 'buttons';
+					$view_data['slideshow_settings']['pager_type']     = 'full';
+					$view_data['slideshow_settings']['pager_style']    = 'text';
+					$view_data['slideshow_settings']['nav_position']   = 'inside';
+					break;
+				default:
+					// none
 			}
-
-			$view_data['slideshow_settings'] = array(
-				'effect'             => $view_data['effect'],
-				'speed'              => $view_data['effect_for'],
-				'pause'              => $view_data['show_for'],
-				'auto_hover'         => ! $view_data['no_pause'],
-				'adapt_height'       => false,
-				'adapt_height_speed' => .5,
-				'stretch'            => isset( $view_data['stretch'] ) ? 1 : 0,
-			);
-
-			unset(
-				$view_data['effect'],
-				$view_data['effect_for'],
-				$view_data['no_pause'],
-				$view_data['show_for'],
-				$view_data['stretch']
-			);
-
-			if ( isset( $view_data['slideshow_nav'] ) ) {
-				switch ( $view_data['slideshow_nav'] ) {
-					case 'simple':
-						$view_data['slideshow_settings']['controls_type']  = 'none';
-						$view_data['slideshow_settings']['controls_style'] = 'buttons';
-						$view_data['slideshow_settings']['pager_type']     = 'full';
-						$view_data['slideshow_settings']['pager_style']    = 'buttons';
-						$view_data['slideshow_settings']['nav_position']   = 'inside';
-						break;
-					case 'buttons1':
-						$view_data['slideshow_settings']['controls_type']  = 'sides';
-						$view_data['slideshow_settings']['controls_style'] = 'buttons';
-						$view_data['slideshow_settings']['pager_type']     = 'none';
-						$view_data['slideshow_settings']['pager_style']    = 'buttons';
-						$view_data['slideshow_settings']['nav_position']   = 'inside';
-						break;
-					case 'buttons2':
-						$view_data['slideshow_settings']['controls_type']  = 'simple';
-						$view_data['slideshow_settings']['controls_style'] = 'buttons2';
-						$view_data['slideshow_settings']['pager_type']     = 'none';
-						$view_data['slideshow_settings']['pager_style']    = 'buttons';
-						$view_data['slideshow_settings']['nav_position']   = 'inside';
-						break;
-					case 'indexed':
-						$view_data['slideshow_settings']['controls_type']  = 'none';
-						$view_data['slideshow_settings']['controls_style'] = 'buttons';
-						$view_data['slideshow_settings']['pager_type']     = 'full';
-						$view_data['slideshow_settings']['pager_style']    = 'text';
-						$view_data['slideshow_settings']['nav_position']   = 'inside';
-						break;
-					default:
-						// none
-				}
-				unset( $view_data['slideshow_nav'] );
-			}
-
+			unset( $view_data['slideshow_nav'] );
 		}
 
 		return $view_data;
 	}
 
 	/**
-	 * Convert count value of -1 to 'all'.
+	 * Convert 'all' to 'count'.
 	 *
 	 * @param $view_data
 	 *
 	 * @return array
 	 */
 	public function convert_count( $view_data ) {
-		if ( - 1 == $view_data['count'] ) {
-			$view_data['count'] = 1;
-			$view_data['all']   = 1;
+		if ( isset( $view_data['all'] ) ) {
+			if ( $view_data['all'] ) {
+				$view_data['count'] = -1;
+			}
+			unset( $view_data['all'] );
 		}
 
 		return $view_data;

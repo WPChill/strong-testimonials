@@ -537,7 +537,7 @@ input[readonly] {
 .email-container {
   display: flex;
   flex-direction: column;
-  max-width: 800px;
+  max-width: 900px;
 }
 
 .email-container > div {
@@ -555,8 +555,8 @@ input[readonly] {
 }
 
 .email-option-desc {
-  flex: 0 0 10%;
-  min-width: 100px;
+  flex: 0 0 7%;
+  min-width: 80px;
   padding: 12px 10px;
   font-weight: 600;
 }
@@ -582,9 +582,22 @@ input[readonly] {
 }
 
 .email-option-part { /* 2 columns */
-  flex: 1 0 50%;
+  flex: 1 0 auto;
   display: flex;
   flex-direction: column;
+}
+.email-option-part:first-child {
+  flex: 0 1 40%;
+}
+.email-option-part input[type="text"] {
+  width: 100%;
+  margin-right: 30px;
+}
+.email-option-part input[type="email"] {
+  width: 100%;
+}
+input.wide {
+  width: 100%;
 }
 
 .email-option-label {

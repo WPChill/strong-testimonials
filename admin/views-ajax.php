@@ -11,7 +11,7 @@
  */
 function wpmtst_force_check() {
 	$atts = array( 'template' => $_REQUEST['template'] );
-	$force = WPMST()->templates->get_template_attr( $atts, 'force', false );
+	$force = WPMST()->templates->get_template_config( $atts, 'force', false );
 	echo $force;
 	wp_die();
 }

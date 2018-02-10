@@ -12,6 +12,8 @@
 				<?php endforeach; ?>
 			</select>
 		</label>
+    </div>
+    <div class="row-inner">
 		<label for="view-post_id">
 			<?php _ex( 'or enter its ID or slug', 'to select a testimonial', 'strong-testimonials' ); ?>
 		</label>

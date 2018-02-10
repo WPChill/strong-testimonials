@@ -67,7 +67,7 @@ class Strong_Testimonials_About {
 
 			<p class="about-text">
                 <?php _e( 'Thank you for updating to the latest version!' ); ?>
-                <?php printf( 'Strong Testimonials %s offers better Captcha options.', $major_minor ); ?>
+                <?php printf( 'Strong Testimonials %s offers improved view options.', $major_minor ); ?>
             </p>
 
 			<div class="wp-badge strong-testimonials"><?php printf( __( 'Version %s' ), $major_minor ); ?></div>
