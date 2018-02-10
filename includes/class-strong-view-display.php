@@ -261,7 +261,6 @@ class Strong_View_Display extends Strong_View {
 	 * TODO DRY
 	 */
 	public function build_classes() {
-
 		$container_class_list = array( 'strong-view-id-' . $this->atts['view'] );
 		$container_class_list = array_merge( $container_class_list, $this->get_template_css_class() );
 
@@ -383,7 +382,6 @@ class Strong_View_Display extends Strong_View {
 	 * @since 2.16.0 In Strong_View class.
 	 */
 	public function has_layouts() {
-
 		if ( 'masonry' == $this->atts['layout'] ) {
 
 			//WPMST()->render->add_script( 'wpmtst-masonry-script' );
