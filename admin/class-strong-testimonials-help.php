@@ -100,16 +100,20 @@ class Strong_Testimonials_Help {
 		$content = ob_get_clean();
 
 		get_current_screen()->add_help_tab( array(
-			'id'      => 'wpmtst-help-views',
-			'title'   => __( 'About Views', 'strong-testimonials' ),
-			'content' => $content,
-		) );
+			                                    'id'      => 'wpmtst-help-views',
+			                                    'title'   => __( 'About Views', 'strong-testimonials' ),
+			                                    'content' => $content,
+		                                    ) );
 	}
 
 	/**
 	 * Shortcode attributes.
 	 */
 	public static function shortcode_attributes() {
+		if ( ! isset( $_GET['action'] ) ) {
+			return;
+		}
+
 		ob_start();
 		?>
         <div>
