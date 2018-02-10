@@ -32,6 +32,38 @@ class Strong_Testimonials_Render {
 	}
 
 	/**
+	 * Set the defaults for a view.
+	 */
+	public function set_view_defaults() {
+		$this->view_defaults = apply_filters( 'wpmtst_view_default', get_option( 'wpmtst_view_default' ) );
+	}
+
+	/**
+	 * Get the shortcode defaults.
+	 *
+	 * @return array
+	 */
+	public function get_view_defaults() {
+		return $this->view_defaults;
+	}
+
+	/**
+	 * Set shortcode.
+	 */
+	public function set_shortcodes() {
+		$this->shortcode = WPMST()->shortcodes->get_shortcode();
+	}
+
+	/**
+	 * Store view attributes.
+	 *
+	 * @param $atts
+	 */
+	public function set_atts( $atts ) {
+		$this->view_atts = $atts;
+	}
+
+	/**
 	 * Load scripts and styles.
 	 *
 	 * @since 2.28.0
@@ -121,116 +153,6 @@ class Strong_Testimonials_Render {
 	}
 
 	/**
-	 * Get the shortcode defaults.
-	 *
-	 * @return array
-	 */
-	public function get_view_defaults() {
-		return $this->view_defaults;
-	}
-
-	/**
-	 * Set the defaults for a parsed View.
-	 * These are different than the default settings used by the View editor.
-	 * DO NOT COMBINE!
-	 * @todo Find a way to DRY up.
-	 */
-	public function set_view_defaults() {
-		$defaults            = array(
-			'all'                => 1,
-			'background'         => array(
-				'color'              => '',
-				'type'               => '',
-				'preset'             => '',
-				'example-font-color' => 'dark',
-			),
-			'category'           => '',
-			'class'              => '',
-			'client_section'     => null,
-			'column_count'       => 2,
-			'container_class'    => '',
-			'container_data'     => '',
-			'count'              => 1,
-			'display'            => '',
-			'divi_builder'       => 0,
-			'excerpt'            => '',
-			'excerpt_length'     => 55,
-			'form'               => '',
-			'form_ajax'          => 0,
-			'gravatar'           => 'no',
-			'id'                 => '',
-			'layout'             => '',
-			'lightbox'           => '',
-			'menu_order'         => '',
-			'mode'               => '',
-			'more_full_post'     => 0,
-			'more_post'          => 1,
-			'more_post_ellipsis' => 1,
-			'more_post_text'     => _x( 'Read more', 'link', 'strong-testimonials' ),
-			'more_page'          => '',
-			'more_page_hook'     => 'wpmtst_view_footer',
-			'more_page_id'       => 0,
-			'more_page_text'     => _x( 'Read more testimonials', 'link', 'strong-testimonials' ),
-
-			'newest'              => '',
-			'note'                => '',
-			'oldest'              => '',
-			'pagination'          => '',
-			'pagination_settings' => array(
-				'type'               => 'simple',
-				'nav'                => 'after',
-				'per_page'           => '',
-				'show_all'           => '',
-				'end_size'           => 1,
-				'mid_size'           => 1,
-				'prev_next'          => 1,
-				'prev_text'          => '&laquo; Previous',
-				'next_text'          => 'Next &raquo;',
-				'before_page_number' => '',
-				'after_page_number'  => '',
-			),
-			'random'              => '',
-			'slideshow'           => '',
-			'slideshow_settings'  => array(
-				'effect'             => 'fade',
-				'speed'              => 1,
-				'pause'              => 8,
-				'auto_start'         => true,
-				'auto_hover'         => true,
-				'adapt_height'       => true,
-				'adapt_height_speed' => '.5',
-				'stretch'            => 0,
-				'stop_auto_on_click' => true,
-				'controls_type'      => 'none',
-				'controls_style'     => 'buttons',
-				'pager_type'         => 'none',
-				'pager_style'        => 'buttons',
-				'nav_position'       => 'inside',
-			),
-			'template'            => '',
-			'thumbnail'           => '',
-			'thumbnail_size'      => 'thumbnail',
-			'thumbnail_height'    => null,
-			'thumbnail_width'     => null,
-			'title'               => '',
-			'title_link'          => 0,
-			'use_default_length'  => 1,
-			'use_default_more'    => 0,
-			'view'                => '',
-		);
-		$this->view_defaults = apply_filters( 'wpmtst_view_default', $defaults );
-	}
-
-	/**
-	 * Store view attributes.
-	 *
-	 * @param $atts
-	 */
-	public function set_atts( $atts ) {
-		$this->view_atts = $atts;
-	}
-
-	/**
 	 * Load stylesheet and scripts.
 	 *
 	 * Refer to add_enqueue_actions() for sequence.
@@ -260,13 +182,6 @@ class Strong_Testimonials_Render {
 	 */
 	public function view_rendered_after() {
 		$this->localize_scripts();
-	}
-
-	/**
-	 * Set shortcode.
-	 */
-	public function set_shortcodes() {
-		$this->shortcode = Strong_Testimonials_Shortcodes::get_shortcode();
 	}
 
 	/**
@@ -671,7 +586,7 @@ class Strong_Testimonials_Render {
 	public function prerender( $atts ) {
 		// Just like the shortcode function:
 		$atts = shortcode_atts(
-			$this->get_view_defaults(),  // $pairs
+			array(),
 			$atts,
 			$this->shortcode
 		);
@@ -681,12 +596,15 @@ class Strong_Testimonials_Render {
 
 		$this->set_atts( $atts );
 
-		if ( $atts['form'] ) {
-			$view = new Strong_View_Form( $atts );
-		} elseif ( $atts['slideshow'] ) {
-			$view = new Strong_View_Slideshow( $atts );
-		} else {
-			$view = new Strong_View_Display( $atts );
+		switch ( $atts['mode'] ) {
+			case 'form' :
+				$view = new Strong_View_Form( $atts );
+				break;
+			case 'slideshow' :
+				$view = new Strong_View_Slideshow( $atts );
+				break;
+			default :
+				$view = new Strong_View_Display( $atts );
 		}
 		$view->process();
 
@@ -713,13 +631,12 @@ class Strong_Testimonials_Render {
 	public function parse_view( $out, $pairs, $atts ) {
 		// Convert "id" to "view"
 		if ( isset( $atts['id'] ) && $atts['id'] ) {
-			$out['view'] = $atts['id'];
-			$out['id']   = null;
+			$atts['view'] = $atts['id'];
 			unset( $atts['id'] );
 		}
 
 		// Fetch the view
-		$view = wpmtst_get_view( $out['view'] );
+		$view = wpmtst_get_view( $atts['view'] );
 
 		/**
 		 * Add error attribute for shortcode handler.
@@ -732,56 +649,52 @@ class Strong_Testimonials_Render {
 
 		$view_data = unserialize( $view['value'] );
 
-		// =============================================================
-		// DECENTRALIZE
-		// This is necessary because of the way we use empty attributes;
-		// e.g. random --> random="true"
-		// =============================================================
-
-		// -----------------------------------------------------------------
-		// rule: unset unused defaults that interfere (i.e. dependent rules)
-		// -----------------------------------------------------------------
-
-		if ( 'all' == $view_data['category'] ) {
-			unset( $view_data['category'] );
+		/**
+		 * Adjust for defaults.
+		 *
+		 * @since 2.30.0
+		 */
+		if ( isset( $view_data['category'] ) && 'all' == $view_data['category'] ) {
+			$view_data['category'] = '';
 		}
-
-		if ( ! $view_data['id'] ) {
-			unset( $view_data['id'] );
-		}
-
-		if ( $view_data['all'] ) {
-			unset( $view_data['count'] );
-		}
-
-		if ( ! $view_data['pagination'] ) {
-			unset( $view_data['pagination_settings'] );
-		}
-
 		if ( 'slideshow' == $view_data['mode'] ) {
 			unset( $view_data['id'] );
-		} else {
-			unset( $view_data['slideshow_settings'] );
 		}
 
-		// ------------------------------
-		// rule: extract value from array
-		// ------------------------------
+		/**
+		 * Saner approach.
+		 *
+		 * @since 2.30.0
+		 */
 
-		$out[ $view_data['mode'] ] = true;
-		unset( $view_data['mode'] );
+		// Post ID's override single ID, category, and count
+		if ( isset( $atts['post_ids'] ) ) {
+			$atts['id']       = $atts['post_ids'];
+			$atts['category'] = '';
+			$atts['count']    = -1;
+		}
 
-		$out[ $view_data['order'] ] = true;
-		unset( $view_data['order'] );
+		// Override category slugs. This can handle a combination of slugs and ID's
+		if ( isset( $atts['category'] ) ) {
+			$cats  = array();
+			$items = explode( ',', $atts['category'] );
+			foreach ( $items as $item ) {
+				if ( is_numeric( $item ) ) {
+					$cats[] = $item;
+				}
+				else {
+					$term = get_term_by( 'slug', $item, 'wpm-testimonial-category' );
+					if ( $term ) {
+						$cats[] = $term->term_id;
+					}
+				}
+			}
+			if ( $cats ) {
+				$atts['category'] = implode( ',', $cats );
+			}
+		}
 
-		$out[ $view_data['content'] ] = true;
-		unset( $view_data['content'] );
-
-		// -----------------------------
-		// merge view onto user settings
-		// -----------------------------
-
-		$out = array_merge( $out, $view_data );
+		$out = array_merge( $this->get_view_defaults(), $view_data, $atts );
 
 		return $out;
 	}

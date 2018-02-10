@@ -31,23 +31,23 @@ $links[] = __( 'or', 'strong-testimonials' ) . ' ' . sprintf( '<a href="%s" targ
 	$links = array();
 
 	$links[] = sprintf( '<a href="%s" target="_blank">%s</a>',
-		esc_url( 'https://support.strongplugins.com/article/troubleshooting-strong-testimonials/' ),
+		esc_url( 'https://strongplugins.com/document/strong-testimonials/troubleshooting/' ),
 		__( 'Troubleshooting', 'strong-testimonials' ) );
 
 	$links[] = sprintf( '<a href="%s" target="_blank">%s</a>',
-		esc_url( 'https://support.strongplugins.com/article/youtube-twitter-instagram-strong-testimonials/' ),
+		esc_url( 'https://strongplugins.com/document/strong-testimonials/embed-social-media/' ),
 		__( 'How to add YouTube or Twitter', 'strong-testimonials' ) );
 
 	$links[] = sprintf( '<a href="%s" target="_blank">%s</a>',
-		esc_url( 'https://support.strongplugins.com/article/custom-css-strong-testimonials/' ),
+		esc_url( 'https://strongplugins.com/document/strong-testimonials/custom-css/' ),
 		__( 'Using custom CSS', 'strong-testimonials' ) );
 
 	$links[] = sprintf( '<a href="%s" target="_blank">%s</a>',
-		esc_url( 'https://support.strongplugins.com/article/enable-comments-strong-testimonials/' ),
+		esc_url( 'https://strongplugins.com/document/strong-testimonials/enable-comments/' ),
 		__( 'How to enable comments', 'strong-testimonials' ) );
 
 	$links[] = sprintf( '<a href="%s" target="_blank">%s</a>',
-		esc_url( 'https://support.strongplugins.com/article/complete-example-customizing-form/' ),
+		esc_url( 'https://strongplugins.com/document/strong-testimonials/complete-example-customizing-form/' ),
 		__( 'How to customize the form', 'strong-testimonials' ) );
 	?>
 	<ul>

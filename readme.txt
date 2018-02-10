@@ -2,8 +2,8 @@
 Contributors: cdillon27
 Tags: testimonials, testimonial slider, testimonial form, reviews, star ratings
 Requires at least: 3.7
-Tested up to: 4.9.1
-Stable tag: 2.29.1
+Tested up to: 4.9.4
+Stable tag: 2.30
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -13,11 +13,17 @@ Simple yet powerful. Very customizable. Developer-friendly. Free support.
 
 A flexible testimonials plugin that works right out of the box for beginners with advanced features for pros, backed by strong support.
 
-**[Go Demo](https://strongdemos.com/strong-testimonials/)** | **[Knowledge Base](https://support.strongplugins.com/article-category/strong-testimonials/)** | **[Add-ons](https://strongplugins.com/plugins/category/strong-testimonials/)**
+**[Go Demo](https://strongdemos.com/strong-testimonials/)** | **[Documentation](https://strongplugins.com/documents/)** | **[Add-ons](https://strongplugins.com/plugins/category/strong-testimonials/)**
 
 ### Is this the right plugin for you?
 
 If you are a small business with up to several hundred testimonials or reviews, maybe using categories for different products or services, that needs flexible display options and a customizable form for accepting new testimonials, this plugin will work in just a few steps.
+
+> *This plugin only provides basic style options for background color and font color.*
+>
+> Some templates have light & dark versions and other options. Everything else will be inherited from your theme. If you want to customize things like fonts, margins and borders, you will need custom CSS.
+>
+> I will help with major conflicts and minor tweaks. Otherwise, consider learning enough CSS to be dangerous ;) or hiring a developer for a couple hours.
 
 ### Primary Features
 
@@ -28,7 +34,6 @@ If you are a small business with up to several hundred testimonials or reviews, 
 * Slider with several navigation options
 * Grids and Masonry
 * Ready for translation with [WPML](https://wpml.org/), [Polylang](https://wordpress.org/plugins/polylang/), and [WPGlobus](https://wordpress.org/plugins/wpglobus/)
-* A developer who's on your side :)
 
 ### More Features
 
@@ -45,13 +50,13 @@ If you are a small business with up to several hundred testimonials or reviews, 
 
 Customize the form by adding or removing fields and changing properties like the order, label, and placeholder.
 
-**Anti-spam** measures include honeypots and Captcha via these plugins:
+Anti-spam measures include honeypots and Captcha via these plugins:
 
 * [Google Captcha (reCAPTCHA) by BestWebSoft](https://wordpress.org/plugins/google-captcha/) *recommended*
 * [Captcha Pro](https://bestwebsoft.com/products/wordpress/plugins/captcha/)
 * [Really Simple Captcha](https://wordpress.org/plugins/really-simple-captcha/)
 
-Send custom **notification emails** to multiple admins.
+Send custom notification emails to multiple admins.
 
 Submit the form via Ajax to use with plugins like [Popup Maker](https://wordpress.org/plugins/popup-maker/).
 
@@ -66,14 +71,13 @@ Display the view using a single shortcode or the widget.
 
 Create unlimited views. For example, one view for a form, another for a static grid, another for a slideshow, and so on.
 
-### Style
+Strong Testimonials offers a variety of templates that work well in most themes with maybe a few tweaks.
 
-Strong Testimonials offers a handful of templates to try in your theme. The default template is just generic enough to look good in most cases with maybe a few tweaks.
+For ultimate control and seamless integration, copy any template to your theme and customize it.
 
-Need help matching your theme? Got some weird spacing or floating? I'm here to help.
+You can also use the template function to display a view in a theme template file:
 
-For ultimate control and seamless integration, copy any template to your theme and customize it. There is also a template function:
-`strong_testimonials_view( $id );`
+`<?php if ( function_exists( 'strong_testimonials_view' ) ) { strong_testimonials_view( $id ); } ?>`
 
 ### Pro Add-ons
 
@@ -89,9 +93,12 @@ Create unlimited forms, each with their own custom fields, to tailor testimonial
 
 Want to rebrand "testimonials" as "reviews", "customer stories" or something else? Control every aspect front and back. [Learn more](https://strongplugins.com/plugins/strong-testimonials-properties/?utm_source=wordpressorg&utm_medium=readme)
 
-### Support
+### Documentation
 
-I will [move mountains](https://strongplugins.com/testimonials/?utm_source=wordpressorg&utm_medium=readme) to help you get the most out of this plugin.
+* [Getting started](https://strongplugins.com/document/strong-testimonials/getting-started/?utm_source=wordpressorg&utm_medium=readme)
+* [Star ratings](https://strongplugins.com/document/strong-testimonials/star-ratings/?utm_source=wordpressorg&utm_medium=readme)
+* [Customizing the form](https://strongplugins.com/document/strong-testimonials/complete-example-customizing-form/?utm_source=wordpressorg&utm_medium=readme)
+* and [more&hellip;](https://strongplugins.com/documents/?utm_source=wordpressorg&utm_medium=readme)
 
 ### Try these plugins too
 
@@ -183,6 +190,18 @@ If you prefer not to post your URL publicly, start a private support ticket at [
 
 == Changelog ==
 
+= 2.30.0 - Feb 10, 2018 =
+* Add option for font color in view editor.
+* Add option for a custom CSS class on the image link for lightboxes.
+* Add shortcode attributes for post_ids, category, order, and count.
+* Use `is_email()` to validate email addresses.
+* Use `number_format_i18n()` in testimonial_count shortcode.
+* Refactor template groups into base templates with options.
+* Add option to disable touch swipe navigation in slideshows.
+* Simplify slideshow CSS.
+* Fix bug in slider script in Chrome.
+
+
 = 2.29.1 - Jan 8, 2018 =
 * Only to trigger update because the SVN version was incomplete.
 
@@ -201,46 +220,9 @@ If you prefer not to post your URL publicly, start a private support ticket at [
 * Improve add-on configuration check.
 * Minor refactoring for improved performance.
 
-= 2.28.4 - Nov 20, 2017 =
-* Fix bug when using count in views.
-* Fix bug that prevented saving views.
-* Fix bug that prevented deleting the plugin.
-* Rename the form's submit button CSS class to `wpmtst-submit` to prevent conflicts. Thanks @chestozo.
-* Remove mail debug logger.
-* Improved update process to prevent simultaneous execution.
-
-= 2.28.3 - Nov 18, 2017 =
-* Fix bug in slider when not using transition effect.
-* Fix conflict between standard pagination and query limit.
-* Fix bug when saving custom fields in post editor.
-* Add capability for custom input fields.
-
-= 2.28.2 - Nov 10, 2017 =
-* Fix bug when only one page in paginated views (count < per_page).
-
-= 2.28.1 - Nov 10, 2017 =
-* Fix conflict with paginated views in some themes.
-
-= 2.28 - Nov 9, 2017 =
-* Add compatibility settings for Ajax page loading.
-* Add subtle transition effect for paginated views.
-* Add standard pagination options.
-  * Previous/Next links
-  * Condensed navigation
-  * Before/after page number text
-* Fix bug where standard pagination failed to add a trailing slash.
-* Fix bug that failed to check plugin-specific capabilities in multisite.
-* Fix bug that caused redirect loop if database error occurs during installation.
-* Add a JavaScript controller to coordinate components.
-* Refactor slider script.
-* Refactor pager script.
-* Refactor honeypots to inline, plain JavaScript.
-* Refactor many functions into classes.
-* Add ability to register a custom field type (experimental).
-
 See changelog.txt for previous versions.
 
 == Upgrade Notice ==
 
-= 2.29 =
-Captcha options have changed. Please double-check your form settings.
+= 2.30 =
+Better template options.

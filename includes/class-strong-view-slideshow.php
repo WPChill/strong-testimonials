@@ -18,8 +18,7 @@ class Strong_View_Slideshow extends Strong_View_Display {
 	 * @param array $atts
 	 */
 	public function __construct( $atts = array() ) {
-		parent::__construct();
-		$this->atts = apply_filters( 'wpmtst_view_atts', $atts );
+		parent::__construct( $atts );
 	}
 
 	/**
@@ -35,7 +34,6 @@ class Strong_View_Slideshow extends Strong_View_Display {
 		$this->has_slideshow();
 		$this->has_stars();
 
-		$this->load_dependent_scripts();
 		$this->load_extra_stylesheets();
 
 		// If we can preprocess, we can add the inline style in the <head>.
@@ -61,7 +59,6 @@ class Strong_View_Slideshow extends Strong_View_Display {
 
 		$this->load_dependent_scripts();
 		$this->load_extra_stylesheets();
-		$this->custom_background();
 
 		/*
 		 * If we cannot preprocess, add the inline style to the footer.
@@ -123,105 +120,19 @@ class Strong_View_Slideshow extends Strong_View_Display {
 		wp_reset_postdata();
 
 		$this->html = apply_filters( 'strong_view_html', $html, $this );
-
-	}
-
-	/**
-	 * Build our query based on view attributes.
-	 */
-	public function build_query() {
-		$ids = explode( ',', $this->atts['id'] );
-
-		$args = array(
-			'post_type'      => 'wpm-testimonial',
-			'post_status'    => 'publish',
-			'posts_per_page' => -1,
-			'paged'          => null,
-		);
-
-		// id overrides category
-		if ( $this->atts['id'] ) {
-			$args['post__in'] = $ids;
-		}
-		elseif ( $this->atts['category'] ) {
-			$categories        = apply_filters( 'wpmtst_l10n_cats', explode( ',', $this->atts['category'] ) );
-			$args['tax_query'] = array(
-				array(
-					'taxonomy' => 'wpm-testimonial-category',
-					'field'    => 'id',
-					'terms'    => $categories,
-				),
-			);
-		}
-
-		// order by
-		if ( $this->atts['menu_order'] ) {
-			$args['orderby'] = 'menu_order';
-			$args['order']   = 'ASC';
-		}
-		else {
-			$args['orderby'] = 'post_date';
-			if ( $this->atts['newest'] ) {
-				$args['order'] = 'DESC';
-			}
-			else {
-				$args['order'] = 'ASC';
-			}
-		}
-
-		// For Post Types Order plugin
-		$args['ignore_custom_sort'] = true;
-
-		$query = new WP_Query( apply_filters( 'wpmtst_query_args', $args, $this->atts ) );
-
-		/**
-		 * Shuffle array in PHP instead of SQL.
-		 *
-		 * @since 1.16
-		 */
-		if ( $this->atts['random'] ) {
-			shuffle( $query->posts );
-		}
-
-		/**
-		 * Extract slice of array, which may be shuffled.
-		 *
-		 * Use lesser value: requested count or actual count.
-		 * Thanks chestozo.
-		 *
-		 * @link  https://github.com/cdillon/strong-testimonials/pull/5
-		 *
-		 * @since 1.16.1
-		 */
-		if ( ! $this->atts['all'] && $this->atts['count'] > 0 ) {
-			$count              = min( $this->atts['count'], count( $query->posts ) );
-			$query->posts       = array_slice( $query->posts, 0, $count );
-			$query->post_count  = $count;
-			$query->found_posts = $count;
-		}
-
-		$this->post_count  = $query->post_count;
-		$this->found_posts = $query->found_posts;
-
-		WPMST()->set_query( $query );
-
-		$this->query = $query;
-
 	}
 
 	/**
 	 * Build class list based on view attributes.
 	 *
 	 * This must happen after the query.
+	 * TODO DRY
 	 */
 	public function build_classes() {
-
 		$options = get_option( 'wpmtst_view_options' );
 
-		$container_class_list = array(
-			'strong-view-id-' . $this->atts['view'],
-			$this->get_template_css_class(),
-		);
+		$container_class_list = array( 'strong-view-id-' . $this->atts['view'] );
+		$container_class_list = array_merge( $container_class_list, $this->get_template_css_class() );
 
 		if ( is_rtl() ) {
 			$container_class_list[] = 'rtl';
@@ -235,72 +146,66 @@ class Strong_View_Slideshow extends Strong_View_Display {
 		$content_class_list  = array();
 		$post_class_list     = array( 'testimonial' );
 
-		// excerpt overrides length
-		if ( $this->atts['excerpt'] ) {
+		if ( 'excerpt' == $this->atts['content'] ) {
 			$post_class_list[] = 'excerpt';
 		}
 
 		/**
 		 * Slideshow
 		 */
-		if ( $this->atts['slideshow'] ) {
+		$settings = $this->atts['slideshow_settings'];
 
-			$settings = $this->atts['slideshow_settings'];
+		$container_class_list[] = 'slider-container';
 
-			$container_class_list[] = 'slider-container';
+		$container_class_list[] = 'slider-mode-' . $settings['effect'];
 
-			$container_class_list[] = 'slider-mode-' . $settings['effect'];
-
-			if ( $settings['adapt_height'] ) {
-				$container_class_list[] = 'slider-adaptive';
-			}
-			elseif ( $settings['stretch'] ) {
-				$container_class_list[] = 'slider-stretch';
-			}
-
-
-			$nav_methods   = $options['slideshow_nav_method'];
-			$nav_styles    = $options['slideshow_nav_style'];
-			$control       = $settings['controls_type'];
-			$control_style = $settings['controls_style'];
-			$pager         = $settings['pager_type'];
-			$pager_style   = $settings['pager_style'];
-
-			// Controls
-			if ( isset( $nav_methods['controls'][ $control ]['class'] ) && $nav_methods['controls'][ $control ]['class'] ) {
-				$container_class_list[] = $nav_methods['controls'][ $control ]['class'];
-			}
-
-			if ( 'none' != $control ) {
-				if ( isset( $nav_styles['controls'][ $control_style ]['class'] ) && $nav_styles['controls'][ $control_style ]['class'] ) {
-					$container_class_list[] = $nav_styles['controls'][ $control_style ]['class'];
-				}
-			}
-
-			// Pager
-			if ( isset( $nav_methods['pager'][ $pager ]['class'] ) && $nav_methods['pager'][ $pager ]['class'] ) {
-				$container_class_list[] = $nav_methods['pager'][ $pager ]['class'];
-			}
-
-			if ( 'none' != $pager ) {
-				if ( isset( $nav_styles['pager'][ $pager_style ]['class'] ) && $nav_styles['pager'][ $pager_style ]['class'] ) {
-					$container_class_list[] = $nav_styles['pager'][ $pager_style ]['class'];
-				}
-			}
-
-			// Position
-			if ( 'none' != $pager || ( 'none' != $control && 'sides' != $control ) ) {
-				$container_class_list[] = 'nav-position-' . $settings['nav_position'];
-			}
-
-			$container_data_list['slider-var'] = $this->slideshow_signature();
-			$container_data_list['state'] = 'idle';
-
-			$content_class_list[] = 'wpmslider-content';
-
-			$post_class_list[] = 't-slide';
-
+		if ( $settings['adapt_height'] ) {
+			$container_class_list[] = 'slider-adaptive';
 		}
+		elseif ( $settings['stretch'] ) {
+			$container_class_list[] = 'slider-stretch';
+		}
+
+		$nav_methods   = $options['slideshow_nav_method'];
+		$nav_styles    = $options['slideshow_nav_style'];
+		$control       = $settings['controls_type'];
+		$control_style = $settings['controls_style'];
+		$pager         = $settings['pager_type'];
+		$pager_style   = $settings['pager_style'];
+
+		// Controls
+		if ( isset( $nav_methods['controls'][ $control ]['class'] ) && $nav_methods['controls'][ $control ]['class'] ) {
+			$container_class_list[] = $nav_methods['controls'][ $control ]['class'];
+		}
+
+		if ( 'none' != $control ) {
+			if ( isset( $nav_styles['controls'][ $control_style ]['class'] ) && $nav_styles['controls'][ $control_style ]['class'] ) {
+				$container_class_list[] = $nav_styles['controls'][ $control_style ]['class'];
+			}
+		}
+
+		// Pager
+		if ( isset( $nav_methods['pager'][ $pager ]['class'] ) && $nav_methods['pager'][ $pager ]['class'] ) {
+			$container_class_list[] = $nav_methods['pager'][ $pager ]['class'];
+		}
+
+		if ( 'none' != $pager ) {
+			if ( isset( $nav_styles['pager'][ $pager_style ]['class'] ) && $nav_styles['pager'][ $pager_style ]['class'] ) {
+				$container_class_list[] = $nav_styles['pager'][ $pager_style ]['class'];
+			}
+		}
+
+		// Position
+		if ( 'none' != $pager || ( 'none' != $control && 'sides' != $control ) ) {
+			$container_class_list[] = 'nav-position-' . $settings['nav_position'];
+		}
+
+		$container_data_list['slider-var'] = $this->slideshow_signature();
+		$container_data_list['state'] = 'idle';
+
+		$content_class_list[] = 'wpmslider-content';
+
+		$post_class_list[] = 't-slide';
 
 		/**
 		 * Filter classes.
@@ -314,7 +219,6 @@ class Strong_View_Slideshow extends Strong_View_Display {
 		 * Store updated atts.
 		 */
 		WPMST()->set_atts( $this->atts );
-
 	}
 
 	/**
@@ -323,7 +227,6 @@ class Strong_View_Slideshow extends Strong_View_Display {
 	 * @since 2.16.0 In Strong_View class.
 	 */
 	public function has_slideshow() {
-
 		WPMST()->render->add_style( 'wpmtst-font-awesome' );
 
 		$settings          = $this->atts['slideshow_settings'];
@@ -347,7 +250,8 @@ class Strong_View_Slideshow extends Strong_View_Display {
 				WPMST()->render->add_style( "wpmtst-$filename" );
 			}
 
-		} elseif ( $not_full_controls ) {
+		}
+		elseif ( $not_full_controls ) {
 
 			/*
 			 * Pagination only
@@ -392,7 +296,7 @@ class Strong_View_Slideshow extends Strong_View_Display {
 	 * @return array
 	 */
 	private function slideshow_args() {
-
+		$options      = get_option( 'wpmtst_options' );
 		$view_options = apply_filters( 'wpmtst_view_options', get_option( 'wpmtst_view_options' ) );
 
 		/**
@@ -420,6 +324,7 @@ class Strong_View_Slideshow extends Strong_View_Display {
 			'slideCount'          => $this->post_count,
 			'debug'               => defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG,
 			'compat'              => $compat,
+			'touchEnabled'        => $options['touch_enabled'],
 		);
 		if ( ! $this->atts['slideshow_settings']['adapt_height'] ) {
 			$args['stretch'] = $this->atts['slideshow_settings']['stretch'] ? 1 : 0;

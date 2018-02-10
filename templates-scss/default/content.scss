@@ -5,11 +5,8 @@
 $template: default;
 
 @import "../_mixins/testimonial";
-
 @import "../_partials/clear";
 @import "../_partials/base";
-@import "../_partials/pagination-simple";
-@import "../_partials/pagination-standard";
 
 /* Template
 -----------------------------------------------*/
@@ -83,6 +80,11 @@ $template: default;
   }
 }
 
+/* Pagination
+-----------------------------------------------*/
+@import "../_partials/pagination-simple";
+@import "../_partials/pagination-standard";
+
 /* Slideshow
 -----------------------------------------------*/
 .strong-view.#{$template} {
@@ -134,5 +136,78 @@ $template: default;
   .testimonial-heading {
     padding-right: 40px;
     background-position: right;
+  }
+}
+
+/* Option: Image Right
+-----------------------------------------------*/
+.strong-view.#{$template}.image-right {
+  .strong-content {
+    margin: 20px auto;
+  }
+
+  .testimonial-image {
+    float: right;
+    margin-top: .25em;
+    margin-bottom: 0.25em;
+    margin-left: 1em;
+  }
+
+  .testimonial-client {
+    margin-top: 1em;
+    text-align: left;
+  }
+}
+
+.strong-view.#{$template}.image-right.rtl {
+  .testimonial-image {
+    float: left;
+    margin-left: 0;
+    margin-right: 1em;
+  }
+
+  .testimonial-client {
+    text-align: right;
+  }
+}
+
+/* Option: No Quotes
+-----------------------------------------------*/
+.strong-view.#{$template}.no-quotes {
+  .testimonial-heading {
+    background: none;
+    margin-top: 0;
+    padding-left: 0;
+    text-align: left;
+  }
+}
+
+/* Option: Dark Theme
+-----------------------------------------------*/
+.strong-view.#{$template}.dark {
+  .testimonial {
+    border: 1px solid #777;
+  }
+
+  .testimonial-inner {
+    border: 1px solid #333;
+  }
+
+  .readmore-page {
+    border: 2px solid #777;
+  }
+
+  ul.simplePagerNav {
+    li {
+      a:hover {
+        background: #777;
+        color: #FFF;
+      }
+
+      &.currentPage a {
+        background: #555;
+        color: #FFF;
+      }
+    }
   }
 }

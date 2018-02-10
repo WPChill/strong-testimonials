@@ -223,13 +223,19 @@ function wpmtst_plugin_row_meta( $plugin_meta, $plugin_file, $plugin_data = arra
     if ( $plugin_file == WPMTST_PLUGIN ) {
 
 		$plugin_meta[] = sprintf(
-		    '<a href="%s" target="_blank" title="%s" style="color: #8224e3; font-weight: 600;">%s</a>',
+		    '<a class="strong-plugin-link" href="%s" target="_blank" title="%s">%s</a>',
+			'https://strongplugins.com/documents/',
+            __( 'For guides and tutorials', 'strong-testimonials' ),
+            __( 'Documentation', 'strong-testimonials' ) );
+
+		$plugin_meta[] = sprintf(
+		    '<a class="strong-plugin-link" href="%s" target="_blank" title="%s">%s</a>',
 			'https://support.strongplugins.com/',
-            __( 'For direct support requests and documentation', 'strong-testimonials' ),
+            __( 'For direct support requests', 'strong-testimonials' ),
             __( 'Support', 'strong-testimonials' ) );
 
 		$plugin_meta[] = sprintf(
-            '<a href="%s" target="_blank" title="%s" style="color: #8224e3; font-weight: 600;">%s</a>',
+            '<a class="strong-plugin-link" href="%s" target="_blank" title="%s">%s</a>',
 			'https://strongplugins.com/',
             __( 'Get more features with premium add-ons', 'strong-testimonials' ),
             __( 'Add-ons', 'strong-testimonials' ) );

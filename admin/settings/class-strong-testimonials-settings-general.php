@@ -91,6 +91,7 @@ class Strong_Testimonials_Settings_General {
 		$input['support_comments']      = wpmtst_sanitize_checkbox( $input, 'support_comments' );
 		$input['support_custom_fields'] = wpmtst_sanitize_checkbox( $input, 'support_custom_fields' );
 		$input['no_lazyload']           = wpmtst_sanitize_checkbox( $input, 'no_lazyload' );
+		$input['touch_enabled']         = wpmtst_sanitize_checkbox( $input, 'touch_enabled' );
 
 		return $input;
 	}

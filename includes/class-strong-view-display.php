@@ -33,8 +33,26 @@ class Strong_View_Display extends Strong_View {
 	 * @param array $atts
 	 */
 	public function __construct( $atts = array() ) {
-		parent::__construct();
-		$this->atts = apply_filters( 'wpmtst_view_atts', $atts );
+		parent::__construct( $atts );
+		add_filter( 'wpmtst_build_query', array( $this, 'query_pagination' ) );
+	}
+
+	/**
+	 * Adjust query for standard pagination.
+	 *
+	 * @param $args
+	 *
+	 * @return mixed
+	 */
+	public function query_pagination( $args ) {
+		if ( $this->atts['pagination'] && 'standard' == $this->atts['pagination_settings']['type'] ) {
+			// Limit is not compatible with standard pagination.
+			$this->atts['count'] = -1;
+			$args['posts_per_page'] = $this->atts['pagination_settings']['per_page'];
+			$args['paged']          = wpmtst_get_paged();
+		}
+
+		return $args;
 	}
 
 	/**
@@ -155,7 +173,7 @@ class Strong_View_Display extends Strong_View {
 	}
 
 	/**
-	 * Build our query based on view attributes.
+	 * Build our query.
 	 */
 	public function build_query() {
 		$ids = explode( ',', $this->atts['id'] );
@@ -163,20 +181,12 @@ class Strong_View_Display extends Strong_View {
 		$args = array(
 			'post_type'   => 'wpm-testimonial',
 			'post_status' => 'publish',
+			'posts_per_page' => -1,
+			'paged'          => null,
 		);
+		$args = apply_filters( 'wpmtst_build_query', $args );
 
-		if ( $this->atts['pagination'] && 'standard' == $this->atts['pagination_settings']['type'] ) {
-			// Limit is not compatible with standard pagination.
-			$this->atts['all'] = true;
-			$args['posts_per_page'] = $this->atts['pagination_settings']['per_page'];
-			$args['paged']          = wpmtst_get_paged();
-		}
-		else {
-			$args['posts_per_page'] = -1;
-			$args['paged']          = null;
-		}
-
-		// id overrides category
+		// id's override category
 		if ( $this->atts['id'] ) {
 			$args['post__in'] = $ids;
 		}
@@ -193,13 +203,13 @@ class Strong_View_Display extends Strong_View {
 
 		// order by
 		// TODO improve for allowable custom order
-		if ( $this->atts['menu_order'] ) {
+		if ( 'menu_order' == $this->atts['order'] ) {
 			$args['orderby'] = 'menu_order';
 			$args['order']   = 'ASC';
 		}
 		else {
 			$args['orderby'] = 'post_date';
-			if ( $this->atts['newest'] ) {
+			if ( 'newest' == $this->atts['order'] ) {
 				$args['order'] = 'DESC';
 			}
 			else {
@@ -217,7 +227,7 @@ class Strong_View_Display extends Strong_View {
 		 *
 		 * @since 1.16
 		 */
-		if ( $this->atts['random'] ) {
+		if ( 'random' == $this->atts['order'] ) {
 			shuffle( $query->posts );
 		}
 
@@ -226,11 +236,12 @@ class Strong_View_Display extends Strong_View {
 		 *
 		 * Use lesser value: requested count or actual count.
 		 * Thanks chestozo.
+		 *
 		 * @link  https://github.com/cdillon/strong-testimonials/pull/5
 		 *
 		 * @since 1.16.1
 		 */
-		if ( ! $this->atts['all'] && $this->atts['count'] > 0 ) {
+		if ( $this->atts['count'] > 0 ) {
 			$count                = min( $this->atts['count'], count( $query->posts ) );
 			$query->posts         = array_slice( $query->posts, 0, $count );
 			$query->post_count    = $count;
@@ -247,13 +258,11 @@ class Strong_View_Display extends Strong_View {
 	 * Build class list based on view attributes.
 	 *
 	 * This must happen after the query.
+	 * TODO DRY
 	 */
 	public function build_classes() {
-
-		$container_class_list = array(
-			'strong-view-id-' . $this->atts['view'],
-			$this->get_template_css_class(),
-		);
+		$container_class_list = array( 'strong-view-id-' . $this->atts['view'] );
+		$container_class_list = array_merge( $container_class_list, $this->get_template_css_class() );
 
 		if ( is_rtl() ) {
 			$container_class_list[] = 'rtl';
@@ -267,8 +276,7 @@ class Strong_View_Display extends Strong_View {
 		$content_class_list  = array();
 		$post_class_list     = array( 'testimonial' );
 
-		// excerpt overrides length
-		if ( $this->atts['excerpt'] ) {
+		if ( 'excerpt' == $this->atts['content'] ) {
 			$post_class_list[] = 'excerpt';
 		}
 
@@ -299,7 +307,6 @@ class Strong_View_Display extends Strong_View {
 		 * Store updated atts.
 		 */
 		WPMST()->set_atts( $this->atts );
-
 	}
 
 	/**
@@ -375,7 +382,6 @@ class Strong_View_Display extends Strong_View {
 	 * @since 2.16.0 In Strong_View class.
 	 */
 	public function has_layouts() {
-
 		if ( 'masonry' == $this->atts['layout'] ) {
 
 			//WPMST()->render->add_script( 'wpmtst-masonry-script' );

@@ -58,8 +58,10 @@ function wpmtst_get_thumbnail( $size = null ) {
  *
  * @param $img
  * @param $post_id
+ *
  * @since 1.23.0
  * @since 2.9.4 classes and filter
+ * @since 2.30.0  lightbox_class
  *
  * @return string
  */
@@ -67,8 +69,9 @@ function wpmtst_thumbnail_img( $img, $post_id ) {
 	if ( WPMST()->atts( 'lightbox' ) ) {
 		$url = wp_get_attachment_url( get_post_thumbnail_id( $post_id ) );
 		if ( $url ) {
-			$classes = join( ' ', array_unique( apply_filters( 'wpmtst_thumbnail_link_class', array() ) ) );
-			$img = '<a class="' . $classes . '" href="' . $url . '">' . $img . '</a>';
+			$class_array = array( WPMST()->atts( 'lightbox_class' ) );
+			$classes     = join( ' ', array_unique( apply_filters( 'wpmtst_thumbnail_link_class', $class_array ) ) );
+			$img         = sprintf( '<a class="%s" href="%s">%s</a>', $classes, esc_url( $url ), $img );
 		}
 	}
 	return $img;
@@ -108,26 +111,6 @@ function wpmtst_lazyload_check() {
 	}
 }
 add_action( 'init', 'wpmtst_lazyload_check' );
-
-/**
- * Filter thumbnail link classes.
- *
- * @since 2.9.4
- * @param $classes
- *
- * @return array
- */
-function wpmtst_thumbnail_link_class( $classes ) {
-	if ( ! is_array( $classes ) )
-		$classes = preg_split( '#\s+#', $classes );
-
-	// FooBox (both free and pro versions)
-	if ( defined( 'FOOBOXFREE_VERSION' ) || class_exists( 'fooboxV2' ) )
-		$classes[] = 'foobox';
-
-	return $classes;
-}
-add_filter( 'wpmtst_thumbnail_link_class', 'wpmtst_thumbnail_link_class' );
 
 /**
  * Filter the gravatar size.

@@ -30,7 +30,7 @@
                 </div>
                 <div class="fields">
                     <label for="wpmtst-options-admin-site-email-1">
-						<?php _e( 'site admin email:', 'strong-testimonials' ); ?>
+						<?php _e( 'admin:', 'strong-testimonials' ); ?>
                         &nbsp;<?php echo get_bloginfo( 'admin_email' ); ?>
                     </label>
                 </div>

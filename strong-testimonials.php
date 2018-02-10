@@ -4,7 +4,7 @@
  * Plugin URI: https://strongplugins.com/plugins/strong-testimonials/
  * Description: A full-featured plugin that works right out of the box for beginners and offers advanced features for pros.
  * Author: Chris Dillon
- * Version: 2.29.1
+ * Version: 2.30
  *
  * Author URI: https://strongplugins.com/
  * Text Domain: strong-testimonials
@@ -34,7 +34,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'WPMTST_VERSION', '2.29' );
+define( 'WPMTST_VERSION', '2.30' );
 define( 'WPMTST_PLUGIN', plugin_basename( __FILE__ ) ); // strong-testimonials/strong-testimonials.php
 define( 'WPMTST', dirname( WPMTST_PLUGIN ) );           // strong-testimonials
 define( 'STRONGPLUGINS_STORE_URL', 'https://strongplugins.com' );
@@ -45,6 +45,7 @@ if ( ! class_exists( 'Strong_Testimonials' ) ) :
 /**
  * Main plugin class.
  *
+ * @property  Strong_Testimonials_Shortcodes shortcodes
  * @property  Strong_Testimonials_Render render
  * @property  Strong_Mail mail
  * @property  Strong_Templates templates
@@ -59,7 +60,10 @@ final class Strong_Testimonials {
 
 	public $plugin_data;
 
-	public $post_list = array();
+	/**
+	 * @var Strong_Testimonials_Shortcodes
+	 */
+	public $shortcodes;
 
 	/**
 	 * @var Strong_Testimonials_Render
@@ -186,10 +190,11 @@ final class Strong_Testimonials {
 	 * Instantiate our classes.
 	 */
 	public function init() {
-		$this->render    = new Strong_Testimonials_Render();
-		$this->mail      = new Strong_Mail();
-		$this->templates = new Strong_Templates();
-		$this->form      = new Strong_Testimonials_Form();
+		$this->shortcodes = new Strong_Testimonials_Shortcodes();
+		$this->render     = new Strong_Testimonials_Render();
+		$this->mail       = new Strong_Mail();
+		$this->templates  = new Strong_Templates();
+		$this->form       = new Strong_Testimonials_Form();
 	}
 
 	/**
@@ -213,11 +218,11 @@ final class Strong_Testimonials {
 		require_once WPMTST_INC . 'class-walker-strong-category-checklist-front.php';
 
 		require_once WPMTST_INC . 'deprecated.php';
+		require_once WPMTST_INC . 'filters.php';
 		require_once WPMTST_INC . 'functions.php';
 		require_once WPMTST_INC . 'functions-content.php';
 		require_once WPMTST_INC . 'functions-rating.php';
 		require_once WPMTST_INC . 'functions-image.php';
-		require_once WPMTST_INC . 'functions-lightbox.php';
 		require_once WPMTST_INC . 'functions-template.php';
 		require_once WPMTST_INC . 'functions-template-form.php';
 		require_once WPMTST_INC . 'post-types.php';
@@ -303,12 +308,6 @@ final class Strong_Testimonials {
 		 * Add image size for widget.
 		 */
 		add_action( 'after_setup_theme', array( $this, 'add_image_size' ) );
-
-		/**
-		 * Debug info.
-		 */
-		add_action( 'wp_head', array( $this, 'show_version_info' ), 999 );
-		add_action( 'wp_footer', array( $this, 'on_wp_footer' ), 999 );
 	}
 
 	/**
@@ -452,41 +451,6 @@ final class Strong_Testimonials {
 	 */
 	public function get_db_version() {
 		return $this->db_version;
-	}
-
-	/**
-	 * Show version number in <head> section.
-	 *
-	 * For troubleshooting only.
-	 *
-	 * @since 1.12.0
-	 * @since 2.19.0 Including add-ons.
-	 */
-	function show_version_info() {
-		global $wp_version;
-
-		$comment = array(
-			'WordPress ' . $wp_version,
-			'Strong Testimonials ' . WPMTST_VERSION,
-		);
-
-		$addons = get_option( 'wpmtst_addons' );
-		if ( $addons ) {
-			foreach ( $addons as $addon ) {
-				$comment[] = $addon['name'] . ' ' . $addon['version'];
-			}
-		}
-
-		echo "<!-- versions: " . implode( ' | ', $comment ) . " -->\n";
-	}
-
-	/**
-	 * Did the theme call wp_footer?
-	 *
-	 * @since 2.22.3 As separate function
-	 */
-	public function on_wp_footer() {
-		echo "<!-- wp_footer called -->\n";
 	}
 
 	/**

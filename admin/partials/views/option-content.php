@@ -83,7 +83,7 @@
 			<!-- 2nd option: length -->
 			<div class="inline then fast then_use_default_length then_0 then_not_1" style="display: none;">
 				<label class="inline-middle">
-					<?php printf( _x( 'of the first %s words', 'the excerpt length', 'strong-testimonials' ), '<input id="view-excerpt_length" class="input-incremental" type="number" min="1" max="999" name="view[data][excerpt_length]" value="' . $view['excerpt_length'] . '">' ); ?>
+					<?php printf( _x( 'the first %s words', 'the excerpt length', 'strong-testimonials' ), '<input id="view-excerpt_length" class="input-incremental" type="number" min="1" max="999" name="view[data][excerpt_length]" value="' . $view['excerpt_length'] . '">' ); ?>
 				</label>
 			</div>
 

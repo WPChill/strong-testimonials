@@ -41,12 +41,12 @@ function strong_testimonials_view( $id = null ) {
 		return;
 	}
 
-	$out   = WPMST()->render->get_view_defaults();
+	$out   = array();
 	$pairs = array();
 	$atts  = array( 'id' => $id );
 	$out   = WPMST()->render->parse_view( $out, $pairs, $atts );
 
-	echo Strong_Testimonials_Shortcodes::render_view( $out );
+	echo WPMST()->shortcodes->render_view( $out );
 }
 
 /**
@@ -91,7 +91,6 @@ function wpmtst_the_title( $before = '', $after = '' ) {
  *               Using custom get_*() functions to allow filter selectivity.
  */
 function wpmtst_the_content() {
-
 	/**
 	 * Use this hook to remove specific _core_ content filters.
 	 *
@@ -99,15 +98,12 @@ function wpmtst_the_content() {
 	 */
 	do_action( 'wpmtst_before_content_filters' );
 
-	if ( WPMST()->atts( 'truncated' ) || WPMST()->atts( 'excerpt' ) ) {
-
+	$att = WPMST()->atts( 'content' );
+	if ( 'truncated' == $att || 'excerpt' == $att ) {
 		// Excerpt filters added in view class.
 		echo wpmtst_the_excerpt_filtered();
-
 	} else {
-
 		echo wpmtst_the_content_filtered();
-
 	}
 
 	/**
@@ -116,7 +112,6 @@ function wpmtst_the_content() {
 	 * @since 2.26.0
 	 */
 	do_action( 'wpmtst_after_content_filters' );
-
 }
 
 /**
