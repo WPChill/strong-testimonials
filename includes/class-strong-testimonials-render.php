@@ -657,6 +657,9 @@ class Strong_Testimonials_Render {
 		if ( isset( $view_data['category'] ) && 'all' == $view_data['category'] ) {
 			$view_data['category'] = '';
 		}
+		if ( 'slideshow' == $view_data['mode'] ) {
+			unset( $view_data['id'] );
+		}
 
 		/**
 		 * Saner approach.

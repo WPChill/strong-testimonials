@@ -245,6 +245,12 @@ function wpmtst_sanitize_view_post_id( $data, $input ) {
 		return $data;
 	}
 
+	// Clear single ID if mode:slideshow selected
+	if ( 'slideshow' == $input['mode'] ) {
+		$data['id'] = 0;  // must be zero not empty or false
+		return $data;
+	}
+
 	// Check the "ID or slug" field first
 	if ( ! $input['post_id'] ) {
 		$data['id'] = (int) sanitize_text_field( $input['id'] );
