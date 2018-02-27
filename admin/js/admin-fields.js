@@ -138,7 +138,7 @@ function sanitizeName(label) {
 
     // fill in blank field name
     var $fieldName = $parent.find("input.field-name");
-    if (!$fieldName.val()) {
+    if ('new_field' === $fieldName.val()) {
       $fieldName.val(getUniqueName(newLabel, fieldIndex));
     }
   });
@@ -226,9 +226,7 @@ function sanitizeName(label) {
 
   // Field type change
   $fieldList.on("change", ".field-type", function (e) {
-    console.log(e.target);
     var fieldType = $(this).val();
-    console.log(fieldType);
     var $table = $(this).closest("table");
     var $parent = $(this).closest('li');
 
@@ -295,7 +293,7 @@ function sanitizeName(label) {
         break;
       default:
         $fieldLabel.val(wpmtstAdmin.newField).focus().select();
-        $fieldName.val('').removeAttr('disabled');
+        $fieldName.removeAttr('disabled');
         $parent.find(".field-name-help").show();
     }
 

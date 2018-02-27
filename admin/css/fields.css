@@ -220,11 +220,11 @@ optgroup option {
 }
 
 #custom-field-list .field-table td span.help.error {
-  color: #ee0000;
+  color: #DD0000 !important;
   padding-left: 6px;
-  border: 1px solid #EE0000;
+  border: 1px solid #DD0000;
   background: rgba(242, 0, 0, 0.05);
-  font-weight: 700;
+  font-weight: 600;
 }
 
 #custom-field-list .field-table tr:last-of-type th,
