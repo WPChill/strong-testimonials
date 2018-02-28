@@ -886,7 +886,7 @@ Back these out to have normal "reset" buttons
 
 input.button.restore-default {
   font: normal 20px/1 dashicons;
-  padding: 0 3px;
+  padding: 1px 3px;
 }
 
 .wpmtst .subsubsub {
