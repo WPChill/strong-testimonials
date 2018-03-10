@@ -354,8 +354,9 @@ class Strong_Templates {
 		$config       = $path . '/' . $template . '/config.json';
 		if ( file_exists( $config ) ) {
 			$files[ $template ]['config'] = (array) json_decode( file_get_contents( $config ) );
-			$config_found                 = true;
+			$config_found = true;
 		}
+
 
 		/**
 		 * Process the files.
