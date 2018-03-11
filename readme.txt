@@ -3,7 +3,7 @@ Contributors: cdillon27
 Tags: testimonials, testimonial slider, testimonial form, reviews, star ratings
 Requires at least: 3.7
 Tested up to: 4.9.4
-Stable tag: 2.30.1
+Stable tag: 2.30.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -23,7 +23,7 @@ If you are a small business with up to several hundred testimonials or reviews, 
 >
 > Some templates have light & dark versions and other options. If you want to customize things like fonts, margins and borders, you will need custom CSS.
 >
-> I will help with theme conflicts and a few tweaks. Otherwise, consider learning enough CSS to be dangerous ;) or hiring a developer for a couple hours.
+> I will help with theme conflicts and a few tweaks. Otherwise, consider learning enough CSS to be dangerous or hiring a developer for a couple hours.
 
 ### Primary Features
 
@@ -230,5 +230,5 @@ See changelog.txt for previous versions.
 
 == Upgrade Notice ==
 
-= 2.30.1 =
-Better template options. Fix PHP7 compatibility.
+= 2.30.2 =
+Better template options. Fix PHP7 compatibility. Fix WordPress backwards-compatibility.
