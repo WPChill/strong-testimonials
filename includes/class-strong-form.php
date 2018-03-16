@@ -369,7 +369,6 @@ class Strong_Testimonials_Form {
 
 			if ( is_wp_error( $testimonial_id ) ) {
 
-				WPMST()->debug->log( $testimonial_id, __FUNCTION__ );
 				// TODO report errors in admin
 				$form_errors['post'] = $form_options['messages']['submission-error']['text'];
 
