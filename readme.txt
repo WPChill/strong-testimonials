@@ -3,7 +3,7 @@ Contributors: cdillon27
 Tags: testimonials, testimonial slider, testimonial form, reviews, star ratings
 Requires at least: 3.7
 Tested up to: 4.9.4
-Stable tag: 2.30.3
+Stable tag: 2.30.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -191,6 +191,9 @@ If you prefer not to post your URL publicly, start a private support ticket at [
 
 == Changelog ==
 
+= 2.30.4 - Mar 20, 2018 =
+* Fix bug in slider in Firefox 59.
+
 = 2.30.3 - Mar 16, 2018 =
 * Improve slider script compatibility (event propagation).
 
@@ -236,5 +239,5 @@ See changelog.txt for previous versions.
 
 == Upgrade Notice ==
 
-= 2.30.2 =
-Better template options. Fix PHP7 compatibility. Fix WordPress backwards-compatibility.
+= 2.30.4 =
+Better template options. Improved compatibility for PHP7, WordPress 4.6-, Firefox 59.
