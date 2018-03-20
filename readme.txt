@@ -7,23 +7,13 @@ Stable tag: 2.30.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Simple yet powerful. Very customizable. Developer-friendly. Free support.
+Simple yet powerful. Very customizable. Developer-friendly. Strong support.
 
 == Description ==
 
-A flexible testimonials plugin that works right out of the box for beginners with advanced features for pros, backed by strong support.
+A flexible plugin with everything you need to collect and display testimonials.
 
-**[Go Demo](https://strongdemos.com/strong-testimonials/)** | **[Documentation](https://strongplugins.com/documents/)** | **[Add-ons](https://strongplugins.com/plugins/category/strong-testimonials/)**
-
-### Is this the right plugin for you?
-
-If you are a small business with up to several hundred testimonials or reviews, maybe using categories for different products or services, that needs flexible display options and a customizable form for accepting new testimonials, this plugin will work in just a few steps.
-
-> *This plugin only provides basic style options for background color and font color. Everything else will be inherited from your theme.*
->
-> Some templates have light & dark versions and other options. If you want to customize things like fonts, margins and borders, you will need custom CSS.
->
-> I will help with theme conflicts and a few tweaks. Otherwise, consider learning enough CSS to be dangerous or hiring a developer for a couple hours.
+**[Demos](https://strongdemos.com/strong-testimonials/)** | **[Documentation](https://strongplugins.com/documents/)** | **[Add-ons](https://strongplugins.com/plugins/category/strong-testimonials/)**
 
 ### Primary Features
 
@@ -44,7 +34,15 @@ If you are a small business with up to several hundred testimonials or reviews, 
 * Pagination
 * Embeds (YouTube, Twitter, Instagram, Facebook)
 * Custom capabilities
-* Developer-friendly
+* Developer-friendly (actions, filters, templates)
+
+### Style
+
+> *This plugin only provides basic style options for background color and font color. Everything else will be inherited from your theme.*
+>
+> Some templates have light & dark versions and other options. If you want to customize things like fonts, margins and borders, you will need custom CSS.
+>
+> I will help with theme conflicts and a few tweaks. Otherwise, consider learning enough CSS to be dangerous or hiring a developer for a couple hours.
 
 ### Testimonial Submission Form
 
@@ -76,9 +74,11 @@ Strong Testimonials offers a variety of templates that work well in most themes 
 
 For ultimate control and seamless integration, copy any template to your theme and customize it.
 
-You can also use the template function to display a view in a theme template file:
+Use the template function to display a view in your template file:
 
-`<?php if ( function_exists( 'strong_testimonials_view' ) ) { strong_testimonials_view( $id ); } ?>`
+`<?php if ( function_exists( 'strong_testimonials_view' ) ) {
+    strong_testimonials_view( $id );
+} ?>`
 
 ### Pro Add-ons
 
