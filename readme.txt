@@ -38,7 +38,7 @@ A flexible plugin with everything you need to collect and display testimonials.
 
 ### Style
 
-> *This plugin only provides basic style options for background color and font color. Everything else will be inherited from your theme.*
+> *This plugin provides a few designs with only basic style options for background color and font color. Everything else will be inherited from your theme.*
 >
 > Some templates have light & dark versions and other options. If you want to customize things like fonts, margins and borders, you will need custom CSS.
 >
