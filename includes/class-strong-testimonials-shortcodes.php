@@ -126,13 +126,13 @@ class Strong_Testimonials_Shortcodes {
 	 * @return int
 	 */
 	public function testimonial_count_shortcode( $atts, $content = null ) {
-		$atts = shortcode_atts(
-			array(
-				'category'    => '',
-				'unformatted' => 0,
-			),
-			normalize_empty_atts( $atts )
+		$shortcode = 'testimonial_count';
+		$pairs     = array(
+			'category'    => '',
+			'unformatted' => 0,
 		);
+		$pairs     = apply_filters( "wpmtst_shortcode_defaults__{$shortcode}", $pairs );
+		$atts      = shortcode_atts( $pairs, normalize_empty_atts( $atts ), $shortcode );
 
 		$args = array(
 			'posts_per_page'           => -1,
@@ -141,7 +141,7 @@ class Strong_Testimonials_Shortcodes {
 			'wpm-testimonial-category' => $atts['category'],
 			'suppress_filters'         => true,
 		);
-		$posts_array = get_posts( $args );
+		$posts_array = get_posts( apply_filters( 'wpmtst_query_args', $args, $atts ) );
 
 		if ( $atts['unformatted'] ) {
 			return count( $posts_array );
