@@ -255,7 +255,7 @@ class Strong_Testimonials_Form {
 						break;
 
 					case 'custom':
-						if ( 'email' == $field['input_type'] ) {
+						if ( 'email' == $field['input_type'] && $new_post[ $field['name'] ] ) {
 							if ( is_email( $new_post[ $field['name'] ] ) ) {
 								$testimonial_meta[ $field['name'] ] = sanitize_email( $new_post[ $field['name'] ] );
 							}
