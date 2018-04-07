@@ -205,6 +205,8 @@ final class Strong_Testimonials {
 	 * @return void
 	 */
 	private function includes() {
+		require_once WPMTST_INC . 'class-strong-log.php';
+
 		require_once WPMTST_INC . 'class-strong-testimonials-shortcodes.php';
 		require_once WPMTST_INC . 'class-strong-testimonials-render.php';
 		require_once WPMTST_INC . 'class-strong-view.php';
