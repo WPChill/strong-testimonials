@@ -226,6 +226,7 @@ final class Strong_Testimonials {
 		require_once WPMTST_INC . 'functions-image.php';
 		require_once WPMTST_INC . 'functions-template.php';
 		require_once WPMTST_INC . 'functions-template-form.php';
+		require_once WPMTST_INC . 'functions-views.php';
 		require_once WPMTST_INC . 'post-types.php';
 		require_once WPMTST_INC . 'retro.php';
 		require_once WPMTST_INC . 'scripts.php';
