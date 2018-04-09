@@ -12,13 +12,13 @@
 <div class="email-option-first"><!-- row -->
     <div class="email-option-row">
 
-        <div class="email-option-desc"><!-- left -->
+        <div class="email-option-desc">
 			<?php _e( "From", 'strong-testimonials' ); ?>
         </div>
 
-        <div class="email-option-inputs"><!-- middle -->
+        <div class="email-option-inputs">
 
-            <div class="email-option">
+            <div class="email-option header">
 
                 <div class="email-option-part">
                     <div class="email-option-label">
@@ -36,7 +36,7 @@
 
             </div>
 
-            <div class="email-option recipient">
+            <div class="email-option body recipient">
 
                 <div class="email-option-part">
                     <div class="email-option-fieldset">
@@ -46,8 +46,7 @@
                                    id="wpmtst-options-sender-name"
                                    name="wpmtst_form_options[sender_name]"
                                    value="<?php echo esc_attr( $form_options['sender_name'] ); ?>"
-                                   placeholder="<?php _e( '(optional)', 'strong-testimonials' ); ?>"
-                                   size="30">
+                                   placeholder="<?php _e( '(optional)', 'strong-testimonials' ); ?>">
                         </div>
                     </div>
                 </div>
@@ -82,8 +81,7 @@
                                    id="wpmtst-options-sender-email"
                                    name="wpmtst_form_options[sender_email]"
                                    value="<?php echo esc_attr( $form_options['sender_email'] ); ?>"
-                                   placeholder="<?php _e( 'email address', 'strong-testimonials' ); ?>"
-                                   size="30">
+                                   placeholder="<?php _e( 'email address', 'strong-testimonials' ); ?>">
                         </div>
 
                     </div>
