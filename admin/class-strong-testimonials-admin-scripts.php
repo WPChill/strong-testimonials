@@ -78,6 +78,14 @@ class Strong_Testimonials_Admin_Scripts {
 				true );
 
 		/**
+		 * Form tab
+		 */
+		wp_register_style( 'wpmtst-admin-form-style',
+		                   WPMTST_ADMIN_URL . 'css/admin-form.css',
+		                   array( 'wpmtst-admin-style' ),
+		                   $plugin_version );
+
+		/**
 		 * Compatibility tab
 		 */
 		wp_register_style( 'wpmtst-admin-compat-style',
@@ -265,6 +273,10 @@ class Strong_Testimonials_Admin_Scripts {
 		$tab = isset( $_GET['tab'] ) ? $_GET['tab'] : '';
 
 		switch ( $tab ) {
+			case 'form':
+				wp_enqueue_style( 'wpmtst-admin-form-style' );
+				wp_enqueue_script( 'wpmtst-admin-script' );
+				break;
 			case 'compat':
 				wp_enqueue_style( 'wpmtst-admin-compat-style' );
 				wp_enqueue_script( 'wpmtst-admin-compat-script' );

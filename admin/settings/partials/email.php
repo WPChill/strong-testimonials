@@ -39,7 +39,7 @@
 
 </div>
 
-<div class="email-option-row column">
+<div class="email-option-row column no-padding">
 
     <div class="template-tags-help">
         <div class="title"><?php _e( "Tags for Subject and Message", 'strong-testimonials' ); ?></div>

@@ -7,7 +7,7 @@
 
         <div class="email-option-inputs"><!-- middle box -->
 
-            <div class="email-option">
+            <div class="email-option header">
 
                 <div class="email-option-part">
                     <div class="email-option-label">
@@ -33,7 +33,7 @@
 			}
 			?>
 
-            <div class="email-option">
+            <div class="email-option footer">
                 <input class="button" type="button" id="add-recipient" value="Add recipient">
             </div>
 
