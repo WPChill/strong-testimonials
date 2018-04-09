@@ -272,22 +272,26 @@ class Strong_View_Display extends Strong_View {
 			$container_class_list[] = $this->atts['class'];
 		}
 
-		$container_data_list = array();
-		$content_class_list  = array();
-		$post_class_list     = array( 'testimonial' );
+		$container_data_list = array(
+			'count' => $this->post_count,
+		);
+
+		$content_class_list = array();
+
+		$post_class_list = array( 'testimonial' );
 
 		if ( 'excerpt' == $this->atts['content'] ) {
 			$post_class_list[] = 'excerpt';
 		}
 
-		if ( $this->is_paginated() && 'masonry' != $this->atts['layout'] ) {
+		if ( $this->is_paginated() && ! $this->is_masonry() ) {
 			$content_class_list[] = 'strong-paginated';
 			$container_class_list[] = 'strong-pager';
 			$container_data_list['pager-var'] = $this->pager_signature();
 			$container_data_list['state'] = 'idle';
 		}
 
-		if ( 'masonry' == $this->atts['layout'] ) {
+		if ( $this->is_masonry() ) {
 			$container_data_list['state'] = 'idle';
 		}
 
@@ -317,7 +321,11 @@ class Strong_View_Display extends Strong_View {
 	 * @return bool
 	 */
 	public function is_paginated() {
-		return $this->atts['pagination'] && 'simple' == $this->atts['pagination_settings']['type'];
+		return ( $this->atts['pagination'] && 'simple' == $this->atts['pagination_settings']['type'] );
+	}
+
+	public function is_masonry() {
+		return ( 'masonry' == $this->atts['layout'] );
 	}
 
 	/**
@@ -382,7 +390,7 @@ class Strong_View_Display extends Strong_View {
 	 * @since 2.16.0 In Strong_View class.
 	 */
 	public function has_layouts() {
-		if ( 'masonry' == $this->atts['layout'] ) {
+		if ( $this->is_masonry() ) {
 
 			//WPMST()->render->add_script( 'wpmtst-masonry-script' );
 			WPMST()->render->add_script( 'jquery-masonry' );
