@@ -138,13 +138,25 @@ class Strong_View_Display extends Strong_View {
 		 */
 		$query = $this->query;
 		$atts  = $this->atts;
-		if ( has_filter( 'wpmtst_render_view_template' ) ) {
+		$html  = '';
+
+		if ( ! $this->found_posts ) {
+
+			if ( current_user_can( 'administrator' ) ) {
+				$html = $this->nothing_found();
+			}
+
+		} elseif ( has_filter( 'wpmtst_render_view_template' ) ) {
+
 			$html = apply_filters( 'wpmtst_render_view_template', '', $this );
+
 		} else {
+
 			ob_start();
 			/** @noinspection PhpIncludeInspection */
 			include( $this->template_file );
 			$html = ob_get_clean();
+
 		}
 
 		/**
