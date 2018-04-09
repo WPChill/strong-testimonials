@@ -17,7 +17,7 @@
   display: flex;
   flex-direction: row;
   background: #FFF;
-  padding: 8px 10px;
+  padding: 0 10px;
 }
 .no-padding {
   padding: 0;
@@ -29,7 +29,7 @@
 .email-option-desc {
   flex: 0 0 8%;
   min-width: 80px;
-  padding: 0;
+  padding: 10px 0;
   font-weight: 600;
 }
 /* row > column 2 */
@@ -43,16 +43,18 @@
   flex-direction: row;
 }
 .email-option.header {
-  padding-bottom: 10px;
+  padding: 10px 0;
 }
 .email-option.body {
   padding: 10px 0;
 }
 .email-option.footer {
-  padding-top: 10px;
+  padding: 10px 0;
 }
 .email-option-first {
   margin-top: 10px ;
+}
+.email-option.single {
 }
 .email-option:not(:last-child) {
   border-bottom: 1px solid #F2F2F2;
@@ -70,6 +72,9 @@
 .email-option-part input[type="email"],
 input.wide {
   width: 100%;
+}
+.email-option-label {
+  padding-left: 3px;
 }
 .email-option-fieldset {
   display: flex;

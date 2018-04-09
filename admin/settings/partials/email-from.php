@@ -1,4 +1,4 @@
-<div class="match-height gutter"><!-- row -->
+<div class="match-height gutter">
     <fieldset>
         <label for="wpmtst-options-mail-queue">
             <input id="wpmtst-options-mail-queue"
@@ -9,7 +9,7 @@
     </fieldset>
 </div>
 
-<div class="email-option-first"><!-- row -->
+<div class="email-option-first">
     <div class="email-option-row">
 
         <div class="email-option-desc">
@@ -22,9 +22,7 @@
 
                 <div class="email-option-part">
                     <div class="email-option-label">
-                        <label for="wpmtst-options-sender-name">
-							<?php _e( "Name", 'strong-testimonials' ); ?>
-                        </label>
+                        <?php _e( "Name", 'strong-testimonials' ); ?>
                     </div>
                 </div>
 
