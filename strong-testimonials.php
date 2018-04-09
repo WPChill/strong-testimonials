@@ -220,6 +220,7 @@ final class Strong_Testimonials {
 		require_once WPMTST_INC . 'deprecated.php';
 		require_once WPMTST_INC . 'filters.php';
 		require_once WPMTST_INC . 'functions.php';
+		require_once WPMTST_INC . 'functions-activation.php';
 		require_once WPMTST_INC . 'functions-content.php';
 		require_once WPMTST_INC . 'functions-rating.php';
 		require_once WPMTST_INC . 'functions-image.php';
@@ -459,7 +460,6 @@ final class Strong_Testimonials {
 	 * @since 2.12.0
 	 */
 	public function set_plugin_data() {
-		//$this->plugin_data = get_plugin_data( __FILE__, false );
 		$this->plugin_data = array(
 			'Version' => WPMTST_VERSION,
 		);
