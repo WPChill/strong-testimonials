@@ -469,7 +469,7 @@ function wpmtst_view_field_inputs( $key, $field, $adding = false ) {
 
 	$all_fields = array(
 		__( 'custom', 'strong-testimonials' )  => $custom_fields,
-		__( 'builtin', 'strong-testimonials' ) => $builtin_fields
+		__( 'built-in', 'strong-testimonials' ) => $builtin_fields
 	);
 
 	$allowed = array( 'custom', 'optional', 'builtin' );
