@@ -56,12 +56,13 @@ optgroup option {
 
 #custom-field-list li {
   background: #fff;
-  border: 1px solid #DDD;
   margin: 0;
+  border: 1px solid #DDD;
+  border-top-width: 0;
 }
 
-#custom-field-list li:not(:last-child) {
-  border-bottom-width: 0;
+#custom-field-list li:first-child {
+  border-top-width: 1px;
 }
 
 #custom-field-list li.ui-sortable-helper {

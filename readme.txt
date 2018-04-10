@@ -2,8 +2,8 @@
 Contributors: cdillon27
 Tags: testimonials, testimonial slider, testimonial form, reviews, star ratings
 Requires at least: 3.7
-Tested up to: 4.9.4
-Stable tag: 2.30.4
+Tested up to: 4.9.5
+Stable tag: 2.30.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -11,9 +11,13 @@ Simple yet powerful. Very customizable. Developer-friendly. Strong support.
 
 == Description ==
 
-A flexible plugin with everything you need to collect and display testimonials.
+A flexible, feature-rich plugin for collecting and displaying testimonials or reviews.
 
-**[Demos](https://strongdemos.com/strong-testimonials/)** | **[Documentation](https://strongplugins.com/documents/)** | **[Add-ons](https://strongplugins.com/plugins/category/strong-testimonials/)**
+Why **Strong**? Popular features crafted over 4 years from user feedback and requests. It's highly customizable and extensible. Quick and thorough support for beginners and pros alike.
+
+>I will [move mountains](https://strongplugins.com/testimonials/) to help you use this plugin!
+
+**[See the demos](https://strongdemos.com/strong-testimonials/)** | **[Read the documentation](https://strongplugins.com/documents/)** | **[Shop for add-ons](https://strongplugins.com/plugins/category/strong-testimonials/)**
 
 ### Primary Features
 
@@ -38,7 +42,7 @@ A flexible plugin with everything you need to collect and display testimonials.
 
 ### Style
 
-> *This plugin provides a few designs with only basic style options for background color and font color. Everything else will be inherited from your theme.*
+> This plugin provides a few designs with only basic style options for background color and font color. Everything else will be inherited from your theme.
 >
 > Some templates have light & dark versions and other options. If you want to customize things like fonts, margins and borders, you will need custom CSS.
 >
@@ -46,7 +50,7 @@ A flexible plugin with everything you need to collect and display testimonials.
 
 ### Testimonial Submission Form
 
-Customize the form by adding or removing fields and changing properties like the order, label, and placeholder.
+This plugin provides one form with custom fields. Customize the form by adding or removing fields and changing properties like the order, label, and placeholder.
 
 Anti-spam measures include honeypots and Captcha via these plugins:
 
@@ -56,7 +60,7 @@ Anti-spam measures include honeypots and Captcha via these plugins:
 
 Send custom notification emails to multiple admins.
 
-Submit the form via Ajax to use with plugins like [Popup Maker](https://wordpress.org/plugins/popup-maker/).
+Submit the form via Ajax for use with plugins like [Popup Maker](https://wordpress.org/plugins/popup-maker/).
 
 #### Free Add-on
 
@@ -66,11 +70,11 @@ Use the [Country Selector](https://wordpress.org/plugins/strong-testimonials-cou
 
 Everything happens in a **view**. Instead of learning multiple shortcodes with dozens of options, a view contains all the options in a simple, intuitive editor that no other testimonial plugin has.
 
-Display the view using a single shortcode or the widget.
+Display a view using a single shortcode or the widget. **No complicated shortcodes!**
 
-Create unlimited views. For example, one view for a form, another for a static grid, another for a slideshow, and so on.
+**Create unlimited views**. For example, one view for a form, another for a static grid, another for a slideshow, and so on.
 
-Strong Testimonials offers a variety of templates that work well in most themes with maybe a few tweaks.
+A variety of templates are included that work well in most themes.
 
 For ultimate control and seamless integration, copy any template to your theme and customize it.
 
@@ -191,6 +195,20 @@ If you prefer not to post your URL publicly, start a private support ticket at [
 
 == Changelog ==
 
+= 2.30.5 - April 9, 2018 =
+* Fix bug when email field is not required.
+* Fix display of templates in view editor when theme/add-on templates are present.
+* Fix inconsistent use of filter on default view settings.
+* Improve compatibility with themes and thumbnail column in admin list.
+* Improve compatibility with installation scripts (table creation).
+* Improve check for missing add-on license.
+* Add front-end "Nothing found" message for administrators.
+* Add data attribute 'count' for found_posts to view container for troubleshooting.
+* Add filter on `[testimonial_count]` shortcode defaults.
+* Add ability to capture notification email on localhost.
+* Revive a logger class.
+* Minor admin UI tweaks.
+
 = 2.30.4 - Mar 20, 2018 =
 * Fix bug in slider in Firefox 59.
 
@@ -239,5 +257,5 @@ See changelog.txt for previous versions.
 
 == Upgrade Notice ==
 
-= 2.30.4 =
-Better template options. Improved compatibility for PHP7, WordPress 4.6-, Firefox 59.
+= 2.30.5 =
+Better template options. Improved compatibility. Minor bug fixes.
