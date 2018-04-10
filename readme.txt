@@ -11,11 +11,7 @@ Simple yet powerful. Very customizable. Developer-friendly. Strong support.
 
 == Description ==
 
-A flexible, feature-rich plugin for collecting and displaying testimonials or reviews.
-
-Why **Strong**? Popular features crafted over 4 years from user feedback and requests. It's highly customizable and extensible. Quick and thorough support for beginners and pros alike.
-
->I will [move mountains](https://strongplugins.com/testimonials/) to help you use this plugin!
+In just a few steps, you will be collecting and publishing your testimonials or reviews. Beginners and pros alike will appreciate the wealth of flexible features refined over 4 years from user feedback and requests. Keep moving forward with quick and thorough support to help you with configuration and customization.
 
 **[See the demos](https://strongdemos.com/strong-testimonials/)** | **[Read the documentation](https://strongplugins.com/documents/)** | **[Shop for add-ons](https://strongplugins.com/plugins/category/strong-testimonials/)**
 
