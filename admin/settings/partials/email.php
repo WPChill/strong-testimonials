@@ -7,7 +7,7 @@
     </div>
 
     <div class="email-option-inputs">
-        <div class="email-option">
+        <div class="email-option body">
             <input class="wide"
                    type="text"
                    id="wpmtst-option-email-subject"
@@ -29,7 +29,7 @@
     </div>
 
     <div class="email-option-inputs">
-        <div class="email-option">
+        <div class="email-option body">
             <textarea id="wpmtst-option-email-message"
                       name="wpmtst_form_options[email_message]"
                       placeholder="<?php _e( 'message text', 'strong-testimonials' ); ?>"
@@ -39,7 +39,7 @@
 
 </div>
 
-<div class="email-option-row column">
+<div class="email-option-row column no-padding">
 
     <div class="template-tags-help">
         <div class="title"><?php _e( "Tags for Subject and Message", 'strong-testimonials' ); ?></div>
