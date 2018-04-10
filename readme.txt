@@ -64,11 +64,11 @@ Use the [Country Selector](https://wordpress.org/plugins/strong-testimonials-cou
 
 ### Displaying Testimonials
 
-Everything happens in a **view**. Instead of learning multiple shortcodes with dozens of options, a view contains all the options in a simple, intuitive editor that no other testimonial plugin has.
+**Everything happens in a View**. Instead of learning multiple shortcodes with dozens of options, a View contains all the options in a simple, intuitive editor that no other testimonial plugin has.
 
-Display a view using a single shortcode or the widget. **No complicated shortcodes!**
+Create unlimited views. For example, one view for a form, another for a static grid, another for a slideshow, and so on.
 
-**Create unlimited views**. For example, one view for a form, another for a static grid, another for a slideshow, and so on.
+Display a view using a shortcode or the widget.
 
 A variety of templates are included that work well in most themes.
 
@@ -92,7 +92,7 @@ Create unlimited forms, each with their own custom fields, to tailor testimonial
 
 #### Properties
 
-Want to rebrand "testimonials" as "reviews", "customer stories" or something else? Control every aspect front and back. [Learn more](https://strongplugins.com/plugins/strong-testimonials-properties/?utm_source=wordpressorg&utm_medium=readme)
+Want to rebrand "testimonials" as "reviews", "customer stories" or something else? Want to change the permalink structure? Control every aspect front and back. [Learn more](https://strongplugins.com/plugins/strong-testimonials-properties/?utm_source=wordpressorg&utm_medium=readme)
 
 ### Documentation
 
