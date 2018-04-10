@@ -32,8 +32,8 @@ class Strong_Mail {
 	}
 
 	public function send_mail( $email ) {
-		if ( defined( 'IS_LOCALHOST') && IS_LOCALHOST && function_exists( 'q2' ) ) {
-			q2( $email, __METHOD__, '', 'mail.log' );
+		if ( defined( 'IS_LOCALHOST') && IS_LOCALHOST ) {
+			error_log( print_r( $email, true ) );
 		} else {
 			wp_mail( $email['to'], $email['subject'], $email['message'], $email['headers'] );
 		}
