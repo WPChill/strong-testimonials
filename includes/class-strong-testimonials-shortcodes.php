@@ -142,7 +142,14 @@ class Strong_Testimonials_Shortcodes {
 		);
 
 		if ( $atts['category'] ) {
-			$args['wpm-testimonial-category'] = $atts['category'];
+			$args['tax_query'] = array(
+				array(
+					'taxonomy' => 'wpm-testimonial-category',
+					'field'    => 'slug',
+					'terms'    => $atts['category'],
+				)
+			);
+
 		}
 
 		$args        = apply_filters( 'wpmtst_query_args', $args, $atts );
