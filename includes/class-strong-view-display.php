@@ -404,7 +404,6 @@ class Strong_View_Display extends Strong_View {
 	public function has_layouts() {
 		if ( $this->is_masonry() ) {
 
-			//WPMST()->render->add_script( 'wpmtst-masonry-script' );
 			WPMST()->render->add_script( 'jquery-masonry' );
 			WPMST()->render->add_script( 'imagesloaded' );
 
@@ -419,8 +418,6 @@ class Strong_View_Display extends Strong_View {
 			}
 
 		} elseif ( 'grid' == $this->atts['layout'] ) {
-
-			// WPMST()->render->add_script( 'wpmtst-grid-script' );
 
 			if ( apply_filters( 'wpmtst_load_grid_style', true ) ) {
 				WPMST()->render->add_style( 'wpmtst-grid-style' );
