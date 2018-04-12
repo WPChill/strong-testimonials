@@ -82,6 +82,10 @@ Use the template function to display a view in your template file:
 
 ### Pro Add-ons
 
+#### Assignment
+
+Assign testimonials to any object (posts, pages, media or custom content types) with features designed to simplify your workflow. Works well with portfolio, directory and service business themes. [Learn more](https://strongplugins.com/plugins/strong-testimonials-assignment/?utm_source=wordpressorg&utm_medium=readme)
+
 #### Review Markup
 
 Testimonials are essentially five-star reviews. Adding review markup will improve search results and encourage search engines to display rich snippets (the stars). [Learn more](https://strongplugins.com/plugins/strong-testimonials-review-markup/?utm_source=wordpressorg&utm_medium=readme)
