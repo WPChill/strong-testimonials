@@ -204,6 +204,7 @@ class Strong_Testimonials_Form {
 
 		$form_errors = array();
 
+		// TODO This use of 'custom' is obsolete. The default form is simply the first one in the array.
 		$form_name = isset( $new_post['form_id'] ) ? $new_post['form_id'] : 'custom';
 		$fields    = wpmtst_get_form_fields( $form_name );
 
