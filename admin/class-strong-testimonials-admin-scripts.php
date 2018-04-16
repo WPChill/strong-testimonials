@@ -226,6 +226,7 @@ class Strong_Testimonials_Admin_Scripts {
 			'wpmtst_admin',
 			array(
 				'nonce' => wp_create_nonce( 'wpmtst-admin' ),
+				'templateTagTitle' => __( 'click to insert into message at caret', 'strong-testimonials' ),
 			)
 		);
 	}
