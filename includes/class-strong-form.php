@@ -627,8 +627,7 @@ class Strong_Testimonials_Form {
 	 */
 	private function replace_custom_fields( $text, $fields, $post ) {
 		foreach ( $fields as $field ) {
-
-			$replace    = '(blank)';
+			$replace    = "({$field['label']} blank)";
 			$post_field = isset( $post[ $field['name'] ] ) ? $post[ $field['name'] ] : false;
 
 			if ( $post_field ) {
