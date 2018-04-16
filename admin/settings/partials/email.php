@@ -31,7 +31,8 @@
 	<?php $line_count = max( count( explode( "\n", $form_options['email_message'] ) ), 3 ); ?>
     <div class="email-option-inputs">
         <div class="email-option body">
-            <textarea id="wpmtst-option-email-message" name="wpmtst_form_options[email_message]"
+            <textarea class="autosize"
+                      id="wpmtst-option-email-message" name="wpmtst_form_options[email_message]"
                       rows="<?php echo esc_attr( $line_count ); ?>"
                       placeholder="<?php _e( 'message text', 'strong-testimonials' ); ?>"><?php echo esc_attr( $form_options['email_message'] ); ?></textarea>
         </div>
