@@ -40,7 +40,6 @@
 
 </div>
 
-<style>#wpmtst-tags-list li { cursor: pointer; }</style>
 <div class="email-option-row column no-padding">
 
     <div class="template-tags-help">

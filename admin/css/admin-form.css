@@ -133,5 +133,6 @@ input.wide {
 }
 .template-tags-help ul li {
   display: inline-block;
+  cursor: pointer;
   margin-right: 1em;
 }
