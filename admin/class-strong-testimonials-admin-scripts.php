@@ -77,6 +77,12 @@ class Strong_Testimonials_Admin_Scripts {
 				$plugin_version,
 				true );
 
+		wp_register_script( 'autosize',
+			WPMTST_ADMIN_URL . 'js/lib/autosize/autosize.min.js',
+			array(),
+			'4.0.1',
+			true );
+
 		/**
 		 * Form tab
 		 */
@@ -226,6 +232,7 @@ class Strong_Testimonials_Admin_Scripts {
 			'wpmtst_admin',
 			array(
 				'nonce' => wp_create_nonce( 'wpmtst-admin' ),
+				'templateTagTitle' => __( 'click to insert into message at caret', 'strong-testimonials' ),
 			)
 		);
 	}
@@ -275,6 +282,7 @@ class Strong_Testimonials_Admin_Scripts {
 		switch ( $tab ) {
 			case 'form':
 				wp_enqueue_style( 'wpmtst-admin-form-style' );
+				wp_enqueue_script( 'autosize' );
 				wp_enqueue_script( 'wpmtst-admin-script' );
 				break;
 			case 'compat':

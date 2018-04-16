@@ -540,6 +540,9 @@ class Strong_Testimonials_Form {
 	 * @param string $form_name
 	 *
 	 * @since 1.7.0
+	 * @since 2.30.6 Using all form fields (Multiple Forms add-on).
+	 *               Adding submit_date.
+	 *               Trimming subject and message strings.
 	 */
 	public function notify_admin( $post, $form_name = 'custom' ) {
 		$form_options = get_option( 'wpmtst_form_options' );
@@ -547,7 +550,8 @@ class Strong_Testimonials_Form {
 			return;
 		}
 
-		$fields = wpmtst_get_form_fields( $form_name );
+		$post['has_image'] = has_post_thumbnail( $post['id'] );
+		$fields = wpmtst_get_all_fields();
 
 		if ( $form_options['sender_site_email'] ) {
 			$sender_email = get_bloginfo( 'admin_email' );
@@ -557,18 +561,20 @@ class Strong_Testimonials_Form {
 		}
 
 		// Subject line
-		$subject = $form_options['email_subject'];
+		$subject = trim( $form_options['email_subject'] );
 		$subject = str_replace( '%BLOGNAME%', get_bloginfo( 'name' ), $subject );
 		$subject = str_replace( '%TITLE%', $post['post_title'], $subject );
 		$subject = str_replace( '%STATUS%', $post['post_status'], $subject );
+		$subject = str_replace( '%SUBMIT_DATE%', $post['submit_date'], $subject );
 		$subject = $this->replace_custom_fields( $subject, $fields, $post );
 
 		// Message text
-		$message = $form_options['email_message'];
+		$message = rtrim( $form_options['email_message'] );
 		$message = str_replace( '%BLOGNAME%', get_bloginfo( 'name' ), $message );
 		$message = str_replace( '%TITLE%', $post['post_title'], $message );
 		$message = str_replace( '%CONTENT%', $post['post_content'], $message );
 		$message = str_replace( '%STATUS%', $post['post_status'], $message );
+		$message = str_replace( '%SUBMIT_DATE%', $post['submit_date'], $message );
 		$message = $this->replace_custom_fields( $message, $fields, $post );
 
 		foreach ( $form_options['recipients'] as $recipient ) {
