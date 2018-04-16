@@ -28,12 +28,12 @@
         </label>
     </div>
 
+	<?php $line_count = max( count( explode( "\n", $form_options['email_message'] ) ), 3 ); ?>
     <div class="email-option-inputs">
         <div class="email-option body">
-            <textarea id="wpmtst-option-email-message"
-                      name="wpmtst_form_options[email_message]"
-                      placeholder="<?php _e( 'message text', 'strong-testimonials' ); ?>"
-                      rows="6"><?php echo esc_attr( $form_options['email_message'] ); ?></textarea>
+            <textarea id="wpmtst-option-email-message" name="wpmtst_form_options[email_message]"
+                      rows="<?php echo esc_attr( $line_count ); ?>"
+                      placeholder="<?php _e( 'message text', 'strong-testimonials' ); ?>"><?php echo esc_attr( $form_options['email_message'] ); ?></textarea>
         </div>
     </div>
 
@@ -44,12 +44,19 @@
     <div class="template-tags-help">
         <div class="title"><?php _e( "Tags for Subject and Message", 'strong-testimonials' ); ?></div>
         <div class="content">
-            <ul><li>%BLOGNAME%</li><li>%TITLE%</li><li>%CONTENT%</li><li>%STATUS%</li><li>%SUBMIT_DATE%</li><?php
+            <ul>
+                <li>%BLOGNAME%</li>
+                <li>%TITLE%</li>
+                <li>%CONTENT%</li>
+                <li>%STATUS%</li>
+                <li>%SUBMIT_DATE%</li>
+                <?php
 				$custom_fields = wpmtst_get_custom_fields();
 				foreach ( $custom_fields as $field ) {
-					echo '<li>%' . strtoupper( $field['name'] ) . '%</li>';
+					echo '<li>%' . strtoupper( $field['name'] ) . '%</li>' . "\n";
 				}
-				?></ul>
+				?>
+            </ul>
         </div>
     </div>
 
