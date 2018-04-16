@@ -39,12 +39,13 @@
 
 </div>
 
+<style>#wpmtst-tags-list li { cursor: pointer; }</style>
 <div class="email-option-row column no-padding">
 
     <div class="template-tags-help">
         <div class="title"><?php _e( "Tags for Subject and Message", 'strong-testimonials' ); ?></div>
         <div class="content">
-            <ul>
+            <ul id="wpmtst-tags-list">
                 <li>%BLOGNAME%</li>
                 <li>%TITLE%</li>
                 <li>%CONTENT%</li>
