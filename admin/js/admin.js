@@ -144,7 +144,13 @@ jQuery(document).ready(function ($) {
       }
     });
   };
-  
+
+  /**
+   * Autosize textarea
+   */
+  var ta = document.getElementsByClassName('autosize');
+  autosize(ta);
+
   /**
    * ----------------------------------------
    * Form Settings
