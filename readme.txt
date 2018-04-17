@@ -3,7 +3,7 @@ Contributors: cdillon27
 Tags: testimonials, testimonial slider, testimonial form, reviews, star ratings
 Requires at least: 3.7
 Tested up to: 4.9.5
-Stable tag: 2.30.5
+Stable tag: 2.30.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -194,6 +194,13 @@ If you prefer not to post your URL publicly, start a private support ticket at [
 8. View editor
 
 == Changelog ==
+
+= 2.30.6 - April 17, 2018 =
+* Improve embeds in Masonry layout.
+* Fix `[testimonial_count category]` shortcode in Properties add-on.
+* Update the EDD license updater class.
+* Improve notification email admin UI.
+* Improve notification email message when custom fields are blank.
 
 = 2.30.5 - April 9, 2018 =
 * Fix bug when email field is not required.
