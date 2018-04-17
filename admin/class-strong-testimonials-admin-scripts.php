@@ -91,6 +91,12 @@ class Strong_Testimonials_Admin_Scripts {
 		                   array( 'wpmtst-admin-style' ),
 		                   $plugin_version );
 
+		wp_register_script( 'wpmtst-admin-form-script',
+		                    WPMTST_ADMIN_URL . 'js/admin-form.js',
+		                    array( 'wpmtst-admin-script', 'autosize' ),
+		                    $plugin_version,
+		                    true );
+
 		/**
 		 * Compatibility tab
 		 */
@@ -282,8 +288,7 @@ class Strong_Testimonials_Admin_Scripts {
 		switch ( $tab ) {
 			case 'form':
 				wp_enqueue_style( 'wpmtst-admin-form-style' );
-				wp_enqueue_script( 'autosize' );
-				wp_enqueue_script( 'wpmtst-admin-script' );
+				wp_enqueue_script( 'wpmtst-admin-form-script' );
 				break;
 			case 'compat':
 				wp_enqueue_style( 'wpmtst-admin-compat-style' );
