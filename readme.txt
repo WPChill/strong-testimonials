@@ -195,6 +195,9 @@ If you prefer not to post your URL publicly, start a private support ticket at [
 
 == Changelog ==
 
+= 2.30.7 - April 23, 2018 =
+* Fix bug in front-end controller script.
+
 = 2.30.6 - April 17, 2018 =
 * Improve embeds in Masonry layout.
 * Fix `[testimonial_count category]` shortcode in Properties add-on.
