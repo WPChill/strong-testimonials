@@ -244,28 +244,9 @@ If you prefer not to post your URL publicly, start a private support ticket at [
 * Simplify slideshow CSS.
 * Fix bug in slider script in Chrome.
 
-
-= 2.29.1 - Jan 8, 2018 =
-* Only to trigger update because the SVN version was incomplete.
-
-= 2.29 - Jan 8, 2018 =
-* Add integration with Google Captcha by BestWebSoft.
-* Remove integration with Captcha plugin.
-* Remove integration with Advanced noCaptcha reCaptcha plugin.
-* Fix CSS conflict with Cherry Slider.
-* Fix bug when adding the category field to the notification email.
-* Fix read-more filter usage for WPML and Polylang.
-* Add filter: `wpmtst_read_more_page_output`.
-* Add support for FooBox Image Lightbox.
-* Improved the notification email admin UI.
-* Handle form submission on custom action.
-* Add dismissible persistent admin notice capability.
-* Improve add-on configuration check.
-* Minor refactoring for improved performance.
-
 See changelog.txt for previous versions.
 
 == Upgrade Notice ==
 
-= 2.30.5 =
+= 2.30.7 =
 Better template options. Improved compatibility. Minor bug fixes.
