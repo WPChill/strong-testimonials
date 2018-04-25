@@ -69,7 +69,7 @@ class Strong_Testimonials_Settings {
 				}
 
 				if ( has_action( 'wpmtst_settings_submit_row' ) ) {
-				    echo '<p class="submit-row">';
+				    echo '<p class="submit-buttons">';
 					do_action( 'wpmtst_settings_submit_row' );
 				    echo '</p>';
                 }
