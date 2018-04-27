@@ -2,7 +2,6 @@
 /**
  * Plugin Name: Strong Testimonials
  * Plugin URI: https://strongplugins.com/plugins/strong-testimonials/
- * Description: A full-featured plugin that works right out of the box for beginners and offers advanced features for pros.
  * Description: Collect and display your testimonials or reviews.
  * Author: Chris Dillon
  * Version: 2.30.8
