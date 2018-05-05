@@ -182,6 +182,11 @@ class Strong_Testimonials_Updater {
 		}
 
 		/**
+		 * Fix add-ons.
+		 */
+		$this->update_addons();
+
+		/**
 		 * Update the plugin version.
 		 */
 		update_option( 'wpmtst_plugin_version', WPMTST_VERSION );
@@ -192,6 +197,19 @@ class Strong_Testimonials_Updater {
 		$this->update_log();
 
 		delete_transient( 'wpmtst_update_in_progress' );
+	}
+
+	/**
+	 * Fix add-on file names.
+	 *
+	 * @since 2.31.0
+	 */
+	public function update_addons() {
+		$addons = get_option( 'wpmtst_addons' );
+		foreach ( $addons as $addon => $data ) {
+			$addons[ $addon ]['file'] = plugin_basename( basename( $data['file'], '.php' ) . '/' . basename( $data['file'] ) );
+		}
+		update_option( 'wpmtst_addons', $addons );
 	}
 
 	/**
