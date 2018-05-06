@@ -206,10 +206,14 @@ class Strong_Testimonials_Updater {
 	 */
 	public function update_addons() {
 		$addons = get_option( 'wpmtst_addons' );
-		foreach ( $addons as $addon => $data ) {
-			$addons[ $addon ]['file'] = plugin_basename( basename( $data['file'], '.php' ) . '/' . basename( $data['file'] ) );
+		if ( $addons ) {
+			foreach ( $addons as $addon => $data ) {
+				if ( isset( $addons[ $addon ]['file'] ) ) {
+					$addons[ $addon ]['file'] = plugin_basename( basename( $data['file'], '.php' ) . '/' . basename( $data['file'] ) );
+				}
+			}
+			update_option( 'wpmtst_addons', $addons );
 		}
-		update_option( 'wpmtst_addons', $addons );
 	}
 
 	/**
