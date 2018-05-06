@@ -202,7 +202,7 @@ class Strong_Testimonials_Updater {
 	/**
 	 * Fix add-on file names.
 	 *
-	 * @since 2.31.0
+	 * @since 2.30.9
 	 */
 	public function update_addons() {
 		$addons = get_option( 'wpmtst_addons' );
