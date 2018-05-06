@@ -31,28 +31,18 @@ class Strong_Plugin_Updater {
 			 * @since 2.21.2
 			 */
 			if ( ! isset( $addon_info['file'] ) ) {
-				switch ( $addon ) {
-					case 'review-markup':
-						$addon_info['file'] = WP_PLUGIN_DIR . '/strong-testimonials-review-markup/strong-testimonials-review-markup.php';
-						break;
-					case 'multiple-forms':
-						$addon_info['file'] = WP_PLUGIN_DIR . '/strong-testimonials-multiple-forms/strong-testimonials-multiple-forms.php';
-						break;
-					case 'properties':
-						$addon_info['file'] = WP_PLUGIN_DIR . '/strong-testimonials-properties/strong-testimonials-properties.php';
-						break;
-					default:
-				}
-
-				$addons[ $addon ] = $addon_info;
+				$addon_info['file'] = "strong-testimonials-{$addon}/strong-testimonials-{$addon}.php";
+				$addons[ $addon ]   = $addon_info;
 				update_option( 'wpmtst_addons', $addons );
 			}
 
 			$license_key = '';
 			$version     = '';
+
 			if ( isset( $addon_info['license']['key'] ) ) {
 				$license_key = trim( $addon_info['license']['key'] );
 			}
+
 			if ( isset( $addon_info['version'] ) ) {
 				$version = $addon_info['version'];
 			}
@@ -63,10 +53,10 @@ class Strong_Plugin_Updater {
 
 			// setup the updater
 			$args = array(
-				'version'   => $version,         // current installed version number
-				'license'   => $license_key,     // license key
-				'item_name' => $addon_info['name'],   // name of this plugin
-				'author'    => 'Chris Dillon',    // author of this plugin
+				'version'   => $version,             // current installed version number
+				'license'   => $license_key,         // license key
+				'item_name' => $addon_info['name'],  // name of this plugin
+				'author'    => 'Chris Dillon',       // author of this plugin
 				'url'       => home_url()
 			);
 			$edd_updater = new EDD_SL_Plugin_Updater( STRONGPLUGINS_STORE_URL, $addon_info['file'], $args );

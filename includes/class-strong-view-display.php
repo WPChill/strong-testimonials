@@ -142,7 +142,7 @@ class Strong_View_Display extends Strong_View {
 
 		if ( ! $this->found_posts ) {
 
-			if ( current_user_can( 'administrator' ) ) {
+			if ( current_user_can( 'strong_testimonials_views' ) ) {
 				$html = $this->nothing_found();
 			}
 
