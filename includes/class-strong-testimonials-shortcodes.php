@@ -72,7 +72,14 @@ class Strong_Testimonials_Shortcodes {
 		// Did we find this view?
 		if ( isset( $out['view_not_found'] ) && $out['view_not_found'] ) {
 			if ( current_user_can( 'strong_testimonials_views' ) ) {
-				return '<p style="color: red;">' . sprintf( __( 'Strong Testimonials View %s not found', 'strong-testimonials' ), $out['view'] ) . '</p>';
+				ob_start();
+				?>
+				<p style="color: #CD0000;">
+					<?php printf( __( 'Testimonial view %s not found.', 'strong-testimonials' ), $out['view'] ); ?><br>
+					<span style="color: #777; font-size: 0.9em;"><?php _e( '(Only administrators see this message.)', 'strong-testimonials' ); ?></span>
+				</p>
+				<?php
+				return ob_get_clean();
 			}
 		}
 

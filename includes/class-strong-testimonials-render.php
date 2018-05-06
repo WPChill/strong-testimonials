@@ -644,7 +644,7 @@ class Strong_Testimonials_Render {
 		 * @since 1.21.0
 		 */
 		if ( ! $view ) {
-			return array_merge( array( 'view_not_found' => 1 ), $out );
+			return array_merge( array( 'view_not_found' => 1 ), $atts );
 		}
 
 		$view_data = unserialize( $view['value'] );
