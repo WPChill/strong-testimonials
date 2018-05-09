@@ -387,35 +387,15 @@ class Strong_Testimonials_Updater {
 	}
 
 	/**
-	 * Custom fields
+	 * Default custom fields.
+	 *
+	 * @since 2.31.0 There is a rare bug/conflict where the default fields are incomplete.
+	 *               Overwrite existing fields on every update to auto-repair.
 	 *
 	 * @return array
 	 */
 	public function update_fields() {
-		$fields = get_option( 'wpmtst_fields', array() );
-		if ( ! $fields ) {
-			return Strong_Testimonials_Defaults::get_fields();
-		}
-
-		/**
-		 * Updating from 1.x
-		 *
-		 * Copy current custom fields to the new default custom form which will be added in the next step.
-		 *
-		 * @since 2.0.1
-		 * @since 2.17 Added version check.
-		 */
-		if ( version_compare( '2.0', $this->old_version ) ) {
-			if ( isset( $fields['field_groups'] ) ) {
-				$default_custom_forms[1]['fields'] = $fields['field_groups']['custom']['fields'];
-				unset( $fields['field_groups'] );
-			}
-			if ( isset( $fields['current_field_group'] ) ) {
-				unset( $fields['current_field_group'] );
-			}
-		}
-
-		return $fields;
+		return Strong_Testimonials_Defaults::get_fields();
 	}
 
 	/**
