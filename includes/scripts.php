@@ -37,6 +37,7 @@ function wpmtst_scripts() {
 	 */
 	$ajax  = $compat_options['ajax'];
 	$parms = array(
+	    'initializeOn'   => 'documentReady',
 		'method'         => isset( $ajax['method'] ) ? $ajax['method'] : '',
 		'universalTimer' => isset( $ajax['universal_timer'] ) ? $ajax['universal_timer'] * 1000 : 0,
 		'observerTimer'  => isset( $ajax['observer_timer'] ) ? $ajax['observer_timer'] * 1000 : 0,
@@ -44,7 +45,7 @@ function wpmtst_scripts() {
 		'script'         => isset( $ajax['script'] ) ? $ajax['script'] : '',
 		'containerId'    => isset( $ajax['container_id'] ) ? $ajax['container_id'] : '',
 		'addedNodeId'    => isset( $ajax['addednode_id'] ) ? $ajax['addednode_id'] : '',
-		'debug'          => false,
+		'debug'          => defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG,
 	);
 	wp_localize_script( 'wpmtst-controller', 'strongControllerParms', $parms );
 
