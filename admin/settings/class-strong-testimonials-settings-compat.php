@@ -74,7 +74,8 @@ class Strong_Testimonials_Settings_Compat {
 	 * @return array
 	 */
 	public function sanitize_options( $input ) {
-		$input['page_loading']            = sanitize_text_field( $input['page_loading'] );
+		$input['page_loading'] = sanitize_text_field( $input['page_loading'] );
+
 		if ( 'general' == $input['page_loading'] ) {
 			$input['prerender']      = 'all';
 			$input['ajax']['method'] = 'universal';
@@ -82,12 +83,16 @@ class Strong_Testimonials_Settings_Compat {
 			$input['prerender']      = sanitize_text_field( $input['prerender'] );
 			$input['ajax']['method'] = sanitize_text_field( $input['ajax']['method'] );
 		}
+
 		$input['ajax']['universal_timer'] = floatval( sanitize_text_field( $input['ajax']['universal_timer'] ) );
 		$input['ajax']['observer_timer']  = floatval( sanitize_text_field( $input['ajax']['observer_timer'] ) );
 		$input['ajax']['container_id']    = sanitize_text_field( $input['ajax']['container_id'] );
 		$input['ajax']['addednode_id']    = sanitize_text_field( $input['ajax']['addednode_id'] );
 		$input['ajax']['event']           = sanitize_text_field( $input['ajax']['event'] );
 		$input['ajax']['script']          = sanitize_text_field( $input['ajax']['script'] );
+
+		// @since 2.31.0
+		$input['controller']['initialize_on'] = sanitize_text_field( $input['controller']['initialize_on'] );
 
 		return $input;
 	}
@@ -108,6 +113,8 @@ class Strong_Testimonials_Settings_Compat {
 		$this->settings_page_loading();
 		$this->settings_prerender();
 		$this->settings_monitor();
+		// @since 2.31.0
+		$this->settings_controller();
 	}
 
 	/**
@@ -115,7 +122,7 @@ class Strong_Testimonials_Settings_Compat {
 	 */
 	public function settings_intro() {
 		?>
-        <h2><?php _e( 'Common Scenarios' ); ?></h2>
+        <h2><?php _e( 'Common Scenarios', 'strong-testimonials' ); ?></h2>
         <table class="form-table" cellpadding="0" cellspacing="0">
             <tr valign="top">
                 <td>
@@ -164,7 +171,7 @@ class Strong_Testimonials_Settings_Compat {
 	 */
 	public function settings_page_loading() {
 		?>
-        <h2><?php _e( 'Ajax Page Loading' ); ?></h2>
+        <h2><?php _e( 'Ajax Page Loading', 'strong-testimonials' ); ?></h2>
 
         <table class="form-table" cellpadding="0" cellspacing="0">
             <tr valign="top">
@@ -204,7 +211,7 @@ class Strong_Testimonials_Settings_Compat {
                 </label>
             </div>
             <div>
-                <p class="about"><?php _e( 'No compatibility needed.', 'strong-testimonials' ); ?></p>
+                <p class="about adjacent-cell"><?php _e( 'No compatibility needed.', 'strong-testimonials' ); ?></p>
                 <p class="about"><?php _e( 'This works well for most themes.', 'strong-testimonials' ); ?></p>
             </div>
         </div>
@@ -225,7 +232,7 @@ class Strong_Testimonials_Settings_Compat {
                 </label>
             </div>
             <div>
-                <p class="about"><?php _e( 'Be ready to render any view at any time.', 'strong-testimonials' ); ?></p>
+                <p class="about adjacent-cell"><?php _e( 'Be ready to render any view at any time.', 'strong-testimonials' ); ?></p>
                 <p class="about"><?php _e( 'This works well with common Ajax methods.', 'strong-testimonials' ); ?></p>
             </div>
         </div>
@@ -247,7 +254,7 @@ class Strong_Testimonials_Settings_Compat {
                 </label>
             </div>
             <div>
-                <p class="about"><?php _e( 'For specific configurations.', 'strong-testimonials' ); ?></p>
+                <p class="about adjacent-cell"><?php _e( 'For specific configurations.', 'strong-testimonials' ); ?></p>
             </div>
         </div>
 		<?php
@@ -295,7 +302,7 @@ class Strong_Testimonials_Settings_Compat {
                 </label>
             </div>
             <div>
-                <p class="about"><?php _e( 'For the current page only.', 'strong-testimonials' ); ?></p>
+                <p class="about adjacent-cell"><?php _e( 'For the current page only.', 'strong-testimonials' ); ?></p>
                 <p class="about"><?php _e( 'This works well for most themes.', 'strong-testimonials' ); ?></p>
             </div>
         </div>
@@ -316,7 +323,7 @@ class Strong_Testimonials_Settings_Compat {
                 </label>
             </div>
             <div>
-                <p class="about"><?php _e( 'For all views. Required for Ajax page loading.', 'strong-testimonials' ); ?></p>
+                <p class="about adjacent-cell"><?php _e( 'For all views. Required for Ajax page loading.', 'strong-testimonials' ); ?></p>
                 <p class="about"><?php _e( 'Then select an option for <strong>Monitor</strong> below.', 'strong-testimonials' ); ?></p>
             </div>
         </div>
@@ -337,7 +344,7 @@ class Strong_Testimonials_Settings_Compat {
                 </label>
             </div>
             <div>
-                <p class="about"><?php _e( 'When the shortcode is rendered. May result in a flash of unstyled content.', 'strong-testimonials' ); ?></p>
+                <p class="about adjacent-cell"><?php _e( 'When the shortcode is rendered. May result in a flash of unstyled content.', 'strong-testimonials' ); ?></p>
             </div>
         </div>
 		<?php
@@ -385,7 +392,7 @@ class Strong_Testimonials_Settings_Compat {
                 </label>
             </div>
             <div>
-                <p class="about"><?php _e( 'No compatibility needed.', 'strong-testimonials' ); ?></p>
+                <p class="about adjacent-cell"><?php _e( 'No compatibility needed.', 'strong-testimonials' ); ?></p>
             </div>
         </div>
 		<?php
@@ -409,7 +416,7 @@ class Strong_Testimonials_Settings_Compat {
                 </label>
             </div>
             <div>
-                <p class="about"><?php _e( 'Watch for page changes on a timer.', 'strong-testimonials' ); ?></p>
+                <p class="about adjacent-cell"><?php _e( 'Watch for page changes on a timer.', 'strong-testimonials' ); ?></p>
             </div>
         </div>
 
@@ -444,7 +451,7 @@ class Strong_Testimonials_Settings_Compat {
                 </label>
             </div>
             <div>
-                <p class="about"><?php _e( 'React to changes in specific page elements.', 'strong-testimonials' ); ?></p>
+                <p class="about adjacent-cell"><?php _e( 'React to changes in specific page elements.', 'strong-testimonials' ); ?></p>
                 <p class="description"><?php _e( 'For advanced users.', 'strong-testimonials' ); ?></p>
             </div>
         </div>
@@ -526,7 +533,7 @@ class Strong_Testimonials_Settings_Compat {
                 </label>
             </div>
             <div>
-                <p class="about"><?php _e( 'Listen for specific events.', 'strong-testimonials' ); ?></p>
+                <p class="about adjacent-cell"><?php _e( 'Listen for specific events.', 'strong-testimonials' ); ?></p>
                 <p class="description"><?php _e( 'For advanced users.', 'strong-testimonials' ); ?></p>
             </div>
         </div>
@@ -561,7 +568,7 @@ class Strong_Testimonials_Settings_Compat {
                 </label>
             </div>
             <div>
-                <p class="about"><?php _e( 'Register a callback for a specific Ajax script.', 'strong-testimonials' ); ?></p>
+                <p class="about adjacent-cell"><?php _e( 'Register a callback for a specific Ajax script.', 'strong-testimonials' ); ?></p>
                 <p class="description"><?php _e( 'For advanced users.', 'strong-testimonials' ); ?></p>
             </div>
         </div>
@@ -580,6 +587,78 @@ class Strong_Testimonials_Settings_Compat {
                     <option value="barba" <?php selected( $this->options['ajax']['script'], 'barba' ); ?>>Barba.js
                     </option>
                 </select>
+            </div>
+        </div>
+		<?php
+	}
+
+	/**
+	 * Controller
+     *
+     * @since 2.31.0
+	 */
+	public function settings_controller() {
+		?>
+        <h2><?php _e( 'Controller', 'strong-testimonials' ); ?></h2>
+
+        <table class="form-table" cellpadding="0" cellspacing="0">
+            <tr valign="top">
+                <th scope="row">
+					<?php _e( 'Load Event', 'strong-testimonials' ); ?>
+                </th>
+                <td>
+                    <div class="row header">
+                        <p>
+							<?php _e( 'This does not perform Ajax page loading.', 'strong-testimonials' ); ?>
+							<?php _e( 'It provides compatibility with themes and plugins that use Ajax to load pages, also known as page animation or transition effects.', 'strong-testimonials' ); ?>
+                        </p>
+                    </div>
+                    <fieldset data-radio-group="prerender">
+						<?php $this->settings_page_controller_documentready(); ?>
+						<?php $this->settings_page_controller_windowload(); ?>
+                    </fieldset>
+                </td>
+            </tr>
+        </table>
+		<?php
+	}
+
+	/**
+	 * Document ready (default)
+	 */
+	public function settings_page_controller_documentready() {
+		?>
+        <div class="row">
+            <div>
+                <label for="controller-documentready">
+                    <input type="radio" id="controller-documentready" name="wpmtst_compat_options[controller][initialize_on]"
+                           value="documentReady" <?php checked( $this->options['controller']['initialize_on'], 'documentReady' ); ?>/>
+					<?php _e( 'document ready', 'strong-testimonials' ); ?>
+                    <em><?php _e( '(default)', 'strong-testimonials' ); ?></em>
+                </label>
+            </div>
+            <div>
+                <p class="about adjacent-cell"><?php _e( 'No compatibility needed.', 'strong-testimonials' ); ?></p>
+            </div>
+        </div>
+		<?php
+	}
+
+	/**
+	 * Document ready (default)
+	 */
+	public function settings_page_controller_windowload() {
+		?>
+        <div class="row">
+            <div>
+                <label for="controller-windowload">
+                    <input type="radio" id="controller-windowload" name="wpmtst_compat_options[controller][initialize_on]"
+                           value="windowLoad" <?php checked( $this->options['controller']['initialize_on'], 'windowLoad' ); ?>/>
+					<?php _e( 'window load', 'strong-testimonials' ); ?>
+                </label>
+            </div>
+            <div>
+                <p class="about adjacent-cell"><?php _e( 'No compatibility needed.', 'strong-testimonials' ); ?></p>
             </div>
         </div>
 		<?php

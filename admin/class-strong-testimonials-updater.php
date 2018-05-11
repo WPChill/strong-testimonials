@@ -624,8 +624,9 @@ class Strong_Testimonials_Updater {
 		// Merge in new options.
 		$defaults = Strong_Testimonials_Defaults::get_compat_options();
 		// Merge nested arrays individually. Don't use array_merge_recursive.
-		$options['ajax'] = array_merge( $defaults['ajax'], $options['ajax'] );
-		$options         = array_merge( $defaults, $options );
+		$options['ajax']       = array_merge( $defaults['ajax'], $options['ajax'] );
+		$options['controller'] = array_merge( $defaults['controller'], $options['controller'] );
+		$options               = array_merge( $defaults, $options );
 
 		return $options;
 	}
