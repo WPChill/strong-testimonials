@@ -1,6 +1,6 @@
 <?php
 /**
- * FORM TEMPLATE FUNCTIONS
+ * Form template functions.
  */
 
 function wpmtst_form_info() {
@@ -275,7 +275,7 @@ function wpmtst_field_required_tag( $field ) {
 }
 
 /**
- * Print "Required field" notice.
+ * Print "Required" notice.
  *
  * @since 2.23.0
  * @since 2.24.1 Print only if enabled.
