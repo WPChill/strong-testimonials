@@ -227,25 +227,24 @@ var strongController = {
         strongController.start();
         // Listen.
         strongController.listen();
-        // For embeds in Masonry:
-        jQuery(window).on('load', function () {
-          strongController.listenForIframeReady();
-        });
       });
 
     } else { // Fail-safe
 
-      window.addEventListener('load', function () {
+      jQuery(window).on('load', function () {
         if ( debugit) console.log('window load');
         // Start components.
         strongController.start();
         // Listen.
         strongController.listen();
-        // For embeds in Masonry:
-        strongController.listenForIframeReady();
-      }, false);
+      });
 
     }
+
+    // Regardless of initializeOn setting, check for embeds in Masonry on window load.
+    jQuery(window).on('load', function () {
+      strongController.listenForIframeReady();
+    });
 
   },
 
