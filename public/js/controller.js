@@ -321,12 +321,24 @@ var strongController = {
     if (debugit) console.log('listenForIframeReady');
 
     if (strongController.iframes.length && strongController.grids.length) {
+
       strongController.iframes.ready(function () {
         // still needs a moment to render
-        setTimeout(function () { strongController.grids.masonry(); console.log('timeout 1'); }, 1000);
+        setTimeout(function () {
+            strongController.grids.masonry();
+          if (debugit) console.log( 'listenForIframeReady', 'timeout 1');
+          }, 1000);
         // just in case
-        setTimeout(function () { strongController.grids.masonry(); console.log('timeout 2'); }, 2000);
+        setTimeout(function () {
+            strongController.grids.masonry();
+            if (debugit) console.log( 'listenForIframeReady', 'timeout 2');
+          }, 2000);
       });
+
+    } else {
+
+      if (debugit) console.log( 'listenForIframeReady', 'no iframes or Masonry found');
+
     }
   }
 
