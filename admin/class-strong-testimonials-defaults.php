@@ -389,8 +389,8 @@ class Strong_Testimonials_Defaults {
 			'required-field'     => array(
 				'order'       => 1,
 				/* translators: Settings > Form > Messages tab */
-				'description' => _x( 'Required Field', 'setting description', 'strong-testimonials' ),
-				'text'        => _x( 'Required field', 'Default message for required notice at top of form.', 'strong-testimonials' ),
+				'description' => _x( 'Required', 'setting description', 'strong-testimonials' ),
+				'text'        => _x( 'Required', 'Default message for required notice at top of form.', 'strong-testimonials' ),
 				'enabled'     => 1,
 			),
 			'captcha'            => array(
