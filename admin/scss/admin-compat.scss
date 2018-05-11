@@ -108,7 +108,6 @@ div.row {
   > div {
 
     &:first-child {
-      width: 180px;
     }
 
     &.radio-sub {
@@ -121,9 +120,14 @@ div.row {
   p {
     &.about {
       display: inline-block;
+      vertical-align: middle;
 
       &.adjacent {
         margin-left: 0.5em;
+      }
+
+      &.adjacent-cell {
+        margin-left: 1em;
       }
     }
 

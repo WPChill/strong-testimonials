@@ -778,6 +778,9 @@ class Strong_Testimonials_Defaults {
 				'event'           => '',
 				'script'          => '',
 			),
+			'controller' => array(
+				'initialize_on' => 'documentReady', // or windowLoad
+			),
 		);
 
 		return $options;

@@ -222,6 +222,7 @@ var strongController = {
     if ( 'documentReady' === this.config.initializeOn ) {
 
       jQuery(document).ready(function () {
+        if ( debugit) console.log('document ready');
         // Start components.
         strongController.start();
         // Listen.
@@ -235,6 +236,7 @@ var strongController = {
     } else { // Fail-safe
 
       window.addEventListener('load', function () {
+        if ( debugit) console.log('window load');
         // Start components.
         strongController.start();
         // Listen.
