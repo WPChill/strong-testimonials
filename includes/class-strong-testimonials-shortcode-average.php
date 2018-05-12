@@ -336,14 +336,4 @@ class Strong_Testimonials_Average_Shortcode {
 		return $html;
 	}
 
-	/**
-	 * Remove whitespace from HTML output.
-	 *
-	 * @param $html
-	 * @return string
-	 */
-	public function strip_whitespace( $html ) {
-		return preg_replace( '~>\s+<~', '><', trim( $html ) );
-	}
-
 }
