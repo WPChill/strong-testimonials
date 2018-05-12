@@ -72,8 +72,6 @@ div.row p.about {
   vertical-align: middle; }
   div.row p.about.adjacent {
     margin-left: 0.5em; }
-  div.row p.about.adjacent-cell {
-    margin-left: 1em; }
 div.row p.description {
   display: inline-block;
   font-size: 14px; }

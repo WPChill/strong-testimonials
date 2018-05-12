@@ -217,7 +217,7 @@ class Strong_Testimonials_Settings_Compat {
 				</label>
 			</div>
 			<div>
-				<p class="about adjacent-cell"><?php _e( 'No compatibility needed.', 'strong-testimonials' ); ?></p>
+				<p class="about"><?php _e( 'No compatibility needed.', 'strong-testimonials' ); ?></p>
 				<p class="about"><?php _e( 'This works well for most themes.', 'strong-testimonials' ); ?></p>
 			</div>
 		</div>
@@ -243,7 +243,7 @@ class Strong_Testimonials_Settings_Compat {
 				</label>
 			</div>
 			<div>
-				<p class="about adjacent-cell"><?php _e( 'Be ready to render any view at any time.', 'strong-testimonials' ); ?></p>
+				<p class="about"><?php _e( 'Be ready to render any view at any time.', 'strong-testimonials' ); ?></p>
 				<p class="about"><?php _e( 'This works well with common Ajax methods.', 'strong-testimonials' ); ?></p>
 			</div>
 		</div>
@@ -270,7 +270,7 @@ class Strong_Testimonials_Settings_Compat {
 				</label>
 			</div>
 			<div>
-				<p class="about adjacent-cell"><?php _e( 'For specific configurations.', 'strong-testimonials' ); ?></p>
+				<p class="about"><?php _e( 'For specific configurations.', 'strong-testimonials' ); ?></p>
 			</div>
 		</div>
 		<?php
@@ -323,7 +323,7 @@ class Strong_Testimonials_Settings_Compat {
 				</label>
 			</div>
 			<div>
-				<p class="about adjacent-cell"><?php _e( 'For the current page only.', 'strong-testimonials' ); ?></p>
+				<p class="about"><?php _e( 'For the current page only.', 'strong-testimonials' ); ?></p>
 				<p class="about"><?php _e( 'This works well for most themes.', 'strong-testimonials' ); ?></p>
 			</div>
 		</div>
@@ -349,7 +349,7 @@ class Strong_Testimonials_Settings_Compat {
 				</label>
 			</div>
 			<div>
-				<p class="about adjacent-cell"><?php _e( 'For all views. Required for Ajax page loading.', 'strong-testimonials' ); ?></p>
+				<p class="about"><?php _e( 'For all views. Required for Ajax page loading.', 'strong-testimonials' ); ?></p>
 				<p class="about"><?php _e( 'Then select an option for <strong>Monitor</strong> below.', 'strong-testimonials' ); ?></p>
 			</div>
 		</div>
@@ -375,7 +375,7 @@ class Strong_Testimonials_Settings_Compat {
 				</label>
 			</div>
 			<div>
-				<p class="about adjacent-cell"><?php _e( 'When the shortcode is rendered. May result in a flash of unstyled content.', 'strong-testimonials' ); ?></p>
+				<p class="about"><?php _e( 'When the shortcode is rendered. May result in a flash of unstyled content.', 'strong-testimonials' ); ?></p>
 			</div>
 		</div>
 		<?php
@@ -708,7 +708,7 @@ class Strong_Testimonials_Settings_Compat {
 				</label>
 			</div>
 			<div>
-				<p class="about adjacent-cell"><?php _e( 'No compatibility needed.', 'strong-testimonials' ); ?></p>
+				<p class="about"><?php _e( 'No compatibility needed.', 'strong-testimonials' ); ?></p>
 			</div>
 		</div>
 		<?php
@@ -733,7 +733,7 @@ class Strong_Testimonials_Settings_Compat {
 				</label>
 			</div>
 			<div>
-				<p class="about adjacent-cell"><?php _e( 'No compatibility needed.', 'strong-testimonials' ); ?></p>
+				<p class="about"><?php _e( 'No compatibility needed.', 'strong-testimonials' ); ?></p>
 			</div>
 		</div>
 		<?php
