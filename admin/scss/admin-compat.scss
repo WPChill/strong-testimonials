@@ -10,6 +10,10 @@ div.row {
 
   > div {
     display: table-cell;
+
+    &:first-child {
+      width: 200px;
+    }
   }
 
   &:not(:last-child) > div {
@@ -113,6 +117,7 @@ div.row {
     &.radio-sub {
       label {
         text-indent: 24px;
+        width: 200px;
       }
     }
   }
