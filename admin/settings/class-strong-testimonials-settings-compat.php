@@ -79,7 +79,8 @@ class Strong_Testimonials_Settings_Compat {
 		if ( 'general' == $input['page_loading'] ) {
 			$input['prerender']      = 'all';
 			$input['ajax']['method'] = 'universal';
-		} else {
+		}
+		else {
 			$input['prerender']      = sanitize_text_field( $input['prerender'] );
 			$input['ajax']['method'] = sanitize_text_field( $input['ajax']['method'] );
 		}
@@ -122,47 +123,47 @@ class Strong_Testimonials_Settings_Compat {
 	 */
 	public function settings_intro() {
 		?>
-        <h2><?php _e( 'Common Scenarios', 'strong-testimonials' ); ?></h2>
-        <table class="form-table" cellpadding="0" cellspacing="0">
-            <tr valign="top">
-                <td>
+		<h2><?php _e( 'Common Scenarios', 'strong-testimonials' ); ?></h2>
+		<table class="form-table" cellpadding="0" cellspacing="0">
+			<tr valign="top">
+				<td>
 
-                    <div class="scenarios">
-                        <div class="row header">
-                            <div>
+					<div class="scenarios">
+						<div class="row header">
+							<div>
 								<?php _e( 'Views Not Working', 'strong-testimonials' ); ?>
-                            </div>
-                            <div>
+							</div>
+							<div>
 								<?php _e( 'Possible Cause', 'strong-testimonials' ); ?>
-                            </div>
-                            <div>
+							</div>
+							<div>
 								<?php _e( 'Solution', 'strong-testimonials' ); ?>
-                            </div>
-                        </div>
+							</div>
+						</div>
 
-                        <div class="row">
-                            <div>
-                                <p><?php _e( 'A testimonial view does not look right the first time you view the page.', 'strong-testimonials' ); ?></p>
-                                <p><?php _e( 'For example, it does not seem to have any style, the slideshow has not started, or the pagination is missing.', 'strong-testimonials' ); ?></p>
-                                <p><?php _e( 'When you refresh the page, the view does appear correctly.', 'strong-testimonials' ); ?></p>
-                            </div>
-                            <div>
-                                <p><?php _e( 'Your site is using <strong>Ajax page loading</strong> &ndash; also known as page animations, transition effects or Pjax (pushState Ajax) &ndash; provided by your theme or another plugin.', 'strong-testimonials' ); ?></p>
-                                <p><?php _e( 'Instead of loading the entire page, this technique fetches only the new content.', 'strong-testimonials' ); ?></p>
-                            </div>
-                            <div>
-                                <p><strong><?php _e( 'Ajax Page Loading', 'strong-testimonials' ); ?>
-                                        :</strong> <?php _e( 'General', 'strong-testimonials' ); ?></p>
-                                <p><a href="#"
-                                      id="set-scenario-1"><?php _ex( 'Set this now', 'link text on Settings > Compatibility tab', 'strong-testimonials' ); ?></a>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
+						<div class="row">
+							<div>
+								<p><?php _e( 'A testimonial view does not look right the first time you view the page.', 'strong-testimonials' ); ?></p>
+								<p><?php _e( 'For example, it does not seem to have any style, the slideshow has not started, or the pagination is missing.', 'strong-testimonials' ); ?></p>
+								<p><?php _e( 'When you refresh the page, the view does appear correctly.', 'strong-testimonials' ); ?></p>
+							</div>
+							<div>
+								<p><?php _e( 'Your site is using <strong>Ajax page loading</strong> &ndash; also known as page animations, transition effects or Pjax (pushState Ajax) &ndash; provided by your theme or another plugin.', 'strong-testimonials' ); ?></p>
+								<p><?php _e( 'Instead of loading the entire page, this technique fetches only the new content.', 'strong-testimonials' ); ?></p>
+							</div>
+							<div>
+								<p><strong><?php _e( 'Ajax Page Loading', 'strong-testimonials' ); ?>
+										:</strong> <?php _e( 'General', 'strong-testimonials' ); ?></p>
+								<p><a href="#"
+										id="set-scenario-1"><?php _ex( 'Set this now', 'link text on Settings > Compatibility tab', 'strong-testimonials' ); ?></a>
+								</p>
+							</div>
+						</div>
+					</div>
 
-                </td>
-            </tr>
-        </table>
+				</td>
+			</tr>
+		</table>
 		<?php
 	}
 
@@ -171,28 +172,28 @@ class Strong_Testimonials_Settings_Compat {
 	 */
 	public function settings_page_loading() {
 		?>
-        <h2><?php _e( 'Ajax Page Loading', 'strong-testimonials' ); ?></h2>
+		<h2><?php _e( 'Ajax Page Loading', 'strong-testimonials' ); ?></h2>
 
-        <table class="form-table" cellpadding="0" cellspacing="0">
-            <tr valign="top">
-                <th scope="row">
+		<table class="form-table" cellpadding="0" cellspacing="0">
+			<tr valign="top">
+				<th scope="row">
 					<?php _e( 'Type', 'strong-testimonials' ); ?>
-                </th>
-                <td>
-                    <div class="row header">
-                        <p>
+				</th>
+				<td>
+					<div class="row header">
+						<p>
 							<?php _e( 'This does not perform Ajax page loading.', 'strong-testimonials' ); ?>
 							<?php _e( 'It provides compatibility with themes and plugins that use Ajax to load pages, also known as page animation or transition effects.', 'strong-testimonials' ); ?>
-                        </p>
-                    </div>
-                    <fieldset data-radio-group="prerender">
+						</p>
+					</div>
+					<fieldset data-radio-group="prerender">
 						<?php $this->settings_page_loading_none(); ?>
 						<?php $this->settings_page_loading_general(); ?>
 						<?php $this->settings_page_loading_advanced(); ?>
-                    </fieldset>
-                </td>
-            </tr>
-        </table>
+					</fieldset>
+				</td>
+			</tr>
+		</table>
 		<?php
 	}
 
@@ -200,21 +201,26 @@ class Strong_Testimonials_Settings_Compat {
 	 * None (default)
 	 */
 	public function settings_page_loading_none() {
+		$checked = checked( $this->options['page_loading'], '', false );
+		$class   = $checked ? ' class="current"' : '';
 		?>
-        <div class="row">
-            <div>
-                <label for="page-loading-none">
-                    <input type="radio" id="page-loading-none" name="wpmtst_compat_options[page_loading]"
-                           value="" <?php checked( $this->options['page_loading'], '' ); ?>/>
+		<div class="row">
+			<div>
+				<label<?php echo $class; ?> for="page-loading-none">
+					<input id="page-loading-none"
+						name="wpmtst_compat_options[page_loading]"
+						type="radio"
+						value=""
+						<?php echo $checked; ?> />
 					<?php _e( 'None', 'strong-testimonials' ); ?>
-                    <em><?php _e( '(default)', 'strong-testimonials' ); ?></em>
-                </label>
-            </div>
-            <div>
-                <p class="about adjacent-cell"><?php _e( 'No compatibility needed.', 'strong-testimonials' ); ?></p>
-                <p class="about"><?php _e( 'This works well for most themes.', 'strong-testimonials' ); ?></p>
-            </div>
-        </div>
+					<em><?php _e( '(default)', 'strong-testimonials' ); ?></em>
+				</label>
+			</div>
+			<div>
+				<p class="about adjacent-cell"><?php _e( 'No compatibility needed.', 'strong-testimonials' ); ?></p>
+				<p class="about"><?php _e( 'This works well for most themes.', 'strong-testimonials' ); ?></p>
+			</div>
+		</div>
 		<?php
 	}
 
@@ -222,20 +228,25 @@ class Strong_Testimonials_Settings_Compat {
 	 * General
 	 */
 	public function settings_page_loading_general() {
+		$checked = checked( $this->options['page_loading'], 'general', false );
+		$class   = $checked ? ' class="current"' : '';
 		?>
-        <div class="row">
-            <div>
-                <label for="page-loading-general">
-                    <input type="radio" id="page-loading-general" name="wpmtst_compat_options[page_loading]"
-                           value="general" <?php checked( $this->options['page_loading'], 'general' ); ?>/>
+		<div class="row">
+			<div>
+				<label<?php echo $class; ?> for="page-loading-general">
+					<input id="page-loading-general"
+						name="wpmtst_compat_options[page_loading]"
+						type="radio"
+						value="general"
+						<?php echo $checked; ?> />
 					<?php _e( 'General', 'strong-testimonials' ); ?>
-                </label>
-            </div>
-            <div>
-                <p class="about adjacent-cell"><?php _e( 'Be ready to render any view at any time.', 'strong-testimonials' ); ?></p>
-                <p class="about"><?php _e( 'This works well with common Ajax methods.', 'strong-testimonials' ); ?></p>
-            </div>
-        </div>
+				</label>
+			</div>
+			<div>
+				<p class="about adjacent-cell"><?php _e( 'Be ready to render any view at any time.', 'strong-testimonials' ); ?></p>
+				<p class="about"><?php _e( 'This works well with common Ajax methods.', 'strong-testimonials' ); ?></p>
+			</div>
+		</div>
 		<?php
 	}
 
@@ -243,20 +254,25 @@ class Strong_Testimonials_Settings_Compat {
 	 * Advanced
 	 */
 	public function settings_page_loading_advanced() {
+		$checked = checked( $this->options['page_loading'], 'advanced', false );
+		$class   = $checked ? ' class="current"' : '';
 		?>
-        <div class="row">
-            <div>
-                <label for="page-loading-advanced">
-                    <input type="radio" id="page-loading-advanced" name="wpmtst_compat_options[page_loading]"
-                           value="advanced" <?php checked( $this->options['page_loading'], 'advanced' ); ?>
-                           data-group="advanced"/>
+		<div class="row">
+			<div>
+				<label<?php echo $class; ?> for="page-loading-advanced">
+					<input id="page-loading-advanced"
+						name="wpmtst_compat_options[page_loading]"
+						data-group="advanced"
+						type="radio"
+						value="advanced"
+						<?php echo $checked; ?> />
 					<?php _e( 'Advanced', 'strong-testimonials' ); ?>
-                </label>
-            </div>
-            <div>
-                <p class="about adjacent-cell"><?php _e( 'For specific configurations.', 'strong-testimonials' ); ?></p>
-            </div>
-        </div>
+				</label>
+			</div>
+			<div>
+				<p class="about adjacent-cell"><?php _e( 'For specific configurations.', 'strong-testimonials' ); ?></p>
+			</div>
+		</div>
 		<?php
 	}
 
@@ -265,25 +281,25 @@ class Strong_Testimonials_Settings_Compat {
 	 */
 	public function settings_prerender() {
 		?>
-        <table class="form-table" cellpadding="0" cellspacing="0" data-sub="advanced">
-            <tr valign="top">
-                <th scope="row">
+		<table class="form-table" cellpadding="0" cellspacing="0" data-sub="advanced">
+			<tr valign="top">
+				<th scope="row">
 					<?php _e( 'Prerender', 'strong-testimonials' ); ?>
-                </th>
-                <td>
-                    <div class="row header">
-                        <p><?php _e( 'Load stylesheets and populate script variables up front.', 'strong-testimonials' ); ?>
-                            <a class="open-help-tab" href="#tab-panel-wpmtst-help-prerender"><?php _e( 'Help' ); ?></a>
-                        </p>
-                    </div>
-                    <fieldset data-radio-group="prerender">
+				</th>
+				<td>
+					<div class="row header">
+						<p><?php _e( 'Load stylesheets and populate script variables up front.', 'strong-testimonials' ); ?>
+							<a class="open-help-tab" href="#tab-panel-wpmtst-help-prerender"><?php _e( 'Help' ); ?></a>
+						</p>
+					</div>
+					<fieldset data-radio-group="prerender">
 						<?php $this->settings_prerender_current(); ?>
 						<?php $this->settings_prerender_all(); ?>
 						<?php $this->settings_prerender_none(); ?>
-                    </fieldset>
-                </td>
-            </tr>
-        </table>
+					</fieldset>
+				</td>
+			</tr>
+		</table>
 		<?php
 	}
 
@@ -291,21 +307,26 @@ class Strong_Testimonials_Settings_Compat {
 	 * Current (default)
 	 */
 	public function settings_prerender_current() {
+		$checked = checked( $this->options['prerender'], 'current', false );
+		$class   = $checked ? ' class="current"' : '';
 		?>
-        <div class="row">
-            <div>
-                <label for="prerender-current">
-                    <input type="radio" id="prerender-current" name="wpmtst_compat_options[prerender]"
-                           value="current" <?php checked( $this->options['prerender'], 'current' ); ?>/>
+		<div class="row">
+			<div>
+				<label<?php echo $class; ?> for="prerender-current">
+					<input id="prerender-current"
+						name="wpmtst_compat_options[prerender]"
+						type="radio"
+						value="current"
+						<?php echo $checked; ?> />
 					<?php _e( 'Current page', 'strong-testimonials' ); ?>
-                    <em><?php _e( '(default)', 'strong-testimonials' ); ?></em>
-                </label>
-            </div>
-            <div>
-                <p class="about adjacent-cell"><?php _e( 'For the current page only.', 'strong-testimonials' ); ?></p>
-                <p class="about"><?php _e( 'This works well for most themes.', 'strong-testimonials' ); ?></p>
-            </div>
-        </div>
+					<em><?php _e( '(default)', 'strong-testimonials' ); ?></em>
+				</label>
+			</div>
+			<div>
+				<p class="about adjacent-cell"><?php _e( 'For the current page only.', 'strong-testimonials' ); ?></p>
+				<p class="about"><?php _e( 'This works well for most themes.', 'strong-testimonials' ); ?></p>
+			</div>
+		</div>
 		<?php
 	}
 
@@ -313,20 +334,25 @@ class Strong_Testimonials_Settings_Compat {
 	 * All
 	 */
 	public function settings_prerender_all() {
+		$checked = checked( $this->options['prerender'], 'all', false );
+		$class   = $checked ? ' class="current"' : '';
 		?>
-        <div class="row">
-            <div>
-                <label for="prerender-all">
-                    <input type="radio" id="prerender-all" name="wpmtst_compat_options[prerender]"
-                           value="all" <?php checked( $this->options['prerender'], 'all' ); ?>/>
+		<div class="row">
+			<div>
+				<label<?php echo $class; ?> for="prerender-all">
+					<input id="prerender-all"
+						type="radio"
+						name="wpmtst_compat_options[prerender]"
+						value="all"
+						<?php echo $checked; ?> />
 					<?php _e( 'All views', 'strong-testimonials' ); ?>
-                </label>
-            </div>
-            <div>
-                <p class="about adjacent-cell"><?php _e( 'For all views. Required for Ajax page loading.', 'strong-testimonials' ); ?></p>
-                <p class="about"><?php _e( 'Then select an option for <strong>Monitor</strong> below.', 'strong-testimonials' ); ?></p>
-            </div>
-        </div>
+				</label>
+			</div>
+			<div>
+				<p class="about adjacent-cell"><?php _e( 'For all views. Required for Ajax page loading.', 'strong-testimonials' ); ?></p>
+				<p class="about"><?php _e( 'Then select an option for <strong>Monitor</strong> below.', 'strong-testimonials' ); ?></p>
+			</div>
+		</div>
 		<?php
 	}
 
@@ -334,19 +360,24 @@ class Strong_Testimonials_Settings_Compat {
 	 * None
 	 */
 	public function settings_prerender_none() {
+		$checked = checked( $this->options['prerender'], 'none', false );
+		$class   = $checked ? ' class="current"' : '';
 		?>
-        <div class="row">
-            <div>
-                <label for="prerender-none">
-                    <input type="radio" id="prerender-none" name="wpmtst_compat_options[prerender]"
-                           value="none" <?php checked( $this->options['prerender'], 'none' ); ?>/>
+		<div class="row">
+			<div>
+				<label<?php echo $class; ?> for="prerender-none">
+					<input id="prerender-none"
+						type="radio"
+						name="wpmtst_compat_options[prerender]"
+						value="none"
+						<?php echo $checked; ?> />
 					<?php _e( 'None', 'strong-testimonials' ); ?>
-                </label>
-            </div>
-            <div>
-                <p class="about adjacent-cell"><?php _e( 'When the shortcode is rendered. May result in a flash of unstyled content.', 'strong-testimonials' ); ?></p>
-            </div>
-        </div>
+				</label>
+			</div>
+			<div>
+				<p class="about adjacent-cell"><?php _e( 'When the shortcode is rendered. May result in a flash of unstyled content.', 'strong-testimonials' ); ?></p>
+			</div>
+		</div>
 		<?php
 	}
 
@@ -355,25 +386,25 @@ class Strong_Testimonials_Settings_Compat {
 	 */
 	public function settings_monitor() {
 		?>
-        <table class="form-table" cellpadding="0" cellspacing="0" data-sub="advanced">
-            <tr valign="top">
-                <th scope="row">
+		<table class="form-table" cellpadding="0" cellspacing="0" data-sub="advanced">
+			<tr valign="top">
+				<th scope="row">
 					<?php _e( 'Monitor', 'strong-testimonials' ); ?>
-                </th>
-                <td>
-                    <div class="row header">
-                        <p><?php _e( 'Initialize slideshows, pagination and form validation as pages change.', 'strong-testimonials' ); ?></p>
-                    </div>
-                    <fieldset data-radio-group="method">
+				</th>
+				<td>
+					<div class="row header">
+						<p><?php _e( 'Initialize slideshows, pagination and form validation as pages change.', 'strong-testimonials' ); ?></p>
+					</div>
+					<fieldset data-radio-group="method">
 						<?php $this->settings_monitor_none(); ?>
 						<?php $this->settings_monitor_universal(); ?>
 						<?php $this->settings_monitor_observer(); ?>
 						<?php $this->settings_monitor_event(); ?>
 						<?php $this->settings_monitor_script(); ?>
-                    </fieldset>
-                </td>
-            </tr>
-        </table>
+					</fieldset>
+				</td>
+			</tr>
+		</table>
 		<?php
 	}
 
@@ -381,20 +412,25 @@ class Strong_Testimonials_Settings_Compat {
 	 * None
 	 */
 	public function settings_monitor_none() {
+		$checked = checked( $this->options['ajax']['method'], '', false );
+		$class   = $checked ? ' class="current"' : '';
 		?>
-        <div class="row">
-            <div>
-                <label for="method-none">
-                    <input type="radio" id="method-none" name="wpmtst_compat_options[ajax][method]" value=""
-						<?php checked( $this->options['ajax']['method'], '' ); ?> />
+		<div class="row">
+			<div>
+				<label<?php echo $class; ?> for="method-none">
+					<input id="method-none"
+						type="radio"
+						name="wpmtst_compat_options[ajax][method]"
+						value=""
+						<?php echo $checked; ?> />
 					<?php _e( 'None', 'strong-testimonials' ); ?>
-                    <em><?php _e( '(default)', 'strong-testimonials' ); ?></em>
-                </label>
-            </div>
-            <div>
-                <p class="about adjacent-cell"><?php _e( 'No compatibility needed.', 'strong-testimonials' ); ?></p>
-            </div>
-        </div>
+					<em><?php _e( '(default)', 'strong-testimonials' ); ?></em>
+				</label>
+			</div>
+			<div>
+				<p class="about"><?php _e( 'No compatibility needed.', 'strong-testimonials' ); ?></p>
+			</div>
+		</div>
 		<?php
 	}
 
@@ -402,37 +438,42 @@ class Strong_Testimonials_Settings_Compat {
 	 * Universal (timer)
 	 */
 	public function settings_monitor_universal() {
+		$checked = checked( $this->options['ajax']['method'], 'universal', false );
+		$class   = $checked ? ' class="current"' : '';
 		?>
-        <div class="row">
-            <div>
-                <label for="method-universal">
-                    <input type="radio"
-                           id="method-universal"
-                           name="wpmtst_compat_options[ajax][method]"
-                           value="universal"
-						<?php checked( $this->options['ajax']['method'], 'universal' ); ?>
-                           data-group="universal"/>
+		<div class="row">
+			<div>
+				<label<?php echo $class; ?> for="method-universal">
+					<input id="method-universal"
+						name="wpmtst_compat_options[ajax][method]"
+						type="radio"
+						value="universal"
+						data-group="universal"
+						<?php echo $checked; ?> />
 					<?php _e( 'Universal', 'strong-testimonials' ); ?>
-                </label>
-            </div>
-            <div>
-                <p class="about adjacent-cell"><?php _e( 'Watch for page changes on a timer.', 'strong-testimonials' ); ?></p>
-            </div>
-        </div>
+				</label>
+			</div>
+			<div>
+				<p class="about"><?php _e( 'Watch for page changes on a timer.', 'strong-testimonials' ); ?></p>
+			</div>
+		</div>
 
-        <div class="row" data-sub="universal">
-            <div class="radio-sub">
-                <label for="universal-timer">
+		<div class="row" data-sub="universal">
+			<div class="radio-sub">
+				<label for="universal-timer">
 					<?php _ex( 'Check every', 'timer setting', 'strong-testimonials' ); ?>
-                </label>
-            </div>
-            <div>
-                <input type="number" id="universal-timer" name="wpmtst_compat_options[ajax][universal_timer]"
-                       min=".1" max="5" step=".1" size="3"
-                       value="<?php echo $this->options['ajax']['universal_timer']; ?>"/>
+				</label>
+			</div>
+			<div>
+				<input id="universal-timer"
+					name="wpmtst_compat_options[ajax][universal_timer]"
+					type="number"
+					min=".1" max="5" step=".1"
+					value="<?php echo $this->options['ajax']['universal_timer']; ?>"
+					size="3" />
 				<?php _ex( 'seconds', 'timer setting', 'strong-testimonials' ); ?>
-            </div>
-        </div>
+			</div>
+		</div>
 		<?php
 	}
 
@@ -440,81 +481,92 @@ class Strong_Testimonials_Settings_Compat {
 	 * Observer
 	 */
 	public function settings_monitor_observer() {
+		$checked = checked( $this->options['ajax']['method'], 'observer', false );
+		$class   = $checked ? ' class="current"' : '';
 		?>
-        <div class="row">
-            <div>
-                <label for="method-observer">
-                    <input type="radio" id="method-observer" name="wpmtst_compat_options[ajax][method]" value="observer"
-						<?php checked( $this->options['ajax']['method'], 'observer' ); ?>
-                           data-group="observer"/>
+		<div class="row">
+			<div>
+				<label<?php echo $class; ?> for="method-observer">
+					<input id="method-observer"
+						name="wpmtst_compat_options[ajax][method]"
+						data-group="observer"
+						type="radio"
+						value="observer"
+						<?php echo $checked; ?> />
 					<?php _e( 'Observer', 'strong-testimonials' ); ?>
-                </label>
-            </div>
-            <div>
-                <p class="about adjacent-cell"><?php _e( 'React to changes in specific page elements.', 'strong-testimonials' ); ?></p>
-                <p class="description"><?php _e( 'For advanced users.', 'strong-testimonials' ); ?></p>
-            </div>
-        </div>
+				</label>
+			</div>
+			<div>
+				<p class="about"><?php _e( 'React to changes in specific page elements.', 'strong-testimonials' ); ?></p>
+				<p class="description"><?php _e( 'For advanced users.', 'strong-testimonials' ); ?></p>
+			</div>
+		</div>
 
 		<?php
 		/*
 		 * Timer
 		 */
 		?>
-        <div class="row" data-sub="observer">
-            <div class="radio-sub">
-                <label for="observer-timer">
+		<div class="row" data-sub="observer">
+			<div class="radio-sub">
+				<label for="observer-timer">
 					<?php _ex( 'Check once after', 'timer setting', 'strong-testimonials' ); ?>
-                </label>
-            </div>
-            <div>
-                <input type="number" id="observer-timer"
-                       name="wpmtst_compat_options[ajax][observer_timer]"
-                       min=".1" max="5" step=".1" size="3"
-                       value="<?php echo $this->options['ajax']['observer_timer']; ?>"/>
+				</label>
+			</div>
+			<div>
+				<input id="observer-timer"
+					name="wpmtst_compat_options[ajax][observer_timer]"
+					type="number"
+					min=".1" max="5" step=".1"
+					value="<?php echo $this->options['ajax']['observer_timer']; ?>"
+					size="3" />
 				<?php _ex( 'seconds', 'timer setting', 'strong-testimonials' ); ?>
-            </div>
-        </div>
+			</div>
+		</div>
 
 		<?php
 		/*
 		 * Container element ID
 		 */
 		?>
-        <div class="row" data-sub="observer">
-            <div class="radio-sub">
-                <label for="container-id">
+		<div class="row" data-sub="observer">
+			<div class="radio-sub">
+				<label for="container-id">
 					<?php _e( 'Container ID', 'strong-testimonials' ); ?>
-                </label>
-            </div>
-            <div>
-                <span class="code input-before">#</span>
-                <input type="text" id="container-id" class="code element"
-                       name="wpmtst_compat_options[ajax][container_id]"
-                       value="<?php echo $this->options['ajax']['container_id']; ?>"/>
-                <p class="about adjacent"><?php _e( 'the element to observe', 'strong-testimonials' ); ?></p>
-            </div>
-        </div>
+				</label>
+			</div>
+			<div>
+				<span class="code input-before">#</span>
+				<input class="code element"
+					id="container-id"
+					name="wpmtst_compat_options[ajax][container_id]"
+					type="text"
+					value="<?php echo $this->options['ajax']['container_id']; ?>" />
+				<p class="about adjacent"><?php _e( 'the element to observe', 'strong-testimonials' ); ?></p>
+			</div>
+		</div>
 
 		<?php
 		/*
 		 * Added node ID
 		 */
 		?>
-        <div class="row" data-sub="observer">
-            <div class="radio-sub">
-                <label for="addednode-id">
+		<div class="row" data-sub="observer">
+			<div class="radio-sub">
+				<label for="addednode-id">
 					<?php _e( 'Added node ID', 'strong-testimonials' ); ?>
-                </label>
-            </div>
-            <div>
-                <span class="code input-before">#</span>
-                <input type="text" id="addednode-id" class="code element"
-                       name="wpmtst_compat_options[ajax][addednode_id]"
-                       value="<?php echo $this->options['ajax']['addednode_id']; ?>"/>
-                <p class="about adjacent"><?php _e( 'the element being added', 'strong-testimonials' ); ?></p>
-            </div>
-        </div>
+				</label>
+			</div>
+			<div>
+				<span class="code input-before">#</span>
+				<input class="code element"
+					id="addednode-id"
+					name="wpmtst_compat_options[ajax][addednode_id]"
+					type="text"
+					value="<?php echo $this->options['ajax']['addednode_id']; ?>" />
+				<p class="about adjacent"><?php _e( 'the element being added', 'strong-testimonials' ); ?></p>
+			</div>
+		</div>
 		<?php
 	}
 
@@ -522,34 +574,41 @@ class Strong_Testimonials_Settings_Compat {
 	 * Custom event
 	 */
 	public function settings_monitor_event() {
-		?>
-        <div class="row">
-            <div>
-                <label for="method-event">
-                    <input type="radio" id="method-event" name="wpmtst_compat_options[ajax][method]" value="event"
-						<?php checked( $this->options['ajax']['method'], 'event' ); ?>
-                           data-group="event"/>
+		$checked = checked( $this->options['ajax']['method'], 'event', false );
+		$class   = $checked ? ' class="current"' : ''; ?>
+		<div class="row">
+			<div>
+				<label<?php echo $class; ?> for="method-event">
+					<input id="method-event"
+						name="wpmtst_compat_options[ajax][method]"
+						data-group="event"
+						type="radio"
+						value="event"
+						<?php echo $checked; ?> />
 					<?php _e( 'Custom event', 'strong-testimonials' ); ?>
-                </label>
-            </div>
-            <div>
-                <p class="about adjacent-cell"><?php _e( 'Listen for specific events.', 'strong-testimonials' ); ?></p>
-                <p class="description"><?php _e( 'For advanced users.', 'strong-testimonials' ); ?></p>
-            </div>
-        </div>
+				</label>
+			</div>
+			<div>
+				<p class="about"><?php _e( 'Listen for specific events.', 'strong-testimonials' ); ?></p>
+				<p class="description"><?php _e( 'For advanced users.', 'strong-testimonials' ); ?></p>
+			</div>
+		</div>
 
-        <div class="row" data-sub="event">
-            <div class="radio-sub">
-                <label for="event-name">
+		<div class="row" data-sub="event">
+			<div class="radio-sub">
+				<label for="event-name">
 					<?php _e( 'Event name', 'strong-testimonials' ); ?>
-                </label>
-            </div>
-            <div>
-                <input type="text" id="event-name" class="code"
-                       name="wpmtst_compat_options[ajax][event]"
-                       value="<?php echo $this->options['ajax']['event']; ?>" size="30"/>
-            </div>
-        </div>
+				</label>
+			</div>
+			<div>
+				<input class="code"
+					id="event-name"
+					name="wpmtst_compat_options[ajax][event]"
+					type="text"
+					value="<?php echo $this->options['ajax']['event']; ?>"
+					size="30" />
+			</div>
+		</div>
 		<?php
 	}
 
@@ -557,69 +616,75 @@ class Strong_Testimonials_Settings_Compat {
 	 * Specific script
 	 */
 	public function settings_monitor_script() {
+		$checked = checked( $this->options['ajax']['method'], 'script', false );
+		$class   = $checked ? ' class="current"' : '';
 		?>
-        <div class="row">
-            <div>
-                <label for="method-script">
-                    <input type="radio" id="method-script" name="wpmtst_compat_options[ajax][method]" value="script"
-						<?php checked( $this->options['ajax']['method'], 'script' ); ?>
-                           data-group="script"/>
+		<div class="row">
+			<div>
+				<label<?php echo $class; ?> for="method-script">
+					<input id="method-script"
+						name="wpmtst_compat_options[ajax][method]"
+						data-group="script"
+						type="radio"
+						value="script"
+						<?php echo $checked; ?> />
 					<?php _e( 'Specific script', 'strong-testimonials' ); ?>
-                </label>
-            </div>
-            <div>
-                <p class="about adjacent-cell"><?php _e( 'Register a callback for a specific Ajax script.', 'strong-testimonials' ); ?></p>
-                <p class="description"><?php _e( 'For advanced users.', 'strong-testimonials' ); ?></p>
-            </div>
-        </div>
+				</label>
+			</div>
+			<div>
+				<p class="about"><?php _e( 'Register a callback for a specific Ajax script.', 'strong-testimonials' ); ?></p>
+				<p class="description"><?php _e( 'For advanced users.', 'strong-testimonials' ); ?></p>
+			</div>
+		</div>
 
-        <div class="row" data-sub="script">
-            <div class="radio-sub">
-                <label for="script-name">
+		<div class="row" data-sub="script">
+			<div class="radio-sub">
+				<label for="script-name">
 					<?php _e( 'Script name', 'strong-testimonials' ); ?>
-                </label>
-            </div>
-            <div>
-                <select id="script-name" name="wpmtst_compat_options[ajax][script]">
-                    <option value="" <?php selected( $this->options['ajax']['script'], '' ); ?>>
+				</label>
+			</div>
+			<div>
+				<select id="script-name" name="wpmtst_compat_options[ajax][script]">
+					<option value="" <?php selected( $this->options['ajax']['script'], '' ); ?>>
 						<?php _e( '&mdash; Select &mdash;' ); ?>
-                    </option>
-                    <option value="barba" <?php selected( $this->options['ajax']['script'], 'barba' ); ?>>Barba.js
-                    </option>
-                </select>
-            </div>
-        </div>
+					</option>
+					<option value="barba" <?php selected( $this->options['ajax']['script'], 'barba' ); ?>>
+						Barba.js
+					</option>
+				</select>
+			</div>
+		</div>
 		<?php
 	}
 
 	/**
 	 * Controller
-     *
-     * @since 2.31.0
+	 *
+	 * @since 2.31.0
 	 */
 	public function settings_controller() {
 		?>
-        <h2><?php _e( 'Controller', 'strong-testimonials' ); ?></h2>
+		<h2><?php _e( 'Controller', 'strong-testimonials' ); ?></h2>
 
-        <table class="form-table" cellpadding="0" cellspacing="0">
-            <tr valign="top">
-                <th scope="row">
+		<table class="form-table" cellpadding="0" cellspacing="0">
+			<tr valign="top">
+				<th scope="row">
 					<?php _e( 'Load Event', 'strong-testimonials' ); ?>
-                </th>
-                <td>
-                    <div class="row header">
-                        <p>
+				</th>
+				<td>
+					<div class="row header">
+						<p>
 							<?php _e( 'This does not perform Ajax page loading.', 'strong-testimonials' ); ?>
 							<?php _e( 'It provides compatibility with themes and plugins that use Ajax to load pages, also known as page animation or transition effects.', 'strong-testimonials' ); ?>
-                        </p>
-                    </div>
-                    <fieldset data-radio-group="prerender">
+						</p>
+					</div>
+					<fieldset data-radio-group="prerender">
 						<?php $this->settings_page_controller_documentready(); ?>
 						<?php $this->settings_page_controller_windowload(); ?>
-                    </fieldset>
-                </td>
-            </tr>
-        </table>
+					</fieldset>
+				</td>
+			</tr>
+		</table>
 		<?php
 	}
 
@@ -627,20 +692,25 @@ class Strong_Testimonials_Settings_Compat {
 	 * Document ready (default)
 	 */
 	public function settings_page_controller_documentready() {
+		$checked = checked( $this->options['controller']['initialize_on'], 'documentReady', false );
+		$class   = $checked ? ' class="current"' : '';
 		?>
-        <div class="row">
-            <div>
-                <label for="controller-documentready">
-                    <input type="radio" id="controller-documentready" name="wpmtst_compat_options[controller][initialize_on]"
-                           value="documentReady" <?php checked( $this->options['controller']['initialize_on'], 'documentReady' ); ?>/>
+		<div class="row">
+			<div>
+				<label<?php echo $class; ?> for="controller-documentready">
+					<input id="controller-documentready"
+						name="wpmtst_compat_options[controller][initialize_on]"
+						type="radio"
+						value="documentReady"
+						<?php echo $checked; ?> />
 					<?php _e( 'document ready', 'strong-testimonials' ); ?>
-                    <em><?php _e( '(default)', 'strong-testimonials' ); ?></em>
-                </label>
-            </div>
-            <div>
-                <p class="about adjacent-cell"><?php _e( 'No compatibility needed.', 'strong-testimonials' ); ?></p>
-            </div>
-        </div>
+					<em><?php _e( '(default)', 'strong-testimonials' ); ?></em>
+				</label>
+			</div>
+			<div>
+				<p class="about adjacent-cell"><?php _e( 'No compatibility needed.', 'strong-testimonials' ); ?></p>
+			</div>
+		</div>
 		<?php
 	}
 
@@ -648,19 +718,24 @@ class Strong_Testimonials_Settings_Compat {
 	 * Document ready (default)
 	 */
 	public function settings_page_controller_windowload() {
+		$checked = checked( $this->options['controller']['initialize_on'], 'windowLoad', false );
+		$class   = $checked ? ' class="current"' : '';
 		?>
-        <div class="row">
-            <div>
-                <label for="controller-windowload">
-                    <input type="radio" id="controller-windowload" name="wpmtst_compat_options[controller][initialize_on]"
-                           value="windowLoad" <?php checked( $this->options['controller']['initialize_on'], 'windowLoad' ); ?>/>
+		<div class="row">
+			<div>
+				<label<?php echo $class; ?> for="controller-windowload">
+					<input id="controller-windowload"
+						name="wpmtst_compat_options[controller][initialize_on]"
+						type="radio"
+						value="windowLoad"
+						<?php echo $checked; ?> />
 					<?php _e( 'window load', 'strong-testimonials' ); ?>
-                </label>
-            </div>
-            <div>
-                <p class="about adjacent-cell"><?php _e( 'No compatibility needed.', 'strong-testimonials' ); ?></p>
-            </div>
-        </div>
+				</label>
+			</div>
+			<div>
+				<p class="about adjacent-cell"><?php _e( 'No compatibility needed.', 'strong-testimonials' ); ?></p>
+			</div>
+		</div>
 		<?php
 	}
 

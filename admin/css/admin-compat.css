@@ -8,6 +8,8 @@ div.row {
   display: table-row; }
   div.row > div {
     display: table-cell; }
+    div.row > div:first-child {
+      width: 200px; }
   div.row:not(:last-child) > div {
     padding-bottom: 0.5em; }
   div.row p {
@@ -63,7 +65,8 @@ div.scenarios div.row {
 div.row:not(:last-child) > div:nth-child(2) {
   padding-bottom: 0.5em; }
 div.row > div.radio-sub label {
-  text-indent: 24px; }
+  text-indent: 24px;
+  width: 200px; }
 div.row p.about {
   display: inline-block;
   vertical-align: middle; }
