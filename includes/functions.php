@@ -835,5 +835,18 @@ if ( ! function_exists( 'wpmtst_round_half' ) ) {
 	function wpmtst_round_half( $value ) {
 		return round( $value * 2 ) / 2;
 	}
+}
 
+
+if ( ! function_exists( 'wpmtst_strip_whitespace' ) ) {
+	/**
+	 * Remove whitespace from HTML output.
+	 *
+	 * @param $html
+	 *
+	 * @return string
+	 */
+	function wpmtst_strip_whitespace( $html ) {
+		return preg_replace( '~>\s+<~', '><', trim( $html ) );
+	}
 }
