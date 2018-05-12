@@ -79,6 +79,19 @@ div.row label.current {
   font-weight: 600; }
 
 /**
+ * Lazy load class name pairs
+ */
+.pair-actions {
+  margin-top: 10px; }
+
+.pair-sep {
+  margin-right: 1em; }
+
+@media only screen and (max-width: 1024px) {
+  .lazyload-pairs .pair {
+    border: 1px solid #DDD;
+    padding: 5px 10px; } }
+/**
  * Number spinner
  */
 .number-style {
