@@ -195,6 +195,9 @@ final class Strong_Testimonials {
 		$this->mail       = new Strong_Mail();
 		$this->templates  = new Strong_Templates();
 		$this->form       = new Strong_Testimonials_Form();
+
+		new Strong_Testimonials_Count_Shortcode();
+		new Strong_Testimonials_Average_Shortcode();
 	}
 
 	/**
@@ -208,6 +211,8 @@ final class Strong_Testimonials {
 		require_once WPMTST_INC . 'class-strong-log.php';
 
 		require_once WPMTST_INC . 'class-strong-testimonials-shortcode.php';
+		require_once WPMTST_INC . 'class-strong-testimonials-shortcode-count.php';
+		require_once WPMTST_INC . 'class-strong-testimonials-shortcode-average.php';
 		require_once WPMTST_INC . 'class-strong-testimonials-render.php';
 		require_once WPMTST_INC . 'class-strong-view.php';
 		require_once WPMTST_INC . 'class-strong-view-display.php';
