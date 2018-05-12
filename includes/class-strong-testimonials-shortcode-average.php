@@ -266,10 +266,12 @@ class Strong_Testimonials_Average_Shortcode {
 		$rating_field = $this->find_first_rating_field();
 
 		if ( $rating_field ) {
-			$rating = intval( get_post_meta( $post->ID, $rating_field['name'], true ) );
-			if ( ! $rating ) {
-				$rating = $rating_field['default_display_value'];
-			}
+			$possible = array(
+				intval( get_post_meta( $post->ID, $rating_field['name'], true ) ),
+				$rating_field['default_display_value'],
+				0
+			);
+			$rating = max( $possible );
 		} else {
 			$rating = 5;
 		}
