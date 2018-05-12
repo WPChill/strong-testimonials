@@ -51,7 +51,7 @@ class Strong_Testimonials_Render {
 	 * Set shortcode.
 	 */
 	public function set_shortcodes() {
-		$this->shortcode = WPMST()->shortcodes->get_shortcode();
+		$this->shortcode = WPMST()->shortcode->get_shortcode();
 	}
 
 	/**
@@ -576,7 +576,7 @@ class Strong_Testimonials_Render {
 	/**
 	 * Prerender a view to gather styles, scripts, and script vars.
 	 *
-	 * Similar to Strong_Testimonials_Shortcodes::render_view().
+	 * Similar to Strong_Testimonials_View_Shortcode::render_view().
 	 *
 	 * @param $atts
 	 *

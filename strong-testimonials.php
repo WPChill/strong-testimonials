@@ -45,7 +45,7 @@ if ( ! class_exists( 'Strong_Testimonials' ) ) :
 /**
  * Main plugin class.
  *
- * @property  Strong_Testimonials_Shortcodes shortcodes
+ * @property  Strong_Testimonials_View_Shortcode shortcode
  * @property  Strong_Testimonials_Render render
  * @property  Strong_Mail mail
  * @property  Strong_Templates templates
@@ -61,9 +61,9 @@ final class Strong_Testimonials {
 	public $plugin_data;
 
 	/**
-	 * @var Strong_Testimonials_Shortcodes
+	 * @var Strong_Testimonials_View_Shortcode
 	 */
-	public $shortcodes;
+	public $shortcode;
 
 	/**
 	 * @var Strong_Testimonials_Render
@@ -190,7 +190,7 @@ final class Strong_Testimonials {
 	 * Instantiate our classes.
 	 */
 	public function init() {
-		$this->shortcodes = new Strong_Testimonials_Shortcodes();
+		$this->shortcode  = new Strong_Testimonials_View_Shortcode();
 		$this->render     = new Strong_Testimonials_Render();
 		$this->mail       = new Strong_Mail();
 		$this->templates  = new Strong_Templates();
@@ -207,7 +207,7 @@ final class Strong_Testimonials {
 	private function includes() {
 		require_once WPMTST_INC . 'class-strong-log.php';
 
-		require_once WPMTST_INC . 'class-strong-testimonials-shortcodes.php';
+		require_once WPMTST_INC . 'class-strong-testimonials-shortcode.php';
 		require_once WPMTST_INC . 'class-strong-testimonials-render.php';
 		require_once WPMTST_INC . 'class-strong-view.php';
 		require_once WPMTST_INC . 'class-strong-view-display.php';
