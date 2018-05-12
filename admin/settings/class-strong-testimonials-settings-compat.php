@@ -127,40 +127,67 @@ class Strong_Testimonials_Settings_Compat {
 		<table class="form-table" cellpadding="0" cellspacing="0">
 			<tr valign="top">
 				<td>
-
 					<div class="scenarios">
+
 						<div class="row header">
 							<div>
-								<?php _e( 'Views Not Working', 'strong-testimonials' ); ?>
+								<?php _e( 'Symptom', 'strong-testimonials' ); ?>
 							</div>
 							<div>
 								<?php _e( 'Possible Cause', 'strong-testimonials' ); ?>
 							</div>
 							<div>
-								<?php _e( 'Solution', 'strong-testimonials' ); ?>
+								<?php _e( 'Try', 'strong-testimonials' ); ?>
 							</div>
 						</div>
 
 						<div class="row">
 							<div>
-								<p><?php _e( 'A testimonial view does not look right the first time you view the page.', 'strong-testimonials' ); ?></p>
-								<p><?php _e( 'For example, it does not seem to have any style, the slideshow has not started, or the pagination is missing.', 'strong-testimonials' ); ?></p>
-								<p><?php _e( 'When you refresh the page, the view does appear correctly.', 'strong-testimonials' ); ?></p>
+								<p><strong><?php _e( 'Views not working', 'strong-testimonials' ); ?></strong></p>
+								<p><?php _e( 'A testimonial view does not appear correctly the <strong>first time</strong> you view the page but it does when you <strong>refresh</strong> the page.', 'strong-testimonials' ); ?></p>
+								<p><?php _e( 'For example, it has no style, no pagination, or the slider has not started.', 'strong-testimonials' ); ?></p>
 							</div>
 							<div>
 								<p><?php _e( 'Your site uses <strong>Ajax page loading</strong> &ndash; also known as page animations, transition effects or Pjax (pushState Ajax) &ndash; provided by your theme or another plugin.', 'strong-testimonials' ); ?></p>
 								<p><?php _e( 'Instead of loading the entire page, this technique fetches only the new content.', 'strong-testimonials' ); ?></p>
 							</div>
 							<div>
-								<p><strong><?php _e( 'Ajax Page Loading', 'strong-testimonials' ); ?>
-										:</strong> <?php _e( 'General', 'strong-testimonials' ); ?></p>
-								<p><a href="#"
-										id="set-scenario-1"><?php _ex( 'Set this now', 'link text on Settings > Compatibility tab', 'strong-testimonials' ); ?></a>
+								<p><strong><?php _e( 'Ajax Page Loading', 'strong-testimonials' ); ?>:</strong> <?php _e( 'General', 'strong-testimonials' ); ?></p>
+								<p>
+									<a href="#" id="set-scenario-1">
+										<?php /* translators: link text on Settings > Compatibility tab */ _e( 'Set this now', 'strong-testimonials' ); ?>
+									</a>
 								</p>
 							</div>
 						</div>
-					</div>
 
+						<div class="row">
+							<div>
+								<p><strong><?php _e( 'Slider never starts', 'strong-testimonials' ); ?></strong></p>
+								<p><?php _e( 'A testimonial slider does not start or is missing navigation controls.', 'strong-testimonials' ); ?></p>
+							</div>
+							<div>
+								<p><?php _e( 'The page is very busy loading image galleries, other sliders or third-party resources like social media posts.', 'strong-testimonials' ); ?></p>
+							</div>
+							<div>
+								<p><strong><?php _e( 'Load Event', 'strong-testimonials' ); ?>:</strong> <?php _e( 'window load', 'strong-testimonials' ); ?></p>
+							</div>
+						</div>
+
+						<div class="row">
+							<div>
+								<p><strong><?php _e( 'Masonry layout not working', 'strong-testimonials' ); ?></strong></p>
+								<p><?php _e( 'A testimonial view with the Masonry layout has only one column or works inconsistently in different browsers or devices.', 'strong-testimonials' ); ?></p>
+							</div>
+							<div>
+								<p><?php _e( 'The page is very busy loading image galleries, other sliders or third-party resources like social media posts.', 'strong-testimonials' ); ?></p>
+							</div>
+							<div>
+								<p><strong><?php _e( 'Load Event', 'strong-testimonials' ); ?>:</strong> <?php _e( 'window load', 'strong-testimonials' ); ?></p>
+							</div>
+						</div>
+
+					</div><!-- .scenarios -->
 				</td>
 			</tr>
 		</table>
@@ -393,7 +420,7 @@ class Strong_Testimonials_Settings_Compat {
 				</th>
 				<td>
 					<div class="row header">
-						<p><?php _e( 'Initialize slideshows, pagination and form validation as pages change.', 'strong-testimonials' ); ?></p>
+						<p><?php _e( 'Initialize sliders, pagination and form validation as pages change.', 'strong-testimonials' ); ?></p>
 					</div>
 					<fieldset data-radio-group="method">
 						<?php $this->settings_monitor_none(); ?>
@@ -673,7 +700,7 @@ class Strong_Testimonials_Settings_Compat {
 				</th>
 				<td>
 					<div class="row header">
-						<p><?php _e( 'When to start scripts for sliders, pagination, Masonry and form validation.', 'strong-testimonials' ); ?></p>
+						<p><?php _e( 'When to start sliders, Masonry, pagination and form validation.', 'strong-testimonials' ); ?></p>
 					</div>
 					<fieldset data-radio-group="prerender">
 						<?php $this->settings_page_controller_documentready(); ?>
@@ -705,7 +732,7 @@ class Strong_Testimonials_Settings_Compat {
 				</label>
 			</div>
 			<div>
-				<p class="about"><?php _e( 'In general, this works well if your page load time is less than a few seconds.', 'strong-testimonials' ); ?></p>
+				<p class="about"><?php _e( 'This works well if your page load time is less than a few seconds.', 'strong-testimonials' ); ?></p>
 			</div>
 		</div>
 		<?php
@@ -730,7 +757,7 @@ class Strong_Testimonials_Settings_Compat {
 				</label>
 			</div>
 			<div>
-				<p class="about"><?php _e( 'Try this if your page load time is more than a few seconds due to lot of images or third-party resources like social media posts.', 'strong-testimonials' ); ?></p>
+				<p class="about"><?php _e( 'Try this if your page load time is more than a few seconds.', 'strong-testimonials' ); ?></p>
 			</div>
 		</div>
 		<?php
