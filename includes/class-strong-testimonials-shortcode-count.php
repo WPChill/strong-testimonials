@@ -32,16 +32,16 @@ class Strong_Testimonials_Count_Shortcode {
 	 * @return int
 	 */
 	public function testimonial_count_shortcode( $atts, $content = null ) {
-		$pairs     = array(
+		$pairs = array(
 			'category'    => '',
 			'unformatted' => 0,
 		);
-		$pairs     = apply_filters( "wpmtst_shortcode_defaults__{$this->shortcode}", $pairs );
+		$pairs = apply_filters( "wpmtst_shortcode_defaults__{$this->shortcode}", $pairs );
 
-		$atts      = shortcode_atts( $pairs, normalize_empty_atts( $atts ), $this->shortcode );
+		$atts = shortcode_atts( $pairs, normalize_empty_atts( $atts ), $this->shortcode );
 
 		$args = array(
-			'posts_per_page'   => - 1,
+			'posts_per_page'   => -1,
 			'post_type'        => 'wpm-testimonial',
 			'post_status'      => 'publish',
 			'suppress_filters' => true,
