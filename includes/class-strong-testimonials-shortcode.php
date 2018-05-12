@@ -1,15 +1,15 @@
 <?php
 /**
- * Class Strong_Testimonials_Shortcodes
+ * Class Strong_Testimonials_View_Shortcode
  *
  * @since 2.28.0
  */
-class Strong_Testimonials_Shortcodes {
+class Strong_Testimonials_View_Shortcode {
 
 	public $shortcode = 'testimonial_view';
 
 	/**
-	 * Strong_Testimonials_Shortcodes constructor.
+	 * Strong_Testimonials_View_Shortcode constructor.
 	 */
 	public function __construct() {
 		add_shortcode( $this->shortcode, array( $this, 'testimonial_view_shortcode' ) );
