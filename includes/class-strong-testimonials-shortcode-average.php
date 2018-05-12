@@ -10,10 +10,10 @@ class Strong_Testimonials_Average_Shortcode {
 	/**
 	 * @var string
 	 */
-	public $shortcode = 'testimonial_average';
+	public $shortcode = 'testimonial_average_rating';
 
 	public function __construct() {
-		add_shortcode( $this->shortcode, array( $this, 'testimonial_average_shortcode' ) );
+		add_shortcode( $this->shortcode, array( $this, 'testimonial_average_rating_shortcode' ) );
 	}
 
 	/**
