@@ -334,7 +334,9 @@ class Strong_View_Slideshow extends Strong_View_Display {
 			$args['stretch'] = $this->atts['slideshow_settings']['stretch'] ? 1 : 0;
 		}
 
-		// Controls
+		/**
+		 * Controls
+		 */
 		$options         = $view_options['slideshow_nav_method']['controls'];
 		$control_setting = $this->atts['slideshow_settings']['controls_type'];
 		if ( ! $control_setting ) {
@@ -356,7 +358,9 @@ class Strong_View_Slideshow extends Strong_View_Display {
 			}
 		}
 
-		// Pager
+		/**
+		 * Pager
+		 */
 		$options       = $view_options['slideshow_nav_method']['pager'];
 		$pager_setting = $this->atts['slideshow_settings']['pager_type'];
 		if ( ! $pager_setting ) {
