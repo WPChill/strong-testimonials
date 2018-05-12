@@ -35,9 +35,12 @@ function wpmtst_scripts() {
 	 *
 	 * Remember: array top level is converted to strings!
 	 */
-	$ajax  = $compat_options['ajax'];
+	$ajax       = $compat_options['ajax'];
+	$controller = $compat_options['controller'];
+
+	//TODO Use defaults + array_merge instead
 	$parms = array(
-	    'initializeOn'   => 'documentReady',
+	    'initializeOn'   => isset( $controller['initialize_on'] ) ? $controller['initialize_on'] : '',
 		'method'         => isset( $ajax['method'] ) ? $ajax['method'] : '',
 		'universalTimer' => isset( $ajax['universal_timer'] ) ? $ajax['universal_timer'] * 1000 : 0,
 		'observerTimer'  => isset( $ajax['observer_timer'] ) ? $ajax['observer_timer'] * 1000 : 0,
