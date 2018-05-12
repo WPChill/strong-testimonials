@@ -30,6 +30,7 @@ class Strong_Testimonials_Settings_Compat {
 		add_action( 'wpmtst_register_settings', array( $this, 'register_settings' ) );
 		add_action( 'wpmtst_settings_tabs', array( $this, 'register_tab' ), 3, 2 );
 		add_filter( 'wpmtst_settings_callbacks', array( $this, 'register_settings_page' ) );
+		add_action( 'wp_ajax_wpmtst_add_lazyload_pair', array( $this, 'add_lazyload_pair' ) );
 	}
 
 	/**
@@ -70,17 +71,19 @@ class Strong_Testimonials_Settings_Compat {
 	 * Sanitize settings.
 	 *
 	 * @param $input
-	 *
+	 * @since 2.28.0
+	 * @since 2.31.0 controller
+	 * @since 2.31.0 lazyload
 	 * @return array
 	 */
 	public function sanitize_options( $input ) {
+		//q2($input,'','o','input.log');
 		$input['page_loading'] = sanitize_text_field( $input['page_loading'] );
 
 		if ( 'general' == $input['page_loading'] ) {
 			$input['prerender']      = 'all';
 			$input['ajax']['method'] = 'universal';
-		}
-		else {
+		}else {
 			$input['prerender']      = sanitize_text_field( $input['prerender'] );
 			$input['ajax']['method'] = sanitize_text_field( $input['ajax']['method'] );
 		}
@@ -92,8 +95,18 @@ class Strong_Testimonials_Settings_Compat {
 		$input['ajax']['event']           = sanitize_text_field( $input['ajax']['event'] );
 		$input['ajax']['script']          = sanitize_text_field( $input['ajax']['script'] );
 
-		// @since 2.31.0
 		$input['controller']['initialize_on'] = sanitize_text_field( $input['controller']['initialize_on'] );
+
+		$input['lazyload']['enabled'] = wpmtst_sanitize_checkbox( $input['lazyload'], 'enabled' );
+		// may be multiple pairs
+		foreach ( $input['lazyload']['classes'] as $key => $classes ) {
+			if ( $classes['start'] || $classes['finish'] ) {
+				$input['lazyload']['classes'][ $key ]['start']  = str_replace( '.', '', sanitize_text_field( $classes['start'] ) );
+				$input['lazyload']['classes'][ $key ]['finish'] = str_replace( '.', '', sanitize_text_field( $classes['finish'] ) );
+			} else {
+				unset( $input['lazyload']['classes'][ $key ] );
+			}
+		}
 
 		return $input;
 	}
@@ -108,14 +121,17 @@ class Strong_Testimonials_Settings_Compat {
 
 	/**
 	 * Compatibility settings
+	 *
+	 * @since 2.31.0 controller
+	 * @since 2.31.0 lazyload
 	 */
 	public function settings_top() {
 		$this->settings_intro();
 		$this->settings_page_loading();
 		$this->settings_prerender();
 		$this->settings_monitor();
-		// @since 2.31.0
 		$this->settings_controller();
+		$this->settings_lazyload();
 	}
 
 	/**
@@ -759,6 +775,124 @@ class Strong_Testimonials_Settings_Compat {
 			</div>
 		</div>
 		<?php
+	}
+
+	/**
+	 * Lazy load
+	 *
+	 * @since 2.31.0
+	 */
+	public function settings_lazyload() {
+		?>
+		<table class="form-table" cellpadding="0" cellspacing="0">
+			<tr valign="top">
+				<th scope="row">
+					<?php _e( 'Lazy Loading Images', 'strong-testimonials' ); ?>
+				</th>
+				<td>
+					<div class="row header">
+						<p><?php _e( 'description', 'strong-testimonials' ); ?></p>
+					</div>
+					<fieldset data-radio-group="prerender">
+						<?php $this->settings_page_lazyload_enabled(); ?>
+						<?php $this->settings_page_lazyload_classes(); ?>
+					</fieldset>
+				</td>
+			</tr>
+		</table>
+		<?php
+	}
+
+	/**
+	 * Lazy load > Enabled
+	 *
+	 * @since 2.31.0
+	 */
+	public function settings_page_lazyload_enabled() {
+		$checked = checked( $this->options['lazyload']['enabled'], 1, false );
+		?>
+		<div class="row">
+			<div>
+				<label for="lazyload-enabled">
+					<input id="lazyload-enabled"
+						name="wpmtst_compat_options[lazyload][enabled]"
+						data-group="lazyload"
+						type="checkbox"
+						<?php echo $checked; ?> />
+					<?php _e( 'Enable compatibility', 'strong-testimonials' ); ?>
+				</label>
+			</div>
+			<div>
+				<p class="about"><?php _e( 'about', 'strong-testimonials' ); ?></p>
+			</div>
+		</div>
+		<?php
+	}
+
+	/**
+	 * Lazy load > CSS classes
+	 *
+	 * @since 2.31.0
+	 */
+	public function settings_page_lazyload_classes() {
+		?>
+		<div class="row" data-sub="lazyload">
+			<div>
+				<label>
+					<?php _e( 'CSS Class Names', 'strong-testimonials' ); ?>
+				</label>
+			</div>
+			<div class="lazyload-pairs">
+				<?php
+				foreach ( $this->options['lazyload']['classes'] as $key => $pair ) {
+					$this->settings_page_lazyload_class_inputs( $key, $pair );
+				}
+				?>
+				<div class="pair-actions">
+					<input class="button"
+						id="add-pair"
+						value="<?php esc_attr_e( 'Add Row', 'strong-testimonials' ); ?>"
+						type="button" />
+				</div>
+			</div>
+		</div>
+		<?php
+	}
+
+	/**
+	 * Lazy load > CSS classes > Individual pair
+	 *
+	 * @since 2.31.0
+	 */
+	private function settings_page_lazyload_class_inputs( $key, $pair ) {
+		?>
+		<div class="pair">
+			<label>
+				<?php _ex( 'start', 'noun', 'strong-testimonials' ); ?>
+				<input class="element code"
+					name="wpmtst_compat_options[lazyload][classes][<?php echo $key; ?>][start]"
+					type="text"
+					value="<?php echo esc_attr( $pair['start'] ); ?>" />
+			</label>
+			<span class="pair-sep"></span>
+			<label>
+				<?php _ex( 'finish', 'noun', 'strong-testimonials' ); ?>
+				<input class="element code"
+					name="wpmtst_compat_options[lazyload][classes][<?php echo $key; ?>][finish]"
+					type="text"
+					value="<?php echo esc_attr( $pair['finish'] ); ?>" />
+			</label>
+		</div>
+		<?php
+	}
+
+	/**
+	 * [Add Pair] Ajax receiver
+	 */
+	public function add_lazyload_pair() {
+		ob_start();
+		$this->settings_page_lazyload_class_inputs( $_REQUEST['key'], array( 'start' => '', 'finish' => '' ) );
+		wp_send_json_success( ob_get_clean() );
 	}
 
 }
