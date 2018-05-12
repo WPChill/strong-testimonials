@@ -46,14 +46,14 @@ var strongController = {
   eventListenerSupported: window.addEventListener,
 
   checkInit: function () {
-    return jQuery('.strong-view[data-state=\'idle\']').length;
+    return jQuery('.strong-view[data-state="idle"]').length;
   },
 
   /**
    * Initialize sliders.
    */
   initSliders: function () {
-    var sliders = jQuery('.strong-view.slider-container[data-state=\'idle\']');
+    var sliders = jQuery('.strong-view.slider-container[data-state="idle"]');
     if (debugit) console.log('sliders found:', sliders.length);
     if (sliders.length) {
       // Initialize independently
@@ -67,7 +67,7 @@ var strongController = {
    * Initialize paginated views.
    */
   initPagers: function () {
-    var pagers = jQuery('.strong-pager[data-state=\'idle\']');
+    var pagers = jQuery('.strong-pager[data-state="idle"]');
     if (debugit) console.log('pagers found:', pagers.length);
     if (pagers.length) {
       pagers.each(function () {
@@ -83,7 +83,7 @@ var strongController = {
     /*
      * Masonry
      */
-    this.grids = jQuery('.strong-view[data-state=\'idle\'] .strong-masonry');
+    this.grids = jQuery('.strong-view[data-state="idle"] .strong-masonry');
     if (debugit) console.log('Masonry found:', this.grids.length);
     if (this.grids.length) {
       // Add our element sizing.
@@ -108,7 +108,7 @@ var strongController = {
    * Initialize form validation.
    */
   initForm: function () {
-    var forms = jQuery('.strong-form[data-state=\'idle\']');
+    var forms = jQuery('.strong-form[data-state="idle"]');
     if (debugit) console.log('forms found:', forms.length);
     if (forms.length) {
       strongValidation.init();
@@ -219,10 +219,10 @@ var strongController = {
     /*
      * Start on specific event
      */
-    if ( 'documentReady' === this.config.initializeOn ) {
+    if ('documentReady' === this.config.initializeOn) {
 
       jQuery(document).ready(function () {
-        if ( debugit) console.log('document ready');
+        if (debugit) console.log('document ready');
         // Start components.
         strongController.start();
         // Listen.
@@ -232,7 +232,7 @@ var strongController = {
     } else { // Fail-safe
 
       jQuery(window).on('load', function () {
-        if ( debugit) console.log('window load');
+        if (debugit) console.log('window load');
         // Start components.
         strongController.start();
         // Listen.
@@ -326,19 +326,19 @@ var strongController = {
       strongController.iframes.ready(function () {
         // still needs a moment to render
         setTimeout(function () {
-            strongController.grids.masonry();
-          if (debugit) console.log( 'listenForIframeReady', 'timeout 1');
-          }, 1000);
+          strongController.grids.masonry();
+          if (debugit) console.log('listenForIframeReady', 'timeout 1');
+        }, 1000);
         // just in case
         setTimeout(function () {
-            strongController.grids.masonry();
-            if (debugit) console.log( 'listenForIframeReady', 'timeout 2');
-          }, 2000);
+          strongController.grids.masonry();
+          if (debugit) console.log('listenForIframeReady', 'timeout 2');
+        }, 2000);
       });
 
     } else {
 
-      if (debugit) console.log( 'listenForIframeReady', 'no iframes or Masonry found');
+      if (debugit) console.log('listenForIframeReady', 'no iframes or Masonry found');
 
     }
   }
