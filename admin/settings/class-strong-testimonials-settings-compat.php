@@ -148,7 +148,7 @@ class Strong_Testimonials_Settings_Compat {
 								<p><?php _e( 'When you refresh the page, the view does appear correctly.', 'strong-testimonials' ); ?></p>
 							</div>
 							<div>
-								<p><?php _e( 'Your site is using <strong>Ajax page loading</strong> &ndash; also known as page animations, transition effects or Pjax (pushState Ajax) &ndash; provided by your theme or another plugin.', 'strong-testimonials' ); ?></p>
+								<p><?php _e( 'Your site uses <strong>Ajax page loading</strong> &ndash; also known as page animations, transition effects or Pjax (pushState Ajax) &ndash; provided by your theme or another plugin.', 'strong-testimonials' ); ?></p>
 								<p><?php _e( 'Instead of loading the entire page, this technique fetches only the new content.', 'strong-testimonials' ); ?></p>
 							</div>
 							<div>
@@ -673,10 +673,7 @@ class Strong_Testimonials_Settings_Compat {
 				</th>
 				<td>
 					<div class="row header">
-						<p>
-							<?php _e( 'This does not perform Ajax page loading.', 'strong-testimonials' ); ?>
-							<?php _e( 'It provides compatibility with themes and plugins that use Ajax to load pages, also known as page animation or transition effects.', 'strong-testimonials' ); ?>
-						</p>
+						<p><?php _e( 'When to start scripts for sliders, pagination, Masonry and form validation.', 'strong-testimonials' ); ?></p>
 					</div>
 					<fieldset data-radio-group="prerender">
 						<?php $this->settings_page_controller_documentready(); ?>
@@ -708,7 +705,7 @@ class Strong_Testimonials_Settings_Compat {
 				</label>
 			</div>
 			<div>
-				<p class="about"><?php _e( 'No compatibility needed.', 'strong-testimonials' ); ?></p>
+				<p class="about"><?php _e( 'In general, this works well if your page load time is less than a few seconds.', 'strong-testimonials' ); ?></p>
 			</div>
 		</div>
 		<?php
@@ -733,7 +730,7 @@ class Strong_Testimonials_Settings_Compat {
 				</label>
 			</div>
 			<div>
-				<p class="about"><?php _e( 'No compatibility needed.', 'strong-testimonials' ); ?></p>
+				<p class="about"><?php _e( 'Try this if your page load time is more than a few seconds due to lot of images or third-party resources like social media posts.', 'strong-testimonials' ); ?></p>
 			</div>
 		</div>
 		<?php
