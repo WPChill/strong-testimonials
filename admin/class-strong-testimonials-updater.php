@@ -633,12 +633,26 @@ class Strong_Testimonials_Updater {
 		}
 
 		/**
+		 * Controller
+		 *
 		 * @since 2.31.0
 		 */
 		if ( isset( $options['controller'] ) ) {
 			$options['controller'] = array_merge( $defaults['controller'], $options['controller'] );
 		} else {
 			$options['controller'] = $defaults['controller'];
+		}
+
+		/**
+		 * Lazy load
+		 *
+		 * @since 2.31.0
+		 */
+		if ( isset( $options['lazyload'] ) ) {
+			// first level only: enabled, classes (array)
+			$options['lazyload'] = array_merge( $defaults['lazyload'], $options['lazyload'] );
+		} else {
+			$options['lazyload'] = $defaults['lazyload'];
 		}
 
 		$options = array_merge( $defaults, $options );
