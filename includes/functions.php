@@ -822,3 +822,18 @@ if ( ! function_exists( 'normalize_empty_atts' ) ) {
         return $atts;
     }
 }
+
+if ( ! function_exists( 'wpmtst_round_half' ) ) {
+	/**
+	 * Round to the nearest half.
+	 *
+	 * @param $value
+	 *
+	 * @since 2.31.0
+	 * @return float|int
+	 */
+	function wpmtst_round_half( $value ) {
+		return round( $value * 2 ) / 2;
+	}
+
+}
