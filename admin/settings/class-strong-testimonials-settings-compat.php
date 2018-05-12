@@ -191,6 +191,8 @@ class Strong_Testimonials_Settings_Compat {
 				</td>
 			</tr>
 		</table>
+
+		<h2><?php _e( 'Compatibility Settings', 'strong-testimonials' ); ?></h2>
 		<?php
 	}
 
@@ -199,12 +201,10 @@ class Strong_Testimonials_Settings_Compat {
 	 */
 	public function settings_page_loading() {
 		?>
-		<h2><?php _e( 'Ajax Page Loading', 'strong-testimonials' ); ?></h2>
-
 		<table class="form-table" cellpadding="0" cellspacing="0">
 			<tr valign="top">
 				<th scope="row">
-					<?php _e( 'Type', 'strong-testimonials' ); ?>
+					<?php _e( 'Ajax Page Loading', 'strong-testimonials' ); ?>
 				</th>
 				<td>
 					<div class="row header">
@@ -691,8 +691,6 @@ class Strong_Testimonials_Settings_Compat {
 	 */
 	public function settings_controller() {
 		?>
-		<h2><?php _e( 'Controller', 'strong-testimonials' ); ?></h2>
-
 		<table class="form-table" cellpadding="0" cellspacing="0">
 			<tr valign="top">
 				<th scope="row">
