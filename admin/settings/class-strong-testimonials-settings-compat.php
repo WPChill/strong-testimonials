@@ -716,7 +716,7 @@ class Strong_Testimonials_Settings_Compat {
 					<div class="row header">
 						<p><?php _e( 'When to start sliders, Masonry, pagination and form validation.', 'strong-testimonials' ); ?></p>
 					</div>
-					<fieldset data-radio-group="prerender">
+					<fieldset>
 						<?php $this->settings_page_controller_documentready(); ?>
 						<?php $this->settings_page_controller_windowload(); ?>
 					</fieldset>
@@ -791,9 +791,9 @@ class Strong_Testimonials_Settings_Compat {
 				</th>
 				<td>
 					<div class="row header">
-						<p><?php _e( 'description', 'strong-testimonials' ); ?></p>
+						<p><?php _e( 'Watch for lazy loading images in themes and plugins.', 'strong-testimonials' ); ?></p>
 					</div>
-					<fieldset data-radio-group="prerender">
+					<fieldset>
 						<?php $this->settings_page_lazyload_enabled(); ?>
 						<?php $this->settings_page_lazyload_classes(); ?>
 					</fieldset>
@@ -819,11 +819,13 @@ class Strong_Testimonials_Settings_Compat {
 						data-group="lazyload"
 						type="checkbox"
 						<?php echo $checked; ?> />
-					<?php _e( 'Enable compatibility', 'strong-testimonials' ); ?>
+					<?php _e( 'Enable watcher', 'strong-testimonials' ); ?>
 				</label>
 			</div>
-			<div>
-				<p class="about"><?php _e( 'about', 'strong-testimonials' ); ?></p>
+			<div data-sub="lazyload">
+				<p class="about"><?php _e( 'Most lazy loading techniques use one or two CSS class names to indicate which images to lazy load and when the lazy loading is finished.', 'strong-testimonials' ); ?></p>
+				<p class="about"><?php _e( 'Contact support for your theme or plugin to find out if it uses CSS class names and if so, what they are.', 'strong-testimonials' ); ?></p>
+				<p class="about"><?php printf( __( 'Or <a href="%s" target="_blank">open a support ticket here</a> and provide your system information.', 'strong-testimonials' ), esc_url( 'https://support.strongplugins.com/new-ticket/' ) ); ?></p>
 			</div>
 		</div>
 		<?php
@@ -851,7 +853,7 @@ class Strong_Testimonials_Settings_Compat {
 				<div class="pair-actions">
 					<input class="button"
 						id="add-pair"
-						value="<?php esc_attr_e( 'Add Row', 'strong-testimonials' ); ?>"
+						value="<?php esc_attr_e( 'Add Classes', 'strong-testimonials' ); ?>"
 						type="button" />
 				</div>
 			</div>
