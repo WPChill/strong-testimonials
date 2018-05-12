@@ -23,7 +23,10 @@
     debug: false,
     logAs: 'strongSlider',
     compat: {
-      flatsome: false
+      lazyload: {
+        active: false,
+        classes: {}
+      }
     },
 
     // GENERAL
@@ -277,12 +280,37 @@
      * @returns {boolean}
      */
     var compatCheck = function () {
-      if (slider.settings.compat.flatsome) {
-        if (viewEl.find('img.lazy-load').length) {
+      if (slider.settings.compat.lazyload) {
+
+        var inProgress = false;
+        for (var i = 0, len = slider.settings.compat.lazyload.classes.length; i < len; i++) {
+
+          var startClass  = slider.settings.compat.lazyload.classes[i].start;
+          var finishClass = slider.settings.compat.lazyload.classes[i].finish;
+
+          if (startClass && finishClass) {
+            if (viewEl.find('img.' + startClass).length && !viewEl.find('img.' + finishClass).length) {
+              inProgress = true;
+            }
+          } else if (startClass) {
+            if (viewEl.find('img.' + startClass).length) {
+              inProgress = true;
+            }
+          } else if (finishClass) {
+            if (!viewEl.find('img.' + finishClass).length) {
+              inProgress = true;
+            }
+          }
+
+        }
+
+        if (inProgress) {
           if (slider.debug) console.log(slider.logAs, 'lazy loading...')
           return false
         }
+
       }
+
       if (slider.debug) console.log(slider.logAs, 'compat check complete')
       return true
     }
