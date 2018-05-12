@@ -300,18 +300,42 @@ class Strong_View_Slideshow extends Strong_View_Display {
 	 * @return array
 	 */
 	private function slideshow_args() {
-		$options      = get_option( 'wpmtst_options' );
-		$view_options = apply_filters( 'wpmtst_view_options', get_option( 'wpmtst_view_options' ) );
+		$options        = get_option( 'wpmtst_options' );
+		$view_options   = apply_filters( 'wpmtst_view_options', get_option( 'wpmtst_view_options' ) );
+		$compat_options = get_option( 'wpmtst_compat_options' );
 
 		/**
 		 * Compatibility with lazy loading and use of imagesLoaded.
+		 *
+		 * @since 2.31.0 As user-configurable.
 		 */
-		$compat = array();
-		if ( class_exists( 'FL_LazyLoad_Images' ) && get_theme_mod('lazy_load_images') ) {
-			$compat['flatsome'] = true;
-		} else {
-			$compat['flatsome'] = false;
+		$compat  = array();
+		$enabled = false;
+		$pairs   = array();
+
+		// Presets
+		// Flatsome theme
+		if ( class_exists( 'FL_LazyLoad_Images' ) && get_theme_mod( 'lazy_load_images' ) ) {
+			$enabled = true;
+			$pairs[] = array(
+				'start'  => 'lazy-load',
+				'finish' => '',
+			);
 		}
+
+		// User settings
+		if ( $compat_options['lazyload']['enabled'] ) {
+			$enabled = true;
+			foreach ( $compat_options['lazyload']['classes'] as $key => $pair ) {
+				$pairs[] = $pair;
+			}
+		}
+
+		// Bring together the presets and user settings.
+		$compat['lazyload'] = array(
+			'active'  => $enabled,
+			'classes' => $pairs,
+		);
 
 		$args = array(
 			'mode'                => $this->atts['slideshow_settings']['effect'],
@@ -330,6 +354,7 @@ class Strong_View_Slideshow extends Strong_View_Display {
 			'compat'              => $compat,
 			'touchEnabled'        => $options['touch_enabled'],
 		);
+
 		if ( ! $this->atts['slideshow_settings']['adapt_height'] ) {
 			$args['stretch'] = $this->atts['slideshow_settings']['stretch'] ? 1 : 0;
 		}
