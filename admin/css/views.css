@@ -952,4 +952,13 @@ table.wpmtst-help-tab {
   right: 0;
   background: rgba(255, 255, 255, 0.7); }
 
-/*# sourceMappingURL=views.css.map */
+.form-table td p.description.normal {
+  font-style: normal; }
+
+ul.description.normal {
+  margin-top: 0;
+  font-style: normal; }
+
+ul.description li {
+  margin-bottom: 0;
+  line-height: 1.5; }

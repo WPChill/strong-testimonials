@@ -31,3 +31,16 @@ $grayedout: #888;
 @import "_partials/custom-fields";
 @import "_partials/help-tab";
 @import "_partials/sticky-views";
+
+// TODO Find a home for these in partials.
+.form-table td p.description.normal {
+  font-style: normal;
+}
+ul.description.normal {
+  margin-top: 0;
+  font-style: normal;
+}
+ul.description li {
+  margin-bottom: 0;
+  line-height: 1.5;
+}
