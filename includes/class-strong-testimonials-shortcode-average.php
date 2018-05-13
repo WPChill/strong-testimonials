@@ -152,7 +152,7 @@ class Strong_Testimonials_Average_Shortcode {
 		}
 
 		// assemble classes
-		$class_list = array_filter( array_merge( array( 'strong-rating-average' ), explode( ' ', $atts['class'] ) ) );
+		$class_list = array_filter( array_merge( array( 'strong-rating-wrapper', 'average' ), explode( ' ', $atts['class'] ) ) );
 		if ( $atts['block'] ) {
 			$class_list[] = 'block';
 		}
@@ -162,10 +162,10 @@ class Strong_Testimonials_Average_Shortcode {
 
 		// title
 		if ( isset( $parts['title'] ) ) {
-			$parts['title'] = sprintf( '<span class="rating-title">%s</span>', $phrases['title'] );
+			$parts['title'] = sprintf( '<span class="strong-rating-title">%s</span>', $phrases['title'] );
 		}
 		if ( isset( $parts['title2'] ) ) {
-			$parts['title2'] = sprintf( '<span class="rating-title">%s</span>', sprintf( $phrases['title2'], $summary['rating_count'] ) );
+			$parts['title2'] = sprintf( '<span class="strong-rating-title">%s</span>', sprintf( $phrases['title2'], $summary['rating_count'] ) );
 		}
 
 		// stars
@@ -175,20 +175,20 @@ class Strong_Testimonials_Average_Shortcode {
 
 		// average
 		if ( isset( $parts['average'] ) ) {
-			$parts['average'] = sprintf( '<span class="rating-average">%s</span>', $summary['rating_average'] );
+			$parts['average'] = sprintf( '<span class="strong-rating-average">%s</span>', $summary['rating_average'] );
 		}
 
 		// count
 		if ( isset( $parts['count'] ) ) {
-			$parts['count'] = sprintf( '<span class="rating-count">%s</span>', $summary['rating_count'] );
+			$parts['count'] = sprintf( '<span class="strong-rating-count">%s</span>', $summary['rating_count'] );
 		}
 
 		// summary phrase
 		if ( isset( $parts['summary'] ) ) {
-			$parts['summary'] = sprintf( '<span class="rating-summary">%s</span>', sprintf( $phrases['summary'], $summary['rating_average'], $summary['rating_count'] ) );
+			$parts['summary'] = sprintf( '<span class="strong-rating-summary">%s</span>', sprintf( $phrases['summary'], $summary['rating_average'], $summary['rating_count'] ) );
 		}
 		if ( isset( $parts['summary2'] ) ) {
-			$parts['summary2'] = sprintf( '<span class="rating-summary">%s</span>', sprintf( $phrases['summary2'], $summary['rating_average'] ) );
+			$parts['summary2'] = sprintf( '<span class="strong-rating-summary">%s</span>', sprintf( $phrases['summary2'], $summary['rating_average'] ) );
 		}
 
 		// replace tags
@@ -198,6 +198,8 @@ class Strong_Testimonials_Average_Shortcode {
 
 		// assemble it
 		$html = sprintf( '<%s class="%s">%s</%s>', $atts['element'], join( ' ', $class_list ), $content, $atts['element'] );
+
+		wp_enqueue_style( 'wpmtst-rating-display' );
 
 		return apply_filters( 'wpmtst_average_rating_html', $html, $atts, $summary );
 	}
@@ -304,13 +306,13 @@ class Strong_Testimonials_Average_Shortcode {
 	 * @since 1.1.0
 	 * @return string
 	 */
-	public function print_stars( $value = 0, $class = 'rating-stars' ) {
+	public function print_stars( $value = 0, $class = 'strong-rating' ) {
 		$value = (double) $value;
 		$star_class = ( 0 == $value ) ? ' current' : '';
 		ob_start();
 		?>
 		<span class="<?php echo esc_attr( $class ); ?>">
-            <span class="star0 star2<?php echo $star_class; ?>"></span>
+            <span class="star0 star<?php echo $star_class; ?>"></span>
 			<?php
 			for ( $i = 0.5; $i <= 5; $i += .5 ) {
 
@@ -324,7 +326,7 @@ class Strong_Testimonials_Average_Shortcode {
 				}
 
 				if ( intval( $i ) == $i ) {
-					echo '<span class="star2' . $star_class . '"></span>';
+					echo '<span class="star' . $star_class . '"></span>';
 				}
 
 			}
