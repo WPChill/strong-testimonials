@@ -850,3 +850,17 @@ if ( ! function_exists( 'wpmtst_strip_whitespace' ) ) {
 		return preg_replace( '~>\s+<~', '><', trim( $html ) );
 	}
 }
+
+if ( ! function_exists( 'wpmtst_current_url' ) ) {
+	/**
+     * Assemble and return the current URL.
+     *
+     * @since 2.31.0
+	 * @return string
+     */
+	function wpmtst_current_url() {
+		global $wp;
+
+		return home_url( add_query_arg( array(), $wp->request ) );
+	}
+}
