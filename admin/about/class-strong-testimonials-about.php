@@ -14,12 +14,6 @@ class Strong_Testimonials_About {
     }
 
 	/**
-	 * Initialize.
-	 */
-	public function init() {
-	}
-
-	/**
 	 * Add actions and filters.
 	 */
 	public function add_actions() {
@@ -63,11 +57,13 @@ class Strong_Testimonials_About {
 		?>
 		<div class="wrap about-wrap">
 
+			<?php /* translators: %s is the plugin version number */ ?>
 			<h1><?php printf( __( 'Welcome to Strong Testimonials %s', 'strong-testimonials' ), $major_minor ); ?></h1>
 
 			<p class="about-text">
                 <?php _e( 'Thank you for updating to the latest version!' ); ?>
-                <?php printf( 'Strong Testimonials %s offers improved view options.', $major_minor ); ?>
+				<?php /* translators: %s is the plugin version number */ ?>
+                <?php printf( 'Strong Testimonials %s includes a shortcode for your average rating and improves compatibility with lazy loading images.', $major_minor ); ?>
             </p>
 
 			<div class="wp-badge strong-testimonials"><?php printf( __( 'Version %s' ), $major_minor ); ?></div>
