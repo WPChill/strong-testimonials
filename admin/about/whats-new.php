@@ -1,6 +1,18 @@
 
 <h2>Now Even Stronger</h2>
 
+<p class="lead-description">Version 2.31 adds a highly requested feature and two more compatibility options.</p>
+
+<div class="feature-section one-col">
+    <div class="col">
+        <p>NEW: Display your average rating with the <code>&#91;testimonial_average_rating&#93;</code> shortcode. Finally!</p>
+		<p>NEW: Use the Load Event option to potentially fix problems with sliders and Masonry in complex themes.</p>
+		<p>NEW: Use the Lazy Loading option to potentially fix problems with testimonial images being cut off.</p>
+		<p>IMPROVED: The star ratings now use an empty star instead of a gray full star. This is the more popular approach.</p>
+		<p>IMPROVED: Minor style tweaks in both admin and in some templates for small screens.</p>
+    </div>
+</div>
+
 <p class="lead-description">Version 2.30 adds highly requested features, improves compatibility and fixes bugs.</p>
 
 <div class="feature-section one-col">
@@ -30,6 +42,7 @@
                 <li>Version 2.30.6</li>
                 <li>Version 2.30.7</li>
                 <li>Version 2.30.8</li>
+                <li>Version 2.30.9</li>
             </ul>
 
         </div>
