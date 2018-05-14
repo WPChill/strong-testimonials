@@ -8,6 +8,7 @@
  * TODO Add link to member account on website.
  */
 ?>
+<h2><?php _e( 'Add-on Licenses', 'strong-testimonials' ); ?></h2>
 <div class="tab-header">
 <p><?php _e( 'Valid license keys allow you to receive automatic updates and priority support.', 'strong-testimonials' ); ?></p>
 <p><?php _e( 'To transfer a license to another site or to uninstall the add-on, please deactivate the license here first.', 'strong-testimonials' ); ?></p>
