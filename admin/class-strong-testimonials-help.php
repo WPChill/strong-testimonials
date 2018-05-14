@@ -122,12 +122,12 @@ class Strong_Testimonials_Help {
             <p><?php _e( 'For example, imagine you have five services, a sales page for each service, and a testimonial category for each service. To display the testimonials on each service page, you can create five duplicate views, one for each category.', 'strong-testimonials' ); ?>
             <p><?php _e( 'Or you can configure one view as a pattern and add it to each service page with the <code>category</code> attribute.', 'strong-testimonials' ); ?>
             <p>
-                <?php _e( '<code>[testimonial_view id=1 category="service-1"]</code>', 'strong-testimonials' ); ?>,
-                <?php _e( '<code>[testimonial_view id=1 category="service-2"]</code>', 'strong-testimonials' ); ?>, etc.
+                <?php _e( '<code>[testimonial_view id="1" category="service-1"]</code>', 'strong-testimonials' ); ?>,
+                <?php _e( '<code>[testimonial_view id="1" category="service-2"]</code>', 'strong-testimonials' ); ?>, etc.
             </p>
             <p>
                 <?php _e( 'Attributes may be used in combination. For example:', 'strong-testimonials' ); ?>
-                <?php _e( '<code>[testimonial_view id=1 category="service-3" order="random" count="5"]</code>', 'strong-testimonials' ); ?>
+                <?php _e( '<code>[testimonial_view id="1" category="service-3" order="random" count="5"]</code>', 'strong-testimonials' ); ?>
             </p>
             <p><?php _e( 'Using <code>post_ids</code> is the most specific method and it will override category and count (whether settings or attributes).', 'strong-testimonials' ); ?></p>
         </div>

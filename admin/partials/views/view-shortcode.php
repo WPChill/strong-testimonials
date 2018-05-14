@@ -2,7 +2,7 @@
 // avoiding the tab character before the shortcode for better copy-n-paste
 if ( 'edit' == $action ) {
 	$shortcode = '<div class="saved">';
-	$shortcode .= '<input id="view-shortcode" type="text" value="[testimonial_view id=' . $view_id . ']" readonly />';
+	$shortcode .= '<input id="view-shortcode" type="text" value="[testimonial_view id=&quot;' . $view_id . '&quot;]" readonly />';
 	$shortcode .= '<input id="copy-shortcode" class="button small" type="button" value="' . __( 'copy to clipboard', 'strong-testimonials' ) . '" data-copytarget="#view-shortcode" />';
 	$shortcode .= '<span id="copy-message">copied</span>';
 	$shortcode .= '</div>';
