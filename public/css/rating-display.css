@@ -52,7 +52,7 @@
   display: inline-block;
   font-size: 1.25em;
   /* use padding not margin */
-  padding: 0 5px;
+  padding: 0 4px;
   transition: color 0.3s ease;
 }
 
@@ -117,10 +117,14 @@
 /* then turn off stars after the current rating */
 /* for the rating field */
 .strong-rating-wrapper:not(.average) span.current ~ span.star:before {
-  color: #DDD;
+  /*color: #DDD;*/
 }
+
 /* for the average */
 .strong-rating-wrapper.average span.current ~ span.star:before {
+  /*content: "\f006";*/
+}
+.strong-rating span.current ~ span.star:before {
   content: "\f006";
 }
 
