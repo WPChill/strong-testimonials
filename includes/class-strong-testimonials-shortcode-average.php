@@ -329,6 +329,7 @@ class Strong_Testimonials_Average_Shortcode {
 					echo '<span class="star' . $star_class . '"></span>';
 				}
 
+				$star_class = '';
 			}
 			?>
 		</span>
