@@ -36,8 +36,8 @@
 
 /* the fieldset */
 .strong-rating {
-  border: none;
   display: inline-block;
+  border: 0;
 }
 
 /* the stars */
@@ -115,26 +115,16 @@
 }
 
 /* then turn off stars after the current rating */
-/* for the rating field */
-.strong-rating-wrapper:not(.average) span.current ~ span.star:before {
-  /*color: #DDD;*/
-}
-
-/* for the average */
-.strong-rating-wrapper.average span.current ~ span.star:before {
-  /*content: "\f006";*/
-}
 .strong-rating span.current ~ span.star:before {
   content: "\f006";
 }
 
-/* and turn on the current rating */
+/* turn on the current rating */
 .strong-rating span.current:before {
   color: #FFB900;
 }
 
 /* which may be a half star */
-/* for the average */
 .strong-rating-wrapper.average span.current.half:before {
   content: "\f123";
 }
