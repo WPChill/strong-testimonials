@@ -273,5 +273,5 @@ See changelog.txt for previous versions.
 
 == Upgrade Notice ==
 
-= 2.30.9 =
-Better template options. Improved compatibility. Minor bug fixes.
+= 2.31 =
+New [testimonial_average_rating] shortcode. More compatibility options.
