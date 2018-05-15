@@ -169,7 +169,7 @@ class Strong_Testimonials_Average_Shortcode {
 
 		// stars
 		if ( isset( $parts['stars'] ) ) {
-			$parts['stars'] = $this->print_stars( wpmtst_round_half( $summary['rating_average'] ) );
+			$parts['stars'] = $this->print_stars( wpmtst_round_to_half( $summary['rating_average'] ) );
 		}
 
 		// average
