@@ -389,8 +389,8 @@ class Strong_Testimonials_Defaults {
 			'required-field'     => array(
 				'order'       => 1,
 				/* translators: Settings > Form > Messages tab */
-				'description' => _x( 'Required Field', 'setting description', 'strong-testimonials' ),
-				'text'        => _x( 'Required field', 'Default message for required notice at top of form.', 'strong-testimonials' ),
+				'description' => _x( 'Required', 'setting description', 'strong-testimonials' ),
+				'text'        => _x( 'Required', 'Default message for required notice at top of form.', 'strong-testimonials' ),
 				'enabled'     => 1,
 			),
 			'captcha'            => array(
@@ -762,7 +762,8 @@ class Strong_Testimonials_Defaults {
 	 * Compatibility options.
 	 *
 	 * @since 2.28.0
-	 *
+	 * @since 2.31.0 controller
+	 * @since 2.31.0 lazyload
 	 * @return array
 	 */
 	public static function get_compat_options() {
@@ -777,6 +778,18 @@ class Strong_Testimonials_Defaults {
 				'addednode_id'    => 'content', // = what we listen for
 				'event'           => '',
 				'script'          => '',
+			),
+			'controller' => array(
+				'initialize_on' => 'documentReady', // or windowLoad
+			),
+			'lazyload' => array(
+				'enabled' => '',
+				'classes' => array( // may be multiple pairs
+					array(
+						'start'  => '',
+						'finish' => '',
+					)
+				),
 			),
 		);
 

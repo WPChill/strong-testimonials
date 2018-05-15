@@ -28,6 +28,7 @@ class Strong_Testimonials_Admin_Scripts {
 		add_action( 'admin_print_styles-wpm-testimonial_page_testimonial-fields', array( __CLASS__, 'admin_fields' ) );
 		add_action( 'admin_print_styles-wpm-testimonial_page_testimonial-settings', array( __CLASS__, 'admin_settings' ) );
 		add_action( 'admin_print_styles-wpm-testimonial_page_about-strong-testimonials', array( __CLASS__, 'admin_about' ) );
+		add_action( 'admin_print_styles-wpm-testimonial_page_testimonial-shortcodes', array( __CLASS__, 'admin_shortcodes' ) );
 
 		add_action( 'load-edit.php', array( __CLASS__, 'admin_load_edit' ) );
 		add_action( 'load-post.php', array( __CLASS__, 'admin_load_post' ) );
@@ -311,6 +312,16 @@ class Strong_Testimonials_Admin_Scripts {
 		wp_enqueue_style( 'wpmtst-admin-style' );
 		wp_enqueue_script( 'wpmtst-admin-script' );
 		wp_enqueue_style( 'wpmtst-about-style' );
+	}
+
+	/**
+	 * Shortcodes
+	 *
+	 * @since 2.31.0
+	 */
+	public static function admin_shortcodes() {
+		wp_enqueue_style( 'wpmtst-admin-style' );
+		wp_enqueue_style( 'wpmtst-rating-display' );
 	}
 
 	/**

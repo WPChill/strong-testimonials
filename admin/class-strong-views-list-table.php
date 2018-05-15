@@ -2,12 +2,22 @@
 /**
  * Admin List Table
  *
- * @version 0.2.0
+ * @version 0.2.1
  */
 
 class Strong_Views_List_Table extends Strong_Testimonials_List_Table {
 
     public $stickies;
+
+	/**
+	 * Message to be displayed when there are no items
+	 *
+	 * @since 0.2.1
+	 * @access public
+	 */
+	public function no_items() {
+		_e( 'No views found.', 'strong-testimonials' );
+	}
 
 	public function prepare_list( $data = array() ) {
 	    $this->stickies = get_option( 'wpmtst_sticky_views', array() );
@@ -152,7 +162,7 @@ class Strong_Views_List_Table extends Strong_Testimonials_List_Table {
 				if ( 'single_template' == $item['data']['mode'] ) {
 					$text = '';
 				} else {
-					$text = "[testimonial_view id={$item['id']}]";
+					$text = '[testimonial_view id="' . $item['id'] . '"]';
 				}
 				break;
 			default:

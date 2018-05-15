@@ -1,6 +1,6 @@
 /*!
  * jQuery Strong Pager Plugin
- * Version 2.0.1
+ * Version 2.1
  *
  * Copyright (c) 2017 Chris Dillon
  * Released under the MIT license
@@ -15,214 +15,214 @@
     offset: 40,
     div: '.strong-content',
     imagesLoaded: true
-  }
+  };
 
   $.fn.strongPager = function (options) {
 
     if (this.length === 0) {
-      return this
+      return this;
     }
 
     // create a namespace to be used throughout the plugin
-    var pager = {}
+    var pager = {};
     // set a reference to our view container
-    var el = this
+    var el = this;
 
     /**
      * Initialize
      */
     var init = function () {
-      var pagerVar = el.data('pager-var')
-      var config = {}
+      var pagerVar = el.data('pager-var');
+      var config = {};
 
-      if (typeof( window[pagerVar] ) !== 'undefined') {
-        config = window[pagerVar].config
+      if (typeof(window[pagerVar]) !== 'undefined') {
+        config = window[pagerVar].config;
       }
 
       // Merge user options with the defaults
-      pager.settings = $.extend({}, defaults, config, options)
+      pager.settings = $.extend({}, defaults, config, options);
 
-      pager.div = el.find(pager.settings.div)
-      pager.pageCounter = 0
-      pager.scrollto = 0
-      pager.currentPage = pager.settings.currentPage
-      pager.visibilityInterval = 0
+      pager.div = el.find(pager.settings.div);
+      pager.pageCounter = 0;
+      pager.scrollto = 0;
+      pager.currentPage = pager.settings.currentPage;
+      pager.visibilityInterval = 0;
 
       // Wait for images loaded
       if (pager.settings.imagesLoaded) {
-        el.imagesLoaded(setup)
+        el.imagesLoaded(setup);
       } else {
-        setup()
+        setup();
       }
 
       // Store reference to self in order to access public functions later
-      $(el).data('strongPager', this)
+      $(el).data('strongPager', this);
 
       // Set initialized flag
-      el.attr("data-state","init")
+      el.attr("data-state", "init");
 
-    }
+    };
 
     /**
      * Scroll upon navigation
      */
     var scroll = function () {
       if (pager.settings.scrollTop) {
-        $('html, body').animate({scrollTop: pager.scrollto}, 800)
+        $('html, body').animate({scrollTop: pager.scrollto}, 800);
       }
-    }
+    };
 
     /**
      * Paginate
      */
     var paginate = function () {
-      var pageCounter = 1
+      var pageCounter = 1;
 
-      pager.div.wrap('<div class="simplePagerContainer"></div>')
+      pager.div.wrap('<div class="simplePagerContainer"></div>');
 
       pager.div.children().each(function (i) {
-        var rangeEnd = pageCounter * pager.settings.pageSize - 1
+        var rangeEnd = pageCounter * pager.settings.pageSize - 1;
         if (i > rangeEnd) {
-          pageCounter++
+          pageCounter++;
         }
-        $(this).addClass('simplePagerPage' + pageCounter)
-      })
+        $(this).addClass('simplePagerPage' + pageCounter);
+      });
 
-      pager.pageCounter = pageCounter
-    }
+      pager.pageCounter = pageCounter;
+    };
 
     /**
      * Calculate offset for scrolling
      */
     var findOffset = function () {
-      var containerOffset
+      var containerOffset;
 
       // WooCommerce product tabs
       if (el.closest('.woocommerce-tabs').length) {
-        containerOffset = el.closest('.woocommerce-tabs').offset()
+        containerOffset = el.closest('.woocommerce-tabs').offset();
       } else {
-        containerOffset = el.find('.simplePagerContainer').offset()
+        containerOffset = el.find('.simplePagerContainer').offset();
       }
 
-      pager.scrollto = ~~(containerOffset.top - pager.settings.offset)
+      pager.scrollto = ~~(containerOffset.top - pager.settings.offset);
 
       // WordPress admin bar
       if (document.getElementById('#wpadminbar')) {
-        pager.scrollto -= 32
+        pager.scrollto -= 32;
       }
-    }
+    };
 
     /**
      * Hide all and show current
      */
     var switchPages = function (fade) {
       // Hide the pages
-      pager.div.children().hide()
+      pager.div.children().hide();
 
       // Show the container which now has paging controls
-      el.show()
+      el.show();
 
       // Show the current page
-      var newPage = pager.div.children('.simplePagerPage' + pager.currentPage)
+      var newPage = pager.div.children('.simplePagerPage' + pager.currentPage);
       if (fade) {
-        newPage.fadeIn()
+        newPage.fadeIn();
       } else {
-        newPage.show()
+        newPage.show();
       }
-    }
+    };
 
     /**
      * Add navigation
      */
     var addNavigation = function () {
-      var nav = '<ul class="simplePagerNav">'
-      var cssClass
+      var nav = '<ul class="simplePagerNav">';
+      var cssClass;
 
       for (var i = 1; i <= pager.pageCounter; i++) {
-        cssClass = ''
+        cssClass = '';
         if (i === pager.currentPage) {
-          cssClass = 'currentPage '
+          cssClass = 'currentPage ';
         }
-        nav += '<li class="' + cssClass + 'simplePageNav' + i + '"><a rel="' + i + '" href="#">' + i + '</a></li>'
+        nav += '<li class="' + cssClass + 'simplePageNav' + i + '"><a rel="' + i + '" href="#">' + i + '</a></li>';
       }
-      nav += '</ul>'
-      nav = '<div class="simplePagerList">' + nav + '</div>'
+      nav += '</ul>';
+      nav = '<div class="simplePagerList">' + nav + '</div>';
 
       switch (pager.settings.pagerLocation) {
         case 'before':
-          pager.div.before(nav)
-          break
+          pager.div.before(nav);
+          break;
         case 'both':
-          pager.div.before(nav)
-          pager.div.after(nav)
-          break
+          pager.div.before(nav);
+          pager.div.after(nav);
+          break;
         default:
-          pager.div.after(nav)
+          pager.div.after(nav);
       }
-    }
+    };
 
     /**
      * Navigation behavior
      */
     var navigationHandler = function () {
       el.find('.simplePagerNav a').click(function (e) {
-        var $this = $(e.target)
-        var container
+        var $this = $(e.target);
+        var container;
 
-        container = $this.closest('.simplePagerContainer')
+        container = $this.closest('.simplePagerContainer');
 
         // Get the REL attribute
-        pager.currentPage = $this.attr('rel')
+        pager.currentPage = $this.attr('rel');
 
         // Remove current page highlight
-        container.find('li.currentPage').removeClass('currentPage')
+        container.find('li.currentPage').removeClass('currentPage');
 
         // Add current page highlight
-        container.find('a[rel="' + pager.currentPage + '"]').parent('li').addClass('currentPage')
+        container.find('a[rel="' + pager.currentPage + '"]').parent('li').addClass('currentPage');
 
         // Switch pages
-        switchPages(true)
+        switchPages(true);
 
         // Scroll up for any nav click
-        scroll()
+        scroll();
 
-        return false
-      })
-    }
+        return false;
+      });
+    };
 
     /**
      * Visibility check.
      */
     var visibilityCheck = function () {
       if (el.is(':visible')) {
-        clearInterval(pager.visibilityInterval)
-        findOffset()
+        clearInterval(pager.visibilityInterval);
+        findOffset();
       }
-    }
+    };
 
     /**
      * Setup
      */
     var setup = function () {
-      paginate()
+      paginate();
       // Bail if only one page
       if (pager.pageCounter > 1) {
-        addNavigation()
-        navigationHandler()
+        addNavigation();
+        navigationHandler();
       }
 
-      switchPages()
+      switchPages();
 
       // Set up timer to calculate offset which is dependent on visibility
-      pager.visibilityInterval = setInterval( visibilityCheck, 500 );
-    }
+      pager.visibilityInterval = setInterval(visibilityCheck, 500);
+    };
 
     /**
      * Start it up
      */
-    init()
+    init();
 
-    return this
-  }
+    return this;
+  };
 
-})(jQuery)
+})(jQuery);
