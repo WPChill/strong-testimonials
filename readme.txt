@@ -3,7 +3,7 @@ Contributors: cdillon27
 Tags: testimonials, testimonial slider, testimonial form, reviews, star ratings
 Requires at least: 3.7
 Tested up to: 4.9.5
-Stable tag: 2.31
+Stable tag: 2.31.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -196,6 +196,9 @@ If you prefer, start a private support ticket at [support.strongplugins.com](htt
 8. View editor
 
 == Changelog ==
+
+= 2.31.1 - May 15, 2018 =
+* Fix conflict with Review Markup add-on.
 
 = 2.31 - May 15, 2018 =
 * Add `[testimonial_average_rating]` shortcode.

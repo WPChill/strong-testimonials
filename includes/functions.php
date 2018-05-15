@@ -823,7 +823,7 @@ if ( ! function_exists( 'normalize_empty_atts' ) ) {
     }
 }
 
-if ( ! function_exists( 'wpmtst_round_half' ) ) {
+if ( ! function_exists( 'wpmtst_round_to_half' ) ) {
 	/**
 	 * Round to the nearest half.
 	 *
@@ -832,7 +832,7 @@ if ( ! function_exists( 'wpmtst_round_half' ) ) {
 	 * @since 2.31.0
 	 * @return float|int
 	 */
-	function wpmtst_round_half( $value ) {
+	function wpmtst_round_to_half( $value ) {
 		if ( is_string( $value ) ) {
 			$value = (float) str_replace( ',', '.', $value );
 		}
