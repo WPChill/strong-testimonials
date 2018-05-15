@@ -39,6 +39,7 @@
   }
 
   // Update available options --- not currently used
+  /*
   function matchMethodSetting () {
     if ($('#prerender-current').is(':checked')) {
       saveCurrentSettings()
@@ -59,6 +60,7 @@
       }
     }
   }
+  */
 
   // UI
   function highlightRadioLabel () {
@@ -101,11 +103,24 @@
   })
 
   // Listen for presets
-  $('#set-scenario-1').click(function(e) {
+  $('#set-scenario-1').on('click', function(e) {
     $(this).blur()
     setScenario1()
     e.preventDefault()
   })
+
+  // Listen for [Add Row]
+  $('#add-pair').on('click', function (e) {
+    var $this = $(this);
+    var key = $this.closest('.lazyload-pairs').find('.pair').length;
+    var data = {
+      'action': 'wpmtst_add_lazyload_pair',
+      'key': key,
+    };
+    $.get(ajaxurl, data, function (response) {
+      $this.parent().before(response.data).prev().find('input').first().focus();
+    });
+  });
 
   // Start
   saveCurrentSettings()

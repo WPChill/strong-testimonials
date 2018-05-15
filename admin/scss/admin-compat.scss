@@ -10,6 +10,10 @@ div.row {
 
   > div {
     display: table-cell;
+
+    &:first-child {
+      width: 200px;
+    }
   }
 
   &:not(:last-child) > div {
@@ -108,12 +112,12 @@ div.row {
   > div {
 
     &:first-child {
-      width: 180px;
     }
 
     &.radio-sub {
       label {
         text-indent: 24px;
+        width: 200px;
       }
     }
   }
@@ -121,6 +125,7 @@ div.row {
   p {
     &.about {
       display: inline-block;
+      vertical-align: middle;
 
       &.adjacent {
         margin-left: 0.5em;
@@ -135,6 +140,26 @@ div.row {
 
   label.current {
     font-weight: 600;
+  }
+}
+
+/**
+ * Lazy load class name pairs
+ */
+.pair-actions {
+  margin-top: 10px;
+}
+
+.pair-sep {
+  margin-right: 1em;
+}
+
+@media only screen and (max-width: 1024px) {
+  .lazyload-pairs {
+    .pair {
+      border: 1px solid #DDD;
+      padding: 5px 10px;
+    }
   }
 }
 

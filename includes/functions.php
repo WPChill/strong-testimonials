@@ -822,3 +822,48 @@ if ( ! function_exists( 'normalize_empty_atts' ) ) {
         return $atts;
     }
 }
+
+if ( ! function_exists( 'wpmtst_round_half' ) ) {
+	/**
+	 * Round to the nearest half.
+	 *
+	 * @param $value
+	 *
+	 * @since 2.31.0
+	 * @return float|int
+	 */
+	function wpmtst_round_half( $value ) {
+		if ( is_string( $value ) ) {
+			$value = (float) str_replace( ',', '.', $value );
+		}
+		return round( (float) $value * 2 ) / 2;
+	}
+}
+
+
+if ( ! function_exists( 'wpmtst_strip_whitespace' ) ) {
+	/**
+	 * Remove whitespace from HTML output.
+	 *
+	 * @param $html
+	 *
+	 * @return string
+	 */
+	function wpmtst_strip_whitespace( $html ) {
+		return preg_replace( '~>\s+<~', '><', trim( $html ) );
+	}
+}
+
+if ( ! function_exists( 'wpmtst_current_url' ) ) {
+	/**
+     * Assemble and return the current URL.
+     *
+     * @since 2.31.0
+	 * @return string
+     */
+	function wpmtst_current_url() {
+		global $wp;
+
+		return home_url( add_query_arg( array(), $wp->request ) );
+	}
+}

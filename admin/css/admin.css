@@ -324,7 +324,7 @@ div.radio:hover {
 }
 
 .submit-buttons input.button {
-  margin-right: 5px;
+  margin-right: 10px;
 }
 
 .custom-input {
@@ -777,4 +777,23 @@ ul.standard {
 
 .form-table p.error {
   margin: 0.5em 0;
+}
+
+/* shortcodes page */
+.wpmtst.shortcodes.has-stars table {
+  margin-bottom: 1em;
+}
+.wpmtst.shortcodes.has-stars td:nth-child(2) {
+  width: 70%;
+  /*white-space: nowrap;*/
+}
+.wpmtst.shortcodes td {
+  padding: 10px;
+}
+.wpmtst.shortcodes tr.important td {
+  border: 1px solid #DDD;
+}
+.wpmtst.shortcodes tr:hover,
+.wpmtst.shortcodes tr:hover + tr {
+  background: #FFF;
 }

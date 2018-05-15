@@ -3,7 +3,7 @@ Contributors: cdillon27
 Tags: testimonials, testimonial slider, testimonial form, reviews, star ratings
 Requires at least: 3.7
 Tested up to: 4.9.5
-Stable tag: 2.30.9
+Stable tag: 2.31
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -74,7 +74,7 @@ A variety of templates are included that work well in most themes.
 
 For ultimate control and seamless integration, copy any template to your theme and customize it.
 
-Use the template function to display a view in your template file:
+The template function will add a view to your custome theme templates:
 
 `<?php if ( function_exists( 'strong_testimonials_view' ) ) {
     strong_testimonials_view( $id );
@@ -136,6 +136,8 @@ Activate the plugin. Look for "Testimonials" in the admin menu.
 
 `Read some of our [testimonial_count] testimonials!`
 
+[testimonial_average_rating] - To display the average rating of all your testimonials. Includes stars! *(Documentation coming soon.)*
+
 = Can I add testimonials from YouTube, Twitter, Instagram and Facebook? =
 
 Yes. The plugin supports the [WordPress embed](https://codex.wordpress.org/Embeds) feature for inserting testimonials from [these sources](https://codex.wordpress.org/Embeds#Does_This_Work_With_Any_URL.3F).
@@ -178,9 +180,9 @@ Undeniably, yes.
 
 This [screenshot](http://www.screencast.com/t/TPMRWM0yug) shows where I immediately start looking for clues before asking for more information and potentially waiting hours or days for a response (it happens).
 
-I can determine what theme you're using, what plugins are active, whether you're using any caching/minification/optimization (do you need to clear your cache?), if there are any JavaScript errors in your theme or another plugin (more common than you may think), and somewhat how the testimonial view is configured.
+I can usually determine what theme you're using, what plugins are active, whether you're using any caching/minification/optimization (do you need to clear your cache?), if there are any JavaScript errors in your theme or another plugin (more common than you may think), and somewhat how the testimonial view is configured.
 
-If you prefer not to post your URL publicly, start a private support ticket at [support.strongplugins.com](https://support.strongplugins.com).
+If you prefer, start a private support ticket at [support.strongplugins.com](https://support.strongplugins.com).
 
 == Screenshots ==
 
@@ -195,11 +197,24 @@ If you prefer not to post your URL publicly, start a private support ticket at [
 
 == Changelog ==
 
+= 2.31 - May 15, 2018 =
+* Add `[testimonial_average_rating]` shortcode.
+* Add compatibility option for script controller.
+* Add compatibility option for lazy loading images.
+* Minor template style tweaks for small screens.
+* Use empty star icon instead of full icon in different color.
+* Change default message "Required field" to "Required".
+* Improve exception handling.
+* Improve Pjax compatibility.
+* Apply JavaScript coding standard.
+* Add console logging for slider when `SCRIPT_DEBUG` enabled.
+* Minor admin style tweaks.
+
 = 2.30.9 - May 6, 2018 =
 * Fix bug in add-on activation process.
 
 = 2.30.8 - April 26, 2018 =
-* Fix incorrect textdomains.
+* Fix incorrect text domains.
 * Fix bug in form validation translation files.
 * Remove obsolete German translation.
 * Update translation files.

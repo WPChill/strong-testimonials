@@ -53,16 +53,6 @@ $add_the_view = __( 'Add the view to a page or sidebar using its unique shortcod
     </div>
 
     <div class="col">
-        <h3><?php _e( 'How to Display the Number of Testimonials', 'strong-testimonials' ); ?></h3>
-        <p><?php printf( __( 'Use the %s shortcode.', 'strong-testimonials' ), '<code>&#91;testimonial_count&#93;</code>' ); ?>
-			<?php _e( 'For example:', 'strong-testimonials' ); ?></p>
-        <p><span class="code"><?php printf( __( 'Read some of our %s testimonials!', 'strong-testimonials' ), '&#91;testimonial_count&#93;' ); ?></span></p>
-        <p><?php printf( __( 'To count for a specific category, add the %s attribute with the category slug.', 'strong-testimonials' ), '<code>category</code>' ); ?>
-			<?php _e( 'For example:', 'strong-testimonials' ); ?></p>
-        <p><span class="code"><?php printf( __( 'Here\'s what %s local clients say', 'strong-testimonials' ), '&#91;testimonial_count category="local"&#93;' ); ?></span></p>
-    </div>
-
-    <div class="col">
         <h3><?php _e( 'How to Translate', 'strong-testimonials' ); ?></h3>
         <p><?php _e( 'Strong Testimonials is compatible with WPML, Polylang and WP Globus.', 'strong-testimonials' ); ?></p>
         <p><?php _e( 'In WPML and Polylang, domains are added to the <strong>String Translation</strong> pages. Those domains encompass the form fields, the form messages, the notification email, and the "Read more" link text in your views. They are updated automatically when any of those settings change.', 'strong-testimonials' ); ?></p>

@@ -1,5 +1,8 @@
 /**
- * Component controller
+ * Component Controller
+ *
+ * Version 1.1.0
+ * For Strong Testimonials version 2.31
  *
  * @namespace window.strongControllerParms
  */
@@ -12,7 +15,10 @@ var strongController = {
 
   grids: {},
 
+  iframes: {},
+
   defaults: {
+    initializeOn: 'windowLoad',
     method: '',
     universalTimer: 500,
     observerTimer: 500,
@@ -40,14 +46,14 @@ var strongController = {
   eventListenerSupported: window.addEventListener,
 
   checkInit: function () {
-    return jQuery('.strong-view[data-state=\'idle\']').length;
+    return jQuery('.strong-view[data-state="idle"]').length;
   },
 
   /**
    * Initialize sliders.
    */
   initSliders: function () {
-    var sliders = jQuery('.strong-view.slider-container[data-state=\'idle\']');
+    var sliders = jQuery('.strong-view.slider-container[data-state="idle"]');
     if (debugit) console.log('sliders found:', sliders.length);
     if (sliders.length) {
       // Initialize independently
@@ -61,7 +67,7 @@ var strongController = {
    * Initialize paginated views.
    */
   initPagers: function () {
-    var pagers = jQuery('.strong-pager[data-state=\'idle\']');
+    var pagers = jQuery('.strong-pager[data-state="idle"]');
     if (debugit) console.log('pagers found:', pagers.length);
     if (pagers.length) {
       pagers.each(function () {
@@ -77,7 +83,7 @@ var strongController = {
     /*
      * Masonry
      */
-    this.grids = jQuery('.strong-view[data-state=\'idle\'] .strong-masonry');
+    this.grids = jQuery('.strong-view[data-state="idle"] .strong-masonry');
     if (debugit) console.log('Masonry found:', this.grids.length);
     if (this.grids.length) {
       // Add our element sizing.
@@ -102,12 +108,19 @@ var strongController = {
    * Initialize form validation.
    */
   initForm: function () {
-    var forms = jQuery('.strong-form[data-state=\'idle\']');
+    var forms = jQuery('.strong-form[data-state="idle"]');
     if (debugit) console.log('forms found:', forms.length);
     if (forms.length) {
       strongValidation.init();
       // initialize Captcha plugins here
     }
+  },
+
+  /**
+   * Look for iframes.
+   */
+  initIframes: function () {
+    this.iframes = jQuery('iframe');
   },
 
   /**
@@ -189,17 +202,50 @@ var strongController = {
    * Initialize controller.
    */
   init: function () {
-    jQuery(document).focus(); // if dev console open
     if (debugit) console.log('strongController init');
 
+    // Get settings
     var settings = {};
     if (typeof window.strongControllerParms !== 'undefined') {
       settings = window.strongControllerParms;
     } else {
       if (debugit) console.log('settings not found');
     }
+
+    // Configure
     this.setup(settings);
     if (debugit) console.log('config', this.config);
+
+    /*
+     * Start on specific event
+     */
+    if ('documentReady' === this.config.initializeOn) {
+
+      jQuery(document).ready(function () {
+        if (debugit) console.log('document ready');
+        // Start components.
+        strongController.start();
+        // Listen.
+        strongController.listen();
+      });
+
+    } else { // Fail-safe
+
+      jQuery(window).on('load', function () {
+        if (debugit) console.log('window load');
+        // Start components.
+        strongController.start();
+        // Listen.
+        strongController.listen();
+      });
+
+    }
+
+    // Regardless of initializeOn setting, check for embeds in Masonry on window load.
+    jQuery(window).on('load', function () {
+      strongController.listenForIframeReady();
+    });
+
   },
 
   /**
@@ -211,6 +257,7 @@ var strongController = {
     strongController.initPagers();
     strongController.initLayouts();
     strongController.initForm();
+    strongController.initIframes();
   },
 
   /**
@@ -274,32 +321,29 @@ var strongController = {
   listenForIframeReady: function () {
     if (debugit) console.log('listenForIframeReady');
 
-    jQuery(window).on('load', function () {
-      var $iframes = jQuery('iframe');
-      if ($iframes.length && strongController.grids.length) {
-        $iframes.ready(function () {
-          // Still needs a moment to render
-          setTimeout(function () { strongController.grids.masonry(); }, 500);
-          // just in case
-          setTimeout(function () { strongController.grids.masonry(); }, 2000);
-        });
-      }
-    });
+    if (strongController.iframes.length && strongController.grids.length) {
 
+      strongController.iframes.ready(function () {
+        // still needs a moment to render
+        setTimeout(function () {
+          strongController.grids.masonry();
+          if (debugit) console.log('listenForIframeReady', 'timeout 1');
+        }, 1000);
+        // just in case
+        setTimeout(function () {
+          strongController.grids.masonry();
+          if (debugit) console.log('listenForIframeReady', 'timeout 2');
+        }, 2000);
+      });
+
+    } else {
+
+      if (debugit) console.log('listenForIframeReady', 'no iframes or Masonry found');
+
+    }
   }
 
 };
 
-jQuery(document).ready(function ($) {
-
-  // Initialize controller.
-  strongController.init();
-
-  // Start components.
-  strongController.start();
-
-  // Listen.
-  strongController.listen();
-  strongController.listenForIframeReady();
-
-});
+// Initialize controller.
+strongController.init();

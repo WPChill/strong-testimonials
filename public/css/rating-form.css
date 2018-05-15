@@ -9,6 +9,7 @@
  * http://codepen.io/jamesbarnett/pen/vlpkh
  */
 
+/* the container */
 .strong-rating-wrapper {
 }
 
@@ -29,15 +30,18 @@
   display: none !important;
 }
 
+.strong-rating label {
+  font-weight: normal;
+}
+
 .strong-rating label:before {
   font-family: FontAwesome;
   content: "\f005";
   display: inline-block;
   font-size: 1.25em;
-  /*line-height: 1.75;*/
   line-height: 1;
   /* use padding not margin */
-  padding: 5px;
+  padding: 4px;
   transition: color 0.3s ease;
 }
 
@@ -57,14 +61,11 @@
 }
 
 /* in the post editor */
-.strong-rating-wrapper.in-metabox .strong-rating {
-  padding: 0;
-}
-
 .strong-rating-wrapper.in-metabox .strong-rating > label:before {
   font-size: 20px;
   line-height: 27px;
-  padding: 0 5px;
+  padding: 0 4px;
+  color: #0073aa;
 }
 
 /* the magic */
@@ -84,38 +85,27 @@
 
 /* turn off stars after the one we're on */
 .strong-rating label:hover ~ label:before {
-  color: #DDD;
+  content: "\f006";
 }
-/* but use different color if validation error */
+/* maybe use different color if validation error */
 .error .strong-rating label:hover ~ label:before {
-  color: #BBB;
 }
 
 /* turn off stars after the current rating */
 .strong-rating input:checked ~ label:before {
-  color: #DDD;
+  content: "\f006";
 }
-/* but use different color if validation error */
+/* maybe use different color if validation error */
 .error .strong-rating input:checked ~ label:before {
-  color: #BBB;
 }
 
 /* turn on the current rating */
 .strong-rating input[type="radio"]:checked + label:before,
 .error .strong-rating input:checked + label:before {
-  color: #FFB900;
+  content: "\f005";
 }
-
-/* option to clear rating in post editor */
-.strong-rating-wrapper.in-metabox .strong-rating label[for$="star0"]:before {
-  content: "\f05e";
-  color: #999 !important;
-  position: relative;
-  top: 1px;
-}
-
-.strong-rating-wrapper.in-metabox .strong-rating label[for$="star0"]:hover:before {
-  color: #CD0000 !important;
+.strong-rating-wrapper.in-metabox input[type="radio"]:checked + label:before {
+  color: #00b9eb;
 }
 
 /* when hovering the entire fieldset: */
@@ -123,7 +113,7 @@
 /* (1) turn all on */
 .strong-rating:hover input ~ label:before,
 .error .strong-rating:hover input ~ label:before {
-  color: #FFB900;
+  content: "\f005";
 }
 
 /* (2) indicate current selection (optional) */
@@ -134,9 +124,8 @@
 
 /* (3) then turn off siblings after the hovered star */
 .strong-rating:hover label:hover ~ input:not(:checked) + label:before {
-  color: #DDD;
+  content: "\f006";
 }
-/* but use different color if validation error */
+/* maybe use different color if validation error */
 .error .strong-rating:hover label:hover ~ input:not(:checked) + label:before {
-  color: #BBB;
 }

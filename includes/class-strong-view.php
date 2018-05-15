@@ -313,6 +313,7 @@ class Strong_View {
 			return;
 		}
 
+		$handle = 'wpmtst-custom-style';
 		$c1 = '';
 		$c2 = '';
 
@@ -348,34 +349,33 @@ class Strong_View {
 			$gradient = self::gradient_rules( $c1, $c2 );
 
 			if ( $this->is_form() ) {
-				wp_add_inline_style( 'wpmtst-custom-style',
-				                     "$view_el .strong-form-inner { $gradient }" );
-			}
-			else {
-				wp_add_inline_style( 'wpmtst-custom-style',
-				                     "$view_el .testimonial-inner { $gradient }" );
+
+				wp_add_inline_style( $handle, "$view_el .strong-form-inner { $gradient }" );
+
+			} else {
+
+				wp_add_inline_style( $handle, "$view_el .testimonial-inner { $gradient }" );
 
 				if ( 'bold' == WPMST()->atts( 'template' ) ) {
-					wp_add_inline_style( 'wpmtst-custom-style',
-					                     "$view_el .readmore-page { background: $c2 }" );
+					wp_add_inline_style( $handle, "$view_el .readmore-page { background: $c2 }" );
 				}
+
 			}
 
-		}
-		elseif ( $c1 ) {
+		} elseif ( $c1 ) {
 
 			if ( $this->is_form() ) {
-				wp_add_inline_style( 'wpmtst-custom-style',
-				                     "$view_el .strong-form-inner { background: $c1; }" );
-			}
-			else {
-				wp_add_inline_style( 'wpmtst-custom-style',
-				                     "$view_el .testimonial-inner { background: $c1; }" );
+
+				wp_add_inline_style( $handle, "$view_el .strong-form-inner { background: $c1; }" );
+
+			} else {
+
+				wp_add_inline_style( $handle, "$view_el .testimonial-inner { background: $c1; }" );
 
 				if ( 'bold' == WPMST()->atts( 'template' ) ) {
-					wp_add_inline_style( 'wpmtst-custom-style',
-					                     "$view_el .readmore-page { background: $c1 }" );
+					wp_add_inline_style( $handle, "$view_el .readmore-page { background: $c1 }" );
 				}
+
 			}
 
 		}
