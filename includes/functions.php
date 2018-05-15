@@ -833,7 +833,10 @@ if ( ! function_exists( 'wpmtst_round_half' ) ) {
 	 * @return float|int
 	 */
 	function wpmtst_round_half( $value ) {
-		return round( $value * 2 ) / 2;
+		if ( is_string( $value ) ) {
+			$value = (float) str_replace( ',', '.', $value );
+		}
+		return round( (float) $value * 2 ) / 2;
 	}
 }
 
