@@ -245,6 +245,8 @@ final class Strong_Testimonials {
 			require_once WPMTST_ADMIN . 'menu/class-strong-testimonials-menu-fields.php';
 			require_once WPMTST_ADMIN . 'menu/class-strong-testimonials-menu-settings.php';
 			require_once WPMTST_ADMIN . 'menu/class-strong-testimonials-menu-views.php';
+			require_once WPMTST_ADMIN . 'menu/class-strong-testimonials-menu-shortcodes.php';
+			require_once WPMTST_ADMIN . 'class-strong-testimonials-page-shortcodes.php';
 
 			require_once WPMTST_ADMIN . 'settings/class-strong-testimonials-settings.php';
 			require_once WPMTST_ADMIN . 'settings/class-strong-testimonials-settings-general.php';
