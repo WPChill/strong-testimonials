@@ -143,7 +143,6 @@ class Strong_Testimonials_Average_Shortcode {
          *         )
          * )
 		 */
-		$nearest_half = wpmtst_round_half( $summary['rating_average'] );
 
 		// Want to build your own HTML? Return any truthy value to short-circuit this shortcode output.
 		$html = apply_filters( 'wpmtst_average_rating_pre_html', '', $atts, $summary );
@@ -170,7 +169,7 @@ class Strong_Testimonials_Average_Shortcode {
 
 		// stars
 		if ( isset( $parts['stars'] ) ) {
-			$parts['stars'] = $this->print_stars( $nearest_half );
+			$parts['stars'] = $this->print_stars( wpmtst_round_half( $summary['rating_average'] ) );
 		}
 
 		// average
@@ -301,40 +300,37 @@ class Strong_Testimonials_Average_Shortcode {
 	/**
 	 * Print the stars.
 	 *
-	 * @param int $value
+	 * @param double $rating
 	 * @param string $class
-	 * @since 1.1.0
+	 * @since 2.31.0
 	 * @return string
 	 */
-	public function print_stars( $value = 0, $class = 'strong-rating' ) {
-		$value = (double) $value;
-		$star_class = ( 0 == $value ) ? ' current' : '';
+	public function print_stars( $rating = 0.0, $class = 'strong-rating' ) {
+		$rating  = (double) $rating;
+		$is_zero = ( 0 == $rating ) ? ' current' : '';
 		ob_start();
 		?>
 		<span class="<?php echo esc_attr( $class ); ?>">
-            <span class="star0 star<?php echo $star_class; ?>"></span>
+            <span class="star0 star<?php echo $is_zero; ?>"></span>
 			<?php
-			for ( $i = 0.5; $i <= 5; $i += .5 ) {
-
-				if ( ! $star_class ) {
-					if ( $i == $value ) {
+			if ( $is_zero ) {
+				echo str_repeat( '<span class="star"></span>', 5 );
+			} else {
+				for ( $i = 1; $i <= 5; $i++ ) {
+					$star_class = '';
+					if ( intval( $i ) == intval( $rating ) ) {
 						$star_class = ' current';
-						if ( intval( $i ) != $i ) {
+						if ( $rating - $i ) {
 							$star_class .= ' half';
 						}
 					}
-				}
-
-				if ( intval( $i ) == $i ) {
 					echo '<span class="star' . $star_class . '"></span>';
 				}
-
-				$star_class = '';
 			}
 			?>
 		</span>
 		<?php
-		$html = apply_filters( 'wpmtst_average_rating_stars_html', ob_get_clean() );
+		$html = apply_filters( 'wpmtst_average_rating_stars_html', ob_get_clean(), $rating );
 
 		return $html;
 	}
