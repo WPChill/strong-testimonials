@@ -9,6 +9,7 @@
  * http://codepen.io/jamesbarnett/pen/vlpkh
  */
 
+/* the container */
 .strong-rating-wrapper {
 }
 
@@ -27,6 +28,10 @@
 /* the stars */
 .strong-rating input[type=radio] {
   display: none !important;
+}
+
+.strong-rating label {
+  font-weight: normal;
 }
 
 .strong-rating label:before {
@@ -56,18 +61,11 @@
 }
 
 /* in the post editor */
-.strong-rating-wrapper.in-metabox .strong-rating {
-  padding: 0;
-}
-
 .strong-rating-wrapper.in-metabox .strong-rating > label:before {
   font-size: 20px;
   line-height: 27px;
-  padding: 0 5px;
-}
-
-.strong-rating label {
-  font-weight: normal;
+  padding: 0 4px;
+  color: #0073aa;
 }
 
 /* the magic */
@@ -106,17 +104,8 @@
 .error .strong-rating input:checked + label:before {
   content: "\f005";
 }
-
-/* option to clear rating in post editor */
-.strong-rating-wrapper.in-metabox .strong-rating label[for$="star0"]:before {
-  content: "\f05e";
-  color: #999 !important;
-  position: relative;
-  top: 1px;
-}
-
-.strong-rating-wrapper.in-metabox .strong-rating label[for$="star0"]:hover:before {
-  color: #CD0000 !important;
+.strong-rating-wrapper.in-metabox input[type="radio"]:checked + label:before {
+  color: #00b9eb;
 }
 
 /* when hovering the entire fieldset: */
