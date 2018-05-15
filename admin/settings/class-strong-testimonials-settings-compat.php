@@ -77,7 +77,6 @@ class Strong_Testimonials_Settings_Compat {
 	 * @return array
 	 */
 	public function sanitize_options( $input ) {
-		//q2($input,'','o','input.log');
 		$input['page_loading'] = sanitize_text_field( $input['page_loading'] );
 
 		if ( 'general' == $input['page_loading'] ) {
