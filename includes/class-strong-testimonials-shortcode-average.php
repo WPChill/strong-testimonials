@@ -93,29 +93,13 @@ class Strong_Testimonials_Average_Shortcode {
 
 		// category
 		if ( $atts['category'] ) {
-
-			if ( is_numeric( $atts['category'] ) ) {
-
-				$args['tax_query'] = array(
-					array(
-						'taxonomy' => 'wpm-testimonial-category',
-						'field'    => 'id',
-						'terms'    => $args['category'],
-					),
-				);
-
-			} else {
-
-				$args['tax_query'] = array(
-					array(
-						'taxonomy' => 'wpm-testimonial-category',
-						'field'    => 'slug',
-						'terms'    => $args['category'],
-					),
-				);
-
-			}
-
+			$args['tax_query'] = array(
+				array(
+					'taxonomy' => 'wpm-testimonial-category',
+					'field'    => is_numeric( $atts['category'] ) ? 'id' : 'slug',
+					'terms'    => $atts['category'],
+				),
+			);
 		}
 
 		$args        = apply_filters( 'wpmtst_query_args', $args, $atts );
