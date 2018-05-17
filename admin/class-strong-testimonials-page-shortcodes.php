@@ -18,6 +18,8 @@ class Strong_Testimonials_Page_Shortcodes {
 	 */
 	public static function render_page() {
 
+		$stars = '<span class="strong-rating"><span class="star0 star"></span><span class="star"></span><span class="star"></span><span class="star"></span><span class="star"></span><span class="star current half"></span></span>';
+
 		$tags = array(
 			'a' => array(
 				'href'   => array(),
@@ -87,9 +89,7 @@ class Strong_Testimonials_Page_Shortcodes {
 					<td>
 						<div class="strong-rating-wrapper average">
 							<span class="strong-rating-title">Average Rating:</span>
-							<span class="strong-rating"><span class="star0 star"></span><span class="star"></span><span
-									class="star"></span><span class="star"></span><span class="star current half"></span><span
-									class="star"></span></span>
+							<?php echo $stars; ?>
 							<span class="strong-rating-summary">4.3 stars (based on 9 ratings)</span>
 						</div>
 					</td>
@@ -109,9 +109,7 @@ class Strong_Testimonials_Page_Shortcodes {
 					<td>
 						<div class="strong-rating-wrapper average">
 							<span class="strong-rating-title">Average Rating:</span>
-							<span class="strong-rating"><span class="star0 star"></span><span class="star"></span><span
-									class="star"></span><span class="star"></span><span class="star current half"></span><span
-									class="star"></span></span>
+							<?php echo $stars; ?>
 							<span class="strong-rating-summary">4.3 stars (based on 9 ratings)</span>
 						</div>
 					</td>
@@ -130,9 +128,7 @@ class Strong_Testimonials_Page_Shortcodes {
 					<td>
 						<div class="strong-rating-wrapper average">
 							<span class="strong-rating-title">Average of 9 Ratings:</span>
-							<span class="strong-rating"><span class="star0 star"></span><span class="star"></span><span
-									class="star"></span><span class="star"></span><span class="star current half"></span><span
-									class="star"></span></span>
+							<?php echo $stars; ?>
 							<span class="strong-rating-summary">4.3 stars</span>
 						</div>
 					</td>
@@ -150,11 +146,7 @@ class Strong_Testimonials_Page_Shortcodes {
 				<tr>
 					<td>
 						<div class="strong-rating-wrapper average">
-							<span class="strong-rating">
-            				<span class="star0 star"></span>
-							<span class="star"></span><span class="star"></span><span class="star"></span><span class="star current half"></span><span
-									class="star"></span>
-							</span>
+							<?php echo $stars; ?>
 							Our average rating is <b><span class="strong-rating-summary">4.3 stars</span></b>
 						</div>
 					</td>
@@ -171,9 +163,7 @@ class Strong_Testimonials_Page_Shortcodes {
 				<tr>
 					<td>
 						<div class="strong-rating-wrapper average">
-							<span class="strong-rating"><span class="star0 star"></span><span class="star"></span><span
-									class="star"></span><span class="star"></span><span class="star current half"></span><span
-									class="star"></span></span>
+							<?php echo $stars; ?>
 						</div>
 					</td>
 				</tr>
@@ -217,11 +207,9 @@ class Strong_Testimonials_Page_Shortcodes {
 				<tr>
 					<td>
 						<div class="strong-rating-wrapper average block"><span class="strong-rating-title">Average Rating:</span>
-							<span class="strong-rating">
-            				<span class="star0 star"></span>
-							<span class="star"></span><span class="star"></span><span class="star"></span><span class="star current half"></span><span
-									class="star"></span></span>
-							<span class="strong-rating-summary">4.3 stars (based on 9 ratings)</span></div>
+							<?php echo $stars; ?>
+							<span class="strong-rating-summary">4.3 stars (based on 9 ratings)</span>
+						</div>
 					</td>
 				</tr>
 			</table>
@@ -236,11 +224,9 @@ class Strong_Testimonials_Page_Shortcodes {
 				<tr>
 					<td>
 						<div class="strong-rating-wrapper average centered"><span class="strong-rating-title">Average Rating:</span>
-							<span class="strong-rating">
-            				<span class="star0 star"></span>
-							<span class="star"></span><span class="star"></span><span class="star"></span><span class="star current half"></span><span
-									class="star"></span></span>
-							<span class="strong-rating-summary">4.3 stars (based on 9 ratings)</span></div>
+							<?php echo $stars; ?>
+							<span class="strong-rating-summary">4.3 stars (based on 9 ratings)</span>
+						</div>
 					</td>
 				</tr>
 			</table>
@@ -255,10 +241,9 @@ class Strong_Testimonials_Page_Shortcodes {
 				<tr>
 					<td>
 						<div class="strong-rating-wrapper average block centered"><span class="strong-rating-title">Average Rating:</span>
-							<span class="strong-rating">
-            				<span class="star0 star"></span>
-							<span class="star"></span><span class="star"></span><span class="star"></span><span class="star current half"></span><span class="star"></span></span>
-							<span class="strong-rating-summary">4.3 stars (based on 9 ratings)</span></div>
+							<?php echo $stars; ?>
+							<span class="strong-rating-summary">4.3 stars (based on 9 ratings)</span>
+						</div>
 					</td>
 				</tr>
 			</table>
@@ -272,11 +257,11 @@ class Strong_Testimonials_Page_Shortcodes {
 				</tr>
 				<tr>
 					<td>
-						<span class="strong-rating-wrapper average"><span class="strong-rating-title">Average Rating:</span> 		<span
-								class="strong-rating">
-						<span class="star0 star"></span>
-						<span class="star"></span><span class="star"></span><span class="star"></span><span class="star current half"></span><span class="star"></span></span>
-						<span class="strong-rating-summary">4.3 stars (based on 9 ratings)</span></span>
+						<span class="strong-rating-wrapper average">
+							<span class="strong-rating-title">Average Rating:</span>
+							<?php echo $stars; ?>
+							<span class="strong-rating-summary">4.3 stars (based on 9 ratings)</span>
+						</span>
 					</td>
 				</tr>
 			</table>
