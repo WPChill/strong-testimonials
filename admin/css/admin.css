@@ -780,6 +780,9 @@ ul.standard {
 }
 
 /* shortcodes page */
+.wpmtst.shortcode {
+  vertical-align: middle;
+}
 .wpmtst.shortcodes.has-stars table {
   margin-bottom: 1em;
 }
@@ -793,7 +796,24 @@ ul.standard {
 .wpmtst.shortcodes tr.important td {
   border: 1px solid #DDD;
 }
-.wpmtst.shortcodes tr:hover,
-.wpmtst.shortcodes tr:hover + tr {
+.wpmtst.shortcodes tr:hover {
   background: #FFF;
+}
+
+/* inner table */
+.wpmtst.shortcodes td.has-inner {
+  padding: 0;
+}
+.wpmtst.shortcodes table.inner {
+  margin: 0;
+  vertical-align: middle;
+  width: 100%;
+}
+.wpmtst.shortcodes table.inner,
+.wpmtst.shortcodes table.inner tr,
+.wpmtst.shortcodes table.inner td {
+  border: 0;
+}
+.wpmtst.shortcodes table.inner tr:first-child td {
+  border-bottom: 1px solid #DDD;
 }
