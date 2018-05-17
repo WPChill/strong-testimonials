@@ -125,7 +125,7 @@
 }
 
 /* which may be a half star */
-.strong-rating-wrapper.average span.current.half:before {
+.strong-rating-wrapper.average .strong-rating span.star.half:before {
   content: "\f123";
 }
 
