@@ -208,6 +208,9 @@ class Strong_Testimonials_Settings_Compat {
 		</table>
 
 		<h2><?php _e( 'Compatibility Settings', 'strong-testimonials' ); ?></h2>
+
+		<p class="about"><?php printf( __( '<a href="%s" target="_blank">Start a support ticket</a> if you need help with these options.', 'strong-testimonials' ), esc_url( 'https://support.strongplugins.com/new-ticket/' ) ); ?></p>
+
 		<?php
 	}
 
@@ -823,8 +826,7 @@ class Strong_Testimonials_Settings_Compat {
 			</div>
 			<div data-sub="lazyload">
 				<p class="about"><?php _e( 'Most lazy loading techniques use one or two CSS class names to indicate which images to lazy load and when the lazy loading is finished.', 'strong-testimonials' ); ?></p>
-				<p class="about"><?php _e( 'Contact support for your theme or plugin to find out if it uses CSS class names and if so, what they are.', 'strong-testimonials' ); ?></p>
-				<p class="about"><?php printf( __( 'Or <a href="%s" target="_blank">open a support ticket here</a> and provide your system information.', 'strong-testimonials' ), esc_url( 'https://support.strongplugins.com/new-ticket/' ) ); ?></p>
+				<p class="about"><?php _e( 'Contact support for your theme or plugin to ask if it uses CSS class names.', 'strong-testimonials' ); ?></p>
 			</div>
 		</div>
 		<?php
