@@ -93,29 +93,13 @@ class Strong_Testimonials_Average_Shortcode {
 
 		// category
 		if ( $atts['category'] ) {
-
-			if ( is_numeric( $atts['category'] ) ) {
-
-				$args['tax_query'] = array(
-					array(
-						'taxonomy' => 'wpm-testimonial-category',
-						'field'    => 'id',
-						'terms'    => $args['category'],
-					),
-				);
-
-			} else {
-
-				$args['tax_query'] = array(
-					array(
-						'taxonomy' => 'wpm-testimonial-category',
-						'field'    => 'slug',
-						'terms'    => $args['category'],
-					),
-				);
-
-			}
-
+			$args['tax_query'] = array(
+				array(
+					'taxonomy' => 'wpm-testimonial-category',
+					'field'    => is_numeric( $atts['category'] ) ? 'id' : 'slug',
+					'terms'    => $atts['category'],
+				),
+			);
 		}
 
 		$args        = apply_filters( 'wpmtst_query_args', $args, $atts );
@@ -300,8 +284,8 @@ class Strong_Testimonials_Average_Shortcode {
 	/**
 	 * Print the stars.
 	 *
-	 * @param double $rating
-	 * @param string $class
+	 * @param double $rating Rounded to half.
+	 * @param string $class  The container CSS class.
 	 * @since 2.31.0
 	 * @return string
 	 */
@@ -317,14 +301,14 @@ class Strong_Testimonials_Average_Shortcode {
 				echo str_repeat( '<span class="star"></span>', 5 );
 			} else {
 				for ( $i = 1; $i <= 5; $i++ ) {
-					$star_class = '';
-					if ( intval( $i ) == intval( $rating ) ) {
-						$star_class = ' current';
-						if ( $rating - $i ) {
-							$star_class .= ' half';
-						}
+					$star_class = 'star';
+					if ( $i == round( $rating ) ) {
+						$star_class .= ' current';
 					}
-					echo '<span class="star' . $star_class . '"></span>';
+					if ( 0.5 == $i - $rating ) {
+						$star_class .= ' half';
+					}
+					printf( '<span class="%s"></span>', $star_class );
 				}
 			}
 			?>
