@@ -43,8 +43,8 @@ class Strong_Testimonials_Settings {
 		if ( ! current_user_can( 'strong_testimonials_options' ) )
 			wp_die( __( 'You do not have sufficient permissions to access this page.' ) );
 
-		$active_tab = isset( $_GET['tab'] ) ? $_GET['tab'] : self::DEFAULT_TAB;
-		$url        = admin_url( 'edit.php?post_type=wpm-testimonial&page=testimonial-settings' );
+		$tab = self::get_tab();
+		$url = admin_url( 'edit.php?post_type=wpm-testimonial&page=testimonial-settings' );
 		?>
 		<div class="wrap wpmtst">
 
@@ -57,13 +57,13 @@ class Strong_Testimonials_Settings {
 			<?php endif; ?>
 
 			<h2 class="nav-tab-wrapper">
-				<?php do_action( 'wpmtst_settings_tabs', $active_tab, $url ); ?>
+				<?php do_action( 'wpmtst_settings_tabs', $tab, $url ); ?>
 			</h2>
 
-			<form id="<?php esc_attr_e( $active_tab ); ?>-form" method="post" action="options.php">
+			<form id="<?php esc_attr_e( $tab ); ?>-form" method="post" action="options.php">
 				<?php
-				if ( isset( self::$callbacks[ $active_tab ] ) && wpmtst_callback_exists( self::$callbacks[ $active_tab ] ) ) {
-					call_user_func( self::$callbacks[ $active_tab ] );
+				if ( isset( self::$callbacks[ $tab ] ) && wpmtst_callback_exists( self::$callbacks[ $tab ] ) ) {
+					call_user_func( self::$callbacks[ $tab ] );
 				} else {
 					call_user_func( self::$callbacks[ self::DEFAULT_TAB ] );
 				}
@@ -81,10 +81,14 @@ class Strong_Testimonials_Settings {
 	}
 
 	public static function submit_row() {
-	    $tabs = array( 'general', 'form', 'licenses', 'compat' );
-		if ( isset( $_GET['tab'] ) && in_array( $_GET['tab'], $tabs ) ) {
+		$tabs = array( 'general', 'form', 'licenses', 'compat' );
+		if ( in_array( self::get_tab(), $tabs ) ) {
 			submit_button( '', 'primary', 'submit-form', false );
 		}
+	}
+
+	private static function get_tab() {
+		return ( isset( $_GET['tab'] ) && $_GET['tab'] ) ? $_GET['tab'] : self::DEFAULT_TAB;
 	}
 
 }
