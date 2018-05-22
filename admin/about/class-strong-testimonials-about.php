@@ -76,6 +76,8 @@ class Strong_Testimonials_About {
 
 				<a href="<?php echo add_query_arg( 'tab', 'how-to', $url ); ?>" class="nav-tab <?php echo $active_tab == 'how-to' ? 'nav-tab-active' : ''; ?>"><?php _e( 'How To', 'strong-testimonials' ); ?></a>
 
+				<a href="<?php echo add_query_arg( 'tab', 'privacy', $url ); ?>" class="nav-tab <?php echo $active_tab == 'privacy' ? 'nav-tab-active' : ''; ?>"><?php _e( 'Privacy' ); ?></a>
+
 			</h2>
 
 			<!--
@@ -85,6 +87,9 @@ class Strong_Testimonials_About {
 
 			<?php
 			switch( $active_tab ) {
+				case 'privacy':
+					include WPMTST_ADMIN . 'about/privacy.php';
+					break;
 				case 'how-to':
 					include WPMTST_ADMIN . 'about/how-to.php';
 					break;
