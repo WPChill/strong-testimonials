@@ -9,7 +9,21 @@
 		<p>NEW: Use the Load Event option to potentially fix problems with sliders and Masonry in complex themes.</p>
 		<p>NEW: Use the Lazy Loading option to potentially fix problems with testimonial images being cut off.</p>
 		<p>IMPROVED: The star ratings now use an empty star instead of a gray full star. This is the more popular approach.</p>
-		<p>IMPROVED: Minor style tweaks in both admin and in some templates for small screens.</p>
+		<p>IMPROVED: Minor style tweaks in both admin and some templates for small screens.</p>
+		<div class="feature-section-sub">
+
+			<h3 class="heading">Point Releases</h3>
+
+			<p>Bug fixes and improved compatibility. <a href="https://wordpress.org/plugins/strong-testimonials/#developers" target="_blank">Read changelog on wordpress.org</a>.</p>
+
+			<ul>
+				<li>Version 2.31.1</li>
+				<li>Version 2.31.2</li>
+				<li>Version 2.31.3</li>
+				<li>Version 2.31.4</li>
+			</ul>
+
+		</div>
     </div>
 </div>
 

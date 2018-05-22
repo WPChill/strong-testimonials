@@ -2,8 +2,9 @@
 Contributors: cdillon27
 Tags: testimonials, testimonial slider, testimonial form, reviews, star ratings
 Requires at least: 3.7
+Requires PHP: 5.2
 Tested up to: 4.9.6
-Stable tag: 2.31.3
+Stable tag: 2.31.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -79,6 +80,21 @@ The template function will add a view to your custome theme templates:
 `<?php if ( function_exists( 'strong_testimonials_view' ) ) {
     strong_testimonials_view( $id );
 } ?>`
+
+### Privacy and GDPR
+
+By default, this plugin:
+* does not store any user or visitor data,
+* does not send any data to remote servers, act as a service or embed content,
+* does not edit the comments form in any way.
+
+The plugin also prevents displaying email addresses in your testimonials on the front end.
+
+However, this plugin provides features that may involve private data.
+* If you use the testimonial submission form, the data collected on that form will be stored in your database.
+* If you enable the administrator notification email upon new testimonial submission, the data collected on your form, at your selection, may be included in that notification email.
+* If you enable comments on testimonials, the plugin will use your theme's single post template and comment form.
+* If you embed third-party posts such as Twitter, YouTube and FaceBook in your testimonials, you will be agreeing to the Terms of Use of those third-party sites.
 
 ### Pro Add-ons
 
@@ -197,6 +213,9 @@ If you prefer, start a private support ticket at [support.strongplugins.com](htt
 
 == Changelog ==
 
+= 2.31.4 - May 22, 2018 =
+* Add integration with WordPress privacy exporter and eraser features.
+
 = 2.31.3 - May 19, 2018 =
 * Fix missing submit button.
 
@@ -284,3 +303,6 @@ See changelog.txt for previous versions.
 
 = 2.31 =
 New [testimonial_average_rating] shortcode. More compatibility options.
+
+= 2.31.4 =
+Privacy exporter and eraser integration.

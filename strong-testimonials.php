@@ -4,7 +4,7 @@
  * Plugin URI: https://strongplugins.com/plugins/strong-testimonials/
  * Description: Collect and display your testimonials or reviews.
  * Author: Chris Dillon
- * Version: 2.31.3
+ * Version: 2.31.4
  *
  * Author URI: https://strongplugins.com/
  * Text Domain: strong-testimonials
@@ -34,7 +34,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'WPMTST_VERSION', '2.31.3' );
+define( 'WPMTST_VERSION', '2.31.4' );
 define( 'WPMTST_PLUGIN', plugin_basename( __FILE__ ) ); // strong-testimonials/strong-testimonials.php
 define( 'WPMTST', dirname( WPMTST_PLUGIN ) );           // strong-testimonials
 define( 'STRONGPLUGINS_STORE_URL', 'https://strongplugins.com' );
@@ -198,6 +198,7 @@ final class Strong_Testimonials {
 
 		new Strong_Testimonials_Count_Shortcode();
 		new Strong_Testimonials_Average_Shortcode();
+		new Strong_Testimonials_Privacy();
 	}
 
 	/**
@@ -209,6 +210,8 @@ final class Strong_Testimonials {
 	 */
 	private function includes() {
 		require_once WPMTST_INC . 'class-strong-log.php';
+
+		require_once WPMTST_INC . 'class-strong-testimonials-privacy.php';
 
 		require_once WPMTST_INC . 'class-strong-testimonials-shortcode.php';
 		require_once WPMTST_INC . 'class-strong-testimonials-shortcode-count.php';
