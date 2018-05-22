@@ -84,6 +84,7 @@ The template function will add a view to your custome theme templates:
 ### Privacy and GDPR
 
 By default, this plugin:
+
 * does not store any user or visitor data,
 * does not send any data to remote servers, act as a service or embed content,
 * does not edit the comments form in any way.
@@ -91,6 +92,7 @@ By default, this plugin:
 The plugin also prevents displaying email addresses in your testimonials on the front end.
 
 However, this plugin provides features that may involve private data.
+
 * If you use the testimonial submission form, the data collected on that form will be stored in your database.
 * If you enable the administrator notification email upon new testimonial submission, the data collected on your form, at your selection, may be included in that notification email.
 * If you enable comments on testimonials, the plugin will use your theme's single post template and comment form.
