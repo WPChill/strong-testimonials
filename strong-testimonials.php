@@ -198,6 +198,7 @@ final class Strong_Testimonials {
 
 		new Strong_Testimonials_Count_Shortcode();
 		new Strong_Testimonials_Average_Shortcode();
+		new Strong_Testimonials_Privacy();
 	}
 
 	/**
@@ -209,6 +210,8 @@ final class Strong_Testimonials {
 	 */
 	private function includes() {
 		require_once WPMTST_INC . 'class-strong-log.php';
+
+		require_once WPMTST_INC . 'class-strong-testimonials-privacy.php';
 
 		require_once WPMTST_INC . 'class-strong-testimonials-shortcode.php';
 		require_once WPMTST_INC . 'class-strong-testimonials-shortcode-count.php';
