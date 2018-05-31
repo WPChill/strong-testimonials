@@ -63,7 +63,7 @@ class Strong_Testimonials_About {
 			<p class="about-text">
                 <?php _e( 'Thank you for updating to the latest version!' ); ?>
 				<?php /* translators: %s is the plugin version number */ ?>
-                <?php printf( 'Strong Testimonials %s includes a shortcode for your average rating and improves compatibility with lazy loading images.', $major_minor ); ?>
+                <?php printf( 'Strong Testimonials %s fixes minor security vulnerabilities, adds a shortcode for your average rating and has more compatibility options.', $major_minor ); ?>
             </p>
 
 			<div class="wp-badge strong-testimonials"><?php printf( __( 'Version %s' ), $major_minor ); ?></div>
