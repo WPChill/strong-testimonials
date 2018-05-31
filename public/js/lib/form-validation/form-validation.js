@@ -17,7 +17,7 @@ var strongValidation = {
       onSuccess: true,
       onSuccessOffset: 100
     },
-    fields: {}
+    fields: {},
   },
 
   settings: {},
@@ -151,18 +151,29 @@ var strongValidation = {
       },
 
       submitHandler: function (form) {
+
+        strongValidation.disableForm();
+
         // If Ajax
         if (strongValidation.settings.ajaxUrl !== '') {
+
+          window.onbeforeunload = function() {
+            return "Please wait while the form is submitted.";
+          }
+
           var formOptions = {
             url: strongValidation.settings.ajaxUrl,
             data: {
               action: 'wpmtst_form2'
             },
-            success: strongValidation.showResponse
+            success: strongValidation.showResponse,
           };
           jQuery(form).ajaxSubmit(formOptions);
+
         } else {
+
           form.submit();
+
         }
       },
 
@@ -207,6 +218,8 @@ var strongValidation = {
    * @param response
    */
   showResponse: function (response) {
+    window.onbeforeunload = null;
+    strongValidation.enableForm();
     var obj = JSON.parse(response);
     if (obj.success) {
       jQuery('#wpmtst-form').html(obj.message);
@@ -240,5 +253,21 @@ var strongValidation = {
         jQuery('html, body').animate({scrollTop: scrollTop}, 800);
       }
     }
+  },
+
+  /**
+   * Show overlay during form submission.
+   */
+  disableForm: function () {
+    jQuery('.strong-form-wait').show();
+    jQuery('#wpmtst_submit_testimonial').prop('disabled',true);
+  },
+
+  /**
+   * Hide overlay after form submission.
+   */
+  enableForm: function () {
+    jQuery('.strong-form-wait').hide();
+    jQuery('#wpmtst_submit_testimonial').prop('disabled',false);
   }
 };
