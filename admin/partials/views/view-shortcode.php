@@ -10,7 +10,14 @@ if ( 'edit' == $action ) {
 	$shortcode = '<div class="unsaved">' . _x( 'will be available after you save this', 'The shortcode for a new View.', 'strong-testimonials' ) . '</div>';
 }
 
-$then_classes = array( 'then', 'then_display', 'then_form', 'then_slideshow', 'then_not_single_template', apply_filters( 'wpmtst_view_section', '', 'shortcode' ) );
+$then_classes = array(
+	'then',
+	'then_display',
+	'then_form',
+	'then_slideshow',
+	'then_not_single_template',
+	apply_filters( 'wpmtst_view_section', '', 'shortcode' ),
+);
 ?>
 
 <div class="table-row form-view-shortcode <?php echo esc_attr( join( array_filter( $then_classes ), ' ' ) ); ?>">
