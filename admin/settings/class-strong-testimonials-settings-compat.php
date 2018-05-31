@@ -98,12 +98,15 @@ class Strong_Testimonials_Settings_Compat {
 
 		$input['lazyload']['enabled'] = wpmtst_sanitize_checkbox( $input['lazyload'], 'enabled' );
 		// may be multiple pairs
-		foreach ( $input['lazyload']['classes'] as $key => $classes ) {
-			if ( $classes['start'] || $classes['finish'] ) {
-				$input['lazyload']['classes'][ $key ]['start']  = str_replace( '.', '', sanitize_text_field( $classes['start'] ) );
-				$input['lazyload']['classes'][ $key ]['finish'] = str_replace( '.', '', sanitize_text_field( $classes['finish'] ) );
-			} else {
-				unset( $input['lazyload']['classes'][ $key ] );
+		if ( isset( $input['lazyload']['classes'] ) ) {
+			foreach ( $input['lazyload']['classes'] as $key => $classes ) {
+				if ( $classes['start'] || $classes['finish'] ) {
+					$input['lazyload']['classes'][ $key ]['start']  = str_replace( '.', '', sanitize_text_field( $classes['start'] ) );
+					$input['lazyload']['classes'][ $key ]['finish'] = str_replace( '.', '', sanitize_text_field( $classes['finish'] ) );
+				}
+				else {
+					unset( $input['lazyload']['classes'][ $key ] );
+				}
 			}
 		}
 
@@ -847,8 +850,10 @@ class Strong_Testimonials_Settings_Compat {
 			</div>
 			<div class="lazyload-pairs">
 				<?php
-				foreach ( $this->options['lazyload']['classes'] as $key => $pair ) {
-					$this->settings_page_lazyload_class_inputs( $key, $pair );
+				if ( isset( $this->options['lazyload']['classes'] ) ) {
+					foreach ( $this->options['lazyload']['classes'] as $key => $pair ) {
+						$this->settings_page_lazyload_class_inputs( $key, $pair );
+					}
 				}
 				?>
 				<div class="pair-actions">
