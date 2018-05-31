@@ -2,9 +2,9 @@
 Contributors: cdillon27
 Tags: testimonials, testimonial slider, testimonial form, reviews, star ratings
 Requires at least: 3.7
-Requires PHP: 5.2
+Requires PHP: 5.2.4
 Tested up to: 4.9.6
-Stable tag: 2.31.4
+Stable tag: 2.31.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -215,6 +215,11 @@ If you prefer, start a private support ticket at [support.strongplugins.com](htt
 
 == Changelog ==
 
+= 2.31.5 - June 1, 2018 =
+* Fix XSS vulnerablilities reported by DefenseCode using Thunderscan.
+* Add spinner UI element while form is being submitted to deter visitor from navigating away.
+* Minor admin UI improvements.
+
 = 2.31.4 - May 22, 2018 =
 * Add integration with WordPress privacy exporter and eraser features.
 
@@ -308,3 +313,6 @@ New [testimonial_average_rating] shortcode. More compatibility options.
 
 = 2.31.4 =
 Privacy exporter and eraser integration.
+
+= 2.31.5 =
+Fix XSS security vulnerabilities.
