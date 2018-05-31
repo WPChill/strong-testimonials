@@ -101,10 +101,26 @@ Array.max = function (array) {
 }(jQuery));
 
 /**
- * Masonry in the Layout section.
+ * Remove 'result' query argument.
+ */
+removeResultArg = function () {
+  var urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.has('result')) {
+    urlParams.delete('result');
+    var newURL = window.location.pathname;
+    if (urlParams.toString()) {
+      newURL = newURL + '?' + urlParams.toString();
+    }
+    window.history.replaceState({}, document.title, newURL);
+  }
+}
+
+/**
+ * Initial actions on document.ready
  */
 jQuery(document).ready(function ($) {
-  // Masonry
+
+  // Masonry in the Layout section
   $('.view-layout-masonry .example-container')
     .find('.box')
     .width(jQuery('.grid-sizer').width())
@@ -113,6 +129,8 @@ jQuery(document).ready(function ($) {
 
   // Category select width
   $.fn.afterToggle();
+
+  removeResultArg();
 });
 
 (function ($) {
@@ -189,7 +207,7 @@ jQuery(document).ready(function ($) {
    * Restore defaults
    */
   // TODO i18n
-  $('#restore-defaults').click(function () {
+  $('#restore-defaults').on('click', function () {
     return confirm('Restore the default settings?');
   });
 
