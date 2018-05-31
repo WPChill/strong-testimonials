@@ -45,10 +45,16 @@ class Strong_View_Form extends Strong_View {
 	 * @since 2.31.5
 	 */
 	public function print_overlay() {
-		WPMST()->render->add_style( 'wpmtst-font-awesome' );
-		?>
-		<div class="strong-form-wait"><div class="message"><i class="fa fa-2x fa-spinner fa-pulse" aria-hidden="true"></i></div></div>
-		<?php
+		if ( apply_filters( 'wpmtst_form_wait', true ) ) {
+			WPMST()->render->add_style( 'wpmtst-font-awesome' );
+			?>
+			<div class="strong-form-wait">
+				<div class="message">
+					<?php echo wp_kses_post( apply_filters( 'wpmtst_form_wait_message', '<i class="fa fa-2x fa-spinner fa-pulse" aria-hidden="true"></i>' ) ); ?>
+				</div>
+			</div>
+			<?php
+		}
 	}
 
 	/**
@@ -100,9 +106,7 @@ class Strong_View_Form extends Strong_View {
 		/**
 		 * Add filters here.
 		 */
-		if ( apply_filters( 'wpmtst_form_wait', true ) ) {
-			add_action( 'wpmtst_before_form', array( $this, 'print_overlay' ) );
-		}
+		add_action( 'wpmtst_before_form', array( $this, 'print_overlay' ) );
 
 		/**
 		 * Locate template.
@@ -126,9 +130,7 @@ class Strong_View_Form extends Strong_View {
 		/**
 		 * Remove filters here.
 		 */
-		if ( apply_filters( 'wpmtst_form_wait', true ) ) {
-			remove_action( 'wpmtst_before_form', array( $this, 'print_overlay' ) );
-		}
+		remove_action( 'wpmtst_before_form', array( $this, 'print_overlay' ) );
 
 		/**
 		 * Trigger stuff.
