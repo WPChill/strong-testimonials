@@ -6,8 +6,8 @@
         <div class="mode-list">
             <?php foreach ( $view_options['mode'] as $mode ) : ?>
                 <label>
-                    <input id="<?php echo $mode['name']; ?>" type="radio" name="view[data][mode]"
-                           value="<?php echo $mode['name']; ?>" <?php checked( $view['mode'], $mode['name'] ); ?>>
+                    <input id="<?php echo esc_attr( $mode['name'] ); ?>" type="radio" name="view[data][mode]"
+                           value="<?php echo esc_attr( $mode['name'] ); ?>" <?php checked( $view['mode'], $mode['name'] ); ?>>
                     <?php echo $mode['label']; ?>
                     <div class="mode-line"></div>
                 </label>
