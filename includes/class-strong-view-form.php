@@ -29,7 +29,6 @@ class Strong_View_Form extends Strong_View {
 	public function process() {
 		$this->build_classes();
 		$this->find_stylesheet();
-		$this->has_wait_message();
 		$this->load_dependent_scripts();
 		$this->load_extra_stylesheets();
 		$this->load_validator();
@@ -38,12 +37,15 @@ class Strong_View_Form extends Strong_View {
 		add_action( 'wp_enqueue_scripts', array( $this, 'add_custom_style' ), 20 );
 	}
 
-	public function has_wait_message() {
-		WPMST()->render->add_style( 'wpmtst-font-awesome' );
-
-	}
-
+	/**
+	 * Print overlay while form data is submitted.
+	 *
+	 * This helps when uploading large files and on slow connections.
+	 *
+	 * @since 2.31.5
+	 */
 	public function print_overlay() {
+		WPMST()->render->add_style( 'wpmtst-font-awesome' );
 		?>
 		<div class="strong-form-wait"><div class="message"><i class="fa fa-2x fa-spinner fa-pulse" aria-hidden="true"></i></div></div>
 		<?php
@@ -98,7 +100,9 @@ class Strong_View_Form extends Strong_View {
 		/**
 		 * Add filters here.
 		 */
-		add_action( 'wpmtst_before_form', array( $this, 'print_overlay' ) );
+		if ( apply_filters( 'wpmtst_form_wait', true ) ) {
+			add_action( 'wpmtst_before_form', array( $this, 'print_overlay' ) );
+		}
 
 		/**
 		 * Locate template.
@@ -122,7 +126,9 @@ class Strong_View_Form extends Strong_View {
 		/**
 		 * Remove filters here.
 		 */
-		remove_action( 'wpmtst_before_form', array( $this, 'print_overlay' ) );
+		if ( apply_filters( 'wpmtst_form_wait', true ) ) {
+			remove_action( 'wpmtst_before_form', array( $this, 'print_overlay' ) );
+		}
 
 		/**
 		 * Trigger stuff.
