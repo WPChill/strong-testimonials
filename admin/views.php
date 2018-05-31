@@ -39,7 +39,7 @@ function wpmtst_views_admin() {
 			);
 
 			if ( in_array( $result, array_keys( $result_messages ) ) ) {
-				printf( '<div class="notice is-dismissible updated"><p>%s</p></div>', $result_messages[ $result ] );
+				printf( '<div class="notice notice-success is-dismissible"><p>%s</p></div>', $result_messages[ $result ] );
 			}
 
 		}
@@ -50,7 +50,7 @@ function wpmtst_views_admin() {
 
 			$message = __( 'An error occurred.', 'strong-testimonials' ) . ' ' . sprintf( wp_kses( __( 'Please <a href="%s" target="_blank">open a support ticket</a>.', 'strong-testimonials' ), $tags ), esc_url( 'https://support.strongplugins.com/new-ticket/' ) );
 
-			wp_die( sprintf( '<div class="notice error strong-view-error"><p>%s</p></div>', $message ) );
+			wp_die( sprintf( '<div class="notice notice-error"><p>%s</p></div>', $message ) );
 
 		}
 
