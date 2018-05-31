@@ -2,6 +2,7 @@
  * Strong Testimonials Default Form template
  */
 .strong-form {
+  position: relative;
   margin: 0 auto;
 }
 .strong-form .form-field {
