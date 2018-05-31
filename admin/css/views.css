@@ -782,7 +782,7 @@ ul.radio-list.template-list li {
       border-color: #444; }
   .fields .field3 {
     flex: 20; }
-  .fields span.link {
+  .fields div.link {
     display: inline-block;
     cursor: pointer;
     padding: 10px 10px 8px;

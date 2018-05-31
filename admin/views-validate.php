@@ -13,10 +13,10 @@
 function wpmtst_validate_view_name( $name, $view_id ){
 	if ( '' == $name ) {
 		$name = "Testimonial View $view_id";
-	}
-	else {
+	}else {
 		$name = sanitize_text_field( stripslashes( $name ) );
 	}
+
 	return $name;
 }
 
