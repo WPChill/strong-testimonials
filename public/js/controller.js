@@ -113,6 +113,16 @@ var strongController = {
     if (forms.length) {
       strongValidation.init();
       // initialize Captcha plugins here
+    } else {
+      var urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.has('success')) {
+        urlParams.delete('success');
+        var newURL = window.location.pathname;
+        if (urlParams.toString()) {
+          newURL = newURL + '?' + urlParams.toString();
+        }
+        window.history.replaceState({}, document.title, newURL);
+      }
     }
   },
 

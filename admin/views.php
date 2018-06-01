@@ -16,46 +16,50 @@ function wpmtst_views_admin() {
 	if ( ! current_user_can( 'strong_testimonials_views' ) )
 		wp_die( __( 'You do not have sufficient permissions to access this page.' ) );
 
+	$tags = array(
+		'a' => array(
+			'href'   => array(),
+			'target' => array(),
+		),
+	);
+
 	?>
 	<div class="wrap wpmtst2">
 
 		<?php
-		if ( isset( $_REQUEST['cancelled'] ) ) {
-			$message = __( 'Changes cancelled.', 'strong-testimonials' );
-		} elseif ( isset( $_REQUEST['defaults-restored'] ) ) {
-			$message = __( 'Defaults restored.', 'strong-testimonials' );
-		} elseif ( isset( $_REQUEST['view-saved'] ) ) {
-			$message = __( 'View saved.', 'strong-testimonials' );
-		} elseif( isset( $_REQUEST['view-deleted'] ) ) {
-			$message = __( 'View deleted.', 'strong-testimonials' );
-		} else {
-			$message = '';
-		}
+		if ( isset( $_REQUEST['result'] ) ) {
 
-		if ( $message ) {
-			printf( '<div class="notice is-dismissible updated"><p>%s</p></div>', $message );
+			$result = filter_input( INPUT_GET, 'result', FILTER_SANITIZE_STRING );
+
+			$result_messages = array(
+				'cancelled'         => __( 'Changes cancelled.', 'strong-testimonials' ),
+				'defaults-restored' => __( 'Defaults restored.', 'strong-testimonials' ),
+				'view-saved'        => __( 'View saved.', 'strong-testimonials' ),
+				'view-deleted'      => __( 'View deleted.', 'strong-testimonials' ),
+			);
+
+			if ( in_array( $result, array_keys( $result_messages ) ) ) {
+				printf( '<div class="notice notice-success is-dismissible"><p>%s</p></div>', $result_messages[ $result ] );
+			}
+
 		}
 
 		if ( isset( $_REQUEST['error'] ) ) {
 
 			echo '<h1>' . __( 'Edit View', 'strong-testimonials' ) . '</h1>';
-			$message = __( 'An error occurred.', 'strong-testimonials' ) . ' ' . sprintf( __( 'Please <a href="%s" target="_blank">open a support ticket</a>.', 'strong-testimonials' ), esc_url( 'https://support.strongplugins.com/new-ticket/' ) );
-			wp_die( sprintf( '<div class="error strong-view-error"><p>%s</p></div>', $message ) );
 
-		} elseif ( isset( $_REQUEST['action'] ) ) {
+			$message = __( 'An error occurred.', 'strong-testimonials' ) . ' ' . sprintf( wp_kses( __( 'Please <a href="%s" target="_blank">open a support ticket</a>.', 'strong-testimonials' ), $tags ), esc_url( 'https://support.strongplugins.com/new-ticket/' ) );
 
-			if ( 'edit' == $_REQUEST['action'] && isset( $_REQUEST['id'] ) ) {
-				wpmtst_view_settings( $_REQUEST['action'], $_REQUEST['id'] );
-			}
-			elseif ( 'duplicate' == $_REQUEST['action'] && isset( $_REQUEST['id'] ) ) {
-				wpmtst_view_settings( $_REQUEST['action'], $_REQUEST['id'] );
-			}
-			elseif ( 'add' == $_REQUEST['action'] ) {
-				wpmtst_view_settings( $_REQUEST['action'] );
-			}
-			else {
-				echo '<p>' . __( 'Invalid request. Please try again.', 'strong-testimonials' ) . '</p>';
-			}
+			wp_die( sprintf( '<div class="notice notice-error"><p>%s</p></div>', $message ) );
+
+		}
+
+		if ( isset( $_REQUEST['action'] ) ) {
+
+			$action = filter_input( INPUT_GET, 'action', FILTER_SANITIZE_STRING );
+			$id     = abs( filter_input( INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT ) );
+
+			wpmtst_view_settings( $action, $id );
 
 		} else {
 
@@ -104,6 +108,11 @@ function wpmtst_views_admin() {
  * @param null   $view_id
  */
 function wpmtst_view_settings( $action = '', $view_id = null ) {
+
+	$actions = array( 'edit', 'duplicate', 'add' );
+	if ( ! in_array( $action, $actions ) ) {
+		wp_die( __( 'Invalid request. Please try again.', 'strong-testimonials' ) );
+	}
 
 	if ( ( 'edit' == $action || 'duplicate' == $action ) && ! $view_id ) return;
 
@@ -163,9 +172,9 @@ function wpmtst_view_settings( $action = '', $view_id = null ) {
 		$view['pagination_settings']['per_page'] = 5;
 	}
 
-	$custom_list  = apply_filters( 'wpmtst_custom_pages_list', array(), $view );
-	$pages_list   = apply_filters( 'wpmtst_pages_list', wpmtst_get_pages() );
-	$posts_list   = apply_filters( 'wpmtst_posts_list', wpmtst_get_posts() );
+	$custom_list = apply_filters( 'wpmtst_custom_pages_list', array(), $view );
+	$pages_list  = apply_filters( 'wpmtst_pages_list', wpmtst_get_pages() );
+	$posts_list  = apply_filters( 'wpmtst_posts_list', wpmtst_get_posts() );
 
 	$view_options = apply_filters( 'wpmtst_view_options', get_option( 'wpmtst_view_options' ) );
 
@@ -173,8 +182,7 @@ function wpmtst_view_settings( $action = '', $view_id = null ) {
 	if ( !$view['template'] ) {
 		if ( 'form' == $view['mode'] ) {
 			$view['template'] = 'default-form';
-		}
-		else {
+		} else {
 			$view['template'] = 'default';
 		}
 	}
@@ -205,14 +213,14 @@ function wpmtst_view_settings( $action = '', $view_id = null ) {
         <?php endif; ?>
 	</h1>
 
-	<form id="wpmtst-views-form" method="post" action="<?php echo get_admin_url() . 'admin-post.php'; ?>" autocomplete="off">
+	<form id="wpmtst-views-form" method="post" action="<?php echo admin_url( 'admin-post.php' ); ?>" autocomplete="off">
 
 		<?php wp_nonce_field( 'view_form_submit', 'view_form_nonce', true, true ); ?>
 
-		<input type="hidden" name="action" value="view_<?php echo $action; ?>_form">
-		<input type="hidden" name="view[id]" value="<?php echo $view_id; ?>">
-		<input type="hidden" name="view_original_mode" value="<?php echo $view['mode']; ?>">
-		<input type="hidden" name="view[data][_form_id]" value="<?php echo $view['form_id']; ?>">
+		<input type="hidden" name="action" value="view_<?php echo esc_attr( $action ); ?>_form">
+		<input type="hidden" name="view[id]" value="<?php echo esc_attr( $view_id ); ?>">
+		<input type="hidden" name="view_original_mode" value="<?php echo esc_attr( $view['mode'] ); ?>">
+		<input type="hidden" name="view[data][_form_id]" value="<?php echo esc_attr( $view['form_id'] ); ?>">
 
         <div class="table view-info">
 			<?php include( 'partials/views/view-name.php' ); ?>
@@ -271,56 +279,58 @@ function wpmtst_view_edit_form() {
 
 	$goback = wp_get_referer();
 
-	if ( ! empty( $_POST ) && check_admin_referer( 'view_form_submit', 'view_form_nonce' ) ) {
+	if ( empty( $_POST ) || ! check_admin_referer( 'view_form_submit', 'view_form_nonce' ) ) {
+		$goback = add_query_arg( 'result', 'error', $goback );
+		wp_redirect( $goback );
+		exit;
+	}
 
-		$view_id    = $_POST['view']['id'];
-		$view_name  = wpmtst_validate_view_name( $_POST['view']['name'], $view_id );
+	$view_id    = abs( filter_var( $_POST['view']['id'], FILTER_SANITIZE_NUMBER_INT ) );
+	$view_name  = wpmtst_validate_view_name( $_POST['view']['name'], $view_id );
 
-		if ( isset( $_POST['reset'] ) ) {
+	if ( isset( $_POST['reset'] ) ) {
 
-			// Undo changes
-			$goback = remove_query_arg( array( 'defaults-restored', 'view-saved' ), $goback );
-			$goback = add_query_arg( 'cancelled', true, $goback );
+		// Undo changes
+		$goback = add_query_arg( 'result', 'cancelled', $goback );
 
-		} elseif ( isset( $_POST['restore-defaults'] ) ) {
+	} elseif ( isset( $_POST['restore-defaults'] ) ) {
 
-			// Restore defaults
-			$default_view = wpmtst_get_view_default();
+		// Restore defaults
+		$default_view = wpmtst_get_view_default();
 
-			$view = array(
-				'id'   => $view_id,
-				'name' => $view_name,
-				'data' => $default_view
-			);
-			$success = wpmtst_save_view( $view ); // num_rows
+		$view = array(
+			'id'   => $view_id,
+			'name' => $view_name,
+			'data' => $default_view
+		);
+		$success = wpmtst_save_view( $view ); // num_rows
 
-			if ( $success ) {
-				$goback = add_query_arg( 'defaults-restored', true, $goback );
-			} else {
-				$goback = add_query_arg( 'error', true, $goback );
-			}
-
+		if ( $success ) {
+			$goback = add_query_arg( 'result', 'defaults-restored', $goback );
 		} else {
+			$goback = add_query_arg( 'result', 'error', $goback );
+		}
 
-			// Sanitize & validate
-			$view = array(
-				'id'   => $view_id,
-				'name' => $view_name,
-				'data' => wpmtst_sanitize_view( stripslashes_deep( $_POST['view']['data'] ) ),
-			);
-			$success = wpmtst_save_view( $view ); // num_rows
+	} elseif ( isset( $_POST['submit-form'] ) ) {
 
-			if ( $success ) {
-				$goback = remove_query_arg( array( 'defaults-restored', 'cancelled' ), $goback );
-				$goback = add_query_arg( 'view-saved', true, $goback );
-			} else {
-				$goback = add_query_arg( 'error', true, $goback );
-			}
+		// Sanitize & validate
+		$view = array(
+			'id'   => $view_id,
+			'name' => $view_name,
+			'data' => wpmtst_sanitize_view( stripslashes_deep( $_POST['view']['data'] ) ),
+		);
+		$success = wpmtst_save_view( $view ); // num_rows
 
+		if ( $success ) {
+			$goback = add_query_arg( 'result', 'view-saved', $goback );
+		} else {
+			$goback = add_query_arg( 'result', 'error', $goback );
 		}
 
 	} else {
-		$goback = add_query_arg( 'error', true, $goback );
+
+		$goback = add_query_arg( 'result', 'error', $goback );
+
 	}
 
 	wp_redirect( $goback );
@@ -339,48 +349,52 @@ function wpmtst_view_add_form() {
 
 	$goback = wp_get_referer();
 
-	if ( ! empty( $_POST ) && check_admin_referer( 'view_form_submit', 'view_form_nonce' ) ) {
+	if ( empty( $_POST ) || ! check_admin_referer( 'view_form_submit', 'view_form_nonce' ) ) {
+		$goback = add_query_arg( 'result', 'error', $goback );
+		wp_redirect( $goback );
+		exit;
+	}
 
-		$view_id   = 0;
-		$view_name = wpmtst_validate_view_name( $_POST['view']['name'], $view_id );
+	$view_id   = 0;
+	$view_name = wpmtst_validate_view_name( $_POST['view']['name'], $view_id );
 
-		if ( isset( $_POST['restore-defaults'] ) ) {
+	if ( isset( $_POST['restore-defaults'] ) ) {
 
-			// Restore defaults
-			$default_view = wpmtst_get_view_default();
+		// Restore defaults
+		$default_view = wpmtst_get_view_default();
 
-			$view = array(
-				'id'   => $view_id,
-				'name' => $view_name,
-				'data' => $default_view,
-			);
-			$success = wpmtst_save_view( $view, 'add' ); // num_rows
+		$view = array(
+			'id'   => $view_id,
+			'name' => $view_name,
+			'data' => $default_view,
+		);
+		$success = wpmtst_save_view( $view, 'add' ); // view ID
 
-			$query_arg = 'defaults-restored';
+		$query_arg = 'defaults-restored';
 
-		} else {
+	} elseif ( isset( $_POST['submit-form'] ) ) {
 
-			// Sanitize & validate
-			$view = array(
-				'id'   => 0,
-				'name' => $view_name,
-				'data' => wpmtst_sanitize_view( stripslashes_deep( $_POST['view']['data'] ) ),
-			);
-			$success = wpmtst_save_view( $view, 'add' ); // new id
+		// Sanitize & validate
+		$view = array(
+			'id'   => 0,
+			'name' => $view_name,
+			'data' => wpmtst_sanitize_view( stripslashes_deep( $_POST['view']['data'] ) ),
+		);
+		$success = wpmtst_save_view( $view, 'add' ); // view ID
 
-			$query_arg = 'view-saved';
-
-		}
-
-		$goback = remove_query_arg( array( 'action', 'defaults-restored', 'cancelled' ), $goback );
-		if ( $success ) {
-			$goback = add_query_arg( array( 'action' => 'edit', 'id' => $success, $query_arg => true ), $goback );
-		} else {
-			$goback = add_query_arg( 'error', true, $goback );
-		}
+		$query_arg = 'view-saved';
 
 	} else {
-		$goback = add_query_arg( 'error', true, $goback );
+
+		$success = false;
+		$query_arg = 'error';
+
+	}
+
+	if ( $success ) {
+		$goback = add_query_arg( array( 'action' => 'edit', 'id' => $success, 'result' => $query_arg ), $goback );
+	} else {
+		$goback = add_query_arg( 'result', 'error', $goback );
 	}
 
 	wp_redirect( $goback );
@@ -507,7 +521,7 @@ function wpmtst_view_field_inputs( $key, $field, $adding = false ) {
 
 		<div class="field3" data-key="<?php echo $key; ?>">
 
-			<span class="link" title="<?php _e( 'click to open or close', 'strong-testimonials' ); ?>">
+			<div class="link" title="<?php _e( 'click to open or close', 'strong-testimonials' ); ?>">
 
 				<a href="#" class="field-description <?php echo $label_class; ?>"><?php echo $field_label; ?></a>
 
@@ -523,7 +537,7 @@ function wpmtst_view_field_inputs( $key, $field, $adding = false ) {
 						  title="<?php _e( 'click to open or close', 'strong-testimonials' ); ?>"></span>
 				</div>
 
-			</span>
+			</div>
 
 			<div class="field-properties" style="display: none;">
 
@@ -734,15 +748,14 @@ function wpmtst_delete_view( $id ) {
  */
 function wpmtst_action_delete_view() {
 	if ( isset( $_REQUEST['action'] ) && 'delete-strong-view' == $_REQUEST['action'] && isset( $_REQUEST['id'] ) ) {
-		$id = (int) $_GET['id'];
+		$id = abs( (int) filter_input( INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT ) );
 		check_admin_referer( 'delete-strong-view_' . $id );
 		wpmtst_delete_view( $id );
-		$goback = add_query_arg( 'view-deleted', true, wp_get_referer() );
+		$goback = add_query_arg( 'result', 'view-deleted', wp_get_referer() );
 		wp_redirect( $goback );
 		exit;
 	}
 }
-
 add_action( 'admin_action_delete-strong-view', 'wpmtst_action_delete_view' );
 
 
@@ -808,7 +821,7 @@ function wpmtst_form_category_checklist( $view_cats_array ) {
  * @since 2.22.0
  */
 function wpmtst_save_view_sticky() {
-	$id = $_REQUEST['id'];
+	$id = filter_input( INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT );
 	$stickies = get_option( 'wpmtst_sticky_views', array() );
 	if ( in_array( $id, $stickies ) ) {
 		$stickies = array_diff( $stickies, array( $id ) );

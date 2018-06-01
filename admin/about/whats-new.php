@@ -14,13 +14,14 @@
 
 			<h3 class="heading">Point Releases</h3>
 
-			<p>Bug fixes and improved compatibility. <a href="https://wordpress.org/plugins/strong-testimonials/#developers" target="_blank">Read changelog on wordpress.org</a>.</p>
+			<p>Security fixes, bug fixes and improved compatibility. <a href="https://wordpress.org/plugins/strong-testimonials/#developers" target="_blank">Read changelog on wordpress.org</a>.</p>
 
 			<ul>
 				<li>Version 2.31.1</li>
 				<li>Version 2.31.2</li>
 				<li>Version 2.31.3</li>
 				<li>Version 2.31.4</li>
+				<li>Version 2.31.5</li>
 			</ul>
 
 		</div>

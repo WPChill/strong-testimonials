@@ -6,6 +6,8 @@
 ?>
 <div class="strong-view strong-form <?php wpmtst_container_class(); ?>"<?php wpmtst_container_data(); ?>>
 
+	<?php do_action( 'wpmtst_before_form' ); ?>
+
 	<div id="wpmtst-form">
 
         <div class="strong-form-inner">
@@ -29,5 +31,7 @@
         </div>
 
 	</div>
+
+	<?php do_action( 'wpmtst_after_form' ); ?>
 
 </div>
