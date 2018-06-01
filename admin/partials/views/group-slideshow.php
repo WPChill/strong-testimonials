@@ -1,6 +1,16 @@
-<?php /* translators: In the view editor. */ ?>
-<div class="then then_not_display then_not_form then_slideshow then_not_single_template <?php echo apply_filters( 'wpmtst_view_section', '', 'slideshow' ); ?>" style="display: none;">
+<?php
+$then_classes = array(
+	'then',
+	'then_not_display',
+	'then_not_form',
+	'then_slideshow',
+	'then_not_single_template',
+	apply_filters( 'wpmtst_view_section', '', 'slideshow' ),
+);
+?>
+<div class="<?php echo esc_attr( join( array_filter( $then_classes ), ' ' ) ); ?>" style="display: none;">
 	<h3>
+		<?php /* translators: In the view editor. */ ?>
 		<?php _e( 'Slideshow', 'strong-testimonials' ); ?>
 	</h3>
 	<table class="form-table multiple group-select">
