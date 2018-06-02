@@ -22,6 +22,7 @@
 				<li>Version 2.31.3</li>
 				<li>Version 2.31.4</li>
 				<li>Version 2.31.5</li>
+				<li>Version 2.31.6</li>
 			</ul>
 
 		</div>
