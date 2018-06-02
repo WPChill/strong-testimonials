@@ -215,6 +215,9 @@ If you prefer, start a private support ticket at [support.strongplugins.com](htt
 
 == Changelog ==
 
+= 2.31.6 - June 2, 2018 =
+* Fix bug when adding a custom field in view editor.
+
 = 2.31.5 - June 1, 2018 =
 * Fix XSS vulnerablilities reported by DefenseCode using Thunderscan.
 * Add spinner UI element while form is being submitted to deter visitor from navigating away.
