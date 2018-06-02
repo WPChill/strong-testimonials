@@ -892,7 +892,7 @@ jQuery(document).ready(function ($) {
   /**
    * Add client field
    */
-  $('#add-field').click(function (e) {
+  $('#add-field').on('click', function (e) {
     var keys = $('.field3').map(function () {
       return $(this).data('key');
     }).get();
@@ -902,11 +902,10 @@ jQuery(document).ready(function ($) {
       'key': nextKey,
     };
     $.get(ajaxurl, data, function (response) {
-      //customFieldList.append( response ).find("#field-"+nextKey+" span.link").click();
       $.when(customFieldList.append(response)).then(function () {
         var $newField = customFieldList.find('#field-' + nextKey);
         $newField
-          .find('span.link').click().end()
+          .find('div.link').click().end()
           .find('.field-dep').hide().end()
           .find('.first-field').focus();
       });
@@ -1095,12 +1094,12 @@ jQuery(document).ready(function ($) {
     e.preventDefault();
   });
 
-  customFieldList.on('click', 'span.link', function (e) {
+  customFieldList.on('click', 'div.link', function (e) {
     $(this)
       .closest('.field2')
       .toggleClass('open')
       .find('.field-properties')
-      .slideToggle();
+      .slideToggle(100);
     return false;
   });
 
