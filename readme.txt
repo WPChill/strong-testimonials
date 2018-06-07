@@ -4,7 +4,7 @@ Tags: testimonials, testimonial slider, testimonial form, reviews, star ratings
 Requires at least: 3.7
 Requires PHP: 5.2.4
 Tested up to: 4.9.6
-Stable tag: 2.31.6
+Stable tag: 2.31.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -214,6 +214,9 @@ If you prefer, start a private support ticket at [support.strongplugins.com](htt
 8. View editor
 
 == Changelog ==
+
+= 2.31.7 - June 7, 2018 =
+* Fix JavaScript incompatibility in IE and Edge.
 
 = 2.31.6 - June 2, 2018 =
 * Fix bug when adding a custom field in view editor.
