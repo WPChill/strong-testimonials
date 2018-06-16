@@ -4,7 +4,7 @@ Tags: testimonials, testimonial slider, testimonial form, reviews, star ratings
 Requires at least: 3.7
 Requires PHP: 5.2.4
 Tested up to: 4.9.6
-Stable tag: 2.31.7
+Stable tag: 2.31.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -215,6 +215,12 @@ If you prefer, start a private support ticket at [support.strongplugins.com](htt
 
 == Changelog ==
 
+= 2.31.8 - June 16, 2018 =
+* Fix "wait" spinner in unstyled form template.
+* On forms, only show required symbol if field label is shown.
+* Refactor inline style method.
+* Improve exception handling.
+
 = 2.31.7 - June 7, 2018 =
 * Fix JavaScript incompatibility in IE and Edge.
 
@@ -322,3 +328,6 @@ Privacy exporter and eraser integration.
 
 = 2.31.5 =
 Fix XSS security vulnerabilities.
+
+= 2.31.8 =
+Minor improvements to forms and inline style.

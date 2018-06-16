@@ -70,11 +70,6 @@ function wpmtst_scripts() {
 	                    true );
 
 	/**
-	 * View custom style
-	 */
-	wp_register_style( 'wpmtst-custom-style', WPMTST_PUBLIC_URL . 'css/custom.css' );
-
-	/**
 	 * imagesLoaded, if less than WordPress 4.6
 	 */
 	if ( ! wp_script_is( 'imagesloaded', 'registered' ) ) {
