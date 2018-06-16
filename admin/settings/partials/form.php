@@ -55,6 +55,8 @@ foreach ( $plugins as $key => $plugin ) {
 	<?php
 	$messages = $form_options['messages'];
 	foreach ( $messages as $key => $message ):
+		$required = isset( $message['required'] ) ? $message['required'] : true;
+
 		$elid = str_replace( '-', '_', $key );
 		// $string, $context, $name
 		$content = apply_filters( 'wpmtst_l10n', $message['text'], 'strong-testimonials-form-messages', $message['description'] );
@@ -90,7 +92,8 @@ foreach ( $plugins as $key => $plugin ) {
 					<?php endif; ?>
                     <input type="text" id="<?php echo $elid; ?>"
                            name="wpmtst_form_options[messages][<?php echo $key; ?>][text]"
-                           value="<?php esc_attr_e( $content ); ?>" required/>
+                           value="<?php esc_attr_e( $content ); ?>"
+						   <?php echo $required ? 'required' : '' ?>/>
 				<?php endif; ?>
             </td>
             <td class="actions">

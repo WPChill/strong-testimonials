@@ -550,10 +550,16 @@ class Strong_Testimonials_Updater {
 		 * Merge in new options.
 		 */
 		$defaults = Strong_Testimonials_Defaults::get_form_options();
+
 		$form_options = array_merge( $defaults, $form_options );
+
 		// Merge nested arrays individually. Don't use array_merge_recursive.
+
 		$form_options['default_recipient'] = array_merge( $defaults['default_recipient'], $form_options['default_recipient'] );
-		$form_options['messages'] = array_merge( $defaults['messages'], $form_options['messages'] );
+
+		foreach ( $defaults['messages'] as $key => $message ) {
+			$form_options['messages'][ $key ] = array_merge( $message, $form_options['messages'][ $key ] );
+		}
 
 		/**
 		 * Convert Captcha plugin name.
