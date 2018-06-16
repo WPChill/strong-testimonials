@@ -69,22 +69,24 @@ function wpmtst_single_form_field( $field ) {
 
 	if ( 'checkbox' != $field['input_type'] ) {
 		if ( ! isset( $field['show_label'] ) || $field['show_label'] ) {
-			$label = '<label for="wpmtst_' . $field['name'] . '">' . wpmtst_form_field_meta_l10n( $field['label'], $field, 'label' ) . '</label>';
-			echo $label;
-		}
-		if ( isset( $field['required'] ) && $field['required'] ) {
-			wpmtst_field_required_symbol();
+			echo '<label for="wpmtst_' . $field['name'] . '">' . wpmtst_form_field_meta_l10n( $field['label'], $field, 'label' ) . '</label>';
+
+			if ( isset( $field['required'] ) && $field['required'] ) {
+				wpmtst_field_required_symbol();
+			}
 		}
 	    wpmtst_field_before( $field );
 	}
 
 	// Check for callback first.
     if ( isset( $field['action_input'] ) && $field['action_input'] ) {
+
 	    $value = ( isset( $form_values[ $field['name'] ] ) && $form_values[ $field['name'] ] ) ? $form_values[ $field['name'] ] : '';
         do_action( $field['action_input'], $field, $value );
-    }
-    // Check field type.
-    else {
+
+    } else {
+
+    	// Check field type.
 	    switch ( $field['input_type'] ) {
 
 		    case 'category-selector' :
@@ -138,8 +140,7 @@ function wpmtst_single_form_field( $field ) {
 
 		    case 'checkbox' :
 			    if ( ! isset( $field['show_label'] ) || $field['show_label'] ) {
-				    $label = '<label for="wpmtst_' . $field['name'] . '">' . wpmtst_form_field_meta_l10n( $field['label'], $field, 'label' ) . '</label>';
-				    echo $label;
+				    echo '<label for="wpmtst_' . $field['name'] . '">' . wpmtst_form_field_meta_l10n( $field['label'], $field, 'label' ) . '</label>';
 			    }
 
 			    wpmtst_field_before( $field );
@@ -155,13 +156,11 @@ function wpmtst_single_form_field( $field ) {
 			            checked( $field['default_form_value'], 1, false ) );
 
 			    if ( isset( $field['text'] ) ) {
-				    echo '<label for="wpmtst_' . $field['name'] . '" class="checkbox-label">';
-				    echo wpmtst_form_field_meta_l10n( $field['text'], $field, 'text' );
-				    echo '</label>';
-			    }
+				    echo '<label for="wpmtst_' . $field['name'] . '" class="checkbox-label">' . wpmtst_form_field_meta_l10n( $field['text'], $field, 'text' ) . '</label>';
 
-			    if ( isset( $field['required'] ) && $field['required'] ) {
-				    wpmtst_field_required_symbol();
+					if ( isset( $field['required'] ) && $field['required'] ) {
+						wpmtst_field_required_symbol();
+					}
 			    }
 
 			    echo '</div><!-- .field-wrap -->';
@@ -179,6 +178,7 @@ function wpmtst_single_form_field( $field ) {
 			            wpmtst_field_required_tag( $field ) );
 
 	    }
+
     }
 
 	wpmtst_field_after( $field );
@@ -407,17 +407,22 @@ function wpmtst_form_captcha() {
 	 * To display or not to display.
 	 */
     if ( $invisible && 'captcha-pro' == $form_options['captcha']) {
+
         echo '<div class="form-field wpmtst-captcha">';
         echo $captcha_html;
         echo '</div>';
-    }
-    elseif ( $invisible ) {
+
+    } elseif ( $invisible ) {
+
         echo $captcha_html;
-    }
-    else {
+
+    } else {
+
         ?>
         <div class="form-field wpmtst-captcha">
+			<?php if ( wpmtst_get_form_message( 'captcha' ) ) : ?>
             <label for="wpmtst_captcha"><?php wpmtst_form_message( 'captcha' ); ?></label><span class="required symbol"></span>
+			<?php endif; ?>
             <div>
                 <?php echo $captcha_html; ?>
                 <?php if ( isset( $errors['captcha'] ) ) : ?>
@@ -426,6 +431,7 @@ function wpmtst_form_captcha() {
             </div>
         </div>
         <?php
+
     }
 }
 add_action( 'wpmtst_form_after_fields', 'wpmtst_form_captcha' );

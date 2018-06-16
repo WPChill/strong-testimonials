@@ -247,7 +247,6 @@ class Strong_Testimonials_Render {
 				}
 			}
 		}
-		wp_enqueue_style( 'wpmtst-custom-style' );
 	}
 
 	/**
@@ -633,6 +632,8 @@ class Strong_Testimonials_Render {
 		if ( isset( $atts['id'] ) && $atts['id'] ) {
 			$atts['view'] = $atts['id'];
 			unset( $atts['id'] );
+		} else {
+			return array_merge( array( 'view_not_found' => 1 ), $atts );
 		}
 
 		// Fetch the view
