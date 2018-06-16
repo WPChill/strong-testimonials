@@ -398,6 +398,7 @@ class Strong_Testimonials_Defaults {
 				/* translators: Settings > Form > Messages tab */
 				'description' => _x( 'Captcha Label', 'description', 'strong-testimonials' ),
 				'text'        => _x( 'Captcha', 'Default label for Captcha field on submission form.', 'strong-testimonials' ),
+				'required'    => false,
 			),
 			'form-submit-button' => array(
 				'order'       => 3,
