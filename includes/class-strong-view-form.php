@@ -79,11 +79,7 @@ class Strong_View_Form extends Strong_View {
 		$this->custom_background();
 		$this->load_validator();
 
-		/*
-		 * If we cannot preprocess, add the inline style to the footer.
-		 * If we were able to preprocess, this will not duplicate the code
-		 * since `wpmtst-custom-style` was already enqueued (I think).
-		 */
+		// If we cannot preprocess, add the inline style to the footer.
 		add_action( 'wp_footer', array( $this, 'add_custom_style' ) );
 		add_action( 'wp_footer', array( $this, 'load_honeypots' ) );
 
