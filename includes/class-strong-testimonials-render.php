@@ -247,7 +247,6 @@ class Strong_Testimonials_Render {
 				}
 			}
 		}
-		wp_enqueue_style( 'wpmtst-custom-style' );
 	}
 
 	/**
