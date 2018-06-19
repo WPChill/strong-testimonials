@@ -188,10 +188,6 @@ Yes. This requires a lightbox so if your theme does not include one, you will ne
 
 No. If you already have testimonials in another plugin or theme, you will have to re-enter them. Why? Because every theme and plugin stores data differently.
 
-= Can I import my existing testimonials? =
-
-It depends. The plugin does not provide an import tool because every situation is different. With some technical skills, you may be able to successfully export your existing testimonials to a CSV file and import them into Strong Testimonials. Contact me if you want help with that. Otherwise, it may be simpler and easier to migrate them manually.
-
 = Is it true that including a link to my site in my support requests really helps you troubleshoot problems? =
 
 Undeniably, yes.
