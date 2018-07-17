@@ -82,7 +82,7 @@ class Strong_Testimonials_Settings_Compat {
 		if ( 'general' == $input['page_loading'] ) {
 			$input['prerender']      = 'all';
 			$input['ajax']['method'] = 'universal';
-		}else {
+		} else {
 			$input['prerender']      = sanitize_text_field( $input['prerender'] );
 			$input['ajax']['method'] = sanitize_text_field( $input['ajax']['method'] );
 		}
@@ -96,18 +96,51 @@ class Strong_Testimonials_Settings_Compat {
 
 		$input['controller']['initialize_on'] = sanitize_text_field( $input['controller']['initialize_on'] );
 
-		$input['lazyload']['enabled'] = wpmtst_sanitize_checkbox( $input['lazyload'], 'enabled' );
-		// may be multiple pairs
-		if ( isset( $input['lazyload']['classes'] ) ) {
-			foreach ( $input['lazyload']['classes'] as $key => $classes ) {
-				if ( $classes['start'] || $classes['finish'] ) {
-					$input['lazyload']['classes'][ $key ]['start']  = str_replace( '.', '', sanitize_text_field( $classes['start'] ) );
-					$input['lazyload']['classes'][ $key ]['finish'] = str_replace( '.', '', sanitize_text_field( $classes['finish'] ) );
+		// FIXME: Special handling until proper use of default values in v3.0
+        $default = array(
+	        'enabled' => false,
+	        'classes' => array(
+		        array(
+			        'start'  => '',
+			        'finish' => '',
+		        ),
+	        ),
+        );
+
+		if ( ! isset( $input['lazyload'] ) ) {
+
+			$input['lazyload'] = $default;
+
+		} else {
+
+			$input['lazyload']['enabled'] = wpmtst_sanitize_checkbox( $input['lazyload'], 'enabled' );
+
+			if ( isset( $input['lazyload']['classes'] ) && $input['lazyload']['classes'] ) {
+
+				// May be multiple pairs.
+				foreach ( $input['lazyload']['classes'] as $key => $classes ) {
+
+				    // Sanitize classes or remove empty pairs.
+					// Reduce multiple empty pairs down to default value of single empty pair.
+					if ( $classes['start'] || $classes['finish'] ) {
+						$input['lazyload']['classes'][ $key ]['start']  = str_replace( '.', '', sanitize_text_field( $classes['start'] ) );
+						$input['lazyload']['classes'][ $key ]['finish'] = str_replace( '.', '', sanitize_text_field( $classes['finish'] ) );
+					} else {
+						unset( $input['lazyload']['classes'][$key] );
+					}
+
+					if ( ! count( $input['lazyload']['classes'] ) ) {
+						$input['lazyload'] = $default;
+					}
+
 				}
-				else {
-					unset( $input['lazyload']['classes'][ $key ] );
-				}
+
+			} else {
+
+				$input['lazyload'] = $default['classes'];
+
 			}
+
 		}
 
 		return $input;
