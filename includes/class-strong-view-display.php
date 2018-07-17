@@ -158,10 +158,19 @@ class Strong_View_Display extends Strong_View {
 
 		} else {
 
+			/**
+			 * Gutenberg. Yay.
+			 * @since 2.31.9
+			 */
+			global $post;
+			$post_before = $post;
+
 			ob_start();
 			/** @noinspection PhpIncludeInspection */
 			include( $this->template_file );
 			$html = ob_get_clean();
+
+			$post = $post_before;
 
 		}
 

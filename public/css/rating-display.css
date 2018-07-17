@@ -44,6 +44,10 @@
 
 .strong-rating span.star {
   display: inline-block;
+  margin: 0;
+  max-height: none;
+  max-width: none;
+  padding: 0;
 }
 
 .strong-rating span.star:before {
