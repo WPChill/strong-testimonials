@@ -1,7 +1,7 @@
 
 <h2>Now Even Stronger</h2>
 
-<p class="lead-description">Version 2.31 adds a highly requested feature and two more compatibility options.</p>
+<p class="lead-description">Version 2.31 adds a highly requested feature and improves compatibility.</p>
 
 <div class="feature-section one-col">
     <div class="col">
@@ -23,6 +23,9 @@
 				<li>Version 2.31.4</li>
 				<li>Version 2.31.5</li>
 				<li>Version 2.31.6</li>
+				<li>Version 2.31.7</li>
+				<li>Version 2.31.8</li>
+				<li>Version 2.31.9</li>
 			</ul>
 
 		</div>

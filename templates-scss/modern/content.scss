@@ -11,13 +11,9 @@ $template: modern;
 /* Template
 -----------------------------------------------*/
 .strong-view.#{$template} {
-  .strong-content {
-  }
-
   .testimonial {
-    @include no-top-bottom-margin;
     margin: 20px auto;
-    width: 100%;
+    @include no-top-bottom-margin;
   }
 
   .testimonial-inner {
@@ -31,12 +27,12 @@ $template: modern;
   }
 
   .testimonial-content {
-    @include paragraphs;
-    margin: 0 56px;
     font-size: 1.3em;
     font-style: italic;
-    text-align: center;
+    margin: 0 56px;
     position: relative;
+    text-align: center;
+    @include paragraphs;
   }
 
   .testimonial-content:before,

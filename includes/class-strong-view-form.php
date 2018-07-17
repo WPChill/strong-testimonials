@@ -116,10 +116,21 @@ class Strong_View_Form extends Strong_View {
 		if ( has_filter( 'wpmtst_render_view_template' ) ) {
 			$html = apply_filters( 'wpmtst_render_view_template', '', $this );
 		} else {
+
+			/**
+			 * Gutenberg. Yay.
+			 * @since 2.31.9
+			 */
+			global $post;
+			$post_before = $post;
+
 			ob_start();
 			/** @noinspection PhpIncludeInspection */
 			include( $this->template_file );
 			$html = ob_get_clean();
+
+			$post = $post_before;
+
 		}
 		// TODO apply content filters
 
