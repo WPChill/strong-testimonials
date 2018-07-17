@@ -11,9 +11,6 @@ $template: modern;
 /* Template
 -----------------------------------------------*/
 .strong-view.#{$template} {
-  .strong-content {
-  }
-
   .testimonial {
     @include no-top-bottom-margin;
     margin: 20px auto;
