@@ -1,17 +1,10 @@
 /**
- * Column layout for any template.
- *
- * Using CSS multi-column.
- *
- * Browser support for multi-column as of Dec-2015: USA = 95%, Global = 95%
- * according to http://caniuse.com/#search=column.
- *
- * Thanks to http://css-tricks.com/guide-responsive-friendly-css-columns/
+ * Column layout for any template using CSS multi-column.
  */
 
-/*----------------------------------------------------------
+/*
  * global
- *----------------------------------------------------------*/
+ */
 .strong-content.strong-columns {
 	display: block;
 
@@ -30,41 +23,38 @@
 	-webkit-column-break-inside: avoid;
 	page-break-inside: avoid;
 	break-inside: avoid;
-	/* to prevent overflowing margins */
-	display: inline-block;
-	position: relative;
 }
 
-/*----------------------------------------------------------
+/*
  * 2 columns
- *----------------------------------------------------------*/
+ */
 .strong-content.strong-columns.columns-2 {
 	-webkit-column-count: 2;
 	   -moz-column-count: 2;
 	        column-count: 2;
 }
 
-/*----------------------------------------------------------
+/*
  * 3 columns
- *---------------------------------------------------------*/
+ */
 .strong-content.strong-columns.columns-3 {
 	-webkit-column-count: 3;
 	   -moz-column-count: 3;
 	        column-count: 3;
 }
 
-/*----------------------------------------------------------
+/*
  * 4 columns
- *----------------------------------------------------------*/
+ */
 .strong-content.strong-columns.columns-4 {
 	-webkit-column-count: 4;
 	   -moz-column-count: 4;
 	        column-count: 4;
 }
 
-/*----------------------------------------------------------
+/*
  * responsive
- *----------------------------------------------------------*/
+ */
 @media screen and (max-width: 667px) {
 	.strong-content.strong-columns {
 		-webkit-column-count: 1;
