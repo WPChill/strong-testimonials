@@ -16,8 +16,10 @@ $template: default;
   }
 
   .testimonial {
-    @include testimonial;
     border: 1px solid #E6E6E6;
+    margin: 20px auto;
+    text-align: left;
+    @include no-top-bottom-margin;
   }
 
   .testimonial-inner {

@@ -7,14 +7,6 @@
   }
 }
 
-@mixin testimonial {
-  margin: 20px auto;
-  padding: 0;
-  text-align: left;
-  width: 100%;
-  @include no-top-bottom-margin;
-}
-
 @mixin paragraphs {
   p {
     &:first-of-type {
