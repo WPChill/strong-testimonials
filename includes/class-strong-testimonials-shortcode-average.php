@@ -46,10 +46,10 @@ class Strong_Testimonials_Average_Shortcode {
 		// default phrases
 		$phrases = array(
 			/* translators: %s are numbers */
-			'title'    => __( 'Average Rating:', 'strong-testimonials-assignment' ),
-			'summary'  => __( '%s stars (based on %s ratings)', 'strong-testimonials-assignment' ),
-			'title2'   => __( 'Average of %s Ratings:', 'strong-testimonials-assignment' ),
-			'summary2' => __( '%s stars', 'strong-testimonials-assignment' ),
+			'title'    => __( 'Average Rating:', 'strong-testimonials' ),
+			'summary'  => __( '%s stars (based on %s ratings)', 'strong-testimonials' ),
+			'title2'   => __( 'Average of %s Ratings:', 'strong-testimonials' ),
+			'summary2' => __( '%s stars', 'strong-testimonials' ),
 		);
 
 		// default parts
