@@ -1,6 +1,8 @@
 /**
  * Strong Testimonials Unstyled Form template
  */
+/* The "wait" spinner on form submission.
+-----------------------------------------------*/
 .strong-form-wait {
   display: none;
   position: absolute;
