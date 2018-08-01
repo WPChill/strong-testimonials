@@ -43,15 +43,6 @@ class Strong_Testimonials_Average_Shortcode {
 
 		$atts = shortcode_atts( $pairs, normalize_empty_atts( $atts ), $this->shortcode );
 
-		// default phrases
-		$phrases = array(
-			/* translators: %s are numbers */
-			'title'    => __( 'Average Rating:', 'strong-testimonials' ),
-			'summary'  => __( '%s stars (based on %s ratings)', 'strong-testimonials' ),
-			'title2'   => __( 'Average of %s Ratings:', 'strong-testimonials' ),
-			'summary2' => __( '%s stars', 'strong-testimonials' ),
-		);
-
 		// default parts
 		if ( ! $content ) {
 			$content = '{title} {stars} {summary}';
@@ -145,10 +136,12 @@ class Strong_Testimonials_Average_Shortcode {
 
 		// title
 		if ( isset( $parts['title'] ) ) {
-			$parts['title'] = sprintf( '<span class="strong-rating-title">%s</span>', $phrases['title'] );
+			$parts['title'] = sprintf( '<span class="strong-rating-title">%s</span>', __( 'Average Rating:', 'strong-testimonials' ) );
 		}
 		if ( isset( $parts['title2'] ) ) {
-			$parts['title2'] = sprintf( '<span class="strong-rating-title">%s</span>', sprintf( $phrases['title2'], $summary['rating_count'] ) );
+			/* translators: %s is a number */
+		    $count = sprintf( _n( 'Average of %s Rating:', 'Average of %s Ratings:', $summary['rating_count'], 'strong-testimonials' ), $summary['rating_count'] );
+			$parts['title2'] = sprintf( '<span class="strong-rating-title">%s</span>', $count );
 		}
 
 		// stars
@@ -168,10 +161,18 @@ class Strong_Testimonials_Average_Shortcode {
 
 		// summary phrase
 		if ( isset( $parts['summary'] ) ) {
-			$parts['summary'] = sprintf( '<span class="strong-rating-summary">%s</span>', sprintf( $phrases['summary'], $summary['rating_average'], $summary['rating_count'] ) );
-		}
-		if ( isset( $parts['summary2'] ) ) {
-			$parts['summary2'] = sprintf( '<span class="strong-rating-summary">%s</span>', sprintf( $phrases['summary2'], $summary['rating_average'] ) );
+
+			/* translators: %s is a number */
+			$average = sprintf( _n( '%s star', '%s stars', $summary['rating_average'], 'strong-testimonials' ), $summary['rating_average'] );
+			$count   = sprintf( _n( '(based on %s rating)', '(based on %s ratings)', $summary['rating_count'], 'strong-testimonials' ), $summary['rating_count'] );
+			$parts['summary'] = sprintf( '<span class="strong-rating-summary">%s</span>', $average . ' ' . $count );
+
+		} elseif ( isset( $parts['summary2'] ) ) {
+
+			/* translators: %s is a number */
+			$average = sprintf( _n( '%s star', '%s stars', $summary['rating_average'], 'strong-testimonials' ), $summary['rating_average'] );
+			$parts['summary2'] = sprintf( '<span class="strong-rating-summary">%s</span>', $average );
+
 		}
 
 		// replace tags
