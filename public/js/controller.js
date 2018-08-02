@@ -109,8 +109,10 @@ var strongController = {
    */
   initForm: function () {
     var forms = jQuery('.strong-form[data-state="idle"]');
+    var messages = jQuery('.testimonial-success');
     if (debugit) console.log('forms found:', forms.length);
-    if (forms.length) {
+    if (debugit) console.log('messages found:', messages.length);
+    if (forms.length || messages.length) {
       strongValidation.init();
       // initialize Captcha plugins here
     }
