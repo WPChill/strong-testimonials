@@ -85,14 +85,20 @@ class Strong_Testimonials_View_Shortcode {
 		switch ( $out['mode'] ) {
 			case 'form' :
 				$view = new Strong_View_Form( $out );
+				if ( isset( $_GET['success'] ) ) {
+				    $view->success();
+				} else {
+					$view->build();
+				}
 				break;
 			case 'slideshow' :
 				$view = new Strong_View_Slideshow( $out );
+		        $view->build();
 				break;
 			default :
 				$view = new Strong_View_Display( $out );
+        		$view->build();
 		}
-		$view->build();
 
 		return $view->output();
 	}
