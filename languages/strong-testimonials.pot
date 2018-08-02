@@ -2,10 +2,10 @@
 # This file is distributed under the same license as the Strong Testimonials package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Strong Testimonials 2.31.9\n"
+"Project-Id-Version: Strong Testimonials 2.31.10\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/strong-"
 "testimonials\n"
-"POT-Creation-Date: 2018-07-18 16:58:55+00:00\n"
+"POT-Creation-Date: 2018-08-02 19:18:06+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -20,24 +20,20 @@ msgstr ""
 #. translators: %s is a formatted number
 #: admin/about/about.php:3
 msgid ""
-"The highest-rated free testimonials plugin trusted by more than %s people "
-"keeps getting better."
+"The highest-rated free testimonials plugin trusted by more than %s people."
 msgstr ""
 
 #: admin/about/about.php:6
 msgid ""
-"Your site is unique, right? So are your testimonials. This plugin is "
-"designed from the ground up to simplify the process of customizing your "
+"Designed from the ground up to simplify the process of customizing your "
 "testimonials or reviews."
 msgstr ""
 
 #: admin/about/about.php:7
 msgid ""
 "<strong>Custom fields</strong> are deeply integrated into Strong "
-"Testimonials so it's simple to configure the fields on your testimonial "
-"submission form, update those fields when adding or editing testimonials, "
-"and select which fields to display on your testimonials. The plugin even "
-"includes a default set of custom fields so you can get started quickly."
+"Testimonials. It even includes a default set of custom fields so you can get "
+"started quickly."
 msgstr ""
 
 #: admin/about/about.php:8
@@ -49,7 +45,7 @@ msgstr ""
 
 #: admin/about/about.php:9
 msgid ""
-"Power up with plugins like Popup Maker or Google Captcha. For developers, "
+"Integrate with plugins like Popup Maker or Google Captcha. For developers, "
 "actions and filters allow further customization."
 msgstr ""
 
@@ -1289,7 +1285,7 @@ msgstr ""
 msgid "Insert tags into your custom content."
 msgstr ""
 
-#: admin/class-strong-testimonials-page-shortcodes.php:314
+#: admin/class-strong-testimonials-page-shortcodes.php:313
 msgid ""
 "The default container element is <code>div</code>. Select another element "
 "using <code>element</code>."
@@ -3205,11 +3201,11 @@ msgstr ""
 msgid "filter categories"
 msgstr ""
 
-#: includes/class-strong-form.php:496
+#: includes/class-strong-form.php:498
 msgid "Unknown error."
 msgstr ""
 
-#: includes/class-strong-form.php:641
+#: includes/class-strong-form.php:643
 msgid "star"
 msgid_plural "stars"
 msgstr[0] ""
@@ -3235,22 +3231,30 @@ msgstr ""
 msgid "Testimonials"
 msgstr ""
 
-#. translators: %s are numbers
-#: includes/class-strong-testimonials-shortcode-average.php:49
+#: includes/class-strong-testimonials-shortcode-average.php:139
 msgid "Average Rating:"
 msgstr ""
 
-#: includes/class-strong-testimonials-shortcode-average.php:50
-msgid "%s stars (based on %s ratings)"
-msgstr ""
+#. translators: %s is a number
+#: includes/class-strong-testimonials-shortcode-average.php:143
+msgid "Average of %s Rating:"
+msgid_plural "Average of %s Ratings:"
+msgstr[0] ""
+msgstr[1] ""
 
-#: includes/class-strong-testimonials-shortcode-average.php:51
-msgid "Average of %s Ratings:"
-msgstr ""
+#. translators: %s is a number
+#: includes/class-strong-testimonials-shortcode-average.php:166
+#: includes/class-strong-testimonials-shortcode-average.php:173
+msgid "%s star"
+msgid_plural "%s stars"
+msgstr[0] ""
+msgstr[1] ""
 
-#: includes/class-strong-testimonials-shortcode-average.php:52
-msgid "%s stars"
-msgstr ""
+#: includes/class-strong-testimonials-shortcode-average.php:167
+msgid "(based on %s rating)"
+msgid_plural "(based on %s ratings)"
+msgstr[0] ""
+msgstr[1] ""
 
 #: includes/class-strong-testimonials-shortcode.php:77
 msgid "Testimonial view %s not found."

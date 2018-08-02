@@ -157,7 +157,6 @@ class Strong_Testimonials_Page_Shortcodes {
 				<tr>
 					<td>
 						<p><?php _e( 'Insert tags into your custom content.', 'strong-testimonials' ); ?></p>
-						<p class="description"><?php _e( '', 'strong-testimonials' ); ?></p>
 					</td>
 					<td class="has-inner">
 						<table class="inner" cellpadding="0" cellspacing="0">

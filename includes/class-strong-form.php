@@ -102,6 +102,8 @@ class Strong_Testimonials_Form {
 						$goback = $form_options['success_redirect_url'];
 						break;
 					default:
+						// For non-Ajax forms, the only ways to store the state (successful form submission)
+						// are a query parameter or a cookie.
 						$goback = add_query_arg( 'success', '', wp_get_referer() );
 				}
 				wp_redirect( apply_filters( 'wpmtst_form_redirect_url', $goback ) );
