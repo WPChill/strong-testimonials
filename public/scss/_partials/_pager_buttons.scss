@@ -2,9 +2,10 @@
   &.pager-style-buttons {
     .wpmslider-pager {
       line-height: 24px;
-      margin: 0 4px;
+      margin: 0 7px;
       text-align: center;
     }
+
     .wpmslider-pager-link:before {
       font-family: FontAwesome;
       content: "\f10c";
@@ -15,10 +16,12 @@
       width: 18px;
       text-align: center;
     }
+
     .wpmslider-pager-link:hover:before {
       content: "\f111";
       color: #111;
     }
+
     .wpmslider-pager-link.active:before {
       content: "\f111";
     }
