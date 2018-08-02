@@ -67,7 +67,12 @@
 }
 .strong-view.controls-style-buttons .wpmslider-start,
 .strong-view.controls-style-buttons .wpmslider-stop {
-  margin: 0 4px;
+  margin: 0 7px;
+}
+.strong-view.controls-style-buttons .wpmslider-start:before,
+.strong-view.controls-style-buttons .wpmslider-stop:before {
+  position: relative;
+  top: -1px;
 }
 .strong-view.controls-style-buttons .wpmslider-start:before {
   content: "\f04b";
@@ -75,17 +80,23 @@
 .strong-view.controls-style-buttons .wpmslider-stop:before {
   content: "\f04c";
 }
-.strong-view.controls-style-buttons .wpmslider-prev:before {
-  content: "\f053";
-}
-.strong-view.controls-style-buttons .wpmslider-next:before {
-  content: "\f054";
-}
 .strong-view.controls-style-buttons .wpmslider-start:hover,
 .strong-view.controls-style-buttons .wpmslider-stop:hover,
 .strong-view.controls-style-buttons .wpmslider-next:hover,
 .strong-view.controls-style-buttons .wpmslider-prev:hover {
   color: #111;
+}
+.strong-view.controls-style-buttons:not(.rtl) .wpmslider-prev:before {
+  content: "\f053";
+}
+.strong-view.controls-style-buttons:not(.rtl) .wpmslider-next:before {
+  content: "\f054";
+}
+.strong-view.controls-style-buttons.rtl .wpmslider-prev:before {
+  content: "\f054";
+}
+.strong-view.controls-style-buttons.rtl .wpmslider-next:before {
+  content: "\f053";
 }
 
 .strong-view.controls-style-text .wpmslider-start,
@@ -118,7 +129,7 @@
 
 .strong-view .wpmslider-pager {
   line-height: 24px;
-  margin: 0 4px;
+  margin: 0 7px;
   text-align: center;
 }
 .strong-view .wpmslider-pager-link {
@@ -131,3 +142,5 @@
 .strong-view.pager-style-text .wpmslider-pager-link {
   padding: 0 0.3em;
 }
+
+/*# sourceMappingURL=slider-controls-simple-buttons-pager-text.css.map */

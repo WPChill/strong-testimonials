@@ -61,28 +61,26 @@
   color: #FFF;
   cursor: pointer;
   font-size: 16px;
-  line-height: 28px;
-  width: 28px;
-  height: 28px;
+  line-height: 27px;
+  width: 27px;
+  height: 27px;
   margin: 0 5px;
+  padding-top: 1px;
   text-align: center;
   transition: all 0.2s ease;
 }
 .strong-view.controls-style-buttons2 .wpmslider-start,
 .strong-view.controls-style-buttons2 .wpmslider-stop {
-  margin: 0 4px;
+  margin: 0 7px;
 }
 .strong-view.controls-style-buttons2 .wpmslider-start:before {
   content: "\f04b";
+  position: relative;
+  left: 1px;
+  top: -1px;
 }
 .strong-view.controls-style-buttons2 .wpmslider-stop:before {
   content: "\f04c";
-}
-.strong-view.controls-style-buttons2 .wpmslider-prev:before {
-  content: "\f053";
-}
-.strong-view.controls-style-buttons2 .wpmslider-next:before {
-  content: "\f054";
 }
 .strong-view.controls-style-buttons2 .wpmslider-start:hover,
 .strong-view.controls-style-buttons2 .wpmslider-stop:hover,
@@ -90,10 +88,30 @@
 .strong-view.controls-style-buttons2 .wpmslider-prev:hover {
   background: #333;
 }
+.strong-view.controls-style-buttons2:not(.rtl) .wpmslider-prev:before {
+  content: "\f053";
+  position: relative;
+  left: -1px;
+}
+.strong-view.controls-style-buttons2:not(.rtl) .wpmslider-next:before {
+  content: "\f054";
+  position: relative;
+  left: 1px;
+}
+.strong-view.controls-style-buttons2.rtl .wpmslider-prev:before {
+  content: "\f054";
+  position: relative;
+  left: 1px;
+}
+.strong-view.controls-style-buttons2.rtl .wpmslider-next:before {
+  content: "\f053";
+  position: relative;
+  left: -1px;
+}
 
 .strong-view.pager-style-buttons .wpmslider-pager {
   line-height: 24px;
-  margin: 0 4px;
+  margin: 0 7px;
   text-align: center;
 }
 .strong-view.pager-style-buttons .wpmslider-pager-link:before {
@@ -133,17 +151,22 @@
   z-index: 5;
 }
 
-.strong-view.controls-type-sides .wpmslider-prev {
-  left: 8px;
-}
-.strong-view.controls-type-sides .wpmslider-next {
-  right: 8px;
-}
 .strong-view.controls-type-sides .wpmslider-prev,
 .strong-view.controls-type-sides .wpmslider-next {
   position: absolute;
-  width: auto;
-  top: calc( 50% - 14px );
+  top: calc(50% - 14px);
+}
+.strong-view.controls-type-sides:not(.rtl) .wpmslider-prev {
+  left: 8px;
+}
+.strong-view.controls-type-sides:not(.rtl) .wpmslider-next {
+  right: 8px;
+}
+.strong-view.controls-type-sides.rtl .wpmslider-prev {
+  right: 8px;
+}
+.strong-view.controls-type-sides.rtl .wpmslider-next {
+  left: 8px;
 }
 
 .strong-view.controls-type-sides .wpmslider-controls {
@@ -173,3 +196,5 @@
   /* subtract pager height */
   top: calc(50% - 55px + 14px);
 }
+
+/*# sourceMappingURL=slider-controls-sides-buttons2-pager-buttons.css.map */

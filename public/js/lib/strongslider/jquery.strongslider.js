@@ -10,7 +10,7 @@
  * Licensed under MIT (http://opensource.org/licenses/MIT)
  */
 
-//throw new Error("STOP");
+// throw new Error("STOP");
 
 /**
  * @namespace verge.inViewport

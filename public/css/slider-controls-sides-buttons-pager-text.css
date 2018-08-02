@@ -67,7 +67,12 @@
 }
 .strong-view.controls-style-buttons .wpmslider-start,
 .strong-view.controls-style-buttons .wpmslider-stop {
-  margin: 0 4px;
+  margin: 0 7px;
+}
+.strong-view.controls-style-buttons .wpmslider-start:before,
+.strong-view.controls-style-buttons .wpmslider-stop:before {
+  position: relative;
+  top: -1px;
 }
 .strong-view.controls-style-buttons .wpmslider-start:before {
   content: "\f04b";
@@ -75,17 +80,23 @@
 .strong-view.controls-style-buttons .wpmslider-stop:before {
   content: "\f04c";
 }
-.strong-view.controls-style-buttons .wpmslider-prev:before {
-  content: "\f053";
-}
-.strong-view.controls-style-buttons .wpmslider-next:before {
-  content: "\f054";
-}
 .strong-view.controls-style-buttons .wpmslider-start:hover,
 .strong-view.controls-style-buttons .wpmslider-stop:hover,
 .strong-view.controls-style-buttons .wpmslider-next:hover,
 .strong-view.controls-style-buttons .wpmslider-prev:hover {
   color: #111;
+}
+.strong-view.controls-style-buttons:not(.rtl) .wpmslider-prev:before {
+  content: "\f053";
+}
+.strong-view.controls-style-buttons:not(.rtl) .wpmslider-next:before {
+  content: "\f054";
+}
+.strong-view.controls-style-buttons.rtl .wpmslider-prev:before {
+  content: "\f054";
+}
+.strong-view.controls-style-buttons.rtl .wpmslider-next:before {
+  content: "\f053";
 }
 
 .strong-view.controls-style-text .wpmslider-start,
@@ -101,7 +112,7 @@
 
 .strong-view .wpmslider-pager {
   line-height: 24px;
-  margin: 0 4px;
+  margin: 0 7px;
   text-align: center;
 }
 .strong-view .wpmslider-pager-link {
@@ -132,17 +143,22 @@
   z-index: 5;
 }
 
-.strong-view.controls-type-sides .wpmslider-prev {
-  left: 8px;
-}
-.strong-view.controls-type-sides .wpmslider-next {
-  right: 8px;
-}
 .strong-view.controls-type-sides .wpmslider-prev,
 .strong-view.controls-type-sides .wpmslider-next {
   position: absolute;
-  width: auto;
-  top: calc( 50% - 14px );
+  top: calc(50% - 14px);
+}
+.strong-view.controls-type-sides:not(.rtl) .wpmslider-prev {
+  left: 8px;
+}
+.strong-view.controls-type-sides:not(.rtl) .wpmslider-next {
+  right: 8px;
+}
+.strong-view.controls-type-sides.rtl .wpmslider-prev {
+  right: 8px;
+}
+.strong-view.controls-type-sides.rtl .wpmslider-next {
+  left: 8px;
 }
 
 .strong-view.controls-type-sides .wpmslider-controls {
@@ -172,3 +188,5 @@
   /* subtract pager height */
   top: calc(50% - 55px + 14px);
 }
+
+/*# sourceMappingURL=slider-controls-sides-buttons-pager-text.css.map */

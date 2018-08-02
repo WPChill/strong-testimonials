@@ -67,7 +67,7 @@
 }
 .strong-view.controls-style-buttons3 .wpmslider-start,
 .strong-view.controls-style-buttons3 .wpmslider-stop {
-  margin: 0 4px;
+  margin: 0 7px;
 }
 .strong-view.controls-style-buttons3 .wpmslider-start:before {
   content: "\f144";
@@ -75,17 +75,23 @@
 .strong-view.controls-style-buttons3 .wpmslider-stop:before {
   content: "\f28b";
 }
-.strong-view.controls-style-buttons3 .wpmslider-prev:before {
-  content: "\f137";
-}
-.strong-view.controls-style-buttons3 .wpmslider-next:before {
-  content: "\f138";
-}
 .strong-view.controls-style-buttons3 .wpmslider-start:hover,
 .strong-view.controls-style-buttons3 .wpmslider-stop:hover,
 .strong-view.controls-style-buttons3 .wpmslider-next:hover,
 .strong-view.controls-style-buttons3 .wpmslider-prev:hover {
   color: #333;
+}
+.strong-view.controls-style-buttons3:not(.rtl) .wpmslider-prev:before {
+  content: "\f137";
+}
+.strong-view.controls-style-buttons3:not(.rtl) .wpmslider-next:before {
+  content: "\f138";
+}
+.strong-view.controls-style-buttons3.rtl .wpmslider-prev:before {
+  content: "\f138";
+}
+.strong-view.controls-style-buttons3.rtl .wpmslider-next:before {
+  content: "\f137";
 }
 
 .strong-view.nav-position-inside:not(.controls-type-sides) .wpmslider-controls {
@@ -104,3 +110,5 @@
   text-align: center;
   z-index: 5;
 }
+
+/*# sourceMappingURL=slider-controls-simple-buttons3.css.map */
