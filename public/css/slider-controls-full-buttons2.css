@@ -61,34 +61,52 @@
   color: #FFF;
   cursor: pointer;
   font-size: 16px;
-  line-height: 28px;
-  width: 28px;
-  height: 28px;
+  line-height: 27px;
+  width: 27px;
+  height: 27px;
   margin: 0 5px;
+  padding-top: 1px;
   text-align: center;
   transition: all 0.2s ease;
 }
 .strong-view.controls-style-buttons2 .wpmslider-start,
 .strong-view.controls-style-buttons2 .wpmslider-stop {
-  margin: 0 4px;
+  margin: 0 7px;
 }
 .strong-view.controls-style-buttons2 .wpmslider-start:before {
   content: "\f04b";
+  position: relative;
+  left: 1px;
+  top: -1px;
 }
 .strong-view.controls-style-buttons2 .wpmslider-stop:before {
   content: "\f04c";
-}
-.strong-view.controls-style-buttons2 .wpmslider-prev:before {
-  content: "\f053";
-}
-.strong-view.controls-style-buttons2 .wpmslider-next:before {
-  content: "\f054";
 }
 .strong-view.controls-style-buttons2 .wpmslider-start:hover,
 .strong-view.controls-style-buttons2 .wpmslider-stop:hover,
 .strong-view.controls-style-buttons2 .wpmslider-next:hover,
 .strong-view.controls-style-buttons2 .wpmslider-prev:hover {
   background: #333;
+}
+.strong-view.controls-style-buttons2:not(.rtl) .wpmslider-prev:before {
+  content: "\f053";
+  position: relative;
+  left: -1px;
+}
+.strong-view.controls-style-buttons2:not(.rtl) .wpmslider-next:before {
+  content: "\f054";
+  position: relative;
+  left: 1px;
+}
+.strong-view.controls-style-buttons2.rtl .wpmslider-prev:before {
+  content: "\f054";
+  position: relative;
+  left: 1px;
+}
+.strong-view.controls-style-buttons2.rtl .wpmslider-next:before {
+  content: "\f053";
+  position: relative;
+  left: -1px;
 }
 
 .strong-view.nav-position-inside:not(.controls-type-sides) .wpmslider-controls {
@@ -107,3 +125,5 @@
   text-align: center;
   z-index: 5;
 }
+
+/*# sourceMappingURL=slider-controls-full-buttons2.css.map */

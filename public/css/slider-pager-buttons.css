@@ -63,7 +63,7 @@
 
 .strong-view.pager-style-buttons .wpmslider-pager {
   line-height: 24px;
-  margin: 0 4px;
+  margin: 0 7px;
   text-align: center;
 }
 .strong-view.pager-style-buttons .wpmslider-pager-link:before {
@@ -100,3 +100,5 @@
   text-align: center;
   z-index: 5;
 }
+
+/*# sourceMappingURL=slider-pager-buttons.css.map */

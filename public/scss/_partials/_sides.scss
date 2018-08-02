@@ -1,16 +1,29 @@
 .strong-view {
-	&.controls-type-sides {
-		.wpmslider-prev {
-			left: 8px;
-		}
-		.wpmslider-next {
-			right: 8px;
-		}
-		.wpmslider-prev,
-		.wpmslider-next {
-			position: absolute;
-			width: auto;
-			top: calc( 50% - 14px );
-		}
-	}
+  &.controls-type-sides {
+    .wpmslider-prev,
+    .wpmslider-next {
+      position: absolute;
+      top: calc(50% - 14px);
+    }
+
+    &:not(.rtl) {
+      .wpmslider-prev {
+        left: 8px;
+      }
+
+      .wpmslider-next {
+        right: 8px;
+      }
+    }
+
+    &.rtl {
+      .wpmslider-prev {
+        right: 8px;
+      }
+
+      .wpmslider-next {
+        left: 8px;
+      }
+    }
+  }
 }
