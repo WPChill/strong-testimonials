@@ -15,27 +15,51 @@
       text-align: center;
       transition: all 0.2s ease;
     }
+
     .wpmslider-start,
     .wpmslider-stop {
-      margin: 0 4px;
+      margin: 0 7px;
     }
+
+    .wpmslider-start:before,
+    .wpmslider-stop:before {
+      position: relative;
+      top: -1px;
+    }
+
     .wpmslider-start:before {
       content: "\f04b";
     }
+
     .wpmslider-stop:before {
       content: "\f04c";
     }
-    .wpmslider-prev:before {
-      content: "\f053";
-    }
-    .wpmslider-next:before {
-      content: "\f054";
-    }
+
     .wpmslider-start:hover,
     .wpmslider-stop:hover,
     .wpmslider-next:hover,
     .wpmslider-prev:hover {
       color: #111;
+    }
+
+    &:not(.rtl) {
+      .wpmslider-prev:before {
+        content: "\f053";
+      }
+
+      .wpmslider-next:before {
+        content: "\f054";
+      }
+    }
+
+    &.rtl {
+      .wpmslider-prev:before {
+        content: "\f054";
+      }
+
+      .wpmslider-next:before {
+        content: "\f053";
+      }
     }
   }
 }
