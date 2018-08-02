@@ -4,7 +4,7 @@ Tags: testimonials, testimonial slider, testimonial form, reviews, star ratings
 Requires at least: 3.7
 Requires PHP: 5.2.4
 Tested up to: 4.9.6
-Stable tag: 2.31.9
+Stable tag: 2.31.10
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -210,6 +210,12 @@ If you prefer, start a private support ticket at [support.strongplugins.com](htt
 8. View editor
 
 == Changelog ==
+
+= 2.31.10 - Aug 2, 2018 =
+* Fix singular/plural phrases in testimonial average shortcode.
+* Fix bug in scroll to success message.
+* Fix RTL slider controls.
+* Attempt to fix slider touch problems in iOS.
 
 = 2.31.9 - July 17, 2018 =
 * Fix compatbility issue with Gutenberg.
