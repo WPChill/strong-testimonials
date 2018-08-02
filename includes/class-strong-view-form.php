@@ -58,19 +58,40 @@ class Strong_View_Form extends Strong_View {
 	}
 
 	/**
+	 * Load resources on form success.
+	 *
+	 * When using normal form submission (not Ajax)
+	 * and displaying a success message (not redirecting).
+	 */
+	public function success() {
+		$form_options = get_option( 'wpmtst_form_options' );
+
+		// Remember: top level is converted to strings!
+		$args = array(
+			'display' => array(
+				'successMessage' => true,
+			),
+			'scroll'  => array(
+				'onSuccess'       => $form_options['scrolltop_success'],
+				'onSuccessOffset' => $form_options['scrolltop_success_offset'],
+			),
+		);
+
+		WPMST()->render->add_script( 'wpmtst-form-validation' );
+		WPMST()->render->add_script_var( 'wpmtst-form-validation', 'strongForm', $args );
+
+        $this->find_stylesheet();
+        $this->html = wpmtst_get_success_message();
+
+        do_action( 'wpmtst_form_success', $this->atts );
+    }
+
+	/**
 	 * Build the view.
 	 */
 	public function build() {
 
 		do_action( 'wpmtst_view_build_before', $this );
-
-		if ( isset( $_GET['success'] ) ) {
-			$this->find_stylesheet();
-			$this->on_form_success();
-			do_action( 'wpmtst_form_success', $this->atts );
-			$this->html = wpmtst_get_success_message();
-			return;
-		}
 
 		$this->build_classes();
 		$this->find_stylesheet();
@@ -265,30 +286,6 @@ class Strong_View_Form extends Strong_View {
             </script>
             <?php
 		}
-	}
-
-	/**
-	 * Load scripts on form success.
-	 *
-	 * When using normal form submission (not Ajax)
-	 * and displaying a success message (not redirecting).
-	 */
-	public function on_form_success() {
-		$form_options = get_option( 'wpmtst_form_options' );
-
-		// Remember: top level is converted to strings!
-		$args = array(
-			'display' => array(
-				'successMessage' => true,
-			),
-			'scroll'  => array(
-				'onSuccess'       => $form_options['scrolltop_success'],
-				'onSuccessOffset' => $form_options['scrolltop_success_offset'],
-			),
-		);
-
-		WPMST()->render->add_script( 'wpmtst-form-validation' );
-		WPMST()->render->add_script_var( 'wpmtst-form-validation', 'strongForm', $args );
 	}
 
 }
