@@ -14,22 +14,14 @@
       line-height: 27px;
       width: 27px;
       height: 27px;
-      margin: 0 5px;
-      padding-top: 1px;
       text-align: center;
       transition: all 0.2s ease;
-    }
-
-    .wpmslider-start,
-    .wpmslider-stop {
-      margin: 0 7px;
     }
 
     .wpmslider-start:before {
       content: "\f04b";
       position: relative;
       left: 1px;
-      top: -1px;
     }
 
     .wpmslider-stop:before {
@@ -48,12 +40,14 @@
         content: "\f053";
         position: relative;
         left: -1px;
+        top: 1px;
       }
 
       .wpmslider-next:before {
         content: "\f054";
         position: relative;
         left: 1px;
+        top: 1px;
       }
     }
 
@@ -62,12 +56,14 @@
         content: "\f054";
         position: relative;
         left: 1px;
+        top: 1px;
       }
 
       .wpmslider-next:before {
         content: "\f053";
         position: relative;
         left: -1px;
+        top: 1px;
       }
     }
   }

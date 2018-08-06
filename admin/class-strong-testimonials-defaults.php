@@ -727,6 +727,9 @@ class Strong_Testimonials_Defaults {
 				'after_page_number'  => '',
 			),
 			'slideshow_settings'  => array(
+				'max_slides'         => 1,
+				'move_slides'        => 1,
+				'margin'             => 20,
 				'effect'             => 'fade',
 				'speed'              => 1,
 				'pause'              => 8,
