@@ -700,7 +700,6 @@
       var wrapWidth = slider.viewport.width();
       var margins = slider.settings.slideMargin * (slider.settings.maxSlides - 1);
       var newElWidth = (wrapWidth - margins) / slider.settings.maxSlides;
-      console.log('--> newElWidth', newElWidth);
       return newElWidth;
     };
 
