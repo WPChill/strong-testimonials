@@ -1,6 +1,14 @@
 
 <h2>Now Even Stronger</h2>
 
+<p class="lead-description">Version 2.32 adds the number one requested feature: Carousel</p>
+
+<div class="feature-section one-col">
+    <div class="col">
+        <p>NEW: Show 2 or 3 slides at the same time. Finally!</p>
+    </div>
+</div>
+
 <p class="lead-description">Version 2.31 adds a highly requested feature and improves compatibility.</p>
 
 <div class="feature-section one-col">
