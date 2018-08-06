@@ -7,6 +7,7 @@
   *zoom: 1;
   -ms-touch-action: pan-y;
   touch-action: pan-y;
+  direction: ltr;
 }
 .strong-view .wpmslider {
   margin: 0;
@@ -21,6 +22,9 @@
 ---------------------------------------------------------*/
 .strong-view .wpmslider-pager {
   display: inline-block;
+}
+.strong-view.rtl .wpmslider-pager {
+  direction: rtl;
 }
 .strong-view .wpmslider-pager-item {
   display: inline-block;
@@ -64,20 +68,13 @@
   line-height: 27px;
   width: 27px;
   height: 27px;
-  margin: 0 5px;
-  padding-top: 1px;
   text-align: center;
   transition: all 0.2s ease;
-}
-.strong-view.controls-style-buttons2 .wpmslider-start,
-.strong-view.controls-style-buttons2 .wpmslider-stop {
-  margin: 0 7px;
 }
 .strong-view.controls-style-buttons2 .wpmslider-start:before {
   content: "\f04b";
   position: relative;
   left: 1px;
-  top: -1px;
 }
 .strong-view.controls-style-buttons2 .wpmslider-stop:before {
   content: "\f04c";
@@ -92,21 +89,25 @@
   content: "\f053";
   position: relative;
   left: -1px;
+  top: 1px;
 }
 .strong-view.controls-style-buttons2:not(.rtl) .wpmslider-next:before {
   content: "\f054";
   position: relative;
   left: 1px;
+  top: 1px;
 }
 .strong-view.controls-style-buttons2.rtl .wpmslider-prev:before {
   content: "\f054";
   position: relative;
   left: 1px;
+  top: 1px;
 }
 .strong-view.controls-style-buttons2.rtl .wpmslider-next:before {
   content: "\f053";
   position: relative;
   left: -1px;
+  top: 1px;
 }
 
 .strong-view.controls-style-text .wpmslider-start,
@@ -145,30 +146,46 @@
   text-align: center;
   z-index: 5;
 }
+.strong-view.nav-position-inside:not(.controls-type-sides) .wpmslider-controls .wpmslider-start,
+.strong-view.nav-position-inside:not(.controls-type-sides) .wpmslider-controls .wpmslider-stop,
+.strong-view.nav-position-inside:not(.controls-type-sides) .wpmslider-controls .wpmslider-prev,
+.strong-view.nav-position-inside:not(.controls-type-sides) .wpmslider-controls .wpmslider-next {
+  margin: 0 3px;
+}
 
 .strong-view.nav-position-outside .wpmslider-controls {
   line-height: 1;
-  padding: 10px 0 20px;
+  padding: 20px 0 20px;
   text-align: center;
   z-index: 5;
 }
+.strong-view.nav-position-outside .wpmslider-controls .wpmslider-start,
+.strong-view.nav-position-outside .wpmslider-controls .wpmslider-stop,
+.strong-view.nav-position-outside .wpmslider-controls .wpmslider-prev,
+.strong-view.nav-position-outside .wpmslider-controls .wpmslider-next {
+  margin: 0 3px;
+}
 
+.strong-view.controls-type-sides .wpmslider-controls {
+  height: 0;
+}
 .strong-view.controls-type-sides .wpmslider-prev,
 .strong-view.controls-type-sides .wpmslider-next {
   position: absolute;
   top: calc(50% - 14px);
+  margin: 0;
 }
 .strong-view.controls-type-sides:not(.rtl) .wpmslider-prev {
-  left: 8px;
+  left: 10px;
 }
 .strong-view.controls-type-sides:not(.rtl) .wpmslider-next {
-  right: 8px;
+  right: 10px;
 }
 .strong-view.controls-type-sides.rtl .wpmslider-prev {
-  right: 8px;
+  right: 10px;
 }
 .strong-view.controls-type-sides.rtl .wpmslider-next {
-  left: 8px;
+  left: 10px;
 }
 
 .strong-view.controls-type-sides .wpmslider-controls {

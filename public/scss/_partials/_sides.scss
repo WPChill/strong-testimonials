@@ -1,28 +1,33 @@
 .strong-view {
   &.controls-type-sides {
+    .wpmslider-controls {
+      height: 0;
+    }
+
     .wpmslider-prev,
     .wpmslider-next {
       position: absolute;
       top: calc(50% - 14px);
+      margin: 0;
     }
 
     &:not(.rtl) {
       .wpmslider-prev {
-        left: 8px;
+        left: 10px;
       }
 
       .wpmslider-next {
-        right: 8px;
+        right: 10px;
       }
     }
 
     &.rtl {
       .wpmslider-prev {
-        right: 8px;
+        right: 10px;
       }
 
       .wpmslider-next {
-        left: 8px;
+        left: 10px;
       }
     }
   }

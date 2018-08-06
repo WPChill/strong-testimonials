@@ -65,17 +65,22 @@ function wpmtst_form_field( $field_name ) {
 function wpmtst_single_form_field( $field ) {
 	$form_values = WPMST()->form->get_form_values();
 
-	echo '<div class="form-field field-'.$field['name'].'">';
+	echo '<div class="' . wpmtst_field_group_classes( $field['input_type'], $field['name'] ) . '">';
 
 	if ( 'checkbox' != $field['input_type'] ) {
+
 		if ( ! isset( $field['show_label'] ) || $field['show_label'] ) {
-			echo '<label for="wpmtst_' . $field['name'] . '">' . wpmtst_form_field_meta_l10n( $field['label'], $field, 'label' ) . '</label>';
+			printf( '<label for="wpmtst_%s" class="%s">%s</label>',
+			    $field['name'],
+			    wpmtst_field_label_classes( $field['input_type'], $field['name'] ),
+			    wpmtst_form_field_meta_l10n( $field['label'], $field, 'label' ) );
 
 			if ( isset( $field['required'] ) && $field['required'] ) {
 				wpmtst_field_required_symbol();
 			}
 		}
 	    wpmtst_field_before( $field );
+
 	}
 
 	// Check for callback first.
@@ -92,6 +97,7 @@ function wpmtst_single_form_field( $field ) {
 		    case 'category-selector' :
 			    $value = isset( $form_values[ $field['name'] ] ) ? (array) $form_values[ $field['name'] ] : array();
 
+			    echo '<div class="field-wrap">';
 			    printf( '<select id="wpmtst_%s" name="%s" class="%s" %s tabindex="0">',
 			            $field['name'],
 			            $field['name'],
@@ -101,13 +107,14 @@ function wpmtst_single_form_field( $field ) {
 			    echo '<option value="">&mdash;</option>';
 			    wpmtst_nested_cats( $value );
 			    echo '</select>';
-
+			    echo '</div>';
 			    break;
 
 		    case 'category-checklist' :
 			    $value = isset( $form_values[ $field['name'] ] ) ? (array) $form_values[ $field['name'] ] : array();
+			    echo '<div class="field-wrap">';
 			    wpmtst_form_category_checklist_frontend( $value );
-
+			    echo '</div>';
 			    break;
 
 		    case 'textarea' :
@@ -121,11 +128,12 @@ function wpmtst_single_form_field( $field ) {
 			            wpmtst_field_required_tag( $field ),
 			            wpmtst_field_placeholder( $field ),
 			            esc_textarea( $value ) );
-
 			    break;
 
 		    case 'file' :
+			    echo '<div class="field-wrap">';
 			    echo '<input id="wpmtst_' . $field['name'] . '" type="file" name="' . $field['name'] . '"' . wpmtst_field_required_tag( $field ) . ' tabindex="0">';
+			    echo '</div>';
 			    break;
 
 		    case 'shortcode' :
@@ -140,7 +148,10 @@ function wpmtst_single_form_field( $field ) {
 
 		    case 'checkbox' :
 			    if ( ! isset( $field['show_label'] ) || $field['show_label'] ) {
-				    echo '<label for="wpmtst_' . $field['name'] . '">' . wpmtst_form_field_meta_l10n( $field['label'], $field, 'label' ) . '</label>';
+				    printf( '<label for="wpmtst_%s" class="%s">%s</label>',
+				        $field['name'],
+					    wpmtst_field_label_classes($field['input_type'], $field['name']),
+					    wpmtst_form_field_meta_l10n( $field['label'], $field, 'label' ) );
 			    }
 
 			    wpmtst_field_before( $field );
@@ -163,8 +174,7 @@ function wpmtst_single_form_field( $field ) {
 					}
 			    }
 
-			    echo '</div><!-- .field-wrap -->';
-
+			    echo '</div>';
 			    break;
 
 		    default: // text, email, url
@@ -184,16 +194,55 @@ function wpmtst_single_form_field( $field ) {
 	wpmtst_field_after( $field );
 	wpmtst_field_error( $field );
 	echo '</div>' . "\n";
-
 }
 
 /**
- * Print form field CSS classes.
+ * Assemble form field group CSS classes.
+ *
+ * @param null $type
+ * @param null $name
+ * @since 2.32.0
+ *
+ * @return string
+ */
+function wpmtst_field_group_classes( $type, $name ) {
+	$class_list = array(
+		'form-field',
+	);
+
+	if ( $name ) {
+		$class_list[] = "field-$name";
+	}
+
+	return apply_filters( 'wpmtst_form_field_group_class', join( ' ', $class_list ), $type, $name );
+}
+
+/**
+ * Assemble form field label CSS classes.
+ *
+ * @param null $type
+ * @param null $name
+ * @since 2.32.0
+ *
+ * @return string
+ */
+function wpmtst_field_label_classes( $type, $name ) {
+	$class_list = array();
+
+	if ( $name ) {
+		$class_list[] = "field-$name";
+	}
+
+	return apply_filters( 'wpmtst_form_field_label_class', join( ' ', $class_list ), $type, $name );
+}
+
+/**
+ * Assemble form field CSS classes.
  *
  * @param null $type
  * @param null $name
  *
- * @return mixed
+ * @return string
  */
 function wpmtst_field_classes( $type = null, $name = null ) {
 	$errors = WPMST()->form->get_form_errors();
@@ -219,7 +268,7 @@ function wpmtst_field_classes( $type = null, $name = null ) {
 		$class_list[] = 'error';
 	}
 
-	return apply_filters( 'wpmtst_form_field_class', implode( ' ', $class_list ), $type, $name );
+	return apply_filters( 'wpmtst_form_field_class', join( ' ', $class_list ), $type, $name );
 }
 
 /**
@@ -310,9 +359,10 @@ function wpmtst_field_required_symbol() {
  * @param $field
  */
 function wpmtst_field_before( $field ) {
-    echo '<span class="before">';
-	echo wpmtst_get_form_field_meta( $field, 'before' );
-	echo '</span>';
+    $before = wpmtst_get_form_field_meta( $field, 'before' );
+    if ( $before ) {
+	    echo '<span class="before">' . $before . '</span>';
+    }
 }
 
 /**
@@ -321,9 +371,8 @@ function wpmtst_field_before( $field ) {
  * @param $field
  */
 function wpmtst_field_after( $field ) {
-    echo '<span class="after">';
-	echo wpmtst_get_form_field_meta( $field, 'after' );
-	echo '</span>';
+    $after = wpmtst_get_form_field_meta( $field, 'after' );
+    echo '<span class="after">' . $after . '</span>';
 }
 
 /**
