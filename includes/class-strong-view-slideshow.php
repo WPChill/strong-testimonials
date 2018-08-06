@@ -362,6 +362,8 @@ class Strong_View_Slideshow extends Strong_View_Display {
 			'classes' => $pairs,
 		);
 
+		$slide_margin = $this->atts['slideshow_settings']['max_slides'] > 1 ? $this->atts['slideshow_settings']['margin'] : 0;
+
 		$args = array(
 			'mode'                => $this->atts['slideshow_settings']['effect'],
 			'speed'               => $this->atts['slideshow_settings']['speed'] * 1000,
@@ -380,7 +382,8 @@ class Strong_View_Slideshow extends Strong_View_Display {
 			'touchEnabled'        => $options['touch_enabled'],
 		    'maxSlides'           => $this->atts['slideshow_settings']['max_slides'],
 		    'moveSlides'          => $this->atts['slideshow_settings']['move_slides'],
-		    'slideMargin'         => $this->atts['slideshow_settings']['margin'], // px
+		    'slideMargin'         => $slide_margin,
+		    'minThreshold'        => 480,
 		);
 
 		if ( ! $this->atts['slideshow_settings']['adapt_height'] ) {
@@ -435,7 +438,7 @@ class Strong_View_Slideshow extends Strong_View_Display {
 			}
 		}
 
-		return array( 'config' => $args );
+		return array( 'config' => apply_filters( 'wpmtst_slider_args', $args, $this->atts ) );
 	}
 
 }
