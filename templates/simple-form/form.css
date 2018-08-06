@@ -101,6 +101,8 @@ img.captcha {
   padding-left: 0;
 }
 
+/* The "wait" spinner on form submission.
+-----------------------------------------------*/
 .strong-form-wait {
   display: none;
   position: absolute;

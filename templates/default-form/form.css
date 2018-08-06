@@ -101,6 +101,8 @@ img.captcha {
   padding-left: 0;
 }
 
+/* The "wait" spinner on form submission.
+-----------------------------------------------*/
 .strong-form-wait {
   display: none;
   position: absolute;
@@ -121,7 +123,6 @@ img.captcha {
 }
 
 .strong-form {
-  /* error indicators */
   /* field-wrap is used for checkboxes, radios, star ratings */
 }
 .strong-form label {
