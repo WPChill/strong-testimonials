@@ -113,7 +113,7 @@ removeResultArg = function () {
     }
     window.history.replaceState({}, document.title, newURL);
   }
-}
+};
 
 /**
  * Initial actions on document.ready
@@ -1102,6 +1102,27 @@ jQuery(document).ready(function ($) {
       .slideToggle(100);
     return false;
   });
+
+  /**
+   * Slider|Carousel change listener
+   */
+  var $maxSlides = $('#view-max_slides');
+  var $effect = $('#view-effect');
+  var $position = $('view-slideshow_nav_position');
+
+  var maxSlidesUpdate = function () {
+    var maxSlidesValue = parseInt($maxSlides.val());
+    if (maxSlidesValue > 1) {
+      $effect.prop('readonly', true).find('option[value=\'horizontal\']').prop('selected', true);
+      $position.prop('readonly', true).find('option[value=\'outside\']').prop('selected', true);
+    }
+    $effect.change();
+    $position.change();
+  };
+
+  maxSlidesUpdate();
+
+  $maxSlides.on('change', maxSlidesUpdate);
 
 })(jQuery);
 
