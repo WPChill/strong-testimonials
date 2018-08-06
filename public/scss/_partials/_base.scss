@@ -1,6 +1,5 @@
 /* =bxSlider structure
 ---------------------------------------------------------*/
-
 .strong-view {
   .wpmslider-wrapper {
     position: relative;
@@ -9,6 +8,7 @@
     *zoom: 1;
     -ms-touch-action: pan-y;
     touch-action: pan-y;
+    direction: ltr;
   }
 
   .wpmslider {
@@ -28,9 +28,17 @@
   .wpmslider-pager {
     display: inline-block;
   }
+
+  &.rtl {
+    .wpmslider-pager {
+      direction: rtl;
+    }
+  }
+
   .wpmslider-pager-item {
     display: inline-block;
   }
+
   .wpmslider-pager-link {
     text-decoration: none;
   }

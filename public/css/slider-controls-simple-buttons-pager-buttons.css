@@ -7,6 +7,7 @@
   *zoom: 1;
   -ms-touch-action: pan-y;
   touch-action: pan-y;
+  direction: ltr;
 }
 .strong-view .wpmslider {
   margin: 0;
@@ -21,6 +22,9 @@
 ---------------------------------------------------------*/
 .strong-view .wpmslider-pager {
   display: inline-block;
+}
+.strong-view.rtl .wpmslider-pager {
+  direction: rtl;
 }
 .strong-view .wpmslider-pager-item {
   display: inline-block;
