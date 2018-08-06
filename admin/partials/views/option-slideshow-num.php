@@ -14,10 +14,10 @@
                     <option value="2" <?php selected( $view['slideshow_settings']['max_slides'], 2 ); ?>>2</option>
                     <option value="3" <?php selected( $view['slideshow_settings']['max_slides'], 3 ); ?>>3</option>
                 </select>
-                <div class="inline then then_max_slides then_1 then_not_2 then_not_3 fast" style="display: none;">
+                <div class="option-desc singular" style="display: none;">
 				    <?php _e( 'slide at a time', 'strong-testimonials' ); ?>
                 </div>
-                <div class="inline then then_max_slides then_not_1 then_2 then_3 fast" style="display: none;">
+                <div class="option-desc plural" style="display: none;">
 				    <?php _e( 'slides at a time', 'strong-testimonials' ); ?>
                 </div>
         </div>
@@ -40,10 +40,10 @@
                     <option value="2" <?php selected( $view['slideshow_settings']['move_slides'], 2 ); ?>>2</option>
                     <option value="3" <?php selected( $view['slideshow_settings']['move_slides'], 3 ); ?>>3</option>
                 </select>
-                <div class="inline then then_move_slides then_1 then_not_2 then_not_3 fast" style="display: none;">
+                <div class="option-desc singular" style="display: none;">
 		            <?php _e( 'slide at a time', 'strong-testimonials' ); ?>
                 </div>
-                <div class="inline then then_move_slides then_not_1 then_2 then_3 fast" style="display: none;">
+                <div class="option-desc plural" style="display: none;">
 		            <?php _e( 'slides at a time', 'strong-testimonials' ); ?>
                 </div>
         </div>
