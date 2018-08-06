@@ -3,8 +3,8 @@ Contributors: cdillon27
 Tags: testimonials, testimonial slider, testimonial form, reviews, star ratings
 Requires at least: 3.7
 Requires PHP: 5.2.4
-Tested up to: 4.9.6
-Stable tag: 2.31.10
+Tested up to: 4.9
+Stable tag: 2.32
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -22,7 +22,7 @@ In just a few steps, you will be collecting and publishing your testimonials or 
 * A front-end form
 * Custom fields
 * Star ratings
-* Slider with several navigation options
+* Slider & carousel with several navigation options
 * Grids and Masonry
 * Ready for translation with [WPML](https://wpml.org/), [Polylang](https://wordpress.org/plugins/polylang/), and [WPGlobus](https://wordpress.org/plugins/wpglobus/)
 
@@ -154,7 +154,11 @@ Activate the plugin. Look for "Testimonials" in the admin menu.
 
 `Read some of our [testimonial_count] testimonials!`
 
-[testimonial_average_rating] - To display the average rating of all your testimonials. Includes stars! *(Documentation coming soon.)*
+[testimonial_average_rating] - To display the average rating of all your testimonials. Includes stars!
+
+= Can I show more than one testimonial in the slider (i.e. a carousel)? =
+
+Yes. you can show 1, 2 or 3 at a time and you can scroll 1, 2 or 3 at a time.
 
 = Can I add testimonials from YouTube, Twitter, Instagram and Facebook? =
 
@@ -210,6 +214,10 @@ If you prefer, start a private support ticket at [support.strongplugins.com](htt
 8. View editor
 
 == Changelog ==
+
+= 2.32 - Aug 6, 2018 =
+* Add carousel option.
+* Add filters to form field classes.
 
 = 2.31.10 - Aug 2, 2018 =
 * Fix singular/plural phrases in testimonial average shortcode.
@@ -267,80 +275,9 @@ If you prefer, start a private support ticket at [support.strongplugins.com](htt
 * Add console logging for slider when `SCRIPT_DEBUG` enabled.
 * Minor admin style tweaks.
 
-= 2.30.9 - May 6, 2018 =
-* Fix bug in add-on activation process.
-
-= 2.30.8 - April 26, 2018 =
-* Fix incorrect text domains.
-* Fix bug in form validation translation files.
-* Remove obsolete German translation.
-* Update translation files.
-* Refactor the submit buttons on settings pages.
-
-= 2.30.7 - April 23, 2018 =
-* Fix bug in front-end controller script.
-
-= 2.30.6 - April 17, 2018 =
-* Improve embeds in Masonry layout.
-* Fix `[testimonial_count category]` shortcode in Properties add-on.
-* Update the EDD license updater class.
-* Improve notification email admin UI.
-* Improve notification email message when custom fields are blank.
-
-= 2.30.5 - April 9, 2018 =
-* Fix bug when email field is not required.
-* Fix display of templates in view editor when theme/add-on templates are present.
-* Fix inconsistent use of filter on default view settings.
-* Improve compatibility with themes and thumbnail column in admin list.
-* Improve compatibility with installation scripts (table creation).
-* Improve check for missing add-on license.
-* Add front-end "Nothing found" message for administrators.
-* Add data attribute 'count' for found_posts to view container for troubleshooting.
-* Add filter on `[testimonial_count]` shortcode defaults.
-* Add ability to capture notification email on localhost.
-* Revive a logger class.
-* Minor admin UI tweaks.
-
-= 2.30.4 - Mar 20, 2018 =
-* Fix bug in slider in Firefox 59.
-
-= 2.30.3 - Mar 16, 2018 =
-* Improve slider script compatibility (event propagation).
-
-= 2.30.2 - Mar 11, 2018 =
-* Fix backwards-compatibility for WordPress versions 4.5 and older.
-
-= 2.30.1 - Mar 6, 2018 =
-* Fix minor bug in PHP7 compatibility.
-* Improve real-time validation in fields editor.
-* Minor CSS fixes.
-
-= 2.30.0 - Feb 10, 2018 =
-* Add option for font color in view editor.
-* Add option for a custom CSS class on the image link for lightboxes.
-* Add shortcode attributes for post_ids, category, order, and count.
-* Use `is_email()` to validate email addresses.
-* Use `number_format_i18n()` in testimonial_count shortcode.
-* Refactor template groups into base templates with options.
-* Add option to disable touch swipe navigation in slideshows.
-* Simplify slideshow CSS.
-* Fix bug in slider script in Chrome.
-
 See changelog.txt for previous versions.
 
 == Upgrade Notice ==
 
-= 2.31 =
-New [testimonial_average_rating] shortcode. More compatibility options.
-
-= 2.31.4 =
-Privacy exporter and eraser integration.
-
-= 2.31.5 =
-Fix XSS security vulnerabilities.
-
-= 2.31.8 =
-Minor improvements to forms and inline style.
-
-= 2.31.9 =
-Fix conflict with Gutenberg. Improve theme compatibility.
+= 2.32 =
+New feature: Show multiple slides at the same time in a carousel.
