@@ -65,10 +65,6 @@
   text-align: center;
   transition: all 0.2s ease;
 }
-.strong-view.controls-style-buttons .wpmslider-start,
-.strong-view.controls-style-buttons .wpmslider-stop {
-  margin: 0 7px;
-}
 .strong-view.controls-style-buttons .wpmslider-start:before,
 .strong-view.controls-style-buttons .wpmslider-stop:before {
   position: relative;
@@ -131,10 +127,22 @@
   text-align: center;
   z-index: 5;
 }
+.strong-view.nav-position-inside:not(.controls-type-sides) .wpmslider-controls .wpmslider-start,
+.strong-view.nav-position-inside:not(.controls-type-sides) .wpmslider-controls .wpmslider-stop,
+.strong-view.nav-position-inside:not(.controls-type-sides) .wpmslider-controls .wpmslider-prev,
+.strong-view.nav-position-inside:not(.controls-type-sides) .wpmslider-controls .wpmslider-next {
+  margin: 0 3px;
+}
 
 .strong-view.nav-position-outside .wpmslider-controls {
   line-height: 1;
-  padding: 10px 0 20px;
+  padding: 20px 0 20px;
   text-align: center;
   z-index: 5;
+}
+.strong-view.nav-position-outside .wpmslider-controls .wpmslider-start,
+.strong-view.nav-position-outside .wpmslider-controls .wpmslider-stop,
+.strong-view.nav-position-outside .wpmslider-controls .wpmslider-prev,
+.strong-view.nav-position-outside .wpmslider-controls .wpmslider-next {
+  margin: 0 3px;
 }

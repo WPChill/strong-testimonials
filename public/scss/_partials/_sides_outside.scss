@@ -1,0 +1,42 @@
+.strong-view {
+  &.controls-type-sides-outside {
+    padding: 0 50px;
+
+    .wpmslider-controls {
+      height: 0;
+    }
+
+    &.pager-style-text,
+    &.pager-style-buttons {
+      .wpmslider-controls {
+        height: auto;
+      }
+    }
+
+    .wpmslider-prev,
+    .wpmslider-next {
+      position: absolute;
+      top: calc(50% - 14px);
+    }
+
+    &:not(.rtl) {
+      .wpmslider-prev {
+        left: -40px;
+      }
+
+      .wpmslider-next {
+        right: -40px;
+      }
+    }
+
+    &.rtl {
+      .wpmslider-prev {
+        right: -40px;
+      }
+
+      .wpmslider-next {
+        left: -40px;
+      }
+    }
+  }
+}

@@ -1,10 +1,17 @@
 .strong-view {
-	&.nav-position-outside {
-		.wpmslider-controls {
-			line-height: 1;
-			padding: 10px 0 20px;
-			text-align: center;
-			z-index: 5;
-		}
-	}
+  &.nav-position-outside {
+    .wpmslider-controls {
+      line-height: 1;
+      padding: 20px 0 20px;
+      text-align: center;
+      z-index: 5;
+
+      .wpmslider-start,
+      .wpmslider-stop,
+      .wpmslider-prev,
+      .wpmslider-next {
+        margin: 0 3px;
+      }
+    }
+  }
 }
