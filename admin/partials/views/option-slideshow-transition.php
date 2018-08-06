@@ -7,7 +7,7 @@
 
 		<div class="inline inline-middle">
 			<label for="view-pause">
-				<?php _ex( 'Show each for', 'slideshow setting', 'strong-testimonials' ); ?>
+				<?php _ex( 'Show slides for', 'slideshow setting', 'strong-testimonials' ); ?>
 			</label>
 			<input type="number" id="view-pause" class="input-incremental"
 			       name="view[data][slideshow_settings][pause]" min=".1" step=".1"
@@ -15,7 +15,7 @@
 			<?php _ex( 'seconds', 'time setting', 'strong-testimonials' ); ?>
 		</div>
 
-		<div class="inline inline-middle">
+		<div class="inline inline-middle then then_max_slides then_1 then_not_2 then_not_3 fast" style="display: none;">
 			<label for="view-effect">
 				<?php _e( 'then', 'strong-testimonials' ); ?>
 			</label>
@@ -27,6 +27,10 @@
 				<?php endforeach; ?>
 			</select>
 		</div>
+
+        <div class="inline inline-middle then then_max_slides then_not_1 then_2 then_3 fast" style="display: none;">
+            <?php _e( 'then', 'strong-testimonials' ); ?> <?php _ex( 'scroll horizontally', 'slideshow transition option', 'strong-testimonials' ); ?>
+        </div>
 
 		<div class="inline inline-middle then then_effect then_none">
 			<label for="view-speed">

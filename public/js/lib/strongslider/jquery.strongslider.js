@@ -1,8 +1,8 @@
 /*!
  * jQuery Strong Slider Plugin
- * Version 2.1
+ * Version 2.2
  *
- * Copyright (c) 2017 Chris Dillon
+ * Copyright (c) 2017-2018 Chris Dillon
  * Released under the MIT license
  *
  * Forked from bxSlider v4.2.14
@@ -37,8 +37,6 @@
     startSlide: 0,
     randomStart: false,
     captions: false,
-    // ticker: false,
-    // tickerHover: false,
     adaptiveHeight: false,
     adaptiveHeightSpeed: 500,
     video: false,
@@ -98,8 +96,6 @@
     minSlides: 1,
     maxSlides: 1,
     moveSlides: 0,
-    slideWidth: 0,
-    shrinkItems: false,
 
     // CALLBACKS
     onSliderLoad: function () { return true; },
@@ -117,23 +113,11 @@
       return this;
     }
 
-    // support multiple elements
-    // if (this.length > 1) {
-    //   this.each(function() {
-    //     $(this).bxSlider(options);
-    //   });
-    //   return this;
-    // }
-
     // create a namespace to be used throughout the plugin
     var slider = {},
       // set a reference to our slider element
       viewEl = this,
       el = this.find('.wpmslider-content');
-    // Doing this with verge instead:
-    // get the original window dimens (thanks a lot IE)
-    // windowWidth = $(window).width(),
-    // windowHeight = $(window).height();
 
     // Return if slider is already initialized
     if ($(el).data('strongSlider')) { return; }
@@ -168,9 +152,6 @@
       slider.logAs = slider.settings.logAs;
       if (slider.debug) console.log(slider.logAs, 'slider.settings', slider.settings);
 
-      // parse slideWidth setting
-      slider.settings.slideWidth = parseInt(slider.settings.slideWidth);
-
       // store the original children
       slider.children = el.children(slider.settings.slideSelector);
 
@@ -197,11 +178,6 @@
       if (slider.carousel) {
         slider.settings.preloadImages = 'all';
       }
-
-      // calculate the min / max width thresholds based on min / max number of slides
-      // used to setup and update carousel slides dimensions
-      slider.minThreshold = (slider.settings.minSlides * slider.settings.slideWidth) + ((slider.settings.minSlides - 1) * slider.settings.slideMargin);
-      slider.maxThreshold = (slider.settings.maxSlides * slider.settings.slideWidth) + ((slider.settings.maxSlides - 1) * slider.settings.slideMargin);
 
       // store the current state of the slider (if currently animating, working is true)
       slider.working = false;
@@ -309,15 +285,18 @@
      */
     var initVisibilityCheck = function () {
       if (reallyVisible() && compatCheck()) {
+
         clearInterval(slider.visibilityInterval);
 
         // perform all DOM / CSS modifications
         setup();
 
       } else {
+
         if (slider.visibilityInterval === 0) {
           slider.visibilityInterval = setInterval(initVisibilityCheck, 1000 * 4);
         }
+
       }
     };
 
@@ -333,8 +312,7 @@
       // store a namespace reference to .wpmslider-viewport
       slider.viewport = el.parent();
 
-      // add aria-live if the setting is enabled and ticker mode is disabled
-      //if (slider.settings.ariaLive && !slider.settings.ticker) { // disabling ticker
+      // add aria-live if the setting is enabled
       if (slider.settings.ariaLive) {
         slider.viewport.attr('aria-live', 'polite');
       }
@@ -365,7 +343,7 @@
       });
 
       slider.viewport.parent().css({
-        maxWidth: getViewportMaxWidth()
+        maxWidth: getViewportMaxWidth2()
       });
 
       // make modification to the wrapper (.wpmslider-wrapper)
@@ -382,7 +360,7 @@
       });
 
       // apply the calculated width after the float is applied to prevent scrollbar interference
-      slider.children.css('width', getSlideWidth());
+      slider.children.css('width', getSlideWidth2());
 
       // if slideMargin is supplied, add the css
       if (slider.settings.mode === 'horizontal' && slider.settings.slideMargin > 0) {
@@ -421,30 +399,11 @@
       //preloadImages
       if (slider.settings.preloadImages === 'none') {
         preloadSelector = null;
-      }
-      //else if (slider.settings.preloadImages === 'all' || slider.settings.ticker) { // disabling ticker
-      else if (slider.settings.preloadImages === 'all') {
+      } else if (slider.settings.preloadImages === 'all') {
         preloadSelector = slider.children;
       }
 
-      // disabling ticker, adding separate control divs
-      /*
-      // only check for control addition if not in "ticker" mode
-      if (!slider.settings.ticker) {
-        // if controls are requested, add them
-        if (slider.settings.controls) { appendControls(); }
-        // if auto is true, and auto controls are requested, add them
-        if (slider.settings.auto && slider.settings.autoControls) { appendControlsAuto(); }
-        // if pager is requested, add it
-        if (slider.settings.pager) { appendPager(); }
-        // if any control option is requested, add the controls wrapper
-        if (slider.settings.controls || slider.settings.autoControls || slider.settings.pager) { slider.viewport.after(slider.controls.el); }
-        // if ticker mode, do not allow a pager
-      } else {
-        slider.settings.pager = false;
-      }
-      */
-
+      // add separate control divs
       // [ LEFT ]
       // if controls are requested, add them
       if (slider.settings.controls) { appendControlPrev(); }
@@ -488,7 +447,6 @@
     var start = function () {
 
       // if infinite loop, prepare additional slides
-      // if (slider.settings.infiniteLoop && slider.settings.mode !== 'fade' && !slider.settings.ticker) { // disabling ticker
       if (slider.settings.infiniteLoop && slider.settings.mode !== 'fade') {
         var slice = slider.settings.mode === 'vertical' ? slider.settings.minSlides : slider.settings.maxSlides,
         sliceAppend = slider.children.slice(0, slice).clone(true).addClass('wpmslider-clone'),
@@ -535,9 +493,6 @@
       // if auto is true and has more than 1 page, start the show
       if (slider.settings.auto && slider.settings.autoStart && (getPagerQty() > 1 || slider.settings.autoSlideForOnePage)) { initAuto(); }
 
-      // if ticker is true, start the ticker
-      // if (slider.settings.ticker) { initTicker(); } // disabling ticker
-
       // if pager is requested, make the appropriate pager link active
       if (slider.settings.pager) {
         updatePagerActive(slider.settings.startSlide);
@@ -549,11 +504,9 @@
       }
 
       // if touchEnabled is true, setup the touch events
-      // if (slider.settings.touchEnabled && !slider.settings.ticker) { initTouch(); } // disabling ticker
       if (slider.settings.touchEnabled) { initTouch(); }
 
       // if keyboardEnabled is true, setup the keyboard events
-      //if (slider.settings.keyboardEnabled && !slider.settings.ticker) { // disabling ticker
       if (slider.settings.keyboardEnabled) {
         $(document).keydown(keyPress);
       }
@@ -736,70 +689,25 @@
     /**
      * Returns the calculated width to be used for the outer wrapper / viewport
      */
-    var getViewportMaxWidth = function () {
-      var width = '100%';
-      if (slider.settings.slideWidth > 0) {
-        if (slider.settings.mode === 'horizontal') {
-          width = (slider.settings.maxSlides * slider.settings.slideWidth) + ((slider.settings.maxSlides - 1) * slider.settings.slideMargin);
-        } else {
-          width = slider.settings.slideWidth;
-        }
-      }
-      return width;
+    var getViewportMaxWidth2 = function () {
+      return '100%';
     };
 
     /**
      * Returns the calculated width to be applied to each slide
      */
-    var getSlideWidth = function () {
-
-      var newElWidth = slider.settings.slideWidth, // start with any user-supplied slide width
-        wrapWidth = slider.viewport.width();    // get the current viewport width
-
-      // if slide width was not supplied, or is larger than the viewport use the viewport width
-      if (slider.settings.slideWidth === 0 ||
-
-        (slider.settings.slideWidth > wrapWidth && !slider.carousel) ||
-        slider.settings.mode === 'vertical') {
-        newElWidth = wrapWidth;
-      // if carousel, use the thresholds to determine the width
-      } else if (slider.settings.maxSlides > 1 && slider.settings.mode === 'horizontal') {
-        if (wrapWidth > slider.maxThreshold) {
-          return newElWidth;
-        } else if (wrapWidth < slider.minThreshold) {
-          newElWidth = (wrapWidth - (slider.settings.slideMargin * (slider.settings.minSlides - 1))) / slider.settings.minSlides;
-        } else if (slider.settings.shrinkItems) {
-          newElWidth = Math.floor((wrapWidth + slider.settings.slideMargin) / (Math.ceil((wrapWidth + slider.settings.slideMargin) / (newElWidth + slider.settings.slideMargin))) - slider.settings.slideMargin);
-        }
-      }
+    var getSlideWidth2 = function () {
+      var wrapWidth = slider.viewport.width();
+      var margins = slider.settings.slideMargin * (slider.settings.maxSlides - 1);
+      var newElWidth = (wrapWidth - margins) / slider.settings.maxSlides;
       return newElWidth;
     };
 
     /**
      * Returns the number of slides currently visible in the viewport (includes partially visible slides)
      */
-    var getNumberSlidesShowing = function () {
-      var slidesShowing = 1,
-        childWidth = null;
-      if (slider.settings.mode === 'horizontal' && slider.settings.slideWidth > 0) {
-        // if viewport is smaller than minThreshold, return minSlides
-        if (slider.viewport.width() < slider.minThreshold) {
-          slidesShowing = slider.settings.minSlides;
-        // if viewport is larger than maxThreshold, return maxSlides
-        } else if (slider.viewport.width() > slider.maxThreshold) {
-          slidesShowing = slider.settings.maxSlides;
-        // if viewport is between min / max thresholds, divide viewport width by first child width
-        }
-        else {
-          childWidth = slider.children.first().width() + slider.settings.slideMargin;
-          slidesShowing = Math.floor((slider.viewport.width() +
-            slider.settings.slideMargin) / childWidth) || 1;
-        }
-      // if "vertical" mode, slides showing will always be minSlides
-      } else if (slider.settings.mode === 'vertical') {
-        slidesShowing = slider.settings.minSlides;
-      }
-      return slidesShowing;
+    var getNumberSlidesShowing2 = function () {
+      return slider.settings.maxSlides;
     };
 
     /**
@@ -817,14 +725,14 @@
           // when breakpoint goes above children length, counter is the number of pages
           while (breakPoint < slider.children.length) {
             ++pagerQty;
-            breakPoint = counter + getNumberSlidesShowing();
-            counter += slider.settings.moveSlides <= getNumberSlidesShowing() ? slider.settings.moveSlides : getNumberSlidesShowing();
+            breakPoint = counter + getNumberSlidesShowing2();
+            counter += slider.settings.moveSlides <= getNumberSlidesShowing2() ? slider.settings.moveSlides : getNumberSlidesShowing2();
           }
           return counter;
         }
       // if moveSlides is 0 (auto) divide children length by sides showing, then round up
       } else {
-        pagerQty = Math.ceil(slider.children.length / getNumberSlidesShowing());
+        pagerQty = Math.ceil(slider.children.length / getNumberSlidesShowing2());
       }
       return pagerQty;
     };
@@ -834,11 +742,11 @@
      */
     var getMoveBy = function () {
       // if moveSlides was set by the user and moveSlides is less than number of slides showing
-      if (slider.settings.moveSlides > 0 && slider.settings.moveSlides <= getNumberSlidesShowing()) {
+      if (slider.settings.moveSlides > 0 && slider.settings.moveSlides <= getNumberSlidesShowing2()) {
         return slider.settings.moveSlides;
       }
       // if moveSlides is 0 (auto)
-      return getNumberSlidesShowing();
+      return getNumberSlidesShowing2();
     };
 
     /**
@@ -892,7 +800,7 @@
      * @param value (int)
      *  - the animating property's value
      *
-     * @param type (string) 'slide', 'reset', 'ticker'
+     * @param type (string) 'slide', 'reset'
      *  - the type of instance for which the function is being
      *
      * @param duration (int)
@@ -938,27 +846,6 @@
         } else if (type === 'reset') {
           el.css(slider.animProp, propValue);
         }
-        // disabling ticker
-        /* else if (type === 'ticker') {
-          // make the transition use 'linear'
-          el.css('-' + slider.cssPrefix + '-transition-timing-function', 'linear');
-          el.css(slider.animProp, propValue);
-          if (duration !== 0) {
-            el.on('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function (e) {
-              //make sure it's the correct one
-              if (!$(e.target).is(el)) { return; }
-              // remove the callback
-              el.off('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd');
-              // reset the position
-              setPositionProperty(params.resetValue, 'reset', 0);
-              // start the loop again
-              tickerLoop();
-            });
-          } else { //duration = 0
-            setPositionProperty(params.resetValue, 'reset', 0);
-            tickerLoop();
-          }
-        } */
       // use JS animate
       } else {
         animateObj = {};
@@ -970,14 +857,6 @@
         } else if (type === 'reset') {
           el.css(slider.animProp, value);
         }
-        // disabling ticker
-        /* else if (type === 'ticker') {
-          el.animate(animateObj, duration, 'linear', function () {
-            setPositionProperty(params.resetValue, 'reset', 0);
-            // run the recursive loop after animation
-            tickerLoop();
-          });
-        } */
       }
     };
 
@@ -1348,102 +1227,6 @@
     };
 
     /**
-     * Initializes the ticker process
-     */
-    /*
-    var initTicker = function() {
-      var startPosition = 0,
-      position, transform, value, idx, ratio, property, newSpeed, totalDimens;
-      // if autoDirection is "next", append a clone of the entire slider
-      if (slider.settings.autoDirection === 'next') {
-        el.append(slider.children.clone().addClass('bx-clone'));
-      // if autoDirection is "prev", prepend a clone of the entire slider, and set the left position
-      } else {
-        el.prepend(slider.children.clone().addClass('bx-clone'));
-        position = slider.children.first().position();
-        startPosition = slider.settings.mode === 'horizontal' ? -position.left : -position.top;
-      }
-      setPositionProperty(startPosition, 'reset', 0);
-      // do not allow controls in ticker mode
-      slider.settings.pager = false;
-      slider.settings.controls = false;
-      slider.settings.autoControls = false;
-      // if autoHover is requested
-      if (slider.settings.tickerHover) {
-        if (slider.usingCSS) {
-          idx = slider.settings.mode === 'horizontal' ? 4 : 5;
-          slider.viewport.hover(function() {
-            transform = el.css('-' + slider.cssPrefix + '-transform');
-            value = parseFloat(transform.split(',')[idx]);
-            setPositionProperty(value, 'reset', 0);
-          }, function() {
-            totalDimens = 0;
-            slider.children.each(function(index) {
-              totalDimens += slider.settings.mode === 'horizontal' ? $(this).outerWidth(true) : $(this).outerHeight(true);
-            });
-            // calculate the speed ratio (used to determine the new speed to finish the paused animation)
-            ratio = slider.settings.speed / totalDimens;
-            // determine which property to use
-            property = slider.settings.mode === 'horizontal' ? 'left' : 'top';
-            // calculate the new speed
-            newSpeed = ratio * (totalDimens - (Math.abs(parseInt(value))));
-            tickerLoop(newSpeed);
-          });
-        } else {
-          // on el hover
-          slider.viewport.hover(function() {
-            el.stop();
-          }, function() {
-            // calculate the total width of children (used to calculate the speed ratio)
-            totalDimens = 0;
-            slider.children.each(function(index) {
-              totalDimens += slider.settings.mode === 'horizontal' ? $(this).outerWidth(true) : $(this).outerHeight(true);
-            });
-            // calculate the speed ratio (used to determine the new speed to finish the paused animation)
-            ratio = slider.settings.speed / totalDimens;
-            // determine which property to use
-            property = slider.settings.mode === 'horizontal' ? 'left' : 'top';
-            // calculate the new speed
-            newSpeed = ratio * (totalDimens - (Math.abs(parseInt(el.css(property)))));
-            tickerLoop(newSpeed);
-          });
-        }
-      }
-      // start the ticker loop
-      tickerLoop();
-    };
-  */
-
-    /**
-     * Runs a continuous loop, news ticker-style
-     */
-    /*
-    var tickerLoop = function(resumeSpeed) {
-      var speed = resumeSpeed ? resumeSpeed : slider.settings.speed,
-      position = {left: 0, top: 0},
-      reset = {left: 0, top: 0},
-      animateProperty, resetValue, params;
-
-      // if "next" animate left position to last child, then reset left to 0
-      if (slider.settings.autoDirection === 'next') {
-        position = el.find('.bx-clone').first().position();
-      // if "prev" animate left position to 0, then reset left to first non-clone child
-      } else {
-        reset = slider.children.first().position();
-      }
-      animateProperty = slider.settings.mode === 'horizontal' ? -position.left : -position.top;
-      resetValue = slider.settings.mode === 'horizontal' ? -reset.left : -reset.top;
-      params = {resetValue: resetValue};
-      setPositionProperty(animateProperty, 'ticker', speed, params);
-    };
-    */
-
-    /**
-     * Check if el is on screen
-     * Replaced with verge.inViewport
-     */
-
-    /**
      * Initializes keyboard events
      */
     var keyPress = function (e) {
@@ -1627,8 +1410,7 @@
         if (distance >= slider.settings.swipeThreshold) {
           if (slider.touch.start.x > slider.touch.end.x) {
             el.goToNextSlide();
-          }
-          else {
+          } else {
             el.goToPrevSlide();
           }
           el.stopAuto();
@@ -1639,27 +1421,24 @@
         if (slider.settings.mode === 'horizontal') {
           distance = slider.touch.end.x - slider.touch.start.x;
           value = slider.touch.originalPos.left;
-        }
-        else {
+        } else {
           distance = slider.touch.end.y - slider.touch.start.y;
           value = slider.touch.originalPos.top;
         }
+
         // if not infinite loop and first / last slide, do not attempt a slide transition
         if (!slider.settings.infiniteLoop && ((slider.active.index === 0 && distance > 0) || (slider.active.last && distance < 0))) {
           setPositionProperty(value, 'reset', 200);
-        }
-        else {
+        } else {
           // check if distance clears threshold
           if (Math.abs(distance) >= slider.settings.swipeThreshold) {
             if (distance < 0) {
               el.goToNextSlide();
-            }
-            else {
+            } else {
               el.goToPrevSlide();
             }
             el.stopAuto();
-          }
-          else {
+          } else {
             // el.animate(property, 200);
             setPositionProperty(value, 'reset', 200);
           }
@@ -1706,9 +1485,8 @@
      *  - the first visible element's index
      */
     var applyAriaHiddenAttributes = function (startVisibleIndex) {
-      var numberOfSlidesShowing = getNumberSlidesShowing();
-      // only apply attributes if the setting is enabled and not in ticker mode
-      //if (slider.settings.ariaHidden && !slider.settings.ticker) { // disabling ticker
+      var numberOfSlidesShowing = getNumberSlidesShowing2();
+      // only apply attributes if the setting is enabled
       if (slider.settings.ariaHidden) {
         // add aria-hidden=true to all elements
         slider.children.attr('aria-hidden', 'true');
@@ -2009,13 +1787,12 @@
      */
     el.redrawSlider = function () {
       // resize all children in ratio to new screen size
-      slider.children.add(el.find('.wpmslider-clone')).outerWidth(getSlideWidth());
+      slider.children.add(el.find('.wpmslider-clone')).outerWidth(getSlideWidth2());
 
       // adjust the height
       slider.viewport.css('height', getViewportHeight());
 
       // update the slide position
-      // if (!slider.settings.ticker) { setSlidePosition(); } // disabling ticker
       setSlidePosition();
 
       // if active.last was true before the screen resize, we want
