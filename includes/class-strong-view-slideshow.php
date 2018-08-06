@@ -168,6 +168,10 @@ class Strong_View_Slideshow extends Strong_View_Display {
 
 		$container_class_list[] = 'slider-container';
 
+		if ( $settings['max_slides'] > 1 ) {
+			$container_class_list[] = 'carousel';
+		}
+
 		$container_class_list[] = 'slider-mode-' . $settings['effect'];
 
 		if ( $settings['adapt_height'] ) {
@@ -186,7 +190,13 @@ class Strong_View_Slideshow extends Strong_View_Display {
 
 		// Controls
 		if ( isset( $nav_methods['controls'][ $control ]['class'] ) && $nav_methods['controls'][ $control ]['class'] ) {
-			$container_class_list[] = $nav_methods['controls'][ $control ]['class'];
+			if ( 'sides' == $control ) {
+				if ( $settings['max_slides'] == 1 ) {
+					$container_class_list[] = $nav_methods['controls'][ $control ]['class'];
+				} else {
+					$container_class_list[] = $nav_methods['controls'][ $control ]['class'] . '-outside';
+				}
+			}
 		}
 
 		if ( 'none' != $control ) {
@@ -207,7 +217,11 @@ class Strong_View_Slideshow extends Strong_View_Display {
 		}
 
 		// Position
+		// TODO Simplify logic.
 		if ( 'none' != $pager || ( 'none' != $control && 'sides' != $control ) ) {
+			if ( $settings['max_slides'] > 1 ) {
+				$settings['nav_position'] = 'outside';
+			}
 			$container_class_list[] = 'nav-position-' . $settings['nav_position'];
 		}
 
@@ -248,10 +262,15 @@ class Strong_View_Slideshow extends Strong_View_Display {
 		 */
 		if ( isset( $settings['controls_type'] ) && 'none' != $settings['controls_type'] ) {
 
-			$filename = 'slider-controls-' . $settings['controls_type'] . '-' . $settings['controls_style'];
+			$controls_type = $settings['controls_type'];
+			if ( 'sides' == $controls_type && $settings['max_slides'] > 1 ) {
+				$controls_type .= '-outside';
+			}
+
+			$filename = 'slider-controls-' . $controls_type . '-' . $settings['controls_style'];
 
 			if ( 'full' != $settings['controls_type'] ) {
-				if ( isset( $settings['pager_style'] ) && 'none' != $settings['pager_style'] ) {
+				if ( isset( $settings['pager_style'] ) && 'none' != $settings['pager_type'] ) {
 					$filename .= '-pager-' . $settings['pager_style'];
 				}
 			}
@@ -261,8 +280,7 @@ class Strong_View_Slideshow extends Strong_View_Display {
 				WPMST()->render->add_style( "wpmtst-$filename" );
 			}
 
-		}
-		elseif ( $not_full_controls ) {
+		} elseif ( $not_full_controls ) {
 
 			/*
 			 * Pagination only
@@ -360,6 +378,9 @@ class Strong_View_Slideshow extends Strong_View_Display {
 			'debug'               => defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG,
 			'compat'              => $compat,
 			'touchEnabled'        => $options['touch_enabled'],
+		    'maxSlides'           => $this->atts['slideshow_settings']['max_slides'],
+		    'moveSlides'          => $this->atts['slideshow_settings']['move_slides'],
+		    'slideMargin'         => $this->atts['slideshow_settings']['margin'], // px
 		);
 
 		if ( ! $this->atts['slideshow_settings']['adapt_height'] ) {
