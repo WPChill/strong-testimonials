@@ -19,7 +19,6 @@
 }
 
 .strong-content.strong-columns .testimonial {
-	margin-top: 0; /* to prevent gap at top of 2nd column */
 	-webkit-column-break-inside: avoid;
 	page-break-inside: avoid;
 	break-inside: avoid;
