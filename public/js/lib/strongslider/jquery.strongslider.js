@@ -33,7 +33,7 @@
     hideControlOnEnd: false,
     speed: 500,
     easing: null,
-    slideMargin: 0,
+    slideMargin: 10,
     startSlide: 0,
     randomStart: false,
     captions: false,
@@ -96,6 +96,7 @@
     minSlides: 1,
     maxSlides: 1,
     moveSlides: 0,
+    minThreshold: 480,
 
     // CALLBACKS
     onSliderLoad: function () { return true; },
@@ -360,6 +361,14 @@
       });
 
       // apply the calculated width after the float is applied to prevent scrollbar interference
+      // Maybe copy to redrawSlider function.
+      var wrapWidth = slider.viewport.width();
+      if (slider.debug) console.log('wrapWidth', wrapWidth);
+      if (wrapWidth < slider.settings.minThreshold) {
+        slider.settings.maxSlides = 1;
+        slider.settings.moveSlides = 0;
+        slider.settings.slideMargin = 10;
+      }
       slider.children.css('width', getSlideWidth2());
 
       // if slideMargin is supplied, add the css
@@ -1280,7 +1289,7 @@
       if (e.type !== 'touchstart' && e.button !== 0) {
         return;
       }
-      //e.preventDefault();
+      // e.preventDefault();
       //disable slider controls while user is interacting with slides to avoid slider freeze that happens on touch devices when a slide swipe happens immediately after interacting with slider controls
       slider.controls.el.addClass('disabled');
 
@@ -1288,8 +1297,7 @@
         e.preventDefault();
         e.stopPropagation(); // for compatibility with WordPress themes
         slider.controls.el.removeClass('disabled');
-      }
-      else {
+      } else {
         // record the original position when touch starts
         slider.touch.originalPos = el.position();
         var orig = e.originalEvent,
