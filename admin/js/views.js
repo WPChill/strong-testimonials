@@ -7,6 +7,12 @@ Array.max = function (array) {
   return Math.max.apply(Math, array);
 };
 
+(function ($) {
+  $.fn.showInlineBlock = function () {
+    return this.css('display', 'inline-block');
+  };
+})(jQuery);
+
 /**
  * jQuery alterClass plugin
  *
@@ -1113,9 +1119,16 @@ jQuery(document).ready(function ($) {
   var maxSlidesUpdate = function () {
     var maxSlidesValue = parseInt($maxSlides.val());
     if (maxSlidesValue > 1) {
-      $effect.prop('readonly', true).find('option[value=\'horizontal\']').prop('selected', true);
-      $position.prop('readonly', true).find('option[value=\'outside\']').prop('selected', true);
+      $effect.find('option[value=\'horizontal\']').prop('selected', true);
+      $position.find('option[value=\'outside\']').prop('selected', true);
+
+      $maxSlides.siblings('.option-desc.singular').hide();
+      $maxSlides.siblings('.option-desc.plural').showInlineBlock();
+    } else {
+      $maxSlides.siblings('.option-desc.singular').showInlineBlock();
+      $maxSlides.siblings('.option-desc.plural').hide();
     }
+
     $effect.change();
     $position.change();
   };
@@ -1123,6 +1136,26 @@ jQuery(document).ready(function ($) {
   maxSlidesUpdate();
 
   $maxSlides.on('change', maxSlidesUpdate);
+
+  /**
+   * MoveSlides change listener
+   */
+  var $moveSlides = $('#view-move_slides');
+
+  var moveSlidesUpdate = function () {
+    var moveSlidesValue = parseInt($moveSlides.val());
+    if (moveSlidesValue > 1) {
+      $moveSlides.siblings('.option-desc.singular').hide();
+      $moveSlides.siblings('.option-desc.plural').showInlineBlock();
+    } else {
+      $moveSlides.siblings('.option-desc.singular').showInlineBlock();
+      $moveSlides.siblings('.option-desc.plural').hide();
+    }
+  };
+
+  moveSlidesUpdate();
+
+  $moveSlides.on('change', moveSlidesUpdate);
 
 })(jQuery);
 
