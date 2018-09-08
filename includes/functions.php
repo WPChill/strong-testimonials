@@ -5,6 +5,10 @@
  * @package Strong_Testimonials
  */
 
+function wpmtst_support_url() {
+	return esc_url( 'https://strongplugins.com/support/' );
+}
+
 /**
  * Return default translation from po/mo files if no active translation plugin.
  *

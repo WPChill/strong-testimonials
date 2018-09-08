@@ -48,7 +48,7 @@ function wpmtst_views_admin() {
 
 			echo '<h1>' . __( 'Edit View', 'strong-testimonials' ) . '</h1>';
 
-			$message = __( 'An error occurred.', 'strong-testimonials' ) . ' ' . sprintf( wp_kses( __( 'Please <a href="%s" target="_blank">open a support ticket</a>.', 'strong-testimonials' ), $tags ), esc_url( 'https://support.strongplugins.com/new-ticket/' ) );
+			$message = __( 'An error occurred.', 'strong-testimonials' ) . ' ' . sprintf( wp_kses( __( 'Please <a href="%s" target="_blank">open a support ticket</a>.', 'strong-testimonials' ), $tags ), wpmtst_support_url() );
 
 			wp_die( sprintf( '<div class="notice notice-error"><p>%s</p></div>', $message ) );
 
