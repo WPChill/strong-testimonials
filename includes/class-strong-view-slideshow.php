@@ -409,6 +409,22 @@ class Strong_View_Slideshow extends Strong_View_Display {
 			if ( ! $setting ) {
 				$setting = 'none';
 			}
+
+			/**
+			 * Quick fix for ticket 12014 to translate slider text controls.
+			 * TODO Refactor; see fix-i18n branch in translations.strong.test.
+			 *
+			 * @since 2.32.1
+			 */
+			if ( 'text' == $setting ) {
+				$options['text']['args'] = array(
+					'startText' => _x( 'Play', 'slideshow control', 'strong-testimonials' ),
+					'stopText'  => _x( 'Pause', 'slideshow control', 'strong-testimonials' ),
+					'prevText'  => _x( 'Previous', 'slideshow_control', 'strong-testimonials' ),
+					'nextText'  => _x( 'Next', 'slideshow_control', 'strong-testimonials' ),
+				);
+			}
+
 			if ( isset( $options[ $setting ] ) && isset( $options[ $setting ]['args'] ) ) {
 				$args = array_merge( $args, $options[ $setting ]['args'] );
 			}
