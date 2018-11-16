@@ -374,7 +374,7 @@
       });
 
       // apply the calculated width after the float is applied to prevent scrollbar interference
-      setInitialWidth();
+      updateWidth(true);
 
       // if slideMargin is supplied, add the css
       if (slider.settings.mode === 'horizontal' && slider.settings.slideMargin > 0) {
@@ -442,33 +442,20 @@
     /**
      *
      */
-    var setInitialWidth = function() {
-      var wrapWidth = slider.viewport.width();
+    var updateWidth = function (initial) {
+      initial = initial || false;
 
-      if (slider.debug) console.log('setInitialwidth: wrapWidth', wrapWidth);
+      var wrapWidth = slider.viewport.width();
+      if (slider.debug) console.log('updateWidth: wrapWidth', wrapWidth);
 
       if (wrapWidth < slider.settings.minThreshold) {
         if (slider.debug) console.log('>> below threshold');
         convertToSingle();
-      }
-
-      slider.children.css('width', getSlideWidth2());
-    };
-
-    /**
-     *
-     */
-    var updateWidth = function() {
-      var wrapWidth = slider.viewport.width();
-
-      if (slider.debug) console.log('updateWidth: wrapWidth', wrapWidth);
-
-      if (wrapWidth < slider.settings.minThreshold) {
-        if (slider.debug) console.log('>> under threshold');
-        convertToSingle();
       } else {
-        if (slider.debug) console.log('<< above threshold');
-        revertCarousel();
+        if (!initial) {
+          if (slider.debug) console.log('<< above threshold');
+          revertCarousel();
+        }
       }
 
       slider.children.css('width', getSlideWidth2());
@@ -535,7 +522,7 @@
       slider.loader.remove();
 
       // set the left / top position of "el"
-      setSlidePosition();
+      // setSlidePosition();
 
       // if "vertical" mode, always use adaptiveHeight to prevent odd behavior
       if (slider.settings.mode === 'vertical') {
@@ -543,12 +530,12 @@
       }
 
       // set the viewport height
-      slider.viewport.height(getViewportHeight());
+      // setViewportHeight();
 
       // if stretch, set t-slide height to 100%
-      if (slider.settings.stretch) {
-        setSlideHeight();
-      }
+      // if (slider.settings.stretch) {
+      //   setSlideHeight();
+      // }
 
       // make sure everything is positioned just right (same as a window resize)
       el.redrawSlider();
@@ -627,7 +614,9 @@
     };
 
     // Debounced resize event.
-    var updateLayout = _.debounce(function () { resizeWindow(); }, 250);
+    var updateLayout = _.debounce(function () {
+      resizeWindow();
+      }, 250);
 
     // General visibility check.
     var visibilityCheck = function () {
@@ -670,6 +659,9 @@
       }
     };
 
+    /**
+     *
+     */
     var setSlideHeight = function () {
       var heights = slider.children.map(function () {
         return jQuery(this).actual('outerHeight');
@@ -677,6 +669,13 @@
 
       var maxHeight = arrayMax(heights);
       slider.children.height(maxHeight);
+    };
+
+    /**
+     *
+     */
+    var unsetSlideHeight = function () {
+      slider.children.height('auto');
     };
 
     // Function to get the max value in array
@@ -756,6 +755,13 @@
       }
 
       return height;
+    };
+
+    /**
+     *
+     */
+    var setViewportHeight = function () {
+      slider.viewport.height(getViewportHeight());
     };
 
     /**
@@ -1859,11 +1865,17 @@
       // maybe set/revert carousel
       updateWidth();
 
+      // adjust the height
+      unsetSlideHeight();
+      setViewportHeight();
+
+      // if stretch, set t-slide height to 100%
+      if (slider.settings.stretch) {
+        setSlideHeight();
+      }
+
       // resize all children in ratio to new screen size
       slider.children.add(el.find('.wpmslider-clone')).outerWidth(getSlideWidth2());
-
-      // adjust the height
-      slider.viewport.css('height', getViewportHeight());
 
       // update the slide position
       setSlidePosition();
