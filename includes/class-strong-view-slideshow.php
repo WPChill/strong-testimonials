@@ -383,7 +383,7 @@ class Strong_View_Slideshow extends Strong_View_Display {
 		    'maxSlides'           => $this->atts['slideshow_settings']['max_slides'],
 		    'moveSlides'          => $this->atts['slideshow_settings']['move_slides'],
 		    'slideMargin'         => $slide_margin,
-		    'minThreshold'        => 480,
+		    //'minThreshold'        => 480,
 		);
 
 		if ( ! $this->atts['slideshow_settings']['adapt_height'] ) {
