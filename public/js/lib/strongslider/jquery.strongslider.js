@@ -151,6 +151,8 @@
       slider.settings = $.extend({}, defaults, config, options);
       slider.debug = slider.settings.debug;
       slider.logAs = slider.settings.logAs;
+      saveOriginalValues();
+
       if (slider.debug) console.log(slider.logAs, 'slider.settings', slider.settings);
 
       // store the original children
@@ -232,6 +234,15 @@
     };
 
     /**
+     *
+     */
+    var saveOriginalValues = function () {
+      slider.settings.maxSlidesOrig = slider.settings.maxSlides;
+      slider.settings.moveSlidesOrig = slider.settings.moveSlides;
+      slider.settings.slideMarginOrig = slider.settings.slideMargin;
+    };
+
+    /**
      * Primary
      *
      * @returns {boolean}
@@ -305,6 +316,8 @@
      * Performs all DOM and CSS modifications
      */
     var setup = function () {
+      if (slider.debug) console.log('SETUP');
+
       var preloadSelector = slider.children.eq(slider.settings.startSlide); // set the default preload selector (visible)
 
       // wrap el in a wrapper
@@ -361,15 +374,7 @@
       });
 
       // apply the calculated width after the float is applied to prevent scrollbar interference
-      // Maybe copy to redrawSlider function.
-      var wrapWidth = slider.viewport.width();
-      if (slider.debug) console.log('wrapWidth', wrapWidth);
-      if (wrapWidth < slider.settings.minThreshold) {
-        slider.settings.maxSlides = 1;
-        slider.settings.moveSlides = 0;
-        slider.settings.slideMargin = 10;
-      }
-      slider.children.css('width', getSlideWidth2());
+      setInitialWidth();
 
       // if slideMargin is supplied, add the css
       if (slider.settings.mode === 'horizontal' && slider.settings.slideMargin > 0) {
@@ -434,6 +439,64 @@
       }
     };
 
+    /**
+     *
+     */
+    var setInitialWidth = function() {
+      var wrapWidth = slider.viewport.width();
+
+      if (slider.debug) console.log('setInitialwidth: wrapWidth', wrapWidth);
+
+      if (wrapWidth < slider.settings.minThreshold) {
+        if (slider.debug) console.log('>> below threshold');
+        convertToSingle();
+      }
+
+      slider.children.css('width', getSlideWidth2());
+    };
+
+    /**
+     *
+     */
+    var updateWidth = function() {
+      var wrapWidth = slider.viewport.width();
+
+      if (slider.debug) console.log('updateWidth: wrapWidth', wrapWidth);
+
+      if (wrapWidth < slider.settings.minThreshold) {
+        if (slider.debug) console.log('>> under threshold');
+        convertToSingle();
+      } else {
+        if (slider.debug) console.log('<< above threshold');
+        revertCarousel();
+      }
+
+      slider.children.css('width', getSlideWidth2());
+    };
+
+    /**
+     *
+     */
+    var convertToSingle = function() {
+      slider.settings.maxSlides = 1;
+      slider.settings.moveSlides = 0;
+      slider.settings.slideMargin = 10;
+    };
+
+    /**
+     * 
+     */
+    var revertCarousel = function() {
+      slider.settings.maxSlides = slider.settings.maxSlidesOrig;
+      slider.settings.moveSlides = slider.settings.moveSlidesOrig;
+      slider.settings.slideMargin = slider.settings.slideMarginOrig;
+    };
+
+    /**
+     *
+     * @param selector
+     * @param callback
+     */
     var loadElements = function(selector, callback) {
       var total = selector.find('img:not([src=""]), iframe').length,
       count = 0;
@@ -1793,6 +1856,9 @@
      * Update all dynamic slider elements
      */
     el.redrawSlider = function () {
+      // maybe set/revert carousel
+      updateWidth();
+
       // resize all children in ratio to new screen size
       slider.children.add(el.find('.wpmslider-clone')).outerWidth(getSlideWidth2());
 
