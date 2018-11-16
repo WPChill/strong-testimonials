@@ -94,9 +94,33 @@
 
     // CAROUSEL
     minSlides: 1,
-    maxSlides: 1,
-    moveSlides: 0,
-    minThreshold: 480,
+    // maxSlides: 1,
+    // moveSlides: 0,
+    // minThreshold: 480,
+
+    breakpoints: {
+      // 800: {
+      //   maxSlides: 3,
+      //   moveSlides: 1,
+      //   slideMargin: 20
+      // },
+      // 480: {
+      //   maxSlides: 2,
+      //   moveSlides: 1,
+      //   slideMargin: 10
+      // },
+      // 320: {
+      //   maxSlides: 1,
+      //   moveSlides: 0,
+      //   slideMargin: 0
+      // },
+      // default
+      1: {
+        maxSlides: 1,
+        moveSlides: 0,
+        slideMargin: 1
+      }
+    },
 
     // CALLBACKS
     onSliderLoad: function () { return true; },
@@ -151,7 +175,7 @@
       slider.settings = $.extend({}, defaults, config, options);
       slider.debug = slider.settings.debug;
       slider.logAs = slider.settings.logAs;
-      saveOriginalValues();
+      // saveOriginalValues();
 
       if (slider.debug) console.log(slider.logAs, 'slider.settings', slider.settings);
 
@@ -236,11 +260,11 @@
     /**
      *
      */
-    var saveOriginalValues = function () {
-      slider.settings.maxSlidesOrig = slider.settings.maxSlides;
-      slider.settings.moveSlidesOrig = slider.settings.moveSlides;
-      slider.settings.slideMarginOrig = slider.settings.slideMargin;
-    };
+    // var saveOriginalValues = function () {
+    //   slider.settings.maxSlidesOrig = slider.settings.maxSlides;
+    //   slider.settings.moveSlidesOrig = slider.settings.moveSlides;
+    //   slider.settings.slideMarginOrig = slider.settings.slideMargin;
+    // };
 
     /**
      * Primary
@@ -448,15 +472,30 @@
       var wrapWidth = slider.viewport.width();
       if (slider.debug) console.log('updateWidth: wrapWidth', wrapWidth);
 
-      if (wrapWidth < slider.settings.minThreshold) {
-        if (slider.debug) console.log('>> below threshold');
-        convertToSingle();
-      } else {
-        if (!initial) {
-          if (slider.debug) console.log('<< above threshold');
-          revertCarousel();
+      var breakpoints = slider.settings.breakpoints;
+      var keys = Object.keys(breakpoints);
+      var currentBreakpoint = 0;
+
+      for (var i = 0; i < keys.length; i++) {
+        if (wrapWidth >= keys[i]) {
+          currentBreakpoint = keys[i];
         }
       }
+      if (slider.debug) console.log('current breakpoint', currentBreakpoint);
+
+      slider.settings.maxSlides = breakpoints[currentBreakpoint].maxSlides;
+      slider.settings.moveSlides = breakpoints[currentBreakpoint].moveSlides;
+      slider.settings.slideMargin = breakpoints[currentBreakpoint].slideMargin;
+
+      // if (wrapWidth < slider.settings.minThreshold) {
+        // if (slider.debug) console.log('>> below threshold');
+        // convertToSingle();
+      // } else {
+        // if (!initial) {
+        //   if (slider.debug) console.log('<< above threshold');
+          // revertCarousel();
+        // }
+      // }
 
       slider.children.css('width', getSlideWidth2());
     };
