@@ -708,8 +708,7 @@
     var getSlideWidth2 = function () {
       var wrapWidth = slider.viewport.width();
       var margins = slider.settings.slideMargin * (slider.settings.maxSlides - 1);
-      var newElWidth = (wrapWidth - margins) / slider.settings.maxSlides;
-      return newElWidth;
+      return (wrapWidth - margins) / slider.settings.maxSlides;
     };
 
     /**
