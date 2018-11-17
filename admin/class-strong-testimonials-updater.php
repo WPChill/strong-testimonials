@@ -754,6 +754,15 @@ class Strong_Testimonials_Updater {
 			}
 
 			/**
+			 * Add carousel breakpoints.
+			 *
+			 * @since 2.32.2
+			 */
+			if ( ! isset( $history['2.32.2_carousel_breakpoints'] ) ) {
+				$view_data = $this->add_carousel_breakpoints( $view_data );
+			}
+
+			/**
 			 * Merge in new default values.
 			 * Merge nested arrays individually. Don't use array_merge_recursive.
 			 */
@@ -804,6 +813,16 @@ class Strong_Testimonials_Updater {
 			wpmtst_save_view( $view );
 
 		} // foreach $view
+	}
+
+	/**
+	 * Add carousel breakpoints.
+	 *
+	 * @param $view_data
+	 * @since 2.32.2
+	 */
+	public function add_carousel_breakpoints( $view_data ) {
+
 	}
 
 	/**
