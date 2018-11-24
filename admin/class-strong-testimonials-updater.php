@@ -759,7 +759,8 @@ class Strong_Testimonials_Updater {
 			 * @since 2.32.2
 			 */
 			if ( ! isset( $history['2.32.2_carousel_breakpoints'] ) ) {
-				$view_data = $this->add_carousel_breakpoints( $view_data );
+				$view['data'] = $this->add_carousel_breakpoints( $view_data );
+				$this->update_history_log( '2.32.2_carousel_breakpoints' );
 			}
 
 			/**
@@ -791,8 +792,7 @@ class Strong_Testimonials_Updater {
 				if ( ! isset( $view['data']['pagination_settings']['per_page'] ) || ! $view['data']['pagination_settings']['per_page'] ) {
 					$view['data']['pagination_settings']['per_page'] = 5;
 				}
-			}
-			else {
+			} else {
 				$view['data']['pagination_settings'] = $default_view['pagination_settings'];
 			}
 
@@ -801,8 +801,7 @@ class Strong_Testimonials_Updater {
 			 */
 			if ( isset( $view_data['slideshow_settings'] ) ) {
 				$view['data']['slideshow_settings'] = array_merge( $default_view['slideshow_settings'], $view_data['slideshow_settings'] );
-			}
-			else {
+			} else {
 				$view['data']['slideshow_settings'] = $default_view['slideshow_settings'];
 			}
 			ksort( $view['data']['slideshow_settings'] );
@@ -818,11 +817,48 @@ class Strong_Testimonials_Updater {
 	/**
 	 * Add carousel breakpoints.
 	 *
-	 * @param $view_data
+	 * @param array $view_data
 	 * @since 2.32.2
+	 *
+	 * @return array
 	 */
 	public function add_carousel_breakpoints( $view_data ) {
+		if ( ! isset( $view_data['slideshow_settings']['max_slides'] ) ) {
+			return $view_data;
+		}
 
+		if ( 1 == $view_data['slideshow_settings']['max_slides'] ) {
+
+			// Convert to single
+			$view_data['slideshow_settings']['type'] = 'single';
+
+			$view_data['slideshow_settings']['breakpoints']['single'] = array(
+				'max_slides'  => $view_data['slideshow_settings']['max_slides'],
+			    'move_slides' => $view_data['slideshow_settings']['move_slides'],
+			    'margin'      => 1,
+			);
+
+		} else {
+
+			// Convert to multiple
+			$view_data['slideshow_settings']['type'] = 'multiple';
+
+			$view_data['slideshow_settings']['breakpoints']['multiple']['desktop'] = array(
+				'max_slides'  => $view_data['slideshow_settings']['max_slides'],
+				'move_slides' => $view_data['slideshow_settings']['move_slides'],
+				'margin'      => 1,
+			);
+
+		}
+
+		// Remove old values
+		unset(
+			$view_data['slideshow_settings']['max_slides'],
+			$view_data['slideshow_settings']['move_slides'],
+			$view_data['slideshow_settings']['margin']
+		);
+
+		return $view_data;
 	}
 
 	/**
