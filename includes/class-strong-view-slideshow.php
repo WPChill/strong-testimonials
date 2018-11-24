@@ -362,7 +362,29 @@ class Strong_View_Slideshow extends Strong_View_Display {
 			'classes' => $pairs,
 		);
 
-		$slide_margin = $this->atts['slideshow_settings']['max_slides'] > 1 ? $this->atts['slideshow_settings']['margin'] : 0;
+		//$slide_margin = $this->atts['slideshow_settings']['max_slides'] > 1 ? $this->atts['slideshow_settings']['margin'] : 0;
+
+		$type        = $this->atts['slideshow_settings']['type'];
+		$breakpoints = $this->atts['slideshow_settings']['breakpoints'][ $type ];
+
+		// Convert breakpoint variable names
+		// TODO Refactor to make this unnecessary.
+		$new_breakpoints = array();
+		if ( 'single' == $type ) {
+			$new_breakpoints = array(
+				'maxSlides'   => $breakpoints['max_slides'],
+				'moveSlides'  => $breakpoints['move_slides'],
+				'slideMargin' => $breakpoints['margin'],
+			);
+		} else {
+			foreach ( $breakpoints as $key => $breakpoint ) {
+				$new_breakpoints[ $key ] = array(
+					'maxSlides'   => $breakpoints[ $key ]['max_slides'],
+					'moveSlides'  => $breakpoints[ $key ]['move_slides'],
+					'slideMargin' => $breakpoints[ $key ]['margin'],
+				);
+			}
+		}
 
 		$args = array(
 			'mode'                => $this->atts['slideshow_settings']['effect'],
@@ -380,10 +402,14 @@ class Strong_View_Slideshow extends Strong_View_Display {
 			'debug'               => defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG,
 			'compat'              => $compat,
 			'touchEnabled'        => $options['touch_enabled'],
-		    'maxSlides'           => $this->atts['slideshow_settings']['max_slides'],
-		    'moveSlides'          => $this->atts['slideshow_settings']['move_slides'],
-		    'slideMargin'         => $slide_margin,
+
+		    //'maxSlides'           => $this->atts['slideshow_settings']['max_slides'],
+		    //'moveSlides'          => $this->atts['slideshow_settings']['move_slides'],
+		    //'slideMargin'         => $slide_margin,
 		    //'minThreshold'        => 480,
+
+			'type'        => $type,
+		    'breakpoints' => $new_breakpoints,
 		);
 
 		if ( ! $this->atts['slideshow_settings']['adapt_height'] ) {
@@ -454,6 +480,7 @@ class Strong_View_Slideshow extends Strong_View_Display {
 			}
 		}
 
+		q2($args,__FUNCTION__);
 		return array( 'config' => apply_filters( 'wpmtst_slider_args', $args, $this->atts ) );
 	}
 

@@ -94,11 +94,11 @@
 
     // CAROUSEL
     minSlides: 1,
-    // maxSlides: 1,
-    // moveSlides: 0,
+    maxSlides: 1,
+    moveSlides: 0,
     // minThreshold: 480,
 
-    breakpoints: {
+    // breakpoints: {
       // 800: {
       //   maxSlides: 3,
       //   moveSlides: 1,
@@ -115,12 +115,12 @@
       //   slideMargin: 0
       // },
       // default
-      1: {
-        maxSlides: 1,
-        moveSlides: 0,
-        slideMargin: 1
-      }
-    },
+      // 1: {
+      //   maxSlides: 1,
+      //   moveSlides: 0,
+      //   slideMargin: 1
+      // }
+    // },
 
     // CALLBACKS
     onSliderLoad: function () { return true; },
@@ -398,7 +398,7 @@
       });
 
       // apply the calculated width after the float is applied to prevent scrollbar interference
-      updateWidth(true);
+      updateWidth();
 
       // if slideMargin is supplied, add the css
       if (slider.settings.mode === 'horizontal' && slider.settings.slideMargin > 0) {
@@ -466,36 +466,35 @@
     /**
      *
      */
-    var updateWidth = function (initial) {
-      initial = initial || false;
-
+    var updateWidth = function () {
       var wrapWidth = slider.viewport.width();
       if (slider.debug) console.log('updateWidth: wrapWidth', wrapWidth);
 
       var breakpoints = slider.settings.breakpoints;
-      var keys = Object.keys(breakpoints);
-      var currentBreakpoint = 0;
+      var currentBreakpoint;
+      console.log('BREAKPOINTS', breakpoints);
 
-      for (var i = 0; i < keys.length; i++) {
-        if (wrapWidth >= keys[i]) {
-          currentBreakpoint = keys[i];
+      if (slider.settings.type === 'single') {
+
+        currentBreakpoint = breakpoints;
+
+      } else {
+
+        for (var i = 0; i < breakpoints.length; i++) {
+          if (wrapWidth >= breakpoints[i].width) {
+            currentBreakpoint = breakpoints[i];
+          }
         }
+
       }
+
       if (slider.debug) console.log('current breakpoint', currentBreakpoint);
 
-      slider.settings.maxSlides = breakpoints[currentBreakpoint].maxSlides;
-      slider.settings.moveSlides = breakpoints[currentBreakpoint].moveSlides;
-      slider.settings.slideMargin = breakpoints[currentBreakpoint].slideMargin;
-
-      // if (wrapWidth < slider.settings.minThreshold) {
-        // if (slider.debug) console.log('>> below threshold');
-        // convertToSingle();
-      // } else {
-        // if (!initial) {
-        //   if (slider.debug) console.log('<< above threshold');
-          // revertCarousel();
-        // }
-      // }
+      if ( currentBreakpoint ) {
+        slider.settings.maxSlides = currentBreakpoint.maxSlides;
+        slider.settings.moveSlides = currentBreakpoint.moveSlides;
+        slider.settings.slideMargin = currentBreakpoint.slideMargin;
+      }
 
       slider.children.css('width', getSlideWidth2());
     };
