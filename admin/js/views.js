@@ -1112,30 +1112,29 @@ jQuery(document).ready(function ($) {
   /**
    * Slider|Carousel change listener
    */
-  var $maxSlides = $('#view-max_slides');
+  var $sliderType = $('#view-slider_type');
   var $effect = $('#view-effect');
   var $position = $('view-slideshow_nav_position');
 
-  var maxSlidesUpdate = function () {
-    var maxSlidesValue = parseInt($maxSlides.val());
-    if (maxSlidesValue > 1) {
+  var sliderTypeUpdate = function () {
+    if ($sliderType.val() === 'multiple') {
       $effect.find('option[value=\'horizontal\']').prop('selected', true);
       $position.find('option[value=\'outside\']').prop('selected', true);
 
-      $maxSlides.siblings('.option-desc.singular').hide();
-      $maxSlides.siblings('.option-desc.plural').showInlineBlock();
+      $sliderType.siblings('.option-desc.singular').hide();
+      $sliderType.siblings('.option-desc.plural').showInlineBlock();
     } else {
-      $maxSlides.siblings('.option-desc.singular').showInlineBlock();
-      $maxSlides.siblings('.option-desc.plural').hide();
+      $sliderType.siblings('.option-desc.singular').showInlineBlock();
+      $sliderType.siblings('.option-desc.plural').hide();
     }
 
     $effect.change();
     $position.change();
   };
 
-  maxSlidesUpdate();
+  sliderTypeUpdate();
 
-  $maxSlides.on('change', maxSlidesUpdate);
+  $sliderType.on('change', sliderTypeUpdate);
 
   /**
    * MoveSlides change listener
