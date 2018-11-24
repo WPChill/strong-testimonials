@@ -345,14 +345,30 @@ function wpmtst_sanitize_view_pagination( $in ) {
 function wpmtst_sanitize_view_slideshow( $in ) {
 	$out = array();
 
-	$out['max_slides']  = intval( sanitize_text_field( $in['max_slides'] ) );
-	$out['move_slides'] = intval( sanitize_text_field( $in['move_slides'] ) );
-	if ( $out['move_slides'] > $out['max_slides'] ) {
-		$out['move_slides'] = $out['max_slides'];
-	}
-	$out['margin']      = intval( sanitize_text_field( $in['margin'] ) );
+	$out['type']  = sanitize_text_field( $in['type'] );
 
-	if ( $out['max_slides'] > 1 ) {
+	$breakpoints = $in['breakpoints']['multiple'];
+	$breakpoints2 = array();
+
+	foreach ( $breakpoints as $key => $breakpoint ) {
+
+		$breakpoints2[ $key ]['width']  = intval( sanitize_text_field( $breakpoint['width'] ) );
+
+		$breakpoints2[ $key ]['max_slides']  = intval( sanitize_text_field( $breakpoint['max_slides'] ) );
+
+		$breakpoints2[ $key ]['move_slides'] = intval( sanitize_text_field( $breakpoint['move_slides'] ) );
+
+		if ( $breakpoints2[ $key ]['move_slides'] > $breakpoints2[ $key ]['max_slides'] ) {
+			$breakpoints2[ $key ]['move_slides'] = $breakpoints2[ $key ]['max_slides'];
+		}
+
+		$breakpoints2[ $key ]['margin'] = intval( sanitize_text_field( $breakpoint['margin'] ) );
+
+	}
+	$out['breakpoints']['multiple'] = $breakpoints2;
+
+	// Carousel requires horizontal scroll.
+	if ( 'multiple' == $out['type'] ) {
 		$out['effect'] = 'horizontal';
 	} else {
 		$out['effect'] = sanitize_text_field( $in['effect'] );
@@ -388,7 +404,7 @@ function wpmtst_sanitize_view_slideshow( $in ) {
 
 	// Position is shared by Controls and Pagination
 	if ( $out['controls_type'] || $out['pager_type'] ) {
-		if ( $out['max_slides'] > 1 ) {
+		if ( 'multiple' == $out['type'] ) {
 			$out['nav_position'] = 'outside';
 		} else {
 			$out['nav_position'] = sanitize_text_field( $in['nav_position'] );
