@@ -14,7 +14,7 @@ $then_classes = array(
 		<?php _e( 'Slideshow', 'strong-testimonials' ); ?>
 	</h3>
 	<table class="form-table multiple group-select">
-		<tr>
+		<tr style="background: lightyellow;">
 			<?php include( 'option-slideshow-num.php' ); ?>
 		</tr>
 		<tr>

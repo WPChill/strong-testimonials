@@ -727,9 +727,44 @@ class Strong_Testimonials_Defaults {
 				'after_page_number'  => '',
 			),
 			'slideshow_settings'  => array(
-				'max_slides'         => 1,
-				'move_slides'        => 1,
-				'margin'             => 20,
+				'type'        => 'single', // or multiple
+				'breakpoints' => array(
+					'single'   => array(
+						'max_slides'  => 1,
+						'move_slides' => 1,
+						'margin'      => 1,
+					),
+					'multiple' => array(
+						'desktop' => array(
+							'description' => 'Desktop',
+							'width'       => 0,
+							'max_slides'  => 2,
+							'move_slides' => 1,
+							'margin'      => 20,
+						),
+						'large'   => array(
+							'description' => 'Large',
+							'width'       => 1024,
+							'max_slides'  => 2,
+							'move_slides' => 1,
+							'margin'      => 20,
+						),
+						'medium'  => array(
+							'description' => 'Medium',
+							'width'       => 640,
+							'max_slides'  => 1,
+							'move_slides' => 1,
+							'margin'      => 10,
+						),
+						'small'   => array(
+							'description' => 'Small',
+							'width'       => 480,
+							'max_slides'  => 1,
+							'move_slides' => 1,
+							'margin'      => 1,
+						),
+					),
+				),
 				'effect'             => 'fade',
 				'speed'              => 1,
 				'pause'              => 8,
