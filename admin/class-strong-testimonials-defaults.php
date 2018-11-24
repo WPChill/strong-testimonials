@@ -737,7 +737,7 @@ class Strong_Testimonials_Defaults {
 					'multiple' => array(
 						'desktop' => array(
 							'description' => 'Desktop',
-							'width'       => 0,
+							'width'       => 1200,
 							'max_slides'  => 2,
 							'move_slides' => 1,
 							'margin'      => 20,
@@ -763,6 +763,13 @@ class Strong_Testimonials_Defaults {
 							'move_slides' => 1,
 							'margin'      => 1,
 						),
+					    'default' => array(
+						    'description' => 'Otherwise',
+						    'width'       => 0,
+						    'max_slides'  => 1,
+						    'move_slides' => 1,
+						    'margin'      => 1,
+					    ),
 					),
 				),
 				'effect'             => 'fade',
