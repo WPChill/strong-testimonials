@@ -15,7 +15,7 @@ $then_classes = array(
 	</h3>
 	<table class="form-table multiple group-select">
 		<tr style="background: lightyellow;">
-			<?php include( 'option-slideshow-num.php' ); ?>
+            <?php include( 'option-slideshow-num.php' ); ?>
 		</tr>
 		<tr>
 			<?php include( 'option-slideshow-transition.php' ); ?>
