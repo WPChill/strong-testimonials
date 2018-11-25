@@ -728,48 +728,39 @@ class Strong_Testimonials_Defaults {
 			),
 			'slideshow_settings'  => array(
 				'type'        => 'single', // or multiple
+				'show_single'   => array(
+					'max_slides'  => 1,
+					'move_slides' => 1,
+					'margin'      => 1,
+				),
 				'breakpoints' => array(
-					'single'   => array(
+					'desktop' => array(
+						'description' => 'Desktop',
+						'width'       => 1200,
+						'max_slides'  => 2,
+						'move_slides' => 1,
+						'margin'      => 20,
+					),
+					'large'   => array(
+						'description' => 'Large',
+						'width'       => 1024,
+						'max_slides'  => 2,
+						'move_slides' => 1,
+						'margin'      => 20,
+					),
+					'medium'  => array(
+						'description' => 'Medium',
+						'width'       => 640,
+						'max_slides'  => 1,
+						'move_slides' => 1,
+						'margin'      => 10,
+					),
+					'small'   => array(
+						'description' => 'Small',
+						'width'       => 480,
 						'max_slides'  => 1,
 						'move_slides' => 1,
 						'margin'      => 1,
-					),
-					'multiple' => array(
-						'desktop' => array(
-							'description' => 'Desktop',
-							'width'       => 1200,
-							'max_slides'  => 2,
-							'move_slides' => 1,
-							'margin'      => 20,
-						),
-						'large'   => array(
-							'description' => 'Large',
-							'width'       => 1024,
-							'max_slides'  => 2,
-							'move_slides' => 1,
-							'margin'      => 20,
-						),
-						'medium'  => array(
-							'description' => 'Medium',
-							'width'       => 640,
-							'max_slides'  => 1,
-							'move_slides' => 1,
-							'margin'      => 10,
-						),
-						'small'   => array(
-							'description' => 'Small',
-							'width'       => 480,
-							'max_slides'  => 1,
-							'move_slides' => 1,
-							'margin'      => 1,
-						),
-					    'default' => array(
-						    'description' => 'Otherwise',
-						    'width'       => 0,
-						    'max_slides'  => 1,
-						    'move_slides' => 1,
-						    'margin'      => 1,
-					    ),
 					),
 				),
 				'effect'             => 'fade',
