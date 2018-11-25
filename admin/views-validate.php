@@ -347,25 +347,31 @@ function wpmtst_sanitize_view_slideshow( $in ) {
 
 	$out['type']  = sanitize_text_field( $in['type'] );
 
-	$breakpoints = $in['breakpoints']['multiple'];
-	$breakpoints2 = array();
+	// Insert unused defaults.
+	$out['show_single'] = array(
+		'max_slides'  => 1,
+		'move_slides' => 1,
+		'margin'      => 1,
+	);
+
+	// Save carousel breakpoints.
+	$breakpoints = $in['breakpoints'];
 
 	foreach ( $breakpoints as $key => $breakpoint ) {
 
-		$breakpoints2[ $key ]['width']  = intval( sanitize_text_field( $breakpoint['width'] ) );
+		$out['breakpoints'][ $key ]['width']  = intval( sanitize_text_field( $breakpoint['width'] ) );
 
-		$breakpoints2[ $key ]['max_slides']  = intval( sanitize_text_field( $breakpoint['max_slides'] ) );
+		$out['breakpoints'][ $key ]['max_slides']  = intval( sanitize_text_field( $breakpoint['max_slides'] ) );
 
-		$breakpoints2[ $key ]['move_slides'] = intval( sanitize_text_field( $breakpoint['move_slides'] ) );
+		$out['breakpoints'][ $key ]['move_slides'] = intval( sanitize_text_field( $breakpoint['move_slides'] ) );
 
-		if ( $breakpoints2[ $key ]['move_slides'] > $breakpoints2[ $key ]['max_slides'] ) {
-			$breakpoints2[ $key ]['move_slides'] = $breakpoints2[ $key ]['max_slides'];
+		if ( $out['breakpoints'][ $key ]['move_slides'] > $out['breakpoints'][ $key ]['max_slides'] ) {
+			$out['breakpoints'][ $key ]['move_slides'] = $out['breakpoints'][ $key ]['max_slides'];
 		}
 
-		$breakpoints2[ $key ]['margin'] = intval( sanitize_text_field( $breakpoint['margin'] ) );
+		$out['breakpoints'][ $key ]['margin'] = intval( sanitize_text_field( $breakpoint['margin'] ) );
 
 	}
-	$out['breakpoints']['multiple'] = $breakpoints2;
 
 	// Carousel requires horizontal scroll.
 	if ( 'multiple' == $out['type'] ) {
