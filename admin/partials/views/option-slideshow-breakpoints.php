@@ -6,13 +6,13 @@
         <div style="display: table-cell;">move</div>
     </div>
 
-	<?php foreach ( $view['slideshow_settings']['breakpoints']['multiple'] as $key => $breakpoint ) : ?>
+	<?php foreach ( $view['slideshow_settings']['breakpoints'] as $key => $breakpoint ) : ?>
         <div style="display: table-row;">
 
             <div style="display: table-cell;">
                 <label for="view-breakpoint_<?php echo $key; ?>"></label>
                 <input id=view-breakpoint_<?php echo $key; ?>"
-                       name="view[data][slideshow_settings][breakpoints][multiple][<?php echo $key; ?>][width]"
+                       name="view[data][slideshow_settings][breakpoints][<?php echo $key; ?>][width]"
                        value="<?php echo $breakpoint['width']; ?>"
                        type="number"
                        class="input-incremental"> px
@@ -20,7 +20,7 @@
 
             <div style="display: table-cell;">
                 <select id="view-max_slides"
-                        name="view[data][slideshow_settings][breakpoints][multiple][<?php echo $key; ?>][max_slides]"
+                        name="view[data][slideshow_settings][breakpoints][<?php echo $key; ?>][max_slides]"
                         class="if selectgroup">
                     <option value="1" <?php selected( $breakpoint['max_slides'], 1 ); ?>>1</option>
                     <option value="2" <?php selected( $breakpoint['max_slides'], 2 ); ?>>2</option>
@@ -37,7 +37,7 @@
 
             <div style="display: table-cell;">
                 <input id="view-margin"
-                       name="view[data][slideshow_settings][breakpoints][multiple][<?php echo $key; ?>][margin]"
+                       name="view[data][slideshow_settings][breakpoints][<?php echo $key; ?>][margin]"
                        value="<?php echo $breakpoint['margin']; ?>"
                        type="number" min="1" step="1" size="3"
                        class="input-incremental"/> px
@@ -45,7 +45,7 @@
 
             <div style="display: table-cell;">
                 <select id="view-move_slides"
-                        name="view[data][slideshow_settings][breakpoints][multiple][<?php echo $key; ?>][move_slides]"
+                        name="view[data][slideshow_settings][breakpoints][<?php echo $key; ?>][move_slides]"
                         class="if selectgroup">
                     <option value="1" <?php selected( $breakpoint['move_slides'], 1 ); ?>>1</option>
                     <option value="2" <?php selected( $breakpoint['move_slides'], 2 ); ?>>2</option>
