@@ -832,7 +832,7 @@ class Strong_Testimonials_Updater {
 			// Convert to single
 			$view_data['slideshow_settings']['type'] = 'single';
 
-			$view_data['slideshow_settings']['breakpoints']['single'] = array(
+			$view_data['slideshow_settings']['show_single'] = array(
 				'max_slides'  => $view_data['slideshow_settings']['max_slides'],
 			    'move_slides' => $view_data['slideshow_settings']['move_slides'],
 			    'margin'      => 1,
@@ -843,7 +843,7 @@ class Strong_Testimonials_Updater {
 			// Convert to multiple
 			$view_data['slideshow_settings']['type'] = 'multiple';
 
-			$view_data['slideshow_settings']['breakpoints']['multiple']['desktop'] = array(
+			$view_data['slideshow_settings']['breakpoints']['desktop'] = array(
 				'max_slides'  => $view_data['slideshow_settings']['max_slides'],
 				'move_slides' => $view_data['slideshow_settings']['move_slides'],
 				'margin'      => 1,
