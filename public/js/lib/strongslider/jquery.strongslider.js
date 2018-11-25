@@ -96,31 +96,6 @@
     minSlides: 1,
     maxSlides: 1,
     moveSlides: 0,
-    // minThreshold: 480,
-
-    // breakpoints: {
-      // 800: {
-      //   maxSlides: 3,
-      //   moveSlides: 1,
-      //   slideMargin: 20
-      // },
-      // 480: {
-      //   maxSlides: 2,
-      //   moveSlides: 1,
-      //   slideMargin: 10
-      // },
-      // 320: {
-      //   maxSlides: 1,
-      //   moveSlides: 0,
-      //   slideMargin: 0
-      // },
-      // default
-      // 1: {
-      //   maxSlides: 1,
-      //   moveSlides: 0,
-      //   slideMargin: 1
-      // }
-    // },
 
     // CALLBACKS
     onSliderLoad: function () { return true; },
@@ -175,7 +150,6 @@
       slider.settings = $.extend({}, defaults, config, options);
       slider.debug = slider.settings.debug;
       slider.logAs = slider.settings.logAs;
-      // saveOriginalValues();
 
       if (slider.debug) console.log(slider.logAs, 'slider.settings', slider.settings);
 
@@ -199,7 +173,9 @@
       slider.active = {index: slider.settings.startSlide};
 
       // store if the slider is in carousel mode (displaying / moving multiple slides)
-      slider.carousel = slider.settings.minSlides > 1 || slider.settings.maxSlides > 1;
+      setBreakpoint();
+      // slider.carousel = slider.settings.minSlides > 1 || slider.settings.maxSlides > 1;
+      console.log('init',slider.carousel);
 
       // if carousel, force preloadImages = 'all'
       if (slider.carousel) {
@@ -256,15 +232,6 @@
       }
 
     };
-
-    /**
-     *
-     */
-    // var saveOriginalValues = function () {
-    //   slider.settings.maxSlidesOrig = slider.settings.maxSlides;
-    //   slider.settings.moveSlidesOrig = slider.settings.moveSlides;
-    //   slider.settings.slideMarginOrig = slider.settings.slideMargin;
-    // };
 
     /**
      * Primary
@@ -340,8 +307,6 @@
      * Performs all DOM and CSS modifications
      */
     var setup = function () {
-      if (slider.debug) console.log('SETUP');
-
       var preloadSelector = slider.children.eq(slider.settings.startSlide); // set the default preload selector (visible)
 
       // wrap el in a wrapper
@@ -466,23 +431,21 @@
     /**
      *
      */
-    var updateWidth = function () {
-      var wrapWidth = slider.viewport.width();
-      if (slider.debug) console.log('updateWidth: wrapWidth', wrapWidth);
+    var setBreakpoint = function () {
+      if (slider.debug) console.log(slider.logAs, 'setBreakpoint');
 
-      var breakpoints = slider.settings.breakpoints;
-      var currentBreakpoint;
-      console.log('BREAKPOINTS', breakpoints);
+      // fallback
+      var currentBreakpoint = slider.settings.breakpoints.single;
+      var breakpoints = slider.settings.breakpoints.multiple;
 
-      if (slider.settings.type === 'single') {
+      if (slider.settings.type === 'multiple') {
 
-        currentBreakpoint = breakpoints;
-
-      } else {
-
-        for (var i = 0; i < breakpoints.length; i++) {
-          if (wrapWidth >= breakpoints[i].width) {
-            currentBreakpoint = breakpoints[i];
+        for (var key in breakpoints) {
+          if (breakpoints.hasOwnProperty(key)) {
+            if (verge.viewportW() >= breakpoints[key].width) {
+              currentBreakpoint = breakpoints[key];
+              break;
+            }
           }
         }
 
@@ -490,31 +453,19 @@
 
       if (slider.debug) console.log('current breakpoint', currentBreakpoint);
 
-      if ( currentBreakpoint ) {
-        slider.settings.maxSlides = currentBreakpoint.maxSlides;
-        slider.settings.moveSlides = currentBreakpoint.moveSlides;
-        slider.settings.slideMargin = currentBreakpoint.slideMargin;
-      }
+      slider.settings.maxSlides = currentBreakpoint.maxSlides;
+      slider.settings.moveSlides = currentBreakpoint.moveSlides;
+      slider.settings.slideMargin = currentBreakpoint.slideMargin;
 
-      slider.children.css('width', getSlideWidth2());
+      slider.carousel = slider.settings.minSlides > 1 || slider.settings.maxSlides > 1;
     };
 
     /**
      *
      */
-    var convertToSingle = function() {
-      slider.settings.maxSlides = 1;
-      slider.settings.moveSlides = 0;
-      slider.settings.slideMargin = 10;
-    };
-
-    /**
-     * 
-     */
-    var revertCarousel = function() {
-      slider.settings.maxSlides = slider.settings.maxSlidesOrig;
-      slider.settings.moveSlides = slider.settings.moveSlidesOrig;
-      slider.settings.slideMargin = slider.settings.slideMarginOrig;
+    var updateWidth = function () {
+      setBreakpoint();
+      slider.children.css('width', getSlideWidth2());
     };
 
     /**
@@ -653,6 +604,7 @@
 
     // Debounced resize event.
     var updateLayout = _.debounce(function () {
+      if (slider.debug) console.log(slider.logAs, 'updateLayout');
       resizeWindow();
       }, 250);
 
@@ -743,9 +695,10 @@
         if (!slider.carousel) {
 
           children = slider.children.eq(slider.active.index);
-          // if carousel, return a slice of children
 
         } else {
+
+          // if carousel, return a slice of children
 
           // get the individual slide index
           var currentIndex = slider.settings.moveSlides === 1 ? slider.active.index : slider.active.index * getMoveBy();
@@ -815,7 +768,7 @@
     var getSlideWidth2 = function () {
       var wrapWidth = slider.viewport.width();
       var margins = slider.settings.slideMargin * (slider.settings.maxSlides - 1);
-      return (wrapWidth - margins) / slider.settings.maxSlides;
+      return Math.floor( (wrapWidth - margins) / slider.settings.maxSlides );
     };
 
     /**
@@ -1579,10 +1532,12 @@
     var resizeWindow = function (e) {
       // don't do anything if slider isn't initialized.
       if (!slider.initialized) {
+        if (slider.debug) console.log(slider.logAs, 'slider not initialized');
         return;
       }
       // Delay if slider working.
       if (slider.working) {
+        if (slider.debug) console.log(slider.logAs, 'slider working');
         window.setTimeout(resizeWindow, 10);
       } else {
         // update all dynamic elements
@@ -1900,6 +1855,8 @@
      * Update all dynamic slider elements
      */
     el.redrawSlider = function () {
+      if (slider.debug) console.log(slider.logAs, 'redrawSlider');
+
       // maybe set/revert carousel
       updateWidth();
 
