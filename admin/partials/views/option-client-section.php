@@ -18,9 +18,12 @@
 
 	</div>
 
-	<div id="add-field-bar">
-		<input id="add-field" type="button" class="button-secondary" name="add-field"
-			   value="<?php _e( 'Add Field', 'strong-testimonials' ); ?>">
+	<div id="add-field-bar" class="is-below">
+		<input id="add-field"
+               type="button"
+               name="add-field"
+			   value="<?php _e( 'Add Field', 'strong-testimonials' ); ?>"
+               class="button-secondary" />
 	</div>
 
 </td>
