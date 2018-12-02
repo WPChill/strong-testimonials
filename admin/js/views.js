@@ -1202,6 +1202,56 @@ jQuery(document).ready(function ($) {
     $(el).on('change', moveSlidesUpdate);
   });
 
+  /**
+   * Restore default breakpoints
+   */
+  $('#restore-default-breakpoints').click(function (e) {
+    var data = {
+      'action': 'wpmtst_restore_default_breakpoints'
+    };
+
+    $.get(ajaxurl, data, function (response) {
+
+      var object = JSON.parse(response);
+      var targetId;
+      var el;
+
+      for (var key in object) {
+
+        if (object.hasOwnProperty(key)) {
+
+          // width
+          targetId = 'view-breakpoint_' + key;
+          el = $('[id="' + targetId + '"]');
+          el.val(parseInt(object[key].width));
+
+          // max_slides
+          targetId = 'view-max_slides_' + key;
+          el = $('[id="' + targetId + '"]');
+          el.val(parseInt(object[key].max_slides));
+
+          // margin
+          targetId = 'view-margin_' + key;
+          el = $('[id="' + targetId + '"]');
+          el.val(parseInt(object[key].margin));
+
+          // move_slides
+          targetId = 'view-move_slides_' + key;
+          el = $('[id="' + targetId + '"]');
+          el.val(parseInt(object[key].move_slides));
+
+        }
+
+      }
+
+      document.getElementById('restored-message').classList.add('copied');
+      setTimeout(function () {
+        document.getElementById('restored-message').classList.remove('copied');
+      }, 2000);
+
+    });
+  });
+
 })(jQuery);
 
 /**

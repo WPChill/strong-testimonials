@@ -23,7 +23,7 @@
 
                     <div class="inner-table-cell">
                         <label>
-                        <input id=view-breakpoint_<?php echo $key; ?>"
+                        <input id="view-breakpoint_<?php echo $key; ?>"
                                name="view[data][slideshow_settings][breakpoints][<?php echo $key; ?>][width]"
                                value="<?php echo $breakpoint['width']; ?>"
                                type="number"
@@ -82,5 +82,14 @@
 			<?php endforeach; ?>
         </div>
 
+    </div>
+
+    <div class="is-below">
+        <input id="restore-default-breakpoints"
+               type="button"
+               name="restore-default-breakpoints"
+               value="<?php _e( 'Restore Default Breakpoints', 'strong-testimonials' ); ?>"
+               class="button-secondary" />
+        <span id="restored-message"><?php _e( 'defaults restored', 'strong-testimonials' ); ?></span>
     </div>
 </div>
