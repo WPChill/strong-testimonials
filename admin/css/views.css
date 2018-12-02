@@ -951,6 +951,29 @@ table.wpmtst-help-tab {
   right: 0;
   background: rgba(255, 255, 255, 0.7); }
 
+/* -------------------------------------------------
+    Inner table
+   ------------------------------------------------- */
+.inner-table {
+  display: table; }
+  .inner-table.is-below {
+    margin-top: 10px; }
+
+.inner-table-row {
+  display: table-row; }
+  .inner-table-row.bordered {
+    border: 1px solid #DDD; }
+  .inner-table-row.header .inner-table-cell {
+    text-align: center;
+    padding: 0 10px;
+    background: #f6f6f6; }
+
+.inner-table-cell {
+  display: table-cell;
+  padding: 5px 10px; }
+  .inner-table-cell:not(:last-child) {
+    border-right: 1px dashed #e2e2e2; }
+
 .form-table td p.description.normal {
   font-style: normal; }
 

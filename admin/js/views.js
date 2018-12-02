@@ -1121,11 +1121,11 @@ jQuery(document).ready(function ($) {
       $effect.find('option[value=\'horizontal\']').prop('selected', true);
       $position.find('option[value=\'outside\']').prop('selected', true);
 
-      $sliderType.siblings('.option-desc.singular').hide();
-      $sliderType.siblings('.option-desc.plural').showInlineBlock();
+      $sliderType.parent().siblings('.option-desc.singular').hide();
+      $sliderType.parent().siblings('.option-desc.plural').showInlineBlock();
     } else {
-      $sliderType.siblings('.option-desc.singular').showInlineBlock();
-      $sliderType.siblings('.option-desc.plural').hide();
+      $sliderType.parent().siblings('.option-desc.singular').showInlineBlock();
+      $sliderType.parent().siblings('.option-desc.plural').hide();
     }
 
     $effect.change();
@@ -1137,24 +1137,70 @@ jQuery(document).ready(function ($) {
   $sliderType.on('change', sliderTypeUpdate);
 
   /**
-   * MoveSlides change listener
+   * MaxSlides change listener
    */
-  var $moveSlides = $('#view-move_slides');
+  var $maxSlides = $('[id^=\'view-max_slides\']');
 
-  var moveSlidesUpdate = function () {
-    var moveSlidesValue = parseInt($moveSlides.val());
-    if (moveSlidesValue > 1) {
-      $moveSlides.siblings('.option-desc.singular').hide();
-      $moveSlides.siblings('.option-desc.plural').showInlineBlock();
+  // Update display
+  var maxSlidesUpdateValue = function (el) {
+    var $el = $(el);
+    var maxSlidesValue = parseInt($el.val());
+    if (maxSlidesValue > 1) {
+      $el.parent().siblings('.option-desc.singular').hide();
+      $el.parent().siblings('.option-desc.plural').showInlineBlock();
     } else {
-      $moveSlides.siblings('.option-desc.singular').showInlineBlock();
-      $moveSlides.siblings('.option-desc.plural').hide();
+      $el.parent().siblings('.option-desc.singular').showInlineBlock();
+      $el.parent().siblings('.option-desc.plural').hide();
     }
   };
 
-  moveSlidesUpdate();
+  // Initial display
+  $maxSlides.each( function (index, el) {
+    maxSlidesUpdateValue(el);
+  });
 
-  $moveSlides.on('change', moveSlidesUpdate);
+  // Update on change
+  var maxSlidesUpdate = function (e) {
+    maxSlidesUpdateValue( $(e.target) );
+  };
+
+  // Event listener
+  $maxSlides.each( function (index, el) {
+    $(el).on('change', maxSlidesUpdate);
+  });
+
+  /**
+   * MoveSlides change listener
+   */
+  var $moveSlides = $('[id^=\'view-move_slides\']');
+
+  // Update display
+  var moveSlidesUpdateValue = function (el) {
+    var $el = $(el);
+    var moveSlidesValue = parseInt($el.val());
+    if (moveSlidesValue > 1) {
+      $el.parent().siblings('.option-desc.singular').hide();
+      $el.parent().siblings('.option-desc.plural').showInlineBlock();
+    } else {
+      $el.parent().siblings('.option-desc.singular').showInlineBlock();
+      $el.parent().siblings('.option-desc.plural').hide();
+    }
+  };
+
+  // Initial display
+  $moveSlides.each( function (index, el) {
+    moveSlidesUpdateValue(el);
+  });
+
+  // Update on change
+  var moveSlidesUpdate = function (e) {
+    moveSlidesUpdateValue( $(e.target) );
+  };
+
+  // Event listener
+  $moveSlides.each( function (index, el) {
+    $(el).on('change', moveSlidesUpdate);
+  });
 
 })(jQuery);
 
