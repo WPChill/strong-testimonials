@@ -1112,50 +1112,145 @@ jQuery(document).ready(function ($) {
   /**
    * Slider|Carousel change listener
    */
-  var $maxSlides = $('#view-max_slides');
+  var $sliderType = $('#view-slider_type');
   var $effect = $('#view-effect');
   var $position = $('view-slideshow_nav_position');
 
-  var maxSlidesUpdate = function () {
-    var maxSlidesValue = parseInt($maxSlides.val());
-    if (maxSlidesValue > 1) {
+  var sliderTypeUpdate = function () {
+    if ($sliderType.val() === 'multiple') {
       $effect.find('option[value=\'horizontal\']').prop('selected', true);
       $position.find('option[value=\'outside\']').prop('selected', true);
 
-      $maxSlides.siblings('.option-desc.singular').hide();
-      $maxSlides.siblings('.option-desc.plural').showInlineBlock();
+      $sliderType.parent().siblings('.option-desc.singular').hide();
+      $sliderType.parent().siblings('.option-desc.plural').showInlineBlock();
     } else {
-      $maxSlides.siblings('.option-desc.singular').showInlineBlock();
-      $maxSlides.siblings('.option-desc.plural').hide();
+      $sliderType.parent().siblings('.option-desc.singular').showInlineBlock();
+      $sliderType.parent().siblings('.option-desc.plural').hide();
     }
 
     $effect.change();
     $position.change();
   };
 
-  maxSlidesUpdate();
+  sliderTypeUpdate();
 
-  $maxSlides.on('change', maxSlidesUpdate);
+  $sliderType.on('change', sliderTypeUpdate);
+
+  /**
+   * MaxSlides change listener
+   */
+  var $maxSlides = $('[id^=\'view-max_slides\']');
+
+  // Update display
+  var maxSlidesUpdateValue = function (el) {
+    var $el = $(el);
+    var maxSlidesValue = parseInt($el.val());
+    if (maxSlidesValue > 1) {
+      $el.parent().siblings('.option-desc.singular').hide();
+      $el.parent().siblings('.option-desc.plural').showInlineBlock();
+    } else {
+      $el.parent().siblings('.option-desc.singular').showInlineBlock();
+      $el.parent().siblings('.option-desc.plural').hide();
+    }
+  };
+
+  // Initial display
+  $maxSlides.each( function (index, el) {
+    maxSlidesUpdateValue(el);
+  });
+
+  // Update on change
+  var maxSlidesUpdate = function (e) {
+    maxSlidesUpdateValue( $(e.target) );
+  };
+
+  // Event listener
+  $maxSlides.each( function (index, el) {
+    $(el).on('change', maxSlidesUpdate);
+  });
 
   /**
    * MoveSlides change listener
    */
-  var $moveSlides = $('#view-move_slides');
+  var $moveSlides = $('[id^=\'view-move_slides\']');
 
-  var moveSlidesUpdate = function () {
-    var moveSlidesValue = parseInt($moveSlides.val());
+  // Update display
+  var moveSlidesUpdateValue = function (el) {
+    var $el = $(el);
+    var moveSlidesValue = parseInt($el.val());
     if (moveSlidesValue > 1) {
-      $moveSlides.siblings('.option-desc.singular').hide();
-      $moveSlides.siblings('.option-desc.plural').showInlineBlock();
+      $el.parent().siblings('.option-desc.singular').hide();
+      $el.parent().siblings('.option-desc.plural').showInlineBlock();
     } else {
-      $moveSlides.siblings('.option-desc.singular').showInlineBlock();
-      $moveSlides.siblings('.option-desc.plural').hide();
+      $el.parent().siblings('.option-desc.singular').showInlineBlock();
+      $el.parent().siblings('.option-desc.plural').hide();
     }
   };
 
-  moveSlidesUpdate();
+  // Initial display
+  $moveSlides.each( function (index, el) {
+    moveSlidesUpdateValue(el);
+  });
 
-  $moveSlides.on('change', moveSlidesUpdate);
+  // Update on change
+  var moveSlidesUpdate = function (e) {
+    moveSlidesUpdateValue( $(e.target) );
+  };
+
+  // Event listener
+  $moveSlides.each( function (index, el) {
+    $(el).on('change', moveSlidesUpdate);
+  });
+
+  /**
+   * Restore default breakpoints
+   */
+  $('#restore-default-breakpoints').click(function (e) {
+    var data = {
+      'action': 'wpmtst_restore_default_breakpoints'
+    };
+
+    $.get(ajaxurl, data, function (response) {
+
+      var object = JSON.parse(response);
+      var targetId;
+      var el;
+
+      for (var key in object) {
+
+        if (object.hasOwnProperty(key)) {
+
+          // width
+          targetId = 'view-breakpoint_' + key;
+          el = $('[id="' + targetId + '"]');
+          el.val(parseInt(object[key].width));
+
+          // max_slides
+          targetId = 'view-max_slides_' + key;
+          el = $('[id="' + targetId + '"]');
+          el.val(parseInt(object[key].max_slides));
+
+          // margin
+          targetId = 'view-margin_' + key;
+          el = $('[id="' + targetId + '"]');
+          el.val(parseInt(object[key].margin));
+
+          // move_slides
+          targetId = 'view-move_slides_' + key;
+          el = $('[id="' + targetId + '"]');
+          el.val(parseInt(object[key].move_slides));
+
+        }
+
+      }
+
+      document.getElementById('restored-message').classList.add('copied');
+      setTimeout(function () {
+        document.getElementById('restored-message').classList.remove('copied');
+      }, 2000);
+
+    });
+  });
 
 })(jQuery);
 

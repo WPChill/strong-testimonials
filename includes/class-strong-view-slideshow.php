@@ -168,7 +168,7 @@ class Strong_View_Slideshow extends Strong_View_Display {
 
 		$container_class_list[] = 'slider-container';
 
-		if ( $settings['max_slides'] > 1 ) {
+		if ( 'multiple' == $settings['type'] ) {
 			$container_class_list[] = 'carousel';
 		}
 
@@ -176,8 +176,7 @@ class Strong_View_Slideshow extends Strong_View_Display {
 
 		if ( $settings['adapt_height'] ) {
 			$container_class_list[] = 'slider-adaptive';
-		}
-		elseif ( $settings['stretch'] ) {
+		} elseif ( $settings['stretch'] ) {
 			$container_class_list[] = 'slider-stretch';
 		}
 
@@ -191,7 +190,7 @@ class Strong_View_Slideshow extends Strong_View_Display {
 		// Controls
 		if ( isset( $nav_methods['controls'][ $control ]['class'] ) && $nav_methods['controls'][ $control ]['class'] ) {
 			if ( 'sides' == $control ) {
-				if ( $settings['max_slides'] == 1 ) {
+				if ( 'single' == $settings['type'] ) {
 					$container_class_list[] = $nav_methods['controls'][ $control ]['class'];
 				} else {
 					$container_class_list[] = $nav_methods['controls'][ $control ]['class'] . '-outside';
@@ -219,7 +218,7 @@ class Strong_View_Slideshow extends Strong_View_Display {
 		// Position
 		// TODO Simplify logic.
 		if ( 'none' != $pager || ( 'none' != $control && 'sides' != $control ) ) {
-			if ( $settings['max_slides'] > 1 ) {
+			if ( 'multiple' == $settings['type'] ) {
 				$settings['nav_position'] = 'outside';
 			}
 			$container_class_list[] = 'nav-position-' . $settings['nav_position'];
@@ -236,9 +235,9 @@ class Strong_View_Slideshow extends Strong_View_Display {
 		 * Filter classes.
 		 */
 		$this->atts['container_data']  = apply_filters( 'wpmtst_view_container_data', $container_data_list, $this->atts );
-		$this->atts['container_class'] = join( ' ', apply_filters( 'wpmtst_view_container_class', $container_class_list, $this->atts ) );
-		$this->atts['content_class']   = join( ' ', apply_filters( 'wpmtst_view_content_class', $content_class_list, $this->atts ) );
-		$this->atts['post_class']      = join( ' ', apply_filters( 'wpmtst_view_post_class', $post_class_list, $this->atts ) );
+		$this->atts['container_class'] = join( ' ', apply_filters( 'wpmtst_view_container_class', array_filter( $container_class_list ), $this->atts ) );
+		$this->atts['content_class']   = join( ' ', apply_filters( 'wpmtst_view_content_class', array_filter( $content_class_list ), $this->atts ) );
+		$this->atts['post_class']      = join( ' ', apply_filters( 'wpmtst_view_post_class', array_filter( $post_class_list ), $this->atts ) );
 
 		/**
 		 * Store updated atts.
@@ -263,7 +262,7 @@ class Strong_View_Slideshow extends Strong_View_Display {
 		if ( isset( $settings['controls_type'] ) && 'none' != $settings['controls_type'] ) {
 
 			$controls_type = $settings['controls_type'];
-			if ( 'sides' == $controls_type && $settings['max_slides'] > 1 ) {
+			if ( 'sides' == $controls_type && 'multiple' == $settings['type'] ) {
 				$controls_type .= '-outside';
 			}
 
@@ -362,28 +361,26 @@ class Strong_View_Slideshow extends Strong_View_Display {
 			'classes' => $pairs,
 		);
 
-		//$slide_margin = $this->atts['slideshow_settings']['max_slides'] > 1 ? $this->atts['slideshow_settings']['margin'] : 0;
-
-		$type        = $this->atts['slideshow_settings']['type'];
-		$breakpoints = $this->atts['slideshow_settings']['breakpoints'][ $type ];
 
 		// Convert breakpoint variable names
 		// TODO Refactor to make this unnecessary.
 		$new_breakpoints = array();
-		if ( 'single' == $type ) {
-			$new_breakpoints = array(
-				'maxSlides'   => $breakpoints['max_slides'],
-				'moveSlides'  => $breakpoints['move_slides'],
-				'slideMargin' => $breakpoints['margin'],
+
+		// Fallback
+		$new_breakpoints['single'] = array(
+			'maxSlides'   => $this->atts['slideshow_settings']['show_single']['max_slides'],
+			'moveSlides'  => $this->atts['slideshow_settings']['show_single']['move_slides'],
+			'slideMargin' => $this->atts['slideshow_settings']['show_single']['margin'],
+		);
+
+		$breakpoints = $this->atts['slideshow_settings']['breakpoints'];
+		foreach ( $breakpoints as $key => $breakpoint ) {
+			$new_breakpoints['multiple'][ $key ] = array(
+				'width'       => $breakpoints[ $key ]['width'],
+				'maxSlides'   => $breakpoints[ $key ]['max_slides'],
+				'moveSlides'  => $breakpoints[ $key ]['move_slides'],
+				'slideMargin' => $breakpoints[ $key ]['margin'],
 			);
-		} else {
-			foreach ( $breakpoints as $key => $breakpoint ) {
-				$new_breakpoints[ $key ] = array(
-					'maxSlides'   => $breakpoints[ $key ]['max_slides'],
-					'moveSlides'  => $breakpoints[ $key ]['move_slides'],
-					'slideMargin' => $breakpoints[ $key ]['margin'],
-				);
-			}
 		}
 
 		$args = array(
@@ -408,7 +405,7 @@ class Strong_View_Slideshow extends Strong_View_Display {
 		    //'slideMargin'         => $slide_margin,
 		    //'minThreshold'        => 480,
 
-			'type'        => $type,
+			'type'        => $this->atts['slideshow_settings']['type'],
 		    'breakpoints' => $new_breakpoints,
 		);
 
@@ -480,7 +477,6 @@ class Strong_View_Slideshow extends Strong_View_Display {
 			}
 		}
 
-		q2($args,__FUNCTION__);
 		return array( 'config' => apply_filters( 'wpmtst_slider_args', $args, $this->atts ) );
 	}
 
