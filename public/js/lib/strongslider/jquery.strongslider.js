@@ -438,7 +438,7 @@
       var currentBreakpoint = slider.settings.breakpoints.single;
       var breakpoints = slider.settings.breakpoints.multiple;
 
-      if (slider.settings.type === 'multiple') {
+      if (slider.settings.type === 'show_multiple') {
 
         for (var key in breakpoints) {
           if (breakpoints.hasOwnProperty(key)) {
