@@ -80,7 +80,7 @@ var strongValidation = {
     // Thanks http://stackoverflow.com/a/36429927/51600
     jQuery('input[type=url]').change(function () {
       if (this.value.length && !/^https*:\/\//.test(this.value)) {
-        this.value = 'http://' + this.value;
+        this.value = 'https://' + this.value;
       }
     });
 
