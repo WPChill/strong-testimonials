@@ -168,7 +168,7 @@ class Strong_View_Slideshow extends Strong_View_Display {
 
 		$container_class_list[] = 'slider-container';
 
-		if ( 'multiple' == $settings['type'] ) {
+		if ( 'show_multiple' == $settings['type'] ) {
 			$container_class_list[] = 'carousel';
 		}
 

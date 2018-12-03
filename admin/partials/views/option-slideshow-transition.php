@@ -15,7 +15,7 @@
 			<?php _ex( 'seconds', 'time setting', 'strong-testimonials' ); ?>
 		</div>
 
-		<div class="inline inline-middle then then_max_slides then_1 then_not_2 then_not_3 fast" style="display: none;">
+		<div class="inline inline-middle then then_slider_type then_show_single then_not_show_multiple fast" style="display: none;">
 			<label for="view-effect">
 				<?php _e( 'then', 'strong-testimonials' ); ?>
 			</label>
@@ -28,7 +28,7 @@
 			</select>
 		</div>
 
-        <div class="inline inline-middle then then_max_slides then_not_1 then_2 then_3 fast" style="display: none;">
+        <div class="inline inline-middle then then_slider_type then_not_show_single then_show_multiple fast" style="display: none;">
             <?php _e( 'then', 'strong-testimonials' ); ?> <?php _ex( 'scroll horizontally', 'slideshow transition option', 'strong-testimonials' ); ?>
         </div>
 
