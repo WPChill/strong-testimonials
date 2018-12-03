@@ -169,7 +169,7 @@ function sanitizeName(label) {
   /**
    * Prevent single click on handle from opening accordion
    */
-  $fieldList.on("click", "span.handle", function () {
+  $fieldList.on("click", "span.handle", function (e) {
     e.stopImmediatePropagation();
     e.preventDefault();
   });

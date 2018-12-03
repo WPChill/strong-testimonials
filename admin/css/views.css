@@ -83,23 +83,23 @@ optgroup option {
    Copy shortcode button
    ------------------------------------------------- */
 #copy-shortcode {
-  display: inline-block;
-  margin: 5px 1em 0;
+  margin: 5px 1em;
   line-height: 26px; }
 
 #copy-message {
   opacity: 0;
   font-size: 14px;
-  line-height: 22px;
-  height: 24px;
-  padding: 0 6px;
+  line-height: 26px;
+  height: 26px;
+  padding: 0 10px;
+  margin: 0;
   display: inline-block;
   background: #00A4F3;
   color: #FFF;
   border-radius: 3px;
-  box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.4);
+  box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.5);
   position: relative;
-  top: -2px; }
+  top: -1px; }
 
 #copy-message.copied {
   opacity: 0;
@@ -275,6 +275,38 @@ td.rowspan {
 .label-not-adjacent {
   margin-right: 0.3em; }
 
+.is-below {
+  margin-top: 10px; }
+
+/* -------------------------------------------------
+   Restore Default Breakpoints button
+   ------------------------------------------------- */
+#restored-message {
+  opacity: 0;
+  line-height: 26px;
+  height: 26px;
+  padding: 0 10px;
+  margin: 1px 1em;
+  display: inline-block;
+  background: #00A4F3;
+  color: #FFF;
+  border-radius: 3px;
+  box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.5);
+  position: relative;
+  top: -1px; }
+
+#restored-message.copied {
+  opacity: 0;
+  will-change: opacity;
+  animation: showcopied 2s ease; }
+
+@keyframes showcopied {
+  0% {
+    opacity: 0; }
+  70% {
+    opacity: 1; }
+  100% {
+    opacity: 0; } }
 .screenshot {
   margin: 10px; }
   .screenshot > div {
@@ -872,9 +904,6 @@ div.help {
   font-style: italic;
   padding-bottom: 5px; }
 
-#add-field-bar {
-  margin-top: 10px; }
-
 @-moz-document url-prefix() {
   select optgroup {
     font-style: normal;
@@ -950,6 +979,27 @@ table.wpmtst-help-tab {
   bottom: 0;
   right: 0;
   background: rgba(255, 255, 255, 0.7); }
+
+/* -------------------------------------------------
+    Inner table
+   ------------------------------------------------- */
+.inner-table {
+  display: table; }
+
+.inner-table-row {
+  display: table-row; }
+  .inner-table-row.bordered {
+    border: 1px solid #DDD; }
+  .inner-table-row.header .inner-table-cell {
+    text-align: center;
+    padding: 0 10px;
+    background: #f6f6f6; }
+
+.inner-table-cell {
+  display: table-cell;
+  padding: 5px 10px; }
+  .inner-table-cell:not(:last-child) {
+    border-right: 1px dashed #e2e2e2; }
 
 .form-table td p.description.normal {
   font-style: normal; }

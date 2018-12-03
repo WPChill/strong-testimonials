@@ -47,3 +47,47 @@ td.rowspan {
 .label-not-adjacent {
   margin-right: 0.3em;
 }
+
+.is-below {
+  margin-top: 10px;
+}
+
+/* -------------------------------------------------
+   Restore Default Breakpoints button
+   ------------------------------------------------- */
+
+#restore-default-breakpoints {
+}
+
+#restored-message {
+  opacity: 0;
+  line-height: 26px;
+  height: 26px;
+  padding: 0 10px;
+  margin: 1px 1em;
+  display: inline-block;
+  background: #00A4F3;
+  color: #FFF;
+  border-radius: 3px;
+  box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.5);
+  position: relative;
+  top: -1px;
+}
+
+#restored-message.copied {
+  opacity: 0;
+  will-change: opacity;
+  animation: showcopied 2s ease;
+}
+
+@keyframes showcopied {
+  0% {
+    opacity: 0;
+  }
+  70% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
