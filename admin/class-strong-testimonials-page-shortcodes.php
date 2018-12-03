@@ -31,7 +31,7 @@ class Strong_Testimonials_Page_Shortcodes {
 
 			<h1><?php _e( 'Shortcodes', 'strong-testimonials' ); ?></h1>
 
-			<p><?php printf( wp_kses( __( 'Open a <a href="%s" target="_blank">support ticket</a> if you need help.', 'strong-testimonials' ), $tags ), esc_url( 'https://support.strongplugins.com/new-ticket/' ) ); ?></p>
+			<p><?php printf( wp_kses( __( 'Open a <a href="%s" target="_blank">support ticket</a> if you need help.', 'strong-testimonials' ), $tags ), wpmtst_support_url() ); ?></p>
 
 			<h2><?php _e( 'Testimonial Views', 'strong-testimonials' ); ?></h2>
 

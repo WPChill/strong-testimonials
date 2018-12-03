@@ -252,7 +252,7 @@ class Strong_View {
 
 		}
 
-		return $class_list;
+		return array_filter( $class_list );
 	}
 
 	/**
