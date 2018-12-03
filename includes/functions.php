@@ -61,7 +61,7 @@ function wpmtst_get_post( $post ) {
  */
 function wpmtst_get_website( $url ) {
 	if ( !preg_match( "~^(?:f|ht)tps?://~i", $url ) )
-		$url = 'http://' . $url;
+		$url = 'https://' . $url;
 
 	return $url;
 }
