@@ -727,7 +727,7 @@ class Strong_Testimonials_Defaults {
 				'after_page_number'  => '',
 			),
 			'slideshow_settings'  => array(
-				'type'        => 'single', // or multiple
+				'type'        => 'show_single', // or show_multiple
 				'show_single'   => array(
 					'max_slides'  => 1,
 					'move_slides' => 1,

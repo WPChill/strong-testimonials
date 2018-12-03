@@ -190,7 +190,7 @@ class Strong_View_Slideshow extends Strong_View_Display {
 		// Controls
 		if ( isset( $nav_methods['controls'][ $control ]['class'] ) && $nav_methods['controls'][ $control ]['class'] ) {
 			if ( 'sides' == $control ) {
-				if ( 'single' == $settings['type'] ) {
+				if ( 'show_single' == $settings['type'] ) {
 					$container_class_list[] = $nav_methods['controls'][ $control ]['class'];
 				} else {
 					$container_class_list[] = $nav_methods['controls'][ $control ]['class'] . '-outside';
@@ -218,7 +218,7 @@ class Strong_View_Slideshow extends Strong_View_Display {
 		// Position
 		// TODO Simplify logic.
 		if ( 'none' != $pager || ( 'none' != $control && 'sides' != $control ) ) {
-			if ( 'multiple' == $settings['type'] ) {
+			if ( 'show_multiple' == $settings['type'] ) {
 				$settings['nav_position'] = 'outside';
 			}
 			$container_class_list[] = 'nav-position-' . $settings['nav_position'];
@@ -262,7 +262,7 @@ class Strong_View_Slideshow extends Strong_View_Display {
 		if ( isset( $settings['controls_type'] ) && 'none' != $settings['controls_type'] ) {
 
 			$controls_type = $settings['controls_type'];
-			if ( 'sides' == $controls_type && 'multiple' == $settings['type'] ) {
+			if ( 'sides' == $controls_type && 'show_multiple' == $settings['type'] ) {
 				$controls_type .= '-outside';
 			}
 
@@ -399,14 +399,8 @@ class Strong_View_Slideshow extends Strong_View_Display {
 			'debug'               => defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG,
 			'compat'              => $compat,
 			'touchEnabled'        => $options['touch_enabled'],
-
-		    //'maxSlides'           => $this->atts['slideshow_settings']['max_slides'],
-		    //'moveSlides'          => $this->atts['slideshow_settings']['move_slides'],
-		    //'slideMargin'         => $slide_margin,
-		    //'minThreshold'        => 480,
-
-			'type'        => $this->atts['slideshow_settings']['type'],
-		    'breakpoints' => $new_breakpoints,
+			'type'                => $this->atts['slideshow_settings']['type'],
+		    'breakpoints'         => $new_breakpoints,
 		);
 
 		if ( ! $this->atts['slideshow_settings']['adapt_height'] ) {

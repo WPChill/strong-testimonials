@@ -1,5 +1,5 @@
 <?php /* translators: In the view editor. */ ?>
-<div class="inline then then_slider_type then_not_single then_multiple" style="display: none;">
+<div class="inline then then_slider_type then_not_show_single then_show_multiple" style="display: none;">
     <div class="row">
 
         <div class="inner-table is-below">
