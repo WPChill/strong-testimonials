@@ -374,7 +374,7 @@ function wpmtst_sanitize_view_slideshow( $in ) {
 	}
 
 	// Carousel requires horizontal scroll.
-	if ( 'multiple' == $out['type'] ) {
+	if ( 'show_multiple' == $out['type'] ) {
 		$out['effect'] = 'horizontal';
 	} else {
 		$out['effect'] = sanitize_text_field( $in['effect'] );
@@ -410,7 +410,7 @@ function wpmtst_sanitize_view_slideshow( $in ) {
 
 	// Position is shared by Controls and Pagination
 	if ( $out['controls_type'] || $out['pager_type'] ) {
-		if ( 'multiple' == $out['type'] ) {
+		if ( 'show_multiple' == $out['type'] ) {
 			$out['nav_position'] = 'outside';
 		} else {
 			$out['nav_position'] = sanitize_text_field( $in['nav_position'] );

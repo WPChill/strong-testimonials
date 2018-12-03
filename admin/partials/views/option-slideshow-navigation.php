@@ -82,7 +82,7 @@
     <div class="row">
         <div class="row-inner">
 
-            <div class="then then_max_slides then_1 then_not_2 then_not_3" style="display: none;">
+            <div class="then then_slider_type then_show_single then_not_show_multiple" style="display: none;">
                 <div class="inline then then_has-position" style="display: none;">
                     <label for="view-slideshow_nav_position"><?php _e( 'Position', 'strong-testimonials' ); ?></label>
 

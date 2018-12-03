@@ -1117,7 +1117,7 @@ jQuery(document).ready(function ($) {
   var $position = $('view-slideshow_nav_position');
 
   var sliderTypeUpdate = function () {
-    if ($sliderType.val() === 'multiple') {
+    if ($sliderType.val() === 'show_multiple') {
       $effect.find('option[value=\'horizontal\']').prop('selected', true);
       $position.find('option[value=\'outside\']').prop('selected', true);
 

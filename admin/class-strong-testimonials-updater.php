@@ -830,7 +830,7 @@ class Strong_Testimonials_Updater {
 		if ( 1 == $view_data['slideshow_settings']['max_slides'] ) {
 
 			// Convert to single
-			$view_data['slideshow_settings']['type'] = 'single';
+			$view_data['slideshow_settings']['type'] = 'show_single';
 
 			$view_data['slideshow_settings']['show_single'] = array(
 				'max_slides'  => $view_data['slideshow_settings']['max_slides'],
@@ -841,7 +841,7 @@ class Strong_Testimonials_Updater {
 		} else {
 
 			// Convert to multiple
-			$view_data['slideshow_settings']['type'] = 'multiple';
+			$view_data['slideshow_settings']['type'] = 'show_multiple';
 
 			$view_data['slideshow_settings']['breakpoints']['desktop'] = array(
 				'max_slides'  => $view_data['slideshow_settings']['max_slides'],
