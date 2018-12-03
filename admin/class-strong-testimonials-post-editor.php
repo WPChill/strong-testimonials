@@ -27,6 +27,7 @@ class Strong_Testimonials_Post_Editor {
 		add_action( 'add_meta_boxes_wpm-testimonial', array( __CLASS__, 'add_meta_boxes' ) );
 		add_action( 'save_post_wpm-testimonial', array( __CLASS__, 'save_details' ) );
 		add_action( 'wp_ajax_wpmtst_edit_rating', array( __CLASS__, 'edit_rating' ) );
+		add_filter( 'wp_insert_post_data', array( __CLASS__, 'prevent_shortcode' ), 10, 2 );
 	}
 
 	/**
@@ -301,6 +302,23 @@ class Strong_Testimonials_Post_Editor {
 				delete_post_meta( $_POST['post_ID'], $key );
 			}
 		}
+	}
+
+	/**
+	 * Prevent use of this plugin's shortcode in a testimonial.
+     *
+     * @since 2.32.2
+	 * @param $data
+	 * @param $postarr
+	 *
+	 * @return mixed
+	 */
+	public static function prevent_shortcode( $data, $postarr ) {
+	    if ( 'wpm-testimonial' == $data['post_type'] ) {
+            $data['post_content'] = preg_replace( "/\[testimonial_view (.*)\]/", '', $data['post_content'] );
+	    }
+
+	    return $data;
 	}
 
 	/**
