@@ -28,6 +28,24 @@ class Strong_Testimonials_Admin_List {
 		add_action( 'restrict_manage_posts', array( __CLASS__, 'add_taxonomy_filters' ) );
 		add_filter( 'manage_edit-wpm-testimonial_sortable_columns', array( __CLASS__, 'manage_sortable_columns' ) );
 		add_action( 'manage_wpm-testimonial_posts_custom_column', array( __CLASS__, 'custom_columns' ) );
+		add_filter( 'post_row_actions', array( __CLASS__, 'post_row_actions' ), 10, 2 );
+	}
+
+	/**
+	 * Add post ID to post row actions.
+	 *
+	 * @param $actions
+	 * @param $post
+	 * @since 2.32.2
+	 *
+	 * @return array
+	 */
+	public static function post_row_actions( $actions, $post ) {
+		if ( 'wpm-testimonial' == $post->post_type ) {
+			$actions = array( 'id' => 'ID: ' . $post->ID ) + $actions;
+		}
+
+		return $actions;
 	}
 
 	/**
@@ -64,9 +82,7 @@ class Strong_Testimonials_Admin_List {
 		}
 
 		// 2. insert [order] after [cb]
-		if ( ! self::is_column_sorted()
-		     && ! self::is_viewing_trash()
-		     && class_exists( 'Strong_Testimonials_Order' ) ) {
+		if ( ! self::is_column_sorted() && ! self::is_viewing_trash() && class_exists( 'Strong_Testimonials_Order' ) ) {
 			$columns = array_merge(
 				array_slice( $columns, 0, 1 ),
 				array( 'handle' => 'Order' ),
