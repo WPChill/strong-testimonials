@@ -1,0 +1,32 @@
+/* -------------------------------------------------
+    Inner table
+   ------------------------------------------------- */
+
+.inner-table {
+  display: table;
+}
+
+.inner-table-row {
+  display: table-row;
+
+  &.bordered {
+    border: 1px solid #DDD;
+  }
+
+  &.header {
+    .inner-table-cell {
+      text-align: center;
+      padding: 0 10px;
+      background: #f6f6f6;
+    }
+  }
+}
+
+.inner-table-cell {
+  display: table-cell;
+  padding: 5px 10px;
+
+  &:not(:last-child) {
+    border-right: 1px dashed #e2e2e2;
+  }
+}
