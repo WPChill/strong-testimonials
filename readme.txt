@@ -4,7 +4,7 @@ Tags: testimonials, testimonial slider, testimonial form, reviews, star ratings
 Requires at least: 3.7
 Requires PHP: 5.2.4
 Tested up to: 4.9
-Stable tag: 2.32.2
+Stable tag: 2.32.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -215,6 +215,9 @@ If you prefer, start a private support ticket at [support.strongplugins.com](htt
 
 == Changelog ==
 
+= 2.32.3 - Dec 4, 2018 =
+* Fix stretched slide height in carousel.
+
 = 2.32.2 - Dec 4, 2018 =
 * Add adjustable responsive breakpoints for carousels.
 
@@ -293,3 +296,6 @@ New feature: Show multiple slides at the same time in a carousel.
 
 = 2.32.2 =
 New adjustable responsive breakpoints for carousels.
+
+= 2.32.3 =
+Fix stretched slide height in carousel.
