@@ -23,6 +23,7 @@
 .strong-form label {
   display: inline-block;
   float: none;
+  width: auto;
 }
 .strong-form input[type="text"],
 .strong-form input[type="email"],
