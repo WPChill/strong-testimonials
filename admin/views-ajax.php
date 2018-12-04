@@ -103,3 +103,17 @@ function wpmtst_get_background_preset_colors() {
 	wp_die();
 }
 add_action( 'wp_ajax_wpmtst_get_background_preset_colors', 'wpmtst_get_background_preset_colors' );
+
+
+/**
+ * [Restore Default Breakpoints] Ajax receiver.
+ *
+ * @since 2.32.2
+ */
+function wpmtst_restore_default_breakpoints_function() {
+	$options = Strong_Testimonials_Defaults::get_default_view();
+	$breakpoints = $options['slideshow_settings']['breakpoints'];
+	echo json_encode( $breakpoints );
+	wp_die();
+}
+add_action( 'wp_ajax_wpmtst_restore_default_breakpoints', 'wpmtst_restore_default_breakpoints_function' );
