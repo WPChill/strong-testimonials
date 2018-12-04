@@ -818,6 +818,6 @@ ul.standard {
   border-bottom: 1px solid #DDD;
 }
 
-.wp-list-table .type-wpm-testimonial .row-actions span.id {
+.wp-list-table .type-wpm-testimonial .row-actions span.id span {
   color: #777;
 }
