@@ -42,7 +42,7 @@ class Strong_Testimonials_Admin_List {
 	 */
 	public static function post_row_actions( $actions, $post ) {
 		if ( 'wpm-testimonial' == $post->post_type ) {
-			$actions = array( 'id' => 'ID: ' . $post->ID ) + $actions;
+			$actions = array( 'id' => '<span>ID: ' . $post->ID . '</span>' ) + $actions;
 		}
 
 		return $actions;
