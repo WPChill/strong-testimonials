@@ -752,7 +752,7 @@
      *
      */
     var setViewportHeight = function () {
-      slider.viewport.height(getViewportHeight());
+      slider.viewport.height(getViewportHeight() + 2);
     };
 
     /**
