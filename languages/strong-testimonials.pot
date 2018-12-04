@@ -2,10 +2,10 @@
 # This file is distributed under the same license as the Strong Testimonials package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Strong Testimonials 2.31.10\n"
+"Project-Id-Version: Strong Testimonials 2.32.2\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/strong-"
 "testimonials\n"
-"POT-Creation-Date: 2018-08-02 19:18:06+00:00\n"
+"POT-Creation-Date: 2018-12-04 08:48:43+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -395,26 +395,26 @@ msgstr ""
 msgid "Posts"
 msgstr ""
 
-#: admin/class-strong-testimonials-admin-list.php:80
+#: admin/class-strong-testimonials-admin-list.php:96
 msgid "Excerpt"
 msgstr ""
 
-#: admin/class-strong-testimonials-admin-list.php:90
-#: admin/class-strong-testimonials-admin-list.php:212
+#: admin/class-strong-testimonials-admin-list.php:106
+#: admin/class-strong-testimonials-admin-list.php:228
 msgid "Thumbnail"
 msgstr ""
 
-#: admin/class-strong-testimonials-admin-list.php:92
+#: admin/class-strong-testimonials-admin-list.php:108
 msgid "Rating"
 msgstr ""
 
 #. translators: On the Views admin screen.
-#: admin/class-strong-testimonials-admin-list.php:104
+#: admin/class-strong-testimonials-admin-list.php:120
 #: admin/partials/views/option-category.php:4 includes/post-types.php:128
 msgid "Categories"
 msgstr ""
 
-#: admin/class-strong-testimonials-admin-list.php:111
+#: admin/class-strong-testimonials-admin-list.php:127
 msgid "Date"
 msgstr ""
 
@@ -710,6 +710,7 @@ msgid "fade"
 msgstr ""
 
 #: admin/class-strong-testimonials-defaults.php:510
+#: admin/partials/views/option-slideshow-transition.php:32
 msgctxt "slideshow transition option"
 msgid "scroll horizontally"
 msgstr ""
@@ -781,21 +782,25 @@ msgid "text"
 msgstr ""
 
 #: admin/class-strong-testimonials-defaults.php:614
+#: includes/class-strong-view-slideshow.php:438
 msgctxt "slideshow control"
 msgid "Play"
 msgstr ""
 
 #: admin/class-strong-testimonials-defaults.php:615
+#: includes/class-strong-view-slideshow.php:439
 msgctxt "slideshow control"
 msgid "Pause"
 msgstr ""
 
 #: admin/class-strong-testimonials-defaults.php:616
+#: includes/class-strong-view-slideshow.php:440
 msgctxt "slideshow_control"
 msgid "Previous"
 msgstr ""
 
 #: admin/class-strong-testimonials-defaults.php:617
+#: includes/class-strong-view-slideshow.php:441
 msgctxt "slideshow_control"
 msgid "Next"
 msgstr ""
@@ -825,13 +830,23 @@ msgctxt "link"
 msgid "Read more testimonials"
 msgstr ""
 
-#: admin/class-strong-testimonials-defaults.php:809
+#: admin/class-strong-testimonials-defaults.php:724
+#: includes/functions-template.php:543
+msgid "&laquo; Previous"
+msgstr ""
+
+#: admin/class-strong-testimonials-defaults.php:725
+#: includes/functions-template.php:544
+msgid "Next &raquo;"
+msgstr ""
+
+#: admin/class-strong-testimonials-defaults.php:845
 msgid ""
 "<strong>Recommended.</strong> The best choice for both Invisible reCAPTCHA "
 "and reCAPTCHA V2 (\"I'm not a robot\" checkbox)."
 msgstr ""
 
-#: admin/class-strong-testimonials-defaults.php:820
+#: admin/class-strong-testimonials-defaults.php:856
 msgid "An excellent plugin for math- and image-based captchas."
 msgstr ""
 
@@ -1068,14 +1083,14 @@ msgstr ""
 
 #: admin/class-strong-testimonials-help.php:182
 #: admin/class-strong-testimonials-help.php:187
-#: admin/class-strong-testimonials-post-editor.php:169
+#: admin/class-strong-testimonials-post-editor.php:170
 #: admin/partials/views/option-boilerplate.php:11
 msgid "yes"
 msgstr ""
 
 #: admin/class-strong-testimonials-help.php:183
 #: admin/class-strong-testimonials-help.php:188
-#: admin/class-strong-testimonials-post-editor.php:170
+#: admin/class-strong-testimonials-post-editor.php:171
 #: admin/partials/views/option-boilerplate.php:14
 msgid "no"
 msgstr ""
@@ -1087,7 +1102,7 @@ msgstr ""
 #. translators: On the Views admin screen.
 #: admin/class-strong-testimonials-help.php:197
 #: admin/partials/views/option-pagination.php:13
-#: admin/partials/views/option-slideshow-navigation.php:46
+#: admin/partials/views/option-slideshow-navigation.php:50
 msgid "Pagination"
 msgstr ""
 
@@ -1291,38 +1306,38 @@ msgid ""
 "using <code>element</code>."
 msgstr ""
 
-#: admin/class-strong-testimonials-post-editor.php:38
+#: admin/class-strong-testimonials-post-editor.php:39
 msgctxt "post editor"
 msgid "Client Details"
 msgstr ""
 
-#: admin/class-strong-testimonials-post-editor.php:59
+#: admin/class-strong-testimonials-post-editor.php:60
 msgctxt "post editor"
 msgid "To add a photo or logo, use the Featured Image option."
 msgstr ""
 
-#: admin/class-strong-testimonials-post-editor.php:168
+#: admin/class-strong-testimonials-post-editor.php:169
 msgid "default"
 msgstr ""
 
-#: admin/class-strong-testimonials-post-editor.php:214
+#: admin/class-strong-testimonials-post-editor.php:215
 msgid "Zero"
 msgstr ""
 
-#: admin/class-strong-testimonials-post-editor.php:215
+#: admin/class-strong-testimonials-post-editor.php:216
 msgid "OK"
 msgstr ""
 
-#: admin/class-strong-testimonials-post-editor.php:216
+#: admin/class-strong-testimonials-post-editor.php:217
 msgid "Cancel"
 msgstr ""
 
-#: admin/class-strong-testimonials-post-editor.php:232
+#: admin/class-strong-testimonials-post-editor.php:233
 #: admin/class-strong-views-list-table.php:127
 msgid "Edit"
 msgstr ""
 
-#: admin/class-strong-testimonials-post-editor.php:255
+#: admin/class-strong-testimonials-post-editor.php:256
 msgid "shortcode %s not found"
 msgstr ""
 
@@ -1655,8 +1670,8 @@ msgstr ""
 
 #. translators: On the Views admin screen.
 #: admin/partials/views/group-style.php:14
-#: admin/partials/views/option-slideshow-navigation.php:29
-#: admin/partials/views/option-slideshow-navigation.php:60
+#: admin/partials/views/option-slideshow-navigation.php:33
+#: admin/partials/views/option-slideshow-navigation.php:68
 msgid "Style"
 msgstr ""
 
@@ -1759,7 +1774,7 @@ msgstr ""
 msgid "Separate class names by spaces."
 msgstr ""
 
-#: admin/partials/views/option-client-section.php:23
+#: admin/partials/views/option-client-section.php:25
 msgid "Add Field"
 msgstr ""
 
@@ -2198,7 +2213,7 @@ msgstr ""
 
 #: admin/partials/views/option-slideshow-behavior.php:71
 #: admin/partials/views/option-slideshow-transition.php:15
-#: admin/partials/views/option-slideshow-transition.php:38
+#: admin/partials/views/option-slideshow-transition.php:42
 msgctxt "time setting"
 msgid "seconds"
 msgstr ""
@@ -2211,16 +2226,56 @@ msgstr ""
 msgid "The slideshow will pause if the browser window becomes inactive."
 msgstr ""
 
+#. translators: In the view editor.
+#: admin/partials/views/option-slideshow-breakpoints.php:8
+msgid "minimum screen width"
+msgstr ""
+
+#: admin/partials/views/option-slideshow-breakpoints.php:11
+msgid "show"
+msgstr ""
+
+#: admin/partials/views/option-slideshow-breakpoints.php:14
+msgid "margin"
+msgstr ""
+
+#: admin/partials/views/option-slideshow-breakpoints.php:17
+msgid "move"
+msgstr ""
+
+#: admin/partials/views/option-slideshow-breakpoints.php:46
+#: admin/partials/views/option-slideshow-breakpoints.php:73
+msgid "slide"
+msgstr ""
+
+#: admin/partials/views/option-slideshow-breakpoints.php:49
+#: admin/partials/views/option-slideshow-breakpoints.php:76
+msgid "slides"
+msgstr ""
+
+#: admin/partials/views/option-slideshow-breakpoints.php:91
+msgid "Restore Default Breakpoints"
+msgstr ""
+
+#: admin/partials/views/option-slideshow-breakpoints.php:93
+msgid "defaults restored"
+msgstr ""
+
 #: admin/partials/views/option-slideshow-navigation.php:15
 msgid "Controls"
 msgstr ""
 
-#: admin/partials/views/option-slideshow-navigation.php:76
+#: admin/partials/views/option-slideshow-navigation.php:87
 msgid "Position"
 msgstr ""
 
-#: admin/partials/views/option-slideshow-navigation.php:82
+#: admin/partials/views/option-slideshow-navigation.php:97
 msgid "the testimonial frame"
+msgstr ""
+
+#. translators: In the view editor.
+#: admin/partials/views/option-slideshow-num.php:3
+msgid "Show"
 msgstr ""
 
 #. translators: In the view editor.
@@ -2230,15 +2285,33 @@ msgstr ""
 
 #: admin/partials/views/option-slideshow-transition.php:10
 msgctxt "slideshow setting"
-msgid "Show each for"
+msgid "Show slides for"
 msgstr ""
 
 #: admin/partials/views/option-slideshow-transition.php:20
+#: admin/partials/views/option-slideshow-transition.php:32
 msgid "then"
 msgstr ""
 
-#: admin/partials/views/option-slideshow-transition.php:33
+#: admin/partials/views/option-slideshow-transition.php:37
 msgid "for"
+msgstr ""
+
+#. translators: In the view editor.
+#: admin/partials/views/option-slideshow-type.php:7
+msgid "single"
+msgstr ""
+
+#: admin/partials/views/option-slideshow-type.php:8
+msgid "multiple"
+msgstr ""
+
+#: admin/partials/views/option-slideshow-type.php:12
+msgid "slide at a time"
+msgstr ""
+
+#: admin/partials/views/option-slideshow-type.php:15
+msgid "slides at a time with these responsive breakpoints:"
 msgstr ""
 
 #: admin/partials/views/option-thumbnail.php:26
@@ -3298,40 +3371,32 @@ msgctxt "Word count type. Do not translate!"
 msgid "words"
 msgstr ""
 
-#: includes/functions-template.php:543
-msgid "&laquo; Previous"
-msgstr ""
-
-#: includes/functions-template.php:544
-msgid "Next &raquo;"
-msgstr ""
-
 #. translators: Publish box date format, see https://secure.php.net/date
-#: includes/functions.php:534 includes/post-types.php:202
+#: includes/functions.php:538 includes/post-types.php:202
 msgid "M j, Y @ H:i"
 msgstr ""
 
-#: includes/functions.php:566
+#: includes/functions.php:570
 msgid "light blue gradient"
 msgstr ""
 
-#: includes/functions.php:571
+#: includes/functions.php:575
 msgid "light gray gradient"
 msgstr ""
 
-#: includes/functions.php:576
+#: includes/functions.php:580
 msgid "light green mist gradient"
 msgstr ""
 
-#: includes/functions.php:581
+#: includes/functions.php:585
 msgid "light latte gradient"
 msgstr ""
 
-#: includes/functions.php:586
+#: includes/functions.php:590
 msgid "light plum gradient"
 msgstr ""
 
-#: includes/functions.php:591
+#: includes/functions.php:595
 msgid "sky blue gradient"
 msgstr ""
 
