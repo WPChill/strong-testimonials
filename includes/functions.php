@@ -673,15 +673,7 @@ function wpmtst_divi_builder_active() {
  */
 function wpmtst_single_template_add_content( $content ) {
 	if ( is_singular( 'wpm-testimonial' ) || is_tax( 'wpm-testimonial-category' ) ) {
-		ob_start();
-		?>
-		<div class="testimonial-client normal">
-			<?php wpmtst_single_template_client(); ?>
-		</div>
-		<?php
-		$html = ob_get_contents();
-		ob_end_clean();
-		$content .= $html;
+		$content .= wpmtst_single_template_client();
 	}
 
 	return $content;

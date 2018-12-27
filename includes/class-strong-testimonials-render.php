@@ -399,8 +399,8 @@ class Strong_Testimonials_Render {
 			}
 
 			foreach ( $widgets as $key => $widget_name ) {
-				// Is our widget active?
 				if ( 0 === strpos( $widget_name, 'strong-testimonials-view-widget-' ) ) {
+					// Our plugin widget
 
 					if ( $strong_widgets ) {
 						$name_parts = explode( '-', $widget_name );
@@ -414,6 +414,7 @@ class Strong_Testimonials_Render {
 					}
 
 				} elseif ( 0 === strpos( $widget_name, 'text-' ) ) {
+					// Text widgets
 
 					// Get text widget content to scan for shortcodes.
 					$text_widgets = get_option( 'widget_text' );
@@ -425,6 +426,22 @@ class Strong_Testimonials_Render {
 						if ( isset( $text_widgets[ $id ] ) ) {
 							$widget = $text_widgets[ $id ];
 							$this->process_content( $widget['text'] );
+						}
+					}
+
+				} elseif ( 0 === strpos( $widget_name, 'custom_html-' ) ) {
+					// Custom HTML widgets
+
+					// Get text widget content to scan for shortcodes.
+					$custom_html_widgets = get_option( 'widget_custom_html' );
+
+					if ( $custom_html_widgets ) {
+						$name_parts = explode( '-', $widget_name );
+						$id         = array_pop( $name_parts );
+
+						if ( isset( $custom_html_widgets[ $id ] ) ) {
+							$widget = $custom_html_widgets[ $id ];
+							$this->process_content( $widget['content'] );
 						}
 					}
 
