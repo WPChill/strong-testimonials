@@ -4,7 +4,7 @@ Tags: testimonials, testimonial slider, testimonial form, reviews, star ratings
 Requires at least: 3.7
 Requires PHP: 5.2.4
 Tested up to: 5.0
-Stable tag: 2.32.3
+Stable tag: 2.32.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -215,6 +215,9 @@ If you prefer, start a private support ticket at [support.strongplugins.com](htt
 
 == Changelog ==
 
+= 2.32.4 - Dec. 27, 2018 =
+* Prerender shortcodes in WordPress Custom HTML widgets.
+
 = 2.32.3 - Dec 4, 2018 =
 * Fix stretched slide height in carousel.
 
@@ -227,62 +230,6 @@ If you prefer, start a private support ticket at [support.strongplugins.com](htt
 = 2.32 - Aug 6, 2018 =
 * Add carousel option.
 * Add filters to form field classes.
-
-= 2.31.10 - Aug 2, 2018 =
-* Fix singular/plural phrases in testimonial average shortcode.
-* Fix bug in scroll to success message.
-* Fix RTL slider controls.
-* Attempt to fix slider touch problems in iOS.
-
-= 2.31.9 - July 17, 2018 =
-* Fix compatbility issue with Gutenberg.
-* Fix bug in average rating calculation.
-* Fix CSS columns for recent browser updates.
-* Fix bug in lazy-loading compatibility option.
-* Improve theme compatibility.
-* Add filter on form submit button CSS class.
-
-= 2.31.8 - June 16, 2018 =
-* Fix "wait" spinner in unstyled form template.
-* On forms, only show required symbol if field label is shown.
-* Refactor inline style method.
-* Improve exception handling.
-
-= 2.31.7 - June 7, 2018 =
-* Fix JavaScript incompatibility in IE and Edge.
-
-= 2.31.6 - June 2, 2018 =
-* Fix bug when adding a custom field in view editor.
-
-= 2.31.5 - June 1, 2018 =
-* Fix XSS vulnerablilities reported by DefenseCode using Thunderscan.
-* Add spinner UI element while form is being submitted to deter visitor from navigating away.
-* Minor admin UI improvements.
-
-= 2.31.4 - May 22, 2018 =
-* Add integration with WordPress privacy exporter and eraser features.
-
-= 2.31.3 - May 19, 2018 =
-* Fix missing submit button.
-
-= 2.31.2 - May 18, 2018 =
-* Fix bug in average rating half-star.
-
-= 2.31.1 - May 15, 2018 =
-* Fix conflict with Review Markup add-on.
-
-= 2.31 - May 15, 2018 =
-* Add `[testimonial_average_rating]` shortcode.
-* Add compatibility option for script controller.
-* Add compatibility option for lazy loading images.
-* Minor template style tweaks for small screens.
-* Use empty star icon instead of full icon in different color.
-* Change default message "Required field" to "Required".
-* Improve exception handling.
-* Improve Pjax compatibility.
-* Apply JavaScript coding standard.
-* Add console logging for slider when `SCRIPT_DEBUG` enabled.
-* Minor admin style tweaks.
 
 See changelog.txt for previous versions.
 
@@ -299,3 +246,6 @@ New adjustable responsive breakpoints for carousels.
 
 = 2.32.3 =
 Fix stretched slide height in carousel.
+
+= 2.32.4 =
+Improved compatibility with WordPress Custom HTML widgets.

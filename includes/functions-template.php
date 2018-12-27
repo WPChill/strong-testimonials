@@ -590,6 +590,7 @@ if ( ! function_exists( 'wpmtst_single_template_client' ) ) :
 	 * @since 2.22.0
 	 */
 	function wpmtst_single_template_client() {
+		$html = '';
 		$view = wpmtst_find_single_template_view();
 		if ( $view && isset( $view['client_section'] ) ) {
 			foreach ( $view['client_section'] as $field ) {
@@ -598,7 +599,12 @@ if ( ! function_exists( 'wpmtst_single_template_client' ) ) :
 					break;
 				}
 			}
-			echo wpmtst_client_section( $view['client_section'] );
+
+			$html .= '<div class="testimonial-client normal">';
+			$html .= wpmtst_client_section( $view['client_section'] );
+			$html .= '</div>';
 		}
+
+		return $html;
 	}
 endif;

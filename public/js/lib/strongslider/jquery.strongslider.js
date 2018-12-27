@@ -175,7 +175,6 @@
       // store if the slider is in carousel mode (displaying / moving multiple slides)
       setBreakpoint();
       // slider.carousel = slider.settings.minSlides > 1 || slider.settings.maxSlides > 1;
-      console.log('init',slider.carousel);
 
       // if carousel, force preloadImages = 'all'
       if (slider.carousel) {
