@@ -48,7 +48,7 @@ function wpmtst_scripts() {
 		'script'         => isset( $ajax['script'] ) ? $ajax['script'] : '',
 		'containerId'    => isset( $ajax['container_id'] ) ? $ajax['container_id'] : '',
 		'addedNodeId'    => isset( $ajax['addednode_id'] ) ? $ajax['addednode_id'] : '',
-		'debug'          => defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG,
+		'debug'          => defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG  && apply_filters( 'debug_strong_controller', true ),
 	);
 	wp_localize_script( 'wpmtst-controller', 'strongControllerParms', $parms );
 
