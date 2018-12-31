@@ -99,12 +99,14 @@ function wpmtst_trim_excerpt( $text = '' ) {
 		 *
 		 * @param string $more_string The string shown within the more link.
 		 */
+		$default_more = ' [&hellip;]';
 		if ( WPMST()->atts( 'use_default_more' ) ) {
-			$excerpt_more = apply_filters( 'excerpt_more', ' ' . '[&hellip;]' );
+			$excerpt_more = apply_filters( 'excerpt_more', $default_more );
 		} else {
-			$excerpt_more = apply_filters( 'wpmtst_excerpt_more', ' ' . '[&hellip;]' );
+			$excerpt_more = apply_filters( 'wpmtst_excerpt_more', $default_more );
 		}
-		$text = wpmtst_trim_words( $text, $excerpt_length, $excerpt_more );
+		//$text = wpmtst_trim_words( $text, $excerpt_length, $excerpt_more, WPMST()->atts( 'more_post_in_place') );
+		$text = wpmtst_trim_words( $text, $excerpt_length, $excerpt_more, true );
 	}
 	/**
 	 * Filters the trimmed excerpt string.
@@ -128,9 +130,9 @@ function wpmtst_custom_excerpt_more( $excerpt ) {
 	if ( has_excerpt() ) {
 		if ( WPMST()->atts( 'more_full_post' ) ) {
 			if ( WPMST()->atts( 'use_default_more' ) ) {
-				$excerpt_more = apply_filters( 'excerpt_more', ' ' . '[&hellip;]' );
+				$excerpt_more = apply_filters( 'excerpt_more', ' [&hellip;]' );
 			} else {
-				$excerpt_more = apply_filters( 'wpmtst_excerpt_more', ' ' . '[&hellip;]' );
+				$excerpt_more = apply_filters( 'wpmtst_excerpt_more', ' [&hellip;]' );
 			}
 		}
 	}
@@ -164,17 +166,6 @@ function wpmtst_excerpt_length( $words ) {
  * @return string
  */
 function wpmtst_excerpt_more( $more ) {
-	$ellipsis = WPMST()->atts( 'more_post_ellipsis' ) ? __( '&hellip;' ) : '';
-
-	return $ellipsis . ' ' . wpmtst_get_excerpt_more_link();
-}
-
-/**
- * Return "Read more" for manual excerpts.
- *
- * @return string
- */
-function wpmtst_excerpt_more_full_post() {
 	return ' ' . wpmtst_get_excerpt_more_link();
 }
 
@@ -192,7 +183,15 @@ function wpmtst_get_excerpt_more_link() {
 		apply_filters( 'wpmtst_read_more_post_link_text', WPMST()->atts( 'more_post_text' ), WPMST()->atts() ), get_the_title()
 	);
 
-	$link = sprintf( '<a href="%s" class="readmore">%s</a>', esc_url( $url ), $link_text );
+	$link_class = apply_filters( 'wpmtst_read_more_post_link_class', 'readmore' );
+
+	//if ( WPMST()->atts( 'more_post_in_place' ) ) {
+	if ( true ) {
+	    // no href
+	    $link = sprintf( '<a aria-expanded="false" aria-controls="more-%d" class="%s readmore-toggle"><span class="readmore-text">%s</span></a>', get_the_ID(), $link_class, $link_text );
+	} else {
+		$link = sprintf( '<a href="%s" class="%s">%s</a>', esc_url( $url ), $link_class, $link_text );
+	}
 
 	return apply_filters( 'wpmtst_read_more_post_link', $link );
 }
@@ -203,10 +202,11 @@ function wpmtst_get_excerpt_more_link() {
  * @param $text
  * @param int $num_words
  * @param null $more
+ * @param bool $more_in_place
  *
  * @return string
  */
-function wpmtst_trim_words( $text, $num_words = 55, $more = null ) {
+function wpmtst_trim_words( $text, $num_words = 55, $more = null, $more_in_place = false ) {
 	if ( null === $more ) {
 		$more = __( '&hellip;' );
 	}
@@ -224,14 +224,39 @@ function wpmtst_trim_words( $text, $num_words = 55, $more = null ) {
 		$words_array = array_slice( $words_array[0], 0, $num_words + 1 );
 		$sep = '';
 	} else {
-		$words_array = preg_split( "/[\n\r\t ]+/", $text, $num_words + 1, PREG_SPLIT_NO_EMPTY );
+		if ( $more_in_place ) {
+			$words_array = preg_split( "/[\n\r\t ]+/", $text, 0, PREG_SPLIT_NO_EMPTY );
+		} else {
+			$words_array = preg_split( "/[\n\r\t ]+/", $text, $num_words + 1, PREG_SPLIT_NO_EMPTY );
+		}
 		$sep = ' ';
 	}
 
 	if ( count( $words_array ) > $num_words ) {
-		array_pop( $words_array );
-		$text = implode( $sep, $words_array );
-		$text = $text . $more;
+
+		if ( $more_in_place ) {
+
+			$space = __( '&nbsp;' );
+
+			$ellipsis = WPMST()->atts( 'more_post_ellipsis' ) ? __( '&hellip;' ) : '';
+			$ellipsis = '<span class="ellipsis">' . $ellipsis . '</span>' . $space;
+
+			$first_half  = implode( $sep, array_slice( $words_array, 0, $num_words ) );
+			$second_half = implode( $sep, array_slice( $words_array, $num_words ) );
+
+			$wrap_open  = '<span class="readmore-content animated" id="more-' . get_the_ID() . '" hidden>';
+			$wrap_close = $space . '</span>';
+
+			$text = $first_half . $ellipsis . $wrap_open . $second_half . $wrap_close . $more;
+
+		} else {
+
+			array_pop( $words_array );
+			$text = implode( $sep, $words_array );
+			$text = $text . $more;
+
+		}
+
 	} else {
 		$text = implode( $sep, $words_array );
 	}
