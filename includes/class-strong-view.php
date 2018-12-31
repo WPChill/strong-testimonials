@@ -113,7 +113,7 @@ class Strong_View {
 	}
 
 	/**
-	 * Add content filters.
+	 * Remove content filters.
 	 */
 	public function remove_content_filters() {
 		if ( isset( $this->atts['content'] ) && 'truncated' == $this->atts['content'] ) {
