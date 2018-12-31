@@ -157,19 +157,17 @@ function wpmtst_excerpt_length( $words ) {
  */
 function wpmtst_excerpt_more( $more ) {
 	$before = ' ';
-	if ( WPMST()->atts( 'more_post_ellipsis' ) ) {
+	if ( ! WPMST()->atts( 'more_post_in_place' ) ) {
+		if ( WPMST()->atts( 'more_post_ellipsis' ) ) {
 
-		// Automatic excerpt
-		if ( 'truncated' == WPMST()->atts( 'content' ) ) {
-			if ( ! WPMST()->atts( 'more_post_in_place' ) ) {
+			// Automatic excerpt
+			if ( 'truncated' == WPMST()->atts( 'content' ) ) {
 				$before = __( '&hellip;' ) . $before;
 			}
-		}
 
-		// Excerpt created when post has no manual excerpt and NOT expand in place
-		if ( 'excerpt' == WPMST()->atts( 'content' ) ) {
-			if ( ! has_excerpt() ) {
-				if ( ! WPMST()->atts( 'more_post_in_place' ) ) {
+			// Excerpt created when post has no manual excerpt and NOT expand in place
+			if ( 'excerpt' == WPMST()->atts( 'content' ) ) {
+				if ( ! has_excerpt() ) {
 					$before = __( '&hellip;' ) . $before;
 				}
 			}
@@ -271,9 +269,9 @@ function wpmtst_trim_words( $text, $num_words = 55, $more = null, $more_in_place
 
 		if ( $more_in_place ) {
 
-			$space = __( '&nbsp;' );
-
+			$space    = __( '&nbsp;' );
 			$ellipsis = '';
+
 			// TODO This is similar logic to wpmtst_excerpt_more. Consolidate into one filter.
 			if ( WPMST()->atts( 'more_post_ellipsis' ) ) {
 
