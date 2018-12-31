@@ -184,6 +184,21 @@ function wpmtst_scripts() {
 	                    $plugin_version,
 	                    true );
 
+	/**
+	 * Read more in place
+	 */
+	wp_register_script( 'wpmtst-readmore',
+	                    //WPMTST_PUBLIC_URL . "js/lib/readmore/readmore{$min}.js",
+	                    WPMTST_PUBLIC_URL . "js/lib/readmore/readmore.js",
+	                    array(),
+	                    $plugin_version,
+	                    true );
+
+	wp_register_style( 'wpmtst-animate',
+	                   WPMTST_PUBLIC_URL . 'css/animate.min.css',
+	                   array(),
+	                   '' );
+
 }
 add_action( 'wp_enqueue_scripts', 'wpmtst_scripts' );
 
@@ -205,6 +220,7 @@ function wpmtst_defer_scripts( $tag, $handle ) {
 		'jquery-actual',
 		'verge',
 		'wpmtst-slider',
+		'wpmtst-readmore',
 	);
 
 	if ( in_array( $handle, $scripts_to_defer ) ) {

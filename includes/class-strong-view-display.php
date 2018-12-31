@@ -79,6 +79,7 @@ class Strong_View_Display extends Strong_View {
 		$this->has_stars();
 		$this->has_pagination();
 		$this->has_layouts();
+		$this->has_readmore();
 
 		$this->load_extra_stylesheets();
 
@@ -440,6 +441,18 @@ class Strong_View_Display extends Strong_View {
 		}
 
 		WPMST()->render->add_script( 'wpmtst-controller' );
+	}
+
+	/**
+	 * Read more in place
+	 *
+	 * @since 2.33.0
+	 */
+	public function has_readmore() {
+		//if ( isset( $this->atts['more_post_in_place'] ) && $this->atts['more_post_in_place'] ) {
+			WPMST()->render->add_style( 'wpmtst-animate' );
+			WPMST()->render->add_script( 'wpmtst-readmore' );
+		//}
 	}
 
 }
