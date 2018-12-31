@@ -72,13 +72,16 @@ function wpmtst_bypass_excerpt( $text ) {
  * Based on wp_trim_excerpt().
  *
  * @since 2.26.0
- * @param string $text
+ * @param string $excerpt The manual excerpt.
  *
  * @return string
  */
-function wpmtst_trim_excerpt( $text = '' ) {
-	$raw_excerpt = $text;
-	if ( '' == $text ) {
+function wpmtst_trim_excerpt( $excerpt = '' ) {
+	$raw_excerpt = $excerpt;
+	$more_post_in_place = WPMST()->atts( 'more_post_in_place');
+
+	if ( '' == $excerpt ) {
+		// Create excerpt if post has no manual excerpt.
 		$text = get_the_content('');
 		$text = strip_shortcodes( $text );
 		$text = apply_filters( 'wpmtst_the_content', $text );
@@ -105,39 +108,26 @@ function wpmtst_trim_excerpt( $text = '' ) {
 		} else {
 			$excerpt_more = apply_filters( 'wpmtst_excerpt_more', $default_more );
 		}
-		//$text = wpmtst_trim_words( $text, $excerpt_length, $excerpt_more, WPMST()->atts( 'more_post_in_place') );
-		$text = wpmtst_trim_words( $text, $excerpt_length, $excerpt_more, true );
+		$excerpt = wpmtst_trim_words( $text, $excerpt_length, $excerpt_more, $more_post_in_place );
+	} else {
+		// Append full content to manual excerpt.
+		if ( $more_post_in_place ) {
+			$text = get_the_content('');
+			$text = strip_shortcodes( $text );
+			$text = apply_filters( 'wpmtst_the_content', $text );
+			$text = str_replace(']]>', ']]&gt;', $text);
+
+			$excerpt .= wpmtst_trim_words( $text, 0, '', $more_post_in_place );
+		}
 	}
+
 	/**
 	 * Filters the trimmed excerpt string.
 	 *
 	 * @param string $text        The trimmed text.
 	 * @param string $raw_excerpt The text prior to trimming.
 	 */
-	return apply_filters( 'wpmtst_trim_excerpt', $text, $raw_excerpt );
-}
-
-/**
- * Maybe add read-more to manual excerpt.
- *
- * @since 2.26.0
- * @param $excerpt
- *
- * @return string
- */
-function wpmtst_custom_excerpt_more( $excerpt ) {
-	$excerpt_more = '';
-	if ( has_excerpt() ) {
-		if ( WPMST()->atts( 'more_full_post' ) ) {
-			if ( WPMST()->atts( 'use_default_more' ) ) {
-				$excerpt_more = apply_filters( 'excerpt_more', ' [&hellip;]' );
-			} else {
-				$excerpt_more = apply_filters( 'wpmtst_excerpt_more', ' [&hellip;]' );
-			}
-		}
-	}
-
-	return $excerpt . $excerpt_more;
+	return apply_filters( 'wpmtst_trim_excerpt', $excerpt, $raw_excerpt );
 }
 
 /**
@@ -166,7 +156,53 @@ function wpmtst_excerpt_length( $words ) {
  * @return string
  */
 function wpmtst_excerpt_more( $more ) {
-	return ' ' . wpmtst_get_excerpt_more_link();
+	$before = ' ';
+	if ( WPMST()->atts( 'more_post_ellipsis' ) ) {
+
+		// Automatic excerpt
+		if ( 'truncated' == WPMST()->atts( 'content' ) ) {
+			if ( ! WPMST()->atts( 'more_post_in_place' ) ) {
+				$before = __( '&hellip;' ) . $before;
+			}
+		}
+
+		// Excerpt created when post has no manual excerpt and NOT expand in place
+		if ( 'excerpt' == WPMST()->atts( 'content' ) ) {
+			if ( ! has_excerpt() ) {
+				if ( ! WPMST()->atts( 'more_post_in_place' ) ) {
+					$before = __( '&hellip;' ) . $before;
+				}
+			}
+		}
+
+	}
+
+	return $before . ' ' . wpmtst_get_excerpt_more_link();
+}
+
+/**
+ * Maybe add read-more to manual excerpt.
+ *
+ * @since 2.26.0
+ * @param $excerpt
+ *
+ * @return string
+ */
+function wpmtst_custom_excerpt_more( $excerpt ) {
+	$excerpt_more = '';
+	if ( has_excerpt() ) {
+		if ( WPMST()->atts( 'more_full_post' ) ) {
+
+			if ( WPMST()->atts( 'use_default_more' ) ) {
+				$excerpt_more = apply_filters( 'excerpt_more', ' [&hellip;]' );
+			} else {
+				$excerpt_more = apply_filters( 'wpmtst_excerpt_more', ' [&hellip;]' );
+			}
+
+		}
+	}
+
+	return $excerpt . $excerpt_more;
 }
 
 /**
@@ -185,8 +221,7 @@ function wpmtst_get_excerpt_more_link() {
 
 	$link_class = apply_filters( 'wpmtst_read_more_post_link_class', 'readmore' );
 
-	//if ( WPMST()->atts( 'more_post_in_place' ) ) {
-	if ( true ) {
+	if ( WPMST()->atts( 'more_post_in_place' ) ) {
 	    // no href
 	    $link = sprintf( '<a aria-expanded="false" aria-controls="more-%d" class="%s readmore-toggle"><span class="readmore-text">%s</span></a>', get_the_ID(), $link_class, $link_text );
 	} else {
@@ -238,7 +273,24 @@ function wpmtst_trim_words( $text, $num_words = 55, $more = null, $more_in_place
 
 			$space = __( '&nbsp;' );
 
-			$ellipsis = WPMST()->atts( 'more_post_ellipsis' ) ? __( '&hellip;' ) : '';
+			$ellipsis = '';
+			// TODO This is similar logic to wpmtst_excerpt_more. Consolidate into one filter.
+			if ( WPMST()->atts( 'more_post_ellipsis' ) ) {
+
+				// Automatic excerpt
+				if ( 'truncated' == WPMST()->atts( 'content' ) ) {
+					$ellipsis = __( '&hellip;' );
+				}
+
+				// Excerpt created when post has no manual excerpt
+				if ( 'excerpt' == WPMST()->atts( 'content' ) ) {
+					if ( ! has_excerpt() ) {
+						$ellipsis = __( '&hellip;' );
+					}
+				}
+
+
+			}
 			$ellipsis = '<span class="ellipsis">' . $ellipsis . '</span>' . $space;
 
 			$first_half  = implode( $sep, array_slice( $words_array, 0, $num_words ) );
