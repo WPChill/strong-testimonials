@@ -396,7 +396,7 @@ class Strong_View_Slideshow extends Strong_View_Display {
 			'autoControls'        => 0,
 			'pager'               => 0,
 			'slideCount'          => $this->post_count,
-			'debug'               => defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG,
+			'debug'               => defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG && apply_filters( 'debug_strong_slider', true ),
 			'compat'              => $compat,
 			'touchEnabled'        => $options['touch_enabled'],
 			'type'                => $this->atts['slideshow_settings']['type'],
