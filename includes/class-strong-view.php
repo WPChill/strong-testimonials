@@ -98,16 +98,20 @@ class Strong_View {
 	 * Add content filters.
 	 */
 	public function add_content_filters() {
-		if ( isset( $this->atts['content'] ) && 'truncated' == $this->atts['content'] ) {
+		if ( isset( $this->atts['content'] ) ) {
+			if ( 'truncated' == $this->atts['content'] ) {
 
-			// Force use of content instead of manual excerpt.
-			add_filter( 'wpmtst_get_the_excerpt', 'wpmtst_bypass_excerpt', 1 );
+				// Force use of content instead of manual excerpt.
+				add_filter( 'wpmtst_get_the_excerpt', 'wpmtst_bypass_excerpt', 1 );
 
-		} elseif ( isset( $this->atts['content'] ) && 'excerpt' == $this->atts['content'] ) {
+			} elseif ( 'excerpt' == $this->atts['content'] ) {
 
-			// Maybe add read-more to manual excerpts.
-			add_filter( 'wpmtst_get_the_excerpt', 'wpmtst_manual_excerpt_more', 20 );
+			    if ( $this->atts['more_full_post'] ) {
+				    // Maybe add read-more to manual excerpts.
+				    add_filter( 'wpmtst_get_the_excerpt', 'wpmtst_manual_excerpt_more', 20 );
+			    }
 
+			}
 		}
 		// else no filters
 	}
@@ -116,14 +120,16 @@ class Strong_View {
 	 * Remove content filters.
 	 */
 	public function remove_content_filters() {
-		if ( isset( $this->atts['content'] ) && 'truncated' == $this->atts['content'] ) {
+		if ( isset( $this->atts['content'] ) ) {
+			if ( 'truncated' == $this->atts['content'] ) {
 
-			remove_filter( 'wpmtst_get_the_excerpt', 'wpmtst_bypass_excerpt', 1 );
+				remove_filter( 'wpmtst_get_the_excerpt', 'wpmtst_bypass_excerpt', 1 );
 
-		} elseif ( isset( $this->atts['content'] ) && 'excerpt' == $this->atts['content'] ) {
+			} elseif ( 'excerpt' == $this->atts['content'] ) {
 
-			remove_filter( 'wpmtst_get_the_excerpt', 'wpmtst_manual_excerpt_more', 20 );
+				remove_filter( 'wpmtst_get_the_excerpt', 'wpmtst_manual_excerpt_more', 20 );
 
+			}
 		}
 		// else no filters
 	}

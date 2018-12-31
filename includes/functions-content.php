@@ -188,15 +188,13 @@ function wpmtst_excerpt_more( $more ) {
  */
 function wpmtst_manual_excerpt_more( $excerpt ) {
 	if ( has_excerpt() ) {
-		if ( WPMST()->atts( 'more_full_post' ) ) {
 
-			if ( WPMST()->atts( 'use_default_more' ) ) {
-				$excerpt .= apply_filters( 'excerpt_more', ' [&hellip;]' );
-			} else {
-				$excerpt .= apply_filters( 'wpmtst_excerpt_more', ' [&hellip;]' );
-			}
-
+		if ( WPMST()->atts( 'use_default_more' ) ) {
+			$excerpt .= apply_filters( 'excerpt_more', ' [&hellip;]' );
+		} else {
+			$excerpt .= apply_filters( 'wpmtst_excerpt_more', ' [&hellip;]' );
 		}
+
 	}
 
 	return $excerpt;
