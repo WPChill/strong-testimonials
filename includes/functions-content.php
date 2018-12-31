@@ -186,21 +186,20 @@ function wpmtst_excerpt_more( $more ) {
  *
  * @return string
  */
-function wpmtst_custom_excerpt_more( $excerpt ) {
-	$excerpt_more = '';
+function wpmtst_manual_excerpt_more( $excerpt ) {
 	if ( has_excerpt() ) {
 		if ( WPMST()->atts( 'more_full_post' ) ) {
 
 			if ( WPMST()->atts( 'use_default_more' ) ) {
-				$excerpt_more = apply_filters( 'excerpt_more', ' [&hellip;]' );
+				$excerpt .= apply_filters( 'excerpt_more', ' [&hellip;]' );
 			} else {
-				$excerpt_more = apply_filters( 'wpmtst_excerpt_more', ' [&hellip;]' );
+				$excerpt .= apply_filters( 'wpmtst_excerpt_more', ' [&hellip;]' );
 			}
 
 		}
 	}
 
-	return $excerpt . $excerpt_more;
+	return $excerpt;
 }
 
 /**

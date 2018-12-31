@@ -106,7 +106,7 @@ class Strong_View {
 		} elseif ( isset( $this->atts['content'] ) && 'excerpt' == $this->atts['content'] ) {
 
 			// Maybe add read-more to manual excerpts.
-			add_filter( 'wpmtst_get_the_excerpt', 'wpmtst_custom_excerpt_more', 20 );
+			add_filter( 'wpmtst_get_the_excerpt', 'wpmtst_manual_excerpt_more', 20 );
 
 		}
 		// else no filters
@@ -122,7 +122,7 @@ class Strong_View {
 
 		} elseif ( isset( $this->atts['content'] ) && 'excerpt' == $this->atts['content'] ) {
 
-			remove_filter( 'wpmtst_get_the_excerpt', 'wpmtst_custom_excerpt_more', 20 );
+			remove_filter( 'wpmtst_get_the_excerpt', 'wpmtst_manual_excerpt_more', 20 );
 
 		}
 		// else no filters
