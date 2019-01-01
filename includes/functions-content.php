@@ -26,6 +26,8 @@ function wpmtst_the_content_filtered( $more_link_text = null, $strip_teaser = fa
  * @since 2.26.0
  */
 function wpmtst_the_excerpt_filtered() {
+	// 1. get the excerpt
+	// 2. apply filters
 	return apply_filters( 'wpmtst_the_excerpt', wpmtst_get_the_excerpt() );
 }
 
@@ -64,12 +66,12 @@ function wpmtst_get_the_excerpt( $post = null ) {
  *
  * @return string
  */
-function wpmtst_bypass_excerpt( $text ) {
-	return '';
-}
+//function wpmtst_bypass_excerpt( $text ) {
+//	return '';
+//}
 
 /**
- * Based on wp_trim_excerpt().
+ * Based on wp_trim_excerpt(). On wpmtst_get_the_excerpt hook.
  *
  * @since 2.26.0
  * @param string $excerpt The manual excerpt.
@@ -83,6 +85,7 @@ function wpmtst_trim_excerpt( $excerpt = '' ) {
 	if ( '' == $excerpt ) {
 		// Create excerpt if post has no manual excerpt.
 		$text = get_the_content('');
+		//TODO Can strip shortcodes be a filter?
 		$text = strip_shortcodes( $text );
 		$text = apply_filters( 'wpmtst_the_content', $text );
 		$text = str_replace(']]>', ']]&gt;', $text);
@@ -113,6 +116,7 @@ function wpmtst_trim_excerpt( $excerpt = '' ) {
 		// Append full content to manual excerpt.
 		if ( $more_post_in_place ) {
 			$text = get_the_content('');
+			//TODO Still necessary to strip shortcodes?
 			$text = strip_shortcodes( $text );
 			$text = apply_filters( 'wpmtst_the_content', $text );
 			$text = str_replace(']]>', ']]&gt;', $text);

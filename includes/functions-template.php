@@ -27,7 +27,7 @@ add_filter( 'wpmtst_the_excerpt', 'convert_smilies', 20 );
 
 add_filter( 'wpmtst_excerpt_length', 'wpmtst_excerpt_length' );
 add_filter( 'wpmtst_excerpt_more', 'wpmtst_excerpt_more' );
-add_filter( 'wpmtst_get_the_excerpt', 'wpmtst_trim_excerpt' );
+//add_filter( 'wpmtst_get_the_excerpt', 'wpmtst_trim_excerpt' );
 
 /**
  * Template function for showing a View.
@@ -99,6 +99,7 @@ function wpmtst_the_content() {
 	do_action( 'wpmtst_before_content_filters' );
 
 	$att = WPMST()->atts( 'content' );
+	// TODO Move this logic to View class.
 	if ( 'truncated' == $att || 'excerpt' == $att ) {
 		// Excerpt filters added in view class.
 		echo wpmtst_the_excerpt_filtered();

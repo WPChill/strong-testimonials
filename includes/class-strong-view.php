@@ -98,28 +98,37 @@ class Strong_View {
 	 * Add content filters.
 	 */
 	public function add_content_filters() {
-		if ( isset( $this->atts['content'] ) ) {
-			if ( 'truncated' == $this->atts['content'] ) {
 
-				// Force use of content instead of manual excerpt.
-				add_filter( 'wpmtst_get_the_excerpt', 'wpmtst_bypass_excerpt', 1 );
-
-			} elseif ( 'excerpt' == $this->atts['content'] ) {
-
-			    if ( $this->atts['more_full_post'] ) {
-				    // Maybe add read-more to manual excerpts.
-				    add_filter( 'wpmtst_get_the_excerpt', 'wpmtst_manual_excerpt_more', 20 );
-			    }
-
-			}
+		if ( ! isset( $this->atts['content'] ) ) {
+			return;
 		}
-		// else no filters
+
+        if ( 'truncated' == $this->atts['content'] ) {
+
+            // Force use of content instead of manual excerpt.
+            //add_filter( 'wpmtst_get_the_excerpt', 'wpmtst_bypass_excerpt', 1 );
+
+            // IOW don't add filter that constructs the excerpt
+
+        } elseif ( 'excerpt' == $this->atts['content'] ) {
+
+		    // migrated from functions-template.php
+	        add_filter( 'wpmtst_get_the_excerpt', 'wpmtst_trim_excerpt' );
+
+            if ( $this->atts['more_full_post'] ) {
+                // Maybe add read-more to manual excerpts.
+                add_filter( 'wpmtst_get_the_excerpt', 'wpmtst_manual_excerpt_more', 20 );
+            }
+
+        }
+
 	}
 
 	/**
 	 * Remove content filters.
 	 */
 	public function remove_content_filters() {
+
 		if ( isset( $this->atts['content'] ) ) {
 			if ( 'truncated' == $this->atts['content'] ) {
 
@@ -131,7 +140,7 @@ class Strong_View {
 
 			}
 		}
-		// else no filters
+
 	}
 
 	/**
