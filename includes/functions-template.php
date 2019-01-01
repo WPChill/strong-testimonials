@@ -75,6 +75,8 @@ function wpmtst_the_title( $before = '', $after = '' ) {
 /**
  * Display the testimonial content.
  *
+ * @param $which string
+ *
  * @since 1.24.0
  *
  * @since 2.4.0  Run content through core WordPress filters only, instead of all filters
@@ -89,23 +91,36 @@ function wpmtst_the_title( $before = '', $after = '' ) {
  *
  * @since 2.26.0 Using content filters instead of direct function calls.
  *               Using custom get_*() functions to allow filter selectivity.
+ *
+ * @since 2.33.0 Use $which to override view setting.
  */
-function wpmtst_the_content() {
-	/**
-	 * Use this hook to remove specific content filters.
-	 *
-	 * @since 2.26.0
-	 */
-	do_action( 'wpmtst_before_content_filters' );
+function wpmtst_the_content( $which = 'view' ) {
+	switch( $which ) {
+		case 'content' :
+			// The equivalent of the_content().
+			echo wpmtst_the_content_filtered();
+			break;
+		case 'excerpt' :
+			// The equivalent of the_excerpt().
+			echo wpmtst_the_excerpt_filtered();
+			break;
+		default :
+			/**
+			 * Use this hook to remove specific content filters.
+			 *
+			 * @since 2.26.0
+			 */
+			do_action( 'wpmtst_before_content_filters' );
 
-	echo apply_filters( 'wpmtst_get_the_content', '' );
+			echo apply_filters( 'wpmtst_get_the_content', '' );
 
-	/**
-	 * Restore content filters that were removed.
-	 *
-	 * @since 2.26.0
-	 */
-	do_action( 'wpmtst_after_content_filters' );
+			/**
+			 * Restore content filters that were removed.
+			 *
+			 * @since 2.26.0
+			 */
+			do_action( 'wpmtst_after_content_filters' );
+	}
 }
 
 /**
