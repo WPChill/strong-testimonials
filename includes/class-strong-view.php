@@ -110,7 +110,6 @@ class Strong_View {
 	 * Add content filters.
 	 */
 	public function add_content_filters() {
-        q2(__METHOD__);
 
 		if ( ! $this->get_att( 'content' ) ) {
 			return;
@@ -125,18 +124,16 @@ class Strong_View {
 
         } elseif ( 'excerpt' == $this->get_att( 'content' ) ) {
 
-		    // manual excerpt, maybe hybrid
 	        add_filter( 'wpmtst_get_the_content', 'wpmtst_the_excerpt_filtered' );
-
-		    if ( $this->get_att( 'more_post_in_place' ) ) {
-			    add_filter( 'wpmtst_get_the_excerpt', 'wpmtst_hybrid_excerpt' );
-		    } else {
-			    add_filter( 'wpmtst_get_the_excerpt', 'wpmtst_trim_excerpt' );
-		    }
+			add_filter( 'wpmtst_get_the_excerpt', 'wpmtst_trim_excerpt' );
 
             if ( $this->get_att( 'more_full_post' ) ) {
                 add_filter( 'wpmtst_get_the_excerpt', 'wpmtst_manual_excerpt_more', 20 );
             }
+
+		    if ( $this->get_att( 'more_post_in_place' ) ) {
+			    add_filter( 'wpmtst_is_hybrid_content', '__return_true' );
+		    }
 
         } else {
 
@@ -151,15 +148,16 @@ class Strong_View {
 	 * Remove content filters.
 	 */
 	public function remove_content_filters() {
-        q2(__METHOD__,'','-');
-
         remove_filter( 'wpmtst_get_the_content', 'wpmtst_the_content_filtered' );
         remove_filter( 'wpmtst_get_the_content', 'wpmtst_the_excerpt_filtered' );
+
         remove_filter( 'wpmtst_get_the_excerpt', 'wpmtst_bypass_excerpt', 1 );
         remove_filter( 'wpmtst_get_the_excerpt', 'wpmtst_hybrid_excerpt' );
         remove_filter( 'wpmtst_get_the_excerpt', 'wpmtst_trim_excerpt' );
         remove_filter( 'wpmtst_get_the_excerpt', 'wpmtst_manual_excerpt_more', 20 );
 
+		remove_filter( 'wpmtst_is_hybrid_content', '__return_true' );
+		remove_filter( 'wpmtst_use_ellipsis', '__return_true' );
 	}
 
 	/**

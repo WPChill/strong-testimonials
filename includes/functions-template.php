@@ -5,8 +5,9 @@
  * @package Strong_Testimonials
  */
 
-// Display filters
-
+/**
+ * Content filters
+ */
 add_filter( 'wpmtst_the_content', array( $GLOBALS['wp_embed'], 'run_shortcode' ), 8 );
 add_filter( 'wpmtst_the_content', array( $GLOBALS['wp_embed'], 'autoembed' ), 8 );
 add_filter( 'wpmtst_the_content', 'wptexturize' );
@@ -27,7 +28,6 @@ add_filter( 'wpmtst_the_excerpt', 'convert_smilies', 20 );
 
 add_filter( 'wpmtst_excerpt_length', 'wpmtst_excerpt_length' );
 add_filter( 'wpmtst_excerpt_more', 'wpmtst_excerpt_more' );
-//add_filter( 'wpmtst_get_the_excerpt', 'wpmtst_trim_excerpt' );
 
 /**
  * Template function for showing a View.
@@ -130,6 +130,13 @@ function wpmtst_the_content( $which = 'view' ) {
  */
 function wpmtst_the_excerpt() {
 	echo wpmtst_the_excerpt_filtered();
+}
+
+/**
+ * The view setting for including an ellipsis on read-more's.
+ */
+function wpmtst_ellipsis() {
+	return __( '&hellip;' );
 }
 
 /**

@@ -79,13 +79,17 @@ function wpmtst_bypass_excerpt( $text ) {
  * @return string
  */
 function wpmtst_trim_excerpt( $excerpt = '' ) {
-	q2(get_the_title(), __FUNCTION__);
 	$raw_excerpt = $excerpt;
 
+	/**
+	 * Filter hybrid value here to allow inidividual overrides.
+	 */
+	$hybrid = apply_filters( 'wpmtst_is_hybrid_content', false );
+
 	if ( '' == $excerpt ) {
+
 		// Create excerpt if post has no manual excerpt.
 		$text = get_the_content( '' );
-		//TODO Can strip shortcodes be a filter?
 		$text = strip_shortcodes( $text );
 		$text = apply_filters( 'wpmtst_the_content', $text );
 		$text = str_replace( ']]>', ']]&gt;', $text );
@@ -94,8 +98,6 @@ function wpmtst_trim_excerpt( $excerpt = '' ) {
 		 * Filters the number of words in an excerpt.
 		 *
 		 * @param int $number The number of words. Default 55.
-		 *
-		 * @todo Move to view class
 		 */
 		if ( WPMST()->atts( 'use_default_length' ) ) {
 			$excerpt_length = apply_filters( 'excerpt_length', 55 );
@@ -106,8 +108,6 @@ function wpmtst_trim_excerpt( $excerpt = '' ) {
 		 * Filters the string in the "more" link displayed after a trimmed excerpt.
 		 *
 		 * @param string $more_string The string shown within the more link.
-		 *
-		 * @todo Move to view class
 		 */
 		$default_more = ' [&hellip;]';
 		if ( WPMST()->atts( 'use_default_more' ) ) {
@@ -115,7 +115,18 @@ function wpmtst_trim_excerpt( $excerpt = '' ) {
 		} else {
 			$excerpt_more = apply_filters( 'wpmtst_excerpt_more', $default_more );
 		}
-		$excerpt = wpmtst_trim_words( $text, $excerpt_length, $excerpt_more );
+		$excerpt = wpmtst_trim_words( $text, $excerpt_length, $excerpt_more, $hybrid );
+
+	} elseif ( $hybrid ) {
+
+		$text = get_the_content('');
+		//TODO Still necessary to strip shortcodes?
+		$text = strip_shortcodes( $text );
+		$text = apply_filters( 'wpmtst_the_content', $text );
+		$text = str_replace(']]>', ']]&gt;', $text);
+
+		$excerpt .= wpmtst_trim_words( $text, 0, '', true );
+
 	}
 
 	/**
@@ -125,59 +136,6 @@ function wpmtst_trim_excerpt( $excerpt = '' ) {
 	 * @param string $raw_excerpt The text prior to trimming.
 	 */
 	return apply_filters( 'wpmtst_trim_excerpt', $excerpt, $raw_excerpt );
-}
-
-function wpmtst_hybrid_excerpt( $excerpt = '' ) {
-	q2(get_the_title(), __FUNCTION__);
-	$raw_excerpt = $excerpt;
-
-	if ( '' == $excerpt ) {
-		// Create excerpt if post has no manual excerpt.
-		$text = get_the_content('');
-		//TODO Can strip shortcodes be a filter?
-		$text = strip_shortcodes( $text );
-		$text = apply_filters( 'wpmtst_the_content', $text );
-		$text = str_replace(']]>', ']]&gt;', $text);
-
-		/**
-		 * Filters the number of words in an excerpt.
-		 *
-		 * @param int $number The number of words. Default 55.
-		 */
-		if ( WPMST()->atts( 'use_default_length' ) ) {
-			$excerpt_length = apply_filters( 'excerpt_length', 55 );
-		} else {
-			$excerpt_length = apply_filters( 'wpmtst_excerpt_length', 55 );
-		}
-		/**
-		 * Filters the string in the "more" link displayed after a trimmed excerpt.
-		 *
-		 * @param string $more_string The string shown within the more link.
-		 */
-		$default_more = ' [&hellip;]';
-		if ( WPMST()->atts( 'use_default_more' ) ) {
-			$excerpt_more = apply_filters( 'excerpt_more', $default_more );
-		} else {
-			$excerpt_more = apply_filters( 'wpmtst_excerpt_more', $default_more );
-		}
-		$excerpt = wpmtst_trim_words_2( $text, $excerpt_length, $excerpt_more );
-	} else {
-		$text = get_the_content('');
-		//TODO Still necessary to strip shortcodes?
-		$text = strip_shortcodes( $text );
-		$text = apply_filters( 'wpmtst_the_content', $text );
-		$text = str_replace(']]>', ']]&gt;', $text);
-
-		$excerpt .= wpmtst_trim_words_2( $text, 0, '' );
-	}
-
-	/**
-	 * Filters the trimmed excerpt string.
-	 *
-	 * @param string $text        The trimmed text.
-	 * @param string $raw_excerpt The text prior to trimming.
-	 */
-	return apply_filters( 'wpmtst_hybrid_excerpt', $excerpt, $raw_excerpt );
 }
 
 /**
@@ -207,6 +165,7 @@ function wpmtst_excerpt_length( $words ) {
  */
 function wpmtst_excerpt_more( $more ) {
 	$before = ' ';
+	// TODO Can this be moved to view class?
 	if ( ! WPMST()->atts( 'more_post_in_place' ) ) {
 		if ( WPMST()->atts( 'more_post_ellipsis' ) ) {
 
@@ -221,8 +180,8 @@ function wpmtst_excerpt_more( $more ) {
 					$before = __( '&hellip;' ) . $before;
 				}
 			}
-		}
 
+		}
 	}
 
 	return $before . ' ' . wpmtst_get_excerpt_more_link();
@@ -239,6 +198,7 @@ function wpmtst_excerpt_more( $more ) {
 function wpmtst_manual_excerpt_more( $excerpt ) {
 	if ( has_excerpt() ) {
 
+		// TODO Can this be moved to view class?
 		if ( WPMST()->atts( 'use_default_more' ) ) {
 			$excerpt .= apply_filters( 'excerpt_more', ' [&hellip;]' );
 		} else {
@@ -282,10 +242,11 @@ function wpmtst_get_excerpt_more_link() {
  * @param $text
  * @param int $num_words
  * @param null $more
+ * @param bool $hybrid
  *
  * @return string
  */
-function wpmtst_trim_words( $text, $num_words = 55, $more = null ) {
+function wpmtst_trim_words( $text, $num_words = 55, $more = null, $hybrid = false ) {
 	if ( null === $more ) {
 		$more = __( '&hellip;' );
 	}
@@ -303,14 +264,17 @@ function wpmtst_trim_words( $text, $num_words = 55, $more = null ) {
 		$words_array = array_slice( $words_array[0], 0, $num_words + 1 );
 		$sep = '';
 	} else {
-		$words_array = preg_split( "/[\n\r\t ]+/", $text, $num_words + 1, PREG_SPLIT_NO_EMPTY );
+		$offset = $hybrid ? 0 : $num_words + 1;
+		$words_array = preg_split( "/[\n\r\t ]+/", $text, $offset, PREG_SPLIT_NO_EMPTY );
 		$sep = ' ';
 	}
 
 	if ( count( $words_array ) > $num_words ) {
-		array_pop( $words_array );
-		$text = implode( $sep, $words_array );
-		$text = $text . $more;
+		if ( $hybrid ) {
+			$text = wpmtst_assemble_hybrid( $words_array, $num_words, $sep, $more );
+		} else {
+			$text = wpmtst_assemble_excerpt( $words_array, $sep, $more );
+		}
 	} else {
 		$text = implode( $sep, $words_array );
 	}
@@ -318,63 +282,44 @@ function wpmtst_trim_words( $text, $num_words = 55, $more = null ) {
 	return $text;
 }
 
-function wpmtst_trim_words_2( $text, $num_words = 55, $more = null ) {
-	if ( null === $more ) {
-		$more = __( '&hellip;' );
-	}
+function wpmtst_assemble_excerpt( $words_array, $sep, $more ) {
+	array_pop( $words_array );
+	$text = implode( $sep, $words_array );
 
-	$text = wp_strip_all_tags( $text );
+	return $text . $more;
+}
 
-	/*
-	 * translators: If your word count is based on single characters (e.g. East Asian characters),
-	 * enter 'characters_excluding_spaces' or 'characters_including_spaces'. Otherwise, enter 'words'.
-	 * Do not translate into your own language.
-	 */
-	if ( strpos( _x( 'words', 'Word count type. Do not translate!' ), 'characters' ) === 0 && preg_match( '/^utf\-?8$/i', get_option( 'blog_charset' ) ) ) {
-		$text = trim( preg_replace( "/[\n\r\t ]+/", ' ', $text ), ' ' );
-		preg_match_all( '/./u', $text, $words_array );
-		$words_array = array_slice( $words_array[0], 0, $num_words + 1 );
-		$sep = '';
-	} else {
-		$words_array = preg_split( "/[\n\r\t ]+/", $text, 0, PREG_SPLIT_NO_EMPTY );
-		$sep = ' ';
-	}
+function wpmtst_assemble_hybrid( $words_array, $num_words, $sep, $more ) {
 
-	if ( count( $words_array ) > $num_words ) {
+	$space    = __( '&nbsp;' );
+	$ellipsis = apply_filters( 'wpmtst_ellipsis', '' );
 
-		$space    = __( '&nbsp;' );
-		$ellipsis = '';
+	if ( WPMST()->atts( 'more_post_ellipsis' ) ) {
 
-		//TODO Move to view class.
-		if ( WPMST()->atts( 'more_post_ellipsis' ) ) {
+		// Automatic excerpt
+		if ( 'truncated' == WPMST()->atts( 'content' ) ) {
+			$ellipsis = __( '&hellip;' );
+		}
 
-			// Automatic excerpt
-			if ( 'truncated' == WPMST()->atts( 'content' ) ) {
+		// Excerpt created when post has no manual excerpt
+		if ( 'excerpt' == WPMST()->atts( 'content' ) ) {
+			if ( ! has_excerpt() ) {
 				$ellipsis = __( '&hellip;' );
 			}
-
-			// Excerpt created when post has no manual excerpt
-			if ( 'excerpt' == WPMST()->atts( 'content' ) ) {
-				if ( ! has_excerpt() ) {
-					$ellipsis = __( '&hellip;' );
-				}
-			}
-
-
 		}
-		$ellipsis = '<span class="ellipsis">' . $ellipsis . '</span>' . $space;
 
-		$first_half  = implode( $sep, array_slice( $words_array, 0, $num_words ) );
-		$second_half = implode( $sep, array_slice( $words_array, $num_words ) );
 
-		$wrap_open  = '<span class="readmore-content animated" id="more-' . get_the_ID() . '" hidden>';
-		$wrap_close = $space . '</span>';
-
-		$text = $first_half . $ellipsis . $wrap_open . $second_half . $wrap_close . $more;
-
-	} else {
-		$text = implode( $sep, $words_array );
 	}
+	if ( $ellipsis ) {
+		$ellipsis = '<span class="ellipsis">' . $ellipsis . '</span>';
+	}
+	$ellipsis .= $space;
 
-	return $text;
+	$first_half  = implode( $sep, array_slice( $words_array, 0, $num_words ) );
+	$second_half = implode( $sep, array_slice( $words_array, $num_words ) );
+
+	$wrap_open  = '<span class="readmore-content animated" id="more-' . get_the_ID() . '" hidden>';
+	$wrap_close = $space . '</span>';
+
+	return $first_half . $ellipsis . $wrap_open . $second_half . $wrap_close . $more;
 }
