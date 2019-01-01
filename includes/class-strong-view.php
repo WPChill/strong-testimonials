@@ -82,6 +82,11 @@ class Strong_View {
 		return $this->html;
 	}
 
+	/**
+     * Warning message of view not found.
+     *
+	 * @return string
+	 */
 	public function nothing_found() {
 		ob_start();
 		?>
