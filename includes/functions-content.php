@@ -20,6 +20,11 @@ function wpmtst_the_content_filtered( $more_link_text = null, $strip_teaser = fa
 	return $content;
 }
 
+/**
+ * Like the_excerpt().
+ *
+ * @since 2.33.0
+ */
 function wpmtst_the_excerpt() {
 	echo wpmtst_the_excerpt_filtered();
 }
