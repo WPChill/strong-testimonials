@@ -62,6 +62,18 @@ class Strong_View {
 	}
 
 	/**
+     * Return a specific view attribute.
+     *
+	 * @param $att
+	 * @since 2.33.0
+     *
+	 * @return mixed|null
+	 */
+	public function get_att( $att ) {
+	    return isset( $this->atts[ $att ] ) ? $this->atts[ $att ] : null;
+	}
+
+	/**
 	 * Return our rendered template.
 	 *
 	 * @return string
@@ -100,30 +112,29 @@ class Strong_View {
 	public function add_content_filters() {
         q2(__METHOD__);
 
-        //TODO Build getter
-		if ( ! isset( $this->atts['content'] ) ) {
+		if ( ! $this->get_att( 'content' ) ) {
 			return;
 		}
 
-        if ( 'truncated' == $this->atts['content'] ) {
+        if ( 'truncated' == $this->get_att( 'content' ) ) {
 
 		    // automatic excerpt
 	        add_filter( 'wpmtst_get_the_content', 'wpmtst_the_excerpt_filtered' );
 	        add_filter( 'wpmtst_get_the_excerpt', 'wpmtst_bypass_excerpt', 1 );
             add_filter( 'wpmtst_get_the_excerpt', 'wpmtst_trim_excerpt' );
 
-        } elseif ( 'excerpt' == $this->atts['content'] ) {
+        } elseif ( 'excerpt' == $this->get_att( 'content' ) ) {
 
 		    // manual excerpt, maybe hybrid
 	        add_filter( 'wpmtst_get_the_content', 'wpmtst_the_excerpt_filtered' );
 
-		    if ( isset( $this->atts['more_post_in_place'] ) && $this->atts['more_post_in_place'] ) {
+		    if ( $this->get_att( 'more_post_in_place' ) ) {
 			    add_filter( 'wpmtst_get_the_excerpt', 'wpmtst_hybrid_excerpt' );
 		    } else {
 			    add_filter( 'wpmtst_get_the_excerpt', 'wpmtst_trim_excerpt' );
 		    }
 
-            if ( $this->atts['more_full_post'] ) {
+            if ( $this->get_att( 'more_full_post' ) ) {
                 add_filter( 'wpmtst_get_the_excerpt', 'wpmtst_manual_excerpt_more', 20 );
             }
 
@@ -194,11 +205,10 @@ class Strong_View {
 		$script = WPMST()->templates->get_template_config( $this->atts, 'script', false );
 
 		if ( $script ) {
-			$handle = 'testimonials-' . $this->atts['template'];
+			$handle = 'testimonials-' . $this->get_att( 'template' );
 			wp_register_script( $handle, $script, $deps_array );
 			WPMST()->render->add_script( $handle );
-		}
-		else {
+		} else {
 			foreach ( $deps_array as $handle ) {
 				WPMST()->render->add_script( $handle );
 			}
@@ -217,13 +227,13 @@ class Strong_View {
 	 */
 	public function find_stylesheet( $enqueue = true ) {
 		// In case of deactivated widgets still referencing deleted Views
-		if ( ! isset( $this->atts['template'] ) || ! $this->atts['template'] ) {
+		if ( ! $this->get_att( 'template' ) ) {
 			return false;
 		}
 
 		$stylesheet = WPMST()->templates->get_template_attr( $this->atts, 'stylesheet', false );
 		if ( $stylesheet ) {
-			$handle = 'testimonials-' . str_replace( ':', '-', $this->atts['template'] );
+			$handle = 'testimonials-' . str_replace( ':', '-', $this->get_att( 'template' ) );
 			$this->set_stylesheet( $handle );
 			wp_register_style( $handle, $stylesheet, array(), $this->plugin_version );
 			if ( $enqueue ) {
@@ -245,7 +255,8 @@ class Strong_View {
 	 * @return array
 	 */
 	public function get_template_css_class() {
-		$template_name = $this->atts['template'];
+		$template_name     = $this->get_att( 'template' );
+        $template_settings = $this->get_att( 'template_settings' );
 
 		// Maintain back-compat with template format version 1.0.
 		$class = str_replace( ':content', '', $template_name );
@@ -259,10 +270,10 @@ class Strong_View {
 
 			foreach ( $template_object['config']['options'] as $option ) {
 
-				if ( isset( $this->atts['template_settings'][ $template_name ][ $option->name ] ) ) {
+				if ( isset( $template_settings[ $template_name ][ $option->name ] ) ) {
 
 					foreach ( $option->values as $value ) {
-						if ( $value->value == $this->atts['template_settings'][ $template_name ][ $option->name ] ) {
+						if ( $value->value == $template_settings[ $template_name ][ $option->name ] ) {
 							if ( isset( $value->class_name ) ) {
 								$class_list[] = $value->class_name;
 							}
@@ -303,7 +314,7 @@ class Strong_View {
 	 * @return bool
 	 */
 	public function is_form() {
-		return ( isset( $this->atts['mode'] ) && 'form' == $this->atts['mode'] );
+		return ( 'form' == $this->get_att( 'mode' ) );
 	}
 
 	/**
@@ -312,7 +323,7 @@ class Strong_View {
 	 * @since 2.30.0
 	 */
 	public function custom_font_color() {
-		$font_color = $this->atts['font-color'];
+		$font_color = $this->get_att( 'font-color' );
 		if ( ! isset( $font_color['type'] ) || 'custom' != $font_color['type'] ) {
 			return;
 		}
@@ -320,7 +331,7 @@ class Strong_View {
 		$c1 = isset( $font_color['color'] ) ? $font_color['color'] : '';
 
 		if ( $c1 ) {
-			$view_el = ".strong-view-id-{$this->atts['view']}";
+			$view_el = ".strong-view-id-{$this->get_att( 'view' )}";
 			$handle = $this->get_stylesheet();
 
 			if ( $this->is_form() ) {
@@ -342,7 +353,7 @@ class Strong_View {
 	 * Build CSS for custom background.
 	 */
 	public function custom_background() {
-		$background = $this->atts['background'];
+		$background = $this->get_att( 'background' );
 		if ( ! isset( $background['type'] ) ) {
 			return;
 		}
@@ -371,11 +382,11 @@ class Strong_View {
 
 		// Special handling for Divi Builder
 		$prefix = '';
-		if ( isset( $this->atts['divi_builder'] ) && $this->atts['divi_builder'] && wpmtst_divi_builder_active() ) {
+		if ( $this->get_att( 'divi_builder' ) && wpmtst_divi_builder_active() ) {
 			$prefix = '#et_builder_outer_content ';
 		}
 
-		$view_el = "$prefix.strong-view-id-{$this->atts['view']}";
+		$view_el = "$prefix.strong-view-id-{$this->get_att( 'view' )}";
 
 		// Includes special handling for Bold template.
 		if ( $c1 && $c2 ) {
@@ -440,8 +451,8 @@ class Strong_View {
 	 * @since 2.16.0 In Strong_View class.
 	 */
 	public function has_stars() {
-		if ( isset( $this->atts['client_section'] ) ) {
-			foreach ( $this->atts['client_section'] as $field ) {
+		if ( $this->get_att( 'client_section' ) ) {
+			foreach ( $this->get_att( 'client_section' ) as $field ) {
 				if ( 'rating' == $field['type'] ) {
 					WPMST()->render->add_style( 'wpmtst-rating-display' );
 					break;
