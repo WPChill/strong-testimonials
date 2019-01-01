@@ -108,7 +108,7 @@ class Strong_View {
         if ( 'truncated' == $this->atts['content'] ) {
 
 		    // ADD CONTENT FILTERS
-            /// use wpmtst_get_the_content
+	        add_filter( 'wpmtst_get_the_content', 'wpmtst_the_content_filtered' );
 
             // Force use of content instead of manual excerpt.
             //add_filter( 'wpmtst_get_the_excerpt', 'wpmtst_bypass_excerpt', 1 );
@@ -118,7 +118,6 @@ class Strong_View {
         } elseif ( 'excerpt' == $this->atts['content'] ) {
 
 		    // ADD EXCERPT FILTERS
-            // replace wpmtst_get_the_excerpt with wpmtst_get_the_content
 	        add_filter( 'wpmtst_get_the_content', 'wpmtst_the_excerpt_filtered' );
 
 		    if ( isset( $this->atts['more_post_in_place'] ) && $this->atts['more_post_in_place'] ) {
