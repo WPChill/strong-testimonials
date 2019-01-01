@@ -102,10 +102,12 @@ function wpmtst_the_content() {
 	// TODO Move this logic to View class.
 	if ( 'truncated' == $att || 'excerpt' == $att ) {
 		// Excerpt filters added in view class.
-		echo wpmtst_the_excerpt_filtered();
+		//echo wpmtst_the_excerpt_filtered();
 	} else {
-		echo wpmtst_the_content_filtered();
+		//echo wpmtst_the_content_filtered();
 	}
+
+	echo apply_filters( 'wpmtst_get_the_content', '' );
 
 	/**
 	 * Restore content filters that were removed.
