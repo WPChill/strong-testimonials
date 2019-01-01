@@ -7,6 +7,8 @@
 
 /**
  * Content filters
+ *
+ * TODO Should these be moved to init?
  */
 add_filter( 'wpmtst_the_content', array( $GLOBALS['wp_embed'], 'run_shortcode' ), 8 );
 add_filter( 'wpmtst_the_content', array( $GLOBALS['wp_embed'], 'autoembed' ), 8 );
