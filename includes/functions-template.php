@@ -92,19 +92,11 @@ function wpmtst_the_title( $before = '', $after = '' ) {
  */
 function wpmtst_the_content() {
 	/**
-	 * Use this hook to remove specific _core_ content filters.
+	 * Use this hook to remove specific content filters.
 	 *
 	 * @since 2.26.0
 	 */
 	do_action( 'wpmtst_before_content_filters' );
-
-	//$att = WPMST()->atts( 'content' );
-	//if ( 'truncated' == $att || 'excerpt' == $att ) {
-		// Excerpt filters added in view class.
-		//echo wpmtst_the_excerpt_filtered();
-	//} else {
-		//echo wpmtst_the_content_filtered();
-	//}
 
 	echo apply_filters( 'wpmtst_get_the_content', '' );
 
