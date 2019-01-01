@@ -291,30 +291,16 @@ function wpmtst_assemble_excerpt( $words_array, $sep, $more ) {
 
 function wpmtst_assemble_hybrid( $words_array, $num_words, $sep, $more ) {
 	$space    = __( '&nbsp;' );
+
 	$ellipsis = '';
-
-	if ( WPMST()->atts( 'more_post_ellipsis' ) ) {
-
-		// Automatic excerpt
-		if ( 'truncated' == WPMST()->atts( 'content' ) ) {
-			$ellipsis = wpmtst_ellipsis();
-		}
-
-		// Excerpt created when post has no manual excerpt
-		if ( 'excerpt' == WPMST()->atts( 'content' ) ) {
-			if ( ! has_excerpt() ) {
-				$ellipsis = wpmtst_ellipsis();
-			}
-		}
-
+	if ( apply_filters( 'wpmtst_use_ellipsis', false ) ) {
+		$ellipsis = wpmtst_ellipsis();
 	}
-
 	if ( $ellipsis ) {
 		$ellipsis = '<span class="ellipsis">' . $ellipsis . '</span>';
 	}
-	$ellipsis .= $space;
 
-	$first_half  = implode( $sep, array_slice( $words_array, 0, $num_words ) );
+	$first_half  = implode( $sep, array_slice( $words_array, 0, $num_words ) ) . $space;
 	$second_half = implode( $sep, array_slice( $words_array, $num_words ) );
 
 	$wrap_open  = '<span class="readmore-content animated" id="more-' . get_the_ID() . '" hidden>';
