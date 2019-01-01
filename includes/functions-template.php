@@ -120,10 +120,10 @@ function wpmtst_the_excerpt() {
 }
 
 /**
- * The view setting for including an ellipsis on read-more's.
+ * The ellipsis on read-more's.
  */
 function wpmtst_ellipsis() {
-	return __( '&hellip;' );
+	return apply_filters( 'wpmtst_ellipsis', __( '&hellip;' ) );
 }
 
 /**
