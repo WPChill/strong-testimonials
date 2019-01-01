@@ -26,8 +26,6 @@ function wpmtst_the_content_filtered( $more_link_text = null, $strip_teaser = fa
  * @since 2.26.0
  */
 function wpmtst_the_excerpt_filtered() {
-	// 1. get the excerpt
-	// 2. apply filters
 	return apply_filters( 'wpmtst_the_excerpt', wpmtst_get_the_excerpt() );
 }
 
@@ -94,32 +92,13 @@ function wpmtst_trim_excerpt( $excerpt = '' ) {
 		$text = apply_filters( 'wpmtst_the_content', $text );
 		$text = str_replace( ']]>', ']]&gt;', $text );
 
-		/**
-		 * Filters the number of words in an excerpt.
-		 *
-		 * @param int $number The number of words. Default 55.
-		 */
-		if ( WPMST()->atts( 'use_default_length' ) ) {
-			$excerpt_length = apply_filters( 'excerpt_length', 55 );
-		} else {
-			$excerpt_length = apply_filters( 'wpmtst_excerpt_length', 55 );
-		}
-		/**
-		 * Filters the string in the "more" link displayed after a trimmed excerpt.
-		 *
-		 * @param string $more_string The string shown within the more link.
-		 */
-		$default_more = ' [&hellip;]';
-		if ( WPMST()->atts( 'use_default_more' ) ) {
-			$excerpt_more = apply_filters( 'excerpt_more', $default_more );
-		} else {
-			$excerpt_more = apply_filters( 'wpmtst_excerpt_more', $default_more );
-		}
+		$excerpt_length = apply_filters( 'excerpt_length', 55 );
+		$excerpt_more = apply_filters( 'excerpt_more', ' [&hellip;]' );
 		$excerpt = wpmtst_trim_words( $text, $excerpt_length, $excerpt_more, $hybrid );
 
 	} elseif ( $hybrid ) {
 
-		$text = get_the_content('');
+		$text = get_the_content( '' );
 		//TODO Still necessary to strip shortcodes?
 		$text = strip_shortcodes( $text );
 		$text = apply_filters( 'wpmtst_the_content', $text );
@@ -139,82 +118,6 @@ function wpmtst_trim_excerpt( $excerpt = '' ) {
 }
 
 /**
- * Modify the excerpt length.
- *
- * @since 2.10.0
- * @param $words
- *
- * @return int
- */
-/*
-function wpmtst_excerpt_length( $words ) {
-	$excerpt_length = WPMST()->atts( 'excerpt_length' );
-	if ( $excerpt_length ) {
-		$words = $excerpt_length;
-	}
-
-	return $words;
-}
-*/
-
-/**
- * Modify the automatic excerpt "Read more" link (via WP filter).
- *
- * @since 2.10.0
- * @param $more
- *
- * @return string
- */
-/*
-function wpmtst_excerpt_more( $more ) {
-	$before = ' ';
-	// TODO Can this be moved to view class?
-	if ( ! WPMST()->atts( 'more_post_in_place' ) ) {
-		if ( WPMST()->atts( 'more_post_ellipsis' ) ) {
-
-			// Automatic excerpt
-			if ( 'truncated' == WPMST()->atts( 'content' ) ) {
-				$before = __( '&hellip;' ) . $before;
-			}
-
-			// Excerpt created when post has no manual excerpt and NOT expand in place
-			if ( 'excerpt' == WPMST()->atts( 'content' ) ) {
-				if ( ! has_excerpt() ) {
-					$before = __( '&hellip;' ) . $before;
-				}
-			}
-
-		}
-	}
-
-	return $before . ' ' . wpmtst_get_excerpt_more_link();
-}
-*/
-
-/**
- * Maybe add read-more to manual excerpt.
- *
- * @since 2.26.0
- * @param $excerpt
- *
- * @return string
- */
-function wpmtst_manual_excerpt_more( $excerpt ) {
-	if ( has_excerpt() ) {
-
-		// TODO Can this be moved to view class?
-		if ( WPMST()->atts( 'use_default_more' ) ) {
-			$excerpt .= apply_filters( 'excerpt_more', ' [&hellip;]' );
-		} else {
-			$excerpt .= apply_filters( 'wpmtst_excerpt_more', ' [&hellip;]' );
-		}
-
-	}
-
-	return $excerpt;
-}
-
-/**
  * Construct the "Read more" link (both automatic and manual).
  *
  * @since 2.27.0 Filters on URL and full link.
@@ -230,7 +133,7 @@ function wpmtst_get_excerpt_more_link() {
 
 	$link_class = apply_filters( 'wpmtst_read_more_post_link_class', 'readmore' );
 
-	if ( WPMST()->atts( 'more_post_in_place' ) ) {
+	if ( apply_filters( 'wpmtst_is_hybrid_content', false ) ) {
 	    // no href
 	    $link = sprintf( '<a aria-expanded="false" aria-controls="more-%d" class="%s readmore-toggle"><span class="readmore-text">%s</span></a>', get_the_ID(), $link_class, $link_text );
 	} else {
@@ -296,10 +199,7 @@ function wpmtst_assemble_excerpt( $words_array, $sep, $more ) {
 function wpmtst_assemble_hybrid( $words_array, $num_words, $sep, $more ) {
 	$space = __( '&nbsp;' );
 
-	$ellipsis = '';
-	if ( apply_filters( 'wpmtst_use_ellipsis', false ) ) {
-		$ellipsis = wpmtst_ellipsis();
-	}
+	$ellipsis = wpmtst_ellipsis();
 	if ( $ellipsis ) {
 		$ellipsis = '<span class="ellipsis">' . $ellipsis . '</span>';
 	}

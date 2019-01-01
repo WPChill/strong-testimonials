@@ -95,9 +95,18 @@ function wpmtst_the_excerpt() {
 
 /**
  * The ellipsis on read-more's.
+ *
+ * @since 2.33.0
  */
 function wpmtst_ellipsis() {
-	return apply_filters( 'wpmtst_ellipsis', __( '&hellip;' ) );
+	if ( apply_filters( 'wpmtst_use_ellipsis', true ) ) {
+		return apply_filters( 'wpmtst_ellipsis', __( '&hellip;' ) );
+	}
+	return '';
+}
+
+function wpmtst_prepend_ellipsis( $more ) {
+	return wpmtst_ellipsis() . ' ' . $more;
 }
 
 /**
