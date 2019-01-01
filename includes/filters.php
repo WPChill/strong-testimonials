@@ -49,7 +49,7 @@ function wpmtst_content_filters() {
 	add_filter( 'wpmtst_the_excerpt', 'do_shortcode', 11 );
 	add_filter( 'wpmtst_the_excerpt', 'convert_smilies', 20 );
 
-	add_filter( 'wpmtst_excerpt_length', 'wpmtst_excerpt_length' );
-	add_filter( 'wpmtst_excerpt_more', 'wpmtst_excerpt_more' );
+	//add_filter( 'wpmtst_excerpt_length', 'wpmtst_excerpt_length' );
+	//add_filter( 'wpmtst_excerpt_more', 'wpmtst_excerpt_more' );
 }
 add_action( 'init', 'wpmtst_content_filters' );
