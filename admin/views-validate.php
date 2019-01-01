@@ -101,6 +101,13 @@ function wpmtst_sanitize_view( $input ) {
 	$data['more_post_text']          = sanitize_text_field( $input['more_post_text'] );
 	$data['use_default_more']        = $input['use_default_more'];
 
+	/**
+	 * Read more in place
+	 *
+	 * @since 2.33.0
+	 */
+	$data['more_post_in_place'] = sanitize_text_field( $input['more_post_in_place'] );
+
 	// Read more --> page
 	if ( isset( $input['more_page'] ) && $input['more_page'] ) {
 

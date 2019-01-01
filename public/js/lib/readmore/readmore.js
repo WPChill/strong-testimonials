@@ -22,6 +22,11 @@
       event.target.setAttribute('hidden', 'true');
       // Show read-more link
       event.target.parentElement.querySelector('.readmore').style.display = 'inline';
+      // Show ellipsis
+      var ellipsis = event.target.parentElement.querySelector('.ellipsis');
+      if (ellipsis) {
+        ellipsis.style.display = 'inline';
+      }
     }
   };
 
@@ -41,9 +46,13 @@
 
     forEach(toggleButtons, function (index, toggleButton) {
 
-      toggleButton.addEventListener('click', function (event) {
+      toggleButton.addEventListener('click', function () {
 
         var fullTextWrapper = this.parentElement.querySelector('.readmore-content');
+        if (!fullTextWrapper) {
+          return;
+        }
+
         var ellipsis = this.parentElement.querySelector('.ellipsis');
         var toggleButtonText = this.querySelector('.readmore-text');
 
@@ -58,7 +67,9 @@
           // 2. update toggle link
           toggleButtonText.innerText = 'Show Less';
           toggleButton.setAttribute('aria-expanded', true);
-          ellipsis.style.display = 'none';
+          if( ellipsis ) {
+            ellipsis.style.display = 'none';
+          }
 
           // 3. animate it
           fullTextWrapper.classList.add('fadeInDown');
@@ -75,8 +86,6 @@
           toggleButton.setAttribute('aria-expanded', false);
           // change link text
           toggleButtonText.innerText = 'Show More';
-          // Show ellipsis
-          ellipsis.style.display = 'inline';
 
           // 2. animate it
           fullTextWrapper.classList.add('fadeOutUp');
