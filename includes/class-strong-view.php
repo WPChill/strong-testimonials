@@ -144,6 +144,7 @@ class Strong_View {
 
         remove_filter( 'wpmtst_get_the_content', 'wpmtst_the_content_filtered' );
         remove_filter( 'wpmtst_get_the_content', 'wpmtst_the_excerpt_filtered' );
+        remove_filter( 'wpmtst_get_the_excerpt', 'wpmtst_bypass_excerpt', 1 );
         remove_filter( 'wpmtst_get_the_excerpt', 'wpmtst_hybrid_excerpt' );
         remove_filter( 'wpmtst_get_the_excerpt', 'wpmtst_trim_excerpt' );
         remove_filter( 'wpmtst_get_the_excerpt', 'wpmtst_manual_excerpt_more', 20 );
