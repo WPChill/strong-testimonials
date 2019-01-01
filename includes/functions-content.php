@@ -82,7 +82,7 @@ function wpmtst_trim_excerpt( $excerpt = '' ) {
 	$raw_excerpt = $excerpt;
 
 	/**
-	 * Filter hybrid value here to allow inidividual overrides.
+	 * Filter hybrid value here to allow individual overrides.
 	 */
 	$hybrid = apply_filters( 'wpmtst_is_hybrid_content', false );
 
