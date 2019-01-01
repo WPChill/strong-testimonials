@@ -124,6 +124,15 @@ function wpmtst_the_content( $which = 'view' ) {
 }
 
 /**
+ * Like the_excerpt().
+ *
+ * @since 2.33.0
+ */
+function wpmtst_the_excerpt() {
+	echo wpmtst_the_excerpt_filtered();
+}
+
+/**
  * Assemble link to secondary "Read more" page.
  *
  * @since 2.10.0
