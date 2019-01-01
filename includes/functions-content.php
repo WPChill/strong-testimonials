@@ -290,26 +290,25 @@ function wpmtst_assemble_excerpt( $words_array, $sep, $more ) {
 }
 
 function wpmtst_assemble_hybrid( $words_array, $num_words, $sep, $more ) {
-
 	$space    = __( '&nbsp;' );
-	$ellipsis = apply_filters( 'wpmtst_ellipsis', '' );
+	$ellipsis = '';
 
 	if ( WPMST()->atts( 'more_post_ellipsis' ) ) {
 
 		// Automatic excerpt
 		if ( 'truncated' == WPMST()->atts( 'content' ) ) {
-			$ellipsis = __( '&hellip;' );
+			$ellipsis = wpmtst_ellipsis();
 		}
 
 		// Excerpt created when post has no manual excerpt
 		if ( 'excerpt' == WPMST()->atts( 'content' ) ) {
 			if ( ! has_excerpt() ) {
-				$ellipsis = __( '&hellip;' );
+				$ellipsis = wpmtst_ellipsis();
 			}
 		}
 
-
 	}
+
 	if ( $ellipsis ) {
 		$ellipsis = '<span class="ellipsis">' . $ellipsis . '</span>';
 	}
