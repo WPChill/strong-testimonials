@@ -5,8 +5,9 @@
  * @package Strong_Testimonials
  */
 
-// Display filters
-
+/**
+ * Content filters
+ */
 add_filter( 'wpmtst_the_content', array( $GLOBALS['wp_embed'], 'run_shortcode' ), 8 );
 add_filter( 'wpmtst_the_content', array( $GLOBALS['wp_embed'], 'autoembed' ), 8 );
 add_filter( 'wpmtst_the_content', 'wptexturize' );
@@ -27,7 +28,6 @@ add_filter( 'wpmtst_the_excerpt', 'convert_smilies', 20 );
 
 add_filter( 'wpmtst_excerpt_length', 'wpmtst_excerpt_length' );
 add_filter( 'wpmtst_excerpt_more', 'wpmtst_excerpt_more' );
-add_filter( 'wpmtst_get_the_excerpt', 'wpmtst_trim_excerpt' );
 
 /**
  * Template function for showing a View.
@@ -75,6 +75,8 @@ function wpmtst_the_title( $before = '', $after = '' ) {
 /**
  * Display the testimonial content.
  *
+ * @param $which string
+ *
  * @since 1.24.0
  *
  * @since 2.4.0  Run content through core WordPress filters only, instead of all filters
@@ -89,29 +91,52 @@ function wpmtst_the_title( $before = '', $after = '' ) {
  *
  * @since 2.26.0 Using content filters instead of direct function calls.
  *               Using custom get_*() functions to allow filter selectivity.
+ *
+ * @since 2.33.0 Use $which to override view setting.
  */
-function wpmtst_the_content() {
-	/**
-	 * Use this hook to remove specific _core_ content filters.
-	 *
-	 * @since 2.26.0
-	 */
-	do_action( 'wpmtst_before_content_filters' );
+function wpmtst_the_content( $which = 'view' ) {
+	switch( $which ) {
+		case 'content' :
+			// The equivalent of the_content().
+			echo wpmtst_the_content_filtered();
+			break;
+		case 'excerpt' :
+			// The equivalent of the_excerpt().
+			echo wpmtst_the_excerpt_filtered();
+			break;
+		default :
+			/**
+			 * Use this hook to remove specific content filters.
+			 *
+			 * @since 2.26.0
+			 */
+			do_action( 'wpmtst_before_content_filters' );
 
-	$att = WPMST()->atts( 'content' );
-	if ( 'truncated' == $att || 'excerpt' == $att ) {
-		// Excerpt filters added in view class.
-		echo wpmtst_the_excerpt_filtered();
-	} else {
-		echo wpmtst_the_content_filtered();
+			echo apply_filters( 'wpmtst_get_the_content', '' );
+
+			/**
+			 * Restore content filters that were removed.
+			 *
+			 * @since 2.26.0
+			 */
+			do_action( 'wpmtst_after_content_filters' );
 	}
+}
 
-	/**
-	 * Restore content filters that were removed.
-	 *
-	 * @since 2.26.0
-	 */
-	do_action( 'wpmtst_after_content_filters' );
+/**
+ * Like the_excerpt().
+ *
+ * @since 2.33.0
+ */
+function wpmtst_the_excerpt() {
+	echo wpmtst_the_excerpt_filtered();
+}
+
+/**
+ * The view setting for including an ellipsis on read-more's.
+ */
+function wpmtst_ellipsis() {
+	return __( '&hellip;' );
 }
 
 /**
