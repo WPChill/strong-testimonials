@@ -112,8 +112,13 @@ class Strong_View {
 
         } elseif ( 'excerpt' == $this->atts['content'] ) {
 
-		    // migrated from functions-template.php
-	        add_filter( 'wpmtst_get_the_excerpt', 'wpmtst_trim_excerpt' );
+		    if ( isset( $this->atts['more_post_in_place'] ) && $this->atts['more_post_in_place'] ) {
+		        //TODO Build getter
+			    add_filter( 'wpmtst_get_the_excerpt', 'wpmtst_hybrid_excerpt' );
+		    } else {
+			    // migrated from functions-template.php
+			    add_filter( 'wpmtst_get_the_excerpt', 'wpmtst_trim_excerpt' );
+		    }
 
             if ( $this->atts['more_full_post'] ) {
                 // Maybe add read-more to manual excerpts.
