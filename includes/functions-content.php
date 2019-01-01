@@ -290,7 +290,7 @@ function wpmtst_assemble_excerpt( $words_array, $sep, $more ) {
 }
 
 function wpmtst_assemble_hybrid( $words_array, $num_words, $sep, $more ) {
-	$space    = __( '&nbsp;' );
+	$space = __( '&nbsp;' );
 
 	$ellipsis = '';
 	if ( apply_filters( 'wpmtst_use_ellipsis', false ) ) {
@@ -300,11 +300,11 @@ function wpmtst_assemble_hybrid( $words_array, $num_words, $sep, $more ) {
 		$ellipsis = '<span class="ellipsis">' . $ellipsis . '</span>';
 	}
 
-	$first_half  = implode( $sep, array_slice( $words_array, 0, $num_words ) ) . $space;
+	$first_half  = implode( $sep, array_slice( $words_array, 0, $num_words ) );
 	$second_half = implode( $sep, array_slice( $words_array, $num_words ) );
 
 	$wrap_open  = '<span class="readmore-content animated" id="more-' . get_the_ID() . '" hidden>';
 	$wrap_close = $space . '</span>';
 
-	return $first_half . $ellipsis . $wrap_open . $second_half . $wrap_close . $more;
+	return $first_half . $ellipsis . $space . $wrap_open . $second_half . $wrap_close . $more;
 }
