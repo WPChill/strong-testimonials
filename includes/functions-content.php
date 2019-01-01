@@ -79,6 +79,7 @@ function wpmtst_get_the_excerpt( $post = null ) {
  * @return string
  */
 function wpmtst_trim_excerpt( $excerpt = '' ) {
+	q2(get_the_title(), __FUNCTION__);
 	$raw_excerpt = $excerpt;
 	$more_post_in_place = WPMST()->atts( 'more_post_in_place');
 
@@ -128,6 +129,7 @@ function wpmtst_trim_excerpt( $excerpt = '' ) {
 }
 
 function wpmtst_hybrid_excerpt( $excerpt = '' ) {
+	q2(get_the_title(), __FUNCTION__);
 	$raw_excerpt = $excerpt;
 
 	if ( '' == $excerpt ) {

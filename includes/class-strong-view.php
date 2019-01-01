@@ -98,7 +98,9 @@ class Strong_View {
 	 * Add content filters.
 	 */
 	public function add_content_filters() {
+        q2(__METHOD__);
 
+        //TODO Build getter
 		if ( ! isset( $this->atts['content'] ) ) {
 			return;
 		}
@@ -113,7 +115,6 @@ class Strong_View {
         } elseif ( 'excerpt' == $this->atts['content'] ) {
 
 		    if ( isset( $this->atts['more_post_in_place'] ) && $this->atts['more_post_in_place'] ) {
-		        //TODO Build getter
 			    add_filter( 'wpmtst_get_the_excerpt', 'wpmtst_hybrid_excerpt' );
 		    } else {
 			    // migrated from functions-template.php
@@ -122,6 +123,7 @@ class Strong_View {
 
             if ( $this->atts['more_full_post'] ) {
                 // Maybe add read-more to manual excerpts.
+                //TODO How is this affected by hybrid?
                 add_filter( 'wpmtst_get_the_excerpt', 'wpmtst_manual_excerpt_more', 20 );
             }
 
@@ -133,7 +135,9 @@ class Strong_View {
 	 * Remove content filters.
 	 */
 	public function remove_content_filters() {
+        q2(__METHOD__,'','-');
 
+	    //TODO Match add_content_filters() above
 		if ( isset( $this->atts['content'] ) ) {
 			if ( 'truncated' == $this->atts['content'] ) {
 
