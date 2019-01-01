@@ -146,6 +146,7 @@ function wpmtst_trim_excerpt( $excerpt = '' ) {
  *
  * @return int
  */
+/*
 function wpmtst_excerpt_length( $words ) {
 	$excerpt_length = WPMST()->atts( 'excerpt_length' );
 	if ( $excerpt_length ) {
@@ -154,6 +155,7 @@ function wpmtst_excerpt_length( $words ) {
 
 	return $words;
 }
+*/
 
 /**
  * Modify the automatic excerpt "Read more" link (via WP filter).
@@ -163,6 +165,7 @@ function wpmtst_excerpt_length( $words ) {
  *
  * @return string
  */
+/*
 function wpmtst_excerpt_more( $more ) {
 	$before = ' ';
 	// TODO Can this be moved to view class?
@@ -186,6 +189,7 @@ function wpmtst_excerpt_more( $more ) {
 
 	return $before . ' ' . wpmtst_get_excerpt_more_link();
 }
+*/
 
 /**
  * Maybe add read-more to manual excerpt.
