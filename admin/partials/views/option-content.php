@@ -100,10 +100,27 @@
 				<?php _e( '"Read more" link', 'strong-testimonials' ); ?>
 			</div>
 
+            <!-- action: full post or in place -->
+            <div class="row-inner">
+                <div class="inline tight">
+                    <label>
+                        <select id="view-more_post_in_place" class="" name="view[data][more_post_in_place]">
+                            <option value="0" <?php selected( ! $view['more_post_in_place'] ); ?>>
+                                <?php // TODO Get label from Properties ?>
+					            <?php _e( 'link to full testimonial', 'strong-testimonials' ); ?>
+                            </option>
+                            <option value="1" <?php selected( $view['more_post_in_place'] ); ?>>
+					            <?php _e( 'expand content in place', 'strong-testimonials' ); ?>
+                            </option>
+                        </select>
+                    </label>
+                </div>
+            </div><!-- .row-inner -->
+
 			<!-- default or custom -->
 			<div class="row-inner">
 
-				<div class="inline tight">
+				<div class="inline">
 					<label>
 						<select id="view-use_default_more" class="if selectgroup min-width-1" name="view[data][use_default_more]">
 							<option value="1" <?php selected( $view['use_default_more'] ); ?>>
@@ -116,7 +133,7 @@
 					</label>
 				</div>
 
-				<div class="inline tight last then fast then_use_default_more then_0 then_not_1" style="display: none;">
+				<div class="inline then fast then_use_default_more then_0 then_not_1" style="display: none;">
 
 					<span id="option-link-text" class="inline-span">
 						<label for="view-more_post_text">
@@ -125,6 +142,9 @@
 								   placeholder="<?php _e( 'enter a phrase', 'strong-testimonials' ); ?>">
 						</label>
 					</span>
+
+                </div>
+                <div class="inline then fast then_use_default_more then_0 then_not_1" style="display: none;">
 
 					<span id="option-ellipsis">
 
@@ -148,8 +168,8 @@
 
 				</div>
 
-				<div class="inline tight then fast then_use_default_more then_1 then_not_0" style="display: none;">
-					<p class="description short"><?php _e( 'If you only see [&hellip;] without a link then your theme<br> does not provide this. Use the custom link text instead.', 'strong-testimonials' ); ?></p>
+				<div class="inline then fast then_use_default_more then_1 then_not_0" style="display: none;">
+					<p class="description" style="display: inline-block;"><?php _e( 'If you only see [&hellip;] without a link then use the custom link text instead.', 'strong-testimonials' ); ?></p>
 				</div>
 
 			</div><!-- .row-inner -->
