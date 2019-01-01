@@ -107,8 +107,9 @@ class Strong_View {
 
         if ( 'truncated' == $this->atts['content'] ) {
 
-	        add_filter( 'wpmtst_get_the_content', 'wpmtst_the_content_filtered' );
-
+	        add_filter( 'wpmtst_get_the_content', 'wpmtst_the_excerpt_filtered' );
+	        add_filter( 'wpmtst_get_the_excerpt', 'wpmtst_bypass_excerpt', 1 );
+            add_filter( 'wpmtst_get_the_excerpt', 'wpmtst_trim_excerpt' );
 
         } elseif ( 'excerpt' == $this->atts['content'] ) {
 

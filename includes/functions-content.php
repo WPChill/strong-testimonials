@@ -21,15 +21,6 @@ function wpmtst_the_content_filtered( $more_link_text = null, $strip_teaser = fa
 }
 
 /**
- * Like the_excerpt().
- *
- * @since 2.33.0
- */
-function wpmtst_the_excerpt() {
-	echo wpmtst_the_excerpt_filtered();
-}
-
-/**
  * Based on the_excerpt().
  *
  * @since 2.26.0
@@ -75,9 +66,9 @@ function wpmtst_get_the_excerpt( $post = null ) {
  *
  * @return string
  */
-//function wpmtst_bypass_excerpt( $text ) {
-//	return '';
-//}
+function wpmtst_bypass_excerpt( $text ) {
+	return '';
+}
 
 /**
  * Based on wp_trim_excerpt(). On wpmtst_get_the_excerpt hook.
@@ -90,7 +81,6 @@ function wpmtst_get_the_excerpt( $post = null ) {
 function wpmtst_trim_excerpt( $excerpt = '' ) {
 	q2(get_the_title(), __FUNCTION__);
 	$raw_excerpt = $excerpt;
-	$more_post_in_place = WPMST()->atts( 'more_post_in_place');
 
 	if ( '' == $excerpt ) {
 		// Create excerpt if post has no manual excerpt.
@@ -125,7 +115,7 @@ function wpmtst_trim_excerpt( $excerpt = '' ) {
 		} else {
 			$excerpt_more = apply_filters( 'wpmtst_excerpt_more', $default_more );
 		}
-		$excerpt = wpmtst_trim_words( $text, $excerpt_length, $excerpt_more, $more_post_in_place );
+		$excerpt = wpmtst_trim_words( $text, $excerpt_length, $excerpt_more );
 	}
 
 	/**
@@ -292,11 +282,10 @@ function wpmtst_get_excerpt_more_link() {
  * @param $text
  * @param int $num_words
  * @param null $more
- * @param bool $more_in_place
  *
  * @return string
  */
-function wpmtst_trim_words( $text, $num_words = 55, $more = null, $more_in_place = false ) {
+function wpmtst_trim_words( $text, $num_words = 55, $more = null ) {
 	if ( null === $more ) {
 		$more = __( '&hellip;' );
 	}
@@ -314,56 +303,14 @@ function wpmtst_trim_words( $text, $num_words = 55, $more = null, $more_in_place
 		$words_array = array_slice( $words_array[0], 0, $num_words + 1 );
 		$sep = '';
 	} else {
-		if ( $more_in_place ) {
-			$words_array = preg_split( "/[\n\r\t ]+/", $text, 0, PREG_SPLIT_NO_EMPTY );
-		} else {
-			$words_array = preg_split( "/[\n\r\t ]+/", $text, $num_words + 1, PREG_SPLIT_NO_EMPTY );
-		}
+		$words_array = preg_split( "/[\n\r\t ]+/", $text, $num_words + 1, PREG_SPLIT_NO_EMPTY );
 		$sep = ' ';
 	}
 
 	if ( count( $words_array ) > $num_words ) {
-
-		if ( $more_in_place ) {
-
-			$space    = __( '&nbsp;' );
-			$ellipsis = '';
-
-			// TODO This is similar logic to wpmtst_excerpt_more. Consolidate into one filter.
-			if ( WPMST()->atts( 'more_post_ellipsis' ) ) {
-
-				// Automatic excerpt
-				if ( 'truncated' == WPMST()->atts( 'content' ) ) {
-					$ellipsis = __( '&hellip;' );
-				}
-
-				// Excerpt created when post has no manual excerpt
-				if ( 'excerpt' == WPMST()->atts( 'content' ) ) {
-					if ( ! has_excerpt() ) {
-						$ellipsis = __( '&hellip;' );
-					}
-				}
-
-
-			}
-			$ellipsis = '<span class="ellipsis">' . $ellipsis . '</span>' . $space;
-
-			$first_half  = implode( $sep, array_slice( $words_array, 0, $num_words ) );
-			$second_half = implode( $sep, array_slice( $words_array, $num_words ) );
-
-			$wrap_open  = '<span class="readmore-content animated" id="more-' . get_the_ID() . '" hidden>';
-			$wrap_close = $space . '</span>';
-
-			$text = $first_half . $ellipsis . $wrap_open . $second_half . $wrap_close . $more;
-
-		} else {
-
-			array_pop( $words_array );
-			$text = implode( $sep, $words_array );
-			$text = $text . $more;
-
-		}
-
+		array_pop( $words_array );
+		$text = implode( $sep, $words_array );
+		$text = $text . $more;
 	} else {
 		$text = implode( $sep, $words_array );
 	}
