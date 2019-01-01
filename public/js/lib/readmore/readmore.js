@@ -23,7 +23,10 @@
       // Show read-more link
       event.target.parentElement.querySelector('.readmore').style.display = 'inline';
       // Show ellipsis
-      event.target.parentElement.querySelector('.ellipsis').style.display = 'inline';
+      var ellipsis = event.target.parentElement.querySelector('.ellipsis');
+      if (ellipsis) {
+        ellipsis.style.display = 'inline';
+      }
     }
   };
 
@@ -64,7 +67,9 @@
           // 2. update toggle link
           toggleButtonText.innerText = 'Show Less';
           toggleButton.setAttribute('aria-expanded', true);
-          ellipsis.style.display = 'none';
+          if( ellipsis ) {
+            ellipsis.style.display = 'none';
+          }
 
           // 3. animate it
           fullTextWrapper.classList.add('fadeInDown');
