@@ -127,6 +127,9 @@ class Strong_View {
 	        add_filter( 'wpmtst_get_the_excerpt', 'wpmtst_bypass_excerpt', 1 );
             add_filter( 'wpmtst_get_the_excerpt', 'wpmtst_trim_excerpt' );
 
+	        add_filter( 'wpmtst_excerpt_length', array( $this, 'excerpt_length' ) );
+	        add_filter( 'wpmtst_excerpt_more', array( $this, 'excerpt_more' ) );
+
             if ( $this->get_att( 'more_post_ellipsis' ) ) {
                 add_filter( 'wpmtst_use_ellipsis', '__return_true' );
             }
@@ -135,6 +138,9 @@ class Strong_View {
 
 	        add_filter( 'wpmtst_get_the_content', 'wpmtst_the_excerpt_filtered' );
 			add_filter( 'wpmtst_get_the_excerpt', 'wpmtst_trim_excerpt' );
+
+	        add_filter( 'wpmtst_excerpt_length', array( $this, 'excerpt_length' ) );
+	        add_filter( 'wpmtst_excerpt_more', array( $this, 'excerpt_more' ) );
 
 	        if ( $this->get_att( 'more_post_ellipsis' ) ) {
 		        add_filter( 'wpmtst_use_ellipsis', function() { return ! has_excerpt(); } );
@@ -164,6 +170,9 @@ class Strong_View {
         remove_filter( 'wpmtst_get_the_content', 'wpmtst_the_content_filtered' );
         remove_filter( 'wpmtst_get_the_content', 'wpmtst_the_excerpt_filtered' );
 
+		remove_filter( 'wpmtst_excerpt_length', array( $this, 'excerpt_length' ) );
+		remove_filter( 'wpmtst_excerpt_more', array( $this, 'excerpt_more' ) );
+
         remove_filter( 'wpmtst_get_the_excerpt', 'wpmtst_bypass_excerpt', 1 );
         remove_filter( 'wpmtst_get_the_excerpt', 'wpmtst_hybrid_excerpt' );
         remove_filter( 'wpmtst_get_the_excerpt', 'wpmtst_trim_excerpt' );
@@ -172,6 +181,14 @@ class Strong_View {
 		remove_filter( 'wpmtst_is_hybrid_content', '__return_true' );
 		remove_filter( 'wpmtst_use_ellipsis', '__return_true' );
 		remove_filter( 'wpmtst_use_ellipsis', 'wpmtst_not_has_excerpt' );
+	}
+
+	public function excerpt_length( $length ) {
+	    return 1;
+	}
+
+	public function excerpt_more( $more ) {
+	    return '-more-';
 	}
 
 	/**
