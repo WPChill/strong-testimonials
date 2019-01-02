@@ -148,9 +148,9 @@ function wpmtst_get_excerpt_more_link() {
 
 	if ( apply_filters( 'wpmtst_is_hybrid_content', false ) ) {
 	    // no href
-	    $link = sprintf( '<a aria-expanded="false" aria-controls="more-%d" class="%s readmore-toggle"><span class="readmore-text">%s</span></a>', get_the_ID(), $link_class, $link_text );
+	    $link = sprintf( '&nbsp;<a aria-expanded="false" aria-controls="more-%d" class="%s readmore-toggle"><span class="readmore-text">%s</span></a>', get_the_ID(), $link_class, $link_text );
 	} else {
-		$link = sprintf( '<a href="%s" class="%s">%s</a>', esc_url( $url ), $link_class, $link_text );
+		$link = sprintf( '&nbsp;<a href="%s" class="%s">%s</a>', esc_url( $url ), $link_class, $link_text );
 	}
 
 	return apply_filters( 'wpmtst_read_more_post_link', $link );
@@ -239,8 +239,9 @@ function wpmtst_assemble_hybrid( $words_array, $num_words, $sep, $more ) {
 	$first_half  = implode( $sep, array_slice( $words_array, 0, $num_words ) );
 	$second_half = implode( $sep, array_slice( $words_array, $num_words ) );
 
-	$wrap_open  = '<span class="readmore-content animated" id="more-' . get_the_ID() . '" hidden> ';
-	$wrap_close = ' </span>'; // leading space is important
+	$wrap_open  = '<span class="readmore-content animated" id="more-' . get_the_ID() . '" hidden>';
+	$wrap_close = '</span>';
 
-	return $first_half . $ellipsis . '&nbsp;' . $wrap_open . $second_half . $wrap_close . $more;
+	return $first_half . $ellipsis . $wrap_open . ' ' . $second_half . $wrap_close . $more;
+	/* !                  This space is important: ^                                     */
 }
