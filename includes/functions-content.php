@@ -86,24 +86,18 @@ function wpmtst_trim_excerpt( $excerpt = '' ) {
 
 	if ( '' == $excerpt ) {
 
-		// Create excerpt if post has no manual excerpt.
-		$text = get_the_content( '' );
-		$text = strip_shortcodes( $text );
-		$text = apply_filters( 'wpmtst_the_content', $text );
-		$text = str_replace( ']]>', ']]&gt;', $text );
+		$text = wpmtst_get_the_prepared_text();
 
+		// Create excerpt if post has no manual excerpt.
 		$excerpt_length = apply_filters( 'excerpt_length', 55 );
-		$excerpt_more = apply_filters( 'excerpt_more', ' [&hellip;]' );
-		$excerpt = wpmtst_trim_words( $text, $excerpt_length, $excerpt_more, $hybrid );
+		$excerpt_more   = apply_filters( 'excerpt_more', ' [&hellip;]' );
+		$excerpt        = wpmtst_trim_words( $text, $excerpt_length, $excerpt_more, $hybrid );
 
 	} elseif ( $hybrid ) {
 
-		$text = get_the_content( '' );
-		//TODO Still necessary to strip shortcodes?
-		$text = strip_shortcodes( $text );
-		$text = apply_filters( 'wpmtst_the_content', $text );
-		$text = str_replace(']]>', ']]&gt;', $text);
+		$text = wpmtst_get_the_prepared_text( true );
 
+		// Append hybrid content as hidden span to the manual excerpt.
 		$excerpt .= wpmtst_trim_words( $text, 0, '', true );
 
 	}
@@ -115,6 +109,25 @@ function wpmtst_trim_excerpt( $excerpt = '' ) {
 	 * @param string $raw_excerpt The text prior to trimming.
 	 */
 	return apply_filters( 'wpmtst_trim_excerpt', $excerpt, $raw_excerpt );
+}
+
+/**
+ * Prepare the post content.
+ *
+ * @param bool $hybrid
+ * @since 2.33.0
+ *
+ * @return string
+ */
+function wpmtst_get_the_prepared_text( $hybrid = false ) {
+	$text = get_the_content( '' );
+	if ( ! $hybrid ) {
+		$text = strip_shortcodes( $text );
+	}
+	$text = apply_filters( 'wpmtst_the_content', $text );
+	$text = str_replace( ']]>', ']]&gt;', $text );
+
+	return $text;
 }
 
 /**
