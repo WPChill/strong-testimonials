@@ -245,6 +245,23 @@ jQuery(document).ready(function ($) {
   */
 
   /**
+   * Update option for [adding read-more to excerpts] based on setting
+   * for [read-more type] (link to post or expand in place).
+   */
+  var viewHybrid = $('#view-more_post_in_place');
+  var viewHybridChange = function () {
+    var thisValue = viewHybrid.val();
+    var viewMoreFullPost = $('#view-more_full_post');
+    if ('1' === thisValue) {
+      viewMoreFullPost.prop('disabled', true).find('option[value=\'1\']').prop('selected', true);
+    } else {
+      viewMoreFullPost.removeProp('disabled');
+    }
+  };
+  viewHybridChange();
+  viewHybrid.on('change', viewHybridChange);
+
+  /**
    * Plugin: Show/Hide parts based on current Mode
    */
   $.fn.updateScreen = function (mode, speed) {
