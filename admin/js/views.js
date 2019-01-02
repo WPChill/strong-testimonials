@@ -228,6 +228,7 @@ jQuery(document).ready(function ($) {
    * TODO Use a technique similar to if-then for adding/removing classes
    */
 
+  /*
   var viewContent = $('#view-content');
   var viewContentChange = function () {
     var thisValue = viewContent.val();
@@ -241,6 +242,7 @@ jQuery(document).ready(function ($) {
   };
   viewContentChange();
   viewContent.on('change', viewContentChange);
+  */
 
   /**
    * Plugin: Show/Hide parts based on current Mode

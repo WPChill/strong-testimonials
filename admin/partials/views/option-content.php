@@ -50,7 +50,7 @@
 	<!-- Excerpt length -->
 	<div id="option-content-length" class="row then then_not_entire then_excerpt then_truncated" style="display: none;">
 
-		<div class="row-inner highlight2">
+		<div class="row-inner">
 
 			<!-- info -->
 			<div class="inline tight then then_excerpt then_not_truncated" style="display: none;">
