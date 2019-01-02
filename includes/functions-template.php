@@ -102,6 +102,7 @@ function wpmtst_ellipsis() {
 	if ( apply_filters( 'wpmtst_use_ellipsis', true ) ) {
 		return apply_filters( 'wpmtst_ellipsis', __( '&hellip;' ) );
 	}
+
 	return '';
 }
 

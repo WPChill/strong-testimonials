@@ -115,51 +115,28 @@ class Strong_View {
 	 * Add content filters.
 	 */
 	public function add_content_filters() {
-		if ( ! $this->get_att( 'content' ) ) {
-			return;
-		}
-
-		// TODO Simplify this logic.
 
         if ( 'truncated' == $this->get_att( 'content' ) ) {
 
 		    // automatic excerpt
-	        add_filter( 'wpmtst_get_the_content', 'wpmtst_the_excerpt_filtered' );
+
+            $this->excerpt_filters();
+
+            $this->hybrid_content();
+
 	        add_filter( 'wpmtst_get_the_excerpt', 'wpmtst_bypass_excerpt', 1 );
-            add_filter( 'wpmtst_get_the_excerpt', 'wpmtst_trim_excerpt' );
-
-            if ( ! $this->get_att( 'use_default_length' ) ) {
-	            add_filter( 'excerpt_length', array( $this, 'excerpt_length' ) );
-            }
-
-	        if ( ! $this->get_att( 'use_default_more' ) ) {
-                add_filter( 'excerpt_more', array( $this, 'excerpt_more' ) );
-	        }
 
             if ( $this->get_att( 'more_post_ellipsis' ) ) {
                 add_filter( 'wpmtst_use_ellipsis', '__return_true' );
             }
 
-            // hybrid content
-	        if ( $this->get_att( 'more_post_in_place' ) ) {
-		        add_filter( 'wpmtst_is_hybrid_content', '__return_true' );
-	        } else {
-		        add_filter( 'wpmtst_read_more_post_link', 'wpmtst_prepend_ellipsis' );
-	        }
-
         } elseif ( 'excerpt' == $this->get_att( 'content' ) ) {
 
 		    // manual excerpt (if no excerpt then use automatic excerpt)
-	        add_filter( 'wpmtst_get_the_content', 'wpmtst_the_excerpt_filtered' );
-			add_filter( 'wpmtst_get_the_excerpt', 'wpmtst_trim_excerpt' );
 
-	        if ( ! $this->get_att( 'use_default_length' ) ) {
-		        add_filter( 'excerpt_length', array( $this, 'excerpt_length' ) );
-	        }
+	        $this->excerpt_filters();
 
-	        if ( ! $this->get_att( 'use_default_more' ) ) {
-                add_filter( 'excerpt_more', array( $this, 'excerpt_more' ) );
-	        }
+            $this->hybrid_content();
 
 	        if ( $this->get_att( 'more_full_post' ) ) {
 		        add_filter( 'wpmtst_get_the_excerpt', array( $this, 'manual_excerpt_more' ), 20 );
@@ -169,13 +146,6 @@ class Strong_View {
 		        add_filter( 'wpmtst_use_ellipsis', array( $this, 'has_no_excerpt' ) );
 	        }
 
-	        // hybrid content
-	        if ( $this->get_att( 'more_post_in_place' ) ) {
-		        add_filter( 'wpmtst_is_hybrid_content', '__return_true' );
-	        } else {
-		        add_filter( 'wpmtst_read_more_post_link', 'wpmtst_prepend_ellipsis' );
-	        }
-
         } else {
 
 		    // full content
@@ -183,6 +153,27 @@ class Strong_View {
 
         }
 
+	}
+
+	public function excerpt_filters() {
+        add_filter( 'wpmtst_get_the_content', 'wpmtst_the_excerpt_filtered' );
+        add_filter( 'wpmtst_get_the_excerpt', 'wpmtst_trim_excerpt' );
+
+        if ( ! $this->get_att( 'use_default_length' ) ) {
+			add_filter( 'excerpt_length', array( $this, 'excerpt_length' ) );
+		}
+
+		if ( ! $this->get_att( 'use_default_more' ) ) {
+			add_filter( 'excerpt_more', array( $this, 'excerpt_more' ) );
+		}
+	}
+
+	public function hybrid_content() {
+		if ( $this->get_att( 'more_post_in_place' ) ) {
+			add_filter( 'wpmtst_is_hybrid_content', '__return_true' );
+		} else {
+			add_filter( 'wpmtst_read_more_post_link', 'wpmtst_prepend_ellipsis' );
+		}
 	}
 
 	/**
