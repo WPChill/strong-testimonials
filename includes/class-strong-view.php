@@ -155,6 +155,11 @@ class Strong_View {
 
 	}
 
+	/**
+	 * Add excerpt filters.
+     *
+     * @since 2.33.0
+	 */
 	public function excerpt_filters() {
         add_filter( 'wpmtst_get_the_content', 'wpmtst_the_excerpt_filtered' );
         add_filter( 'wpmtst_get_the_excerpt', 'wpmtst_trim_excerpt' );
@@ -168,6 +173,11 @@ class Strong_View {
 		}
 	}
 
+	/**
+	 * Add hybrid content filters.
+     *
+     * @since 2.33.0
+	 */
 	public function hybrid_content() {
 		if ( $this->get_att( 'more_post_in_place' ) ) {
 			add_filter( 'wpmtst_is_hybrid_content', '__return_true' );
@@ -178,6 +188,8 @@ class Strong_View {
 
 	/**
 	 * Remove content filters.
+     *
+     * @since 2.33.0
 	 */
 	public function remove_content_filters() {
         remove_filter( 'wpmtst_get_the_content', 'wpmtst_the_content_filtered' );
