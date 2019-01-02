@@ -251,11 +251,6 @@ td.column-name strong {
 td.rowspan {
   border-left: 1px solid #DDD; }
 
-.highlight-on {
-  background: rgba(0, 164, 243, 0.05);
-  border: 1px solid rgba(0, 164, 243, 0.1);
-  padding: 0 0.5em; }
-
 .subgroup {
   border: 1px solid #DDD;
   padding: 0 0.5em; }
