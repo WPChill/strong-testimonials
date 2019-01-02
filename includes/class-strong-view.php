@@ -206,10 +206,25 @@ class Strong_View {
 		remove_filter( 'wpmtst_use_ellipsis', array( $this, 'has_no_excerpt' ) );
 	}
 
+	/**
+     * Return true if post has no manual excerpt.
+     *
+     * @since 2.33.0
+     *
+	 * @return bool
+	 */
 	public function has_no_excerpt() {
 	    return ! has_excerpt();
 	}
 
+	/**
+     * Set custom excerpt length.
+     *
+	 * @param $words
+     * @since 2.33.0
+	 *
+	 * @return mixed|null
+	 */
 	public function excerpt_length( $words ) {
 		$excerpt_length = $this->get_att( 'excerpt_length' );
 
@@ -217,7 +232,7 @@ class Strong_View {
 	}
 
 	/**
-     * The read-more link maybe prepended with an ellipsis.
+     * The read-more link, maybe prepended with an ellipsis.
      *
 	 * @param $more
      * @since 2.33.0
