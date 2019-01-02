@@ -33,6 +33,11 @@
   .testimonial-field-before {
     margin-right: 0.5em;
   }
+
+  a.readmore,
+  span.readmore-toggle {
+    white-space: nowrap;
+  }
 }
 
 .strong-view {
