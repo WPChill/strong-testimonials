@@ -189,6 +189,16 @@ function wpmtst_trim_words( $text, $num_words = 55, $more = null, $hybrid = fals
 	return $text;
 }
 
+/**
+ * Assemble excerpt from trimmed array.
+ *
+ * @param $words_array
+ * @param $sep
+ * @param $more
+ * @since 2.33.0
+ *
+ * @return string
+ */
 function wpmtst_assemble_excerpt( $words_array, $sep, $more ) {
 	array_pop( $words_array );
 	$text = implode( $sep, $words_array );
@@ -196,6 +206,17 @@ function wpmtst_assemble_excerpt( $words_array, $sep, $more ) {
 	return $text . $more;
 }
 
+/**
+ * Assemble excerpt + rest of content in hidden span.
+ *
+ * @param $words_array
+ * @param $num_words
+ * @param $sep
+ * @param $more
+ * @since 2.33.0
+ *
+ * @return string
+ */
 function wpmtst_assemble_hybrid( $words_array, $num_words, $sep, $more ) {
 	$space = __( '&nbsp;' );
 
