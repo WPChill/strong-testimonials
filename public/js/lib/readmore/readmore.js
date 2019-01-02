@@ -20,13 +20,18 @@
     if (event.type === 'animationend' && event.animationName === 'fadeOutUp') {
       // Add `hidden` attribute
       event.target.setAttribute('hidden', 'true');
+
       // Show read-more link
       event.target.parentElement.querySelector('.readmore').style.display = 'inline';
+
       // Show ellipsis
       var ellipsis = event.target.parentElement.querySelector('.ellipsis');
       if (ellipsis) {
         ellipsis.style.display = 'inline';
       }
+
+      // Fire resize event to redraw slider if necessary.
+      window.dispatchEvent(new Event('resize'));
     }
   };
 
@@ -75,6 +80,9 @@
           fullTextWrapper.classList.add('fadeInDown');
           fullTextWrapper.classList.remove('fadeOutUp');
           fullTextWrapper.classList.remove('faster');
+
+          // Fire resize event to redraw slider if necessary.
+          window.dispatchEvent(new Event('resize'));
 
         } else {
 
