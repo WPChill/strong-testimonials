@@ -449,10 +449,10 @@ class Strong_View_Display extends Strong_View {
 	 * @since 2.33.0
 	 */
 	public function has_readmore() {
-		//if ( isset( $this->atts['more_post_in_place'] ) && $this->atts['more_post_in_place'] ) {
+		if ( isset( $this->atts['more_post_in_place'] ) && $this->atts['more_post_in_place'] ) {
 			WPMST()->render->add_style( 'wpmtst-animate' );
 			WPMST()->render->add_script( 'wpmtst-readmore' );
-		//}
+		}
 	}
 
 }
