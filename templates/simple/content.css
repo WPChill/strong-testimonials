@@ -55,8 +55,12 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
   margin-right: 0.5em;
 }
 .strong-view.simple a.readmore,
-.strong-view.simple span.readmore-toggle {
+.strong-view.simple a.readmore-toggle {
   white-space: nowrap;
+  z-index: 100;
+}
+.strong-view.simple a.readmore-toggle:hover {
+  cursor: pointer;
 }
 
 .strong-view.slider-container {

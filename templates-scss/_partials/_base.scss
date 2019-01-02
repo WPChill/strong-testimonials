@@ -35,8 +35,15 @@
   }
 
   a.readmore,
-  span.readmore-toggle {
+  a.readmore-toggle {
     white-space: nowrap;
+    z-index: 100;
+  }
+
+  a.readmore-toggle {
+    &:hover {
+      cursor: pointer;
+    }
   }
 }
 
