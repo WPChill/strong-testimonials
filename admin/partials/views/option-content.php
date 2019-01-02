@@ -169,7 +169,7 @@
 				</div>
 
 				<div class="inline then fast then_use_default_more then_1 then_not_0" style="display: none;">
-					<p class="description" style="display: inline-block;"><?php _e( 'If you only see [&hellip;] without a link then use the custom link text instead.', 'strong-testimonials' ); ?></p>
+					<p class="description"><?php _e( 'If you only see [&hellip;] without a link then use the custom link text instead.', 'strong-testimonials' ); ?></p>
 				</div>
 
 			</div><!-- .row-inner -->
