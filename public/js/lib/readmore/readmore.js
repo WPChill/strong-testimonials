@@ -30,9 +30,12 @@
         ellipsis.style.display = 'inline';
       }
 
-      // Fire resize event to redraw slider if necessary.
-      window.dispatchEvent(new Event('resize'));
+      fireCustomEvent();
     }
+  };
+
+  var fireCustomEvent = function () {
+    window.dispatchEvent(new Event('toggleFullContent'));
   };
 
   // Only in modern browsers.
@@ -81,8 +84,7 @@
           fullTextWrapper.classList.remove('fadeOutUp');
           fullTextWrapper.classList.remove('faster');
 
-          // Fire resize event to redraw slider if necessary.
-          window.dispatchEvent(new Event('resize'));
+          fireCustomEvent();
 
         } else {
 
