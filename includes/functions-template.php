@@ -5,30 +5,6 @@
  * @package Strong_Testimonials
  */
 
-// Display filters
-
-add_filter( 'wpmtst_the_content', array( $GLOBALS['wp_embed'], 'run_shortcode' ), 8 );
-add_filter( 'wpmtst_the_content', array( $GLOBALS['wp_embed'], 'autoembed' ), 8 );
-add_filter( 'wpmtst_the_content', 'wptexturize' );
-add_filter( 'wpmtst_the_content', 'wpautop' );
-add_filter( 'wpmtst_the_content', 'shortcode_unautop' );
-add_filter( 'wpmtst_the_content', 'prepend_attachment' );
-add_filter( 'wpmtst_the_content', 'wp_make_content_images_responsive' );
-add_filter( 'wpmtst_the_content', 'do_shortcode', 11 );
-add_filter( 'wpmtst_the_content', 'convert_smilies', 20 );
-
-add_filter( 'wpmtst_the_excerpt', 'wptexturize' );
-add_filter( 'wpmtst_the_excerpt', 'convert_smilies' );
-add_filter( 'wpmtst_the_excerpt', 'convert_chars' );
-add_filter( 'wpmtst_the_excerpt', 'wpautop' );
-add_filter( 'wpmtst_the_excerpt', 'shortcode_unautop' );
-add_filter( 'wpmtst_the_excerpt', 'do_shortcode', 11 );
-add_filter( 'wpmtst_the_excerpt', 'convert_smilies', 20 );
-
-add_filter( 'wpmtst_excerpt_length', 'wpmtst_excerpt_length' );
-add_filter( 'wpmtst_excerpt_more', 'wpmtst_excerpt_more' );
-add_filter( 'wpmtst_get_the_excerpt', 'wpmtst_trim_excerpt' );
-
 /**
  * Template function for showing a View.
  *
@@ -92,19 +68,13 @@ function wpmtst_the_title( $before = '', $after = '' ) {
  */
 function wpmtst_the_content() {
 	/**
-	 * Use this hook to remove specific _core_ content filters.
+	 * Use this hook to remove specific content filters.
 	 *
 	 * @since 2.26.0
 	 */
 	do_action( 'wpmtst_before_content_filters' );
 
-	$att = WPMST()->atts( 'content' );
-	if ( 'truncated' == $att || 'excerpt' == $att ) {
-		// Excerpt filters added in view class.
-		echo wpmtst_the_excerpt_filtered();
-	} else {
-		echo wpmtst_the_content_filtered();
-	}
+	echo apply_filters( 'wpmtst_get_the_content', '' );
 
 	/**
 	 * Restore content filters that were removed.
@@ -112,6 +82,32 @@ function wpmtst_the_content() {
 	 * @since 2.26.0
 	 */
 	do_action( 'wpmtst_after_content_filters' );
+}
+
+/**
+ * Like the_excerpt().
+ *
+ * @since 2.33.0
+ */
+function wpmtst_the_excerpt() {
+	echo wpmtst_the_excerpt_filtered();
+}
+
+/**
+ * The ellipsis on read-more's.
+ *
+ * @since 2.33.0
+ */
+function wpmtst_ellipsis() {
+	if ( apply_filters( 'wpmtst_use_ellipsis', true ) ) {
+		return apply_filters( 'wpmtst_ellipsis', __( '&hellip;' ) );
+	}
+
+	return '';
+}
+
+function wpmtst_prepend_ellipsis( $more ) {
+	return wpmtst_ellipsis() . ' ' . $more;
 }
 
 /**

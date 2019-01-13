@@ -215,6 +215,7 @@ function wpmtst_update_view_wpml( $view ) {
 		array(
 			'id'             => $view['id'],
 			'more_post_text' => $view['data']['more_post_text'],
+			'less_post_text' => $view['data']['less_post_text'],
 			'more_page_text' => $view['data']['more_page_text'],
 		)
 	);

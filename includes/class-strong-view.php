@@ -62,6 +62,18 @@ class Strong_View {
 	}
 
 	/**
+     * Return a specific view attribute.
+     *
+	 * @param $att
+	 * @since 2.33.0
+     *
+	 * @return mixed|null
+	 */
+	public function get_att( $att ) {
+	    return isset( $this->atts[ $att ] ) ? $this->atts[ $att ] : null;
+	}
+
+	/**
 	 * Return our rendered template.
 	 *
 	 * @return string
@@ -70,6 +82,11 @@ class Strong_View {
 		return $this->html;
 	}
 
+	/**
+     * Warning message of view not found.
+     *
+	 * @return string
+	 */
 	public function nothing_found() {
 		ob_start();
 		?>
@@ -98,34 +115,153 @@ class Strong_View {
 	 * Add content filters.
 	 */
 	public function add_content_filters() {
-		if ( isset( $this->atts['content'] ) && 'truncated' == $this->atts['content'] ) {
 
-			// Force use of content instead of manual excerpt.
-			add_filter( 'wpmtst_get_the_excerpt', 'wpmtst_bypass_excerpt', 1 );
+        if ( 'truncated' == $this->get_att( 'content' ) ) {
 
-		} elseif ( isset( $this->atts['content'] ) && 'excerpt' == $this->atts['content'] ) {
+		    // automatic excerpt
 
-			// Maybe add read-more to manual excerpts.
-			add_filter( 'wpmtst_get_the_excerpt', 'wpmtst_custom_excerpt_more', 20 );
+            $this->excerpt_filters();
 
-		}
-		// else no filters
+            $this->hybrid_content();
+
+	        add_filter( 'wpmtst_get_the_excerpt', 'wpmtst_bypass_excerpt', 1 );
+
+            if ( $this->get_att( 'more_post_ellipsis' ) ) {
+                add_filter( 'wpmtst_use_ellipsis', '__return_true' );
+            }
+
+        } elseif ( 'excerpt' == $this->get_att( 'content' ) ) {
+
+		    // manual excerpt (if no excerpt then use automatic excerpt)
+
+	        $this->excerpt_filters();
+
+            $this->hybrid_content();
+
+	        if ( $this->get_att( 'more_full_post' ) ) {
+		        add_filter( 'wpmtst_get_the_excerpt', array( $this, 'manual_excerpt_more' ), 20 );
+	        }
+
+	        if ( $this->get_att( 'more_post_ellipsis' ) ) {
+		        add_filter( 'wpmtst_use_ellipsis', array( $this, 'has_no_excerpt' ) );
+	        } else {
+		        add_filter( 'wpmtst_use_ellipsis', '__return_false' );
+	        }
+
+        } else {
+
+		    // full content
+		    add_filter( 'wpmtst_get_the_content', 'wpmtst_the_content_filtered' );
+
+        }
+
 	}
 
 	/**
-	 * Add content filters.
+	 * Add excerpt filters.
+     *
+     * @since 2.33.0
+	 */
+	public function excerpt_filters() {
+        add_filter( 'wpmtst_get_the_content', 'wpmtst_the_excerpt_filtered' );
+        add_filter( 'wpmtst_get_the_excerpt', 'wpmtst_trim_excerpt' );
+
+        if ( ! $this->get_att( 'use_default_length' ) ) {
+			add_filter( 'excerpt_length', array( $this, 'excerpt_length' ) );
+		}
+
+		if ( ! $this->get_att( 'use_default_more' ) ) {
+			add_filter( 'excerpt_more', array( $this, 'excerpt_more' ) );
+		}
+	}
+
+	/**
+	 * Add hybrid content filters.
+     *
+     * @since 2.33.0
+	 */
+	public function hybrid_content() {
+		if ( $this->get_att( 'more_post_in_place' ) ) {
+			add_filter( 'wpmtst_is_hybrid_content', '__return_true' );
+		} else {
+			add_filter( 'wpmtst_read_more_post_link', 'wpmtst_prepend_ellipsis' );
+		}
+	}
+
+	/**
+	 * Remove content filters.
+     *
+     * @since 2.33.0
 	 */
 	public function remove_content_filters() {
-		if ( isset( $this->atts['content'] ) && 'truncated' == $this->atts['content'] ) {
+        remove_filter( 'wpmtst_get_the_content', 'wpmtst_the_content_filtered' );
+        remove_filter( 'wpmtst_get_the_content', 'wpmtst_the_excerpt_filtered' );
 
-			remove_filter( 'wpmtst_get_the_excerpt', 'wpmtst_bypass_excerpt', 1 );
+		remove_filter( 'excerpt_length', array( $this, 'excerpt_length' ) );
+		remove_filter( 'excerpt_more', array( $this, 'excerpt_more' ) );
+		remove_filter( 'wpmtst_read_more_post_link', 'wpmtst_prepend_ellipsis' );
 
-		} elseif ( isset( $this->atts['content'] ) && 'excerpt' == $this->atts['content'] ) {
+        remove_filter( 'wpmtst_get_the_excerpt', 'wpmtst_bypass_excerpt', 1 );
+        remove_filter( 'wpmtst_get_the_excerpt', 'wpmtst_hybrid_excerpt' );
+        remove_filter( 'wpmtst_get_the_excerpt', 'wpmtst_trim_excerpt' );
+        remove_filter( 'wpmtst_get_the_excerpt', array( $this, 'manual_excerpt_more' ), 20 );
 
-			remove_filter( 'wpmtst_get_the_excerpt', 'wpmtst_custom_excerpt_more', 20 );
+		remove_filter( 'wpmtst_is_hybrid_content', '__return_true' );
+		remove_filter( 'wpmtst_use_ellipsis', '__return_true' );
+		remove_filter( 'wpmtst_use_ellipsis', array( $this, 'has_no_excerpt' ) );
+	}
 
+	/**
+     * Return true if post has no manual excerpt.
+     *
+     * @since 2.33.0
+     *
+	 * @return bool
+	 */
+	public function has_no_excerpt() {
+	    return ! has_excerpt();
+	}
+
+	/**
+     * Set custom excerpt length.
+     *
+	 * @param $words
+     * @since 2.33.0
+	 *
+	 * @return mixed|null
+	 */
+	public function excerpt_length( $words ) {
+		$excerpt_length = $this->get_att( 'excerpt_length' );
+
+		return $excerpt_length ? $excerpt_length : $words;
+	}
+
+	/**
+     * The read-more link, maybe prepended with an ellipsis.
+     *
+	 * @param $more
+     * @since 2.33.0
+	 *
+	 * @return string
+	 */
+	public function excerpt_more( $more ) {
+		return wpmtst_get_excerpt_more_link();
+	}
+
+	/**
+	 * Maybe add read-more to manual excerpt.
+	 *
+	 * @since 2.26.0
+	 * @param $excerpt
+	 *
+	 * @return string
+	 */
+	public function manual_excerpt_more( $excerpt ) {
+	    if ( has_excerpt() ) {
+			$excerpt .= apply_filters( 'excerpt_more', ' [&hellip;]' );
 		}
-		// else no filters
+
+		return $excerpt;
 	}
 
 	/**
@@ -171,11 +307,10 @@ class Strong_View {
 		$script = WPMST()->templates->get_template_config( $this->atts, 'script', false );
 
 		if ( $script ) {
-			$handle = 'testimonials-' . $this->atts['template'];
+			$handle = 'testimonials-' . $this->get_att( 'template' );
 			wp_register_script( $handle, $script, $deps_array );
 			WPMST()->render->add_script( $handle );
-		}
-		else {
+		} else {
 			foreach ( $deps_array as $handle ) {
 				WPMST()->render->add_script( $handle );
 			}
@@ -194,13 +329,13 @@ class Strong_View {
 	 */
 	public function find_stylesheet( $enqueue = true ) {
 		// In case of deactivated widgets still referencing deleted Views
-		if ( ! isset( $this->atts['template'] ) || ! $this->atts['template'] ) {
+		if ( ! $this->get_att( 'template' ) ) {
 			return false;
 		}
 
 		$stylesheet = WPMST()->templates->get_template_attr( $this->atts, 'stylesheet', false );
 		if ( $stylesheet ) {
-			$handle = 'testimonials-' . str_replace( ':', '-', $this->atts['template'] );
+			$handle = 'testimonials-' . str_replace( ':', '-', $this->get_att( 'template' ) );
 			$this->set_stylesheet( $handle );
 			wp_register_style( $handle, $stylesheet, array(), $this->plugin_version );
 			if ( $enqueue ) {
@@ -222,7 +357,8 @@ class Strong_View {
 	 * @return array
 	 */
 	public function get_template_css_class() {
-		$template_name = $this->atts['template'];
+		$template_name     = $this->get_att( 'template' );
+        $template_settings = $this->get_att( 'template_settings' );
 
 		// Maintain back-compat with template format version 1.0.
 		$class = str_replace( ':content', '', $template_name );
@@ -236,10 +372,10 @@ class Strong_View {
 
 			foreach ( $template_object['config']['options'] as $option ) {
 
-				if ( isset( $this->atts['template_settings'][ $template_name ][ $option->name ] ) ) {
+				if ( isset( $template_settings[ $template_name ][ $option->name ] ) ) {
 
 					foreach ( $option->values as $value ) {
-						if ( $value->value == $this->atts['template_settings'][ $template_name ][ $option->name ] ) {
+						if ( $value->value == $template_settings[ $template_name ][ $option->name ] ) {
 							if ( isset( $value->class_name ) ) {
 								$class_list[] = $value->class_name;
 							}
@@ -280,7 +416,7 @@ class Strong_View {
 	 * @return bool
 	 */
 	public function is_form() {
-		return ( isset( $this->atts['mode'] ) && 'form' == $this->atts['mode'] );
+		return ( 'form' == $this->get_att( 'mode' ) );
 	}
 
 	/**
@@ -289,7 +425,7 @@ class Strong_View {
 	 * @since 2.30.0
 	 */
 	public function custom_font_color() {
-		$font_color = $this->atts['font-color'];
+		$font_color = $this->get_att( 'font-color' );
 		if ( ! isset( $font_color['type'] ) || 'custom' != $font_color['type'] ) {
 			return;
 		}
@@ -297,7 +433,7 @@ class Strong_View {
 		$c1 = isset( $font_color['color'] ) ? $font_color['color'] : '';
 
 		if ( $c1 ) {
-			$view_el = ".strong-view-id-{$this->atts['view']}";
+			$view_el = ".strong-view-id-{$this->get_att( 'view' )}";
 			$handle = $this->get_stylesheet();
 
 			if ( $this->is_form() ) {
@@ -319,7 +455,7 @@ class Strong_View {
 	 * Build CSS for custom background.
 	 */
 	public function custom_background() {
-		$background = $this->atts['background'];
+		$background = $this->get_att( 'background' );
 		if ( ! isset( $background['type'] ) ) {
 			return;
 		}
@@ -348,11 +484,11 @@ class Strong_View {
 
 		// Special handling for Divi Builder
 		$prefix = '';
-		if ( isset( $this->atts['divi_builder'] ) && $this->atts['divi_builder'] && wpmtst_divi_builder_active() ) {
+		if ( $this->get_att( 'divi_builder' ) && wpmtst_divi_builder_active() ) {
 			$prefix = '#et_builder_outer_content ';
 		}
 
-		$view_el = "$prefix.strong-view-id-{$this->atts['view']}";
+		$view_el = "$prefix.strong-view-id-{$this->get_att( 'view' )}";
 
 		// Includes special handling for Bold template.
 		if ( $c1 && $c2 ) {
@@ -417,8 +553,8 @@ class Strong_View {
 	 * @since 2.16.0 In Strong_View class.
 	 */
 	public function has_stars() {
-		if ( isset( $this->atts['client_section'] ) ) {
-			foreach ( $this->atts['client_section'] as $field ) {
+		if ( $this->get_att( 'client_section' ) ) {
+			foreach ( $this->get_att( 'client_section' ) as $field ) {
 				if ( 'rating' == $field['type'] ) {
 					WPMST()->render->add_style( 'wpmtst-rating-display' );
 					break;
