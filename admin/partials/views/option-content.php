@@ -97,7 +97,8 @@
 		<div class="row-inner subgroup">
 
 			<div class="subgroup-heading">
-				<?php _e( '"Read more" link', 'strong-testimonials' ); ?>
+				<?php //_e( '"Read more" link', 'strong-testimonials' ); ?>
+				<?php _e( 'More link', 'strong-testimonials' ); ?>
 			</div>
 
             <!-- action: full post or in place -->
@@ -107,7 +108,7 @@
                         <select id="view-more_post_in_place" class="" name="view[data][more_post_in_place]">
                             <option value="0" <?php selected( ! $view['more_post_in_place'] ); ?>>
                                 <?php // TODO Get label from Properties ?>
-					            <?php _e( 'link to full testimonial', 'strong-testimonials' ); ?>
+					            <?php _e( 'go to full testimonial', 'strong-testimonials' ); ?>
                             </option>
                             <option value="1" <?php selected( $view['more_post_in_place'] ); ?>>
 					            <?php _e( 'expand content in place', 'strong-testimonials' ); ?>
@@ -115,9 +116,9 @@
                         </select>
                     </label>
                 </div>
-            </div><!-- .row-inner -->
+            </div>
 
-			<!-- default or custom -->
+            <!-- default or custom -->
 			<div class="row-inner">
 
 				<div class="inline">
@@ -133,7 +134,7 @@
 					</label>
 				</div>
 
-				<div class="inline then fast then_use_default_more then_0 then_not_1" style="display: none;">
+                <div class="inline then fast then_use_default_more then_0 then_not_1" style="display: none;">
 
 					<span id="option-link-text" class="inline-span">
 						<label for="view-more_post_text">
@@ -143,7 +144,17 @@
 						</label>
 					</span>
 
+					<span id="option-link-text-less" class="inline-span">
+						<label for="view-less_post_text">
+							<input type="text" id="view-less_post_text" name="view[data][less_post_text]"
+								   value="<?php echo $view['less_post_text']; ?>" size="22"
+								   placeholder="<?php _e( 'enter a phrase', 'strong-testimonials' ); ?>">
+						</label>
+					</span>
+
                 </div>
+
+                <!-- ellipsis -->
                 <div class="inline then fast then_use_default_more then_0 then_not_1" style="display: none;">
 
 					<span id="option-ellipsis">

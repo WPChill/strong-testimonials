@@ -706,6 +706,8 @@ class Strong_Testimonials_Defaults {
 			'more_post_ellipsis'  => true,
 			'more_post_text'      => _x( 'Read more', 'link', 'strong-testimonials' ),
 			'more_post_in_place'  => false,
+			'less_post'           => false,
+			'less_post_text'      => __( 'Show less', 'strong-testimonials' ),
 			'more_page'           => false,
 			'more_page_hook'      => 'wpmtst_view_footer',
 			'more_page_id'        => 0,
