@@ -156,7 +156,7 @@ function wpmtst_get_excerpt_more_link() {
 	        WPMST()->atts( 'less_post_text' )  // 5
 	    );
 	} else {
-		$link = sprintf( '&nbsp;<a href="%s" class="%s">%s</a>', esc_url( $url ), $link_class, $link_text );
+		$link = sprintf( '<a href="%s" class="%s">%s</a>', esc_url( $url ), $link_class, $link_text );
 	}
 
 	return apply_filters( 'wpmtst_read_more_post_link', $link );
