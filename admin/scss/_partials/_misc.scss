@@ -16,16 +16,11 @@ td.rowspan {
   border-left: 1px solid #DDD;
 }
 
-// Highlight the manual excerpt creation option in Content group.
-//.highlight-on {
-//  background: rgba($blue, 0.05);
-//  border: 1px solid rgba($blue, 0.1);
-//  padding: 0 0.5em;
-//}
-
 .subgroup {
-  border: 1px solid #DDD;
-  padding: 0 0.5em;
+  background: #f8f8f8;
+  border: 1px solid #f1f1f1;
+  padding: 0.25em 1em;
+  margin-right: 1em;
 }
 
 .subgroup-heading {
