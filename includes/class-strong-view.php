@@ -144,6 +144,8 @@ class Strong_View {
 
 	        if ( $this->get_att( 'more_post_ellipsis' ) ) {
 		        add_filter( 'wpmtst_use_ellipsis', array( $this, 'has_no_excerpt' ) );
+	        } else {
+		        add_filter( 'wpmtst_use_ellipsis', '__return_false' );
 	        }
 
         } else {
