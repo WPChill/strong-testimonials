@@ -1,6 +1,12 @@
 /**
  * readmore.js
+ *
+ * @param toggleButtonText
+ * @param toggleButtonText.dataset
+ * @param toggleButtonText.dataset.moreText
+ * @param toggleButtonText.dataset.lessText
  */
+
 (function () {
 
   /*
@@ -20,14 +26,22 @@
     if (event.type === 'animationend' && event.animationName === 'fadeOutUp') {
       // Add `hidden` attribute
       event.target.setAttribute('hidden', 'true');
+
       // Show read-more link
-      event.target.parentElement.querySelector('.readmore').style.display = 'inline';
+      event.target.parentElement.querySelector('.readmore-toggle').style.display = 'inline';
+
       // Show ellipsis
       var ellipsis = event.target.parentElement.querySelector('.ellipsis');
       if (ellipsis) {
         ellipsis.style.display = 'inline';
       }
+
+      fireCustomEvent();
     }
+  };
+
+  var fireCustomEvent = function () {
+    window.dispatchEvent(new Event('toggleFullContent'));
   };
 
   // Only in modern browsers.
@@ -65,7 +79,8 @@
           fullTextWrapper.removeAttribute('hidden');
 
           // 2. update toggle link
-          toggleButtonText.innerText = 'Show Less';
+          // change text (may be blank)
+          toggleButtonText.innerText = toggleButtonText.dataset.lessText;
           toggleButton.setAttribute('aria-expanded', true);
           if( ellipsis ) {
             ellipsis.style.display = 'none';
@@ -76,16 +91,18 @@
           fullTextWrapper.classList.remove('fadeOutUp');
           fullTextWrapper.classList.remove('faster');
 
+          fireCustomEvent();
+
         } else {
 
           // hide
 
           // 1. update toggle link
           // hide link during transition
-          toggleButton.style.display = 'none';
+          toggleButton.style.display = 'none'
           toggleButton.setAttribute('aria-expanded', false);
-          // change link text
-          toggleButtonText.innerText = 'Show More';
+          // change link text (may be blank)
+          toggleButtonText.innerText = toggleButtonText.dataset.moreText;
 
           // 2. animate it
           fullTextWrapper.classList.add('fadeOutUp');

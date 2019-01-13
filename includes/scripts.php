@@ -188,8 +188,7 @@ function wpmtst_scripts() {
 	 * Read more in place
 	 */
 	wp_register_script( 'wpmtst-readmore',
-	                    //WPMTST_PUBLIC_URL . "js/lib/readmore/readmore{$min}.js",
-	                    WPMTST_PUBLIC_URL . "js/lib/readmore/readmore.js",
+	                    WPMTST_PUBLIC_URL . "js/lib/readmore/readmore{$min}.js",
 	                    array(),
 	                    $plugin_version,
 	                    true );
