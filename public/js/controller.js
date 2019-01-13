@@ -1,7 +1,7 @@
 /**
  * Component Controller
  *
- * Version 1.1.0
+ * Version 1.2
  * For Strong Testimonials version 2.31
  *
  * @namespace window.strongControllerParms
@@ -123,6 +123,17 @@ var strongController = {
    */
   initIframes: function () {
     this.iframes = jQuery('iframe');
+  },
+
+  /**
+   * Listen for custom events from other scripts.
+   */
+  customEvents: function () {
+    addEventListener( 'toggleFullContent', function (event) {
+      if (strongController.grids.length) {
+        strongController.grids.masonry();
+      }
+    });
   },
 
   /**
@@ -260,6 +271,7 @@ var strongController = {
     strongController.initLayouts();
     strongController.initForm();
     strongController.initIframes();
+    strongController.customEvents();
   },
 
   /**

@@ -2,7 +2,7 @@
 Contributors: cdillon27
 Tags: testimonials, testimonial slider, testimonial form, reviews, star ratings
 Requires at least: 3.7
-Requires PHP: 5.2.4
+Requires PHP: 5.3
 Tested up to: 5.0
 Stable tag: 2.32.4
 License: GPLv2 or later

@@ -48,7 +48,7 @@ function wpmtst_scripts() {
 		'script'         => isset( $ajax['script'] ) ? $ajax['script'] : '',
 		'containerId'    => isset( $ajax['container_id'] ) ? $ajax['container_id'] : '',
 		'addedNodeId'    => isset( $ajax['addednode_id'] ) ? $ajax['addednode_id'] : '',
-		'debug'          => defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG,
+		'debug'          => defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG  && apply_filters( 'debug_strong_controller', true ),
 	);
 	wp_localize_script( 'wpmtst-controller', 'strongControllerParms', $parms );
 
@@ -184,6 +184,20 @@ function wpmtst_scripts() {
 	                    $plugin_version,
 	                    true );
 
+	/**
+	 * Read more in place
+	 */
+	wp_register_script( 'wpmtst-readmore',
+	                    WPMTST_PUBLIC_URL . "js/lib/readmore/readmore{$min}.js",
+	                    array(),
+	                    $plugin_version,
+	                    true );
+
+	wp_register_style( 'wpmtst-animate',
+	                   WPMTST_PUBLIC_URL . 'css/animate.min.css',
+	                   array(),
+	                   '' );
+
 }
 add_action( 'wp_enqueue_scripts', 'wpmtst_scripts' );
 
@@ -205,6 +219,7 @@ function wpmtst_defer_scripts( $tag, $handle ) {
 		'jquery-actual',
 		'verge',
 		'wpmtst-slider',
+		'wpmtst-readmore',
 	);
 
 	if ( in_array( $handle, $scripts_to_defer ) ) {
