@@ -201,11 +201,7 @@ function wpmtst_sanitize_view_readmore( $data, $input, $default_view ) {
 	/**
 	 * Read more --> post (dependent on more-post-in-place)
 	 */
-	if ( $data['more_post_in_place'] ) {
-		$data['more_full_post'] = 1;
-	} else {
-		$data['more_full_post'] = sanitize_text_field( $input['more_full_post'] );
-	}
+	$data['more_full_post'] = sanitize_text_field( $input['more_full_post'] );
 
 	/**
 	 * Read more --> page

@@ -248,6 +248,7 @@ jQuery(document).ready(function ($) {
    * Update option for [adding read-more to excerpts] based on setting
    * for [read-more type] (link to post or expand in place).
    */
+  /*
   var viewHybrid = $('#view-more_post_in_place');
   var viewHybridChange = function () {
     var thisValue = viewHybrid.val();
@@ -260,6 +261,7 @@ jQuery(document).ready(function ($) {
   };
   viewHybridChange();
   viewHybrid.on('change', viewHybridChange);
+  */
 
   /**
    * Plugin: Show/Hide parts based on current Mode
