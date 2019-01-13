@@ -105,7 +105,9 @@
             <div class="row-inner">
                 <div class="inline tight">
                     <label>
-                        <select id="view-more_post_in_place" class="" name="view[data][more_post_in_place]">
+                        <select id="view-more_post_in_place"
+                                class="if selectgroup"
+                                name="view[data][more_post_in_place]">
                             <option value="0" <?php selected( ! $view['more_post_in_place'] ); ?>>
                                 <?php // TODO Get label from Properties ?>
 					            <?php _e( 'go to full testimonial', 'strong-testimonials' ); ?>
@@ -123,19 +125,20 @@
 
 				<div class="inline">
 					<label>
-						<select id="view-use_default_more" class="if selectgroup min-width-1" name="view[data][use_default_more]">
+						<select id="view-use_default_more"
+                                class="if selectgroup min-width-1"
+                                name="view[data][use_default_more]">
 							<option value="1" <?php selected( $view['use_default_more'] ); ?>>
 								<?php _ex( 'default link text', 'display setting', 'strong-testimonials' ); ?>
 							</option>
 							<option value="0" <?php selected( ! $view['use_default_more'] ); ?>>
-								<?php _ex( 'custom link text (recommended)', 'display setting', 'strong-testimonials' ); ?>
+								<?php _ex( 'custom link text', 'display setting', 'strong-testimonials' ); ?>
 							</option>
 						</select>
 					</label>
 				</div>
 
                 <div class="inline then fast then_use_default_more then_0 then_not_1" style="display: none;">
-
 					<span id="option-link-text" class="inline-span">
 						<label for="view-more_post_text">
 							<input type="text" id="view-more_post_text" name="view[data][more_post_text]"
@@ -143,7 +146,10 @@
 								   placeholder="<?php _e( 'enter a phrase', 'strong-testimonials' ); ?>">
 						</label>
 					</span>
+                    <p class="description">link to expand content</p>
+                </div>
 
+                <div class="inline then fast then_more_post_in_place then_1 then_not_0" style="display: none;">
 					<span id="option-link-text-less" class="inline-span">
 						<label for="view-less_post_text">
 							<input type="text" id="view-less_post_text" name="view[data][less_post_text]"
@@ -151,7 +157,7 @@
 								   placeholder="<?php _e( 'enter a phrase', 'strong-testimonials' ); ?>">
 						</label>
 					</span>
-
+                    <p class="description">link to collapse content (leave blank for no link)</p>
                 </div>
 
                 <!-- ellipsis -->
