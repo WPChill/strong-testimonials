@@ -323,6 +323,10 @@ class Strong_View_Display extends Strong_View {
 			$container_data_list['state'] = 'idle';
 		}
 
+		if ( $this->is_hybrid() ) {
+			$container_class_list[] = 'more-in-place';
+		}
+
 		// layouts
 		$content_class_list[] = 'strong-' . ( $this->atts['layout'] ? $this->atts['layout'] : 'normal' );
 		$content_class_list[] = 'columns-' . ( $this->atts['layout'] ? $this->atts['column_count'] : '1' );
@@ -352,8 +356,26 @@ class Strong_View_Display extends Strong_View {
 		return ( $this->atts['pagination'] && 'simple' == $this->atts['pagination_settings']['type'] );
 	}
 
+	/**
+	 * Return true if using Masonry.
+	 *
+	 * @since 2.28.0
+	 *
+	 * @return bool
+	 */
 	public function is_masonry() {
 		return ( 'masonry' == $this->atts['layout'] );
+	}
+
+	/**
+	 * Return true if read-more in place.
+	 *
+	 * @since 2.33.0
+	 *
+	 * @return bool
+	 */
+	public function is_hybrid() {
+		return ( isset( $this->atts['more_post_in_place'] ) && $this->atts['more_post_in_place'] );
 	}
 
 	/**
@@ -449,10 +471,10 @@ class Strong_View_Display extends Strong_View {
 	 * @since 2.33.0
 	 */
 	public function has_readmore() {
-		//if ( isset( $this->atts['more_post_in_place'] ) && $this->atts['more_post_in_place'] ) {
+		if ( $this->is_hybrid() ) {
 			WPMST()->render->add_style( 'wpmtst-animate' );
 			WPMST()->render->add_script( 'wpmtst-readmore' );
-		//}
+		}
 	}
 
 }

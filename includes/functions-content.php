@@ -148,7 +148,13 @@ function wpmtst_get_excerpt_more_link() {
 
 	if ( apply_filters( 'wpmtst_is_hybrid_content', false ) ) {
 	    // no href
-	    $link = sprintf( '<a aria-expanded="false" aria-controls="more-%d" class="%s readmore-toggle"><span class="readmore-text">%s</span></a>', get_the_ID(), $link_class, $link_text );
+	    $link = sprintf( '<a aria-expanded="false" aria-controls="more-%1$d" class="%2s readmore-toggle"><span class="readmore-text" data-more-text="%4$s" data-less-text="%5$s">%3$s</span></a>',
+		    get_the_ID(), // 1
+		    $link_class,  // 2
+		    $link_text,   // 3
+	        WPMST()->atts( 'more_post_text' ), // 4
+	        WPMST()->atts( 'less_post_text' )  // 5
+	    );
 	} else {
 		$link = sprintf( '<a href="%s" class="%s">%s</a>', esc_url( $url ), $link_class, $link_text );
 	}
@@ -231,18 +237,18 @@ function wpmtst_assemble_excerpt( $words_array, $sep, $more ) {
  * @return string
  */
 function wpmtst_assemble_hybrid( $words_array, $num_words, $sep, $more ) {
-	$space = __( '&nbsp;' );
-
 	$ellipsis = wpmtst_ellipsis();
 	if ( $ellipsis ) {
-		$ellipsis = '<span class="ellipsis">' . $ellipsis . '</span>';
+		$ellipsis = '<span class="ellipsis">' . $ellipsis . ' </span>';
+		/* ! This space is important:                        ^       */
 	}
 
 	$first_half  = implode( $sep, array_slice( $words_array, 0, $num_words ) );
 	$second_half = implode( $sep, array_slice( $words_array, $num_words ) );
 
-	$wrap_open  = '<span class="readmore-content animated" id="more-' . get_the_ID() . '" hidden>';
-	$wrap_close = $space . '</span>';
+	$wrap_open  = '<span class="readmore-content animated" id="more-' . get_the_ID() . '" hidden> ';
+	$wrap_close = ' </span>';
 
-	return $first_half . $ellipsis . $space . $wrap_open . $second_half . $wrap_close . $more;
+	return $first_half . $ellipsis . ' ' . $wrap_open . $second_half . $wrap_close . $more;
+	/* ! This space is important:     ^                                                  */
 }
