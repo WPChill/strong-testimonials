@@ -156,8 +156,8 @@ function wpmtst_settings_custom_fields( $form_id = 1 ) {
 	$fields = $forms[$form_id]['fields'];
 	?>
     <div class="wrap wpmtst">
-    <h1><?php _e( 'Fields', 'strong-testimonials' ); ?></h1>
-
+    <h1 class="wp-heading-inline"><?php _e( 'Fields', 'strong-testimonials' ); ?></h1>
+    <hr class="wp-header-end">
     <?php do_action( 'wpmtst_fields_editor_before_fields_intro' ); ?>
 
     <div id="left-col">
