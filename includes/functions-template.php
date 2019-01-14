@@ -1,8 +1,6 @@
 <?php
 /**
  * Template Functions
- *
- * @package Strong_Testimonials
  */
 
 /**

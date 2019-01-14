@@ -1,8 +1,6 @@
 <?php
 /**
  * Functions
- *
- * @package Strong_Testimonials
  */
 
 function wpmtst_support_url() {

@@ -2,7 +2,6 @@
 /**
  * Settings
  *
- * @package Strong_Testimonials
  * @since 1.13
  */
 

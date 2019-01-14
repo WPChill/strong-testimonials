@@ -3,7 +3,6 @@
  * View admin functions.
  *
  * @since 1.21.0
- * @package Strong_Testimonials
  */
 
 
