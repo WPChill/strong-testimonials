@@ -8,9 +8,6 @@
  *
  * @since 3.1.0
  * @access private
- *
- * @package
- * @subpackage
  */
 
 if ( !class_exists( 'Strong_Testimonials_List_Table' ) ) :

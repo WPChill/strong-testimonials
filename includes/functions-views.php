@@ -1,8 +1,6 @@
 <?php
 /**
  * View Functions
- *
- * @package Strong_Testimonials
  */
 
 /**

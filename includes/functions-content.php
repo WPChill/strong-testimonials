@@ -1,8 +1,6 @@
 <?php
 /**
  * Content functions.
- *
- * @package Strong_Testimonials
  */
 
 /**
