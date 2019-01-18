@@ -12,11 +12,11 @@ Simple yet powerful. Very customizable. Developer-friendly.
 
 == Description ==
 
+> This plugin is up for adoption.
+
 In just a few steps, you will be collecting and publishing your testimonials or reviews. Beginners and pros alike will appreciate the wealth of flexible features refined over 4 years from user feedback and requests.
 
 **[See the demos](https://strongdemos.com/strong-testimonials/)** | **[Read the documentation](https://strongplugins.com/documents/)** | **[Shop for add-ons](https://strongplugins.com/)**
-
-> This plugin is up for adoption.
 
 ### Primary Features
 
@@ -41,10 +41,9 @@ In just a few steps, you will be collecting and publishing your testimonials or 
 
 ### Style
 
-> This plugin provides a few designs with only basic style options for background color and font color. Everything else will be inherited from your theme.
->
-> Some templates have light & dark versions and other options. If you want to customize things like fonts, margins and borders, you will need custom CSS.
->
+This plugin provides a few designs with only basic style options for background color and font color. Everything else will be inherited from your theme.
+
+Some templates have light & dark versions and other options. If you want to customize things like fonts, margins and borders, you will need custom CSS.
 
 ### Testimonial Submission Form
 
@@ -59,10 +58,6 @@ Anti-spam measures include honeypots and Captcha via these plugins:
 Send custom notification emails to multiple admins.
 
 Submit the form via Ajax for use with plugins like [Popup Maker](https://wordpress.org/plugins/popup-maker/).
-
-#### Free Add-on
-
-Use the [Country Selector](https://wordpress.org/plugins/strong-testimonials-country-selector/) plugin to add a country selector to your form. [See the demo](https://strongdemos.com/strong-testimonials/form-examples/with-country-selector/).
 
 ### Displaying Testimonials
 
@@ -100,6 +95,10 @@ However, this plugin provides features that may involve private data.
 * If you embed third-party posts such as Twitter, YouTube and FaceBook in your testimonials, you will be agreeing to the Terms of Use of those third-party sites.
 
 ### Free Add-ons
+
+#### Country Selector
+
+Use the [Country Selector](https://wordpress.org/plugins/strong-testimonials-country-selector/) plugin to add a country selector to your form. [See the demo](https://strongdemos.com/strong-testimonials/form-examples/with-country-selector/).
 
 #### Assignment
 
