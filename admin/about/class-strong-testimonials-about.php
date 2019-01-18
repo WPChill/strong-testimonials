@@ -52,7 +52,7 @@ class Strong_Testimonials_About {
 	 */
 	public function about_page() {
 		$major_minor = strtok( WPMTST_VERSION, '.' ) . '.' . strtok( '.' );
-		$active_tab  = isset( $_GET['tab'] ) ? $_GET['tab'] : 'about';
+		$active_tab  = isset( $_GET['tab'] ) ? $_GET['tab'] : 'how-to';
 		$url         = admin_url( 'edit.php?post_type=wpm-testimonial&page=about-strong-testimonials' );
 		?>
 		<div class="wrap about-wrap">
@@ -63,16 +63,11 @@ class Strong_Testimonials_About {
 			<p class="about-text">
                 <?php _e( 'Thank you for updating to the latest version!' ); ?>
 				<?php /* translators: %s is the plugin version number */ ?>
-                <?php printf( 'Strong Testimonials %s adds a slider carousel option.', $major_minor ); ?>
             </p>
 
 			<div class="wp-badge strong-testimonials"><?php printf( __( 'Version %s' ), $major_minor ); ?></div>
 
 			<h2 class="nav-tab-wrapper wp-clearfix">
-
-				<a href="<?php echo $url; ?>" class="nav-tab <?php echo $active_tab == 'about' ? 'nav-tab-active' : ''; ?>"><?php _e( 'About' ); ?></a>
-
-				<a href="<?php echo add_query_arg( 'tab', 'whats-new', $url ); ?>" class="nav-tab <?php echo $active_tab == 'whats-new' ? 'nav-tab-active' : ''; ?>"><?php _e( 'What&#8217;s New' ); ?></a>
 
 				<a href="<?php echo add_query_arg( 'tab', 'how-to', $url ); ?>" class="nav-tab <?php echo $active_tab == 'how-to' ? 'nav-tab-active' : ''; ?>"><?php _e( 'How To', 'strong-testimonials' ); ?></a>
 
@@ -80,24 +75,15 @@ class Strong_Testimonials_About {
 
 			</h2>
 
-			<!--
-			<div class="changelog point-releases">
-			</div>
-			-->
 
 			<?php
 			switch( $active_tab ) {
 				case 'privacy':
 					include WPMTST_ADMIN . 'about/privacy.php';
 					break;
-				case 'how-to':
+				default:
 					include WPMTST_ADMIN . 'about/how-to.php';
 					break;
-				case 'whats-new':
-					include WPMTST_ADMIN . 'about/whats-new.php';
-					break;
-				default:
-					include WPMTST_ADMIN. 'about/about.php';
 			}
 
 			include WPMTST_ADMIN. 'about/links.php';

@@ -8,15 +8,8 @@ $links = array();
 
 $links[] = sprintf( '<a href="%s" target="_blank">%s</a>',
 	esc_url( 'http://wordpress.org/support/plugin/strong-testimonials' ),
-	__( 'Use the public support forum', 'strong-testimonials' ) );
+	__( 'Use the community support forum', 'strong-testimonials' ) );
 
-$links[] = __( 'or', 'strong-testimonials' ) . ' ' . sprintf( '<a href="%s" target="_blank">%s</a>',
-		esc_url( 'https://support.strongplugins.com' ),
-		__( 'submit a private support ticket', 'strong-testimonials' ) );
-
-$links[] = __( 'or', 'strong-testimonials' ) . ' ' . sprintf( '<a href="%s" target="_blank">%s</a>',
-		esc_url( 'https://strongplugins.com/contact/' ),
-		__( 'contact the developer', 'strong-testimonials' ) );
 ?>
 <ul>
 	<?php foreach ( $links as $link ) : ?>
