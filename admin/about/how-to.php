@@ -4,25 +4,6 @@ $add_the_view = __( 'Add the view to a page or sidebar using its unique shortcod
 <h2><?php _e( 'Let\'s Get Started', 'strong-testimonials' ); ?></h2>
 <p class="lead-description"><?php _e( 'This plugin is different than others you may have tried.', 'strong-testimonials' ); ?></p>
 
-<div class="feature-section one-col">
-    <p><?php printf( __( 'Testimonials are like posts. They can be viewed individually. For example, a testimonial with the title "Highly recommended!" is viewable at <a href="#" class="nogo">%1$s</a>.', 'strong-testimonials' ), home_url( 'testimonial/highly-recommended' ) ); ?></p>
-
-    <script>
-      document.querySelector(".nogo").addEventListener("click", function (e) {
-        e.preventDefault();
-        this.blur();
-      });
-    </script>
-
-    <p><?php _e( 'The more common approach is to display a group of testimonials. Among the many options, you can select which testimonials to include, what fields to show, and the layout.', 'strong-testimonials' ); ?></p>
-
-    <p><?php _e( 'The plugin provides a tool for configuring those displays: <strong>Views</strong>.', 'strong-testimonials' ); ?>
-        <?php _e( 'A view is simply a group of settings with an easy-to-use editor.', 'strong-testimonials' ); ?>
-        <?php _e( 'You can create <em>unlimited</em> views.', 'strong-testimonials' ); ?>
-        <?php _e( 'Each view has its own simple shortcode.', 'strong-testimonials' ); ?>
-    </p>
-</div>
-
 <div class="feature-section two-col">
     <div class="col">
         <h3><?php _e('How to Add the Form', 'strong-testimonials' ); ?></h3>

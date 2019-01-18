@@ -4,15 +4,15 @@
  * Plugin URI: https://strongplugins.com/plugins/strong-testimonials/
  * Description: Collect and display your testimonials or reviews.
  * Author: Chris Dillon
- * Version: 2.32.4
+ * Version: 2.33
  *
  * Author URI: https://strongplugins.com/
  * Text Domain: strong-testimonials
  * Domain Path: /languages
- * Requires: 3.7 or higher
+ * Requires: 4.0 or higher
  * License: GPLv2 or later
  *
- * Copyright 2014-2018 Chris Dillon chris@strongwp.com
+ * Copyright 2014-2019 Chris Dillon chris@strongwp.com
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -34,7 +34,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'WPMTST_VERSION', '2.32.4' );
+define( 'WPMTST_VERSION', '2.33' );
 define( 'WPMTST_PLUGIN', plugin_basename( __FILE__ ) ); // strong-testimonials/strong-testimonials.php
 define( 'WPMTST', dirname( WPMTST_PLUGIN ) );           // strong-testimonials
 define( 'STRONGPLUGINS_STORE_URL', 'https://strongplugins.com' );
@@ -281,15 +281,6 @@ final class Strong_Testimonials {
 			require_once WPMTST_ADMIN . 'view-list-order.php';
 			require_once WPMTST_ADMIN . 'views-validate.php';
 
-			/**
-			 * Add-on plugin updater.
-			 *
-			 * @since 2.1
-			 */
-			if ( ! class_exists( 'EDD_SL_Plugin_Updater' ) ) {
-				include WPMTST_ADMIN . 'edd/EDD_SL_Plugin_Updater.php';
-			}
-			include WPMTST_ADMIN . 'edd/Strong_Plugin_Updater.php';
 		}
 	}
 

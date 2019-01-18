@@ -1,20 +1,22 @@
 === Strong Testimonials ===
 Contributors: cdillon27
-Tags: testimonials, testimonial slider, testimonial form, reviews, star ratings
-Requires at least: 3.7
-Requires PHP: 5.2.4
+Tags: testimonials, testimonial slider, testimonial form, star ratings, adopt-me
+Requires at least: 4.0
+Requires PHP: 5.3
 Tested up to: 5.0
-Stable tag: 2.32.4
+Stable tag: 2.33
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Simple yet powerful. Very customizable. Developer-friendly. Strong support.
+Simple yet powerful. Very customizable. Developer-friendly.
 
 == Description ==
 
-In just a few steps, you will be collecting and publishing your testimonials or reviews. Beginners and pros alike will appreciate the wealth of flexible features refined over 4 years from user feedback and requests. Keep moving forward with quick and thorough support to help you with configuration and customization.
+In just a few steps, you will be collecting and publishing your testimonials or reviews. Beginners and pros alike will appreciate the wealth of flexible features refined over 4 years from user feedback and requests.
 
-**[See the demos](https://strongdemos.com/strong-testimonials/)** | **[Read the documentation](https://strongplugins.com/documents/)** | **[Shop for add-ons](https://strongplugins.com/plugins/category/strong-testimonials/)**
+**[See the demos](https://strongdemos.com/strong-testimonials/)** | **[Read the documentation](https://strongplugins.com/documents/)** | **[Shop for add-ons](https://strongplugins.com/)**
+
+> This plugin is up for adoption.
 
 ### Primary Features
 
@@ -43,7 +45,6 @@ In just a few steps, you will be collecting and publishing your testimonials or 
 >
 > Some templates have light & dark versions and other options. If you want to customize things like fonts, margins and borders, you will need custom CSS.
 >
-> I will help with theme conflicts and a few tweaks. Otherwise, consider learning enough CSS to be dangerous or hiring a developer for a couple hours.
 
 ### Testimonial Submission Form
 
@@ -98,23 +99,19 @@ However, this plugin provides features that may involve private data.
 * If you enable comments on testimonials, the plugin will use your theme's single post template and comment form.
 * If you embed third-party posts such as Twitter, YouTube and FaceBook in your testimonials, you will be agreeing to the Terms of Use of those third-party sites.
 
-### Pro Add-ons
+### Free Add-ons
 
 #### Assignment
 
-Assign testimonials to any object (posts, pages, media or custom content types) with features designed to simplify your workflow. Works well with portfolio, directory and service business themes. [Learn more](https://strongplugins.com/plugins/strong-testimonials-assignment/?utm_source=wordpressorg&utm_medium=readme)
-
-#### Review Markup
-
-Testimonials are essentially five-star reviews. Adding review markup will improve search results and encourage search engines to display rich snippets (the stars). [Learn more](https://strongplugins.com/plugins/strong-testimonials-review-markup/?utm_source=wordpressorg&utm_medium=readme)
+Assign testimonials to any object (posts, pages, media or custom content types) with features designed to simplify your workflow. Works well with portfolio, directory and service business themes. [Learn more](https://strongplugins.com/)
 
 #### Multiple Forms
 
-Create unlimited forms, each with their own custom fields, to tailor testimonials for different products, services and markets. [Learn more](https://strongplugins.com/plugins/strong-testimonials-multiple-forms/?utm_source=wordpressorg&utm_medium=readme)
+Create unlimited forms, each with their own custom fields, to tailor testimonials for different products, services and markets. [Learn more](https://strongplugins.com/)
 
 #### Properties
 
-Want to rebrand "testimonials" as "reviews", "customer stories" or something else? Want to change the permalink structure? Control every aspect front and back. [Learn more](https://strongplugins.com/plugins/strong-testimonials-properties/?utm_source=wordpressorg&utm_medium=readme)
+Want to rebrand "testimonials" as "reviews", "customer stories" or something else? Want to change the permalink structure? Control every aspect front and back. [Learn more](https://strongplugins.com/)
 
 ### Documentation
 
@@ -191,16 +188,6 @@ Yes. This requires a lightbox so if your theme does not include one, you will ne
 = Will it automatically use my existing testimonials? =
 
 No. If you already have testimonials in another plugin or theme, you will have to re-enter them. Why? Because every theme and plugin stores data differently.
-
-= Is it true that including a link to my site in my support requests really helps you troubleshoot problems? =
-
-Undeniably, yes.
-
-This [screenshot](http://www.screencast.com/t/TPMRWM0yug) shows where I immediately start looking for clues before asking for more information and potentially waiting hours or days for a response (it happens).
-
-I can usually determine what theme you're using, what plugins are active, whether you're using any caching/minification/optimization (do you need to clear your cache?), if there are any JavaScript errors in your theme or another plugin (more common than you may think), and somewhat how the testimonial view is configured.
-
-If you prefer, start a private support ticket at [support.strongplugins.com](https://support.strongplugins.com).
 
 == Screenshots ==
 

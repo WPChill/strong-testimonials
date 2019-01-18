@@ -2,7 +2,6 @@
 /**
  * Taxonomy API: Walker_Strong_Form_Category_Checklist class
  *
- * @package Strong_Testimonials
  * @since 2.2.0
  */
 

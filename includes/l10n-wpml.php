@@ -199,6 +199,11 @@ function wpmtst_readmore_wpml( $options ) {
 	$string = sprintf( __( 'View %s : Read more (testimonial)', 'strong-testimonials' ), $options['id'] );
 	do_action( 'wpml_register_single_string', $context, $string, $options['more_post_text'] );
 
+	/* Translators: %s is the View ID. */
+	$string = sprintf( __( 'View %s : Read less (testimonial)', 'strong-testimonials' ), $options['id'] );
+	do_action( 'wpml_register_single_string', $context, $string, $options['less_post_text'] );
+
+	/* Translators: %s is the View ID. */
 	$string = sprintf( __( 'View %s : Read more (page or post)', 'strong-testimonials' ), $options['id'] );
 	do_action( 'wpml_register_single_string', $context, $string, $options['more_page_text'] );
 }
@@ -215,6 +220,7 @@ function wpmtst_update_view_wpml( $view ) {
 		array(
 			'id'             => $view['id'],
 			'more_post_text' => $view['data']['more_post_text'],
+			'less_post_text' => $view['data']['less_post_text'],
 			'more_page_text' => $view['data']['more_page_text'],
 		)
 	);

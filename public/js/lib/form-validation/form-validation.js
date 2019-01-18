@@ -1,7 +1,5 @@
 /**
  * Submission form validation
- *
- * @package Strong_Testimonials
  */
 
 var strongValidation = {

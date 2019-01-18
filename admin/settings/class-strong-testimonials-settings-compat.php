@@ -245,8 +245,6 @@ class Strong_Testimonials_Settings_Compat {
 
 		<h2><?php _e( 'Compatibility Settings', 'strong-testimonials' ); ?></h2>
 
-		<p class="about"><?php printf( __( '<a href="%s" target="_blank">Start a support ticket</a> if you need help with these options.', 'strong-testimonials' ), wpmtst_support_url() ); ?></p>
-
 		<?php
 	}
 

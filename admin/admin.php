@@ -204,7 +204,7 @@ function wpmtst_plugin_row_meta( $plugin_meta, $plugin_file, $plugin_data = arra
 
 	return $plugin_meta;
 }
-add_filter( 'plugin_row_meta', 'wpmtst_plugin_row_meta' , 10, 4 );
+//add_filter( 'plugin_row_meta', 'wpmtst_plugin_row_meta' , 10, 4 );
 
 
 /**
