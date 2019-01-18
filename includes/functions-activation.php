@@ -31,7 +31,6 @@ function wpmtst_update_tables() {
 		$message .= __( 'The plugin has been deactivated.', 'strong-testimonials' );
 		$message .= '</p>';
 		$message .= '<p><code>' . $wpdb->last_error . '</code></p>';
-		$message .= '<p>' . sprintf( __( 'Please <a href="%s" target="_blank">open a support ticket</a>.', 'strong-testimonials' ), wpmtst_support_url() ) . '</p>';
 		$message .= '<p>' . sprintf( __( '<a href="%s">Go back to Dashboard</a>', 'strong-testimonials' ), esc_url( admin_url() ) ) . '</p>';
 
 		wp_die( sprintf( '<div class="error strong-view-error">%s</div>', $message ) );

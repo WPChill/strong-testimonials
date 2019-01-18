@@ -4,7 +4,7 @@
  */
 
 function wpmtst_support_url() {
-	return esc_url( 'https://strongplugins.com/support/' );
+	return esc_url( 'https://strongplugins.com/' );
 }
 
 /**
