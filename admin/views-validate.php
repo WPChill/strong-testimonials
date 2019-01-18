@@ -90,65 +90,7 @@ function wpmtst_sanitize_view( $input ) {
 	$data['excerpt_length']     = (int) sanitize_text_field( $input['excerpt_length'] );
 	$data['use_default_length'] = sanitize_text_field( $input['use_default_length'] );
 
-	// Read more --> post
-	$data['more_full_post']          = $input['more_full_post'];
-	if ( 'truncated' == $data['content'] || 'excerpt' == $data['content'] ) {
-		$data['more_post'] = 1;
-	} else {
-		$data['more_post'] = 0;
-	}
-	$data['more_post_ellipsis']      = isset( $input['more_post_ellipsis'] ) ? 1 : 0;
-	$data['more_post_text']          = sanitize_text_field( $input['more_post_text'] );
-	$data['use_default_more']        = $input['use_default_more'];
-
-	// Read more --> page
-	if ( isset( $input['more_page'] ) && $input['more_page'] ) {
-
-		// Check the "ID or slug" field first
-		if ( $input['more_page_id2'] ) {
-
-			// is post ID?
-			$id = sanitize_text_field( $input['more_page_id2'] );
-			if ( is_numeric( $id ) ) {
-				if ( ! get_posts( array( 'p' => $id, 'post_type' => array( 'page', 'post' ), 'post_status' => 'publish' ) ) ) {
-					$id = null;
-				}
-			} else {
-				// is post slug?
-				$target = get_posts( array( 'name' => $id, 'post_type' => array( 'page', 'post' ), 'post_status' => 'publish' ) );
-				if ( $target ) {
-					$id = $target[0]->ID;
-				}
-			}
-
-			if ( $id ) {
-				$data['more_page_id'] = $id;
-				unset( $data['more_page_id2'] );
-			}
-
-		} else {
-
-			if ( $input['more_page_id'] ) {
-				if ( is_numeric( $input['more_page_id'] ) ) {
-					$data['more_page_id'] = (int) sanitize_text_field( $input['more_page_id'] );
-				} else {
-					$data['more_page_id'] = sanitize_text_field( $input['more_page_id'] );
-				}
-			}
-
-		}
-
-		// Only enable more_page if a page was selected by either method.
-		if ( isset( $data['more_page_id'] ) && $data['more_page_id'] ) {
-			$data['more_page'] = 1;
-		}
-	}
-	if ( ! $input['more_page_text'] ) {
-		$data['more_page_text'] = $default_view['more_page_text'];
-	} else {
-		$data['more_page_text'] = sanitize_text_field( $input['more_page_text'] );
-	}
-	$data['more_page_hook'] = sanitize_text_field( $input['more_page_hook'] );
+	$data = wpmtst_sanitize_view_readmore( $data, $input, $default_view );
 
 	// Thumbnail
 	$data['thumbnail']        = isset( $input['thumbnail'] ) ? 1 : 0;
@@ -224,6 +166,95 @@ function wpmtst_sanitize_view( $input ) {
 
 	$data = apply_filters( 'wpmtst_sanitized_view', $data, $input );
 	ksort( $data );
+
+	return $data;
+}
+
+/**
+ * Read-more options.
+ *
+ * @param $data
+ * @param $input
+ * @param $default_view
+ *
+ * @since 2.33.0 As separate function.
+ *
+ * @return array
+ */
+function wpmtst_sanitize_view_readmore( $data, $input, $default_view ) {
+	if ( 'truncated' == $data['content'] || 'excerpt' == $data['content'] ) {
+		$data['more_post'] = 1;
+	} else {
+		$data['more_post'] = 0;
+	}
+	$data['more_post_ellipsis'] = sanitize_text_field( $input['more_post_ellipsis'] );
+	$data['use_default_more']   = $input['use_default_more'];
+	$data['more_post_text']     = sanitize_text_field( $input['more_post_text'] );
+	$data['less_post_text']     = sanitize_text_field( $input['less_post_text'] );
+
+	/**
+	 * Read more in place
+	 *
+	 * @since 2.33.0
+	 */
+	$data['more_post_in_place'] = isset( $input['more_post_in_place'] ) ? $input['more_post_in_place'] : 0;
+
+	/**
+	 * Read more --> post (dependent on more-post-in-place)
+	 */
+	$data['more_full_post'] = sanitize_text_field( $input['more_full_post'] );
+
+	/**
+	 * Read more --> page
+	 */
+	if ( isset( $input['more_page'] ) && $input['more_page'] ) {
+
+		// Check the "ID or slug" field first
+		if ( $input['more_page_id2'] ) {
+
+			// is post ID?
+			$id = sanitize_text_field( $input['more_page_id2'] );
+			if ( is_numeric( $id ) ) {
+				if ( ! get_posts( array( 'p' => $id, 'post_type' => array( 'page', 'post' ), 'post_status' => 'publish' ) ) ) {
+					$id = null;
+				}
+			} else {
+				// is post slug?
+				$target = get_posts( array( 'name' => $id, 'post_type' => array( 'page', 'post' ), 'post_status' => 'publish' ) );
+				if ( $target ) {
+					$id = $target[0]->ID;
+				}
+			}
+
+			if ( $id ) {
+				$data['more_page_id'] = $id;
+				unset( $data['more_page_id2'] );
+			}
+
+		} else {
+
+			if ( $input['more_page_id'] ) {
+				if ( is_numeric( $input['more_page_id'] ) ) {
+					$data['more_page_id'] = (int) sanitize_text_field( $input['more_page_id'] );
+				} else {
+					$data['more_page_id'] = sanitize_text_field( $input['more_page_id'] );
+				}
+			}
+
+		}
+
+		// Only enable more_page if a page was selected by either method.
+		if ( isset( $data['more_page_id'] ) && $data['more_page_id'] ) {
+			$data['more_page'] = 1;
+		}
+	}
+
+	if ( ! $input['more_page_text'] ) {
+		$data['more_page_text'] = $default_view['more_page_text'];
+	} else {
+		$data['more_page_text'] = sanitize_text_field( $input['more_page_text'] );
+	}
+	$data['more_page_hook'] = sanitize_text_field( $input['more_page_hook'] );
 
 	return $data;
 }

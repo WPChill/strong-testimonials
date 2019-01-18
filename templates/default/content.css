@@ -54,6 +54,14 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
 .strong-view.default .testimonial-field-before {
   margin-right: 0.5em;
 }
+.strong-view.default a.readmore,
+.strong-view.default a.readmore-toggle {
+  white-space: nowrap;
+  z-index: 100;
+}
+.strong-view.default a.readmore-toggle:hover {
+  cursor: pointer;
+}
 
 .strong-view.slider-container {
   opacity: 1;

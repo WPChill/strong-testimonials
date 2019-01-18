@@ -1,8 +1,6 @@
 <?php
 /**
  * Featured image functions.
- *
- * @package Strong_Testimonials
  */
 
 /**

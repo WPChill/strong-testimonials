@@ -120,6 +120,9 @@ function wpmtst_readmore_polylang() {
 			pll_register_string( sprintf( __( 'View %s : Read more (testimonial)', 'strong-testimonials', false ),
 				$view['id'] ), $view_data['more_post_text'], $context );
 
+			pll_register_string( sprintf( __( 'View %s : Read less (testimonial)', 'strong-testimonials', false ),
+				$view['id'] ), $view_data['less_post_text'], $context );
+
 			pll_register_string( sprintf( __( 'View %s : Read more (page or post)', 'strong-testimonials', false ),
 				$view['id'] ), $view_data['more_page_text'], $context );
 		}

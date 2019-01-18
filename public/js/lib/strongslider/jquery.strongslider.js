@@ -588,6 +588,7 @@
 
       window.addEventListener('resize', updateLayout, false);
       window.addEventListener('orientationchange', updateLayout, false);
+      window.addEventListener('toggleFullContent', updateLayout, false);
 
       // Test this with dev console closed
       // (or click in the document once to establish focus).

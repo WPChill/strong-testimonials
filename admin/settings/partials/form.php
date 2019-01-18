@@ -2,7 +2,6 @@
 /**
  * Form Settings
  *
- * @package Strong_Testimonials
  * @since   1.13
  */
 $pages_list   = wpmtst_get_pages();
