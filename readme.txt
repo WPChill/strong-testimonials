@@ -1,6 +1,6 @@
 === Strong Testimonials ===
 Contributors: cdillon27
-Tags: testimonials, testimonial slider, testimonial form, star ratings, adopt-me
+Tags: testimonials, testimonial slider, testimonial form, star ratings
 Requires at least: 4.0
 Requires PHP: 5.3
 Tested up to: 5.0
@@ -11,8 +11,6 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Simple yet powerful. Very customizable. Developer-friendly.
 
 == Description ==
-
-> This plugin is up for adoption.
 
 In just a few steps, you will be collecting and publishing your testimonials or reviews. Beginners and pros alike will appreciate the wealth of flexible features refined over 4 years from user feedback and requests.
 
