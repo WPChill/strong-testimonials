@@ -9,7 +9,7 @@
 }(function( $ ) {
 
 /**
- * @author  @tatocaster <kutaliatato@gmail.com>
+ * @props  @tatocaster <kutaliatato@gmail.com>
  * Translated default messages for the jQuery validation plugin.
  * Locale: GE (Georgian; ქართული)
  */
