@@ -2,7 +2,7 @@
 $links = '<span class="help-links">';
 $links .= '<a href="#tab-panel-wpmtst-help-pagination" class="open-help-tab">' . __( 'Help' ) . '</a>';
 $links .= ' | ';
-$links .= '<a href="https://strongplugins.com/document/strong-testimonials/pagination-methods/" target="_blank">' . __( 'Compare methods', 'strong-testimonials' ) . '</a>';
+$links .= '<a href="#" target="_blank">' . __( 'Compare methods', 'strong-testimonials' ) . '</a>';
 $links .= '</span>';
 ?>
 <?php /* translators: On the Views admin screen. */ ?>

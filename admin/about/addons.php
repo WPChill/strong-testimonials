@@ -1,31 +1,23 @@
 <hr />
 
-<h2><?php _e( 'Get More Features With Free Add-ons', 'strong-testimonials' ); ?></h2>
-
-<div id="addons" class="feature-section three-col">
+<!-- <div id="addons" class="feature-section three-col">
     <div class="col sidebar-block sidebar-news addon multiple-forms">
-        <h3>Multiple Forms</h3>
-        <p>Need more forms for different products or services? No problem. Create unlimited forms.</p>
+        <h3></h3>
+        <p></p>
         <div class="actions">
-            <a href="https://strongplugins.com/plugins/strong-testimonials-multiple-forms?utm_source=plugin&utm_medium=about" target="_blank">Learn more</a>
+            <a href="" target="_blank">Learn more</a>
         </div>
     </div>
     <div class="col sidebar-block sidebar-news addon properties">
-        <h3>Properties</h3>
-        <p>Want to rebrand 'testimonials' as 'reviews'? Want to completely customize the permalink structure? Gain maximum control.</p>
+        <h3></h3>
+        <p></p>
         <div class="actions">
-            <a href="https://strongplugins.com/plugins/strong-testimonials-properties/?utm_source=plugin&utm_medium=about" target="_blank">Learn more</a>
-            &nbsp;&bull;&nbsp;
-            <a href="https://strongdemos.com/strong-testimonials-properties/?utm_source=plugin&utm_medium=about" target="_blank">Go demo</a>
         </div>
     </div>
     <div class="col sidebar-block sidebar-news addon assignment">
-        <h3>Assignment</h3>
-        <p>Assign testimonials to any content type with features designed to simplify your workflow. Works well with portfolio, directory and service business themes.</p>
+        <h3></h3>
+        <p></p>
         <div class="actions">
-            <a href="https://strongplugins.com/plugins/strong-testimonials-assignment?utm_source=plugin&utm_medium=about" target="_blank">Learn more</a>
-            &nbsp;&bull;&nbsp;
-            <a href="https://strongdemos.com/strong-testimonials-assignment/?utm_source=plugin&utm_medium=about" target="_blank">Go demo</a>
-        </div>
+       </div>
     </div>
-</div>
+</div> -->

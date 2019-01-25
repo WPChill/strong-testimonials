@@ -168,43 +168,6 @@ function wpmtst_restore_default_icon( $for ) {
 	<?php
 }
 
-/**
- * Add plugin links.
- *
- * @param        $plugin_meta
- * @param        $plugin_file
- * @param array  $plugin_data
- * @param string $status
- *
- * @return array
- */
-function wpmtst_plugin_row_meta( $plugin_meta, $plugin_file, $plugin_data = array(), $status = '' ) {
-
-    if ( $plugin_file == WPMTST_PLUGIN ) {
-
-		$plugin_meta[] = sprintf(
-		    '<a class="strong-plugin-link" href="%s" target="_blank" title="%s">%s</a>',
-			'https://strongplugins.com/documents/',
-            __( 'For guides and tutorials', 'strong-testimonials' ),
-            __( 'Documentation', 'strong-testimonials' ) );
-
-		$plugin_meta[] = sprintf(
-		    '<a class="strong-plugin-link" href="%s" target="_blank" title="%s">%s</a>',
-			'https://support.strongplugins.com/',
-            __( 'For direct support requests', 'strong-testimonials' ),
-            __( 'Support', 'strong-testimonials' ) );
-
-		$plugin_meta[] = sprintf(
-            '<a class="strong-plugin-link" href="%s" target="_blank" title="%s">%s</a>',
-			'https://strongplugins.com/',
-            __( 'Get more features with premium add-ons', 'strong-testimonials' ),
-            __( 'Add-ons', 'strong-testimonials' ) );
-
-	}
-
-	return $plugin_meta;
-}
-//add_filter( 'plugin_row_meta', 'wpmtst_plugin_row_meta' , 10, 4 );
 
 
 /**
