@@ -128,9 +128,6 @@ $options = get_option( 'wpmtst_options' );
 				<li><?php _e( 'For individual testimonials, use the <strong>Discussion</strong> meta box in the post editor or <strong>Quick Edit</strong> in the testimonial list.', 'strong-testimonials' ); ?></li>
 				<li><?php _e( 'For multiple testimonials, use <strong>Bulk Edit</strong> in the testimonial list.', 'strong-testimonials' ); ?></li>
 			</ul>
-			<p class="description"><?php printf( '<a href="%s" target="_blank">%s</a>',
-				esc_url( '#' ),
-				__( 'Tutorial', 'strong-testimonials' ) ); ?></p>
 		</td>
 	</tr>
 
@@ -148,10 +145,7 @@ $options = get_option( 'wpmtst_options' );
                 <p class="description">
                     <?php printf( '<a href="%s" target="_blank">%s</a>',
                         esc_url( 'https://codex.wordpress.org/Embeds' ),
-                        __( 'More on embeds', 'strong-testimonials' ) ); ?> |
-                    <?php printf( '<a href="%s" target="_blank">%s</a>',
-                        esc_url( '#' ),
-                        __( 'Tutorial', 'strong-testimonials' ) ); ?>
+                        __( 'More on embeds', 'strong-testimonials' ) ); ?>
                 </p>
 			</fieldset>
 		</td>
