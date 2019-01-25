@@ -777,7 +777,7 @@ function wpmtst_sanitize_checkbox( $input, $key ) {
  *
  * @since 2.26.6
  *
- * @author      Jonas John
+ * @props      Jonas John
  * @version     0.2
  * @link        http://www.jonasjohn.de/snippets/php/trim-array.htm
  * @param       $input array|string
