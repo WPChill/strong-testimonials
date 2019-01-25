@@ -129,7 +129,7 @@ $options = get_option( 'wpmtst_options' );
 				<li><?php _e( 'For multiple testimonials, use <strong>Bulk Edit</strong> in the testimonial list.', 'strong-testimonials' ); ?></li>
 			</ul>
 			<p class="description"><?php printf( '<a href="%s" target="_blank">%s</a>',
-				esc_url( 'https://strongplugins.com/document/strong-testimonials/enable-comments/' ),
+				esc_url( '#' ),
 				__( 'Tutorial', 'strong-testimonials' ) ); ?></p>
 		</td>
 	</tr>
@@ -150,7 +150,7 @@ $options = get_option( 'wpmtst_options' );
                         esc_url( 'https://codex.wordpress.org/Embeds' ),
                         __( 'More on embeds', 'strong-testimonials' ) ); ?> |
                     <?php printf( '<a href="%s" target="_blank">%s</a>',
-                        esc_url( 'https://strongplugins.com/document/strong-testimonials/embed-social-media/' ),
+                        esc_url( '#' ),
                         __( 'Tutorial', 'strong-testimonials' ) ); ?>
                 </p>
 			</fieldset>
