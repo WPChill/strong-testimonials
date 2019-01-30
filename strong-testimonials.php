@@ -1,22 +1,32 @@
 <?php
 /**
  * Plugin Name: Strong Testimonials
- * Plugin URI: https://strongplugins.com/plugins/strong-testimonials/
+ * Plugin URI: https://strongtestimonials.com
  * Description: Collect and display your testimonials or reviews.
- * Author: Chris Dillon
+ * Author: MachoThemes
+ * Author URI: https://www.machothemes.com/
  * Version: 2.33
- *
- * Author URI: https://strongplugins.com/
  * Text Domain: strong-testimonials
  * Domain Path: /languages
  * Requires: 4.0 or higher
- * License: GPLv2 or later
+ * License: GPLv3 or later
+ * License URI: http://www.gnu.org/licenses/gpl-3.0.html
+ * Requires PHP: 5.6
  *
  * Copyright 2014-2019 Chris Dillon chris@strongwp.com
+ * Copyright 2019 MachoThemes office@machothemes.com
+ *
+ * Original Plugin URI:         https://strongplugins.com/plugins/strong-testimonials
+ * Original Author URI:         https://strongplugins.com
+ * Original Author:             https://profiles.wordpress.org/cdillon27/
+ *
+ * NOTE:
+ * Chris Dillon ownership rights were ceased on: 01/20/2019 06:52:23 PM when ownership was turned over to MachoThemes
+ * MachoThemes ownership started on: 01/20/2019 06:52:24 PM
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
