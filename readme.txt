@@ -1,16 +1,18 @@
 === Strong Testimonials ===
-Contributors: cdillon27
+Contributors: machothemes,silkalns,cdillon27
 Tags: testimonials, testimonial slider, testimonial form, star ratings
 Requires at least: 4.0
-Requires PHP: 5.3
+Requires PHP: 5.6
 Tested up to: 5.0
 Stable tag: 2.33
-License: GPLv2 or later
-License URI: http://www.gnu.org/licenses/gpl-2.0.html
+License: GPLv3 or later
+License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
 Simple yet powerful. Very customizable. Developer-friendly.
 
 == Description ==
+
+**Strong Testimonials** is a standalone plugin built, maintained & operated by the friendly folks over at [MachoThemes](https://www.machothemes.com/)
 
 In just a few steps, you will be collecting and publishing your testimonials or reviews. Beginners and pros alike will appreciate the wealth of flexible features refined over 4 years from user feedback and requests.
 
@@ -90,28 +92,9 @@ However, this plugin provides features that may involve private data.
 * If you enable comments on testimonials, the plugin will use your theme's single post template and comment form.
 * If you embed third-party posts such as Twitter, YouTube and FaceBook in your testimonials, you will be agreeing to the Terms of Use of those third-party sites.
 
-### Free Add-ons
-
-#### Country Selector
-
-Use the [Country Selector](https://wordpress.org/plugins/strong-testimonials-country-selector/) plugin to add a country selector to your form.
-
-#### Assignment
-
-Assign testimonials to any object (posts, pages, media or custom content types) with features designed to simplify your workflow. Works well with portfolio, directory and service business themes.
-
-#### Multiple Forms
-
-Create unlimited forms, each with their own custom fields, to tailor testimonials for different products, services and markets.
-
-#### Properties
-
-Want to rebrand "testimonials" as "reviews", "customer stories" or something else? Want to change the permalink structure? Control every aspect front and back.
 
 ### Try these plugins too
 
-* [FooBox Image Lightbox](https://wordpress.org/plugins/foobox-image-lightbox/) to view thumbnails as full-size images.
-* [Simple CSS](https://wordpress.org/plugins/simple-css/) works great for quick CSS tweaks.
 * [Wider Admin Menu](https://wordpress.org/plugins/wider-admin-menu/) lets your admin menu b r e a t h e.
 
 == Installation ==
