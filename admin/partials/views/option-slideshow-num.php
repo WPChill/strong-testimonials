@@ -1,8 +1,8 @@
 <?php /* translators: In the view editor. */ ?>
 <th>
-	<?php _e( 'Show', 'strong-testimonials' ); ?>
+	<?php esc_html_e( 'Show', 'strong-testimonials' ); ?>
 </th>
 <td>
-	<?php include( 'option-slideshow-type.php' ); ?>
-    <?php include( 'option-slideshow-breakpoints.php' ); ?>
+	<?php require 'option-slideshow-type.php'; ?>
+	<?php require 'option-slideshow-breakpoints.php'; ?>
 </td>
