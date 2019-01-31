@@ -33,15 +33,15 @@ function wpmtst_admin_notices() {
 		return;
 	}
 
-    foreach ( $notices as $key => $notice ) {
-        $message = apply_filters( 'wpmtst_admin_notice', '', $key );
-        if ( $message ) {
-            echo $message;
-        }
-	    if ( ! $notice['persist'] ) {
-		    wpmtst_delete_admin_notice( $key );
-	    }
-    }
+	foreach ( $notices as $key => $notice ) {
+		$message = apply_filters( 'wpmtst_admin_notice', '', $key );
+		if ( $message ) {
+			echo wp_kses_post( $message );
+		}
+		if ( ! $notice['persist'] ) {
+			wpmtst_delete_admin_notice( $key );
+		}
+	}
 }
 add_action( 'admin_notices', 'wpmtst_admin_notices' );
 
@@ -58,61 +58,66 @@ add_action( 'admin_notices', 'wpmtst_admin_notices' );
 function wpmtst_admin_notice_text( $html = '', $key, $persist = false ) {
 
 	switch ( $key ) {
-		case 'defaults-restored' :
+		case 'defaults-restored':
 			ob_start();
 			?>
-			<div class="wpmtst notice notice-success is-dismissible" data-key="<?php esc_attr_e( $key ); ?>">
+			<div class="wpmtst notice notice-success is-dismissible" data-key="<?php esc_attr( $key ); ?>">
 				<p>
-					<?php _e( 'Defaults restored.', 'strong-testimonials' ); ?>
+					<?php esc_html_e( 'Defaults restored.', 'strong-testimonials' ); ?>
 				</p>
 			</div>
 			<?php
 			$html = ob_get_clean();
 			break;
 
-		case 'fields-saved' :
+		case 'fields-saved':
 			ob_start();
 			?>
-			<div class="wpmtst notice notice-success is-dismissible" data-key="<?php esc_attr_e( $key ); ?>">
+			<div class="wpmtst notice notice-success is-dismissible" data-key="<?php esc_attr( $key ); ?>">
 				<p>
-					<?php _e( 'Fields saved.', 'strong-testimonials' ); ?>
+					<?php esc_html_e( 'Fields saved.', 'strong-testimonials' ); ?>
 				</p>
 			</div>
 			<?php
 			$html = ob_get_clean();
 			break;
 
-		case 'changes-cancelled' :
+		case 'changes-cancelled':
 			ob_start();
 			?>
-			<div class="wpmtst notice notice-success is-dismissible" data-key="<?php esc_attr_e( $key ); ?>">
+			<div class="wpmtst notice notice-success is-dismissible" data-key="<?php esc_attr( $key ); ?>">
 				<p>
-					<?php _e( 'Changes cancelled.', 'strong-testimonials' ); ?>
+					<?php esc_html_e( 'Changes cancelled.', 'strong-testimonials' ); ?>
 				</p>
 			</div>
 			<?php
 			$html = ob_get_clean();
 			break;
 
-		case 'captcha-options-changed' :
-			$tags          = array( 'a' => array( 'class' => array(), 'href' => array() ) );
+		case 'captcha-options-changed':
+			$tags = array(
+				'a' => array(
+					'class' => array(),
+					'href'  => array(),
+				),
+			);
 			//$settings_url  = admin_url( 'edit.php?post_type=wpm-testimonial&page=testimonial-settings&tab=form#captcha-section' );
 			$settings_url  = admin_url( '?action=captcha-options-changed' );
-			$settings_link = sprintf( wp_kses( __( 'Please check your <a href="%s">%s</a>.', 'strong-testimonials' ), $tags ), esc_url( $settings_url ), __( 'settings', 'strong-testimonials' ) );
+			$settings_link = sprintf( wp_kses( __( 'Please check your <a href="%1$s">%2$s</a>.', 'strong-testimonials' ), $tags ), esc_url( $settings_url ), __( 'settings', 'strong-testimonials' ) );
 
 			ob_start();
 			?>
-            <div class="wpmtst notice notice-warning is-dismissible" data-key="<?php esc_attr_e( $key ); ?>">
-                <p>
-					<?php _e( 'Captcha options have changed in <strong>Strong Testimonials</strong>.', 'strong-testimonials' ); ?>
-					<?php echo $settings_link; ?>
-                </p>
-            </div>
+			<div class="wpmtst notice notice-warning is-dismissible" data-key="<?php esc_attr( $key ); ?>">
+				<p>
+					<?php echo wp_kses_post( _e( 'Captcha options have changed in <strong>Strong Testimonials</strong>.', 'strong-testimonials' ) ); ?>
+					<?php echo wp_kses_post( $settings_link ); ?>
+				</p>
+			</div>
 			<?php
 			$html = ob_get_clean();
 			break;
 
-		default :
+		default:
 			// nothing
 	}
 
@@ -130,7 +135,7 @@ add_filter( 'wpmtst_admin_notice', 'wpmtst_admin_notice_text', 10, 2 );
  * @param $persist
  */
 function wpmtst_add_admin_notice( $key, $persist = false ) {
-	$notices = get_option( 'wpmtst_admin_notices', array() );
+	$notices         = get_option( 'wpmtst_admin_notices', array() );
 	$notices[ $key ] = array( 'persist' => $persist );
 	update_option( 'wpmtst_admin_notices', $notices );
 }
@@ -159,19 +164,19 @@ function wpmtst_delete_admin_notice( $key ) {
  * @param $value
  */
 function wpmtst_auto_dismiss_notices( $option, $old_value, $value ) {
-    if ( ! function_exists( 'get_current_screen' ) ) {
-	    return;
-    }
-    
-    $screen = get_current_screen();
-    if ( $screen && 'options' == $screen->base ) {
-        if ( 'wpmtst_form_options' == $option ) {
-            $notices = get_option( 'wpmtst_admin_notices', array() );
-            if ( isset( $notices['captcha-options-changed'] ) ) {
-                unset( $notices['captcha-options-changed'] );
-                update_option( 'wpmtst_admin_notices', $notices );
-            }
-        }
-    }
+	if ( ! function_exists( 'get_current_screen' ) ) {
+		return;
+	}
+
+	$screen = get_current_screen();
+	if ( $screen && 'options' == $screen->base ) {
+		if ( 'wpmtst_form_options' == $option ) {
+			$notices = get_option( 'wpmtst_admin_notices', array() );
+			if ( isset( $notices['captcha-options-changed'] ) ) {
+				unset( $notices['captcha-options-changed'] );
+				update_option( 'wpmtst_admin_notices', $notices );
+			}
+		}
+	}
 }
 add_action( 'update_option', 'wpmtst_auto_dismiss_notices', 10, 3 );
