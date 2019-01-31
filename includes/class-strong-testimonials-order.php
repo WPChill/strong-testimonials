@@ -56,10 +56,16 @@ class Strong_Testimonials_Order {
 			return;
 		}
 
-		wp_enqueue_script( 'wpmtst-admin-order-script', WPMTST_ADMIN_URL . 'js/admin-order.js', array(
-			'jquery-effects-highlight',
-			'jquery-ui-sortable',
-		), null, true );
+		wp_enqueue_script(
+			'wpmtst-admin-order-script',
+			WPMTST_ADMIN_URL . 'js/admin-order.js',
+			array(
+				'jquery-effects-highlight',
+				'jquery-ui-sortable',
+			),
+			null,
+			true
+		);
 
 		wp_enqueue_style( 'wpmtst-admin-order-style', WPMTST_ADMIN_URL . '/css/order.css', array(), null );
 
@@ -70,12 +76,14 @@ class Strong_Testimonials_Order {
 	 */
 	public static function store_query_vars() {
 		if ( is_admin() ) {
-			set_transient( 'wpmtst_order_query',
+			set_transient(
+				'wpmtst_order_query',
 				array(
 					'paged'          => get_query_var( 'paged' ),
 					'posts_per_page' => get_query_var( 'posts_per_page' ),
 				),
-				24 * HOUR_IN_SECONDS );
+				24 * HOUR_IN_SECONDS
+			);
 		}
 	}
 
@@ -108,7 +116,6 @@ class Strong_Testimonials_Order {
 			foreach ( $results as $key => $result ) {
 				$wpdb->update( $wpdb->posts, array( 'menu_order' => $key + 1 ), array( 'ID' => $result->ID ) );
 			}
-
 		} else {
 
 			// Consecutive reorder with new posts at top.
@@ -117,7 +124,6 @@ class Strong_Testimonials_Order {
 			foreach ( $results as $key => $result ) {
 				$wpdb->update( $wpdb->posts, array( 'menu_order' => $key + 1 ), array( 'ID' => $result->ID ) );
 			}
-
 		}
 
 	}
@@ -142,13 +148,11 @@ class Strong_Testimonials_Order {
 			if ( ! in_array( 'wpm-testimonial', $query->query['post_type'] ) ) {
 				return;
 			}
-
 		} else {
 
 			if ( 'wpm-testimonial' != $query->query['post_type'] ) {
 				return;
 			}
-
 		}
 
 		// disable filter suppression
