@@ -50,3 +50,44 @@ function wpmtst_content_filters() {
 	add_filter( 'wpmtst_the_excerpt', 'convert_smilies', 20 );
 }
 add_action( 'init', 'wpmtst_content_filters' );
+
+
+
+function wpmtst_add_allowed_tags( $tags ) {
+
+	// iframe
+	$tags['iframe'] = array(
+		'src'             => array(),
+		'height'          => array(),
+		'width'           => array(),
+		'frameborder'     => array(),
+		'allowfullscreen' => array(),
+	);
+	// form fields - input
+	$tags['input'] = array(
+		'class' => array(),
+		'id'    => array(),
+		'name'  => array(),
+		'value' => array(),
+		'type'  => array(),
+	);
+	// select
+	$tags['select'] = array(
+		'class' => array(),
+		'id'    => array(),
+		'name'  => array(),
+		'value' => array(),
+		'type'  => array(),
+	);
+	// select options
+	$tags['option'] = array(
+		'selected' => array(),
+	);
+	// style
+	$tags['style'] = array(
+		'types' => array(),
+	);
+
+	return $tags;
+}
+add_filter( 'wp_kses_allowed_html', 'wpmtst_add_allowed_tags' );
