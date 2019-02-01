@@ -63,7 +63,7 @@ foreach ( $plugins as $key => $plugin ) {
 				<label for="<?php echo esc_attr( $elid ); ?>">
 					<?php echo esc_html( $message['description'] ); ?>
 				</label>
-				<input type="hidden" name="wpmtst_form_options[messages][<?php echo esc_attr( $key ); ?>][description]" value="<?php esc_attr( $message['description'] ); ?>"/>
+				<input type="hidden" name="wpmtst_form_options[messages][<?php echo esc_attr( $key ); ?>][description]" value="<?php echo esc_attr( $message['description'] ); ?>"/>
 			</th>
 			<td>
 				<?php if ( 'submission_success' == $elid ) : ?>
@@ -83,11 +83,11 @@ foreach ( $plugins as $key => $plugin ) {
 							</label
 						</fieldset>
 					<?php endif; ?>
-					<input type="text" id="<?php echo esc_attr( $elid ); ?>" name="wpmtst_form_options[messages][<?php echo esc_attr( $key ); ?>][text]" value="<?php esc_attr( $content ); ?>" <?php echo $required ? 'required' : ''; ?>/>
+					<input type="text" id="<?php echo esc_attr( $elid ); ?>" name="wpmtst_form_options[messages][<?php echo esc_attr( $key ); ?>][text]" value="<?php echo esc_attr( $content ); ?>" <?php echo $required ? 'required' : ''; ?>/>
 				<?php endif; ?>
 			</td>
 			<td class="actions">
-				<input type="button" class="button secondary restore-default-message" value="<?php echo esc_attr_x( 'restore default', 'singular', 'strong-testimonials' ); ?>" data-target-id="<?php esc_attr( $elid ); ?>"/>
+				<input type="button" class="button secondary restore-default-message" value="<?php echo esc_attr_x( 'restore default', 'singular', 'strong-testimonials' ); ?>" data-target-id="<?php echo esc_attr( $elid ); ?>"/>
 			</td>
 		</tr>
 
