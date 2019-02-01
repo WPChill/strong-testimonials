@@ -6,8 +6,8 @@
 	<ul class="radio-list template-list">
 		<li>
 			<div>
-				<input class="error" type="radio" id="<?php esc_attr( $view['template'] ); ?>" name="view[data][<?php esc_attr( $current_mode ); ?>]" value="<?php esc_attr( $view['template'] ); ?>" checked>
-				<label for="<?php esc_attr( $view['template'] ); ?>">
+				<input class="error" type="radio" id="<?php echo esc_attr( $view['template'] ); ?>" name="view[data][<?php echo esc_attr( $current_mode ); ?>]" value="<?php echo esc_attr( $view['template'] ); ?>" checked>
+				<label for="<?php echo esc_attr( $view['template'] ); ?>">
 					<?php echo esc_html( $view['template'] ); ?>
 				</label>
 			</div>
