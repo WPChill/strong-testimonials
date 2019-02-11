@@ -64,6 +64,7 @@ function wpmtst_add_allowed_tags( $tags ) {
 		'allowfullscreen' => true,
 		'style'           => true,
 		'data-*'          => true,
+		'hidden'          => true,
 	);
 	// form fields - input
 	$tags['input'] = array(
@@ -78,6 +79,7 @@ function wpmtst_add_allowed_tags( $tags ) {
 		'title'       => true,
 		'style'       => true,
 		'data-*'      => true,
+		'hidden'      => true,
 	);
 	// textarea
 	$tags['textarea'] = array(
@@ -90,6 +92,7 @@ function wpmtst_add_allowed_tags( $tags ) {
 		'required'    => true,
 		'style'       => true,
 		'data-*'      => true,
+		'hidden'      => true,
 	);
 	// select
 	$tags['select'] = array(
@@ -100,6 +103,7 @@ function wpmtst_add_allowed_tags( $tags ) {
 		'type'   => true,
 		'style'  => true,
 		'data-*' => true,
+		'hidden' => true,
 	);
 	// select options
 	$tags['option']   = array(
@@ -110,6 +114,7 @@ function wpmtst_add_allowed_tags( $tags ) {
 		'value'    => true,
 		'style'    => true,
 		'data-*'   => true,
+		'hidden'   => true,
 	);
 	$tags['optgroup'] = array(
 		'class'  => true,
@@ -119,9 +124,13 @@ function wpmtst_add_allowed_tags( $tags ) {
 		'label'  => true,
 		'style'  => true,
 		'data-*' => true,
+		'hidden' => true,
 	);
+
+	$tags['span']['hidden'] = true;
+
 	$tags['noscript'] = array();
-	// style
+
 	$tags['style'] = array(
 		'types' => true,
 	);
