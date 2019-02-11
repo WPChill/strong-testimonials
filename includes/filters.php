@@ -57,62 +57,82 @@ function wpmtst_add_allowed_tags( $tags ) {
 
 	// iframe
 	$tags['iframe'] = array(
-		'src'             => array(),
-		'height'          => array(),
-		'width'           => array(),
-		'frameborder'     => array(),
-		'allowfullscreen' => array(),
+		'src'             => true,
+		'height'          => true,
+		'width'           => true,
+		'frameborder'     => true,
+		'allowfullscreen' => true,
+		'style'           => true,
+		'data-*'          => true,
 	);
 	// form fields - input
 	$tags['input'] = array(
-		'class'       => array(),
-		'id'          => array(),
-		'name'        => array(),
-		'value'       => array(),
-		'type'        => array(),
-		'placeholder' => array(),
-		'required'    => array(),
-		'checked'     => array(),
+		'class'       => true,
+		'id'          => true,
+		'name'        => true,
+		'value'       => true,
+		'type'        => true,
+		'placeholder' => true,
+		'required'    => true,
+		'checked'     => true,
+		'title'       => true,
+		'style'       => true,
+		'data-*'      => true,
 	);
 	// textarea
 	$tags['textarea'] = array(
-		'class'       => array(),
-		'id'          => array(),
-		'name'        => array(),
-		'value'       => array(),
-		'type'        => array(),
-		'placeholder' => array(),
-		'required'    => array(),
+		'class'       => true,
+		'id'          => true,
+		'name'        => true,
+		'value'       => true,
+		'type'        => true,
+		'placeholder' => true,
+		'required'    => true,
+		'style'       => true,
+		'data-*'      => true,
 	);
 	// select
 	$tags['select'] = array(
-		'class' => array(),
-		'id'    => array(),
-		'name'  => array(),
-		'value' => array(),
-		'type'  => array(),
+		'class'  => true,
+		'id'     => true,
+		'name'   => true,
+		'value'  => true,
+		'type'   => true,
+		'style'  => true,
+		'data-*' => true,
 	);
 	// select options
 	$tags['option']   = array(
-		'selected' => array(),
-		'class'    => array(),
-		'id'       => array(),
-		'name'     => array(),
-		'value'    => array(),
+		'selected' => true,
+		'class'    => true,
+		'id'       => true,
+		'name'     => true,
+		'value'    => true,
+		'style'    => true,
+		'data-*'   => true,
 	);
 	$tags['optgroup'] = array(
-		'class' => array(),
-		'id'    => array(),
-		'name'  => array(),
-		'value' => array(),
-		'label' => array(),
+		'class'  => true,
+		'id'     => true,
+		'name'   => true,
+		'value'  => true,
+		'label'  => true,
+		'style'  => true,
+		'data-*' => true,
 	);
 	$tags['noscript'] = array();
 	// style
 	$tags['style'] = array(
-		'types' => array(),
+		'types' => true,
 	);
 
 	return $tags;
 }
 add_filter( 'wp_kses_allowed_html', 'wpmtst_add_allowed_tags' );
+
+
+function wpmtst_safe_style_css( $styles ) {
+	$styles[] = 'display';
+	return $styles;
+}
+add_filter( 'safe_style_css', 'wpmtst_safe_style_css' );
