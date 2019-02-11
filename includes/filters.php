@@ -65,11 +65,24 @@ function wpmtst_add_allowed_tags( $tags ) {
 	);
 	// form fields - input
 	$tags['input'] = array(
-		'class' => array(),
-		'id'    => array(),
-		'name'  => array(),
-		'value' => array(),
-		'type'  => array(),
+		'class'       => array(),
+		'id'          => array(),
+		'name'        => array(),
+		'value'       => array(),
+		'type'        => array(),
+		'placeholder' => array(),
+		'required'    => array(),
+		'checked'     => array(),
+	);
+	// textarea
+	$tags['textarea'] = array(
+		'class'       => array(),
+		'id'          => array(),
+		'name'        => array(),
+		'value'       => array(),
+		'type'        => array(),
+		'placeholder' => array(),
+		'required'    => array(),
 	);
 	// select
 	$tags['select'] = array(
@@ -80,9 +93,21 @@ function wpmtst_add_allowed_tags( $tags ) {
 		'type'  => array(),
 	);
 	// select options
-	$tags['option'] = array(
+	$tags['option']   = array(
 		'selected' => array(),
+		'class'    => array(),
+		'id'       => array(),
+		'name'     => array(),
+		'value'    => array(),
 	);
+	$tags['optgroup'] = array(
+		'class' => array(),
+		'id'    => array(),
+		'name'  => array(),
+		'value' => array(),
+		'label' => array(),
+	);
+	$tags['noscript'] = array();
 	// style
 	$tags['style'] = array(
 		'types' => array(),

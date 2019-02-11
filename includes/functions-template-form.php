@@ -74,7 +74,7 @@ function wpmtst_single_form_field( $field ) {
 				'<label for="wpmtst_%s" class="%s">%s</label>',
 				esc_attr( $field['name'] ),
 				esc_attr( wpmtst_field_label_classes( $field['input_type'], $field['name'] ) ),
-				wp_kses_post( wpmtst_form_field_meta_l10n( $field['label'], $field, 'label' ) )
+				esc_html( wpmtst_form_field_meta_l10n( $field['label'], $field, 'label' ) )
 			);
 
 			if ( isset( $field['required'] ) && $field['required'] ) {
@@ -123,10 +123,9 @@ function wpmtst_single_form_field( $field ) {
 
 			case 'textarea':
 				$value = ( isset( $form_values[ $field['name'] ] ) && $form_values[ $field['name'] ] ) ? $form_values[ $field['name'] ] : '';
-
 				// textarea tags must be on same line for placeholder to work
 				printf(
-					'<textarea id="wpmtst_%s" name="%s" class="%s" %s %s tabindex="0">%s</textarea>',
+					'<textarea id="wpmtst_%s" name="%s" class="%s" %s placeholder="%s" tabindex="0">%s</textarea>',
 					esc_attr( $field['name'] ),
 					esc_attr( $field['name'] ),
 					esc_attr( wpmtst_field_classes( $field['input_type'], $field['name'] ) ),
@@ -158,7 +157,7 @@ function wpmtst_single_form_field( $field ) {
 						'<label for="wpmtst_%s" class="%s">%s</label>',
 						esc_attr( $field['name'] ),
 						esc_attr( wpmtst_field_label_classes( $field['input_type'], $field['name'] ) ),
-						wp_kses_post( wpmtst_form_field_meta_l10n( $field['label'], $field, 'label' ) )
+						esc_html( wpmtst_form_field_meta_l10n( $field['label'], $field, 'label' ) )
 					);
 				}
 
@@ -177,7 +176,7 @@ function wpmtst_single_form_field( $field ) {
 				);
 
 				if ( isset( $field['text'] ) ) {
-					echo '<label for="wpmtst_' . esc_attr( $field['name'] ) . '" class="checkbox-label">' . wp_kses_post( wpmtst_form_field_meta_l10n( $field['text'], $field, 'text' ) ) . '</label>';
+					echo '<label for="wpmtst_' . esc_attr( $field['name'] ) . '" class="checkbox-label">' . esc_html( wpmtst_form_field_meta_l10n( $field['text'], $field, 'text' ) ) . '</label>';
 
 					if ( isset( $field['required'] ) && $field['required'] ) {
 						wpmtst_field_required_symbol();
@@ -189,7 +188,7 @@ function wpmtst_single_form_field( $field ) {
 
 			default: // text, email, url
 				printf(
-					'<input id="wpmtst_%s" type="%s" class="%s" name="%s" %s %s %s tabindex="0">',
+					'<input id="wpmtst_%s" type="%s" class="%s" name="%s" value="%s" placeholder="%s" %s tabindex="0">',
 					esc_attr( $field['name'] ),
 					esc_attr( $field['input_type'] ),
 					esc_attr( wpmtst_field_classes( $field['input_type'], $field['name'] ) ),
@@ -301,8 +300,7 @@ function wpmtst_field_value( $field, $form_values ) {
 	}
 
 	$value = apply_filters( 'wpmtst_field_value', $value, $field, $form_values );
-
-	return ' value="' . esc_attr( $value ) . '"';
+	return $value;
 }
 
 /**
@@ -314,7 +312,7 @@ function wpmtst_field_value( $field, $form_values ) {
  */
 function wpmtst_field_placeholder( $field ) {
 	if ( isset( $field['placeholder'] ) && $field['placeholder'] ) {
-		return ' placeholder="' . esc_attr( wpmtst_form_field_meta_l10n( $field['placeholder'], $field, 'placeholder' ) ) . '"';
+		return esc_attr( wpmtst_form_field_meta_l10n( $field['placeholder'], $field, 'placeholder' ) );
 	}
 
 	return '';
