@@ -180,3 +180,21 @@ function wpmtst_auto_dismiss_notices( $option, $old_value, $value ) {
 	}
 }
 add_action( 'update_option', 'wpmtst_auto_dismiss_notices', 10, 3 );
+
+
+function wpmtst_admin_feedback_notice() {
+
+	$screen = get_current_screen();
+	if ( $screen->id !== 'edit-wpm-testimonial' ) {
+		return;
+	}
+
+	?>
+	<div class="notice wpmtst-notice">
+		<img src="<?php echo esc_url( WPMTST_ADMIN_URL ); ?>/img/logo-long.svg" width="400"/>
+		<p><?php esc_html_e( 'Do you enjoy using Strong Testimonials? Please take a minute to suggest a feature or tell us what you think.', 'strong-testimonials' ); ?></p>
+		<a class="button" target="_blank" href="https://docs.google.com/forms/d/e/1FAIpQLScch0AchtnzxJsSrjUcW9ypcr1fZ9r-vyk3emEp8Sv47brb2g/viewform"><?php esc_html_e( 'Submit Feedback', 'strong-testimonials' ); ?></a>
+	</div>
+	<?php
+}
+add_action( 'admin_notices', 'wpmtst_admin_feedback_notice' );

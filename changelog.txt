@@ -1,8 +1,12 @@
-= 2.34 - Feb. 8, 2019 = 
+= 2.35 - Feb. 12, 2019 =
+* fixed multiple bugs with the submission form
+* fixes testimonial and star rating not displaying properly
+
+= 2.34 - Feb. 8, 2019 =
 * removed all strongplugins.com branding
 * removed links to external addons; all Strong Testimonials addons should be delivered from w.org
 * re-licensed under GPLv3 & added a copy of the license in .txt format
-* improved plugin escaping / sanitization 
+* improved plugin escaping / sanitization
 
 = 2.32.4 - Dec. 27, 2018 =
 * Prerender shortcodes in WordPress Custom HTML widgets.
