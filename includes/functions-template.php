@@ -451,9 +451,9 @@ function wpmtst_container_data() {
 	if ( $data_array ) {
 		$data = '';
 		foreach ( $data_array as $attr => $value ) {
-			$data .= " data-$attr=$value";
+			$data .= ' data-' . $attr . '="' . esc_attr( $value ) . '"';
 		}
-		echo esc_attr( $data );
+		echo $data;
 	}
 }
 
