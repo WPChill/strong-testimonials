@@ -132,6 +132,8 @@ function wpmtst_add_allowed_tags( $tags ) {
 	$tags['img']['srcset'] = true;
 	$tags['img']['sizes'] = true;
 
+	$tags['div']['data-*'] = true;
+
 	$tags['noscript'] = array();
 
 	$tags['style'] = array(
