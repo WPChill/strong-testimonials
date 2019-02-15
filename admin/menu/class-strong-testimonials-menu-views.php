@@ -43,8 +43,8 @@ class Strong_Testimonials_Menu_Views {
 	public static function get_submenu() {
 		return array(
 			'page_title' => __( 'Views', 'strong-testimonials' ),
-			'menu_title' => __( 'Views', 'strong-testimonials' ),
-			'capability' => 'strong_testimonials_views',
+	        'menu_title' => __( 'Views', 'strong-testimonials' ),
+		    'capability' => 'strong_testimonials_views',
 			'menu_slug'  => 'testimonial-views',
 			'function'   => 'wpmtst_views_admin',
 		);

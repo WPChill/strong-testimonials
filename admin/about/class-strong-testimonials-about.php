@@ -10,8 +10,8 @@ class Strong_Testimonials_About {
 	 * Strong_Testimonials_About constructor.
 	 */
 	public function __construct() {
-		$this->add_actions();
-	}
+        $this->add_actions();
+    }
 
 	/**
 	 * Add actions and filters.
@@ -21,8 +21,8 @@ class Strong_Testimonials_About {
 	}
 
 	/**
-	 * Add submenu page.
-	 *
+     * Add submenu page.
+     *
 	 * @param $pages
 	 *
 	 * @return mixed
@@ -40,8 +40,8 @@ class Strong_Testimonials_About {
 	public function get_submenu() {
 		return array(
 			'page_title' => __( 'About' ),
-			'menu_title' => __( 'About' ),
-			'capability' => 'strong_testimonials_about',
+	        'menu_title' => __( 'About' ),
+		    'capability' => 'strong_testimonials_about',
 			'menu_slug'  => 'about-strong-testimonials',
 			'function'   => array( $this, 'about_page' ),
 		);
@@ -58,26 +58,26 @@ class Strong_Testimonials_About {
 		<div class="wrap about-wrap">
 
 			<?php /* translators: %s is the plugin version number */ ?>
-			<h1><?php printf( esc_html__( 'Welcome to Strong Testimonials %s', 'strong-testimonials' ), esc_html( $major_minor ) ); ?></h1>
+			<h1><?php printf( __( 'Welcome to Strong Testimonials %s', 'strong-testimonials' ), $major_minor ); ?></h1>
 
 			<p class="about-text">
-				<?php esc_html_e( 'Thank you for updating to the latest version!' ); ?>
+                <?php _e( 'Thank you for updating to the latest version!' ); ?>
 				<?php /* translators: %s is the plugin version number */ ?>
-			</p>
+            </p>
 
-			<div class="wp-badge strong-testimonials"><?php printf( esc_html__( 'Version %s' ), esc_html( $major_minor ) ); ?></div>
+			<div class="wp-badge strong-testimonials"><?php printf( __( 'Version %s' ), $major_minor ); ?></div>
 
 			<h2 class="nav-tab-wrapper wp-clearfix">
 
-				<a href="<?php echo esc_url( add_query_arg( 'tab', 'how-to', $url ) ); ?>" class="nav-tab <?php echo $active_tab == 'how-to' ? 'nav-tab-active' : ''; ?>"><?php esc_html_e( 'How To', 'strong-testimonials' ); ?></a>
+				<a href="<?php echo add_query_arg( 'tab', 'how-to', $url ); ?>" class="nav-tab <?php echo $active_tab == 'how-to' ? 'nav-tab-active' : ''; ?>"><?php _e( 'How To', 'strong-testimonials' ); ?></a>
 
-				<a href="<?php echo esc_url( add_query_arg( 'tab', 'privacy', $url ) ); ?>" class="nav-tab <?php echo $active_tab == 'privacy' ? 'nav-tab-active' : ''; ?>"><?php esc_html_e( 'Privacy' ); ?></a>
+				<a href="<?php echo add_query_arg( 'tab', 'privacy', $url ); ?>" class="nav-tab <?php echo $active_tab == 'privacy' ? 'nav-tab-active' : ''; ?>"><?php _e( 'Privacy' ); ?></a>
 
 			</h2>
 
 
 			<?php
-			switch ( $active_tab ) {
+			switch( $active_tab ) {
 				case 'privacy':
 					include WPMTST_ADMIN . 'about/privacy.php';
 					break;
@@ -86,8 +86,8 @@ class Strong_Testimonials_About {
 					break;
 			}
 
-			include WPMTST_ADMIN . 'about/links.php';
-			include WPMTST_ADMIN . 'about/addons.php';
+			include WPMTST_ADMIN. 'about/links.php';
+			include WPMTST_ADMIN. 'about/addons.php';
 			?>
 
 		</div>

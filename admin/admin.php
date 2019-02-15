@@ -12,7 +12,7 @@
  */
 function wpmtst_version_check() {
 	global $wp_version;
-	$require_wp_version = '3.7';
+	$require_wp_version = "3.7";
 
 	if ( version_compare( $wp_version, $require_wp_version ) == -1 ) {
 		deactivate_plugins( WPMTST_PLUGIN );
@@ -22,7 +22,7 @@ function wpmtst_version_check() {
 		$message .= '<p>' . sprintf( _x( 'This plugin requires <strong>WordPress %s</strong> or higher so it has been deactivated.', 'installation', 'strong-testimonials' ), $require_wp_version ) . '</p>';
 		$message .= '<p>' . _x( 'Please upgrade WordPress and try again.', 'installation', 'strong-testimonials' ) . '</p>';
 		$message .= '<p>' . sprintf( _x( 'Back to the WordPress <a href="%s">Plugins page</a>', 'installation', 'strong-testimonials' ), get_admin_url( null, 'plugins.php' ) ) . '</p>';
-		wp_die( wp_kses_post( $message ) );
+		wp_die( $message );
 	}
 }
 
@@ -80,8 +80,8 @@ add_action( 'admin_init', 'wpmtst_admin_init' );
  */
 function wpmtst_action_captcha_options_changed() {
 	wpmtst_delete_admin_notice( 'captcha-options-changed' );
-	wp_redirect( admin_url( 'edit.php?post_type=wpm-testimonial&page=testimonial-settings&tab=form#captcha-section' ) );
-	exit;
+    wp_redirect( admin_url( 'edit.php?post_type=wpm-testimonial&page=testimonial-settings&tab=form#captcha-section' ) );
+    exit;
 }
 
 add_action( 'admin_action_captcha-options-changed', 'wpmtst_action_captcha_options_changed' );
@@ -120,34 +120,29 @@ function wpmtst_is_testimonial_screen() {
  * @return mixed
  */
 function wpmtst_pending_indicator( $menu ) {
-	if ( ! current_user_can( 'edit_posts' ) ) {
+	if ( ! current_user_can( 'edit_posts' ) )
 		return $menu;
-	}
 
 	$options = get_option( 'wpmtst_options' );
-	if ( ! isset( $options['pending_indicator'] ) || ! $options['pending_indicator'] ) {
+	if ( ! isset( $options['pending_indicator'] ) || ! $options['pending_indicator'] )
 		return $menu;
-	}
 
 	$types  = array( 'wpm-testimonial' );
 	$status = 'pending';
 	foreach ( $types as $type ) {
 		$num_posts     = wp_count_posts( $type, 'readable' );
 		$pending_count = 0;
-		if ( ! empty( $num_posts->$status ) ) {
+		if ( ! empty( $num_posts->$status ) )
 			$pending_count = $num_posts->$status;
-		}
 
-		if ( $type == 'post' ) {
+		if ( $type == 'post' )
 			$menu_str = 'edit.php';
-		} else {
+		else
 			$menu_str = 'edit.php?post_type=' . $type;
-		}
 
 		foreach ( $menu as $menu_key => $menu_data ) {
-			if ( $menu_str != $menu_data[2] ) {
+			if ( $menu_str != $menu_data[2] )
 				continue;
-			}
 			$menu[ $menu_key ][0] .= " <span class='update-plugins count-$pending_count'><span class='plugin-count'>" . number_format_i18n( $pending_count ) . '</span></span>';
 		}
 	}
@@ -164,11 +159,12 @@ add_filter( 'add_menu_classes', 'wpmtst_pending_indicator' );
  * @since 2.18.0
  */
 function wpmtst_restore_default_icon( $for ) {
-	if ( ! $for ) {
-		return;
-	}
+	if ( !$for ) return;
 	?>
-	<input type="button" class="button secondary restore-default" title="<?php esc_attr_e( 'restore default', 'strong-testimonials' ); ?>" value="&#xf171" data-for="<?php echo esc_attr( $for ); ?>"/>
+	<input type="button" class="button secondary restore-default"
+		   title="<?php _e( 'restore default', 'strong-testimonials' ); ?>"
+		   value="&#xf171"
+		   data-for="<?php echo $for; ?>"/>
 	<?php
 }
 
@@ -197,7 +193,7 @@ add_action( 'updated_option', 'wpmtst_updated_option', 10, 3 );
  * @param $key
  */
 function wpmtst_add_config_error( $key ) {
-	$errors   = get_option( 'wpmtst_config_errors', array() );
+	$errors = get_option( 'wpmtst_config_errors', array() );
 	$errors[] = $key;
 	update_option( 'wpmtst_config_errors', array_unique( $errors ) );
 
@@ -213,7 +209,7 @@ function wpmtst_add_config_error( $key ) {
  */
 function wpmtst_delete_config_error( $key ) {
 	$errors = get_option( 'wpmtst_config_errors', array() );
-	$errors = array_diff( $errors, array( $key ) );
+	$errors = array_diff( $errors, array ( $key ) );
 	update_option( 'wpmtst_config_errors', $errors );
 
 	wpmtst_delete_admin_notice( $key );
@@ -232,9 +228,7 @@ function wpmtst_delete_config_error( $key ) {
 function wpmtst_save_view( $view, $action = 'edit' ) {
 	global $wpdb;
 
-	if ( ! $view ) {
-		return false;
-	}
+	if ( ! $view ) return false;
 
 	$table_name = $wpdb->prefix . 'strong_views';
 	$serialized = serialize( $view['data'] );
@@ -244,8 +238,9 @@ function wpmtst_save_view( $view, $action = 'edit' ) {
 		$sql = $wpdb->prepare( $sql, $view['name'], $serialized );
 		$wpdb->query( $sql );
 		$view['id'] = $wpdb->insert_id;
-		$return     = $view['id'];
-	} else {
+		$return  = $view['id'];
+	}
+	else {
 		$sql = "UPDATE {$table_name} SET name = %s, value = %s WHERE id = %d";
 		$sql = $wpdb->prepare( $sql, $view['name'], $serialized, intval( $view['id'] ) );
 		$wpdb->query( $sql );

@@ -29,7 +29,8 @@ class Strong_Testimonials_Updater {
 		$this->old_version = get_option( 'wpmtst_plugin_version', false );
 		if ( $this->old_version ) {
 			$this->log( __CLASS__, 'old: ' . $this->old_version . ' --> new: ' . WPMTST_VERSION );
-		} else {
+		}
+		else {
 			$this->log( __CLASS__, 'NEW INSTALL', WPMTST_VERSION );
 		}
 	}
@@ -53,13 +54,16 @@ class Strong_Testimonials_Updater {
 						$this->new_log[] = $x;
 						// then log the variable
 						$this->new_log[] = $var;
-					} else {
+					}
+					else {
 						$this->new_log[] = $x . $var;
 					}
-				} else {
+				}
+				else {
 					$this->new_log[] = $x;
 				}
-			} else {
+			}
+			else {
 				$this->new_log[] = $x;
 			}
 		}
@@ -244,7 +248,8 @@ class Strong_Testimonials_Updater {
 			$admins->add_cap( 'strong_testimonials_fields' );
 			$admins->add_cap( 'strong_testimonials_options' );
 			$admins->add_cap( 'strong_testimonials_about' );
-		} else {
+		}
+		else {
 			$this->log( __FUNCTION__, 'failed' );
 		}
 	}
@@ -345,6 +350,7 @@ class Strong_Testimonials_Updater {
 			if ( isset( $options['client_section'] ) ) {
 				unset( $options['client_section'] );
 			}
+
 		}
 
 		/**
@@ -468,6 +474,7 @@ class Strong_Testimonials_Updater {
 				if ( $new_default ) {
 					$custom_forms[ $form_id ]['fields'][ $key ] = array_merge( $new_default, $form_field );
 				}
+
 			}
 		}
 
@@ -561,39 +568,39 @@ class Strong_Testimonials_Updater {
 		 */
 		switch ( $form_options['captcha'] ) {
 
-			case 'gglcptch':
+			case 'gglcptch' :
 				// Google Captcha by BestWebSoft
 				$form_options['captcha'] = 'google-captcha';
 				$notice                  = false;
 				break;
 
-			case 'bwsmathpro':
+			case 'bwsmathpro' :
 				// Captcha Pro by BestWebSoft
 				$form_options['captcha'] = 'captcha-pro';
 				$notice                  = false;
 				break;
 
-			case 'miyoshi':
+			case 'miyoshi' :
 				// Really Simple Captcha by Takayuki Miyoshi
 				$form_options['captcha'] = 'really-simple-captcha';
 				$notice                  = false;
 				break;
 
-			case 'advnore':
+			case 'advnore' :
 				// Advanced noCaptcha reCaptcha by Shamim Hasan
 				// Integration dropped @since 2.29.0
 				$form_options['captcha'] = '';
 				$notice                  = true;
 				break;
 
-			case 'bwsmath':
+			case 'bwsmath' :
 				// Craptcha by simplywordpress
 				// Integration dropped @since 2.29.0
 				$form_options['captcha'] = '';
 				$notice                  = true;
 				break;
 
-			default:
+			default :
 				$notice = false;
 		}
 
@@ -827,8 +834,8 @@ class Strong_Testimonials_Updater {
 
 			$view_data['slideshow_settings']['show_single'] = array(
 				'max_slides'  => $view_data['slideshow_settings']['max_slides'],
-				'move_slides' => $view_data['slideshow_settings']['move_slides'],
-				'margin'      => 1,
+			    'move_slides' => $view_data['slideshow_settings']['move_slides'],
+			    'margin'      => 1,
 			);
 
 		} else {
@@ -867,68 +874,68 @@ class Strong_Testimonials_Updater {
 		/*
 		Array
 		(
-			[0] => default:content
-			[1] => default-dark:form
-			[2] => default-dark:content
-			[3] => default:form
-			[4] => image-right:content
-			[5] => no-quotes:content
-			[6] => large:widget
-			[7] => modern:content
-			[8] => simple:content
-			[9] => simple:form
-			[10] => unstyled:content
-			[11] => unstyled:form
-			[12] => default:widget
-			[13] => image-right:widget
+		    [0] => default:content
+		    [1] => default-dark:form
+		    [2] => default-dark:content
+		    [3] => default:form
+		    [4] => image-right:content
+		    [5] => no-quotes:content
+		    [6] => large:widget
+		    [7] => modern:content
+		    [8] => simple:content
+		    [9] => simple:form
+		    [10] => unstyled:content
+		    [11] => unstyled:form
+		    [12] => default:widget
+		    [13] => image-right:widget
 		)
 		*/
 		switch ( $view_data['template'] ) {
-			case 'default:content':
+			case 'default:content' :
 				$view_data['template'] = 'default';
 				break;
-			case 'default-dark:form':
-				$view_data['template']                                    = 'default-form';
+			case 'default-dark:form' :
+				$view_data['template'] = 'default-form';
 				$view_data['template_settings'][ $view_data['template'] ] = array( 'theme' => 'dark' );
 				break;
-			case 'default-dark:content':
-				$view_data['template']                                    = 'default';
+			case 'default-dark:content' :
+				$view_data['template'] = 'default';
 				$view_data['template_settings'][ $view_data['template'] ] = array( 'theme' => 'dark' );
 				break;
-			case 'default:form':
+			case 'default:form' :
 				$view_data['template'] = 'default-form';
 				break;
-			case 'image-right:content':
-				$view_data['template']                                    = 'default';
+			case 'image-right:content' :
+				$view_data['template'] = 'default';
 				$view_data['template_settings'][ $view_data['template'] ] = array( 'image_position' => 'right' );
 				break;
-			case 'no-quotes:content':
-				$view_data['template']                                    = 'default';
+			case 'no-quotes:content' :
+				$view_data['template'] = 'default';
 				$view_data['template_settings'][ $view_data['template'] ] = array( 'quotes' => 'off' );
 				break;
-			case 'large:widget':
+			case 'large:widget' :
 				$view_data['template'] = 'bold';
 				break;
-			case 'modern:content':
+			case 'modern:content' :
 				$view_data['template'] = 'modern';
 				break;
-			case 'simple:content':
+			case 'simple:content' :
 				$view_data['template'] = 'simple';
 				break;
-			case 'simple:form':
+			case 'simple:form' :
 				$view_data['template'] = 'simple-form';
 				break;
-			case 'unstyled:content':
+			case 'unstyled:content' :
 				$view_data['template'] = 'unstyled';
 				break;
-			case 'unstyled:form':
+			case 'unstyled:form' :
 				$view_data['template'] = 'unstyled-form';
 				break;
-			case 'default:widget':
+			case 'default:widget' :
 				$view_data['template'] = 'small-widget';
 				break;
-			case 'image-right:widget':
-				$view_data['template']                                    = 'small-widget';
+			case 'image-right:widget' :
+				$view_data['template'] = 'small-widget';
 				$view_data['template_settings'][ $view_data['template'] ] = array( 'image_position' => 'right' );
 				break;
 			default:
@@ -950,16 +957,19 @@ class Strong_Testimonials_Updater {
 		if ( ! $view_data['template'] ) {
 			if ( 'form' == $view_data['mode'] ) {
 				$type = 'form';
-			} else {
+			}
+			else {
 				$type = 'content';
 			}
 
 			$view_data['template'] = "default:$type";
-		} else {
+		}
+		else {
 			// Convert name; e.g. 'simple/testimonials.php'
 			if ( 'widget/testimonials.php' == $view_data['template'] ) {
 				$view_data['template'] = 'default:widget';
-			} else {
+			}
+			else {
 				$view_data['template'] = str_replace( '/', ':', $view_data['template'] );
 				$view_data['template'] = str_replace( 'testimonials.php', 'content', $view_data['template'] );
 				$view_data['template'] = str_replace( 'testimonial-form.php', 'form', $view_data['template'] );
@@ -989,7 +999,8 @@ class Strong_Testimonials_Updater {
 				$word_count                  = $word_count < 5 ? 5 : $word_count;
 				$word_count                  = $word_count > 300 ? 300 : $word_count;
 				$view_data['excerpt_length'] = $word_count;
-			} else {
+			}
+			else {
 				$view_data['excerpt_length'] = $default_view['excerpt_length'];
 			}
 
@@ -1015,7 +1026,8 @@ class Strong_Testimonials_Updater {
 				$view_data['more_page_id']   = $view_data['more_page'];
 				$view_data['more_page']      = 1;
 				$view_data['more_page_text'] = $view_data['more_text'];
-			} elseif ( isset( $view_data['more_post'] ) && $view_data['more_post'] ) {
+			}
+			elseif ( isset( $view_data['more_post'] ) && $view_data['more_post'] ) {
 				$view_data['more_post_text'] = $view_data['more_text'];
 			}
 			unset( $view_data['more_text'] );
@@ -1248,16 +1260,21 @@ class Strong_Testimonials_Updater {
 
 			if ( 'on' == $nofollow ) {
 				$new_value = 'yes';
-			} elseif ( 1 === $nofollow ) {
+			}
+			elseif ( 1 === $nofollow ) {
 				$new_value = 'yes';
-			} elseif ( 'off' == $nofollow ) {
+			}
+			elseif ( 'off' == $nofollow ) {
 				$new_value = 'no';
-			} elseif ( 0 === $nofollow ) {
+			}
+			elseif ( 0 === $nofollow ) {
 				$new_value = 'no';
-			} elseif ( is_bool( $nofollow ) ) {
+			}
+			elseif ( is_bool( $nofollow ) ) {
 				if ( $nofollow ) {
 					$new_value = 'yes';
-				} else {
+				}
+				else {
 					$new_value = 'default';
 				}
 			}

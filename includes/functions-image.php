@@ -9,18 +9,17 @@
  * @return mixed|string
  */
 function wpmtst_get_thumbnail( $size = null ) {
-	if ( ! WPMST()->atts( 'thumbnail' ) ) {
+	if ( ! WPMST()->atts( 'thumbnail' ) )
 		return '';
-	}
 
 	// let arg override view setting
-	$size = ( null === $size ) ? WPMST()->atts( 'thumbnail_size' ) : $size;
+	$size = ( null === $size ) ? WPMST()->atts( 'thumbnail_size' ) : $size ;
 	if ( 'custom' == $size ) {
 		$size = array( WPMST()->atts( 'thumbnail_width' ), WPMST()->atts( 'thumbnail_height' ) );
 	}
 
-	$id  = get_the_ID();
-	$img = '';
+	$id   = get_the_ID();
+	$img  = '';
 
 	// check for a featured image
 	if ( has_post_thumbnail( $id ) ) {
@@ -45,6 +44,7 @@ function wpmtst_get_thumbnail( $size = null ) {
 				$img = get_avatar( wpmtst_get_field( 'email' ), apply_filters( 'wpmtst_gravatar_size', $size ) );
 			}
 		}
+
 	}
 
 	return apply_filters( 'wpmtst_thumbnail_img', $img, $id );
@@ -125,7 +125,7 @@ function wpmtst_gravatar_size_filter( $size = array( 150, 150 ) ) {
 	} else {
 		// if named size
 		$image_sizes   = wpmtst_get_image_sizes();
-		$gravatar_size = $image_sizes[ $size ]['width'];
+		$gravatar_size = $image_sizes[$size]['width'];
 	}
 
 	return $gravatar_size;
@@ -142,7 +142,7 @@ add_filter( 'wpmtst_gravatar_size', 'wpmtst_gravatar_size_filter' );
  */
 function wpmtst_has_gravatar( $email_address ) {
 	// Build the Gravatar URL by hashing the email address
-	$url = 'http://www.gravatar.com/avatar/' . md5( strtolower( trim( $email_address ) ) ) . '?d=404';
+	$url = 'http://www.gravatar.com/avatar/' . md5( strtolower( trim ( $email_address ) ) ) . '?d=404';
 
 	// Now check the headers...
 	$headers = @get_headers( $url );
@@ -161,9 +161,8 @@ function wpmtst_has_gravatar( $email_address ) {
  * @return bool
  */
 function wpmtst_get_avatar( $url, $id_or_email, $args ) {
-	if ( 'if' == WPMST()->atts( 'gravatar' ) && ! wpmtst_has_gravatar( $id_or_email ) ) {
+	if ( 'if' == WPMST()->atts( 'gravatar' ) && ! wpmtst_has_gravatar( $id_or_email ) )
 		return false;
-	}
 
 	return $url;
 }

@@ -7,11 +7,11 @@ $then_classes = array(
 <div class="<?php echo esc_attr( join( array_filter( $then_classes ), ' ' ) ); ?>" style="display: none;">
 	<h3>
 		<?php /* translators: On the Views admin screen. */ ?>
-		<?php esc_html_e( 'Compatibility', 'strong-testimonials' ); ?>
+		<?php _e( 'Compatibility', 'strong-testimonials' ); ?>
 	</h3>
 	<table class="form-table multiple group-general">
 		<tr class="then then_display then_form then_slideshow then_not_single_template" style="display: none;">
-			<?php require 'option-divi.php'; ?>
+			<?php include( 'option-divi.php' ); ?>
 		</tr>
 	</table>
 </div>

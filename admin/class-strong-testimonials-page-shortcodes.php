@@ -29,57 +29,57 @@ class Strong_Testimonials_Page_Shortcodes {
 		?>
 		<div class="wrap wpmtst shortcodes has-stars">
 
-			<h1><?php esc_html_e( 'Shortcodes', 'strong-testimonials' ); ?></h1>
+			<h1><?php _e( 'Shortcodes', 'strong-testimonials' ); ?></h1>
 
-			<h2><?php esc_html_e( 'Testimonial Views', 'strong-testimonials' ); ?></h2>
+			<h2><?php _e( 'Testimonial Views', 'strong-testimonials' ); ?></h2>
 
 			<p>
-				<?php echo wp_kses_post( _e( 'Each view has a unique shortcode like <code>&#91;testimonial_view id="1"&#93;</code>.', 'strong-testimonials' ) ); ?>
-				<?php printf( '<a href="%s">%s</a>', esc_url( admin_url( 'edit.php?post_type=wpm-testimonial&page=testimonial-views' ) ), esc_html__( 'Go to views', 'strong-testimonials' ) ); ?>
+				<?php _e( 'Each view has a unique shortcode like <code>&#91;testimonial_view id="1"&#93;</code>.', 'strong-testimonials' ); ?>
+				<?php printf( '<a href="%s">%s</a>', esc_url( admin_url( 'edit.php?post_type=wpm-testimonial&page=testimonial-views' ) ), __( 'Go to views', 'strong-testimonials' ) ); ?>
 			</p>
 
-			<h2><?php esc_html_e( 'Testimonial Count', 'strong-testimonials' ); ?></h2>
+			<h2><?php _e( 'Testimonial Count', 'strong-testimonials' ); ?></h2>
 
-			<p><?php printf( esc_html__( 'Use %s to display the number of testimonials.', 'strong-testimonials' ), '<code>&#91;testimonial_count&#93;</code>' ); ?></p>
+			<p><?php printf( __( 'Use %s to display the number of testimonials.', 'strong-testimonials' ), '<code>&#91;testimonial_count&#93;</code>' ); ?></p>
 
 			<table class="form-table shortcodes" cellpadding="0" cellspacing="0">
 				<tr>
 					<td>
-						<p><?php esc_html_e( 'Default', 'strong-testimonials' ); ?></p>
+						<p><?php _e( 'Default', 'strong-testimonials' ); ?></p>
 					</td>
 					<td class="shortcode">
 						<?php /* translators: %s is a shortcode */ ?>
 						<p>
-							<?php printf( esc_html__( 'Read some of our %s testimonials!', 'strong-testimonials' ), '&#91;testimonial_count&#93;' ); ?>
+							<?php printf( __( 'Read some of our %s testimonials!', 'strong-testimonials' ), '&#91;testimonial_count&#93;' ); ?>
 						</p>
 					</td>
 				</tr>
 				<tr>
 					<td>
 						<?php /* translators: %s is a shortcode attribute */ ?>
-						<p><?php printf( esc_html__( 'To count for a specific category, add the %s attribute with the category slug.', 'strong-testimonials' ), '<code>category</code>' ); ?>
+						<p><?php printf( __( 'To count for a specific category, add the %s attribute with the category slug.', 'strong-testimonials' ), '<code>category</code>' ); ?>
 					</td>
 					<td class="shortcode">
 						<?php /* translators: %s is a shortcode */ ?>
 						<p>
-							<?php printf( esc_html__( 'Here\'s what %s local clients say', 'strong-testimonials' ), '&#91;testimonial_count category="local"&#93;' ); ?>
+							<?php printf( __( 'Here\'s what %s local clients say', 'strong-testimonials' ), '&#91;testimonial_count category="local"&#93;' ); ?>
 						</p>
 					</td>
 				</tr>
 			</table>
 
-			<h2><?php esc_html_e( 'Average Rating', 'strong-testimonials' ); ?></h2>
+			<h2><?php _e( 'Average Rating', 'strong-testimonials' ); ?></h2>
 
 			<p>
 				<?php /* translators: %s is a shortcode */ ?>
-				<?php echo wp_kses_post( printf( __( 'If using a <strong>single</strong> rating field, use %s to display the average rating.', 'strong-testimonials' ), '<code>&#91;testimonial_average_rating&#93;</code>' ) ); ?>
+				<?php printf( __( 'If using a <strong>single</strong> rating field, use %s to display the average rating.', 'strong-testimonials' ), '<code>&#91;testimonial_average_rating&#93;</code>' ); ?>
 			</p>
 
 			<table class="form-table shortcodes average" cellpadding="0" cellspacing="0">
 				<tr>
 					<td>
-						<p><?php esc_html_e( 'Default', 'strong-testimonials' ); ?></p>
-						<p class="description"><?php echo wp_kses_post( _e( 'You must use the closing slash <code>/</code> if using the shortcode with content elsewhere on your page.', 'strong-testimonials' ) ); ?></p>
+						<p><?php _e( 'Default', 'strong-testimonials' ); ?></p>
+						<p class="description"><?php _e( 'You must use the closing slash <code>/</code> if using the shortcode with content elsewhere on your page.', 'strong-testimonials' ); ?></p>
 					</td>
 					<td class="has-inner">
 						<table class="inner" cellpadding="0" cellspacing="0">
@@ -90,7 +90,7 @@ class Strong_Testimonials_Page_Shortcodes {
 								<td>
 									<div class="strong-rating-wrapper average">
 										<span class="strong-rating-title">Average Rating:</span>
-										<?php echo wp_kses_post( $stars ); ?>
+										<?php echo $stars; ?>
 										<span class="strong-rating-summary">4.3 stars (based on 9 ratings)</span>
 									</div>
 								</td>
@@ -103,8 +103,8 @@ class Strong_Testimonials_Page_Shortcodes {
 			<table class="form-table shortcodes average" cellpadding="0" cellspacing="0">
 				<tr>
 					<td>
-						<p><?php esc_html_e( 'Customize using content tags.', 'strong-testimonials' ); ?></p>
-						<p><?php esc_html_e( 'Default:', 'strong-testimonials' ); ?></p>
+						<p><?php _e( 'Customize using content tags.', 'strong-testimonials' ); ?></p>
+						<p><?php _e( 'Default:', 'strong-testimonials' ); ?></p>
 						<p><code>{title}</code><br><code>{stars}</code><br><code>{summary}</code></p>
 					</td>
 					<td class="has-inner">
@@ -116,7 +116,7 @@ class Strong_Testimonials_Page_Shortcodes {
 								<td>
 									<div class="strong-rating-wrapper average">
 										<span class="strong-rating-title">Average Rating:</span>
-										<?php echo wp_kses_post( $stars ); ?>
+										<?php echo $stars; ?>
 										<span class="strong-rating-summary">4.3 stars (based on 9 ratings)</span>
 									</div>
 								</td>
@@ -129,7 +129,7 @@ class Strong_Testimonials_Page_Shortcodes {
 			<table class="form-table shortcodes average" cellpadding="0" cellspacing="0">
 				<tr>
 					<td>
-						<p><?php esc_html_e( 'Alternate content tags.', 'strong-testimonials' ); ?></p>
+						<p><?php _e( 'Alternate content tags.', 'strong-testimonials' ); ?></p>
 						<p><code>{title2}</code><br><code>{summary2}</code></p>
 					</td>
 					<td class="has-inner">
@@ -141,7 +141,7 @@ class Strong_Testimonials_Page_Shortcodes {
 								<td>
 									<div class="strong-rating-wrapper average">
 										<span class="strong-rating-title">Average of 9 Ratings:</span>
-										<?php echo wp_kses_post( $stars ); ?>
+										<?php echo $stars; ?>
 										<span class="strong-rating-summary">4.3 stars</span>
 									</div>
 								</td>
@@ -154,7 +154,7 @@ class Strong_Testimonials_Page_Shortcodes {
 			<table class="form-table shortcodes average">
 				<tr>
 					<td>
-						<p><?php esc_html_e( 'Insert tags into your custom content.', 'strong-testimonials' ); ?></p>
+						<p><?php _e( 'Insert tags into your custom content.', 'strong-testimonials' ); ?></p>
 					</td>
 					<td class="has-inner">
 						<table class="inner" cellpadding="0" cellspacing="0">
@@ -164,7 +164,7 @@ class Strong_Testimonials_Page_Shortcodes {
 							<tr>
 								<td>
 									<div class="strong-rating-wrapper average">
-										<?php echo wp_kses_post( $stars ); ?>
+										<?php echo $stars; ?>
 										Our average rating is <b><span class="strong-rating-summary">4.3 stars</span></b>
 									</div>
 								</td>
@@ -187,7 +187,7 @@ class Strong_Testimonials_Page_Shortcodes {
 							<tr>
 								<td>
 									<div class="strong-rating-wrapper average">
-										<?php echo wp_kses_post( $stars ); ?>
+										<?php echo $stars; ?>
 									</div>
 								</td>
 							</tr>
@@ -249,7 +249,7 @@ class Strong_Testimonials_Page_Shortcodes {
 							<tr>
 								<td>
 									<div class="strong-rating-wrapper average block"><span class="strong-rating-title">Average Rating:</span>
-										<?php echo wp_kses_post( $stars ); ?>
+										<?php echo $stars; ?>
 										<span class="strong-rating-summary">4.3 stars (based on 9 ratings)</span>
 									</div>
 								</td>
@@ -272,7 +272,7 @@ class Strong_Testimonials_Page_Shortcodes {
 							<tr>
 								<td>
 									<div class="strong-rating-wrapper average centered"><span class="strong-rating-title">Average Rating:</span>
-										<?php echo wp_kses_post( $stars ); ?>
+										<?php echo $stars; ?>
 										<span class="strong-rating-summary">4.3 stars (based on 9 ratings)</span>
 									</div>
 								</td>
@@ -295,7 +295,7 @@ class Strong_Testimonials_Page_Shortcodes {
 							<tr>
 								<td>
 									<div class="strong-rating-wrapper average block centered"><span class="strong-rating-title">Average Rating:</span>
-										<?php echo wp_kses_post( $stars ); ?>
+										<?php echo $stars; ?>
 										<span class="strong-rating-summary">4.3 stars (based on 9 ratings)</span>
 									</div>
 								</td>
@@ -308,7 +308,7 @@ class Strong_Testimonials_Page_Shortcodes {
 			<table class="form-table shortcodes average">
 				<tr>
 					<td>
-						<p><?php echo wp_kses_post( _e( 'The default container element is <code>div</code>. Select another element using <code>element</code>.', 'strong-testimonials' ) ); ?></p>
+						<p><?php _e( 'The default container element is <code>div</code>. Select another element using <code>element</code>.', 'strong-testimonials' ); ?></p>
 					</td>
 					<td class="has-inner">
 						<table class="inner" cellpadding="0" cellspacing="0">
@@ -319,7 +319,7 @@ class Strong_Testimonials_Page_Shortcodes {
 								<td>
 									<span class="strong-rating-wrapper average">
 										<span class="strong-rating-title">Average Rating:</span>
-										<?php echo wp_kses_post( $stars ); ?>
+										<?php echo $stars; ?>
 										<span class="strong-rating-summary">4.3 stars (based on 9 ratings)</span>
 									</span>
 								</td>

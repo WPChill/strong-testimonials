@@ -87,7 +87,7 @@ function wpmtst_form_options_polylang( $options ) {
 		// Form messages
 		$context = 'strong-testimonials-form-messages';
 		foreach ( $options['messages'] as $key => $field ) {
-			pll_register_string( esc_html( $field['description'] ), $field['text'], $context );
+			pll_register_string( __( $field['description'], 'strong-testimonials' ), $field['text'], $context );
 		}
 
 		// Form notification
@@ -117,32 +117,14 @@ function wpmtst_readmore_polylang() {
 				continue;
 			}
 
-			pll_register_string(
-				sprintf(
-					__( 'View %s : Read more (testimonial)', 'strong-testimonials' ),
-					$view['id']
-				),
-				$view_data['more_post_text'],
-				$context
-			);
+			pll_register_string( sprintf( __( 'View %s : Read more (testimonial)', 'strong-testimonials', false ),
+				$view['id'] ), $view_data['more_post_text'], $context );
 
-			pll_register_string(
-				sprintf(
-					__( 'View %s : Read less (testimonial)', 'strong-testimonials' ),
-					$view['id']
-				),
-				$view_data['less_post_text'],
-				$context
-			);
+			pll_register_string( sprintf( __( 'View %s : Read less (testimonial)', 'strong-testimonials', false ),
+				$view['id'] ), $view_data['less_post_text'], $context );
 
-			pll_register_string(
-				sprintf(
-					__( 'View %s : Read more (page or post)', 'strong-testimonials' ),
-					$view['id']
-				),
-				$view_data['more_page_text'],
-				$context
-			);
+			pll_register_string( sprintf( __( 'View %s : Read more (page or post)', 'strong-testimonials', false ),
+				$view['id'] ), $view_data['more_page_text'], $context );
 		}
 	}
 }
@@ -183,9 +165,7 @@ add_action( 'admin_init', 'wpmtst_admin_polylang' );
 function wpmtst_help_link_polylang( $context ) {
 	echo '<p>';
 	echo '<span class="dashicons dashicons-info icon-blue"></span>&nbsp;';
-	printf(
-		wp_kses_post( __( 'Translate these fields in <a href="%s">Polylang String Translations</a>', 'strong-testimonials' ) ),
-		esc_url( admin_url( 'admin.php?page=mlang_strings&group=strong-testimonials-' . $context . '&paged=1' ) )
-	);
+	printf( __( 'Translate these fields in <a href="%s">Polylang String Translations</a>', 'strong-testimonials' ),
+		admin_url( 'admin.php?page=mlang_strings&group=strong-testimonials-' . $context . '&paged=1' ) );
 	echo '</p>';
 }

@@ -45,119 +45,91 @@ class Strong_Testimonials_Admin_Scripts {
 
 		$min = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 
-		wp_register_style(
-			'wpmtst-font-awesome',
+		wp_register_style( 'wpmtst-font-awesome',
 			WPMTST_PUBLIC_URL . 'fonts/font-awesome-4.6.3/css/font-awesome.min.css',
 			array(),
-			'4.6.3'
-		);
+			'4.6.3' );
 
-		wp_register_script(
-			'wpmtst-help',
+		wp_register_script( 'wpmtst-help',
 			WPMTST_ADMIN_URL . 'js/help.js',
 			array( 'jquery' ),
 			$plugin_version,
-			true
-		);
+			true );
 
-		wp_register_script(
-			'wpmtst-admin-script',
+		wp_register_script( 'wpmtst-admin-script',
 			WPMTST_ADMIN_URL . 'js/admin.js',
 			array( 'jquery', 'underscore' ),
 			$plugin_version,
-			true
-		);
+			true );
 
-		wp_register_style(
-			'wpmtst-admin-style',
+		wp_register_style( 'wpmtst-admin-style',
 			WPMTST_ADMIN_URL . 'css/admin.css',
 			array( 'wpmtst-font-awesome' ),
-			$plugin_version
-		);
+			$plugin_version );
 
-		wp_register_style(
-			'wpmtst-post-editor',
+		wp_register_style( 'wpmtst-post-editor',
 			WPMTST_ADMIN_URL . 'css/post-editor.css',
 			array( 'wpmtst-font-awesome' ),
-			$plugin_version
-		);
+			$plugin_version );
 
-		wp_register_script(
-			'wpmtst-custom-spinner',
-			WPMTST_ADMIN_URL . 'js/custom-spinner.js',
-			array( 'jquery' ),
-			$plugin_version,
-			true
-		);
+		wp_register_script( 'wpmtst-custom-spinner',
+				WPMTST_ADMIN_URL . 'js/custom-spinner.js',
+				array( 'jquery' ),
+				$plugin_version,
+				true );
 
-		wp_register_script(
-			'autosize',
+		wp_register_script( 'autosize',
 			WPMTST_ADMIN_URL . 'js/lib/autosize/autosize.min.js',
 			array(),
 			'4.0.1',
-			true
-		);
+			true );
 
 		/**
 		 * Form tab
 		 */
-		wp_register_style(
-			'wpmtst-admin-form-style',
-			WPMTST_ADMIN_URL . 'css/admin-form.css',
-			array( 'wpmtst-admin-style' ),
-			$plugin_version
-		);
+		wp_register_style( 'wpmtst-admin-form-style',
+		                   WPMTST_ADMIN_URL . 'css/admin-form.css',
+		                   array( 'wpmtst-admin-style' ),
+		                   $plugin_version );
 
-		wp_register_script(
-			'wpmtst-admin-form-script',
-			WPMTST_ADMIN_URL . 'js/admin-form.js',
-			array( 'wpmtst-admin-script', 'autosize' ),
-			$plugin_version,
-			true
-		);
+		wp_register_script( 'wpmtst-admin-form-script',
+		                    WPMTST_ADMIN_URL . 'js/admin-form.js',
+		                    array( 'wpmtst-admin-script', 'autosize' ),
+		                    $plugin_version,
+		                    true );
 
 		/**
 		 * Compatibility tab
 		 */
-		wp_register_style(
-			'wpmtst-admin-compat-style',
-			WPMTST_ADMIN_URL . 'css/admin-compat.css',
-			array(),
-			$plugin_version
-		);
+		wp_register_style( 'wpmtst-admin-compat-style',
+				WPMTST_ADMIN_URL . 'css/admin-compat.css',
+				array(),
+				$plugin_version );
 
-		wp_register_script(
-			'wpmtst-admin-compat-script',
-			WPMTST_ADMIN_URL . 'js/admin-compat.js',
-			array( 'jquery', 'wpmtst-custom-spinner', 'wpmtst-help' ),
-			$plugin_version,
-			true
-		);
+		wp_register_script( 'wpmtst-admin-compat-script',
+				WPMTST_ADMIN_URL . 'js/admin-compat.js',
+				array( 'jquery', 'wpmtst-custom-spinner', 'wpmtst-help' ),
+				$plugin_version,
+				true );
 
 		/**
 		 * Fields
 		 */
-		wp_register_style(
-			'wpmtst-admin-fields-style',
+		wp_register_style( 'wpmtst-admin-fields-style',
 			WPMTST_ADMIN_URL . 'css/fields.css',
 			array(),
-			$plugin_version
-		);
+			$plugin_version );
 
-		wp_register_style(
-			'wpmtst-admin-form-preview',
+		wp_register_style( 'wpmtst-admin-form-preview',
 			WPMTST_ADMIN_URL . 'css/form-preview.css',
 			array(),
-			$plugin_version
-		);
+			$plugin_version );
 
-		wp_register_script(
-			'wpmtst-admin-fields-script',
+		wp_register_script( 'wpmtst-admin-fields-script',
 			WPMTST_ADMIN_URL . 'js/admin-fields.js',
 			array( 'jquery', 'jquery-ui-sortable', 'wpmtst-help' ),
 			$plugin_version,
-			true
-		);
+			true );
 
 		$params = array(
 			'ajax_nonce' => wp_create_nonce( 'wpmtst-admin' ),
@@ -170,45 +142,35 @@ class Strong_Testimonials_Admin_Scripts {
 		/**
 		 * Ratings
 		 */
-		wp_register_style(
-			'wpmtst-rating-display',
+		wp_register_style( 'wpmtst-rating-display',
 			WPMTST_PUBLIC_URL . 'css/rating-display.css',
 			array( 'wpmtst-font-awesome' ),
-			$plugin_version
-		);
+			$plugin_version );
 
-		wp_register_style(
-			'wpmtst-rating-form',
+		wp_register_style( 'wpmtst-rating-form',
 			WPMTST_PUBLIC_URL . 'css/rating-form.css',
 			array( 'wpmtst-font-awesome' ),
-			$plugin_version
-		);
+			$plugin_version );
 
-		wp_register_script(
-			'wpmtst-rating-script',
+		wp_register_script( 'wpmtst-rating-script',
 			WPMTST_ADMIN_URL . 'js/rating-edit.js',
 			array( 'jquery' ),
 			$plugin_version,
-			true
-		);
+			true );
 
 		/**
 		 * Views
 		 */
-		wp_register_style(
-			'wpmtst-admin-views-style',
+		wp_register_style( 'wpmtst-admin-views-style',
 			WPMTST_ADMIN_URL . 'css/views.css',
 			array(),
-			$plugin_version
-		);
+			$plugin_version );
 
-		wp_register_script(
-			'wpmtst-admin-views-script',
+		wp_register_script( 'wpmtst-admin-views-script',
 			WPMTST_ADMIN_URL . 'js/views.js',
 			array( 'jquery', 'jquery-ui-sortable', 'wp-color-picker', 'jquery-masonry', 'wpmtst-help' ),
 			$plugin_version,
-			true
-		);
+			true );
 
 		/**
 		 * Category filter in View editor.
@@ -218,33 +180,27 @@ class Strong_Testimonials_Admin_Scripts {
 		 *
 		 * @since 2.2.0
 		 */
-		wp_register_script(
-			'wpmtst-view-category-filter-script',
+		wp_register_script( 'wpmtst-view-category-filter-script',
 			WPMTST_ADMIN_URL . 'js/view-category-filter.js',
 			array( 'jquery' ),
 			$plugin_version,
-			true
-		);
+			true );
 
-		wp_register_style(
-			'wpmtst-about-style',
+		wp_register_style( 'wpmtst-about-style',
 			WPMTST_ADMIN_URL . 'css/about.css',
 			array(),
-			$plugin_version
-		);
+			$plugin_version );
 
 		/**
 		 * Add-on licenses
 		 *
 		 * @since 2.18
 		 */
-		wp_register_script(
-			'wpmtst-addons-script',
+		wp_register_script( 'wpmtst-addons-script',
 			WPMTST_ADMIN_URL . 'js/addon-licenses.js',
 			array( 'jquery' ),
 			$plugin_version,
-			true
-		);
+			true );
 
 		$params = array(
 			'ajax_nonce'     => wp_create_nonce( 'wpmtst-admin' ),
@@ -259,13 +215,11 @@ class Strong_Testimonials_Admin_Scripts {
 		 *
 		 * @since 2.18
 		 */
-		wp_register_script(
-			'wpmtst-ays-script',
+		wp_register_script( 'wpmtst-ays-script',
 			WPMTST_ADMIN_URL . "js/lib/are-you-sure/jquery.are-you-sure{$min}.js",
 			array( 'jquery' ),
 			$plugin_version,
-			true
-		);
+			true );
 	}
 
 	/**
@@ -274,19 +228,17 @@ class Strong_Testimonials_Admin_Scripts {
 	public static function admin_enqueue_scripts() {
 		$plugin_version = get_option( 'wpmtst_plugin_version' );
 
-		wp_enqueue_script(
-			'wpmtst-admin-global',
-			WPMTST_ADMIN_URL . 'js/admin-global.js',
-			array( 'jquery' ),
-			$plugin_version,
-			true
-		);
+		wp_enqueue_script( 'wpmtst-admin-global',
+		                    WPMTST_ADMIN_URL . 'js/admin-global.js',
+		                    array( 'jquery' ),
+		                    $plugin_version,
+		                    true );
 
 		wp_localize_script(
 			'wpmtst-admin-global',
 			'wpmtst_admin',
 			array(
-				'nonce'            => wp_create_nonce( 'wpmtst-admin' ),
+				'nonce' => wp_create_nonce( 'wpmtst-admin' ),
 				'templateTagTitle' => __( 'click to insert into message at caret', 'strong-testimonials' ),
 			)
 		);

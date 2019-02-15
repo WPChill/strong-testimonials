@@ -109,7 +109,9 @@ class Strong_Testimonials_Admin_List {
 				} else {
 					$fields_to_add[ $field['name'] ] = apply_filters( 'wpmtst_l10n', $field['label'], 'strong-testimonials-form-fields', $field['name'] . ' : label' );
 				}
+
 			}
+
 		}
 
 		// 5. add [category], [comments] and [date]
@@ -144,40 +146,40 @@ class Strong_Testimonials_Admin_List {
 
 		switch ( $column ) {
 
-			case 'post_id':
-				echo wp_kses_post( $post->ID );
+			case 'post_id' :
+				echo $post->ID;
 				break;
 
-			case 'post_content':
-				echo wp_kses_post( substr( $post->post_content, 0, 100 ) ) . '&hellip;';
+			case 'post_content' :
+				echo substr( $post->post_content, 0, 100 ) . '&hellip;';
 				break;
 
-			case 'post_excerpt':
-				echo wp_kses_post( $post->post_excerpt );
+			case 'post_excerpt' :
+				echo $post->post_excerpt;
 				break;
 
-			case 'strong_thumbnail':
+			case 'strong_thumbnail' :
 				echo get_the_post_thumbnail( $post->ID, array( 75, 75 ) );
 				break;
 
-			case 'category':
+			case 'category' :
 				$categories = get_the_terms( 0, 'wpm-testimonial-category' );
 				if ( $categories && ! is_wp_error( $categories ) ) {
 					$list = array();
 					foreach ( $categories as $cat ) {
 						$list[] = $cat->name;
 					}
-					echo wp_kses_post( join( ', ', $list ) );
+					echo join( ", ", $list );
 				}
 				break;
 
-			case 'handle':
+			case 'handle' :
 				if ( current_user_can( 'edit_post', $post->ID ) && ! self::is_column_sorted() && ! self::is_viewing_trash() ) {
 					echo '<div class="handle"><div class="help"></div><div class="help-in-motion"></div></div>';
 				}
 				break;
 
-			default:
+			default :
 				// custom field?
 				$custom = get_post_custom();
 				$fields = wpmtst_get_custom_fields();
@@ -187,25 +189,31 @@ class Strong_Testimonials_Admin_List {
 					if ( isset( $fields[ $column ] ) ) {
 
 						switch ( $fields[ $column ]['input_type'] ) {
-							case 'rating':
+							case 'rating' :
 								wpmtst_star_rating_display( $custom[ $column ][0], 'in-table-list' );
 								break;
-							case 'checkbox':
+							case 'checkbox' :
 								echo $custom[ $column ][0] ? 'yes' : 'no';
 								break;
-							default:
-								echo wp_kses_post( $custom[ $column ][0] );
+							default :
+								echo $custom[ $column ][0];
 						}
+
 					}
+
 				} else {
 
 					if ( isset( $fields[ $column ] ) ) {
 
 						if ( 'checkbox' == $fields[ $column ]['input_type'] ) {
 							echo 'no';
+						} else {
+							// display nothing
 						}
+
 					}
 				}
+
 		}
 	}
 

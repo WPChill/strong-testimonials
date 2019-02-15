@@ -7,13 +7,13 @@
  * Save
  */
 function wpmtst_save_view_list_order() {
-	$name    = $_REQUEST['name'];
-	$order   = $_REQUEST['order'];
+	$name  = $_REQUEST['name'];
+	$order = $_REQUEST['order'];
 	$success = '';
 	if ( in_array( $name, array( 'name', 'id' ) ) ) {
 		$success = update_user_meta( get_current_user_id(), 'strong_view_list_order', array( $name, $order ) );
 	}
-	echo wp_kses_post( $success );
+	echo $success;
 	wp_die();
 }
 add_action( 'wp_ajax_wpmtst_save_view_list_order', 'wpmtst_save_view_list_order' );
@@ -31,7 +31,8 @@ function wpmtst_fetch_view_list_order() {
 		 && isset( $_GET['page'] )
 		 && 'testimonial-views' == $_GET['page']
 		 && ! isset( $_GET['orderby'] )
-		 && ! isset( $_GET['action'] ) ) {
+		 && ! isset( $_GET['action'] ) )
+	{
 		$order = get_user_meta( get_current_user_id(), 'strong_view_list_order', true );
 		if ( $order ) {
 			$url = admin_url( "edit.php?post_type=wpm-testimonial&page=testimonial-views&orderby={$order[0]}&order={$order[1]}" );

@@ -16,13 +16,11 @@ function wpmtst_scripts() {
 	 *
 	 * @since 2.28.0
 	 */
-	wp_register_script(
-		'wpmtst-controller',
-		WPMTST_PUBLIC_URL . "js/controller{$min}.js",
-		array( 'jquery' ),
-		$plugin_version,
-		true
-	);
+	wp_register_script( 'wpmtst-controller',
+	                    WPMTST_PUBLIC_URL . "js/controller{$min}.js",
+	                    array( 'jquery' ),
+	                    $plugin_version,
+	                    true );
 
 	/**
 	 * Key          : Description
@@ -42,7 +40,7 @@ function wpmtst_scripts() {
 
 	//TODO Use defaults + array_merge instead
 	$parms = array(
-		'initializeOn'   => isset( $controller['initialize_on'] ) ? $controller['initialize_on'] : '',
+	    'initializeOn'   => isset( $controller['initialize_on'] ) ? $controller['initialize_on'] : '',
 		'method'         => isset( $ajax['method'] ) ? $ajax['method'] : '',
 		'universalTimer' => isset( $ajax['universal_timer'] ) ? $ajax['universal_timer'] * 1000 : 0,
 		'observerTimer'  => isset( $ajax['observer_timer'] ) ? $ajax['observer_timer'] * 1000 : 0,
@@ -50,73 +48,61 @@ function wpmtst_scripts() {
 		'script'         => isset( $ajax['script'] ) ? $ajax['script'] : '',
 		'containerId'    => isset( $ajax['container_id'] ) ? $ajax['container_id'] : '',
 		'addedNodeId'    => isset( $ajax['addednode_id'] ) ? $ajax['addednode_id'] : '',
-		'debug'          => defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG && apply_filters( 'debug_strong_controller', true ),
+		'debug'          => defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG  && apply_filters( 'debug_strong_controller', true ),
 	);
 	wp_localize_script( 'wpmtst-controller', 'strongControllerParms', $parms );
 
 	/**
 	 * Fonts
 	 */
-	wp_register_style(
-		'wpmtst-font-awesome',
-		WPMTST_PUBLIC_URL . 'fonts/font-awesome-4.6.3/css/font-awesome.min.css',
-		array(),
-		'4.6.3'
-	);
+	wp_register_style( 'wpmtst-font-awesome',
+	                   WPMTST_PUBLIC_URL . 'fonts/font-awesome-4.6.3/css/font-awesome.min.css',
+	                   array(),
+	                   '4.6.3' );
 
 	/**
 	 * Simple pagination
 	 */
-	wp_register_script(
-		'wpmtst-pager',
-		WPMTST_PUBLIC_URL . "js/lib/strongpager/jquery.strongpager{$min}.js",
-		array( 'jquery', 'imagesloaded' ),
-		false,
-		true
-	);
+	wp_register_script( 'wpmtst-pager',
+	                    WPMTST_PUBLIC_URL . "js/lib/strongpager/jquery.strongpager{$min}.js",
+	                    array( 'jquery', 'imagesloaded' ),
+	                    false,
+	                    true );
 
 	/**
 	 * imagesLoaded, if less than WordPress 4.6
 	 */
 	if ( ! wp_script_is( 'imagesloaded', 'registered' ) ) {
-		wp_register_script(
-			'imagesloaded',
-			WPMTST_PUBLIC_URL . 'js/lib/imagesloaded/imagesloaded.pkgd.min.js',
-			array(),
-			'3.2.0',
-			true
-		);
+		wp_register_script( 'imagesloaded',
+		                    WPMTST_PUBLIC_URL . 'js/lib/imagesloaded/imagesloaded.pkgd.min.js',
+		                    array(),
+		                    '3.2.0',
+		                    true );
 	}
 
 	/**
 	 * Masonry
 	 */
-	wp_register_style(
-		'wpmtst-masonry-style',
-		WPMTST_PUBLIC_URL . 'css/masonry.css',
-		array(),
-		$plugin_version
-	);
+	wp_register_style( 'wpmtst-masonry-style',
+	                   WPMTST_PUBLIC_URL . 'css/masonry.css',
+	                   array(),
+	                   $plugin_version );
 
 	/**
 	 * Columns
 	 */
-	wp_register_style(
-		'wpmtst-columns-style',
-		WPMTST_PUBLIC_URL . 'css/columns.css',
-		array(),
-		$plugin_version
-	);
+	wp_register_style( 'wpmtst-columns-style',
+	                   WPMTST_PUBLIC_URL . 'css/columns.css',
+	                   array(),
+	                   $plugin_version );
 
 	/**
 	 * Grid
 	 */
-	wp_register_style(
-		'wpmtst-grid-style',
-		WPMTST_PUBLIC_URL . 'css/grid.css',
-		array(),
-		$plugin_version
-	);
+	wp_register_style( 'wpmtst-grid-style',
+	                   WPMTST_PUBLIC_URL . 'css/grid.css',
+	                   array(),
+	                   $plugin_version );
 
 	/**
 	 * Ratings
@@ -126,38 +112,30 @@ function wpmtst_scripts() {
 		$deps = array( 'wpmtst-font-awesome' );
 	}
 
-	wp_register_style(
-		'wpmtst-rating-form',
-		WPMTST_PUBLIC_URL . 'css/rating-form.css',
-		$deps,
-		$plugin_version
-	);
+	wp_register_style( 'wpmtst-rating-form',
+	                   WPMTST_PUBLIC_URL . 'css/rating-form.css',
+	                   $deps,
+	                   $plugin_version );
 
-	wp_register_style(
-		'wpmtst-rating-display',
-		WPMTST_PUBLIC_URL . 'css/rating-display.css',
-		$deps,
-		$plugin_version
-	);
+	wp_register_style( 'wpmtst-rating-display',
+	                   WPMTST_PUBLIC_URL . 'css/rating-display.css',
+	                   $deps,
+	                   $plugin_version );
 
 	/**
 	 * Form handling
 	 */
-	wp_register_script(
-		'wpmtst-validation-plugin',
-		WPMTST_PUBLIC_URL . "js/lib/validate/jquery.validate{$min}.js",
-		array( 'jquery' ),
-		'1.16.0',
-		true
-	);
+	wp_register_script( 'wpmtst-validation-plugin',
+	                    WPMTST_PUBLIC_URL . "js/lib/validate/jquery.validate{$min}.js",
+	                    array( 'jquery' ),
+	                    '1.16.0',
+	                    true );
 
-	wp_register_script(
-		'wpmtst-form-validation',
-		WPMTST_PUBLIC_URL . "js/lib/form-validation/form-validation{$min}.js",
-		array( 'wpmtst-validation-plugin', 'jquery-form' ),
-		$plugin_version,
-		true
-	);
+	wp_register_script( 'wpmtst-form-validation',
+	                    WPMTST_PUBLIC_URL . "js/lib/form-validation/form-validation{$min}.js",
+	                    array( 'wpmtst-validation-plugin', 'jquery-form' ),
+	                    $plugin_version,
+	                    true );
 
 	/**
 	 * Localize jQuery Validate plugin.
@@ -182,52 +160,43 @@ function wpmtst_scripts() {
 				break;
 			}
 		}
+
 	}
 
 	/**
 	 * Slider
 	 */
-	wp_register_script(
-		'jquery-actual',
-		WPMTST_PUBLIC_URL . "js/lib/actual/jquery.actual{$min}.js",
-		array( 'jquery' ),
-		'1.0.16',
-		true
-	);
+	wp_register_script( 'jquery-actual',
+	                    WPMTST_PUBLIC_URL . "js/lib/actual/jquery.actual{$min}.js",
+	                    array( 'jquery' ),
+	                    '1.0.16',
+	                    true );
 
-	wp_register_script(
-		'verge',
-		WPMTST_PUBLIC_URL . "js/lib/verge/verge{$min}.js",
-		array(),
-		'1.10.2',
-		true
-	);
+	wp_register_script( 'verge',
+	                    WPMTST_PUBLIC_URL . "js/lib/verge/verge{$min}.js",
+	                    array(),
+	                    '1.10.2',
+	                    true );
 
-	wp_register_script(
-		'wpmtst-slider',
-		WPMTST_PUBLIC_URL . "js/lib/strongslider/jquery.strongslider{$min}.js",
-		array( 'jquery-actual', 'imagesloaded', 'underscore', 'verge' ),
-		$plugin_version,
-		true
-	);
+	wp_register_script( 'wpmtst-slider',
+	                    WPMTST_PUBLIC_URL . "js/lib/strongslider/jquery.strongslider{$min}.js",
+	                    array( 'jquery-actual', 'imagesloaded', 'underscore', 'verge' ),
+	                    $plugin_version,
+	                    true );
 
 	/**
 	 * Read more in place
 	 */
-	wp_register_script(
-		'wpmtst-readmore',
-		WPMTST_PUBLIC_URL . "js/lib/readmore/readmore{$min}.js",
-		array(),
-		$plugin_version,
-		true
-	);
+	wp_register_script( 'wpmtst-readmore',
+	                    WPMTST_PUBLIC_URL . "js/lib/readmore/readmore{$min}.js",
+	                    array(),
+	                    $plugin_version,
+	                    true );
 
-	wp_register_style(
-		'wpmtst-animate',
-		WPMTST_PUBLIC_URL . 'css/animate.min.css',
-		array(),
-		''
-	);
+	wp_register_style( 'wpmtst-animate',
+	                   WPMTST_PUBLIC_URL . 'css/animate.min.css',
+	                   array(),
+	                   '' );
 
 }
 add_action( 'wp_enqueue_scripts', 'wpmtst_scripts' );

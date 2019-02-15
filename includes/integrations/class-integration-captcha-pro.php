@@ -8,7 +8,7 @@ class Strong_Testimonials_Integration_Captcha_Pro extends Strong_Testimonials_In
 	public function add_captcha() {
 		if ( function_exists( 'cptch_display_captcha_custom' ) ) {
 			return '<input type="hidden" name="cntctfrm_contact_action" value="true">' .
-				   cptch_display_captcha_custom();
+			       cptch_display_captcha_custom();
 		}
 
 		return '';

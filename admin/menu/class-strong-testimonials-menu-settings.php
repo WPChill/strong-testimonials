@@ -4,7 +4,7 @@
  */
 class Strong_Testimonials_Menu_Settings {
 
-	public static $callbacks;
+    public static $callbacks;
 
 	/**
 	 * Strong_Testimonials_Menu_Settings constructor.
@@ -26,8 +26,8 @@ class Strong_Testimonials_Menu_Settings {
 	}
 
 	/**
-	 * Add submenu page.
-	 *
+     * Add submenu page.
+     *
 	 * @param $pages
 	 *
 	 * @return mixed
@@ -38,15 +38,15 @@ class Strong_Testimonials_Menu_Settings {
 	}
 
 	/**
-	 * Return submenu page parameters.
-	 *
+     * Return submenu page parameters.
+     *
 	 * @return array
 	 */
 	public static function get_submenu() {
 		return array(
 			'page_title' => __( 'Settings', 'strong-testimonials' ),
-			'menu_title' => __( 'Settings', 'strong-testimonials' ),
-			'capability' => 'strong_testimonials_options',
+	        'menu_title' => __( 'Settings', 'strong-testimonials' ),
+		    'capability' => 'strong_testimonials_options',
 			'menu_slug'  => 'testimonial-settings',
 			'function'   => array( 'Strong_Testimonials_Settings', 'settings_page' ),
 		);

@@ -38,7 +38,7 @@ function wpmtst_compat_admin_init() {
 	 * 1. on the `admin_init` hook
 	 * 2. UNconditionally
 	 */
-	if ( 'Mercury' == $theme->get( 'Name' ) && 'http://themes.themegoods2.com/mercury' == $theme->get( 'ThemeURI' ) ) {
+	if ( 'Mercury' == $theme->get( 'Name' ) && 'http://themes.themegoods2.com/mercury' == $theme->get( 'ThemeURI' )	) {
 
 		/** Screen information is not available yet. */
 		//$screen = get_current_screen();
@@ -49,6 +49,7 @@ function wpmtst_compat_admin_init() {
 				remove_action( 'admin_init', 'pp_add_init' );
 			}
 		}
+
 	}
 }
 add_action( 'admin_init', 'wpmtst_compat_admin_init', 1 );
@@ -66,25 +67,24 @@ function wpmtst_deny_plugins_init() {
 	 */
 	if ( is_plugin_active( 'intuitive-custom-post-order/intuitive-custom-post-order.php' ) ) {
 		$options = get_option( 'hicpo_options' );
-		$update  = false;
+		$update = false;
 
 		if ( isset( $options['objects'] ) && is_array( $options['objects'] ) ) {
 			if ( in_array( 'wpm-testimonial', $options['objects'] ) ) {
 				$options['objects'] = array_diff( $options['objects'], array( 'wpm-testimonial' ) );
-				$update             = true;
+				$update = true;
 			}
 		}
 
 		if ( isset( $options['tags'] ) && is_array( $options['tags'] ) ) {
 			if ( in_array( 'wpm-testimonial-category', $options['tags'] ) ) {
 				$options['tags'] = array_diff( $options['tags'], array( 'wpm-testimonial-category' ) );
-				$update          = true;
+				$update = true;
 			}
 		}
 
-		if ( $update ) {
+		if ( $update )
 			update_option( 'hicpo_options', $options );
-		}
 	}
 
 	/**
@@ -92,25 +92,24 @@ function wpmtst_deny_plugins_init() {
 	 */
 	if ( is_plugin_active( 'simple-custom-post-order/simple-custom-post-order.php' ) ) {
 		$options = get_option( 'scporder_options' );
-		$update  = false;
+		$update = false;
 
 		if ( isset( $options['objects'] ) && is_array( $options['objects'] ) ) {
 			if ( in_array( 'wpm-testimonial', $options['objects'] ) ) {
 				$options['objects'] = array_diff( $options['objects'], array( 'wpm-testimonial' ) );
-				$update             = true;
+				$update = true;
 			}
 		}
 
 		if ( isset( $options['tags'] ) && is_array( $options['tags'] ) ) {
 			if ( in_array( 'wpm-testimonial-category', $options['tags'] ) ) {
 				$options['tags'] = array_diff( $options['tags'], array( 'wpm-testimonial-category' ) );
-				$update          = true;
+				$update = true;
 			}
 		}
 
-		if ( $update ) {
+		if ( $update )
 			update_option( 'scporder_options', $options );
-		}
 	}
 
 }

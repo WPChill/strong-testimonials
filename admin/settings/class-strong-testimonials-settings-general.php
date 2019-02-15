@@ -26,9 +26,9 @@ class Strong_Testimonials_Settings_General {
 	 * Add actions and filters.
 	 */
 	public static function add_actions() {
-		add_action( 'wpmtst_register_settings', array( __CLASS__, 'register_settings' ) );
-		add_action( 'wpmtst_settings_tabs', array( __CLASS__, 'register_tab' ), 1, 2 );
-		add_filter( 'wpmtst_settings_callbacks', array( __CLASS__, 'register_settings_page' ) );
+	    add_action( 'wpmtst_register_settings', array( __CLASS__, 'register_settings' ) );
+	    add_action( 'wpmtst_settings_tabs', array( __CLASS__, 'register_tab' ), 1, 2 );
+	    add_filter( 'wpmtst_settings_callbacks', array( __CLASS__, 'register_settings_page' ) );
 	}
 
 	/**
@@ -38,11 +38,10 @@ class Strong_Testimonials_Settings_General {
 	 * @param $url
 	 */
 	public static function register_tab( $active_tab, $url ) {
-		printf(
-			'<a href="%s" class="nav-tab %s">%s</a>',
+		printf( '<a href="%s" class="nav-tab %s">%s</a>',
 			esc_url( add_query_arg( 'tab', self::TAB_NAME, $url ) ),
 			esc_attr( $active_tab == self::TAB_NAME ? 'nav-tab-active' : '' ),
-			esc_html_x( 'General', 'adjective', 'strong-testimonials' )
+			_x( 'General', 'adjective', 'strong-testimonials' )
 		);
 	}
 
@@ -54,15 +53,15 @@ class Strong_Testimonials_Settings_General {
 	}
 
 	/**
-	 * Register settings page.
-	 *
+     * Register settings page.
+     *
 	 * @param $pages
 	 *
 	 * @return mixed
 	 */
 	public static function register_settings_page( $pages ) {
-		$pages[ self::TAB_NAME ] = array( __CLASS__, 'settings_page' );
-		return $pages;
+	    $pages[ self::TAB_NAME ] = array( __CLASS__, 'settings_page' );
+	    return $pages;
 	}
 
 	/**
@@ -70,7 +69,7 @@ class Strong_Testimonials_Settings_General {
 	 */
 	public static function settings_page() {
 		settings_fields( self::GROUP_NAME );
-		include WPMTST_ADMIN . 'settings/partials/general.php';
+		include( WPMTST_ADMIN . 'settings/partials/general.php' );
 	}
 
 	/**

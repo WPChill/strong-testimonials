@@ -7,7 +7,7 @@
 
 class Strong_Views_List_Table extends Strong_Testimonials_List_Table {
 
-	public $stickies;
+    public $stickies;
 
 	/**
 	 * Message to be displayed when there are no items
@@ -16,11 +16,11 @@ class Strong_Views_List_Table extends Strong_Testimonials_List_Table {
 	 * @access public
 	 */
 	public function no_items() {
-		esc_html_e( 'No views found.', 'strong-testimonials' );
+		_e( 'No views found.', 'strong-testimonials' );
 	}
 
 	public function prepare_list( $data = array() ) {
-		$this->stickies = get_option( 'wpmtst_sticky_views', array() );
+	    $this->stickies = get_option( 'wpmtst_sticky_views', array() );
 
 		$columns  = $this->get_columns();
 		$hidden   = $this->get_hidden_columns();
@@ -32,16 +32,16 @@ class Strong_Views_List_Table extends Strong_Testimonials_List_Table {
 		if ( isset( $_GET['orderby'] ) ) {
 			usort( $data, array( &$this, 'usort_reorder' ) );
 		}
-		$data        = $this->move_sticky( $data );
+		$data = $this->move_sticky( $data );
 		$this->items = $data;
 	}
 
-	/**
-	 * Move sticky views to the top
-	 *
+    /**
+     * Move sticky views to the top
+     *
 	 * @param $data
-	 * @since 0.2.0
-	 * @return array
+     * @since 0.2.0
+     * @return array
 	 */
 	public function move_sticky( $data ) {
 		$sticky_views = $views = array();
@@ -76,8 +76,8 @@ class Strong_Views_List_Table extends Strong_Testimonials_List_Table {
 
 	public function get_sortable_columns() {
 		return array(
-			'id'   => array( 'id', false ),
-			'name' => array( 'name', false ),
+			'id'       => array( 'id', false ),
+			'name'     => array( 'name', false ),
 		);
 	}
 
@@ -86,13 +86,13 @@ class Strong_Views_List_Table extends Strong_Testimonials_List_Table {
 		$orderby = ( ! empty( $_GET['orderby'] ) ) ? $_GET['orderby'] : 'name';
 
 		// If no order, default to asc
-		$order = ( ! empty( $_GET['order'] ) ) ? $_GET['order'] : 'asc';
+		$order = ( ! empty($_GET['order'] ) ) ? $_GET['order'] : 'asc';
 
 		// Determine sort order
 		if ( 'id' == $orderby ) {
 			$result = $this->cmp( intval( $a[ $orderby ] ), intval( $b[ $orderby ] ) );
 		} else {
-			$result = strcasecmp( $a[ $orderby ], $b[ $orderby ] );
+		    $result = strcasecmp( $a[$orderby], $b[$orderby] );
 		}
 
 		// Send final sort direction to usort
@@ -113,7 +113,7 @@ class Strong_Views_List_Table extends Strong_Testimonials_List_Table {
 
 		// Edit link
 		$edit_link = $url . '&page=testimonial-views&action=edit&id=' . $item['id'];
-		echo '<a class="row-title" href="' . esc_url( $edit_link ) . '">' . esc_html( $item['name'] ) . '</a>';
+		echo '<a class="row-title" href="' . $edit_link . '">' . $item['name'] . '</a>';
 
 		// Duplicate link
 		// @since 2.1.0
@@ -123,12 +123,12 @@ class Strong_Views_List_Table extends Strong_Testimonials_List_Table {
 		$delete_link = 'admin.php?action=delete-strong-view&id=' . $item['id'];
 
 		// Assemble links
-		$actions              = array();
+		$actions = array();
 		$actions['edit']      = '<a href="' . $edit_link . '">' . __( 'Edit' ) . '</a>';
 		$actions['duplicate'] = '<a href="' . $duplicate_link . '">' . __( 'Duplicate' ) . '</a>';
-		$actions['delete']    = "<a class='submitdelete' href='" . wp_nonce_url( $delete_link, 'delete-strong-view_' . $item['id'] ) . "' onclick=\"if ( confirm( '" . esc_js( sprintf( __( 'Delete "%s"?' ), $item['name'] ) ) . "' ) ) { return true;} return false;\">" . __( 'Delete' ) . '</a>';
+		$actions['delete']    = "<a class='submitdelete' href='" . wp_nonce_url( $delete_link, 'delete-strong-view_' . $item['id'] ) . "' onclick=\"if ( confirm( '" . esc_js( sprintf( __( "Delete \"%s\"?" ), $item['name'] ) ) . "' ) ) { return true;} return false;\">" . __( 'Delete' ) . "</a>";
 
-		echo wp_kses_post( $this->row_actions( $actions ) );
+		echo $this->row_actions( $actions );
 	}
 
 	public function column_default( $item, $column_name ) {
@@ -137,18 +137,18 @@ class Strong_Views_List_Table extends Strong_Testimonials_List_Table {
 				$text = $item['id'];
 				break;
 			case 'sticky':
-				$stuck = $this->is_stuck( $item['id'] ) ? 'stuck' : '';
-				$text  = '<a href="#" class="stickit ' . $stuck . '" title="' . __( 'stick to top of list', 'strong-testimonials' ) . '"></>';
+			    $stuck = $this->is_stuck( $item['id'] ) ? 'stuck' : '';
+				$text = '<a href="#" class="stickit ' . $stuck . '" title="' . __( 'stick to top of list', 'strong-testimonials' ) . '"></>';
 				break;
 			case 'name':
 				$text = $item['name'];
 				break;
 			case 'mode':
-				$mode         = $item['data']['mode'];
-				$text         = $mode;
+				$mode = $item['data']['mode'];
+			    $text = $mode;
 				$view_options = apply_filters( 'wpmtst_view_options', get_option( 'wpmtst_view_options' ) );
 				if ( isset( $view_options['mode'][ $mode ]['label'] ) ) {
-					$text = $view_options['mode'][ $mode ]['label'];
+				    $text = $view_options['mode'][ $mode ]['label'];
 				}
 				break;
 			case 'template':
@@ -195,37 +195,34 @@ class Strong_Views_List_Table extends Strong_Testimonials_List_Table {
 		//$this->display_tablenav( 'top' );
 
 		?>
-		<div class="wp-list-table-wrap">
-			<div class="overlay" style="display: none;"></div>
-			<table class="wp-list-table <?php echo esc_attr( implode( ' ', $this->get_table_classes() ) ); ?>">
-				<thead>
-				<tr>
-					<?php $this->print_column_headers(); ?>
-				</tr>
-				</thead>
+        <div class="wp-list-table-wrap">
+            <div class="overlay" style="display: none;"></div>
+            <table class="wp-list-table <?php echo implode( ' ', $this->get_table_classes() ); ?>">
+                <thead>
+                <tr>
+                    <?php $this->print_column_headers(); ?>
+                </tr>
+                </thead>
 
-				<tbody id="the-list"
-				<?php
-				if ( $singular ) {
-					echo " data-wp-lists='list:" . esc_attr( $singular ) . "'";
-				}
-				?>
-				>
-				<?php $this->display_rows_or_placeholder(); ?>
-				</tbody>
+                <tbody id="the-list"<?php
+                if ( $singular ) {
+                    echo " data-wp-lists='list:$singular'";
+                } ?>>
+                <?php $this->display_rows_or_placeholder(); ?>
+                </tbody>
 
-				<tfoot>
-				<tr>
-					<?php $this->print_column_headers( false ); ?>
-				</tr>
-				</tfoot>
+                <tfoot>
+                <tr>
+                    <?php $this->print_column_headers( false ); ?>
+                </tr>
+                </tfoot>
 
-			</table>
-			<?php
-			//$this->display_tablenav( 'bottom' );
-			?>
-		</div>
-		<?php
+            </table>
+            <?php
+            //$this->display_tablenav( 'bottom' );
+            ?>
+        </div>
+        <?php
 	}
 
 }
