@@ -1,10 +1,10 @@
 === Strong Testimonials ===
 Contributors: machothemes,silkalns,cdillon27
 Tags: testimonials, testimonial slider, testimonial form, star ratings
-Requires at least: 4.0
+Requires at least: 4.6
 Requires PHP: 5.6
-Tested up to: 5.0
-Stable tag: 2.33
+Tested up to: 5.1
+Stable tag: 2.36
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -173,23 +173,7 @@ No. If you already have testimonials in another plugin or theme, you will have t
 
 == Changelog ==
 
-= 2.32.4 - Dec. 27, 2018 =
-* Prerender shortcodes in WordPress Custom HTML widgets.
-
-= 2.32.3 - Dec 4, 2018 =
-* Fix stretched slide height in carousel.
-
-= 2.32.2 - Dec 4, 2018 =
-* Add adjustable responsive breakpoints for carousels.
-
-= 2.32.1 - Oct 26, 2018 =
-* Fix bug in translation of slider text controls.
-
-= 2.32 - Aug 6, 2018 =
-* Add carousel option.
-* Add filters to form field classes.
-
-See changelog.txt for previous versions.
+* See changelog.txt for previous versions.
 
 == Upgrade Notice ==
 

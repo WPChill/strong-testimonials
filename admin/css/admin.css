@@ -821,3 +821,12 @@ ul.standard {
 .wp-list-table .type-wpm-testimonial .row-actions span.id span {
   color: #777;
 }
+
+.wpmtst-notice {
+	padding: 22px;
+	border: 2px solid #7F22DE;
+}
+
+.wpmtst-notice img {
+	max-width: 100%;
+}
