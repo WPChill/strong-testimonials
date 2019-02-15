@@ -26,7 +26,7 @@ class Strong_Testimonials_Settings_Licenses {
 	 * Add actions and filters.
 	 */
 	public static function add_actions() {
-		add_action( 'wpmtst_register_settings', array( __CLASS__, 'register_settings' ) );
+	    add_action( 'wpmtst_register_settings', array( __CLASS__, 'register_settings' ) );
 		add_action( 'wpmtst_settings_tabs', array( __CLASS__, 'register_tab' ), 90, 2 );
 		add_filter( 'wpmtst_settings_callbacks', array( __CLASS__, 'register_settings_page' ) );
 	}
@@ -48,11 +48,10 @@ class Strong_Testimonials_Settings_Licenses {
 	 */
 	public static function register_tab( $active_tab, $url ) {
 		if ( self::has_active_addons() ) {
-			printf(
-				'<a href="%s" class="nav-tab %s">%s</a>',
+			printf( '<a href="%s" class="nav-tab %s">%s</a>',
 				esc_url( add_query_arg( 'tab', self::TAB_NAME, $url ) ),
 				esc_attr( $active_tab == self::TAB_NAME ? 'nav-tab-active' : '' ),
-				esc_html__( 'Licenses', 'strong-testimonials' )
+				__( 'Licenses', 'strong-testimonials' )
 			);
 		}
 	}
@@ -81,7 +80,7 @@ class Strong_Testimonials_Settings_Licenses {
 	 */
 	public static function settings_page() {
 		settings_fields( self::GROUP_NAME );
-		include WPMTST_ADMIN . 'settings/partials/licenses.php';
+		include( WPMTST_ADMIN . 'settings/partials/licenses.php' );
 	}
 
 	/**

@@ -53,7 +53,7 @@ class Strong_Testimonials_Count_Shortcode {
 					'taxonomy' => 'wpm-testimonial-category',
 					'field'    => 'slug',
 					'terms'    => $atts['category'],
-				),
+				)
 			);
 
 		}

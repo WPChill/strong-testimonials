@@ -1,6 +1,6 @@
 <?php /* translators: On the Views admin screen. */ ?>
 <th>
-	<?php esc_html_e( 'Custom Fields', 'strong-testimonials' ); ?>
+	<?php _e( 'Custom Fields', 'strong-testimonials' ); ?>
 </th>
 <td colspan="2">
 
@@ -19,7 +19,11 @@
 	</div>
 
 	<div id="add-field-bar" class="is-below">
-		<input id="add-field" type="button" name="add-field" value="<?php esc_attr_e( 'Add Field', 'strong-testimonials' ); ?>" class="button-secondary" />
+		<input id="add-field"
+               type="button"
+               name="add-field"
+			   value="<?php _e( 'Add Field', 'strong-testimonials' ); ?>"
+               class="button-secondary" />
 	</div>
 
 </td>

@@ -4,9 +4,9 @@
  */
 class Strong_Testimonials_Settings {
 
-	const DEFAULT_TAB = 'general';
+    const DEFAULT_TAB = 'general';
 
-	public static $callbacks;
+    public static $callbacks;
 
 	/**
 	 * Strong_Testimonials_Settings constructor.
@@ -33,27 +33,26 @@ class Strong_Testimonials_Settings {
 	 */
 	public static function register_settings() {
 		self::$callbacks = apply_filters( 'wpmtst_settings_callbacks', array() );
-		do_action( 'wpmtst_register_settings' );
+        do_action( 'wpmtst_register_settings' );
 	}
 
 	/**
 	 * Settings page
 	 */
 	public static function settings_page() {
-		if ( ! current_user_can( 'strong_testimonials_options' ) ) {
-			wp_die( esc_html__( 'You do not have sufficient permissions to access this page.' ) );
-		}
+		if ( ! current_user_can( 'strong_testimonials_options' ) )
+			wp_die( __( 'You do not have sufficient permissions to access this page.' ) );
 
 		$tab = self::get_tab();
 		$url = admin_url( 'edit.php?post_type=wpm-testimonial&page=testimonial-settings' );
 		?>
 		<div class="wrap wpmtst">
 
-			<h1><?php echo wp_kses_post( apply_filters( 'wpmtst_cpt_singular_name', esc_html__( 'Testimonial', 'strong-testimonials' ) ) ); ?> <?php esc_html_e( 'Settings' ); ?></h1>
+			<h1><?php echo apply_filters( 'wpmtst_cpt_singular_name', __( 'Testimonial', 'strong-testimonials' ) ); ?> <?php _e( 'Settings' ); ?></h1>
 
 			<?php if ( isset( $_GET['settings-updated'] ) ) : ?>
 				<div id="message" class="updated notice is-dismissible">
-					<p><?php esc_html_e( 'Settings saved.' ); ?></p>
+					<p><?php _e( 'Settings saved.' ) ?></p>
 				</div>
 			<?php endif; ?>
 
@@ -61,7 +60,7 @@ class Strong_Testimonials_Settings {
 				<?php do_action( 'wpmtst_settings_tabs', $tab, $url ); ?>
 			</h2>
 
-			<form id="<?php echo esc_attr( $tab ); ?>-form" method="post" action="options.php">
+			<form id="<?php esc_attr_e( $tab ); ?>-form" method="post" action="options.php">
 				<?php
 				if ( isset( self::$callbacks[ $tab ] ) && wpmtst_callback_exists( self::$callbacks[ $tab ] ) ) {
 					call_user_func( self::$callbacks[ $tab ] );
@@ -70,11 +69,11 @@ class Strong_Testimonials_Settings {
 				}
 
 				if ( has_action( 'wpmtst_settings_submit_row' ) ) {
-					echo '<p class="submit-buttons">';
+				    echo '<p class="submit-buttons">';
 					do_action( 'wpmtst_settings_submit_row' );
-					echo '</p>';
-				}
-				?>
+				    echo '</p>';
+                }
+                ?>
 			</form>
 
 		</div><!-- .wrap -->

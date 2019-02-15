@@ -6,16 +6,16 @@
 			<select id="view-id" name="view[data][id]">
 				<option value="0"><?php _e( '&mdash; select &mdash;' ); ?></option>
 				<?php foreach ( $testimonials_list as $post ) : ?>
-					<option value="<?php echo esc_attr( $post->ID ); ?>" <?php selected( $view['id'], $post->ID ); ?>>
-						<?php echo $post->post_title ? esc_html( $post->post_title ) : esc_html__( '(untitled)', 'strong-testimonials' ); ?>
+					<option value="<?php echo $post->ID; ?>" <?php selected( $view['id'], $post->ID ); ?>>
+						<?php echo $post->post_title ? $post->post_title : __( '(untitled)', 'strong-testimonials' ); ?>
 					</option>
 				<?php endforeach; ?>
 			</select>
 		</label>
-	</div>
-	<div class="row-inner">
+    </div>
+    <div class="row-inner">
 		<label for="view-post_id">
-			<?php echo esc_html_x( 'or enter its ID or slug', 'to select a testimonial', 'strong-testimonials' ); ?>
+			<?php _ex( 'or enter its ID or slug', 'to select a testimonial', 'strong-testimonials' ); ?>
 		</label>
 		<input type="text" id="view-post_id" name="view[data][post_id]" size="30">
 	</div>

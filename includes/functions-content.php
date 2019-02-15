@@ -11,7 +11,7 @@
  *
  * @return string
  */
-function wpmtst_the_content_filtered( $more_link_text = null, $strip_teaser = false ) {
+function wpmtst_the_content_filtered( $more_link_text = null, $strip_teaser = false) {
 	$content = get_the_content( $more_link_text, $strip_teaser );
 	$content = apply_filters( 'wpmtst_the_content', $content );
 	$content = str_replace( ']]>', ']]&gt;', $content );
@@ -138,24 +138,21 @@ function wpmtst_get_the_prepared_text( $hybrid = false ) {
 function wpmtst_get_excerpt_more_link() {
 	$url = apply_filters( 'wpmtst_read_more_post_url', get_permalink(), WPMST()->atts() );
 
-	$link_text = sprintf(
-		'%s<span class="screen-reader-text"> "%s"</span>',
-		apply_filters( 'wpmtst_read_more_post_link_text', WPMST()->atts( 'more_post_text' ), WPMST()->atts() ),
-		get_the_title()
+	$link_text = sprintf( '%s<span class="screen-reader-text"> "%s"</span>',
+		apply_filters( 'wpmtst_read_more_post_link_text', WPMST()->atts( 'more_post_text' ), WPMST()->atts() ), get_the_title()
 	);
 
 	$link_class = apply_filters( 'wpmtst_read_more_post_link_class', 'readmore' );
 
 	if ( apply_filters( 'wpmtst_is_hybrid_content', false ) ) {
-		// no href
-		$link = sprintf(
-			'<a aria-expanded="false" aria-controls="more-%1$d" class="%2s readmore-toggle"><span class="readmore-text" data-more-text="%4$s" data-less-text="%5$s">%3$s</span></a>',
-			get_the_ID(), // 1
-			$link_class,  // 2
-			$link_text,   // 3
-			WPMST()->atts( 'more_post_text' ), // 4
-			WPMST()->atts( 'less_post_text' )  // 5
-		);
+	    // no href
+	    $link = sprintf( '<a aria-expanded="false" aria-controls="more-%1$d" class="%2s readmore-toggle"><span class="readmore-text" data-more-text="%4$s" data-less-text="%5$s">%3$s</span></a>',
+		    get_the_ID(), // 1
+		    $link_class,  // 2
+		    $link_text,   // 3
+	        WPMST()->atts( 'more_post_text' ), // 4
+	        WPMST()->atts( 'less_post_text' )  // 5
+	    );
 	} else {
 		$link = sprintf( '<a href="%s" class="%s">%s</a>', esc_url( $url ), $link_class, $link_text );
 	}
@@ -189,11 +186,11 @@ function wpmtst_trim_words( $text, $num_words = 55, $more = null, $hybrid = fals
 		$text = trim( preg_replace( "/[\n\r\t ]+/", ' ', $text ), ' ' );
 		preg_match_all( '/./u', $text, $words_array );
 		$words_array = array_slice( $words_array[0], 0, $num_words + 1 );
-		$sep         = '';
+		$sep = '';
 	} else {
-		$offset      = $hybrid ? 0 : $num_words + 1;
+		$offset = $hybrid ? 0 : $num_words + 1;
 		$words_array = preg_split( "/[\n\r\t ]+/", $text, $offset, PREG_SPLIT_NO_EMPTY );
-		$sep         = ' ';
+		$sep = ' ';
 	}
 
 	if ( count( $words_array ) > $num_words ) {

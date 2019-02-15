@@ -1,4 +1,14 @@
 <?php
+// avoiding the tab character before the shortcode for better copy-n-paste
+if ( 'edit' == $action ) {
+	$shortcode = '<div class="saved">';
+	$shortcode .= '<input id="view-shortcode" type="text" value="[testimonial_view id=&quot;' . esc_attr( $view_id ) . '&quot;]" readonly />';
+	$shortcode .= '<input id="copy-shortcode" class="button small" type="button" value="' . esc_attr__( 'copy to clipboard', 'strong-testimonials' ) . '" data-copytarget="#view-shortcode" />';
+	$shortcode .= '<span id="copy-message">copied</span>';
+	$shortcode .= '</div>';
+} else {
+	$shortcode = '<div class="unsaved">' . _x( 'will be available after you save this', 'The shortcode for a new View.', 'strong-testimonials' ) . '</div>';
+}
 
 $then_classes = array(
 	'then',
@@ -12,21 +22,11 @@ $then_classes = array(
 
 <div class="table-row form-view-shortcode <?php echo esc_attr( join( array_filter( $then_classes ), ' ' ) ); ?>">
 	<div class="table-cell">
-		<label for="view-shortcode">
-			<?php esc_html_e( 'Shortcode', 'strong-testimonials' ); ?>
-		</label>
+        <label for="view-shortcode">
+		    <?php _e( 'Shortcode', 'strong-testimonials' ); ?>
+        </label>
 	</div>
 	<div class="table-cell">
-	<?php if ( 'edit' == $action ) : ?>
-		<div class="saved">
-			<input id="view-shortcode" type="text" value="[testimonial_view id=&quot;<?php echo esc_attr( $view_id ); ?>&quot;]" readonly />
-			<input id="copy-shortcode" class="button small" type="button" value="<?php echo esc_attr__( 'copy to clipboard', 'strong-testimonials' ); ?>" data-copytarget="#view-shortcode" />
-			<span id="copy-message">copied</span>
-		</div>
-	<?php else : ?>
-		<div class="unsaved">
-			<?php echo esc_html_x( 'will be available after you save this view', 'The shortcode for a new View.', 'strong-testimonials' ); ?>
-		</div>
-	<?php endif; ?>
+		<?php echo $shortcode; ?>
 	</div>
 </div>

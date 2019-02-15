@@ -81,6 +81,7 @@ class Strong_Testimonials_Privacy {
 					'data'        => $data,
 				);
 			}
+
 		}
 
 		// Tell core if we have more comments to work on still
@@ -124,6 +125,7 @@ class Strong_Testimonials_Privacy {
 					$items_removed = true;
 				}
 			}
+
 		}
 
 		// Tell core if we have more comments to work on still
@@ -157,7 +159,7 @@ class Strong_Testimonials_Privacy {
 	 * @since 2.31.4
 	 * @return array
 	 */
-	public function register_eraser( $erasers ) {
+	function register_eraser( $erasers ) {
 		$erasers['strong-testimonials'] = array(
 			'eraser_friendly_name' => $this->get_friendly_name(),
 			'callback'             => array( $this, 'eraser' ),

@@ -7,7 +7,7 @@
  */
 function wpmtst_update_tables() {
 	global $wpdb;
-	require_once ABSPATH . 'wp-admin/includes/upgrade.php';
+	require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
 
 	$charset_collate = $wpdb->get_charset_collate();
 
@@ -26,14 +26,14 @@ function wpmtst_update_tables() {
 
 	if ( $wpdb->last_error ) {
 		deactivate_plugins( 'strong-testimonials/strong-testimonials.php' );
-		$message  = '<p><span style="color: #CD0000;">';
+		$message = '<p><span style="color: #CD0000;">';
 		$message .= __( 'An error occurred:', 'strong-testimonials' ) . '</span>&nbsp;';
 		$message .= __( 'The plugin has been deactivated.', 'strong-testimonials' );
 		$message .= '</p>';
 		$message .= '<p><code>' . $wpdb->last_error . '</code></p>';
 		$message .= '<p>' . sprintf( __( '<a href="%s">Go back to Dashboard</a>', 'strong-testimonials' ), esc_url( admin_url() ) ) . '</p>';
 
-		wp_die( sprintf( '<div class="error strong-view-error">%s</div>', wp_kses_post( $message ) ) );
+		wp_die( sprintf( '<div class="error strong-view-error">%s</div>', $message ) );
 	}
 
 	update_option( 'wpmtst_db_version', WPMST()->get_db_version() );

@@ -54,36 +54,33 @@ class Strong_Testimonials_Defaults {
 	 * @return array
 	 */
 	public static function get_field_base() {
-		return apply_filters(
-			'wpmtst_field_base',
-			array(
-				'name'                    => '',
-				'name_mutable'            => 1,
-				'label'                   => '',
-				'show_label'              => 1,
-				'input_type'              => '',
-				'action_input'            => '',
-				'action_output'           => '',
-				'text'                    => '',
-				'show_text_option'        => 0,
-				'required'                => 0,
-				'show_required_option'    => 1,
-				'default_form_value'      => '',
-				'default_display_value'   => '',
-				'show_default_options'    => 1,
-				'error'                   => __( 'This field is required.', 'strong-testimonials' ),
-				'placeholder'             => '',
-				'show_placeholder_option' => 1,
-				'before'                  => '',
-				'after'                   => '',
-				'admin_table'             => 0,
-				'admin_table_option'      => 1,
-				'show_admin_table_option' => 1,
-				'shortcode_on_form'       => '',
-				'shortcode_on_display'    => '',
-				'show_shortcode_options'  => 0,
-			)
-		);
+		return apply_filters( 'wpmtst_field_base', array(
+			'name'                    => '',
+			'name_mutable'            => 1,
+			'label'                   => '',
+			'show_label'              => 1,
+			'input_type'              => '',
+			'action_input'            => '',
+			'action_output'           => '',
+			'text'                    => '',
+			'show_text_option'        => 0,
+			'required'                => 0,
+			'show_required_option'    => 1,
+			'default_form_value'      => '',
+			'default_display_value'   => '',
+			'show_default_options'    => 1,
+			'error'                   => __( 'This field is required.', 'strong-testimonials' ),
+			'placeholder'             => '',
+			'show_placeholder_option' => 1,
+			'before'                  => '',
+			'after'                   => '',
+			'admin_table'             => 0,
+			'admin_table_option'      => 1,
+			'show_admin_table_option' => 1,
+			'shortcode_on_form'       => '',
+			'shortcode_on_display'    => '',
+			'show_shortcode_options'  => 0,
+		) );
 	}
 
 	/**
@@ -477,7 +474,7 @@ class Strong_Testimonials_Defaults {
 	public static function get_view_options() {
 		$default_view_options = array(
 
-			'mode'                   => array(
+			'mode' => array(
 				'display'         => array(
 					'name'        => 'display',
 					'label'       => __( 'Display', 'strong-testimonials' ),
@@ -500,33 +497,33 @@ class Strong_Testimonials_Defaults {
 				),
 			),
 
-			'order'                  => array(
+			'order' => array(
 				'random'     => _x( 'random', 'display order', 'strong-testimonials' ),
 				'menu_order' => _x( 'menu order', 'display order', 'strong-testimonials' ),
 				'newest'     => _x( 'newest first', 'display order', 'strong-testimonials' ),
 				'oldest'     => _x( 'oldest first', 'display order', 'strong-testimonials' ),
 			),
 
-			'slideshow_effect'       => array(
+			'slideshow_effect' => array(
 				'none'       => _x( 'no transition effect', 'slideshow transition option', 'strong-testimonials' ),
 				'fade'       => _x( 'fade', 'slideshow transition option', 'strong-testimonials' ),
 				'horizontal' => _x( 'scroll horizontally', 'slideshow transition option', 'strong-testimonials' ),
 				'vertical'   => _x( 'scroll vertically', 'slideshow transition option', 'strong-testimonials' ),
 			),
 
-			'slideshow_height'       => array(
+			'slideshow_height' => array(
 				'dynamic' => _x( 'Adjust height for each slide', 'slideshow option', 'strong-testimonials' ),
 				'static'  => _x( 'Set height to match the tallest slide', 'slideshow option', 'strong-testimonials' ),
 			),
 
-			'slideshow_nav_method'   => array(
+			'slideshow_nav_method' => array(
 				'controls' => array(
 					'none'   => array(
 						'label' => _x( 'none', 'slideshow controls option', 'strong-testimonials' ),
 						'args'  => array(  // base args; style will add more args
-							'controls'     => 0,
-							'pager'        => 0,
-							'autoControls' => 0,
+						                   'controls'     => 0,
+						                   'pager'        => 0,
+						                   'autoControls' => 0,
 						),
 					),
 					'full'   => array(
@@ -661,11 +658,11 @@ class Strong_Testimonials_Defaults {
 	public static function get_default_view() {
 		$default_view = array(
 			'background'          => array(
-				'color'     => '',
-				'type'      => '',
-				'preset'    => '',
-				'gradient1' => '',
-				'gradient2' => '',
+				'color'              => '',
+				'type'               => '',
+				'preset'             => '',
+				'gradient1'          => '',
+				'gradient2'          => '',
 			),
 			'category'            => 'all',
 			'class'               => '',
@@ -692,7 +689,7 @@ class Strong_Testimonials_Defaults {
 			'count'               => -1,
 			'divi_builder'        => 0,
 			'excerpt_length'      => 55,
-			'font-color'          => array(
+			'font-color'         => array(
 				'color' => '',
 				'type'  => '',
 			),
@@ -733,13 +730,13 @@ class Strong_Testimonials_Defaults {
 				'after_page_number'  => '',
 			),
 			'slideshow_settings'  => array(
-				'type'               => 'show_single', // or show_multiple
-				'show_single'        => array(
+				'type'        => 'show_single', // or show_multiple
+				'show_single'   => array(
 					'max_slides'  => 1,
 					'move_slides' => 1,
 					'margin'      => 1,
 				),
-				'breakpoints'        => array(
+				'breakpoints' => array(
 					'desktop' => array(
 						'description' => 'Desktop',
 						'width'       => 1200,
@@ -822,16 +819,16 @@ class Strong_Testimonials_Defaults {
 				'event'           => '',
 				'script'          => '',
 			),
-			'controller'   => array(
+			'controller' => array(
 				'initialize_on' => 'documentReady', // or windowLoad
 			),
-			'lazyload'     => array(
+			'lazyload' => array(
 				'enabled' => '',
 				'classes' => array( // may be multiple pairs
 					array(
 						'start'  => '',
 						'finish' => '',
-					),
+					)
 				),
 			),
 		);
@@ -846,7 +843,7 @@ class Strong_Testimonials_Defaults {
 	 */
 	public static function get_captcha_plugins() {
 		$plugins = array(
-			'google-captcha'        => array(
+			'google-captcha'    => array(
 				'name'      => 'Google Captcha by BestWebSoft (free)',
 				'desc'      => __( '<strong>Recommended.</strong> The best choice for both Invisible reCAPTCHA and reCAPTCHA V2 ("I\'m not a robot" checkbox).', 'strong-testimonials' ),
 				'class'     => 'Google_Captcha',
@@ -857,18 +854,18 @@ class Strong_Testimonials_Defaults {
 				'installed' => false,
 				'active'    => false,
 			),
-			'captcha-pro'           => array(
+			'captcha-pro' => array(
 				'name'      => 'Captcha Pro by BestWebSoft (premium)',
 				'desc'      => __( 'An excellent plugin for math- and image-based captchas.', 'strong-testimonials' ),
 				'class'     => 'Captcha_Pro',
 				'file'      => 'captcha-pro/captcha_pro.php',
 				'settings'  => 'admin.php?page=captcha_pro.php',
-				'search'    => '',
+				'search' => '',
 				'url'       => 'https://bestwebsoft.com/products/wordpress/plugins/captcha/',
 				'installed' => false,
 				'active'    => false,
 			),
-			'really-simple-captcha' => array(
+			'really-simple-captcha'    => array(
 				'name'      => 'Really Simple Captcha by Takayuki Miyoshi (free)',
 				'class'     => 'Really_Simple_Captcha',
 				'file'      => 'really-simple-captcha/really-simple-captcha.php',

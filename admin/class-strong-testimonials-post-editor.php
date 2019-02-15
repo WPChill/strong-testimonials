@@ -54,12 +54,12 @@ class Strong_Testimonials_Post_Editor {
 		$is_new = ( 'post-new.php' == $pagenow );
 		?>
 		<?php do_action( 'wpmtst_before_client_fields_table' ); ?>
-		<table class="options">
-			<tr>
-				<td colspan="2">
-					<p><?php echo esc_html_x( 'To add a photo or logo, use the Featured Image option.', 'post editor', 'strong-testimonials' ); ?></p>
-				</td>
-			</tr>
+        <table class="options">
+            <tr>
+                <td colspan="2">
+                    <p><?php _ex( 'To add a photo or logo, use the Featured Image option.', 'post editor', 'strong-testimonials' ); ?></p>
+                </td>
+            </tr>
 			<?php
 			do_action( 'wpmtst_before_client_fields' );
 			foreach ( $fields as $key => $field ) {
@@ -69,23 +69,23 @@ class Strong_Testimonials_Post_Editor {
 					continue;
 				}
 				?>
-				<tr>
-					<th>
-						<label for="<?php echo esc_attr( $field['name'] ); ?>">
-							<?php echo wp_kses_post( apply_filters( 'wpmtst_l10n', $field['label'], 'strong-testimonials-form-fields', $field['name'] . ' : label' ) ); ?>
-						</label>
-					</th>
-					<td>
-						<div class="<?php echo esc_attr( $field['input_type'] ); ?>">
+                <tr>
+                    <th>
+                        <label for="<?php esc_attr_e( $field['name'] ); ?>">
+							<?php echo apply_filters( 'wpmtst_l10n', $field['label'], 'strong-testimonials-form-fields', $field['name'] . ' : label' ); ?>
+                        </label>
+                    </th>
+                    <td>
+                        <div class="<?php esc_attr_e( $field['input_type'] ); ?>">
 							<?php self::meta_option( $field, $post, $is_new ); ?>
-						</div>
-					</td>
-				</tr>
+                        </div>
+                    </td>
+                </tr>
 				<?php
 			}
 			do_action( 'wpmtst_after_client_fields' );
 			?>
-		</table>
+        </table>
 		<?php
 		do_action( 'wpmtst_after_client_fields_table' );
 	}
@@ -107,27 +107,27 @@ class Strong_Testimonials_Post_Editor {
 		// Check field type.
 		else {
 			switch ( $field['input_type'] ) {
-				case 'rating':
+				case 'rating' :
 					self::meta_option__rating( $field, $post, $is_new );
 					break;
-				case 'url':
+				case 'url' :
 					self::meta_option__url( $field, $post, $is_new );
 					break;
-				case 'checkbox':
+				case 'checkbox' :
 					self::meta_option__checkbox( $field, $post, $is_new );
 					break;
-				case 'shortcode':
+				case 'shortcode' :
 					self::meta_option__shortcode( $field, $post, $is_new );
 					break;
-				default:
+				default :
 					self::meta_option__text( $field, $post, $is_new );
 			}
 		}
 	}
 
 	/**
-	 * Custom action callback.
-	 *
+     * Custom action callback.
+     *
 	 * @param $field
 	 * @param $post
 	 * @param $is_new
@@ -146,12 +146,8 @@ class Strong_Testimonials_Post_Editor {
 	 * @param $is_new
 	 */
 	private static function meta_option__text( $field, $post, $is_new ) {
-		printf(
-			'<input id="%2$s" type="%1$s" class="custom-input" name="custom[%2$s]" value="%3$s">',
-			esc_attr( $field['input_type'] ),
-			esc_attr( $field['name'] ),
-			esc_attr( $post->{$field['name']} )
-		);
+		printf( '<input id="%2$s" type="%1$s" class="custom-input" name="custom[%2$s]" value="%3$s">',
+		        $field['input_type'], $field['name'], esc_attr( $post->{$field['name']} ) );
 	}
 
 	/**
@@ -163,24 +159,18 @@ class Strong_Testimonials_Post_Editor {
 	 */
 	private static function meta_option__url( $field, $post, $is_new ) {
 		?>
-		<div class="input-url">
-			<?php
-			printf(
-				'<input id="%2$s" type="%1$s" class="custom-input" name="custom[%2$s]" value="%3$s" size="">',
-				esc_attr( $field['input_type'] ),
-				esc_attr( $field['name'] ),
-				esc_attr( $post->{$field['name']} )
-			);
-			?>
-		</div>
-		<div class="input-nofollow">
-			<label for="custom_nofollow"><code>rel="nofollow"</code></label>
-			<select id="custom_nofollow" name="custom[nofollow]">
-				<option value="default" <?php selected( $post->nofollow, 'default' ); ?>><?php esc_html_e( 'default', 'strong-testimonials' ); ?></option>
-				<option value="yes" <?php selected( $post->nofollow, 'yes' ); ?>><?php esc_html_e( 'yes', 'strong-testimonials' ); ?></option>
-				<option value="no" <?php selected( $post->nofollow, 'no' ); ?>><?php esc_html_e( 'no', 'strong-testimonials' ); ?></option>
-			</select>
-		</div>
+        <div class="input-url">
+			<?php printf( '<input id="%2$s" type="%1$s" class="custom-input" name="custom[%2$s]" value="%3$s" size="">',
+			              $field['input_type'], $field['name'], esc_attr( $post->{$field['name']} ) ); ?>
+        </div>
+        <div class="input-nofollow">
+            <label for="custom_nofollow"><code>rel="nofollow"</code></label>
+            <select id="custom_nofollow" name="custom[nofollow]">
+                <option value="default" <?php selected( $post->nofollow, 'default' ); ?>><?php _e( 'default', 'strong-testimonials' ); ?></option>
+                <option value="yes" <?php selected( $post->nofollow, 'yes' ); ?>><?php _e( 'yes', 'strong-testimonials' ); ?></option>
+                <option value="no" <?php selected( $post->nofollow, 'no' ); ?>><?php _e( 'no', 'strong-testimonials' ); ?></option>
+            </select>
+        </div>
 		<?php
 	}
 
@@ -192,13 +182,8 @@ class Strong_Testimonials_Post_Editor {
 	 * @param $is_new
 	 */
 	private static function meta_option__checkbox( $field, $post, $is_new ) {
-		printf(
-			'<input id="%2$s" type="%1$s" class="custom-input" name="custom[%2$s]" value="%3$s" %4$s>',
-			esc_attr( $field['input_type'] ),
-			esc_attr( $field['name'] ),
-			1,
-			checked( $post->{$field['name']}, 1, false )
-		);
+		printf( '<input id="%2$s" type="%1$s" class="custom-input" name="custom[%2$s]" value="%3$s" %4$s>',
+		        $field['input_type'], $field['name'], 1, checked( $post->{$field['name']}, 1, false ) );
 	}
 
 	/**
@@ -214,41 +199,45 @@ class Strong_Testimonials_Post_Editor {
 			$rating = 0;
 		}
 		?>
-		<div class="edit-rating-box hide-if-no-js" data-field="<?php echo esc_attr( $field['name'] ); ?>">
+        <div class="edit-rating-box hide-if-no-js" data-field="<?php echo $field['name']; ?>">
 
 			<?php wp_nonce_field( 'editrating', "edit-{$field['name']}-nonce", false ); ?>
-			<input type="hidden" class="current-rating" value="<?php echo esc_attr( $rating ); ?>">
+            <input type="hidden" class="current-rating" value="<?php echo $rating; ?>">
 
-			<!-- form -->
-			<div class="rating-form" style="<?php echo ( $is_new ) ? 'display: inline-block;' : 'display: none;'; ?>">
-					<span class="inner">
-						<?php wpmtst_star_rating_form( $field, $rating, 'in-metabox', true, 'custom' ); ?>
-					</span>
+            <!-- form -->
+            <div class="rating-form" style="<?php echo ( $is_new ) ? 'display: inline-block;' : 'display: none;'; ?>">
+                    <span class="inner">
+                        <?php wpmtst_star_rating_form( $field, $rating, 'in-metabox', true, 'custom' ); ?>
+                    </span>
 				<?php if ( ! $is_new ) : ?>
-					<span class="edit-rating-buttons-2">
-							<button type="button" class="zero button-link"><?php esc_html_e( 'Zero', 'strong-testimonials' ); ?></button>&nbsp;
-							<button type="button" class="save button button-small"><?php esc_html_e( 'OK' ); ?></button>&nbsp;
-							<button type="button" class="cancel button-link"><?php esc_html_e( 'Cancel' ); ?></button>
-						</span>
+                    <span class="edit-rating-buttons-2">
+                            <button type="button"
+                                    class="zero button-link"><?php _e( 'Zero', 'strong-testimonials' ); ?></button>&nbsp;
+                            <button type="button" class="save button button-small"><?php _e( 'OK' ); ?></button>&nbsp;
+                            <button type="button" class="cancel button-link"><?php _e( 'Cancel' ); ?></button>
+                        </span>
 				<?php endif; ?>
-			</div>
+            </div>
 
-			<!-- display -->
-			<div class="rating-display" style="<?php echo $is_new ? 'display: none;' : 'display: inline-block;'; ?>">
-					<span class="inner">
-						<?php wpmtst_star_rating_display( $rating, 'in-metabox' ); ?>
-					</span>
+            <!-- display -->
+            <div class="rating-display" style="<?php echo $is_new ? 'display: none;' : 'display: inline-block;'; ?>">
+                    <span class="inner">
+                        <?php wpmtst_star_rating_display( $rating, 'in-metabox' ); ?>
+                    </span>
 
 				<?php if ( ! $is_new ) : ?>
-					<span class="edit-rating-buttons-1">
-						<button type="button" id="" class="edit-rating button button-small hide-if-no-js" aria-label="Edit rating"><?php esc_html_e( 'Edit' ); ?></button>
-					</span>
+                    <span class="edit-rating-buttons-1">
+                        <button type="button"
+                                id=""
+                                class="edit-rating button button-small hide-if-no-js"
+                                aria-label="Edit rating"><?php _e( 'Edit' ); ?></button>
+                    </span>
 				<?php endif; ?>
-			</div>
+            </div>
 
-			<span class="edit-rating-success"></span>
+            <span class="edit-rating-success"></span>
 
-		</div>
+        </div>
 		<?php
 	}
 
@@ -260,12 +249,12 @@ class Strong_Testimonials_Post_Editor {
 	 * @param $is_new
 	 */
 	public static function meta_option__shortcode( $field, $post, $is_new ) {
-		$shortcode = str_replace( array( '[', ']' ), array( '', '' ), $field['shortcode_on_display'] );
-		if ( shortcode_exists( $shortcode ) ) {
-			echo do_shortcode( $field['shortcode_on_display'] );
-		} else {
-			echo '<div class="custom-input not-found">' . sprintf( esc_html__( 'shortcode %s not found', 'strong-testimonials' ), '<code>' . esc_html( $field['shortcode_on_display'] ) . '</code>' ) . '</div>';
-		}
+	    $shortcode = str_replace( array( '[', ']' ), array( '', '' ), $field['shortcode_on_display'] );
+	    if ( shortcode_exists( $shortcode ) ) {
+		    echo do_shortcode( $field['shortcode_on_display'] );
+	    } else {
+	        echo '<div class="custom-input not-found">' . sprintf( __( 'shortcode %s not found', 'strong-testimonials' ), '<code>' . $field['shortcode_on_display'] . '</code>' ) . '</div>';
+	    }
 	}
 
 	/**
@@ -296,10 +285,10 @@ class Strong_Testimonials_Post_Editor {
 		// Determine whether to update or delete.
 		// Similar to wpmtst_ajax_edit_rating() in admin-ajax.php.
 		foreach ( $custom as $key => $value ) {
-			$action = 'update';
+		    $action = 'update';
 
-			if ( isset( $custom_fields[ $key ] ) ) {
-				if ( 'rating' == $custom_fields[ $key ]['input_type'] && ! $value ) {
+		    if ( isset( $custom_fields[ $key ] ) ) {
+				if ( 'rating' == $custom_fields[ $key ]['input_type'] && !$value ) {
 					$action = 'delete';
 				}
 			}
@@ -307,7 +296,8 @@ class Strong_Testimonials_Post_Editor {
 			if ( 'update' == $action ) {
 				// empty values replace existing values
 				update_post_meta( $_POST['post_ID'], $key, stripslashes( $value ) );
-			} else {
+			}
+			else {
 				// delete value; e.g. zero rating
 				delete_post_meta( $_POST['post_ID'], $key );
 			}
@@ -316,19 +306,19 @@ class Strong_Testimonials_Post_Editor {
 
 	/**
 	 * Prevent use of this plugin's shortcode in a testimonial.
-	 *
-	 * @since 2.32.2
+     *
+     * @since 2.32.2
 	 * @param $data
 	 * @param $postarr
 	 *
 	 * @return mixed
 	 */
 	public static function prevent_shortcode( $data, $postarr ) {
-		if ( 'wpm-testimonial' == $data['post_type'] ) {
-			$data['post_content'] = preg_replace( '/\[testimonial_view (.*)\]/', '', $data['post_content'] );
-		}
+	    if ( 'wpm-testimonial' == $data['post_type'] ) {
+            $data['post_content'] = preg_replace( "/\[testimonial_view (.*)\]/", '', $data['post_content'] );
+	    }
 
-		return $data;
+	    return $data;
 	}
 
 	/**
@@ -354,10 +344,7 @@ class Strong_Testimonials_Post_Editor {
 		}
 
 		$display  = wpmtst_star_rating_display( $rating, 'in-metabox', false );
-		$response = array(
-			'display' => $display,
-			'message' => $message,
-		);
+		$response = array( 'display' => $display, 'message' => $message );
 		echo json_encode( $response );
 		wp_die();
 	}

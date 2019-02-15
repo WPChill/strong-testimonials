@@ -1,6 +1,8 @@
 <div>
-	<input type="radio" id="template-<?php echo esc_attr( $key ); ?>" name="view[data][<?php echo esc_attr( $current_mode ); ?>]" value="<?php echo esc_attr( $key ); ?>" <?php checked( $key, $view['template'] ); ?>>
-	<label for="template-<?php echo esc_attr( $key ); ?>">
-		<?php echo wp_kses_post( $template['config']['name'] ); ?>
-	</label>
+    <input type="radio" id="template-<?php esc_attr_e( $key ); ?>"
+           name="view[data][<?php esc_attr_e( $current_mode ); ?>]"
+           value="<?php esc_attr_e( $key ); ?>" <?php checked( $key, $view['template'] ); ?>>
+    <label for="template-<?php esc_attr_e( $key ); ?>">
+		<?php echo $template['config']['name']; ?>
+    </label>
 </div>

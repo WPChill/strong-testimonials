@@ -11,20 +11,20 @@ $then_classes = array(
 <div class="<?php echo esc_attr( join( array_filter( $then_classes ), ' ' ) ); ?>" style="display: none;">
 	<h3>
 		<?php /* translators: In the view editor. */ ?>
-		<?php esc_html_e( 'Slideshow', 'strong-testimonials' ); ?>
+		<?php _e( 'Slideshow', 'strong-testimonials' ); ?>
 	</h3>
 	<table class="form-table multiple group-select">
 		<tr>
-			<?php require 'option-slideshow-num.php'; ?>
+            <?php include( 'option-slideshow-num.php' ); ?>
 		</tr>
 		<tr>
-			<?php require 'option-slideshow-transition.php'; ?>
+			<?php include( 'option-slideshow-transition.php' ); ?>
 		</tr>
 		<tr>
-			<?php require 'option-slideshow-behavior.php'; ?>
+			<?php include( 'option-slideshow-behavior.php' ); ?>
 		</tr>
 		<tr>
-			<?php require 'option-slideshow-navigation.php'; ?>
+			<?php include( 'option-slideshow-navigation.php' ); ?>
 		</tr>
 	</table>
 </div>
