@@ -93,10 +93,10 @@ function wpmtst_update_custom_fields() {
 			$field['placeholder'] = sanitize_text_field( $field['placeholder'] );
 
 			if ( isset( $field['text'] ) ) {
-				$field['text'] = wp_kses_post( $field['text'] );
+				$field['text'] = wp_filter_post_kses( $field['text'] );
 			}
-			$field['before'] = wp_kses_post( $field['before'] );
-			$field['after']  = wp_kses_post( $field['after'] );
+			$field['before'] = wp_filter_post_kses( $field['before'] );
+			$field['after']  = wp_filter_post_kses( $field['after'] );
 
 			$field['shortcode_on_form']      = sanitize_text_field( $field['shortcode_on_form'] );
 			$field['shortcode_on_display']   = sanitize_text_field( $field['shortcode_on_display'] );

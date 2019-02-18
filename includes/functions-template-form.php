@@ -176,7 +176,7 @@ function wpmtst_single_form_field( $field ) {
 				);
 
 				if ( isset( $field['text'] ) ) {
-					echo '<label for="wpmtst_' . esc_attr( $field['name'] ) . '" class="checkbox-label">' . esc_html( wpmtst_form_field_meta_l10n( $field['text'], $field, 'text' ) ) . '</label>';
+					echo '<label for="wpmtst_' . esc_attr( $field['name'] ) . '" class="checkbox-label">' . wp_kses_post( wpmtst_form_field_meta_l10n( $field['text'], $field, 'text' ) ) . '</label>';
 
 					if ( isset( $field['required'] ) && $field['required'] ) {
 						wpmtst_field_required_symbol();

@@ -16,7 +16,7 @@ function wpmtst_support_url() {
  * @return string
  */
 function wpmtst_l10n_default( $string ) {
-	return esc_html( $string );
+	return $string;
 }
 add_filter( 'wpmtst_l10n', 'wpmtst_l10n_default' );
 
