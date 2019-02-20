@@ -467,12 +467,12 @@ function wpmtst_form_captcha() {
 	if ( $invisible && 'captcha-pro' == $form_options['captcha'] ) {
 
 		echo '<div class="form-field wpmtst-captcha">';
-		echo wp_kses_post( $captcha_html );
+		echo $captcha_html;
 		echo '</div>';
 
 	} elseif ( $invisible ) {
 
-		echo wp_kses_post( $captcha_html );
+		echo $captcha_html;
 
 	} else {
 
@@ -482,7 +482,7 @@ function wpmtst_form_captcha() {
 			<label for="wpmtst_captcha"><?php wpmtst_form_message( 'captcha' ); ?></label><span class="required symbol"></span>
 			<?php endif; ?>
 			<div>
-				<?php echo wp_kses_post( $captcha_html ); ?>
+				<?php echo $captcha_html; ?>
 				<?php if ( isset( $errors['captcha'] ) ) : ?>
 					<p><label class="error"><?php echo esc_html( $errors['captcha'] ); ?></label></p>
 				<?php endif; ?>
