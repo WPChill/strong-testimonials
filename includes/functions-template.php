@@ -72,7 +72,7 @@ function wpmtst_the_content() {
 	 */
 	do_action( 'wpmtst_before_content_filters' );
 
-	echo wp_kses_post( apply_filters( 'wpmtst_get_the_content', '' ) );
+	echo apply_filters( 'wpmtst_get_the_content', '' );
 
 	/**
 	 * Restore content filters that were removed.
@@ -240,7 +240,7 @@ function wpmtst_the_thumbnail( $size = null, $before = '<div class="testimonial-
 
 	$img = wpmtst_get_thumbnail( $size );
 	if ( $img ) {
-		echo wp_kses_post( $before . $img . $after );
+		echo $before . $img . $after;
 	}
 }
 
@@ -272,7 +272,7 @@ function wpmtst_the_date( $format = '', $class = '' ) {
 function wpmtst_the_client() {
 	$atts = WPMST()->atts();
 	if ( isset( $atts['client_section'] ) ) {
-		echo wp_kses_post( wpmtst_client_section( $atts['client_section'] ) );
+		echo wpmtst_client_section( $atts['client_section'] );
 	}
 }
 

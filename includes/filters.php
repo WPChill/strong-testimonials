@@ -126,11 +126,15 @@ function wpmtst_add_allowed_tags( $tags ) {
 		'data-*' => true,
 		'hidden' => true,
 	);
+	$tags['source']   = array(
+		'type' => true,
+		'src'  => true,
+	);
 
 	$tags['span']['hidden'] = true;
 
 	$tags['img']['srcset'] = true;
-	$tags['img']['sizes'] = true;
+	$tags['img']['sizes']  = true;
 
 	$tags['div']['data-*'] = true;
 
