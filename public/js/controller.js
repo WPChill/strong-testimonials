@@ -58,7 +58,16 @@ var strongController = {
     if (sliders.length) {
       // Initialize independently
       sliders.each(function () {
-        jQuery(this).strongSlider();
+
+		var $slider = jQuery(this);
+
+		// don't init if it's only a single testimonial
+		var count = $slider.data('count');
+		if( count !== undefined && count === 1 ) {
+			return;
+		}
+
+        $slider.strongSlider();
       });
     }
   },
