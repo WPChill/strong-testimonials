@@ -68,9 +68,9 @@ class Strong_Testimonials_Admin_Scripts {
 			true
 		);
 
-		wp_register_style(
+	 	wp_register_style(
 			'wpmtst-admin-style',
-			WPMTST_ADMIN_URL . 'css/admin.css',
+			WPMTST_ASSETS_CSS . 'admin.css',
 			array( 'wpmtst-font-awesome' ),
 			$plugin_version
 		);
