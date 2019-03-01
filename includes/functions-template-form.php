@@ -450,6 +450,11 @@ function wpmtst_form_captcha() {
 		return;
 	}
 
+	// removed `really simple captcha` as of 2.37
+	if ( 'really-simple-captcha' === $form_options['captcha'] ) {
+		return;
+	}
+
 	/**
 	 * Only display Captcha label if properly configured.
 	 */
@@ -471,11 +476,9 @@ function wpmtst_form_captcha() {
 		echo '</div>';
 
 	} elseif ( $invisible ) {
-
 		echo $captcha_html;
 
 	} else {
-
 		?>
 		<div class="form-field wpmtst-captcha">
 			<?php if ( wpmtst_get_form_message( 'captcha' ) ) : ?>
