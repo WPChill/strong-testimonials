@@ -868,15 +868,6 @@ class Strong_Testimonials_Defaults {
 				'installed' => false,
 				'active'    => false,
 			),
-			'really-simple-captcha' => array(
-				'name'      => 'Really Simple Captcha by Takayuki Miyoshi (free)',
-				'class'     => 'Really_Simple_Captcha',
-				'file'      => 'really-simple-captcha/really-simple-captcha.php',
-				'search'    => 'plugin-install.php?tab=search&s=Really+Simple+Captcha',
-				'url'       => 'https://wordpress.org/plugins/really-simple-captcha/',
-				'installed' => false,
-				'active'    => false,
-			),
 		);
 
 		return $plugins;
