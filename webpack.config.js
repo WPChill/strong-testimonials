@@ -7,7 +7,8 @@ const CssEntryPlugin            = require('css-entry-webpack-plugin');
 
 const config = {
 	entry: {
-		admin: './assets/src/scss/admin.scss',
+		'admin-js': './assets/src/js/admin.js',
+		'admin': './assets/src/scss/admin.scss',
 	},
 	output: {
 		filename: 'js/[name].js',
