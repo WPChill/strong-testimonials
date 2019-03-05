@@ -40,6 +40,11 @@ function wpmtst_add_field_2_function() {
 		array( 'record_type' => $new_field_class )
 	);
 	echo wp_kses_post( wpmtst_show_field_secondary( intval( $_REQUEST['nextKey'] ), $empty_field ) );
+
+	if( 'select' === $new_field_type ) {
+		echo wp_kses_post( wpmtst_show_field_select_options( intval( $_REQUEST['nextKey'] ), $empty_field ) );
+	}
+
 	wp_die();
 }
 add_action( 'wp_ajax_wpmtst_add_field_2', 'wpmtst_add_field_2_function' );

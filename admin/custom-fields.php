@@ -234,12 +234,9 @@ function wpmtst_show_field( $key, $field, $adding ) {
 			include 'partials/fields/field-name.php';
 
 			if ( ! $adding ) {
+				echo wp_kses_post( wpmtst_show_field_select_options($key, $field) );
 				echo wp_kses_post( wpmtst_show_field_secondary( $key, $field ) );
 				echo wp_kses_post( wpmtst_show_field_admin_table( $key, $field ) );
-			}
-
-			if ( $field['input_type'] === 'select' ) {
-				include 'partials/fields/field-select-options.php';
 			}
 
 			?>
@@ -453,6 +450,21 @@ function wpmtst_show_field_admin_table( $key, $field ) {
 	$html .= '</tr>' . "\n";
 
 	return $html;
+}
+
+
+/**
+ * Add type-specific select options field
+ */
+function wpmtst_show_field_select_options( $key, $field ) {
+
+	if( $field['input_type'] !== 'select' ) {
+		return;
+	}
+
+	ob_start();
+	include 'partials/fields/field-select-options.php';
+	return ob_get_clean();
 }
 
 
