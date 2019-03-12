@@ -1372,7 +1372,12 @@
           slider.viewport.get(0).setPointerCapture(slider.pointerId);
         }
         // store original event data for click fixation
-        slider.originalClickTarget = orig.originalTarget || orig.target;
+		slider.originalClickTarget = orig.originalTarget || orig.target;
+
+		if( slider.originalClickTarget.classList.contains('readmore-text') ) {
+			return;
+		}
+
         slider.originalClickButton = orig.button;
         slider.originalClickButtons = orig.buttons;
         slider.originalEventType = orig.type;
