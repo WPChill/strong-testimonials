@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 1);
+/******/ 	return __webpack_require__(__webpack_require__.s = 2);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -200,11 +200,65 @@ exports.default = ItemCreation;
 "use strict";
 
 
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var RangeSlider = function () {
+	function RangeSlider($element) {
+		_classCallCheck(this, RangeSlider);
+
+		this.$element = $element;
+		this.$slider = this.$element.find('.wpmtst-range__slider');
+		this.$minInput = this.$element.find('.wpmtst-range__min');
+		this.$maxInput = this.$element.find('.wpmtst-range__max');
+
+		this.initRangeSlider();
+	}
+
+	_createClass(RangeSlider, [{
+		key: 'initRangeSlider',
+		value: function initRangeSlider() {
+			var _this = this;
+
+			this.$slider.slider({
+				range: true,
+				min: this.$slider.data('min'),
+				max: this.$slider.data('max'),
+				values: this.$slider.data('values').split(","),
+				slide: function slide(event, ui) {
+					_this.$minInput.val(ui.values[0]);
+					_this.$maxInput.val(ui.values[1]);
+				}
+			});
+		}
+	}]);
+
+	return RangeSlider;
+}();
+
+exports.default = RangeSlider;
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _itemCreation = __webpack_require__(0);
 
 var _itemCreation2 = _interopRequireDefault(_itemCreation);
+
+var _rangeSlider = __webpack_require__(1);
+
+var _rangeSlider2 = _interopRequireDefault(_rangeSlider);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -320,6 +374,7 @@ var WPMTST_Admin = function () {
 		_classCallCheck(this, WPMTST_Admin);
 
 		this.initItemCreation();
+		this.initRangeSliders();
 	}
 
 	_createClass(WPMTST_Admin, [{
@@ -336,6 +391,15 @@ var WPMTST_Admin = function () {
 
 			$div.find('.wpmtst-item-creation').each(function (index) {
 				new _itemCreation2.default(jQuery(this));
+			});
+		}
+	}, {
+		key: 'initRangeSliders',
+		value: function initRangeSliders() {
+			var $div = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : jQuery("body");
+
+			$div.find('.wpmtst-range').each(function (index) {
+				new _rangeSlider2.default(jQuery(this));
 			});
 		}
 	}]);

@@ -63,7 +63,7 @@ class Strong_Testimonials_Admin_Scripts {
 		wp_register_script(
 			'wpmtst-admin-script',
 			WPMTST_ASSETS_JS . 'admin-js.js',
-			array( 'jquery', 'underscore', 'jquery-ui-sortable' ),
+			array( 'jquery', 'underscore', 'jquery-ui-sortable', 'jquery-ui-slider' ),
 			$plugin_version,
 			true
 		);
