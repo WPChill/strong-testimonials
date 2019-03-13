@@ -708,3 +708,12 @@ ul.standard {
   .wpmtst-item-creation__field-property input {
     -ms-flex: 3;
         flex: 3; }
+
+.wpmtst-range__slider {
+  margin-bottom: 16px; }
+
+.wpmtst-range__min {
+  width: 40px; }
+
+.wpmtst-range__max {
+  width: 40px; }

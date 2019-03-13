@@ -39,6 +39,8 @@ $then_classes = array(
 		<tr class="then then_slideshow then_not_single then_multiple" style="display: none;">
 			<?php require 'option-limit.php'; ?>
 		</tr>
-		<?php // TODO Add hook here ?>
+
+		<?php do_action( 'wpmtst_views_group_query', $view ); ?>
+
 	</table>
 </div>

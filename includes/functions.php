@@ -262,6 +262,27 @@ function wpmtst_get_all_fields() {
 }
 
 /**
+ * Get all rating fields
+ *
+ * @return array
+ */
+function wpmtst_get_all_rating_fields() {
+
+	$all_fields = wpmtst_get_all_fields();
+
+	$rating_fields = array();
+
+	foreach ( $all_fields as $key => $field ) :
+		if ( $field['input_type'] !== 'rating' ) {
+			continue;
+		}
+		$rating_fields[] = $field;
+	endforeach;
+
+	return $rating_fields;
+}
+
+/**
  * Get the built-in fields.
  *
  * @since 2.29.0
