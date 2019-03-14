@@ -57,6 +57,8 @@ class Strong_Testimonials_About {
 		?>
 		<div class="wrap about-wrap">
 
+			<img class="wpmst-mascot" src="<?php echo esc_url( WPMTST_ADMIN_URL ); ?>/img/mascot.png" />
+
 			<?php /* translators: %s is the plugin version number */ ?>
 			<h1><?php printf( esc_html__( 'Welcome to Strong Testimonials %s', 'strong-testimonials' ), esc_html( $major_minor ) ); ?></h1>
 
@@ -65,7 +67,7 @@ class Strong_Testimonials_About {
 				<?php /* translators: %s is the plugin version number */ ?>
 			</p>
 
-			<div class="wp-badge strong-testimonials"><?php printf( esc_html__( 'Version %s' ), esc_html( $major_minor ) ); ?></div>
+			<br/>
 
 			<h2 class="nav-tab-wrapper wp-clearfix">
 

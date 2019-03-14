@@ -642,12 +642,22 @@ ul.standard {
 .wp-list-table .type-wpm-testimonial .row-actions span.id span {
   color: #777; }
 
-.wpmtst-notice {
-  padding: 22px;
+.wpm-testimonial_page_about-strong-testimonials .wpmst-mascot {
+  width: 160px;
+  margin-left: 1rem;
+  float: right; }
+
+.edit-php.post-type-wpm-testimonial .wpmtst-notice {
+  padding: 2.5rem 2rem;
   border: 2px solid #7F22DE; }
 
-.wpmtst-notice img {
+.edit-php.post-type-wpm-testimonial .wpmtst-notice img {
   max-width: 100%; }
+
+.edit-php.post-type-wpm-testimonial .wpmst-mascot {
+  width: 120px;
+  margin-right: 2rem;
+  float: left; }
 
 .wpmtst-item-creation {
   display: block;
