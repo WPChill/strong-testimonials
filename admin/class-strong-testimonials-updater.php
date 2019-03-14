@@ -192,6 +192,11 @@ class Strong_Testimonials_Updater {
 		 */
 		$this->update_log();
 
+		/**
+		 * Update admin notices.
+		 */
+		$this->update_admin_notices();
+
 		delete_transient( 'wpmtst_update_in_progress' );
 	}
 
@@ -219,6 +224,10 @@ class Strong_Testimonials_Updater {
 		$log                            = get_option( 'wpmtst_update_log', array() );
 		$log[ current_time( 'mysql' ) ] = $this->new_log;
 		update_option( 'wpmtst_update_log', $log );
+	}
+
+	public function update_admin_notices() {
+		wpmtst_add_admin_notice( 'feedback-notice', true );
 	}
 
 	/**
