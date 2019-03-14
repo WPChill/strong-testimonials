@@ -189,8 +189,13 @@ function wpmtst_admin_feedback_notice() {
 		return;
 	}
 
+	$notices = get_option( 'wpmtst_admin_notices', array() );
+	if( ! isset( $notices['feedback-notice'] ) ) {
+		return;
+	}
+
 	?>
-	<div class="notice wpmtst-notice">
+	<div class="notice wpmtst-notice is-dismissible" data-key="feedback-notice" data-nonce="<?php echo esc_attr( wp_create_nonce( "wpmtst-admin" ) ); ?>">
 		<img class="wpmst-mascot" src="<?php echo esc_url( WPMTST_ADMIN_URL ); ?>/img/mascot.png" />
 		<img src="<?php echo esc_url( WPMTST_ADMIN_URL ); ?>/img/logo-long.svg" width="400"/>
 		<p><?php esc_html_e( 'Do you enjoy using Strong Testimonials? Please take a minute to suggest a feature or tell us what you think.', 'strong-testimonials' ); ?></p>

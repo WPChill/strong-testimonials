@@ -204,14 +204,38 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var Notice = function Notice($element) {
-	_classCallCheck(this, Notice);
+var Notice = function () {
+	function Notice($element) {
+		var _this = this;
 
-	this.$element = $element;
-	this.key = $element.data('key');
-};
+		_classCallCheck(this, Notice);
+
+		this.$element = $element;
+		this.key = $element.data('key');
+		this.nonce = $element.data('nonce');
+
+		jQuery(document).on('click', '.wpmtst-notice .notice-dismiss', function () {
+			return _this.onDismissClick();
+		});
+	}
+
+	_createClass(Notice, [{
+		key: 'onDismissClick',
+		value: function onDismissClick() {
+			jQuery.ajax({
+				type: "POST",
+				data: { action: "wpmtst_dismiss_notice", nonce: this.nonce, key: this.key },
+				url: ajaxurl
+			});
+		}
+	}]);
+
+	return Notice;
+}();
 
 exports.default = Notice;
 
