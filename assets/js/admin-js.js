@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 2);
+/******/ 	return __webpack_require__(__webpack_require__.s = 3);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -204,6 +204,28 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Notice = function Notice($element) {
+	_classCallCheck(this, Notice);
+
+	this.$element = $element;
+	this.key = $element.data('key');
+};
+
+exports.default = Notice;
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -244,7 +266,7 @@ var RangeSlider = function () {
 exports.default = RangeSlider;
 
 /***/ }),
-/* 2 */
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -256,9 +278,13 @@ var _itemCreation = __webpack_require__(0);
 
 var _itemCreation2 = _interopRequireDefault(_itemCreation);
 
-var _rangeSlider = __webpack_require__(1);
+var _rangeSlider = __webpack_require__(2);
 
 var _rangeSlider2 = _interopRequireDefault(_rangeSlider);
+
+var _notice = __webpack_require__(1);
+
+var _notice2 = _interopRequireDefault(_notice);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -375,6 +401,7 @@ var WPMTST_Admin = function () {
 
 		this.initItemCreation();
 		this.initRangeSliders();
+		this.initNotices();
 	}
 
 	_createClass(WPMTST_Admin, [{
@@ -400,6 +427,15 @@ var WPMTST_Admin = function () {
 
 			$div.find('.wpmtst-range').each(function (index) {
 				new _rangeSlider2.default(jQuery(this));
+			});
+		}
+	}, {
+		key: 'initNotices',
+		value: function initNotices() {
+			var $div = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : jQuery("body");
+
+			$div.find('.wpmtst-notice').each(function (index) {
+				new _notice2.default(jQuery(this));
 			});
 		}
 	}]);
