@@ -106,32 +106,12 @@ jQuery(document).ready(function ($) {
 });
 
 
-import ItemCreation from './modules/item-creation';
-import RangeSlider from './modules/range-slider';
 import Notice from './modules/notice';
 
 class WPMTST_Admin {
 
 	constructor(){
-		this.initItemCreation();
-		this.initRangeSliders();
 		this.initNotices();
-	}
-
-	initAllControls( $div = jQuery("body") ) {
-		this.initItemCreation( $div );
-	}
-
-	initItemCreation( $div = jQuery("body") ) {
-		$div.find('.wpmtst-item-creation').each( function( index ) {
-			new ItemCreation( jQuery(this) );
-		});
-	}
-
-	initRangeSliders( $div = jQuery("body") ) {
-		$div.find('.wpmtst-range').each( function( index ) {
-			new RangeSlider( jQuery(this) );
-		});
 	}
 
 	initNotices( $div = jQuery("body") ) {

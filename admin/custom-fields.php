@@ -234,7 +234,6 @@ function wpmtst_show_field( $key, $field, $adding ) {
 			include 'partials/fields/field-name.php';
 
 			if ( ! $adding ) {
-				echo wp_kses_post( wpmtst_show_field_select_options($key, $field) );
 				echo wp_kses_post( wpmtst_show_field_secondary( $key, $field ) );
 				echo wp_kses_post( wpmtst_show_field_admin_table( $key, $field ) );
 			}
@@ -418,6 +417,8 @@ function wpmtst_show_field_secondary( $key, $field ) {
 			$html .= '</tr>' . "\n";
 		}
 	}
+
+	$html = apply_filters( 'wpmtst_fields_secondary', $html, $key, $field );
 
 	return $html;
 }

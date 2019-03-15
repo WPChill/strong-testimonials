@@ -63,138 +63,11 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 3);
+/******/ 	return __webpack_require__(__webpack_require__.s = 1);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-	value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var ItemCreation = function () {
-	function ItemCreation($element) {
-		var _this = this;
-
-		_classCallCheck(this, ItemCreation);
-
-		this.$itemCreation = $element;
-		this.$addButton = this.$itemCreation.next('input');
-		this.$input = this.$addButton.next('input');
-		this.fields = this.$input.val() === '' ? [] : JSON.parse(this.$input.val());
-
-		this.initSortable();
-
-		//events
-		this.$addButton.on('click', function (e) {
-			return _this.onAddButtonClick(e);
-		});
-		this.$itemCreation.on('click', '.wpmtst-item-creation__icon.delete', function (e) {
-			return _this.onDeleteItemClick(e);
-		});
-		this.$itemCreation.on('click', '.wpmtst-item-creation__icon.toggle', function (e) {
-			return _this.onToggleClick(e);
-		});
-		this.$itemCreation.on('change keyup paste', '.wpmtst-item-creation__field-property input', function (e) {
-			return _this.onFieldPropertyChange(e);
-		});
-	}
-
-	_createClass(ItemCreation, [{
-		key: 'initSortable',
-		value: function initSortable() {
-			var _this2 = this;
-
-			this.$itemCreation.sortable({
-				handle: ".handle",
-				update: function update(event, ui) {
-					return _this2.onSortUpdate(event, ui);
-				}
-			});
-		}
-	}, {
-		key: 'onFieldPropertyChange',
-		value: function onFieldPropertyChange(e) {
-			var input = jQuery(e.target);
-			var item = input.parents('.wpmtst-item-creation__item');
-			var fieldPropertyName = input.parent().data('name');
-
-			if ('label' === fieldPropertyName) {
-				item.find('.wpmtst-item-creation__description').html(input.val());
-			}
-
-			this.fields[item.index()][fieldPropertyName] = input.val();
-			this.$input.val(JSON.stringify(this.fields));
-		}
-	}, {
-		key: 'onSortUpdate',
-		value: function onSortUpdate(event, ui) {
-			var _this3 = this;
-
-			this.fields = [];
-			var items = this.$itemCreation.find('.wpmtst-item-creation__item');
-
-			items.each(function (index) {
-				var field = {};
-				var fieldProperties = items.eq(index).find('.wpmtst-item-creation__field-property');
-
-				fieldProperties.each(function (index) {
-
-					var fieldProperty = fieldProperties.eq(index);
-					var fieldPropertyName = fieldProperty.data('name');
-					var fieldPropertyValue = fieldProperty.find('input').val();
-
-					field[fieldPropertyName] = fieldPropertyValue;
-				});
-
-				_this3.fields.push(field);
-				_this3.$input.val(JSON.stringify(_this3.fields));
-			});
-		}
-	}, {
-		key: 'onAddButtonClick',
-		value: function onAddButtonClick(e) {
-			this.fields.push({ value: '', label: 'Label' });
-			this.$input.val(JSON.stringify(this.fields)).trigger('change');
-
-			this.$itemCreation.append('<div class="wpmtst-item-creation__item"><div><div class="wpmtst-item-creation__link"><span class="wpmtst-item-creation__description">Label</span><div class="wpmtst-item-creation__controls"><span class="handle wpmtst-item-creation__icon" title="drag and drop to reorder"></span><span class="delete wpmtst-item-creation__icon" title="remove"></span></div><div class="wpmtst-item-creation__controls"><span class="toggle wpmtst-item-creation__icon" title="click to open or close"></span></div></div><div class="wpmtst-item-creation__field-properties"><div class="wpmtst-item-creation__field-property" data-name="value"><label>Value</label><input type="text" value=""></div><div class="wpmtst-item-creation__field-property" data-name="label"><label>Label</label><input type="text" value="Label"></div></div></div></div>');
-		}
-	}, {
-		key: 'onDeleteItemClick',
-		value: function onDeleteItemClick(e) {
-			var item = jQuery(e.target).parents('.wpmtst-item-creation__item');
-
-			//remove from array
-			this.fields.splice(item.index(), 1);
-			this.$input.val(JSON.stringify(this.fields)).trigger('change');
-
-			//remove from dom
-			item.remove();
-		}
-	}, {
-		key: 'onToggleClick',
-		value: function onToggleClick(e) {
-			console.log('toggle click');
-			jQuery(e.target).parents('.wpmtst-item-creation__item').toggleClass('wpmtst-item-creation__item--open');
-		}
-	}]);
-
-	return ItemCreation;
-}();
-
-exports.default = ItemCreation;
-
-/***/ }),
-/* 1 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -240,57 +113,7 @@ var Notice = function () {
 exports.default = Notice;
 
 /***/ }),
-/* 2 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-	value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var RangeSlider = function () {
-	function RangeSlider($element) {
-		_classCallCheck(this, RangeSlider);
-
-		this.$element = $element;
-		this.$slider = this.$element.find('.wpmtst-range__slider');
-		this.$minInput = this.$element.find('.wpmtst-range__min');
-		this.$maxInput = this.$element.find('.wpmtst-range__max');
-
-		this.initRangeSlider();
-	}
-
-	_createClass(RangeSlider, [{
-		key: 'initRangeSlider',
-		value: function initRangeSlider() {
-			var _this = this;
-
-			this.$slider.slider({
-				range: true,
-				min: this.$slider.data('min'),
-				max: this.$slider.data('max'),
-				values: this.$slider.data('values').split(","),
-				slide: function slide(event, ui) {
-					_this.$minInput.val(ui.values[0]);
-					_this.$maxInput.val(ui.values[1]);
-				}
-			});
-		}
-	}]);
-
-	return RangeSlider;
-}();
-
-exports.default = RangeSlider;
-
-/***/ }),
-/* 3 */
+/* 1 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -298,15 +121,7 @@ exports.default = RangeSlider;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _itemCreation = __webpack_require__(0);
-
-var _itemCreation2 = _interopRequireDefault(_itemCreation);
-
-var _rangeSlider = __webpack_require__(2);
-
-var _rangeSlider2 = _interopRequireDefault(_rangeSlider);
-
-var _notice = __webpack_require__(1);
+var _notice = __webpack_require__(0);
 
 var _notice2 = _interopRequireDefault(_notice);
 
@@ -423,37 +238,10 @@ var WPMTST_Admin = function () {
 	function WPMTST_Admin() {
 		_classCallCheck(this, WPMTST_Admin);
 
-		this.initItemCreation();
-		this.initRangeSliders();
 		this.initNotices();
 	}
 
 	_createClass(WPMTST_Admin, [{
-		key: 'initAllControls',
-		value: function initAllControls() {
-			var $div = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : jQuery("body");
-
-			this.initItemCreation($div);
-		}
-	}, {
-		key: 'initItemCreation',
-		value: function initItemCreation() {
-			var $div = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : jQuery("body");
-
-			$div.find('.wpmtst-item-creation').each(function (index) {
-				new _itemCreation2.default(jQuery(this));
-			});
-		}
-	}, {
-		key: 'initRangeSliders',
-		value: function initRangeSliders() {
-			var $div = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : jQuery("body");
-
-			$div.find('.wpmtst-range').each(function (index) {
-				new _rangeSlider2.default(jQuery(this));
-			});
-		}
-	}, {
 		key: 'initNotices',
 		value: function initNotices() {
 			var $div = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : jQuery("body");
