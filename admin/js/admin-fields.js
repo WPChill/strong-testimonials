@@ -405,7 +405,7 @@ function sanitizeName(label) {
 
     var ajax1 = $.get(ajaxurl, data1, function (response) {
 		$table.append(response);
-		WPMTST_Admin.initAllControls( $table );
+		$( document ).trigger( "st-done-loading-secondary-fields", [ $table ] );
     });
 
 
