@@ -13,7 +13,7 @@
  */
 function wpmtst_views_admin() {
 	if ( ! current_user_can( 'strong_testimonials_views' ) ) {
-		wp_die( esc_html__( 'You do not have sufficient permissions to access this page.' ) );
+		wp_die( esc_html__( 'You do not have sufficient permissions to access this page.', 'strong-testimonials' ) );
 	}
 
 	$tags = array(
@@ -68,8 +68,8 @@ function wpmtst_views_admin() {
 			?>
 			<h1>
 				<?php esc_html_e( 'Views', 'strong-testimonials' ); ?>
-				<a href="<?php echo esc_url( admin_url( 'edit.php?post_type=wpm-testimonial&page=testimonial-views&action=add' ) ); ?>" class="add-new-h2"><?php esc_html_e( 'Add New' ); ?></a>
-				<a href="#tab-panel-wpmtst-help-views" class="add-new-h2 open-help-tab"><?php esc_html_e( 'Help' ); ?></a>
+				<a href="<?php echo esc_url( admin_url( 'edit.php?post_type=wpm-testimonial&page=testimonial-views&action=add' ) ); ?>" class="add-new-h2"><?php esc_html_e( 'Add New', 'strong-testimonials' ); ?></a>
+				<a href="#tab-panel-wpmtst-help-views" class="add-new-h2 open-help-tab"><?php esc_html_e( 'Help', 'strong-testimonials' ); ?></a>
 			</h1>
 
 			<?php
@@ -209,7 +209,7 @@ function wpmtst_view_settings( $action = '', $view_id = null ) {
 	?>
 	<h1>
 		<?php 'edit' == $action ? esc_html_e( 'Edit View', 'strong-testimonials' ) : esc_html_e( 'Add View', 'strong-testimonials' ); ?>
-		<a href="<?php echo esc_url( $url1 ); ?>" class="add-new-h2"><?php esc_html_e( 'Add New' ); ?></a>
+		<a href="<?php echo esc_url( $url1 ); ?>" class="add-new-h2"><?php esc_html_e( 'Add New', 'strong-testimonials' ); ?></a>
 		<a href="<?php echo esc_url( $url ); ?>" class="add-new-h2"><?php esc_html_e( 'Return To List', 'strong-testimonials' ); ?></a>
 		<?php if ( 'edit' == $action ) : ?>
 		<a href="<?php echo esc_url( $url2 ); ?>" class="add-new-h2"><?php esc_html_e( 'Duplicate This View', 'strong-testimonials' ); ?></a>

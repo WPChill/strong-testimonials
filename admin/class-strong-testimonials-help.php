@@ -225,13 +225,13 @@ class Strong_Testimonials_Help {
 			</tr>
 			<tr>
 				<td><?php esc_html_e( 'works with random order option', 'strong-testimonials' ); ?></td>
-				<td><?php esc_html_e( 'yes' ); ?></td>
-				<td><?php esc_html_e( 'no' ); ?></td>
+				<td><?php esc_html_e( 'yes', 'strong-testimonials' ); ?></td>
+				<td><?php esc_html_e( 'no', 'strong-testimonials' ); ?></td>
 			</tr>
 			<tr>
 				<td><?php esc_html_e( 'works in a widget', 'strong-testimonials' ); ?></td>
-				<td><?php esc_html_e( 'yes' ); ?></td>
-				<td><?php esc_html_e( 'no' ); ?></td>
+				<td><?php esc_html_e( 'yes', 'strong-testimonials' ); ?></td>
+				<td><?php esc_html_e( 'no', 'strong-testimonials' ); ?></td>
 			</tr>
 			</tbody>
 		</table>

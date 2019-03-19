@@ -353,7 +353,7 @@ class Strong_Testimonials_Settings_Compat {
 				<td>
 					<div class="row header">
 						<p><?php esc_html_e( 'Load stylesheets and populate script variables up front.', 'strong-testimonials' ); ?>
-							<a class="open-help-tab" href="#tab-panel-wpmtst-help-prerender"><?php esc_html_e( 'Help' ); ?></a>
+							<a class="open-help-tab" href="#tab-panel-wpmtst-help-prerender"><?php esc_html_e( 'Help', 'strong-testimonials' ); ?></a>
 						</p>
 					</div>
 					<fieldset data-radio-group="prerender">
@@ -652,7 +652,7 @@ class Strong_Testimonials_Settings_Compat {
 			<div>
 				<select id="script-name" name="wpmtst_compat_options[ajax][script]">
 					<option value="" <?php selected( $this->options['ajax']['script'], '' ); ?>>
-						<?php esc_html_e( '&mdash; Select &mdash;' ); ?>
+						<?php esc_html_e( '&mdash; Select &mdash;', 'strong-testimonials' ); ?>
 					</option>
 					<option value="barba" <?php selected( $this->options['ajax']['script'], 'barba' ); ?>>
 						Barba.js

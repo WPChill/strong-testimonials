@@ -76,12 +76,12 @@ class Strong_Testimonials_View_Widget extends WP_Widget {
 		<div class="wpmtst-widget-form">
 			<p>
 				<label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>">
-					<?php esc_html_e( 'Title:' ); ?>
+					<?php esc_html_e( 'Title:', 'strong-testimonials' ); ?>
 				</label>
 				<input class="widefat" type="text" id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" value="<?php echo esc_attr( $title ); ?>">
 			</p>
 			<p>
-				<label for="<?php echo esc_attr( $this->get_field_id( 'text' ) ); ?>"><?php esc_html_e( 'Content:' ); ?></label>
+				<label for="<?php echo esc_attr( $this->get_field_id( 'text' ) ); ?>"><?php esc_html_e( 'Content:', 'strong-testimonials' ); ?></label>
 				<textarea class="widefat" rows="8" id="<?php echo esc_attr( $this->get_field_id( 'text' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'text' ) ); ?>"><?php echo esc_textarea( $instance['text'] ); ?></textarea>
 			</p>
 			<p>
@@ -92,7 +92,7 @@ class Strong_Testimonials_View_Widget extends WP_Widget {
 					<?php echo esc_html_x( 'View:', 'widget setting', 'strong-testimonials' ); ?>
 				</label>
 				<select class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'view' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'view' ) ); ?>" autocomplete="off">
-					<option value=""><?php esc_html_e( '&mdash; Select &mdash;' ); ?></option>
+					<option value=""><?php esc_html_e( '&mdash; Select &mdash;', 'strong-testimonials' ); ?></option>
 					<?php
 					foreach ( $views as $view ) {
 						printf( '<option value="%s" %s>%s</option>', esc_attr( $view['id'] ), selected( $view['id'], $instance['view'] ), esc_html( $view['name'] ) );

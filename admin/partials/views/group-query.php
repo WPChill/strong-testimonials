@@ -21,7 +21,7 @@ $then_classes = array(
 				<?php esc_html_e( 'or Shortcode Attribute', 'strong-testimonials' ); ?>
 				<span class="help-links">
 					<span class="description">
-						<a href="#tab-panel-wpmtst-help-shortcode" class="open-help-tab"><?php esc_html_e( 'Help' ); ?></a>
+						<a href="#tab-panel-wpmtst-help-shortcode" class="open-help-tab"><?php esc_html_e( 'Help', 'strong-testimonials' ); ?></a>
 					</span>
 				</span>
 			</td>

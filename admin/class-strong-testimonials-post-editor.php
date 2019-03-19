@@ -227,8 +227,8 @@ class Strong_Testimonials_Post_Editor {
 				<?php if ( ! $is_new ) : ?>
 					<span class="edit-rating-buttons-2">
 							<button type="button" class="zero button-link"><?php esc_html_e( 'Zero', 'strong-testimonials' ); ?></button>&nbsp;
-							<button type="button" class="save button button-small"><?php esc_html_e( 'OK' ); ?></button>&nbsp;
-							<button type="button" class="cancel button-link"><?php esc_html_e( 'Cancel' ); ?></button>
+							<button type="button" class="save button button-small"><?php esc_html_e( 'OK', 'strong-testimonials' ); ?></button>&nbsp;
+							<button type="button" class="cancel button-link"><?php esc_html_e( 'Cancel', 'strong-testimonials' ); ?></button>
 						</span>
 				<?php endif; ?>
 			</div>
@@ -241,7 +241,7 @@ class Strong_Testimonials_Post_Editor {
 
 				<?php if ( ! $is_new ) : ?>
 					<span class="edit-rating-buttons-1">
-						<button type="button" id="" class="edit-rating button button-small hide-if-no-js" aria-label="Edit rating"><?php esc_html_e( 'Edit' ); ?></button>
+						<button type="button" id="" class="edit-rating button button-small hide-if-no-js" aria-label="Edit rating"><?php esc_html_e( 'Edit', 'strong-testimonials' ); ?></button>
 					</span>
 				<?php endif; ?>
 			</div>
