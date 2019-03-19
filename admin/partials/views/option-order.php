@@ -16,11 +16,11 @@
 	</div>
 </td>
 <td class="divider">
-	<p><?php echo wp_kses_post( _e( '<code>order</code>', 'strong-testimonials' ) ); ?></p>
+	<p><?php echo wp_kses_post( '<code>order</code>' ); ?></p>
 </td>
 <td>
-	<p><?php echo wp_kses_post( _e( 'oldest | newest | random | menu_order', 'strong-testimonials' ) ); ?></p>
+	<p><?php echo wp_kses_post( 'oldest | newest | random | menu_order' ); ?></p>
 </td>
 <td>
-	<p><?php echo wp_kses_post( _e( '<code>order="random"</code>', 'strong-testimonials' ) ); ?></p>
+	<p><?php echo wp_kses_post( '<code>order="random"</code>' ); ?></p>
 </td>
