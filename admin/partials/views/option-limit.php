@@ -23,9 +23,9 @@
 	</div>
 </td>
 <td class="divider">
-	<p><?php echo wp_kses_post( _e( '<code>count</code>', 'strong-testimonials' ) ); ?></p>
+	<p><?php echo wp_kses_post( '<code>count</code>' ); ?></p>
 </td>
 <td></td>
 <td>
-	<p><?php echo wp_kses_post( _e( '<code>count=5</code>', 'strong-testimonials' ) ); ?></p>
+	<p><?php echo wp_kses_post( '<code>count=5</code>' ); ?></p>
 </td>

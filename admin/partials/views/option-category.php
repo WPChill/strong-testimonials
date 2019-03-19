@@ -46,11 +46,11 @@
 </td>
 <?php endif; ?>
 <td class="divider">
-	<p><?php echo wp_kses_post( _e( '<code>category</code>', 'strong-testimonials' ) ); ?></p>
+	<p><?php echo wp_kses_post( '<code>category</code>' ); ?></p>
 </td>
 <td>
 	<p><?php echo wp_kses_post( _e( 'a comma-separated list of category slugs or ID\'s', 'strong-testimonials' ) ); ?></p>
 </td>
 <td>
-	<p><?php echo wp_kses_post( _e( '<code>category="accounting"</code>', 'strong-testimonials' ) ); ?></p>
+	<p><?php echo wp_kses_post( '<code>category="accounting"</code>' ); ?></p>
 </td>
