@@ -53,24 +53,24 @@ function wpmtst_get_cpt_defaults() {
 	$labels = array(
 		'name'                  => _x( 'Testimonials', 'post type general name', 'strong-testimonials' ),
 		'singular_name'         => _x( 'Testimonial', 'post type singular name', 'strong-testimonials' ),
-		'add_new'               => __( 'Add New' ),
+		'add_new'               => __( 'Add New', 'strong-testimonials' ),
 		'add_new_item'          => __( 'Add New Testimonial', 'strong-testimonials' ),
 		'edit_item'             => __( 'Edit Testimonial', 'strong-testimonials' ),
 		'new_item'              => __( 'New Testimonial', 'strong-testimonials' ),
 		'view_item'             => __( 'View Testimonial', 'strong-testimonials' ),
 		'view_items'            => __( 'View Testimonials', 'strong-testimonials' ),
 		'search_items'          => __( 'Search Testimonials', 'strong-testimonials' ),
-		'not_found'             => __( 'Nothing Found' ),
-		'not_found_in_trash'    => __( 'Nothing found in Trash' ),
+		'not_found'             => __( 'Nothing Found', 'strong-testimonials' ),
+		'not_found_in_trash'    => __( 'Nothing found in Trash', 'strong-testimonials' ),
 		'all_items'             => __( 'All Testimonials', 'strong-testimonials' ),
 		'archives'              => __( 'Testimonial Archives', 'strong-testimonials' ),
 		'attributes'            => __( 'Attributes', 'strong-testimonials' ),
 		'insert_into_item'      => __( 'Insert into testimonial', 'strong-testimonials' ),
 		'uploaded_to_this_item' => __( 'Uploaded to this testimonial', 'strong-testimonials' ),
-		'featured_image'        => __( 'Featured Image' ),
-		'set_featured_image'    => __( 'Set featured image' ),
-		'remove_featured_image' => __( 'Remove featured image' ),
-		'use_featured_image'    => __( 'Use as featured image' ),
+		'featured_image'        => __( 'Featured Image', 'strong-testimonials' ),
+		'set_featured_image'    => __( 'Set featured image', 'strong-testimonials' ),
+		'remove_featured_image' => __( 'Remove featured image', 'strong-testimonials' ),
+		'use_featured_image'    => __( 'Use as featured image', 'strong-testimonials' ),
 		'filter_items_list'     => __( 'Filter testimonials list', 'strong-testimonials' ),
 		'items_list_navigation' => __( 'Testimonials list navigation', 'strong-testimonials' ),
 		'items_list'            => __( 'Testimonials list', 'strong-testimonials' ),
@@ -125,8 +125,8 @@ function wpmtst_get_tax_defaults() {
 	$labels = array(
 		'name'          => __( 'Testimonial Categories', 'strong-testimonials' ),
 		'singular_name' => __( 'Testimonial Category', 'strong-testimonials' ),
-		'menu_name'     => __( 'Categories' ),
-		'all_items'     => __( 'All categories' ),
+		'menu_name'     => __( 'Categories', 'strong-testimonials' ),
+		'all_items'     => __( 'All categories', 'strong-testimonials' ),
 	);
 
 	$args = array(
@@ -204,13 +204,13 @@ function wpmtst_updated_messages( $messages ) {
 	);
 
 	/* translators: Publish box date format, see https://secure.php.net/date */
-	$scheduled_date = date_i18n( __( 'M j, Y @ H:i' ), strtotime( $post->post_date ) );
+	$scheduled_date = date_i18n( 'M j, Y @ H:i', strtotime( $post->post_date ) );
 
 	$messages['wpm-testimonial'] = array(
 		0  => '', // Unused. Messages start at index 1.
 		1  => __( 'Testimonial updated.', 'strong-testimonials' ) . $view_post_link_html,
-		2  => __( 'Custom field updated.' ),
-		3  => __( 'Custom field deleted.' ),
+		2  => __( 'Custom field updated.', 'strong-testimonials' ),
+		3  => __( 'Custom field deleted.', 'strong-testimonials' ),
 		4  => __( 'Testimonial updated.', 'strong-testimonials' ),
 		/* translators: %s: date and time of the revision */
 		5  => isset( $_GET['revision'] ) ? sprintf( __( 'Testimonial restored to revision from %s.', 'strong-testimonials' ), wp_post_revision_title( (int) $_GET['revision'], false ) ) : false,

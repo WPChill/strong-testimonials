@@ -567,7 +567,7 @@ function wpmtst_post_submitbox_misc_actions( $post ) {
 		echo '<span id="submit-timestamp">&nbsp;';
 		$submit_date = get_post_meta( $post->ID, 'submit_date', true );
 		if ( $submit_date ) {
-			echo 'Submitted on: <strong>' . wp_kses_post( date_i18n( __( 'M j, Y @ H:i' ), strtotime( $submit_date ) ) ) . '</strong>';
+			echo 'Submitted on: <strong>' . wp_kses_post( date_i18n( 'M j, Y @ H:i', strtotime( $submit_date ) ) ) . '</strong>';
 		} else {
 			echo 'No submit date';
 		}

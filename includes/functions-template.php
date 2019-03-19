@@ -98,7 +98,7 @@ function wpmtst_the_excerpt() {
  */
 function wpmtst_ellipsis() {
 	if ( apply_filters( 'wpmtst_use_ellipsis', true ) ) {
-		return apply_filters( 'wpmtst_ellipsis', __( '&hellip;' ) );
+		return apply_filters( 'wpmtst_ellipsis', __( '&hellip;', 'strong-testimonials' ) );
 	}
 
 	return '';
@@ -535,8 +535,8 @@ if ( ! function_exists( 'wpmtst_standard_pagination' ) ) :
 			'end_size'           => isset( $options['end_size'] ) ? $options['end_size'] : 1,
 			'mid_size'           => isset( $options['mid_size'] ) ? $options['mid_size'] : 2,
 			'prev_next'          => isset( $options['prev_next'] ) ? $options['prev_next'] : true,
-			'prev_text'          => isset( $options['prev_text'] ) ? $options['prev_text'] : __( '&laquo; Previous' ),
-			'next_text'          => isset( $options['next_text'] ) ? $options['next_text'] : __( 'Next &raquo;' ),
+			'prev_text'          => isset( $options['prev_text'] ) ? $options['prev_text'] : __( '&laquo; Previous', 'strong-testimonials' ),
+			'next_text'          => isset( $options['next_text'] ) ? $options['next_text'] : __( 'Next &raquo;', 'strong-testimonials' ),
 			'before_page_number' => isset( $options['before_page_number'] ) ? $options['before_page_number'] : '',
 			'after_page_number'  => isset( $options['after_page_number'] ) ? $options['after_page_number'] : '',
 		);

@@ -142,7 +142,7 @@ add_action( 'admin_post_wpmtst_update_custom_fields', 'wpmtst_update_custom_fiel
  */
 function wpmtst_settings_custom_fields( $form_id = 1 ) {
 	if ( ! current_user_can( 'strong_testimonials_fields' ) ) {
-		wp_die( esc_html__( 'You do not have sufficient permissions to access this page.' ) );
+		wp_die( esc_html__( 'You do not have sufficient permissions to access this page.', 'strong-testimonials' ) );
 	}
 
 	if ( ! $form_id ) {
@@ -163,7 +163,7 @@ function wpmtst_settings_custom_fields( $form_id = 1 ) {
 			<h3><?php esc_html_e( 'Editor', 'strong-testimonials' ); ?></h3>
 			<p>
 				<?php esc_html_e( 'Click a field to open its options panel.', 'strong-testimonials' ); ?>
-				<a class="open-help-tab" href="#tab-panel-wpmtst-help"><?php esc_html_e( 'Help' ); ?></a>
+				<a class="open-help-tab" href="#tab-panel-wpmtst-help"><?php esc_html_e( 'Help', 'strong-testimonials' ); ?></a>
 			</p>
 			<?php do_action( 'wpmtst_before_fields_settings', 'form-fields' ); ?>
 		</div>

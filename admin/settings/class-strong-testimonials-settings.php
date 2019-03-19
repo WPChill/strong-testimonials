@@ -41,7 +41,7 @@ class Strong_Testimonials_Settings {
 	 */
 	public static function settings_page() {
 		if ( ! current_user_can( 'strong_testimonials_options' ) ) {
-			wp_die( esc_html__( 'You do not have sufficient permissions to access this page.' ) );
+			wp_die( esc_html__( 'You do not have sufficient permissions to access this page.', 'strong-testimonials' ) );
 		}
 
 		$tab = self::get_tab();
@@ -49,11 +49,11 @@ class Strong_Testimonials_Settings {
 		?>
 		<div class="wrap wpmtst">
 
-			<h1><?php echo wp_kses_post( apply_filters( 'wpmtst_cpt_singular_name', esc_html__( 'Testimonial', 'strong-testimonials' ) ) ); ?> <?php esc_html_e( 'Settings' ); ?></h1>
+			<h1><?php echo wp_kses_post( apply_filters( 'wpmtst_cpt_singular_name', esc_html__( 'Testimonial', 'strong-testimonials' ) ) ); ?> <?php esc_html_e( 'Settings', 'strong-testimonials' ); ?></h1>
 
 			<?php if ( isset( $_GET['settings-updated'] ) ) : ?>
 				<div id="message" class="updated notice is-dismissible">
-					<p><?php esc_html_e( 'Settings saved.' ); ?></p>
+					<p><?php esc_html_e( 'Settings saved.', 'strong-testimonials' ); ?></p>
 				</div>
 			<?php endif; ?>
 

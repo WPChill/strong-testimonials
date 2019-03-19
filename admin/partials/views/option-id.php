@@ -4,7 +4,7 @@
 	<div class="row-inner">
 		<label>
 			<select id="view-id" name="view[data][id]">
-				<option value="0"><?php _e( '&mdash; select &mdash;' ); ?></option>
+				<option value="0"><?php _e( '&mdash; select &mdash;', 'strong-testimonials' ); ?></option>
 				<?php foreach ( $testimonials_list as $post ) : ?>
 					<option value="<?php echo esc_attr( $post->ID ); ?>" <?php selected( $view['id'], $post->ID ); ?>>
 						<?php echo $post->post_title ? esc_html( $post->post_title ) : esc_html__( '(untitled)', 'strong-testimonials' ); ?>

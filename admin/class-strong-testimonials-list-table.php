@@ -161,8 +161,8 @@ if ( ! class_exists( 'Strong_Testimonials_List_Table' ) ) :
 
 			if ( empty( $this->modes ) ) {
 				$this->modes = array(
-					'list'    => __( 'List View' ),
-					'excerpt' => __( 'Excerpt View' ),
+					'list'    => __( 'List View', 'strong-testimonials' ),
+					'excerpt' => __( 'Excerpt View', 'strong-testimonials' ),
 				);
 			}
 		}
@@ -335,7 +335,7 @@ if ( ! class_exists( 'Strong_Testimonials_List_Table' ) ) :
 		 * @access public
 		 */
 		public function no_items() {
-			esc_html_e( 'No items found.' );
+			esc_html_e( 'No items found.', 'strong-testimonials' );
 		}
 
 		/**
@@ -468,9 +468,9 @@ if ( ! class_exists( 'Strong_Testimonials_List_Table' ) ) :
 				return;
 			}
 
-			echo "<label for='bulk-action-selector-" . esc_attr( $which ) . "' class='screen-reader-text'>" . esc_html__( 'Select bulk action' ) . '</label>';
+			echo "<label for='bulk-action-selector-" . esc_attr( $which ) . "' class='screen-reader-text'>" . esc_html__( 'Select bulk action', 'strong-testimonials' ) . '</label>';
 			echo "<select name='action" . esc_attr( $two ) . "' id='bulk-action-selector-" . esc_attr( $which ) . "'>\n";
-			echo "<option value='-1' selected='selected'>" . esc_html__( 'Bulk Actions' ) . "</option>\n";
+			echo "<option value='-1' selected='selected'>" . esc_html__( 'Bulk Actions', 'strong-testimonials' ) . "</option>\n";
 
 			foreach ( $this->_actions as $name => $title ) {
 				$class = 'edit' == $name ? ' class="hide-if-no-js"' : '';
@@ -480,7 +480,7 @@ if ( ! class_exists( 'Strong_Testimonials_List_Table' ) ) :
 
 			echo "</select>\n";
 
-			submit_button( __( 'Apply' ), 'action', '', false, array( 'id' => "doaction$two" ) );
+			submit_button( __( 'Apply', 'strong-testimonials' ), 'action', '', false, array( 'id' => "doaction$two" ) );
 			echo "\n";
 		}
 
@@ -590,9 +590,9 @@ if ( ! class_exists( 'Strong_Testimonials_List_Table' ) ) :
 
 			$m = isset( $_GET['m'] ) ? (int) $_GET['m'] : 0;
 			?>
-		<label for="filter-by-date" class="screen-reader-text"><?php _e( 'Filter by date' ); ?></label>
+		<label for="filter-by-date" class="screen-reader-text"><?php esc_html_e( 'Filter by date', 'strong-testimonials' ); ?></label>
 		<select name="m" id="filter-by-date">
-			<option<?php selected( $m, 0 ); ?> value="0"><?php _e( 'All dates' ); ?></option>
+			<option<?php selected( $m, 0 ); ?> value="0"><?php esc_html_e( 'All dates', 'strong-testimonials' ); ?></option>
 			<?php
 			foreach ( $months as $arc_row ) {
 				if ( 0 == $arc_row->year ) {
@@ -607,7 +607,7 @@ if ( ! class_exists( 'Strong_Testimonials_List_Table' ) ) :
 					selected( $m, $year . $month, false ),
 					esc_attr( $arc_row->year . $month ),
 					/* translators: 1: month name, 2: 4-digit year */
-					sprintf( __( '%1$s %2$d' ), $wp_locale->get_month( $month ), $year )
+					sprintf( '%1$s %2$d', $wp_locale->get_month( $month ), $year )
 				);
 			}
 			?>
@@ -655,7 +655,7 @@ if ( ! class_exists( 'Strong_Testimonials_List_Table' ) ) :
 		 * @param int $pending_comments Number of pending comments.
 		 */
 		protected function comments_bubble( $post_id, $pending_comments ) {
-			$pending_phrase = sprintf( __( '%s pending' ), number_format( $pending_comments ) );
+			$pending_phrase = sprintf( __( '%s pending', 'strong-testimonials' ), number_format( $pending_comments ) );
 
 			if ( $pending_comments ) {
 				echo '<strong>';
@@ -738,7 +738,7 @@ if ( ! class_exists( 'Strong_Testimonials_List_Table' ) ) :
 				$infinite_scroll = $this->_pagination_args['infinite_scroll'];
 			}
 
-			$output = '<span class="displaying-num">' . sprintf( _n( '1 item', '%s items', $total_items ), number_format_i18n( $total_items ) ) . '</span>';
+			$output = '<span class="displaying-num">' . sprintf( _n( '1 item', '%s items', $total_items, 'strong-testimonials' ), number_format_i18n( $total_items ) ) . '</span>';
 
 			$current = $this->get_pagenum();
 
@@ -758,7 +758,7 @@ if ( ! class_exists( 'Strong_Testimonials_List_Table' ) ) :
 			$page_links[] = sprintf(
 				"<a class='%s' title='%s' href='%s'>%s</a>",
 				'first-page' . $disable_first,
-				esc_attr__( 'Go to the first page' ),
+				esc_attr__( 'Go to the first page', 'strong-testimonials' ),
 				esc_url( remove_query_arg( 'paged', $current_url ) ),
 				'&laquo;'
 			);
@@ -766,7 +766,7 @@ if ( ! class_exists( 'Strong_Testimonials_List_Table' ) ) :
 			$page_links[] = sprintf(
 				"<a class='%s' title='%s' href='%s'>%s</a>",
 				'prev-page' . $disable_first,
-				esc_attr__( 'Go to the previous page' ),
+				esc_attr__( 'Go to the previous page', 'strong-testimonials' ),
 				esc_url( add_query_arg( 'paged', max( 1, $current - 1 ), $current_url ) ),
 				'&lsaquo;'
 			);
@@ -776,19 +776,19 @@ if ( ! class_exists( 'Strong_Testimonials_List_Table' ) ) :
 			} else {
 				$html_current_page = sprintf(
 					"%s<input class='current-page' id='current-page-selector' title='%s' type='text' name='paged' value='%s' size='%d'>",
-					'<label for="current-page-selector" class="screen-reader-text">' . __( 'Select Page' ) . '</label>',
-					esc_attr__( 'Current page' ),
+					'<label for="current-page-selector" class="screen-reader-text">' . __( 'Select Page', 'strong-testimonials' ) . '</label>',
+					esc_attr__( 'Current page', 'strong-testimonials' ),
 					$current,
 					strlen( $total_pages )
 				);
 			}
 			$html_total_pages = sprintf( "<span class='total-pages'>%s</span>", number_format_i18n( $total_pages ) );
-			$page_links[]     = '<span class="paging-input">' . sprintf( _x( '%1$s of %2$s', 'paging' ), $html_current_page, $html_total_pages ) . '</span>';
+			$page_links[]     = '<span class="paging-input">' . sprintf( _x( '%1$s of %2$s', 'paging', 'strong-testimonials' ), $html_current_page, $html_total_pages ) . '</span>';
 
 			$page_links[] = sprintf(
 				"<a class='%s' title='%s' href='%s'>%s</a>",
 				'next-page' . $disable_last,
-				esc_attr__( 'Go to the next page' ),
+				esc_attr__( 'Go to the next page', 'strong-testimonials' ),
 				esc_url( add_query_arg( 'paged', min( $total_pages, $current + 1 ), $current_url ) ),
 				'&rsaquo;'
 			);
@@ -796,7 +796,7 @@ if ( ! class_exists( 'Strong_Testimonials_List_Table' ) ) :
 			$page_links[] = sprintf(
 				"<a class='%s' title='%s' href='%s'>%s</a>",
 				'last-page' . $disable_last,
-				esc_attr__( 'Go to the last page' ),
+				esc_attr__( 'Go to the last page', 'strong-testimonials' ),
 				esc_url( add_query_arg( 'paged', $total_pages, $current_url ) ),
 				'&raquo;'
 			);
@@ -938,7 +938,7 @@ if ( ! class_exists( 'Strong_Testimonials_List_Table' ) ) :
 
 			if ( ! empty( $columns['cb'] ) ) {
 				static $cb_counter = 1;
-				$columns['cb']     = '<label class="screen-reader-text" for="cb-select-all-' . $cb_counter . '">' . __( 'Select All' ) . '</label>'
+				$columns['cb']     = '<label class="screen-reader-text" for="cb-select-all-' . $cb_counter . '">' . __( 'Select All', 'strong-testimonials' ) . '</label>'
 				. '<input id="cb-select-all-' . $cb_counter . '" type="checkbox">';
 				$cb_counter++;
 			}
@@ -1179,7 +1179,7 @@ if ( ! class_exists( 'Strong_Testimonials_List_Table' ) ) :
 
 			if ( isset( $this->_pagination_args['total_items'] ) ) {
 				$response['total_items_i18n'] = sprintf(
-					_n( '1 item', '%s items', $this->_pagination_args['total_items'] ),
+					_n( '1 item', '%s items', $this->_pagination_args['total_items'], 'strong-testimonials' ),
 					number_format_i18n( $this->_pagination_args['total_items'] )
 				);
 			}

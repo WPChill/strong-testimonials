@@ -19,7 +19,7 @@
 			<div class="row-inner">
 				<label>
 					<select id="view-page" name="view[data][more_page_id]">
-						<option value=""><?php _e( '&mdash; select &mdash;' ); ?></option>
+						<option value=""><?php _e( '&mdash; select &mdash;', 'strong-testimonials' ); ?></option>
 						<?php
 						do_action( 'wpmtst_readmore_page_list', $view );
 						if ( $custom_list ) {
@@ -34,12 +34,12 @@
 							<?php
 						}
 						?>
-						<optgroup label="<?php esc_attr_e( 'Pages' ); ?>">
+						<optgroup label="<?php esc_attr_e( 'Pages', 'strong-testimonials' ); ?>">
 							<?php foreach ( $pages_list as $pages ) : ?>
 								<option value="<?php echo esc_attr( $pages->ID ); ?>" <?php selected( isset( $view['more_page_id'] ) ? $view['more_page_id'] : 0, $pages->ID ); ?>><?php echo esc_html( $pages->post_title ); ?></option>
 							<?php endforeach; ?>
 						</optgroup>
-						<optgroup label="<?php esc_attr_e( 'Posts' ); ?>">
+						<optgroup label="<?php esc_attr_e( 'Posts', 'strong-testimonials' ); ?>">
 							<?php foreach ( $posts_list as $posts ) : ?>
 								<option value="<?php echo esc_attr( $posts->ID ); ?>" <?php selected( isset( $view['more_page_id'] ) ? $view['more_page_id'] : 0, $posts->ID ); ?>><?php echo esc_html( $posts->post_title ); ?></option>
 							<?php endforeach; ?>

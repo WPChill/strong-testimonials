@@ -124,9 +124,9 @@ class Strong_Views_List_Table extends Strong_Testimonials_List_Table {
 
 		// Assemble links
 		$actions              = array();
-		$actions['edit']      = '<a href="' . $edit_link . '">' . __( 'Edit' ) . '</a>';
-		$actions['duplicate'] = '<a href="' . $duplicate_link . '">' . __( 'Duplicate' ) . '</a>';
-		$actions['delete']    = "<a class='submitdelete' href='" . wp_nonce_url( $delete_link, 'delete-strong-view_' . $item['id'] ) . "' onclick=\"if ( confirm( '" . esc_js( sprintf( __( 'Delete "%s"?' ), $item['name'] ) ) . "' ) ) { return true;} return false;\">" . __( 'Delete' ) . '</a>';
+		$actions['edit']      = '<a href="' . $edit_link . '">' . __( 'Edit', 'strong-testimonials' ) . '</a>';
+		$actions['duplicate'] = '<a href="' . $duplicate_link . '">' . __( 'Duplicate', 'strong-testimonials' ) . '</a>';
+		$actions['delete']    = "<a class='submitdelete' href='" . wp_nonce_url( $delete_link, 'delete-strong-view_' . $item['id'] ) . "' onclick=\"if ( confirm( '" . esc_js( sprintf( __( 'Delete "%s"?', 'strong-testimonials' ), $item['name'] ) ) . "' ) ) { return true;} return false;\">" . __( 'Delete', 'strong-testimonials' ) . '</a>';
 
 		echo wp_kses_post( $this->row_actions( $actions ) );
 	}

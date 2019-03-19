@@ -155,7 +155,7 @@ foreach ( $plugins as $key => $plugin ) {
 
 				<select id="redirect-page" name="wpmtst_form_options[success_redirect_id]">
 
-					<option value=""><?php esc_html_e( '&mdash; select a page &mdash;' ); ?></option>
+					<option value=""><?php esc_html_e( '&mdash; select a page &mdash;', 'strong-testimonials' ); ?></option>
 
 					<?php foreach ( $pages_list as $pages ) : ?>
 
@@ -206,7 +206,7 @@ foreach ( $plugins as $key => $plugin ) {
 				<li>
 					<label>
 						<input type="radio" name="wpmtst_form_options[post_status]" value="publish" <?php checked( 'publish', $form_options['post_status'] ); ?>/>
-						<?php esc_html_e( 'Published' ); ?>
+						<?php esc_html_e( 'Published', 'strong-testimonials' ); ?>
 					</label>
 				</li>
 			</ul>
