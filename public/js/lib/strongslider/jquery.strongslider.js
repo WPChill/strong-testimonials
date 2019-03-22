@@ -1740,7 +1740,6 @@
           setPositionProperty(value, 'slide', slider.settings.speed);
 
         }
-        slider.working = false;
 
       }
 
