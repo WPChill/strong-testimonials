@@ -154,3 +154,19 @@ function wpmtst_safe_style_css( $styles ) {
 	return $styles;
 }
 add_filter( 'safe_style_css', 'wpmtst_safe_style_css' );
+
+
+/**
+ * Change single testimonial slug.
+ */
+add_filter( 'wpmtst_post_type', 'wpmtst_change_testimonial_slug' );
+function wpmtst_change_testimonial_slug( $args ) {
+
+	$options = get_option( 'wpmtst_options' );
+
+	if ( isset( $options['single_testimonial_slug'] ) && $options['single_testimonial_slug'] != '' ) {
+		$args['rewrite']['slug'] = $options['single_testimonial_slug'];
+	}
+
+	return $args;
+}

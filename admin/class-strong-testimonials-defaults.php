@@ -29,18 +29,19 @@ class Strong_Testimonials_Defaults {
 	 */
 	public static function get_options() {
 		$default_options = array(
-			'embed_width'           => '',
-			'load_font_awesome'     => true,
-			'nofollow'              => false,
-			'pending_indicator'     => true,
-			'remove_whitespace'     => true,
-			'reorder'               => false,
-			'support_comments'      => false,
-			'support_custom_fields' => false,
-			'scrolltop'             => true,
-			'scrolltop_offset'      => 80,
-			'no_lazyload'           => true,
-			'touch_enabled'         => true,
+			'embed_width'             => '',
+			'load_font_awesome'       => true,
+			'nofollow'                => false,
+			'pending_indicator'       => true,
+			'remove_whitespace'       => true,
+			'reorder'                 => false,
+			'support_comments'        => false,
+			'support_custom_fields'   => false,
+			'single_testimonial_slug' => 'testimonial',
+			'scrolltop'               => true,
+			'scrolltop_offset'        => 80,
+			'no_lazyload'             => true,
+			'touch_enabled'           => true,
 		);
 
 		return $default_options;
