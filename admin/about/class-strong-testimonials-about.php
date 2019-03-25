@@ -39,9 +39,9 @@ class Strong_Testimonials_About {
 	 */
 	public function get_submenu() {
 		return array(
-			'page_title' => __( 'About' ),
-	        'menu_title' => __( 'About' ),
-		    'capability' => 'strong_testimonials_about',
+			'page_title' => __( 'About', 'strong-testimonials' ),
+			'menu_title' => __( 'About', 'strong-testimonials' ),
+			'capability' => 'strong_testimonials_about',
 			'menu_slug'  => 'about-strong-testimonials',
 			'function'   => array( $this, 'about_page' ),
 		);
@@ -57,21 +57,21 @@ class Strong_Testimonials_About {
 		?>
 		<div class="wrap about-wrap">
 
+			<img class="wpmst-mascot" src="<?php echo esc_url( WPMTST_ADMIN_URL ); ?>/img/mascot.png" />
+
 			<?php /* translators: %s is the plugin version number */ ?>
 			<h1><?php printf( __( 'Welcome to Strong Testimonials %s', 'strong-testimonials' ), $major_minor ); ?></h1>
 
 			<p class="about-text">
-                <?php _e( 'Thank you for updating to the latest version!' ); ?>
+				<?php esc_html_e( 'Thank you for updating to the latest version!', 'strong-testimonials' ); ?>
 				<?php /* translators: %s is the plugin version number */ ?>
             </p>
-
-			<div class="wp-badge strong-testimonials"><?php printf( __( 'Version %s' ), $major_minor ); ?></div>
+			<br/>
 
 			<h2 class="nav-tab-wrapper wp-clearfix">
 
 				<a href="<?php echo add_query_arg( 'tab', 'how-to', $url ); ?>" class="nav-tab <?php echo $active_tab == 'how-to' ? 'nav-tab-active' : ''; ?>"><?php _e( 'How To', 'strong-testimonials' ); ?></a>
-
-				<a href="<?php echo add_query_arg( 'tab', 'privacy', $url ); ?>" class="nav-tab <?php echo $active_tab == 'privacy' ? 'nav-tab-active' : ''; ?>"><?php _e( 'Privacy' ); ?></a>
+				<a href="<?php echo esc_url( add_query_arg( 'tab', 'privacy', $url ) ); ?>" class="nav-tab <?php echo $active_tab == 'privacy' ? 'nav-tab-active' : ''; ?>"><?php esc_html_e( 'Privacy', 'strong-testimonials' ); ?></a>
 
 			</h2>
 

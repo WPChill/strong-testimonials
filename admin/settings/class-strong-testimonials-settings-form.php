@@ -164,11 +164,7 @@ class Strong_Testimonials_Settings_Form {
 
 		$input['success_action'] = sanitize_text_field( $input['success_action'] );
 
-		if ( filter_var( $input['success_redirect_url'], FILTER_VALIDATE_URL ) ) {
-			$input['success_redirect_url'] = wp_validate_redirect( $input['success_redirect_url'] );
-		} else {
-			$input['success_redirect_url'] = '';
-		}
+		$input['success_redirect_url'] = esc_url_raw( $input['success_redirect_url'] );
 
 		// Check the "ID or slug" field next
 		if ( isset( $input['success_redirect_2']) && $input['success_redirect_2'] ) {

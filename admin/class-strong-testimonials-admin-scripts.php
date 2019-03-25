@@ -56,14 +56,18 @@ class Strong_Testimonials_Admin_Scripts {
 			$plugin_version,
 			true );
 
-		wp_register_script( 'wpmtst-admin-script',
-			WPMTST_ADMIN_URL . 'js/admin.js',
+
+		wp_register_script(
+			'wpmtst-admin-script',
+			WPMTST_ASSETS_JS . 'admin-js.js',
 			array( 'jquery', 'underscore' ),
 			$plugin_version,
 			true );
 
-		wp_register_style( 'wpmtst-admin-style',
-			WPMTST_ADMIN_URL . 'css/admin.css',
+
+	 	wp_register_style(
+			'wpmtst-admin-style',
+			WPMTST_ASSETS_CSS . 'admin.css',
 			array( 'wpmtst-font-awesome' ),
 			$plugin_version );
 

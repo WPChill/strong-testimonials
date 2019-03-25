@@ -220,6 +220,8 @@ function wpmtst_defer_scripts( $tag, $handle ) {
 		'verge',
 		'wpmtst-slider',
 		'wpmtst-readmore',
+		'jquery-masonry',
+		'wpmtst-admin-views-script',
 	);
 
 	if ( in_array( $handle, $scripts_to_defer ) ) {

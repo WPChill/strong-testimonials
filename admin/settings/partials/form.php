@@ -150,32 +150,27 @@ foreach ( $plugins as $key => $plugin ) {
 <h3><?php _e( 'Form Actions', 'strong-testimonials' ); ?></h3>
 
 <table class="form-table" cellpadding="0" cellspacing="0">
-    <tr>
-        <th scope="row">
-            <label for="redirect-page">
-				<?php _e( 'Upon Successful Submission', 'strong-testimonials' ); ?>
-            </label>
-        </th>
-        <td>
-            <div>
-                <label class="success-action">
-                    <input type="radio"
-                           name="wpmtst_form_options[success_action]"
-                           value="message" <?php checked( 'message', $form_options['success_action'] ); ?>/> <?php _e( 'display message', 'strong-testimonials' ); ?>
-                </label>
-            </div>
+	<tr>
+		<th scope="row">
+			<label for="redirect-page">
+				<?php esc_html_e( 'Upon Successful Submission', 'strong-testimonials' ); ?>
+			</label>
+		</th>
+		<td>
+			<div>
+				<label class="success-action">
+					<input type="radio" name="wpmtst_form_options[success_action]" value="message" <?php checked( 'message', $form_options['success_action'] ); ?>/> <?php esc_html_e( 'display message', 'strong-testimonials' ); ?>
+				</label>
+			</div>
 
-            <div>
-                <label class="success-action">
-                    <input type="radio"
-                           name="wpmtst_form_options[success_action]"
-                           value="id" <?php checked( 'id', $form_options['success_action'] ); ?>/> <?php _e( 'redirect to a page', 'strong-testimonials' ); ?>
-                </label>
+			<div>
+				<label class="success-action">
+					<input type="radio" name="wpmtst_form_options[success_action]" value="id" <?php checked( 'id', $form_options['success_action'] ); ?>/> <?php esc_html_e( 'redirect to a page', 'strong-testimonials' ); ?>
+				</label>
 
-                <select id="redirect-page" name="wpmtst_form_options[success_redirect_id]">
+				<select id="redirect-page" name="wpmtst_form_options[success_redirect_id]">
 
-                    <option value=""><?php _e( '&mdash; select a page &mdash;' ); ?></option>
-
+					<option value=""><?php esc_html_e( '&mdash; select a page &mdash;', 'strong-testimonials' ); ?></option>
 					<?php foreach ( $pages_list as $pages ) : ?>
 
                         <option value="<?php echo $pages->ID; ?>" <?php selected( isset( $form_options['success_redirect_id'] ) ? $form_options['success_redirect_id'] : 0, $pages->ID ); ?>>
@@ -184,81 +179,71 @@ foreach ( $plugins as $key => $plugin ) {
 
 					<?php endforeach; ?>
 
-                </select>
+				</select>
 
-                <div style="display: inline-block; text-indent: 20px;">
-                    <label>
-						<?php _ex( 'or enter its ID or slug', 'to select a redirect page', 'strong-testimonials' ); ?>
-                        &nbsp;
-                        <input type="text"
-                               id="redirect-page-2"
-                               name="wpmtst_form_options[success_redirect_2]"
-                               size="30">
-                    </label>
-                </div>
-            </div>
+				<div style="display: inline-block; text-indent: 20px;">
+					<label>
+						<?php echo esc_html_x( 'or enter its ID or slug', 'to select a redirect page', 'strong-testimonials' ); ?>
+						&nbsp;
+						<input type="text" id="redirect-page-2" name="wpmtst_form_options[success_redirect_2]" size="30">
+					</label>
+				</div>
+			</div>
 
-            <div>
-                <label class="success-action">
-                    <input type="radio"
-                           name="wpmtst_form_options[success_action]"
-                           value="url" <?php checked( 'url', $form_options['success_action'] ); ?>/> <?php _e( 'redirect to a URL', 'strong-testimonials' ); ?>
-                </label>
-                <label>
-                    <input type="text" id="redirect-page-3"
-                           name="wpmtst_form_options[success_redirect_url]"
-                           value="<?php echo $form_options['success_redirect_url']; ?>" size="75"/>
-                </label>
-            </div>
+			<div>
+				<label class="success-action">
+					<input type="radio" name="wpmtst_form_options[success_action]" value="url" <?php checked( 'url', $form_options['success_action'] ); ?>/>
+					<?php esc_html_e( 'redirect to a URL', 'strong-testimonials' ); ?>
+				</label>
+				<label>
+					<input type="text" id="redirect-page-3" name="wpmtst_form_options[success_redirect_url]" value="<?php echo esc_attr( $form_options['success_redirect_url'] ); ?>" size="75"/>
+				</label>
+			</div>
 
-        </td>
-    </tr>
+		</td>
+	</tr>
 
-    <tr>
-        <th scope="row">
-            <label>
-				<?php _e( 'Post Status', 'strong-testimonials' ); ?>
-            </label>
-        </th>
-        <td>
-            <ul class="compact">
-                <li>
-                    <label>
-                        <input type="radio" name="wpmtst_form_options[post_status]" value="pending"
-							<?php checked( 'pending', $form_options['post_status'] ); ?>/>
-						<?php _e( 'Pending', 'strong-testimonials' ); ?>
-                    </label>
-                </li>
-                <li>
-                    <label>
-                        <input type="radio" name="wpmtst_form_options[post_status]" value="publish"
-							<?php checked( 'publish', $form_options['post_status'] ); ?>/>
-						<?php _e( 'Published' ); ?>
-                    </label>
-                </li>
-            </ul>
-        </td>
-    </tr>
+	<tr>
+		<th scope="row">
+			<label>
+				<?php esc_html_e( 'Post Status', 'strong-testimonials' ); ?>
+			</label>
+		</th>
+		<td>
+			<ul class="compact">
+				<li>
+					<label>
+						<input type="radio" name="wpmtst_form_options[post_status]" value="pending" <?php checked( 'pending', $form_options['post_status'] ); ?>/>
+						<?php esc_html_e( 'Pending', 'strong-testimonials' ); ?>
+					</label>
+				</li>
+				<li>
+					<label>
+						<input type="radio" name="wpmtst_form_options[post_status]" value="publish" <?php checked( 'publish', $form_options['post_status'] ); ?>/>
+						<?php esc_html_e( 'Published', 'strong-testimonials' ); ?>
+					</label>
+				</li>
+			</ul>
+		</td>
+	</tr>
 
-    <tr>
-        <th scope="row">
-            <label for="wpmtst-options-admin-notify">
-				<?php _e( 'Notification Email', 'strong-testimonials' ); ?>
-            </label>
-        </th>
+	<tr>
+		<th scope="row">
+			<label for="wpmtst-options-admin-notify">
+				<?php esc_html_e( 'Notification Email', 'strong-testimonials' ); ?>
+			</label>
+		</th>
 
-        <td>
-            <div class="match-height">
-                <fieldset>
-                    <label for="wpmtst-options-admin-notify">
-                        <input id="wpmtst-options-admin-notify" type="checkbox" name="wpmtst_form_options[admin_notify]"
-							<?php checked( $form_options['admin_notify'] ); ?>/>
-						<?php _e( 'Send an email upon new testimonial submission.', 'strong-testimonials' ); ?>
-                    </label>
-                </fieldset>
-            </div>
-            <div class="email-container"
-                 id="admin-notify-fields" <?php echo ( $form_options['admin_notify'] ) ? '' : 'style="display: none;"'; ?>>
+		<td>
+			<div class="match-height">
+				<fieldset>
+					<label for="wpmtst-options-admin-notify">
+						<input id="wpmtst-options-admin-notify" type="checkbox" name="wpmtst_form_options[admin_notify]" <?php checked( $form_options['admin_notify'] ); ?>/>
+						<?php esc_html_e( 'Send an email upon new testimonial submission.', 'strong-testimonials' ); ?>
+					</label>
+				</fieldset>
+			</div>
+			<div class="email-container" id="admin-notify-fields" <?php echo ( $form_options['admin_notify'] ) ? '' : 'style="display: none;"'; ?>>
 				<?php
 				include 'email-from.php';
 				include 'email-to.php';

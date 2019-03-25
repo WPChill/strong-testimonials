@@ -178,7 +178,7 @@ function sanitizeName(label) {
    * Open/close
    */
   $fieldList.on("click", "span.link", function () {
-    toggleField($(this).closest("li"));
+	toggleField($(this).closest("li"));
     return false;
   });
 
@@ -311,7 +311,7 @@ function sanitizeName(label) {
 
     if ($parent.data('status') !== 'new') {
       $table.find(".field-secondary, .field-admin-table").remove();
-    }
+	}
 
     if ('none' === fieldType) {
       $parent.find('.field-label-row').hide();
@@ -323,7 +323,7 @@ function sanitizeName(label) {
       return;
     }
     $parent.find('tr').removeClass('form-error');
-    $parent.find('.form-error-text').hide();
+	$parent.find('.form-error-text').hide();
 
     var key_id = $parent.attr("id");
     var key = key_id.substr(key_id.lastIndexOf("-") + 1);
@@ -334,7 +334,7 @@ function sanitizeName(label) {
 
     // get type of field from its optgroup
     var fieldOption = $(this).find("option[value='" + fieldType + "']");
-    var fieldClass = fieldOption.closest("optgroup").attr("class");
+	var fieldClass = fieldOption.closest("optgroup").attr("class");
 
     switch (fieldClass) {
 
@@ -404,7 +404,8 @@ function sanitizeName(label) {
     };
 
     var ajax1 = $.get(ajaxurl, data1, function (response) {
-      $table.append(response);
+		$table.append(response);
+		$( document ).trigger( "st-done-loading-secondary-fields", [ $table ] );
     });
 
 

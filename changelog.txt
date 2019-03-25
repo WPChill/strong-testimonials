@@ -1,3 +1,15 @@
+= 2.37 - Mar. 18, 2019 =
+* added ability to export testimonials with featured images included.
+* added option to change single testimonial permalink slug.
+* fixed a conflict with `Mesmerize` theme not displaying the views.
+* fixed issue with audio shortcode not playing in the testimonial content.
+* fixed form redirect url not saving.
+* fixed issue when testimonial slideshows has only one testimonial.
+* fixed issue with the `read more` link in a slideshow not toggling correctly.
+* removed `Really Simple Captcha` from captcha settings.
+* fixed wp_debug warnings.
+* minor backend tweaks.
+
 = 2.36 - Feb. 15, 2019 =
 * bug fixes and tweaks
 

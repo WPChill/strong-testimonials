@@ -94,11 +94,11 @@ function wpmtst_update_custom_fields() {
 
             $field['placeholder'] = sanitize_text_field( $field['placeholder'] );
 
-            if ( isset( $field['text'] ) ) {
-                $field['text'] = wp_kses_post( $field['text'] );
-            }
-            $field['before'] = wp_kses_post( $field['before'] );
-            $field['after']  = wp_kses_post( $field['after'] );
+			if ( isset( $field['text'] ) ) {
+				$field['text'] = wp_filter_post_kses( $field['text'] );
+			}
+			$field['before'] = wp_filter_post_kses( $field['before'] );
+			$field['after']  = wp_filter_post_kses( $field['after'] );
 
             $field['shortcode_on_form']      = sanitize_text_field( $field['shortcode_on_form'] );
             $field['shortcode_on_display']   = sanitize_text_field( $field['shortcode_on_display'] );
@@ -144,7 +144,7 @@ add_action( 'admin_post_wpmtst_update_custom_fields', 'wpmtst_update_custom_fiel
  */
 function wpmtst_settings_custom_fields( $form_id = 1 ) {
 	if ( ! current_user_can( 'strong_testimonials_fields' ) ) {
-		wp_die( __( 'You do not have sufficient permissions to access this page.' ) );
+		wp_die( esc_html__( 'You do not have sufficient permissions to access this page.', 'strong-testimonials' ) );
 	}
 
 	if ( ! $form_id ) {
@@ -155,59 +155,60 @@ function wpmtst_settings_custom_fields( $form_id = 1 ) {
 	$forms  = get_option( 'wpmtst_custom_forms' );
 	$fields = $forms[$form_id]['fields'];
 	?>
-    <div class="wrap wpmtst">
-    <h1 class="wp-heading-inline"><?php _e( 'Fields', 'strong-testimonials' ); ?></h1>
-    <hr class="wp-header-end">
-    <?php do_action( 'wpmtst_fields_editor_before_fields_intro' ); ?>
 
-    <div id="left-col">
-        <div>
-            <h3><?php _e( 'Editor', 'strong-testimonials' ); ?></h3>
-            <p>
-                <?php _e( 'Click a field to open its options panel.', 'strong-testimonials' ); ?>
-                <a class="open-help-tab" href="#tab-panel-wpmtst-help"><?php _e( 'Help' ); ?></a>
-            </p>
-            <?php do_action( 'wpmtst_before_fields_settings', 'form-fields' ); ?>
-        </div>
+	<div class="wrap wpmtst">
+	<h1 class="wp-heading-inline"><?php esc_html_e( 'Fields', 'strong-testimonials' ); ?></h1>
+	<hr class="wp-header-end">
+	<?php do_action( 'wpmtst_fields_editor_before_fields_intro' ); ?>
 
-        <form id="wpmtst-custom-fields-form" method="post" action="<?php echo admin_url( 'admin-post.php' ); ?>" autocomplete="off">
-            <?php wp_nonce_field( 'wpmtst_custom_fields_form', 'wpmtst_form_submitted' ); ?>
-            <input type="hidden" name="action" value="wpmtst_update_custom_fields">
-            <input type="hidden" name="form_id" value="<?php echo $form_id; ?>">
+	<div id="left-col">
+		<div>
+			<h3><?php esc_html_e( 'Editor', 'strong-testimonials' ); ?></h3>
+			<p>
+				<?php esc_html_e( 'Click a field to open its options panel.', 'strong-testimonials' ); ?>
+				<a class="open-help-tab" href="#tab-panel-wpmtst-help"><?php esc_html_e( 'Help', 'strong-testimonials' ); ?></a>
+			</p>
+			<?php do_action( 'wpmtst_before_fields_settings', 'form-fields' ); ?>
+		</div>
 
-            <?php do_action( 'wpmtst_fields_editor_before_fields_editor', $forms[ $form_id ] ); ?>
+		<form id="wpmtst-custom-fields-form" method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" autocomplete="off">
+			<?php wp_nonce_field( 'wpmtst_custom_fields_form', 'wpmtst_form_submitted' ); ?>
+			<input type="hidden" name="action" value="wpmtst_update_custom_fields">
+			<input type="hidden" name="form_id" value="<?php echo esc_attr( $form_id ); ?>">
 
-            <ul id="custom-field-list">
-                <?php
-                foreach ( $fields as $key => $field ) {
-                    echo '<li id="field-' . $key . '">' . wpmtst_show_field( $key, $field, false ) . '</li>' . "\n";
-                }
-                ?>
-            </ul>
+			<?php do_action( 'wpmtst_fields_editor_before_fields_editor', $forms[ $form_id ] ); ?>
 
-            <div id="add-field-bar">
-                <input id="add-field" type="button" class="button" name="add-field" value="<?php _e( 'Add New Field', 'strong-testimonials' ); ?>">
-            </div>
+			<ul id="custom-field-list">
+				<?php
+				foreach ( $fields as $key => $field ) {
+					echo '<li id="field-' . esc_attr( $key ) . '">' . wp_kses_post( wpmtst_show_field( $key, $field, false ) ) . '</li>' . "\n";
+				}
+				?>
+			</ul>
 
-            <div id="field-group-actions">
-                <div><?php submit_button( '', 'primary', 'submit-form', false ); ?></div>
-                <div><?php submit_button( __( 'Cancel Changes', 'strong-testimonials' ), 'secondary', 'reset', false ); ?></div>
-                <div><?php submit_button( __( 'Restore Defaults', 'strong-testimonials' ), 'secondary', 'restore-defaults', false ); ?></div>
-            </div>
-        </form>
-    </div><!-- #left-col -->
+			<div id="add-field-bar">
+				<input id="add-field" type="button" class="button" name="add-field" value="<?php esc_attr_e( 'Add New Field', 'strong-testimonials' ); ?>">
+			</div>
 
-    <div id="right-col">
-        <div class="intro">
-            <h3><?php _e( 'Basic Preview', 'strong-testimonials' ); ?></h3>
-            <p><?php _e( 'Only to demonstrate the fields. May look different in your theme.', 'strong-testimonials' ); ?></p>
-        </div>
-        <div id="fields-editor-preview">
-            <div><!-- placeholder --></div>
-        </div>
-    </div><!-- #right-col -->
+			<div id="field-group-actions">
+				<div><?php submit_button( '', 'primary', 'submit-form', false ); ?></div>
+				<div><?php submit_button( __( 'Cancel Changes', 'strong-testimonials' ), 'secondary', 'reset', false ); ?></div>
+				<div><?php submit_button( __( 'Restore Defaults', 'strong-testimonials' ), 'secondary', 'restore-defaults', false ); ?></div>
+			</div>
+		</form>
+	</div><!-- #left-col -->
 
-    </div><!-- .wrap -->
+	<div id="right-col">
+		<div class="intro">
+			<h3><?php esc_html_e( 'Basic Preview', 'strong-testimonials' ); ?></h3>
+			<p><?php esc_html_e( 'Only to demonstrate the fields. May look different in your theme.', 'strong-testimonials' ); ?></p>
+		</div>
+		<div id="fields-editor-preview">
+			<div><!-- placeholder --></div>
+		</div>
+	</div><!-- #right-col -->
+
+	</div><!-- .wrap -->
 	<?php
 }
 
@@ -229,25 +230,27 @@ function wpmtst_show_field( $key, $field, $adding ) {
 	include 'partials/fields/field-header.php';
     ?>
 	<div class="custom-field" style="display: none;">
-        <table class="field-table">
-            <?php
-            include 'partials/fields/field-type.php';
-	        include 'partials/fields/field-label.php';
-            include 'partials/fields/field-name.php';
 
-            if ( ! $adding ) {
-                echo wpmtst_show_field_secondary( $key, $field );
-                echo wpmtst_show_field_admin_table( $key, $field );
-            }
-            ?>
-        </table>
+		<table class="field-table">
+			<?php
+			include 'partials/fields/field-type.php';
+			include 'partials/fields/field-label.php';
+			include 'partials/fields/field-name.php';
 
-        <?php
-        if ( ! $adding ) {
-            echo wpmtst_show_field_hidden( $key, $field );
-        }
-        include 'partials/fields/field-controls.php';
-        ?>
+			if ( ! $adding ) {
+				echo wp_kses_post( wpmtst_show_field_secondary( $key, $field ) );
+				echo wp_kses_post( wpmtst_show_field_admin_table( $key, $field ) );
+			}
+
+			?>
+		</table>
+
+		<?php
+		if ( ! $adding ) {
+			echo wp_kses_post( wpmtst_show_field_hidden( $key, $field ) );
+		}
+		include 'partials/fields/field-controls.php';
+		?>
 	</div><!-- .custom-field -->
 
     <?php
@@ -419,6 +422,8 @@ function wpmtst_show_field_secondary( $key, $field ) {
 		}
 	}
 
+	$html = apply_filters( 'wpmtst_fields_secondary', $html, $key, $field );
+
 	return $html;
 }
 
@@ -450,6 +455,21 @@ function wpmtst_show_field_admin_table( $key, $field ) {
 	$html .= '</tr>' . "\n";
 
 	return $html;
+}
+
+
+/**
+ * Add type-specific select options field
+ */
+function wpmtst_show_field_select_options( $key, $field ) {
+
+	if( $field['input_type'] !== 'select' ) {
+		return;
+	}
+
+	ob_start();
+	include 'partials/fields/field-select-options.php';
+	return ob_get_clean();
 }
 
 

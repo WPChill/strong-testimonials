@@ -16,7 +16,7 @@ function wpmtst_support_url() {
  * @return string
  */
 function wpmtst_l10n_default( $string ) {
-	return __( $string, 'strong-testimonials' );
+	return $string;
 }
 add_filter( 'wpmtst_l10n', 'wpmtst_l10n_default' );
 
@@ -257,6 +257,27 @@ function wpmtst_get_all_fields() {
 	}
 
 	return $all_fields;
+}
+
+/**
+ * Get all rating fields
+ *
+ * @return array
+ */
+function wpmtst_get_all_rating_fields() {
+
+	$all_fields = wpmtst_get_all_fields();
+
+	$rating_fields = array();
+
+	foreach ( $all_fields as $key => $field ) :
+		if ( $field['input_type'] !== 'rating' ) {
+			continue;
+		}
+		$rating_fields[] = $field;
+	endforeach;
+
+	return $rating_fields;
 }
 
 /**
@@ -533,7 +554,7 @@ function wpmtst_post_submitbox_misc_actions( $post ) {
 		echo '<span id="submit-timestamp">&nbsp;';
 		$submit_date = get_post_meta( $post->ID, 'submit_date', true );
 		if ( $submit_date ) {
-			echo 'Submitted on: <strong>' . date_i18n( __( 'M j, Y @ H:i' ), strtotime( $submit_date ) ) . '</strong>';
+			echo 'Submitted on: <strong>' . wp_kses_post( date_i18n( 'M j, Y @ H:i', strtotime( $submit_date ) ) ) . '</strong>';
 		} else {
 			echo 'No submit date';
 		}

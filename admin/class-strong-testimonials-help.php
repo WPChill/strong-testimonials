@@ -115,21 +115,21 @@ class Strong_Testimonials_Help {
 
 		ob_start();
 		?>
-        <div>
-            <p><?php _e( 'Optional shortcode attributes will override the view settings. Use this to create reusable view <strong>patterns</strong>.', 'strong-testimonials' ); ?>
-            <p><?php _e( 'Overridable settings: <code>post_ids</code>, <code>category</code>, <code>order</code>, <code>count</code>.', 'strong-testimonials' ); ?>
-            <p><?php _e( 'For example, imagine you have five services, a sales page for each service, and a testimonial category for each service. To display the testimonials on each service page, you can create five duplicate views, one for each category.', 'strong-testimonials' ); ?>
-            <p><?php _e( 'Or you can configure one view as a pattern and add it to each service page with the <code>category</code> attribute.', 'strong-testimonials' ); ?>
-            <p>
-                <?php _e( '<code>[testimonial_view id="1" category="service-1"]</code>', 'strong-testimonials' ); ?>,
-                <?php _e( '<code>[testimonial_view id="1" category="service-2"]</code>', 'strong-testimonials' ); ?>, etc.
-            </p>
-            <p>
-                <?php _e( 'Attributes may be used in combination. For example:', 'strong-testimonials' ); ?>
-                <?php _e( '<code>[testimonial_view id="1" category="service-3" order="random" count="5"]</code>', 'strong-testimonials' ); ?>
-            </p>
-            <p><?php _e( 'Using <code>post_ids</code> is the most specific method and it will override category and count (whether settings or attributes).', 'strong-testimonials' ); ?></p>
-        </div>
+		<div>
+			<p><?php echo wp_kses_post( _e( 'Optional shortcode attributes will override the view settings. Use this to create reusable view <strong>patterns</strong>.', 'strong-testimonials' ) ); ?>
+			<p><?php echo wp_kses_post( _e( 'Overridable settings: <code>post_ids</code>, <code>category</code>, <code>order</code>, <code>count</code>.', 'strong-testimonials' ) ); ?>
+			<p><?php echo wp_kses_post( _e( 'For example, imagine you have five services, a sales page for each service, and a testimonial category for each service. To display the testimonials on each service page, you can create five duplicate views, one for each category.', 'strong-testimonials' ) ); ?>
+			<p><?php echo wp_kses_post( _e( 'Or you can configure one view as a pattern and add it to each service page with the <code>category</code> attribute.', 'strong-testimonials' ) ); ?>
+			<p>
+				<?php echo wp_kses_post( '<code>[testimonial_view id="1" category="service-1"]</code>' ); ?>,
+				<?php echo wp_kses_post( '<code>[testimonial_view id="1" category="service-2"]</code>' ); ?>, etc.
+			</p>
+			<p>
+				<?php echo wp_kses_post( _e( 'Attributes may be used in combination. For example:', 'strong-testimonials' ) ); ?>
+				<?php echo wp_kses_post( '<code>[testimonial_view id="1" category="service-3" order="random" count="5"]</code>' ); ?>
+			</p>
+			<p><?php echo wp_kses_post( _e( 'Using <code>post_ids</code> is the most specific method and it will override category and count (whether settings or attributes).', 'strong-testimonials' ) ); ?></p>
+		</div>
 		<?php
 		$content = ob_get_clean();
 
@@ -150,44 +150,44 @@ class Strong_Testimonials_Help {
 
 		ob_start();
 		?>
-        <p><?php _e( 'Some of the features and drawbacks for each method.', 'strong-testimonials' ); ?></p>
+		<p><?php esc_html_e( 'Some of the features and drawbacks for each method.', 'strong-testimonials' ); ?></p>
 
-        <table class="wpmtst-help-tab" cellpadding="0" cellspacing="0">
-            <thead>
-            <tr>
-                <th></th>
-                <th><?php _e( 'Simple', 'strong-testimonials' ); ?></th>
-                <th><?php _e( 'Standard', 'strong-testimonials' ); ?></th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td><?php _e( 'best use', 'strong-testimonials' ); ?></td>
-                <td><?php _e( 'ten pages or less', 'strong-testimonials' ); ?></td>
-                <td><?php _e( 'more than ten pages', 'strong-testimonials' ); ?></td>
-            </tr>
-            <tr>
-                <td><?php _e( 'URLs', 'strong-testimonials' ); ?></td>
-                <td><?php _e( 'does not change the URL', 'strong-testimonials' ); ?></td>
-                <td><?php _e( 'uses paged URLs just like standard WordPress posts', 'strong-testimonials' ); ?></td>
-            </tr>
-            <tr>
-                <td><?php _e( 'the Back button', 'strong-testimonials' ); ?></td>
-                <td><?php _e( 'It does not remember which page of testimonials you are on. If you click away &ndash; for example, on a "Read more" link &ndash; then click back, you will return to page one.', 'strong-testimonials' ); ?></td>
-                <td><?php _e( 'You will return the last page you were on so this works well with "Read more" links.', 'strong-testimonials' ); ?></td>
-            </tr>
-            <tr>
-                <td><?php _e( 'works with random order option', 'strong-testimonials' ); ?></td>
-                <td><?php _e( 'yes' ); ?></td>
-                <td><?php _e( 'no' ); ?></td>
-            </tr>
-            <tr>
-                <td><?php _e( 'works in a widget', 'strong-testimonials' ); ?></td>
-                <td><?php _e( 'yes' ); ?></td>
-                <td><?php _e( 'no' ); ?></td>
-            </tr>
-            </tbody>
-        </table>
+		<table class="wpmtst-help-tab" cellpadding="0" cellspacing="0">
+			<thead>
+			<tr>
+				<th></th>
+				<th><?php esc_html_e( 'Simple', 'strong-testimonials' ); ?></th>
+				<th><?php esc_html_e( 'Standard', 'strong-testimonials' ); ?></th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr>
+				<td><?php esc_html_e( 'best use', 'strong-testimonials' ); ?></td>
+				<td><?php esc_html_e( 'ten pages or less', 'strong-testimonials' ); ?></td>
+				<td><?php esc_html_e( 'more than ten pages', 'strong-testimonials' ); ?></td>
+			</tr>
+			<tr>
+				<td><?php esc_html_e( 'URLs', 'strong-testimonials' ); ?></td>
+				<td><?php esc_html_e( 'does not change the URL', 'strong-testimonials' ); ?></td>
+				<td><?php esc_html_e( 'uses paged URLs just like standard WordPress posts', 'strong-testimonials' ); ?></td>
+			</tr>
+			<tr>
+				<td><?php esc_html_e( 'the Back button', 'strong-testimonials' ); ?></td>
+				<td><?php esc_html_e( 'It does not remember which page of testimonials you are on. If you click away &ndash; for example, on a "Read more" link &ndash; then click back, you will return to page one.', 'strong-testimonials' ); ?></td>
+				<td><?php esc_html_e( 'You will return the last page you were on so this works well with "Read more" links.', 'strong-testimonials' ); ?></td>
+			</tr>
+			<tr>
+				<td><?php esc_html_e( 'works with random order option', 'strong-testimonials' ); ?></td>
+				<td><?php esc_html_e( 'yes', 'strong-testimonials' ); ?></td>
+				<td><?php esc_html_e( 'no', 'strong-testimonials' ); ?></td>
+			</tr>
+			<tr>
+				<td><?php esc_html_e( 'works in a widget', 'strong-testimonials' ); ?></td>
+				<td><?php esc_html_e( 'yes', 'strong-testimonials' ); ?></td>
+				<td><?php esc_html_e( 'no', 'strong-testimonials' ); ?></td>
+			</tr>
+			</tbody>
+		</table>
 		<?php
 		$content = ob_get_clean();
 

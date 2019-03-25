@@ -210,12 +210,11 @@ class Strong_Testimonials_Post_Editor {
                         <?php wpmtst_star_rating_form( $field, $rating, 'in-metabox', true, 'custom' ); ?>
                     </span>
 				<?php if ( ! $is_new ) : ?>
-                    <span class="edit-rating-buttons-2">
-                            <button type="button"
-                                    class="zero button-link"><?php _e( 'Zero', 'strong-testimonials' ); ?></button>&nbsp;
-                            <button type="button" class="save button button-small"><?php _e( 'OK' ); ?></button>&nbsp;
-                            <button type="button" class="cancel button-link"><?php _e( 'Cancel' ); ?></button>
-                        </span>
+					<span class="edit-rating-buttons-2">
+							<button type="button" class="zero button-link"><?php esc_html_e( 'Zero', 'strong-testimonials' ); ?></button>&nbsp;
+							<button type="button" class="save button button-small"><?php esc_html_e( 'OK', 'strong-testimonials' ); ?></button>&nbsp;
+							<button type="button" class="cancel button-link"><?php esc_html_e( 'Cancel', 'strong-testimonials' ); ?></button>
+						</span>
 				<?php endif; ?>
             </div>
 
@@ -226,12 +225,9 @@ class Strong_Testimonials_Post_Editor {
                     </span>
 
 				<?php if ( ! $is_new ) : ?>
-                    <span class="edit-rating-buttons-1">
-                        <button type="button"
-                                id=""
-                                class="edit-rating button button-small hide-if-no-js"
-                                aria-label="Edit rating"><?php _e( 'Edit' ); ?></button>
-                    </span>
+					<span class="edit-rating-buttons-1">
+						<button type="button" id="" class="edit-rating button button-small hide-if-no-js" aria-label="Edit rating"><?php esc_html_e( 'Edit', 'strong-testimonials' ); ?></button>
+					</span>
 				<?php endif; ?>
             </div>
 

@@ -58,6 +58,18 @@ $options = get_option( 'wpmtst_options' );
 		</td>
 	</tr>
 
+	<tr valign="top">
+		<th scope="row">
+			<?php esc_html_e( 'Single Testimonial Slug', 'strong-testimonials' ); ?>
+		</th>
+		<td>
+			<label>
+				<input type="text" name="wpmtst_options[single_testimonial_slug]" value="<?php echo esc_attr( $options['single_testimonial_slug'] ); ?>"/>
+			</label>
+			<p class="description"><?php esc_html_e( 'Change the permalink slug for a single entry testimonial. After changing this field, reset permalinks by going to Settings > Permalinks and clicking Save Changes.', 'strong-testimonials' ); ?></p>
+		</td>
+	</tr>
+
 </table>
 
 <hr/>
