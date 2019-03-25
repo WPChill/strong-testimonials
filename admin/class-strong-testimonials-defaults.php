@@ -29,18 +29,19 @@ class Strong_Testimonials_Defaults {
 	 */
 	public static function get_options() {
 		$default_options = array(
-			'embed_width'           => '',
-			'load_font_awesome'     => true,
-			'nofollow'              => false,
-			'pending_indicator'     => true,
-			'remove_whitespace'     => true,
-			'reorder'               => false,
-			'support_comments'      => false,
-			'support_custom_fields' => false,
-			'scrolltop'             => true,
-			'scrolltop_offset'      => 80,
-			'no_lazyload'           => true,
-			'touch_enabled'         => true,
+			'embed_width'             => '',
+			'load_font_awesome'       => true,
+			'nofollow'                => false,
+			'pending_indicator'       => true,
+			'remove_whitespace'       => true,
+			'reorder'                 => false,
+			'support_comments'        => false,
+			'support_custom_fields'   => false,
+			'single_testimonial_slug' => 'testimonial',
+			'scrolltop'               => true,
+			'scrolltop_offset'        => 80,
+			'no_lazyload'             => true,
+			'touch_enabled'           => true,
 		);
 
 		return $default_options;
@@ -862,15 +863,6 @@ class Strong_Testimonials_Defaults {
 				'settings'  => 'admin.php?page=captcha_pro.php',
 				'search' => '',
 				'url'       => 'https://bestwebsoft.com/products/wordpress/plugins/captcha/',
-				'installed' => false,
-				'active'    => false,
-			),
-			'really-simple-captcha'    => array(
-				'name'      => 'Really Simple Captcha by Takayuki Miyoshi (free)',
-				'class'     => 'Really_Simple_Captcha',
-				'file'      => 'really-simple-captcha/really-simple-captcha.php',
-				'search'    => 'plugin-install.php?tab=search&s=Really+Simple+Captcha',
-				'url'       => 'https://wordpress.org/plugins/really-simple-captcha/',
 				'installed' => false,
 				'active'    => false,
 			),

@@ -34,8 +34,8 @@ class Strong_Testimonials_Page_Shortcodes {
 			<h2><?php _e( 'Testimonial Views', 'strong-testimonials' ); ?></h2>
 
 			<p>
-				<?php _e( 'Each view has a unique shortcode like <code>&#91;testimonial_view id="1"&#93;</code>.', 'strong-testimonials' ); ?>
-				<?php printf( '<a href="%s">%s</a>', esc_url( admin_url( 'edit.php?post_type=wpm-testimonial&page=testimonial-views' ) ), __( 'Go to views', 'strong-testimonials' ) ); ?>
+				<?php echo wp_kses_post( _e( 'Each view has a unique shortcode like ', 'strong-testimonials' ) ); ?><code>&#91;testimonial_view id="1"&#93;</code>.
+				<?php printf( '<a href="%s">%s</a>', esc_url( admin_url( 'edit.php?post_type=wpm-testimonial&page=testimonial-views' ) ), esc_html__( 'Go to views', 'strong-testimonials' ) ); ?>
 			</p>
 
 			<h2><?php _e( 'Testimonial Count', 'strong-testimonials' ); ?></h2>

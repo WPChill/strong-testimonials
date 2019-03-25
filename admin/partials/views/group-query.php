@@ -21,7 +21,7 @@ $then_classes = array(
 				<?php _e( 'or Shortcode Attribute', 'strong-testimonials' ); ?>
 				<span class="help-links">
 					<span class="description">
-						<a href="#tab-panel-wpmtst-help-shortcode" class="open-help-tab"><?php _e( 'Help' ); ?></a>
+						<a href="#tab-panel-wpmtst-help-shortcode" class="open-help-tab"><?php esc_html_e( 'Help', 'strong-testimonials' ); ?></a>
 					</span>
 				</span>
 			</td>
@@ -39,6 +39,6 @@ $then_classes = array(
 		<tr class="then then_slideshow then_not_single then_multiple" style="display: none;">
 			<?php include( 'option-limit.php' ); ?>
 		</tr>
-		<?php // TODO Add hook here ?>
-    </table>
+		<?php do_action( 'wpmtst_views_group_query', $view ); ?>
+	</table>
 </div>

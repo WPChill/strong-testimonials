@@ -42,7 +42,7 @@ function wpmtst_get_the_excerpt( $post = null ) {
 	}
 
 	if ( post_password_required( $post ) ) {
-		return __( 'There is no excerpt because this is a protected post.' );
+		return __( 'There is no excerpt because this is a protected post.', 'strong-testimonials' );
 	}
 
 	/**
@@ -172,7 +172,7 @@ function wpmtst_get_excerpt_more_link() {
  */
 function wpmtst_trim_words( $text, $num_words = 55, $more = null, $hybrid = false ) {
 	if ( null === $more ) {
-		$more = __( '&hellip;' );
+		$more = __( '&hellip;', 'strong-testimonials' );
 	}
 
 	$text = wp_strip_all_tags( $text );
@@ -182,7 +182,7 @@ function wpmtst_trim_words( $text, $num_words = 55, $more = null, $hybrid = fals
 	 * enter 'characters_excluding_spaces' or 'characters_including_spaces'. Otherwise, enter 'words'.
 	 * Do not translate into your own language.
 	 */
-	if ( strpos( _x( 'words', 'Word count type. Do not translate!' ), 'characters' ) === 0 && preg_match( '/^utf\-?8$/i', get_option( 'blog_charset' ) ) ) {
+	if ( strpos( _x( 'words', 'Word count type. Do not translate!', 'strong-testimonials' ), 'characters' ) === 0 && preg_match( '/^utf\-?8$/i', get_option( 'blog_charset' ) ) ) {
 		$text = trim( preg_replace( "/[\n\r\t ]+/", ' ', $text ), ' ' );
 		preg_match_all( '/./u', $text, $words_array );
 		$words_array = array_slice( $words_array[0], 0, $num_words + 1 );

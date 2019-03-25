@@ -79,7 +79,7 @@
 				</label>
 
 				<div class="inline description">
-					<a href="#tab-panel-wpmtst-help-stretch" class="open-help-tab"><?php _e( 'Help' ); ?></a>
+					<a href="#tab-panel-wpmtst-help-stretch" class="open-help-tab"><?php esc_html_e( 'Help', 'strong-testimonials' ); ?></a>
 				</div>
 			</div>
 

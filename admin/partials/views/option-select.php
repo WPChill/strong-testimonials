@@ -19,11 +19,11 @@
 
 </td>
 <td class="divider">
-    <p><?php _e( '<code>post_ids</code>' , 'strong-testimonials' ); ?></p>
+	<p><?php echo wp_kses_post( '<code>post_ids</code>' ); ?></p>
 </td>
 <td>
     <p><?php _e( 'a comma-separated list of post ID\'s' , 'strong-testimonials' ); ?></p>
 </td>
 <td>
-    <p><?php _e( '<code>post_ids="123,456"</code>', 'strong-testimonials' ); ?></p>
+	<p><?php echo wp_kses_post( '<code>post_ids="123,456"</code>' ); ?></p>
 </td>

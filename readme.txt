@@ -173,7 +173,7 @@ No. If you already have testimonials in another plugin or theme, you will have t
 
 == Changelog ==
 
-* See changelog.txt for previous versions.
+* See [changelog.txt](https://github.com/MachoThemes/strong-testimonials/blob/master/changelog.txt) for previous versions.
 
 == Upgrade Notice ==
 
