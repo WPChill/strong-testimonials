@@ -210,7 +210,9 @@
 
 	<div class="row links then then_not_entire then_truncated then_excerpt" style="display: none;">
 		<p class="description tall solo">
-			<?php echo wp_kses_post( printf( __( '<a href="%s" target="_blank">Learn more about WordPress excerpts</a>', 'strong-testimonials' ), esc_url( 'http://buildwpyourself.com/wordpress-manual-excerpts-more-tag/' ) ) ); ?>
+			<?php
+			echo wp_kses_post( printf( __( '<a href="%s" target="_blank">Learn more about WordPress excerpts</a>', 'strong-testimonials' ), esc_url( 'http://buildwpyourself.com/wordpress-manual-excerpts-more-tag/' ) ) );
+			?>
 		</p>
 	</div>
 
