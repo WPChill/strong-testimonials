@@ -1,5 +1,9 @@
 /node_modules/
 package-lock.json
+strong-testimonials.zip
+.standard.json
+.vscode
+package-lock.json
 
 #################
 ## PhpStorm
