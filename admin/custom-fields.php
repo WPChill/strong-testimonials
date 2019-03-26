@@ -181,7 +181,7 @@ function wpmtst_settings_custom_fields( $form_id = 1 ) {
 			<ul id="custom-field-list">
 				<?php
 				foreach ( $fields as $key => $field ) {
-					echo '<li id="field-' . esc_attr( $key ) . '">' . wp_kses_post( wpmtst_show_field( $key, $field, false ) ) . '</li>' . "\n";
+					echo '<li id="field-' . esc_attr( $key ) . '">' . wpmtst_show_field( $key, $field, false ) . '</li>' . "\n";
 				}
 				?>
 			</ul>
@@ -192,8 +192,8 @@ function wpmtst_settings_custom_fields( $form_id = 1 ) {
 
 			<div id="field-group-actions">
 				<div><?php submit_button( '', 'primary', 'submit-form', false ); ?></div>
-				<div><?php submit_button( __( 'Cancel Changes', 'strong-testimonials' ), 'secondary', 'reset', false ); ?></div>
-				<div><?php submit_button( __( 'Restore Defaults', 'strong-testimonials' ), 'secondary', 'restore-defaults', false ); ?></div>
+				<div><?php submit_button( esc_html__( 'Cancel Changes', 'strong-testimonials' ), 'secondary', 'reset', false ); ?></div>
+				<div><?php submit_button( esc_html__( 'Restore Defaults', 'strong-testimonials' ), 'secondary', 'restore-defaults', false ); ?></div>
 			</div>
 		</form>
 	</div><!-- #left-col -->
