@@ -238,8 +238,8 @@ function wpmtst_show_field( $key, $field, $adding ) {
 			include 'partials/fields/field-name.php';
 
 			if ( ! $adding ) {
-				echo wp_kses_post( wpmtst_show_field_secondary( $key, $field ) );
-				echo wp_kses_post( wpmtst_show_field_admin_table( $key, $field ) );
+				echo wpmtst_show_field_secondary( $key, $field );
+				echo wpmtst_show_field_admin_table( $key, $field );
 			}
 
 			?>
@@ -281,17 +281,17 @@ function wpmtst_show_field_secondary( $key, $field ) {
 	    if ( isset( $field['core'] ) && $field['core'] ) {
 		    $disabled = ' disabled="disabled"';
 	    } else {
-		    $disabled = false;
+		    $disabled = '';
 	    }
 
 	    $html .= '<tr class="field-secondary">' . "\n";
-	    $html .= '<th>' . __( 'Required', 'strong-testimonials' ) . '</th>' . "\n";
+	    $html .= '<th>' . esc_html__( 'Required', 'strong-testimonials' ) . '</th>' . "\n";
 	    $html .= '<td>' . "\n";
 	    if ( $disabled ) {
-		    $html .= '<input type="hidden" name="fields[' . $key . '][required]" value="' . $field['required'] . '">';
+		    $html .= '<input type="hidden" name="fields[' . esc_attr( $key ) . '][required]" value="' . esc_attr( $field['required'] ) . '">';
 		    $html .= '<input type="checkbox" ' . checked( $field['required'], true, false ) . $disabled . '>';
 	    } else {
-		    $html .= '<input type="checkbox" name="fields[' . $key . '][required]" ' . checked( $field['required'], true, false ) . '>';
+		    $html .= '<input type="checkbox" name="fields[' . esc_attr( $key ) . '][required]" ' . checked( $field['required'], true, false ) . '>';
 	    }
 	    $html .= '</td>' . "\n";
 	    $html .= '</tr>' . "\n";
@@ -303,8 +303,8 @@ function wpmtst_show_field_secondary( $key, $field ) {
 	if ( $field['show_placeholder_option'] ) {
 		if ( isset( $field['placeholder'] ) ) {
 			$html .= '<tr class="field-secondary">' . "\n";
-			$html .= '<th>' . __( 'Placeholder', 'strong-testimonials' ) . '</th>' . "\n";
-			$html .= '<td><input type="text" name="fields[' . $key . '][placeholder]" value="' . esc_attr( $field['placeholder'] ) . '"></td>' . "\n";
+			$html .= '<th>' . esc_html__( 'Placeholder', 'strong-testimonials' ) . '</th>' . "\n";
+			$html .= '<td><input type="text" name="fields[' . esc_attr( $key ) . '][placeholder]" value="' . esc_attr( $field['placeholder'] ) . '"></td>' . "\n";
 			$html .= '</tr>' . "\n";
 		}
 	}
@@ -317,8 +317,8 @@ function wpmtst_show_field_secondary( $key, $field ) {
 	if ( $field['show_text_option'] ) {
 		if ( isset( $field['text'] ) ) {
 			$html .= '<tr class="field-secondary">' . "\n";
-			$html .= '<th>' . __( 'Text', 'strong-testimonials' ) . '</th>' . "\n";
-			$html .= '<td><input type="text" name="fields[' . $key . '][text]" value="' . esc_attr( $field['text'] ) . '" placeholder="' . __( 'next to the checkbox', 'strong-testimonials' ) . '"></td>' . "\n";
+			$html .= '<th>' . esc_html__( 'Text', 'strong-testimonials' ) . '</th>' . "\n";
+			$html .= '<td><input type="text" name="fields[' . esc_attr( $key ) . '][text]" value="' . esc_attr( $field['text'] ) . '" placeholder="' . esc_html__( 'next to the checkbox', 'strong-testimonials' ) . '"></td>' . "\n";
 			$html .= '</tr>' . "\n";
 		}
 	}
@@ -327,16 +327,16 @@ function wpmtst_show_field_secondary( $key, $field ) {
 	 * Before
 	 */
 	$html .= '<tr class="field-secondary">' . "\n";
-	$html .= '<th>' . __( 'Before', 'strong-testimonials' ) . '</th>' . "\n";
-	$html .= '<td><input type="text" name="fields[' . $key . '][before]" value="' . esc_attr( $field['before'] ) . '"></td>' . "\n";
+	$html .= '<th>' . esc_html__( 'Before', 'strong-testimonials' ) . '</th>' . "\n";
+	$html .= '<td><input type="text" name="fields[' . esc_attr( $key ) . '][before]" value="' . esc_attr( $field['before'] ) . '"></td>' . "\n";
 	$html .= '</tr>' . "\n";
 
 	/*
 	 * After
 	 */
 	$html .= '<tr class="field-secondary">' . "\n";
-	$html .= '<th>' . __( 'After', 'strong-testimonials' ) . '</th>' . "\n";
-	$html .= '<td><input type="text" name="fields[' . $key . '][after]" value="' . esc_attr( $field['after'] ) . '"></td>' . "\n";
+	$html .= '<th>' . esc_html__( 'After', 'strong-testimonials' ) . '</th>' . "\n";
+	$html .= '<td><input type="text" name="fields[' . esc_attr( $key ) . '][after]" value="' . esc_attr( $field['after'] ) . '"></td>' . "\n";
 	$html .= '</tr>' . "\n";
 
 	/*
@@ -345,27 +345,27 @@ function wpmtst_show_field_secondary( $key, $field ) {
 	if ( $field['show_default_options'] ) {
 		if ( isset( $field['default_form_value'] ) ) {
 			$html .= '<tr class="field-secondary">' . "\n";
-			$html .= '<th>' . __( 'Default Form Value', 'strong-testimonials' ) . '</th>' . "\n";
+			$html .= '<th>' . esc_html__( 'Default Form Value', 'strong-testimonials' ) . '</th>' . "\n";
 			$html .= '<td>' . "\n";
 
 			// TODO Replace this special handling
 			if ( 'rating' == $field['input_type'] ) {
 
-				$html .= '<input type="text" name="fields[' . $key . '][default_form_value]" value="' . esc_attr( $field['default_form_value'] ) . '" class="as-number">';
-				$html .= '<span class="help inline">' . __( 'stars', 'strong-testimonials' ) . '</span>';
-			    $html .= '<span class="help">' . __( 'Populate the field with this value.', 'strong-testimonials' ) . '</span>';
+				$html .= '<input type="text" name="fields[' . esc_attr( $key ) . '][default_form_value]" value="' . esc_attr( $field['default_form_value'] ) . '" class="as-number">';
+				$html .= '<span class="help inline">' . esc_html__( 'stars', 'strong-testimonials' ) . '</span>';
+			    $html .= '<span class="help">' . esc_html__( 'Populate the field with this value.', 'strong-testimonials' ) . '</span>';
 
 			} elseif ( 'checkbox' == $field['input_type'] ) {
 
 			    $html .= '<label>';
-                $html .= '<input type="checkbox" name="fields[' . $key . '][default_form_value]" ' . checked( $field['default_form_value'], true, false ) . '>';
-				$html .= '<span class="help inline">' . __( 'Checked by default.', 'strong-testimonials' ) . '</span>';
+                $html .= '<input type="checkbox" name="fields[' . esc_attr( $key ) . '][default_form_value]" ' . checked( $field['default_form_value'], true, false ) . '>';
+				$html .= '<span class="help inline">' . esc_html__( 'Checked by default.', 'strong-testimonials' ) . '</span>';
 				$html .= '</label>';
 
             } else {
 
-				$html .= '<input type="text" name="fields[' . $key . '][default_form_value]" value="' . esc_attr( $field['default_form_value'] ) . '">';
-			    $html .= '<span class="help">' . __( 'Populate the field with this value.', 'strong-testimonials' ) . '</span>';
+				$html .= '<input type="text" name="fields[' . esc_attr( $key ) . '][default_form_value]" value="' . esc_attr( $field['default_form_value'] ) . '">';
+			    $html .= '<span class="help">' . esc_html__( 'Populate the field with this value.', 'strong-testimonials' ) . '</span>';
 
 			}
 
@@ -382,18 +382,18 @@ function wpmtst_show_field_secondary( $key, $field ) {
 		if ( 'checkbox' != $field['input_type'] ) {
 			if ( isset( $field['default_display_value'] ) ) {
 				$html .= '<tr class="field-secondary">' . "\n";
-				$html .= '<th>' . __( 'Default Display Value', 'strong-testimonials' ) . '</th>' . "\n";
+				$html .= '<th>' . esc_html__( 'Default Display Value', 'strong-testimonials' ) . '</th>' . "\n";
 				$html .= '<td>' . "\n";
 
 				// TODO Replace this special handling
 				if ( 'rating' == $field['input_type'] ) {
-					$html .= '<input type="text" name="fields[' . $key . '][default_display_value]" value="' . esc_attr( $field['default_display_value'] ) . '" class="as-number">';
-					$html .= '<span class="help inline">' . __( 'stars', 'strong-testimonials' ) . '</span>';
+					$html .= '<input type="text" name="fields[' . esc_attr( $key ) . '][default_display_value]" value="' . esc_attr( $field['default_display_value'] ) . '" class="as-number">';
+					$html .= '<span class="help inline">' . esc_html__( 'stars', 'strong-testimonials' ) . '</span>';
 				} else {
-					$html .= '<input type="text" name="fields[' . $key . '][default_display_value]" value="' . esc_attr( $field['default_display_value'] ) . '">';
+					$html .= '<input type="text" name="fields[' . esc_attr( $key ) . '][default_display_value]" value="' . esc_attr( $field['default_display_value'] ) . '">';
 				}
 
-				$html .= '<span class="help">' . __( 'Display this on the testimonial if no value is submitted.', 'strong-testimonials' ) . '</span>';
+				$html .= '<span class="help">' . esc_html__( 'Display this on the testimonial if no value is submitted.', 'strong-testimonials' ) . '</span>';
 				$html .= '</td>' . "\n";
 				$html .= '</tr>' . "\n";
 			}
@@ -406,17 +406,17 @@ function wpmtst_show_field_secondary( $key, $field ) {
 	if ( $field['show_shortcode_options'] ) {
 		if ( isset( $field['shortcode_on_form'] ) ) {
 			$html .= '<tr class="field-secondary">' . "\n";
-			$html .= '<th>' . __( 'Shortcode on form', 'strong-testimonials' ) . '</th>' . "\n";
+			$html .= '<th>' . esc_html__( 'Shortcode on form', 'strong-testimonials' ) . '</th>' . "\n";
 			$html .= '<td>' . "\n";
-			$html .= '<input type="text" name="fields[' . $key . '][shortcode_on_form]" value="' . esc_attr( $field['shortcode_on_form'] ) . '">';
+			$html .= '<input type="text" name="fields[' . esc_attr( $key ) . '][shortcode_on_form]" value="' . esc_attr( $field['shortcode_on_form'] ) . '">';
 			$html .= '</td>' . "\n";
 			$html .= '</tr>' . "\n";
 		}
 		if ( isset( $field['shortcode_on_display'] ) ) {
 			$html .= '<tr class="field-secondary">' . "\n";
-			$html .= '<th>' . __( 'Shortcode on display', 'strong-testimonials' ) . '</th>' . "\n";
+			$html .= '<th>' . esc_html__( 'Shortcode on display', 'strong-testimonials' ) . '</th>' . "\n";
 			$html .= '<td>' . "\n";
-			$html .= '<input type="text" name="fields[' . $key . '][shortcode_on_display]" value="' . esc_attr( $field['shortcode_on_display'] ) . '">';
+			$html .= '<input type="text" name="fields[' . esc_attr( $key ) . '][shortcode_on_display]" value="' . esc_attr( $field['shortcode_on_display'] ) . '">';
 			$html .= '</td>' . "\n";
 			$html .= '</tr>' . "\n";
 		}
@@ -436,20 +436,20 @@ function wpmtst_show_field_admin_table( $key, $field ) {
 	// Show in Admin Table
 	// -------------------
 	if ( ! $field['show_admin_table_option'] ) {
-		$html = '<input type="hidden" name="fields[' . $key . '][show_admin_table_option]" value="' . $field['show_admin_table_option'] . '">';
+		$html = '<input type="hidden" name="fields[' . esc_attr( $key ) . '][show_admin_table_option]" value="' . esc_attr( $field['show_admin_table_option'] ) . '">';
 		return $html;
 	}
 
 	$html = '<tr class="field-admin-table">' . "\n";
-	$html .= '<th>' . __( 'Admin List', 'strong-testimonials' ) . '</th>' . "\n";
+	$html .= '<th>' . esc_html__( 'Admin List', 'strong-testimonials' ) . '</th>' . "\n";
 	$html .= '<td>' . "\n";
 	if ( $field['admin_table_option'] ) {
-		$html .= '<label><input type="checkbox" class="field-admin-table" name="fields[' . $key . '][admin_table]" ' . checked( $field['admin_table'], 1, false ) . '>';
+		$html .= '<label><input type="checkbox" class="field-admin-table" name="fields[' . esc_attr( $key ) . '][admin_table]" ' . checked( $field['admin_table'], 1, false ) . '>';
 	} else {
-		$html .= '<input type="checkbox" ' . checked( $field['admin_table'], 1, false ) . ' disabled="disabled"> <em>' . __( 'required', 'strong-testimonials' ) . '</em>';
-		$html .= '<input type="hidden" name="fields[' . $key . '][admin_table]" value="' . $field['admin_table'] . '">';
+		$html .= '<input type="checkbox" ' . checked( $field['admin_table'], 1, false ) . ' disabled="disabled"> <em>' . esc_html__( 'required', 'strong-testimonials' ) . '</em>';
+		$html .= '<input type="hidden" name="fields[' . esc_attr( $key ) . '][admin_table]" value="' . esc_attr( $field['admin_table'] ) . '">';
 	}
-	$html .= '<span class="help inline">' . __( 'Show this field in the admin list table.', 'strong-testimonials' ) . '</span>';
+	$html .= '<span class="help inline">' . esc_html__( 'Show this field in the admin list table.', 'strong-testimonials' ) . '</span>';
 	$html .= '</label>';
 	$html .= '</td>' . "\n";
 	$html .= '</tr>' . "\n";
