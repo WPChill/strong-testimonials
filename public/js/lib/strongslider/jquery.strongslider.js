@@ -1865,7 +1865,7 @@
 
 		// adjust the height
 		unsetSlideHeight();
-		setViewportHeight();
+		//setViewportHeight();
 
 		// if stretch, set t-slide height to 100%
 		if (slider.settings.stretch) {
