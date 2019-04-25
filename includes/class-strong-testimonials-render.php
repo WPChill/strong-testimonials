@@ -146,7 +146,7 @@ class Strong_Testimonials_Render {
 			// Array( [id] => 1, [name] => TEST, [value] => {serialized_array} )
 			$view_data = maybe_unserialize( $view['value'] );
 			if ( isset( $view_data['mode'] ) && 'single_template' != $view_data['mode'] ) {
-				$atts = array( 'view' => $view['id'] );
+				$atts = array( 'id' => $view['id'], 'view' => $view['id'] );
 				$this->prerender( $atts );
 			}
 		}
