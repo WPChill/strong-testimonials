@@ -232,6 +232,7 @@ class Strong_Testimonials_Updater {
 
 	public function update_admin_notices() {
 		wpmtst_add_admin_notice( 'feedback-notice', true );
+		wpmtst_add_admin_notice( 'upsell-notice', true );
 	}
 
 	/**

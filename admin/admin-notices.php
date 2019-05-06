@@ -179,17 +179,48 @@ add_action( 'update_option', 'wpmtst_auto_dismiss_notices', 10, 3 );
 
 function wpmtst_admin_feedback_notice() {
 	$screen = get_current_screen();
-	if ( $screen->id !== 'edit-wpm-testimonial' ) {
+	if ( $screen->id !== 'edit-wpm-testimonial' && $screen->id !== 'wpm-testimonial_page_testimonial-views' ) {
+		return;
+	}
+
+	$notices = get_option( 'wpmtst_admin_notices', array() );
+	if ( ! array_key_exists( 'feedback-notice', $notices ) ) {
 		return;
 	}
 
 	?>
-	<div class="notice wpmtst-notice is-dismissible" data-key="feedback-notice" data-nonce="<?php echo esc_attr( wp_create_nonce( "wpmtst-admin" ) ); ?>">
-		<img class="wpmst-mascot" src="<?php echo esc_url( WPMTST_ADMIN_URL ); ?>/img/mascot.png" />
-		<img src="<?php echo esc_url( WPMTST_ADMIN_URL ); ?>/img/logo-long.svg" width="400"/>
+	<div class="notice wpmtst-notice wpmtst-notice--feedback is-dismissible" data-key="feedback-notice" data-nonce="<?php echo esc_attr( wp_create_nonce( 'wpmtst-admin' ) ); ?>">
+		<div class="wpmtst-notice--feedback__bg"></div>
+		<h2><?php esc_html_e( 'Feature Request', 'strong-testimonials' ); ?></h2>
 		<p><?php esc_html_e( 'Do you enjoy using Strong Testimonials? Please take a minute to suggest a feature or tell us what you think.', 'strong-testimonials' ); ?></p>
 		<a class="button" target="_blank" href="https://docs.google.com/forms/d/e/1FAIpQLScch0AchtnzxJsSrjUcW9ypcr1fZ9r-vyk3emEp8Sv47brb2g/viewform"><?php esc_html_e( 'Submit Feedback', 'strong-testimonials' ); ?></a>
 	</div>
 	<?php
 }
 add_action( 'admin_notices', 'wpmtst_admin_feedback_notice' );
+
+
+function wpmtst_admin_upsell_notice() {
+	$screen = get_current_screen();
+	if ( $screen->id !== 'edit-wpm-testimonial' && $screen->id !== 'wpm-testimonial_page_testimonial-views' ) {
+		return;
+	}
+
+	$notices = get_option( 'wpmtst_admin_notices', array() );
+	if ( ! array_key_exists( 'upsell-notice', $notices ) ) {
+		return;
+	}
+
+	?>
+	<div class="notice wpmtst-notice wpmtst-notice--upsell is-dismissible" data-key="upsell-notice" data-nonce="<?php echo esc_attr( wp_create_nonce( 'wpmtst-admin' ) ); ?>">
+		<div class="wpmtst-notice--upsell__bg"></div>
+		<h2><?php esc_html_e( 'Upgrade to PRO', 'strong-testimonials' ); ?></h2>
+		<p>
+			<?php esc_html_e( 'Build trust and credibility with your products.', 'strong-testimonials' ); ?><br/>
+			<?php esc_html_e( 'Do more with Strong Testimonials extensions.', 'strong-testimonials' ); ?>
+		</p>
+		<a class="button button-primary" target="_blank" href="https://strongtestimonials.com/pricing"><?php esc_html_e( 'View pricing', 'strong-testimonials' ); ?></a>
+	</div>
+	<?php
+}
+add_action( 'admin_notices', 'wpmtst_admin_upsell_notice' );

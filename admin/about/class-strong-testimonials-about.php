@@ -86,8 +86,9 @@ class Strong_Testimonials_About {
 					break;
 			}
 
-			include WPMTST_ADMIN. 'about/links.php';
-			include WPMTST_ADMIN. 'about/addons.php';
+			include WPMTST_ADMIN . 'about/upsell.php';
+			include WPMTST_ADMIN . 'about/links.php';
+			include WPMTST_ADMIN . 'about/addons.php';
 			?>
 
 		</div>
