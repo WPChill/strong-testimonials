@@ -5,10 +5,11 @@ export default class Notice {
 		this.key = $element.data('key');
 		this.nonce = $element.data('nonce');
 
-		jQuery(document).on( 'click', '.wpmtst-notice .notice-dismiss', () => this.onDismissClick() );
+		this.$element.on( 'click', '.notice-dismiss', () => this.onDismissClick() );
 	}
 
 	onDismissClick() {
+
 		jQuery.ajax({
 			type: "POST",
 			data : { action: "wpmtst_dismiss_notice", nonce: this.nonce, key: this.key },

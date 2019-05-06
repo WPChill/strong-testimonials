@@ -198,6 +198,7 @@ final class Strong_Testimonials {
 		defined( 'WPMTST_ASSETS_CSS' ) || define( 'WPMTST_ASSETS_CSS', WPMTST_URL . 'assets/css/' );
 		defined( 'WPMTST_ASSETS_JS' ) || define( 'WPMTST_ASSETS_JS', WPMTST_URL . 'assets/js/' );
 		defined( 'WPMTST_ASSETS_SRC' ) || define( 'WPMTST_ASSETS_SRC', WPMTST_URL . 'assets/src/' );
+		defined( 'WPMTST_ASSETS_IMG' ) || define( 'WPMTST_ASSETS_IMG', WPMTST_URL . 'assets/img/' );
 	}
 
 	/**
@@ -269,10 +270,9 @@ final class Strong_Testimonials {
 			require_once WPMTST_ADMIN . 'settings/class-strong-testimonials-settings-general.php';
 			require_once WPMTST_ADMIN . 'settings/class-strong-testimonials-settings-form.php';
 			require_once WPMTST_ADMIN . 'settings/class-strong-testimonials-settings-compat.php';
-			require_once WPMTST_ADMIN . 'settings/class-strong-testimonials-settings-licenses.php';
 
 			require_once WPMTST_ADMIN . 'about/class-strong-testimonials-about.php';
-
+			require_once WPMTST_ADMIN . 'class-strong-testimonials-addons.php';
 			require_once WPMTST_ADMIN . 'class-strong-testimonials-defaults.php';
 			require_once WPMTST_ADMIN . 'class-strong-testimonials-list-table.php';
 			require_once WPMTST_ADMIN . 'class-strong-views-list-table.php';

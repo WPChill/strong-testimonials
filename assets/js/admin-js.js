@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 1);
+/******/ 	return __webpack_require__(__webpack_require__.s = 2);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -91,7 +91,7 @@ var Notice = function () {
 		this.key = $element.data('key');
 		this.nonce = $element.data('nonce');
 
-		jQuery(document).on('click', '.wpmtst-notice .notice-dismiss', function () {
+		this.$element.on('click', '.notice-dismiss', function () {
 			return _this.onDismissClick();
 		});
 	}
@@ -99,6 +99,7 @@ var Notice = function () {
 	_createClass(Notice, [{
 		key: 'onDismissClick',
 		value: function onDismissClick() {
+
 			jQuery.ajax({
 				type: "POST",
 				data: { action: "wpmtst_dismiss_notice", nonce: this.nonce, key: this.key },
@@ -113,7 +114,8 @@ var Notice = function () {
 exports.default = Notice;
 
 /***/ }),
-/* 1 */
+/* 1 */,
+/* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";

@@ -64,6 +64,11 @@ class Strong_Testimonials_Admin_Scripts {
 			$plugin_version,
 			true );
 
+		wp_register_style(
+			'wpmtst-admin-global-style',
+			WPMTST_ASSETS_CSS . 'admin-global.css',
+			array(),
+			$plugin_version );
 
 	 	wp_register_style(
 			'wpmtst-admin-style',
@@ -231,6 +236,8 @@ class Strong_Testimonials_Admin_Scripts {
 	 */
 	public static function admin_enqueue_scripts() {
 		$plugin_version = get_option( 'wpmtst_plugin_version' );
+
+		wp_enqueue_style( 'wpmtst-admin-global-style' );
 
 		wp_enqueue_script( 'wpmtst-admin-global',
 		                    WPMTST_ADMIN_URL . 'js/admin-global.js',
