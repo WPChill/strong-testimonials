@@ -648,10 +648,8 @@ ul.standard {
   float: right; }
 
 /* notices */
-
 .wpmtst-notice {
   padding: 2rem;
-
 }
 
 .wpmtst-notice--feedback {
@@ -708,11 +706,13 @@ ul.standard {
 	.wpm-testimonial_page_testimonial-views .wpmtst-notice--feedback {
 		width: calc(50% - 15px);
 		float: left;
+		min-height: 244px;
 	}
 	.edit-php.post-type-wpm-testimonial .wpmtst-notice--upsell,
 	.wpm-testimonial_page_testimonial-views .wpmtst-notice--upsell {
 		width: calc(50% - 15px);
 		float: right;
+		min-height: 244px;
 	}
 	.edit-php.post-type-wpm-testimonial .wpmtst-notice--upsell + *,
 	.wpm-testimonial_page_testimonial-views .wpmtst-notice--upsell + * {
