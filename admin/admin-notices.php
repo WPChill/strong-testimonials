@@ -197,30 +197,4 @@ function wpmtst_admin_feedback_notice() {
 	</div>
 	<?php
 }
-add_action( 'admin_notices', 'wpmtst_admin_feedback_notice' );
-
-
-function wpmtst_admin_upsell_notice() {
-	$screen = get_current_screen();
-	if ( $screen->id !== 'edit-wpm-testimonial' && $screen->id !== 'wpm-testimonial_page_testimonial-views' ) {
-		return;
-	}
-
-	$notices = get_option( 'wpmtst_admin_notices', array() );
-	if ( ! array_key_exists( 'upsell-notice', $notices ) ) {
-		return;
-	}
-
-	?>
-	<div class="notice wpmtst-notice wpmtst-notice--upsell is-dismissible" data-key="upsell-notice" data-nonce="<?php echo esc_attr( wp_create_nonce( 'wpmtst-admin' ) ); ?>">
-		<div class="wpmtst-notice--upsell__bg"></div>
-		<h2><?php esc_html_e( 'Upgrade to PRO', 'strong-testimonials' ); ?></h2>
-		<p>
-			<?php esc_html_e( 'Build trust and credibility with your products.', 'strong-testimonials' ); ?><br/>
-			<?php esc_html_e( 'Do more with Strong Testimonials extensions.', 'strong-testimonials' ); ?>
-		</p>
-		<a class="button button-primary" target="_blank" href="https://strongtestimonials.com/pricing"><?php esc_html_e( 'View pricing', 'strong-testimonials' ); ?></a>
-	</div>
-	<?php
-}
-add_action( 'admin_notices', 'wpmtst_admin_upsell_notice' );
+add_action( 'admin_notices', 'wpmtst_admin_feedback_notice', 10 );

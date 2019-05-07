@@ -783,3 +783,19 @@ ul.standard {
     overflow: hidden;
     text-align: center;
 }
+
+/* alerts */
+.wpmtst-alert {
+	background: #f4daa4;
+	border-radius: 5px;
+	color: #8d6e30;
+	padding: 0.5rem 8rem 0.5rem 0.5rem;
+	position: relative;
+}
+
+.wpmtst-alert__upgrade-btn {
+	position: absolute;
+	right: 0.5rem;
+	top: 50%;
+	transform: translateY(-50%) !important;
+}

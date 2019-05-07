@@ -42,6 +42,8 @@
 
             <span class="help form-error-text" style="display: none;"><?php _e( 'Select a field type or delete this field.', 'strong-testimonials' ); ?></span>
 
+			<?php do_action( 'wpmtst_after_form_type_selection' );  ?>
+
 		<?php else : ?>
 
 			<?php

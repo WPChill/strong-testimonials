@@ -290,3 +290,33 @@ function wpmtst_get_field_by_name( $field_name = '' ) {
 	return '';
 }
 
+/**
+ * Returns true if at least one extension is installed
+ */
+function wpmtst_extensions_installed() {
+
+	if ( defined( 'WPMTST_CUSTOM_FIELDS_VERSION' ) ) {
+		return true;
+	}
+	if ( defined( 'WPMTST_ASSIGNMENT_VERSION' ) ) {
+		return true;
+	}
+	if ( defined( 'WPMTST_MULTIPLE_FORMS_VERSION' ) ) {
+		return true;
+	}
+	if ( defined( 'WPMTST_PROPERTIES_VERSION' ) ) {
+		return true;
+	}
+	if ( defined( 'WPMTST_COUNTRY_SELECTOR_VERSION' ) ) {
+		return true;
+	}
+	if ( defined( 'WPMTST_REVIEW_MARKUP_VERSION' ) ) {
+		return true;
+	}
+	if ( defined( 'WPMTST_ADVANCED_VIEWS_VERSION' ) ) {
+		return true;
+	}
+
+	return false;
+}
+
