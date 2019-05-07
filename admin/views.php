@@ -232,6 +232,7 @@ function wpmtst_view_settings( $action = '', $view_id = null ) {
 		// TODO Generify both hook and include
 		do_action( 'wpmtst_view_editor_before_group_select' );
 		include( 'partials/views/group-query.php' );
+		do_action( 'wpmtst_view_editor_after_group_select' );
 
 		do_action( 'wpmtst_view_editor_before_group_slideshow' );
 		include( 'partials/views/group-slideshow.php' );

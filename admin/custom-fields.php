@@ -190,6 +190,8 @@ function wpmtst_settings_custom_fields( $form_id = 1 ) {
 				<input id="add-field" type="button" class="button" name="add-field" value="<?php esc_attr_e( 'Add New Field', 'strong-testimonials' ); ?>">
 			</div>
 
+			<?php do_action( 'wpmtst_admin_after_form_fields' ); ?>
+
 			<div id="field-group-actions">
 				<div><?php submit_button( '', 'primary', 'submit-form', false ); ?></div>
 				<div><?php submit_button( esc_html__( 'Cancel Changes', 'strong-testimonials' ), 'secondary', 'reset', false ); ?></div>
