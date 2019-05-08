@@ -9,7 +9,7 @@ class Strong_Testimonials_Upsell {
 	public function __construct() {
 		add_action( 'admin_notices', array( $this, 'add_general_upsell_notice' ), 11 );
 		add_action( 'wpmtst_after_form_type_selection', array( $this, 'add_upsells_1' ) );
-		add_action( 'wpmtst_admin_after_form_fields', array( $this, 'add_upsells_2' ) );
+		add_action( 'wpmtst_before_fields_settings', array( $this, 'add_upsells_2' ) );
 		add_action( 'wpmtst_view_editor_after_groups', array( $this, 'add_upsells_3' ) );
 		add_action( 'wpmtst_view_editor_after_group_select', array( $this, 'add_upsells_4' ) );
 	}
@@ -21,24 +21,34 @@ class Strong_Testimonials_Upsell {
 		}
 
 		$notices = get_option( 'wpmtst_admin_notices', array() );
-		if ( ! array_key_exists( 'upsell-notice', $notices ) ) {
-			return;
-		}
-
-		if ( wpmtst_extensions_installed() ) {
-			return;
-		}
-
 		?>
-		<div class="notice wpmtst-notice wpmtst-notice--upsell is-dismissible" data-key="upsell-notice" data-nonce="<?php echo esc_attr( wp_create_nonce( 'wpmtst-admin' ) ); ?>">
-			<div class="wpmtst-notice--upsell__bg"></div>
-			<h2><?php esc_html_e( 'Upgrade to PRO', 'strong-testimonials' ); ?></h2>
-			<p>
-				<?php esc_html_e( 'Build trust and credibility with your products.', 'strong-testimonials' ); ?><br/>
-				<?php esc_html_e( 'Do more with Strong Testimonials extensions.', 'strong-testimonials' ); ?>
-			</p>
-			<a class="button button-primary" target="_blank" href="https://strongtestimonials.com/pricing"><?php esc_html_e( 'View pricing', 'strong-testimonials' ); ?></a>
-		</div>
+
+		<div class="notice wpmtst-notice-wrap">
+
+			<?php if ( array_key_exists( 'feedback-notice', $notices ) ) : ?>
+				<div class="wpmtst-notice wpmtst-notice--feedback" data-key="feedback-notice" data-nonce="<?php echo esc_attr( wp_create_nonce( 'wpmtst-admin' ) ); ?>">
+					<div class="wpmtst-notice--feedback__bg"></div>
+					<h2><?php esc_html_e( 'Feature Request', 'strong-testimonials' ); ?></h2>
+					<p><?php esc_html_e( 'Do you enjoy using Strong Testimonials? Please take a minute to suggest a feature or tell us what you think.', 'strong-testimonials' ); ?></p>
+					<a class="button" target="_blank" href="https://docs.google.com/forms/d/e/1FAIpQLScch0AchtnzxJsSrjUcW9ypcr1fZ9r-vyk3emEp8Sv47brb2g/viewform"><?php esc_html_e( 'Submit Feedback', 'strong-testimonials' ); ?></a>
+					<button type="button" class="notice-dismiss"><span class="screen-reader-text">Dismiss this notice.</span></button>
+				</div><!-- wpmtst-notice--feedback -->
+			<?php endif; ?>
+
+			<?php if ( array_key_exists( 'upsell-notice', $notices ) && ! wpmtst_extensions_installed() ) : ?>
+				<div class="wpmtst-notice wpmtst-notice--upsell" data-key="upsell-notice" data-nonce="<?php echo esc_attr( wp_create_nonce( 'wpmtst-admin' ) ); ?>">
+					<div class="wpmtst-notice--upsell__bg"></div>
+					<h2><?php esc_html_e( 'Upgrade to PRO', 'strong-testimonials' ); ?></h2>
+					<p>
+						<?php esc_html_e( 'Build trust and credibility with your products.', 'strong-testimonials' ); ?><br/>
+						<?php esc_html_e( 'Do more with Strong Testimonials extensions.', 'strong-testimonials' ); ?>
+					</p>
+					<a class="button button-primary" target="_blank" href="https://strongtestimonials.com/pricing"><?php esc_html_e( 'View pricing', 'strong-testimonials' ); ?></a>
+					<button type="button" class="notice-dismiss"><span class="screen-reader-text">Dismiss this notice.</span></button>
+				</div><!-- wpmtst-notice--upsell -->
+			<?php endif; ?>
+
+		</div><!-- wpmtst-notice-wrap -->
 		<?php
 	}
 

@@ -6,4 +6,5 @@
 		<?php esc_html_e( 'Do more with Strong Testimonials extensions.', 'strong-testimonials' ); ?>
 	</p>
 	<a class="button button-primary" target="_blank" href="https://strongtestimonials.com/pricing"><?php esc_html_e( 'View pricing', 'strong-testimonials' ); ?></a>
+	<a class="button button-secondary" href="<?php echo esc_url( admin_url( 'edit.php?post_type=wpm-testimonial&page=strong-testimonials-addons' ) ); ?>"><?php esc_html_e( 'View Extensions', 'strong-testimonials' ); ?></a>
 </div>
