@@ -48,6 +48,7 @@ define( 'WPMTST_VERSION', '2.38' );
 define( 'WPMTST_PLUGIN', plugin_basename( __FILE__ ) ); // strong-testimonials/strong-testimonials.php
 define( 'WPMTST', dirname( WPMTST_PLUGIN ) );           // strong-testimonials
 defined( 'WPMTST_STORE_URL' ) || define( 'WPMTST_STORE_URL', 'http://staging-strongtestimonials.kinsta.cloud' );
+defined( 'WPMTST_STORE_UPGRADE_URL' ) || define( 'WPMTST_STORE_UPGRADE_URL', 'http://staging-strongtestimonials.kinsta.cloud/pricing' );
 
 if ( ! class_exists( 'Strong_Testimonials' ) ) :
 
