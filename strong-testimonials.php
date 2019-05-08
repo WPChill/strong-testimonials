@@ -47,8 +47,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 define( 'WPMTST_VERSION', '2.38' );
 define( 'WPMTST_PLUGIN', plugin_basename( __FILE__ ) ); // strong-testimonials/strong-testimonials.php
 define( 'WPMTST', dirname( WPMTST_PLUGIN ) );           // strong-testimonials
-define( 'STRONGPLUGINS_STORE_URL', '#' );
-
+defined( 'WPMTST_STORE_URL' ) || define( 'WPMTST_STORE_URL', 'http://staging-strongtestimonials.kinsta.cloud' );
 
 if ( ! class_exists( 'Strong_Testimonials' ) ) :
 

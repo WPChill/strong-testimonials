@@ -176,25 +176,3 @@ function wpmtst_auto_dismiss_notices( $option, $old_value, $value ) {
 }
 add_action( 'update_option', 'wpmtst_auto_dismiss_notices', 10, 3 );
 
-
-function wpmtst_admin_feedback_notice() {
-	$screen = get_current_screen();
-	if ( $screen->id !== 'edit-wpm-testimonial' && $screen->id !== 'wpm-testimonial_page_testimonial-views' ) {
-		return;
-	}
-
-	$notices = get_option( 'wpmtst_admin_notices', array() );
-	if ( ! array_key_exists( 'feedback-notice', $notices ) ) {
-		return;
-	}
-
-	?>
-	<div class="notice wpmtst-notice wpmtst-notice--feedback is-dismissible" data-key="feedback-notice" data-nonce="<?php echo esc_attr( wp_create_nonce( 'wpmtst-admin' ) ); ?>">
-		<div class="wpmtst-notice--feedback__bg"></div>
-		<h2><?php esc_html_e( 'Feature Request', 'strong-testimonials' ); ?></h2>
-		<p><?php esc_html_e( 'Do you enjoy using Strong Testimonials? Please take a minute to suggest a feature or tell us what you think.', 'strong-testimonials' ); ?></p>
-		<a class="button" target="_blank" href="https://docs.google.com/forms/d/e/1FAIpQLScch0AchtnzxJsSrjUcW9ypcr1fZ9r-vyk3emEp8Sv47brb2g/viewform"><?php esc_html_e( 'Submit Feedback', 'strong-testimonials' ); ?></a>
-	</div>
-	<?php
-}
-add_action( 'admin_notices', 'wpmtst_admin_feedback_notice', 10 );

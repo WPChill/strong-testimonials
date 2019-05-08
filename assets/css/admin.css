@@ -648,11 +648,19 @@ ul.standard {
   float: right; }
 
 /* notices */
+.wpmtst-notice-wrap {
+	border: none;
+	padding: 0;
+	box-shadow: none;
+	background: transparent;
+}
+
 .wpmtst-notice {
   padding: 2rem;
 }
 
 .wpmtst-notice--feedback {
+	background: #fff;
 	border-radius: 10px;
 	border: 3px solid transparent;
 	box-shadow: -3px 2px 70px 0px rgba(128, 144, 174, 0.16);
@@ -660,6 +668,7 @@ ul.standard {
 	box-sizing: border-box;
 	position: relative;
 	overflow: hidden;
+	margin-bottom: 20px;
 }
 
 .wpmtst-notice--feedback p {
@@ -685,6 +694,13 @@ ul.standard {
 	box-sizing: border-box;
 	position: relative;
 	overflow: hidden;
+	margin-bottom: 20px;
+}
+
+.wpm-testimonial_page_about-strong-testimonials .wpmtst-notice--upsell .button {
+	padding: 0 1.5rem;
+	height: 2.5rem;
+	line-height: 2.5rem;
 }
 
 .wpmtst-notice--upsell p {
@@ -702,21 +718,18 @@ ul.standard {
 }
 
 @media screen and (min-width: 1100px) {
+	.wpmtst-notice-wrap {
+		display: flex;
+		justify-content: space-between;
+	}
+
 	.edit-php.post-type-wpm-testimonial .wpmtst-notice--feedback,
 	.wpm-testimonial_page_testimonial-views .wpmtst-notice--feedback {
 		width: calc(50% - 15px);
-		float: left;
-		min-height: 244px;
 	}
 	.edit-php.post-type-wpm-testimonial .wpmtst-notice--upsell,
 	.wpm-testimonial_page_testimonial-views .wpmtst-notice--upsell {
 		width: calc(50% - 15px);
-		float: right;
-		min-height: 244px;
-	}
-	.edit-php.post-type-wpm-testimonial .wpmtst-notice--upsell + *,
-	.wpm-testimonial_page_testimonial-views .wpmtst-notice--upsell + * {
-		clear: both;
 	}
 }
 
@@ -752,12 +765,29 @@ ul.standard {
 }
 
 .wpmtst-addon {
-    width: 48%;
-    margin: 0 0 16px;
+	width: 100%;
+    margin-bottom: 1rem;
     background-color: #fff;
     border: 1px solid #ddd;
     box-sizing: border-box;
 }
+
+@media screen and (min-width: 1100px) {
+	.wpmtst-addons-container {
+		margin-right: -20px;
+	}
+	.wpmtst-addon {
+		width: calc( 50% - 20px );
+		margin-right: 20px;
+	}
+}
+
+@media screen and (min-width: 1400px) {
+	.wpmtst-addon {
+		width: calc( 33% - 20px );
+	}
+}
+
 
 .wpmtst-addon .wpmtst-addon-box {
 	display: flex;
@@ -789,7 +819,7 @@ ul.standard {
 	background: #f4daa4;
 	border-radius: 5px;
 	color: #8d6e30;
-	padding: 0.5rem 8rem 0.5rem 0.5rem;
+	padding: 1rem 8rem 1rem 1rem;
 	position: relative;
 }
 

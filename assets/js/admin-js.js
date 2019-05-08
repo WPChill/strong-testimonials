@@ -100,6 +100,8 @@ var Notice = function () {
 		key: 'onDismissClick',
 		value: function onDismissClick() {
 
+			this.$element.remove();
+
 			jQuery.ajax({
 				type: "POST",
 				data: { action: "wpmtst_dismiss_notice", nonce: this.nonce, key: this.key },
