@@ -102,7 +102,7 @@ class Strong_Testimonials_Upsell {
 	public function add_upsells_4() {
 		if ( ! defined( 'WPMTST_ADVANCED_VIEWS_VERSION' ) ) :
 			?>
-			<div class="wpmtst-alert" style="margin-top: 10px">
+			<div class="wpmtst-alert" style="margin-top: 1.5rem">
 				<?php esc_html_e( 'Display testimonials based on their rating by installing the Strong Testimonials Advanced Views extension.', 'strong-testimonials' ); ?>
 				<a class="button button-primary wpmtst-alert__upgrade-btn" target="_blank" href="https://strongtestimonials.com/pricing"><?php esc_html_e( 'Upgrade to PRO', 'strong-testimonials' ); ?></a>
 			</div>
