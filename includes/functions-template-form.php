@@ -309,7 +309,7 @@ function wpmtst_field_value( $field, $form_values ) {
  */
 function wpmtst_field_placeholder( $field ) {
 	if ( isset( $field['placeholder'] ) && $field['placeholder'] ) {
-		return ' placeholder="' . esc_attr( wpmtst_form_field_meta_l10n( $field['placeholder'], $field, 'placeholder' ) ) . '"';
+		return esc_attr( wpmtst_form_field_meta_l10n( $field['placeholder'], $field, 'placeholder' ) );
 	}
 
 	return '';
