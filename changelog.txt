@@ -1,5 +1,8 @@
-= 2.38 - Apr. 25, 2019 =
+= 2.38 - May. 05, 2019 =
 * fixed multiple issues with the `read more` link not expanding the full content
+* fixed an issue with the `read more` link not appearing in some cases
+* fixed an issue with the forms fields not displaying quotation marks correctly
+* fixed an issue with the form textarea not displaying the placeholder correctly
 
 = 2.37 - Mar. 18, 2019 =
 * added ability to export testimonials with featured images included.
