@@ -97,8 +97,8 @@ function wpmtst_update_custom_fields() {
 			if ( isset( $field['text'] ) ) {
 				$field['text'] = wp_filter_post_kses( $field['text'] );
 			}
-			$field['before'] = wp_filter_post_kses( $field['before'] );
-			$field['after']  = wp_filter_post_kses( $field['after'] );
+			$field['before'] = sanitize_text_field( $field['before'] );
+			$field['after']  = sanitize_text_field( $field['after'] );
 
             $field['shortcode_on_form']      = sanitize_text_field( $field['shortcode_on_form'] );
             $field['shortcode_on_display']   = sanitize_text_field( $field['shortcode_on_display'] );
