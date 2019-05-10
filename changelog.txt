@@ -3,6 +3,7 @@
 * fixed an issue with the `read more` link not appearing in some cases
 * fixed an issue with the forms fields not displaying quotation marks correctly
 * fixed an issue with the form textarea not displaying the placeholder correctly
+* fixed a bug where a testimonial view was throwing and error when displaying a url label
 
 = 2.37 - Mar. 18, 2019 =
 * added ability to export testimonials with featured images included.
