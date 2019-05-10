@@ -3,7 +3,7 @@ Contributors: machothemes,silkalns,cdillon27
 Tags: testimonials, testimonial slider, testimonial form, star ratings
 Requires at least: 4.6
 Requires PHP: 5.6
-Tested up to: 5.1
+Tested up to: 5.2
 Stable tag: 2.36
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
