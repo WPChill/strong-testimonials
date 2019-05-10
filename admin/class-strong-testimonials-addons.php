@@ -10,6 +10,9 @@ class Strong_Testimonials_Addons {
 
 	public function __construct() {
 		add_filter( 'wpmtst_submenu_pages', array( $this, 'add_submenu' ) );
+
+		// Add ajax action to reload extensions
+		add_action( 'wp_ajax_wpmtst_reload_extensions', array( $this, 'reload_extensions' ), 20 );
 	}
 
 	private function check_for_addons() {
@@ -43,6 +46,7 @@ class Strong_Testimonials_Addons {
 	public function render_addons() {
 
 		wp_enqueue_style( 'wpmtst-admin-style' );
+		wp_enqueue_script( 'wpmtst-admin-script' );
 
 		if ( ! empty( $this->addons ) ) {
 			foreach ( $this->addons as $addon ) {
@@ -101,12 +105,24 @@ class Strong_Testimonials_Addons {
 		?>
 
 		<div class="wrap">
-			<h1 style="margin-bottom: 20px"><?php esc_html_e( 'Extensions' ); ?></h1>
+			<h1 style="margin-bottom: 20px; display: inline-block;"><?php esc_html_e( 'Extensions' ); ?></h1>
+
+			<a id="wpmtst-reload-extensions" class="button button-primary" style="margin: 10px 0 0 30px;" data-nonce="<?php echo esc_attr( wp_create_nonce( 'wpmtst-reload-extensions' ) ); ?>"><?php esc_html_e( 'Reload Extensions', 'strong-testimonials' ); ?></a>
+
 			<div class="wpmtst-addons-container">
 				<?php $this->render_addons(); ?>
 			</div>
 		</div>
 		<?php
+	}
+
+	public function reload_extensions() {
+		// Run a security check first.
+		check_admin_referer( 'wpmtst-reload-extensions', 'nonce' );
+
+		delete_transient( 'strong_testimonials_all_extensions' );
+
+		die;
 	}
 
 

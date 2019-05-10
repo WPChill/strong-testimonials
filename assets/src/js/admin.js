@@ -107,17 +107,23 @@ jQuery(document).ready(function ($) {
 
 
 import Notice from './modules/notice';
+import AddonsPage from './modules/AddonsPage';
 
 class WPMTST_Admin {
 
 	constructor(){
 		this.initNotices();
+		this.initAddonsPage();
 	}
 
 	initNotices( $div = jQuery("body") ) {
 		$div.find('.wpmtst-notice').each( function( index ) {
 			new Notice( jQuery(this) );
 		});
+	}
+
+	initAddonsPage() {
+		new AddonsPage( jQuery(this) );
 	}
 
 }

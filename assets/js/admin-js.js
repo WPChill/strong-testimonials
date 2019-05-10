@@ -129,6 +129,10 @@ var _notice = __webpack_require__(0);
 
 var _notice2 = _interopRequireDefault(_notice);
 
+var _AddonsPage = __webpack_require__(4);
+
+var _AddonsPage2 = _interopRequireDefault(_AddonsPage);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -243,6 +247,7 @@ var WPMTST_Admin = function () {
 		_classCallCheck(this, WPMTST_Admin);
 
 		this.initNotices();
+		this.initAddonsPage();
 	}
 
 	_createClass(WPMTST_Admin, [{
@@ -254,12 +259,74 @@ var WPMTST_Admin = function () {
 				new _notice2.default(jQuery(this));
 			});
 		}
+	}, {
+		key: 'initAddonsPage',
+		value: function initAddonsPage() {
+			new _AddonsPage2.default(jQuery(this));
+		}
 	}]);
 
 	return WPMTST_Admin;
 }();
 
 window.WPMTST_Admin = new WPMTST_Admin();
+
+/***/ }),
+/* 3 */,
+/* 4 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var AddonsPage = function () {
+	function AddonsPage() {
+		var _this = this;
+
+		_classCallCheck(this, AddonsPage);
+
+		if (!jQuery('body').hasClass('wpm-testimonial_page_strong-testimonials-addons')) {
+			return;
+		}
+
+		this.reloadButton = jQuery('#wpmtst-reload-extensions');
+
+		//events
+		this.reloadButton.on('click', function (e) {
+			return _this.onReloadExtensionsClick(e);
+		});
+	}
+
+	_createClass(AddonsPage, [{
+		key: 'onReloadExtensionsClick',
+		value: function onReloadExtensionsClick(e) {
+			e.preventDefault();
+
+			this.reloadButton.addClass('updating-message');
+
+			jQuery.ajax({
+				type: "POST",
+				data: { action: "wpmtst_reload_extensions", nonce: this.reloadButton.data('nonce') },
+				url: ajaxurl,
+				success: function success(response) {
+					location.reload();
+				}
+			});
+		}
+	}]);
+
+	return AddonsPage;
+}();
+
+exports.default = AddonsPage;
 
 /***/ })
 /******/ ]);
