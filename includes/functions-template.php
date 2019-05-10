@@ -323,7 +323,7 @@ function wpmtst_client_section( $client_section ) {
 							$output = '';
 							break;
 						case 'label' :
-							$text   = $field['prop']['field_label'];
+							$text   = $field['prop']['label'];
 							$output = '';
 							break;
 						default : // value
