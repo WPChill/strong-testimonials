@@ -23,7 +23,7 @@ class Strong_Testimonials_Addons {
 
 		$addons = array();
 
-		$url = apply_filters( 'strong_testimonials_addon_server_url', WPMTST_STORE_URL . '/wp-json/mt/v1/get-all-addons' );
+		$url = apply_filters( 'strong_testimonials_addon_server_url', WPMTST_STORE_URL . '/wp-json/mt/v1/get-all-extensions' );
 
 		// Get data from the remote URL.
 		$response = wp_remote_get( $url );
