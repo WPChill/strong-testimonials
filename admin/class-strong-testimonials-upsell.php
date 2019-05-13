@@ -31,7 +31,7 @@ class Strong_Testimonials_Upsell {
 					<h2><?php esc_html_e( 'Feature Request', 'strong-testimonials' ); ?></h2>
 					<p><?php esc_html_e( 'Do you enjoy using Strong Testimonials? Please take a minute to suggest a feature or tell us what you think.', 'strong-testimonials' ); ?></p>
 					<a class="button" target="_blank" href="https://docs.google.com/forms/d/e/1FAIpQLScch0AchtnzxJsSrjUcW9ypcr1fZ9r-vyk3emEp8Sv47brb2g/viewform"><?php esc_html_e( 'Submit Feedback', 'strong-testimonials' ); ?></a>
-					<button type="button" class="notice-dismiss"><span class="screen-reader-text">Dismiss this notice.</span></button>
+					<button type="button" class="notice-dismiss"><span class="screen-reader-text"><?php esc_html_e( 'Dismiss this notice.', 'strong-testimonials' ); ?></span></button>
 				</div><!-- wpmtst-notice--feedback -->
 			<?php endif; ?>
 
@@ -44,7 +44,7 @@ class Strong_Testimonials_Upsell {
 						<?php esc_html_e( 'Do more with Strong Testimonials extensions.', 'strong-testimonials' ); ?>
 					</p>
 					<a class="button button-primary" target="_blank" href="https://strongtestimonials.com/pricing"><?php esc_html_e( 'View pricing', 'strong-testimonials' ); ?></a>
-					<button type="button" class="notice-dismiss"><span class="screen-reader-text">Dismiss this notice.</span></button>
+					<button type="button" class="notice-dismiss"><span class="screen-reader-text"><?php esc_html_e( 'Dismiss this notice.', 'strong-testimonials' ); ?></span></button>
 				</div><!-- wpmtst-notice--upsell -->
 			<?php endif; ?>
 
