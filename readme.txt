@@ -69,7 +69,7 @@ A variety of templates are included that work well in most themes.
 
 For ultimate control and seamless integration, copy any template to your theme and customize it.
 
-The template function will add a view to your custome theme templates:
+The template function will add a view to your custom theme templates:
 
 `<?php if ( function_exists( 'strong_testimonials_view' ) ) {
     strong_testimonials_view( $id );
