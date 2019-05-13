@@ -66,8 +66,8 @@ foreach ( $plugins as $key => $plugin ) {
                 <label for="<?php echo $elid; ?>">
 					<?php _ex( $message['description'], 'description', 'strong-testimonials' ); ?>
                 </label>
-                <input type="hidden" name="wpmtst_form_options[messages][<?php echo $key; ?>][description]"
-                       value="<?php esc_attr_e( $message['description'] ); ?>"/>
+                <input type="hidden" name="wpmtst_form_options[messages][<?php echo esc_attr( $key ); ?>][description]"
+                       value="<?php echo esc_attr( $message['description'] ); ?>"/>
             </th>
             <td>
 				<?php if ( 'submission_success' == $elid ): ?>
@@ -83,22 +83,22 @@ foreach ( $plugins as $key => $plugin ) {
                         <fieldset>
                             <label>
                                 <input type="checkbox"
-                                       name="wpmtst_form_options[messages][<?php echo $key; ?>][enabled]"
-                                       <?php checked( $message['enabled'] ); ?>">
-								<?php _e( 'Display required notice at top of form', 'strong-testimonials' ); ?>
+                                       name="wpmtst_form_options[messages][<?php echo esc_attr( $key ); ?>][enabled]"
+                                       <?php checked( $message['enabled'] ); ?>>
+								<?php esc_html_e( 'Display required notice at top of form', 'strong-testimonials' ); ?>
                             </label
                         </fieldset>
 					<?php endif; ?>
-                    <input type="text" id="<?php echo $elid; ?>"
-                           name="wpmtst_form_options[messages][<?php echo $key; ?>][text]"
-                           value="<?php esc_attr_e( $content ); ?>"
+                    <input type="text" id="<?php echo esc_attr( $elid ); ?>"
+                           name="wpmtst_form_options[messages][<?php echo esc_attr( $key ); ?>][text]"
+                           value="<?php echo esc_attr( $content ); ?>"
 						   <?php echo $required ? 'required' : '' ?>/>
 				<?php endif; ?>
             </td>
             <td class="actions">
                 <input type="button" class="button secondary restore-default-message"
                        value="<?php _ex( 'restore default', 'singular', 'strong-testimonials' ); ?>"
-                       data-target-id="<?php esc_attr_e( $elid ); ?>"/>
+                       data-target-id="<?php echo esc_attr( $elid ); ?>"/>
             </td>
         </tr>
 
@@ -108,7 +108,7 @@ foreach ( $plugins as $key => $plugin ) {
         <td colspan="3">
             <input type="button" id="restore-default-messages" class="button"
                    name="restore-default-messages"
-                   value="<?php _e( 'Restore Default Messages', 'strong-testimonials' ); ?>"/>
+                   value="<?php esc_html_e( 'Restore Default Messages', 'strong-testimonials' ); ?>"/>
         </td>
     </tr>
 </table>
@@ -116,7 +116,7 @@ foreach ( $plugins as $key => $plugin ) {
 <table class="form-table" cellpadding="0" cellspacing="0">
     <tr>
         <th scope="row" class="tall">
-			<?php _e( 'Scroll', 'strong-testimonials' ); ?>
+			<?php esc_html_e( 'Scroll', 'strong-testimonials' ); ?>
         </th>
         <td>
             <fieldset>

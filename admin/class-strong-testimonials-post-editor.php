@@ -71,12 +71,12 @@ class Strong_Testimonials_Post_Editor {
 				?>
                 <tr>
                     <th>
-                        <label for="<?php esc_attr_e( $field['name'] ); ?>">
+                        <label for="<?php echo esc_attr( $field['name'] ); ?>">
 							<?php echo apply_filters( 'wpmtst_l10n', $field['label'], 'strong-testimonials-form-fields', $field['name'] . ' : label' ); ?>
                         </label>
                     </th>
                     <td>
-                        <div class="<?php esc_attr_e( $field['input_type'] ); ?>">
+                        <div class="<?php echo esc_attr( $field['input_type'] ); ?>">
 							<?php self::meta_option( $field, $post, $is_new ); ?>
                         </div>
                     </td>

@@ -61,7 +61,7 @@ function wpmtst_admin_notice_text( $html = '', $key, $persist = false ) {
 		case 'defaults-restored' :
 			ob_start();
 			?>
-			<div class="wpmtst notice notice-success is-dismissible" data-key="<?php esc_attr_e( $key ); ?>">
+			<div class="wpmtst notice notice-success is-dismissible" data-key="<?php echo esc_attr( $key ); ?>">
 				<p>
 					<?php _e( 'Defaults restored.', 'strong-testimonials' ); ?>
 				</p>
@@ -73,7 +73,7 @@ function wpmtst_admin_notice_text( $html = '', $key, $persist = false ) {
 		case 'fields-saved' :
 			ob_start();
 			?>
-			<div class="wpmtst notice notice-success is-dismissible" data-key="<?php esc_attr_e( $key ); ?>">
+			<div class="wpmtst notice notice-success is-dismissible" data-key="<?php echo esc_attr( $key ); ?>">
 				<p>
 					<?php _e( 'Fields saved.', 'strong-testimonials' ); ?>
 				</p>
@@ -85,7 +85,7 @@ function wpmtst_admin_notice_text( $html = '', $key, $persist = false ) {
 		case 'changes-cancelled' :
 			ob_start();
 			?>
-			<div class="wpmtst notice notice-success is-dismissible" data-key="<?php esc_attr_e( $key ); ?>">
+			<div class="wpmtst notice notice-success is-dismissible" data-key="<?php echo esc_attr( $key ); ?>">
 				<p>
 					<?php _e( 'Changes cancelled.', 'strong-testimonials' ); ?>
 				</p>
@@ -102,7 +102,7 @@ function wpmtst_admin_notice_text( $html = '', $key, $persist = false ) {
 
 			ob_start();
 			?>
-            <div class="wpmtst notice notice-warning is-dismissible" data-key="<?php esc_attr_e( $key ); ?>">
+            <div class="wpmtst notice notice-warning is-dismissible" data-key="<?php echo esc_attr( $key ); ?>">
                 <p>
 					<?php _e( 'Captcha options have changed in <strong>Strong Testimonials</strong>.', 'strong-testimonials' ); ?>
 					<?php echo $settings_link; ?>

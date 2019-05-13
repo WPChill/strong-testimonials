@@ -105,7 +105,7 @@ class Strong_Testimonials_Addons {
 		?>
 
 		<div class="wrap">
-			<h1 style="margin-bottom: 20px; display: inline-block;"><?php esc_html_e( 'Extensions' ); ?></h1>
+			<h1 style="margin-bottom: 20px; display: inline-block;"><?php esc_html_e( 'Extensions', 'strong-testimonials' ); ?></h1>
 
 			<a id="wpmtst-reload-extensions" class="button button-primary" style="margin: 10px 0 0 30px;" data-nonce="<?php echo esc_attr( wp_create_nonce( 'wpmtst-reload-extensions' ) ); ?>"><?php esc_html_e( 'Reload Extensions', 'strong-testimonials' ); ?></a>
 
