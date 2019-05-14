@@ -184,7 +184,7 @@ function wpmtst_single_form_field( $field ) {
 			    break;
 
 		    default: // text, email, url
-			    printf( '<input id="wpmtst_%s" type="%s" class="%s" name="%s" %s %s %s tabindex="0">',
+			    printf( '<input id="wpmtst_%s" type="%s" class="%s" name="%s" %s placeholder="%s" %s tabindex="0">',
 			            $field['name'],
 			            $field['input_type'],
 			            wpmtst_field_classes( $field['input_type'], $field['name'] ),
