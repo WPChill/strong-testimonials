@@ -43,7 +43,7 @@ class Strong_Testimonials_Upsell {
 						<?php esc_html_e( 'Build trust and credibility with your products.', 'strong-testimonials' ); ?><br/>
 						<?php esc_html_e( 'Do more with Strong Testimonials extensions.', 'strong-testimonials' ); ?>
 					</p>
-					<a class="button button-primary" target="_blank" href="<?php echo esc_url( WPMTST_STORE_UPGRADE_URL );  ?>"><?php esc_html_e( 'View pricing', 'strong-testimonials' ); ?></a>
+					<a class="button button-primary" target="_blank" href="<?php echo esc_url( WPMTST_STORE_UPGRADE_URL . '?utm_source=st-lite&utm_campaign=upsell&utm_medium=' . $screen->id . '-notice-upsell' ); ?>"><?php esc_html_e( 'View pricing', 'strong-testimonials' ); ?></a>
 					<button type="button" class="notice-dismiss"><span class="screen-reader-text"><?php esc_html_e( 'Dismiss this notice.', 'strong-testimonials' ); ?></span></button>
 				</div><!-- wpmtst-notice--upsell -->
 			<?php endif; ?>
@@ -64,12 +64,12 @@ class Strong_Testimonials_Upsell {
 					esc_html__( 'Install the %s extension', 'strong-testimonials' ),
 					sprintf(
 						'<a href="%s" target="_blank">%s</a>',
-						esc_url( WPMTST_STORE_URL . '/extensions/country-selector' ),
+						esc_url( WPMTST_STORE_URL . '/extensions/country-selector?utm_source=st-lite&utm_campaign=upsell&utm_medium=fields-country-selector-upsell' ),
 						esc_html__( 'Strong Testimonials: Country Selector', 'strong-testimonials' )
 					)
 				);
 				?>
-				<a class="button button-primary wpmtst-alert__upgrade-btn" target="_blank" href="<?php echo esc_url( WPMTST_STORE_UPGRADE_URL );  ?>"><?php esc_html_e( 'Upgrade to PRO', 'strong-testimonials' ); ?></a>
+				<a class="button button-primary wpmtst-alert__upgrade-btn" target="_blank" href="<?php echo esc_url( WPMTST_STORE_UPGRADE_URL . '?utm_source=st-lite&utm_campaign=upsell&utm_medium=fields-country-selector-upsell' ); ?>"><?php esc_html_e( 'Upgrade to PRO', 'strong-testimonials' ); ?></a>
 			</div>
 			<?php
 		endif;
@@ -84,12 +84,12 @@ class Strong_Testimonials_Upsell {
 					esc_html__( 'Install the %s extension', 'strong-testimonials' ),
 					sprintf(
 						'<a href="%s" target="_blank">%s</a>',
-						esc_url( WPMTST_STORE_URL . '/extensions/custom-fields' ),
+						esc_url( WPMTST_STORE_URL . '/extensions/custom-fields?utm_source=st-lite&utm_campaign=upsell&utm_medium=fields-custom-fields-upsell' ),
 						esc_html__( 'Strong Testimonials: Custom Fields', 'strong-testimonials' )
 					)
 				);
 				?>
-				<a class="button button-primary wpmtst-alert__upgrade-btn" target="_blank" href="<?php echo esc_url( WPMTST_STORE_UPGRADE_URL );  ?>"><?php esc_html_e( 'Upgrade to PRO', 'strong-testimonials' ); ?></a>
+				<a class="button button-primary wpmtst-alert__upgrade-btn" target="_blank" href="<?php echo esc_url( WPMTST_STORE_UPGRADE_URL . '?utm_source=st-lite&utm_campaign=upsell&utm_medium=fields-custom-fields-upsell' ); ?>"><?php esc_html_e( 'Upgrade to PRO', 'strong-testimonials' ); ?></a>
 			</div>
 			<?php
 		endif;
@@ -104,12 +104,12 @@ class Strong_Testimonials_Upsell {
 					esc_html__( 'Create multiple submission forms by installing the %s extension.', 'strong-testimonials' ),
 					sprintf(
 						'<a href="%s" target="_blank">%s</a>',
-						esc_url( WPMTST_STORE_URL . '/extensions/multiple-forms' ),
+						esc_url( WPMTST_STORE_URL . '/extensions/multiple-forms?utm_source=st-lite&utm_campaign=upsell&utm_medium=fields-multiple-forms-upsell' ),
 						esc_html__( 'Strong Testimonials: Multiple Forms', 'strong-testimonials' )
 					)
 				);
 				?>
-				<a class="button button-primary wpmtst-alert__upgrade-btn" target="_blank" href="<?php echo esc_url( WPMTST_STORE_UPGRADE_URL );  ?>"><?php esc_html_e( 'Upgrade to PRO', 'strong-testimonials' ); ?></a>
+				<a class="button button-primary wpmtst-alert__upgrade-btn" target="_blank" href="<?php echo esc_url( WPMTST_STORE_UPGRADE_URL . '?utm_source=st-lite&utm_campaign=upsell&utm_medium=fields-multiple-forms-upsell' ); ?>"><?php esc_html_e( 'Upgrade to PRO', 'strong-testimonials' ); ?></a>
 			</div>
 			<?php
 		endif;
@@ -124,12 +124,12 @@ class Strong_Testimonials_Upsell {
 					esc_html__( 'Add SEO-friendly Testimonials with our %s extension.', 'strong-testimonials' ),
 					sprintf(
 						'<a href="%s" target="_blank">%s</a>',
-						esc_url( WPMTST_STORE_URL . '/extensions/review-markup' ),
+						esc_url( WPMTST_STORE_URL . '/extensions/review-markup?utm_source=st-lite&utm_campaign=upsell&utm_medium=views-review-markup-upsell' ),
 						esc_html__( 'Strong Testimonials: Review Markup', 'strong-testimonials' )
 					)
 				);
 				?>
-				<a class="button button-primary wpmtst-alert__upgrade-btn" target="_blank" href="<?php echo esc_url( WPMTST_STORE_UPGRADE_URL );  ?>"><?php esc_html_e( 'Upgrade to PRO', 'strong-testimonials' ); ?></a>
+				<a class="button button-primary wpmtst-alert__upgrade-btn" target="_blank" href="<?php echo esc_url( WPMTST_STORE_UPGRADE_URL . '?utm_source=st-lite&utm_campaign=upsell&utm_medium=views-review-markup-upsell' ); ?>"><?php esc_html_e( 'Upgrade to PRO', 'strong-testimonials' ); ?></a>
 			</div>
 			<?php
 		endif;
@@ -144,12 +144,12 @@ class Strong_Testimonials_Upsell {
 					esc_html__( 'Display testimonials based on their rating by installing the %s extension.', 'strong-testimonials' ),
 					sprintf(
 						'<a href="%s" target="_blank">%s</a>',
-						esc_url( WPMTST_STORE_URL . '/extensions/advanced-views' ),
+						esc_url( WPMTST_STORE_URL . '/extensions/advanced-views?utm_source=st-lite&utm_campaign=upsell&utm_medium=views-advanced-views-upsell' ),
 						esc_html__( 'Strong Testimonials: Advanced Views', 'strong-testimonials' )
 					)
 				);
 				?>
-				<a class="button button-primary wpmtst-alert__upgrade-btn" target="_blank" href="<?php echo esc_url( WPMTST_STORE_UPGRADE_URL );  ?>"><?php esc_html_e( 'Upgrade to PRO', 'strong-testimonials' ); ?></a>
+				<a class="button button-primary wpmtst-alert__upgrade-btn" target="_blank" href="<?php echo esc_url( WPMTST_STORE_UPGRADE_URL . '?utm_source=st-lite&utm_campaign=upsell&utm_medium=views-advanced-views-upsell' ); ?>"><?php esc_html_e( 'Upgrade to PRO', 'strong-testimonials' ); ?></a>
 			</div>
 			<?php
 		endif;
