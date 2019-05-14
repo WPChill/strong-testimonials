@@ -1,3 +1,7 @@
+= 2.38.1 - May. 14, 2019 =
+* fixed placeholder issue for standard input fields
+* fixed slideshow height issue
+
 = 2.38 - May. 05, 2019 =
 * fixed multiple issues with the `read more` link not expanding the full content
 * fixed an issue with the `read more` link not appearing in some cases
