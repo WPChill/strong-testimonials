@@ -51,7 +51,6 @@ class Strong_Testimonials_About {
 	 * Print the About page.
 	 */
 	public function about_page() {
-		$major_minor = strtok( WPMTST_VERSION, '.' ) . '.' . strtok( '.' );
 		$active_tab  = isset( $_GET['tab'] ) ? $_GET['tab'] : 'how-to';
 		$url         = admin_url( 'edit.php?post_type=wpm-testimonial&page=about-strong-testimonials' );
 		?>
@@ -60,7 +59,7 @@ class Strong_Testimonials_About {
 			<img class="wpmst-mascot" src="<?php echo esc_url( WPMTST_ADMIN_URL ); ?>/img/mascot.png" />
 
 			<?php /* translators: %s is the plugin version number */ ?>
-			<h1><?php printf( __( 'Welcome to Strong Testimonials %s', 'strong-testimonials' ), $major_minor ); ?></h1>
+			<h1><?php printf( __( 'Welcome to Strong Testimonials %s', 'strong-testimonials' ), WPMTST_VERSION ); ?></h1>
 
 			<p class="about-text">
 				<?php esc_html_e( 'Thank you for updating to the latest version!', 'strong-testimonials' ); ?>
