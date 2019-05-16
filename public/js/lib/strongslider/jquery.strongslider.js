@@ -1349,6 +1349,11 @@
 		  return;
 		}
 
+		// if touch started on a link, then return
+		if( e.originalEvent.target.tagName.toLowerCase() === 'a' ) {
+			return;
+		}
+
 		if( e.originalEvent.target.classList.contains('readmore-text') ) {
 			return;
 		}
