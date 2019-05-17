@@ -69,7 +69,10 @@ class Strong_Testimonials_Upsell {
 					)
 				);
 				?>
-				<a class="button button-primary wpmtst-alert__upgrade-btn" target="_blank" href="<?php echo esc_url( WPMTST_STORE_UPGRADE_URL . '?utm_source=st-lite&utm_campaign=upsell&utm_medium=fields-country-selector-upsell' ); ?>"><?php esc_html_e( 'Upgrade to PRO', 'strong-testimonials' ); ?></a>
+				<p>
+					<a class="button" target="_blank" href="<?php echo esc_url( WPMTST_STORE_URL . '/extensions/country-selector?utm_source=st-lite&utm_campaign=upsell&utm_medium=fields-country-selector-upsell' ); ?>"><?php esc_html_e( 'Learn More', 'strong-testimonials' ); ?></a>
+					<a class="button button-primary" target="_blank" href="<?php echo esc_url( WPMTST_STORE_UPGRADE_URL . '?utm_source=st-lite&utm_campaign=upsell&utm_medium=fields-country-selector-upsell' ); ?>"><?php esc_html_e( 'Upgrade', 'strong-testimonials' ); ?></a>
+				</p>
 			</div>
 			<?php
 		endif;
@@ -89,7 +92,10 @@ class Strong_Testimonials_Upsell {
 					)
 				);
 				?>
-				<a class="button button-primary wpmtst-alert__upgrade-btn" target="_blank" href="<?php echo esc_url( WPMTST_STORE_UPGRADE_URL . '?utm_source=st-lite&utm_campaign=upsell&utm_medium=fields-custom-fields-upsell' ); ?>"><?php esc_html_e( 'Upgrade to PRO', 'strong-testimonials' ); ?></a>
+				<p>
+					<a class="button" target="_blank" href="<?php echo esc_url( WPMTST_STORE_URL . '/extensions/custom-fields?utm_source=st-lite&utm_campaign=upsell&utm_medium=fields-custom-fields-upsell' ); ?>"><?php esc_html_e( 'Learn More', 'strong-testimonials' ); ?></a>
+					<a class="button button-primary" target="_blank" href="<?php echo esc_url( WPMTST_STORE_UPGRADE_URL . '?utm_source=st-lite&utm_campaign=upsell&utm_medium=fields-custom-fields-upsell' ); ?>"><?php esc_html_e( 'Upgrade', 'strong-testimonials' ); ?></a>
+				</p>
 			</div>
 			<?php
 		endif;
@@ -109,7 +115,10 @@ class Strong_Testimonials_Upsell {
 					)
 				);
 				?>
-				<a class="button button-primary wpmtst-alert__upgrade-btn" target="_blank" href="<?php echo esc_url( WPMTST_STORE_UPGRADE_URL . '?utm_source=st-lite&utm_campaign=upsell&utm_medium=fields-multiple-forms-upsell' ); ?>"><?php esc_html_e( 'Upgrade to PRO', 'strong-testimonials' ); ?></a>
+				<p>
+					<a class="button" target="_blank" href="<?php echo esc_url( WPMTST_STORE_URL . '/extensions/multiple-forms?utm_source=st-lite&utm_campaign=upsell&utm_medium=fields-multiple-forms-upsell' ); ?>"><?php esc_html_e( 'Learn More', 'strong-testimonials' ); ?></a>
+					<a class="button button-primary" target="_blank" href="<?php echo esc_url( WPMTST_STORE_UPGRADE_URL . '?utm_source=st-lite&utm_campaign=upsell&utm_medium=fields-multiple-forms-upsell' ); ?>"><?php esc_html_e( 'Upgrade', 'strong-testimonials' ); ?></a>
+				</p>
 			</div>
 			<?php
 		endif;
@@ -129,7 +138,10 @@ class Strong_Testimonials_Upsell {
 					)
 				);
 				?>
-				<a class="button button-primary wpmtst-alert__upgrade-btn" target="_blank" href="<?php echo esc_url( WPMTST_STORE_UPGRADE_URL . '?utm_source=st-lite&utm_campaign=upsell&utm_medium=views-review-markup-upsell' ); ?>"><?php esc_html_e( 'Upgrade to PRO', 'strong-testimonials' ); ?></a>
+				<p>
+					<a class="button" target="_blank" href="<?php echo esc_url( WPMTST_STORE_URL . '/extensions/review-markup?utm_source=st-lite&utm_campaign=upsell&utm_medium=views-review-markup-upsell' ); ?>"><?php esc_html_e( 'Learn More', 'strong-testimonials' ); ?></a>
+					<a class="button button-primary" target="_blank" href="<?php echo esc_url( WPMTST_STORE_UPGRADE_URL . '?utm_source=st-lite&utm_campaign=upsell&utm_medium=views-review-markup-upsell' ); ?>"><?php esc_html_e( 'Upgrade', 'strong-testimonials' ); ?></a>
+				</p>
 			</div>
 			<?php
 		endif;
@@ -149,7 +161,10 @@ class Strong_Testimonials_Upsell {
 					)
 				);
 				?>
-				<a class="button button-primary wpmtst-alert__upgrade-btn" target="_blank" href="<?php echo esc_url( WPMTST_STORE_UPGRADE_URL . '?utm_source=st-lite&utm_campaign=upsell&utm_medium=views-advanced-views-upsell' ); ?>"><?php esc_html_e( 'Upgrade to PRO', 'strong-testimonials' ); ?></a>
+				<p>
+					<a class="button" target="_blank" href="<?php echo esc_url( WPMTST_STORE_URL . '/extensions/advanced-views?utm_source=st-lite&utm_campaign=upsell&utm_medium=views-advanced-views-upsell' ); ?>"><?php esc_html_e( 'Learn More', 'strong-testimonials' ); ?></a>
+					<a class="button button-primary" target="_blank" href="<?php echo esc_url( WPMTST_STORE_UPGRADE_URL . '?utm_source=st-lite&utm_campaign=upsell&utm_medium=views-advanced-views-upsell' ); ?>"><?php esc_html_e( 'Upgrade', 'strong-testimonials' ); ?></a>
+				</p>
 			</div>
 			<?php
 		endif;
