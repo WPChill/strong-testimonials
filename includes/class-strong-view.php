@@ -171,7 +171,7 @@ class Strong_View {
 		}
 
 		if ( ! $this->get_att( 'use_default_more' ) ) {
-			add_filter( 'excerpt_more', array( $this, 'excerpt_more' ), 999 );
+			add_filter( 'excerpt_more', array( $this, 'excerpt_more' ), 99999 );
 		}
 	}
 
