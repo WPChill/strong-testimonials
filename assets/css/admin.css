@@ -829,3 +829,7 @@ ul.standard {
 	top: 50%;
 	transform: translateY(-50%) !important;
 }
+
+.wpmtst-alert > *:last-child {
+	margin-bottom: 0px !important;
+}
