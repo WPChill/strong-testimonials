@@ -43,9 +43,7 @@ function wpmtst_update_check() {
 		add_option( 'wpmtst_do_activation_redirect', true );
 	}
 
-	require_once WPMTST_ADMIN . 'class-strong-testimonials-updater.php';
-	$updater = new Strong_Testimonials_Updater();
-	$updater->update();
+	Strong_Testimonials_Updater::update();
 }
 
 add_action( 'admin_init', 'wpmtst_update_check', 5 );
