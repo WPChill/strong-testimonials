@@ -102,7 +102,6 @@ class Strong_View_Form extends Strong_View {
 
 		// If we cannot preprocess, add the inline style to the footer.
 		add_action( 'wp_footer', array( $this, 'add_custom_style' ) );
-		add_action( 'wp_footer', array( $this, 'load_honeypots' ) );
 
 		$form_values = array( 'category' => $this->atts['category'] );
 
@@ -256,37 +255,6 @@ class Strong_View_Form extends Strong_View {
 		WPMST()->render->add_script( 'wpmtst-controller' );
 	}
 
-	/**
-	 * Load honeypots.
-	 */
-	public function load_honeypots() {
-		$form_options = get_option( 'wpmtst_form_options' );
-
-		if ( $form_options['honeypot_before'] ) {
-			?>
-			<script type="text/javascript">
-              (function () { document.getElementById("wpmtst_if_visitor").value = '' })()
-            </script>
-			<?php
-		}
-
-		if ( $form_options['honeypot_after'] ) {
-            ?>
-            <script type="text/javascript">
-              (function () {
-                var myForm = document.getElementById("wpmtst-submission-form")
-                myForm.addEventListener("submit", function(e){
-                  var x = document.createElement("input")
-                  x.type = "hidden"
-                  x.name = "wpmtst_after"
-                  x.value = 1
-                  myForm.appendChild(x)
-                });
-              })()
-            </script>
-            <?php
-		}
-	}
 
 }
 
