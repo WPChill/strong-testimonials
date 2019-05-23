@@ -6,23 +6,16 @@ class Strong_Testimonials_Form {
 
 	public $form_options;
 
-	public $plugins;
-
 	public $form_values;
 
 	public $form_errors;
-
-	public $captcha;
 
 	/**
 	 * Strong_Testimonials_Form constructor.
 	 */
 	public function __construct() {
 		$this->form_options = get_option( 'wpmtst_form_options' );
-		$this->plugins = apply_filters( 'wpmtst_captcha_plugins', get_option( 'wpmtst_captcha_plugins' ) );
 		$this->add_actions();
-		$this->load_captcha();
-		$this->load_honeypots();
 	}
 
 	/**
@@ -33,50 +26,6 @@ class Strong_Testimonials_Form {
 
 		add_action( 'wp_ajax_wpmtst_form2', array( $this, 'process_form_ajax' ) );
 		add_action( 'wp_ajax_nopriv_wpmtst_form2', array( $this, 'process_form_ajax' ) );
-	}
-
-	/**
-	 * Load Captcha class.
-	 */
-	public function load_captcha() {
-		if ( ! isset( $this->form_options['captcha'] ) || ! $this->form_options['captcha'] ) {
-			return;
-		}
-
-		$slug = $this->form_options['captcha'];
-		if ( ! $slug || ! isset( $this->plugins[ $slug ]['class'] ) ) {
-			return;
-		}
-
-		require_once WPMTST_INC . 'integrations/class-integration-captcha.php';
-
-		$file_name  = "class-integration-$slug.php";
-		$file_path  = WPMTST_INC . 'integrations/' . $file_name;
-		$class_name = 'Strong_Testimonials_Integration_' . $this->plugins[ $slug ]['class'];
-
-		if ( file_exists( $file_path ) ) {
-			require_once $file_path;
-		}
-
-		if ( class_exists( $class_name ) ) {
-			$this->captcha = new $class_name();
-			add_filter( 'wpmtst_add_captcha', array( $this->captcha, 'add_captcha' ), 20 );
-			add_filter( 'wpmtst_check_captcha', array( $this->captcha, 'check_captcha' ) );
-		}
-
-	}
-
-	/**
-	 * Load honeypots.
-	 */
-	public function load_honeypots() {
-		if ( isset( $this->form_options['honeypot_before'] ) && $this->form_options['honeypot_before'] ) {
-			add_action( 'honeypot_before_spam_testimonial', array( $this, 'honeypot_error' ) );
-		}
-
-		if ( isset( $this->form_options['honeypot_after'] ) && $this->form_options['honeypot_after'] ) {
-			add_action( 'honeypot_after_spam_testimonial', array( $this, 'honeypot_error' ) );
-		}
 	}
 
 	/**
@@ -210,17 +159,7 @@ class Strong_Testimonials_Form {
 		$form_name = isset( $new_post['form_id'] ) ? $new_post['form_id'] : 'custom';
 		$fields    = wpmtst_get_form_fields( $form_name );
 
-		if ( $form_options['captcha'] ) {
-			$form_errors = apply_filters( 'wpmtst_check_captcha', $form_errors );
-		}
-
-		if ( $form_options['honeypot_before'] ) {
-			$this->honeypot_before();
-		}
-
-		if ( $form_options['honeypot_after'] ) {
-			$this->honeypot_after();
-		}
+		$form_errors = apply_filters( 'wpmtst_form_additional_checks', $form_errors );
 
 		/**
 		 * sanitize & validate
@@ -465,39 +404,6 @@ class Strong_Testimonials_Form {
 		$this->set_form_errors( $form_errors );
 
 		return false;
-	}
-
-	/**
-	 * Honeypot preprocessor
-	 */
-	public function honeypot_before() {
-		if ( isset( $_POST['wpmtst_if_visitor'] ) && ! empty( $_POST['wpmtst_if_visitor'] ) ) {
-			do_action( 'honeypot_before_spam_testimonial', $_POST );
-		}
-	}
-
-	/**
-	 * Honeypot preprocessor
-	 */
-	public function honeypot_after() {
-		if ( ! isset ( $_POST['wpmtst_after'] ) ) {
-			do_action( 'honeypot_after_spam_testimonial', $_POST );
-		}
-	}
-
-	/**
-	 * Honeypot error
-	 */
-	public function honeypot_error() {
-		$form_options = get_option( 'wpmtst_form_options' );
-		$messages     = $form_options['messages'];
-		$part         = 'submission-error';
-		if ( isset( $messages[ $part ]['text'] ) ) {
-			$message = apply_filters( 'wpmtst_form_message', $messages['submission-error']['text'], $messages[ $part ] );
-		} else {
-			$message = __( 'Unknown error.', 'strong-testimonials' );
-		}
-		wp_die( $message );
 	}
 
 	/**
