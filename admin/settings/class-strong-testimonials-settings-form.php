@@ -137,10 +137,6 @@ class Strong_Testimonials_Settings_Form {
 		$input['email_subject']     = isset( $input['email_subject'] ) ? wp_kses_post( trim( $input['email_subject'] ) ) : '';
 		$input['email_message']     = isset( $input['email_message'] ) ? wp_kses_post( rtrim( $input['email_message'] ) ) : '';
 
-		$input['honeypot_before']   = wpmtst_sanitize_checkbox( $input, 'honeypot_before' );
-		$input['honeypot_after']    = wpmtst_sanitize_checkbox( $input, 'honeypot_after' );
-		$input['captcha']           = sanitize_text_field( $input['captcha'] );
-
 		foreach ( $input['messages'] as $key => $message ) {
 			if ( 'submission-success' == $key ) {
 				$input['messages'][ $key ]['text'] = $message['text'];
@@ -198,7 +194,7 @@ class Strong_Testimonials_Settings_Form {
 		unset( $input['success_redirect_2'] );
 		//ksort( $input );
 
-		return $input;
+		return apply_filters( 'wpmtst_sanitize_form_options', $input );
 	}
 
 	/**
