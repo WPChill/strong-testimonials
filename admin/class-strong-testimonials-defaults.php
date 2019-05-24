@@ -394,29 +394,22 @@ class Strong_Testimonials_Defaults {
 				'text'        => _x( 'Required', 'Default message for required notice at top of form.', 'strong-testimonials' ),
 				'enabled'     => 1,
 			),
-			'captcha'            => array(
-				'order'       => 2,
-				/* translators: Settings > Form > Messages tab */
-				'description' => _x( 'Captcha Label', 'description', 'strong-testimonials' ),
-				'text'        => _x( 'Captcha', 'Default label for Captcha field on submission form.', 'strong-testimonials' ),
-				'required'    => false,
-			),
 			'form-submit-button' => array(
-				'order'       => 3,
+				'order'       => 2,
 				/* translators: Settings > Form > Messages tab */
 				'description' => _x( 'Submit Button', 'description', 'strong-testimonials' ),
 				/* translators: Default label for the Submit button on testimonial form. */
 				'text'        => _x( 'Add Testimonial', 'the Submit button', 'strong-testimonials' ),
 			),
 			'submission-error'   => array(
-				'order'       => 4,
+				'order'       => 3,
 				/* translators: Settings > Form > Messages tab */
 				'description' => _x( 'Submission Error', 'description', 'strong-testimonials' ),
 				/* translators: Default message for submission form error. */
 				'text'        => _x( 'There was a problem processing your testimonial.', 'error message', 'strong-testimonials' ),
 			),
 			'submission-success' => array(
-				'order'       => 5,
+				'order'       => 4,
 				/* translators: Settings > Form > Messages tab */
 				'description' => _x( 'Submission Success', 'description', 'strong-testimonials' ),
 				/* translators: Default message for submission form success message. */
@@ -449,9 +442,6 @@ class Strong_Testimonials_Defaults {
 			'email_subject'            => __( 'New testimonial for %BLOGNAME%', 'strong-testimonials' ),
 			/* translators: Default message for new testimonial notification email. */
 			'email_message'            => __( 'New testimonial submission for %BLOGNAME%. This is awaiting action from the website administrator.', 'strong-testimonials' ),
-			'captcha'                  => '',
-			'honeypot_before'          => false,
-			'honeypot_after'           => false,
 			'messages'                 => $default_messages,
 			'scrolltop_success'        => true,
 			'scrolltop_success_offset' => 80,
@@ -462,7 +452,7 @@ class Strong_Testimonials_Defaults {
 			'success_redirect_url'     => '',
 		);
 
-		return $default_form_options;
+		return apply_filters( 'wpmtst_default_form_options', $default_form_options );
 	}
 
 	/**
@@ -835,40 +825,6 @@ class Strong_Testimonials_Defaults {
 		);
 
 		return $options;
-	}
-
-	/**
-	 * Build list of supported Captcha plugins.
-	 *
-	 * @since 2.28.5 In this class.
-	 */
-	public static function get_captcha_plugins() {
-		$plugins = array(
-			'google-captcha'    => array(
-				'name'      => 'Google Captcha by BestWebSoft (free)',
-				'desc'      => __( '<strong>Recommended.</strong> The best choice for both Invisible reCAPTCHA and reCAPTCHA V2 ("I\'m not a robot" checkbox).', 'strong-testimonials' ),
-				'class'     => 'Google_Captcha',
-				'file'      => 'google-captcha/google-captcha.php',
-				'settings'  => 'admin.php?page=google-captcha.php',
-				'search'    => 'plugin-install.php?tab=search&s=Google+Captcha',
-				'url'       => 'https://wordpress.org/plugins/google-captcha',
-				'installed' => false,
-				'active'    => false,
-			),
-			'captcha-pro' => array(
-				'name'      => 'Captcha Pro by BestWebSoft (premium)',
-				'desc'      => __( 'An excellent plugin for math- and image-based captchas.', 'strong-testimonials' ),
-				'class'     => 'Captcha_Pro',
-				'file'      => 'captcha-pro/captcha_pro.php',
-				'settings'  => 'admin.php?page=captcha_pro.php',
-				'search' => '',
-				'url'       => 'https://bestwebsoft.com/products/wordpress/plugins/captcha/',
-				'installed' => false,
-				'active'    => false,
-			),
-		);
-
-		return $plugins;
 	}
 
 }

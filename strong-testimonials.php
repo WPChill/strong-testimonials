@@ -285,6 +285,7 @@ final class Strong_Testimonials {
 			require_once WPMTST_ADMIN . 'class-strong-testimonials-post-editor.php';
 			require_once WPMTST_ADMIN . 'class-strong-testimonials-exporter.php';
 			require_once WPMTST_ADMIN . 'class-strong-testimonials-upsell.php';
+			require_once WPMTST_ADMIN . 'class-strong-testimonials-updater.php';
 
 			require_once WPMTST_ADMIN . 'admin.php';
 			require_once WPMTST_ADMIN . 'admin-notices.php';
@@ -529,3 +530,4 @@ function WPMST() {
 
 // Get plugin running
 WPMST();
+
