@@ -47,12 +47,6 @@ Some templates have light & dark versions and other options. If you want to cust
 
 This plugin provides one form with custom fields. Customize the form by adding or removing fields and changing properties like the order, label, and placeholder.
 
-Anti-spam measures include honeypots and Captcha via these plugins:
-
-* [Google Captcha (reCAPTCHA) by BestWebSoft](https://wordpress.org/plugins/google-captcha/) *recommended*
-* [Captcha Pro](https://bestwebsoft.com/products/wordpress/plugins/captcha/)
-* [Really Simple Captcha](https://wordpress.org/plugins/really-simple-captcha/)
-
 Send custom notification emails to multiple admins.
 
 Submit the form via Ajax for use with plugins like [Popup Maker](https://wordpress.org/plugins/popup-maker/).
