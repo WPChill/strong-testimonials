@@ -12,6 +12,8 @@ class Strong_Testimonials_Upsell {
 		add_action( 'wpmtst_before_fields_settings', array( $this, 'add_upsells_2' ) );
 		add_action( 'wpmtst_view_editor_after_groups', array( $this, 'add_upsells_3' ) );
 		add_action( 'wpmtst_view_editor_after_group_select', array( $this, 'add_upsells_4' ) );
+		add_action( 'wpmtst_fields_before_fields_editor_preview', array( $this, 'add_upsells_5' ) );
+		add_action( 'wpmtst_after_form_settings', array( $this, 'add_upsells_6' ) );
 	}
 
 	public function add_general_upsell_notice() {
@@ -169,6 +171,88 @@ class Strong_Testimonials_Upsell {
 			<?php
 		endif;
 	}
+
+	public function add_upsells_5() {
+		if ( ! defined( 'WPMTST_CAPTCHA_VERSION' ) ) :
+			?>
+			<div class="wpmtst-alert">
+				<?php
+				printf(
+					esc_html__( 'Protect your form against spam with the %s extension.', 'strong-testimonials' ),
+					sprintf(
+						'<a href="%s" target="_blank">%s</a>',
+						esc_url( WPMTST_STORE_URL . '/extensions/captcha?utm_source=st-lite&utm_campaign=upsell&utm_medium=form-settings-upsell' ),
+						esc_html__( 'Strong Testimonials: Captcha', 'strong-testimonials' )
+					)
+				);
+				?>
+				<p>
+					<a class="button" target="_blank" href="<?php echo esc_url( WPMTST_STORE_URL . '/extensions/captcha?utm_source=st-lite&utm_campaign=upsell&utm_medium=form-settings-upsell' ); ?>"><?php esc_html_e( 'Learn More', 'strong-testimonials' ); ?></a>
+					<a class="button button-primary" target="_blank" href="<?php echo esc_url( WPMTST_STORE_UPGRADE_URL . '?utm_source=st-lite&utm_campaign=upsell&utm_medium=form-settings-captcha-upsell' ); ?>"><?php esc_html_e( 'Upgrade', 'strong-testimonials' ); ?></a>
+				</p>
+			</div>
+			<?php
+		endif;
+	}
+
+	public function add_upsells_6() {
+		if ( defined( 'WPMTST_CAPTCHA_VERSION' ) ) {
+			return;
+		}
+		?>
+		<hr>
+
+		<h3><?php esc_html_e( 'Form Spam Control', 'strong-testimonials-captcha' ); ?></h3>
+
+		<div class="wpmtst-alert">
+			<?php
+			printf(
+				esc_html__( 'Protect your form against spam. Add Google recaptcha or honeypots with the %s extension.', 'strong-testimonials' ),
+				sprintf(
+					'<a href="%s" target="_blank">%s</a>',
+					esc_url( WPMTST_STORE_URL . '/extensions/captcha?utm_source=st-lite&utm_campaign=upsell&utm_medium=form-settings-upsell' ),
+					esc_html__( 'Strong Testimonials: Captcha', 'strong-testimonials' )
+				)
+			);
+			?>
+			<p>
+				<a class="button" target="_blank" href="<?php echo esc_url( WPMTST_STORE_URL . '/extensions/captcha?utm_source=st-lite&utm_campaign=upsell&utm_medium=form-settings-upsell' ); ?>"><?php esc_html_e( 'Learn More', 'strong-testimonials' ); ?></a>
+				<a class="button button-primary" target="_blank" href="<?php echo esc_url( WPMTST_STORE_UPGRADE_URL . '?utm_source=st-lite&utm_campaign=upsell&utm_medium=form-settings-captcha-upsell' ); ?>"><?php esc_html_e( 'Upgrade', 'strong-testimonials' ); ?></a>
+			</p>
+		</div>
+
+		<table class="form-table" cellpadding="0" cellspacing="0">
+			<tr>
+				<th scope="row">
+					<label>
+						<?php esc_html_e( 'Honeypot', 'strong-testimonials-captcha' ); ?>
+					</label>
+				</th>
+				<td>
+					<p>
+						<?php esc_html_e( 'These methods for trapping spambots are both time-tested and widely used. May be used simultaneously for more protection.', 'strong-testimonials-captcha' ); ?>
+					</p>
+				</td>
+			</tr>
+			<tr valign="top">
+				<th scope="row">
+					<label>
+						<a name="captcha-section"></a><?php esc_html_e( 'Captcha', 'strong-testimonials-captcha' ); ?>
+					</label>
+				</th>
+				<td>
+					<?php esc_html_e( 'Google reCAPTCHA prompts visitors to check a box to prove that they’re not a robot before they submit the form.', 'strong-testimonials-captcha' ); ?>
+					<br/>
+					<?php esc_html_e( 'In some cases, they’re prompted to complete another task, like identify a string of letters.', 'strong-testimonials-captcha' ); ?>
+					<br/>
+					<?php esc_html_e( 'This method makes it difficult for spambots to complete form submissions.', 'strong-testimonials-captcha' ); ?>
+				</td>
+			</tr>
+		</table>
+		<?php
+	}
+
+
 
 
 

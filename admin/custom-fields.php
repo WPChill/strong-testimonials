@@ -205,6 +205,7 @@ function wpmtst_settings_custom_fields( $form_id = 1 ) {
 			<h3><?php esc_html_e( 'Basic Preview', 'strong-testimonials' ); ?></h3>
 			<p><?php esc_html_e( 'Only to demonstrate the fields. May look different in your theme.', 'strong-testimonials' ); ?></p>
 		</div>
+		<?php do_action( 'wpmtst_fields_before_fields_editor_preview' ); ?>
 		<div id="fields-editor-preview">
 			<div><!-- placeholder --></div>
 		</div>
