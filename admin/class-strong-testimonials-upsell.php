@@ -202,7 +202,7 @@ class Strong_Testimonials_Upsell {
 		?>
 		<hr>
 
-		<h3><?php esc_html_e( 'Form Spam Control', 'strong-testimonials-captcha' ); ?></h3>
+		<h3><?php esc_html_e( 'Form Spam Control', 'strong-testimonials' ); ?></h3>
 
 		<div class="wpmtst-alert">
 			<?php
@@ -225,27 +225,27 @@ class Strong_Testimonials_Upsell {
 			<tr>
 				<th scope="row">
 					<label>
-						<?php esc_html_e( 'Honeypot', 'strong-testimonials-captcha' ); ?>
+						<?php esc_html_e( 'Honeypot', 'strong-testimonials' ); ?>
 					</label>
 				</th>
 				<td>
 					<p>
-						<?php esc_html_e( 'These methods for trapping spambots are both time-tested and widely used. May be used simultaneously for more protection.', 'strong-testimonials-captcha' ); ?>
+						<?php esc_html_e( 'These methods for trapping spambots are both time-tested and widely used. May be used simultaneously for more protection.', 'strong-testimonials' ); ?>
 					</p>
 				</td>
 			</tr>
 			<tr valign="top">
 				<th scope="row">
 					<label>
-						<a name="captcha-section"></a><?php esc_html_e( 'Captcha', 'strong-testimonials-captcha' ); ?>
+						<a name="captcha-section"></a><?php esc_html_e( 'Captcha', 'strong-testimonials' ); ?>
 					</label>
 				</th>
 				<td>
-					<?php esc_html_e( 'Google reCAPTCHA prompts visitors to check a box to prove that they’re not a robot before they submit the form.', 'strong-testimonials-captcha' ); ?>
+					<?php esc_html_e( 'Google reCAPTCHA prompts visitors to check a box to prove that they’re not a robot before they submit the form.', 'strong-testimonials' ); ?>
 					<br/>
-					<?php esc_html_e( 'In some cases, they’re prompted to complete another task, like identify a string of letters.', 'strong-testimonials-captcha' ); ?>
+					<?php esc_html_e( 'In some cases, they’re prompted to complete another task, like identify a string of letters.', 'strong-testimonials' ); ?>
 					<br/>
-					<?php esc_html_e( 'This method makes it difficult for spambots to complete form submissions.', 'strong-testimonials-captcha' ); ?>
+					<?php esc_html_e( 'This method makes it difficult for spambots to complete form submissions.', 'strong-testimonials' ); ?>
 				</td>
 			</tr>
 		</table>
