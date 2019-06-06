@@ -23,7 +23,8 @@
 
 input[type="text"].custom-input,
 input[type="email"].custom-input,
-input[type="url"].custom-input {
+input[type="url"].custom-input,
+textarea.custom-input {
   width: 100%;
 }
 

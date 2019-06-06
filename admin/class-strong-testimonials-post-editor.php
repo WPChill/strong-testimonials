@@ -119,6 +119,9 @@ class Strong_Testimonials_Post_Editor {
 				case 'shortcode' :
 					self::meta_option__shortcode( $field, $post, $is_new );
 					break;
+				case 'textarea' :
+					self::meta_option__textarea( $field, $post, $is_new );
+					break;
 				default :
 					self::meta_option__text( $field, $post, $is_new );
 			}
@@ -148,6 +151,21 @@ class Strong_Testimonials_Post_Editor {
 	private static function meta_option__text( $field, $post, $is_new ) {
 		printf( '<input id="%2$s" type="%1$s" class="custom-input" name="custom[%2$s]" value="%3$s">',
 		        $field['input_type'], $field['name'], esc_attr( $post->{$field['name']} ) );
+	}
+
+	/**
+	 * Textarea.
+	 *
+	 * @param $field
+	 * @param $post
+	 * @param $is_new
+	 */
+	private static function meta_option__textarea( $field, $post, $is_new ) {
+		printf(
+			'<textarea id="%1$s" name="custom[%1$s]" class="custom-input">%2$s</textarea>',
+			esc_attr( $field['name'] ),
+			esc_attr( $post->{$field['name']} )
+		);
 	}
 
 	/**
