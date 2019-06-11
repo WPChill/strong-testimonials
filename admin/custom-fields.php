@@ -109,7 +109,9 @@ function wpmtst_update_custom_fields() {
             $field['show_admin_table_option'] = $field['show_admin_table_option'] ? 1 : 0;
             $field['show_text_option']        = $field['show_text_option'] ? 1 : 0;
             $field['show_placeholder_option'] = $field['show_placeholder_option'] ? 1 : 0;
-            $field['show_default_options']    = $field['show_default_options'] ? 1 : 0;
+			$field['show_default_options']    = $field['show_default_options'] ? 1 : 0;
+
+			$field = apply_filters( 'wpmtst_sanitize_form_field_options', $field );
 
             // add to fields array in display order
             $fields[ $new_key++ ] = $field;
