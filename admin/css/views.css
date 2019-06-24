@@ -664,9 +664,11 @@ ul.radio-list.template-list li {
 
 .template-description {
   border-radius: 15px;
-  padding: 0 15px; }
+  padding: 15px; }
   .template-description p {
-    margin: 15px 0 15px !important; }
+	margin: 0px 0 15px !important; }
+  .template-description label {
+	background: transparent !important; }
 
 /* -------------------------------------------------
    Layout options
