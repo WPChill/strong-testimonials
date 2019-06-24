@@ -18,7 +18,11 @@ $template: small-widget;
   }
 
   .testimonial-inner {
-    padding: 10px;
+	padding: 10px;
+
+	& > *:not(:nth-last-child(2)):not(:last-child) {
+		margin-bottom: 5px;
+	}
   }
 
   .testimonial-heading {
@@ -36,8 +40,7 @@ $template: small-widget;
     margin-bottom: .5em;
   }
 
-  .testimonial-client {
-    margin-top: 1em;
+  .testimonial-field {
     clear: both;
   }
 

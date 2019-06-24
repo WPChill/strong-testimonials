@@ -92,6 +92,9 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
   padding: 20px;
   border-radius: 3px;
 }
+.strong-view.bold .testimonial-inner > *:not(:nth-last-child(2)):not(:last-child) {
+	margin-bottom: 5px;
+}
 .strong-view.bold .testimonial-content {
   background: inherit;
   font-size: 2em;
@@ -117,9 +120,8 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
   text-decoration: none;
   box-shadow: none;
 }
-.strong-view.bold .testimonial-client {
+.strong-view.bold .testimonial-field {
   font-size: 1.2em;
-  margin-top: 1em;
 }
 .strong-view.bold .testimonial-name {
   font-weight: 700;

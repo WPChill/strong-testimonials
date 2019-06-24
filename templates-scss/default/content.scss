@@ -25,7 +25,11 @@ $template: default;
   .testimonial-inner {
     border: 1px solid #FFFFFF;
     padding: 20px;
-    text-align: left;
+	text-align: left;
+
+	& > *:not(:nth-last-child(2)):not(:last-child) {
+		margin-bottom: 5px;
+	}
   }
 
   .testimonial-heading {
@@ -59,8 +63,7 @@ $template: default;
     }
   }
 
-  .testimonial-client {
-    margin-top: 1em;
+  .testimonial-field {
     text-align: right;
   }
 
@@ -154,7 +157,7 @@ $template: default;
     margin-left: 1em;
   }
 
-  .testimonial-client {
+  .testimonial-field {
     text-align: left;
   }
 }
@@ -166,7 +169,7 @@ $template: default;
     margin-right: 1em;
   }
 
-  .testimonial-client {
+  .testimonial-field {
     text-align: right;
   }
 }

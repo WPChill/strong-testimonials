@@ -90,6 +90,9 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
   padding: 30px;
   text-align: center;
 }
+.strong-view.modern .testimonial-inner > *:not(:nth-last-child(2)):not(:last-child) {
+	margin-bottom: 5px;
+}
 .strong-view.modern .testimonial-heading {
   font-weight: 700;
   margin-top: 0;
@@ -129,9 +132,8 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
   right: -56px;
   bottom: 0;
 }
-.strong-view.modern .testimonial-client {
+.strong-view.modern .testimonial-field {
   clear: both;
-  margin-top: 30px;
   text-align: center;
 }
 .strong-view.modern .testimonial-name {

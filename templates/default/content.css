@@ -96,6 +96,9 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
   padding: 20px;
   text-align: left;
 }
+.strong-view.default .testimonial-inner > *:not(:nth-last-child(2)):not(:last-child) {
+	margin-bottom: 5px;
+}
 .strong-view.default .testimonial-heading {
   background: url("img/quotes.png") no-repeat scroll left center transparent;
   margin-top: 0;
@@ -126,8 +129,7 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
   text-decoration: none;
   box-shadow: none;
 }
-.strong-view.default .testimonial-client {
-  margin-top: 1em;
+.strong-view.default .testimonial-field {
   text-align: right;
 }
 .strong-view.default .testimonial-name {
@@ -277,7 +279,7 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
   float: right;
   margin-left: 1em;
 }
-.strong-view.default.rtl .testimonial-client {
+.strong-view.default.rtl .testimonial-field {
   text-align: left;
 }
 
@@ -294,7 +296,7 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
   margin-bottom: 0.25em;
   margin-left: 1em;
 }
-.strong-view.default.image-right .testimonial-client {
+.strong-view.default.image-right .testimonial-field {
   text-align: left;
 }
 
@@ -303,7 +305,7 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
   margin-left: 0;
   margin-right: 1em;
 }
-.strong-view.default.image-right.rtl .testimonial-client {
+.strong-view.default.image-right.rtl .testimonial-field {
   text-align: right;
 }
 

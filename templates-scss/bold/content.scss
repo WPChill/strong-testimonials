@@ -19,7 +19,11 @@ $template: bold;
 
   .testimonial-inner {
     padding: 20px;
-    border-radius: 3px;
+	border-radius: 3px;
+
+	& > *:not(:nth-last-child(2)):not(:last-child) {
+		margin-bottom: 5px;
+	}
   }
 
   .testimonial-content {
@@ -44,9 +48,8 @@ $template: bold;
     }
   }
 
-  .testimonial-client {
+  .testimonial-field {
     font-size: 1.2em;
-    margin-top: 1em;
   }
 
   .testimonial-name {
