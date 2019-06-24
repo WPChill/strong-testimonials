@@ -23,7 +23,11 @@ $template: simple;
 
   .testimonial-inner {
     padding: 1em;
-    text-align: left;
+	text-align: left;
+
+	& > *:not(:nth-last-child(2)):not(:last-child) {
+		margin-bottom: 5px;
+	}
   }
 
   .testimonial-heading {
@@ -52,9 +56,8 @@ $template: simple;
     }
   }
 
-  .testimonial-client {
+  .testimonial-field {
     clear: both;
-    margin-top: 1em;
   }
 
   .readmore {
