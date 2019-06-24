@@ -75,4 +75,7 @@
             <?php endif; ?>
         </div>
     </div>
+
+	<?php do_action('wpmtst_views_after_template_options', $view, $template, $key ); ?>
+
 </div>
