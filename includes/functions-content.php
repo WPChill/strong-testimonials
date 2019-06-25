@@ -175,7 +175,7 @@ function wpmtst_trim_words( $text, $num_words = 55, $more = null, $hybrid = fals
 		$more = __( '&hellip;', 'strong-testimonials' );
 	}
 
-	$text = wp_strip_all_tags( $text );
+	$text = strip_tags( $text, '<br>' );
 
 	/*
 	 * translators: If your word count is based on single characters (e.g. East Asian characters),
