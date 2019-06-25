@@ -538,7 +538,7 @@ function wpmtst_sanitize_view_template( $data, $input ) {
 	foreach ( $input['template_settings'] as $template => $settings ) {
 		foreach ( $settings as $key => $setting ) {
 			// This does not work for checkboxes yet.
-			$data['template_settings'][ $template ][ $key ] = sanitize_text_field( $setting );
+			$data['template_settings'][ $template ][ $key ] = apply_filters( 'wpmtst_sanitize_view_template_setting', sanitize_text_field( $setting ), $key );
 		}
 	}
 

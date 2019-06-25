@@ -279,166 +279,169 @@ function wpmtst_the_client() {
  * @return mixed
  */
 function wpmtst_client_section( $client_section ) {
+
+	$html = '';
+
+	foreach ( $client_section as $field ) {
+		$html .= wpmtst_the_custom_field( $field );
+	}
+
+	return $html;
+}
+
+function wpmtst_the_custom_field( $field ) {
 	global $post;
 
 	$options       = get_option( 'wpmtst_options' );
 	$custom_fields = wpmtst_get_custom_fields();
-	$html          = '';
 
-	foreach ( $client_section as $field ) {
-		$output        = '';
-		$field_name    = $field['field'];
-		if ( isset( $custom_fields[ $field_name ] ) ) {
-			$field['prop'] = $custom_fields[ $field_name ];
-		}
-		else {
-			$field['prop'] = array();
-		}
+	$output        = '';
+	$field_name    = $field['field'];
+	if ( isset( $custom_fields[ $field_name ] ) ) {
+		$field['prop'] = $custom_fields[ $field_name ];
+	} else {
+		$field['prop'] = array();
+	}
 
-		// Check for callback first.
-		if ( isset( $field['prop']['action_output'] ) && $field['prop']['action_output'] ) {
-			$value  = get_post_meta( $post->ID, $field_name, true );
-			$output = apply_filters( $field['prop']['action_output'], $field, $value );
-		}
-		//TODO Convert all to filters.
-		// Check field type.
-		else {
-			switch ( $field['type'] ) {
+	// Check for callback first.
+	if ( isset( $field['prop']['action_output'] ) && $field['prop']['action_output'] ) {
+		$value  = get_post_meta( $post->ID, $field_name, true );
+		$output = apply_filters( $field['prop']['action_output'], $field, $value );
+	} else {
+		switch ( $field['type'] ) {
 
-				case 'link' :
-				case 'link2' :
-					// use default if missing
-					if ( ! isset( $field['link_text'] ) ) {
-						$field['link_text'] = 'value';
-					}
+			case 'link':
+			case 'link2':
+				// use default if missing
+				if ( ! isset( $field['link_text'] ) ) {
+					$field['link_text'] = 'value';
+				}
 
-					/**
-					 * Get link text and an alternate in case the URL is empty;
-					 * e.g. display the domain if no company name given
-					 * but don't display 'LinkedIn' if no URL given.
-					 */
-					switch ( $field['link_text'] ) {
-						case 'custom' :
-							$text   = $field['link_text_custom'];
-							$output = '';
-							break;
-						case 'label' :
-							$text   = $field['prop']['label'];
-							$output = '';
-							break;
-						default : // value
-							$text = get_post_meta( $post->ID, $field_name, true );
-							// if no URL (next condition), show the alternate (the field)
-							$output = $text;
-					}
-
-					if ( $field['url'] ) {
-
-						$url = get_post_meta( $post->ID, $field['url'], true );
-						if ( $url ) {
-							if ( isset( $field['new_tab'] ) && $field['new_tab'] ) {
-								$newtab = ' target="_blank"';
-							}
-							else {
-								$newtab = '';
-							}
-
-							// TODO Abstract this global fallback technique.
-							$is_nofollow = get_post_meta( $post->ID, 'nofollow', true );
-							if ( 'default' == $is_nofollow || '' == $is_nofollow ) {
-								// convert default to (yes|no)
-								$is_nofollow = $options['nofollow'] ? 'yes' : 'no';
-							}
-							if ( 'yes' == $is_nofollow ) {
-								$nofollow = ' rel="nofollow"';
-							}
-							else {
-								$nofollow = '';
-							}
-
-							// if field empty, use domain instead
-							if ( ! $text || is_array( $text ) ) {
-								$text = preg_replace( '(^https?://)', '', $url );
-							}
-
-							$output = sprintf( '<a href="%s"%s%s>%s</a>', $url, $newtab, $nofollow, $text );
-						}
-
-					}
-					break;
-
-				case 'date' :
-					$format = isset( $field['format'] ) && $field['format'] ? $field['format'] : get_option( 'date_format' );
-
-					// Fall back to post_date if submit_date missing.
-					$the_date = get_post_meta( $post->ID, $field_name, true );
-					$the_date = $the_date ? $the_date : $post->post_date;
-					$the_date = mysql2date( $format, $the_date );
-
-					if ( get_option( 'date_format' ) != $format ) {
-						// Requires PHP 5.3+
-						if ( version_compare( PHP_VERSION, '5.3' ) >= 0 ) {
-							$new_date = DateTime::createFromFormat( get_option( 'date_format' ), $the_date );
-							if ( $new_date ) {
-								$the_date = $new_date->format( $format );
-							}
-						}
-					}
-
-					$output = apply_filters( 'wpmtst_the_date', $the_date, $format, $post );
-					break;
-
-				case 'category' :
-					$categories = get_the_terms( $post->ID, 'wpm-testimonial-category' );
-					if ( $categories && ! is_wp_error( $categories ) ) {
-						$list = array();
-						foreach ( $categories as $cat ) {
-							$list[] = $cat->name;
-						}
-						$output = join( ", ", $list );
-					}
-					else {
+				/**
+				 * Get link text and an alternate in case the URL is empty;
+				 * e.g. display the domain if no company name given
+				 * but don't display 'LinkedIn' if no URL given.
+				 */
+				switch ( $field['link_text'] ) {
+					case 'custom' :
+						$text   = $field['link_text_custom'];
 						$output = '';
-					}
-					break;
+						break;
+					case 'label' :
+						$text   = $field['prop']['label'];
+						$output = '';
+						break;
+					default : // value
+						$text = get_post_meta( $post->ID, $field_name, true );
+						// if no URL (next condition), show the alternate (the field)
+						$output = $text;
+				}
 
-				case 'shortcode' :
-					if ( isset( $field['prop']['shortcode_on_display'] ) && $field['prop']['shortcode_on_display'] ) {
-						$output = do_shortcode( $field['prop']['shortcode_on_display'] );
-					}
-					break;
+				if ( $field['url'] ) {
 
-				case 'rating' :
-					$output = get_post_meta( $post->ID, $field_name, true );
-					// Check default value
-					if ( '' == $output && isset( $field['prop']['default_display_value'] ) && $field['prop']['default_display_value'] ) {
-						$output = $field['prop']['default_display_value'];
-					}
-					// Convert number to stars
-					if ( $output ) {
-						$output = wpmtst_star_rating_display( $output, 'in-view', false );
-					}
-					break;
+					$url = get_post_meta( $post->ID, $field['url'], true );
+					if ( $url ) {
+						if ( isset( $field['new_tab'] ) && $field['new_tab'] ) {
+							$newtab = ' target="_blank"';
+						}
+						else {
+							$newtab = '';
+						}
 
-				default :
-					// text field
-					$output = get_post_meta( $post->ID, $field_name, true );
-					if ( '' == $output && isset( $field['prop']['default_display_value'] ) && $field['prop']['default_display_value'] ) {
-						$output = $field['prop']['default_display_value'];
+						// TODO Abstract this global fallback technique.
+						$is_nofollow = get_post_meta( $post->ID, 'nofollow', true );
+						if ( 'default' == $is_nofollow || '' == $is_nofollow ) {
+							// convert default to (yes|no)
+							$is_nofollow = $options['nofollow'] ? 'yes' : 'no';
+						}
+						if ( 'yes' == $is_nofollow ) {
+							$nofollow = ' rel="nofollow"';
+						}
+						else {
+							$nofollow = '';
+						}
+
+						// if field empty, use domain instead
+						if ( ! $text || is_array( $text ) ) {
+							$text = preg_replace( '(^https?://)', '', $url );
+						}
+
+						$output = sprintf( '<a href="%s"%s%s>%s</a>', $url, $newtab, $nofollow, $text );
 					}
 
-			}
-		}
+				}
+				break;
 
-		if ( $output ) {
-			if ( isset( $field['before'] ) && $field['before'] ) {
-				$output = '<span class="testimonial-field-before">' . $field['before'] . '</span>' . $output;
-			}
-			$html .= '<div class="' . $field['class'] . '">' . $output . '</div>';
+			case 'date':
+				$format = isset( $field['format'] ) && $field['format'] ? $field['format'] : get_option( 'date_format' );
+
+				// Fall back to post_date if submit_date missing.
+				$the_date = get_post_meta( $post->ID, $field_name, true );
+				$the_date = $the_date ? $the_date : $post->post_date;
+				$the_date = mysql2date( $format, $the_date );
+
+				if ( get_option( 'date_format' ) != $format ) {
+					// Requires PHP 5.3+
+					if ( version_compare( PHP_VERSION, '5.3' ) >= 0 ) {
+						$new_date = DateTime::createFromFormat( get_option( 'date_format' ), $the_date );
+						if ( $new_date ) {
+							$the_date = $new_date->format( $format );
+						}
+					}
+				}
+
+				$output = apply_filters( 'wpmtst_the_date', $the_date, $format, $post );
+				break;
+
+			case 'category':
+				$categories = get_the_terms( $post->ID, 'wpm-testimonial-category' );
+				if ( $categories && ! is_wp_error( $categories ) ) {
+					$list = array();
+					foreach ( $categories as $cat ) {
+						$list[] = $cat->name;
+					}
+					$output = join( ", ", $list );
+				}
+				else {
+					$output = '';
+				}
+				break;
+
+			case 'shortcode':
+				if ( isset( $field['prop']['shortcode_on_display'] ) && $field['prop']['shortcode_on_display'] ) {
+					$output = do_shortcode( $field['prop']['shortcode_on_display'] );
+				}
+				break;
+
+			case 'rating':
+				$output = get_post_meta( $post->ID, $field_name, true );
+				// Check default value
+				if ( '' == $output && isset( $field['prop']['default_display_value'] ) && $field['prop']['default_display_value'] ) {
+					$output = $field['prop']['default_display_value'];
+				}
+				// Convert number to stars
+				if ( $output ) {
+					$output = wpmtst_star_rating_display( $output, 'in-view', false );
+				}
+				break;
+
+			default:
+				// text field
+				$output = get_post_meta( $post->ID, $field_name, true );
+				if ( '' == $output && isset( $field['prop']['default_display_value'] ) && $field['prop']['default_display_value'] ) {
+					$output = $field['prop']['default_display_value'];
+				}
 		}
 	}
 
-	return $html;
+	if ( $output ) {
+		if ( isset( $field['before'] ) && $field['before'] ) {
+			$output = '<span class="testimonial-field-before">' . $field['before'] . '</span>' . $output;
+		}
+		$output = '<div class="testimonial-field ' . $field['class'] . '">' . $output . '</div>';
+	}
+
+	return $output;
 }
 
 function wpmtst_container_class() {

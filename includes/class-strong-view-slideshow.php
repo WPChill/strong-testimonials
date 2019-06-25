@@ -81,7 +81,8 @@ class Strong_View_Slideshow extends Strong_View_Display {
 		/**
 		 * Locate template.
 		 */
-		$this->template_file = WPMST()->templates->get_template_attr( $this->atts, 'template' );
+		$this->template_file = apply_filters( 'wpmtst_view_template_file_slideshow', WPMST()->templates->get_template_attr( $this->atts, 'template' ) );
+
 
 		/**
 		 * Allow add-ons to hijack the output generation.

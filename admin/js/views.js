@@ -565,7 +565,7 @@ jQuery(document).ready(function ($) {
       var fieldType = $el.find('option:selected').data('type');
       var key = $elParent.data('key');
       var typeSelectParent = $elParent.find('td.field-type');
-      var typeSelect = typeSelectParent.find('select');
+	  var typeSelect = typeSelectParent.find('select');
 
       if (fieldValue === 'post_date') {
         typeSelect.prop('disabled', true);
@@ -617,11 +617,11 @@ jQuery(document).ready(function ($) {
     var templateRadioOff, templateRadioOn, template;
 
     templateRadioOff = templateRadios.filter(':not(:checked)');
-    templateRadioOff.closest('li').removeClass('current-selection').find('.options').hide();
+    templateRadioOff.closest('li').removeClass('current-selection').find('.template-description').children(':not(:first-child)').hide();
 
     templateRadioOn = templateRadios.filter(':checked');
     template = templateRadioOn.val();
-    templateRadioOn.closest('li').addClass('current-selection').find('.options').show();
+    templateRadioOn.closest('li').addClass('current-selection').find('.template-description').children(':not(:first-child)').show();
 
     // Check for forced options
     if (template) {
@@ -946,7 +946,7 @@ jQuery(document).ready(function ($) {
         $newField
           .find('div.link').click().end()
           .find('.field-dep').hide().end()
-          .find('.first-field').focus();
+		  .find('.first-field').focus();
       });
     });
   });
@@ -961,7 +961,7 @@ jQuery(document).ready(function ($) {
     var fieldName = $elParent.find('.field-name').find('select').val();
     // var key = $elParent.attr("id").split('-').slice(-1)[0];
     var key = $elParent.data('key');
-    var data;
+	var data;
 
     switch (fieldType) {
 
@@ -1033,7 +1033,7 @@ jQuery(document).ready(function ($) {
     var key = $elParent.data('key');
     var typeSelectParent = $elParent.find('.field-type');
     var typeSelect = typeSelectParent.find('select');
-    var data;
+	var data;
 
     $elParent.not('.open').addClass('open').find('.field-properties').addClass('open').slideDown();
 
@@ -1051,12 +1051,17 @@ jQuery(document).ready(function ($) {
       };
       $.get(ajaxurl, data, function (response) {
         if (response) {
-          $elParent.find('.field-description').html(response);
+		  $elParent.find('.field-description').html(response);
+
+		  //trigger custom event
+		  var event = document.createEvent('Event');
+		  event.initEvent('wpmtst_custom_field_changed', true, true);
+		  document.dispatchEvent(event);
         }
       });
 
       // Show dependent inputs
-      $elParent.find('.field-dep').show();
+	  $elParent.find('.field-dep').show();
     }
 
     switch (fieldValue) {
@@ -1125,8 +1130,13 @@ jQuery(document).ready(function ($) {
     var yesno = confirm('Remove this field?');
     if (yesno) {
       thisField.fadeOut(function () {
-        $(this).remove();
-      });
+		$(this).remove();
+
+		//trigger custom event
+		var event = document.createEvent('Event');
+		event.initEvent('wpmtst_custom_field_deleted', true, true);
+		document.dispatchEvent(event);
+	  });
     }
     // Prevent click from expanding accordion
     e.stopImmediatePropagation();

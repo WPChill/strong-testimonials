@@ -27,9 +27,8 @@
 						<?php do_action( 'wpmtst_after_testimonial_content' ); ?>
 					</div>
 
-					<div class="testimonial-client">
-						<?php wpmtst_the_client(); ?>
-					</div>
+					<?php wpmtst_the_client(); ?>
+
 					<div class="clear"></div>
 
 					<?php do_action( 'wpmtst_after_testimonial' ); ?>

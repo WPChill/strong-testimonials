@@ -35,9 +35,13 @@ ul.radio-list {
 
 .template-description {
   border-radius: 15px;
-  padding: 0 15px;
+  padding: 15px;
 
   p {
-    margin: 15px 0 15px !important;
+    margin: 0px 0 15px !important;
+  }
+
+  label {
+	background: transparent !important;
   }
 }

@@ -18,7 +18,11 @@ $template: modern;
 
   .testimonial-inner {
     padding: 30px;
-    text-align: center;
+	text-align: center;
+
+	& > *:not(:nth-last-child(2)):not(:last-child) {
+		margin-bottom: 5px;
+	}
   }
 
   .testimonial-heading {
@@ -58,9 +62,8 @@ $template: modern;
     bottom: 0;
   }
 
-  .testimonial-client {
+  .testimonial-field {
     clear: both;
-    margin-top: 30px;
     text-align: center;
   }
 

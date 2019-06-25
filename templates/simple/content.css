@@ -94,6 +94,9 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
   padding: 1em;
   text-align: left;
 }
+.strong-view.simple .testimonial-inner > *:not(:nth-last-child(2)):not(:last-child) {
+	margin-bottom: 5px;
+}
 .strong-view.simple .testimonial-heading {
   margin-top: 0;
   margin-bottom: 1em;
@@ -120,9 +123,8 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
   text-decoration: none;
   box-shadow: none;
 }
-.strong-view.simple .testimonial-client {
+.strong-view.simple .testimonial-field {
   clear: both;
-  margin-top: 1em;
 }
 .strong-view.simple .readmore {
   margin-top: 1em;
@@ -243,6 +245,6 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
   float: right;
   margin-left: 1em;
 }
-.strong-view.simple.rtl .testimonial-client {
+.strong-view.simple.rtl .testimonial-field {
   text-align: left;
 }
