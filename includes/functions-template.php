@@ -41,6 +41,9 @@ function wpmtst_the_title( $before = '', $after = '' ) {
 			$after  = '</a>' . $after;
 		}
 
+		$before = apply_filters( 'wpmtst_the_title_before', $before );
+		$after = apply_filters( 'wpmtst_the_title_after', $after );
+
 		the_title( $before, $after );
 
 	}
