@@ -13,12 +13,10 @@
     <div class="options">
         <div>
             <?php if ( ! isset( $template['config']['options'] ) || ! is_array( $template['config']['options'] ) ) : ?>
-                <span><?php _e( 'No options', 'strong-testimonials' ); ?></span>
+				<span><?php esc_html_e( 'No options', 'strong-testimonials' ); ?></span>
             <?php else : ?>
-                <span><?php _e( 'Options', 'strong-testimonials' ); ?></span>
-
                 <?php foreach ( $template['config']['options'] as $option ) : ?>
-                    <span>
+                    <div style="margin-bottom: 10px;">
                     <?php
                     $name = sprintf( 'view[data][template_settings][%s][%s]', $key, $option->name );
                     $id   = $key . '-' . $option->name;
@@ -53,23 +51,24 @@
                                 printf( '<input type="radio" id="%s" name="%s" value="%s" %s>', $id, $name, $value->value, $checked );
                                 printf( '<label for="%s">%s</label>', $id, $value->description );
                             }
-                            break;
+							break;
 
-                        case 'checkbox':
-                            /** This breaks checkboxes: */
-                            //if ( ! isset( $view['template_settings'][ $option->name ] ) ) {
-                            //   $view['template_settings'][ $option->name ] = $option->default;
-                            //}
+						case 'colorpicker':
+							if ( $option->label ) {
+								printf( '<label for="%s">%s</label>', $id, $option->label );
+							}
 
-                            $checked = checked( true, $view['template_settings'][ $key ][ $option->name ], false );
-                            printf( '<input type="checkbox" id="%s" name="%s" value="1" %s>', $id, $name, $checked );
-                            printf( '<label for="%s">%s</label>', $id, $option->label );
-                            break;
+							$value = isset( $view['template_settings'][ $key ][ $option->name ] ) ? $view['template_settings'][ $key ][ $option->name ] : $option->default;
 
-                        default:
+							printf( '<input type="text" class="wp-color-picker-field" data-alpha="true" id="%s" name="%s" value="%s">', $id, $name, $value );
+							break;
+
+						default:
+							do_action( 'wpmtst_views_render_template_option_' . $option->type, $view, $key, $option );
+							break;
                     }
                     ?>
-                    </span>
+                    </div>
                 <?php endforeach; ?>
 
             <?php endif; ?>
