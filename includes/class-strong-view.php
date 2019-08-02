@@ -372,6 +372,10 @@ class Strong_View {
 
 			foreach ( $template_object['config']['options'] as $option ) {
 
+				if( ! isset( $option->values ) ) {
+					continue;
+				}
+
 				if ( isset( $template_settings[ $template_name ][ $option->name ] ) ) {
 
 					foreach ( $option->values as $value ) {
