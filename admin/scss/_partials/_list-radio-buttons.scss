@@ -119,16 +119,10 @@ ul.radio-list {
   // inner div required
   > div {
     display: inline-block;
-    background: #FFF;
-    border-radius: 4px;
-    padding: 10px;
 
-    > span {
-      display: inline-block;
-
-      &:not(:last-child) {
-        margin-right: 6px; // we get 4px from new line in HTML
-      }
+    > div {
+	  display: inline-block;
+	  width: 25%;
     }
   }
 }

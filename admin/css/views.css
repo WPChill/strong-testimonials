@@ -633,13 +633,10 @@ ul.radio-list {
   margin: 0 10px 15px 0; }
   .options > div {
     display: inline-block;
-    background: #FFF;
-    border-radius: 4px;
-    padding: 10px; }
-    .options > div > span {
-      display: inline-block; }
-      .options > div > span:not(:last-child) {
-        margin-right: 6px; }
+	display: flex; }
+    .options > div > div {
+	  display: inline-block;
+	  width: 25%; }
 
 .description-inner {
   margin: 15px 0; }
