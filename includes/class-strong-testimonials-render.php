@@ -655,6 +655,8 @@ class Strong_Testimonials_Render {
 			return array_merge( array( 'view_not_found' => 1 ), $atts );
 		}
 
+		$atts['view'] = apply_filters( 'wpmtst_parse_view_id', $atts['view'] );
+
 		// Fetch the view
 		$view = wpmtst_get_view( $atts['view'] );
 
@@ -667,7 +669,7 @@ class Strong_Testimonials_Render {
 			return array_merge( array( 'view_not_found' => 1 ), $atts );
 		}
 
-		$view_data = unserialize( $view['value'] );
+		$view_data = apply_filters('wpmtst_parse_view_data',  unserialize( $view['value'] ), $atts['view'] );
 
 		/**
 		 * Adjust for defaults.
