@@ -172,14 +172,20 @@ class Strong_Testimonials_Upsell {
 			<div class="wpmtst-alert" style="margin-top: 1.5rem">
 				<?php
 				printf(
-					esc_html__( 'Display testimonials based on their rating by installing the %s extension.', 'strong-testimonials' ),
+					esc_html__( 'With the %s extension you can:', 'strong-testimonials' ),
 					sprintf(
 						'<a href="%s" target="_blank">%s</a>',
 						esc_url( WPMTST_STORE_URL . '/extensions/advanced-views?utm_source=st-lite&utm_campaign=upsell&utm_medium=views-advanced-views-upsell' ),
 						esc_html__( 'Strong Testimonials: Advanced Views', 'strong-testimonials' )
 					)
 				);
+
 				?>
+				<ul>
+					<li><?php esc_html_e( '- display testimonials based on their rating.', 'strong-testimonials' ); ?></li>
+					<li><?php esc_html_e( '- easily define the display order of your testimonial fields.', 'strong-testimonials' ); ?></li>
+					<li><?php esc_html_e( '- customize & edit your template settings in the customizer.', 'strong-testimonials' ); ?></li>
+				</ul>
 				<p>
 					<a class="button" target="_blank" href="<?php echo esc_url( WPMTST_STORE_URL . '/extensions/advanced-views?utm_source=st-lite&utm_campaign=upsell&utm_medium=views-advanced-views-upsell' ); ?>"><?php esc_html_e( 'Learn More', 'strong-testimonials' ); ?></a>
 					<a class="button button-primary" target="_blank" href="<?php echo esc_url( $this->store_upgrade_url . '&utm_medium=views-advanced-views-upsell' ); ?>"><?php esc_html_e( 'Upgrade', 'strong-testimonials' ); ?></a>
@@ -270,31 +276,27 @@ class Strong_Testimonials_Upsell {
 	}
 
 	public function add_upsells_7() {
-		if ( ! defined( 'WPMTST_ADVANCED_VIEWS_VERSION' ) ) :
+		if ( ! defined( 'WPMTST_PRO_TEMPLATES_VERSION' ) ) :
 			?>
 			<div class="wpmtst-alert">
 				<?php
 				printf(
-					esc_html__( 'Easily define the display order of your testimonial fields with the %s extension.', 'strong-testimonials' ),
+					esc_html__( 'Create beautiful testimonial designs with our %s extension.', 'strong-testimonials' ),
 					sprintf(
 						'<a href="%s" target="_blank">%s</a>',
-						esc_url( WPMTST_STORE_URL . '/extensions/advanced-views?utm_source=st-lite&utm_campaign=upsell&utm_medium=form-settings-upsell' ),
-						esc_html__( 'Strong Testimonials: Advanced Views', 'strong-testimonials' )
+						esc_url( WPMTST_STORE_URL . '/extensions/pro-templates?utm_source=st-lite&utm_campaign=upsell&utm_medium=views-template-list' ),
+						esc_html__( 'Strong Testimonials: Pro Templates', 'strong-testimonials' )
 					)
 				);
 				?>
 				<p>
-					<a class="button" target="_blank" href="<?php echo esc_url( WPMTST_STORE_URL . '/extensions/advanced-views?utm_source=st-lite&utm_campaign=upsell&utm_medium=form-settings-upsell' ); ?>"><?php esc_html_e( 'Learn More', 'strong-testimonials' ); ?></a>
-					<a class="button button-primary" target="_blank" href="<?php echo esc_url( $this->store_upgrade_url . '&utm_medium=views-advanced-views-upsell' ); ?>"><?php esc_html_e( 'Upgrade', 'strong-testimonials' ); ?></a>
+					<a class="button" target="_blank" href="<?php echo esc_url( WPMTST_STORE_URL . '/extensions/pro-templates?utm_source=st-lite&utm_campaign=upsell&utm_medium=views-template-list' ); ?>"><?php esc_html_e( 'Learn More', 'strong-testimonials' ); ?></a>
+					<a class="button button-primary" target="_blank" href="<?php echo esc_url( $this->store_upgrade_url . '&utm_medium=views-pro-templates-upsell' ); ?>"><?php esc_html_e( 'Upgrade', 'strong-testimonials' ); ?></a>
 				</p>
 			</div>
 			<?php
 		endif;
 	}
-
-
-
-
 
 }
 
