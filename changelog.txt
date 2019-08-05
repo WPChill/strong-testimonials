@@ -1,3 +1,7 @@
+= 2.39.3 - Aug. 05, 2019 =
+* removed MIME duplicate header information from the mail sent when submitting a new testimonial
+* improved compatibility with Strong Testimonials: Advanced Views and Pro Templates extensions
+
 = 2.39.2 - Jun. 25, 2019 =
 * improved compatibility with Strong Testimonials: Advanced Views extension
 
