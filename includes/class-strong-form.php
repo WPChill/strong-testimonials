@@ -503,8 +503,7 @@ class Strong_Testimonials_Form {
 			}
 
 			// Headers
-			$headers = 'MIME-Version: 1.0' . "\n";
-			$headers .= 'Content-Type: text/plain; charset="' . get_option( 'blog_charset' ) . '"' . "\n";
+			$headers = 'Content-Type: text/plain; charset="' . get_option( 'blog_charset' ) . '"' . "\n";
 			if ( $form_options['sender_name'] ) {
 				$headers .= sprintf( 'From: %s <%s>', $form_options['sender_name'], $sender_email ) . "\n";
 			}
