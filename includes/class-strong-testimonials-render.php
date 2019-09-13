@@ -394,7 +394,7 @@ class Strong_Testimonials_Render {
 
 		foreach ( $all_widgets as $sidebar => $widgets ) {
 			// active widget areas only
-			if ( ! $widgets || 'wp_inactive_widgets' == $sidebar || 'array_version' == $sidebar ) {
+			if ( ! $widgets || empty( $widgets ) || 'wp_inactive_widgets' == $sidebar || 'array_version' == $sidebar ) {
 				continue;
 			}
 
