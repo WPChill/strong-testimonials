@@ -286,7 +286,7 @@ function wpmtst_get_all_rating_fields() {
  * @since 2.29.0
  */
 function wpmtst_get_builtin_fields() {
-	return array(
+	$builtin_fields = array(
 		'post_date' => array(
 			'name'        => 'post_date',
 			'label'       => 'Post Date',
@@ -309,6 +309,19 @@ function wpmtst_get_builtin_fields() {
 			'record_type' => 'builtin',
 		),
 	);
+
+	$options = get_option( 'wpmtst_options' );
+	if ( isset( $options['include_platform'] ) && $options['include_platform'] === true ) {
+		$builtin_fields[] = array(
+			'name'        => 'platform',
+			'label'       => 'Platform',
+			'input_type'  => 'platform',
+			'type'        => 'platform',
+			'record_type' => 'builtin',
+		);
+	}
+
+	return $builtin_fields;
 }
 
 /**
