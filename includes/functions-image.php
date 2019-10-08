@@ -9,8 +9,9 @@
  * @return mixed|string
  */
 function wpmtst_get_thumbnail( $size = null ) {
-	if ( ! WPMST()->atts( 'thumbnail' ) )
+	if ( ! WPMST()->atts( 'thumbnail' ) && ! is_admin() ) {
 		return '';
+	}
 
 	// let arg override view setting
 	$size = ( null === $size ) ? WPMST()->atts( 'thumbnail_size' ) : $size ;
@@ -18,7 +19,7 @@ function wpmtst_get_thumbnail( $size = null ) {
 		$size = array( WPMST()->atts( 'thumbnail_width' ), WPMST()->atts( 'thumbnail_height' ) );
 	}
 
-	$id   = get_the_ID();
+	$id = get_the_ID();
 	$img  = '';
 
 	// check for a featured image
@@ -47,7 +48,7 @@ function wpmtst_get_thumbnail( $size = null ) {
 
 	}
 
-	return apply_filters( 'wpmtst_thumbnail_img', $img, $id );
+	return apply_filters( 'wpmtst_thumbnail_img', $img, $id, $size );
 }
 
 /**
@@ -63,7 +64,7 @@ function wpmtst_get_thumbnail( $size = null ) {
  *
  * @return string
  */
-function wpmtst_thumbnail_img( $img, $post_id ) {
+function wpmtst_thumbnail_img( $img, $post_id, $size ) {
 	if ( WPMST()->atts( 'lightbox' ) ) {
 		$url = wp_get_attachment_url( get_post_thumbnail_id( $post_id ) );
 		if ( $url ) {
@@ -74,7 +75,7 @@ function wpmtst_thumbnail_img( $img, $post_id ) {
 	}
 	return $img;
 }
-add_filter( 'wpmtst_thumbnail_img', 'wpmtst_thumbnail_img', 10, 2 );
+add_filter( 'wpmtst_thumbnail_img', 'wpmtst_thumbnail_img', 10, 3 );
 
 /**
  * Exclude testimonial thumbnails from Lazy Loading Responsive Images plugin.
@@ -166,3 +167,72 @@ function wpmtst_get_avatar( $url, $id_or_email, $args ) {
 
 	return $url;
 }
+
+
+function wpmtst_thumbnail_img_platform( $img, $post_id, $size ) {
+	if ( $img ) {
+		return $img;
+	}
+
+	$platform = get_post_meta( $post_id, 'platform', true );
+	if( ! $platform ) {
+		return $img;
+	}
+
+	$img = apply_filters( 'wpmtst_thumbnail_img_platform_' . $platform, $img, $post_id, $size );
+
+	return $img;
+}
+add_filter( 'wpmtst_thumbnail_img', 'wpmtst_thumbnail_img_platform', 10, 3 );
+
+
+function wpmtst_thumbnail_img_platform_general( $img, $post_id, $size ) {
+
+	$platform_user_photo = get_post_meta( $post_id, 'platform_user_photo', true );
+	if ( ! $platform_user_photo ) {
+		return $img;
+	}
+
+ 	//calculate width & height based on size
+	if ( is_array( $size ) ) {
+		$width  = $size[0];
+		$height = $size[1];
+	} else {
+		$sizes  = wpmtst_get_image_sizes( $size );
+		$width  = $sizes['width'];
+		$height = $sizes['height'];
+	}
+
+	return sprintf( '<img src="%s" %s %s/>', $platform_user_photo, $width ? "width='${width}'" : '', $height ? "height='${height}'" : '' );
+}
+add_filter( 'wpmtst_thumbnail_img_platform_facebook', 'wpmtst_thumbnail_img_platform_general', 10, 3 );
+add_filter( 'wpmtst_thumbnail_img_platform_google', 'wpmtst_thumbnail_img_platform_general', 10, 3 );
+add_filter( 'wpmtst_thumbnail_img_platform_yelp', 'wpmtst_thumbnail_img_platform_general', 10, 3 );
+add_filter( 'wpmtst_thumbnail_img_platform_zomato', 'wpmtst_thumbnail_img_platform_general', 10, 3 );
+
+
+function wpmtst_thumbnail_img_platform_woocommerce( $img, $post_id, $size ) {
+
+	$options = get_option( 'wpmtst_importer_options' );
+	if ( $options['email_field'] === '' ) {
+		return $img;
+	}
+
+	$email = get_post_meta( $post_id, $options['email_field'], true );
+	if ( ! $email ) {
+		return $img;
+	}
+
+	//calculate width & height based on size
+	if ( is_array( $size ) ) {
+		$width  = $size[0];
+		$height = $size[1];
+	} else {
+		$sizes  = wpmtst_get_image_sizes( $size );
+		$width  = $sizes['width'];
+		$height = $sizes['height'];
+	}
+
+	return sprintf( '<img src="%s" %s %s/>', get_avatar_url( $email ), $width ? "width='${width}'" : '', $height ? "height='${height}'" : '' );
+}
+add_filter( 'wpmtst_thumbnail_img_platform_woocommerce', 'wpmtst_thumbnail_img_platform_woocommerce', 10, 3 );
