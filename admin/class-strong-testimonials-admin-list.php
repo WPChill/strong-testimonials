@@ -126,6 +126,11 @@ class Strong_Testimonials_Admin_List {
 
 		$fields_to_add['date'] = __( 'Date', 'strong-testimonials' );
 
+		$options = get_option( 'wpmtst_options' );
+		if ( isset( $options['include_platform'] ) && $options['include_platform'] === true ) {
+			$fields_to_add['platform'] = __( 'Platform', 'strong-testimonials' );
+		}
+
 		// Push other added columns like [search_exclude] to the end.
 		$columns = array_merge(
 			array_slice( $columns, 0, $offset ),
@@ -159,7 +164,7 @@ class Strong_Testimonials_Admin_List {
 				break;
 
 			case 'strong_thumbnail' :
-				echo get_the_post_thumbnail( $post->ID, array( 75, 75 ) );
+				echo wpmtst_get_thumbnail( array( 60, 60 ) );
 				break;
 
 			case 'category' :
@@ -177,6 +182,17 @@ class Strong_Testimonials_Admin_List {
 				if ( current_user_can( 'edit_post', $post->ID ) && ! self::is_column_sorted() && ! self::is_viewing_trash() ) {
 					echo '<div class="handle"><div class="help"></div><div class="help-in-motion"></div></div>';
 				}
+				break;
+
+			case 'platform':
+				$platform = get_post_meta( $post->ID, 'platform', true );
+
+				if ( $platform ) {
+					?>
+						<img title="<?php echo esc_attr( __( 'posted on ', 'strong-testimonials' ) . $platform ); ?>" width="26" height="26" src="<?php esc_attr_e( WPMTST_ASSETS_IMG ); ?>/platform_icons/<?php esc_attr_e( $platform ); ?>.svg"/>
+					<?php
+				}
+
 				break;
 
 			default :
