@@ -497,6 +497,7 @@ function wpmtst_view_field_inputs( $key, $field, $adding = false ) {
 		'date'      => __( 'date', 'strong-testimonials' ),
 		'category'  => __( 'category', 'strong-testimonials' ),
 		'rating'    => __( 'rating', 'strong-testimonials' ),
+		'platform'    => __( 'platform', 'strong-testimonials' ),
 		'shortcode' => __( 'shortcode', 'strong-testimonials' ),
 	);
 
@@ -511,7 +512,7 @@ function wpmtst_view_field_inputs( $key, $field, $adding = false ) {
 	 *
      * @since 2.17.0
 	 */
-	$all_field_names = array_merge( array_keys( $custom_fields), array( 'post_date', 'submit_date', 'category' ) );
+	$all_field_names = array_merge( array_keys( $custom_fields), array( 'post_date', 'submit_date', 'category', 'platform' ) );
 	$label_class = '';
 	if ( ! $adding && ! in_array( $field['field'], $all_field_names ) ) {
 	    $field_label .= ' < ERROR - not found >';

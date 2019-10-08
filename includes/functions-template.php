@@ -428,6 +428,14 @@ function wpmtst_the_custom_field( $field ) {
 				}
 				break;
 
+			case 'platform':
+				$platform = get_post_meta( $post->ID, $field_name, true );
+
+				if( $platform ) {
+					$output = wpmtst_platform_display( $platform );
+				}
+
+				break;
 			default:
 				// text field
 				$output = get_post_meta( $post->ID, $field_name, true );
@@ -608,3 +616,11 @@ if ( ! function_exists( 'wpmtst_single_template_client' ) ) :
 		return $html;
 	}
 endif;
+
+function wpmtst_platform_display( $platform ) {
+	ob_start();
+	?>
+		<img title="<?php echo esc_attr( __( 'posted on ', 'strong-testimonials' ) . $platform ); ?>" width="20" height="20" src="<?php esc_attr_e( WPMTST_ASSETS_IMG ); ?>/platform_icons/<?php esc_attr_e( $platform ); ?>.svg"/>
+	<?php
+	return ob_get_clean();
+}

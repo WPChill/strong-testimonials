@@ -1106,10 +1106,18 @@ jQuery(document).ready(function ($) {
         break;
 
       default:
+
         // Special handling
         if ('rating' === fieldType) {
           typeSelect.val('rating').prop('disabled', true);
           typeSelectParent.append('<input type="hidden" class="save-type" name="view[data][client_section][' + key + '][save-type]" value="rating">');
+          $elParent.find('.field-property-box').empty();
+          break;
+        }
+
+        if ('platform' === fieldType) {
+          typeSelect.val('platform').prop('disabled', true);
+          typeSelectParent.append('<input type="hidden" class="save-type" name="view[data][client_section][' + key + '][save-type]" value="platform">');
           $elParent.find('.field-property-box').empty();
           break;
         }
