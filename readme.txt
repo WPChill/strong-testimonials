@@ -4,7 +4,7 @@ Tags: testimonials, testimonial slider, testimonial form, star ratings
 Requires at least: 4.6
 Requires PHP: 5.6
 Tested up to: 5.2
-Stable tag: 2.39.3
+Stable tag: 2.40
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -50,7 +50,7 @@ The perfect example is with a car review website. Using the Custom Fields extens
 
 = Assignment =
 
-The <a href="https://strongtestimonials.com/pricing/" rel="friend" title="Strong Testimonials">Strong Testimonials Assignment</a> extension helps users assign testimonials to custom post types for easy management and filtering. 
+The <a href="https://strongtestimonials.com/pricing/" rel="friend" title="Strong Testimonials">Strong Testimonials Assignment</a> extension helps users assign testimonials to custom post types for easy management and filtering.
 Example: you have a custom post type called services, using the Assignment extention you could easily assign certain testimonials to the services custom post type as well as others. This is an important tool to have if you offer multiple services or products and would like to display all testimonials you have gathered for one product on your pricing page.
 
 = Multiple Forms =
