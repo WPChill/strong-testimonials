@@ -38,32 +38,32 @@ In just a few steps, you will be collecting and publishing your testimonials or 
 * Developer-friendly (actions, filters, templates)
 
 > <strong>Strong Testimonials Pro</strong><br />
-> This plugin is the lite/free version of the Strong Testimonials Pro plugin that comes with all the testimonials features you will ever need including custom form fields, multiple submission forms, testimonial assigments, custom proprieties, SEO friendly testimonials, and much, much more. <a href="https://strongtestimonials.com/pricing/" rel="friend" title="Strong Testimonials">Click here to purchase the best testimonials plugin now! Get Strong Testimonials Pro!</a>
+> This plugin is the lite/free version of the Strong Testimonials Pro plugin that comes with all the testimonials features you will ever need including custom form fields, multiple submission forms, testimonial assigments, custom proprieties, SEO friendly testimonials, and much, much more. <a href="https://strongtestimonials.com/pricing/" title="Strong Testimonials">Click here to purchase the best testimonials plugin now! Get Strong Testimonials Pro!</a>
 
 ### Strong Testimonials Pro Extensions:
 
 = Custom Fields =
 
-The easiest and clear way to collect testimonials is using the <a href="https://strongtestimonials.com/pricing/" rel="friend" title="Strong Testimonials">Strong Testimonials Premium Custom Fields</a> extension. With this extention you can create and assign custom fields to a testimonial view when you want to add extra fields to your testimonial submission forms. You can also optionally display this alongside testimonials on your website.
+The easiest and clear way to collect testimonials is using the <a href="https://strongtestimonials.com/pricing/" title="Strong Testimonials">Strong Testimonials Premium Custom Fields</a> extension. With this extention you can create and assign custom fields to a testimonial view when you want to add extra fields to your testimonial submission forms. You can also optionally display this alongside testimonials on your website.
 
 The perfect example is with a car review website. Using the Custom Fields extension, you can gather detailed testimonials that include information such as car manufacturer, model, and horsepower.
 
 = Assignment =
 
-The <a href="https://strongtestimonials.com/pricing/" rel="friend" title="Strong Testimonials">Strong Testimonials Assignment</a> extension helps users assign testimonials to custom post types for easy management and filtering.
+The <a href="https://strongtestimonials.com/pricing/" title="Strong Testimonials">Strong Testimonials Assignment</a> extension helps users assign testimonials to custom post types for easy management and filtering.
 Example: you have a custom post type called services, using the Assignment extention you could easily assign certain testimonials to the services custom post type as well as others. This is an important tool to have if you offer multiple services or products and would like to display all testimonials you have gathered for one product on your pricing page.
 
 = Multiple Forms =
 
-With this <a href="https://strongtestimonials.com/pricing/" rel="friend" title="Strong Testimonials">Strong Testimonial Premium</a> add-on, you can now create multiple forms to collect testimonials from your website visitors and customers. You can easily create new forms to gather testimonials for different types of products on your website. There is no limit to the number of forms you can create or use.
+With this <a href="https://strongtestimonials.com/pricing/" title="Strong Testimonials">Strong Testimonial Premium</a> add-on, you can now create multiple forms to collect testimonials from your website visitors and customers. You can easily create new forms to gather testimonials for different types of products on your website. There is no limit to the number of forms you can create or use.
 
 = Country Selector =
 
-Get the <a href="https://strongtestimonials.com/pricing/" rel="friend" title="Strong Testimonials">Strong Testimonials Country Selector</a> and take your testimonials and submission forms above and beyond the traditional, simple forms you may have seen before. This is the perfect way for you to collect specific information about your customers so you can create rich, authentic testimonials that will help increase your conversion rate. You can even pair this with the Custom Fields add-on in order to gather even more useful information.
+Get the <a href="https://strongtestimonials.com/pricing/" title="Strong Testimonials">Strong Testimonials Country Selector</a> and take your testimonials and submission forms above and beyond the traditional, simple forms you may have seen before. This is the perfect way for you to collect specific information about your customers so you can create rich, authentic testimonials that will help increase your conversion rate. You can even pair this with the Custom Fields add-on in order to gather even more useful information.
 
 = Review Markup =
 
-Use <a href="https://strongtestimonials.com/pricing/" rel="friend" title="Strong Testimonials">Strong Testimonials Review Markup</a> if you want to have testimonials that both visitors and search engines can understand. Make your testimonials stand out in search engines thanks to this easy-to-use Schema.org markup extension. Strong Testimonials plus SEO equals a higher CTR and a conversion rate. This is why using any other testimonial plugin for your website just won't cut it.
+Use <a href="https://strongtestimonials.com/pricing/" title="Strong Testimonials">Strong Testimonials Review Markup</a> if you want to have testimonials that both visitors and search engines can understand. Make your testimonials stand out in search engines thanks to this easy-to-use Schema.org markup extension. Strong Testimonials plus SEO equals a higher CTR and a conversion rate. This is why using any other testimonial plugin for your website just won't cut it.
 
 But don't just take our word for it. Let's see what one of our users is saying:
 
@@ -72,16 +72,16 @@ But don't just take our word for it. Let's see what one of our users is saying:
 
 = Properties =
 
-Take advantaged of the incredible <a href="https://strongtestimonials.com/pricing/" rel="friend" title="Strong Testimonials">Strong Testimonials Premium Properties</a> to personalize default testimonial attributes such as labels, permalink structure, icons and more.
+Take advantaged of the incredible <a href="https://strongtestimonials.com/pricing/" title="Strong Testimonials">Strong Testimonials Premium Properties</a> to personalize default testimonial attributes such as labels, permalink structure, icons and more.
 Example: you are not a fan of calling your product reviews testimonials? Then use this extension to replace the default text (testimonials) with another one such as reviews or ratings. There is also the possibility of replacing the quote icon with another one you like - you have over 100 different icons to choose from.
 
 = Advanced Views =
 
-Customize your testimonials further than the default star rating value with the <a href="https://strongtestimonials.com/pricing/" rel="friend" title="Strong Testimonials">Strong Testimonials Premium Advanced Views</a> Extension. With this extension you will have even more features for your views. You can create an unlimited number of views. For example, one view to display your testimonials, another view for the testimonial submission form, another view for a slideshow widget.
+Customize your testimonials further than the default star rating value with the <a href="https://strongtestimonials.com/pricing/" title="Strong Testimonials">Strong Testimonials Premium Advanced Views</a> Extension. With this extension you will have even more features for your views. You can create an unlimited number of views. For example, one view to display your testimonials, another view for the testimonial submission form, another view for a slideshow widget.
 
 = Captcha =
 
-Protection for spam is something all websites need. The <a href="https://strongtestimonials.com/pricing/" rel="friend" title="Strong Testimonials">Strong Testimonials Captcha</a> extension protects and keeps your testimonials spam free. You can add javascript honeypots or Google reCAPTCHA which uses advanced risk analysis techniques to tell humans and bots apart. Using this extension gives you the possibility of choosing from multiple reCAPTCHA versions to better suit your site needs.
+Protection for spam is something all websites need. The <a href="https://strongtestimonials.com/pricing/" title="Strong Testimonials">Strong Testimonials Captcha</a> extension protects and keeps your testimonials spam free. You can add javascript honeypots or Google reCAPTCHA which uses advanced risk analysis techniques to tell humans and bots apart. Using this extension gives you the possibility of choosing from multiple reCAPTCHA versions to better suit your site needs.
 
 ### Style
 
