@@ -360,6 +360,7 @@ class Strong_Testimonials_Admin_Scripts {
 	 */
 	public static function admin_load_post() {
 		if ( wpmtst_is_testimonial_screen() ) {
+			wp_enqueue_style( 'wpmtst-admin-style' );
 			wp_enqueue_style( 'wpmtst-post-editor' );
 			wp_enqueue_script( 'wpmtst-admin-script' );
 

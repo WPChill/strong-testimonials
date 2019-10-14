@@ -19,6 +19,44 @@ class Strong_Testimonials_Upsell {
 		add_action( 'wpmtst_fields_before_fields_editor_preview', array( $this, 'add_upsells_5' ) );
 		add_action( 'wpmtst_after_form_settings', array( $this, 'add_upsells_6' ) );
 		add_action( 'wpmtst_views_after_template_list', array( $this, 'add_upsells_7' ) );
+
+		add_action( 'add_meta_boxes', array( $this, 'add_meta_boxes' ) );
+	}
+
+	public function add_meta_boxes() {
+
+
+		if ( ! defined( 'WPMTST_IMPORTER_VERSION' ) ) {
+			add_meta_box(
+				'wpmtst-importer-upsell',      // Unique ID
+				esc_html__( 'Import', 'strong-testimonials' ),    // Title
+				array( $this, 'output_importer_upsell' ),   // Callback function
+				'wpm-testimonial',         // Admin page (or post type)
+				'side',         // Context
+				'default'         // Priority
+			);
+		}
+
+	}
+
+	public function output_importer_upsell() {
+		?>
+		<div class="wpmtst-alert" style="margin-top:0;padding: 10px;">
+			<h2><?php esc_html_e( 'Want to import testimonials from 3rd party sites?', 'strong-testimonials' ) ?></h2>
+			<p><?php esc_html_e( 'Upgrade to Strong Testimonials Pro to import testimonials from:', 'strong-testimonials' ) ?></p>
+			<ul style="list-style: circle;padding-left: 20px;">
+				<li>Facebook</li>
+				<li>Google</li>
+				<li>Yelp</li>
+				<li>Zomato</li>
+				<li>WooCommerce</li>
+			</ul>
+			<p>
+				<a class="button" target="_blank" href="<?php echo esc_url( WPMTST_STORE_URL . '/extensions/importer?utm_source=st-lite&utm_campaign=upsell&utm_medium=importer-metabox' ); ?>"><?php esc_html_e( 'Learn More', 'strong-testimonials' ); ?></a>
+				<a class="button button-primary" target="_blank" href="<?php echo esc_url( $this->store_upgrade_url . '&utm_medium=importer-metabox' ); ?>"><?php esc_html_e( 'Upgrade', 'strong-testimonials' ); ?></a>
+			</p>
+		</div>
+		<?php
 	}
 
 	public function set_store_upgrade_url() {
