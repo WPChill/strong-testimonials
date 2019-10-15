@@ -14,72 +14,31 @@ Simple yet powerful. Very customizable. Developer-friendly.
 
 In just a few steps, you will be collecting and publishing your testimonials or reviews. Beginners and pros alike will appreciate the wealth of flexible features refined over 4 years from user feedback and requests.
 
-### Primary Features
+= SEE HOW EASY IT IS TO GET STARTED WITH STRONG TESTIMONIALS =
+https://www.youtube.com/watch?v=3nyvRvoxMxY
 
-* No complicated shortcodes
-* A front-end form
-* Custom fields
-* Star ratings
-* Slider & carousel with several navigation options
-* Grids and Masonry
-* Ready for translation with [WPML](https://wpml.org/), [Polylang](https://wordpress.org/plugins/polylang/), and [WPGlobus](https://wordpress.org/plugins/wpglobus/)
-
-### More Features
-
-* Sort by oldest, newest, random, or menu order (drag-and-drop)
-* Categories
-* Excerpts and "Read more" links
-* Featured Images (thumbnails) and Gravatars
-* Pagination
-* Embeds (YouTube, Twitter, Instagram, Facebook)
-* Custom capabilities
-* Developer-friendly (actions, filters, templates)
-
-> <strong>Strong Testimonials Pro</strong><br />
-> This plugin is the lite/free version of the Strong Testimonials Pro plugin that comes with all the testimonials features you will ever need including custom form fields, multiple submission forms, testimonial assigments, custom proprieties, SEO friendly testimonials, and much, much more. <a href="https://strongtestimonials.com/pricing?utm_source=wordpress.org&utm_medium=worg_plugin_page_description&utm_campaign=lite/" title="Strong Testimonials">Click here to purchase the best testimonials plugin now! Get Strong Testimonials Pro!</a>
-
-### Strong Testimonials Pro Extensions:
-
-= Custom Fields =
-
-The easiest and clear way to collect testimonials is using the <a href="https://strongtestimonials.com/pricing?utm_source=wordpress.org&utm_medium=worg_plugin_page_description&utm_campaign=lite/" title="Strong Testimonials">Strong Testimonials Premium Custom Fields</a> extension. With this extention you can create and assign custom fields to a testimonial view when you want to add extra fields to your testimonial submission forms. You can also optionally display this alongside testimonials on your website.
-
-The perfect example is with a car review website. Using the Custom Fields extension, you can gather detailed testimonials that include information such as car manufacturer, model, and horsepower.
-
-= Assignment =
-
-The <a href="https://strongtestimonials.com/pricing?utm_source=wordpress.org&utm_medium=worg_plugin_page_description&utm_campaign=lite/" title="Strong Testimonials">Strong Testimonials Assignment</a> extension helps users assign testimonials to custom post types for easy management and filtering.
-Example: you have a custom post type called services, using the Assignment extention you could easily assign certain testimonials to the services custom post type as well as others. This is an important tool to have if you offer multiple services or products and would like to display all testimonials you have gathered for one product on your pricing page.
-
-= Multiple Forms =
-
-With this <a href="https://strongtestimonials.com/pricing?utm_source=wordpress.org&utm_medium=worg_plugin_page_description&utm_campaign=lite/" title="Strong Testimonials">Strong Testimonial Premium</a> add-on, you can now create multiple forms to collect testimonials from your website visitors and customers. You can easily create new forms to gather testimonials for different types of products on your website. There is no limit to the number of forms you can create or use.
-
-= Country Selector =
-
-Get the <a href="https://strongtestimonials.com/pricing?utm_source=wordpress.org&utm_medium=worg_plugin_page_description&utm_campaign=lite/" title="Strong Testimonials">Strong Testimonials Country Selector</a> and take your testimonials and submission forms above and beyond the traditional, simple forms you may have seen before. This is the perfect way for you to collect specific information about your customers so you can create rich, authentic testimonials that will help increase your conversion rate. You can even pair this with the Custom Fields add-on in order to gather even more useful information.
-
-= Review Markup =
-
-Use <a href="https://strongtestimonials.com/pricing?utm_source=wordpress.org&utm_medium=worg_plugin_page_description&utm_campaign=lite/" title="Strong Testimonials">Strong Testimonials Review Markup</a> if you want to have testimonials that both visitors and search engines can understand. Make your testimonials stand out in search engines thanks to this easy-to-use Schema.org markup extension. Strong Testimonials plus SEO equals a higher CTR and a conversion rate. This is why using any other testimonial plugin for your website just won't cut it.
-
-But don't just take our word for it. Let's see what one of our users is saying:
-
-> I have used various testimonials plugins. What I get here for free is just amazing. The support is great. And updates fresh. Looking at the ability to get reviews indexed by Google is more than enough reason to get an upgrade.<br>
-> Johan Horak - Marketing at CapeHolidays
-
-= Properties =
-
-> Take advantaged of the incredible <a href="https://strongtestimonials.com/pricing?utm_source=wordpress.org&utm_medium=worg_plugin_page_description&utm_campaign=lite/" title="Strong Testimonials">Strong Testimonials Premium Properties</a> to personalize default testimonial attributes such as labels, permalink structure, icons and more.
-Example: you are not a fan of calling your product reviews testimonials? Then use this extension to replace the default text (testimonials) with another one such as reviews or ratings. There is also the possibility of replacing the quote icon with another one you like - you have over 100 different icons to choose from.
-
-= Advanced Views =
-
-Customize your testimonials further than the default star rating value with the <a href="https://strongtestimonials.com/pricing?utm_source=wordpress.org&utm_medium=worg_plugin_page_description&utm_campaign=lite/" title="Strong Testimonials">Strong Testimonials Premium Advanced Views</a> Extension. With this extension you will have even more features for your views. You can create an unlimited number of views. For example, one view to display your testimonials, another view for the testimonial submission form, another view for a slideshow widget.
-
-= Captcha =
-
-Protection for spam is something all websites need. The <a href="https://strongtestimonials.com/pricing?utm_source=wordpress.org&utm_medium=worg_plugin_page_description&utm_campaign=lite/" title="Strong Testimonials">Strong Testimonials Captcha</a> extension protects and keeps your testimonials spam free. You can add javascript honeypots or Google reCAPTCHA which uses advanced risk analysis techniques to tell humans and bots apart. Using this extension gives you the possibility of choosing from multiple reCAPTCHA versions to better suit your site needs.
+> **Premium features only available in Strong Testimonials - Paid version:**
+>
+> * Import reviews from: Facebook, Google My Business, Yelp, Zomato and WooCommerce
+> _With our dedicated 3-rd party importer, you can now automate importing, managing and displaying of your testimonials._
+> * Custom Testimonial Collection Form Fields
+> _The perfect example is with a car review website. Using the Custom Fields extension, you can gather detailed testimonials that include information such as car manufacturer, model, and horsepower._
+> * Multiple Testimonial Collection Forms
+> _You can now create multiple forms to collect testimonials from your website visitors and customers. You can easily create new forms to gather testimonials for different types of products on your website. There is no limit to the number of forms you can create or use._
+> * Schema.org Markup
+> _The extension that will help you get **** in your Google search results for your business._
+> * Advanced Views
+> _ For example, one view to display your testimonials, another view for the testimonial submission form, another view for a slideshow widget._
+> * Properties
+> _You are not a fan of calling your product reviews testimonials? Then use this extension to replace the default text (testimonials) with another one such as reviews or ratings._
+> * Captcha anti-spam form Protection
+> _Protection for spam is something all websites need_
+> * PRO templates
+> _Beautifully designer & pixel perfect templates, ready to use with to showcase your testimonials. Don't loose clients with a poor design._
+> * Priority email support
+> * Support and updates for 12 months.
+>
+>**[Learn more about Strong Testimonials - Paid version .](https://wp-modula.com/pricing?utm_source=wordpress.org&utm_medium=web&utm_campaign=lite)**
 
 ### Style
 
@@ -90,12 +49,6 @@ Some templates have light & dark versions and other options. If you want to cust
 ### Testimonial Submission Form
 
 This plugin provides one form with custom fields. Customize the form by adding or removing fields and changing properties like the order, label, and placeholder.
-
-Anti-spam measures include honeypots and Captcha via these plugins:
-
-* [Google Captcha (reCAPTCHA) by BestWebSoft](https://wordpress.org/plugins/google-captcha/) *recommended*
-* [Captcha Pro](https://bestwebsoft.com/products/wordpress/plugins/captcha/)
-* [Really Simple Captcha](https://wordpress.org/plugins/really-simple-captcha/)
 
 Send custom notification emails to multiple admins.
 
