@@ -33,7 +33,7 @@ class Strong_Testimonials_Upsell {
 				array( $this, 'output_importer_upsell' ),   // Callback function
 				'wpm-testimonial',         // Admin page (or post type)
 				'side',         // Context
-				'default'         // Priority
+				'high'         // Priority
 			);
 		}
 
