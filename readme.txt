@@ -20,21 +20,21 @@ https://www.youtube.com/watch?v=3nyvRvoxMxY
 > **Premium features only available in Strong Testimonials - Paid version:**
 >
 > * Import reviews from: Facebook, Google My Business, Yelp, Zomato and WooCommerce
-> _With our dedicated 3-rd party importer, you can now automate importing, managing and displaying of your testimonials._
+> - _With our dedicated 3-rd party importer, you can now automate importing, managing and displaying of your testimonials._
 > * Custom Testimonial Collection Form Fields
-> _The perfect example is with a car review website. Using the Custom Fields extension, you can gather detailed testimonials that include information such as car manufacturer, model, and horsepower._
+> - _The perfect example is with a car review website. Using the Custom Fields extension, you can gather detailed testimonials that include information such as car manufacturer, model, and horsepower._
 > * Multiple Testimonial Collection Forms
-> _You can now create multiple forms to collect testimonials from your website visitors and customers. You can easily create new forms to gather testimonials for different types of products on your website. There is no limit to the number of forms you can create or use._
+> - _You can now create multiple forms to collect testimonials from your website visitors and customers. You can easily create new forms to gather testimonials for different types of products on your website. There is no limit to the number of forms you can create or use._
 > * Schema.org Markup
-> _The extension that will help you get **** in your Google search results for your business._
+> - _The extension that will help you get **** in your Google search results for your business._
 > * Advanced Views
-> _ For example, one view to display your testimonials, another view for the testimonial submission form, another view for a slideshow widget._
+> - _ For example, one view to display your testimonials, another view for the testimonial submission form, another view for a slideshow widget._
 > * Properties
-> _You are not a fan of calling your product reviews testimonials? Then use this extension to replace the default text (testimonials) with another one such as reviews or ratings._
+> - _You are not a fan of calling your product reviews testimonials? Then use this extension to replace the default text (testimonials) with another one such as reviews or ratings._
 > * Captcha anti-spam form Protection
-> _Protection for spam is something all websites need_
+> - _Protection for spam is something all websites need_
 > * PRO templates
-> _Beautifully designer & pixel perfect templates, ready to use with to showcase your testimonials. Don't loose clients with a poor design._
+> - _Beautifully designed & pixel perfect templates, ready to use with to showcase your testimonials. Don't loose clients with a poor design._
 > * Priority email support
 > * Support and updates for 12 months.
 >
