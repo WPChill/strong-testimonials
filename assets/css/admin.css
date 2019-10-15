@@ -815,12 +815,33 @@ ul.standard {
 }
 
 /* alerts */
+#wpmtst-importer-upsell.postbox .inside {
+  margin: 0;
+  padding: 0;
+}
+
+#wpmtst-importer-upsell .wpmtst-alert {
+  padding: 10px;
+}
+
+#wpmtst-importer-upsell .wpmtst-alert > *:last-child {
+  text-align: center;
+}
+
+#wpmtst-importer-upsell .hndle {
+  display: none;
+}
+
 .wpmtst-alert {
+  padding: 20px;
 	background: #f4daa4;
-	border-radius: 5px;
 	color: #8d6e30;
-	padding: 1rem;
 	position: relative;
+}
+
+.wpmtst-alert ul {
+  list-style: circle;
+  padding-left: 30px;
 }
 
 .wpmtst-alert__upgrade-btn {
@@ -831,5 +852,5 @@ ul.standard {
 }
 
 .wpmtst-alert > *:last-child {
-	margin-bottom: 0px !important;
+margin-bottom: 0 !important;
 }
