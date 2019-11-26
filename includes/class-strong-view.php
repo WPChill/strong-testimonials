@@ -116,6 +116,7 @@ class Strong_View {
 	 */
 	public function add_content_filters() {
 
+
         if ( 'truncated' == $this->get_att( 'content' ) ) {
 
 		    // automatic excerpt
@@ -167,7 +168,7 @@ class Strong_View {
         add_filter( 'wpmtst_get_the_excerpt', 'wpmtst_trim_excerpt' );
 
         if ( ! $this->get_att( 'use_default_length' ) ) {
-			add_filter( 'excerpt_length', array( $this, 'excerpt_length' ) );
+			add_filter( 'excerpt_length', array( $this, 'excerpt_length' ),999 );
 		}
 
 		if ( ! $this->get_att( 'use_default_more' ) ) {
