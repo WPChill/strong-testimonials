@@ -85,7 +85,8 @@ class Strong_Testimonials_Settings_General {
 		$input['nofollow']                = wpmtst_sanitize_checkbox( $input, 'nofollow' );
 		$input['pending_indicator']       = wpmtst_sanitize_checkbox( $input, 'pending_indicator' );
 		$input['remove_whitespace']       = wpmtst_sanitize_checkbox( $input, 'remove_whitespace' );
-		$input['reorder']                 = wpmtst_sanitize_checkbox( $input, 'reorder' );
+       /* @todo : delete commented line. For the moment let it be */
+		/*$input['reorder']                 = wpmtst_sanitize_checkbox( $input, 'reorder' );*/
 		$input['scrolltop']               = wpmtst_sanitize_checkbox( $input, 'scrolltop' );
 		$input['scrolltop_offset']        = (int) sanitize_text_field( $input['scrolltop_offset'] );
 		$input['support_comments']        = wpmtst_sanitize_checkbox( $input, 'support_comments' );
