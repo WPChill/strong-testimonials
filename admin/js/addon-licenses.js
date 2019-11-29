@@ -76,4 +76,88 @@
 
   });
 
+  /**
+   * Prevent copy/inspect license key
+   */
+
+  $(document).on('contextmenu dragstart', function () {
+    return false;
+  });
+
+  /**
+   * Monitor which keys are being pressed
+   */
+  var st_protection_keys = {
+    'alt': false,
+    'shift': false,
+    'meta': false,
+  };
+
+  $(document).on('keydown', function (e) {
+
+    // Alt Key Pressed
+    if (e.altKey) {
+      st_protection_keys.alt = true;
+    }
+
+    // Shift Key Pressed
+    if (e.shiftKey) {
+      st_protection_keys.shift = true;
+    }
+
+    // Meta Key Pressed (e.g. Mac Cmd)
+    if (e.metaKey) {
+      st_protection_keys.meta = true;
+    }
+
+    if (e.ctrlKey && '85' == e.keyCode) {
+      st_protection_keys.ctrl = true;
+    }
+
+
+  });
+  $(document).on('keyup', function (e) {
+
+    // Alt Key Released
+    if (!e.altKey) {
+      st_protection_keys.alt = false;
+    }
+
+    // Shift Key Released
+    if (e.shiftKey) {
+      st_protection_keys.shift = false;
+    }
+
+    // Meta Key Released (e.g. Mac Cmd)
+    if (!e.metaKey) {
+      st_protection_keys.meta = false;
+    }
+
+    if (!e.ctrlKey) {
+      st_protection_keys.ctrl = false;
+    }
+
+  });
+
+  /**
+   * Prevent automatic download when Alt + left click
+   */
+  jQuery(document).on('click', '#strong_testimonials_license_key', function (e) {
+    if (st_protection_keys.alt || st_protection_keys.shift || st_protection_keys.meta || st_protection_keys.ctrl) {
+      // User is trying to download - stop!
+      e.preventDefault();
+      return false;
+    }
+  });
+
+  jQuery(document).on('keydown click',function(e){
+    if (st_protection_keys.ctrl) {
+      // User is trying to view source
+      e.preventDefault();
+      return false;
+    }
+  });
+
 })(jQuery);
+
+
