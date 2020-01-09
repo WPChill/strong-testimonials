@@ -20,7 +20,9 @@
 
 				<?php wpmtst_the_title( '<h5 class="testimonial-heading">', '</h5>' ); ?>
 
-				<div class="testimonial-content">
+				<div <?php
+					$view = new Strong_View_Slideshow( $atts );
+					echo($view->atts['slideshow_settings']['continuous_sliding'] == 1 ) ? esc_attr__('data-infinite-loop=false') : esc_attr__('data-infinite-loop="true"') ; ?> class="testimonial-content">
 					<?php wpmtst_the_thumbnail(); ?>
 					<div class="maybe-clear"></div>
 					<?php wpmtst_the_content(); ?>

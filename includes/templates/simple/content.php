@@ -1,8 +1,7 @@
 <?php
 /**
- * Template Name: Modern
- * Description: A modern template designed for slideshows or single testimonials. Looks great with manual or automatic excerpts.
- * Styles: wpmtst-font-awesome
+ * Template Name: Simple
+ * Description: A simple template.
  */
 ?>
 <?php do_action( 'wpmtst_before_view' ); ?>
@@ -19,19 +18,21 @@
 				<div class="testimonial-inner">
 					<?php do_action( 'wpmtst_before_testimonial' ); ?>
 
-					<div class="testimonial-content">
-						<?php wpmtst_the_title( '<h3 class="testimonial-heading">', '</h3>' ); ?>
+					<?php wpmtst_the_title( '<h3 class="testimonial-heading">', '</h3>' ); ?>
+
+					<div <?php $view = new Strong_View_Slideshow( $atts );
+					echo($view->atts['slideshow_settings']['continuous_sliding'] == 1 ) ? esc_attr__('data-infinite-loop=false') : esc_attr__('data-infinite-loop="true"') ; ?>  class="testimonial-content">
+						<?php wpmtst_the_thumbnail(); ?>
+						<div class="maybe-clear"></div>
 						<?php wpmtst_the_content(); ?>
 						<?php do_action( 'wpmtst_after_testimonial_content' ); ?>
 					</div>
-
-					<?php wpmtst_the_thumbnail(); ?>
 
 					<?php wpmtst_the_client(); ?>
 
 					<div class="clear"></div>
 
-                    <?php do_action( 'wpmtst_after_testimonial' ); ?>
+					<?php do_action( 'wpmtst_after_testimonial' ); ?>
 				</div>
 
 			</div>

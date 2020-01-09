@@ -1,13 +1,12 @@
 <?php
 /**
- * Template Name: Large Widget
- * Description: A big bold widget template. Great for slideshows with excerpts and featured images. Try a solid background color.
- * Force: view-layout-normal
+ * Template Name: Default
+ * Description: The default template.
  */
 ?>
 <?php do_action( 'wpmtst_before_view' ); ?>
 
-<div class="strong-view strong-widget <?php wpmtst_container_class(); ?>"<?php wpmtst_container_data(); ?>>
+<div class="strong-view <?php wpmtst_container_class(); ?>"<?php wpmtst_container_data(); ?>>
 	<?php do_action( 'wpmtst_view_header' ); ?>
 
 	<div class="strong-content <?php wpmtst_content_class(); ?>">
@@ -19,8 +18,13 @@
 			<div class="testimonial-inner">
 				<?php do_action( 'wpmtst_before_testimonial' ); ?>
 
-				<div class="testimonial-content">
+				<?php wpmtst_the_title( '<h3 class="testimonial-heading">', '</h3>' ); ?>
+
+				<div <?php
+					$view = new Strong_View_Slideshow( $atts );
+					echo($view->atts['slideshow_settings']['continuous_sliding'] == 1 ) ? esc_attr__('data-infinite-loop=false') : esc_attr__('data-infinite-loop="true"') ; ?> class="testimonial-content">
 					<?php wpmtst_the_thumbnail(); ?>
+					<div class="maybe-clear"></div>
 					<?php wpmtst_the_content(); ?>
 					<?php do_action( 'wpmtst_after_testimonial_content' ); ?>
 				</div>

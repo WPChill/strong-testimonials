@@ -248,3 +248,6 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
 .strong-view.simple.rtl .testimonial-field {
   text-align: left;
 }
+.disabled {
+  display : none;
+}

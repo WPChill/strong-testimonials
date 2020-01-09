@@ -414,6 +414,7 @@ function wpmtst_sanitize_view_slideshow( $in ) {
 	$out['pause']              = floatval( sanitize_text_field( $in['pause'] ) );
 	$out['speed']              = floatval( sanitize_text_field( $in['speed'] ) );
 	$out['auto_hover']         = isset( $in['auto_hover'] ) ? 1 : 0;
+	$out['continuous_sliding'] = isset( $in['continuous_sliding'] ) ? 1 : 0;
 	$out['stop_auto_on_click'] = isset( $in['stop_auto_on_click'] ) ? 1 : 0;
 
 	if ( 'dynamic' == $in['height'] ) {
