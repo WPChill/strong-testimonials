@@ -164,7 +164,7 @@ class Strong_Testimonials_Post_Editor {
 		printf(
 			'<textarea id="%1$s" name="custom[%1$s]" class="custom-input">%2$s</textarea>',
 			esc_attr( $field['name'] ),
-			esc_attr( $post->{$field['name']} )
+			wp_kses_post( $post->{$field['name']} )
 		);
 	}
 
@@ -281,6 +281,8 @@ class Strong_Testimonials_Post_Editor {
 			return;
 		}
 
+		$post_id = absint( $_POST['post_ID'] );
+
 		$custom = $_POST['custom'];
 
 		$custom_fields = wpmtst_get_custom_fields();
@@ -300,6 +302,7 @@ class Strong_Testimonials_Post_Editor {
 		// Similar to wpmtst_ajax_edit_rating() in admin-ajax.php.
 		foreach ( $custom as $key => $value ) {
 		    $action = 'update';
+		    $sanitized_value = '';
 
 		    if ( isset( $custom_fields[ $key ] ) ) {
 				if ( 'rating' == $custom_fields[ $key ]['input_type'] && !$value ) {
@@ -307,13 +310,24 @@ class Strong_Testimonials_Post_Editor {
 				}
 			}
 
+			// Data Sanitization
+			if ( 'text' == $custom_fields[ $key ]['input_type'] ) {
+				$sanitized_value = wp_filter_post_kses( $value );
+			}elseif ( 'email' == $custom_fields[ $key ]['input_type'] ) {
+				$sanitized_value = sanitize_email( $value );
+			}elseif ( 'url' == $custom_fields[ $key ]['input_type'] ) {
+				$sanitized_value = sanitize_text_field( $value );
+			}else{
+				$sanitized_value = sanitize_text_field( $value );
+			}
+
 			if ( 'update' == $action ) {
 				// empty values replace existing values
-				update_post_meta( $_POST['post_ID'], $key, stripslashes( $value ) );
+				update_post_meta( $post_id, $key, $sanitized_value );
 			}
 			else {
 				// delete value; e.g. zero rating
-				delete_post_meta( $_POST['post_ID'], $key );
+				delete_post_meta( $post_id, $key );
 			}
 		}
 	}
