@@ -38,7 +38,7 @@ https://www.youtube.com/watch?v=3nyvRvoxMxY
 > * Priority email support
 > * Support and updates for 12 months.
 >
->**[Learn more about Strong Testimonials - Paid version .](https://wp-modula.com/pricing?utm_source=wordpress.org&utm_medium=web&utm_campaign=lite)**
+>**[Learn more about Strong Testimonials - Paid version .](https://strongtestimonials.com)**
 
 ### Style
 
