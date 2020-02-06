@@ -26,40 +26,40 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
 
 /* Base
 -----------------------------------------------*/
-.strong-view.bold {
+.strong-view.strong-bold {
   display: block;
   width: 100%;
 }
-.strong-view.bold div {
+.strong-view.strong-bold div {
   box-sizing: border-box;
 }
-.strong-view.bold .testimonial {
+.strong-view.strong-bold .testimonial {
   max-height: none;
   max-width: none;
   padding: 0;
   width: 100%;
 }
-.strong-view.bold .testimonial.t-slide {
+.strong-view.strong-bold .testimonial.t-slide {
   margin-top: 0;
   margin-bottom: 0;
 }
-.strong-view.bold .testimonial-inner {
+.strong-view.strong-bold .testimonial-inner {
   display: block;
   width: 100%;
   height: 100%;
 }
-.strong-view.bold .testimonial-image {
+.strong-view.strong-bold .testimonial-image {
   max-width: 100%;
 }
-.strong-view.bold .testimonial-field-before {
+.strong-view.strong-bold .testimonial-field-before {
   margin-right: 0.5em;
 }
-.strong-view.bold a.readmore,
-.strong-view.bold a.readmore-toggle {
+.strong-view.strong-bold a.readmore,
+.strong-view.strong-bold a.readmore-toggle {
   white-space: nowrap;
   z-index: 100;
 }
-.strong-view.bold a.readmore-toggle:hover {
+.strong-view.strong-bold a.readmore-toggle:hover {
   cursor: pointer;
 }
 
@@ -75,65 +75,65 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
   word-wrap: normal !important;
 }
 
-.strong-view.bold {
+.strong-view.strong-bold {
   margin-bottom: 1em;
 }
-.strong-view.bold .testimonial {
+.strong-view.strong-bold .testimonial {
   margin-bottom: 1em;
   text-align: center;
 }
-.strong-view.bold .testimonial:first-child {
+.strong-view.strong-bold .testimonial:first-child {
   margin-top: 0;
 }
-.strong-view.bold .testimonial:last-child {
+.strong-view.strong-bold .testimonial:last-child {
   margin-bottom: 0;
 }
-.strong-view.bold .testimonial-inner {
+.strong-view.strong-bold .testimonial-inner {
   padding: 20px;
   border-radius: 3px;
 }
-.strong-view.bold .testimonial-inner > *:not(:nth-last-child(2)):not(:last-child) {
+.strong-view.strong-bold .testimonial-inner > *:not(:nth-last-child(2)):not(:last-child) {
 	margin-bottom: 5px;
 }
-.strong-view.bold .testimonial-content {
+.strong-view.strong-bold .testimonial-content {
   background: inherit;
   font-size: 2em;
   line-height: 1.3;
   padding: 0;
 }
-.strong-view.bold .testimonial-content p:first-of-type {
+.strong-view.strong-bold .testimonial-content p:first-of-type {
   margin-top: 0;
   padding-top: 0;
 }
-.strong-view.bold .testimonial-content p:last-of-type {
+.strong-view.strong-bold .testimonial-content p:last-of-type {
   margin-bottom: 0;
   padding-bottom: 0;
 }
-.strong-view.bold .testimonial-image {
+.strong-view.strong-bold .testimonial-image {
   margin: 0 auto 20px;
 }
-.strong-view.bold .testimonial-image img {
+.strong-view.strong-bold .testimonial-image img {
   border-radius: 3px;
   box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.4);
 }
-.strong-view.bold .testimonial-image a {
+.strong-view.strong-bold .testimonial-image a {
   text-decoration: none;
   box-shadow: none;
 }
-.strong-view.bold .testimonial-field {
+.strong-view.strong-bold .testimonial-field {
   font-size: 1.2em;
 }
-.strong-view.bold .testimonial-name {
+.strong-view.strong-bold .testimonial-name {
   font-weight: 700;
 }
-.strong-view.bold .readmore a {
+.strong-view.strong-bold .readmore a {
   background: rgba(255, 255, 255, 0.3);
   border-radius: 3px;
   font-size: 1.2em;
   padding: 0.5em;
   display: block;
 }
-.strong-view.bold .readmore-page {
+.strong-view.strong-bold .readmore-page {
   font-size: 1.2em;
   border-radius: 3px;
   padding: 1em;
@@ -144,7 +144,7 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
 -----------------------------------------------*/
 /* Simple pagination
 -----------------------------------------------*/
-.strong-view.bold.strong-pager {
+.strong-view.strong-bold.strong-pager {
   display: none;
 }
 
@@ -217,16 +217,16 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
 
 /* Slideshow
 -----------------------------------------------*/
-.strong-view.bold.slider-container .strong-content {
+.strong-view.strong-bold.slider-container .strong-content {
   margin: 0 auto;
 }
-.strong-view.bold.slider-container .testimonial:not(:first-child) {
+.strong-view.strong-bold.slider-container .testimonial:not(:first-child) {
   display: none;
 }
-.strong-view.bold.nav-position-inside .testimonial-inner {
+.strong-view.strong-bold.nav-position-inside .testimonial-inner {
   padding-bottom: 60px;
 }
-.strong-view.bold.controls-type-sides .testimonial-inner {
+.strong-view.strong-bold.controls-type-sides .testimonial-inner {
   padding-left: 50px;
   padding-right: 50px;
 }
@@ -234,7 +234,7 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
 /* Responsive
 -----------------------------------------------*/
 @media only screen and (max-width: 640px) {
-  .strong-view.bold .testimonial-content {
+  .strong-view.strong-bold .testimonial-content {
     font-size: 1.5em;
     line-height: 1.2;
   }

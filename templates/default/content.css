@@ -26,40 +26,40 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
 
 /* Base
 -----------------------------------------------*/
-.strong-view.default {
+.strong-view.strong-default {
   display: block;
   width: 100%;
 }
-.strong-view.default div {
+.strong-view.strong-default div {
   box-sizing: border-box;
 }
-.strong-view.default .testimonial {
+.strong-view.strong-default .testimonial {
   max-height: none;
   max-width: none;
   padding: 0;
   width: 100%;
 }
-.strong-view.default .testimonial.t-slide {
+.strong-view.strong-default .testimonial.t-slide {
   margin-top: 0;
   margin-bottom: 0;
 }
-.strong-view.default .testimonial-inner {
+.strong-view.strong-default .testimonial-inner {
   display: block;
   width: 100%;
   height: 100%;
 }
-.strong-view.default .testimonial-image {
+.strong-view.strong-default .testimonial-image {
   max-width: 100%;
 }
-.strong-view.default .testimonial-field-before {
+.strong-view.strong-default .testimonial-field-before {
   margin-right: 0.5em;
 }
-.strong-view.default a.readmore,
-.strong-view.default a.readmore-toggle {
+.strong-view.strong-default a.readmore,
+.strong-view.strong-default a.readmore-toggle {
   white-space: nowrap;
   z-index: 100;
 }
-.strong-view.default a.readmore-toggle:hover {
+.strong-view.strong-default a.readmore-toggle:hover {
   cursor: pointer;
 }
 
@@ -77,71 +77,71 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
 
 /* Template
 -----------------------------------------------*/
-.strong-view.default .strong-content {
+.strong-view.strong-default .strong-content {
   margin: 20px auto 0;
 }
-.strong-view.default .testimonial {
+.strong-view.strong-default .testimonial {
   border: 1px solid #E6E6E6;
   margin: 20px auto;
   text-align: left;
 }
-.strong-view.default .testimonial:first-child {
+.strong-view.strong-default .testimonial:first-child {
   margin-top: 0;
 }
-.strong-view.default .testimonial:last-child {
+.strong-view.strong-default .testimonial:last-child {
   margin-bottom: 0;
 }
-.strong-view.default .testimonial-inner {
+.strong-view.strong-default .testimonial-inner {
   border: 1px solid #FFFFFF;
   padding: 20px;
   text-align: left;
 }
-.strong-view.default .testimonial-inner > *:not(:nth-last-child(2)):not(:last-child) {
+.strong-view.strong-default .testimonial-inner > *:not(:nth-last-child(2)):not(:last-child) {
 	margin-bottom: 5px;
 }
-.strong-view.default .testimonial-heading {
+.strong-view.strong-default .testimonial-heading {
   background: url("img/quotes.png") no-repeat scroll left center transparent;
   margin-top: 0;
   padding-left: 40px;
   text-align: left;
 }
-.strong-view.default .testimonial-content p:first-of-type {
+.strong-view.strong-default .testimonial-content p:first-of-type {
   margin-top: 0;
   padding-top: 0;
 }
-.strong-view.default .testimonial-content p:last-of-type {
+.strong-view.strong-default .testimonial-content p:last-of-type {
   margin-bottom: 0;
   padding-bottom: 0;
 }
-.strong-view.default .testimonial-image {
+.strong-view.strong-default .testimonial-image {
   margin-top: 0.25em;
   margin-right: 1em;
   margin-bottom: 0.25em;
   float: left;
 }
-.strong-view.default .testimonial-image img {
+.strong-view.strong-default .testimonial-image img {
   background: none repeat scroll 0 0 #FFFFFF;
   border: 1px solid #EFEFEF;
   padding: 6px;
   margin: 0 auto;
 }
-.strong-view.default .testimonial-image a {
+.strong-view.strong-default .testimonial-image a {
   text-decoration: none;
   box-shadow: none;
 }
-.strong-view.default .testimonial-field {
+.strong-view.strong-default .testimonial-field {
   text-align: right;
 }
-.strong-view.default .testimonial-name {
+.strong-view.strong-default .testimonial-name {
   font-weight: bold;
 }
-.strong-view.default .readmore {
+.strong-view.strong-default .readmore {
   margin-top: 1em;
 }
-.strong-view.default .strong-view-footer {
+.strong-view.strong-default .strong-view-footer {
   margin-bottom: 20px;
 }
-.strong-view.default .readmore-page {
+.strong-view.strong-default .readmore-page {
   margin-top: 20px;
   padding: 1em;
   text-align: center;
@@ -152,7 +152,7 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
 -----------------------------------------------*/
 /* Simple pagination
 -----------------------------------------------*/
-.strong-view.default.strong-pager {
+.strong-view.strong-default.strong-pager {
   display: none;
 }
 
@@ -225,29 +225,29 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
 
 /* Slideshow
 -----------------------------------------------*/
-.strong-view.default.slider-container {
+.strong-view.strong-default.slider-container {
   /* If vertical or fade slideshow, move border from individual testimonials to viewport. */
 }
-.strong-view.default.slider-container.slider-adaptive:not(.slider-mode-horizontal) .wpmslider-viewport {
+.strong-view.strong-default.slider-container.slider-adaptive:not(.slider-mode-horizontal) .wpmslider-viewport {
   border: 1px solid #E6E6E6;
 }
-.strong-view.default.slider-container.slider-adaptive:not(.slider-mode-horizontal) .testimonial {
+.strong-view.strong-default.slider-container.slider-adaptive:not(.slider-mode-horizontal) .testimonial {
   border: 0;
 }
-.strong-view.default.slider-container .strong-content {
+.strong-view.strong-default.slider-container .strong-content {
   margin: 0 auto;
 }
-.strong-view.default.slider-container .testimonial:not(:first-child) {
+.strong-view.strong-default.slider-container .testimonial:not(:first-child) {
   display: none;
 }
-.strong-view.default.nav-position-inside .testimonial-inner {
+.strong-view.strong-default.nav-position-inside .testimonial-inner {
   padding-bottom: 48px;
 }
-.strong-view.default.controls-type-sides .testimonial-inner {
+.strong-view.strong-default.controls-type-sides .testimonial-inner {
   padding-left: 50px;
   padding-right: 50px;
 }
-.strong-view.default.slider-stretch .testimonial-inner {
+.strong-view.strong-default.slider-stretch .testimonial-inner {
   /* to force same height for all slides */
   height: 100%;
 }
@@ -255,7 +255,7 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
 /* Responsive
 -----------------------------------------------*/
 @media only screen and (max-width: 320px) {
-  .strong-view.default .testimonial-image {
+  .strong-view.strong-default .testimonial-image {
     float: none;
     margin-left: auto;
     margin-right: auto;
@@ -263,75 +263,75 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
 }
 /* Remove quote background image */
 @media only screen and (max-width: 320px) and (orientation: portrait) {
-  .strong-view.default .testimonial-heading {
+  .strong-view.strong-default .testimonial-heading {
     background: none;
     padding-left: 0;
   }
 }
 /* RTL
 -----------------------------------------------*/
-.strong-view.default.rtl .testimonial,
-.strong-view.default.rtl .testimonial-inner,
-.strong-view.default.rtl .testimonial-heading {
+.strong-view.strong-default.rtl .testimonial,
+.strong-view.strong-default.rtl .testimonial-inner,
+.strong-view.strong-default.rtl .testimonial-heading {
   text-align: right;
 }
-.strong-view.default.rtl .testimonial-image {
+.strong-view.strong-default.rtl .testimonial-image {
   float: right;
   margin-left: 1em;
 }
-.strong-view.default.rtl .testimonial-field {
+.strong-view.strong-default.rtl .testimonial-field {
   text-align: left;
 }
 
-.strong-view.default.rtl .testimonial-heading {
+.strong-view.strong-default.rtl .testimonial-heading {
   padding-right: 40px;
   background-position: right;
 }
 
 /* Option: Image Right
 -----------------------------------------------*/
-.strong-view.default.image-right .testimonial-image {
+.strong-view.strong-default.image-right .testimonial-image {
   float: right;
   margin-top: .25em;
   margin-bottom: 0.25em;
   margin-left: 1em;
 }
-.strong-view.default.image-right .testimonial-field {
+.strong-view.strong-default.image-right .testimonial-field {
   text-align: left;
 }
 
-.strong-view.default.image-right.rtl .testimonial-image {
+.strong-view.strong-default.image-right.rtl .testimonial-image {
   float: left;
   margin-left: 0;
   margin-right: 1em;
 }
-.strong-view.default.image-right.rtl .testimonial-field {
+.strong-view.strong-default.image-right.rtl .testimonial-field {
   text-align: right;
 }
 
 /* Option: No Quotes
 -----------------------------------------------*/
-.strong-view.default.no-quotes .testimonial-heading {
+.strong-view.strong-default.no-quotes .testimonial-heading {
   background: none;
   padding-left: 0;
 }
 
 /* Option: Dark Theme
 -----------------------------------------------*/
-.strong-view.default.dark .testimonial {
+.strong-view.strong-default.dark .testimonial {
   border: 1px solid #777;
 }
-.strong-view.default.dark .testimonial-inner {
+.strong-view.strong-default.dark .testimonial-inner {
   border: 1px solid #333;
 }
-.strong-view.default.dark .readmore-page {
+.strong-view.strong-default.dark .readmore-page {
   border: 2px solid #777;
 }
-.strong-view.default.dark ul.simplePagerNav li a:hover {
+.strong-view.strong-default.dark ul.simplePagerNav li a:hover {
   background: #777;
   color: #FFF;
 }
-.strong-view.default.dark ul.simplePagerNav li.currentPage a {
+.strong-view.strong-default.dark ul.simplePagerNav li.currentPage a {
   background: #555;
   color: #FFF;
 }
