@@ -117,6 +117,36 @@ Activate the plugin. Look for "Testimonials" in the admin menu.
 
 == Frequently Asked Questions ==
 
+= How to Add the Form ? = 
+
+1. Check the custom fields. The default set of fields are designed to suit most situations. Add or remove fields as you see fit.
+
+2. Create a view. Select Form mode.
+
+3. Add the view to a page or sidebar using its unique shortcode or the Strong Testimonials widget.
+
+= How to Display Your Testimonials ? =
+
+1. Enter your testimonials if necessary. The plugin will not read existing testimonials from another plugin or theme. It will not import testimonials.
+
+2. Create a view. Select Display mode.
+
+3. Add the view to a page or sidebar using its unique shortcode or the Strong Testimonials widget.
+
+= How to Add a Slideshow ? =
+
+1. Enter your testimonials if necessary. The plugin will not read existing testimonials from another plugin or theme. It will not import testimonials.
+
+2. Create a view. Select Slideshow mode.
+
+3. Add the view to a page or sidebar using its unique shortcode or the Strong Testimonials widget.
+
+= How to Translate ? =
+
+Strong Testimonials is compatible with WPML, Polylang and WP Globus.
+
+In WPML and Polylang, domains are added to the String Translation pages. Those domains encompass the form fields, the form messages, the notification email, and the "Read more" link text in your views. They are updated automatically when any of those settings change.
+
 = What are the shortcodes? =
 
 [testimonial_view] - To display your testimonials as a list or a slideshow, or to display the form. The first step is to create a **view** which manages all the options in an easy-to-use (some call it fun!) editor.
