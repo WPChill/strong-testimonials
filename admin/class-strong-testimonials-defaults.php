@@ -32,6 +32,7 @@ class Strong_Testimonials_Defaults {
 			'embed_width'             => '',
 			'load_font_awesome'       => true,
 			'nofollow'                => false,
+            'disable_rewrite'         => false,
 			'pending_indicator'       => true,
 			'remove_whitespace'       => true,
 			'reorder'                 => false,

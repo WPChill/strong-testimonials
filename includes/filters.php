@@ -168,3 +168,20 @@ function wpmtst_change_testimonial_slug( $args ) {
 
 	return $args;
 }
+
+
+/**
+ * Disable custom post url
+ */
+add_filter( 'wpmtst_post_type', 'wpmtst_disable_permalink',999 );
+function wpmtst_disable_permalink( $args ) {
+
+    $options = get_option( 'wpmtst_options' );
+
+    if ( isset( $options['disable_rewrite'] ) && '1' == $options['disable_rewrite'] ) {
+        $args['rewrite'] = false;
+        $args['public'] = false;
+    }
+
+    return $args;
+}

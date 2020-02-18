@@ -32,13 +32,14 @@ function strong_testimonials_view( $id = null ) {
  * @param string $after
  */
 function wpmtst_the_title( $before = '', $after = '' ) {
-    $title = get_the_title();
+    $title   = get_the_title();
+    $options = get_option( 'wpmtst_options' );
 
     if ( WPMST()->atts( 'title' ) && $title ) {
 
-        if ( 'none' != WPMST()->atts( 'title_link' ) && '0' != WPMST()->atts( 'title_link' ) ) {
+        if ('none' != WPMST()->atts( 'title_link' ) && '0' != WPMST()->atts( 'title_link' ) ) {
 
-            if ( 'wpmtst_testimonial' == WPMST()->atts( 'title_link' ) || '1' == WPMST()->atts( 'title_link' ) ) {
+            if ( (!$options['disable_rewrite'] || '1' != $options['disable_rewrite']) && ('wpmtst_testimonial' == WPMST()->atts( 'title_link' ) || '1' == WPMST()->atts( 'title_link' )) ) {
                 $before .= '<a href="' . esc_url( get_permalink() ) . '" rel="bookmark">';
                 $after  = '</a>' . $after;
             } else {
