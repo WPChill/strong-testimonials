@@ -84,7 +84,7 @@ function wpmtst_sanitize_view( $input ) {
 	$data['pagination_settings'] = wpmtst_sanitize_view_pagination( $input['pagination_settings'] );
 
 	$data['title']              = isset( $input['title'] ) ? 1 : 0;
-	$data['title_link']         = isset( $input['title_link'] ) ? 1 : 0;
+    $data['title_link']         = sanitize_text_field( $input['title_link'] );
 
 	$data['content']            = sanitize_text_field( $input['content'] );
 	$data['excerpt_length']     = (int) sanitize_text_field( $input['excerpt_length'] );

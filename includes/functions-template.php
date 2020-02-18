@@ -32,21 +32,29 @@ function strong_testimonials_view( $id = null ) {
  * @param string $after
  */
 function wpmtst_the_title( $before = '', $after = '' ) {
-	$title = get_the_title();
+    $title = get_the_title();
 
-	if ( WPMST()->atts( 'title' ) && $title ) {
+    if ( WPMST()->atts( 'title' ) && $title ) {
 
-		if ( WPMST()->atts( 'title_link' ) ) {
-			$before .= '<a href="' . esc_url( get_permalink() ) . '" rel="bookmark">';
-			$after  = '</a>' . $after;
-		}
+        if ( 'none' != WPMST()->atts( 'title_link' ) && '0' != WPMST()->atts( 'title_link' ) ) {
 
-		$before = apply_filters( 'wpmtst_the_title_before', $before );
-		$after = apply_filters( 'wpmtst_the_title_after', $after );
+            if ( 'wpmtst_testimonial' == WPMST()->atts( 'title_link' ) || '1' == WPMST()->atts( 'title_link' ) ) {
+                $before .= '<a href="' . esc_url( get_permalink() ) . '" rel="bookmark">';
+                $after  = '</a>' . $after;
+            } else {
+                $id           = get_the_ID();
+                $url_field    = WPMST()->atts( 'title_link' );
+                $external_url = get_post_meta( $id, $url_field, true );
+                $before       .= '<a href="' . esc_url( $external_url ) . '" rel="bookmark" target="_blank">';
+                $after        = '</a>' . $after;
+            }
+        }
+    }
 
-		the_title( $before, $after );
+    $before = apply_filters( 'wpmtst_the_title_before', $before );
+    $after  = apply_filters( 'wpmtst_the_title_after', $after );
 
-	}
+    the_title( $before, $after );
 }
 
 /**

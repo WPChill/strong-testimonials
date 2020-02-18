@@ -42,3 +42,7 @@
 .wpmtst-tooltip:hover .wpmtst-tooltip-content {
 	display: block;
 }
+
+.wpmtst-inline-block {
+	display:inline-block;
+}

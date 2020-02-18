@@ -779,7 +779,7 @@ class Strong_Testimonials_Defaults {
 			'thumbnail_height'    => null,
 			'thumbnail_width'     => null,
 			'title'               => true,
-			'title_link'          => false,
+			'title_link'          => 'none',
 			'use_default_length'  => true,
 			'use_default_more'    => false,
 			'view'                => '',
