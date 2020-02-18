@@ -46,8 +46,11 @@ function wpmtst_the_title( $before = '', $after = '' ) {
                 $id           = get_the_ID();
                 $url_field    = WPMST()->atts( 'title_link' );
                 $external_url = get_post_meta( $id, $url_field, true );
-                $before       .= '<a href="' . esc_url( $external_url ) . '" rel="bookmark" target="_blank">';
-                $after        = '</a>' . $after;
+
+                if('' != $external_url){
+                    $before       .= '<a href="' . esc_url( $external_url ) . '" rel="bookmark" target="_blank">';
+                    $after        = '</a>' . $after;
+                }
             }
         }
     }
