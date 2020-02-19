@@ -40,13 +40,6 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
   width: 100%;
 }
 
-
-
-.strong-view .wpmslider-wrapper .wpmslider-viewport .strong-content .testimonial:first-child ~ .wpmslider-controls { 
-  display: none;
-}
-
-
 .strong-view.modern .testimonial.t-slide {
   margin-top: 0;
   margin-bottom: 0;
