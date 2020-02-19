@@ -17,7 +17,7 @@
 	<div class="row">
 		<div class="inline inline-middle">
 			<input type="checkbox" id="view-continuous_sliding" name="view[data][slideshow_settings][continuous_sliding]" value="0"
-				<?php var_dump( $view['slideshow_settings'] ); checked(  $view['slideshow_settings']['continuous_sliding'] ); ?> class="checkbox">
+				<?php  checked(  $view['slideshow_settings']['continuous_sliding'] ); ?> class="checkbox">
 			<label for="view-continuous_sliding">
 				<?php _ex( 'Continuous Sliding', 'slideshow setting', 'strong-testimonials' ); ?>
 			</label>
