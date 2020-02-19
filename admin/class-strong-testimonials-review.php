@@ -127,7 +127,7 @@ class Strong_Review {
 					}
 
 					var data = {
-						action: 'strong-testimonials_modula_review',
+						action: 'strong-testimonials_review',
 						security: '<?php echo $ajax_nonce; ?>',
 						check: id
 					};
