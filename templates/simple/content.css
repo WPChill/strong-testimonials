@@ -249,5 +249,5 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
   text-align: left;
 }
 .disabled {
-  display : none;
+  display : none!important;
 }
