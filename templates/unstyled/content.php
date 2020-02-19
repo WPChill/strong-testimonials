@@ -3,8 +3,11 @@
  * Template Name: Unstyled
  * Description: A completely unstyled template for CSS experts.
  */
+
+$continuous_slide = ( isset( $atts['slideshow_settings']['continuous_sliding'] ) && '1' == $atts['slideshow_settings']['continuous_sliding'] ) ? 'true' : 'false';
+
+do_action( 'wpmtst_before_view' );
 ?>
-<?php do_action( 'wpmtst_before_view' ); ?>
 
 <div class="strong-view <?php wpmtst_container_class(); ?>"<?php wpmtst_container_data(); ?>>
 	<?php do_action( 'wpmtst_view_header' ); ?>
@@ -20,7 +23,7 @@
 
 					<?php wpmtst_the_title( '<h3 class="testimonial-heading">', '</h3>' ); ?>
 
-					<div class="testimonial-content">
+					<div <?php echo ('slideshow' == $atts['mode']) ? 'data-infinite-loop="'.esc_attr($continuous_slide).'"' : ''; ?> class="testimonial-content">
 						<?php wpmtst_the_thumbnail(); ?>
 						<div class="maybe-clear"></div>
 						<?php wpmtst_the_content(); ?>

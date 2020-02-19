@@ -39,6 +39,7 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
   padding: 0;
   width: 100%;
 }
+
 .strong-view.modern .testimonial.t-slide {
   margin-top: 0;
   margin-bottom: 0;
@@ -318,4 +319,9 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
   .strong-view.modern .testimonial-name {
     font-size: 1.1em;
   }
+}
+
+
+.disabled { 
+  display: none!important;
 }

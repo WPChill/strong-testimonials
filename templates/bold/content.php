@@ -4,8 +4,10 @@
  * Description: A big bold widget template. Great for slideshows with excerpts and featured images. Try a solid background color.
  * Force: view-layout-normal
  */
-?>
-<?php do_action( 'wpmtst_before_view' ); ?>
+
+$continuous_slide = ( isset( $atts['slideshow_settings']['continuous_sliding'] ) && '1' == $atts['slideshow_settings']['continuous_sliding'] ) ? 'true' : 'false';
+
+ do_action( 'wpmtst_before_view' ); ?>
 
 <div class="strong-view strong-widget <?php wpmtst_container_class(); ?>"<?php wpmtst_container_data(); ?>>
 	<?php do_action( 'wpmtst_view_header' ); ?>
@@ -19,7 +21,7 @@
 			<div class="testimonial-inner">
 				<?php do_action( 'wpmtst_before_testimonial' ); ?>
 
-				<div class="testimonial-content">
+				<div <?php echo ('slideshow' == $atts['mode']) ? 'data-infinite-loop="'.esc_attr($continuous_slide).'"' : ''; ?>  class="testimonial-content">
 					<?php wpmtst_the_thumbnail(); ?>
 					<?php wpmtst_the_content(); ?>
 					<?php do_action( 'wpmtst_after_testimonial_content' ); ?>

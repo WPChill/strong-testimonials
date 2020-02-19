@@ -4,8 +4,11 @@
  * Description: The default widget template.
  * Force: view-layout-normal
  */
+
+$continuous_slide = ( isset( $atts['slideshow_settings']['continuous_sliding'] ) && '1' == $atts['slideshow_settings']['continuous_sliding'] ) ? 'true' : 'false';
+
+do_action( 'wpmtst_before_view' );
 ?>
-<?php do_action( 'wpmtst_before_view' ); ?>
 
 <div class="strong-view strong-widget <?php wpmtst_container_class(); ?>"<?php wpmtst_container_data(); ?>>
 	<?php do_action( 'wpmtst_view_header' ); ?>
@@ -20,8 +23,7 @@
 
 				<?php wpmtst_the_title( '<h5 class="testimonial-heading">', '</h5>' ); ?>
 
-				<div class="testimonial-content">
-					<?php wpmtst_the_thumbnail(); ?>
+				<div <?php echo ('slideshow' == $atts['mode']) ? 'data-infinite-loop="'.esc_attr($continuous_slide).'"' : ''; ?>  class="testimonial-content">
 					<div class="maybe-clear"></div>
 					<?php wpmtst_the_content(); ?>
 					<?php do_action( 'wpmtst_after_testimonial_content' ); ?>

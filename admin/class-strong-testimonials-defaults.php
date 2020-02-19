@@ -762,6 +762,7 @@ class Strong_Testimonials_Defaults {
 				'speed'              => 1,
 				'pause'              => 8,
 				'auto_start'         => true,
+				'continuous_sliding' => false,
 				'auto_hover'         => true,
 				'adapt_height'       => true,
 				'adapt_height_speed' => .5,
