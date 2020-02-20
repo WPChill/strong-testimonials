@@ -103,7 +103,7 @@ function wpmtst_sanitize_view( $input ) {
 
 	/**
 	 * CSS Class Names
-	 * This field is being confused with custom CSS rules like `.testimonial { border: none; }`
+	 * This field is being confused with custom CSS rules like `.wpmtst-testimonial { border: none; }`
 	 * so strip periods and declarations.
 	 */
 	$data['class'] = sanitize_text_field( trim( preg_replace( '/\{.*?\}|\./', '', $input['class'] ) ) );

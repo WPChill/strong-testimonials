@@ -26,40 +26,40 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
 
 /* Base
 -----------------------------------------------*/
-.strong-view.strong-simple {
+.strong-view.wpmtst-simple {
   display: block;
   width: 100%;
 }
-.strong-view.strong-simple div {
+.strong-view.wpmtst-simple div {
   box-sizing: border-box;
 }
-.strong-view.strong-simple .testimonial {
+.strong-view.wpmtst-simple .wpmtst-testimonial {
   max-height: none;
   max-width: none;
   padding: 0;
   width: 100%;
 }
-.strong-view.strong-simple .testimonial.t-slide {
+.strong-view.wpmtst-simple .wpmtst-testimonial.t-slide {
   margin-top: 0;
   margin-bottom: 0;
 }
-.strong-view.strong-simple .testimonial-inner {
+.strong-view.wpmtst-simple .wpmtst-testimonial-inner {
   display: block;
   width: 100%;
   height: 100%;
 }
-.strong-view.strong-simple .testimonial-image {
+.strong-view.wpmtst-simple .wpmtst-testimonial-image {
   max-width: 100%;
 }
-.strong-view.strong-simple .testimonial-field-before {
+.strong-view.wpmtst-simple .wpmtst-testimonial-field-before {
   margin-right: 0.5em;
 }
-.strong-view.strong-simple a.readmore,
-.strong-view.strong-simple a.readmore-toggle {
+.strong-view.wpmtst-simple a.readmore,
+.strong-view.wpmtst-simple a.readmore-toggle {
   white-space: nowrap;
   z-index: 100;
 }
-.strong-view.strong-simple a.readmore-toggle:hover {
+.strong-view.wpmtst-simple a.readmore-toggle:hover {
   cursor: pointer;
 }
 
@@ -77,59 +77,59 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
 
 /* Template
 -----------------------------------------------*/
-.strong-view.strong-simple .strong-content {
+.strong-view.wpmtst-simple .strong-content {
   margin: 1em auto;
 }
-.strong-view.strong-simple .testimonial {
+.strong-view.wpmtst-simple .wpmtst-testimonial {
   margin: 1em auto;
   text-align: left;
 }
-.strong-view.strong-simple .testimonial:first-child {
+.strong-view.wpmtst-simple .wpmtst-testimonial:first-child {
   margin-top: 0;
 }
-.strong-view.strong-simple .testimonial:last-child {
+.strong-view.wpmtst-simple .wpmtst-testimonial:last-child {
   margin-bottom: 0;
 }
-.strong-view.strong-simple .testimonial-inner {
+.strong-view.wpmtst-simple .wpmtst-testimonial-inner {
   padding: 1em;
   text-align: left;
 }
-.strong-view.strong-simple .testimonial-inner > *:not(:nth-last-child(2)):not(:last-child) {
+.strong-view.wpmtst-simple .wpmtst-testimonial-inner > *:not(:nth-last-child(2)):not(:last-child) {
 	margin-bottom: 5px;
 }
-.strong-view.strong-simple .testimonial-heading {
+.strong-view.wpmtst-simple .wpmtst-testimonial-heading {
   margin-top: 0;
   margin-bottom: 1em;
   text-align: left;
 }
-.strong-view.strong-simple .testimonial-content p:first-of-type {
+.strong-view.wpmtst-simple .wpmtst-testimonial-content p:first-of-type {
   margin-top: 0;
   padding-top: 0;
 }
-.strong-view.strong-simple .testimonial-content p:last-of-type {
+.strong-view.wpmtst-simple .wpmtst-testimonial-content p:last-of-type {
   margin-bottom: 0;
   padding-bottom: 0;
 }
-.strong-view.strong-simple .testimonial-image {
+.strong-view.wpmtst-simple .wpmtst-testimonial-image {
   float: left;
   margin-top: .25em;
   margin-right: 1em;
   margin-bottom: 1em;
 }
-.strong-view.strong-simple .testimonial-image img {
+.strong-view.wpmtst-simple .wpmtst-testimonial-image img {
   background: none;
 }
-.strong-view.strong-simple .testimonial-image a {
+.strong-view.wpmtst-simple .wpmtst-testimonial-image a {
   text-decoration: none;
   box-shadow: none;
 }
-.strong-view.strong-simple .testimonial-field {
+.strong-view.wpmtst-simple .wpmtst-testimonial-field {
   clear: both;
 }
-.strong-view.strong-simple .readmore {
+.strong-view.wpmtst-simple .readmore {
   margin-top: 1em;
 }
-.strong-view.strong-simple .readmore-page {
+.strong-view.wpmtst-simple .readmore-page {
   padding: 1em;
   text-align: center;
 }
@@ -138,7 +138,7 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
 -----------------------------------------------*/
 /* Simple pagination
 -----------------------------------------------*/
-.strong-view.strong-simple.strong-pager {
+.strong-view.wpmtst-simple.strong-pager {
   display: none;
 }
 
@@ -211,16 +211,16 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
 
 /* Slideshow
 -----------------------------------------------*/
-.strong-view.strong-simple.slider-container .strong-content {
+.strong-view.wpmtst-simple.slider-container .strong-content {
   margin: 0 auto;
 }
-.strong-view.strong-simple.slider-container .testimonial:not(:first-child) {
+.strong-view.wpmtst-simple.slider-container .wpmtst-testimonial:not(:first-child) {
   display: none;
 }
-.strong-view.strong-simple.nav-position-inside .testimonial-inner {
+.strong-view.wpmtst-simple.nav-position-inside .wpmtst-testimonial-inner {
   padding-bottom: 48px;
 }
-.strong-view.strong-simple.controls-type-sides .testimonial-inner {
+.strong-view.wpmtst-simple.controls-type-sides .wpmtst-testimonial-inner {
   padding-left: 50px;
   padding-right: 50px;
 }
@@ -228,7 +228,7 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
 /* Responsive
 -----------------------------------------------*/
 @media only screen and (max-width: 320px) {
-  .strong-view.strong-simple .testimonial-image {
+  .strong-view.wpmtst-simple .wpmtst-testimonial-image {
     float: none;
     margin-left: auto;
     margin-right: auto;
@@ -236,15 +236,15 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
 }
 /* RTL
 -----------------------------------------------*/
-.strong-view.strong-simple.rtl .testimonial,
-.strong-view.strong-simple.rtl .testimonial-inner,
-.strong-view.strong-simple.rtl .testimonial-heading {
+.strong-view.wpmtst-simple.rtl .wpmtst-testimonial,
+.strong-view.wpmtst-simple.rtl .wpmtst-testimonial-inner,
+.strong-view.wpmtst-simple.rtl .wpmtst-testimonial-heading {
   text-align: right;
 }
-.strong-view.strong-simple.rtl .testimonial-image {
+.strong-view.wpmtst-simple.rtl .wpmtst-testimonial-image {
   float: right;
   margin-left: 1em;
 }
-.strong-view.strong-simple.rtl .testimonial-field {
+.strong-view.wpmtst-simple.rtl .wpmtst-testimonial-field {
   text-align: left;
 }

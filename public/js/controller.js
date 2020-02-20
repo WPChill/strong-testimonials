@@ -103,7 +103,7 @@ var strongController = {
         strongController.grids.masonry({
           columnWidth: '.grid-sizer',
           gutter: '.gutter-sizer',
-          itemSelector: '.testimonial',
+          itemSelector: '.wpmtst-testimonial',
           percentPosition: true
         });
 
@@ -118,7 +118,7 @@ var strongController = {
    */
   initForm: function () {
     var forms = jQuery('.strong-form[data-state="idle"]');
-    var messages = jQuery('.testimonial-success');
+    var messages = jQuery('.wpmtst-testimonial-success');
     if (debugit) console.log('forms found:', forms.length);
     if (debugit) console.log('messages found:', messages.length);
     if (forms.length || messages.length) {

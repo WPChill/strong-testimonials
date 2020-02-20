@@ -16,12 +16,12 @@ do_action( 'wpmtst_before_view' );
 		<?php while ( $query->have_posts() ) : $query->the_post(); ?>
 		<div class="<?php wpmtst_post_class($atts); ?>">
 		<?php do_action('wpmtst_before_testimonial_inner', $atts, $post) ?>
-			<div class="testimonial-inner">
+			<div class="wpmtst-testimonial-inner">
 			<?php do_action( 'wpmtst_before_testimonial' ); ?>
 
-				<?php wpmtst_the_title( '<h3 class="testimonial-heading">', '</h3>' ); ?>
+				<?php wpmtst_the_title( '<h3 class="wpmtst-testimonial-heading">', '</h3>' ); ?>
 
-				<div class="testimonial-content">
+				<div class="wpmtst-testimonial-content">
 					<?php wpmtst_the_thumbnail(); ?>
 					<div class="maybe-clear"></div>
 					<?php wpmtst_the_content(); ?>

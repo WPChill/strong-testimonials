@@ -18,11 +18,11 @@ do_action( 'wpmtst_before_view' );
 			<div class="<?php wpmtst_post_class($atts); ?>">
 
 			<?php do_action('wpmtst_before_testimonial_inner', $atts, $post) ?>
-				<div class="testimonial-inner">
+				<div class="wpmtst-testimonial-inner">
 					<?php do_action( 'wpmtst_before_testimonial' ); ?>
 
-					<div class="testimonial-content">
-						<?php wpmtst_the_title( '<h3 class="testimonial-heading">', '</h3>' ); ?>
+					<div class="wpmtst-testimonial-content">
+						<?php wpmtst_the_title( '<h3 class="wpmtst-testimonial-heading">', '</h3>' ); ?>
 						<?php wpmtst_the_content(); ?>
 						<?php do_action( 'wpmtst_after_testimonial_content' ); ?>
 					</div>

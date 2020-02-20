@@ -20,10 +20,10 @@ do_action( 'wpmtst_before_view' );
 			<div captain class="<?php wpmtst_post_class($atts); ?>">
 		
 			<?php do_action('wpmtst_before_testimonial_inner', $atts, $post) ?>
-			<div class="testimonial-inner">
+			<div class="wpmtst-testimonial-inner">
 				<?php do_action( 'wpmtst_before_testimonial' ); ?>
 
-				<div class="testimonial-content">
+				<div class="wpmtst-testimonial-content">
 					<?php wpmtst_the_thumbnail(); ?>
 					<?php wpmtst_the_content(); ?>
 					<?php do_action( 'wpmtst_after_testimonial_content' ); ?>

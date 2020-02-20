@@ -364,7 +364,7 @@ class Strong_View {
 		$class = str_replace( ':content', '', $template_name );
 		$class = str_replace( ':', '-', $class );
 		$class = str_replace( '-form-form', '-form', $class );
-		$class = 'strong-' . $class;
+		$class = 'wpmtst-' . $class;
 		$class_list = array( $class );
 
 		$template_object = WPMST()->templates->get_template_by_name( $template_name );
@@ -447,11 +447,11 @@ class Strong_View {
 			}
 			else {
 				wp_add_inline_style( $handle,
-				                     "$view_el .testimonial-heading, " .
-				                     "$view_el .testimonial-content p, " .
-				                     "$view_el .testimonial-content a.readmore, " .
-				                     "$view_el .testimonial-client div, " .
-				                     "$view_el .testimonial-client a { color: $c1; }" );
+				                     "$view_el .wpmtst-testimonial-heading, " .
+				                     "$view_el .wpmtst-testimonial-content p, " .
+				                     "$view_el .wpmtst-testimonial-content a.readmore, " .
+				                     "$view_el .wpmtst-testimonial-client div, " .
+				                     "$view_el .wpmtst-testimonial-client a { color: $c1; }" );
 			}
 		}
 	}
@@ -506,7 +506,7 @@ class Strong_View {
 
 			} else {
 
-				wp_add_inline_style( $handle, "$view_el .testimonial-inner { $gradient }" );
+				wp_add_inline_style( $handle, "$view_el .wpmtst-testimonial-inner { $gradient }" );
 
 				if ( 'bold' == WPMST()->atts( 'template' ) ) {
 					wp_add_inline_style( $handle, "$view_el .readmore-page { background: $c2 }" );
@@ -522,7 +522,7 @@ class Strong_View {
 
 			} else {
 
-				wp_add_inline_style( $handle, "$view_el .testimonial-inner { background: $c1; }" );
+				wp_add_inline_style( $handle, "$view_el .wpmtst-testimonial-inner { background: $c1; }" );
 
 				if ( 'bold' == WPMST()->atts( 'template' ) ) {
 					wp_add_inline_style( $handle, "$view_el .readmore-page { background: $c1 }" );

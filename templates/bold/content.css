@@ -26,40 +26,40 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
 
 /* Base
 -----------------------------------------------*/
-.strong-view.strong-bold {
+.strong-view.wpmtst-bold {
   display: block;
   width: 100%;
 }
-.strong-view.strong-bold div {
+.strong-view.wpmtst-bold div {
   box-sizing: border-box;
 }
-.strong-view.strong-bold .testimonial {
+.strong-view.wpmtst-bold .wpmtst-testimonial {
   max-height: none;
   max-width: none;
   padding: 0;
   width: 100%;
 }
-.strong-view.strong-bold .testimonial.t-slide {
+.strong-view.wpmtst-bold .wpmtst-testimonial.t-slide {
   margin-top: 0;
   margin-bottom: 0;
 }
-.strong-view.strong-bold .testimonial-inner {
+.strong-view.wpmtst-bold .wpmtst-testimonial-inner {
   display: block;
   width: 100%;
   height: 100%;
 }
-.strong-view.strong-bold .testimonial-image {
+.strong-view.wpmtst-bold .wpmtst-testimonial-image {
   max-width: 100%;
 }
-.strong-view.strong-bold .testimonial-field-before {
+.strong-view.wpmtst-bold .wpmtst-testimonial-field-before {
   margin-right: 0.5em;
 }
-.strong-view.strong-bold a.readmore,
-.strong-view.strong-bold a.readmore-toggle {
+.strong-view.wpmtst-bold a.readmore,
+.strong-view.wpmtst-bold a.readmore-toggle {
   white-space: nowrap;
   z-index: 100;
 }
-.strong-view.strong-bold a.readmore-toggle:hover {
+.strong-view.wpmtst-bold a.readmore-toggle:hover {
   cursor: pointer;
 }
 
@@ -75,65 +75,65 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
   word-wrap: normal !important;
 }
 
-.strong-view.strong-bold {
+.strong-view.wpmtst-bold {
   margin-bottom: 1em;
 }
-.strong-view.strong-bold .testimonial {
+.strong-view.wpmtst-bold .wpmtst-testimonial {
   margin-bottom: 1em;
   text-align: center;
 }
-.strong-view.strong-bold .testimonial:first-child {
+.strong-view.wpmtst-bold .wpmtst-testimonial:first-child {
   margin-top: 0;
 }
-.strong-view.strong-bold .testimonial:last-child {
+.strong-view.wpmtst-bold .wpmtst-testimonial:last-child {
   margin-bottom: 0;
 }
-.strong-view.strong-bold .testimonial-inner {
+.strong-view.wpmtst-bold .wpmtst-testimonial-inner {
   padding: 20px;
   border-radius: 3px;
 }
-.strong-view.strong-bold .testimonial-inner > *:not(:nth-last-child(2)):not(:last-child) {
+.strong-view.wpmtst-bold .wpmtst-testimonial-inner > *:not(:nth-last-child(2)):not(:last-child) {
 	margin-bottom: 5px;
 }
-.strong-view.strong-bold .testimonial-content {
+.strong-view.wpmtst-bold .wpmtst-testimonial-content {
   background: inherit;
   font-size: 2em;
   line-height: 1.3;
   padding: 0;
 }
-.strong-view.strong-bold .testimonial-content p:first-of-type {
+.strong-view.wpmtst-bold .wpmtst-testimonial-content p:first-of-type {
   margin-top: 0;
   padding-top: 0;
 }
-.strong-view.strong-bold .testimonial-content p:last-of-type {
+.strong-view.wpmtst-bold .wpmtst-testimonial-content p:last-of-type {
   margin-bottom: 0;
   padding-bottom: 0;
 }
-.strong-view.strong-bold .testimonial-image {
+.strong-view.wpmtst-bold .wpmtst-testimonial-image {
   margin: 0 auto 20px;
 }
-.strong-view.strong-bold .testimonial-image img {
+.strong-view.wpmtst-bold .wpmtst-testimonial-image img {
   border-radius: 3px;
   box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.4);
 }
-.strong-view.strong-bold .testimonial-image a {
+.strong-view.wpmtst-bold .wpmtst-testimonial-image a {
   text-decoration: none;
   box-shadow: none;
 }
-.strong-view.strong-bold .testimonial-field {
+.strong-view.wpmtst-bold .wpmtst-testimonial-field {
   font-size: 1.2em;
 }
-.strong-view.strong-bold .testimonial-name {
+.strong-view.wpmtst-bold .wpmtst-testimonial-name {
   font-weight: 700;
 }
-.strong-view.strong-bold .readmore a {
+.strong-view.wpmtst-bold .readmore a {
   background: rgba(255, 255, 255, 0.3);
   border-radius: 3px;
   font-size: 1.2em;
   padding: 0.5em;
   display: block;
 }
-.strong-view.strong-bold .readmore-page {
+.strong-view.wpmtst-bold .readmore-page {
   font-size: 1.2em;
   border-radius: 3px;
   padding: 1em;
@@ -144,7 +144,7 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
 -----------------------------------------------*/
 /* Simple pagination
 -----------------------------------------------*/
-.strong-view.strong-bold.strong-pager {
+.strong-view.wpmtst-bold.strong-pager {
   display: none;
 }
 
@@ -217,16 +217,16 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
 
 /* Slideshow
 -----------------------------------------------*/
-.strong-view.strong-bold.slider-container .strong-content {
+.strong-view.wpmtst-bold.slider-container .strong-content {
   margin: 0 auto;
 }
-.strong-view.strong-bold.slider-container .testimonial:not(:first-child) {
+.strong-view.wpmtst-bold.slider-container .wpmtst-testimonial:not(:first-child) {
   display: none;
 }
-.strong-view.strong-bold.nav-position-inside .testimonial-inner {
+.strong-view.wpmtst-bold.nav-position-inside .wpmtst-testimonial-inner {
   padding-bottom: 60px;
 }
-.strong-view.strong-bold.controls-type-sides .testimonial-inner {
+.strong-view.wpmtst-bold.controls-type-sides .wpmtst-testimonial-inner {
   padding-left: 50px;
   padding-right: 50px;
 }
@@ -234,7 +234,7 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
 /* Responsive
 -----------------------------------------------*/
 @media only screen and (max-width: 640px) {
-  .strong-view.strong-bold .testimonial-content {
+  .strong-view.wpmtst-bold .wpmtst-testimonial-content {
     font-size: 1.5em;
     line-height: 1.2;
   }
