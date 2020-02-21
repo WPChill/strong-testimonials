@@ -20,6 +20,8 @@ class Strong_Testimonials_Page_Shortcodes {
 
 		$stars = '<span class="strong-rating"><span class="star0 star"></span><span class="star"></span><span class="star"></span><span class="star"></span><span class="star"></span><span class="star current half"></span></span>';
 
+		$stars_rounded = '<span class="strong-rating"><span class="star0 star"></span><span class="star"></span><span class="star"></span><span class="star"></span><span class="star current"></span><span class="star"></span></span>';
+
 		$tags = array(
 			'a' => array(
 				'href'   => array(),
@@ -285,18 +287,19 @@ class Strong_Testimonials_Page_Shortcodes {
 			<table class="form-table shortcodes average">
 				<tr>
 					<td>
-						<p><code>block</code> and <code>centered</code></p>
+						<p><code>rounded</code></p>
+                        <p class="description">Round the rating(ex.: from 4.3 -> 4 or 4.7->5)</p>
 					</td>
 					<td class="has-inner">
 						<table class="inner" cellpadding="0" cellspacing="0">
 							<tr>
-								<td class="shortcode">&#91;testimonial_average_rating block centered /&#93;</td>
+								<td class="shortcode">&#91;testimonial_average_rating rounded &#93;</td>
 							</tr>
 							<tr>
 								<td>
-									<div class="strong-rating-wrapper average block centered"><span class="strong-rating-title">Average Rating:</span>
-										<?php echo $stars; ?>
-										<span class="strong-rating-summary">4.3 stars (based on 9 ratings)</span>
+									<div class="strong-rating-wrapper average"><span class="strong-rating-title">Average Rating:</span>
+										<?php echo $stars_rounded; ?>
+										<span class="strong-rating-summary">4 stars (based on 9 ratings)</span>
 									</div>
 								</td>
 							</tr>
@@ -304,6 +307,29 @@ class Strong_Testimonials_Page_Shortcodes {
 					</td>
 				</tr>
 			</table>
+
+            <table class="form-table shortcodes average">
+                <tr>
+                    <td>
+                        <p><code>block</code> and <code>centered</code></p>
+                    </td>
+                    <td class="has-inner">
+                        <table class="inner" cellpadding="0" cellspacing="0">
+                            <tr>
+                                <td class="shortcode">&#91;testimonial_average_rating block centered /&#93;</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="strong-rating-wrapper average block centered"><span class="strong-rating-title">Average Rating:</span>
+                                        <?php echo $stars; ?>
+                                        <span class="strong-rating-summary">4.3 stars (based on 9 ratings)</span>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
 
 			<table class="form-table shortcodes average">
 				<tr>

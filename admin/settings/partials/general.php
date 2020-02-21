@@ -26,21 +26,22 @@ $options = get_option( 'wpmtst_options' );
 		</td>
 	</tr>
 
-	<tr valign="top">
+    <!-- @todo : delete commented line. For the moment let it be -->
+	<!--<tr valign="top">
 		<th scope="row">
-			<?php _e( 'Reordering', 'strong-testimonials' ); ?>
+			<?php /*_e( 'Reordering', 'strong-testimonials' ); */?>
 		</th>
 		<td>
 			<fieldset>
 			<label>
-				<input type="checkbox" name="wpmtst_options[reorder]" <?php checked( $options['reorder'] ); ?>>
-				<?php _e( 'Enable drag-and-drop reordering in the testimonial list.', 'strong-testimonials' ); ?>
-				<?php _e( 'Off by default.', 'strong-testimonials' ); ?>
+				<input type="checkbox" name="wpmtst_options[reorder]" <?php /*checked( $options['reorder'] ); */?>>
+				<?php /*_e( 'Enable drag-and-drop reordering in the testimonial list.', 'strong-testimonials' ); */?>
+				<?php /*_e( 'Off by default.', 'strong-testimonials' ); */?>
 			</label>
-            <p class="description"><?php _e( 'Then set <b>Order</b> to "menu order" in the View.', 'strong-testimonials' ); ?></p>
+            <p class="description"><?php /*_e( 'Then set <b>Order</b> to "menu order" in the View.', 'strong-testimonials' ); */?></p>
 			</fieldset>
 		</td>
-	</tr>
+	</tr>-->
 
 	<tr valign="top">
 		<th scope="row">

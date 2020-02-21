@@ -851,6 +851,7 @@ if ( ! function_exists( 'normalize_empty_atts' ) ) {
     }
 }
 
+// @todo : check in addons to see if function is called somewhere, else delete it
 if ( ! function_exists( 'wpmtst_round_to_half' ) ) {
 	/**
 	 * Round to the nearest half.

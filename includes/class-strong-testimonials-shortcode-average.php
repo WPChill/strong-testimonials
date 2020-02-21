@@ -26,18 +26,20 @@ class Strong_Testimonials_Average_Shortcode {
 	 */
 	public function testimonial_average_rating_shortcode( $atts, $content = null ) {
 		$pairs = array(
-			// parts
-			'average'  => '',
-			'count'    => '',
-			'stars'    => '',
-			// style
-			'block'    => '',
-			'centered' => '',
-			// HTML
-			'element'  => 'div', // span
-			'class'    => '', // on wrapper
-			// filters
-			'category' => '',
+            // parts
+            'average'   => '',
+            'count'     => '',
+            'stars'     => '',
+            // style
+            'block'     => '',
+            'centered'  => '',
+            // HTML
+            'element'   => 'div', // span
+            'class'     => '', // on wrapper
+            // filters
+            'category'  => '',
+            // rounded
+            'rounded' => ''
 		);
 		$pairs = apply_filters( "wpmtst_shortcode_defaults__{$this->shortcode}", $pairs );
 
@@ -134,6 +136,13 @@ class Strong_Testimonials_Average_Shortcode {
 			$class_list[] = 'centered';
 		}
 
+		// round the rating if necessary
+        if($atts['rounded']){
+            $rating_average = round($summary['rating_average'],0);
+        } else {
+            $rating_average = round($summary['rating_average'],1);
+        }
+
 		// title
 		if ( isset( $parts['title'] ) ) {
 			$parts['title'] = sprintf( '<span class="strong-rating-title">%s</span>', __( 'Average Rating:', 'strong-testimonials' ) );
@@ -146,12 +155,12 @@ class Strong_Testimonials_Average_Shortcode {
 
 		// stars
 		if ( isset( $parts['stars'] ) ) {
-			$parts['stars'] = $this->print_stars( wpmtst_round_to_half( $summary['rating_average'] ) );
+			$parts['stars'] = $this->print_stars( $rating_average);
 		}
 
 		// average
 		if ( isset( $parts['average'] ) ) {
-			$parts['average'] = sprintf( '<span class="strong-rating-average">%s</span>', $summary['rating_average'] );
+			$parts['average'] = sprintf( '<span class="strong-rating-average">%s</span>', $rating_average );
 		}
 
 		// count
@@ -163,14 +172,14 @@ class Strong_Testimonials_Average_Shortcode {
 		if ( isset( $parts['summary'] ) ) {
 
 			/* translators: %s is a number */
-			$average = sprintf( _n( '%s star', '%s stars', $summary['rating_average'], 'strong-testimonials' ), $summary['rating_average'] );
+			$average = sprintf( _n( '%s star', '%s stars', $rating_average, 'strong-testimonials' ), $rating_average );
 			$count   = sprintf( _n( '(based on %s rating)', '(based on %s ratings)', $summary['rating_count'], 'strong-testimonials' ), $summary['rating_count'] );
 			$parts['summary'] = sprintf( '<span class="strong-rating-summary">%s</span>', $average . ' ' . $count );
 
 		} elseif ( isset( $parts['summary2'] ) ) {
 
 			/* translators: %s is a number */
-			$average = sprintf( _n( '%s star', '%s stars', $summary['rating_average'], 'strong-testimonials' ), $summary['rating_average'] );
+			$average = sprintf( _n( '%s star', '%s stars', $rating_average, 'strong-testimonials' ), $rating_average );
 			$parts['summary2'] = sprintf( '<span class="strong-rating-summary">%s</span>', $average );
 
 		}
@@ -283,33 +292,34 @@ class Strong_Testimonials_Average_Shortcode {
 	/**
 	 * Print the stars.
 	 *
-	 * @param double $rating Rounded to half.
+	 * @param float $rating Average rating.
 	 * @param string $class  The container CSS class.
 	 * @since 2.31.0
 	 * @return string
 	 */
 	public function print_stars( $rating = 0.0, $class = 'strong-rating' ) {
-		$rating  = (double) $rating;
-		$is_zero = ( 0 == $rating ) ? ' current' : '';
-		ob_start();
-		?>
-		<span class="<?php echo esc_attr( $class ); ?>">
+
+        $is_zero = (0 == $rating) ? ' current' : '';
+        ob_start();
+        ?>
+        <span class="<?php echo esc_attr($class); ?>">
             <span class="star0 star<?php echo $is_zero; ?>"></span>
 			<?php
-			if ( $is_zero ) {
-				echo str_repeat( '<span class="star"></span>', 5 );
-			} else {
-				for ( $i = 1; $i <= 5; $i++ ) {
-					$star_class = 'star';
-					if ( $i == round( $rating ) ) {
-						$star_class .= ' current';
-					}
-					if ( 0.5 == $i - $rating ) {
-						$star_class .= ' half';
-					}
-					printf( '<span class="%s"></span>', $star_class );
-				}
-			}
+            if ($is_zero) {
+                echo str_repeat('<span class="star"></span>', 5);
+            } else {
+                for ($i = 1; $i <= 5; $i++) {
+                    $star_class = 'star';
+                    if ($i == round($rating)) {
+                        $star_class .= ' current';
+                    }
+
+                    if ( (0.9 >= $i - $rating) && (0.1 <= $i - $rating)) {
+                        $star_class .= ' half';
+                    }
+                    printf('<span class="%s"></span>', $star_class);
+                }
+            }
 			?>
 		</span>
 		<?php

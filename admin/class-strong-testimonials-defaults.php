@@ -35,7 +35,8 @@ class Strong_Testimonials_Defaults {
             'disable_rewrite'         => false,
 			'pending_indicator'       => true,
 			'remove_whitespace'       => true,
-			'reorder'                 => false,
+			//@todo : delete commented line. For the moment let it be
+			//'reorder'                 => false,
 			'support_comments'        => false,
 			'support_custom_fields'   => false,
 			'single_testimonial_slug' => 'testimonial',
