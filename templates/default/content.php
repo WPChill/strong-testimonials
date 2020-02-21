@@ -19,7 +19,6 @@ do_action( 'wpmtst_before_view' );
 
 		<?php while ( $query->have_posts() ) : $query->the_post(); ?>
 		<div class="<?php wpmtst_post_class($atts); ?>">
-		<?php do_action('wpmtst_before_testimonial_inner', $atts, $post) ?>
 			<div class="wpmtst-testimonial-inner">
 			<?php do_action( 'wpmtst_before_testimonial' ); ?>
 

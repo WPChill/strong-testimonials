@@ -39,7 +39,7 @@ function wpmtst_the_title( $before = '', $after = '' ) {
 
         if ('none' != WPMST()->atts( 'title_link' ) && '0' != WPMST()->atts( 'title_link' ) ) {
 
-            if ( (!$options['disable_rewrite'] || '1' != $options['disable_rewrite']) && ('wpmtst_testimonial' == WPMST()->atts( 'title_link' ) || '1' == WPMST()->atts( 'title_link' )) ) {
+            if ( (!isset($options['disable_rewrite']) || '1' != $options['disable_rewrite']) && ('wpmtst_testimonial' == WPMST()->atts( 'title_link' ) || '1' == WPMST()->atts( 'title_link' )) ) {
                 $before .= '<a href="' . esc_url( get_permalink() ) . '" rel="bookmark">';
                 $after  = '</a>' . $after;
             } else {
