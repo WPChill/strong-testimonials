@@ -4,7 +4,11 @@
  * Description: The default template.
  */
 
-do_action( 'wpmtst_before_view' ); 
+
+$continuous_slide = ( isset( $atts['slideshow_settings']['continuous_sliding'] ) && '1' == $atts['slideshow_settings']['continuous_sliding'] ) ? 'true' : 'false';
+
+do_action( 'wpmtst_before_view' );
+
 ?>
 
 <div class="strong-view <?php wpmtst_container_class(); ?>"<?php wpmtst_container_data(); ?>>
@@ -21,7 +25,8 @@ do_action( 'wpmtst_before_view' );
 
 				<?php wpmtst_the_title( '<h3 class="wpmtst-testimonial-heading">', '</h3>' ); ?>
 
-				<div class="wpmtst-testimonial-content">
+				<div <?php echo ('slideshow' == $atts['mode']) ? 'data-infinite-loop="'.esc_attr($continuous_slide).'"' : ''; ?>   class="wpmtst-testimonial-content">
+
 					<?php wpmtst_the_thumbnail(); ?>
 					<div class="maybe-clear"></div>
 					<?php wpmtst_the_content(); ?>

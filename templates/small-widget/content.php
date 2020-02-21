@@ -5,6 +5,9 @@
  * Force: view-layout-normal
  */
 
+
+$continuous_slide = ( isset( $atts['slideshow_settings']['continuous_sliding'] ) && '1' == $atts['slideshow_settings']['continuous_sliding'] ) ? 'true' : 'false';
+
 do_action( 'wpmtst_before_view' );
 ?>
 
@@ -23,8 +26,8 @@ do_action( 'wpmtst_before_view' );
 
 				<?php wpmtst_the_title( '<h5 class="wpmtst-testimonial-heading">', '</h5>' ); ?>
 
-				<div class="wpmtst-testimonial-content">
-					<?php wpmtst_the_thumbnail(); ?>
+				<div <?php echo ('slideshow' == $atts['mode']) ? 'data-infinite-loop="'.esc_attr($continuous_slide).'"' : ''; ?>  class="wpmtst-testimonial-content">
+          <?php wpmtst_the_thumbnail(); ?>
 					<div class="maybe-clear"></div>
 					<?php wpmtst_the_content(); ?>
 					<?php do_action( 'wpmtst_after_testimonial_content' ); ?>

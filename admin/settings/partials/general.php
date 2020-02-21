@@ -214,6 +214,24 @@ $options = get_option( 'wpmtst_options' );
         </td>
     </tr>
 
+    <tr valign="top">
+        <th scope="row">
+            <?php _e( 'Disable testimonial permalinks', 'strong-testimonials' ); ?>
+        </th>
+        <td>
+            <fieldset>
+                <label>
+                    <input type="checkbox" name="wpmtst_options[disable_rewrite]" <?php isset($options['disable_rewrite']) ? checked( $options['disable_rewrite'] ) : ''; ?>>
+                    <?php _e( 'Disable permalinks for testimonials.', 'strong-testimonials' ); ?>
+                    <?php _e( 'Off by default.', 'strong-testimonials' ); ?>
+                </label>
+                <p class="description">
+                    <?php esc_html_e('Prevent indexing of testimonials. This will overwrite the "Link to testimonial" settings from the "Views" section','strong-testimonials'); ?>
+                </p>
+            </fieldset>
+        </td>
+    </tr>
+
     <?php if ( wpmtst_is_plugin_active( 'lazy-loading-responsive-images' ) ) : ?>
     <tr valign="top">
         <th scope="row">

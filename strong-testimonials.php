@@ -299,6 +299,9 @@ final class Strong_Testimonials {
 			require_once WPMTST_ADMIN . 'view-list-order.php';
 			require_once WPMTST_ADMIN . 'views-validate.php';
 
+			// Uninstall form
+            require_once WPMTST_ADMIN . 'uninstall/class-strong-testimonials-uninstall.php';
+
 		}
 	}
 

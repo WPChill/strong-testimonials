@@ -184,3 +184,6 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
   margin-left: 0;
   margin-right: 1em;
 }
+.disabled {
+  display : none!important;
+}
