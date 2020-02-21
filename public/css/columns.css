@@ -18,7 +18,7 @@
 	        column-gap: 20px;
 }
 
-.strong-content.strong-columns .testimonial {
+.strong-content.strong-columns .wpmtst-testimonial {
 	-webkit-column-break-inside: avoid;
 	page-break-inside: avoid;
 	break-inside: avoid;

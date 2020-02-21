@@ -241,7 +241,7 @@ add_filter( 'the_content_more_link', 'wpmtst_remove_more_link_scroll' );
  * @param string $before
  * @param string $after
  */
-function wpmtst_the_thumbnail( $size = null, $before = '<div class="testimonial-image">', $after = '</div>' ) {
+function wpmtst_the_thumbnail( $size = null, $before = '<div class="wpmtst-testimonial-image">', $after = '</div>' ) {
 	if ( ! WPMST()->atts( 'thumbnail' ) ) {
 		return;
 	}
@@ -459,9 +459,9 @@ function wpmtst_the_custom_field( $field ) {
 
 	if ( $output ) {
 		if ( isset( $field['before'] ) && $field['before'] ) {
-			$output = '<span class="testimonial-field-before">' . $field['before'] . '</span>' . $output;
+			$output = '<span class="wpmtst-testimonial-field-before">' . $field['before'] . '</span>' . $output;
 		}
-		$output = '<div class="testimonial-field ' . $field['class'] . '">' . $output . '</div>';
+		$output = '<div class="wpmtst-testimonial-field ' . $field['class'] . '">' . $output . '</div>';
 	}
 
 	return $output;

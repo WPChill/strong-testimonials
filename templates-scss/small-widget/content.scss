@@ -13,11 +13,11 @@ $template: small-widget;
 .strong-view.#{$template} {
   margin-bottom: 1em;
 
-  .testimonial {
+  .wpmtst-testimonial {
     margin-bottom: 1em;
   }
 
-  .testimonial-inner {
+  .wpmtst-testimonial-inner {
 	padding: 10px;
 
 	& > *:not(:nth-last-child(2)):not(:last-child) {
@@ -25,26 +25,26 @@ $template: small-widget;
 	}
   }
 
-  .testimonial-heading {
+  .wpmtst-testimonial-heading {
     margin-bottom: 1em;
   }
 
-  .testimonial-content {
+  .wpmtst-testimonial-content {
     @include paragraphs;
   }
 
-  .testimonial-image {
+  .wpmtst-testimonial-image {
     float: left;
     margin-top: 0.25em;
     margin-right: 1em;
     margin-bottom: .5em;
   }
 
-  .testimonial-field {
+  .wpmtst-testimonial-field {
     clear: both;
   }
 
-  .testimonial-name {
+  .wpmtst-testimonial-name {
     font-weight: 700;
   }
 
@@ -66,18 +66,18 @@ $template: small-widget;
     .strong-content {
       margin: 0 auto;
     }
-    .testimonial:not(:first-child) {
+    .wpmtst-testimonial:not(:first-child) {
       display: none;
     }
   }
 
   &.nav-position-inside {
-    .testimonial-inner {
+    .wpmtst-testimonial-inner {
       padding-bottom: 48px;
     }
   }
 
-  &.controls-type-sides .testimonial-inner {
+  &.controls-type-sides .wpmtst-testimonial-inner {
     padding-left: 50px;
     padding-right: 50px;
   }
@@ -94,7 +94,7 @@ $template: small-widget;
 /* Option: Image Right
 -----------------------------------------------*/
 .strong-view.#{$template}.image-right {
-  .testimonial-image {
+  .wpmtst-testimonial-image {
     float: right;
     margin-left: 1em;
     margin-bottom: 0.1em;
@@ -102,19 +102,19 @@ $template: small-widget;
 }
 
 @media only screen and (max-width: 480px) and (orientation: portrait) {
-  .strong-view.#{$template}.image-right .strong-content .testimonial-image {
+  .strong-view.#{$template}.image-right .strong-content .wpmtst-testimonial-image {
     float: none;
   }
 }
 
 .strong-view.#{$template}.image-right.rtl {
-  .testimonial,
-  .testimonial-inner,
-  .testimonial-heading {
+  .wpmtst-testimonial,
+  .wpmtst-testimonial-inner,
+  .wpmtst-testimonial-heading {
     text-align: right;
   }
 
-  .testimonial-image {
+  .wpmtst-testimonial-image {
     float: left;
     margin-left: 0;
     margin-right: 1em;

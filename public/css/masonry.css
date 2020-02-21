@@ -10,14 +10,14 @@
 /*----------------------------------------------------------
  * global tweaks
  *----------------------------------------------------------*/
-.strong-content.strong-masonry .testimonial {
+.strong-content.strong-masonry .wpmtst-testimonial {
 	margin-top: 0;
 }
 
 /*----------------------------------------------------------
  * default: 1 column
  *----------------------------------------------------------*/
-.strong-masonry .testimonial,
+.strong-masonry .wpmtst-testimonial,
 .strong-masonry .grid-sizer {
 	width: 100%;
 }
@@ -26,7 +26,7 @@
 	width: 0;
 }
 
-.strong-masonry .testimonial.grid-item--width2 {
+.strong-masonry .wpmtst-testimonial.grid-item--width2 {
 	width: 100%;
 }
 
@@ -38,7 +38,7 @@
 	/*----------------------------------------------------------
 	 * 2 columns
 	 *----------------------------------------------------------*/
-	.strong-masonry.columns-2 .testimonial,
+	.strong-masonry.columns-2 .wpmtst-testimonial,
 	.strong-masonry.columns-2 .grid-sizer {
 		width: 48.5%;
 	}
@@ -47,14 +47,14 @@
 		width: 3%;
 	}
 
-	.strong-masonry.columns-2 .testimonial.grid-item--width2 {
+	.strong-masonry.columns-2 .wpmtst-testimonial.grid-item--width2 {
 		width: 97%;
 	}
 
 	/*----------------------------------------------------------
 	 * 3 columns
 	 *----------------------------------------------------------*/
-	.strong-masonry.columns-3 .testimonial,
+	.strong-masonry.columns-3 .wpmtst-testimonial,
 	.strong-masonry.columns-3 .grid-sizer {
 		width: 31.33%;
 	}
@@ -63,14 +63,14 @@
 		width: 3%;
 	}
 
-	.strong-masonry.columns-3 .testimonial.grid-item--width2 {
+	.strong-masonry.columns-3 .wpmtst-testimonial.grid-item--width2 {
 		width: 62.66%;
 	}
 
 	/*----------------------------------------------------------
 	 * 4 columns
 	 *----------------------------------------------------------*/
-	.strong-masonry.columns-4 .testimonial,
+	.strong-masonry.columns-4 .wpmtst-testimonial,
 	.strong-masonry.columns-4 .grid-sizer {
 		width: 22.75%;
 	}
@@ -79,7 +79,7 @@
 		width: 3%;
 	}
 
-	.strong-masonry.columns-4 .testimonial.grid-item--width2 {
+	.strong-masonry.columns-4 .wpmtst-testimonial.grid-item--width2 {
 		width: 45.5%;
 	}
 }

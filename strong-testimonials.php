@@ -271,7 +271,7 @@ final class Strong_Testimonials {
 			require_once WPMTST_ADMIN . 'settings/class-strong-testimonials-settings-form.php';
 			require_once WPMTST_ADMIN . 'settings/class-strong-testimonials-settings-compat.php';
 
-			require_once WPMTST_ADMIN . 'about/class-strong-testimonials-about.php';
+			
 			require_once WPMTST_ADMIN . 'class-strong-testimonials-addons.php';
 			require_once WPMTST_ADMIN . 'class-strong-testimonials-defaults.php';
 			require_once WPMTST_ADMIN . 'class-strong-testimonials-list-table.php';
@@ -286,6 +286,7 @@ final class Strong_Testimonials {
 			require_once WPMTST_ADMIN . 'class-strong-testimonials-exporter.php';
 			require_once WPMTST_ADMIN . 'class-strong-testimonials-upsell.php';
 			require_once WPMTST_ADMIN . 'class-strong-testimonials-updater.php';
+			require_once WPMTST_ADMIN . 'class-strong-testimonials-review.php';
 
 			require_once WPMTST_ADMIN . 'admin.php';
 			require_once WPMTST_ADMIN . 'admin-notices.php';

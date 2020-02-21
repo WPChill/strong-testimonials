@@ -15,14 +15,14 @@ $template: default;
     margin: 20px auto 0;
   }
 
-  .testimonial {
+  .wpmtst-testimonial {
     border: 1px solid #E6E6E6;
     margin: 20px auto;
     text-align: left;
     @include no-top-bottom-margin;
   }
 
-  .testimonial-inner {
+  .wpmtst-testimonial-inner {
     border: 1px solid #FFFFFF;
     padding: 20px;
 	text-align: left;
@@ -32,7 +32,7 @@ $template: default;
 	}
   }
 
-  .testimonial-heading {
+  .wpmtst-testimonial-heading {
     //noinspection CssUnknownTarget
     background: url("img/quotes.png") no-repeat scroll left center transparent;
     margin-top: 0;
@@ -40,11 +40,11 @@ $template: default;
     text-align: left;
   }
 
-  .testimonial-content {
+  .wpmtst-testimonial-content {
     @include paragraphs;
   }
 
-  .testimonial-image {
+  .wpmtst-testimonial-image {
     margin-top: 0.25em;
     margin-right: 1em;
     margin-bottom: 0.25em;
@@ -63,11 +63,11 @@ $template: default;
     }
   }
 
-  .testimonial-field {
+  .wpmtst-testimonial-field {
     text-align: right;
   }
 
-  .testimonial-name {
+  .wpmtst-testimonial-name {
     font-weight: bold;
   }
 
@@ -100,7 +100,7 @@ $template: default;
         border: 1px solid #E6E6E6;
       }
 
-      .testimonial {
+      .wpmtst-testimonial {
         border: 0;
       }
     }
@@ -109,23 +109,23 @@ $template: default;
       margin: 0 auto;
     }
 
-    .testimonial:not(:first-child) {
+    .wpmtst-testimonial:not(:first-child) {
       display: none;
     }
   }
 
   &.nav-position-inside {
-    .testimonial-inner {
+    .wpmtst-testimonial-inner {
       padding-bottom: 48px;
     }
   }
 
-  &.controls-type-sides .testimonial-inner {
+  &.controls-type-sides .wpmtst-testimonial-inner {
     padding-left: 50px;
     padding-right: 50px;
   }
 
-  &.slider-stretch .testimonial-inner {
+  &.slider-stretch .wpmtst-testimonial-inner {
     /* to force same height for all slides */
     height: 100%;
   }
@@ -141,7 +141,7 @@ $template: default;
 -----------------------------------------------*/
 @import "../_partials/rtl";
 .strong-view.#{$template}.rtl {
-  .testimonial-heading {
+  .wpmtst-testimonial-heading {
     padding-right: 40px;
     background-position: right;
   }
@@ -150,26 +150,26 @@ $template: default;
 /* Option: Image Right
 -----------------------------------------------*/
 .strong-view.#{$template}.image-right {
-  .testimonial-image {
+  .wpmtst-testimonial-image {
     float: right;
     margin-top: .25em;
     margin-bottom: 0.25em;
     margin-left: 1em;
   }
 
-  .testimonial-field {
+  .wpmtst-testimonial-field {
     text-align: left;
   }
 }
 
 .strong-view.#{$template}.image-right.rtl {
-  .testimonial-image {
+  .wpmtst-testimonial-image {
     float: left;
     margin-left: 0;
     margin-right: 1em;
   }
 
-  .testimonial-field {
+  .wpmtst-testimonial-field {
     text-align: right;
   }
 }
@@ -177,7 +177,7 @@ $template: default;
 /* Option: No Quotes
 -----------------------------------------------*/
 .strong-view.#{$template}.no-quotes {
-  .testimonial-heading {
+  .wpmtst-testimonial-heading {
     background: none;
     padding-left: 0;
   }
@@ -186,11 +186,11 @@ $template: default;
 /* Option: Dark Theme
 -----------------------------------------------*/
 .strong-view.#{$template}.dark {
-  .testimonial {
+  .wpmtst-testimonial {
     border: 1px solid #777;
   }
 
-  .testimonial-inner {
+  .wpmtst-testimonial-inner {
     border: 1px solid #333;
   }
 
