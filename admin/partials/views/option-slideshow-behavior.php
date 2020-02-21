@@ -16,6 +16,16 @@
 
 	<div class="row">
 		<div class="inline inline-middle">
+			<input type="checkbox" id="view-continuous_sliding" name="view[data][slideshow_settings][continuous_sliding]" value="0"
+				<?php  checked(  $view['slideshow_settings']['continuous_sliding'] ); ?> class="checkbox">
+			<label for="view-continuous_sliding">
+				<?php _ex( 'Continuous Sliding', 'slideshow setting', 'strong-testimonials' ); ?>
+			</label>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="inline inline-middle">
 			<input type="checkbox" id="view-auto_hover" name="view[data][slideshow_settings][auto_hover]" value="0"
 				<?php checked( $view['slideshow_settings']['auto_hover'] ); ?> class="checkbox">
 			<label for="view-auto_hover">

@@ -267,50 +267,51 @@ class Strong_Testimonials_Upsell {
 
 		<h3><?php esc_html_e( 'Form Spam Control', 'strong-testimonials' ); ?></h3>
 
-		<div class="wpmtst-alert">
-			<?php
-			printf(
-				esc_html__( 'Protect your form against spam. Add Google recaptcha or honeypots with the %s extension.', 'strong-testimonials' ),
-				sprintf(
-					'<a href="%s" target="_blank">%s</a>',
-					esc_url( WPMTST_STORE_URL . '/extensions/captcha?utm_source=st-lite&utm_campaign=upsell&utm_medium=form-settings-upsell' ),
-					esc_html__( 'Strong Testimonials: Captcha', 'strong-testimonials' )
-				)
-			);
-			?>
-			<p>
-				<a class="button button-primary" target="_blank" href="<?php echo esc_url( $this->store_upgrade_url . '&utm_medium=form-settings-captcha-upsell' ); ?>"><?php esc_html_e( 'Upgrade', 'strong-testimonials' ); ?></a>
-			</p>
-		</div>
+        <div class="wpmtst-alert">
+            <?php
+            printf(
+                esc_html__( 'Protect your form against spam. Add Google recaptcha or honeypots with the %s extension.', 'strong-testimonials' ),
+                sprintf(
+                    '<a href="%s" target="_blank">%s</a>',
+                    esc_url( WPMTST_STORE_URL . '/extensions/captcha?utm_source=st-lite&utm_campaign=upsell&utm_medium=form-settings-upsell' ),
+                    esc_html__( 'Strong Testimonials: Captcha', 'strong-testimonials' )
+                )
+            );
+            ?>
 
-		<table class="form-table" cellpadding="0" cellspacing="0">
-			<tr>
-				<th scope="row">
-					<label>
-						<?php esc_html_e( 'Honeypot', 'strong-testimonials' ); ?>
-					</label>
-				</th>
-				<td>
-					<p>
-						<?php esc_html_e( 'These methods for trapping spambots are both time-tested and widely used. May be used simultaneously for more protection.', 'strong-testimonials' ); ?>
-					</p>
-				</td>
-			</tr>
-			<tr valign="top">
-				<th scope="row">
-					<label>
-						<a name="captcha-section"></a><?php esc_html_e( 'Captcha', 'strong-testimonials' ); ?>
-					</label>
-				</th>
-				<td>
-					<?php esc_html_e( 'Google reCAPTCHA prompts visitors to check a box to prove that they’re not a robot before they submit the form.', 'strong-testimonials' ); ?>
-					<br/>
-					<?php esc_html_e( 'In some cases, they’re prompted to complete another task, like identify a string of letters.', 'strong-testimonials' ); ?>
-					<br/>
-					<?php esc_html_e( 'This method makes it difficult for spambots to complete form submissions.', 'strong-testimonials' ); ?>
-				</td>
-			</tr>
-		</table>
+            <table class="form-table" cellpadding="0" cellspacing="0">
+                <tr>
+                    <th scope="row">
+                        <label>
+                            <?php esc_html_e( 'Honeypot', 'strong-testimonials' ); ?>
+                        </label>
+                    </th>
+                    <td>
+                        <p>
+                            <?php esc_html_e( 'These methods for trapping spambots are both time-tested and widely used. May be used simultaneously for more protection.', 'strong-testimonials' ); ?>
+                        </p>
+                    </td>
+                </tr>
+                <tr valign="top">
+                    <th scope="row">
+                        <label>
+                            <a name="captcha-section"></a><?php esc_html_e( 'Captcha', 'strong-testimonials' ); ?>
+                        </label>
+                    </th>
+                    <td>
+                        <?php esc_html_e( 'Google reCAPTCHA prompts visitors to check a box to prove that they’re not a robot before they submit the form.', 'strong-testimonials' ); ?>
+                        <br/>
+                        <?php esc_html_e( 'In some cases, they’re prompted to complete another task, like identify a string of letters.', 'strong-testimonials' ); ?>
+                        <br/>
+                        <?php esc_html_e( 'This method makes it difficult for spambots to complete form submissions.', 'strong-testimonials' ); ?>
+                    </td>
+                </tr>
+            </table>
+            <p>
+                <a class="button button-primary" target="_blank"
+                   href="<?php echo esc_url( $this->store_upgrade_url . '&utm_medium=form-settings-captcha-upsell' ); ?>"><?php esc_html_e( 'Upgrade', 'strong-testimonials' ); ?></a>
+            </p>
+        </div>
 		<?php
 	}
 

@@ -84,7 +84,7 @@ function wpmtst_sanitize_view( $input ) {
 	$data['pagination_settings'] = wpmtst_sanitize_view_pagination( $input['pagination_settings'] );
 
 	$data['title']              = isset( $input['title'] ) ? 1 : 0;
-	$data['title_link']         = isset( $input['title_link'] ) ? 1 : 0;
+    $data['title_link']         = sanitize_text_field( $input['title_link'] );
 
 	$data['content']            = sanitize_text_field( $input['content'] );
 	$data['excerpt_length']     = (int) sanitize_text_field( $input['excerpt_length'] );
@@ -103,7 +103,7 @@ function wpmtst_sanitize_view( $input ) {
 
 	/**
 	 * CSS Class Names
-	 * This field is being confused with custom CSS rules like `.testimonial { border: none; }`
+	 * This field is being confused with custom CSS rules like `.wpmtst-testimonial { border: none; }`
 	 * so strip periods and declarations.
 	 */
 	$data['class'] = sanitize_text_field( trim( preg_replace( '/\{.*?\}|\./', '', $input['class'] ) ) );
@@ -414,6 +414,7 @@ function wpmtst_sanitize_view_slideshow( $in ) {
 	$out['pause']              = floatval( sanitize_text_field( $in['pause'] ) );
 	$out['speed']              = floatval( sanitize_text_field( $in['speed'] ) );
 	$out['auto_hover']         = isset( $in['auto_hover'] ) ? 1 : 0;
+	$out['continuous_sliding'] = isset( $in['continuous_sliding'] ) ? 1 : 0;
 	$out['stop_auto_on_click'] = isset( $in['stop_auto_on_click'] ) ? 1 : 0;
 
 	if ( 'dynamic' == $in['height'] ) {

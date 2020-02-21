@@ -1174,11 +1174,12 @@ class Strong_Testimonials_Updater {
 	 */
 	public static function convert_title_link( $view_data ) {
 		if ( ! isset( $view_data['title_link'] ) ) {
-			$view_data['title_link'] = 0;
+			$view_data['title_link'] = 'none';
 		}
 
 		return $view_data;
 	}
+
 
 	/**
 	 * Convert nofollow from (on|off) to (1|0).

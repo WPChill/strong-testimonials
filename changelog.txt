@@ -1,6 +1,11 @@
-= 2.40.1 - Oct. 28, 2019 =
+
+= 2.40.2 - Feb. 21, 2020 =
 * improved star rating display
 * added another attribute to average rating shortcode
+
+= 2.40.1 - Jan. 25, 2020 =
+* improved data sanitization
+
 
 = 2.40.0 - Oct. 16, 2019 =
 * improved compatibility with Strong Testimonials: Importer extension

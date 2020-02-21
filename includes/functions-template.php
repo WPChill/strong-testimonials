@@ -32,21 +32,33 @@ function strong_testimonials_view( $id = null ) {
  * @param string $after
  */
 function wpmtst_the_title( $before = '', $after = '' ) {
-	$title = get_the_title();
+    $title   = get_the_title();
+    $options = get_option( 'wpmtst_options' );
 
-	if ( WPMST()->atts( 'title' ) && $title ) {
+    if ( WPMST()->atts( 'title' ) && $title ) {
 
-		if ( WPMST()->atts( 'title_link' ) ) {
-			$before .= '<a href="' . esc_url( get_permalink() ) . '" rel="bookmark">';
-			$after  = '</a>' . $after;
-		}
+        if ('none' != WPMST()->atts( 'title_link' ) && '0' != WPMST()->atts( 'title_link' ) ) {
 
-		$before = apply_filters( 'wpmtst_the_title_before', $before );
-		$after = apply_filters( 'wpmtst_the_title_after', $after );
+            if ( (!isset($options['disable_rewrite']) || '1' != $options['disable_rewrite']) && ('wpmtst_testimonial' == WPMST()->atts( 'title_link' ) || '1' == WPMST()->atts( 'title_link' )) ) {
+                $before .= '<a href="' . esc_url( get_permalink() ) . '" rel="bookmark">';
+                $after  = '</a>' . $after;
+            } else {
+                $id           = get_the_ID();
+                $url_field    = WPMST()->atts( 'title_link' );
+                $external_url = get_post_meta( $id, $url_field, true );
 
-		the_title( $before, $after );
+                if('' != $external_url){
+                    $before       .= '<a href="' . esc_url( $external_url ) . '" rel="bookmark" target="_blank">';
+                    $after        = '</a>' . $after;
+                }
+            }
+        }
+    }
 
-	}
+    $before = apply_filters( 'wpmtst_the_title_before', $before );
+    $after  = apply_filters( 'wpmtst_the_title_after', $after );
+
+    the_title( $before, $after );
 }
 
 /**
@@ -229,7 +241,7 @@ add_filter( 'the_content_more_link', 'wpmtst_remove_more_link_scroll' );
  * @param string $before
  * @param string $after
  */
-function wpmtst_the_thumbnail( $size = null, $before = '<div class="testimonial-image">', $after = '</div>' ) {
+function wpmtst_the_thumbnail( $size = null, $before = '<div class="wpmtst-testimonial-image">', $after = '</div>' ) {
 	if ( ! WPMST()->atts( 'thumbnail' ) ) {
 		return;
 	}
@@ -447,9 +459,9 @@ function wpmtst_the_custom_field( $field ) {
 
 	if ( $output ) {
 		if ( isset( $field['before'] ) && $field['before'] ) {
-			$output = '<span class="testimonial-field-before">' . $field['before'] . '</span>' . $output;
+			$output = '<span class="wpmtst-testimonial-field-before">' . $field['before'] . '</span>' . $output;
 		}
-		$output = '<div class="testimonial-field ' . $field['class'] . '">' . $output . '</div>';
+		$output = '<div class="wpmtst-testimonial-field ' . $field['class'] . '">' . $output . '</div>';
 	}
 
 	return $output;

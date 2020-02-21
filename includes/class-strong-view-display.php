@@ -306,7 +306,7 @@ class Strong_View_Display extends Strong_View {
 
 		$content_class_list = array();
 
-		$post_class_list = array( 'testimonial' );
+		$post_class_list = array( 'wpmtst-testimonial' );
 
 		if ( 'excerpt' == $this->atts['content'] ) {
 			$post_class_list[] = 'excerpt';

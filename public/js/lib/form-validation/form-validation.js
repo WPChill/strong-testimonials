@@ -241,7 +241,7 @@ var strongValidation = {
 	scrollOnSuccess: function () {
 	  if (strongValidation.settings.scroll.onSuccess) {
 		var containerOffset, scrollTop;
-		containerOffset = jQuery('.testimonial-success').offset();
+		containerOffset = jQuery('.wpmtst-testimonial-success').offset();
 		if (containerOffset) {
 		  scrollTop = containerOffset.top - strongValidation.settings.scroll.onSuccessOffset;
 		  // is WordPress admin bar showing?
