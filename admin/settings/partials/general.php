@@ -58,18 +58,36 @@ $options = get_option( 'wpmtst_options' );
 			</fieldset>
 		</td>
 	</tr>
-
-	<tr valign="top">
-		<th scope="row">
-			<?php esc_html_e( 'Single Testimonial Slug', 'strong-testimonials' ); ?>
-		</th>
-		<td>
-			<label>
-				<input type="text" name="wpmtst_options[single_testimonial_slug]" value="<?php echo esc_attr( $options['single_testimonial_slug'] ); ?>"/>
-			</label>
-			<p class="description"><?php esc_html_e( 'Change the permalink slug for a single entry testimonial. After changing this field, reset permalinks by going to Settings > Permalinks and clicking Save Changes.', 'strong-testimonials' ); ?></p>
-		</td>
-	</tr>
+    <tr valign="top">
+        <th scope="row">
+            <?php _e( 'Permalinks', 'strong-testimonials' ); ?>
+        </th>
+        <td>
+            <fieldset>
+                <label>
+                    <input type="checkbox"
+                           name="wpmtst_options[disable_rewrite]" <?php isset( $options['disable_rewrite'] ) ? checked( $options['disable_rewrite'] ) : ''; ?>>
+                    <?php _e( 'Disable permalinks for testimonials.', 'strong-testimonials' ); ?>
+                    <?php _e( 'Off by default.', 'strong-testimonials' ); ?>
+                </label>
+                <p class="description">
+                    <?php esc_html_e( 'Prevent indexing of testimonials. This will overwrite the "Link to testimonial" settings from the "Views" section', 'strong-testimonials' ); ?>
+                </p>
+            </fieldset>
+        </td>
+    </tr>
+    <tr valign="top" <?php echo ( !isset( $options['disable_rewrite'] ) || '1' != $options['disable_rewrite'] ) ? '' : 'style="display:none;"'; ?> data-setting="single_testimonial_slug" >
+        <th scope="row">
+            <?php esc_html_e( 'Single Testimonial Slug', 'strong-testimonials' ); ?>
+        </th>
+        <td>
+            <label>
+                <input type="text" name="wpmtst_options[single_testimonial_slug]"
+                       value="<?php echo esc_attr( $options['single_testimonial_slug'] ); ?>"/>
+            </label>
+            <p class="description"><?php esc_html_e( 'Change the permalink slug for a single entry testimonial. After changing this field, reset permalinks by going to Settings > Permalinks and clicking Save Changes.', 'strong-testimonials' ); ?></p>
+        </td>
+    </tr>
 
 </table>
 
@@ -214,25 +232,6 @@ $options = get_option( 'wpmtst_options' );
             </fieldset>
         </td>
     </tr>
-
-    <tr valign="top">
-        <th scope="row">
-            <?php _e( 'Disable testimonial permalinks', 'strong-testimonials' ); ?>
-        </th>
-        <td>
-            <fieldset>
-                <label>
-                    <input type="checkbox" name="wpmtst_options[disable_rewrite]" <?php isset($options['disable_rewrite']) ? checked( $options['disable_rewrite'] ) : ''; ?>>
-                    <?php _e( 'Disable permalinks for testimonials.', 'strong-testimonials' ); ?>
-                    <?php _e( 'Off by default.', 'strong-testimonials' ); ?>
-                </label>
-                <p class="description">
-                    <?php esc_html_e('Prevent indexing of testimonials. This will overwrite the "Link to testimonial" settings from the "Views" section','strong-testimonials'); ?>
-                </p>
-            </fieldset>
-        </td>
-    </tr>
-
     <?php if ( wpmtst_is_plugin_active( 'lazy-loading-responsive-images' ) ) : ?>
     <tr valign="top">
         <th scope="row">

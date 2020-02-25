@@ -1,5 +1,6 @@
 <?php
 $custom_fields     = wpmtst_get_custom_fields();
+$options = get_option( 'wpmtst_options' );
 $url_fields = array();
 foreach($custom_fields as $field){
     if('url' == $field['input_type']){
@@ -36,10 +37,13 @@ if ( '0' == $view['title_link'] ) {
                 </div>
 
                 <select name="view[data][title_link]">
-                    <option value="none" <?php selected('none',$view['title_link'],true); ?>><?php echo esc_html__('None','strong-testimonials'); ?></option>
-                    <option value="wpmtst_testimonial" <?php selected('wpmtst_testimonial',$view['title_link'],true); ?>><?php echo esc_html__('Full testimonial','strong-testimonials'); ?></option>
-                    <?php foreach($url_fields as $url){ ?>
-                        <option value="<?php echo $url['name']; ?>" <?php selected($url['name'],$view['title_link']); ?>><?php echo $url['label']; ?></option>
+                    <option value="none" <?php selected( 'none', $view['title_link'], true ); ?>><?php echo esc_html__( 'None', 'strong-testimonials' ); ?></option>
+                    <?php if ( !isset( $options['disable_rewrite'] ) || '1' != $options['disable_rewrite'] ) { ?>
+                        <option value="wpmtst_testimonial" <?php selected( 'wpmtst_testimonial', $view['title_link'], true ); ?>><?php echo esc_html__( 'Full testimonial', 'strong-testimonials' ); ?></option>
+                    <?php } ?>
+
+                    <?php foreach ( $url_fields as $url ) { ?>
+                        <option value="<?php echo $url['name']; ?>" <?php selected( $url['name'], $view['title_link'] ); ?>><?php echo $url['label']; ?></option>
                     <?php } ?>
                 </select>
             </div>
