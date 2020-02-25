@@ -195,9 +195,6 @@ class Strong_Testimonials_Render {
 	 *               instead of each place where FontAwesome is needed.
 	 */
 	public function add_style( $style_name ) {
-		if ( 'wpmtst-font-awesome' == $style_name && ! apply_filters( 'wpmtst_load_font_awesome', true ) ) {
-			return;
-		}
 
 		if ( ! in_array( $style_name, $this->styles ) ) {
 			$this->styles[] = $style_name;

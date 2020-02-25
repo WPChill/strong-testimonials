@@ -30,7 +30,6 @@ class Strong_Testimonials_Defaults {
 	public static function get_options() {
 		$default_options = array(
 			'embed_width'             => '',
-			'load_font_awesome'       => true,
 			'nofollow'                => false,
             'disable_rewrite'         => false,
 			'pending_indicator'       => true,

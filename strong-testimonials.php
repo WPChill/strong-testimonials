@@ -328,7 +328,6 @@ final class Strong_Testimonials {
 		add_action( 'init', array( $this, 'l10n_check' ) );
 		//@todo : delete commented line. For the moment let it be
 		//add_action( 'init', array( $this, 'reorder_check' ) );
-		add_action( 'init', array( $this, 'font_check' ) );
 
 		/**
 		 * Theme support for thumbnails.
@@ -405,15 +404,7 @@ final class Strong_Testimonials {
 		}
 	}*/
 
-	/**
-	 * Forgo Font Awesome.
-	 */
-	public function font_check() {
-		$options = get_option( 'wpmtst_options' );
-		if ( isset( $options['load_font_awesome'] ) && ! $options['load_font_awesome'] ) {
-			add_filter( 'wpmtst_load_font_awesome', '__return_false' );
-		}
-	}
+
 
 	/**
 	 * Get att(s).

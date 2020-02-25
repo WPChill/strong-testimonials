@@ -2,7 +2,6 @@
 /**
  * Template Name: Modern
  * Description: A modern template designed for slideshows or single testimonials. Looks great with manual or automatic excerpts.
- * Styles: wpmtst-font-awesome
  */
 
 

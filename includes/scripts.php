@@ -52,13 +52,6 @@ function wpmtst_scripts() {
 	);
 	wp_localize_script( 'wpmtst-controller', 'strongControllerParms', $parms );
 
-	/**
-	 * Fonts
-	 */
-	wp_register_style( 'wpmtst-font-awesome',
-	                   WPMTST_PUBLIC_URL . 'fonts/font-awesome-4.6.3/css/font-awesome.min.css',
-	                   array(),
-	                   '4.6.3' );
 
 	/**
 	 * Simple pagination
@@ -108,9 +101,6 @@ function wpmtst_scripts() {
 	 * Ratings
 	 */
 	$deps = array();
-	if ( isset( $options['load_font_awesome'] ) && $options['load_font_awesome'] ) {
-		$deps = array( 'wpmtst-font-awesome' );
-	}
 
 	wp_register_style( 'wpmtst-rating-form',
 	                   WPMTST_PUBLIC_URL . 'css/rating-form.css',

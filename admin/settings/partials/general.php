@@ -184,37 +184,6 @@ $options = get_option( 'wpmtst_options' );
 
     <tr valign="top">
         <th scope="row">
-			<?php _e( 'Load Font Awesome', 'strong-testimonials' ); ?>
-        </th>
-        <td>
-            <fieldset>
-                <label>
-                    <input type="checkbox" name="wpmtst_options[load_font_awesome]" <?php checked( $options['load_font_awesome'] ); ?>>
-					<?php printf( __( 'Load the icon font necessary for star ratings %s, slideshow controls %s, and some template quotation marks %s. ','strong-testimonials' ),
-                        '<i class="fa fa-star example" aria-hidden="true"></i>',
-                        '<i class="fa fa-play example" aria-hidden="true"></i>',
-                        '<i class="fa fa-quote-left example" aria-hidden="true"></i>' ); ?>
-                    <?php _e( 'On by default.', 'strong-testimonials' ); ?>
-                </label>
-                <p class="description">
-                    <?php _e( 'Some reasons to disable this:', 'strong-testimonials' ); ?>
-                </p>
-                <ul class="description">
-                    <li>
-                        <?php _e( 'Your theme or another plugin also loads Font Awesome and you want to make your site more efficient by only loading one copy.', 'strong-testimonials' ); ?>
-                        <?php printf( 'Try <a href="%s" target="_blank">%s</a> for even more control.',
-							esc_url( 'https://wordpress.org/plugins/better-font-awesome/' ),
-							__( 'Better Font Awesome', 'strong-testimonials' ) ); ?></li>
-                    <li><?php _e( 'You are overriding the icon CSS with images or another icon font.', 'strong-testimonials' ); ?></li>
-                    <li><?php _e( 'You have no need for stars, slideshow controls, or quotation mark icons.', 'strong-testimonials' ); ?></li>
-                    <li><?php _e( 'You know what you\'re doing.', 'strong-testimonials' ); ?></li>
-                </ul>
-            </fieldset>
-        </td>
-    </tr>
-
-    <tr valign="top">
-        <th scope="row">
 			<?php _e( 'Nofollow Links', 'strong-testimonials' ); ?>
         </th>
         <td>

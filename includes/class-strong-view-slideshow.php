@@ -253,7 +253,6 @@ class Strong_View_Slideshow extends Strong_View_Display {
 	 * @since 2.16.0 In Strong_View class.
 	 */
 	public function has_slideshow() {
-		WPMST()->render->add_style( 'wpmtst-font-awesome' );
 
 		$settings          = $this->atts['slideshow_settings'];
 		$not_full_controls = ( 'none' != $settings['controls_type'] || 'full' != $settings['controls_type'] );
