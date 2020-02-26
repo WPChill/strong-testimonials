@@ -54,7 +54,6 @@
 .strong-view.controls-style-buttons .wpmslider-stop,
 .strong-view.controls-style-buttons .wpmslider-next,
 .strong-view.controls-style-buttons .wpmslider-prev {
-  font-family: FontAwesome;
   display: inline-block;
   color: #999;
   cursor: pointer;
@@ -75,10 +74,26 @@
   top: -1px;
 }
 .strong-view.controls-style-buttons .wpmslider-start:before {
-  content: "\f04b";
+  content: "";
+  background:#999;
+  position: relative;
+  -webkit-mask: url('../svg/play-solid.svg') center center no-repeat;
+  mask: url('../svg/play-solid.svg') center center no-repeat;
+  top:3px;
+  display: inline-block;
+  width: 25px;
+  height: 25px;
 }
 .strong-view.controls-style-buttons .wpmslider-stop:before {
-  content: "\f04c";
+  content: "";
+  background:#999;
+  -webkit-mask: url('../svg/pause-solid.svg') center center no-repeat;
+  mask: url('../svg/pause-solid.svg') center center no-repeat;
+  display: inline-block;
+  width: 25px;
+  height: 25px;
+  position: relative;
+  top:3px;
 }
 .strong-view.controls-style-buttons .wpmslider-start:hover,
 .strong-view.controls-style-buttons .wpmslider-stop:hover,
@@ -90,25 +105,61 @@
   left: -32px;
 }
 .strong-view.controls-style-buttons:not(.rtl) .wpmslider-prev:before {
-  content: "\f053";
+  content: "";
+  -webkit-mask: url('../svg/chevron-left-solid.svg') center center no-repeat;
+  mask: url('../svg/chevron-left-solid.svg') center center no-repeat;
+  background:#999;
+  position: relative;
+  left: -1px;
+  display: inline-block;
+  width: 25px;
+  height: 25px;
+  top: 3px;
 }
 .strong-view.controls-style-buttons:not(.rtl) .wpmslider-next {
   right: -32px;
 }
 .strong-view.controls-style-buttons:not(.rtl) .wpmslider-next:before {
-  content: "\f054";
+  content: "";
+  -webkit-mask: url('../svg/chevron-right-solid.svg') center center no-repeat;
+  mask: url('../svg/chevron-right-solid.svg') center center no-repeat;
+  background:#999;
+  position: relative;
+  left: -1px;
+  display: inline-block;
+  width: 25px;
+  height: 25px;
+  top: 3px;
 }
 .strong-view.controls-style-buttons.rtl .wpmslider-prev {
   right: -32px;
 }
 .strong-view.controls-style-buttons.rtl .wpmslider-prev:before {
-  content: "\f054";
+  content: "";
+  -webkit-mask: url('../svg/chevron-right-solid.svg') center center no-repeat;
+  mask: url('../svg/chevron-right-solid.svg') center center no-repeat;
+  background:#999;
+  position: relative;
+  left: -1px;
+  display: inline-block;
+  width: 25px;
+  height: 25px;
+  top: 3px;
 }
 .strong-view.controls-style-buttons.rtl .wpmslider-next {
   left: -32px;
 }
 .strong-view.controls-style-buttons.rtl .wpmslider-next:before {
-  content: "\f053";
+  content: "";
+  -webkit-mask: url('../svg/chevron-left-solid.svg') center center no-repeat;
+  mask: url('../svg/chevron-left-solid.svg') center center no-repeat;
+  background:#999;
+  position: relative;
+  left: -1px;
+  display: inline-block;
+  width: 25px;
+  height: 25px;
+  top: 3px;
 }
 
 .strong-view.nav-position-inside:not(.controls-type-sides-inside) .wpmslider-controls {

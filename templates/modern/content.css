@@ -115,23 +115,28 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
 }
 .strong-view.wpmtst-modern .wpmtst-testimonial-content:before,
 .strong-view.wpmtst-modern .wpmtst-testimonial-content:after {
-  font-family: FontAwesome;
   color: #CDCDCD;
+  background:#cdcdcd;
+  width:36px;
+  height:36px;
   font-size: 36px;
   font-style: normal;
   line-height: 36px;
   position: absolute;
-  width: 36px;
 }
 .strong-view.wpmtst-modern .wpmtst-testimonial-content:before {
-  content: "\f10d";
+  content: "";
   left: -56px;
   top: 0;
+  -webkit-mask: url('../../public/svg/quote-left-solid.svg') center center no-repeat;
+  mask: url('../../public/svg/quote-left-solid.svg') center center no-repeat;
 }
 .strong-view.wpmtst-modern .wpmtst-testimonial-content:after {
-  content: "\f10e";
+  content: "";
   right: -56px;
   bottom: 0;
+  -webkit-mask: url('../../public/svg/quote-right-solid.svg') center center no-repeat;
+  mask: url('../../public/svg/quote-right-solid.svg') center center no-repeat;
 }
 .strong-view.wpmtst-modern .wpmtst-testimonial-field {
   clear: both;

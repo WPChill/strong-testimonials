@@ -191,8 +191,7 @@ class Strong_Testimonials_Render {
 	 *
 	 * @param string $style_name The stylesheet handle.
 	 *
-	 * @since 2.27.0 Load FontAwesome conditionally. Check filter in one place
-	 *               instead of each place where FontAwesome is needed.
+	 *
 	 */
 	public function add_style( $style_name ) {
 

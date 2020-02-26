@@ -35,10 +35,13 @@
 }
 
 .strong-rating label:before {
-  font-family: FontAwesome;
-  content: "\f005";
+  content: "";
   display: inline-block;
   font-size: 1.25em;
+  width:20px;
+  height:20px;
+  -webkit-mask: url('../svg/star-solid.svg') center center no-repeat;
+  mask: url('../svg/star-solid.svg') center center no-repeat;
   line-height: 1;
   /* use padding not margin */
   padding: 4px;
@@ -65,6 +68,7 @@
   font-size: 20px;
   line-height: 27px;
   padding: 0 4px;
+  background:#0073AA;
   color: #0073aa;
 }
 
@@ -81,11 +85,14 @@
 /* and turn all on */
 .strong-rating label:before {
   color: #FFB900;
+  background: #ffb900;
 }
 
 /* turn off stars after the one we're on */
 .strong-rating label:hover ~ label:before {
-  content: "\f006";
+  content: "";
+  -webkit-mask: url('../svg/star-regular.svg') center center no-repeat;
+  mask: url('../svg/star-regular.svg') center center no-repeat;
 }
 /* maybe use different color if validation error */
 .error .strong-rating label:hover ~ label:before {
@@ -93,7 +100,9 @@
 
 /* turn off stars after the current rating */
 .strong-rating input:checked ~ label:before {
-  content: "\f006";
+  content: "";
+  -webkit-mask: url('../svg/star-regular.svg') center center no-repeat;
+  mask: url('../svg/star-regular.svg') center center no-repeat;
 }
 /* maybe use different color if validation error */
 .error .strong-rating input:checked ~ label:before {
@@ -102,10 +111,13 @@
 /* turn on the current rating */
 .strong-rating input[type="radio"]:checked + label:before,
 .error .strong-rating input:checked + label:before {
-  content: "\f005";
+  content: "";
+  -webkit-mask: url('../svg/star-solid.svg') center center no-repeat;
+  mask: url('../svg/star-solid.svg') center center no-repeat;
 }
 .strong-rating-wrapper.in-metabox input[type="radio"]:checked + label:before {
   color: #00b9eb;
+  background: #00b9eb;
 }
 
 /* when hovering the entire fieldset: */
@@ -113,18 +125,23 @@
 /* (1) turn all on */
 .strong-rating:hover input ~ label:before,
 .error .strong-rating:hover input ~ label:before {
-  content: "\f005";
+  content: "";
+  -webkit-mask: url('../svg/star-solid.svg') center center no-repeat;
+  mask: url('../svg/star-solid.svg') center center no-repeat;
 }
 
 /* (2) indicate current selection (optional) */
 .strong-rating:hover input:checked + label:before,
 .error .strong-rating:hover input:checked + label:before {
   color: #FFE39E;
+  background:#FFE39E;
 }
 
 /* (3) then turn off siblings after the hovered star */
 .strong-rating:hover label:hover ~ input:not(:checked) + label:before {
-  content: "\f006";
+  content: "";
+  -webkit-mask: url('../svg/star-regular.svg') center center no-repeat;
+  mask: url('../svg/star-regular.svg') center center no-repeat;
 }
 /* maybe use different color if validation error */
 .error .strong-rating:hover label:hover ~ input:not(:checked) + label:before {

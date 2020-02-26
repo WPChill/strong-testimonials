@@ -23,28 +23,48 @@ td.column-handle {
 
 td.column-handle .help:before,
 td.column-handle .help-in-motion:before {
-	font-family: FontAwesome;
-  font-size: 20px;
+  	font-size: 20px;
 	width: 1em;
 	margin: 0 auto;
 	color: #aaa;
 }
 
 td.column-handle .help:before {
-  content: "\f0c9";
+	content: "";
+	background: #aaa;
+	background-size: contain;
+	width: 20px;
+	height: 20px;
+	display: inline-block;
+	-webkit-mask: url('../img/bars-solid.svg') center center no-repeat;
+	mask: url('../img/bars-solid.svg') center center no-repeat;
 }
 
 td.column-handle .help-in-motion:before {
-	content: "\f255";
+	content: "";
+	background: #111;
+	background-size: contain;
+	width: 20px;
+	height: 20px;
 	color: #111;
-  font-size: 20px;
+	font-size: 20px;
 	display: none;
+	-webkit-mask: url('../img/hand-rock-regular.svg') center center no-repeat;
+	mask: url('../img/hand-rock-regular.svg') center center no-repeat;
 }
 
 #the-list:not(.ui-sortable-disabled) td.column-handle:not(.refresh):hover .help:before {
-	content: "\f256";
+	content: "";
+	background: #111;
+	background-size: contain;
+	width: 20px;
+	height: 20px;
 	color: #111;
-  font-size: 20px;
+	font-size: 20px;
+	display: inline-block;
+	-webkit-mask: url('../img/hand-paper-regular.svg') center center no-repeat;
+	mask: url('../img/hand-paper-regular.svg') center center no-repeat;
+
 }
 
 .ui-sortable tr.ui-sortable-helper {
@@ -53,7 +73,7 @@ td.column-handle .help-in-motion:before {
 }
 
 .ui-sortable tr.ui-sortable-helper .help:before {
-	display: none;
+	display: none !important;
 }
 
 .ui-sortable tr.ui-sortable-helper .help-in-motion:before {
@@ -91,9 +111,16 @@ td.column-handle .help-in-motion:before {
 }
 
 td.column-handle.refresh .help:before {
-	content: "\f110";
+	content: "";
+	background: #0073AA;
+	background-size: contain;
+	width: 20px;
+	height: 20px;
+	font-size: 20px;
+	display: inline-block;
 	color: #0073AA;
-  font-size: 20px;
+	mask: url('../img/spinner-solid.svg') center center no-repeat;
+	-webkit-mask: url('../img/spinner-solid.svg') center center no-repeat;
 }
 
 td.column-handle.refresh .help {

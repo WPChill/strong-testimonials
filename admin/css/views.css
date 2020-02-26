@@ -214,28 +214,40 @@ optgroup option {
 input[type=checkbox] {
   display: none; }
   input[type=checkbox] + label:before {
-    font-family: FontAwesome;
     display: inline-block;
     font-size: 18px;
-    width: 1em;
+    width: 20px;
+    height: 20px;
     position: relative;
-    top: 1px;
+    top: 5px;
     /* unchecked icon */
-    content: "\f096";
-    color: #00A4F3; }
+    content: "";
+    color: #00A4F3;
+    background: #00A4F3;
+    -webkit-mask: url('../img/square-regular.svg') center center no-repeat;
+    mask: url('../img/square-regular.svg') center center no-repeat;
+  }
   input[type=checkbox] + label:hover:before {
     color: #FF8900; }
   input[type=checkbox]:checked + label:before {
     /* checked icon */
-    content: "\f14a"; }
+    content: "";
+    -webkit-mask: url('../img/check-square-regular.svg') center center no-repeat;
+    mask: url('../img/check-square-regular.svg') center center no-repeat;
+  }
   input[type=checkbox]:checked + label:hover:before {
     color: #FF8900; }
   input[type=checkbox]:disabled + label:before {
     /* disabled icon */
-    content: "\f146";
-    color: #888; }
+    content: "";
+    -webkit-mask: url('../img/minus-square-regular.svg') center center no-repeat;
+    mask: url('../img/minus-square-regular.svg') center center no-repeat;
+    color: #888;
+    background: #888;
+  }
   input[type=checkbox]:disabled + label:hover:before {
-    color: #888; }
+    color: #888;
+    background: #888;}
 
 /* -------------------------------------------------
     Misc.
@@ -585,24 +597,34 @@ span.title {
     line-height: 30px;
     margin-right: 15px; }
     .radio-buttons input[type=radio] + label:before {
-      font-family: FontAwesome;
       display: inline-block;
       color: #999;
+      background:#999;
       text-align: center;
       font-size: 17px;
       margin-left: 5px;
       margin-right: 1px;
+      position: relative;
+      top:5px;
       width: 20px;
+      height:20px;
       /* unchecked icon */
-      content: "\f10c"; }
+      content: "";
+      -webkit-mask: url('../img/circle-regular.svg') center center no-repeat;
+      mask: url('../img/circle-regular.svg') center center no-repeat;
+    }
     .radio-buttons input[type=radio] + label:hover:before {
       color: #FF8900; }
   .radio-buttons input[type=radio]:checked + label:before {
     /* checked icon */
-    content: "\f192";
-    color: #00A4F3; }
+    content: "";
+    -webkit-mask: url('../img/dot-circle-regular.svg') center center no-repeat;
+    mask: url('../img/dot-circle-regular.svg') center center no-repeat;
+    color: #00A4F3;
+    background: #00A4F3;}
   .radio-buttons input[type=radio]:checked + label:hover:before {
-    color: #FF8900; }
+    color: #FF8900;
+    background: #FF8900;}
   .radio-buttons input[type=radio].error + label, .radio-buttons input[type=radio].error + label:before {
     color: red; }
   .radio-buttons input[type=radio]:disabled + label {

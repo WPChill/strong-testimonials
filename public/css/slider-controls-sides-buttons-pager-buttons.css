@@ -105,21 +105,35 @@
   text-align: center;
 }
 .strong-view.pager-style-buttons .wpmslider-pager-link:before {
-  font-family: FontAwesome;
-  content: "\f10c";
+  content: "";
+  -webkit-mask: url('../svg/chevron-circle-left-solid.svg') center center no-repeat;
+  mask: url('../svg/chevron-circle-left-solid.svg') center center no-repeat;
   display: inline-block;
   color: #999;
+  background: #999;
   cursor: pointer;
   font-size: 12px;
   width: 18px;
+  height: 18px;
   text-align: center;
 }
 .strong-view.pager-style-buttons .wpmslider-pager-link:hover:before {
-  content: "\f111";
+  content: "";
+  -webkit-mask: url('../svg/circle-solid.svg') center center no-repeat;
+  mask: url('../svg/circle-solid.svg') center center no-repeat;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
   color: #111;
+  background: #111;
 }
 .strong-view.pager-style-buttons .wpmslider-pager-link.active:before {
-  content: "\f111";
+  content: "";
+  -webkit-mask: url('../svg/circle-solid.svg') center center no-repeat;
+  mask: url('../svg/circle-solid.svg') center center no-repeat;
+  display: inline-block;
+  width: 20px;
+  height: 20px;;
 }
 
 .strong-view.controls-type-sides.nav-position-inside .wpmslider-controls-direction {
