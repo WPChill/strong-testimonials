@@ -51,10 +51,13 @@
 }
 
 .strong-rating span.star:before {
-  font-family: FontAwesome;
-  content: "\f005";
+  content: "";
+  -webkit-mask: url('../svg/star-solid.svg') center center no-repeat;
+  mask: url('../svg/star-solid.svg') center center no-repeat;
   display: inline-block;
   font-size: 1.25em;
+  width:19px;
+  height:20px;
   /* use padding not margin */
   padding: 0 4px;
   transition: color 0.3s ease;
@@ -116,11 +119,14 @@
 /* and turn all on */
 .strong-rating span.star:before {
   color: #FFB900;
+  background: #FFB900;
 }
 
 /* then turn off stars after the current rating */
 .strong-rating span.current ~ span.star:before {
-  content: "\f006";
+  content: "";
+  -webkit-mask: url('../svg/star-regular.svg') center center no-repeat;
+  mask: url('../svg/star-regular.svg') center center no-repeat;
 }
 
 /* turn on the current rating */
@@ -130,7 +136,9 @@
 
 /* which may be a half star */
 .strong-rating-wrapper.average .strong-rating span.star.half:before {
-  content: "\f123";
+  content: "";
+  -webkit-mask: url('../svg/star-half-alt-solid.svg') center center no-repeat;
+  mask: url('../svg/star-half-alt-solid.svg') center center no-repeat;
 }
 
 /* Responsive

@@ -46,11 +46,10 @@ class Strong_View_Form extends Strong_View {
 	 */
 	public function print_overlay() {
 		if ( apply_filters( 'wpmtst_form_wait', true ) ) {
-			WPMST()->render->add_style( 'wpmtst-font-awesome' );
 			?>
 			<div class="strong-form-wait">
 				<div class="message">
-					<?php echo wp_kses_post( apply_filters( 'wpmtst_form_wait_message', '<i class="fa fa-2x fa-spinner fa-pulse" aria-hidden="true"></i>' ) ); ?>
+					<?php echo wp_kses_post( apply_filters( 'wpmtst_form_wait_message', '<img src="'.WPMTST_PUBLIC_URL.'/svg/spinner-solid.svg">' ) ); ?>
 				</div>
 			</div>
 			<?php

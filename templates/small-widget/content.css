@@ -26,40 +26,40 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
 
 /* Base
 -----------------------------------------------*/
-.strong-view.small-widget {
+.strong-view.wpmtst-small-widget {
   display: block;
   width: 100%;
 }
-.strong-view.small-widget div {
+.strong-view.wpmtst-small-widget div {
   box-sizing: border-box;
 }
-.strong-view.small-widget .testimonial {
+.strong-view.wpmtst-small-widget .wpmtst-testimonial {
   max-height: none;
   max-width: none;
   padding: 0;
   width: 100%;
 }
-.strong-view.small-widget .testimonial.t-slide {
+.strong-view.wpmtst-small-widget .wpmtst-testimonial.t-slide {
   margin-top: 0;
   margin-bottom: 0;
 }
-.strong-view.small-widget .testimonial-inner {
+.strong-view.wpmtst-small-widget .wpmtst-testimonial-inner {
   display: block;
   width: 100%;
   height: 100%;
 }
-.strong-view.small-widget .testimonial-image {
+.strong-view.wpmtst-small-widget .wpmtst-testimonial-image {
   max-width: 100%;
 }
-.strong-view.small-widget .testimonial-field-before {
+.strong-view.wpmtst-small-widget .wpmtst-testimonial-field-before {
   margin-right: 0.5em;
 }
-.strong-view.small-widget a.readmore,
-.strong-view.small-widget a.readmore-toggle {
+.strong-view.wpmtst-small-widget a.readmore,
+.strong-view.wpmtst-small-widget a.readmore-toggle {
   white-space: nowrap;
   z-index: 100;
 }
-.strong-view.small-widget a.readmore-toggle:hover {
+.strong-view.wpmtst-small-widget a.readmore-toggle:hover {
   cursor: pointer;
 }
 
@@ -77,45 +77,45 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
 
 /* Template
 -----------------------------------------------*/
-.strong-view.small-widget {
+.strong-view.wpmtst-small-widget {
   margin-bottom: 1em;
 }
-.strong-view.small-widget .testimonial {
+.strong-view.wpmtst-small-widget .wpmtst-testimonial {
   margin-bottom: 1em;
 }
-.strong-view.small-widget .testimonial-inner {
+.strong-view.wpmtst-small-widget .wpmtst-testimonial-inner {
   padding: 10px;
 }
-.strong-view.small-widget .testimonial-inner > *:not(:nth-last-child(2)):not(:last-child) {
+.strong-view.wpmtst-small-widget .wpmtst-testimonial-inner > *:not(:nth-last-child(2)):not(:last-child) {
 	margin-bottom: 5px;
 }
-.strong-view.small-widget .testimonial-heading {
+.strong-view.wpmtst-small-widget .wpmtst-testimonial-heading {
   margin-bottom: 1em;
 }
-.strong-view.small-widget .testimonial-content p:first-of-type {
+.strong-view.wpmtst-small-widget .wpmtst-testimonial-content p:first-of-type {
   margin-top: 0;
   padding-top: 0;
 }
-.strong-view.small-widget .testimonial-content p:last-of-type {
+.strong-view.wpmtst-small-widget .wpmtst-testimonial-content p:last-of-type {
   margin-bottom: 0;
   padding-bottom: 0;
 }
-.strong-view.small-widget .testimonial-image {
+.strong-view.wpmtst-small-widget .wpmtst-testimonial-image {
   float: left;
   margin-top: 0.25em;
   margin-right: 1em;
   margin-bottom: .5em;
 }
-.strong-view.small-widget .testimonial-field {
+.strong-view.wpmtst-small-widget .wpmtst-testimonial-field {
   clear: both;
 }
-.strong-view.small-widget .testimonial-name {
+.strong-view.wpmtst-small-widget .wpmtst-testimonial-name {
   font-weight: 700;
 }
-.strong-view.small-widget .readmore {
+.strong-view.wpmtst-small-widget .readmore {
   margin-top: 1em;
 }
-.strong-view.small-widget .readmore-page {
+.strong-view.wpmtst-small-widget .readmore-page {
   border: 1px solid #E6E6E6;
   padding: 0.5em;
   text-align: center;
@@ -123,16 +123,16 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
 
 /* Slideshow
 -----------------------------------------------*/
-.strong-view.small-widget.slider-container .strong-content {
+.strong-view.wpmtst-small-widget.slider-container .strong-content {
   margin: 0 auto;
 }
-.strong-view.small-widget.slider-container .testimonial:not(:first-child) {
+.strong-view.wpmtst-small-widget.slider-container .wpmtst-testimonial:not(:first-child) {
   display: none;
 }
-.strong-view.small-widget.nav-position-inside .testimonial-inner {
+.strong-view.wpmtst-small-widget.nav-position-inside .wpmtst-testimonial-inner {
   padding-bottom: 48px;
 }
-.strong-view.small-widget.controls-type-sides .testimonial-inner {
+.strong-view.wpmtst-small-widget.controls-type-sides .wpmtst-testimonial-inner {
   padding-left: 50px;
   padding-right: 50px;
 }
@@ -140,7 +140,7 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
 /* Responsive
 -----------------------------------------------*/
 @media only screen and (max-width: 320px) {
-  .strong-view.small-widget .testimonial-image {
+  .strong-view.wpmtst-small-widget .wpmtst-testimonial-image {
     float: none;
     margin-left: auto;
     margin-right: auto;
@@ -148,39 +148,42 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
 }
 /* RTL
 -----------------------------------------------*/
-.strong-view.small-widget.rtl .testimonial,
-.strong-view.small-widget.rtl .testimonial-inner,
-.strong-view.small-widget.rtl .testimonial-heading {
+.strong-view.wpmtst-small-widget.rtl .wpmtst-testimonial,
+.strong-view.wpmtst-small-widget.rtl .wpmtst-testimonial-inner,
+.strong-view.wpmtst-small-widget.rtl .wpmtst-testimonial-heading {
   text-align: right;
 }
-.strong-view.small-widget.rtl .testimonial-image {
+.strong-view.wpmtst-small-widget.rtl .wpmtst-testimonial-image {
   float: right;
   margin-left: 1em;
 }
-.strong-view.small-widget.rtl .testimonial-field {
+.strong-view.wpmtst-small-widget.rtl .wpmtst-testimonial-field {
   text-align: left;
 }
 
 /* Option: Image Right
 -----------------------------------------------*/
-.strong-view.small-widget.image-right .testimonial-image {
+.strong-view.wpmtst-small-widget.image-right .wpmtst-testimonial-image {
   float: right;
   margin-left: 1em;
   margin-bottom: 0.1em;
 }
 
 @media only screen and (max-width: 480px) and (orientation: portrait) {
-  .strong-view.small-widget.image-right .strong-content .testimonial-image {
+  .strong-view.wpmtst-small-widget.image-right .strong-content .wpmtst-testimonial-image {
     float: none;
   }
 }
-.strong-view.small-widget.image-right.rtl .testimonial,
-.strong-view.small-widget.image-right.rtl .testimonial-inner,
-.strong-view.small-widget.image-right.rtl .testimonial-heading {
+.strong-view.wpmtst-small-widget.image-right.rtl .wpmtst-testimonial,
+.strong-view.wpmtst-small-widget.image-right.rtl .wpmtst-testimonial-inner,
+.strong-view.wpmtst-small-widget.image-right.rtl .wpmtst-testimonial-heading {
   text-align: right;
 }
-.strong-view.small-widget.image-right.rtl .testimonial-image {
+.strong-view.wpmtst-small-widget.image-right.rtl .wpmtst-testimonial-image {
   float: left;
   margin-left: 0;
   margin-right: 1em;
+}
+.disabled {
+  display : none!important;
 }

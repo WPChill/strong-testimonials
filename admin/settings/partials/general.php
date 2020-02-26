@@ -26,21 +26,22 @@ $options = get_option( 'wpmtst_options' );
 		</td>
 	</tr>
 
-	<tr valign="top">
+    <!-- @todo : delete commented line. For the moment let it be -->
+	<!--<tr valign="top">
 		<th scope="row">
-			<?php _e( 'Reordering', 'strong-testimonials' ); ?>
+			<?php /*_e( 'Reordering', 'strong-testimonials' ); */?>
 		</th>
 		<td>
 			<fieldset>
 			<label>
-				<input type="checkbox" name="wpmtst_options[reorder]" <?php checked( $options['reorder'] ); ?>>
-				<?php _e( 'Enable drag-and-drop reordering in the testimonial list.', 'strong-testimonials' ); ?>
-				<?php _e( 'Off by default.', 'strong-testimonials' ); ?>
+				<input type="checkbox" name="wpmtst_options[reorder]" <?php /*checked( $options['reorder'] ); */?>>
+				<?php /*_e( 'Enable drag-and-drop reordering in the testimonial list.', 'strong-testimonials' ); */?>
+				<?php /*_e( 'Off by default.', 'strong-testimonials' ); */?>
 			</label>
-            <p class="description"><?php _e( 'Then set <b>Order</b> to "menu order" in the View.', 'strong-testimonials' ); ?></p>
+            <p class="description"><?php /*_e( 'Then set <b>Order</b> to "menu order" in the View.', 'strong-testimonials' ); */?></p>
 			</fieldset>
 		</td>
-	</tr>
+	</tr>-->
 
 	<tr valign="top">
 		<th scope="row">
@@ -57,18 +58,36 @@ $options = get_option( 'wpmtst_options' );
 			</fieldset>
 		</td>
 	</tr>
-
-	<tr valign="top">
-		<th scope="row">
-			<?php esc_html_e( 'Single Testimonial Slug', 'strong-testimonials' ); ?>
-		</th>
-		<td>
-			<label>
-				<input type="text" name="wpmtst_options[single_testimonial_slug]" value="<?php echo esc_attr( $options['single_testimonial_slug'] ); ?>"/>
-			</label>
-			<p class="description"><?php esc_html_e( 'Change the permalink slug for a single entry testimonial. After changing this field, reset permalinks by going to Settings > Permalinks and clicking Save Changes.', 'strong-testimonials' ); ?></p>
-		</td>
-	</tr>
+    <tr valign="top">
+        <th scope="row">
+            <?php _e( 'Permalinks', 'strong-testimonials' ); ?>
+        </th>
+        <td>
+            <fieldset>
+                <label>
+                    <input type="checkbox"
+                           name="wpmtst_options[disable_rewrite]" <?php isset( $options['disable_rewrite'] ) ? checked( $options['disable_rewrite'] ) : ''; ?>>
+                    <?php _e( 'Disable permalinks for testimonials.', 'strong-testimonials' ); ?>
+                    <?php _e( 'Off by default.', 'strong-testimonials' ); ?>
+                </label>
+                <p class="description">
+                    <?php esc_html_e( 'Prevent indexing of testimonials. This will overwrite the "Link to testimonial" settings from the "Views" section', 'strong-testimonials' ); ?>
+                </p>
+            </fieldset>
+        </td>
+    </tr>
+    <tr valign="top" <?php echo ( !isset( $options['disable_rewrite'] ) || '1' != $options['disable_rewrite'] ) ? '' : 'style="display:none;"'; ?> data-setting="single_testimonial_slug" >
+        <th scope="row">
+            <?php esc_html_e( 'Single Testimonial Slug', 'strong-testimonials' ); ?>
+        </th>
+        <td>
+            <label>
+                <input type="text" name="wpmtst_options[single_testimonial_slug]"
+                       value="<?php echo esc_attr( $options['single_testimonial_slug'] ); ?>"/>
+            </label>
+            <p class="description"><?php esc_html_e( 'Change the permalink slug for a single entry testimonial. After changing this field, reset permalinks by going to Settings > Permalinks and clicking Save Changes.', 'strong-testimonials' ); ?></p>
+        </td>
+    </tr>
 
 </table>
 
@@ -165,37 +184,6 @@ $options = get_option( 'wpmtst_options' );
 
     <tr valign="top">
         <th scope="row">
-			<?php _e( 'Load Font Awesome', 'strong-testimonials' ); ?>
-        </th>
-        <td>
-            <fieldset>
-                <label>
-                    <input type="checkbox" name="wpmtst_options[load_font_awesome]" <?php checked( $options['load_font_awesome'] ); ?>>
-					<?php printf( __( 'Load the icon font necessary for star ratings %s, slideshow controls %s, and some template quotation marks %s. ','strong-testimonials' ),
-                        '<i class="fa fa-star example" aria-hidden="true"></i>',
-                        '<i class="fa fa-play example" aria-hidden="true"></i>',
-                        '<i class="fa fa-quote-left example" aria-hidden="true"></i>' ); ?>
-                    <?php _e( 'On by default.', 'strong-testimonials' ); ?>
-                </label>
-                <p class="description">
-                    <?php _e( 'Some reasons to disable this:', 'strong-testimonials' ); ?>
-                </p>
-                <ul class="description">
-                    <li>
-                        <?php _e( 'Your theme or another plugin also loads Font Awesome and you want to make your site more efficient by only loading one copy.', 'strong-testimonials' ); ?>
-                        <?php printf( 'Try <a href="%s" target="_blank">%s</a> for even more control.',
-							esc_url( 'https://wordpress.org/plugins/better-font-awesome/' ),
-							__( 'Better Font Awesome', 'strong-testimonials' ) ); ?></li>
-                    <li><?php _e( 'You are overriding the icon CSS with images or another icon font.', 'strong-testimonials' ); ?></li>
-                    <li><?php _e( 'You have no need for stars, slideshow controls, or quotation mark icons.', 'strong-testimonials' ); ?></li>
-                    <li><?php _e( 'You know what you\'re doing.', 'strong-testimonials' ); ?></li>
-                </ul>
-            </fieldset>
-        </td>
-    </tr>
-
-    <tr valign="top">
-        <th scope="row">
 			<?php _e( 'Nofollow Links', 'strong-testimonials' ); ?>
         </th>
         <td>
@@ -213,7 +201,6 @@ $options = get_option( 'wpmtst_options' );
             </fieldset>
         </td>
     </tr>
-
     <?php if ( wpmtst_is_plugin_active( 'lazy-loading-responsive-images' ) ) : ?>
     <tr valign="top">
         <th scope="row">

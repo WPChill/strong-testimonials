@@ -1,3 +1,23 @@
+<?php
+$custom_fields     = wpmtst_get_custom_fields();
+$options = get_option( 'wpmtst_options' );
+$url_fields = array();
+foreach($custom_fields as $field){
+    if('url' == $field['input_type']){
+        $url_fields[] = $field;
+    }
+}
+
+// For older versions where title_link was checkbox
+if ( '1' == $view['title_link'] ) {
+    $view['title_link'] = 'wpmtst_testimonial';
+}
+
+if ( '0' == $view['title_link'] ) {
+    $view['title_link'] = 'none';
+}
+?>
+
 <th>
     <input type="checkbox" id="view-title" name="view[data][title]" value="1" <?php checked( $view['title'] ); ?>
            class="checkbox if toggle">
@@ -9,11 +29,23 @@
     <div class="row">
         <div class="row-inner">
             <div class="then then_title" style="display: none;">
-                <input type="checkbox" id="view-title_link" name="view[data][title_link]"
-                       value="1" <?php checked( $view['title_link'] ); ?> class="checkbox">
                 <label for="view-title_link">
-					<?php printf( _x( 'Link to full %s', 'The name of this post type. "Testimonial" by default.', 'strong-testimonials' ), strtolower( apply_filters( 'wpmtst_cpt_singular_name', __( 'Testimonial', 'strong-testimonials' ) ) ) ); ?>
+                    <?php printf( _x( 'Link to %s', 'The name of this post type. "Testimonial" by default.', 'strong-testimonials' ), strtolower( apply_filters( 'wpmtst_cpt_singular_name', __( 'Testimonial', 'strong-testimonials' ) ) ) ); ?>
                 </label>
+                <div class="wpmtst-tooltip"><span>[?]</span>
+                    <div class="wpmtst-tooltip-content"><?php echo esc_html__('"Full testimonial" option doesn\'s work if "Disable permalinks for testimonials" from "Settings" page in enabled.','strong-testimonials'); ?></div>
+                </div>
+
+                <select name="view[data][title_link]">
+                    <option value="none" <?php selected( 'none', $view['title_link'], true ); ?>><?php echo esc_html__( 'None', 'strong-testimonials' ); ?></option>
+                    <?php if ( !isset( $options['disable_rewrite'] ) || '1' != $options['disable_rewrite'] ) { ?>
+                        <option value="wpmtst_testimonial" <?php selected( 'wpmtst_testimonial', $view['title_link'], true ); ?>><?php echo esc_html__( 'Full testimonial', 'strong-testimonials' ); ?></option>
+                    <?php } ?>
+
+                    <?php foreach ( $url_fields as $url ) { ?>
+                        <option value="<?php echo $url['name']; ?>" <?php selected( $url['name'], $view['title_link'] ); ?>><?php echo $url['label']; ?></option>
+                    <?php } ?>
+                </select>
             </div>
         </div>
     </div>

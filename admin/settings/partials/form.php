@@ -127,6 +127,9 @@ $form_options = get_option( 'wpmtst_form_options' );
 		<th scope="row">
 			<label for="redirect-page">
 				<?php esc_html_e( 'Upon Successful Submission', 'strong-testimonials' ); ?>
+                <div class="wpmtst-tooltip"><span>[?]</span>
+                    <div class="wpmtst-tooltip-content"><?php echo esc_html__('This setting is overwritten by "Submit form without reloading the page (Ajax)" setting found in Form view in the "Views" section.','strong-testimonials'); ?></div>
+                </div>
 			</label>
 		</th>
 		<td>

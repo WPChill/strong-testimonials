@@ -650,7 +650,7 @@ function wpmtst_get_background_presets( $preset = null ) {
  */
 function wpmtst_get_success_message() {
 	$message = wpautop( do_shortcode( wpmtst_get_form_message( 'submission-success' ) ) );
-	$message = sprintf( '<div class="%s">%s</div>', 'testimonial-success', $message );
+	$message = sprintf( '<div class="%s">%s</div>', 'wpmtst-testimonial-success', $message );
 
 	return apply_filters( 'wpmtst_form_success_message', $message );
 }
@@ -851,6 +851,7 @@ if ( ! function_exists( 'normalize_empty_atts' ) ) {
     }
 }
 
+// @todo : check in addons to see if function is called somewhere, else delete it
 if ( ! function_exists( 'wpmtst_round_to_half' ) ) {
 	/**
 	 * Round to the nearest half.

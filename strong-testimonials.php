@@ -5,7 +5,7 @@
  * Description: Collect and display your testimonials or reviews.
  * Author: MachoThemes
  * Author URI: https://www.machothemes.com/
- * Version: 2.40.1
+ * Version: 2.40.2
  * Text Domain: strong-testimonials
  * Domain Path: /languages
  * Requires: 4.6 or higher
@@ -44,7 +44,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'WPMTST_VERSION', '2.40.1' );
+define( 'WPMTST_VERSION', '2.40.2' );
 define( 'WPMTST_PLUGIN', plugin_basename( __FILE__ ) ); // strong-testimonials/strong-testimonials.php
 define( 'WPMTST', dirname( WPMTST_PLUGIN ) );           // strong-testimonials
 defined( 'WPMTST_STORE_URL' ) || define( 'WPMTST_STORE_URL', 'https://strongtestimonials.com' );
@@ -271,7 +271,7 @@ final class Strong_Testimonials {
 			require_once WPMTST_ADMIN . 'settings/class-strong-testimonials-settings-form.php';
 			require_once WPMTST_ADMIN . 'settings/class-strong-testimonials-settings-compat.php';
 
-			require_once WPMTST_ADMIN . 'about/class-strong-testimonials-about.php';
+			
 			require_once WPMTST_ADMIN . 'class-strong-testimonials-addons.php';
 			require_once WPMTST_ADMIN . 'class-strong-testimonials-defaults.php';
 			require_once WPMTST_ADMIN . 'class-strong-testimonials-list-table.php';
@@ -286,6 +286,7 @@ final class Strong_Testimonials {
 			require_once WPMTST_ADMIN . 'class-strong-testimonials-exporter.php';
 			require_once WPMTST_ADMIN . 'class-strong-testimonials-upsell.php';
 			require_once WPMTST_ADMIN . 'class-strong-testimonials-updater.php';
+			require_once WPMTST_ADMIN . 'class-strong-testimonials-review.php';
 
 			require_once WPMTST_ADMIN . 'admin.php';
 			require_once WPMTST_ADMIN . 'admin-notices.php';
@@ -297,6 +298,13 @@ final class Strong_Testimonials {
 			require_once WPMTST_ADMIN . 'views-ajax.php';
 			require_once WPMTST_ADMIN . 'view-list-order.php';
 			require_once WPMTST_ADMIN . 'views-validate.php';
+
+
+            require_once WPMTST_INC . 'class-strong-testimonials-order.php';
+
+			// Uninstall form
+            require_once WPMTST_ADMIN . 'uninstall/class-strong-testimonials-uninstall.php';
+
 
 		}
 	}
@@ -318,8 +326,8 @@ final class Strong_Testimonials {
 		 * Plugin setup.
 		 */
 		add_action( 'init', array( $this, 'l10n_check' ) );
-		add_action( 'init', array( $this, 'reorder_check' ) );
-		add_action( 'init', array( $this, 'font_check' ) );
+		//@todo : delete commented line. For the moment let it be
+		//add_action( 'init', array( $this, 'reorder_check' ) );
 
 		/**
 		 * Theme support for thumbnails.
@@ -388,22 +396,15 @@ final class Strong_Testimonials {
 	/**
 	 * Load reorder class if enabled.
 	 */
-	public function reorder_check() {
+    //@todo : delete commented lines. For the moment let it be
+	/*public function reorder_check() {
 		$options = get_option( 'wpmtst_options' );
 		if ( isset( $options['reorder'] ) && $options['reorder'] ) {
 			require_once WPMTST_INC . 'class-strong-testimonials-order.php';
 		}
-	}
+	}*/
 
-	/**
-	 * Forgo Font Awesome.
-	 */
-	public function font_check() {
-		$options = get_option( 'wpmtst_options' );
-		if ( isset( $options['load_font_awesome'] ) && ! $options['load_font_awesome'] ) {
-			add_filter( 'wpmtst_load_font_awesome', '__return_false' );
-		}
-	}
+
 
 	/**
 	 * Get att(s).

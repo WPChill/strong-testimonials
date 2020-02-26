@@ -11,12 +11,12 @@ $template: modern;
 /* Template
 -----------------------------------------------*/
 .strong-view.#{$template} {
-  .testimonial {
+  .wpmtst-testimonial {
     margin: 20px auto;
     @include no-top-bottom-margin;
   }
 
-  .testimonial-inner {
+  .wpmtst-testimonial-inner {
     padding: 30px;
 	text-align: center;
 
@@ -25,12 +25,12 @@ $template: modern;
 	}
   }
 
-  .testimonial-heading {
+  .wpmtst-testimonial-heading {
     font-weight: 700;
     margin-top: 0;
   }
 
-  .testimonial-content {
+  .wpmtst-testimonial-content {
     font-size: 1.3em;
     font-style: italic;
     margin: 0 56px;
@@ -39,8 +39,8 @@ $template: modern;
     @include paragraphs;
   }
 
-  .testimonial-content:before,
-  .testimonial-content:after {
+  .wpmtst-testimonial-content:before,
+  .wpmtst-testimonial-content:after {
     font-family: FontAwesome;
     color: #CDCDCD;
     font-size: 36px;
@@ -50,37 +50,37 @@ $template: modern;
     width: 36px;
   }
 
-  .testimonial-content:before {
+  .wpmtst-testimonial-content:before {
     content: "\f10d";
     left: -56px;
     top: 0;
   }
 
-  .testimonial-content:after {
+  .wpmtst-testimonial-content:after {
     content: "\f10e";
     right: -56px;
     bottom: 0;
   }
 
-  .testimonial-field {
+  .wpmtst-testimonial-field {
     clear: both;
     text-align: center;
   }
 
-  .testimonial-name {
+  .wpmtst-testimonial-name {
     font-size: 1.3em;
     font-weight: 700;
   }
 
-  .testimonial-date {
+  .wpmtst-testimonial-date {
     font-size: 0.9em;
   }
 
-  .testimonial-company {
+  .wpmtst-testimonial-company {
     font-size: 1.1em;
   }
 
-  .testimonial-image {
+  .wpmtst-testimonial-image {
     img {
       border-radius: 50%;
     }
@@ -120,11 +120,11 @@ $template: modern;
 /* In Widget
 -----------------------------------------------*/
 .widget .strong-view.#{$template} {
-  .testimonial-inner {
+  .wpmtst-testimonial-inner {
     padding: 20px;
   }
 
-  &.slider-bottom .testimonial-inner {
+  &.slider-bottom .wpmtst-testimonial-inner {
     padding-bottom: 40px;
   }
 
@@ -132,16 +132,16 @@ $template: modern;
     line-height: 40px;
   }
 
-  .testimonial-content {
+  .wpmtst-testimonial-content {
     margin: 36px 0;
   }
 
-  .testimonial-content:before {
+  .wpmtst-testimonial-content:before {
     left: 0;
     top: -36px;
   }
 
-  .testimonial-content:after {
+  .wpmtst-testimonial-content:after {
     right: 0;
     bottom: -36px;
   }
@@ -163,18 +163,18 @@ $template: modern;
     .strong-content {
       margin: 0 auto;
     }
-    .testimonial:not(:first-child) {
+    .wpmtst-testimonial:not(:first-child) {
       display: none;
     }
   }
 
   &.nav-position-inside {
-    .testimonial-inner {
+    .wpmtst-testimonial-inner {
       padding-bottom: 60px;
     }
   }
 
-  &.controls-type-sides .testimonial-inner {
+  &.controls-type-sides .wpmtst-testimonial-inner {
     padding-left: 50px;
     padding-right: 50px;
   }
@@ -184,11 +184,11 @@ $template: modern;
 -----------------------------------------------*/
 @media only screen and (max-width: 480px) {
   .strong-view.#{$template} {
-    .testimonial-inner {
+    .wpmtst-testimonial-inner {
       padding: 15px;
     }
 
-    .testimonial-content {
+    .wpmtst-testimonial-content {
       margin: 0;
       font-size: 1.1em;
 
@@ -206,7 +206,7 @@ $template: modern;
       }
     }
 
-    .testimonial-name {
+    .wpmtst-testimonial-name {
       font-size: 1.1em;
     }
   }

@@ -45,11 +45,6 @@ class Strong_Testimonials_Admin_Scripts {
 
 		$min = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 
-		wp_register_style( 'wpmtst-font-awesome',
-			WPMTST_PUBLIC_URL . 'fonts/font-awesome-4.6.3/css/font-awesome.min.css',
-			array(),
-			'4.6.3' );
-
 		wp_register_script( 'wpmtst-help',
 			WPMTST_ADMIN_URL . 'js/help.js',
 			array( 'jquery' ),
@@ -73,12 +68,12 @@ class Strong_Testimonials_Admin_Scripts {
 	 	wp_register_style(
 			'wpmtst-admin-style',
 			WPMTST_ASSETS_CSS . 'admin.css',
-			array( 'wpmtst-font-awesome' ),
+			array( ),
 			$plugin_version );
 
 		wp_register_style( 'wpmtst-post-editor',
 			WPMTST_ADMIN_URL . 'css/post-editor.css',
-			array( 'wpmtst-font-awesome' ),
+			array( ),
 			$plugin_version );
 
 		wp_register_script( 'wpmtst-custom-spinner',
@@ -153,12 +148,12 @@ class Strong_Testimonials_Admin_Scripts {
 		 */
 		wp_register_style( 'wpmtst-rating-display',
 			WPMTST_PUBLIC_URL . 'css/rating-display.css',
-			array( 'wpmtst-font-awesome' ),
+			array( ),
 			$plugin_version );
 
 		wp_register_style( 'wpmtst-rating-form',
 			WPMTST_PUBLIC_URL . 'css/rating-form.css',
-			array( 'wpmtst-font-awesome' ),
+			array( ),
 			$plugin_version );
 
 		wp_register_script( 'wpmtst-rating-script',

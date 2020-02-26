@@ -1,5 +1,23 @@
+= 2.40.2 - Feb. 26, 2020 =
+* Improved star rating display
+* Added another attribute to average rating shortcode
+* Removed FontAwesome and added svgs
+* Removed banners
+* Update CSS classes with unique prefix
+* Added Uninstall Functionality
+* Removed About Page
+* Fix automatic excerpt for Salient Theme
+* Fix slider arrows for first/last
+* Update notices/tooltips
+* Add functionality to link testimonial to external URL also
+* Reorder now always on - removed setting
+* Added functionality to prevent license inspection
+* Added extra filter `wpmtst_views_actions` in admin/class-strong-view-list-table.php on line 132
+
+
 = 2.40.1 - Jan. 25, 2020 =
 * improved data sanitization
+
 
 = 2.40.0 - Oct. 16, 2019 =
 * improved compatibility with Strong Testimonials: Importer extension

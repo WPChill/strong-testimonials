@@ -30,11 +30,12 @@ class Strong_Testimonials_Defaults {
 	public static function get_options() {
 		$default_options = array(
 			'embed_width'             => '',
-			'load_font_awesome'       => true,
 			'nofollow'                => false,
+            'disable_rewrite'         => false,
 			'pending_indicator'       => true,
 			'remove_whitespace'       => true,
-			'reorder'                 => false,
+			//@todo : delete commented line. For the moment let it be
+			//'reorder'                 => false,
 			'support_comments'        => false,
 			'support_custom_fields'   => false,
 			'single_testimonial_slug' => 'testimonial',
@@ -761,6 +762,7 @@ class Strong_Testimonials_Defaults {
 				'speed'              => 1,
 				'pause'              => 8,
 				'auto_start'         => true,
+				'continuous_sliding' => false,
 				'auto_hover'         => true,
 				'adapt_height'       => true,
 				'adapt_height_speed' => .5,
@@ -779,7 +781,7 @@ class Strong_Testimonials_Defaults {
 			'thumbnail_height'    => null,
 			'thumbnail_width'     => null,
 			'title'               => true,
-			'title_link'          => false,
+			'title_link'          => 'none',
 			'use_default_length'  => true,
 			'use_default_more'    => false,
 			'view'                => '',

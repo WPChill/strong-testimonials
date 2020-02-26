@@ -116,6 +116,7 @@ class Strong_View {
 	 */
 	public function add_content_filters() {
 
+
         if ( 'truncated' == $this->get_att( 'content' ) ) {
 
 		    // automatic excerpt
@@ -167,7 +168,7 @@ class Strong_View {
         add_filter( 'wpmtst_get_the_excerpt', 'wpmtst_trim_excerpt' );
 
         if ( ! $this->get_att( 'use_default_length' ) ) {
-			add_filter( 'excerpt_length', array( $this, 'excerpt_length' ) );
+			add_filter( 'excerpt_length', array( $this, 'excerpt_length' ),999 );
 		}
 
 		if ( ! $this->get_att( 'use_default_more' ) ) {
@@ -364,6 +365,7 @@ class Strong_View {
 		$class = str_replace( ':content', '', $template_name );
 		$class = str_replace( ':', '-', $class );
 		$class = str_replace( '-form-form', '-form', $class );
+		$class = 'wpmtst-' . $class;
 		$class_list = array( $class );
 
 		$template_object = WPMST()->templates->get_template_by_name( $template_name );
@@ -446,11 +448,11 @@ class Strong_View {
 			}
 			else {
 				wp_add_inline_style( $handle,
-				                     "$view_el .testimonial-heading, " .
-				                     "$view_el .testimonial-content p, " .
-				                     "$view_el .testimonial-content a.readmore, " .
-				                     "$view_el .testimonial-client div, " .
-				                     "$view_el .testimonial-client a { color: $c1; }" );
+				                     "$view_el .wpmtst-testimonial-heading, " .
+				                     "$view_el .wpmtst-testimonial-content p, " .
+				                     "$view_el .wpmtst-testimonial-content a.readmore, " .
+				                     "$view_el .wpmtst-testimonial-client div, " .
+				                     "$view_el .wpmtst-testimonial-client a { color: $c1; }" );
 			}
 		}
 	}
@@ -505,7 +507,7 @@ class Strong_View {
 
 			} else {
 
-				wp_add_inline_style( $handle, "$view_el .testimonial-inner { $gradient }" );
+				wp_add_inline_style( $handle, "$view_el .wpmtst-testimonial-inner { $gradient }" );
 
 				if ( 'bold' == WPMST()->atts( 'template' ) ) {
 					wp_add_inline_style( $handle, "$view_el .readmore-page { background: $c2 }" );
@@ -521,7 +523,7 @@ class Strong_View {
 
 			} else {
 
-				wp_add_inline_style( $handle, "$view_el .testimonial-inner { background: $c1; }" );
+				wp_add_inline_style( $handle, "$view_el .wpmtst-testimonial-inner { background: $c1; }" );
 
 				if ( 'bold' == WPMST()->atts( 'template' ) ) {
 					wp_add_inline_style( $handle, "$view_el .readmore-page { background: $c1 }" );
