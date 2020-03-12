@@ -8,7 +8,6 @@ input[type=checkbox] {
   // keep the inherited margins, adjust width if more space is necessary
   + label {
     &:before {
-      font-family: FontAwesome;
       display: inline-block;
       font-size: 18px;
       width: 1em;
@@ -16,8 +15,11 @@ input[type=checkbox] {
       top: 1px;
 
       /* unchecked icon */
-      content: "\f096";
+      content: "";
       color: $blue;
+      background: $blue;
+      -webkit-mask: url('../img/square-regular.svg') center center no-repeat;
+      mask: url('../img/square-regular.svg') center center no-repeat;
     }
 
     &:hover:before {
@@ -29,7 +31,9 @@ input[type=checkbox] {
   &:checked + label {
     &:before {
       /* checked icon */
-      content: "\f14a";
+      content: "";
+      -webkit-mask: url('../img/check-square-regular.svg') center center no-repeat;
+      mask: url('../img/check-square-regular.svg') center center no-repeat;
     }
 
     &:hover:before {
@@ -40,8 +44,11 @@ input[type=checkbox] {
   &:disabled + label {
     &:before {
       /* disabled icon */
-      content: "\f146";
+      content: "";
+      -webkit-mask: url('../img/minus-square-regular.svg') center center no-repeat;
+      mask: url('../img/minus-square-regular.svg') center center no-repeat;
       color: $grayedout;
+      background: $grayedout;
     }
 
     &:hover:before {

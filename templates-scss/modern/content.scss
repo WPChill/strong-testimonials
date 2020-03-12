@@ -41,7 +41,7 @@ $template: modern;
 
   .wpmtst-testimonial-content:before,
   .wpmtst-testimonial-content:after {
-    font-family: FontAwesome;
+    content: "";
     color: #CDCDCD;
     font-size: 36px;
     font-style: normal;
@@ -51,15 +51,17 @@ $template: modern;
   }
 
   .wpmtst-testimonial-content:before {
-    content: "\f10d";
     left: -56px;
     top: 0;
+    -webkit-mask: url('../../public/svg/quote-left-solid.svg') center center no-repeat;
+    mask: url('../../public/svg/quote-left-solid.svg') center center no-repeat;
   }
 
   .wpmtst-testimonial-content:after {
-    content: "\f10e";
     right: -56px;
     bottom: 0;
+    -webkit-mask: url('../../public/svg/quote-right-solid.svg') center center no-repeat;
+    mask: url('../../public/svg/quote-right-solid.svg') center center no-repeat;
   }
 
   .wpmtst-testimonial-field {
