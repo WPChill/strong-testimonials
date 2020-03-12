@@ -30,7 +30,6 @@
       margin-right: 15px;
 
       &:before {
-        font-family: FontAwesome;
         display: inline-block;
         color: #999;
         text-align: center;
@@ -43,7 +42,9 @@
         width: 20px;
 
         /* unchecked icon */
-        content: "\f10c";
+        content: "";
+        -webkit-mask: url('../img/circle-regular.svg') center center no-repeat;
+        mask: url('../img/circle-regular.svg') center center no-repeat;
       }
 
       &:hover:before {
