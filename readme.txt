@@ -3,8 +3,8 @@ Contributors: machothemes,silkalns,cdillon27
 Tags: testimonials, testimonial slider, testimonial form, star ratings
 Requires at least: 4.6
 Requires PHP: 5.6
-Tested up to: 5.3
-Stable tag: 2.40.2
+Tested up to: 5.2
+Stable tag: 2.40.1
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -38,7 +38,7 @@ https://www.youtube.com/watch?v=3nyvRvoxMxY
 > * Priority email support
 > * Support and updates for 12 months.
 >
->**[Learn more about Strong Testimonials - Paid version .](https://strongtestimonials.com)**
+>**[Learn more about Strong Testimonials - Paid version .](https://strongtestimonials.com/pricing?utm_source=wordpress.org&utm_medium=web&utm_campaign=lite)**
 
 ### Style
 
@@ -116,36 +116,6 @@ OR
 Activate the plugin. Look for "Testimonials" in the admin menu.
 
 == Frequently Asked Questions ==
-
-= How to Add the Form ? = 
-
-1. Check the custom fields. The default set of fields are designed to suit most situations. Add or remove fields as you see fit.
-
-2. Create a view. Select Form mode.
-
-3. Add the view to a page or sidebar using its unique shortcode or the Strong Testimonials widget.
-
-= How to Display Your Testimonials ? =
-
-1. Enter your testimonials if necessary. The plugin will not read existing testimonials from another plugin or theme. It will not import testimonials.
-
-2. Create a view. Select Display mode.
-
-3. Add the view to a page or sidebar using its unique shortcode or the Strong Testimonials widget.
-
-= How to Add a Slideshow ? =
-
-1. Enter your testimonials if necessary. The plugin will not read existing testimonials from another plugin or theme. It will not import testimonials.
-
-2. Create a view. Select Slideshow mode.
-
-3. Add the view to a page or sidebar using its unique shortcode or the Strong Testimonials widget.
-
-= How to Translate ? =
-
-Strong Testimonials is compatible with WPML, Polylang and WP Globus.
-
-In WPML and Polylang, domains are added to the String Translation pages. Those domains encompass the form fields, the form messages, the notification email, and the "Read more" link text in your views. They are updated automatically when any of those settings change.
 
 = What are the shortcodes? =
 
