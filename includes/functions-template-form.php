@@ -123,12 +123,13 @@ function wpmtst_single_form_field( $field ) {
 				$value = ( isset( $form_values[ $field['name'] ] ) && $form_values[ $field['name'] ] ) ? $form_values[ $field['name'] ] : '';
 				// textarea tags must be on same line for placeholder to work
 				printf(
-					'<textarea id="wpmtst_%s" name="%s" class="%s" %s placeholder="%s" tabindex="0">%s</textarea>',
+					'<textarea id="wpmtst_%s" name="%s" class="%s" %s placeholder="%s" tabindex="0" maxlength="%s">%s</textarea>',
 					esc_attr( $field['name'] ),
 					esc_attr( $field['name'] ),
 					esc_attr( wpmtst_field_classes( $field['input_type'], $field['name'] ) ),
 					esc_attr( wpmtst_field_required_tag( $field ) ),
 					esc_attr( wpmtst_field_placeholder( $field ) ),
+                                        esc_attr( wpmtst_field_length( $field ) ),
 					esc_textarea( $value )
 				);
 				break;
@@ -184,13 +185,14 @@ function wpmtst_single_form_field( $field ) {
 			    break;
 
 		    default: // text, email, url
-			    printf( '<input id="wpmtst_%s" type="%s" class="%s" name="%s" %s placeholder="%s" %s tabindex="0">',
+			    printf( '<input id="wpmtst_%s" type="%s" class="%s" name="%s" %s placeholder="%s" maxlength="%s" %s tabindex="0">',
 			            $field['name'],
 			            $field['input_type'],
 			            wpmtst_field_classes( $field['input_type'], $field['name'] ),
 			            $field['name'],
 			            wpmtst_field_value( $field, $form_values ),
 			            wpmtst_field_placeholder( $field ),
+                                    wpmtst_field_length( $field ),
 			            wpmtst_field_required_tag( $field ) );
 
 	    }
@@ -310,6 +312,21 @@ function wpmtst_field_value( $field, $form_values ) {
 function wpmtst_field_placeholder( $field ) {
 	if ( isset( $field['placeholder'] ) && $field['placeholder'] ) {
 		return esc_attr( wpmtst_form_field_meta_l10n( $field['placeholder'], $field, 'placeholder' ) );
+	}
+
+	return '';
+}
+
+/**
+ * Print placeholder tag.
+ *
+ * @param $field
+ *
+ * @return string
+ */
+function wpmtst_field_length( $field ) {
+	if ( isset( $field['max_length'] ) && $field['max_length'] ) {
+		return $field['max_length'];
 	}
 
 	return '';

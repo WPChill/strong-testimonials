@@ -20,7 +20,6 @@ add_action( 'wpmtst_form_admin', 'wpmtst_form_admin2' );
  */
 function wpmtst_update_custom_fields() {
 	$goback = wp_get_referer();
-
 	if ( ! isset( $_POST['wpmtst_form_submitted'] ) ) {
 		wp_redirect( $goback );
 		exit;
@@ -67,6 +66,7 @@ function wpmtst_update_custom_fields() {
         $post_fields = stripslashes_deep( $_POST['fields'] );
 
         foreach ( $post_fields as $key => $field ) {
+            
 
             /*
              * Before merging onto base field, catch fields that are "off"
@@ -109,7 +109,8 @@ function wpmtst_update_custom_fields() {
             $field['show_admin_table_option'] = $field['show_admin_table_option'] ? 1 : 0;
             $field['show_text_option']        = $field['show_text_option'] ? 1 : 0;
             $field['show_placeholder_option'] = $field['show_placeholder_option'] ? 1 : 0;
-			$field['show_default_options']    = $field['show_default_options'] ? 1 : 0;
+            $field['show_default_options']    = $field['show_default_options'] ? 1 : 0;
+            $field['show_length_option']      = $field['show_length_option'] ? 1 : 0;
 
 			$field = apply_filters( 'wpmtst_sanitize_form_field_options', $field );
 
@@ -313,6 +314,18 @@ function wpmtst_show_field_secondary( $key, $field ) {
 			$html .= '</tr>' . "\n";
 		}
 	}
+        
+        /*
+         * Length
+         */
+        if ( $field['show_length_option'] ) {
+            if ( isset( $field['max_length'] ) ) {
+                $html .= '<tr class="field-secondary">' . "\n";
+                $html .= '<th>' . esc_html__( 'Maximum Length', 'strong-testimonials' ) . '</th>' . "\n";
+                $html .= '<td><input type="number" name="fields[' . esc_attr( $key ) . '][max_length]" value="' . $field['max_length'] . '"><span> ' . esc_html__( 'Limit the user imput to a certain number of characters', 'strong-testimonials' )  . '</span></td>' . "\n";
+                $html .= '</tr>' . "\n";
+            }
+	}
 
 	/**
 	 * Text (checkbox, radio)
@@ -504,6 +517,7 @@ function wpmtst_show_field_hidden( $key, $field ) {
 	$html .= sprintf( $pattern, $key, 'admin_table_option', $field['admin_table_option'] ) . "\n";
 	$html .= sprintf( $pattern, $key, 'show_admin_table_option', $field['show_admin_table_option'] ) . "\n";
 	$html .= sprintf( $pattern, $key, 'show_shortcode_options', $field['show_shortcode_options'] ) . "\n";
+        $html .= sprintf( $pattern, $key, 'show_length_option', $field['show_length_option'] ) . "\n";
 
 	if ( isset( $field['map'] ) ) {
 		$html .= sprintf( $pattern, $key, 'map', $field['map'] ) . "\n";

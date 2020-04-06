@@ -82,6 +82,8 @@ class Strong_Testimonials_Defaults {
 			'shortcode_on_form'       => '',
 			'shortcode_on_display'    => '',
 			'show_shortcode_options'  => 0,
+                        'show_length_option'      => 0,
+                        'max_length'              => ''
 		) );
 	}
 
@@ -107,6 +109,7 @@ class Strong_Testimonials_Defaults {
 				'admin_table_option'      => 0,
 				'show_admin_table_option' => 0,
 				'name_mutable'            => 0,
+                                'show_length_option'      => 1
 			),
 			'post_content'   => array(
 				'input_type'              => 'textarea',
@@ -118,6 +121,7 @@ class Strong_Testimonials_Defaults {
 				'admin_table'             => 0,
 				'show_admin_table_option' => 0,
 				'name_mutable'            => 0,
+                                'show_length_option'      => 1
 			),
 			'featured_image' => array(
 				'input_type'              => 'file',
@@ -283,6 +287,7 @@ class Strong_Testimonials_Defaults {
 						'input_type'  => 'text',
 						'required'    => 0,
 						'after'       => __( 'A headline for your testimonial.', 'strong-testimonials' ),
+                                                'max_length'  => ''
 					),
 					6 => array(
 						'record_type' => 'post',
@@ -291,6 +296,7 @@ class Strong_Testimonials_Defaults {
 						'input_type'  => 'textarea',
 						'required'    => 1,
 						'after'       => __( 'What do you think about us?', 'strong-testimonials' ),
+                                                'max_length'  => ''
 					),
 					7 => array(
 						'record_type' => 'post',
