@@ -460,9 +460,9 @@ function wpmtst_array_filter__custom_fields( $field ) {
 	if ( 'category' == strtok( $field['input_type'], '-' ) ) {
 		return false;
 	}
-	if ( 'checkbox' == $field['input_type'] ) {
-		return false;
-	}
+//	if ( 'checkbox' == $field['input_type'] ) {
+//		return false;
+//	}
 
 	return true;
 }
@@ -497,8 +497,10 @@ function wpmtst_view_field_inputs( $key, $field, $adding = false ) {
 		'date'      => __( 'date', 'strong-testimonials' ),
 		'category'  => __( 'category', 'strong-testimonials' ),
 		'rating'    => __( 'rating', 'strong-testimonials' ),
-		'platform'    => __( 'platform', 'strong-testimonials' ),
+		'platform'  => __( 'platform', 'strong-testimonials' ),
 		'shortcode' => __( 'shortcode', 'strong-testimonials' ),
+                'checkbox'  => __('checkbox text', 'strong-testimonials'),
+                'boolean'   => __('checkbox value', 'strong-testimonials')
 	);
 
 	if ( isset( $custom_fields[ $field['field'] ] ) ) {
