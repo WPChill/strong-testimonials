@@ -160,7 +160,7 @@ function wpmtst_settings_custom_fields( $form_id = 1 ) {
 	?>
 
 	<div class="wrap wpmtst">
-	<h1 class="wp-heading-inline"><?php esc_html_e( 'Fields', 'strong-testimonials' ); ?></h1>
+	<h1 class="wp-heading-inline"><?php esc_html_e( 'Forms', 'strong-testimonials' ); ?></h1>
 	<hr class="wp-header-end">
 	<?php do_action( 'wpmtst_fields_editor_before_fields_intro' ); ?>
 
