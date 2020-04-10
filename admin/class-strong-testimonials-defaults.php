@@ -43,6 +43,8 @@ class Strong_Testimonials_Defaults {
 			'scrolltop_offset'        => 80,
 			'no_lazyload'             => true,
 			'touch_enabled'           => true,
+                        'approve_testimonials_administrator'    => true,
+                        'manage_settings_administrator'         => true
 		);
 
 		return $default_options;
