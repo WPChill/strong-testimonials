@@ -16,8 +16,13 @@ $options = get_option( 'wpmtst_access_options' );
         <td>
             <fieldset>
                 <label>
-                    <input type="checkbox" name="wpmtst_access_options[<?php echo 'approve_testimonials_' . $key ?>]" <?php checked( $options['approve_testimonials_' . $key] ); ?>>
-                    <?php echo $role['name']; ?>
+                    <?php if ($key == 'administrator'): ?>
+                    <input readonly type="checkbox" name="wpmtst_access_options[<?php echo 'approve_testimonials_' . $key ?>]" checked onclick="return false;">
+                        <?php _e( 'Administrator (Admin capabilities cannot be edited)', 'strong-testimonials' ); ?>
+                    <?php else: ?>
+                        <input type="checkbox" name="wpmtst_access_options[<?php echo 'approve_testimonials_' . $key ?>]" <?php checked( $options['approve_testimonials_' . $key] ); ?>>
+                        <?php echo $role['name']; ?>
+                    <?php endif; ?>
                 </label>
             </fieldset>
         </td>
@@ -35,8 +40,13 @@ $options = get_option( 'wpmtst_access_options' );
         <td>
             <fieldset>
                 <label>
-                    <input type="checkbox" name="wpmtst_access_options[<?php echo 'manage_settings_' . $key ?>]" <?php checked( $options['manage_settings_' . $key] ); ?>>
-                    <?php echo $role['name']; ?>
+                    <?php if ($key == 'administrator'): ?>
+                        <input readonly type="checkbox" name="wpmtst_access_options[<?php echo 'manage_settings_' . $key ?>]" checked onclick="return false;">
+                        <?php _e( 'Administrator (Admin capabilities cannot be edited)', 'strong-testimonials' ); ?>
+                    <?php else: ?>
+                        <input type="checkbox" name="wpmtst_access_options[<?php echo 'manage_settings_' . $key ?>]" <?php checked( $options['manage_settings_' . $key] ); ?>>
+                        <?php echo $role['name']; ?>
+                    <?php endif; ?>
                 </label>
             </fieldset>
         </td>
