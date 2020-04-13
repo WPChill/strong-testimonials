@@ -85,9 +85,47 @@ class Strong_Testimonials_Settings_Access {
                 foreach ($wp_roles->roles as $key => $role) {
                     $name = $access . '_' . $key;
                     $input[$name] = wpmtst_sanitize_checkbox( $input, $name );
+                    self::set_capability($access, $key, $input[$name]);
                 }
             }
             return $input;
+	}
+        
+        /**
+	 * Set capabilities
+         * 	 
+	 * @param $access
+         * @param $role
+         * @param $capability
+         * 
+	 */
+	public static function set_capability($access, $role, $capability) {
+            $role = get_role( $role );
+            switch ($access) {
+                case 'approve_testimonials':
+                    if ($capability) {
+                        $role->add_cap( 'publish_testimonials' );
+                        $role->add_cap( 'delete_testimonials' );
+                        $role->add_cap( 'delete_others_testimonials' );
+                        $role->add_cap( 'edit_testimonial' );
+                        $role->add_cap( 'delete_testimonial' );
+                    } else {
+                        $role->remove_cap( 'publish_testimonials' );
+                        $role->remove_cap( 'delete_testimonials' );
+                        $role->remove_cap( 'delete_others_testimonials' );
+                        $role->remove_cap( 'edit_testimonial' );
+                        $role->remove_cap( 'delete_testimonial' );
+                    }
+                break;
+                
+                case 'manage_settings':
+                    if ($capability) {
+                        $role->add_cap( 'strong_testimonials_options' );
+                    } else {
+                        $role->remove_cap( 'strong_testimonials_options' );
+                    }
+                break;
+            }
 	}
 
 }

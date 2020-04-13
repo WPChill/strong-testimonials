@@ -239,12 +239,26 @@ class Strong_Testimonials_Updater {
 	 * @since 2.27.1
 	 */
 	public static function add_caps() {
+                global $wp_roles;
+                foreach ($wp_roles->roles as $key => $role) {
+                    $role = get_role($key);
+                    $role->add_cap( 'read_testimonial' );
+                    $role->add_cap( 'read_private_testimonials' );
+                    $role->add_cap( 'edit_testimonials' );
+                    $role->add_cap( 'edit_other_testimonials' );
+                    
+                }
 		$admins = self::get_admins();
 		if ( $admins ) {
 			$admins->add_cap( 'strong_testimonials_views' );
 			$admins->add_cap( 'strong_testimonials_fields' );
 			$admins->add_cap( 'strong_testimonials_options' );
 			$admins->add_cap( 'strong_testimonials_about' );
+                        $admins->add_cap( 'publish_testimonials' );
+                        $admins->add_cap( 'delete_testimonials' );
+                        $admins->add_cap( 'delete_others_testimonials' );
+                        $admins->add_cap( 'edit_testimonial' );
+                        $admins->add_cap( 'delete_testimonial' );
 		}
 		else {
 			self::log( __FUNCTION__, 'failed' );
@@ -261,11 +275,26 @@ class Strong_Testimonials_Updater {
 	 * @since 2.27.1
 	 */
 	public static function remove_caps() {
+                global $wp_roles;
+                foreach ($wp_roles->roles as $key => $role) {
+                    $role = get_role($key);
+                    $role->remove_cap( 'read_testimonial' );
+                    $role->remove_cap( 'read_private_testimonials' );
+                    $role->remove_cap( 'edit_testimonials' );
+                    $role->remove_cap( 'edit_other_testimonials' );
+                }
 		if ( $admins = self::get_admins() ) {
 			$admins->remove_cap( 'strong_testimonials_views' );
 			$admins->remove_cap( 'strong_testimonials_fields' );
 			$admins->remove_cap( 'strong_testimonials_options' );
 			$admins->remove_cap( 'strong_testimonials_about' );
+                        $admins->remove_cap( 'publish_testimonials' );
+                        $admins->remove_cap( 'delete_testimonials' );
+                        $admins->remove_cap( 'delete_others_testimonials' );
+                        $admins->remove_cap( 'read_private_testimonials' );
+                        $admins->remove_cap( 'edit_testimonial' );
+                        $admins->remove_cap( 'delete_testimonial' );
+                        $admins->remove_cap( 'read_testimonial' );
 		}
 	}
 
