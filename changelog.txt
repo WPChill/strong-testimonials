@@ -1,4 +1,8 @@
-= 2.40.2 - Feb. 26, 2020 =
+= 2.40.3 - Apr. 14, 2020 =
+* Fixed fatal error on testimonials order.
+
+
+= 2.40.2 - Apr. 13, 2020 =
 * Improved star rating display
 * Added another attribute to average rating shortcode
 * Removed FontAwesome and added svgs

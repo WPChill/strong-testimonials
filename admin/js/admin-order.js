@@ -81,7 +81,8 @@ jQuery(document).ready(function ($) {
         ui.item.find(".column-handle").addClass("refresh");
         $.post(ajaxurl, {
             action: 'update-menu-order',
-            order: $('#the-list').sortable('serialize'),
+            posts: $('#the-list').sortable('serialize'),
+            order: wpmtstOrderHelper
           },
           function (data) {
             // update menu order shown

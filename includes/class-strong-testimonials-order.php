@@ -29,7 +29,6 @@ class Strong_Testimonials_Order {
 
 		add_action( 'wp_ajax_update-menu-order', array( __CLASS__, 'update_menu_order' ) );
 
-		add_action( 'pre_get_posts', array( __CLASS__, 'store_query_vars' ) );
 		add_action( 'pre_get_posts', array( __CLASS__, 'pre_get_posts' ), 500 );
 
 		add_filter( 'posts_orderby', array( __CLASS__, 'posts_orderby' ), 500, 2 );
@@ -56,27 +55,26 @@ class Strong_Testimonials_Order {
 			return;
 		}
 
+		global $wp_query;
+
+		wp_enqueue_style( 'wpmtst-admin-order-style', WPMTST_ADMIN_URL . '/css/order.css', array(), null );
 		wp_enqueue_script( 'wpmtst-admin-order-script', WPMTST_ADMIN_URL . 'js/admin-order.js', array(
 			'jquery-effects-highlight',
 			'jquery-ui-sortable',
 		), null, true );
 
-		wp_enqueue_style( 'wpmtst-admin-order-style', WPMTST_ADMIN_URL . '/css/order.css', array(), null );
-
-	}
-
-	/**
-	 * Store query vars in transient because they are not available in update_menu_order callback.
-	 */
-	public static function store_query_vars() {
-		if ( is_admin() ) {
-			set_transient( 'wpmtst_order_query',
-				array(
-					'paged'          => get_query_var( 'paged' ),
-					'posts_per_page' => get_query_var( 'posts_per_page' ),
-				),
-				24 * HOUR_IN_SECONDS );
+		$helper = array();
+		if ( isset( $wp_query ) && isset( $wp_query->query_vars ) ) {
+			$helper = array(
+				'page'           => max( 1, $wp_query->query_vars['paged'] ),
+				'posts_per_page' => $wp_query->query_vars['posts_per_page']
+			);
+			
 		}
+		wp_localize_script( 'wpmtst-admin-order-script', 'wpmtstOrderHelper', $helper );
+		
+		
+
 	}
 
 	/**
@@ -261,7 +259,7 @@ class Strong_Testimonials_Order {
 	public static function update_menu_order() {
 		global $wpdb;
 
-		parse_str( $_POST['order'], $data );
+		parse_str( $_POST['posts'], $data );
 		if ( ! is_array( $data ) ) {
 			wp_die();
 		}
@@ -270,10 +268,16 @@ class Strong_Testimonials_Order {
 		$menu_order_arr = array();
 
 		// Fetch query vars for pagination.
-		$query_vars = get_transient( 'wpmtst_order_query' );
-		delete_transient( 'wpmtst_order_query' );
-		$paged          = $query_vars['paged'] ? $query_vars['paged'] : 1;
-		$posts_per_page = $query_vars['posts_per_page'];
+		$paged          = 1;
+		$posts_per_page = 25;
+		if ( isset( $_POST['order'] ) ) {
+			if ( isset( $_POST['order']['page'] ) ) {
+				$paged = absint( $_POST['order']['page'] );
+			}
+			if ( isset( $_POST['order']['posts_per_page'] ) ) {
+				$posts_per_page = absint( $_POST['order']['posts_per_page'] );
+			}
+		}
 
 		// Reorder
 		foreach ( $id_arr as $key => $id ) {
