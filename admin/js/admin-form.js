@@ -29,6 +29,40 @@ jQuery(document).ready(function ($) {
     }
   });
 
+  var $notifyCustomer = $('#wpmtst-options-customer-notify');
+  var $notifyFieldsCustomer = $('#customer-notify-fields');
+
+  if ($notifyCustomer.is(':checked')) {
+    $notifyFieldsCustomer.slideDown();
+  }
+
+  $notifyCustomer.change(function (e) {
+    if ($(this).is(':checked')) {
+      $notifyFieldsCustomer.slideDown();
+      $(this).blur();
+    }
+    else {
+      $notifyFieldsCustomer.slideUp();
+    }
+  });
+ 
+  var $approvedNotifyCustomer = $('#wpmtst-options-approved-notify');
+  var $approvedNotifyFieldsCustomer = $('#approved-notify-fields');
+
+  if ($approvedNotifyCustomer.is(':checked')) {
+    $approvedNotifyFieldsCustomer.slideDown();
+  }
+
+  $approvedNotifyCustomer.change(function (e) {
+    if ($(this).is(':checked')) {
+      $approvedNotifyFieldsCustomer.slideDown();
+      $(this).blur();
+    }
+    else {
+      $approvedNotifyFieldsCustomer.slideUp();
+    }
+  });
+
   $('#add-recipient').click(function (e) {
     var $this = $(this);
     var key = $this.parent().siblings('.recipient').length;

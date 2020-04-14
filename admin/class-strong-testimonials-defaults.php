@@ -429,6 +429,8 @@ class Strong_Testimonials_Defaults {
 		$default_form_options = array(
 			'post_status'              => 'pending',
 			'admin_notify'             => false,
+                        'customer-notify'          => false,
+                        'approved-notify'          => false,
 			'mail_queue'               => false,
 			'sender_name'              => get_bloginfo( 'name' ),
 			'sender_site_email'        => true,

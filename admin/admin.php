@@ -318,3 +318,68 @@ function wpmtst_extensions_installed() {
 	return false;
 }
 
+function wpmtst_send_email_on_testimonial_approval( $new_status, $old_status, $post ) { 
+        $form_options = get_option( 'wpmtst_form_options' );
+        if ( ! $form_options['approved-notify'] ) {
+            return;
+    }
+    if ($post->post_type == "wpm-testimonial" && $new_status == 'publish' && $old_status == 'pending') {
+
+        $custom_fields = get_post_custom($post->ID);
+        if( isset($custom_fields['email']) && !empty($custom_fields['email']) ) {
+            $recipients = $custom_fields['email'];
+            $form_options = get_option( 'wpmtst_form_options' );
+            $fields = wpmtst_get_all_fields();
+
+            if ( $form_options['sender_site_customer_approval_email'] ) {
+                $sender_email = get_bloginfo( 'admin_email' );
+            }
+            else {
+                $sender_email = $form_options['sender_approval_email'];
+            }
+
+            // Subject line
+            $subject = trim( $form_options['customer_approval_email_subject'] );
+            $subject = str_replace( '%BLOGNAME%', get_bloginfo( 'name' ), $subject );
+            $subject = str_replace( '%TITLE%', $post -> post_title, $subject );
+            $subject = str_replace( '%STATUS%', $post -> post_status, $subject );
+            $subject = str_replace( '%SUBMIT_DATE%', $post -> post_date, $subject );
+            $subject = Strong_Testimonials_Form::replace_custom_fields( $subject, $fields, (array) $post );
+
+            // Message text
+            $message = rtrim( $form_options['customer_approval_email_message'] );
+            $message = str_replace( '%BLOGNAME%', get_bloginfo( 'name' ), $message );
+            $message = str_replace( '%TITLE%', $post -> post_title, $message );
+            $message = str_replace( '%CONTENT%', $post -> post_content, $message );
+            $message = str_replace( '%STATUS%', $post -> post_status, $message );
+            $message = str_replace( '%SUBMIT_DATE%', $post -> post_date, $message );
+            $message = Strong_Testimonials_Form::replace_custom_fields( $message, $fields, (array) $post );
+
+            foreach ($recipients as $email) {
+                if ( $email ) {
+                    $to = sanitize_email( $email );
+                }
+                // Headers
+                $headers = 'Content-Type: text/plain; charset="' . get_option( 'blog_charset' ) . '"' . "\n";
+                if ( $form_options['sender_name'] ) {
+                    $headers .= sprintf( 'From: %s <%s>', $form_options['sender_name'], $sender_email ) . "\n";
+                }
+                else {
+                    $headers .= sprintf( 'From: %s', $sender_email ) . "\n";
+                }
+
+                $email = array( 'to' => $to, 'subject' => $subject, 'message' => $message, 'headers' => $headers );
+
+                if ( $form_options['mail_queue'] ) {
+                    WPMST()->mail->enqueue_mail( $email );
+                }
+                else {
+                    WPMST()->mail->send_mail( $email );
+                }
+
+            }
+            
+        }
+    }
+}
+add_action( 'transition_post_status', 'wpmtst_send_email_on_testimonial_approval', 10, 3 );

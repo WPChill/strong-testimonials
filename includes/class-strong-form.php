@@ -395,6 +395,7 @@ class Strong_Testimonials_Form {
 			$this->set_form_values( null );
 			$this->set_form_errors( null );
 			$this->notify_admin( $form_values, $form_name );
+                        $this->notify_customer( $form_values, $form_name );
 
 			return true;
 		}
@@ -522,7 +523,85 @@ class Strong_Testimonials_Form {
 
 		} // for each recipient
 	}
+        
+        /**
+	 * Send notification email upon testimonial submission.
+	 *
+	 * @param array $post
+	 * @param string $form_name
+	 *
+	 * @since 1.7.0
+	 * @since 2.30.6 Using all form fields (Multiple Forms add-on).
+	 *               Adding submit_date.
+	 *               Trimming subject and message strings.
+	 */
+	public function notify_customer( $post, $form_name = 'custom' ) {
+		$form_options = get_option( 'wpmtst_form_options' );
+		if ( ! $form_options['customer-notify'] ) {
+			return;
+		}
+                
+		$post['has_image'] = has_post_thumbnail( $post['id'] );
+		$fields = wpmtst_get_all_fields();
 
+
+		if ( $form_options['sender_site_customer_email'] ) {
+			$sender_email = get_bloginfo( 'admin_email' );
+		}
+		else {
+			$sender_email = $form_options['sender_site_notify_customer_email'];
+		}
+
+		//Subject line
+		$subject = trim( $form_options['customer_email_subject'] );
+		$subject = str_replace( '%BLOGNAME%', get_bloginfo( 'name' ), $subject );
+		$subject = str_replace( '%TITLE%', $post['post_title'], $subject );
+		$subject = str_replace( '%STATUS%', $post['post_status'], $subject );
+		$subject = str_replace( '%SUBMIT_DATE%', $post['submit_date'], $subject );
+		$subject = $this->replace_custom_fields( $subject, $fields, $post );
+
+		// Message text
+		$message = rtrim( $form_options['customer_email_message'] );
+		$message = str_replace( '%BLOGNAME%', get_bloginfo( 'name' ), $message );
+		$message = str_replace( '%TITLE%', $post['post_title'], $message );
+		$message = str_replace( '%CONTENT%', $post['post_content'], $message );
+		$message = str_replace( '%STATUS%', $post['post_status'], $message );
+		$message = str_replace( '%SUBMIT_DATE%', $post['submit_date'], $message );
+		$message = $this->replace_custom_fields( $message, $fields, $post );
+
+		foreach ( $form_options['recipients'] as $recipient ) {
+			if ( isset( $recipient['admin_site_email'] ) && $recipient['admin_site_email'] ) {
+                            $sender_email = get_bloginfo( 'sender_email' );
+			}
+			else {
+                            $sender_email = $recipient['sender_email'];
+			}
+
+			if ( $post['email']) {
+                            $to = sanitize_email( $post['email'] );
+			}
+                        // Headers
+			$headers = 'Content-Type: text/plain; charset="' . get_option( 'blog_charset' ) . '"' . "\n";
+			if ( $form_options['sender_name_for_customer'] ) {
+                            $headers .= sprintf( 'From: %s <%s>', $form_options['sender_name_for_customer'], $sender_email ) . "\n";
+			}
+			else {
+                            $headers .= sprintf( 'From: %s', $sender_email ) . "\n";
+			}
+
+			$email = array( 'to' => $to, 'subject' => $subject, 'message' => $message, 'headers' => $headers );
+                      
+			if ( $form_options['mail_queue'] ) {
+                            WPMST()->mail->enqueue_mail( $email );
+			}
+			else {
+                            WPMST()->mail->send_mail( $email );
+			}
+
+		} // for each recipient
+	}
+
+        
 	/**
 	 * Replace tags for custom fields.
 	 *
@@ -532,7 +611,7 @@ class Strong_Testimonials_Form {
 	 *
 	 * @return string
 	 */
-	private function replace_custom_fields( $text, $fields, $post ) {
+	public static function replace_custom_fields( $text, $fields, $post ) {
 		foreach ( $fields as $field ) {
 			$replace    = "({$field['label']} blank)";
 			$post_field = isset( $post[ $field['name'] ] ) ? $post[ $field['name'] ] : false;

@@ -87,6 +87,8 @@ class Strong_Testimonials_Settings_Form {
 	public static function sanitize_options( $input ) {
 		$input['post_status']       = sanitize_text_field( $input['post_status'] );
 		$input['admin_notify']      = wpmtst_sanitize_checkbox( $input, 'admin_notify' );
+                $input['customer-notify']   = wpmtst_sanitize_checkbox( $input, 'customer-notify' );
+                $input['approved-notify']   = wpmtst_sanitize_checkbox( $input, 'approved-notify' );
 		$input['mail_queue']        = wpmtst_sanitize_checkbox( $input, 'mail_queue' );
 		$input['sender_name']       = sanitize_text_field( $input['sender_name'] );
 		$input['sender_site_email'] = intval( $input['sender_site_email'] );
