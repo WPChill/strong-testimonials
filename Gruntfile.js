@@ -78,8 +78,9 @@ module.exports = function( grunt ) {
           '!composer.json',
           '!composer.lock',
           '!set_tags.sh',
-		  '!postcss.config.js',
-		  '!webpack.config.js',
+		      '!postcss.config.js',
+		      '!webpack.config.js',
+          '!strong-testimonials.zip',
           '!nbproject/**' ],
         dest: 'build/'
       }
