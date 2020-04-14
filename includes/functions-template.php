@@ -32,8 +32,13 @@ function strong_testimonials_view( $id = null ) {
  * @param string $after
  */
 function wpmtst_the_title( $before = '', $after = '' ) {
+
     $title   = get_the_title();
-    $options = get_option( 'wpmtst_options' );
+	$options = get_option( 'wpmtst_options' );
+	
+	if( 0 == WPMST()->atts()['title'] ) {
+		return;
+	}
 
     if ( WPMST()->atts( 'title' ) && $title ) {
 
@@ -312,6 +317,7 @@ function wpmtst_the_custom_field( $field ) {
 
 	$output        = '';
 	$field_name    = $field['field'];
+	$field['class'] = 'wpmtst-' . $field['class'];
 	if ( isset( $custom_fields[ $field_name ] ) ) {
 		$field['prop'] = $custom_fields[ $field_name ];
 	} else {
