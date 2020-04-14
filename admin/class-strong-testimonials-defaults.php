@@ -448,9 +448,13 @@ class Strong_Testimonials_Defaults {
 				'admin_email' => '',
 			),
 			/* translators: Default subject line for new testimonial notification email. */
-			'email_subject'            => __( 'New testimonial for %BLOGNAME%', 'strong-testimonials' ),
+			'email_subject'                      => __( 'New testimonial for %BLOGNAME%', 'strong-testimonials' ),
+                        'customer_approval_email_subject'    => __( 'Testimonial for %BLOGNAME%', 'strong-testimonials' ),
+                        'customer_email_subject'             => __( 'Testimonial for %BLOGNAME%', 'strong-testimonials' ),
 			/* translators: Default message for new testimonial notification email. */
-			'email_message'            => __( 'New testimonial submission for %BLOGNAME%. This is awaiting action from the website administrator.', 'strong-testimonials' ),
+			'email_message'                      => __( 'New testimonial submission for %BLOGNAME%. This is awaiting action from the website administrator.', 'strong-testimonials' ),
+                        'customer_approval_email_message'    => __( 'Your testimonial was published for %BLOGNAME%. Thank you!', 'strong-testimonials' ),
+                        'customer_email_message'             => __( 'Your testimonial was received  for %BLOGNAME% and awaiting approval from the website administrator. Thank you!', 'strong-testimonials' ),
 			'messages'                 => $default_messages,
 			'scrolltop_success'        => true,
 			'scrolltop_success_offset' => 80,
