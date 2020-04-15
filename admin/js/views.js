@@ -961,7 +961,7 @@ jQuery(document).ready(function ($) {
     var fieldName = $elParent.find('.field-name').find('select').val();
     // var key = $elParent.attr("id").split('-').slice(-1)[0];
     var key = $elParent.data('key');
-	var data;
+    var data;
 
     switch (fieldType) {
 
@@ -1013,8 +1013,21 @@ jQuery(document).ready(function ($) {
         break;
 
       case 'text':
+      case 'checkbox':
         // if changing to [text], remove meta fields
         $elParent.find('.field-property-box').empty();
+        break;
+      
+      case 'boolean':
+          // if changing to [checkbox_value]
+        data = {
+          'action': 'wpmtst_view_add_field_checkbox',
+          'key': key,
+        };
+        $.get(ajaxurl, data, function (response) {
+          // insert into placeholder div
+          $elParent.find('.field-property-box').html(response);
+        });
         break;
 
       default:

@@ -77,6 +77,20 @@ function wpmtst_view_add_field_date_function() {
 }
 add_action( 'wp_ajax_wpmtst_view_add_field_date', 'wpmtst_view_add_field_date_function' );
 
+/**
+ * [Field Type: Checkbox Value] Ajax receiver
+ *
+ * @since 2.40.4
+ */
+function wpmtst_view_add_field_checkbox_function() {
+	$key         = (int) $_REQUEST['key'];     
+	$type        = $_REQUEST['fieldType'];
+	$empty_field = array( 'checked_value' => '', 'unchecked_value' => '' );
+	wpmtst_view_field_checkbox ( $key, $type ,$empty_field );
+	wp_die();
+}
+add_action( 'wp_ajax_wpmtst_view_add_field_checkbox', 'wpmtst_view_add_field_checkbox_function' );
+
 
 /**
  * Fetch the view mode description.

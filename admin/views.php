@@ -590,6 +590,10 @@ function wpmtst_view_field_inputs( $key, $field, $adding = false ) {
                     if ( 'date' == $field['type'] ) {
                         wpmtst_view_field_date( $key, $field );
                     }
+                    
+                    if ( 'boolean' == $field['type'] ) {
+                        wpmtst_view_field_checkbox( $key, $field );
+                    }
                     ?>
                 </div>
 
@@ -727,6 +731,32 @@ function wpmtst_view_field_date( $key, $field, $adding = false ) {
 				__( 'more about date formats', 'strong-testimonials' ) ); ?>
 		</div>
 	</div>
+	<?php
+}
+
+
+/**
+ * Show checked and unchecked value of checkbox.
+ *
+ * @since 2.40.4
+ *
+ * @param $key
+ * @param $field
+ * @param bool $adding
+ */
+function wpmtst_view_field_checkbox( $key, $field, $adding = false ) { ?>
+        <div class="field-property field-before field-dep">
+                <label for="client_section_<?php echo $key; ?>_checked_value">
+                        <?php _e( 'Checked Value', 'strong-testimonials' ); ?>
+                </label>
+                <input id="client_section_<?php echo $key; ?>_checked_value" type="text" name="view[data][client_section][<?php echo $key; ?>][checked_value]" value="<?php echo isset( $field['checked_value'] ) ? $field['checked_value'] : ''; ?>">
+        </div>
+        <div class="field-property field-before field-dep">
+                <label for="client_section_<?php echo $key; ?>_unchecked_value">
+                        <?php _e( 'Unchecked Value', 'strong-testimonials' ); ?>
+                </label>
+                <input id="client_section_<?php echo $key; ?>_unchecked_value" type="text" name="view[data][client_section][<?php echo $key; ?>][unchecked_value]" value="<?php echo isset( $field['unchecked_value'] ) ? $field['unchecked_value'] : ''; ?>">
+        </div>
 	<?php
 }
 

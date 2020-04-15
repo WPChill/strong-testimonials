@@ -512,6 +512,13 @@ function wpmtst_sanitize_view_client_section( $in ) {
 				$format = isset( $field['format'] ) ? sanitize_text_field( $field['format'] ) : '';
 				$out[ $key ]['format'] = $format;
 				break;
+                        case 'boolean':
+                            	$checked_value = isset( $field['checked_value'] ) ? sanitize_text_field( $field['checked_value'] ) : '';
+				$out[ $key ]['checked_value'] = $checked_value;
+                                $checked_value = isset( $field['unchecked_value'] ) ? sanitize_text_field( $field['unchecked_value'] ) : '';
+				$out[ $key ]['unchecked_value'] = $checked_value;
+				break;
+                            
 			default:
 		}
 

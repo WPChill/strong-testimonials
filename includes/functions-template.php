@@ -457,10 +457,10 @@ function wpmtst_the_custom_field( $field ) {
                                 break;
                                 
                         case 'boolean':
-                                 // we output Yes/No depending on checkbox value
-                                $output = __('No', 'strong-testimonials');
+                                 // we output the checkbox value from view
+                                $output = __($field['unchecked_value'], 'strong-testimonials');
                                 if (get_post_meta( $post->ID, $field_name, true )) {
-                                    $output = __('Yes', 'strong-testimonials');
+                                    $output = __($field['checked_value'], 'strong-testimonials');
                                 }
                                 break;
                                 
