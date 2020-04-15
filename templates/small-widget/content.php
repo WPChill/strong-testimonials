@@ -19,12 +19,12 @@ do_action( 'wpmtst_before_view' );
 
 		<?php while ( $query->have_posts() ) : $query->the_post(); ?>
 		<div class="<?php wpmtst_post_class($atts); ?>">
-            <div class="wpmtst-testimonial-inner">
+            <div class="wpmtst-testimonial-inner testimonial-inner">
 				<?php do_action( 'wpmtst_before_testimonial' ); ?>
 
-				<?php wpmtst_the_title( '<h5 class="wpmtst-testimonial-heading">', '</h5>' ); ?>
+				<?php wpmtst_the_title( '<h5 class="wpmtst-testimonial-heading testimonial-heading">', '</h5>' ); ?>
 
-				<div <?php echo ('slideshow' == $atts['mode']) ? 'data-infinite-loop="'.esc_attr($continuous_slide).'"' : ''; ?>  class="wpmtst-testimonial-content">
+				<div <?php echo ('slideshow' == $atts['mode']) ? 'data-infinite-loop="'.esc_attr($continuous_slide).'"' : ''; ?>  class="wpmtst-testimonial-content testimonial-content">
           <?php wpmtst_the_thumbnail(); ?>
 					<div class="maybe-clear"></div>
 					<?php wpmtst_the_content(); ?>

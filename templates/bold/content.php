@@ -23,10 +23,10 @@ do_action( 'wpmtst_before_view' );
 
 			<div class="<?php wpmtst_post_class($atts); ?>">
 		
-			<div class="wpmtst-testimonial-inner">
+			<div class="wpmtst-testimonial-inner testimonial-inner">
 				<?php do_action( 'wpmtst_before_testimonial' ); ?>
 
-				<div <?php echo ('slideshow' == $atts['mode']) ? 'data-infinite-loop="'.esc_attr($continuous_slide).'"' : ''; ?>  class="wpmtst-testimonial-content">
+				<div <?php echo ('slideshow' == $atts['mode']) ? 'data-infinite-loop="'.esc_attr($continuous_slide).'"' : ''; ?>  class="wpmtst-testimonial-content testimonial-content">
 
 					<?php wpmtst_the_thumbnail(); ?>
 					<?php wpmtst_the_content(); ?>

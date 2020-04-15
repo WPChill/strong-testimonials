@@ -17,11 +17,11 @@ do_action( 'wpmtst_before_view' );
 
 		<?php while ( $query->have_posts() ) : $query->the_post(); ?>
 			<div class="<?php wpmtst_post_class($atts); ?>">
-                <div class="wpmtst-testimonial-inner">
+                <div class="wpmtst-testimonial-inner testimonial-inner">
 					<?php do_action( 'wpmtst_before_testimonial' ); ?>
 
-					<div <?php echo ('slideshow' == $atts['mode']) ? 'data-infinite-loop="'.esc_attr($continuous_slide).'"' : ''; ?>  class="wpmtst-testimonial-content">
-						<?php wpmtst_the_title( '<h3 class="testimonial-heading">', '</h3>' ); ?>
+					<div <?php echo ('slideshow' == $atts['mode']) ? 'data-infinite-loop="'.esc_attr($continuous_slide).'"' : ''; ?>  class="wpmtst-testimonial-content testimonial-content">
+						<?php wpmtst_the_title( '<h3 class="wpmtst-testimonial-heading testimonial-heading">', '</h3>' ); ?>
 
 						<?php wpmtst_the_content(); ?>
 						<?php do_action( 'wpmtst_after_testimonial_content' ); ?>
