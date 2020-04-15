@@ -5,7 +5,7 @@
  * Description: Collect and display your testimonials or reviews.
  * Author: MachoThemes
  * Author URI: https://www.machothemes.com/
- * Version: 2.40.3
+ * Version: 2.40.4
  * Text Domain: strong-testimonials
  * Domain Path: /languages
  * Requires: 4.6 or higher
@@ -44,7 +44,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'WPMTST_VERSION', '2.40.3' );
+define( 'WPMTST_VERSION', '2.40.4' );
 define( 'WPMTST_PLUGIN', plugin_basename( __FILE__ ) ); // strong-testimonials/strong-testimonials.php
 define( 'WPMTST', dirname( WPMTST_PLUGIN ) );           // strong-testimonials
 defined( 'WPMTST_STORE_URL' ) || define( 'WPMTST_STORE_URL', 'https://strongtestimonials.com' );
