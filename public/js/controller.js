@@ -8,7 +8,6 @@
  */
 
 'use strict';
-
 var debugit = false;
 
 var strongController = {
@@ -267,6 +266,14 @@ var strongController = {
     jQuery(window).on('load', function () {
       strongController.listenForIframeReady();
     });
+    
+    jQuery('textarea.max-length, input.text.max-length').keypress(function() {
+        var maxLength =  jQuery(this).attr('maxlength');
+        var textLength = jQuery(this).val().length;
+        if (maxLength !== null) {
+            jQuery(this).parent().find('.max-length-counter').html(textLength + ' characters out of ' + maxLength);
+        }
+    });
 
   },
 
@@ -365,8 +372,9 @@ var strongController = {
 
     }
   }
-
 };
 
 // Initialize controller.
 strongController.init();
+
+

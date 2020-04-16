@@ -322,7 +322,7 @@ function wpmtst_show_field_secondary( $key, $field ) {
             if ( isset( $field['max_length'] ) ) {
                 $html .= '<tr class="field-secondary">' . "\n";
                 $html .= '<th>' . esc_html__( 'Maximum Length', 'strong-testimonials' ) . '</th>' . "\n";
-                $html .= '<td><input type="number" name="fields[' . esc_attr( $key ) . '][max_length]" value="' . $field['max_length'] . '"><span> ' . esc_html__( 'Limit the user imput to a certain number of characters', 'strong-testimonials' )  . '</span></td>' . "\n";
+                $html .= '<td><input type="number" name="fields[' . esc_attr( $key ) . '][max_length]" value="' . esc_attr($field['max_length']) . '"><span> ' . esc_html__( 'Limit the user imput to a certain number of characters', 'strong-testimonials' )  . '</span></td>' . "\n";
                 $html .= '</tr>' . "\n";
             }
 	}
