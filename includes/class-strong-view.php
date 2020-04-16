@@ -365,7 +365,7 @@ class Strong_View {
 		$class = str_replace( ':content', '', $template_name );
 		$class = str_replace( ':', '-', $class );
 		$class = str_replace( '-form-form', '-form', $class );
-		$class = 'wpmtst-' . $class . ' strong-' . $class;
+		$class = $class . ' wpmtst-' . $class ;
 		$class_list = array( $class );
 
 		$template_object = WPMST()->templates->get_template_by_name( $template_name );

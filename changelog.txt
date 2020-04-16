@@ -1,3 +1,6 @@
+= 2.40.5 - Apr. 16, 2020 = 
+* Add old css class back for templates
+
 = 2.40.4 - Apr. 16, 2020 =
 * Added the old classes back to keep functionality with users custom css 
 * Fixed title display
