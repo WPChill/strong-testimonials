@@ -317,10 +317,7 @@ function wpmtst_the_custom_field( $field ) {
 
 	$output        = '';
 	$field_name    = $field['field'];
-
-	if( isset( $field['class'] ) && '' != $field['class'] ) {
-	$field['class'] = $field['class'] . ' wpmtst-' . $field['class'];
-	}
+	
 	if ( isset( $custom_fields[ $field_name ] ) ) {
 		$field['prop'] = $custom_fields[ $field_name ];
 	} else {
