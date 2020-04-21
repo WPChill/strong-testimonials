@@ -18,7 +18,6 @@ function wpmtst_register_cpt() {
 		$args['supports']            = apply_filters( 'wpmtst_testimonial_supports', $args['supports'] );
 		$args['exclude_from_search'] = apply_filters( 'wpmtst_exclude_from_search', $args['exclude_from_search'] );
 		$args['taxonomies']          = apply_filters( 'wpmtst_testimonial_taxonomies', $args['taxonomies'] );
-                $args['capabilities']        = apply_filters( 'wpmtst_testimonial_capabilities', $args['capabilities'] );
 
 		//TODO error handling
 		register_post_type( 'wpm-testimonial', apply_filters( 'wpmtst_post_type', $args ) );
@@ -86,18 +85,6 @@ function wpmtst_get_cpt_defaults() {
 		'thumbnail',
 		'page-attributes',
 	);
-        
-        $capabilities = array(
-                'publish_posts' => 'publish_testimonials',
-                'edit_posts' => 'edit_testimonials',
-                'edit_others_posts' => 'edit_other_testimonials',
-                'delete_posts' => 'delete_testimonials',
-                'delete_others_posts' => 'delete_others_testimonials',
-                'read_private_posts' => 'read_private_testimonials',
-                'edit_post' => 'edit_testimonial',
-                'delete_post' => 'delete_testimonial',
-                'read_post' => 'read_testimonial'
-        );
 
 	$args = array(
 		'labels'              => $labels,
@@ -120,8 +107,7 @@ function wpmtst_get_cpt_defaults() {
 			'feeds'      => false,
 			'pages'      => true,
 		),
-		'can_export'          => true,
-                'capabilities'       => $capabilities      
+		'can_export'          => true
 	);
 
 	return $args;
