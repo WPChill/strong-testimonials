@@ -25,6 +25,7 @@ class Strong_Testimonials_Settings {
 	 */
 	public static function add_actions() {
 		add_action( 'admin_init', array( __CLASS__, 'register_settings' ) );
+                add_action( 'wpmtst_settings_submit_row', array( __CLASS__, 'submit_row' ) );
 	}
 
 	/**
