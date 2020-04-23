@@ -22,7 +22,7 @@ do_action( 'wpmtst_before_view' );
             <div class="wpmtst-testimonial-inner">
 				<?php do_action( 'wpmtst_before_testimonial' ); ?>
 
-				<?php wpmtst_the_title( '<h5 class="wpmtst-testimonial-heading">', '</h5>' ); ?>
+				<?php wpmtst_the_title( 'h3', 'wpmtst-testimonial-heading' ); ?>
 
 				<div <?php echo ('slideshow' == $atts['mode']) ? 'data-infinite-loop="'.esc_attr($continuous_slide).'"' : ''; ?>  class="wpmtst-testimonial-content">
           <?php wpmtst_the_thumbnail(); ?>

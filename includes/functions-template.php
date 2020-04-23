@@ -31,10 +31,16 @@ function strong_testimonials_view( $id = null ) {
  * @param string $before
  * @param string $after
  */
-function wpmtst_the_title( $before = '', $after = '' ) {
+function wpmtst_the_title( $tag = '', $class = '' ) {
     $title   = get_the_title();
     $options = get_option( 'wpmtst_options' );
-
+    
+    $tag = apply_filters( 'wpmtst_the_title_tag', $tag );
+    if (!empty($tag)) {
+        $before = '<' . $tag . ' class="' . $class . '">';
+        $after = '</' . $tag . '>';
+    }
+    
     if ( WPMST()->atts( 'title' ) && $title ) {
 
         if ('none' != WPMST()->atts( 'title_link' ) && '0' != WPMST()->atts( 'title_link' ) ) {
@@ -54,7 +60,6 @@ function wpmtst_the_title( $before = '', $after = '' ) {
             }
         }
     }
-
     $before = apply_filters( 'wpmtst_the_title_before', $before );
     $after  = apply_filters( 'wpmtst_the_title_after', $after );
 
