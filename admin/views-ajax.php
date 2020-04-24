@@ -131,3 +131,14 @@ function wpmtst_restore_default_breakpoints_function() {
 	wp_die();
 }
 add_action( 'wp_ajax_wpmtst_restore_default_breakpoints', 'wpmtst_restore_default_breakpoints_function' );
+
+function wpmtst_infinite_scroll() {
+        $atts = json_decode( stripslashes( $_POST['atts'] ), true );
+        $atts['paged'] = $_POST['page'] + 1;
+        
+        $view = new Strong_View_Display( $atts );
+        $view->build();
+        echo $view->output();
+        die();
+}
+add_action('wp_ajax_infinitescroll', 'wpmtst_infinite_scroll');

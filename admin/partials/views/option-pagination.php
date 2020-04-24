@@ -24,6 +24,9 @@ $links .= '</span>';
                         <option value="standard" <?php selected( 'standard', $view['pagination_settings']['type'] ); ?>>
 							<?php _e( 'WordPress standard', 'strong-testimonials' ); ?>
                         </option>
+                        <option value="infinitescroll" <?php selected( 'infinitescroll', $view['pagination_settings']['type'] ); ?>>
+                                <?php _e( 'Infinite scrolling', 'strong-testimonials' ); ?>
+                        </option>
                     </select>
                 </label>
             </div>

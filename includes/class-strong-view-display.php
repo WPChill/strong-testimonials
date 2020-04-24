@@ -35,6 +35,7 @@ class Strong_View_Display extends Strong_View {
 	public function __construct( $atts = array() ) {
 		parent::__construct( $atts );
 		add_filter( 'wpmtst_build_query', array( $this, 'query_pagination' ) );
+                add_filter( 'wpmtst_build_query', array( $this, 'query_infinitescroll' ) );
 		add_action( 'wpmtst_view_processed', array( $this, 'reset_view' ) );
 	}
 
@@ -57,6 +58,24 @@ class Strong_View_Display extends Strong_View {
 	 */
 	public function query_pagination( $args ) {
 		if ( $this->atts['pagination'] && 'standard' == $this->atts['pagination_settings']['type'] ) {
+			// Limit is not compatible with standard pagination.
+			$this->atts['count'] = -1;
+			$args['posts_per_page'] = $this->atts['pagination_settings']['per_page'];
+			$args['paged']          = wpmtst_get_paged();
+		}
+
+		return $args;
+	}
+        
+        /**
+	 * Adjust query for infinite scroll pagination.
+	 *
+	 * @param $args
+	 *
+	 * @return mixed
+	 */
+	public function query_infinitescroll( $args ) {
+		if ( $this->atts['pagination'] && 'infinitescroll' == $this->atts['pagination_settings']['type'] ) {
 			// Limit is not compatible with standard pagination.
 			$this->atts['count'] = -1;
 			$args['posts_per_page'] = $this->atts['pagination_settings']['per_page'];
@@ -131,7 +150,7 @@ class Strong_View_Display extends Strong_View {
 				add_action( 'wpmtst_view_footer', 'wpmtst_standard_pagination' );
 			}
 		}
-
+                
 		// Read more page
 		add_action( $this->atts['more_page_hook'], 'wpmtst_read_more_page' );
 
@@ -149,7 +168,7 @@ class Strong_View_Display extends Strong_View {
 
 		if ( ! $this->found_posts ) {
 
-			if ( current_user_can( 'strong_testimonials_views' ) ) {
+			if ( current_user_can( 'strong_testimonials_views' ) && 'infinitescroll' != $this->atts['pagination_settings']['type']) {
 				$html = $this->nothing_found();
 			}
 
@@ -197,7 +216,6 @@ class Strong_View_Display extends Strong_View {
 		do_action( 'wpmtst_view_processed' );
 
 		$this->html = apply_filters( 'strong_view_html', $html, $this );
-
 	}
 
 	/**
@@ -247,9 +265,15 @@ class Strong_View_Display extends Strong_View {
 
 		// For Post Types Order plugin
 		$args['ignore_custom_sort'] = true;
-
+                
+                if ( $this->atts['pagination'] &&  'infinitescroll' == $this->atts['pagination_settings']['type'] ) {
+                    if (empty($this->atts['paged'])) {
+                        $this->atts['paged'] = 1;
+                    }
+                    $args['paged'] = $this->atts['paged'];
+                }
+                
 		$query = new WP_Query( apply_filters( 'wpmtst_query_args', $args, $this->atts ) );
-
 		/**
 		 * Shuffle array in PHP instead of SQL.
 		 *
@@ -354,6 +378,17 @@ class Strong_View_Display extends Strong_View {
 	 */
 	public function is_paginated() {
 		return ( $this->atts['pagination'] && 'simple' == $this->atts['pagination_settings']['type'] );
+	}
+        
+        /**
+	 * Return true if using infinitescroll pagination (JavaScript).
+	 *
+	 * @since 2.28.0
+	 *
+	 * @return bool
+	 */
+        public function is_infinitescroll() {
+		return ( $this->atts['pagination'] && 'infinitescroll' == $this->atts['pagination_settings']['type'] );
 	}
 
 	/**
