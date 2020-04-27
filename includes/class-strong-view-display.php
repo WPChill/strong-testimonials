@@ -47,6 +47,7 @@ class Strong_View_Display extends Strong_View {
 	public function reset_view() {
 		wp_reset_postdata();
 		remove_filter( 'wpmtst_build_query', array( $this, 'query_pagination' ) );
+                remove_filter( 'wpmtst_build_query', array( $this, 'query_infinitescroll' ) );
 	}
 
 	/**
@@ -66,8 +67,8 @@ class Strong_View_Display extends Strong_View {
 
 		return $args;
 	}
-        
-        /**
+
+	/**
 	 * Adjust query for infinite scroll pagination.
 	 *
 	 * @param $args
@@ -266,7 +267,7 @@ class Strong_View_Display extends Strong_View {
 		// For Post Types Order plugin
 		$args['ignore_custom_sort'] = true;
                 
-                if ( $this->atts['pagination'] &&  'infinitescroll' == $this->atts['pagination_settings']['type'] ) {
+                if ( $this->atts['pagination'] && 'infinitescroll' == $this->atts['pagination_settings']['type'] ) {
                     if (empty($this->atts['paged'])) {
                         $this->atts['paged'] = 1;
                     }

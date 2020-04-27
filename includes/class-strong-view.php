@@ -316,16 +316,6 @@ class Strong_View {
 				WPMST()->render->add_script( $handle );
 			}
 		}
-                
-                if ($this->atts['pagination'] && $this->atts['pagination_settings']['type'] == 'infinitescroll') {
-                    wp_register_script( 'infinite_scroll', WPMTST_ASSETS_JS . '/infinite-scrolling.js', array('jquery') );
-                    wp_localize_script( 'infinite_scroll', 'params', array(
-                        'ajaxurl' => site_url() . '/wp-admin/admin-ajax.php',
-                        'current_page' => get_query_var( 'paged' ) ? get_query_var('paged') : 1,
-                        'atts' => json_encode($this->atts)
-                    ) );
-                    wp_enqueue_script( 'infinite_scroll' );
-                }
 	}
 
 	/**
