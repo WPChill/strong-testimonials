@@ -1,3 +1,7 @@
+= 2.40.6 - Apr. 28, 2020 =
+* Fixed undefined index error
+* Fixed pagination buttons
+
 = 2.40.5 - Apr. 16, 2020 = 
 * Add old css class back for templates
 
