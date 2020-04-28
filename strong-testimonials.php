@@ -229,6 +229,7 @@ final class Strong_Testimonials {
 		require_once WPMTST_INC . 'class-strong-testimonials-privacy.php';
 
 		require_once WPMTST_INC . 'class-strong-testimonials-shortcode.php';
+		require_once WPMTST_INC . 'class-strong-gutemberg.php';
 		require_once WPMTST_INC . 'class-strong-testimonials-shortcode-count.php';
 		require_once WPMTST_INC . 'class-strong-testimonials-shortcode-average.php';
 		require_once WPMTST_INC . 'class-strong-testimonials-render.php';
