@@ -39,12 +39,16 @@ class Strong_Gutemberg {
     }
 
     public function render_view( $attributes ) {
-        
-        if ( isset( $attributes ) ) {
-            return ;
-        }
-        return "[testimonial_view id={$attributes['id']}]";
 
+        if( 0 == count( $attributes ) ) {
+            return;
+        }
+
+        if( '0' == $attributes['id'] ) {
+            return;
+        }
+
+        return "[testimonial_view id={$attributes['id']}]";
     }
 
 }
