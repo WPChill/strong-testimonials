@@ -448,10 +448,10 @@ class Strong_View {
 			}
 			else {
 				wp_add_inline_style( $handle,
-				                     "$view_el .wpmtst-testimonial-heading, .testimonial-heading " .
-				                     "$view_el .wpmtst-testimonial-content p, .testimonial-content p " .
-				                     "$view_el .wpmtst-testimonial-content a.readmore, .testimonial-content a.readmore " .
-				                     "$view_el .wpmtst-testimonial-client div, .testimonial-client div " .
+				                     "$view_el .wpmtst-testimonial-heading, .testimonial-heading," .
+				                     "$view_el .wpmtst-testimonial-content p, .testimonial-content p," .
+				                     "$view_el .wpmtst-testimonial-content a.readmore, .testimonial-content a.readmore," .
+				                     "$view_el .wpmtst-testimonial-client div, .testimonial-client div," .
 				                     "$view_el .wpmtst-testimonial-client a, .testimonial-client a { color: $c1; }" );
 			}
 		}

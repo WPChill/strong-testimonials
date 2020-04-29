@@ -1,4 +1,4 @@
-= 2.40.6 - Apr. 28, 2020 =
+= 2.40.6 - Apr. 29, 2020 =
 * Fixed undefined index error
 * Fixed pagination buttons
 

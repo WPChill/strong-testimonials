@@ -158,8 +158,8 @@
 }
 .strong-view.pager-style-buttons .wpmslider-pager-link:before {
   content: "";
-  -webkit-mask: url('../svg/chevron-circle-left-solid.svg') center center no-repeat;
-  mask: url('../svg/chevron-circle-left-solid.svg') center center no-repeat;
+  -webkit-mask: url('../svg/circle-regular.svg') center center no-repeat;
+  mask: url('../svg/circle-regular.svg') center center no-repeat;
   display: inline-block;
   color: #999;
   background: #999;
