@@ -60,6 +60,7 @@
 
 			var toggleButtonText = event.target;
 			var toggleButton = toggleButtonText.parentElement;
+                        var excerptWrapper = toggleButtonText.parentElement.parentElement.querySelector('.readmore-excerpt');
 			var fullTextWrapper = toggleButtonText.parentElement.parentElement.querySelector('.readmore-content');
 			var ellipsis = toggleButtonText.parentElement.parentElement.querySelector('.ellipsis');
 
@@ -69,7 +70,6 @@
 
 			// change attributes and text if full text is shown/hidden
 			if (fullTextWrapper.hasAttribute('hidden')) {
-
 				// show
 				// 1. remove hidden attribute so we can animate it
 				fullTextWrapper.removeAttribute('hidden');
@@ -86,11 +86,12 @@
 				fullTextWrapper.classList.add('fadeInDown');
 				fullTextWrapper.classList.remove('fadeOutUp');
 				fullTextWrapper.classList.remove('faster');
+                                
+                                excerptWrapper.style.display = 'none';
 
 				fireCustomEvent();
 
 			} else {
-
 				// hide
 				// 1. update toggle link
 				// hide link during transition
@@ -103,6 +104,8 @@
 				fullTextWrapper.classList.add('fadeOutUp');
 				fullTextWrapper.classList.add('faster');
 				fullTextWrapper.classList.remove('fadeInDown');
+                                
+                                excerptWrapper.style.display = 'block';
 
 				// 3. do stuff at end of animation (the event listener above)
 
