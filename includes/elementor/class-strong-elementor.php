@@ -31,16 +31,6 @@ class Strong_Testimonials_Elementor_Widget extends \Elementor\Widget_Base {
         return array( 'general' );
     }
 
-    private function get_formatted_views() {
-        $views = wpmtst_get_views() ;
-
-        $view_array = array( 'none' => esc_html__( 'None', 'strong-testimonials'));
-        foreach( $views as $view ) {
-            $view_array[$view['id']] = esc_html__( $view['name'] );
-        }
-        return $view_array;
-    }
-
     protected function _register_controls() {
         $this->start_controls_section(
             'content_section',
@@ -55,7 +45,7 @@ class Strong_Testimonials_Elementor_Widget extends \Elementor\Widget_Base {
             array(
                 'label'   => esc_html__( 'Select/Search View', 'strong-testimonials'),
                 'type'    => \Elementor\Controls_Manager::SELECT,
-                'options' => $this->get_formatted_views(),
+                'options' => get_formatted_views(),
                 'default' => 'none',
             )
         );

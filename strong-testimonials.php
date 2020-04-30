@@ -230,6 +230,8 @@ final class Strong_Testimonials {
 
 		require_once WPMTST_INC . 'class-strong-testimonials-shortcode.php';
 		require_once WPMTST_INC . 'class-strong-gutemberg.php';
+		require_once WPMTST_INC . 'elementor/class-strong-elementor-check.php';
+		require_once WPMTST_INC . 'strong-testimonials-beaver-block/class-strong-beaver.php';
 		require_once WPMTST_INC . 'class-strong-testimonials-shortcode-count.php';
 		require_once WPMTST_INC . 'class-strong-testimonials-shortcode-average.php';
 		require_once WPMTST_INC . 'class-strong-testimonials-render.php';

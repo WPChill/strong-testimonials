@@ -896,3 +896,15 @@ if ( ! function_exists( 'wpmtst_current_url' ) ) {
 		return home_url( add_query_arg( array(), $wp->request ) );
 	}
 }
+if ( ! function_exists( 'get_formatted_views' ) ) {
+	
+	function get_formatted_views() {
+		$views = wpmtst_get_views() ;
+
+		$view_array = array( 'none' => esc_html__( 'None', 'strong-testimonials'));
+		foreach( $views as $view ) {
+			$view_array[$view['id']] = esc_html__( $view['name'] );
+		}
+		return $view_array;
+	}
+}
