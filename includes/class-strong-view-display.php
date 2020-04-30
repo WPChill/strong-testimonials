@@ -522,6 +522,7 @@ class Strong_View_Display extends Strong_View {
 	public function has_lazyload() {
                 $options = get_option( 'wpmtst_options' );
                 if ( isset( $options['no_lazyload'] ) && !$options['no_lazyload'] ) {
+                        WPMST()->render->add_style( 'wpmtst-lazyload-css' );
 			WPMST()->render->add_script( 'wpmtst-lozad' );
                         WPMST()->render->add_script( 'wpmtst-lozad-load' );
 		}

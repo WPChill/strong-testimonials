@@ -202,6 +202,11 @@ function wpmtst_scripts() {
                             $plugin_version,
                             true );
 
+        wp_register_style( 'wpmtst-lazyload-css',
+                   WPMTST_PUBLIC_URL . 'css/lazyload.css',
+                   array(),
+                   '' );
+
 }
 add_action( 'wp_enqueue_scripts', 'wpmtst_scripts' );
 
