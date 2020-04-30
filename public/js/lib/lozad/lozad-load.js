@@ -1,0 +1,1 @@
+lozad(".lazy-load").observe();

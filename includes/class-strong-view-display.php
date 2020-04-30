@@ -100,6 +100,7 @@ class Strong_View_Display extends Strong_View {
 		$this->has_pagination();
 		$this->has_layouts();
 		$this->has_readmore();
+                $this->has_lazyload();
 
 		$this->load_extra_stylesheets();
 
@@ -510,6 +511,19 @@ class Strong_View_Display extends Strong_View {
 		if ( $this->is_hybrid() ) {
 			WPMST()->render->add_style( 'wpmtst-animate' );
 			WPMST()->render->add_script( 'wpmtst-readmore' );
+		}
+	}
+        
+        /**
+	 * Lazy Load
+	 *
+	 * @since 2.40.4
+	 */
+	public function has_lazyload() {
+                $options = get_option( 'wpmtst_options' );
+                if ( isset( $options['no_lazyload'] ) && !$options['no_lazyload'] ) {
+			WPMST()->render->add_script( 'wpmtst-lozad' );
+                        WPMST()->render->add_script( 'wpmtst-lozad-load' );
 		}
 	}
 
