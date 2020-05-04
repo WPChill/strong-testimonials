@@ -94,6 +94,12 @@
 
             <!-- action: full post or in place -->
             <div class="row-inner">
+                <div class="">
+                    <input class="checkbox" id="view-html-content" name="view[data][html_content]" value="1" type="checkbox" <?php checked( $view['html_content'] ); ?>/>
+                    <label for="view-html-content">
+                                <?php _e( 'Show <strong>html content</strong>.', 'strong-testimonials' ); ?>
+                    </label>
+                </div>
                 <div class="inline">
                     <?php _e( 'Add a <strong>Read more</strong> link to', 'strong-testimonials' ); ?>
                 </div>

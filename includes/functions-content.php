@@ -240,11 +240,16 @@ function wpmtst_assemble_hybrid( $words_array, $num_words, $sep, $more, $full_te
 		/* ! This space is important:                        ^       */
 	}
 	$first_half  = implode( $sep, array_slice( $words_array, 0, $num_words ) );
-	//$second_half = implode( $sep, array_slice( $words_array, $num_words ) );
-
-        $wrap_open_excerpt  = '<span class="readmore-excerpt animated"> ';
+	$second_half = implode( $sep, array_slice( $words_array, $num_words ) );
+        $wrap_open_class = '';
+        if (  WPMST()->atts( 'html_content' ) ) {
+            $second_half = $full_text;
+            $wrap_open_class = 'all-html';
+        }
+        $wrap_open_excerpt  = '<span class="readmore-excerpt animated ' . $wrap_open_class . '"> ';
 	$wrap_open  = '<span class="readmore-content animated" id="more-' . get_the_ID() . '" hidden> ';
 	$wrap_close = ' </span>';
-	return $wrap_open_excerpt . $first_half . $ellipsis . $wrap_close . ' ' . $wrap_open . $full_text . $wrap_close . $more;
+        
+	return $wrap_open_excerpt . $first_half . $ellipsis . $wrap_close . ' ' . $wrap_open . $second_half . $wrap_close . $more;
 	/* ! This space is important:                                        ^                                                  */
 }

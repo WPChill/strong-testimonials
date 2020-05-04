@@ -88,7 +88,8 @@ function wpmtst_sanitize_view( $input ) {
 
 	$data['content']            = sanitize_text_field( $input['content'] );
 	$data['excerpt_length']     = (int) sanitize_text_field( $input['excerpt_length'] );
-	$data['use_default_length'] = sanitize_text_field( $input['use_default_length'] );
+	$data['use_default_length'] = sanitize_text_field( $input['use_default_length'] );        
+	$data['html_content']         = isset( $input['html_content'] ) ? 1 : 0;
 
 	$data = wpmtst_sanitize_view_readmore( $data, $input, $default_view );
 

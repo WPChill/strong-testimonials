@@ -53,6 +53,8 @@
 
 		// Listen to each readmore link.
 		document.addEventListener('click', function (event) {
+                    
+
 
 			if (!event.target.matches('.readmore-text')) {
 				return;
@@ -63,7 +65,12 @@
                         var excerptWrapper = toggleButtonText.parentElement.parentElement.querySelector('.readmore-excerpt');
 			var fullTextWrapper = toggleButtonText.parentElement.parentElement.querySelector('.readmore-content');
 			var ellipsis = toggleButtonText.parentElement.parentElement.querySelector('.ellipsis');
-
+                        var allHtml = false;
+                        
+                        if (excerptWrapper.classList.contains('all-html')) {
+                            var allHtml = true;
+                        }
+                        
 			if (!fullTextWrapper) {
 				return;
 			}
@@ -87,7 +94,9 @@
 				fullTextWrapper.classList.remove('fadeOutUp');
 				fullTextWrapper.classList.remove('faster');
                                 
-                                excerptWrapper.style.display = 'none';
+                                if (allHtml) { 
+                                    excerptWrapper.style.display = 'none';
+                                }
 
 				fireCustomEvent();
 
@@ -105,7 +114,9 @@
 				fullTextWrapper.classList.add('faster');
 				fullTextWrapper.classList.remove('fadeInDown');
                                 
-                                excerptWrapper.style.display = 'block';
+                                if (allHtml) {
+                                    excerptWrapper.style.display = 'block'; 
+                                }
 
 				// 3. do stuff at end of animation (the event listener above)
 
