@@ -77,8 +77,43 @@ function wpmtst_thumbnail_img( $img, $post_id, $size ) {
 }
 add_filter( 'wpmtst_thumbnail_img', 'wpmtst_thumbnail_img', 10, 3 );
 
+
 /**
  * Exclude testimonial thumbnails from Lazy Loading Responsive Images plugin.
+ *
+ * @param $attr
+ * @param $attachment
+ * @param $size
+ *
+ * @since 2.27.0
+ *
+ * @return array
+ */
+function wpmtst_exclude_from_lazyload( $attr, $attachment, $size ) {
+        $options = get_option( 'wpmtst_options' );
+
+        if ( isset( $options['no_lazyload_plugin'] ) && $options['no_lazyload_plugin'] ) {
+                if ( 'wpm-testimonial' == get_post_type( $attachment->post_parent ) ) {
+                        $attr['data-no-lazyload'] = 1;
+                }
+        }
+    
+        return $attr;
+}
+/**
+ * Add filter if Lazy Loading Responsive Images plugin is active.
+ *
+ * @since 2.27.0
+ */
+function wpmtst_lazyload_check() {
+	if ( wpmtst_is_plugin_active( 'lazy-loading-responsive-images' ) ) {
+		add_filter( 'wp_get_attachment_image_attributes', 'wpmtst_exclude_from_lazyload', 10, 3 );
+	}
+}
+add_action( 'init', 'wpmtst_lazyload_check' );
+
+/**
+ * Enable lazy load
  *
  * @param $attr
  * @param $attachment
@@ -91,7 +126,7 @@ add_filter( 'wpmtst_thumbnail_img', 'wpmtst_thumbnail_img', 10, 3 );
 function wpmtst_add_lazyload( $attr, $attachment, $size ) {
 	$options = get_option( 'wpmtst_options' );
         
-	if ( isset( $options['no_lazyload'] ) && !$options['no_lazyload'] ) {
+	if ( isset( $options['lazyload'] ) && $options['lazyload']) {
 		if ( 'wpm-testimonial' == get_post_type( $attachment->post_parent ) ) {
 			$attr['class'] .= ' lazy-load';
                         $attr['data-src'] .= $attr['src'];

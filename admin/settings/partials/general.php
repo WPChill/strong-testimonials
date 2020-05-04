@@ -203,17 +203,36 @@ $options = get_option( 'wpmtst_options' );
     </tr>
     <tr valign="top">
         <th scope="row">
-			<?php _e( 'No Lazy Loading', 'strong-testimonials' ); ?>
+			<?php _e( 'Lazy Loading', 'strong-testimonials' ); ?>
         </th>
         <td>
             <fieldset>
                 <label>
-                    <input type="checkbox" name="wpmtst_options[no_lazyload]" <?php checked( $options['no_lazyload'] ); ?>>
-                    <?php printf( __( 'Disable the Lazy Loading functionality.', 'strong-testimonials' ) ); ?>
+                    <input type="checkbox" name="wpmtst_options[lazyload]" <?php checked( $options['lazyload'] ); ?>>
+                    <?php printf( __( 'Enable the Lazy Loading functionality.', 'strong-testimonials' ) ); ?>
+                    <?php _e( 'Off by default.', 'strong-testimonials' ); ?>
+                </label>
+            </fieldset>
+        </td>
+    </tr>
+    
+    <?php if ( wpmtst_is_plugin_active( 'lazy-loading-responsive-images' ) ) : ?> 
+    <tr valign="top">
+        <th scope="row">
+			<?php _e( 'No Lazy Loading Plugin', 'strong-testimonials' ); ?>
+        </th>
+        <td>
+            <fieldset>
+                <label>
+                    <input type="checkbox" name="wpmtst_options[no_lazyload_plugin]" <?php checked( $options['no_lazyload_plugin'] ); ?>>
+                    <?php printf( __( 'Exclude from <a href="%s" target="_blank">Lazy Loading Responsive Images</a> plugin.', 'strong-testimonials' ), esc_url( 'https://wordpress.org/plugins/lazy-loading-responsive-images/' ) ); ?>
                     <?php _e( 'On by default.', 'strong-testimonials' ); ?>
                 </label>
             </fieldset>
         </td>
     </tr>
+    <?php else : ?>
+        <input type="hidden" name="wpmtst_options[no_lazyload_plugin]" value="<?php echo $options['no_lazyload_plugin']; ?>">
+    <?php endif; ?>
 
 </table>

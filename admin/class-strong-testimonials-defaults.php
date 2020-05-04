@@ -41,7 +41,8 @@ class Strong_Testimonials_Defaults {
 			'single_testimonial_slug' => 'testimonial',
 			'scrolltop'               => true,
 			'scrolltop_offset'        => 80,
-			'no_lazyload'             => true,
+			'lazyload'                => false,
+                        'no_lazyload_plugin'      => true,
 			'touch_enabled'           => true
 		);
 
