@@ -30,8 +30,10 @@ class Strong_Testimonials_Defaults {
 	public static function get_options() {
 		$default_options = array(
 			'embed_width'             => '',
-			'nofollow'                => false,
-            'disable_rewrite'         => false,
+			'nofollow'                => true,
+                        'noopener'                => false,
+                        'noreferrer'              => false,
+                        'disable_rewrite'         => false,
 			'pending_indicator'       => true,
 			'remove_whitespace'       => true,
 			//@todo : delete commented line. For the moment let it be

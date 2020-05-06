@@ -38,8 +38,7 @@ div.checkbox input[type="checkbox"] {
   padding: 3px 5px;
 }
 
-.input-url,
-.input-nofollow {
+.input-url {
   display: inline-block;
 }
 
@@ -47,9 +46,13 @@ div.checkbox input[type="checkbox"] {
   width: calc(100% - 210px);
 }
 
-.input-nofollow {
-  float: right;
+.input-links {
+    display: flex;
 }
+
+/*.input-nofollow {
+  float: right;
+}*/
 
 label.nowrap {
   word-break: keep-all;

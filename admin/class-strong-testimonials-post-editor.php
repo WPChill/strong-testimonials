@@ -181,14 +181,31 @@ class Strong_Testimonials_Post_Editor {
 			<?php printf( '<input id="%2$s" type="%1$s" class="custom-input" name="custom[%2$s]" value="%3$s" size="">',
 			              $field['input_type'], $field['name'], esc_attr( $post->{$field['name']} ) ); ?>
         </div>
-        <div class="input-nofollow">
-            <label for="custom_nofollow"><code>rel="nofollow"</code></label>
-            <select id="custom_nofollow" name="custom[nofollow]">
-                <option value="default" <?php selected( $post->nofollow, 'default' ); ?>><?php _e( 'default', 'strong-testimonials' ); ?></option>
-                <option value="yes" <?php selected( $post->nofollow, 'yes' ); ?>><?php _e( 'yes', 'strong-testimonials' ); ?></option>
-                <option value="no" <?php selected( $post->nofollow, 'no' ); ?>><?php _e( 'no', 'strong-testimonials' ); ?></option>
-            </select>
-        </div>
+        <div class="input-links">
+            <div class="input-nofollow">
+                <label for="custom_nofollow"><code>rel="nofollow"</code></label>
+                <select id="custom_nofollow" name="custom[nofollow]">
+                    <option value="default" <?php selected( $post->nofollow, 'default' ); ?>><?php _e( 'default', 'strong-testimonials' ); ?></option>
+                    <option value="yes" <?php selected( $post->nofollow, 'yes' ); ?>><?php _e( 'yes', 'strong-testimonials' ); ?></option>
+                    <option value="no" <?php selected( $post->nofollow, 'no' ); ?>><?php _e( 'no', 'strong-testimonials' ); ?></option>
+                </select>
+            </div>
+            <div class="input-noopener">
+                <label for="custom_noopener"><code>rel="noopener"</code></label>
+                <select id="custom_noopener" name="custom[noopener]">
+                    <option value="default" <?php selected( $post->noopener, 'default' ); ?>><?php _e( 'default', 'strong-testimonials' ); ?></option>
+                    <option value="yes" <?php selected( $post->noopener, 'yes' ); ?>><?php _e( 'yes', 'strong-testimonials' ); ?></option>
+                    <option value="no" <?php selected( $post->noopener, 'no' ); ?>><?php _e( 'no', 'strong-testimonials' ); ?></option>
+                </select>
+            </div>
+            <div class="input-noreferrer">
+                <label for="custom_noreferrer"><code>rel="noreferrer"</code></label>
+                <select id="custom_noopener" name="custom[noreferrer]">
+                    <option value="default" <?php selected( $post->noreferrer, 'default' ); ?>><?php _e( 'default', 'strong-testimonials' ); ?></option>
+                    <option value="yes" <?php selected( $post->noreferrer, 'yes' ); ?>><?php _e( 'yes', 'strong-testimonials' ); ?></option>
+                    <option value="no" <?php selected( $post->noreferrer, 'no' ); ?>><?php _e( 'no', 'strong-testimonials' ); ?></option>
+                </select>
+            </div>
 		<?php
 	}
 
