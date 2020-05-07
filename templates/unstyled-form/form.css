@@ -3,6 +3,10 @@
  */
 /* The "wait" spinner on form submission.
 -----------------------------------------------*/
+.wpmtst-unstyled-form {
+  position: relative;
+}
+
 .strong-form-wait {
   display: none;
   position: absolute;
@@ -20,4 +24,23 @@
   height: 50px;
   line-height: 50px;
   color: #111;
+}
+
+.strong-form-wait .message img {
+  width: 50px;
+  height: 50px;
+  margin: 0 auto;
+}
+
+@keyframes wpmtst-spin{
+  0%{
+      transform: rotate(360deg);
+      }
+  100%{
+      transform: rotate(0deg);
+      }
+}
+
+.strong-form-wait .message img{
+  animation: wpmtst-spin 2.5s infinite 0s linear;
 }
