@@ -87,8 +87,6 @@ class Strong_Testimonials_Settings_Form {
 	public static function sanitize_options( $input ) {
 		$input['post_status']       = sanitize_text_field( $input['post_status'] );
 		$input['admin_notify']      = wpmtst_sanitize_checkbox( $input, 'admin_notify' );
-                $input['customer-notify']   = wpmtst_sanitize_checkbox( $input, 'customer-notify' );
-                $input['approved-notify']   = wpmtst_sanitize_checkbox( $input, 'approved-notify' );
 		$input['mail_queue']        = wpmtst_sanitize_checkbox( $input, 'mail_queue' );
 		$input['sender_name']       = sanitize_text_field( $input['sender_name'] );
 		$input['sender_site_email'] = intval( $input['sender_site_email'] );
@@ -138,7 +136,7 @@ class Strong_Testimonials_Settings_Form {
 		$input['default_recipient'] = maybe_unserialize( $input['default_recipient'] );
 		$input['email_subject']     = isset( $input['email_subject'] ) ? wp_kses_post( trim( $input['email_subject'] ) ) : '';
 		$input['email_message']     = isset( $input['email_message'] ) ? wp_kses_post( rtrim( $input['email_message'] ) ) : '';
-
+                
 		foreach ( $input['messages'] as $key => $message ) {
 			if ( 'submission-success' == $key ) {
 				$input['messages'][ $key ]['text'] = $message['text'];
@@ -149,7 +147,6 @@ class Strong_Testimonials_Settings_Form {
 				$input['messages'][ $key ]['text'] = wp_kses_data( $message['text'] );
 			}
 		}
-
 		$input['scrolltop_error']          = wpmtst_sanitize_checkbox( $input, 'scrolltop_error' );
 		$input['scrolltop_error_offset']   = intval( sanitize_text_field( $input['scrolltop_error_offset'] ) );
 		$input['scrolltop_success']        = wpmtst_sanitize_checkbox( $input, 'scrolltop_success' );

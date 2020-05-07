@@ -227,38 +227,8 @@ $form_options = get_option( 'wpmtst_form_options' );
 				do_action( 'wpmtst_after_notification_fields', 'notification' );
 				?>
                         </div>
+                        <?php do_action('wpmtst_after_notification_options', $form_options); ?>
                     
-                    	<div class="match-height">
-                            <fieldset>
-                                    <label for="wpmtst-options-customer-notify">
-                                            <input id="wpmtst-options-customer-notify" type="checkbox" name="wpmtst_form_options[customer-notify]" <?php checked( $form_options['customer-notify'] ); ?>/>
-                                            <?php esc_html_e( 'Send an email upon new testimonial submission to customer.', 'strong-testimonials' ); ?>
-                                    </label>
-                            </fieldset>
-			</div>
-                    	<div class="email-container" id="customer-notify-fields" <?php echo ( $form_options['customer-notify'] ) ? '' : 'style="display: none;"'; ?>>
-                            <?php
-				include 'email-from-customer-notify.php';
-				include 'email-customer-notify.php';
-				do_action( 'wpmtst_after_notification_fields', 'notification' );
-                            ?>
-                        </div>
-                    
-                        <div class="match-height">
-                            <fieldset>
-                                    <label for="wpmtst-options-approved-notify">
-                                            <input id="wpmtst-options-approved-notify" type="checkbox" name="wpmtst_form_options[approved-notify]" <?php checked( $form_options['approved-notify'] ); ?>/>
-                                            <?php esc_html_e( 'Send an email to customer when the testimonial was publish.', 'strong-testimonials' ); ?>
-                                    </label>
-                            </fieldset>
-			</div>
-                    	<div class="email-container" id="approved-notify-fields" <?php echo ( $form_options['approved-notify'] ) ? '' : 'style="display: none;"'; ?>>
-                            <?php
-				include 'email-from-approval-customer.php';
-				include 'email-approval-customer.php';
-				do_action( 'wpmtst_after_notification_fields', 'notification' );
-                            ?>
-                        </div>
         </td>
     </tr>
 </table>
