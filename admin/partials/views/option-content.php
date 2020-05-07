@@ -93,13 +93,7 @@
 		<div class="row-inner subgroup">
 
             <!-- action: full post or in place -->
-            <div class="row-inner">
-                <div class="">
-                    <input class="checkbox" id="view-html-content" name="view[data][html_content]" value="1" type="checkbox" <?php checked( $view['html_content'] ); ?>/>
-                    <label for="view-html-content">
-                                <?php _e( 'Show <strong>html content</strong>.', 'strong-testimonials' ); ?>
-                    </label>
-                </div>
+            <div class="row-inner">               
                 <div class="inline">
                     <?php _e( 'Add a <strong>Read more</strong> link to', 'strong-testimonials' ); ?>
                 </div>
@@ -193,6 +187,12 @@
 						</label>
 					</span>
                     <p class="inline description"><?php _e( 'Leave blank to leave content expanded without a link.', 'strong-testimonials' ); ?></p>
+                </div>
+                <div class="html-content-checkbox">
+                    <input class="checkbox" id="view-html-content" name="view[data][html_content]" value="1" type="checkbox" <?php checked( $view['html_content'] ); ?>/>
+                    <label for="view-html-content">
+                                <?php _e( 'Show <strong>html content</strong>.', 'strong-testimonials' ); ?>
+                    </label>
                 </div>
             </div>
 
