@@ -477,7 +477,7 @@ function wpmtst_array_filter__custom_fields( $field ) {
  * @param $field
  * @param bool $adding
  */
-function wpmtst_view_field_inputs( $key, $field, $adding = false ) {
+function wpmtst_view_field_inputs( $key, $field, $adding = false, $source = 'view[data]') {
 	$custom_fields = array_filter( wpmtst_get_custom_fields(), 'wpmtst_array_filter__custom_fields' );
 
 	$builtin_fields = wpmtst_get_builtin_fields();
@@ -550,7 +550,7 @@ function wpmtst_view_field_inputs( $key, $field, $adding = false ) {
                     <label for="client_section_<?php echo $key; ?>_field">
                         <?php _e( 'Name', 'strong-testimonials' ); ?>
                     </label>
-                    <select id="client_section_<?php echo $key; ?>_field" name="view[data][client_section][<?php echo $key; ?>][field]" class="first-field">
+                    <select id="client_section_<?php echo $key; ?>_field" name="<?php echo $source ?>[client_section][<?php echo $key; ?>][field]" class="first-field">
                         <option value="">&mdash; select a field &mdash;</option>
 
                         <?php foreach ( $all_fields as $group_name => $group ) : ?>
@@ -573,7 +573,7 @@ function wpmtst_view_field_inputs( $key, $field, $adding = false ) {
                     <label for="client_section_<?php echo $key; ?>_type">
                         <?php _e( 'Display Type', 'strong-testimonials' ); ?>
                     </label>
-                    <select id="client_section_<?php echo $key; ?>_type" name="view[data][client_section][<?php echo $key; ?>][type]">
+                    <select id="client_section_<?php echo $key; ?>_type" name="<?php echo $source ?>[client_section][<?php echo $key; ?>][type]">
                         <?php foreach ( $types as $type => $type_label ) : ?>
                         <option value="<?php echo $type; ?>" <?php selected( $type, $field['type'] ); ?>><?php echo $type_label; ?></option>
                         <?php endforeach; ?>
@@ -584,15 +584,15 @@ function wpmtst_view_field_inputs( $key, $field, $adding = false ) {
                 <div class="field-property-box field-meta field-dep" <?php if ( $adding ) echo ' style="display: none;"'; ?>>
                     <?php
                     if ( 'link' == $field['type'] || 'link2' == $field['type'] ) {
-                        wpmtst_view_field_link( $key, $field['field'], $field['type'], $field );
+                        wpmtst_view_field_link( $key, $field['field'], $field['type'], $field, false, $source );
                     }
 
                     if ( 'date' == $field['type'] ) {
-                        wpmtst_view_field_date( $key, $field );
+                        wpmtst_view_field_date( $key, $field, false, $source );
                     }
                     
                     if ( 'boolean' == $field['type'] ) {
-                        wpmtst_view_field_checkbox( $key, $field );
+                        wpmtst_view_field_checkbox( $key, $field, false, $source );
                     }
                     ?>
                 </div>
@@ -602,7 +602,7 @@ function wpmtst_view_field_inputs( $key, $field, $adding = false ) {
                     <label for="client_section_<?php echo $key; ?>_before">
                         <?php _e( 'Before', 'strong-testimonials' ); ?>
                     </label>
-                    <input id="client_section_<?php echo $key; ?>_before" type="text" name="view[data][client_section][<?php echo $key; ?>][before]" value="<?php echo isset( $field['before'] ) ? $field['before'] : ''; ?>">
+                    <input id="client_section_<?php echo $key; ?>_before" type="text" name="<?php echo $source ?>[client_section][<?php echo $key; ?>][before]" value="<?php echo isset( $field['before'] ) ? $field['before'] : ''; ?>">
                 </div>
 
                 <!-- FIELD CSS CLASS -->
@@ -610,7 +610,7 @@ function wpmtst_view_field_inputs( $key, $field, $adding = false ) {
                     <label for="client_section_<?php echo $key; ?>_class">
                         <?php _e( 'CSS Class', 'strong-testimonials' ); ?>
                     </label>
-                    <input id="client_section_<?php echo $key; ?>_class" type="text" name="view[data][client_section][<?php echo $key; ?>][class]" value="<?php echo $field['class']; ?>">
+                    <input id="client_section_<?php echo $key; ?>_class" type="text" name="<?php echo $source ?>[client_section][<?php echo $key; ?>][class]" value="<?php echo $field['class']; ?>">
                 </div>
 
             </div>
@@ -633,7 +633,7 @@ function wpmtst_view_field_inputs( $key, $field, $adding = false ) {
  * @param $field
  * @param bool|false $adding
  */
-function wpmtst_view_field_link( $key, $field_name, $type, $field, $adding = false ) {
+function wpmtst_view_field_link( $key, $field_name, $type, $field, $adding = false, $source = 'view[data]' ) {
 	if ( $field_name ) {
 		$current_field = wpmtst_get_field_by_name( $field_name );
 		if ( is_array( $current_field ) ) {
@@ -656,7 +656,7 @@ function wpmtst_view_field_link( $key, $field_name, $type, $field, $adding = fal
 	<?php // the link text ?>
 	<div class="flex">
 		<label for="view-fieldtext<?php echo $key; ?>"><?php _e( 'Link Text', 'strong-testimonials' ); ?></label>
-		<select id="view-fieldtext<?php echo $key; ?>" name="view[data][client_section][<?php echo $key; ?>][link_text]" class="if selectgroup">
+		<select id="view-fieldtext<?php echo $key; ?>" name="<?php echo $source ?>[client_section][<?php echo $key; ?>][link_text]" class="if selectgroup">
 			<option value="value" <?php selected( $field['link_text'], 'value' ); ?>><?php _e( "this field's value", 'strong-testimonials' ); ?></option>
 			<option value="label" <?php selected( $field['link_text'], 'label' ); ?>><?php _e( "this field's label", 'strong-testimonials' ); ?></option>
 			<option value="custom" <?php selected( $field['link_text'], 'custom' ); ?>><?php _e( 'custom text', 'strong-testimonials' ); ?></option>
@@ -672,14 +672,14 @@ function wpmtst_view_field_link( $key, $field_name, $type, $field, $adding = fal
 	<?php // use custom text ?>
 	<div class="flex then_fieldtext<?php echo $key; ?> then_custom then_not_value then_not_label" style="display: none;">
 		<div class="nolabel">&nbsp;</div>
-		<input type="text" id="view-fieldtext<?php echo $key; ?>-custom" name="view[data][client_section][<?php echo $key; ?>][link_text_custom]" value="<?php echo $field['link_text_custom']; ?>">
+		<input type="text" id="view-fieldtext<?php echo $key; ?>-custom" name="<?php echo $source ?>[client_section][<?php echo $key; ?>][link_text_custom]" value="<?php echo $field['link_text_custom']; ?>">
 	</div>
 
 	<?php // the URL ?>
 	<?php if ( 'link' == $type ) : // URL = another field ?>
 	<div class="flex">
 		<label for="view-fieldurl<?php echo $key; ?>"><?php _e( 'URL Field', 'strong-testimonials' ); ?></label>
-		<select id="view-fieldurl<?php echo $key; ?>" name="view[data][client_section][<?php echo $key; ?>][url]" class="field-type-select">
+		<select id="view-fieldurl<?php echo $key; ?>" name="<?php echo $source ?>[client_section][<?php echo $key; ?>][url]" class="field-type-select">
 			<?php foreach ( $custom_fields as $key2 => $field2 ) : ?>
 				<?php if ( 'url' == $field2['input_type'] ) : ?>
 				<option value="<?php echo $field2['name']; ?>" <?php selected( $field2['name'], $field['url'] ); ?>><?php echo $field2['name']; ?></option>
@@ -692,7 +692,7 @@ function wpmtst_view_field_link( $key, $field_name, $type, $field, $adding = fal
 		<div class="nolabel"></div>
 		<div class="new_tab">
 			<input type="checkbox" id="view-fieldurl<?php echo $key; ?>-newtab"
-				   name="view[data][client_section][<?php echo $key; ?>][new_tab]"
+				   name="<?php echo $source ?>[client_section][<?php echo $key; ?>][new_tab]"
 				   value="1" <?php checked( $field['new_tab'] ); ?>>
 			<label for="view-fieldurl<?php echo $key; ?>-newtab">
 				<?php _e( 'new tab', 'strong-testimonials' ); ?>
@@ -701,7 +701,7 @@ function wpmtst_view_field_link( $key, $field_name, $type, $field, $adding = fal
 
 	</div>
 	<?php else : // URL = this field ?>
-		<input type="hidden" name="view[data][client_section][<?php echo $key; ?>][url]" value="<?php echo $field['name']; ?>">
+		<input type="hidden" name="<?php echo $source ?>[client_section][<?php echo $key; ?>][url]" value="<?php echo $field['name']; ?>">
 	<?php endif; ?>
 
 	<?php
@@ -717,11 +717,11 @@ function wpmtst_view_field_link( $key, $field_name, $type, $field, $adding = fal
  * @param $field
  * @param bool $adding
  */
-function wpmtst_view_field_date( $key, $field, $adding = false ) {
+function wpmtst_view_field_date( $key, $field, $adding = false, $source = 'view[data]'  ) {
 	?>
 	<div class="flex">
 		<label for="view-<?php echo $key; ?>-client-date-format"><span><?php _e( 'Format', 'strong-testimonials' ); ?></span></label>
-		<input id="view-<?php echo $key; ?>-client-date-format" type="text" name="view[data][client_section][<?php echo $key; ?>][format]" class="field-type-date" value="<?php echo isset( $field['format'] ) ? $field['format'] : ''; ?>">
+		<input id="view-<?php echo $key; ?>-client-date-format" type="text" name="<?php echo $source ?>[client_section][<?php echo $key; ?>][format]" class="field-type-date" value="<?php echo isset( $field['format'] ) ? $field['format'] : ''; ?>">
 	</div>
 	<div class="flex">
 		<div class="nolabel">&nbsp;</div>
@@ -744,18 +744,18 @@ function wpmtst_view_field_date( $key, $field, $adding = false ) {
  * @param $field
  * @param bool $adding
  */
-function wpmtst_view_field_checkbox( $key, $field, $adding = false ) { ?>
+function wpmtst_view_field_checkbox( $key, $field, $adding = false, $source = 'view[data]' ) { ?>
         <div class="field-property field-before field-dep">
                 <label for="client_section_<?php echo $key; ?>_checked_value">
                         <?php _e( 'Checked Value', 'strong-testimonials' ); ?>
                 </label>
-                <input id="client_section_<?php echo $key; ?>_checked_value" type="text" name="view[data][client_section][<?php echo $key; ?>][checked_value]" value="<?php echo isset( $field['checked_value'] ) ? $field['checked_value'] : ''; ?>">
+                <input id="client_section_<?php echo $key; ?>_checked_value" type="text" name="<?php echo $source ?>[client_section][<?php echo $key; ?>][checked_value]" value="<?php echo isset( $field['checked_value'] ) ? $field['checked_value'] : ''; ?>">
         </div>
         <div class="field-property field-before field-dep">
                 <label for="client_section_<?php echo $key; ?>_unchecked_value">
                         <?php _e( 'Unchecked Value', 'strong-testimonials' ); ?>
                 </label>
-                <input id="client_section_<?php echo $key; ?>_unchecked_value" type="text" name="view[data][client_section][<?php echo $key; ?>][unchecked_value]" value="<?php echo isset( $field['unchecked_value'] ) ? $field['unchecked_value'] : ''; ?>">
+                <input id="client_section_<?php echo $key; ?>_unchecked_value" type="text" name="<?php echo $source ?>[client_section][<?php echo $key; ?>][unchecked_value]" value="<?php echo isset( $field['unchecked_value'] ) ? $field['unchecked_value'] : ''; ?>">
         </div>
 	<?php
 }

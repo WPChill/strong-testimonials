@@ -63,7 +63,9 @@ function wpmtst_the_title( $tag = '', $class = '' ) {
     $before = apply_filters( 'wpmtst_the_title_before', $before );
     $after  = apply_filters( 'wpmtst_the_title_after', $after );
 
-    the_title( $before, $after );
+    if (WPMST()->atts( 'title' ) !== 'hidden') {
+        the_title( $before, $after );
+    }
 }
 
 /**

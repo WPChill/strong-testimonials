@@ -142,7 +142,6 @@ class Strong_View_Display extends Strong_View {
 		/**
 		 * Add actions.
 		 */
-
 		// Standard pagination
 		if ( $this->atts['pagination'] && 'standard' == $this->atts['pagination_settings']['type'] ) {
 			if ( false !== strpos( $this->atts['pagination_settings']['nav'], 'before' ) ) {

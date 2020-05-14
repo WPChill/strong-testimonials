@@ -647,9 +647,13 @@ jQuery(document).ready(function ($) {
       if ('unstyled' === template) {
         $('input[name=\'view[data][background][type]\']').prop('disabled', true);
         $('input[name=\'view[data][font-color][type]\']').prop('disabled', true);
+        $('input[name=\'wpmtst_style_options[background][type]\']').prop('disabled', true);
+        $('input[name=\'wpmtst_style_options[font-color][type]\']').prop('disabled', true);
       } else {
         $('input[name=\'view[data][background][type]\']').prop('disabled', false);
         $('input[name=\'view[data][font-color][type]\']').prop('disabled', false);
+        $('input[name=\'wpmtst_style_options[background][type]\']').prop('disabled', false);
+        $('input[name=\'wpmtst_style_options[font-color][type]\']').prop('disabled', false);
       }
 
       // Special handling for Lucid add-on until I can incorporate a template group config file
@@ -799,7 +803,7 @@ jQuery(document).ready(function ($) {
 
   }
 
-  var backgroundRadios = $('input[type=radio][name=\'view[data][background][type]\']'),
+  var backgroundRadios = $('input[type=radio][name=\'view[data][background][type]\'], input[type=radio][name=\'wpmtst_style_options[background][type]\']'),
     backgroundPreview = $('#background-preview'),
     backgroundPresetSelector = $('#view-background-preset');
 
@@ -807,7 +811,7 @@ jQuery(document).ready(function ($) {
    * Font-color change listener
    */
     // TODO Use ID instead.
-  var fontColorRadios = $('input[type=radio][name=\'view[data][font-color][type]\']');
+  var fontColorRadios = $('input[type=radio][name=\'view[data][font-color][type]\'], input[type=radio][name=\'wpmtst_style_options[font-color][type]\']');
 
   function fontColorDescriptions () {
     var fontColorRadioOff, fontColorRadioOn, fontColorID;
@@ -939,6 +943,7 @@ jQuery(document).ready(function ($) {
     var data = {
       'action': 'wpmtst_view_add_field',
       'key': nextKey,
+      'source': $(this).attr('source')
     };
     $.get(ajaxurl, data, function (response) {
       $.when(customFieldList.append(response)).then(function () {
@@ -973,6 +978,7 @@ jQuery(document).ready(function ($) {
           'fieldName': fieldName,
           'fieldType': fieldType,
           'key': key,
+          'source': $('#add-field').attr('source')
         };
         $.get(ajaxurl, data, function (response) {
           // insert into placeholder div
@@ -985,7 +991,6 @@ jQuery(document).ready(function ($) {
             $.fn.selectGroupOption($newFieldSelect);
           });
           textChangeListener();
-
           // Get field name --> Get field label --> Populate link_text label
           var fieldName = $elParent.find('.field-name').find('select').val();
           var data2 = {
@@ -1005,6 +1010,7 @@ jQuery(document).ready(function ($) {
         data = {
           'action': 'wpmtst_view_add_field_date',
           'key': key,
+          'source': $('#add-field').attr('source')
         };
         $.get(ajaxurl, data, function (response) {
           // insert into placeholder div
@@ -1023,6 +1029,7 @@ jQuery(document).ready(function ($) {
         data = {
           'action': 'wpmtst_view_add_field_checkbox',
           'key': key,
+          'source': $('#add-field').attr('source')
         };
         $.get(ajaxurl, data, function (response) {
           // insert into placeholder div
