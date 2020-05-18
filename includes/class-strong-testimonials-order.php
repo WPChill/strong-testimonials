@@ -27,7 +27,7 @@ class Strong_Testimonials_Order {
 
 		add_action( 'load-edit.php', array( __CLASS__, 'refresh' ) );
 
-		add_action( 'wp_ajax_update-menu-order', array( __CLASS__, 'update_menu_order' ) );
+		add_action( 'wp_ajax_st-update-menu-order', array( __CLASS__, 'update_menu_order' ) );
 
 		add_action( 'pre_get_posts', array( __CLASS__, 'store_query_vars' ) );
 		add_action( 'pre_get_posts', array( __CLASS__, 'pre_get_posts' ), 500 );

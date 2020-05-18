@@ -80,7 +80,7 @@ jQuery(document).ready(function ($) {
       update: function (e, ui) {
         ui.item.find(".column-handle").addClass("refresh");
         $.post(ajaxurl, {
-            action: 'update-menu-order',
+            action: 'st-update-menu-order',
             order: $('#the-list').sortable('serialize'),
           },
           function (data) {
