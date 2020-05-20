@@ -237,6 +237,30 @@ class Strong_Testimonials_Page_Shortcodes {
 					</td>
 				</tr>
 			</table>
+                        
+                        <table class="form-table shortcodes average">
+				<tr>
+					<td>
+						<p><code>field</code></p>
+                                                <p class="description">If using multiple rating fields, you can specify the specific field you need.</p>
+					</td>
+					<td class="has-inner">
+						<table class="inner" cellpadding="0" cellspacing="0">
+							<tr>
+								<td class="shortcode">&#91;testimonial_average_rating field="rating" /&#93;</td>
+							</tr>
+							<tr>
+								<td>
+									<div class="strong-rating-wrapper average block"><span class="strong-rating-title">Average Rating:</span>
+										<?php echo $stars; ?>
+										<span class="strong-rating-summary">4.3 stars (based on 9 ratings)</span>
+									</div>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</table>
 
 			<table class="form-table shortcodes average">
 				<tr>
