@@ -261,9 +261,14 @@ class Strong_Testimonials_Average_Shortcode {
 	 */
 	private function get_rating_value( $post, $field = '' ) {
                 if (!empty($field)) {
-                    $rating_fields = $this->find_rating_field($field);
+                    if ( $field == 'all') {
+                        $rating_fields = $this->find_all_rating_field();
+                    } else {
+                        $rating_fields = $this->find_rating_field($field);
+                    }
+                    
                 } else {
-                    $rating_fields = $this->find_all_rating_field();
+                    $rating_fields = $this->find_first_rating_field();
                 }
                 if ( $rating_fields ) {  
                     $ratings = array();
@@ -291,7 +296,7 @@ class Strong_Testimonials_Average_Shortcode {
 		$fields = wpmtst_get_custom_fields();
 		foreach ( $fields as $key => $field ) {
 			if ( 'rating' == $field['input_type'] ) {
-				return $field;
+				return array($field);
 			}
 		}
 

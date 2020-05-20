@@ -243,11 +243,15 @@ class Strong_Testimonials_Page_Shortcodes {
 					<td>
 						<p><code>field</code></p>
                                                 <p class="description">If using multiple rating fields, you can specify the specific field you need.</p>
+                                                <p class="description">If using multiple rating fields, you can use "all" to use all the rating fields.</p>
 					</td>
 					<td class="has-inner">
 						<table class="inner" cellpadding="0" cellspacing="0">
 							<tr>
 								<td class="shortcode">&#91;testimonial_average_rating field="rating" /&#93;</td>
+                                                        </tr>
+                                                        <tr>
+                                                                <td class="shortcode">&#91;testimonial_average_rating field="all" /&#93;</td>
 							</tr>
 							<tr>
 								<td>
