@@ -31,7 +31,8 @@ function wpmtst_star_rating_form( $field, $value = 0, $class, $echo = true, $fie
                      name="<?php echo $field['name']; ?>"
                      class="strong-rating"
                      data-field-type="rating"
-                     tabindex="0"><!--
+                     tabindex="0">
+                        <legend><?php _e('', 'strong-testimonials' ) ?></legend><!--
 
 			--><input type="radio" id="<?php echo $field['name']; ?>-star0" name="<?php echo $name; ?>" value="0" <?php checked( $value, 0 ); ?> /><!--
 			--><label for="<?php echo $field['name']; ?>-star0" title="No stars"></label><!--
