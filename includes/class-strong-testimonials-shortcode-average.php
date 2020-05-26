@@ -41,7 +41,9 @@ class Strong_Testimonials_Average_Shortcode {
             // rounded
             'rounded' => '',
             // field
-            'field' => ''
+            'field' => '',
+            // decimals
+            'decimals' => 1
 		);
 		$pairs = apply_filters( "wpmtst_shortcode_defaults__{$this->shortcode}", $pairs );
 
@@ -101,7 +103,7 @@ class Strong_Testimonials_Average_Shortcode {
 		$posts_array = get_posts( $args );
                 
 		// get summary
-		$summary = $this->get_summary( $posts_array, $atts['field'] );
+		$summary = $this->get_summary( $posts_array, $atts['field'], $atts['decimals'] );
 		/*
 		 * Example:
 		 *
@@ -142,7 +144,7 @@ class Strong_Testimonials_Average_Shortcode {
         if($atts['rounded']){
             $rating_average = round($summary['rating_average'],0);
         } else {
-            $rating_average = round($summary['rating_average'],1);
+            $rating_average = round($summary['rating_average'], $atts['decimals']);
         }
 
 		// title
@@ -206,7 +208,7 @@ class Strong_Testimonials_Average_Shortcode {
 	 * @since 1.1.0
 	 * @return array|null
 	 */
-	public function get_summary( $posts = null, $field = '' ) {
+	public function get_summary( $posts = null, $field = '', $decimals = 1 ) {
 		// Set a placeholder.
 		$average = array(
 			'review_count'   => null,
@@ -242,7 +244,7 @@ class Strong_Testimonials_Average_Shortcode {
 					'review_count'   => number_format( $review_count ),
 					'rating_count'   => number_format( $rating_count ),
 					'rating_sum'     => number_format( $rating_sum ),
-					'rating_average' => trim( number_format( $rating_sum / $rating_count, 1 ), '.0' ),
+					'rating_average' => trim( number_format( $rating_sum / $rating_count, $decimals ), '.0' ),
 					'rating_detail'  => $rating_detail,
 				);
 			}

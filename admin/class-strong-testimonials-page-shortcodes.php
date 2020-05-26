@@ -218,6 +218,31 @@ class Strong_Testimonials_Page_Shortcodes {
 				</tr>
 			</table>
 
+                        <table class="form-table shortcodes average">
+				<tr>
+					<td>
+						<p><code>decimals</code></p>
+                                                <p class="description">If you need to display multiple decimals for average rating you have to set a number to decimal.</p>
+                                              
+					</td>
+					<td class="has-inner">
+						<table class="inner" cellpadding="0" cellspacing="0">
+							<tr>
+								<td class="shortcode">&#91;testimonial_average_rating decimals="number" /&#93;</td>
+							</tr>
+							<tr>
+								<td>
+									<div class="strong-rating-wrapper average block"><span class="strong-rating-title">Average Rating:</span>
+										<?php echo $stars; ?>
+										<span class="strong-rating-summary">4.333 stars (based on 9 ratings)</span>
+									</div>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</table>
+                        
 			<table class="form-table shortcodes average">
 				<tr>
 					<td>
