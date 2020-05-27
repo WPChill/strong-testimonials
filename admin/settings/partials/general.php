@@ -264,5 +264,6 @@ $options = get_option( 'wpmtst_options' );
     <?php else : ?>
         <input type="hidden" name="wpmtst_options[no_lazyload_plugin]" value="<?php echo $options['no_lazyload_plugin']; ?>">
     <?php endif; ?>
-
+    
+    <?php do_action('wpmtst_rating_icon', $options); ?>
 </table>

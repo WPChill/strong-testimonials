@@ -197,7 +197,8 @@ class Strong_Testimonials_Average_Shortcode {
 		$html = sprintf( '<%s class="%s">%s</%s>', $atts['element'], join( ' ', $class_list ), $content, $atts['element'] );
 
 		wp_enqueue_style( 'wpmtst-rating-display' );
-
+                do_action( 'wpmtst_average_rating_style' );
+                
 		return apply_filters( 'wpmtst_average_rating_html', $html, $atts, $summary );
 	}
 
