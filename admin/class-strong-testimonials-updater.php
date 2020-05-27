@@ -108,12 +108,12 @@ class Strong_Testimonials_Updater {
 		/**
 		 * Custom fields.
 		 */
-		update_option( 'wpmtst_fields', self::update_fields() );
+		update_option( 'wpmtst_fields', self::update_fields(), 'no' );
 
 		/**
 		 * Forms.
 		 */
-		update_option( 'wpmtst_base_forms', self::update_base_forms() );
+		update_option( 'wpmtst_base_forms', self::update_base_forms(), 'no' );
 		update_option( 'wpmtst_custom_forms', self::update_custom_forms() );
 		update_option( 'wpmtst_form_options', self::update_form_options() );
 
@@ -136,7 +136,7 @@ class Strong_Testimonials_Updater {
 		 *
 		 * @since 2.15.0
 		 */
-		update_option( 'wpmtst_view_default', self::update_default_view() );
+		update_option( 'wpmtst_view_default', self::update_default_view(), 'no' );
 
 		/**
 		 * Update views.
