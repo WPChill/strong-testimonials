@@ -1,3 +1,10 @@
 .disabled {
     display:none !important;
 }
+
+/*  Compatibility with metaslider pro layers display
+----------------------------------------------------*/
+
+.msHtmlOverlay .layer .disabled {
+    display: block !important;
+}
