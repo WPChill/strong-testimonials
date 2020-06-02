@@ -251,3 +251,11 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
 .disabled {
   display : none!important;
 }
+
+
+/*  Compatibility with metaslider pro layers display
+----------------------------------------------------*/
+
+.msHtmlOverlay .layer .disabled {
+    display: block !important;
+}
