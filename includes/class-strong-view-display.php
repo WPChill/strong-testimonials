@@ -280,9 +280,9 @@ class Strong_View_Display extends Strong_View {
 		 *
 		 * @since 1.16
 		 */
-		if ( 'random' == $this->atts['order'] ) {
-			shuffle( $query->posts );
-		}
+		//if ( 'random' == $this->atts['order'] ) {
+		//	shuffle( $query->posts );
+		//}
 
 		/**
 		 * Extract slice of array, which may be shuffled.
