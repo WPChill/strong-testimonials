@@ -34,6 +34,7 @@ class Strong_View_Slideshow extends Strong_View_Display {
 		$this->has_slideshow();
 		$this->has_stars();
 		$this->has_readmore();
+                $this->has_lazyload();
 
 		$this->load_extra_stylesheets();
 
@@ -474,6 +475,20 @@ class Strong_View_Slideshow extends Strong_View_Display {
 		}
 
 		return array( 'config' => apply_filters( 'wpmtst_slider_args', $args, $this->atts ) );
+	}
+        
+         /**
+	 * Lazy Load
+	 *
+	 * @since 2.40.4
+	 */
+	public function has_lazyload() {
+                $options = get_option( 'wpmtst_options' );
+                if ( isset( $options['lazyload'] ) && $options['lazyload'] ) {
+                        WPMST()->render->add_style( 'wpmtst-lazyload-css' );
+			WPMST()->render->add_script( 'wpmtst-lozad' );
+                        WPMST()->render->add_script( 'wpmtst-lozad-load' );
+		}
 	}
 
 }
