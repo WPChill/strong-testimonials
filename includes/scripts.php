@@ -206,6 +206,15 @@ function wpmtst_scripts() {
                    WPMTST_PUBLIC_URL . 'css/lazyload.css',
                    array(),
                    '' );
+        
+        /*
+         * JS random order
+         */
+        wp_register_script( 'wpmtst-random',
+                    WPMTST_PUBLIC_URL . "js/lib/randomjs/random.js",
+                    array( 'jquery' ),
+                    $plugin_version,
+                    true );
 
 }
 add_action( 'wp_enqueue_scripts', 'wpmtst_scripts' );

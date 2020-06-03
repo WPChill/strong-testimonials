@@ -136,7 +136,7 @@ function wpmtst_single_form_field( $field ) {
 					esc_attr( wpmtst_field_classes( $field['input_type'], $field['name'], $max_length ) ),
 					esc_attr( wpmtst_field_required_tag( $field ) ),
 					esc_attr( wpmtst_field_placeholder( $field ) ),
-                                        $max_length,
+                                        wpmtst_field_length( $field ),
 					esc_textarea( $value )
 				);
 				break;
