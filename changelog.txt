@@ -1,3 +1,13 @@
+= 2.41.0 - =
+* Added support for comments to Testimonials
+* Added options to calculate average rating for multiple ratings
+* Added GDPR integrations
+* Added Star Rating Fieldset Accessibility
+
+* Fixed incompatibility with Metaslider PRO
+* Fixed incompatibility with Simple Custom Post Order
+* Fixed font color bug
+
 = 2.40.2 - Feb. 26, 2020 =
 * Improved star rating display
 * Added another attribute to average rating shortcode
