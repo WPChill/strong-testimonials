@@ -84,6 +84,7 @@ function wpmtst_get_cpt_defaults() {
 		'editor',
 		'thumbnail',
 		'page-attributes',
+		'comments',
 	);
 
 	$args = array(

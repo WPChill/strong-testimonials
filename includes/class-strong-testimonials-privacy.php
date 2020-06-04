@@ -6,7 +6,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Class Strong_Testimonials_Privacy
  *
- * @since 2.31.4
+ * @since 2.41.0
  */
 class Strong_Testimonials_Privacy {
 
@@ -15,16 +15,16 @@ class Strong_Testimonials_Privacy {
 	}
 
 	/**
-	 * @since 2.31.4
+	 * @since 2.41.0
 	 */
 	public function add_hooks() {
 		add_filter( 'wp_privacy_personal_data_exporters', array( $this, 'register_exporter' ) );
 		add_filter( 'wp_privacy_personal_data_erasers', array( $this, 'register_eraser' ) );
-                add_action( 'admin_init', array($this, 'wpmtst_register_privacy_policy_template') );
+        add_action( 'admin_init', array($this, 'wpmtst_register_privacy_policy_template') );
 	}
 
 	/**
-	 * @since 2.31.4
+	 * @since 2.41.0
 	 * @return string
 	 */
 	public function get_friendly_name() {
@@ -35,7 +35,7 @@ class Strong_Testimonials_Privacy {
 	 * @param     $email_address
 	 * @param int $page
 	 *
-	 * @since 2.31.4
+	 * @since 2.41.0
 	 * @return array
 	 */
 	public function exporter( $email_address, $page = 1 ) {
@@ -67,19 +67,19 @@ class Strong_Testimonials_Privacy {
 				$found = array_search( $email_address, $value );
 				if ( false !== $found ) {
 					$data = array(
-                                                array(
-                                                    'name'  => 'Email',
-                                                    'value' => $value[ $found ],
-                                                ),
-                                                array(
-                                                    'name'  => 'Client Name',
-                                                    'value' => $post_meta['client_name'][0],
-                                                ),
-                                                array(
-                                                    'name'  => 'Company Name',
-                                                    'value' => $post_meta['company_name'][0],
-                                                ),
-                                            );
+                        array(
+                            'name'  => 'Email',
+                            'value' => $value[ $found ],
+                        ),
+                        array(
+                            'name'  => 'Client Name',
+                            'value' => $post_meta['client_name'][0],
+                        ),
+                        array(
+                            'name'  => 'Company Name',
+                            'value' => $post_meta['company_name'][0],
+                        ),
+                    );
 				}
 			}
 
@@ -107,7 +107,7 @@ class Strong_Testimonials_Privacy {
 	 * @param     $email_address
 	 * @param int $page
 	 *
-	 * @since 2.31.4
+	 * @since 2.41.0
 	 * @return array
 	 */
 	public function eraser( $email_address, $page = 1 ) {
@@ -127,15 +127,15 @@ class Strong_Testimonials_Privacy {
 		$testimonials = get_posts( $args );
 
 		foreach ( (array) $testimonials as $testimonial ) {
-                    $post_meta = get_post_meta( $testimonial->ID );
+            $post_meta = get_post_meta( $testimonial->ID );
 
-                    foreach ( $post_meta as $key => $value ) {
-                            if ( in_array( $email_address, $value ) ) {
-                                    //delete_post_meta( $testimonial->ID, $key, $email_address );
-                                    wp_delete_post($testimonial->ID);
-                                    $items_removed = true;
-                            }
-                    }
+            foreach ( $post_meta as $key => $value ) {
+                if ( in_array( $email_address, $value ) ) {
+                    //delete_post_meta( $testimonial->ID, $key, $email_address );
+                    wp_delete_post($testimonial->ID);
+                    $items_removed = true;
+                }
+            }
 
 		}
 
@@ -153,7 +153,7 @@ class Strong_Testimonials_Privacy {
 	/**
 	 * @param array $exporters
 	 *
-	 * @since 2.31.4
+	 * @since 2.41.0
 	 * @return array
 	 */
 	public function register_exporter( $exporters ) {
@@ -167,7 +167,7 @@ class Strong_Testimonials_Privacy {
 
 	/**
 	 * @param array $erasers
-	 * @since 2.31.4
+	 * @since 2.41.0
 	 * @return array
 	 */
 	function register_eraser( $erasers ) {
@@ -179,21 +179,21 @@ class Strong_Testimonials_Privacy {
 		return $erasers;
 	}
         
-        function wpmtst_register_privacy_policy_template() {
+    function wpmtst_register_privacy_policy_template() {
 
-            if ( ! function_exists( 'wp_add_privacy_policy_content' ) ) {
-                    return;
-            }
+        if ( ! function_exists( 'wp_add_privacy_policy_content' ) ) {
+                return;
+        }
 
-            $content = wp_kses_post( apply_filters( 'wpmtst_privacy_policy_content', __( '
-                We collect information about you when you fill out a form for a testimonial for one of our product or service. This information include your full name, email address, your photo and company name and website.           
-                Handling this data also allows us to:
-                - Send you an email when your testimonial was received and approved.
-                - Send you important account/product/service information.
-                - Set up and administer your account, provide technical and/or customer support, and to verify your identity.
-            ', 'strong-testimonial-downloads' ) ) );
+        $content = wp_kses_post( apply_filters( 'wpmtst_privacy_policy_content', __( '
+            We collect information about you when you fill out a form for a testimonial for one of our product or service. This information include your full name, email address, your photo and company name and website.           
+            Handling this data also allows us to:
+            - Send you an email when your testimonial was received and approved.
+            - Send you important account/product/service information.
+            - Set up and administer your account, provide technical and/or customer support, and to verify your identity.
+        ', 'strong-testimonial-downloads' ) ) );
 
-            wp_add_privacy_policy_content( 'Strong Testimonial Privacy Policy', wpautop( $content ) );
+        wp_add_privacy_policy_content( 'Strong Testimonial Privacy Policy', wpautop( $content ) );
     }
 
 }
