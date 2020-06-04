@@ -374,7 +374,7 @@ function wpmtst_the_custom_field( $field ) {
 						$is_nofollow = get_post_meta( $post->ID, 'nofollow', true );
 						if ( 'default' == $is_nofollow || '' == $is_nofollow ) {
 							// convert default to (yes|no)
-							$is_nofollow = $options['nofollow'] ? 'no' : 'yes';
+							$is_nofollow = $options['nofollow'] ? 'yes' : 'no';
 						}
 						if ( 'yes' == $is_nofollow ) {
 							$nofollow = 'nofollow';
