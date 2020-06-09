@@ -191,13 +191,13 @@ function wpmtst_scripts() {
          * Lozad Lazy Loading
          */
         wp_register_script( 'wpmtst-lozad',
-                            WPMTST_PUBLIC_URL . "js/lib/lozad/lozad.js",
+                            WPMTST_PUBLIC_URL . "js/lib/lozad/lozad{$min}.js",
                             array(),
                             $plugin_version,
                             true );
         
         wp_register_script( 'wpmtst-lozad-load',
-                            WPMTST_PUBLIC_URL . "js/lib/lozad/lozad-load.js",
+                            WPMTST_PUBLIC_URL . "js/lib/lozad/lozad-load{$min}.js",
                             array(),
                             $plugin_version,
                             true );

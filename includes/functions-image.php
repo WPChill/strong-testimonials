@@ -129,8 +129,8 @@ function wpmtst_add_lazyload( $attr, $attachment, $size ) {
 	if ( isset( $options['lazyload'] ) && $options['lazyload']) {
 		if ( 'wpm-testimonial' == get_post_type( $attachment->post_parent ) ) {
 			$attr['class'] .= ' lazy-load';
-                        $attr['data-src'] .= $attr['src'];
-                        $attr['data-srcset'] .= $attr['srcset'];
+                        $attr['data-src'] = $attr['src'];
+                        $attr['data-srcset'] = $attr['srcset'];
                         unset($attr['src']);
                         unset($attr['srcset']);
 		}
