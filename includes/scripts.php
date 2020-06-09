@@ -57,7 +57,7 @@ function wpmtst_scripts() {
 	 * Simple pagination
 	 */
 	wp_register_script( 'wpmtst-pager',
-	                    WPMTST_PUBLIC_URL . "js/lib/strongpager/jquery.strongpager{$min}.js",
+	                    WPMTST_PUBLIC_URL . "js/lib/strongpager/jquery-strongpager{$min}.js",
 	                    array( 'jquery', 'imagesloaded' ),
 	                    false,
 	                    true );
@@ -116,7 +116,7 @@ function wpmtst_scripts() {
 	 * Form handling
 	 */
 	wp_register_script( 'wpmtst-validation-plugin',
-	                    WPMTST_PUBLIC_URL . "js/lib/validate/jquery.validate{$min}.js",
+	                    WPMTST_PUBLIC_URL . "js/lib/validate/jquery-validate{$min}.js",
 	                    array( 'jquery' ),
 	                    '1.16.0',
 	                    true );
@@ -157,7 +157,7 @@ function wpmtst_scripts() {
 	 * Slider
 	 */
 	wp_register_script( 'jquery-actual',
-	                    WPMTST_PUBLIC_URL . "js/lib/actual/jquery.actual{$min}.js",
+	                    WPMTST_PUBLIC_URL . "js/lib/actual/jquery-actual{$min}.js",
 	                    array( 'jquery' ),
 	                    '1.0.16',
 	                    true );
@@ -169,7 +169,7 @@ function wpmtst_scripts() {
 	                    true );
 
 	wp_register_script( 'wpmtst-slider',
-	                    WPMTST_PUBLIC_URL . "js/lib/strongslider/jquery.strongslider{$min}.js",
+	                    WPMTST_PUBLIC_URL . "js/lib/strongslider/jquery-strongslider{$min}.js",
 	                    array( 'jquery-actual', 'imagesloaded', 'underscore', 'verge' ),
 	                    $plugin_version,
 	                    true );

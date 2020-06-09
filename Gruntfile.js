@@ -55,6 +55,23 @@ module.exports = function( grunt ) {
           } ]
       }
     },
+
+    uglify: {
+      jsfiles: {
+        files: [ {
+          expand: true,
+          cwd   : 'public/js/',
+          src   : [
+            '*.js',
+            '**/*.js',
+            '!*.min.js',
+          ],
+          dest  : 'public/js/',
+          ext   : '.min.js'
+        } ]
+      },
+    },
+
     clean: {
       css: [ 'assets/css/*.min.css', '!assets/css/jquery-ui.min.css' ],
       init: {
