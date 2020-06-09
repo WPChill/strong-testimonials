@@ -95,14 +95,17 @@ add_action( 'wp_ajax_wpmtst_view_add_field_date', 'wpmtst_view_add_field_date_fu
  * @since 2.40.4
  */
 function wpmtst_view_add_field_checkbox_function() {
-	$key         = (int) $_REQUEST['key'];     
-	$type        = $_REQUEST['fieldType'];
-	$empty_field = array( 'checked_value' => '', 'unchecked_value' => '' );
+	$key         = (int) $_REQUEST['key'];
+        $field = array(
+            'field'  => $_REQUEST['fieldName'],
+            'type'   => $_REQUEST['fieldType']
+        );
+        $empty_field = array( 'custom_label' => '', 'checked_value' => '', 'unchecked_value' => '');
         $source = 'view[data]';
         if (isset($_REQUEST['source']) && !empty($_REQUEST['source'])) {
             $source = $_REQUEST['source'];
         }
-	wpmtst_view_field_checkbox ( $key, $type ,$empty_field, $source );
+	wpmtst_view_field_checkbox ( $key, $field, $empty_field, $source );
 	wp_die();
 }
 add_action( 'wp_ajax_wpmtst_view_add_field_checkbox', 'wpmtst_view_add_field_checkbox_function' );

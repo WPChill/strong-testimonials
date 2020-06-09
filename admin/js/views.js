@@ -955,7 +955,6 @@ jQuery(document).ready(function ($) {
       });
     });
   });
-
   /**
    * Field type change listener
    */
@@ -1019,15 +1018,13 @@ jQuery(document).ready(function ($) {
         break;
 
       case 'text':
-      case 'checkbox':
-        // if changing to [text], remove meta fields
-        $elParent.find('.field-property-box').empty();
-        break;
       
-      case 'boolean':
+      case 'checkbox':
           // if changing to [checkbox_value]
         data = {
           'action': 'wpmtst_view_add_field_checkbox',
+          'fieldName': fieldName,
+          'fieldType': fieldType,
           'key': key,
           'source': $('#add-field').attr('source')
         };
@@ -1083,7 +1080,6 @@ jQuery(document).ready(function ($) {
       // Show dependent inputs
 	  $elParent.find('.field-dep').show();
     }
-
     switch (fieldValue) {
       // First, the immutables
       case 'post_date':
@@ -1134,6 +1130,25 @@ jQuery(document).ready(function ($) {
           $elParent.find('.field-property-box').empty();
           break;
         }
+        
+        if ('checkbox' === fieldType) {
+          typeSelect.val('checkbox').prop('disabled', true);
+          typeSelectParent.append('<input type="hidden" class="save-type" name="view[data][client_section][' + key + '][save-type]" value="checkbox">');
+          typeSelect.parent().hide();
+          var fieldName = $elParent.find('.field-name').find('select').val();
+          data = {
+            'action': 'wpmtst_view_add_field_checkbox',
+            'fieldName': fieldName,
+            'fieldType': fieldType,
+            'key': key,
+            'source': $('#add-field').attr('source')
+          };
+          $.get(ajaxurl, data, function (response) {
+            // insert into placeholder div
+            $elParent.find('.field-property-box').html(response);
+          });
+          break;
+        }
 
         if ('platform' === fieldType) {
           typeSelect.val('platform').prop('disabled', true);
@@ -1148,6 +1163,21 @@ jQuery(document).ready(function ($) {
         // remove the saved type that's only necessary when we disable the input (above)
         $el.parent().find('input.save-type').remove();
     }
+  });
+  
+  customFieldList.on('change', '.field-label-select', function () {
+      var fieldValue = $(this).val();
+      var elParent = $(this).closest('.field3');
+      var fieldLabel = elParent.find('.client_section_field_label');
+      var defaultValue = fieldLabel.attr('attr-defaultValue'); 
+      //console.log(labelText);
+      if (fieldValue == 'custom') {
+          fieldLabel.prop("readonly", false);
+          fieldLabel.val('');
+      } else {
+          fieldLabel.prop("readonly", true);
+          fieldLabel.val(defaultValue);
+      }
   });
 
   /**

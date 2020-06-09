@@ -499,12 +499,11 @@ function wpmtst_view_field_inputs( $key, $field, $adding = false, $source = 'vie
 		'rating'    => __( 'rating', 'strong-testimonials' ),
 		'platform'  => __( 'platform', 'strong-testimonials' ),
 		'shortcode' => __( 'shortcode', 'strong-testimonials' ),
-                'checkbox'  => __('checkbox text', 'strong-testimonials'),
-                'boolean'   => __('checkbox value', 'strong-testimonials')
+                'checkbox'   => __('checkbox', 'strong-testimonials')
 	);
 
 	if ( isset( $custom_fields[ $field['field'] ] ) ) {
-		$field_label = $custom_fields[ $field['field'] ]['label'];
+            $field_label = $custom_fields[ $field['field'] ]['label'];
 	} else {
 	    $field_label = ucwords( str_replace( '_', ' ', $field['field'] ) );
 	}
@@ -569,18 +568,19 @@ function wpmtst_view_field_inputs( $key, $field, $adding = false, $source = 'vie
                 </div>
 
                 <!-- FIELD TYPE -->
-                <div class="field-property field-type field-dep" <?php if ( $adding ) echo ' style="display: none;"'; ?>>
+                <div class="field-property field-type field-dep" <?php if ( $adding || $field['type'] == 'checkbox' ) echo ' style="display: none;"'; ?>>
                     <label for="client_section_<?php echo $key; ?>_type">
                         <?php _e( 'Display Type', 'strong-testimonials' ); ?>
                     </label>
-                    <select id="client_section_<?php echo $key; ?>_type" name="<?php echo $source ?>[client_section][<?php echo $key; ?>][type]">
+                    <select id="client_section_<?php echo $key; ?>_type" name="<?php echo $source ?>[client_section][<?php echo $key; ?>][type]" <?php echo ($field['type'] == 'checkbox' ? 'readonly' : '') ?>>
                         <?php foreach ( $types as $type => $type_label ) : ?>
-                        <option value="<?php echo $type; ?>" <?php selected( $type, $field['type'] ); ?>><?php echo $type_label; ?></option>
+                        <option value="<?php echo $type; ?>" <?php selected( $type, $field['type'] ); ?> <?php echo($type=='checkbox' ? 'style="display:none"' : '') ?>><?php echo $type_label; ?></option>
                         <?php endforeach; ?>
                     </select>
                 </div>
 
                 <!-- FIELD META -->
+                
                 <div class="field-property-box field-meta field-dep" <?php if ( $adding ) echo ' style="display: none;"'; ?>>
                     <?php
                     if ( 'link' == $field['type'] || 'link2' == $field['type'] ) {
@@ -591,7 +591,7 @@ function wpmtst_view_field_inputs( $key, $field, $adding = false, $source = 'vie
                         wpmtst_view_field_date( $key, $field, false, $source );
                     }
                     
-                    if ( 'boolean' == $field['type'] ) {
+                    if ( 'checkbox' == $field['type'] ) {
                         wpmtst_view_field_checkbox( $key, $field, false, $source );
                     }
                     ?>
@@ -744,7 +744,30 @@ function wpmtst_view_field_date( $key, $field, $adding = false, $source = 'view[
  * @param $field
  * @param bool $adding
  */
-function wpmtst_view_field_checkbox( $key, $field, $adding = false, $source = 'view[data]' ) { ?>
+function wpmtst_view_field_checkbox( $key, $field, $adding = false, $source = 'view[data]' ) { 
+        if ( ! isset( $field['label'] ) ) {
+		$field['label'] = 'label';
+	}
+        $label = '';
+        if ( $field['label'] == 'label') {
+                $label = wpmtst_get_field_label( $field );
+        } else {
+            if (isset($field['custom_label']) && !empty($field['custom_label'])) {
+                $label = $field['custom_label'];
+            }
+        }
+        ?>
+       	<div class="flex">
+		<label for="client_section_<?php echo $key; ?>_label"><?php _e( 'Label', 'strong-testimonials' ); ?></label>
+		<select id="client_section_<?php echo $key; ?>_label" name="<?php echo $source ?>[client_section][<?php echo $key; ?>][label]" class="field-label-select">
+                    <option value="label" <?php selected( $field['label'], 'label' ); ?>><?php _e( 'Field label', 'strong-testimonials' ); ?></option>
+                    <option value="custom" <?php selected( $field['label'], 'custom' ); ?>><?php _e( 'Custom label', 'strong-testimonials' ); ?></option>
+		</select>
+	</div>
+        <div class="field-property field-before field-dep">
+            <label for="client_section_<?php echo $key; ?>_custom_label"></label>
+            <input id="client_section_<?php echo $key; ?>_custom_label" class="client_section_field_label" attr-defaultValue="<?php echo wpmtst_get_field_label( $field ) ?>" type="text" name="<?php echo $source ?>[client_section][<?php echo $key; ?>][custom_label]" value="<?php echo $label ?>" <?php echo ($field['label'] == 'label' ? 'readonly' : '') ?>>
+        </div>
         <div class="field-property field-before field-dep">
                 <label for="client_section_<?php echo $key; ?>_checked_value">
                         <?php _e( 'Checked Value', 'strong-testimonials' ); ?>

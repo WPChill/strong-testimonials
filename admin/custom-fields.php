@@ -335,7 +335,7 @@ function wpmtst_show_field_secondary( $key, $field ) {
 	if ( $field['show_text_option'] ) {
 		if ( isset( $field['text'] ) ) {
 			$html .= '<tr class="field-secondary">' . "\n";
-			$html .= '<th>' . esc_html__( 'Text', 'strong-testimonials' ) . '</th>' . "\n";
+			$html .= '<th>' . esc_html__( 'Checked value', 'strong-testimonials' ) . '</th>' . "\n";
 			$html .= '<td><input type="text" name="fields[' . esc_attr( $key ) . '][text]" value="' . esc_attr( $field['text'] ) . '" placeholder="' . esc_html__( 'next to the checkbox', 'strong-testimonials' ) . '"></td>' . "\n";
 			$html .= '</tr>' . "\n";
 		}
