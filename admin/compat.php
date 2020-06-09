@@ -84,7 +84,7 @@ function wpmtst_deny_plugins_init() {
 		}
 
 		if ( $update )
-			update_option( 'hicpo_options', $options );
+			update_option( 'hicpo_options', $options, 'no' );
 	}
 
 	/**
@@ -109,7 +109,7 @@ function wpmtst_deny_plugins_init() {
 		}
 
 		if ( $update )
-			update_option( 'scporder_options', $options );
+			update_option( 'scporder_options', $options, 'no' );
 	}
 
 }

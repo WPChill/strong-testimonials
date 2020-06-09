@@ -36,6 +36,6 @@ function wpmtst_update_tables() {
 		wp_die( sprintf( '<div class="error strong-view-error">%s</div>', $message ) );
 	}
 
-	update_option( 'wpmtst_db_version', WPMST()->get_db_version() );
+	update_option( 'wpmtst_db_version', WPMST()->get_db_version(), 'no' );
 }
 

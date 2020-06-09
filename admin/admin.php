@@ -193,7 +193,7 @@ add_action( 'updated_option', 'wpmtst_updated_option', 10, 3 );
 function wpmtst_add_config_error( $key ) {
 	$errors = get_option( 'wpmtst_config_errors', array() );
 	$errors[] = $key;
-	update_option( 'wpmtst_config_errors', array_unique( $errors ) );
+	update_option( 'wpmtst_config_errors', array_unique( $errors ), 'no' );
 
 	wpmtst_add_admin_notice( $key, true );
 }
@@ -208,7 +208,7 @@ function wpmtst_add_config_error( $key ) {
 function wpmtst_delete_config_error( $key ) {
 	$errors = get_option( 'wpmtst_config_errors', array() );
 	$errors = array_diff( $errors, array ( $key ) );
-	update_option( 'wpmtst_config_errors', $errors );
+	update_option( 'wpmtst_config_errors', $errors, 'no' );
 
 	wpmtst_delete_admin_notice( $key );
 }
