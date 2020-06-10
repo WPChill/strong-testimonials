@@ -3,6 +3,7 @@
 * Added options to calculate average rating for multiple ratings
 * Added GDPR integrations
 * Added Star Rating Fieldset Accessibility
+* Added noopener noreferrer option for links
 
 * Fixed incompatibility with Metaslider PRO
 * Fixed incompatibility with Simple Custom Post Order
