@@ -141,10 +141,10 @@ class Strong_Testimonials_Average_Shortcode {
 		}
 
 		// round the rating if necessary
-        if($atts['rounded']){
-            $rating_average = round($summary['rating_average'],0);
-        } else {
-            $rating_average = round($summary['rating_average'], $atts['decimals']);
+        if(!empty($atts['rounded'])){
+            $rating_average = number_format($summary['rating_average'],0);
+        } else{
+            $rating_average = number_format($summary['rating_average'], $atts['decimals']);
         }
 
 		// title
@@ -239,13 +239,17 @@ class Strong_Testimonials_Average_Shortcode {
 					$rating_count++;
 				}
 			}
-
+                        
 			if ( $rating_count ) {
+                                $rating_average = number_format( $rating_sum / $rating_count, $decimals );
+                                if($decimals == 1) {
+                                    $rating_average = trim($rating_average, '.0');
+                                }
 				$average = array(
 					'review_count'   => number_format( $review_count ),
 					'rating_count'   => number_format( $rating_count ),
 					'rating_sum'     => number_format( $rating_sum ),
-					'rating_average' => trim( number_format( $rating_sum / $rating_count, $decimals ), '.0' ),
+					'rating_average' => $rating_average,
 					'rating_detail'  => $rating_detail,
 				);
 			}
