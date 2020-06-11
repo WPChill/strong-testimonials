@@ -748,12 +748,26 @@ function wpmtst_view_field_checkbox( $key, $field, $adding = false, $source = 'v
         if ( ! isset( $field['label'] ) ) {
 		$field['label'] = 'label';
 	}
+        if ( ! isset( $field['checked_value'] ) ) {
+		$field['checked_value'] = 'value';
+	}
         $label = '';
+        $checked_value = '';
+        // label
         if ( $field['label'] == 'label') {
                 $label = wpmtst_get_field_label( $field );
         } else {
             if (isset($field['custom_label']) && !empty($field['custom_label'])) {
                 $label = $field['custom_label'];
+            }
+        }
+        $custom_fields = wpmtst_get_custom_fields();
+        // checked value
+        if ( $field['checked_value'] == 'value') {
+            $checked_value = wpmtst_get_field_text( $field );
+        } else {
+            if (isset($field['checked_value_custom']) && !empty($field['checked_value_custom'])) {
+                $checked_value = $field['checked_value_custom'];
             }
         }
         ?>
@@ -772,7 +786,14 @@ function wpmtst_view_field_checkbox( $key, $field, $adding = false, $source = 'v
                 <label for="client_section_<?php echo $key; ?>_checked_value">
                         <?php _e( 'Checked Value', 'strong-testimonials' ); ?>
                 </label>
-                <input id="client_section_<?php echo $key; ?>_checked_value" type="text" name="<?php echo $source ?>[client_section][<?php echo $key; ?>][checked_value]" value="<?php echo isset( $field['checked_value'] ) ? $field['checked_value'] : ''; ?>">
+		<select id="client_section_<?php echo $key; ?>_checked_value" name="<?php echo $source ?>[client_section][<?php echo $key; ?>][checked_value]" class="field-checked-select">
+                    <option value="value" <?php selected( $field['checked_value'], 'value' ); ?>><?php _e( 'Checked value', 'strong-testimonials' ); ?></option>
+                    <option value="custom" <?php selected( $field['checked_value'], 'custom' ); ?>><?php _e( 'Custom value', 'strong-testimonials' ); ?></option>
+		</select>
+        </div>
+        <div class="field-property field-before field-dep">
+                <label for="client_section_<?php echo $key; ?>_checked_value_custom"></label>
+                <input id="client_section_<?php echo $key; ?>_checked_value_custom" class="client_section_field_checked_value" attr-defaultValue="<?php echo wpmtst_get_field_text( $field ) ?>" type="text" name="<?php echo $source ?>[client_section][<?php echo $key; ?>][checked_value_custom]" value="<?php echo $checked_value ?>" <?php echo ($field['checked_value'] == 'value' ? 'readonly' : '') ?>>
         </div>
         <div class="field-property field-before field-dep">
                 <label for="client_section_<?php echo $key; ?>_unchecked_value">

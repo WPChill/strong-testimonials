@@ -271,6 +271,21 @@ function wpmtst_get_field_label( $field ) {
 	return '';
 }
 
+function wpmtst_get_field_text( $field ) {
+	if ( isset( $field['field'] ) ) {
+		$custom_fields = wpmtst_get_custom_fields();
+		if ( isset( $custom_fields[ $field['field'] ]['text'] ) ) {
+			return $custom_fields[ $field['field'] ]['text'];
+		}
+		$builtin_fields = wpmtst_get_builtin_fields();
+		if ( isset( $builtin_fields[ $field['field'] ]['text'] ) ) {
+			return $builtin_fields[ $field['field'] ]['text'];
+		}
+	}
+
+	return '';
+}
+
 
 /**
  * @param string $field_name

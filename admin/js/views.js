@@ -1165,20 +1165,38 @@ jQuery(document).ready(function ($) {
     }
   });
   
+    /**
+   * Custom field checkbox label
+   */
   customFieldList.on('change', '.field-label-select', function () {
       var fieldValue = $(this).val();
       var elParent = $(this).closest('.field3');
       var fieldLabel = elParent.find('.client_section_field_label');
-      var defaultValue = fieldLabel.attr('attr-defaultValue'); 
-      //console.log(labelText);
+      var defaultValue = fieldLabel.attr('attr-defaultValue');
       if (fieldValue == 'custom') {
           fieldLabel.prop("readonly", false);
-          fieldLabel.val('');
       } else {
           fieldLabel.prop("readonly", true);
           fieldLabel.val(defaultValue);
       }
   });
+  
+    /**
+   * Custom field checkbox value
+   */
+  customFieldList.on('change', '.field-checked-select', function () {
+      var fieldValue = $(this).val();
+      var elParent = $(this).closest('.field3');
+      var fieldLabel = elParent.find('.client_section_field_checked_value');
+      var defaultValue = fieldLabel.attr('attr-defaultValue');
+      if (fieldValue == 'custom') {
+          fieldLabel.prop("readonly", false);
+      } else {
+          fieldLabel.prop("readonly", true);
+          fieldLabel.val(defaultValue);
+      }
+  });
+
 
   /**
    * Delete a client field

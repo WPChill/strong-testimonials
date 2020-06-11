@@ -517,7 +517,8 @@ function wpmtst_sanitize_view_client_section( $in ) {
                                 $out[ $key ]['label'] = isset( $field['label'] ) ? sanitize_text_field( $field['label'] ) : 'label';
                                 $out[ $key ]['custom_label'] = isset( $field['custom_label'] ) ? sanitize_text_field( $field['custom_label'] ) : '';
 				$out[ $key ]['checked_value'] = isset( $field['checked_value'] ) ? sanitize_text_field( $field['checked_value'] ) : '';
-				$out[ $key ]['unchecked_value'] = isset( $field['unchecked_value'] ) ? sanitize_text_field( $field['unchecked_value'] ) : '';;
+                                $out[ $key ]['checked_value_custom'] = isset( $field['checked_value_custom'] ) ? sanitize_text_field( $field['checked_value_custom'] ) : '';
+				$out[ $key ]['unchecked_value'] = isset( $field['unchecked_value'] ) ? sanitize_text_field( $field['unchecked_value'] ) : '';
 				break;
                             
 			default:
