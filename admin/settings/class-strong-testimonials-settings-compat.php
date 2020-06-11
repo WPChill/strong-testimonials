@@ -142,7 +142,7 @@ class Strong_Testimonials_Settings_Compat {
 			}
 
 		}
-
+                $input['random_js'] = wpmtst_sanitize_checkbox( $input, 'random_js' );
 		return $input;
 	}
 
@@ -162,6 +162,7 @@ class Strong_Testimonials_Settings_Compat {
 	 */
 	public function settings_top() {
 		$this->settings_intro();
+                $this->settings_random_js();
 		$this->settings_page_loading();
 		$this->settings_prerender();
 		$this->settings_monitor();
@@ -243,9 +244,29 @@ class Strong_Testimonials_Settings_Compat {
 		</table>
 
 		<h2><?php _e( 'Compatibility Settings', 'strong-testimonials' ); ?></h2>
-
+               
 		<?php
 	}
+        
+        public function settings_random_js() {
+                ?>
+                <table class="form-table" cellpadding="0" cellspacing="0">
+			<tr valign="top">
+				<th scope="row">
+					<?php _e( 'Random JS', 'strong-testimonials' ); ?>
+				</th>
+				<td>
+                                    <fieldset>
+                                            <label>
+                                                    <input type="checkbox" name="wpmtst_compat_options[random_js]" <?php checked( $this->options['random_js'] ) ?> />
+                                                    <?php _e( 'Randomize testimonials via javascript to ensure proper behaviour. Check this if using page caching plugins (WP Rocket, Super Cache, W3 Total Cache etc.)', 'strong-testimonials' ); ?>
+                                                    <?php _e( 'Off by default.', 'strong-testimonials' ); ?>
+                                            </label>
+                                    </fieldset>
+				</td>
+			</tr>
+		</table> <?php
+        }
 
 	/**
 	 * Page Loading

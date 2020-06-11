@@ -280,9 +280,14 @@ class Strong_View_Display extends Strong_View {
 		 *
 		 * @since 1.16
 		 */
-		//if ( 'random' == $this->atts['order'] ) {
-		//	shuffle( $query->posts );
-		//}
+		if ( 'random' == $this->atts['order'] ) {
+                    $options = get_option( 'wpmtst_compat_options' );
+                    if (isset($options['random_js']) && $options['random_js']) {
+                        WPMST()->render->add_script( 'wpmtst-random' );
+                    } else {
+                        shuffle( $query->posts );
+                    }
+		}
 
 		/**
 		 * Extract slice of array, which may be shuffled.

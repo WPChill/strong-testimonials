@@ -839,6 +839,7 @@ class Strong_Testimonials_Defaults {
 					)
 				),
 			),
+                        'random_js' => false
 		);
 
 		return $options;

@@ -211,7 +211,7 @@ function wpmtst_scripts() {
          * JS random order
          */
         wp_register_script( 'wpmtst-random',
-                    WPMTST_PUBLIC_URL . "js/lib/randomjs/random.js",
+                    WPMTST_PUBLIC_URL . "js/lib/randomjs/random{$min}.js",
                     array( 'jquery' ),
                     $plugin_version,
                     true );
