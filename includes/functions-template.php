@@ -493,7 +493,7 @@ function wpmtst_the_custom_field( $field ) {
                                     $output = sprintf( '%s: ', esc_attr($field['custom_label']));
                                 }
                                 if (get_post_meta( $post->ID, $field_name, true )) {
-                                    $output .= esc_attr($field['checked_value']);
+                                    $output .= esc_attr($field['checked_value_custom']);
                                 } else {
                                     $output .= esc_attr($field['unchecked_value']);
                                 }

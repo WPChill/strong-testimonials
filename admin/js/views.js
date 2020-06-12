@@ -1050,6 +1050,7 @@ jQuery(document).ready(function ($) {
     var key = $elParent.data('key');
     var typeSelectParent = $elParent.find('.field-type');
     var typeSelect = typeSelectParent.find('select');
+    var source = $('#add-field').attr('source');
 	var data;
 
     $elParent.not('.open').addClass('open').find('.field-properties').addClass('open').slideDown();
@@ -1086,7 +1087,7 @@ jQuery(document).ready(function ($) {
       case 'submit_date':
         // Disable type selector
         typeSelect.val('date').prop('disabled', true);
-        typeSelectParent.append('<input type="hidden" class="save-type" name="view[data][client_section][' + key + '][save-type]" value="date">');
+        typeSelectParent.append('<input type="hidden" class="save-type" name="' + source + '[client_section][' + key + '][save-type]" value="date">');
 
         // add format field
         data = {
@@ -1117,7 +1118,7 @@ jQuery(document).ready(function ($) {
 
       case 'category':
         $(typeSelect).val('category').prop('disabled', true);
-        typeSelectParent.append('<input type="hidden" class="save-type" name="view[data][client_section][' + key + '][save-type]" value="category">');
+        typeSelectParent.append('<input type="hidden" class="save-type" name="' + source + '[client_section][' + key + '][save-type]" value="category">');
         $elParent.find('.field-property-box').empty();
         break;
 
@@ -1126,14 +1127,14 @@ jQuery(document).ready(function ($) {
         // Special handling
         if ('rating' === fieldType) {
           typeSelect.val('rating').prop('disabled', true);
-          typeSelectParent.append('<input type="hidden" class="save-type" name="view[data][client_section][' + key + '][save-type]" value="rating">');
+          typeSelectParent.append('<input type="hidden" class="save-type" name="' + source + '[client_section][' + key + '][save-type]" value="rating">');
           $elParent.find('.field-property-box').empty();
           break;
         }
         
         if ('checkbox' === fieldType) {
           typeSelect.val('checkbox').prop('disabled', true);
-          typeSelectParent.append('<input type="hidden" class="save-type" name="view[data][client_section][' + key + '][save-type]" value="checkbox">');
+          typeSelectParent.append('<input type="hidden" class="save-type" name="' + source + '[client_section][' + key + '][save-type]" value="checkbox">');
           typeSelect.parent().hide();
           var fieldName = $elParent.find('.field-name').find('select').val();
           data = {
@@ -1141,7 +1142,7 @@ jQuery(document).ready(function ($) {
             'fieldName': fieldName,
             'fieldType': fieldType,
             'key': key,
-            'source': $('#add-field').attr('source')
+            'source': source
           };
           $.get(ajaxurl, data, function (response) {
             // insert into placeholder div
@@ -1152,7 +1153,7 @@ jQuery(document).ready(function ($) {
 
         if ('platform' === fieldType) {
           typeSelect.val('platform').prop('disabled', true);
-          typeSelectParent.append('<input type="hidden" class="save-type" name="view[data][client_section][' + key + '][save-type]" value="platform">');
+          typeSelectParent.append('<input type="hidden" class="save-type" name="' + source + '[client_section][' + key + '][save-type]" value="platform">');
           $elParent.find('.field-property-box').empty();
           break;
         }

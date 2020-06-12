@@ -744,7 +744,7 @@ function wpmtst_view_field_date( $key, $field, $adding = false, $source = 'view[
  * @param $field
  * @param bool $adding
  */
-function wpmtst_view_field_checkbox( $key, $field, $adding = false, $source = 'view[data]' ) { 
+function wpmtst_view_field_checkbox( $key, $field, $adding = false, $source = 'view[data]' ) {
         if ( ! isset( $field['label'] ) ) {
 		$field['label'] = 'label';
 	}
