@@ -100,7 +100,6 @@ class Strong_View_Display extends Strong_View {
 		$this->has_pagination();
 		$this->has_layouts();
 		$this->has_readmore();
-                $this->has_lazyload();
 
 		$this->load_extra_stylesheets();
 
@@ -125,6 +124,7 @@ class Strong_View_Display extends Strong_View {
 		$this->has_stars();
 		$this->has_pagination();
 		$this->has_layouts();
+                $this->has_lazyload();
 
 		$this->load_dependent_scripts();
 		$this->load_extra_stylesheets();
@@ -524,6 +524,7 @@ class Strong_View_Display extends Strong_View {
 	 * @since 2.40.4
 	 */
 	public function has_lazyload() {
+           
                 $options = get_option( 'wpmtst_options' );
                 if ( isset( $options['lazyload'] ) && $options['lazyload'] ) {
                         WPMST()->render->add_style( 'wpmtst-lazyload-css' );
