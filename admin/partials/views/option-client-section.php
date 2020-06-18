@@ -22,6 +22,7 @@
 		<input id="add-field"
                type="button"
                name="add-field"
+               source="view[data]"
 			   value="<?php _e( 'Add Field', 'strong-testimonials' ); ?>"
                class="button-secondary" />
 	</div>
