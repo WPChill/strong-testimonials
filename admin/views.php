@@ -223,12 +223,13 @@ function wpmtst_view_settings( $action = '', $view_id = null ) {
 		<input type="hidden" name="view[data][_form_id]" value="<?php echo esc_attr( $view['form_id'] ); ?>">
 
         <div class="table view-info">
-			<?php include( 'partials/views/view-name.php' ); ?>
+                <?php include( 'partials/views/view-name.php' ); ?>
     		<?php include( 'partials/views/view-shortcode.php' ); ?>
 	    	<?php include( 'partials/views/view-mode.php' ); ?>
         </div>
-
+        
         <?php
+                $show_section = apply_filters('wpmtst_show_section', $view['mode']);
 		// TODO Generify both hook and include
 		do_action( 'wpmtst_view_editor_before_group_select' );
 		include( 'partials/views/group-query.php' );
