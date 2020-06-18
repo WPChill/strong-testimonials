@@ -31,6 +31,7 @@
 }
 .strong-view .wpmslider-pager-link {
   text-decoration: none;
+  margin-left: 10px;
 }
 
 /* =controls
@@ -72,15 +73,14 @@
 }
 .strong-view.pager-style-buttons .wpmslider-pager-link:before {
   content: "";
-  -webkit-mask: url('../svg/chevron-circle-left-solid.svg') center center no-repeat;
-  mask: url('../svg/chevron-circle-left-solid.svg') center center no-repeat;
+  -webkit-mask: url('../svg/circle-regular.svg') center center no-repeat;
+  mask: url('../svg/circle-regular.svg') center center no-repeat;
   display: inline-block;
   color: #999;
   background: #999;
   cursor: pointer;
-  font-size: 12px;
-  width: 18px;
-  height: 18px;
+  width: 10px;
+  height: 20px;
   text-align: center;
 }
 .strong-view.pager-style-buttons .wpmslider-pager-link:hover:before {
@@ -88,7 +88,7 @@
   -webkit-mask: url('../svg/circle-solid.svg') center center no-repeat;
   mask: url('../svg/circle-solid.svg') center center no-repeat;
   display: inline-block;
-  width: 20px;
+  width: 10px;
   height: 20px;
   color: #111;
   background: #111;
@@ -98,7 +98,7 @@
   -webkit-mask: url('../svg/circle-solid.svg') center center no-repeat;
   mask: url('../svg/circle-solid.svg') center center no-repeat;
   display: inline-block;
-  width: 20px;
+  width: 10px;
   height: 20px;
 }
 

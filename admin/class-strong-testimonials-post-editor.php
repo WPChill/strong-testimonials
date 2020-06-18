@@ -317,6 +317,8 @@ class Strong_Testimonials_Post_Editor {
 
 		// Determine whether to update or delete.
 		// Similar to wpmtst_ajax_edit_rating() in admin-ajax.php.
+		$custom_fields['nofollow']['input_type'] = '';
+		
 		foreach ( $custom as $key => $value ) {
 		    $action = 'update';
 		    $sanitized_value = '';

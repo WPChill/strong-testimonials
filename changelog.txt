@@ -10,6 +10,28 @@
 * Fixed font color bug
 
 = 2.40.2 - Feb. 26, 2020 =
+
+= 2.40.7 - May 25, 2020 =
+* Fixed pagination buttons
+* Fixed spinner for submitted form
+
+= 2.40.6 - Apr. 29, 2020 =
+* Fixed undefined index error
+* Fixed pagination buttons
+
+= 2.40.5 - Apr. 16, 2020 = 
+* Add old css class back for templates
+
+= 2.40.4 - Apr. 16, 2020 =
+* Added the old classes back to keep functionality with users custom css 
+* Fixed title display
+* Adressed an issue regarding the company name field
+
+= 2.40.3 - Apr. 14, 2020 =
+* Fixed fatal error on testimonials order.
+
+= 2.40.2 - Apr. 13, 2020 =
+
 * Improved star rating display
 * Added another attribute to average rating shortcode
 * Removed FontAwesome and added svgs
@@ -25,10 +47,8 @@
 * Added functionality to prevent license inspection
 * Added extra filter `wpmtst_views_actions` in admin/class-strong-view-list-table.php on line 132
 
-
 = 2.40.1 - Jan. 25, 2020 =
 * improved data sanitization
-
 
 = 2.40.0 - Oct. 16, 2019 =
 * improved compatibility with Strong Testimonials: Importer extension
