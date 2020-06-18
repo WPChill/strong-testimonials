@@ -129,6 +129,17 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
   text-decoration: none;
   box-shadow: none;
 }
+.strong-view.wpmtst-default .wpmtst-testimonial-image .initials {
+  background: none repeat scroll 0 0 #FFFFFF;
+  border: 1px solid #EFEFEF;
+  padding: 6px;
+  margin: 0 auto;
+  text-align: center;
+  font-size: 42px;
+  font-weight: bold;
+  display: table-cell;
+  vertical-align: middle;
+}
 .strong-view.wpmtst-default .wpmtst-testimonial-field {
   text-align: right;
 }

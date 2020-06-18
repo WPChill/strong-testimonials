@@ -134,7 +134,7 @@ class Strong_Testimonials_Defaults {
 				'show_placeholder_option' => 0,
 				'admin_table'             => 0,
 				'name_mutable'            => 0,
-			),
+			)
 		);
 		foreach ( $field_types['post'] as $key => $array ) {
 			$field_types['post'][ $key ] = array_merge( $field_base, $array );
@@ -703,6 +703,7 @@ class Strong_Testimonials_Defaults {
 			'form_ajax'           => 0,
 			'form_id'             => 1,
 			'gravatar'            => 'no',
+                        'default_image'       => false,
 			'id'                  => '',
 			'layout'              => '',
 			'lightbox'            => '',

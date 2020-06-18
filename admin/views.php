@@ -213,7 +213,7 @@ function wpmtst_view_settings( $action = '', $view_id = null ) {
 		<?php endif; ?>
 	</h1>
 
-	<form id="wpmtst-views-form" method="post" action="<?php echo admin_url( 'admin-post.php' ); ?>" autocomplete="off">
+	<form id="wpmtst-views-form" method="post" action="<?php echo admin_url( 'admin-post.php' ); ?>" autocomplete="off" enctype="multipart/form-data">
 
 		<?php wp_nonce_field( 'view_form_submit', 'view_form_nonce', true, true ); ?>
 

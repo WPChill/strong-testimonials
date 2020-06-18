@@ -44,8 +44,24 @@ function wpmtst_get_thumbnail( $size = null ) {
 				// get_avatar will return false if not found (via filter)
 				$img = get_avatar( wpmtst_get_field( 'email' ), apply_filters( 'wpmtst_gravatar_size', $size ) );
 			}
-		}
-
+		} elseif ( 'default' == WPMST()->atts( 'gravatar' ) ) {
+			if ( WPMST()->atts( 'default_image' ) ) {
+				$img = wp_get_attachment_image( WPMST()->atts( 'default_image' ), $size );
+			}
+		} elseif ( 'initials' == WPMST()->atts( 'gravatar' ) ) {
+                        $client_name = get_post_meta($id, 'client_name');
+                        $width = intval( get_option( "{$size}_size_w" ) );
+                        $height = intval( get_option( "{$size}_size_h" ) );
+			if ( isset($client_name[0]) && !empty($client_name[0])) {
+                            $words = explode(' ', $client_name[0]);
+                            $img = '<div style="width:' . $width . 'px; height:' . $height . 'px" class="initials">' . strtoupper(substr($words[0], 0, 1) . substr(end($words), 0, 1)) . '</div>';
+			}
+		} elseif ( 'wp_avatars' == WPMST()->atts( 'gravatar' ) ) {
+                        $size = intval( get_option( "{$size}_size_w" ) );
+			if ( WPMST()->atts( 'avatar' ) ) {
+                            $img = get_avatar( 0, $size, WPMST()->atts( 'avatar' ), '', array( 'force_default' => true ) );
+                        } 
+                }
 	}
 
 	return apply_filters( 'wpmtst_thumbnail_img', $img, $id, $size );
