@@ -20,12 +20,9 @@ do_action( 'wpmtst_before_view' );
                 <div class="wpmtst-testimonial-inner testimonial-inner">
 					<?php do_action( 'wpmtst_before_testimonial' ); ?>
 
-					<div <?php echo ('slideshow' == $atts['mode']) ? 'data-infinite-loop="'.esc_attr($continuous_slide).'"' : ''; ?>  class="wpmtst-testimonial-content">
+					<div <?php echo ('slideshow' == $atts['mode']) ? 'data-infinite-loop="'.esc_attr($continuous_slide).'"' : ''; ?>  class="wpmtst-testimonial-content  testimonial-content">
 						<?php wpmtst_the_title( 'h3', 'wpmtst-testimonial-heading' ); ?>
-
-					<div <?php echo ('slideshow' == $atts['mode']) ? 'data-infinite-loop="'.esc_attr($continuous_slide).'"' : ''; ?>  class="wpmtst-testimonial-content testimonial-content">
-
-
+                                            
 						<?php wpmtst_the_content(); ?>
 						<?php do_action( 'wpmtst_after_testimonial_content' ); ?>
 					</div>
