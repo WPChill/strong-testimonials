@@ -76,7 +76,7 @@ class Strong_View_Display extends Strong_View {
 	 * @return mixed
 	 */
 	public function query_infinitescroll( $args ) {
-		if ( $this->atts['pagination'] && 'infinitescroll' == $this->atts['pagination_settings']['type'] ) {
+		if ( $this->atts['pagination'] && 'infinitescroll' == $this->atts['pagination_settings']['type'] && $this->atts['mode'] != 'slideshow') {
 			// Limit is not compatible with standard pagination.
 			$this->atts['count'] = -1;
 			$args['posts_per_page'] = $this->atts['pagination_settings']['per_page'];
