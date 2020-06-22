@@ -84,7 +84,7 @@
 						</p>
 					</div>
 				</div>
-                                <?php do_action('wpmtst_default_image', $view) ?>
+                                <?php do_action('after_no_featured_image', $view) ?>
 			</div>
 		</div>
 
