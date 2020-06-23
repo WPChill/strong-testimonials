@@ -10,14 +10,16 @@ class Strong_Testimonials_Upsell {
 
 	public function __construct() {
 		$this->set_store_upgrade_url();
-
-		add_action( 'wpmtst_after_form_type_selection', array( $this, 'add_upsells_1' ) );
-		add_action( 'wpmtst_before_fields_settings', array( $this, 'add_upsells_2' ) );
-		add_action( 'wpmtst_view_editor_after_groups', array( $this, 'add_upsells_3' ) );
-		add_action( 'wpmtst_view_editor_after_group_select', array( $this, 'add_upsells_4' ) );
-		add_action( 'wpmtst_fields_before_fields_editor_preview', array( $this, 'add_upsells_5' ) );
-		add_action( 'wpmtst_after_form_settings', array( $this, 'add_upsells_6' ) );
-		add_action( 'wpmtst_views_after_template_list', array( $this, 'add_upsells_7' ) );
+                $options = get_option( 'wpmtst_options' );
+                if (isset($options['upsells']) && $options['upsells'] == false) {
+                    add_action( 'wpmtst_after_form_type_selection', array( $this, 'add_upsells_1' ) );
+                    add_action( 'wpmtst_before_fields_settings', array( $this, 'add_upsells_2' ) );
+                    add_action( 'wpmtst_view_editor_after_groups', array( $this, 'add_upsells_3' ) );
+                    add_action( 'wpmtst_view_editor_after_group_select', array( $this, 'add_upsells_4' ) );
+                    add_action( 'wpmtst_fields_before_fields_editor_preview', array( $this, 'add_upsells_5' ) );
+                    add_action( 'wpmtst_after_form_settings', array( $this, 'add_upsells_6' ) );
+                    add_action( 'wpmtst_views_after_template_list', array( $this, 'add_upsells_7' ) );
+                }
 
 		add_action( 'add_meta_boxes', array( $this, 'add_meta_boxes' ) );
 	}

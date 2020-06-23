@@ -45,7 +45,8 @@ class Strong_Testimonials_Defaults {
 			'scrolltop_offset'        => 80,
 			'lazyload'                => false,
                         'no_lazyload_plugin'      => true,
-			'touch_enabled'           => true
+			'touch_enabled'           => true,
+                        'upsells'                 => true
 		);
 
 		return $default_options;

@@ -264,6 +264,20 @@ $options = get_option( 'wpmtst_options' );
     <?php else : ?>
         <input type="hidden" name="wpmtst_options[no_lazyload_plugin]" value="<?php echo $options['no_lazyload_plugin']; ?>">
     <?php endif; ?>
+        
+    <tr valign="top">
+        <th scope="row">
+			<?php _e( 'Upsells', 'strong-testimonials' ); ?>
+        </th>
+        <td>
+            <fieldset>
+                <label>
+                    <input type="checkbox" name="wpmtst_options[upsells]" <?php checked( $options['upsells'] ); ?>>
+                    <?php printf( __( 'Disable all upsells.', 'strong-testimonials' ) ); ?>
+                    <?php _e( 'On by default.', 'strong-testimonials' ); ?>
+                </label>
+            </fieldset>
+        </td>
+    </tr>
     
-    <?php do_action('wpmtst_rating_icon', $options); ?>
 </table>
