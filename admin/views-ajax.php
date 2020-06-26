@@ -121,7 +121,7 @@ function wpmtst_view_get_mode_description() {
 	$options = get_option( 'wpmtst_view_options' );
 	if ( isset( $options['mode'][ $mode ]['description'] ) ) {
 		$description = $options['mode'][ $mode ]['description'];
-                $description = apply_filters( 'wpmtst_mode_description', array('mode' => $mode, 'description' => $description) );
+                $description = apply_filters( 'wpmtst_mode_description', $description, $mode );
                 echo $description;
 	}
 	wp_die();
