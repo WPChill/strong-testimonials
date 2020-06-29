@@ -1229,6 +1229,14 @@ jQuery(document).ready(function ($) {
     return false;
   });
 
+  jQuery('input[name="view[data][mode]"]').on('change', function() {
+      if (this.value == 'single_template') {
+          jQuery('#wpmtst-views-form .then_multiple').hide();
+      } else {
+          jQuery('#wpmtst-views-form .then_multiple').show();
+      }
+  })
+
   /**
    * Slider|Carousel change listener
    */
