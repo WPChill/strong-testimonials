@@ -25,7 +25,7 @@ class Strong_Testimonials_Settings {
 	 */
 	public static function add_actions() {
 		add_action( 'admin_init', array( __CLASS__, 'register_settings' ) );
-		add_action( 'wpmtst_settings_submit_row', array( __CLASS__, 'submit_row' ) );
+                add_action( 'wpmtst_settings_submit_row', array( __CLASS__, 'submit_row' ) );
 	}
 
 	/**
@@ -60,7 +60,7 @@ class Strong_Testimonials_Settings {
 				<?php do_action( 'wpmtst_settings_tabs', $tab, $url ); ?>
 			</h2>
 
-			<form id="<?php echo esc_attr( $tab ); ?>-form" method="post" action="options.php">
+			<form id="<?php echo esc_attr( $tab ); ?>-form" method="post" action="options.php" enctype="multipart/form-data">
 				<?php
 				if ( isset( self::$callbacks[ $tab ] ) && wpmtst_callback_exists( self::$callbacks[ $tab ] ) ) {
 					call_user_func( self::$callbacks[ $tab ] );

@@ -30,8 +30,10 @@ class Strong_Testimonials_Defaults {
 	public static function get_options() {
 		$default_options = array(
 			'embed_width'             => '',
-			'nofollow'                => false,
-            'disable_rewrite'         => false,
+			'nofollow'                => true,
+                        'noopener'                => false,
+                        'noreferrer'              => false,
+                        'disable_rewrite'         => false,
 			'pending_indicator'       => true,
 			'remove_whitespace'       => true,
 			//@todo : delete commented line. For the moment let it be
@@ -41,8 +43,10 @@ class Strong_Testimonials_Defaults {
 			'single_testimonial_slug' => 'testimonial',
 			'scrolltop'               => true,
 			'scrolltop_offset'        => 80,
-			'no_lazyload'             => true,
+			'lazyload'                => false,
+                        'no_lazyload_plugin'      => true,
 			'touch_enabled'           => true,
+                        'upsells'                 => true
 		);
 
 		return $default_options;
@@ -82,6 +86,8 @@ class Strong_Testimonials_Defaults {
 			'shortcode_on_form'       => '',
 			'shortcode_on_display'    => '',
 			'show_shortcode_options'  => 0,
+                        'show_length_option'      => 0,
+                        'max_length'              => ''
 		) );
 	}
 
@@ -107,6 +113,7 @@ class Strong_Testimonials_Defaults {
 				'admin_table_option'      => 0,
 				'show_admin_table_option' => 0,
 				'name_mutable'            => 0,
+                                'show_length_option'      => 1
 			),
 			'post_content'   => array(
 				'input_type'              => 'textarea',
@@ -118,6 +125,7 @@ class Strong_Testimonials_Defaults {
 				'admin_table'             => 0,
 				'show_admin_table_option' => 0,
 				'name_mutable'            => 0,
+                                'show_length_option'      => 1
 			),
 			'featured_image' => array(
 				'input_type'              => 'file',
@@ -127,7 +135,7 @@ class Strong_Testimonials_Defaults {
 				'show_placeholder_option' => 0,
 				'admin_table'             => 0,
 				'name_mutable'            => 0,
-			),
+			)
 		);
 		foreach ( $field_types['post'] as $key => $array ) {
 			$field_types['post'][ $key ] = array_merge( $field_base, $array );
@@ -283,6 +291,7 @@ class Strong_Testimonials_Defaults {
 						'input_type'  => 'text',
 						'required'    => 0,
 						'after'       => __( 'A headline for your testimonial.', 'strong-testimonials' ),
+                                                'max_length'  => ''
 					),
 					6 => array(
 						'record_type' => 'post',
@@ -291,6 +300,7 @@ class Strong_Testimonials_Defaults {
 						'input_type'  => 'textarea',
 						'required'    => 1,
 						'after'       => __( 'What do you think about us?', 'strong-testimonials' ),
+                                                'max_length'  => ''
 					),
 					7 => array(
 						'record_type' => 'post',
@@ -423,6 +433,14 @@ class Strong_Testimonials_Defaults {
 		$default_form_options = array(
 			'post_status'              => 'pending',
 			'admin_notify'             => false,
+                        'customer-notify'          => false,
+                        'approved-notify'          => false,
+                        'sender_name_for_customer' => false,
+                        'sender_customer_email'    => false,
+                        'sender_site_customer_email' => true,
+                        'sender_name_for_customer_approval' => false,
+                        'sender_site_customer_approval_email'    => true,
+                        'sender_approval_email' => false,
 			'mail_queue'               => false,
 			'sender_name'              => get_bloginfo( 'name' ),
 			'sender_site_email'        => true,
@@ -440,9 +458,13 @@ class Strong_Testimonials_Defaults {
 				'admin_email' => '',
 			),
 			/* translators: Default subject line for new testimonial notification email. */
-			'email_subject'            => __( 'New testimonial for %BLOGNAME%', 'strong-testimonials' ),
+			'email_subject'                      => __( 'New testimonial for %BLOGNAME%', 'strong-testimonials' ),
+                        'customer_approval_email_subject'    => __( 'Testimonial for %BLOGNAME%', 'strong-testimonials' ),
+                        'customer_email_subject'             => __( 'Testimonial for %BLOGNAME%', 'strong-testimonials' ),
 			/* translators: Default message for new testimonial notification email. */
-			'email_message'            => __( 'New testimonial submission for %BLOGNAME%. This is awaiting action from the website administrator.', 'strong-testimonials' ),
+			'email_message'                      => __( 'New testimonial submission for %BLOGNAME%. This is awaiting action from the website administrator.', 'strong-testimonials' ),
+                        'customer_approval_email_message'    => __( 'Your testimonial was published for %BLOGNAME%. Thank you!', 'strong-testimonials' ),
+                        'customer_email_message'             => __( 'Your testimonial was received  for %BLOGNAME% and awaiting approval from the website administrator. Thank you!', 'strong-testimonials' ),
 			'messages'                 => $default_messages,
 			'scrolltop_success'        => true,
 			'scrolltop_success_offset' => 80,
@@ -688,6 +710,9 @@ class Strong_Testimonials_Defaults {
 			'form_ajax'           => 0,
 			'form_id'             => 1,
 			'gravatar'            => 'no',
+                        'initials_font_size'  => '42',
+                        'initials_font_color' => '#000000',
+                        'initials_bg_color'   => '#ffffff',
 			'id'                  => '',
 			'layout'              => '',
 			'lightbox'            => '',
@@ -824,6 +849,7 @@ class Strong_Testimonials_Defaults {
 					)
 				),
 			),
+                        'random_js' => false
 		);
 
 		return $options;

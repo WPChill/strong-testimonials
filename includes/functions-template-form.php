@@ -122,13 +122,21 @@ function wpmtst_single_form_field( $field ) {
 			case 'textarea':
 				$value = ( isset( $form_values[ $field['name'] ] ) && $form_values[ $field['name'] ] ) ? $form_values[ $field['name'] ] : '';
 				// textarea tags must be on same line for placeholder to work
+                                $max_length = wpmtst_field_length( $field );
+                                if (isset($max_length) && !empty($max_length)) {
+                                    printf(
+                                            '<span class="after max-length-counter" align="right">0 characters out of %s</span>',
+                                            $field['max_length']
+                                    ); 
+                                }
 				printf(
-					'<textarea id="wpmtst_%s" name="%s" class="%s" %s placeholder="%s" tabindex="0">%s</textarea>',
+					'<textarea id="wpmtst_%s" name="%s" class="%s" %s placeholder="%s" %s tabindex="0">%s</textarea>',
 					esc_attr( $field['name'] ),
 					esc_attr( $field['name'] ),
-					esc_attr( wpmtst_field_classes( $field['input_type'], $field['name'] ) ),
+					esc_attr( wpmtst_field_classes( $field['input_type'], $field['name'], $max_length ) ),
 					esc_attr( wpmtst_field_required_tag( $field ) ),
 					esc_attr( wpmtst_field_placeholder( $field ) ),
+                                        wpmtst_field_length( $field ),
 					esc_textarea( $value )
 				);
 				break;
@@ -184,13 +192,21 @@ function wpmtst_single_form_field( $field ) {
 			    break;
 
 		    default: // text, email, url
-			    printf( '<input id="wpmtst_%s" type="%s" class="%s" name="%s" %s placeholder="%s" %s tabindex="0">',
+                            $max_length = wpmtst_field_length( $field );
+                            if (isset($max_length) && !empty($max_length)) {
+                                printf(
+                                        '<span class="after max-length-counter" align="right">0 characters out of %s</span>',
+                                        $field['max_length']
+                                ); 
+                            }
+			    printf( '<input id="wpmtst_%s" type="%s" class="%s" name="%s" %s placeholder="%s" %s %s tabindex="0">',
 			            $field['name'],
 			            $field['input_type'],
-			            wpmtst_field_classes( $field['input_type'], $field['name'] ),
+			            wpmtst_field_classes( $field['input_type'], $field['name'], $max_length ),
 			            $field['name'],
 			            wpmtst_field_value( $field, $form_values ),
 			            wpmtst_field_placeholder( $field ),
+                                    $max_length,
 			            wpmtst_field_required_tag( $field ) );
 
 	    }
@@ -250,10 +266,9 @@ function wpmtst_field_label_classes( $type, $name ) {
  *
  * @return string
  */
-function wpmtst_field_classes( $type = null, $name = null ) {
+function wpmtst_field_classes( $type = null, $name = null, $max_length = null ) {
 	$errors = WPMST()->form->get_form_errors();
 	$class_list = array();
-
 	switch( $type ) {
 		case 'email':
 			$class_list[] = 'text';
@@ -266,9 +281,16 @@ function wpmtst_field_classes( $type = null, $name = null ) {
 		case 'text':
 			$class_list[] = 'text';
 			break;
+                case 'textarea':
+                        $class_list[] = 'textarea';
+			break;
 		default:
 			break;
 	}
+        
+        if (isset($max_length) && !empty($max_length)) {
+                $class_list[] = 'max-length';
+        }
 
 	if ( isset( $errors[ $name ] ) ) {
 		$class_list[] = 'error';
@@ -310,6 +332,21 @@ function wpmtst_field_value( $field, $form_values ) {
 function wpmtst_field_placeholder( $field ) {
 	if ( isset( $field['placeholder'] ) && $field['placeholder'] ) {
 		return esc_attr( wpmtst_form_field_meta_l10n( $field['placeholder'], $field, 'placeholder' ) );
+	}
+
+	return '';
+}
+
+/**
+ * Print placeholder tag.
+ *
+ * @param $field
+ *
+ * @return string
+ */
+function wpmtst_field_length( $field ) {
+	if ( isset( $field['max_length'] ) && $field['max_length'] ) {
+		return 'maxlength="' . esc_attr($field['max_length']) . '"';
 	}
 
 	return '';

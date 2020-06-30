@@ -132,7 +132,7 @@ add_filter( 'wpmtst_admin_notice', 'wpmtst_admin_notice_text', 10, 2 );
 function wpmtst_add_admin_notice( $key, $persist = false ) {
 	$notices = get_option( 'wpmtst_admin_notices', array() );
 	$notices[ $key ] = array( 'persist' => $persist );
-	update_option( 'wpmtst_admin_notices', $notices );
+	update_option( 'wpmtst_admin_notices', $notices, 'no' );
 }
 
 
@@ -146,7 +146,7 @@ function wpmtst_add_admin_notice( $key, $persist = false ) {
 function wpmtst_delete_admin_notice( $key ) {
 	$notices = get_option( 'wpmtst_admin_notices', array() );
 	unset( $notices[ $key ] );
-	update_option( 'wpmtst_admin_notices', $notices );
+	update_option( 'wpmtst_admin_notices', $notices, 'no' );
 }
 
 
@@ -169,7 +169,7 @@ function wpmtst_auto_dismiss_notices( $option, $old_value, $value ) {
             $notices = get_option( 'wpmtst_admin_notices', array() );
             if ( isset( $notices['captcha-options-changed'] ) ) {
                 unset( $notices['captcha-options-changed'] );
-                update_option( 'wpmtst_admin_notices', $notices );
+                update_option( 'wpmtst_admin_notices', $notices, 'no' );
             }
         }
     }

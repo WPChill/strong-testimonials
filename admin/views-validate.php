@@ -88,7 +88,8 @@ function wpmtst_sanitize_view( $input ) {
 
 	$data['content']            = sanitize_text_field( $input['content'] );
 	$data['excerpt_length']     = (int) sanitize_text_field( $input['excerpt_length'] );
-	$data['use_default_length'] = sanitize_text_field( $input['use_default_length'] );
+	$data['use_default_length'] = sanitize_text_field( $input['use_default_length'] );        
+	$data['html_content']         = isset( $input['html_content'] ) ? 1 : 0;
 
 	$data = wpmtst_sanitize_view_readmore( $data, $input, $default_view );
 
@@ -512,6 +513,14 @@ function wpmtst_sanitize_view_client_section( $in ) {
 				$format = isset( $field['format'] ) ? sanitize_text_field( $field['format'] ) : '';
 				$out[ $key ]['format'] = $format;
 				break;
+                        case 'checkbox':
+                                $out[ $key ]['label'] = isset( $field['label'] ) ? sanitize_text_field( $field['label'] ) : 'label';
+                                $out[ $key ]['custom_label'] = isset( $field['custom_label'] ) ? sanitize_text_field( $field['custom_label'] ) : '';
+				$out[ $key ]['checked_value'] = isset( $field['checked_value'] ) ? sanitize_text_field( $field['checked_value'] ) : '';
+                                $out[ $key ]['checked_value_custom'] = isset( $field['checked_value_custom'] ) ? sanitize_text_field( $field['checked_value_custom'] ) : '';
+				$out[ $key ]['unchecked_value'] = isset( $field['unchecked_value'] ) ? sanitize_text_field( $field['unchecked_value'] ) : '';
+				break;
+                            
 			default:
 		}
 

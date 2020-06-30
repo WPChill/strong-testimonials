@@ -108,12 +108,12 @@ class Strong_Testimonials_Updater {
 		/**
 		 * Custom fields.
 		 */
-		update_option( 'wpmtst_fields', self::update_fields() );
+		update_option( 'wpmtst_fields', self::update_fields(), 'no' );
 
 		/**
 		 * Forms.
 		 */
-		update_option( 'wpmtst_base_forms', self::update_base_forms() );
+		update_option( 'wpmtst_base_forms', self::update_base_forms(), 'no' );
 		update_option( 'wpmtst_custom_forms', self::update_custom_forms() );
 		update_option( 'wpmtst_form_options', self::update_form_options() );
 
@@ -136,7 +136,7 @@ class Strong_Testimonials_Updater {
 		 *
 		 * @since 2.15.0
 		 */
-		update_option( 'wpmtst_view_default', self::update_default_view() );
+		update_option( 'wpmtst_view_default', self::update_default_view(), 'no' );
 
 		/**
 		 * Update views.
@@ -149,6 +149,8 @@ class Strong_Testimonials_Updater {
 		if ( ! isset( $history['2.23.0_convert_nofollow'] ) ) {
 			self::convert_nofollow();
 			self::update_history_log( '2.23.0_convert_nofollow' );
+                        self::convert_noopener();
+                        self::convert_noreferrer();
 		}
 
 
@@ -1227,6 +1229,104 @@ class Strong_Testimonials_Updater {
 			}
 
 			update_post_meta( $post->ID, 'nofollow', $new_value );
+		}
+	}
+        
+        /**
+	 * Convert noopener from (on|off) to (1|0).
+	 *
+	 * @since 2.41.0
+	 */
+        public static function convert_noopener() {
+		$args  = array(
+			'posts_per_page'   => - 1,
+			'post_type'        => 'wpm-testimonial',
+			'post_status'      => 'publish',
+			'suppress_filters' => true,
+		);
+		$posts = get_posts( $args );
+		if ( ! $posts ) {
+			return;
+		}
+
+		/**
+		 * Remove the equivocation. There is no false.
+		 */
+		foreach ( $posts as $post ) {
+			$noopener  = get_post_meta( $post->ID, 'noopener', true );
+			$new_value = 'default';
+
+			if ( 'on' == $noopener ) {
+				$new_value = 'yes';
+			}
+			elseif ( 1 === $noopener ) {
+				$new_value = 'yes';
+			}
+			elseif ( 'off' == $noopener ) {
+				$new_value = 'no';
+			}
+			elseif ( 0 === $noopener ) {
+				$new_value = 'no';
+			}
+			elseif ( is_bool( $noopener ) ) {
+				if ( $noopener ) {
+					$new_value = 'yes';
+				}
+				else {
+					$new_value = 'default';
+				}
+			}
+
+			update_post_meta( $post->ID, 'noopener', $new_value );
+		}
+	}
+        
+        /**
+	 * Convert noreferrer from (on|off) to (1|0).
+	 *
+	 * @since 2.41.0
+	 */
+        public static function convert_noreferrer() {
+		$args  = array(
+			'posts_per_page'   => - 1,
+			'post_type'        => 'wpm-testimonial',
+			'post_status'      => 'publish',
+			'suppress_filters' => true,
+		);
+		$posts = get_posts( $args );
+		if ( ! $posts ) {
+			return;
+		}
+
+		/**
+		 * Remove the equivocation. There is no false.
+		 */
+		foreach ( $posts as $post ) {
+			$noreferrer  = get_post_meta( $post->ID, 'noreferrer', true );
+			$new_value = 'default';
+
+			if ( 'on' == $noreferrer ) {
+				$new_value = 'yes';
+			}
+			elseif ( 1 === $noreferrer ) {
+				$new_value = 'yes';
+			}
+			elseif ( 'off' == $noreferrer ) {
+				$new_value = 'no';
+			}
+			elseif ( 0 === $noreferrer ) {
+				$new_value = 'no';
+			}
+			elseif ( is_bool( $noreferrer ) ) {
+				if ( $noreferrer ) {
+					$new_value = 'yes';
+				}
+				else {
+					$new_value = 'default';
+				}
+			}
+
+			update_post_meta( $post->ID, 'noreferrer', $new_value );
 		}
 	}
 

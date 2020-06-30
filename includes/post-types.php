@@ -84,6 +84,7 @@ function wpmtst_get_cpt_defaults() {
 		'editor',
 		'thumbnail',
 		'page-attributes',
+		'comments',
 	);
 
 	$args = array(
@@ -107,7 +108,7 @@ function wpmtst_get_cpt_defaults() {
 			'feeds'      => false,
 			'pages'      => true,
 		),
-		'can_export'          => true,
+		'can_export'          => true
 	);
 
 	return $args;

@@ -647,9 +647,13 @@ jQuery(document).ready(function ($) {
       if ('unstyled' === template) {
         $('input[name=\'view[data][background][type]\']').prop('disabled', true);
         $('input[name=\'view[data][font-color][type]\']').prop('disabled', true);
+        $('input[name=\'wpmtst_style_options[background][type]\']').prop('disabled', true);
+        $('input[name=\'wpmtst_style_options[font-color][type]\']').prop('disabled', true);
       } else {
         $('input[name=\'view[data][background][type]\']').prop('disabled', false);
         $('input[name=\'view[data][font-color][type]\']').prop('disabled', false);
+        $('input[name=\'wpmtst_style_options[background][type]\']').prop('disabled', false);
+        $('input[name=\'wpmtst_style_options[font-color][type]\']').prop('disabled', false);
       }
 
       // Special handling for Lucid add-on until I can incorporate a template group config file
@@ -799,7 +803,7 @@ jQuery(document).ready(function ($) {
 
   }
 
-  var backgroundRadios = $('input[type=radio][name=\'view[data][background][type]\']'),
+  var backgroundRadios = $('input[type=radio][name=\'view[data][background][type]\'], input[type=radio][name=\'wpmtst_style_options[background][type]\']'),
     backgroundPreview = $('#background-preview'),
     backgroundPresetSelector = $('#view-background-preset');
 
@@ -807,7 +811,7 @@ jQuery(document).ready(function ($) {
    * Font-color change listener
    */
     // TODO Use ID instead.
-  var fontColorRadios = $('input[type=radio][name=\'view[data][font-color][type]\']');
+  var fontColorRadios = $('input[type=radio][name=\'view[data][font-color][type]\'], input[type=radio][name=\'wpmtst_style_options[font-color][type]\']');
 
   function fontColorDescriptions () {
     var fontColorRadioOff, fontColorRadioOn, fontColorID;
@@ -939,6 +943,7 @@ jQuery(document).ready(function ($) {
     var data = {
       'action': 'wpmtst_view_add_field',
       'key': nextKey,
+      'source': $(this).attr('source')
     };
     $.get(ajaxurl, data, function (response) {
       $.when(customFieldList.append(response)).then(function () {
@@ -950,7 +955,6 @@ jQuery(document).ready(function ($) {
       });
     });
   });
-
   /**
    * Field type change listener
    */
@@ -961,7 +965,7 @@ jQuery(document).ready(function ($) {
     var fieldName = $elParent.find('.field-name').find('select').val();
     // var key = $elParent.attr("id").split('-').slice(-1)[0];
     var key = $elParent.data('key');
-	var data;
+    var data;
 
     switch (fieldType) {
 
@@ -973,6 +977,7 @@ jQuery(document).ready(function ($) {
           'fieldName': fieldName,
           'fieldType': fieldType,
           'key': key,
+          'source': $('#add-field').attr('source')
         };
         $.get(ajaxurl, data, function (response) {
           // insert into placeholder div
@@ -985,7 +990,6 @@ jQuery(document).ready(function ($) {
             $.fn.selectGroupOption($newFieldSelect);
           });
           textChangeListener();
-
           // Get field name --> Get field label --> Populate link_text label
           var fieldName = $elParent.find('.field-name').find('select').val();
           var data2 = {
@@ -1005,6 +1009,7 @@ jQuery(document).ready(function ($) {
         data = {
           'action': 'wpmtst_view_add_field_date',
           'key': key,
+          'source': $('#add-field').attr('source')
         };
         $.get(ajaxurl, data, function (response) {
           // insert into placeholder div
@@ -1013,8 +1018,20 @@ jQuery(document).ready(function ($) {
         break;
 
       case 'text':
-        // if changing to [text], remove meta fields
-        $elParent.find('.field-property-box').empty();
+      
+      case 'checkbox':
+          // if changing to [checkbox_value]
+        data = {
+          'action': 'wpmtst_view_add_field_checkbox',
+          'fieldName': fieldName,
+          'fieldType': fieldType,
+          'key': key,
+          'source': $('#add-field').attr('source')
+        };
+        $.get(ajaxurl, data, function (response) {
+          // insert into placeholder div
+          $elParent.find('.field-property-box').html(response);
+        });
         break;
 
       default:
@@ -1033,6 +1050,7 @@ jQuery(document).ready(function ($) {
     var key = $elParent.data('key');
     var typeSelectParent = $elParent.find('.field-type');
     var typeSelect = typeSelectParent.find('select');
+    var source = $('#add-field').attr('source');
 	var data;
 
     $elParent.not('.open').addClass('open').find('.field-properties').addClass('open').slideDown();
@@ -1063,14 +1081,13 @@ jQuery(document).ready(function ($) {
       // Show dependent inputs
 	  $elParent.find('.field-dep').show();
     }
-
     switch (fieldValue) {
       // First, the immutables
       case 'post_date':
       case 'submit_date':
         // Disable type selector
         typeSelect.val('date').prop('disabled', true);
-        typeSelectParent.append('<input type="hidden" class="save-type" name="view[data][client_section][' + key + '][save-type]" value="date">');
+        typeSelectParent.append('<input type="hidden" class="save-type" name="' + source + '[client_section][' + key + '][save-type]" value="date">');
 
         // add format field
         data = {
@@ -1101,7 +1118,7 @@ jQuery(document).ready(function ($) {
 
       case 'category':
         $(typeSelect).val('category').prop('disabled', true);
-        typeSelectParent.append('<input type="hidden" class="save-type" name="view[data][client_section][' + key + '][save-type]" value="category">');
+        typeSelectParent.append('<input type="hidden" class="save-type" name="' + source + '[client_section][' + key + '][save-type]" value="category">');
         $elParent.find('.field-property-box').empty();
         break;
 
@@ -1110,14 +1127,33 @@ jQuery(document).ready(function ($) {
         // Special handling
         if ('rating' === fieldType) {
           typeSelect.val('rating').prop('disabled', true);
-          typeSelectParent.append('<input type="hidden" class="save-type" name="view[data][client_section][' + key + '][save-type]" value="rating">');
+          typeSelectParent.append('<input type="hidden" class="save-type" name="' + source + '[client_section][' + key + '][save-type]" value="rating">');
           $elParent.find('.field-property-box').empty();
+          break;
+        }
+        
+        if ('checkbox' === fieldType) {
+          typeSelect.val('checkbox').prop('disabled', true);
+          typeSelectParent.append('<input type="hidden" class="save-type" name="' + source + '[client_section][' + key + '][save-type]" value="checkbox">');
+          typeSelect.parent().hide();
+          var fieldName = $elParent.find('.field-name').find('select').val();
+          data = {
+            'action': 'wpmtst_view_add_field_checkbox',
+            'fieldName': fieldName,
+            'fieldType': fieldType,
+            'key': key,
+            'source': source
+          };
+          $.get(ajaxurl, data, function (response) {
+            // insert into placeholder div
+            $elParent.find('.field-property-box').html(response);
+          });
           break;
         }
 
         if ('platform' === fieldType) {
           typeSelect.val('platform').prop('disabled', true);
-          typeSelectParent.append('<input type="hidden" class="save-type" name="view[data][client_section][' + key + '][save-type]" value="platform">');
+          typeSelectParent.append('<input type="hidden" class="save-type" name="' + source + '[client_section][' + key + '][save-type]" value="platform">');
           $elParent.find('.field-property-box').empty();
           break;
         }
@@ -1129,6 +1165,39 @@ jQuery(document).ready(function ($) {
         $el.parent().find('input.save-type').remove();
     }
   });
+  
+    /**
+   * Custom field checkbox label
+   */
+  customFieldList.on('change', '.field-label-select', function () {
+      var fieldValue = $(this).val();
+      var elParent = $(this).closest('.field3');
+      var fieldLabel = elParent.find('.client_section_field_label');
+      var defaultValue = fieldLabel.attr('attr-defaultValue');
+      if (fieldValue == 'custom') {
+          fieldLabel.prop("readonly", false);
+      } else {
+          fieldLabel.prop("readonly", true);
+          fieldLabel.val(defaultValue);
+      }
+  });
+  
+    /**
+   * Custom field checkbox value
+   */
+  customFieldList.on('change', '.field-checked-select', function () {
+      var fieldValue = $(this).val();
+      var elParent = $(this).closest('.field3');
+      var fieldLabel = elParent.find('.client_section_field_checked_value');
+      var defaultValue = fieldLabel.attr('attr-defaultValue');
+      if (fieldValue == 'custom') {
+          fieldLabel.prop("readonly", false);
+      } else {
+          fieldLabel.prop("readonly", true);
+          fieldLabel.val(defaultValue);
+      }
+  });
+
 
   /**
    * Delete a client field
@@ -1159,6 +1228,14 @@ jQuery(document).ready(function ($) {
       .slideToggle(100);
     return false;
   });
+
+  jQuery('input[name="view[data][mode]"]').on('change', function() {
+      if (this.value == 'single_template') {
+          jQuery('#wpmtst-views-form .then_multiple').hide();
+      } else {
+          jQuery('#wpmtst-views-form .then_multiple').show();
+      }
+  })
 
   /**
    * Slider|Carousel change listener

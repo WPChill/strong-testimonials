@@ -74,15 +74,17 @@
 						<option value="no" <?php selected( $view['gravatar'], 'no' ); ?>><?php _e( 'show nothing', 'strong-testimonials' ); ?></option>
 						<option value="yes" <?php selected( $view['gravatar'], 'yes' ); ?>><?php _e( 'show Gravatar', 'strong-testimonials' ); ?></option>
 						<option value="if" <?php selected( $view['gravatar'], 'if' ); ?>><?php _e( 'show Gravatar only if found', 'strong-testimonials' ); ?></option>
+                                                <?php do_action('wpmtst_avatar_options', $view) ?>
 					</select>
 				</div>
 				<div class="inline">
-					<div class="then fast then_not_no then_yes then_if" style="display: none;">
+					<div class="then fast then_not_no then_not_default then_not_initials then_not_wp_avatars then_yes then_if" style="display: none;">
 						<p class="description tall">
 							<a href="<?php echo admin_url( 'options-discussion.php' ); ?>"><?php _e( 'Gravatar settings', 'strong-testimonials' ); ?></a>
 						</p>
 					</div>
 				</div>
+                                <?php do_action('after_no_featured_image', $view) ?>
 			</div>
 		</div>
 

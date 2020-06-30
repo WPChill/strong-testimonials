@@ -306,7 +306,7 @@ class Strong_View {
 
 		// A single script included in directory.
 		$script = WPMST()->templates->get_template_config( $this->atts, 'script', false );
-
+                
 		if ( $script ) {
 			$handle = 'testimonials-' . $this->get_att( 'template' );
 			wp_register_script( $handle, $script, $deps_array );

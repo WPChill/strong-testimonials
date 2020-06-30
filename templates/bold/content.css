@@ -122,6 +122,16 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
   text-decoration: none;
   box-shadow: none;
 }
+.strong-view.wpmtst-bold .wpmtst-testimonial-image .initials {
+  text-align: center;
+  font-size: 42px;
+  font-weight: bold;
+  background-color: #f9f9f9;
+  border-radius: 3px;
+  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.4);
+  display: table-cell;
+  vertical-align: middle;
+}
 .strong-view.wpmtst-bold .wpmtst-testimonial-field {
   font-size: 1.2em;
 }
@@ -244,4 +254,11 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
 
 .disabled { 
   display: none!important;
+}
+
+/*  Compatibility with metaslider pro layers display
+----------------------------------------------------*/
+
+.msHtmlOverlay .layer .disabled {
+    display: block !important;
 }

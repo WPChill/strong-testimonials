@@ -24,6 +24,7 @@ $links .= '</span>';
                         <option value="standard" <?php selected( 'standard', $view['pagination_settings']['type'] ); ?>>
 							<?php _e( 'WordPress standard', 'strong-testimonials' ); ?>
                         </option>
+                        <?php do_action( 'wpmtst_form_pagination_options_after', $view ) ?>
                     </select>
                 </label>
             </div>

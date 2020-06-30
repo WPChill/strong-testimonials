@@ -109,19 +109,6 @@
     e.preventDefault()
   })
 
-  // Listen for [Add Row]
-  $('#add-pair').on('click', function (e) {
-    var $this = $(this);
-    var key = $this.closest('.lazyload-pairs').find('.pair').length;
-    var data = {
-      'action': 'wpmtst_add_lazyload_pair',
-      'key': key,
-    };
-    $.get(ajaxurl, data, function (response) {
-      $this.parent().before(response.data).prev().find('input').first().focus();
-    });
-  });
-
   // Start
   saveCurrentSettings()
   updateDisplay()

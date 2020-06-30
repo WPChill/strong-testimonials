@@ -142,7 +142,7 @@ class Strong_Testimonials_Settings_Compat {
 			}
 
 		}
-
+                $input['random_js'] = wpmtst_sanitize_checkbox( $input, 'random_js' );
 		return $input;
 	}
 
@@ -162,11 +162,11 @@ class Strong_Testimonials_Settings_Compat {
 	 */
 	public function settings_top() {
 		$this->settings_intro();
+                $this->settings_random_js();
 		$this->settings_page_loading();
 		$this->settings_prerender();
 		$this->settings_monitor();
 		$this->settings_controller();
-		$this->settings_lazyload();
 	}
 
 	/**
@@ -244,9 +244,29 @@ class Strong_Testimonials_Settings_Compat {
 		</table>
 
 		<h2><?php _e( 'Compatibility Settings', 'strong-testimonials' ); ?></h2>
-
+               
 		<?php
 	}
+        
+        public function settings_random_js() {
+                ?>
+                <table class="form-table" cellpadding="0" cellspacing="0">
+			<tr valign="top">
+				<th scope="row">
+					<?php _e( 'Random JS', 'strong-testimonials' ); ?>
+				</th>
+				<td>
+                                    <fieldset>
+                                            <label>
+                                                    <input type="checkbox" name="wpmtst_compat_options[random_js]" <?php checked( $this->options['random_js'] ) ?> />
+                                                    <?php _e( 'Randomize testimonials via javascript to ensure proper behaviour. Check this if using page caching plugins (WP Rocket, Super Cache, W3 Total Cache etc.)', 'strong-testimonials' ); ?>
+                                                    <?php _e( 'Off by default.', 'strong-testimonials' ); ?>
+                                            </label>
+                                    </fieldset>
+				</td>
+			</tr>
+		</table> <?php
+        }
 
 	/**
 	 * Page Loading
@@ -812,128 +832,6 @@ class Strong_Testimonials_Settings_Compat {
 		</div>
 		<?php
 	}
-
-	/**
-	 * Lazy load
-	 *
-	 * @since 2.31.0
-	 */
-	public function settings_lazyload() {
-		?>
-		<table class="form-table" cellpadding="0" cellspacing="0">
-			<tr valign="top">
-				<th scope="row">
-					<?php _e( 'Lazy Loading Images', 'strong-testimonials' ); ?>
-				</th>
-				<td>
-					<div class="row header">
-						<p><?php _e( 'Watch for lazy loading images in themes and plugins.', 'strong-testimonials' ); ?></p>
-					</div>
-					<fieldset>
-						<?php $this->settings_page_lazyload_enabled(); ?>
-						<?php $this->settings_page_lazyload_classes(); ?>
-					</fieldset>
-				</td>
-			</tr>
-		</table>
-		<?php
-	}
-
-	/**
-	 * Lazy load > Enabled
-	 *
-	 * @since 2.31.0
-	 */
-	public function settings_page_lazyload_enabled() {
-		$checked = checked( $this->options['lazyload']['enabled'], 1, false );
-		?>
-		<div class="row">
-			<div>
-				<label for="lazyload-enabled">
-					<input id="lazyload-enabled"
-						name="wpmtst_compat_options[lazyload][enabled]"
-						data-group="lazyload"
-						type="checkbox"
-						<?php echo $checked; ?> />
-					<?php _e( 'Enable watcher', 'strong-testimonials' ); ?>
-				</label>
-			</div>
-			<div data-sub="lazyload">
-				<p class="about"><?php _e( 'Most lazy loading techniques use one or two CSS class names to indicate which images to lazy load and when the lazy loading is finished.', 'strong-testimonials' ); ?></p>
-				<p class="about"><?php _e( 'Contact support for your theme or plugin to ask if it uses CSS class names.', 'strong-testimonials' ); ?></p>
-			</div>
-		</div>
-		<?php
-	}
-
-	/**
-	 * Lazy load > CSS classes
-	 *
-	 * @since 2.31.0
-	 */
-	public function settings_page_lazyload_classes() {
-		?>
-		<div class="row" data-sub="lazyload">
-			<div>
-				<label>
-					<?php _e( 'CSS Class Names', 'strong-testimonials' ); ?>
-				</label>
-			</div>
-			<div class="lazyload-pairs">
-				<?php
-				if ( isset( $this->options['lazyload']['classes'] ) ) {
-					foreach ( $this->options['lazyload']['classes'] as $key => $pair ) {
-						$this->settings_page_lazyload_class_inputs( $key, $pair );
-					}
-				}
-				?>
-				<div class="pair-actions">
-					<input class="button"
-						id="add-pair"
-						value="<?php esc_attr_e( 'Add Classes', 'strong-testimonials' ); ?>"
-						type="button" />
-				</div>
-			</div>
-		</div>
-		<?php
-	}
-
-	/**
-	 * Lazy load > CSS classes > Individual pair
-	 *
-	 * @since 2.31.0
-	 */
-	private function settings_page_lazyload_class_inputs( $key, $pair ) {
-		?>
-		<div class="pair">
-			<label>
-				<?php _ex( 'start', 'noun', 'strong-testimonials' ); ?>
-				<input class="element code"
-					name="wpmtst_compat_options[lazyload][classes][<?php echo $key; ?>][start]"
-					type="text"
-					value="<?php echo esc_attr( $pair['start'] ); ?>" />
-			</label>
-			<span class="pair-sep"></span>
-			<label>
-				<?php _ex( 'finish', 'noun', 'strong-testimonials' ); ?>
-				<input class="element code"
-					name="wpmtst_compat_options[lazyload][classes][<?php echo $key; ?>][finish]"
-					type="text"
-					value="<?php echo esc_attr( $pair['finish'] ); ?>" />
-			</label>
-		</div>
-		<?php
-	}
-
-	/**
-	 * [Add Pair] Ajax receiver
-	 */
-	public function add_lazyload_pair() {
-		ob_start();
-		$this->settings_page_lazyload_class_inputs( $_REQUEST['key'], array( 'start' => '', 'finish' => '' ) );
-		wp_send_json_success( ob_get_clean() );
-	}
-
 }
 
 new Strong_Testimonials_Settings_Compat();

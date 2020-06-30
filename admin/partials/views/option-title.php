@@ -46,6 +46,8 @@ if ( '0' == $view['title_link'] ) {
                         <option value="<?php echo $url['name']; ?>" <?php selected( $url['name'], $view['title_link'] ); ?>><?php echo $url['label']; ?></option>
                     <?php } ?>
                 </select>
+                
+                <?php do_action('wpmtst_view_editor_after_group_fields_title') ?>
             </div>
         </div>
     </div>

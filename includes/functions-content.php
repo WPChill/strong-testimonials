@@ -174,7 +174,7 @@ function wpmtst_trim_words( $text, $num_words = 55, $more = null, $hybrid = fals
 	if ( null === $more ) {
 		$more = __( '&hellip;', 'strong-testimonials' );
 	}
-
+        $full_text = strip_tags( $text, '<br><img><b><strong><i><em><ul><ol><li><del><a>' );
 	$text = strip_tags( $text, '<br>' );
 
 	/*
@@ -195,14 +195,13 @@ function wpmtst_trim_words( $text, $num_words = 55, $more = null, $hybrid = fals
 
 	if ( count( $words_array ) > $num_words ) {
 		if ( $hybrid ) {
-			$text = wpmtst_assemble_hybrid( $words_array, $num_words, $sep, $more );
+			$text = wpmtst_assemble_hybrid( $words_array, $num_words, $sep, $more, $full_text );
 		} else {
 			$text = wpmtst_assemble_excerpt( $words_array, $sep, $more );
 		}
 	} else {
 		$text = implode( $sep, $words_array );
 	}
-
 	return $text;
 }
 
@@ -234,19 +233,23 @@ function wpmtst_assemble_excerpt( $words_array, $sep, $more ) {
  *
  * @return string
  */
-function wpmtst_assemble_hybrid( $words_array, $num_words, $sep, $more ) {
+function wpmtst_assemble_hybrid( $words_array, $num_words, $sep, $more, $full_text ) {
 	$ellipsis = wpmtst_ellipsis();
 	if ( $ellipsis ) {
 		$ellipsis = '<span class="ellipsis">' . $ellipsis . ' </span>';
 		/* ! This space is important:                        ^       */
 	}
-
 	$first_half  = implode( $sep, array_slice( $words_array, 0, $num_words ) );
 	$second_half = implode( $sep, array_slice( $words_array, $num_words ) );
-
+        $wrap_open_class = '';
+        if (  WPMST()->atts( 'html_content' ) ) {
+            $second_half = $full_text;
+            $wrap_open_class = 'all-html';
+        }
+        $wrap_open_excerpt  = '<span class="readmore-excerpt animated ' . $wrap_open_class . '"> ';
 	$wrap_open  = '<span class="readmore-content animated" id="more-' . get_the_ID() . '" hidden> ';
 	$wrap_close = ' </span>';
-
-	return $first_half . $ellipsis . ' ' . $wrap_open . $second_half . $wrap_close . $more;
-	/* ! This space is important:     ^                                                  */
+        
+	return $wrap_open_excerpt . $first_half . $ellipsis . $wrap_close . ' ' . $wrap_open . $second_half . $wrap_close . $more;
+	/* ! This space is important:                                        ^                                                  */
 }

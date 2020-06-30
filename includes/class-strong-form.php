@@ -395,6 +395,7 @@ class Strong_Testimonials_Form {
 			$this->set_form_values( null );
 			$this->set_form_errors( null );
 			$this->notify_admin( $form_values, $form_name );
+                        do_action('wpmtst_new_testimonial_submit', $form_values, $form_name);
 
 			return true;
 		}
@@ -522,7 +523,7 @@ class Strong_Testimonials_Form {
 
 		} // for each recipient
 	}
-
+        
 	/**
 	 * Replace tags for custom fields.
 	 *
@@ -532,7 +533,7 @@ class Strong_Testimonials_Form {
 	 *
 	 * @return string
 	 */
-	private function replace_custom_fields( $text, $fields, $post ) {
+	public static function replace_custom_fields( $text, $fields, $post ) {
 		foreach ( $fields as $field ) {
 			$replace    = "({$field['label']} blank)";
 			$post_field = isset( $post[ $field['name'] ] ) ? $post[ $field['name'] ] : false;

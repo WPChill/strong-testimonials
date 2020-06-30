@@ -82,7 +82,9 @@ class Strong_Testimonials_Settings_General {
 	public static function sanitize_options( $input ) {
 		$input['embed_width']             = $input['embed_width'] ? (int) sanitize_text_field( $input['embed_width'] ) : '';
 		$input['nofollow']                = wpmtst_sanitize_checkbox( $input, 'nofollow' );
-        $input['disable_rewrite']         = wpmtst_sanitize_checkbox( $input, 'disable_rewrite' );
+                $input['noopener']                = wpmtst_sanitize_checkbox( $input, 'noopener' );
+                $input['noreferrer']              = wpmtst_sanitize_checkbox( $input, 'noreferrer' );
+                $input['disable_rewrite']         = wpmtst_sanitize_checkbox( $input, 'disable_rewrite' );
 		$input['pending_indicator']       = wpmtst_sanitize_checkbox( $input, 'pending_indicator' );
 		$input['remove_whitespace']       = wpmtst_sanitize_checkbox( $input, 'remove_whitespace' );
        /* @todo : delete commented line. For the moment let it be */
@@ -92,10 +94,12 @@ class Strong_Testimonials_Settings_General {
 		$input['support_comments']        = wpmtst_sanitize_checkbox( $input, 'support_comments' );
 		$input['support_custom_fields']   = wpmtst_sanitize_checkbox( $input, 'support_custom_fields' );
 		$input['single_testimonial_slug'] = sanitize_text_field( $input['single_testimonial_slug'] );
-		$input['no_lazyload']             = wpmtst_sanitize_checkbox( $input, 'no_lazyload' );
+		$input['lazyload']                = wpmtst_sanitize_checkbox( $input, 'lazyload' );
+                $input['no_lazyload_plugin']      = wpmtst_sanitize_checkbox( $input, 'no_lazyload_plugin' );
 		$input['touch_enabled']           = wpmtst_sanitize_checkbox( $input, 'touch_enabled' );
-
-		return $input;
+                $input['upsells']                = wpmtst_sanitize_checkbox( $input, 'upsells' );
+                
+                return apply_filters( 'wpmtst_sanitize_general_options', $input );
 	}
 
 }

@@ -33,6 +33,7 @@ class Strong_Views_List_Table extends Strong_Testimonials_List_Table {
 			usort( $data, array( &$this, 'usort_reorder' ) );
 		}
 		$data = $this->move_sticky( $data );
+                $data = apply_filters('wpmtst_list_views', $data);
 		$this->items = $data;
 	}
 

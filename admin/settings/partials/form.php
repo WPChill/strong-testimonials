@@ -212,12 +212,12 @@ $form_options = get_option( 'wpmtst_form_options' );
 
 		<td>
 			<div class="match-height">
-				<fieldset>
-					<label for="wpmtst-options-admin-notify">
-						<input id="wpmtst-options-admin-notify" type="checkbox" name="wpmtst_form_options[admin_notify]" <?php checked( $form_options['admin_notify'] ); ?>/>
-						<?php esc_html_e( 'Send an email upon new testimonial submission.', 'strong-testimonials' ); ?>
-					</label>
-				</fieldset>
+                            <fieldset>
+                                    <label for="wpmtst-options-admin-notify">
+                                            <input id="wpmtst-options-admin-notify" type="checkbox" name="wpmtst_form_options[admin_notify]" <?php checked( $form_options['admin_notify'] ); ?>/>
+                                            <?php esc_html_e( 'Send an email upon new testimonial submission.', 'strong-testimonials' ); ?>
+                                    </label>
+                            </fieldset>
 			</div>
 			<div class="email-container" id="admin-notify-fields" <?php echo ( $form_options['admin_notify'] ) ? '' : 'style="display: none;"'; ?>>
 				<?php
@@ -226,7 +226,9 @@ $form_options = get_option( 'wpmtst_form_options' );
 				include 'email.php';
 				do_action( 'wpmtst_after_notification_fields', 'notification' );
 				?>
-            </div>
+                        </div>
+                        <?php do_action('wpmtst_after_notification_options', $form_options); ?>
+                    
         </td>
     </tr>
 </table>

@@ -191,7 +191,7 @@ $options = get_option( 'wpmtst_options' );
                 <label>
                     <input type="checkbox" name="wpmtst_options[nofollow]" <?php checked( $options['nofollow'] ); ?>>
 					<?php _e( 'Add <code>rel="nofollow"</code> to URL custom fields.', 'strong-testimonials' ); ?>
-                    <?php _e( 'Off by default.', 'strong-testimonials' ); ?>
+                    <?php _e( 'On by default.', 'strong-testimonials' ); ?>
                 </label>
                 <p class="description">
 	                <?php printf( 'To edit this value on your existing testimonials in bulk, try <a href="%s" target="_blank">%s</a> and set <code>nofollow</code> to <b>default</b>, <b>yes</b> or <b>no</b>.',
@@ -201,15 +201,60 @@ $options = get_option( 'wpmtst_options' );
             </fieldset>
         </td>
     </tr>
-    <?php if ( wpmtst_is_plugin_active( 'lazy-loading-responsive-images' ) ) : ?>
     <tr valign="top">
         <th scope="row">
-			<?php _e( 'No Lazy Loading', 'strong-testimonials' ); ?>
+			<?php _e( 'Noopener Links', 'strong-testimonials' ); ?>
         </th>
         <td>
             <fieldset>
                 <label>
-                    <input type="checkbox" name="wpmtst_options[no_lazyload]" <?php checked( $options['no_lazyload'] ); ?>>
+                    <input type="checkbox" name="wpmtst_options[noopener]" <?php checked( $options['noopener'] ); ?>>
+					<?php _e( 'Add <code>rel="noopener"</code> to URL custom fields.', 'strong-testimonials' ); ?>
+                    <?php _e( 'Off by default.', 'strong-testimonials' ); ?>
+                </label>
+            </fieldset>
+        </td>
+    </tr>
+
+    <tr valign="top">
+        <th scope="row">
+			<?php _e( 'Noreferrer Links', 'strong-testimonials' ); ?>
+        </th>
+        <td>
+            <fieldset>
+                <label>
+                    <input type="checkbox" name="wpmtst_options[noreferrer]" <?php checked( $options['noreferrer'] ); ?>>
+					<?php _e( 'Add <code>rel="noreferrer"</code> to URL custom fields.', 'strong-testimonials' ); ?>
+                    <?php _e( 'Off by default.', 'strong-testimonials' ); ?>
+                </label>
+            </fieldset>
+        </td>
+    </tr>
+    
+    <tr valign="top">
+        <th scope="row">
+			<?php _e( 'Lazy Loading', 'strong-testimonials' ); ?>
+        </th>
+        <td>
+            <fieldset>
+                <label>
+                    <input type="checkbox" name="wpmtst_options[lazyload]" <?php checked( $options['lazyload'] ); ?>>
+                    <?php printf( __( 'Enable the Lazy Loading functionality.', 'strong-testimonials' ) ); ?>
+                    <?php _e( 'Off by default.', 'strong-testimonials' ); ?>
+                </label>
+            </fieldset>
+        </td>
+    </tr>
+    
+    <?php if ( wpmtst_is_plugin_active( 'lazy-loading-responsive-images' ) ) : ?> 
+    <tr valign="top">
+        <th scope="row">
+			<?php _e( 'No Lazy Loading Plugin', 'strong-testimonials' ); ?>
+        </th>
+        <td>
+            <fieldset>
+                <label>
+                    <input type="checkbox" name="wpmtst_options[no_lazyload_plugin]" <?php checked( $options['no_lazyload_plugin'] ); ?>>
                     <?php printf( __( 'Exclude from <a href="%s" target="_blank">Lazy Loading Responsive Images</a> plugin.', 'strong-testimonials' ), esc_url( 'https://wordpress.org/plugins/lazy-loading-responsive-images/' ) ); ?>
                     <?php _e( 'On by default.', 'strong-testimonials' ); ?>
                 </label>
@@ -217,7 +262,22 @@ $options = get_option( 'wpmtst_options' );
         </td>
     </tr>
     <?php else : ?>
-        <input type="hidden" name="wpmtst_options[no_lazyload]" value="<?php echo $options['no_lazyload']; ?>">
+        <input type="hidden" name="wpmtst_options[no_lazyload_plugin]" value="<?php echo $options['no_lazyload_plugin']; ?>">
     <?php endif; ?>
-
+        
+    <tr valign="top">
+        <th scope="row">
+			<?php _e( 'Upsells', 'strong-testimonials' ); ?>
+        </th>
+        <td>
+            <fieldset>
+                <label>
+                    <input type="checkbox" name="wpmtst_options[upsells]" <?php checked( $options['upsells'] ); ?>>
+                    <?php printf( __( 'Disable all upsells.', 'strong-testimonials' ) ); ?>
+                    <?php _e( 'On by default.', 'strong-testimonials' ); ?>
+                </label>
+            </fieldset>
+        </td>
+    </tr>
+    
 </table>

@@ -39,7 +39,11 @@ class Strong_Testimonials_Average_Shortcode {
             // filters
             'category'  => '',
             // rounded
-            'rounded' => ''
+            'rounded' => '',
+            // field
+            'field' => '',
+            // decimals
+            'decimals' => 1
 		);
 		$pairs = apply_filters( "wpmtst_shortcode_defaults__{$this->shortcode}", $pairs );
 
@@ -97,9 +101,9 @@ class Strong_Testimonials_Average_Shortcode {
 
 		$args        = apply_filters( 'wpmtst_query_args', $args, $atts );
 		$posts_array = get_posts( $args );
-
+                
 		// get summary
-		$summary = $this->get_summary( $posts_array );
+		$summary = $this->get_summary( $posts_array, $atts['field'], $atts['decimals'] );
 		/*
 		 * Example:
 		 *
@@ -137,10 +141,10 @@ class Strong_Testimonials_Average_Shortcode {
 		}
 
 		// round the rating if necessary
-        if($atts['rounded']){
-            $rating_average = round($summary['rating_average'],0);
-        } else {
-            $rating_average = round($summary['rating_average'],1);
+        if(!empty($atts['rounded'])){
+            $rating_average = number_format($summary['rating_average'],0);
+        } else{
+            $rating_average = number_format($summary['rating_average'], $atts['decimals']);
         }
 
 		// title
@@ -193,7 +197,7 @@ class Strong_Testimonials_Average_Shortcode {
 		$html = sprintf( '<%s class="%s">%s</%s>', $atts['element'], join( ' ', $class_list ), $content, $atts['element'] );
 
 		wp_enqueue_style( 'wpmtst-rating-display' );
-
+                
 		return apply_filters( 'wpmtst_average_rating_html', $html, $atts, $summary );
 	}
 
@@ -204,7 +208,7 @@ class Strong_Testimonials_Average_Shortcode {
 	 * @since 1.1.0
 	 * @return array|null
 	 */
-	public function get_summary( $posts = null ) {
+	public function get_summary( $posts = null, $field = '', $decimals = 1 ) {
 		// Set a placeholder.
 		$average = array(
 			'review_count'   => null,
@@ -225,7 +229,7 @@ class Strong_Testimonials_Average_Shortcode {
 
 			foreach ( $posts as $post ) {
 				// get rating value
-				$value = $this->get_rating_value( $post );
+				$value = $this->get_rating_value( $post, $field );
 				// add to detail array
 				$rating_detail[ $value ]++;
 				// add to count and sum
@@ -234,13 +238,17 @@ class Strong_Testimonials_Average_Shortcode {
 					$rating_count++;
 				}
 			}
-
+                        
 			if ( $rating_count ) {
+                                $rating_average = number_format( $rating_sum / $rating_count, $decimals );
+                                if($decimals == 1) {
+                                    $rating_average = trim($rating_average, '.0');
+                                }
 				$average = array(
 					'review_count'   => number_format( $review_count ),
 					'rating_count'   => number_format( $rating_count ),
 					'rating_sum'     => number_format( $rating_sum ),
-					'rating_average' => trim( number_format( $rating_sum / $rating_count, 1 ), '.0' ),
+					'rating_average' => $rating_average,
 					'rating_detail'  => $rating_detail,
 				);
 			}
@@ -257,19 +265,31 @@ class Strong_Testimonials_Average_Shortcode {
 	 * @since 1.1.0
 	 * @return int|null
 	 */
-	private function get_rating_value( $post ) {
-		$rating_field = $this->find_first_rating_field();
-
-		if ( $rating_field ) {
-            $rating = intval( get_post_meta( $post->ID, $rating_field['name'], true ) );
-            if ( ! $rating ) {
-                $rating = intval( $rating_field['default_display_value'] );
-            }
-		} else {
-			$rating = 5;
-		}
-
-		return $rating;
+	private function get_rating_value( $post, $field = '' ) {
+                if (!empty($field)) {
+                    if ( $field == 'all') {
+                        $rating_fields = $this->find_all_rating_field();
+                    } else {
+                        $rating_fields = $this->find_rating_field($field);
+                    }
+                    
+                } else {
+                    $rating_fields = $this->find_first_rating_field();
+                }
+                if ( $rating_fields ) {  
+                    $ratings = array();
+                    foreach ( $rating_fields as $rating_field ) {
+                        $rating = intval( get_post_meta( $post->ID, $rating_field['name'], true ) );
+                        if ( ! $rating ) {
+                            $rating = intval( $rating_field['default_display_value'] );
+                        }
+                        $ratings[] = $rating;
+                    }
+                    $rating = array_sum($ratings)/count($ratings);
+                } else {
+                    $rating = 5;
+                }
+                return $rating;
 	}
 
 	/**
@@ -282,9 +302,47 @@ class Strong_Testimonials_Average_Shortcode {
 		$fields = wpmtst_get_custom_fields();
 		foreach ( $fields as $key => $field ) {
 			if ( 'rating' == $field['input_type'] ) {
-				return $field;
+				return array($field);
 			}
 		}
+
+		return false;
+	}
+        
+        /**
+	 * Find specific rating field.
+	 *
+	 * @return bool|int|string
+	 */
+        private function find_rating_field($rating_field) {
+		$fields = wpmtst_get_custom_fields();
+		foreach ( $fields as $key => $field ) {
+			if ( 'rating' == $field['input_type'] && $rating_field == $field['name']) {
+				return array($field);
+			}
+		}
+                
+		return false;
+	}
+        
+        /**
+	 * Find all rating field.
+	 *
+	 * @since 2.41.0
+	 * @return bool|int|string
+	 */
+	private function find_all_rating_field() {
+		$fields = wpmtst_get_custom_fields();
+                $rating = array();
+		foreach ( $fields as $key => $field ) {
+			if ( 'rating' == $field['input_type'] ) {
+				$rating[] = $field;
+			}
+		}
+                
+                if ( !empty($rating) ) {
+                    return $rating;
+                }
 
 		return false;
 	}

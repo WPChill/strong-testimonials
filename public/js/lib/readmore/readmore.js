@@ -53,6 +53,8 @@
 
 		// Listen to each readmore link.
 		document.addEventListener('click', function (event) {
+                    
+
 
 			if (!event.target.matches('.readmore-text')) {
 				return;
@@ -60,16 +62,21 @@
 
 			var toggleButtonText = event.target;
 			var toggleButton = toggleButtonText.parentElement;
+                        var excerptWrapper = toggleButtonText.parentElement.parentElement.querySelector('.readmore-excerpt');
 			var fullTextWrapper = toggleButtonText.parentElement.parentElement.querySelector('.readmore-content');
 			var ellipsis = toggleButtonText.parentElement.parentElement.querySelector('.ellipsis');
-
+                        var allHtml = false;
+                        
+                        if (excerptWrapper.classList.contains('all-html')) {
+                            var allHtml = true;
+                        }
+                        
 			if (!fullTextWrapper) {
 				return;
 			}
 
 			// change attributes and text if full text is shown/hidden
 			if (fullTextWrapper.hasAttribute('hidden')) {
-
 				// show
 				// 1. remove hidden attribute so we can animate it
 				fullTextWrapper.removeAttribute('hidden');
@@ -86,11 +93,14 @@
 				fullTextWrapper.classList.add('fadeInDown');
 				fullTextWrapper.classList.remove('fadeOutUp');
 				fullTextWrapper.classList.remove('faster');
+                                
+                                if (allHtml) { 
+                                    excerptWrapper.style.display = 'none';
+                                }
 
 				fireCustomEvent();
 
 			} else {
-
 				// hide
 				// 1. update toggle link
 				// hide link during transition
@@ -103,6 +113,10 @@
 				fullTextWrapper.classList.add('fadeOutUp');
 				fullTextWrapper.classList.add('faster');
 				fullTextWrapper.classList.remove('fadeInDown');
+                                
+                                if (allHtml) {
+                                    excerptWrapper.style.display = 'block'; 
+                                }
 
 				// 3. do stuff at end of animation (the event listener above)
 
