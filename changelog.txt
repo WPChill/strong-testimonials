@@ -4,9 +4,13 @@
 * Added GDPR integrations
 * Added Star Rating Fieldset Accessibility
 * Added noopener noreferrer option for links
+* Added Lazy Load option for feature images
+* Added upsells option
+* Added characters limit for testimonial's heading and content
 
 * Fixed incompatibility with Metaslider PRO
 * Fixed incompatibility with Simple Custom Post Order
+* Fixed incompatibility with WP Rocket to randomize testimonials
 * Fixed font color bug
 
 = 2.40.2 - Feb. 26, 2020 =
