@@ -64,6 +64,7 @@ function wpmtst_form_field( $field_name ) {
 
 function wpmtst_single_form_field( $field ) {
 	$form_values = WPMST()->form->get_form_values();
+        $form_values = apply_filters('get_predefined_values', $form_values);
 
 	echo '<div class="' . wpmtst_field_group_classes( $field['input_type'], $field['name'] ) . '">';
 
