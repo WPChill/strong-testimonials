@@ -123,6 +123,9 @@ $form_options = get_option( 'wpmtst_form_options' );
 <h3><?php _e( 'Form Actions', 'strong-testimonials' ); ?></h3>
 
 <table class="form-table" cellpadding="0" cellspacing="0">
+        
+        <?php do_action('wpmtst_before_form_actions', $form_options); ?>
+        
 	<tr>
 		<th scope="row">
 			<label for="redirect-page">
@@ -231,6 +234,7 @@ $form_options = get_option( 'wpmtst_form_options' );
                     
         </td>
     </tr>
+    
 </table>
 
 <?php do_action( 'wpmtst_after_form_settings', $form_options, 'wpmtst_form_options' );  ?>

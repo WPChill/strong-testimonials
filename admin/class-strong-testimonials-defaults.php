@@ -473,6 +473,7 @@ class Strong_Testimonials_Defaults {
 			'success_action'           => 'message', // message | id | url
 			'success_redirect_id'      => '',
 			'success_redirect_url'     => '',
+                        'members_only'             => false
 		);
 
 		return apply_filters( 'wpmtst_default_form_options', $default_form_options );
