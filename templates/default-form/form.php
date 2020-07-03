@@ -12,8 +12,8 @@
 
         <div class="strong-form-inner">
             
-            <?php if (isset($form_options['members_only']) && $form_options['members_only'] == true && !is_user_logged_in()): ?>
-                <span class="error"><?php _e('You need to be logged in to access this form.') ?></span>
+            <?php if (isset($form_options['members_only']) && $form_options['members_only'] == true && isset($form_options['members_only_message']) && !is_user_logged_in()): ?>
+                <span class="error"><?php echo $form_options['members_only_message']; ?></span>
                 <a href="<?php echo esc_url( wp_login_url( get_permalink() ) ); ?>" alt="<?php esc_attr_e( 'Login', 'textdomain' ); ?>">
                     <?php _e( 'Login', 'textdomain' ); ?>
                 </a>
