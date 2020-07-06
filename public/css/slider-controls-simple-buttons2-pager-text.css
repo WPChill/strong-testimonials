@@ -101,16 +101,22 @@
   background:#fff;
   position: relative;
   left: -1px;
-  top: 1px;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  top: 3px;
 }
 .strong-view.controls-style-buttons2:not(.rtl) .wpmslider-next:before {
   content: "";
   -webkit-mask: url('../svg/chevron-right-solid.svg') center center no-repeat;
   mask: url('../svg/chevron-right-solid.svg') center center no-repeat;
-  background:#fff;
   position: relative;
   left: 1px;
-  top: 1px;
+  display: inline-block;
+  width: 20px;
+  background: #fff;
+  height: 20px;
+  top: 3px;
 }
 .strong-view.controls-style-buttons2.rtl .wpmslider-prev:before {
   content: "";
