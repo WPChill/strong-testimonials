@@ -371,7 +371,7 @@ class Strong_Testimonials_Upsell {
 	}
         
         public function add_upsells_11() {
-		if ( ! defined( 'WPMTST_FILTERS_VERSION' ) ) :
+		if ( ! defined( 'WPMTST_ROLE_MANAGEMENT_VERSION' ) ) :
 			?>
 			<div class="wpmtst-alert">
 				<?php
@@ -379,7 +379,7 @@ class Strong_Testimonials_Upsell {
 					esc_html__( 'Get our %s extension.', 'strong-testimonials' ),
 					sprintf(
 						'<a href="%s" target="_blank">%s</a>',
-						esc_url( WPMTST_STORE_URL . 'pricing/' ),
+						esc_url( WPMTST_STORE_URL . '/pricing/' ),
 						esc_html__( 'Strong Testimonials: Role Management', 'strong-testimonials' )
 					)
 				);
