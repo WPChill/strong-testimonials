@@ -231,6 +231,7 @@ $form_options = get_option( 'wpmtst_form_options' );
 				?>
                         </div>
                         <?php do_action('wpmtst_after_notification_options', $form_options); ?>
+                        <?php do_action( 'wpmtst_after_mail_notification_settings' );  ?>
                     
         </td>
     </tr>

@@ -246,9 +246,11 @@ function wpmtst_view_settings( $action = '', $view_id = null ) {
 
 		do_action( 'wpmtst_view_editor_before_group_extra' );
 		include( 'partials/views/group-extra.php' );
+                do_action( 'wpmtst_after_extra_view_section' );
 
 		do_action( 'wpmtst_view_editor_before_group_style' );
 		include( 'partials/views/group-style.php' );
+                do_action( 'wpmtst_after_style_view_section' );
 
 		do_action( 'wpmtst_view_editor_before_group_compat' );
 		include( 'partials/views/group-compat.php' );

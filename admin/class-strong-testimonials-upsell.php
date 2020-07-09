@@ -19,6 +19,9 @@ class Strong_Testimonials_Upsell {
                     add_action( 'wpmtst_fields_before_fields_editor_preview', array( $this, 'add_upsells_5' ) );
                     add_action( 'wpmtst_after_form_settings', array( $this, 'add_upsells_6' ) );
                     add_action( 'wpmtst_views_after_template_list', array( $this, 'add_upsells_7' ) );
+                    add_action( 'wpmtst_after_mail_notification_settings', array( $this, 'add_upsells_8' ) );
+                    add_action( 'wpmtst_after_extra_view_section', array( $this, 'add_upsells_9' ) );
+                    add_action( 'wpmtst_after_style_view_section', array( $this, 'add_upsells_10' ) );
                 }
 
 		add_action( 'add_meta_boxes', array( $this, 'add_meta_boxes' ) );
@@ -299,7 +302,72 @@ class Strong_Testimonials_Upsell {
 			<?php
 		endif;
 	}
-
+        
+        public function add_upsells_8() {
+		if ( ! defined( 'WPMTST_EMAILS_VERSION' ) ) :
+			?>
+			<div class="wpmtst-alert">
+				<?php
+				printf(
+					esc_html__( 'Keep your customers informed. Get access to new email options with the %s extension. With this extension you can send email to customer upon submission and approval of testimonial.', 'strong-testimonials' ),
+					sprintf(
+						'<a href="%s" target="_blank">%s</a>',
+						esc_url( WPMTST_STORE_URL . 'pricing/' ),
+						esc_html__( 'Strong Testimonials: Emails', 'strong-testimonials' )
+					)
+				);
+				?>
+				<p>
+					<a class="button button-primary" target="_blank" href="<?php echo esc_url( $this->store_upgrade_url . '&utm_medium=views-pro-templates-upsell' ); ?>"><?php esc_html_e( 'Upgrade', 'strong-testimonials' ); ?></a>
+				</p>
+			</div>
+			<?php
+		endif;
+	}
+        
+        public function add_upsells_9() {
+		if ( ! defined( 'WPMTST_INFINITE_SCROLL_VERSION' ) ) :
+			?>
+			<div class="wpmtst-alert">
+				<?php
+				printf(
+					esc_html__( 'Get a new type of pagination for your site with the %s extension.', 'strong-testimonials' ),
+					sprintf(
+						'<a href="%s" target="_blank">%s</a>',
+						esc_url( WPMTST_STORE_URL . 'pricing/' ),
+						esc_html__( 'Strong Testimonials: Infinite Scroll', 'strong-testimonials' )
+					)
+				);
+				?>
+				<p>
+					<a class="button button-primary" target="_blank" href="<?php echo esc_url( $this->store_upgrade_url . '&utm_medium=views-pro-templates-upsell' ); ?>"><?php esc_html_e( 'Upgrade', 'strong-testimonials' ); ?></a>
+				</p>
+			</div>
+			<?php
+		endif;
+	}
+        
+        public function add_upsells_10() {
+		if ( ! defined( 'WPMTST_FILTERS_VERSION' ) ) :
+			?>
+			<div class="wpmtst-alert">
+				<?php
+				printf(
+					esc_html__( 'Add filters to your testimonials with our %s extension.', 'strong-testimonials' ),
+					sprintf(
+						'<a href="%s" target="_blank">%s</a>',
+						esc_url( WPMTST_STORE_URL . 'pricing/' ),
+						esc_html__( 'Strong Testimonials: Filters', 'strong-testimonials' )
+					)
+				);
+				?>
+				<p>
+					<a class="button button-primary" target="_blank" href="<?php echo esc_url( $this->store_upgrade_url . '&utm_medium=views-pro-templates-upsell' ); ?>"><?php esc_html_e( 'Upgrade', 'strong-testimonials' ); ?></a>
+				</p>
+			</div>
+			<?php
+		endif;
+	}
 }
 
 new Strong_Testimonials_Upsell();
