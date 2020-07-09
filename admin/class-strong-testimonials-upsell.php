@@ -22,6 +22,7 @@ class Strong_Testimonials_Upsell {
                     add_action( 'wpmtst_after_mail_notification_settings', array( $this, 'add_upsells_8' ) );
                     add_action( 'wpmtst_after_extra_view_section', array( $this, 'add_upsells_9' ) );
                     add_action( 'wpmtst_after_style_view_section', array( $this, 'add_upsells_10' ) );
+                    add_action( 'wpmtst_testimonials_settings', array( $this, 'add_upsells_11' ) );
                 }
 
 		add_action( 'add_meta_boxes', array( $this, 'add_meta_boxes' ) );
@@ -358,6 +359,28 @@ class Strong_Testimonials_Upsell {
 						'<a href="%s" target="_blank">%s</a>',
 						esc_url( WPMTST_STORE_URL . 'pricing/' ),
 						esc_html__( 'Strong Testimonials: Filters', 'strong-testimonials' )
+					)
+				);
+				?>
+				<p>
+					<a class="button button-primary" target="_blank" href="<?php echo esc_url( $this->store_upgrade_url . '&utm_medium=views-pro-templates-upsell' ); ?>"><?php esc_html_e( 'Upgrade', 'strong-testimonials' ); ?></a>
+				</p>
+			</div>
+			<?php
+		endif;
+	}
+        
+        public function add_upsells_11() {
+		if ( ! defined( 'WPMTST_FILTERS_VERSION' ) ) :
+			?>
+			<div class="wpmtst-alert">
+				<?php
+				printf(
+					esc_html__( 'Get our %s extension.', 'strong-testimonials' ),
+					sprintf(
+						'<a href="%s" target="_blank">%s</a>',
+						esc_url( WPMTST_STORE_URL . 'pricing/' ),
+						esc_html__( 'Strong Testimonials: Role Management', 'strong-testimonials' )
 					)
 				);
 				?>
