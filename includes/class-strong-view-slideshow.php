@@ -391,7 +391,7 @@ class Strong_View_Slideshow extends Strong_View_Display {
 			'pause'               => $this->atts['slideshow_settings']['pause'] * 1000,
 			'autoHover'           => $this->atts['slideshow_settings']['auto_hover'] ? 1 : 0,
 			'autoStart'           => $this->atts['slideshow_settings']['auto_start'] ? 1 : 0,
-			'continuousSliding'   => $this->atts['slideshow_settings']['continuous_sliding'] ? 1 : 0,
+			'infiniteLoop'        => $this->atts['slideshow_settings']['continuous_sliding'] ? 1 : 0,
 			'stopAutoOnClick'     => $this->atts['slideshow_settings']['stop_auto_on_click'] ? 1 : 0,
 			'adaptiveHeight'      => $this->atts['slideshow_settings']['adapt_height'] ? 1 : 0,
 			'adaptiveHeightSpeed' => $this->atts['slideshow_settings']['adapt_height_speed'] * 1000,
