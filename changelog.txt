@@ -1,5 +1,5 @@
 = 2.41.1 =
-* Fixed title option bug
+* Fixed title option bug from views
 * Fixed continous sliding behavior bug
 
 = 2.41.0 =
