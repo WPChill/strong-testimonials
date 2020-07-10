@@ -83,7 +83,7 @@ function wpmtst_sanitize_view( $input ) {
 	$data['pagination']          = isset( $input['pagination'] ) ? 1 : 0;
 	$data['pagination_settings'] = wpmtst_sanitize_view_pagination( $input['pagination_settings'] );
 
-	$data['title']              = isset( $input['title'] ) ? 1 : 0;
+	$data['title']              = isset( $input['title'] ) ? 1 : 'hidden';
     $data['title_link']         = sanitize_text_field( $input['title_link'] );
 
 	$data['content']            = sanitize_text_field( $input['content'] );
