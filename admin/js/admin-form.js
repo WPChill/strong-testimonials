@@ -54,11 +54,10 @@ jQuery(document).ready(function ($) {
    */
 
   var $tagListItems = $('#wpmtst-tags-list li');
-
   $tagListItems.attr('title', wpmtst_admin.templateTagTitle);
 
   $tagListItems.on('click', function () {
-    $('#wpmtst-option-email-message').insertAtCaret($(this).text());
+    $(this).closest('.email-container').find('#wpmtst-option-email-message').insertAtCaret($(this).text());
     return false;
   });
 
