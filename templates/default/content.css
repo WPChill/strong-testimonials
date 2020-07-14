@@ -348,7 +348,11 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
 }
 
 .disabled {
-  display: none!important;
+  display: none !important;
+}
+
+.wpmslider-controls.disabled {
+    display: block !important;
 }
 
 /*  Compatibility with metaslider pro layers display

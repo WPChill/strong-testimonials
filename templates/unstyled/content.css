@@ -2,6 +2,10 @@
     display:none !important;
 }
 
+.wpmslider-controls.disabled {
+    display: block !important;
+}
+
 /*  Compatibility with metaslider pro layers display
 ----------------------------------------------------*/
 
