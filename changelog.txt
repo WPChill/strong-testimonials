@@ -1,7 +1,12 @@
+= 2.5.0 =
+* Fixed read more bug
+* Added integration with the new addons
+* Changed email's content type
+* Fixed slider navigation and pagination bug
+
 = 2.41.1 =
 * Fixed title option bug from views
 * Fixed continous sliding behavior bug
-* Fixed slider navigation and pagination bug
 
 = 2.41.0 =
 * Added support for comments to Testimonials
