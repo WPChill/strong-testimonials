@@ -473,6 +473,8 @@ class Strong_Testimonials_Defaults {
 			'success_action'           => 'message', // message | id | url
 			'success_redirect_id'      => '',
 			'success_redirect_url'     => '',
+                        'members_only'             => false,
+                        'members_only_message'     => __( 'You need to be logged in to access this form.', 'strong-testimonials' ),
 		);
 
 		return apply_filters( 'wpmtst_default_form_options', $default_form_options );
