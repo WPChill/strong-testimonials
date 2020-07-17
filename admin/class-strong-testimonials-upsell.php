@@ -20,7 +20,7 @@ class Strong_Testimonials_Upsell {
                     add_action( 'wpmtst_after_form_settings', array( $this, 'add_upsells_6' ) );
                     add_action( 'wpmtst_views_after_template_list', array( $this, 'add_upsells_7' ) );
                     add_action( 'wpmtst_after_mail_notification_settings', array( $this, 'add_upsells_8' ) );
-                    add_action( 'wpmtst_after_extra_view_section', array( $this, 'add_upsells_9' ) );
+                    add_action( 'wpmtst_view_editor_pagination_row_end', array( $this, 'add_upsells_9' ) );
                     add_action( 'wpmtst_after_style_view_section', array( $this, 'add_upsells_10' ) );
                     add_action( 'wpmtst_testimonials_settings', array( $this, 'add_upsells_11' ) );
                 }
