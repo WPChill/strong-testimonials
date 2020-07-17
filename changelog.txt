@@ -1,4 +1,4 @@
-= 2.5.0 =
+= 2.41.2 =
 * Fixed read more bug
 * Added integration with the new addons
 * Changed email's content type
@@ -22,8 +22,6 @@
 * Fixed incompatibility with Simple Custom Post Order
 * Fixed incompatibility with WP Rocket to randomize testimonials
 * Fixed font color bug
-
-= 2.40.2 - Feb. 26, 2020 =
 
 = 2.40.7 - May 25, 2020 =
 * Fixed pagination buttons
