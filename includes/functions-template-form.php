@@ -64,7 +64,7 @@ function wpmtst_form_field( $field_name ) {
 
 function wpmtst_single_form_field( $field ) {
 	$form_values = WPMST()->form->get_form_values();
-        $form_values = apply_filters('get_predefined_values', $form_values);
+        $form_values = apply_filters('get_predefined_values', $form_values, $field);
 
 	echo '<div class="' . wpmtst_field_group_classes( $field['input_type'], $field['name'] ) . '">';
 
@@ -155,10 +155,17 @@ function wpmtst_single_form_field( $field ) {
 				break;
 
 			case 'rating':
+                                if (isset($form_values[$field['name']]) && !empty($form_values[$field['name']])) {
+                                    $field['default_form_value'] = $form_values[$field['name']];
+                                }
 				wpmtst_star_rating_form( $field, $field['default_form_value'], 'in-form' );
 				break;
 
 			case 'checkbox':
+                                if (isset($form_values[$field['name']]) && !empty($form_values[$field['name']]) ) {
+                                    $field['default_form_value'] = $form_values[$field['name']];
+                                }
+                                
 				if ( ! isset( $field['show_label'] ) || $field['show_label'] ) {
 					printf(
 						'<label for="wpmtst_%s" class="%s">%s</label>',

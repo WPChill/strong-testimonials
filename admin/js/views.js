@@ -611,7 +611,7 @@ jQuery(document).ready(function ($) {
    * Template change listener
    */
     // TODO Use ID
-  var templateRadios = $('input[type=radio][name=\'view[data][template]\']');
+  var templateRadios = $('.template-list input[type=radio]');
 
   function templateDescriptions () {
     var templateRadioOff, templateRadioOn, template;

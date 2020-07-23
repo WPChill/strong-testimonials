@@ -28,13 +28,13 @@ $links .= '</span>';
                     </select>
                 </label>
             </div>
-            <div class="inline then fast then_simple then_not_standard" style="display: none;">
+            <div class="inline then fast then_simple then_not_standard then_not_infinitescroll" style="display: none;">
                 <p class="description">
 					<?php _e( 'Using JavaScript. Intended for small scale.', 'strong-testimonials' ); ?>
 					<?php echo $links; ?>
                 </p>
             </div>
-            <div class="inline then fast then_not_simple then_standard" style="display: none;">
+            <div class="inline then fast then_not_simple then_standard then_not_infinitescroll" style="display: none;">
                 <p class="description">
 					<?php _e( 'Using paged URLs: /page/2, /page/3, etc. Best for large scale.', 'strong-testimonials' ); ?>
 					<?php echo $links; ?>
@@ -55,7 +55,7 @@ $links .= '</span>';
                        value="<?php echo $view['pagination_settings']['per_page']; ?>"/>
             </div>
 
-            <div class="inline">
+            <div class="inline then then_simple then_standard then_not_infinitescroll">
                 <label for="view-nav">
 					<?php _e( 'Navigation', 'strong-testimonials' ); ?>
                 </label>
@@ -73,7 +73,7 @@ $links .= '</span>';
             </div>
         </div>
 
-        <div class="row then then_not_simple then_standard" style="display: none;">
+        <div class="row then then_not_simple then_standard then_not_infinitescroll" style="display: none;">
             <div class="row-inner">
                 <div class="inline">
                     <label for="view-pagination-show_all">
@@ -112,7 +112,7 @@ $links .= '</span>';
             </div>
         </div>
 
-        <div class="row then then_not_simple then_standard" style="display: none;">
+        <div class="row then then_not_simple then_standard then_not_infinitescroll" style="display: none;">
             <div class="row-inner">
                 <div class="inline inline-middle">
                     <input class="if toggle checkbox" id="view-pagination-prev_next"
@@ -141,7 +141,7 @@ $links .= '</span>';
             </div>
         </div>
 
-        <div class="row then then_not_simple then_standard" style="display: none;">
+        <div class="row then then_not_simple then_standard then_not_infinitescroll" style="display: none;">
             <div class="row-inner">
                 <div class="inline">
                     <label for="view-pagination-before_page_number">
