@@ -38,7 +38,7 @@ class Strong_Testimonials_Upsell {
 
             if ( ! defined( 'WPMTST_REVIEW_MARKUP_VERSION' ) ) {
             	add_action( 'wpmtst_view_editor_after_groups', array( $this, 'output_review_markup_upsell' ) );
-            	add_filter( 'wpmtst_general_upsell_items', array( $this, 'add_review_markup_upsell' ), 10 );
+            	add_filter( 'wpmtst_general_upsell_items', array( $this, 'add_review_markup_upsell' ), 15 );
             	add_action( 'wpmtst_settings_tabs', array( $this, 'register_review_markup' ), 4, 2 );
             	add_filter( 'wpmtst_settings_callbacks', array( $this, 'register_review_markup_settings_page' ) );
             }
@@ -77,6 +77,7 @@ class Strong_Testimonials_Upsell {
             if ( ! defined( 'WPMTST_PRO_VERSION' ) ) {
             	add_action( 'wpmtst_settings_tabs', array( $this, 'register_st_pro_tab' ), 4, 2 );
                 add_filter( 'wpmtst_settings_callbacks', array( $this, 'register_st_pro_page' ) );
+                add_filter( 'wpmtst_general_upsell_items', array( $this, 'add_pro_upsell' ), 10 );
             }
 
             if ( ! defined( 'WPMTST_ASSIGNMENT_VERSION' ) ) {
@@ -164,7 +165,7 @@ class Strong_Testimonials_Upsell {
 					<?php } ?>
 				</ul>
 
-				<a href="<?php echo esc_url( WPMTST_STORE_URL . '/pricing/' ) ?>" target="_blank" class="button button-primary button-hero" style="width:100%;display:block;margin-top:20px;text-align:center;">Upgrade to PRO</a>
+				<a href="<?php echo esc_url( WPMTST_STORE_URL . '/pricing?utm_source=st-lite&utm_campaign=upsell&utm_medium=general-settings-upsell' ) ?>" target="_blank" class="button button-primary button-hero" style="width:100%;display:block;margin-top:20px;text-align:center;">Upgrade to PRO</a>
 
 			</div>
 		</div>
@@ -197,13 +198,13 @@ class Strong_Testimonials_Upsell {
 				esc_html__( 'Control who approves testimonials or who has access to the plugins’ settings panel with %s extension. Get total granular control over who has access to your testimonials.', 'strong-testimonials' ),
 				sprintf(
 					'<a href="%s" target="_blank">%s</a>',
-					esc_url( WPMTST_STORE_URL . '/pricing/' ),
+					esc_url( WPMTST_STORE_URL . '/extensions/role-management?utm_source=st-lite&utm_campaign=upsell&utm_medium=role-management-tab-upsell' ),
 					esc_html__( 'Role Management', 'strong-testimonials' )
 				)
 			);
 			?>
 			<p>
-				<a class="button button-primary" target="_blank" href="<?php echo esc_url( $this->store_upgrade_url . '&utm_medium=views-pro-templates-upsell' ); ?>"><?php esc_html_e( 'Upgrade', 'strong-testimonials' ); ?></a>
+				<a class="button button-primary" target="_blank" href="<?php echo esc_url( $this->store_upgrade_url . '&utm_medium=role-management-tab-upsell' ); ?>"><?php esc_html_e( 'Upgrade', 'strong-testimonials' ); ?></a>
 			</p>
 		</div>
 		<?php
@@ -214,7 +215,7 @@ class Strong_Testimonials_Upsell {
 			esc_html__( 'Control who approves testimonials or who has access to the plugins’ settings panel with %s extension. Get total granular control over who has access to your testimonials.', 'strong-testimonials' ),
 			sprintf(
 				'<a href="%s" target="_blank">%s</a>',
-				esc_url( WPMTST_STORE_URL . '/pricing/' ),
+				esc_url( WPMTST_STORE_URL . '/extensions/role-management?utm_source=st-lite&utm_campaign=upsell&utm_medium=role-management-general-upsell' ),
 				esc_html__( 'Role Management', 'strong-testimonials' )
 			)
 		);
@@ -254,7 +255,7 @@ class Strong_Testimonials_Upsell {
 			esc_html__( 'Show where your customers are located with the %s extension. ', 'strong-testimonials' ),
 			sprintf(
 				'<a href="%s" target="_blank">%s</a>',
-				esc_url( WPMTST_STORE_URL . '/extensions/country-selector?utm_source=st-lite&utm_campaign=upsell&utm_medium=fields-country-selector-upsell' ),
+				esc_url( WPMTST_STORE_URL . '/extensions/country-selector?utm_source=st-lite&utm_campaign=upsell&utm_medium=country-selector-general-upsell' ),
 				esc_html__( 'Country Selector', 'strong-testimonials' )
 			)
 		);
@@ -294,7 +295,7 @@ class Strong_Testimonials_Upsell {
 			esc_html__( 'Get to know your customers by installing our %s extension.', 'strong-testimonials' ),
 			sprintf(
 				'<a href="%s" target="_blank">%s</a>',
-				esc_url( WPMTST_STORE_URL . '/extensions/custom-fields?utm_source=st-lite&utm_campaign=upsell&utm_medium=fields-custom-fields-upsell' ),
+				esc_url( WPMTST_STORE_URL . '/extensions/custom-fields?utm_source=st-lite&utm_campaign=upsell&utm_medium=custom-fields-general-upsell' ),
 				esc_html__( 'Custom Fields', 'strong-testimonials' )
 			)
 		);
@@ -332,7 +333,7 @@ class Strong_Testimonials_Upsell {
 			esc_html__( 'Create multiple submission forms by installing the %s extension.', 'strong-testimonials' ),
 			sprintf(
 				'<a href="%s" target="_blank">%s</a>',
-				esc_url( WPMTST_STORE_URL . '/extensions/multiple-forms?utm_source=st-lite&utm_campaign=upsell&utm_medium=fields-multiple-forms-upsell' ),
+				esc_url( WPMTST_STORE_URL . '/extensions/multiple-forms?utm_source=st-lite&utm_campaign=upsell&utm_medium=multiple-forms-general-upsell' ),
 				esc_html__( 'Multiple Forms', 'strong-testimonials' )
 			)
 		);
@@ -385,7 +386,7 @@ class Strong_Testimonials_Upsell {
 			esc_html__( 'Add SEO-friendly & Schema.org compliant Testimonials with our %s extension.', 'strong-testimonials' ),
 			sprintf(
 				'<a href="%s" target="_blank">%s</a>',
-				esc_url( WPMTST_STORE_URL . '/extensions/review-markup?utm_source=st-lite&utm_campaign=upsell&utm_medium=views-review-markup-upsell' ),
+				esc_url( WPMTST_STORE_URL . '/extensions/review-markup?utm_source=st-lite&utm_campaign=upsell&utm_medium=review-markup-general-upsell' ),
 				esc_html__( 'Review Markup', 'strong-testimonials' )
 			)
 		);
@@ -430,7 +431,7 @@ class Strong_Testimonials_Upsell {
 			esc_html__( 'Start filtering, changing the order, or even editing your testimonials in real-time with the %s extension.', 'strong-testimonials' ),
 			sprintf(
 				'<a href="%s" target="_blank">%s</a>',
-				esc_url( WPMTST_STORE_URL . '/extensions/advanced-views?utm_source=st-lite&utm_campaign=upsell&utm_medium=views-advanced-views-upsell' ),
+				esc_url( WPMTST_STORE_URL . '/extensions/advanced-views?utm_source=st-lite&utm_campaign=upsell&utm_medium=advanced-views-general-upsell' ),
 				esc_html__( 'Advanced Views', 'strong-testimonials' )
 			)
 		);
@@ -522,7 +523,7 @@ class Strong_Testimonials_Upsell {
 			esc_html__( 'Protect your form against spam. Add Google ReCaptcha or honeypot anti-spam with the %s extension.', 'strong-testimonials' ),
             sprintf(
                 '<a href="%s" target="_blank">%s</a>',
-                esc_url( WPMTST_STORE_URL . '/extensions/captcha?utm_source=st-lite&utm_campaign=upsell&utm_medium=form-settings-upsell' ),
+                esc_url( WPMTST_STORE_URL . '/extensions/captcha?utm_source=st-lite&utm_campaign=upsell&utm_medium=form-settings-captcha-general-upsell' ),
                 esc_html__( 'Captcha', 'strong-testimonials' )
             )
 		);
@@ -553,7 +554,7 @@ class Strong_Testimonials_Upsell {
 			esc_html__( 'Get access to professionally designed testimonial templates with the %s extension.', 'strong-testimonials' ),
 			sprintf(
 				'<a href="%s" target="_blank">%s</a>',
-				esc_url( WPMTST_STORE_URL . '/extensions/pro-templates?utm_source=st-lite&utm_campaign=upsell&utm_medium=views-template-list' ),
+				esc_url( WPMTST_STORE_URL . '/extensions/pro-templates?utm_source=st-lite&utm_campaign=upsell&utm_medium=pro-templates-general-upsell' ),
 				esc_html__( 'Pro Templates', 'strong-testimonials' )
 			)
 		);
@@ -574,7 +575,7 @@ class Strong_Testimonials_Upsell {
 				esc_html__( 'Use the %s extension to:', 'strong-testimonials' ),
 				sprintf(
 					'<a href="%s" target="_blank">%s</a>',
-					esc_url( $this->store_upgrade_url . '&utm_medium=enhanced-emails-upsell' ),
+					esc_url( WPMTST_STORE_URL . '/extensions/enhanced-emails?utm_source=st-lite&utm_campaign=upsell&utm_medium=enhanced-emails-upsell' ),
 					esc_html__( 'Strong Testimonials: Enhanced Emails', 'strong-testimonials' )
 				)
 			);
@@ -596,7 +597,7 @@ class Strong_Testimonials_Upsell {
 			esc_html__( 'Send a thank-you email to your clients once their testimonial is approved using %s extension. This way, you increase brand loyalty and grow your chances of seeling more. ', 'strong-testimonials' ),
 			sprintf(
 				'<a href="%s" target="_blank">%s</a>',
-				esc_url( WPMTST_STORE_URL . '/pricing/' ),
+				esc_url( WPMTST_STORE_URL . '/extensions/enhanced-emails?utm_source=st-lite&utm_campaign=upsell&utm_medium=enhanced-emails-general-upsell' ),
 				esc_html__( 'Enhanced Emails', 'strong-testimonials' )
 			)
 		);
@@ -617,7 +618,7 @@ class Strong_Testimonials_Upsell {
 				esc_html__( 'With the %s extension you can:', 'strong-testimonials' ),
 				sprintf(
 					'<a href="%s" target="_blank">%s</a>',
-					esc_url( $this->store_upgrade_url . '&utm_medium=infinite-scroll-upsell' ),
+					esc_url( WPMTST_STORE_URL . '/extensions/infinite-scroll?utm_source=st-lite&utm_campaign=upsell&utm_medium=infinite-scroll-upsell' ),
 					esc_html__( 'Strong Testimonials: Infinite Scroll', 'strong-testimonials' )
 				)
 			);
@@ -638,7 +639,7 @@ class Strong_Testimonials_Upsell {
 			esc_html__( 'Reduce your page’s initial load time - display a fixed number of testimonials on the first view and have more loading when you scroll down with %s extension.', 'strong-testimonials' ),
 			sprintf(
 				'<a href="%s" target="_blank">%s</a>',
-				esc_url( WPMTST_STORE_URL . '/pricing/' ),
+				esc_url( WPMTST_STORE_URL . '/extensions/infinite-scroll?utm_source=st-lite&utm_campaign=upsell&utm_medium=infinite-scroll-general-upsell' ),
 				esc_html__( 'Infinite Scroll', 'strong-testimonials' )
 			)
 		);
@@ -659,7 +660,7 @@ class Strong_Testimonials_Upsell {
 				esc_html__( 'Use the %s extensions to:', 'strong-testimonials' ),
 				sprintf(
 					'<a href="%s" target="_blank">%s</a>',
-					esc_url( WPMTST_STORE_URL . '/extensions/review-markup?utm_source=st-lite&utm_campaign=upsell&utm_medium=views-review-markup-upsell' ),
+					esc_url( WPMTST_STORE_URL . '/extensions/filters?utm_source=st-lite&utm_campaign=upsell&utm_medium=views-filters-upsell' ),
 					esc_html__( 'Strong Testimonials: Filters', 'strong-testimonials' )
 				)
 			);
@@ -680,7 +681,7 @@ class Strong_Testimonials_Upsell {
 			esc_html__( 'Add category-like filters for testimonials, group testimonials by associated product/service, and help potential clients appreciate the great work you do by showcasing reviews from other clients with %s extension.', 'strong-testimonials' ),
 			sprintf(
 				'<a href="%s" target="_blank">%s</a>',
-				esc_url( WPMTST_STORE_URL . '/pricing/' ),
+				esc_url( WPMTST_STORE_URL . '/extensions/filters?utm_source=st-lite&utm_campaign=upsell&utm_medium=filters-general-upsell' ),
 				esc_html__( 'Filters', 'strong-testimonials' )
 			)
 		);
@@ -715,7 +716,7 @@ class Strong_Testimonials_Upsell {
 				esc_html__( 'The %s extension is perfect if you want to easily assign testimonials to certain custom post types.', 'strong-testimonials' ),
 				sprintf(
 					'<a href="%s" target="_blank">%s</a>',
-					esc_url( WPMTST_STORE_URL . '/extensions/properties?utm_source=st-lite&utm_campaign=upsell&utm_medium=settings-tab-assigment-upsell' ),
+					esc_url( WPMTST_STORE_URL . '/extensions/assignment?utm_source=st-lite&utm_campaign=upsell&utm_medium=settings-tab-assigment-upsell' ),
 					esc_html__( 'Strong Testimonials: Assignment', 'strong-testimonials' )
 				)
 			);
@@ -749,27 +750,41 @@ class Strong_Testimonials_Upsell {
 		<div class="wpmtst-alert" style="margin-top:1.5rem;">
 			<?php
 			printf(
-				esc_html__( 'With the %s you can do:', 'strong-testimonials' ),
+				esc_html__( 'With %s you can:', 'strong-testimonials' ),
 				sprintf(
 					'<a href="%s" target="_blank">%s</a>',
-					esc_url( WPMTST_STORE_URL . '/extensions/review-markup?utm_source=st-lite&utm_campaign=upsell&utm_medium=views-review-markup-upsell' ),
+					esc_url( WPMTST_STORE_URL . '/extensions/strong-testimonials-pro?utm_source=st-lite&utm_campaign=upsell&utm_medium=setting-tab-st-pro-upsell' ),
 					esc_html__( 'Strong Testimonials PRO', 'strong-testimonials' )
 				)
 			);
 			?>
 				<ul>
-				<li><?php esc_html_e( 'You can now display a default image when no image has been provided for the testimonial.', 'strong-testimonials' ); ?></li>
-				<li><?php esc_html_e( 'You have the possibility to use author initials as testimonial image', 'strong-testimonials' ); ?></li>
-				<li><?php esc_html_e( 'Choose the HTML tag you’d like to use for your testimonial titles.', 'strong-testimonials' ); ?></li>
-				<li><?php esc_html_e( 'Single Testimonial Template settings', 'strong-testimonials' ); ?></li>
-				<li><?php esc_html_e( 'Prefill testimonial forms from $_GET parameters', 'strong-testimonials' ); ?></li>
+				<li><?php esc_html_e( 'Display a default image when no image has been provided for the testimonial;', 'strong-testimonials' ); ?></li>
+				<li><?php esc_html_e( 'Use author initials as the testimonial image;', 'strong-testimonials' ); ?></li>
+				<li><?php esc_html_e( 'Choose the HTML tag you’d like to use for your testimonial titles;', 'strong-testimonials' ); ?></li>
+				<li><?php esc_html_e( 'Choose the Single Testimonial Template settings;', 'strong-testimonials' ); ?></li>
+				<li><?php esc_html_e( 'Prefill testimonial forms from $_GET parameters;', 'strong-testimonials' ); ?></li>
 				<li><?php esc_html_e( 'Show testimonial form only for logged-in users.', 'strong-testimonials' ); ?></li>
 				</ul>
 			<p>
-				<a class="button button-primary" target="_blank" href="<?php echo esc_url( $this->store_upgrade_url . '&utm_medium=filters-upsell' ); ?>"><?php esc_html_e( 'Upgrade', 'strong-testimonials' ); ?></a>
+				<a class="button button-primary" target="_blank" href="<?php echo esc_url( $this->store_upgrade_url . '&utm_medium=setting-tab-st-pro-upsell' ); ?>"><?php esc_html_e( 'Upgrade', 'strong-testimonials' ); ?></a>
 			</p>
 		</div>
 		<?php
+	}
+	public function add_pro_upsell( $upsells ) {
+		$upsell = sprintf(
+			esc_html__( '%s provides you with a lot of new functionalities in one plugin, such as choosing the HTML tag you’d like to display for your testimonial titles or prefilling the forms from $_GET parameters. Moreover, if no image is provided for your testimonial, you can display the author’s initials or a default picture. Get started with Strong Testimonials Pro today!', 'strong-testimonials' ),
+			sprintf(
+				'<a href="%s" target="_blank">%s</a>',
+				esc_url( WPMTST_STORE_URL . '/extensions/strong-testimonials-pro?utm_source=st-lite&utm_campaign=upsell&utm_medium=st-pro-general-upsell' ),
+				esc_html__( 'Strong Testimonials PRO', 'strong-testimonials' )
+			)
+		);
+
+		$upsells[] = $upsell;
+		return $upsells;
+	
 	}
 
 	/*
