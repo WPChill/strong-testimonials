@@ -23,17 +23,17 @@ class Strong_Testimonials_Upsell {
 
             if ( ! defined( 'WPMTST_COUNTRY_SELECTOR_VERSION' ) ) {
             	add_action( 'wpmtst_after_form_type_selection', array( $this, 'output_country_selector_upsell' ) );
-            	add_filter( 'wpmtst_general_upsell_items', array( $this, 'add_country_selector_upsell' ), 10 );
+            	add_filter( 'wpmtst_general_upsell_items', array( $this, 'add_country_selector_upsell' ), 95 );
             }
 
             if ( ! defined( 'WPMTST_CUSTOM_FIELDS_VERSION' ) ) {
             	add_action( 'wpmtst_after_form_type_selection', array( $this, 'output_custom_fields_upsell' ) );
-            	add_filter( 'wpmtst_general_upsell_items', array( $this, 'add_custom_fields_upsell' ), 10 );
+            	add_filter( 'wpmtst_general_upsell_items', array( $this, 'add_custom_fields_upsell' ), 90 );
             }
 
             if ( ! defined( 'WPMTST_MULTIPLE_FORMS_VERSION' ) ) {
             	add_action( 'wpmtst_before_fields_settings', array( $this, 'output_multiple_form_upsell' ) );
-            	add_filter( 'wpmtst_general_upsell_items', array( $this, 'add_multiple_form_upsell' ), 10 );
+            	add_filter( 'wpmtst_general_upsell_items', array( $this, 'add_multiple_form_upsell' ), 30 );
             }
 
             if ( ! defined( 'WPMTST_REVIEW_MARKUP_VERSION' ) ) {
@@ -45,33 +45,33 @@ class Strong_Testimonials_Upsell {
 
             if ( ! defined( 'WPMTST_ADVANCED_VIEWS_VERSION' ) ) {
             	add_action( 'wpmtst_view_editor_after_group_select', array( $this, 'output_advanced_views_upsell' ) );
-            	add_filter( 'wpmtst_general_upsell_items', array( $this, 'add_advanced_views_upsell' ), 10 );
+            	add_filter( 'wpmtst_general_upsell_items', array( $this, 'add_advanced_views_upsell' ), 35 );
             }
 
             if ( ! defined( 'WPMTST_CAPTCHA_VERSION' ) ) {
             	add_action( 'wpmtst_fields_before_fields_editor_preview', array( $this, 'output_captcha_editor_upsell' ) );
             	add_action( 'wpmtst_after_form_settings', array( $this, 'output_captcha_form_settings_upsell' ) );
-            	add_filter( 'wpmtst_general_upsell_items', array( $this, 'add_captcha_upsell' ), 10 );
+            	add_filter( 'wpmtst_general_upsell_items', array( $this, 'add_captcha_upsell' ), 40 );
             }
 
             if ( ! defined( 'WPMTST_PRO_TEMPLATES_VERSION' ) ) {
             	add_action( 'wpmtst_views_after_template_list', array( $this, 'output_pro_templates_upsell' ) );
-            	add_filter( 'wpmtst_general_upsell_items', array( $this, 'add_pro_templates_upsell' ), 10 );
+            	add_filter( 'wpmtst_general_upsell_items', array( $this, 'add_pro_templates_upsell' ), 20 );
             }
 
             if ( ! defined( 'WPMTST_EMAILS_VERSION' ) ) {
             	add_action( 'wpmtst_after_mail_notification_settings', array( $this, 'output_enhanced_emails_upsell' ) );
-            	add_filter( 'wpmtst_general_upsell_items', array( $this, 'add_enhanced_emails_upsell' ), 10 );
+            	add_filter( 'wpmtst_general_upsell_items', array( $this, 'add_enhanced_emails_upsell' ), 45 );
             }
 
             if ( ! defined( 'WPMTST_INFINITE_SCROLL_VERSION' ) ) {
             	add_action( 'wpmtst_view_editor_pagination_row_end', array( $this, 'output_infinite_scroll_upsell' ) );
-            	add_filter( 'wpmtst_general_upsell_items', array( $this, 'add_infinite_scroll_upsell' ), 10 );
+            	add_filter( 'wpmtst_general_upsell_items', array( $this, 'add_infinite_scroll_upsell' ), 50 );
             }
 
             if ( ! defined( 'WPMTST_FILTERS_VERSION' ) ) {
             	add_action( 'wpmtst_after_style_view_section', array( $this, 'output_filters_upsell' ) );
-            	add_filter( 'wpmtst_general_upsell_items', array( $this, 'add_filters_upsell' ), 10 );
+            	add_filter( 'wpmtst_general_upsell_items', array( $this, 'add_filters_upsell' ), 15 );
             }
 
             if ( ! defined( 'WPMTST_PRO_VERSION' ) ) {
@@ -707,7 +707,25 @@ class Strong_Testimonials_Upsell {
 	    return $pages;
 	}
 	public static function output_assigment_upsell() {
-	    
+	    ?>
+
+	    <div class="wpmtst-alert" style="margin-top:1.5rem;">
+			<?php
+			printf(
+				esc_html__( 'The %s extension is perfect if you want to easily assign testimonials to certain custom post types.', 'strong-testimonials' ),
+				sprintf(
+					'<a href="%s" target="_blank">%s</a>',
+					esc_url( WPMTST_STORE_URL . '/extensions/properties?utm_source=st-lite&utm_campaign=upsell&utm_medium=settings-tab-assigment-upsell' ),
+					esc_html__( 'Strong Testimonials: Assignment', 'strong-testimonials' )
+				)
+			);
+			?>
+			<p>
+				<a class="button button-primary" target="_blank" href="<?php echo esc_url( $this->store_upgrade_url . '&utm_medium=assigment-upsell' ); ?>"><?php esc_html_e( 'Upgrade', 'strong-testimonials' ); ?></a>
+			</p>
+		</div>
+
+	    <?php
 	}
 
 	/*
@@ -727,7 +745,31 @@ class Strong_Testimonials_Upsell {
 	    return $pages;
 	}
 	public static function output_st_pro_upsell() {
-	    
+	    ?>
+		<div class="wpmtst-alert" style="margin-top:1.5rem;">
+			<?php
+			printf(
+				esc_html__( 'With the %s you can do:', 'strong-testimonials' ),
+				sprintf(
+					'<a href="%s" target="_blank">%s</a>',
+					esc_url( WPMTST_STORE_URL . '/extensions/review-markup?utm_source=st-lite&utm_campaign=upsell&utm_medium=views-review-markup-upsell' ),
+					esc_html__( 'Strong Testimonials PRO', 'strong-testimonials' )
+				)
+			);
+			?>
+				<ul>
+				<li><?php esc_html_e( 'You can now display a default image when no image has been provided for the testimonial.', 'strong-testimonials' ); ?></li>
+				<li><?php esc_html_e( 'You have the possibility to use author initials as testimonial image', 'strong-testimonials' ); ?></li>
+				<li><?php esc_html_e( 'Choose the HTML tag you’d like to use for your testimonial titles.', 'strong-testimonials' ); ?></li>
+				<li><?php esc_html_e( 'Single Testimonial Template settings', 'strong-testimonials' ); ?></li>
+				<li><?php esc_html_e( 'Prefill testimonial forms from $_GET parameters', 'strong-testimonials' ); ?></li>
+				<li><?php esc_html_e( 'Show testimonial form only for logged-in users.', 'strong-testimonials' ); ?></li>
+				</ul>
+			<p>
+				<a class="button button-primary" target="_blank" href="<?php echo esc_url( $this->store_upgrade_url . '&utm_medium=filters-upsell' ); ?>"><?php esc_html_e( 'Upgrade', 'strong-testimonials' ); ?></a>
+			</p>
+		</div>
+		<?php
 	}
 
 	/*
@@ -747,7 +789,23 @@ class Strong_Testimonials_Upsell {
 	    return $pages;
 	}
 	public static function output_properties_upsell() {
-	    
+		?>
+		<div class="wpmtst-alert" style="margin-top:1.5rem;">
+			<?php
+			printf(
+				esc_html__( 'Easily customize default testimonial attributes such as labels, permalink structure, icons and more with the %s extension.', 'strong-testimonials' ),
+				sprintf(
+					'<a href="%s" target="_blank">%s</a>',
+					esc_url( WPMTST_STORE_URL . '/extensions/properties?utm_source=st-lite&utm_campaign=upsell&utm_medium=settings-tab-properties-upsell' ),
+					esc_html__( 'Strong Testimonials: Properties', 'strong-testimonials' )
+				)
+			);
+			?>
+			<p>
+				<a class="button button-primary" target="_blank" href="<?php echo esc_url( $this->store_upgrade_url . '&utm_medium=properties-upsell' ); ?>"><?php esc_html_e( 'Upgrade', 'strong-testimonials' ); ?></a>
+			</p>
+		</div>
+		<?php
 	}
 
 }
