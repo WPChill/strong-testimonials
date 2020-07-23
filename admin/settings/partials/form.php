@@ -218,7 +218,7 @@ $form_options = get_option( 'wpmtst_form_options' );
                             <fieldset>
                                     <label for="wpmtst-options-admin-notify">
                                             <input id="wpmtst-options-admin-notify" type="checkbox" name="wpmtst_form_options[admin_notify]" <?php checked( $form_options['admin_notify'] ); ?>/>
-                                            <?php esc_html_e( 'Send an email upon new testimonial submission.', 'strong-testimonials' ); ?>
+                                            <?php esc_html_e( 'Receive an email when new testimonials are submitted and waiting for approval.', 'strong-testimonials' ); ?>
                                     </label>
                             </fieldset>
 			</div>

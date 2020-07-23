@@ -46,3 +46,42 @@
 .wpmtst-inline-block {
 	display:inline-block;
 }
+
+.wpmts-settings-columns {
+	display: flex;
+}
+
+.wpmts-settings-columns > form {
+	flex-grow: 1;
+}
+
+.wpmts-settings-columns .wpmtst-settings-upsell {
+	width: 25%;
+	padding-left: 30px;
+	flex-grow: 0;
+    flex-shrink: 0;
+}
+
+.wpmtst-settings-upsell .wpmtst-alert ul {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+.wpmtst-settings-upsell .wpmtst-alert ul li {
+	margin-bottom: 10px;
+}
+
+.wpmtst-alert {
+  padding: 20px;
+	background: #f4daa4;
+	color: #8d6e30;
+	position: relative;
+}
+span.wpmtst-upsell-badge {
+    font-size: 10px;
+    background: #f4daa4;
+    padding: 2px 5px;
+    display: inline-block;
+    margin-left: 10px;
+    border-radius: 10px;
+}

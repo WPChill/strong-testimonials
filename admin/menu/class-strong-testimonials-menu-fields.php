@@ -42,8 +42,8 @@ class Strong_Testimonials_Menu_Fields {
 	 */
 	public static function get_submenu() {
 		return array(
-                    'page_title' => apply_filters( 'wpmtst_fields_page_title', __( 'Forms', 'strong-testimonials' ) ),
-                    'menu_title' => apply_filters( 'wpmtst_fields_menu_title', __( 'Forms', 'strong-testimonials' ) ),
+                    'page_title' => apply_filters( 'wpmtst_fields_page_title', __( 'Form', 'strong-testimonials' ) ),
+                    'menu_title' => apply_filters( 'wpmtst_fields_menu_title', __( 'Form', 'strong-testimonials' ) ),
 		    'capability' => 'strong_testimonials_fields',
                     'menu_slug'  => 'testimonial-fields',
                     'function'   => 'wpmtst_form_admin',

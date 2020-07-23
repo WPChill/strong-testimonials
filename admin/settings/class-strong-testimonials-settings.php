@@ -62,21 +62,24 @@ class Strong_Testimonials_Settings {
 				<?php do_action( 'wpmtst_settings_tabs', $tab, $url ); ?>
 			</h2>
 
-			<form id="<?php echo esc_attr( $tab ); ?>-form" method="post" action="options.php" enctype="multipart/form-data">
-				<?php
-				if ( isset( self::$callbacks[ $tab ] ) && wpmtst_callback_exists( self::$callbacks[ $tab ] ) ) {
-					call_user_func( self::$callbacks[ $tab ] );
-				} else {
-					call_user_func( self::$callbacks[ self::DEFAULT_TAB ] );
-				}
+			<div class="wpmts-settings-columns">
+				<form id="<?php echo esc_attr( $tab ); ?>-form" method="post" action="options.php" enctype="multipart/form-data">
+					<?php
+					if ( isset( self::$callbacks[ $tab ] ) && wpmtst_callback_exists( self::$callbacks[ $tab ] ) ) {
+						call_user_func( self::$callbacks[ $tab ] );
+					} else {
+						call_user_func( self::$callbacks[ self::DEFAULT_TAB ] );
+					}
 
-				if ( has_action( 'wpmtst_settings_submit_row' ) ) {
-				    echo '<p class="submit-buttons">';
-					do_action( 'wpmtst_settings_submit_row' );
-				    echo '</p>';
-                }
-                ?>
-			</form>
+					if ( has_action( 'wpmtst_settings_submit_row' ) ) {
+					    echo '<p class="submit-buttons">';
+						do_action( 'wpmtst_settings_submit_row' );
+					    echo '</p>';
+	                }
+	                ?>
+				</form>
+				<?php do_action( 'wpmtst_admin_after_settings_form' ) ?>
+			</div>
 
 		</div><!-- .wrap -->
 		<?php
