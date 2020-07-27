@@ -186,12 +186,11 @@ class Strong_Testimonials_Privacy {
         }
 
         $content = wp_kses_post( apply_filters( 'wpmtst_privacy_policy_content', __( '
-            We collect information about you when you fill out a form for a testimonial for one of our product or service. This information include your full name, email address, your photo and company name and website.           
-            Handling this data also allows us to:
-            - Send you an email when your testimonial was received and approved.
-            - Send you important account/product/service information.
-            - Set up and administer your account, provide technical and/or customer support, and to verify your identity.
-        ', 'strong-testimonial-downloads' ) ) );
+            We collect certain pieces of information about you when you fill one of our testimonial forms. This includes your full name, e-mail address, photo, company name, and website.           
+            By agreeing to these terms, you also allow us to::
+            - Send a confirmation e-mail, to let you know your testimonial was received and approved;
+            - Send important account/ product/ service information;
+            - Set up and administer your account, provide technical/customer support, and verify your identity.', 'strong-testimonial-downloads' ) ) );
 
         wp_add_privacy_policy_content( 'Strong Testimonial Privacy Policy', wpautop( $content ) );
     }
