@@ -20,6 +20,8 @@ add_action( 'wpmtst_form_admin', 'wpmtst_form_admin2' );
  */
 function wpmtst_update_custom_fields() {
 	$goback = wp_get_referer();
+        $goback = apply_filters('wpmtst_form_goback', $goback);
+        
 	if ( ! isset( $_POST['wpmtst_form_submitted'] ) ) {
 		wp_redirect( $goback );
 		exit;
