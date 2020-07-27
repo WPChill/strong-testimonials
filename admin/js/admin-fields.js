@@ -490,7 +490,7 @@ function sanitizeName(label) {
       $("#fields-editor-preview")
         .children().first()
         .after(newDiv)
-        .fadeOut(300, function () {
+        .fadeOut(0, function () {
           newDiv.show();
           $(this).remove();
         });
