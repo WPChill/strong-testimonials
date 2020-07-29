@@ -34,8 +34,43 @@ class Strong_Views_List_Table extends Strong_Testimonials_List_Table {
 		}
 		$data = $this->move_sticky( $data );
                 $data = apply_filters('wpmtst_list_views', $data);
+                if (isset($_GET['mode']) && !empty($_GET['mode']) && $_GET['mode'] !== 'all') {
+                    $data = $this->filter_data( $_GET['mode'], $data );
+                }
+                if (isset($_GET['s']) && !empty($_GET['s'])) {
+                    $data = $this->search_data( $_GET['s'], $data );
+                }
 		$this->items = $data;
 	}
+        
+        public function prepare_filters( $data = array() ) {
+            $links = array();
+            foreach ($data as $item) {
+                $value = unserialize($item['value']);
+                $links[$value['mode']][] = $item;
+            }
+            return $links;
+        }
+        
+        public function filter_data( $mode, $data = array() ) {
+            $items = array();
+            foreach ($data as $item) {
+                if ($mode == $item['data']['mode']) {
+                    $items[] = $item; 
+                }
+            }
+            return $items;
+        }
+        
+        public function search_data( $search, $data = array() ) {
+            $items = array();
+            foreach ($data as $item) {
+                if (strtolower($search) == strtolower($item['name'])) {
+                    $items[] = $item; 
+                }
+            }
+            return $items;
+        }
 
     /**
      * Move sticky views to the top
@@ -193,39 +228,43 @@ class Strong_Views_List_Table extends Strong_Testimonials_List_Table {
 	 * @access public
 	 */
 	public function display() {
-		$singular = $this->_args['singular'];
-
-		// Disabling the table nav options to regain some real estate.
-		//$this->display_tablenav( 'top' );
-
-		?>
-        <div class="wp-list-table-wrap">
-            <div class="overlay" style="display: none;"></div>
-            <table class="wp-list-table <?php echo implode( ' ', $this->get_table_classes() ); ?>">
-                <thead>
-                <tr>
-                    <?php $this->print_column_headers(); ?>
-                </tr>
-                </thead>
-
-                <tbody id="the-list"<?php
-                if ( $singular ) {
-                    echo " data-wp-lists='list:$singular'";
-                } ?>>
-                <?php $this->display_rows_or_placeholder(); ?>
-                </tbody>
-
-                <tfoot>
-                <tr>
-                    <?php $this->print_column_headers( false ); ?>
-                </tr>
-                </tfoot>
-
-            </table>
-            <?php
-            //$this->display_tablenav( 'bottom' );
+            $singular = $this->_args['singular'];
+            // Disabling the table nav options to regain some real estate.
+            //$this->display_tablenav( 'top' );
             ?>
-        </div>
+            <form id="posts-filter" method="get">
+                <p class="search-box">
+                    <label class="screen-reader-text" for="post-search-input"><?php esc_html_e( 'Search', 'strong-testimonials' ); ?></label>
+                    <input type="search" id="post-search-input" name="s" value="<?php echo (isset($_GET['s']) && !empty($_GET['s']) ? $_GET['s'] : '') ?>">
+                    <input type="submit" id="search-submit" class="button" value="<?php esc_html_e( 'Search', 'strong-testimonials' ); ?>">
+                    <input type="hidden" name="post_type" class="post_type_page" value="wpm-testimonial">
+                    <input type="hidden" name="page" value="testimonial-views">
+                </p>
+                    <table class="wp-list-table <?php echo implode( ' ', $this->get_table_classes() ); ?>">
+                        <thead>
+                        <tr>
+                            <?php $this->print_column_headers(); ?>
+                        </tr>
+                        </thead>
+
+                        <tbody id="the-list"<?php
+                        if ( $singular ) {
+                            echo " data-wp-lists='list:$singular'";
+                        } ?>>
+                        <?php $this->display_rows_or_placeholder(); ?>
+                        </tbody>
+
+                        <tfoot>
+                        <tr>
+                            <?php $this->print_column_headers( false ); ?>
+                        </tr>
+                        </tfoot>
+
+                    </table>
+                    <?php
+                    //$this->display_tablenav( 'bottom' );
+                    ?>
+            </form>
         <?php
 	}
 

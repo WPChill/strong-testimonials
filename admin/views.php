@@ -24,7 +24,7 @@ function wpmtst_views_admin() {
 	);
 
 	?>
-	<div class="wrap wpmtst2">
+	<div class="wrap">
 
 		<?php
 		if ( isset( $_REQUEST['result'] ) ) {
@@ -63,33 +63,43 @@ function wpmtst_views_admin() {
 
 		} else {
 
-			/**
-             * View list
-             */
+                        /**
+                         * View list
+                         */
+                    
+			// Fetch views after heading and before intro in case we need to display any database errors.
+			$views = wpmtst_get_views();
+			$views_table = new Strong_Views_List_Table();
+                        
+                        // Get links for filtering
+                        $filters = $views_table->prepare_filters(wpmtst_unserialize_views( $views ));
 			?>
-			<h1>
+			<h1 class="wp-heading-inline">
 				<?php esc_html_e( 'Views', 'strong-testimonials' ); ?>
 				<a href="<?php echo esc_url( admin_url( 'edit.php?post_type=wpm-testimonial&page=testimonial-views&action=add' ) ); ?>" class="add-new-h2"><?php esc_html_e( 'Add New', 'strong-testimonials' ); ?></a>
 				<a href="#tab-panel-wpmtst-help-views" class="add-new-h2 open-help-tab"><?php esc_html_e( 'Help', 'strong-testimonials' ); ?></a>
 			</h1>
-
+                        <hr class="wp-header-end">
+                        <h2 class="screen-reader-text"><?php esc_html_e( 'Filter view list', 'strong-testimonials' ); ?></h2>
+                        <ul class="subsubsub">
+                            <li class="all"><a <?php echo (!isset($_GET['mode']) || $_GET['mode'] == 'all' ? 'class="current"' : '') ?> href="<?php echo add_query_arg( array('post_type' => 'wpm-testimonial', 'page' => 'testimonial-views', 'mode' => 'all' ), admin_url('edit.php') ) ?>"><?php esc_html_e( 'All', 'strong-testimonials' ); ?><?php printf( __( ' <span class="count">(%s)</span>', 'strong-testimonials' ), count($views) ); ?></a> |</li>
+                            <?php foreach ($filters as $mode => $items): ?>
+                            <li class="<?php echo $mode ?>"><a <?php echo (isset($_GET['mode']) && $_GET['mode'] == $mode ? 'class="current"' : '') ?> href="<?php echo add_query_arg( array('post_type' => 'wpm-testimonial', 'page' => 'testimonial-views', 'mode' => $mode ), admin_url('edit.php') ) ?>"><?php echo ucfirst($mode) ?><?php printf( __( ' <span class="count">(%s)</span>', 'strong-testimonials' ), count($items) ); ?></a> |</li>
+                            <?php endforeach; ?>
+                        </ul>
 			<?php
-			// Fetch views after heading and before intro in case we need to display any database errors.
-			$views = wpmtst_get_views();
-
 			// Add button to clear sort value.
 			if ( isset( $_GET['orderby'] ) ) {
-				?>
-                <form action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" method="post" style="margin-bottom: 4px;">
-                    <input type="hidden" name="action" value="clear-view-sort">
-                    <input type="submit" value="clear sort" class="button">
-                </form>
-				<?php
+                        ?>
+                        <form action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" method="post" style="margin-bottom: 4px;">
+                            <input type="hidden" name="action" value="clear-view-sort">
+                            <input type="submit" value="clear sort" class="button">
+                        </form>
+                        <?php
 			}
 
-            // Display the table
-			$views_table = new Strong_Views_List_Table();
-			$views_table->prepare_list( wpmtst_unserialize_views( $views ) );
+                        // Display the table
+                        $views_table->prepare_list(wpmtst_unserialize_views( $views ) );
 			$views_table->display();
 
 		}
