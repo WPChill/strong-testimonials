@@ -475,6 +475,9 @@ class Strong_Testimonials_Defaults {
 			'success_redirect_url'     => '',
                         'members_only'             => false,
                         'members_only_message'     => __( 'You need to be logged in to access this form.', 'strong-testimonials' ),
+                        'mailchimp'                => false, 
+                        'mailchimp_message'        => __( 'Subscribe to our newsletter.', 'strong-testimonials' ),
+                        'mailchimp_list'           => ''
 		);
 
 		return apply_filters( 'wpmtst_default_form_options', $default_form_options );
