@@ -26,9 +26,9 @@ class Strong_Testimonials_Settings_Form {
 	 * Add actions and filters.
 	 */
 	public static function add_actions() {
-	    add_action( 'wpmtst_register_settings', array( __CLASS__, 'register_settings' ) );
-		add_action( 'wpmtst_settings_tabs', array( __CLASS__, 'register_tab' ), 2, 2 );
-		add_filter( 'wpmtst_settings_callbacks', array( __CLASS__, 'register_settings_page' ) );
+                add_action( 'wpmtst_register_settings', array( __CLASS__, 'register_settings' ) );
+		add_action( 'wpmtst_form_tabs', array( __CLASS__, 'register_tab' ), 2, 2 );
+		add_filter( 'wpmtst_form_callbacks', array( __CLASS__, 'register_settings_page' ) );
 
 		add_action( 'wp_ajax_wpmtst_restore_default_messages', array( __CLASS__, 'restore_default_messages_function' ) );
 		add_action( 'wp_ajax_wpmtst_restore_default_message', array( __CLASS__, 'restore_default_message_function' ) );
@@ -46,7 +46,7 @@ class Strong_Testimonials_Settings_Form {
 		printf( '<a href="%s" class="nav-tab %s">%s</a>',
 			esc_url( add_query_arg( 'tab', self::TAB_NAME, $url ) ),
 			esc_attr( $active_tab == self::TAB_NAME ? 'nav-tab-active' : '' ),
-			__( 'Form & Email', 'strong-testimonials' )
+			__( 'Settings', 'strong-testimonials' )
 		);
 	}
 

@@ -3,6 +3,8 @@
  * Class Strong_Testimonials_Form
  */
 class Strong_Testimonials_Form {
+    
+        const TAB_NAME = 'fields';
 
 	public $form_options;
 
@@ -23,9 +25,38 @@ class Strong_Testimonials_Form {
 	 */
 	public function add_actions() {
 		add_action( 'init', array( $this, 'process_form' ), 20 );
-
+                //add_action( 'wpmtst_register_form_settings', array( $this, 'register_settings' ) );
+		add_action( 'wpmtst_form_tabs', array( $this, 'register_tab' ), 1, 2 );
+		add_filter( 'wpmtst_form_callbacks', array( $this, 'register_fields_page' ) );
 		add_action( 'wp_ajax_wpmtst_form2', array( $this, 'process_form_ajax' ) );
 		add_action( 'wp_ajax_nopriv_wpmtst_form2', array( $this, 'process_form_ajax' ) );
+	}
+        
+        /**
+	 * Register fields tab.
+	 *
+	 * @param $active_tab
+	 * @param $url
+	 */
+	public function register_tab( $active_tab, $url ) {
+		printf( '<a href="%s" class="nav-tab %s">%s</a>',
+		        esc_url( add_query_arg( 'tab', self::TAB_NAME, $url ) ),
+		        esc_attr( $active_tab == self::TAB_NAME ? 'nav-tab-active' : '' ),
+		        __( 'Fields', 'strong-testimonials' )
+		);
+	}
+        
+        /**
+	 * Register fields page.
+	 *
+	 * @param $pages
+	 *
+	 * @return mixed
+	 */
+	public function register_fields_page( $pages ) {
+		$pages[ self::TAB_NAME ] = 'wpmtst_form_admin';
+
+		return $pages;
 	}
 
 	/**

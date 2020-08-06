@@ -46,7 +46,7 @@ class Strong_Testimonials_Menu_Fields {
                     'menu_title' => apply_filters( 'wpmtst_fields_menu_title', __( 'Form', 'strong-testimonials' ) ),
 		    'capability' => 'strong_testimonials_fields',
                     'menu_slug'  => 'testimonial-fields',
-                    'function'   => 'wpmtst_form_admin',
+                    'function'   => array( 'Strong_Testimonials_Forms', 'settings_page' ),
 		);
 	}
 
