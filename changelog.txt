@@ -1,3 +1,9 @@
+= 2.50.1 =
+* Changed the layout of the views page.
+* Moved form tab from general settings to Form.
+* Fixed drag and drop issue for testimonials. 
+* Added old testimonial-heading CSS classes back.
+
 = 2.50.0 =
 * Fixed read more bug
 * Added integration with the new addons
