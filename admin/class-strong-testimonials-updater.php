@@ -561,13 +561,6 @@ class Strong_Testimonials_Updater {
 			 }
 		}
 
-		if ( ! isset( $history['2.29_captcha_options_changed'] ) ) {
-			self::update_history_log( '2.29_captcha_options_changed' );
-			if ( isset($notice) && $notice) {
-				wpmtst_add_admin_notice( 'captcha-options-changed', true );
-			}
-		}
-
 		return $form_options;
 	}
 
