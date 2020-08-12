@@ -158,7 +158,7 @@ function wpmtst_settings_custom_fields( $form_id = 1 ) {
 	}
 
 	$forms  = get_option( 'wpmtst_custom_forms' );
-	$fields = $forms[$form_id]['fields'];
+	$fields = apply_filters( 'wpmtst_form_fields', $forms[$form_id]['fields']);
 	?>
 
 	<div class="wrap wpmtst">
