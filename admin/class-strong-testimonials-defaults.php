@@ -1,4 +1,4 @@
-<?php
+x<?php
 
 /**
  * Class Strong_Testimonials_Defaults
@@ -31,9 +31,9 @@ class Strong_Testimonials_Defaults {
 		$default_options = array(
 			'embed_width'             => '',
 			'nofollow'                => true,
-                        'noopener'                => false,
-                        'noreferrer'              => false,
-                        'disable_rewrite'         => false,
+            'noopener'                => false,
+            'noreferrer'              => false,
+            'disable_rewrite'         => false,
 			'pending_indicator'       => true,
 			'remove_whitespace'       => true,
 			//@todo : delete commented line. For the moment let it be
@@ -44,9 +44,9 @@ class Strong_Testimonials_Defaults {
 			'scrolltop'               => true,
 			'scrolltop_offset'        => 80,
 			'lazyload'                => false,
-                        'no_lazyload_plugin'      => true,
+            'no_lazyload_plugin'      => true,
 			'touch_enabled'           => true,
-                        'upsells'                 => true
+            'disable_upsells'         => false
 		);
 
 		return $default_options;

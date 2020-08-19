@@ -11,86 +11,88 @@ class Strong_Testimonials_Upsell {
 	public function __construct() {
 		$this->set_store_upgrade_url();
         $options = get_option( 'wpmtst_options' );
-        if ( isset( $options['upsells'] ) && $options['upsells'] == false) {
 
-            add_action( 'wpmtst_admin_after_settings_form', array( $this, 'general_upsell' ) );
-
-            if ( ! defined( 'WPMTST_ROLE_MANAGEMENT_VERSION' ) ) {
-                add_action( 'wpmtst_settings_tabs', array( $this, 'register_role_manager' ), 4, 2 );
-                add_filter( 'wpmtst_settings_callbacks', array( $this, 'register_rm_settings_page' ) );
-                add_filter( 'wpmtst_general_upsell_items', array( $this, 'add_role_upsell' ), 20 );
-            }
-
-            if ( ! defined( 'WPMTST_COUNTRY_SELECTOR_VERSION' ) ) {
-            	add_action( 'wpmtst_after_form_type_selection', array( $this, 'output_country_selector_upsell' ) );
-            	add_filter( 'wpmtst_general_upsell_items', array( $this, 'add_country_selector_upsell' ), 95 );
-            }
-
-            if ( ! defined( 'WPMTST_CUSTOM_FIELDS_VERSION' ) ) {
-            	add_action( 'wpmtst_after_form_type_selection', array( $this, 'output_custom_fields_upsell' ) );
-            	add_filter( 'wpmtst_general_upsell_items', array( $this, 'add_custom_fields_upsell' ), 90 );
-            }
-
-            if ( ! defined( 'WPMTST_MULTIPLE_FORMS_VERSION' ) ) {
-            	add_action( 'wpmtst_before_fields_settings', array( $this, 'output_multiple_form_upsell' ) );
-            	add_filter( 'wpmtst_general_upsell_items', array( $this, 'add_multiple_form_upsell' ), 30 );
-            }
-
-            if ( ! defined( 'WPMTST_REVIEW_MARKUP_VERSION' ) ) {
-            	add_action( 'wpmtst_view_editor_after_groups', array( $this, 'output_review_markup_upsell' ) );
-            	add_filter( 'wpmtst_general_upsell_items', array( $this, 'add_review_markup_upsell' ), 15 );
-            	add_action( 'wpmtst_settings_tabs', array( $this, 'register_review_markup' ), 4, 2 );
-            	add_filter( 'wpmtst_settings_callbacks', array( $this, 'register_review_markup_settings_page' ) );
-            }
-
-            if ( ! defined( 'WPMTST_ADVANCED_VIEWS_VERSION' ) ) {
-            	add_action( 'wpmtst_view_editor_after_group_select', array( $this, 'output_advanced_views_upsell' ) );
-            	add_filter( 'wpmtst_general_upsell_items', array( $this, 'add_advanced_views_upsell' ), 35 );
-            }
-
-            if ( ! defined( 'WPMTST_CAPTCHA_VERSION' ) ) {
-            	add_action( 'wpmtst_fields_before_fields_editor_preview', array( $this, 'output_captcha_editor_upsell' ) );
-            	add_action( 'wpmtst_after_form_settings', array( $this, 'output_captcha_form_settings_upsell' ) );
-            	add_filter( 'wpmtst_general_upsell_items', array( $this, 'add_captcha_upsell' ), 40 );
-            }
-
-            if ( ! defined( 'WPMTST_PRO_TEMPLATES_VERSION' ) ) {
-            	add_action( 'wpmtst_views_after_template_list', array( $this, 'output_pro_templates_upsell' ) );
-            	add_filter( 'wpmtst_general_upsell_items', array( $this, 'add_pro_templates_upsell' ), 20 );
-            }
-
-            if ( ! defined( 'WPMTST_EMAILS_VERSION' ) ) {
-            	add_action( 'wpmtst_after_mail_notification_settings', array( $this, 'output_enhanced_emails_upsell' ) );
-            	add_filter( 'wpmtst_general_upsell_items', array( $this, 'add_enhanced_emails_upsell' ), 45 );
-            }
-
-            if ( ! defined( 'WPMTST_INFINITE_SCROLL_VERSION' ) ) {
-            	add_action( 'wpmtst_view_editor_pagination_row_end', array( $this, 'output_infinite_scroll_upsell' ) );
-            	add_filter( 'wpmtst_general_upsell_items', array( $this, 'add_infinite_scroll_upsell' ), 50 );
-            }
-
-            if ( ! defined( 'WPMTST_FILTERS_VERSION' ) ) {
-            	add_action( 'wpmtst_after_style_view_section', array( $this, 'output_filters_upsell' ) );
-            	add_filter( 'wpmtst_general_upsell_items', array( $this, 'add_filters_upsell' ), 15 );
-            }
-
-            if ( ! defined( 'WPMTST_PRO_VERSION' ) ) {
-            	add_action( 'wpmtst_settings_tabs', array( $this, 'register_st_pro_tab' ), 4, 2 );
-                add_filter( 'wpmtst_settings_callbacks', array( $this, 'register_st_pro_page' ) );
-                add_filter( 'wpmtst_general_upsell_items', array( $this, 'add_pro_upsell' ), 10 );
-            }
-
-            if ( ! defined( 'WPMTST_ASSIGNMENT_VERSION' ) ) {
-            	add_action( 'wpmtst_settings_tabs', array( $this, 'register_assigment_tab' ), 4, 2 );
-                add_filter( 'wpmtst_settings_callbacks', array( $this, 'register_assigment_settings_page' ) );
-            }
-
-            if ( ! defined( 'WPMTST_PROPERTIES_VERSION' ) ) {
-            	add_action( 'wpmtst_settings_tabs', array( $this, 'register_properties_tab' ), 4, 2 );
-                add_filter( 'wpmtst_settings_callbacks', array( $this, 'register_properties_page' ) );
-            }
-
+        if ( isset( $options['disable_upsells'] ) && $options['disable_upsells'] ) {
+        	return;
         }
+
+        add_action( 'wpmtst_admin_after_settings_form', array( $this, 'general_upsell' ) );
+
+        if ( ! defined( 'WPMTST_ROLE_MANAGEMENT_VERSION' ) ) {
+            add_action( 'wpmtst_settings_tabs', array( $this, 'register_role_manager' ), 4, 2 );
+            add_filter( 'wpmtst_settings_callbacks', array( $this, 'register_rm_settings_page' ) );
+            add_filter( 'wpmtst_general_upsell_items', array( $this, 'add_role_upsell' ), 20 );
+        }
+
+        if ( ! defined( 'WPMTST_COUNTRY_SELECTOR_VERSION' ) ) {
+        	add_action( 'wpmtst_after_form_type_selection', array( $this, 'output_country_selector_upsell' ) );
+        	add_filter( 'wpmtst_general_upsell_items', array( $this, 'add_country_selector_upsell' ), 95 );
+        }
+
+        if ( ! defined( 'WPMTST_CUSTOM_FIELDS_VERSION' ) ) {
+        	add_action( 'wpmtst_after_form_type_selection', array( $this, 'output_custom_fields_upsell' ) );
+        	add_filter( 'wpmtst_general_upsell_items', array( $this, 'add_custom_fields_upsell' ), 90 );
+        }
+
+        if ( ! defined( 'WPMTST_MULTIPLE_FORMS_VERSION' ) ) {
+        	add_action( 'wpmtst_before_fields_settings', array( $this, 'output_multiple_form_upsell' ) );
+        	add_filter( 'wpmtst_general_upsell_items', array( $this, 'add_multiple_form_upsell' ), 30 );
+        }
+
+        if ( ! defined( 'WPMTST_REVIEW_MARKUP_VERSION' ) ) {
+        	add_action( 'wpmtst_view_editor_after_groups', array( $this, 'output_review_markup_upsell' ) );
+        	add_filter( 'wpmtst_general_upsell_items', array( $this, 'add_review_markup_upsell' ), 15 );
+        	add_action( 'wpmtst_settings_tabs', array( $this, 'register_review_markup' ), 4, 2 );
+        	add_filter( 'wpmtst_settings_callbacks', array( $this, 'register_review_markup_settings_page' ) );
+        }
+
+        if ( ! defined( 'WPMTST_ADVANCED_VIEWS_VERSION' ) ) {
+        	add_action( 'wpmtst_view_editor_after_group_select', array( $this, 'output_advanced_views_upsell' ) );
+        	add_filter( 'wpmtst_general_upsell_items', array( $this, 'add_advanced_views_upsell' ), 35 );
+        }
+
+        if ( ! defined( 'WPMTST_CAPTCHA_VERSION' ) ) {
+        	add_action( 'wpmtst_fields_before_fields_editor_preview', array( $this, 'output_captcha_editor_upsell' ) );
+        	add_action( 'wpmtst_after_form_settings', array( $this, 'output_captcha_form_settings_upsell' ) );
+        	add_filter( 'wpmtst_general_upsell_items', array( $this, 'add_captcha_upsell' ), 40 );
+        }
+
+        if ( ! defined( 'WPMTST_PRO_TEMPLATES_VERSION' ) ) {
+        	add_action( 'wpmtst_views_after_template_list', array( $this, 'output_pro_templates_upsell' ) );
+        	add_filter( 'wpmtst_general_upsell_items', array( $this, 'add_pro_templates_upsell' ), 20 );
+        }
+
+        if ( ! defined( 'WPMTST_EMAILS_VERSION' ) ) {
+        	add_action( 'wpmtst_after_mail_notification_settings', array( $this, 'output_enhanced_emails_upsell' ) );
+        	add_filter( 'wpmtst_general_upsell_items', array( $this, 'add_enhanced_emails_upsell' ), 45 );
+        }
+
+        if ( ! defined( 'WPMTST_INFINITE_SCROLL_VERSION' ) ) {
+        	add_action( 'wpmtst_view_editor_pagination_row_end', array( $this, 'output_infinite_scroll_upsell' ) );
+        	add_filter( 'wpmtst_general_upsell_items', array( $this, 'add_infinite_scroll_upsell' ), 50 );
+        }
+
+        if ( ! defined( 'WPMTST_FILTERS_VERSION' ) ) {
+        	add_action( 'wpmtst_after_style_view_section', array( $this, 'output_filters_upsell' ) );
+        	add_filter( 'wpmtst_general_upsell_items', array( $this, 'add_filters_upsell' ), 15 );
+        }
+
+        if ( ! defined( 'WPMTST_PRO_VERSION' ) ) {
+        	add_action( 'wpmtst_settings_tabs', array( $this, 'register_st_pro_tab' ), 4, 2 );
+            add_filter( 'wpmtst_settings_callbacks', array( $this, 'register_st_pro_page' ) );
+            add_filter( 'wpmtst_general_upsell_items', array( $this, 'add_pro_upsell' ), 10 );
+        }
+
+        if ( ! defined( 'WPMTST_ASSIGNMENT_VERSION' ) ) {
+        	add_action( 'wpmtst_settings_tabs', array( $this, 'register_assigment_tab' ), 4, 2 );
+            add_filter( 'wpmtst_settings_callbacks', array( $this, 'register_assigment_settings_page' ) );
+        }
+
+        if ( ! defined( 'WPMTST_PROPERTIES_VERSION' ) ) {
+        	add_action( 'wpmtst_settings_tabs', array( $this, 'register_properties_tab' ), 4, 2 );
+            add_filter( 'wpmtst_settings_callbacks', array( $this, 'register_properties_page' ) );
+        }
+
 
 		add_action( 'add_meta_boxes', array( $this, 'add_meta_boxes' ) );
 	}

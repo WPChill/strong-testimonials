@@ -272,7 +272,7 @@ $options = get_option( 'wpmtst_options' );
         <td>
             <fieldset>
                 <label>
-                    <input type="checkbox" name="wpmtst_options[upsells]" <?php checked( $options['upsells'] ); ?>>
+                    <input type="checkbox" name="wpmtst_options[disable_upsells]" <?php checked( $options['disable_upsells'] ); ?>>
                     <?php printf( __( 'Disable all upsells.', 'strong-testimonials' ) ); ?>
                     <?php _e( 'Off by default.', 'strong-testimonials' ); ?>
                 </label>
