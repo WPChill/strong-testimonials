@@ -1,4 +1,4 @@
-x<?php
+<?php
 
 /**
  * Class Strong_Testimonials_Defaults
@@ -86,8 +86,8 @@ class Strong_Testimonials_Defaults {
 			'shortcode_on_form'       => '',
 			'shortcode_on_display'    => '',
 			'show_shortcode_options'  => 0,
-                        'show_length_option'      => 0,
-                        'max_length'              => ''
+            'show_length_option'      => 0,
+            'max_length'              => ''
 		) );
 	}
 
@@ -854,7 +854,7 @@ class Strong_Testimonials_Defaults {
 					)
 				),
 			),
-                        'random_js' => false
+            'random_js' => false
 		);
 
 		return $options;
