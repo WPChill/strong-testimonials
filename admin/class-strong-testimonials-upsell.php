@@ -187,7 +187,7 @@ class Strong_Testimonials_Upsell {
 		);
 	}
 
-	public static function register_rm_settings_page( $pages ) {
+	public function register_rm_settings_page( $pages ) {
 	    $pages[ 'access' ] = array( $this, 'output_role_manager_page' );
 	    return $pages;
 	}
@@ -356,7 +356,7 @@ class Strong_Testimonials_Upsell {
 			'<span class="wpmtst-upsell-badge">PRO</span>'
 		);
 	}
-	public static function register_review_markup_settings_page( $pages ) {
+	public function register_review_markup_settings_page( $pages ) {
 	    $pages[ 'review-markup' ] = array( $this, 'output_review_markup_upsell' );
 	    return $pages;
 	}
@@ -705,11 +705,11 @@ class Strong_Testimonials_Upsell {
 			'<span class="wpmtst-upsell-badge">PRO</span>'
 		);
 	}
-	public static function register_assigment_settings_page( $pages ) {
+	public function register_assigment_settings_page( $pages ) {
 	    $pages[ 'assignment' ] = array( $this, 'output_assigment_upsell' );
 	    return $pages;
 	}
-	public static function output_assigment_upsell() {
+	public function output_assigment_upsell() {
 	    ?>
 
 	    <div class="wpmtst-alert" style="margin-top:1.5rem;">
@@ -743,11 +743,11 @@ class Strong_Testimonials_Upsell {
 			'<span class="wpmtst-upsell-badge">PRO</span>'
 		);
 	}
-	public static function register_st_pro_page( $pages ) {
+	public function register_st_pro_page( $pages ) {
 	    $pages[ 'single_testiomonial_template' ] = array( $this, 'output_st_pro_upsell' );
 	    return $pages;
 	}
-	public static function output_st_pro_upsell() {
+	public function output_st_pro_upsell() {
 	    ?>
 		<div class="wpmtst-alert" style="margin-top:1.5rem;">
 			<?php
@@ -801,11 +801,11 @@ class Strong_Testimonials_Upsell {
 			'<span class="wpmtst-upsell-badge">PRO</span>'
 		);
 	}
-	public static function register_properties_page( $pages ) {
+	public function register_properties_page( $pages ) {
 	    $pages[ 'properties' ] = array( $this, 'output_properties_upsell' );
 	    return $pages;
 	}
-	public static function output_properties_upsell() {
+	public function output_properties_upsell() {
 		?>
 		<div class="wpmtst-alert" style="margin-top:1.5rem;">
 			<?php
