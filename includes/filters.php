@@ -37,7 +37,7 @@ function wpmtst_content_filters() {
 	add_filter( 'wpmtst_the_content', 'wpautop' );
 	add_filter( 'wpmtst_the_content', 'shortcode_unautop' );
 	add_filter( 'wpmtst_the_content', 'prepend_attachment' );
-	add_filter( 'wpmtst_the_content', 'wp_make_content_images_responsive' );
+	add_filter( 'wpmtst_the_content', 'wp_filter_content_tags' );
 	add_filter( 'wpmtst_the_content', 'do_shortcode', 11 );
 	add_filter( 'wpmtst_the_content', 'convert_smilies', 20 );
 
