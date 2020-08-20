@@ -31,13 +31,20 @@ add_filter( 'strong_view_form_html', 'wpmtst_remove_whitespace' );
  * @since 2.33.0 Moved to `init` action.
  */
 function wpmtst_content_filters() {
+        
 	add_filter( 'wpmtst_the_content', array( $GLOBALS['wp_embed'], 'run_shortcode' ), 8 );
 	add_filter( 'wpmtst_the_content', array( $GLOBALS['wp_embed'], 'autoembed' ), 8 );
 	add_filter( 'wpmtst_the_content', 'wptexturize' );
 	add_filter( 'wpmtst_the_content', 'wpautop' );
 	add_filter( 'wpmtst_the_content', 'shortcode_unautop' );
 	add_filter( 'wpmtst_the_content', 'prepend_attachment' );
-	add_filter( 'wpmtst_the_content', 'wp_filter_content_tags' );
+        
+        if (version_compare(get_bloginfo('version'),'5.5', '>=')) {
+            add_filter( 'wpmtst_the_content', 'wp_filter_content_tags' );
+        } else {
+            add_filter( 'wpmtst_the_content', 'wp_make_content_images_responsive' );
+        }
+        
 	add_filter( 'wpmtst_the_content', 'do_shortcode', 11 );
 	add_filter( 'wpmtst_the_content', 'convert_smilies', 20 );
 
