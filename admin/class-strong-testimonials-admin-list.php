@@ -174,7 +174,7 @@ class Strong_Testimonials_Admin_List {
 					foreach ( $categories as $cat ) {
 						$list[] = $cat->name;
 					}
-					echo join( ", ", $list );
+					echo implode( ", ", $list );
 				}
 				break;
 

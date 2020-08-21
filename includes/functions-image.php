@@ -69,7 +69,7 @@ function wpmtst_thumbnail_img( $img, $post_id, $size ) {
 		$url = wp_get_attachment_url( get_post_thumbnail_id( $post_id ) );
 		if ( $url ) {
 			$class_array = array( WPMST()->atts( 'lightbox_class' ) );
-			$classes     = join( ' ', array_unique( apply_filters( 'wpmtst_thumbnail_link_class', $class_array ) ) );
+			$classes     = implode( ' ', array_unique( apply_filters( 'wpmtst_thumbnail_link_class', $class_array ) ) );
 			$img         = sprintf( '<a class="%s" href="%s">%s</a>', $classes, esc_url( $url ), $img );
 		}
 	}

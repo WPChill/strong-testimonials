@@ -454,7 +454,7 @@ function wpmtst_the_custom_field( $field ) {
 					foreach ( $categories as $cat ) {
 						$list[] = $cat->name;
 					}
-					$output = join( ", ", $list );
+					$output = implode( ", ", $list );
 				}
 				else {
 					$output = '';

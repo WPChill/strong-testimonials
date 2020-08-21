@@ -365,9 +365,9 @@ class Strong_View_Display extends Strong_View {
 		 * Filter classes.
 		 */
 		$this->atts['container_data']  = apply_filters( 'wpmtst_view_container_data', $container_data_list, $this->atts );
-		$this->atts['container_class'] = join( ' ', apply_filters( 'wpmtst_view_container_class', $container_class_list, $this->atts ) );
-		$this->atts['content_class']   = join( ' ', apply_filters( 'wpmtst_view_content_class', $content_class_list, $this->atts ) );
-		$this->atts['post_class']      = join( ' ', apply_filters( 'wpmtst_view_post_class', $post_class_list, $this->atts ) );
+		$this->atts['container_class'] = implode( ' ', apply_filters( 'wpmtst_view_container_class', $container_class_list, $this->atts ) );
+		$this->atts['content_class']   = implode( ' ', apply_filters( 'wpmtst_view_content_class', $content_class_list, $this->atts ) );
+		$this->atts['post_class']      = implode( ' ', apply_filters( 'wpmtst_view_post_class', $post_class_list, $this->atts ) );
 
 		/**
 		 * Store updated atts.
