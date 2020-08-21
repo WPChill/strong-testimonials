@@ -1,3 +1,6 @@
+= 2.50.2 =
+* Fixed fatal error
+
 = 2.50.1 =
 * Small fixes
 * Changed the layout of the views page.
