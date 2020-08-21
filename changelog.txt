@@ -1,3 +1,6 @@
+= 2.50.3 =
+* Fixed upsells option
+
 = 2.50.2 =
 * Fixed fatal error
 
