@@ -97,7 +97,7 @@ class Strong_Testimonials_Settings_General {
 		$input['lazyload']                = wpmtst_sanitize_checkbox( $input, 'lazyload' );
         $input['no_lazyload_plugin']      = wpmtst_sanitize_checkbox( $input, 'no_lazyload_plugin' );
 		$input['touch_enabled']           = wpmtst_sanitize_checkbox( $input, 'touch_enabled' );
-        $input['disable_upsells']      	  = wpmtst_sanitize_checkbox( $input, 'upsells' );
+        $input['disable_upsells']      	  = wpmtst_sanitize_checkbox( $input, 'disable_upsells' );
                 
         return apply_filters( 'wpmtst_sanitize_general_options', $input );
 	}
