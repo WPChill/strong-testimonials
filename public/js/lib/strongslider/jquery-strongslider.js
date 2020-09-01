@@ -659,6 +659,7 @@
 
 		var maxHeight = arrayMax(heights);
 		slider.children.height(maxHeight);
+                slider.children.add(el.find('.wpmslider-clone')).height(maxHeight);
 	  };
 
 	  /**
