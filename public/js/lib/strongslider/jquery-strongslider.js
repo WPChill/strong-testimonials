@@ -420,7 +420,7 @@
 		// if any control option is requested, add the controls wrapper
 		if (slider.settings.controls || slider.settings.autoControls || slider.settings.pager) { slider.viewport.after(slider.controls.el); }
 
-		if (preloadSelector === null) {
+		if (preloadSelector === null || navigator.userAgent.indexOf("Firefox")) {
 		  start();
 		} else {
 		  loadElements(preloadSelector, start);
@@ -492,7 +492,6 @@
 	   * Start the slider
 	   */
 	  var start = function () {
-
 		// if infinite loop, prepare additional slides
 		if (slider.settings.infiniteLoop && slider.settings.mode !== 'fade') {
 		  var slice = slider.settings.mode === 'vertical' ? slider.settings.minSlides : slider.settings.maxSlides,
