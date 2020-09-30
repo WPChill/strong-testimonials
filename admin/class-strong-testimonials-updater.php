@@ -1377,7 +1377,7 @@ class Strong_Testimonials_Updater {
 			}
 		}
 
-		$wordstring = join( '', $allwords );
+		$wordstring = implode( '', $allwords );
 
 		return round( strlen( $wordstring ) / count( $allwords ) );
 	}

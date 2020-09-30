@@ -1,5 +1,11 @@
 = 2.50.3 =
 * Fixed upsells option
+* Fixed Slideshow Stretch behaviour.
+* Fixed Slideshow Start automatically behaviour.
+* Fixed expand content in place in sidebar bug.
+* Fixed Strong Testimonials Pro activation from Extensions.
+* Replace deprecated filter.
+* Replaced deprecated join with implode.
 
 = 2.50.2 =
 * Fixed fatal error

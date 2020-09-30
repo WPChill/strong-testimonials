@@ -18,8 +18,9 @@ function strong_testimonials_view( $id = null ) {
 	$out   = array();
 	$pairs = array();
 	$atts  = array( 'id' => $id );
+        $out   = WPMST()->render->prerender( $atts );
 	$out   = WPMST()->render->parse_view( $out, $pairs, $atts );
-
+        
 	echo WPMST()->shortcode->render_view( $out );
 }
 
@@ -453,7 +454,7 @@ function wpmtst_the_custom_field( $field ) {
 					foreach ( $categories as $cat ) {
 						$list[] = $cat->name;
 					}
-					$output = join( ", ", $list );
+					$output = implode( ", ", $list );
 				}
 				else {
 					$output = '';

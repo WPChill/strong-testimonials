@@ -244,7 +244,7 @@ function wpmtst_field_group_classes( $type, $name ) {
 		$class_list[] = "field-$name";
 	}
 
-	return apply_filters( 'wpmtst_form_field_group_class', join( ' ', $class_list ), $type, $name );
+	return apply_filters( 'wpmtst_form_field_group_class', implode( ' ', $class_list ), $type, $name );
 }
 
 /**
@@ -263,7 +263,7 @@ function wpmtst_field_label_classes( $type, $name ) {
 		$class_list[] = "field-$name";
 	}
 
-	return apply_filters( 'wpmtst_form_field_label_class', join( ' ', $class_list ), $type, $name );
+	return apply_filters( 'wpmtst_form_field_label_class', implode( ' ', $class_list ), $type, $name );
 }
 
 /**
@@ -304,7 +304,7 @@ function wpmtst_field_classes( $type = null, $name = null, $max_length = null ) 
 		$class_list[] = 'error';
 	}
 
-	return apply_filters( 'wpmtst_form_field_class', join( ' ', $class_list ), $type, $name );
+	return apply_filters( 'wpmtst_form_field_class', implode( ' ', $class_list ), $type, $name );
 }
 
 /**
