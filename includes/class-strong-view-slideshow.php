@@ -58,6 +58,7 @@ class Strong_View_Slideshow extends Strong_View_Display {
 		$this->find_stylesheet();
 		$this->has_slideshow();
 		$this->has_stars();
+                $this->has_readmore();
 
 		$this->load_dependent_scripts();
 		$this->load_extra_stylesheets();

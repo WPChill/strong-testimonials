@@ -124,6 +124,7 @@ class Strong_View_Display extends Strong_View {
 		$this->has_stars();
 		$this->has_pagination();
 		$this->has_layouts();
+                $this->has_readmore();
                 $this->has_lazyload();
 
 		$this->load_dependent_scripts();
