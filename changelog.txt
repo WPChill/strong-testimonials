@@ -4,6 +4,7 @@
 * Fixed Slideshow Start automatically behaviour.
 * Fixed expand content in place in sidebar bug.
 * Fixed Strong Testimonials Pro activation from Extensions.
+* Fixed Read More issue when using a testimonial slideshow view in a widget. 
 * Replace deprecated filter.
 * Replaced deprecated join with implode.
 
