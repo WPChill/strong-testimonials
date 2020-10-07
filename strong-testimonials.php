@@ -273,8 +273,9 @@ final class Strong_Testimonials {
 			require_once WPMTST_ADMIN . 'settings/class-strong-testimonials-settings-general.php';
 			require_once WPMTST_ADMIN . 'settings/class-strong-testimonials-settings-form.php';
 			require_once WPMTST_ADMIN . 'settings/class-strong-testimonials-settings-compat.php';
-            require_once WPMTST_ADMIN . 'settings/class-strong-testimonials-form.php';
+                        require_once WPMTST_ADMIN . 'settings/class-strong-testimonials-form.php';
 			
+			require_once WPMTST_ADMIN . 'about/class-strong-testimonials-welcome.php';
 			require_once WPMTST_ADMIN . 'class-strong-testimonials-addons.php';
 			require_once WPMTST_ADMIN . 'class-strong-testimonials-defaults.php';
 			require_once WPMTST_ADMIN . 'class-strong-testimonials-list-table.php';
@@ -329,8 +330,7 @@ final class Strong_Testimonials {
 		 * Plugin setup.
 		 */
 		add_action( 'init', array( $this, 'l10n_check' ) );
-		//@todo : delete commented line. For the moment let it be
-		//add_action( 'init', array( $this, 'reorder_check' ) );
+                //add_action( 'init', array( $this, 'reorder_check' ) );
 
 		/**
 		 * Theme support for thumbnails.
@@ -399,16 +399,13 @@ final class Strong_Testimonials {
 	/**
 	 * Load reorder class if enabled.
 	 */
-    //@todo : delete commented lines. For the moment let it be
-	/*public function reorder_check() {
-		$options = get_option( 'wpmtst_options' );
-		if ( isset( $options['reorder'] ) && $options['reorder'] ) {
-			require_once WPMTST_INC . 'class-strong-testimonials-order.php';
-		}
-	}*/
-
-
-
+//	public function reorder_check() {
+//		$options = get_option( 'wpmtst_options' );
+//		if ( isset( $options['reorder'] ) && $options['reorder'] ) {
+//			require_once WPMTST_INC . 'class-strong-testimonials-order.php';
+//		}
+//	}
+        
 	/**
 	 * Get att(s).
 	 *

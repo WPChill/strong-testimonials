@@ -92,7 +92,7 @@ add_action( 'admin_action_captcha-options-changed', 'wpmtst_action_captcha_optio
 function wpmtst_activation_redirect() {
 	if ( get_option( 'wpmtst_do_activation_redirect', false ) ) {
 		delete_option( 'wpmtst_do_activation_redirect' );
-		wp_redirect( admin_url( 'edit.php?post_type=wpm-testimonial' ) );
+		wp_redirect( admin_url( 'index.php?page=wpmtst-getting-started' ) );
 		exit;
 	}
 }

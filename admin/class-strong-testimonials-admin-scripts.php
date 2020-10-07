@@ -64,7 +64,13 @@ class Strong_Testimonials_Admin_Scripts {
 			WPMTST_ASSETS_CSS . 'admin-global.css',
 			array(),
 			$plugin_version );
-
+                
+                wp_register_style(
+			'wpmtst-admin-welcome-style',
+			WPMTST_ASSETS_CSS . 'admin-welcome.css',
+			array(),
+			$plugin_version );
+                                
 	 	wp_register_style(
 			'wpmtst-admin-style',
 			WPMTST_ASSETS_CSS . 'admin.css',
@@ -230,6 +236,7 @@ class Strong_Testimonials_Admin_Scripts {
 	 * Enqueue global admin scripts.
 	 */
 	public static function admin_enqueue_scripts() {
+                $screen = get_current_screen();
 		$plugin_version = get_option( 'wpmtst_plugin_version' );
 
 		wp_enqueue_style( 'wpmtst-admin-global-style' );
@@ -248,6 +255,10 @@ class Strong_Testimonials_Admin_Scripts {
 				'templateTagTitle' => __( 'click to insert into message at caret', 'strong-testimonials' ),
 			)
 		);
+                
+                if ( $screen->id === 'dashboard_page_wpmtst-getting-started' ) {
+			wp_enqueue_style( 'wpmtst-admin-welcome-style' );
+		}
 	}
 
 	/**
