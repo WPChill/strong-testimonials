@@ -1,3 +1,6 @@
+= 2.50.4 =
+* Added Welcome Banner when Strong Testimonials is activated.
+
 = 2.50.3 =
 * Fixed upsells option
 * Fixed Slideshow Stretch behaviour.
