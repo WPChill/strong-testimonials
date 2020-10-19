@@ -175,6 +175,9 @@ class Strong_Testimonials_Welcome {
 								<li><span class="dashicons dashicons-yes"></span> <?php esc_html_e( 'Testimonial Assignment', 'strong-testimonials' ); ?></li>
 								<li><span class="dashicons dashicons-yes"></span> <?php esc_html_e( 'Testimonial Importer', 'strong-testimonials' ); ?></li>
 								<li><span class="dashicons dashicons-yes"></span> <?php esc_html_e( 'SEO-friendly Testimonials', 'strong-testimonials' ); ?></li>
+                                                                <li><span class="dashicons dashicons-yes"></span> <?php esc_html_e( 'Country Selector', 'strong-testimonials' ); ?></li>
+                                                                <li><span class="dashicons dashicons-yes"></span> <?php esc_html_e( 'Infinite Scroll', 'strong-testimonials' ); ?></li>
+                                                                <li><span class="dashicons dashicons-yes"></span> <?php esc_html_e( 'Filters', 'strong-testimonials' ); ?></li>
 							</ul>
 						</div>
 
@@ -185,6 +188,9 @@ class Strong_Testimonials_Welcome {
 								<li><span class="dashicons dashicons-yes"></span> <?php esc_html_e( 'Advanced View Settings', 'strong-testimonials' ); ?></li>
 								<li><span class="dashicons dashicons-yes"></span> <?php esc_html_e( 'Multiple Submission Forms', 'strong-testimonials' ); ?></li>
 								<li><span class="dashicons dashicons-yes"></span> <?php esc_html_e( 'Custom Form Fields', 'strong-testimonials' ); ?></li>
+                                                                <li><span class="dashicons dashicons-yes"></span> <?php esc_html_e( 'Custom properties', 'strong-testimonials' ); ?></li>
+                                                                <li><span class="dashicons dashicons-yes"></span> <?php esc_html_e( 'Enhanced Emails', 'strong-testimonials' ); ?></li>
+                                                                <li><span class="dashicons dashicons-yes"></span> <?php esc_html_e( 'Role Management', 'strong-testimonials' ); ?></li>
 							</ul>
 						</div>
 
