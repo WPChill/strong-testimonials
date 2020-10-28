@@ -15,7 +15,9 @@ class Strong_Testimonials_Uninstall {
             $this,
             'filter_action_links'
         ) );
-        add_action( 'admin_footer-plugins.php', array( $this, 'add_uninstall_form' ), 16 );
+        if (!is_network_admin()) {
+            add_action( 'admin_footer-plugins.php', array( $this, 'add_uninstall_form' ), 16 );
+        }
         add_action( 'wp_ajax_st_uninstall_plugin', array( $this, 'st_uninstall_plugin' ) );
         add_action( 'admin_enqueue_scripts', array( $this, 'uninstall_scripts' ) );
     }
