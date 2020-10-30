@@ -318,7 +318,9 @@ class Strong_Testimonials_Post_Editor {
 		// Determine whether to update or delete.
 		// Similar to wpmtst_ajax_edit_rating() in admin-ajax.php.
 		$custom_fields['nofollow']['input_type'] = '';
-		
+		$custom_fields['noopener']['input_type'] = '';
+                $custom_fields['noreferrer']['input_type'] = '';
+                
 		foreach ( $custom as $key => $value ) {
 		    $action = 'update';
 		    $sanitized_value = '';
@@ -329,12 +331,12 @@ class Strong_Testimonials_Post_Editor {
 				}
 			}
 
-			// Data Sanitization
-			if ( 'text' == $custom_fields[ $key ]['input_type'] ) {
+			// Data Sanitizationva
+			if ( isset($custom_fields[ $key ]['input_type']) && 'text' == $custom_fields[ $key ]['input_type'] ) {
 				$sanitized_value = wp_filter_post_kses( $value );
-			}elseif ( 'email' == $custom_fields[ $key ]['input_type'] ) {
+			}elseif ( isset($custom_fields[ $key ]['input_type']) && 'email' == $custom_fields[ $key ]['input_type'] ) {
 				$sanitized_value = sanitize_email( $value );
-			}elseif ( 'url' == $custom_fields[ $key ]['input_type'] ) {
+			}elseif ( isset($custom_fields[ $key ]['input_type']) && 'url' == $custom_fields[ $key ]['input_type'] ) {
 				$sanitized_value = sanitize_text_field( $value );
 			}else{
 				$sanitized_value = sanitize_text_field( $value );
