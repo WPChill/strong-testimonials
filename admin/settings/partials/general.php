@@ -230,21 +230,23 @@ $options = get_option( 'wpmtst_options' );
             </fieldset>
         </td>
     </tr>
-    
-    <tr valign="top">
-        <th scope="row">
-			<?php _e( 'Lazy Loading', 'strong-testimonials' ); ?>
-        </th>
-        <td>
-            <fieldset>
-                <label>
-                    <input type="checkbox" name="wpmtst_options[lazyload]" <?php checked( $options['lazyload'] ); ?>>
-                    <?php printf( __( 'Enable the Lazy Loading functionality.', 'strong-testimonials' ) ); ?>
-                    <?php _e( 'Off by default.', 'strong-testimonials' ); ?>
-                </label>
-            </fieldset>
-        </td>
-    </tr>
+
+    <?php if( !function_exists( 'wp_lazy_loading_enabled' ) || !apply_filters( 'wp_lazy_loading_enabled', true ) ) :  ?>
+        <tr valign="top">
+            <th scope="row">
+                <?php _e( 'Lazy Loading', 'strong-testimonials' ); ?>
+            </th>
+            <td>
+                <fieldset>
+                    <label>
+                        <input type="checkbox" name="wpmtst_options[lazyload]" <?php checked( $options['lazyload'] ); ?>>
+                        <?php printf( __( 'Enable the Lazy Loading functionality.', 'strong-testimonials' ) ); ?>
+                        <?php _e( 'Off by default.', 'strong-testimonials' ); ?>
+                    </label>
+                </fieldset>
+            </td>
+        </tr>
+    <?php endif; ?>
     
     <?php if ( wpmtst_is_plugin_active( 'lazy-loading-responsive-images' ) ) : ?> 
     <tr valign="top">
