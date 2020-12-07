@@ -1,6 +1,8 @@
 = 2.50.4 =
 * Added Welcome Banner when Strong Testimonials is activated.
-* Remove uninstall message that was appearing in WP dashboard when using multisite network.
+* Removed uninstall message that was appearing in WP dashboard when using multisite network.
+* Removed Lazy Loading Setting for WP versions higher than 5.5 when the core LazyLoad is enabled.
+* Fixed typo from Fields.
 
 = 2.50.3 =
 * Fixed upsells option
