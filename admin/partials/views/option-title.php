@@ -33,7 +33,7 @@ if ( '0' == $view['title_link'] ) {
                     <?php printf( _x( 'Link to %s', 'The name of this post type. "Testimonial" by default.', 'strong-testimonials' ), strtolower( apply_filters( 'wpmtst_cpt_singular_name', __( 'Testimonial', 'strong-testimonials' ) ) ) ); ?>
                 </label>
                 <div class="wpmtst-tooltip"><span>[?]</span>
-                    <div class="wpmtst-tooltip-content"><?php echo esc_html__('"Full testimonial" option doesn\'s work if "Disable permalinks for testimonials" from "Settings" page in enabled.','strong-testimonials'); ?></div>
+                    <div class="wpmtst-tooltip-content"><?php echo esc_html__('"Full testimonial" option doesn\'s work if "Disable permalinks for testimonials" from "Settings" page is enabled.','strong-testimonials'); ?></div>
                 </div>
 
                 <select name="view[data][title_link]">
