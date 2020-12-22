@@ -28,7 +28,7 @@ class Strong_Testimonials_Welcome {
 
 			<div class="container">
 
-				<div class="hero">
+				<div class="hero features">
 
 					<div class="mascot">
 						<img src="<?php echo esc_attr( WPMTST_ADMIN_URL ); ?>/img/mascot-2.svg" alt="<?php esc_attr_e( 'Strong Testimonials Mascot', 'strong-testimonials' ); ?>">
@@ -43,7 +43,33 @@ class Strong_Testimonials_Welcome {
 
 					<div class="block">
 
-						<h6><?php esc_html_e( 'Strong Testimonials makes it easy to collect and display testimonials on your website.', 'strong-testimonials' ); ?></h6>
+						<div class="feature-list clear">
+
+							<div class="feature-block first">
+								<img src="<?php echo esc_attr( WPMTST_ADMIN_URL ); ?>/img/features/7.svg">
+								<h5><?php esc_html_e( 'Increase Conversions', 'strong-testimonials' ); ?></h5>
+								<p><?php esc_html_e( 'Make customers 63% more likely to purchase with testimonials that drive sales.', 'strong-testimonials' ); ?></p>
+							</div>
+
+							<div class="feature-block last">
+								<img src="<?php echo esc_attr( WPMTST_ADMIN_URL ); ?>/img/features/8.svg">
+								<h5><?php esc_html_e( 'Collect Testimonials', 'strong-testimonials' ); ?></h5>
+								<p><?php esc_html_e( 'Easily collect testimonials from customers by creating forms.', 'strong-testimonials' ); ?></p>
+							</div>
+
+							<div class="feature-block first">
+								<img src="<?php echo esc_attr( WPMTST_ADMIN_URL ); ?>/img/features/5.svg">
+								<h5><?php esc_html_e( 'Multiple Layouts', 'strong-testimonials' ); ?></h5>
+								<p><?php esc_html_e( 'Choose from four unique layouts for your testimonials.', 'strong-testimonials' ); ?></p>
+							</div>
+
+							<div class="feature-block last">
+								<img src="<?php echo esc_attr( WPMTST_ADMIN_URL ); ?>/img/features/14.svg">
+								<h5><?php esc_html_e( 'SEO-friendly', 'strong-testimonials' ); ?></h5>
+								<p><?php esc_html_e( 'SEO-friendly testimonials that your customers and Search Engines can understand.', 'strong-testimonials' ); ?></p>
+							</div>
+
+						</div>
 
 						<div class="button-wrap clear">
 							<div class="left">
@@ -67,51 +93,27 @@ class Strong_Testimonials_Welcome {
 
 					<div class="block">
 
-						<h1><?php esc_html_e( 'Strong Testimonials Features & Extensions', 'strong-testimonials' ); ?></h1>
+						<h1><?php esc_html_e( 'Strong Testimonials Extensions', 'strong-testimonials' ); ?></h1>
 						<h6><?php esc_html_e( 'Sales copy grabs attention - testimonials drive sales.', 'strong-testimonials' ); ?></h6>
 
 						<div class="feature-list clear">
 
 							<div class="feature-block first">
-								<img src="<?php echo esc_attr( WPMTST_ADMIN_URL ); ?>/img/features/7.svg">
-								<h5><?php esc_html_e( 'Increase Conversions', 'strong-testimonials' ); ?></h5>
-								<p><?php esc_html_e( 'Make customers 63% more likely to purchase with testimonials that drive sales.', 'strong-testimonials' ); ?></p>
-							</div>
-
-							<div class="feature-block last">
-								<img src="<?php echo esc_attr( WPMTST_ADMIN_URL ); ?>/img/features/8.svg">
-								<h5><?php esc_html_e( 'Collect Testimonials', 'strong-testimonials' ); ?></h5>
-								<p><?php esc_html_e( 'Easily collect testimonials from customers by creating forms.', 'strong-testimonials' ); ?></p>
-							</div>
-
-							<div class="feature-block first">
-								<img src="<?php echo esc_attr( WPMTST_ADMIN_URL ); ?>/img/features/14.svg">
-								<h5><?php esc_html_e( 'SEO-friendly', 'strong-testimonials' ); ?></h5>
-								<p><?php esc_html_e( 'SEO-friendly testimonials that your customers and Search Engines can understand.', 'strong-testimonials' ); ?></p>
-							</div>
-
-							<div class="feature-block last">
 								<img src="<?php echo esc_attr( WPMTST_ADMIN_URL ); ?>/img/features/1.svg">
 								<h5><?php esc_html_e( 'Pro Templates', 'strong-testimonials' ); ?><div class="pro-label">PRO</div></h5>
 								<p><?php esc_html_e( 'Create beautiful testimonial designs with a number of predesigned and easy-to-use premium templates.', 'strong-testimonials' ); ?><br/><a target="_blank" href="https://strongtestimonials.com/extensions/pro-templates"><?php esc_html_e( 'Learn More', 'strong-testimonials' ); ?></a></p>
 							</div>
 
-							<div class="feature-block first">
-								<img src="<?php echo esc_attr( WPMTST_ADMIN_URL ); ?>/img/features/4.svg">
-								<h5><?php esc_html_e( 'Help if you need it', 'strong-testimonials' ); ?></h5>
-								<p><?php esc_html_e( 'We’re here to make sure no questions are left unanswered and you have a smooth experience.', 'strong-testimonials' ); ?></p>
+							<div class="feature-block last">
+								<img src="<?php echo esc_attr( WPMTST_ADMIN_URL ); ?>/img/features/infinitescroll.svg">
+								<h5><?php esc_html_e( 'Infinite Scroll', 'strong-testimonials' ); ?><div class="pro-label">PRO</div></h5>
+								<p><?php esc_html_e( 'Change properties of the testimonial post type: labels, permalink structure, admin options and post editor features.', 'strong-testimonials' ); ?><br/><a target="_blank" href="https://strongtestimonials.com/extensions/infinite-scroll/"><?php esc_html_e( 'Learn More', 'strong-testimonials' ); ?></a></p>
 							</div>
 
-							<div class="feature-block last">
+							<div class="feature-block first">
 								<img src="<?php echo esc_attr( WPMTST_ADMIN_URL ); ?>/img/features/12.svg">
 								<h5><?php esc_html_e( 'Testimonial Assignment', 'strong-testimonials' ); ?><div class="pro-label">PRO</div></h5>
 								<p><?php esc_html_e( 'Assign testimonials to custom post types for easy management and filtering.', 'strong-testimonials' ); ?><br/><a target="_blank" href="https://strongtestimonials.com/extensions/assignment"><?php esc_html_e( 'Learn More', 'strong-testimonials' ); ?></a></p>
-							</div>
-
-							<div class="feature-block first">
-								<img src="<?php echo esc_attr( WPMTST_ADMIN_URL ); ?>/img/features/5.svg">
-								<h5><?php esc_html_e( 'Multiple Layouts', 'strong-testimonials' ); ?></h5>
-								<p><?php esc_html_e( 'Choose from four unique layouts for your testimonials.', 'strong-testimonials' ); ?></p>
 							</div>
 
 							<div class="feature-block last">
@@ -154,6 +156,30 @@ class Strong_Testimonials_Welcome {
 								<img src="<?php echo esc_attr( WPMTST_ADMIN_URL ); ?>/img/features/15.svg">
 								<h5><?php esc_html_e( 'Testimonial Importer', 'strong-testimonials' ); ?><div class="pro-label">PRO</div></h5>
 								<p><?php esc_html_e( 'Import reviews from 3rd party sites like: Facebook, Google, Yelp, Zomato & WooCommerce', 'strong-testimonials' ); ?><br/><a target="_blank" href="https://strongtestimonials.com/extensions/importer"><?php esc_html_e( 'Learn More', 'strong-testimonials' ); ?></a></p>
+							</div>
+
+							<div class="feature-block first">
+								<img src="<?php echo esc_attr( WPMTST_ADMIN_URL ); ?>/img/features/email.svg">
+								<h5><?php esc_html_e( 'Enhanced Emails', 'strong-testimonials' ); ?><div class="pro-label">PRO</div></h5>
+								<p><?php esc_html_e( 'We added the option to send an email to the customer upon new testimonial submission. Also, to send an email to the customer when the testimonial is approved.', 'strong-testimonials' ); ?><br/><a target="_blank" href="https://strongtestimonials.com/extensions/enhanced-emails/"><?php esc_html_e( 'Learn More', 'strong-testimonials' ); ?></a></p>
+							</div>
+
+							<div class="feature-block last">
+								<img src="<?php echo esc_attr( WPMTST_ADMIN_URL ); ?>/img/features/filter.svg">
+								<h5><?php esc_html_e( 'Filters', 'strong-testimonials' ); ?><div class="pro-label">PRO</div></h5>
+								<p><?php esc_html_e( 'Now you can use categories to group your testimonials and have your clients read reviews grouped by service/product type.', 'strong-testimonials' ); ?><br/><a target="_blank" href="https://strongtestimonials.com/extensions/filters/"><?php esc_html_e( 'Learn More', 'strong-testimonials' ); ?></a></p>
+							</div>
+
+							<div class="feature-block first">
+								<img src="<?php echo esc_attr( WPMTST_ADMIN_URL ); ?>/img/features/rolemanagement.svg">
+								<h5><?php esc_html_e( 'Role Management', 'strong-testimonials' ); ?><div class="pro-label">PRO</div></h5>
+								<p><?php esc_html_e( 'We’re giving power back to the users and admins can decide which user roles are worthy of adding, editing, or removing testimonials.', 'strong-testimonials' ); ?><br/><a target="_blank" href="https://strongtestimonials.com/extensions/role-management/"><?php esc_html_e( 'Learn More', 'strong-testimonials' ); ?></a></p>
+							</div>
+
+							<div class="feature-block last">
+								<img src="<?php echo esc_attr( WPMTST_ADMIN_URL ); ?>/img/features/mailchimp.svg">
+								<h5><?php esc_html_e( 'Mailchimp integration', 'strong-testimonials' ); ?><div class="pro-label">PRO</div></h5>
+								<p><?php esc_html_e( 'Now you can subscribe your customers to a Mailchimp list.', 'strong-testimonials' ); ?><br/><a target="_blank" href="https://strongtestimonials.com/extensions/importer"><?php esc_html_e( 'Learn More', 'strong-testimonials' ); ?></a></p>
 							</div>
 
 						</div><!-- feature-list -->
