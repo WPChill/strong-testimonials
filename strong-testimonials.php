@@ -3,8 +3,8 @@
  * Plugin Name: Strong Testimonials
  * Plugin URI: https://strongtestimonials.com
  * Description: Collect and display your testimonials or reviews.
- * Author: MachoThemes
- * Author URI: https://www.machothemes.com/
+ * Author: WPChill
+ * Author URI: https://wpchill.com/
  * Version: 2.50.4
  * Text Domain: strong-testimonials
  * Domain Path: /languages
@@ -14,7 +14,8 @@
  * Requires PHP: 5.6
  *
  * Copyright 2014-2019 Chris Dillon chris@strongwp.com
- * Copyright 2019 MachoThemes office@machothemes.com
+ * Copyright 2019-2020 MachoThemes office@machothemes.com
+ * Copyright 2020	   WPChill     heyyy@wpchill.com
  *
  * Original Plugin URI:         https://strongplugins.com/plugins/strong-testimonials
  * Original Author URI:         https://strongplugins.com
