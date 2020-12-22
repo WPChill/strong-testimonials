@@ -3,12 +3,6 @@ div.st-block-preview {
   padding: 50px 25px;
   border: 1px solid black; }
 
-div.st-view-select {
-  width: -webkit-fit-content;
-  width: -moz-fit-content;
-  width: fit-content;
-  min-width: 100px; }
-
 div.st-view-select label.components-input-control__label {
   margin-bottom: 10px !important;
   font-weight: 700; }
