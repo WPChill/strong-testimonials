@@ -76,7 +76,7 @@ var strongValidation = {
 
 	  // Add protocol if missing
 	  // Thanks http://stackoverflow.com/a/36429927/51600
-	  jQuery('input[type=url]').change(function () {
+	  jQuery('input[type=url]').on( 'change', function () {
 		if (this.value.length && !/^https*:\/\//.test(this.value)) {
 		  this.value = 'https://' + this.value;
 		}

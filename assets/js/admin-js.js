@@ -229,30 +229,30 @@ jQuery(document).ready(function ($) {
 
 	// Add protocol if missing
 	// Thanks http://stackoverflow.com/a/36429927/51600
-	$('input[type=url]').change(function () {
+	$('input[type=url]').on('change', function () {
 		if (this.value.length && !/^https*:\/\//.test(this.value)) {
 			this.value = 'http://' + this.value;
 		}
 	});
 
-	$('ul.ui-tabs-nav li a').click(function () {
+	$('ul.ui-tabs-nav li a').on('click', function () {
 		$(this).blur();
 	});
 
-	$('.focus-next-field').change(function (e) {
+	$('.focus-next-field').on('change', function (e) {
 		if ($(e.target).is(':checked')) {
 			$(e.target).parent().next().find('input').focus().select();
 		}
 	});
 
 	// toggle screenshots
-	$('#toggle-screen-options').add('#screenshot-screen-options').click(function (e) {
+	$('#toggle-screen-options').add('#screenshot-screen-options').on('click', function (e) {
 		$(this).blur();
 		$('#screenshot-screen-options').slideToggle();
 	});
 
 	// toggle screenshots
-	$('#toggle-help').click(function (e) {
+	$('#toggle-help').on('click', function (e) {
 		$(this).toggleClass('closed open').blur();
 		$('#help-section').slideToggle();
 	});

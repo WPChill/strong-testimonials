@@ -8,7 +8,7 @@ $then_classes = array(
 	apply_filters( 'wpmtst_view_section', '', 'slideshow' ),
 );
 ?>
-<div class="<?php echo esc_attr( implode( array_filter( $then_classes ), ' ' ) ); ?>" style="display: none;">
+<div class="<?php echo esc_attr( implode( ' ', array_filter( $then_classes ) ) ); ?>" style="display: none;">
 	<h3>
 		<?php /* translators: In the view editor. */ ?>
 		<?php _e( 'Slideshow', 'strong-testimonials' ); ?>
