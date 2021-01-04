@@ -28,7 +28,7 @@
       var searchTerm = event.target.value,
         $listItems = $(this).closest(".view-category-list-panel").find('.view-category-list li');
 
-      if ($.trim(searchTerm)) {
+      if (searchTerm.trim()) {
 
         $listItems.hide().filter(function () {
           return $(this).text().toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1;

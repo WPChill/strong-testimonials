@@ -208,13 +208,15 @@ $.extend( $.expr.pseudos || $.expr[ ":" ], {		// '|| $.expr[ ":" ]' here enables
 
 	// http://jqueryvalidation.org/blank-selector/
 	blank: function( a ) {
-		return !$.trim( "" + $( a ).val() );
+                var str = "" + $( a ).val(); 
+		return !str.trim();
 	},
 
 	// http://jqueryvalidation.org/filled-selector/
 	filled: function( a ) {
 		var val = $( a ).val();
-		return val !== null && !!$.trim( "" + val );
+                var str = "" + val;
+		return val !== null && !!str.trim();
 	},
 
 	// http://jqueryvalidation.org/unchecked-selector/
@@ -1088,7 +1090,7 @@ $.extend( $.validator, {
 			delete this.pending[ element.name ];
 			$( element ).removeClass( this.settings.pendingClass );
 			if ( valid && this.pendingRequest === 0 && this.formSubmitted && this.form() ) {
-				$( this.currentForm ).submit();
+				$( this.currentForm ).trigger('submit');
 				this.formSubmitted = false;
 			} else if ( !valid && this.pendingRequest === 0 && this.formSubmitted ) {
 				$( this.currentForm ).triggerHandler( "invalid-form", [ this ] );
@@ -1277,7 +1279,7 @@ $.extend( $.validator, {
 		$.each( [ "rangelength", "range" ], function() {
 			var parts;
 			if ( rules[ this ] ) {
-				if ( $.isArray( rules[ this ] ) ) {
+				if ( Array.isArray( rules[ this ] ) ) {
 					rules[ this ] = [ Number( rules[ this ][ 0 ] ), Number( rules[ this ][ 1 ] ) ];
 				} else if ( typeof rules[ this ] === "string" ) {
 					parts = rules[ this ].replace( /[\[\]]/g, "" ).split( /[\s,]+/ );
@@ -1389,19 +1391,19 @@ $.extend( $.validator, {
 
 		// http://jqueryvalidation.org/minlength-method/
 		minlength: function( value, element, param ) {
-			var length = $.isArray( value ) ? value.length : this.getLength( value, element );
+			var length = Array.isArray( value ) ? value.length : this.getLength( value, element );
 			return this.optional( element ) || length >= param;
 		},
 
 		// http://jqueryvalidation.org/maxlength-method/
 		maxlength: function( value, element, param ) {
-			var length = $.isArray( value ) ? value.length : this.getLength( value, element );
+			var length = Array.isArray( value ) ? value.length : this.getLength( value, element );
 			return this.optional( element ) || length <= param;
 		},
 
 		// http://jqueryvalidation.org/rangelength-method/
 		rangelength: function( value, element, param ) {
-			var length = $.isArray( value ) ? value.length : this.getLength( value, element );
+			var length = Array.isArray( value ) ? value.length : this.getLength( value, element );
 			return this.optional( element ) || ( length >= param[ 0 ] && length <= param[ 1 ] );
 		},
 

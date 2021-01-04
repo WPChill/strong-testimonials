@@ -118,7 +118,7 @@ class Strong_Review {
 		<script type="text/javascript">
 			jQuery( document ).ready( function( $ ){
 
-				$( '.strong-testimonials-review-button' ).click( function( evt ){
+				$( '.strong-testimonials-review-button' ).on('click', function( evt ){
 					var href = $(this).attr('href'),
 						id = $(this).attr('id');
 

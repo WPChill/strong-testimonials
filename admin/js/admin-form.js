@@ -19,17 +19,17 @@ jQuery(document).ready(function ($) {
     $notifyFields.slideDown();
   }
 
-  $notifyAdmin.change(function (e) {
+  $notifyAdmin.on('change', function (e) {
     if ($(this).is(':checked')) {
       $notifyFields.slideDown();
-      $(this).blur();
+      $(this).trigger('blur');
     }
     else {
       $notifyFields.slideUp();
     }
   });
 
-  $('#add-recipient').click(function (e) {
+  $('#add-recipient').on('click', function (e) {
     var $this = $(this);
     var key = $this.parent().siblings('.recipient').length;
     var data = {
@@ -37,7 +37,7 @@ jQuery(document).ready(function ($) {
       'key': key,
     };
     $.get(ajaxurl, data, function (response) {
-      $this.parent().before(response).prev().find('.admin_name').first().focus();
+      $this.parent().before(response).prev().find('.admin_name').first().trigger('focus');
     });
   });
 
@@ -66,10 +66,10 @@ jQuery(document).ready(function ($) {
       var sel;
       //IE support
       if (document.selection) {
-        this.focus();
+        this.trigger('focus');
         sel = document.selection.createRange();
         sel.text = myValue;
-        this.focus();
+        this.trigger('focus');
       }
       //MOZILLA / NETSCAPE support
       else if (this.selectionStart || this.selectionStart === '0') {
@@ -77,13 +77,13 @@ jQuery(document).ready(function ($) {
         var endPos = this.selectionEnd;
         var scrollTop = this.scrollTop;
         this.value = this.value.substring(0, startPos) + myValue + this.value.substring(endPos, this.value.length);
-        this.focus();
+        this.trigger('focus');
         this.selectionStart = startPos + myValue.length;
         this.selectionEnd = startPos + myValue.length;
         this.scrollTop = scrollTop;
       } else {
         this.value += myValue;
-        this.focus();
+        this.trigger('focus');
       }
     });
   };
@@ -103,7 +103,7 @@ jQuery(document).ready(function ($) {
   /**
    * Restore all default messages
    */
-  $('#restore-default-messages').click(function (e) {
+  $('#restore-default-messages').on('click', function (e) {
     var data = {
       'action': 'wpmtst_restore_default_messages'
     };
@@ -137,7 +137,7 @@ jQuery(document).ready(function ($) {
   /**
    * Restore a single default message
    */
-  $('.restore-default-message').click(function (e) {
+  $('.restore-default-message').on('click', function (e) {
     var targetId = $(e.target).data('targetId');
     var data = {
       'action': 'wpmtst_restore_default_message',

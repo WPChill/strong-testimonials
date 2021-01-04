@@ -44,7 +44,7 @@ Array.max = function (array) {
       while (patt.test(cn)) {
         cn = cn.replace(patt, ' ');
       }
-      it.className = $.trim(cn);
+      it.className = cn.trim();
     });
 
     return !additions ? self : self.addClass(additions);
@@ -144,7 +144,7 @@ jQuery(document).ready(function ($) {
 
   // the shortcode code
   $('#view-shortcode').on('focus', function () {
-    $(this).select();
+    $(this).trigger('select');
   });
 
   $('.expand-cats').on('click', function () {
@@ -157,7 +157,7 @@ jQuery(document).ready(function ($) {
       $categoryDivs.removeClass('short-panel').addClass('tall-panel');
       $(this).val('collapse list');
     }
-    $(this).blur();
+    $(this).trigger('blur');
   });
 
   // Masonry example
@@ -267,7 +267,7 @@ jQuery(document).ready(function ($) {
     } else {
       viewDefaultMore.removeProp('disabled');
     }
-    viewDefaultMore.change();
+    viewDefaultMore.trigger( 'change' );
 
   };
 
@@ -505,11 +505,11 @@ jQuery(document).ready(function ($) {
 
     // Force default template since we have more than one group of templates.
     $('input[type=radio][name=\'view[data][template]\'][value=\'default\']').prop('checked', true);
-    templateRadios.change();
+    templateRadios.trigger( 'change' );
     $('input[type=radio][name=\'view[data][form-template]\'][value=\'default-form\']').prop('checked', true);
-    // formTemplateRadios.change();
-    layoutRadios.change();
-    backgroundRadios.change();
+    // formTemplateRadios.trigger( 'change' );
+    layoutRadios.trigger( 'change' );
+    backgroundRadios.trigger( 'change' );
   });
 
   /**
@@ -600,7 +600,7 @@ jQuery(document).ready(function ($) {
     $('select[id^="view-fieldtext"]').on('change', function () {
       if ($(this).val() === 'custom') {
         var key = $(this).closest('.field3').data('key');
-        $('#view-fieldtext' + key + '-custom').focus();
+        $('#view-fieldtext' + key + '-custom').trigger('focus');
       }
     });
   }
@@ -636,7 +636,7 @@ jQuery(document).ready(function ($) {
           arrayLength = response.data.length;
           for (var i = 0; i < arrayLength; i++) {
             $el = $('#' + response.data[i]);
-            $el.prop('checked', true).change();
+            $el.prop('checked', true).trigger( 'change' );
             inputName = $el.prop('name');
             $('input[name=\'' + inputName + '\']').prop('disabled', true).addClass('forced');
           }
@@ -718,7 +718,7 @@ jQuery(document).ready(function ($) {
     if ('view-layout-masonry' === layout) {
       if ($('#view-pagination').is(':checked')) {
         alert('Masonry is incompatible with pagination. Please disable pagination first.');
-        $('#view-layout-normal').prop('checked', true).change();
+        $('#view-layout-normal').prop('checked', true).trigger( 'change' );
       }
     }
   }
@@ -735,7 +735,7 @@ jQuery(document).ready(function ($) {
     // TODO DRY
     if ($(this).is(':checked') && 'masonry' === layoutRadios.filter(':checked').val()) {
       alert('Pagination is incompatible with Masonry. Please select another layout first.');
-      $(this).prop('checked', false).change();
+      $(this).prop('checked', false).trigger( 'change' );
     }
   }
 
@@ -750,14 +750,14 @@ jQuery(document).ready(function ($) {
   function paginationTypeChangeListener () {
     if (this.value === 'standard' && $viewQuantity.val() === '0' && $('#view-pagination').is(':checked')) {
       alert('Standard pagination is incompatible with Count.');
-      $(this).val('simple').change();
+      $(this).val('simple').trigger( 'change' );
     }
   }
 
   function quantityChangeListener () {
     if (this.value === '0' && $viewPaginationType.val() === 'standard' && $('#view-pagination').is(':checked')) {
       alert('Count is incompatible with Standard pagination.');
-      $(this).val(1).change();
+      $(this).val(1).trigger( 'change' );
     }
   }
 
@@ -949,9 +949,9 @@ jQuery(document).ready(function ($) {
       $.when(customFieldList.append(response)).then(function () {
         var $newField = customFieldList.find('#field-' + nextKey);
         $newField
-          .find('div.link').click().end()
+          .find('div.link').trigger('click').end()
           .find('.field-dep').hide().end()
-		  .find('.first-field').focus();
+		  .find('.first-field').trigger('focus');
       });
     });
   });
@@ -1097,7 +1097,7 @@ jQuery(document).ready(function ($) {
         $.get(ajaxurl, data, function (response) {
           // Insert into placeholder div. Add hidden field because we are
           // disabling the <select> so its value will not be submitted.
-          $elParent.find('.field-property-box').html(response); // .find("input").focus();
+          $elParent.find('.field-property-box').html(response); // .find("input").trigger('focus');
           $el.parent().append('<input type="hidden" class="save-type" name="view[data][client_section][' + key + '][type]" value="date">');
         });
         break;
@@ -1248,8 +1248,8 @@ jQuery(document).ready(function ($) {
       $sliderType.parent().siblings('.option-desc.plural').hide();
     }
 
-    $effect.change();
-    $position.change();
+    $effect.trigger( 'change' );
+    $position.trigger( 'change' );
   };
 
   sliderTypeUpdate();
@@ -1325,7 +1325,7 @@ jQuery(document).ready(function ($) {
   /**
    * Restore default breakpoints
    */
-  $('#restore-default-breakpoints').click(function (e) {
+  $('#restore-default-breakpoints').on('click', function (e) {
     var data = {
       'action': 'wpmtst_restore_default_breakpoints'
     };
@@ -1398,12 +1398,12 @@ jQuery(document).ready(function ($) {
     if (inp && inp.select) {
 
       // select text
-      inp.select();
+      inp.trigger('select');
 
       try {
         // copy text
         document.execCommand('copy');
-        inp.blur();
+        inp.trigger('blur');
 
         //t.classList.add('copied');
         //setTimeout(function() { t.classList.remove('copied'); }, 1500);

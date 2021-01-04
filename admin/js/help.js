@@ -10,8 +10,8 @@
 
     if ($('#screen-meta').is(':hidden')) {
       // If Help container is closed, open it, then select tab
-      $('#contextual-help-link').click().promise().done(function () {
-        tabLink.click()
+      $('#contextual-help-link').trigger('click').promise().done(function () {
+        tabLink.trigger('click')
       })
     }
 

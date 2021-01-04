@@ -554,7 +554,7 @@
 
 		// if keyboardEnabled is true, setup the keyboard events
 		if (slider.settings.keyboardEnabled) {
-		  $(document).keydown(keyPress);
+		  $(document).trigger('keydown', keyPress);
 		}
 	  };
 
