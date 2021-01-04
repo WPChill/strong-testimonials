@@ -78,8 +78,8 @@ class Strong_Testimonials_Welcome {
 								</a>
 							</div>
 							<div class="right">
-								<a href="https://strongtestimonials.com/docs"
-									class="wpmtst-btn wpmtst-btn-block wpmtst-btn-lg wpmtst-btn-orange" target="_blank">
+								<a href="https://strongtestimonials.com/docs?utm_source=welcome_banner&utm_medium=backend&utm_campaign=welcome_banner"
+									class="wpmtst-btn wpmtst-btn-block wpmtst-btn-lg" target="_blank">
 									<?php esc_html_e( 'Read the Docs', 'strong-testimonials' ); ?>
 								</a>
 							</div>
@@ -220,9 +220,9 @@ class Strong_Testimonials_Welcome {
 							</ul>
 						</div>
 
-						<a href="https://strongtestimonials.com/pricing/" target="_blank"
+						<a href="https://strongtestimonials.com/pricing/?utm_source=welcome_banner&utm_medium=backend&utm_campaign=welcome_banner" target="_blank"
 							class="wpmtst-btn wpmtst-btn-lg wpmtst-btn-white">
-							<?php esc_html_e( 'Upgrade Now', 'strong-testimonials' ); ?>
+							<?php esc_html_e( 'Upgrade to PRO', 'strong-testimonials' ); ?>
 						</a>
 
 					</div>
@@ -258,13 +258,13 @@ class Strong_Testimonials_Welcome {
 						<div class="button-wrap clear">
 							<div class="left">
 								<a href="<?php echo esc_url( admin_url( 'edit.php?post_type=wpm-testimonial' ) ); ?>"
-									class="wpmtst-btn wpmtst-btn-block wpmtst-btn-lg wpmtst-btn-orange">
+									class="wpmtst-btn wpmtst-btn-block wpmtst-btn-lg wpmtst-btn-purple">
 									<?php esc_html_e( 'Start Adding Testimonials', 'strong-testimonials' ); ?>
 								</a>
 							</div>
 							<div class="right">
 								<a href="https://strongtestimonials.com/pricing/" target="_blank"
-									class="wpmtst-btn wpmtst-btn-block wpmtst-btn-lg wpmtst-btn-purple">
+									class="wpmtst-btn wpmtst-btn-block wpmtst-btn-lg wpmtst-btn-orange">
 									<?php esc_html_e( 'Upgrade to Pro', 'strong-testimonials' ); ?>
 								</a>
 							</div>
