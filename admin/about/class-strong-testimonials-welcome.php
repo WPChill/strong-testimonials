@@ -188,51 +188,25 @@ class Strong_Testimonials_Welcome {
 
 				</div><!-- features -->
 
+			
 				<div class="upgrade">
+					<div class="block">
 
-					<div class="block clear">
-
-						<h1><?php esc_html_e( 'Upgrade to PRO', 'strong-testimonials' ); ?></h1>
-
-						<div class="left">
-							<ul>
-								<li><span class="dashicons dashicons-yes"></span> <?php esc_html_e( '1 Year of Free Updates', 'strong-testimonials' ); ?></li>
-								<li><span class="dashicons dashicons-yes"></span> <?php esc_html_e( 'Pro Templates', 'strong-testimonials' ); ?></li>
-								<li><span class="dashicons dashicons-yes"></span> <?php esc_html_e( 'Testimonial Assignment', 'strong-testimonials' ); ?></li>
-								<li><span class="dashicons dashicons-yes"></span> <?php esc_html_e( 'Testimonial Importer', 'strong-testimonials' ); ?></li>
-								<li><span class="dashicons dashicons-yes"></span> <?php esc_html_e( 'SEO-friendly Testimonials', 'strong-testimonials' ); ?></li>
-                                                                <li><span class="dashicons dashicons-yes"></span> <?php esc_html_e( 'Country Selector', 'strong-testimonials' ); ?></li>
-                                                                <li><span class="dashicons dashicons-yes"></span> <?php esc_html_e( 'Infinite Scroll', 'strong-testimonials' ); ?></li>
-                                                                <li><span class="dashicons dashicons-yes"></span> <?php esc_html_e( 'Filters', 'strong-testimonials' ); ?></li>
-							</ul>
-						</div>
-
-						<div class="right">
-							<ul>
-								<li><span class="dashicons dashicons-yes"></span> <?php esc_html_e( '1 Year of Support', 'strong-testimonials' ); ?></li>
-								<li><span class="dashicons dashicons-yes"></span> <?php esc_html_e( 'Spam Control', 'strong-testimonials' ); ?></li>
-								<li><span class="dashicons dashicons-yes"></span> <?php esc_html_e( 'Advanced View Settings', 'strong-testimonials' ); ?></li>
-								<li><span class="dashicons dashicons-yes"></span> <?php esc_html_e( 'Multiple Submission Forms', 'strong-testimonials' ); ?></li>
-								<li><span class="dashicons dashicons-yes"></span> <?php esc_html_e( 'Custom Form Fields', 'strong-testimonials' ); ?></li>
-                                                                <li><span class="dashicons dashicons-yes"></span> <?php esc_html_e( 'Custom properties', 'strong-testimonials' ); ?></li>
-                                                                <li><span class="dashicons dashicons-yes"></span> <?php esc_html_e( 'Enhanced Emails', 'strong-testimonials' ); ?></li>
-                                                                <li><span class="dashicons dashicons-yes"></span> <?php esc_html_e( 'Role Management', 'strong-testimonials' ); ?></li>
-							</ul>
-						</div>
+					
 
 						<a href="https://strongtestimonials.com/pricing/?utm_source=welcome_banner&utm_medium=backend&utm_campaign=welcome_banner" target="_blank"
-							class="wpmtst-btn wpmtst-btn-lg wpmtst-btn-white">
-							<?php esc_html_e( 'Upgrade to PRO', 'strong-testimonials' ); ?>
+							class="wpmtst-btn wpmtst-btn-lg wpmtst-btn-orange">
+							<?php esc_html_e( 'Upgrade Now', 'strong-testimonials' ); ?>
 						</a>
 
 					</div>
+				</div><!--/.upgrade-->
 
-				</div><!-- upgrade -->
 
 				<div class="testimonials">
 
 					<div class="block clear">
-
+					<h1>Happy users of the Strong Testimonials - premium version</h1>
 						<div class="testimonial-block left">
 							<img src="<?php echo esc_attr( WPMTST_ADMIN_URL ); ?>/img/testimonial-image-1.jpg">
 							<p><?php esc_html_e( 'Strong Testimonials is my new, go-to resource for creating pages with multiple staff bios or testimonials. It’s extremely easy to use, update, and customize, and that makes it an invaluable asset. Highly recommend!', 'strong-testimonials' ); ?>
@@ -265,7 +239,7 @@ class Strong_Testimonials_Welcome {
 							<div class="right">
 								<a href="https://strongtestimonials.com/pricing/" target="_blank"
 									class="wpmtst-btn wpmtst-btn-block wpmtst-btn-lg wpmtst-btn-orange">
-									<?php esc_html_e( 'Upgrade to Pro', 'strong-testimonials' ); ?>
+									<?php esc_html_e( 'Upgrade Now', 'strong-testimonials' ); ?>
 								</a>
 							</div>
 						</div>
