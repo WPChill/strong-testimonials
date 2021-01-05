@@ -66,9 +66,8 @@
 /******/ 	return __webpack_require__(__webpack_require__.s = 4);
 /******/ })
 /************************************************************************/
-/******/ ({
-
-/***/ 0:
+/******/ ([
+/* 0 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -82,7 +81,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _inspector = __webpack_require__(8);
+var _inspector = __webpack_require__(5);
 
 var _inspector2 = _interopRequireDefault(_inspector);
 
@@ -131,7 +130,7 @@ var StrongTestimonialViewEdit = function (_Component) {
 	}, {
 		key: 'selectOptions',
 		value: function selectOptions() {
-			var options = [];
+			var options = [{ value: 0, label: __('None') }];
 
 			st_views.views.forEach(function (view) {
 				options.push({ value: view.id, label: view.name });
@@ -248,8 +247,10 @@ var StrongTestimonialViewEdit = function (_Component) {
 exports.default = StrongTestimonialViewEdit;
 
 /***/ }),
-
-/***/ 4:
+/* 1 */,
+/* 2 */,
+/* 3 */,
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -321,8 +322,7 @@ var StrongTestimonialView = function () {
 var strongTestimonialsView = new StrongTestimonialView();
 
 /***/ }),
-
-/***/ 8:
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -370,7 +370,7 @@ var Inspector = function (_Component) {
 	_createClass(Inspector, [{
 		key: 'selectOptions',
 		value: function selectOptions() {
-			var options = [{ value: 0, label: __('none') }];
+			var options = [{ value: 0, label: __('None') }];
 
 			this.props.attributes.views.forEach(function (view) {
 				options.push({ value: view.id, label: view.name });
@@ -448,5 +448,4 @@ var Inspector = function (_Component) {
 exports.default = Inspector;
 
 /***/ })
-
-/******/ });
+/******/ ]);

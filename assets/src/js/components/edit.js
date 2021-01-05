@@ -22,7 +22,7 @@ export default class StrongTestimonialViewEdit extends Component {
 	}
 
 	selectOptions() {
-		let options = [];
+		let options = [{ value: 0, label: __('None')}];
 
 		st_views.views.forEach(function(view) {
 			options.push({ value: view.id, label: view.name });

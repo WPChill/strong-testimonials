@@ -15,7 +15,7 @@ export default class Inspector extends Component {
 	}
 
 	selectOptions() {
-		let options = [ { value: 0, label: __('none') } ];
+		let options = [ { value: 0, label: __('None') } ];
 
 		this.props.attributes.views.forEach(function(view) {
 			options.push({ value: view.id, label: view.name });
