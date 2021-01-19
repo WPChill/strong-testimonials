@@ -52,6 +52,7 @@ class Strong_Testimonials_Post_Editor {
 		$post   = wpmtst_get_post( $post );
 		$fields = wpmtst_get_custom_fields();
 		$is_new = ( 'post-new.php' == $pagenow );
+                wp_nonce_field ( plugin_basename(__FILE__), 'wpmtst_metabox_nonce');
 		?>
 		<?php do_action( 'wpmtst_before_client_fields_table' ); ?>
         <table class="options">
@@ -294,7 +295,7 @@ class Strong_Testimonials_Post_Editor {
 	 * @since 2.23.2 Delete meta record when rating is zero to allow default display value.
 	 */
 	public static function save_details() {
-		if ( ! isset( $_POST['custom'] ) ) {
+		if ( ! isset( $_POST['custom'] ) || !wp_verify_nonce( $_POST['wpmtst_metabox_nonce'], plugin_basename(__FILE__))) {
 			return;
 		}
 
