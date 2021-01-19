@@ -82,6 +82,7 @@ function wpmtst_update_custom_fields() {
 
             $field['name']                    = sanitize_text_field( $field['name'] );
             $field['label']                   = sanitize_text_field( $field['label'] );
+            $field['text']                   = sanitize_text_field( $field['text'] );
 
             // TODO Replace this special handling
             if ( 'checkbox' == $field['input_type'] ) {
@@ -96,11 +97,8 @@ function wpmtst_update_custom_fields() {
 
             $field['placeholder'] = sanitize_text_field( $field['placeholder'] );
 
-			if ( isset( $field['text'] ) ) {
-				$field['text'] = wp_filter_post_kses( $field['text'] );
-			}
-			$field['before'] = sanitize_text_field( $field['before'] );
-			$field['after']  = sanitize_text_field( $field['after'] );
+            $field['before'] = sanitize_text_field( $field['before'] );
+            $field['after']  = sanitize_text_field( $field['after'] );
 
             $field['shortcode_on_form']      = sanitize_text_field( $field['shortcode_on_form'] );
             $field['shortcode_on_display']   = sanitize_text_field( $field['shortcode_on_display'] );
