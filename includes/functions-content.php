@@ -168,8 +168,8 @@ function wpmtst_trim_words( $text, $num_words = 55, $more = null, $hybrid = fals
 	if ( null === $more ) {
 		$more = __( '&hellip;', 'strong-testimonials' );
 	}
-        $full_text = strip_tags( $text, '<br><img><b><strong><i><em><ul><ol><li><del><a>' );
-	$text = strip_tags( $text, '<br>' );
+        $full_text = strip_tags( $text, '<br><img><b><strong><i><em><ul><ol><li><del><a><sup>' );
+	$text = strip_tags( $text, '<br><br><img><b><strong><i><em><ul><ol><li><del><a><sup>' );
 
 	/*
 	 * translators: If your word count is based on single characters (e.g. East Asian characters),
