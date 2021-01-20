@@ -833,15 +833,10 @@ ul.standard {
 }
 
 .wpmtst-alert {
-  padding: 20px;
-	background: #f4daa4;
-	color: #8d6e30;
-	position: relative;
-}
-
-.wpmtst-alert ul {
-  list-style: circle;
-  padding-left: 30px;
+   padding: 20px;
+   background: #f4daa4;
+   color: #8d6e30;
+   position: relative;
 }
 
 .wpmtst-alert__upgrade-btn {
