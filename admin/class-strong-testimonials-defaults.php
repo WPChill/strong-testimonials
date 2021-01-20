@@ -310,6 +310,14 @@ class Strong_Testimonials_Defaults {
 						'after'       => __( 'Would you like to include a photo?', 'strong-testimonials' ),
 						'admin_table' => 1,
 					),
+                                    	8 => array(
+						'record_type' => 'optional',
+						'name'        => 'star_rating',
+						'label'       => __( 'Star rating', 'strong-testimonials' ),
+						'input_type'  => 'rating',
+                                                'required'    => 0,
+						'after'       => __( 'Would you like to include star rating?', 'strong-testimonials' )
+					),
 				),
 			),
 		);
@@ -357,9 +365,11 @@ class Strong_Testimonials_Defaults {
 			foreach ( $form['fields'] as $key => $array ) {
 				if ( 'post' == $array['record_type'] ) {
 					$forms[ $form_name ]['fields'][ $key ] = array_merge( $default_fields['field_types']['post'][ $array['name'] ], $array );
-				} else {
+				} elseif ( 'custom' == $array['record_type']) {
 					$forms[ $form_name ]['fields'][ $key ] = array_merge( $default_fields['field_types']['custom'][ $array['input_type'] ], $array );
-				}
+				} else {
+                                        $forms[ $form_name ]['fields'][ $key ] = array_merge( $default_fields['field_types']['optional'][ $array['input_type'] ], $array );
+                                }   
 			}
 		}
 
