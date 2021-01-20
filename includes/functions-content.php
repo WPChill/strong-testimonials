@@ -82,23 +82,17 @@ function wpmtst_trim_excerpt( $excerpt = '' ) {
 	 */
 	$hybrid = apply_filters( 'wpmtst_is_hybrid_content', false );
 
-	if ( '' == $excerpt ) {
-
-		$text = wpmtst_get_the_prepared_text();
-
-		// Create excerpt if post has no manual excerpt.
-		$excerpt_length = apply_filters( 'excerpt_length', 55 );
-		$excerpt_more   = apply_filters( 'excerpt_more', ' [&hellip;]' );
-		$excerpt        = wpmtst_trim_words( $text, $excerpt_length, $excerpt_more, $hybrid );
-
-	} elseif ( $hybrid ) {
-
-		$text = wpmtst_get_the_prepared_text( true );
-
-		// Append hybrid content as hidden span to the manual excerpt.
-		$excerpt .= wpmtst_trim_words( $text, 0, '', true );
-
-	}
+        $text = wpmtst_get_the_prepared_text();
+        $excerpt_length = 0;
+        $excerpt_more   = '';
+        
+        // Create excerpt if post has no manual excerpt.
+        if (empty($excerpt)) {
+            $excerpt_length = apply_filters( 'excerpt_length', 55 );
+            $excerpt_more   = apply_filters( 'excerpt_more', ' [&hellip;]' );
+        }
+        
+        $excerpt        = wpmtst_trim_words( $text, $excerpt_length, $excerpt_more, $hybrid, $excerpt );
 
 	/**
 	 * Filters the trimmed excerpt string.
@@ -170,7 +164,7 @@ function wpmtst_get_excerpt_more_link() {
  *
  * @return string
  */
-function wpmtst_trim_words( $text, $num_words = 55, $more = null, $hybrid = false ) {
+function wpmtst_trim_words( $text, $num_words = 55, $more = null, $hybrid = false, $excerpt = '' ) {
 	if ( null === $more ) {
 		$more = __( '&hellip;', 'strong-testimonials' );
 	}
@@ -195,7 +189,7 @@ function wpmtst_trim_words( $text, $num_words = 55, $more = null, $hybrid = fals
 
 	if ( count( $words_array ) > $num_words ) {
 		if ( $hybrid ) {
-			$text = wpmtst_assemble_hybrid( $words_array, $num_words, $sep, $more, $full_text );
+			$text = wpmtst_assemble_hybrid( $words_array, $num_words, $sep, $more, $full_text, $excerpt );
 		} else {
 			$text = wpmtst_assemble_excerpt( $words_array, $sep, $more );
 		}
@@ -233,13 +227,17 @@ function wpmtst_assemble_excerpt( $words_array, $sep, $more ) {
  *
  * @return string
  */
-function wpmtst_assemble_hybrid( $words_array, $num_words, $sep, $more, $full_text ) {
+function wpmtst_assemble_hybrid( $words_array, $num_words, $sep, $more, $full_text, $excerpt = '' ) {
 	$ellipsis = wpmtst_ellipsis();
 	if ( $ellipsis ) {
 		$ellipsis = '<span class="ellipsis">' . $ellipsis . ' </span>';
 		/* ! This space is important:                        ^       */
 	}
-	$first_half  = implode( $sep, array_slice( $words_array, 0, $num_words ) );
+        if (!empty($excerpt)) {
+            $first_half  = $excerpt;
+        } else {
+            $first_half  = implode( $sep, array_slice( $words_array, 0, $num_words ) );
+        }
 	$second_half = implode( $sep, array_slice( $words_array, $num_words ) );
         $wrap_open_class = '';
         if (  WPMST()->atts( 'html_content' ) ) {
