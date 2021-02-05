@@ -155,7 +155,7 @@ class Strong_Testimonials_Upsell {
 
 		<div class="wpmtst-settings-upsell">
 			<div class="wpmtst-alert">
-				<h3>Upgrade to PRO</h3>
+				<h3>Upgrade now</h3>
 				<ul>
 					<?php foreach ( $general_upsells as $general_upsell ) { ?>
 						<li>
@@ -167,7 +167,7 @@ class Strong_Testimonials_Upsell {
 					<?php } ?>
 				</ul>
 
-				<a href="<?php echo esc_url( WPMTST_STORE_URL . '/pricing?utm_source=st-lite&utm_campaign=upsell&utm_medium=general-settings-upsell' ) ?>" target="_blank" class="button button-primary button-hero" style="width:100%;display:block;margin-top:20px;text-align:center;">Upgrade to PRO</a>
+				<a href="<?php echo esc_url( WPMTST_STORE_URL . '/pricing?utm_source=st-lite&utm_campaign=upsell&utm_medium=general-settings-upsell' ) ?>" target="_blank" class="button button-primary button-hero" style="width:100%;display:block;margin-top:20px;text-align:center;">Upgrade now</a>
 
 			</div>
 		</div>

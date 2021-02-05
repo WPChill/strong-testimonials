@@ -166,7 +166,7 @@ class Strong_Testimonials_Welcome {
 
 					<div class="block clear">
 
-						<h1><?php esc_html_e( 'Upgrade to PRO', 'strong-testimonials' ); ?></h1>
+						<h1><?php esc_html_e( 'Upgrade now', 'strong-testimonials' ); ?></h1>
 
 						<div class="left">
 							<ul>
@@ -239,7 +239,7 @@ class Strong_Testimonials_Welcome {
 							<div class="right">
 								<a href="https://strongtestimonials.com/pricing/" target="_blank"
 									class="wpmtst-btn wpmtst-btn-block wpmtst-btn-lg wpmtst-btn-purple">
-									<?php esc_html_e( 'Upgrade to Pro', 'strong-testimonials' ); ?>
+									<?php esc_html_e( 'Upgrade now', 'strong-testimonials' ); ?>
 								</a>
 							</div>
 						</div>
