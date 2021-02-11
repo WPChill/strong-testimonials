@@ -165,7 +165,7 @@
      * Navigation behavior
      */
     var navigationHandler = function () {
-      el.find('.simplePagerNav a').click(function (e) {
+      el.find('.simplePagerNav a').on('click', function (e) {
         var $this = $(e.target);
         var container;
 

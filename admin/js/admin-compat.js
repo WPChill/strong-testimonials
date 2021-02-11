@@ -77,14 +77,14 @@
 
   // Presets
   function setScenario1() {
-    $('#page-loading-general').click()
-    $('#prerender-all').click().prop('checked', true)
-    $('#method-universal').click().prop('checked', true)
+    $('#page-loading-general').trigger('click')
+    $('#prerender-all').trigger('click').prop('checked', true)
+    $('#method-universal').trigger('click').prop('checked', true)
   }
 
   function setScenarioDefault() {
-    $('#prerender-current').click()
-    $('#method-none').click()
+    $('#prerender-current').trigger('click')
+    $('#method-none').trigger('click')
   }
 
   // Listen for change
@@ -104,7 +104,7 @@
 
   // Listen for presets
   $('#set-scenario-1').on('click', function(e) {
-    $(this).blur()
+    $(this).trigger('blur')
     setScenario1()
     e.preventDefault()
   })

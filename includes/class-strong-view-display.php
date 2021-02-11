@@ -76,7 +76,7 @@ class Strong_View_Display extends Strong_View {
 	 * @return mixed
 	 */
 	public function query_infinitescroll( $args ) {
-		if ( $this->atts['pagination'] && 'infinitescroll' == $this->atts['pagination_settings']['type'] && $this->atts['mode'] != 'slideshow') {
+		if ( $this->atts['pagination'] && in_array($this->atts['pagination_settings']['type'], array('infinitescroll', 'loadmore')) && $this->atts['mode'] != 'slideshow') {
 			// Limit is not compatible with standard pagination.
 			$this->atts['count'] = -1;
 			$args['posts_per_page'] = $this->atts['pagination_settings']['per_page'];
@@ -268,7 +268,7 @@ class Strong_View_Display extends Strong_View {
 		// For Post Types Order plugin
 		$args['ignore_custom_sort'] = true;
                 
-                if ( $this->atts['pagination'] && 'infinitescroll' == $this->atts['pagination_settings']['type'] ) {
+                if ( $this->atts['pagination'] && in_array($this->atts['pagination_settings']['type'], array('infinitescroll', 'loadmore')) ) {
                     if (empty($this->atts['paged'])) {
                         $this->atts['paged'] = 1;
                     }
@@ -396,6 +396,17 @@ class Strong_View_Display extends Strong_View {
 	 */
         public function is_infinitescroll() {
 		return ( $this->atts['pagination'] && 'infinitescroll' == $this->atts['pagination_settings']['type'] );
+	}
+        
+        /**
+	 * Return true if using load more button pagination (JavaScript).
+	 *
+	 * @since 2.28.0
+	 *
+	 * @return bool
+	 */
+        public function is_loadmore() {
+		return ( $this->atts['pagination'] && 'loadmore' == $this->atts['pagination_settings']['type'] );
 	}
 
 	/**

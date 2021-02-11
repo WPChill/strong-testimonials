@@ -554,7 +554,7 @@
 
 		// if keyboardEnabled is true, setup the keyboard events
 		if (slider.settings.keyboardEnabled) {
-		  $(document).keydown(keyPress);
+		  $(document).trigger('keydown', keyPress);
 		}
 	  };
 
@@ -1101,7 +1101,11 @@
 		  if (slider.debug) console.log(slider.logAs, 'stop on navigation');
 		  el.stopAuto();
 		}
-		el.goToNextSlide();
+                if ($('.strong-view').hasClass('rtl')) { 
+                    el.goToPrevSlide();
+                } else {
+                    el.goToNextSlide();
+                }
 	  };
 
 	  /**
@@ -1121,7 +1125,11 @@
 		  if (slider.debug) console.log(slider.logAs, 'stop on navigation');
 		  el.stopAuto();
 		}
-		el.goToPrevSlide();
+                if ($('.strong-view').hasClass('rtl')) {
+                    el.goToNextSlide();
+                } else {
+                    el.goToPrevSlide();
+                }
 	  };
 
 	  /**

@@ -117,7 +117,7 @@ jQuery(document).ready(function ($) {
     handles: 'td.column-handle'
   });
 
-  $("td.column-handle").hover(
+  $("td.column-handle").on( 'mouseenter mouseleave',
     function () {
       $(this).closest("tr").addClass("reorder-hover");
     },

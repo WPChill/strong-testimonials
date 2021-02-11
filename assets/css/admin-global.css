@@ -85,3 +85,7 @@ span.wpmtst-upsell-badge {
     margin-left: 10px;
     border-radius: 10px;
 }
+.wpmtst-upsell-checkmark:before {
+    content: "\2713";
+    padding-right: 10px;
+}
