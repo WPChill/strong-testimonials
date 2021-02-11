@@ -20,7 +20,7 @@ $then_classes = array(
 );
 ?>
 
-<div class="table-row form-view-shortcode <?php echo esc_attr( implode( array_filter( $then_classes ), ' ' ) ); ?>">
+<div class="table-row form-view-shortcode <?php echo esc_attr( implode( ' ', array_filter( $then_classes ) ) ); ?>">
 	<div class="table-cell">
         <label for="view-shortcode">
 		    <?php _e( 'Shortcode', 'strong-testimonials' ); ?>

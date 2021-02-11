@@ -29,7 +29,7 @@ class StrongTestimonialView {
         };
 
         registerBlockType( this.blockName , {
-            title: 'View',
+            title: 'Strong Testimonial View',
             description: __( 'Render ST View', 'strong-testimonials'),
             icon: 'editor-quote',
             category: 'common',

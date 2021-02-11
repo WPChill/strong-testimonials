@@ -19,7 +19,7 @@ jQuery(document).ready(function ($) {
     $notifyFields.slideDown();
   }
 
-  $notifyAdmin.on('change', function (e) {
+  $notifyAdmin.on( 'change', function (e) {
     if ($(this).is(':checked')) {
       $notifyFields.slideDown();
       $(this).trigger('blur');

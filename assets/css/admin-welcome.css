@@ -170,7 +170,6 @@
 	border-top-left-radius: 10px;
 	border-top-right-radius: 10px;
 	position: relative;
-	box-shadow: -3px 2px 70px 0px rgba(128, 144, 174, 0.1);
     padding-top: 20px;
 }
 
@@ -229,14 +228,13 @@
     margin-left: 20px;
 }
 
-#wpmtst-welcome .features a {
+#wpmtst-welcome .features .feature-list a {
 	color: #5333ED;
 }
 
 /* upgrade section */
 #wpmtst-welcome .upgrade {
-	background-color: #5333ED;
-	color: rgba(255,255,255,0.7);
+	background-color: white;
 	text-align: center;
 }
 
