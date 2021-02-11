@@ -1,3 +1,14 @@
+= v2.51.0 - 12/02/2021 =
+
+- Changed: Added by default review field to ST form ( https://github.com/WPChill/strong-testimonials/issues/199 )
+- Changed: Improved security (https://github.com/WPChill/strong-testimonials/issues/200)
+- Changed: Upsell texts & design (https://github.com/WPChill/strong-testimonials/issues/204 / https://github.com/WPChill/strong-testimonials/issues/201)
+- Fixed: Addon page design (https://github.com/WPChill/strong-testimonials/issues/202)
+- Fixed: How excerpt were handled, now when you click read more the excerpt will hide and we will show only the full content ( https://github.com/WPChill/strong-testimonials/issues/207 )
+- Fixed: Show on Checked Value string without escape characters(/) ( https://github.com/WPChill/strong-testimonials/issues/209 )
+- Fixed: Keep HTML markup in a testimonial post intact ( https://github.com/WPChill/strong-testimonials/issues/206 )
+- Fixed: How RTL work with our slideshow ( https://github.com/WPChill/strong-testimonials/issues/203 )
+
 = 2.50.4 =
 * Added Welcome Banner when Strong Testimonials is activated.
 * Removed uninstall message that was appearing in WP dashboard when using multisite network.
