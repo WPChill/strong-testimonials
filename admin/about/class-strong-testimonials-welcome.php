@@ -191,24 +191,6 @@ class Strong_Testimonials_Welcome {
 			
 				<div class="upgrade">
 					<div class="block">
-
-					<div class="block clear">
-
-						<h1><?php esc_html_e( 'Upgrade now', 'strong-testimonials' ); ?></h1>
-
-						<div class="left">
-							<ul>
-								<li><span class="dashicons dashicons-yes"></span> <?php esc_html_e( '1 Year of Free Updates', 'strong-testimonials' ); ?></li>
-								<li><span class="dashicons dashicons-yes"></span> <?php esc_html_e( 'Pro Templates', 'strong-testimonials' ); ?></li>
-								<li><span class="dashicons dashicons-yes"></span> <?php esc_html_e( 'Testimonial Assignment', 'strong-testimonials' ); ?></li>
-								<li><span class="dashicons dashicons-yes"></span> <?php esc_html_e( 'Testimonial Importer', 'strong-testimonials' ); ?></li>
-								<li><span class="dashicons dashicons-yes"></span> <?php esc_html_e( 'SEO-friendly Testimonials', 'strong-testimonials' ); ?></li>
-                                                                <li><span class="dashicons dashicons-yes"></span> <?php esc_html_e( 'Country Selector', 'strong-testimonials' ); ?></li>
-                                                                <li><span class="dashicons dashicons-yes"></span> <?php esc_html_e( 'Infinite Scroll', 'strong-testimonials' ); ?></li>
-                                                                <li><span class="dashicons dashicons-yes"></span> <?php esc_html_e( 'Filters', 'strong-testimonials' ); ?></li>
-							</ul>
-						</div>
-
 						<a href="https://strongtestimonials.com/pricing/?utm_source=welcome_banner&utm_medium=backend&utm_campaign=welcome_banner" target="_blank"
 							class="wpmtst-btn wpmtst-btn-lg wpmtst-btn-orange">
 							<?php esc_html_e( 'Upgrade Now', 'strong-testimonials' ); ?>
