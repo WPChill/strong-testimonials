@@ -966,9 +966,8 @@ jQuery(document).ready(function ($) {
     // var key = $elParent.attr("id").split('-').slice(-1)[0];
     var key = $elParent.data('key');
     var data;
-
+    
     switch (fieldType) {
-
       case 'link2':
       case 'link':
         // if changing to [link], add link fields
@@ -1016,8 +1015,6 @@ jQuery(document).ready(function ($) {
           $elParent.find('.field-property-box').html(response);
         });
         break;
-
-      case 'text':
       
       case 'checkbox':
           // if changing to [checkbox_value]
@@ -1148,6 +1145,13 @@ jQuery(document).ready(function ($) {
             // insert into placeholder div
             $elParent.find('.field-property-box').html(response);
           });
+          break;
+        }
+        
+        if ('video' === fieldType) {
+          typeSelect.val('video').prop('disabled', true);
+          typeSelectParent.append('<input type="hidden" class="save-type" name="' + source + '[client_section][' + key + '][save-type]" value="video">');
+          typeSelect.parent().hide();
           break;
         }
 

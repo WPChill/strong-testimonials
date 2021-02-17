@@ -511,7 +511,8 @@ function wpmtst_view_field_inputs( $key, $field, $adding = false, $source = 'vie
 		'rating'    => __( 'rating', 'strong-testimonials' ),
 		'platform'  => __( 'platform', 'strong-testimonials' ),
 		'shortcode' => __( 'shortcode', 'strong-testimonials' ),
-                'checkbox'   => __('checkbox', 'strong-testimonials')
+                'checkbox'  => __('checkbox', 'strong-testimonials'),
+                'video'     => __('video', 'strong-testimonials')
 	);
 
 	if ( isset( $custom_fields[ $field['field'] ] ) ) {
@@ -580,13 +581,13 @@ function wpmtst_view_field_inputs( $key, $field, $adding = false, $source = 'vie
                 </div>
 
                 <!-- FIELD TYPE -->
-                <div class="field-property field-type field-dep" <?php if ( $adding || $field['type'] == 'checkbox' ) echo ' style="display: none;"'; ?>>
+                <div class="field-property field-type field-dep" <?php if ( $adding || in_array($field['type'], array('checkbox', 'video') ) ) echo ' style="display: none;"'; ?>>
                     <label for="client_section_<?php echo $key; ?>_type">
                         <?php _e( 'Display Type', 'strong-testimonials' ); ?>
                     </label>
                     <select id="client_section_<?php echo $key; ?>_type" name="<?php echo $source ?>[client_section][<?php echo $key; ?>][type]" <?php echo ($field['type'] == 'checkbox' ? 'readonly' : '') ?>>
                         <?php foreach ( $types as $type => $type_label ) : ?>
-                        <option value="<?php echo $type; ?>" <?php selected( $type, $field['type'] ); ?> <?php echo($type=='checkbox' ? 'style="display:none"' : '') ?>><?php echo $type_label; ?></option>
+                        <option value="<?php echo $type; ?>" <?php selected( $type, $field['type'] ); ?> <?php echo(in_array($type, array('checkbox', 'video')) ? 'style="display:none"' : '') ?>><?php echo $type_label; ?></option>
                         <?php endforeach; ?>
                     </select>
                 </div>
