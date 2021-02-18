@@ -234,7 +234,7 @@ class Strong_Testimonials_Welcome {
 								</a>
 							</div>
 							<div class="right">
-								<a href="https://strongtestimonials.com/pricing/" target="_blank"
+								<a href="https://strongtestimonials.com/pricing/?utm_source=welcome_banner&utm_medium=upgradenow&utm_campaign=welcome_banner" target="_blank"
 									class="wpmtst-btn wpmtst-btn-block wpmtst-btn-lg wpmtst-btn-purple">
 									<?php esc_html_e( 'Upgrade now', 'strong-testimonials' ); ?>
 								</a>
