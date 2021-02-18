@@ -1,3 +1,6 @@
+= v2.51.1 - 18/02/2021 =
+- Fixed: Extensions page CSS. 
+
 = v2.51.0 - 12/02/2021 =
 
 - Changed: Added by default review field to ST form ( https://github.com/WPChill/strong-testimonials/issues/199 )
