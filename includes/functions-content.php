@@ -191,11 +191,12 @@ function wpmtst_trim_words( $text, $num_words = 55, $more = null, $hybrid = fals
 		if ( $hybrid ) {
 			$text = wpmtst_assemble_hybrid( $words_array, $num_words, $sep, $more, $full_text, $excerpt );
 		} else {
-			$text = wpmtst_assemble_excerpt( $words_array, $sep, $more );
+			$text = wpmtst_assemble_excerpt( $words_array, $sep, $more, $excerpt );
 		}
 	} else {
 		$text = implode( $sep, $words_array );
 	}
+        
 	return $text;
 }
 
@@ -209,7 +210,10 @@ function wpmtst_trim_words( $text, $num_words = 55, $more = null, $hybrid = fals
  *
  * @return string
  */
-function wpmtst_assemble_excerpt( $words_array, $sep, $more ) {
+function wpmtst_assemble_excerpt( $words_array, $sep, $more, $excerpt = '' ) {
+        if (!empty($excerpt)) {
+            return $excerpt;
+        }
 	array_pop( $words_array );
 	$text = implode( $sep, $words_array );
 
@@ -240,7 +244,7 @@ function wpmtst_assemble_hybrid( $words_array, $num_words, $sep, $more, $full_te
         }
 	$second_half = implode( $sep, array_slice( $words_array, $num_words ) );
         $wrap_open_class = '';
-        if (  WPMST()->atts( 'html_content' ) ) {
+        if (  WPMST()->atts( 'html_content' ) || !empty($excerpt) ) {
             $second_half = $full_text;
             $wrap_open_class = 'all-html';
         }
