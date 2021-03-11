@@ -55,12 +55,9 @@ function wpmtst_views_admin() {
 		}
 
 		if ( isset( $_REQUEST['action'] ) ) {
-
-			$action = filter_input( INPUT_GET, 'action', FILTER_SANITIZE_STRING );
-			$id     = abs( filter_input( INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT ) );
                         global $view;
                         $view = Strong_Testimonials_Helper::get_view();
-                        $sections = new Strong_Testimonials_Helper($action, $id);
+                        $sections = new Strong_Testimonials_Helper();
                         $sections->render_form();
 
 		} else {

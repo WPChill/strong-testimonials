@@ -6,14 +6,14 @@
  */
 class Strong_Testimonials_Helper {
     
-    public function __construct( $action, $view_id ) {
-        $this->action = $action;
-        $this->view_id = $view_id;
+    public function __construct() {
+        $this->action = filter_input( INPUT_GET, 'action', FILTER_SANITIZE_STRING );
+        $this->view_id = abs( filter_input( INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT ) );
         $this->view_options = apply_filters( 'wpmtst_view_options', get_option( 'wpmtst_view_options' ) );
+        $this->cat_count = wpmtst_get_cat_count();
     }
     
-    private function set_view() {
-        global $view;
+    public function set_view() {
         $this->view = $view;
         $this->show_section = apply_filters('wpmtst_show_section', $this->view['mode']);
         if ( 'edit' == $this->action ) {
@@ -30,7 +30,6 @@ class Strong_Testimonials_Helper {
             $this->view      = wpmtst_get_view_default();
             $this->view_name = 'new';
 	}
-        $this->cat_count = wpmtst_get_cat_count();
         $this->view_cats_array = apply_filters( 'wpmtst_l10n_cats', explode( ',', $this->view['category'] ) );
         $this->sections = $this->get_sections();
     }
@@ -742,18 +741,15 @@ class Strong_Testimonials_Helper {
     }
     
     private function render_field() {
-        $view = $this->view;
-        $view_options = apply_filters( 'wpmtst_view_options', get_option( 'wpmtst_view_options' ) );
         if (isset($this->field['option']['id']) && !empty($this->field['option']['id'])) {
-            $option = $this->field['option'];
-            ?>
+            if (!empty($this->field['option'])): ?>
             <th>
-                <?php echo (!empty($option['before']) ? $option['before'] : '' )?>
-                <label for="<?php echo $option['class'] ?>"><?php echo $option['label'] ?></label>
-                <?php echo (!empty($option['after']) ? $option['after'] : '' )?>
-            </th>
-            <?php
-            switch ($option['id']) {
+                <?php echo (!empty($this->field['option']['before']) ? $this->field['option']['before'] : '' )?>
+                <label for="<?php echo $this->field['option']['class'] ?>"><?php echo $this->field['option']['label'] ?></label>
+                <?php echo (!empty($this->field['option']['after']) ? $this->field['option']['after'] : '' )?>
+            </th> <?php
+            endif;
+            switch ($this->field['option']['id']) {
                 case 'select':
                     $this->render_field_select();
                     break;
@@ -828,10 +824,8 @@ class Strong_Testimonials_Helper {
                     $this->render_field_divi();
                     break;
                 default:
-                    include( WPMTST_ADMIN . '/partials/views/' . $this->field['include'] );
+                    do_action('wpmtst_render_field', $this->field);
             }
-        } else {
-            include( WPMTST_ADMIN . '/partials/views/' . $this->field['include'] );
         }
     }
     
