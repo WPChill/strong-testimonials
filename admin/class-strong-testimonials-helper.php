@@ -132,8 +132,8 @@ class Strong_Testimonials_Helper {
                         'field_action_before' => '',
                         'field_action_after' => ''
                     ),
-                    'action_before' => '',
-                    'action_after' => array(
+                    'container_action_before' => '',
+                    'container_action_after'  => array(
                         'action' => 'wpmtst_views_group_query',
                         'param' => $this->view
                     )
@@ -194,8 +194,8 @@ class Strong_Testimonials_Helper {
                         'field_action_before' => '',
                         'field_action_after' => ''
                     ),
-                    'action_before' => '',
-                    'action_after' => ''
+                    'container_action_before' => '',
+                    'container_action_after' => ''
                 )
             ),
             
@@ -289,8 +289,8 @@ class Strong_Testimonials_Helper {
                         'field_action_before' => '',
                         'field_action_after' => ''
                     ),
-                    'fields_action_before' => '',
-                    'fields_action_after' => ''
+                    'container_fields_action_before' => '',
+                    'container_fields_action_after' => ''
                 )
             ),
             
