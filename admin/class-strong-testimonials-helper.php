@@ -54,15 +54,9 @@ class Strong_Testimonials_Helper {
     private function get_sections() {
         return apply_filters( 'wpmtst_view_sections', array(
             'query' => array(
-                'visible'       => false,
-                'action_before' => 'wpmtst_view_editor_before_group_select',
-                'action_after'  => 'wpmtst_view_editor_after_group_select',
-                'then_classes'  => array(
-                    'then',
-                    'then_display',
-                    'then_not_form',
-                    'then_slideshow',
-                    'then_not_single_template',
+                'section_action_before' => 'wpmtst_view_editor_before_group_select',
+                'section_action_after'  => 'wpmtst_view_editor_after_group_select',
+                'classes'  => array('then', 'then_display', 'then_not_form', 'then_slideshow', 'then_not_single_template',
                     apply_filters( 'wpmtst_view_section', '', 'select' ),
                 ),
                 'title'         => __( 'Query', 'strong-testimonials' ),
@@ -94,61 +88,49 @@ class Strong_Testimonials_Helper {
                     )
                 ),
                 'fields'    => array(
-                    'field_select' => array(
-                        'visible' => 'false',
-                        'option' => array(
-                            'id' => 'select',
-                            'before' => '',
-                            'after' => '',
-                            'class' => 'view-single_or_multiple',
-                            'label' => _x( 'Select', 'verb', 'strong-testimonials' )
-                        ),
-                        'classes' => 'then then_display then_slideshow then_not_form',
+                    'field_select' => array(                         
+                        'label' => _x( 'Select', 'verb', 'strong-testimonials' ),
+                        'type' => 'select',
+                        'before' => '',
+                        'after' => '',
+                        'class' => 'view-single_or_multiple',
+                        'container_classes'   => 'then then_display then_slideshow then_not_form',
                         'id'      => '',
-                        'action_before' => '',
-                        'action_after' => ''
+                        'field_action_before' => '',
+                        'field_action_after' => ''
                     ),
                     'field_category' => array(
-                        'visible' => 'false',
-                        'option' => array(
-                            'id' => 'category',
-                            'before' => '',
-                            'after' => '',
-                            'class' => 'view-category-select',
-                            'label' => __( 'Categories', 'strong-testimonials' )
-                        ),
-                        'classes' => 'then then_display then_slideshow then_not_form',
+                        'label' => __( 'Categories', 'strong-testimonials' ),
+                        'type' => 'category',
+                        'before' => '',
+                        'after' => '',
+                        'class' => 'view-category-select',
+                        'container_classes'   => 'then then_display then_slideshow then_not_form',
                         'id'      => '',
-                        'action_before' => '',
-                        'action_after' => ''
+                        'field_action_before' => '',
+                        'field_action_after' => ''
                     ),
                     'field_order' => array(
-                        'visible' => 'false',
-                        'option' => array(
-                            'id' => 'order',
-                            'before' => '',
-                            'after' => '',
-                            'class' => 'view-order',
-                            'label' => _x( 'Order', 'noun', 'strong-testimonials' )
-                        ),
-                        'classes' => 'then then_display then_slideshow then_not_form',
+                        'label' => _x( 'Order', 'noun', 'strong-testimonials' ),
+                        'type' => 'order',
+                        'before' => '',
+                        'after' => '',
+                        'class' => 'view-order',
+                        'container_classes'   => 'then then_display then_slideshow then_not_form',
                         'id'      => '',
-                        'action_before' => '',
-                        'action_after' => ''
+                        'field_action_before' => '',
+                        'field_action_after' => ''
                     ),
                     'field_limit' => array(
-                        'visible' => 'false',
-                         'option' => array(
-                            'id' => 'limit',
-                            'before' => '',
-                            'after' => '',
-                            'class' => 'view-all',
-                            'label' => __( 'Quantity', 'strong-testimonials' )
-                        ),
-                        'classes' => 'then then_display then_slideshow then_not_form',
+                        'label' => __( 'Quantity', 'strong-testimonials' ),
+                        'type' => 'limit',
+                        'before' => '',
+                        'after' => '',
+                        'class' => 'view-all',
+                        'container_classes'   => 'then then_display then_slideshow then_not_form',
                         'id'      => '',
-                        'action_before' => '',
-                        'action_after' => ''
+                        'field_action_before' => '',
+                        'field_action_after' => ''
                     ),
                     'action_before' => '',
                     'action_after' => array(
@@ -159,76 +141,58 @@ class Strong_Testimonials_Helper {
             ),
             
             'fields' => array(
-                'visible'       => false,
-                'action_before' => 'wpmtst_view_editor_before_group_fields',
-                'action_after'  => '',
-                'then_classes'  => array(
-                    'then',
-                    'then_display',
-                    'then_not_form',
-                    'then_slideshow',
-                    'then_single_template',
+                'section_action_before' => 'wpmtst_view_editor_before_group_fields',
+                'section_action_after'  => '',
+                'classes'  => array('then', 'then_display', 'then_not_form', 'then_slideshow', 'then_single_template',
                     apply_filters( 'wpmtst_view_section', '', 'fields' ),
                 ),
                 'title'         => __( 'Fields', 'strong-testimonials' ),
                 'table_classes' => 'form-table multiple group-show',
                 'fields'    => array(
                     'field_title' => array(
-                        'visible' => 'false',
-                        'option' => array(
-                            'id' => 'title',
-                            'before' => '<input type="checkbox" id="view-title" name="view[data][title]" value="1"' . checked( $this->view['title'], true, false ) . 'class="checkbox if toggle">',
-                            'after' => '',
-                            'class' => 'view-title',
-                            'label' => __( ' Title', 'strong-testimonials' )
-                        ),
-                        'classes' => 'then then_display then_not_form then_slideshow then_not_single_template',
+                        'label' => __( ' Title', 'strong-testimonials' ),
+                        'type' => 'title',
+                        'before' => '<input type="checkbox" id="view-title" name="view[data][title]" value="1"' . checked( $this->view['title'], true, false ) . 'class="checkbox if toggle">',
+                        'after' => '',
+                        'class' => 'view-title',
+                        'container_classes'   => 'then then_display then_not_form then_slideshow then_not_single_template',
                         'id'      => '',
-                        'action_before' => '',
-                        'action_after' => ''
+                        'field_action_before' => '',
+                        'field_action_after' => ''
                     ),
                     'field_thumbnail' => array(
-                        'visible' => 'false',
-                        'option' => array(
-                            'id' => 'thumbnail',
-                            'before' => '<input type="checkbox" id="view-images" class="checkbox if toggle" name="view[data][thumbnail]" value="1"' . checked( $this->view['thumbnail'], true, false ) . '>',
-                            'after' => '',
-                            'class' => 'view-images',
-                            'label' => __( ' Featured Image', 'strong-testimonials' )
-                        ),
-                        'classes' => 'then then_display then_not_form then_slideshow then_not_single_template',
+                        'label' => __( ' Featured Image', 'strong-testimonials' ),
+                        'type' => 'thumbnail',
+                        'before' => '<input type="checkbox" id="view-images" class="checkbox if toggle" name="view[data][thumbnail]" value="1"' . checked( $this->view['thumbnail'], true, false ) . '>',
+                        'after' => '',
+                        'class' => 'view-images',
+                        'container_classes'   => 'then then_display then_not_form then_slideshow then_not_single_template',
                         'id'      => '',
-                        'action_before' => '',
-                        'action_after' => ''
+                        'field_action_before' => '',
+                        'field_action_after' => ''
                     ),
                     'field_content' => array(
-                        'visible' => 'false',
-                         'option' => array(
-                            'id' => 'content',
-                            'before' => '',
-                            'after' => '',
-                            'class' => 'view-content',
-                            'label' => __( ' Content', 'strong-testimonials' )
-                        ),
-                        'classes' => 'then then_display then_not_form then_slideshow then_not_single_template',
+                        'label' => __( ' Content', 'strong-testimonials' ),
+                        'type' => 'content',
+                        'before' => '',
+                        'after' => '',
+                        'class' => 'view-content',
+                        'container_classes'   => 'then then_display then_not_form then_slideshow then_not_single_template',
                         'id'      => '',
-                        'action_before' => '',
-                        'action_after' => ''
+                        'field_action_before' => '',
+                        'field_action_after' => ''
                     ),
                     'field_client_section' => array(
-                        'visible' => 'false',
                         'include' => 'option-client-section.php',
-                        'option' => array(
-                            'id' => 'client-section',
-                            'before' => '',
-                            'after' => '',
-                            'class' => '',
-                            'label' => __( ' Custom Fields', 'strong-testimonials' )
-                        ),
-                        'classes' => 'then then_display then_not_form then_slideshow then_single_template',
+                        'label' => __( ' Custom Fields', 'strong-testimonials' ),
+                        'type' => 'client-section',
+                        'before' => '',
+                        'after' => '',
+                        'class' => '',
+                        'container_classes'   => 'then then_display then_not_form then_slideshow then_single_template',
                         'id'      => '',
-                        'action_before' => '',
-                        'action_after' => ''
+                        'field_action_before' => '',
+                        'field_action_after' => ''
                     ),
                     'action_before' => '',
                     'action_after' => ''
@@ -236,280 +200,214 @@ class Strong_Testimonials_Helper {
             ),
             
             'extra' => array(
-                'visible'       => false,
-                'action_before' => 'wpmtst_view_editor_before_group_extra',
-                'action_after'  => '',
-                'then_classes'  => array(
-                    'then',
-                    'then_display',
-                    'then_not_form',
-                    'then_slideshow',
-                    'then_not_single_template',
+                'section_action_before' => 'wpmtst_view_editor_before_group_extra',
+                'section_action_after'  => '',
+                'classes'  => array('then', 'then_display', 'then_not_form', 'then_slideshow', 'then_not_single_template',
                     apply_filters( 'wpmtst_view_section', '', 'extra' ),
                 ),
                 'title'         => __( 'Extra', 'strong-testimonials' ),
                 'table_classes' => 'form-table multiple group-layout',
                 'fields'    => array(
                     'field_pagination' => array(
-                        'visible' => 'false',
-                        'option' => array(
-                            'id' => 'pagination',
-                            'before' => '<input class="if toggle checkbox" id="view-pagination" name="view[data][pagination]" type="checkbox" value="1"' . checked( $this->view['pagination'], true, false ) . '/>',
-                            'after' => '',
-                            'class' => 'view-pagination',
-                            'label' => __( ' Pagination', 'strong-testimonials' )
-                        ),
-                        'classes' => 'then then_display then_not_form then_not_slideshow then_not_single then_multiple',
-                        'id'      => '',
-                        'action_before' => '',
-                        'action_after' => ''
+                        'label' => __( ' Pagination', 'strong-testimonials' ),
+                        'type' => 'pagination',
+                        'before' => '<input class="if toggle checkbox" id="view-pagination" name="view[data][pagination]" type="checkbox" value="1"' . checked( $this->view['pagination'], true, false ) . '/>',
+                        'after' => '',
+                        'class' => 'view-pagination',
+                        'container_classes'   => 'then then_display then_not_form then_not_slideshow then_not_single then_multiple',
+                        'id' => '',
+                        'field_action_before' => '',
+                        'field_action_after' => ''
                     ),
                     'field_read_more' => array(
-                        'visible' => 'false',
                         'include' => 'option-read-more-page.php',
-                        'option' => array(
-                            'id' => 'read-more-page',
-                            'before' => '<div class="checkbox"><input type="checkbox" id="view-more_page" class="if toggle" name="view[data][more_page]" value="1"' . checked( isset( $this->view['more_page'] ) && $this->view['more_page'], true, false ) . ' class="checkbox">',
-                            'after' => '</div>',
-                            'class' => 'view-more_page',
-                            'label' => __( ' Read more" link to a page or post', 'strong-testimonials' )
-                        ),
-                        'classes' => 'then then_display then_not_form then_slideshow read-more',
+                        'label' => __( ' Read more" link to a page or post', 'strong-testimonials' ),
+                        'type' => 'read-more-page',
+                        'before' => '<div class="checkbox"><input type="checkbox" id="view-more_page" class="if toggle" name="view[data][more_page]" value="1"' . checked( isset( $this->view['more_page'] ) && $this->view['more_page'], true, false ) . ' class="checkbox">',
+                        'after' => '</div>',
+                        'class' => 'view-more_page',
+                        'container_classes'   => 'then then_display then_not_form then_slideshow read-more',
                         'id'      => '',
-                        'action_before' => '',
-                        'action_after' => ''
+                        'field_action_before' => '',
+                        'field_action_after' => ''
                     ),
-                    'action_before' => '',
-                    'action_after' => ''
+                    'fields_action_before' => '',
+                    'fields_action_after' => ''
                 )
             ),
             'slideshow' => array(
-                'visible'       => false,
-                'action_before' => 'wpmtst_view_editor_before_group_slideshow',
-                'action_after'  => '',
-                'then_classes'  => array(
-                    'then',
-                    'then_not_display',
-                    'then_not_form',
-                    'then_slideshow',
-                    'then_not_single_template',
+                'section_action_before' => 'wpmtst_view_editor_before_group_slideshow',
+                'section_action_after'  => '',
+                'classes'  => array('then', 'then_not_display', 'then_not_form', 'then_slideshow', 'then_not_single_template',
                     apply_filters( 'wpmtst_view_section', '', 'slideshow' ),
                 ),
                 'title'         => __( 'Slideshow', 'strong-testimonials' ),
                 'table_classes' => 'form-table multiple group-select',
                 'fields'    => array(
                     'field_slideshow_num' => array(
-                        'visible' => 'false',
-                        'option' => array(
-                            'id' => 'slideshow-num',
-                            'before' => '',
-                            'after' => '',
-                            'class' => '',
-                            'label' => __( 'Show', 'strong-testimonials' )
-                        ),
-                        'classes' => '',
+                        'label' => __( 'Show', 'strong-testimonials' ),
+                        'type' => 'slideshow-num',
+                        'before' => '',
+                        'after' => '',
+                        'class' => '',
+                        'container_classes'   => 'then then_slideshow',
                         'id'      => '',
-                        'action_before' => '',
-                        'action_after' => ''
+                        'field_action_before' => '',
+                        'field_action_after' => ''
                     ),
                     'field_slideshow_transition' => array(
-                        'visible' => 'false',
                         'include' => 'option-slideshow-transition.php',
-                        'option' => array(
-                            'id' => 'slideshow-transition',
-                            'before' => '',
-                            'after' => '',
-                            'class' => '',
-                            'label' => __( 'Transition', 'strong-testimonials' )
-                        ),
-                        'classes' => '',
+                        'label' => __( 'Transition', 'strong-testimonials' ),
+                        'type' => 'slideshow-transition',
+                        'before' => '',
+                        'after' => '',
+                        'class' => '',
+                        'container_classes'   => 'then then_slideshow',
                         'id'      => '',
-                        'action_before' => '',
-                        'action_after' => ''
+                        'field_action_before' => '',
+                        'field_action_after' => ''
                     ),
                     'field_slideshow_behavior' => array(
-                        'visible' => 'false',
-                        'option' => array(
-                            'id' => 'slideshow-behavior',
-                            'before' => '',
-                            'after' => '',
-                            'class' => '',
-                            'label' => __( 'Behavior', 'strong-testimonials' )
-                        ),
-                        'classes' => '',
+                        'label' => __( 'Behavior', 'strong-testimonials' ),
+                        'type' => 'slideshow-behavior',
+                        'before' => '',
+                        'after' => '',
+                        'class' => '',
+                        'container_classes'   => 'then then_slideshow',
                         'id'      => '',
-                        'action_before' => '',
-                        'action_after' => ''
+                        'field_action_before' => '',
+                        'field_action_after' => ''
                     ),
                     'field_slideshow_navigation' => array(
-                        'visible' => 'false',
-                        'option' => array(
-                            'id' => 'slideshow-navigation',
-                            'before' => '',
-                            'after' => '',
-                            'class' => 'view-slideshow_nav',
-                            'label' => __( 'Navigation', 'strong-testimonials' )
-                        ),
-                        'classes' => '',
+                        'label' => __( 'Navigation', 'strong-testimonials' ),
+                        'type' => 'slideshow-navigation',
+                        'before' => '',
+                        'after' => '',
+                        'class' => 'view-slideshow_nav',
+                        'container_classes'   => 'then then_slideshow',
                         'id'      => '',
-                        'action_before' => '',
-                        'action_after' => ''
+                        'field_action_before' => '',
+                        'field_action_after' => ''
                     ),
-                    'action_before' => '',
-                    'action_after' => ''
+                    'fields_action_before' => '',
+                    'fields_action_after' => ''
                 )
             ),
             
             'form' => array(
-                'visible'       => false,
-                'action_before' => 'wpmtst_view_editor_before_group_form',
-                'action_after'  => '',
-                'then_classes'  => array(
-                    'then',
-                    'then_not_display',
-                    'then_not_slideshow',
-                    'then_form',
-                    'then_not_single_template',
+                'section_action_before' => 'wpmtst_view_editor_before_group_form',
+                'section_action_after'  => '',
+                'classes'  => array('then', 'then_not_display', 'then_not_slideshow', 'then_form', 'then_not_single_template',
                     apply_filters( 'wpmtst_view_section', '', 'form' ),
                 ),
                 'title'         => __( 'Actions', 'strong-testimonials' ),
                 'table_classes' => 'form-table multiple group-select',
                 'fields'    => array(
                     'field_form_category' => array(
-                        'visible' => 'false',
-                        'option' => array(
-                            'id' => 'form-category',
-                            'before' => '',
-                            'after' => '',
-                            'class' => '',
-                            'label' => __( 'Assign to a category', 'strong-testimonials' )
-                        ),
-                        'classes' => '',
+                        'label' => __( 'Assign to a category', 'strong-testimonials' ),
+                        'type' => 'form-category',
+                        'before' => '',
+                        'after' => '',
+                        'class' => '',
+                        'container_classes'   => 'then then_form',
                         'id'      => '',
-                        'action_before' => '',
-                        'action_after'  => ''
+                        'field_action_before' => '',
+                        'field_action_after'  => ''
                     ),
                     'field_form_ajax' => array(
-                        'visible' => 'false',
-                        'option' => array(
-                            'id' => 'form-ajax',
-                            'before' => '<input type="checkbox" id="view-form_ajax" class="checkbox if toggle" name="view[data][form_ajax]" value="1"' . checked( $this->view['form_ajax'], true, false ) . '>',
-                            'after' => '',
-                            'class' => 'view-form_ajax',
-                            'label' => __( ' Submit form without reloading the page (Ajax)', 'strong-testimonials' )
-                        ),
-                        'classes' => '',
+                        'label' => __( ' Submit form without reloading the page (Ajax)', 'strong-testimonials' ),
+                        'type' => 'form-ajax',
+                        'before' => '<input type="checkbox" id="view-form_ajax" class="checkbox if toggle" name="view[data][form_ajax]" value="1"' . checked( $this->view['form_ajax'], true, false ) . '>',
+                        'after' => '',
+                        'class' => 'view-form_ajax',
+                        'container_classes'   => 'then then_form',
                         'id'      => '',
-                        'action_before' => '',
-                        'action_after'  => ''
+                        'field_action_before' => '',
+                        'field_action_after'  => ''
                     ),
-                    'action_before' => '',
-                    'action_after' => ''
+                    'fields_action_before' => '',
+                    'fields_action_after' => ''
                 )
             ),
                         
             'style' => array(
-                'visible'       => false,
-                'action_before' => 'wpmtst_view_editor_before_group_style',
-                'action_after'  => 'wpmtst_after_style_view_section',
-                'then_classes'  => array(
-                    'then',
-                    'then_display',
-                    'then_form',
-                    'then_slideshow',
-                    'then_not_single_template',
+                'section_action_before' => 'wpmtst_view_editor_before_group_style',
+                'section_action_after'  => 'wpmtst_after_style_view_section',
+                'classes'  => array('then', 'then_display', 'then_form', 'then_slideshow', 'then_not_single_template',
                     apply_filters( 'wpmtst_view_section', '', 'style' ),
                 ),
                 'title'         => __( 'Style', 'strong-testimonials' ),
                 'table_classes' => 'form-table multiple group-style',
                 'fields'    => array(
                     'field_template_list_display' => array(
-                        'visible' => 'false',
-                        'option' => array(
-                            'id' => 'template-list-display',
-                            'before' => '',
-                            'after' => '',
-                            'class' => '',
-                            'label' => __( 'Template', 'strong-testimonials' )
-                        ),
-                        'classes' => 'then then_display then_not_form then_slideshow',
+                        'label' => __( 'Template', 'strong-testimonials' ),
+                        'type' => 'template-list-display',
+                        'before' => '',
+                        'after' => '',
+                        'class' => '',
+                        'container_classes'   => 'then then_display then_not_form then_slideshow',
                         'id'      => '',
-                        'action_before' => 'wpmtst_view_editor_before_template_list',
-                        'action_after'  => ''
+                        'field_action_before' => 'wpmtst_view_editor_before_template_list',
+                        'field_action_after'  => ''
                     ),
                     'field_template_list_form' => array(
-                        'visible' => 'false',
-                        'option' => array(
-                            'id' => 'template-list-form',
-                            'before' => '',
-                            'after' => '',
-                            'class' => '',
-                            'label' => __( 'Template', 'strong-testimonials' )
-                        ),
-                        'classes' => 'then then_not_display then_form then_not_slideshow',
+                        'label' => __( 'Template', 'strong-testimonials' ),
+                        'type' => 'template-list-form',
+                        'before' => '',
+                        'after' => '',
+                        'class' => '',
+                        'container_classes'   => 'then then_not_display then_form then_not_slideshow',
                         'id'      => '',
-                        'action_before' => '',
-                        'action_after'  => ''
+                        'field_action_before' => '',
+                        'field_action_after'  => ''
                     ),
                     'field_option_layout' => array(
-                        'visible'       => 'false',
                         'include'       => 'option-layout.php',
-                         'option' => array(
-                            'id' => 'layout',
-                            'before' => '',
-                            'after' => '',
-                            'class' => '',
-                            'label' => __( 'Layout', 'strong-testimonials' )
-                        ),
-                        'classes'       => 'then then_display then_not_form then_not_slideshow',
+                        'label' => __( 'Layout', 'strong-testimonials' ),
+                        'type' => 'layout',
+                        'before' => '',
+                        'after' => '',
+                        'class' => '',
+                        'container_classes'   => 'then then_display then_not_form then_not_slideshow',
                         'id'            => '',
-                        'action_before' => 'wpmtst_view_editor_before_layout',
-                        'action_after'  => ''
+                        'field_action_before' => 'wpmtst_view_editor_before_layout',
+                        'field_action_after'  => ''
                     ),
                     'field_background' => array(
-                        'visible'       => 'false',
-                        'option' => array(
-                            'id' => 'background',
-                            'before' => '',
-                            'after' => '',
-                            'class' => '',
-                            'label' => __( 'Background', 'strong-testimonials' )
-                        ),
+                        'label' => __( 'Background', 'strong-testimonials' ),
+                        'type' => 'background',
+                        'before' => '',
+                        'after' => '',
+                        'class' => '',
                         'id'            => 'group-style-option-background',
-                        'classes'       => 'then then_display then_form then_slideshow',
-                        'action_before' => 'wpmtst_view_editor_before_background',
-                        'action_after'  => ''
+                        'container_classes'   => 'then then_display then_form then_slideshow',
+                        'field_action_before' => 'wpmtst_view_editor_before_background',
+                        'field_action_after'  => ''
                     ),
                     'field_color' => array(
-                        'visible' => 'false',
-                        'option' => array(
-                            'id' => 'color',
-                            'before' => '',
-                            'after' => '',
-                            'class' => '',
-                            'label' => __( 'Font Color', 'strong-testimonials' )
-                        ),
+                        'label' => __( 'Font Color', 'strong-testimonials' ),
+                        'type' => 'color',
+                        'before' => '',
+                        'after' => '',
+                        'class' => '',
                         'id'      => 'group-style-option-color',
-                        'classes' => 'then then_display then_form then_slideshow',
-                        'action_before' => '',
-                        'action_after'  => ''
+                        'container_classes' => 'then then_display then_form then_slideshow',
+                        'field_action_before' => '',
+                        'field_action_after'  => ''
                     ),
                     'field_classes' => array(
-                        'visible'       => 'false',
-                        'option' => array(
-                            'id' => 'classes',
-                            'before' => '',
-                            'after' => '',
-                            'class' => 'view-class',
-                            'label' => __( 'CSS Classes', 'strong-testimonials' )
-                        ),
+                        'label' => __( 'CSS Classes', 'strong-testimonials' ),
+                        'type' => 'classes',
+                        'before' => '',
+                        'after' => '',
+                        'class' => 'view-class',
                         'id'            => '',
-                        'classes'       => 'then then_display then_form then_slideshow',
-                        'action_before' => 'wpmtst_view_editor_before_classes',
-                        'action_after'  => ''
+                        'container_classes'   => 'then then_display then_form then_slideshow',
+                        'field_action_before' => 'wpmtst_view_editor_before_classes',
+                        'field_action_after'  => ''
                     ),
-                    'action_before' => '',
-                    'action_after' => array(
+                    'fields_action_before' => '',
+                    'fields_action_after' => array(
                         'action' => 'wpmtst_view_editor_after_style_section',
                         'param' => ''
                     )
@@ -517,32 +415,26 @@ class Strong_Testimonials_Helper {
             ),
                         
             'compat' => array(
-                'visible'       => false,
-                'action_before' => 'wpmtst_view_editor_before_group_compat',
-                'action_after'  => '',
-                'then_classes'  => array(
-                    'then',
-                    apply_filters( 'wpmtst_view_section', '', 'compat' ),
+                'section_action_before' => 'wpmtst_view_editor_before_group_compat',
+                'section_action_after'  => '',
+                'classes'  => array('then', apply_filters( 'wpmtst_view_section', '', 'compat' ),
                 ),
                 'title'         => __( 'Compatibility', 'strong-testimonials' ),
                 'table_classes' => 'form-table multiple group-general',
                 'fields'    => array(
                     'field_divi_builder' => array(
-                        'visible'       => 'false',
-                        'option' => array(
-                            'id' => 'divi',
-                            'before' => '',
-                            'after' => '',
-                            'class' => 'view-divi_builder',
-                            'label' => __( 'Divi Builder', 'strong-testimonials' )
-                        ),
-                        'classes'       => 'then then_display then_form then_slideshow then_not_single_template',
+                        'label' => __( 'Divi Builder', 'strong-testimonials' ),
+                        'type' => 'divi',
+                        'before' => '',
+                        'after' => '',
+                        'class' => 'view-divi_builder',
+                        'container_classes' => 'then then_display then_form then_slideshow then_not_single_template',
                         'id'            => '',
-                        'action_before' => '',
-                        'action_after'  => ''
+                        'field_action_before' => '',
+                        'field_action_after'  => ''
                     ),
-                    'action_before' => '',
-                    'action_after' => ''
+                    'fields_action_before' => '',
+                    'fields_action_after' => ''
                 )
             ),
         ) );
@@ -627,7 +519,7 @@ class Strong_Testimonials_Helper {
             $shortcode = '<div class="unsaved">' . _x( 'will be available after you save this', 'The shortcode for a new View.', 'strong-testimonials' ) . '</div>';
         }
 
-        $then_classes = array(
+        $classes = array(
             'then',
             'then_display',
             'then_form',
@@ -647,7 +539,7 @@ class Strong_Testimonials_Helper {
             </div>
         </div>
 
-        <div class="table-row form-view-shortcode <?php echo esc_attr( implode( ' ', array_filter( $then_classes ) ) ); ?>">
+        <div class="table-row form-view-shortcode <?php echo esc_attr( implode( ' ', array_filter( $classes ) ) ); ?>">
             <div class="table-cell">
                 <label for="view-shortcode"><?php _e( 'Shortcode', 'strong-testimonials' ); ?></label>
             </div>
@@ -679,14 +571,14 @@ class Strong_Testimonials_Helper {
         $show_section = apply_filters('wpmtst_show_section', $this->view['mode']);
         
         foreach ($this->sections as $name => $section) {
-            if (!empty($section['action_before'])) {
-                do_action($section['action_before']);
+            if (!empty($section['section_action_before'])) {
+                do_action($section['section_action_before']);
             }
             
             $this->render_section($section);
             
-            if (!empty($section['action_after'])) {
-                do_action($section['action_after']);
+            if (!empty($section['section_action_after'])) {
+                do_action($section['section_action_after']);
             }
         }
         
@@ -695,7 +587,7 @@ class Strong_Testimonials_Helper {
     }
     
     private function render_section($section) { ?>
-        <div class="<?php echo esc_attr( implode(' ', array_filter( $section['then_classes'] ) ) ); ?>" <?php echo ( !$section['visible'] ? 'style="display:none"' : '') ?>>
+        <div class="<?php echo esc_attr( implode(' ', array_filter( $section['classes'] ) ) ); ?>" style="display:none">
             <h3><?php echo $section['title']; ?></h3>
             <table class="<?php echo $section['table_classes'] ?>">
             <?php if (!empty($section['subheading'])): ?>
@@ -709,26 +601,26 @@ class Strong_Testimonials_Helper {
                 </tr>
             <?php endif; 
             if (!empty($section['fields'])) {
-                if (!empty($section['fields']['action_before'])) {
-                    do_action($section['fields']['action_before']['action'], $section['fields']['action_before']['param']);
+                if (!empty($section['fields']['fields_action_before'])) {
+                    do_action($section['fields']['fields_action_before']['action'], $section['fields']['fields_action_before']['param']);
                 }
                 foreach ($section['fields'] as $key => $field) {
                     $this->set_field($field);
                     if (substr( $key, 0, 6 ) === 'field_') {
-                        if (!empty($this->field['action_before'])) {
-                            do_action($field['action_before']);
+                        if (!empty($this->field['field_action_before'])) {
+                            do_action($field['field_action_before']);
                         } ?>
-                        <tr id="<?php echo $this->field['id'] ?>" class="<?php echo $this->field['classes'] ?>"  <?php echo ( !$this->field['visible'] ? 'style="display:none"' : '') ?>>
+                        <tr id="<?php echo $this->field['id'] ?>" class="<?php echo $this->field['container_classes'] ?>" style="display:none">
                             <?php $this->render_field() ?>
                         </tr>
                         <?php                    
-                        if (!empty($this->field['action_after'])) {
-                            do_action($field['action_after']);
+                        if (!empty($this->field['field_action_after'])) {
+                            do_action($field['field_action_after']);
                         }
                     }
                 }
-                if (!empty($section['fields']['action_after'])) {
-                    do_action($section['fields']['action_after']['action'], $section['fields']['action_after']['param']);
+                if (!empty($section['fields']['fields_action_after'])) {
+                    do_action($section['fields']['fields_action_after']['action'], $section['fields']['fields_action_after']['param']);
                 } 
             } ?>
             </table>
@@ -741,15 +633,13 @@ class Strong_Testimonials_Helper {
     }
     
     private function render_field() {
-        if (isset($this->field['option']['id']) && !empty($this->field['option']['id'])) {
-            if (!empty($this->field['option'])): ?>
+        if (isset($this->field['type']) && !empty($this->field['type'])) { ?>
             <th>
-                <?php echo (!empty($this->field['option']['before']) ? $this->field['option']['before'] : '' )?>
-                <label for="<?php echo $this->field['option']['class'] ?>"><?php echo $this->field['option']['label'] ?></label>
-                <?php echo (!empty($this->field['option']['after']) ? $this->field['option']['after'] : '' )?>
+                <?php echo (!empty($this->field['before']) ? $this->field['before'] : '' )?>
+                <label for="<?php echo $this->field['class'] ?>"><?php echo $this->field['label'] ?></label>
+                <?php echo (!empty($this->field['after']) ? $this->field['after'] : '' )?>
             </th> <?php
-            endif;
-            switch ($this->field['option']['id']) {
+            switch ($this->field['type']) {
                 case 'select':
                     $this->render_field_select();
                     break;
