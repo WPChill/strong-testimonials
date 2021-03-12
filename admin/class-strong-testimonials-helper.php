@@ -610,7 +610,7 @@ class Strong_Testimonials_Helper {
                         if (!empty($this->field['field_action_before'])) {
                             do_action($field['field_action_before']);
                         } ?>
-                        <tr id="<?php echo $this->field['id'] ?>" class="<?php echo $this->field['container_classes'] ?>" style="display:none">
+                        <tr id="<?php echo $this->field['id'] ?>" class="<?php echo esc_attr( $this->field['container_classes'] ) ?>" style="display:none">
                             <?php $this->render_field() ?>
                         </tr>
                         <?php                    
@@ -636,7 +636,7 @@ class Strong_Testimonials_Helper {
         if (isset($this->field['type']) && !empty($this->field['type'])) { ?>
             <th>
                 <?php echo (!empty($this->field['before']) ? $this->field['before'] : '' )?>
-                <label for="<?php echo $this->field['class'] ?>"><?php echo $this->field['label'] ?></label>
+                <label for="<?php echo esc_attr( $this->field['class'] )?>"><?php echo $this->field['label'] ?></label>
                 <?php echo (!empty($this->field['after']) ? $this->field['after'] : '' )?>
             </th> <?php
             switch ($this->field['type']) {
