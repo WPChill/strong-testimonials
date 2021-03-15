@@ -198,6 +198,8 @@ class Strong_Testimonials_Helper {
             'extra' => array(
                 'section_action_before' => 'wpmtst_view_editor_before_group_extra',
                 'section_action_after'  => '',
+                'fields_action_before' => '',
+                'fields_action_after' => ''
                 'classes'  => array('then', 'then_display', 'then_not_form', 'then_slideshow', 'then_not_single_template'),
                 'title'         => __( 'Extra', 'strong-testimonials' ),
                 'table_classes' => 'form-table multiple group-layout',
@@ -225,8 +227,6 @@ class Strong_Testimonials_Helper {
                         'field_action_before' => '',
                         'field_action_after' => ''
                     ),
-                    'fields_action_before' => '',
-                    'fields_action_after' => ''
                 )
             ),
             'slideshow' => array(
@@ -288,7 +288,9 @@ class Strong_Testimonials_Helper {
             
             'form' => array(
                 'section_action_before' => 'wpmtst_view_editor_before_group_form',
-                'section_action_after'  => '',
+                'section_action_after'  => '',                
+                'fields_action_before' => '',
+                'fields_action_after' => ''
                 'classes'  => array('then', 'then_not_display', 'then_not_slideshow', 'then_form', 'then_not_single_template'),
                 'title'         => __( 'Actions', 'strong-testimonials' ),
                 'table_classes' => 'form-table multiple group-select',
@@ -315,14 +317,17 @@ class Strong_Testimonials_Helper {
                         'field_action_before' => '',
                         'field_action_after'  => ''
                     ),
-                    'fields_action_before' => '',
-                    'fields_action_after' => ''
                 )
             ),
                         
             'style' => array(
                 'section_action_before' => 'wpmtst_view_editor_before_group_style',
                 'section_action_after'  => 'wpmtst_after_style_view_section',
+                'fields_action_before' => '',
+                'fields_action_after' => array(
+                    'action' => 'wpmtst_view_editor_after_style_section',
+                    'param' => ''
+                )
                 'classes'  => array('then', 'then_display', 'then_form', 'then_slideshow', 'then_not_single_template'),
                 'title'         => __( 'Style', 'strong-testimonials' ),
                 'table_classes' => 'form-table multiple group-style',
@@ -394,17 +399,14 @@ class Strong_Testimonials_Helper {
                         'field_action_before' => 'wpmtst_view_editor_before_classes',
                         'field_action_after'  => ''
                     ),
-                    'fields_action_before' => '',
-                    'fields_action_after' => array(
-                        'action' => 'wpmtst_view_editor_after_style_section',
-                        'param' => ''
-                    )
                 )
             ),
                         
             'compat' => array(
                 'section_action_before' => 'wpmtst_view_editor_before_group_compat',
-                'section_action_after'  => '',
+                'section_action_after'  => '',                
+                'fields_action_before' => '',
+                'fields_action_after' => ''
                 'classes'  => array('then'),
                 'title'         => __( 'Compatibility', 'strong-testimonials' ),
                 'table_classes' => 'form-table multiple group-general',
@@ -420,8 +422,6 @@ class Strong_Testimonials_Helper {
                         'field_action_before' => '',
                         'field_action_after'  => ''
                     ),
-                    'fields_action_before' => '',
-                    'fields_action_after' => ''
                 )
             ),
         ) );
@@ -575,14 +575,14 @@ class Strong_Testimonials_Helper {
     
     private function render_section($name, $section) {
         $section['classes'][] = apply_filters('wpmtst_view_section', '', $name ); ?>
-        <div class="<?php echo esc_attr( implode(' ', array_filter($section['classes']))); ?>" style="display:none">
+        <div class="<?php echo esc_attr(implode(' ', array_filter($section['classes']))); ?>" style="display:none">
             <h3><?php echo $section['title']; ?></h3>
             <table class="<?php echo $section['table_classes'] ?>">
             <?php if (!empty($section['subheading'])): ?>
                 <tr class="subheading">
                 <?php foreach ($section['subheading'] as $subheading): ?>
                     <td class="<?php echo $subheading['classes'] ?>" colspan="<?php echo $subheading['colspan'] ?>">
-                        <?php echo $subheading['title'] ?>
+                        <?php echo esc_attr( $subheading['title'] ) ?>
                         <?php echo $subheading['after'] ?>
                     </td>
                 <?php endforeach; ?>
@@ -620,92 +620,88 @@ class Strong_Testimonials_Helper {
         $this->field = $field;
     }
     
-    private function render_field() {
-        if (isset($this->field['type']) && !empty($this->field['type'])) { ?>
-            <th>
-                <?php echo $this->field['before']; ?>
-                <label for="<?php echo esc_attr( $this->field['class'] )?>"><?php echo $this->field['label'] ?></label>
-                <?php echo $this->field['after']; ?>
-            </th> <?php
-            switch ($this->field['type']) {
-                case 'select':
-                    $this->render_field_select();
-                    break;
-                case 'category':
-                    $this->render_field_category();
-                    break;
-                case 'order':
-                    $this->render_field_order();
-                    break;
-                case 'limit':
-                    $this->render_field_limit();
-                    break;
-                case 'title':
-                    $this->render_field_title();
-                    break;
-                case 'thumbnail':
-                    $this->render_field_thumbnail();
-                    break;
-                case 'content':
-                    $this->render_field_content();
-                    break;
-                case 'client-section':
-                    $this->render_field_client_section();
-                    break;
-                case 'pagination':
-                    $this->render_field_pagination();
-                    break;
-                case 'read-more-page':
-                    $this->render_field_read_more_page();
-                    break;
-                case 'slideshow-num':
-                    $this->render_field_slideshow_num();
-                    break;
-                case 'slideshow-transition':
-                    $this->render_field_slideshow_transition();
-                    break;
-                case 'slideshow-behavior':
-                    $this->render_field_slideshow_behavior();
-                    break;
-                case 'slideshow-navigation':
-                    $this->render_field_slideshow_navigation();
-                    break;
-                case 'form-category':
-                    $this->render_field_form_category();
-                    break;
-                case 'form-ajax':
-                    $this->render_field_form_ajax();
-                    break;
-                case 'template-list-display':
-                    $this->current_mode = 'template';
-                    $this->current_type = 'display';
-                    $this->render_field_template_list();
-                    break;
-                case 'template-list-form':
-                    $this->current_mode = 'form-template';
-                    $this->current_type = 'form';
-                    $this->render_field_template_list();
-                    break;
-                case 'layout':
-                    $this->render_field_layout();
-                    break;
-                case 'background':
-                    $this->render_field_background();
-                    break;
-                case 'color':
-                    $this->render_field_color();
-                    break;
-                case 'classes':
-                    $this->render_field_classes();
-                    break;
-                case 'divi':
-                    $this->render_field_divi();
-                    break;
-                default:
-                    do_action('wpmtst_render_field', $this->field);
-            }
-        } else {
-            do_action('wpmtst_render_field', $this->field);
+    private function render_field() { ?>
+        <th>
+            <?php echo $this->field['before']; ?>
+            <label for="<?php echo esc_attr( $this->field['class'] )?>"><?php echo $this->field['label'] ?></label>
+            <?php echo $this->field['after']; ?>
+        </th> <?php
+        switch ($this->field['type']) {
+            case 'select':
+                $this->render_field_select();
+                break;
+            case 'category':
+                $this->render_field_category();
+                break;
+            case 'order':
+                $this->render_field_order();
+                break;
+            case 'limit':
+                $this->render_field_limit();
+                break;
+            case 'title':
+                $this->render_field_title();
+                break;
+            case 'thumbnail':
+                $this->render_field_thumbnail();
+                break;
+            case 'content':
+                $this->render_field_content();
+                break;
+            case 'client-section':
+                $this->render_field_client_section();
+                break;
+            case 'pagination':
+                $this->render_field_pagination();
+                break;
+            case 'read-more-page':
+                $this->render_field_read_more_page();
+                break;
+            case 'slideshow-num':
+                $this->render_field_slideshow_num();
+                break;
+            case 'slideshow-transition':
+                $this->render_field_slideshow_transition();
+                break;
+            case 'slideshow-behavior':
+                $this->render_field_slideshow_behavior();
+                break;
+            case 'slideshow-navigation':
+                $this->render_field_slideshow_navigation();
+                break;
+            case 'form-category':
+                $this->render_field_form_category();
+                break;
+            case 'form-ajax':
+                $this->render_field_form_ajax();
+                break;
+            case 'template-list-display':
+                $this->current_mode = 'template';
+                $this->current_type = 'display';
+                $this->render_field_template_list();
+                break;
+            case 'template-list-form':
+                $this->current_mode = 'form-template';
+                $this->current_type = 'form';
+                $this->render_field_template_list();
+                break;
+            case 'layout':
+                $this->render_field_layout();
+                break;
+            case 'background':
+                $this->render_field_background();
+                break;
+            case 'color':
+                $this->render_field_color();
+                break;
+            case 'classes':
+                $this->render_field_classes();
+                break;
+            case 'divi':
+                $this->render_field_divi();
+                break;
+            default:
+                do_action('wpmtst_render_field', $this->field);
         }
     }
     
