@@ -56,9 +56,7 @@ class Strong_Testimonials_Helper {
             'query' => array(
                 'section_action_before' => 'wpmtst_view_editor_before_group_select',
                 'section_action_after'  => 'wpmtst_view_editor_after_group_select',
-                'classes'  => array('then', 'then_display', 'then_not_form', 'then_slideshow', 'then_not_single_template',
-                    apply_filters( 'wpmtst_view_section', '', 'select' ),
-                ),
+                'classes'  => array('then', 'then_display', 'then_not_form', 'then_slideshow', 'then_not_single_template'),
                 'title'         => __( 'Query', 'strong-testimonials' ),
                 'table_classes' => 'form-table multiple group-select',
                 'subheading'    => array(
@@ -143,9 +141,7 @@ class Strong_Testimonials_Helper {
             'fields' => array(
                 'section_action_before' => 'wpmtst_view_editor_before_group_fields',
                 'section_action_after'  => '',
-                'classes'  => array('then', 'then_display', 'then_not_form', 'then_slideshow', 'then_single_template',
-                    apply_filters( 'wpmtst_view_section', '', 'fields' ),
-                ),
+                'classes'  => array('then', 'then_display', 'then_not_form', 'then_slideshow', 'then_single_template'),
                 'title'         => __( 'Fields', 'strong-testimonials' ),
                 'table_classes' => 'form-table multiple group-show',
                 'fields'    => array(
@@ -202,9 +198,7 @@ class Strong_Testimonials_Helper {
             'extra' => array(
                 'section_action_before' => 'wpmtst_view_editor_before_group_extra',
                 'section_action_after'  => '',
-                'classes'  => array('then', 'then_display', 'then_not_form', 'then_slideshow', 'then_not_single_template',
-                    apply_filters( 'wpmtst_view_section', '', 'extra' ),
-                ),
+                'classes'  => array('then', 'then_display', 'then_not_form', 'then_slideshow', 'then_not_single_template'),
                 'title'         => __( 'Extra', 'strong-testimonials' ),
                 'table_classes' => 'form-table multiple group-layout',
                 'fields'    => array(
@@ -238,9 +232,7 @@ class Strong_Testimonials_Helper {
             'slideshow' => array(
                 'section_action_before' => 'wpmtst_view_editor_before_group_slideshow',
                 'section_action_after'  => '',
-                'classes'  => array('then', 'then_not_display', 'then_not_form', 'then_slideshow', 'then_not_single_template',
-                    apply_filters( 'wpmtst_view_section', '', 'slideshow' ),
-                ),
+                'classes'  => array('then', 'then_not_display', 'then_not_form', 'then_slideshow', 'then_not_single_template'),
                 'title'         => __( 'Slideshow', 'strong-testimonials' ),
                 'table_classes' => 'form-table multiple group-select',
                 'fields'    => array(
@@ -297,9 +289,7 @@ class Strong_Testimonials_Helper {
             'form' => array(
                 'section_action_before' => 'wpmtst_view_editor_before_group_form',
                 'section_action_after'  => '',
-                'classes'  => array('then', 'then_not_display', 'then_not_slideshow', 'then_form', 'then_not_single_template',
-                    apply_filters( 'wpmtst_view_section', '', 'form' ),
-                ),
+                'classes'  => array('then', 'then_not_display', 'then_not_slideshow', 'then_form', 'then_not_single_template'),
                 'title'         => __( 'Actions', 'strong-testimonials' ),
                 'table_classes' => 'form-table multiple group-select',
                 'fields'    => array(
@@ -333,9 +323,7 @@ class Strong_Testimonials_Helper {
             'style' => array(
                 'section_action_before' => 'wpmtst_view_editor_before_group_style',
                 'section_action_after'  => 'wpmtst_after_style_view_section',
-                'classes'  => array('then', 'then_display', 'then_form', 'then_slideshow', 'then_not_single_template',
-                    apply_filters( 'wpmtst_view_section', '', 'style' ),
-                ),
+                'classes'  => array('then', 'then_display', 'then_form', 'then_slideshow', 'then_not_single_template'),
                 'title'         => __( 'Style', 'strong-testimonials' ),
                 'table_classes' => 'form-table multiple group-style',
                 'fields'    => array(
@@ -417,8 +405,7 @@ class Strong_Testimonials_Helper {
             'compat' => array(
                 'section_action_before' => 'wpmtst_view_editor_before_group_compat',
                 'section_action_after'  => '',
-                'classes'  => array('then', apply_filters( 'wpmtst_view_section', '', 'compat' ),
-                ),
+                'classes'  => array('then'),
                 'title'         => __( 'Compatibility', 'strong-testimonials' ),
                 'table_classes' => 'form-table multiple group-general',
                 'fields'    => array(
@@ -575,7 +562,7 @@ class Strong_Testimonials_Helper {
                 do_action($section['section_action_before']);
             }
             
-            $this->render_section($section);
+            $this->render_section($name, $section);
             
             if (!empty($section['section_action_after'])) {
                 do_action($section['section_action_after']);
@@ -586,8 +573,9 @@ class Strong_Testimonials_Helper {
         do_action( 'wpmtst_view_editor_after_groups' );
     }
     
-    private function render_section($section) { ?>
-        <div class="<?php echo esc_attr( implode(' ', array_filter( $section['classes'] ) ) ); ?>" style="display:none">
+    private function render_section($name, $section) {
+        $section['classes'][] = apply_filters('wpmtst_view_section', '', $name ); ?>
+        <div class="<?php echo esc_attr( implode(' ', array_filter($section['classes']))); ?>" style="display:none">
             <h3><?php echo $section['title']; ?></h3>
             <table class="<?php echo $section['table_classes'] ?>">
             <?php if (!empty($section['subheading'])): ?>
@@ -635,9 +623,9 @@ class Strong_Testimonials_Helper {
     private function render_field() {
         if (isset($this->field['type']) && !empty($this->field['type'])) { ?>
             <th>
-                <?php echo (!empty($this->field['before']) ? $this->field['before'] : '' )?>
+                <?php echo $this->field['before']; ?>
                 <label for="<?php echo esc_attr( $this->field['class'] )?>"><?php echo $this->field['label'] ?></label>
-                <?php echo (!empty($this->field['after']) ? $this->field['after'] : '' )?>
+                <?php echo $this->field['after']; ?>
             </th> <?php
             switch ($this->field['type']) {
                 case 'select':
@@ -716,6 +704,8 @@ class Strong_Testimonials_Helper {
                 default:
                     do_action('wpmtst_render_field', $this->field);
             }
+        } else {
+            do_action('wpmtst_render_field', $this->field);
         }
     }
     
