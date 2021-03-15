@@ -56,6 +56,11 @@ class Strong_Testimonials_Helper {
             'query' => array(
                 'section_action_before' => 'wpmtst_view_editor_before_group_select',
                 'section_action_after'  => 'wpmtst_view_editor_after_group_select',
+                'fields_action_before' => '',
+                'fields_action_after'  => array(
+                    'action' => 'wpmtst_views_group_query',
+                    'param' => $this->view
+                ),
                 'classes'  => array('then', 'then_display', 'then_not_form', 'then_slideshow', 'then_not_single_template'),
                 'title'         => __( 'Query', 'strong-testimonials' ),
                 'table_classes' => 'form-table multiple group-select',
@@ -129,11 +134,6 @@ class Strong_Testimonials_Helper {
                         'id'      => '',
                         'field_action_before' => '',
                         'field_action_after' => ''
-                    ),
-                    'container_action_before' => '',
-                    'container_action_after'  => array(
-                        'action' => 'wpmtst_views_group_query',
-                        'param' => $this->view
                     )
                 )
             ),
@@ -141,6 +141,8 @@ class Strong_Testimonials_Helper {
             'fields' => array(
                 'section_action_before' => 'wpmtst_view_editor_before_group_fields',
                 'section_action_after'  => '',
+                'fields_action_before' => '',
+                'fields_action_after' => '',
                 'classes'  => array('then', 'then_display', 'then_not_form', 'then_slideshow', 'then_single_template'),
                 'title'         => __( 'Fields', 'strong-testimonials' ),
                 'table_classes' => 'form-table multiple group-show',
@@ -189,9 +191,7 @@ class Strong_Testimonials_Helper {
                         'id'      => '',
                         'field_action_before' => '',
                         'field_action_after' => ''
-                    ),
-                    'container_action_before' => '',
-                    'container_action_after' => ''
+                    )
                 )
             ),
             
@@ -199,7 +199,7 @@ class Strong_Testimonials_Helper {
                 'section_action_before' => 'wpmtst_view_editor_before_group_extra',
                 'section_action_after'  => '',
                 'fields_action_before' => '',
-                'fields_action_after' => ''
+                'fields_action_after' => '',
                 'classes'  => array('then', 'then_display', 'then_not_form', 'then_slideshow', 'then_not_single_template'),
                 'title'         => __( 'Extra', 'strong-testimonials' ),
                 'table_classes' => 'form-table multiple group-layout',
@@ -232,6 +232,8 @@ class Strong_Testimonials_Helper {
             'slideshow' => array(
                 'section_action_before' => 'wpmtst_view_editor_before_group_slideshow',
                 'section_action_after'  => '',
+                'fields_action_before' => '',
+                'fields_action_after' => '',
                 'classes'  => array('then', 'then_not_display', 'then_not_form', 'then_slideshow', 'then_not_single_template'),
                 'title'         => __( 'Slideshow', 'strong-testimonials' ),
                 'table_classes' => 'form-table multiple group-select',
@@ -280,9 +282,7 @@ class Strong_Testimonials_Helper {
                         'id'      => '',
                         'field_action_before' => '',
                         'field_action_after' => ''
-                    ),
-                    'container_fields_action_before' => '',
-                    'container_fields_action_after' => ''
+                    )
                 )
             ),
             
@@ -290,7 +290,7 @@ class Strong_Testimonials_Helper {
                 'section_action_before' => 'wpmtst_view_editor_before_group_form',
                 'section_action_after'  => '',                
                 'fields_action_before' => '',
-                'fields_action_after' => ''
+                'fields_action_after' => '',
                 'classes'  => array('then', 'then_not_display', 'then_not_slideshow', 'then_form', 'then_not_single_template'),
                 'title'         => __( 'Actions', 'strong-testimonials' ),
                 'table_classes' => 'form-table multiple group-select',
@@ -327,7 +327,7 @@ class Strong_Testimonials_Helper {
                 'fields_action_after' => array(
                     'action' => 'wpmtst_view_editor_after_style_section',
                     'param' => ''
-                )
+                ),
                 'classes'  => array('then', 'then_display', 'then_form', 'then_slideshow', 'then_not_single_template'),
                 'title'         => __( 'Style', 'strong-testimonials' ),
                 'table_classes' => 'form-table multiple group-style',
@@ -406,7 +406,7 @@ class Strong_Testimonials_Helper {
                 'section_action_before' => 'wpmtst_view_editor_before_group_compat',
                 'section_action_after'  => '',                
                 'fields_action_before' => '',
-                'fields_action_after' => ''
+                'fields_action_after' => '',
                 'classes'  => array('then'),
                 'title'         => __( 'Compatibility', 'strong-testimonials' ),
                 'table_classes' => 'form-table multiple group-general',
@@ -589,26 +589,24 @@ class Strong_Testimonials_Helper {
                 </tr>
             <?php endif; 
             if (!empty($section['fields'])) {
-                if (!empty($section['fields']['fields_action_before'])) {
-                    do_action($section['fields']['fields_action_before']['action'], $section['fields']['fields_action_before']['param']);
+                if (!empty($section['fields_action_before'])) {
+                    do_action($section['fields_action_before']['action'], $section['fields_action_before']['param']);
                 }
                 foreach ($section['fields'] as $key => $field) {
                     $this->set_field($field);
-                    if (substr( $key, 0, 6 ) === 'field_') {
-                        if (!empty($this->field['field_action_before'])) {
-                            do_action($field['field_action_before']);
-                        } ?>
-                        <tr id="<?php echo $this->field['id'] ?>" class="<?php echo esc_attr( $this->field['container_classes'] ) ?>" style="display:none">
-                            <?php $this->render_field() ?>
-                        </tr>
-                        <?php                    
-                        if (!empty($this->field['field_action_after'])) {
-                            do_action($field['field_action_after']);
-                        }
+                    if (!empty($this->field['field_action_before'])) {
+                        do_action($field['field_action_before']);
+                    } ?>
+                    <tr id="<?php echo esc_attr( $this->field['id'] ) ?>" class="<?php echo esc_attr( $this->field['container_classes'] ) ?>" style="display:none">
+                        <?php $this->render_field() ?>
+                    </tr>
+                    <?php                    
+                    if (!empty($this->field['field_action_after'])) {
+                        do_action($field['field_action_after']);
                     }
                 }
-                if (!empty($section['fields']['fields_action_after'])) {
-                    do_action($section['fields']['fields_action_after']['action'], $section['fields']['fields_action_after']['param']);
+                if (!empty($section['fields_action_after'])) {
+                    do_action($section['fields_action_after']['action'], $section['fields_action_after']['param']);
                 } 
             } ?>
             </table>
