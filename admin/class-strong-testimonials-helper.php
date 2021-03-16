@@ -1033,7 +1033,7 @@ class Strong_Testimonials_Helper {
                 <div class="row-inner subgroup">
                 <!-- action: full post or in place -->
                     <div class="row-inner">               
-                        <div class="inline"><?php esc_html_e( 'Add a <strong>Read more</strong> link to', 'strong-testimonials' ); ?></div>
+                        <div class="inline"><?php _e( 'Add a <strong>Read more</strong> link to', 'strong-testimonials' ); ?></div>
                         <div class="inline tight">
                             <label>
                                 <select id="view-more_post_in_place" class="if selectgroup" name="view[data][more_post_in_place]">
