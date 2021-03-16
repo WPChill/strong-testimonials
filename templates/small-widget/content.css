@@ -196,7 +196,7 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
   margin-left: 0;
   margin-right: 1em;
 }
-.disabled {
+.strong-view.wpmtst-small-widget .disabled {
   display : none!important;
 }
 
