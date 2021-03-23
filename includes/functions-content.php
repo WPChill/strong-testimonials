@@ -113,9 +113,13 @@ function wpmtst_trim_excerpt( $excerpt = '' ) {
  */
 function wpmtst_get_the_prepared_text( $hybrid = false ) {
 	$text = get_the_content( '' );
-	if ( ! $hybrid ) {
+	
+	if(function_exists('et_core_is_builder_used_on_current_request') && et_core_is_builder_used_on_current_request()) {
+		$text = wp_strip_all_tags(et_strip_shortcodes($text), true);
+	} elseif ( ! $hybrid ) {
 		$text = strip_shortcodes( $text );
 	}
+
 	$text = apply_filters( 'wpmtst_the_content', $text );
 	$text = str_replace( ']]>', ']]&gt;', $text );
 
