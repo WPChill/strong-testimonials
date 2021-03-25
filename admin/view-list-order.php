@@ -7,8 +7,8 @@
  * Save
  */
 function wpmtst_save_view_list_order() {
-	$name  = $_REQUEST['name'];
-	$order = $_REQUEST['order'];
+	$name  = sanitize_text_field( $_REQUEST['name'] );
+	$order = sanitize_text_field( $_REQUEST['order'] );
 	$success = '';
 	if ( in_array( $name, array( 'name', 'id' ) ) ) {
 		$success = update_user_meta( get_current_user_id(), 'strong_view_list_order', array( $name, $order ) );
@@ -27,9 +27,9 @@ function wpmtst_fetch_view_list_order() {
 
 	if ( $pagenow == 'edit.php'
 		 && isset( $_GET['post_type'] )
-		 && 'wpm-testimonial' == $_GET['post_type']
+		 && 'wpm-testimonial' == sanitize_text_field( $_GET['post_type'] )
 		 && isset( $_GET['page'] )
-		 && 'testimonial-views' == $_GET['page']
+		 && 'testimonial-views' == sanitize_text_field( $_GET['page'] )
 		 && ! isset( $_GET['orderby'] )
 		 && ! isset( $_GET['action'] ) )
 	{

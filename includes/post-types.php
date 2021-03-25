@@ -209,7 +209,7 @@ function wpmtst_updated_messages( $messages ) {
 		3  => __( 'Custom field deleted.', 'strong-testimonials' ),
 		4  => __( 'Testimonial updated.', 'strong-testimonials' ),
 		/* translators: %s: date and time of the revision */
-		5 => isset($_GET['revision']) ? sprintf( __( 'Testimonial restored to revision from %s.', 'strong-testimonials' ), wp_post_revision_title( (int) $_GET['revision'], false ) ) : false,
+		5 => isset($_GET['revision']) ? sprintf( __( 'Testimonial restored to revision from %s.', 'strong-testimonials' ), wp_post_revision_title( (int) sanitize_text_field( $_GET['revision'] ), false ) ) : false,
 		6 => __( 'Testimonial published.', 'strong-testimonials' ) . $view_post_link_html,
 		7 => __( 'Testimonial saved.', 'strong-testimonials' ),
 		8 => __( 'Testimonial submitted.', 'strong-testimonials' ) . $preview_post_link_html,

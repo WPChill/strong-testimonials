@@ -272,10 +272,10 @@ class Strong_Testimonials_Order {
 		$posts_per_page = 25;
 		if ( isset( $_POST['order'] ) ) {
 			if ( isset( $_POST['order']['page'] ) ) {
-				$paged = absint( $_POST['order']['page'] );
+				$paged = absint( sanitize_text_field( $_POST['order']['page'] ) );
 			}
 			if ( isset( $_POST['order']['posts_per_page'] ) ) {
-				$posts_per_page = absint( $_POST['order']['posts_per_page'] );
+				$posts_per_page = absint( sanitize_text_field( $_POST['order']['posts_per_page'] ) );
 			}
 		}
 

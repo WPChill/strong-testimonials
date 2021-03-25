@@ -31,8 +31,8 @@ add_action( 'wp_ajax_wpmtst_add_field', 'wpmtst_add_field_function' );
 function wpmtst_add_field_2_function() {
 	check_ajax_referer( 'wpmtst-admin', 'security', false );
 
-	$new_field_type  = $_REQUEST['fieldType'];
-	$new_field_class = $_REQUEST['fieldClass'];
+	$new_field_type  = sanitize_text_field( $_REQUEST['fieldType'] );
+	$new_field_class = sanitize_text_field( $_REQUEST['fieldClass'] );
 	$fields          = apply_filters( 'wpmtst_fields', get_option( 'wpmtst_fields' ) );
 
 	$empty_field = array_merge(
@@ -51,8 +51,8 @@ add_action( 'wp_ajax_wpmtst_add_field_2', 'wpmtst_add_field_2_function' );
 function wpmtst_add_field_3_function() {
 	check_ajax_referer( 'wpmtst-admin', 'security', false );
 
-	$new_field_type  = $_REQUEST['fieldType'];
-	$new_field_class = $_REQUEST['fieldClass'];
+	$new_field_type  = sanitize_text_field( $_REQUEST['fieldType'] );
+	$new_field_class = sanitize_text_field( $_REQUEST['fieldClass'] );
 	$fields          = apply_filters( 'wpmtst_fields', get_option( 'wpmtst_fields' ) );
 
 	$empty_field = array_merge(
@@ -71,8 +71,8 @@ add_action( 'wp_ajax_wpmtst_add_field_3', 'wpmtst_add_field_3_function' );
 function wpmtst_add_field_4_function() {
 	check_ajax_referer( 'wpmtst-admin', 'security', false );
 
-	$new_field_type  = $_REQUEST['fieldType'];
-	$new_field_class = $_REQUEST['fieldClass'];
+	$new_field_type  = sanitize_text_field( $_REQUEST['fieldType'] );
+	$new_field_class = sanitize_text_field( $_REQUEST['fieldClass'] );
 	$fields          = apply_filters( 'wpmtst_fields', get_option( 'wpmtst_fields' ) );
 	$empty_field     = array();
 	if ( isset( $fields['field_types'][$new_field_class][$new_field_type] ) ) {

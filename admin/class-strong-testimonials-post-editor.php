@@ -299,9 +299,9 @@ class Strong_Testimonials_Post_Editor {
 			return;
 		}
 
-		$post_id = absint( $_POST['post_ID'] );
+		$post_id = sanitize_text_field( absint( $_POST['post_ID'] ) );
 
-		$custom = $_POST['custom'];
+		$custom = sanitize_text_field( $_POST['custom'] );
 
 		$custom_fields = wpmtst_get_custom_fields();
 
@@ -378,9 +378,9 @@ class Strong_Testimonials_Post_Editor {
 	 */
 	public static function edit_rating() {
 		$message = '';
-		$post_id = isset( $_POST['post_id'] ) ? (int) $_POST['post_id'] : 0;
-		$rating  = isset( $_POST['rating'] ) ? (int) $_POST['rating'] : 0;
-		$name    = isset( $_POST['field_name'] ) ? $_POST['field_name'] : 'rating';
+		$post_id = isset( $_POST['post_id'] ) ? (int) sanitize_text_field( $_POST['post_id'] ) : 0;
+		$rating  = isset( $_POST['rating'] ) ? (int) sanitize_text_field( $_POST['rating'] ) : 0;
+		$name    = isset( $_POST['field_name'] ) ? sanitize_text_field( $_POST['field_name'] ) : 'rating';
 
 		check_ajax_referer( 'editrating', 'editratingnonce' );
 

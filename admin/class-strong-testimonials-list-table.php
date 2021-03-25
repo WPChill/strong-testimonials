@@ -497,11 +497,11 @@ if ( ! class_exists( 'Strong_Testimonials_List_Table' ) ) :
 				return false;
 			}
 
-			if ( isset( $_REQUEST['action'] ) && -1 != $_REQUEST['action'] ) {
+			if ( isset( $_REQUEST['action'] ) && -1 != sanitize_text_field( $_REQUEST['action'] ) ) {
 				return $_REQUEST['action'];
 			}
 
-			if ( isset( $_REQUEST['action2'] ) && -1 != $_REQUEST['action2'] ) {
+			if ( isset( $_REQUEST['action2'] ) && -1 != sanitize_text_field( $_REQUEST['action2'] ) ) {
 				return $_REQUEST['action2'];
 			}
 
@@ -588,7 +588,7 @@ if ( ! class_exists( 'Strong_Testimonials_List_Table' ) ) :
 				return;
 			}
 
-			$m = isset( $_GET['m'] ) ? (int) $_GET['m'] : 0;
+			$m = isset( $_GET['m'] ) ? (int) sanitize_text_field( $_GET['m'] ) : 0;
 			?>
 		<label for="filter-by-date" class="screen-reader-text"><?php esc_html_e( 'Filter by date', 'strong-testimonials' ); ?></label>
 		<select name="m" id="filter-by-date">
@@ -677,7 +677,7 @@ if ( ! class_exists( 'Strong_Testimonials_List_Table' ) ) :
 		 * @return int
 		 */
 		public function get_pagenum() {
-			$pagenum = isset( $_REQUEST['paged'] ) ? absint( $_REQUEST['paged'] ) : 0;
+			$pagenum = isset( $_REQUEST['paged'] ) ? absint( sanitize_text_field( $_REQUEST['paged'] ) ) : 0;
 
 			if ( isset( $this->_pagination_args['total_pages'] ) && $pagenum > $this->_pagination_args['total_pages'] ) {
 				$pagenum = $this->_pagination_args['total_pages'];
@@ -925,12 +925,12 @@ if ( ! class_exists( 'Strong_Testimonials_List_Table' ) ) :
 			$current_url = remove_query_arg( 'paged', $current_url );
 
 			if ( isset( $_GET['orderby'] ) ) {
-				$current_orderby = $_GET['orderby'];
+				$current_orderby = sanitize_text_field( $_GET['orderby'] );
 			} else {
 				$current_orderby = '';
 			}
 
-			if ( isset( $_GET['order'] ) && 'desc' == $_GET['order'] ) {
+			if ( isset( $_GET['order'] ) && 'desc' == sanitize_text_field( $_GET['order'] ) ) {
 				$current_order = 'desc';
 			} else {
 				$current_order = 'asc';

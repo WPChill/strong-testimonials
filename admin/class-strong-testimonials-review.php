@@ -92,11 +92,11 @@ class Strong_Review {
 
 		$time = get_option( 'strong-testimonials-rate-time' );
 
-		if ( 'strong-testimonials-rate' == $_POST['check'] ) {
+		if ( 'strong-testimonials-rate' == sanitize_text_field( $_POST['check'] ) ) {
 			$time = time() + YEAR_IN_SECONDS * 1;
-		}elseif ( 'strong-testimonials-later' == $_POST['check'] ) {
+		}elseif ( 'strong-testimonials-later' == sanitize_text_field( ['check'] ) ) {
 			$time = time() + WEEK_IN_SECONDS;
-		}elseif ( 'strong-testimonials-no-rate' == $_POST['check'] ) {
+		}elseif ( 'strong-testimonials-no-rate' == sanitize_text_field( $_POST['check'] ) ) {
 			$time = time() + YEAR_IN_SECONDS * 1;
 		}
 		

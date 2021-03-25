@@ -93,7 +93,7 @@ class Strong_Testimonials_Settings {
 	}
 
 	private static function get_tab() {
-		return ( isset( $_GET['tab'] ) && $_GET['tab'] ) ? $_GET['tab'] : self::DEFAULT_TAB;
+		return ( isset( $_GET['tab'] ) && $_GET['tab'] ) ? sanitize_key( $_GET['tab'] ) : self::DEFAULT_TAB;
 	}
 
 }

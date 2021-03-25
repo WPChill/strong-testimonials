@@ -287,7 +287,7 @@ class Strong_Testimonials_Admin_Scripts {
 	 * Fields
 	 */
 	public static function admin_fields() {
-                $tab = isset( $_GET['tab'] ) ? $_GET['tab'] : '';
+                $tab = isset( $_GET['tab'] ) ? sanitize_key( $_GET['tab'] ) : '';
                 wp_enqueue_style( 'wpmtst-admin-style' );
                 wp_enqueue_script( 'wpmtst-admin-script' );
                 
@@ -316,7 +316,7 @@ class Strong_Testimonials_Admin_Scripts {
 	 * Settings
 	 */
 	public static function admin_settings() {
-		$tab = isset( $_GET['tab'] ) ? $_GET['tab'] : '';
+		$tab = isset( $_GET['tab'] ) ? sanitize_key( $_GET['tab'] ) : '';
 
 		switch ( $tab ) {
 			case 'compat':

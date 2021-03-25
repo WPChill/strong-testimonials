@@ -158,7 +158,7 @@ class Strong_Testimonials_Uninstall {
         global $wpdb;
         check_ajax_referer( 'st_uninstall_plugin', 'security' );
 
-        $uninstall_option = isset( $_POST['options'] ) ? $_POST['options'] : false;
+        $uninstall_option = isset( $_POST['options'] ) ? sanitize_text_field( $_POST['options'] ) : false;
 
         // Delete options
         if ( '1' == $uninstall_option['delete_options'] ) {

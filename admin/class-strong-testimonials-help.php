@@ -21,7 +21,7 @@ class Strong_Testimonials_Help {
 	 * Compatibility settings.
 	 */
 	public static function settings_compat() {
-		if ( ! isset( $_GET['tab'] ) || 'compat' != $_GET['tab'] ) {
+		if ( ! isset( $_GET['tab'] ) || 'compat' != sanitize_key( $_GET['tab'] ) ) {
 			return;
 		}
 
