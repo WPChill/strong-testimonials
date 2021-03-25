@@ -588,7 +588,7 @@ if ( ! class_exists( 'Strong_Testimonials_List_Table' ) ) :
 				return;
 			}
 
-			$m = isset( $_GET['m'] ) ? (int) sanitize_text_field( $_GET['m'] ) : 0;
+			$m = isset( $_GET['m'] ) ? (int) $_GET['m'] : 0;
 			?>
 		<label for="filter-by-date" class="screen-reader-text"><?php esc_html_e( 'Filter by date', 'strong-testimonials' ); ?></label>
 		<select name="m" id="filter-by-date">
@@ -930,7 +930,7 @@ if ( ! class_exists( 'Strong_Testimonials_List_Table' ) ) :
 				$current_orderby = '';
 			}
 
-			if ( isset( $_GET['order'] ) && 'desc' == sanitize_text_field( $_GET['order'] ) ) {
+			if ( isset( $_GET['order'] ) && 'desc' == $_GET['order'] ) {
 				$current_order = 'desc';
 			} else {
 				$current_order = 'asc';

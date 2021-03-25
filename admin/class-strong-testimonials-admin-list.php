@@ -330,7 +330,7 @@ class Strong_Testimonials_Admin_List {
 	 * @since 1.16.0
 	 */
 	public static function is_viewing_trash() {
-		return isset( $_GET['post_status'] ) && 'trash' == sanitize_text_field( $_GET['post_status'] );
+		return isset( $_GET['post_status'] ) && 'trash' == $_GET['post_status'];
 	}
 
 	/**

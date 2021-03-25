@@ -235,7 +235,7 @@ class Strong_Views_List_Table extends Strong_Testimonials_List_Table {
             <form id="posts-filter" method="get">
                 <p class="search-box">
                     <label class="screen-reader-text" for="post-search-input"><?php esc_html_e( 'Search', 'strong-testimonials' ); ?></label>
-                    <input type="search" id="post-search-input" name="s" value="<?php echo (isset($_GET['s']) && !empty($_GET['s']) ? $_GET['s'] : '') ?>">
+                    <input type="search" id="post-search-input" name="s" value="<?php echo (isset($_GET['s']) && !empty($_GET['s']) ? esc_html( $_GET['s'] ) : '') ?>">
                     <input type="submit" id="search-submit" class="button" value="<?php esc_html_e( 'Search', 'strong-testimonials' ); ?>">
                     <input type="hidden" name="post_type" class="post_type_page" value="wpm-testimonial">
                     <input type="hidden" name="page" value="testimonial-views">
