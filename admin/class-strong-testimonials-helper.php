@@ -5,7 +5,8 @@
  * @since 2.5
  */
 class Strong_Testimonials_Helper {
-    
+    private $field;
+
     public function __construct() {
         $this->action = filter_input( INPUT_GET, 'action', FILTER_SANITIZE_STRING );
         $this->view_id = abs( filter_input( INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT ) );
@@ -614,10 +615,10 @@ class Strong_Testimonials_Helper {
     <?php
     }
     
-    private function set_field($field) {
+    public function set_field($field) {
         $this->field = $field;
     }
-    
+
     private function render_field() { ?>
         <th>
             <?php echo $this->field['before']; ?>
@@ -701,6 +702,51 @@ class Strong_Testimonials_Helper {
             default:
                 do_action('wpmtst_render_field', $this->field);
         }
+    }
+
+    public function render_option_select($input_name, $recommended = FALSE, $title = '') {
+        if (isset($this->field['options']) && !empty($this->field['options'])): ?>
+        <td>
+            <?php if (!empty($title)): ?>
+                <h4 class="title"><?php esc_html_e($title); ?><h4>
+            <?php endif; ?>
+            <select id="<?php echo esc_html($this->field['class']) ?>" name="<?php echo $input_name ?>">
+                <?php foreach ($this->field['options'] as $option): ?>
+                <option value="<?php echo $option; ?>" <?php selected( $option, $this->field['selected'] ); ?>><?php esc_html_e( $option, 'strong-testimonials-review-markup' ); ?></option>
+                <?php endforeach; ?>
+            </select>
+            <?php if ($recommended): ?>
+            <p class="description"><strong style="color: #00805e; font-style: normal;"><?php esc_html_e('Recommended.', 'strong-testimonials-review-markup') ?></strong>
+                <?php if (is_string($recommended)) {
+                    esc_html_e($recommended); 
+                } ?>
+            </p>
+            <?php endif; ?>
+        </td>
+        <?php endif;
+    }
+
+    public function render_option_textfield($input_name, $recommended = FALSE, $description = '', $title = '', $placeholder = '') { ?>
+        <td>
+            <?php if (!empty($title)): ?>
+                <h4 class="title"><?php esc_html_e($title); ?><h4>
+            <?php endif; ?>
+            <div>
+                <div class="has-input">
+                    <input class="regular-text" type="text" id="<?php echo esc_html($this->field['class']) ?>" name="<?php echo $input_name ?>" value="<?php echo $this->field['value'] ?>" data-default="<?php echo $this->field['default']; ?>" placeholder="<?php esc_attr_e($placeholder, 'strong-testimonials-review-markup' ) ?>">
+                </div>
+                <div class="error-message"></div>
+            </div>
+            <p class="description">
+            <?php if ($recommended): ?>
+                <strong style="color: #00805e; font-style: normal;"><?php esc_html_e('Recommended.', 'strong-testimonials-review-markup') ?></strong>
+            <?php endif; ?>  
+            <?php if (!empty($description)): ?>
+                <?php esc_html_e($description, 'strong-testimonials-review-markup' ); ?>
+            <?php endif; ?>
+            </p>
+        </td>
+    <?php    
     }
     
     private function render_field_select() { 
