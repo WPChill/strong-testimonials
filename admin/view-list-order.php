@@ -27,9 +27,9 @@ function wpmtst_fetch_view_list_order() {
 
 	if ( $pagenow == 'edit.php'
 		 && isset( $_GET['post_type'] )
-		 && 'wpm-testimonial' == sanitize_text_field( $_GET['post_type'] )
+		 && 'wpm-testimonial' == $_GET['post_type']
 		 && isset( $_GET['page'] )
-		 && 'testimonial-views' == sanitize_text_field( $_GET['page'] )
+		 && 'testimonial-views' == $_GET['page']
 		 && ! isset( $_GET['orderby'] )
 		 && ! isset( $_GET['action'] ) )
 	{

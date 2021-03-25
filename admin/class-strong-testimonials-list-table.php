@@ -497,11 +497,11 @@ if ( ! class_exists( 'Strong_Testimonials_List_Table' ) ) :
 				return false;
 			}
 
-			if ( isset( $_REQUEST['action'] ) && -1 != sanitize_text_field( $_REQUEST['action'] ) ) {
+			if ( isset( $_REQUEST['action'] ) && -1 != $_REQUEST['action'] ) {
 				return $_REQUEST['action'];
 			}
 
-			if ( isset( $_REQUEST['action2'] ) && -1 != sanitize_text_field( $_REQUEST['action2'] ) ) {
+			if ( isset( $_REQUEST['action2'] ) && -1 != $_REQUEST['action2'] ) {
 				return $_REQUEST['action2'];
 			}
 
@@ -677,7 +677,7 @@ if ( ! class_exists( 'Strong_Testimonials_List_Table' ) ) :
 		 * @return int
 		 */
 		public function get_pagenum() {
-			$pagenum = isset( $_REQUEST['paged'] ) ? absint( sanitize_text_field( $_REQUEST['paged'] ) ) : 0;
+			$pagenum = isset( $_REQUEST['paged'] ) ? absint( $_REQUEST['paged'] ) : 0;
 
 			if ( isset( $this->_pagination_args['total_pages'] ) && $pagenum > $this->_pagination_args['total_pages'] ) {
 				$pagenum = $this->_pagination_args['total_pages'];

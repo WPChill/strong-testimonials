@@ -95,7 +95,7 @@ add_action( 'wp_ajax_wpmtst_view_add_field_date', 'wpmtst_view_add_field_date_fu
  * @since 2.40.4
  */
 function wpmtst_view_add_field_checkbox_function() {
-	$key         = (int) sanitize_text_field( $_REQUEST['key'] );
+		$key         = (int) sanitize_text_field( $_REQUEST['key'] );
         $field = array(
             'field'  => sanitize_text_field( $_REQUEST['fieldName'] ),
             'type'   => sanitize_text_field( $_REQUEST['fieldType'] )

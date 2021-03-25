@@ -32,7 +32,7 @@ function wpmtst_update_custom_fields() {
 		exit;
 	}
 
-    $form_id	   = sanitize_text_field( $_POST['form_id'] );
+    $form_id	   = absint ( $_POST['form_id'] );
     $forms         = get_option( 'wpmtst_custom_forms' );
     $field_options = apply_filters( 'wpmtst_fields', get_option( 'wpmtst_fields' ) );
 

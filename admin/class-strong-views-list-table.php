@@ -34,7 +34,7 @@ class Strong_Views_List_Table extends Strong_Testimonials_List_Table {
 		}
 		$data = $this->move_sticky( $data );
                 $data = apply_filters('wpmtst_list_views', $data);
-                if (isset($_GET['mode']) && !empty($_GET['mode']) && sanitize_text_field( $_GET['mode'] ) !== 'all') {
+                if (isset($_GET['mode']) && !empty($_GET['mode']) && $_GET['mode'] !== 'all') {
                     $data = $this->filter_data( $_GET['mode'], $data );
                 }
                 if (isset($_GET['s']) && !empty($_GET['s'])) {
@@ -119,10 +119,10 @@ class Strong_Views_List_Table extends Strong_Testimonials_List_Table {
 
 	public function usort_reorder( $a, $b ) {
 		// If no sort, default to name
-		$orderby = ( ! empty( $_GET['orderby'] ) ) ? sanitize_text_field( $_GET['orderby'] ) : 'name';
+		$orderby = ( ! empty( $_GET['orderby'] ) ) ? $_GET['orderby'] : 'name';
 
 		// If no order, default to asc
-		$order = ( ! empty($_GET['order'] ) ) ? sanitize_text_field( $_GET['order'] ) : 'asc';
+		$order = ( ! empty($_GET['order'] ) ) ? $_GET['order'] : 'asc';
 
 		// Determine sort order
 		if ( 'id' == $orderby ) {
@@ -235,7 +235,7 @@ class Strong_Views_List_Table extends Strong_Testimonials_List_Table {
             <form id="posts-filter" method="get">
                 <p class="search-box">
                     <label class="screen-reader-text" for="post-search-input"><?php esc_html_e( 'Search', 'strong-testimonials' ); ?></label>
-                    <input type="search" id="post-search-input" name="s" value="<?php echo (isset($_GET['s']) && !empty($_GET['s']) ? sanitize_text_field( $_GET['s'] ) : '') ?>">
+                    <input type="search" id="post-search-input" name="s" value="<?php echo (isset($_GET['s']) && !empty($_GET['s']) ? $_GET['s'] : '') ?>">
                     <input type="submit" id="search-submit" class="button" value="<?php esc_html_e( 'Search', 'strong-testimonials' ); ?>">
                     <input type="hidden" name="post_type" class="post_type_page" value="wpm-testimonial">
                     <input type="hidden" name="page" value="testimonial-views">

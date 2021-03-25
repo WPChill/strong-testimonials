@@ -81,9 +81,9 @@ function wpmtst_views_admin() {
                         <hr class="wp-header-end">
                         <h2 class="screen-reader-text"><?php esc_html_e( 'Filter view list', 'strong-testimonials' ); ?></h2>
                         <ul class="subsubsub">
-                            <li class="all"><a <?php echo (!isset($_GET['mode']) || sanitize_text_field( $_GET['mode'] ) == 'all' ? 'class="current"' : '') ?> href="<?php echo add_query_arg( array('post_type' => 'wpm-testimonial', 'page' => 'testimonial-views', 'mode' => 'all' ), admin_url('edit.php') ) ?>"><?php esc_html_e( 'All', 'strong-testimonials' ); ?><?php printf( __( ' <span class="count">(%s)</span>', 'strong-testimonials' ), count($views) ); ?></a> |</li>
+                            <li class="all"><a <?php echo (!isset($_GET['mode']) || esc_attr( $_GET['mode'] ) == 'all' ? 'class="current"' : '') ?> href="<?php echo add_query_arg( array('post_type' => 'wpm-testimonial', 'page' => 'testimonial-views', 'mode' => 'all' ), admin_url('edit.php') ) ?>"><?php esc_html_e( 'All', 'strong-testimonials' ); ?><?php printf( __( ' <span class="count">(%s)</span>', 'strong-testimonials' ), count($views) ); ?></a> |</li>
                             <?php foreach ($filters as $mode => $items): ?>
-                            <li class="<?php echo $mode ?>"><a <?php echo (isset($_GET['mode']) && sanitize_text_field( $_GET['mode'] ) == $mode ? 'class="current"' : '') ?> href="<?php echo add_query_arg( array('post_type' => 'wpm-testimonial', 'page' => 'testimonial-views', 'mode' => $mode ), admin_url('edit.php') ) ?>"><?php echo ucfirst($mode) ?><?php printf( __( ' <span class="count">(%s)</span>', 'strong-testimonials' ), count($items) ); ?></a> |</li>
+                            <li class="<?php echo $mode ?>"><a <?php echo (isset($_GET['mode']) && esc_attr( $_GET['mode'] ) == $mode ? 'class="current"' : '') ?> href="<?php echo add_query_arg( array('post_type' => 'wpm-testimonial', 'page' => 'testimonial-views', 'mode' => $mode ), admin_url('edit.php') ) ?>"><?php echo ucfirst($mode) ?><?php printf( __( ' <span class="count">(%s)</span>', 'strong-testimonials' ), count($items) ); ?></a> |</li>
                             <?php endforeach; ?>
                         </ul>
 			<?php
@@ -665,7 +665,7 @@ function wpmtst_delete_view( $id ) {
  * @since 1.21.0
  */
 function wpmtst_action_delete_view() {
-	if ( isset( $_REQUEST['action'] ) && 'delete-strong-view' == sanitize_text_field( $_REQUEST['action'] ) && isset( $_REQUEST['id'] ) ) {
+	if ( isset( $_REQUEST['action'] ) && 'delete-strong-view' == $_REQUEST['action'] && isset( $_REQUEST['id'] ) ) {
 		$id = abs( (int) filter_input( INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT ) );
 		check_admin_referer( 'delete-strong-view_' . $id );
 		wpmtst_delete_view( $id );
