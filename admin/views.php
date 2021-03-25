@@ -665,7 +665,7 @@ function wpmtst_delete_view( $id ) {
  * @since 1.21.0
  */
 function wpmtst_action_delete_view() {
-	if ( isset( $_REQUEST['action'] ) && 'delete-strong-view' == $_REQUEST['action'] && isset( $_REQUEST['id'] ) ) {
+	if ( isset( $_REQUEST['action'] ) && 'delete-strong-view' == sanitize_text_field( $_REQUEST['action'] ) && isset( $_REQUEST['id'] ) ) {
 		$id = abs( (int) filter_input( INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT ) );
 		check_admin_referer( 'delete-strong-view_' . $id );
 		wpmtst_delete_view( $id );
