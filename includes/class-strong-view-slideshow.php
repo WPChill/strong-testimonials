@@ -439,10 +439,10 @@ class Strong_View_Slideshow extends Strong_View_Display {
 			 */
 			if ( 'text' == $setting ) {
 				$options['text']['args'] = array(
-					'startText' => _x( 'Play', 'slideshow control', 'strong-testimonials' ),
-					'stopText'  => _x( 'Pause', 'slideshow control', 'strong-testimonials' ),
-					'prevText'  => _x( 'Previous', 'slideshow_control', 'strong-testimonials' ),
-					'nextText'  => _x( 'Next', 'slideshow_control', 'strong-testimonials' ),
+					'startText' => esc_html_x( 'Play', 'slideshow control', 'strong-testimonials' ),
+					'stopText'  => esc_html_x( 'Pause', 'slideshow control', 'strong-testimonials' ),
+					'prevText'  => esc_html_x( 'Previous', 'slideshow_control', 'strong-testimonials' ),
+					'nextText'  => esc_html_x( 'Next', 'slideshow_control', 'strong-testimonials' ),
 				);
 			}
 

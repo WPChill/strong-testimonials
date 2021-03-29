@@ -63,29 +63,29 @@ class Strong_Testimonials_Helper {
                     'param' => $this->view
                 ),
                 'classes'  => array('then', 'then_display', 'then_not_form', 'then_slideshow', 'then_not_single_template'),
-                'title'         => __( 'Query', 'strong-testimonials' ),
+                'title'         => esc_html__( 'Query', 'strong-testimonials' ),
                 'table_classes' => 'form-table multiple group-select',
                 'subheading'    => array(
                     array(
-                        'title' => __( 'Option', 'strong-testimonials' ),
+                        'title' => esc_html__( 'Option', 'strong-testimonials' ),
                         'classes' => '',
                         'colspan' => 1,
                         'after' => ''
                     ),
                     array(
-                        'title' => __( 'Settings', 'strong-testimonials' ),
+                        'title' => esc_html__( 'Settings', 'strong-testimonials' ),
                         'classes' => '',
                         'colspan' => 1,
                         'after' => ''
                     ), 
                     array(
-                        'title' => __( 'or Shortcode Attribute', 'strong-testimonials' ),
+                        'title' => esc_html__( 'or Shortcode Attribute', 'strong-testimonials' ),
                         'classes' => 'divider',
                         'colspan' => 2,
                         'after' => '<span class="help-links"><span class="description"><a href="#tab-panel-wpmtst-help-shortcode" class="open-help-tab">' . __( 'Help', 'strong-testimonials' ) . '</a></span></span>'
                     ), 
                     array(
-                        'title' => __( 'Example', 'strong-testimonials' ),
+                        'title' => esc_html__( 'Example', 'strong-testimonials' ),
                         'classes' => '',
                         'colspan' => 1,
                         'after' => ''
@@ -93,7 +93,7 @@ class Strong_Testimonials_Helper {
                 ),
                 'fields'    => array(
                     'field_select' => array(                         
-                        'label' => _x( 'Select', 'verb', 'strong-testimonials' ),
+                        'label' => esc_html_x( 'Select', 'verb', 'strong-testimonials' ),
                         'type' => 'select',
                         'before' => '',
                         'after' => '',
@@ -104,7 +104,7 @@ class Strong_Testimonials_Helper {
                         'field_action_after' => ''
                     ),
                     'field_category' => array(
-                        'label' => __( 'Categories', 'strong-testimonials' ),
+                        'label' => esc_html__( 'Categories', 'strong-testimonials' ),
                         'type' => 'category',
                         'before' => '',
                         'after' => '',
@@ -115,7 +115,7 @@ class Strong_Testimonials_Helper {
                         'field_action_after' => ''
                     ),
                     'field_order' => array(
-                        'label' => _x( 'Order', 'noun', 'strong-testimonials' ),
+                        'label' => esc_html_x( 'Order', 'noun', 'strong-testimonials' ),
                         'type' => 'order',
                         'before' => '',
                         'after' => '',
@@ -126,7 +126,7 @@ class Strong_Testimonials_Helper {
                         'field_action_after' => ''
                     ),
                     'field_limit' => array(
-                        'label' => __( 'Quantity', 'strong-testimonials' ),
+                        'label' => esc_html__( 'Quantity', 'strong-testimonials' ),
                         'type' => 'limit',
                         'before' => '',
                         'after' => '',
@@ -145,11 +145,11 @@ class Strong_Testimonials_Helper {
                 'fields_action_before' => '',
                 'fields_action_after' => '',
                 'classes'  => array('then', 'then_display', 'then_not_form', 'then_slideshow', 'then_single_template'),
-                'title'         => __( 'Fields', 'strong-testimonials' ),
+                'title'         => esc_html__( 'Fields', 'strong-testimonials' ),
                 'table_classes' => 'form-table multiple group-show',
                 'fields'    => array(
                     'field_title' => array(
-                        'label' => __( ' Title', 'strong-testimonials' ),
+                        'label' => esc_html__( ' Title', 'strong-testimonials' ),
                         'type' => 'title',
                         'before' => '<input type="checkbox" id="view-title" name="view[data][title]" value="1"' . checked( $this->view['title'], true, false ) . 'class="checkbox if toggle">',
                         'after' => '',
@@ -160,7 +160,7 @@ class Strong_Testimonials_Helper {
                         'field_action_after' => ''
                     ),
                     'field_thumbnail' => array(
-                        'label' => __( ' Featured Image', 'strong-testimonials' ),
+                        'label' => esc_html__( ' Featured Image', 'strong-testimonials' ),
                         'type' => 'thumbnail',
                         'before' => '<input type="checkbox" id="view-images" class="checkbox if toggle" name="view[data][thumbnail]" value="1"' . checked( $this->view['thumbnail'], true, false ) . '>',
                         'after' => '',
@@ -171,7 +171,7 @@ class Strong_Testimonials_Helper {
                         'field_action_after' => ''
                     ),
                     'field_content' => array(
-                        'label' => __( ' Content', 'strong-testimonials' ),
+                        'label' => esc_html__( ' Content', 'strong-testimonials' ),
                         'type' => 'content',
                         'before' => '',
                         'after' => '',
@@ -183,7 +183,7 @@ class Strong_Testimonials_Helper {
                     ),
                     'field_client_section' => array(
                         'include' => 'option-client-section.php',
-                        'label' => __( ' Custom Fields', 'strong-testimonials' ),
+                        'label' => esc_html__( ' Custom Fields', 'strong-testimonials' ),
                         'type' => 'client-section',
                         'before' => '',
                         'after' => '',
@@ -202,11 +202,11 @@ class Strong_Testimonials_Helper {
                 'fields_action_before' => '',
                 'fields_action_after' => '',
                 'classes'  => array('then', 'then_display', 'then_not_form', 'then_slideshow', 'then_not_single_template'),
-                'title'         => __( 'Extra', 'strong-testimonials' ),
+                'title'         => esc_html__( 'Extra', 'strong-testimonials' ),
                 'table_classes' => 'form-table multiple group-layout',
                 'fields'    => array(
                     'field_pagination' => array(
-                        'label' => __( ' Pagination', 'strong-testimonials' ),
+                        'label' => esc_html__( ' Pagination', 'strong-testimonials' ),
                         'type' => 'pagination',
                         'before' => '<input class="if toggle checkbox" id="view-pagination" name="view[data][pagination]" type="checkbox" value="1"' . checked( $this->view['pagination'], true, false ) . '/>',
                         'after' => '',
@@ -218,7 +218,7 @@ class Strong_Testimonials_Helper {
                     ),
                     'field_read_more' => array(
                         'include' => 'option-read-more-page.php',
-                        'label' => __( ' Read more" link to a page or post', 'strong-testimonials' ),
+                        'label' => esc_html__( ' Read more" link to a page or post', 'strong-testimonials' ),
                         'type' => 'read-more-page',
                         'before' => '<div class="checkbox"><input type="checkbox" id="view-more_page" class="if toggle" name="view[data][more_page]" value="1"' . checked( isset( $this->view['more_page'] ) && $this->view['more_page'], true, false ) . ' class="checkbox">',
                         'after' => '</div>',
@@ -236,11 +236,11 @@ class Strong_Testimonials_Helper {
                 'fields_action_before' => '',
                 'fields_action_after' => '',
                 'classes'  => array('then', 'then_not_display', 'then_not_form', 'then_slideshow', 'then_not_single_template'),
-                'title'         => __( 'Slideshow', 'strong-testimonials' ),
+                'title'         => esc_html__( 'Slideshow', 'strong-testimonials' ),
                 'table_classes' => 'form-table multiple group-select',
                 'fields'    => array(
                     'field_slideshow_num' => array(
-                        'label' => __( 'Show', 'strong-testimonials' ),
+                        'label' => esc_html__( 'Show', 'strong-testimonials' ),
                         'type' => 'slideshow-num',
                         'before' => '',
                         'after' => '',
@@ -252,7 +252,7 @@ class Strong_Testimonials_Helper {
                     ),
                     'field_slideshow_transition' => array(
                         'include' => 'option-slideshow-transition.php',
-                        'label' => __( 'Transition', 'strong-testimonials' ),
+                        'label' => esc_html__( 'Transition', 'strong-testimonials' ),
                         'type' => 'slideshow-transition',
                         'before' => '',
                         'after' => '',
@@ -263,7 +263,7 @@ class Strong_Testimonials_Helper {
                         'field_action_after' => ''
                     ),
                     'field_slideshow_behavior' => array(
-                        'label' => __( 'Behavior', 'strong-testimonials' ),
+                        'label' => esc_html__( 'Behavior', 'strong-testimonials' ),
                         'type' => 'slideshow-behavior',
                         'before' => '',
                         'after' => '',
@@ -274,7 +274,7 @@ class Strong_Testimonials_Helper {
                         'field_action_after' => ''
                     ),
                     'field_slideshow_navigation' => array(
-                        'label' => __( 'Navigation', 'strong-testimonials' ),
+                        'label' => esc_html__( 'Navigation', 'strong-testimonials' ),
                         'type' => 'slideshow-navigation',
                         'before' => '',
                         'after' => '',
@@ -293,11 +293,11 @@ class Strong_Testimonials_Helper {
                 'fields_action_before' => '',
                 'fields_action_after' => '',
                 'classes'  => array('then', 'then_not_display', 'then_not_slideshow', 'then_form', 'then_not_single_template'),
-                'title'         => __( 'Actions', 'strong-testimonials' ),
+                'title'         => esc_html__( 'Actions', 'strong-testimonials' ),
                 'table_classes' => 'form-table multiple group-select',
                 'fields'    => array(
                     'field_form_category' => array(
-                        'label' => __( 'Assign to a category', 'strong-testimonials' ),
+                        'label' => esc_html__( 'Assign to a category', 'strong-testimonials' ),
                         'type' => 'form-category',
                         'before' => '',
                         'after' => '',
@@ -308,7 +308,7 @@ class Strong_Testimonials_Helper {
                         'field_action_after'  => ''
                     ),
                     'field_form_ajax' => array(
-                        'label' => __( ' Submit form without reloading the page (Ajax)', 'strong-testimonials' ),
+                        'label' => esc_html__( ' Submit form without reloading the page (Ajax)', 'strong-testimonials' ),
                         'type' => 'form-ajax',
                         'before' => '<input type="checkbox" id="view-form_ajax" class="checkbox if toggle" name="view[data][form_ajax]" value="1"' . checked( $this->view['form_ajax'], true, false ) . '>',
                         'after' => '',
@@ -330,11 +330,11 @@ class Strong_Testimonials_Helper {
                     'param' => ''
                 ),
                 'classes'  => array('then', 'then_display', 'then_form', 'then_slideshow', 'then_not_single_template'),
-                'title'         => __( 'Style', 'strong-testimonials' ),
+                'title'         => esc_html__( 'Style', 'strong-testimonials' ),
                 'table_classes' => 'form-table multiple group-style',
                 'fields'    => array(
                     'field_template_list_display' => array(
-                        'label' => __( 'Template', 'strong-testimonials' ),
+                        'label' => esc_html__( 'Template', 'strong-testimonials' ),
                         'type' => 'template-list-display',
                         'before' => '',
                         'after' => '',
@@ -345,7 +345,7 @@ class Strong_Testimonials_Helper {
                         'field_action_after'  => ''
                     ),
                     'field_template_list_form' => array(
-                        'label' => __( 'Template', 'strong-testimonials' ),
+                        'label' => esc_html__( 'Template', 'strong-testimonials' ),
                         'type' => 'template-list-form',
                         'before' => '',
                         'after' => '',
@@ -357,7 +357,7 @@ class Strong_Testimonials_Helper {
                     ),
                     'field_option_layout' => array(
                         'include'       => 'option-layout.php',
-                        'label' => __( 'Layout', 'strong-testimonials' ),
+                        'label' => esc_html__( 'Layout', 'strong-testimonials' ),
                         'type' => 'layout',
                         'before' => '',
                         'after' => '',
@@ -368,7 +368,7 @@ class Strong_Testimonials_Helper {
                         'field_action_after'  => ''
                     ),
                     'field_background' => array(
-                        'label' => __( 'Background', 'strong-testimonials' ),
+                        'label' => esc_html__( 'Background', 'strong-testimonials' ),
                         'type' => 'background',
                         'before' => '',
                         'after' => '',
@@ -379,7 +379,7 @@ class Strong_Testimonials_Helper {
                         'field_action_after'  => ''
                     ),
                     'field_color' => array(
-                        'label' => __( 'Font Color', 'strong-testimonials' ),
+                        'label' => esc_html__( 'Font Color', 'strong-testimonials' ),
                         'type' => 'color',
                         'before' => '',
                         'after' => '',
@@ -390,7 +390,7 @@ class Strong_Testimonials_Helper {
                         'field_action_after'  => ''
                     ),
                     'field_classes' => array(
-                        'label' => __( 'CSS Classes', 'strong-testimonials' ),
+                        'label' => esc_html__( 'CSS Classes', 'strong-testimonials' ),
                         'type' => 'classes',
                         'before' => '',
                         'after' => '',
@@ -409,11 +409,11 @@ class Strong_Testimonials_Helper {
                 'fields_action_before' => '',
                 'fields_action_after' => '',
                 'classes'  => array('then'),
-                'title'         => __( 'Compatibility', 'strong-testimonials' ),
+                'title'         => esc_html__( 'Compatibility', 'strong-testimonials' ),
                 'table_classes' => 'form-table multiple group-general',
                 'fields'    => array(
                     'field_divi_builder' => array(
-                        'label' => __( 'Divi Builder', 'strong-testimonials' ),
+                        'label' => esc_html__( 'Divi Builder', 'strong-testimonials' ),
                         'type' => 'divi',
                         'before' => '',
                         'after' => '',
@@ -431,7 +431,7 @@ class Strong_Testimonials_Helper {
     public function render_form() {
         $actions = array( 'edit', 'duplicate', 'add' );
 	if ( ! in_array( $this->action, $actions ) ) {
-		wp_die( __( 'Invalid request. Please try again.', 'strong-testimonials' ) );
+		wp_die( esc_html__( 'Invalid request. Please try again.', 'strong-testimonials' ) );
 	}
 	if ( ( 'edit' == $this->action || 'duplicate' == $this->action ) && ! $this->view_id ) return;
         
@@ -490,8 +490,8 @@ class Strong_Testimonials_Helper {
             
             <p class="wpmtst-submit">
                 <?php submit_button( '', 'primary', 'submit-form', false ); ?>
-                <?php submit_button( __( 'Cancel Changes', 'strong-testimonials' ), 'secondary', 'reset', false ); ?>
-                <?php submit_button( __( 'Restore Defaults', 'strong-testimonials' ), 'secondary', 'restore-defaults', false ); ?>
+                <?php submit_button( esc_html__( 'Cancel Changes', 'strong-testimonials' ), 'secondary', 'reset', false ); ?>
+                <?php submit_button( esc_html__( 'Restore Defaults', 'strong-testimonials' ), 'secondary', 'restore-defaults', false ); ?>
             </p>
         </form><?php
     }
@@ -504,7 +504,7 @@ class Strong_Testimonials_Helper {
             $shortcode .= '<span id="copy-message">copied</span>';
             $shortcode .= '</div>';
         } else {
-            $shortcode = '<div class="unsaved">' . _x( 'will be available after you save this', 'The shortcode for a new View.', 'strong-testimonials' ) . '</div>';
+            $shortcode = '<div class="unsaved">' . esc_html_x( 'will be available after you save this', 'The shortcode for a new View.', 'strong-testimonials' ) . '</div>';
         }
 
         $classes = array(
@@ -929,7 +929,7 @@ class Strong_Testimonials_Helper {
                 <div class="row-inner">
                     <div class="then then_title" style="display: none;">
                         <label for="view-title_link">
-                            <?php printf( _x( 'Link to %s', 'The name of this post type. "Testimonial" by default.', 'strong-testimonials' ), strtolower( apply_filters( 'wpmtst_cpt_singular_name', __( 'Testimonial', 'strong-testimonials' ) ) ) ); ?>
+                            <?php printf( esc_html_x( 'Link to %s', 'The name of this post type. "Testimonial" by default.', 'strong-testimonials' ), strtolower( apply_filters( 'wpmtst_cpt_singular_name', __( 'Testimonial', 'strong-testimonials' ) ) ) ); ?>
                         </label>
                         <div class="wpmtst-tooltip"><span>[?]</span>
                             <div class="wpmtst-tooltip-content"><?php echo esc_html__('"Full testimonial" option doesn\'s work if "Disable permalinks for testimonials" from "Settings" page is enabled.','strong-testimonials'); ?></div>
@@ -1069,7 +1069,7 @@ class Strong_Testimonials_Helper {
                     </div>
                     <!-- 2nd option: length -->
                     <div class="inline then fast then_use_default_length then_0 then_not_1" style="display: none;">
-                        <label class="inline-middle"><?php printf( _x( 'the first %s words', 'the excerpt length', 'strong-testimonials' ), '<input id="view-excerpt_length" class="input-incremental" type="number" min="1" max="999" name="view[data][excerpt_length]" value="' . $this->view['excerpt_length'] . '">' ); ?></label>
+                        <label class="inline-middle"><?php printf( esc_html_x( 'the first %s words', 'the excerpt length', 'strong-testimonials' ), '<input id="view-excerpt_length" class="input-incremental" type="number" min="1" max="999" name="view[data][excerpt_length]" value="' . $this->view['excerpt_length'] . '">' ); ?></label>
                     </div>
                 </div>
             </div><!-- #option-content-length -->
@@ -1649,7 +1649,7 @@ class Strong_Testimonials_Helper {
     
     private function render_field_form_ajax() {?>
         <td>
-            <p class="description tall"><?php esc_html_e( 'This will override the <strong>Success Redirect</strong> setting.', 'strong-testimonials' ); ?></p>
+            <p class="description tall"><?php _e( 'This will override the <strong>Success Redirect</strong> setting.', 'strong-testimonials' ); ?></p>
         </td>
     <?php
     }

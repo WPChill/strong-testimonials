@@ -161,8 +161,8 @@ if ( ! class_exists( 'Strong_Testimonials_List_Table' ) ) :
 
 			if ( empty( $this->modes ) ) {
 				$this->modes = array(
-					'list'    => __( 'List View', 'strong-testimonials' ),
-					'excerpt' => __( 'Excerpt View', 'strong-testimonials' ),
+					'list'    => esc_html__( 'List View', 'strong-testimonials' ),
+					'excerpt' => esc_html__( 'Excerpt View', 'strong-testimonials' ),
 				);
 			}
 		}
@@ -370,7 +370,7 @@ if ( ! class_exists( 'Strong_Testimonials_List_Table' ) ) :
 <p class="search-box">
 	<label class="screen-reader-text" for="<?php echo esc_attr( $input_id ); ?>"><?php echo esc_html( $text ); ?>:</label>
 	<input type="search" id="<?php echo esc_attr( $input_id ); ?>" name="s" value="<?php _admin_search_query(); ?>">
-			<?php submit_button( $text, 'button', '', false, array( 'id' => 'search-submit' ) ); ?>
+			<?php submit_button( esc_html( $text ), 'button', '', false, array( 'id' => 'search-submit' ) ); ?>
 </p>
 			<?php
 		}
@@ -475,12 +475,12 @@ if ( ! class_exists( 'Strong_Testimonials_List_Table' ) ) :
 			foreach ( $this->_actions as $name => $title ) {
 				$class = 'edit' == $name ? ' class="hide-if-no-js"' : '';
 
-				echo "\t<option value='$name'$class>$title</option>\n";
+				echo "\t<option value='" . esc_attr( $name ) . "'$class>" . esc_html( $title ) . "</option>\n";
 			}
 
 			echo "</select>\n";
 
-			submit_button( __( 'Apply', 'strong-testimonials' ), 'action', '', false, array( 'id' => "doaction$two" ) );
+			submit_button( esc_html__( 'Apply', 'strong-testimonials' ), 'action', '', false, array( 'id' => "doaction$two" ) );
 			echo "\n";
 		}
 
@@ -661,7 +661,7 @@ if ( ! class_exists( 'Strong_Testimonials_List_Table' ) ) :
 				echo '<strong>';
 			}
 
-			echo "<a href='" . esc_url( add_query_arg( 'p', $post_id, admin_url( 'edit-comments.php' ) ) ) . "' title='" . esc_attr( $pending_phrase ) . "' class='post-com-count'><span class='comment-count'>" . number_format_i18n( get_comments_number() ) . '</span></a>';
+			echo "<a href='" . esc_url( add_query_arg( 'p', absint( $post_id ), admin_url( 'edit-comments.php' ) ) ) . "' title='" . esc_attr( $pending_phrase ) . "' class='post-com-count'><span class='comment-count'>" . number_format_i18n( get_comments_number() ) . '</span></a>';
 
 			if ( $pending_comments ) {
 				echo '</strong>';
@@ -938,7 +938,7 @@ if ( ! class_exists( 'Strong_Testimonials_List_Table' ) ) :
 
 			if ( ! empty( $columns['cb'] ) ) {
 				static $cb_counter = 1;
-				$columns['cb']     = '<label class="screen-reader-text" for="cb-select-all-' . $cb_counter . '">' . __( 'Select All', 'strong-testimonials' ) . '</label>'
+				$columns['cb']     = '<label class="screen-reader-text" for="cb-select-all-' . $cb_counter . '">' . esc_html__( 'Select All', 'strong-testimonials' ) . '</label>'
 				. '<input id="cb-select-all-' . $cb_counter . '" type="checkbox">';
 				$cb_counter++;
 			}

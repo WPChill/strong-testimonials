@@ -21,7 +21,7 @@ function wpmtst_add_field_function() {
 		'name_mutable' => 1,
 		'record_type'  => 'custom',
 		'input_type'   => 'text',
-		'label'        => __( 'New Field', 'strong-testimonials' ),
+		'label'        => esc_html__( 'New Field', 'strong-testimonials' ),
 		'show_label'   => 1,
 	);
 	echo wpmtst_show_field( intval( $_REQUEST['nextKey'] ), $empty_field, true );

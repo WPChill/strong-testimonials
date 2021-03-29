@@ -36,10 +36,10 @@ class Strong_Testimonials_Admin_Category_List {
 	public static function manage_categories( $columns ) {
 		$new_columns = array(
 			'cb'    => '<input type="checkbox">',
-			'ID'    => __( 'ID', 'strong-testimonials' ),
-			'name'  => __( 'Name', 'strong-testimonials' ),
-			'slug'  => __( 'Slug', 'strong-testimonials' ),
-			'posts' => __( 'Posts', 'strong-testimonials' ),
+			'ID'    => esc_html__( 'ID', 'strong-testimonials' ),
+			'name'  => esc_html__( 'Name', 'strong-testimonials' ),
+			'slug'  => esc_html__( 'Slug', 'strong-testimonials' ),
+			'posts' => esc_html__( 'Posts', 'strong-testimonials' ),
 		);
 
 		return $new_columns;

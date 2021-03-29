@@ -143,9 +143,9 @@ class Strong_Testimonials_Admin_Scripts {
 
 		$params = array(
 			'ajax_nonce' => wp_create_nonce( 'wpmtst-admin' ),
-			'newField'   => _x( 'New Field', 'Field editor: The default label for new fields', 'strong-testimonials' ),
-			'inUse'      => _x( '(in use)', 'Fields editor: To indicate when a field type can only be used once.', 'strong-testimonials' ),
-			'noneFound'  => _x( '(none found)', 'Fields editor: To indicate when no categories have been found.', 'strong-testimonials' ),
+			'newField'   => esc_html_x( 'New Field', 'Field editor: The default label for new fields', 'strong-testimonials' ),
+			'inUse'      => esc_html_x( '(in use)', 'Fields editor: To indicate when a field type can only be used once.', 'strong-testimonials' ),
+			'noneFound'  => esc_html_x( '(none found)', 'Fields editor: To indicate when no categories have been found.', 'strong-testimonials' ),
 		);
 		wp_localize_script( 'wpmtst-admin-fields-script', 'wpmtstAdmin', $params );
 
@@ -214,9 +214,9 @@ class Strong_Testimonials_Admin_Scripts {
 
 		$params = array(
 			'ajax_nonce'     => wp_create_nonce( 'wpmtst-admin' ),
-			'requiredField'  => __( 'This field is required.', 'strong-testimonials' ),
-			'errorMessage'   => __( 'An error occurred, please try again.', 'strong-testimonials' ),
-			'restoreDefault' => __( 'Restore the default settings?', 'strong-testimonials' ),
+			'requiredField'  => esc_html( 'This field is required.', 'strong-testimonials' ),
+			'errorMessage'   => esc_html__( 'An error occurred, please try again.', 'strong-testimonials' ),
+			'restoreDefault' => esc_html__( 'Restore the default settings?', 'strong-testimonials' ),
 		);
 		wp_localize_script( 'wpmtst-addons-script', 'strongAddonAdmin', $params );
 
@@ -252,7 +252,7 @@ class Strong_Testimonials_Admin_Scripts {
 			'wpmtst_admin',
 			array(
 				'nonce' => wp_create_nonce( 'wpmtst-admin' ),
-				'templateTagTitle' => __( 'click to insert into message at caret', 'strong-testimonials' ),
+				'templateTagTitle' => esc_html__( 'click to insert into message at caret', 'strong-testimonials' ),
 			)
 		);
                 

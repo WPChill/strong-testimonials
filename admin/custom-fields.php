@@ -151,7 +151,7 @@ function wpmtst_settings_custom_fields( $form_id = 1 ) {
 	}
 
 	if ( ! $form_id ) {
-		echo '<div class="wrap wpmtst"><p>' . __( 'No fields selected.', 'strong-testimonials' ) .'</p></div>';
+		echo '<div class="wrap wpmtst"><p>' . esc_html__( 'No fields selected.', 'strong-testimonials' ) .'</p></div>';
 		return;
 	}
 
