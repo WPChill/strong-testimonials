@@ -1,4 +1,4 @@
-= v2.51.2 - 24/02/2021 =
+= v2.51.2 - 25/02/2021 =
 - Fixed: Manual excerpt ( https://github.com/WPChill/strong-testimonials/issues/220 )
 
 = v2.51.1 - 18/02/2021 =
