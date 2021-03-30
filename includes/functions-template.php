@@ -277,7 +277,7 @@ function wpmtst_the_date( $format = '', $class = '' ) {
 	}
 
 	$the_date = apply_filters( 'wpmtst_the_date', mysql2date( $format, $post->post_date ), $format, $post );
-	echo '<div class="' . $class . '">' . $the_date . '</div>';
+	echo '<div class="' . esc_attr( $class ) . '">' . esc_attr( $the_date ) . '</div>';
 }
 
 /**

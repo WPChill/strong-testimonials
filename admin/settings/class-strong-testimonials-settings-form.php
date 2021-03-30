@@ -46,7 +46,7 @@ class Strong_Testimonials_Settings_Form {
 		printf( '<a href="%s" class="nav-tab %s">%s</a>',
 			esc_url( add_query_arg( 'tab', self::TAB_NAME, $url ) ),
 			esc_attr( $active_tab == self::TAB_NAME ? 'nav-tab-active' : '' ),
-			__( 'Settings', 'strong-testimonials' )
+			esc_html__( 'Settings', 'strong-testimonials' )
 		);
 	}
 
@@ -214,7 +214,7 @@ class Strong_Testimonials_Settings_Form {
 	 * @since 1.13
 	 */
 	public static function restore_default_message_function() {
-		$input = str_replace( '_', '-', $_REQUEST['field'] );
+		$input = sanitize_text_field( str_replace( '_', '-', $_REQUEST['field'] ) );
 		$default_form_options = Strong_Testimonials_Defaults::get_form_options();
 		$message = $default_form_options['messages'][$input];
 		echo json_encode( $message );
@@ -225,7 +225,7 @@ class Strong_Testimonials_Settings_Form {
 	 * [Add Recipient] Ajax receiver
 	 */
 	public static function add_recipient() {
-		$key          = $_REQUEST['key'];
+		$key          = sanitize_text_field( $_REQUEST['key'] );
 		$form_options = get_option( 'wpmtst_form_options' );
 		$recipient    = $form_options['default_recipient'];
 		include WPMTST_ADMIN . 'settings/partials/recipient.php';

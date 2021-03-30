@@ -42,7 +42,7 @@ function wpmtst_get_the_excerpt( $post = null ) {
 	}
 
 	if ( post_password_required( $post ) ) {
-		return __( 'There is no excerpt because this is a protected post.', 'strong-testimonials' );
+		return esc_html__( 'There is no excerpt because this is a protected post.', 'strong-testimonials' );
 	}
 
 	/**
@@ -113,9 +113,13 @@ function wpmtst_trim_excerpt( $excerpt = '' ) {
  */
 function wpmtst_get_the_prepared_text( $hybrid = false ) {
 	$text = get_the_content( '' );
-	if ( ! $hybrid ) {
+	
+	if(function_exists('et_core_is_builder_used_on_current_request') && et_core_is_builder_used_on_current_request()) {
+		$text = wp_strip_all_tags(et_strip_shortcodes($text), true);
+	} elseif ( ! $hybrid ) {
 		$text = strip_shortcodes( $text );
 	}
+
 	$text = apply_filters( 'wpmtst_the_content', $text );
 	$text = str_replace( ']]>', ']]&gt;', $text );
 
@@ -176,7 +180,7 @@ function wpmtst_trim_words( $text, $num_words = 55, $more = null, $hybrid = fals
 	 * enter 'characters_excluding_spaces' or 'characters_including_spaces'. Otherwise, enter 'words'.
 	 * Do not translate into your own language.
 	 */
-	if ( strpos( _x( 'words', 'Word count type. Do not translate!', 'strong-testimonials' ), 'characters' ) === 0 && preg_match( '/^utf\-?8$/i', get_option( 'blog_charset' ) ) ) {
+	if ( strpos( esc_html_x( 'words', 'Word count type. Do not translate!', 'strong-testimonials' ), 'characters' ) === 0 && preg_match( '/^utf\-?8$/i', get_option( 'blog_charset' ) ) ) {
 		$text = trim( preg_replace( "/[\n\r\t ]+/", ' ', $text ), ' ' );
 		preg_match_all( '/./u', $text, $words_array );
 		$words_array = array_slice( $words_array[0], 0, $num_words + 1 );

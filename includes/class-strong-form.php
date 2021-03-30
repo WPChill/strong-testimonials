@@ -42,7 +42,7 @@ class Strong_Testimonials_Form {
 		printf( '<a href="%s" class="nav-tab %s">%s</a>',
 		        esc_url( add_query_arg( 'tab', self::TAB_NAME, $url ) ),
 		        esc_attr( $active_tab == self::TAB_NAME ? 'nav-tab-active' : '' ),
-		        __( 'Fields', 'strong-testimonials' )
+		        esc_html__( 'Fields', 'strong-testimonials' )
 		);
 	}
         

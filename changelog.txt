@@ -1,4 +1,10 @@
-= v2.51.2 - 25/02/2021 =
+= v2.51.3 - 16/03/2021 =
+- Changed: View backend in order to be more customizable ( https://github.com/WPChill/strong-testimonials/issues/222 )
+- Added: A class to disabled class for each template ( https://github.com/WPChill/strong-testimonials/issues/210 )
+- Fixed: Incompatibility between DIVI builder and testimonials'excerpt display ( https://github.com/WPChill/strong-testimonials/issues/231 )
+- Fixed: Sanitization issue ( https://github.com/WPChill/strong-testimonials/issues/236 )
+
+= v2.51.2 - 24/02/2021 =
 - Fixed: Manual excerpt ( https://github.com/WPChill/strong-testimonials/issues/220 )
 
 = v2.51.1 - 18/02/2021 =

@@ -87,8 +87,8 @@ class Strong_Testimonials_Addons {
 	 */
 	public function get_submenu() {
 		return array(
-			'page_title' => __( 'Extensions', 'strong-testimonials' ),
-			'menu_title' => __( 'Extensions', 'strong-testimonials' ),
+			'page_title' => esc_html__( 'Extensions', 'strong-testimonials' ),
+			'menu_title' => esc_html__( 'Extensions', 'strong-testimonials' ),
 			'capability' => 'strong_testimonials_options',
 			'menu_slug'  => 'strong-testimonials-addons',
 			'function'   => array( $this, 'addons_page' ),

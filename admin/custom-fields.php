@@ -32,7 +32,7 @@ function wpmtst_update_custom_fields() {
 		exit;
 	}
 
-    $form_id = $_POST['form_id'];
+    $form_id	   = absint ( $_POST['form_id'] );
     $forms         = get_option( 'wpmtst_custom_forms' );
     $field_options = apply_filters( 'wpmtst_fields', get_option( 'wpmtst_fields' ) );
 
@@ -151,7 +151,7 @@ function wpmtst_settings_custom_fields( $form_id = 1 ) {
 	}
 
 	if ( ! $form_id ) {
-		echo '<div class="wrap wpmtst"><p>' . __( 'No fields selected.', 'strong-testimonials' ) .'</p></div>';
+		echo '<div class="wrap wpmtst"><p>' . esc_html__( 'No fields selected.', 'strong-testimonials' ) .'</p></div>';
 		return;
 	}
 

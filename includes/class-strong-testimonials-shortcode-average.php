@@ -149,7 +149,7 @@ class Strong_Testimonials_Average_Shortcode {
 
 		// title
 		if ( isset( $parts['title'] ) ) {
-			$parts['title'] = sprintf( '<span class="strong-rating-title">%s</span>', __( 'Average Rating:', 'strong-testimonials' ) );
+			$parts['title'] = sprintf( '<span class="strong-rating-title">%s</span>', esc_html__( 'Average Rating:', 'strong-testimonials' ) );
 		}
 		if ( isset( $parts['title2'] ) ) {
 			/* translators: %s is a number */

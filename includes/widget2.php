@@ -11,20 +11,20 @@ class Strong_Testimonials_View_Widget extends WP_Widget {
 
 		$widget_ops = array(
 			'classname'   => 'strong-testimonials-view-widget',
-			'description' => _x( 'Add one of your testimonial views.', 'widget description', 'strong-testimonials' )
+			'description' => esc_html_x( 'Add one of your testimonial views.', 'widget description', 'strong-testimonials' )
 		);
 		$control_ops = array(
 			'id_base' => 'strong-testimonials-view-widget',
 		);
 		parent::__construct(
 			'strong-testimonials-view-widget',
-			_x( 'Strong Testimonials View', 'widget label', 'strong-testimonials' ),
+			esc_html_x( 'Strong Testimonials View', 'widget label', 'strong-testimonials' ),
 			$widget_ops,
 			$control_ops
 		);
 
 		$this->defaults = array(
-			'title'   => _x( 'Testimonials', 'widget title', 'strong-testimonials' ),
+			'title'   => esc_html_x( 'Testimonials', 'widget title', 'strong-testimonials' ),
 			'text'    => '',
 			'filter'  => 0,
 			'view'    => '0',
@@ -77,19 +77,19 @@ class Strong_Testimonials_View_Widget extends WP_Widget {
 				<label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>">
 					<?php esc_html_e( 'Title:', 'strong-testimonials' ); ?>
 				</label>
-				<input class="widefat" type="text" id="<?php echo $this->get_field_id( 'title' ); ?>"
-				       name="<?php echo $this->get_field_name( 'title' ); ?>" value="<?php echo esc_attr( $title ); ?>">
+				<input class="widefat" type="text" id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"
+				       name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" value="<?php echo esc_attr( $title ); ?>">
 			</p>
 			<p>
 				<label for="<?php echo esc_attr( $this->get_field_id( 'text' ) ); ?>"><?php esc_html_e( 'Content:', 'strong-testimonials' ); ?></label>
 				<textarea class="widefat" rows="8" id="<?php echo esc_attr( $this->get_field_id( 'text' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'text' ) ); ?>"><?php echo esc_textarea( $instance['text'] ); ?></textarea>
 			</p>
 			<p>
-				<input id="<?php echo $this->get_field_id('filter'); ?>" name="<?php echo $this->get_field_name('filter'); ?>" type="checkbox"<?php checked( $filter ); ?> />&nbsp;<label for="<?php echo $this->get_field_id('filter'); ?>"><?php _e( 'Automatically add paragraphs to above Content only', 'strong-testimonials' ); ?></label>
+				<input id="<?php echo esc_attr( $this->get_field_id('filter') ); ?>" name="<?php echo esc_attr( $this->get_field_name('filter') ); ?>" type="checkbox"<?php checked( $filter ); ?> />&nbsp;<label for="<?php echo esc_attr( $this->get_field_id('filter') ); ?>"><?php esc_html_e( 'Automatically add paragraphs to above Content only', 'strong-testimonials' ); ?></label>
 			</p>
 			<p>
-				<label for="<?php echo $this->get_field_id( 'view' ); ?>">
-					<?php _ex( 'View:', 'widget setting', 'strong-testimonials' ); ?>
+				<label for="<?php echo esc_attr( $this->get_field_id( 'view' ) ); ?>">
+					<?php echo esc_html_x( 'View:', 'widget setting', 'strong-testimonials' ); ?>
 				</label>
 				<select class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'view' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'view' ) ); ?>" autocomplete="off">
 					<option value=""><?php esc_html_e( '&mdash; Select &mdash;', 'strong-testimonials' ); ?></option>

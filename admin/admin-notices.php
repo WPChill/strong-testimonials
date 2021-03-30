@@ -63,7 +63,7 @@ function wpmtst_admin_notice_text( $html = '', $key, $persist = false ) {
 			?>
 			<div class="wpmtst notice notice-success is-dismissible" data-key="<?php echo esc_attr( $key ); ?>">
 				<p>
-					<?php _e( 'Defaults restored.', 'strong-testimonials' ); ?>
+					<?php esc_html_e( 'Defaults restored.', 'strong-testimonials' ); ?>
 				</p>
 			</div>
 			<?php
@@ -75,7 +75,7 @@ function wpmtst_admin_notice_text( $html = '', $key, $persist = false ) {
 			?>
 			<div class="wpmtst notice notice-success is-dismissible" data-key="<?php echo esc_attr( $key ); ?>">
 				<p>
-					<?php _e( 'Fields saved.', 'strong-testimonials' ); ?>
+					<?php esc_html_e( 'Fields saved.', 'strong-testimonials' ); ?>
 				</p>
 			</div>
 			<?php
@@ -87,7 +87,7 @@ function wpmtst_admin_notice_text( $html = '', $key, $persist = false ) {
 			?>
 			<div class="wpmtst notice notice-success is-dismissible" data-key="<?php echo esc_attr( $key ); ?>">
 				<p>
-					<?php _e( 'Changes cancelled.', 'strong-testimonials' ); ?>
+					<?php esc_html_e( 'Changes cancelled.', 'strong-testimonials' ); ?>
 				</p>
 			</div>
 			<?php
@@ -98,14 +98,14 @@ function wpmtst_admin_notice_text( $html = '', $key, $persist = false ) {
 			$tags          = array( 'a' => array( 'class' => array(), 'href' => array() ) );
 			//$settings_url  = admin_url( 'edit.php?post_type=wpm-testimonial&page=testimonial-settings&tab=form#captcha-section' );
 			$settings_url  = admin_url( '?action=captcha-options-changed' );
-			$settings_link = sprintf( wp_kses( __( 'Please check your <a href="%s">%s</a>.', 'strong-testimonials' ), $tags ), esc_url( $settings_url ), __( 'settings', 'strong-testimonials' ) );
+			$settings_link = sprintf( wp_kses( __( 'Please check your <a href="%s">%s</a>.', 'strong-testimonials' ), $tags ), esc_url( $settings_url ), esc_html__( 'settings', 'strong-testimonials' ) );
 
 			ob_start();
 			?>
             <div class="wpmtst notice notice-warning is-dismissible" data-key="<?php echo esc_attr( $key ); ?>">
                 <p>
 					<?php _e( 'Captcha options have changed in <strong>Strong Testimonials</strong>.', 'strong-testimonials' ); ?>
-					<?php echo $settings_link; ?>
+					<?php echo esc_url( $settings_link ); ?>
                 </p>
             </div>
 			<?php

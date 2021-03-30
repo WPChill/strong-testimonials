@@ -10,9 +10,9 @@ class Strong_Review {
 	function __construct() {
 
 		$this->messages = array(
-			'notice'  => __( "Hi there! Stoked to see you're using Strong Testimonials for a few days now - hope you like it! And if you do, please consider rating it. It would mean the world to us.  Keep on rocking!", 'strong-testimonials' ),
-			'rate'    => __( 'Rate the plugin', 'strong-testimonials' ),
-			'rated'   => __( 'Remind me later', 'strong-testimonials' ),
+			'notice'  => esc_html__( "Hi there! Stoked to see you're using Strong Testimonials for a few days now - hope you like it! And if you do, please consider rating it. It would mean the world to us.  Keep on rocking!", 'strong-testimonials' ),
+			'rate'    => esc_html__( 'Rate the plugin', 'strong-testimonials' ),
+			'rated'   => esc_html__( 'Remind me later', 'strong-testimonials' ),
 			'no_rate' => __( 'Don\'t show again', 'strong-testimonials' ),
 		);
 
@@ -94,7 +94,7 @@ class Strong_Review {
 
 		if ( 'strong-testimonials-rate' == $_POST['check'] ) {
 			$time = time() + YEAR_IN_SECONDS * 1;
-		}elseif ( 'strong-testimonials-later' == $_POST['check'] ) {
+		}elseif ( 'strong-testimonials-later' == ['check'] ) {
 			$time = time() + WEEK_IN_SECONDS;
 		}elseif ( 'strong-testimonials-no-rate' == $_POST['check'] ) {
 			$time = time() + YEAR_IN_SECONDS * 1;

@@ -252,7 +252,7 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
   }
 }
 
-.disabled { 
+.strong-view.wpmtst-bold .disabled { 
   display: none!important;
 }
 

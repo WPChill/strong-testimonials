@@ -16,7 +16,7 @@ class Strong_Views_List_Table extends Strong_Testimonials_List_Table {
 	 * @access public
 	 */
 	public function no_items() {
-		_e( 'No views found.', 'strong-testimonials' );
+		esc_html_e( 'No views found.', 'strong-testimonials' );
 	}
 
 	public function prepare_list( $data = array() ) {
@@ -94,13 +94,13 @@ class Strong_Views_List_Table extends Strong_Testimonials_List_Table {
 
 	public function get_columns() {
 		$columns = array(
-			'id'        => __( 'ID', 'strong-testimonials' ),
+			'id'        => esc_html__( 'ID', 'strong-testimonials' ),
 			//'sticky'    => __( 'Sticky', 'strong-testimonials' ),
 			'sticky'    => '',
-			'name'      => __( 'Name', 'strong-testimonials' ),
-			'mode'      => __( 'Mode', 'strong-testimonials' ),
-			'template'  => __( 'Template', 'strong-testimonials' ),
-			'shortcode' => __( 'Shortcode', 'strong-testimonials' ),
+			'name'      => esc_html__( 'Name', 'strong-testimonials' ),
+			'mode'      => esc_html__( 'Mode', 'strong-testimonials' ),
+			'template'  => esc_html__( 'Template', 'strong-testimonials' ),
+			'shortcode' => esc_html__( 'Shortcode', 'strong-testimonials' ),
 		);
 
 		return $columns;
@@ -148,12 +148,12 @@ class Strong_Views_List_Table extends Strong_Testimonials_List_Table {
 		$url    = $screen->parent_file;
 
 		// Edit link
-		$edit_link = $url . '&page=testimonial-views&action=edit&id=' . $item['id'];
-		echo '<a class="row-title" href="' . $edit_link . '">' . $item['name'] . '</a>';
+		$edit_link = esc_url( $url . '&page=testimonial-views&action=edit&id=' . $item['id'] );
+		echo '<a class="row-title" href="' . $edit_link . '">' . esc_html( $item['name'] ) . '</a>';
 
 		// Duplicate link
 		// @since 2.1.0
-		$duplicate_link = $url . '&page=testimonial-views&action=duplicate&id=' . $item['id'];
+		$duplicate_link = esc_url( $url . '&page=testimonial-views&action=duplicate&id=' . $item['id'] );
 
 		// Delete link
 		$delete_link = 'admin.php?action=delete-strong-view&id=' . $item['id'];
@@ -161,9 +161,9 @@ class Strong_Views_List_Table extends Strong_Testimonials_List_Table {
 		// Assemble links
 
 		$actions              = array();
-		$actions['edit']      = '<a href="' . $edit_link . '">' . __( 'Edit', 'strong-testimonials' ) . '</a>';
-		$actions['duplicate'] = '<a href="' . $duplicate_link . '">' . __( 'Duplicate', 'strong-testimonials' ) . '</a>';
-		$actions['delete']    = "<a class='submitdelete' href='" . wp_nonce_url( $delete_link, 'delete-strong-view_' . $item['id'] ) . "' onclick=\"if ( confirm( '" . esc_js( sprintf( __( 'Delete "%s"?', 'strong-testimonials' ), $item['name'] ) ) . "' ) ) { return true;} return false;\">" . __( 'Delete', 'strong-testimonials' ) . '</a>';
+		$actions['edit']      = '<a href="' . $edit_link . '">' . esc_html__( 'Edit', 'strong-testimonials' ) . '</a>';
+		$actions['duplicate'] = '<a href="' . $duplicate_link . '">' . esc_html__( 'Duplicate', 'strong-testimonials' ) . '</a>';
+		$actions['delete']    = "<a class='submitdelete' href='" . wp_nonce_url( $delete_link, 'delete-strong-view_' . $item['id'] ) . "' onclick=\"if ( confirm( '" . esc_js( sprintf( __( 'Delete "%s"?', 'strong-testimonials' ), $item['name'] ) ) . "' ) ) { return true;} return false;\">" . esc_html__( 'Delete', 'strong-testimonials' ) . '</a>';
 
 		$actions = apply_filters('wpmtst_views_actions',$actions,$item);
 
@@ -177,7 +177,7 @@ class Strong_Views_List_Table extends Strong_Testimonials_List_Table {
 				break;
 			case 'sticky':
 			    $stuck = $this->is_stuck( $item['id'] ) ? 'stuck' : '';
-				$text = '<a href="#" class="stickit ' . $stuck . '" title="' . __( 'stick to top of list', 'strong-testimonials' ) . '"></>';
+				$text = '<a href="#" class="stickit ' . $stuck . '" title="' . esc_html__( 'stick to top of list', 'strong-testimonials' ) . '"></>';
 				break;
 			case 'name':
 				$text = $item['name'];
@@ -192,7 +192,7 @@ class Strong_Views_List_Table extends Strong_Testimonials_List_Table {
 				break;
 			case 'template':
 				if ( 'single_template' == $item['data']['mode'] ) {
-					$text = __( 'theme single post template', 'strong-testimonials' );
+					$text = esc_html__( 'theme single post template', 'strong-testimonials' );
 				} else {
 					$text = $this->find_template( array( 'template' => $item['data']['template'] ) );
 				}
@@ -218,7 +218,7 @@ class Strong_Views_List_Table extends Strong_Testimonials_List_Table {
 
 	public function find_template( $atts = '' ) {
 		$name = WPMST()->templates->get_template_config( $atts, 'name', false );
-		return $name ? $name : '<span class="error"><span class="dashicons dashicons-warning"></span> ' . __( 'not found', 'strong-testimonials' ) . '</span>';
+		return $name ? $name : '<span class="error"><span class="dashicons dashicons-warning"></span> ' . esc_html__( 'not found', 'strong-testimonials' ) . '</span>';
 	}
 
 	/**
@@ -235,7 +235,7 @@ class Strong_Views_List_Table extends Strong_Testimonials_List_Table {
             <form id="posts-filter" method="get">
                 <p class="search-box">
                     <label class="screen-reader-text" for="post-search-input"><?php esc_html_e( 'Search', 'strong-testimonials' ); ?></label>
-                    <input type="search" id="post-search-input" name="s" value="<?php echo (isset($_GET['s']) && !empty($_GET['s']) ? $_GET['s'] : '') ?>">
+                    <input type="search" id="post-search-input" name="s" value="<?php echo (isset($_GET['s']) && !empty($_GET['s']) ? esc_html( $_GET['s'] ) : '') ?>">
                     <input type="submit" id="search-submit" class="button" value="<?php esc_html_e( 'Search', 'strong-testimonials' ); ?>">
                     <input type="hidden" name="post_type" class="post_type_page" value="wpm-testimonial">
                     <input type="hidden" name="page" value="testimonial-views">

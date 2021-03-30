@@ -36,7 +36,7 @@ class Strong_Testimonials_Post_Editor {
 	public static function add_meta_boxes() {
 		add_meta_box(
 			'details',
-			_x( 'Client Details', 'post editor', 'strong-testimonials' ),
+			esc_html_x( 'Client Details', 'post editor', 'strong-testimonials' ),
 			array( __CLASS__, 'meta_options' ),
 			'wpm-testimonial',
 			'normal',
@@ -186,25 +186,25 @@ class Strong_Testimonials_Post_Editor {
             <div class="input-nofollow">
                 <label for="custom_nofollow"><code>rel="nofollow"</code></label>
                 <select id="custom_nofollow" name="custom[nofollow]">
-                    <option value="default" <?php selected( $post->nofollow, 'default' ); ?>><?php _e( 'default', 'strong-testimonials' ); ?></option>
-                    <option value="yes" <?php selected( $post->nofollow, 'yes' ); ?>><?php _e( 'yes', 'strong-testimonials' ); ?></option>
-                    <option value="no" <?php selected( $post->nofollow, 'no' ); ?>><?php _e( 'no', 'strong-testimonials' ); ?></option>
+                    <option value="default" <?php selected( $post->nofollow, 'default' ); ?>><?php esc_html_e( 'default', 'strong-testimonials' ); ?></option>
+                    <option value="yes" <?php selected( $post->nofollow, 'yes' ); ?>><?php esc_html_e( 'yes', 'strong-testimonials' ); ?></option>
+                    <option value="no" <?php selected( $post->nofollow, 'no' ); ?>><?php esc_html_e( 'no', 'strong-testimonials' ); ?></option>
                 </select>
             </div>
             <div class="input-noopener">
                 <label for="custom_noopener"><code>rel="noopener"</code></label>
                 <select id="custom_noopener" name="custom[noopener]">
-                    <option value="default" <?php selected( $post->noopener, 'default' ); ?>><?php _e( 'default', 'strong-testimonials' ); ?></option>
-                    <option value="yes" <?php selected( $post->noopener, 'yes' ); ?>><?php _e( 'yes', 'strong-testimonials' ); ?></option>
-                    <option value="no" <?php selected( $post->noopener, 'no' ); ?>><?php _e( 'no', 'strong-testimonials' ); ?></option>
+                    <option value="default" <?php selected( $post->noopener, 'default' ); ?>><?php esc_html_e( 'default', 'strong-testimonials' ); ?></option>
+                    <option value="yes" <?php selected( $post->noopener, 'yes' ); ?>><?php esc_html_e( 'yes', 'strong-testimonials' ); ?></option>
+                    <option value="no" <?php selected( $post->noopener, 'no' ); ?>><?php esc_html_e( 'no', 'strong-testimonials' ); ?></option>
                 </select>
             </div>
             <div class="input-noreferrer">
                 <label for="custom_noreferrer"><code>rel="noreferrer"</code></label>
                 <select id="custom_noopener" name="custom[noreferrer]">
-                    <option value="default" <?php selected( $post->noreferrer, 'default' ); ?>><?php _e( 'default', 'strong-testimonials' ); ?></option>
-                    <option value="yes" <?php selected( $post->noreferrer, 'yes' ); ?>><?php _e( 'yes', 'strong-testimonials' ); ?></option>
-                    <option value="no" <?php selected( $post->noreferrer, 'no' ); ?>><?php _e( 'no', 'strong-testimonials' ); ?></option>
+                    <option value="default" <?php selected( $post->noreferrer, 'default' ); ?>><?php esc_html_e( 'default', 'strong-testimonials' ); ?></option>
+                    <option value="yes" <?php selected( $post->noreferrer, 'yes' ); ?>><?php esc_html_e( 'yes', 'strong-testimonials' ); ?></option>
+                    <option value="no" <?php selected( $post->noreferrer, 'no' ); ?>><?php esc_html_e( 'no', 'strong-testimonials' ); ?></option>
                 </select>
             </div>
 		<?php
@@ -235,10 +235,10 @@ class Strong_Testimonials_Post_Editor {
 			$rating = 0;
 		}
 		?>
-        <div class="edit-rating-box hide-if-no-js" data-field="<?php echo $field['name']; ?>">
+        <div class="edit-rating-box hide-if-no-js" data-field="<?php echo esc_attr( $field['name'] ); ?>">
 
 			<?php wp_nonce_field( 'editrating', "edit-{$field['name']}-nonce", false ); ?>
-            <input type="hidden" class="current-rating" value="<?php echo $rating; ?>">
+            <input type="hidden" class="current-rating" value="<?php echo esc_attr( $rating ); ?>">
 
             <!-- form -->
             <div class="rating-form" style="<?php echo ( $is_new ) ? 'display: inline-block;' : 'display: none;'; ?>">
@@ -301,7 +301,7 @@ class Strong_Testimonials_Post_Editor {
 
 		$post_id = absint( $_POST['post_ID'] );
 
-		$custom = $_POST['custom'];
+		$custom = sanitize_text_field( $_POST['custom'] );
 
 		$custom_fields = wpmtst_get_custom_fields();
 
