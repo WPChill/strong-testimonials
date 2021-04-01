@@ -2,7 +2,7 @@
     <div class="email-option-row">
 
         <div class="email-option-desc">
-			<?php _e( "To", 'strong-testimonials' ); ?>
+			<?php esc_html_e( 'To', 'strong-testimonials' ); ?>
         </div>
 
         <div class="email-option-inputs">

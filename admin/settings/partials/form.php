@@ -4,13 +4,14 @@
  *
  * @since   1.13
  */
+
 $pages_list   = wpmtst_get_pages();
 $form_options = get_option( 'wpmtst_form_options' );
 
 ?>
 <input type="hidden"
        name="wpmtst_form_options[default_recipient]"
-       value="<?php echo htmlentities( serialize( $form_options['default_recipient'] ) ); ?>">
+       value="<?php esc_html_e( htmlentities( serialize( $form_options['default_recipient'] ) ) ); ?>">
 
 <?php
 /**
@@ -18,6 +19,7 @@ $form_options = get_option( 'wpmtst_form_options' );
  * Labels & Messages
  * ========================================
  */
+
 ?>
 <h2><?php esc_html_e( 'Form Labels & Messages', 'strong-testimonials' ); ?></h2>
 
@@ -26,7 +28,7 @@ $form_options = get_option( 'wpmtst_form_options' );
 <table class="form-table compact" cellpadding="0" cellspacing="0">
 	<?php
 	$messages = $form_options['messages'];
-	foreach ( $messages as $key => $message ):
+	foreach ( $messages as $key => $message ) :
 		$required = isset( $message['required'] ) ? $message['required'] : true;
 
 		$elid = str_replace( '-', '_', $key );
@@ -70,7 +72,7 @@ $form_options = get_option( 'wpmtst_form_options' );
             </td>
             <td class="actions">
                 <input type="button" class="button secondary restore-default-message"
-                       value="<?php _ex( 'restore default', 'singular', 'strong-testimonials' ); ?>"
+                       value="<?php esc_html_x( 'restore default', 'singular', 'strong-testimonials' ); ?>"
                        data-target-id="<?php echo esc_attr( $elid ); ?>"/>
             </td>
         </tr>
@@ -97,14 +99,14 @@ $form_options = get_option( 'wpmtst_form_options' );
                     <label>
                         <input type="checkbox"
                                name="wpmtst_form_options[scrolltop_error]" <?php checked( $form_options['scrolltop_error'] ); ?>/>
-						<?php printf( esc_html__( 'If errors, scroll to the first error minus %s pixels. On by default.', 'strong-testimonials' ), '<input type="text" name="wpmtst_form_options[scrolltop_error_offset]" value="' . $form_options['scrolltop_error_offset'] . '" size="3">' ); ?>
+						<?php printf( esc_html__( 'If errors, scroll to the first error minus %s pixels. On by default.', 'strong-testimonials' ), '<input type="text" name="wpmtst_form_options[scrolltop_error_offset]" value="' . esc_attr( $form_options['scrolltop_error_offset'] ) . '" size="3">' ); ?>
                     </label>
                 </div>
                 <div>
                     <label class="block">
                         <input type="checkbox"
                                name="wpmtst_form_options[scrolltop_success]" <?php checked( $form_options['scrolltop_success'] ); ?>/>
-						<?php printf( esc_html__( 'If success, scroll to the success message minus %s pixels. On by default.', 'strong-testimonials' ), '<input type="text" name="wpmtst_form_options[scrolltop_success_offset]" value="' . $form_options['scrolltop_success_offset'] . '" size="3">' ); ?>
+						<?php printf( esc_html__( 'If success, scroll to the success message minus %s pixels. On by default.', 'strong-testimonials' ), '<input type="text" name="wpmtst_form_options[scrolltop_success_offset]" value="' . esc_attr( $form_options['scrolltop_success_offset'] ) . '" size="3">' ); ?>
                     </label>
                 </div>
             </fieldset>
@@ -118,6 +120,7 @@ $form_options = get_option( 'wpmtst_form_options' );
  * Actions
  * ========================================
  */
+
 ?>
 <hr>
 <h3><?php esc_html_e( 'Form Actions', 'strong-testimonials' ); ?></h3>

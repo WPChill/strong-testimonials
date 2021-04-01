@@ -475,7 +475,7 @@ if ( ! class_exists( 'Strong_Testimonials_List_Table' ) ) :
 			foreach ( $this->_actions as $name => $title ) {
 				$class = 'edit' == $name ? ' class="hide-if-no-js"' : '';
 
-				echo "\t<option value='" . esc_attr( $name ) . "'$class>" . esc_html( $title ) . "</option>\n";
+				echo "\t<option value='" . esc_attr( $name ) . "'" . esc_attr( $class ) . ">" . esc_html( $title ) . "</option>\n";
 			}
 
 			echo "</select>\n";
@@ -607,7 +607,7 @@ if ( ! class_exists( 'Strong_Testimonials_List_Table' ) ) :
 					selected( $m, $year . $month, false ),
 					esc_attr( $arc_row->year . $month ),
 					/* translators: 1: month name, 2: 4-digit year */
-					sprintf( '%1$s %2$d', $wp_locale->get_month( $month ), $year )
+					sprintf( '%1$s %2$d', esc_html( $wp_locale->get_month( $month ) ), esc_html( $year) )
 				);
 			}
 			?>
@@ -634,10 +634,10 @@ if ( ! class_exists( 'Strong_Testimonials_List_Table' ) ) :
 					$classes[] = 'current';
 				}
 				printf(
-					"<a href='%s' class='%s' id='view-switch-$mode'><span class='screen-reader-text'>%s</span></a>\n",
+					"<a href='%s' class='%s' id='view-switch-'" . esc_attr( $mode ) . "><span class='screen-reader-text'>%s</span></a>\n",
 					esc_url( add_query_arg( 'mode', $mode ) ),
-					implode( ' ', $classes ),
-					$title
+					implode( ' ', esc_attr( $classes ) ),
+					esc_html( $title )
 				);
 			}
 			?>
@@ -661,7 +661,7 @@ if ( ! class_exists( 'Strong_Testimonials_List_Table' ) ) :
 				echo '<strong>';
 			}
 
-			echo "<a href='" . esc_url( add_query_arg( 'p', absint( $post_id ), admin_url( 'edit-comments.php' ) ) ) . "' title='" . esc_attr( $pending_phrase ) . "' class='post-com-count'><span class='comment-count'>" . number_format_i18n( get_comments_number() ) . '</span></a>';
+			echo "<a href='" . esc_url( add_query_arg( 'p', absint( $post_id ), admin_url( 'edit-comments.php' ) ) ) . "' title='" . esc_attr( $pending_phrase ) . "' class='post-com-count'><span class='comment-count'>" . absint( number_format_i18n( get_comments_number() ) ) . '</span></a>';
 
 			if ( $pending_comments ) {
 				echo '</strong>';
@@ -997,7 +997,7 @@ if ( ! class_exists( 'Strong_Testimonials_List_Table' ) ) :
 			$this->display_tablenav( 'top' );
 
 			?>
-<table class="wp-list-table <?php echo implode( ' ', $this->get_table_classes() ); ?>">
+<table class="wp-list-table <?php echo implode( ' ', esc_attr( $this->get_table_classes() ) ); ?>">
 	<thead>
 	<tr>
 			<?php $this->print_column_headers(); ?>
@@ -1007,7 +1007,7 @@ if ( ! class_exists( 'Strong_Testimonials_List_Table' ) ) :
 	<tbody id="the-list"
 			<?php
 			if ( $singular ) {
-				echo " data-wp-lists='list:$singular'";
+				echo " data-wp-lists='list:" . esc_attr( $singular ) . "'";
 			}
 			?>
 		>
@@ -1084,7 +1084,7 @@ if ( ! class_exists( 'Strong_Testimonials_List_Table' ) ) :
 			if ( $this->has_items() ) {
 				$this->display_rows();
 			} else {
-				echo '<tr class="no-items"><td class="colspanchange" colspan="' . $this->get_column_count() . '">';
+				echo '<tr class="no-items"><td class="colspanchange" colspan="' . absint( $this->get_column_count() ) . '">';
 				$this->no_items();
 				echo '</td></tr>';
 			}

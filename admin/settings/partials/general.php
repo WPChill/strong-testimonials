@@ -120,7 +120,7 @@ $options = get_option( 'wpmtst_options' );
 			<fieldset>
 			<label>
 				<input type="checkbox" name="wpmtst_options[scrolltop]" <?php checked( $options['scrolltop'] ); ?>>
-				<?php printf( esc_html__( 'When a new page is selected in paginated Views, scroll to the top of the container minus %s pixels.', 'strong-testimonials' ), '<input type="text" name="wpmtst_options[scrolltop_offset]" value="' . $options['scrolltop_offset'] . '" size="3">' ); ?>
+				<?php printf( esc_html__( 'When a new page is selected in paginated Views, scroll to the top of the container minus %s pixels.', 'strong-testimonials' ), '<input type="text" name="wpmtst_options[scrolltop_offset]" value="' . esc_attr( $options['scrolltop_offset'] ) . '" size="3">' ); ?>
                 <?php esc_html_e( 'On by default.', 'strong-testimonials' ); ?>
 			</label>
 			</fieldset>
@@ -171,7 +171,7 @@ $options = get_option( 'wpmtst_options' );
                 <?php printf(
                     /* Translators: %s is an input field. */
                     esc_html__( 'For embedded links (YouTube, Twitter, etc.) set the frame width to %s pixels.', 'strong-testimonials' ),
-                    '<input type="text" name="wpmtst_options[embed_width]" value="' . $options['embed_width'] . '" size="3">' ); ?>
+                    '<input type="text" name="wpmtst_options[embed_width]" value="' . esc_attr( $options['embed_width'] ) . '" size="3">' ); ?>
                 <p class="description"><?php esc_html_e( 'Leave empty for default width (usually 100% for videos). Height will be calculated automatically. This setting only applies to Views.', 'strong-testimonials' ); ?></p>
                 <p class="description">
                     <?php printf( '<a href="%s" target="_blank">%s</a>',

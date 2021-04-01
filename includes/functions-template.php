@@ -18,7 +18,7 @@ function strong_testimonials_view( $id = null ) {
 	$out   = array();
 	$pairs = array();
 	$atts  = array( 'id' => $id );
-        $out   = WPMST()->render->prerender( $atts );
+	$out   = WPMST()->render->prerender( $atts );
 	$out   = WPMST()->render->parse_view( $out, $pairs, $atts );
         
 	echo WPMST()->shortcode->render_view( $out );
@@ -531,7 +531,7 @@ function wpmtst_container_data() {
 		foreach ( $data_array as $attr => $value ) {
 			$data .= " data-$attr=$value";
 		}
-		echo $data;
+		echo esc_attr( $data );
 	}
 }
 

@@ -58,7 +58,7 @@ class Strong_Testimonials_Post_Editor {
         <table class="options">
             <tr>
                 <td colspan="2">
-                    <p><?php _ex( 'To add a photo or logo, use the Featured Image option.', 'post editor', 'strong-testimonials' ); ?></p>
+                    <p><?php esc_html_x( 'To add a photo or logo, use the Featured Image option.', 'post editor', 'strong-testimonials' ); ?></p>
                 </td>
             </tr>
 			<?php
@@ -150,8 +150,7 @@ class Strong_Testimonials_Post_Editor {
 	 * @param $is_new
 	 */
 	private static function meta_option__text( $field, $post, $is_new ) {
-		printf( '<input id="%2$s" type="%1$s" class="custom-input" name="custom[%2$s]" value="%3$s">',
-		        $field['input_type'], $field['name'], esc_attr( $post->{$field['name']} ) );
+		printf( '<input id="%2$s" type="%1$s" class="custom-input" name="custom[%2$s]" value="%3$s">', esc_attr( $field['input_type'] ), esc_html( $field['name'] ), esc_attr( $post->{$field['name']} ) );
 	}
 
 	/**
@@ -179,8 +178,7 @@ class Strong_Testimonials_Post_Editor {
 	private static function meta_option__url( $field, $post, $is_new ) {
 		?>
         <div class="input-url">
-			<?php printf( '<input id="%2$s" type="%1$s" class="custom-input" name="custom[%2$s]" value="%3$s" size="">',
-			              $field['input_type'], $field['name'], esc_attr( $post->{$field['name']} ) ); ?>
+			<?php printf( '<input id="%2$s" type="%1$s" class="custom-input" name="custom[%2$s]" value="%3$s" size="">', esc_attr( $field['input_type'] ), esc_html( $field['name'] ), esc_attr( $post->{$field['name']} ) ); ?>
         </div>
         <div class="input-links">
             <div class="input-nofollow">
@@ -218,8 +216,7 @@ class Strong_Testimonials_Post_Editor {
 	 * @param $is_new
 	 */
 	private static function meta_option__checkbox( $field, $post, $is_new ) {
-		printf( '<input id="%2$s" type="%1$s" class="custom-input" name="custom[%2$s]" value="%3$s" %4$s>',
-		        $field['input_type'], $field['name'], 1, checked( $post->{$field['name']}, 1, false ) );
+		printf( '<input id="%2$s" type="%1$s" class="custom-input" name="custom[%2$s]" value="%3$s" %4$s>', esc_attr( $field['input_type'] ), esc_html( $field['name'] ), 1, checked( $post->{$field['name']}, 1, false ) );
 	}
 
 	/**
@@ -285,7 +282,7 @@ class Strong_Testimonials_Post_Editor {
 	    if ( shortcode_exists( $shortcode ) ) {
 		    echo do_shortcode( $field['shortcode_on_display'] );
 	    } else {
-	        echo '<div class="custom-input not-found">' . sprintf( __( 'shortcode %s not found', 'strong-testimonials' ), '<code>' . $field['shortcode_on_display'] . '</code>' ) . '</div>';
+	        echo '<div class="custom-input not-found">' . sprintf( esc_html__( 'shortcode %s not found', 'strong-testimonials' ), '<code>' . $field['shortcode_on_display'] . '</code>' ) . '</div>';
 	    }
 	}
 

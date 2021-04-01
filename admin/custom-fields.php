@@ -20,7 +20,7 @@ add_action( 'wpmtst_form_admin', 'wpmtst_form_admin2' );
  */
 function wpmtst_update_custom_fields() {
 	$goback = wp_get_referer();
-        $goback = apply_filters('wpmtst_form_goback', $goback);
+        $goback = apply_filters( 'wpmtst_form_goback', $goback );
         
 	if ( ! isset( $_POST['wpmtst_form_submitted'] ) ) {
 		wp_redirect( $goback );
@@ -156,7 +156,7 @@ function wpmtst_settings_custom_fields( $form_id = 1 ) {
 	}
 
 	$forms  = get_option( 'wpmtst_custom_forms' );
-	$fields = apply_filters( 'wpmtst_form_fields', $forms[$form_id]['fields']);
+	$fields = apply_filters( 'wpmtst_form_fields', $forms[$form_id]['fields'] );
 	?>
 
 	<div class="wrap wpmtst">

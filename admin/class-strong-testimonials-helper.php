@@ -523,7 +523,7 @@ class Strong_Testimonials_Helper {
                 </label>
             </div>
             <div class="table-cell">
-                <input type="text" id="view-name" class="view-name" name="view[name]" value="<?php echo htmlspecialchars( stripslashes( $this->view_name ) ); ?>" tabindex="1">
+                <input type="text" id="view-name" class="view-name" name="view[name]" value="<?php echo esc_attr( htmlspecialchars( stripslashes( $this->view_name ) ) ); ?>" tabindex="1">
             </div>
         </div>
 
@@ -545,7 +545,7 @@ class Strong_Testimonials_Helper {
                     <?php foreach ( $this->view_options['mode'] as $mode ) : ?>
                         <label>
                             <input id="<?php echo esc_attr( $mode['name'] ); ?>" type="radio" name="view[data][mode]" value="<?php echo esc_attr( $mode['name'] ); ?>" <?php checked( $this->view['mode'], $mode['name'] ); ?>>
-                            <?php echo $mode['label']; ?>
+                            <?php echo esc_html( $mode['label'] ); ?>
                             <div class="mode-line"></div>
                         </label>
                     <?php endforeach; ?>
@@ -582,9 +582,9 @@ class Strong_Testimonials_Helper {
             <?php if (!empty($section['subheading'])): ?>
                 <tr class="subheading">
                 <?php foreach ($section['subheading'] as $subheading): ?>
-                    <td class="<?php echo esc_attr( $subheading['classes'] )?>" colspan="<?php echo $subheading['colspan'] ?>">
+                    <td class="<?php echo esc_attr( $subheading['classes'] )?>" colspan="<?php echo esc_attr( $subheading['colspan'] ) ?>">
                         <?php echo esc_html( $subheading['title'] ) ?>
-                        <?php echo $subheading['after'] ?>
+                        <?php echo wp_kses_post( $subheading['after'] ) ?>
                     </td>
                 <?php endforeach; ?>
                 </tr>
@@ -621,9 +621,9 @@ class Strong_Testimonials_Helper {
 
     private function render_field() { ?>
         <th>
-            <?php echo $this->field['before']; ?>
+            <?php echo wp_kses_post( $this->field['before'] ); ?>
             <label for="<?php echo esc_attr( $this->field['class'] )?>"><?php echo $this->field['label'] ?></label>
-            <?php echo $this->field['after']; ?>
+            <?php echo wp_kses_post( $this->field['after'] ); ?>
         </th> <?php
         switch ($this->field['type']) {
             case 'select':
@@ -710,9 +710,9 @@ class Strong_Testimonials_Helper {
             <?php if (!empty($title)): ?>
                 <h4 class="title"><?php esc_html_e($title); ?><h4>
             <?php endif; ?>
-            <select id="<?php echo esc_html($this->field['class']) ?>" name="<?php echo $input_name ?>">
+            <select id="<?php echo esc_attr( $this->field['class'] ) ?>" name="<?php echo $input_name ?>">
                 <?php foreach ($this->field['options'] as $option): ?>
-                <option value="<?php echo $option; ?>" <?php selected( $option, $this->field['selected'] ); ?>><?php esc_html_e( $option, 'strong-testimonials-review-markup' ); ?></option>
+                <option value="<?php echo esc_attr( $option ); ?>" <?php selected( $option, $this->field['selected'] ); ?>><?php esc_html_e( $option, 'strong-testimonials-review-markup' ); ?></option>
                 <?php endforeach; ?>
             </select>
             <?php if ($recommended): ?>

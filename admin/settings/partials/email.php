@@ -54,7 +54,7 @@
                 <?php
 				$custom_fields = wpmtst_get_custom_fields();
 				foreach ( $custom_fields as $field ) {
-					echo '<li>%' . strtoupper( esc_html( $field['name'] )) . '%</li>' . "\n";
+					echo '<li>%' . esc_html( strtoupper( $field['name'] ) ) . '%</li>' . "\n";
 				}
 				?>
             </ul>

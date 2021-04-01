@@ -240,16 +240,17 @@ class Strong_Views_List_Table extends Strong_Testimonials_List_Table {
                     <input type="hidden" name="post_type" class="post_type_page" value="wpm-testimonial">
                     <input type="hidden" name="page" value="testimonial-views">
                 </p>
-                    <table class="wp-list-table <?php echo implode( ' ', $this->get_table_classes() ); ?>">
+                    <table class="wp-list-table <?php echo implode( ' ', $this->get_table_classes()); ?>">
                         <thead>
                         <tr>
                             <?php $this->print_column_headers(); ?>
                         </tr>
                         </thead>
 
-                        <tbody id="the-list"<?php
+                        <tbody id="the-list"
+						<?php
                         if ( $singular ) {
-                            echo " data-wp-lists='list:$singular'";
+                            echo " data-wp-lists='list:" . esc_attr( $singular ) . "'";
                         } ?>>
                         <?php $this->display_rows_or_placeholder(); ?>
                         </tbody>

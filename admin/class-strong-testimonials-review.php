@@ -69,8 +69,8 @@ class Strong_Review {
 		$url = sprintf( $this->link, $this->slug );
 
 		?>
-		<div id="<?php echo esc_attr($this->slug) ?>-strong-testimonials-review-notice" class="notice notice-success is-dismissible" style="margin-top:30px;">
-			<p><?php echo sprintf( esc_html( $this->messages['notice'] ), $this->value ) ; ?></p>
+		<div id="<?php echo esc_attr( $this->slug ) ?>-strong-testimonials-review-notice" class="notice notice-success is-dismissible" style="margin-top:30px;">
+			<p><?php echo sprintf( esc_html( $this->messages['notice'] ), esc_attr( $this->value ) ) ; ?></p>
 			<p class="actions">
 				<a id="strong-testimonials-rate" href="<?php echo esc_url( $url ) ?>" target="_blank" class="button button-primary strong-testimonials-review-button">
 					<?php echo esc_html( $this->messages['rate'] ); ?>

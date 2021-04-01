@@ -59,7 +59,7 @@ class Strong_Testimonials_Forms {
 			<h2 class="nav-tab-wrapper">
 				<?php do_action( 'wpmtst_form_tabs', $tab, $url ); ?>
 			</h2>
-                        <?php if ($tab != 'fields'): ?>
+		<?php if ($tab != 'fields'): ?>
 			<div class="wpmts-settings-columns">
 				<form id="<?php echo esc_attr( $tab ); ?>-form" method="post" action="options.php" enctype="multipart/form-data">
 					<?php
@@ -73,8 +73,8 @@ class Strong_Testimonials_Forms {
 					    echo '<p class="submit-buttons">';
 						do_action( 'wpmtst_settings_submit_row' );
 					    echo '</p>';
-                                        }
-                                        ?>
+					}
+		?>
 				</form>
 				<?php do_action( 'wpmtst_admin_after_settings_form' ) ?>
 			</div>

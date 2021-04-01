@@ -361,7 +361,7 @@ class Strong_Testimonials_Average_Shortcode {
         ob_start();
         ?>
         <span class="<?php echo esc_attr($class); ?>">
-            <span class="star0 star<?php echo $is_zero; ?>"></span>
+            <span class="star0 star<?php echo esc_attr( $is_zero ); ?>"></span>
 			<?php
             if ($is_zero) {
                 echo str_repeat('<span class="star"></span>', 5);
@@ -375,7 +375,7 @@ class Strong_Testimonials_Average_Shortcode {
                     if ( (0.9 >= $i - $rating) && (0.1 <= $i - $rating)) {
                         $star_class .= ' half';
                     }
-                    printf('<span class="%s"></span>', $star_class);
+                    printf('<span class="%s"></span>', esc_attr( $star_class ) );
                 }
             }
 			?>

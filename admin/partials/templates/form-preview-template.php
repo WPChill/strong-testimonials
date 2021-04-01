@@ -3,6 +3,7 @@
  * Template Name: Default Form
  * Description: The default form template.
  */
+
 ?>
 <div class="strong-view strong-form">
 

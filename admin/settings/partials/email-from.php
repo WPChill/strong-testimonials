@@ -13,7 +13,7 @@
     <div class="email-option-row">
 
         <div class="email-option-desc">
-			<?php esc_html_e( "From", 'strong-testimonials' ); ?>
+			<?php esc_html_e( 'From', 'strong-testimonials' ); ?>
         </div>
 
         <div class="email-option-inputs">
@@ -22,13 +22,13 @@
 
                 <div class="email-option-part">
                     <div class="email-option-label">
-                        <?php esc_html_e( "Name", 'strong-testimonials' ); ?>
+                        <?php esc_html_e( 'Name', 'strong-testimonials' ); ?>
                     </div>
                 </div>
 
                 <div class="email-option-part">
                     <div class="email-option-label">
-						<?php esc_html_e( "Email", 'strong-testimonials' ); ?>
+						<?php esc_html_e( 'Email', 'strong-testimonials' ); ?>
                     </div>
                 </div>
 
@@ -61,7 +61,7 @@
                         </div>
                         <div class="fields">
 							<?php esc_html_e( 'admin:', 'strong-testimonials' ); ?>
-                            &nbsp;<?php echo get_bloginfo( 'admin_email' ); ?>
+                            &nbsp;<?php esc_html_e( get_bloginfo( 'admin_email' ) ); ?>
                         </div>
 
                     </div>

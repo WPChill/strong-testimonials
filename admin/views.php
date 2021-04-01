@@ -39,7 +39,7 @@ function wpmtst_views_admin() {
 			);
 
 			if ( in_array( $result, array_keys( $result_messages ) ) ) {
-				printf( '<div class="notice notice-success is-dismissible"><p>%s</p></div>', $result_messages[ $result ] );
+				printf( '<div class="notice notice-success is-dismissible"><p>%s</p></div>', esc_html( $result_messages[ $result ] ) );
 			}
 
 		}
@@ -83,7 +83,7 @@ function wpmtst_views_admin() {
                         <ul class="subsubsub">
                             <li class="all"><a <?php echo (!isset($_GET['mode']) || esc_attr( $_GET['mode'] ) == 'all' ? 'class="current"' : '') ?> href="<?php echo add_query_arg( array('post_type' => 'wpm-testimonial', 'page' => 'testimonial-views', 'mode' => 'all' ), admin_url('edit.php') ) ?>"><?php esc_html_e( 'All', 'strong-testimonials' ); ?><?php printf( __( ' <span class="count">(%s)</span>', 'strong-testimonials' ), count($views) ); ?></a> |</li>
                             <?php foreach ($filters as $mode => $items): ?>
-                            <li class="<?php echo esc_attr( $mode ) ?>"><a <?php echo (isset($_GET['mode']) && esc_attr( $_GET['mode'] ) == $mode ? 'class="current"' : '') ?> href="<?php echo add_query_arg( array('post_type' => 'wpm-testimonial', 'page' => 'testimonial-views', 'mode' => $mode ), admin_url('edit.php') ) ?>"><?php echo ucfirst($mode) ?><?php printf( __( ' <span class="count">(%s)</span>', 'strong-testimonials' ), count($items) ); ?></a> |</li>
+                            <li class="<?php echo esc_attr( $mode ) ?>"><a <?php echo (isset($_GET['mode']) && esc_attr( $_GET['mode'] ) == $mode ? 'class="current"' : '') ?> href="<?php echo add_query_arg( array('post_type' => 'wpm-testimonial', 'page' => 'testimonial-views', 'mode' => $mode ), admin_url('edit.php') ) ?>"><?php echo esc_attr( ucfirst($mode) ) ?><?php printf( __( ' <span class="count">(%s)</span>', 'strong-testimonials' ), count($items) ); ?></a> |</li>
                             <?php endforeach; ?>
                         </ul>
 			<?php
@@ -389,7 +389,7 @@ function wpmtst_view_field_inputs( $key, $field, $adding = false, $source = 'vie
                     <label for="client_section_<?php echo esc_attr( $key ); ?>_field">
                         <?php esc_html_e( 'Name', 'strong-testimonials' ); ?>
                     </label>
-                    <select id="client_section_<?php echo esc_attr( $key ); ?>_field" name="<?php echo $source ?>[client_section][<?php echo esc_attr( $key ); ?>][field]" class="first-field">
+                    <select id="client_section_<?php echo esc_attr( $key ); ?>_field" name="<?php echo esc_attr( $source ) ?>[client_section][<?php echo esc_attr( $key ); ?>][field]" class="first-field">
                         <option value="">&mdash; <?php esc_html_e( 'select a field', 'strong-testimonials' ); ?> &mdash;</option>
 
                         <?php foreach ( $all_fields as $group_name => $group ) : ?>
@@ -412,7 +412,7 @@ function wpmtst_view_field_inputs( $key, $field, $adding = false, $source = 'vie
                     <label for="client_section_<?php echo esc_attr( $key ); ?>_type">
                         <?php esc_html_e( 'Display Type', 'strong-testimonials' ); ?>
                     </label>
-                    <select id="client_section_<?php echo esc_attr( $key ); ?>_type" name="<?php echo $source ?>[client_section][<?php echo esc_attr( $key ); ?>][type]" <?php echo ($field['type'] == 'checkbox' ? 'readonly' : '') ?>>
+                    <select id="client_section_<?php echo esc_attr( $key ); ?>_type" name="<?php echo esc_attr( $source )?>[client_section][<?php echo esc_attr( $key ); ?>][type]" <?php echo ($field['type'] == 'checkbox' ? 'readonly' : '') ?>>
                         <?php foreach ( $types as $type => $type_label ) : ?>
                         <option value="<?php echo esc_attr( $type ); ?>" <?php selected( $type, $field['type'] ); ?> <?php echo(in_array($type, array('checkbox', 'video')) ? 'style="display:none"' : '') ?>><?php esc_html_e( $type_label ); ?></option>
                         <?php endforeach; ?>
@@ -442,7 +442,7 @@ function wpmtst_view_field_inputs( $key, $field, $adding = false, $source = 'vie
                     <label for="client_section_<?php echo esc_attr( $key ); ?>_before">
                         <?php esc_html_e( 'Before', 'strong-testimonials' ); ?>
                     </label>
-                    <input id="client_section_<?php echo esc_attr( $key ); ?>_before" type="text" name="<?php echo $source ?>[client_section][<?php echo esc_attr( $key ); ?>][before]" value="<?php echo isset( $field['before'] ) ? $field['before'] : ''; ?>">
+                    <input id="client_section_<?php echo esc_attr( $key ); ?>_before" type="text" name="<?php echo esc_attr( $source ) ?>[client_section][<?php echo esc_attr( $key ); ?>][before]" value="<?php echo isset( $field['before'] ) ? $field['before'] : ''; ?>">
                 </div>
 
                 <!-- FIELD CSS CLASS -->
@@ -450,7 +450,7 @@ function wpmtst_view_field_inputs( $key, $field, $adding = false, $source = 'vie
                     <label for="client_section_<?php echo esc_attr( $key ); ?>_class">
                         <?php esc_html_e( 'CSS Class', 'strong-testimonials' ); ?>
                     </label>
-                    <input id="client_section_<?php echo esc_attr( $key ); ?>_class" type="text" name="<?php echo $source ?>[client_section][<?php echo esc_attr( $key ); ?>][class]" value="<?php echo esc_attr( $field['class' ] ); ?>">
+                    <input id="client_section_<?php echo esc_attr( $key ); ?>_class" type="text" name="<?php echo esc_attr( $source ) ?>[client_section][<?php echo esc_attr( $key ); ?>][class]" value="<?php echo esc_attr( $field['class' ] ); ?>">
                 </div>
 
             </div>
@@ -496,7 +496,7 @@ function wpmtst_view_field_link( $key, $field_name, $type, $field, $adding = fal
 	<?php // the link text ?>
 	<div class="flex">
 		<label for="view-fieldtext<?php echo esc_attr( $key ); ?>"><?php esc_html_e( 'Link Text', 'strong-testimonials' ); ?></label>
-		<select id="view-fieldtext<?php echo esc_attr( $key ); ?>" name="<?php echo $source ?>[client_section][<?php echo esc_attr( $key ); ?>][link_text]" class="if selectgroup">
+		<select id="view-fieldtext<?php echo esc_attr( $key ); ?>" name="<?php echo esc_attr( $source ) ?>[client_section][<?php echo esc_attr( $key ); ?>][link_text]" class="if selectgroup">
 			<option value="value" <?php selected( $field['link_text'], 'value' ); ?>><?php esc_html_e( "this field's value", 'strong-testimonials' ); ?></option>
 			<option value="label" <?php selected( $field['link_text'], 'label' ); ?>><?php esc_html_e( "this field's label", 'strong-testimonials' ); ?></option>
 			<option value="custom" <?php selected( $field['link_text'], 'custom' ); ?>><?php esc_html_e( 'custom text', 'strong-testimonials' ); ?></option>
@@ -512,14 +512,14 @@ function wpmtst_view_field_link( $key, $field_name, $type, $field, $adding = fal
 	<?php // use custom text ?>
 	<div class="flex then_fieldtext<?php echo esc_attr( $key ); ?> then_custom then_not_value then_not_label" style="display: none;">
 		<div class="nolabel">&nbsp;</div>
-		<input type="text" id="view-fieldtext<?php echo esc_attr( $key ); ?>-custom" name="<?php echo $source ?>[client_section][<?php echo esc_attr( $key ); ?>][link_text_custom]" value="<?php echo esc_html( $field['link_text_custom'] ); ?>">
+		<input type="text" id="view-fieldtext<?php echo esc_attr( $key ); ?>-custom" name="<?php echo esc_attr( $source ) ?>[client_section][<?php echo esc_attr( $key ); ?>][link_text_custom]" value="<?php echo esc_html( $field['link_text_custom'] ); ?>">
 	</div>
 
 	<?php // the URL ?>
 	<?php if ( 'link' == $type ) : // URL = another field ?>
 	<div class="flex">
 		<label for="view-fieldurl<?php echo esc_attr( $key ); ?>"><?php esc_html_e( 'URL Field', 'strong-testimonials' ); ?></label>
-		<select id="view-fieldurl<?php echo esc_attr( $key ); ?>" name="<?php echo $source ?>[client_section][<?php echo esc_attr( $key ); ?>][url]" class="field-type-select">
+		<select id="view-fieldurl<?php echo esc_attr( $key ); ?>" name="<?php echo esc_attr( $source ) ?>[client_section][<?php echo esc_attr( $key ); ?>][url]" class="field-type-select">
 			<?php foreach ( $custom_fields as $key2 => $field2 ) : ?>
 				<?php if ( 'url' == $field2['input_type'] ) : ?>
 				<option value="<?php echo esc_attr( $field2['name'] ); ?>" <?php selected( $field2['name'], $field['url'] ); ?>><?php echo esc_html( $field2['name'] ); ?></option>
@@ -531,9 +531,7 @@ function wpmtst_view_field_link( $key, $field_name, $type, $field, $adding = fal
 		<?php // the URL options ?>
 		<div class="nolabel"></div>
 		<div class="new_tab">
-			<input type="checkbox" id="view-fieldurl<?php echo esc_attr( $key ); ?>-newtab"
-				   name="<?php echo $source ?>[client_section][<?php echo  esc_attr( $key ); ?>][new_tab]"
-				   value="1" <?php checked( $field['new_tab'] ); ?>>
+			<input type="checkbox" id="view-fieldurl<?php echo esc_attr( $key ); ?>-newtab" name="<?php echo esc_attr( $source ) ?>[client_section][<?php echo  esc_attr( $key ); ?>][new_tab]" value="1" <?php checked( $field['new_tab'] ); ?>>
 			<label for="view-fieldurl<?php echo  esc_attr( $key ); ?>-newtab">
 				<?php esc_html_e( 'new tab', 'strong-testimonials' ); ?>
 			</label>
@@ -541,7 +539,7 @@ function wpmtst_view_field_link( $key, $field_name, $type, $field, $adding = fal
 
 	</div>
 	<?php else : // URL = this field ?>
-		<input type="hidden" name="<?php echo $source ?>[client_section][<?php echo esc_attr( $key ); ?>][url]" value="<?php echo  esc_attr( $field['name'] ); ?>">
+		<input type="hidden" name="<?php echo esc_attr( $source ) ?>[client_section][<?php echo esc_attr( $key ); ?>][url]" value="<?php echo esc_attr( $field['name'] ); ?>">
 	<?php endif; ?>
 
 	<?php
@@ -561,7 +559,7 @@ function wpmtst_view_field_date( $key, $field, $adding = false, $source = 'view[
 	?>
 	<div class="flex">
 		<label for="view-<?php echo esc_attr( $key ); ?>-client-date-format"><span><?php esc_html_e( 'Format', 'strong-testimonials' ); ?></span></label>
-		<input id="view-<?php echo esc_attr( $key ); ?>-client-date-format" type="text" name="<?php echo $source ?>[client_section][<?php echo esc_attr( $key ); ?>][format]" class="field-type-date" value="<?php echo isset( $field['format'] ) ? $field['format'] : ''; ?>">
+		<input id="view-<?php echo esc_attr( $key ); ?>-client-date-format" type="text" name="<?php echo esc_attr( $source ) ?>[client_section][<?php echo esc_attr( $key ); ?>][format]" class="field-type-date" value="<?php echo isset( $field['format'] ) ? $field['format'] : ''; ?>">
 	</div>
 	<div class="flex">
 		<div class="nolabel">&nbsp;</div>
@@ -613,34 +611,34 @@ function wpmtst_view_field_checkbox( $key, $field, $adding = false, $source = 'v
         ?>
        	<div class="flex">
 		<label for="client_section_<?php esc_attr( $key ); ?>_label"><?php esc_html_e( 'Label', 'strong-testimonials' ); ?></label>
-		<select id="client_section_<?php echo esc_attr( $key ); ?>_label" name="<?php echo $source ?>[client_section][<?php echo esc_attr( $key ); ?>][label]" class="field-label-select">
-                    <option value="label" <?php selected( $field['label'], 'label' ); ?>><?php esc_html_e( 'Field label', 'strong-testimonials' ); ?></option>
-                    <option value="custom" <?php selected( $field['label'], 'custom' ); ?>><?php esc_html_e( 'Custom label', 'strong-testimonials' ); ?></option>
+		<select id="client_section_<?php echo esc_attr( $key ); ?>_label" name="<?php echo esc_attr( $source ) ?>[client_section][<?php echo esc_attr( $key ); ?>][label]" class="field-label-select">
+			<option value="label" <?php selected( $field['label'], 'label' ); ?>><?php esc_html_e( 'Field label', 'strong-testimonials' ); ?></option>
+			<option value="custom" <?php selected( $field['label'], 'custom' ); ?>><?php esc_html_e( 'Custom label', 'strong-testimonials' ); ?></option>
 		</select>
 	</div>
-        <div class="field-property field-before field-dep">
-            <label for="client_section_<?php echo esc_attr( $key ); ?>_custom_label"></label>
-            <input id="client_section_<?php echo esc_attr( $key ); ?>_custom_label" class="client_section_field_label" attr-defaultValue="<?php echo wpmtst_get_field_label( $field ) ?>" type="text" name="<?php echo $source ?>[client_section][<?php echo esc_attr( $key ); ?>][custom_label]" value="<?php echo esc_attr( $label ) ?>" <?php echo ($field['label'] == 'label' ? 'readonly' : '') ?>>
-        </div>
-        <div class="field-property field-before field-dep">
-                <label for="client_section_<?php echo esc_attr( $key ); ?>_checked_value">
-                        <?php esc_html_e( 'Checked Value', 'strong-testimonials' ); ?>
-                </label>
-		<select id="client_section_<?php echo esc_attr( $key ); ?>_checked_value" name="<?php echo $source ?>[client_section][<?php echo esc_attr( $key ); ?>][checked_value]" class="field-checked-select">
-                    <option value="value" <?php selected( $field['checked_value'], 'value' ); ?>><?php esc_html_e( 'Checked value', 'strong-testimonials' ); ?></option>
-                    <option value="custom" <?php selected( $field['checked_value'], 'custom' ); ?>><?php esc_html_e( 'Custom value', 'strong-testimonials' ); ?></option>
-		</select>
-        </div>
-        <div class="field-property field-before field-dep">
-                <label for="client_section_<?php echo esc_attr( $key ); ?>_checked_value_custom"></label>
-                <input id="client_section_<?php echo esc_attr( $key ); ?>_checked_value_custom" class="client_section_field_checked_value" attr-defaultValue="<?php echo wpmtst_get_field_text( $field ) ?>" type="text" name="<?php echo $source ?>[client_section][<?php echo esc_attr( $key ); ?>][checked_value_custom]" value="<?php echo esc_attr( $checked_value ) ?>" <?php echo ($field['checked_value'] == 'value' ? 'readonly' : '') ?>>
-        </div>
-        <div class="field-property field-before field-dep">
-                <label for="client_section_<?php echo esc_attr( $key ); ?>_unchecked_value">
-                        <?php esc_html_e( 'Unchecked Value', 'strong-testimonials' ); ?>
-                </label>
-                <input id="client_section_<?php echo esc_attr( $key ); ?>_unchecked_value" type="text" name="<?php echo $source ?>[client_section][<?php echo esc_attr( $key ); ?>][unchecked_value]" value="<?php echo isset( $field['unchecked_value'] ) ? $field['unchecked_value'] : ''; ?>">
-        </div>
+	<div class="field-property field-before field-dep">
+		<label for="client_section_<?php echo esc_attr( $key ); ?>_custom_label"></label>
+		<input id="client_section_<?php echo esc_attr( $key ); ?>_custom_label" class="client_section_field_label" attr-defaultValue="<?php echo wpmtst_get_field_label( $field ) ?>" type="text" name="<?php echo esc_attr( $source ) ?>[client_section][<?php echo esc_attr( $key ); ?>][custom_label]" value="<?php echo esc_attr( $label ) ?>" <?php echo ($field['label'] == 'label' ? 'readonly' : '') ?>>
+	</div>
+	<div class="field-property field-before field-dep">
+		<label for="client_section_<?php echo esc_attr( $key ); ?>_checked_value">
+			<?php esc_html_e( 'Checked Value', 'strong-testimonials' ); ?>
+		</label>
+	<select id="client_section_<?php echo esc_attr( $key ); ?>_checked_value" name="<?php echo esc_attr( $source ); ?>[client_section][<?php echo esc_attr( $key ); ?>][checked_value]" class="field-checked-select">
+		<option value="value" <?php selected( $field['checked_value'], 'value' ); ?>><?php esc_html_e( 'Checked value', 'strong-testimonials' ); ?></option>
+		<option value="custom" <?php selected( $field['checked_value'], 'custom' ); ?>><?php esc_html_e( 'Custom value', 'strong-testimonials' ); ?></option>
+	</select>
+	</div>
+	<div class="field-property field-before field-dep">
+		<label for="client_section_<?php echo esc_attr( $key ); ?>_checked_value_custom"></label>
+		<input id="client_section_<?php echo esc_attr( $key ); ?>_checked_value_custom" class="client_section_field_checked_value" attr-defaultValue="<?php echo wpmtst_get_field_text( $field ) ?>" type="text" name="<?php echo esc_attr( $source ); ?>[client_section][<?php echo esc_attr( $key ); ?>][checked_value_custom]" value="<?php echo esc_attr( $checked_value ) ?>" <?php echo ($field['checked_value'] == 'value' ? 'readonly' : '') ?>>
+	</div>
+	<div class="field-property field-before field-dep">
+		<label for="client_section_<?php echo esc_attr( $key ); ?>_unchecked_value">
+				<?php esc_html_e( 'Unchecked Value', 'strong-testimonials' ); ?>
+		</label>
+		<input id="client_section_<?php echo esc_attr( $key ); ?>_unchecked_value" type="text" name="<?php echo esc_attr( $source ); ?>[client_section][<?php echo esc_attr( $key ); ?>][unchecked_value]" value="<?php echo isset( $field['unchecked_value'] ) ? $field['unchecked_value'] : ''; ?>">
+	</div>
 	<?php
 }
 

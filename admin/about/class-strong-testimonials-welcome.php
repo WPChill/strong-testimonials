@@ -188,7 +188,6 @@ class Strong_Testimonials_Welcome {
 
 				</div><!-- features -->
 
-			
 				<div class="upgrade">
 					<div class="block">
 						<a href="https://strongtestimonials.com/pricing/?utm_source=welcome_banner&utm_medium=upgradenow&utm_campaign=welcome_banner" target="_blank"

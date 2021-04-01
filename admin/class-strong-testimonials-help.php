@@ -9,10 +9,10 @@ class Strong_Testimonials_Help {
 
 	public static function init() {
 		add_action( 'load-wpm-testimonial_page_testimonial-fields', array( __CLASS__, 'fields_editor' ) );
-		add_action( 'load-wpm-testimonial_page_testimonial-views',  array( __CLASS__, 'views_list' ) );
+		add_action( 'load-wpm-testimonial_page_testimonial-views', array( __CLASS__, 'views_list' ) );
 		add_action( 'load-wpm-testimonial_page_testimonial-views', array( __CLASS__, 'shortcode_attributes' ) );
-		add_action( 'load-wpm-testimonial_page_testimonial-views',  array( __CLASS__, 'view_editor_pagination' ) );
-		add_action( 'load-wpm-testimonial_page_testimonial-views',  array( __CLASS__, 'view_editor_stretch' ) );
+		add_action( 'load-wpm-testimonial_page_testimonial-views', array( __CLASS__, 'view_editor_pagination' ) );
+		add_action( 'load-wpm-testimonial_page_testimonial-views', array( __CLASS__, 'view_editor_stretch' ) );
 
 		add_action( 'load-wpm-testimonial_page_testimonial-settings', array( __CLASS__, 'settings_compat' ) );
 	}

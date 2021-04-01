@@ -214,7 +214,7 @@ class Strong_Testimonials_Settings_Form {
 	 * @since 1.13
 	 */
 	public static function restore_default_message_function() {
-		$input = sanitize_text_field( str_replace( '_', '-', $_REQUEST['field'] ) );
+		$input =  str_replace( '_', '-', sanitize_text_field( $_REQUEST['field'] ) );
 		$default_form_options = Strong_Testimonials_Defaults::get_form_options();
 		$message = $default_form_options['messages'][$input];
 		echo json_encode( $message );

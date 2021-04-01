@@ -64,7 +64,7 @@ class Strong_Testimonials_Page_Shortcodes {
 					<td class="shortcode">
 						<?php /* translators: %s is a shortcode */ ?>
 						<p>
-							<?php printf( __( 'Here\'s what %s local clients say', 'strong-testimonials' ), '&#91;testimonial_count category="local"&#93;' ); ?>
+							<?php printf( esc_html__( 'Here\'s what %s local clients say', 'strong-testimonials' ), '&#91;testimonial_count category="local"&#93;' ); ?>
 						</p>
 					</td>
 				</tr>

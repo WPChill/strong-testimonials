@@ -60,8 +60,8 @@ function wpmtst_star_rating_form( $field, $value = 0, $class, $echo = true, $fie
 	$html = preg_replace( '/<!--(.|\s)*?-->/', '', $html );
 
 	if ( $echo ) {
-	    echo $html;
-	    return true;
+		echo $html;
+		return true;
 	}
 
     return $html;
