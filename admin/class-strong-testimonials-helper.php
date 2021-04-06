@@ -52,7 +52,7 @@ class Strong_Testimonials_Helper {
         return $view;
     }
     
-    private function get_sections() {
+    public function get_sections() {
         return apply_filters( 'wpmtst_view_sections', array(
             'query' => array(
                 'section_action_before' => 'wpmtst_view_editor_before_group_select',
@@ -574,7 +574,7 @@ class Strong_Testimonials_Helper {
         do_action( 'wpmtst_view_editor_after_groups' );
     }
     
-    private function render_section($name, $section) {
+    public function render_section($name, $section) {
         $section['classes'][] = apply_filters('wpmtst_view_section', '', $name ); ?>
         <div class="<?php echo esc_attr(implode(' ', array_filter($section['classes']))); ?>" style="display:none">
             <h3><?php echo esc_html( $section['title'] ) ?></h3>
@@ -619,7 +619,12 @@ class Strong_Testimonials_Helper {
         $this->field = $field;
     }
 
-    private function render_field() { ?>
+    public function set_settings_field($field) {
+        $this->field = $field;
+        $this->isSetting = TRUE;
+    }
+
+    public function render_field() { ?>
         <th>
             <?php echo wp_kses_post( $this->field['before'] ); ?>
             <label for="<?php echo esc_attr( $this->field['class'] )?>"><?php echo $this->field['label'] ?></label>
@@ -705,6 +710,10 @@ class Strong_Testimonials_Helper {
     }
 
     public function render_option_select($input_name, $recommended = FALSE, $title = '') {
+        $selected = $this->field['selected'];
+        if ($this->isSetting) {
+            $selected = $this->field['selected_settings'];
+        }
         if (isset($this->field['options']) && !empty($this->field['options'])): ?>
         <td>
             <?php if (!empty($title)): ?>
@@ -712,7 +721,7 @@ class Strong_Testimonials_Helper {
             <?php endif; ?>
             <select id="<?php echo esc_attr( $this->field['class'] ) ?>" name="<?php echo $input_name ?>">
                 <?php foreach ($this->field['options'] as $option): ?>
-                <option value="<?php echo esc_attr( $option ); ?>" <?php selected( $option, $this->field['selected'] ); ?>><?php esc_html_e( $option, 'strong-testimonials-review-markup' ); ?></option>
+                <option value="<?php echo esc_attr( $option ); ?>" <?php selected( $option, $selected ); ?>><?php esc_html_e( $option, 'strong-testimonials-review-markup' ); ?></option>
                 <?php endforeach; ?>
             </select>
             <?php if ($recommended): ?>
@@ -726,14 +735,18 @@ class Strong_Testimonials_Helper {
         <?php endif;
     }
 
-    public function render_option_textfield($input_name, $recommended = FALSE, $description = '', $title = '', $placeholder = '') { ?>
+    public function render_option_textfield($input_name, $recommended = FALSE, $description = '', $title = '', $placeholder = '') { 
+        $value = $this->field['value'];
+        if ($this->isSetting) {
+            $value = $this->field['value_settings'];
+        } ?>
         <td>
             <?php if (!empty($title)): ?>
                 <h4 class="title"><?php esc_html_e($title); ?><h4>
             <?php endif; ?>
             <div>
                 <div class="has-input">
-                    <input class="regular-text" type="text" id="<?php echo esc_html($this->field['class']) ?>" name="<?php echo $input_name ?>" value="<?php echo $this->field['value'] ?>" data-default="<?php echo $this->field['default']; ?>" placeholder="<?php esc_attr_e($placeholder, 'strong-testimonials-review-markup' ) ?>">
+                    <input class="regular-text" type="text" id="<?php echo esc_attr($this->field['class']) ?>" name="<?php echo esc_attr($input_name) ?>" value="<?php echo esc_html($value) ?>" data-default="<?php echo esc_attr($this->field['default']) ?>" placeholder="<?php esc_attr_e($placeholder, 'strong-testimonials-review-markup' ) ?>">
                 </div>
                 <div class="error-message"></div>
             </div>
