@@ -55,7 +55,7 @@ add_action( 'admin_notices', 'wpmtst_admin_notices' );
  *
  * @return string
  */
-function wpmtst_admin_notice_text( $html = '', $key, $persist = false ) {
+function wpmtst_admin_notice_text( $html, $key, $persist = false ) {
 
 	switch ( $key ) {
 		case 'defaults-restored' :

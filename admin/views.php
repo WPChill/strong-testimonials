@@ -55,7 +55,7 @@ function wpmtst_views_admin() {
 		}
 
 		if ( isset( $_REQUEST['action'] ) ) {
-                        global $view;
+						global $view;
                         $view = Strong_Testimonials_Helper::get_view();
                         $sections = new Strong_Testimonials_Helper();
                         $sections->render_form();

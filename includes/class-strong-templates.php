@@ -318,7 +318,7 @@ class Strong_Templates {
 	 *
 	 * @return array|bool
 	 */
-	public function scandir( $template, $path, $uri, $extensions = null, $type ) {
+	public function scandir( $template, $path, $uri, $extensions = null, $type = null ) {
 		if ( ! is_dir( $path . '/' . $template ) ) {
 			return false;
 		}

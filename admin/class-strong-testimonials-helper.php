@@ -15,7 +15,7 @@ class Strong_Testimonials_Helper {
     }
     
     public function set_view() {
-        $this->view = $view;
+        $this->view = $this->get_view();
         $this->show_section = apply_filters('wpmtst_show_section', $this->view['mode']);
         if ( 'edit' == $this->action ) {
             $view_array       = wpmtst_get_view( $this->view_id );
@@ -557,7 +557,6 @@ class Strong_Testimonials_Helper {
     
     private function render_sections() {
         $show_section = apply_filters('wpmtst_show_section', $this->view['mode']);
-        
         foreach ($this->sections as $name => $section) {
             if (!empty($section['section_action_before'])) {
                 do_action($section['section_action_before']);

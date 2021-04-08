@@ -14,7 +14,7 @@
  *
  * @return string
  */
-function wpmtst_star_rating_form( $field, $value = 0, $class, $echo = true, $field_array = '' ) {
+function wpmtst_star_rating_form( $field, $value, $class, $echo = true, $field_array = '' ) {
     $value = (int) $value;
 	if ( $field && is_array( $field ) && isset( $field['name'] ) ) {
 		$name = $field['name'];
