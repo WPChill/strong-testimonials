@@ -297,8 +297,7 @@ class Strong_Testimonials_Post_Editor {
 		}
 
 		$post_id = absint( $_POST['post_ID'] );
-
-		$custom = sanitize_text_field( $_POST['custom'] );
+		$custom =  $_POST['custom'] ;
 
 		$custom_fields = wpmtst_get_custom_fields();
 
@@ -312,6 +311,7 @@ class Strong_Testimonials_Post_Editor {
 		if ( $checkboxes ) {
 			$custom = array_merge( $checkboxes, $custom );
 		}
+
 
 		// Determine whether to update or delete.
 		// Similar to wpmtst_ajax_edit_rating() in admin-ajax.php.
@@ -335,7 +335,7 @@ class Strong_Testimonials_Post_Editor {
 			}elseif ( isset($custom_fields[ $key ]['input_type']) && 'email' == $custom_fields[ $key ]['input_type'] ) {
 				$sanitized_value = sanitize_email( $value );
 			}elseif ( isset($custom_fields[ $key ]['input_type']) && 'url' == $custom_fields[ $key ]['input_type'] ) {
-				$sanitized_value = sanitize_text_field( $value );
+				$sanitized_value = esc_url_raw( $value );
 			}else{
 				$sanitized_value = sanitize_text_field( $value );
 			}
