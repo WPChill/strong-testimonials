@@ -11,7 +11,7 @@ $form_options = get_option( 'wpmtst_form_options' );
 ?>
 <input type="hidden"
        name="wpmtst_form_options[default_recipient]"
-       value="<?php esc_html_e( htmlentities( serialize( $form_options['default_recipient'] ) ) ); ?>">
+       value="<?php echo esc_attr( htmlentities( serialize( $form_options['default_recipient'] ) ) ); ?>">
 
 <?php
 /**
@@ -72,7 +72,7 @@ $form_options = get_option( 'wpmtst_form_options' );
             </td>
             <td class="actions">
                 <input type="button" class="button secondary restore-default-message"
-                       value="<?php esc_html_x( 'restore default', 'singular', 'strong-testimonials' ); ?>"
+                       value="<?php echo esc_html_x( 'restore default', 'singular', 'strong-testimonials' ); ?>"
                        data-target-id="<?php echo esc_attr( $elid ); ?>"/>
             </td>
         </tr>

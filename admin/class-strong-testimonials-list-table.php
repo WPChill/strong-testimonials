@@ -473,9 +473,9 @@ if ( ! class_exists( 'Strong_Testimonials_List_Table' ) ) :
 			echo "<option value='-1' selected='selected'>" . esc_html__( 'Bulk Actions', 'strong-testimonials' ) . "</option>\n";
 
 			foreach ( $this->_actions as $name => $title ) {
-				$class = 'edit' == $name ? ' class="hide-if-no-js"' : '';
+				$class = 'edit' == $name ? 'hide-if-no-js' : '';
 
-				echo "\t<option value='" . esc_attr( $name ) . "'" . esc_attr( $class ) . ">" . esc_html( $title ) . "</option>\n";
+				echo "\t<option value='" . esc_attr( $name ) . "' class='" . esc_attr($class)  . "'>" . esc_html( $title ) . "</option>\n";
 			}
 
 			echo "</select>\n";
@@ -634,10 +634,11 @@ if ( ! class_exists( 'Strong_Testimonials_List_Table' ) ) :
 					$classes[] = 'current';
 				}
 				printf(
-					"<a href='%s' class='%s' id='view-switch-'" . esc_attr( $mode ) . "><span class='screen-reader-text'>%s</span></a>\n",
-					esc_url( add_query_arg( 'mode', $mode ) ),
-					implode( ' ', esc_attr( $classes ) ),
-					esc_html( $title )
+						"<a href='%s' class='%s' id='view-switch-%s'><span class='screen-reader-text'>%s</span></a>\n",
+						esc_url(add_query_arg('mode', $mode)),
+						esc_attr(implode(' ', $classes)),
+						esc_attr($mode),
+						esc_html($title)
 				);
 			}
 			?>
@@ -997,7 +998,7 @@ if ( ! class_exists( 'Strong_Testimonials_List_Table' ) ) :
 			$this->display_tablenav( 'top' );
 
 			?>
-<table class="wp-list-table <?php echo implode( ' ', esc_attr( $this->get_table_classes() ) ); ?>">
+<table class="wp-list-table <?php echo esc_attr(implode(' ', $this->get_table_classes())); ?>">
 	<thead>
 	<tr>
 			<?php $this->print_column_headers(); ?>

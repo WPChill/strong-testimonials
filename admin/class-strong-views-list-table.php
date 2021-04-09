@@ -240,7 +240,7 @@ class Strong_Views_List_Table extends Strong_Testimonials_List_Table {
                     <input type="hidden" name="post_type" class="post_type_page" value="wpm-testimonial">
                     <input type="hidden" name="page" value="testimonial-views">
                 </p>
-                    <table class="wp-list-table <?php echo implode( ' ', $this->get_table_classes()); ?>">
+                    <table class="wp-list-table <?php echo esc_attr(implode( ' ', $this->get_table_classes())); ?>">
                         <thead>
                         <tr>
                             <?php $this->print_column_headers(); ?>

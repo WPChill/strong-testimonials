@@ -301,11 +301,11 @@ class Strong_Testimonials_Settings_Compat {
 	 */
 	public function settings_page_loading_none() {
 		$checked = checked( $this->options['page_loading'], '', false );
-		$class   = $checked ? ' class="current"' : '';
+		$class   = $checked ? 'current' : '';
 		?>
 		<div class="row">
 			<div>
-				<label <?php echo esc_attr( $class ); ?> for="page-loading-none">
+				<label class="<?php echo esc_attr( $class ); ?>" for="page-loading-none">
 					<input id="page-loading-none"
 						name="wpmtst_compat_options[page_loading]"
 						type="radio"
@@ -328,11 +328,11 @@ class Strong_Testimonials_Settings_Compat {
 	 */
 	public function settings_page_loading_general() {
 		$checked = checked( $this->options['page_loading'], 'general', false );
-		$class   = $checked ? ' class="current"' : '';
+		$class   = $checked ? 'current' : '';
 		?>
 		<div class="row">
 			<div>
-				<label <?php echo esc_attr( $class ); ?> for="page-loading-general">
+				<label class="<?php echo esc_attr( $class ); ?>" for="page-loading-general">
 					<input id="page-loading-general"
 						name="wpmtst_compat_options[page_loading]"
 						type="radio"
@@ -354,11 +354,11 @@ class Strong_Testimonials_Settings_Compat {
 	 */
 	public function settings_page_loading_advanced() {
 		$checked = checked( $this->options['page_loading'], 'advanced', false );
-		$class   = $checked ? ' class="current"' : '';
+		$class   = $checked ? 'current' : '';
 		?>
 		<div class="row">
 			<div>
-				<label <?php echo esc_attr( $class ); ?> for="page-loading-advanced">
+				<label class="<?php echo esc_attr( $class ); ?>" for="page-loading-advanced">
 					<input id="page-loading-advanced"
 						name="wpmtst_compat_options[page_loading]"
 						data-group="advanced"
@@ -407,11 +407,11 @@ class Strong_Testimonials_Settings_Compat {
 	 */
 	public function settings_prerender_current() {
 		$checked = checked( $this->options['prerender'], 'current', false );
-		$class   = $checked ? ' class="current"' : '';
+		$class   = $checked ? 'current' : '';
 		?>
 		<div class="row">
 			<div>
-				<label <?php echo esc_attr( $class ); ?> for="prerender-current">
+				<label class="<?php echo esc_attr( $class ); ?>" for="prerender-current">
 					<input id="prerender-current"
 						name="wpmtst_compat_options[prerender]"
 						type="radio"
@@ -434,11 +434,11 @@ class Strong_Testimonials_Settings_Compat {
 	 */
 	public function settings_prerender_all() {
 		$checked = checked( $this->options['prerender'], 'all', false );
-		$class   = $checked ? ' class="current"' : '';
+		$class   = $checked ? 'current' : '';
 		?>
 		<div class="row">
 			<div>
-				<label <?php echo esc_attr( $class ); ?> for="prerender-all">
+				<label class="<?php echo esc_attr( $class ); ?>" for="prerender-all">
 					<input id="prerender-all"
 						type="radio"
 						name="wpmtst_compat_options[prerender]"
@@ -460,11 +460,11 @@ class Strong_Testimonials_Settings_Compat {
 	 */
 	public function settings_prerender_none() {
 		$checked = checked( $this->options['prerender'], 'none', false );
-		$class   = $checked ? ' class="current"' : '';
+		$class   = $checked ? 'current' : '';
 		?>
 		<div class="row">
 			<div>
-				<label <?php echo esc_attr( $class ); ?> for="prerender-none">
+				<label class="<?php echo esc_attr( $class ); ?>" for="prerender-none">
 					<input id="prerender-none"
 						type="radio"
 						name="wpmtst_compat_options[prerender]"
@@ -512,11 +512,11 @@ class Strong_Testimonials_Settings_Compat {
 	 */
 	public function settings_monitor_none() {
 		$checked = checked( $this->options['ajax']['method'], '', false );
-		$class   = $checked ? ' class="current"' : '';
+		$class   = $checked ? 'current' : '';
 		?>
 		<div class="row">
 			<div>
-				<label <?php echo esc_attr( $class ); ?> for="method-none">
+				<label class="<?php echo esc_attr( $class ); ?>" for="method-none">
 					<input id="method-none"
 						type="radio"
 						name="wpmtst_compat_options[ajax][method]"
@@ -538,11 +538,11 @@ class Strong_Testimonials_Settings_Compat {
 	 */
 	public function settings_monitor_universal() {
 		$checked = checked( $this->options['ajax']['method'], 'universal', false );
-		$class   = $checked ? ' class="current"' : '';
+		$class   = $checked ? 'current' : '';
 		?>
 		<div class="row">
 			<div>
-				<label <?php echo esc_attr( $class ); ?> for="method-universal">
+				<label class="<?php echo esc_attr( $class ); ?>" for="method-universal">
 					<input id="method-universal"
 						name="wpmtst_compat_options[ajax][method]"
 						type="radio"
@@ -560,7 +560,7 @@ class Strong_Testimonials_Settings_Compat {
 		<div class="row" data-sub="universal">
 			<div class="radio-sub">
 				<label for="universal-timer">
-					<?php esc_html_x( 'Check every', 'timer setting', 'strong-testimonials' ); ?>
+					<?php echo esc_html_x( 'Check every', 'timer setting', 'strong-testimonials' ); ?>
 				</label>
 			</div>
 			<div>
@@ -581,11 +581,11 @@ class Strong_Testimonials_Settings_Compat {
 	 */
 	public function settings_monitor_observer() {
 		$checked = checked( $this->options['ajax']['method'], 'observer', false );
-		$class   = $checked ? ' class="current"' : '';
+		$class   = $checked ? 'current' : '';
 		?>
 		<div class="row">
 			<div>
-				<label <?php echo esc_attr( $class ); ?> for="method-observer">
+				<label class="<?php echo esc_attr( $class ); ?>" for="method-observer">
 					<input id="method-observer"
 						name="wpmtst_compat_options[ajax][method]"
 						data-group="observer"
@@ -674,10 +674,10 @@ class Strong_Testimonials_Settings_Compat {
 	 */
 	public function settings_monitor_event() {
 		$checked = checked( $this->options['ajax']['method'], 'event', false );
-		$class   = $checked ? ' class="current"' : ''; ?>
+		$class   = $checked ? 'current' : ''; ?>
 		<div class="row">
 			<div>
-				<label <?php echo esc_attr( $class ); ?> for="method-event">
+				<label class="<?php echo esc_attr( $class ); ?>" for="method-event">
 					<input id="method-event"
 						name="wpmtst_compat_options[ajax][method]"
 						data-group="event"
@@ -716,11 +716,11 @@ class Strong_Testimonials_Settings_Compat {
 	 */
 	public function settings_monitor_script() {
 		$checked = checked( $this->options['ajax']['method'], 'script', false );
-		$class   = $checked ? ' class="current"' : '';
+		$class   = $checked ? 'current' : '';
 		?>
 		<div class="row">
 			<div>
-				<label <?php echo esc_attr( $class ); ?> for="method-script">
+				<label class="<?php echo esc_attr( $class ); ?>" for="method-script">
 					<input id="method-script"
 						name="wpmtst_compat_options[ajax][method]"
 						data-group="script"
@@ -787,11 +787,11 @@ class Strong_Testimonials_Settings_Compat {
 	 */
 	public function settings_page_controller_documentready() {
 		$checked = checked( $this->options['controller']['initialize_on'], 'documentReady', false );
-		$class   = $checked ? ' class="current"' : '';
+		$class   = $checked ? 'current' : '';
 		?>
 		<div class="row">
 			<div>
-				<label <?php echo esc_attr( $class ); ?> for="controller-documentready">
+				<label class="<?php echo esc_attr( $class ); ?>" for="controller-documentready">
 					<input id="controller-documentready"
 						name="wpmtst_compat_options[controller][initialize_on]"
 						type="radio"
@@ -813,11 +813,11 @@ class Strong_Testimonials_Settings_Compat {
 	 */
 	public function settings_page_controller_windowload() {
 		$checked = checked( $this->options['controller']['initialize_on'], 'windowLoad', false );
-		$class   = $checked ? ' class="current"' : '';
+		$class   = $checked ? 'current' : '';
 		?>
 		<div class="row">
 			<div>
-				<label <?php echo esc_attr( $class ); ?> for="controller-windowload">
+				<label class="<?php echo esc_attr( $class ); ?>" for="controller-windowload">
 					<input id="controller-windowload"
 						name="wpmtst_compat_options[controller][initialize_on]"
 						type="radio"

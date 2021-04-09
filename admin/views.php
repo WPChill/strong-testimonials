@@ -83,7 +83,7 @@ function wpmtst_views_admin() {
                         <ul class="subsubsub">
                             <li class="all"><a <?php echo (!isset($_GET['mode']) || esc_attr( $_GET['mode'] ) == 'all' ? 'class="current"' : '') ?> href="<?php echo add_query_arg( array('post_type' => 'wpm-testimonial', 'page' => 'testimonial-views', 'mode' => 'all' ), admin_url('edit.php') ) ?>"><?php esc_html_e( 'All', 'strong-testimonials' ); ?><?php printf( __( ' <span class="count">(%s)</span>', 'strong-testimonials' ), count($views) ); ?></a> |</li>
                             <?php foreach ($filters as $mode => $items): ?>
-                            <li class="<?php echo esc_attr( $mode ) ?>"><a <?php echo (isset($_GET['mode']) && esc_attr( $_GET['mode'] ) == $mode ? 'class="current"' : '') ?> href="<?php echo add_query_arg( array('post_type' => 'wpm-testimonial', 'page' => 'testimonial-views', 'mode' => $mode ), admin_url('edit.php') ) ?>"><?php echo esc_attr( ucfirst($mode) ) ?><?php printf( __( ' <span class="count">(%s)</span>', 'strong-testimonials' ), count($items) ); ?></a> |</li>
+                            <li class="<?php echo esc_attr( $mode ) ?>"><a <?php echo (isset($_GET['mode']) && esc_attr( $_GET['mode'] ) == $mode ? 'class="current"' : '') ?> href="<?php echo add_query_arg( array('post_type' => 'wpm-testimonial', 'page' => 'testimonial-views', 'mode' => $mode ), admin_url('edit.php') ) ?>"><?php echo esc_html( ucfirst($mode) ) ?><?php printf( __( ' <span class="count">(%s)</span>', 'strong-testimonials' ), count($items) ); ?></a> |</li>
                             <?php endforeach; ?>
                         </ul>
 			<?php
@@ -442,7 +442,7 @@ function wpmtst_view_field_inputs( $key, $field, $adding = false, $source = 'vie
                     <label for="client_section_<?php echo esc_attr( $key ); ?>_before">
                         <?php esc_html_e( 'Before', 'strong-testimonials' ); ?>
                     </label>
-                    <input id="client_section_<?php echo esc_attr( $key ); ?>_before" type="text" name="<?php echo esc_attr( $source ) ?>[client_section][<?php echo esc_attr( $key ); ?>][before]" value="<?php echo isset( $field['before'] ) ? $field['before'] : ''; ?>">
+                    <input id="client_section_<?php echo esc_attr( $key ); ?>_before" type="text" name="<?php echo esc_attr( $source ) ?>[client_section][<?php echo esc_attr( $key ); ?>][before]" value="<?php echo isset( $field['before'] ) ? esc_attr($field['before']) : ''; ?>">
                 </div>
 
                 <!-- FIELD CSS CLASS -->
@@ -512,7 +512,7 @@ function wpmtst_view_field_link( $key, $field_name, $type, $field, $adding = fal
 	<?php // use custom text ?>
 	<div class="flex then_fieldtext<?php echo esc_attr( $key ); ?> then_custom then_not_value then_not_label" style="display: none;">
 		<div class="nolabel">&nbsp;</div>
-		<input type="text" id="view-fieldtext<?php echo esc_attr( $key ); ?>-custom" name="<?php echo esc_attr( $source ) ?>[client_section][<?php echo esc_attr( $key ); ?>][link_text_custom]" value="<?php echo esc_html( $field['link_text_custom'] ); ?>">
+		<input type="text" id="view-fieldtext<?php echo esc_attr( $key ); ?>-custom" name="<?php echo esc_attr( $source ) ?>[client_section][<?php echo esc_attr( $key ); ?>][link_text_custom]" value="<?php echo esc_attr( $field['link_text_custom'] ); ?>">
 	</div>
 
 	<?php // the URL ?>
@@ -559,7 +559,7 @@ function wpmtst_view_field_date( $key, $field, $adding = false, $source = 'view[
 	?>
 	<div class="flex">
 		<label for="view-<?php echo esc_attr( $key ); ?>-client-date-format"><span><?php esc_html_e( 'Format', 'strong-testimonials' ); ?></span></label>
-		<input id="view-<?php echo esc_attr( $key ); ?>-client-date-format" type="text" name="<?php echo esc_attr( $source ) ?>[client_section][<?php echo esc_attr( $key ); ?>][format]" class="field-type-date" value="<?php echo isset( $field['format'] ) ? $field['format'] : ''; ?>">
+		<input id="view-<?php echo esc_attr( $key ); ?>-client-date-format" type="text" name="<?php echo esc_attr( $source ) ?>[client_section][<?php echo esc_attr( $key ); ?>][format]" class="field-type-date" value="<?php echo isset( $field['format'] ) ? esc_attr($field['format']) : ''; ?>">
 	</div>
 	<div class="flex">
 		<div class="nolabel">&nbsp;</div>
@@ -631,13 +631,13 @@ function wpmtst_view_field_checkbox( $key, $field, $adding = false, $source = 'v
 	</div>
 	<div class="field-property field-before field-dep">
 		<label for="client_section_<?php echo esc_attr( $key ); ?>_checked_value_custom"></label>
-		<input id="client_section_<?php echo esc_attr( $key ); ?>_checked_value_custom" class="client_section_field_checked_value" attr-defaultValue="<?php echo wpmtst_get_field_text( $field ) ?>" type="text" name="<?php echo esc_attr( $source ); ?>[client_section][<?php echo esc_attr( $key ); ?>][checked_value_custom]" value="<?php echo esc_attr( $checked_value ) ?>" <?php echo ($field['checked_value'] == 'value' ? 'readonly' : '') ?>>
+		<input id="client_section_<?php echo esc_attr( $key ); ?>_checked_value_custom" class="client_section_field_checked_value" attr-defaultValue="<?php echo esc_attr(wpmtst_get_field_text( $field )); ?>" type="text" name="<?php echo esc_attr( $source ); ?>[client_section][<?php echo esc_attr( $key ); ?>][checked_value_custom]" value="<?php echo esc_attr( $checked_value ) ?>" <?php echo ($field['checked_value'] == 'value' ? 'readonly' : '') ?>>
 	</div>
 	<div class="field-property field-before field-dep">
 		<label for="client_section_<?php echo esc_attr( $key ); ?>_unchecked_value">
 				<?php esc_html_e( 'Unchecked Value', 'strong-testimonials' ); ?>
 		</label>
-		<input id="client_section_<?php echo esc_attr( $key ); ?>_unchecked_value" type="text" name="<?php echo esc_attr( $source ); ?>[client_section][<?php echo esc_attr( $key ); ?>][unchecked_value]" value="<?php echo isset( $field['unchecked_value'] ) ? $field['unchecked_value'] : ''; ?>">
+		<input id="client_section_<?php echo esc_attr( $key ); ?>_unchecked_value" type="text" name="<?php echo esc_attr( $source ); ?>[client_section][<?php echo esc_attr( $key ); ?>][unchecked_value]" value="<?php echo isset( $field['unchecked_value'] ) ? esc_attr($field['unchecked_value']) : ''; ?>">
 	</div>
 	<?php
 }
@@ -685,7 +685,7 @@ function wpmtst_category_checklist( $view_cats_array ) {
 	<div class="view-category-list-panel short-panel">
 		<div class="fc-search-wrap">
 			<input type="search" class="fc-search-field"
-				   placeholder="<?php esc_html_e( 'filter categories', 'strong-testimonials' ); ?>"/>
+				   placeholder="<?php esc_attr_e( 'filter categories', 'strong-testimonials' ); ?>"/>
 		</div>
 		<ul class="view-category-list">
 			<?php $args = array(

@@ -150,7 +150,7 @@ class Strong_Testimonials_Post_Editor {
 	 * @param $is_new
 	 */
 	private static function meta_option__text( $field, $post, $is_new ) {
-		printf( '<input id="%2$s" type="%1$s" class="custom-input" name="custom[%2$s]" value="%3$s">', esc_attr( $field['input_type'] ), esc_html( $field['name'] ), esc_attr( $post->{$field['name']} ) );
+		printf( '<input id="%2$s" type="%1$s" class="custom-input" name="custom[%2$s]" value="%3$s">', esc_attr( $field['input_type'] ), esc_attr( $field['name'] ), esc_attr( $post->{$field['name']} ) );
 	}
 
 	/**
@@ -216,7 +216,7 @@ class Strong_Testimonials_Post_Editor {
 	 * @param $is_new
 	 */
 	private static function meta_option__checkbox( $field, $post, $is_new ) {
-		printf( '<input id="%2$s" type="%1$s" class="custom-input" name="custom[%2$s]" value="%3$s" %4$s>', esc_attr( $field['input_type'] ), esc_html( $field['name'] ), 1, checked( $post->{$field['name']}, 1, false ) );
+		printf( '<input id="%2$s" type="%1$s" class="custom-input" name="custom[%2$s]" value="%3$s" %4$s>', esc_attr( $field['input_type'] ), esc_attr( $field['name'] ), 1, checked( $post->{$field['name']}, 1, false ) );
 	}
 
 	/**
@@ -282,7 +282,7 @@ class Strong_Testimonials_Post_Editor {
 	    if ( shortcode_exists( $shortcode ) ) {
 		    echo do_shortcode( $field['shortcode_on_display'] );
 	    } else {
-	        echo '<div class="custom-input not-found">' . sprintf( esc_html__( 'shortcode %s not found', 'strong-testimonials' ), '<code>' . $field['shortcode_on_display'] . '</code>' ) . '</div>';
+	        echo '<div class="custom-input not-found">' . sprintf( esc_html__( 'shortcode %s not found', 'strong-testimonials' ), '<code>' . esc_html($field['shortcode_on_display']) . '</code>' ) . '</div>';
 	    }
 	}
 

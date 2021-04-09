@@ -161,13 +161,15 @@ class Strong_Testimonials_Upsell {
 						<li>
 							<span class="dashicons dashicons-yes"></span>
 							<span>
-								<?php echo $general_upsell; ?>
+								<?php echo wp_kses_post($general_upsell); ?>
 							</span>
 						</li>
 					<?php } ?>
 				</ul>
 
-				<a href="<?php echo esc_url( WPMTST_STORE_URL . '/pricing?utm_source=st-lite&utm_campaign=upsell&utm_medium=general-settings-upsell' ); ?>" target="_blank" class="button button-primary button-hero" style="width:100%;display:block;margin-top:20px;text-align:center;">Upgrade now</a>
+				<a href="<?php echo esc_url(WPMTST_STORE_URL . '/pricing?utm_source=st-lite&utm_campaign=upsell&utm_medium=general-settings-upsell'); ?>"
+				   target="_blank" class="button button-primary button-hero"
+				   style="width:100%;display:block;margin-top:20px;text-align:center;"><?php echo esc_html__('Upgrade now', 'strong-testimonials'); ?></a>
 
 			</div>
 		</div>
