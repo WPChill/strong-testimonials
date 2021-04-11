@@ -1,3 +1,8 @@
+= v2.51.4 - 11/04/2021 =
+- Fixed: Addded more escapes and sanitization
+- Fixed: Compatibility with PHP8
+
+
 = v2.51.3 - 16/03/2021 =
 - Changed: View backend in order to be more customizable ( https://github.com/WPChill/strong-testimonials/issues/222 )
 - Added: A class to disabled class for each template ( https://github.com/WPChill/strong-testimonials/issues/210 )
