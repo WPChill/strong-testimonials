@@ -145,8 +145,10 @@ function wpmtst_add_admin_notice( $key, $persist = false ) {
  */
 function wpmtst_delete_admin_notice( $key ) {
 	$notices = get_option( 'wpmtst_admin_notices', array() );
-	unset( $notices[ $key ] );
-	update_option( 'wpmtst_admin_notices', $notices, 'no' );
+	if ( isset( $notices[ $key ] ) ) {
+		unset( $notices[ $key ] );
+		update_option( 'wpmtst_admin_notices', $notices, 'no' );
+	}
 }
 
 

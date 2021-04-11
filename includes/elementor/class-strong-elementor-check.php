@@ -74,8 +74,8 @@ final class Strong_Testimonials_Elementor_Check {
 	 * @access public
 	 */
 	public function admin_notice_minimum_elementor_version() {
-		if (isset($_GET['activate'])) {
-			unset($_GET['activate']);
+		if ( isset( $_GET['activate'] ) ) {
+			unset( $_GET['activate'] );
 		}
 
 		$message = sprintf(
@@ -97,8 +97,8 @@ final class Strong_Testimonials_Elementor_Check {
 	 * @access public
 	 */
 	public function admin_notice_minimum_php_version() {
-		if (isset($_GET['activate'])) {
-			unset($_GET['activate']);
+		if ( isset( $_GET['activate'] ) ) {
+			unset( $_GET['activate'] );
 		}
 
 		$message = sprintf(

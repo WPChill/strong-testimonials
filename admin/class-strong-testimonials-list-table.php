@@ -367,11 +367,11 @@ if ( ! class_exists( 'Strong_Testimonials_List_Table' ) ) :
 				echo '<input type="hidden" name="detached" value="' . esc_attr( $_REQUEST['detached'] ) . '">';
 			}
 			?>
-<p class="search-box">
-	<label class="screen-reader-text" for="<?php echo esc_attr( $input_id ); ?>"><?php echo esc_html( $text ); ?>:</label>
-	<input type="search" id="<?php echo esc_attr( $input_id ); ?>" name="s" value="<?php _admin_search_query(); ?>">
-			<?php submit_button( esc_html( $text ), 'button', '', false, array( 'id' => 'search-submit' ) ); ?>
-</p>
+			<p class="search-box">
+				<label class="screen-reader-text" for="<?php echo esc_attr( $input_id ); ?>"><?php echo esc_html( $text ); ?>:</label>
+				<input type="search" id="<?php echo esc_attr( $input_id ); ?>" name="s" value="<?php _admin_search_query(); ?>">
+				<?php submit_button( esc_html( $text ), 'button', '', false, array( 'id' => 'search-submit' ) ); ?>
+			</p>
 			<?php
 		}
 

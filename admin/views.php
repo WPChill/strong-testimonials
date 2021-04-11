@@ -81,24 +81,24 @@ function wpmtst_views_admin() {
                         <hr class="wp-header-end">
                         <h2 class="screen-reader-text"><?php esc_html_e( 'Filter view list', 'strong-testimonials' ); ?></h2>
                         <ul class="subsubsub">
-                            <li class="all"><a <?php echo (!isset($_GET['mode']) || esc_attr( $_GET['mode'] ) == 'all' ? 'class="current"' : '') ?> href="<?php echo add_query_arg( array('post_type' => 'wpm-testimonial', 'page' => 'testimonial-views', 'mode' => 'all' ), admin_url('edit.php') ) ?>"><?php esc_html_e( 'All', 'strong-testimonials' ); ?><?php printf( __( ' <span class="count">(%s)</span>', 'strong-testimonials' ), count($views) ); ?></a> |</li>
+                            <li class="all"><a <?php echo (!isset($_GET['mode']) || $_GET['mode'] == 'all' ? 'class="current"' : '') ?> href="<?php echo add_query_arg( array('post_type' => 'wpm-testimonial', 'page' => 'testimonial-views', 'mode' => 'all' ), admin_url('edit.php') ) ?>"><?php esc_html_e( 'All', 'strong-testimonials' ); ?><?php printf( __( ' <span class="count">(%s)</span>', 'strong-testimonials' ), count($views) ); ?></a> |</li>
                             <?php foreach ($filters as $mode => $items): ?>
-                            <li class="<?php echo esc_attr( $mode ) ?>"><a <?php echo (isset($_GET['mode']) && esc_attr( $_GET['mode'] ) == $mode ? 'class="current"' : '') ?> href="<?php echo add_query_arg( array('post_type' => 'wpm-testimonial', 'page' => 'testimonial-views', 'mode' => $mode ), admin_url('edit.php') ) ?>"><?php echo esc_html( ucfirst($mode) ) ?><?php printf( __( ' <span class="count">(%s)</span>', 'strong-testimonials' ), count($items) ); ?></a> |</li>
+                            <li class="<?php echo esc_attr( $mode ) ?>"><a <?php echo (isset($_GET['mode']) && $_GET['mode'] == $mode ? 'class="current"' : '') ?> href="<?php echo add_query_arg( array('post_type' => 'wpm-testimonial', 'page' => 'testimonial-views', 'mode' => $mode ), admin_url('edit.php') ) ?>"><?php echo esc_html( ucfirst($mode) ) ?><?php printf( __( ' <span class="count">(%s)</span>', 'strong-testimonials' ), count($items) ); ?></a> |</li>
                             <?php endforeach; ?>
                         </ul>
 			<?php
 			// Add button to clear sort value.
 			if ( isset( $_GET['orderby'] ) ) {
-                        ?>
-                        <form action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" method="post" style="margin-bottom: 4px;">
-                            <input type="hidden" name="action" value="clear-view-sort">
-                            <input type="submit" value="clear sort" class="button">
-                        </form>
-                        <?php
+                ?>
+                <form action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" method="post" style="margin-bottom: 4px;">
+                    <input type="hidden" name="action" value="clear-view-sort">
+                    <input type="submit" value="clear sort" class="button">
+                </form>
+                <?php
 			}
 
-                        // Display the table
-                        $views_table->prepare_list(wpmtst_unserialize_views( $views ) );
+            // Display the table
+            $views_table->prepare_list(wpmtst_unserialize_views( $views ) );
 			$views_table->display();
 
 		}

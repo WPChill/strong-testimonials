@@ -20,7 +20,7 @@ add_action( 'wpmtst_form_admin', 'wpmtst_form_admin2' );
  */
 function wpmtst_update_custom_fields() {
 	$goback = wp_get_referer();
-        $goback = apply_filters( 'wpmtst_form_goback', $goback );
+    $goback = apply_filters( 'wpmtst_form_goback', $goback );
         
 	if ( ! isset( $_POST['wpmtst_form_submitted'] ) ) {
 		wp_redirect( $goback );
@@ -82,7 +82,7 @@ function wpmtst_update_custom_fields() {
 
             $field['name']                    = sanitize_text_field( $field['name'] );
             $field['label']                   = sanitize_text_field( $field['label'] );
-            $field['text']                   = sanitize_text_field( $field['text'] );
+            $field['text']                    = sanitize_text_field( $field['text'] );
 
             // TODO Replace this special handling
             if ( 'checkbox' == $field['input_type'] ) {

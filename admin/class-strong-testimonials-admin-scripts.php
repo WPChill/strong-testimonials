@@ -287,28 +287,28 @@ class Strong_Testimonials_Admin_Scripts {
 	 * Fields
 	 */
 	public static function admin_fields() {
-                $tab = isset( $_GET['tab'] ) ? sanitize_key( $_GET['tab'] ) : '';
-                wp_enqueue_style( 'wpmtst-admin-style' );
-                wp_enqueue_script( 'wpmtst-admin-script' );
-                
-                switch ( $tab ) {
+        $tab = isset( $_GET['tab'] ) ? sanitize_key( $_GET['tab'] ) : '';
+        wp_enqueue_style( 'wpmtst-admin-style' );
+        wp_enqueue_script( 'wpmtst-admin-script' );
+        
+        switch ( $tab ) {
 			case 'form':
 				wp_enqueue_style( 'wpmtst-admin-form-style' );
 				wp_enqueue_script( 'wpmtst-admin-form-script' );
 				break;
 			case 'fields':
-                                wp_enqueue_style( 'wpmtst-admin-fields-style' );
-                                wp_enqueue_script( 'wpmtst-admin-fields-script' );
+                wp_enqueue_style( 'wpmtst-admin-fields-style' );
+                wp_enqueue_script( 'wpmtst-admin-fields-script' );
 
-                                wp_enqueue_style( 'wpmtst-admin-form-preview' );
-                                wp_enqueue_style( 'wpmtst-rating-form' );
+                wp_enqueue_style( 'wpmtst-admin-form-preview' );
+                wp_enqueue_style( 'wpmtst-rating-form' );
 				break;
-                        default:
-                                wp_enqueue_style( 'wpmtst-admin-fields-style' );
-                                wp_enqueue_script( 'wpmtst-admin-fields-script' );
+            default:
+                wp_enqueue_style( 'wpmtst-admin-fields-style' );
+                wp_enqueue_script( 'wpmtst-admin-fields-script' );
 
-                                wp_enqueue_style( 'wpmtst-admin-form-preview' );
-                                wp_enqueue_style( 'wpmtst-rating-form' );
+                wp_enqueue_style( 'wpmtst-admin-form-preview' );
+                wp_enqueue_style( 'wpmtst-rating-form' );
 		}
 	}
 

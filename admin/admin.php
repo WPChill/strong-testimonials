@@ -65,7 +65,8 @@ function wpmtst_admin_init() {
 	 * @since 1.18.4
 	 */
 	if ( isset( $_REQUEST['action'] ) && '' != $_REQUEST['action'] ) {
-		do_action( 'wpmtst_' . $_REQUEST['action'] );
+		$action = sanitize_text_field( $_REQUEST['action'] );
+		do_action( 'wpmtst_' . $action );
 	}
 }
 

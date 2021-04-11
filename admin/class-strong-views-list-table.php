@@ -33,13 +33,13 @@ class Strong_Views_List_Table extends Strong_Testimonials_List_Table {
 			usort( $data, array( &$this, 'usort_reorder' ) );
 		}
 		$data = $this->move_sticky( $data );
-                $data = apply_filters('wpmtst_list_views', $data);
-                if (isset($_GET['mode']) && !empty($_GET['mode']) && $_GET['mode'] !== 'all') {
-                    $data = $this->filter_data( $_GET['mode'], $data );
-                }
-                if (isset($_GET['s']) && !empty($_GET['s'])) {
-                    $data = $this->search_data( $_GET['s'], $data );
-                }
+        $data = apply_filters('wpmtst_list_views', $data);
+        if ( isset( $_GET['mode'] ) && ! empty( $_GET['mode'] ) && $_GET['mode'] !== 'all' ) {
+            $data = $this->filter_data( sanitize_text_field( $_GET['mode'] ), $data );
+        }
+        if ( isset( $_GET['s'] ) && ! empty( $_GET['s'] ) ) {
+            $data = $this->search_data( sanitize_text_field( $_GET['s'] ), $data );
+        }
 		$this->items = $data;
 	}
         
@@ -55,7 +55,7 @@ class Strong_Views_List_Table extends Strong_Testimonials_List_Table {
         public function filter_data( $mode, $data = array() ) {
             $items = array();
             foreach ($data as $item) {
-                if ($mode == $item['data']['mode']) {
+                if ( $mode == $item['data']['mode'] ) {
                     $items[] = $item; 
                 }
             }
@@ -65,7 +65,7 @@ class Strong_Views_List_Table extends Strong_Testimonials_List_Table {
         public function search_data( $search, $data = array() ) {
             $items = array();
             foreach ($data as $item) {
-                if (strtolower($search) == strtolower($item['name'])) {
+                if ( strtolower($search) == strtolower($item['name']) ) {
                     $items[] = $item; 
                 }
             }
@@ -119,10 +119,10 @@ class Strong_Views_List_Table extends Strong_Testimonials_List_Table {
 
 	public function usort_reorder( $a, $b ) {
 		// If no sort, default to name
-		$orderby = ( ! empty( $_GET['orderby'] ) ) ? $_GET['orderby'] : 'name';
+		$orderby = ( ! empty( $_GET['orderby'] ) ) ? sanitize_text_field( $_GET['orderby'] ) : 'name';
 
 		// If no order, default to asc
-		$order = ( ! empty($_GET['order'] ) ) ? $_GET['order'] : 'asc';
+		$order = ( ! empty($_GET['order'] ) ) ? sanitize_text_field( $_GET['order'] ) : 'asc';
 
 		// Determine sort order
 		if ( 'id' == $orderby ) {
@@ -231,11 +231,15 @@ class Strong_Views_List_Table extends Strong_Testimonials_List_Table {
             $singular = $this->_args['singular'];
             // Disabling the table nav options to regain some real estate.
             //$this->display_tablenav( 'top' );
+            $s = '';
+            if ( isset( $_GET['s'] ) ) {
+            	$s = sanitize_text_field( $_GET['s'] );
+            }
             ?>
             <form id="posts-filter" method="get">
                 <p class="search-box">
                     <label class="screen-reader-text" for="post-search-input"><?php esc_html_e( 'Search', 'strong-testimonials' ); ?></label>
-                    <input type="search" id="post-search-input" name="s" value="<?php echo (isset($_GET['s']) && !empty($_GET['s']) ? esc_html( $_GET['s'] ) : '') ?>">
+                    <input type="search" id="post-search-input" name="s" value="<?php echo esc_attr( $s ) ?>">
                     <input type="submit" id="search-submit" class="button" value="<?php esc_html_e( 'Search', 'strong-testimonials' ); ?>">
                     <input type="hidden" name="post_type" class="post_type_page" value="wpm-testimonial">
                     <input type="hidden" name="page" value="testimonial-views">
