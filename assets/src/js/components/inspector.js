@@ -14,24 +14,14 @@ export default class Inspector extends Component {
 		super(...arguments);
 	}
 
-	selectOptions() {
-		let options = [ { value: 0, label: __('None') } ];
-
-		this.props.attributes.views.forEach(function(view) {
-			options.push({ value: view.id, label: view.name });
-		});
-
-		return options;
-	}
-
 	render() {
-		const { attributes, setAttributes } = this.props;
+		const { attributes, setAttributes, onIdChange, selectOptions } = this.props;
 		const { id, views, testimonials } = attributes;
 		return (
 			<Fragment>
 				<InspectorControls>
 					<PanelBody title={__('View Settings')} initialOpen={true}>
-						{views.length === 0 && (
+						{st_views.views.length === 0 && (
 							<Fragment>
 								<p>{__("You don't seem to have any views.")}</p>
 								<Button
@@ -47,13 +37,14 @@ export default class Inspector extends Component {
 							</Fragment>
 						)}
 
-						{views.length > 0 && (
+						{st_views.views.length > 0 && (
 							<Fragment>
 								<SelectControl
 									label={__('Select View')}
+									key={id}
 									value={id}
-									options={this.selectOptions()}
-									onChange={(id) => setAttributes({ id })}
+									options={selectOptions}
+									onChange={(value) => onIdChange(parseInt(value))}
 								/>
 								{id != 0 && (
 									<Button
