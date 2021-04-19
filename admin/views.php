@@ -356,8 +356,9 @@ function wpmtst_view_field_inputs( $key, $field, $adding = false, $source = 'vie
 	$all_field_names = array_merge( array_keys( $custom_fields), array( 'post_date', 'submit_date', 'category', 'platform' ) );
 	$label_class = '';
 	if ( ! $adding && ! in_array( $field['field'], $all_field_names ) ) {
-	    $field_label .= ' < ERROR - not found >';
-	    $label_class = 'error';
+	    // $field_label .= ' < ERROR - not found >';
+	    // $label_class = 'error';
+		return FALSE;
 	}
 	?>
 	<div id="field-<?php echo esc_attr( $key ); ?>" class="field2">
