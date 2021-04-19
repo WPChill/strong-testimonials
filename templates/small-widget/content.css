@@ -125,7 +125,8 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
   font-weight: 700;
 }
 .strong-view.wpmtst-small-widget .readmore {
-  margin-top: 1em;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
 }
 .strong-view.wpmtst-small-widget .readmore-page {
   border: 1px solid #E6E6E6;
