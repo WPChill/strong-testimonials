@@ -1,3 +1,9 @@
+= v2.51.5 - 19/04/2021 =
+- Changed: The field for “Company Name” doesn't appear anymore in the list of default fields when creating a new view, if it has been removed via the form editor. ( https://github.com/WPChill/strong-testimonials/issues/240 )
+- Changed: JQuery Strong slider public methods in order to allow users to acces public methods of bxSlider ( https://github.com/WPChill/strong-testimonials/issues/233 )
+- Fixed: The Read More link display bug ( https://github.com/WPChill/strong-testimonials/issues/245 )
+- Fixed: Undefined index ( https://github.com/WPChill/strong-testimonials/issues/249 )
+
 = v2.51.4 - 11/04/2021 =
 - Fixed: Addded more escapes and sanitization
 - Fixed: Compatibility with PHP8

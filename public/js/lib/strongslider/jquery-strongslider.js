@@ -1982,14 +1982,14 @@
 		el.destroySlider();
 		init();
 		// store reference to self in order to access public functions later
-		$(el).data('strongSlider', this);
+		$(el).data('strongSlider', el);
 	  };
 
 	  // Fire it up!
 	  init();
 
 	  // Store reference to self in order to access public functions later
-	  $(el).data('strongSlider', this);
+	  $(el).data('strongSlider', el);
 
 	  // Set initialized flag on container
 	  viewEl.attr('data-state', 'init');

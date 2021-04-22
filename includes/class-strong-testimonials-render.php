@@ -421,7 +421,9 @@ class Strong_Testimonials_Render {
 
 						if ( isset( $text_widgets[ $id ] ) ) {
 							$widget = $text_widgets[ $id ];
-							$this->process_content( $widget['text'] );
+							if ( isset( $widget['text'] ) ) {
+								$this->process_content( $widget['text'] );
+							}
 						}
 					}
 
