@@ -22,6 +22,9 @@
 	-webkit-column-break-inside: avoid;
 	page-break-inside: avoid;
 	break-inside: avoid;
+	position: relative !important;
+	left: 0px !important;
+	top: 0px !important;
 }
 
 /*

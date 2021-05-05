@@ -14,7 +14,7 @@ do_action( 'wpmtst_before_view' );
 <div class="strong-view <?php wpmtst_container_class(); ?>"<?php wpmtst_container_data(); ?>>
 	<?php do_action( 'wpmtst_view_header' ); ?>
 
-	<div class="strong-content <?php wpmtst_content_class(); ?>">
+	<div class="strong-content strong-grid <?php wpmtst_content_class(); ?>">
 		<?php do_action( 'wpmtst_before_content', $atts ); ?>
 
 		<?php while ( $query->have_posts() ) : $query->the_post(); ?>

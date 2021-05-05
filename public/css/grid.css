@@ -27,6 +27,9 @@
   display: -ms-flexbox;
   display: flex;
   margin: 0 0 20px 0;
+  position: relative !important;
+  left: 0px !important;
+  top: 0px !important;
 }
 
 .strong-content.strong-grid.columns-2 .wpmtst-testimonial {
