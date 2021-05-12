@@ -536,7 +536,7 @@ class Strong_View_Display extends Strong_View {
 	 * @since 2.40.4
 	 */
 	public function has_lazyload() {
-		if( !function_exists( 'wp_lazy_loading_enabled' ) || !apply_filters( 'wp_lazy_loading_enabled', true ) ) {
+		if( !function_exists( 'wp_lazy_loading_enabled' ) || apply_filters( 'wp_lazy_loading_enabled', true, 'img', 'strong_testimonials_has_lazyload' ) ) {
 			$options = get_option( 'wpmtst_options' );
 			if ( isset( $options['lazyload'] ) && $options['lazyload'] ) {
 					WPMST()->render->add_style( 'wpmtst-lazyload-css' );
@@ -545,7 +545,6 @@ class Strong_View_Display extends Strong_View {
 			}
 		}
 	}
-
 }
 
 endif;
