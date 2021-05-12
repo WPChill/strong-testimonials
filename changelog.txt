@@ -4,6 +4,7 @@
 - Fixed: The Read More link display bug ( https://github.com/WPChill/strong-testimonials/issues/245 )
 - Fixed: Undefined index ( https://github.com/WPChill/strong-testimonials/issues/249 )
 - Fixed: Incompatibility problem with Swift Performance related to lazy load ( https://github.com/WPChill/strong-testimonials/issues/254 )
+- Fixed: Error on slider arrows on the Wave accesibility report ( https://github.com/WPChill/strong-testimonials/issues/253 )
 
 = v2.51.4 - 11/04/2021 =
 - Fixed: Addded more escapes and sanitization
