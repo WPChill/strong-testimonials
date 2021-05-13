@@ -138,7 +138,6 @@ class Strong_Testimonials_Helper {
                     )
                 )
             ),
-            
             'fields' => array(
                 'section_action_before' => 'wpmtst_view_editor_before_group_fields',
                 'section_action_after'  => '',
@@ -151,7 +150,7 @@ class Strong_Testimonials_Helper {
                     'field_title' => array(
                         'label' => esc_html__( ' Title', 'strong-testimonials' ),
                         'type' => 'title',
-                        'before' => '<input type="checkbox" id="view-title" name="view[data][title]" value="1"' . checked( $this->view['title'], true, false ) . 'class="checkbox if toggle">',
+                        'before' => '<input type="checkbox" id="view-title" name="view[data][title]" value="1"' . checked( $this->view['title'], true, false ) . ' class="checkbox if toggle">',
                         'after' => '',
                         'class' => 'view-title',
                         'container_classes'   => 'then then_display then_not_form then_slideshow then_not_single_template',
@@ -920,7 +919,7 @@ class Strong_Testimonials_Helper {
         </td>  
     <?php }
     
-    private function render_field_title() { 
+    private function render_field_title() {
         $custom_fields     = wpmtst_get_custom_fields();
         $options = get_option( 'wpmtst_options' );
         $url_fields = array();
@@ -929,6 +928,7 @@ class Strong_Testimonials_Helper {
                 $url_fields[] = $field;
             }
         }
+        
         // For older versions where title_link was checkbox
         if ( '1' == $this->view['title_link'] ) {
             $this->view['title_link'] = 'wpmtst_testimonial';
@@ -1352,7 +1352,7 @@ class Strong_Testimonials_Helper {
                             </select>
                         </label>
                             <label for="view-page_id2"><?php _ex( 'or enter its ID or slug', 'to select a target page', 'strong-testimonials' ); ?></label>
-                            <input type="text" id="view-page_id2" name="view[data][more_page_id2]" size="30">
+                            <input type="text" id="view-page_id2" name="view[data][more_page_id2]" value="<?php echo esc_attr($this->view['more_page_id']); ?>" size="30">
                     </div>
                 </div>
                 <!-- Link text -->

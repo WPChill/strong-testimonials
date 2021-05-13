@@ -990,7 +990,7 @@
 	   * Appends prev control to the controls element
 	   */
 	  var appendControlPrev = function () {
-		slider.controls.prev = $('<a class="wpmslider-prev" href="">' + slider.settings.prevText + '</a>');
+		slider.controls.prev = $('<a class="wpmslider-prev" href="/previous-slide"><span class="screen-reader-text">Previous Slide</span>' + slider.settings.prevText + '</a>');
 
 		// bind click actions to the controls
 		slider.controls.prev.on('click touchend', clickPrevBind);
@@ -1014,7 +1014,7 @@
 	   * Appends next controls to the controls element
 	   */
 	  var appendControlNext = function () {
-		slider.controls.next = $('<a class="wpmslider-next" href="">' + slider.settings.nextText + '</a>');
+		slider.controls.next = $('<a class="wpmslider-next" href="/next-slide"><span class="screen-reader-text">Next Slide</span>' + slider.settings.nextText + '</a>');
 
 		// bind click actions to the controls
 		slider.controls.next.on('click touchend', clickNextBind);
