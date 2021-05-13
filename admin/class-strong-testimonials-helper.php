@@ -1352,7 +1352,7 @@ class Strong_Testimonials_Helper {
                             </select>
                         </label>
                             <label for="view-page_id2"><?php _ex( 'or enter its ID or slug', 'to select a target page', 'strong-testimonials' ); ?></label>
-                            <input type="text" id="view-page_id2" name="view[data][more_page_id2]" value="<?php echo esc_attr($this->view['more_page_id']); ?>" size="30">
+                            <input type="text" id="view-page_id2" name="view[data][more_page_id2]" <?php echo ( isset($this->view['more_page_id']) ? 'value="' . esc_attr( $this->view['more_page_id']) . '"' : '' ); ?> size="30">
                     </div>
                 </div>
                 <!-- Link text -->
