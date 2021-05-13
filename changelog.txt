@@ -7,6 +7,7 @@
 - Fixed: Error on slider arrows on the Wave accesibility report ( https://github.com/WPChill/strong-testimonials/issues/253 )
 - Fixed: Extra pagination ID or slug sanitize issue from View ( https://github.com/WPChill/strong-testimonials/issues/246 )
 - Fixed: Title setting sanitize issue from View ( https://github.com/WPChill/strong-testimonials/issues/241 )
+- Fixed: Unstyled Template issue with grid layout and pagination ( https://github.com/WPChill/strong-testimonials/issues/242 )
 
 = v2.51.4 - 11/04/2021 =
 - Fixed: Addded more escapes and sanitization
