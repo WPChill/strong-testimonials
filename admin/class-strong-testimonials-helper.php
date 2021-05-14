@@ -625,7 +625,7 @@ class Strong_Testimonials_Helper {
     public function render_field() { ?>
         <th>
             <?php echo wp_kses_post( $this->field['before'] ); ?>
-            <label for="<?php echo esc_attr( $this->field['class'] )?>"><?php echo esc_html($this->field['label']); ?></label>
+            <label for="<?php echo esc_attr( $this->field['class'] )?>"><?php echo $this->field['label']; ?></label>
             <?php echo wp_kses_post( $this->field['after'] ); ?>
         </th> <?php
         switch ($this->field['type']) {
