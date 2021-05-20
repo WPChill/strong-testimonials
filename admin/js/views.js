@@ -1155,6 +1155,13 @@ jQuery(document).ready(function ($) {
           break;
         }
 
+        if ('video_record' === fieldType) {
+          typeSelect.val('video_record').prop('disabled', true);
+          typeSelectParent.append('<input type="hidden" class="save-type" name="' + source + '[client_section][' + key + '][save-type]" value="video_record">');
+          typeSelect.parent().hide();
+          break;
+        }
+
         if ('platform' === fieldType) {
           typeSelect.val('platform').prop('disabled', true);
           typeSelectParent.append('<input type="hidden" class="save-type" name="' + source + '[client_section][' + key + '][save-type]" value="platform">');

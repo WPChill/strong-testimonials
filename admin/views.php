@@ -338,8 +338,9 @@ function wpmtst_view_field_inputs( $key, $field, $adding = false, $source = 'vie
 		'rating'    => esc_html__( 'rating', 'strong-testimonials' ),
 		'platform'  => esc_html__( 'platform', 'strong-testimonials' ),
 		'shortcode' => esc_html__( 'shortcode', 'strong-testimonials' ),
-                'checkbox'  => esc_html__('checkbox', 'strong-testimonials'),
-                'video'     => esc_html__('video', 'strong-testimonials')
+		'checkbox'  => esc_html__('checkbox', 'strong-testimonials'),
+		'video'     => esc_html__('video', 'strong-testimonials'),
+		'video_record' => esc_html__('video_record', 'strong-testimonials')
 	);
 
 	if ( isset( $custom_fields[ $field['field'] ] ) ) {
@@ -409,13 +410,13 @@ function wpmtst_view_field_inputs( $key, $field, $adding = false, $source = 'vie
                 </div>
 
                 <!-- FIELD TYPE -->
-                <div class="field-property field-type field-dep" <?php if ( $adding || in_array($field['type'], array('checkbox', 'video') ) ) echo ' style="display: none;"'; ?>>
+                <div class="field-property field-type field-dep" <?php if ( $adding || in_array($field['type'], array('checkbox', 'video', 'video_record') ) ) echo ' style="display: none;"'; ?>>
                     <label for="client_section_<?php echo esc_attr( $key ); ?>_type">
                         <?php esc_html_e( 'Display Type', 'strong-testimonials' ); ?>
                     </label>
                     <select id="client_section_<?php echo esc_attr( $key ); ?>_type" name="<?php echo esc_attr( $source )?>[client_section][<?php echo esc_attr( $key ); ?>][type]" <?php echo ($field['type'] == 'checkbox' ? 'readonly' : '') ?>>
                         <?php foreach ( $types as $type => $type_label ) : ?>
-                        <option value="<?php echo esc_attr( $type ); ?>" <?php selected( $type, $field['type'] ); ?> <?php echo(in_array($type, array('checkbox', 'video')) ? 'style="display:none"' : '') ?>><?php esc_html_e( $type_label ); ?></option>
+                        <option value="<?php echo esc_attr( $type ); ?>" <?php selected( $type, $field['type'] ); ?> <?php echo(in_array($type, array('checkbox', 'video', 'video_record')) ? 'style="display:none"' : '') ?>><?php esc_html_e( $type_label ); ?></option>
                         <?php endforeach; ?>
                     </select>
                 </div>
