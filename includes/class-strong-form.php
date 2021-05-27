@@ -197,6 +197,8 @@ class Strong_Testimonials_Form {
 		 */
 		foreach ( $fields as $key => $field ) {
 
+			$new_post = apply_filters( 'before_field_sanitize', $new_post, $field);
+			
 			if ( isset( $field['required'] ) && $field['required'] ) {
 				if ( ( 'file' == $field['input_type'] ) ) {
 					if ( ! isset( $_FILES[ $field['name'] ] ) || ! $_FILES[ $field['name'] ]['size'] ) {
