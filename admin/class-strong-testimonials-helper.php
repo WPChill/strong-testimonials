@@ -5,16 +5,46 @@
  * @since 2.5
  */
 class Strong_Testimonials_Helper {
-    private $field;
 
+	/**
+	 * Our Class variables
+	 *
+	 * @since 2.51.5
+	 */
+	private $field;
+	private $action;
+	private $view_id;
+	private $view_options;
+	private $cat_count = false;
+	private $show_section;
+	private $view;
+	private $view_name;
+	private $view_cats_array;
+	private $sections;
+	private $current_mode;
+	private $current_type;
+	private $isSetting;
+
+	/**
+	 * Strong_Testimonials_Helper constructor.
+	 *
+	 * @since 2.51.5
+	 */
     public function __construct() {
+
         $this->action = filter_input( INPUT_GET, 'action', FILTER_SANITIZE_STRING );
         $this->view_id = abs( filter_input( INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT ) );
         $this->view_options = apply_filters( 'wpmtst_view_options', get_option( 'wpmtst_view_options' ) );
         $this->cat_count = wpmtst_get_cat_count();
     }
-    
+
+	/**
+	 * Set Strong Testimonial view
+	 *
+	 * @since 2.51.5
+	 */
     public function set_view() {
+
         $this->view = $this->get_view();
         $this->show_section = apply_filters('wpmtst_show_section', $this->view['mode']);
         if ( 'edit' == $this->action ) {
@@ -34,9 +64,16 @@ class Strong_Testimonials_Helper {
         $this->view_cats_array = apply_filters( 'wpmtst_l10n_cats', explode( ',', $this->view['category'] ) );
         $this->sections = $this->get_sections();
     }
-    
+
+	/**
+	 * Get Strong Testimonial view
+	 *
+	 * @return array|mixed
+	 *
+	 * @since 2.51.5
+	 */
     public static function get_view() {
-        $view_id   = 1;
+
         $view      = wpmtst_get_view_default();
         if (isset($_REQUEST['action'])) {
             $action = filter_input( INPUT_GET, 'action', FILTER_SANITIZE_STRING );
@@ -51,7 +88,14 @@ class Strong_Testimonials_Helper {
         }
         return $view;
     }
-    
+
+	/**
+	 * Get Strong Testimonials sections
+	 *
+	 * @return mixed|void
+	 *
+	 * @since 2.51.5
+	 */
     public function get_sections() {
         return apply_filters( 'wpmtst_view_sections', array(
             'query' => array(
@@ -426,76 +470,98 @@ class Strong_Testimonials_Helper {
             ),
         ) );
     }
-    
-    public function render_form() {
-        $actions = array( 'edit', 'duplicate', 'add' );
-	if ( ! in_array( $this->action, $actions ) ) {
-		wp_die( esc_html__( 'Invalid request. Please try again.', 'strong-testimonials' ) );
-	}
-	if ( ( 'edit' == $this->action || 'duplicate' == $this->action ) && ! $this->view_id ) return;
-        
-        $this->set_view();
-	add_thickbox();
-
-	$fields     = wpmtst_get_custom_fields();
-	$all_fields = wpmtst_get_all_fields();
 
 	/**
-	 * Show category filter if necessary.
+	 * Render Strong Testimonials form
 	 *
-	 * @since 2.2.0
+	 * @since 2.51.5
 	 */
-	if ( $this->cat_count > 5 ) {
-            wp_enqueue_script( 'wpmtst-view-category-filter-script' );
-	}
-        
-	// Select default template if necessary
-	if ( !$this->view['template'] ) {
-            if ( 'form' == $this->view['mode'] ) {
-                $this->view['template'] = 'default-form';
-            } else {
-                $this->view['template'] = 'default';
-            }
-	}
+    public function render_form() {
 
-     // Get urls
-    $url = admin_url( 'edit.php?post_type=wpm-testimonial&page=testimonial-views' );
-	$url1 = $url . '&action=add';
-	$url2 = $url . '&action=duplicate&id=' . $this->view_id;
+		$actions = array( 'edit', 'duplicate', 'add' );
 
-        ?>
-        <h1>
-            <?php 'edit' == $this->action ? esc_html_e( 'Edit View', 'strong-testimonials' ) : esc_html_e( 'Add View', 'strong-testimonials' ); ?>
-            <a href="<?php echo esc_url( $url1 ); ?>" class="add-new-h2"><?php esc_html_e( 'Add New', 'strong-testimonials' ); ?></a>
-            <a href="<?php echo esc_url( $url ); ?>" class="add-new-h2"><?php esc_html_e( 'Return To List', 'strong-testimonials' ); ?></a>
-            <?php if ( 'edit' == $this->action ) : ?>
-            <a href="<?php echo esc_url( $url2 ); ?>" class="add-new-h2"><?php esc_html_e( 'Duplicate This View', 'strong-testimonials' ); ?></a>
-            <?php endif; ?>
-	</h1>
+		if ( ! in_array( $this->action, $actions ) ) {
+			wp_die( esc_html__( 'Invalid request. Please try again.', 'strong-testimonials' ) );
+		}
 
-	<form id="wpmtst-views-form" method="post" action="<?php echo esc_url(admin_url( 'admin-post.php' )); ?>" autocomplete="off" enctype="multipart/form-data">
-            <?php wp_nonce_field( 'view_form_submit', 'view_form_nonce', true, true ); ?>
+		if ( ( 'edit' == $this->action || 'duplicate' == $this->action ) && ! $this->view_id ) {
+			return;
+		}
 
-            <input type="hidden" name="action" value="view_<?php echo esc_attr( $this->action ); ?>_form">
-            <input type="hidden" name="view[id]" value="<?php echo esc_attr( $this->view_id ); ?>">
-            <input type="hidden" name="view_original_mode" value="<?php echo esc_attr( $this->view['mode'] ); ?>">
-            <input type="hidden" name="view[data][_form_id]" value="<?php echo esc_attr( $this->view['form_id'] ); ?>">
+		$this->set_view();
+		add_thickbox();
 
-            <div class="table view-info">
-                <?php $this->render_info(); ?>
-            </div>
-            
-            <?php $this->render_sections(); ?>
-            
-            <p class="wpmtst-submit">
-                <?php submit_button( '', 'primary', 'submit-form', false ); ?>
-                <?php submit_button( esc_html__( 'Cancel Changes', 'strong-testimonials' ), 'secondary', 'reset', false ); ?>
-                <?php submit_button( esc_html__( 'Restore Defaults', 'strong-testimonials' ), 'secondary', 'restore-defaults', false ); ?>
-            </p>
-        </form><?php
+		// @todo: these don't seem to be used anywhere
+		$fields     = wpmtst_get_custom_fields();
+		$all_fields = wpmtst_get_all_fields();
+
+		/**
+		 * Show category filter if necessary.
+		 *
+		 * @since 2.2.0
+		 */
+		if ( $this->cat_count > 5 ) {
+			wp_enqueue_script( 'wpmtst-view-category-filter-script' );
+		}
+
+		// Select default template if necessary
+		if ( ! $this->view['template'] ) {
+			if ( 'form' == $this->view['mode'] ) {
+				$this->view['template'] = 'default-form';
+			} else {
+				$this->view['template'] = 'default';
+			}
+		}
+
+		// Get urls
+		$url  = admin_url( 'edit.php?post_type=wpm-testimonial&page=testimonial-views' );
+		$url1 = $url . '&action=add';
+		$url2 = $url . '&action=duplicate&id=' . $this->view_id;
+
+		?>
+		<h1>
+			<?php 'edit' == $this->action ? esc_html_e( 'Edit View', 'strong-testimonials' ) : esc_html_e( 'Add View', 'strong-testimonials' ); ?>
+			<a href="<?php echo esc_url( $url1 ); ?>"
+			   class="add-new-h2"><?php esc_html_e( 'Add New', 'strong-testimonials' ); ?></a>
+			<a href="<?php echo esc_url( $url ); ?>"
+			   class="add-new-h2"><?php esc_html_e( 'Return To List', 'strong-testimonials' ); ?></a>
+			<?php if ( 'edit' == $this->action ) : ?>
+				<a href="<?php echo esc_url( $url2 ); ?>"
+				   class="add-new-h2"><?php esc_html_e( 'Duplicate This View', 'strong-testimonials' ); ?></a>
+			<?php endif; ?>
+		</h1>
+
+		<form id="wpmtst-views-form" method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>"
+			  autocomplete="off" enctype="multipart/form-data">
+			<?php wp_nonce_field( 'view_form_submit', 'view_form_nonce', true, true ); ?>
+
+			<input type="hidden" name="action" value="view_<?php echo esc_attr( $this->action ); ?>_form">
+			<input type="hidden" name="view[id]" value="<?php echo esc_attr( $this->view_id ); ?>">
+			<input type="hidden" name="view_original_mode" value="<?php echo esc_attr( $this->view['mode'] ); ?>">
+			<input type="hidden" name="view[data][_form_id]" value="<?php echo esc_attr( $this->view['form_id'] ); ?>">
+
+			<div class="table view-info">
+				<?php $this->render_info(); ?>
+			</div>
+
+			<?php $this->render_sections(); ?>
+
+			<p class="wpmtst-submit">
+				<?php submit_button( '', 'primary', 'submit-form', false ); ?>
+				<?php submit_button( esc_html__( 'Cancel Changes', 'strong-testimonials' ), 'secondary', 'reset', false ); ?>
+				<?php submit_button( esc_html__( 'Restore Defaults', 'strong-testimonials' ), 'secondary', 'restore-defaults', false ); ?>
+			</p>
+		</form>
+		<?php
     }
-    
-    private function render_info() { 
+
+	/**
+	 * Render Strong Testimonials view info
+	 *
+	 * @since 2.51.5
+	 */
+    private function render_info() {
+
         if ( 'edit' == $this->action ) {
             $shortcode = '<div class="saved">';
             $shortcode .= '<input id="view-shortcode" type="text" value="[testimonial_view id=&quot;' . esc_attr( $this->view_id ) . '&quot;]" readonly />';
@@ -552,9 +618,17 @@ class Strong_Testimonials_Helper {
                 <div class="mode-description"></div>
             </div>
         </div><?php
-    } 
-    
+    }
+
+	/**
+	 * Render Strong Testimonials view sections
+	 *
+	 * @since 2.51.5
+	 */
     private function render_sections() {
+
+    	// @todo: check what `$show_section = apply_filters('wpmtst_show_section', $this->view['mode']);` does
+		// @todo: seems like the same filter is used above for $this->show_sections
         $show_section = apply_filters('wpmtst_show_section', $this->view['mode']);
         foreach ($this->sections as $name => $section) {
             if (!empty($section['section_action_before'])) {
@@ -571,12 +645,22 @@ class Strong_Testimonials_Helper {
         do_action( 'wpmtst_view_editor_before_group_general' );
         do_action( 'wpmtst_view_editor_after_groups' );
     }
-    
+
+	/**
+	 * Render Strong Testimonial section
+	 *
+	 * @param $name
+	 * @param $section
+	 *
+	 * @since 2.51.5
+	 */
     public function render_section($name, $section) {
+
         $section['classes'][] = apply_filters('wpmtst_view_section', '', $name ); ?>
         <div class="<?php echo esc_attr(implode(' ', array_filter($section['classes']))); ?>" style="display:none">
             <h3><?php echo esc_html( $section['title'] ) ?></h3>
             <table class="<?php echo esc_attr( $section['table_classes'] )?>">
+
             <?php if (!empty($section['subheading'])): ?>
                 <tr class="subheading">
                 <?php foreach ($section['subheading'] as $subheading): ?>
@@ -586,7 +670,8 @@ class Strong_Testimonials_Helper {
                     </td>
                 <?php endforeach; ?>
                 </tr>
-            <?php endif; 
+            <?php endif;
+
             if (!empty($section['fields'])) {
                 if (!empty($section['fields_action_before'])) {
                     do_action($section['fields_action_before']['action'], $section['fields_action_before']['param']);
@@ -607,25 +692,48 @@ class Strong_Testimonials_Helper {
                 if (!empty($section['fields_action_after'])) {
                     do_action($section['fields_action_after']['action'], $section['fields_action_after']['param']);
                 } 
-            } ?>
+            }
+            ?>
             </table>
         </div>
     <?php
     }
-    
+
+	/**
+	 * Set Strong Testimonial field
+	 *
+	 * @param $field
+	 *
+	 * @since 2.51.5
+	 */
     public function set_field($field) {
+
         $this->field = $field;
     }
 
+	/**
+	 * Set Strong Testimonial settings field
+	 *
+	 * @param $field
+	 *
+	 * @since 2.51.5
+	 */
     public function set_settings_field($field) {
+
         $this->field = $field;
         $this->isSetting = TRUE;
     }
 
+	/**
+	 * Render Strong Testimonial field
+	 *
+	 * @since 2.51.5
+	 */
     public function render_field() { ?>
+
         <th>
             <?php echo wp_kses_post( $this->field['before'] ); ?>
-            <label for="<?php echo esc_attr( $this->field['class'] )?>"><?php echo $this->field['label']; ?></label>
+            <label for="<?php echo esc_attr( $this->field['class'] )?>"><?php echo esc_html($this->field['label']); ?></label>
             <?php echo wp_kses_post( $this->field['after'] ); ?>
         </th> <?php
         switch ($this->field['type']) {
@@ -707,13 +815,26 @@ class Strong_Testimonials_Helper {
         }
     }
 
+	/**
+	 * Render ST select
+	 *
+	 * @param        $input_name
+	 * @param false  $recommended
+	 * @param string $title
+	 *
+	 * @since 2.51.5
+	 */
     public function render_option_select($input_name, $recommended = FALSE, $title = '') {
+
         $selected = $this->field['selected'];
+
         if ($this->isSetting) {
             $selected = $this->field['selected_settings'];
         }
+
         if (isset($this->field['options']) && !empty($this->field['options'])): ?>
         <td>
+
             <?php if (!empty($title)): ?>
                 <h4 class="title"><?php esc_html_e($title); ?><h4>
             <?php endif; ?>
@@ -729,38 +850,63 @@ class Strong_Testimonials_Helper {
                 } ?>
             </p>
             <?php endif; ?>
+
         </td>
         <?php endif;
     }
 
-    public function render_option_textfield($input_name, $recommended = FALSE, $description = '', $title = '', $placeholder = '') { 
+	/**
+	 * Render ST textfield
+	 *
+	 * @param        $input_name
+	 * @param false  $recommended
+	 * @param string $description
+	 * @param string $title
+	 * @param string $placeholder
+	 *
+	 * @SINCE 2.51.5
+	 */
+    public function render_option_textfield($input_name, $recommended = FALSE, $description = '', $title = '', $placeholder = '') {
+
         $value = $this->field['value'];
+
         if ($this->isSetting) {
             $value = $this->field['value_settings'];
         } ?>
+
         <td>
             <?php if (!empty($title)): ?>
                 <h4 class="title"><?php esc_html_e($title); ?><h4>
             <?php endif; ?>
+
             <div>
                 <div class="has-input">
-                    <input class="regular-text" type="text" id="<?php echo esc_attr($this->field['class']) ?>" name="<?php echo esc_attr($input_name) ?>" value="<?php echo esc_html($value) ?>" data-default="<?php echo esc_attr($this->field['default']) ?>" placeholder="<?php echo esc_attr($placeholder, 'strong-testimonials-review-markup' ) ?>">
+                    <input class="regular-text" type="text" id="<?php echo esc_attr($this->field['class']) ?>" name="<?php echo esc_attr($input_name) ?>" value="<?php echo esc_attr($value) ?>" data-default="<?php echo esc_attr($this->field['default']) ?>" placeholder="<?php echo esc_attr($placeholder, 'strong-testimonials-review-markup' ) ?>">
                 </div>
                 <div class="error-message"></div>
             </div>
             <p class="description">
-            <?php if ($recommended): ?>
-                <strong style="color: #00805e; font-style: normal;"><?php esc_html_e('Recommended.', 'strong-testimonials-review-markup') ?></strong>
-            <?php endif; ?>  
-            <?php if (!empty($description)): ?>
-                <?php esc_html_e($description, 'strong-testimonials-review-markup' ); ?>
-            <?php endif; ?>
+
+				<?php if ($recommended): ?>
+					<strong style="color: #00805e; font-style: normal;"><?php esc_html_e('Recommended.', 'strong-testimonials-review-markup') ?></strong>
+				<?php endif; ?>
+
+				<?php if (!empty($description)): ?>
+					<?php esc_html_e($description, 'strong-testimonials-review-markup' ); ?>
+				<?php endif; ?>
+
             </p>
         </td>
     <?php    
     }
-    
-    private function render_field_select() { 
+
+	/**
+	 * Render ST select
+	 *
+	 * @since 2.51.5
+	 */
+    private function render_field_select() {
+
         $testimonials_list = get_posts( array(
             'orderby'          => 'post_date',
             'order'            => 'ASC',
@@ -816,8 +962,14 @@ class Strong_Testimonials_Helper {
         </td>
         <?php
     }
-    
+
+	/**
+	 * Render ST category field
+	 *
+	 * @since 2.51.5
+	 */
     private function render_field_category() {
+
         if ( $this->cat_count ) : ?>
         <td>
             <div id="view-category" class="row">
@@ -868,15 +1020,21 @@ class Strong_Testimonials_Helper {
             <p><?php echo wp_kses_post( '<code>category="accounting"</code>' ); ?></p>
         </td><?php
     }
-    
-    private function render_field_order() { 
+
+	/**
+	 * Render ST order field
+	 *
+	 * @since 2.51.5
+	 */
+    private function render_field_order() {
+
         ?>
         <td>
             <div class="row">
                 <div class="inline">
                     <select id="view-order" name="view[data][order]">
                         <?php foreach ( $this->view_options['order'] as $order => $order_label ) : ?>
-                        <option value="<?php echo esc_attr( $order ); ?>" <?php selected( $order, $this->view['order'] ); ?>><?php echo esc_attr( $order_label ); ?></option>
+                        <option value="<?php echo esc_attr( $order ); ?>" <?php selected( $order, $this->view['order'] ); ?>><?php echo esc_html( $order_label ); ?></option>
                         <?php endforeach; ?>
                     </select>
                 </div>
@@ -892,8 +1050,15 @@ class Strong_Testimonials_Helper {
             <p><?php echo wp_kses_post( '<code>order="random"</code>' ); ?></p>
         </td> <?php
     }
-    
-    private function render_field_limit() { ?>
+
+	/**
+	 * Render ST limit fied
+	 *
+	 * @since 2.51.5
+	 */
+    private function render_field_limit() {
+
+    	?>
         <td>
           <div class="row">
             <div class="inline">
@@ -917,12 +1082,20 @@ class Strong_Testimonials_Helper {
         <td>
           <p><?php echo wp_kses_post( '<code>count=5</code>' ); ?></p>
         </td>  
-    <?php }
-    
+    <?php
+    }
+
+	/**
+	 * Render ST title field
+	 *
+	 * @since 2.51.5
+	 */
     private function render_field_title() {
-        $custom_fields     = wpmtst_get_custom_fields();
-        $options = get_option( 'wpmtst_options' );
-        $url_fields = array();
+
+		$custom_fields = wpmtst_get_custom_fields();
+		$options       = get_option( 'wpmtst_options' );
+		$url_fields    = array();
+
         foreach($custom_fields as $field){
             if('url' == $field['input_type']){
                 $url_fields[] = $field;
@@ -933,9 +1106,11 @@ class Strong_Testimonials_Helper {
         if ( '1' == $this->view['title_link'] ) {
             $this->view['title_link'] = 'wpmtst_testimonial';
         }
+
         if ( '0' == $this->view['title_link'] ) {
             $this->view['title_link'] = 'none';
         } ?>
+
         <td colspan="2">
             <div class="row">
                 <div class="row-inner">
@@ -956,6 +1131,7 @@ class Strong_Testimonials_Helper {
                             <?php foreach ( $url_fields as $url ) { ?>
                                 <option value="<?php echo esc_url( $url['name'] ); ?>" <?php selected( $url['name'], $this->view['title_link'] ); ?>><?php echo esc_url($url['label']); ?></option>
                             <?php } ?>
+
                         </select>
                         <?php do_action('wpmtst_view_editor_after_group_fields_title') ?>
                     </div>
@@ -965,7 +1141,13 @@ class Strong_Testimonials_Helper {
     <?php    
     }
 
-    private function render_field_thumbnail() { 
+	/**
+	 * Render ST thumbnail field
+	 *
+	 * @since 2.51.5
+	 */
+    private function render_field_thumbnail() {
+
 	$image_sizes = wpmtst_get_image_sizes(); 
         ?>
         <td colspan="2">
@@ -1033,8 +1215,15 @@ class Strong_Testimonials_Helper {
         </td>
     <?php 
     }
-    
-    private function render_field_content() { ?>
+
+	/**
+	 * Render ST content field
+	 *
+	 * @since 2.51.5
+	 */
+    private function render_field_content() {
+
+    	?>
         <td colspan="2">
         <!-- Content type -->
             <div id="option-content" class="row">
@@ -1081,7 +1270,7 @@ class Strong_Testimonials_Helper {
                     </div>
                     <!-- 2nd option: length -->
                     <div class="inline then fast then_use_default_length then_0 then_not_1" style="display: none;">
-                        <label class="inline-middle"><?php printf( esc_html_x( 'the first %s words', 'the excerpt length', 'strong-testimonials' ), '<input id="view-excerpt_length" class="input-incremental" type="number" min="1" max="999" name="view[data][excerpt_length]" value="' . $this->view['excerpt_length'] . '">' ); ?></label>
+                        <label class="inline-middle"><?php printf( esc_html_x( 'the first %s words', 'the excerpt length', 'strong-testimonials' ), '<input id="view-excerpt_length" class="input-incremental" type="number" min="1" max="999" name="view[data][excerpt_length]" value="' . esc_attr($this->view['excerpt_length']) . '">' ); ?></label>
                     </div>
                 </div>
             </div><!-- #option-content-length -->
@@ -1150,7 +1339,7 @@ class Strong_Testimonials_Helper {
                         <div class="inline tight">
                             <span id="option-link-text-less" class="inline-span">
                                 <label for="view-less_post_text">
-                                    <input type="text" id="view-less_post_text" name="view[data][less_post_text]" value="<?php echo $this->view['less_post_text']; ?>" size="22" placeholder="<?php esc_html_e( 'enter a phrase', 'strong-testimonials' ); ?>">
+                                    <input type="text" id="view-less_post_text" name="view[data][less_post_text]" value="<?php echo esc_attr($this->view['less_post_text']); ?>" size="22" placeholder="<?php esc_html_e( 'enter a phrase', 'strong-testimonials' ); ?>">
                                 </label>
                             </span>
                             <p class="inline description"><?php esc_html_e( 'Leave blank to leave content expanded without a link.', 'strong-testimonials' ); ?></p>
@@ -1179,8 +1368,15 @@ class Strong_Testimonials_Helper {
         </td>
     <?php    
     }
-    
-    private function render_field_client_section() { ?>
+
+	/**
+	 * Render ST client field
+	 *
+	 * @since 2.51.5
+	 */
+    private function render_field_client_section() {
+
+    	?>
         <td colspan="2">
             <div id="client-section-table">
                 <div id="custom-field-list2" class="fields">
@@ -1199,7 +1395,12 @@ class Strong_Testimonials_Helper {
         </td>
     <?php
     }
-    
+
+	/**
+	 * Render ST pagination
+	 *
+	 * @since 2.51.5
+	 */
     private function render_field_pagination() {       
 	/**
 	 * Attempt to repair bug from 2.28.2
@@ -1313,74 +1514,98 @@ class Strong_Testimonials_Helper {
         </td>
     <?php
     }
-    
-    private function render_field_read_more_page() {        
-	$custom_list = apply_filters( 'wpmtst_custom_pages_list', array(), $this->view );
-	$pages_list  = apply_filters( 'wpmtst_pages_list', wpmtst_get_pages() );
-	$posts_list  = apply_filters( 'wpmtst_posts_list', wpmtst_get_posts() );
-        ?>
-        <td>
-            <div class="row then then_more_page" style="display: none;">
-                <!-- Select page -->
-                <div class="row then then_more_page" style="display: none;">
-                    <div class="row-inner">
-                        <label>
-                            <select id="view-page" name="view[data][more_page_id]">
-                                <option value=""><?php esc_html_e( '&mdash; select &mdash;', 'strong-testimonials' ); ?></option>
-                                    <?php
-                                    do_action( 'wpmtst_readmore_page_list', $this->view );
-                                    if ( $custom_list ) {
-                                    ?>
-                                        <optgroup label="<?php esc_html_e( 'Custom', 'strong-testimonials' ); ?>">
-                                        <?php
-                                            foreach ( $custom_list as $page ) {
-                                                echo wp_kses_post( $page );
-                                            }
-                                        ?>
-                                        </optgroup>
-                                    <?php } ?>
-                                    <optgroup label="<?php esc_attr_e( 'Pages', 'strong-testimonials' ); ?>">
-                                        <?php foreach ( $pages_list as $pages ) : ?>
-                                            <option value="<?php echo esc_attr($pages->ID); ?>" <?php selected( isset( $this->view['more_page_id'] ) ? $this->view['more_page_id'] : 0, $pages->ID ); ?>><?php echo esc_html($pages->post_title); ?></option>
-                                        <?php endforeach; ?>
-                                    </optgroup>
-                                    <optgroup label="<?php esc_attr_e( 'Posts', 'strong-testimonials' ); ?>">
-                                        <?php foreach ( $posts_list as $posts ) : ?>
-                                            <option value="<?php echo esc_attr($posts->ID); ?>" <?php selected( isset( $this->view['more_page_id'] ) ? $this->view['more_page_id'] : 0, $posts->ID ); ?>><?php echo esc_html($posts->post_title); ?></option>
-                                        <?php endforeach; ?>
-                                    </optgroup>
-                            </select>
-                        </label>
-                            <label for="view-page_id2"><?php _ex( 'or enter its ID or slug', 'to select a target page', 'strong-testimonials' ); ?></label>
-                            <input type="text" id="view-page_id2" name="view[data][more_page_id2]" <?php echo ( isset($this->view['more_page_id']) ? 'value="' . esc_attr( $this->view['more_page_id']) . '"' : '' ); ?> size="30">
-                    </div>
-                </div>
-                <!-- Link text -->
-                <div class="row">
-                    <div class="row-inner">
-                        <div class="inline">
-                            <label for="view-more_page_text"><?php esc_html_e( 'with link text', 'strong-testimonials' ); ?></label>
-                                <input type="text" id="view-more_page_text" name="view[data][more_page_text]" value="<?php echo esc_attr($this->view['more_page_text']); ?>" size="50">
-                        </div>
-                    </div>
-                </div>
-                <!-- location -->
-                <div class="row">
-                    <div class="row-inner">
-                        <label>
-                            <select id="view-more_page_hook" name="view[data][more_page_hook]">
-                                <option value="wpmtst_view_footer" <?php selected( 'wpmtst_view_footer', $this->view['more_page_hook'] ); ?>><?php _ex( 'after the last testimonial', 'display setting', 'strong-testimonials' ); ?></option>
-                                <option value="wpmtst_after_testimonial" <?php selected( 'wpmtst_after_testimonial', $this->view['more_page_hook'] ); ?>><?php _ex( 'in each testimonial', 'display setting', 'strong-testimonials' ); ?></option>
-                            </select>
-                        </label>
-                    </div>
-                </div>
-            </div>
-        </td>
-        <?php    
-        }
-        
-    private function render_field_slideshow_num() { ?>
+
+	/**
+	 * Render ST read more
+	 *
+	 * @since 2.51.5
+	 */
+	private function render_field_read_more_page() {
+
+		$custom_list = apply_filters( 'wpmtst_custom_pages_list', array(), $this->view );
+		$pages_list  = apply_filters( 'wpmtst_pages_list', wpmtst_get_pages() );
+		$posts_list  = apply_filters( 'wpmtst_posts_list', wpmtst_get_posts() );
+
+		?>
+		<td>
+			<div class="row then then_more_page" style="display: none;">
+				<!-- Select page -->
+				<div class="row then then_more_page" style="display: none;">
+					<div class="row-inner">
+						<label>
+							<select id="view-page" name="view[data][more_page_id]">
+								<option value=""><?php esc_html_e( '&mdash; select &mdash;', 'strong-testimonials' ); ?></option>
+								<?php
+								do_action( 'wpmtst_readmore_page_list', $this->view );
+
+								if ( $custom_list ) {
+									?>
+									<optgroup label="<?php esc_html_e( 'Custom', 'strong-testimonials' ); ?>">
+										<?php
+										foreach ( $custom_list as $page ) {
+											echo wp_kses_post( $page );
+										}
+										?>
+									</optgroup>
+								<?php } ?>
+
+								<optgroup label="<?php esc_attr_e( 'Pages', 'strong-testimonials' ); ?>">
+
+									<?php foreach ( $pages_list as $pages ) : ?>
+										<option value="<?php echo esc_attr( $pages->ID ); ?>" <?php selected( isset( $this->view['more_page_id'] ) ? $this->view['more_page_id'] : 0, $pages->ID ); ?>><?php echo esc_html( $pages->post_title ); ?></option>
+									<?php endforeach; ?>
+
+								</optgroup>
+
+								<optgroup label="<?php esc_attr_e( 'Posts', 'strong-testimonials' ); ?>">
+
+									<?php foreach ( $posts_list as $posts ) : ?>
+										<option value="<?php echo esc_attr( $posts->ID ); ?>" <?php selected( isset( $this->view['more_page_id'] ) ? $this->view['more_page_id'] : 0, $posts->ID ); ?>><?php echo esc_html( $posts->post_title ); ?></option>
+									<?php endforeach; ?>
+
+								</optgroup>
+							</select>
+						</label>
+						<label for="view-page_id2"><?php _ex( 'or enter its ID or slug', 'to select a target page', 'strong-testimonials' ); ?></label>
+						<input type="text" id="view-page_id2"
+							   name="view[data][more_page_id2]" <?php echo( isset( $this->view['more_page_id'] ) ? 'value="' . esc_attr( $this->view['more_page_id'] ) . '"' : '' ); ?>
+							   size="30">
+					</div>
+				</div>
+				<!-- Link text -->
+				<div class="row">
+					<div class="row-inner">
+						<div class="inline">
+							<label for="view-more_page_text"><?php esc_html_e( 'with link text', 'strong-testimonials' ); ?></label>
+							<input type="text" id="view-more_page_text" name="view[data][more_page_text]"
+								   value="<?php echo esc_attr( $this->view['more_page_text'] ); ?>" size="50">
+						</div>
+					</div>
+				</div>
+				<!-- location -->
+				<div class="row">
+					<div class="row-inner">
+						<label>
+							<select id="view-more_page_hook" name="view[data][more_page_hook]">
+								<option value="wpmtst_view_footer" <?php selected( 'wpmtst_view_footer', $this->view['more_page_hook'] ); ?>><?php _ex( 'after the last testimonial', 'display setting', 'strong-testimonials' ); ?></option>
+								<option value="wpmtst_after_testimonial" <?php selected( 'wpmtst_after_testimonial', $this->view['more_page_hook'] ); ?>><?php _ex( 'in each testimonial', 'display setting', 'strong-testimonials' ); ?></option>
+							</select>
+						</label>
+					</div>
+				</div>
+			</div>
+		</td>
+		<?php
+	}
+
+	/**
+	 * Render ST slideshow number
+	 *
+	 * @since 2.51.5
+	 */
+    private function render_field_slideshow_num() {
+
+    	?>
         <td>
             <div class="row">
                 <div class="inline inline-middle">
@@ -1455,8 +1680,15 @@ class Strong_Testimonials_Helper {
         </td>
     <?php
     }
-    
-    private function render_field_slideshow_transition() { ?>
+
+	/**
+	 * Render ST Slideshow transition
+	 *
+	 * @since 2.51.5
+	 */
+    private function render_field_slideshow_transition() {
+
+    	?>
         <td>
             <div class="row">
                 <div class="inline inline-middle">
@@ -1468,7 +1700,7 @@ class Strong_Testimonials_Helper {
                     <label for="view-effect"><?php esc_html_e( 'then', 'strong-testimonials' ); ?></label>
                     <select id="view-effect" name="view[data][slideshow_settings][effect]" class="if selectnot">
                         <?php foreach ( $this->view_options['slideshow_effect'] as $key => $label ) : ?>
-                            <option value="<?php echo esC_attr($key); ?>"
+                            <option value="<?php echo esc_attr($key); ?>"
                                 <?php selected( $this->view['slideshow_settings']['effect'], $key ); ?>
                                 <?php echo 'none' == $key ? 'class="trip"' : ''; ?>><?php echo esc_html($label); ?></option>
                         <?php endforeach; ?>
@@ -1486,8 +1718,15 @@ class Strong_Testimonials_Helper {
     </td>
     <?php
     }
-    
-    private function render_field_slideshow_behavior() { ?>
+
+	/**
+	 * Render ST Slideshow behavior
+	 *
+	 * @since 2.51.5
+	 */
+    private function render_field_slideshow_behavior() {
+
+    	?>
         <td>
             <div class="row">
                 <div class="inline inline-middle">
@@ -1515,15 +1754,15 @@ class Strong_Testimonials_Helper {
                 <div class="inline inline-middle">
                     <p class="description"><?php esc_html_e( 'Recommended if using navigation.', 'strong-testimonials' ); ?></p>
                 </div>
-            </div>
-                <?php
-                if ( $this->view['slideshow_settings']['adapt_height'] ) {
-                        $height = 'dynamic';
-                } else {
-                        $height = 'static';
-                }
-                ?>
-            <div class="row">
+			</div>
+			<?php
+			if ( $this->view['slideshow_settings']['adapt_height'] ) {
+				$height = 'dynamic';
+			} else {
+				$height = 'static';
+			}
+			?>
+			<div class="row">
                 <div class="row-inner">
                     <div class="inline">
                         <label for="view-slideshow_height">
@@ -1557,14 +1796,22 @@ class Strong_Testimonials_Helper {
         </td>
     <?php
     }
-    
-    private function render_field_slideshow_navigation() { ?>
+
+	/**
+	 * Render ST Slideshow navigation
+	 *
+	 * @since 2.51.5
+	 */
+    private function render_field_slideshow_navigation() {
+
+    	?>
         <td>
             <div class="row">
                 <div class="row-inner">
                     <div class="inline">
                         <label for="view-slideshow_controls_type"><?php esc_html_e( 'Controls', 'strong-testimonials' ); ?></label>
                         <select id="view-slideshow_controls_type" name="view[data][slideshow_settings][controls_type]" class="if selectnot">
+
                             <?php foreach ( $this->view_options['slideshow_nav_method']['controls'] as $key => $type ) : ?>
                                 <option value="<?php echo esc_attr($key); ?>" id="<?php echo esc_attr($key); ?>"
                                     <?php selected( $this->view['slideshow_settings']['controls_type'], $key ); ?>
@@ -1574,6 +1821,7 @@ class Strong_Testimonials_Helper {
                                     <?php echo esc_html($type['label']); ?>
                                 </option>
                             <?php endforeach; ?>
+
                         </select>
                     </div>
                     <div class="inline then then_slideshow_controls_type" style="display: none;">
@@ -1591,6 +1839,7 @@ class Strong_Testimonials_Helper {
                     <div class="inline">
                         <label for="view-slideshow_pager_type"><?php esc_html_e( 'Pagination', 'strong-testimonials' ); ?></label>
                         <select id="view-slideshow_pager_type" name="view[data][slideshow_settings][pager_type]" class="if selectnot">
+
                             <?php foreach ( $this->view_options['slideshow_nav_method']['pager'] as $key => $type ) : ?>
                                 <option value="<?php echo esc_attr($key); ?>" id="<?php echo esc_attr($key); ?>"
                                     <?php selected( $this->view['slideshow_settings']['pager_type'], $key ); ?>
@@ -1600,6 +1849,7 @@ class Strong_Testimonials_Helper {
                                     <?php echo esc_html($type['label']); ?>
                                 </option>
                             <?php endforeach; ?>
+
                         </select>
                     </div>
                     <div class="inline then then_slideshow_pager_type" style="display: none;">
@@ -1630,12 +1880,19 @@ class Strong_Testimonials_Helper {
             </div>
         </td>
     <?php
-    }   
-    
+    }
+
+	/**
+	 * Render ST form category field
+	 *
+	 * @since 2.51.5
+	 */
     private function render_field_form_category() {
+
         if ( $this->cat_count ) : ?>
             <td>
                 <div class="table">
+
                     <?php if ( $this->cat_count > 5 ) : ?>
                     <div class="table-row">
                         <div class="table-cell">
@@ -1645,6 +1902,7 @@ class Strong_Testimonials_Helper {
                         </div>
                     </div>
                     <?php endif; ?>
+
                     <div class="table-row">
                         <div class="table-cell">
                             <?php wpmtst_form_category_checklist( $this->view_cats_array ); ?>
@@ -1658,25 +1916,40 @@ class Strong_Testimonials_Helper {
             </td>
         <?php endif;
     }
-    
-    private function render_field_form_ajax() {?>
+
+	/**
+	 * Render ST form AJAX field
+	 *
+	 * @since 2.51.5
+	 */
+    private function render_field_form_ajax() {
+
+    	?>
         <td>
             <p class="description tall"><?php _e( 'This will override the <strong>Success Redirect</strong> setting.', 'strong-testimonials' ); ?></p>
         </td>
     <?php
     }
-    
-    private function render_field_template_list() { 
-        // Assemble list of templates
-	$templates = array(
-            'display' => WPMST()->templates->get_templates( 'display' ),
-            'form'    => WPMST()->templates->get_templates( 'form' ),
-	);
-	$template_found = in_array( $this->view['template'], WPMST()->templates->get_template_keys() );
+
+	/**
+	 * Render ST template list field
+	 *
+	 * @since 2.51.5
+	 */
+    private function render_field_template_list() {
+
+		// Assemble list of templates
+		$templates      = array(
+				'display' => WPMST()->templates->get_templates( 'display' ),
+				'form'    => WPMST()->templates->get_templates( 'form' ),
+		);
+		$template_found = in_array( $this->view['template'], WPMST()->templates->get_template_keys() );
+
         ?>
         <td colspan="2">
             <div id="view-template-list">
                 <div class="radio-buttons">
+
                     <?php if ( ! $template_found ) : ?>
                     <ul class="radio-list template-list">
                         <li>
@@ -1693,7 +1966,9 @@ class Strong_Testimonials_Helper {
                         </li>
                     </ul>
                     <?php endif; ?>
+
                     <ul class="radio-list template-list">
+
                         <?php foreach ( $templates[ $this->current_type ] as $key => $template ) : ?>
                         <li>
                             <div>
@@ -1712,36 +1987,47 @@ class Strong_Testimonials_Helper {
                                                 <?php
                                                 $name = sprintf( 'view[data][template_settings][%s][%s]', esc_attr($key), esc_attr($option->name) );
                                                 $id   = $key . '-' . $option->name;
+
                                                 switch ( $option->type ) {
                                                     case 'select':
+
                                                         // Get default if not set
                                                         if ( ! isset( $this->view['template_settings'][ $key ][ $option->name ] ) ) {
                                                             $this->view['template_settings'][ $key ][ $option->name ] = $option->default;
                                                         }
+
                                                         if ( $option->label ) {
                                                             printf( '<label for="%s">%s</label>', $id, $option->label );
                                                         }
+
                                                         printf( '<select id="%s" name="%s">', esc_attr($id), $name );
+
                                                         foreach ( $option->values as $value ) {
                                                             $selected = selected( $value->value, $this->view['template_settings'][ $key ][ $option->name ], false );
                                                             printf( '<option value="%s" %s>%s</option>', esc_attr($value->value), $selected, esc_html($value->description) );
                                                         }
+
                                                         echo '</select>';
                                                         break;
                                                     case 'radio':
+
                                                         if ( ! isset( $this->view['template_settings'][ $key ][ $option->name ] ) ) {
                                                             $this->view['template_settings'][ $key ][ $option->name ] = $option->default;
                                                         }
+
                                                         foreach ( $option->values as $value ) {
                                                             $checked = checked( $value->value, $this->view['template_settings'][ $key ][ $option->name ], false );
                                                             printf( '<input type="radio" id="%s" name="%s" value="%s" %s>', esc_attr($id), $name, esc_attr($value->value), $checked );
                                                             printf( '<label for="%s">%s</label>', esc_attr($id), esc_html($value->description) );
                                                         }
+
                                                         break;
                                                     case 'colorpicker':
+
                                                         if ( $option->label ) {
                                                                 printf( '<label for="%s">%s</label>', esc_attr($id), esc_html($option->label) );
                                                         }
+
                                                         $value = isset( $this->view['template_settings'][ $key ][ $option->name ] ) ? $this->view['template_settings'][ $key ][ $option->name ] : $option->default;
                                                         printf( '<input type="text" class="wp-color-picker-field" data-alpha="true" id="%s" name="%s" value="%s">', esc_attr($id), $name, esc_attr($value) );
                                                         break;
@@ -1752,6 +2038,7 @@ class Strong_Testimonials_Helper {
                                                 ?>
                                                 </div>
                                             <?php endforeach; ?>
+
                                         <?php endif; ?>
                                     </div>
                                 </div>
@@ -1759,6 +2046,7 @@ class Strong_Testimonials_Helper {
                             </div>
                         </li>
                         <?php endforeach; ?>
+
                     </ul>
                 </div>
             </div>
@@ -1766,7 +2054,12 @@ class Strong_Testimonials_Helper {
         </td>
     <?php
     }
-    
+
+	/**
+	 * Render ST layout field
+	 *
+	 * @since 2.51.5
+	 */
     private function render_field_layout() { ?>
         <td colspan="2">
             <div class="section-radios layout-section">
@@ -1780,15 +2073,15 @@ class Strong_Testimonials_Helper {
                             <input type="radio" id="view-layout-masonry" name="view[data][layout]" value="masonry" <?php checked( 'masonry', $this->view['layout'] ); ?>>
                             <label for="view-layout-masonry"><?php esc_html_e( 'Masonry', 'strong-testimonials' ); ?> </label>
                         </li>
-                        <li>
-                            <input type="radio"
-                                   id="view-layout-columns"
-                                   name="view[data][layout]"
-                                   value="columns" <?php checked( 'columns', $this->view['layout'] ); ?>>
-                                                        <label for="view-layout-columns">
-                                        <?php esc_html_e( 'columns', 'strong-testimonials' ); ?>
-                                </label>
-                        </li>
+						<li>
+							<input type="radio"
+								   id="view-layout-columns"
+								   name="view[data][layout]"
+								   value="columns" <?php checked( 'columns', $this->view['layout'] ); ?>>
+							<label for="view-layout-columns">
+								<?php esc_html_e( 'columns', 'strong-testimonials' ); ?>
+							</label>
+						</li>
                         <li>
                             <input type="radio" id="view-layout-grid" name="view[data][layout]" value="grid" <?php checked( 'grid', $this->view['layout'] ); ?>>
                             <label for="view-layout-grid"><?php esc_html_e( 'grid', 'strong-testimonials' ); ?></label>
@@ -1885,8 +2178,15 @@ class Strong_Testimonials_Helper {
         </td>
     <?php
     }
-    
-    private function render_field_background() { ?>
+
+	/**
+	 * Render ST background field
+	 *
+	 * @since 2.51.5
+	 */
+    private function render_field_background() {
+
+    	?>
         <td>
             <div class="section-radios background-section">
                 <div class="radio-buttons">
@@ -1980,8 +2280,15 @@ class Strong_Testimonials_Helper {
         </td>
     <?php
     }
-    
-    private function render_field_color() { ?>
+
+	/**
+	 * Render ST color field
+	 *
+	 * @since 2.51.5
+	 */
+    private function render_field_color() {
+
+    	?>
         <td>
             <div class="section-radios font-color-section">
                 <div class="radio-buttons">
@@ -2016,8 +2323,15 @@ class Strong_Testimonials_Helper {
         </td>
     <?php
     }
-    
-    private function render_field_classes() { ?>
+
+	/**
+	 * Render ST class field
+	 *
+	 * @since 2.51.5
+	 */
+    private function render_field_classes() {
+
+    	?>
         <td colspan="2">
             <div class="then then_display then_form then_slideshow input" style="display: none;">
                 <input type="text" id="view-class" class="long inline" name="view[data][class]" value="<?php echo esc_attr($this->view['class']); ?>">
@@ -2029,8 +2343,15 @@ class Strong_Testimonials_Helper {
         </td>
     <?php
     }
-    
-    private function render_field_divi() { ?>
+
+	/**
+	 * Render divi field
+	 *
+	 * @since 2.51.5
+	 */
+    private function render_field_divi() {
+
+    	?>
         <td>
             <div class="row">
                 <div class="row-inner">
