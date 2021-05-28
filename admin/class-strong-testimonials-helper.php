@@ -11,19 +11,19 @@ class Strong_Testimonials_Helper {
 	 *
 	 * @since 2.51.5
 	 */
-	private $field;
-	private $action;
-	private $view_id;
-	private $view_options;
-	private $cat_count = false;
-	private $show_section;
-	private $view;
-	private $view_name;
-	private $view_cats_array;
-	private $sections;
-	private $current_mode;
-	private $current_type;
-	private $isSetting;
+	public $field;
+	public $action;
+	public $view_id;
+	public $view_options;
+	public $cat_count = false;
+	public $show_section;
+	public $view;
+	public $view_name;
+	public $view_cats_array;
+	public $sections;
+	public $current_mode;
+	public $current_type;
+	public $isSetting;
 
 	/**
 	 * Strong_Testimonials_Helper constructor.
@@ -733,7 +733,7 @@ class Strong_Testimonials_Helper {
 
         <th>
             <?php echo wp_kses_post( $this->field['before'] ); ?>
-            <label for="<?php echo esc_attr( $this->field['class'] )?>"><?php echo esc_html($this->field['label']); ?></label>
+            <label for="<?php echo esc_attr( $this->field['class'] )?>"><?php echo wp_kses_post($this->field['label']); ?></label>
             <?php echo wp_kses_post( $this->field['after'] ); ?>
         </th> <?php
         switch ($this->field['type']) {
@@ -1129,7 +1129,7 @@ class Strong_Testimonials_Helper {
                             <?php } ?>
 
                             <?php foreach ( $url_fields as $url ) { ?>
-                                <option value="<?php echo esc_url( $url['name'] ); ?>" <?php selected( $url['name'], $this->view['title_link'] ); ?>><?php echo esc_url($url['label']); ?></option>
+                                <option value="<?php echo esc_url( $url['name'] ); ?>" <?php selected( $url['name'], $this->view['title_link'] ); ?>><?php echo esc_html($url['label']); ?></option>
                             <?php } ?>
 
                         </select>
@@ -1654,7 +1654,7 @@ class Strong_Testimonials_Helper {
                                 <div class="option-desc plural" style="display: none;"><?php esc_html_e( 'slides', 'strong-testimonials' ); ?></div>
                             </div>
                             <div class="inner-table-cell">
-                                <input id="view-margin_<?php echo $key; ?>" name="view[data][slideshow_settings][breakpoints][<?php echo esc_attr($key); ?>][margin]" value="<?php echo esc_attr($breakpoint['margin']); ?>" type="number" min="1" step="1" size="3" class="input-incremental"/> px
+                                <input id="view-margin_<?php echo esc_attr($key); ?>" name="view[data][slideshow_settings][breakpoints][<?php echo esc_attr($key); ?>][margin]" value="<?php echo esc_attr($breakpoint['margin']); ?>" type="number" min="1" step="1" size="3" class="input-incremental"/> px
                             </div>
                             <div class="inner-table-cell">
                                 <label>
@@ -1997,7 +1997,7 @@ class Strong_Testimonials_Helper {
                                                         }
 
                                                         if ( $option->label ) {
-                                                            printf( '<label for="%s">%s</label>', $id, $option->label );
+                                                            printf( '<label for="%s">%s</label>', esc_attr($id), wp_kses_post($option->label) );
                                                         }
 
                                                         printf( '<select id="%s" name="%s">', esc_attr($id), $name );
