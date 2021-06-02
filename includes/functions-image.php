@@ -124,7 +124,7 @@ add_action( 'init', 'wpmtst_lazyload_check' );
  * @return array
  */
 function wpmtst_add_lazyload( $attr, $attachment, $size ) {
-	if( !function_exists( 'wp_lazy_loading_enabled' ) || !apply_filters( 'wp_lazy_loading_enabled', true ) ) {
+	if( !function_exists( 'wp_lazy_loading_enabled' ) || !apply_filters( 'wp_lazy_loading_enabled', true, 'img', 'strong_testimonials_has_lazyload' ) ) {
 		$options = get_option( 'wpmtst_options' );
 			
 		if ( isset( $options['lazyload'] ) && $options['lazyload']) {
