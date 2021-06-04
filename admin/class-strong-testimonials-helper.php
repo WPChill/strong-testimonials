@@ -1129,7 +1129,7 @@ class Strong_Testimonials_Helper {
                             <?php } ?>
 
                             <?php foreach ( $url_fields as $url ) { ?>
-                                <option value="<?php echo esc_url( $url['name'] ); ?>" <?php selected( $url['name'], $this->view['title_link'] ); ?>><?php echo esc_html($url['label']); ?></option>
+                                <option value="<?php echo esc_attr( $url['name'] ); ?>" <?php selected( $url['name'], $this->view['title_link'] ); ?>><?php echo esc_html($url['label']); ?></option>
                             <?php } ?>
 
                         </select>
