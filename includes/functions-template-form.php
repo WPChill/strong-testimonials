@@ -206,7 +206,6 @@ function wpmtst_single_form_field( $field ) {
 				esc_html( $field['name'] ),
 				wpmtst_field_value( $field, $form_values ),
 				esc_attr( wpmtst_field_placeholder( $field ) ),
-				absint( $max_length ),
 				wpmtst_field_length( $field ),
 				esc_attr( wpmtst_field_required_tag( $field ) )
 			);
