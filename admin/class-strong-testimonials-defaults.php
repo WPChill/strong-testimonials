@@ -393,7 +393,7 @@ class Strong_Testimonials_Defaults {
 			'fields'   => $base_forms['default']['fields'],
 		);
 
-		return $forms;
+		return apply_filters( 'wpmtst_update_custom_form', $forms );
 	}
 
 	/**
