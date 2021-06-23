@@ -159,7 +159,6 @@ class Strong_Testimonials_Upsell {
 				<ul>
 					<?php foreach ( $general_upsells as $general_upsell ) { ?>
 						<li>
-							<span class="dashicons dashicons-yes"></span>
 							<span>
 								<?php echo wp_kses_post($general_upsell); ?>
 							</span>

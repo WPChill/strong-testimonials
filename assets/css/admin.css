@@ -664,9 +664,10 @@ ul.standard {
 
 .wpmtst-alert {
    padding: 20px;
-   background: #f4daa4;
-   color: #8d6e30;
+   background: #f1f1f1;
+   color: #3c434a;;
    position: relative;
+  
 }
 
 .wpmtst-alert__upgrade-btn {
@@ -873,14 +874,32 @@ margin-bottom: 0 !important;
 
 .wpmtst-alert {
         padding: 20px;
-	background: #f4daa4;
-	color: #8d6e30;
+/*	background: #f4daa4; */
+	color: #3c434a;;
 	position: relative;
 }
 
 .wpmtst-alert ul {
-        list-style: circle;
-        padding-left: 30px;
+  padding-left: 30px;
+}
+.wpmtst-alert ul li{
+  position: relative;
+  list-style-type: none !important;
+  text-align: left;
+}
+
+.wpmtst-alert ul li::before {
+  font-family: Dashicons;
+  content: "\f147";
+  position: absolute;
+  left: -30px;
+  font-size: 14px;
+  color: green;
+  background-color: #FFF;
+  padding: 0 3px;
+  border-radius: 50%;
+  border: 1px solid #DDD;
+  top: -1px;
 }
 
 .wpmtst-alert__upgrade-btn {

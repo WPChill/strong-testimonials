@@ -64,7 +64,7 @@
 
 .wpmtst-settings-upsell .wpmtst-alert ul {
 	list-style: none;
-	padding: 0;
+	padding: 20px;
 	margin: 0;
 }
 .wpmtst-settings-upsell .wpmtst-alert ul li {
@@ -73,9 +73,11 @@
 
 .wpmtst-alert {
   padding: 20px;
-	background: #f4daa4;
-	color: #8d6e30;
+	background: #f1f1f1;
+	color: #3c434a;
 	position: relative;
+	border:1px solid #c3c4c7;
+
 }
 span.wpmtst-upsell-badge {
     font-size: 10px;
