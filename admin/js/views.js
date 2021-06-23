@@ -1154,8 +1154,8 @@ jQuery(document).ready(function ($) {
           typeSelect.parent().hide();
           break;
         }
-
-        if ('video_record' === fieldType) {
+        
+        if ('video_record' === fieldType || fieldValue == 'video_file') {
           typeSelect.val('video_record').prop('disabled', true);
           typeSelectParent.append('<input type="hidden" class="save-type" name="' + source + '[client_section][' + key + '][save-type]" value="video_record">');
           typeSelect.parent().hide();
