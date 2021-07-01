@@ -654,33 +654,6 @@ ul.standard {
 .edit-php.post-type-wpm-testimonial .wpmtst-notice img {
   max-width: 100%; }
 
-#wpmtst-importer-upsell .wpmtst-alert > *:last-child {
-  text-align: center;
-}
-
-#wpmtst-importer-upsell .hndle {
-  display: none;
-}
-
-.wpmtst-alert {
-   padding: 20px;
-   background: #f1f1f1;
-   color: #3c434a;;
-   position: relative;
-  
-}
-
-.wpmtst-alert__upgrade-btn {
-	position: absolute;
-	right: 0.5rem;
-	top: 50%;
-	transform: translateY(-50%) !important;
-}
-
-.wpmtst-alert > *:last-child {
-margin-bottom: 0 !important;
-}
-
 .edit-php.post-type-wpm-testimonial .wpmst-mascot {
   width: 120px;
   margin-right: 2rem;
@@ -853,62 +826,3 @@ margin-bottom: 0 !important;
         overflow: hidden;
         text-align: center;
 }
-
-/* alerts */
-#wpmtst-importer-upsell.postbox .inside {
-        margin: 0;
-        padding: 0;
-}
-
-#wpmtst-importer-upsell .wpmtst-alert {
-        padding: 10px;
-}
-
-#wpmtst-importer-upsell .wpmtst-alert > *:last-child {
-        text-align: center;
-}
-
-#wpmtst-importer-upsell .hndle {
-        display: none;
-}
-
-.wpmtst-alert {
-        padding: 20px;
-/*	background: #f4daa4; */
-	color: #3c434a;;
-	position: relative;
-}
-
-.wpmtst-alert ul {
-  padding-left: 30px;
-}
-.wpmtst-alert ul li{
-  position: relative;
-  list-style-type: none !important;
-  text-align: left;
-}
-
-.wpmtst-alert ul li::before {
-  font-family: Dashicons;
-  content: "\f147";
-  position: absolute;
-  left: -30px;
-  font-size: 14px;
-  color: green;
-  background-color: #FFF;
-  padding: 0 3px;
-  border-radius: 50%;
-  border: 1px solid #DDD;
-  top: -1px;
-}
-
-.wpmtst-alert__upgrade-btn {
-	position: absolute;
-	right: 0.5rem;
-	top: 50%;
-	transform: translateY(-50%) !important;
-}
-
-.wpmtst-alert > *:last-child {
-        margin-bottom: 0 !important;
-} 
