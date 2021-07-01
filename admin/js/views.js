@@ -1409,23 +1409,16 @@ jQuery(document).ready(function ($) {
     if (inp && inp.select) {
 
       // select text
-      inp.trigger('select');
+      inp.focus();
+      inp.select();
 
-      try {
-        // copy text
-        document.execCommand('copy');
-        inp.trigger('blur');
+      // copy text
+      document.execCommand('copy');
+      document.getElementById('copy-message').classList.add('copied');
 
-        //t.classList.add('copied');
-        //setTimeout(function() { t.classList.remove('copied'); }, 1500);
-        document.getElementById('copy-message').classList.add('copied');
-        setTimeout(function () {
-          document.getElementById('copy-message').classList.remove('copied');
-        }, 2000);
-      }
-      catch (err) {
-        alert('Sorry, please press Ctrl/Cmd+C to copy instead.');
-      }
+      setTimeout(function () {
+        document.getElementById('copy-message').classList.remove('copied');
+      }, 2000);
 
     }
 
