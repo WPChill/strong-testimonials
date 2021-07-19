@@ -79,12 +79,11 @@ class Strong_Testimonials_Helper {
 		if ( isset( $_REQUEST['action'] ) ) {
 			$action = filter_input( INPUT_GET, 'action', FILTER_SANITIZE_STRING );
 			$id     = abs( filter_input( INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT ) );
-			if ( 'edit' == $action ) {
+			if ( 'edit' == $action || 'duplicate' == $action ) {
 				$view_array = wpmtst_get_view( $id );
-				$view       = unserialize( $view_array['value'] );
-			} elseif ( 'duplicate' == $action ) {
-				$view_array = wpmtst_get_view( $id );
-				$view       = unserialize( $view_array['value'] );
+				if ( isset( $view_array['value'] ) ) {
+					$view = unserialize( $view_array['value'] );
+				}
 			}
 		}
 
