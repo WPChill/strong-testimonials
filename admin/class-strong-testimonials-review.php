@@ -38,6 +38,8 @@ class Strong_Review {
 			add_action( 'admin_print_footer_scripts', array( $this, 'ajax_script' ) );
 		}
 
+		add_filter('st_uninstall_db_options',array($this,'uninstall_options'));
+
 	}
 
 	private function check() {
@@ -148,6 +150,20 @@ class Strong_Review {
 		</script>
 
 		<?php
+	}
+
+	/**
+	 * @param $options
+	 *
+	 * @return mixed
+	 *
+	 * @since 2.51.6
+	 */
+	public function uninstall_options( $options ) {
+
+		$options[] = 'strong-testimonials-rate-time';
+
+		return $options;
 	}
 }
 
