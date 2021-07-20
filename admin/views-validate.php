@@ -105,12 +105,9 @@ function wpmtst_sanitize_view( $input ) {
 	/**
 	 * CSS Class Names
 	 * This field is being confused with custom CSS rules like `.wpmtst-testimonial { border: none; }`
-	 * Also it can be used to insert script
-	 * so we only allow letters, numbers and - _ characters
+	 * so strip periods and declarations.
 	 */
-	$class = preg_replace( '/[^a-zA-Z_\-0-9\s\b]/', "", $input['class'] );
-
-	$data['class'] = sanitize_text_field( trim( $class ) );
+	$data['class'] = sanitize_text_field( trim( preg_replace( '/\{.*?\}|\./', '', $input['class'] ) ) );
 
 	// Background
 	$data['background'] = wpmtst_get_background_defaults();
@@ -486,9 +483,7 @@ function wpmtst_sanitize_view_client_section( $in ) {
 
 		$out[ $key ]['before'] = sanitize_text_field( $field['before'] );
 
-		$class = preg_replace( '/[^a-zA-Z_\-0-9\s\b]/', "", $field['class'] );
-
-		$out[ $key ]['class'] = sanitize_text_field( $class );
+		$out[ $key ]['class'] = sanitize_text_field( $field['class'] );
 
 		switch ( $type ) {
 			case 'link':

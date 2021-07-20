@@ -521,7 +521,7 @@ function wpmtst_the_custom_field( $field ) {
 }
 
 function wpmtst_container_class() {
-	echo apply_filters( 'wpmtst_container_class', WPMST()->atts( 'container_class' ) );
+	echo esc_attr( apply_filters( 'wpmtst_container_class', WPMST()->atts( 'container_class' ) ) );
 }
 
 function wpmtst_container_data() {
