@@ -207,7 +207,7 @@ No. If you already have testimonials in another plugin or theme, you will have t
 
 == Changelog ==
 
-* See [changelog.txt](https://github.com/MachoThemes/strong-testimonials/blob/master/changelog.txt) for previous versions.
+* See [changelog.txt](https://github.com/WPChill/strong-testimonials/blob/dev/changelog.txt) for previous versions.
 
 == Upgrade Notice ==
 
