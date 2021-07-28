@@ -65,11 +65,17 @@ class Strong_Testimonials_Admin_Scripts {
 			array(),
 			$plugin_version );
                 
-                wp_register_style(
+		wp_register_style(
 			'wpmtst-admin-welcome-style',
 			WPMTST_ASSETS_CSS . 'admin-welcome.css',
 			array(),
 			$plugin_version );
+
+		wp_register_style(
+			'wpmtst-admin-upsells-style',
+			WPMTST_ASSETS_CSS . 'admin-upsells.css',
+			array(),
+			$plugin_version );	
                                 
 	 	wp_register_style(
 			'wpmtst-admin-style',

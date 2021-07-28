@@ -93,8 +93,27 @@ class Strong_Testimonials_Upsell {
             add_filter( 'wpmtst_settings_callbacks', array( $this, 'register_properties_page' ) );
         }
 
+		if ( class_exists( 'Strong_Testimonials_WPChill_Upsells' ) ) {
+			
+			add_action( 'add_meta_boxes', array( $this, 'add_meta_boxes' ) );
+			add_filter( 'wpmtst_submenu_pages', array( $this, 'add_submenu' ) );
 
-		add_action( 'add_meta_boxes', array( $this, 'add_meta_boxes' ) );
+			// Initialize WPChill upsell class
+			$args = apply_filters( 'upsells_args', array(
+					'shop_url' => 'https://staging-strongtestimonials.kinsta.cloud/',
+					'slug'     => 'strong-testimonials',
+			) );
+
+			
+			$wpchill_upsell = Strong_Testimonials_WPChill_Upsells::get_instance( $args );
+
+			// output wpchill lite vs pro page
+			add_action( 'st_lite_vs_premium_page', array( $wpchill_upsell, 'lite_vs_premium' ), 30, 1 );
+			add_filter( 'st_uninstall_transients', array( $wpchill_upsell, 'smart_upsells_transients' ) , 15 );
+
+			$this->wpchill_upsells = $wpchill_upsell;
+		}
+		
 	}
 
 	public function add_meta_boxes() {
@@ -802,10 +821,12 @@ class Strong_Testimonials_Upsell {
 			'<span class="wpmtst-upsell-badge">PRO</span>'
 		);
 	}
+
 	public function register_properties_page( $pages ) {
 	    $pages[ 'properties' ] = array( $this, 'output_properties_upsell' );
 	    return $pages;
 	}
+
 	public function output_properties_upsell() {
 		?>
 		<div class="wpmtst-alert" style="margin-top:1.5rem;">
@@ -824,6 +845,46 @@ class Strong_Testimonials_Upsell {
 			</p>
 		</div>
 		<?php
+	}
+
+	/**
+	 * Add submenu page.
+	 *
+	 * @param $pages
+	 *
+	 * @return mixed
+	 */
+	public function add_submenu( $pages ) {
+		$pages[92] = $this->get_submenu();
+		return $pages;
+	}
+
+	/**
+	 * Return submenu page parameters.
+	 *
+	 * @return array
+	 */
+	public function get_submenu() {
+		return array(
+			'page_title' => esc_html__( 'Upgrade', 'strong-testimonials' ),
+			'menu_title' => esc_html__( 'Upgrade', 'strong-testimonials' ),
+			'capability' => 'strong_testimonials_options',
+			'menu_slug'  => 'strong-testimonials-upsells',
+			'function'   => array( $this, 'upsells_page' ),
+		);
+	}
+
+	/**
+	 * Print the Addons page.
+	 */
+	public function upsells_page() {
+		wp_enqueue_style( 'wpmtst-admin-upsells-style' );
+
+		echo '<div class="wpmst wrap lite-vs-pro-section">';
+
+		do_action( 'st_lite_vs_premium_page' );
+
+		echo '</div>';
 	}
 
 }
