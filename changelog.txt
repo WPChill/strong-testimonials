@@ -1,3 +1,6 @@
+= v2.51.5 - 29/07/2021 =
+- Fixed: Columns and Grid css display bug, removed not needed class from testimonial content
+
 = v2.51.5 - 20/07/2021 =
 - Changed: The field for “Company Name” doesn't appear anymore in the list of default fields when creating a new view, if it has been removed via the form editor. ( https://github.com/WPChill/strong-testimonials/issues/240 )
 - Changed: JQuery Strong slider public methods in order to allow users to acces public methods of bxSlider ( https://github.com/WPChill/strong-testimonials/issues/233 )
