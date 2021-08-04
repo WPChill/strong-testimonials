@@ -113,6 +113,7 @@ function wpmtst_admin_notice_text( $html, $key, $persist = false ) {
 			break;
 
 		default :
+			$html = apply_filters( 'wpmtst_' . $key . '_notice', '' );
 			// nothing
 	}
 
