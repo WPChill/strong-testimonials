@@ -176,7 +176,7 @@ if ( ! class_exists( 'Strong_Testimonials_Usage_Tracker' ) ) {
 			// Deactivation.
 			add_filter( 'plugin_action_links_' . plugin_basename( $this->plugin_file ), array( $this, 'filter_action_links' ) );
 			add_action( 'admin_footer-plugins.php', array( $this, 'goodbye_ajax' ) );
-			add_action( 'wp_ajax_goodbye_form', array( $this, 'goodbye_form_callback' ) );
+			add_action( 'wp_ajax_st_goodbye_form', array( $this, 'goodbye_form_callback' ) );
 
 		}
 
@@ -383,7 +383,7 @@ if ( ! class_exists( 'Strong_Testimonials_Usage_Tracker' ) ) {
 			if ( empty( $plugin ) ) {
 				// We can't find the plugin data.
 				// Send a message back to our home site.
-				$body['message'] .= __( 'We can\'t detect any product information. This is most probably because you have not included the code snippet.', 'singularity' );
+				$body['message'] .= __( 'We can\'t detect any product information. This is most probably because you have not included the code snippet.', 'strong-testimonials' );
 				$body['status']   = 'Data not found'; // Never translated.
 			} else {
 				if ( isset( $plugin['Name'] ) ) {
@@ -519,7 +519,7 @@ if ( ! class_exists( 'Strong_Testimonials_Usage_Tracker' ) ) {
 			} else {
 
 				// The wisdom_allow_tracking option is an array of plugins that are being tracked.
-				$allow_tracking = get_option( 'strong_testimonials_troubleshooting_option' );
+				$allow_tracking = get_option( 'wpmtst_options' );
 				if ( is_array( $allow_tracking ) ) {
 					if ( isset( $allow_tracking['track_data'] ) && true == $allow_tracking['track_data'] ) {
 						return true;
@@ -550,7 +550,7 @@ if ( ! class_exists( 'Strong_Testimonials_Usage_Tracker' ) ) {
 			}
 
 			// The wisdom_allow_tracking option is an array of plugins that are being tracked.
-			$allow_tracking               = get_option( 'strong_testimonials_troubleshooting_option' );
+			$allow_tracking               = get_option( 'wpmtst_options' );
 			$allow_tracking['track_data'] = false;
 
 			// If the user has decided to opt out.
@@ -582,7 +582,7 @@ if ( ! class_exists( 'Strong_Testimonials_Usage_Tracker' ) ) {
 				}
 			}
 
-			update_option( 'strong_testimonials_troubleshooting_option', $allow_tracking );
+			update_option( 'wpmtst_options', $allow_tracking );
 		}
 
 		/**
@@ -891,13 +891,13 @@ if ( ! class_exists( 'Strong_Testimonials_Usage_Tracker' ) ) {
 				if ( $this->marketing != 1 ) {
 					// Standard notice text.
 					$notice_text = sprintf(
-						__( 'Thank you for installing our %1$s. We would like to track its usage on your site. We don\'t record any sensitive data, only information regarding the WordPress environment and %1$s settings, which we will use to help us make improvements to the %1$s. Tracking is completely optional. You can always opt out by going to Settings-> Misc and uncheck the track data field.', 'singularity' ),
+						__( 'Thank you for installing our %1$s. We would like to track its usage on your site. We don\'t record any sensitive data, only information regarding the WordPress environment and %1$s settings, which we will use to help us make improvements to the %1$s. Tracking is completely optional. You can always opt out by going to Settings-> General and uncheck the track data field.', 'strong-testimonials' ),
 						$this->what_am_i
 					);
 				} else {
 					// If we have option 1 for marketing, we include reference to sending product information here.
 					$notice_text = sprintf(
-						__( 'Thank you for installing our %1$s. We\'d like your permission to track its usage on your site and subscribe you to our newsletter. We won\'t record any sensitive data, only information regarding the WordPress environment and %1$s settings, which we will use to help us make improvements to the %1$s. Tracking is completely optional.You can always opt out by going to Settings-> Misc and uncheck the track data field.', 'singularity' ),
+						__( 'Thank you for installing our %1$s. We\'d like your permission to track its usage on your site and subscribe you to our newsletter. We won\'t record any sensitive data, only information regarding the WordPress environment and %1$s settings, which we will use to help us make improvements to the %1$s. Tracking is completely optional.You can always opt out by going to Settings-> Misc and uncheck the track data field.', 'strong-testimonials' ),
 						$this->what_am_i
 					);
 				}
@@ -908,8 +908,8 @@ if ( ! class_exists( 'Strong_Testimonials_Usage_Tracker' ) ) {
 					<p><?php echo '<strong>' . esc_html( $plugin_name ) . '</strong>'; ?></p>
 					<p><?php echo esc_html( $notice_text ); ?></p>
 					<p>
-						<a href="<?php echo esc_url( $url_yes ); ?>" class="button-secondary"><?php _e( 'Allow', 'singularity' ); ?></a>
-						<a href="<?php echo esc_url( $url_no ); ?>" class="button-secondary"><?php _e( 'Do Not Allow', 'singularity' ); ?></a>
+						<a href="<?php echo esc_url( $url_yes ); ?>" class="button-secondary"><?php _e( 'Allow', 'strong-testimonials' ); ?></a>
+						<a href="<?php echo esc_url( $url_no ); ?>" class="button-secondary"><?php _e( 'Do Not Allow', 'strong-testimonials' ); ?></a>
 					</p>
 				</div>
 				<?php
@@ -950,7 +950,7 @@ if ( ! class_exists( 'Strong_Testimonials_Usage_Tracker' ) ) {
 				);
 
 				$marketing_text = sprintf(
-					__( 'Thank you for opting in to tracking. Would you like to receive occasional news about this %s, including details of new features and special offers?', 'singularity' ),
+					__( 'Thank you for opting in to tracking. Would you like to receive occasional news about this %s, including details of new features and special offers?', 'strong-testimonials' ),
 					$this->what_am_i
 				);
 				$marketing_text = apply_filters( 'wisdom_marketing_text_' . esc_attr( $this->plugin_name ), $marketing_text );
@@ -960,8 +960,8 @@ if ( ! class_exists( 'Strong_Testimonials_Usage_Tracker' ) ) {
 					<p><?php echo '<strong>' . esc_html( $plugin_name ) . '</strong>'; ?></p>
 					<p><?php echo esc_html( $marketing_text ); ?></p>
 					<p>
-						<a href="<?php echo esc_url( $url_yes ); ?>" data-putnotice="yes" class="button-secondary"><?php _e( 'Yes Please', 'singularity' ); ?></a>
-						<a href="<?php echo esc_url( $url_no ); ?>" data-putnotice="no" class="button-secondary"><?php _e( 'No Thank You', 'singularity' ); ?></a>
+						<a href="<?php echo esc_url( $url_yes ); ?>" data-putnotice="yes" class="button-secondary"><?php _e( 'Yes Please', 'strong-testimonials' ); ?></a>
+						<a href="<?php echo esc_url( $url_no ); ?>" data-putnotice="no" class="button-secondary"><?php _e( 'No Thank You', 'strong-testimonials' ); ?></a>
 					</p>
 				</div>
 				<?php
@@ -994,18 +994,18 @@ if ( ! class_exists( 'Strong_Testimonials_Usage_Tracker' ) ) {
 		 */
 		public function form_default_text() {
 			$form            = array();
-			$form['heading'] = __( 'Sorry to see you go', 'singularity' );
-			$form['body']    = __( 'Before you deactivate the plugin, would you quickly give us your reason for doing so?', 'singularity' );
+			$form['heading'] = __( 'Sorry to see you go', 'strong-testimonials' );
+			$form['body']    = __( 'Before you deactivate the plugin, would you quickly give us your reason for doing so?', 'strong-testimonials' );
 			$form['options'] = array(
-				__( 'Set up is too difficult', 'singularity' ),
-				__( 'Lack of documentation', 'singularity' ),
-				__( 'Not the features I wanted', 'singularity' ),
-				__( 'Found a better plugin', 'singularity' ),
-				__( 'Installed by mistake', 'singularity' ),
-				__( 'Only required temporarily', 'singularity' ),
-				__( 'Didn\'t work', 'singularity' ),
+				__( 'Set up is too difficult', 'strong-testimonials' ),
+				__( 'Lack of documentation', 'strong-testimonials' ),
+				__( 'Not the features I wanted', 'strong-testimonials' ),
+				__( 'Found a better plugin', 'strong-testimonials' ),
+				__( 'Installed by mistake', 'strong-testimonials' ),
+				__( 'Only required temporarily', 'strong-testimonials' ),
+				__( 'Didn\'t work', 'strong-testimonials' ),
 			);
-			$form['details'] = __( 'Details (optional)', 'singularity' );
+			$form['details'] = __( 'Details (optional)', 'strong-testimonials' );
 			return $form;
 		}
 
@@ -1046,7 +1046,7 @@ if ( ! class_exists( 'Strong_Testimonials_Usage_Tracker' ) ) {
 				$html .= '</div><!-- .put-goodbye-options -->';
 			}
 			$html .= '</div><!-- .put-goodbye-form-body -->';
-			$html .= '<p class="deactivating-spinner"><span class="spinner"></span> ' . __( 'Submitting form', 'singularity' ) . '</p>';
+			$html .= '<p class="deactivating-spinner"><span class="spinner"></span> ' . __( 'Submitting form', 'strong-testimonials' ) . '</p>';
 			?>
 			<div class="put-goodbye-form-bg"></div>
 			<style type="text/css">
@@ -1115,7 +1115,7 @@ if ( ! class_exists( 'Strong_Testimonials_Usage_Tracker' ) ) {
 						var url = document.getElementById("put-goodbye-link-<?php echo esc_attr( $this->plugin_name ); ?>");
 						$('body').toggleClass('put-form-active');
 						$("#put-goodbye-form-<?php echo esc_attr( $this->plugin_name ); ?>").fadeIn();
-						$("#put-goodbye-form-<?php echo esc_attr( $this->plugin_name ); ?>").html( '<?php echo $html; ?>' + '<div class="put-goodbye-form-footer"><p><a id="put-submit-form" class="button primary" href="#"><?php _e( 'Submit and Deactivate', 'singularity' ); ?></a>&nbsp;<a class="secondary button" href="'+url+'"><?php _e( 'Just Deactivate', 'singularity' ); ?></a></p></div>');
+						$("#put-goodbye-form-<?php echo esc_attr( $this->plugin_name ); ?>").html( '<?php echo $html; ?>' + '<div class="put-goodbye-form-footer"><p><a id="put-submit-form" class="button primary" href="#"><?php _e( 'Submit and Deactivate', 'strong-testimonials' ); ?></a>&nbsp;<a class="secondary button" href="'+url+'"><?php _e( 'Just Deactivate', 'strong-testimonials' ); ?></a></p></div>');
 						$('#put-submit-form').on('click', function(e){
 							// As soon as we click, the body of the form should disappear.
 							$("#put-goodbye-form-<?php echo esc_attr( $this->plugin_name ); ?> .put-goodbye-form-body").fadeOut();
@@ -1129,7 +1129,7 @@ if ( ! class_exists( 'Strong_Testimonials_Usage_Tracker' ) ) {
 							});
 							var details = $('#put-goodbye-reasons').val();
 							var data = {
-								'action': 'goodbye_form',
+								'action': 'st_goodbye_form',
 								'values': values,
 								'details': details,
 								'security': "<?php echo wp_create_nonce( 'wisdom_goodbye_form' ); ?>",
