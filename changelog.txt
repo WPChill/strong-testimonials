@@ -1,5 +1,5 @@
 = 2.51.6 - TBD -
-- Fixed upsells for wp 5.8.1
+- Fixed upsells for wp 5.8.1 ( https://github.com/WPChill/strong-testimonials/issues/281 )
 
 = v2.51.5 - 29/07/2021 =
 - Fixed: Columns and Grid css display bug, removed not needed class from testimonial content
