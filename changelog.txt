@@ -1,3 +1,7 @@
+= 2.51.6 - TBD -
+- Fixed upsells for wp 5.8.1 ( https://github.com/WPChill/strong-testimonials/issues/281 )
+- Added: Tracking option - allow us to track non-sensitive data, only information regarding the WordPress environment and Strong Testimonials settings
+
 = v2.51.5 - 29/07/2021 =
 - Fixed: Columns and Grid css display bug, removed not needed class from testimonial content
 
@@ -37,7 +41,7 @@
 - Fixed: Manual excerpt ( https://github.com/WPChill/strong-testimonials/issues/220 )
 
 = v2.51.1 - 18/02/2021 =
-- Fixed: Extensions page CSS. 
+- Fixed: Extensions page CSS.
 
 = v2.51.0 - 18/02/2021 =
 - Changed: Added by default review field to ST form ( https://github.com/WPChill/strong-testimonials/issues/199 )
@@ -61,7 +65,7 @@
 * Fixed Slideshow Start automatically behaviour.
 * Fixed expand content in place in sidebar bug.
 * Fixed Strong Testimonials Pro activation from Extensions.
-* Fixed Read More issue when using a testimonial slideshow view in a widget. 
+* Fixed Read More issue when using a testimonial slideshow view in a widget.
 * Replace deprecated filter.
 * Replaced deprecated join with implode.
 
@@ -72,7 +76,7 @@
 * Small fixes
 * Changed the layout of the views page.
 * Moved form tab from general settings to Form.
-* Fixed drag and drop issue for testimonials. 
+* Fixed drag and drop issue for testimonials.
 * Added old testimonial-heading CSS classes back.
 
 = 2.50.0 =
@@ -108,11 +112,11 @@
 * Fixed undefined index error
 * Fixed pagination buttons
 
-= 2.40.5 - Apr. 16, 2020 = 
+= 2.40.5 - Apr. 16, 2020 =
 * Add old css class back for templates
 
 = 2.40.4 - Apr. 16, 2020 =
-* Added the old classes back to keep functionality with users custom css 
+* Added the old classes back to keep functionality with users custom css
 * Fixed title display
 * Adressed an issue regarding the company name field
 

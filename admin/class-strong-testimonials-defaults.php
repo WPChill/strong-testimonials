@@ -46,7 +46,8 @@ class Strong_Testimonials_Defaults {
 			'lazyload'                => false,
             'no_lazyload_plugin'      => true,
 			'touch_enabled'           => true,
-            'disable_upsells'         => false
+            'disable_upsells'         => false,
+            'track_data'              => false,
 		);
 
 		return $default_options;
@@ -369,7 +370,7 @@ class Strong_Testimonials_Defaults {
 					$forms[ $form_name ]['fields'][ $key ] = array_merge( $default_fields['field_types']['custom'][ $array['input_type'] ], $array );
 				} else {
                                         $forms[ $form_name ]['fields'][ $key ] = array_merge( $default_fields['field_types']['optional'][ $array['input_type'] ], $array );
-                                }   
+                                }
 			}
 		}
 
@@ -485,7 +486,7 @@ class Strong_Testimonials_Defaults {
 			'success_redirect_url'     => '',
                         'members_only'             => false,
                         'members_only_message'     => esc_html__( 'You need to be logged in to access this form.', 'strong-testimonials' ),
-                        'mailchimp'                => false, 
+                        'mailchimp'                => false,
                         'mailchimp_message'        => esc_html__( 'Subscribe to our newsletter.', 'strong-testimonials' ),
                         'mailchimp_list'           => ''
 		);
