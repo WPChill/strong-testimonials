@@ -1,4 +1,4 @@
-= 2.51.6 - TBD -
+= 2.51.6 - 15.09.2021 -
 - Fixed upsells for wp 5.8.1 ( https://github.com/WPChill/strong-testimonials/issues/281 )
 - Added: Tracking option - allow us to track non-sensitive data, only information regarding the WordPress environment and Strong Testimonials settings
 
