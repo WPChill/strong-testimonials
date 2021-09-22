@@ -247,8 +247,8 @@ $options = get_option( 'wpmtst_options' );
             </td>
         </tr>
     <?php endif; ?>
-    
-    <?php if ( wpmtst_is_plugin_active( 'lazy-loading-responsive-images' ) ) : ?> 
+
+    <?php if ( wpmtst_is_plugin_active( 'lazy-loading-responsive-images' ) ) : ?>
     <tr valign="top">
         <th scope="row">
 			<?php esc_html_e( 'No Lazy Loading Plugin', 'strong-testimonials' ); ?>
@@ -266,7 +266,7 @@ $options = get_option( 'wpmtst_options' );
     <?php else : ?>
         <input type="hidden" name="wpmtst_options[no_lazyload_plugin]" value="<?php echo esc_attr( $options['no_lazyload_plugin'] ); ?>">
     <?php endif; ?>
-        
+
     <tr valign="top">
         <th scope="row">
 			<?php esc_html_e( 'Upsells', 'strong-testimonials' ); ?>
@@ -281,5 +281,19 @@ $options = get_option( 'wpmtst_options' );
             </fieldset>
         </td>
     </tr>
-    
+
+    <tr valign="top">
+        <th scope="row">
+			<?php esc_html_e( 'Track Data', 'strong-testimonials' ); ?>
+        </th>
+        <td>
+            <fieldset>
+                <label>
+                    <input type="checkbox" name="wpmtst_options[track_data]" <?php checked( $options['track_data'], true ); ?>>
+                    <?php printf( esc_html__( "We would like to track its usage on your site. We don't record any sensitive data, only information regarding the WordPress environment and Strong Testimonials settings, which we will use to help us make improvements.", 'strong-testimonials' ) ); ?>
+                </label>
+            </fieldset>
+        </td>
+    </tr>
+
 </table>
