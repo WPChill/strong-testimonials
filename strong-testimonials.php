@@ -275,7 +275,7 @@ final class Strong_Testimonials {
 			require_once WPMTST_ADMIN . 'settings/class-strong-testimonials-settings-form.php';
 			require_once WPMTST_ADMIN . 'settings/class-strong-testimonials-settings-compat.php';
                         require_once WPMTST_ADMIN . 'settings/class-strong-testimonials-form.php';
-			
+
 			require_once WPMTST_ADMIN . 'about/class-strong-testimonials-welcome.php';
 			require_once WPMTST_ADMIN . 'class-strong-testimonials-addons.php';
 			require_once WPMTST_ADMIN . 'class-strong-testimonials-defaults.php';
@@ -408,7 +408,7 @@ final class Strong_Testimonials {
 //			require_once WPMTST_INC . 'class-strong-testimonials-order.php';
 //		}
 //	}
-        
+
 	/**
 	 * Get att(s).
 	 *
@@ -524,6 +524,24 @@ final class Strong_Testimonials {
 }
 
 endif; // class_exists check
+
+if( ! class_exists( 'Strong_Testimonials_Usage_Tracker') ) {
+	require_once dirname( __FILE__ ) . '/includes/tracking/class-strong-testimonials-usage-tracker.php';
+}
+if( ! function_exists( 'strong_testimonials_start_plugin_tracking' ) ) {
+	function strong_testimonials_start_plugin_tracking() {
+		$wisdom = new Strong_Testimonials_Usage_Tracker(
+			__FILE__,
+			'https://tracking.strongtestimonials.com',
+			array(),
+			true,
+			true,
+			0
+		);
+	}
+	strong_testimonials_start_plugin_tracking();
+}
+
 
 register_activation_hook( __FILE__, array( 'Strong_Testimonials', 'plugin_activation' ) );
 register_deactivation_hook( __FILE__, array( 'Strong_Testimonials', 'plugin_deactivation' ) );

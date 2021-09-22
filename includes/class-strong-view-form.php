@@ -49,7 +49,7 @@ class Strong_View_Form extends Strong_View {
 			?>
 			<div class="strong-form-wait">
 				<div class="message">
-					<?php echo wp_kses_post( apply_filters( 'wpmtst_form_wait_message', '<img src="'.WPMTST_PUBLIC_URL.'/svg/spinner-solid.svg">' ) ); ?>
+					<?php echo wp_kses_post( apply_filters( 'wpmtst_form_wait_message', '<img src="'.WPMTST_PUBLIC_URL.'svg/spinner-solid.svg">' ) ); ?>
 				</div>
 			</div>
 			<?php
