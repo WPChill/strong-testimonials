@@ -80,7 +80,7 @@ class Strong_View_Form extends Strong_View {
 		WPMST()->render->add_script_var( 'wpmtst-form-validation', 'strongForm', $args );
 
         $this->find_stylesheet();
-        $this->html = wpmtst_get_success_message();
+		$this->html = wpmtst_get_success_message( $this->atts );
 
         do_action( 'wpmtst_form_success', $this->atts );
     }

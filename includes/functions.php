@@ -648,11 +648,11 @@ function wpmtst_get_background_presets( $preset = null ) {
  *
  * @return mixed
  */
-function wpmtst_get_success_message() {
+function wpmtst_get_success_message( $atts = false ) {
 	$message = wpautop( do_shortcode( wpmtst_get_form_message( 'submission-success' ) ) );
 	$message = sprintf( '<div class="%s">%s</div>', 'wpmtst-testimonial-success', $message );
 
-	return apply_filters( 'wpmtst_form_success_message', $message );
+	return apply_filters( 'wpmtst_form_success_message', $message, $atts );
 }
 
 /**
