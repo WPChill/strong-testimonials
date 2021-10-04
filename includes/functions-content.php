@@ -257,6 +257,6 @@ function wpmtst_assemble_hybrid( $words_array, $num_words, $sep, $more, $full_te
 	$wrap_close = ' </div>';
 	$wrap_close_excerpt = ' </div>';
     $first_half = '<div style="display:inline;">'.$first_half.'</div>';
-	return $wrap_open_excerpt . $first_half . $ellipsis . ' ' . $wrap_open . $second_half . $wrap_close_excerpt . $more;
+	return $wrap_open_excerpt . $first_half . $ellipsis . ' ' . $wrap_open . $second_half . $wrap_close_excerpt . $more . $wrap_close;
 	/* ! This space is important:                                        ^                                                  */
 }
