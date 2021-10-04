@@ -7,7 +7,7 @@
  * @param toggleButtonText.dataset.lessText
  */
 
-(function () {
+ (function () {
 
 	/*
 	 * Do stuff at the end of animation.
@@ -17,9 +17,10 @@
 
 			// Add `hidden` attribute
 			event.target.setAttribute('hidden', 'true');
+            event.target.style.display = 'none';
 
 			// Show read-more link
-			event.target.parentElement.querySelector('.readmore-toggle').style.display = 'inline';
+			event.target.parentElement.parentElement.querySelector('.readmore-toggle').style.display = 'inline';
 
 			// Show ellipsis
 			var ellipsis = event.target.parentElement.querySelector('.ellipsis');
@@ -61,13 +62,15 @@
 			}
 
 			var toggleButtonText = event.target;
+            var theContainer = jQuery(event.target).parents('.wpmtst-testimonial-content');
 			var toggleButton = toggleButtonText.parentElement;
-                        var excerptWrapper = toggleButtonText.parentElement.parentElement.querySelector('.readmore-excerpt');
-			var fullTextWrapper = toggleButtonText.parentElement.parentElement.querySelector('.readmore-content');
-			var ellipsis = toggleButtonText.parentElement.parentElement.querySelector('.ellipsis');
+                        var excerptWrapper =  jQuery(theContainer).find('.readmore-excerpt');
+
+			var fullTextWrapper = jQuery(theContainer).find('.readmore-content')[0];
+			var ellipsis = jQuery(theContainer).find('.ellipsis')[0];
                         var allHtml = false;
                         
-                        if (excerptWrapper.classList.contains('all-html')) {
+                        if (excerptWrapper.hasClass('all-html')) {
                             var allHtml = true;
                         }
                         
@@ -80,7 +83,7 @@
 				// show
 				// 1. remove hidden attribute so we can animate it
 				fullTextWrapper.removeAttribute('hidden');
-
+                fullTextWrapper.style.display = 'inline';
 				// 2. update toggle link
 				// change text (may be blank)
 				toggleButtonText.innerText = toggleButtonText.dataset.lessText;
