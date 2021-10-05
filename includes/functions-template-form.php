@@ -4,7 +4,7 @@
  */
 
 function wpmtst_form_info() {
-	echo 'id="wpmtst-submission-form" method="post" enctype="multipart/form-data" autocomplete="off"';
+	echo 'id="wpmtst-submission-form" method="post" enctype="multipart/form-data" autocomplete="off" data-form_id = "' . esc_attr( WPMST()->atts( 'form_id' ) ) . '"';
 }
 
 function wpmtst_form_setup() {

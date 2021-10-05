@@ -2,7 +2,7 @@
  * Submission form validation
  */
 
-var strongValidation = {
+ var strongValidation = {
 
 	defaults: {
 	  ajaxUrl: '',
@@ -150,7 +150,7 @@ var strongValidation = {
 
 		submitHandler: function (form) {
 
-		  strongValidation.disableForm();
+		  strongValidation.disableForm(jQuery(form).data("form_id"));
 
 		  // If Ajax
 		  if (strongValidation.settings.ajaxUrl !== '') {
@@ -256,8 +256,11 @@ var strongValidation = {
 	/**
 	 * Show overlay during form submission.
 	 */
-	disableForm: function () {
-	  jQuery('.strong-form-wait').show();
+	disableForm: function (id) {
+      //apply form wait buffer only for the submited form
+      if(jQuery('.strong-form-wait').data("for_form") == id){
+        jQuery('.strong-form-wait[data-for_form="'+id+'"]').show();
+      }
 	  jQuery('#wpmtst_submit_testimonial').prop('disabled',true);
 	},
 

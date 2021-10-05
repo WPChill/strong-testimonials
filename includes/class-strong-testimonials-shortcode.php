@@ -85,7 +85,7 @@ class Strong_Testimonials_View_Shortcode {
 		switch ( $out['mode'] ) {
 			case 'form' :
 				$view = new Strong_View_Form( $out );
-				if ( isset( $_GET['success'] ) ) {
+				if ( isset( $_GET['success'] ) and $out['form_id'] == intval( $_GET['success'])) {
 				    $view->success();
 				} else {
 					$view->build();
