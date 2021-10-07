@@ -5,6 +5,7 @@
  function strongValidation(form) {
     
     this.form = jQuery(form).find('form');
+
 	this.defaults = {
 	  ajaxUrl: '',
 	  display: {
@@ -22,6 +23,7 @@
 	this.settings = {};
     this.rules = {};
 
+    this.init();
     }
 
 	strongValidation.prototype.setOpts = function (options) {

@@ -123,7 +123,6 @@
     if (forms.length || messages.length) {
         jQuery( forms ).each(function() {
            var eachform = new strongValidation(this);
-           eachform.init();
         });
        // initialize Captcha plugins here
      }
