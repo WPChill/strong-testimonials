@@ -47,7 +47,7 @@ class Strong_View_Form extends Strong_View {
 	public function print_overlay() {
 		if ( apply_filters( 'wpmtst_form_wait', true ) ) {
 			?>
-			<div class="strong-form-wait" data-for_form="<?php echo esc_attr( WPMST()->atts( 'form_id' ) ); ?>">
+			<div class="strong-form-wait" data-formid="<?php echo esc_attr( WPMST()->atts( 'form_id' ) ); ?>">
 				<div class="message">
 					<?php echo wp_kses_post( apply_filters( 'wpmtst_form_wait_message', '<img src="'.WPMTST_PUBLIC_URL.'svg/spinner-solid.svg">' ) ); ?>
 				</div>

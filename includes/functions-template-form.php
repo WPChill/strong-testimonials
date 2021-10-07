@@ -4,7 +4,46 @@
  */
 
 function wpmtst_form_info() {
-	echo 'id="wpmtst-submission-form" method="post" enctype="multipart/form-data" autocomplete="off" data-form_id = "' . esc_attr( WPMST()->atts( 'form_id' ) ) . '"';
+	// Assemble list of field properties for validation script.
+	$form_id     = ( WPMST()->atts('form_id') ) ? WPMST()->atts('form_id') : 1;
+	$form_fields = wpmtst_get_form_fields( $form_id );
+	$fields      = array();
+
+	foreach ( $form_fields as $field ) {
+
+		$fields[] = array(
+			'name'     => $field['name'],
+			'type'     => $field['input_type'],
+			'required' => $field['required'],
+		);
+
+		// Load rating stylesheet if necessary.
+		if ( isset( $field['input_type'] ) && 'rating' == $field['input_type'] ) {
+			WPMST()->render->add_style( 'wpmtst-rating-form' );
+		}
+
+	}
+	$form_options = get_option( 'wpmtst_form_options' );
+
+	// Assemble script variable.
+	// Remember: top level is converted to strings!
+	$scroll = array(
+		'onError'         => $form_options['scrolltop_error'] ? true : false,
+		'onErrorOffset'   => $form_options['scrolltop_error_offset'],
+		'onSuccess'       => $form_options['scrolltop_success'] ? true : false,
+		'onSuccessOffset' => $form_options['scrolltop_success_offset'],
+	);
+
+	$args = array(
+		'scroll' => $scroll,
+		'fields' => $fields,
+	);
+
+	if ( WPMST()->atts('form_ajax')) {
+		$args['ajaxUrl'] = admin_url( 'admin-ajax.php' );
+	}
+
+	echo 'class="wpmtst-submission-form" method="post" enctype="multipart/form-data" autocomplete="off" data-config="'.esc_attr(json_encode( $args )).'" data-formid = "' . esc_attr( WPMST()->atts( 'form_id' ) ) . '"';
 }
 
 function wpmtst_form_setup() {
@@ -465,7 +504,7 @@ function wpmtst_field_error( $field ) {
 function wpmtst_form_submit_button( $preview = false ) {
 	?>
 	<div class="form-field wpmtst-submit">
-		<label><input type="<?php echo $preview ? 'button' : 'submit'; ?>" id="wpmtst_submit_testimonial" name="wpmtst_submit_testimonial" value="<?php echo esc_attr( wpmtst_get_form_message( 'form-submit-button' ) ); ?>" class="<?php echo esc_attr( apply_filters( 'wpmtst_submit_button_class', 'button' ) ); ?>" tabindex="0"></label>
+		<label><input type="<?php echo $preview ? 'button' : 'submit'; ?>" class="wpmtst_submit_testimonial" name="wpmtst_submit_testimonial" value="<?php echo esc_attr( wpmtst_get_form_message( 'form-submit-button' ) ); ?>" class="<?php echo esc_attr( apply_filters( 'wpmtst_submit_button_class', 'button' ) ); ?>" tabindex="0"></label>
 	</div>
 	<?php
 }

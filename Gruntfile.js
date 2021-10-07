@@ -74,6 +74,7 @@ module.exports = function( grunt ) {
 
     clean: {
       css: [ 'assets/css/*.min.css', '!assets/css/jquery-ui.min.css' ],
+      js: [ 'public/js/*.min.js', 'public/js/**/*.min.js' ],
       init: {
         src: ['build/']
       },
