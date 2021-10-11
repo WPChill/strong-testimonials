@@ -129,6 +129,8 @@
 .strong-rating span.star:before {
   color: #FFB900;
   background: #FFB900;
+  background-image: url('../svg/star-regular.svg');
+  background-position: center;
 }
 
 /* then turn off stars after the current rating */
