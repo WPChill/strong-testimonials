@@ -54,7 +54,6 @@
 
 		// Listen to each readmore link.
 		document.addEventListener('click', function (event) {
-                    
 
 
 			if (!event.target.matches('.readmore-text')) {
@@ -62,19 +61,19 @@
 			}
 
 			var toggleButtonText = event.target;
-            var theContainer = jQuery(event.target).parents('.wpmtst-testimonial-content');
+			var theContainer = jQuery( event.target ).parents( '.wpmtst-testimonial-content' );
 			var toggleButton = toggleButtonText.parentElement;
-                        var excerptWrapper =  jQuery(theContainer).find('.readmore-excerpt');
+			var excerptWrapper = jQuery( theContainer ).find( '.readmore-excerpt' );
 
-			var fullTextWrapper = jQuery(theContainer).find('.readmore-content')[0];
-			var ellipsis = jQuery(theContainer).find('.ellipsis')[0];
-                        var allHtml = false;
-                        
-                        if (excerptWrapper.hasClass('all-html')) {
-                            var allHtml = true;
-                        }
-                        
-			if (!fullTextWrapper) {
+			var fullTextWrapper = jQuery( theContainer ).find( '.readmore-content' )[0];
+			var ellipsis = jQuery( theContainer ).find( '.ellipsis' )[0];
+			var allHtml = false;
+
+			if ( excerptWrapper.hasClass( 'all-html' ) ) {
+				allHtml = true;
+			}
+
+			if ( !fullTextWrapper ) {
 				return;
 			}
 
@@ -93,13 +92,13 @@
 				}
 
 				// 3. animate it
-				fullTextWrapper.classList.add('fadeInDown');
-				fullTextWrapper.classList.remove('fadeOutUp');
-				fullTextWrapper.classList.remove('faster');
-                                
-                                if (allHtml) { 
-                                    excerptWrapper.style.display = 'none';
-                                }
+				fullTextWrapper.classList.add( 'fadeInDown' );
+				fullTextWrapper.classList.remove( 'fadeOutUp' );
+				fullTextWrapper.classList.remove( 'faster' );
+
+				if ( allHtml ) {
+					excerptWrapper.style.display = 'none';
+				}
 
 				fireCustomEvent();
 
@@ -108,18 +107,18 @@
 				// 1. update toggle link
 				// hide link during transition
 				toggleButton.style.display = 'none';
-				toggleButton.setAttribute('aria-expanded', false);
+				toggleButton.setAttribute( 'aria-expanded', false );
 				// change link text (may be blank)
 				toggleButtonText.innerText = toggleButtonText.dataset.moreText;
 
 				// 2. animate it
-				fullTextWrapper.classList.add('fadeOutUp');
-				fullTextWrapper.classList.add('faster');
-				fullTextWrapper.classList.remove('fadeInDown');
-                                
-                                if (allHtml) {
-                                    excerptWrapper.style.display = 'block'; 
-                                }
+				fullTextWrapper.classList.add( 'fadeOutUp' );
+				fullTextWrapper.classList.add( 'faster' );
+				fullTextWrapper.classList.remove( 'fadeInDown' );
+
+				if ( allHtml ) {
+					excerptWrapper.style.display = 'block';
+				}
 
 				// 3. do stuff at end of animation (the event listener above)
 
