@@ -38,7 +38,7 @@ function wpmtst_get_views() {
 		wp_die( sprintf( '<div class="error strong-view-error">%s</div>', $message ) );
 	}
 
-	return $results = apply_filters('wpmtst_views_query_results', $results);
+	return apply_filters('wpmtst_views_query_results', $results);
 }
 
 /**
