@@ -59,19 +59,6 @@
   padding: 0;
 }
 
-.strong-rating span.star:before {
-  content: "";
-  -webkit-mask: url('../svg/star-solid.svg') center center no-repeat;
-  mask: url('../svg/star-solid.svg') center center no-repeat;
-  display: inline-block;
-  font-size: 1.25em;
-  width:19px;
-  height:20px;
-  /* use padding not margin */
-  padding: 0 4px;
-  transition: color 0.3s ease;
-}
-
 .strong-rating-wrapper:not(.average) span.star:first-child:before {
   padding-left: 0;
 }
@@ -125,12 +112,15 @@
   display: none;
 }
 
-/* and turn all on */
-.strong-rating span.star:before {
-  color: #FFB900;
-  background: #FFB900;
-  background-image: url('../svg/star-regular.svg');
-  background-position: center;
+/* set the color of the star and its stroke(outline) color and width */
+.strong-rating-wrapper .star svg path {
+  fill: #FFB900;
+  stroke: #000;
+  stroke-width: 10px;
+}
+/* set the width of the star */
+.strong-rating-wrapper .star svg {
+  width: 19px;
 }
 
 /* then turn off stars after the current rating */
