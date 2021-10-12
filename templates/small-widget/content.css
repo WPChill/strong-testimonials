@@ -49,7 +49,7 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
   height: 100%;
 }
 .strong-view.wpmtst-small-widget .wpmtst-testimonial-image {
-  max-width: 100%;
+  max-width: 50%;
 }
 .strong-view.wpmtst-small-widget .wpmtst-testimonial-field-before {
   margin-right: 0.5em;
