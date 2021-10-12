@@ -5,7 +5,8 @@
  function strongValidation(form) {
     
     this.form = jQuery(form).find('form');
-
+	this.formID = this.form.data('formid');
+	
 	this.defaults = {
 	  ajaxUrl: '',
 	  display: {
@@ -53,7 +54,7 @@
 	  var strongForm = {};
 
 	  if (typeof window['strongForm'] !== 'undefined') {
-		strongForm = jQuery(this.form).data("config");
+		strongForm = this.form.data("config");
 	  }
 
 	  this.setOpts(strongForm);
@@ -103,20 +104,18 @@
     /**
      * Show overlay during form submission.
      */
-    strongValidation.prototype.disableForm = function (id) {
+    strongValidation.prototype.disableForm = function () {
     //apply form wait buffer only for the submited form
-      if(jQuery('.strong-form-wait').data("formid") == id){
-            jQuery('.strong-form-wait[data-formid="'+id+'"]').show();
-    }
-      jQuery('#wpmtst_submit_testimonial').prop('disabled',true);
+    	jQuery('.strong-form-wait[data-formid="'+this.formID+'"]').show();
+		this.form.find( '.wpmtst_submit_testimonial' ).prop( 'disabled', true );
     };
 
     /**
      * Hide overlay after form submission.
      */
     strongValidation.prototype.enableForm = function () {
-      jQuery('.strong-form-wait').hide();
-      jQuery('#wpmtst_submit_testimonial').prop('disabled',false);
+    	jQuery('.strong-form-wait[data-formid="'+this.formID+'"]').hide();
+		this.form.find( '.wpmtst_submit_testimonial' ).prop( 'disabled', false );
     };
   
 	strongValidation.prototype.handleRadioEvent = function (e) {
@@ -142,7 +141,6 @@
 		return jQuery(element).find('input:checked').val() > 0;
 	  }, jQuery.validator.messages.required);
 	};
-    
 	strongValidation.prototype.validateForm = function () {
         
         //remember current object for function calls later
@@ -174,9 +172,8 @@
             }
             },
 
-            submitHandler: function (form) {
-            var formid = jQuery(form).data("formid");
-            theThis.disableForm(formid);
+            submitHandler: function () {
+            theThis.disableForm();
             // If Ajax
             if (theThis.settings.ajaxUrl !== '') {
                
@@ -189,13 +186,13 @@
                 data: {
                     action: 'wpmtst_form2'
                 },
-                success: function(success){ theThis.showResponse(success,formid); },
+                success: function(success){ theThis.showResponse(success); },
                 };
-                jQuery(form).ajaxSubmit(formOptions);
+                theThis.form.ajaxSubmit(formOptions);
 
             } else {
 
-                form.submit();
+                theThis.form.submit();
             }
             },
 
@@ -240,12 +237,12 @@
 	 *
 	 * @param response
 	 */
-     strongValidation.prototype.showResponse = function (response,formid) {
+     strongValidation.prototype.showResponse = function (response) {
 	  window.onbeforeunload = null;
 	  this.enableForm();
 	  var obj = JSON.parse(response);
 	  if (obj.success) {
-		jQuery('.wpmtst-form-id-'+formid).html(obj.message);
+		this.form.parent().html(obj.message);
 		this.scrollOnSuccess();
 	  } else {
 		for (var key in obj.errors) {
