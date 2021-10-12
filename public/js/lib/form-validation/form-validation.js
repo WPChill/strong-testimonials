@@ -6,7 +6,7 @@
     
     this.form = jQuery(form).find('form');
 	this.formID = this.form.data('formid');
-	
+
 	this.defaults = {
 	  ajaxUrl: '',
 	  display: {
@@ -144,11 +144,11 @@
 	strongValidation.prototype.validateForm = function () {
         
         //remember current object for function calls later
-        var theThis = this;
+        var instance = this;
 	  /**
 	   * Validate the form
 	   */
-        jQuery(this.form).validate({
+        this.form.validate({
             
             onfocusout: false,
 
@@ -159,11 +159,11 @@
             // Focus first invalid input
             var errors = validator.numberOfInvalids();
             if (errors) {
-                if (theThis.settings.scroll.onError) {
+                if (instance.settings.scroll.onError) {
                 if (typeof validator.errorList[0] !== 'undefined') {
                     var firstError = jQuery(validator.errorList[0].element);
                     var fieldOffset = firstError.closest('.form-field').offset();
-                    var scrollTop = fieldOffset.top - theThis.settings.scroll.onErrorOffset;
+                    var scrollTop = fieldOffset.top - instance.settings.scroll.onErrorOffset;
                     jQuery('html, body').animate({scrollTop: scrollTop}, 800, function () { firstError.focus(); });
                 }
                 } else {
@@ -173,26 +173,26 @@
             },
 
             submitHandler: function () {
-            theThis.disableForm();
+			instance.disableForm();
             // If Ajax
-            if (theThis.settings.ajaxUrl !== '') {
+            if (instance.settings.ajaxUrl !== '') {
                
                 window.onbeforeunload = function() {
                 return "Please wait while the form is submitted.";
                 }
 
                 var formOptions = {
-                url: theThis.settings.ajaxUrl,
+                url: instance.settings.ajaxUrl,
                 data: {
                     action: 'wpmtst_form2'
                 },
-                success: function(success){ theThis.showResponse(success); },
+                success: function(success){ instance.showResponse(success); },
                 };
-                theThis.form.ajaxSubmit(formOptions);
+                instance.form.ajaxSubmit(formOptions);
 
             } else {
 
-                theThis.form.submit();
+                instance.form.submit();
             }
             },
 
@@ -247,7 +247,7 @@
 	  } else {
 		for (var key in obj.errors) {
 		  if (obj.errors.hasOwnProperty(key)) {
-			jQuery('.wpmtst-submission-form').children('.field-' + key)
+			this.form.children('.field-' + key)
 			  .find('span.error')
 			  .remove()
 			  .end()
@@ -263,7 +263,7 @@
      strongValidation.prototype.scrollOnSuccess = function () {
 	  if (this.settings.scroll.onSuccess) {
 		var containerOffset, scrollTop;
-		containerOffset = jQuery('.wpmtst-testimonial-success').offset();
+		containerOffset = jQuery('.wpmtst-form-id-'+this.formID).find('.wpmtst-testimonial-success').offset();
 		if (containerOffset) {
 		  scrollTop = containerOffset.top - this.settings.scroll.onSuccessOffset;
 		  // is WordPress admin bar showing?
