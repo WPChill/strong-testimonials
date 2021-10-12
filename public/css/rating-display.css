@@ -116,11 +116,11 @@
 .strong-rating-wrapper .star svg path {
   fill: #FFB900;
   stroke: #000;
-  stroke-width: 10px;
+  stroke-width: 6;
 }
 /* set the width of the star */
 .strong-rating-wrapper .star svg {
-  width: 19px;
+  width: 20px;
 }
 
 /* then turn off stars after the current rating */
