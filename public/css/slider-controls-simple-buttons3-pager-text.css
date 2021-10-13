@@ -22,6 +22,7 @@
 ---------------------------------------------------------*/
 .strong-view .wpmslider-pager {
   display: inline-block;
+  vertical-align: middle;
 }
 .strong-view.rtl .wpmslider-pager {
   direction: rtl;
@@ -87,7 +88,7 @@
   width: 25px;
   height: 25px;
   position: relative;
-  top:3px;
+  top:1px;
 }
 .strong-view.controls-style-buttons3 .wpmslider-start:hover,
 .strong-view.controls-style-buttons3 .wpmslider-stop:hover,
@@ -105,7 +106,7 @@
   display: inline-block;
   width: 25px;
   height: 25px;
-  top: 3px;}
+  top: 1px;}
 .strong-view.controls-style-buttons3:not(.rtl) .wpmslider-next:before {
   content: "";
   -webkit-mask: url('../svg/chevron-circle-right-solid.svg') center center no-repeat;
@@ -116,7 +117,7 @@
   display: inline-block;
   width: 25px;
   height: 25px;
-  top: 3px;
+  top: 1px;
 }
 .strong-view.controls-style-buttons3.rtl .wpmslider-prev:before {
   content: "";
@@ -128,7 +129,7 @@
   display: inline-block;
   width: 25px;
   height: 25px;
-  top: 3px;
+  top: 1px;
 }
 .strong-view.controls-style-buttons3.rtl .wpmslider-next:before {
   content: "";
@@ -140,7 +141,7 @@
   display: inline-block;
   width: 25px;
   height: 25px;
-  top: 3px;;
+  top: 1px;;
 }
 
 .strong-view.controls-style-text .wpmslider-start,
