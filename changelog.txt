@@ -1,5 +1,6 @@
 = 2.51.7 - TBD  -
 - Added: optional parameter to function wpmtst_get_success_message
+- Fixed: Fatal error in shortcode when decimals attribute from shortcode was not a number but a string
 
 = 2.51.6 - TBD -
 - Fixed upsells for wp 5.8.1 ( https://github.com/WPChill/strong-testimonials/issues/281 )
