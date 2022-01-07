@@ -739,6 +739,9 @@ function wpmtst_form_category_checklist( $view_cats_array ) {
  * @since 2.22.0
  */
 function wpmtst_save_view_sticky() {
+	if( !current_user_can('edit_posts') ){
+		wp_die();
+	}
 	$id = filter_input( INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT );
 	$stickies = get_option( 'wpmtst_sticky_views', array() );
 	if ( in_array( $id, $stickies ) ) {
