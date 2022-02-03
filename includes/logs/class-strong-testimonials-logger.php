@@ -19,8 +19,34 @@ class Strong_File_Logging {
 	private $filename          = '';
 	private $file              = '';
 	public $is_logging_enabled = false;
+	/**
+	 * Holds the class object.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @var object
+	 */
+	public static $instance;
+
+	/**
+	 * Returns the singleton instance of the class.
+	 *
+	 * @since 2.51.7
+	 *
+	 * @return object The Strong_File_Logging object.
+	 */
+	public static function get_instance() {
+
+		if ( ! isset( self::$instance ) && ! ( self::$instance instanceof Strong_File_Logging ) ) {
+			self::$instance = new Strong_File_Logging();
+		}
+
+		return self::$instance;
+
+	}
 
 	public function __construct() {
+
 		$this->is_logging_enabled();
 		add_filter( 'wpmtst_submenu_pages', array( $this, 'add_submenu' ) );
 		add_action( 'admin_init', array( $this, 'handle_actions' ) );
@@ -64,7 +90,7 @@ class Strong_File_Logging {
 	 */
 	public function is_logging_enabled() {
 		$options = get_option( 'strong_testimonials_advanced_settings' );
-		if ( isset( $options['debug_log'] ) && 'on' == $options['debug_log'] ) {
+		if ( isset( $options['debug_log'] ) && 'on' === $options['debug_log'] ) {
 			$this->is_logging_enabled = true;
 		}
 	}
@@ -100,7 +126,7 @@ class Strong_File_Logging {
 	 * 
 	 * @since 2.51.7
 	 */
-	public static function get_log_files() {
+	public function get_log_files() {
 		$files  = self::scan_log_files( WPMTST_LOGS );
 		$result = array();
 
@@ -133,14 +159,14 @@ class Strong_File_Logging {
 	 * 
 	 * @since 2.51.7
 	 */
-	public static function handle_actions() {
+	public function handle_actions() {
 
-		if ( ! empty( $_REQUEST['remove'] ) ) { // WPCS: input var ok, CSRF ok.
-			self::remove_log();
+		if ( ! empty( $_REQUEST['remove'] ) ) { // phpcs:ignore input var ok, CSRF ok.
+			$this->remove_log();
 		}
 
-		if ( ! empty( $_REQUEST['download'] ) ) { // WPCS: input var ok, CSRF ok.
-			self::download_log();
+		if ( ! empty( $_REQUEST['download'] ) ) { // phpcs:ignore input var ok, CSRF ok.
+			$this->download_log();
 		}
 	}
 
@@ -149,11 +175,11 @@ class Strong_File_Logging {
 	 * 
 	 * @since 2.51.7
 	 */
-	public static function status_logs_file() {
-		$logs = self::get_log_files();
+	public function status_logs_file() {
+		$logs = $this->get_log_files();
 
-		if ( ! empty( $_REQUEST['log_file'] ) && isset( $logs[ sanitize_title( wp_unslash( $_REQUEST['log_file'] ) ) ] ) ) { // WPCS: input var ok, CSRF ok.
-			$viewed_log = $logs[ sanitize_title( wp_unslash( $_REQUEST['log_file'] ) ) ]; // WPCS: input var ok, CSRF ok.
+		if ( ! empty( $_REQUEST['log_file'] ) && isset( $logs[ sanitize_title( wp_unslash( $_REQUEST['log_file'] ) ) ] ) ) { // phpcs:ignore input var ok, CSRF ok.
+			$viewed_log = $logs[ sanitize_title( wp_unslash( $_REQUEST['log_file'] ) ) ]; // phpcs:ignore input var ok, CSRF ok.
 		} elseif ( ! empty( $logs ) ) {
 			$viewed_log = current( $logs );
 		}
@@ -163,20 +189,18 @@ class Strong_File_Logging {
 		include_once __DIR__ . '/html-strong-testimonials-logs-viewer.php';
 	}
 
-
 	/**
 	 * Remove/delete the chosen file and it's directory.
 	 * 
 	 * @since 2.51.7
 	 */
-	public static function remove_log() {
+	public function remove_log() {
 		if ( empty( $_REQUEST['_wpnonce'] ) || ! wp_verify_nonce( wp_unslash( $_REQUEST['_wpnonce'] ), 'remove_log' ) ) { // phpcs:ignore input var ok, sanitization ok.
 			wp_die( esc_html__( 'Action failed. Please refresh the page and retry.', 'strong-testimonials' ) );
 		}
 
-		if ( ! empty( $_REQUEST['remove'] ) ) {  // WPCS: input var ok.
-			$remover = new Strong_File_Logging();
-			$remover->remove( wp_unslash( $_REQUEST['remove'] ), wp_unslash( $_REQUEST['subdir'] ) ); // phpcs:ignore input var ok, sanitization ok.
+		if ( ! empty( $_REQUEST['remove'] ) ) {  // phpcs:ignore input var ok.
+			$this->remove( wp_unslash( $_REQUEST['remove'] ), wp_unslash( $_REQUEST['subdir'] ) ); // phpcs:ignore input var ok, sanitization ok.
 		}
 
 		wp_safe_redirect( esc_url_raw( admin_url( 'edit.php?post_type=wpm-testimonial&page=strong-testimonials-logs' ) ) );
@@ -215,14 +239,13 @@ class Strong_File_Logging {
 	 * 
 	 * @since 2.51.7
 	 */
-	public static function download_log() {
+	public function download_log() {
 		if ( empty( $_REQUEST['_wpnonce'] ) || ! wp_verify_nonce( wp_unslash( $_REQUEST['_wpnonce'] ), 'download_log' ) ) { // phpcs:ignore input var ok, sanitization ok.
 			wp_die( esc_html__( 'Action failed. Please refresh the page and retry.', 'strong-testimonials' ) );
 		}
 
 		if ( ! empty( $_REQUEST['download'] ) ) {  // phpcs:ignore input var ok.
-			$downloader = new Strong_File_Logging();
-			$downloader->download( wp_unslash( $_REQUEST['download'] ), wp_unslash( $_REQUEST['subdir'] ) ); // phpcs:ignore input var ok, sanitization ok.
+			$this->download( wp_unslash( $_REQUEST['download'] ), wp_unslash( $_REQUEST['subdir'] ) ); // phpcs:ignore input var ok, sanitization ok.
 		}
 
 	}
@@ -258,6 +281,7 @@ class Strong_File_Logging {
 		}
 
 	}
+
 	/**
 	 * Sets up the log file if it is writable
 	 *
@@ -297,7 +321,7 @@ class Strong_File_Logging {
 	 * @since 2.51.7
 	 */
 	public function log_to_file( $message = '' ) {
-		$message = date( 'd-n-Y H:i:s' ) . ' - ' . $message . "\r\n";
+		$message = wp_date( 'd-n-Y H:i:s' ) . ' - ' . $message . "\r\n";
 		$this->write_to_log( $message );
 
 	}
@@ -355,7 +379,7 @@ class Strong_File_Logging {
 
 }
 
-$GLOBALS['strong_logs'] = new Strong_File_Logging();
+$GLOBALS['strong_logs'] = Strong_File_Logging::get_instance();
 
 
 /**
