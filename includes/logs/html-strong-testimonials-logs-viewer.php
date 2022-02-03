@@ -5,22 +5,53 @@ if ( ! defined( 'ABSPATH' ) ) {
 if ( $logs ) : ?>
 <div class="wrap wpmtst">
 
-    <h1><?php esc_html_e( 'Strong Testimonials Debug Logs', 'strong-testimonials' ); ?></h1>
+	<h1><?php esc_html_e( 'Strong Testimonials Debug Logs', 'strong-testimonials' ); ?></h1>
 	<div id="log-viewer-select">
 		<div class="alignleft">
 			<h2>
 				<?php echo esc_html( $viewed_log ); ?>
-                <?php 
-                $subfolder= '';
-                if( strpos( $viewed_log, '/' ) ){
-                    $subfolder  = explode( '/', $viewed_log )[0];
-                    $log_name = explode( '/', $viewed_log )[1];
-                }else{
-                    $log_name = $viewed_log;
-                }?>
+				<?php
+				$subfolder = '';
+				if ( strpos( $viewed_log, '/' ) ) {
+					$subfolder = explode( '/', $viewed_log )[0];
+					$log_name  = explode( '/', $viewed_log )[1];
+				} else {
+					$log_name = $viewed_log;
+				}
+				?>
 				<?php if ( ! empty( $viewed_log ) ) : ?>
-					<a class="page-title-action" href="<?php echo esc_url( wp_nonce_url( add_query_arg( array( 'remove' => sanitize_title( $log_name ),'subdir' => sanitize_title( $subfolder ) ), admin_url( 'edit.php?post_type=wpm-testimonial&page=strong-testimonials-logs' ) ), 'remove_log' ) ); ?>" class="button"><?php esc_html_e( 'Delete log', 'strong-testimonials' ); ?></a>
-                    <a class="page-title-action" href="<?php echo esc_url( wp_nonce_url( add_query_arg( array( 'download' => sanitize_title( $log_name ),'subdir' => sanitize_title( $subfolder ) ), admin_url( 'edit.php?post_type=wpm-testimonial&page=strong-testimonials-logs' ) ), 'download_log' ) ); ?>" class="button"><?php esc_html_e( 'Download log', 'strong-testimonials' ); ?></a>
+					<a class="page-title-action" href="
+					<?php
+					echo esc_url(
+						wp_nonce_url(
+							add_query_arg(
+								array(
+									'remove' => sanitize_title( $log_name ),
+									'subdir' => sanitize_title( $subfolder ),
+								),
+								admin_url( 'edit.php?post_type=wpm-testimonial&page=strong-testimonials-logs' )
+							),
+							'remove_log'
+						)
+					);
+					?>
+														" class="button"><?php esc_html_e( 'Delete log', 'strong-testimonials' ); ?></a>
+					<a class="page-title-action" href="
+					<?php
+					echo esc_url(
+						wp_nonce_url(
+							add_query_arg(
+								array(
+									'download' => sanitize_title( $log_name ),
+									'subdir'   => sanitize_title( $subfolder ),
+								),
+								admin_url( 'edit.php?post_type=wpm-testimonial&page=strong-testimonials-logs' )
+							),
+							'download_log'
+						)
+					);
+					?>
+														" class="button"><?php esc_html_e( 'Download log', 'strong-testimonials' ); ?></a>
 				<?php endif; ?>
 			</h2>
 		</div>
