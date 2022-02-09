@@ -46,8 +46,6 @@ class Strong_View_Display extends Strong_View {
 	 */
 	public function reset_view() {
 		wp_reset_postdata();
-		remove_filter( 'wpmtst_build_query', array( $this, 'query_pagination' ) );
-                remove_filter( 'wpmtst_build_query', array( $this, 'query_infinitescroll' ) );
 	}
 
 	/**
