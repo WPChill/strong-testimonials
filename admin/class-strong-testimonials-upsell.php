@@ -120,6 +120,12 @@ class Strong_Testimonials_Upsell {
 
 
 		if ( ! defined( 'WPMTST_IMPORTER_VERSION' ) ) {
+			
+			// remove "submitdiv" metabox so we can add it back in desired order.
+			$post_type = 'wpm-testimonial';
+			remove_meta_box( 'post_submit_meta_box', $post_type, 'side' );
+			add_meta_box( 'submitdiv', __( 'Publish' ), 'post_submit_meta_box', $post_type, 'side', 'high' );
+
 			add_meta_box(
 				'wpmtst-importer-upsell',      // Unique ID
 				esc_html__( 'Import', 'strong-testimonials' ),    // Title
