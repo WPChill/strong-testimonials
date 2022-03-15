@@ -169,3 +169,7 @@ body.wpmtst_page_wpmtst-upgrade-to-pro #wpcontent .wrap {
     vertical-align: middle;
     line-height: 26px;
   }
+  a.wpmtst-lite-vs-pro {
+    color: orange;
+    font-weight: bold;
+}
