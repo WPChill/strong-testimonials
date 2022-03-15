@@ -8,7 +8,26 @@ class Strong_Testimonials_Lite_vs_PRO_page {
 	public function __construct() {
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
 		add_filter( 'wpmtst_submenu_pages', array( $this, 'add_submenu' ) );
+
+		// Upgrade to PRO plugin action link
+		add_filter( 'plugin_action_links_' . WPMTST_PLUGIN, array( $this, 'filter_action_links' ), 60 );
 	}
+	
+	/**
+	 * Add the Upgrade to PRO plugin action link
+	 *
+	 * @param $links
+	 *
+	 * @return array
+	 *
+	 * @since 2.51.7
+	 */
+	public function filter_action_links( $links ) {
+
+        $links = array_merge( array ( '<a  class="wpmtst-lite-vs-pro" href="https://wp-modula.com/free-vs-pro/?utm_source=modula-lite&utm_medium=plugin_settings&utm_campaign=upsell">' . esc_html__( 'Upgrade to PRO!', 'strong-testimonials' ) . '</a>' ), $links );
+
+        return $links;
+    }
 	/**
 	 * Add submenu page.
 	 *
