@@ -125,6 +125,10 @@ class Strong_Testimonials_Addons {
 		die;
 	}
 
+	public function get_addons(){
+		return $this->check_for_addons();
+	}
+
 
 
 }

@@ -292,7 +292,8 @@ final class Strong_Testimonials {
 			require_once WPMTST_ADMIN . 'class-strong-testimonials-upsell.php';
 			require_once WPMTST_ADMIN . 'class-strong-testimonials-updater.php';
 			require_once WPMTST_ADMIN . 'class-strong-testimonials-review.php';
-                        require_once WPMTST_ADMIN . 'class-strong-testimonials-helper.php';
+			require_once WPMTST_ADMIN . 'class-strong-testimonials-helper.php';
+			require_once WPMTST_ADMIN . 'class-strong-testimonials-lite-vs-pro-page.php';
 
 			require_once WPMTST_ADMIN . 'admin.php';
 			require_once WPMTST_ADMIN . 'admin-notices.php';
