@@ -1,0 +1,19 @@
+div.st-block-preview { 
+    background: white;
+    padding: 50px 25px;
+    border: 1px solid black;
+}
+
+div.st-view-select {
+    width: fit-content;
+    min-width: 100px;
+}
+
+div.st-view-select label.components-input-control__label {
+    margin-bottom: 10px!important;
+    font-weight: 700;
+}
+
+div.st-view-select div.components-input-control__container select.components-select-control__input{ 
+    height: fit-content;
+}

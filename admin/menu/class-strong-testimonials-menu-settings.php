@@ -44,8 +44,8 @@ class Strong_Testimonials_Menu_Settings {
 	 */
 	public static function get_submenu() {
 		return array(
-			'page_title' => __( 'Settings', 'strong-testimonials' ),
-	        'menu_title' => __( 'Settings', 'strong-testimonials' ),
+			'page_title' => esc_html__( 'Settings', 'strong-testimonials' ),
+	        'menu_title' => esc_html__( 'Settings', 'strong-testimonials' ),
 		    'capability' => 'strong_testimonials_options',
 			'menu_slug'  => 'testimonial-settings',
 			'function'   => array( 'Strong_Testimonials_Settings', 'settings_page' ),

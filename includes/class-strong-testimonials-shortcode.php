@@ -74,8 +74,8 @@ class Strong_Testimonials_View_Shortcode {
 				ob_start();
 				?>
 				<p style="color: #CD0000;">
-					<?php printf( __( 'Testimonial view %s not found.', 'strong-testimonials' ), $out['view'] ); ?><br>
-					<span style="color: #777; font-size: 0.9em;"><?php _e( '(Only administrators see this message.)', 'strong-testimonials' ); ?></span>
+					<?php printf( esc_html__( 'Testimonial view %s not found.', 'strong-testimonials' ), esc_attr( $out['view'] ) ); ?><br>
+					<span style="color: #777; font-size: 0.9em;"><?php esc_html_e( '(Only administrators see this message.)', 'strong-testimonials' ); ?></span>
 				</p>
 				<?php
 				return ob_get_clean();

@@ -81,29 +81,31 @@ class Strong_Testimonials_Render {
 		add_action( 'wpmtst_form_rendered', array( $this, 'view_rendered' ) );
 		add_action( 'wpmtst_form_success', array( $this, 'view_rendered' ) );
 
-		switch ( $options['prerender'] ) {
-			case 'none':
-				/**
-				 * Use fallback.
-				 */
-				break;
+		if ( isset( $options['prerender'] ) ) {
+			switch ( $options['prerender'] ) {
+				case 'none':
+					/**
+					 * Use fallback.
+					 */
+					break;
 
-			case 'all':
-				/**
-				 * Provision all views.
-				 * Enqueue stylesheets in head, scripts in footer.
-				 */
-				add_action( 'wp_enqueue_scripts', array( $this, 'provision_all_views' ), 1 );
-				add_action( 'wp_enqueue_scripts', array( $this, 'view_rendered' ) );
-				break;
+				case 'all':
+					/**
+					 * Provision all views.
+					 * Enqueue stylesheets in head, scripts in footer.
+					 */
+					add_action( 'wp_enqueue_scripts', array( $this, 'provision_all_views' ), 1 );
+					add_action( 'wp_enqueue_scripts', array( $this, 'view_rendered' ) );
+					break;
 
-			default:
-				/**
-				 * Provision views in current page only.
-				 * Enqueue stylesheets in head, scripts in footer.
-				 */
-				$this->provision_current_page();
-				add_action( 'wp_enqueue_scripts', array( $this, 'view_rendered' ) );
+				default:
+					/**
+					 * Provision views in current page only.
+					 * Enqueue stylesheets in head, scripts in footer.
+					 */
+					$this->provision_current_page();
+					add_action( 'wp_enqueue_scripts', array( $this, 'view_rendered' ) );
+			}
 		}
 	}
 
@@ -421,7 +423,9 @@ class Strong_Testimonials_Render {
 
 						if ( isset( $text_widgets[ $id ] ) ) {
 							$widget = $text_widgets[ $id ];
-							$this->process_content( $widget['text'] );
+							if ( isset( $widget['text'] ) ) {
+								$this->process_content( $widget['text'] );
+							}
 						}
 					}
 

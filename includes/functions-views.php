@@ -33,8 +33,8 @@ function wpmtst_get_views() {
 	if ( $wpdb->last_error ) {
 		deactivate_plugins( 'strong-testimonials/strong-testimonials.php' );
 		$message = '<p><span style="color: #CD0000;">';
-		$message .= __( 'An error occurred.', 'strong-testimonials' ) . '</span>&nbsp;';
-		$message .= __( 'The plugin has been deactivated.', 'strong-testimonials' ) . '&nbsp;';
+		$message .= esc_html__( 'An error occurred.', 'strong-testimonials' ) . '</span>&nbsp;';
+		$message .= esc_html__( 'The plugin has been deactivated.', 'strong-testimonials' ) . '&nbsp;';
 		$message .= '<p>' . sprintf( __( '<a href="%s">Go back to Dashboard</a>', 'strong-testimonials' ), esc_url( admin_url() ) ) . '</p>';
 		wp_die( sprintf( '<div class="error strong-view-error">%s</div>', $message ) );
 	}

@@ -31,7 +31,7 @@ jQuery(document).ready(function ($) {
       var field_name = name_on_form.match(/\[(.*)\]/).pop();
 
       if (new_rating === revert_e) {
-        buttons2.children('.cancel').click();
+        buttons2.children('.cancel').trigger('click');
         return;
       }
 
@@ -74,7 +74,7 @@ jQuery(document).ready(function ($) {
 
     buttons2.children('.zero').on("click", function () {
       ratingForm.find("input[value=0]").prop("checked", true);
-      $(this).blur();
+      $(this).trigger('blur');
       return false;
     });
 

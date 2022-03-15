@@ -46,7 +46,7 @@ class Strong_Testimonials_Forms {
 		?>
 		<div class="wrap wpmtst">
 
-			<h1><?php echo wp_kses_post( apply_filters( 'wpmtst_cpt_singular_name', esc_html__( 'Forms', 'strong-testimonials' ) ) ); ?></h1>
+			<h1><?php echo wp_kses_post( apply_filters( 'wpmtst_cpt_singular_name', esc_html__( 'Form', 'strong-testimonials' ) ) ); ?></h1>
                         
                         <?php do_action( 'wpmtst_testimonials_settings' );  ?>
                         
@@ -59,7 +59,7 @@ class Strong_Testimonials_Forms {
 			<h2 class="nav-tab-wrapper">
 				<?php do_action( 'wpmtst_form_tabs', $tab, $url ); ?>
 			</h2>
-                        <?php if ($tab != 'fields'): ?>
+		<?php if ($tab != 'fields'): ?>
 			<div class="wpmts-settings-columns">
 				<form id="<?php echo esc_attr( $tab ); ?>-form" method="post" action="options.php" enctype="multipart/form-data">
 					<?php
@@ -73,8 +73,8 @@ class Strong_Testimonials_Forms {
 					    echo '<p class="submit-buttons">';
 						do_action( 'wpmtst_settings_submit_row' );
 					    echo '</p>';
-                                        }
-                                        ?>
+					}
+		?>
 				</form>
 				<?php do_action( 'wpmtst_admin_after_settings_form' ) ?>
 			</div>
@@ -91,7 +91,7 @@ class Strong_Testimonials_Forms {
 	}
 
 	private static function get_tab() {
-		return ( isset( $_GET['tab'] ) && $_GET['tab'] ) ? $_GET['tab'] : self::DEFAULT_TAB;
+		return ( isset( $_GET['tab'] ) && $_GET['tab'] ) ? sanitize_text_field( $_GET['tab'] ) : self::DEFAULT_TAB;
 	}
 
 }

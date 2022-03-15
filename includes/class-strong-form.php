@@ -42,7 +42,7 @@ class Strong_Testimonials_Form {
 		printf( '<a href="%s" class="nav-tab %s">%s</a>',
 		        esc_url( add_query_arg( 'tab', self::TAB_NAME, $url ) ),
 		        esc_attr( $active_tab == self::TAB_NAME ? 'nav-tab-active' : '' ),
-		        __( 'Fields', 'strong-testimonials' )
+		        esc_html__( 'Fields', 'strong-testimonials' )
 		);
 	}
         
@@ -197,6 +197,8 @@ class Strong_Testimonials_Form {
 		 */
 		foreach ( $fields as $key => $field ) {
 
+			$new_post = apply_filters( 'before_field_sanitize', $new_post, $field);
+			
 			if ( isset( $field['required'] ) && $field['required'] ) {
 				if ( ( 'file' == $field['input_type'] ) ) {
 					if ( ! isset( $_FILES[ $field['name'] ] ) || ! $_FILES[ $field['name'] ]['size'] ) {

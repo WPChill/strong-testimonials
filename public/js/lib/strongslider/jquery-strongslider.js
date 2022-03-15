@@ -13,7 +13,8 @@
 /**
  * @namespace verge.inViewport
  */
-
+ const { __ } = wp.i18n;
+ 
 ;(function ($) {
 
 	var defaults = {
@@ -554,7 +555,7 @@
 
 		// if keyboardEnabled is true, setup the keyboard events
 		if (slider.settings.keyboardEnabled) {
-		  $(document).keydown(keyPress);
+		  $(document).trigger('keydown', keyPress);
 		}
 	  };
 
@@ -990,8 +991,8 @@
 	   * Appends prev control to the controls element
 	   */
 	  var appendControlPrev = function () {
-		slider.controls.prev = $('<a class="wpmslider-prev" href="">' + slider.settings.prevText + '</a>');
-
+		slider.controls.prev = $('<a class="wpmslider-prev" href="/previous-slide"><span class="screen-reader-text">' + __('Previous Slide', 'strong-testimonials') +  '</span>' + slider.settings.prevText + '</a>');
+	
 		// bind click actions to the controls
 		slider.controls.prev.on('click touchend', clickPrevBind);
 
@@ -1014,7 +1015,7 @@
 	   * Appends next controls to the controls element
 	   */
 	  var appendControlNext = function () {
-		slider.controls.next = $('<a class="wpmslider-next" href="">' + slider.settings.nextText + '</a>');
+		slider.controls.next = $('<a class="wpmslider-next" href="/next-slide"><span class="screen-reader-text">' + __('Next Slide', 'strong-testimonials') +  '</span>' + slider.settings.nextText + '</a>');
 
 		// bind click actions to the controls
 		slider.controls.next.on('click touchend', clickNextBind);
@@ -1101,7 +1102,11 @@
 		  if (slider.debug) console.log(slider.logAs, 'stop on navigation');
 		  el.stopAuto();
 		}
-		el.goToNextSlide();
+                if ($('.strong-view').hasClass('rtl')) { 
+                    el.goToPrevSlide();
+                } else {
+                    el.goToNextSlide();
+                }
 	  };
 
 	  /**
@@ -1121,7 +1126,11 @@
 		  if (slider.debug) console.log(slider.logAs, 'stop on navigation');
 		  el.stopAuto();
 		}
-		el.goToPrevSlide();
+                if ($('.strong-view').hasClass('rtl')) {
+                    el.goToNextSlide();
+                } else {
+                    el.goToPrevSlide();
+                }
 	  };
 
 	  /**
@@ -1974,14 +1983,14 @@
 		el.destroySlider();
 		init();
 		// store reference to self in order to access public functions later
-		$(el).data('strongSlider', this);
+		$(el).data('strongSlider', el);
 	  };
 
 	  // Fire it up!
 	  init();
 
 	  // Store reference to self in order to access public functions later
-	  $(el).data('strongSlider', this);
+	  $(el).data('strongSlider', el);
 
 	  // Set initialized flag on container
 	  viewEl.attr('data-state', 'init');

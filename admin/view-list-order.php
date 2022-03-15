@@ -7,8 +7,8 @@
  * Save
  */
 function wpmtst_save_view_list_order() {
-	$name  = $_REQUEST['name'];
-	$order = $_REQUEST['order'];
+	$name  = sanitize_text_field( $_REQUEST['name'] );
+	$order = sanitize_text_field( $_REQUEST['order'] );
 	$success = '';
 	if ( in_array( $name, array( 'name', 'id' ) ) ) {
 		$success = update_user_meta( get_current_user_id(), 'strong_view_list_order', array( $name, $order ) );

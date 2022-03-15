@@ -3,9 +3,9 @@
  * Plugin Name: Strong Testimonials
  * Plugin URI: https://strongtestimonials.com
  * Description: Collect and display your testimonials or reviews.
- * Author: MachoThemes
- * Author URI: https://www.machothemes.com/
- * Version: 2.50.3
+ * Author: WPChill
+ * Author URI: https://wpchill.com/
+ * Version: 2.51.6
  * Text Domain: strong-testimonials
  * Domain Path: /languages
  * Requires: 4.6 or higher
@@ -14,7 +14,8 @@
  * Requires PHP: 5.6
  *
  * Copyright 2014-2019 Chris Dillon chris@strongwp.com
- * Copyright 2019 MachoThemes office@machothemes.com
+ * Copyright 2019-2020 MachoThemes office@machothemes.com
+ * Copyright 2020	   WPChill     heyyy@wpchill.com
  *
  * Original Plugin URI:         https://strongplugins.com/plugins/strong-testimonials
  * Original Author URI:         https://strongplugins.com
@@ -44,7 +45,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'WPMTST_VERSION', '2.50.3' );
+define( 'WPMTST_VERSION', '2.51.6' );
 define( 'WPMTST_PLUGIN', plugin_basename( __FILE__ ) ); // strong-testimonials/strong-testimonials.php
 define( 'WPMTST', dirname( WPMTST_PLUGIN ) );           // strong-testimonials
 defined( 'WPMTST_STORE_URL' ) || define( 'WPMTST_STORE_URL', 'https://strongtestimonials.com' );
@@ -133,7 +134,7 @@ final class Strong_Testimonials {
 	 */
 	public function __clone() {
 		// Cloning instances of the class is forbidden
-		_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'strong-testimonials' ), '1.21' );
+		_doing_it_wrong( __FUNCTION__, esc_html__( 'Cheatin&#8217; huh?', 'strong-testimonials' ), '1.21' );
 	}
 
 	/**
@@ -145,7 +146,7 @@ final class Strong_Testimonials {
 	 */
 	public function __wakeup() {
 		// Unserializing instances of the class is forbidden
-		_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'strong-testimonials' ), '1.21' );
+		_doing_it_wrong( __FUNCTION__, esc_html__( 'Cheatin&#8217; huh?', 'strong-testimonials' ), '1.21' );
 	}
 
 	/**
@@ -229,6 +230,9 @@ final class Strong_Testimonials {
 		require_once WPMTST_INC . 'class-strong-testimonials-privacy.php';
 
 		require_once WPMTST_INC . 'class-strong-testimonials-shortcode.php';
+		require_once WPMTST_INC . 'class-strong-gutemberg.php';
+		require_once WPMTST_INC . 'elementor/class-strong-elementor-check.php';
+		require_once WPMTST_INC . 'strong-testimonials-beaver-block/class-strong-beaver.php';
 		require_once WPMTST_INC . 'class-strong-testimonials-shortcode-count.php';
 		require_once WPMTST_INC . 'class-strong-testimonials-shortcode-average.php';
 		require_once WPMTST_INC . 'class-strong-testimonials-render.php';
@@ -270,8 +274,9 @@ final class Strong_Testimonials {
 			require_once WPMTST_ADMIN . 'settings/class-strong-testimonials-settings-general.php';
 			require_once WPMTST_ADMIN . 'settings/class-strong-testimonials-settings-form.php';
 			require_once WPMTST_ADMIN . 'settings/class-strong-testimonials-settings-compat.php';
-            require_once WPMTST_ADMIN . 'settings/class-strong-testimonials-form.php';
-			
+                        require_once WPMTST_ADMIN . 'settings/class-strong-testimonials-form.php';
+
+			require_once WPMTST_ADMIN . 'about/class-strong-testimonials-welcome.php';
 			require_once WPMTST_ADMIN . 'class-strong-testimonials-addons.php';
 			require_once WPMTST_ADMIN . 'class-strong-testimonials-defaults.php';
 			require_once WPMTST_ADMIN . 'class-strong-testimonials-list-table.php';
@@ -287,6 +292,7 @@ final class Strong_Testimonials {
 			require_once WPMTST_ADMIN . 'class-strong-testimonials-upsell.php';
 			require_once WPMTST_ADMIN . 'class-strong-testimonials-updater.php';
 			require_once WPMTST_ADMIN . 'class-strong-testimonials-review.php';
+                        require_once WPMTST_ADMIN . 'class-strong-testimonials-helper.php';
 
 			require_once WPMTST_ADMIN . 'admin.php';
 			require_once WPMTST_ADMIN . 'admin-notices.php';
@@ -326,8 +332,7 @@ final class Strong_Testimonials {
 		 * Plugin setup.
 		 */
 		add_action( 'init', array( $this, 'l10n_check' ) );
-		//@todo : delete commented line. For the moment let it be
-		//add_action( 'init', array( $this, 'reorder_check' ) );
+                //add_action( 'init', array( $this, 'reorder_check' ) );
 
 		/**
 		 * Theme support for thumbnails.
@@ -396,15 +401,12 @@ final class Strong_Testimonials {
 	/**
 	 * Load reorder class if enabled.
 	 */
-    //@todo : delete commented lines. For the moment let it be
-	/*public function reorder_check() {
-		$options = get_option( 'wpmtst_options' );
-		if ( isset( $options['reorder'] ) && $options['reorder'] ) {
-			require_once WPMTST_INC . 'class-strong-testimonials-order.php';
-		}
-	}*/
-
-
+//	public function reorder_check() {
+//		$options = get_option( 'wpmtst_options' );
+//		if ( isset( $options['reorder'] ) && $options['reorder'] ) {
+//			require_once WPMTST_INC . 'class-strong-testimonials-order.php';
+//		}
+//	}
 
 	/**
 	 * Get att(s).
@@ -521,6 +523,24 @@ final class Strong_Testimonials {
 }
 
 endif; // class_exists check
+
+if( ! class_exists( 'Strong_Testimonials_Usage_Tracker') ) {
+	require_once dirname( __FILE__ ) . '/includes/tracking/class-strong-testimonials-usage-tracker.php';
+}
+if( ! function_exists( 'strong_testimonials_start_plugin_tracking' ) ) {
+	function strong_testimonials_start_plugin_tracking() {
+		$wisdom = new Strong_Testimonials_Usage_Tracker(
+			__FILE__,
+			'https://tracking.strongtestimonials.com',
+			array(),
+			true,
+			true,
+			0
+		);
+	}
+	strong_testimonials_start_plugin_tracking();
+}
+
 
 register_activation_hook( __FILE__, array( 'Strong_Testimonials', 'plugin_activation' ) );
 register_deactivation_hook( __FILE__, array( 'Strong_Testimonials', 'plugin_deactivation' ) );

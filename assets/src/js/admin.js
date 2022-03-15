@@ -34,31 +34,31 @@ jQuery(document).ready(function ($) {
 
 	// Add protocol if missing
 	// Thanks http://stackoverflow.com/a/36429927/51600
-	$('input[type=url]').change(function () {
+	$('input[type=url]').on('change', function () {
 		if (this.value.length && !/^https*:\/\//.test(this.value)) {
 			this.value = 'http://' + this.value;
 		}
 	});
 
-	$('ul.ui-tabs-nav li a').click(function () {
-		$(this).blur();
+	$('ul.ui-tabs-nav li a').on('click', function () {
+		$(this).trigger('blur');
 	});
 
-	$('.focus-next-field').change(function (e) {
+	$('.focus-next-field').on('change', function (e) {
 		if ($(e.target).is(':checked')) {
-			$(e.target).parent().next().find('input').focus().select();
+			$(e.target).parent().next().find('input').focus().trigger('select');
 		}
 	});
 
 	// toggle screenshots
-	$('#toggle-screen-options').add('#screenshot-screen-options').click(function (e) {
-		$(this).blur();
+	$('#toggle-screen-options').add('#screenshot-screen-options').on('click', function (e) {
+		$(this).trigger('blur');
 		$('#screenshot-screen-options').slideToggle();
 	});
 
 	// toggle screenshots
-	$('#toggle-help').click(function (e) {
-		$(this).toggleClass('closed open').blur();
+	$('#toggle-help').on('click', function (e) {
+		$(this).toggleClass('closed open').trigger('blur');
 		$('#help-section').slideToggle();
 	});
 
@@ -90,7 +90,7 @@ jQuery(document).ready(function ($) {
 	$('table.wpm-testimonial_page_testimonial-views').on('click', '.stickit', function (e) {
 		var icon = $(this);
 		icon.closest('.wp-list-table-wrap').find('.overlay').fadeIn(200);
-		icon.blur().toggleClass('stuck');
+		icon.trigger('blur').toggleClass('stuck');
 		var id = $(this).closest('tr').find('td.id').html();
 		var data = {
 			'action': 'wpmtst_save_view_sticky',

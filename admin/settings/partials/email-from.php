@@ -4,7 +4,7 @@
             <input id="wpmtst-options-mail-queue"
                    type="checkbox"
                    name="wpmtst_form_options[mail_queue]" <?php checked( $form_options['mail_queue'] ); ?>>
-			<?php _e( 'Use mail queue. For services like Mandrill. Off by default.', 'strong-testimonials' ); ?>
+			<?php esc_html_e( 'Use mail queue. For services like Mandrill. Off by default.', 'strong-testimonials' ); ?>
         </label>
     </fieldset>
 </div>
@@ -13,7 +13,7 @@
     <div class="email-option-row">
 
         <div class="email-option-desc">
-			<?php _e( "From", 'strong-testimonials' ); ?>
+			<?php esc_html_e( 'From', 'strong-testimonials' ); ?>
         </div>
 
         <div class="email-option-inputs">
@@ -22,13 +22,13 @@
 
                 <div class="email-option-part">
                     <div class="email-option-label">
-                        <?php _e( "Name", 'strong-testimonials' ); ?>
+                        <?php esc_html_e( 'Name', 'strong-testimonials' ); ?>
                     </div>
                 </div>
 
                 <div class="email-option-part">
                     <div class="email-option-label">
-						<?php _e( "Email", 'strong-testimonials' ); ?>
+						<?php esc_html_e( 'Email', 'strong-testimonials' ); ?>
                     </div>
                 </div>
 
@@ -44,7 +44,7 @@
                                    id="wpmtst-options-sender-name"
                                    name="wpmtst_form_options[sender_name]"
                                    value="<?php echo esc_attr( $form_options['sender_name'] ); ?>"
-                                   placeholder="<?php _e( '(optional)', 'strong-testimonials' ); ?>">
+                                   placeholder="<?php esc_html_e( '(optional)', 'strong-testimonials' ); ?>">
                         </div>
                     </div>
                 </div>
@@ -60,8 +60,8 @@
                                    value="1">
                         </div>
                         <div class="fields">
-							<?php _e( 'admin:', 'strong-testimonials' ); ?>
-                            &nbsp;<?php echo get_bloginfo( 'admin_email' ); ?>
+							<?php esc_html_e( 'admin:', 'strong-testimonials' ); ?>
+                            &nbsp;<?php esc_html_e( get_bloginfo( 'admin_email' ) ); ?>
                         </div>
 
                     </div>
@@ -79,7 +79,7 @@
                                    id="wpmtst-options-sender-email"
                                    name="wpmtst_form_options[sender_email]"
                                    value="<?php echo esc_attr( $form_options['sender_email'] ); ?>"
-                                   placeholder="<?php _e( 'email address', 'strong-testimonials' ); ?>">
+                                   placeholder="<?php esc_html_e( 'email address', 'strong-testimonials' ); ?>">
                         </div>
 
                     </div>

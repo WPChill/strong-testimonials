@@ -256,7 +256,7 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
 .strong-view.wpmtst-simple.rtl .wpmtst-testimonial-field {
   text-align: left;
 }
-.disabled {
+.strong-view.wpmtst-simple .disabled {
   display : none!important;
 }
 

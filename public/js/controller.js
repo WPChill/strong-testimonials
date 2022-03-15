@@ -267,7 +267,7 @@ var strongController = {
       strongController.listenForIframeReady();
     });
     
-    jQuery('textarea.max-length, input.text.max-length').keyup(function() {
+    jQuery('textarea.max-length, input.text.max-length').on('keyup', function() {
         var maxLength =  jQuery(this).attr('maxlength');
         var textLength = jQuery(this).val().length;
         if (maxLength !== null) {

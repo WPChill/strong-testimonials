@@ -28,7 +28,7 @@ class Strong_Testimonials_Privacy {
 	 * @return string
 	 */
 	public function get_friendly_name() {
-		return __( 'Strong Testimonials Plugin', 'strong-testimonials' );
+		return esc_html__( 'Strong Testimonials Plugin', 'strong-testimonials' );
 	}
 
 	/**
@@ -59,7 +59,7 @@ class Strong_Testimonials_Privacy {
 
 			$item_id     = "testimonial-{$testimonial->ID}";
 			$group_id    = 'testimonials';
-			$group_label = __( 'Testimonials', 'strong-testimonials' );
+			$group_label = esc_html__( 'Testimonials', 'strong-testimonials' );
 
 			$data = array();
 

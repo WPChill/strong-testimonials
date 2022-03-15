@@ -76,7 +76,7 @@ var strongValidation = {
 
 	  // Add protocol if missing
 	  // Thanks http://stackoverflow.com/a/36429927/51600
-	  jQuery('input[type=url]').change(function () {
+	  jQuery('input[type=url]').on('change', function () {
 		if (this.value.length && !/^https*:\/\//.test(this.value)) {
 		  this.value = 'https://' + this.value;
 		}
@@ -98,7 +98,7 @@ var strongValidation = {
 	  // If key 0-5 fired the event, trigger click on that star (including hidden zero).
 	  if (e.keyCode >= 48 && e.keyCode <= 53) {
 		var key = e.keyCode - 48;
-		jQuery(this).find('input[type="radio"][value=' + key + ']').click();
+		jQuery(this).find('input[type="radio"][value=' + key + ']').trigger('click');
 	  }
 	},
 
@@ -170,7 +170,7 @@ var strongValidation = {
 
 		  } else {
 
-			form.submit();
+			form.trigger('submit');
 
 		  }
 		},

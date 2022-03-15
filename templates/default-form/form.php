@@ -13,9 +13,9 @@
         <div class="strong-form-inner">
             
             <?php if (isset($form_options['members_only']) && $form_options['members_only'] == true && isset($form_options['members_only_message']) && !is_user_logged_in()): ?>
-                <span class="error"><?php echo $form_options['members_only_message']; ?></span>
-                <a href="<?php echo esc_url( wp_login_url( get_permalink() ) ); ?>" alt="<?php esc_attr_e( 'Login', 'textdomain' ); ?>">
-                    <?php _e( 'Login', 'textdomain' ); ?>
+                <span class="error"><?php echo esc_attr( $form_options['members_only_message'] ); ?></span>
+                <a href="<?php echo esc_url( wp_login_url( get_permalink() ) ); ?>" alt="<?php esc_attr_e( 'Login', 'strong-testimonials' ); ?>">
+                    <?php esc_html_e( 'Login', 'strong-testimonials' ); ?>
                 </a>
             <?php else: ?>
                 <?php wpmtst_field_required_notice(); ?>

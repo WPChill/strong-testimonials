@@ -18,7 +18,7 @@ function strong_testimonials_view( $id = null ) {
 	$out   = array();
 	$pairs = array();
 	$atts  = array( 'id' => $id );
-        $out   = WPMST()->render->prerender( $atts );
+	$out   = WPMST()->render->prerender( $atts );
 	$out   = WPMST()->render->parse_view( $out, $pairs, $atts );
         
 	echo WPMST()->shortcode->render_view( $out );
@@ -277,7 +277,7 @@ function wpmtst_the_date( $format = '', $class = '' ) {
 	}
 
 	$the_date = apply_filters( 'wpmtst_the_date', mysql2date( $format, $post->post_date ), $format, $post );
-	echo '<div class="' . $class . '">' . $the_date . '</div>';
+	echo '<div class="' . esc_attr( $class ) . '">' . esc_attr( $the_date ) . '</div>';
 }
 
 /**
@@ -521,7 +521,7 @@ function wpmtst_the_custom_field( $field ) {
 }
 
 function wpmtst_container_class() {
-	echo apply_filters( 'wpmtst_container_class', WPMST()->atts( 'container_class' ) );
+	echo esc_attr( apply_filters( 'wpmtst_container_class', WPMST()->atts( 'container_class' ) ) );
 }
 
 function wpmtst_container_data() {
@@ -531,7 +531,7 @@ function wpmtst_container_data() {
 		foreach ( $data_array as $attr => $value ) {
 			$data .= " data-$attr=$value";
 		}
-		echo $data;
+		echo esc_attr( $data );
 	}
 }
 

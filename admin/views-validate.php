@@ -211,7 +211,7 @@ function wpmtst_sanitize_view_readmore( $data, $input, $default_view ) {
 	if ( isset( $input['more_page'] ) && $input['more_page'] ) {
 
 		// Check the "ID or slug" field first
-		if ( $input['more_page_id2'] ) {
+		if ( isset($input['more_page_id2']) && !empty($input['more_page_id2']) ) {
 
 			// is post ID?
 			$id = sanitize_text_field( $input['more_page_id2'] );

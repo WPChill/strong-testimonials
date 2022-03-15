@@ -60,7 +60,7 @@ class Strong_Testimonials_Addons {
 				echo '</div>';
 				echo '</div>';
 				echo '<div class="wpmtst-addon-actions">';
-				echo apply_filters( 'wpmtst_addon_button_action', '<a href="' . esc_url( WPMTST_STORE_UPGRADE_URL . '?utm_source=st-lite&utm_campaign=upsell&utm_medium=' . esc_attr( $addon['slug'] ) ) . '" target="_blank" class="button primary-button">' . esc_html__( 'Upgrade to PRO', 'strong-testimonials' ) . '</a>', $addon );
+				echo apply_filters( 'wpmtst_addon_button_action', '<a href="' . esc_url( WPMTST_STORE_UPGRADE_URL . '?utm_source=st-lite&utm_campaign=upsell&utm_medium=' . esc_attr( $addon['slug'] ) ) . '" target="_blank" class="button primary-button">' . esc_html__( 'Upgrade now', 'strong-testimonials' ) . '</a>', $addon );
 				echo '</div>';
 				echo '</div>';
 			}
@@ -87,8 +87,8 @@ class Strong_Testimonials_Addons {
 	 */
 	public function get_submenu() {
 		return array(
-			'page_title' => __( 'Extensions', 'strong-testimonials' ),
-			'menu_title' => __( 'Extensions', 'strong-testimonials' ),
+			'page_title' => esc_html__( 'Extensions', 'strong-testimonials' ),
+			'menu_title' => esc_html__( 'Extensions', 'strong-testimonials' ),
 			'capability' => 'strong_testimonials_options',
 			'menu_slug'  => 'strong-testimonials-addons',
 			'function'   => array( $this, 'addons_page' ),

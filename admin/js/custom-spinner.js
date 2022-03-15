@@ -46,7 +46,7 @@
       plus.addClass('disabled')
     }
 
-    minus.click(function () {
+    minus.on('click', function () {
       var input = $(this).parent().find('input')
       var value = +round(input.val(),1)
       if (+value > +min) {
@@ -62,7 +62,7 @@
       }
     })
 
-    plus.click(function () {
+    plus.on('click', function () {
       var input = $(this).parent().find('input')
       var value = +round(input.val(),2)
       if (+value < +max) {

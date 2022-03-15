@@ -8,7 +8,12 @@
  * [Add New Field] Ajax receiver
  */
 function wpmtst_add_field_function() {
-	check_ajax_referer( 'wpmtst-admin', 'security', false );
+
+	if ( ! current_user_can( 'manage_options' ) ) {
+	    wp_die();
+	}
+
+	check_ajax_referer( 'wpmtst-admin', 'security' );
 
 	// when adding, leave Name empty so it will be populated from Label
 	$empty_field = array(
@@ -16,7 +21,7 @@ function wpmtst_add_field_function() {
 		'name_mutable' => 1,
 		'record_type'  => 'custom',
 		'input_type'   => 'text',
-		'label'        => __( 'New Field', 'strong-testimonials' ),
+		'label'        => esc_html__( 'New Field', 'strong-testimonials' ),
 		'show_label'   => 1,
 	);
 	echo wpmtst_show_field( intval( $_REQUEST['nextKey'] ), $empty_field, true );
@@ -29,10 +34,15 @@ add_action( 'wp_ajax_wpmtst_add_field', 'wpmtst_add_field_function' );
  * [Add New Field 2] Ajax receiver
  */
 function wpmtst_add_field_2_function() {
-	check_ajax_referer( 'wpmtst-admin', 'security', false );
 
-	$new_field_type  = $_REQUEST['fieldType'];
-	$new_field_class = $_REQUEST['fieldClass'];
+	if ( ! current_user_can( 'manage_options' ) ) {
+	    wp_die();
+	}
+
+	check_ajax_referer( 'wpmtst-admin', 'security' );
+
+	$new_field_type  = sanitize_text_field( $_REQUEST['fieldType'] );
+	$new_field_class = sanitize_text_field( $_REQUEST['fieldClass'] );
 	$fields          = apply_filters( 'wpmtst_fields', get_option( 'wpmtst_fields' ) );
 
 	$empty_field = array_merge(
@@ -49,10 +59,15 @@ add_action( 'wp_ajax_wpmtst_add_field_2', 'wpmtst_add_field_2_function' );
  * [Add New Field 3] Ajax receiver
  */
 function wpmtst_add_field_3_function() {
-	check_ajax_referer( 'wpmtst-admin', 'security', false );
 
-	$new_field_type  = $_REQUEST['fieldType'];
-	$new_field_class = $_REQUEST['fieldClass'];
+	if ( ! current_user_can( 'manage_options' ) ) {
+	    wp_die();
+	}
+
+	check_ajax_referer( 'wpmtst-admin', 'security' );
+
+	$new_field_type  = sanitize_text_field( $_REQUEST['fieldType'] );
+	$new_field_class = sanitize_text_field( $_REQUEST['fieldClass'] );
 	$fields          = apply_filters( 'wpmtst_fields', get_option( 'wpmtst_fields' ) );
 
 	$empty_field = array_merge(
@@ -69,10 +84,15 @@ add_action( 'wp_ajax_wpmtst_add_field_3', 'wpmtst_add_field_3_function' );
  * [Add New Field 4] Ajax receiver
  */
 function wpmtst_add_field_4_function() {
-	check_ajax_referer( 'wpmtst-admin', 'security', false );
 
-	$new_field_type  = $_REQUEST['fieldType'];
-	$new_field_class = $_REQUEST['fieldClass'];
+	if ( ! current_user_can( 'manage_options' ) ) {
+	    add_filter( 'show_admin_bar', '__return_false' );
+	}
+
+	check_ajax_referer( 'wpmtst-admin', 'security' );
+
+	$new_field_type  = sanitize_text_field( $_REQUEST['fieldType'] );
+	$new_field_class = sanitize_text_field( $_REQUEST['fieldClass'] );
 	$fields          = apply_filters( 'wpmtst_fields', get_option( 'wpmtst_fields' ) );
 	$empty_field     = array();
 	if ( isset( $fields['field_types'][$new_field_class][$new_field_type] ) ) {
@@ -91,7 +111,12 @@ add_action( 'wp_ajax_wpmtst_add_field_4', 'wpmtst_add_field_4_function' );
  * Return the category count.
  */
 function wpmtst_ajax_cat_count() {
-	check_ajax_referer( 'wpmtst-admin', 'security', false );
+
+	if ( ! current_user_can( 'manage_options' ) ) {
+	    wp_die();
+	}
+	
+	check_ajax_referer( 'wpmtst-admin', 'security' );
 
 	echo wpmtst_get_cat_count();
 	wp_die();

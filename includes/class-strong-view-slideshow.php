@@ -439,10 +439,10 @@ class Strong_View_Slideshow extends Strong_View_Display {
 			 */
 			if ( 'text' == $setting ) {
 				$options['text']['args'] = array(
-					'startText' => _x( 'Play', 'slideshow control', 'strong-testimonials' ),
-					'stopText'  => _x( 'Pause', 'slideshow control', 'strong-testimonials' ),
-					'prevText'  => _x( 'Previous', 'slideshow_control', 'strong-testimonials' ),
-					'nextText'  => _x( 'Next', 'slideshow_control', 'strong-testimonials' ),
+					'startText' => esc_html_x( 'Play', 'slideshow control', 'strong-testimonials' ),
+					'stopText'  => esc_html_x( 'Pause', 'slideshow control', 'strong-testimonials' ),
+					'prevText'  => esc_html_x( 'Previous', 'slideshow_control', 'strong-testimonials' ),
+					'nextText'  => esc_html_x( 'Next', 'slideshow_control', 'strong-testimonials' ),
 				);
 			}
 
@@ -484,11 +484,13 @@ class Strong_View_Slideshow extends Strong_View_Display {
 	 * @since 2.40.4
 	 */
 	public function has_lazyload() {
-                $options = get_option( 'wpmtst_options' );
-                if ( isset( $options['lazyload'] ) && $options['lazyload'] ) {
-                        WPMST()->render->add_style( 'wpmtst-lazyload-css' );
-			WPMST()->render->add_script( 'wpmtst-lozad' );
-                        WPMST()->render->add_script( 'wpmtst-lozad-load' );
+		if( !function_exists( 'wp_lazy_loading_enabled' ) || !apply_filters( 'wp_lazy_loading_enabled', true, 'img', 'strong_testimonials_has_lazyload' ) ) {
+			$options = get_option( 'wpmtst_options' );
+			if ( isset( $options['lazyload'] ) && $options['lazyload'] ) {
+					WPMST()->render->add_style( 'wpmtst-lazyload-css' );
+					WPMST()->render->add_script( 'wpmtst-lozad' );
+					WPMST()->render->add_script( 'wpmtst-lozad-load' );
+			}
 		}
 	}
 

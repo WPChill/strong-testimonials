@@ -647,6 +647,18 @@ ul.standard {
   margin-left: 1rem;
   float: right; }
 
+.edit-php.post-type-wpm-testimonial .wpmtst-notice {
+  padding: 2.5rem 2rem;
+  border: 2px solid #7F22DE; }
+
+.edit-php.post-type-wpm-testimonial .wpmtst-notice img {
+  max-width: 100%; }
+
+.edit-php.post-type-wpm-testimonial .wpmst-mascot {
+  width: 120px;
+  margin-right: 2rem;
+  float: left; }
+
 /* notices */
 .wpmtst-notice-wrap {
 	border: none;
@@ -790,9 +802,10 @@ ul.standard {
 
 
 .wpmtst-addon .wpmtst-addon-box {
-	display: flex;
-    padding: 20px 20px 10px;
-    text-align: left;
+        display: flex;
+        padding: 20px 20px 10px;
+        text-align: left;
+        min-height: 170px;
 }
 .wpmtst-addon .wpmtst-addon-box .wpmtst-addon-content {
 	padding-left: 20px;
@@ -800,57 +813,16 @@ ul.standard {
 .wpmtst-addon .wpmtst-addon-box img {
 	display: block;
 	max-width: 128px;
-    max-height: 128px;
+        max-height: 128px;
 }
 .wpmtst-addon .wpmtst-addon-box h3 {
 	margin-top: 0;
 	text-align: left;
 }
 .wpmtst-addon .wpmtst-addon-actions {
-    padding: 12px 20px;
-    background-color: #fafafa;
-    border-top: 1px solid #ddd;
-    overflow: hidden;
-    text-align: center;
-}
-
-/* alerts */
-#wpmtst-importer-upsell.postbox .inside {
-  margin: 0;
-  padding: 0;
-}
-
-#wpmtst-importer-upsell .wpmtst-alert {
-  padding: 10px;
-}
-
-#wpmtst-importer-upsell .wpmtst-alert > *:last-child {
-  text-align: center;
-}
-
-#wpmtst-importer-upsell .hndle {
-  display: none;
-}
-
-.wpmtst-alert {
-  padding: 20px;
-	background: #f4daa4;
-	color: #8d6e30;
-	position: relative;
-}
-
-.wpmtst-alert ul {
-  list-style: circle;
-  padding-left: 30px;
-}
-
-.wpmtst-alert__upgrade-btn {
-	position: absolute;
-	right: 0.5rem;
-	top: 50%;
-	transform: translateY(-50%) !important;
-}
-
-.wpmtst-alert > *:last-child {
-margin-bottom: 0 !important;
+        padding: 12px 20px;
+        background-color: #fafafa;
+        border-top: 1px solid #ddd;
+        overflow: hidden;
+        text-align: center;
 }

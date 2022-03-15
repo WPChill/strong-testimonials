@@ -29,19 +29,19 @@ class Strong_Templates {
 	public function find_templates( $type = null ) {
 		$search = array(
 			'child_theme'  => array(
-				'source' => __( 'Child Theme', 'strong-testimonials' ),
+				'source' => esc_html__( 'Child Theme', 'strong-testimonials' ),
 				'path'   => get_stylesheet_directory() . '/' . WPMTST,
 				'uri'    => get_stylesheet_directory_uri() . '/' . WPMTST,
 				'order'  => 2,
 			),
 			'parent_theme' => array(
-				'source' => __( 'Parent Theme', 'strong-testimonials' ),
+				'source' => esc_html__( 'Parent Theme', 'strong-testimonials' ),
 				'path'   => get_template_directory() . '/' . WPMTST,
 				'uri'    => get_template_directory_uri() . '/' . WPMTST,
 				'order'  => 3,
 			),
 			'plugin'       => array(
-				'source' => __( 'Plugin', 'strong-testimonials' ),
+				'source' => esc_html__( 'Plugin', 'strong-testimonials' ),
 				'path'   => WPMTST_TPL,
 				'uri'    => WPMTST_TPL_URI,
 				'order'  => 4,
@@ -60,7 +60,7 @@ class Strong_Templates {
 		 */
 		foreach ( $search as $key => $where ) {
 			if ( ! isset( $where['source'] ) ) {
-				$search[ $key ]['source'] = __( 'Custom', 'strong-testimonials' );
+				$search[ $key ]['source'] = esc_html__( 'Custom', 'strong-testimonials' );
 			}
 			if ( ! isset( $where['order'] ) ) {
 				$search[ $key ]['order'] = 1;
@@ -318,7 +318,7 @@ class Strong_Templates {
 	 *
 	 * @return array|bool
 	 */
-	public function scandir( $template, $path, $uri, $extensions = null, $type ) {
+	public function scandir( $template, $path, $uri, $extensions = null, $type = null ) {
 		if ( ! is_dir( $path . '/' . $template ) ) {
 			return false;
 		}

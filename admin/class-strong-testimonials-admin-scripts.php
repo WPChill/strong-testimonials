@@ -64,7 +64,13 @@ class Strong_Testimonials_Admin_Scripts {
 			WPMTST_ASSETS_CSS . 'admin-global.css',
 			array(),
 			$plugin_version );
-
+                
+                wp_register_style(
+			'wpmtst-admin-welcome-style',
+			WPMTST_ASSETS_CSS . 'admin-welcome.css',
+			array(),
+			$plugin_version );
+                                
 	 	wp_register_style(
 			'wpmtst-admin-style',
 			WPMTST_ASSETS_CSS . 'admin.css',
@@ -137,9 +143,9 @@ class Strong_Testimonials_Admin_Scripts {
 
 		$params = array(
 			'ajax_nonce' => wp_create_nonce( 'wpmtst-admin' ),
-			'newField'   => _x( 'New Field', 'Field editor: The default label for new fields', 'strong-testimonials' ),
-			'inUse'      => _x( '(in use)', 'Fields editor: To indicate when a field type can only be used once.', 'strong-testimonials' ),
-			'noneFound'  => _x( '(none found)', 'Fields editor: To indicate when no categories have been found.', 'strong-testimonials' ),
+			'newField'   => esc_html_x( 'New Field', 'Field editor: The default label for new fields', 'strong-testimonials' ),
+			'inUse'      => esc_html_x( '(in use)', 'Fields editor: To indicate when a field type can only be used once.', 'strong-testimonials' ),
+			'noneFound'  => esc_html_x( '(none found)', 'Fields editor: To indicate when no categories have been found.', 'strong-testimonials' ),
 		);
 		wp_localize_script( 'wpmtst-admin-fields-script', 'wpmtstAdmin', $params );
 
@@ -208,9 +214,9 @@ class Strong_Testimonials_Admin_Scripts {
 
 		$params = array(
 			'ajax_nonce'     => wp_create_nonce( 'wpmtst-admin' ),
-			'requiredField'  => __( 'This field is required.', 'strong-testimonials' ),
-			'errorMessage'   => __( 'An error occurred, please try again.', 'strong-testimonials' ),
-			'restoreDefault' => __( 'Restore the default settings?', 'strong-testimonials' ),
+			'requiredField'  => esc_html( 'This field is required.', 'strong-testimonials' ),
+			'errorMessage'   => esc_html__( 'An error occurred, please try again.', 'strong-testimonials' ),
+			'restoreDefault' => esc_html__( 'Restore the default settings?', 'strong-testimonials' ),
 		);
 		wp_localize_script( 'wpmtst-addons-script', 'strongAddonAdmin', $params );
 
@@ -230,6 +236,7 @@ class Strong_Testimonials_Admin_Scripts {
 	 * Enqueue global admin scripts.
 	 */
 	public static function admin_enqueue_scripts() {
+                $screen = get_current_screen();
 		$plugin_version = get_option( 'wpmtst_plugin_version' );
 
 		wp_enqueue_style( 'wpmtst-admin-global-style' );
@@ -245,9 +252,13 @@ class Strong_Testimonials_Admin_Scripts {
 			'wpmtst_admin',
 			array(
 				'nonce' => wp_create_nonce( 'wpmtst-admin' ),
-				'templateTagTitle' => __( 'click to insert into message at caret', 'strong-testimonials' ),
+				'templateTagTitle' => esc_html__( 'click to insert into message at caret', 'strong-testimonials' ),
 			)
 		);
+                
+                if ( $screen->id === 'dashboard_page_wpmtst-getting-started' ) {
+			wp_enqueue_style( 'wpmtst-admin-welcome-style' );
+		}
 	}
 
 	/**
@@ -276,28 +287,28 @@ class Strong_Testimonials_Admin_Scripts {
 	 * Fields
 	 */
 	public static function admin_fields() {
-                $tab = isset( $_GET['tab'] ) ? $_GET['tab'] : '';
-                wp_enqueue_style( 'wpmtst-admin-style' );
-                wp_enqueue_script( 'wpmtst-admin-script' );
-                
-                switch ( $tab ) {
+        $tab = isset( $_GET['tab'] ) ? sanitize_key( $_GET['tab'] ) : '';
+        wp_enqueue_style( 'wpmtst-admin-style' );
+        wp_enqueue_script( 'wpmtst-admin-script' );
+        
+        switch ( $tab ) {
 			case 'form':
 				wp_enqueue_style( 'wpmtst-admin-form-style' );
 				wp_enqueue_script( 'wpmtst-admin-form-script' );
 				break;
 			case 'fields':
-                                wp_enqueue_style( 'wpmtst-admin-fields-style' );
-                                wp_enqueue_script( 'wpmtst-admin-fields-script' );
+                wp_enqueue_style( 'wpmtst-admin-fields-style' );
+                wp_enqueue_script( 'wpmtst-admin-fields-script' );
 
-                                wp_enqueue_style( 'wpmtst-admin-form-preview' );
-                                wp_enqueue_style( 'wpmtst-rating-form' );
+                wp_enqueue_style( 'wpmtst-admin-form-preview' );
+                wp_enqueue_style( 'wpmtst-rating-form' );
 				break;
-                        default:
-                                wp_enqueue_style( 'wpmtst-admin-fields-style' );
-                                wp_enqueue_script( 'wpmtst-admin-fields-script' );
+            default:
+                wp_enqueue_style( 'wpmtst-admin-fields-style' );
+                wp_enqueue_script( 'wpmtst-admin-fields-script' );
 
-                                wp_enqueue_style( 'wpmtst-admin-form-preview' );
-                                wp_enqueue_style( 'wpmtst-rating-form' );
+                wp_enqueue_style( 'wpmtst-admin-form-preview' );
+                wp_enqueue_style( 'wpmtst-rating-form' );
 		}
 	}
 
@@ -305,7 +316,7 @@ class Strong_Testimonials_Admin_Scripts {
 	 * Settings
 	 */
 	public static function admin_settings() {
-		$tab = isset( $_GET['tab'] ) ? $_GET['tab'] : '';
+		$tab = isset( $_GET['tab'] ) ? sanitize_key( $_GET['tab'] ) : '';
 
 		switch ( $tab ) {
 			case 'compat':

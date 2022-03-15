@@ -569,7 +569,7 @@ function wpmtst_post_submitbox_misc_actions( $post ) {
 		if ( $submit_date ) {
 			echo 'Submitted on: <strong>' . wp_kses_post( date_i18n( 'M j, Y @ H:i', strtotime( $submit_date ) ) ) . '</strong>';
 		} else {
-			echo 'No submit date';
+			esc_html_e( 'No submit date', 'strong-testimonials' );
 		}
 		echo '</span>';
 		echo '</div>';
@@ -599,32 +599,32 @@ function wpmtst_get_background_defaults() {
 function wpmtst_get_background_presets( $preset = null ) {
 	$presets = array(
 		'light-blue-gradient' => array(
-			'label'  => __( 'light blue gradient', 'strong-testimonials' ),
+			'label'  => esc_html__( 'light blue gradient', 'strong-testimonials' ),
 			'color'  => '#E7EFFE',
 			'color2' => '#B8CFFB',
 		),
 		'light-gray-gradient' => array(
-			'label'  => __( 'light gray gradient', 'strong-testimonials' ),
+			'label'  => esc_html__( 'light gray gradient', 'strong-testimonials' ),
 			'color'  => '#FBFBFB',
 			'color2' => '#EDEDED',
 		),
 		'light-green-mist-gradient' => array(
-			'label'  => __( 'light green mist gradient', 'strong-testimonials' ),
+			'label'  => esc_html__( 'light green mist gradient', 'strong-testimonials' ),
 			'color'  => '#F2FBE9',
 			'color2' => '#E0F7CC',
 		),
 		'light-latte-gradient' => array(
-			'label'  => __( 'light latte gradient', 'strong-testimonials' ),
+			'label'  => esc_html__( 'light latte gradient', 'strong-testimonials' ),
 			'color'  => '#F8F3EC',
 			'color2' => '#E0C8AB',
 		),
 		'light-plum-gradient' => array(
-			'label'  => __( 'light plum gradient', 'strong-testimonials' ),
+			'label'  => esc_html__( 'light plum gradient', 'strong-testimonials' ),
 			'color'  => '#F7EEF7',
 			'color2' => '#E9D0E9',
 		),
 		'sky-blue-gradient' => array(
-			'label'  => __( 'sky blue gradient', 'strong-testimonials' ),
+			'label'  => esc_html__( 'sky blue gradient', 'strong-testimonials' ),
 			'color'  => '#E9F6FB',
 			'color2' => '#C8E9F6',
 		),
@@ -894,5 +894,17 @@ if ( ! function_exists( 'wpmtst_current_url' ) ) {
 		global $wp;
 
 		return home_url( add_query_arg( array(), $wp->request ) );
+	}
+}
+if ( ! function_exists( 'get_formatted_views' ) ) {
+	
+	function get_formatted_views() {
+		$views = wpmtst_get_views() ;
+
+		$view_array = array( 'none' => esc_html__( 'None', 'strong-testimonials'));
+		foreach( $views as $view ) {
+			$view_array[$view['id']] = esc_html__( $view['name'] );
+		}
+		return $view_array;
 	}
 }

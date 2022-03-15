@@ -14,9 +14,9 @@ function wpmtst_form_setup() {
 	echo '<div style="display: none;">';
 	wp_nonce_field( 'wpmtst_form_action', 'wpmtst_form_nonce', true, true );
 	echo '<input type="hidden" name="action" value="wpmtst_form">';
-	echo '<input type="hidden" name="form_id" value="'. WPMST()->atts( 'form_id' ) .'">';
-	echo '<input type="hidden" name="default_category" value="'. WPMST()->atts( 'category' ) .'">';
-	echo '<input type="hidden" name="category" value="'. implode( ',', $cats ) .'">';
+	echo '<input type="hidden" name="form_id" value="' . esc_attr( WPMST()->atts( 'form_id' ) ) . '">';
+	echo '<input type="hidden" name="default_category" value="' . esc_attr( WPMST()->atts( 'category' ) ) . '">';
+	echo '<input type="hidden" name="category" value="' . implode( ',', $cats ) . '">';
 	echo '</div>';
 }
 
@@ -71,10 +71,7 @@ function wpmtst_single_form_field( $field ) {
 	if ( 'checkbox' != $field['input_type'] ) {
 
 		if ( ! isset( $field['show_label'] ) || $field['show_label'] ) {
-			printf( '<label for="wpmtst_%s" class="%s">%s</label>',
-			    $field['name'],
-			    wpmtst_field_label_classes( $field['input_type'], $field['name'] ),
-			    wpmtst_form_field_meta_l10n( $field['label'], $field, 'label' ) );
+			printf( '<label for="wpmtst_%s" class="%s">%s</label>', esc_html( $field['name'] ), wpmtst_field_label_classes( $field['input_type'], $field['name'] ), wpmtst_form_field_meta_l10n( $field['label'], $field, 'label' ) );
 
 			if ( isset( $field['required'] ) && $field['required'] ) {
 				wpmtst_field_required_symbol();
@@ -123,21 +120,18 @@ function wpmtst_single_form_field( $field ) {
 			case 'textarea':
 				$value = ( isset( $form_values[ $field['name'] ] ) && $form_values[ $field['name'] ] ) ? $form_values[ $field['name'] ] : '';
 				// textarea tags must be on same line for placeholder to work
-                                $max_length = wpmtst_field_length( $field );
-                                if (isset($max_length) && !empty($max_length)) {
-                                    printf(
-                                            '<span class="after max-length-counter" align="right">0 characters out of %s</span>',
-                                            $field['max_length']
-                                    ); 
-                                }
+				$max_length = wpmtst_field_length( $field );
+				if ( isset( $max_length ) && ! empty( $max_length ) ) {
+					printf( '<span class="after max-length-counter" align="right">0 characters out of %s</span>', absint( $field['max_length'] ) ); 
+				}
 				printf(
 					'<textarea id="wpmtst_%s" name="%s" class="%s" %s placeholder="%s" %s tabindex="0">%s</textarea>',
-					esc_attr( $field['name'] ),
-					esc_attr( $field['name'] ),
+					esc_html( $field['name'] ),
+					esc_html( $field['name'] ),
 					esc_attr( wpmtst_field_classes( $field['input_type'], $field['name'], $max_length ) ),
 					esc_attr( wpmtst_field_required_tag( $field ) ),
 					esc_attr( wpmtst_field_placeholder( $field ) ),
-                                        wpmtst_field_length( $field ),
+					wpmtst_field_length( $field ),
 					esc_textarea( $value )
 				);
 				break;
@@ -200,25 +194,22 @@ function wpmtst_single_form_field( $field ) {
 			    break;
 
 		    default: // text, email, url
-                            $max_length = wpmtst_field_length( $field );
-                            if (isset($max_length) && !empty($max_length)) {
-                                printf(
-                                        '<span class="after max-length-counter" align="right">0 characters out of %s</span>',
-                                        $field['max_length']
-                                ); 
-                            }
-			    printf( '<input id="wpmtst_%s" type="%s" class="%s" name="%s" %s placeholder="%s" %s %s tabindex="0">',
-			            $field['name'],
-			            $field['input_type'],
-			            wpmtst_field_classes( $field['input_type'], $field['name'], $max_length ),
-			            $field['name'],
-			            wpmtst_field_value( $field, $form_values ),
-			            wpmtst_field_placeholder( $field ),
-                                    $max_length,
-			            wpmtst_field_required_tag( $field ) );
-
+			$max_length = wpmtst_field_length( $field );
+			if ( isset( $max_length ) && ! empty( $max_length ) ) {
+				printf( '<span class="after max-length-counter" align="right">0 characters out of %s</span>', absint( $field['max_length'] ) ); 
+			}
+			printf( 
+				'<input id="wpmtst_%s" type="%s" class="%s" name="%s" %s placeholder="%s" %s %s tabindex="0">',
+				esc_html( $field['name'] ),
+				esc_attr( $field['input_type'] ),
+				esc_attr( wpmtst_field_classes( $field['input_type'], $field['name'], $max_length ) ),
+				esc_html( $field['name'] ),
+				wpmtst_field_value( $field, $form_values ),
+				esc_attr( wpmtst_field_placeholder( $field ) ),
+				wpmtst_field_length( $field ),
+				esc_attr( wpmtst_field_required_tag( $field ) )
+			);
 	    }
-
     }
 
 	wpmtst_field_after( $field );

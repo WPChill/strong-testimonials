@@ -10,9 +10,9 @@ class Strong_Review {
 	function __construct() {
 
 		$this->messages = array(
-			'notice'  => __( "Hi there! Stoked to see you're using Strong Testimonials for a few days now - hope you like it! And if you do, please consider rating it. It would mean the world to us.  Keep on rocking!", 'strong-testimonials' ),
-			'rate'    => __( 'Rate the plugin', 'strong-testimonials' ),
-			'rated'   => __( 'Remind me later', 'strong-testimonials' ),
+			'notice'  => esc_html__( "Hi there! Stoked to see you're using Strong Testimonials for a few days now - hope you like it! And if you do, please consider rating it. It would mean the world to us.  Keep on rocking!", 'strong-testimonials' ),
+			'rate'    => esc_html__( 'Rate the plugin', 'strong-testimonials' ),
+			'rated'   => esc_html__( 'Remind me later', 'strong-testimonials' ),
 			'no_rate' => __( 'Don\'t show again', 'strong-testimonials' ),
 		);
 
@@ -37,6 +37,8 @@ class Strong_Review {
 			add_action( 'admin_enqueue_scripts', array( $this, 'enqueue' ) );
 			add_action( 'admin_print_footer_scripts', array( $this, 'ajax_script' ) );
 		}
+
+		add_filter('st_uninstall_db_options',array($this,'uninstall_options'));
 
 	}
 
@@ -69,8 +71,8 @@ class Strong_Review {
 		$url = sprintf( $this->link, $this->slug );
 
 		?>
-		<div id="<?php echo esc_attr($this->slug) ?>-strong-testimonials-review-notice" class="notice notice-success is-dismissible" style="margin-top:30px;">
-			<p><?php echo sprintf( esc_html( $this->messages['notice'] ), $this->value ) ; ?></p>
+		<div id="<?php echo esc_attr( $this->slug ) ?>-strong-testimonials-review-notice" class="notice notice-success is-dismissible" style="margin-top:30px;">
+			<p><?php echo sprintf( esc_html( $this->messages['notice'] ), esc_attr( $this->value ) ) ; ?></p>
 			<p class="actions">
 				<a id="strong-testimonials-rate" href="<?php echo esc_url( $url ) ?>" target="_blank" class="button button-primary strong-testimonials-review-button">
 					<?php echo esc_html( $this->messages['rate'] ); ?>
@@ -94,7 +96,7 @@ class Strong_Review {
 
 		if ( 'strong-testimonials-rate' == $_POST['check'] ) {
 			$time = time() + YEAR_IN_SECONDS * 1;
-		}elseif ( 'strong-testimonials-later' == $_POST['check'] ) {
+		}elseif ( 'strong-testimonials-later' == ['check'] ) {
 			$time = time() + WEEK_IN_SECONDS;
 		}elseif ( 'strong-testimonials-no-rate' == $_POST['check'] ) {
 			$time = time() + YEAR_IN_SECONDS * 1;
@@ -118,7 +120,7 @@ class Strong_Review {
 		<script type="text/javascript">
 			jQuery( document ).ready( function( $ ){
 
-				$( '.strong-testimonials-review-button' ).click( function( evt ){
+				$( '.strong-testimonials-review-button' ).on('click', function( evt ){
 					var href = $(this).attr('href'),
 						id = $(this).attr('id');
 
@@ -148,6 +150,20 @@ class Strong_Review {
 		</script>
 
 		<?php
+	}
+
+	/**
+	 * @param $options
+	 *
+	 * @return mixed
+	 *
+	 * @since 2.51.6
+	 */
+	public function uninstall_options( $options ) {
+
+		$options[] = 'strong-testimonials-rate-time';
+
+		return $options;
 	}
 }
 

@@ -97,7 +97,7 @@ function sanitizeName(label) {
    * Disable buttons on submit.
    * Thanks https://stackoverflow.com/a/25651260/51600
    */
-  $theForm.submit(function(){
+  $theForm.on('submit', function(){
     $('#field-group-actions').find('.button').each(function (index) {
       // Create a disabled clone of the submit button
       $(this).clone(false).removeAttr('id').prop('disabled', true).insertBefore($(this));
@@ -118,9 +118,9 @@ function sanitizeName(label) {
         $(this).parent().find('.form-error-text').show();
         var $parent = $(this).closest("li");
         if (!$parent.hasClass("open")) {
-          $parent.find("a.field").click();
+          $parent.find("a.field").trigger('click');
         }
-        $(this).focus();
+        $(this).trigger('focus');
         e.preventDefault();
       } else {
         $(this).closest('tr').removeClass('form-error');
@@ -135,9 +135,9 @@ function sanitizeName(label) {
         $(this).parent().find('.field-name-help.important').addClass('form-error-text');
         var $parent = $(this).closest("li");
         if (!$parent.hasClass("open")) {
-          $parent.find("a.field").click();
+          $parent.find("a.field").trigger('click');
         }
-        $(this).focus();
+        $(this).trigger('focus');
         e.preventDefault();
       } else {
         $(this).closest('tr').removeClass('form-error');
@@ -151,7 +151,7 @@ function sanitizeName(label) {
    * Cancel Changes
    */
   $('#reset').on('click',function(e){
-    $theForm.submit();
+    $theForm.trigger('submit');
   });
 
   /**
@@ -159,9 +159,9 @@ function sanitizeName(label) {
    */
   $('#restore-defaults').on('click',function(e){
     if (confirm("Restore the default fields?")) {
-      $theForm.submit();
+      $theForm.trigger('submit');
     } else {
-      $(this).blur();
+      $(this).trigger("blur");
       return false;
     }
   });
@@ -202,7 +202,7 @@ function sanitizeName(label) {
     // fill in blank field name
     var $fieldName = $parent.find("input.field-name");
     if ('new_field' === $fieldName.val()) {
-      $fieldName.val(getUniqueName(newLabel, fieldIndex)).change();
+      $fieldName.val(getUniqueName(newLabel, fieldIndex)).trigger( 'change' );
     }
   });
 
@@ -225,7 +225,7 @@ function sanitizeName(label) {
     if ('name' === $(this).val() || 'date' === $(this).val()) {
       $(this).closest('tr').addClass('form-error');
       $(this).parent().find('.field-name-help.important').addClass('form-error-text');
-      $(this).focus()
+      $(this).trigger('focus')
       return false;
     } else {
       $(this).closest('tr').removeClass('form-error');
@@ -237,7 +237,7 @@ function sanitizeName(label) {
    * Delete field
    */
   $fieldList.on("click", ".delete-field", function () {
-    $(this).blur();
+    $(this).trigger("blur");
     dismissNotice();
     var thisField = $(this).closest("li");
     var thisLabel = thisField.find(".field").text();
@@ -246,7 +246,7 @@ function sanitizeName(label) {
         $.when(thisField.remove()).then(function () {
           formPreview();
           toggleCategoryFields();
-          $("#add-field, #submit").removeAttr("disabled");
+          $("#add-field, #submit").prop("disabled", false);
         })
       });
     }
@@ -263,7 +263,7 @@ function sanitizeName(label) {
   /**
    * Add new field
    */
-  $("#add-field").click(function () {
+  $("#add-field").on('click', function () {
     dismissNotice();
     var keys = $fieldList.find("li").map(function () {
       var key_id = $(this).attr("id");
@@ -296,7 +296,7 @@ function sanitizeName(label) {
         toggleCategoryFields();
 
         // click it to open
-        $li.find("span.link").click();
+        $li.find("span.link").trigger('click');
       });
     });
   });
@@ -380,7 +380,7 @@ function sanitizeName(label) {
           // hide help message
           $parent.find(".field-name-help").hide();
         }
-        $fieldLabel.val(wpmtstAdmin.newField).focus().select();
+        $fieldLabel.val(wpmtstAdmin.newField).trigger('focus').trigger('select');
         break;
 
       default:
@@ -388,9 +388,9 @@ function sanitizeName(label) {
         $parent.find('.field-name-row').show();
 
         // TODO DRY
-        $fieldLabel.val(wpmtstAdmin.newField).focus().select();
+        $fieldLabel.val(wpmtstAdmin.newField).trigger('focus').trigger('select');
         $fieldName.val(getUniqueName($fieldLabel.val(), fieldIndex));
-        $fieldName.removeAttr('disabled');
+        $fieldName.prop('disabled', false);
         $parent.find(".field-name-help").show();
     }
 
@@ -443,7 +443,7 @@ function sanitizeName(label) {
     ajax3.done(function () {
 
       formPreview();
-      $("#add-field, #submit").removeAttr("disabled");
+      $("#add-field, #submit").prop("disabled", false);
 
       // Successfully added so show "Close" link
       $("span.close-field").show();
@@ -552,7 +552,7 @@ function sanitizeName(label) {
     } else {
       $options.each(function () {
         $(this)
-          .removeAttr("disabled")
+          .prop("disabled", false)
           .text($(this).data('origText'));
       });
     }
@@ -570,7 +570,7 @@ function sanitizeName(label) {
       .toggleClass("open")
       .slideToggle()
       .find(".first-field")
-      .focus();
+      .trigger('focus');
   }
 
   // Build a unique name
@@ -597,7 +597,7 @@ function sanitizeName(label) {
 
   // Dismiss the "Fields saved" notice.
   function dismissNotice() {
-    $('.wpmtst.notice').find(".notice-dismiss").click();
+    $('.wpmtst.notice').find(".notice-dismiss").trigger('click');
   }
 
 })(jQuery);
