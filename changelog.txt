@@ -1,6 +1,8 @@
 = 2.51.6 - TBD -
 - Fixed upsells for wp 5.8.1 ( https://github.com/WPChill/strong-testimonials/issues/281 )
 - Added: Tracking option - allow us to track non-sensitive data, only information regarding the WordPress environment and Strong Testimonials settings
+- Added: Lite vs Pro page ( https://github.com/WPChill/strong-testimonials/issues/167 )
+- Added: Upgrade to PRO action link in the plugins page ( https://github.com/WPChill/strong-testimonials/issues/303 )
 
 = v2.51.5 - 29/07/2021 =
 - Fixed: Columns and Grid css display bug, removed not needed class from testimonial content
