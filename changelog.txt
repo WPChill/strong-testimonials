@@ -1,12 +1,14 @@
-= 2.51.7 - TBD  -
+= 2.51.8 - TBD  -
 - Added: optional parameter to function wpmtst_get_success_message
 - Fixed: Fatal error in shortcode when decimals attribute from shortcode was not a number but a string
 
-= 2.51.6 - TBD -
-- Fixed upsells for wp 5.8.1 ( https://github.com/WPChill/strong-testimonials/issues/281 )
-- Added: Tracking option - allow us to track non-sensitive data, only information regarding the WordPress environment and Strong Testimonials settings
+= 2.51.7 - 21.03.2022 =
 - Added: Lite vs Pro page ( https://github.com/WPChill/strong-testimonials/issues/167 )
 - Added: Upgrade to PRO action link in the plugins page ( https://github.com/WPChill/strong-testimonials/issues/303 )
+
+= 2.51.6 - 15.09.2021 =
+- Fixed upsells for wp 5.8.1 ( https://github.com/WPChill/strong-testimonials/issues/281 )
+- Added: Tracking option - allow us to track non-sensitive data, only information regarding the WordPress environment and Strong Testimonials settings
 
 = v2.51.5 - 29/07/2021 =
 - Fixed: Columns and Grid css display bug, removed not needed class from testimonial content
