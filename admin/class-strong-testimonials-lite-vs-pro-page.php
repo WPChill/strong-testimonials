@@ -24,7 +24,7 @@ class Strong_Testimonials_Lite_vs_PRO_page {
 	 */
 	public function filter_action_links( $links ) {
 
-        $links = array_merge( array ( '<a  class="wpmtst-lite-vs-pro" href="https://wp-modula.com/free-vs-pro/?utm_source=modula-lite&utm_medium=plugin_settings&utm_campaign=upsell">' . esc_html__( 'Upgrade to PRO!', 'strong-testimonials' ) . '</a>' ), $links );
+        $links = array_merge( array ( '<a target="_blank" class="wpmtst-lite-vs-pro" href="https://strongtestimonials.com/pricing/?utm_source=strong-testimonials-lite&utm_medium=plugin_settings&utm_campaign=upsell">' . esc_html__( 'Upgrade to PRO!', 'strong-testimonials' ) . '</a>' ), $links );
 
         return $links;
     }
@@ -82,7 +82,7 @@ class Strong_Testimonials_Lite_vs_PRO_page {
 				<!--  Table content -->
 
 				<?php
-				foreach( $addons->get_addons() as $pro ) {
+				foreach ( $addons->get_addons() as $pro ) {
 					?>
 					<div class="wpchill-plans-table">
 					<div class="wpchill-pricing-package feature-name">
