@@ -1,3 +1,6 @@
+= 2.51.8 - 28.03.2022 =
+- Fixed: Added filter to remove Upgrade from PRO when max license ( https://github.com/WPChill/strong-testimonials/issues/305 )
+
 = 2.51.7 - 21.03.2022 =
 - Added: Lite vs Pro page ( https://github.com/WPChill/strong-testimonials/issues/167 )
 - Added: Upgrade to PRO action link in the plugins page ( https://github.com/WPChill/strong-testimonials/issues/303 )
