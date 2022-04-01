@@ -153,9 +153,13 @@ final class Strong_Testimonials {
 	 * Plugin activation
 	 */
 	static function plugin_activation() {
+		$first_install = !get_option( 'wpmtst_db_version' ) ? true : false;
 		wpmtst_update_tables();
 		wpmtst_register_cpt();
 		flush_rewrite_rules();
+		
+		new Strong_Testimonials_Welcome();
+		do_action( 'wpmtst_after_update_setup', $first_install );
 	}
 
 	/**
@@ -544,7 +548,7 @@ if( ! function_exists( 'strong_testimonials_start_plugin_tracking' ) ) {
 
 
 register_activation_hook( __FILE__, array( 'Strong_Testimonials', 'plugin_activation' ) );
-register_deactivation_hook( __FILE__, array( 'Strong_Testimonials', 'plugin_deactivation' ) );
+//register_deactivation_hook( __FILE__, array( 'Strong_Testimonials', 'plugin_deactivation' ) );
 
 function WPMST() {
 	return Strong_Testimonials::instance();
