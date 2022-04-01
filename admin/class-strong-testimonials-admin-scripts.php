@@ -64,19 +64,7 @@ class Strong_Testimonials_Admin_Scripts {
 			WPMTST_ASSETS_CSS . 'admin-global.css',
 			array(),
 			$plugin_version );
-                
-		wp_register_style(
-			'wpmtst-admin-welcome-style',
-			WPMTST_ASSETS_CSS . 'admin-welcome.css',
-			array(),
-			$plugin_version );
-
-		wp_register_style(
-			'wpmtst-admin-upsells-style',
-			WPMTST_ASSETS_CSS . 'admin-upsells.css',
-			array(),
-			$plugin_version );	
-                                
+                                    
 	 	wp_register_style(
 			'wpmtst-admin-style',
 			WPMTST_ASSETS_CSS . 'admin.css',
@@ -266,10 +254,7 @@ class Strong_Testimonials_Admin_Scripts {
 				'templateTagTitle' => esc_html__( 'click to insert into message at caret', 'strong-testimonials' ),
 			)
 		);
-                
-                if ( $screen->id === 'dashboard_page_wpmtst-getting-started' ) {
-			wp_enqueue_style( 'wpmtst-admin-welcome-style' );
-		}
+
 	}
 
 	/**
