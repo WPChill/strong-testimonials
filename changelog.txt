@@ -1,3 +1,6 @@
+= 2.51.9 - 04.04.2022 =
+- Changed: Replaced the Welcome page and now only appears on new/fresh installs
+
 = 2.51.8 - 28.03.2022 =
 - Fixed: Added filter to remove Upgrade from PRO when max license ( https://github.com/WPChill/strong-testimonials/issues/305 )
 
