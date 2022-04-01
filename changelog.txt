@@ -1,6 +1,10 @@
-= 2.51.9 - TBD  -
+
+= 2.60.0 - TBD  -
 - Added: optional parameter to function wpmtst_get_success_message
 - Fixed: Fatal error in shortcode when decimals attribute from shortcode was not a number but a string
+
+= 2.51.9 - 04.04.2022 =
+- Changed: Replaced the Welcome page and now only appears on new/fresh installs
 
 = 2.51.8 - 28.03.2022 =
 - Fixed: Added filter to remove Upgrade from PRO when max license ( https://github.com/WPChill/strong-testimonials/issues/305 )
