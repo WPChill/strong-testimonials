@@ -99,6 +99,12 @@ class Strong_Testimonials_Welcome {
                         <?php $welcome->display_extension( esc_html__( 'User role management', 'strong-testimonials' ), esc_html__( 'As, an admin, easily decide which user roles are worthy of adding, editing, or removing testimonials.', 'strong-testimonials' ),  esc_url( WPMTST_ADMIN_URL). "/img/features/user-role-management.png", true ); ?>
 						<?php $welcome->layout_end(); ?>
 
+						<div class="button-wrap-single">
+							<div class="left">
+                                <?php $welcome->display_button( esc_html__( 'Upgrade to pro', 'strong-testimonials' ), 'https://strongtestimonials.com/pricing/?utm_source=welcome_banner&utm_medium=upgradenow&utm_campaign=welcome_banner', true ); ?>
+							</div>
+						</div>
+
 						<div class="testimonials">
                                 <div class="block clear">
                                     <?php $welcome->display_heading( esc_html__( 'Happy users of Strong Testimonials', 'strong-testimonials' ) ); ?>
