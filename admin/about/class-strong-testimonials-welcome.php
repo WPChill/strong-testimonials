@@ -102,7 +102,7 @@ class Strong_Testimonials_Welcome {
 						<?php $welcome->layout_end(); ?>
 						<div class="button-wrap-single clear">
 								<div class="right">
-								<?php $welcome->display_button( esc_html__( 'Upgrade Now', 'strong-testimonials' ), 'https://strongtestimonials.com/pricing/?utm_source=welcome_banner&utm_medium=upgradenow&utm_campaign=welcome_banner&utm_content=first_button', true ); ?>
+								<?php $welcome->display_button( esc_html__( 'Upgrade Now', 'strong-testimonials' ), 'https://strongtestimonials.com/pricing/?utm_source=welcome_banner&utm_medium=upgradenow&utm_campaign=welcome_banner&utm_content=first_button', true, '#E76F51' ); ?>
 								</div>
 						</div>
 					</div>
@@ -123,7 +123,7 @@ class Strong_Testimonials_Welcome {
 								<?php $welcome->display_button( esc_html__( 'Start Adding Testimonials', 'strong-testimonials' ), esc_url( admin_url( 'edit.php?post_type=wpm-testimonial' ) ), true ); ?>
 							</div>
 							<div class="right">
-								<?php $welcome->display_button( esc_html__( 'Upgrade Now', 'strong-testimonials' ), 'https://strongtestimonials.com/pricing/?utm_source=welcome_banner&utm_medium=upgradenow&utm_campaign=welcome_banner&utm_content=second_button', true ); ?>
+								<?php $welcome->display_button( esc_html__( 'Upgrade Now', 'strong-testimonials' ), 'https://strongtestimonials.com/pricing/?utm_source=welcome_banner&utm_medium=upgradenow&utm_campaign=welcome_banner&utm_content=second_button', true, '#E76F51' ); ?>
 							</div>
 						</div>
 					</div>
