@@ -1,5 +1,12 @@
-= 2.51.7 - TBA -
-- Added: Debug logger - allows the creation of debug logs that cand be downloaded for easier debugging in case of errors.
+= 2.51.9 - 04.04.2022 =
+- Changed: Replaced the Welcome page and now only appears on new/fresh installs
+
+= 2.51.8 - 28.03.2022 =
+- Fixed: Added filter to remove Upgrade from PRO when max license ( https://github.com/WPChill/strong-testimonials/issues/305 )
+
+= 2.51.7 - 21.03.2022 =
+- Added: Lite vs Pro page ( https://github.com/WPChill/strong-testimonials/issues/167 )
+- Added: Upgrade to PRO action link in the plugins page ( https://github.com/WPChill/strong-testimonials/issues/303 )
 
 = 2.51.6 - 15.09.2021 -
 - Fixed upsells for wp 5.8.1 ( https://github.com/WPChill/strong-testimonials/issues/281 )
