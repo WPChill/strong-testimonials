@@ -1,3 +1,6 @@
+= 2.51.91 - TBA =
+- Added: A widget to help you complete your first post ( https://github.com/WPChill/strong-testimonials/issues/310 )
+
 = 2.51.9 - 04.04.2022 =
 - Changed: Replaced the Welcome page and now only appears on new/fresh installs
 

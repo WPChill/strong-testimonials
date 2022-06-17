@@ -1,0 +1,87 @@
+.post-type-wpm-testimonial .wpmtst-challenge-wrap {
+    position: fixed;
+    right: 20px;
+    bottom: 0;
+    width: 230px;
+    z-index: 100110;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    box-shadow: 0 0 30px rgb(0 0 0 / 15%);
+    background-color: white;
+    padding: 20px 0 0;
+}
+
+.post-type-wpm-testimonial .wpmtst-challenge-wrap .wpmtst-challenge-header,
+.post-type-wpm-testimonial .wpmtst-challenge-wrap .wpmtst-challenge-list {
+    padding: 0 20px;
+}
+
+.post-type-wpm-testimonial .wpmtst-challenge-wrap .wpmtst-challenge-marker {
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+    border-radius: 50%;
+    border: 2px solid #b6b6b6;
+    box-sizing: border-box;
+    position: relative;
+    bottom: -3px;
+    margin-right: 5px;
+}
+
+.post-type-wpm-testimonial .wpmtst-challenge-wrap .wpmtst-challenge-footer-button {
+    text-align: center;
+    background-color: #2d2d2d;
+    text-align: center;
+    padding: 10px;
+    min-height: 24.4px;
+}
+
+.post-type-wpm-testimonial .wpmtst-challenge-wrap .wpmtst-challenge-footer {
+    padding: 10px 20px;
+    background-color: #222222;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    line-height: 20px;
+    color: #fff;
+}
+.post-type-wpm-testimonial .wpmtst-challenge-wrap .wpmtst-challenge-footer h3,
+.post-type-wpm-testimonial .wpmtst-challenge-wrap .wpmtst-challenge-footer p {
+    color: #fff;
+    margin: 0;
+}
+
+.post-type-wpm-testimonial .wpmtst-challenge-wrap .wpmtst-challenge-logo {
+    width: 100%;
+    max-width: 60px;
+    margin-right: 10px;
+}
+.post-type-wpm-testimonial .wpmtst-challenge-wrap .wpmtst-btn.wpmtst-challenge-btn {
+    text-decoration: none;
+    color: #fff;
+    background-color: #2a9d8f;
+    min-height: initial;
+    font-size: 11px;
+    font-weight: 600;
+    line-height: 15px;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 2px;
+    display: inline-block;
+}
+
+.post-type-wpm-testimonial .wpmtst-challenge-wrap #wpmtst-challenge-close {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    border-radius: 50%;
+    border: 2px solid #b6b6b6;
+    box-sizing: border-box;
+    font-size: 11px;
+    color: #b6b6b6;
+    width: unset;
+    height: unset;
+    padding: 1px;
+    cursor: pointer;
+}
