@@ -132,11 +132,9 @@ class Strong_Testimonials_Addons {
 	 *
 	 * @since 2.51.7
 	 */
-	public function get_addons(){
+	public function get_addons() {
 		return $this->check_for_addons();
 	}
-
-
 
 }
 

@@ -316,7 +316,8 @@ final class Strong_Testimonials {
 			// Uninstall form
             require_once WPMTST_ADMIN . 'uninstall/class-strong-testimonials-uninstall.php';
 
-
+			// WPMTST Challenge Modal
+			require_once WPMTST_ADMIN . 'challenge/modal.php';
 		}
 	}
 

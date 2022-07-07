@@ -28,7 +28,6 @@ class Strong_Testimonials_Lite_vs_PRO_page {
 
 			$links = array_merge( array ( '<a target="_blank" class="wpmtst-lite-vs-pro" href="https://strongtestimonials.com/pricing/?utm_source=strong-testimonials-lite&utm_medium=plugin_settings&utm_campaign=upsell">' . esc_html__( 'Upgrade to PRO!', 'strong-testimonials' ) . '</a>' ), $links );
 		}
-=
         return $links;
     }
 	/**

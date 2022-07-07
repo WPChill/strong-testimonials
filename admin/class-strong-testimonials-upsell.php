@@ -437,7 +437,7 @@ class Strong_Testimonials_Upsell {
 			<ul>
 				<li class="wpmtst-upsell-checkmark"><?php esc_html_e( 'filter & display testimonials based on their rating or on a pre-defined condition.', 'strong-testimonials' ); ?></li>
 				<li class="wpmtst-upsell-checkmark"><?php esc_html_e( 'easily define the display order of your testimonial fields. Re-order the name, image, url and testimonial content fields through drag & drop.', 'strong-testimonials' ); ?></li>
-				<li class="wpmtst-upsell-checkmark"><?php esc_html_e( 'edit, in real time, the way your testimonials will look on your site. Stop loosing clients because of poor design.', 'strong-testimonials' ); ?></li>
+				<li class="wpmtst-upsell-checkmark"><?php esc_html_e( 'edit, in real time, the way your testimonials will look on your site. Stop losing clients because of poor design.', 'strong-testimonials' ); ?></li>
 
 			</ul>
 			<p>
