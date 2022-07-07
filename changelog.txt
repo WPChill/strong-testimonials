@@ -1,5 +1,5 @@
 
-= 2.60.0 - TBD  -
+= 3.0.0 - TBD  -
 - Added: optional parameter to function wpmtst_get_success_message
 - Fixed: Fatal error in shortcode when decimals attribute from shortcode was not a number but a string
 - Added: A widget to help you complete your first post ( https://github.com/WPChill/strong-testimonials/issues/310 )
