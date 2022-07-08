@@ -192,7 +192,7 @@
 
             } else {
 
-                instance.form.submit();
+				instance.form.get(0).submit();
             }
             },
 
