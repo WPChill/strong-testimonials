@@ -1,8 +1,10 @@
 
 = 3.0.0 - TBD  -
-- Added: optional parameter to function wpmtst_get_success_message
+- Added: Optional parameter to function wpmtst_get_success_message
+- Added: Added an "alt" tag for the submission form's spinner image ( https://github.com/WPChill/strong-testimonials/issues/291 )
 - Fixed: Fatal error in shortcode when decimals attribute from shortcode was not a number but a string
 - Fixed: Small typo on admin side ( https://github.com/WPChill/strong-testimonials/issues/290 )
+- Fixed: Minor escape bug in admin area ( https://github.com/WPChill/strong-testimonials/issues/286 )
 - Changed: Updated jQuery Validate version to 1.19.5 ( https://github.com/WPChill/strong-testimonials/issues/292 )
 - Changed: Updated the "Goodbye" form interface on plugin deactivation ( https://github.com/WPChill/strong-testimonials/issues/308 )
 
