@@ -449,7 +449,7 @@ class Strong_Testimonials_Settings_Compat {
 			</div>
 			<div>
 				<p class="about"><?php esc_html_e( 'For all views. Required for Ajax page loading.', 'strong-testimonials' ); ?></p>
-				<p class="about"><?php esc_html_e( 'Then select an option for <strong>Monitor</strong> below.', 'strong-testimonials' ); ?></p>
+				<p class="about"><?php echo wp_kses_post( 'Then select an option for <strong>Monitor</strong> below.', 'strong-testimonials' ); ?></p>
 			</div>
 		</div>
 		<?php
