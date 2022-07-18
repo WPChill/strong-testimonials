@@ -81,7 +81,8 @@ class Strong_Testimonials_Render {
 		add_action( 'wpmtst_form_rendered', array( $this, 'view_rendered' ) );
 		add_action( 'wpmtst_form_success', array( $this, 'view_rendered' ) );
 
-		if ( isset( $options['prerender'] ) ) {
+		// We need to also check if page_loading is set to `advanced` in order for us to take into consideration the `prerender` option
+		if ( isset( $options['prerender'] ) && isset( $options['page_loading'] ) && 'advanced' === isset( $options['page_loading'] ) ) {
 			switch ( $options['prerender'] ) {
 				case 'none':
 					/**

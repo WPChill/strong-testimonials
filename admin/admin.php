@@ -38,10 +38,6 @@ function wpmtst_update_check() {
 	if ( $version == WPMTST_VERSION ) {
 		return;
 	}
-	// Redirect to About page afterwards. On new install or (de)activation only.
-	if ( false === $version ) {
-		add_option( 'wpmtst_do_activation_redirect', true );
-	}
 
 	Strong_Testimonials_Updater::update();
 }
@@ -52,12 +48,6 @@ add_action( 'admin_init', 'wpmtst_update_check', 5 );
  * Initialize.
  */
 function wpmtst_admin_init() {
-	/**
-	 * Redirect to About page for new installs only
-	 *
-	 * @since 2.28.4
-	 */
-	wpmtst_activation_redirect();
 
 	/**
 	 * Custom action hooks
@@ -84,19 +74,6 @@ function wpmtst_action_captcha_options_changed() {
 }
 
 add_action( 'admin_action_captcha-options-changed', 'wpmtst_action_captcha_options_changed' );
-
-/**
- * Redirect to About page.
- *
- * @since 2.28.4
- */
-function wpmtst_activation_redirect() {
-	if ( get_option( 'wpmtst_do_activation_redirect', false ) ) {
-		delete_option( 'wpmtst_do_activation_redirect' );
-		wp_redirect( admin_url( 'index.php?page=wpmtst-getting-started' ) );
-		exit;
-	}
-}
 
 /**
  * Are we on a testimonial admin screen?

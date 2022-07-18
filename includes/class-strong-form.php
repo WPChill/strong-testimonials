@@ -84,7 +84,8 @@ class Strong_Testimonials_Form {
 					default:
 						// For non-Ajax forms, the only ways to store the state (successful form submission)
 						// are a query parameter or a cookie.
-						$goback = add_query_arg( 'success', '', wp_get_referer() );
+						$goback = add_query_arg( 'success', intval( $_POST['form_id']), wp_get_referer() );
+						$goback = add_query_arg( array( 'success' => '', 'formid' =>  intval( $_POST['form_id'] ) ), wp_get_referer() );
 				}
 				wp_redirect( apply_filters( 'wpmtst_form_redirect_url', $goback ) );
 				exit;

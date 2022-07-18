@@ -22,6 +22,7 @@
 ---------------------------------------------------------*/
 .strong-view .wpmslider-pager {
   display: inline-block;
+  vertical-align: middle;
 }
 .strong-view.rtl .wpmslider-pager {
   direction: rtl;

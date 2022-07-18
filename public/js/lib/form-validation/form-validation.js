@@ -2,9 +2,12 @@
  * Submission form validation
  */
 
-var strongValidation = {
+ function strongValidation(form) {
+    
+    this.form = jQuery(form).find('form');
+	this.formID = this.form.data('formid');
 
-	defaults: {
+	this.defaults = {
 	  ajaxUrl: '',
 	  display: {
 		successMessage: false
@@ -16,20 +19,22 @@ var strongValidation = {
 		onSuccessOffset: 100
 	  },
 	  fields: {},
-	},
+	};
 
-	settings: {},
+	this.settings = {};
+    this.rules = {};
 
-	setOpts: function (options) {
+    this.init();
+    }
+
+	strongValidation.prototype.setOpts = function (options) {
 	  this.settings = jQuery.extend({}, this.defaults, options);
-	},
-
-	rules: {},
-
+	};
+    
 	/**
 	 * Add custom validation rule to star-rating pseudo elements.
 	 */
-	setRules: function () {
+     strongValidation.prototype.setRules = function () {
 	  for (var i = 0; i < this.settings.fields.length; i++) {
 
 		if ('rating' === this.settings.fields[i].type) {
@@ -39,17 +44,19 @@ var strongValidation = {
 		}
 
 	  }
-	},
+	};
 
 	/**
 	 * Initialize.
 	 */
-	init: function () {
+     strongValidation.prototype.init = function () {
 
 	  var strongForm = {};
+
 	  if (typeof window['strongForm'] !== 'undefined') {
-		strongForm = window['strongForm'];
+		strongForm = this.form.data("config");
 	  }
+
 	  this.setOpts(strongForm);
 
 	  if (this.settings.display.successMessage) {
@@ -65,12 +72,12 @@ var strongValidation = {
 
 	  }
 
-	},
+	};
 
-	changeEvents: function () {
+	strongValidation.prototype.changeEvents = function () {
 
 	  // Trim blanks
-	  jQuery('input[type="text"], input[type="url"], input[type="email"], textarea', '#wpmtst-submission-form').on('change blur', function (e) {
+	  jQuery('input[type="text"], input[type="url"], input[type="email"], textarea', '.wpmtst-submission-form').on('change blur', function (e) {
 		e.target.value = e.target.value.trim();
 	  });
 
@@ -92,17 +99,34 @@ var strongValidation = {
 		ratings[i].addEventListener('change', function () { jQuery(this).valid(); }, true);
 	  }
 
-	},
+	};
 
-	handleRadioEvent: function (e) {
+    /**
+     * Show overlay during form submission.
+     */
+    strongValidation.prototype.disableForm = function () {
+    //apply form wait buffer only for the submited form
+    	jQuery('.strong-form-wait[data-formid="'+this.formID+'"]').show();
+		this.form.find( '.wpmtst_submit_testimonial' ).prop( 'disabled', true );
+    };
+
+    /**
+     * Hide overlay after form submission.
+     */
+    strongValidation.prototype.enableForm = function () {
+    	jQuery('.strong-form-wait[data-formid="'+this.formID+'"]').hide();
+		this.form.find( '.wpmtst_submit_testimonial' ).prop( 'disabled', false );
+    };
+  
+	strongValidation.prototype.handleRadioEvent = function (e) {
 	  // If key 0-5 fired the event, trigger click on that star (including hidden zero).
 	  if (e.keyCode >= 48 && e.keyCode <= 53) {
 		var key = e.keyCode - 48;
 		jQuery(this).find('input[type="radio"][value=' + key + ']').trigger('click');
 	  }
-	},
+	};
 
-	customValidators: function () {
+	strongValidation.prototype.customValidators = function () {
 	  /**
 	   * Only use elements that can legitimately have a 'name' attribute:
 	   * <button>, <form>, <fieldset>, <iframe>, <input>, <keygen>, <object>,
@@ -116,116 +140,114 @@ var strongValidation = {
 	  jQuery.validator.addMethod('ratingRequired', function (value, element) {
 		return jQuery(element).find('input:checked').val() > 0;
 	  }, jQuery.validator.messages.required);
-	},
-
-	validateForm: function () {
-
+	};
+	strongValidation.prototype.validateForm = function () {
+        
+        //remember current object for function calls later
+        var instance = this;
 	  /**
 	   * Validate the form
 	   */
-	  var theForm = jQuery('#wpmtst-submission-form');
+        this.form.validate({
+            
+            onfocusout: false,
 
-	  theForm.validate({
+            focusInvalid: false,
 
-		onfocusout: false,
+            invalidHandler: function (form, validator) {
+                
+            // Focus first invalid input
+            var errors = validator.numberOfInvalids();
+            if (errors) {
+                if (instance.settings.scroll.onError) {
+                if (typeof validator.errorList[0] !== 'undefined') {
+                    var firstError = jQuery(validator.errorList[0].element);
+                    var fieldOffset = firstError.closest('.form-field').offset();
+                    var scrollTop = fieldOffset.top - instance.settings.scroll.onErrorOffset;
+                    jQuery('html, body').animate({scrollTop: scrollTop}, 800, function () { firstError.focus(); });
+                }
+                } else {
+                validator.errorList[0].element.focus();
+                }
+            }
+            },
 
-		focusInvalid: false,
+            submitHandler: function () {
+			instance.disableForm();
+            // If Ajax
+            if (instance.settings.ajaxUrl !== '') {
+               
+                window.onbeforeunload = function() {
+                return "Please wait while the form is submitted.";
+                }
 
-		invalidHandler: function (form, validator) {
-		  // Focus first invalid input
-		  var errors = validator.numberOfInvalids();
-		  if (errors) {
-			if (strongValidation.settings.scroll.onError) {
-			  if (typeof validator.errorList[0] !== 'undefined') {
-				var firstError = jQuery(validator.errorList[0].element);
-				var fieldOffset = firstError.closest('.form-field').offset();
-				var scrollTop = fieldOffset.top - strongValidation.settings.scroll.onErrorOffset;
-				jQuery('html, body').animate({scrollTop: scrollTop}, 800, function () { firstError.focus(); });
-			  }
-			} else {
-			  validator.errorList[0].element.focus();
-			}
-		  }
-		},
+                var formOptions = {
+                url: instance.settings.ajaxUrl,
+                data: {
+                    action: 'wpmtst_form2'
+                },
+                success: function(success){ instance.showResponse(success); },
+                };
+                instance.form.ajaxSubmit(formOptions);
 
-		submitHandler: function (form) {
+            } else {
 
-		  strongValidation.disableForm();
+				instance.form.get(0).submit();
+            }
+            },
 
-		  // If Ajax
-		  if (strongValidation.settings.ajaxUrl !== '') {
+            /* Normalizer not working */
+            // normalizer: function( value ) {
+            //   return jQuery.trim( value )
+            // },
 
-			window.onbeforeunload = function() {
-			  return "Please wait while the form is submitted.";
-			}
+            rules: this.rules,
 
-			var formOptions = {
-			  url: strongValidation.settings.ajaxUrl,
-			  data: {
-				action: 'wpmtst_form2'
-			  },
-			  success: strongValidation.showResponse,
-			};
-			jQuery(form).ajaxSubmit(formOptions);
+            errorPlacement: function (error, element) {
+            error.appendTo(element.closest('div.form-field'));
+            },
 
-		  } else {
+            highlight: function (element, errorClass, validClass) {
+            if (element.type === 'checkbox') {
+                jQuery(element).closest('.field-wrap').addClass(errorClass).removeClass(validClass);
+            } else if ('rating' === jQuery(element).data('fieldType')) {
+                jQuery(element).closest('.field-wrap').addClass(errorClass).removeClass(validClass);
+            } else {
+                jQuery(element).addClass(errorClass).removeClass(validClass);
+            }
+            },
 
-			form.trigger('submit');
+            unhighlight: function (element, errorClass, validClass) {
+            if (element.type === 'checkbox') {
+                jQuery(element).closest('.field-wrap').removeClass(errorClass).addClass(validClass);
+            } else if ('rating' === jQuery(element).data('fieldType')) {
+                jQuery(element).closest('.field-wrap').removeClass(errorClass).addClass(validClass);
+            } else {
+                jQuery(element).removeClass(errorClass).addClass(validClass);
+            }
+            }
 
-		  }
-		},
+        });
+    
 
-		/* Normalizer not working */
-		// normalizer: function( value ) {
-		//   return jQuery.trim( value )
-		// },
-
-		rules: strongValidation.rules,
-
-		errorPlacement: function (error, element) {
-		  error.appendTo(element.closest('div.form-field'));
-		},
-
-		highlight: function (element, errorClass, validClass) {
-		  if (element.type === 'checkbox') {
-			jQuery(element).closest('.field-wrap').addClass(errorClass).removeClass(validClass);
-		  } else if ('rating' === jQuery(element).data('fieldType')) {
-			jQuery(element).closest('.field-wrap').addClass(errorClass).removeClass(validClass);
-		  } else {
-			jQuery(element).addClass(errorClass).removeClass(validClass);
-		  }
-		},
-
-		unhighlight: function (element, errorClass, validClass) {
-		  if (element.type === 'checkbox') {
-			jQuery(element).closest('.field-wrap').removeClass(errorClass).addClass(validClass);
-		  } else if ('rating' === jQuery(element).data('fieldType')) {
-			jQuery(element).closest('.field-wrap').removeClass(errorClass).addClass(validClass);
-		  } else {
-			jQuery(element).removeClass(errorClass).addClass(validClass);
-		  }
-		}
-
-	  });
-
-	},
+	};
 
 	/**
 	 * Display message/errors upon Ajax submission
 	 *
 	 * @param response
 	 */
-	showResponse: function (response) {
+     strongValidation.prototype.showResponse = function (response) {
 	  window.onbeforeunload = null;
-	  strongValidation.enableForm();
+	  this.enableForm();
 	  var obj = JSON.parse(response);
 	  if (obj.success) {
-		jQuery('#wpmtst-form').html(obj.message);
-		strongValidation.scrollOnSuccess();
+		this.form.parent().html(obj.message);
+		this.scrollOnSuccess();
 	  } else {
 		for (var key in obj.errors) {
 		  if (obj.errors.hasOwnProperty(key)) {
-			jQuery('#wpmtst-submission-form').children('.field-' + key)
+			this.form.children('.field-' + key)
 			  .find('span.error')
 			  .remove()
 			  .end()
@@ -233,17 +255,17 @@ var strongValidation = {
 		  }
 		}
 	  }
-	},
+	};
 
 	/**
 	 * Scroll to success message
 	 */
-	scrollOnSuccess: function () {
-	  if (strongValidation.settings.scroll.onSuccess) {
+     strongValidation.prototype.scrollOnSuccess = function () {
+	  if (this.settings.scroll.onSuccess) {
 		var containerOffset, scrollTop;
-		containerOffset = jQuery('.wpmtst-testimonial-success').offset();
+		containerOffset = jQuery('.wpmtst-form-id-'+this.formID).find('.wpmtst-testimonial-success').offset();
 		if (containerOffset) {
-		  scrollTop = containerOffset.top - strongValidation.settings.scroll.onSuccessOffset;
+		  scrollTop = containerOffset.top - this.settings.scroll.onSuccessOffset;
 		  // is WordPress admin bar showing?
 		  if (jQuery('#wpadminbar').length) {
 			scrollTop -= 32;
@@ -251,21 +273,5 @@ var strongValidation = {
 		  jQuery('html, body').animate({scrollTop: scrollTop}, 800);
 		}
 	  }
-	},
+	};
 
-	/**
-	 * Show overlay during form submission.
-	 */
-	disableForm: function () {
-	  jQuery('.strong-form-wait').show();
-	  jQuery('#wpmtst_submit_testimonial').prop('disabled',true);
-	},
-
-	/**
-	 * Hide overlay after form submission.
-	 */
-	enableForm: function () {
-	  jQuery('.strong-form-wait').hide();
-	  jQuery('#wpmtst_submit_testimonial').prop('disabled',false);
-	}
-  };

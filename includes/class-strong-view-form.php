@@ -47,9 +47,9 @@ class Strong_View_Form extends Strong_View {
 	public function print_overlay() {
 		if ( apply_filters( 'wpmtst_form_wait', true ) ) {
 			?>
-			<div class="strong-form-wait">
+			<div class="strong-form-wait" data-formid="<?php echo esc_attr( WPMST()->atts( 'form_id' ) ); ?>">
 				<div class="message">
-					<?php echo wp_kses_post( apply_filters( 'wpmtst_form_wait_message', '<img src="'.WPMTST_PUBLIC_URL.'svg/spinner-solid.svg">' ) ); ?>
+					<?php echo wp_kses_post( apply_filters( 'wpmtst_form_wait_message', '<img src="'.WPMTST_PUBLIC_URL.'svg/spinner-solid.svg" alt="' . esc_attr__( 'Strong Testimonials form submission spinner.', 'strong-testimonials' ) . '" >' ) ); ?>
 				</div>
 			</div>
 			<?php
@@ -80,7 +80,7 @@ class Strong_View_Form extends Strong_View {
 		WPMST()->render->add_script_var( 'wpmtst-form-validation', 'strongForm', $args );
 
         $this->find_stylesheet();
-        $this->html = wpmtst_get_success_message();
+		$this->html = wpmtst_get_success_message( $this->atts );
 
         do_action( 'wpmtst_form_success', $this->atts );
     }

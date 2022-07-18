@@ -1,0 +1,175 @@
+body.wpmtst_page_wpmtst-upgrade-to-pro #wpcontent .wrap {
+    margin-left: 0;
+    max-width: 85%;
+  }
+  .wpmtst-lite-vs-premium,
+  .wpmtst-lite-vs-premium p {
+    font-size: 14px;
+    margin: 0;
+  }
+  .wpmtst-lite-vs-premium
+    > .wpchill-plans-table.wpchill-highlight
+    > .wpchill-pricing-package {
+    background: #fefff0;
+    box-shadow: 0 0 15px rgb(208 219 219);
+  }
+  .wpmtst-lite-vs-premium .wp-badge {
+    display: inline-block;
+    vertical-align: middle;
+    position: relative;
+    margin-right: 2.5%;
+  }
+  .wpmtst-lite-vs-premium h3 {
+    display: block;
+    position: relative;
+    font-size: 16px;
+    margin: 0;
+  }
+  .wpmtst-lite-vs-premium .wpchill-plans-table {
+    display: flex;
+  }
+  .wpmtst-lite-vs-premium .wpchill-plans-table.table-header {
+    margin-top: 50px;
+    border-top: 0;
+  }
+  .wpmtst-lite-vs-premium
+    .wpchill-plans-table.table-header
+    .wpchill-pricing-package {
+    border: 0;
+  }
+  .wpmtst-lite-vs-premium
+    .wpchill-plans-table.table-header
+    .wpchill-pricing-package.wpchill-title.wpchill-highlight::before,
+  .wpmtst-lite-vs-premium
+    .wpchill-plans-table.table-header
+    .wpchill-pricing-package:not(.wpchill-wpmtst-lite):last-child:before {
+    content: "";
+    width: auto;
+    display: inline-block;
+    opacity: 1;
+    position: absolute;
+    top: -1px;
+    background: #41495b;
+    text-align: center;
+    left: 0;
+    right: 0;
+    color: #fff;
+    font-size: 15px;
+    text-transform: uppercase;
+    padding: 10px 5px;
+    transform: translateY(-100%);
+  }
+  .wpmtst-lite-vs-premium.table-footer .wpchill-pricing-package:last-child {
+    border: 0;
+  }
+  .wpmtst-lite-vs-premium .wpchill-pricing-package {
+    text-align: center;
+    line-height: 1.5;
+    padding: 10px 15px;
+    display: flex;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+    border-top: 1px solid #ccc;
+    width: 32%;
+  }
+  .wpmtst-lite-vs-premium .wpchill-pricing-package:not(:first-child) {
+    max-width: 300px;
+  }
+  .wpmtst-lite-vs-premium .wpchill-pricing-package.wpchill-title {
+    font-weight: 400;
+    color: #666;
+    font-size: 1.25rem;
+    height: auto;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    justify-content: space-between;
+    position: relative;
+  }
+  .wpmtst-lite-vs-premium .wpchill-pricing-package.wpchill-title .wpchill-name {
+    margin: 0;
+    font-size: 36px;
+  }
+  .wpmtst-lite-vs-premium
+    .wpchill-pricing-package.wpchill-title.wpchill-wpmtst-lite {
+    justify-content: center;
+  }
+  .wpmtst-lite-vs-premium .wpchill-pricing-package.wpchill-title p.description {
+    font-style: italic;
+    font-size: 13px;
+    margin-bottom: 40px;
+  }
+  .wpmtst-lite-vs-premium
+    .wpchill-pricing-package.wpchill-title
+    .wpchill-price
+    p:last-child {
+    font-size: 30px;
+    margin: 0 0 40px 0;
+  }
+  .wpmtst-lite-vs-premium
+    .wpchill-pricing-package.wpchill-title
+    .wpchill-price
+    p.old-price {
+    margin: 0;
+    position: relative;
+  }
+  .wpmtst-lite-vs-premium
+    .wpchill-pricing-package.wpchill-title
+    .wpchill-price
+    p.old-price:after {
+    content: "";
+    height: 2px;
+    width: 60px;
+    background: red;
+    display: block;
+    position: absolute;
+    left: 50%;
+    top: 52%;
+    transform: translate(-50%, -50%);
+  }
+  .wpmtst-lite-vs-premium
+    .wpchill-pricing-package.wpchill-title
+    .wpchill-price
+    sup {
+    top: 2px;
+    position: relative;
+    font-size: 15px;
+  }
+  .wpmtst-lite-vs-premium .wpchill-pricing-package.wpchill-empty {
+    background: 0 0;
+    border-color: transparent;
+  }
+  .wpmtst-lite-vs-premium .wpchill-pricing-package.feature-name {
+    justify-content: space-between;
+    font-weight: 400;
+    text-align: left;
+    font-size: 13px;
+    display: block;
+    background: 0 0;
+  }
+  .wpmtst-lite-vs-premium .wpchill-pricing-package .dashicons-saved {
+    color: green;
+  }
+  .wpmtst-lite-vs-premium .wpchill-pricing-package .dashicons {
+    width: 30px;
+    height: 30px;
+    font-size: 30px;
+  }
+  .wpmtst-lite-vs-premium .wpchill-pricing-package .dashicons-no-alt {
+    color: #ff3439;
+  }
+  .wpmtst-lite-vs-premium .wpchill-pricing-package:last-child {
+    background: #fefff0;
+  }
+  .wpmtst-lite-vs-premium .button .dashicons {
+    font-size: 16px;
+    vertical-align: middle;
+    line-height: 26px;
+  }
+  a.wpmtst-lite-vs-pro {
+    color: orange;
+    font-weight: bold;
+}

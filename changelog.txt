@@ -1,3 +1,12 @@
+= 3.0.0 - 18.07.2022  -
+- Added: Optional parameter to function wpmtst_get_success_message
+- Added: Added an "alt" tag for the submission form's spinner image ( https://github.com/WPChill/strong-testimonials/issues/291 )
+- Fixed: Fatal error in shortcode when decimals attribute from shortcode was not a number but a string
+- Fixed: Small typo on admin side ( https://github.com/WPChill/strong-testimonials/issues/290 )
+- Fixed: Minor escape bug in admin area ( https://github.com/WPChill/strong-testimonials/issues/286 )
+- Changed: Updated jQuery Validate version to 1.19.5 ( https://github.com/WPChill/strong-testimonials/issues/292 )
+- Changed: Updated the "Goodbye" form interface on plugin deactivation ( https://github.com/WPChill/strong-testimonials/issues/308 )
+
 = 2.51.9 - 04.04.2022 =
 - Changed: Replaced the Welcome page and now only appears on new/fresh installs
 
@@ -8,7 +17,7 @@
 - Added: Lite vs Pro page ( https://github.com/WPChill/strong-testimonials/issues/167 )
 - Added: Upgrade to PRO action link in the plugins page ( https://github.com/WPChill/strong-testimonials/issues/303 )
 
-= 2.51.6 - 15.09.2021 -
+= 2.51.6 - 15.09.2021 =
 - Fixed upsells for wp 5.8.1 ( https://github.com/WPChill/strong-testimonials/issues/281 )
 - Added: Tracking option - allow us to track non-sensitive data, only information regarding the WordPress environment and Strong Testimonials settings
 

@@ -7,7 +7,7 @@
 ?>
 <div class="strong-view strong-form">
 
-	<div id="wpmtst-form">
+	<div class="wpmtst-form wpmtst-form-id-<?php echo esc_attr( WPMST()->atts( 'form_id' ) );?>">
 
         <div class="strong-form-inner">
 

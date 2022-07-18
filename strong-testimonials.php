@@ -5,7 +5,7 @@
  * Description: Collect and display your testimonials or reviews.
  * Author: WPChill
  * Author URI: https://wpchill.com/
- * Version: 2.51.6
+ * Version: 3.0.0
  * Text Domain: strong-testimonials
  * Domain Path: /languages
  * Requires: 4.6 or higher
@@ -45,7 +45,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'WPMTST_VERSION', '2.51.6' );
+define( 'WPMTST_VERSION', '3.0.0' );
 define( 'WPMTST_PLUGIN', plugin_basename( __FILE__ ) ); // strong-testimonials/strong-testimonials.php
 define( 'WPMTST', dirname( WPMTST_PLUGIN ) );           // strong-testimonials
 define( 'WPMTST_LOGS', wp_upload_dir()['basedir']. '/st-logs/' );
@@ -154,9 +154,13 @@ final class Strong_Testimonials {
 	 * Plugin activation
 	 */
 	static function plugin_activation() {
+		$first_install = !get_option( 'wpmtst_db_version' ) ? true : false;
 		wpmtst_update_tables();
 		wpmtst_register_cpt();
 		flush_rewrite_rules();
+		
+		new Strong_Testimonials_Welcome();
+		do_action( 'wpmtst_after_update_setup', $first_install );
 	}
 
 	/**
@@ -292,11 +296,11 @@ final class Strong_Testimonials {
 			require_once WPMTST_ADMIN . 'class-strong-testimonials-admin-category-list.php';
 			require_once WPMTST_ADMIN . 'class-strong-testimonials-post-editor.php';
 			require_once WPMTST_ADMIN . 'class-strong-testimonials-exporter.php';
-			require_once WPMTST_ADMIN . 'class-strong-testimonials-wpchill-upsells.php';
 			require_once WPMTST_ADMIN . 'class-strong-testimonials-upsell.php';
 			require_once WPMTST_ADMIN . 'class-strong-testimonials-updater.php';
 			require_once WPMTST_ADMIN . 'class-strong-testimonials-review.php';
-                        require_once WPMTST_ADMIN . 'class-strong-testimonials-helper.php';
+			require_once WPMTST_ADMIN . 'class-strong-testimonials-helper.php';
+			require_once WPMTST_ADMIN . 'class-strong-testimonials-lite-vs-pro-page.php';
 
 			require_once WPMTST_ADMIN . 'admin.php';
 			require_once WPMTST_ADMIN . 'admin-notices.php';
@@ -315,7 +319,8 @@ final class Strong_Testimonials {
 			// Uninstall form
             require_once WPMTST_ADMIN . 'uninstall/class-strong-testimonials-uninstall.php';
 
-
+			// WPMTST Challenge Modal
+			//require_once WPMTST_ADMIN . 'challenge/modal.php';
 		}
 	}
 
@@ -547,7 +552,7 @@ if( ! function_exists( 'strong_testimonials_start_plugin_tracking' ) ) {
 
 
 register_activation_hook( __FILE__, array( 'Strong_Testimonials', 'plugin_activation' ) );
-register_deactivation_hook( __FILE__, array( 'Strong_Testimonials', 'plugin_deactivation' ) );
+//register_deactivation_hook( __FILE__, array( 'Strong_Testimonials', 'plugin_deactivation' ) );
 
 function WPMST() {
 	return Strong_Testimonials::instance();

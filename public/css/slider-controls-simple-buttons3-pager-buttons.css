@@ -22,6 +22,7 @@
 ---------------------------------------------------------*/
 .strong-view .wpmslider-pager {
   display: inline-block;
+  vertical-align: middle;
 }
 .strong-view.rtl .wpmslider-pager {
   direction: rtl;
@@ -105,7 +106,6 @@
   display: inline-block;
   width: 25px;
   height: 25px;
-  top: 3px;
 }
 .strong-view.controls-style-buttons3:not(.rtl) .wpmslider-next:before {
   content: "";
@@ -117,7 +117,6 @@
   display: inline-block;
   width: 25px;
   height: 25px;
-  top: 3px;
 }
 .strong-view.controls-style-buttons3.rtl .wpmslider-prev:before {
   content: "";
@@ -129,7 +128,6 @@
   display: inline-block;
   width: 25px;
   height: 25px;
-  top: 3px;
 }
 .strong-view.controls-style-buttons3.rtl .wpmslider-next:before {
   content: "";
@@ -141,13 +139,16 @@
   display: inline-block;
   width: 25px;
   height: 25px;
-  top: 3px;
 }
 
 .strong-view.pager-style-buttons .wpmslider-pager {
   line-height: 24px;
   margin: 0 7px;
   text-align: center;
+}
+.strong-view.pager-style-buttons .wpmslider-pager-link:not(.active)::before {
+  position: relative;
+  top: -1px;
 }
 .strong-view.pager-style-buttons .wpmslider-pager-link:before {
   content: "";

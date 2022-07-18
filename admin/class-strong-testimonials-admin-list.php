@@ -98,7 +98,7 @@ class Strong_Testimonials_Admin_List {
 		// 4. add custom fields
 		foreach ( $fields as $key => $field ) {
 
-			if ( $field['admin_table'] ) {
+			if ( isset( $field['admin_table'] ) ) {
 
 				if ( 'post_title' == $field['name'] ) {
 					continue;
