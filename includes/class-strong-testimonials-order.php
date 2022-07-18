@@ -257,6 +257,9 @@ class Strong_Testimonials_Order {
 	 * Update menu order in back end.
 	 */
 	public static function update_menu_order() {
+		if( !current_user_can('edit_posts') ){
+			wp_die();
+		}
 		global $wpdb;
 
 		parse_str( $_POST['posts'], $data );

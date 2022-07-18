@@ -48,6 +48,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 define( 'WPMTST_VERSION', '3.0.0' );
 define( 'WPMTST_PLUGIN', plugin_basename( __FILE__ ) ); // strong-testimonials/strong-testimonials.php
 define( 'WPMTST', dirname( WPMTST_PLUGIN ) );           // strong-testimonials
+define( 'WPMTST_LOGS', wp_upload_dir()['basedir']. '/st-logs/' );
 defined( 'WPMTST_STORE_URL' ) || define( 'WPMTST_STORE_URL', 'https://strongtestimonials.com' );
 defined( 'WPMTST_STORE_UPGRADE_URL' ) || define( 'WPMTST_STORE_UPGRADE_URL', 'https://strongtestimonials.com/pricing' );
 
@@ -229,6 +230,7 @@ final class Strong_Testimonials {
 	 * @return void
 	 */
 	private function includes() {
+		require_once WPMTST_INC . '/logs/class-strong-testimonials-logger.php';
 		require_once WPMTST_INC . 'class-strong-log.php';
 
 		require_once WPMTST_INC . 'class-strong-testimonials-privacy.php';
@@ -278,6 +280,7 @@ final class Strong_Testimonials {
 			require_once WPMTST_ADMIN . 'settings/class-strong-testimonials-settings-general.php';
 			require_once WPMTST_ADMIN . 'settings/class-strong-testimonials-settings-form.php';
 			require_once WPMTST_ADMIN . 'settings/class-strong-testimonials-settings-compat.php';
+			require_once WPMTST_ADMIN . 'settings/class-strong-testimonials-advanced-settings.php';
                         require_once WPMTST_ADMIN . 'settings/class-strong-testimonials-form.php';
 
 			require_once WPMTST_ADMIN . 'about/class-strong-testimonials-welcome.php';

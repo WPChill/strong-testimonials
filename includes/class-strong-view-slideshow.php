@@ -41,7 +41,7 @@ class Strong_View_Slideshow extends Strong_View_Display {
 		// If we can preprocess, we can add the inline style in the <head>.
 		add_action( 'wp_enqueue_scripts', array( $this, 'add_custom_style' ), 20 );
 
-		wp_reset_postdata();
+		do_action( 'wpmtst_view_processed' );
 	}
 
 	/**
