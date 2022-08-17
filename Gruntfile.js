@@ -121,6 +121,7 @@ module.exports = function( grunt ) {
 
   grunt.loadNpmTasks( 'grunt-contrib-clean' );
   grunt.loadNpmTasks( 'grunt-contrib-cssmin' );
+  grunt.loadNpmTasks( 'grunt-contrib-uglify-es' );
 
   grunt.registerTask( 'textdomain', [
     'checktextdomain'
