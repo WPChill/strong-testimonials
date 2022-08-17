@@ -65,6 +65,7 @@ module.exports = function( grunt ) {
             '*.js',
             '**/*.js',
             '!*.min.js',
+            '!**/*.min.js',
           ],
           dest  : 'public/js/',
           ext   : '.min.js'
