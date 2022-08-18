@@ -207,8 +207,9 @@ No. If you already have testimonials in another plugin or theme, you will have t
 
 == Changelog ==
 
-= 3.0.1 - 17.08.2022  -
+= 3.0.1 - 18.08.2022  -
 - Fixed: strongValidation error on front form ( https://github.com/WPChill/strong-testimonials/issues/326 )
+- Added: Advanced settings tab and logging system
 
 = 3.0.0 - 18.07.2022  -
 - Added: Optional parameter to function wpmtst_get_success_message
