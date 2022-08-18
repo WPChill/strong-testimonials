@@ -65,6 +65,7 @@ module.exports = function( grunt ) {
             '*.js',
             '**/*.js',
             '!*.min.js',
+            '!**/*.min.js',
           ],
           dest  : 'public/js/',
           ext   : '.min.js'
@@ -121,6 +122,7 @@ module.exports = function( grunt ) {
 
   grunt.loadNpmTasks( 'grunt-contrib-clean' );
   grunt.loadNpmTasks( 'grunt-contrib-cssmin' );
+  grunt.loadNpmTasks( 'grunt-contrib-uglify-es' );
 
   grunt.registerTask( 'textdomain', [
     'checktextdomain'
