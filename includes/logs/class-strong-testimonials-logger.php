@@ -160,13 +160,14 @@ class Strong_File_Logging {
 	 * @since 2.51.7
 	 */
 	public function handle_actions() {
-
-		if ( ! empty( $_REQUEST['remove'] ) ) { // phpcs:ignore input var ok, CSRF ok.
-			$this->remove_log();
-		}
-
-		if ( ! empty( $_REQUEST['download'] ) ) { // phpcs:ignore input var ok, CSRF ok.
-			$this->download_log();
+		if( isset( $_GET['post_type'] ) && isset( $_GET['page'] ) &&  'testimonial' == $_GET['post_type'] &&  'testimonials-logs' == $_GET['page']){
+			if ( ! empty( $_REQUEST['st_log_remove'] ) ) { // phpcs:ignore input var ok, CSRF ok.
+				$this->remove_log();
+			}
+	
+			if ( ! empty( $_REQUEST['st_log_download'] ) ) { // phpcs:ignore input var ok, CSRF ok.
+				$this->download_log();
+			}
 		}
 	}
 
@@ -199,8 +200,8 @@ class Strong_File_Logging {
 			wp_die( esc_html__( 'Action failed. Please refresh the page and retry.', 'strong-testimonials' ) );
 		}
 
-		if ( ! empty( $_REQUEST['remove'] ) ) {  // phpcs:ignore input var ok.
-			$this->remove( wp_unslash( $_REQUEST['remove'] ), wp_unslash( $_REQUEST['subdir'] ) ); // phpcs:ignore input var ok, sanitization ok.
+		if ( ! empty( $_REQUEST['st_log_remove'] ) ) {  // phpcs:ignore input var ok.
+			$this->remove( wp_unslash( $_REQUEST['st_log_remove'] ), wp_unslash( $_REQUEST['subdir'] ) ); // phpcs:ignore input var ok, sanitization ok.
 		}
 
 		wp_safe_redirect( esc_url_raw( admin_url( 'edit.php?post_type=wpm-testimonial&page=strong-testimonials-logs' ) ) );
@@ -244,8 +245,8 @@ class Strong_File_Logging {
 			wp_die( esc_html__( 'Action failed. Please refresh the page and retry.', 'strong-testimonials' ) );
 		}
 
-		if ( ! empty( $_REQUEST['download'] ) ) {  // phpcs:ignore input var ok.
-			$this->download( wp_unslash( $_REQUEST['download'] ), wp_unslash( $_REQUEST['subdir'] ) ); // phpcs:ignore input var ok, sanitization ok.
+		if ( ! empty( $_REQUEST['st_log_download'] ) ) {  // phpcs:ignore input var ok.
+			$this->download( wp_unslash( $_REQUEST['st_log_download'] ), wp_unslash( $_REQUEST['subdir'] ) ); // phpcs:ignore input var ok, sanitization ok.
 		}
 
 	}

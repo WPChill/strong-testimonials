@@ -26,7 +26,7 @@ if ( $logs ) : ?>
 						wp_nonce_url(
 							add_query_arg(
 								array(
-									'remove' => sanitize_title( $log_name ),
+									'st_log_remove' => sanitize_title( $log_name ),
 									'subdir' => sanitize_title( $subfolder ),
 								),
 								admin_url( 'edit.php?post_type=wpm-testimonial&page=strong-testimonials-logs' )
@@ -42,7 +42,7 @@ if ( $logs ) : ?>
 						wp_nonce_url(
 							add_query_arg(
 								array(
-									'download' => sanitize_title( $log_name ),
+									'st_log_download' => sanitize_title( $log_name ),
 									'subdir'   => sanitize_title( $subfolder ),
 								),
 								admin_url( 'edit.php?post_type=wpm-testimonial&page=strong-testimonials-logs' )
