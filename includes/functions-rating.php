@@ -39,23 +39,23 @@ function wpmtst_star_rating_form( $field, $value, $class, $echo = true, $field_a
                      tabindex="0">
                         <legend><?php esc_html_e('rating fields', 'strong-testimonials' ) ?></legend><!--
 
-			--><input type="radio" id="<?php echo esc_attr( $field['name'] ); ?>-star0-<?php echo absint( $formid ) . absint( $random ); ?>" name="<?php echo esc_attr( $name ); ?>" value="0" <?php checked( $value, 0 ); ?> /><!--
-			--><label for="<?php echo esc_attr( $field['name'] ); ?>-star0-<?php echo absint( $formid ) . absint( $random ); ?>" title="No stars"></label><!--
+			--><input type="radio" id="<?php echo esc_attr( $field['name'] ); ?>-star0-<?php echo absint( $random ); ?>" name="<?php echo esc_attr( $name ); ?>" value="0" <?php checked( $value, 0 ); ?> /><!--
+			--><label for="<?php echo esc_attr( $field['name'] ); ?>-star0-<?php echo absint( $random ); ?>" title="No stars"></label><!--
 
-			--><input type="radio" id="<?php echo esc_attr( $field['name'] ); ?>-star1-<?php echo absint( $formid ) . absint( $random ); ?>" name="<?php echo esc_attr( $name ); ?>" value="1" <?php checked( $value, 1 ); ?> /><!--
-			--><label for="<?php echo esc_attr( $field['name'] ); ?>-star1-<?php echo absint( $formid ) . absint( $random ); ?>" class="star" title="1 star"><?php echo $star_regular; ?></label><!--
+			--><input type="radio" id="<?php echo esc_attr( $field['name'] ); ?>-star1-<?php echo absint( $random ); ?>" name="<?php echo esc_attr( $name ); ?>" value="1" <?php checked( $value, 1 ); ?> /><!--
+			--><label for="<?php echo esc_attr( $field['name'] ); ?>-star1-<?php echo absint( $random ); ?>" class="star" title="1 star"><?php echo $star_regular; ?></label><!--
 
-			--><input type="radio" id="<?php echo esc_attr( $field['name'] ); ?>-star2-<?php echo absint( $formid ) . absint( $random ); ?>" name="<?php echo esc_attr( $name ); ?>" value="2" <?php checked( $value, 2 ); ?> /><!--
-			--><label for="<?php echo esc_attr( $field['name'] ); ?>-star2-<?php echo absint( $formid ) . absint( $random ); ?>" class="star" title="2 stars"><?php echo $star_regular; ?></label><!--
+			--><input type="radio" id="<?php echo esc_attr( $field['name'] ); ?>-star2-<?php echo absint( $random ); ?>" name="<?php echo esc_attr( $name ); ?>" value="2" <?php checked( $value, 2 ); ?> /><!--
+			--><label for="<?php echo esc_attr( $field['name'] ); ?>-star2-<?php echo absint( $random ); ?>" class="star" title="2 stars"><?php echo $star_regular; ?></label><!--
 
-			--><input type="radio" id="<?php echo esc_attr( $field['name'] ); ?>-star3-<?php echo absint( $formid ) . absint( $random ); ?>" name="<?php echo esc_attr( $name ); ?>" value="3" <?php checked( $value, 3 ); ?> /><!--
-			--><label for="<?php echo esc_attr( $field['name'] ); ?>-star3-<?php echo absint( $formid ) . absint( $random ); ?>" class="star" title="3 stars"><?php echo $star_regular; ?></label><!--
+			--><input type="radio" id="<?php echo esc_attr( $field['name'] ); ?>-star3-<?php echo absint( $random ); ?>" name="<?php echo esc_attr( $name ); ?>" value="3" <?php checked( $value, 3 ); ?> /><!--
+			--><label for="<?php echo esc_attr( $field['name'] ); ?>-star3-<?php echo absint( $random ); ?>" class="star" title="3 stars"><?php echo $star_regular; ?></label><!--
 
-			--><input type="radio" id="<?php echo esc_attr( $field['name'] ); ?>-star4-<?php echo absint( $formid ) . absint( $random ); ?>" name="<?php echo esc_attr( $name ); ?>" value="4" <?php checked( $value, 4 ); ?> /><!--
-			--><label for="<?php echo esc_attr( $field['name'] ); ?>-star4-<?php echo absint( $formid ) . absint( $random ); ?>" class="star" title="4 stars"><?php echo $star_regular; ?></label><!--
+			--><input type="radio" id="<?php echo esc_attr( $field['name'] ); ?>-star4-<?php echo absint( $random ); ?>" name="<?php echo esc_attr( $name ); ?>" value="4" <?php checked( $value, 4 ); ?> /><!--
+			--><label for="<?php echo esc_attr( $field['name'] ); ?>-star4-<?php echo absint( $random ); ?>" class="star" title="4 stars"><?php echo $star_regular; ?></label><!--
 
-			--><input type="radio" id="<?php echo esc_attr( $field['name'] ); ?>-star5-<?php echo absint( $formid ) . absint( $random ); ?>" name="<?php echo esc_attr( $name ); ?>" value="5" <?php checked( $value, 5 ); ?> /><!--
-			--><label for="<?php echo esc_attr( $field['name'] ); ?>-star5-<?php echo absint( $formid ) . absint( $random ); ?>" class="star" title="5 stars"><?php echo $star_regular; ?></label><!--
+			--><input type="radio" id="<?php echo esc_attr( $field['name'] ); ?>-star5-<?php echo absint( $random ); ?>" name="<?php echo esc_attr( $name ); ?>" value="5" <?php checked( $value, 5 ); ?> /><!--
+			--><label for="<?php echo esc_attr( $field['name'] ); ?>-star5-<?php echo absint( $random ); ?>" class="star" title="5 stars"><?php echo $star_regular; ?></label><!--
 
 		--></fieldset><!--
 	--></div>
