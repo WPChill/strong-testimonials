@@ -160,7 +160,8 @@ class Strong_File_Logging {
 	 * @since 2.51.7
 	 */
 	public function handle_actions() {
-		if( isset( $_GET['post_type'] ) && isset( $_GET['page'] ) &&  'testimonial' == $_GET['post_type'] &&  'testimonials-logs' == $_GET['page']){
+		
+		if( isset( $_GET['post_type'] ) && isset( $_GET['page'] ) &&  'wpm-testimonial' == $_GET['post_type'] &&  'strong-testimonials-logs' == $_GET['page']){
 			if ( ! empty( $_REQUEST['st_log_remove'] ) ) { // phpcs:ignore input var ok, CSRF ok.
 				$this->remove_log();
 			}
