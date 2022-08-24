@@ -207,9 +207,9 @@ No. If you already have testimonials in another plugin or theme, you will have t
 
 == Changelog ==
 
-= 3.0.2 - TBA  -
-- Fixed: Star rating input for multiple forms on page
-- Fixed: Conflicts with other plugins ( https://github.com/WPChill/strong-testimonials/issues/330 )
+= 3.0.2 - 24.08.2022  -
+- Fixed: Star rating input for multiple forms on page ( [#322](https://github.com/WPChill/strong-testimonials/issues/322) )
+- Fixed: Conflicts with other plugins ( [#330](https://github.com/WPChill/strong-testimonials/issues/330) )
 
 = 3.0.1 - 18.08.2022  -
 - Fixed: strongValidation error on front form ( https://github.com/WPChill/strong-testimonials/issues/326 )
