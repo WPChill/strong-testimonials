@@ -212,53 +212,53 @@ No. If you already have testimonials in another plugin or theme, you will have t
 - Fixed: Conflicts with other plugins ( [#330](https://github.com/WPChill/strong-testimonials/issues/330) )
 
 = 3.0.1 - 18.08.2022  -
-- Fixed: strongValidation error on front form ( https://github.com/WPChill/strong-testimonials/issues/326 )
+- Fixed: strongValidation error on front form ( [#326](https://github.com/WPChill/strong-testimonials/issues/326) )
 - Added: Advanced settings tab and logging system
 
 = 3.0.0 - 18.07.2022  -
 - Added: Optional parameter to function wpmtst_get_success_message
-- Added: Added an "alt" tag for the submission form's spinner image ( https://github.com/WPChill/strong-testimonials/issues/291 )
+- Added: Added an "alt" tag for the submission form's spinner image ( [#291](https://github.com/WPChill/strong-testimonials/issues/291) )
 - Fixed: Fatal error in shortcode when decimals attribute from shortcode was not a number but a string
-- Fixed: Small typo on admin side ( https://github.com/WPChill/strong-testimonials/issues/290 )
-- Fixed: Minor escape bug in admin area ( https://github.com/WPChill/strong-testimonials/issues/286 )
-- Changed: Updated jQuery Validate version to 1.19.5 ( https://github.com/WPChill/strong-testimonials/issues/292 )
-- Changed: Updated the "Goodbye" form interface on plugin deactivation ( https://github.com/WPChill/strong-testimonials/issues/308 )
+- Fixed: Small typo on admin side ( [#290](https://github.com/WPChill/strong-testimonials/issues/290) )
+- Fixed: Minor escape bug in admin area ( [#286](https://github.com/WPChill/strong-testimonials/issues/286) )
+- Changed: Updated jQuery Validate version to 1.19.5 ( [#292](https://github.com/WPChill/strong-testimonials/issues/292) )
+- Changed: Updated the "Goodbye" form interface on plugin deactivation ( [#308](https://github.com/WPChill/strong-testimonials/issues/308) )
 
 = 2.51.9 - 04.04.2022 =
 - Changed: Replaced the Welcome page and now only appears on new/fresh installs
 
 = 2.51.8 - 28.03.2022 =
-- Fixed: Added filter to remove Upgrade from PRO when max license ( https://github.com/WPChill/strong-testimonials/issues/305 )
+- Fixed: Added filter to remove Upgrade from PRO when max license ( [#305](https://github.com/WPChill/strong-testimonials/issues/305) )
 
 = 2.51.7 - 21.03.2022 =
-- Added: Lite vs Pro page ( https://github.com/WPChill/strong-testimonials/issues/167 )
-- Added: Upgrade to PRO action link in the plugins page ( https://github.com/WPChill/strong-testimonials/issues/303 )
+- Added: Lite vs Pro page ( [#167](https://github.com/WPChill/strong-testimonials/issues/167) )
+- Added: Upgrade to PRO action link in the plugins page ( [#303](https://github.com/WPChill/strong-testimonials/issues/303) )
 
 = 2.51.6 - 15.09.2021 =
-- Fixed upsells for wp 5.8.1 ( https://github.com/WPChill/strong-testimonials/issues/281 )
+- Fixed upsells for wp 5.8.1 ( [#281](https://github.com/WPChill/strong-testimonials/issues/281) )
 - Added: Tracking option - allow us to track non-sensitive data, only information regarding the WordPress environment and Strong Testimonials settings
 
 = v2.51.5 - 29/07/2021 =
 - Fixed: Columns and Grid css display bug, removed not needed class from testimonial content
 
 = v2.51.5 - 20/07/2021 =
-- Changed: The field for “Company Name” doesn't appear anymore in the list of default fields when creating a new view, if it has been removed via the form editor. ( https://github.com/WPChill/strong-testimonials/issues/240 )
-- Changed: JQuery Strong slider public methods in order to allow users to acces public methods of bxSlider ( https://github.com/WPChill/strong-testimonials/issues/233 )
-- Fixed: The Read More link display bug ( https://github.com/WPChill/strong-testimonials/issues/245 )
-- Fixed: Undefined index ( https://github.com/WPChill/strong-testimonials/issues/249 )
-- Fixed: Incompatibility problem with Swift Performance related to lazy load ( https://github.com/WPChill/strong-testimonials/issues/254 )
-- Fixed: Error on slider arrows on the Wave accesibility report ( https://github.com/WPChill/strong-testimonials/issues/253 )
-- Fixed: Extra pagination ID or slug sanitize issue from View ( https://github.com/WPChill/strong-testimonials/issues/246 )
-- Fixed: Title setting sanitize issue from View ( https://github.com/WPChill/strong-testimonials/issues/241 )
-- Fixed: Unstyled Template issue with grid layout and pagination ( https://github.com/WPChill/strong-testimonials/issues/242 )
-- Fixed: Security fix with input escaping ( https://github.com/WPChill/strong-testimonials/issues/269 )
-- Fixed: Notice when activating the plugin or entering CPT ( https://github.com/WPChill/strong-testimonials/issues/272 )
-- Fixed: Complete data for uninstall process ( https://github.com/WPChill/strong-testimonials/issues/264 )
-- Fixed: Copy shortcode functionality ( https://github.com/WPChill/strong-testimonials/issues/265 )
-- Changed: Upsell messages display ( https://github.com/WPChill/strong-testimonials/issues/262 )
-- Changed: Noopener and Noreferrer links ON by default ( https://github.com/WPChill/strong-testimonials/issues/257 )
-- Fixed: WAVE accessibility report ( https://github.com/WPChill/strong-testimonials/issues/253 )
-- Fixed: Maximum title length ( https://github.com/WPChill/strong-testimonials/issues/256 )
+- Changed: The field for “Company Name” doesn't appear anymore in the list of default fields when creating a new view, if it has been removed via the form editor. ( [#240](https://github.com/WPChill/strong-testimonials/issues/240) )
+- Changed: JQuery Strong slider public methods in order to allow users to acces public methods of bxSlider ( [#233](https://github.com/WPChill/strong-testimonials/issues/233) )
+- Fixed: The Read More link display bug ( [#245](https://github.com/WPChill/strong-testimonials/issues/245) )
+- Fixed: Undefined index ( [#249](https://github.com/WPChill/strong-testimonials/issues/249) )
+- Fixed: Incompatibility problem with Swift Performance related to lazy load ( [#254](https://github.com/WPChill/strong-testimonials/issues/254) )
+- Fixed: Error on slider arrows on the Wave accesibility report ( [#253](https://github.com/WPChill/strong-testimonials/issues/253) )
+- Fixed: Extra pagination ID or slug sanitize issue from View ( [#246](https://github.com/WPChill/strong-testimonials/issues/246) )
+- Fixed: Title setting sanitize issue from View ( [#241](https://github.com/WPChill/strong-testimonials/issues/241) )
+- Fixed: Unstyled Template issue with grid layout and pagination ( [#242](https://github.com/WPChill/strong-testimonials/issues/242) )
+- Fixed: Security fix with input escaping ( [#269](https://github.com/WPChill/strong-testimonials/issues/269) )
+- Fixed: Notice when activating the plugin or entering CPT ( [#272](https://github.com/WPChill/strong-testimonials/issues/272) )
+- Fixed: Complete data for uninstall process ( [#264](https://github.com/WPChill/strong-testimonials/issues/264) )
+- Fixed: Copy shortcode functionality ( [#265](https://github.com/WPChill/strong-testimonials/issues/265) )
+- Changed: Upsell messages display ( [#262](https://github.com/WPChill/strong-testimonials/issues/262) )
+- Changed: Noopener and Noreferrer links ON by default ( [#257](https://github.com/WPChill/strong-testimonials/issues/257) )
+- Fixed: WAVE accessibility report ( [#253](https://github.com/WPChill/strong-testimonials/issues/253) )
+- Fixed: Maximum title length ( [#256](https://github.com/WPChill/strong-testimonials/issues/256) )
 
 
 
@@ -268,26 +268,26 @@ No. If you already have testimonials in another plugin or theme, you will have t
 
 
 = v2.51.3 - 16/03/2021 =
-- Changed: View backend in order to be more customizable ( https://github.com/WPChill/strong-testimonials/issues/222 )
-- Added: A class to disabled class for each template ( https://github.com/WPChill/strong-testimonials/issues/210 )
-- Fixed: Incompatibility between DIVI builder and testimonials'excerpt display ( https://github.com/WPChill/strong-testimonials/issues/231 )
-- Fixed: Sanitization issue ( https://github.com/WPChill/strong-testimonials/issues/236 )
+- Changed: View backend in order to be more customizable ( [#222](https://github.com/WPChill/strong-testimonials/issues/222) )
+- Added: A class to disabled class for each template ( [#210](https://github.com/WPChill/strong-testimonials/issues/210) )
+- Fixed: Incompatibility between DIVI builder and testimonials'excerpt display ( [#231](https://github.com/WPChill/strong-testimonials/issues/231) )
+- Fixed: Sanitization issue ( [#236](https://github.com/WPChill/strong-testimonials/issues/236) )
 
 = v2.51.2 - 24/02/2021 =
-- Fixed: Manual excerpt ( https://github.com/WPChill/strong-testimonials/issues/220 )
+- Fixed: Manual excerpt ( [#220](https://github.com/WPChill/strong-testimonials/issues/220) )
 
 = v2.51.1 - 18/02/2021 =
 - Fixed: Extensions page CSS.
 
 = v2.51.0 - 18/02/2021 =
-- Changed: Added by default review field to ST form ( https://github.com/WPChill/strong-testimonials/issues/199 )
-- Changed: Improved security (https://github.com/WPChill/strong-testimonials/issues/200)
-- Changed: Upsell texts & design (https://github.com/WPChill/strong-testimonials/issues/204 / https://github.com/WPChill/strong-testimonials/issues/201)
-- Fixed: Addon page design (https://github.com/WPChill/strong-testimonials/issues/202)
-- Fixed: How excerpt were handled, now when you click read more the excerpt will hide and we will show only the full content ( https://github.com/WPChill/strong-testimonials/issues/207 )
-- Fixed: Show on Checked Value string without escape characters(/) ( https://github.com/WPChill/strong-testimonials/issues/209 )
-- Fixed: Keep HTML markup in a testimonial post intact ( https://github.com/WPChill/strong-testimonials/issues/206 )
-- Fixed: How RTL work with our slideshow ( https://github.com/WPChill/strong-testimonials/issues/203 )
+- Changed: Added by default review field to ST form ( [#199](https://github.com/WPChill/strong-testimonials/issues/199) )
+- Changed: Improved security ( [#200](https://github.com/WPChill/strong-testimonials/issues/200) )
+- Changed: Upsell texts & design ( [#201](https://github.com/WPChill/strong-testimonials/issues/204 / https://github.com/WPChill/strong-testimonials/issues/201) )
+- Fixed: Addon page design ( [#202](https://github.com/WPChill/strong-testimonials/issues/202) )
+- Fixed: How excerpt were handled, now when you click read more the excerpt will hide and we will show only the full content ( [#207](https://github.com/WPChill/strong-testimonials/issues/207) )
+- Fixed: Show on Checked Value string without escape characters(/) ( [#209](https://github.com/WPChill/strong-testimonials/issues/209) )
+- Fixed: Keep HTML markup in a testimonial post intact ( [#206](https://github.com/WPChill/strong-testimonials/issues/206) )
+- Fixed: How RTL work with our slideshow ( [#203](https://github.com/WPChill/strong-testimonials/issues/203) )
 
 = 2.50.4 =
 * Added Welcome Banner when Strong Testimonials is activated.
@@ -385,7 +385,7 @@ No. If you already have testimonials in another plugin or theme, you will have t
 = 2.39.3 - Aug. 05, 2019 =
 * removed MIME duplicate header information from the mail sent when submitting a new testimonial
 * improved compatibility with Strong Testimonials: Advanced Views and Pro Templates extensions
-* Fixed warnings ( https://github.com/MachoThemes/strong-testimonials/issues/80 )
+* Fixed warnings ( [#80](https://github.com/MachoThemes/strong-testimonials/issues/80) )
 
 = 2.39.2 - Jun. 25, 2019 =
 * improved compatibility with Strong Testimonials: Advanced Views extension
