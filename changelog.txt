@@ -1,5 +1,6 @@
 = 3.0.3 - TBA  -
 - Fixed: Welcome banner visual update.
+- Fixed: abs( ) function no longer supports string inputs in php v8+ ( [#344](https://github.com/WPChill/strong-testimonials/issues/344) )
 
 = 3.0.2 - 24.08.2022  -
 - Fixed: Star rating input for multiple forms on page ( [#322](https://github.com/WPChill/strong-testimonials/issues/322) )
