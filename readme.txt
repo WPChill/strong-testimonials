@@ -207,6 +207,11 @@ No. If you already have testimonials in another plugin or theme, you will have t
 
 == Changelog ==
 
+= 3.0.3 - TBD  -
+- Fixed: Welcome banner visual update.
+- Fixed: abs( ) function no longer supports string inputs in php v8+ ( [#344](https://github.com/WPChill/strong-testimonials/issues/344) )
+- Fixed: Testimonials slider is not initialized properly ( [#349](https://github.com/WPChill/strong-testimonials/issues/349) )
+
 = 3.0.2 - 24.08.2022  -
 - Fixed: Star rating input for multiple forms on page ( [#322](https://github.com/WPChill/strong-testimonials/issues/322) )
 - Fixed: Conflicts with other plugins ( [#330](https://github.com/WPChill/strong-testimonials/issues/330) )
