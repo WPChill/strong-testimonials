@@ -159,7 +159,7 @@ final class Strong_Testimonials {
 		wpmtst_register_cpt();
 		flush_rewrite_rules();
 		
-		if (!defined('STRONG_TESTIMONIALS_PROGRAMMATIC_ACTIVATION')) {
+		if (class_exists('Strong_Testimonials_Welcome')) {
 			new Strong_Testimonials_Welcome();
 			do_action( 'wpmtst_after_update_setup', $first_install );	
 		}
