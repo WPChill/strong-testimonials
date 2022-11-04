@@ -213,6 +213,7 @@ No. If you already have testimonials in another plugin or theme, you will have t
 - Fixed: Testimonials slider is not initialized properly ( [#349](https://github.com/WPChill/strong-testimonials/issues/349) )
 - Fixed: WP 6 Widgets – wp_enqueue warning ( [#324](https://github.com/WPChill/strong-testimonials/issues/324) )
 - Changed: Uninstall form's spacing reduced to properly fit on smaller displays. ( [#333](https://github.com/WPChill/strong-testimonials/issues/333) )
+- Fixed: Testimonial window expands incomplete and over pagination bullets ( [#336](https://github.com/WPChill/strong-testimonials/issues/336) 
 
 = 3.0.2 - 24.08.2022  -
 - Fixed: Star rating input for multiple forms on page ( [#322](https://github.com/WPChill/strong-testimonials/issues/322) )
