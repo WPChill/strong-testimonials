@@ -92,7 +92,7 @@ class Strong_Testimonials_Uninstall {
                         $after_input  = '</strong>';
                     }
 
-                    echo ' <p><input type="checkbox" name="' . esc_attr( $key ) . ' " id="' . esc_attr( $key ) . '" value="' . esc_attr( $key ) . '"> <label for="' . esc_attr( $key ) . '">' . $before_input . esc_attr( $option['label'] ) . $after_input . '</label><p class="description">' . esc_html( $option['description'] ) . '</p><br>';
+                    echo ' <p class="st-uninstall-options-checkbox" ><input type="checkbox" name="' . esc_attr( $key ) . ' " id="' . esc_attr( $key ) . '" value="' . esc_attr( $key ) . '"> <label for="' . esc_attr( $key ) . '">' . $before_input . esc_attr( $option['label'] ) . $after_input . '</label></p><p class="description">' . esc_html( $option['description'] ) . '</p>';
                 }
                 ?>
             </div><!-- .st-uninstall-options -->
