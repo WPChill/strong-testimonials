@@ -207,13 +207,14 @@ No. If you already have testimonials in another plugin or theme, you will have t
 
 == Changelog ==
 
-= 3.0.3 - TBD  -
+= 3.1.0 - TBD  -
 - Fixed: Welcome banner visual update.
 - Fixed: abs( ) function no longer supports string inputs in php v8+ ( [#344](https://github.com/WPChill/strong-testimonials/issues/344) )
 - Fixed: Testimonials slider is not initialized properly ( [#349](https://github.com/WPChill/strong-testimonials/issues/349) )
 - Fixed: WP 6 Widgets – wp_enqueue warning ( [#324](https://github.com/WPChill/strong-testimonials/issues/324) )
 - Changed: Uninstall form's spacing reduced to properly fit on smaller displays. ( [#333](https://github.com/WPChill/strong-testimonials/issues/333) )
-- Fixed: Testimonial window expands incomplete and over pagination bullets ( [#336](https://github.com/WPChill/strong-testimonials/issues/336) 
+- Fixed: Testimonial window expands incomplete and over pagination bullets ( [#336](https://github.com/WPChill/strong-testimonials/issues/336)
+- Fixed: Warning on slider "enable html" setting ( [#351](https://github.com/WPChill/strong-testimonials/issues/351) )
 
 = 3.0.2 - 24.08.2022  -
 - Fixed: Star rating input for multiple forms on page ( [#322](https://github.com/WPChill/strong-testimonials/issues/322) )

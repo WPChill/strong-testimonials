@@ -1429,7 +1429,7 @@ class Strong_Testimonials_Helper {
 						</div>
 						<div class="html-content-checkbox">
 							<input class="checkbox" id="view-html-content" name="view[data][html_content]" value="1"
-								   type="checkbox" <?php checked( $this->view['html_content'] ); ?>/>
+								   type="checkbox" <?php checked( isset( $this->view['html_content'] ) ? $this->view['html_content'] : false ); ?>/>
 							<label for="view-html-content"><?php _e( 'Show <strong>html content</strong>.', 'strong-testimonials' ); ?></label>
 						</div>
 					</div>
