@@ -97,9 +97,7 @@
 				fullTextWrapper.classList.remove( 'fadeOutUp' );
 				fullTextWrapper.classList.remove( 'faster' );
 
-				if ( allHtml ) {
-					excerptWrapper[0].style.display = 'none';
-				}
+				excerptWrapper[0].style.display = 'none';
 
 				fireCustomEvent();
 
@@ -119,9 +117,7 @@
 				fullTextWrapper.classList.add( 'faster' );
 				fullTextWrapper.classList.remove( 'fadeInDown' );
 
-				if ( allHtml ) {
-					excerptWrapper[0].style.display = 'block';
-				}
+				excerptWrapper[0].style.display = 'block';
 
 				// 3. do stuff at end of animation (the event listener above)
 				fireCustomEvent();

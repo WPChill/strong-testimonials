@@ -216,6 +216,7 @@ No. If you already have testimonials in another plugin or theme, you will have t
 - Fixed: Testimonial window expands incomplete and over pagination bullets ( [#336](https://github.com/WPChill/strong-testimonials/issues/336)
 - Fixed: Warning on slider "enable html" setting ( [#351](https://github.com/WPChill/strong-testimonials/issues/351) )
 - Fixed: Uninstall process leftovers ( [#346](https://github.com/WPChill/strong-testimonials/issues/346) )
+- Fixed: Excerpt HTML is now stripped ( [#311](https://github.com/WPChill/strong-testimonials/issues/311) )
 
 = 3.0.2 - 24.08.2022  -
 - Fixed: Star rating input for multiple forms on page ( [#322](https://github.com/WPChill/strong-testimonials/issues/322) )
