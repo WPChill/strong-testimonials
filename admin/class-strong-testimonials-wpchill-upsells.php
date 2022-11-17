@@ -80,6 +80,9 @@ if ( ! class_exists( 'Strong_Testimonials_WPChill_Upsells' ) ) {
 		 */
 		public function __construct( $args ) {
 
+			// Check for 'strong_testimonials_license_key' option and delete 'upgradable_packages' transient
+			add_action( 'updated_option', array( $this, 'delete_upgradable_packages_transients' ), 15 );
+
 			$this->license = self::check_for_license();
 
 			if ( ! isset( $args['slug'] ) ) {
@@ -539,6 +542,23 @@ if ( ! class_exists( 'Strong_Testimonials_WPChill_Upsells' ) ) {
 			$transients[] = $this->get_transient( 'all_packages' );
 
 			return $transients;
+		}
+
+		
+		/**
+		 * Deletes the packages transients on license update
+		 *
+		 * @param $option_name
+		 *
+		 * @return void
+		 *
+		 * @since 3.1.0
+		 */
+		public function delete_upgradable_packages_transients( $option_name ){
+			wp_die('upg lic');
+			if( 'strong_testimonials_license_key' === $option_name ){
+				delete_transient( 'strong-testimonials_upgradable_packages' );
+			}
 		}
 
 	}
