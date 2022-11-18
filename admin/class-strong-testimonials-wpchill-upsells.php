@@ -555,7 +555,6 @@ if ( ! class_exists( 'Strong_Testimonials_WPChill_Upsells' ) ) {
 		 * @since 3.1.0
 		 */
 		public function delete_upgradable_packages_transients( $option_name ){
-			wp_die('upg lic');
 			if( 'strong_testimonials_license_key' === $option_name ){
 				delete_transient( 'strong-testimonials_upgradable_packages' );
 			}
