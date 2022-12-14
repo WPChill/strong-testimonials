@@ -321,6 +321,9 @@ final class Strong_Testimonials {
 
 			// WPMTST Challenge Modal
 			//require_once WPMTST_ADMIN . 'challenge/modal.php';
+
+			// WPMTST Onboarding
+			require_once WPMTST_ADMIN . 'class-strong-testimonials-onboarding.php';
 		}
 	}
 
@@ -352,6 +355,9 @@ final class Strong_Testimonials {
 		 * Add image size for widget.
 		 */
 		add_action( 'after_setup_theme', array( $this, 'add_image_size' ) );
+
+
+		add_filter( 'views_edit-wpm-testimonial', array( $this, 'add_onboarding_view' ), 10, 1 );
 	}
 
 	/**
@@ -527,6 +533,21 @@ final class Strong_Testimonials {
 		}
 
 		return get_file_data( __FILE__, array( 'name' => 'Plugin Name', 'version' => 'Version' ) );
+	}
+
+	public function add_onboarding_view( $views ) {
+
+		$query = new WP_Query(array(
+			'post_type' => 'wpm-testimonial',
+			'post_status' => array( 'publish', 'future', 'trash', 'draft', 'inherit' ),
+		));
+
+		if( !$query->have_posts() ){
+			global $wp_list_table;
+			$wp_list_table = new WPMTST_Onboarding();
+			return array();
+		}
+		return $views;
 	}
 
 }
