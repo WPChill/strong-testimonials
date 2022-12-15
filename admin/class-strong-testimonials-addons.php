@@ -99,20 +99,66 @@ class Strong_Testimonials_Addons {
 	/**
 	 * Print the Addons page.
 	 */
-	public function addons_page() {
+	
+	public function addons_page() { 
 
 		$this->addons = $this->check_for_addons();
 		?>
 
 		<div class="wrap">
-			<h1 style="margin-bottom: 20px; display: inline-block;"><?php esc_html_e( 'Extensions', 'strong-testimonials' ); ?></h1>
+			<h1 style="display: inline-block;"><?php esc_html_e( 'Extensions', 'strong-testimonials' ); ?></h1>
 
 			<a id="wpmtst-reload-extensions" class="button button-primary" style="margin: 10px 0 0 30px;" data-nonce="<?php echo esc_attr( wp_create_nonce( 'wpmtst-reload-extensions' ) ); ?>"><?php esc_html_e( 'Reload Extensions', 'strong-testimonials' ); ?></a>
 
+			<?php $this->display_extension_tab(); ?>
+			
 			<div class="wpmtst-addons-container">
 				<?php $this->render_addons(); ?>
 			</div>
 		</div>
+		<?php
+	}
+
+	public function display_extension_tab() {
+		?>
+		<h2 class="nav-tab-wrapper">
+			<?php
+			$tabs = array(
+					'testimonials'       => array(
+							'name'     => esc_html_x( 'Testimonials', 'post type general name', 'strong-testimonials' ),
+							'url'      => admin_url( 'edit.php?post_type=wpm-testimonial' ),
+							'priority' => '1'
+					),
+					'suggest_feature' => array(
+							'name'     => esc_html__( 'Suggest a feature', 'strong-testimonials' ),
+							'icon'     => 'dashicons-external',
+							'url'      => 'https://docs.google.com/forms/d/e/1FAIpQLSc5eAZbxGROm_WSntX_3JVji2cMfS3LIbCNDKG1yF_VNe3R4g/viewform',
+							'target'   => '_blank',
+							'priority' => '10'
+					),
+			);
+
+			if ( current_user_can( 'install_plugins' ) ) {
+				$tabs[ 'extensions' ] = array(
+						'name'     => esc_html__( 'Extensions', 'strong-testimonials' ),
+						'url'      => admin_url( 'edit.php?post_type=wpm-testimonial&page=strong-testimonials-addons' ),
+						'priority' => '5',
+				);
+			}
+
+			$tabs = apply_filters( 'wpmtst_add_edit_tabs', $tabs );
+
+			uasort( $tabs, array( 'Strong_Testimonials_Helper', 'sort_data_by_priority' ) );
+
+			$active_tab = 'extensions';
+			if ( isset( $_GET['tab'] ) && isset( $tabs[ $_GET['tab'] ] ) ) {
+				$active_tab = sanitize_text_field( wp_unslash( $_GET['tab'] ) );
+			}	
+
+			WPMTST_Admin_Helpers::wpmtst_tab_navigation( $tabs, $active_tab );
+			?>
+		</h2>
+		<br/>
 		<?php
 	}
 

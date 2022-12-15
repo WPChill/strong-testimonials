@@ -207,7 +207,7 @@ No. If you already have testimonials in another plugin or theme, you will have t
 
 == Changelog ==
 
-= 3.1.0 - TBD  -
+= 3.0.3 - TBD  -
 - Fixed: Welcome banner visual update.
 - Fixed: abs( ) function no longer supports string inputs in php v8+ ( [#344](https://github.com/WPChill/strong-testimonials/issues/344) )
 - Fixed: Testimonials slider is not initialized properly ( [#349](https://github.com/WPChill/strong-testimonials/issues/349) )
@@ -218,6 +218,8 @@ No. If you already have testimonials in another plugin or theme, you will have t
 - Fixed: Uninstall process leftovers ( [#346](https://github.com/WPChill/strong-testimonials/issues/346) )
 - Fixed: Excerpt HTML is now stripped ( [#311](https://github.com/WPChill/strong-testimonials/issues/311) )
 - Added: Check for addons license ( [#353](https://github.com/WPChill/strong-testimonials/issues/353) )
+- Added: Strong Testimonials logo branding bar ( [#357](https://github.com/WPChill/strong-testimonials/issues/356) )
+- Added: Testimonials & Extensions tabs ( [#355](https://github.com/WPChill/strong-testimonials/issues/355) )
 
 = 3.0.2 - 24.08.2022  -
 - Fixed: Star rating input for multiple forms on page ( [#322](https://github.com/WPChill/strong-testimonials/issues/322) )

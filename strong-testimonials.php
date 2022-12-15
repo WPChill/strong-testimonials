@@ -323,6 +323,9 @@ final class Strong_Testimonials {
 			// WPMTST Challenge Modal
 			//require_once WPMTST_ADMIN . 'challenge/modal.php';
 
+			// Admin Helpers
+			require_once WPMTST_ADMIN . 'class-strong-testimonials-admin-helper.php';
+
 			// WPMTST Onboarding
 			require_once WPMTST_ADMIN . 'class-strong-testimonials-onboarding.php';
 		}
@@ -543,12 +546,52 @@ final class Strong_Testimonials {
 			'post_status' => array( 'publish', 'future', 'trash', 'draft', 'inherit' ),
 		));
 
+		$this->display_extension_tab();
+
 		if( !$query->have_posts() ){
 			global $wp_list_table;
 			$wp_list_table = new WPMTST_Onboarding();
 			return array();
 		}
 		return $views;
+	}
+
+	public function display_extension_tab() {
+		?>
+		<h2 class="nav-tab-wrapper">
+			<?php
+			$tabs = array(
+					'testimonials'       => array(
+							'name'     => esc_html_x( 'Testimonials', 'post type general name', 'strong-testimonials' ),
+							'url'      => admin_url( 'edit.php?post_type=wpm-testimonial' ),
+							'priority' => '1'
+					),
+					'suggest_feature' => array(
+							'name'     => esc_html__( 'Suggest a feature', 'strong-testimonials' ),
+							'icon'     => 'dashicons-external',
+							'url'      => 'https://docs.google.com/forms/d/e/1FAIpQLSc5eAZbxGROm_WSntX_3JVji2cMfS3LIbCNDKG1yF_VNe3R4g/viewform',
+							'target'   => '_blank',
+							'priority' => '10'
+					),
+			);
+
+			if ( current_user_can( 'install_plugins' ) ) {
+				$tabs[ 'extensions' ] = array(
+						'name'     => esc_html__( 'Extensions', 'strong-testimonials' ),
+						'url'      => admin_url( 'edit.php?post_type=wpm-testimonial&page=strong-testimonials-addons' ),
+						'priority' => '5',
+				);
+			}
+
+			$tabs = apply_filters( 'wpmtst_add_edit_tabs', $tabs );
+
+			uasort( $tabs, array( 'Strong_Testimonials_Helper', 'sort_data_by_priority' ) );
+
+			WPMTST_Admin_Helpers::wpmtst_tab_navigation( $tabs, 'testimonials' );
+			?>
+		</h2>
+		<br/>
+		<?php
 	}
 
 }

@@ -1,0 +1,170 @@
+body.wpm-testimonial_page_strong-testimonials-addons #wpcontent .wrap,
+body.wpm-testimonial_page_strong-testimonials #wpcontent .wrap,
+body.post-type-wpm-testimonial:not(.post-new-php):not(.post-php) #wpcontent .wrap,
+body.wpm-testimonial_page_strong-testimonials-lite-vs-pro  #wpcontent .wrap {
+	margin : 0;
+}
+
+body.wpm-testimonial_page_strong-testimonials-lite-vs-pro  #wpcontent .wrap,
+body.wpm-testimonial_page_strong-testimonials-import-export #wpcontent .wrap {
+	padding : 25px 40px 0 20px;
+}
+
+
+body.wpm-testimonial_page_strong-testimonials-addons .wpchill-addons-container,
+body.wpm-testimonial_page_strong-testimonials-addons .wpchill-free-addons-container,
+body.wpm-testimonial_page_strong-testimonials-addons .nav-tab-wrapper,
+body.wpm-testimonial_page_strong-testimonials-lite-vs-pro  .wpchill-addons-container,
+body.wpm-testimonial_page_strong-testimonials-lite-vs-pro  .wpchill-free-addons-container,
+body.wpm-testimonial_page_strong-testimonials-lite-vs-pro  .nav-tab-wrapper,
+body.wpm-testimonial_page_strong-testimonials .wpchill-addons-container,
+body.wpm-testimonial_page_strong-testimonials .wpchill-free-addons-container,
+body.wpm-testimonial_page_strong-testimonials .nav-tab-wrapper,
+body.post-type-wpm-testimonial .wpchill-addons-container,
+body.post-type-wpm-testimonial .wpchill-free-addons-container,
+body.post-type-wpm-testimonial .nav-tab-wrapper {
+	padding : 20px;
+}
+
+/* Added by Cristi */
+body.wpm-testimonial_page_strong-testimonials-addons .nav-tab-wrapper .dashicons {
+	font-size: 16px;
+	vertical-align: middle;
+	line-height: 17px;
+}
+
+body.post-type-wpm-testimonial.post-new-php .wpchill-page-header,
+body.post-type-wpm-testimonial.post-php .wpchill-page-header {
+	margin-left   : -20px;
+	padding-right : 20px;
+	margin-right  : -20px;
+}
+
+body.wpm-testimonial_page_strong-testimonials-addons .wpchill-page-header,
+body.wpm-testimonial_page_strong-testimonials-lite-vs-pro  .wpchill-page-header,
+body.wpm-testimonial_page_strong-testimonials .wpchill-page-header,
+body.post-type-wpm-testimonial .wpchill-page-header {
+	padding : 0;
+}
+
+
+body.wpm-testimonial_page_strong-testimonials-addons .wpchill-page-header .wpchill-header-links,
+
+body.wpm-testimonial_page_strong-testimonials-lite-vs-pro  .wpchill-page-header .wpchill-header-links,
+
+body.wpm-testimonial_page_strong-testimonials .wpchill-page-header .wpchill-header-links,
+
+body.post-type-wpm-testimonial .wpchill-page-header .wpchill-header-links {
+	padding : 20px;
+}
+
+body.wpm-testimonial_page_strong-testimonials-addons .wpchill-page-header .wpchill-header-logo,
+body.wpm-testimonial_page_strong-testimonials-lite-vs-pro  .wpchill-page-header .wpchill-header-logo,
+body.wpm-testimonial_page_strong-testimonials .wpchill-page-header .wpchill-header-logo,
+body.post-type-wpm-testimonial .wpchill-page-header .wpchill-header-logo {
+	padding : 10px 20px;
+}
+
+body.wpm-testimonial_page_strong-testimonials-addons .nav-tab-wrapper,
+body.wpm-testimonial_page_strong-testimonials-lite-vs-pro  .nav-tab-wrapper,
+body.wpm-testimonial_page_strong-testimonialsaddons .nav-tab-wrapper,
+body.post-type-wpm-testimonial .nav-tab-wrapper {
+    padding-bottom: 0;
+    position: relative;
+    left: -20px;
+    padding-right: 0;
+    width: 100%;
+}
+
+body.wpm-testimonial_page_strong-testimonials-addons .wpchill-page-header,
+body.wpm-testimonial_page_strong-testimonials-lite-vs-pro  .wpchill-page-header,
+body.wpm-testimonial_page_strong-testimonials .wpchill-page-header,
+body.post-type-wpm-testimonial .wpchill-page-header {
+	border-bottom : 1px solid #ccc;
+}
+
+body.wpm-testimonial_page_strong-testimonials-addons .wpchill-page-header .wpchill-header-links a,
+body.wpm-testimonial_page_strong-testimonials-addons .wpchill-page-header .wpchill-header-links a span,
+body.wpm-testimonial_page_strong-testimonials-lite-vs-pro  .wpchill-page-header .wpchill-header-links a,
+body.wpm-testimonial_page_strong-testimonials-lite-vs-pro  .wpchill-page-header .wpchill-header-links a span,
+body.wpm-testimonial_page_strong-testimonials .wpchill-page-header .wpchill-header-links a,
+body.wpm-testimonial_page_strong-testimonials .wpchill-page-header .wpchill-header-links a span,
+body.post-type-wpm-testimonial .wpchill-page-header .wpchill-header-links a,
+body.post-type-wpm-testimonial .wpchill-page-header .wpchill-header-links a span {
+	vertical-align : middle;
+}
+
+body.wpm-testimonial_page_strong-testimonials-addons .wpchill-page-header .wpchill-header-links a span,
+body.wpm-testimonial_page_strong-testimonials-lite-vs-pro  .wpchill-page-header .wpchill-header-links a span,
+body.wpm-testimonial_page_strong-testimonials .wpchill-page-header .wpchill-header-links a span,
+body.post-type-wpm-testimonial .wpchill-page-header .wpchill-header-links a span {
+	font-size:16px;
+	line-height:18px;
+}
+
+body.wpm-testimonial_page_strong-testimonials-addons .nav-tab-wrapper .nav-tab,
+body.wpm-testimonial_page_strong-testimonials-lite-vs-pro  .nav-tab-wrapper .nav-tab,
+body.wpm-testimonial_page_strong-testimonials .nav-tab-wrapper .nav-tab,
+body.post-type-wpm-testimonial .nav-tab-wrapper .nav-tab {
+	margin-left  : 0;
+	border-right : 0;
+}
+
+body.wpm-testimonial_page_strong-testimonials-addons .nav-tab-wrapper > .nav-tab:first-child,
+body.wpm-testimonial_page_strong-testimonials-lite-vs-pro  .nav-tab-wrapper > .nav-tab:first-child,
+body.wpm-testimonial_page_strong-testimonials .nav-tab-wrapper > .nav-tab:first-child,
+body.post-type-wpm-testimonial .nav-tab-wrapper > .nav-tab:first-child {
+	border-top-left-radius : 4px;
+}
+
+body.wpm-testimonial_page_strong-testimonials-addons .nav-tab-wrapper > .nav-tab.last_tab,
+body.wpm-testimonial_page_strong-testimonials-lite-vs-pro  .nav-tab-wrapper > .nav-tab.last_tab,
+body.wpm-testimonial_page_strong-testimonials .nav-tab-wrapper > .nav-tab.last_tab,
+body.post-type-wpm-testimonial .nav-tab-wrapper > .nav-tab.last_tab {
+	border-top-right-radius : 4px;
+	border-right            : 1px solid #ccc;
+}
+
+body.post-type-wpm-testimonial #posts-filter,
+body.post-type-wpm-testimonial #wpbody-content .wrap > ul.subsubsub {
+	padding : 0 20px;
+}
+
+
+body.wpm-testimonial_page_strong-testimonials-addons .wpchill-page-header,
+body.wpm-testimonial_page_strong-testimonials-lite-vs-pro  .wpchill-page-header,
+body.wpm-testimonial_page_strong-testimonials .wpchill-page-header,
+body.post-type-wpm-testimonial .wpchill-page-header {
+    display: flex;
+    justify-content: space-between;
+    background: #fff;
+    width: calc( 100% + 20px );
+    left: -20px;
+    position: relative;
+}
+
+body.post-type-wpm-testimonial .wpchill-page-header {
+	border-top : 1px solid #ccc;
+}
+
+body.wpm-testimonial_page_strong-testimonials .wpchill-columns {
+	padding : 15px;
+}
+
+.wpchill-page-header .wpchill-logo {
+	max-height : 55px;
+}
+
+/* Added by Cristi */
+body.wpm-testimonial_page_strong-testimonials-addons .wpchill-header-links {
+	margin-right:10px;
+}
+
+.wpchill-header-links .dashicons { font-size: 16px; }
+
+.wpchill-status-bar {
+	display:flex;
+	align-items: center;
+	align-content: center;
+	font-weight: bold;
+}

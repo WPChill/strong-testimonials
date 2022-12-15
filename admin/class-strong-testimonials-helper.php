@@ -2557,4 +2557,21 @@ class Strong_Testimonials_Helper {
 		</td>
 		<?php
 	}
+
+		/**
+	 * Callback to sort tabs/fields on priority.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @return bool
+	 */
+	public static function sort_data_by_priority( $a, $b ) {
+		if ( !isset( $a['priority'], $b['priority'] ) ) {
+			return -1;
+		}
+		if ( $a['priority'] == $b['priority'] ) {
+			return 0;
+		}
+		return $a['priority'] < $b['priority'] ? -1 : 1;
+	}
 }
