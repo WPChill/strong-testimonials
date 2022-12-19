@@ -57,6 +57,11 @@ class Strong_Testimonials_Welcome {
 
 		// WPChill Welcome Class
 		require_once WPMTST_DIR . 'includes/submodules/banner/class-wpchill-welcome.php';
+
+		if( !isset( $_GET['page'] ) || 'wpmtst-getting-started' != $_GET['page'] ){
+			return;
+		}
+
 		$welcome = WPChill_Welcome::get_instance();
 		?>
 		<div id="wpchill-welcome">
@@ -75,7 +80,7 @@ class Strong_Testimonials_Welcome {
 					</div>
 					<div class="wpchill-text-center">
 						<div class="button-wrap-single">
-							<?php $welcome->display_button( esc_html__( 'Read our step-by-step guide to get started', 'strong-testimonials' ), 'https://strongtestimonials.com/docs/add-testimonials-to-your-website/', true ); ?>
+							<?php $welcome->display_button( esc_html__( 'Read our step-by-step guide to get started', 'strong-testimonials' ), 'https://strongtestimonials.com/docs/add-testimonials-to-your-website/','wpmtst-btn wpmtst-btn-block wpmtst-btn-lg', true ); ?>
 						</div>
 					</div>
 
@@ -104,7 +109,7 @@ class Strong_Testimonials_Welcome {
 						<div class="wpchill-text-center">
 							<div class="button-wrap-single clear">
 									<div class="right">
-									<?php $welcome->display_button( esc_html__( 'Upgrade Now', 'strong-testimonials' ), 'https://strongtestimonials.com/pricing/?utm_source=welcome_banner&utm_medium=upgradenow&utm_campaign=welcome_banner&utm_content=first_button', true, '#E76F51' ); ?>
+									<?php $welcome->display_button( esc_html__( 'Upgrade Now', 'strong-testimonials' ), 'https://strongtestimonials.com/pricing/?utm_source=welcome_banner&utm_medium=upgradenow&utm_campaign=welcome_banner&utm_content=first_button','wpmtst-btn wpmtst-btn-block wpmtst-btn-lg', true, '#E76F51' ); ?>
 									</div>
 							</div>
 						</div>
@@ -123,10 +128,10 @@ class Strong_Testimonials_Welcome {
 						</div><!-- testimonials -->
 						<div class="button-wrap clear">
 							<div class="left">
-								<?php $welcome->display_button( esc_html__( 'Start Adding Testimonials', 'strong-testimonials' ), esc_url( admin_url( 'edit.php?post_type=wpm-testimonial' ) ), true ); ?>
+								<?php $welcome->display_button( esc_html__( 'Start Adding Testimonials', 'strong-testimonials' ), esc_url( admin_url( 'edit.php?post_type=wpm-testimonial' ) ),'wpmtst-btn wpmtst-btn-block wpmtst-btn-lg', true ); ?>
 							</div>
 							<div class="right">
-								<?php $welcome->display_button( esc_html__( 'Upgrade Now', 'strong-testimonials' ), 'https://strongtestimonials.com/pricing/?utm_source=welcome_banner&utm_medium=upgradenow&utm_campaign=welcome_banner&utm_content=second_button', true, '#E76F51' ); ?>
+								<?php $welcome->display_button( esc_html__( 'Upgrade Now', 'strong-testimonials' ), 'https://strongtestimonials.com/pricing/?utm_source=welcome_banner&utm_medium=upgradenow&utm_campaign=welcome_banner&utm_content=second_button','wpmtst-btn wpmtst-btn-block wpmtst-btn-lg', true, '#E76F51' ); ?>
 							</div>
 						</div>
 					</div>
