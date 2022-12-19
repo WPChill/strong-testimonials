@@ -58,10 +58,6 @@ class Strong_Testimonials_Welcome {
 		// WPChill Welcome Class
 		require_once WPMTST_DIR . 'includes/submodules/banner/class-wpchill-welcome.php';
 
-		if( !isset( $_GET['page'] ) || 'wpmtst-getting-started' != $_GET['page'] ){
-			return;
-		}
-
 		$welcome = WPChill_Welcome::get_instance();
 		?>
 		<div id="wpchill-welcome">
