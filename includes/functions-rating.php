@@ -87,11 +87,11 @@ function wpmtst_star_rating_display( $value = 0, $class = 'in-view', $echo = tru
 	<span class="strong-rating-wrapper <?php echo esc_attr( $class )	; ?>">
 		<span class="strong-rating"><!-- cheap trick to collapse whitespace around inline-blocks
 			--><span class="star" style="display: none;"></span><!--
-			--><span class="star"><?php echo ( 1 <= $value ) ? $star_solid : $star_regular ; ?></span><!--
-			--><span class="star"><?php echo ( 2 <= $value ) ? $star_solid : $star_regular ; ?></span><!--
-			--><span class="star"><?php echo ( 3 <= $value ) ? $star_solid : $star_regular ; ?></span><!--
-			--><span class="star"><?php echo ( 4 <= $value ) ? $star_solid : $star_regular ; ?></span><!--
-			--><span class="star"><?php echo ( 5 <= $value ) ? $star_solid : $star_regular ; ?></span><!--
+			--><span class="star" style="display: inline-block;" ><?php echo ( 1 <= $value ) ? $star_solid : $star_regular ; ?></span><!--
+			--><span class="star" style="display: inline-block;"><?php echo ( 2 <= $value ) ? $star_solid : $star_regular ; ?></span><!--
+			--><span class="star" style="display: inline-block;"><?php echo ( 3 <= $value ) ? $star_solid : $star_regular ; ?></span><!--
+			--><span class="star" style="display: inline-block;"><?php echo ( 4 <= $value ) ? $star_solid : $star_regular ; ?></span><!--
+			--><span class="star" style="display: inline-block;"><?php echo ( 5 <= $value ) ? $star_solid : $star_regular ; ?></span><!--
 		--></span>
 	</span>
 	<?php

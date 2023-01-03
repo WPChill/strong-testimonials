@@ -12,6 +12,7 @@
 - Added: Strong Testimonials logo branding bar ( [#357](https://github.com/WPChill/strong-testimonials/issues/356) )
 - Added: Testimonials & Extensions tabs ( [#355](https://github.com/WPChill/strong-testimonials/issues/355) )
 - Changed: Enqueue welcome banner assets only on the welcome page ( [#358](https://github.com/WPChill/download-monitor/issues/358) )
+- Fixed: Rating stars not scaled properly on load ( [#359](https://github.com/WPChill/strong-testimonials/issues/359) )
 
 = 3.0.2 - 24.08.2022  -
 - Fixed: Star rating input for multiple forms on page ( [#322](https://github.com/WPChill/strong-testimonials/issues/322) )
