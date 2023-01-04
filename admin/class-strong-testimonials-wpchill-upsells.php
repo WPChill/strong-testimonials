@@ -544,7 +544,6 @@ if ( ! class_exists( 'Strong_Testimonials_WPChill_Upsells' ) ) {
 			return $transients;
 		}
 
-		
 		/**
 		 * Deletes the packages transients on license update
 		 *
@@ -552,14 +551,12 @@ if ( ! class_exists( 'Strong_Testimonials_WPChill_Upsells' ) ) {
 		 *
 		 * @return void
 		 *
-		 * @since 3.1.0
+		 * @since 3.0.3
 		 */
 		public function delete_upgradable_packages_transients( $option_name ){
 			if( 'strong_testimonials_license_key' === $option_name ){
 				delete_transient( 'strong-testimonials_upgradable_packages' );
 			}
 		}
-
 	}
-
 }
