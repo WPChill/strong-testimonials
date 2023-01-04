@@ -355,16 +355,16 @@ if ( ! class_exists( 'Strong_Testimonials_List_Table' ) ) :
 			$input_id = $input_id . '-search-input';
 
 			if ( ! empty( $_REQUEST['orderby'] ) ) {
-				echo '<input type="hidden" name="orderby" value="' . esc_attr( $_REQUEST['orderby'] ) . '">';
+				echo '<input type="hidden" name="orderby" value="' . esc_attr( sanitize_text_field( wp_unslash( $_REQUEST['orderby'] ) ) ) . '">';
 			}
 			if ( ! empty( $_REQUEST['order'] ) ) {
-				echo '<input type="hidden" name="order" value="' . esc_attr( $_REQUEST['order'] ) . '">';
+				echo '<input type="hidden" name="order" value="' . esc_attr( sanitize_text_field( wp_unslash( $_REQUEST['order'] ) ) ) . '">';
 			}
 			if ( ! empty( $_REQUEST['post_mime_type'] ) ) {
-				echo '<input type="hidden" name="post_mime_type" value="' . esc_attr( $_REQUEST['post_mime_type'] ) . '">';
+				echo '<input type="hidden" name="post_mime_type" value="' . esc_attr( sanitize_text_field( wp_unslash( $_REQUEST['post_mime_type'] ) ) ) . '">';
 			}
 			if ( ! empty( $_REQUEST['detached'] ) ) {
-				echo '<input type="hidden" name="detached" value="' . esc_attr( $_REQUEST['detached'] ) . '">';
+				echo '<input type="hidden" name="detached" value="' . esc_attr( sanitize_text_field( wp_unslash( $_REQUEST['detached'] ) ) ) . '">';
 			}
 			?>
 			<p class="search-box">
@@ -498,11 +498,11 @@ if ( ! class_exists( 'Strong_Testimonials_List_Table' ) ) :
 			}
 
 			if ( isset( $_REQUEST['action'] ) && -1 != $_REQUEST['action'] ) {
-				return $_REQUEST['action'];
+				return sanitize_text_field( wp_unslash( $_REQUEST['action'] ) );
 			}
 
 			if ( isset( $_REQUEST['action2'] ) && -1 != $_REQUEST['action2'] ) {
-				return $_REQUEST['action2'];
+				return sanitize_text_field( wp_unslash( $_REQUEST['action2'] ) );
 			}
 
 			return false;
@@ -926,7 +926,7 @@ if ( ! class_exists( 'Strong_Testimonials_List_Table' ) ) :
 			$current_url = remove_query_arg( 'paged', $current_url );
 
 			if ( isset( $_GET['orderby'] ) ) {
-				$current_orderby = sanitize_text_field( $_GET['orderby'] );
+				$current_orderby = sanitize_text_field( wp_unslash( $_GET['orderby'] ) );
 			} else {
 				$current_orderby = '';
 			}
