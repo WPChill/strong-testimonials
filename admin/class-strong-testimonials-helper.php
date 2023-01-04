@@ -3,7 +3,7 @@
 /**
  * Class Strong_Testimonials_Helper
  *
- * @since 2.5
+ * @since 3.0.3
  */
 class Strong_Testimonials_Helper {
 

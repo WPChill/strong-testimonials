@@ -132,7 +132,7 @@ class Strong_Testimonials_Addons {
 					'suggest_feature' => array(
 							'name'     => esc_html__( 'Suggest a feature', 'strong-testimonials' ),
 							'icon'     => 'dashicons-external',
-							'url'      => 'https://docs.google.com/forms/d/e/1FAIpQLSc5eAZbxGROm_WSntX_3JVji2cMfS3LIbCNDKG1yF_VNe3R4g/viewform',
+							'url'      => 'https://docs.google.com/forms/d/e/1FAIpQLScch0AchtnzxJsSrjUcW9ypcr1fZ9r-vyk3emEp8Sv47brb2g/viewform',
 							'target'   => '_blank',
 							'priority' => '10'
 					),
@@ -153,7 +153,7 @@ class Strong_Testimonials_Addons {
 			$active_tab = 'extensions';
 			if ( isset( $_GET['tab'] ) && isset( $tabs[ $_GET['tab'] ] ) ) {
 				$active_tab = sanitize_text_field( wp_unslash( $_GET['tab'] ) );
-			}	
+			}
 
 			WPMTST_Admin_Helpers::wpmtst_tab_navigation( $tabs, $active_tab );
 			?>
