@@ -194,7 +194,7 @@ class Strong_Testimonials_Average_Shortcode {
 		}
 
 		// assemble it
-		$html = sprintf( '<%s class="%s">%s</%s>', $atts['element'], esc_attr( implode( ' ', $class_list ) ), $content, $atts['element'] );
+		$html = sprintf( '<%s class="%s">%s</%s>', esc_attr( $atts['element'] ), esc_attr( implode( ' ', $class_list ) ), $content, esc_attr( $atts['element'] ) );
 
 		wp_enqueue_style( 'wpmtst-rating-display' );
                 
