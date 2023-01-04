@@ -76,14 +76,14 @@ class Strong_Testimonials_Page_Shortcodes {
 
 			<p>
 				<?php /* translators: %s is a shortcode */ ?>
-				<?php printf( __( 'If using a <strong>single</strong> rating field, use %s to display the average rating.', 'strong-testimonials' ), '<code>&#91;testimonial_average_rating&#93;</code>' ); ?>
+				<?php printf( wp_kses_post( __( 'If using a <strong>single</strong> rating field, use %s to display the average rating.', 'strong-testimonials' ) ), '<code>&#91;testimonial_average_rating&#93;</code>' ); ?>
 			</p>
 
 			<table class="form-table shortcodes average" cellpadding="0" cellspacing="0">
 				<tr>
 					<td>
 						<p><?php esc_html_e( 'Default', 'strong-testimonials' ); ?></p>
-						<p class="description"><?php _e( 'You must use the closing slash <code>/</code> if using the shortcode with content elsewhere on your page.', 'strong-testimonials' ); ?></p>
+						<p class="description"><?php wp_kses_post( _e( 'You must use the closing slash <code>/</code> if using the shortcode with content elsewhere on your page.', 'strong-testimonials' ) ); ?></p>
 					</td>
 					<td class="has-inner">
 						<table class="inner" cellpadding="0" cellspacing="0">

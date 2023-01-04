@@ -35,10 +35,10 @@ class Strong_Views_List_Table extends Strong_Testimonials_List_Table {
 		$data = $this->move_sticky( $data );
         $data = apply_filters('wpmtst_list_views', $data);
         if ( isset( $_GET['mode'] ) && ! empty( $_GET['mode'] ) && $_GET['mode'] !== 'all' ) {
-            $data = $this->filter_data( sanitize_text_field( $_GET['mode'] ), $data );
+            $data = $this->filter_data( sanitize_text_field( wp_unslash( $_GET['mode'] ) ), $data );
         }
         if ( isset( $_GET['s'] ) && ! empty( $_GET['s'] ) ) {
-            $data = $this->search_data( sanitize_text_field( $_GET['s'] ), $data );
+            $data = $this->search_data( sanitize_text_field( wp_unslash( $_GET['s'] ) ), $data );
         }
 		$this->items = $data;
 	}
@@ -119,10 +119,10 @@ class Strong_Views_List_Table extends Strong_Testimonials_List_Table {
 
 	public function usort_reorder( $a, $b ) {
 		// If no sort, default to name
-		$orderby = ( ! empty( $_GET['orderby'] ) ) ? sanitize_text_field( $_GET['orderby'] ) : 'name';
+		$orderby = ( ! empty( $_GET['orderby'] ) ) ? sanitize_text_field( wp_unslash( $_GET['orderby'] ) ) : 'name';
 
 		// If no order, default to asc
-		$order = ( ! empty($_GET['order'] ) ) ? sanitize_text_field( $_GET['order'] ) : 'asc';
+		$order = ( ! empty( $_GET['order'] ) ) ? sanitize_text_field( wp_unslash( $_GET['order'] ) ) : 'asc';
 
 		// Determine sort order
 		if ( 'id' == $orderby ) {
@@ -149,7 +149,7 @@ class Strong_Views_List_Table extends Strong_Testimonials_List_Table {
 
 		// Edit link
 		$edit_link = esc_url( $url . '&page=testimonial-views&action=edit&id=' . $item['id'] );
-		echo '<a class="row-title" href="' . $edit_link . '">' . esc_html( $item['name'] ) . '</a>';
+		echo '<a class="row-title" href="' . esc_url( $edit_link ). '">' . esc_html( $item['name'] ) . '</a>';
 
 		// Duplicate link
 		// @since 2.1.0
@@ -161,8 +161,8 @@ class Strong_Views_List_Table extends Strong_Testimonials_List_Table {
 		// Assemble links
 
 		$actions              = array();
-		$actions['edit']      = '<a href="' . $edit_link . '">' . esc_html__( 'Edit', 'strong-testimonials' ) . '</a>';
-		$actions['duplicate'] = '<a href="' . $duplicate_link . '">' . esc_html__( 'Duplicate', 'strong-testimonials' ) . '</a>';
+		$actions['edit']      = '<a href="' . esc_url( $edit_link ) . '">' . esc_html__( 'Edit', 'strong-testimonials' ) . '</a>';
+		$actions['duplicate'] = '<a href="' . esc_url( $duplicate_link ) . '">' . esc_html__( 'Duplicate', 'strong-testimonials' ) . '</a>';
 		$actions['delete']    = "<a class='submitdelete' href='" . wp_nonce_url( $delete_link, 'delete-strong-view_' . $item['id'] ) . "' onclick=\"if ( confirm( '" . esc_js( sprintf( __( 'Delete "%s"?', 'strong-testimonials' ), $item['name'] ) ) . "' ) ) { return true;} return false;\">" . esc_html__( 'Delete', 'strong-testimonials' ) . '</a>';
 
 		$actions = apply_filters('wpmtst_views_actions',$actions,$item);
@@ -233,7 +233,7 @@ class Strong_Views_List_Table extends Strong_Testimonials_List_Table {
             //$this->display_tablenav( 'top' );
             $s = '';
             if ( isset( $_GET['s'] ) ) {
-            	$s = sanitize_text_field( $_GET['s'] );
+            	$s = sanitize_text_field( wp_unslash( $_GET['s'] ) );
             }
             ?>
             <form id="posts-filter" method="get">

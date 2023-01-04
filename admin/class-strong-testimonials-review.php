@@ -138,7 +138,7 @@ class Strong_Review {
 						data['strong-testimonials-review'] = 1;
 					}
 
-					$.post( '<?php echo admin_url( 'admin-ajax.php' ) ?>', data, function( response ) {
+					$.post( '<?php echo esc_url( admin_url( 'admin-ajax.php' ) ) ?>', data, function( response ) {
 						$( '#<?php echo $this->slug ?>-strong-testimonials-review-notice' ).slideUp( 'fast', function() {
 							$( this ).remove();
 						} );
