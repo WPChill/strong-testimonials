@@ -221,6 +221,7 @@ No. If you already have testimonials in another plugin or theme, you will have t
 - Added: Strong Testimonials logo branding bar ( [#357](https://github.com/WPChill/strong-testimonials/issues/356) )
 - Added: Testimonials & Extensions tabs ( [#355](https://github.com/WPChill/strong-testimonials/issues/355) )
 - Fixed: Rating stars not scaled properly on load ( [#359](https://github.com/WPChill/strong-testimonials/issues/359) )
+- Fixed: Security vulnerability ( [#360](https://github.com/WPChill/strong-testimonials/issues/360) )
 
 = 3.0.2 - 24.08.2022  -
 - Fixed: Star rating input for multiple forms on page ( [#322](https://github.com/WPChill/strong-testimonials/issues/322) )
