@@ -204,7 +204,7 @@ class Strong_Testimonials_Upsell {
 
 	// Role Manager upsell
 	public function register_role_manager( $active_tab, $url ) {
-		$tab = isset( $_GET['tab'] ) ? sanitize_text_field( $_GET['tab'] ) : '';
+		$tab = isset( $_GET['tab'] ) ? sanitize_text_field( wp_unslash( $_GET['tab'] ) ) : '';
 		printf( '<a href="%s" class="nav-tab %s">%s%s</a>',
 			esc_url( add_query_arg( 'tab', 'access', $url ) ),
 			esc_attr( $tab == 'access' ? 'nav-tab-active' : '' ),
@@ -374,7 +374,7 @@ class Strong_Testimonials_Upsell {
 	* Review Markup
 	*/
 	public function register_review_markup( $active_tab, $url ) {
-		$tab = isset( $_GET['tab'] ) ? sanitize_text_field( $_GET['tab'] ) : '';
+		$tab = isset( $_GET['tab'] ) ? sanitize_text_field( wp_unslash( $_GET['tab'] ) ) : '';
 		printf( '<a href="%s" class="nav-tab %s">%s%s</a>',
 			esc_url( add_query_arg( 'tab', 'review-markup', $url ) ),
 			esc_attr( $tab == 'review-markup' ? 'nav-tab-active' : '' ),
@@ -723,7 +723,7 @@ class Strong_Testimonials_Upsell {
 	Assigments
 	*/
 	public function register_assigment_tab( $active_tab, $url ) {
-		$tab = isset( $_GET['tab'] ) ? sanitize_text_field( $_GET['tab'] ) : '';
+		$tab = isset( $_GET['tab'] ) ? sanitize_text_field( wp_unslash( $_GET['tab'] ) ) : '';
 		printf( '<a href="%s" class="nav-tab %s">%s%s</a>',
 			esc_url( add_query_arg( 'tab', 'assignment', $url ) ),
 			esc_attr( $tab == 'assignment' ? 'nav-tab-active' : '' ),
@@ -819,7 +819,7 @@ class Strong_Testimonials_Upsell {
 	Properties
 	*/
 	public function register_properties_tab( $active_tab, $url ) {
-		$tab = isset( $_GET['tab'] ) ? sanitize_text_field( $_GET['tab'] ) : '';
+		$tab = isset( $_GET['tab'] ) ? sanitize_text_field( wp_unslash( $_GET['tab'] ) ) : '';
 		printf( '<a href="%s" class="nav-tab %s">%s%s</a>',
 			esc_url( add_query_arg( 'tab', 'properties', $url ) ),
 			esc_attr( $tab == 'properties' ? 'nav-tab-active' : '' ),

@@ -73,7 +73,7 @@ class Strong_Testimonials_Post_Editor {
                 <tr>
                     <th>
                         <label for="<?php echo esc_attr( $field['name'] ); ?>">
-							<?php echo apply_filters( 'wpmtst_l10n', $field['label'], 'strong-testimonials-form-fields', $field['name'] . ' : label' ); ?>
+							<?php echo wp_kses_post( apply_filters( 'wpmtst_l10n', $field['label'], 'strong-testimonials-form-fields', $field['name'] . ' : label' ) ); ?>
                         </label>
                     </th>
                     <td>
@@ -374,10 +374,11 @@ class Strong_Testimonials_Post_Editor {
 	 * @since 2.12.0
 	 */
 	public static function edit_rating() {
+
 		$message = '';
-		$post_id = isset( $_POST['post_id'] ) ? (int) $_POST['post_id'] : 0;
-		$rating  = isset( $_POST['rating'] ) ? (int) $_POST['rating'] : 0;
-		$name    = isset( $_POST['field_name'] ) ? $_POST['field_name'] : 'rating';
+		$post_id = isset( $_POST['post_id'] ) ? absint( $_POST['post_id'] ) : 0;
+		$rating  = isset( $_POST['rating'] ) ? absint( $_POST['rating'] ) : 0;
+		$name    = isset( $_POST['field_name'] ) ? sanitize_text_field( wp_unslash( $_POST['field_name'] ) ) : 'rating';
 
 		check_ajax_referer( 'editrating', 'editratingnonce' );
 

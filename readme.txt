@@ -206,7 +206,6 @@ No. If you already have testimonials in another plugin or theme, you will have t
 8. View editor
 
 == Changelog ==
-
 = 3.0.2 - 24.08.2022  -
 - Fixed: Star rating input for multiple forms on page ( [#322](https://github.com/WPChill/strong-testimonials/issues/322) )
 - Fixed: Conflicts with other plugins ( [#330](https://github.com/WPChill/strong-testimonials/issues/330) )
