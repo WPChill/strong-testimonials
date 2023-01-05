@@ -25,6 +25,7 @@ jQuery(function ($) {
                     dataType: 'json',
                     data: {
                         action: 'strong_testimonials_elementor_ajax_search',
+                        st_nonce: strongAjax.ajax_nonce,
                     },
                     error: function() {
                         callback();

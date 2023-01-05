@@ -292,12 +292,12 @@ class Strong_Testimonials_Post_Editor {
 	 * @since 2.23.2 Delete meta record when rating is zero to allow default display value.
 	 */
 	public static function save_details() {
-		if ( ! isset( $_POST['custom'] ) || !wp_verify_nonce( $_POST['wpmtst_metabox_nonce'], plugin_basename(__FILE__))) {
+		if ( ! isset( $_POST['custom'] ) || ! isset( $_POST['post_ID'] ) || !wp_verify_nonce( $_POST['wpmtst_metabox_nonce'], plugin_basename(__FILE__) ) ) {
 			return;
 		}
 
 		$post_id = absint( $_POST['post_ID'] );
-		$custom =  $_POST['custom'] ;
+		$custom =  $_POST['custom']; // phpcs:ignore sanitization is done underneath ( Data Sanitizationva )
 
 		$custom_fields = wpmtst_get_custom_fields();
 

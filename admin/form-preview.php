@@ -1,7 +1,10 @@
 <?php
 
 function wpmtst_get_form_preview() {
+
 	if ( ! isset( $_POST['fields'] ) ) exit;
+
+	check_ajax_referer( 'wpmtst-admin', 'security' );
 
 	// parse_str decodes too; no need to use urldecode
 	parse_str( stripslashes_deep( $_POST['fields'] ), $preview );

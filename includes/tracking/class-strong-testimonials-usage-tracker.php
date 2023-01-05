@@ -834,8 +834,8 @@ if ( ! class_exists( 'Strong_Testimonials_Usage_Tracker' ) ) {
 
 			// Check for plugin args.
 			if ( isset( $_GET['plugin'] ) && $this->plugin_name === $_GET['plugin'] && isset( $_GET['plugin_action'] ) ) {
-				$plugin = sanitize_text_field( $_GET['plugin'] );
-				$action = sanitize_text_field( $_GET['plugin_action'] );
+				$plugin = sanitize_text_field( wp_unslash( $_GET['plugin'] ) );
+				$action = sanitize_text_field( wp_unslash( $_GET['plugin_action'] ) );
 				if ( $action == 'yes' ) {
 					$this->set_is_tracking_allowed( true, $plugin );
 					// Run this straightaway.
@@ -923,8 +923,8 @@ if ( ! class_exists( 'Strong_Testimonials_Usage_Tracker' ) ) {
 					<p><?php echo '<strong>' . esc_html( $plugin_name ) . '</strong>'; ?></p>
 					<p><?php echo esc_html( $notice_text ); ?></p>
 					<p>
-						<a href="<?php echo esc_url( $url_yes ); ?>" class="button-secondary"><?php _e( 'Allow', 'strong-testimonials' ); ?></a>
-						<a href="<?php echo esc_url( $url_no ); ?>" class="button-secondary"><?php _e( 'Do Not Allow', 'strong-testimonials' ); ?></a>
+						<a href="<?php echo esc_url( $url_yes ); ?>" class="button-secondary"><?php esc_html_e( 'Allow', 'strong-testimonials' ); ?></a>
+						<a href="<?php echo esc_url( $url_no ); ?>" class="button-secondary"><?php esc_html_e( 'Do Not Allow', 'strong-testimonials' ); ?></a>
 					</p>
 				</div>
 				<?php
@@ -942,7 +942,7 @@ if ( ! class_exists( 'Strong_Testimonials_Usage_Tracker' ) ) {
 			// Check if user has opted in to marketing.
 			if ( isset( $_GET['marketing_optin'] ) ) {
 				// Set marketing optin.
-				$this->set_can_collect_email( sanitize_text_field( $_GET['marketing_optin'] ), $this->plugin_name );
+				$this->set_can_collect_email( sanitize_text_field( wp_unslash( $_GET['marketing_optin'] ) ), $this->plugin_name );
 				// Do tracking.
 				$this->do_tracking( true );
 			} elseif ( isset( $_GET['marketing'] ) && $_GET['marketing'] == 'yes' ) {
@@ -975,8 +975,8 @@ if ( ! class_exists( 'Strong_Testimonials_Usage_Tracker' ) ) {
 					<p><?php echo '<strong>' . esc_html( $plugin_name ) . '</strong>'; ?></p>
 					<p><?php echo esc_html( $marketing_text ); ?></p>
 					<p>
-						<a href="<?php echo esc_url( $url_yes ); ?>" data-putnotice="yes" class="button-secondary"><?php _e( 'Yes Please', 'strong-testimonials' ); ?></a>
-						<a href="<?php echo esc_url( $url_no ); ?>" data-putnotice="no" class="button-secondary"><?php _e( 'No Thank You', 'strong-testimonials' ); ?></a>
+						<a href="<?php echo esc_url( $url_yes ); ?>" data-putnotice="yes" class="button-secondary"><?php esc_html_e( 'Yes Please', 'strong-testimonials' ); ?></a>
+						<a href="<?php echo esc_url( $url_no ); ?>" data-putnotice="no" class="button-secondary"><?php esc_html_e( 'No Thank You', 'strong-testimonials' ); ?></a>
 					</p>
 				</div>
 				<?php
@@ -1241,13 +1241,14 @@ if ( ! class_exists( 'Strong_Testimonials_Usage_Tracker' ) ) {
 		 * @since 1.0.0
 		 */
 		public function goodbye_form_callback() {
+
 			check_ajax_referer( 'wisdom_goodbye_form', 'security' );
 			if ( isset( $_POST['values'] ) ) {
-				$values = json_encode( wp_unslash( $_POST['values'] ) );
+				$values = json_encode( array_map( 'sanitize_text_field', wp_unslash( $_POST['values'] ) ) );
 				update_option( 'wisdom_deactivation_reason_' . $this->plugin_name, $values );
 			}
 			if ( isset( $_POST['details'] ) ) {
-				$details = sanitize_text_field( $_POST['details'] );
+				$details = sanitize_text_field( wp_unslash( $_POST['details'] ) );
 				update_option( 'wisdom_deactivation_details_' . $this->plugin_name, $details );
 			}
 			if( isset( $_POST['email'] ) ) {

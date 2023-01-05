@@ -234,7 +234,7 @@ function wpmtst_update_view_wpml( $view ) {
 function wpmtst_help_link_wpml( $context ) {
 	echo '<p>';
 	echo '<span class="dashicons dashicons-info icon-blue"></span>&nbsp;';
-	printf( __( 'Translate these fields in <a href="%s">WPML String Translations</a>', 'strong-testimonials' ),
-		admin_url( 'admin.php?page=wpml-string-translation%2Fmenu%2Fstring-translation.php&context=strong-testimonials-' . $context ) );
+	printf( wp_kses_post( __( 'Translate these fields in <a href="%s">WPML String Translations</a>', 'strong-testimonials' ) ),
+		esc_url( admin_url( 'admin.php?page=wpml-string-translation%2Fmenu%2Fstring-translation.php&context=strong-testimonials-' . $context ) ) );
 	echo '</p>';
 }

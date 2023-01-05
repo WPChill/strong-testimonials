@@ -164,7 +164,7 @@ function wpmtst_read_more_page() {
 				$classname = 'readmore-page';
 			}
 			$classname = apply_filters( 'wpmtst_read_more_page_class', $classname );
-			echo apply_filters('wpmtst_read_more_page_output', sprintf( '<div class="%s"><a href="%s">%s</a></div>', $classname, esc_url( $permalink ), $link_text ));
+			echo apply_filters('wpmtst_read_more_page_output', sprintf( '<div class="%s"><a href="%s">%s</a></div>', esc_attr( $classname ), esc_url( $permalink ), wp_kses_post( $link_text ) ) );
 		}
 
 	}
@@ -536,11 +536,11 @@ function wpmtst_container_data() {
 }
 
 function wpmtst_content_class() {
-	echo apply_filters( 'wpmtst_content_class', WPMST()->atts( 'content_class' ) );
+	echo esc_attr( apply_filters( 'wpmtst_content_class', WPMST()->atts( 'content_class' ) ) );
 }
 
 function wpmtst_post_class( $args = null ) {
-	echo apply_filters( 'wpmtst_post_class', WPMST()->atts( 'post_class' ) . ' post-' . get_the_ID(), $args );
+	echo esc_attr( apply_filters( 'wpmtst_post_class', WPMST()->atts( 'post_class' ) . ' post-' . get_the_ID(), $args ) );
 }
 
 /**

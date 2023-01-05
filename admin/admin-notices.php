@@ -16,7 +16,7 @@ function wpmtst_dismiss_notice_ajax() {
 	}
 
 	check_ajax_referer( 'wpmtst-admin', 'nonce' );
-	wpmtst_delete_admin_notice( $_POST['key'] );
+	wpmtst_delete_admin_notice( sanitize_text_field( wp_unslash( $_POST['key'] ) ) );
 	wp_die();
 }
 
@@ -104,7 +104,7 @@ function wpmtst_admin_notice_text( $html, $key, $persist = false ) {
 			?>
             <div class="wpmtst notice notice-warning is-dismissible" data-key="<?php echo esc_attr( $key ); ?>">
                 <p>
-					<?php _e( 'Captcha options have changed in <strong>Strong Testimonials</strong>.', 'strong-testimonials' ); ?>
+					<?php echo wp_kses_post( __( 'Captcha options have changed in <strong>Strong Testimonials</strong>.', 'strong-testimonials' ) ); ?>
 					<?php echo esc_url( $settings_link ); ?>
                 </p>
             </div>

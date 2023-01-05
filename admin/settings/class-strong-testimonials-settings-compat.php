@@ -195,11 +195,11 @@ class Strong_Testimonials_Settings_Compat {
 						<div class="row">
 							<div>
 								<p><strong><?php esc_html_e( 'Views not working', 'strong-testimonials' ); ?></strong></p>
-								<p><?php _e( 'A testimonial view does not appear correctly the <strong>first time</strong> you view the page but it does when you <strong>refresh</strong> the page.', 'strong-testimonials' ); ?></p>
+								<p><?php echo wp_kses_post( __( 'A testimonial view does not appear correctly the <strong>first time</strong> you view the page but it does when you <strong>refresh</strong> the page.', 'strong-testimonials' ) ); ?></p>
 								<p><?php esc_html_e( 'For example, it has no style, no pagination, or the slider has not started.', 'strong-testimonials' ); ?></p>
 							</div>
 							<div>
-								<p><?php _e( 'Your site uses <strong>Ajax page loading</strong> &ndash; also known as page animations, transition effects or Pjax (pushState Ajax) &ndash; provided by your theme or another plugin.', 'strong-testimonials' ); ?></p>
+								<p><?php echo wp_kses_post( __( 'Your site uses <strong>Ajax page loading</strong> &ndash; also known as page animations, transition effects or Pjax (pushState Ajax) &ndash; provided by your theme or another plugin.', 'strong-testimonials' ) ); ?></p>
 								<p><?php esc_html_e( 'Instead of loading the entire page, this technique fetches only the new content.', 'strong-testimonials' ); ?></p>
 							</div>
 							<div>

@@ -51,7 +51,7 @@ $options = get_option( 'wpmtst_options' );
 			<fieldset>
 			<label>
 				<input type="checkbox" name="wpmtst_options[support_custom_fields]" <?php checked( $options['support_custom_fields'] ); ?>>
-				<?php _e( 'Show the <strong>Custom Fields</strong> meta box in the testimonial post editor. This does not affect the <strong>Client Details</strong> meta box.', 'strong-testimonials' ); ?>
+				<?php echo wp_kses_post( __( 'Show the <strong>Custom Fields</strong> meta box in the testimonial post editor. This does not affect the <strong>Client Details</strong> meta box.', 'strong-testimonials' ) ); ?>
 				<?php esc_html_e( 'Off by default.', 'strong-testimonials' ); ?>
 			</label>
             <p class="description"><?php esc_html_e( 'For advanced users.', 'strong-testimonials' ); ?></p>
@@ -156,8 +156,8 @@ $options = get_option( 'wpmtst_options' );
 			</fieldset>
 			<p class="description"><?php esc_html_e( 'To enable comments:', 'strong-testimonials' ); ?></p>
 			<ul class="description">
-				<li><?php _e( 'For individual testimonials, use the <strong>Discussion</strong> meta box in the post editor or <strong>Quick Edit</strong> in the testimonial list.', 'strong-testimonials' ); ?></li>
-				<li><?php _e( 'For multiple testimonials, use <strong>Bulk Edit</strong> in the testimonial list.', 'strong-testimonials' ); ?></li>
+				<li><?php echo wp_kses_post( __( 'For individual testimonials, use the <strong>Discussion</strong> meta box in the post editor or <strong>Quick Edit</strong> in the testimonial list.', 'strong-testimonials' ) ); ?></li>
+				<li><?php echo wp_kses_post( __( 'For multiple testimonials, use <strong>Bulk Edit</strong> in the testimonial list.', 'strong-testimonials' ) ); ?></li>
 			</ul>
 		</td>
 	</tr>
@@ -190,7 +190,7 @@ $options = get_option( 'wpmtst_options' );
             <fieldset>
                 <label>
                     <input type="checkbox" name="wpmtst_options[nofollow]" <?php checked( $options['nofollow'] ); ?>>
-					<?php _e( 'Add <code>rel="nofollow"</code> to URL custom fields.', 'strong-testimonials' ); ?>
+					<?php echo wp_kses_post( __( 'Add <code>rel="nofollow"</code> to URL custom fields.', 'strong-testimonials' ) ); ?>
                     <?php esc_html_e( 'On by default.', 'strong-testimonials' ); ?>
                 </label>
                 <p class="description">
@@ -209,7 +209,7 @@ $options = get_option( 'wpmtst_options' );
             <fieldset>
                 <label>
                     <input type="checkbox" name="wpmtst_options[noopener]" <?php checked( $options['noopener'] ); ?>>
-					<?php _e( 'Add <code>rel="noopener"</code> to URL custom fields.', 'strong-testimonials' ); ?>
+					<?php echo wp_kses_post( __( 'Add <code>rel="noopener"</code> to URL custom fields.', 'strong-testimonials' ) ); ?>
                     <?php esc_html_e( 'On by default.', 'strong-testimonials' ); ?>
                 </label>
             </fieldset>
@@ -224,7 +224,7 @@ $options = get_option( 'wpmtst_options' );
             <fieldset>
                 <label>
                     <input type="checkbox" name="wpmtst_options[noreferrer]" <?php checked( $options['noreferrer'] ); ?>>
-					<?php _e( 'Add <code>rel="noreferrer"</code> to URL custom fields.', 'strong-testimonials' ); ?>
+					<?php echo wp_kses_post( __( 'Add <code>rel="noreferrer"</code> to URL custom fields.', 'strong-testimonials' ) ); ?>
                     <?php esc_html_e( 'On by default.', 'strong-testimonials' ); ?>
                 </label>
             </fieldset>
@@ -257,7 +257,7 @@ $options = get_option( 'wpmtst_options' );
             <fieldset>
                 <label>
                     <input type="checkbox" name="wpmtst_options[no_lazyload_plugin]" <?php checked( $options['no_lazyload_plugin'] ); ?>>
-                    <?php printf( __( 'Exclude from <a href="%s" target="_blank">Lazy Loading Responsive Images</a> plugin.', 'strong-testimonials' ), esc_url( 'https://wordpress.org/plugins/lazy-loading-responsive-images/' ) ); ?>
+                    <?php printf( wp_kses_post( __( 'Exclude from <a href="%s" target="_blank">Lazy Loading Responsive Images</a> plugin.', 'strong-testimonials' ) ), esc_url( 'https://wordpress.org/plugins/lazy-loading-responsive-images/' ) ); ?>
                     <?php esc_html_e( 'On by default.', 'strong-testimonials' ); ?>
                 </label>
             </fieldset>
