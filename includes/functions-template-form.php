@@ -110,7 +110,7 @@ function wpmtst_single_form_field( $field ) {
 	if ( 'checkbox' != $field['input_type'] ) {
 
 		if ( ! isset( $field['show_label'] ) || $field['show_label'] ) {
-			printf( '<label for="wpmtst_%s" class="%s">%s</label>', esc_html( $field['name'] ), esc_attr( wpmtst_field_label_classes( $field['input_type'], $field['name'] ) ), wp_kses_post( wpmtst_form_field_meta_l10n( $field['label'], $field, 'label' ) ) );
+			printf( '<label for="wpmtst_%s" class="%s">%s</label>', esc_attr( $field['name'] ), esc_attr( wpmtst_field_label_classes( $field['input_type'], $field['name'] ) ), wp_kses_post( wpmtst_form_field_meta_l10n( $field['label'], $field, 'label' ) ) );
 
 			if ( isset( $field['required'] ) && $field['required'] ) {
 				wpmtst_field_required_symbol();
