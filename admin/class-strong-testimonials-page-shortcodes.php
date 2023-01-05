@@ -83,7 +83,7 @@ class Strong_Testimonials_Page_Shortcodes {
 				<tr>
 					<td>
 						<p><?php esc_html_e( 'Default', 'strong-testimonials' ); ?></p>
-						<p class="description"><?php wp_kses_post( _e( 'You must use the closing slash <code>/</code> if using the shortcode with content elsewhere on your page.', 'strong-testimonials' ) ); ?></p>
+						<p class="description"><?php echo wp_kses_post( __( 'You must use the closing slash <code>/</code> if using the shortcode with content elsewhere on your page.', 'strong-testimonials' ) ); ?></p>
 					</td>
 					<td class="has-inner">
 						<table class="inner" cellpadding="0" cellspacing="0">
@@ -389,7 +389,7 @@ class Strong_Testimonials_Page_Shortcodes {
 			<table class="form-table shortcodes average">
 				<tr>
 					<td>
-						<p><?php _e( 'The default container element is <code>div</code>. Select another element using <code>element</code>.', 'strong-testimonials' ); ?></p>
+						<p><?php echo wp_kses_post( __( 'The default container element is <code>div</code>. Select another element using <code>element</code>.', 'strong-testimonials' ) ); ?></p>
 					</td>
 					<td class="has-inner">
 						<table class="inner" cellpadding="0" cellspacing="0">

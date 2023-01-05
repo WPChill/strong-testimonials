@@ -41,8 +41,8 @@ function wpmtst_add_field_2_function() {
 
 	check_ajax_referer( 'wpmtst-admin', 'security' );
 
-	$new_field_type  = sanitize_text_field( $_REQUEST['fieldType'] );
-	$new_field_class = sanitize_text_field( $_REQUEST['fieldClass'] );
+	$new_field_type  = isset( $_REQUEST['fieldType'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['fieldType'] ) ) : '';
+	$new_field_class = isset( $_REQUEST['fieldClass'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['fieldClass'] ) ) : '';
 	$fields          = apply_filters( 'wpmtst_fields', get_option( 'wpmtst_fields' ) );
 
 	$empty_field = array_merge(
@@ -66,8 +66,8 @@ function wpmtst_add_field_3_function() {
 
 	check_ajax_referer( 'wpmtst-admin', 'security' );
 
-	$new_field_type  = sanitize_text_field( $_REQUEST['fieldType'] );
-	$new_field_class = sanitize_text_field( $_REQUEST['fieldClass'] );
+	$new_field_type  = isset( $_REQUEST['fieldType'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['fieldType'] ) ) : '';
+	$new_field_class = isset( $_REQUEST['fieldClass'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['fieldClass'] ) ) : '';
 	$fields          = apply_filters( 'wpmtst_fields', get_option( 'wpmtst_fields' ) );
 
 	$empty_field = array_merge(
@@ -92,7 +92,7 @@ function wpmtst_add_field_4_function() {
 	check_ajax_referer( 'wpmtst-admin', 'security' );
 
 	$new_field_type  = isset( $_REQUEST['fieldType'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['fieldType'] ) ) : '';
-	$new_field_class = sset( $_REQUEST['fieldClass'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['fieldClass'] ) ) : '';
+	$new_field_class = isset( $_REQUEST['fieldClass'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['fieldClass'] ) ) : '';
 	$fields          = apply_filters( 'wpmtst_fields', get_option( 'wpmtst_fields' ) );
 	$empty_field     = array();
 	if ( isset( $fields['field_types'][$new_field_class][$new_field_type] ) ) {

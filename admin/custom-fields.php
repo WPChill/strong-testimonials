@@ -65,7 +65,7 @@ function wpmtst_update_custom_fields() {
          *
          * @since 2.0.0
          */
-        $post_fields = stripslashes_deep( $_POST['fields'] );
+        $post_fields = isset( $_POST['fields'] ) ? stripslashes_deep( $_POST['fields'] ) : array();
 
         foreach ( $post_fields as $key => $field ) {
             
@@ -123,7 +123,7 @@ function wpmtst_update_custom_fields() {
 
         if ( isset( $_POST['field_group_label'] ) ) {
             // TODO Catch if empty.
-            $new_label = sanitize_text_field( $_POST['field_group_label'] );
+            $new_label = sanitize_text_field( wp_unslash( $_POST['field_group_label'] ) );
             $forms[ $form_id ]['label'] = $new_label;
         }
 

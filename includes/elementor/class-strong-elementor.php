@@ -56,9 +56,11 @@ class Strong_Testimonials_Elementor_Widget extends \Elementor\Widget_Base {
 
     protected function render() {
         $settings   = $this->get_settings_for_display();
-        $view_id = $settings['strong_testimonials_views_select'];
+
+        $settings   = $this->get_settings_for_display();
+        $view_id = esc_html( $settings['strong_testimonials_views_select'] );
         if( 'none' != $view_id ){
-        echo "[testimonial_view id={$view_id}]";
+        echo "[testimonial_view id={$view_id}]";  // phpcs:ignore $view_id OK
         }
     }
 }

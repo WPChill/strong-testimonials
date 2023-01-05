@@ -212,7 +212,7 @@ class Strong_Testimonials_Admin_List {
 								echo $custom[ $column ][0] ? 'yes' : 'no';
 								break;
 							default :
-								echo $custom[ $column ][0];
+								echo wp_kses_post( $custom[ $column ][0] );
 						}
 
 					}
@@ -291,7 +291,7 @@ class Strong_Testimonials_Admin_List {
 				'child_of'          => 0,
 				'exclude'           => '',
 				'echo'              => 1,
-				'selected'          => isset( $_GET[ $tax ] ) ? sanitize_text_field( $_GET[ $tax ] ) : '',
+				'selected'          => isset( $_GET[ $tax ] ) ? sanitize_text_field( wp_unslash( $_GET[ $tax ] ) ) : '',
 				'hierarchical'      => 1,
 				'name'              => $tax,
 				'id'                => $tax,

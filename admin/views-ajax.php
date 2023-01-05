@@ -10,7 +10,7 @@
  * @since 1.25.0
  */
 function wpmtst_force_check() {
-	$atts = array( 'template' => sanitize_text_field( $_REQUEST['template'] ) );
+	$atts = array( 'template' => isset( $_REQUEST['template'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['template'] ) ) : 'default' );
 	$force = WPMST()->templates->get_template_config( $atts, 'force', false );
 	if ( $force ) {
 		wp_send_json_success( (array) $force );
@@ -26,11 +26,11 @@ add_action( 'wp_ajax_wpmtst_force_check', 'wpmtst_force_check' );
  * @since 1.21.0
  */
 function wpmtst_view_add_field_function() {
-	$new_key = (int) sanitize_text_field( $_REQUEST['key'] );
+	$new_key = isset( $_REQUEST['key'] ) ? absint( $_REQUEST['key'] ) : 0;
 	$empty_field = array( 'field' => '', 'type' => 'text', 'class' => '' );
         $source = 'view[data]';
         if (isset($_REQUEST['source']) && !empty( $_REQUEST['source'] )) {
-            $source = sanitize_text_field( $_REQUEST['source'] );
+            $source = sanitize_text_field( wp_unslash( $_REQUEST['source'] ) );
         }
 	wpmtst_view_field_inputs( $new_key, $empty_field, true, $source );
 	wp_die();
@@ -44,13 +44,13 @@ add_action( 'wp_ajax_wpmtst_view_add_field', 'wpmtst_view_add_field_function' );
  * @since 1.21.0
  */
 function wpmtst_view_add_field_link_function() {
-	$key         = (int) sanitize_text_field( $_REQUEST['key'] );
-	$field_name  = sanitize_text_field( $_REQUEST['fieldName'] );
-	$type        = sanitize_text_field( $_REQUEST['fieldType'] );
+	$key         = isset( $_REQUEST['key'] ) ? absint( $_REQUEST['key'] ) : 0;
+	$field_name  = isset( $_REQUEST['fieldName'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['fieldName'] ) ) : 'new_field';
+	$type        = isset( $_REQUEST['fieldType'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['fieldType'] ) ) : 'text';
 	$empty_field = array( 'url' => '', 'link_text' => '', 'new_tab' => true );
         $source = 'view[data]';
         if (isset($_REQUEST['source']) && !empty($_REQUEST['source'])) {
-            $source = sanitize_text_field( $_REQUEST['source'] );
+            $source = sanitize_text_field( wp_unslash( $_REQUEST['source'] ) );
         }
 	wpmtst_view_field_link( $key, $field_name, $type, $empty_field, false, $source );
 	wp_die();
@@ -64,7 +64,7 @@ add_action( 'wp_ajax_wpmtst_view_add_field_link', 'wpmtst_view_add_field_link_fu
  * @since 1.24.0
  */
 function wpmtst_view_get_label_function() {
-	$field = array( 'field' => sanitize_text_field( $_REQUEST['name'] ) );
+	$field = array( 'field' => isset( $_REQUEST['name'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['name'] ) ) : '' );
 	$label = wpmtst_get_field_label( $field );
 	echo $label;
 	wp_die();
@@ -78,11 +78,11 @@ add_action( 'wp_ajax_wpmtst_view_get_label', 'wpmtst_view_get_label_function' );
  * @since 1.21.0
  */
 function wpmtst_view_add_field_date_function() {
-	$key = (int) sanitize_text_field( $_REQUEST['key'] );
+	$key = isset( $_REQUEST['key'] ) ? (int) sanitize_text_field( $_REQUEST['key'] ) : 0;
 	$empty_field = array( 'format' => '' );
         $source = 'view[data]';
-        if (isset($_REQUEST['source']) && !empty($_REQUEST['source'])) {
-            $source = sanitize_text_field( $_REQUEST['source'] );
+        if ( isset( $_REQUEST['source'] ) && !empty( $_REQUEST['source'] ) ) {
+            $source = sanitize_text_field( wp_unslash( $_REQUEST['source'] ) );
         }
 	wpmtst_view_field_date( $key, $empty_field, false, $source );
 	wp_die();
@@ -95,15 +95,15 @@ add_action( 'wp_ajax_wpmtst_view_add_field_date', 'wpmtst_view_add_field_date_fu
  * @since 2.40.4
  */
 function wpmtst_view_add_field_checkbox_function() {
-		$key         = (int) sanitize_text_field( $_REQUEST['key'] );
+		$key = isset( $_REQUEST['key'] ) ? (int) sanitize_text_field( $_REQUEST['key'] ) : 0;
         $field = array(
-            'field'  => sanitize_text_field( $_REQUEST['fieldName'] ),
-            'type'   => sanitize_text_field( $_REQUEST['fieldType'] )
+            'field'  => isset( $_REQUEST['fieldName'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['fieldName'] ) ) : 'new_field',
+            'type'   => isset( $_REQUEST['fieldType'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['fieldType'] ) ) : 'text'
         );
         $empty_field = array( 'custom_label' => '', 'checked_value' => '', 'unchecked_value' => '');
         $source = 'view[data]';
         if (isset($_REQUEST['source']) && !empty($_REQUEST['source'])) {
-            $source = sanitize_text_field( $_REQUEST['source'] );
+			$source = sanitize_text_field( wp_unslash( $_REQUEST['source'] ) );
         }
 	wpmtst_view_field_checkbox ( $key, $field, $empty_field, $source );
 	wp_die();
@@ -117,12 +117,12 @@ add_action( 'wp_ajax_wpmtst_view_add_field_checkbox', 'wpmtst_view_add_field_che
  * @since 2.22.0
  */
 function wpmtst_view_get_mode_description() {
-	$mode = sanitize_text_field( $_REQUEST['mode'] );
+	$mode = isset( $_REQUEST['mode'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['mode'] ) ) : 'display';
 	$options = get_option( 'wpmtst_view_options' );
 	if ( isset( $options['mode'][ $mode ]['description'] ) ) {
 		$description = $options['mode'][ $mode ]['description'];
                 $description = apply_filters( 'wpmtst_mode_description', $description, $mode );
-                echo $description;
+                echo wp_kses_post( $description );
 	}
 	wp_die();
 }
@@ -133,7 +133,7 @@ add_action( 'wp_ajax_wpmtst_view_get_mode_description', 'wpmtst_view_get_mode_de
  * Get background color presets in View editor.
  */
 function wpmtst_get_background_preset_colors() {
-	$preset = wpmtst_get_background_presets( sanitize_text_field( $_REQUEST['key'] ) );
+	$preset = wpmtst_get_background_presets( isset( $_REQUEST['key'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['key'] ) ) : 0 );
 	echo json_encode( $preset );
 	wp_die();
 }

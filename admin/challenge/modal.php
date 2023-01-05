@@ -93,14 +93,7 @@ class ST_Challenge_Modal{
     }
     public function wpmtst_challenge_hide(){
 
-		$nonce = '';
-		
-		if( isset( $_POST['nonce'] ) ){
-            
-			$nonce = $_POST['nonce'];
-		}
-
-		if ( ! wp_verify_nonce( $nonce, 'wpmtst-challenge' ) ) {
+		if ( !isset( $_POST['nonce'] ) || ! wp_verify_nonce( $_POST['nonce'], 'wpmtst-challenge' ) ) {
 			wp_send_json_error();
 			die();
 		}

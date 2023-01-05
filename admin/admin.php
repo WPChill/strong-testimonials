@@ -19,9 +19,9 @@ function wpmtst_version_check() {
 		/* translators: %s is the name of the plugin. */
 		$message = '<h2>' . sprintf( esc_html_x( 'Unable to load %s', 'installation', 'strong-testimonials' ), 'Strong Testimonials' ) . '</h2>';
 		/* translators: %s is a WordPress version number. */
-		$message .= '<p>' . sprintf( _x( 'This plugin requires <strong>WordPress %s</strong> or higher so it has been deactivated.', 'installation', 'strong-testimonials' ), $require_wp_version ) . '</p>';
+		$message .= '<p>' . sprintf( wp_kses_post( _x( 'This plugin requires <strong>WordPress %s</strong> or higher so it has been deactivated.', 'installation', 'strong-testimonials' ) ), $require_wp_version ) . '</p>';
 		$message .= '<p>' . esc_html_x( 'Please upgrade WordPress and try again.', 'installation', 'strong-testimonials' ) . '</p>';
-		$message .= '<p>' . sprintf( _x( 'Back to the WordPress <a href="%s">Plugins page</a>', 'installation', 'strong-testimonials' ), get_admin_url( null, 'plugins.php' ) ) . '</p>';
+		$message .= '<p>' . sprintf( wp_kses_post( _x( 'Back to the WordPress <a href="%s">Plugins page</a>', 'installation', 'strong-testimonials' ) ), esc_url( get_admin_url( null, 'plugins.php' ) ) ) . '</p>';
 		wp_die( $message );
 	}
 }
@@ -55,7 +55,7 @@ function wpmtst_admin_init() {
 	 * @since 1.18.4
 	 */
 	if ( isset( $_REQUEST['action'] ) && '' != $_REQUEST['action'] ) {
-		$action = sanitize_text_field( $_REQUEST['action'] );
+		$action = sanitize_text_field( wp_unslash( $_REQUEST['action'] ) );
 		do_action( 'wpmtst_' . $action );
 	}
 }

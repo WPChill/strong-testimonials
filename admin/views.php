@@ -81,9 +81,9 @@ function wpmtst_views_admin() {
                         <hr class="wp-header-end">
                         <h2 class="screen-reader-text"><?php esc_html_e( 'Filter view list', 'strong-testimonials' ); ?></h2>
                         <ul class="subsubsub">
-                            <li class="all"><a <?php echo (!isset($_GET['mode']) || $_GET['mode'] == 'all' ? 'class="current"' : '') ?> href="<?php echo add_query_arg( array('post_type' => 'wpm-testimonial', 'page' => 'testimonial-views', 'mode' => 'all' ), admin_url('edit.php') ) ?>"><?php esc_html_e( 'All', 'strong-testimonials' ); ?><?php printf( __( ' <span class="count">(%s)</span>', 'strong-testimonials' ), count($views) ); ?></a> |</li>
+                            <li class="all"><a <?php echo (!isset($_GET['mode']) || $_GET['mode'] == 'all' ? 'class="current"' : '') ?> href="<?php echo esc_url( add_query_arg( array('post_type' => 'wpm-testimonial', 'page' => 'testimonial-views', 'mode' => 'all' ), admin_url('edit.php') ) ) ?>"><?php esc_html_e( 'All', 'strong-testimonials' ); ?><?php printf( wp_kses_post( __( ' <span class="count">(%s)</span>', 'strong-testimonials' ) ), count($views) ); ?></a> |</li>
                             <?php foreach ($filters as $mode => $items): ?>
-                            <li class="<?php echo esc_attr( $mode ) ?>"><a <?php echo (isset($_GET['mode']) && $_GET['mode'] == $mode ? 'class="current"' : '') ?> href="<?php echo add_query_arg( array('post_type' => 'wpm-testimonial', 'page' => 'testimonial-views', 'mode' => $mode ), admin_url('edit.php') ) ?>"><?php echo esc_html( ucfirst($mode) ) ?><?php printf( __( ' <span class="count">(%s)</span>', 'strong-testimonials' ), count($items) ); ?></a> |</li>
+                            <li class="<?php echo esc_attr( $mode ) ?>"><a <?php echo (isset($_GET['mode']) && $_GET['mode'] == $mode ? 'class="current"' : '') ?> href="<?php echo esc_url( add_query_arg( array('post_type' => 'wpm-testimonial', 'page' => 'testimonial-views', 'mode' => $mode ), admin_url('edit.php') ) ) ?>"><?php echo esc_html( ucfirst($mode) ) ?><?php printf( wp_kses_post( __( ' <span class="count">(%s)</span>', 'strong-testimonials' )  ), count($items) ); ?></a> |</li>
                             <?php endforeach; ?>
                         </ul>
 			<?php
@@ -125,8 +125,8 @@ function wpmtst_view_edit_form() {
 		exit;
 	}
 
-	$view_id    = abs( filter_var( $_POST['view']['id'], FILTER_SANITIZE_NUMBER_INT ) );
-	$view_name  = wpmtst_validate_view_name( $_POST['view']['name'], $view_id );
+	$view_id    = isset( $_POST['view']['id'] ) ? absint( filter_var( $_POST['view']['id'], FILTER_SANITIZE_NUMBER_INT ) ) : 0;
+	$view_name  = isset( $_POST['view']['name'] ) ? wpmtst_validate_view_name( sanitize_text_field( wp_unslash( $_POST['view']['name'] ) ), $view_id ) : 'new';
 
 	if ( isset( $_POST['reset'] ) ) {
 
@@ -157,7 +157,7 @@ function wpmtst_view_edit_form() {
 		$view = array(
 			'id'   => $view_id,
 			'name' => $view_name,
-			'data' => wpmtst_sanitize_view( stripslashes_deep( $_POST['view']['data'] ) ),
+			'data' => isset( $_POST['view']['data'] ) ? wpmtst_sanitize_view( stripslashes_deep( $_POST['view']['data'] ) ) : array(), // phpcs:ignore sanitized by wpmtst_sanitize_view
 		);
 		$success = wpmtst_save_view( $view ); // num_rows
 
@@ -196,7 +196,7 @@ function wpmtst_view_add_form() {
 	}
 
 	$view_id   = 0;
-	$view_name = wpmtst_validate_view_name( $_POST['view']['name'], $view_id );
+	$view_name = isset( $_POST['view']['name'] ) ? wpmtst_validate_view_name( sanitize_text_field( wp_unslash( $_POST['view']['name'] ) ), $view_id ) : "Testimonial View $view_id";
 
 	if ( isset( $_POST['restore-defaults'] ) ) {
 
@@ -218,7 +218,7 @@ function wpmtst_view_add_form() {
 		$view = array(
 			'id'   => 0,
 			'name' => $view_name,
-			'data' => wpmtst_sanitize_view( stripslashes_deep( $_POST['view']['data'] ) ),
+			'data' => isset( $_POST['view']['data'] ) ? wpmtst_sanitize_view( stripslashes_deep( $_POST['view']['data'] ) ) : array(), // phpcs:ignore sanitized by wpmtst_sanitize_view
 		);
 		$success = wpmtst_save_view( $view, 'add' ); // view ID
 
@@ -620,7 +620,7 @@ function wpmtst_view_field_checkbox( $key, $field, $adding = false, $source = 'v
 	</div>
 	<div class="field-property field-before field-dep">
 		<label for="client_section_<?php echo esc_attr( $key ); ?>_custom_label"></label>
-		<input id="client_section_<?php echo esc_attr( $key ); ?>_custom_label" class="client_section_field_label" attr-defaultValue="<?php echo wpmtst_get_field_label( $field ) ?>" type="text" name="<?php echo esc_attr( $source ) ?>[client_section][<?php echo esc_attr( $key ); ?>][custom_label]" value="<?php echo esc_attr( $label ) ?>" <?php echo ($field['label'] == 'label' ? 'readonly' : '') ?>>
+		<input id="client_section_<?php echo esc_attr( $key ); ?>_custom_label" class="client_section_field_label" attr-defaultValue="<?php echo esc_attr( wpmtst_get_field_label( $field ) ) ?>" type="text" name="<?php echo esc_attr( $source ) ?>[client_section][<?php echo esc_attr( $key ); ?>][custom_label]" value="<?php echo esc_attr( $label ) ?>" <?php echo ($field['label'] == 'label' ? 'readonly' : '') ?>>
 	</div>
 	<div class="field-property field-before field-dep">
 		<label for="client_section_<?php echo esc_attr( $key ); ?>_checked_value">

@@ -92,7 +92,7 @@ class Strong_Testimonials_Uninstall {
                         $after_input  = '</strong>';
                     }
 
-                    echo ' <p class="st-uninstall-options-checkbox" ><input type="checkbox" name="' . esc_attr( $key ) . ' " id="' . esc_attr( $key ) . '" value="' . esc_attr( $key ) . '"> <label for="' . esc_attr( $key ) . '">' . $before_input . esc_attr( $option['label'] ) . $after_input . '</label></p><p class="description">' . esc_html( $option['description'] ) . '</p>';
+                    echo ' <p class="st-uninstall-options-checkbox" ><input type="checkbox" name="' . esc_attr( $key ) . ' " id="' . esc_attr( $key ) . '" value="' . esc_attr( $key ) . '"> <label for="' . esc_attr( $key ) . '">' . $before_input . esc_attr( $option['label'] ) . $after_input . '</label></p><p class="description">' . esc_html( $option['description'] ) . '</p>'; // phpcs:ignore $before_input, $after_input OK
                 }
                 ?>
             </div><!-- .st-uninstall-options -->
@@ -158,7 +158,7 @@ class Strong_Testimonials_Uninstall {
         global $wpdb;
         check_ajax_referer( 'st_uninstall_plugin', 'security' );
 
-        $uninstall_option = isset( $_POST['options'] ) ? $_POST['options'] : false;
+        $uninstall_option = isset( $_POST['options'] ) ? array_map( 'absint', $_POST['options'] ) : false;
 
         // Delete options
         if ( '1' == $uninstall_option['delete_options'] ) {
