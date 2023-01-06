@@ -135,7 +135,7 @@ $options = get_option( 'wpmtst_options' );
 			<fieldset>
 			<label>
 				<input type="checkbox" name="wpmtst_options[remove_whitespace]" <?php checked( $options['remove_whitespace'] ); ?>>
-				<?php esc_html_e( 'Remove space between HTML tags in View output to prevent double paragraphs <em>(wpautop)</em>.', 'strong-testimonials' ); ?>
+				<?php echo wp_kses_post( __( 'Remove space between HTML tags in View output to prevent double paragraphs <em>(wpautop)</em>.', 'strong-testimonials' ) ); ?>
                 <?php esc_html_e( 'On by default.', 'strong-testimonials' ); ?>
 			</label>
 			</fieldset>
