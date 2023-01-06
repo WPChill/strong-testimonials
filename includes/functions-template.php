@@ -514,7 +514,7 @@ function wpmtst_the_custom_field( $field ) {
 		if ( isset( $field['before'] ) && $field['before'] ) {
 			$output = '<span class="wpmtst-testimonial-field-before testimonial-field-before">' . $field['before'] . '</span>' . $output;
 		}
-		$output = '<div class="wpmtst-testimonial-field testimonial-field ' . $field['class'] . '">' . $output . '</div>';
+		$output = '<div class="wpmtst-testimonial-field testimonial-field ' . esc_attr( $field['class'] ) . '">' . $output . '</div>';
 	}
 
 	return $output;
