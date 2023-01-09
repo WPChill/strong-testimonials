@@ -3,7 +3,7 @@ Contributors: wpchill,silkalns,cdillon27
 Tags: testimonials, testimonial slider, testimonial form, star ratings
 Requires at least: 5.2
 Requires PHP: 5.6
-Tested up to: 6.0
+Tested up to: 6.1
 Stable tag: 3.0.3
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -206,7 +206,6 @@ No. If you already have testimonials in another plugin or theme, you will have t
 8. View editor
 
 == Changelog ==
-
 = 3.0.3 - TBD  -
 - Fixed: Welcome banner visual update.
 - Fixed: abs( ) function no longer supports string inputs in php v8+ ( [#344](https://github.com/WPChill/strong-testimonials/issues/344) )
@@ -221,8 +220,10 @@ No. If you already have testimonials in another plugin or theme, you will have t
 - Added: Strong Testimonials logo branding bar ( [#357](https://github.com/WPChill/strong-testimonials/issues/356) )
 - Added: Testimonials & Extensions tabs ( [#355](https://github.com/WPChill/strong-testimonials/issues/355) )
 - Fixed: Rating stars not scaled properly on load ( [#359](https://github.com/WPChill/strong-testimonials/issues/359) )
+
+= 3.0.3 - 09.01.2023 -
 - Fixed: Security vulnerability ( [#360](https://github.com/WPChill/strong-testimonials/issues/360) )
-- Fixed: Sanitization and code escaping ( [#361](https://github.com/WPChill/strong-testimonials/issues/361) )
+- Fixed: Escaping and sanitizations ( [#361](https://github.com/WPChill/strong-testimonials/issues/361) )
 
 = 3.0.2 - 24.08.2022  -
 - Fixed: Star rating input for multiple forms on page ( [#322](https://github.com/WPChill/strong-testimonials/issues/322) )

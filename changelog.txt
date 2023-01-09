@@ -1,4 +1,5 @@
-= 3.0.3 - TBA  -
+
+= 3.1.0 - TBA  -
 - Fixed: Welcome banner visual update.
 - Fixed: abs( ) function no longer supports string inputs in php v8+ ( [#344](https://github.com/WPChill/strong-testimonials/issues/344) )
 - Fixed: Testimonials slider is not initialized properly ( [#349](https://github.com/WPChill/strong-testimonials/issues/349) )
@@ -13,8 +14,10 @@
 - Added: Testimonials & Extensions tabs ( [#355](https://github.com/WPChill/strong-testimonials/issues/355) )
 - Changed: Enqueue welcome banner assets only on the welcome page ( [#358](https://github.com/WPChill/download-monitor/issues/358) )
 - Fixed: Rating stars not scaled properly on load ( [#359](https://github.com/WPChill/strong-testimonials/issues/359) )
+
+= 3.0.3 - 09.01.2023 -
 - Fixed: Security vulnerability ( [#360](https://github.com/WPChill/strong-testimonials/issues/360) )
-- Fixed: Sanitization and code escaping ( [#361](https://github.com/WPChill/strong-testimonials/issues/361) )
+- Fixed: Escaping and sanitizations ( [#361](https://github.com/WPChill/strong-testimonials/issues/361) )
 
 = 3.0.2 - 24.08.2022  -
 - Fixed: Star rating input for multiple forms on page ( [#322](https://github.com/WPChill/strong-testimonials/issues/322) )
