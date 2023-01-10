@@ -545,7 +545,7 @@ final class Strong_Testimonials {
 
 		$query = new WP_Query(array(
 			'post_type' => 'wpm-testimonial',
-			'post_status' => array( 'publish', 'future', 'trash', 'draft', 'inherit' ),
+			'post_status' => array( 'publish', 'future', 'trash', 'draft', 'inherit', 'pending' ),
 		));
 
 		$this->display_extension_tab();
