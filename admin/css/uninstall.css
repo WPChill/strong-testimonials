@@ -43,6 +43,7 @@
     max-width: 650px;
     background: #fff;
     white-space: normal;
+    max-height: 100vh;
 }
 
 .st-uninstall-form-head {
@@ -115,4 +116,10 @@
 
 .st-uninstall-options .st-uninstall-options-checkbox {
     margin-bottom: 0px;
+}
+
+@media screen and ( max-height: 600px ) {
+    .st-uninstall-form {
+     overflow-Y:scroll;
+    }
 }
