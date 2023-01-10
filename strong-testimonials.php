@@ -159,8 +159,10 @@ final class Strong_Testimonials {
 		wpmtst_register_cpt();
 		flush_rewrite_rules();
 		
-		new Strong_Testimonials_Welcome();
-		do_action( 'wpmtst_after_update_setup', $first_install );
+		if (class_exists('Strong_Testimonials_Welcome')) {
+			new Strong_Testimonials_Welcome();
+			do_action( 'wpmtst_after_update_setup', $first_install );	
+		}
 	}
 
 	/**
