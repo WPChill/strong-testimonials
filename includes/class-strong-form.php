@@ -84,8 +84,8 @@ class Strong_Testimonials_Form {
 					default:
 						// For non-Ajax forms, the only ways to store the state (successful form submission)
 						// are a query parameter or a cookie.
-						$goback = add_query_arg( 'success', intval( $_POST['form_id']), wp_get_referer() );
-						$goback = add_query_arg( array( 'success' => '', 'formid' =>  intval( $_POST['form_id'] ) ), wp_get_referer() );
+						$goback = add_query_arg( 'success', isset( $_POST['form_id'] ) ? absint( $_POST['form_id'] ) : 0, wp_get_referer() );
+						$goback = add_query_arg( array( 'success' => '', 'formid' =>  isset( $_POST['form_id'] ) ? absint( $_POST['form_id'] ) : 0 ), wp_get_referer() );
 				}
 				wp_redirect( apply_filters( 'wpmtst_form_redirect_url', $goback ) );
 				exit;
@@ -200,9 +200,9 @@ class Strong_Testimonials_Form {
 
 			$new_post = apply_filters( 'before_field_sanitize', $new_post, $field);
 			
-			if ( isset( $field['required'] ) && $field['required'] ) {
+			if ( isset( $field['required'] ) && $field['required'] && isset( $field['name'] ) ) {
 				if ( ( 'file' == $field['input_type'] ) ) {
-					if ( ! isset( $_FILES[ $field['name'] ] ) || ! $_FILES[ $field['name'] ]['size'] ) {
+					if ( ! isset( $_FILES[ $field['name'] ] ) || ! isset( $_FILES[ $field['name'] ]['size'] ) || ! $_FILES[ $field['name'] ]['size'] ) {
 						$form_errors[ $field['name'] ] = $field['error'];
 						continue;
 					}
@@ -299,8 +299,8 @@ class Strong_Testimonials_Form {
 			 * )
 			 */
 			foreach ( $testimonial_att as $name => $atts ) {
-				if ( isset( $_FILES[ $name ] ) && $_FILES[ $name ]['size'] > 1 ) {
-					$file = $_FILES[ $name ];
+				if ( isset( $_FILES[ $name ] ) && isset( $_FILES[ $name ]['size'] ) && $_FILES[ $name ]['size'] > 1 ) {
+					$file = sanitize_text_field( wp_unslash( $_FILES[ $name ] ) );
 
 					// Upload file
 					$overrides     = array( 'test_form' => false );

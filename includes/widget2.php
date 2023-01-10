@@ -95,7 +95,7 @@ class Strong_Testimonials_View_Widget extends WP_Widget {
 					<option value=""><?php esc_html_e( '&mdash; Select &mdash;', 'strong-testimonials' ); ?></option>
 					<?php
 					foreach ( $views as $view ) {
-						printf( '<option value="%s" %s>%s</option>', $view['id'], selected( absint( $view['id'] ), $instance['view'] ), esc_html( $view['name'] ) );
+						printf( '<option value="%s" %s>%s</option>', esc_attr( $view['id'] ), selected( absint( $view['id'] ), $instance['view'] ), esc_html( $view['name'] ) );
 					}
 					?>
 				</select>

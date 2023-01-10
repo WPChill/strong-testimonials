@@ -164,7 +164,7 @@ function wpmtst_read_more_page() {
 				$classname = 'readmore-page';
 			}
 			$classname = apply_filters( 'wpmtst_read_more_page_class', $classname );
-			echo apply_filters('wpmtst_read_more_page_output', sprintf( '<div class="%s"><a href="%s">%s</a></div>', $classname, esc_url( $permalink ), $link_text ));
+			echo apply_filters('wpmtst_read_more_page_output', sprintf( '<div class="%s"><a href="%s">%s</a></div>', esc_attr( $classname ), esc_url( $permalink ), wp_kses_post( $link_text ) ) );
 		}
 
 	}
@@ -514,7 +514,7 @@ function wpmtst_the_custom_field( $field ) {
 		if ( isset( $field['before'] ) && $field['before'] ) {
 			$output = '<span class="wpmtst-testimonial-field-before testimonial-field-before">' . $field['before'] . '</span>' . $output;
 		}
-		$output = '<div class="wpmtst-testimonial-field testimonial-field ' . $field['class'] . '">' . $output . '</div>';
+		$output = '<div class="wpmtst-testimonial-field testimonial-field ' . esc_attr( $field['class'] ) . '">' . $output . '</div>';
 	}
 
 	return $output;
@@ -536,11 +536,11 @@ function wpmtst_container_data() {
 }
 
 function wpmtst_content_class() {
-	echo apply_filters( 'wpmtst_content_class', WPMST()->atts( 'content_class' ) );
+	echo esc_attr( apply_filters( 'wpmtst_content_class', WPMST()->atts( 'content_class' ) ) );
 }
 
 function wpmtst_post_class( $args = null ) {
-	echo apply_filters( 'wpmtst_post_class', WPMST()->atts( 'post_class' ) . ' post-' . get_the_ID(), $args );
+	echo esc_attr( apply_filters( 'wpmtst_post_class', WPMST()->atts( 'post_class' ) . ' post-' . get_the_ID(), $args ) );
 }
 
 /**

@@ -55,12 +55,12 @@ function wpmtst_form_setup() {
 	echo '<input type="hidden" name="action" value="wpmtst_form">';
 	echo '<input type="hidden" name="form_id" value="' . esc_attr( WPMST()->atts( 'form_id' ) ) . '">';
 	echo '<input type="hidden" name="default_category" value="' . esc_attr( WPMST()->atts( 'category' ) ) . '">';
-	echo '<input type="hidden" name="category" value="' . implode( ',', $cats ) . '">';
+	echo '<input type="hidden" name="category" value="' . implode( ',', array_map( 'esc_html', $cats ) ) . '">';
 	echo '</div>';
 }
 
 function wpmtst_form_message( $part ) {
-	echo wpmtst_get_form_message( $part );
+	echo wp_kses_post( wpmtst_get_form_message( $part ) );
 }
 
 function wpmtst_get_form_message( $part ) {
@@ -105,12 +105,12 @@ function wpmtst_single_form_field( $field ) {
 	$form_values = WPMST()->form->get_form_values();
         $form_values = apply_filters('get_predefined_values', $form_values, $field);
 
-	echo '<div class="' . wpmtst_field_group_classes( $field['input_type'], $field['name'] ) . '">';
+	echo '<div class="' . esc_attr( wpmtst_field_group_classes( $field['input_type'], $field['name'] ) ) . '">';
 
 	if ( 'checkbox' != $field['input_type'] ) {
 
 		if ( ! isset( $field['show_label'] ) || $field['show_label'] ) {
-			printf( '<label for="wpmtst_%s" class="%s">%s</label>', esc_html( $field['name'] ), wpmtst_field_label_classes( $field['input_type'], $field['name'] ), wpmtst_form_field_meta_l10n( $field['label'], $field, 'label' ) );
+			printf( '<label for="wpmtst_%s" class="%s">%s</label>', esc_attr( $field['name'] ), esc_attr( wpmtst_field_label_classes( $field['input_type'], $field['name'] ) ), wp_kses_post( wpmtst_form_field_meta_l10n( $field['label'], $field, 'label' ) ) );
 
 			if ( isset( $field['required'] ) && $field['required'] ) {
 				wpmtst_field_required_symbol();
@@ -442,7 +442,7 @@ function wpmtst_field_required_symbol() {
 function wpmtst_field_before( $field ) {
     $before = wpmtst_get_form_field_meta( $field, 'before' );
     if ( $before ) {
-	    echo '<span class="before">' . $before . '</span>';
+	    echo '<span class="before">' . wp_kses_post( $before ) . '</span>';
     }
 }
 
@@ -453,7 +453,7 @@ function wpmtst_field_before( $field ) {
  */
 function wpmtst_field_after( $field ) {
     $after = wpmtst_get_form_field_meta( $field, 'after' );
-    echo '<span class="after">' . $after . '</span>';
+    echo '<span class="after">' . wp_kses_post( $after ) . '</span>';
 }
 
 /**

@@ -85,7 +85,7 @@ class Strong_Testimonials_Help {
 		?>
         <div>
             <p><?php esc_html_e( 'A view is simply a group of settings with an easy-to-use editor.', 'strong-testimonials' ); ?>
-            <p><?php _e( 'You can create an <strong>unlimited</strong> number of views.', 'strong-testimonials' ); ?></p>
+            <p><?php echo wp_kses_post( __( 'You can create an <strong>unlimited</strong> number of views.', 'strong-testimonials' ) ); ?></p>
             <p><?php esc_html_e( 'For example:', 'strong-testimonials' ); ?></p>
             <ul class="standard">
                 <li><?php esc_html_e( 'Create a view to display your testimonials in a list, grid, or slideshow.', 'strong-testimonials' ); ?></li>
@@ -208,8 +208,8 @@ class Strong_Testimonials_Help {
 
 		ob_start();
 		?>
-        <p><?php _e( 'This will set the height of the <b>slideshow container</b> to match the tallest slide in order to keep elements below it from bouncing up and down during slide transitions. With testimonials of uneven length, the result is whitespace underneath the shorter testimonials.', 'strong-testimonials' ); ?></p>
-        <p><?php _e( 'Select the <b>Stretch</b> option to stretch the borders and background vertically to compensate.', 'strong-testimonials' ); ?></p>
+        <p><?php echo wp_kses_post( __( 'This will set the height of the <b>slideshow container</b> to match the tallest slide in order to keep elements below it from bouncing up and down during slide transitions. With testimonials of uneven length, the result is whitespace underneath the shorter testimonials.', 'strong-testimonials' ) ); ?></p>
+        <p><?php echo wp_kses_post( __( 'Select the <b>Stretch</b> option to stretch the borders and background vertically to compensate.', 'strong-testimonials' ) ); ?></p>
         <p><?php esc_html_e( 'Use the excerpt or abbreviated content if you want to minimize the whitespace.', 'strong-testimonials' ); ?></p>
 		<?php
 		$content = ob_get_clean();

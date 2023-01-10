@@ -262,7 +262,12 @@ class Strong_Testimonials_Order {
 		}
 		global $wpdb;
 
-		parse_str( $_POST['posts'], $data );
+		if( !empty( $_POST['posts'] ) ){
+			parse_str( sanitize_text_field( wp_unslash( $_POST['posts'] ) ), $data );
+		}else{
+			wp_die();
+		}
+
 		if ( ! is_array( $data ) ) {
 			wp_die();
 		}

@@ -483,8 +483,10 @@ function sanitizeName(label) {
 
     var data = {
       'action': 'wpmtst_get_form_preview',
-      'fields': formFields.serialize()
+      'fields': formFields.serialize(),
+      'security': wpmtstAdmin.ajax_nonce
     };
+    
     $.post(ajaxurl, data, function (response) {
       var newDiv = $("<div></div>").hide().html(response)
       $("#fields-editor-preview")

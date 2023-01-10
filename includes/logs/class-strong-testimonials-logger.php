@@ -198,6 +198,11 @@ class Strong_File_Logging {
 	 * @since 2.51.7
 	 */
 	public function remove_log() {
+
+		if( !isset( $_REQUEST['st_log_remove'] ) || !isset( $_REQUEST['subdir'] ) ){
+			wp_die( esc_html__( 'Action failed. Please refresh the page and retry.', 'strong-testimonials' ) );
+		}
+
 		if ( empty( $_REQUEST['_wpnonce'] ) || ! wp_verify_nonce( wp_unslash( $_REQUEST['_wpnonce'] ), 'remove_log' ) ) { // phpcs:ignore input var ok, sanitization ok.
 			wp_die( esc_html__( 'Action failed. Please refresh the page and retry.', 'strong-testimonials' ) );
 		}

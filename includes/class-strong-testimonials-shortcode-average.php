@@ -193,11 +193,15 @@ class Strong_Testimonials_Average_Shortcode {
 			$content = str_replace( $tag, $parts[ $tag_keys[ $key ] ], $content );
 		}
 
-		// assemble it
-		$html = sprintf( '<%s class="%s">%s</%s>', $atts['element'], implode( ' ', $class_list ), $content, $atts['element'] );
+		$allowed_elements = array( 'span', 'p', 'i', 'div', 'li', 'ul', 'ol', 'a', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6' );
+		$allowed_elements = apply_filters( 'wpmtst_allowed_shortcode_elements', $allowed_elements );
+		$element = in_array( $atts['element'], $allowed_elements ) ? esc_attr( $atts['element'] ) : 'div';
+
+		// assemble it.
+		$html = sprintf( '<%s class="%s">%s</%s>', esc_attr( $element ), esc_attr( implode( ' ', $class_list ) ), $content, esc_attr( $element ) );
 
 		wp_enqueue_style( 'wpmtst-rating-display' );
-                
+
 		return apply_filters( 'wpmtst_average_rating_html', $html, $atts, $summary );
 	}
 
