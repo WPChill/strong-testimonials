@@ -636,7 +636,17 @@ class Strong_Testimonials_Helper {
 				<label for="view-shortcode"><?php esc_html_e( 'Shortcode', 'strong-testimonials' ); ?></label>
 			</div>
 			<div class="table-cell">
-				<?php echo $shortcode; ?>
+				<?php 
+				if ( 'edit' == $this->action ) {
+					echo '<div class="saved">';
+					echo '<input id="view-shortcode" type="text" value="[testimonial_view id=&quot;' . esc_attr( $this->view_id ) . '&quot;]" readonly />';
+					echo '<input id="copy-shortcode" class="button small" type="button" value="' . esc_attr__( 'copy to clipboard', 'strong-testimonials' ) . '" data-copytarget="#view-shortcode" />';
+					echo '<span id="copy-message">' . esc_html__( 'copied', 'strong-testimonials' ) . '</span>';
+					echo '</div>';
+				} else {
+					echo '<div class="unsaved">' . esc_html_x( 'will be available after you save this', 'The shortcode for a new View.', 'strong-testimonials' ) . '</div>';
+				}
+				?>
 			</div>
 		</div>
 
