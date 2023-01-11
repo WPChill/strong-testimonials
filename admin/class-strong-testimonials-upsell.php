@@ -133,7 +133,6 @@ class Strong_Testimonials_Upsell {
 
 	public function add_meta_boxes() {
 
-
 		if ( ! defined( 'WPMTST_IMPORTER_VERSION' ) ) {
 			
 			// remove "submitdiv" metabox so we can add it back in desired order.

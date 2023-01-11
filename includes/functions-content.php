@@ -252,23 +252,24 @@ function wpmtst_assemble_hybrid( $words_array, $num_words, $sep, $more, $full_te
 		$ellipsis = '<div class="ellipsis" style="display:inline;">' . $ellipsis . ' </div>';
 		/* ! This space is important:                        ^       */
 	}
-        if (!empty($excerpt)) {
-            $first_half  = $excerpt;
-        } else {
-            $first_half  = implode( $sep, array_slice( $words_array, 0, $num_words ) );
-        }
+	if ( ! empty( $excerpt ) ) {
+		$first_half = $excerpt;
+	} else {
+		$first_half = implode( $sep, array_slice( $words_array, 0, $num_words ) );
+	}
 
-        $wrap_open_class = '';
+	$wrap_open_class = '';
 
-        if (  WPMST()->atts( 'html_content' ) || !empty($excerpt) ) {
-            $wrap_open_class = 'all-html';
-        }
+	if ( WPMST()->atts( 'html_content' ) || ! empty( $excerpt ) ) {
+		$wrap_open_class = 'all-html';
+	}
 
-        $wrap_open_excerpt  = '<div class="readmore-excerpt animated ' . $wrap_open_class . '"> ';
-	$wrap_open  = '<div class="readmore-content animated"  id="more-' . get_the_ID() . '" hidden> ';
-	$wrap_close = ' </div>';
+	$wrap_open_excerpt  = '<div class="readmore-excerpt animated ' . esc_attr( $wrap_open_class ) . '"> ';
+	$wrap_open          = '<div class="readmore-content animated"  id="more-' . esc_attr( get_the_ID() ) . '" hidden> ';
+	$wrap_close         = ' </div>';
 	$wrap_close_excerpt = ' </div>';
-    $first_half = '<div style="display:inline;">'.$first_half.'</div>';
-	return $wrap_open_excerpt . $first_half . $ellipsis . ' ' . $wrap_close_excerpt. $wrap_open . $full_text  . $wrap_close .$more ;
+	$first_half         = '<div style="display:inline;">' . wp_kses_post( $first_half ) . '</div>';
+
+	return $wrap_open_excerpt . $first_half . $ellipsis . ' ' . $wrap_close_excerpt . $wrap_open . $full_text . $wrap_close . $more;
 	/* ! This space is important:                                        ^                                                  */
 }
