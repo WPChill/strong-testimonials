@@ -29,3 +29,7 @@
     margin: 0;
     padding: 5px;
   }
+
+.wpmslider-controls .screen-reader-text {
+    display: none;
+}
