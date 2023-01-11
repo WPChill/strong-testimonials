@@ -41,8 +41,7 @@ class Strong_Testimonials_View_Shortcode {
 			$atts,
 			$this->shortcode
 		);
-		var_dump( $out);
-		wp_die();
+
 		return $this->render_view( $out );
 	}
 
