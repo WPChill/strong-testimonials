@@ -126,6 +126,7 @@ function wpmtst_view_edit_form() {
 	}
 
 	$view_id    = isset( $_POST['view']['id'] ) ? absint( filter_var( $_POST['view']['id'], FILTER_SANITIZE_NUMBER_INT ) ) : 0;
+
 	$view_name  = isset( $_POST['view']['name'] ) ? wpmtst_validate_view_name( sanitize_text_field( wp_unslash( $_POST['view']['name'] ) ), $view_id ) : 'new';
 
 	if ( isset( $_POST['reset'] ) ) {

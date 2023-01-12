@@ -46,6 +46,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 define( 'WPMTST_VERSION', '3.1.0' );
+
 define( 'WPMTST_PLUGIN', plugin_basename( __FILE__ ) ); // strong-testimonials/strong-testimonials.php
 define( 'WPMTST', dirname( WPMTST_PLUGIN ) );           // strong-testimonials
 define( 'WPMTST_LOGS', wp_upload_dir()['basedir']. '/st-logs/' );
