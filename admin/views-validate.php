@@ -189,7 +189,7 @@ function wpmtst_sanitize_view_readmore( $data, $input, $default_view ) {
 		$data['more_post'] = 0;
 	}
 	$data['more_post_ellipsis'] = sanitize_text_field( $input['more_post_ellipsis'] );
-	$data['use_default_more']   = $input['use_default_more'];
+	$data['use_default_more']   = ( isset( $input['use_default_more'] ) ) ? $input['use_default_more'] : 0;
 	$data['more_post_text']     = sanitize_text_field( $input['more_post_text'] );
 	$data['less_post_text']     = sanitize_text_field( $input['less_post_text'] );
 

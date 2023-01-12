@@ -4,7 +4,7 @@ Tags: testimonials, testimonial slider, testimonial form, star ratings
 Requires at least: 5.2
 Requires PHP: 5.6
 Tested up to: 6.1
-Stable tag: 3.0.3
+Stable tag: 3.1.0
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -206,6 +206,22 @@ No. If you already have testimonials in another plugin or theme, you will have t
 8. View editor
 
 == Changelog ==
+= 3.1.0 - TBD  -
+- Fixed: Welcome banner visual update.
+- Fixed: abs( ) function no longer supports string inputs in php v8+ ( [#344](https://github.com/WPChill/strong-testimonials/issues/344) )
+- Fixed: Testimonials slider is not initialized properly ( [#349](https://github.com/WPChill/strong-testimonials/issues/349) )
+- Fixed: WP 6 Widgets – wp_enqueue warning ( [#324](https://github.com/WPChill/strong-testimonials/issues/324) )
+- Changed: Uninstall form's spacing reduced to properly fit on smaller displays. ( [#333](https://github.com/WPChill/strong-testimonials/issues/333) )
+- Fixed: Testimonial window expands incomplete and over pagination bullets ( [#336](https://github.com/WPChill/strong-testimonials/issues/336)
+- Fixed: Warning on slider "enable html" setting ( [#351](https://github.com/WPChill/strong-testimonials/issues/351) )
+- Fixed: Uninstall process leftovers ( [#346](https://github.com/WPChill/strong-testimonials/issues/346) )
+- Fixed: Excerpt HTML is now stripped ( [#311](https://github.com/WPChill/strong-testimonials/issues/311) )
+- Added: Check for addons license ( [#353](https://github.com/WPChill/strong-testimonials/issues/353) )
+- Added: Strong Testimonials logo branding bar ( [#357](https://github.com/WPChill/strong-testimonials/issues/356) )
+- Added: Testimonials & Extensions tabs ( [#355](https://github.com/WPChill/strong-testimonials/issues/355) )
+- Fixed: Rating stars not scaled properly on load ( [#359](https://github.com/WPChill/strong-testimonials/issues/359) )
+- Fixed: Screen reader text showing on unstyled non Guttenberg testimonial next/prev buttons. ( [#343](https://github.com/WPChill/strong-testimonials/issues/343) )
+
 = 3.0.3 - 09.01.2023 -
 - Fixed: Security vulnerability ( [#360](https://github.com/WPChill/strong-testimonials/issues/360) )
 - Fixed: Escaping and sanitizations ( [#361](https://github.com/WPChill/strong-testimonials/issues/361) )

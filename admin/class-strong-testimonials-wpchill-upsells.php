@@ -48,6 +48,15 @@ if ( ! class_exists( 'Strong_Testimonials_WPChill_Upsells' ) ) {
 		private $packages = array();
 
 		/**
+		 * License Status
+		 *
+		 * @since 2.5.2
+		 *
+		 * @var string
+		 */
+		private $license = false;
+
+		/**
 		 * URL endpoints
 		 *
 		 * @since 2.5.2
@@ -71,6 +80,11 @@ if ( ! class_exists( 'Strong_Testimonials_WPChill_Upsells' ) ) {
 		 */
 		public function __construct( $args ) {
 
+			// Check for 'strong_testimonials_license_key' option and delete 'upgradable_packages' transient
+			add_action( 'updated_option', array( $this, 'delete_upgradable_packages_transients' ), 15 );
+
+			$this->license = self::check_for_license();
+
 			if ( ! isset( $args['slug'] ) ) {
 				return;
 			}
@@ -88,6 +102,31 @@ if ( ! class_exists( 'Strong_Testimonials_WPChill_Upsells' ) ) {
 
 			$this->fetch_packages();
 
+		}
+
+		/**
+		 * Lets check for license
+		 *
+		 * @return bool
+		*
+		* @since 2.5.2
+		* @since 2.5.6 moved here from class-modula-pro-upsells.php.
+		*/
+		public static function check_for_license() {
+
+			$license_status = get_option( 'strong_testimonials_license_status' );
+
+			// If the option is false it means it is empty
+			if ( ! $license_status ) {
+				return null;
+			}
+
+			// There is no license or license is not valid anymore, so we get all packages
+			if ( 'valid' != $license_status->license ) {
+				return false;
+			}
+
+			return true;
 		}
 
 		/**
@@ -136,16 +175,27 @@ if ( ! class_exists( 'Strong_Testimonials_WPChill_Upsells' ) ) {
 				'route'    => 'get-packages'
 			);
 
+			if ( $this->license ) {
+				$rest_calls['packages'] = 'upgradable_packages';
+
+				// Transient doesn't exist so we make the call
+				$url         = preg_replace( '/\?.*/', '', get_bloginfo( 'url' ) );
+				$license_key = get_option( 'strong_testimonials_license_key' );
+				$query_var   = 'get-upgrade?license=' . $license_key . '&url=' . $url;
+
+				$rest_calls['route'] = $query_var;
+			}
+
 			// Lets get the transient
 			$packages_transient = get_transient( $this->get_transient( $rest_calls['packages'] ));
 
 			//If the transient exists then we will not make another call to the main server
-			// if ( $packages_transient && ! empty( $packages_transient ) ) {
-			// 	$this->packages = $packages_transient;
-			// 	$this->upsell_extensions = $this->get_extensions_upsell($this->packages);
+			 if ( $packages_transient && ! empty( $packages_transient ) ) {
+			 	$this->packages = $packages_transient;
+			 	$this->upsell_extensions = $this->get_extensions_upsell($this->packages);
 
-			// 	return;
-			// }
+			 	return;
+			 }
 
 			$query_var = $rest_calls['route'];
 
@@ -494,6 +544,19 @@ if ( ! class_exists( 'Strong_Testimonials_WPChill_Upsells' ) ) {
 			return $transients;
 		}
 
+		/**
+		 * Deletes the packages transients on license update
+		 *
+		 * @param $option_name
+		 *
+		 * @return void
+		 *
+		 * @since 3.0.3
+		 */
+		public function delete_upgradable_packages_transients( $option_name ){
+			if( 'strong_testimonials_license_key' === $option_name ){
+				delete_transient( 'strong-testimonials_upgradable_packages' );
+			}
+		}
 	}
-
 }

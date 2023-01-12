@@ -50,7 +50,9 @@
 
       // Wait for images loaded
       if (pager.settings.imagesLoaded) {
-        el.imagesLoaded(setup);
+        el.imagesLoaded().done( function( instance ) {
+          setup();
+        });
       } else {
         setup();
       }

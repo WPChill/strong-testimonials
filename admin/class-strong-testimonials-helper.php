@@ -3,7 +3,7 @@
 /**
  * Class Strong_Testimonials_Helper
  *
- * @since 2.5
+ * @since 3.0.3
  */
 class Strong_Testimonials_Helper {
 
@@ -34,7 +34,7 @@ class Strong_Testimonials_Helper {
 	public function __construct() {
 
 		$this->action       = filter_input( INPUT_GET, 'action', FILTER_SANITIZE_STRING );
-		$this->view_id      = abs( filter_input( INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT ) );
+		$this->view_id      = absint( filter_input( INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT ) );
 		$this->view_options = apply_filters( 'wpmtst_view_options', get_option( 'wpmtst_view_options' ) );
 		$this->cat_count    = wpmtst_get_cat_count();
 	}
@@ -78,7 +78,7 @@ class Strong_Testimonials_Helper {
 		$view = wpmtst_get_view_default();
 		if ( isset( $_REQUEST['action'] ) ) {
 			$action = filter_input( INPUT_GET, 'action', FILTER_SANITIZE_STRING );
-			$id     = abs( filter_input( INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT ) );
+			$id     = absint( filter_input( INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT ) );
 			if ( 'edit' == $action || 'duplicate' == $action ) {
 				$view_array = wpmtst_get_view( $id );
 				if ( isset( $view_array['value'] ) ) {
@@ -2566,5 +2566,22 @@ class Strong_Testimonials_Helper {
 			</div>
 		</td>
 		<?php
+	}
+
+		/**
+	 * Callback to sort tabs/fields on priority.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @return bool
+	 */
+	public static function sort_data_by_priority( $a, $b ) {
+		if ( !isset( $a['priority'], $b['priority'] ) ) {
+			return -1;
+		}
+		if ( $a['priority'] == $b['priority'] ) {
+			return 0;
+		}
+		return $a['priority'] < $b['priority'] ? -1 : 1;
 	}
 }

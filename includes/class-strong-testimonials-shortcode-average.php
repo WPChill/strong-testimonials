@@ -373,7 +373,7 @@ class Strong_Testimonials_Average_Shortcode {
             <span class="star0 star<?php echo esc_attr( $is_zero ); ?>"></span>
 			<?php
             if ($is_zero) {
-                echo str_repeat('<span class="star">'. $star_regular .'</span>', 5);
+                echo str_repeat('<span class="star" style="display: inline-block;" >'. $star_regular .'</span>', 5);
             } else {
                 for ($i = 1; $i <= 5; $i++) {
                     if ($i <= round($rating)) {
@@ -385,7 +385,7 @@ class Strong_Testimonials_Average_Shortcode {
                     if ( (0.9 >= $i - $rating) && (0.1 <= $i - $rating)) {
                         $star_icon = $star_half ;
                     }
-                    printf('<span class="star">%s</span>',  $star_icon );
+                    printf('<span class="star" style="display: inline-block;" >%s</span>',  $star_icon );
                 }
             }
 			?>

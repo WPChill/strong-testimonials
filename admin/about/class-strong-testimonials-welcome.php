@@ -57,6 +57,7 @@ class Strong_Testimonials_Welcome {
 
 		// WPChill Welcome Class
 		require_once WPMTST_DIR . 'includes/submodules/banner/class-wpchill-welcome.php';
+
 		$welcome = WPChill_Welcome::get_instance();
 		?>
 		<div id="wpchill-welcome">
@@ -73,9 +74,10 @@ class Strong_Testimonials_Welcome {
 						<?php $welcome->display_heading( esc_html__( 'Thank you for installing Strong Testimonials', 'strong-testimonials' ) ); ?>
 						<?php $welcome->display_subheading( esc_html__( 'You\'re just a few steps away from adding and displaying your first testimonial on your website with the easiest to use WordPress review and testimonial plugin on the market.', 'strong-testimonials' ) ); ?>
 					</div>
-
-					<div class="button-wrap-single">
-						<?php $welcome->display_button( esc_html__( 'Read our step-by-step guide to get started', 'strong-testimonials' ), 'https://strongtestimonials.com/docs/add-testimonials-to-your-website/', true ); ?>
+					<div class="wpchill-text-center">
+						<div class="button-wrap-single">
+							<?php $welcome->display_button( esc_html__( 'Read our step-by-step guide to get started', 'strong-testimonials' ), 'https://strongtestimonials.com/docs/add-testimonials-to-your-website/','wpmtst-btn wpmtst-btn-block wpmtst-btn-lg', true ); ?>
+						</div>
 					</div>
 
 					<?php $welcome->display_empty_space(); ?>
@@ -100,10 +102,12 @@ class Strong_Testimonials_Welcome {
 						<?php $welcome->display_extension( esc_html__( 'Testimonial category filters', 'strong-testimonials' ), esc_html__( 'Increase workflow and user experience by filtering testimonials by category, product/service, or star rating.', 'strong-testimonials' ), esc_url( WPMTST_ADMIN_URL ) . '/img/features/testimonial-category-filters.png', true ); ?>
 						<?php $welcome->display_extension( esc_html__( 'Properties ', 'strong-testimonials' ), esc_html__( 'Change properties of the testimonial post type: labels, permalink structure, admin options and post editor features.', 'strong-testimonials' ), esc_url( WPMTST_ADMIN_URL ) . '/img/features/properties.png', true ); ?>					
 						<?php $welcome->layout_end(); ?>
-						<div class="button-wrap-single clear">
-								<div class="right">
-								<?php $welcome->display_button( esc_html__( 'Upgrade Now', 'strong-testimonials' ), 'https://strongtestimonials.com/pricing/?utm_source=welcome_banner&utm_medium=upgradenow&utm_campaign=welcome_banner&utm_content=first_button', true, '#E76F51' ); ?>
-								</div>
+						<div class="wpchill-text-center">
+							<div class="button-wrap-single clear">
+									<div class="right">
+									<?php $welcome->display_button( esc_html__( 'Upgrade Now', 'strong-testimonials' ), 'https://strongtestimonials.com/pricing/?utm_source=welcome_banner&utm_medium=upgradenow&utm_campaign=welcome_banner&utm_content=first_button','wpmtst-btn wpmtst-btn-block wpmtst-btn-lg', true, '#E76F51' ); ?>
+									</div>
+							</div>
 						</div>
 					</div>
 
@@ -120,10 +124,10 @@ class Strong_Testimonials_Welcome {
 						</div><!-- testimonials -->
 						<div class="button-wrap clear">
 							<div class="left">
-								<?php $welcome->display_button( esc_html__( 'Start Adding Testimonials', 'strong-testimonials' ), esc_url( admin_url( 'edit.php?post_type=wpm-testimonial' ) ), true ); ?>
+								<?php $welcome->display_button( esc_html__( 'Start Adding Testimonials', 'strong-testimonials' ), esc_url( admin_url( 'edit.php?post_type=wpm-testimonial' ) ),'wpmtst-btn wpmtst-btn-block wpmtst-btn-lg', true ); ?>
 							</div>
 							<div class="right">
-								<?php $welcome->display_button( esc_html__( 'Upgrade Now', 'strong-testimonials' ), 'https://strongtestimonials.com/pricing/?utm_source=welcome_banner&utm_medium=upgradenow&utm_campaign=welcome_banner&utm_content=second_button', true, '#E76F51' ); ?>
+								<?php $welcome->display_button( esc_html__( 'Upgrade Now', 'strong-testimonials' ), 'https://strongtestimonials.com/pricing/?utm_source=welcome_banner&utm_medium=upgradenow&utm_campaign=welcome_banner&utm_content=second_button','wpmtst-btn wpmtst-btn-block wpmtst-btn-lg', true, '#E76F51' ); ?>
 							</div>
 						</div>
 					</div>
