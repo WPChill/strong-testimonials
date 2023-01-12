@@ -270,6 +270,6 @@ function wpmtst_assemble_hybrid( $words_array, $num_words, $sep, $more, $full_te
 	$wrap_close_excerpt = ' </div>';
 	$first_half         = '<div style="display:inline;">' . wp_kses_post( $first_half ) . '</div>';
 
-	return $wrap_open_excerpt . $first_half . $ellipsis . ' ' . $wrap_close_excerpt . $wrap_open . $full_text . $wrap_close . $more;
+	return $wrap_open_excerpt . $first_half . $ellipsis . ' ' . $wrap_close_excerpt . $wrap_open . $excerpt . ' ' . $full_text . $wrap_close . $more;
 	/* ! This space is important:                                        ^                                                  */
 }
