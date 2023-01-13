@@ -33,7 +33,7 @@ function wpmtst_update_tables() {
 		$message .= '<p><code>' . $wpdb->last_error . '</code></p>';
 		$message .= '<p>' . sprintf( __( '<a href="%s">Go back to Dashboard</a>', 'strong-testimonials' ), esc_url( admin_url() ) ) . '</p>';
 
-		wp_die( sprintf( '<div class="error strong-view-error">%s</div>', $message ) );
+		wp_die( sprintf( '<div class="error strong-view-error">%s</div>', wp_kses_post( $message  ) ) );
 	}
 
 	update_option( 'wpmtst_db_version', WPMST()->get_db_version(), 'no' );

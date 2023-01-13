@@ -156,15 +156,15 @@ class Strong_Testimonials_Admin_List {
 				break;
 
 			case 'post_content' :
-				echo substr( $post->post_content, 0, 100 ) . '&hellip;';
+				echo wp_kses_post( substr( $post->post_content, 0, 100 ) . '&hellip;' );
 				break;
 
 			case 'post_excerpt' :
-				echo $post->post_excerpt;
+				echo wp_kses_post( $post->post_excerpt );
 				break;
 
 			case 'strong_thumbnail' :
-				echo wpmtst_get_thumbnail( array( 60, 60 ) );
+				echo wp_kses_post( wpmtst_get_thumbnail( array( 60, 60 ) ) );
 				break;
 
 			case 'category' :
@@ -174,7 +174,7 @@ class Strong_Testimonials_Admin_List {
 					foreach ( $categories as $cat ) {
 						$list[] = $cat->name;
 					}
-					echo implode( ", ", $list );
+					echo esc_html( implode( ", ", $list ) );
 				}
 				break;
 
@@ -339,7 +339,7 @@ class Strong_Testimonials_Admin_List {
 	 * @since 1.16.0
 	 */
 	public static function is_column_sorted() {
-		return isset( $_GET['orderby'] ) || strstr( $_SERVER['REQUEST_URI'], 'action=edit' ) || strstr( $_SERVER['REQUEST_URI'], 'wp-admin/post-new.php' );
+		return isset( $_GET['orderby'] ) || isset( $_SERVER['REQUEST_URI'] ) || strstr( sanitize_url( $_SERVER['REQUEST_URI'] ), 'action=edit' ) || strstr( sanitize_url( $_SERVER['REQUEST_URI'] ), 'wp-admin/post-new.php' );
 	}
 
 }

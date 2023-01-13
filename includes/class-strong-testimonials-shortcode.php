@@ -36,7 +36,7 @@ class Strong_Testimonials_View_Shortcode {
 	 * @return mixed|string
 	 */
 	public function testimonial_view_shortcode( $atts, $content = null ) {
-		$out = shortcode_atts(
+		$out = shortcode_atts(  // phpcs:ignore sanitized in render_view 
 			array(),
 			$atts,
 			$this->shortcode

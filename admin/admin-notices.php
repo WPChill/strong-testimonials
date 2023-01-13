@@ -36,7 +36,7 @@ function wpmtst_admin_notices() {
     foreach ( $notices as $key => $notice ) {
         $message = apply_filters( 'wpmtst_admin_notice', '', $key );
         if ( $message ) {
-            echo $message;
+            echo wp_kses_post( $message );
         }
 	    if ( ! $notice['persist'] ) {
 		    wpmtst_delete_admin_notice( $key );

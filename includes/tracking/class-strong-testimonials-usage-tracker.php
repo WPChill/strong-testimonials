@@ -340,7 +340,7 @@ if ( ! class_exists( 'Strong_Testimonials_Usage_Tracker' ) ) {
 			}
 			$body['marketing_method'] = $this->marketing;
 
-			$body['server'] = isset( $_SERVER['SERVER_SOFTWARE'] ) ? $_SERVER['SERVER_SOFTWARE'] : '';
+			$body['server'] = isset( $_SERVER['SERVER_SOFTWARE'] ) ? sanitize_text_field( wp_unslash( $_SERVER['SERVER_SOFTWARE'] ) ) : '';
 
 			// Extra PHP fields.
 			$body['memory_limit']        = ini_get( 'memory_limit' );

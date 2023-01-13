@@ -489,7 +489,7 @@ function wpmtst_nested_cats( $value, $parent = 0, $level = 0 ) {
 	if ( $cats ) {
 		foreach ( $cats as $cat ) {
 			$selected = in_array( $cat->term_id, $value ) ? ' selected' : '';
-			printf( '<option value="%s"%s>%s%s</option>', esc_attr( $cat->term_id ), $selected, esc_html( str_repeat( '&nbsp;&nbsp;&nbsp;', $level ) ), esc_html( $cat->name ) );
+			printf( '<option value="%s"%s>%s%s</option>', esc_attr( $cat->term_id ), esc_attr( $selected ), esc_html( str_repeat( '&nbsp;&nbsp;&nbsp;', $level ) ), esc_html( $cat->name ) );
 			wpmtst_nested_cats( $value, $cat->term_id, $level + 1 );
 		}
 	}

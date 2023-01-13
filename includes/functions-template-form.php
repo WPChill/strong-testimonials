@@ -431,7 +431,7 @@ function wpmtst_field_required_notice() {
  * Print required field symbol.
  */
 function wpmtst_field_required_symbol() {
-	echo apply_filters( 'wpmtst_field_required_symbol', '<span class="required symbol"></span>' );
+	echo wp_kses_post( apply_filters( 'wpmtst_field_required_symbol', '<span class="required symbol"></span>' ) );
 }
 
 /**

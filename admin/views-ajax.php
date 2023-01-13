@@ -66,7 +66,7 @@ add_action( 'wp_ajax_wpmtst_view_add_field_link', 'wpmtst_view_add_field_link_fu
 function wpmtst_view_get_label_function() {
 	$field = array( 'field' => isset( $_REQUEST['name'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['name'] ) ) : '' );
 	$label = wpmtst_get_field_label( $field );
-	echo $label;
+	echo esc_html( $label );
 	wp_die();
 }
 add_action( 'wp_ajax_wpmtst_view_get_label', 'wpmtst_view_get_label_function' );
@@ -78,7 +78,7 @@ add_action( 'wp_ajax_wpmtst_view_get_label', 'wpmtst_view_get_label_function' );
  * @since 1.21.0
  */
 function wpmtst_view_add_field_date_function() {
-	$key = isset( $_REQUEST['key'] ) ? (int) sanitize_text_field( $_REQUEST['key'] ) : 0;
+	$key = isset( $_REQUEST['key'] ) ? (int) sanitize_text_field( wp_unslash( $_REQUEST['key'] ) ) : 0;
 	$empty_field = array( 'format' => '' );
         $source = 'view[data]';
         if ( isset( $_REQUEST['source'] ) && !empty( $_REQUEST['source'] ) ) {
@@ -95,7 +95,7 @@ add_action( 'wp_ajax_wpmtst_view_add_field_date', 'wpmtst_view_add_field_date_fu
  * @since 2.40.4
  */
 function wpmtst_view_add_field_checkbox_function() {
-		$key = isset( $_REQUEST['key'] ) ? (int) sanitize_text_field( $_REQUEST['key'] ) : 0;
+		$key = isset( $_REQUEST['key'] ) ? (int) sanitize_text_field( wp_unslash( $_REQUEST['key'] ) ) : 0;
         $field = array(
             'field'  => isset( $_REQUEST['fieldName'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['fieldName'] ) ) : 'new_field',
             'type'   => isset( $_REQUEST['fieldType'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['fieldType'] ) ) : 'text'

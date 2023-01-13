@@ -40,7 +40,7 @@ function wpmtst_get_views() {
 		$message .= esc_html__( 'An error occurred.', 'strong-testimonials' ) . '</span>&nbsp;';
 		$message .= esc_html__( 'The plugin has been deactivated.', 'strong-testimonials' ) . '&nbsp;';
 		$message .= '<p>' . sprintf( __( '<a href="%s">Go back to Dashboard</a>', 'strong-testimonials' ), esc_url( admin_url() ) ) . '</p>';
-		wp_die( sprintf( '<div class="error strong-view-error">%s</div>', $message ) );
+		wp_die( sprintf( '<div class="error strong-view-error">%s</div>', wp_kses_post( $message ) ) );
 	}
 
 	return apply_filters('wpmtst_views_query_results', $results);

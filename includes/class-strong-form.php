@@ -199,7 +199,7 @@ class Strong_Testimonials_Form {
 		foreach ( $fields as $key => $field ) {
 
 			$new_post = apply_filters( 'before_field_sanitize', $new_post, $field);
-			
+
 			if ( isset( $field['required'] ) && $field['required'] && isset( $field['name'] ) ) {
 				if ( ( 'file' == $field['input_type'] ) ) {
 					if ( ! isset( $_FILES[ $field['name'] ] ) || ! isset( $_FILES[ $field['name'] ]['size'] ) || ! $_FILES[ $field['name'] ]['size'] ) {
@@ -300,7 +300,7 @@ class Strong_Testimonials_Form {
 			 */
 			foreach ( $testimonial_att as $name => $atts ) {
 				if ( isset( $_FILES[ $name ] ) && isset( $_FILES[ $name ]['size'] ) && $_FILES[ $name ]['size'] > 1 ) {
-					$file = $_FILES[ $name ];
+					$file = $_FILES[ $name ]; // phpcs:ignore sanitized under
 
 					// Upload file
 					$overrides     = array( 'test_form' => false );

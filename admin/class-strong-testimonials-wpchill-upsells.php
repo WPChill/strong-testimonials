@@ -444,14 +444,14 @@ if ( ! class_exists( 'Strong_Testimonials_WPChill_Upsells' ) ) {
 				<div class="wpchill-pricing-package feature-name">
 					<?php echo esc_html__( 'Sites', 'strong-testimonials' ); ?>
 				</div>
-				<?php echo $sites; ?>
+				<?php echo wp_kses_post( $sites ); ?>
 			</div>
 
 			<div class="wpchill-plans-table">
 				<div class="wpchill-pricing-package feature-name">
 					<?php echo esc_html__( 'Support', 'strong-testimonials' ); ?>
 				</div>
-				<?php echo $priority; ?>
+				<?php echo wp_kses_post( $priority ); ?>
 			</div>
 			<?php
 
