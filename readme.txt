@@ -206,21 +206,26 @@ No. If you already have testimonials in another plugin or theme, you will have t
 8. View editor
 
 == Changelog ==
-= 3.1.0 - TBD  -
+= 3.1.0 - 16.01.2023  -
 - Fixed: Welcome banner visual update.
 - Fixed: abs( ) function no longer supports string inputs in php v8+ ( [#344](https://github.com/WPChill/strong-testimonials/issues/344) )
 - Fixed: Testimonials slider is not initialized properly ( [#349](https://github.com/WPChill/strong-testimonials/issues/349) )
 - Fixed: WP 6 Widgets – wp_enqueue warning ( [#324](https://github.com/WPChill/strong-testimonials/issues/324) )
 - Changed: Uninstall form's spacing reduced to properly fit on smaller displays. ( [#333](https://github.com/WPChill/strong-testimonials/issues/333) )
-- Fixed: Testimonial window expands incomplete and over pagination bullets ( [#336](https://github.com/WPChill/strong-testimonials/issues/336)
+- Fixed: Testimonial window expands incomplete and over pagination bullets ( [#336](https://github.com/WPChill/strong-testimonials/issues/336) )
 - Fixed: Warning on slider "enable html" setting ( [#351](https://github.com/WPChill/strong-testimonials/issues/351) )
 - Fixed: Uninstall process leftovers ( [#346](https://github.com/WPChill/strong-testimonials/issues/346) )
 - Fixed: Excerpt HTML is now stripped ( [#311](https://github.com/WPChill/strong-testimonials/issues/311) )
 - Added: Check for addons license ( [#353](https://github.com/WPChill/strong-testimonials/issues/353) )
 - Added: Strong Testimonials logo branding bar ( [#357](https://github.com/WPChill/strong-testimonials/issues/356) )
 - Added: Testimonials & Extensions tabs ( [#355](https://github.com/WPChill/strong-testimonials/issues/355) )
+- Changed: Enqueue welcome banner assets only on the welcome page ( [#358](https://github.com/WPChill/download-monitor/issues/358) )
 - Fixed: Rating stars not scaled properly on load ( [#359](https://github.com/WPChill/strong-testimonials/issues/359) )
 - Fixed: Screen reader text showing on unstyled non Guttenberg testimonial next/prev buttons. ( [#343](https://github.com/WPChill/strong-testimonials/issues/343) )
+- Fixed: Sanitizations and escaping ( [#363](https://github.com/WPChill/strong-testimonials/issues/363) )
+- Fixed: Delete license transients on license upgrade ( [#354](https://github.com/WPChill/strong-testimonials/issues/354) )
+- Changed: Update logo ( [#340](https://github.com/WPChill/strong-testimonials/issues/340) )
+- Changed: Add onboarding on admin empty table list ( [#309](https://github.com/WPChill/strong-testimonials/issues/309) )
 
 = 3.0.3 - 09.01.2023 -
 - Fixed: Security vulnerability ( [#360](https://github.com/WPChill/strong-testimonials/issues/360) )

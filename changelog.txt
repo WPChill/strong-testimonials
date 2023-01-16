@@ -1,4 +1,4 @@
-= 3.1.0 - TBA  -
+= 3.1.0 - 16.01.2023  -
 - Fixed: Welcome banner visual update.
 - Fixed: abs( ) function no longer supports string inputs in php v8+ ( [#344](https://github.com/WPChill/strong-testimonials/issues/344) )
 - Fixed: Testimonials slider is not initialized properly ( [#349](https://github.com/WPChill/strong-testimonials/issues/349) )
@@ -14,6 +14,10 @@
 - Changed: Enqueue welcome banner assets only on the welcome page ( [#358](https://github.com/WPChill/download-monitor/issues/358) )
 - Fixed: Rating stars not scaled properly on load ( [#359](https://github.com/WPChill/strong-testimonials/issues/359) )
 - Fixed: Screen reader text showing on unstyled non Guttenberg testimonial next/prev buttons. ( [#343](https://github.com/WPChill/strong-testimonials/issues/343) )
+- Fixed: Sanitizations and escaping ( [#363](https://github.com/WPChill/strong-testimonials/issues/363) )
+- Fixed: Delete license transients on license upgrade ( [#354](https://github.com/WPChill/strong-testimonials/issues/354) )
+- Changed: Update logo ( [#340](https://github.com/WPChill/strong-testimonials/issues/340) )
+- Changed: Add onboarding on admin empty table list ( [#309](https://github.com/WPChill/strong-testimonials/issues/309) )
 
 = 3.0.3 - 09.01.2023 -
 - Fixed: Security vulnerability ( [#360](https://github.com/WPChill/strong-testimonials/issues/360) )
