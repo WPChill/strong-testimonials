@@ -3,7 +3,7 @@
 /**
  * Class Strong_Testimonials_Helper
  *
- * @since 2.5
+ * @since 3.0.3
  */
 class Strong_Testimonials_Helper {
 
@@ -34,7 +34,7 @@ class Strong_Testimonials_Helper {
 	public function __construct() {
 
 		$this->action       = filter_input( INPUT_GET, 'action', FILTER_SANITIZE_STRING );
-		$this->view_id      = abs( filter_input( INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT ) );
+		$this->view_id      = absint( filter_input( INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT ) );
 		$this->view_options = apply_filters( 'wpmtst_view_options', get_option( 'wpmtst_view_options' ) );
 		$this->cat_count    = wpmtst_get_cat_count();
 	}
@@ -78,7 +78,7 @@ class Strong_Testimonials_Helper {
 		$view = wpmtst_get_view_default();
 		if ( isset( $_REQUEST['action'] ) ) {
 			$action = filter_input( INPUT_GET, 'action', FILTER_SANITIZE_STRING );
-			$id     = abs( filter_input( INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT ) );
+			$id     = absint( filter_input( INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT ) );
 			if ( 'edit' == $action || 'duplicate' == $action ) {
 				$view_array = wpmtst_get_view( $id );
 				if ( isset( $view_array['value'] ) ) {
@@ -636,7 +636,17 @@ class Strong_Testimonials_Helper {
 				<label for="view-shortcode"><?php esc_html_e( 'Shortcode', 'strong-testimonials' ); ?></label>
 			</div>
 			<div class="table-cell">
-				<?php echo $shortcode; ?>
+				<?php 
+				if ( 'edit' == $this->action ) {
+					echo '<div class="saved">';
+					echo '<input id="view-shortcode" type="text" value="[testimonial_view id=&quot;' . esc_attr( $this->view_id ) . '&quot;]" readonly />';
+					echo '<input id="copy-shortcode" class="button small" type="button" value="' . esc_attr__( 'copy to clipboard', 'strong-testimonials' ) . '" data-copytarget="#view-shortcode" />';
+					echo '<span id="copy-message">' . esc_html__( 'copied', 'strong-testimonials' ) . '</span>';
+					echo '</div>';
+				} else {
+					echo '<div class="unsaved">' . esc_html_x( 'will be available after you save this', 'The shortcode for a new View.', 'strong-testimonials' ) . '</div>';
+				}
+				?>
 			</div>
 		</div>
 
@@ -1124,7 +1134,7 @@ class Strong_Testimonials_Helper {
 					&nbsp;
 					<label><input class="input-incremental then_all" type="number" id="view-count"
 								  name="view[data][count]"
-								  value="<?php echo ( - 1 == $this->view['count'] ) ? 1 : esc_attr( $this->view['count'] ); ?>"
+								  value="<?php echo ( - 1 == esc_attr( $this->view['count'] ) ) ? 1 : esc_attr( $this->view['count'] ); ?>"
 								  min="1" size="5" style="display: none;"></label>
 				</div>
 			</div>
@@ -1170,7 +1180,7 @@ class Strong_Testimonials_Helper {
 				<div class="row-inner">
 					<div class="then then_title" style="display: none;">
 						<label for="view-title_link">
-							<?php printf( esc_html_x( 'Link to %s', 'The name of this post type. "Testimonial" by default.', 'strong-testimonials' ), strtolower( apply_filters( 'wpmtst_cpt_singular_name', __( 'Testimonial', 'strong-testimonials' ) ) ) ); ?>
+							<?php printf( esc_html_x( 'Link to %s', 'The name of this post type. "Testimonial" by default.', 'strong-testimonials' ), esc_html( strtolower( apply_filters( 'wpmtst_cpt_singular_name', __( 'Testimonial', 'strong-testimonials' ) ) ) ) ); ?>
 						</label>
 						<div class="wpmtst-tooltip"><span>[?]</span>
 							<div class="wpmtst-tooltip-content"><?php echo esc_html__( '"Full testimonial" option doesn\'s work if "Disable permalinks for testimonials" from "Settings" page is enabled.', 'strong-testimonials' ); ?></div>
@@ -2155,7 +2165,7 @@ class Strong_Testimonials_Helper {
 														<?php
 														$name = sprintf( 'view[data][template_settings][%s][%s]', esc_attr( $key ), esc_attr( $option->name ) );
 														$id   = $key . '-' . $option->name;
-
+													
 														switch ( $option->type ) {
 															case 'select':
 
@@ -2168,11 +2178,11 @@ class Strong_Testimonials_Helper {
 																	printf( '<label for="%s">%s</label>', esc_attr( $id ), wp_kses_post( $option->label ) );
 																}
 
-																printf( '<select id="%s" name="%s">', esc_attr( $id ), $name );
+																printf( '<select id="%s" name="%s">', esc_attr( $id ), esc_attr( $name ) );
 
 																foreach ( $option->values as $value ) {
 																	$selected = selected( $value->value, $this->view['template_settings'][ $key ][ $option->name ], false );
-																	printf( '<option value="%s" %s>%s</option>', esc_attr( $value->value ), $selected, esc_html( $value->description ) );
+																	printf( '<option value="%s" %s>%s</option>', esc_attr( $value->value ), esc_attr( $selected ), esc_html( $value->description ) );
 																}
 
 																echo '</select>';
@@ -2185,7 +2195,7 @@ class Strong_Testimonials_Helper {
 
 																foreach ( $option->values as $value ) {
 																	$checked = checked( $value->value, $this->view['template_settings'][ $key ][ $option->name ], false );
-																	printf( '<input type="radio" id="%s" name="%s" value="%s" %s>', esc_attr( $id ), $name, esc_attr( $value->value ), $checked );
+																	printf( '<input type="radio" id="%s" name="%s" value="%s" %s>', esc_attr( $id ), esc_attr( $name ), esc_attr( $value->value ), esc_attr( $checked ) );
 																	printf( '<label for="%s">%s</label>', esc_attr( $id ), esc_html( $value->description ) );
 																}
 
@@ -2197,7 +2207,7 @@ class Strong_Testimonials_Helper {
 																}
 
 																$value = isset( $this->view['template_settings'][ $key ][ $option->name ] ) ? $this->view['template_settings'][ $key ][ $option->name ] : $option->default;
-																printf( '<input type="text" class="wp-color-picker-field" data-alpha="true" id="%s" name="%s" value="%s">', esc_attr( $id ), $name, esc_attr( $value ) );
+																printf( '<input type="text" class="wp-color-picker-field" data-alpha="true" id="%s" name="%s" value="%s">', esc_attr( $id ), esc_attr( $name ), esc_attr( $value ) );
 																break;
 															default:
 																do_action( 'wpmtst_views_render_template_option_' . $option->type, $this->view, $key, $option );
@@ -2556,5 +2566,22 @@ class Strong_Testimonials_Helper {
 			</div>
 		</td>
 		<?php
+	}
+
+		/**
+	 * Callback to sort tabs/fields on priority.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @return bool
+	 */
+	public static function sort_data_by_priority( $a, $b ) {
+		if ( !isset( $a['priority'], $b['priority'] ) ) {
+			return -1;
+		}
+		if ( $a['priority'] == $b['priority'] ) {
+			return 0;
+		}
+		return $a['priority'] < $b['priority'] ? -1 : 1;
 	}
 }

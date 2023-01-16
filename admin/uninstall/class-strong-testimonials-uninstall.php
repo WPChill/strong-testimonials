@@ -92,7 +92,7 @@ class Strong_Testimonials_Uninstall {
                         $after_input  = '</strong>';
                     }
 
-                    echo ' <p class="st-uninstall-options-checkbox" ><input type="checkbox" name="' . esc_attr( $key ) . ' " id="' . esc_attr( $key ) . '" value="' . esc_attr( $key ) . '"> <label for="' . esc_attr( $key ) . '">' . $before_input . esc_attr( $option['label'] ) . $after_input . '</label></p><p class="description">' . esc_html( $option['description'] ) . '</p>'; // phpcs:ignore $before_input, $after_input OK
+                    echo ' <p class="st-uninstall-options-checkbox" ><input type="checkbox" name="' . esc_attr( $key ) . ' " id="' . esc_attr( $key ) . '" value="' . esc_attr( $key ) . '"> <label for="' . esc_attr( $key ) . '">' . wp_kses_post( $before_input ) . esc_attr( $option['label'] ) . wp_kses_post( $after_input ) . '</label></p><p class="description">' . esc_html( $option['description'] ) . '</p>'; // phpcs:ignore $before_input, $after_input OK
 
                 }
                 ?>
@@ -164,7 +164,7 @@ class Strong_Testimonials_Uninstall {
         // Delete options
         if ( '1' == $uninstall_option['delete_options'] ) {
             // filter for options to be added by Strong Testimonial's add-ons
-            $options_array = apply_filters( 'st_uninstall_db_options', array( 'wpmtst_options', 'wpmtst_admin_notices','wpmtst_auto_dismiss_notices', 'wpmtst_plugin_version', 'wpmtst_compat_options', 'wpmtst_do_activation_redirect', 'wpmtst_config_errors', 'wpmtst_history', 'wpmtst_addons', 'wpmtst_update_log', 'wpmtst_db_version', 'wpmtst_custom_forms', 'wpmtst_fields', 'wpmtst_form_options', 'strong_testimonials_license_key', 'wpmtst_sticky_views', 'wpmtst_view_options', 'wpmtst_importer_options', 'wpmtst_view_default', 'wpmtst_base_forms', 'widget_strong-testimonials-view-widget' ) );
+            $options_array = apply_filters( 'st_uninstall_db_options', array( 'wpmtst_options', 'wpmtst_admin_notices','wpmtst_auto_dismiss_notices', 'wpmtst_plugin_version', 'wpmtst_compat_options', 'wpmtst_do_activation_redirect', 'wpmtst_config_errors', 'wpmtst_history', 'wpmtst_addons', 'wpmtst_update_log', 'wpmtst_db_version', 'wpmtst_custom_forms', 'wpmtst_fields', 'wpmtst_form_options', 'strong_testimonials_license_key', 'wpmtst_sticky_views', 'wpmtst_view_options', 'wpmtst_importer_options', 'wpmtst_view_default', 'wpmtst_base_forms', 'widget_strong-testimonials-view-widget', 'strong_testimonials_wisdom_notification_times', 'strong_testimonials_wisdom_block_notice', 'strong_testimonials_license_status', 'strong_testimonials_advanced_settings', 'strong_testimonials_wisdom_last_track_time', 'strong_testimonials_wisdom_admin_emails'  ) );
 
             foreach ( $options_array as $db_option ) {
                 delete_option( $db_option );

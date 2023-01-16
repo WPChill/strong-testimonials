@@ -139,7 +139,7 @@ class Strong_Review {
 					}
 
 					$.post( '<?php echo esc_url( admin_url( 'admin-ajax.php' ) ) ?>', data, function( response ) {
-						$( '#<?php echo $this->slug ?>-strong-testimonials-review-notice' ).slideUp( 'fast', function() {
+						$( '#<?php echo esc_attr( $this->slug ) ?>-strong-testimonials-review-notice' ).slideUp( 'fast', function() {
 							$( this ).remove();
 						} );
 					});

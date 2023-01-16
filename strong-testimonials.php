@@ -5,7 +5,7 @@
  * Description: Collect and display your testimonials or reviews.
  * Author: WPChill
  * Author URI: https://wpchill.com/
- * Version: 3.0.3
+ * Version: 3.1.0
  * Text Domain: strong-testimonials
  * Domain Path: /languages
  * Requires: 4.6 or higher
@@ -45,7 +45,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'WPMTST_VERSION', '3.0.3' );
+define( 'WPMTST_VERSION', '3.1.0' );
+
 define( 'WPMTST_PLUGIN', plugin_basename( __FILE__ ) ); // strong-testimonials/strong-testimonials.php
 define( 'WPMTST', dirname( WPMTST_PLUGIN ) );           // strong-testimonials
 define( 'WPMTST_LOGS', wp_upload_dir()['basedir']. '/st-logs/' );
@@ -159,8 +160,10 @@ final class Strong_Testimonials {
 		wpmtst_register_cpt();
 		flush_rewrite_rules();
 		
-		new Strong_Testimonials_Welcome();
-		do_action( 'wpmtst_after_update_setup', $first_install );
+		if (class_exists('Strong_Testimonials_Welcome')) {
+			new Strong_Testimonials_Welcome();
+			do_action( 'wpmtst_after_update_setup', $first_install );	
+		}
 	}
 
 	/**
@@ -296,6 +299,7 @@ final class Strong_Testimonials {
 			require_once WPMTST_ADMIN . 'class-strong-testimonials-admin-category-list.php';
 			require_once WPMTST_ADMIN . 'class-strong-testimonials-post-editor.php';
 			require_once WPMTST_ADMIN . 'class-strong-testimonials-exporter.php';
+			require_once WPMTST_ADMIN . 'class-strong-testimonials-wpchill-upsells.php';
 			require_once WPMTST_ADMIN . 'class-strong-testimonials-upsell.php';
 			require_once WPMTST_ADMIN . 'class-strong-testimonials-updater.php';
 			require_once WPMTST_ADMIN . 'class-strong-testimonials-review.php';
@@ -321,6 +325,12 @@ final class Strong_Testimonials {
 
 			// WPMTST Challenge Modal
 			//require_once WPMTST_ADMIN . 'challenge/modal.php';
+
+			// Admin Helpers
+			require_once WPMTST_ADMIN . 'class-strong-testimonials-admin-helper.php';
+
+			// WPMTST Onboarding
+			require_once WPMTST_ADMIN . 'class-strong-testimonials-onboarding.php';
 		}
 	}
 
@@ -352,6 +362,9 @@ final class Strong_Testimonials {
 		 * Add image size for widget.
 		 */
 		add_action( 'after_setup_theme', array( $this, 'add_image_size' ) );
+
+
+		add_filter( 'views_edit-wpm-testimonial', array( $this, 'add_onboarding_view' ), 10, 1 );
 	}
 
 	/**
@@ -527,6 +540,61 @@ final class Strong_Testimonials {
 		}
 
 		return get_file_data( __FILE__, array( 'name' => 'Plugin Name', 'version' => 'Version' ) );
+	}
+
+	public function add_onboarding_view( $views ) {
+
+		$query = new WP_Query(array(
+			'post_type' => 'wpm-testimonial',
+			'post_status' => array( 'publish', 'future', 'trash', 'draft', 'inherit', 'pending' ),
+		));
+
+		$this->display_extension_tab();
+
+		if( !$query->have_posts() ){
+			global $wp_list_table;
+			$wp_list_table = new WPMTST_Onboarding();
+			return array();
+		}
+		return $views;
+	}
+
+	public function display_extension_tab() {
+		?>
+		<h2 class="nav-tab-wrapper">
+			<?php
+			$tabs = array(
+					'testimonials'       => array(
+							'name'     => esc_html_x( 'Testimonials', 'post type general name', 'strong-testimonials' ),
+							'url'      => admin_url( 'edit.php?post_type=wpm-testimonial' ),
+							'priority' => '1'
+					),
+					'suggest_feature' => array(
+							'name'     => esc_html__( 'Suggest a feature', 'strong-testimonials' ),
+							'icon'     => 'dashicons-external',
+							'url'      => 'https://docs.google.com/forms/d/e/1FAIpQLScch0AchtnzxJsSrjUcW9ypcr1fZ9r-vyk3emEp8Sv47brb2g/viewform',
+							'target'   => '_blank',
+							'priority' => '10'
+					),
+			);
+
+			if ( current_user_can( 'install_plugins' ) ) {
+				$tabs[ 'extensions' ] = array(
+						'name'     => esc_html__( 'Extensions', 'strong-testimonials' ),
+						'url'      => admin_url( 'edit.php?post_type=wpm-testimonial&page=strong-testimonials-addons' ),
+						'priority' => '5',
+				);
+			}
+
+			$tabs = apply_filters( 'wpmtst_add_edit_tabs', $tabs );
+
+			uasort( $tabs, array( 'Strong_Testimonials_Helper', 'sort_data_by_priority' ) );
+
+			WPMTST_Admin_Helpers::wpmtst_tab_navigation( $tabs, 'testimonials' );
+			?>
+		</h2>
+		<br/>
+		<?php
 	}
 
 }

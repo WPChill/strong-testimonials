@@ -83,6 +83,7 @@
 				// 1. remove hidden attribute so we can animate it
 				fullTextWrapper.removeAttribute('hidden');
                 fullTextWrapper.style.display = 'inline';
+
 				// 2. update toggle link
 				// change text (may be blank)
 				toggleButtonText.innerText = toggleButtonText.dataset.lessText;
@@ -96,17 +97,17 @@
 				fullTextWrapper.classList.remove( 'fadeOutUp' );
 				fullTextWrapper.classList.remove( 'faster' );
 
-				if ( allHtml ) {
-					excerptWrapper.style.display = 'none';
-				}
+				excerptWrapper[0].style.display = 'none';
 
 				fireCustomEvent();
 
 			} else {
 				// hide
 				// 1. update toggle link
-				// hide link during transition
-				toggleButton.style.display = 'none';
+
+                fullTextWrapper.style.display = 'none';
+				fullTextWrapper.setAttribute('hidden', true);
+
 				toggleButton.setAttribute( 'aria-expanded', false );
 				// change link text (may be blank)
 				toggleButtonText.innerText = toggleButtonText.dataset.moreText;
@@ -116,12 +117,10 @@
 				fullTextWrapper.classList.add( 'faster' );
 				fullTextWrapper.classList.remove( 'fadeInDown' );
 
-				if ( allHtml ) {
-					excerptWrapper.style.display = 'block';
-				}
+				excerptWrapper[0].style.display = 'block';
 
 				// 3. do stuff at end of animation (the event listener above)
-
+				fireCustomEvent();
 			}
 
 		}, false);

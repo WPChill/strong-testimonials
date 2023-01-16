@@ -226,7 +226,9 @@
 
 		// Wait for images loaded
 		if (slider.settings.imagesLoaded) {
-		  viewEl.imagesLoaded(function () { initVisibilityCheck(); });
+            viewEl.imagesLoaded().done( function( instance ) {
+                initVisibilityCheck();
+              });
 		} else {
 		  initVisibilityCheck();
 		}

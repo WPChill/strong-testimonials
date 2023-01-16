@@ -166,8 +166,8 @@ class Strong_Views_List_Table extends Strong_Testimonials_List_Table {
 		$actions['delete']    = "<a class='submitdelete' href='" . wp_nonce_url( $delete_link, 'delete-strong-view_' . $item['id'] ) . "' onclick=\"if ( confirm( '" . esc_js( sprintf( __( 'Delete "%s"?', 'strong-testimonials' ), $item['name'] ) ) . "' ) ) { return true;} return false;\">" . esc_html__( 'Delete', 'strong-testimonials' ) . '</a>';
 
 		$actions = apply_filters('wpmtst_views_actions',$actions,$item);
-
-		echo $this->row_actions( $actions );
+		
+		echo wp_kses_post( $this->row_actions( $actions ) );
 	}
 
 	public function column_default( $item, $column_name ) {

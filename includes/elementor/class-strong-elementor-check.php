@@ -78,14 +78,7 @@ final class Strong_Testimonials_Elementor_Check {
 			unset( $_GET['activate'] );
 		}
 
-		$message = sprintf(
-			esc_html__('"%1$s" requires "%2$s" version %3$s or greater.', 'strong-testimonials'),
-			'<strong>' . esc_html__('Strong Testimonials Elementor widget', 'strong-testimonials') . '</strong>',
-			'<strong>' . esc_html__('Elementor', 'strong-testimonials') . '</strong>',
-			self::MINIMUM_ELEMENTOR_VERSION
-		);
-
-		printf('<div class="notice notice-warning is-dismissible"><p>%1$s</p></div>', $message);
+		printf('<div class="notice notice-warning is-dismissible"><p>%1$s</p></div>', sprintf( esc_html__('"%1$s" requires "%2$s" version %3$s or greater.', 'strong-testimonials'), '<strong>' . esc_html__('Strong Testimonials Elementor widget', 'strong-testimonials') . '</strong>', '<strong>' . esc_html__('Elementor', 'strong-testimonials') . '</strong>', self::MINIMUM_ELEMENTOR_VERSION ) );
 	}
 
 	/**
@@ -101,14 +94,7 @@ final class Strong_Testimonials_Elementor_Check {
 			unset( $_GET['activate'] );
 		}
 
-		$message = sprintf(
-			esc_html__('"%1$s" requires "%2$s" version %3$s or greater.', 'strong-testimonials'),
-			'<strong>' . esc_html__('Strong Testimonials Elementor widget', 'strong-testimonials') . '</strong>',
-			'<strong>' . esc_html__('PHP', 'strong-testimonials') . '</strong>',
-			self::MINIMUM_PHP_VERSION
-		);
-
-		printf('<div class="notice notice-warning is-dismissible"><p>%1$s</p></div>', $message);
+		printf('<div class="notice notice-warning is-dismissible"><p>%1$s</p></div>',  sprintf( esc_html__('"%1$s" requires "%2$s" version %3$s or greater.', 'strong-testimonials'), '<strong>' . esc_html__('Strong Testimonials Elementor widget', 'strong-testimonials') . '</strong>', '<strong>' . esc_html__('PHP', 'strong-testimonials') . '</strong>', self::MINIMUM_PHP_VERSION ) );
 	}
 
 	/* Remove WordPress widget because we have a dedicated Elementor Widget */

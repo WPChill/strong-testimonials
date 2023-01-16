@@ -252,7 +252,7 @@ class Strong_File_Logging {
 			wp_die( esc_html__( 'Action failed. Please refresh the page and retry.', 'strong-testimonials' ) );
 		}
 
-		if ( ! empty( $_REQUEST['st_log_download'] ) ) {  // phpcs:ignore input var ok.
+		if ( ! empty( $_REQUEST['st_log_download'] ) && ! empty( $_REQUEST['subdir'] ) ) {  // phpcs:ignore input var ok.
 			$this->download( wp_unslash( $_REQUEST['st_log_download'] ), wp_unslash( $_REQUEST['subdir'] ) ); // phpcs:ignore input var ok, sanitization ok.
 		}
 

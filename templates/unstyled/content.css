@@ -28,4 +28,14 @@
     list-style: none;
     margin: 0;
     padding: 5px;
-  }
+
+
+}
+.strong-view .screen-reader-text {
+    clip: rect(1px, 1px, 1px, 1px);
+    height: 1px;
+    overflow: hidden;
+    position: absolute !important;
+    width: 1px;
+    word-wrap: normal !important;
+}

@@ -91,8 +91,13 @@ function wpmtst_trim_excerpt( $excerpt = '' ) {
             $excerpt_length = apply_filters( 'excerpt_length', 55 );
             $excerpt_more   = apply_filters( 'excerpt_more', ' [&hellip;]' );
         }
-        
-        $excerpt        = wpmtst_trim_words( $text, $excerpt_length, $excerpt_more, $hybrid, $excerpt );
+
+		// Add "More" button if the excerpt is actually smaller than the full_text.
+		if( strlen( trim( strip_tags( $text ) ) ) > strlen( trim( $raw_excerpt ) ) ){
+			$excerpt_more   = apply_filters( 'excerpt_more', ' [&hellip;]' );
+		}
+
+        $excerpt = wpmtst_trim_words( $text, $excerpt_length, $excerpt_more, $hybrid, $excerpt );
 
 	/**
 	 * Filters the trimmed excerpt string.
@@ -172,8 +177,14 @@ function wpmtst_trim_words( $text, $num_words = 55, $more = null, $hybrid = fals
 	if ( null === $more ) {
 		$more = __( '&hellip;', 'strong-testimonials' );
 	}
-	$full_text = strip_tags( $text, '<br><img><b><strong><i><em><ul><ol><li><del><a><sup>' );
-	$text = strip_tags( $text, '<br><br><img><b><strong><i><em><ul><ol><li><del><a><sup>' );
+
+	if (  WPMST()->atts( 'html_content' ) || !empty($excerpt) ) {
+		$full_text = strip_tags( $text, '<br><img><b><strong><i><em><ul><ol><li><del><a><sup>' );
+	}else{
+		$full_text = strip_tags( $text );
+	}
+	
+	$text = strip_tags( $text );
 
 	/*
 	 * translators: If your word count is based on single characters (e.g. East Asian characters),
@@ -241,22 +252,24 @@ function wpmtst_assemble_hybrid( $words_array, $num_words, $sep, $more, $full_te
 		$ellipsis = '<div class="ellipsis" style="display:inline;">' . $ellipsis . ' </div>';
 		/* ! This space is important:                        ^       */
 	}
-        if (!empty($excerpt)) {
-            $first_half  = $excerpt;
-        } else {
-            $first_half  = implode( $sep, array_slice( $words_array, 0, $num_words ) );
-        }
-	$second_half = implode( $sep, array_slice( $words_array, $num_words ) );
-        $wrap_open_class = '';
-        if (  WPMST()->atts( 'html_content' ) || !empty($excerpt) ) {
-            $second_half = $full_text;
-            $wrap_open_class = 'all-html';
-        }
-        $wrap_open_excerpt  = '<div class="readmore-excerpt animated ' . $wrap_open_class . '"> ';
-	$wrap_open  = '<div class="readmore-content animated"  id="more-' . get_the_ID() . '" hidden> ';
-	$wrap_close = ' </div>';
+	if ( ! empty( $excerpt ) ) {
+		$first_half = $excerpt;
+	} else {
+		$first_half = implode( $sep, array_slice( $words_array, 0, $num_words ) );
+	}
+
+	$wrap_open_class = '';
+
+	if ( WPMST()->atts( 'html_content' ) || ! empty( $excerpt ) ) {
+		$wrap_open_class = 'all-html';
+	}
+
+	$wrap_open_excerpt  = '<div class="readmore-excerpt animated ' . esc_attr( $wrap_open_class ) . '"> ';
+	$wrap_open          = '<div class="readmore-content animated"  id="more-' . esc_attr( get_the_ID() ) . '" hidden> ';
+	$wrap_close         = ' </div>';
 	$wrap_close_excerpt = ' </div>';
-    $first_half = '<div style="display:inline;">'.$first_half.'</div>';
-	return $wrap_open_excerpt . $first_half . $ellipsis . ' ' . $wrap_open . $second_half . $wrap_close_excerpt . $more . $wrap_close;
+	$first_half         = '<div style="display:inline;">' . wp_kses_post( $first_half ) . '</div>';
+
+	return $wrap_open_excerpt . $first_half . $ellipsis . ' ' . $wrap_close_excerpt . $wrap_open . $excerpt . ' ' . $full_text . $wrap_close . $more;
 	/* ! This space is important:                                        ^                                                  */
 }
