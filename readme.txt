@@ -206,6 +206,9 @@ No. If you already have testimonials in another plugin or theme, you will have t
 8. View editor
 
 == Changelog ==
+= 3.1.1 - TBD  -
+- Fixed: PHP notice for undefined index: continuous_sliding ( [#352](https://github.com/WPChill/strong-testimonials/issues/352) )
+
 = 3.1.0 - 16.01.2023  -
 - Fixed: Welcome banner visual update.
 - Fixed: abs( ) function no longer supports string inputs in php v8+ ( [#344](https://github.com/WPChill/strong-testimonials/issues/344) )
