@@ -208,6 +208,7 @@ No. If you already have testimonials in another plugin or theme, you will have t
 == Changelog ==
 = 3.1.1 - TBD  -
 - Fixed: PHP notice for undefined index: continuous_sliding ( [#352](https://github.com/WPChill/strong-testimonials/issues/352) )
+- Changed: Updated Elementor deprecated functions  ( [#366](https://github.com/WPChill/strong-testimonials/issues/366) )
 
 = 3.1.0 - 16.01.2023  -
 - Fixed: Welcome banner visual update.
