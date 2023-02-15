@@ -92,11 +92,6 @@ function wpmtst_trim_excerpt( $excerpt = '' ) {
             $excerpt_more   = apply_filters( 'excerpt_more', ' [&hellip;]' );
         }
 
-		// Add "More" button if the excerpt is actually smaller than the full_text.
-		if( strlen( trim( strip_tags( $text ) ) ) > strlen( trim( $raw_excerpt ) ) ){
-			$excerpt_more   = apply_filters( 'excerpt_more', ' [&hellip;]' );
-		}
-
         $excerpt = wpmtst_trim_words( $text, $excerpt_length, $excerpt_more, $hybrid, $excerpt );
 
 	/**
