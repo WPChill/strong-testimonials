@@ -1437,11 +1437,6 @@ class Strong_Testimonials_Helper {
                             </span>
 							<p class="inline description"><?php esc_html_e( 'Leave blank to leave content expanded without a link.', 'strong-testimonials' ); ?></p>
 						</div>
-						<div class="html-content-checkbox">
-							<input class="checkbox" id="view-html-content" name="view[data][html_content]" value="1"
-								   type="checkbox" <?php checked( isset( $this->view['html_content'] ) ? $this->view['html_content'] : false ); ?>/>
-							<label for="view-html-content"><?php echo wp_kses_post( __( 'Show <strong>html content</strong>.', 'strong-testimonials' ) ); ?></label>
-						</div>
 					</div>
 					<!-- automatic or both -->
 					<div class="row-inner then then_excerpt then_not_truncated" style="display: none;">
@@ -1453,6 +1448,15 @@ class Strong_Testimonials_Helper {
 									<option value="1" <?php selected( $this->view['more_full_post'], 1 ); ?>><?php echo esc_html( _x( 'for both automatic and manual excerpts', 'display setting', 'strong-testimonials' ) ); ?></option>
 								</select>
 							</label>
+						</div>
+					</div>
+					<div class="row-inner">
+						<div class="row-inner then fast then_more_post_in_place then_1 then_not_0" style="display: none;">
+							<div class="html-content-checkbox">
+								<input class="checkbox" id="view-html-content" name="view[data][html_content]" value="1"
+									type="checkbox" <?php checked( isset( $this->view['html_content'] ) ? $this->view['html_content'] : false ); ?>/>
+								<label for="view-html-content"><?php echo wp_kses_post( __( 'Show <strong>html content</strong>.', 'strong-testimonials' ) ); ?></label>
+							</div>
 						</div>
 					</div>
 				</div>
