@@ -208,9 +208,12 @@ No. If you already have testimonials in another plugin or theme, you will have t
 == Changelog ==
 = 3.1.1 - TBD  -
 - Fixed: PHP notice for undefined index: continuous_sliding ( [#352](https://github.com/WPChill/strong-testimonials/issues/352) )
-- Changed: Updated Elementor deprecated functions  ( [#366](https://github.com/WPChill/strong-testimonials/issues/366) )
+- Changed: Updated Elementor deprecated functions ( [#366](https://github.com/WPChill/strong-testimonials/issues/366) )
 - Changed: Order of "Show HTML content" setting ( [#373](https://github.com/WPChill/strong-testimonials/issues/373) )
-- Changed: Next/Prev slide buttons <a> tag to <div> to prevent crawler confusion. ( [#371](https://github.com/WPChill/strong-testimonials/issues/371) )
+- Fixed: Sorting not working ( [#372](https://github.com/WPChill/strong-testimonials/issues/372) )
+- Fixed: Read more button being displayed twice ( [#368](https://github.com/WPChill/strong-testimonials/issues/368) )
+- Changed: Setting location ( [#373](https://github.com/WPChill/strong-testimonials/issues/373) )
+- Fixed: Google Search console 404 errors ( [[#371]](https://github.com/WPChill/strong-testimonials/issues/371) )
 
 = 3.1.0 - 16.01.2023  -
 - Fixed: Welcome banner visual update.
