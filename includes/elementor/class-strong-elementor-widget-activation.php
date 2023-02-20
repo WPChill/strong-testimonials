@@ -32,7 +32,7 @@ class Strong_Testimonials_Elementor_Widget_Activation {
 	public function register_widgets() {
 		$this->include_widgets_files();
 		// Register Widgets
-		if ( method_exists( \Elementor\Plugin::instance()->widgets_manager, 'unregister' ) ) {
+		if ( method_exists( \Elementor\Plugin::instance()->widgets_manager, 'register' ) ) {
 			\Elementor\Plugin::instance()->widgets_manager->register( new Widgets\Strong_Testimonials_Elementor_Widget() );
 		} else {
 			\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\Strong_Testimonials_Elementor_Widget() );
