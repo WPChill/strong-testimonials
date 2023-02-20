@@ -4,7 +4,7 @@ Tags: testimonials, testimonial slider, testimonial form, star ratings
 Requires at least: 5.2
 Requires PHP: 5.6
 Tested up to: 6.1
-Stable tag: 3.1.0
+Stable tag: 3.1.1
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -206,6 +206,15 @@ No. If you already have testimonials in another plugin or theme, you will have t
 8. View editor
 
 == Changelog ==
+= 3.1.1 - 20.02.2023 -
+- Fixed: PHP notice for undefined index: continuous_sliding ( [#352](https://github.com/WPChill/strong-testimonials/issues/352) )
+- Changed: Updated Elementor deprecated functions ( [#366](https://github.com/WPChill/strong-testimonials/issues/366) )
+- Changed: Order of "Show HTML content" setting ( [#373](https://github.com/WPChill/strong-testimonials/issues/373) )
+- Fixed: Sorting not working ( [#372](https://github.com/WPChill/strong-testimonials/issues/372) )
+- Fixed: Read more button being displayed twice ( [#368](https://github.com/WPChill/strong-testimonials/issues/368) )
+- Changed: Setting location ( [#373](https://github.com/WPChill/strong-testimonials/issues/373) )
+- Fixed: Google Search console 404 errors ( [[#371]](https://github.com/WPChill/strong-testimonials/issues/371) )
+
 = 3.1.0 - 16.01.2023  -
 - Fixed: Welcome banner visual update.
 - Fixed: abs( ) function no longer supports string inputs in php v8+ ( [#344](https://github.com/WPChill/strong-testimonials/issues/344) )

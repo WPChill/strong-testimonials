@@ -387,15 +387,15 @@ class Strong_View_Slideshow extends Strong_View_Display {
 		}
 
 		$args = array(
-			'mode'                => $this->atts['slideshow_settings']['effect'],
-			'speed'               => $this->atts['slideshow_settings']['speed'] * 1000,
-			'pause'               => $this->atts['slideshow_settings']['pause'] * 1000,
-			'autoHover'           => $this->atts['slideshow_settings']['auto_hover'] ? 1 : 0,
-			'autoStart'           => $this->atts['slideshow_settings']['auto_start'] ? 1 : 0,
-			'infiniteLoop'        => $this->atts['slideshow_settings']['continuous_sliding'] ? 1 : 0,
-			'stopAutoOnClick'     => $this->atts['slideshow_settings']['stop_auto_on_click'] ? 1 : 0,
-			'adaptiveHeight'      => $this->atts['slideshow_settings']['adapt_height'] ? 1 : 0,
-			'adaptiveHeightSpeed' => $this->atts['slideshow_settings']['adapt_height_speed'] * 1000,
+			'mode'                => isset( $this->atts['slideshow_settings']['effect'] ) ? $this->atts['slideshow_settings']['effect'] : 'fade',
+			'speed'               => isset( $this->atts['slideshow_settings']['speed'] ) ? $this->atts['slideshow_settings']['speed'] * 1000 : 1000,
+			'pause'               => isset( $this->atts['slideshow_settings']['pause'] ) ? $this->atts['slideshow_settings']['pause'] * 1000 : 8000,
+			'autoHover'           => ( isset( $this->atts['slideshow_settings']['auto_hover'] ) && $this->atts['slideshow_settings']['auto_hover'] ) ? 1 : 0,
+			'autoStart'           => ( isset( $this->atts['slideshow_settings']['auto_start'] ) && $this->atts['slideshow_settings']['auto_start'] ) ? 1 : 0,
+			'infiniteLoop'        => ( isset( $this->atts['slideshow_settings']['continuous_sliding'] ) && $this->atts['slideshow_settings']['continuous_sliding'] ) ? 1 : 0,
+			'stopAutoOnClick'     => ( isset( $this->atts['slideshow_settings']['stop_auto_on_click'] ) && $this->atts['slideshow_settings']['stop_auto_on_click'] ) ? 1 : 0,
+			'adaptiveHeight'      => ( isset( $this->atts['slideshow_settings']['adapt_height'] ) && $this->atts['slideshow_settings']['adapt_height'] ) ? 1 : 0,
+			'adaptiveHeightSpeed' => isset( $this->atts['slideshow_settings']['adapt_height_speed'] ) ? $this->atts['slideshow_settings']['adapt_height_speed'] * 1000 : 500,
 			'controls'            => 0,
 			'autoControls'        => 0,
 			'pager'               => 0,
@@ -403,7 +403,7 @@ class Strong_View_Slideshow extends Strong_View_Display {
 			'debug'               => defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG && apply_filters( 'debug_strong_slider', true ),
 			'compat'              => $compat,
 			'touchEnabled'        => $options['touch_enabled'],
-			'type'                => $this->atts['slideshow_settings']['type'],
+			'type'                => isset( $this->atts['slideshow_settings']['type'] ) ? $this->atts['slideshow_settings']['type'] : 'show_single',
 		    'breakpoints'         => $new_breakpoints,
 		);
 

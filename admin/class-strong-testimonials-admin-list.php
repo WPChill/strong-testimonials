@@ -339,7 +339,7 @@ class Strong_Testimonials_Admin_List {
 	 * @since 1.16.0
 	 */
 	public static function is_column_sorted() {
-		return isset( $_GET['orderby'] ) || isset( $_SERVER['REQUEST_URI'] ) || strstr( sanitize_url( $_SERVER['REQUEST_URI'] ), 'action=edit' ) || strstr( sanitize_url( $_SERVER['REQUEST_URI'] ), 'wp-admin/post-new.php' );
+		return isset( $_GET['orderby'] ) || ( isset( $_SERVER['REQUEST_URI'] ) && strstr( sanitize_url( $_SERVER['REQUEST_URI'] ), 'action=edit' ) ) || strstr( sanitize_url( $_SERVER['REQUEST_URI'] ), 'wp-admin/post-new.php' );
 	}
 
 }

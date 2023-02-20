@@ -58,7 +58,14 @@ final class Strong_Testimonials_Elementor_Check {
 			return;
 		}
 
-		add_action('elementor/widgets/widgets_registered', array( $this, 'remove_strong_testimonials_widget' ), 15);
+		if ( has_action( 'elementor/widgets/register' ) ) {
+			add_action( 'elementor/widgets/register', array( $this, 'remove_strong_testimonials_widget' ), 15 );
+		} else {
+			add_action( 'elementor/widgets/widgets_registered', array(
+				$this,
+				'remove_strong_testimonials_widget'
+			),          15 );
+		}
 
 		// Once we get here, We have passed all validation checks so we can safely include our elementor block activation
 		require_once( WPMTST_INC.'elementor/class-strong-elementor-widget-activation.php' );
@@ -98,8 +105,12 @@ final class Strong_Testimonials_Elementor_Check {
 	}
 
 	/* Remove WordPress widget because we have a dedicated Elementor Widget */
-	public function remove_strong_testimonials_widget( $widget_manager ){
-		$widget_manager->unregister_widget_type( 'strong-testimonials-view-widget' );
+	public function remove_strong_testimonials_widget( $widget_manager ) {
+		if ( method_exists( $widget_manager, 'unregister' ) ) {
+			$widget_manager->unregister( 'strong-testimonials-view-widget' );
+		} else {
+			$widget_manager->unregister_widget_type( 'strong-testimonials-view-widget' );
+		}
 	}
 }
 

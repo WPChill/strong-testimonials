@@ -32,13 +32,21 @@ class Strong_Testimonials_Elementor_Widget_Activation {
 	public function register_widgets() {
 		$this->include_widgets_files();
 		// Register Widgets
-		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\Strong_Testimonials_Elementor_Widget() );
+		if ( method_exists( \Elementor\Plugin::instance()->widgets_manager, 'register' ) ) {
+			\Elementor\Plugin::instance()->widgets_manager->register( new Widgets\Strong_Testimonials_Elementor_Widget() );
+		} else {
+			\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\Strong_Testimonials_Elementor_Widget() );
+		}
 	}
 
 	public function __construct() {
 
 		// Register widgets
-		add_action( 'elementor/widgets/widgets_registered', array( $this, 'register_widgets' ) );
+		if ( has_action( 'elementor/widgets/register' ) ) {
+			add_action( 'elementor/widgets/register', array( $this, 'register_widgets' ) );
+		} else {
+			add_action( 'elementor/widgets/widgets_registered', array( $this, 'register_widgets' ) );
+		}
 
 		// Enqueue needed scripts for elementor Editor
         add_action( 'elementor/editor/before_enqueue_scripts', array($this, 'strong_testimonials_elementor_enqueue_editor_scripts' ));
