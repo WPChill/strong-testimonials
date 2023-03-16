@@ -1,5 +1,6 @@
 = 3.1.2 - TBD -
 - Fixed: PHP notice for undefined array key: post_content ( [#379](https://github.com/WPChill/strong-testimonials/issues/379) )
+- Fixed: No custom fields show up in view display when the default form has no fields when using ST Custom Forms addon ( [#380](https://github.com/WPChill/strong-testimonials/issues/380) )
 
 = 3.1.1 - 20.02.2023  -
 - Fixed: PHP notice for undefined index: continuous_sliding ( [#352](https://github.com/WPChill/strong-testimonials/issues/352) )

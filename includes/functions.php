@@ -191,21 +191,9 @@ function wpmtst_get_form_fields( $form_id = 1 ) {
 function wpmtst_get_custom_fields() {
 	$all_fields = array();
 	$forms = get_option( 'wpmtst_custom_forms' );
+
 	if ( ! $forms ) {
 	    return $all_fields;
-	}
-
-	// use default group as base
-	$fields = $forms[1]['fields'];
-	if ( ! $fields ) {
-	    return $all_fields;
-	}
-
-	// replace key with field name
-	foreach ( $fields as $field ) {
-		if ( 'post' != $field['record_type'] ) {
-			$all_fields[ $field['name'] ] = $field;
-		}
 	}
 
 	// merge remaining form fields
@@ -213,6 +201,9 @@ function wpmtst_get_custom_fields() {
 		$custom_fields = array();
 		$fields = $form['fields'];
 		foreach ( $fields as $field ) {
+			if ( ! $fields ) {
+				continue;
+			}
 			if ( 'post' != $field['record_type'] ) {
 				$custom_fields[ $field['name'] ] = $field;
 			}
