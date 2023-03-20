@@ -211,6 +211,7 @@ No. If you already have testimonials in another plugin or theme, you will have t
 - Fixed: No custom fields show up in view display when the default form has no fields when using ST Custom Forms addon ( [#380](https://github.com/WPChill/strong-testimonials/issues/380) )
 - Added: Filter to add custom display field types in Custom Fields ( [#381](https://github.com/WPChill/strong-testimonials/issues/381) )
 - Changed: No longer deleting plugin version option on deactivation ( [#307](https://github.com/WPChill/strong-testimonials/issues/307) )
+- Fixed: Manual excerpt won't show both excerpt & content on "Read more" ( [#376](https://github.com/WPChill/strong-testimonials/issues/376) )
 
 = 3.1.1 - 20.02.2023 -
 - Fixed: PHP notice for undefined index: continuous_sliding ( [#352](https://github.com/WPChill/strong-testimonials/issues/352) )
