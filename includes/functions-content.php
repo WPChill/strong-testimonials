@@ -174,7 +174,7 @@ function wpmtst_trim_words( $text, $num_words = 55, $more = null, $hybrid = fals
 	}
 
 	if (  WPMST()->atts( 'html_content' ) || !empty($excerpt) ) {
-		$full_text = strip_tags( $text, '<br><img><b><strong><i><em><ul><ol><li><del><a><sup>' );
+		$full_text = strip_tags( $text, '<p><br><img><b><strong><i><em><ul><ol><li><del><a><sup>' );
 	}else{
 		$full_text = strip_tags( $text );
 	}

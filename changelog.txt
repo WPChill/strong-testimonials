@@ -4,6 +4,7 @@
 - Added: Filter to add custom display field types in Custom Fields ( [#381](https://github.com/WPChill/strong-testimonials/issues/381) )
 - Changed: No longer deleting plugin version option on deactivation ( [#307](https://github.com/WPChill/strong-testimonials/issues/307) )
 - Fixed: Manual excerpt won't show both excerpt & content on "Read more" ( [#376](https://github.com/WPChill/strong-testimonials/issues/376) )
+- Fixed: Paragraph ( <p> ) tags don't show up in expanded ( full ) content. ( [#378](https://github.com/WPChill/strong-testimonials/issues/378) )
 
 = 3.1.1 - 20.02.2023  -
 - Fixed: PHP notice for undefined index: continuous_sliding ( [#352](https://github.com/WPChill/strong-testimonials/issues/352) )
