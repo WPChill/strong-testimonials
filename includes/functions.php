@@ -195,17 +195,16 @@ function wpmtst_get_custom_fields() {
 	if ( ! $forms ) {
 	    return $all_fields;
 	}
-
-	// merge remaining form fields
+	// merge remaining form fields.
 	foreach ( $forms as $form ) {
+
 		$custom_fields = array();
-		$fields = $form['fields'];
-		foreach ( $fields as $field ) {
-			if ( ! $fields ) {
-				continue;
-			}
-			if ( 'post' != $field['record_type'] ) {
-				$custom_fields[ $field['name'] ] = $field;
+		if ( isset( $form['fields'] ) ) {
+			$fields = $form['fields'];
+			foreach ( $fields as $field ) {
+				if ( 'post' != $field['record_type'] ) {
+					$custom_fields[ $field['name'] ] = $field;
+				}
 			}
 		}
 		$all_fields = array_merge( $all_fields, $custom_fields );
