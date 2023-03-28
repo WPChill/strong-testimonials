@@ -13,12 +13,9 @@
 /**
  * @namespace verge.inViewport
  */
-if ( 'undefined' === typeof __ ) {
-	const { __ } = wp.i18n;
-}
 
 ;(function ($) {
-
+	const {__} = wp.i18n;
 	var defaults = {
 	  debug: false,
 	  logAs: 'strongSlider',

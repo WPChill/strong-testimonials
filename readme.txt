@@ -4,7 +4,7 @@ Tags: testimonials, testimonial slider, testimonial form, star ratings
 Requires at least: 5.2
 Requires PHP: 5.6
 Tested up to: 6.1
-Stable tag: 3.1.2
+Stable tag: 3.1.3
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -206,6 +206,9 @@ No. If you already have testimonials in another plugin or theme, you will have t
 8. View editor
 
 == Changelog ==
+= 3.1.3 - 28.03.2023 -
+- Fixed: Slideshow not working because of JS error ( [#386](https://github.com/WPChill/strong-testimonials/issues/386) )
+
 = 3.1.2 - 28.03.2023 -
 - Fixed: PHP notice for undefined array key: post_content ( [#379](https://github.com/WPChill/strong-testimonials/issues/379) )
 - Fixed: No custom fields show up in view display when the default form has no fields when using ST Multiple Forms addon ( [#380](https://github.com/WPChill/strong-testimonials/issues/380) )
