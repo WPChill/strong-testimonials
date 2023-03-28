@@ -4,7 +4,7 @@ Tags: testimonials, testimonial slider, testimonial form, star ratings
 Requires at least: 5.2
 Requires PHP: 5.6
 Tested up to: 6.1
-Stable tag: 3.1.1
+Stable tag: 3.1.2
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -206,13 +206,14 @@ No. If you already have testimonials in another plugin or theme, you will have t
 8. View editor
 
 == Changelog ==
-= 3.1.2 - TBD -
+= 3.1.2 - 28.03.2023 -
 - Fixed: PHP notice for undefined array key: post_content ( [#379](https://github.com/WPChill/strong-testimonials/issues/379) )
 - Fixed: No custom fields show up in view display when the default form has no fields when using ST Multiple Forms addon ( [#380](https://github.com/WPChill/strong-testimonials/issues/380) )
 - Added: Filter to add custom display field types in Custom Fields ( [#381](https://github.com/WPChill/strong-testimonials/issues/381) )
 - Changed: No longer deleting plugin version option on deactivation ( [#307](https://github.com/WPChill/strong-testimonials/issues/307) )
 - Fixed: Manual excerpt won't show both excerpt & content on "Read more" ( [#376](https://github.com/WPChill/strong-testimonials/issues/376) )
 - Fixed: Paragraph ( <p> ) tags don't show up in expanded ( full ) content. ( [#378](https://github.com/WPChill/strong-testimonials/issues/378) )
+- Fixed: JS bug when wp.i18n already declared ( [#289](https://github.com/WPChill/strong-testimonials/issues/289) )
 
 = 3.1.1 - 20.02.2023 -
 - Fixed: PHP notice for undefined index: continuous_sliding ( [#352](https://github.com/WPChill/strong-testimonials/issues/352) )

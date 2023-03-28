@@ -109,7 +109,7 @@ module.exports = function( grunt ) {
       build: {
         options: {
           pretty: true,                           // Pretty print file sizes when logging.
-          archive: '<%= pkg.name %>.zip'
+          archive: '<%= pkg.name %>-<%= pkg.version %>.zip'
         },
         expand: true,
         cwd: 'build/',
