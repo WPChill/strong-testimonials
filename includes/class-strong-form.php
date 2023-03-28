@@ -274,12 +274,18 @@ class Strong_Testimonials_Form {
 		 * No missing required fields, carry on.
 		 */
 		if ( ! count( $form_errors ) ) {
-
+	
 			// Special handling: if post_title is not required, create one from post_content
 			if ( ! isset( $testimonial_post['post_title'] ) || ! $testimonial_post['post_title'] ) {
-				$words_array                    = explode( ' ', $testimonial_post['post_content'] );
-				$five_words                     = array_slice( $words_array, 0, 5 );
-				$testimonial_post['post_title'] = implode( ' ', $five_words );
+				if ( isset( $testimonial_post['post_content'] ) ) {
+					$words_array                    = explode( ' ', $testimonial_post['post_content'] );
+					$five_words                     = array_slice( $words_array, 0, 5 );
+					$testimonial_post['post_title'] = implode( ' ', $five_words );
+				
+				}else{
+					$testimonial_post['post_title']   = esc_html__( '(no title)', 'strong-testimonials' );
+					$testimonial_post['post_content'] = '';
+				}
 			}
 
 			/**

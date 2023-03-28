@@ -328,7 +328,7 @@ function wpmtst_view_field_inputs( $key, $field, $adding = false, $source = 'vie
 	$allowed = array( 'custom', 'optional', 'builtin' );
 
 	// TODO Move this to view defaults option.
-	$types = array(
+	$types = apply_filters( 'wpmtst_view_field_inputs_types', array( 
 		'text'      => esc_html__( 'text', 'strong-testimonials' ),
 		'link'      => esc_html__( 'link with another field', 'strong-testimonials' ),  // the original link type
 		'link2'     => esc_html__( 'link (must be URL type)', 'strong-testimonials' ),  // @since 1.24.0
@@ -340,7 +340,7 @@ function wpmtst_view_field_inputs( $key, $field, $adding = false, $source = 'vie
 		'checkbox'  => esc_html__('checkbox', 'strong-testimonials'),
 		'video'     => esc_html__('video', 'strong-testimonials'),
 		'video_record' => esc_html__('video_record', 'strong-testimonials')
-	);
+	), $key, $field );
 
 	if ( isset( $custom_fields[ $field['field'] ] ) ) {
             $field_label = $custom_fields[ $field['field'] ]['label'];

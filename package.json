@@ -1,6 +1,7 @@
 {
   "name": "strong-testimonials",
   "author": "Macho Themes",
+  "version": "3.1.2",
   "license": "GPL v3",
   "scripts": {
     "build": "webpack",

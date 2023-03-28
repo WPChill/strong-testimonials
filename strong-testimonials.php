@@ -5,7 +5,7 @@
  * Description: Collect and display your testimonials or reviews.
  * Author: WPChill
  * Author URI: https://wpchill.com/
- * Version: 3.1.1
+ * Version: 3.1.2
  * Text Domain: strong-testimonials
  * Domain Path: /languages
  * Requires: 4.6 or higher
@@ -45,7 +45,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'WPMTST_VERSION', '3.1.1' );
+define( 'WPMTST_VERSION', '3.1.2' );
 
 define( 'WPMTST_PLUGIN', plugin_basename( __FILE__ ) ); // strong-testimonials/strong-testimonials.php
 define( 'WPMTST', dirname( WPMTST_PLUGIN ) );           // strong-testimonials
@@ -171,13 +171,6 @@ final class Strong_Testimonials {
 	 */
 	static function plugin_deactivation() {
 		flush_rewrite_rules();
-
-		/**
-		 * Unset stored version number to allow rollback and beta testing.
-		 *
-		 * @since 2.28.0
-		 */
-		delete_option( 'wpmtst_plugin_version' );
 	}
 
 	/**
@@ -620,7 +613,7 @@ if( ! function_exists( 'strong_testimonials_start_plugin_tracking' ) ) {
 
 
 register_activation_hook( __FILE__, array( 'Strong_Testimonials', 'plugin_activation' ) );
-//register_deactivation_hook( __FILE__, array( 'Strong_Testimonials', 'plugin_deactivation' ) );
+register_deactivation_hook( __FILE__, array( 'Strong_Testimonials', 'plugin_deactivation' ) );
 
 function WPMST() {
 	return Strong_Testimonials::instance();

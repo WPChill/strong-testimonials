@@ -13,8 +13,10 @@
 /**
  * @namespace verge.inViewport
  */
- const { __ } = wp.i18n;
- 
+if ( 'undefined' === typeof __ ) {
+	const { __ } = wp.i18n;
+}
+
 ;(function ($) {
 
 	var defaults = {

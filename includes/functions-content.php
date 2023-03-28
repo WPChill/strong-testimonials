@@ -174,7 +174,7 @@ function wpmtst_trim_words( $text, $num_words = 55, $more = null, $hybrid = fals
 	}
 
 	if (  WPMST()->atts( 'html_content' ) || !empty($excerpt) ) {
-		$full_text = strip_tags( $text, '<br><img><b><strong><i><em><ul><ol><li><del><a><sup>' );
+		$full_text = strip_tags( $text, '<p><br><img><b><strong><i><em><ul><ol><li><del><a><sup>' );
 	}else{
 		$full_text = strip_tags( $text );
 	}
@@ -265,6 +265,6 @@ function wpmtst_assemble_hybrid( $words_array, $num_words, $sep, $more, $full_te
 	$wrap_close_excerpt = ' </div>';
 	$first_half         = '<div style="display:inline;">' . wp_kses_post( $first_half ) . '</div>';
 
-	return $wrap_open_excerpt . $first_half . $ellipsis . ' ' . $wrap_close_excerpt . $wrap_open . $excerpt . ' ' . $full_text . $wrap_close . $more;
+	return $wrap_open_excerpt . $first_half . $ellipsis . ' ' . $wrap_close_excerpt . $wrap_open  . ' ' . $full_text . $wrap_close . $more;
 	/* ! This space is important:                                        ^                                                  */
 }
