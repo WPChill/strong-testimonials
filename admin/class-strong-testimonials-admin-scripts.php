@@ -256,8 +256,13 @@ class Strong_Testimonials_Admin_Scripts {
 			'wpmtst-admin-global',
 			'wpmtst_admin',
 			array(
-				'nonce' => wp_create_nonce( 'wpmtst-admin' ),
-				'templateTagTitle' => esc_html__( 'click to insert into message at caret', 'strong-testimonials' ),
+				'nonce'              => wp_create_nonce( 'wpmtst-admin' ),
+				'templateTagTitle'   => esc_html__( 'click to insert into message at caret', 'strong-testimonials' ),
+				'something_wrong'    => esc_html__( 'Something went wrong. Please try again.', 'strong-testimonials' ),
+				'email_license_sent' => esc_html__( 'An email containing the license was sent.', 'strong-testimonials' ),
+				'activate'           => esc_html__( 'Activate', 'strong-testimonials' ),
+				'deactivate'         => esc_html__( 'Deactivate', 'strong-testimonials' ),
+				'enter_email'        => esc_html__( 'Please enter your email address.', 'strong-testimonials' ),
 			)
 		);
 

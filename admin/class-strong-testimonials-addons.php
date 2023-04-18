@@ -111,7 +111,7 @@ class Strong_Testimonials_Addons {
 			<a id="wpmtst-reload-extensions" class="button button-primary" style="margin: 10px 0 0 30px;" data-nonce="<?php echo esc_attr( wp_create_nonce( 'wpmtst-reload-extensions' ) ); ?>"><?php esc_html_e( 'Reload Extensions', 'strong-testimonials' ); ?></a>
 
 			<?php $this->display_extension_tab(); ?>
-			
+			<?php $this->render_license(); ?>
 			<div class="wpmtst-addons-container">
 				<?php $this->render_addons(); ?>
 			</div>
@@ -182,6 +182,97 @@ class Strong_Testimonials_Addons {
 		return $this->check_for_addons();
 	}
 
+	/**
+	 * Render the license field.
+	 *
+	 * @return void
+	 */
+	public function render_license() {
+		if ( empty( $this->get_addons() ) ) {
+			return;
+		}
+		$license = get_option( 'strong_testimonials_license_key' );
+		$email   = get_option( 'strong_testimonials_email' );
+		$status  = get_option( 'strong_testimonials_license_status', false );
+
+		$messages = array(
+			'no-license'       => esc_html__( 'Enter your license key', 'strong-testimonials-assignment' ),
+			'activate-license' => esc_html__( 'Activate your license key', 'strong-testimonials-assignment' ),
+			'all-good'         => __( 'Your license is active until <strong>%s</strong>', 'strong-testimonials-assignment' ),
+			'lifetime'         => __( 'You have a lifetime license.', 'strong-testimonials-assignment' ),
+			'expired'          => esc_html__( 'Your license has expired', 'strong-testimonials-assignment' ),
+		);
+
+		if ( '' === $license ) {
+			$license_message = $messages['no-license'];
+		} elseif ( '' !== $license && $status === false ) {
+			$license_message = $messages['activate-license'];
+		} elseif ( $status->license === 'expired' ) {
+			$license_message = $messages['expired'];
+		} elseif ( '' !== $license && $status !== false && isset( $status->license ) && $status->license == 'valid' ) {
+
+			$date_format = get_option( 'date_format' );
+
+			if ( 'lifetime' == $status->expires ) {
+				$license_message = $messages['lifetime'];
+			} else {
+				$license_expire = date( $date_format, strtotime( $status->expires ) );
+				$curr_time      = time();
+				// weeks till expiration
+				$weeks = (int) ( ( strtotime( $status->expires ) - $curr_time ) / ( 7 * 24 * 60 * 60 ) );
+
+				// set license status based on colors
+				if ( 4 >= $weeks ) {
+					$l_stat = 'red';
+				} else {
+					$l_stat = 'green';
+				}
+
+				$license_message = sprintf( '<p class="%s">' . $messages['all-good'] . '</p>', $l_stat, $license_expire );
+
+				if ( 'green' != $l_stat ) {
+					$license_message .= sprintf( __( 'You have %s week(s) untill your license will expire.', 'strong-testimonials-assignment' ), $weeks );
+				}
+
+			}
+		}
+
+		?>
+		<div class="row">
+			<?php do_action( 'wpmtst_license_errors' ); ?>
+			<?php
+			$valid_license = false;
+			if ( false !== $license && 'valid' === $status->license ) {
+				$valid_license = true;
+			}
+			?>
+
+			<div class="wpmtst-master-license">
+				<div>
+					<label for="strong_testimonials_email"><?php esc_html_e( 'Email', 'strong-testimonials' ); ?></label>
+					<input type="email" id="strong_testimonials_email" name="strong_testimonials_email"
+					       value="<?php echo esc_attr( $email ); ?>">
+					<label for="st-master-license"><?php esc_html_e( 'License key', 'strong-testimonials' ); ?></label>
+					<input type="password" id="strong_testimonials_license_key" name="strong_testimonials_license_key"
+					       value="<?php echo esc_attr( $license ); ?>">
+					<input type="hidden"
+					       value="<?php echo esc_attr( wp_create_nonce( 'strong_testimonials_license_nonce' ) ); ?>"/>
+					<button class="button button-primary" id="st-master-license-btn"
+					        data-action="<?php echo ( ! $valid_license ) ? 'activate' : 'deactivate'; ?>"><?php ( ! $valid_license ) ? esc_html_e( 'Activate', 'strong-testimonials' ) : esc_html_e( 'Deactivate', 'strong-testimonials' ); ?></button>
+
+					&nbsp;<a href="#" target="_blank" id="st-forgot-license"
+					         data-nonce="<?php echo esc_attr( wp_create_nonce( 'strong_testimonials_license_nonce' ) ); ?>"><?php esc_html_e( 'Forgot your license?', 'strong-testimonials' ); ?></a>
+				</div>
+				<label class="description strong-testimonials-license-label"
+				       for="strong_testimonials_license_key">
+					<?php
+					echo wp_kses_post( $license_message );
+					?>
+				</label>
+			</div>
+		</div>
+		<?php
+	}
 }
 
 new Strong_Testimonials_Addons();
