@@ -50,7 +50,7 @@ define( 'WPMTST_VERSION', '3.1.3' );
 define( 'WPMTST_PLUGIN', plugin_basename( __FILE__ ) ); // strong-testimonials/strong-testimonials.php
 define( 'WPMTST', dirname( WPMTST_PLUGIN ) );           // strong-testimonials
 define( 'WPMTST_LOGS', wp_upload_dir()['basedir'] . '/st-logs/' );
-defined( 'WPMTST_STORE_URL' ) || define( 'WPMTST_STORE_URL', 'https://staging-strongtestimonialscom-staging.kinsta.cloud/' );
+defined( 'WPMTST_STORE_URL' ) || define( 'WPMTST_STORE_URL', 'https://strongtestimonials.com/' );
 defined( 'WPMTST_STORE_UPGRADE_URL' ) || define( 'WPMTST_STORE_UPGRADE_URL', 'https://strongtestimonials.com/pricing' );
 
 if ( ! class_exists( 'Strong_Testimonials' ) ) :
@@ -646,10 +646,9 @@ if ( ! function_exists( 'strong_testimonials_start_plugin_tracking' ) ) {
 register_activation_hook( __FILE__, array( 'Strong_Testimonials', 'plugin_activation' ) );
 register_deactivation_hook( __FILE__, array( 'Strong_Testimonials', 'plugin_deactivation' ) );
 
-add_action( 'plugins_loaded', 'WPMST' );
 function WPMST() {
 	return Strong_Testimonials::instance();
 }
 
 // Get plugin running.
-//WPMST();
+WPMST();
