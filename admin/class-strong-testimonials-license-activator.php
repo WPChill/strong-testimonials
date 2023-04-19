@@ -176,27 +176,21 @@ if ( ! class_exists( 'Strong_Testimonials_Master_License_Activator' ) ) {
 			// Check if anything passed on a message constituting a failure.
 			if ( ! empty( $message ) ) {
 				// If it's not a regular action return as it's most probably plugin deactivation.
-				if ( ! $regular_action || wp_doing_ajax() ) {
+				if ( ! $regular_action ) {
 					return;
 				}
-				$base_url = admin_url( 'edit.php?post_type=wpm-testimonial&page=strong-testimonials-addons' );
-				$redirect = add_query_arg(
-					array(
-						'sl_activation' => 'false',
-						'message'       => urlencode( $message ),
-					),
-					$base_url
-				);
-				wp_redirect( $redirect );
-				exit();
+				wp_send_json_error( array( 'success' => false, 'message' => $message ) );
 			}
 
 			// $license_data->license will be either "valid" or "invalid"
 			update_option( 'strong_testimonials_license_status', $license_data );
-			if ( $regular_action && ! wp_doing_ajax() ) {
-				wp_redirect( admin_url( 'edit.php?post_type=wpm-testimonial&page=strong-testimonials-addons' ) );
-				exit();
-			}
+			wp_send_json_success(
+				array(
+					'success' => true,
+					'message' => __( 'License activated.', 'strong-testimonials' )
+				)
+			);
+			exit;
 		}
 
 		/**
@@ -242,7 +236,8 @@ if ( ! class_exists( 'Strong_Testimonials_Master_License_Activator' ) ) {
 					$message = __( 'An error occurred, please try again.', 'strong-testimonials-pro' );
 				}
 
-				return;
+				wp_send_json_error( array( 'success' => false, 'message' => $message ) );
+				exit;
 			}
 
 			// decode the license data.
@@ -253,9 +248,14 @@ if ( ! class_exists( 'Strong_Testimonials_Master_License_Activator' ) ) {
 				delete_option( 'strong_testimonials_license_status' );
 			}
 
-			if ( $regular_action && ! wp_doing_ajax() ) {
-				wp_redirect( admin_url( 'edit.php?post_type=wpm-testimonial&page=testimonial-settings&tab=licenses' ) );
-				exit();
+			if ( $regular_action ) {
+				wp_send_json_success(
+					array(
+						'success' => true,
+						'message' => __( 'License deactivated.', 'strong-testimonials' )
+					)
+				);
+				exit;
 			}
 		}
 
