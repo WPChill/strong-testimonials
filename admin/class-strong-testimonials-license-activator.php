@@ -398,8 +398,60 @@ if ( ! class_exists( 'Strong_Testimonials_Master_License_Activator' ) ) {
 		 *
 		 * @return void
 		 */
-		public function ajax_forgot_license(){
+		public function ajax_forgot_license() {
 
+			// run a quick security check.
+			if ( ! isset( $_POST['nonce'] ) ) {
+				wp_send_json_error(
+					array(
+						'message' => __( 'Nonce not set', 'strong-testimonials' )
+					)
+				);
+			}
+
+			if ( ! isset( $_POST['email'] ) ) {
+				wp_send_json_error(
+					array(
+						'message' => __( 'Email not set', 'strong-testimonials' )
+					)
+				);
+			}
+
+			check_admin_referer( 'strong_testimonials_license_nonce', 'nonce' );
+			$email = sanitize_email( wp_unslash( $_POST['email'] ) );
+
+			// data to send in our API request.
+			$api_params = array(
+				'edd_action' => 'forgot_license',
+				'url'        => home_url(),
+				'email'      => $email
+
+			);
+
+			// Call the custom API.
+			$response = wp_remote_post(
+				WPMTST_STORE_URL,
+				array(
+					'timeout'   => 15,
+					'sslverify' => false,
+					'body'      => $api_params,
+				)
+			);
+
+			// make sure the response came back okay.
+			if ( is_wp_error( $response ) || 200 !== wp_remote_retrieve_response_code( $response ) ) {
+				// If it's not a regular action it means it's most probably on plugin deactivation.
+				if ( is_wp_error( $response ) ) {
+					$message = $response->get_error_message();
+				} else {
+					$message = __( 'An error occurred, please try again.', 'strong-testimonials-pro' );
+				}
+				wp_send_json_error( array( 'message' => $message ) );
+			}
+			$json_response = json_decode( wp_remote_retrieve_body( $response ), true );
+			if ( $json_response['success'] ) {
+				wp_send_json_success( array( 'message' => $json_response['message'] ) );
+			}
 		}
 	}
 
