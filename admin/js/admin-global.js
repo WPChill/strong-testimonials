@@ -56,6 +56,8 @@ jQuery(document).ready(function ($) {
 				label.html(response.data.message);
 				target.data('action', nextAction);
 				target.html(nextText);
+				// Refresh window after 1.5 seconds.
+				setTimeout(() => { window.location.reload(); }, 1500);
 			} else {
 				if ('undefined' !== typeof response.data) {
 					label.html(response.data.message);

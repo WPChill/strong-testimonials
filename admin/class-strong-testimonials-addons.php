@@ -13,6 +13,8 @@ class Strong_Testimonials_Addons {
 
 		// Add ajax action to reload extensions
 		add_action( 'wp_ajax_wpmtst_reload_extensions', array( $this, 'reload_extensions' ), 20 );
+
+		add_filter( 'wpmtst_addon_button_action', array( $this, 'output_download_link' ), 5 );
 	}
 
 	private function check_for_addons() {
@@ -188,9 +190,7 @@ class Strong_Testimonials_Addons {
 	 * @return void
 	 */
 	public function render_license() {
-		if ( empty( $this->get_addons() ) ) {
-			return;
-		}
+
 		$license = get_option( 'strong_testimonials_license_key' );
 		$email   = get_option( 'strong_testimonials_email' );
 		$status  = get_option( 'strong_testimonials_license_status', false );
@@ -272,6 +272,24 @@ class Strong_Testimonials_Addons {
 			</div>
 		</div>
 		<?php
+	}
+
+	/**
+	 * Output the download link.
+	 *
+	 * @param string $link The link.
+	 *
+	 * @return string
+	 * @since 3.1.4
+	 */
+	public function output_download_link( $link ) {
+		$license = get_option( 'strong_testimonials_license_key', false );
+		$status  = get_option( 'strong_testimonials_license_status', false );
+		if ( ! $license || 'valid' !== $status->license ) {
+			return $link;
+		}
+
+		return '<a href="' . WPMTST_STORE_URL . '/account/" class="button button-primary" target="_blank">' . __( 'Download extension', 'strong-testimonials' ) . '</a>';
 	}
 }
 
