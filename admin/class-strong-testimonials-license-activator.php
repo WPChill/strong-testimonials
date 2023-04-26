@@ -173,12 +173,12 @@ if ( ! class_exists( 'Strong_Testimonials_Master_License_Activator' ) ) {
 				}
 			}
 
+			if ( ! $regular_action ) {
+				return;
+			}
+
 			// Check if anything passed on a message constituting a failure.
 			if ( ! empty( $message ) ) {
-				// If it's not a regular action return as it's most probably plugin deactivation.
-				if ( ! $regular_action ) {
-					return;
-				}
 				wp_send_json_error( array( 'success' => false, 'message' => $message ) );
 			}
 
