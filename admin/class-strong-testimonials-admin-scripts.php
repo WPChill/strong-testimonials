@@ -263,6 +263,9 @@ class Strong_Testimonials_Admin_Scripts {
 				'activate'           => esc_html__( 'Activate', 'strong-testimonials' ),
 				'deactivate'         => esc_html__( 'Deactivate', 'strong-testimonials' ),
 				'enter_email'        => esc_html__( 'Please enter your email address.', 'strong-testimonials' ),
+				'activating'         => esc_html__( 'Activating...', 'strong-testimonials' ),
+				'deactivating'       => esc_html__( 'Deactivating...', 'strong-testimonials' ),
+				'retrieving_data'    => esc_html__( 'Retrieving data...', 'strong-testimonials' ),
 			)
 		);
 

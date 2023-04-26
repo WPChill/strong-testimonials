@@ -38,8 +38,9 @@ if ( ! class_exists( 'Strong_Testimonials_Master_License_Activator' ) ) {
 		public function __construct() {
 
 			add_action( 'admin_init', array( $this, 'register_license_option' ) );
-			add_action( 'admin_init', array( $this, 'activate_license' ) );
-			add_action( 'admin_init', array( $this, 'deactivate_license' ) );
+			// Don't need this for the moment, as we do it AJAX style. @todo: Delete commented lines in the future.
+			//add_action( 'admin_init', array( $this, 'activate_license' ) );
+			//add_action( 'admin_init', array( $this, 'deactivate_license' ) );
 			add_action( 'wpmtst_license_errors', array( $this, 'admin_notices' ) );
 			add_action( 'wp_ajax_wpmtst_license_action', array( $this, 'ajax_license_action' ) );
 			add_action( 'wp_ajax_wpmtst_forgot_license', array( $this, 'ajax_forgot_license' ) );
