@@ -204,9 +204,11 @@ class Strong_Testimonials_Addons {
 		);
 
 		if ( '' === $license ) {
-			$license_message = $messages['no-license'];
+			//$license_message = $messages['no-license'];
+			$license_message = '';
 		} elseif ( '' !== $license && $status === false ) {
-			$license_message = $messages['activate-license'];
+			//$license_message = $messages['activate-license'];
+			$license_message = '';
 		} elseif ( $status->license === 'expired' ) {
 			$license_message = $messages['expired'];
 		} elseif ( '' !== $license && $status !== false && isset( $status->license ) && $status->license == 'valid' ) {
@@ -242,7 +244,7 @@ class Strong_Testimonials_Addons {
 			<?php do_action( 'wpmtst_license_errors' ); ?>
 			<?php
 			$valid_license = false;
-			if ( false !== $license && 'valid' === $status->license ) {
+			if ( false !== $license && $status && 'valid' === $status->license ) {
 				$valid_license = true;
 			}
 			?>
@@ -285,7 +287,7 @@ class Strong_Testimonials_Addons {
 	public function output_download_link( $link ) {
 		$license = get_option( 'strong_testimonials_license_key', false );
 		$status  = get_option( 'strong_testimonials_license_status', false );
-		if ( ! $license || 'valid' !== $status->license ) {
+		if ( ! $license || $status && 'valid' !== $status->license ) {
 			return $link;
 		}
 
