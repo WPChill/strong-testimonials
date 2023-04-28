@@ -380,6 +380,21 @@ if ( ! class_exists( 'Strong_Testimonials' ) ) :
 					'register_tab'
 				),             90 );
 			}
+
+			// License checker initiation
+			// Need to put store_url like this because it doesn't know who the constant is.
+			$args = array(
+				'plugin_slug'     => 'strong-testimonials',
+				'plugin_nicename' => 'Strong Testimonials',
+				'store_url'       => 'https://strongtestimonials.com',
+				'item_id'         => 724,
+				'license'         => 'strong_testimonials_license_key',
+				'license_status'  => 'strong_testimonials_license_status',
+				'plugin_file'     => __FILE__,
+			);
+
+			require_once WPMTST_INC . 'submodules/license-checker/class-wpchill-license-checker.php';
+			$wpchill_license_checker = Wpchill_License_Checker::get_instance( 'strong-testimonials', $args );
 		}
 
 		/**
@@ -652,3 +667,4 @@ function WPMST() {
 
 // Get plugin running.
 WPMST();
+
