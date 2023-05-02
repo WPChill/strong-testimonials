@@ -53,6 +53,12 @@ jQuery(document).ready(function ($) {
 			  buttonText = ('deactivate' === action) ? wpmtst_admin.deactivating : wpmtst_admin.activating;
 		target.text(buttonText);
 
+		if ( '' === license ) {
+			label.html(wpmtst_admin.enter_license);
+			target.text(wpmtst_admin.activate);
+			return;
+		}
+
 		jQuery.post(ajaxurl, data, (response) => {
 			if (response.success) {
 				label.html(response.data.message);
@@ -66,7 +72,7 @@ jQuery(document).ready(function ($) {
 				} else {
 					label.html(wpmtst_admin.something_wrong);
 				}
-				// Refresh window after 1.5 seconds.
+				// Refresh window after 3.5 seconds.
 				setTimeout(() => { window.location.reload(); }, 3500);
 			}
 		});

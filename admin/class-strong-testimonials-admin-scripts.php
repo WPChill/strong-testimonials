@@ -266,6 +266,7 @@ class Strong_Testimonials_Admin_Scripts {
 				'activating'         => esc_html__( 'Activating...', 'strong-testimonials' ),
 				'deactivating'       => esc_html__( 'Deactivating...', 'strong-testimonials' ),
 				'retrieving_data'    => esc_html__( 'Retrieving data...', 'strong-testimonials' ),
+				'enter_license'      => esc_html__( 'Please enter your license key.', 'strong-testimonials' ),
 			)
 		);
 

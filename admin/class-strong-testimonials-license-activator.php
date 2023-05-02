@@ -33,6 +33,13 @@ if ( ! class_exists( 'Strong_Testimonials_Master_License_Activator' ) ) {
 		public $license = null;
 
 		/**
+		 * License status
+		 *
+		 * @var mixed
+		 */
+		public $status = false;
+
+		/**
 		 * Strong_Testimonials_Master_License_Activator constructor.
 		 */
 		public function __construct() {
@@ -46,6 +53,7 @@ if ( ! class_exists( 'Strong_Testimonials_Master_License_Activator' ) ) {
 			add_action( 'wp_ajax_wpmtst_forgot_license', array( $this, 'ajax_forgot_license' ) );
 			// retrieve the license from the database.
 			$this->license = trim( get_option( 'strong_testimonials_license_key' ) );
+			$this->status  = get_option( 'strong_testimonials_license_status', false );
 		}
 
 		/**
@@ -109,10 +117,27 @@ if ( ! class_exists( 'Strong_Testimonials_Master_License_Activator' ) ) {
 		 */
 		public function force_license_activation( $regular_action = false, $extensions = array(), $action_status = 'activate' ) {
 
+			if ( ! $regular_action && ( ! $this->license || '' === $this->license ) ) {
+				return;
+			}
+
+			// If it's a regular action and license is not active we set empty extensions. Most probably this is an
+			// extension activation.
+			if ( ! $regular_action && ( ! $this->status || 'valid' !== $this->status->license ) ) {
+				$extensions = array();
+			}
+
+			// AJAX or regular action, license must be set.
+			if ( isset( $_POST['license'] ) ) {
+				$license = sanitize_text_field( $_POST['license'] );
+			} else {
+				$license = $this->license;
+			}
+
 			// data to send in our API request.
 			$api_params = array(
 				'edd_action'    => 'activate_license',
-				'license'       => $this->license,
+				'license'       => $license,
 				'item_id'       => $this->main_item_id,
 				'url'           => home_url(),
 				'extensions'    => implode( ',', $extensions ),
@@ -180,14 +205,13 @@ if ( ! class_exists( 'Strong_Testimonials_Master_License_Activator' ) ) {
 
 			// Check if anything passed on a message constituting a failure.
 			if ( ! empty( $message ) ) {
-				wp_send_json_error( array( 'success' => false, 'message' => $message ) );
+				wp_send_json_error( array( 'message' => $message ) );
 			}
 
 			// $license_data->license will be either "valid" or "invalid"
 			update_option( 'strong_testimonials_license_status', $license_data );
 			wp_send_json_success(
 				array(
-					'success' => true,
 					'message' => __( 'License activated.', 'strong-testimonials' )
 				)
 			);
@@ -204,6 +228,19 @@ if ( ! class_exists( 'Strong_Testimonials_Master_License_Activator' ) ) {
 		 * @return void
 		 */
 		public function force_license_deactivation( $regular_action = false, $extensions = array(), $action_status = 'deactivate' ) {
+
+			// If it's a regular action and license is not active we set empty extensions. Most probably this is an
+			// extension deactivation.
+			if ( ! $regular_action && ( ! $this->status || 'valid' !== $this->status->license ) ) {
+				$extensions = array();
+			}
+
+			// AJAX or regular action, license must be set.
+			if ( isset( $_POST['license'] ) ) {
+				$license = sanitize_text_field( $_POST['license'] );
+			} else {
+				$license = $this->license;
+			}
 
 			// data to send in our API request.
 			$api_params = array(
