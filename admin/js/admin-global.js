@@ -66,6 +66,8 @@ jQuery(document).ready(function ($) {
 				} else {
 					label.html(wpmtst_admin.something_wrong);
 				}
+				// Refresh window after 1.5 seconds.
+				setTimeout(() => { window.location.reload(); }, 3500);
 			}
 		});
 	});
