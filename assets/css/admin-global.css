@@ -162,3 +162,8 @@ span.wpmtst-upsell-badge {
 	content       : "\2713";
 	padding-right : 10px;
 }
+
+.wpmtst-master-license > * {
+	margin-bottom:10px;
+	display:block;
+}
