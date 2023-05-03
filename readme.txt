@@ -206,7 +206,7 @@ No. If you already have testimonials in another plugin or theme, you will have t
 8. View editor
 
 == Changelog ==
-= 3.1.4 - - -
+= 3.1.4 - 03.05.2023 -
 - Changed: License system for exensions
 
 = 3.1.3 - 28.03.2023 -
