@@ -120,11 +120,12 @@ if ( ! class_exists( 'Strong_Testimonials_Master_License_Activator' ) ) {
 			if ( ! $regular_action && ( ! $this->license || '' === $this->license ) ) {
 				return;
 			}
-
+			$tried_extension = '';
 			// If it's a regular action and license is not active we set empty extensions. Most probably this is an
 			// extension activation.
 			if ( ! $regular_action && ( ! $this->status || 'valid' !== $this->status->license ) ) {
-				$extensions = array();
+				$tried_extension = implode( ',', $extensions );
+				$extensions      = array();
 			}
 
 			// AJAX or regular action, license must be set.
@@ -136,12 +137,13 @@ if ( ! class_exists( 'Strong_Testimonials_Master_License_Activator' ) ) {
 
 			// data to send in our API request.
 			$api_params = array(
-				'edd_action'    => 'activate_license',
-				'license'       => $license,
-				'item_id'       => $this->main_item_id,
-				'url'           => home_url(),
-				'extensions'    => implode( ',', $extensions ),
-				'action_status' => $action_status,
+				'edd_action'      => 'activate_license',
+				'license'         => $license,
+				'item_id'         => $this->main_item_id,
+				'url'             => home_url(),
+				'extensions'      => implode( ',', $extensions ),
+				'action_status'   => $action_status,
+				'tried_extension' => $tried_extension
 			);
 
 			// Call the custom API.
@@ -232,11 +234,13 @@ if ( ! class_exists( 'Strong_Testimonials_Master_License_Activator' ) ) {
 			if ( ! $regular_action && ( ! $this->license || '' === $this->license ) ) {
 				return;
 			}
+			$tried_extension = '';
 
 			// If it's a regular action and license is not active we set empty extensions. Most probably this is an
 			// extension deactivation.
 			if ( ! $regular_action && ( ! $this->status || 'valid' !== $this->status->license ) ) {
-				$extensions = array();
+				$tried_extension = implode( ',', $extensions );
+				$extensions      = array();
 			}
 
 			// AJAX or regular action, license must be set.
@@ -248,12 +252,13 @@ if ( ! class_exists( 'Strong_Testimonials_Master_License_Activator' ) ) {
 
 			// data to send in our API request.
 			$api_params = array(
-				'edd_action'    => 'deactivate_license',
-				'license'       => $this->license,
-				'item_id'       => $this->main_item_id,
-				'url'           => home_url(),
-				'extensions'    => implode( ',', $extensions ),
-				'action_status' => $action_status,
+				'edd_action'      => 'deactivate_license',
+				'license'         => $this->license,
+				'item_id'         => $this->main_item_id,
+				'url'             => home_url(),
+				'extensions'      => implode( ',', $extensions ),
+				'action_status'   => $action_status,
+				'tried_extension' => $tried_extension
 			);
 
 			// Call the custom API.
