@@ -52,6 +52,7 @@ jQuery(document).ready(function ($) {
 			  },
 			  buttonText = ('deactivate' === action) ? wpmtst_admin.deactivating : wpmtst_admin.activating;
 		target.text(buttonText);
+		target.addClass('wpmtst-disabled button-disabled');
 
 		if ( '' === license ) {
 			label.html(wpmtst_admin.enter_license);

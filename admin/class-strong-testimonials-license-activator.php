@@ -229,6 +229,10 @@ if ( ! class_exists( 'Strong_Testimonials_Master_License_Activator' ) ) {
 		 */
 		public function force_license_deactivation( $regular_action = false, $extensions = array(), $action_status = 'deactivate' ) {
 
+			if ( ! $regular_action && ( ! $this->license || '' === $this->license ) ) {
+				return;
+			}
+
 			// If it's a regular action and license is not active we set empty extensions. Most probably this is an
 			// extension deactivation.
 			if ( ! $regular_action && ( ! $this->status || 'valid' !== $this->status->license ) ) {
