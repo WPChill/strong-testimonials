@@ -167,3 +167,7 @@ span.wpmtst-upsell-badge {
 	margin-bottom:10px;
 	display:block;
 }
+
+.wpmtst-disabled {
+	pointer-events: none;
+}
