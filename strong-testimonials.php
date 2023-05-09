@@ -639,25 +639,6 @@ if ( ! class_exists( 'Strong_Testimonials' ) ) :
 
 endif; // class_exists check.
 
-if ( ! class_exists( 'Strong_Testimonials_Usage_Tracker' ) ) {
-	require_once dirname( __FILE__ ) . '/includes/tracking/class-strong-testimonials-usage-tracker.php';
-}
-if ( ! function_exists( 'strong_testimonials_start_plugin_tracking' ) ) {
-	function strong_testimonials_start_plugin_tracking() {
-		$wisdom = new Strong_Testimonials_Usage_Tracker(
-			__FILE__,
-			'https://tracking.strongtestimonials.com',
-			array(),
-			true,
-			true,
-			0
-		);
-	}
-
-	strong_testimonials_start_plugin_tracking();
-}
-
-
 register_activation_hook( __FILE__, array( 'Strong_Testimonials', 'plugin_activation' ) );
 register_deactivation_hook( __FILE__, array( 'Strong_Testimonials', 'plugin_deactivation' ) );
 

@@ -47,7 +47,6 @@ class Strong_Testimonials_Defaults {
             'no_lazyload_plugin'      => true,
 			'touch_enabled'           => true,
             'disable_upsells'         => false,
-            'track_data'              => false,
 		);
 
 		return $default_options;
