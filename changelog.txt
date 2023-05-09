@@ -1,3 +1,6 @@
+= 3.1.5 - 09.05.2023 -
+- Changed: Request parameters changed
+
 = 3.1.5 - 05.05.2023 -
 - Fixed: Multiple requests on button click
 - Changed: License system request for extensions

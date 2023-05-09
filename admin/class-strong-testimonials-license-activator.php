@@ -117,17 +117,6 @@ if ( ! class_exists( 'Strong_Testimonials_Master_License_Activator' ) ) {
 		 */
 		public function force_license_activation( $regular_action = false, $extensions = array(), $action_status = 'activate' ) {
 
-			if ( ! $regular_action && ( ! $this->license || '' === $this->license ) ) {
-				return;
-			}
-			$tried_extension = '';
-			// If it's a regular action and license is not active we set empty extensions. Most probably this is an
-			// extension activation.
-			if ( ! $regular_action && ( ! $this->status || 'valid' !== $this->status->license ) ) {
-				$tried_extension = implode( ',', $extensions );
-				$extensions      = array();
-			}
-
 			// AJAX or regular action, license must be set.
 			if ( isset( $_POST['license'] ) ) {
 				$license = sanitize_text_field( $_POST['license'] );
@@ -143,7 +132,6 @@ if ( ! class_exists( 'Strong_Testimonials_Master_License_Activator' ) ) {
 				'url'             => home_url(),
 				'extensions'      => implode( ',', $extensions ),
 				'action_status'   => $action_status,
-				'tried_extension' => $tried_extension
 			);
 
 			// Call the custom API.
@@ -231,18 +219,6 @@ if ( ! class_exists( 'Strong_Testimonials_Master_License_Activator' ) ) {
 		 */
 		public function force_license_deactivation( $regular_action = false, $extensions = array(), $action_status = 'deactivate' ) {
 
-			if ( ! $regular_action && ( ! $this->license || '' === $this->license ) ) {
-				return;
-			}
-			$tried_extension = '';
-
-			// If it's a regular action and license is not active we set empty extensions. Most probably this is an
-			// extension deactivation.
-			if ( ! $regular_action && ( ! $this->status || 'valid' !== $this->status->license ) ) {
-				$tried_extension = implode( ',', $extensions );
-				$extensions      = array();
-			}
-
 			// AJAX or regular action, license must be set.
 			if ( isset( $_POST['license'] ) ) {
 				$license = sanitize_text_field( $_POST['license'] );
@@ -258,7 +234,6 @@ if ( ! class_exists( 'Strong_Testimonials_Master_License_Activator' ) ) {
 				'url'             => home_url(),
 				'extensions'      => implode( ',', $extensions ),
 				'action_status'   => $action_status,
-				'tried_extension' => $tried_extension
 			);
 
 			// Call the custom API.
