@@ -1,5 +1,8 @@
-= 3.1.7 - TBD -
+= 3.1.8 - TBD -
 - Changed: Removed plugin tracking ( [#394](https://github.com/WPChill/strong-testimonials/issues/394) )
+
+= 3.1.7 - 10.05.2023 -
+- Changed: Check for request necessity
 
 = 3.1.6 - 09.05.2023 -
 - Changed: Request parameters changed

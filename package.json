@@ -1,7 +1,7 @@
 {
   "name": "strong-testimonials",
   "author": "WPChill",
-  "version": "3.1.6",
+  "version": "3.1.7",
   "license": "GPL v3",
   "scripts": {
     "build": "webpack",
