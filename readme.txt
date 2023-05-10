@@ -206,6 +206,9 @@ No. If you already have testimonials in another plugin or theme, you will have t
 8. View editor
 
 == Changelog ==
+= 3.1.8 - TBD -
+- Changed: Removed plugin tracking ( [#394](https://github.com/WPChill/strong-testimonials/issues/394) )
+
 = 3.1.7 - 10.05.2023 -
 - Changed: Check for request necessity
 
