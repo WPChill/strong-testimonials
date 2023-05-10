@@ -1,4 +1,7 @@
-= 3.1.5 - 09.05.2023 -
+= 3.1.7 - 10.05.2023 -
+- Changed: Check for request necessity
+
+= 3.1.6 - 09.05.2023 -
 - Changed: Request parameters changed
 
 = 3.1.5 - 05.05.2023 -

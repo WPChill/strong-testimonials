@@ -52,7 +52,7 @@ if ( ! class_exists( 'Strong_Testimonials_Master_License_Activator' ) ) {
 			add_action( 'wp_ajax_wpmtst_license_action', array( $this, 'ajax_license_action' ) );
 			add_action( 'wp_ajax_wpmtst_forgot_license', array( $this, 'ajax_forgot_license' ) );
 			// retrieve the license from the database.
-			$this->license = trim( get_option( 'strong_testimonials_license_key' ) );
+			$this->license = trim( get_option( 'strong_testimonials_license_key', false ) );
 			$this->status  = get_option( 'strong_testimonials_license_status', false );
 		}
 
@@ -122,6 +122,14 @@ if ( ! class_exists( 'Strong_Testimonials_Master_License_Activator' ) ) {
 				$license = sanitize_text_field( $_POST['license'] );
 			} else {
 				$license = $this->license;
+			}
+
+			if ( ! $license ) {
+				if ( ! $regular_action ) {
+					return;
+				} else {
+					exit;
+				}
 			}
 
 			// data to send in our API request.
@@ -224,6 +232,14 @@ if ( ! class_exists( 'Strong_Testimonials_Master_License_Activator' ) ) {
 				$license = sanitize_text_field( $_POST['license'] );
 			} else {
 				$license = $this->license;
+			}
+
+			if ( ! $license ) {
+				if ( ! $regular_action ) {
+					return;
+				} else {
+					exit;
+				}
 			}
 
 			// data to send in our API request.
