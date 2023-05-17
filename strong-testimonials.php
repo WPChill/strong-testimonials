@@ -354,6 +354,7 @@ if ( ! class_exists( 'Strong_Testimonials' ) ) :
 		 */
 		private function add_actions() {
 			add_action( 'plugins_loaded', array( $this, 'load_textdomain' ) );
+			add_action( 'plugins_loaded', array( $this, 'remove_license_tab' ) );
 
 			/**
 			 * Plugin setup.
@@ -373,13 +374,7 @@ if ( ! class_exists( 'Strong_Testimonials' ) ) :
 
 			add_filter( 'views_edit-wpm-testimonial', array( $this, 'add_onboarding_view' ), 10, 1 );
 
-			// Remove license tab added by premium extensions.
-			if ( class_exists( 'Strong_Testimonials_Settings_License' ) ) {
-				remove_action( 'wpmtst_settings_tabs', array(
-					'Strong_Testimonials_Settings_License',
-					'register_tab'
-				),             90 );
-			}
+
 
 			// License checker initiation
 			// Need to put store_url like this because it doesn't know who the constant is.
@@ -395,6 +390,18 @@ if ( ! class_exists( 'Strong_Testimonials' ) ) :
 
 			require_once WPMTST_INC . 'submodules/license-checker/class-wpchill-license-checker.php';
 			$wpchill_license_checker = Wpchill_License_Checker::get_instance( 'strong-testimonials', $args );
+		}
+
+		/**
+		 * Remove license tab added by premium extensions.
+		 */
+		public function remove_license_tab(){
+			if ( class_exists( 'Strong_Testimonials_Settings_License' ) ) {
+				remove_action( 'wpmtst_settings_tabs', array(
+					'Strong_Testimonials_Settings_License',
+					'register_tab'
+				),             90 );
+			}
 		}
 
 		/**
