@@ -154,9 +154,41 @@ if ( ! class_exists( 'Strong_Testimonials' ) ) :
 		/**
 		 * Plugin activation
 		 */
-		static function plugin_activation() {
+		static function plugin_activation( $network_wide = false ) {
+
 			$first_install = ! get_option( 'wpmtst_db_version' ) ? true : false;
-			wpmtst_update_tables();
+
+			// check if
+			if ( ! function_exists( 'is_plugin_active_for_network' ) ) {
+				require_once( ABSPATH . '/wp-admin/includes/plugin.php' );
+			}
+
+			// check if it's multisite
+			if ( is_multisite() && true == $network_wide ) {
+
+				// get websites
+				$sites = wp_get_sites();
+
+				// loop
+				if ( count( $sites ) > 0 ) {
+					foreach ( $sites as $site ) {
+
+						// switch to blog
+						switch_to_blog( $site['blog_id'] );
+
+						// run installer on blog
+						wpmtst_update_tables();
+
+						// restore current blog
+						restore_current_blog();
+					}
+				}
+
+			} else {
+				// no multisite so do normal install
+				wpmtst_update_tables();
+			}
+
 			wpmtst_register_cpt();
 			flush_rewrite_rules();
 
@@ -170,6 +202,33 @@ if ( ! class_exists( 'Strong_Testimonials' ) ) :
 					$extensions = $license->get_installed_extensions();
 					$license->force_license_activation( false, $extensions, 'activate-st' );
 				}
+			}
+		}
+
+
+		/**
+		 * Run installer for new blogs on multisite when plugin is network activated
+		 *
+		 * @param $blog_id
+		 * @param $user_id
+		 * @param $domain
+		 * @param $path
+		 * @param $site_id
+		 * @param $meta
+		 */
+		static function mu_new_blog( $site, $args ) {
+
+			// check if plugin is network activated
+			if ( is_plugin_active_for_network( 'strong-testimonials/strong-testimonials.php' ) ) {
+
+				// switch to new blog
+				switch_to_blog( $site->blog_id );
+
+				// run installer on blog
+				wpmtst_update_tables();
+
+				// restore current blog
+				restore_current_blog();
 			}
 		}
 
@@ -641,6 +700,8 @@ endif; // class_exists check.
 
 register_activation_hook( __FILE__, array( 'Strong_Testimonials', 'plugin_activation' ) );
 register_deactivation_hook( __FILE__, array( 'Strong_Testimonials', 'plugin_deactivation' ) );
+
+add_action( 'wp_initialize_site', array( 'Strong_Testimonials', 'mu_new_blog' ), 10, 2 );
 
 function WPMST() {
 	return Strong_Testimonials::instance();
