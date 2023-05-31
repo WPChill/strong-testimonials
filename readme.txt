@@ -208,6 +208,7 @@ No. If you already have testimonials in another plugin or theme, you will have t
 == Changelog ==
 = 3.1.8 - TBD -
 - Changed: Removed plugin tracking ( [#394](https://github.com/WPChill/strong-testimonials/issues/394) )
+- Fixed: The 'strong_views' database table was not created in multisite wp installs. ( [#399](https://github.com/WPChill/strong-testimonials/issues/399) )
 
 = 3.1.7 - 10.05.2023 -
 - Changed: Check for request necessity
