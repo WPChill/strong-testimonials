@@ -29,17 +29,21 @@ function wpmtst_get_views() {
 	$table_name = $wpdb->prefix . 'strong_views';
 	$results = $wpdb->get_results( "SELECT * FROM $table_name ORDER BY id ASC", ARRAY_A );
 	$wpdb->hide_errors();
-
 	if ( $wpdb->last_error ) {
+
+		if ( ! function_exists( 'deactivate_plugins' ) ) {
+			require_once ABSPATH . 'wp-admin/includes/plugin.php';
+		}
+
 		deactivate_plugins( 'strong-testimonials/strong-testimonials.php' );
 		$message = '<p><span style="color: #CD0000;">';
-		$message .= __( 'An error occurred.', 'strong-testimonials' ) . '</span>&nbsp;';
-		$message .= __( 'The plugin has been deactivated.', 'strong-testimonials' ) . '&nbsp;';
+		$message .= esc_html__( 'An error occurred.', 'strong-testimonials' ) . '</span>&nbsp;';
+		$message .= esc_html__( 'The plugin has been deactivated.', 'strong-testimonials' ) . '&nbsp;';
 		$message .= '<p>' . sprintf( __( '<a href="%s">Go back to Dashboard</a>', 'strong-testimonials' ), esc_url( admin_url() ) ) . '</p>';
-		wp_die( sprintf( '<div class="error strong-view-error">%s</div>', $message ) );
+		wp_die( sprintf( '<div class="error strong-view-error">%s</div>', wp_kses_post( $message ) ) );
 	}
 
-	return $results;
+	return apply_filters('wpmtst_views_query_results', $results);
 }
 
 /**

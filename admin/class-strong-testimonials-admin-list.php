@@ -93,19 +93,19 @@ class Strong_Testimonials_Admin_List {
 		// 3. insert [excerpt] after [title]
 		$key           = 'title';
 		$offset        = array_search( $key, array_keys( $columns ) ) + 1;
-		$fields_to_add = array( 'post_excerpt' => __( 'Excerpt', 'strong-testimonials' ) );
+		$fields_to_add = array( 'post_excerpt' => esc_html__( 'Excerpt', 'strong-testimonials' ) );
 
 		// 4. add custom fields
 		foreach ( $fields as $key => $field ) {
 
-			if ( $field['admin_table'] ) {
+			if ( isset( $field['admin_table'] ) ) {
 
 				if ( 'post_title' == $field['name'] ) {
 					continue;
 				} elseif ( 'featured_image' == $field['name'] ) {
-					$fields_to_add['strong_thumbnail'] = __( 'Thumbnail', 'strong-testimonials' );
+					$fields_to_add['strong_thumbnail'] = esc_html__( 'Thumbnail', 'strong-testimonials' );
 				} elseif ( 'rating' == $field['input_type'] ) {
-					$fields_to_add[ $field['name'] ] = __( 'Rating', 'strong-testimonials' );
+					$fields_to_add[ $field['name'] ] = esc_html__( 'Rating', 'strong-testimonials' );
 				} else {
 					$fields_to_add[ $field['name'] ] = apply_filters( 'wpmtst_l10n', $field['label'], 'strong-testimonials-form-fields', $field['name'] . ' : label' );
 				}
@@ -117,18 +117,18 @@ class Strong_Testimonials_Admin_List {
 		// 5. add [category], [comments] and [date]
 		// The slug "categories" slug is reserved by WordPress.
 		if ( wpmtst_get_cat_count() ) {
-			$fields_to_add['category'] = __( 'Categories', 'strong-testimonials' );
+			$fields_to_add['category'] = esc_html__( 'Categories', 'strong-testimonials' );
 		}
 
 		if ( $comments ) {
 			$fields_to_add['comments'] = $comments;
 		}
 
-		$fields_to_add['date'] = __( 'Date', 'strong-testimonials' );
+		$fields_to_add['date'] = esc_html__( 'Date', 'strong-testimonials' );
 
 		$options = get_option( 'wpmtst_options' );
 		if ( isset( $options['include_platform'] ) && $options['include_platform'] === true ) {
-			$fields_to_add['platform'] = __( 'Platform', 'strong-testimonials' );
+			$fields_to_add['platform'] = esc_html__( 'Platform', 'strong-testimonials' );
 		}
 
 		// Push other added columns like [search_exclude] to the end.
@@ -152,19 +152,19 @@ class Strong_Testimonials_Admin_List {
 		switch ( $column ) {
 
 			case 'post_id' :
-				echo $post->ID;
+				echo absint( $post->ID );
 				break;
 
 			case 'post_content' :
-				echo substr( $post->post_content, 0, 100 ) . '&hellip;';
+				echo wp_kses_post( substr( $post->post_content, 0, 100 ) . '&hellip;' );
 				break;
 
 			case 'post_excerpt' :
-				echo $post->post_excerpt;
+				echo wp_kses_post( $post->post_excerpt );
 				break;
 
 			case 'strong_thumbnail' :
-				echo wpmtst_get_thumbnail( array( 60, 60 ) );
+				echo wp_kses_post( wpmtst_get_thumbnail( array( 60, 60 ) ) );
 				break;
 
 			case 'category' :
@@ -174,7 +174,7 @@ class Strong_Testimonials_Admin_List {
 					foreach ( $categories as $cat ) {
 						$list[] = $cat->name;
 					}
-					echo implode( ", ", $list );
+					echo esc_html( implode( ", ", $list ) );
 				}
 				break;
 
@@ -212,7 +212,7 @@ class Strong_Testimonials_Admin_List {
 								echo $custom[ $column ][0] ? 'yes' : 'no';
 								break;
 							default :
-								echo $custom[ $column ][0];
+								echo wp_kses_post( $custom[ $column ][0] );
 						}
 
 					}
@@ -241,7 +241,7 @@ class Strong_Testimonials_Admin_List {
 	 * @return array
 	 */
 	public static function add_thumbnail_column( $columns ) {
-		$columns['strong_thumbnail'] = __( 'Thumbnail', 'strong-testimonials' );
+		$columns['strong_thumbnail'] = esc_html__( 'Thumbnail', 'strong-testimonials' );
 
 		return $columns;
 	}
@@ -291,7 +291,7 @@ class Strong_Testimonials_Admin_List {
 				'child_of'          => 0,
 				'exclude'           => '',
 				'echo'              => 1,
-				'selected'          => isset( $_GET[ $tax ] ) ? $_GET[ $tax ] : '',
+				'selected'          => isset( $_GET[ $tax ] ) ? sanitize_text_field( wp_unslash( $_GET[ $tax ] ) ) : '',
 				'hierarchical'      => 1,
 				'name'              => $tax,
 				'id'                => $tax,
@@ -339,7 +339,7 @@ class Strong_Testimonials_Admin_List {
 	 * @since 1.16.0
 	 */
 	public static function is_column_sorted() {
-		return isset( $_GET['orderby'] ) || strstr( $_SERVER['REQUEST_URI'], 'action=edit' ) || strstr( $_SERVER['REQUEST_URI'], 'wp-admin/post-new.php' );
+		return isset( $_GET['orderby'] ) || ( isset( $_SERVER['REQUEST_URI'] ) && strstr( sanitize_url( $_SERVER['REQUEST_URI'] ), 'action=edit' ) ) || strstr( sanitize_url( $_SERVER['REQUEST_URI'] ), 'wp-admin/post-new.php' );
 	}
 
 }

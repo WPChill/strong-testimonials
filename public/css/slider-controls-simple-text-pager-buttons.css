@@ -22,6 +22,7 @@
 ---------------------------------------------------------*/
 .strong-view .wpmslider-pager {
   display: inline-block;
+  vertical-align: middle;
 }
 .strong-view.rtl .wpmslider-pager {
   direction: rtl;
@@ -160,6 +161,8 @@
   margin: 0 0.5em;
   text-align: center;
   transition: all 0.2s ease;
+  line-height: 16px;
+  vertical-align: top;
 }
 
 .strong-view.pager-style-buttons .wpmslider-pager {
@@ -197,6 +200,8 @@
   display: inline-block;
   width: 20px;
   height: 20px;
+  position: relative;
+  bottom: -1px;
 }
 
 .strong-view.nav-position-inside:not(.controls-type-sides) .wpmslider-controls {

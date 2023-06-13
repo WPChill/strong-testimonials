@@ -34,20 +34,6 @@
   font-weight: normal;
 }
 
-.strong-rating label:before {
-  content: "";
-  display: inline-block;
-  font-size: 1.25em;
-  width:20px;
-  height:20px;
-  -webkit-mask: url('../svg/star-solid.svg') center center no-repeat;
-  mask: url('../svg/star-solid.svg') center center no-repeat;
-  line-height: 1;
-  /* use padding not margin */
-  padding: 4px;
-  transition: color 0.3s ease;
-}
-
 .strong-rating label:hover {
   cursor: pointer;
 }
@@ -72,15 +58,6 @@
   padding: 0;
 }
 
-/* in the post editor */
-.strong-rating-wrapper.in-metabox .strong-rating > label:before {
-  font-size: 20px;
-  line-height: 27px;
-  padding: 0 4px;
-  background:#0073AA;
-  color: #0073aa;
-}
-
 /* the magic */
 
 /* this is how we highlight stars before the checked one (siblings before): */
@@ -91,67 +68,46 @@
   display: none !important;
 }
 
-/* and turn all on */
-.strong-rating label:before {
-  color: #FFB900;
-  background: #ffb900;
+
+/* set the color of the star and its stroke(outline) color and width */
+.strong-rating-wrapper .star svg path {
+  fill: #FFB900;
+  stroke: #000;
+  stroke-width: 6;
 }
 
-/* turn off stars after the one we're on */
-.strong-rating label:hover ~ label:before {
-  content: "";
-  -webkit-mask: url('../svg/star-regular.svg') center center no-repeat;
-  mask: url('../svg/star-regular.svg') center center no-repeat;
-}
-/* maybe use different color if validation error */
-.error .strong-rating label:hover ~ label:before {
+/* set the width of the star */
+.strong-rating-wrapper .star svg {
+  width: 20px;
 }
 
-/* turn off stars after the current rating */
-.strong-rating input:checked ~ label:before {
-  content: "";
-  -webkit-mask: url('../svg/star-regular.svg') center center no-repeat;
-  mask: url('../svg/star-regular.svg') center center no-repeat;
-}
-/* maybe use different color if validation error */
-.error .strong-rating input:checked ~ label:before {
+/* hide all solid stars that are not checked or perceded by a checked star */
+.strong-rating input[type="radio"]:checked ~ .star svg .star_solid{
+  display: none;
 }
 
-/* turn on the current rating */
-.strong-rating input[type="radio"]:checked + label:before,
-.error .strong-rating input:checked + label:before {
-  content: "";
-  -webkit-mask: url('../svg/star-solid.svg') center center no-repeat;
-  mask: url('../svg/star-solid.svg') center center no-repeat;
-}
-.strong-rating-wrapper.in-metabox input[type="radio"]:checked + label:before {
-  color: #00b9eb;
-  background: #00b9eb;
+/* show the solid star that is checked */
+.strong-rating input[type="radio"]:checked + .star svg .star_solid{
+  display: block;
 }
 
-/* when hovering the entire fieldset: */
-
-/* (1) turn all on */
-.strong-rating:hover input ~ label:before,
-.error .strong-rating:hover input ~ label:before {
-  content: "";
-  -webkit-mask: url('../svg/star-solid.svg') center center no-repeat;
-  mask: url('../svg/star-solid.svg') center center no-repeat;
+/* show all the solid stars when the container is hovered */
+.strong-rating:hover .star svg .star_solid {
+  display: block !important;
 }
 
-/* (2) indicate current selection (optional) */
-.strong-rating:hover input:checked + label:before,
-.error .strong-rating:hover input:checked + label:before {
-  color: #FFE39E;
-  background:#FFE39E;
+/* hide all the solid stars that are not hovered */
+.strong-rating .star:hover ~ .star svg .star_solid {
+  display: none  !important;
 }
 
-/* (3) then turn off siblings after the hovered star */
-.strong-rating:hover label:hover ~ input:not(:checked) + label:before {
-  content: "";
-  -webkit-mask: url('../svg/star-regular.svg') center center no-repeat;
-  mask: url('../svg/star-regular.svg') center center no-repeat;
+/* remove the focus outline from element */
+.strong-rating:focus {
+  outline: none;
 }
-/* maybe use different color if validation error */
-.error .strong-rating:hover label:hover ~ input:not(:checked) + label:before {
+/* indicate current selection  */
+.strong-rating:hover input:checked + .star svg path{
+  fill: #FFE39E;
 }
+
+

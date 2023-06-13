@@ -165,7 +165,7 @@ add_action( 'admin_init', 'wpmtst_admin_polylang' );
 function wpmtst_help_link_polylang( $context ) {
 	echo '<p>';
 	echo '<span class="dashicons dashicons-info icon-blue"></span>&nbsp;';
-	printf( __( 'Translate these fields in <a href="%s">Polylang String Translations</a>', 'strong-testimonials' ),
-		admin_url( 'admin.php?page=mlang_strings&group=strong-testimonials-' . $context . '&paged=1' ) );
+	printf( wp_kses_post( __( 'Translate these fields in <a href="%s">Polylang String Translations</a>', 'strong-testimonials' ) ),
+		esc_url( admin_url( 'admin.php?page=mlang_strings&group=strong-testimonials-' . $context . '&paged=1' ) ) );
 	echo '</p>';
 }

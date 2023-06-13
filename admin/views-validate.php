@@ -189,7 +189,7 @@ function wpmtst_sanitize_view_readmore( $data, $input, $default_view ) {
 		$data['more_post'] = 0;
 	}
 	$data['more_post_ellipsis'] = sanitize_text_field( $input['more_post_ellipsis'] );
-	$data['use_default_more']   = $input['use_default_more'];
+	$data['use_default_more']   = ( isset( $input['use_default_more'] ) ) ? $input['use_default_more'] : 0;
 	$data['more_post_text']     = sanitize_text_field( $input['more_post_text'] );
 	$data['less_post_text']     = sanitize_text_field( $input['less_post_text'] );
 
@@ -211,7 +211,7 @@ function wpmtst_sanitize_view_readmore( $data, $input, $default_view ) {
 	if ( isset( $input['more_page'] ) && $input['more_page'] ) {
 
 		// Check the "ID or slug" field first
-		if ( $input['more_page_id2'] ) {
+		if ( isset($input['more_page_id2']) && !empty($input['more_page_id2']) ) {
 
 			// is post ID?
 			$id = sanitize_text_field( $input['more_page_id2'] );

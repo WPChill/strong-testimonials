@@ -31,8 +31,8 @@ class Strong_Testimonials_Defaults {
 		$default_options = array(
 			'embed_width'             => '',
 			'nofollow'                => true,
-            'noopener'                => false,
-            'noreferrer'              => false,
+            'noopener'                => true,
+            'noreferrer'              => true,
             'disable_rewrite'         => false,
 			'pending_indicator'       => true,
 			'remove_whitespace'       => true,
@@ -46,7 +46,7 @@ class Strong_Testimonials_Defaults {
 			'lazyload'                => false,
             'no_lazyload_plugin'      => true,
 			'touch_enabled'           => true,
-            'disable_upsells'         => false
+            'disable_upsells'         => false,
 		);
 
 		return $default_options;
@@ -75,7 +75,7 @@ class Strong_Testimonials_Defaults {
 			'default_form_value'      => '',
 			'default_display_value'   => '',
 			'show_default_options'    => 1,
-			'error'                   => __( 'This field is required.', 'strong-testimonials' ),
+			'error'                   => esc_html__( 'This field is required.', 'strong-testimonials' ),
 			'placeholder'             => '',
 			'show_placeholder_option' => 1,
 			'before'                  => '',
@@ -106,7 +106,7 @@ class Strong_Testimonials_Defaults {
 		$field_types['post'] = array(
 			'post_title'     => array(
 				'input_type'              => 'text',
-				'option_label'            => __( 'Testimonial Title', 'strong-testimonials' ),
+				'option_label'            => esc_html__( 'Testimonial Title', 'strong-testimonials' ),
 				'map'                     => 'post_title',
 				'show_default_options'    => 0,
 				'admin_table'             => 1,
@@ -117,7 +117,7 @@ class Strong_Testimonials_Defaults {
 			),
 			'post_content'   => array(
 				'input_type'              => 'textarea',
-				'option_label'            => __( 'Testimonial Content', 'strong-testimonials' ),
+				'option_label'            => esc_html__( 'Testimonial Content', 'strong-testimonials' ),
 				'map'                     => 'post_content',
 				'required'                => 1,
 				'show_default_options'    => 0,
@@ -129,7 +129,7 @@ class Strong_Testimonials_Defaults {
 			),
 			'featured_image' => array(
 				'input_type'              => 'file',
-				'option_label'            => __( 'Featured Image', 'strong-testimonials' ),
+				'option_label'            => esc_html__( 'Featured Image', 'strong-testimonials' ),
 				'map'                     => 'featured_image',
 				'show_default_options'    => 0,
 				'show_placeholder_option' => 0,
@@ -147,21 +147,21 @@ class Strong_Testimonials_Defaults {
 		$field_types['custom'] = array(
 			'text'     => array(
 				'input_type'   => 'text',
-				'option_label' => __( 'text', 'strong-testimonials' ),
+				'option_label' => esc_html__( 'text', 'strong-testimonials' ),
 			),
 			'email'    => array(
 				'input_type'           => 'email',
-				'option_label'         => __( 'email', 'strong-testimonials' ),
+				'option_label'         => esc_html__( 'email', 'strong-testimonials' ),
 				'show_default_options' => 0,
 			),
 			'url'      => array(
 				'input_type'           => 'url',
-				'option_label'         => __( 'URL', 'strong-testimonials' ),
+				'option_label'         => esc_html__( 'URL', 'strong-testimonials' ),
 				'show_default_options' => 0,
 			),
 			'checkbox' => array(
 				'input_type'              => 'checkbox',
-				'option_label'            => __( 'checkbox', 'strong-testimonials' ),
+				'option_label'            => esc_html__( 'checkbox', 'strong-testimonials' ),
 				'show_text_option'        => 1,
 				'show_placeholder_option' => 0,
 			),
@@ -179,7 +179,7 @@ class Strong_Testimonials_Defaults {
 		$field_types['optional'] = array(
 			'category-selector'  => array(
 				'input_type'              => 'category-selector',
-				'option_label'            => __( 'category selector', 'strong-testimonials' ),
+				'option_label'            => esc_html__( 'category selector', 'strong-testimonials' ),
 				'show_default_options'    => 0,
 				'show_placeholder_option' => 0,
 				'show_admin_table_option' => 0,
@@ -187,7 +187,7 @@ class Strong_Testimonials_Defaults {
 			),
 			'category-checklist' => array(
 				'input_type'              => 'category-checklist',
-				'option_label'            => __( 'category checklist', 'strong-testimonials' ),
+				'option_label'            => esc_html__( 'category checklist', 'strong-testimonials' ),
 				'show_default_options'    => 0,
 				'show_placeholder_option' => 0,
 				'show_admin_table_option' => 0,
@@ -195,7 +195,7 @@ class Strong_Testimonials_Defaults {
 			),
 			'shortcode'          => array(
 				'input_type'              => 'shortcode',
-				'option_label'            => __( 'shortcode', 'strong-testimonials' ),
+				'option_label'            => esc_html__( 'shortcode', 'strong-testimonials' ),
 				'show_label'              => 0,
 				'required'                => 0,
 				'show_required_option'    => 0,
@@ -206,7 +206,7 @@ class Strong_Testimonials_Defaults {
 			),
 			'rating'             => array(
 				'input_type'              => 'rating',
-				'option_label'            => __( 'star rating', 'strong-testimonials' ),
+				'option_label'            => esc_html__( 'star rating', 'strong-testimonials' ),
 				'show_placeholder_option' => 0,
 				'admin_table'             => 1,
 				'admin_table_option'      => 1,
@@ -244,7 +244,7 @@ class Strong_Testimonials_Defaults {
 		$forms = array(
 			'default' => array(
 				'name'     => 'default',
-				'label'    => __( 'Default Form', 'strong-testimonials' ),
+				'label'    => esc_html__( 'Default Form', 'strong-testimonials' ),
 				'readonly' => 1,
 				'fields'   => array(
 					// ------
@@ -253,33 +253,33 @@ class Strong_Testimonials_Defaults {
 					0 => array(
 						'record_type' => 'custom',
 						'name'        => 'client_name',
-						'label'       => __( 'Full Name', 'strong-testimonials' ),
+						'label'       => esc_html__( 'Full Name', 'strong-testimonials' ),
 						'input_type'  => 'text',
 						'required'    => 1,
-						'after'       => __( 'What is your full name?', 'strong-testimonials' ),
+						'after'       => esc_html__( 'What is your full name?', 'strong-testimonials' ),
 						'admin_table' => 1,
 					),
 					1 => array(
 						'record_type' => 'custom',
 						'name'        => 'email',
-						'label'       => __( 'Email', 'strong-testimonials' ),
+						'label'       => esc_html__( 'Email', 'strong-testimonials' ),
 						'input_type'  => 'email',
 						'required'    => 1,
-						'after'       => __( 'What is your email address?', 'strong-testimonials' ),
+						'after'       => esc_html__( 'What is your email address?', 'strong-testimonials' ),
 					),
 					3 => array(
 						'record_type' => 'custom',
 						'name'        => 'company_name',
-						'label'       => __( 'Company Name', 'strong-testimonials' ),
+						'label'       => esc_html__( 'Company Name', 'strong-testimonials' ),
 						'input_type'  => 'text',
-						'after'       => __( 'What is your company name?', 'strong-testimonials' ),
+						'after'       => esc_html__( 'What is your company name?', 'strong-testimonials' ),
 					),
 					4 => array(
 						'record_type' => 'custom',
 						'name'        => 'company_website',
-						'label'       => __( 'Company Website', 'strong-testimonials' ),
+						'label'       => esc_html__( 'Company Website', 'strong-testimonials' ),
 						'input_type'  => 'url',
-						'after'       => __( 'Does your company have a website?', 'strong-testimonials' ),
+						'after'       => esc_html__( 'Does your company have a website?', 'strong-testimonials' ),
 					),
 					// ----
 					// POST
@@ -287,28 +287,36 @@ class Strong_Testimonials_Defaults {
 					5 => array(
 						'record_type' => 'post',
 						'name'        => 'post_title',
-						'label'       => __( 'Heading', 'strong-testimonials' ),
+						'label'       => esc_html__( 'Heading', 'strong-testimonials' ),
 						'input_type'  => 'text',
 						'required'    => 0,
-						'after'       => __( 'A headline for your testimonial.', 'strong-testimonials' ),
+						'after'       => esc_html__( 'A headline for your testimonial.', 'strong-testimonials' ),
                                                 'max_length'  => ''
 					),
 					6 => array(
 						'record_type' => 'post',
 						'name'        => 'post_content',
-						'label'       => __( 'Testimonial', 'strong-testimonials' ),
+						'label'       => esc_html__( 'Testimonial', 'strong-testimonials' ),
 						'input_type'  => 'textarea',
 						'required'    => 1,
-						'after'       => __( 'What do you think about us?', 'strong-testimonials' ),
+						'after'       => esc_html__( 'What do you think about us?', 'strong-testimonials' ),
                                                 'max_length'  => ''
 					),
 					7 => array(
 						'record_type' => 'post',
 						'name'        => 'featured_image',
-						'label'       => __( 'Photo', 'strong-testimonials' ),
+						'label'       => esc_html__( 'Photo', 'strong-testimonials' ),
 						'input_type'  => 'file',
-						'after'       => __( 'Would you like to include a photo?', 'strong-testimonials' ),
+						'after'       => esc_html__( 'Would you like to include a photo?', 'strong-testimonials' ),
 						'admin_table' => 1,
+					),
+                                    	8 => array(
+						'record_type' => 'optional',
+						'name'        => 'star_rating',
+						'label'       => esc_html__( 'Star rating', 'strong-testimonials' ),
+						'input_type'  => 'rating',
+                                                'required'    => 0,
+						'after'       => esc_html__( 'Would you like to include star rating?', 'strong-testimonials' )
 					),
 				),
 			),
@@ -316,7 +324,7 @@ class Strong_Testimonials_Defaults {
 
 		$forms['minimal'] = array(
 			'name'     => 'minimal',
-			'label'    => __( 'Minimal Form', 'strong-testimonials' ),
+			'label'    => esc_html__( 'Minimal Form', 'strong-testimonials' ),
 			'readonly' => 1,
 			'fields'   => array(
 				// ------
@@ -325,7 +333,7 @@ class Strong_Testimonials_Defaults {
 				0 => array(
 					'record_type' => 'custom',
 					'name'        => 'client_name',
-					'label'       => __( 'Name', 'strong-testimonials' ),
+					'label'       => esc_html__( 'Name', 'strong-testimonials' ),
 					'input_type'  => 'text',
 					'required'    => 1,
 					'after'       => '',
@@ -334,7 +342,7 @@ class Strong_Testimonials_Defaults {
 				1 => array(
 					'record_type' => 'custom',
 					'name'        => 'email',
-					'label'       => __( 'Email', 'strong-testimonials' ),
+					'label'       => esc_html__( 'Email', 'strong-testimonials' ),
 					'input_type'  => 'email',
 					'required'    => 1,
 					'after'       => '',
@@ -345,7 +353,7 @@ class Strong_Testimonials_Defaults {
 				2 => array(
 					'record_type' => 'post',
 					'name'        => 'post_content',
-					'label'       => __( 'Testimonial', 'strong-testimonials' ),
+					'label'       => esc_html__( 'Testimonial', 'strong-testimonials' ),
 					'input_type'  => 'textarea',
 					'required'    => 1,
 					'after'       => '',
@@ -357,9 +365,11 @@ class Strong_Testimonials_Defaults {
 			foreach ( $form['fields'] as $key => $array ) {
 				if ( 'post' == $array['record_type'] ) {
 					$forms[ $form_name ]['fields'][ $key ] = array_merge( $default_fields['field_types']['post'][ $array['name'] ], $array );
-				} else {
+				} elseif ( 'custom' == $array['record_type']) {
 					$forms[ $form_name ]['fields'][ $key ] = array_merge( $default_fields['field_types']['custom'][ $array['input_type'] ], $array );
-				}
+				} else {
+                                        $forms[ $form_name ]['fields'][ $key ] = array_merge( $default_fields['field_types']['optional'][ $array['input_type'] ], $array );
+                                }
 			}
 		}
 
@@ -378,12 +388,12 @@ class Strong_Testimonials_Defaults {
 		// Copy default fields to custom fields.
 		$forms[1] = array(
 			'name'     => 'custom',
-			'label'    => __( 'Custom Form', 'strong-testimonials' ),
+			'label'    => esc_html__( 'Custom Form', 'strong-testimonials' ),
 			'readonly' => 0,
 			'fields'   => $base_forms['default']['fields'],
 		);
 
-		return $forms;
+		return apply_filters( 'wpmtst_update_custom_form', $forms );
 	}
 
 	/**
@@ -401,30 +411,30 @@ class Strong_Testimonials_Defaults {
 			'required-field'     => array(
 				'order'       => 1,
 				/* translators: Settings > Form > Messages tab */
-				'description' => _x( 'Required', 'setting description', 'strong-testimonials' ),
-				'text'        => _x( 'Required', 'Default message for required notice at top of form.', 'strong-testimonials' ),
+				'description' => esc_html_x( 'Required', 'setting description', 'strong-testimonials' ),
+				'text'        => esc_html_x( 'Required', 'Default message for required notice at top of form.', 'strong-testimonials' ),
 				'enabled'     => 1,
 			),
 			'form-submit-button' => array(
 				'order'       => 2,
 				/* translators: Settings > Form > Messages tab */
-				'description' => _x( 'Submit Button', 'description', 'strong-testimonials' ),
+				'description' => esc_html_x( 'Submit Button', 'description', 'strong-testimonials' ),
 				/* translators: Default label for the Submit button on testimonial form. */
-				'text'        => _x( 'Add Testimonial', 'the Submit button', 'strong-testimonials' ),
+				'text'        => esc_html_x( 'Add Testimonial', 'the Submit button', 'strong-testimonials' ),
 			),
 			'submission-error'   => array(
 				'order'       => 3,
 				/* translators: Settings > Form > Messages tab */
-				'description' => _x( 'Submission Error', 'description', 'strong-testimonials' ),
+				'description' => esc_html_x( 'Submission Error', 'description', 'strong-testimonials' ),
 				/* translators: Default message for submission form error. */
-				'text'        => _x( 'There was a problem processing your testimonial.', 'error message', 'strong-testimonials' ),
+				'text'        => esc_html_x( 'There was a problem processing your testimonial.', 'error message', 'strong-testimonials' ),
 			),
 			'submission-success' => array(
 				'order'       => 4,
 				/* translators: Settings > Form > Messages tab */
-				'description' => _x( 'Submission Success', 'description', 'strong-testimonials' ),
+				'description' => esc_html_x( 'Submission Success', 'description', 'strong-testimonials' ),
 				/* translators: Default message for submission form success message. */
-				'text'        => _x( 'Thank you! Your testimonial is waiting to be approved.', 'success message', 'strong-testimonials' ),
+				'text'        => esc_html_x( 'Thank you! Your testimonial is waiting to be approved.', 'success message', 'strong-testimonials' ),
 			),
 		);
 
@@ -458,13 +468,13 @@ class Strong_Testimonials_Defaults {
 				'admin_email' => '',
 			),
 			/* translators: Default subject line for new testimonial notification email. */
-			'email_subject'                      => __( 'New testimonial for %BLOGNAME%', 'strong-testimonials' ),
-                        'customer_approval_email_subject'    => __( 'Testimonial for %BLOGNAME%', 'strong-testimonials' ),
-                        'customer_email_subject'             => __( 'Testimonial for %BLOGNAME%', 'strong-testimonials' ),
+			'email_subject'                      => esc_html__( 'New testimonial for %BLOGNAME%', 'strong-testimonials' ),
+                        'customer_approval_email_subject'    => esc_html__( 'Testimonial for %BLOGNAME%', 'strong-testimonials' ),
+                        'customer_email_subject'             => esc_html__( 'Testimonial for %BLOGNAME%', 'strong-testimonials' ),
 			/* translators: Default message for new testimonial notification email. */
-			'email_message'                      => __( 'New testimonial submission for %BLOGNAME%. This is awaiting action from the website administrator.', 'strong-testimonials' ),
-                        'customer_approval_email_message'    => __( 'Your testimonial was published for %BLOGNAME%. Thank you!', 'strong-testimonials' ),
-                        'customer_email_message'             => __( 'Your testimonial was received  for %BLOGNAME% and awaiting approval from the website administrator. Thank you!', 'strong-testimonials' ),
+			'email_message'                      => esc_html__( 'New testimonial submission for %BLOGNAME%. This is awaiting action from the website administrator.', 'strong-testimonials' ),
+                        'customer_approval_email_message'    => esc_html__( 'Your testimonial was published for %BLOGNAME%. Thank you!', 'strong-testimonials' ),
+                        'customer_email_message'             => esc_html__( 'Your testimonial was received  for %BLOGNAME% and awaiting approval from the website administrator. Thank you!', 'strong-testimonials' ),
 			'messages'                 => $default_messages,
 			'scrolltop_success'        => true,
 			'scrolltop_success_offset' => 80,
@@ -474,9 +484,9 @@ class Strong_Testimonials_Defaults {
 			'success_redirect_id'      => '',
 			'success_redirect_url'     => '',
                         'members_only'             => false,
-                        'members_only_message'     => __( 'You need to be logged in to access this form.', 'strong-testimonials' ),
-                        'mailchimp'                => false, 
-                        'mailchimp_message'        => __( 'Subscribe to our newsletter.', 'strong-testimonials' ),
+                        'members_only_message'     => esc_html__( 'You need to be logged in to access this form.', 'strong-testimonials' ),
+                        'mailchimp'                => false,
+                        'mailchimp_message'        => esc_html__( 'Subscribe to our newsletter.', 'strong-testimonials' ),
                         'mailchimp_list'           => ''
 		);
 
@@ -496,49 +506,49 @@ class Strong_Testimonials_Defaults {
 			'mode' => array(
 				'display'         => array(
 					'name'        => 'display',
-					'label'       => __( 'Display', 'strong-testimonials' ),
-					'description' => __( 'Display your testimonials in a list or a grid.', 'strong-testimonials' ),
+					'label'       => esc_html__( 'Display', 'strong-testimonials' ),
+					'description' => esc_html__( 'Display your testimonials in a list or a grid.', 'strong-testimonials' ),
 				),
 				'slideshow'       => array(
 					'name'        => 'slideshow',
-					'label'       => __( 'Slideshow', 'strong-testimonials' ),
-					'description' => __( 'Create a slideshow of your testimonials.', 'strong-testimonials' ),
+					'label'       => esc_html__( 'Slideshow', 'strong-testimonials' ),
+					'description' => esc_html__( 'Create a slideshow of your testimonials.', 'strong-testimonials' ),
 				),
 				'form'            => array(
 					'name'        => 'form',
-					'label'       => __( 'Form', 'strong-testimonials' ),
-					'description' => __( 'Display a testimonial submission form.', 'strong-testimonials' ),
+					'label'       => esc_html__( 'Form', 'strong-testimonials' ),
+					'description' => esc_html__( 'Display a testimonial submission form.', 'strong-testimonials' ),
 				),
 				'single_template' => array(
 					'name'        => 'single_template',
-					'label'       => __( 'Single Template', 'strong-testimonials' ),
-					'description' => __( 'When viewing the testimonial using a theme\'s single post template.', 'strong-testimonials' ),
+					'label'       => esc_html__( 'Single Template', 'strong-testimonials' ),
+					'description' => esc_html__( 'When viewing the testimonial using a theme\'s single post template.', 'strong-testimonials' ),
 				),
 			),
 
 			'order' => array(
-				'random'     => _x( 'random', 'display order', 'strong-testimonials' ),
-				'menu_order' => _x( 'menu order', 'display order', 'strong-testimonials' ),
-				'newest'     => _x( 'newest first', 'display order', 'strong-testimonials' ),
-				'oldest'     => _x( 'oldest first', 'display order', 'strong-testimonials' ),
+				'random'     => esc_html_x( 'random', 'display order', 'strong-testimonials' ),
+				'menu_order' => esc_html_x( 'menu order', 'display order', 'strong-testimonials' ),
+				'newest'     => esc_html_x( 'newest first', 'display order', 'strong-testimonials' ),
+				'oldest'     => esc_html_x( 'oldest first', 'display order', 'strong-testimonials' ),
 			),
 
 			'slideshow_effect' => array(
-				'none'       => _x( 'no transition effect', 'slideshow transition option', 'strong-testimonials' ),
-				'fade'       => _x( 'fade', 'slideshow transition option', 'strong-testimonials' ),
-				'horizontal' => _x( 'scroll horizontally', 'slideshow transition option', 'strong-testimonials' ),
-				'vertical'   => _x( 'scroll vertically', 'slideshow transition option', 'strong-testimonials' ),
+				'none'       => esc_html_x( 'no transition effect', 'slideshow transition option', 'strong-testimonials' ),
+				'fade'       => esc_html_x( 'fade', 'slideshow transition option', 'strong-testimonials' ),
+				'horizontal' => esc_html_x( 'scroll horizontally', 'slideshow transition option', 'strong-testimonials' ),
+				'vertical'   => esc_html_x( 'scroll vertically', 'slideshow transition option', 'strong-testimonials' ),
 			),
 
 			'slideshow_height' => array(
-				'dynamic' => _x( 'Adjust height for each slide', 'slideshow option', 'strong-testimonials' ),
-				'static'  => _x( 'Set height to match the tallest slide', 'slideshow option', 'strong-testimonials' ),
+				'dynamic' => esc_html_x( 'Adjust height for each slide', 'slideshow option', 'strong-testimonials' ),
+				'static'  => esc_html_x( 'Set height to match the tallest slide', 'slideshow option', 'strong-testimonials' ),
 			),
 
 			'slideshow_nav_method' => array(
 				'controls' => array(
 					'none'   => array(
-						'label' => _x( 'none', 'slideshow controls option', 'strong-testimonials' ),
+						'label' => esc_html_x( 'none', 'slideshow controls option', 'strong-testimonials' ),
 						'args'  => array(  // base args; style will add more args
 						                   'controls'     => 0,
 						                   'pager'        => 0,
@@ -546,7 +556,7 @@ class Strong_Testimonials_Defaults {
 						),
 					),
 					'full'   => array(
-						'label'              => _x( 'Bottom: previous / play-pause / next', 'slideshow controls option', 'strong-testimonials' ),
+						'label'              => esc_html_x( 'Bottom: previous / play-pause / next', 'slideshow controls option', 'strong-testimonials' ),
 						'class'              => 'controls-type-full',
 						'add_position_class' => 1,
 						'args'               => array(
@@ -558,7 +568,7 @@ class Strong_Testimonials_Defaults {
 						),
 					),
 					'simple' => array(
-						'label'              => _x( 'Bottom: previous / next', 'slideshow controls option', 'strong-testimonials' ),
+						'label'              => esc_html_x( 'Bottom: previous / next', 'slideshow controls option', 'strong-testimonials' ),
 						'class'              => 'controls-type-simple',
 						'add_position_class' => 1,
 						'args'               => array(
@@ -567,7 +577,7 @@ class Strong_Testimonials_Defaults {
 						),
 					),
 					'sides'  => array(
-						'label'              => _x( 'Sides: previous / next', 'slideshow controls option', 'strong-testimonials' ),
+						'label'              => esc_html_x( 'Sides: previous / next', 'slideshow controls option', 'strong-testimonials' ),
 						'class'              => 'controls-type-sides',
 						'add_position_class' => 0,
 						'args'               => array(
@@ -580,11 +590,11 @@ class Strong_Testimonials_Defaults {
 				),
 				'pager'    => array(
 					'none' => array(
-						'label' => _x( 'none', 'slideshow navigation option', 'strong-testimonials' ),
+						'label' => esc_html_x( 'none', 'slideshow navigation option', 'strong-testimonials' ),
 						'args'  => array(),
 					),
 					'full' => array(
-						'label' => _x( 'full', 'slideshow navigation option', 'strong-testimonials' ),
+						'label' => esc_html_x( 'full', 'slideshow navigation option', 'strong-testimonials' ),
 						//'class' => 'controls-pager-full',
 						'class' => 'pager-type-full',
 						'args'  => array(
@@ -597,7 +607,7 @@ class Strong_Testimonials_Defaults {
 			'slideshow_nav_style'    => array(
 				'controls' => array(
 					'buttons'  => array(
-						'label' => _x( 'buttons 1', 'slideshow navigation option', 'strong-testimonials' ),
+						'label' => esc_html_x( 'buttons 1', 'slideshow navigation option', 'strong-testimonials' ),
 						'class' => 'controls-style-buttons',
 						'args'  => array(
 							'startText' => '',
@@ -607,7 +617,7 @@ class Strong_Testimonials_Defaults {
 						),
 					),
 					'buttons2' => array(
-						'label' => _x( 'buttons 2', 'slideshow navigation option', 'strong-testimonials' ),
+						'label' => esc_html_x( 'buttons 2', 'slideshow navigation option', 'strong-testimonials' ),
 						'class' => 'controls-style-buttons2',
 						'args'  => array(
 							'startText' => '',
@@ -617,7 +627,7 @@ class Strong_Testimonials_Defaults {
 						),
 					),
 					'buttons3' => array(
-						'label' => _x( 'buttons 3', 'slideshow navigation option', 'strong-testimonials' ),
+						'label' => esc_html_x( 'buttons 3', 'slideshow navigation option', 'strong-testimonials' ),
 						'class' => 'controls-style-buttons3',
 						'args'  => array(
 							'startText' => '',
@@ -627,19 +637,19 @@ class Strong_Testimonials_Defaults {
 						),
 					),
 					'text'     => array(
-						'label' => _x( 'text', 'slideshow navigation option', 'strong-testimonials' ),
+						'label' => esc_html_x( 'text', 'slideshow navigation option', 'strong-testimonials' ),
 						'class' => 'controls-style-text',
 						'args'  => array(
-							'startText' => _x( 'Play', 'slideshow control', 'strong-testimonials' ),
-							'stopText'  => _x( 'Pause', 'slideshow control', 'strong-testimonials' ),
-							'prevText'  => _x( 'Previous', 'slideshow_control', 'strong-testimonials' ),
-							'nextText'  => _x( 'Next', 'slideshow_control', 'strong-testimonials' ),
+							'startText' => esc_html_x( 'Play', 'slideshow control', 'strong-testimonials' ),
+							'stopText'  => esc_html_x( 'Pause', 'slideshow control', 'strong-testimonials' ),
+							'prevText'  => esc_html_x( 'Previous', 'slideshow_control', 'strong-testimonials' ),
+							'nextText'  => esc_html_x( 'Next', 'slideshow_control', 'strong-testimonials' ),
 						),
 					),
 				),
 				'pager'    => array(
 					'buttons' => array(
-						'label' => _x( 'buttons', 'slideshow navigation option', 'strong-testimonials' ),
+						'label' => esc_html_x( 'buttons', 'slideshow navigation option', 'strong-testimonials' ),
 						'class' => 'pager-style-buttons',
 						'args'  => array(
 							'buildPager'     => 'icons',
@@ -647,7 +657,7 @@ class Strong_Testimonials_Defaults {
 						),
 					),
 					'text'    => array(
-						'label' => _x( 'text', 'slideshow navigation option', 'strong-testimonials' ),
+						'label' => esc_html_x( 'text', 'slideshow navigation option', 'strong-testimonials' ),
 						'class' => 'pager-style-text',
 						'args'  => array(
 							'buildPager'    => null,
@@ -659,8 +669,8 @@ class Strong_Testimonials_Defaults {
 
 			// Position is shared by Controls and Pagination.
 			'slideshow_nav_position' => array(
-				'inside'  => _x( 'inside', 'slideshow navigation option', 'strong-testimonials' ),
-				'outside' => _x( 'outside', 'slideshow navigation option', 'strong-testimonials' ),
+				'inside'  => esc_html_x( 'inside', 'slideshow navigation option', 'strong-testimonials' ),
+				'outside' => esc_html_x( 'outside', 'slideshow navigation option', 'strong-testimonials' ),
 			),
 		);
 
@@ -726,14 +736,14 @@ class Strong_Testimonials_Defaults {
 			'more_full_post'      => false,
 			'more_post'           => true,
 			'more_post_ellipsis'  => true,
-			'more_post_text'      => _x( 'Read more', 'link', 'strong-testimonials' ),
+			'more_post_text'      => esc_html_x( 'Read more', 'link', 'strong-testimonials' ),
 			'more_post_in_place'  => false,
 			'less_post'           => false,
-			'less_post_text'      => __( 'Show less', 'strong-testimonials' ),
+			'less_post_text'      => esc_html__( 'Show less', 'strong-testimonials' ),
 			'more_page'           => false,
 			'more_page_hook'      => 'wpmtst_view_footer',
 			'more_page_id'        => 0,
-			'more_page_text'      => _x( 'Read more testimonials', 'link', 'strong-testimonials' ),
+			'more_page_text'      => esc_html_x( 'Read more testimonials', 'link', 'strong-testimonials' ),
 			'note'                => '',
 			'order'               => 'oldest',
 			'page'                => '',
@@ -746,8 +756,8 @@ class Strong_Testimonials_Defaults {
 				'end_size'           => 1,
 				'mid_size'           => 2,
 				'prev_next'          => 1,
-				'prev_text'          => __( '&laquo; Previous', 'strong-testimonials' ),
-				'next_text'          => __( 'Next &raquo;', 'strong-testimonials' ),
+				'prev_text'          => esc_html__( '&laquo; Previous', 'strong-testimonials' ),
+				'next_text'          => esc_html__( 'Next &raquo;', 'strong-testimonials' ),
 				'before_page_number' => '',
 				'after_page_number'  => '',
 			),

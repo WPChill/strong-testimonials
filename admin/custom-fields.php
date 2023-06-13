@@ -20,7 +20,7 @@ add_action( 'wpmtst_form_admin', 'wpmtst_form_admin2' );
  */
 function wpmtst_update_custom_fields() {
 	$goback = wp_get_referer();
-        $goback = apply_filters('wpmtst_form_goback', $goback);
+    $goback = apply_filters( 'wpmtst_form_goback', $goback );
         
 	if ( ! isset( $_POST['wpmtst_form_submitted'] ) ) {
 		wp_redirect( $goback );
@@ -32,7 +32,7 @@ function wpmtst_update_custom_fields() {
 		exit;
 	}
 
-    $form_id = $_POST['form_id'];
+    $form_id	   = absint ( $_POST['form_id'] );
     $forms         = get_option( 'wpmtst_custom_forms' );
     $field_options = apply_filters( 'wpmtst_fields', get_option( 'wpmtst_fields' ) );
 
@@ -65,7 +65,7 @@ function wpmtst_update_custom_fields() {
          *
          * @since 2.0.0
          */
-        $post_fields = stripslashes_deep( $_POST['fields'] );
+        $post_fields = isset( $_POST['fields'] ) ? stripslashes_deep( $_POST['fields'] ) : array();
 
         foreach ( $post_fields as $key => $field ) {
             
@@ -82,6 +82,7 @@ function wpmtst_update_custom_fields() {
 
             $field['name']                    = sanitize_text_field( $field['name'] );
             $field['label']                   = sanitize_text_field( $field['label'] );
+            $field['text']                    = sanitize_text_field( $field['text'] );
 
             // TODO Replace this special handling
             if ( 'checkbox' == $field['input_type'] ) {
@@ -96,11 +97,8 @@ function wpmtst_update_custom_fields() {
 
             $field['placeholder'] = sanitize_text_field( $field['placeholder'] );
 
-			if ( isset( $field['text'] ) ) {
-				$field['text'] = wp_filter_post_kses( $field['text'] );
-			}
-			$field['before'] = sanitize_text_field( $field['before'] );
-			$field['after']  = sanitize_text_field( $field['after'] );
+            $field['before'] = sanitize_text_field( $field['before'] );
+            $field['after']  = sanitize_text_field( $field['after'] );
 
             $field['shortcode_on_form']      = sanitize_text_field( $field['shortcode_on_form'] );
             $field['shortcode_on_display']   = sanitize_text_field( $field['shortcode_on_display'] );
@@ -125,7 +123,7 @@ function wpmtst_update_custom_fields() {
 
         if ( isset( $_POST['field_group_label'] ) ) {
             // TODO Catch if empty.
-            $new_label = sanitize_text_field( $_POST['field_group_label'] );
+            $new_label = sanitize_text_field( wp_unslash( $_POST['field_group_label'] ) );
             $forms[ $form_id ]['label'] = $new_label;
         }
 
@@ -153,12 +151,12 @@ function wpmtst_settings_custom_fields( $form_id = 1 ) {
 	}
 
 	if ( ! $form_id ) {
-		echo '<div class="wrap wpmtst"><p>' . __( 'No fields selected.', 'strong-testimonials' ) .'</p></div>';
+		echo '<div class="wrap wpmtst"><p>' . esc_html__( 'No fields selected.', 'strong-testimonials' ) .'</p></div>';
 		return;
 	}
 
 	$forms  = get_option( 'wpmtst_custom_forms' );
-	$fields = apply_filters( 'wpmtst_form_fields', $forms[$form_id]['fields']);
+	$fields = apply_filters( 'wpmtst_form_fields', $forms[$form_id]['fields'] );
 	?>
 
 	<div class="wrap wpmtst">

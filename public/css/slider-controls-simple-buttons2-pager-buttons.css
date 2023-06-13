@@ -22,12 +22,14 @@
 ---------------------------------------------------------*/
 .strong-view .wpmslider-pager {
   display: inline-block;
+  vertical-align: middle;
 }
 .strong-view.rtl .wpmslider-pager {
   direction: rtl;
 }
 .strong-view .wpmslider-pager-item {
   display: inline-block;
+  position: relative;
 }
 .strong-view .wpmslider-pager-link {
   text-decoration: none;
@@ -183,6 +185,8 @@
   display: inline-block;
   width: 20px;
   height: 20px;
+  position: relative;
+  bottom: -1px;
 }
 
 .strong-view.nav-position-inside:not(.controls-type-sides) .wpmslider-controls {

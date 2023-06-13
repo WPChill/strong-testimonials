@@ -1,4 +1,4 @@
-.disabled {
+.strong-view.wpmtst-unstyled.disabled {
     display:none !important;
 }
 
@@ -11,4 +11,31 @@
 
 .msHtmlOverlay .layer .disabled {
     display: block !important;
+}
+
+
+.strong-view.wpmtst-unstyled .wpmtst-testimonial-inner {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  /* Pagination
+-----------------------------------------------*/
+
+.strong-view ul.simplePagerNav li {
+    display: inline;
+    list-style: none;
+    margin: 0;
+    padding: 5px;
+
+
+}
+.strong-view .screen-reader-text {
+    clip: rect(1px, 1px, 1px, 1px);
+    height: 1px;
+    overflow: hidden;
+    position: absolute !important;
+    width: 1px;
+    word-wrap: normal !important;
 }

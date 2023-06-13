@@ -191,30 +191,20 @@ function wpmtst_get_form_fields( $form_id = 1 ) {
 function wpmtst_get_custom_fields() {
 	$all_fields = array();
 	$forms = get_option( 'wpmtst_custom_forms' );
+
 	if ( ! $forms ) {
 	    return $all_fields;
 	}
-
-	// use default group as base
-	$fields = $forms[1]['fields'];
-	if ( ! $fields ) {
-	    return $all_fields;
-	}
-
-	// replace key with field name
-	foreach ( $fields as $field ) {
-		if ( 'post' != $field['record_type'] ) {
-			$all_fields[ $field['name'] ] = $field;
-		}
-	}
-
-	// merge remaining form fields
+	// merge remaining form fields.
 	foreach ( $forms as $form ) {
+
 		$custom_fields = array();
-		$fields = $form['fields'];
-		foreach ( $fields as $field ) {
-			if ( 'post' != $field['record_type'] ) {
-				$custom_fields[ $field['name'] ] = $field;
+		if ( isset( $form['fields'] ) ) {
+			$fields = $form['fields'];
+			foreach ( $fields as $field ) {
+				if ( 'post' != $field['record_type'] ) {
+					$custom_fields[ $field['name'] ] = $field;
+				}
 			}
 		}
 		$all_fields = array_merge( $all_fields, $custom_fields );
@@ -489,7 +479,7 @@ function wpmtst_nested_cats( $value, $parent = 0, $level = 0 ) {
 	if ( $cats ) {
 		foreach ( $cats as $cat ) {
 			$selected = in_array( $cat->term_id, $value ) ? ' selected' : '';
-			printf( '<option value="%s"%s>%s%s</option>', $cat->term_id, $selected, str_repeat( '&nbsp;&nbsp;&nbsp;', $level ), $cat->name );
+			printf( '<option value="%s"%s>%s%s</option>', esc_attr( $cat->term_id ), esc_attr( $selected ), esc_html( str_repeat( '&nbsp;&nbsp;&nbsp;', $level ) ), esc_html( $cat->name ) );
 			wpmtst_nested_cats( $value, $cat->term_id, $level + 1 );
 		}
 	}
@@ -569,7 +559,7 @@ function wpmtst_post_submitbox_misc_actions( $post ) {
 		if ( $submit_date ) {
 			echo 'Submitted on: <strong>' . wp_kses_post( date_i18n( 'M j, Y @ H:i', strtotime( $submit_date ) ) ) . '</strong>';
 		} else {
-			echo 'No submit date';
+			esc_html_e( 'No submit date', 'strong-testimonials' );
 		}
 		echo '</span>';
 		echo '</div>';
@@ -599,32 +589,32 @@ function wpmtst_get_background_defaults() {
 function wpmtst_get_background_presets( $preset = null ) {
 	$presets = array(
 		'light-blue-gradient' => array(
-			'label'  => __( 'light blue gradient', 'strong-testimonials' ),
+			'label'  => esc_html__( 'light blue gradient', 'strong-testimonials' ),
 			'color'  => '#E7EFFE',
 			'color2' => '#B8CFFB',
 		),
 		'light-gray-gradient' => array(
-			'label'  => __( 'light gray gradient', 'strong-testimonials' ),
+			'label'  => esc_html__( 'light gray gradient', 'strong-testimonials' ),
 			'color'  => '#FBFBFB',
 			'color2' => '#EDEDED',
 		),
 		'light-green-mist-gradient' => array(
-			'label'  => __( 'light green mist gradient', 'strong-testimonials' ),
+			'label'  => esc_html__( 'light green mist gradient', 'strong-testimonials' ),
 			'color'  => '#F2FBE9',
 			'color2' => '#E0F7CC',
 		),
 		'light-latte-gradient' => array(
-			'label'  => __( 'light latte gradient', 'strong-testimonials' ),
+			'label'  => esc_html__( 'light latte gradient', 'strong-testimonials' ),
 			'color'  => '#F8F3EC',
 			'color2' => '#E0C8AB',
 		),
 		'light-plum-gradient' => array(
-			'label'  => __( 'light plum gradient', 'strong-testimonials' ),
+			'label'  => esc_html__( 'light plum gradient', 'strong-testimonials' ),
 			'color'  => '#F7EEF7',
 			'color2' => '#E9D0E9',
 		),
 		'sky-blue-gradient' => array(
-			'label'  => __( 'sky blue gradient', 'strong-testimonials' ),
+			'label'  => esc_html__( 'sky blue gradient', 'strong-testimonials' ),
 			'color'  => '#E9F6FB',
 			'color2' => '#C8E9F6',
 		),
@@ -648,11 +638,11 @@ function wpmtst_get_background_presets( $preset = null ) {
  *
  * @return mixed
  */
-function wpmtst_get_success_message() {
+function wpmtst_get_success_message( $atts = false ) {
 	$message = wpautop( do_shortcode( wpmtst_get_form_message( 'submission-success' ) ) );
 	$message = sprintf( '<div class="%s">%s</div>', 'wpmtst-testimonial-success', $message );
 
-	return apply_filters( 'wpmtst_form_success_message', $message );
+	return apply_filters( 'wpmtst_form_success_message', $message, $atts );
 }
 
 /**
@@ -894,5 +884,17 @@ if ( ! function_exists( 'wpmtst_current_url' ) ) {
 		global $wp;
 
 		return home_url( add_query_arg( array(), $wp->request ) );
+	}
+}
+if ( ! function_exists( 'get_formatted_views' ) ) {
+	
+	function get_formatted_views() {
+		$views = wpmtst_get_views() ;
+
+		$view_array = array( 'none' => esc_html__( 'None', 'strong-testimonials'));
+		foreach( $views as $view ) {
+			$view_array[$view['id']] = esc_html__( $view['name'] );
+		}
+		return $view_array;
 	}
 }

@@ -9,6 +9,8 @@ const config = {
 	entry: {
 		'admin-js': './assets/src/js/admin.js',
 		'admin': './assets/src/scss/admin.scss',
+		'blocks-js': './assets/src/js/blocks.js',
+		'blocks': './assets/src/scss/blocks.scss'
 	},
 	output: {
 		filename: 'js/[name].js',

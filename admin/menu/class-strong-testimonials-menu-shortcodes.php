@@ -42,8 +42,8 @@ class Strong_Testimonials_Menu_Shortcodes {
 	 */
 	public static function get_submenu() {
 		return array(
-			'page_title' => apply_filters( 'wpmtst_shortcodes_page_title', __( 'Shortcodes', 'strong-testimonials' ) ),
-	        'menu_title' => apply_filters( 'wpmtst_shortcodes_menu_title', __( 'Shortcodes', 'strong-testimonials' ) ),
+			'page_title' => apply_filters( 'wpmtst_shortcodes_page_title', esc_html__( 'Shortcodes', 'strong-testimonials' ) ),
+	        'menu_title' => apply_filters( 'wpmtst_shortcodes_menu_title', esc_html__( 'Shortcodes', 'strong-testimonials' ) ),
 		    'capability' => 'strong_testimonials_options',
 			'menu_slug'  => 'testimonial-shortcodes',
 			'function'   => array( 'Strong_Testimonials_Page_Shortcodes', 'render_page' ),

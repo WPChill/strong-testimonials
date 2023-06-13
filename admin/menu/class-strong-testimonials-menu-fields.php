@@ -42,11 +42,11 @@ class Strong_Testimonials_Menu_Fields {
 	 */
 	public static function get_submenu() {
 		return array(
-                    'page_title' => apply_filters( 'wpmtst_fields_page_title', __( 'Form', 'strong-testimonials' ) ),
-                    'menu_title' => apply_filters( 'wpmtst_fields_menu_title', __( 'Form', 'strong-testimonials' ) ),
-		    'capability' => 'strong_testimonials_fields',
-                    'menu_slug'  => 'testimonial-fields',
-                    'function'   => array( 'Strong_Testimonials_Forms', 'settings_page' ),
+			'page_title' => apply_filters( 'wpmtst_fields_page_title', esc_html__( 'Form', 'strong-testimonials' ) ),
+			'menu_title' => apply_filters( 'wpmtst_fields_menu_title', esc_html__( 'Form', 'strong-testimonials' ) ),
+			'capability' => 'strong_testimonials_fields',
+			'menu_slug'  => 'testimonial-fields',
+			'function'   => array( 'Strong_Testimonials_Forms', 'settings_page' ),
 		);
 	}
 

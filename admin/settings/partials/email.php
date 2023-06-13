@@ -2,7 +2,7 @@
 
     <div class="email-option-desc">
         <label for="wpmtst-option-email-subject">
-			<?php _e( "Subject", 'strong-testimonials' ); ?>
+			<?php esc_html_e( "Subject", 'strong-testimonials' ); ?>
         </label>
     </div>
 
@@ -13,7 +13,7 @@
                    id="wpmtst-option-email-subject"
                    name="wpmtst_form_options[email_subject]"
                    value="<?php echo esc_attr( $form_options['email_subject'] ); ?>"
-                   placeholder="<?php _e( 'subject line', 'strong-testimonials' ); ?>"
+                   placeholder="<?php esc_html_e( 'subject line', 'strong-testimonials' ); ?>"
                    size="50">
         </div>
     </div>
@@ -24,7 +24,7 @@
 
     <div class="email-option-desc">
         <label for="wpmtst-option-email-message">
-			<?php _e( "Message", 'strong-testimonials' ); ?>
+			<?php esc_html_e( "Message", 'strong-testimonials' ); ?>
         </label>
     </div>
 
@@ -34,7 +34,7 @@
             <textarea class="autosize"
                       id="wpmtst-option-email-message" name="wpmtst_form_options[email_message]"
                       rows="<?php echo esc_attr( $line_count ); ?>"
-                      placeholder="<?php _e( 'message text', 'strong-testimonials' ); ?>"><?php echo esc_attr( $form_options['email_message'] ); ?></textarea>
+                      placeholder="<?php esc_html_e( 'message text', 'strong-testimonials' ); ?>"><?php echo esc_attr( $form_options['email_message'] ); ?></textarea>
         </div>
     </div>
 
@@ -43,7 +43,7 @@
 <div class="email-option-row column no-padding">
 
     <div class="template-tags-help">
-        <div class="title"><?php _e( "Tags for Subject and Message", 'strong-testimonials' ); ?></div>
+        <div class="title"><?php esc_html_e( "Tags for Subject and Message", 'strong-testimonials' ); ?></div>
         <div class="content">
             <ul id="wpmtst-tags-list">
                 <li>%BLOGNAME%</li>
@@ -54,7 +54,7 @@
                 <?php
 				$custom_fields = wpmtst_get_custom_fields();
 				foreach ( $custom_fields as $field ) {
-					echo '<li>%' . strtoupper( $field['name'] ) . '%</li>' . "\n";
+					echo '<li>%' . esc_html( strtoupper( $field['name'] ) ) . '%</li>' . "\n";
 				}
 				?>
             </ul>

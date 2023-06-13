@@ -32,34 +32,31 @@ function wpmtst_views_admin() {
 			$result = filter_input( INPUT_GET, 'result', FILTER_SANITIZE_STRING );
 
 			$result_messages = array(
-				'cancelled'         => __( 'Changes cancelled.', 'strong-testimonials' ),
-				'defaults-restored' => __( 'Defaults restored.', 'strong-testimonials' ),
-				'view-saved'        => __( 'View saved.', 'strong-testimonials' ),
-				'view-deleted'      => __( 'View deleted.', 'strong-testimonials' ),
+				'cancelled'         => esc_html__( 'Changes cancelled.', 'strong-testimonials' ),
+				'defaults-restored' => esc_html__( 'Defaults restored.', 'strong-testimonials' ),
+				'view-saved'        => esc_html__( 'View saved.', 'strong-testimonials' ),
+				'view-deleted'      => esc_html__( 'View deleted.', 'strong-testimonials' ),
 			);
 
 			if ( in_array( $result, array_keys( $result_messages ) ) ) {
-				printf( '<div class="notice notice-success is-dismissible"><p>%s</p></div>', $result_messages[ $result ] );
+				printf( '<div class="notice notice-success is-dismissible"><p>%s</p></div>', esc_html( $result_messages[ $result ] ) );
 			}
 
 		}
 
 		if ( isset( $_REQUEST['error'] ) ) {
 
-			echo '<h1>' . __( 'Edit View', 'strong-testimonials' ) . '</h1>';
+			echo '<h1>' . esc_html__( 'Edit View', 'strong-testimonials' ) . '</h1>';
 
-			$message = __( 'An error occurred.', 'strong-testimonials' );
-
-			wp_die( sprintf( '<div class="notice notice-error"><p>%s</p></div>', $message ) );
+			wp_die( sprintf( '<div class="notice notice-error"><p>%s</p></div>', esc_html__( 'An error occurred.', 'strong-testimonials' ) ) );
 
 		}
 
 		if ( isset( $_REQUEST['action'] ) ) {
-
-			$action = filter_input( INPUT_GET, 'action', FILTER_SANITIZE_STRING );
-			$id     = abs( filter_input( INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT ) );
-
-			wpmtst_view_settings( $action, $id );
+						global $view;
+                        $view = Strong_Testimonials_Helper::get_view();
+                        $sections = new Strong_Testimonials_Helper();
+                        $sections->render_form();
 
 		} else {
 
@@ -82,201 +79,29 @@ function wpmtst_views_admin() {
                         <hr class="wp-header-end">
                         <h2 class="screen-reader-text"><?php esc_html_e( 'Filter view list', 'strong-testimonials' ); ?></h2>
                         <ul class="subsubsub">
-                            <li class="all"><a <?php echo (!isset($_GET['mode']) || $_GET['mode'] == 'all' ? 'class="current"' : '') ?> href="<?php echo add_query_arg( array('post_type' => 'wpm-testimonial', 'page' => 'testimonial-views', 'mode' => 'all' ), admin_url('edit.php') ) ?>"><?php esc_html_e( 'All', 'strong-testimonials' ); ?><?php printf( __( ' <span class="count">(%s)</span>', 'strong-testimonials' ), count($views) ); ?></a> |</li>
+                            <li class="all"><a <?php echo (!isset($_GET['mode']) || $_GET['mode'] == 'all' ? 'class="current"' : '') ?> href="<?php echo esc_url( add_query_arg( array('post_type' => 'wpm-testimonial', 'page' => 'testimonial-views', 'mode' => 'all' ), admin_url('edit.php') ) ) ?>"><?php esc_html_e( 'All', 'strong-testimonials' ); ?><?php printf( wp_kses_post( __( ' <span class="count">(%s)</span>', 'strong-testimonials' ) ), count($views) ); ?></a> |</li>
                             <?php foreach ($filters as $mode => $items): ?>
-                            <li class="<?php echo $mode ?>"><a <?php echo (isset($_GET['mode']) && $_GET['mode'] == $mode ? 'class="current"' : '') ?> href="<?php echo add_query_arg( array('post_type' => 'wpm-testimonial', 'page' => 'testimonial-views', 'mode' => $mode ), admin_url('edit.php') ) ?>"><?php echo ucfirst($mode) ?><?php printf( __( ' <span class="count">(%s)</span>', 'strong-testimonials' ), count($items) ); ?></a> |</li>
+                            <li class="<?php echo esc_attr( $mode ) ?>"><a <?php echo (isset($_GET['mode']) && $_GET['mode'] == $mode ? 'class="current"' : '') ?> href="<?php echo esc_url( add_query_arg( array('post_type' => 'wpm-testimonial', 'page' => 'testimonial-views', 'mode' => $mode ), admin_url('edit.php') ) ) ?>"><?php echo esc_html( ucfirst($mode) ) ?><?php printf( wp_kses_post( __( ' <span class="count">(%s)</span>', 'strong-testimonials' )  ), count($items) ); ?></a> |</li>
                             <?php endforeach; ?>
                         </ul>
 			<?php
 			// Add button to clear sort value.
 			if ( isset( $_GET['orderby'] ) ) {
-                        ?>
-                        <form action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" method="post" style="margin-bottom: 4px;">
-                            <input type="hidden" name="action" value="clear-view-sort">
-                            <input type="submit" value="clear sort" class="button">
-                        </form>
-                        <?php
+                ?>
+                <form action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" method="post" style="margin-bottom: 4px;">
+                    <input type="hidden" name="action" value="clear-view-sort">
+                    <input type="submit" value="clear sort" class="button">
+                </form>
+                <?php
 			}
 
-                        // Display the table
-                        $views_table->prepare_list(wpmtst_unserialize_views( $views ) );
+            // Display the table
+            $views_table->prepare_list(wpmtst_unserialize_views( $views ) );
 			$views_table->display();
 
 		}
 		?>
 	</div><!-- .wrap -->
-	<?php
-}
-
-
-/**
- * An individual view settings page.
- *
- * @since 1.21.0
- *
- * @param string $action
- * @param null   $view_id
- */
-function wpmtst_view_settings( $action = '', $view_id = null ) {
-
-	$actions = array( 'edit', 'duplicate', 'add' );
-	if ( ! in_array( $action, $actions ) ) {
-		wp_die( __( 'Invalid request. Please try again.', 'strong-testimonials' ) );
-	}
-
-	if ( ( 'edit' == $action || 'duplicate' == $action ) && ! $view_id ) return;
-
-	global $view;
-	add_thickbox();
-
-	$fields     = wpmtst_get_custom_fields();
-	$all_fields = wpmtst_get_all_fields();
-
-	$testimonials_list = get_posts( array(
-		'orderby'          => 'post_date',
-		'order'            => 'ASC',
-		'post_type'        => 'wpm-testimonial',
-		'post_status'      => 'publish',
-		'posts_per_page'   => -1,
-		'suppress_filters' => true,
-	) );
-
-	$cat_count = wpmtst_get_cat_count();
-
-	/**
-	 * Show category filter if necessary.
-	 *
-	 * @since 2.2.0
-	 */
-	if ( $cat_count > 5 ) {
-		wp_enqueue_script( 'wpmtst-view-category-filter-script' );
-	}
-
-	$default_view = wpmtst_get_view_default();
-
-	if ( 'edit' == $action ) {
-		$view_array = wpmtst_get_view( $view_id );
-		$view       = unserialize( $view_array['value'] );
-		$view_name  = $view_array['name'];
-	} elseif ( 'duplicate' == $action ) {
-		$view_array = wpmtst_get_view( $view_id );
-		$view       = unserialize( $view_array['value'] );
-		$view_id    = 0;
-		$view_name  = $view_array['name'] . ' - COPY';
-	} else {
-		$view_id   = 1;
-		$view      = $default_view;
-		$view_name = 'new';
-	}
-
-	/**
-	 * Attempt to repair bug from 2.28.2
-	 */
-	if ( ! isset( $view['pagination_settings']['end_size'] ) || ! $view['pagination_settings']['end_size'] ) {
-		$view['pagination_settings']['end_size'] = 1;
-	}
-	if ( ! isset( $view['pagination_settings']['mid_size'] ) || ! $view['pagination_settings']['mid_size'] ) {
-		$view['pagination_settings']['mid_size'] = 2;
-	}
-	if ( ! isset( $view['pagination_settings']['per_page'] ) || ! $view['pagination_settings']['per_page'] ) {
-		$view['pagination_settings']['per_page'] = 5;
-	}
-
-	$custom_list = apply_filters( 'wpmtst_custom_pages_list', array(), $view );
-	$pages_list  = apply_filters( 'wpmtst_pages_list', wpmtst_get_pages() );
-	$posts_list  = apply_filters( 'wpmtst_posts_list', wpmtst_get_posts() );
-
-	$view_options = apply_filters( 'wpmtst_view_options', get_option( 'wpmtst_view_options' ) );
-
-	// Select default template if necessary
-	if ( !$view['template'] ) {
-		if ( 'form' == $view['mode'] ) {
-			$view['template'] = 'default-form';
-		} else {
-			$view['template'] = 'default';
-		}
-	}
-
-	$view_cats_array = apply_filters( 'wpmtst_l10n_cats', explode( ',', $view['category'] ) );
-
-	// Assemble list of templates
-	$templates = array(
-		'display' => WPMST()->templates->get_templates( 'display' ),
-		'form'    => WPMST()->templates->get_templates( 'form' ),
-	);
-	$template_keys  = WPMST()->templates->get_template_keys();
-	$template_found = in_array( $view['template'], $template_keys );
-
-	// Get list of image sizes
-	$image_sizes = wpmtst_get_image_sizes();
-
-	$url = admin_url( 'edit.php?post_type=wpm-testimonial&page=testimonial-views' );
-	$url1 = $url . '&action=add';
-	$url2 = $url . '&action=duplicate&id=' . $view_id;
-	?>
-	<h1>
-		<?php 'edit' == $action ? esc_html_e( 'Edit View', 'strong-testimonials' ) : esc_html_e( 'Add View', 'strong-testimonials' ); ?>
-		<a href="<?php echo esc_url( $url1 ); ?>" class="add-new-h2"><?php esc_html_e( 'Add New', 'strong-testimonials' ); ?></a>
-		<a href="<?php echo esc_url( $url ); ?>" class="add-new-h2"><?php esc_html_e( 'Return To List', 'strong-testimonials' ); ?></a>
-		<?php if ( 'edit' == $action ) : ?>
-		<a href="<?php echo esc_url( $url2 ); ?>" class="add-new-h2"><?php esc_html_e( 'Duplicate This View', 'strong-testimonials' ); ?></a>
-		<?php endif; ?>
-	</h1>
-
-	<form id="wpmtst-views-form" method="post" action="<?php echo admin_url( 'admin-post.php' ); ?>" autocomplete="off" enctype="multipart/form-data">
-
-		<?php wp_nonce_field( 'view_form_submit', 'view_form_nonce', true, true ); ?>
-
-		<input type="hidden" name="action" value="view_<?php echo esc_attr( $action ); ?>_form">
-		<input type="hidden" name="view[id]" value="<?php echo esc_attr( $view_id ); ?>">
-		<input type="hidden" name="view_original_mode" value="<?php echo esc_attr( $view['mode'] ); ?>">
-		<input type="hidden" name="view[data][_form_id]" value="<?php echo esc_attr( $view['form_id'] ); ?>">
-
-        <div class="table view-info">
-                <?php include( 'partials/views/view-name.php' ); ?>
-    		<?php include( 'partials/views/view-shortcode.php' ); ?>
-	    	<?php include( 'partials/views/view-mode.php' ); ?>
-        </div>
-        
-        <?php
-                $show_section = apply_filters('wpmtst_show_section', $view['mode']);
-		// TODO Generify both hook and include
-		do_action( 'wpmtst_view_editor_before_group_select' );
-		include( 'partials/views/group-query.php' );
-		do_action( 'wpmtst_view_editor_after_group_select' );
-
-		do_action( 'wpmtst_view_editor_before_group_slideshow' );
-		include( 'partials/views/group-slideshow.php' );
-
-		do_action( 'wpmtst_view_editor_before_group_fields' );
-		include( 'partials/views/group-fields.php' );
-
-		do_action( 'wpmtst_view_editor_before_group_form' );
-		include( 'partials/views/group-form.php' );
-
-		do_action( 'wpmtst_view_editor_before_group_extra' );
-		include( 'partials/views/group-extra.php' );
-
-		do_action( 'wpmtst_view_editor_before_group_style' );
-		include( 'partials/views/group-style.php' );
-                do_action( 'wpmtst_after_style_view_section' );
-
-		do_action( 'wpmtst_view_editor_before_group_compat' );
-		include( 'partials/views/group-compat.php' );
-
-        // For back-compat. General group no longer used.
-		do_action( 'wpmtst_view_editor_before_group_general' );
-
-		do_action( 'wpmtst_view_editor_after_groups' );
-		?>
-
-		<p class="wpmtst-submit">
-			<?php submit_button( '', 'primary', 'submit-form', false ); ?>
-			<?php submit_button( __( 'Cancel Changes', 'strong-testimonials' ), 'secondary', 'reset', false ); ?>
-			<?php submit_button( __( 'Restore Defaults', 'strong-testimonials' ), 'secondary', 'restore-defaults', false ); ?>
-		</p>
-
-	</form>
 	<?php
 }
 
@@ -298,8 +123,9 @@ function wpmtst_view_edit_form() {
 		exit;
 	}
 
-	$view_id    = abs( filter_var( $_POST['view']['id'], FILTER_SANITIZE_NUMBER_INT ) );
-	$view_name  = wpmtst_validate_view_name( $_POST['view']['name'], $view_id );
+	$view_id    = isset( $_POST['view']['id'] ) ? absint( filter_var( wp_unslash( $_POST['view']['id'] ), FILTER_SANITIZE_NUMBER_INT ) ) : 0;
+
+	$view_name  = isset( $_POST['view']['name'] ) ? wpmtst_validate_view_name( sanitize_text_field( wp_unslash( $_POST['view']['name'] ) ), $view_id ) : 'new';
 
 	if ( isset( $_POST['reset'] ) ) {
 
@@ -330,7 +156,7 @@ function wpmtst_view_edit_form() {
 		$view = array(
 			'id'   => $view_id,
 			'name' => $view_name,
-			'data' => wpmtst_sanitize_view( stripslashes_deep( $_POST['view']['data'] ) ),
+			'data' => isset( $_POST['view']['data'] ) ? wpmtst_sanitize_view( stripslashes_deep( $_POST['view']['data'] ) ) : array(), // phpcs:ignore sanitized by wpmtst_sanitize_view
 		);
 		$success = wpmtst_save_view( $view ); // num_rows
 
@@ -369,7 +195,7 @@ function wpmtst_view_add_form() {
 	}
 
 	$view_id   = 0;
-	$view_name = wpmtst_validate_view_name( $_POST['view']['name'], $view_id );
+	$view_name = isset( $_POST['view']['name'] ) ? wpmtst_validate_view_name( sanitize_text_field( wp_unslash( $_POST['view']['name'] ) ), $view_id ) : "Testimonial View $view_id";
 
 	if ( isset( $_POST['restore-defaults'] ) ) {
 
@@ -391,7 +217,7 @@ function wpmtst_view_add_form() {
 		$view = array(
 			'id'   => 0,
 			'name' => $view_name,
-			'data' => wpmtst_sanitize_view( stripslashes_deep( $_POST['view']['data'] ) ),
+			'data' => isset( $_POST['view']['data'] ) ? wpmtst_sanitize_view( stripslashes_deep( $_POST['view']['data'] ) ) : array(), // phpcs:ignore sanitized by wpmtst_sanitize_view
 		);
 		$success = wpmtst_save_view( $view, 'add' ); // view ID
 
@@ -502,17 +328,19 @@ function wpmtst_view_field_inputs( $key, $field, $adding = false, $source = 'vie
 	$allowed = array( 'custom', 'optional', 'builtin' );
 
 	// TODO Move this to view defaults option.
-	$types = array(
-		'text'      => __( 'text', 'strong-testimonials' ),
-		'link'      => __( 'link with another field', 'strong-testimonials' ),  // the original link type
-		'link2'     => __( 'link (must be URL type)', 'strong-testimonials' ),  // @since 1.24.0
-		'date'      => __( 'date', 'strong-testimonials' ),
-		'category'  => __( 'category', 'strong-testimonials' ),
-		'rating'    => __( 'rating', 'strong-testimonials' ),
-		'platform'  => __( 'platform', 'strong-testimonials' ),
-		'shortcode' => __( 'shortcode', 'strong-testimonials' ),
-                'checkbox'   => __('checkbox', 'strong-testimonials')
-	);
+	$types = apply_filters( 'wpmtst_view_field_inputs_types', array( 
+		'text'      => esc_html__( 'text', 'strong-testimonials' ),
+		'link'      => esc_html__( 'link with another field', 'strong-testimonials' ),  // the original link type
+		'link2'     => esc_html__( 'link (must be URL type)', 'strong-testimonials' ),  // @since 1.24.0
+		'date'      => esc_html__( 'date', 'strong-testimonials' ),
+		'category'  => esc_html__( 'category', 'strong-testimonials' ),
+		'rating'    => esc_html__( 'rating', 'strong-testimonials' ),
+		'platform'  => esc_html__( 'platform', 'strong-testimonials' ),
+		'shortcode' => esc_html__( 'shortcode', 'strong-testimonials' ),
+		'checkbox'  => esc_html__('checkbox', 'strong-testimonials'),
+		'video'     => esc_html__('video', 'strong-testimonials'),
+		'video_record' => esc_html__('video_record', 'strong-testimonials')
+	), $key, $field );
 
 	if ( isset( $custom_fields[ $field['field'] ] ) ) {
             $field_label = $custom_fields[ $field['field'] ]['label'];
@@ -528,28 +356,29 @@ function wpmtst_view_field_inputs( $key, $field, $adding = false, $source = 'vie
 	$all_field_names = array_merge( array_keys( $custom_fields), array( 'post_date', 'submit_date', 'category', 'platform' ) );
 	$label_class = '';
 	if ( ! $adding && ! in_array( $field['field'], $all_field_names ) ) {
-	    $field_label .= ' < ERROR - not found >';
-	    $label_class = 'error';
+	    // $field_label .= ' < ERROR - not found >';
+	    // $label_class = 'error';
+		return FALSE;
 	}
 	?>
-	<div id="field-<?php echo $key; ?>" class="field2">
+	<div id="field-<?php echo esc_attr( $key ); ?>" class="field2">
 
-		<div class="field3" data-key="<?php echo $key; ?>">
+		<div class="field3" data-key="<?php echo esc_attr( $key ); ?>">
 
-			<div class="link" title="<?php _e( 'click to open or close', 'strong-testimonials' ); ?>">
+			<div class="link" title="<?php esc_html_e( 'click to open or close', 'strong-testimonials' ); ?>">
 
-				<a href="#" class="field-description <?php echo $label_class; ?>"><?php echo $field_label; ?></a>
+				<a href="#" class="field-description <?php echo esc_attr( $label_class ); ?>"><?php echo esc_html( $field_label ); ?></a>
 
 				<div class="controls2 left">
 					<span class="handle ui-sortable-handle icon-wrap"
-						  title="<?php _e( 'drag and drop to reorder', 'strong-testimonials' ); ?>"></span>
+						  title="<?php  esc_html_e( 'drag and drop to reorder', 'strong-testimonials' ); ?>"></span>
 					<span class="delete icon-wrap"
-						  title="<?php _e( 'remove this field', 'strong-testimonials' ); ?>"></span>
+						  title="<?php  esc_html_e( 'remove this field', 'strong-testimonials' ); ?>"></span>
 				</div>
 
 				<div class="controls2 right">
 					<span class="toggle icon-wrap"
-						  title="<?php _e( 'click to open or close', 'strong-testimonials' ); ?>"></span>
+						  title="<?php  esc_html_e( 'click to open or close', 'strong-testimonials' ); ?>"></span>
 				</div>
 
 			</div>
@@ -558,19 +387,19 @@ function wpmtst_view_field_inputs( $key, $field, $adding = false, $source = 'vie
 
                 <!-- FIELD NAME -->
                 <div class="field-property field-name">
-                    <label for="client_section_<?php echo $key; ?>_field">
-                        <?php _e( 'Name', 'strong-testimonials' ); ?>
+                    <label for="client_section_<?php echo esc_attr( $key ); ?>_field">
+                        <?php esc_html_e( 'Name', 'strong-testimonials' ); ?>
                     </label>
-                    <select id="client_section_<?php echo $key; ?>_field" name="<?php echo $source ?>[client_section][<?php echo $key; ?>][field]" class="first-field">
-                        <option value="">&mdash; select a field &mdash;</option>
+                    <select id="client_section_<?php echo esc_attr( $key ); ?>_field" name="<?php echo esc_attr( $source ) ?>[client_section][<?php echo esc_attr( $key ); ?>][field]" class="first-field">
+                        <option value="">&mdash; <?php esc_html_e( 'select a field', 'strong-testimonials' ); ?> &mdash;</option>
 
                         <?php foreach ( $all_fields as $group_name => $group ) : ?>
-                        <optgroup label="<?php echo $group_name; ?>">
+                        <optgroup label="<?php echo esc_attr( $group_name ); ?>">
 
                         <?php foreach ( $group as $key2 => $field2 ) : ?>
                         <?php if ( in_array( $field2['record_type'], $allowed ) && 'email' != $field2['input_type'] ) : ?>
-                        <option value="<?php echo $field2['name']; ?>" data-type="<?php echo $field2['input_type']; ?>"
-                            <?php selected( $field2['name'], $field['field'] ); ?>><?php echo $field2['name']; ?></option>
+                        <option value="<?php echo esc_attr( $field2['name'] ); ?>" data-type="<?php echo esc_attr( $field2['input_type'] ); ?>"
+                            <?php selected( $field2['name'], $field['field'] ); ?>><?php esc_html_e( $field2['name'] ); ?></option>
                         <?php endif; ?>
                         <?php endforeach; ?>
 
@@ -580,13 +409,13 @@ function wpmtst_view_field_inputs( $key, $field, $adding = false, $source = 'vie
                 </div>
 
                 <!-- FIELD TYPE -->
-                <div class="field-property field-type field-dep" <?php if ( $adding || $field['type'] == 'checkbox' ) echo ' style="display: none;"'; ?>>
-                    <label for="client_section_<?php echo $key; ?>_type">
-                        <?php _e( 'Display Type', 'strong-testimonials' ); ?>
+                <div class="field-property field-type field-dep" <?php if ( $adding || in_array($field['type'], array('checkbox', 'video', 'video_record') ) || $field['field'] == 'video_file' ) echo ' style="display: none;"'; ?>>
+                    <label for="client_section_<?php echo esc_attr( $key ); ?>_type">
+                        <?php esc_html_e( 'Display Type', 'strong-testimonials' ); ?>
                     </label>
-                    <select id="client_section_<?php echo $key; ?>_type" name="<?php echo $source ?>[client_section][<?php echo $key; ?>][type]" <?php echo ($field['type'] == 'checkbox' ? 'readonly' : '') ?>>
+                    <select id="client_section_<?php echo esc_attr( $key ); ?>_type" name="<?php echo esc_attr( $source )?>[client_section][<?php echo esc_attr( $key ); ?>][type]" <?php echo ($field['type'] == 'checkbox' ? 'readonly' : '') ?>>
                         <?php foreach ( $types as $type => $type_label ) : ?>
-                        <option value="<?php echo $type; ?>" <?php selected( $type, $field['type'] ); ?> <?php echo($type=='checkbox' ? 'style="display:none"' : '') ?>><?php echo $type_label; ?></option>
+                        <option value="<?php echo esc_attr( $type ); ?>" <?php selected( $type, $field['type'] ); ?> <?php echo (in_array($type, array('checkbox', 'video', 'video_record')) || $field['field'] == 'video_file' ? 'style="display:none"' : '') ?>><?php esc_html_e( $type_label ); ?></option>
                         <?php endforeach; ?>
                     </select>
                 </div>
@@ -611,18 +440,18 @@ function wpmtst_view_field_inputs( $key, $field, $adding = false, $source = 'vie
 
                 <!-- FIELD BEFORE -->
                 <div class="field-property field-before field-dep" <?php if ( $adding ) echo ' style="display: none;"'; ?>>
-                    <label for="client_section_<?php echo $key; ?>_before">
-                        <?php _e( 'Before', 'strong-testimonials' ); ?>
+                    <label for="client_section_<?php echo esc_attr( $key ); ?>_before">
+                        <?php esc_html_e( 'Before', 'strong-testimonials' ); ?>
                     </label>
-                    <input id="client_section_<?php echo $key; ?>_before" type="text" name="<?php echo $source ?>[client_section][<?php echo $key; ?>][before]" value="<?php echo isset( $field['before'] ) ? $field['before'] : ''; ?>">
+                    <input id="client_section_<?php echo esc_attr( $key ); ?>_before" type="text" name="<?php echo esc_attr( $source ) ?>[client_section][<?php echo esc_attr( $key ); ?>][before]" value="<?php echo isset( $field['before'] ) ? esc_attr($field['before']) : ''; ?>">
                 </div>
 
                 <!-- FIELD CSS CLASS -->
                 <div class="field-property field-css field-dep" <?php if ( $adding ) echo ' style="display: none;"'; ?>>
-                    <label for="client_section_<?php echo $key; ?>_class">
-                        <?php _e( 'CSS Class', 'strong-testimonials' ); ?>
+                    <label for="client_section_<?php echo esc_attr( $key ); ?>_class">
+                        <?php esc_html_e( 'CSS Class', 'strong-testimonials' ); ?>
                     </label>
-                    <input id="client_section_<?php echo $key; ?>_class" type="text" name="<?php echo $source ?>[client_section][<?php echo $key; ?>][class]" value="<?php echo $field['class']; ?>">
+                    <input id="client_section_<?php echo esc_attr( $key ); ?>_class" type="text" name="<?php echo esc_attr( $source ) ?>[client_section][<?php echo esc_attr( $key ); ?>][class]" value="<?php echo esc_attr( $field['class' ] ); ?>">
                 </div>
 
             </div>
@@ -667,34 +496,34 @@ function wpmtst_view_field_link( $key, $field_name, $type, $field, $adding = fal
 
 	<?php // the link text ?>
 	<div class="flex">
-		<label for="view-fieldtext<?php echo $key; ?>"><?php _e( 'Link Text', 'strong-testimonials' ); ?></label>
-		<select id="view-fieldtext<?php echo $key; ?>" name="<?php echo $source ?>[client_section][<?php echo $key; ?>][link_text]" class="if selectgroup">
-			<option value="value" <?php selected( $field['link_text'], 'value' ); ?>><?php _e( "this field's value", 'strong-testimonials' ); ?></option>
-			<option value="label" <?php selected( $field['link_text'], 'label' ); ?>><?php _e( "this field's label", 'strong-testimonials' ); ?></option>
-			<option value="custom" <?php selected( $field['link_text'], 'custom' ); ?>><?php _e( 'custom text', 'strong-testimonials' ); ?></option>
+		<label for="view-fieldtext<?php echo esc_attr( $key ); ?>"><?php esc_html_e( 'Link Text', 'strong-testimonials' ); ?></label>
+		<select id="view-fieldtext<?php echo esc_attr( $key ); ?>" name="<?php echo esc_attr( $source ) ?>[client_section][<?php echo esc_attr( $key ); ?>][link_text]" class="if selectgroup">
+			<option value="value" <?php selected( $field['link_text'], 'value' ); ?>><?php esc_html_e( "this field's value", 'strong-testimonials' ); ?></option>
+			<option value="label" <?php selected( $field['link_text'], 'label' ); ?>><?php esc_html_e( "this field's label", 'strong-testimonials' ); ?></option>
+			<option value="custom" <?php selected( $field['link_text'], 'custom' ); ?>><?php esc_html_e( 'custom text', 'strong-testimonials' ); ?></option>
 		</select>
 	</div>
 
 	<?php // the link text options ?>
 	<?php // use the field label ?>
-	<div class="flex then_fieldtext<?php echo $key; ?> then_label then_not_value then_not_custom" style="display: none;">
+	<div class="flex then_fieldtext<?php echo esc_attr( $key ); ?> then_label then_not_value then_not_custom" style="display: none;">
 		<div class="nolabel">&nbsp;</div>
-		<input type="text" id="view-fieldtext<?php echo $key; ?>-label" value="<?php echo $field['label']; ?>" readonly>
+		<input type="text" id="view-fieldtext<?php echo esc_attr( $key ); ?>-label" value="<?php echo esc_attr( $field['label'] ); ?>" readonly>
 	</div>
 	<?php // use custom text ?>
-	<div class="flex then_fieldtext<?php echo $key; ?> then_custom then_not_value then_not_label" style="display: none;">
+	<div class="flex then_fieldtext<?php echo esc_attr( $key ); ?> then_custom then_not_value then_not_label" style="display: none;">
 		<div class="nolabel">&nbsp;</div>
-		<input type="text" id="view-fieldtext<?php echo $key; ?>-custom" name="<?php echo $source ?>[client_section][<?php echo $key; ?>][link_text_custom]" value="<?php echo $field['link_text_custom']; ?>">
+		<input type="text" id="view-fieldtext<?php echo esc_attr( $key ); ?>-custom" name="<?php echo esc_attr( $source ) ?>[client_section][<?php echo esc_attr( $key ); ?>][link_text_custom]" value="<?php echo esc_attr( $field['link_text_custom'] ); ?>">
 	</div>
 
 	<?php // the URL ?>
 	<?php if ( 'link' == $type ) : // URL = another field ?>
 	<div class="flex">
-		<label for="view-fieldurl<?php echo $key; ?>"><?php _e( 'URL Field', 'strong-testimonials' ); ?></label>
-		<select id="view-fieldurl<?php echo $key; ?>" name="<?php echo $source ?>[client_section][<?php echo $key; ?>][url]" class="field-type-select">
+		<label for="view-fieldurl<?php echo esc_attr( $key ); ?>"><?php esc_html_e( 'URL Field', 'strong-testimonials' ); ?></label>
+		<select id="view-fieldurl<?php echo esc_attr( $key ); ?>" name="<?php echo esc_attr( $source ) ?>[client_section][<?php echo esc_attr( $key ); ?>][url]" class="field-type-select">
 			<?php foreach ( $custom_fields as $key2 => $field2 ) : ?>
 				<?php if ( 'url' == $field2['input_type'] ) : ?>
-				<option value="<?php echo $field2['name']; ?>" <?php selected( $field2['name'], $field['url'] ); ?>><?php echo $field2['name']; ?></option>
+				<option value="<?php echo esc_attr( $field2['name'] ); ?>" <?php selected( $field2['name'], $field['url'] ); ?>><?php echo esc_html( $field2['name'] ); ?></option>
 				<?php endif; ?>
 			<?php endforeach; ?>
 		</select>
@@ -703,17 +532,15 @@ function wpmtst_view_field_link( $key, $field_name, $type, $field, $adding = fal
 		<?php // the URL options ?>
 		<div class="nolabel"></div>
 		<div class="new_tab">
-			<input type="checkbox" id="view-fieldurl<?php echo $key; ?>-newtab"
-				   name="<?php echo $source ?>[client_section][<?php echo $key; ?>][new_tab]"
-				   value="1" <?php checked( $field['new_tab'] ); ?>>
-			<label for="view-fieldurl<?php echo $key; ?>-newtab">
-				<?php _e( 'new tab', 'strong-testimonials' ); ?>
+			<input type="checkbox" id="view-fieldurl<?php echo esc_attr( $key ); ?>-newtab" name="<?php echo esc_attr( $source ) ?>[client_section][<?php echo  esc_attr( $key ); ?>][new_tab]" value="1" <?php checked( $field['new_tab'] ); ?>>
+			<label for="view-fieldurl<?php echo  esc_attr( $key ); ?>-newtab">
+				<?php esc_html_e( 'new tab', 'strong-testimonials' ); ?>
 			</label>
 		</div>
 
 	</div>
 	<?php else : // URL = this field ?>
-		<input type="hidden" name="<?php echo $source ?>[client_section][<?php echo $key; ?>][url]" value="<?php echo $field['name']; ?>">
+		<input type="hidden" name="<?php echo esc_attr( $source ) ?>[client_section][<?php echo esc_attr( $key ); ?>][url]" value="<?php echo esc_attr( $field['name'] ); ?>">
 	<?php endif; ?>
 
 	<?php
@@ -732,15 +559,15 @@ function wpmtst_view_field_link( $key, $field_name, $type, $field, $adding = fal
 function wpmtst_view_field_date( $key, $field, $adding = false, $source = 'view[data]'  ) {
 	?>
 	<div class="flex">
-		<label for="view-<?php echo $key; ?>-client-date-format"><span><?php _e( 'Format', 'strong-testimonials' ); ?></span></label>
-		<input id="view-<?php echo $key; ?>-client-date-format" type="text" name="<?php echo $source ?>[client_section][<?php echo $key; ?>][format]" class="field-type-date" value="<?php echo isset( $field['format'] ) ? $field['format'] : ''; ?>">
+		<label for="view-<?php echo esc_attr( $key ); ?>-client-date-format"><span><?php esc_html_e( 'Format', 'strong-testimonials' ); ?></span></label>
+		<input id="view-<?php echo esc_attr( $key ); ?>-client-date-format" type="text" name="<?php echo esc_attr( $source ) ?>[client_section][<?php echo esc_attr( $key ); ?>][format]" class="field-type-date" value="<?php echo isset( $field['format'] ) ? esc_attr($field['format']) : ''; ?>">
 	</div>
 	<div class="flex">
 		<div class="nolabel">&nbsp;</div>
 		<div class="help minor">
 			<?php printf( '<a href="%s" target="_blank">%s</a>',
 				esc_url( 'https://codex.wordpress.org/Formatting_Date_and_Time' ),
-				__( 'more about date formats', 'strong-testimonials' ) ); ?>
+				esc_html__( 'more about date formats', 'strong-testimonials' ) ); ?>
 		</div>
 	</div>
 	<?php
@@ -784,35 +611,35 @@ function wpmtst_view_field_checkbox( $key, $field, $adding = false, $source = 'v
         }
         ?>
        	<div class="flex">
-		<label for="client_section_<?php echo $key; ?>_label"><?php _e( 'Label', 'strong-testimonials' ); ?></label>
-		<select id="client_section_<?php echo $key; ?>_label" name="<?php echo $source ?>[client_section][<?php echo $key; ?>][label]" class="field-label-select">
-                    <option value="label" <?php selected( $field['label'], 'label' ); ?>><?php _e( 'Field label', 'strong-testimonials' ); ?></option>
-                    <option value="custom" <?php selected( $field['label'], 'custom' ); ?>><?php _e( 'Custom label', 'strong-testimonials' ); ?></option>
+		<label for="client_section_<?php esc_attr( $key ); ?>_label"><?php esc_html_e( 'Label', 'strong-testimonials' ); ?></label>
+		<select id="client_section_<?php echo esc_attr( $key ); ?>_label" name="<?php echo esc_attr( $source ) ?>[client_section][<?php echo esc_attr( $key ); ?>][label]" class="field-label-select">
+			<option value="label" <?php selected( $field['label'], 'label' ); ?>><?php esc_html_e( 'Field label', 'strong-testimonials' ); ?></option>
+			<option value="custom" <?php selected( $field['label'], 'custom' ); ?>><?php esc_html_e( 'Custom label', 'strong-testimonials' ); ?></option>
 		</select>
 	</div>
-        <div class="field-property field-before field-dep">
-            <label for="client_section_<?php echo $key; ?>_custom_label"></label>
-            <input id="client_section_<?php echo $key; ?>_custom_label" class="client_section_field_label" attr-defaultValue="<?php echo wpmtst_get_field_label( $field ) ?>" type="text" name="<?php echo $source ?>[client_section][<?php echo $key; ?>][custom_label]" value="<?php echo $label ?>" <?php echo ($field['label'] == 'label' ? 'readonly' : '') ?>>
-        </div>
-        <div class="field-property field-before field-dep">
-                <label for="client_section_<?php echo $key; ?>_checked_value">
-                        <?php _e( 'Checked Value', 'strong-testimonials' ); ?>
-                </label>
-		<select id="client_section_<?php echo $key; ?>_checked_value" name="<?php echo $source ?>[client_section][<?php echo $key; ?>][checked_value]" class="field-checked-select">
-                    <option value="value" <?php selected( $field['checked_value'], 'value' ); ?>><?php _e( 'Checked value', 'strong-testimonials' ); ?></option>
-                    <option value="custom" <?php selected( $field['checked_value'], 'custom' ); ?>><?php _e( 'Custom value', 'strong-testimonials' ); ?></option>
-		</select>
-        </div>
-        <div class="field-property field-before field-dep">
-                <label for="client_section_<?php echo $key; ?>_checked_value_custom"></label>
-                <input id="client_section_<?php echo $key; ?>_checked_value_custom" class="client_section_field_checked_value" attr-defaultValue="<?php echo wpmtst_get_field_text( $field ) ?>" type="text" name="<?php echo $source ?>[client_section][<?php echo $key; ?>][checked_value_custom]" value="<?php echo $checked_value ?>" <?php echo ($field['checked_value'] == 'value' ? 'readonly' : '') ?>>
-        </div>
-        <div class="field-property field-before field-dep">
-                <label for="client_section_<?php echo $key; ?>_unchecked_value">
-                        <?php _e( 'Unchecked Value', 'strong-testimonials' ); ?>
-                </label>
-                <input id="client_section_<?php echo $key; ?>_unchecked_value" type="text" name="<?php echo $source ?>[client_section][<?php echo $key; ?>][unchecked_value]" value="<?php echo isset( $field['unchecked_value'] ) ? $field['unchecked_value'] : ''; ?>">
-        </div>
+	<div class="field-property field-before field-dep">
+		<label for="client_section_<?php echo esc_attr( $key ); ?>_custom_label"></label>
+		<input id="client_section_<?php echo esc_attr( $key ); ?>_custom_label" class="client_section_field_label" attr-defaultValue="<?php echo esc_attr( wpmtst_get_field_label( $field ) ) ?>" type="text" name="<?php echo esc_attr( $source ) ?>[client_section][<?php echo esc_attr( $key ); ?>][custom_label]" value="<?php echo esc_attr( $label ) ?>" <?php echo ($field['label'] == 'label' ? 'readonly' : '') ?>>
+	</div>
+	<div class="field-property field-before field-dep">
+		<label for="client_section_<?php echo esc_attr( $key ); ?>_checked_value">
+			<?php esc_html_e( 'Checked Value', 'strong-testimonials' ); ?>
+		</label>
+	<select id="client_section_<?php echo esc_attr( $key ); ?>_checked_value" name="<?php echo esc_attr( $source ); ?>[client_section][<?php echo esc_attr( $key ); ?>][checked_value]" class="field-checked-select">
+		<option value="value" <?php selected( $field['checked_value'], 'value' ); ?>><?php esc_html_e( 'Checked value', 'strong-testimonials' ); ?></option>
+		<option value="custom" <?php selected( $field['checked_value'], 'custom' ); ?>><?php esc_html_e( 'Custom value', 'strong-testimonials' ); ?></option>
+	</select>
+	</div>
+	<div class="field-property field-before field-dep">
+		<label for="client_section_<?php echo esc_attr( $key ); ?>_checked_value_custom"></label>
+		<input id="client_section_<?php echo esc_attr( $key ); ?>_checked_value_custom" class="client_section_field_checked_value" attr-defaultValue="<?php echo esc_attr(wpmtst_get_field_text( $field )); ?>" type="text" name="<?php echo esc_attr( $source ); ?>[client_section][<?php echo esc_attr( $key ); ?>][checked_value_custom]" value="<?php echo esc_attr( $checked_value ) ?>" <?php echo ($field['checked_value'] == 'value' ? 'readonly' : '') ?>>
+	</div>
+	<div class="field-property field-before field-dep">
+		<label for="client_section_<?php echo esc_attr( $key ); ?>_unchecked_value">
+				<?php esc_html_e( 'Unchecked Value', 'strong-testimonials' ); ?>
+		</label>
+		<input id="client_section_<?php echo esc_attr( $key ); ?>_unchecked_value" type="text" name="<?php echo esc_attr( $source ); ?>[client_section][<?php echo esc_attr( $key ); ?>][unchecked_value]" value="<?php echo isset( $field['unchecked_value'] ) ? esc_attr($field['unchecked_value']) : ''; ?>">
+	</div>
 	<?php
 }
 
@@ -859,7 +686,7 @@ function wpmtst_category_checklist( $view_cats_array ) {
 	<div class="view-category-list-panel short-panel">
 		<div class="fc-search-wrap">
 			<input type="search" class="fc-search-field"
-				   placeholder="<?php _e( 'filter categories', 'strong-testimonials' ); ?>"/>
+				   placeholder="<?php esc_attr_e( 'filter categories', 'strong-testimonials' ); ?>"/>
 		</div>
 		<ul class="view-category-list">
 			<?php $args = array(
@@ -887,7 +714,7 @@ function wpmtst_form_category_checklist( $view_cats_array ) {
 	<div class="view-category-list-panel short-panel">
 		<div class="fc-search-wrap">
 			<input type="search" class="fc-search-field"
-				   placeholder="<?php _e( 'filter categories', 'strong-testimonials' ); ?>"/>
+				   placeholder="<?php esc_html_e( 'filter categories', 'strong-testimonials' ); ?>"/>
 		</div>
 		<ul class="view-category-list">
 			<?php $args = array(
@@ -911,6 +738,9 @@ function wpmtst_form_category_checklist( $view_cats_array ) {
  * @since 2.22.0
  */
 function wpmtst_save_view_sticky() {
+	if( !current_user_can('edit_posts') ){
+		wp_die();
+	}
 	$id = filter_input( INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT );
 	$stickies = get_option( 'wpmtst_sticky_views', array() );
 	if ( in_array( $id, $stickies ) ) {

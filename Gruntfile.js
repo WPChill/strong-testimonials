@@ -65,6 +65,7 @@ module.exports = function( grunt ) {
             '*.js',
             '**/*.js',
             '!*.min.js',
+            '!**/*.min.js',
           ],
           dest  : 'public/js/',
           ext   : '.min.js'
@@ -74,6 +75,7 @@ module.exports = function( grunt ) {
 
     clean: {
       css: [ 'assets/css/*.min.css', '!assets/css/jquery-ui.min.css' ],
+      js: [ 'public/js/*.min.js', 'public/js/**/*.min.js' ],
       init: {
         src: ['build/']
       },
@@ -95,9 +97,9 @@ module.exports = function( grunt ) {
           '!composer.json',
           '!composer.lock',
           '!set_tags.sh',
-		      '!postcss.config.js',
-		      '!webpack.config.js',
-          '!strong-testimonials.zip',
+          '!postcss.config.js',
+          '!webpack.config.js',
+          '!**.zip',
           '!nbproject/**' ],
         dest: 'build/'
       }
@@ -107,7 +109,7 @@ module.exports = function( grunt ) {
       build: {
         options: {
           pretty: true,                           // Pretty print file sizes when logging.
-          archive: '<%= pkg.name %>.zip'
+          archive: '<%= pkg.name %>-<%= pkg.version %>.zip'
         },
         expand: true,
         cwd: 'build/',
@@ -120,6 +122,7 @@ module.exports = function( grunt ) {
 
   grunt.loadNpmTasks( 'grunt-contrib-clean' );
   grunt.loadNpmTasks( 'grunt-contrib-cssmin' );
+  grunt.loadNpmTasks( 'grunt-contrib-uglify-es' );
 
   grunt.registerTask( 'textdomain', [
     'checktextdomain'

@@ -17,11 +17,11 @@ function wpmtst_version_check() {
 	if ( version_compare( $wp_version, $require_wp_version ) == -1 ) {
 		deactivate_plugins( WPMTST_PLUGIN );
 		/* translators: %s is the name of the plugin. */
-		$message = '<h2>' . sprintf( _x( 'Unable to load %s', 'installation', 'strong-testimonials' ), 'Strong Testimonials' ) . '</h2>';
+		$message = '<h2>' . sprintf( esc_html_x( 'Unable to load %s', 'installation', 'strong-testimonials' ), 'Strong Testimonials' ) . '</h2>';
 		/* translators: %s is a WordPress version number. */
-		$message .= '<p>' . sprintf( _x( 'This plugin requires <strong>WordPress %s</strong> or higher so it has been deactivated.', 'installation', 'strong-testimonials' ), $require_wp_version ) . '</p>';
-		$message .= '<p>' . _x( 'Please upgrade WordPress and try again.', 'installation', 'strong-testimonials' ) . '</p>';
-		$message .= '<p>' . sprintf( _x( 'Back to the WordPress <a href="%s">Plugins page</a>', 'installation', 'strong-testimonials' ), get_admin_url( null, 'plugins.php' ) ) . '</p>';
+		$message .= '<p>' . sprintf( wp_kses_post( _x( 'This plugin requires <strong>WordPress %s</strong> or higher so it has been deactivated.', 'installation', 'strong-testimonials' ) ), $require_wp_version ) . '</p>';
+		$message .= '<p>' . esc_html_x( 'Please upgrade WordPress and try again.', 'installation', 'strong-testimonials' ) . '</p>';
+		$message .= '<p>' . sprintf( wp_kses_post( _x( 'Back to the WordPress <a href="%s">Plugins page</a>', 'installation', 'strong-testimonials' ) ), esc_url( get_admin_url( null, 'plugins.php' ) ) ) . '</p>';
 		wp_die( $message );
 	}
 }
@@ -38,10 +38,6 @@ function wpmtst_update_check() {
 	if ( $version == WPMTST_VERSION ) {
 		return;
 	}
-	// Redirect to About page afterwards. On new install or (de)activation only.
-	if ( false === $version ) {
-		add_option( 'wpmtst_do_activation_redirect', true );
-	}
 
 	Strong_Testimonials_Updater::update();
 }
@@ -52,12 +48,6 @@ add_action( 'admin_init', 'wpmtst_update_check', 5 );
  * Initialize.
  */
 function wpmtst_admin_init() {
-	/**
-	 * Redirect to About page for new installs only
-	 *
-	 * @since 2.28.4
-	 */
-	wpmtst_activation_redirect();
 
 	/**
 	 * Custom action hooks
@@ -65,7 +55,8 @@ function wpmtst_admin_init() {
 	 * @since 1.18.4
 	 */
 	if ( isset( $_REQUEST['action'] ) && '' != $_REQUEST['action'] ) {
-		do_action( 'wpmtst_' . $_REQUEST['action'] );
+		$action = sanitize_text_field( wp_unslash( $_REQUEST['action'] ) );
+		do_action( 'wpmtst_' . $action );
 	}
 }
 
@@ -83,19 +74,6 @@ function wpmtst_action_captcha_options_changed() {
 }
 
 add_action( 'admin_action_captcha-options-changed', 'wpmtst_action_captcha_options_changed' );
-
-/**
- * Redirect to About page.
- *
- * @since 2.28.4
- */
-function wpmtst_activation_redirect() {
-	if ( get_option( 'wpmtst_do_activation_redirect', false ) ) {
-		delete_option( 'wpmtst_do_activation_redirect' );
-		wp_redirect( admin_url( 'edit.php?post_type=wpm-testimonial' ) );
-		exit;
-	}
-}
 
 /**
  * Are we on a testimonial admin screen?
@@ -160,9 +138,9 @@ function wpmtst_restore_default_icon( $for ) {
 	if ( !$for ) return;
 	?>
 	<input type="button" class="button secondary restore-default"
-		   title="<?php _e( 'restore default', 'strong-testimonials' ); ?>"
+		   title="<?php esc_html_e( 'restore default', 'strong-testimonials' ); ?>"
 		   value="&#xf171"
-		   data-for="<?php echo $for; ?>"/>
+		   data-for="<?php echo esc_attr( $for ); ?>"/>
 	<?php
 }
 

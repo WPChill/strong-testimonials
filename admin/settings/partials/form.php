@@ -4,13 +4,14 @@
  *
  * @since   1.13
  */
+
 $pages_list   = wpmtst_get_pages();
 $form_options = get_option( 'wpmtst_form_options' );
 
 ?>
 <input type="hidden"
        name="wpmtst_form_options[default_recipient]"
-       value="<?php echo htmlentities( serialize( $form_options['default_recipient'] ) ); ?>">
+       value="<?php echo esc_attr( htmlentities( serialize( $form_options['default_recipient'] ) ) ); ?>">
 
 <?php
 /**
@@ -18,15 +19,16 @@ $form_options = get_option( 'wpmtst_form_options' );
  * Labels & Messages
  * ========================================
  */
+
 ?>
-<h2><?php _e( 'Form Labels & Messages', 'strong-testimonials' ); ?></h2>
+<h2><?php esc_html_e( 'Form Labels & Messages', 'strong-testimonials' ); ?></h2>
 
 <?php do_action( 'wpmtst_before_form_settings', 'form-messages' ); ?>
 
 <table class="form-table compact" cellpadding="0" cellspacing="0">
 	<?php
 	$messages = $form_options['messages'];
-	foreach ( $messages as $key => $message ):
+	foreach ( $messages as $key => $message ) :
 		$required = isset( $message['required'] ) ? $message['required'] : true;
 
 		$elid = str_replace( '-', '_', $key );
@@ -36,8 +38,8 @@ $form_options = get_option( 'wpmtst_form_options' );
 
         <tr>
             <th scope="row">
-                <label for="<?php echo $elid; ?>">
-					<?php _ex( $message['description'], 'description', 'strong-testimonials' ); ?>
+                <label for="<?php echo esc_attr( $elid ); ?>">
+					<?php echo esc_html_x( $message['description'], 'description', 'strong-testimonials' ); ?>
                 </label>
                 <input type="hidden" name="wpmtst_form_options[messages][<?php echo esc_attr( $key ); ?>][description]"
                        value="<?php echo esc_attr( $message['description'] ); ?>"/>
@@ -59,7 +61,7 @@ $form_options = get_option( 'wpmtst_form_options' );
                                        name="wpmtst_form_options[messages][<?php echo esc_attr( $key ); ?>][enabled]"
                                        <?php checked( $message['enabled'] ); ?>>
 								<?php esc_html_e( 'Display required notice at top of form', 'strong-testimonials' ); ?>
-                            </label
+							</label>
                         </fieldset>
 					<?php endif; ?>
                     <input type="text" id="<?php echo esc_attr( $elid ); ?>"
@@ -70,7 +72,7 @@ $form_options = get_option( 'wpmtst_form_options' );
             </td>
             <td class="actions">
                 <input type="button" class="button secondary restore-default-message"
-                       value="<?php _ex( 'restore default', 'singular', 'strong-testimonials' ); ?>"
+                       value="<?php echo esc_html_x( 'restore default', 'singular', 'strong-testimonials' ); ?>"
                        data-target-id="<?php echo esc_attr( $elid ); ?>"/>
             </td>
         </tr>
@@ -97,14 +99,14 @@ $form_options = get_option( 'wpmtst_form_options' );
                     <label>
                         <input type="checkbox"
                                name="wpmtst_form_options[scrolltop_error]" <?php checked( $form_options['scrolltop_error'] ); ?>/>
-						<?php printf( __( 'If errors, scroll to the first error minus %s pixels. On by default.', 'strong-testimonials' ), '<input type="text" name="wpmtst_form_options[scrolltop_error_offset]" value="' . $form_options['scrolltop_error_offset'] . '" size="3">' ); ?>
+						<?php printf( esc_html__( 'If errors, scroll to the first error minus %s pixels. On by default.', 'strong-testimonials' ), '<input type="text" name="wpmtst_form_options[scrolltop_error_offset]" value="' . esc_attr( $form_options['scrolltop_error_offset'] ) . '" size="3">' ); ?>
                     </label>
                 </div>
                 <div>
                     <label class="block">
                         <input type="checkbox"
                                name="wpmtst_form_options[scrolltop_success]" <?php checked( $form_options['scrolltop_success'] ); ?>/>
-						<?php printf( __( 'If success, scroll to the success message minus %s pixels. On by default.', 'strong-testimonials' ), '<input type="text" name="wpmtst_form_options[scrolltop_success_offset]" value="' . $form_options['scrolltop_success_offset'] . '" size="3">' ); ?>
+						<?php printf( esc_html__( 'If success, scroll to the success message minus %s pixels. On by default.', 'strong-testimonials' ), '<input type="text" name="wpmtst_form_options[scrolltop_success_offset]" value="' . esc_attr( $form_options['scrolltop_success_offset'] ) . '" size="3">' ); ?>
                     </label>
                 </div>
             </fieldset>
@@ -118,9 +120,10 @@ $form_options = get_option( 'wpmtst_form_options' );
  * Actions
  * ========================================
  */
+
 ?>
 <hr>
-<h3><?php _e( 'Form Actions', 'strong-testimonials' ); ?></h3>
+<h3><?php esc_html_e( 'Form Actions', 'strong-testimonials' ); ?></h3>
 
 <table class="form-table" cellpadding="0" cellspacing="0">
         
@@ -131,7 +134,7 @@ $form_options = get_option( 'wpmtst_form_options' );
 			<label for="redirect-page">
 				<?php esc_html_e( 'Upon Successful Submission', 'strong-testimonials' ); ?>
                 <div class="wpmtst-tooltip"><span>[?]</span>
-                    <div class="wpmtst-tooltip-content"><?php echo esc_html__('This setting is overwritten by "Submit form without reloading the page (Ajax)" setting found in Form view in the "Views" section.','strong-testimonials'); ?></div>
+                    <div class="wpmtst-tooltip-content"><?php esc_html_e('This setting is overwritten by "Submit form without reloading the page (Ajax)" setting found in Form view in the "Views" section.','strong-testimonials'); ?></div>
                 </div>
 			</label>
 		</th>
@@ -152,8 +155,8 @@ $form_options = get_option( 'wpmtst_form_options' );
 					<option value=""><?php esc_html_e( '&mdash; select a page &mdash;', 'strong-testimonials' ); ?></option>
 					<?php foreach ( $pages_list as $pages ) : ?>
 
-                        <option value="<?php echo $pages->ID; ?>" <?php selected( isset( $form_options['success_redirect_id'] ) ? $form_options['success_redirect_id'] : 0, $pages->ID ); ?>>
-							<?php echo $pages->post_title; ?>
+                        <option value="<?php echo esc_attr( $pages->ID ); ?>" <?php selected( isset( $form_options['success_redirect_id'] ) ? $form_options['success_redirect_id'] : 0, $pages->ID ); ?>>
+							<?php echo esc_html( $pages->post_title ); ?>
                         </option>
 
 					<?php endforeach; ?>

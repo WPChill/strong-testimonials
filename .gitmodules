@@ -1,0 +1,6 @@
+[submodule "includes/submodules/banner"]
+	path = includes/submodules/banner
+	url = https://github.com/WPChill/wpchill-welcome-banner
+[submodule "includes/submodules/license-checker"]
+	path = includes/submodules/license-checker
+	url = https://github.com/WPChill/wpchill-license-checker

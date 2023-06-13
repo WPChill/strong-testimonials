@@ -336,7 +336,7 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
 }
 
 
-.disabled { 
+.strong-view.wpmtst-modern .disabled { 
   display: none!important;
 }
 

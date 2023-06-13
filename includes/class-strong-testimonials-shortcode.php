@@ -36,7 +36,7 @@ class Strong_Testimonials_View_Shortcode {
 	 * @return mixed|string
 	 */
 	public function testimonial_view_shortcode( $atts, $content = null ) {
-		$out = shortcode_atts(
+		$out = shortcode_atts(  // phpcs:ignore sanitized in render_view 
 			array(),
 			$atts,
 			$this->shortcode
@@ -74,8 +74,8 @@ class Strong_Testimonials_View_Shortcode {
 				ob_start();
 				?>
 				<p style="color: #CD0000;">
-					<?php printf( __( 'Testimonial view %s not found.', 'strong-testimonials' ), $out['view'] ); ?><br>
-					<span style="color: #777; font-size: 0.9em;"><?php _e( '(Only administrators see this message.)', 'strong-testimonials' ); ?></span>
+					<?php printf( esc_html__( 'Testimonial view %s not found.', 'strong-testimonials' ), esc_attr( $out['view'] ) ); ?><br>
+					<span style="color: #777; font-size: 0.9em;"><?php esc_html_e( '(Only administrators see this message.)', 'strong-testimonials' ); ?></span>
 				</p>
 				<?php
 				return ob_get_clean();
@@ -85,7 +85,7 @@ class Strong_Testimonials_View_Shortcode {
 		switch ( $out['mode'] ) {
 			case 'form' :
 				$view = new Strong_View_Form( $out );
-				if ( isset( $_GET['success'] ) ) {
+				if ( isset( $_GET['success'] ) && isset( $_GET['formid'] ) && $out['form_id'] == (int)$_GET['formid']) {
 				    $view->success();
 				} else {
 					$view->build();

@@ -6,6 +6,13 @@
  */
 class Strong_Testimonials_Upsell {
 
+	/**
+	 * Holds the upsells object
+	 *
+	 * @var bool
+	 */
+	private $wpchill_upsells = false;
+
 	public $store_upgrade_url;
 
 	public function __construct() {
@@ -18,61 +25,81 @@ class Strong_Testimonials_Upsell {
 
         add_action( 'wpmtst_admin_after_settings_form', array( $this, 'general_upsell' ) );
 
-        if ( ! defined( 'WPMTST_ROLE_MANAGEMENT_VERSION' ) ) {
+		if ( class_exists( 'Strong_Testimonials_WPChill_Upsells' ) ) {
+			
+			add_action( 'add_meta_boxes', array( $this, 'add_meta_boxes' ) );
+			add_filter( 'wpmtst_submenu_pages', array( $this, 'add_submenu' ) );
+
+			// Initialize WPChill upsell class
+			$args = apply_filters( 'upsells_args', array(
+					'shop_url' => 'https://strongtestimonials.com/',
+					'slug'     => 'strong-testimonials',
+			) );
+
+			$wpchill_upsell = Strong_Testimonials_WPChill_Upsells::get_instance( $args );
+
+			// output wpchill lite vs pro page
+			add_action( 'st_lite_vs_premium_page', array( $wpchill_upsell, 'lite_vs_premium' ), 30, 1 );
+			add_filter( 'st_uninstall_transients', array( $wpchill_upsell, 'smart_upsells_transients' ) , 15 );
+
+			$this->wpchill_upsells = $wpchill_upsell;
+		}
+
+        if ( ! defined( 'WPMTST_ROLE_MANAGEMENT_VERSION' )  ||  $this->is_upgradable_addon( 'strong-testimonials-role-management' ) ) {
             add_action( 'wpmtst_settings_tabs', array( $this, 'register_role_manager' ), 4, 2 );
             add_filter( 'wpmtst_settings_callbacks', array( $this, 'register_rm_settings_page' ) );
             add_filter( 'wpmtst_general_upsell_items', array( $this, 'add_role_upsell' ), 20 );
         }
 
-        if ( ! defined( 'WPMTST_COUNTRY_SELECTOR_VERSION' ) ) {
+        if ( ! defined( 'WPMTST_COUNTRY_SELECTOR_VERSION' )  ||  $this->is_upgradable_addon( 'strong-testimonials-contry-selector' ) ) {
         	add_action( 'wpmtst_after_form_type_selection', array( $this, 'output_country_selector_upsell' ) );
         	add_filter( 'wpmtst_general_upsell_items', array( $this, 'add_country_selector_upsell' ), 95 );
         }
 
-        if ( ! defined( 'WPMTST_CUSTOM_FIELDS_VERSION' ) ) {
+        if ( ! defined( 'WPMTST_CUSTOM_FIELDS_VERSION' )  ||  $this->is_upgradable_addon( 'strong-testimonials-custom-fields' ) ) {
         	add_action( 'wpmtst_after_form_type_selection', array( $this, 'output_custom_fields_upsell' ) );
         	add_filter( 'wpmtst_general_upsell_items', array( $this, 'add_custom_fields_upsell' ), 90 );
         }
 
-        if ( ! defined( 'WPMTST_MULTIPLE_FORMS_VERSION' ) ) {
+        if ( ! defined( 'WPMTST_MULTIPLE_FORMS_VERSION' ) || $this->is_upgradable_addon( 'strong-testimonials-multiple-forms' )  ) {
         	add_action( 'wpmtst_before_fields_settings', array( $this, 'output_multiple_form_upsell' ) );
         	add_filter( 'wpmtst_general_upsell_items', array( $this, 'add_multiple_form_upsell' ), 30 );
         }
 
-        if ( ! defined( 'WPMTST_REVIEW_MARKUP_VERSION' ) ) {
+        if ( ! defined( 'WPMTST_REVIEW_MARKUP_VERSION' )  ||  $this->is_upgradable_addon( 'strong-testimonials-review-markup' ) ) {
         	add_action( 'wpmtst_view_editor_after_groups', array( $this, 'output_review_markup_upsell' ) );
         	add_filter( 'wpmtst_general_upsell_items', array( $this, 'add_review_markup_upsell' ), 15 );
         	add_action( 'wpmtst_settings_tabs', array( $this, 'register_review_markup' ), 4, 2 );
         	add_filter( 'wpmtst_settings_callbacks', array( $this, 'register_review_markup_settings_page' ) );
         }
 
-        if ( ! defined( 'WPMTST_ADVANCED_VIEWS_VERSION' ) ) {
+        if ( ! defined( 'WPMTST_ADVANCED_VIEWS_VERSION' ) || $this->is_upgradable_addon( 'strong-testimonials-advanced-views' ) ) {
         	add_action( 'wpmtst_view_editor_after_group_select', array( $this, 'output_advanced_views_upsell' ) );
         	add_filter( 'wpmtst_general_upsell_items', array( $this, 'add_advanced_views_upsell' ), 35 );
         }
 
-        if ( ! defined( 'WPMTST_CAPTCHA_VERSION' ) ) {
+        if ( ! defined( 'WPMTST_CAPTCHA_VERSION' )  ||  $this->is_upgradable_addon( 'strong-testimonials-captcha' ) ) {
         	add_action( 'wpmtst_fields_before_fields_editor_preview', array( $this, 'output_captcha_editor_upsell' ) );
         	add_action( 'wpmtst_after_form_settings', array( $this, 'output_captcha_form_settings_upsell' ) );
         	add_filter( 'wpmtst_general_upsell_items', array( $this, 'add_captcha_upsell' ), 40 );
         }
 
-        if ( ! defined( 'WPMTST_PRO_TEMPLATES_VERSION' ) ) {
+        if ( ! defined( 'WPMTST_PRO_TEMPLATES_VERSION' ) ||  $this->is_upgradable_addon( 'strong-testimonials-pro-templates' )) {
         	add_action( 'wpmtst_views_after_template_list', array( $this, 'output_pro_templates_upsell' ) );
         	add_filter( 'wpmtst_general_upsell_items', array( $this, 'add_pro_templates_upsell' ), 20 );
         }
 
-        if ( ! defined( 'WPMTST_EMAILS_VERSION' ) ) {
+        if ( ! defined( 'WPMTST_EMAILS_VERSION' ) ||  $this->is_upgradable_addon( 'strong-testimonials-emails' )) {
         	add_action( 'wpmtst_after_mail_notification_settings', array( $this, 'output_enhanced_emails_upsell' ) );
         	add_filter( 'wpmtst_general_upsell_items', array( $this, 'add_enhanced_emails_upsell' ), 45 );
         }
 
-        if ( ! defined( 'WPMTST_INFINITE_SCROLL_VERSION' ) ) {
+        if ( ! defined( 'WPMTST_INFINITE_SCROLL_VERSION' ) ||  $this->is_upgradable_addon( 'strong-testimonials-infinite-scroll' )) {
         	add_action( 'wpmtst_view_editor_pagination_row_end', array( $this, 'output_infinite_scroll_upsell' ) );
         	add_filter( 'wpmtst_general_upsell_items', array( $this, 'add_infinite_scroll_upsell' ), 50 );
         }
 
-        if ( ! defined( 'WPMTST_FILTERS_VERSION' ) ) {
+        if ( ! defined( 'WPMTST_FILTERS_VERSION' ) ||  $this->is_upgradable_addon( 'strong-testimonials-filters' ) ) {
         	add_action( 'wpmtst_after_style_view_section', array( $this, 'output_filters_upsell' ) );
         	add_filter( 'wpmtst_general_upsell_items', array( $this, 'add_filters_upsell' ), 15 );
         }
@@ -83,24 +110,36 @@ class Strong_Testimonials_Upsell {
             add_filter( 'wpmtst_general_upsell_items', array( $this, 'add_pro_upsell' ), 10 );
         }
 
-        if ( ! defined( 'WPMTST_ASSIGNMENT_VERSION' ) ) {
+        if ( ! defined( 'WPMTST_ASSIGNMENT_VERSION' )  ||  $this->is_upgradable_addon( 'strong-testimonials-assignment' ) ) {
         	add_action( 'wpmtst_settings_tabs', array( $this, 'register_assigment_tab' ), 4, 2 );
             add_filter( 'wpmtst_settings_callbacks', array( $this, 'register_assigment_settings_page' ) );
         }
 
-        if ( ! defined( 'WPMTST_PROPERTIES_VERSION' ) ) {
+        if ( ! defined( 'WPMTST_PROPERTIES_VERSION' )  ||  $this->is_upgradable_addon( 'strong-testimonials-properties' ) ) {
         	add_action( 'wpmtst_settings_tabs', array( $this, 'register_properties_tab' ), 4, 2 );
             add_filter( 'wpmtst_settings_callbacks', array( $this, 'register_properties_page' ) );
         }
+		
+	}
 
+	public function is_upgradable_addon( $addon ){
 
-		add_action( 'add_meta_boxes', array( $this, 'add_meta_boxes' ) );
+		if( $this->wpchill_upsells && $this->wpchill_upsells->is_upgradable_addon( $addon ) ){ 
+			return true;
+		}
+
+		return false;
 	}
 
 	public function add_meta_boxes() {
 
-
 		if ( ! defined( 'WPMTST_IMPORTER_VERSION' ) ) {
+			
+			// remove "submitdiv" metabox so we can add it back in desired order.
+			$post_type = 'wpm-testimonial';
+			remove_meta_box( 'post_submit_meta_box', $post_type, 'side' );
+			add_meta_box( 'submitdiv', __( 'Publish' ), 'post_submit_meta_box', $post_type, 'side', 'high' );
+
 			add_meta_box(
 				'wpmtst-importer-upsell',      // Unique ID
 				esc_html__( 'Import', 'strong-testimonials' ),    // Title
@@ -131,12 +170,12 @@ class Strong_Testimonials_Upsell {
 			<h2><?php esc_html_e( 'Automatically pull in & display new reviews as your customers leave their feedback on external platforms', 'strong-testimonials' ) ?></h2>
 			<p><?php esc_html_e( 'Upgrade today and get the ability to import testimonials from:', 'strong-testimonials' ) ?></p>
 			<ul>
-				<li>Facebook</li>
-				<li>Google</li>
-				<li>Yelp</li>
-				<li>Zomato</li>
-				<li>WooCommerce</li>
-				<li>and more...</li>
+				<li><?php esc_html_e( 'Facebook', 'strong-testimonials' ) ?></li>
+				<li><?php esc_html_e( 'Google', 'strong-testimonials' ) ?></li>
+				<li><?php esc_html_e( 'Yelp', 'strong-testimonials' ) ?></li>
+				<li><?php esc_html_e( 'Zomato', 'strong-testimonials' ) ?></li>
+				<li><?php esc_html_e( 'WooCommerce', 'strong-testimonials' ) ?></li>
+				<li><?php esc_html_e( 'and more...', 'strong-testimonials' ) ?></li>
 			</ul>
 			<p>
 				<a class="button button-primary" target="_blank" href="<?php echo esc_url( $this->store_upgrade_url . '&utm_medium=importer-metabox' ); ?>"><?php esc_html_e( 'Upgrade Now', 'strong-testimonials' ); ?></a>
@@ -155,19 +194,20 @@ class Strong_Testimonials_Upsell {
 
 		<div class="wpmtst-settings-upsell">
 			<div class="wpmtst-alert">
-				<h3>Upgrade to PRO</h3>
+				<h3><?php esc_html_e( 'Upgrade now', 'strong-testimonials' ) ?></h3>
 				<ul>
 					<?php foreach ( $general_upsells as $general_upsell ) { ?>
 						<li>
-							<span class="dashicons dashicons-yes"></span>
 							<span>
-								<?php echo $general_upsell ?>
+								<?php echo wp_kses_post($general_upsell); ?>
 							</span>
 						</li>
 					<?php } ?>
 				</ul>
 
-				<a href="<?php echo esc_url( WPMTST_STORE_URL . '/pricing?utm_source=st-lite&utm_campaign=upsell&utm_medium=general-settings-upsell' ) ?>" target="_blank" class="button button-primary button-hero" style="width:100%;display:block;margin-top:20px;text-align:center;">Upgrade to PRO</a>
+				<a href="<?php echo esc_url(WPMTST_STORE_URL . '/pricing?utm_source=st-lite&utm_campaign=upsell&utm_medium=general-settings-upsell'); ?>"
+				   target="_blank" class="button button-primary button-hero"
+				   style="width:100%;display:block;margin-top:20px;text-align:center;"><?php echo esc_html__('Upgrade now', 'strong-testimonials'); ?></a>
 
 			</div>
 		</div>
@@ -178,11 +218,11 @@ class Strong_Testimonials_Upsell {
 
 	// Role Manager upsell
 	public function register_role_manager( $active_tab, $url ) {
-		$tab = isset( $_GET['tab'] ) ? $_GET['tab'] : '';
+		$tab = isset( $_GET['tab'] ) ? sanitize_text_field( wp_unslash( $_GET['tab'] ) ) : '';
 		printf( '<a href="%s" class="nav-tab %s">%s%s</a>',
 			esc_url( add_query_arg( 'tab', 'access', $url ) ),
 			esc_attr( $tab == 'access' ? 'nav-tab-active' : '' ),
-			_x( 'Role Management', 'adjective', 'strong-testimonials' ),
+			esc_html_x( 'Role Management', 'adjective', 'strong-testimonials' ),
 			'<span class="wpmtst-upsell-badge">PRO</span>'
 		);
 	}
@@ -348,11 +388,11 @@ class Strong_Testimonials_Upsell {
 	* Review Markup
 	*/
 	public function register_review_markup( $active_tab, $url ) {
-		$tab = isset( $_GET['tab'] ) ? $_GET['tab'] : '';
+		$tab = isset( $_GET['tab'] ) ? sanitize_text_field( wp_unslash( $_GET['tab'] ) ) : '';
 		printf( '<a href="%s" class="nav-tab %s">%s%s</a>',
 			esc_url( add_query_arg( 'tab', 'review-markup', $url ) ),
 			esc_attr( $tab == 'review-markup' ? 'nav-tab-active' : '' ),
-			_x( 'Review Markup', 'adjective', 'strong-testimonials' ),
+			esc_html_x( 'Review Markup', 'adjective', 'strong-testimonials' ),
 			'<span class="wpmtst-upsell-badge">PRO</span>'
 		);
 	}
@@ -374,7 +414,7 @@ class Strong_Testimonials_Upsell {
 			);
 			?>
 				<ul>
-				<li><?php esc_html_e( 'With this extensions, search engines will display star ratings in search results for your site.', 'strong-testimonials' ); ?></li>
+				<li class="wpmtst-upsell-checkmark"><?php esc_html_e( 'With this extensions, search engines will display star ratings in search results for your site.', 'strong-testimonials' ); ?></li>
 				</ul>
 			<p>
 				<a class="button button-primary" target="_blank" href="<?php echo esc_url( $this->store_upgrade_url . '&utm_medium=views-review-markup-upsell' ); ?>"><?php esc_html_e( 'Upgrade', 'strong-testimonials' ); ?></a>
@@ -415,9 +455,9 @@ class Strong_Testimonials_Upsell {
 
 			?>
 			<ul>
-				<li><?php esc_html_e( 'filter & display testimonials based on their rating or on a pre-defined condition.', 'strong-testimonials' ); ?></li>
-				<li><?php esc_html_e( 'easily define the display order of your testimonial fields. Re-order the name, image, url and testimonial content fields through drag & drop.', 'strong-testimonials' ); ?></li>
-				<li><?php esc_html_e( 'edit, in real time, the way your testimonials will look on your site. Stop loosing clients because of poor design.', 'strong-testimonials' ); ?></li>
+				<li class="wpmtst-upsell-checkmark"><?php esc_html_e( 'filter & display testimonials based on their rating or on a pre-defined condition.', 'strong-testimonials' ); ?></li>
+				<li class="wpmtst-upsell-checkmark"><?php esc_html_e( 'easily define the display order of your testimonial fields. Re-order the name, image, url and testimonial content fields through drag & drop.', 'strong-testimonials' ); ?></li>
+				<li class="wpmtst-upsell-checkmark"><?php esc_html_e( 'edit, in real time, the way your testimonials will look on your site. Stop losing clients because of poor design.', 'strong-testimonials' ); ?></li>
 
 			</ul>
 			<p>
@@ -583,9 +623,9 @@ class Strong_Testimonials_Upsell {
 			);
 			?>
 				<ul>
-				<li><?php esc_html_e( 'send a thank you email to your client once his testimonial\'s approved', 'strong-testimonials' ); ?></li>
-				<li><?php esc_html_e( 'increase brand loyalty by showing you really care about your clients', 'strong-testimonials' ); ?></li>
-				<li><?php esc_html_e( 'keep your clients engaged and increase your chances of selling more', 'strong-testimonials' ); ?></li>
+				<li class="wpmtst-upsell-checkmark"><?php esc_html_e( 'send a thank you email to your client once his testimonial\'s approved', 'strong-testimonials' ); ?></li>
+				<li class="wpmtst-upsell-checkmark"><?php esc_html_e( 'increase brand loyalty by showing you really care about your clients', 'strong-testimonials' ); ?></li>
+				<li class="wpmtst-upsell-checkmark"><?php esc_html_e( 'keep your clients engaged and increase your chances of selling more', 'strong-testimonials' ); ?></li>
 				</ul>
 			<p>
 				<a class="button button-primary" target="_blank" href="<?php echo esc_url( $this->store_upgrade_url . '&utm_medium=enhanced-emails-upsell' ); ?>"><?php esc_html_e( 'Upgrade', 'strong-testimonials' ); ?></a>
@@ -626,8 +666,8 @@ class Strong_Testimonials_Upsell {
 			);
 			?>
 				<ul>
-				<li><?php esc_html_e( 'display a fixed number of testimonials on first view and have more of them load when the user starts scrolling', 'strong-testimonials' ); ?></li>
-				<li><?php esc_html_e( 'reduce your page\'s initial load time, making your site faster in the process and not driving clients away because of a slow loading website', 'strong-testimonials' ); ?></li>
+				<li class="wpmtst-upsell-checkmark"><?php esc_html_e( 'display a fixed number of testimonials on first view and have more of them load when the user starts scrolling', 'strong-testimonials' ); ?></li>
+				<li class="wpmtst-upsell-checkmark"><?php esc_html_e( 'reduce your page\'s initial load time, making your site faster in the process and not driving clients away because of a slow loading website', 'strong-testimonials' ); ?></li>
 				</ul>
 			<p>
 				<a class="button button-primary" target="_blank" href="<?php echo esc_url( $this->store_upgrade_url . '&utm_medium=infinite-scroll-upsell' ); ?>"><?php esc_html_e( 'Upgrade', 'strong-testimonials' ); ?></a>
@@ -668,9 +708,9 @@ class Strong_Testimonials_Upsell {
 			);
 			?>
 				<ul>
-				<li><?php esc_html_e( 'create category-like filters for your testimonials', 'strong-testimonials' ); ?></li>
-				<li><?php esc_html_e( 'group testimonials by associated product or service', 'strong-testimonials' ); ?></li>
-				<li><?php esc_html_e( 'help potential clients appreciate the great work you do by showcasing reviews from other clients', 'strong-testimonials' ); ?></li>
+				<li class="wpmtst-upsell-checkmark"><?php esc_html_e( 'create category-like filters for your testimonials', 'strong-testimonials' ); ?></li>
+				<li class="wpmtst-upsell-checkmark"><?php esc_html_e( 'group testimonials by associated product or service', 'strong-testimonials' ); ?></li>
+				<li class="wpmtst-upsell-checkmark"><?php esc_html_e( 'help potential clients appreciate the great work you do by showcasing reviews from other clients', 'strong-testimonials' ); ?></li>
 				</ul>
 			<p>
 				<a class="button button-primary" target="_blank" href="<?php echo esc_url( $this->store_upgrade_url . '&utm_medium=filters-upsell' ); ?>"><?php esc_html_e( 'Upgrade', 'strong-testimonials' ); ?></a>
@@ -697,11 +737,11 @@ class Strong_Testimonials_Upsell {
 	Assigments
 	*/
 	public function register_assigment_tab( $active_tab, $url ) {
-		$tab = isset( $_GET['tab'] ) ? $_GET['tab'] : '';
+		$tab = isset( $_GET['tab'] ) ? sanitize_text_field( wp_unslash( $_GET['tab'] ) ) : '';
 		printf( '<a href="%s" class="nav-tab %s">%s%s</a>',
 			esc_url( add_query_arg( 'tab', 'assignment', $url ) ),
 			esc_attr( $tab == 'assignment' ? 'nav-tab-active' : '' ),
-			_x( 'Assignment', 'adjective', 'strong-testimonials' ),
+			esc_html_x( 'Assignment', 'adjective', 'strong-testimonials' ),
 			'<span class="wpmtst-upsell-badge">PRO</span>'
 		);
 	}
@@ -735,11 +775,11 @@ class Strong_Testimonials_Upsell {
 	Strong Testimonials PRO
 	*/
 	public function register_st_pro_tab( $active_tab, $url ) {
-		$tab = isset( $_GET['tab'] ) ? $_GET['tab'] : '';
+		$tab = isset( $_GET['tab'] ) ?  sanitize_text_field( wp_unslash( $_GET['tab'] ) ) : '';
 		printf( '<a href="%s" class="nav-tab %s">%s%s</a>',
 			esc_url( add_query_arg( 'tab', 'single_testiomonial_template', $url ) ),
 			esc_attr( $tab == 'single_testiomonial_template' ? 'nav-tab-active' : '' ),
-			_x( 'Single Testimonial Template', 'adjective', 'strong-testimonials' ),
+			esc_html_x( 'Single Testimonial Template', 'adjective', 'strong-testimonials' ),
 			'<span class="wpmtst-upsell-badge">PRO</span>'
 		);
 	}
@@ -761,12 +801,12 @@ class Strong_Testimonials_Upsell {
 			);
 			?>
 				<ul>
-				<li><?php esc_html_e( 'Display a default image when no image has been provided for the testimonial;', 'strong-testimonials' ); ?></li>
-				<li><?php esc_html_e( 'Use author initials as the testimonial image;', 'strong-testimonials' ); ?></li>
-				<li><?php esc_html_e( 'Choose the HTML tag you’d like to use for your testimonial titles;', 'strong-testimonials' ); ?></li>
-				<li><?php esc_html_e( 'Choose the Single Testimonial Template settings;', 'strong-testimonials' ); ?></li>
-				<li><?php esc_html_e( 'Prefill testimonial forms from $_GET parameters;', 'strong-testimonials' ); ?></li>
-				<li><?php esc_html_e( 'Show testimonial form only for logged-in users.', 'strong-testimonials' ); ?></li>
+				<li class="wpmtst-upsell-checkmark"><?php esc_html_e( 'Display a default image when no image has been provided for the testimonial;', 'strong-testimonials' ); ?></li>
+				<li class="wpmtst-upsell-checkmark"><?php esc_html_e( 'Use author initials as the testimonial image;', 'strong-testimonials' ); ?></li>
+				<li class="wpmtst-upsell-checkmark"><?php esc_html_e( 'Choose the HTML tag you’d like to use for your testimonial titles;', 'strong-testimonials' ); ?></li>
+				<li class="wpmtst-upsell-checkmark"><?php esc_html_e( 'Choose the Single Testimonial Template settings;', 'strong-testimonials' ); ?></li>
+				<li class="wpmtst-upsell-checkmark"><?php esc_html_e( 'Prefill testimonial forms from $_GET parameters;', 'strong-testimonials' ); ?></li>
+				<li class="wpmtst-upsell-checkmark"><?php esc_html_e( 'Show testimonial form only for logged-in users.', 'strong-testimonials' ); ?></li>
 				</ul>
 			<p>
 				<a class="button button-primary" target="_blank" href="<?php echo esc_url( $this->store_upgrade_url . '&utm_medium=setting-tab-st-pro-upsell' ); ?>"><?php esc_html_e( 'Upgrade', 'strong-testimonials' ); ?></a>
@@ -793,18 +833,20 @@ class Strong_Testimonials_Upsell {
 	Properties
 	*/
 	public function register_properties_tab( $active_tab, $url ) {
-		$tab = isset( $_GET['tab'] ) ? $_GET['tab'] : '';
+		$tab = isset( $_GET['tab'] ) ? sanitize_text_field( wp_unslash( $_GET['tab'] ) ) : '';
 		printf( '<a href="%s" class="nav-tab %s">%s%s</a>',
 			esc_url( add_query_arg( 'tab', 'properties', $url ) ),
 			esc_attr( $tab == 'properties' ? 'nav-tab-active' : '' ),
-			_x( 'Properties', 'adjective', 'strong-testimonials' ),
+			esc_html_x( 'Properties', 'adjective', 'strong-testimonials' ),
 			'<span class="wpmtst-upsell-badge">PRO</span>'
 		);
 	}
+
 	public function register_properties_page( $pages ) {
 	    $pages[ 'properties' ] = array( $this, 'output_properties_upsell' );
 	    return $pages;
 	}
+
 	public function output_properties_upsell() {
 		?>
 		<div class="wpmtst-alert" style="margin-top:1.5rem;">
@@ -823,6 +865,46 @@ class Strong_Testimonials_Upsell {
 			</p>
 		</div>
 		<?php
+	}
+
+	/**
+	 * Add submenu page.
+	 *
+	 * @param $pages
+	 *
+	 * @return mixed
+	 */
+	public function add_submenu( $pages ) {
+		$pages[92] = $this->get_submenu();
+		return $pages;
+	}
+
+	/**
+	 * Return submenu page parameters.
+	 *
+	 * @return array
+	 */
+	public function get_submenu() {
+		return array(
+			'page_title' => esc_html__( 'Upgrade', 'strong-testimonials' ),
+			'menu_title' => esc_html__( 'Upgrade', 'strong-testimonials' ),
+			'capability' => 'strong_testimonials_options',
+			'menu_slug'  => 'strong-testimonials-upsells',
+			'function'   => array( $this, 'upsells_page' ),
+		);
+	}
+
+	/**
+	 * Print the Addons page.
+	 */
+	public function upsells_page() {
+		wp_enqueue_style( 'wpmtst-admin-upsells-style' );
+
+		echo '<div class="wpmst wrap lite-vs-pro-section">';
+
+		do_action( 'st_lite_vs_premium_page' );
+
+		echo '</div>';
 	}
 
 }

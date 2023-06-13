@@ -41,7 +41,7 @@ do_action( 'wpmtst_before_view' );
 		</div>
 		<?php endwhile; ?>
 
-		<?php do_action( 'wpmtst_after_testimonial' ,$atts); ?>
+		<?php do_action( 'wpmtst_after_content' ,$atts); ?>
 	</div>
 
 	<?php do_action( 'wpmtst_view_footer' ); ?>

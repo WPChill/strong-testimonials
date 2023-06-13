@@ -161,8 +161,8 @@ if ( ! class_exists( 'Strong_Testimonials_List_Table' ) ) :
 
 			if ( empty( $this->modes ) ) {
 				$this->modes = array(
-					'list'    => __( 'List View', 'strong-testimonials' ),
-					'excerpt' => __( 'Excerpt View', 'strong-testimonials' ),
+					'list'    => esc_html__( 'List View', 'strong-testimonials' ),
+					'excerpt' => esc_html__( 'Excerpt View', 'strong-testimonials' ),
 				);
 			}
 		}
@@ -355,23 +355,23 @@ if ( ! class_exists( 'Strong_Testimonials_List_Table' ) ) :
 			$input_id = $input_id . '-search-input';
 
 			if ( ! empty( $_REQUEST['orderby'] ) ) {
-				echo '<input type="hidden" name="orderby" value="' . esc_attr( $_REQUEST['orderby'] ) . '">';
+				echo '<input type="hidden" name="orderby" value="' . esc_attr( sanitize_text_field( wp_unslash( $_REQUEST['orderby'] ) ) ) . '">';
 			}
 			if ( ! empty( $_REQUEST['order'] ) ) {
-				echo '<input type="hidden" name="order" value="' . esc_attr( $_REQUEST['order'] ) . '">';
+				echo '<input type="hidden" name="order" value="' . esc_attr( sanitize_text_field( wp_unslash( $_REQUEST['order'] ) ) ) . '">';
 			}
 			if ( ! empty( $_REQUEST['post_mime_type'] ) ) {
-				echo '<input type="hidden" name="post_mime_type" value="' . esc_attr( $_REQUEST['post_mime_type'] ) . '">';
+				echo '<input type="hidden" name="post_mime_type" value="' . esc_attr( sanitize_text_field( wp_unslash( $_REQUEST['post_mime_type'] ) ) ) . '">';
 			}
 			if ( ! empty( $_REQUEST['detached'] ) ) {
-				echo '<input type="hidden" name="detached" value="' . esc_attr( $_REQUEST['detached'] ) . '">';
+				echo '<input type="hidden" name="detached" value="' . esc_attr( sanitize_text_field( wp_unslash( $_REQUEST['detached'] ) ) ) . '">';
 			}
 			?>
-<p class="search-box">
-	<label class="screen-reader-text" for="<?php echo esc_attr( $input_id ); ?>"><?php echo esc_html( $text ); ?>:</label>
-	<input type="search" id="<?php echo esc_attr( $input_id ); ?>" name="s" value="<?php _admin_search_query(); ?>">
-			<?php submit_button( $text, 'button', '', false, array( 'id' => 'search-submit' ) ); ?>
-</p>
+			<p class="search-box">
+				<label class="screen-reader-text" for="<?php echo esc_attr( $input_id ); ?>"><?php echo esc_html( $text ); ?>:</label>
+				<input type="search" id="<?php echo esc_attr( $input_id ); ?>" name="s" value="<?php _admin_search_query(); ?>">
+				<?php submit_button( esc_html( $text ), 'button', '', false, array( 'id' => 'search-submit' ) ); ?>
+			</p>
 			<?php
 		}
 
@@ -473,14 +473,14 @@ if ( ! class_exists( 'Strong_Testimonials_List_Table' ) ) :
 			echo "<option value='-1' selected='selected'>" . esc_html__( 'Bulk Actions', 'strong-testimonials' ) . "</option>\n";
 
 			foreach ( $this->_actions as $name => $title ) {
-				$class = 'edit' == $name ? ' class="hide-if-no-js"' : '';
+				$class = 'edit' == $name ? 'hide-if-no-js' : '';
 
-				echo "\t<option value='$name'$class>$title</option>\n";
+				echo "\t<option value='" . esc_attr( $name ) . "' class='" . esc_attr($class)  . "'>" . esc_html( $title ) . "</option>\n";
 			}
 
 			echo "</select>\n";
 
-			submit_button( __( 'Apply', 'strong-testimonials' ), 'action', '', false, array( 'id' => "doaction$two" ) );
+			submit_button( esc_html__( 'Apply', 'strong-testimonials' ), 'action', '', false, array( 'id' => "doaction$two" ) );
 			echo "\n";
 		}
 
@@ -498,11 +498,11 @@ if ( ! class_exists( 'Strong_Testimonials_List_Table' ) ) :
 			}
 
 			if ( isset( $_REQUEST['action'] ) && -1 != $_REQUEST['action'] ) {
-				return $_REQUEST['action'];
+				return sanitize_text_field( wp_unslash( $_REQUEST['action'] ) );
 			}
 
 			if ( isset( $_REQUEST['action2'] ) && -1 != $_REQUEST['action2'] ) {
-				return $_REQUEST['action2'];
+				return sanitize_text_field( wp_unslash( $_REQUEST['action2'] ) );
 			}
 
 			return false;
@@ -607,7 +607,7 @@ if ( ! class_exists( 'Strong_Testimonials_List_Table' ) ) :
 					selected( $m, $year . $month, false ),
 					esc_attr( $arc_row->year . $month ),
 					/* translators: 1: month name, 2: 4-digit year */
-					sprintf( '%1$s %2$d', $wp_locale->get_month( $month ), $year )
+					sprintf( '%1$s %2$d', esc_html( $wp_locale->get_month( $month ) ), esc_html( $year) )
 				);
 			}
 			?>
@@ -634,10 +634,11 @@ if ( ! class_exists( 'Strong_Testimonials_List_Table' ) ) :
 					$classes[] = 'current';
 				}
 				printf(
-					"<a href='%s' class='%s' id='view-switch-$mode'><span class='screen-reader-text'>%s</span></a>\n",
-					esc_url( add_query_arg( 'mode', $mode ) ),
-					implode( ' ', $classes ),
-					$title
+						"<a href='%s' class='%s' id='view-switch-%s'><span class='screen-reader-text'>%s</span></a>\n",
+						esc_url(add_query_arg('mode', $mode)),
+						esc_attr(implode(' ', $classes)),
+						esc_attr($mode),
+						esc_html($title)
 				);
 			}
 			?>
@@ -661,7 +662,7 @@ if ( ! class_exists( 'Strong_Testimonials_List_Table' ) ) :
 				echo '<strong>';
 			}
 
-			echo "<a href='" . esc_url( add_query_arg( 'p', $post_id, admin_url( 'edit-comments.php' ) ) ) . "' title='" . esc_attr( $pending_phrase ) . "' class='post-com-count'><span class='comment-count'>" . number_format_i18n( get_comments_number() ) . '</span></a>';
+			echo "<a href='" . esc_url( add_query_arg( 'p', absint( $post_id ), admin_url( 'edit-comments.php' ) ) ) . "' title='" . esc_attr( $pending_phrase ) . "' class='post-com-count'><span class='comment-count'>" . absint( number_format_i18n( get_comments_number() ) ) . '</span></a>';
 
 			if ( $pending_comments ) {
 				echo '</strong>';
@@ -925,7 +926,7 @@ if ( ! class_exists( 'Strong_Testimonials_List_Table' ) ) :
 			$current_url = remove_query_arg( 'paged', $current_url );
 
 			if ( isset( $_GET['orderby'] ) ) {
-				$current_orderby = $_GET['orderby'];
+				$current_orderby = sanitize_text_field( wp_unslash( $_GET['orderby'] ) );
 			} else {
 				$current_orderby = '';
 			}
@@ -938,7 +939,7 @@ if ( ! class_exists( 'Strong_Testimonials_List_Table' ) ) :
 
 			if ( ! empty( $columns['cb'] ) ) {
 				static $cb_counter = 1;
-				$columns['cb']     = '<label class="screen-reader-text" for="cb-select-all-' . $cb_counter . '">' . __( 'Select All', 'strong-testimonials' ) . '</label>'
+				$columns['cb']     = '<label class="screen-reader-text" for="cb-select-all-' . $cb_counter . '">' . esc_html__( 'Select All', 'strong-testimonials' ) . '</label>'
 				. '<input id="cb-select-all-' . $cb_counter . '" type="checkbox">';
 				$cb_counter++;
 			}
@@ -997,7 +998,7 @@ if ( ! class_exists( 'Strong_Testimonials_List_Table' ) ) :
 			$this->display_tablenav( 'top' );
 
 			?>
-<table class="wp-list-table <?php echo implode( ' ', $this->get_table_classes() ); ?>">
+<table class="wp-list-table <?php echo esc_attr(implode(' ', $this->get_table_classes())); ?>">
 	<thead>
 	<tr>
 			<?php $this->print_column_headers(); ?>
@@ -1007,7 +1008,7 @@ if ( ! class_exists( 'Strong_Testimonials_List_Table' ) ) :
 	<tbody id="the-list"
 			<?php
 			if ( $singular ) {
-				echo " data-wp-lists='list:$singular'";
+				echo " data-wp-lists='list:" . esc_attr( $singular ) . "'";
 			}
 			?>
 		>
@@ -1084,7 +1085,7 @@ if ( ! class_exists( 'Strong_Testimonials_List_Table' ) ) :
 			if ( $this->has_items() ) {
 				$this->display_rows();
 			} else {
-				echo '<tr class="no-items"><td class="colspanchange" colspan="' . $this->get_column_count() . '">';
+				echo '<tr class="no-items"><td class="colspanchange" colspan="' . absint( $this->get_column_count() ) . '">';
 				$this->no_items();
 				echo '</td></tr>';
 			}

@@ -257,9 +257,17 @@ class Strong_Testimonials_Order {
 	 * Update menu order in back end.
 	 */
 	public static function update_menu_order() {
+		if( !current_user_can('edit_posts') ){
+			wp_die();
+		}
 		global $wpdb;
 
-		parse_str( $_POST['posts'], $data );
+		if( !empty( $_POST['posts'] ) ){
+			parse_str( sanitize_text_field( wp_unslash( $_POST['posts'] ) ), $data );
+		}else{
+			wp_die();
+		}
+
 		if ( ! is_array( $data ) ) {
 			wp_die();
 		}
@@ -272,7 +280,7 @@ class Strong_Testimonials_Order {
 		$posts_per_page = 25;
 		if ( isset( $_POST['order'] ) ) {
 			if ( isset( $_POST['order']['page'] ) ) {
-				$paged = absint( $_POST['order']['page'] );
+				$paged = absint( $_POST['order']['page']);
 			}
 			if ( isset( $_POST['order']['posts_per_page'] ) ) {
 				$posts_per_page = absint( $_POST['order']['posts_per_page'] );
