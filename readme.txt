@@ -208,7 +208,9 @@ No. If you already have testimonials in another plugin or theme, you will have t
 == Changelog ==
 = 3.1.8 - TBD -
 - Changed: Removed plugin tracking ( [#394](https://github.com/WPChill/strong-testimonials/issues/394) )
+- Changed: Removed license tab added by premium extensions ( [#397](https://github.com/WPChill/strong-testimonials/issues/397) )
 - Fixed: The 'strong_views' database table was not created in multisite wp installs. ( [#399](https://github.com/WPChill/strong-testimonials/issues/399) )
+- Changed: Added alternate server choice for license activation and created Settings -> License tab ( [#401](https://github.com/WPChill/strong-testimonials/issues/401) )
 
 = 3.1.7 - 10.05.2023 -
 - Changed: Check for request necessity
