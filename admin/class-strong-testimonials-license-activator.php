@@ -132,6 +132,8 @@ if ( ! class_exists( 'Strong_Testimonials_Master_License_Activator' ) ) {
 				}
 			}
 
+			$store_url = ( 'false' !== get_option( 'strong_testimonials_alt_server', 'false' ) ) ? WPMTST_ALT_STORE_URL : WPMTST_STORE_URL;
+
 			// data to send in our API request.
 			$api_params = array(
 				'edd_action'      => 'activate_license',
@@ -144,7 +146,7 @@ if ( ! class_exists( 'Strong_Testimonials_Master_License_Activator' ) ) {
 
 			// Call the custom API.
 			$response = wp_remote_post(
-				WPMTST_STORE_URL,
+				$store_url,
 				array(
 					'timeout'   => 15,
 					'sslverify' => false,
@@ -242,6 +244,8 @@ if ( ! class_exists( 'Strong_Testimonials_Master_License_Activator' ) ) {
 				}
 			}
 
+			$store_url = ( 'false' !== get_option( 'strong_testimonials_alt_server', 'false' ) ) ? WPMTST_ALT_STORE_URL : WPMTST_STORE_URL;
+			
 			// data to send in our API request.
 			$api_params = array(
 				'edd_action'      => 'deactivate_license',
@@ -254,7 +258,7 @@ if ( ! class_exists( 'Strong_Testimonials_Master_License_Activator' ) ) {
 
 			// Call the custom API.
 			$response = wp_remote_post(
-				WPMTST_STORE_URL,
+				$store_url,
 				array(
 					'timeout'   => 15,
 					'sslverify' => false,
@@ -403,6 +407,10 @@ if ( ! class_exists( 'Strong_Testimonials_Master_License_Activator' ) ) {
 						'message' => __( 'License not set', 'strong-testimonials' )
 					)
 				);
+			}
+
+			if ( isset( $_POST['alt_server'] ) ) {
+				update_option( 'strong_testimonials_alt_server', sanitize_text_field( $_POST['alt_server'] ) );
 			}
 
 			$action = sanitize_text_field( $_POST['click_action'] );

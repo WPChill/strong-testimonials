@@ -51,6 +51,7 @@ define( 'WPMTST_PLUGIN', plugin_basename( __FILE__ ) ); // strong-testimonials/s
 define( 'WPMTST', dirname( WPMTST_PLUGIN ) );           // strong-testimonials
 define( 'WPMTST_LOGS', wp_upload_dir()['basedir'] . '/st-logs/' );
 defined( 'WPMTST_STORE_URL' ) || define( 'WPMTST_STORE_URL', 'https://strongtestimonials.com/' );
+defined( 'WPMTST_ALT_STORE_URL' ) || define( 'WPMTST_ALT_STORE_URL', 'https://license.wpchill.com/strongtestimonials/' );
 defined( 'WPMTST_STORE_UPGRADE_URL' ) || define( 'WPMTST_STORE_UPGRADE_URL', 'https://strongtestimonials.com/pricing' );
 
 if ( ! class_exists( 'Strong_Testimonials' ) ) :

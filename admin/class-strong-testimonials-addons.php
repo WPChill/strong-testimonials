@@ -15,6 +15,9 @@ class Strong_Testimonials_Addons {
 		add_action( 'wp_ajax_wpmtst_reload_extensions', array( $this, 'reload_extensions' ), 20 );
 
 		add_filter( 'wpmtst_addon_button_action', array( $this, 'output_download_link' ), 5 );
+
+		add_action( 'wpmtst_settings_tabs', array( $this, 'register_tab' ), 1, 2 );
+		add_filter( 'wpmtst_settings_callbacks', array( $this, 'register_settings_page' ) );
 	}
 
 	private function check_for_addons() {
@@ -113,7 +116,6 @@ class Strong_Testimonials_Addons {
 			<a id="wpmtst-reload-extensions" class="button button-primary" style="margin: 10px 0 0 30px;" data-nonce="<?php echo esc_attr( wp_create_nonce( 'wpmtst-reload-extensions' ) ); ?>"><?php esc_html_e( 'Reload Extensions', 'strong-testimonials' ); ?></a>
 
 			<?php $this->display_extension_tab(); ?>
-			<?php $this->render_license(); ?>
 			<div class="wpmtst-addons-container">
 				<?php $this->render_addons(); ?>
 			</div>
@@ -185,17 +187,44 @@ class Strong_Testimonials_Addons {
 	}
 
 	/**
+	 * Register settings tab.
+	 *
+	 * @param $active_tab
+	 * @param $url
+	 */
+	public function register_tab( $active_tab, $url ) {
+		printf( '<a href="%s" class="nav-tab %s">%s</a>',
+		        esc_url( add_query_arg( 'tab', 'license', $url ) ),
+		        esc_attr( $active_tab == 'license' ? 'nav-tab-active' : '' ),
+		        esc_html__( 'License', 'strong-testimonials' )
+		);
+	}
+
+	/**
+	 * Register settings page.
+	 *
+	 * @param $pages
+	 *
+	 * @return mixed
+	 */
+	public function register_settings_page( $pages ) {
+		$pages[ 'license' ] = array( $this, 'render_license' );
+
+		return $pages;
+	}
+
+	/**
 	 * Render the license field.
 	 *
 	 * @return void
 	 */
 	public function render_license() {
 
-		$license = get_option( 'strong_testimonials_license_key' );
-		$email   = get_option( 'strong_testimonials_email' );
-		$status  = get_option( 'strong_testimonials_license_status', false );
-
-		$messages = array(
+		$license    = get_option( 'strong_testimonials_license_key' );
+		$email      = get_option( 'strong_testimonials_email' );
+		$status     = get_option( 'strong_testimonials_license_status', false );
+		$alt_server = get_option( 'strong_testimonials_alt_server', false );
+		$messages   = array(
 			'no-license'       => esc_html__( 'Enter your license key', 'strong-testimonials-assignment' ),
 			'activate-license' => esc_html__( 'Activate your license key', 'strong-testimonials-assignment' ),
 			'all-good'         => __( 'Your license is active until <strong>%s</strong>', 'strong-testimonials-assignment' ),
@@ -240,39 +269,90 @@ class Strong_Testimonials_Addons {
 		}
 
 		?>
-		<div class="row">
-			<?php do_action( 'wpmtst_license_errors' ); ?>
+
+
+				
+		<h2><?php esc_html_e( 'License', 'strong-testimonials' ); ?></h2>
+		<?php do_action( 'wpmtst_license_errors' ); ?>
 			<?php
 			$valid_license = false;
 			if ( false !== $license && $status && 'valid' === $status->license ) {
 				$valid_license = true;
 			}
-			?>
+		?>
+		<table class="form-table wpmtst_license_table" cellpadding="0" cellspacing="0">
 
-			<div class="wpmtst-master-license">
-				<div>
-					<label for="strong_testimonials_email"><?php esc_html_e( 'Email', 'strong-testimonials' ); ?></label>
-					<input type="email" id="strong_testimonials_email" name="strong_testimonials_email"
-					       value="<?php echo esc_attr( $email ); ?>">
-					<label for="st-master-license"><?php esc_html_e( 'License key', 'strong-testimonials' ); ?></label>
-					<input type="password" id="strong_testimonials_license_key" name="strong_testimonials_license_key"
-					       value="<?php echo esc_attr( $license ); ?>">
-					<input type="hidden"
-					       value="<?php echo esc_attr( wp_create_nonce( 'strong_testimonials_license_nonce' ) ); ?>"/>
-					<button class="button button-primary" id="st-master-license-btn"
-					        data-action="<?php echo ( ! $valid_license ) ? 'activate' : 'deactivate'; ?>"><?php ( ! $valid_license ) ? esc_html_e( 'Activate', 'strong-testimonials' ) : esc_html_e( 'Deactivate', 'strong-testimonials' ); ?></button>
+			<tr valign="top">
+				<th scope="row">
+					<?php esc_html_e( 'Email Address', 'strong-testimonials' ); ?>
+				</th>
+				<td>
+					<fieldset>
 
-					&nbsp;<a href="#" target="_blank" id="st-forgot-license"
-					         data-nonce="<?php echo esc_attr( wp_create_nonce( 'strong_testimonials_license_nonce' ) ); ?>"><?php esc_html_e( 'Forgot your license?', 'strong-testimonials' ); ?></a>
-				</div>
-				<label class="description strong-testimonials-license-label"
-				       for="strong_testimonials_license_key">
-					<?php
-					echo wp_kses_post( $license_message );
-					?>
-				</label>
-			</div>
-		</div>
+							<input type="email" id="strong_testimonials_email" name="strong_testimonials_email" value="<?php echo esc_attr( $email ); ?>">
+						<p class="description"><?php esc_html_e( 'The email address used for license aquisition.', 'strong-testimonials' ); ?></p>
+					</fieldset>
+				</td>
+			</tr>
+			<tr valign="top">
+				<th scope="row">
+					<?php esc_html_e( 'License Key', 'strong-testimonials' ); ?>
+				</th>
+				<td>
+					<fieldset>
+
+						<input type="password" id="strong_testimonials_license_key" name="strong_testimonials_license_key" value="<?php echo esc_attr( $license ); ?>">  <a href="#" target="_blank" id="st-forgot-license" data-nonce="<?php echo esc_attr( wp_create_nonce( 'strong_testimonials_license_nonce' ) ); ?>"><?php esc_html_e( 'Forgot your license?', 'strong-testimonials' ); ?></a><br>
+						<p class="description"><?php echo wp_kses_post( $license_message ); ?></p>
+
+						<input type="hidden" value="<?php echo esc_attr( wp_create_nonce( 'strong_testimonials_license_nonce' ) ); ?>"/>
+						
+						<label class="description strong-testimonials-license-label" for="strong_testimonials_license_key"></label>
+				</fieldset>
+				</td>
+			</tr>
+			<tr valign="top">
+				<th scope="row">
+					<?php esc_html_e( 'Use Alternative Server', 'strong-testimonials' ); ?>
+				</th>
+				<td>
+					<fieldset>
+						<div class="wpmtst-toggle">
+							<input class="wpmtst-toggle__input" type="checkbox"
+								data-setting="strong_testimonials_alt_server"
+								id="strong_testimonials_alt_server"
+								name="strong_testimonials_alt_server"
+								value="1" <?php checked( $alt_server, 'true', 'false' ); ?>>
+							<div class="wpmtst-toggle__items">
+								<span class="wpmtst-toggle__track"></span>
+								<span class="wpmtst-toggle__thumb"></span>
+								<svg class="wpmtst-toggle__off" width="6" height="6" aria-hidden="true" role="img"
+									focusable="false" viewBox="0 0 6 6">
+									<path d="M3 1.5c.8 0 1.5.7 1.5 1.5S3.8 4.5 3 4.5 1.5 3.8 1.5 3 2.2 1.5 3 1.5M3 0C1.3 0 0 1.3 0 3s1.3 3 3 3 3-1.3 3-3-1.3-3-3-3z"></path>
+								</svg>
+								<svg class="wpmtst-toggle__on" width="2" height="6" aria-hidden="true" role="img"
+									focusable="false" viewBox="0 0 2 6">
+									<path d="M0 0h2v6H0z"></path>
+								</svg>
+							</div>
+						</div>
+						<p class="description">
+							<?php esc_html_e( 'Sometimes there can be problems with the activation server, in which case please try the alternative one.', 'strong-testimonials' ); ?>
+						</p>
+					</fieldset>
+				</td>
+			</tr>
+			<tr valign="top" <?php echo ( !isset( $options['disable_rewrite'] ) || '1' != $options['disable_rewrite'] ) ? '' : 'style="display:none;"'; ?> data-setting="single_testimonial_slug" >
+				<th scope="row">
+					<?php esc_html_e( 'Action', 'strong-testimonials' ); ?>
+				</th>
+				<td>
+				<button class="button button-primary" id="st-master-license-btn" data-action="<?php echo ( ! $valid_license ) ? 'activate' : 'deactivate'; ?>"><?php ( ! $valid_license ) ? esc_html_e( 'Activate', 'strong-testimonials' ) : esc_html_e( 'Deactivate', 'strong-testimonials' ); ?></button>
+				</td>
+			</tr>
+
+		</table>
+
+
 		<?php
 	}
 

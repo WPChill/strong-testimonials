@@ -909,3 +909,99 @@ p.wpmtst-onboarding-doc > a {
     text-decoration: none;
     color: #219962;
 }
+
+/* Toggles */
+.wpmtst-toggle {
+  position: relative;
+  position: relative;
+  user-select: none;
+  display: inline-block;
+}
+
+.wpmtst-toggle__items {
+box-sizing: border-box;
+display: inline-block;
+  position: relative;
+}
+.wpmtst-toggle__items > * {
+box-sizing: inherit;
+}
+
+.wpmtst-toggle__input[type=checkbox],
+body .media-modal-content .attachment-details .wpmtst-toggle__input[type=checkbox] {
+border-radius: 2px;
+border: 2px solid #6c7781;
+margin-right: 12px;
+transition: none;
+height: 100%;
+left: 0;
+top: 0;
+margin: 0;
+padding: 0;
+opacity: 0;
+position: absolute;
+width: 100%;
+z-index: 1; }
+
+.wpmtst-toggle__track,
+body .media-modal-content .attachment-details .wpmtst-toggle__track {
+background-color: #fff;
+border: 2px solid #6c7781;
+border-radius: 9px;
+display: inline-block;
+height: 18px;
+width: 36px;
+vertical-align: top;
+transition: background .2s ease; }
+
+.wpmtst-toggle__thumb,
+body .media-modal-content .attachment-details .wpmtst-toggle__thumb {
+background-color: #6c7781;
+border: 5px solid #6c7781;
+border-radius: 50%;
+display: block;
+height: 10px;
+width: 10px;
+position: absolute;
+left: 4px;
+top: 4px;
+transition: transform .2s ease; }
+
+body .media-modal-content .attachment-details .wpmtst-toggle__thumb,
+body .media-modal-content .attachment-details .wpmtst-toggle__track {
+min-width:auto;
+min-height:auto;
+float:none;
+padding:0;
+}
+
+.wpmtst-toggle__off {
+position: absolute;
+right: 6px;
+top: 6px;
+color: #6c7781;
+fill: currentColor; }
+
+.wpmtst-toggle__on {
+position: absolute;
+top: 6px;
+left: 8px;
+border: 1px solid #fff;
+outline: 1px solid transparent;
+outline-offset: -1px;
+display: none; }
+
+.wpmtst-toggle__input[type=checkbox]:checked + .wpmtst-toggle__items .wpmtst-toggle__track {
+background-color: #11a0d2;
+border: 9px solid transparent; }
+
+.wpmtst-toggle__input[type=checkbox]:checked + .wpmtst-toggle__items .wpmtst-toggle__thumb {
+background-color: #fff;
+border-width: 0;
+transform: translateX(18px); }
+
+.wpmtst-toggle__input[type=checkbox]:checked + .wpmtst-toggle__items .wpmtst-toggle__off {
+display: none; }
+
+.wpmtst-toggle__input[type=checkbox]:checked + .wpmtst-toggle__items .wpmtst-toggle__on {
+display: inline-block; }
