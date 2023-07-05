@@ -211,6 +211,7 @@ No. If you already have testimonials in another plugin or theme, you will have t
 - Changed: Removed license tab added by premium extensions ( [#397](https://github.com/WPChill/strong-testimonials/issues/397) )
 - Fixed: The 'strong_views' database table was not created in multisite wp installs. ( [#399](https://github.com/WPChill/strong-testimonials/issues/399) )
 - Changed: Added alternate server choice for license activation and created Settings -> License tab ( [#401](https://github.com/WPChill/strong-testimonials/issues/401) )
+- Fixed: Pagination settings no longer apply to slider views. ( [#400](https://github.com/WPChill/strong-testimonials/issues/400) )
 
 = 3.1.7 - 10.05.2023 -
 - Changed: Check for request necessity
