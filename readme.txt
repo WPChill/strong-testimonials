@@ -213,6 +213,7 @@ No. If you already have testimonials in another plugin or theme, you will have t
 - Changed: Added alternate server choice for license activation and created Settings -> License tab ( [#401](https://github.com/WPChill/strong-testimonials/issues/401) )
 - Fixed: Pagination settings no longer apply to slider views. ( [#400](https://github.com/WPChill/strong-testimonials/issues/400) )
 - Fixed: Manual excerpts not displayed if full text is empty. ( [#402](https://github.com/WPChill/strong-testimonials/issues/402) )
+- Fixed: Number of columns not displayed correctly for columns layout. ( [#403](https://github.com/WPChill/strong-testimonials/issues/403) )
 
 = 3.1.7 - 10.05.2023 -
 - Changed: Check for request necessity
