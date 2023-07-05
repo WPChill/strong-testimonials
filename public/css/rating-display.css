@@ -115,8 +115,6 @@
 /* set the color of the star and its stroke(outline) color and width */
 .strong-rating-wrapper .star svg path {
   fill: #FFB900;
-  stroke: #000;
-  stroke-width: 6;
 }
 /* set the width of the star */
 .strong-rating-wrapper .star svg {
