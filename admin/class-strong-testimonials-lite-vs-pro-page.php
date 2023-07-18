@@ -135,4 +135,3 @@ class Strong_Testimonials_Lite_vs_PRO_page {
 	<?php
 	}
 }
-new Strong_Testimonials_Lite_vs_PRO_page();

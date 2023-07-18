@@ -450,6 +450,13 @@ if ( ! class_exists( 'Strong_Testimonials' ) ) :
 
 			require_once WPMTST_INC . 'submodules/license-checker/class-wpchill-license-checker.php';
 			$wpchill_license_checker = Wpchill_License_Checker::get_instance( 'strong-testimonials', $args );
+
+			// Check if we need to add lite vs pro page
+			$license = get_option( 'strong_testimonials_license_key' );
+			$status  = get_option( 'strong_testimonials_license_status', false );
+			if ( '' === $license || $status === false || ! isset( $status->license ) || $status->license != 'valid' ) {
+				new Strong_Testimonials_Lite_vs_PRO_page();
+			}
 		}
 
 		/**
