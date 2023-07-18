@@ -520,7 +520,9 @@ function wpmtst_sanitize_view_client_section( $in ) {
                                 $out[ $key ]['checked_value_custom'] = isset( $field['checked_value_custom'] ) ? sanitize_text_field( $field['checked_value_custom'] ) : '';
 				$out[ $key ]['unchecked_value'] = isset( $field['unchecked_value'] ) ? sanitize_text_field( $field['unchecked_value'] ) : '';
 				break;
-                            
+			case 'category':
+				$out[ $key ]['category_show'] = isset( $field['category_show'] ) ? sanitize_text_field( $field['category_show'] ) : 'both';
+				break;    
 			default:
 		}
 

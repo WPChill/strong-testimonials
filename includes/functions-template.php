@@ -448,15 +448,39 @@ function wpmtst_the_custom_field( $field ) {
 				break;
 
 			case 'category':
+				// 1. Get all terms for testimonial
 				$categories = get_the_terms( $post->ID, 'wpm-testimonial-category' );
+				// 2, Check for errors
 				if ( $categories && ! is_wp_error( $categories ) ) {
 					$list = array();
-					foreach ( $categories as $cat ) {
-						$list[] = $cat->name;
+					// 3. Check if should display parent cats, child cats, or both.
+					if( isset( $field['category_show'] ) && 'both' != $field['category_show'] ){
+						if( 'parent' === $field['category_show'] ){
+							foreach ( $categories as $cat ) {
+								// 3.1 Include only categories that don't have parents
+								if( 0 === $cat->parent ){
+									$list[] = $cat->name;
+								}
+							}
+							$output = implode( ", ", $list );
+
+						}elseif( 'child' === $field['category_show'] ){
+							foreach ( $categories as $cat ) {
+								// 3.2 Include only categories that have parents
+								if( 0 !== $cat->parent ){
+									$list[] = $cat->name;
+								}
+							}
+							$output = implode( ", ", $list );
+						}
+					}else{
+						foreach ( $categories as $cat ) {
+							// 3.3 Include all categories
+							$list[] = $cat->name;
+						}
+						$output = implode( ", ", $list );
 					}
-					$output = implode( ", ", $list );
-				}
-				else {
+				}else{
 					$output = '';
 				}
 				break;
