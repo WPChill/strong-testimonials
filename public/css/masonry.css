@@ -12,6 +12,7 @@
  *----------------------------------------------------------*/
 .strong-content.strong-masonry .wpmtst-testimonial {
 	margin-top: 0;
+	word-wrap: break-word;
 }
 
 /*----------------------------------------------------------
