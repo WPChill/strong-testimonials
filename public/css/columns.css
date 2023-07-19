@@ -7,12 +7,6 @@
  */
 .strong-content.strong-columns {
 	display: block;
-
-	/* a minimum width fallback */
-	-webkit-column-width: 200px;
-	   -moz-column-width: 200px;
-	        column-width: 200px;
-
 	-webkit-column-gap: 20px;
 	   -moz-column-gap: 20px;
 	        column-gap: 20px;
@@ -54,8 +48,8 @@
 /*
  * responsive
  */
-@media screen and (max-width: 667px) {
-	.strong-content.strong-columns {
+@media screen and (max-width: 767px) {
+	.strong-view .strong-content.strong-columns {
 		-webkit-column-count: 1;
 		   -moz-column-count: 1;
 		        column-count: 1;

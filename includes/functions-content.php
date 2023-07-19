@@ -204,9 +204,10 @@ function wpmtst_trim_words( $text, $num_words = 55, $more = null, $hybrid = fals
 			$text = wpmtst_assemble_excerpt( $words_array, $sep, $more, $excerpt );
 		}
 	} else {
-		$text = implode( $sep, $words_array );
+		//$text = implode( $sep, $words_array );
+		$text = wpmtst_assemble_excerpt( $words_array, $sep, $more, $excerpt );
 	}
-        
+
 	return $text;
 }
 

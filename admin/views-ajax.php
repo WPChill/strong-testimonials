@@ -152,3 +152,21 @@ function wpmtst_restore_default_breakpoints_function() {
 	wp_die();
 }
 add_action( 'wp_ajax_wpmtst_restore_default_breakpoints', 'wpmtst_restore_default_breakpoints_function' );
+
+
+/**
+ * [Field Type: Category] Ajax receiver
+ *
+ * @since 3.1.8
+ */
+function wpmtst_view_add_field_category_type_select() {
+	$key         = isset( $_REQUEST['key'] ) ? absint( $_REQUEST['key'] ) : 0;
+	$field_name  = isset( $_REQUEST['fieldName'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['fieldName'] ) ) : 'category';
+	$type        = isset( $_REQUEST['fieldType'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['fieldType'] ) ) : 'select';
+	$empty_field = array( 'url' => '', 'link_text' => '', 'new_tab' => true );
+    $source = 'view[data]';
+
+	wpmtst_view_field_category( $key, $field_name );
+	wp_die();
+}
+add_action( 'wp_ajax_wpmtst_view_add_field_category_type_select', 'wpmtst_view_add_field_category_type_select' );

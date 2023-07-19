@@ -435,6 +435,11 @@ function wpmtst_view_field_inputs( $key, $field, $adding = false, $source = 'vie
                     if ( 'checkbox' == $field['type'] ) {
                         wpmtst_view_field_checkbox( $key, $field, false, $source );
                     }
+                    
+                    if ( 'category' == $field['type'] ) {
+                        wpmtst_view_field_category( $key, $field );
+                    }
+
                     ?>
                 </div>
 
@@ -775,3 +780,27 @@ function wpmtst_view_section_filter( $classes, $section ) {
     return $classes;
 }
 add_filter( 'wpmtst_view_section', 'wpmtst_view_section_filter', 10, 2 );
+
+/**
+ * Show category display type select field
+ *
+ * @since 3.1.8
+ *
+ * @param $key
+ * @param $field
+ */
+function wpmtst_view_field_category( $key, $field ) {
+
+	$select = isset( $field['category_show'] ) ? esc_attr($field['category_show']) : 'both';
+	?>
+	<div class="flex">
+		<label for="view-<?php echo esc_attr( $key ); ?>"><span><?php esc_html_e( 'Show', 'strong-testimonials' ); ?></span></label>
+		<select id="view-<?php echo esc_attr( $key ); ?>" name="view[data][client_section][<?php echo esc_attr( $key ); ?>][category_show]" class="field-type-cat-select" >
+			<option value="both" <?php selected( $select, 'both' ); ?> ><?php esc_html_e( 'Parent & child categories', 'strong-testimonials' ); ?></option>
+			<option value="parent" <?php selected( $select, 'parent' ); ?> ><?php esc_html_e( 'Only parent categories', 'strong-testimonials' ); ?></option>
+			<option value="child" <?php selected( $select, 'child' ); ?> ><?php esc_html_e( 'Only child categories', 'strong-testimonials' ); ?></option>
+
+		</select>
+	</div>
+	<?php
+}

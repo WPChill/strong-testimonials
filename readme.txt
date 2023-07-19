@@ -212,6 +212,11 @@ No. If you already have testimonials in another plugin or theme, you will have t
 - Fixed: The 'strong_views' database table was not created in multisite wp installs. ( [#399](https://github.com/WPChill/strong-testimonials/issues/399) )
 - Changed: Added alternate server choice for license activation and created Settings -> License tab ( [#401](https://github.com/WPChill/strong-testimonials/issues/401) )
 - Fixed: Pagination settings no longer apply to slider views. ( [#400](https://github.com/WPChill/strong-testimonials/issues/400) )
+- Fixed: Manual excerpts not displayed if full text is empty. ( [#402](https://github.com/WPChill/strong-testimonials/issues/402) )
+- Fixed: Number of columns not displayed correctly for columns layout. ( [#403](https://github.com/WPChill/strong-testimonials/issues/403) )
+- Changed: Removed stroke from star rating svg icons ( [#337](https://github.com/WPChill/strong-testimonials/issues/337) )
+- Fixed: Stop showing Lite vs. Pro page when license is active ( [#407](https://github.com/WPChill/strong-testimonials/issues/407) )
+- Added: Posibility to show only parent/child categories in View->Custom Fields->Display Type ( [#408](https://github.com/WPChill/strong-testimonials/issues/408) )
 
 = 3.1.7 - 10.05.2023 -
 - Changed: Check for request necessity
