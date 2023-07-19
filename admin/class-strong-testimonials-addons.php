@@ -267,11 +267,8 @@ class Strong_Testimonials_Addons {
 
 			}
 		}
-
 		?>
 
-
-				
 		<h2><?php esc_html_e( 'License', 'strong-testimonials' ); ?></h2>
 		<?php do_action( 'wpmtst_license_errors' ); ?>
 			<?php
@@ -290,7 +287,7 @@ class Strong_Testimonials_Addons {
 					<fieldset>
 
 							<input type="email" id="strong_testimonials_email" name="strong_testimonials_email" value="<?php echo esc_attr( $email ); ?>">
-						<p class="description"><?php esc_html_e( 'The email address used for license aquisition.', 'strong-testimonials' ); ?></p>
+						<p class="description"><?php esc_html_e( 'The email address used for license acquisition.', 'strong-testimonials' ); ?></p>
 					</fieldset>
 				</td>
 			</tr>

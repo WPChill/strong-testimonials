@@ -875,7 +875,10 @@ class Strong_Testimonials_Upsell {
 	 * @return mixed
 	 */
 	public function add_submenu( $pages ) {
-		$packages = $this->wpchill_upsells->get_packages()['current_package'];
+		$packages = $this->wpchill_upsells->get_packages();
+		if ( ! isset( $packages['current_package'] ) ) {
+			return $pages;
+		}
 		// Add the lite vs pro page only if the user has not purchased the agency package.
 		if ( false == strpos( $packages['slug'], 'agency' ) ) {
 			$pages[92] = $this->get_submenu();
