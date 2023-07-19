@@ -461,14 +461,15 @@ class Strong_View {
 	 * Build CSS for custom background.
 	 */
 	public function custom_background() {
+
 		$background = $this->get_att( 'background' );
 		if ( ! isset( $background['type'] ) ) {
 			return;
 		}
 
 		$handle = $this->get_stylesheet();
-		$c1 = '';
-		$c2 = '';
+		$c1     = '';
+		$c2     = '';
 
 		switch ( $background['type'] ) {
 			case 'preset':
@@ -490,6 +491,7 @@ class Strong_View {
 
 		// Special handling for Divi Builder
 		$prefix = '';
+		$css    = '';
 		if ( $this->get_att( 'divi_builder' ) && wpmtst_divi_builder_active() ) {
 			$prefix = '#et_builder_outer_content ';
 		}
@@ -503,34 +505,32 @@ class Strong_View {
 
 			if ( $this->is_form() ) {
 
-				wp_add_inline_style( $handle, "$view_el .strong-form-inner { $gradient }" );
-
+				$css = "$view_el .strong-form-inner { $gradient }";
 			} else {
 
-				wp_add_inline_style( $handle, "$view_el .wpmtst-testimonial-inner { $gradient }" );
+				$css = "$view_el .wpmtst-testimonial-inner { $gradient }";
 
 				if ( 'bold' == WPMST()->atts( 'template' ) ) {
-					wp_add_inline_style( $handle, "$view_el .readmore-page { background: $c2 }" );
+					$css .= "$view_el .readmore-page { background: $c2 }";
 				}
-
 			}
-
 		} elseif ( $c1 ) {
-
 			if ( $this->is_form() ) {
-
-				wp_add_inline_style( $handle, "$view_el .strong-form-inner { background: $c1; }" );
-
+				$css = "{$view_el} .strong-form-inner { background: {$c1}; }";
 			} else {
 
-				wp_add_inline_style( $handle, "$view_el .wpmtst-testimonial-inner { background: $c1; }" );
+				$css = "$view_el .wpmtst-testimonial-inner { background: $c1; }";
 
 				if ( 'bold' == WPMST()->atts( 'template' ) ) {
-					wp_add_inline_style( $handle, "$view_el .readmore-page { background: $c1 }" );
+					$css .= "$view_el .readmore-page { background: $c1 }";
 				}
-
 			}
+		}
 
+		if ( wp_style_is( $handle, 'done' ) ) {
+			echo '<style type="text/css" id="wpmtst-custom-style">' . $css . '</style>';
+		} else {
+			wp_add_inline_style( $handle, $css );
 		}
 	}
 
