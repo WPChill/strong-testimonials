@@ -875,7 +875,12 @@ class Strong_Testimonials_Upsell {
 	 * @return mixed
 	 */
 	public function add_submenu( $pages ) {
-		$pages[92] = $this->get_submenu();
+		$packages = $this->wpchill_upsells->get_packages()['current_package'];
+		// Add the lite vs pro page only if the user has not purchased the agency package.
+		if ( false == strpos( $packages['slug'], 'agency' ) ) {
+			$pages[92] = $this->get_submenu();
+		}
+
 		return $pages;
 	}
 
@@ -885,6 +890,18 @@ class Strong_Testimonials_Upsell {
 	 * @return array
 	 */
 	public function get_submenu() {
+		$packages = $this->wpchill_upsells->get_packages()['current_package'];
+		// If user has business than show upsell for agency.
+		if ( false !== strpos( 'business', $packages['slug'] ) ) {
+			return array(
+				'page_title' => esc_html__( 'Upgrade to Agency', 'strong-testimonials' ),
+				'menu_title' => esc_html__( 'Upgrade to Agency', 'strong-testimonials' ),
+				'capability' => 'strong_testimonials_options',
+				'menu_slug'  => 'strong-testimonials-upsells',
+				'function'   => array( $this, 'upsells_page' ),
+			);
+		}
+
 		return array(
 			'page_title' => esc_html__( 'Upgrade', 'strong-testimonials' ),
 			'menu_title' => esc_html__( 'Upgrade', 'strong-testimonials' ),
