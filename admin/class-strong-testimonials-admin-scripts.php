@@ -292,6 +292,12 @@ class Strong_Testimonials_Admin_Scripts {
 		wp_enqueue_script( 'wpmtst-view-category-filter-script' );
 
 		wp_enqueue_style( 'wp-color-picker' );
+		// Add nonce to the script.
+		wp_add_inline_script(
+			'wpmtst-admin-views-script',
+			'const wpmtst_admin_views_script_nonce = "' . wp_create_nonce( 'wpmtst-admin-views-script-nonce' ) . '";',
+			'before'
+		);
 	}
 
 	/**

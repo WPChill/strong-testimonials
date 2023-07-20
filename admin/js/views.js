@@ -1033,11 +1033,12 @@ jQuery(document).ready(function ($) {
   
       case 'category':
         data = {
-          'action': 'wpmtst_view_add_field_category_type_select',
+          'action'   : 'wpmtst_view_add_field_category_type_select',
           'fieldName': fieldName,
           'fieldType': fieldType,
-          'key': key,
-          'source': $('#add-field').attr('source')
+          'key'      : key,
+          'source'   : $('#add-field').attr('source'),
+          'nonce'    : wpmtst_admin_views_script_nonce
         };
         $.get(ajaxurl, data, function (response) {
           // insert into placeholder div
@@ -1132,11 +1133,12 @@ jQuery(document).ready(function ($) {
         typeSelectParent.append('<input type="hidden" class="save-type" name="' + source + '[client_section][' + key + '][save-type]" value="category">');
         var fieldName = $elParent.find('.field-name').find('select').val();
         var data3 = {
-          'action': 'wpmtst_view_add_field_category_type_select',
+          'action'   : 'wpmtst_view_add_field_category_type_select',
           'fieldName': fieldName,
           'fieldType': fieldType,
-          'key': key,
-          'source': $('#add-field').attr('source')
+          'key'      : key,
+          'source'   : $('#add-field').attr('source'),
+          'nonce'    : wpmtst_admin_views_script_nonce
         };
         $.get(ajaxurl, data3, function (response) {
           // insert into placeholder div
