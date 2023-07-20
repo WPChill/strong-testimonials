@@ -5,7 +5,7 @@
  * Description: Collect and display your testimonials or reviews.
  * Author: WPChill
  * Author URI: https://wpchill.com/
- * Version: 3.1.7
+ * Version: 3.1.8
  * Text Domain: strong-testimonials
  * Domain Path: /languages
  * Requires: 4.6 or higher
@@ -45,7 +45,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'WPMTST_VERSION', '3.1.7' );
+define( 'WPMTST_VERSION', '3.1.8' );
 
 define( 'WPMTST_PLUGIN', plugin_basename( __FILE__ ) ); // strong-testimonials/strong-testimonials.php
 define( 'WPMTST', dirname( WPMTST_PLUGIN ) );           // strong-testimonials
@@ -164,18 +164,18 @@ if ( ! class_exists( 'Strong_Testimonials' ) ) :
 				require_once( ABSPATH . '/wp-admin/includes/plugin.php' );
 			}
 
-			// check if it's multisite
-			if ( is_multisite() && true == $network_wide ) {
+			// check if it's multisite.
+			if ( is_multisite() && true === $network_wide ) {
 
 				// get websites
-				$sites = wp_get_sites();
+				$sites = get_sites();
 
 				// loop
 				if ( count( $sites ) > 0 ) {
 					foreach ( $sites as $site ) {
 
 						// switch to blog
-						switch_to_blog( $site['blog_id'] );
+						switch_to_blog( $site->blog_id );
 
 						// run installer on blog
 						wpmtst_update_tables();
@@ -210,16 +210,14 @@ if ( ! class_exists( 'Strong_Testimonials' ) ) :
 		/**
 		 * Run installer for new blogs on multisite when plugin is network activated
 		 *
-		 * @param $blog_id
-		 * @param $user_id
-		 * @param $domain
-		 * @param $path
-		 * @param $site_id
-		 * @param $meta
+		 * @param array $site Blog - WP_Site object.
+		 * @param array $args Arguments.
+		 *
+		 * @since 3.1.8
 		 */
 		static function mu_new_blog( $site, $args ) {
 
-			// check if plugin is network activated
+			// check if plugin is network activated.
 			if ( is_plugin_active_for_network( 'strong-testimonials/strong-testimonials.php' ) ) {
 
 				// switch to new blog
