@@ -225,11 +225,11 @@ class Strong_Testimonials_Addons {
 		$status     = get_option( 'strong_testimonials_license_status', false );
 		$alt_server = get_option( 'strong_testimonials_alt_server', false );
 		$messages   = array(
-			'no-license'       => esc_html__( 'Enter your license key', 'strong-testimonials-assignment' ),
-			'activate-license' => esc_html__( 'Activate your license key', 'strong-testimonials-assignment' ),
-			'all-good'         => __( 'Your license is active until <strong>%s</strong>', 'strong-testimonials-assignment' ),
-			'lifetime'         => __( 'You have a lifetime license.', 'strong-testimonials-assignment' ),
-			'expired'          => esc_html__( 'Your license has expired', 'strong-testimonials-assignment' ),
+			'no-license'       => esc_html__( 'Enter your license key', 'strong-testimonials' ),
+			'activate-license' => esc_html__( 'Activate your license key', 'strong-testimonials' ),
+			'all-good'         => __( 'Your license is active until <strong>%s</strong>', 'strong-testimonials' ),
+			'lifetime'         => __( 'You have a lifetime license.', 'strong-testimonials' ),
+			'expired'          => esc_html__( 'Your license has expired', 'strong-testimonials' ),
 		);
 
 		if ( '' === $license ) {
@@ -262,7 +262,7 @@ class Strong_Testimonials_Addons {
 				$license_message = sprintf( '<p class="%s">' . $messages['all-good'] . '</p>', $l_stat, $license_expire );
 
 				if ( 'green' != $l_stat ) {
-					$license_message .= sprintf( __( 'You have %s week(s) untill your license will expire.', 'strong-testimonials-assignment' ), $weeks );
+					$license_message .= sprintf( __( 'You have %s week(s) untill your license will expire.', 'strong-testimonials' ), $weeks );
 				}
 
 			}

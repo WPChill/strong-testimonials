@@ -889,18 +889,18 @@ class Strong_Testimonials_Helper {
 			<td>
 
 				<?php if ( ! empty( $title ) ): ?>
-				<h4 class="title"><?php esc_html_e( $title ); ?>
+				<h4 class="title"><?php echo esc_html( $title ); ?>
 					<h4>
 						<?php endif; ?>
 						<select id="<?php echo esc_attr( $this->field['class'] ) ?>"
 								name="<?php echo esc_attr( $input_name ); ?>">
 							<?php foreach ( $this->field['options'] as $option ): ?>
-								<option value="<?php echo esc_attr( $option ); ?>" <?php selected( $option, $selected ); ?>><?php esc_html_e( $option, 'strong-testimonials-review-markup' ); ?></option>
+								<option value="<?php echo esc_attr( $option ); ?>" <?php selected( $option, $selected ); ?>><?php esc_html_e( $option, 'strong-testimonials' ); ?></option>
 							<?php endforeach; ?>
 						</select>
 						<?php if ( $recommended ): ?>
 							<p class="description"><strong
-										style="color: #00805e; font-style: normal;"><?php esc_html_e( 'Recommended.', 'strong-testimonials-review-markup' ) ?></strong>
+										style="color: #00805e; font-style: normal;"><?php esc_html_e( 'Recommended.', 'strong-testimonials' ) ?></strong>
 								<?php if ( is_string( $recommended ) ) {
 									echo esc_html( $recommended );
 								} ?>
@@ -932,7 +932,7 @@ class Strong_Testimonials_Helper {
 
 		<td>
 			<?php if ( ! empty( $title ) ): ?>
-			<h4 class="title"><?php esc_html_e( $title ); ?>
+			<h4 class="title"><?php echo esc_html( $title ); ?>
 				<h4>
 					<?php endif; ?>
 
@@ -941,18 +941,18 @@ class Strong_Testimonials_Helper {
 							<input class="regular-text" type="text" id="<?php echo esc_attr( $this->field['class'] ) ?>"
 								   name="<?php echo esc_attr( $input_name ) ?>" value="<?php echo esc_attr( $value ) ?>"
 								   data-default="<?php echo esc_attr( $this->field['default'] ) ?>"
-								   placeholder="<?php echo esc_attr( $placeholder, 'strong-testimonials-review-markup' ) ?>">
+								   placeholder="<?php echo esc_attr( $placeholder, 'strong-testimonials' ) ?>">
 						</div>
 						<div class="error-message"></div>
 					</div>
 					<p class="description">
 
 						<?php if ( $recommended ): ?>
-							<strong style="color: #00805e; font-style: normal;"><?php esc_html_e( 'Recommended.', 'strong-testimonials-review-markup' ) ?></strong>
+							<strong style="color: #00805e; font-style: normal;"><?php esc_html_e( 'Recommended.', 'strong-testimonials' ) ?></strong>
 						<?php endif; ?>
 
 						<?php if ( ! empty( $description ) ): ?>
-							<?php esc_html_e( $description, 'strong-testimonials-review-markup' ); ?>
+							<?php echo esc_html( $description ); ?>
 						<?php endif; ?>
 
 					</p>

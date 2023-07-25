@@ -893,7 +893,7 @@ if ( ! function_exists( 'get_formatted_views' ) ) {
 
 		$view_array = array( 'none' => esc_html__( 'None', 'strong-testimonials'));
 		foreach( $views as $view ) {
-			$view_array[$view['id']] = esc_html__( $view['name'] );
+			$view_array[$view['id']] = esc_html( $view['name'] );
 		}
 		return $view_array;
 	}

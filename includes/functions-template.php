@@ -709,7 +709,7 @@ endif;
 function wpmtst_platform_display( $platform ) {
 	ob_start();
 	?>
-		<img title="<?php echo esc_attr( __( 'posted on ', 'strong-testimonials' ) . $platform ); ?>" width="20" height="20" src="<?php esc_attr_e( WPMTST_ASSETS_IMG ); ?>/platform_icons/<?php esc_attr_e( $platform ); ?>.svg"/>
+		<img title="<?php echo esc_attr( __( 'posted on ', 'strong-testimonials' ) . $platform ); ?>" width="20" height="20" src="<?php echo esc_attr( WPMTST_ASSETS_IMG ); ?>/platform_icons/<?php echo esc_attr( $platform ); ?>.svg"/>
 	<?php
 	return ob_get_clean();
 }
