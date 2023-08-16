@@ -78,9 +78,14 @@ class Strong_Testimonials_Admin_Scripts {
 			$plugin_version );
 
 		wp_register_style( 'wpmtst-lite-vs-pro',
-				WPMTST_ADMIN_URL . 'css/lite-vs-pro.css',
-				array( ),
-				$plugin_version );
+			WPMTST_ADMIN_URL . 'css/lite-vs-pro.css',
+			array( ),
+			$plugin_version );
+
+		wp_register_style( 'wpmtst-admin-upsells-style',
+			WPMTST_ASSETS_CSS . 'admin-upsells.css',
+			array( ),
+			$plugin_version );
 
 		wp_register_script( 'wpmtst-custom-spinner',
 				WPMTST_ADMIN_URL . 'js/custom-spinner.js',
