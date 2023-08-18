@@ -894,16 +894,6 @@ class Strong_Testimonials_Upsell {
 	 */
 	public function get_submenu() {
 		$packages = $this->wpchill_upsells->get_packages()['current_package'];
-		// If user has business than show upsell for agency.
-		if ( false !== strpos( 'business', $packages['slug'] ) ) {
-			return array(
-				'page_title' => esc_html__( 'Upgrade to Agency', 'strong-testimonials' ),
-				'menu_title' => esc_html__( 'Upgrade to Agency', 'strong-testimonials' ),
-				'capability' => 'strong_testimonials_options',
-				'menu_slug'  => 'strong-testimonials-upsells',
-				'function'   => array( $this, 'upsells_page' ),
-			);
-		}
 
 		return array(
 			'page_title' => esc_html__( 'Upgrade', 'strong-testimonials' ),
