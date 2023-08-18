@@ -441,6 +441,7 @@ if ( ! class_exists( 'Strong_Testimonials' ) ) :
 				'license'         => 'strong_testimonials_license_key',
 				'license_status'  => 'strong_testimonials_license_status',
 				'plugin_file'     => __FILE__,
+				'addons_prefix'   => 'strong-testimonials-',
 			);
 
 			require_once WPMTST_INC . 'submodules/license-checker/class-wpchill-license-checker.php';
