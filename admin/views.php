@@ -399,7 +399,7 @@ function wpmtst_view_field_inputs( $key, $field, $adding = false, $source = 'vie
                         <?php foreach ( $group as $key2 => $field2 ) : ?>
                         <?php if ( in_array( $field2['record_type'], $allowed ) && 'email' != $field2['input_type'] ) : ?>
                         <option value="<?php echo esc_attr( $field2['name'] ); ?>" data-type="<?php echo esc_attr( $field2['input_type'] ); ?>"
-                            <?php selected( $field2['name'], $field['field'] ); ?>><?php esc_html_e( $field2['name'] ); ?></option>
+                            <?php selected( $field2['name'], $field['field'] ); ?>><?php echo esc_html( $field2['name'] ); ?></option>
                         <?php endif; ?>
                         <?php endforeach; ?>
 
@@ -415,7 +415,7 @@ function wpmtst_view_field_inputs( $key, $field, $adding = false, $source = 'vie
                     </label>
                     <select id="client_section_<?php echo esc_attr( $key ); ?>_type" name="<?php echo esc_attr( $source )?>[client_section][<?php echo esc_attr( $key ); ?>][type]" <?php echo ($field['type'] == 'checkbox' ? 'readonly' : '') ?>>
                         <?php foreach ( $types as $type => $type_label ) : ?>
-                        <option value="<?php echo esc_attr( $type ); ?>" <?php selected( $type, $field['type'] ); ?> <?php echo (in_array($type, array('checkbox', 'video', 'video_record')) || $field['field'] == 'video_file' ? 'style="display:none"' : '') ?>><?php esc_html_e( $type_label ); ?></option>
+                        <option value="<?php echo esc_attr( $type ); ?>" <?php selected( $type, $field['type'] ); ?> <?php echo (in_array($type, array('checkbox', 'video', 'video_record')) || $field['field'] == 'video_file' ? 'style="display:none"' : '') ?>><?php echo esc_html( $type_label ); ?></option>
                         <?php endforeach; ?>
                     </select>
                 </div>
@@ -435,6 +435,11 @@ function wpmtst_view_field_inputs( $key, $field, $adding = false, $source = 'vie
                     if ( 'checkbox' == $field['type'] ) {
                         wpmtst_view_field_checkbox( $key, $field, false, $source );
                     }
+                    
+                    if ( 'category' == $field['type'] ) {
+                        wpmtst_view_field_category( $key, $field );
+                    }
+
                     ?>
                 </div>
 
@@ -775,3 +780,27 @@ function wpmtst_view_section_filter( $classes, $section ) {
     return $classes;
 }
 add_filter( 'wpmtst_view_section', 'wpmtst_view_section_filter', 10, 2 );
+
+/**
+ * Show category display type select field
+ *
+ * @since 3.1.8
+ *
+ * @param $key
+ * @param $field
+ */
+function wpmtst_view_field_category( $key, $field ) {
+
+	$select = isset( $field['category_show'] ) ? esc_attr($field['category_show']) : 'both';
+	?>
+	<div class="flex">
+		<label for="view-<?php echo esc_attr( $key ); ?>"><span><?php esc_html_e( 'Show', 'strong-testimonials' ); ?></span></label>
+		<select id="view-<?php echo esc_attr( $key ); ?>" name="view[data][client_section][<?php echo esc_attr( $key ); ?>][category_show]" class="field-type-cat-select" >
+			<option value="both" <?php selected( $select, 'both' ); ?> ><?php esc_html_e( 'Parent & child categories', 'strong-testimonials' ); ?></option>
+			<option value="parent" <?php selected( $select, 'parent' ); ?> ><?php esc_html_e( 'Only parent categories', 'strong-testimonials' ); ?></option>
+			<option value="child" <?php selected( $select, 'child' ); ?> ><?php esc_html_e( 'Only child categories', 'strong-testimonials' ); ?></option>
+
+		</select>
+	</div>
+	<?php
+}

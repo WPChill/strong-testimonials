@@ -494,6 +494,17 @@ class Strong_View_Slideshow extends Strong_View_Display {
 		}
 	}
 
+	/**
+	 * Overwrites inherited method preventing pagination for slider type.
+	 *
+	 * @param $args
+	 *
+	 * @return array
+	 */
+	public function query_pagination( $args ) {
+		return $args;
+	}
+
 }
 
 endif;

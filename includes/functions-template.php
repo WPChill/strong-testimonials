@@ -448,15 +448,39 @@ function wpmtst_the_custom_field( $field ) {
 				break;
 
 			case 'category':
+				// 1. Get all terms for testimonial
 				$categories = get_the_terms( $post->ID, 'wpm-testimonial-category' );
+				// 2, Check for errors
 				if ( $categories && ! is_wp_error( $categories ) ) {
 					$list = array();
-					foreach ( $categories as $cat ) {
-						$list[] = $cat->name;
+					// 3. Check if should display parent cats, child cats, or both.
+					if( isset( $field['category_show'] ) && 'both' != $field['category_show'] ){
+						if( 'parent' === $field['category_show'] ){
+							foreach ( $categories as $cat ) {
+								// 3.1 Include only categories that don't have parents
+								if( 0 === $cat->parent ){
+									$list[] = $cat->name;
+								}
+							}
+							$output = implode( ", ", $list );
+
+						}elseif( 'child' === $field['category_show'] ){
+							foreach ( $categories as $cat ) {
+								// 3.2 Include only categories that have parents
+								if( 0 !== $cat->parent ){
+									$list[] = $cat->name;
+								}
+							}
+							$output = implode( ", ", $list );
+						}
+					}else{
+						foreach ( $categories as $cat ) {
+							// 3.3 Include all categories
+							$list[] = $cat->name;
+						}
+						$output = implode( ", ", $list );
 					}
-					$output = implode( ", ", $list );
-				}
-				else {
+				}else{
 					$output = '';
 				}
 				break;
@@ -685,7 +709,7 @@ endif;
 function wpmtst_platform_display( $platform ) {
 	ob_start();
 	?>
-		<img title="<?php echo esc_attr( __( 'posted on ', 'strong-testimonials' ) . $platform ); ?>" width="20" height="20" src="<?php esc_attr_e( WPMTST_ASSETS_IMG ); ?>/platform_icons/<?php esc_attr_e( $platform ); ?>.svg"/>
+		<img title="<?php echo esc_attr( __( 'posted on ', 'strong-testimonials' ) . $platform ); ?>" width="20" height="20" src="<?php echo esc_attr( WPMTST_ASSETS_IMG ); ?>/platform_icons/<?php echo esc_attr( $platform ); ?>.svg"/>
 	<?php
 	return ob_get_clean();
 }

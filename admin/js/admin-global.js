@@ -39,15 +39,17 @@ jQuery(document).ready(function ($) {
 			  action     = target.data('action'),
 			  nextAction = ('activate' === action) ? 'deactivate' : 'activate',
 			  nextText   = ('activate' === action) ? wpmtst_admin.deactivate : wpmtst_admin.activate,
-			  nonce      = target.parent().find('input[type="hidden"]').val(),
+			  nonce      = target.closest('table.wpmtst_license_table').find('input[type="hidden"]').val(),
 			  license    = jQuery('input#strong_testimonials_license_key').val(),
 			  email      = jQuery('input#strong_testimonials_email').val(),
-			  label      = target.parents('.wpmtst-master-license').find('.strong-testimonials-license-label'),
+			  alt_server = jQuery('input#strong_testimonials_alt_server').is(':checked'),
+			  label      = target.closest('table.wpmtst_license_table').find('.strong-testimonials-license-label'),
 			  data       = {
 				  action      : 'wpmtst_license_action',
 				  nonce       : nonce,
 				  license     : license,
 				  email       : email,
+				  alt_server  : alt_server,
 				  click_action: action
 			  },
 			  buttonText = ('deactivate' === action) ? wpmtst_admin.deactivating : wpmtst_admin.activating;
@@ -84,8 +86,8 @@ jQuery(document).ready(function ($) {
 
 		const target     = jQuery(event.target),
 			  nonce      = target.data('nonce'),
-			  email      = target.parent().find('input[type="email"]').val(),
-			  label      = target.parents('.wpmtst-master-license').find('.strong-testimonials-license-label'),
+			  email      = target.closest('table.wpmtst_license_table').find('input[type="email"]').val(),
+			  label      = target.closest('table.wpmtst_license_table').find('.strong-testimonials-license-label'),
 			  buttonText = target.text(),
 			  actionText = wpmtst_admin.retrieving_data;
 

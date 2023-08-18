@@ -354,6 +354,13 @@ if ( ! class_exists( 'Strong_Testimonials_WPChill_Upsells' ) ) {
 				unset($addons['strong-testimonials']);
 			}
 
+			// Unset lifetime packages if any.
+			foreach ( $upsell_packages as $key => $package ) {
+				if ( false !== strpos( strtolower( $key ), 'lifetime' ) ) {
+					unset( $upsell_packages[ $key ] );
+				}
+			}
+
 			$all_packages = array_merge( $upsell_packages, $lite_plan );
 
 			// Make the size of the element based on number of addons
@@ -389,7 +396,7 @@ if ( ! class_exists( 'Strong_Testimonials_WPChill_Upsells' ) ) {
 					?>
 					<div class="wpchill-pricing-package wpchill-title wpchill-<?php echo esc_attr( $slug ) ?>">
 						<!--Usually the names are "Plugin name - Package" so we make the explode -->
-						<p class="wpchill-name"><strong><?php echo esc_html__( isset( explode( '-', $package['name'] )[1] ) ? explode( '-', $package['name'] )[1] : $package['name'] ); ?></strong></p>
+						<p class="wpchill-name"><strong><?php echo esc_html( isset( explode( '-', $package['name'] )[1] ) ? explode( '-', $package['name'] )[1] : $package['name'] ); ?></strong></p>
 						<?php
 
 						// Lets display the price and other info about our packages

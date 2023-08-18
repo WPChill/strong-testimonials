@@ -189,7 +189,7 @@ class Strong_Testimonials_Admin_List {
 
 				if ( $platform ) {
 					?>
-						<img title="<?php echo esc_attr( __( 'posted on ', 'strong-testimonials' ) . $platform ); ?>" width="26" height="26" src="<?php esc_attr_e( WPMTST_ASSETS_IMG ); ?>/platform_icons/<?php esc_attr_e( $platform ); ?>.svg"/>
+						<img title="<?php echo esc_attr( __( 'posted on ', 'strong-testimonials' ) . $platform ); ?>" width="26" height="26" src="<?php echo esc_attr( WPMTST_ASSETS_IMG ); ?>/platform_icons/<?php echo esc_attr( $platform ); ?>.svg"/>
 					<?php
 				}
 

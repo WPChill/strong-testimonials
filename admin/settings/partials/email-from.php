@@ -61,7 +61,7 @@
                         </div>
                         <div class="fields">
 							<?php esc_html_e( 'admin:', 'strong-testimonials' ); ?>
-                            &nbsp;<?php esc_html_e( get_bloginfo( 'admin_email' ) ); ?>
+                            &nbsp;<?php echo esc_html( get_bloginfo( 'admin_email' ) ); ?>
                         </div>
 
                     </div>

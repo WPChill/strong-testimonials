@@ -1030,9 +1030,24 @@ jQuery(document).ready(function ($) {
           $elParent.find('.field-property-box').html(response);
         });
         break;
-
+  
+      case 'category':
+        data = {
+          'action'   : 'wpmtst_view_add_field_category_type_select',
+          'fieldName': fieldName,
+          'fieldType': fieldType,
+          'key'      : key,
+          'source'   : $('#add-field').attr('source'),
+          'nonce'    : wpmtst_admin_views_script_nonce
+        };
+        $.get(ajaxurl, data, function (response) {
+          // insert into placeholder div
+          $elParent.find('.field-property-box').html(response);
+        });
+        break;
+      
       default:
-
+        $elParent.find('.field-property-box').html('');
     }
   });
 
@@ -1116,7 +1131,20 @@ jQuery(document).ready(function ($) {
       case 'category':
         $(typeSelect).val('category').prop('disabled', true);
         typeSelectParent.append('<input type="hidden" class="save-type" name="' + source + '[client_section][' + key + '][save-type]" value="category">');
-        $elParent.find('.field-property-box').empty();
+        var fieldName = $elParent.find('.field-name').find('select').val();
+        var data3 = {
+          'action'   : 'wpmtst_view_add_field_category_type_select',
+          'fieldName': fieldName,
+          'fieldType': fieldType,
+          'key'      : key,
+          'source'   : $('#add-field').attr('source'),
+          'nonce'    : wpmtst_admin_views_script_nonce
+        };
+        $.get(ajaxurl, data3, function (response) {
+          // insert into placeholder div
+          $elParent.find('.field-property-box').html(response);
+        });
+       
         break;
 
       default:

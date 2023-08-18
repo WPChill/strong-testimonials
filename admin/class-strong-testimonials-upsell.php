@@ -138,7 +138,7 @@ class Strong_Testimonials_Upsell {
 			// remove "submitdiv" metabox so we can add it back in desired order.
 			$post_type = 'wpm-testimonial';
 			remove_meta_box( 'post_submit_meta_box', $post_type, 'side' );
-			add_meta_box( 'submitdiv', __( 'Publish' ), 'post_submit_meta_box', $post_type, 'side', 'high' );
+			add_meta_box( 'submitdiv', __( 'Publish', 'strong-testimonials' ), 'post_submit_meta_box', $post_type, 'side', 'high' );
 
 			add_meta_box(
 				'wpmtst-importer-upsell',      // Unique ID
@@ -875,7 +875,15 @@ class Strong_Testimonials_Upsell {
 	 * @return mixed
 	 */
 	public function add_submenu( $pages ) {
-		$pages[92] = $this->get_submenu();
+		$packages = $this->wpchill_upsells->get_packages();
+		if ( ! isset( $packages['current_package'] ) ) {
+			return $pages;
+		}
+		// Add the lite vs pro page only if the user has not purchased the agency package.
+		if ( false === strpos( $packages['current_package']['slug'], 'business' ) && false === strpos( $packages['current_package']['slug'], 'agency' ) ) {
+			$pages[92] = $this->get_submenu();
+		}
+
 		return $pages;
 	}
 
@@ -885,6 +893,8 @@ class Strong_Testimonials_Upsell {
 	 * @return array
 	 */
 	public function get_submenu() {
+		$packages = $this->wpchill_upsells->get_packages()['current_package'];
+
 		return array(
 			'page_title' => esc_html__( 'Upgrade', 'strong-testimonials' ),
 			'menu_title' => esc_html__( 'Upgrade', 'strong-testimonials' ),

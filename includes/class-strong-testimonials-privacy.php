@@ -190,7 +190,7 @@ class Strong_Testimonials_Privacy {
             By agreeing to these terms, you also allow us to::
             - Send a confirmation e-mail, to let you know your testimonial was received and approved;
             - Send important account/ product/ service information;
-            - Set up and administer your account, provide technical/customer support, and verify your identity.', 'strong-testimonial-downloads' ) ) );
+            - Set up and administer your account, provide technical/customer support, and verify your identity.', 'strong-testimonials' ) ) );
 
         wp_add_privacy_policy_content( 'Strong Testimonial Privacy Policy', wpautop( $content ) );
     }

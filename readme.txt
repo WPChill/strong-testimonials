@@ -3,8 +3,8 @@ Contributors: wpchill,silkalns,cdillon27
 Tags: testimonials, testimonial slider, testimonial form, star ratings
 Requires at least: 5.2
 Requires PHP: 5.6
-Tested up to: 6.2
-Stable tag: 3.1.7
+Tested up to: 6.3
+Stable tag: 3.1.8
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -206,9 +206,21 @@ No. If you already have testimonials in another plugin or theme, you will have t
 8. View editor
 
 == Changelog ==
-= 3.1.8 - TBD -
+= 3.1.8 - 18.08.2023 -
 - Changed: Removed plugin tracking ( [#394](https://github.com/WPChill/strong-testimonials/issues/394) )
+- Changed: Removed license tab added by premium extensions ( [#397](https://github.com/WPChill/strong-testimonials/issues/397) )
 - Fixed: The 'strong_views' database table was not created in multisite wp installs. ( [#399](https://github.com/WPChill/strong-testimonials/issues/399) )
+- Changed: Added alternate server choice for license activation and created Settings -> License tab ( [#401](https://github.com/WPChill/strong-testimonials/issues/401) )
+- Fixed: Pagination settings no longer apply to slider views. ( [#400](https://github.com/WPChill/strong-testimonials/issues/400) )
+- Fixed: Manual excerpts not displayed if full text is empty. ( [#402](https://github.com/WPChill/strong-testimonials/issues/402) )
+- Fixed: Number of columns not displayed correctly for columns layout. ( [#403](https://github.com/WPChill/strong-testimonials/issues/403) )
+- Changed: Removed stroke from star rating svg icons ( [#337](https://github.com/WPChill/strong-testimonials/issues/337) )
+- Fixed: Stop showing Lite vs. Pro page when license is active ( [#407](https://github.com/WPChill/strong-testimonials/issues/407) )
+- Added: Posibility to show only parent/child categories in View->Custom Fields->Display Type ( [#408](https://github.com/WPChill/strong-testimonials/issues/408) )
+- Fixed: Escaping for read more/show less inputs ( [#406](https://github.com/WPChill/strong-testimonials/issues/406) )
+- Fixed: Styles not making changes in front ( [#409](https://github.com/WPChill/strong-testimonials/issues/409) )
+- Fixed: PHP 8 errors and notices ( [#383](https://github.com/WPChill/strong-testimonials/issues/383)[#414](https://github.com/WPChill/strong-testimonials/issues/414) )
+- Changed: Removed lifetime packages from Lite vs PRO / Upgrade page ( [#415](https://github.com/WPChill/strong-testimonials/issues/415) )
 
 = 3.1.7 - 10.05.2023 -
 - Changed: Check for request necessity
