@@ -880,7 +880,7 @@ class Strong_Testimonials_Upsell {
 			return $pages;
 		}
 		// Add the lite vs pro page only if the user has not purchased the agency package.
-		if ( false === strpos( $packages['current_package']['slug'], 'agency' ) ) {
+		if ( false === strpos( $packages['current_package']['slug'], 'business' ) ) {
 			$pages[92] = $this->get_submenu();
 		}
 
