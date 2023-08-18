@@ -355,7 +355,11 @@ if ( ! class_exists( 'Strong_Testimonials_WPChill_Upsells' ) ) {
 			}
 
 			// Unset lifetime packages if any.
-			unset( $upsell_packages['business-lifetime'], $upsell_packages['plus-lifetime'] );
+			foreach ( $upsell_packages as $key => $package ) {
+				if ( false !== strpos( strtolower( $key ), 'lifetime' ) ) {
+					unset( $upsell_packages[ $key ] );
+				}
+			}
 
 			$all_packages = array_merge( $upsell_packages, $lite_plan );
 
