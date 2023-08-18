@@ -354,6 +354,9 @@ if ( ! class_exists( 'Strong_Testimonials_WPChill_Upsells' ) ) {
 				unset($addons['strong-testimonials']);
 			}
 
+			// Unset lifetime packages if any.
+			unset( $upsell_packages['business-lifetime'], $upsell_packages['plus-lifetime'] );
+
 			$all_packages = array_merge( $upsell_packages, $lite_plan );
 
 			// Make the size of the element based on number of addons

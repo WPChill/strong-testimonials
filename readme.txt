@@ -220,6 +220,7 @@ No. If you already have testimonials in another plugin or theme, you will have t
 - Fixed: Escaping for read more/show less inputs ( [#406](https://github.com/WPChill/strong-testimonials/issues/406) )
 - Fixed: Styles not making changes in front ( [#409](https://github.com/WPChill/strong-testimonials/issues/409) )
 - Fixed: PHP 8 errors and notices ( [#383](https://github.com/WPChill/strong-testimonials/issues/383)[#414](https://github.com/WPChill/strong-testimonials/issues/414) )
+- Changed: Removed lifetime packages from Lite vs PRO / Upgrade page ( [#415](https://github.com/WPChill/strong-testimonials/issues/415) )
 
 = 3.1.7 - 10.05.2023 -
 - Changed: Check for request necessity
