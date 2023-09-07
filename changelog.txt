@@ -1,3 +1,6 @@
+= 3.1.9 - TBD -
+- Fixed: Automatic excerpt elipsis[...] always hidden after first readmore lick ( [#413](https://github.com/WPChill/strong-testimonials/issues/413) )
+
 = 3.1.8 - 18.08.2023 -
 - Changed: Removed plugin tracking ( [#394](https://github.com/WPChill/strong-testimonials/issues/394) )
 - Changed: Removed license tab added by premium extensions ( [#397](https://github.com/WPChill/strong-testimonials/issues/397) )
