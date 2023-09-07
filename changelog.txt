@@ -1,5 +1,6 @@
 = 3.1.9 - TBD -
-- Fixed: Automatic excerpt elipsis[...] always hidden after first readmore lick ( [#413](https://github.com/WPChill/strong-testimonials/issues/413) )
+- Fixed: Automatic excerpt elipsis[...] always hidden after first readmore click ( [#413](https://github.com/WPChill/strong-testimonials/issues/413) )
+- Fixed: Compatibility with Elementor tabs ( [#288](https://github.com/WPChill/strong-testimonials/issues/288) )
 
 = 3.1.8 - 18.08.2023 -
 - Changed: Removed plugin tracking ( [#394](https://github.com/WPChill/strong-testimonials/issues/394) )
