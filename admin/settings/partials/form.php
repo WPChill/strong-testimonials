@@ -50,6 +50,7 @@ $form_options = get_option( 'wpmtst_form_options' );
 					$settings = array(
 						'textarea_name' => "wpmtst_form_options[messages][$key][text]",
 						'textarea_rows' => 10,
+						'quicktags'     => false,
 					);
 					wp_editor( $content, $elid, $settings );
 					?>
