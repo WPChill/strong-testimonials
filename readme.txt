@@ -211,6 +211,7 @@ No. If you already have testimonials in another plugin or theme, you will have t
 - Fixed: Compatibility with Elementor tabs ( [#288](https://github.com/WPChill/strong-testimonials/issues/288) )
 - Changed: Removed TinyMCE  'Visual' tab from 'Submission Success' settings textarea ( [#258](https://github.com/WPChill/strong-testimonials/issues/258) )
 - Added: Filter to change from counting words to characters. ( [#251](https://github.com/WPChill/strong-testimonials/issues/251) )
+- Changed: General function to return 'rating stars' svg. ( [#365](https://github.com/WPChill/strong-testimonials/issues/365) )
 
 = 3.1.8 - 18.08.2023 -
 - Changed: Removed plugin tracking ( [#394](https://github.com/WPChill/strong-testimonials/issues/394) )
