@@ -4,7 +4,7 @@ Tags: testimonials, testimonial slider, testimonial form, star ratings
 Requires at least: 5.2
 Requires PHP: 5.6
 Tested up to: 6.3
-Stable tag: 3.1.8
+Stable tag: 3.1.9
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -206,6 +206,14 @@ No. If you already have testimonials in another plugin or theme, you will have t
 8. View editor
 
 == Changelog ==
+= 3.1.9 - 19.09.2023 -
+- Fixed: Automatic excerpt elipsis[...] always hidden after first readmore click ( [#413](https://github.com/WPChill/strong-testimonials/issues/413) )
+- Fixed: Compatibility with Elementor tabs ( [#288](https://github.com/WPChill/strong-testimonials/issues/288) )
+- Changed: Removed TinyMCE  'Visual' tab from 'Submission Success' settings textarea ( [#258](https://github.com/WPChill/strong-testimonials/issues/258) )
+- Added: Filter to change from counting words to characters. ( [#251](https://github.com/WPChill/strong-testimonials/issues/251) )
+- Changed: General function to return 'rating stars' svg. ( [#365](https://github.com/WPChill/strong-testimonials/issues/365) )
+- Fixed: Notice dismissed buttonmissing ( [#417](https://github.com/WPChill/strong-testimonials/issues/417) )
+
 = 3.1.8 - 18.08.2023 -
 - Changed: Removed plugin tracking ( [#394](https://github.com/WPChill/strong-testimonials/issues/394) )
 - Changed: Removed license tab added by premium extensions ( [#397](https://github.com/WPChill/strong-testimonials/issues/397) )

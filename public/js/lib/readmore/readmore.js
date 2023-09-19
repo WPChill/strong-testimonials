@@ -119,7 +119,12 @@
 
 				excerptWrapper[0].style.display = 'block';
 
-				// 3. do stuff at end of animation (the event listener above)
+				// 3. Add back the elipsis if needed.
+				if (ellipsis) {
+					ellipsis.style.display = 'inline';
+				}
+
+				// 4. do stuff at end of animation (the event listener above)
 				fireCustomEvent();
 			}
 

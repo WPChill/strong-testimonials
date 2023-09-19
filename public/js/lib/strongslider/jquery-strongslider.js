@@ -305,6 +305,18 @@
 	  };
 
 	  /**
+	   * Fix for Elementor/ Elementor PRO tabs compatibility.
+	   */
+		$(window).on( 'elementor-pro/motion-fx/recalc', function(){
+			if (reallyVisible() && compatCheck()) {
+	  
+				// perform all DOM / CSS modifications
+				setup();
+	  
+			}
+		});
+
+	  /**
 	   * Performs all DOM and CSS modifications
 	   */
 	  var setup = function () {

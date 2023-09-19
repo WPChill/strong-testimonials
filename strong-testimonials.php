@@ -5,7 +5,7 @@
  * Description: Collect and display your testimonials or reviews.
  * Author: WPChill
  * Author URI: https://wpchill.com/
- * Version: 3.1.8
+ * Version: 3.1.9
  * Text Domain: strong-testimonials
  * Domain Path: /languages
  * Requires: 4.6 or higher
@@ -45,7 +45,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'WPMTST_VERSION', '3.1.8' );
+define( 'WPMTST_VERSION', '3.1.9' );
 
 define( 'WPMTST_PLUGIN', plugin_basename( __FILE__ ) ); // strong-testimonials/strong-testimonials.php
 define( 'WPMTST', dirname( WPMTST_PLUGIN ) );           // strong-testimonials
@@ -441,6 +441,7 @@ if ( ! class_exists( 'Strong_Testimonials' ) ) :
 				'license'         => 'strong_testimonials_license_key',
 				'license_status'  => 'strong_testimonials_license_status',
 				'plugin_file'     => __FILE__,
+				'addons_prefix'   => 'strong-testimonials-',
 			);
 
 			require_once WPMTST_INC . 'submodules/license-checker/class-wpchill-license-checker.php';
