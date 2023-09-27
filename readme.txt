@@ -206,6 +206,9 @@ No. If you already have testimonials in another plugin or theme, you will have t
 8. View editor
 
 == Changelog ==
+= 3.1.10 - 19.09.2023 -
+- Added: Filter to modify admin notification method's form options( [#422](https://github.com/WPChill/strong-testimonials/issues/422) )
+
 = 3.1.9 - 19.09.2023 -
 - Fixed: Automatic excerpt elipsis[...] always hidden after first readmore click ( [#413](https://github.com/WPChill/strong-testimonials/issues/413) )
 - Fixed: Compatibility with Elementor tabs ( [#288](https://github.com/WPChill/strong-testimonials/issues/288) )

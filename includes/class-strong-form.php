@@ -494,7 +494,9 @@ class Strong_Testimonials_Form {
 	 *               Trimming subject and message strings.
 	 */
 	public function notify_admin( $post, $form_name = 'custom' ) {
-		$form_options = get_option( 'wpmtst_form_options' );
+
+		$form_options = apply_filters( 'wpmtst_notify_admin_form_options', get_option( 'wpmtst_form_options' ), $post, $form_name );
+
 		if ( ! $form_options['admin_notify'] ) {
 			return;
 		}
