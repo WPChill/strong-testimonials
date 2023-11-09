@@ -82,7 +82,8 @@ jQuery(document).ready(function ($) {
         $.post(ajaxurl, {
             action: 'st-update-menu-order',
             posts: $('#the-list').sortable('serialize'),
-            order: wpmtstOrderHelper
+            order: wpmtstOrderHelper,
+            nonce: wpmtstOrderHelper.nonce,
           },
           function (data) {
             // update menu order shown

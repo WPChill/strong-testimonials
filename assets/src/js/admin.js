@@ -78,9 +78,10 @@ jQuery(document).ready(function ($) {
 		var data = {
 			'action': 'wpmtst_save_view_list_order',
 			'name': columnName,
-			'order': columnOrder
+			'order': columnOrder,
+			'nonce': wpmtst_admin_script_nonce
 		};
-		$.get(ajaxurl, data, function (response) {
+		$.post(ajaxurl, data, function (response) {
 		});
 	});
 
@@ -94,9 +95,10 @@ jQuery(document).ready(function ($) {
 		var id = $(this).closest('tr').find('td.id').html();
 		var data = {
 			'action': 'wpmtst_save_view_sticky',
-			'id': id
+			'id': id,
+			'nonce': wpmtst_admin_script_nonce
 		};
-		$.get(ajaxurl, data, function (response) {
+		$.post(ajaxurl, data, function (response) {
 			if (response) {
 				window.location.reload();
 			}

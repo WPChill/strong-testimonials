@@ -225,7 +225,18 @@ class Strong_Testimonials_Settings_Form {
 	 * [Add Recipient] Ajax receiver
 	 */
 	public static function add_recipient() {
-		$key          = isset( $_REQUEST['key'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['key'] ) ) : '';
+
+		if ( ! wp_verify_nonce( $_POST['nonce'], 'wpmtst-admin-form-script-nonce' ) ) { //phpcs:ignore
+			wp_send_json_error( array( 'message' => __( 'Nonce does not exist.', 'strong-testimonials' ) ) );
+			die();
+		}
+	
+		if ( ! current_user_can('manage_options') ) {
+			wp_send_json_error( array( 'message' => __( 'Insufficient capabilities.', 'strong-testimonials' ) ) );
+			die();
+		}
+
+		$key          = isset( $_POST['key'] ) ? sanitize_text_field( wp_unslash( $_POST['key'] ) ) : '';
 		$form_options = get_option( 'wpmtst_form_options' );
 		$recipient    = $form_options['default_recipient'];
 		include WPMTST_ADMIN . 'settings/partials/recipient.php';

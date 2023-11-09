@@ -63,12 +63,11 @@ class Strong_Testimonials_Order {
 			'jquery-ui-sortable',
 		), null, true );
 
-		$helper = array();
+		$helper = array( 'nonce' => wp_create_nonce( 'st-update-menu-order' ) );
 		if ( isset( $wp_query ) && isset( $wp_query->query_vars ) ) {
-			$helper = array(
-				'page'           => max( 1, $wp_query->query_vars['paged'] ),
-				'posts_per_page' => $wp_query->query_vars['posts_per_page']
-			);
+			$helper['page']           = max( 1, $wp_query->query_vars['paged'] );
+			$helper['posts_per_page'] = $wp_query->query_vars['posts_per_page'];
+			
 			
 		}
 		wp_localize_script( 'wpmtst-admin-order-script', 'wpmtstOrderHelper', $helper );
@@ -257,6 +256,14 @@ class Strong_Testimonials_Order {
 	 * Update menu order in back end.
 	 */
 	public static function update_menu_order() {
+		
+		$nonce = $_POST['nonce']; //phpcs:ignore
+
+		if ( ! wp_verify_nonce( $nonce, 'st-update-menu-order' ) ) {
+			wp_send_json_error( 'no nonce' );
+			die();
+		}
+		
 		if( !current_user_can('edit_posts') ){
 			wp_die();
 		}

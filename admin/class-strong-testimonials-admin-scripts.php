@@ -292,6 +292,12 @@ class Strong_Testimonials_Admin_Scripts {
 		wp_enqueue_style( 'wpmtst-admin-style' );
 		wp_enqueue_script( 'wpmtst-admin-script' );
 
+		wp_add_inline_script(
+			'wpmtst-admin-script',
+			'const wpmtst_admin_script_nonce = "' . wp_create_nonce( 'wpmtst-admin-script-nonce' ) . '";',
+			'before'
+		);
+
 		wp_enqueue_style( 'wpmtst-admin-views-style' );
 		wp_enqueue_script( 'wpmtst-admin-views-script' );
 		wp_enqueue_script( 'wpmtst-view-category-filter-script' );
@@ -313,10 +319,21 @@ class Strong_Testimonials_Admin_Scripts {
         wp_enqueue_style( 'wpmtst-admin-style' );
         wp_enqueue_script( 'wpmtst-admin-script' );
         
+		wp_add_inline_script(
+			'wpmtst-admin-script',
+			'const wpmtst_admin_script_nonce = "' . wp_create_nonce( 'wpmtst-admin-script-nonce' ) . '";',
+			'before'
+		);
+
         switch ( $tab ) {
 			case 'form':
 				wp_enqueue_style( 'wpmtst-admin-form-style' );
 				wp_enqueue_script( 'wpmtst-admin-form-script' );
+				wp_add_inline_script(
+					'wpmtst-admin-form-script',
+					'const wpmtst_admin_form_script_nonce = "' . wp_create_nonce( 'wpmtst-admin-form-script-nonce' ) . '";',
+					'before'
+				);
 				break;
 			case 'fields':
                 wp_enqueue_style( 'wpmtst-admin-fields-style' );
@@ -352,6 +369,11 @@ class Strong_Testimonials_Admin_Scripts {
 			default:
 				wp_enqueue_style( 'wpmtst-admin-style' );
 				wp_enqueue_script( 'wpmtst-admin-script' );
+				wp_add_inline_script(
+					'wpmtst-admin-script',
+					'const wpmtst_admin_script_nonce = "' . wp_create_nonce( 'wpmtst-admin-script-nonce' ) . '";',
+					'before'
+				);		
 		}
 	}
 
@@ -361,6 +383,13 @@ class Strong_Testimonials_Admin_Scripts {
 	public static function admin_about() {
 		wp_enqueue_style( 'wpmtst-admin-style' );
 		wp_enqueue_script( 'wpmtst-admin-script' );
+		
+		wp_add_inline_script(
+			'wpmtst-admin-script',
+			'const wpmtst_admin_script_nonce = "' . wp_create_nonce( 'wpmtst-admin-script-nonce' ) . '";',
+			'before'
+		);
+
 		wp_enqueue_style( 'wpmtst-about-style' );
 	}
 
@@ -381,6 +410,13 @@ class Strong_Testimonials_Admin_Scripts {
 		if ( wpmtst_is_testimonial_screen() ) {
 			wp_enqueue_style( 'wpmtst-admin-style' );
 			wp_enqueue_script( 'wpmtst-admin-script' );
+			
+			wp_add_inline_script(
+				'wpmtst-admin-script',
+				'const wpmtst_admin_script_nonce = "' . wp_create_nonce( 'wpmtst-admin-script-nonce' ) . '";',
+				'before'
+			);
+
 			wp_enqueue_style( 'wpmtst-rating-display' );
 		}
 	}
@@ -410,6 +446,12 @@ class Strong_Testimonials_Admin_Scripts {
 			wp_enqueue_style( 'wpmtst-post-editor' );
 			wp_enqueue_script( 'wpmtst-admin-script' );
 
+			wp_add_inline_script(
+				'wpmtst-admin-script',
+				'const wpmtst_admin_script_nonce = "' . wp_create_nonce( 'wpmtst-admin-script-nonce' ) . '";',
+				'before'
+			);
+	
 			wp_enqueue_style( 'wpmtst-rating-display' );
 			wp_enqueue_style( 'wpmtst-rating-form' );
 			wp_enqueue_script( 'wpmtst-rating-script' );
