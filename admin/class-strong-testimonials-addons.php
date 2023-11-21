@@ -65,7 +65,7 @@ class Strong_Testimonials_Addons {
 				echo '</div>';
 				echo '</div>';
 				echo '<div class="wpmtst-addon-actions">';
-				echo wp_kses_post( apply_filters( 'wpmtst_addon_button_action', '<a href="' . esc_url( WPMTST_STORE_UPGRADE_URL . '?utm_source=st-lite&utm_campaign=upsell&utm_medium=' . esc_attr( $addon['slug'] ) ) . '" target="_blank" class="button primary-button">' . esc_html__( 'Upgrade now', 'strong-testimonials' ) . '</a>', $addon ) );
+				echo wp_kses_post( apply_filters( 'wpmtst_addon_button_action', '<a href="' . esc_url( WPMTST_STORE_UPGRADE_URL . '?utm_source=st-lite&utm_campaign=upsell&utm_medium=' . esc_attr( $addon['slug'] ) ) . '" target="_blank" class="button primary-button">' . esc_html( apply_filters( 'wpmtst_upsells_button_text', __( 'Upgrade now', 'strong-testimonials' ) ) ) . '</a>', $addon ) );
 				echo '</div>';
 				echo '</div>';
 			}
