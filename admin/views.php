@@ -743,10 +743,15 @@ function wpmtst_form_category_checklist( $view_cats_array ) {
  * @since 2.22.0
  */
 function wpmtst_save_view_sticky() {
+	if ( ! wp_verify_nonce( $_POST['nonce'], 'wpmtst-admin-script-nonce' ) ) { //phpcs:ignore
+		wp_send_json_error( array( 'message' => __( 'Nonce does not exist.', 'strong-testimonials' ) ) );
+		die();
+	}
+
 	if( !current_user_can('edit_posts') ){
 		wp_die();
 	}
-	$id = filter_input( INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT );
+	$id = filter_input( INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT );
 	$stickies = get_option( 'wpmtst_sticky_views', array() );
 	if ( in_array( $id, $stickies ) ) {
 		$stickies = array_diff( $stickies, array( $id ) );

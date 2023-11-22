@@ -35,8 +35,9 @@ jQuery(document).ready(function ($) {
     var data = {
       'action': 'wpmtst_add_recipient',
       'key': key,
+      'nonce': wpmtst_admin_form_script_nonce
     };
-    $.get(ajaxurl, data, function (response) {
+    $.post(ajaxurl, data, function (response) {
       $this.parent().before(response).prev().find('.admin_name').first().trigger('focus');
     });
   });

@@ -314,9 +314,10 @@ jQuery(document).ready(function ($) {
      */
     var data = {
       'action': 'wpmtst_view_get_mode_description',
-      'mode': mode
+      'mode': mode,
+      'nonce' : wpmtst_admin_views_script_nonce
     };
-    $.get(ajaxurl, data, function (response) {
+    $.post(ajaxurl, data, function (response) {
       if (response) {
         modeDesc.html(response);
       }
@@ -628,9 +629,10 @@ jQuery(document).ready(function ($) {
       $('input.forced').removeProp('disabled').removeClass('forced');
       var data = {
         'action': 'wpmtst_force_check',
-        'template': template
+        'template': template,
+        'nonce' : wpmtst_admin_views_script_nonce
       };
-      $.get(ajaxurl, data, function (response) {
+      $.post(ajaxurl, data, function (response) {
         if (response.success) {
           var arrayLength, $el, inputName;
           arrayLength = response.data.length;
@@ -877,8 +879,9 @@ jQuery(document).ready(function ($) {
     var data = {
       'action': 'wpmtst_get_background_preset_colors',
       'key': preset,
+      'nonce' : wpmtst_admin_views_script_nonce
     };
-    $.get(ajaxurl, data, function (response) {
+    $.post(ajaxurl, data, function (response) {
       var presetObj = JSON.parse(response);
       if (presetObj.color && presetObj.color2) {
         backgroundPreview.css(constructGradientCSS(presetObj.color, presetObj.color2));
@@ -943,9 +946,10 @@ jQuery(document).ready(function ($) {
     var data = {
       'action': 'wpmtst_view_add_field',
       'key': nextKey,
-      'source': $(this).attr('source')
+      'source': $(this).attr('source'),
+      'nonce' : wpmtst_admin_views_script_nonce
     };
-    $.get(ajaxurl, data, function (response) {
+    $.post(ajaxurl, data, function (response) {
       $.when(customFieldList.append(response)).then(function () {
         var $newField = customFieldList.find('#field-' + nextKey);
         $newField
@@ -976,9 +980,10 @@ jQuery(document).ready(function ($) {
           'fieldName': fieldName,
           'fieldType': fieldType,
           'key': key,
-          'source': $('#add-field').attr('source')
+          'source': $('#add-field').attr('source'),
+          'nonce' : wpmtst_admin_views_script_nonce
         };
-        $.get(ajaxurl, data, function (response) {
+        $.post(ajaxurl, data, function (response) {
           // insert into placeholder div
           $elParent.find('.field-property-box').html(response);
 
@@ -994,8 +999,9 @@ jQuery(document).ready(function ($) {
           var data2 = {
             'action': 'wpmtst_view_get_label',
             'name': fieldName,
+            'nonce' : wpmtst_admin_views_script_nonce
           };
-          $.get(ajaxurl, data2, function (response) {
+          $.post(ajaxurl, data2, function (response) {
             // 	var key = $elParent.attr("id").split('-').slice(-1)[0];
             $('#view-fieldtext' + key + '-label').val(response);
           });
@@ -1008,9 +1014,10 @@ jQuery(document).ready(function ($) {
         data = {
           'action': 'wpmtst_view_add_field_date',
           'key': key,
-          'source': $('#add-field').attr('source')
+          'source': $('#add-field').attr('source'),
+          'nonce' : wpmtst_admin_views_script_nonce
         };
-        $.get(ajaxurl, data, function (response) {
+        $.post(ajaxurl, data, function (response) {
           // insert into placeholder div
           $elParent.find('.field-property-box').html(response);
         });
@@ -1023,9 +1030,10 @@ jQuery(document).ready(function ($) {
           'fieldName': fieldName,
           'fieldType': fieldType,
           'key': key,
-          'source': $('#add-field').attr('source')
+          'source': $('#add-field').attr('source'),
+          'nonce' : wpmtst_admin_views_script_nonce
         };
-        $.get(ajaxurl, data, function (response) {
+        $.post(ajaxurl, data, function (response) {
           // insert into placeholder div
           $elParent.find('.field-property-box').html(response);
         });
@@ -1040,7 +1048,7 @@ jQuery(document).ready(function ($) {
           'source'   : $('#add-field').attr('source'),
           'nonce'    : wpmtst_admin_views_script_nonce
         };
-        $.get(ajaxurl, data, function (response) {
+        $.post(ajaxurl, data, function (response) {
           // insert into placeholder div
           $elParent.find('.field-property-box').html(response);
         });
@@ -1078,8 +1086,9 @@ jQuery(document).ready(function ($) {
         'action': 'wpmtst_view_get_label',
         'name': fieldValue,
         'key': key,
+        'nonce' : wpmtst_admin_views_script_nonce
       };
-      $.get(ajaxurl, data, function (response) {
+      $.post(ajaxurl, data, function (response) {
         if (response) {
 		  $elParent.find('.field-description').html(response);
 
@@ -1105,8 +1114,9 @@ jQuery(document).ready(function ($) {
         data = {
           'action': 'wpmtst_view_add_field_date',
           'key': key,
+          'nonce': wpmtst_admin_views_script_nonce
         };
-        $.get(ajaxurl, data, function (response) {
+        $.post(ajaxurl, data, function (response) {
           // Insert into placeholder div. Add hidden field because we are
           // disabling the <select> so its value will not be submitted.
           $elParent.find('.field-property-box').html(response); // .find("input").trigger('focus');
@@ -1121,8 +1131,9 @@ jQuery(document).ready(function ($) {
         var data2 = {
           'action': 'wpmtst_view_get_label',
           'name': fieldName,
+          'nonce'    : wpmtst_admin_views_script_nonce,
         };
-        $.get(ajaxurl, data2, function (response) {
+        $.post(ajaxurl, data2, function (response) {
           var key = $elParent.attr('id').split('-').slice(-1)[0];
           $('#view-fieldtext' + key + '-label').val(response);
         });
@@ -1140,7 +1151,7 @@ jQuery(document).ready(function ($) {
           'source'   : $('#add-field').attr('source'),
           'nonce'    : wpmtst_admin_views_script_nonce
         };
-        $.get(ajaxurl, data3, function (response) {
+        $.post(ajaxurl, data3, function (response) {
           // insert into placeholder div
           $elParent.find('.field-property-box').html(response);
         });
@@ -1167,9 +1178,10 @@ jQuery(document).ready(function ($) {
             'fieldName': fieldName,
             'fieldType': fieldType,
             'key': key,
-            'source': source
+            'source': source,
+            'nonce' : wpmtst_admin_views_script_nonce
           };
-          $.get(ajaxurl, data, function (response) {
+          $.post(ajaxurl, data, function (response) {
             // insert into placeholder div
             $elParent.find('.field-property-box').html(response);
           });
@@ -1366,10 +1378,11 @@ jQuery(document).ready(function ($) {
    */
   $('#restore-default-breakpoints').on('click', function (e) {
     var data = {
-      'action': 'wpmtst_restore_default_breakpoints'
+      'action': 'wpmtst_restore_default_breakpoints',
+      'nonce'    : wpmtst_admin_views_script_nonce
     };
 
-    $.get(ajaxurl, data, function (response) {
+    $.post(ajaxurl, data, function (response) {
 
       var object = JSON.parse(response);
       var targetId;
