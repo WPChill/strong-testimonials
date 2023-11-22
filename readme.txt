@@ -207,7 +207,7 @@ No. If you already have testimonials in another plugin or theme, you will have t
 
 == Changelog ==
 = 3.1.11 - 22.11.2023 -
-- Fixed: Security vulnerability
+- Fixed: Vulnerability fix
 
 = 3.1.10 - 21.11.2023 -
 - Added: Filter to modify admin notification method's form options( [#422](https://github.com/WPChill/strong-testimonials/issues/422) )
