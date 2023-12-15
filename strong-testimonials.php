@@ -298,7 +298,7 @@ if ( ! class_exists( 'Strong_Testimonials' ) ) :
 		 * @since 1.21.0
 		 */
 		private function includes() {
-			require_once WPMTST_INC . '/logs/class-strong-testimonials-logger.php';
+			require_once WPMTST_INC . 'logs/class-strong-testimonials-logger.php';
 			require_once WPMTST_INC . 'class-strong-log.php';
 
 			require_once WPMTST_INC . 'class-strong-testimonials-privacy.php';

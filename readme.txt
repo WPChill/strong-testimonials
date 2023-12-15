@@ -206,6 +206,9 @@ No. If you already have testimonials in another plugin or theme, you will have t
 8. View editor
 
 == Changelog ==
+= 3.1.12 - TBD -
+- Fixed: Failed opening of logger class file. ( [#429](https://github.com/WPChill/strong-testimonials/issues/429) )
+
 = 3.1.11 - 22.11.2023 -
 - Fixed: Vulnerability fix
 
