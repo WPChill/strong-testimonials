@@ -1,5 +1,5 @@
 === Strong Testimonials ===
-Contributors: wpchill,silkalns,cdillon27
+Contributors: wpchill,silkalns,cdillon27,giucu91
 Tags: testimonials, testimonial slider, testimonial form, star ratings
 Requires at least: 5.2
 Requires PHP: 5.6
