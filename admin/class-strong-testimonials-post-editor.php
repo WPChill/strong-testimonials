@@ -331,7 +331,13 @@ class Strong_Testimonials_Post_Editor {
 
 			// Data Sanitizationva
 			if ( isset($custom_fields[ $key ]['input_type']) && 'text' == $custom_fields[ $key ]['input_type'] ) {
-				$sanitized_value = wp_filter_post_kses( $value );
+				// Define the allowed HTML tags and their attributes
+				$allowed_html = array(
+					'p'      => array( 'style' => array(), ),
+					'strong' => array( 'style' => array(), ),
+					'span'   => array( 'style' => array(), ),
+				);
+				$sanitized_value = wp_kses( $value, $allowed_html );
 			}elseif ( isset($custom_fields[ $key ]['input_type']) && 'email' == $custom_fields[ $key ]['input_type'] ) {
 				$sanitized_value = sanitize_email( $value );
 			}elseif ( isset($custom_fields[ $key ]['input_type']) && 'url' == $custom_fields[ $key ]['input_type'] ) {
