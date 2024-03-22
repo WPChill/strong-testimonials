@@ -100,6 +100,7 @@ module.exports = function( grunt ) {
           '!postcss.config.js',
           '!webpack.config.js',
           '!**.zip',
+          '!SECURITY.md',
           '!nbproject/**' ],
         dest: 'build/'
       }
