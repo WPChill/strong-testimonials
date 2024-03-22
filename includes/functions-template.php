@@ -410,7 +410,7 @@ function wpmtst_the_custom_field( $field ) {
 						}
 
                                                 if ( !empty($noopener) || !empty($nofollow) || !empty($noreferrer) ) {
-                                                    $rel = sprintf( ' rel="%s %s %s"', $nofollow, $noopener, $noreferrer);
+                                                    $rel = sprintf( ' rel="%s %s %s"', esc_attr( $nofollow ), esc_attr( $noopener ), esc_attr( $noreferrer ) );
                                                 } else {
                                                     $rel = '';
                                                 }
@@ -419,8 +419,7 @@ function wpmtst_the_custom_field( $field ) {
 						if ( ! $text || is_array( $text ) ) {
 							$text = preg_replace( '(^https?://)', '', $url );
 						}
-
-						$output = sprintf( '<a href="%s"%s%s>%s</a>', $url, $newtab, $rel, $text );
+						$output = sprintf( '<a href="%s"%s%s>%s</a>', esc_url( $url ), $newtab, $rel, wp_kses_post( $text ) );
 					}
 
 				}

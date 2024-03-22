@@ -5,7 +5,7 @@
  * Description: Collect and display your testimonials or reviews.
  * Author: WPChill
  * Author URI: https://wpchill.com/
- * Version: 3.1.11
+ * Version: 3.1.12
  * Text Domain: strong-testimonials
  * Domain Path: /languages
  * Requires: 4.6 or higher
@@ -45,7 +45,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'WPMTST_VERSION', '3.1.11' );
+define( 'WPMTST_VERSION', '3.1.12' );
 
 define( 'WPMTST_PLUGIN', plugin_basename( __FILE__ ) ); // strong-testimonials/strong-testimonials.php
 define( 'WPMTST', dirname( WPMTST_PLUGIN ) );           // strong-testimonials
@@ -298,7 +298,7 @@ if ( ! class_exists( 'Strong_Testimonials' ) ) :
 		 * @since 1.21.0
 		 */
 		private function includes() {
-			require_once WPMTST_INC . '/logs/class-strong-testimonials-logger.php';
+			require_once WPMTST_INC . 'logs/class-strong-testimonials-logger.php';
 			require_once WPMTST_INC . 'class-strong-log.php';
 
 			require_once WPMTST_INC . 'class-strong-testimonials-privacy.php';
