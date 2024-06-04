@@ -748,8 +748,9 @@ function wpmtst_save_view_sticky() {
 		die();
 	}
 
-	if( !current_user_can('edit_posts') ){
-		wp_die();
+	if ( ! current_user_can( 'strong_testimonials_views' ) ) {
+		wp_send_json_error( array( 'message' => __( 'You are not authorized to modify this value.', 'strong-testimonials' ) ) );
+		die();
 	}
 	$id = filter_input( INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT );
 	$stickies = get_option( 'wpmtst_sticky_views', array() );
