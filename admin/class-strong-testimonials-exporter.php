@@ -37,8 +37,10 @@ class Strong_Testimonials_Exporter {
 		global $wpdb;
 
 		if ( isset( $this->args['content'] ) && 'wpm-testimonial' === $this->args['content'] ) {
-
-			$attachments = $wpdb->get_results( "SELECT ID, guid, post_parent FROM {$wpdb->posts} WHERE post_type = 'attachment'", OBJECT_K );
+	
+			$attachments = $wpdb->get_results( $wpdb->prepare(
+				"SELECT ID, guid, post_parent FROM {$wpdb->posts} WHERE post_type = %s", 'attachment'
+			), OBJECT_K );
 			if ( empty( $attachments ) ) {
 				return $query;
 			}
@@ -48,10 +50,15 @@ class Strong_Testimonials_Exporter {
 			// get attachments who are post thumbnails
 			$posts = $wpdb->get_col( $query );
 			if ( $posts ) {
-				$ids = $wpdb->get_col( sprintf( "SELECT meta_value FROM {$wpdb->postmeta} WHERE meta_key = '_thumbnail_id' AND post_id IN(%s)", implode( ',', $posts ) ) );
+				$placeholders = implode( ',', array_fill( 0, count( $posts ), '%d' ) );
+				$sql = $wpdb->prepare(
+					"SELECT meta_value FROM {$wpdb->postmeta} WHERE meta_key = %s AND post_id IN($placeholders)",
+					array_merge( array( '_thumbnail_id' ), $posts )
+				);
+				$ids = $wpdb->get_col( $sql );
 			}
-
-			// get atachments who have a post parent.
+	
+			// get attachments who have a post parent.
 			foreach ( $attachments as $id => $att ) {
 				if ( in_array( $att->post_parent, $posts ) ) {
 					$ids[] = $id;
@@ -67,8 +74,9 @@ class Strong_Testimonials_Exporter {
 				// replace INNER JOIN with LEFT JOIN.
 				$query = str_replace( "SELECT ID FROM {$wpdb->posts} INNER JOIN {$wpdb->term_relationships} ", "SELECT ID FROM {$wpdb->posts} LEFT JOIN {$wpdb->term_relationships} ", $query );
 			}
-			$query .= sprintf( " OR {$wpdb->posts}.ID IN (%s) ", implode( ',', $ids ) );
-
+			$placeholders = implode( ',', array_fill( 0, count( $ids ), '%d' ) );
+			$query .= $wpdb->prepare( " OR {$wpdb->posts}.ID IN ($placeholders) ", $ids );
+	
 		}
 		return $query;
 	}
