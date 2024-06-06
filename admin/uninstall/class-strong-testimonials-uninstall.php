@@ -92,7 +92,7 @@ class Strong_Testimonials_Uninstall {
                         $after_input  = '</strong>';
                     }
 
-                    echo ' <p class="st-uninstall-options-checkbox" ><input type="checkbox" name="' . esc_attr( $key ) . ' " id="' . esc_attr( $key ) . '" value="' . esc_attr( $key ) . '"> <label for="' . esc_attr( $key ) . '">' . wp_kses_post( $before_input ) . esc_attr( $option['label'] ) . wp_kses_post( $after_input ) . '</label></p><p class="description">' . esc_html( $option['description'] ) . '</p>'; // phpcs:ignore $before_input, $after_input OK
+                    echo ' <p class="st-uninstall-options-checkbox" ><input type="checkbox" name="st-' . esc_attr( $key ) . ' " id="st-' . esc_attr( $key ) . '" value="' . esc_attr( $key ) . '"> <label for="st-' . esc_attr( $key ) . '">' . wp_kses_post( $before_input ) . esc_attr( $option['label'] ) . wp_kses_post( $after_input ) . '</label></p><p class="description">' . esc_html( $option['description'] ) . '</p>'; // phpcs:ignore $before_input, $after_input OK
 
                 }
                 ?>

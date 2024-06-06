@@ -2,19 +2,19 @@ jQuery(document).ready(function ($) {
     var uninstall     = $("a.uninstall-st"),
         formContainer = $('#st-uninstall-form');
 
-    formContainer.on('click', '#delete_all', function () {
-        if ( $('#delete_all').is(':checked') ) {
-            $('#delete_options').prop('checked', true);
-            $('#delete_transients').prop('checked', true);
-            $('#delete_cpt').prop('checked', true);
-            $('#delete_st_tables').prop('checked', true);
-            $('#delete_terms').prop('checked', true);
+    formContainer.on('click', '#st-delete_all', function () {
+        if ( $('#st-delete_all').is(':checked') ) {
+            $('#st-delete_options').prop('checked', true);
+            $('#st-delete_transients').prop('checked', true);
+            $('#st-delete_cpt').prop('checked', true);
+            $('#st-delete_st_tables').prop('checked', true);
+            $('#st-delete_terms').prop('checked', true);
         } else {
-            $('#delete_options').prop('checked', false);
-            $('#delete_transients').prop('checked', false);
-            $('#delete_cpt').prop('checked', false);
-            $('#delete_st_tables').prop('checked', false);
-            $('#delete_terms').prop('checked', false);
+            $('#st-delete_options').prop('checked', false);
+            $('#st-delete_transients').prop('checked', false);
+            $('#st-delete_cpt').prop('checked', false);
+            $('#st-delete_st_tables').prop('checked', false);
+            $('#st-delete_terms').prop('checked', false);
         }
     });
 
@@ -26,11 +26,11 @@ jQuery(document).ready(function ($) {
         formContainer.on('click', '#st-uninstall-submit-form', function (e) {
             formContainer.addClass('toggle-spinner');
             var selectedOptions = {
-                delete_options: ($('#delete_options').is(':checked')) ? 1 : 0,
-                delete_transients: ($('#delete_transients').is(':checked')) ? 1 : 0,
-                delete_cpt: ($('#delete_cpt').is(':checked')) ? 1 : 0,
-                delete_st_tables: ($('#delete_st_tables').is(':checked')) ? 1 : 0,
-                delete_terms : ($('#delete_terms').is(':checked')) ? 1 : 0,
+                delete_options: ($('#st-delete_options').is(':checked')) ? 1 : 0,
+                delete_transients: ($('#st-delete_transients').is(':checked')) ? 1 : 0,
+                delete_cpt: ($('#st-delete_cpt').is(':checked')) ? 1 : 0,
+                delete_st_tables: ($('#st-delete_st_tables').is(':checked')) ? 1 : 0,
+                delete_terms : ($('#st-delete_terms').is(':checked')) ? 1 : 0,
             };
 
             var data = {
