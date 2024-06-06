@@ -92,7 +92,7 @@ class Strong_Testimonials_Uninstall {
                         $after_input  = '</strong>';
                     }
 
-                    echo ' <p class="st-uninstall-options-checkbox" ><input type="checkbox" name="' . esc_attr( $key ) . ' " id="' . esc_attr( $key ) . '" value="' . esc_attr( $key ) . '"> <label for="' . esc_attr( $key ) . '">' . wp_kses_post( $before_input ) . esc_attr( $option['label'] ) . wp_kses_post( $after_input ) . '</label></p><p class="description">' . esc_html( $option['description'] ) . '</p>'; // phpcs:ignore $before_input, $after_input OK
+                    echo ' <p class="st-uninstall-options-checkbox" ><input type="checkbox" name="st-' . esc_attr( $key ) . ' " id="st-' . esc_attr( $key ) . '" value="' . esc_attr( $key ) . '"> <label for="st-' . esc_attr( $key ) . '">' . wp_kses_post( $before_input ) . esc_attr( $option['label'] ) . wp_kses_post( $after_input ) . '</label></p><p class="description">' . esc_html( $option['description'] ) . '</p>'; // phpcs:ignore $before_input, $after_input OK
 
                 }
                 ?>
@@ -186,17 +186,29 @@ class Strong_Testimonials_Uninstall {
         // Delete custom post type
         if ( '1' == $uninstall_option['delete_cpt'] ) {
 
-            $post_types   = apply_filters( 'st_uninstall_post_types', array( 'wpm-testimonial' ) );
-            $testimonials = get_posts( array( 'post_type' => $post_types, 'posts_per_page' => -1, 'fields' => 'ids' ) );
+            $post_types = apply_filters('st_uninstall_post_types', array('wpm-testimonial'));
+            $testimonials = get_posts(array('post_type' => $post_types, 'posts_per_page' => -1, 'fields' => 'ids'));
 
-            if ( is_array( $testimonials ) && !empty( $testimonials ) ) {
+            if (is_array($testimonials) && !empty($testimonials)) {
 
-                $id_in = implode( ',', $testimonials );
+                // Pregătește stringul de placeholderi și array-ul de valori
+                $placeholders = array_fill(0, count($testimonials), '%d');
+                $placeholders_string = implode(',', $placeholders);
 
-                $sql      = $wpdb->prepare( "DELETE FROM  $wpdb->posts WHERE ID IN ( $id_in )" );
-                $sql_meta = $wpdb->prepare( "DELETE FROM  $wpdb->postmeta WHERE post_id IN ( $id_in )" );
-                $wpdb->query( $sql );
-                $wpdb->query( $sql_meta );
+                // Construiește interogările SQL folosind placeholderii și array-ul de valori
+                $sql = $wpdb->prepare(
+                    "DELETE FROM $wpdb->posts WHERE ID IN ($placeholders_string)",
+                    ...$testimonials
+                );
+
+                $sql_meta = $wpdb->prepare(
+                    "DELETE FROM $wpdb->postmeta WHERE post_id IN ($placeholders_string)",
+                    ...$testimonials
+                );
+
+                // Execută interogările
+                $wpdb->query($sql);
+                $wpdb->query($sql_meta);
             }
         }
 
