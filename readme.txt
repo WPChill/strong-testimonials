@@ -206,8 +206,9 @@ No. If you already have testimonials in another plugin or theme, you will have t
 8. View editor
 
 == Changelog ==
-= 3.1.14 - TBD  -
+= 3.1.14 - 06.06.2024  -
 - Fixed: Security fix
+- Fixed: Uninstall functionality conflict with other plugins ( [#445](https://github.com/WPChill/strong-testimonials/issues/445) )
 
 = 3.1.13 - 22.04.2024  -
 - Fixed: Security issue
