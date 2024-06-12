@@ -219,7 +219,7 @@ class Strong_Testimonials_Admin_Scripts {
 
 		$params = array(
 			'ajax_nonce'     => wp_create_nonce( 'wpmtst-admin' ),
-			'requiredField'  => esc_html( 'This field is required.', 'strong-testimonials' ),
+			'requiredField'  => esc_html__( 'This field is required.', 'strong-testimonials' ),
 			'errorMessage'   => esc_html__( 'An error occurred, please try again.', 'strong-testimonials' ),
 			'restoreDefault' => esc_html__( 'Restore the default settings?', 'strong-testimonials' ),
 		);

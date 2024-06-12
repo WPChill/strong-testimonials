@@ -191,7 +191,7 @@ class Strong_Testimonials_Page_Shortcodes {
 					<td class="has-inner">
 						<table class="inner" cellpadding="0" cellspacing="0">
 							<tr>
-								<td class="shortcode">&#91;testimonial_average_rating&#93;{stars}<?php esc_html( 'Our average rating is ', 'strong-testimonials' ); ?> &lt;b&gt;{summary2}&lt;/b&gt;&#91;/testimonial_average_rating&#93;</td>
+								<td class="shortcode">&#91;testimonial_average_rating&#93;{stars}<?php esc_html_e( 'Our average rating is ', 'strong-testimonials' ); ?> &lt;b&gt;{summary2}&lt;/b&gt;&#91;/testimonial_average_rating&#93;</td>
 							</tr>
 							<tr>
 								<td>
