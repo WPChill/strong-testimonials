@@ -29,7 +29,7 @@ function wpmtst_views_admin() {
 		<?php
 		if ( isset( $_REQUEST['result'] ) ) {
 
-			$result = filter_input( INPUT_GET, 'result', FILTER_SANITIZE_STRING );
+			$result = isset( $_GET['action'] ) ? sanitize_text_field( wp_unslash( $_GET['action'] ) ) : false;
 
 			$result_messages = array(
 				'cancelled'         => esc_html__( 'Changes cancelled.', 'strong-testimonials' ),
