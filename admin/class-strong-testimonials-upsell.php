@@ -46,77 +46,77 @@ class Strong_Testimonials_Upsell {
 			$this->wpchill_upsells = $wpchill_upsell;
 		}
 
-        if ( ! defined( 'WPMTST_ROLE_MANAGEMENT_VERSION' )  ||  $this->is_upgradable_addon( 'strong-testimonials-role-management' ) ) {
+        if ( $this->is_upgradable_addon( 'strong-testimonials-role-management' ) ) {
             add_action( 'wpmtst_settings_tabs', array( $this, 'register_role_manager' ), 4, 2 );
             add_filter( 'wpmtst_settings_callbacks', array( $this, 'register_rm_settings_page' ) );
             add_filter( 'wpmtst_general_upsell_items', array( $this, 'add_role_upsell' ), 20 );
         }
 
-        if ( ! defined( 'WPMTST_COUNTRY_SELECTOR_VERSION' )  ||  $this->is_upgradable_addon( 'strong-testimonials-contry-selector' ) ) {
+        if ( $this->is_upgradable_addon( 'strong-testimonials-contry-selector' ) ) {
         	add_action( 'wpmtst_after_form_type_selection', array( $this, 'output_country_selector_upsell' ) );
         	add_filter( 'wpmtst_general_upsell_items', array( $this, 'add_country_selector_upsell' ), 95 );
         }
 
-        if ( ! defined( 'WPMTST_CUSTOM_FIELDS_VERSION' )  ||  $this->is_upgradable_addon( 'strong-testimonials-custom-fields' ) ) {
+        if ( $this->is_upgradable_addon( 'strong-testimonials-custom-fields' ) ) {
         	add_action( 'wpmtst_after_form_type_selection', array( $this, 'output_custom_fields_upsell' ) );
         	add_filter( 'wpmtst_general_upsell_items', array( $this, 'add_custom_fields_upsell' ), 90 );
         }
 
-        if ( ! defined( 'WPMTST_MULTIPLE_FORMS_VERSION' ) || $this->is_upgradable_addon( 'strong-testimonials-multiple-forms' )  ) {
+        if ( $this->is_upgradable_addon( 'strong-testimonials-multiple-forms' )  ) {
         	add_action( 'wpmtst_before_fields_settings', array( $this, 'output_multiple_form_upsell' ) );
         	add_filter( 'wpmtst_general_upsell_items', array( $this, 'add_multiple_form_upsell' ), 30 );
         }
 
-        if ( ! defined( 'WPMTST_REVIEW_MARKUP_VERSION' )  ||  $this->is_upgradable_addon( 'strong-testimonials-review-markup' ) ) {
+        if ( $this->is_upgradable_addon( 'strong-testimonials-review-markup' ) ) {
         	add_action( 'wpmtst_view_editor_after_groups', array( $this, 'output_review_markup_upsell' ) );
         	add_filter( 'wpmtst_general_upsell_items', array( $this, 'add_review_markup_upsell' ), 15 );
         	add_action( 'wpmtst_settings_tabs', array( $this, 'register_review_markup' ), 4, 2 );
         	add_filter( 'wpmtst_settings_callbacks', array( $this, 'register_review_markup_settings_page' ) );
         }
 
-        if ( ! defined( 'WPMTST_ADVANCED_VIEWS_VERSION' ) || $this->is_upgradable_addon( 'strong-testimonials-advanced-views' ) ) {
+        if ( $this->is_upgradable_addon( 'strong-testimonials-advanced-views' ) ) {
         	add_action( 'wpmtst_view_editor_after_group_select', array( $this, 'output_advanced_views_upsell' ) );
         	add_filter( 'wpmtst_general_upsell_items', array( $this, 'add_advanced_views_upsell' ), 35 );
         }
 
-        if ( ! defined( 'WPMTST_CAPTCHA_VERSION' )  ||  $this->is_upgradable_addon( 'strong-testimonials-captcha' ) ) {
+        if ( $this->is_upgradable_addon( 'strong-testimonials-captcha' ) ) {
         	add_action( 'wpmtst_fields_before_fields_editor_preview', array( $this, 'output_captcha_editor_upsell' ) );
         	add_action( 'wpmtst_after_form_settings', array( $this, 'output_captcha_form_settings_upsell' ) );
         	add_filter( 'wpmtst_general_upsell_items', array( $this, 'add_captcha_upsell' ), 40 );
         }
 
-        if ( ! defined( 'WPMTST_PRO_TEMPLATES_VERSION' ) ||  $this->is_upgradable_addon( 'strong-testimonials-pro-templates' )) {
+        if ( $this->is_upgradable_addon( 'strong-testimonials-pro-templates' )) {
         	add_action( 'wpmtst_views_after_template_list', array( $this, 'output_pro_templates_upsell' ) );
         	add_filter( 'wpmtst_general_upsell_items', array( $this, 'add_pro_templates_upsell' ), 20 );
         }
 
-        if ( ! defined( 'WPMTST_EMAILS_VERSION' ) ||  $this->is_upgradable_addon( 'strong-testimonials-emails' )) {
+        if ( $this->is_upgradable_addon( 'strong-testimonials-emails' )) {
         	add_action( 'wpmtst_after_mail_notification_settings', array( $this, 'output_enhanced_emails_upsell' ) );
         	add_filter( 'wpmtst_general_upsell_items', array( $this, 'add_enhanced_emails_upsell' ), 45 );
         }
 
-        if ( ! defined( 'WPMTST_INFINITE_SCROLL_VERSION' ) ||  $this->is_upgradable_addon( 'strong-testimonials-infinite-scroll' )) {
+        if ( $this->is_upgradable_addon( 'strong-testimonials-infinite-scroll' )) {
         	add_action( 'wpmtst_view_editor_pagination_row_end', array( $this, 'output_infinite_scroll_upsell' ) );
         	add_filter( 'wpmtst_general_upsell_items', array( $this, 'add_infinite_scroll_upsell' ), 50 );
         }
 
-        if ( ! defined( 'WPMTST_FILTERS_VERSION' ) ||  $this->is_upgradable_addon( 'strong-testimonials-filters' ) ) {
+        if ( $this->is_upgradable_addon( 'strong-testimonials-filters' ) ) {
         	add_action( 'wpmtst_after_style_view_section', array( $this, 'output_filters_upsell' ) );
         	add_filter( 'wpmtst_general_upsell_items', array( $this, 'add_filters_upsell' ), 15 );
         }
 
-        if ( ! defined( 'WPMTST_PRO_VERSION' ) ) {
+        if ( $this->is_upgradable_addon( 'strong-testimonials-pro' ) ) {
         	add_action( 'wpmtst_settings_tabs', array( $this, 'register_st_pro_tab' ), 4, 2 );
             add_filter( 'wpmtst_settings_callbacks', array( $this, 'register_st_pro_page' ) );
             add_filter( 'wpmtst_general_upsell_items', array( $this, 'add_pro_upsell' ), 10 );
         }
 
-        if ( ! defined( 'WPMTST_ASSIGNMENT_VERSION' )  ||  $this->is_upgradable_addon( 'strong-testimonials-assignment' ) ) {
+        if ( $this->is_upgradable_addon( 'strong-testimonials-assignment' ) ) {
         	add_action( 'wpmtst_settings_tabs', array( $this, 'register_assigment_tab' ), 4, 2 );
             add_filter( 'wpmtst_settings_callbacks', array( $this, 'register_assigment_settings_page' ) );
         }
 
-        if ( ! defined( 'WPMTST_PROPERTIES_VERSION' )  ||  $this->is_upgradable_addon( 'strong-testimonials-properties' ) ) {
+        if ( $this->is_upgradable_addon( 'strong-testimonials-properties' ) ) {
         	add_action( 'wpmtst_settings_tabs', array( $this, 'register_properties_tab' ), 4, 2 );
             add_filter( 'wpmtst_settings_callbacks', array( $this, 'register_properties_page' ) );
         }
@@ -134,7 +134,7 @@ class Strong_Testimonials_Upsell {
 
 	public function add_meta_boxes() {
 
-		if ( ! defined( 'WPMTST_IMPORTER_VERSION' ) ) {
+		if ( $this->is_upgradable_addon( 'strong-testimonials-imports' ) ) {
 			
 			// remove "submitdiv" metabox so we can add it back in desired order.
 			$post_type = 'wpm-testimonial';
