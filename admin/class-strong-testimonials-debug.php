@@ -223,7 +223,7 @@ class Strong_Testimonials_Debug {
 	/**
 	 * Default hidden debug metabox
 	 *
-	 * @since 2.7.7
+	 * @since 3.1.15
 	 */
 	public function hide_meta_box( $hidden, $screen ) {
 		$user_id = get_current_user_id();
@@ -231,11 +231,10 @@ class Strong_Testimonials_Debug {
 			return $hidden;
 		}
 	
-		// Obține toate meta datele utilizatorului
 		$user_meta = get_user_meta( $user_id, 'metaboxhidden_wpm-testimonial', true );
 
 		//make sure we are dealing with the correct screen
-		if ( ( 'post' === $screen->base ) && ( 'wpm-testimonial' === $screen->id ) && in_array( 'wpmtst-debug', $user_meta) ) {
+		if ( ( 'post' === $screen->base ) && ( 'wpm-testimonial' === $screen->id ) && in_array( 'wpmtst-debug', $user_meta ) ) {
 			$hidden[] = 'wpmtst-debug';
 		}
 
@@ -245,7 +244,7 @@ class Strong_Testimonials_Debug {
 	/**
 	 * Output the Debug testimonial metabox
 	 *
-	 * @since 2.4.0
+	 * @since 3.1.15
 	 */
 	public function output_debug_meta(){
 		?>
