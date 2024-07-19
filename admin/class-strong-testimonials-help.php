@@ -116,19 +116,19 @@ class Strong_Testimonials_Help {
 		ob_start();
 		?>
 		<div>
-			<p><?php echo wp_kses_post( _e( 'Optional shortcode attributes will override the view settings. Use this to create reusable view <strong>patterns</strong>.', 'strong-testimonials' ) ); ?>
-			<p><?php echo wp_kses_post( _e( 'Overridable settings: <code>post_ids</code>, <code>category</code>, <code>order</code>, <code>count</code>.', 'strong-testimonials' ) ); ?>
-			<p><?php echo wp_kses_post( esc_html_e( 'For example, imagine you have five services, a sales page for each service, and a testimonial category for each service. To display the testimonials on each service page, you can create five duplicate views, one for each category.', 'strong-testimonials' ) ); ?>
-			<p><?php echo wp_kses_post( _e( 'Or you can configure one view as a pattern and add it to each service page with the <code>category</code> attribute.', 'strong-testimonials' ) ); ?>
+			<p><?php echo wp_kses_post( __( 'Optional shortcode attributes will override the view settings. Use this to create reusable view <strong>patterns</strong>.', 'strong-testimonials' ) ); ?>
+			<p><?php echo wp_kses_post( __( 'Overridable settings: <code>post_ids</code>, <code>category</code>, <code>order</code>, <code>count</code>.', 'strong-testimonials' ) ); ?>
+			<p><?php echo wp_kses_post( esc_html__( 'For example, imagine you have five services, a sales page for each service, and a testimonial category for each service. To display the testimonials on each service page, you can create five duplicate views, one for each category.', 'strong-testimonials' ) ); ?>
+			<p><?php echo wp_kses_post( __( 'Or you can configure one view as a pattern and add it to each service page with the <code>category</code> attribute.', 'strong-testimonials' ) ); ?>
 			<p>
 				<?php echo wp_kses_post( '<code>[testimonial_view id="1" category="service-1"]</code>' ); ?>,
 				<?php echo wp_kses_post( '<code>[testimonial_view id="1" category="service-2"]</code>' ); ?>, etc.
 			</p>
 			<p>
-				<?php echo wp_kses_post( esc_html_e( 'Attributes may be used in combination. For example:', 'strong-testimonials' ) ); ?>
+				<?php echo wp_kses_post( esc_html__( 'Attributes may be used in combination. For example:', 'strong-testimonials' ) ); ?>
 				<?php echo wp_kses_post( '<code>[testimonial_view id="1" category="service-3" order="random" count="5"]</code>' ); ?>
 			</p>
-			<p><?php echo wp_kses_post( _e( 'Using <code>post_ids</code> is the most specific method and it will override category and count (whether settings or attributes).', 'strong-testimonials' ) ); ?></p>
+			<p><?php echo wp_kses_post( __( 'Using <code>post_ids</code> is the most specific method and it will override category and count (whether settings or attributes).', 'strong-testimonials' ) ); ?></p>
 		</div>
 		<?php
 		$content = ob_get_clean();
