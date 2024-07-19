@@ -1,6 +1,7 @@
 = 3.1.15 - TBD  -
 - Fixed: Read more link on testimonials under the word count cap. ( [#451](https://github.com/WPChill/strong-testimonials/issues/451) )
 - Fixed: Deprecated FILTER_SANITIZE_STRING notices. ( [#457](https://github.com/WPChill/strong-testimonials/issues/457) )
+- Added: Debugging testimonial metabox ( [#458](https://github.com/WPChill/strong-testimonials/issues/458) )
 
 = 3.1.14 - 06.06.2024  -
 - Fixed: Security fix

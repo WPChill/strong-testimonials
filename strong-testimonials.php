@@ -396,6 +396,9 @@ if ( ! class_exists( 'Strong_Testimonials' ) ) :
 
 				// WPMTST Onboarding
 				require_once WPMTST_ADMIN . 'class-strong-testimonials-onboarding.php';
+				
+				// WPMTST Debuging
+				require_once WPMTST_ADMIN . 'class-strong-testimonials-debug.php';
 			}
 		}
 
