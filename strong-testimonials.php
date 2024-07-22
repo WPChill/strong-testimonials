@@ -193,10 +193,8 @@ if ( ! class_exists( 'Strong_Testimonials' ) ) :
 			wpmtst_register_cpt();
 			flush_rewrite_rules();
 
-			if ( class_exists( 'Strong_Testimonials_Welcome' ) ) {
-				new Strong_Testimonials_Welcome();
-				do_action( 'wpmtst_after_update_setup', $first_install );
-			}
+			do_action( 'wpmtst_after_update_setup', $first_install );
+
 			if ( class_exists( 'Strong_Testimonials_Master_License_Activator' ) ) {
 				$license = new Strong_Testimonials_Master_License_Activator();
 				if ( method_exists( $license, 'get_installed_extensions' ) ) {
@@ -352,7 +350,6 @@ if ( ! class_exists( 'Strong_Testimonials' ) ) :
 				require_once WPMTST_ADMIN . 'settings/class-strong-testimonials-advanced-settings.php';
 				require_once WPMTST_ADMIN . 'settings/class-strong-testimonials-form.php';
 
-				require_once WPMTST_ADMIN . 'about/class-strong-testimonials-welcome.php';
 				require_once WPMTST_ADMIN . 'class-strong-testimonials-addons.php';
 				require_once WPMTST_ADMIN . 'class-strong-testimonials-defaults.php';
 				require_once WPMTST_ADMIN . 'class-strong-testimonials-list-table.php';
