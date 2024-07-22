@@ -358,7 +358,7 @@ class Strong_View {
 	 * @return array
 	 */
 	public function get_template_css_class() {
-		$template_name     = $this->get_att( 'template' );
+		$template_name     = isset( $this->atts[ 'template' ] ) ? $this->atts[ 'template' ] : '';
         $template_settings = $this->get_att( 'template_settings' );
 
 		// Maintain back-compat with template format version 1.0.

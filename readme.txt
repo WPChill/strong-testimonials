@@ -212,6 +212,7 @@ No. If you already have testimonials in another plugin or theme, you will have t
 - Added: Debugging testimonial metabox ( [#458](https://github.com/WPChill/strong-testimonials/issues/458) )
 - Changed: Admin addons upsells only show up if not included in license ( [#454](https://github.com/WPChill/strong-testimonials/issues/454) )
 - Fixed: Error log warning when "Show Gravatar" option is selected and no gravatar found. ( [#434](https://github.com/WPChill/strong-testimonials/issues/434) )
+- Fixed: Display of undefined notices ( [#431](https://github.com/WPChill/strong-testimonials/issues/431) )
 
 = 3.1.14 - 06.06.2024  -
 - Fixed: Security fix

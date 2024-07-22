@@ -102,11 +102,11 @@ class Strong_View_Form extends Strong_View {
 		// If we cannot preprocess, add the inline style to the footer.
 		add_action( 'wp_footer', array( $this, 'add_custom_style' ) );
 
-		$form_values = array( 'category' => $this->atts['category'] );
+		$form_values = isset( $this->atts['category'] ) ? array( 'category' => $this->atts['category'] ) : array();
 
-		$fields = wpmtst_get_form_fields( $this->atts['form_id'] );
+		$fields = isset( $this->atts['form_id'] ) ? wpmtst_get_form_fields( $this->atts['form_id'] ) : false;
 		if ( $fields ) {
-			foreach ( $fields as $key => $field ) {
+			foreach ( $fields as $field ) {
 				$form_values[ $field['name'] ] = '';
 			}
 		}
@@ -173,14 +173,14 @@ class Strong_View_Form extends Strong_View {
 	 */
 	public function build_classes() {
 
-		$container_class_list = array( 'strong-view-id-' . $this->atts['view'] );
+		$container_class_list = isset( $this->atts['view'] ) ? array( 'strong-view-id-' . $this->atts['view'] ) : array();
 		$container_class_list = array_merge( $container_class_list, $this->get_template_css_class() );
 
 		if ( is_rtl() ) {
 			$container_class_list[] = 'rtl';
 		}
 
-		if ( $this->atts['class'] ) {
+		if ( isset( $this->atts['class'] ) && $this->atts['class'] ) {
 			$container_class_list[] = $this->atts['class'];
 		}
 
@@ -247,7 +247,7 @@ class Strong_View_Form extends Strong_View {
 			'fields' => $fields,
 		);
 
-		if ( $this->atts['form_ajax'] ) {
+		if ( isset( $this->atts['form_ajax'] ) && $this->atts['form_ajax'] ) {
 			$args['ajaxUrl'] = admin_url( 'admin-ajax.php' );
 		}
 
