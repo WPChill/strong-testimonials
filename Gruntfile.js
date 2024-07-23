@@ -11,6 +11,37 @@ module.exports = function( grunt ) {
       css: '/assets/css',
       js: '/assets/js'
     },
+		// Generate POT files.
+		makepot: {
+			options: {
+				type: 'wp-plugin',
+				domainPath: 'languages',
+				potHeaders: {
+					'report-msgid-bugs-to': 'https://github.com/strong-testimonials/strong-testimonials/issues',
+					'language-team': 'LANGUAGE <EMAIL@ADDRESS>'
+				}
+			},
+			frontend: {
+				options: {
+					potFilename: 'strong-testimonials.pot',
+					exclude: [
+						'node_modules/.*',
+						'tests/.*',
+						'tmp/.*'
+					],
+					processPot: function ( pot ) {
+						return pot;
+					}
+				}
+			}
+		},
+
+		po2mo: {
+			files: {
+				src: '<%= dirs.lang %>/*.po',
+				expand: true
+			}
+		},
     checktextdomain: {
       standard: {
         options: {
