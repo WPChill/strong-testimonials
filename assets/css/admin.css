@@ -875,14 +875,15 @@ a.wpmtst-onboarding-button {
 	line-height: 43px;
 	color: #fff;
 	text-decoration: none;
-	background: #219962;
+	background: #E84855;
 	border-radius: 100px;
 	padding: 15px 45px;
 }
 
 a.wpmtst-onboarding-button:hover {
-  background: #1A7A4E;
-  color: #fff;
+  background-color: #98c1d9;
+  color: #293241;
+  border-color: #f3f4f7;
 }
 
 .wpmtst-onboarding-button-wrap {
@@ -907,7 +908,7 @@ p.wpmtst-onboarding-doc a:hover {
 
 p.wpmtst-onboarding-doc > a {
     text-decoration: none;
-    color: #219962;
+    color: #E84855;
 }
 
 /* Toggles */
