@@ -437,22 +437,28 @@ class Strong_View {
 		}
 
 		$c1 = isset( $font_color['color'] ) ? $font_color['color'] : '';
-
+		$css = "";
 		if ( $c1 ) {
 			$view_el = ".strong-view-id-{$this->get_att( 'view' )}";
 			$handle = $this->get_stylesheet();
 
 			if ( $this->is_form() ) {
-				wp_add_inline_style( $handle,
-				                     "$view_el .strong-form-inner { color: $c1; }" );
+				$css .= "$view_el .strong-form-inner { color: $c1; }";
 			}
 			else {
-				wp_add_inline_style( $handle,
-				                     "$view_el .wpmtst-testimonial-heading," .
-				                     "$view_el .wpmtst-testimonial-content p," .
-				                     "$view_el .wpmtst-testimonial-content a.readmore," .
-				                     "$view_el .wpmtst-testimonial-client div," .
-				                     "$view_el .wpmtst-testimonial-client a { color: $c1; }" );
+				$css .= "$view_el .wpmtst-testimonial-heading," .
+						"$view_el .wpmtst-testimonial-content p," .
+						"$view_el .wpmtst-testimonial-content span," .
+						"$view_el .wpmtst-testimonial-content a.readmore," .
+						"$view_el .wpmtst-testimonial-inner .wpmtst-testimonial-field," . 
+						"$view_el .wpmtst-testimonial-inner .wpmtst-testimonial-field a," . 
+						"$view_el .wpmtst-testimonial-client div," .
+						"$view_el .wpmtst-testimonial-client a { color: $c1; }";
+			}
+			if ( wp_style_is( $handle, 'done' ) ) {
+				echo '<style type="text/css" id="wpmtst-view-custom-style">' . $css . '</style>';
+			} else {
+				wp_add_inline_style( $handle, $css );
 			}
 		}
 	}
