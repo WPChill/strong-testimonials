@@ -450,6 +450,8 @@ class Strong_View {
 						"$view_el .wpmtst-testimonial-content p," .
 						"$view_el .wpmtst-testimonial-content span," .
 						"$view_el .wpmtst-testimonial-content a.readmore," .
+						"$view_el .wpmtst-testimonial-content div.readmore-content," .
+						"$view_el .wpmtst-testimonial-content div.readmore-excerpt," .
 						"$view_el .wpmtst-testimonial-inner .wpmtst-testimonial-field," . 
 						"$view_el .wpmtst-testimonial-inner .wpmtst-testimonial-field a," . 
 						"$view_el .wpmtst-testimonial-client div," .
