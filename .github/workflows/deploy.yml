@@ -9,7 +9,8 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@master
-            
+            - name: Checkout submodules
+              run: git submodule update --init --recursive
             - name: Strong Testimonials Deploy
               uses: 10up/action-wordpress-plugin-deploy@stable
               env:
