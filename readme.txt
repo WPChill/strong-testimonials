@@ -1,15 +1,17 @@
 === Strong Testimonials ===
 Contributors: wpchill,silkalns,cdillon27,giucu91
-Tags: testimonials, testimonial slider, testimonial form, star ratings, reviews
+Tags: testimonials, testimonial slider, testimonial form, star ratings
 Requires at least: 5.2
 Requires PHP: 5.6
 Tested up to: 6.6
-Stable tag: 3.1.14
+Stable tag: 3.1.15
+License: GPLv3 or later
+License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
-License: GNU General Public License v3.0 or later
-Collect user testimonials and promote your businees using thie simple, yet powerful, very customizable, developer-friendly WordPress plugin.
+Simple yet powerful. Very customizable. Developer-friendly.
 
 == Description ==
+
 In just a few steps, you will be collecting and publishing your testimonials or reviews. Beginners and pros alike will appreciate the wealth of flexible features refined over the years from user feedback and requests.
 
 = SEE HOW EASY IT IS TO GET STARTED WITH STRONG TESTIMONIALS =
@@ -197,11 +199,21 @@ No. If you already have testimonials in another plugin or theme, you will have t
 8. View editor
 
 == Changelog ==
-= 3.1.14 - 06.06.2024  -
+= 3.1.15 - 13.08.2024 -
+- Fixed: Read more link on testimonials under the word count cap. ( [#451](https://github.com/WPChill/strong-testimonials/issues/451) )
+- Fixed: Deprecated FILTER_SANITIZE_STRING notices. ( [#457](https://github.com/WPChill/strong-testimonials/issues/457) )
+- Added: Debugging testimonial metabox ( [#458](https://github.com/WPChill/strong-testimonials/issues/458) )
+- Changed: Admin addons upsells only show up if not included in license ( [#454](https://github.com/WPChill/strong-testimonials/issues/454) )
+- Fixed: Error log warning when "Show Gravatar" option is selected and no gravatar found. ( [#434](https://github.com/WPChill/strong-testimonials/issues/434) )
+- Fixed: Display of undefined notices ( [#431](https://github.com/WPChill/strong-testimonials/issues/431) )
+- Changed: Removed Welcome Page ( [#455](https://github.com/WPChill/strong-testimonials/issues/455) )
+- Added: Font color tp custom fields text also. ( [#463](https://github.com/WPChill/strong-testimonials/issues/463) )
+
+= 3.1.14 - 06.06.2024 -
 - Fixed: Security fix
 - Fixed: Uninstall functionality conflict with other plugins ( [#445](https://github.com/WPChill/strong-testimonials/issues/445) )
 
-= 3.1.13 - 22.04.2024  -
+= 3.1.13 - 22.04.2024 -
 - Fixed: Security issue
 
 = 3.1.12 - 22.03.2024 -

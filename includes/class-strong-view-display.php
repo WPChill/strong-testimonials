@@ -56,11 +56,13 @@ class Strong_View_Display extends Strong_View {
 	 * @return mixed
 	 */
 	public function query_pagination( $args ) {
-		if ( $this->atts['pagination'] && 'standard' == $this->atts['pagination_settings']['type'] ) {
-			// Limit is not compatible with standard pagination.
-			$this->atts['count'] = -1;
-			$args['posts_per_page'] = $this->atts['pagination_settings']['per_page'];
-			$args['paged']          = wpmtst_get_paged();
+		if( isset( $this->atts['pagination'] ) && isset( $this->atts['pagination_settings'] ) && isset( $this->atts['pagination_settings']['type'] ) ){
+			if ( $this->atts['pagination'] && 'standard' == $this->atts['pagination_settings']['type'] ) {
+				// Limit is not compatible with standard pagination.
+				$this->atts['count'] = -1;
+				$args['posts_per_page'] = $this->atts['pagination_settings']['per_page'];
+				$args['paged']          = wpmtst_get_paged();
+			}
 		}
 
 		return $args;
@@ -74,11 +76,14 @@ class Strong_View_Display extends Strong_View {
 	 * @return mixed
 	 */
 	public function query_infinitescroll( $args ) {
-		if ( $this->atts['pagination'] && in_array($this->atts['pagination_settings']['type'], array('infinitescroll', 'loadmore')) && $this->atts['mode'] != 'slideshow') {
-			// Limit is not compatible with standard pagination.
-			$this->atts['count'] = -1;
-			$args['posts_per_page'] = $this->atts['pagination_settings']['per_page'];
-			$args['paged']          = wpmtst_get_paged();
+
+		if( isset( $this->atts['pagination'] ) && isset( $this->atts['pagination_settings'] ) && isset( $this->atts['pagination_settings']['type'] ) && isset( $this->atts['mode'] ) ){
+			if ( $this->atts['pagination'] && in_array($this->atts['pagination_settings']['type'], array('infinitescroll', 'loadmore')) && $this->atts['mode'] != 'slideshow') {
+				// Limit is not compatible with standard pagination.
+				$this->atts['count'] = -1;
+				$args['posts_per_page'] = $this->atts['pagination_settings']['per_page'];
+				$args['paged']          = wpmtst_get_paged();
+			}
 		}
 
 		return $args;
@@ -142,7 +147,7 @@ class Strong_View_Display extends Strong_View {
 		 * Add actions.
 		 */
 		// Standard pagination
-		if ( $this->atts['pagination'] && 'standard' == $this->atts['pagination_settings']['type'] ) {
+		if ( isset( $this->atts['pagination'] ) && $this->atts['pagination'] && 'standard' == $this->atts['pagination_settings']['type'] ) {
 			if ( false !== strpos( $this->atts['pagination_settings']['nav'], 'before' ) ) {
 				add_action( 'wpmtst_view_header', 'wpmtst_standard_pagination' );
 			}
@@ -152,7 +157,9 @@ class Strong_View_Display extends Strong_View {
 		}
                 
 		// Read more page
-		add_action( $this->atts['more_page_hook'], 'wpmtst_read_more_page' );
+		if( isset( $this->atts['more_page_hook'] ) ){
+			add_action( $this->atts['more_page_hook'], 'wpmtst_read_more_page' );
+		}
 
 		/**
 		 * Locate template.
@@ -204,7 +211,9 @@ class Strong_View_Display extends Strong_View {
 		/**
 		 * Remove actions.
 		 */
-		remove_action( $this->atts['more_page_hook'], 'wpmtst_read_more_page' );
+		if( isset( $this->atts['more_page_hook'] ) ){
+			remove_action( $this->atts['more_page_hook'], 'wpmtst_read_more_page' );
+		}
 		remove_action( 'wpmtst_view_header', 'wpmtst_standard_pagination' );
 		remove_action( 'wpmtst_view_footer', 'wpmtst_standard_pagination' );
 
@@ -222,7 +231,7 @@ class Strong_View_Display extends Strong_View {
 	 * Build our query.
 	 */
 	public function build_query() {
-		$ids = explode( ',', $this->atts['id'] );
+		$ids = isset( $this->atts['id'] ) ? explode( ',', $this->atts['id'] ) : false;
 
 		$args = array(
 			'post_type'   => 'wpm-testimonial',
@@ -233,10 +242,10 @@ class Strong_View_Display extends Strong_View {
 		$args = apply_filters( 'wpmtst_build_query', $args );
 
 		// id's override category
-		if ( $this->atts['id'] ) {
+		if ( isset( $this->atts['id'] ) && $this->atts['id'] ) {
 			$args['post__in'] = $ids;
 		}
-		elseif ( $this->atts['category'] ) {
+		elseif ( isset( $this->atts['category'] ) && $this->atts['category'] ) {
 			$categories        = apply_filters( 'wpmtst_l10n_cats', explode( ',', $this->atts['category'] ) );
 			$args['tax_query'] = array(
 				array(
@@ -249,13 +258,13 @@ class Strong_View_Display extends Strong_View {
 
 		// order by
 		// TODO improve for allowable custom order
-		if ( 'menu_order' == $this->atts['order'] ) {
+		if ( isset( $this->atts['order'] ) && 'menu_order' == $this->atts['order'] ) {
 			$args['orderby'] = 'menu_order';
 			$args['order']   = 'ASC';
 		}
 		else {
 			$args['orderby'] = 'post_date';
-			if ( 'newest' == $this->atts['order'] ) {
+			if ( isset( $this->atts['order'] ) && 'newest' == $this->atts['order'] ) {
 				$args['order'] = 'DESC';
 			}
 			else {
@@ -265,21 +274,23 @@ class Strong_View_Display extends Strong_View {
 
 		// For Post Types Order plugin
 		$args['ignore_custom_sort'] = true;
-                
-                if ( $this->atts['pagination'] && in_array($this->atts['pagination_settings']['type'], array('infinitescroll', 'loadmore')) ) {
-                    if (empty($this->atts['paged'])) {
-                        $this->atts['paged'] = 1;
-                    }
-                    $args['paged'] = $this->atts['paged'];
-                }
-                
+
+		if( isset( $this->atts['pagination'] ) && isset( $this->atts['pagination_settings'] ) && isset( $this->atts['pagination_settings']['type'] ) ){
+			if ( $this->atts['pagination'] && in_array( $this->atts['pagination_settings']['type'], array( 'infinitescroll', 'loadmore' ) ) ) {
+				if ( empty($this->atts['paged'] ) ) {
+					$this->atts['paged'] = 1;
+				}
+				$args['paged'] = $this->atts['paged'];
+			}
+		}
+
 		$query = new WP_Query( apply_filters( 'wpmtst_query_args', $args, $this->atts ) );
 		/**
 		 * Shuffle array in PHP instead of SQL.
 		 *
 		 * @since 1.16
 		 */
-		if ( 'random' == $this->atts['order'] ) {
+		if ( isset( $this->atts['order'] ) && 'random' == $this->atts['order'] ) {
                     $options = get_option( 'wpmtst_compat_options' );
                     if (isset($options['random_js']) && $options['random_js']) {
                         WPMST()->render->add_script( 'wpmtst-random' );
@@ -298,7 +309,7 @@ class Strong_View_Display extends Strong_View {
 		 *
 		 * @since 1.16.1
 		 */
-		if ( $this->atts['count'] > 0 ) {
+		if ( isset( $this->atts['count'] ) && $this->atts['count'] > 0 ) {
 			$count                = min( $this->atts['count'], count( $query->posts ) );
 			$query->posts         = array_slice( $query->posts, 0, $count );
 			$query->post_count    = $count;
@@ -318,14 +329,14 @@ class Strong_View_Display extends Strong_View {
 	 * TODO DRY
 	 */
 	public function build_classes() {
-		$container_class_list = array( 'strong-view-id-' . $this->atts['view'] );
+		$container_class_list = isset( $this->atts['view'] ) ? array( 'strong-view-id-' . $this->atts['view'] ) : array();
 		$container_class_list = array_merge( $container_class_list, $this->get_template_css_class() );
 
 		if ( is_rtl() ) {
 			$container_class_list[] = 'rtl';
 		}
 
-		if ( $this->atts['class'] ) {
+		if ( isset( $this->atts['class'] ) && $this->atts['class'] ) {
 			$container_class_list[] = $this->atts['class'];
 		}
 
@@ -337,7 +348,7 @@ class Strong_View_Display extends Strong_View {
 
 		$post_class_list = array( 'wpmtst-testimonial testimonial' );
 
-		if ( 'excerpt' == $this->atts['content'] ) {
+		if ( isset( $this->atts['content'] ) && 'excerpt' == $this->atts['content'] ) {
 			$post_class_list[] = 'excerpt';
 		}
 
@@ -357,8 +368,8 @@ class Strong_View_Display extends Strong_View {
 		}
 
 		// layouts
-		$content_class_list[] = 'strong-' . ( $this->atts['layout'] ? $this->atts['layout'] : 'normal' );
-		$content_class_list[] = 'columns-' . ( $this->atts['layout'] ? $this->atts['column_count'] : '1' );
+		$content_class_list[] = 'strong-' . ( isset( $this->atts['layout'] ) && $this->atts['layout'] ? $this->atts['layout'] : 'normal' );
+		$content_class_list[] = 'columns-' . ( isset( $this->atts['layout'] ) && $this->atts['layout'] ? $this->atts['column_count'] : '1' );
 
 		/**
 		 * Filter classes.
@@ -382,29 +393,38 @@ class Strong_View_Display extends Strong_View {
 	 * @return bool
 	 */
 	public function is_paginated() {
-		return ( $this->atts['pagination'] && 'simple' == $this->atts['pagination_settings']['type'] );
+		if( isset( $this->atts['pagination'] ) && isset( $this->atts['pagination_settings'] ) && isset( $this->atts['pagination_settings']['type'] ) ){
+			return ( $this->atts['pagination'] && 'simple' == $this->atts['pagination_settings']['type'] );
+		}
+		return false;
 	}
         
-        /**
+	/**
 	 * Return true if using infinitescroll pagination (JavaScript).
 	 *
 	 * @since 2.28.0
 	 *
 	 * @return bool
 	 */
-        public function is_infinitescroll() {
+	public function is_infinitescroll() {
+	if( isset( $this->atts['pagination'] ) && isset( $this->atts['pagination_settings'] ) && isset( $this->atts['pagination_settings']['type'] ) ){
 		return ( $this->atts['pagination'] && 'infinitescroll' == $this->atts['pagination_settings']['type'] );
 	}
+	return false;
+	}
         
-        /**
+	/**
 	 * Return true if using load more button pagination (JavaScript).
 	 *
 	 * @since 2.28.0
 	 *
 	 * @return bool
 	 */
-        public function is_loadmore() {
-		return ( $this->atts['pagination'] && 'loadmore' == $this->atts['pagination_settings']['type'] );
+	public function is_loadmore() {
+		if( isset( $this->atts['pagination'] ) && isset( $this->atts['pagination_settings'] ) && isset( $this->atts['pagination_settings']['type'] ) ){
+			return ( $this->atts['pagination'] && 'loadmore' == $this->atts['pagination_settings']['type'] );
+		}
+		return false;
 	}
 
 	/**
@@ -415,7 +435,7 @@ class Strong_View_Display extends Strong_View {
 	 * @return bool
 	 */
 	public function is_masonry() {
-		return ( 'masonry' == $this->atts['layout'] );
+		return ( isset( $this->atts['layout'] ) && 'masonry' == $this->atts['layout'] );
 	}
 
 	/**
@@ -500,13 +520,13 @@ class Strong_View_Display extends Strong_View {
 				WPMST()->render->add_style( 'wpmtst-masonry-style' );
 			}
 
-		} elseif ( 'columns' == $this->atts['layout'] ) {
+		} elseif ( isset( $this->atts['layout'] ) && 'columns' == $this->atts['layout'] ) {
 
 			if ( apply_filters( 'wpmtst_load_columns_style', true ) ) {
 				WPMST()->render->add_style( 'wpmtst-columns-style' );
 			}
 
-		} elseif ( 'grid' == $this->atts['layout'] ) {
+		} elseif ( isset( $this->atts['layout'] ) && 'grid' == $this->atts['layout'] ) {
 
 			if ( apply_filters( 'wpmtst_load_grid_style', true ) ) {
 				WPMST()->render->add_style( 'wpmtst-grid-style' );

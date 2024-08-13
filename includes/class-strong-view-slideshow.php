@@ -475,6 +475,9 @@ class Strong_View_Slideshow extends Strong_View_Display {
 			}
 		}
 
+		$args['nextUrl'] = __('next-slide', 'strong-testimonials');
+		$args['prevUrl'] = __('previous-slide', 'strong-testimonials');
+
 		return array( 'config' => apply_filters( 'wpmtst_slider_args', $args, $this->atts ) );
 	}
         

@@ -5,7 +5,7 @@
  * Description: Collect and display your testimonials or reviews.
  * Author: WPChill
  * Author URI: https://wpchill.com/
- * Version: 3.1.14
+ * Version: 3.1.15
  * Text Domain: strong-testimonials
  * Domain Path: /languages
  * Requires: 4.6 or higher
@@ -45,7 +45,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'WPMTST_VERSION', '3.1.14' );
+define( 'WPMTST_VERSION', '3.1.15' );
 
 define( 'WPMTST_PLUGIN', plugin_basename( __FILE__ ) ); // strong-testimonials/strong-testimonials.php
 define( 'WPMTST', dirname( WPMTST_PLUGIN ) );           // strong-testimonials
@@ -193,10 +193,8 @@ if ( ! class_exists( 'Strong_Testimonials' ) ) :
 			wpmtst_register_cpt();
 			flush_rewrite_rules();
 
-			if ( class_exists( 'Strong_Testimonials_Welcome' ) ) {
-				new Strong_Testimonials_Welcome();
-				do_action( 'wpmtst_after_update_setup', $first_install );
-			}
+			do_action( 'wpmtst_after_update_setup', $first_install );
+
 			if ( class_exists( 'Strong_Testimonials_Master_License_Activator' ) ) {
 				$license = new Strong_Testimonials_Master_License_Activator();
 				if ( method_exists( $license, 'get_installed_extensions' ) ) {
@@ -352,7 +350,6 @@ if ( ! class_exists( 'Strong_Testimonials' ) ) :
 				require_once WPMTST_ADMIN . 'settings/class-strong-testimonials-advanced-settings.php';
 				require_once WPMTST_ADMIN . 'settings/class-strong-testimonials-form.php';
 
-				require_once WPMTST_ADMIN . 'about/class-strong-testimonials-welcome.php';
 				require_once WPMTST_ADMIN . 'class-strong-testimonials-addons.php';
 				require_once WPMTST_ADMIN . 'class-strong-testimonials-defaults.php';
 				require_once WPMTST_ADMIN . 'class-strong-testimonials-list-table.php';
@@ -396,6 +393,9 @@ if ( ! class_exists( 'Strong_Testimonials' ) ) :
 
 				// WPMTST Onboarding
 				require_once WPMTST_ADMIN . 'class-strong-testimonials-onboarding.php';
+				
+				// WPMTST Debuging
+				require_once WPMTST_ADMIN . 'class-strong-testimonials-debug.php';
 			}
 		}
 
