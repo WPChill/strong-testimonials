@@ -1,19 +1,24 @@
 name: Strong Testimonials Deploy
+
 on:
-    push:
-        tags:
-            - '*'
+  push:
+    tags:
+      - '*'
+
 jobs:
-    tag:
-        name: New tag
-        runs-on: ubuntu-latest
-        steps:
-            - uses: actions/checkout@master
-            - name: Checkout submodules
-              run: git submodule update --init --recursive
-            - name: Strong Testimonials Deploy
-              uses: 10up/action-wordpress-plugin-deploy@stable
-              env:
-                  SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
-                  SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
-                  SLUG: strong-testimonials
+  tag:
+    name: New tag
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: true              # Inițializează și actualizează submodulele
+          token: ${{ secrets.GITHUB_TOKEN }}  # Folosește token-ul GitHub pentru autentificare
+          fetch-depth: 0                # Asigură că obții întreaga istorie Git
+
+      - name: Strong Testimonials Deploy
+        uses: 10up/action-wordpress-plugin-deploy@stable
+        env:
+          SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
+          SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
+          SLUG: strong-testimonials
