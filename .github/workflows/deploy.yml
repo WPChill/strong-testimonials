@@ -11,7 +11,7 @@ jobs:
             - uses: actions/checkout@master
               with:
                 submodules: 'recursive'
-                token: ${{ secrets.PAT_TOKEN }}
+                token: ${{ secrets.GITHUB_TOKEN }}
             - name: Strong Testimonials Deploy
               uses: 10up/action-wordpress-plugin-deploy@stable
               env:
