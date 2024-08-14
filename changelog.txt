@@ -1,3 +1,6 @@
+= 3.1.16 - 14.08.2024 -
+- Fixed: Missing submodule files.
+
 = 3.1.15 - 13.08.2024 -
 - Fixed: Read more link on testimonials under the word count cap. ( [#451](https://github.com/WPChill/strong-testimonials/issues/451) )
 - Fixed: Deprecated FILTER_SANITIZE_STRING notices. ( [#457](https://github.com/WPChill/strong-testimonials/issues/457) )
