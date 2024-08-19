@@ -8,10 +8,17 @@ jobs:
         name: New tag
         runs-on: ubuntu-latest
         steps:
-            - uses: actions/checkout@master
+            - name: Checkout code
+              uses: actions/checkout@v3
               with:
                 submodules: 'recursive'
                 token: ${{ secrets.GITHUB_TOKEN }}
+
+            - name: Update submodules
+              run: |
+                git config --global url."https://${{ secrets.ACCESS_TOKEN }}@github.com/".insteadOf "https://github.com/"
+                git submodule update --init --recursive
+
             - name: Strong Testimonials Deploy
               uses: 10up/action-wordpress-plugin-deploy@stable
               env:
