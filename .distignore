@@ -4,6 +4,7 @@
 bin
 node_modules
 tests
+scripts
 .distignore
 .editorconfig
 .gitignore
