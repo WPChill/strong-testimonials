@@ -231,7 +231,7 @@ class Strong_Testimonials_Debug {
 		$user_meta = get_user_meta( $user_id, 'metaboxhidden_wpm-testimonial', true );
 
 		//make sure we are dealing with the correct screen
-		if ( ( 'post' === $screen->base ) && ( 'wpm-testimonial' === $screen->id ) && is_array( $user_meta ) && in_array( 'wpmtst-debug', $user_meta ) ) {
+		if ( ( 'post' === $screen->base ) && ( 'wpm-testimonial' === $screen->id ) && is_array( $user_meta ) && in_array( 'wpmtst-debug', $user_meta, true ) ) {
 			$hidden[] = 'wpmtst-debug';
 		}
 

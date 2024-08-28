@@ -87,7 +87,7 @@ class Strong_Testimonials_Settings {
 
 	public static function submit_row() {
 		$tabs = array( 'general', 'form', 'licenses', 'compat' );
-		if ( in_array( self::get_tab(), $tabs ) ) {
+		if ( in_array( self::get_tab(), $tabs, true ) ) {
 			submit_button( '', 'primary', 'submit-form', false );
 		}
 	}

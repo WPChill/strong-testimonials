@@ -52,7 +52,7 @@ class Strong_Testimonials_Exporter {
 			$ids = array();
 
 			// get attachments who are post thumbnails
-			$posts = $wpdb->get_col( $query );
+			$posts = $wpdb->get_col( $query ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
 			if ( $posts ) {
 				$placeholders = implode( ',', array_fill( 0, count( $posts ), '%d' ) );
 				$sql          = $wpdb->prepare(
@@ -60,12 +60,12 @@ class Strong_Testimonials_Exporter {
 					"SELECT meta_value FROM {$wpdb->postmeta} WHERE meta_key = %s AND post_id IN($placeholders)",
 					array_merge( array( '_thumbnail_id' ), $posts )
 				);
-				$ids = $wpdb->get_col( $sql );
+				$ids = $wpdb->get_col( $sql ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
 			}
 
 			// get attachments who have a post parent.
 			foreach ( $attachments as $id => $att ) {
-				if ( in_array( $att->post_parent, $posts ) ) {
+				if ( in_array( $att->post_parent, $posts, true ) ) {
 					$ids[] = $id;
 				}
 			}
@@ -80,7 +80,7 @@ class Strong_Testimonials_Exporter {
 				$query = str_replace( "SELECT ID FROM {$wpdb->posts} INNER JOIN {$wpdb->term_relationships} ", "SELECT ID FROM {$wpdb->posts} LEFT JOIN {$wpdb->term_relationships} ", $query );
 			}
 			$placeholders = implode( ',', array_fill( 0, count( $ids ), '%d' ) );
-			// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+			// phpcs:ignore
 			$query .= $wpdb->prepare( " OR {$wpdb->posts}.ID IN ($placeholders) ", $ids );
 
 		}

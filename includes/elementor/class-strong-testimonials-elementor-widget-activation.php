@@ -79,7 +79,7 @@ class Strong_Testimonials_Elementor_Widget_Activation {
 
 	public function strong_testimonials_elementor_ajax_search() {
 
-		if ( isset( $_POST['action'] ) && 'strong_testimonials_elementor_ajax_search' == $_POST['action'] ) {
+		if ( isset( $_POST['action'] ) && 'strong_testimonials_elementor_ajax_search' === $_POST['action'] ) {
 			$galleries = wpmtst_unserialize_views( wpmtst_get_views() );
 
 			wp_send_json_success( $galleries );

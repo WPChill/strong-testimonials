@@ -216,12 +216,12 @@ class Strong_Testimonials_Uninstall {
                 // phpcs:disable WordPress.DB.PreparedSQL
 				// Build SQL queries using placeholders and values array
 				$sql = $wpdb->prepare(
-					"DELETE FROM $wpdb->posts WHERE ID IN ($placeholders_string)",
+					"DELETE FROM $wpdb->posts WHERE ID IN ($placeholders_string)", // phpcs:ignore
 					...$testimonials
 				);
 
 				$sql_meta = $wpdb->prepare(
-					"DELETE FROM $wpdb->postmeta WHERE post_id IN ($placeholders_string)",
+					"DELETE FROM $wpdb->postmeta WHERE post_id IN ($placeholders_string)", // phpcs:ignore
 					...$testimonials
 				);
 

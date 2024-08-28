@@ -92,7 +92,7 @@ class Strong_Testimonials_Admin_List {
 
 		// 3. insert [excerpt] after [title]
 		$key           = 'title';
-		$offset        = array_search( $key, array_keys( $columns ) ) + 1;
+		$offset        = array_search( $key, array_keys( $columns ), true ) + 1;
 		$fields_to_add = array( 'post_excerpt' => esc_html__( 'Excerpt', 'strong-testimonials' ) );
 
 		// 4. add custom fields

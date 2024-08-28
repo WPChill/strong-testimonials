@@ -80,7 +80,7 @@ class Strong_Testimonials_Settings_Compat {
 	public function sanitize_options( $input ) {
 		$input['page_loading'] = sanitize_text_field( $input['page_loading'] );
 
-		if ( 'general' == $input['page_loading'] ) {
+		if ( 'general' === $input['page_loading'] ) {
 			$input['prerender']      = 'all';
 			$input['ajax']['method'] = 'universal';
 		} else {

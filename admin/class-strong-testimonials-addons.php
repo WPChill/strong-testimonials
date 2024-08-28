@@ -228,6 +228,7 @@ class Strong_Testimonials_Addons {
 		$messages   = array(
 			'no-license'       => esc_html__( 'Enter your license key', 'strong-testimonials' ),
 			'activate-license' => esc_html__( 'Activate your license key', 'strong-testimonials' ),
+			// Translators: %s is the date until the license is active.
 			'all-good'         => __( 'Your license is active until <strong>%s</strong>', 'strong-testimonials' ),
 			'lifetime'         => __( 'You have a lifetime license.', 'strong-testimonials' ),
 			'expired'          => esc_html__( 'Your license has expired', 'strong-testimonials' ),
@@ -248,7 +249,7 @@ class Strong_Testimonials_Addons {
 			if ( 'lifetime' === $status->expires ) {
 				$license_message = $messages['lifetime'];
 			} else {
-				$license_expire = date( $date_format, strtotime( $status->expires ) );
+				$license_expire = date( $date_format, strtotime( $status->expires ) ); // phpcs:ignore WordPress.DateTime.RestrictedFunctions.date_date
 				$curr_time      = time();
 				// weeks till expiration
 				$weeks = (int) ( ( strtotime( $status->expires ) - $curr_time ) / ( 7 * 24 * 60 * 60 ) );

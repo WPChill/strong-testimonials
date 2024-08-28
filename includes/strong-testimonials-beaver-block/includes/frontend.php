@@ -5,7 +5,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 $view_id = $settings->strong_testimonials_view_select;
-if ( 'none' != $view_id ) {
+if ( 'none' !== $view_id ) {
 	echo do_shortcode( "[testimonial_view id='{$view_id}']" );
 
 } else {
