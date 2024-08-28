@@ -339,7 +339,7 @@ if ( ! class_exists( 'Strong_Testimonials_Master_License_Activator' ) ) {
 				delete_transient( 'strong_testimonials_licensed_extensions' );
 			}
 
-			return $new;
+			return $new_license;
 		}
 
 		/**
