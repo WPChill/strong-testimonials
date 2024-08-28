@@ -74,7 +74,11 @@ class Strong_Testimonials_View_Shortcode {
 				ob_start();
 				?>
 				<p style="color: #CD0000;">
-					<?php printf( esc_html__( 'Testimonial view %s not found.', 'strong-testimonials' ), esc_attr( $out['view'] ) ); ?><br>
+					<?php
+						// translators: %s is the placeholder for the testimonial view name or identifier.
+						printf( esc_html__( 'Testimonial view %s not found.', 'strong-testimonials' ), esc_attr( $out['view'] ) );
+					?>
+					<br>
 					<span style="color: #777; font-size: 0.9em;"><?php esc_html_e( '(Only administrators see this message.)', 'strong-testimonials' ); ?></span>
 				</p>
 				<?php
@@ -83,21 +87,21 @@ class Strong_Testimonials_View_Shortcode {
 		}
 
 		switch ( $out['mode'] ) {
-			case 'form' :
+			case 'form':
 				$view = new Strong_View_Form( $out );
-				if ( isset( $_GET['success'] ) && isset( $_GET['formid'] ) && $out['form_id'] == (int)$_GET['formid']) {
-				    $view->success();
+				if ( isset( $_GET['success'] ) && isset( $_GET['formid'] ) && $out['form_id'] === (int) $_GET['formid'] ) {
+					$view->success();
 				} else {
 					$view->build();
 				}
 				break;
-			case 'slideshow' :
+			case 'slideshow':
 				$view = new Strong_View_Slideshow( $out );
-		        $view->build();
+				$view->build();
 				break;
-			default :
+			default:
 				$view = new Strong_View_Display( $out );
-        		$view->build();
+				$view->build();
 		}
 
 		return $view->output();
@@ -136,5 +140,4 @@ class Strong_Testimonials_View_Shortcode {
 
 		return $shortcodes;
 	}
-
 }

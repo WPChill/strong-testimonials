@@ -7,11 +7,11 @@
 
 class Strong_Testimonials_View_Widget extends WP_Widget {
 
-	function __construct() {
+	public function __construct() {
 
-		$widget_ops = array(
+		$widget_ops  = array(
 			'classname'   => 'strong-testimonials-view-widget',
-			'description' => esc_html_x( 'Add one of your testimonial views.', 'widget description', 'strong-testimonials' )
+			'description' => esc_html_x( 'Add one of your testimonial views.', 'widget description', 'strong-testimonials' ),
 		);
 		$control_ops = array(
 			'id_base' => 'strong-testimonials-view-widget',
@@ -24,29 +24,29 @@ class Strong_Testimonials_View_Widget extends WP_Widget {
 		);
 
 		$this->defaults = array(
-			'title'   => esc_html_x( 'Testimonials', 'widget title', 'strong-testimonials' ),
-			'text'    => '',
-			'filter'  => 0,
-			'view'    => '0',
+			'title'  => esc_html_x( 'Testimonials', 'widget title', 'strong-testimonials' ),
+			'text'   => '',
+			'filter' => 0,
+			'view'   => '0',
 		);
-
 	}
 
-	function widget( $args, $instance ) {
+	public function widget( $args, $instance ) {
 		$data  = array_merge( $args, $instance );
 		$title = apply_filters( 'widget_title', empty( $data['title'] ) ? '' : $data['title'], $instance, $this->id_base );
 
 		$widget_text = ! empty( $data['text'] ) ? $data['text'] : '';
-		$text = apply_filters( 'widget_text', $widget_text, $data, $this );
+		$text        = apply_filters( 'widget_text', $widget_text, $data, $this );
 
 		echo $data['before_widget'];
 
-		if ( ! empty( $title ) )
+		if ( ! empty( $title ) ) {
 			echo $data['before_title'] . esc_html( $title ) . $data['after_title'];
+		}
 
 		if ( ! empty( $text ) ) {
 			?>
-			<div class="textwidget"><?php echo !empty( $data['filter'] ) ? wpautop( $text ) : $text; ?></div>
+			<div class="textwidget"><?php echo ! empty( $data['filter'] ) ? wpautop( $text ) : $text; ?></div>
 			<?php
 		}
 
@@ -66,11 +66,11 @@ class Strong_Testimonials_View_Widget extends WP_Widget {
 		echo $data['after_widget'];
 	}
 
-	function form( $instance ) {
+	public function form( $instance ) {
 		$instance = wp_parse_args( (array) $instance, $this->defaults );
-		$filter = isset( $instance['filter'] ) ? $instance['filter'] : 0;
-		$title = sanitize_text_field( $instance['title'] );
-		$views = wpmtst_get_views();
+		$filter   = isset( $instance['filter'] ) ? $instance['filter'] : 0;
+		$title    = sanitize_text_field( $instance['title'] );
+		$views    = wpmtst_get_views();
 		?>
 		<div class="wpmtst-widget-form">
 			<p>
@@ -78,14 +78,14 @@ class Strong_Testimonials_View_Widget extends WP_Widget {
 					<?php esc_html_e( 'Title:', 'strong-testimonials' ); ?>
 				</label>
 				<input class="widefat" type="text" id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"
-				       name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" value="<?php echo esc_attr( $title ); ?>">
+						name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" value="<?php echo esc_attr( $title ); ?>">
 			</p>
 			<p>
 				<label for="<?php echo esc_attr( $this->get_field_id( 'text' ) ); ?>"><?php esc_html_e( 'Content:', 'strong-testimonials' ); ?></label>
 				<textarea class="widefat" rows="8" id="<?php echo esc_attr( $this->get_field_id( 'text' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'text' ) ); ?>"><?php echo esc_textarea( $instance['text'] ); ?></textarea>
 			</p>
 			<p>
-				<input id="<?php echo esc_attr( $this->get_field_id('filter') ); ?>" name="<?php echo esc_attr( $this->get_field_name('filter') ); ?>" type="checkbox"<?php checked( $filter ); ?> />&nbsp;<label for="<?php echo esc_attr( $this->get_field_id('filter') ); ?>"><?php esc_html_e( 'Automatically add paragraphs to above Content only', 'strong-testimonials' ); ?></label>
+				<input id="<?php echo esc_attr( $this->get_field_id( 'filter' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'filter' ) ); ?>" type="checkbox"<?php checked( $filter ); ?> />&nbsp;<label for="<?php echo esc_attr( $this->get_field_id( 'filter' ) ); ?>"><?php esc_html_e( 'Automatically add paragraphs to above Content only', 'strong-testimonials' ); ?></label>
 			</p>
 			<p>
 				<label for="<?php echo esc_attr( $this->get_field_id( 'view' ) ); ?>">
@@ -104,20 +104,18 @@ class Strong_Testimonials_View_Widget extends WP_Widget {
 		<?php
 	}
 
-	function update( $new_instance, $old_instance ) {
-		$instance = $old_instance;
+	public function update( $new_instance, $old_instance ) {
+		$instance          = $old_instance;
 		$instance['title'] = sanitize_text_field( $new_instance['title'] );
 		if ( current_user_can( 'unfiltered_html' ) ) {
 			$instance['text'] = $new_instance['text'];
-		}
-		else {
+		} else {
 			$instance['text'] = wp_kses_post( stripslashes( $new_instance['text'] ) );
 		}
-		$instance['filter'] = !empty( $new_instance['filter'] );
+		$instance['filter'] = ! empty( $new_instance['filter'] );
 		$instance['view']   = sanitize_text_field( $new_instance['view'] );
 		return array_merge( $this->defaults, $instance );
 	}
-
 }
 
 

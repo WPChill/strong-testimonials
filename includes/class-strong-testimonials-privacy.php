@@ -20,7 +20,7 @@ class Strong_Testimonials_Privacy {
 	public function add_hooks() {
 		add_filter( 'wp_privacy_personal_data_exporters', array( $this, 'register_exporter' ) );
 		add_filter( 'wp_privacy_personal_data_erasers', array( $this, 'register_eraser' ) );
-        add_action( 'admin_init', array($this, 'wpmtst_register_privacy_policy_template') );
+		add_action( 'admin_init', array( $this, 'wpmtst_register_privacy_policy_template' ) );
 	}
 
 	/**
@@ -64,22 +64,22 @@ class Strong_Testimonials_Privacy {
 			$data = array();
 
 			foreach ( $post_meta as $key => $value ) {
-				$found = array_search( $email_address, $value );
+				$found = array_search( $email_address, $value, true );
 				if ( false !== $found ) {
 					$data = array(
-                        array(
-                            'name'  => 'Email',
-                            'value' => $value[ $found ],
-                        ),
-                        array(
-                            'name'  => 'Client Name',
-                            'value' => $post_meta['client_name'][0],
-                        ),
-                        array(
-                            'name'  => 'Company Name',
-                            'value' => $post_meta['company_name'][0],
-                        ),
-                    );
+						array(
+							'name'  => 'Email',
+							'value' => $value[ $found ],
+						),
+						array(
+							'name'  => 'Client Name',
+							'value' => $post_meta['client_name'][0],
+						),
+						array(
+							'name'  => 'Company Name',
+							'value' => $post_meta['company_name'][0],
+						),
+					);
 				}
 			}
 
@@ -91,7 +91,6 @@ class Strong_Testimonials_Privacy {
 					'data'        => $data,
 				);
 			}
-
 		}
 
 		// Tell core if we have more comments to work on still
@@ -127,16 +126,15 @@ class Strong_Testimonials_Privacy {
 		$testimonials = get_posts( $args );
 
 		foreach ( (array) $testimonials as $testimonial ) {
-            $post_meta = get_post_meta( $testimonial->ID );
+			$post_meta = get_post_meta( $testimonial->ID );
 
-            foreach ( $post_meta as $key => $value ) {
-                if ( in_array( $email_address, $value ) ) {
-                    //delete_post_meta( $testimonial->ID, $key, $email_address );
-                    wp_delete_post($testimonial->ID);
-                    $items_removed = true;
-                }
-            }
-
+			foreach ( $post_meta as $key => $value ) {
+				if ( in_array( $email_address, $value, true ) ) {
+					//delete_post_meta( $testimonial->ID, $key, $email_address );
+					wp_delete_post( $testimonial->ID );
+					$items_removed = true;
+				}
+			}
 		}
 
 		// Tell core if we have more comments to work on still
@@ -170,7 +168,7 @@ class Strong_Testimonials_Privacy {
 	 * @since 2.41.0
 	 * @return array
 	 */
-	function register_eraser( $erasers ) {
+	public function register_eraser( $erasers ) {
 		$erasers['strong-testimonials'] = array(
 			'eraser_friendly_name' => $this->get_friendly_name(),
 			'callback'             => array( $this, 'eraser' ),
@@ -178,21 +176,28 @@ class Strong_Testimonials_Privacy {
 
 		return $erasers;
 	}
-        
-    function wpmtst_register_privacy_policy_template() {
 
-        if ( ! function_exists( 'wp_add_privacy_policy_content' ) ) {
-                return;
-        }
+	public function wpmtst_register_privacy_policy_template() {
 
-        $content = wp_kses_post( apply_filters( 'wpmtst_privacy_policy_content', __( '
+		if ( ! function_exists( 'wp_add_privacy_policy_content' ) ) {
+				return;
+		}
+
+		$content = wp_kses_post(
+			apply_filters(
+				'wpmtst_privacy_policy_content',
+				__(
+					'
             We collect certain pieces of information about you when you fill one of our testimonial forms. This includes your full name, e-mail address, photo, company name, and website.           
             By agreeing to these terms, you also allow us to::
             - Send a confirmation e-mail, to let you know your testimonial was received and approved;
             - Send important account/ product/ service information;
-            - Set up and administer your account, provide technical/customer support, and verify your identity.', 'strong-testimonials' ) ) );
+            - Set up and administer your account, provide technical/customer support, and verify your identity.',
+					'strong-testimonials'
+				)
+			)
+		);
 
-        wp_add_privacy_policy_content( 'Strong Testimonial Privacy Policy', wpautop( $content ) );
-    }
-
+		wp_add_privacy_policy_content( 'Strong Testimonial Privacy Policy', wpautop( $content ) );
+	}
 }

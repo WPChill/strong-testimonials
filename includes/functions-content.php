@@ -11,7 +11,7 @@
  *
  * @return string
  */
-function wpmtst_the_content_filtered( $more_link_text = null, $strip_teaser = false) {
+function wpmtst_the_content_filtered( $more_link_text = null, $strip_teaser = false ) {
 	$content = get_the_content( $more_link_text, $strip_teaser );
 	$content = apply_filters( 'wpmtst_the_content', $content );
 	$content = str_replace( ']]>', ']]&gt;', $content );
@@ -82,17 +82,17 @@ function wpmtst_trim_excerpt( $excerpt = '' ) {
 	 */
 	$hybrid = apply_filters( 'wpmtst_is_hybrid_content', false );
 
-        $text = wpmtst_get_the_prepared_text();
-        $excerpt_length = 0;
-        $excerpt_more   = '';
-        
-        // Create excerpt if post has no manual excerpt.
-        if (empty($excerpt)) {
-            $excerpt_length = apply_filters( 'excerpt_length', 55 );
-            $excerpt_more   = apply_filters( 'excerpt_more', ' [&hellip;]' );
-        }
+		$text           = wpmtst_get_the_prepared_text();
+		$excerpt_length = 0;
+		$excerpt_more   = '';
 
-        $excerpt = wpmtst_trim_words( $text, $excerpt_length, $excerpt_more, $hybrid, $excerpt );
+		// Create excerpt if post has no manual excerpt.
+	if ( empty( $excerpt ) ) {
+		$excerpt_length = apply_filters( 'excerpt_length', 55 );
+		$excerpt_more   = apply_filters( 'excerpt_more', ' [&hellip;]' );
+	}
+
+		$excerpt = wpmtst_trim_words( $text, $excerpt_length, $excerpt_more, $hybrid, $excerpt );
 
 	/**
 	 * Filters the trimmed excerpt string.
@@ -113,9 +113,9 @@ function wpmtst_trim_excerpt( $excerpt = '' ) {
  */
 function wpmtst_get_the_prepared_text( $hybrid = false ) {
 	$text = get_the_content( '' );
-	
-	if(function_exists('et_core_is_builder_used_on_current_request') && et_core_is_builder_used_on_current_request()) {
-		$text = wp_strip_all_tags(et_strip_shortcodes($text), true);
+
+	if ( function_exists( 'et_core_is_builder_used_on_current_request' ) && et_core_is_builder_used_on_current_request() ) {
+		$text = wp_strip_all_tags( et_strip_shortcodes( $text ), true );
 	} elseif ( ! $hybrid ) {
 		$text = strip_shortcodes( $text );
 	}
@@ -136,21 +136,24 @@ function wpmtst_get_the_prepared_text( $hybrid = false ) {
 function wpmtst_get_excerpt_more_link() {
 	$url = apply_filters( 'wpmtst_read_more_post_url', get_permalink(), WPMST()->atts() );
 
-	$link_text = sprintf( '%s<span class="screen-reader-text"> "%s"</span>',
-		apply_filters( 'wpmtst_read_more_post_link_text', esc_html( WPMST()->atts( 'more_post_text' ) ), WPMST()->atts() ), get_the_title()
+	$link_text = sprintf(
+		'%s<span class="screen-reader-text"> "%s"</span>',
+		apply_filters( 'wpmtst_read_more_post_link_text', esc_html( WPMST()->atts( 'more_post_text' ) ), WPMST()->atts() ),
+		get_the_title()
 	);
 
 	$link_class = apply_filters( 'wpmtst_read_more_post_link_class', 'readmore' );
 
 	if ( apply_filters( 'wpmtst_is_hybrid_content', false ) ) {
-	    // no href
-	    $link = sprintf( '<a aria-expanded="false" aria-controls="more-%1$d" class="%2s readmore-toggle"><span class="readmore-text" data-more-text="%4$s" data-less-text="%5$s">%3$s</span></a>',
-		    get_the_ID(), // 1
-		    $link_class,  // 2
-		    $link_text,   // 3
-	        esc_attr( WPMST()->atts( 'more_post_text' ) ), // 4
-	        esc_attr( WPMST()->atts( 'less_post_text' ) ) // 5
-	    );
+		// no href
+		$link = sprintf(
+			'<a aria-expanded="false" aria-controls="more-%1$d" class="%2s readmore-toggle"><span class="readmore-text" data-more-text="%4$s" data-less-text="%5$s">%3$s</span></a>',
+			get_the_ID(), // 1
+			$link_class,  // 2
+			$link_text,   // 3
+			esc_attr( WPMST()->atts( 'more_post_text' ) ), // 4
+			esc_attr( WPMST()->atts( 'less_post_text' ) ) // 5
+		);
 	} else {
 		$link = sprintf( '<a href="%s" class="%s">%s</a>', esc_url( $url ), $link_class, $link_text );
 	}
@@ -173,12 +176,12 @@ function wpmtst_trim_words( $text, $num_words = 55, $more = null, $hybrid = fals
 		$more = __( '&hellip;', 'strong-testimonials' );
 	}
 
-	if (  WPMST()->atts( 'html_content' ) || !empty($excerpt) ) {
+	if ( WPMST()->atts( 'html_content' ) || ! empty( $excerpt ) ) {
 		$full_text = strip_tags( $text, '<p><br><img><b><strong><i><em><ul><ol><li><del><a><sup>' );
-	}else{
+	} else {
 		$full_text = strip_tags( $text );
 	}
-	
+
 	$text = strip_tags( $text );
 
 	/*
@@ -190,11 +193,11 @@ function wpmtst_trim_words( $text, $num_words = 55, $more = null, $hybrid = fals
 		$text = trim( preg_replace( "/[\n\r\t ]+/", ' ', $text ), ' ' );
 		preg_match_all( '/./u', $text, $words_array );
 		$words_array = array_slice( $words_array[0], 0, $num_words + 1 );
-		$sep = '';
+		$sep         = '';
 	} else {
-		$offset = $hybrid ? 0 : $num_words + 1;
+		$offset      = $hybrid ? 0 : $num_words + 1;
 		$words_array = preg_split( "/[\n\r\t ]+/", $text, $offset, PREG_SPLIT_NO_EMPTY );
-		$sep = ' ';
+		$sep         = ' ';
 	}
 
 	if ( count( $words_array ) > $num_words ) {
@@ -221,9 +224,9 @@ function wpmtst_trim_words( $text, $num_words = 55, $more = null, $hybrid = fals
  * @return string
  */
 function wpmtst_assemble_excerpt( $words_array, $sep, $more, $excerpt = '' ) {
-        if (!empty($excerpt)) {
-            return $excerpt;
-        }
+	if ( ! empty( $excerpt ) ) {
+		return $excerpt;
+	}
 	array_pop( $words_array );
 	$text = implode( $sep, $words_array );
 
@@ -265,6 +268,6 @@ function wpmtst_assemble_hybrid( $words_array, $num_words, $sep, $more, $full_te
 	$wrap_close_excerpt = ' </div>';
 	$first_half         = '<div style="display:inline;">' . wp_kses_post( $first_half ) . '</div>';
 
-	return $wrap_open_excerpt . $first_half . $ellipsis . ' ' . $wrap_close_excerpt . $wrap_open  . ' ' . $full_text . $wrap_close . $more;
+	return $wrap_open_excerpt . $first_half . $ellipsis . ' ' . $wrap_close_excerpt . $wrap_open . ' ' . $full_text . $wrap_close . $more;
 	/* ! This space is important:                                        ^                                                  */
 }

@@ -25,7 +25,6 @@ class Strong_Testimonials_Updater {
 	 * Strong_Testimonials_Updater constructor.
 	 */
 	public function __construct() {
-
 	}
 
 	/**
@@ -33,30 +32,27 @@ class Strong_Testimonials_Updater {
 	 *
 	 * @param        $name
 	 * @param string $entry
-	 * @param string $var
+	 * @param string $variable
 	 */
-	private static function log( $name, $entry = '', $var = '' ) {
+	private static function log( $name, $entry = '', $variable = '' ) {
 		if ( $name ) {
 			$x = $name;
 			if ( $entry ) {
 				$x .= ' : ' . $entry;
-				if ( $var ) {
+				if ( $variable ) {
 					$x .= ' = ';
-					if ( is_array( $var ) || is_object( $var ) ) {
+					if ( is_array( $variable ) || is_object( $variable ) ) {
 						// log the text
 						self::$new_log[] = $x;
 						// then log the variable
-						self::$new_log[] = $var;
+						self::$new_log[] = $variable;
+					} else {
+						self::$new_log[] = $x . $variable;
 					}
-					else {
-						self::$new_log[] = $x . $var;
-					}
-				}
-				else {
+				} else {
 					self::$new_log[] = $x;
 				}
-			}
-			else {
+			} else {
 				self::$new_log[] = $x;
 			}
 		}
@@ -149,10 +145,9 @@ class Strong_Testimonials_Updater {
 		if ( ! isset( $history['2.23.0_convert_nofollow'] ) ) {
 			self::convert_nofollow();
 			self::update_history_log( '2.23.0_convert_nofollow' );
-                        self::convert_noopener();
-                        self::convert_noreferrer();
+						self::convert_noopener();
+						self::convert_noreferrer();
 		}
-
 
 		/**
 		 * Legacy stuff.
@@ -247,8 +242,7 @@ class Strong_Testimonials_Updater {
 			$admins->add_cap( 'strong_testimonials_fields' );
 			$admins->add_cap( 'strong_testimonials_options' );
 			$admins->add_cap( 'strong_testimonials_about' );
-		}
-		else {
+		} else {
 			self::log( __FUNCTION__, 'failed' );
 		}
 	}
@@ -263,7 +257,8 @@ class Strong_Testimonials_Updater {
 	 * @since 2.27.1
 	 */
 	public static function remove_caps() {
-		if ( $admins = self::get_admins() ) {
+		$admins = self::get_admins();
+		if ( $admins ) {
 			$admins->remove_cap( 'strong_testimonials_views' );
 			$admins->remove_cap( 'strong_testimonials_fields' );
 			$admins->remove_cap( 'strong_testimonials_options' );
@@ -277,7 +272,7 @@ class Strong_Testimonials_Updater {
 	 * @since 1.21.0 Checking for new table version.
 	 */
 	public static function update_db_check() {
-		if ( get_option( 'wpmtst_db_version' ) != WPMST()->get_db_version() ) {
+		if ( get_option( 'wpmtst_db_version' ) !== WPMST()->get_db_version() ) {
 			wpmtst_update_tables();
 			self::log( __FUNCTION__, 'tables updated' );
 		}
@@ -349,7 +344,6 @@ class Strong_Testimonials_Updater {
 			if ( isset( $options['client_section'] ) ) {
 				unset( $options['client_section'] );
 			}
-
 		}
 
 		/**
@@ -424,7 +418,7 @@ class Strong_Testimonials_Updater {
 				 * Convert categories to category-selector.
 				 * @since 2.17.0
 				 */
-				if ( 'categories' == $form_field['input_type'] ) {
+				if ( 'categories' === $form_field['input_type'] ) {
 					$custom_forms[ $form_id ]['fields'][ $key ]['input_type'] = 'category-selector';
 				}
 
@@ -432,7 +426,7 @@ class Strong_Testimonials_Updater {
 				 * Unset `show_default_options` for rating field. Going from 0 to 1.
 				 * @since 2.21.0
 				 */
-				if ( 'rating' == $form_field['input_type'] ) {
+				if ( 'rating' === $form_field['input_type'] ) {
 					unset( $form_field['show_default_options'] );
 				}
 
@@ -440,7 +434,7 @@ class Strong_Testimonials_Updater {
 				 * Add `show_required_option` to shortcode field. Initial value is false.
 				 * @since 2.22.0
 				 */
-				if ( 'shortcode' == $form_field['input_type'] ) {
+				if ( 'shortcode' === $form_field['input_type'] ) {
 					$form_field['show_required_option'] = false;
 				}
 
@@ -449,7 +443,7 @@ class Strong_Testimonials_Updater {
 				 *
 				 * @since 2.27.0
 				 */
-				if ( 'checkbox' == $form_field['input_type'] ) {
+				if ( 'checkbox' === $form_field['input_type'] ) {
 					$form_field['show_default_options'] = 1;
 				}
 
@@ -463,7 +457,7 @@ class Strong_Testimonials_Updater {
 
 				foreach ( $fields['field_types'] as $field_type_group_key => $field_type_group ) {
 					foreach ( $field_type_group as $field_type_key => $field_type_field ) {
-						if ( $field_type_field['input_type'] == $form_field['input_type'] ) {
+						if ( $field_type_field['input_type'] === $form_field['input_type'] ) {
 							$new_default = $field_type_field;
 							break;
 						}
@@ -473,7 +467,6 @@ class Strong_Testimonials_Updater {
 				if ( $new_default ) {
 					$custom_forms[ $form_id ]['fields'][ $key ] = array_merge( $new_default, $form_field );
 				}
-
 			}
 		}
 
@@ -544,7 +537,6 @@ class Strong_Testimonials_Updater {
 		unset( $form_options['captcha'] );
 		unset( $form_options['messages']['captcha'] );
 
-
 		/**
 		 * Merge in new options.
 		 */
@@ -555,10 +547,10 @@ class Strong_Testimonials_Updater {
 		// Merge nested arrays individually. Don't use array_merge_recursive.
 
 		$form_options['default_recipient'] = array_merge( $defaults['default_recipient'], $form_options['default_recipient'] );
-	 	foreach ( $defaults['messages'] as $key => $message ) {
-			 if( isset( $form_options['messages'][ $key ] ) ) {
-				 $form_options['messages'][ $key ] = array_merge( $message, $form_options['messages'][ $key ] );
-			 }
+		foreach ( $defaults['messages'] as $key => $message ) {
+			if ( isset( $form_options['messages'][ $key ] ) ) {
+				$form_options['messages'][ $key ] = array_merge( $message, $form_options['messages'][ $key ] );
+			}
 		}
 
 		return $form_options;
@@ -768,15 +760,15 @@ class Strong_Testimonials_Updater {
 			return $view_data;
 		}
 
-		if ( 1 == $view_data['slideshow_settings']['max_slides'] ) {
+		if ( 1 === absint( $view_data['slideshow_settings']['max_slides'] ) ) {
 
 			// Convert to single
 			$view_data['slideshow_settings']['type'] = 'show_single';
 
 			$view_data['slideshow_settings']['show_single'] = array(
 				'max_slides'  => $view_data['slideshow_settings']['max_slides'],
-			    'move_slides' => $view_data['slideshow_settings']['move_slides'],
-			    'margin'      => 1,
+				'move_slides' => $view_data['slideshow_settings']['move_slides'],
+				'margin'      => 1,
 			);
 
 		} else {
@@ -815,68 +807,68 @@ class Strong_Testimonials_Updater {
 		/*
 		Array
 		(
-		    [0] => default:content
-		    [1] => default-dark:form
-		    [2] => default-dark:content
-		    [3] => default:form
-		    [4] => image-right:content
-		    [5] => no-quotes:content
-		    [6] => large:widget
-		    [7] => modern:content
-		    [8] => simple:content
-		    [9] => simple:form
-		    [10] => unstyled:content
-		    [11] => unstyled:form
-		    [12] => default:widget
-		    [13] => image-right:widget
+			[0] => default:content
+			[1] => default-dark:form
+			[2] => default-dark:content
+			[3] => default:form
+			[4] => image-right:content
+			[5] => no-quotes:content
+			[6] => large:widget
+			[7] => modern:content
+			[8] => simple:content
+			[9] => simple:form
+			[10] => unstyled:content
+			[11] => unstyled:form
+			[12] => default:widget
+			[13] => image-right:widget
 		)
 		*/
 		switch ( $view_data['template'] ) {
-			case 'default:content' :
+			case 'default:content':
 				$view_data['template'] = 'default';
 				break;
-			case 'default-dark:form' :
-				$view_data['template'] = 'default-form';
+			case 'default-dark:form':
+				$view_data['template']                                    = 'default-form';
 				$view_data['template_settings'][ $view_data['template'] ] = array( 'theme' => 'dark' );
 				break;
-			case 'default-dark:content' :
-				$view_data['template'] = 'default';
+			case 'default-dark:content':
+				$view_data['template']                                    = 'default';
 				$view_data['template_settings'][ $view_data['template'] ] = array( 'theme' => 'dark' );
 				break;
-			case 'default:form' :
+			case 'default:form':
 				$view_data['template'] = 'default-form';
 				break;
-			case 'image-right:content' :
-				$view_data['template'] = 'default';
+			case 'image-right:content':
+				$view_data['template']                                    = 'default';
 				$view_data['template_settings'][ $view_data['template'] ] = array( 'image_position' => 'right' );
 				break;
-			case 'no-quotes:content' :
-				$view_data['template'] = 'default';
+			case 'no-quotes:content':
+				$view_data['template']                                    = 'default';
 				$view_data['template_settings'][ $view_data['template'] ] = array( 'quotes' => 'off' );
 				break;
-			case 'large:widget' :
+			case 'large:widget':
 				$view_data['template'] = 'bold';
 				break;
-			case 'modern:content' :
+			case 'modern:content':
 				$view_data['template'] = 'modern';
 				break;
-			case 'simple:content' :
+			case 'simple:content':
 				$view_data['template'] = 'simple';
 				break;
-			case 'simple:form' :
+			case 'simple:form':
 				$view_data['template'] = 'simple-form';
 				break;
-			case 'unstyled:content' :
+			case 'unstyled:content':
 				$view_data['template'] = 'unstyled';
 				break;
-			case 'unstyled:form' :
+			case 'unstyled:form':
 				$view_data['template'] = 'unstyled-form';
 				break;
-			case 'default:widget' :
+			case 'default:widget':
 				$view_data['template'] = 'small-widget';
 				break;
-			case 'image-right:widget' :
-				$view_data['template'] = 'small-widget';
+			case 'image-right:widget':
+				$view_data['template']                                    = 'small-widget';
 				$view_data['template_settings'][ $view_data['template'] ] = array( 'image_position' => 'right' );
 				break;
 			default:
@@ -896,21 +888,18 @@ class Strong_Testimonials_Updater {
 	public static function convert_template_name( $view_data ) {
 		// Change default template from empty to 'default:{type}'
 		if ( ! $view_data['template'] ) {
-			if ( 'form' == $view_data['mode'] ) {
+			if ( 'form' === $view_data['mode'] ) {
 				$type = 'form';
-			}
-			else {
+			} else {
 				$type = 'content';
 			}
 
 			$view_data['template'] = "default:$type";
-		}
-		else {
+		} else {
 			// Convert name; e.g. 'simple/testimonials.php'
-			if ( 'widget/testimonials.php' == $view_data['template'] ) {
+			if ( 'widget/testimonials.php' === $view_data['template'] ) {
 				$view_data['template'] = 'default:widget';
-			}
-			else {
+			} else {
 				$view_data['template'] = str_replace( '/', ':', $view_data['template'] );
 				$view_data['template'] = str_replace( 'testimonials.php', 'content', $view_data['template'] );
 				$view_data['template'] = str_replace( 'testimonial-form.php', 'form', $view_data['template'] );
@@ -940,8 +929,7 @@ class Strong_Testimonials_Updater {
 				$word_count                  = $word_count < 5 ? 5 : $word_count;
 				$word_count                  = $word_count > 300 ? 300 : $word_count;
 				$view_data['excerpt_length'] = $word_count;
-			}
-			else {
+			} else {
 				$view_data['excerpt_length'] = $default_view['excerpt_length'];
 			}
 
@@ -967,8 +955,7 @@ class Strong_Testimonials_Updater {
 				$view_data['more_page_id']   = $view_data['more_page'];
 				$view_data['more_page']      = 1;
 				$view_data['more_page_text'] = $view_data['more_text'];
-			}
-			elseif ( isset( $view_data['more_post'] ) && $view_data['more_post'] ) {
+			} elseif ( isset( $view_data['more_post'] ) && $view_data['more_post'] ) {
 				$view_data['more_post_text'] = $view_data['more_text'];
 			}
 			unset( $view_data['more_text'] );
@@ -991,7 +978,7 @@ class Strong_Testimonials_Updater {
 			return $view_data;
 		}
 
-		if ( 'scrollHorz' == $view_data['effect'] ) {
+		if ( 'scrollHorz' === $view_data['effect'] ) {
 			$view_data['effect'] = 'horizontal';
 		}
 
@@ -1113,7 +1100,7 @@ class Strong_Testimonials_Updater {
 	 */
 	public static function convert_layout( $view_data ) {
 		if ( isset( $view_data['pagination'] ) && $view_data['pagination'] ) {
-			if ( isset( $view_data['layout'] ) && 'masonry' == $view_data['layout'] ) {
+			if ( isset( $view_data['layout'] ) && 'masonry' === $view_data['layout'] ) {
 				$view_data['layout'] = '';
 			}
 		}
@@ -1148,7 +1135,7 @@ class Strong_Testimonials_Updater {
 	 * @return array
 	 */
 	public static function convert_modern_title( $view_data ) {
-		if ( 'modern:content' == $view_data['template'] ) {
+		if ( 'modern:content' === $view_data['template'] ) {
 			if ( ! isset( $history['2.12.4_convert_modern_template'] ) ) {
 				$view_data['title'] = 0;
 				self::update_history_log( '2.12.4_convert_modern_template' );
@@ -1200,23 +1187,18 @@ class Strong_Testimonials_Updater {
 			$nofollow  = get_post_meta( $post->ID, 'nofollow', true );
 			$new_value = 'default';
 
-			if ( 'on' == $nofollow ) {
+			if ( 'on' === $nofollow ) {
 				$new_value = 'yes';
-			}
-			elseif ( 1 === $nofollow ) {
+			} elseif ( 1 === $nofollow ) {
 				$new_value = 'yes';
-			}
-			elseif ( 'off' == $nofollow ) {
+			} elseif ( 'off' === $nofollow ) {
 				$new_value = 'no';
-			}
-			elseif ( 0 === $nofollow ) {
+			} elseif ( 0 === $nofollow ) {
 				$new_value = 'no';
-			}
-			elseif ( is_bool( $nofollow ) ) {
+			} elseif ( is_bool( $nofollow ) ) {
 				if ( $nofollow ) {
 					$new_value = 'yes';
-				}
-				else {
+				} else {
 					$new_value = 'default';
 				}
 			}
@@ -1224,13 +1206,13 @@ class Strong_Testimonials_Updater {
 			update_post_meta( $post->ID, 'nofollow', $new_value );
 		}
 	}
-        
-        /**
+
+		/**
 	 * Convert noopener from (on|off) to (1|0).
 	 *
 	 * @since 2.41.0
 	 */
-        public static function convert_noopener() {
+	public static function convert_noopener() {
 		$args  = array(
 			'posts_per_page'   => - 1,
 			'post_type'        => 'wpm-testimonial',
@@ -1249,23 +1231,18 @@ class Strong_Testimonials_Updater {
 			$noopener  = get_post_meta( $post->ID, 'noopener', true );
 			$new_value = 'default';
 
-			if ( 'on' == $noopener ) {
+			if ( 'on' === $noopener ) {
 				$new_value = 'yes';
-			}
-			elseif ( 1 === $noopener ) {
+			} elseif ( 1 === $noopener ) {
 				$new_value = 'yes';
-			}
-			elseif ( 'off' == $noopener ) {
+			} elseif ( 'off' === $noopener ) {
 				$new_value = 'no';
-			}
-			elseif ( 0 === $noopener ) {
+			} elseif ( 0 === $noopener ) {
 				$new_value = 'no';
-			}
-			elseif ( is_bool( $noopener ) ) {
+			} elseif ( is_bool( $noopener ) ) {
 				if ( $noopener ) {
 					$new_value = 'yes';
-				}
-				else {
+				} else {
 					$new_value = 'default';
 				}
 			}
@@ -1273,13 +1250,13 @@ class Strong_Testimonials_Updater {
 			update_post_meta( $post->ID, 'noopener', $new_value );
 		}
 	}
-        
-        /**
+
+		/**
 	 * Convert noreferrer from (on|off) to (1|0).
 	 *
 	 * @since 2.41.0
 	 */
-        public static function convert_noreferrer() {
+	public static function convert_noreferrer() {
 		$args  = array(
 			'posts_per_page'   => - 1,
 			'post_type'        => 'wpm-testimonial',
@@ -1295,26 +1272,21 @@ class Strong_Testimonials_Updater {
 		 * Remove the equivocation. There is no false.
 		 */
 		foreach ( $posts as $post ) {
-			$noreferrer  = get_post_meta( $post->ID, 'noreferrer', true );
-			$new_value = 'default';
+			$noreferrer = get_post_meta( $post->ID, 'noreferrer', true );
+			$new_value  = 'default';
 
-			if ( 'on' == $noreferrer ) {
+			if ( 'on' === $noreferrer ) {
 				$new_value = 'yes';
-			}
-			elseif ( 1 === $noreferrer ) {
+			} elseif ( 1 === $noreferrer ) {
 				$new_value = 'yes';
-			}
-			elseif ( 'off' == $noreferrer ) {
+			} elseif ( 'off' === $noreferrer ) {
 				$new_value = 'no';
-			}
-			elseif ( 0 === $noreferrer ) {
+			} elseif ( 0 === $noreferrer ) {
 				$new_value = 'no';
-			}
-			elseif ( is_bool( $noreferrer ) ) {
+			} elseif ( is_bool( $noreferrer ) ) {
 				if ( $noreferrer ) {
 					$new_value = 'yes';
-				}
-				else {
+				} else {
 					$new_value = 'default';
 				}
 			}
@@ -1381,7 +1353,6 @@ class Strong_Testimonials_Updater {
 
 		return round( strlen( $wordstring ) / count( $allwords ) );
 	}
-
 }
 
 new Strong_Testimonials_Updater();

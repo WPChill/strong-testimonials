@@ -49,7 +49,6 @@ class Strong_Testimonials_Menu_Fields {
 			'function'   => array( 'Strong_Testimonials_Forms', 'settings_page' ),
 		);
 	}
-
 }
 
 Strong_Testimonials_Menu_Fields::init();

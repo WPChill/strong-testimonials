@@ -20,8 +20,8 @@ add_action( 'wpmtst_form_admin', 'wpmtst_form_admin2' );
  */
 function wpmtst_update_custom_fields() {
 	$goback = wp_get_referer();
-    $goback = apply_filters( 'wpmtst_form_goback', $goback );
-        
+	$goback = apply_filters( 'wpmtst_form_goback', $goback );
+
 	if ( ! isset( $_POST['wpmtst_form_submitted'] ) ) {
 		wp_redirect( $goback );
 		exit;
@@ -32,103 +32,100 @@ function wpmtst_update_custom_fields() {
 		exit;
 	}
 
-    $form_id	   = absint ( $_POST['form_id'] );
-    $forms         = get_option( 'wpmtst_custom_forms' );
-    $field_options = apply_filters( 'wpmtst_fields', get_option( 'wpmtst_fields' ) );
+	$form_id       = absint( $_POST['form_id'] );
+	$forms         = get_option( 'wpmtst_custom_forms' );
+	$field_options = apply_filters( 'wpmtst_fields', get_option( 'wpmtst_fields' ) );
 
-    if ( isset( $_POST['reset'] ) ) {
+	if ( isset( $_POST['reset'] ) ) {
 
-        // Undo changes
+		// Undo changes
 		wpmtst_add_admin_notice( 'changes-cancelled' );
 
-    }
-    elseif ( isset( $_POST['restore-defaults'] ) ) {
+	} elseif ( isset( $_POST['restore-defaults'] ) ) {
 
-        // Restore defaults
-        $default_forms = Strong_Testimonials_Defaults::get_base_forms();
-        $fields = $default_forms['default']['fields'];
-        $forms[ $form_id ]['fields'] = $fields;
-        update_option( 'wpmtst_custom_forms', $forms );
-        do_action( 'wpmtst_fields_updated', $fields );
+		// Restore defaults
+		$default_forms               = Strong_Testimonials_Defaults::get_base_forms();
+		$fields                      = $default_forms['default']['fields'];
+		$forms[ $form_id ]['fields'] = $fields;
+		update_option( 'wpmtst_custom_forms', $forms );
+		do_action( 'wpmtst_fields_updated', $fields );
 
 		wpmtst_add_admin_notice( 'defaults-restored' );
 
-    }
-    else {
+	} else {
 
-        // Save changes
-        $fields = array();
-        $new_key = 0;
+		// Save changes
+		$fields  = array();
+		$new_key = 0;
 
-        /**
-         * Strip the dang slashes from the dang magic quotes.
-         *
-         * @since 2.0.0
-         */
-        $post_fields = isset( $_POST['fields'] ) ? stripslashes_deep( $_POST['fields'] ) : array();
+		/**
+		 * Strip the dang slashes from the dang magic quotes.
+		 *
+		 * @since 2.0.0
+		 */
+		$post_fields = isset( $_POST['fields'] ) ? stripslashes_deep( $_POST['fields'] ) : array();
 
-        foreach ( $post_fields as $key => $field ) {
-            
+		foreach ( $post_fields as $key => $field ) {
 
-            /*
-             * Before merging onto base field, catch fields that are "off"
-             * which the form does not submit. Otherwise, the default "on"
-             * would override the requested (but not submitted) "off".
-             */
-            $field['show_label']              = isset( $field['show_label'] ) ? 1 : 0;
-            $field['required']                = isset( $field['required'] ) ? 1 : 0;
+			/*
+			 * Before merging onto base field, catch fields that are "off"
+			 * which the form does not submit. Otherwise, the default "on"
+			 * would override the requested (but not submitted) "off".
+			 */
+			$field['show_label'] = isset( $field['show_label'] ) ? 1 : 0;
+			$field['required']   = isset( $field['required'] ) ? 1 : 0;
 
-            $field = array_merge( $field_options['field_base'], $field );
+			$field = array_merge( $field_options['field_base'], $field );
 
-            $field['name']                    = sanitize_text_field( $field['name'] );
-            $field['label']                   = sanitize_text_field( $field['label'] );
-            $field['text']                    = sanitize_text_field( $field['text'] );
+			$field['name']  = sanitize_text_field( $field['name'] );
+			$field['label'] = sanitize_text_field( $field['label'] );
+			$field['text']  = sanitize_text_field( $field['text'] );
 
-            // TODO Replace this special handling
-            if ( 'checkbox' == $field['input_type'] ) {
-                $field['default_form_value'] = wpmtst_sanitize_checkbox( $field, 'default_form_value' );
-            } else {
-                $field['default_form_value'] = sanitize_text_field( $field['default_form_value'] );
-            }
-            $field['action_input']  = isset( $field['action_input'] ) ? sanitize_text_field( $field['action_input'] ) : '';
-            $field['action_output'] = isset( $field['action_output'] ) ? sanitize_text_field( $field['action_output'] ) : '';
+			// TODO Replace this special handling
+			if ( 'checkbox' === $field['input_type'] ) {
+				$field['default_form_value'] = wpmtst_sanitize_checkbox( $field, 'default_form_value' );
+			} else {
+				$field['default_form_value'] = sanitize_text_field( $field['default_form_value'] );
+			}
+			$field['action_input']  = isset( $field['action_input'] ) ? sanitize_text_field( $field['action_input'] ) : '';
+			$field['action_output'] = isset( $field['action_output'] ) ? sanitize_text_field( $field['action_output'] ) : '';
 
-            $field['default_display_value'] = sanitize_text_field( $field['default_display_value'] );
+			$field['default_display_value'] = sanitize_text_field( $field['default_display_value'] );
 
-            $field['placeholder'] = sanitize_text_field( $field['placeholder'] );
+			$field['placeholder'] = sanitize_text_field( $field['placeholder'] );
 
-            $field['before'] = sanitize_text_field( $field['before'] );
-            $field['after']  = sanitize_text_field( $field['after'] );
+			$field['before'] = sanitize_text_field( $field['before'] );
+			$field['after']  = sanitize_text_field( $field['after'] );
 
-            $field['shortcode_on_form']      = sanitize_text_field( $field['shortcode_on_form'] );
-            $field['shortcode_on_display']   = sanitize_text_field( $field['shortcode_on_display'] );
-            $field['show_shortcode_options'] = $field['show_shortcode_options'] ? 1 : 0;
+			$field['shortcode_on_form']      = sanitize_text_field( $field['shortcode_on_form'] );
+			$field['shortcode_on_display']   = sanitize_text_field( $field['shortcode_on_display'] );
+			$field['show_shortcode_options'] = $field['show_shortcode_options'] ? 1 : 0;
 
-            // Hidden options (no need to check if isset)
-            $field['admin_table']             = $field['admin_table'] ? 1 : 0;
-            $field['show_admin_table_option'] = $field['show_admin_table_option'] ? 1 : 0;
-            $field['show_text_option']        = $field['show_text_option'] ? 1 : 0;
-            $field['show_placeholder_option'] = $field['show_placeholder_option'] ? 1 : 0;
-            $field['show_default_options']    = $field['show_default_options'] ? 1 : 0;
-            $field['show_length_option']      = $field['show_length_option'] ? 1 : 0;
+			// Hidden options (no need to check if isset)
+			$field['admin_table']             = $field['admin_table'] ? 1 : 0;
+			$field['show_admin_table_option'] = $field['show_admin_table_option'] ? 1 : 0;
+			$field['show_text_option']        = $field['show_text_option'] ? 1 : 0;
+			$field['show_placeholder_option'] = $field['show_placeholder_option'] ? 1 : 0;
+			$field['show_default_options']    = $field['show_default_options'] ? 1 : 0;
+			$field['show_length_option']      = $field['show_length_option'] ? 1 : 0;
 
 			$field = apply_filters( 'wpmtst_sanitize_form_field_options', $field );
 
-            // add to fields array in display order
-            $fields[ $new_key++ ] = $field;
+			// add to fields array in display order
+			$fields[ $new_key++ ] = $field;
 
-        }
+		}
 
-        $forms[ $form_id ]['fields'] = $fields;
+		$forms[ $form_id ]['fields'] = $fields;
 
-        if ( isset( $_POST['field_group_label'] ) ) {
-            // TODO Catch if empty.
-            $new_label = sanitize_text_field( wp_unslash( $_POST['field_group_label'] ) );
-            $forms[ $form_id ]['label'] = $new_label;
-        }
+		if ( isset( $_POST['field_group_label'] ) ) {
+			// TODO Catch if empty.
+			$new_label                  = sanitize_text_field( wp_unslash( $_POST['field_group_label'] ) );
+			$forms[ $form_id ]['label'] = $new_label;
+		}
 
-        update_option( 'wpmtst_custom_forms', $forms );
-        do_action( 'wpmtst_fields_updated', $fields );
+		update_option( 'wpmtst_custom_forms', $forms );
+		do_action( 'wpmtst_fields_updated', $fields );
 
 		wpmtst_add_admin_notice( 'fields-saved' );
 
@@ -151,12 +148,12 @@ function wpmtst_settings_custom_fields( $form_id = 1 ) {
 	}
 
 	if ( ! $form_id ) {
-		echo '<div class="wrap wpmtst"><p>' . esc_html__( 'No fields selected.', 'strong-testimonials' ) .'</p></div>';
+		echo '<div class="wrap wpmtst"><p>' . esc_html__( 'No fields selected.', 'strong-testimonials' ) . '</p></div>';
 		return;
 	}
 
 	$forms  = get_option( 'wpmtst_custom_forms' );
-	$fields = apply_filters( 'wpmtst_form_fields', $forms[$form_id]['fields'] );
+	$fields = apply_filters( 'wpmtst_form_fields', $forms[ $form_id ]['fields'] );
 	?>
 
 	<div class="wrap wpmtst">
@@ -229,10 +226,10 @@ function wpmtst_show_field( $key, $field, $adding ) {
 	$fields      = apply_filters( 'wpmtst_fields', get_option( 'wpmtst_fields' ) );
 	$field_types = $fields['field_types'];
 
-    ob_start();
+	ob_start();
 
 	include 'partials/fields/field-header.php';
-    ?>
+	?>
 	<div class="custom-field" style="display: none;">
 
 		<table class="field-table">
@@ -257,7 +254,7 @@ function wpmtst_show_field( $key, $field, $adding ) {
 		?>
 	</div><!-- .custom-field -->
 
-    <?php
+	<?php
 	$html = ob_get_contents();
 	ob_end_clean();
 
@@ -275,31 +272,31 @@ function wpmtst_show_field( $key, $field, $adding ) {
  * @return string
  */
 function wpmtst_show_field_secondary( $key, $field ) {
-    $html = '';
+	$html = '';
 
 	/*
 	 * Required
 	 */
-    if ( isset( $field['show_required_option'] ) && $field['show_required_option'] ) {
-	    // Disable option if this is a core field like post_content.
-	    if ( isset( $field['core'] ) && $field['core'] ) {
-		    $disabled = ' disabled="disabled"';
-	    } else {
-		    $disabled = '';
-	    }
+	if ( isset( $field['show_required_option'] ) && $field['show_required_option'] ) {
+		// Disable option if this is a core field like post_content.
+		if ( isset( $field['core'] ) && $field['core'] ) {
+			$disabled = ' disabled="disabled"';
+		} else {
+			$disabled = '';
+		}
 
-	    $html .= '<tr class="field-secondary">' . "\n";
-	    $html .= '<th>' . esc_html__( 'Required', 'strong-testimonials' ) . '</th>' . "\n";
-	    $html .= '<td>' . "\n";
-	    if ( $disabled ) {
-		    $html .= '<input type="hidden" name="fields[' . esc_attr( $key ) . '][required]" value="' . esc_attr( $field['required'] ) . '">';
-		    $html .= '<input type="checkbox" ' . checked( $field['required'], true, false ) . $disabled . '>';
-	    } else {
-		    $html .= '<input type="checkbox" name="fields[' . esc_attr( $key ) . '][required]" ' . checked( $field['required'], true, false ) . '>';
-	    }
-	    $html .= '</td>' . "\n";
-	    $html .= '</tr>' . "\n";
-    }
+		$html .= '<tr class="field-secondary">' . "\n";
+		$html .= '<th>' . esc_html__( 'Required', 'strong-testimonials' ) . '</th>' . "\n";
+		$html .= '<td>' . "\n";
+		if ( $disabled ) {
+			$html .= '<input type="hidden" name="fields[' . esc_attr( $key ) . '][required]" value="' . esc_attr( $field['required'] ) . '">';
+			$html .= '<input type="checkbox" ' . checked( $field['required'], true, false ) . $disabled . '>';
+		} else {
+			$html .= '<input type="checkbox" name="fields[' . esc_attr( $key ) . '][required]" ' . checked( $field['required'], true, false ) . '>';
+		}
+		$html .= '</td>' . "\n";
+		$html .= '</tr>' . "\n";
+	}
 
 	/*
 	 * Placeholder
@@ -312,23 +309,23 @@ function wpmtst_show_field_secondary( $key, $field ) {
 			$html .= '</tr>' . "\n";
 		}
 	}
-        
-        /*
-         * Length
-         */
-        if ( $field['show_length_option'] ) {
-            if ( isset( $field['max_length'] ) ) {
-                $html .= '<tr class="field-secondary">' . "\n";
-                $html .= '<th>' . esc_html__( 'Maximum Length', 'strong-testimonials' ) . '</th>' . "\n";
-                $html .= '<td><input type="number" name="fields[' . esc_attr( $key ) . '][max_length]" value="' . esc_attr($field['max_length']) . '"><span> ' . esc_html__( 'Limit the user imput to a certain number of characters', 'strong-testimonials' )  . '</span></td>' . "\n";
-                $html .= '</tr>' . "\n";
-            }
+
+		/*
+		 * Length
+		 */
+	if ( $field['show_length_option'] ) {
+		if ( isset( $field['max_length'] ) ) {
+			$html .= '<tr class="field-secondary">' . "\n";
+			$html .= '<th>' . esc_html__( 'Maximum Length', 'strong-testimonials' ) . '</th>' . "\n";
+			$html .= '<td><input type="number" name="fields[' . esc_attr( $key ) . '][max_length]" value="' . esc_attr( $field['max_length'] ) . '"><span> ' . esc_html__( 'Limit the user imput to a certain number of characters', 'strong-testimonials' ) . '</span></td>' . "\n";
+			$html .= '</tr>' . "\n";
+		}
 	}
 
 	/**
 	 * Text (checkbox, radio)
-     *
-     * @since 2.23.0
+	 *
+	 * @since 2.23.0
 	 */
 	if ( $field['show_text_option'] ) {
 		if ( isset( $field['text'] ) ) {
@@ -365,23 +362,23 @@ function wpmtst_show_field_secondary( $key, $field ) {
 			$html .= '<td>' . "\n";
 
 			// TODO Replace this special handling
-			if ( 'rating' == $field['input_type'] ) {
+			if ( 'rating' === $field['input_type'] ) {
 
 				$html .= '<input type="text" name="fields[' . esc_attr( $key ) . '][default_form_value]" value="' . esc_attr( $field['default_form_value'] ) . '" class="as-number">';
 				$html .= '<span class="help inline">' . esc_html__( 'stars', 'strong-testimonials' ) . '</span>';
-			    $html .= '<span class="help">' . esc_html__( 'Populate the field with this value.', 'strong-testimonials' ) . '</span>';
+				$html .= '<span class="help">' . esc_html__( 'Populate the field with this value.', 'strong-testimonials' ) . '</span>';
 
-			} elseif ( 'checkbox' == $field['input_type'] ) {
+			} elseif ( 'checkbox' === $field['input_type'] ) {
 
-			    $html .= '<label>';
-                $html .= '<input type="checkbox" name="fields[' . esc_attr( $key ) . '][default_form_value]" ' . checked( $field['default_form_value'], true, false ) . '>';
+				$html .= '<label>';
+				$html .= '<input type="checkbox" name="fields[' . esc_attr( $key ) . '][default_form_value]" ' . checked( $field['default_form_value'], true, false ) . '>';
 				$html .= '<span class="help inline">' . esc_html__( 'Checked by default.', 'strong-testimonials' ) . '</span>';
 				$html .= '</label>';
 
-            } else {
+			} else {
 
 				$html .= '<input type="text" name="fields[' . esc_attr( $key ) . '][default_form_value]" value="' . esc_attr( $field['default_form_value'] ) . '">';
-			    $html .= '<span class="help">' . esc_html__( 'Populate the field with this value.', 'strong-testimonials' ) . '</span>';
+				$html .= '<span class="help">' . esc_html__( 'Populate the field with this value.', 'strong-testimonials' ) . '</span>';
 
 			}
 
@@ -394,15 +391,15 @@ function wpmtst_show_field_secondary( $key, $field ) {
 	 * Default Display Value
 	 */
 	if ( $field['show_default_options'] ) {
-        // TODO Replace this special handling for checkbox type
-		if ( 'checkbox' != $field['input_type'] ) {
+		// TODO Replace this special handling for checkbox type
+		if ( 'checkbox' !== $field['input_type'] ) {
 			if ( isset( $field['default_display_value'] ) ) {
 				$html .= '<tr class="field-secondary">' . "\n";
 				$html .= '<th>' . esc_html__( 'Default Display Value', 'strong-testimonials' ) . '</th>' . "\n";
 				$html .= '<td>' . "\n";
 
 				// TODO Replace this special handling
-				if ( 'rating' == $field['input_type'] ) {
+				if ( 'rating' === $field['input_type'] ) {
 					$html .= '<input type="text" name="fields[' . esc_attr( $key ) . '][default_display_value]" value="' . esc_attr( $field['default_display_value'] ) . '" class="as-number">';
 					$html .= '<span class="help inline">' . esc_html__( 'stars', 'strong-testimonials' ) . '</span>';
 				} else {
@@ -456,7 +453,7 @@ function wpmtst_show_field_admin_table( $key, $field ) {
 		return $html;
 	}
 
-	$html = '<tr class="field-admin-table">' . "\n";
+	$html  = '<tr class="field-admin-table">' . "\n";
 	$html .= '<th>' . esc_html__( 'Admin List', 'strong-testimonials' ) . '</th>' . "\n";
 	$html .= '<td>' . "\n";
 	if ( $field['admin_table_option'] ) {
@@ -479,7 +476,7 @@ function wpmtst_show_field_admin_table( $key, $field ) {
  */
 function wpmtst_show_field_select_options( $key, $field ) {
 
-	if( $field['input_type'] !== 'select' ) {
+	if ( 'select' !== $field['input_type'] ) {
 		return;
 	}
 
@@ -500,7 +497,7 @@ function wpmtst_show_field_select_options( $key, $field ) {
 function wpmtst_show_field_hidden( $key, $field ) {
 	$pattern = '<input type="hidden" name="fields[%s][%s]" value="%s">';
 
-	$html = sprintf( $pattern, $key, 'record_type', $field['record_type'] ) . "\n";
+	$html  = sprintf( $pattern, $key, 'record_type', $field['record_type'] ) . "\n";
 	$html .= sprintf( $pattern, $key, 'input_type', $field['input_type'] ) . "\n";
 	if ( isset( $field['action_input'] ) ) {
 		$html .= sprintf( $pattern, $key, 'action_input', $field['action_input'] ) . "\n";
@@ -508,14 +505,14 @@ function wpmtst_show_field_hidden( $key, $field ) {
 	if ( isset( $field['action_output'] ) ) {
 		$html .= sprintf( $pattern, $key, 'action_output', $field['action_output'] ) . "\n";
 	}
-	$html .= sprintf( $pattern, $key, 'name_mutable', $field['name_mutable'] ) . "\n";
-	$html .= sprintf( $pattern, $key, 'show_text_option', $field['show_text_option'] ) . "\n";
-	$html .= sprintf( $pattern, $key, 'show_placeholder_option', $field['show_placeholder_option'] ) . "\n";
-	$html .= sprintf( $pattern, $key, 'show_default_options', $field['show_default_options'] ) . "\n";
-	$html .= sprintf( $pattern, $key, 'admin_table_option', $field['admin_table_option'] ) . "\n";
-	$html .= sprintf( $pattern, $key, 'show_admin_table_option', $field['show_admin_table_option'] ) . "\n";
-	$html .= sprintf( $pattern, $key, 'show_shortcode_options', $field['show_shortcode_options'] ) . "\n";
-        $html .= sprintf( $pattern, $key, 'show_length_option', $field['show_length_option'] ) . "\n";
+	$html     .= sprintf( $pattern, $key, 'name_mutable', $field['name_mutable'] ) . "\n";
+	$html     .= sprintf( $pattern, $key, 'show_text_option', $field['show_text_option'] ) . "\n";
+	$html     .= sprintf( $pattern, $key, 'show_placeholder_option', $field['show_placeholder_option'] ) . "\n";
+	$html     .= sprintf( $pattern, $key, 'show_default_options', $field['show_default_options'] ) . "\n";
+	$html     .= sprintf( $pattern, $key, 'admin_table_option', $field['admin_table_option'] ) . "\n";
+	$html     .= sprintf( $pattern, $key, 'show_admin_table_option', $field['show_admin_table_option'] ) . "\n";
+	$html     .= sprintf( $pattern, $key, 'show_shortcode_options', $field['show_shortcode_options'] ) . "\n";
+		$html .= sprintf( $pattern, $key, 'show_length_option', $field['show_length_option'] ) . "\n";
 
 	if ( isset( $field['map'] ) ) {
 		$html .= sprintf( $pattern, $key, 'map', $field['map'] ) . "\n";

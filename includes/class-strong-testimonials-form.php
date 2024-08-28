@@ -3,8 +3,8 @@
  * Class Strong_Testimonials_Form
  */
 class Strong_Testimonials_Form {
-    
-        const TAB_NAME = 'fields';
+
+		const TAB_NAME = 'fields';
 
 	public $form_options;
 
@@ -25,28 +25,29 @@ class Strong_Testimonials_Form {
 	 */
 	public function add_actions() {
 		add_action( 'init', array( $this, 'process_form' ), 20 );
-                //add_action( 'wpmtst_register_form_settings', array( $this, 'register_settings' ) );
+				//add_action( 'wpmtst_register_form_settings', array( $this, 'register_settings' ) );
 		add_action( 'wpmtst_form_tabs', array( $this, 'register_tab' ), 1, 2 );
 		add_filter( 'wpmtst_form_callbacks', array( $this, 'register_fields_page' ) );
 		add_action( 'wp_ajax_wpmtst_form2', array( $this, 'process_form_ajax' ) );
 		add_action( 'wp_ajax_nopriv_wpmtst_form2', array( $this, 'process_form_ajax' ) );
 	}
-        
-        /**
+
+		/**
 	 * Register fields tab.
 	 *
 	 * @param $active_tab
 	 * @param $url
 	 */
 	public function register_tab( $active_tab, $url ) {
-		printf( '<a href="%s" class="nav-tab %s">%s</a>',
-		        esc_url( add_query_arg( 'tab', self::TAB_NAME, $url ) ),
-		        esc_attr( $active_tab == self::TAB_NAME ? 'nav-tab-active' : '' ),
-		        esc_html__( 'Fields', 'strong-testimonials' )
+		printf(
+			'<a href="%s" class="nav-tab %s">%s</a>',
+			esc_url( add_query_arg( 'tab', self::TAB_NAME, $url ) ),
+			esc_attr( self::TAB_NAME === $active_tab ? 'nav-tab-active' : '' ),
+			esc_html__( 'Fields', 'strong-testimonials' )
 		);
 	}
-        
-        /**
+
+		/**
 	 * Register fields page.
 	 *
 	 * @param $pages
@@ -85,7 +86,13 @@ class Strong_Testimonials_Form {
 						// For non-Ajax forms, the only ways to store the state (successful form submission)
 						// are a query parameter or a cookie.
 						$goback = add_query_arg( 'success', isset( $_POST['form_id'] ) ? absint( $_POST['form_id'] ) : 0, wp_get_referer() );
-						$goback = add_query_arg( array( 'success' => '', 'formid' =>  isset( $_POST['form_id'] ) ? absint( $_POST['form_id'] ) : 0 ), wp_get_referer() );
+						$goback = add_query_arg(
+							array(
+								'success' => '',
+								'formid'  => isset( $_POST['form_id'] ) ? absint( $_POST['form_id'] ) : 0,
+							),
+							wp_get_referer()
+						);
 				}
 				wp_redirect( apply_filters( 'wpmtst_form_redirect_url', $goback ) );
 				exit;
@@ -107,7 +114,7 @@ class Strong_Testimonials_Form {
 			} else {
 				$return = array(
 					'success' => false,
-					'errors'  => $this->get_form_errors()
+					'errors'  => $this->get_form_errors(),
 				);
 			}
 			echo json_encode( $return );
@@ -179,7 +186,7 @@ class Strong_Testimonials_Form {
 		// Init four arrays: post, post_meta, categories, attachment(s).
 		$testimonial_post = array(
 			'post_status' => $form_options['post_status'],
-			'post_type'   => 'wpm-testimonial'
+			'post_type'   => 'wpm-testimonial',
 		);
 		$testimonial_meta = array();
 		$testimonial_cats = array();
@@ -198,10 +205,10 @@ class Strong_Testimonials_Form {
 		 */
 		foreach ( $fields as $key => $field ) {
 
-			$new_post = apply_filters( 'before_field_sanitize', $new_post, $field);
+			$new_post = apply_filters( 'before_field_sanitize', $new_post, $field );
 
 			if ( isset( $field['required'] ) && $field['required'] && isset( $field['name'] ) ) {
-				if ( ( 'file' == $field['input_type'] ) ) {
+				if ( ( 'file' === $field['input_type'] ) ) {
 					if ( ! isset( $_FILES[ $field['name'] ] ) || ! isset( $_FILES[ $field['name'] ]['size'] ) || ! $_FILES[ $field['name'] ]['size'] ) {
 						$form_errors[ $field['name'] ] = $field['error'];
 						continue;
@@ -217,13 +224,12 @@ class Strong_Testimonials_Form {
 				// Assuming value can be stored as text field
 				$testimonial_meta[ $field['name'] ] = sanitize_text_field( $new_post[ $field['name'] ] );
 				// TODO Register a validator callback
-			}
-			else {
+			} else {
 				switch ( $field['record_type'] ) {
 					case 'post':
-						if ( 'file' == $field['input_type'] ) {
+						if ( 'file' === $field['input_type'] ) {
 							$testimonial_att[ $field['name'] ] = array( 'field' => isset( $field['map'] ) ? $field['map'] : 'post' );
-						} elseif ( 'textarea' == $field['input_type'] ) {
+						} elseif ( 'textarea' === $field['input_type'] ) {
 							$testimonial_post[ $field['name'] ] = wpmtst_sanitize_textarea( $new_post[ $field['name'] ] );
 						} else {
 							$testimonial_post[ $field['name'] ] = sanitize_text_field( $new_post[ $field['name'] ] );
@@ -231,21 +237,20 @@ class Strong_Testimonials_Form {
 						break;
 
 					case 'custom':
-						if ( 'email' == $field['input_type'] && $new_post[ $field['name'] ] ) {
+						if ( 'email' === $field['input_type'] && $new_post[ $field['name'] ] ) {
 							if ( is_email( $new_post[ $field['name'] ] ) ) {
 								$testimonial_meta[ $field['name'] ] = sanitize_email( $new_post[ $field['name'] ] );
-							}
-							else {
+							} else {
 								$form_errors[ $field['name'] ] = $field['error'];
 							}
-						} elseif ( 'url' == $field['input_type'] ) {
+						} elseif ( 'url' === $field['input_type'] ) {
 							// wpmtst_get_website() will prefix with "http://" so don't add that to an empty input
 							if ( $new_post[ $field['name'] ] ) {
 								$testimonial_meta[ $field['name'] ] = esc_url_raw( wpmtst_get_website( $new_post[ $field['name'] ] ) );
 							}
-						} elseif ( 'textarea' == $field['input_type'] ) {
+						} elseif ( 'textarea' === $field['input_type'] ) {
 							$testimonial_meta[ $field['name'] ] = sanitize_text_field( $new_post[ $field['name'] ] );
-						} elseif ( 'checkbox' == $field['input_type'] ) {
+						} elseif ( 'checkbox' === $field['input_type'] ) {
 							$testimonial_meta[ $field['name'] ] = wpmtst_sanitize_checkbox( $new_post, $field['name'] );
 						} else {
 							$testimonial_meta[ $field['name'] ] = sanitize_text_field( $new_post[ $field['name'] ] );
@@ -253,13 +258,11 @@ class Strong_Testimonials_Form {
 						break;
 
 					case 'optional':
-						if ( 'category' == strtok( $field['input_type'], '-' ) ) {
+						if ( 'category' === strtok( $field['input_type'], '-' ) ) {
 							$testimonial_meta[ $field['name'] ] = $new_post[ $field['name'] ];
-						}
-						elseif ( 'rating' == $field['input_type'] ) {
+						} elseif ( 'rating' === $field['input_type'] ) {
 							$testimonial_meta[ $field['name'] ] = $new_post[ $field['name'] ];
-						}
-						else {
+						} else {
 							$testimonial_meta[ $field['name'] ] = sanitize_text_field( $new_post[ $field['name'] ] );
 						}
 						break;
@@ -267,22 +270,21 @@ class Strong_Testimonials_Form {
 					default:
 				}
 			}
-
 		}
 
 		/**
 		 * No missing required fields, carry on.
 		 */
 		if ( ! count( $form_errors ) ) {
-	
+
 			// Special handling: if post_title is not required, create one from post_content
 			if ( ! isset( $testimonial_post['post_title'] ) || ! $testimonial_post['post_title'] ) {
 				if ( isset( $testimonial_post['post_content'] ) ) {
 					$words_array                    = explode( ' ', $testimonial_post['post_content'] );
 					$five_words                     = array_slice( $words_array, 0, 5 );
 					$testimonial_post['post_title'] = implode( ' ', $five_words );
-				
-				}else{
+
+				} else {
 					$testimonial_post['post_title']   = esc_html__( '(no title)', 'strong-testimonials' );
 					$testimonial_post['post_content'] = '';
 				}
@@ -330,13 +332,12 @@ class Strong_Testimonials_Form {
 							'post_type'      => 'attachment',
 							'post_parent'    => null, // populated after inserting post
 							'post_mime_type' => sanitize_text_field( $file['type'] ),
-							'guid'           => $uploaded_file['url']
+							'guid'           => $uploaded_file['url'],
 						);
 
 						$testimonial_att[ $name ]['attachment']    = $attachment;
 						$testimonial_att[ $name ]['uploaded_file'] = $uploaded_file;
 					}
-
 				}
 			}
 		}
@@ -405,18 +406,16 @@ class Strong_Testimonials_Form {
 				foreach ( $testimonial_att as $name => $atts ) {
 					if ( isset( $atts['attachment'] ) ) {
 						$atts['attachment']['post_parent'] = $testimonial_id;
-						$attach_id = wp_insert_attachment( $atts['attachment'], $atts['uploaded_file']['file'], $testimonial_id );
-						$attach_data = wp_generate_attachment_metadata( $attach_id, $atts['uploaded_file']['file'] );
-						$result = wp_update_attachment_metadata( $attach_id, $attach_data );
+						$attach_id                         = wp_insert_attachment( $atts['attachment'], $atts['uploaded_file']['file'], $testimonial_id );
+						$attach_data                       = wp_generate_attachment_metadata( $attach_id, $atts['uploaded_file']['file'] );
+						$result                            = wp_update_attachment_metadata( $attach_id, $attach_data );
 						add_post_meta( $testimonial_id, $name, $atts['uploaded_file']['url'] );
-						if ( 'featured_image' == $atts['field'] ) {
+						if ( 'featured_image' === $atts['field'] ) {
 							set_post_thumbnail( $testimonial_id, $attach_id );
 						}
 					}
 				}
-
 			}
-
 		}
 
 		remove_filter( 'upload_mimes', array( $this, 'restrict_mime' ) );
@@ -435,7 +434,7 @@ class Strong_Testimonials_Form {
 			$this->set_form_values( null );
 			$this->set_form_errors( null );
 			$this->notify_admin( $form_values, $form_name );
-                        do_action('wpmtst_new_testimonial_submit', $form_values, $form_name);
+						do_action( 'wpmtst_new_testimonial_submit', $form_values, $form_name );
 
 			return true;
 		}
@@ -473,9 +472,9 @@ class Strong_Testimonials_Form {
 	 * @return array
 	 */
 	public function handle_upload( $file_handler, $overrides ) {
-		require_once( ABSPATH . 'wp-admin/includes/image.php' );
-		require_once( ABSPATH . 'wp-admin/includes/file.php' );
-		require_once( ABSPATH . 'wp-admin/includes/media.php' );
+		require_once ABSPATH . 'wp-admin/includes/image.php';
+		require_once ABSPATH . 'wp-admin/includes/file.php';
+		require_once ABSPATH . 'wp-admin/includes/media.php';
 
 		$upload = wp_handle_upload( $file_handler, $overrides );
 
@@ -502,12 +501,11 @@ class Strong_Testimonials_Form {
 		}
 
 		$post['has_image'] = has_post_thumbnail( $post['id'] );
-		$fields = wpmtst_get_all_fields();
+		$fields            = wpmtst_get_all_fields();
 
 		if ( $form_options['sender_site_email'] ) {
 			$sender_email = get_bloginfo( 'admin_email' );
-		}
-		else {
+		} else {
 			$sender_email = $form_options['sender_email'];
 		}
 
@@ -532,16 +530,14 @@ class Strong_Testimonials_Form {
 
 			if ( isset( $recipient['admin_site_email'] ) && $recipient['admin_site_email'] ) {
 				$admin_email = get_bloginfo( 'admin_email' );
-			}
-			else {
+			} else {
 				$admin_email = $recipient['admin_email'];
 			}
 
 			// Mandrill rejects the 'name <email>' format
 			if ( $recipient['admin_name'] && ! $form_options['mail_queue'] ) {
 				$to = sprintf( '%s <%s>', $recipient['admin_name'], $admin_email );
-			}
-			else {
+			} else {
 				$to = sprintf( '%s', $admin_email );
 			}
 
@@ -549,23 +545,25 @@ class Strong_Testimonials_Form {
 			$headers = 'Content-Type: text/html; charset="' . get_option( 'blog_charset' ) . '"' . "\n";
 			if ( $form_options['sender_name'] ) {
 				$headers .= sprintf( 'From: %s <%s>', $form_options['sender_name'], $sender_email ) . "\n";
-			}
-			else {
+			} else {
 				$headers .= sprintf( 'From: %s', $sender_email ) . "\n";
 			}
 
-			$email = array( 'to' => $to, 'subject' => $subject, 'message' => $message, 'headers' => $headers );
+			$email = array(
+				'to'      => $to,
+				'subject' => $subject,
+				'message' => $message,
+				'headers' => $headers,
+			);
 
 			if ( $form_options['mail_queue'] ) {
 				WPMST()->mail->enqueue_mail( $email );
-			}
-			else {
+			} else {
 				WPMST()->mail->send_mail( $email );
 			}
-
 		} // for each recipient
 	}
-        
+
 	/**
 	 * Replace tags for custom fields.
 	 *
@@ -581,19 +579,16 @@ class Strong_Testimonials_Form {
 			$post_field = isset( $post[ $field['name'] ] ) ? $post[ $field['name'] ] : false;
 
 			if ( $post_field ) {
-				if ( 'category' == $field['name'] ) {
+				if ( 'category' === $field['name'] ) {
 					$term = get_term( $post_field, 'wpm-testimonial-category' );
 					if ( $term && ! is_wp_error( $term ) ) {
 						$replace = $term->name;
 					}
-				}
-				elseif ( 'rating' == $field['input_type'] ) {
+				} elseif ( 'rating' === $field['input_type'] ) {
 					$replace = $post_field . ' ' . _n( 'star', 'stars', $post_field, 'strong-testimonials' );
-				}
-				elseif ( 'checkbox' == $field['input_type'] ) {
+				} elseif ( 'checkbox' === $field['input_type'] ) {
 					$replace = $post_field ? 'yes' : 'no';
-				}
-				else {
+				} else {
 					$replace = $post_field;
 				}
 			}
@@ -605,5 +600,4 @@ class Strong_Testimonials_Form {
 
 		return $text;
 	}
-
 }

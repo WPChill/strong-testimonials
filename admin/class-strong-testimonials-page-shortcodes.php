@@ -41,16 +41,14 @@ class Strong_Testimonials_Page_Shortcodes {
 				'fill' => true,
 			),
 			'style' => array( 'type' => true ),
-			'span' => array(
-				'style' 		=> array(),
-				'class' 		=> array(),
+			'span'  => array(
+				'style' => array(),
+				'class' => array(),
 			),
 		);
 
-		
-
-		$stars = '<span class="strong-rating"><span class="star0 star"></span><span class="star">'.$star_solid.'</span><span class="star">'.$star_solid.'</span><span class="star">'.$star_solid.'</span><span class="star">'.$star_solid.'</span><span class="star current half">'.$star_half.'</span></span>';
-		$stars_rounded = '<span class="strong-rating"><span class="star0 star"></span><span class="star">'.$star_solid.'</span><span class="star">'.$star_solid.'</span><span class="star">'.$star_solid.'</span><span class="star current">'.$star_solid.'</span><span class="star">'.$star_regular.'</span></span>';
+		$stars         = '<span class="strong-rating"><span class="star0 star"></span><span class="star">' . $star_solid . '</span><span class="star">' . $star_solid . '</span><span class="star">' . $star_solid . '</span><span class="star">' . $star_solid . '</span><span class="star current half">' . $star_half . '</span></span>';
+		$stars_rounded = '<span class="strong-rating"><span class="star0 star"></span><span class="star">' . $star_solid . '</span><span class="star">' . $star_solid . '</span><span class="star">' . $star_solid . '</span><span class="star current">' . $star_solid . '</span><span class="star">' . $star_regular . '</span></span>';
 
 		$tags = array(
 			'a' => array(
@@ -71,7 +69,7 @@ class Strong_Testimonials_Page_Shortcodes {
 			</p>
 
 			<h2><?php esc_html_e( 'Testimonial Count', 'strong-testimonials' ); ?></h2>
-
+			<?php /* translators: %s is a shortcode attribute */ ?>
 			<p><?php printf( esc_html__( 'Use %s to display the number of testimonials.', 'strong-testimonials' ), '<code>&#91;testimonial_count&#93;</code>' ); ?></p>
 
 			<table class="form-table shortcodes" cellpadding="0" cellspacing="0">
@@ -81,9 +79,7 @@ class Strong_Testimonials_Page_Shortcodes {
 					</td>
 					<td class="shortcode">
 						<?php /* translators: %s is a shortcode */ ?>
-						<p>
-							<?php printf( esc_html__( 'Read some of our %s testimonials!', 'strong-testimonials' ), '&#91;testimonial_count&#93;' ); ?>
-						</p>
+						<p><?php printf( esc_html__( 'Read some of our %s testimonials!', 'strong-testimonials' ), '&#91;testimonial_count&#93;' ); ?></p>
 					</td>
 				</tr>
 				<tr>
@@ -93,9 +89,7 @@ class Strong_Testimonials_Page_Shortcodes {
 					</td>
 					<td class="shortcode">
 						<?php /* translators: %s is a shortcode */ ?>
-						<p>
-							<?php printf( esc_html__( 'Here\'s what %s local clients say', 'strong-testimonials' ), '&#91;testimonial_count category="local"&#93;' ); ?>
-						</p>
+						<p><?php printf( esc_html__( 'Here\'s what %s local clients say', 'strong-testimonials' ), '&#91;testimonial_count category="local"&#93;' ); ?></p>
 					</td>
 				</tr>
 			</table>
@@ -123,7 +117,7 @@ class Strong_Testimonials_Page_Shortcodes {
 									<div class="strong-rating-wrapper average">
 										<span class="strong-rating-title"><?php esc_html_e( 'Average Rating:', 'strong-testimonials' ); ?></span>
 										<?php echo wp_kses( $stars, $svg_args ); ?>
-										<span class="strong-rating-summary"><?php esc_html_e( '4.3 stars (based on 9 ratings)','strong-testimonials'); ?></span>
+										<span class="strong-rating-summary"><?php esc_html_e( '4.3 stars (based on 9 ratings)', 'strong-testimonials' ); ?></span>
 									</div>
 								</td>
 							</tr>
@@ -149,7 +143,7 @@ class Strong_Testimonials_Page_Shortcodes {
 									<div class="strong-rating-wrapper average">
 										<span class="strong-rating-title"><?php esc_html_e( 'Average Rating:', 'strong-testimonials' ); ?></span>
 										<?php echo wp_kses( $stars, $svg_args ); ?>
-										<span class="strong-rating-summary"><?php esc_html_e( '4.3 stars (based on 9 ratings)','strong-testimonials'); ?></span>
+										<span class="strong-rating-summary"><?php esc_html_e( '4.3 stars (based on 9 ratings)', 'strong-testimonials' ); ?></span>
 									</div>
 								</td>
 							</tr>
@@ -253,7 +247,7 @@ class Strong_Testimonials_Page_Shortcodes {
 					<td>
 						<p><code>decimals</code></p>
 						<p class="description"><?php esc_html_e( 'If you need to display multiple decimals for average rating you have to set a number to decimal.', 'strong-testimonials' ); ?></p>
-                                              
+											  
 					</td>
 					<td class="has-inner">
 						<table class="inner" cellpadding="0" cellspacing="0">
@@ -272,7 +266,7 @@ class Strong_Testimonials_Page_Shortcodes {
 					</td>
 				</tr>
 			</table>
-                        
+						
 			<table class="form-table shortcodes average">
 				<tr>
 					<td>
@@ -292,7 +286,7 @@ class Strong_Testimonials_Page_Shortcodes {
 					</td>
 				</tr>
 			</table>
-                        
+						
 			<table class="form-table shortcodes average">
 				<tr>
 					<td>
@@ -371,7 +365,7 @@ class Strong_Testimonials_Page_Shortcodes {
 				<tr>
 					<td>
 						<p><code>rounded</code></p>
-                        <p class="description"><?php esc_html_e( 'Round the rating(ex.: from 4.3 -> 4 or 4.7->5)', 'strong-testimonials' ); ?></p>
+						<p class="description"><?php esc_html_e( 'Round the rating(ex.: from 4.3 -> 4 or 4.7->5)', 'strong-testimonials' ); ?></p>
 					</td>
 					<td class="has-inner">
 						<table class="inner" cellpadding="0" cellspacing="0">
@@ -391,28 +385,28 @@ class Strong_Testimonials_Page_Shortcodes {
 				</tr>
 			</table>
 
-            <table class="form-table shortcodes average">
-                <tr>
-                    <td>
-                        <p><code>block</code> and <code>centered</code></p>
-                    </td>
-                    <td class="has-inner">
-                        <table class="inner" cellpadding="0" cellspacing="0">
-                            <tr>
-                                <td class="shortcode">&#91;testimonial_average_rating block centered /&#93;</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="strong-rating-wrapper average block centered"><span class="strong-rating-title"><?php esc_html_e( 'Average Rating:', 'strong-testimonials' ); ?></span>
-                                        <?php echo wp_kses( $stars, $svg_args ); ?>
-                                        <span class="strong-rating-summary"><?php esc_html_e( '4.3 stars (based on 9 ratings)', 'strong-testimonials' ); ?></span>
-                                    </div>
-                                </td>
-                            </tr>
-                        </table>
-                    </td>
-                </tr>
-            </table>
+			<table class="form-table shortcodes average">
+				<tr>
+					<td>
+						<p><code>block</code> and <code>centered</code></p>
+					</td>
+					<td class="has-inner">
+						<table class="inner" cellpadding="0" cellspacing="0">
+							<tr>
+								<td class="shortcode">&#91;testimonial_average_rating block centered /&#93;</td>
+							</tr>
+							<tr>
+								<td>
+									<div class="strong-rating-wrapper average block centered"><span class="strong-rating-title"><?php esc_html_e( 'Average Rating:', 'strong-testimonials' ); ?></span>
+										<?php echo wp_kses( $stars, $svg_args ); ?>
+										<span class="strong-rating-summary"><?php esc_html_e( '4.3 stars (based on 9 ratings)', 'strong-testimonials' ); ?></span>
+									</div>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</table>
 
 			<table class="form-table shortcodes average">
 				<tr>
@@ -441,5 +435,4 @@ class Strong_Testimonials_Page_Shortcodes {
 		</div>
 		<?php
 	}
-
 }

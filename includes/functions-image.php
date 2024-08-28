@@ -14,13 +14,13 @@ function wpmtst_get_thumbnail( $size = null ) {
 	}
 
 	// let arg override view setting
-	$size = ( null === $size ) ? WPMST()->atts( 'thumbnail_size' ) : $size ;
-	if ( 'custom' == $size ) {
+	$size = ( null === $size ) ? WPMST()->atts( 'thumbnail_size' ) : $size;
+	if ( 'custom' === $size ) {
 		$size = array( WPMST()->atts( 'thumbnail_width' ), WPMST()->atts( 'thumbnail_height' ) );
 	}
 
-	$id = get_the_ID();
-	$img  = '';
+	$id  = get_the_ID();
+	$img = '';
 
 	// check for a featured image
 	if ( has_post_thumbnail( $id ) ) {
@@ -32,20 +32,20 @@ function wpmtst_get_thumbnail( $size = null ) {
 
 		// no featured image, now what?
 
-		if ( 'yes' == WPMST()->atts( 'gravatar' ) ) {
+		if ( 'yes' === WPMST()->atts( 'gravatar' ) ) {
 			// view > gravatar > show gravatar (use default, if not found)
 
 			$img = get_avatar( wpmtst_get_field( 'email' ), apply_filters( 'wpmtst_gravatar_size', $size ) );
 
-		} elseif ( 'if' == WPMST()->atts( 'gravatar' ) ) {
+		} elseif ( 'if' === WPMST()->atts( 'gravatar' ) ) {
 			// view > gravatar > show gravatar only if found (and has email)
 
 			if ( wpmtst_get_field( 'email' ) ) {
 				// get_avatar will return false if not found (via filter)
 				$img = get_avatar( wpmtst_get_field( 'email' ), apply_filters( 'wpmtst_gravatar_size', $size ) );
 			}
-		} 
-                $img = apply_filters( 'wpmtst_thumbnail_default_img', $img, $id, $size );
+		}
+				$img = apply_filters( 'wpmtst_thumbnail_default_img', $img, $id, $size );
 	}
 
 	return apply_filters( 'wpmtst_thumbnail_img', $img, $id, $size );
@@ -90,15 +90,15 @@ add_filter( 'wpmtst_thumbnail_img', 'wpmtst_thumbnail_img', 10, 3 );
  * @return array
  */
 function wpmtst_exclude_from_lazyload( $attr, $attachment, $size ) {
-        $options = get_option( 'wpmtst_options' );
+		$options = get_option( 'wpmtst_options' );
 
-        if ( isset( $options['no_lazyload_plugin'] ) && $options['no_lazyload_plugin'] ) {
-                if ( 'wpm-testimonial' == get_post_type( $attachment->post_parent ) ) {
-                        $attr['data-no-lazyload'] = 1;
-                }
-        }
-    
-        return $attr;
+	if ( isset( $options['no_lazyload_plugin'] ) && $options['no_lazyload_plugin'] ) {
+		if ( 'wpm-testimonial' === get_post_type( $attachment->post_parent ) ) {
+				$attr['data-no-lazyload'] = 1;
+		}
+	}
+
+		return $attr;
 }
 /**
  * Add filter if Lazy Loading Responsive Images plugin is active.
@@ -124,16 +124,16 @@ add_action( 'init', 'wpmtst_lazyload_check' );
  * @return array
  */
 function wpmtst_add_lazyload( $attr, $attachment, $size ) {
-	if( !function_exists( 'wp_lazy_loading_enabled' ) || !apply_filters( 'wp_lazy_loading_enabled', true, 'img', 'strong_testimonials_has_lazyload' ) ) {
+	if ( ! function_exists( 'wp_lazy_loading_enabled' ) || ! apply_filters( 'wp_lazy_loading_enabled', true, 'img', 'strong_testimonials_has_lazyload' ) ) {
 		$options = get_option( 'wpmtst_options' );
-			
-		if ( isset( $options['lazyload'] ) && $options['lazyload']) {
-			if ( 'wpm-testimonial' == get_post_type( $attachment->post_parent ) && !is_admin() ) {
-				$attr['class'] .= ' lazy-load';
-							$attr['data-src'] = $attr['src'];
+
+		if ( isset( $options['lazyload'] ) && $options['lazyload'] ) {
+			if ( 'wpm-testimonial' === get_post_type( $attachment->post_parent ) && ! is_admin() ) {
+				$attr['class']                  .= ' lazy-load';
+							$attr['data-src']    = $attr['src'];
 							$attr['data-srcset'] = $attr['srcset'];
-							unset($attr['src']);
-							unset($attr['srcset']);
+							unset( $attr['src'] );
+							unset( $attr['srcset'] );
 			}
 		}
 	}
@@ -157,7 +157,7 @@ function wpmtst_gravatar_size_filter( $size = array( 150, 150 ) ) {
 	} else {
 		// if named size
 		$image_sizes   = wpmtst_get_image_sizes();
-		$gravatar_size = $image_sizes[$size]['width'];
+		$gravatar_size = $image_sizes[ $size ]['width'];
 	}
 
 	return $gravatar_size;
@@ -174,12 +174,13 @@ add_filter( 'wpmtst_gravatar_size', 'wpmtst_gravatar_size_filter' );
  */
 function wpmtst_has_gravatar( $email_address ) {
 	// Build the Gravatar URL by hashing the email address
-	$url = 'http://www.gravatar.com/avatar/' . md5( strtolower( trim ( $email_address ) ) ) . '?d=404';
+	$url = 'http://www.gravatar.com/avatar/' . md5( strtolower( trim( $email_address ) ) ) . '?d=404';
 
 	// Now check the headers...
-	$headers = @get_headers( $url );
+	$headers = get_headers( $url, 1 );
 
-	if( ! is_array( $headers ) ){
+	// Check if headers were retrieved successfully
+	if ( ! is_array( $headers ) || ! isset( $headers[0] ) ) {
 		return false;
 	}
 
@@ -197,8 +198,9 @@ function wpmtst_has_gravatar( $email_address ) {
  * @return bool
  */
 function wpmtst_get_avatar( $url, $id_or_email, $args ) {
-	if ( 'if' == WPMST()->atts( 'gravatar' ) && ! wpmtst_has_gravatar( $id_or_email ) )
+	if ( 'if' === WPMST()->atts( 'gravatar' ) && ! wpmtst_has_gravatar( $id_or_email ) ) {
 		return false;
+	}
 
 	return $url;
 }
@@ -210,7 +212,7 @@ function wpmtst_thumbnail_img_platform( $img, $post_id, $size ) {
 	}
 
 	$platform = get_post_meta( $post_id, 'platform', true );
-	if( ! $platform ) {
+	if ( ! $platform ) {
 		return $img;
 	}
 
@@ -228,7 +230,7 @@ function wpmtst_thumbnail_img_platform_general( $img, $post_id, $size ) {
 		return $img;
 	}
 
- 	//calculate width & height based on size
+	//calculate width & height based on size
 	if ( is_array( $size ) ) {
 		$width  = $size[0];
 		$height = $size[1];
@@ -249,7 +251,7 @@ add_filter( 'wpmtst_thumbnail_img_platform_zomato', 'wpmtst_thumbnail_img_platfo
 function wpmtst_thumbnail_img_platform_woocommerce( $img, $post_id, $size ) {
 
 	$options = get_option( 'wpmtst_importer_options' );
-	if ( $options['email_field'] === '' ) {
+	if ( '' === $options['email_field'] ) {
 		return $img;
 	}
 

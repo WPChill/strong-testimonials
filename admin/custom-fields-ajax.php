@@ -10,7 +10,7 @@
 function wpmtst_add_field_function() {
 
 	if ( ! current_user_can( 'manage_options' ) ) {
-	    wp_die();
+		wp_die();
 	}
 
 	check_ajax_referer( 'wpmtst-admin', 'security' );
@@ -36,7 +36,7 @@ add_action( 'wp_ajax_wpmtst_add_field', 'wpmtst_add_field_function' );
 function wpmtst_add_field_2_function() {
 
 	if ( ! current_user_can( 'manage_options' ) ) {
-	    wp_die();
+		wp_die();
 	}
 
 	check_ajax_referer( 'wpmtst-admin', 'security' );
@@ -46,7 +46,7 @@ function wpmtst_add_field_2_function() {
 	$fields          = apply_filters( 'wpmtst_fields', get_option( 'wpmtst_fields' ) );
 
 	$empty_field = array_merge(
-		$fields['field_types'][$new_field_class][$new_field_type],
+		$fields['field_types'][ $new_field_class ][ $new_field_type ],
 		array( 'record_type' => $new_field_class )
 	);
 	echo wpmtst_show_field_secondary( isset( $_REQUEST['nextKey'] ) ? intval( $_REQUEST['nextKey'] ) : 0, $empty_field ); // phpcs:ignore escaped in function wpmtst_show_field_secondary
@@ -61,7 +61,7 @@ add_action( 'wp_ajax_wpmtst_add_field_2', 'wpmtst_add_field_2_function' );
 function wpmtst_add_field_3_function() {
 
 	if ( ! current_user_can( 'manage_options' ) ) {
-	    wp_die();
+		wp_die();
 	}
 
 	check_ajax_referer( 'wpmtst-admin', 'security' );
@@ -71,7 +71,7 @@ function wpmtst_add_field_3_function() {
 	$fields          = apply_filters( 'wpmtst_fields', get_option( 'wpmtst_fields' ) );
 
 	$empty_field = array_merge(
-		$fields['field_types'][$new_field_class][$new_field_type],
+		$fields['field_types'][ $new_field_class ][ $new_field_type ],
 		array( 'record_type' => $new_field_class )
 	);
 	echo wpmtst_show_field_hidden( isset( $_REQUEST['nextKey'] ) ? intval( $_REQUEST['nextKey'] ) : 0, $empty_field );
@@ -86,7 +86,7 @@ add_action( 'wp_ajax_wpmtst_add_field_3', 'wpmtst_add_field_3_function' );
 function wpmtst_add_field_4_function() {
 
 	if ( ! current_user_can( 'manage_options' ) ) {
-	    add_filter( 'show_admin_bar', '__return_false' );
+		add_filter( 'show_admin_bar', '__return_false' );
 	}
 
 	check_ajax_referer( 'wpmtst-admin', 'security' );
@@ -95,7 +95,7 @@ function wpmtst_add_field_4_function() {
 	$new_field_class = isset( $_REQUEST['fieldClass'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['fieldClass'] ) ) : '';
 	$fields          = apply_filters( 'wpmtst_fields', get_option( 'wpmtst_fields' ) );
 	$empty_field     = array();
-	if ( isset( $fields['field_types'][$new_field_class][$new_field_type] ) ) {
+	if ( isset( $fields['field_types'][ $new_field_class ][ $new_field_type ] ) ) {
 		$empty_field = array_merge(
 			$fields['field_types'][ $new_field_class ][ $new_field_type ],
 			array( 'record_type' => $new_field_class )
@@ -113,9 +113,9 @@ add_action( 'wp_ajax_wpmtst_add_field_4', 'wpmtst_add_field_4_function' );
 function wpmtst_ajax_cat_count() {
 
 	if ( ! current_user_can( 'manage_options' ) ) {
-	    wp_die();
+		wp_die();
 	}
-	
+
 	check_ajax_referer( 'wpmtst-admin', 'security' );
 
 	echo wpmtst_get_cat_count();

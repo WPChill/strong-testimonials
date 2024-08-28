@@ -15,8 +15,8 @@ function wpmtst_support_url() {
  *
  * @return string
  */
-function wpmtst_l10n_default( $string ) {
-	return $string;
+function wpmtst_l10n_default( $l10n_string ) {
+	return $l10n_string;
 }
 add_filter( 'wpmtst_l10n', 'wpmtst_l10n_default' );
 
@@ -35,14 +35,12 @@ function wpmtst_get_post( $post ) {
 	foreach ( $fields as $key => $field ) {
 		$name = $field['name'];
 
-		if ( 'featured_image' == $name ) {
+		if ( 'featured_image' === $name ) {
 			$post->thumbnail_id = get_post_thumbnail_id( $post->ID );
-		}
-		else {
+		} else {
 			if ( isset( $custom[ $name ] ) ) {
 				$post->$name = $custom[ $name ][0];
-			}
-			else {
+			} else {
 				$post->$name = '';
 			}
 		}
@@ -58,8 +56,9 @@ function wpmtst_get_post( $post ) {
  * @return string
  */
 function wpmtst_get_website( $url ) {
-	if ( !preg_match( "~^(?:f|ht)tps?://~i", $url ) )
+	if ( ! preg_match( '~^(?:f|ht)tps?://~i', $url ) ) {
 		$url = 'https://' . $url;
+	}
 
 	return $url;
 }
@@ -96,12 +95,14 @@ function wpmtst_is_registered( $filenames ) {
 	global $wp_scripts;
 
 	// Bail if called too early.
-	if ( ! $wp_scripts ) return false;
+	if ( ! $wp_scripts ) {
+		return false;
+	}
 
 	$script_handle = '';
 
 	foreach ( $wp_scripts->registered as $handle => $script ) {
-		if ( in_array( basename( $script->src ), $filenames ) ) {
+		if ( in_array( basename( $script->src ), $filenames, true ) ) {
 			$script_handle = $handle;
 			break;
 		}
@@ -111,22 +112,23 @@ function wpmtst_is_registered( $filenames ) {
 }
 
 if ( ! function_exists( 'get_page_by_slug' ) ) {
-/**
- * Get page ID by slug.
- *
- * Thanks http://wordpress.stackexchange.com/a/102845/32076
- * Does not require parent slug.
- *
- * @since 1.11.0
- */
-function get_page_by_slug( $page_slug, $output = OBJECT, $post_type = 'page' ) {
-    global $wpdb;
-    $page = $wpdb->get_var( $wpdb->prepare( "SELECT ID FROM $wpdb->posts WHERE post_name = %s AND post_type= %s AND post_status = 'publish'", $page_slug, $post_type ) );
-    if ( $page )
-        return get_post($page, $output);
-    else
-        return null;
-}
+	/**
+	 * Get page ID by slug.
+	 *
+	 * Thanks http://wordpress.stackexchange.com/a/102845/32076
+	 * Does not require parent slug.
+	 *
+	 * @since 1.11.0
+	 */
+	function get_page_by_slug( $page_slug, $output = OBJECT, $post_type = 'page' ) {
+		global $wpdb;
+		$page = $wpdb->get_var( $wpdb->prepare( "SELECT ID FROM $wpdb->posts WHERE post_name = %s AND post_type= %s AND post_status = 'publish'", $page_slug, $post_type ) );
+		if ( $page ) {
+			return get_post( $page, $output );
+		} else {
+			return null;
+		}
+	}
 }
 
 /**
@@ -137,16 +139,16 @@ function get_page_by_slug( $page_slug, $output = OBJECT, $post_type = 'page' ) {
 if ( ! function_exists( 'reverse_wpautop' ) ) {
 	function reverse_wpautop( $s ) {
 		// remove any new lines already in there
-		$s = str_replace("\n", "", $s);
+		$s = str_replace( "\n", '', $s );
 
 		// remove all <p>
-		$s = str_replace("<p>", "", $s);
+		$s = str_replace( '<p>', '', $s );
 
 		// remove <br>
-		$s = str_replace(array("<br />", "<br/>", "<br>"), "", $s);
+		$s = str_replace( array( '<br />', '<br/>', '<br>' ), '', $s );
 
 		// remove </p>
-		$s = str_replace("</p>", "", $s);
+		$s = str_replace( '</p>', '', $s );
 
 		return $s;
 	}
@@ -158,7 +160,7 @@ if ( ! function_exists( 'reverse_wpautop' ) ) {
  * @since 1.13
  */
 function wpmtst_uasort( $a, $b ) {
-	if ( $a['order'] == $b['order'] ) {
+	if ( $a['order'] === $b['order'] ) {
 		return 0;
 	}
 	return ( $a['order'] < $b['order'] ) ? -1 : 1;
@@ -190,10 +192,10 @@ function wpmtst_get_form_fields( $form_id = 1 ) {
  */
 function wpmtst_get_custom_fields() {
 	$all_fields = array();
-	$forms = get_option( 'wpmtst_custom_forms' );
+	$forms      = get_option( 'wpmtst_custom_forms' );
 
 	if ( ! $forms ) {
-	    return $all_fields;
+		return $all_fields;
 	}
 	// merge remaining form fields.
 	foreach ( $forms as $form ) {
@@ -202,7 +204,7 @@ function wpmtst_get_custom_fields() {
 		if ( isset( $form['fields'] ) ) {
 			$fields = $form['fields'];
 			foreach ( $fields as $field ) {
-				if ( 'post' != $field['record_type'] ) {
+				if ( 'post' !== $field['record_type'] ) {
 					$custom_fields[ $field['name'] ] = $field;
 				}
 			}
@@ -221,7 +223,7 @@ function wpmtst_get_custom_fields() {
  * @return array
  */
 function wpmtst_get_all_fields() {
-	$forms = get_option( 'wpmtst_custom_forms' );
+	$forms      = get_option( 'wpmtst_custom_forms' );
 	$all_fields = array();
 
 	/**
@@ -239,7 +241,7 @@ function wpmtst_get_all_fields() {
 	// merge remaining form fields
 	foreach ( $forms as $form ) {
 		$custom_fields = array();
-		$fields = $form['fields'];
+		$fields        = $form['fields'];
 		foreach ( $fields as $field ) {
 			$custom_fields[ $field['name'] ] = $field;
 		}
@@ -261,7 +263,7 @@ function wpmtst_get_all_rating_fields() {
 	$rating_fields = array();
 
 	foreach ( $all_fields as $key => $field ) :
-		if ( $field['input_type'] !== 'rating' ) {
+		if ( 'rating' !== $field['input_type'] ) {
 			continue;
 		}
 		$rating_fields[] = $field;
@@ -277,7 +279,7 @@ function wpmtst_get_all_rating_fields() {
  */
 function wpmtst_get_builtin_fields() {
 	$builtin_fields = array(
-		'post_date' => array(
+		'post_date'   => array(
 			'name'        => 'post_date',
 			'label'       => 'Post Date',
 			'input_type'  => 'date',
@@ -291,7 +293,7 @@ function wpmtst_get_builtin_fields() {
 			'type'        => 'date',
 			'record_type' => 'builtin',
 		),
-		'category' => array(
+		'category'    => array(
 			'name'        => 'category',
 			'label'       => 'Category',
 			'input_type'  => 'category',
@@ -301,7 +303,7 @@ function wpmtst_get_builtin_fields() {
 	);
 
 	$options = get_option( 'wpmtst_options' );
-	if ( isset( $options['include_platform'] ) && $options['include_platform'] === true ) {
+	if ( isset( $options['include_platform'] ) && true === $options['include_platform'] ) {
 		$builtin_fields[] = array(
 			'name'        => 'platform',
 			'label'       => 'Platform',
@@ -314,72 +316,11 @@ function wpmtst_get_builtin_fields() {
 	return $builtin_fields;
 }
 
-/**
- * Get defined images sizes.
- *
- * @link http://codex.wordpress.org/Function_Reference/get_intermediate_image_sizes
- * @since 1.21.0
- * @param string $size
- *
- * @return array|bool|mixed
- */
-/*
-	wpmtst_get_image_sizes = Array
-	(
-			[widget-thumbnail] => Array
-					(
-							[width] => 75
-							[height] => 75
-							[crop] =>
-							[label] => widget-thumbnail - 75 x 75
-					)
-			[thumbnail] => Array
-					(
-							[width] => 150
-							[height] => 150
-							[crop] => 1
-							[label] => thumbnail - 150 x 150
-					)
-			[medium] => Array
-					(
-							[width] => 300
-							[height] => 300
-							[crop] =>
-							[label] => medium - 300 x 300
-					)
-			[post-thumbnail] => Array
-					(
-							[width] => 825
-							[height] => 510
-							[crop] => 1
-							[label] => post-thumbnail - 825 x 510
-					)
-			[large] => Array
-					(
-							[width] => 1024
-							[height] => 1024
-							[crop] =>
-							[label] => large - 1024 x 1024
-					)
-			[full] => Array
-					(
-							[label] => original size uploaded
-							[width] => 0
-							[height] => 0
-					)
-			[custom] => Array
-					(
-							[label] => enter dimensions:
-							[width] => 0
-							[height] => 0
-					)
-	)
-*/
 function wpmtst_get_image_sizes( $size = '' ) {
 
 	global $_wp_additional_image_sizes;
 
-	$sizes = array();
+	$sizes                        = array();
 	$get_intermediate_image_sizes = get_intermediate_image_sizes();
 
 	/**
@@ -390,22 +331,20 @@ function wpmtst_get_image_sizes( $size = '' ) {
 		// Create the full array with sizes and crop info
 		foreach ( $get_intermediate_image_sizes as $_size ) {
 
-			if ( in_array( $_size, array( 'thumbnail', 'medium', 'large' ) ) ) {
+			if ( in_array( $_size, array( 'thumbnail', 'medium', 'large' ), true ) ) {
 
 				$sizes[ $_size ]['width']  = get_option( $_size . '_size_w' );
 				$sizes[ $_size ]['height'] = get_option( $_size . '_size_h' );
-				$sizes[ $_size ]['crop']   = (bool)get_option( $_size . '_crop' );
-			}
-			elseif ( isset( $_wp_additional_image_sizes[ $_size ] ) ) {
+				$sizes[ $_size ]['crop']   = (bool) get_option( $_size . '_crop' );
+			} elseif ( isset( $_wp_additional_image_sizes[ $_size ] ) ) {
 
 				$sizes[ $_size ] = array(
 					'width'  => $_wp_additional_image_sizes[ $_size ]['width'],
 					'height' => $_wp_additional_image_sizes[ $_size ]['height'],
-					'crop'   => $_wp_additional_image_sizes[ $_size ]['crop']
+					'crop'   => $_wp_additional_image_sizes[ $_size ]['crop'],
 				);
 
 			}
-
 		}
 
 		// Sort by width
@@ -418,8 +357,16 @@ function wpmtst_get_image_sizes( $size = '' ) {
 	}
 
 	// Add extra options
-	$sizes['full']   = array( 'label' => 'original size uploaded', 'width' => 0, 'height' => 0 );
-	$sizes['custom'] = array( 'label' => 'custom size', 'width' => 0, 'height' => 0 );
+	$sizes['full']   = array(
+		'label'  => 'original size uploaded',
+		'width'  => 0,
+		'height' => 0,
+	);
+	$sizes['custom'] = array(
+		'label'  => 'custom size',
+		'width'  => 0,
+		'height' => 0,
+	);
 
 	// Get only one size if found
 	if ( $size ) {
@@ -440,10 +387,10 @@ function wpmtst_get_image_sizes( $size = '' ) {
  * @return int
  */
 function wpmtst_compare_width( $a, $b ) {
-	if ( $a['width'] == $b['width'] ) {
+	if ( $a['width'] === $b['width'] ) {
 		return 0;
 	}
-	return ($a['width'] < $b['width']) ? -1 : 1;
+	return ( $a['width'] < $b['width'] ) ? -1 : 1;
 }
 
 /**
@@ -458,27 +405,30 @@ function wpmtst_get_cat_count() {
  *
  * @since 2.2.3 If WPML is active, will find corresponding term ID in current language.
  *
- * @param int $parent
+ * @param int $cat_parent
  *
  * @return array|int|WP_Error
  */
-function wpmtst_get_cats( $parent = 0 ) {
-	return get_terms( 'wpm-testimonial-category', array(
-		'hide_empty' => false,
-        'parent'     => $parent,
-	) );
+function wpmtst_get_cats( $cat_parent = 0 ) {
+	return get_terms(
+		'wpm-testimonial-category',
+		array(
+			'hide_empty' => false,
+			'parent'     => $cat_parent,
+		)
+	);
 }
 
 /**
  * @param $value
- * @param int $parent
+ * @param int $cat_parent
  * @param int $level
  */
-function wpmtst_nested_cats( $value, $parent = 0, $level = 0 ) {
-	$cats = wpmtst_get_cats( $parent );
+function wpmtst_nested_cats( $value, $cat_parent = 0, $level = 0 ) {
+	$cats = wpmtst_get_cats( $cat_parent );
 	if ( $cats ) {
 		foreach ( $cats as $cat ) {
-			$selected = in_array( $cat->term_id, $value ) ? ' selected' : '';
+			$selected = in_array( $cat->term_id, $value, true ) ? ' selected' : '';
 			printf( '<option value="%s"%s>%s%s</option>', esc_attr( $cat->term_id ), esc_attr( $selected ), esc_html( str_repeat( '&nbsp;&nbsp;&nbsp;', $level ) ), esc_html( $cat->name ) );
 			wpmtst_nested_cats( $value, $cat->term_id, $level + 1 );
 		}
@@ -486,8 +436,9 @@ function wpmtst_nested_cats( $value, $parent = 0, $level = 0 ) {
 }
 
 function wpmtst_sort_array_by_name( $a, $b ) {
-	if ( $a['name'] == $b['name'] )
+	if ( $a['name'] === $b['name'] ) {
 		return 0;
+	}
 
 	return ( $a['name'] < $b['name'] ) ? -1 : 1;
 }
@@ -513,11 +464,11 @@ function wpmtst_using_form_validation_script() {
  */
 function wpmtst_embed_size( $dimensions, $url ) {
 	$options = get_option( 'wpmtst_options' );
-	$width = (int) $options['embed_width'];
+	$width   = (int) $options['embed_width'];
 	if ( $width ) {
 		$dimensions = array(
 			'width'  => $width,
-			'height' => min( ceil( $width * 1.5 ), 1000 )
+			'height' => min( ceil( $width * 1.5 ), 1000 ),
 		);
 	}
 
@@ -534,8 +485,9 @@ function wpmtst_embed_size( $dimensions, $url ) {
  * @return bool
  */
 function wpmtst_insert_post_empty_content( $maybe_empty, $postarr ) {
-	if ( 'wpm-testimonial' == $postarr['post_type'] )
+	if ( 'wpm-testimonial' === $postarr['post_type'] ) {
 		return false;
+	}
 
 	return $maybe_empty;
 }
@@ -552,7 +504,7 @@ function wpmtst_post_submitbox_misc_actions( $post ) {
 		global $post;
 	}
 
-	if ( 'wpm-testimonial' == $post->post_type ) {
+	if ( 'wpm-testimonial' === $post->post_type ) {
 		echo '<div class="wpmtst-pub-section">';
 		echo '<span id="submit-timestamp">&nbsp;';
 		$submit_date = get_post_meta( $post->ID, 'submit_date', true );
@@ -571,13 +523,16 @@ add_action( 'post_submitbox_misc_actions', 'wpmtst_post_submitbox_misc_actions' 
  * @return mixed
  */
 function wpmtst_get_background_defaults() {
-	return apply_filters( 'wpmtst_default_template_background', array(
-		'color'     => '',
-		'type'      => '',
-		'preset'    => '',
-		'gradient1' => '',
-		'gradient2' => '',
-	) );
+	return apply_filters(
+		'wpmtst_default_template_background',
+		array(
+			'color'     => '',
+			'type'      => '',
+			'preset'    => '',
+			'gradient1' => '',
+			'gradient2' => '',
+		)
+	);
 }
 
 /**
@@ -588,12 +543,12 @@ function wpmtst_get_background_defaults() {
  */
 function wpmtst_get_background_presets( $preset = null ) {
 	$presets = array(
-		'light-blue-gradient' => array(
+		'light-blue-gradient'       => array(
 			'label'  => esc_html__( 'light blue gradient', 'strong-testimonials' ),
 			'color'  => '#E7EFFE',
 			'color2' => '#B8CFFB',
 		),
-		'light-gray-gradient' => array(
+		'light-gray-gradient'       => array(
 			'label'  => esc_html__( 'light gray gradient', 'strong-testimonials' ),
 			'color'  => '#FBFBFB',
 			'color2' => '#EDEDED',
@@ -603,17 +558,17 @@ function wpmtst_get_background_presets( $preset = null ) {
 			'color'  => '#F2FBE9',
 			'color2' => '#E0F7CC',
 		),
-		'light-latte-gradient' => array(
+		'light-latte-gradient'      => array(
 			'label'  => esc_html__( 'light latte gradient', 'strong-testimonials' ),
 			'color'  => '#F8F3EC',
 			'color2' => '#E0C8AB',
 		),
-		'light-plum-gradient' => array(
+		'light-plum-gradient'       => array(
 			'label'  => esc_html__( 'light plum gradient', 'strong-testimonials' ),
 			'color'  => '#F7EEF7',
 			'color2' => '#E9D0E9',
 		),
-		'sky-blue-gradient' => array(
+		'sky-blue-gradient'         => array(
 			'label'  => esc_html__( 'sky blue gradient', 'strong-testimonials' ),
 			'color'  => '#E9F6FB',
 			'color2' => '#C8E9F6',
@@ -624,7 +579,7 @@ function wpmtst_get_background_presets( $preset = null ) {
 		if ( isset( $presets[ $preset ] ) ) {
 			return $presets[ $preset ];
 		} else {
-		    return wpmtst_get_background_defaults();
+			return wpmtst_get_background_defaults();
 		}
 	}
 
@@ -713,27 +668,31 @@ add_filter( 'the_content', 'wpmtst_single_template_add_content' );
  * @return bool
  */
 function wpmtst_is_plugin_active( $plugin = '' ) {
-	if ( ! $plugin )
+	if ( ! $plugin ) {
 		return false;
+	}
 
 	$plugins = array(
-		'wpml' => 'sitepress-multilingual-cms/sitepress.php',
-		'polylang' => 'polylang/polylang.php',
-        'lazy-loading-responsive-images' => 'lazy-loading-responsive-images/lazy-load-responsive-images.php',
+		'wpml'                           => 'sitepress-multilingual-cms/sitepress.php',
+		'polylang'                       => 'polylang/polylang.php',
+		'lazy-loading-responsive-images' => 'lazy-loading-responsive-images/lazy-load-responsive-images.php',
 	);
 	if ( isset( $plugins[ $plugin ] ) ) {
 		$plugin = $plugins[ $plugin ];
 	}
 
-	if ( in_array( $plugin, (array) get_option( 'active_plugins', array() ) ) )
-	    return true;
-
-	if ( ! is_multisite() )
-		return false;
-
-	$plugins = get_site_option( 'active_sitewide_plugins');
-	if ( isset( $plugins[ $plugin ] ) )
+	if ( in_array( $plugin, (array) get_option( 'active_plugins', array() ), true ) ) {
 		return true;
+	}
+
+	if ( ! is_multisite() ) {
+		return false;
+	}
+
+	$plugins = get_site_option( 'active_sitewide_plugins' );
+	if ( isset( $plugins[ $plugin ] ) ) {
+		return true;
+	}
 
 	return false;
 }
@@ -786,7 +745,7 @@ function wpmtst_sanitize_textarea( $text ) {
  */
 function wpmtst_sanitize_checkbox( $input, $key ) {
 	if ( isset( $input[ $key ] ) ) {
-		if ( 'on' == $input[ $key ] ) {   // checked checkbox
+		if ( 'on' === $input[ $key ] ) {   // checked checkbox
 			return true;
 		} else {   // hidden input
 			return $input[ $key ] ? true : false;   // 0 or 1
@@ -817,28 +776,28 @@ function wpmtst_trim_array( $input ) {
 }
 
 if ( ! function_exists( 'normalize_empty_atts' ) ) {
-    /**
-     * Normalize empty shortcode attributes.
-     *
-     * Turns atts into tags - brilliant!
-     * Thanks http://wordpress.stackexchange.com/a/123073/32076
-     *
-     * @param $atts
-     *
-     * @return mixed
-     */
-    function normalize_empty_atts( $atts ) {
-        if ( ! empty( $atts ) ) {
-            foreach ( $atts as $attribute => $value ) {
-                if ( is_int( $attribute ) ) {
-                    $atts[ strtolower( $value ) ] = true;
-                    unset( $atts[ $attribute ] );
-                }
-            }
-        }
+	/**
+	 * Normalize empty shortcode attributes.
+	 *
+	 * Turns atts into tags - brilliant!
+	 * Thanks http://wordpress.stackexchange.com/a/123073/32076
+	 *
+	 * @param $atts
+	 *
+	 * @return mixed
+	 */
+	function normalize_empty_atts( $atts ) {
+		if ( ! empty( $atts ) ) {
+			foreach ( $atts as $attribute => $value ) {
+				if ( is_int( $attribute ) ) {
+					$atts[ strtolower( $value ) ] = true;
+					unset( $atts[ $attribute ] );
+				}
+			}
+		}
 
-        return $atts;
-    }
+		return $atts;
+	}
 }
 
 // @todo : check in addons to see if function is called somewhere, else delete it
@@ -875,11 +834,11 @@ if ( ! function_exists( 'wpmtst_strip_whitespace' ) ) {
 
 if ( ! function_exists( 'wpmtst_current_url' ) ) {
 	/**
-     * Assemble and return the current URL.
-     *
-     * @since 2.31.0
+	 * Assemble and return the current URL.
+	 *
+	 * @since 2.31.0
 	 * @return string
-     */
+	 */
 	function wpmtst_current_url() {
 		global $wp;
 
@@ -887,13 +846,13 @@ if ( ! function_exists( 'wpmtst_current_url' ) ) {
 	}
 }
 if ( ! function_exists( 'get_formatted_views' ) ) {
-	
-	function get_formatted_views() {
-		$views = wpmtst_get_views() ;
 
-		$view_array = array( 'none' => esc_html__( 'None', 'strong-testimonials'));
-		foreach( $views as $view ) {
-			$view_array[$view['id']] = esc_html( $view['name'] );
+	function get_formatted_views() {
+		$views = wpmtst_get_views();
+
+		$view_array = array( 'none' => esc_html__( 'None', 'strong-testimonials' ) );
+		foreach ( $views as $view ) {
+			$view_array[ $view['id'] ] = esc_html( $view['name'] );
 		}
 		return $view_array;
 	}

@@ -64,9 +64,9 @@ if ( ! class_exists( 'Strong_Testimonials_WPChill_Upsells' ) ) {
 		 * @var array
 		 */
 		private $endpoints = array(
-			'checkout'      => 'checkout',
-			'pricing'       => 'pricing',
-			'base'          => 'wp-json/wpchill/v1/'
+			'checkout' => 'checkout',
+			'pricing'  => 'pricing',
+			'base'     => 'wp-json/wpchill/v1/',
 		);
 
 		private $upsell_extensions = array();
@@ -101,7 +101,6 @@ if ( ! class_exists( 'Strong_Testimonials_WPChill_Upsells' ) ) {
 			}
 
 			$this->fetch_packages();
-
 		}
 
 		/**
@@ -122,7 +121,7 @@ if ( ! class_exists( 'Strong_Testimonials_WPChill_Upsells' ) ) {
 			}
 
 			// There is no license or license is not valid anymore, so we get all packages
-			if ( 'valid' != $license_status->license ) {
+			if ( 'valid' !== $license_status->license ) {
 				return false;
 			}
 
@@ -142,7 +141,6 @@ if ( ! class_exists( 'Strong_Testimonials_WPChill_Upsells' ) ) {
 			}
 
 			return self::$instance;
-
 		}
 
 		/**
@@ -150,7 +148,7 @@ if ( ! class_exists( 'Strong_Testimonials_WPChill_Upsells' ) ) {
 		 *
 		 * @since 1.0.0
 		 */
-		public function get_transient( $name ){
+		public function get_transient( $name ) {
 			return $this->slug . '_' . $name;
 		}
 
@@ -159,8 +157,8 @@ if ( ! class_exists( 'Strong_Testimonials_WPChill_Upsells' ) ) {
 		 *
 		 * @since 1.0.0
 		 */
-		public function get_route( $name ){
-			return trailingslashit($this->shop_url) . trailingslashit( $this->endpoints['base'] ) . $name;
+		public function get_route( $name ) {
+			return trailingslashit( $this->shop_url ) . trailingslashit( $this->endpoints['base'] ) . $name;
 		}
 
 		/**
@@ -172,7 +170,7 @@ if ( ! class_exists( 'Strong_Testimonials_WPChill_Upsells' ) ) {
 
 			$rest_calls = array(
 				'packages' => 'all_packages',
-				'route'    => 'get-packages'
+				'route'    => 'get-packages',
 			);
 
 			if ( $this->license ) {
@@ -187,15 +185,15 @@ if ( ! class_exists( 'Strong_Testimonials_WPChill_Upsells' ) ) {
 			}
 
 			// Lets get the transient
-			$packages_transient = get_transient( $this->get_transient( $rest_calls['packages'] ));
+			$packages_transient = get_transient( $this->get_transient( $rest_calls['packages'] ) );
 
 			//If the transient exists then we will not make another call to the main server
-			 if ( $packages_transient && ! empty( $packages_transient ) ) {
-			 	$this->packages = $packages_transient;
-			 	$this->upsell_extensions = $this->get_extensions_upsell($this->packages);
+			if ( $packages_transient && ! empty( $packages_transient ) ) {
+				$this->packages          = $packages_transient;
+				$this->upsell_extensions = $this->get_extensions_upsell( $this->packages );
 
-			 	return;
-			 }
+				return;
+			}
 
 			$query_var = $rest_calls['route'];
 
@@ -210,11 +208,9 @@ if ( ! class_exists( 'Strong_Testimonials_WPChill_Upsells' ) ) {
 				if ( ! empty( $data ) && is_array( $data ) ) {
 					$this->packages          = $data;
 					$this->upsell_extensions = $this->get_extensions_upsell( $this->packages );
-					set_transient( $this->get_transient( $rest_calls['packages']), $this->packages, '86400' );
+					set_transient( $this->get_transient( $rest_calls['packages'] ), $this->packages, '86400' );
 				}
-
 			}
-
 		}
 
 		/**
@@ -227,7 +223,6 @@ if ( ! class_exists( 'Strong_Testimonials_WPChill_Upsells' ) ) {
 			$upsells = array();
 
 			if ( isset( $packages['upsell_packages'] ) ) {
-
 
 				foreach ( $packages['upsell_packages'] as $package ) {
 
@@ -299,10 +294,11 @@ if ( ! class_exists( 'Strong_Testimonials_WPChill_Upsells' ) ) {
 		 *
 		 */
 		public static function sort_data_by_price( $a, $b ) {
+
 			if ( ! isset( $a['upgrade_price'], $b['upgrade_price'] ) ) {
 				return - 1;
 			}
-			if ( $a['upgrade_price'] == $b['upgrade_price'] ) {
+			if ( (int) $a['upgrade_price'] === (int) $b['upgrade_price'] ) {
 				return 0;
 			}
 
@@ -319,7 +315,7 @@ if ( ! class_exists( 'Strong_Testimonials_WPChill_Upsells' ) ) {
 		public function lite_vs_premium( $pro_features ) {
 
 			$upsell_packages = array();
-			$addons = array();
+			$addons          = array();
 
 			$lite_plan['strong-testimonials-lite'] = array(
 				'name' => esc_html__( 'Strong Testimonials - LITE', 'strong-testimonials' ),
@@ -346,12 +342,12 @@ if ( ! class_exists( 'Strong_Testimonials_WPChill_Upsells' ) ) {
 
 			// Get our extensions from the heighest paid package as it has all of them
 			// Also we need to reverse the addons so that they appear in a cascade
-			if(isset(array_values($upsell_packages)[0]['extensions'])){
+			if ( isset( array_values( $upsell_packages )[0]['extensions'] ) ) {
 
-				$addons = array_reverse(array_values($upsell_packages)[0]['extensions']);
+				$addons = array_reverse( array_values( $upsell_packages )[0]['extensions'] );
 
 				// Unset the PRO from extensions
-				unset($addons['strong-testimonials']);
+				unset( $addons['strong-testimonials'] );
 			}
 
 			// Unset lifetime packages if any.
@@ -365,7 +361,7 @@ if ( ! class_exists( 'Strong_Testimonials_WPChill_Upsells' ) ) {
 
 			// Make the size of the element based on number of addons
 			if ( count( $upsell_packages ) > 0 ) {
-				echo '<style>.wpchill-pricing-package {width:' . ( intval( 100 / ( count( $upsell_packages ) + 2 ) ) - 1 ) . '%}.wpchill-plans-table.table-header .wpchill-pricing-package:last-child:before{content:"'.esc_html__('Current package','strong-testimonials').'";}</style>';
+				echo '<style>.wpchill-pricing-package {width:' . ( intval( 100 / ( count( $upsell_packages ) + 2 ) ) - 1 ) . '%}.wpchill-plans-table.table-header .wpchill-pricing-package:last-child:before{content:"' . esc_html__( 'Current package', 'strong-testimonials' ) . '";}</style>';
 			}
 			?>
 
@@ -381,28 +377,27 @@ if ( ! class_exists( 'Strong_Testimonials_WPChill_Upsells' ) ) {
 
 					if ( ! empty( $package['extra_features'] ) ) {
 						foreach ( $package['extra_features'] as $key => $value ) {
-							if ( 'sites' == $key ) {
+							if ( 'sites' === $key ) {
 								$sites .= '<div class="wpchill-pricing-package">' . $value . '</div>';
 							} else {
 								$priority .= '<div class="wpchill-pricing-package">' . $value . '</div>';
 							}
-
 						}
 					} else {
-						$sites .= '<div class="wpchill-pricing-package">-</div>';
+						$sites    .= '<div class="wpchill-pricing-package">-</div>';
 						$priority .= '<div class="wpchill-pricing-package">w.org Forums</div>';
 					}
 
 					?>
-					<div class="wpchill-pricing-package wpchill-title wpchill-<?php echo esc_attr( $slug ) ?>">
+					<div class="wpchill-pricing-package wpchill-title wpchill-<?php echo esc_attr( $slug ); ?>">
 						<!--Usually the names are "Plugin name - Package" so we make the explode -->
 						<p class="wpchill-name"><strong><?php echo esc_html( isset( explode( '-', $package['name'] )[1] ) ? explode( '-', $package['name'] )[1] : $package['name'] ); ?></strong></p>
 						<?php
 
 						// Lets display the price and other info about our packages
-						if ( isset( $package['upgrade_price'] ) && 'strong-testimonials-lite' != $slug ) {
-							$price = number_format( $package['upgrade_price'], 2 );
-							$price_parts = explode( '.', $price );
+						if ( isset( $package['upgrade_price'] ) && 'strong-testimonials-lite' !== $slug ) {
+							$price        = number_format( $package['upgrade_price'], 2 );
+							$price_parts  = explode( '.', $price );
 							$normal_price = false;
 
 							if ( isset( $package['normal_price'] ) ) {
@@ -412,17 +407,23 @@ if ( ! class_exists( 'Strong_Testimonials_WPChill_Upsells' ) ) {
 
 							$checkout_page = trailingslashit( $this->shop_url ) . $this->endpoints['checkout'];
 
-							$url           = add_query_arg( array(
+							$url = add_query_arg(
+								array(
 									'edd_action'   => 'add_to_cart',
 									'download_id'  => $package['id'],
 									'utm_source'   => 'upsell',
 									'utm_medium'   => 'litevspro',
 									'utm_campaign' => $slug,
-							), $checkout_page );
+								),
+								$checkout_page
+							);
 
 							$buy_button = apply_filters(
-								'wpchill-st-upsells-buy-button',
-								array( 'url' => $url, 'label' => esc_html__( 'Upgrade', 'strong-testimonials' ) ),
+								'wpchill-st-upsells-buy-button', // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores
+								array(
+									'url'   => $url,
+									'label' => esc_html__( 'Upgrade', 'strong-testimonials' ),
+								),
 								$slug,
 								$package,
 								$this
@@ -439,7 +440,7 @@ if ( ! class_exists( 'Strong_Testimonials_WPChill_Upsells' ) ) {
 
 							</div>
 							<a href="<?php echo esc_url( $buy_button['url'] ); ?>" target="_blank" class="button button-primary button-hero">
-								<?php echo esc_html($buy_button['label']); ?>
+								<?php echo esc_html( $buy_button['label'] ); ?>
 							</a>
 						<?php } ?>
 
@@ -472,7 +473,7 @@ if ( ! class_exists( 'Strong_Testimonials_WPChill_Upsells' ) ) {
 						if ( isset( $addon['description'] ) ) {
 							?>
 							<div class="tab-header-tooltip-container wpmtst-tooltip"><span>[?]</span>
-								<div class="tab-header-description wpmtst-tooltip-content"><?php echo wp_kses_post( $addon['description'] ) ?></div>
+								<div class="tab-header-description wpmtst-tooltip-content"><?php echo wp_kses_post( $addon['description'] ); ?></div>
 							</div>
 							<?php
 						}
@@ -481,7 +482,8 @@ if ( ! class_exists( 'Strong_Testimonials_WPChill_Upsells' ) ) {
 
 					<?php
 					// Need to check if each package if the addon is contained
-					foreach ( $all_packages as $slug => $upsell ) { ?>
+					foreach ( $all_packages as $slug => $upsell ) {
+						?>
 
 						<div class="wpchill-pricing-package">
 							<?php
@@ -494,7 +496,8 @@ if ( ! class_exists( 'Strong_Testimonials_WPChill_Upsells' ) ) {
 						</div>
 					<?php } ?>
 				</div>
-			<?php }
+				<?php
+			}
 
 			// Pro features are features that are present in the PRO version of the plugin
 			// And not in extensions / addons
@@ -509,7 +512,7 @@ if ( ! class_exists( 'Strong_Testimonials_WPChill_Upsells' ) ) {
 							if ( isset( $pro_feature['description'] ) ) {
 								?>
 								<div class="tab-header-tooltip-container wpmtst-tooltip"><span>[?]</span>
-									<div class="tab-header-description wpmtst-tooltip-content"><?php echo wp_kses_post( $pro_feature['description'] ) ?></div>
+									<div class="tab-header-description wpmtst-tooltip-content"><?php echo wp_kses_post( $pro_feature['description'] ); ?></div>
 								</div>
 								<?php
 							}
@@ -518,11 +521,12 @@ if ( ! class_exists( 'Strong_Testimonials_WPChill_Upsells' ) ) {
 
 						<?php
 						// Now let's go through our packages
-						foreach ( $all_packages as $slug => $upsell ) { ?>
+						foreach ( $all_packages as $slug => $upsell ) {
+							?>
 							<div class="wpchill-pricing-package">
 								<?php
 								// We need the LITE version because if there is no license key / current package the LITE will be a package also
-								if ( 'strong-testimonials-lite' != $slug ) {
+								if ( 'strong-testimonials-lite' !== $slug ) {
 									echo '<span class="dashicons dashicons-saved"></span>';
 								} else {
 									echo '<span class="dashicons dashicons-no-alt"></span>';
@@ -531,7 +535,8 @@ if ( ! class_exists( 'Strong_Testimonials_WPChill_Upsells' ) ) {
 							</div>
 						<?php } ?>
 					</div>
-				<?php }
+					<?php
+				}
 			}
 		}
 
@@ -560,8 +565,8 @@ if ( ! class_exists( 'Strong_Testimonials_WPChill_Upsells' ) ) {
 		 *
 		 * @since 3.0.3
 		 */
-		public function delete_upgradable_packages_transients( $option_name ){
-			if( 'strong_testimonials_license_key' === $option_name ){
+		public function delete_upgradable_packages_transients( $option_name ) {
+			if ( 'strong_testimonials_license_key' === $option_name ) {
 				delete_transient( 'strong-testimonials_upgradable_packages' );
 			}
 		}

@@ -18,7 +18,7 @@ class Strong_Testimonials_Elementor_Widget_Activation {
 	}
 
 	private function include_widgets_files() {
-		require_once WPMTST_INC . 'elementor/class-strong-elementor.php' ;
+		require_once WPMTST_INC . 'elementor/class-strong-testimonials-elementor-widget';
 	}
 
 	/**
@@ -49,36 +49,37 @@ class Strong_Testimonials_Elementor_Widget_Activation {
 		}
 
 		// Enqueue needed scripts for elementor Editor
-        add_action( 'elementor/editor/before_enqueue_scripts', array($this, 'strong_testimonials_elementor_enqueue_editor_scripts' ));
+		add_action( 'elementor/editor/before_enqueue_scripts', array( $this, 'strong_testimonials_elementor_enqueue_editor_scripts' ) );
 
 		// Enqueue needed scripts and styles in Elementor preview
 		add_action( 'elementor/preview/enqueue_scripts', array( $this, 'strong_testimonials_elementor_enqueue_scripts' ) );
-		add_action('wp_ajax_strong_testimonials_elementor_ajax_search',array($this,'strong_testimonials_elementor_ajax_search'));
-
+		add_action( 'wp_ajax_strong_testimonials_elementor_ajax_search', array( $this, 'strong_testimonials_elementor_ajax_search' ) );
 	}
 
-    public function strong_testimonials_elementor_enqueue_editor_scripts() {
-		
-        wp_enqueue_script( 'strong-testimonials-elementor-editor', WPMTST_URL . 'admin/js/strong-testimonials-elementor-editor.js', null, WPMTST_VERSION, true );
-        wp_localize_script('strong-testimonials-elementor-editor', 'strongAjax', array(
-            'ajax_url' => admin_url( 'admin-ajax.php' )
-        ));
+	public function strong_testimonials_elementor_enqueue_editor_scripts() {
 
-        wp_enqueue_script( 'st-selectize', WPMTST_URL . 'admin/js/selectize.js', null, WPMTST_VERSION, true );
-        wp_enqueue_style( 'st-selectize-css', WPMTST_URL . 'admin/css/selectize.default.css' );
-    }
+		wp_enqueue_script( 'strong-testimonials-elementor-editor', WPMTST_URL . 'admin/js/strong-testimonials-elementor-editor.js', null, WPMTST_VERSION, true );
+		wp_localize_script(
+			'strong-testimonials-elementor-editor',
+			'strongAjax',
+			array(
+				'ajax_url' => admin_url( 'admin-ajax.php' ),
+			)
+		);
+
+		wp_enqueue_script( 'st-selectize', WPMTST_URL . 'admin/js/selectize.js', null, WPMTST_VERSION, true );
+		wp_enqueue_style( 'st-selectize-css', WPMTST_URL . 'admin/css/selectize.default.css' );
+	}
 
 	/**
 	 * Enqueue scripts in Elementor preview
 	 */
 	public function strong_testimonials_elementor_enqueue_scripts() {
-
-
 	}
 
 	public function strong_testimonials_elementor_ajax_search() {
 
-		if( isset( $_POST['action']) && 'strong_testimonials_elementor_ajax_search' == $_POST['action'] ) {
+		if ( isset( $_POST['action'] ) && 'strong_testimonials_elementor_ajax_search' == $_POST['action'] ) {
 			$galleries = wpmtst_unserialize_views( wpmtst_get_views() );
 
 			wp_send_json_success( $galleries );
@@ -86,7 +87,7 @@ class Strong_Testimonials_Elementor_Widget_Activation {
 			wp_send_json_error();
 		}
 		die();
-    }
+	}
 }
 
 // Instantiate Plugin Class

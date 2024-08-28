@@ -4,9 +4,9 @@
  */
 class Strong_Testimonials_Forms {
 
-    const DEFAULT_TAB = 'fields';
+	const DEFAULT_TAB = 'fields';
 
-    public static $callbacks;
+	public static $callbacks;
 
 	/**
 	 * Strong_Testimonials_Settings constructor.
@@ -47,9 +47,9 @@ class Strong_Testimonials_Forms {
 		<div class="wrap wpmtst">
 
 			<h1><?php echo wp_kses_post( apply_filters( 'wpmtst_cpt_singular_name', esc_html__( 'Form', 'strong-testimonials' ) ) ); ?></h1>
-                        
-                        <?php do_action( 'wpmtst_testimonials_settings' );  ?>
-                        
+						
+						<?php do_action( 'wpmtst_testimonials_settings' ); ?>
+						
 			<?php if ( isset( $_GET['settings-updated'] ) ) : ?>
 				<div id="message" class="updated notice is-dismissible">
 					<p><?php esc_html_e( 'Settings saved.', 'strong-testimonials' ); ?></p>
@@ -59,7 +59,7 @@ class Strong_Testimonials_Forms {
 			<h2 class="nav-tab-wrapper">
 				<?php do_action( 'wpmtst_form_tabs', $tab, $url ); ?>
 			</h2>
-		<?php if ($tab != 'fields'): ?>
+		<?php if ( 'fields' !== $tab ) : ?>
 			<div class="wpmts-settings-columns">
 				<form id="<?php echo esc_attr( $tab ); ?>-form" method="post" action="options.php" enctype="multipart/form-data">
 					<?php
@@ -70,21 +70,23 @@ class Strong_Testimonials_Forms {
 					}
 
 					if ( has_action( 'wpmtst_settings_submit_row' ) ) {
-					    echo '<p class="submit-buttons">';
+						echo '<p class="submit-buttons">';
 						do_action( 'wpmtst_settings_submit_row' );
-					    echo '</p>';
+						echo '</p>';
 					}
-		?>
+					?>
 				</form>
-				<?php do_action( 'wpmtst_admin_after_settings_form' ) ?>
+				<?php do_action( 'wpmtst_admin_after_settings_form' ); ?>
 			</div>
-                        <?php else: 
-                            if ( isset( self::$callbacks[ $tab ] ) && wpmtst_callback_exists( self::$callbacks[ $tab ] ) ) {
-                                    call_user_func( self::$callbacks[ $tab ] );
-                            } else {
-                                    call_user_func( self::$callbacks[ self::DEFAULT_TAB ] );
-                            }
-                        endif; ?>
+						<?php
+						else :
+							if ( isset( self::$callbacks[ $tab ] ) && wpmtst_callback_exists( self::$callbacks[ $tab ] ) ) {
+									call_user_func( self::$callbacks[ $tab ] );
+							} else {
+									call_user_func( self::$callbacks[ self::DEFAULT_TAB ] );
+							}
+						endif;
+						?>
 
 		</div><!-- .wrap -->
 		<?php
@@ -93,7 +95,6 @@ class Strong_Testimonials_Forms {
 	private static function get_tab() {
 		return ( isset( $_GET['tab'] ) && sanitize_text_field( wp_unslash( $_GET['tab'] ) ) ) ? sanitize_text_field( wp_unslash( $_GET['tab'] ) ) : self::DEFAULT_TAB;
 	}
-
 }
 
 Strong_Testimonials_Forms::init();

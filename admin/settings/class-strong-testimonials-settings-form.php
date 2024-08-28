@@ -26,7 +26,7 @@ class Strong_Testimonials_Settings_Form {
 	 * Add actions and filters.
 	 */
 	public static function add_actions() {
-                add_action( 'wpmtst_register_settings', array( __CLASS__, 'register_settings' ) );
+				add_action( 'wpmtst_register_settings', array( __CLASS__, 'register_settings' ) );
 		add_action( 'wpmtst_form_tabs', array( __CLASS__, 'register_tab' ), 2, 2 );
 		add_filter( 'wpmtst_form_callbacks', array( __CLASS__, 'register_settings_page' ) );
 
@@ -43,9 +43,10 @@ class Strong_Testimonials_Settings_Form {
 	 * @param $url
 	 */
 	public static function register_tab( $active_tab, $url ) {
-		printf( '<a href="%s" class="nav-tab %s">%s</a>',
+		printf(
+			'<a href="%s" class="nav-tab %s">%s</a>',
 			esc_url( add_query_arg( 'tab', self::TAB_NAME, $url ) ),
-			esc_attr( $active_tab == self::TAB_NAME ? 'nav-tab-active' : '' ),
+			esc_attr( self::TAB_NAME === $active_tab ? 'nav-tab-active' : '' ),
 			esc_html__( 'Settings', 'strong-testimonials' )
 		);
 	}
@@ -74,7 +75,7 @@ class Strong_Testimonials_Settings_Form {
 	 */
 	public static function settings_page() {
 		settings_fields( self::GROUP_NAME );
-		include( WPMTST_ADMIN . 'settings/partials/form.php' );
+		include WPMTST_ADMIN . 'settings/partials/form.php';
 	}
 
 	/**
@@ -136,12 +137,12 @@ class Strong_Testimonials_Settings_Form {
 		$input['default_recipient'] = maybe_unserialize( $input['default_recipient'] );
 		$input['email_subject']     = isset( $input['email_subject'] ) ? wp_kses_post( trim( $input['email_subject'] ) ) : '';
 		$input['email_message']     = isset( $input['email_message'] ) ? wp_kses_post( rtrim( $input['email_message'] ) ) : '';
-                
+
 		foreach ( $input['messages'] as $key => $message ) {
-			if ( 'submission-success' == $key ) {
+			if ( 'submission-success' === $key ) {
 				$input['messages'][ $key ]['text'] = $message['text'];
 			} else {
-				if ( 'required-field' == $key ) {
+				if ( 'required-field' === $key ) {
 					$input['messages'][ $key ]['enabled'] = wpmtst_sanitize_checkbox( $input['messages'][ $key ], 'enabled' );
 				}
 				$input['messages'][ $key ]['text'] = wp_kses_data( $message['text'] );
@@ -162,17 +163,29 @@ class Strong_Testimonials_Settings_Form {
 		$input['success_redirect_url'] = esc_url_raw( $input['success_redirect_url'] );
 
 		// Check the "ID or slug" field next
-		if ( isset( $input['success_redirect_2']) && $input['success_redirect_2'] ) {
+		if ( isset( $input['success_redirect_2'] ) && $input['success_redirect_2'] ) {
 
 			// is post ID?
 			$id = sanitize_text_field( $input['success_redirect_2'] );
 			if ( is_numeric( $id ) ) {
-				if ( ! get_posts( array( 'p' => $id, 'post_type' => array( 'page' ), 'post_status' => 'publish' ) ) ) {
+				if ( ! get_posts(
+					array(
+						'p'           => $id,
+						'post_type'   => array( 'page' ),
+						'post_status' => 'publish',
+					)
+				) ) {
 					$id = null;
 				}
 			} else {
 				// is post slug?
-				$target = get_posts( array( 'name' => $id, 'post_type' => array( 'page' ), 'post_status' => 'publish' ) );
+				$target = get_posts(
+					array(
+						'name'        => $id,
+						'post_type'   => array( 'page' ),
+						'post_status' => 'publish',
+					)
+				);
 				if ( $target ) {
 					$id = $target[0]->ID;
 				}
@@ -181,13 +194,11 @@ class Strong_Testimonials_Settings_Form {
 			if ( $id ) {
 				$input['success_redirect_id'] = $id;
 			}
-
 		} else {
 
 			if ( isset( $input['success_redirect_id'] ) ) {
 				$input['success_redirect_id'] = (int) sanitize_text_field( $input['success_redirect_id'] );
 			}
-
 		}
 
 		unset( $input['success_redirect_2'] );
@@ -203,7 +214,7 @@ class Strong_Testimonials_Settings_Form {
 	 */
 	public static function restore_default_messages_function() {
 		$default_form_options = Strong_Testimonials_Defaults::get_form_options();
-		$messages = $default_form_options['messages'];
+		$messages             = $default_form_options['messages'];
 		echo json_encode( $messages );
 		wp_die();
 	}
@@ -214,9 +225,9 @@ class Strong_Testimonials_Settings_Form {
 	 * @since 1.13
 	 */
 	public static function restore_default_message_function() {
-		$input =  isset( $_REQUEST['field'] ) ? str_replace( '_', '-', sanitize_text_field( wp_unslash( $_REQUEST['field'] ) ) ) : '';
+		$input                = isset( $_REQUEST['field'] ) ? str_replace( '_', '-', sanitize_text_field( wp_unslash( $_REQUEST['field'] ) ) ) : '';
 		$default_form_options = Strong_Testimonials_Defaults::get_form_options();
-		$message = $default_form_options['messages'][$input];
+		$message              = $default_form_options['messages'][ $input ];
 		echo json_encode( $message );
 		wp_die();
 	}
@@ -230,8 +241,8 @@ class Strong_Testimonials_Settings_Form {
 			wp_send_json_error( array( 'message' => __( 'Nonce does not exist.', 'strong-testimonials' ) ) );
 			die();
 		}
-	
-		if ( ! current_user_can('manage_options') ) {
+
+		if ( ! current_user_can( 'manage_options' ) ) {
 			wp_send_json_error( array( 'message' => __( 'Insufficient capabilities.', 'strong-testimonials' ) ) );
 			die();
 		}
@@ -242,7 +253,6 @@ class Strong_Testimonials_Settings_Form {
 		include WPMTST_ADMIN . 'settings/partials/recipient.php';
 		wp_die();
 	}
-
 }
 
 Strong_Testimonials_Settings_Form::init();

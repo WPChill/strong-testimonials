@@ -16,7 +16,7 @@ if ( ! class_exists( 'Strong_Testimonials_Master_License_Activator' ) ) {
 		 *
 		 * @var int
 		 */
-		private $main_item_id   = 13054; // The id of the ST PRO addon as it appears in every license key.
+		private $main_item_id = 13054; // The id of the ST PRO addon as it appears in every license key.
 
 		/**
 		 * The single instance of the class.
@@ -136,12 +136,12 @@ if ( ! class_exists( 'Strong_Testimonials_Master_License_Activator' ) ) {
 
 			// data to send in our API request.
 			$api_params = array(
-				'edd_action'      => 'activate_license',
-				'license'         => $license,
-				'item_id'         => $this->main_item_id,
-				'url'             => home_url(),
-				'extensions'      => implode( ',', $extensions ),
-				'action_status'   => $action_status,
+				'edd_action'    => 'activate_license',
+				'license'       => $license,
+				'item_id'       => $this->main_item_id,
+				'url'           => home_url(),
+				'extensions'    => implode( ',', $extensions ),
+				'action_status' => $action_status,
 			);
 
 			// Call the custom API.
@@ -171,6 +171,7 @@ if ( ! class_exists( 'Strong_Testimonials_Master_License_Activator' ) ) {
 					switch ( $license_data->error ) {
 						case 'expired':
 							$message = sprintf(
+								// translators: %s is the expiration date of the license key.
 								__( 'Your license key expired on %s.', 'strong-testimonials' ),
 								date_i18n( get_option( 'date_format' ), strtotime( $license_data->expires, current_time( 'timestamp' ) ) )
 							);
@@ -187,6 +188,7 @@ if ( ! class_exists( 'Strong_Testimonials_Master_License_Activator' ) ) {
 							$message = __( 'Your license is not active for this URL.', 'strong-testimonials' );
 							break;
 						case 'item_name_mismatch':
+							// translators: %s is the expected item name for the license key.
 							$message = sprintf( __( 'This appears to be an invalid license key for %s.', 'strong-testimonials' ), $this->main_item_name );
 							break;
 						case 'no_activations_left':
@@ -212,7 +214,7 @@ if ( ! class_exists( 'Strong_Testimonials_Master_License_Activator' ) ) {
 			update_option( 'strong_testimonials_license_status', $license_data );
 			wp_send_json_success(
 				array(
-					'message' => __( 'License activated.', 'strong-testimonials' )
+					'message' => __( 'License activated.', 'strong-testimonials' ),
 				)
 			);
 			exit;
@@ -245,15 +247,15 @@ if ( ! class_exists( 'Strong_Testimonials_Master_License_Activator' ) ) {
 			}
 
 			$store_url = ( 'false' !== get_option( 'strong_testimonials_alt_server', 'false' ) ) ? WPMTST_ALT_STORE_URL : WPMTST_STORE_URL;
-			
+
 			// data to send in our API request.
 			$api_params = array(
-				'edd_action'      => 'deactivate_license',
-				'license'         => $this->license,
-				'item_id'         => $this->main_item_id,
-				'url'             => home_url(),
-				'extensions'      => implode( ',', $extensions ),
-				'action_status'   => $action_status,
+				'edd_action'    => 'deactivate_license',
+				'license'       => $this->license,
+				'item_id'       => $this->main_item_id,
+				'url'           => home_url(),
+				'extensions'    => implode( ',', $extensions ),
+				'action_status' => $action_status,
 			);
 
 			// Call the custom API.
@@ -278,7 +280,12 @@ if ( ! class_exists( 'Strong_Testimonials_Master_License_Activator' ) ) {
 					$message = __( 'An error occurred, please try again.', 'strong-testimonials' );
 				}
 
-				wp_send_json_error( array( 'success' => false, 'message' => $message ) );
+				wp_send_json_error(
+					array(
+						'success' => false,
+						'message' => $message,
+					)
+				);
 				exit;
 			}
 
@@ -286,7 +293,7 @@ if ( ! class_exists( 'Strong_Testimonials_Master_License_Activator' ) ) {
 			$license_data = json_decode( wp_remote_retrieve_body( $response ) );
 
 			// $license_data->license will be either "deactivated" or "failed"
-			if ( $license_data->license == 'deactivated' ) {
+			if ( 'deactivated' === $license_data->license ) {
 				delete_option( 'strong_testimonials_license_status' );
 			}
 
@@ -294,7 +301,7 @@ if ( ! class_exists( 'Strong_Testimonials_Master_License_Activator' ) ) {
 				wp_send_json_success(
 					array(
 						'success' => true,
-						'message' => __( 'License deactivated.', 'strong-testimonials' )
+						'message' => __( 'License deactivated.', 'strong-testimonials' ),
 					)
 				);
 				exit;
@@ -308,10 +315,14 @@ if ( ! class_exists( 'Strong_Testimonials_Master_License_Activator' ) ) {
 		 */
 		public function register_license_option() {
 			// creates our settings in the options table.
-			register_setting( 'strong_testimonials_license_key', 'strong_testimonials_license_key', array(
-				$this,
-				'sanitize_license'
-			) );
+			register_setting(
+				'strong_testimonials_license_key',
+				'strong_testimonials_license_key',
+				array(
+					$this,
+					'sanitize_license',
+				)
+			);
 		}
 
 		/**
@@ -321,9 +332,9 @@ if ( ! class_exists( 'Strong_Testimonials_Master_License_Activator' ) ) {
 		 *
 		 * @return string
 		 */
-		public function sanitize_license( $new ) {
-			$old = get_option( 'strong_testimonials_license_key' );
-			if ( $old && $old != $new ) {
+		public function sanitize_license( $new_license ) {
+			$old_license = get_option( 'strong_testimonials_license_key' );
+			if ( $old_license && $old_license !== $new_license ) {
 				delete_option( 'strong_testimonials_license_status' ); // new license has been entered, so must reactivate
 				delete_transient( 'strong_testimonials_licensed_extensions' );
 			}
@@ -386,7 +397,7 @@ if ( ! class_exists( 'Strong_Testimonials_Master_License_Activator' ) ) {
 			if ( ! isset( $_POST['nonce'] ) ) {
 				wp_send_json_error(
 					array(
-						'message' => __( 'Nonce not set', 'strong-testimonials' )
+						'message' => __( 'Nonce not set', 'strong-testimonials' ),
 					)
 				);
 			}
@@ -396,7 +407,7 @@ if ( ! class_exists( 'Strong_Testimonials_Master_License_Activator' ) ) {
 			if ( ! isset( $_POST['click_action'] ) ) {
 				wp_send_json_error(
 					array(
-						'message' => __( 'Action not set', 'strong-testimonials' )
+						'message' => __( 'Action not set', 'strong-testimonials' ),
 					)
 				);
 			}
@@ -404,7 +415,7 @@ if ( ! class_exists( 'Strong_Testimonials_Master_License_Activator' ) ) {
 			if ( ! isset( $_POST['license'] ) ) {
 				wp_send_json_error(
 					array(
-						'message' => __( 'License not set', 'strong-testimonials' )
+						'message' => __( 'License not set', 'strong-testimonials' ),
 					)
 				);
 			}
@@ -450,7 +461,7 @@ if ( ! class_exists( 'Strong_Testimonials_Master_License_Activator' ) ) {
 			if ( ! isset( $_POST['nonce'] ) ) {
 				wp_send_json_error(
 					array(
-						'message' => __( 'Nonce not set', 'strong-testimonials' )
+						'message' => __( 'Nonce not set', 'strong-testimonials' ),
 					)
 				);
 			}
@@ -458,7 +469,7 @@ if ( ! class_exists( 'Strong_Testimonials_Master_License_Activator' ) ) {
 			if ( ! isset( $_POST['email'] ) ) {
 				wp_send_json_error(
 					array(
-						'message' => __( 'Email not set', 'strong-testimonials' )
+						'message' => __( 'Email not set', 'strong-testimonials' ),
 					)
 				);
 			}
@@ -470,7 +481,7 @@ if ( ! class_exists( 'Strong_Testimonials_Master_License_Activator' ) ) {
 			$api_params = array(
 				'edd_action' => 'forgot_license',
 				'url'        => home_url(),
-				'email'      => $email
+				'email'      => $email,
 
 			);
 

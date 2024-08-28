@@ -108,7 +108,7 @@ function wpmtst_get_cpt_defaults() {
 			'feeds'      => false,
 			'pages'      => true,
 		),
-		'can_export'          => true
+		'can_export'          => true,
 	);
 
 	return $args;
@@ -151,11 +151,13 @@ function wpmtst_get_tax_defaults() {
 function wpmtst_testimonial_supports( $supports ) {
 	$options = get_option( 'wpmtst_options' );
 
-	if ( isset( $options['support_custom_fields'] ) && $options['support_custom_fields'] )
+	if ( isset( $options['support_custom_fields'] ) && $options['support_custom_fields'] ) {
 		$supports[] = 'custom-fields';
+	}
 
-	if ( isset( $options['support_comments'] ) && $options['support_comments'] )
+	if ( isset( $options['support_comments'] ) && $options['support_comments'] ) {
 		$supports[] = 'comments';
+	}
 
 	return $supports;
 }
@@ -182,19 +184,22 @@ function wpmtst_updated_messages( $messages ) {
 
 	// TODO Use WordPress translations as a basis for adding these to existing translation files.
 	// Preview post link.
-	$preview_post_link_html = sprintf( ' <a target="_blank" href="%1$s">%2$s</a>',
+	$preview_post_link_html = sprintf(
+		' <a target="_blank" href="%1$s">%2$s</a>',
 		esc_url( $preview_url ),
 		esc_html__( 'Preview testimonial', 'strong-testimonials' )
 	);
 
 	// View post link.
-	$view_post_link_html = sprintf( ' <a href="%1$s">%2$s</a>',
+	$view_post_link_html = sprintf(
+		' <a href="%1$s">%2$s</a>',
 		esc_url( $permalink ),
 		esc_html__( 'View testimonial', 'strong-testimonials' )
 	);
 
 	// Scheduled post preview link.
-	$scheduled_post_link_html = sprintf( ' <a target="_blank" href="%1$s">%2$s</a>',
+	$scheduled_post_link_html = sprintf(
+		' <a target="_blank" href="%1$s">%2$s</a>',
 		esc_url( $permalink ),
 		esc_html__( 'Preview testimonial', 'strong-testimonials' )
 	);
@@ -209,11 +214,12 @@ function wpmtst_updated_messages( $messages ) {
 		3  => esc_html__( 'Custom field deleted.', 'strong-testimonials' ),
 		4  => esc_html__( 'Testimonial updated.', 'strong-testimonials' ),
 		/* translators: %s: date and time of the revision */
-		5 => isset($_GET['revision']) ? sprintf( esc_html__( 'Testimonial restored to revision from %s.', 'strong-testimonials' ), wp_post_revision_title( absint( $_GET['revision'] ), false ) ) : false,
-		6 => esc_html__( 'Testimonial published.', 'strong-testimonials' ) . $view_post_link_html,
-		7 => esc_html__( 'Testimonial saved.', 'strong-testimonials' ),
-		8 => esc_html__( 'Testimonial submitted.', 'strong-testimonials' ) . $preview_post_link_html,
-		9 => sprintf( esc_html__( 'Testimonial scheduled for: %s.', 'strong-testimonials' ), '<strong>' . $scheduled_date . '</strong>' ) . $scheduled_post_link_html,
+		5  => isset( $_GET['revision'] ) ? sprintf( esc_html__( 'Testimonial restored to revision from %s.', 'strong-testimonials' ), wp_post_revision_title( absint( $_GET['revision'] ), false ) ) : false,
+		6  => esc_html__( 'Testimonial published.', 'strong-testimonials' ) . $view_post_link_html,
+		7  => esc_html__( 'Testimonial saved.', 'strong-testimonials' ),
+		8  => esc_html__( 'Testimonial submitted.', 'strong-testimonials' ) . $preview_post_link_html,
+		/* translators: %s: date and time of the scheduled date */
+		9  => sprintf( esc_html__( 'Testimonial scheduled for: %s.', 'strong-testimonials' ), '<strong>' . $scheduled_date . '</strong>' ) . $scheduled_post_link_html,
 		10 => esc_html__( 'Testimonial draft updated.', 'strong-testimonials' ) . $preview_post_link_html,
 	);
 
@@ -237,10 +243,15 @@ add_filter( 'post_updated_messages', 'wpmtst_updated_messages' );
 function wpmtst_bulk_updated_messages( $bulk_messages, $bulk_counts ) {
 
 	$bulk_messages['wpm-testimonial'] = array(
+		// translators: %s is the number of testimonials that were updated.
 		'updated'   => _n( '%s testimonial updated.', '%s testimonials updated.', $bulk_counts['updated'], 'strong-testimonials' ),
-		'locked'    => ( 1 == $bulk_counts['locked'] ) ? __( '1 testimonial not updated, somebody is editing it.', 'strong-testimonials' ) : _n( '%s testimonial not updated, somebody is editing it.', '%s testimonials not updated, somebody is editing them.', $bulk_counts['locked'], 'strong-testimonials' ),
+		// translators: %s is the number of testimonials that were not updated because someone else is editing them.
+		'locked'    => ( $bulk_counts['locked'] ) ? __( '1 testimonial not updated, somebody is editing it.', 'strong-testimonials' ) : _n( '%s testimonial not updated, somebody is editing it.', '%s testimonials not updated, somebody is editing them.', $bulk_counts['locked'], 'strong-testimonials' ),
+		// translators: %s is the number of testimonials that were permanently deleted.
 		'deleted'   => _n( '%s testimonial permanently deleted.', '%s testimonials permanently deleted.', $bulk_counts['deleted'], 'strong-testimonials' ),
+		// translators: %s is the number of testimonials that were moved to the Trash.
 		'trashed'   => _n( '%s testimonial moved to the Trash.', '%s testimonials moved to the Trash.', $bulk_counts['trashed'], 'strong-testimonials' ),
+		// translators: %s is the number of testimonials that were restored from the Trash.
 		'untrashed' => _n( '%s testimonial restored from the Trash.', '%s testimonials restored from the Trash.', $bulk_counts['untrashed'], 'strong-testimonials' ),
 	);
 

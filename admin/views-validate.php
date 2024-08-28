@@ -10,10 +10,10 @@
  *
  * @return string
  */
-function wpmtst_validate_view_name( $name, $view_id ){
-	if ( '' == $name ) {
+function wpmtst_validate_view_name( $name, $view_id ) {
+	if ( '' === $name ) {
 		$name = "Testimonial View $view_id";
-	}else {
+	} else {
 		$name = sanitize_text_field( stripslashes( $name ) );
 	}
 
@@ -51,18 +51,18 @@ function wpmtst_sanitize_view( $input ) {
 	$data = wpmtst_sanitize_view_template( $data, $input );
 
 	// Category
-	if ( 'form' == $data['mode'] ) {
+	if ( 'form' === $data['mode'] ) {
 		if ( isset( $input['category-form'] ) ) {
 			$data['category'] = sanitize_text_field( implode( ',', $input['category-form'] ) );
 		} else {
 			$data['category'] = '';
 		}
 	} else {
-		if ( 'allcats' == $input['category_all'] ) {
+		if ( 'allcats' === $input['category_all'] ) {
 			$data['category'] = 'all';
 		} elseif ( ! isset( $input['category'] ) ) {
 			$data['category'] = 'all';
-		} elseif ( 'somecats' == $input['category_all'] && ! isset( $input['category'] ) ) {
+		} elseif ( 'somecats' === $input['category_all'] && ! isset( $input['category'] ) ) {
 			$data['category'] = 'all';
 		} else {
 			$data['category'] = sanitize_text_field( implode( ',', $input['category'] ) );
@@ -74,22 +74,21 @@ function wpmtst_sanitize_view( $input ) {
 	// Limit
 	if ( isset( $input['all'] ) && $input['all'] ) {
 		$data['count'] = -1;
-	}
-	else {
-	$data['count'] = (int) sanitize_text_field( $input['count'] );
+	} else {
+		$data['count'] = (int) sanitize_text_field( $input['count'] );
 	}
 
 	// Pagination
 	$data['pagination']          = isset( $input['pagination'] ) ? 1 : 0;
 	$data['pagination_settings'] = wpmtst_sanitize_view_pagination( $input['pagination_settings'] );
 
-	$data['title']              = isset( $input['title'] ) ? 1 : 'hidden';
-    $data['title_link']         = sanitize_text_field( $input['title_link'] );
+	$data['title']      = isset( $input['title'] ) ? 1 : 'hidden';
+	$data['title_link'] = sanitize_text_field( $input['title_link'] );
 
 	$data['content']            = sanitize_text_field( $input['content'] );
 	$data['excerpt_length']     = (int) sanitize_text_field( $input['excerpt_length'] );
-	$data['use_default_length'] = sanitize_text_field( $input['use_default_length'] );        
-	$data['html_content']         = isset( $input['html_content'] ) ? 1 : 0;
+	$data['use_default_length'] = sanitize_text_field( $input['use_default_length'] );
+	$data['html_content']       = isset( $input['html_content'] ) ? 1 : 0;
 
 	$data = wpmtst_sanitize_view_readmore( $data, $input, $default_view );
 
@@ -113,8 +112,7 @@ function wpmtst_sanitize_view( $input ) {
 	$data['background'] = wpmtst_get_background_defaults();
 	if ( ! isset( $input['background']['type'] ) ) {
 		$data['background']['type'] = '';
-	}
-	else {
+	} else {
 		$data['background']['type'] = sanitize_text_field( $input['background']['type'] );
 	}
 	$data['background']['color']     = sanitize_hex_color( $input['background']['color'] );
@@ -125,8 +123,7 @@ function wpmtst_sanitize_view( $input ) {
 	// Font color
 	if ( ! isset( $input['font-color']['type'] ) ) {
 		$data['font-color']['type'] = '';
-	}
-	else {
+	} else {
 		$data['font-color']['type'] = sanitize_text_field( $input['font-color']['type'] );
 	}
 	$data['font-color']['color'] = sanitize_hex_color( $input['font-color']['color'] );
@@ -134,11 +131,10 @@ function wpmtst_sanitize_view( $input ) {
 	// Layout input may have been disabled by selecting the widget template so no value is posted.
 	if ( ! isset( $input['layout'] ) ) {
 		$data['layout'] = '';
-	}
-	else {
+	} else {
 		// pagination and Masonry are incompatible
 		$data['layout'] = sanitize_text_field( $input['layout'] );
-		if ( isset( $input['pagination'] ) && 'masonry' == $data['layout'] ) {
+		if ( isset( $input['pagination'] ) && 'masonry' === $data['layout'] ) {
 			$data['layout'] = '';
 		}
 	}
@@ -156,8 +152,7 @@ function wpmtst_sanitize_view( $input ) {
 	// Multiple Forms add-on
 	if ( isset( $input['form_id'] ) ) {
 		$data['form_id'] = $input['form_id'];
-	}
-	else {
+	} else {
 		// hidden
 		$data['form_id'] = $input['_form_id'];
 	}
@@ -183,7 +178,7 @@ function wpmtst_sanitize_view( $input ) {
  * @return array
  */
 function wpmtst_sanitize_view_readmore( $data, $input, $default_view ) {
-	if ( 'truncated' == $data['content'] || 'excerpt' == $data['content'] ) {
+	if ( 'truncated' === $data['content'] || 'excerpt' === $data['content'] ) {
 		$data['more_post'] = 1;
 	} else {
 		$data['more_post'] = 0;
@@ -211,17 +206,29 @@ function wpmtst_sanitize_view_readmore( $data, $input, $default_view ) {
 	if ( isset( $input['more_page'] ) && $input['more_page'] ) {
 
 		// Check the "ID or slug" field first
-		if ( isset($input['more_page_id2']) && !empty($input['more_page_id2']) ) {
+		if ( isset( $input['more_page_id2'] ) && ! empty( $input['more_page_id2'] ) ) {
 
 			// is post ID?
 			$id = sanitize_text_field( $input['more_page_id2'] );
 			if ( is_numeric( $id ) ) {
-				if ( ! get_posts( array( 'p' => $id, 'post_type' => array( 'page', 'post' ), 'post_status' => 'publish' ) ) ) {
+				if ( ! get_posts(
+					array(
+						'p'           => $id,
+						'post_type'   => array( 'page', 'post' ),
+						'post_status' => 'publish',
+					)
+				) ) {
 					$id = null;
 				}
 			} else {
 				// is post slug?
-				$target = get_posts( array( 'name' => $id, 'post_type' => array( 'page', 'post' ), 'post_status' => 'publish' ) );
+				$target = get_posts(
+					array(
+						'name'        => $id,
+						'post_type'   => array( 'page', 'post' ),
+						'post_status' => 'publish',
+					)
+				);
 				if ( $target ) {
 					$id = $target[0]->ID;
 				}
@@ -231,7 +238,6 @@ function wpmtst_sanitize_view_readmore( $data, $input, $default_view ) {
 				$data['more_page_id'] = $id;
 				unset( $data['more_page_id2'] );
 			}
-
 		} else {
 
 			if ( $input['more_page_id'] ) {
@@ -241,7 +247,6 @@ function wpmtst_sanitize_view_readmore( $data, $input, $default_view ) {
 					$data['more_page_id'] = sanitize_text_field( $input['more_page_id'] );
 				}
 			}
-
 		}
 
 		// Only enable more_page if a page was selected by either method.
@@ -272,13 +277,13 @@ function wpmtst_sanitize_view_readmore( $data, $input, $default_view ) {
  */
 function wpmtst_sanitize_view_post_id( $data, $input ) {
 	// Clear single ID if "multiple" selected
-	if ( 'multiple' == $input['select'] ) {
+	if ( 'multiple' === $input['select'] ) {
 		$data['id'] = 0;  // must be zero not empty or false
 		return $data;
 	}
 
 	// Clear single ID if mode:slideshow selected
-	if ( 'slideshow' == $input['mode'] ) {
+	if ( 'slideshow' === $input['mode'] ) {
 		$data['id'] = 0;  // must be zero not empty or false
 		return $data;
 	}
@@ -300,10 +305,9 @@ function wpmtst_sanitize_view_post_id( $data, $input ) {
 		if ( ! get_posts( $args ) ) {
 			$id = null;
 		}
-	}
-	else {
+	} else {
 		// Is post slug?
-		$args = array(
+		$args   = array(
 			'name'        => $input['post_id'],
 			'post_type'   => 'wpm-testimonial',
 			'post_status' => 'publish',
@@ -332,7 +336,7 @@ function wpmtst_sanitize_view_post_id( $data, $input ) {
 function wpmtst_sanitize_view_pagination( $in ) {
 	$out['type']               = sanitize_text_field( $in['type'] );
 	$out['nav']                = str_replace( ' ', '', sanitize_text_field( $in['nav'] ) );
-	$out['show_all']           = $in['show_all'] === 'on';
+	$out['show_all']           = 'on' === $in['show_all'];
 	$out['prev_next']          = wpmtst_sanitize_checkbox( $in, 'prev_next' );
 	$out['prev_text']          = sanitize_text_field( $in['prev_text'] );
 	$out['next_text']          = sanitize_text_field( $in['next_text'] );
@@ -344,22 +348,19 @@ function wpmtst_sanitize_view_pagination( $in ) {
 	 */
 	if ( isset( $in['end_size'] ) && intval( $in['end_size'] ) ) {
 		$out['end_size'] = (int) sanitize_text_field( $in['end_size'] );
-	}
-	else {
+	} else {
 		$out['end_size'] = 1;
 	}
 
 	if ( isset( $in['mid_size'] ) && intval( $in['mid_size'] ) ) {
 		$out['mid_size'] = (int) sanitize_text_field( $in['mid_size'] );
-	}
-	else {
+	} else {
 		$out['mid_size'] = 2;
 	}
 
 	if ( isset( $in['per_page'] ) && intval( $in['per_page'] ) ) {
 		$out['per_page'] = (int) sanitize_text_field( $in['per_page'] );
-	}
-	else {
+	} else {
 		$out['per_page'] = 5;
 	}
 
@@ -377,7 +378,7 @@ function wpmtst_sanitize_view_pagination( $in ) {
 function wpmtst_sanitize_view_slideshow( $in ) {
 	$out = array();
 
-	$out['type']  = sanitize_text_field( $in['type'] );
+	$out['type'] = sanitize_text_field( $in['type'] );
 
 	// Insert unused defaults.
 	$out['show_single'] = array(
@@ -391,9 +392,9 @@ function wpmtst_sanitize_view_slideshow( $in ) {
 
 	foreach ( $breakpoints as $key => $breakpoint ) {
 
-		$out['breakpoints'][ $key ]['width']  = intval( sanitize_text_field( $breakpoint['width'] ) );
+		$out['breakpoints'][ $key ]['width'] = intval( sanitize_text_field( $breakpoint['width'] ) );
 
-		$out['breakpoints'][ $key ]['max_slides']  = intval( sanitize_text_field( $breakpoint['max_slides'] ) );
+		$out['breakpoints'][ $key ]['max_slides'] = intval( sanitize_text_field( $breakpoint['max_slides'] ) );
 
 		$out['breakpoints'][ $key ]['move_slides'] = intval( sanitize_text_field( $breakpoint['move_slides'] ) );
 
@@ -406,7 +407,7 @@ function wpmtst_sanitize_view_slideshow( $in ) {
 	}
 
 	// Carousel requires horizontal scroll.
-	if ( 'show_multiple' == $out['type'] ) {
+	if ( 'show_multiple' === $out['type'] ) {
 		$out['effect'] = 'horizontal';
 	} else {
 		$out['effect'] = sanitize_text_field( $in['effect'] );
@@ -418,7 +419,7 @@ function wpmtst_sanitize_view_slideshow( $in ) {
 	$out['continuous_sliding'] = isset( $in['continuous_sliding'] ) ? 1 : 0;
 	$out['stop_auto_on_click'] = isset( $in['stop_auto_on_click'] ) ? 1 : 0;
 
-	if ( 'dynamic' == $in['height'] ) {
+	if ( 'dynamic' === $in['height'] ) {
 		$out['adapt_height'] = 1;
 	} else {
 		$out['adapt_height'] = 0;
@@ -427,7 +428,7 @@ function wpmtst_sanitize_view_slideshow( $in ) {
 	$out['stretch']            = isset( $in['stretch'] ) ? 1 : 0;
 
 	// If no navigation, must start automatically.
-	if ( 'none' == $in['pager_type'] && 'none' == $in['controls_type'] ) {
+	if ( 'none' === $in['pager_type'] && 'none' === $in['controls_type'] ) {
 		$out['auto_start'] = 1;
 	} else {
 		$out['auto_start'] = isset( $in['auto_start'] ) ? 1 : 0;
@@ -443,7 +444,7 @@ function wpmtst_sanitize_view_slideshow( $in ) {
 
 	// Position is shared by Controls and Pagination
 	if ( $out['controls_type'] || $out['pager_type'] ) {
-		if ( 'show_multiple' == $out['type'] ) {
+		if ( 'show_multiple' === $out['type'] ) {
 			$out['nav_position'] = 'outside';
 		} else {
 			$out['nav_position'] = sanitize_text_field( $in['nav_position'] );
@@ -498,8 +499,7 @@ function wpmtst_sanitize_view_client_section( $in ) {
 					unset( $out[ $key ]['link_text'] );
 					unset( $out[ $key ]['link_text_custom'] );
 					unset( $out[ $key ]['new_tab'] );
-				}
-				else {
+				} else {
 					$out[ $key ]['url'] = sanitize_text_field( $field['url'] );
 
 					$out[ $key ]['link_text'] = isset( $field['link_text'] ) ? sanitize_text_field( $field['link_text'] ) : '';
@@ -510,22 +510,21 @@ function wpmtst_sanitize_view_client_section( $in ) {
 				}
 				break;
 			case 'date':
-				$format = isset( $field['format'] ) ? sanitize_text_field( $field['format'] ) : '';
+				$format                = isset( $field['format'] ) ? sanitize_text_field( $field['format'] ) : '';
 				$out[ $key ]['format'] = $format;
 				break;
-                        case 'checkbox':
-                                $out[ $key ]['label'] = isset( $field['label'] ) ? sanitize_text_field( $field['label'] ) : 'label';
-                                $out[ $key ]['custom_label'] = isset( $field['custom_label'] ) ? sanitize_text_field( $field['custom_label'] ) : '';
-				$out[ $key ]['checked_value'] = isset( $field['checked_value'] ) ? sanitize_text_field( $field['checked_value'] ) : '';
-                                $out[ $key ]['checked_value_custom'] = isset( $field['checked_value_custom'] ) ? sanitize_text_field( $field['checked_value_custom'] ) : '';
-				$out[ $key ]['unchecked_value'] = isset( $field['unchecked_value'] ) ? sanitize_text_field( $field['unchecked_value'] ) : '';
+			case 'checkbox':
+					$out[ $key ]['label']                = isset( $field['label'] ) ? sanitize_text_field( $field['label'] ) : 'label';
+					$out[ $key ]['custom_label']         = isset( $field['custom_label'] ) ? sanitize_text_field( $field['custom_label'] ) : '';
+				$out[ $key ]['checked_value']            = isset( $field['checked_value'] ) ? sanitize_text_field( $field['checked_value'] ) : '';
+					$out[ $key ]['checked_value_custom'] = isset( $field['checked_value_custom'] ) ? sanitize_text_field( $field['checked_value_custom'] ) : '';
+				$out[ $key ]['unchecked_value']          = isset( $field['unchecked_value'] ) ? sanitize_text_field( $field['unchecked_value'] ) : '';
 				break;
 			case 'category':
 				$out[ $key ]['category_show'] = isset( $field['category_show'] ) ? sanitize_text_field( $field['category_show'] ) : 'both';
-				break;    
+				break;
 			default:
 		}
-
 	}
 
 	return $out;
@@ -540,7 +539,7 @@ function wpmtst_sanitize_view_client_section( $in ) {
  * @return array
  */
 function wpmtst_sanitize_view_template( $data, $input ) {
-	if ( 'form' == $data['mode'] ) {
+	if ( 'form' === $data['mode'] ) {
 		$data['template'] = isset( $input['form-template'] ) ? sanitize_text_field( $input['form-template'] ) : '';
 	} else {
 		$data['template'] = isset( $input['template'] ) ? sanitize_text_field( $input['template'] ) : '';

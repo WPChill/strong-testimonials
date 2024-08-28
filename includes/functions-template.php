@@ -20,7 +20,7 @@ function strong_testimonials_view( $id = null ) {
 	$atts  = array( 'id' => $id );
 	$out   = WPMST()->render->prerender( $atts );
 	$out   = WPMST()->render->parse_view( $out, $pairs, $atts );
-        
+
 	echo WPMST()->shortcode->render_view( $out );
 }
 
@@ -33,40 +33,40 @@ function strong_testimonials_view( $id = null ) {
  * @param string $after
  */
 
-function wpmtst_the_title( $tag = '', $class = '' ) {
-    $title   = get_the_title();
-    $options = get_option( 'wpmtst_options' );
-    
-    $tag = apply_filters( 'wpmtst_the_title_tag', $tag );
-    if (!empty($tag)) {
-        $before = '<' . $tag . ' class="' . $class . '">';
-        $after = '</' . $tag . '>';
-    }
-    if ( WPMST()->atts( 'title' ) && $title ) {
+function wpmtst_the_title( $tag = '', $wrapper_class = '' ) {
+	$title   = get_the_title();
+	$options = get_option( 'wpmtst_options' );
 
-        if ('none' != WPMST()->atts( 'title_link' ) && '0' != WPMST()->atts( 'title_link' ) ) {
+	$tag = apply_filters( 'wpmtst_the_title_tag', $tag );
+	if ( ! empty( $tag ) ) {
+		$before = '<' . $tag . ' class="' . $wrapper_class . '">';
+		$after  = '</' . $tag . '>';
+	}
+	if ( WPMST()->atts( 'title' ) && $title ) {
 
-            if ( (!isset($options['disable_rewrite']) || '1' != $options['disable_rewrite']) && ('wpmtst_testimonial' == WPMST()->atts( 'title_link' ) || '1' == WPMST()->atts( 'title_link' )) ) {
-                $before .= '<a href="' . esc_url( get_permalink() ) . '" rel="bookmark">';
-                $after  = '</a>' . $after;
-            } else {
-                $id           = get_the_ID();
-                $url_field    = WPMST()->atts( 'title_link' );
-                $external_url = get_post_meta( $id, $url_field, true );
+		if ( 'none' !== WPMST()->atts( 'title_link' ) && '0' !== WPMST()->atts( 'title_link' ) ) {
 
-                if('' != $external_url){
-                    $before       .= '<a href="' . esc_url( $external_url ) . '" rel="bookmark" target="_blank">';
-                    $after        = '</a>' . $after;
-                }
-            }
-        }
-    }
-    $before = apply_filters( 'wpmtst_the_title_before', $before );
-    $after  = apply_filters( 'wpmtst_the_title_after', $after );
+			if ( ( ! isset( $options['disable_rewrite'] ) || '1' !== $options['disable_rewrite'] ) && ( 'wpmtst_testimonial' === WPMST()->atts( 'title_link' ) || '1' === WPMST()->atts( 'title_link' ) ) ) {
+				$before .= '<a href="' . esc_url( get_permalink() ) . '" rel="bookmark">';
+				$after   = '</a>' . $after;
+			} else {
+				$id           = get_the_ID();
+				$url_field    = WPMST()->atts( 'title_link' );
+				$external_url = get_post_meta( $id, $url_field, true );
 
-    if (WPMST()->atts( 'title' ) !== 'hidden') {
-        the_title( $before, $after );
-    }
+				if ( '' !== $external_url ) {
+					$before .= '<a href="' . esc_url( $external_url ) . '" rel="bookmark" target="_blank">';
+					$after   = '</a>' . $after;
+				}
+			}
+		}
+	}
+	$before = apply_filters( 'wpmtst_the_title_before', $before );
+	$after  = apply_filters( 'wpmtst_the_title_after', $after );
+
+	if ( WPMST()->atts( 'title' ) !== 'hidden' ) {
+		the_title( $before, $after );
+	}
 }
 
 /**
@@ -158,15 +158,14 @@ function wpmtst_read_more_page() {
 
 			$link_text = apply_filters( 'wpmtst_read_more_page_link_text', $link_text, $atts );
 
-			if ( 'wpmtst_after_testimonial' == $atts['more_page_hook'] ) {
+			if ( 'wpmtst_after_testimonial' === $atts['more_page_hook'] ) {
 				$classname = 'readmore';
 			} else {
 				$classname = 'readmore-page';
 			}
 			$classname = apply_filters( 'wpmtst_read_more_page_class', $classname );
-			echo apply_filters('wpmtst_read_more_page_output', sprintf( '<div class="%s"><a href="%s">%s</a></div>', esc_attr( $classname ), esc_url( $permalink ), wp_kses_post( $link_text ) ) );
+			echo apply_filters( 'wpmtst_read_more_page_output', sprintf( '<div class="%s"><a href="%s">%s</a></div>', esc_attr( $classname ), esc_url( $permalink ), wp_kses_post( $link_text ) ) );
 		}
-
 	}
 }
 
@@ -181,9 +180,12 @@ function wpmtst_read_more_page() {
  * @return string
  */
 function wpmtst_read_more_page_link_text_l10n( $text, $atts ) {
-	return apply_filters( 'wpmtst_l10n', $text, 'strong-testimonials-read-more',
-		sprintf( 'View %s : Read more (page or post)', $atts['view'] ) );
-
+	return apply_filters(
+		'wpmtst_l10n',
+		$text,
+		'strong-testimonials-read-more',
+		sprintf( 'View %s : Read more (page or post)', $atts['view'] )
+	);
 }
 add_filter( 'wpmtst_read_more_page_link_text', 'wpmtst_read_more_page_link_text_l10n', 10, 2 );
 
@@ -198,9 +200,12 @@ add_filter( 'wpmtst_read_more_page_link_text', 'wpmtst_read_more_page_link_text_
  * @return string
  */
 function wpmtst_read_more_post_link_text_l10n( $text, $atts ) {
-	return apply_filters( 'wpmtst_l10n', $text, 'strong-testimonials-read-more',
-		sprintf( 'View %s : Read more (testimonial)', $atts['view'] ) );
-
+	return apply_filters(
+		'wpmtst_l10n',
+		$text,
+		'strong-testimonials-read-more',
+		sprintf( 'View %s : Read more (testimonial)', $atts['view'] )
+	);
 }
 add_filter( 'wpmtst_read_more_post_link_text', 'wpmtst_read_more_post_link_text_l10n', 10, 2 );
 
@@ -232,7 +237,7 @@ function wpmtst_get_permalink( $page_id ) {
  * @return mixed
  */
 function wpmtst_remove_more_link_scroll( $link ) {
-	if ( 'wpm-testimonial' == get_post_type() ) {
+	if ( 'wpm-testimonial' === get_post_type() ) {
 		$link = preg_replace( '|#more-[0-9]+|', '', $link );
 	}
 
@@ -264,9 +269,9 @@ function wpmtst_the_thumbnail( $size = null, $before = '<div class="wpmtst-testi
  * Print the date.
  *
  * @param string $format
- * @param string $class
+ * @param string $wrapper_class
  */
-function wpmtst_the_date( $format = '', $class = '' ) {
+function wpmtst_the_date( $format = '', $wrapper_class = '' ) {
 	global $post;
 	if ( ! $post ) {
 		return;
@@ -277,7 +282,7 @@ function wpmtst_the_date( $format = '', $class = '' ) {
 	}
 
 	$the_date = apply_filters( 'wpmtst_the_date', mysql2date( $format, $post->post_date ), $format, $post );
-	echo '<div class="' . esc_attr( $class ) . '">' . esc_attr( $the_date ) . '</div>';
+	echo '<div class="' . esc_attr( $wrapper_class ) . '">' . esc_attr( $the_date ) . '</div>';
 }
 
 /**
@@ -318,9 +323,9 @@ function wpmtst_the_custom_field( $field ) {
 	$options       = get_option( 'wpmtst_options' );
 	$custom_fields = wpmtst_get_custom_fields();
 
-	$output        = '';
-	$field_name    = $field['field'];
-	
+	$output     = '';
+	$field_name = $field['field'];
+
 	if ( isset( $custom_fields[ $field_name ] ) ) {
 		$field['prop'] = $custom_fields[ $field_name ];
 	} else {
@@ -347,15 +352,15 @@ function wpmtst_the_custom_field( $field ) {
 				 * but don't display 'LinkedIn' if no URL given.
 				 */
 				switch ( $field['link_text'] ) {
-					case 'custom' :
+					case 'custom':
 						$text   = $field['link_text_custom'];
 						$output = '';
 						break;
-					case 'label' :
+					case 'label':
 						$text   = $field['prop']['label'];
 						$output = '';
 						break;
-					default : // value
+					default: // value
 						$text = get_post_meta( $post->ID, $field_name, true );
 						// if no URL (next condition), show the alternate (the field)
 						$output = $text;
@@ -367,61 +372,56 @@ function wpmtst_the_custom_field( $field ) {
 					if ( $url ) {
 						if ( isset( $field['new_tab'] ) && $field['new_tab'] ) {
 							$newtab = ' target="_blank"';
-						}
-						else {
+						} else {
 							$newtab = '';
 						}
 
 						// TODO Abstract this global fallback technique.
 						$is_nofollow = get_post_meta( $post->ID, 'nofollow', true );
-						if ( 'default' == $is_nofollow || '' == $is_nofollow ) {
+						if ( 'default' === $is_nofollow || '' === $is_nofollow ) {
 							// convert default to (yes|no)
 							$is_nofollow = $options['nofollow'] ? 'yes' : 'no';
 						}
-						if ( 'yes' == $is_nofollow ) {
+						if ( 'yes' === $is_nofollow ) {
 							$nofollow = 'nofollow';
-						}
-						else {
+						} else {
 							$nofollow = '';
 						}
 
-                                                $is_noopener = get_post_meta( $post->ID, 'noopener', true );
-                                                if ( 'default' == $is_noopener || '' == $is_noopener ) {
+						$is_noopener = get_post_meta( $post->ID, 'noopener', true );
+						if ( 'default' === $is_noopener || '' === $is_noopener ) {
 							// convert default to (yes|no)
 							$is_noopener = $options['noopener'] ? 'yes' : 'no';
 						}
-						if ( 'yes' == $is_noopener ) {
+						if ( 'yes' === $is_noopener ) {
 							$noopener = 'noopener';
-						}
-						else {
+						} else {
 							$noopener = '';
 						}
 
-                                                $is_noreferrer = get_post_meta( $post->ID, 'noreferrer', true );
-                                                if ( 'default' == $is_noreferrer || '' == $is_noreferrer ) {
+						$is_noreferrer = get_post_meta( $post->ID, 'noreferrer', true );
+						if ( 'default' === $is_noreferrer || '' === $is_noreferrer ) {
 							// convert default to (yes|no)
 							$is_noreferrer = $options['noreferrer'] ? 'yes' : 'no';
 						}
-						if ( 'yes' == $is_noreferrer ) {
+						if ( 'yes' === $is_noreferrer ) {
 							$noreferrer = 'noreferrer';
-						}
-						else {
+						} else {
 							$noreferrer = '';
 						}
 
-                                                if ( !empty($noopener) || !empty($nofollow) || !empty($noreferrer) ) {
-                                                    $rel = sprintf( ' rel="%s %s %s"', esc_attr( $nofollow ), esc_attr( $noopener ), esc_attr( $noreferrer ) );
-                                                } else {
-                                                    $rel = '';
-                                                }
-                                                
+						if ( ! empty( $noopener ) || ! empty( $nofollow ) || ! empty( $noreferrer ) ) {
+							$rel = sprintf( ' rel="%s %s %s"', esc_attr( $nofollow ), esc_attr( $noopener ), esc_attr( $noreferrer ) );
+						} else {
+							$rel = '';
+						}
+
 						// if field empty, use domain instead
 						if ( ! $text || is_array( $text ) ) {
 							$text = preg_replace( '(^https?://)', '', $url );
 						}
 						$output = sprintf( '<a href="%s"%s%s>%s</a>', esc_url( $url ), $newtab, $rel, wp_kses_post( $text ) );
 					}
-
 				}
 				break;
 
@@ -433,7 +433,7 @@ function wpmtst_the_custom_field( $field ) {
 				$the_date = $the_date ? $the_date : $post->post_date;
 				$the_date = mysql2date( $format, $the_date );
 
-				if ( get_option( 'date_format' ) != $format ) {
+				if ( get_option( 'date_format' ) !== $format ) {
 					// Requires PHP 5.3+
 					if ( version_compare( PHP_VERSION, '5.3' ) >= 0 ) {
 						$new_date = DateTime::createFromFormat( get_option( 'date_format' ), $the_date );
@@ -453,33 +453,33 @@ function wpmtst_the_custom_field( $field ) {
 				if ( $categories && ! is_wp_error( $categories ) ) {
 					$list = array();
 					// 3. Check if should display parent cats, child cats, or both.
-					if( isset( $field['category_show'] ) && 'both' != $field['category_show'] ){
-						if( 'parent' === $field['category_show'] ){
+					if ( isset( $field['category_show'] ) && 'both' !== $field['category_show'] ) {
+						if ( 'parent' === $field['category_show'] ) {
 							foreach ( $categories as $cat ) {
 								// 3.1 Include only categories that don't have parents
-								if( 0 === $cat->parent ){
+								if ( 0 === $cat->parent ) {
 									$list[] = $cat->name;
 								}
 							}
-							$output = implode( ", ", $list );
+							$output = implode( ', ', $list );
 
-						}elseif( 'child' === $field['category_show'] ){
+						} elseif ( 'child' === $field['category_show'] ) {
 							foreach ( $categories as $cat ) {
 								// 3.2 Include only categories that have parents
-								if( 0 !== $cat->parent ){
+								if ( 0 !== $cat->parent ) {
 									$list[] = $cat->name;
 								}
 							}
-							$output = implode( ", ", $list );
+							$output = implode( ', ', $list );
 						}
-					}else{
+					} else {
 						foreach ( $categories as $cat ) {
 							// 3.3 Include all categories
 							$list[] = $cat->name;
 						}
-						$output = implode( ", ", $list );
+						$output = implode( ', ', $list );
 					}
-				}else{
+				} else {
 					$output = '';
 				}
 				break;
@@ -493,7 +493,7 @@ function wpmtst_the_custom_field( $field ) {
 			case 'rating':
 				$output = get_post_meta( $post->ID, $field_name, true );
 				// Check default value
-				if ( '' == $output && isset( $field['prop']['default_display_value'] ) && $field['prop']['default_display_value'] ) {
+				if ( '' === $output && isset( $field['prop']['default_display_value'] ) && $field['prop']['default_display_value'] ) {
 					$output = $field['prop']['default_display_value'];
 				}
 				// Convert number to stars
@@ -505,29 +505,29 @@ function wpmtst_the_custom_field( $field ) {
 			case 'platform':
 				$platform = get_post_meta( $post->ID, $field_name, true );
 
-				if( $platform ) {
+				if ( $platform ) {
 					$output = wpmtst_platform_display( $platform );
 				}
 
 				break;
-                                
-                        case 'checkbox':
-                                 // we output the checkbox value from view
-                                $output = '';
-                                if (isset($field['custom_label']) && !empty($field['custom_label'])) {
-                                    $output = sprintf( '%s: ', esc_attr($field['custom_label']));
-                                }
-                                if (get_post_meta( $post->ID, $field_name, true )) {
-                                    $output .= esc_attr($field['checked_value_custom']);
-                                } else {
-                                    $output .= esc_attr($field['unchecked_value']);
-                                }
-                                break;
-                                
+
+			case 'checkbox':
+					// we output the checkbox value from view
+					$output = '';
+				if ( isset( $field['custom_label'] ) && ! empty( $field['custom_label'] ) ) {
+							$output = sprintf( '%s: ', esc_attr( $field['custom_label'] ) );
+				}
+				if ( get_post_meta( $post->ID, $field_name, true ) ) {
+								$output .= esc_attr( $field['checked_value_custom'] );
+				} else {
+					$output .= esc_attr( $field['unchecked_value'] );
+				}
+				break;
+
 			default:
 				// text field
 				$output = get_post_meta( $post->ID, $field_name, true );
-				if ( '' == $output && isset( $field['prop']['default_display_value'] ) && $field['prop']['default_display_value'] ) {
+				if ( '' === $output && isset( $field['prop']['default_display_value'] ) && $field['prop']['default_display_value'] ) {
 					$output = $field['prop']['default_display_value'];
 				}
 		}
@@ -602,12 +602,12 @@ function wpmtst_get_field( $field, $args = array() ) {
 	switch ( $field ) {
 
 		// Apply a character limit to post content.
-		case 'truncated' :
+		case 'truncated':
 			$html = wpmtst_truncate( $post->post_content, $args['char_limit'] );
 			break;
 
 		// Get the custom field.
-		default :
+		default:
 			$html = get_post_meta( $post->ID, $field, true );
 
 	}
@@ -648,7 +648,7 @@ if ( ! function_exists( 'wpmtst_standard_pagination' ) ) :
 			echo "<nav class='nav-links'>";
 			//echo "<span class='page-numbers page-num'>Page " . $paged . " of " . $numpages . "</span> ";
 			echo $paginate_links;
-			echo "</nav>";
+			echo '</nav>';
 		}
 	}
 endif;
@@ -690,7 +690,7 @@ if ( ! function_exists( 'wpmtst_single_template_client' ) ) :
 		$view = wpmtst_find_single_template_view();
 		if ( $view && isset( $view['client_section'] ) ) {
 			foreach ( $view['client_section'] as $field ) {
-				if ( 'rating' == $field['type'] ) {
+				if ( 'rating' === $field['type'] ) {
 					wp_enqueue_style( 'wpmtst-rating-display' );
 					break;
 				}

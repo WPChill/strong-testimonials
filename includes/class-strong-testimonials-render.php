@@ -148,8 +148,11 @@ class Strong_Testimonials_Render {
 		foreach ( $views as $view ) {
 			// Array( [id] => 1, [name] => TEST, [value] => {serialized_array} )
 			$view_data = maybe_unserialize( $view['value'] );
-			if ( isset( $view_data['mode'] ) && 'single_template' != $view_data['mode'] ) {
-				$atts = array( 'id' => $view['id'], 'view' => $view['id'] );
+			if ( isset( $view_data['mode'] ) && 'single_template' !== $view_data['mode'] ) {
+				$atts = array(
+					'id'   => $view['id'],
+					'view' => $view['id'],
+				);
 				$this->prerender( $atts );
 			}
 		}
@@ -198,7 +201,7 @@ class Strong_Testimonials_Render {
 	 */
 	public function add_style( $style_name ) {
 
-		if ( ! in_array( $style_name, $this->styles ) ) {
+		if ( ! in_array( $style_name, $this->styles, true ) ) {
 			$this->styles[] = $style_name;
 		}
 	}
@@ -223,12 +226,12 @@ class Strong_Testimonials_Render {
 	 *
 	 * @since 2.17.5 Replace using variable name as key.
 	 */
-	public function add_script_var( $script_name, $var_name, $var ) {
+	public function add_script_var( $script_name, $var_name, $var_val ) {
 		unset( $this->script_vars[ $var_name ] );
 		$this->script_vars[ $var_name ] = array(
 			'script_name' => $script_name,
 			'var_name'    => $var_name,
-			'var'         => $var,
+			'var'         => $var_val,
 		);
 	}
 
@@ -393,7 +396,7 @@ class Strong_Testimonials_Render {
 
 		foreach ( $all_widgets as $sidebar => $widgets ) {
 			// active widget areas only
-			if ( ! $widgets || empty( $widgets ) || 'wp_inactive_widgets' == $sidebar || 'array_version' == $sidebar ) {
+			if ( ! $widgets || empty( $widgets ) || 'wp_inactive_widgets' === $sidebar || 'array_version' === $sidebar ) {
 				continue;
 			}
 
@@ -409,9 +412,7 @@ class Strong_Testimonials_Render {
 							$widget = $strong_widgets[ $id ];
 							$this->check_widget( $widget );
 						}
-
 					}
-
 				} elseif ( 0 === strpos( $widget_name, 'text-' ) ) {
 					// Text widgets
 
@@ -429,7 +430,6 @@ class Strong_Testimonials_Render {
 							}
 						}
 					}
-
 				} elseif ( 0 === strpos( $widget_name, 'custom_html-' ) ) {
 					// Custom HTML widgets
 
@@ -447,7 +447,6 @@ class Strong_Testimonials_Render {
 							}
 						}
 					}
-
 				}
 			} // foreach $widgets
 		} // foreach $all_widgets
@@ -480,9 +479,9 @@ class Strong_Testimonials_Render {
 
 		foreach ( $cells as $cell_widgets ) {
 			foreach ( $cell_widgets as $key => $widget ) {
-				if ( 'Strong_Testimonials_View_Widget' == $widget['panels_info']['class'] ) {
+				if ( 'Strong_Testimonials_View_Widget' === $widget['panels_info']['class'] ) {
 					$this->check_widget( $widget );
-				} elseif ( 'WP_Widget_Text' == $widget['panels_info']['class'] ) {
+				} elseif ( 'WP_Widget_Text' === $widget['panels_info']['class'] ) {
 					// Is a Text widget?
 					$this->process_content( $widget['text'] );
 				}
@@ -502,15 +501,15 @@ class Strong_Testimonials_Render {
 		}
 
 		foreach ( $nodes as $key => $node ) {
-			if ( 'module' != $node->type ) {
+			if ( 'module' !== $node->type ) {
 				continue;
 			}
 
-			if ( 'widget' != $node->settings->type ) {
+			if ( 'widget' !== $node->settings->type ) {
 				continue;
 			}
 
-			if ( 'Strong_Testimonials_View_Widget' == $node->settings->widget ) {
+			if ( 'Strong_Testimonials_View_Widget' === $node->settings->widget ) {
 				$settings = (array) $node->settings;
 				$widget   = (array) $settings['widget-strong-testimonials-view-widget'];
 				$this->check_widget( $widget );
@@ -616,13 +615,13 @@ class Strong_Testimonials_Render {
 		$this->set_atts( $atts );
 
 		switch ( $atts['mode'] ) {
-			case 'form' :
+			case 'form':
 				$view = new Strong_View_Form( $atts );
 				break;
-			case 'slideshow' :
+			case 'slideshow':
 				$view = new Strong_View_Slideshow( $atts );
 				break;
-			default :
+			default:
 				$view = new Strong_View_Display( $atts );
 		}
 		$view->process();
@@ -670,17 +669,17 @@ class Strong_Testimonials_Render {
 			return array_merge( array( 'view_not_found' => 1 ), $atts );
 		}
 
-		$view_data = apply_filters('wpmtst_parse_view_data',  unserialize( $view['value'] ), $atts['view'] );
+		$view_data = apply_filters( 'wpmtst_parse_view_data', unserialize( $view['value'] ), $atts['view'] );
 
 		/**
 		 * Adjust for defaults.
 		 *
 		 * @since 2.30.0
 		 */
-		if ( isset( $view_data['category'] ) && 'all' == $view_data['category'] ) {
+		if ( isset( $view_data['category'] ) && 'all' === $view_data['category'] ) {
 			$view_data['category'] = '';
 		}
-		if ( 'slideshow' == $view_data['mode'] ) {
+		if ( 'slideshow' === $view_data['mode'] ) {
 			unset( $view_data['id'] );
 		}
 
@@ -704,8 +703,7 @@ class Strong_Testimonials_Render {
 			foreach ( $items as $item ) {
 				if ( is_numeric( $item ) ) {
 					$cats[] = $item;
-				}
-				else {
+				} else {
 					$term = get_term_by( 'slug', $item, 'wpm-testimonial-category' );
 					if ( $term ) {
 						$cats[] = $term->term_id;
@@ -721,5 +719,4 @@ class Strong_Testimonials_Render {
 
 		return $out;
 	}
-
 }
