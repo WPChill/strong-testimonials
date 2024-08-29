@@ -42,7 +42,7 @@ class Strong_Gutemberg {
 
 		wp_localize_script(
 			'st-block-js',
-			'st_views',
+			'stViews',
 			array(
 				'adminURL' => admin_url(),
 				'ajaxURL'  => admin_url( 'admin-ajax.php' ),

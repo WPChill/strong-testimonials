@@ -19,6 +19,7 @@ export default class Notice {
 				nonce: this.nonce,
 				key: this.key,
 			},
+			// eslint-disable-next-line no-undef
 			url: ajaxurl,
 		} );
 	}

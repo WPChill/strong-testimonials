@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 export default class AddonsPage {
 	constructor() {
 		if (
@@ -28,7 +29,7 @@ export default class AddonsPage {
 				nonce: this.reloadButton.data( 'nonce' ),
 			},
 			url: ajaxurl,
-			success: function ( response ) {
+			success( response ) {
 				location.reload();
 			},
 		} );

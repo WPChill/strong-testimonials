@@ -1,19 +1,20 @@
+/* eslint-disable no-undef */
 ( function ( $ ) {
 	$( document ).ready( function () {
 		// Dismiss challenge on cancel
 		$( 'body' ).on( 'click', '#wpmtst-challenge-close', function ( e ) {
 			e.preventDefault();
-			set_challenge_hidden();
+			setChallengeHidden();
 		} );
 
 		// Dismiss challenge on start
 		$( 'body' ).on( 'click', ' #wpmtst-challenge-button', function ( e ) {
 			e.preventDefault();
-			set_challenge_hidden();
+			setChallengeHidden();
 			location.href = $( this ).attr( 'href' );
 		} );
 
-		function set_challenge_hidden() {
+		function setChallengeHidden() {
 			jQuery.ajax( {
 				url: wpmtstChallenge.ajaxurl,
 				type: 'POST',

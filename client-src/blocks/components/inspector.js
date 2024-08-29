@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /**
  * WordPress dependencies
  */
@@ -10,10 +11,6 @@ const { SelectControl, Button, PanelBody, PanelRow } = wp.components;
  * Inspector controls
  */
 export default class Inspector extends Component {
-	constructor( props ) {
-		super( ...arguments );
-	}
-
 	render() {
 		const { attributes, setAttributes, onIdChange, selectOptions } =
 			this.props;
@@ -25,7 +22,7 @@ export default class Inspector extends Component {
 						title={ __( 'View Settings' ) }
 						initialOpen={ true }
 					>
-						{ st_views.views.length === 0 && (
+						{ stViews.views.length === 0 && (
 							<Fragment>
 								<p>
 									{ __(
@@ -34,7 +31,7 @@ export default class Inspector extends Component {
 								</p>
 								<Button
 									href={
-										st_views.adminURL +
+										stViews.adminURL +
 										'edit.php?post_type=wpm-testimonial&page=testimonial-views&action=add'
 									}
 									target="_blank"
@@ -45,32 +42,36 @@ export default class Inspector extends Component {
 							</Fragment>
 						) }
 
-						{ st_views.views.length > 0 && (
-							<Fragment>
-								<SelectControl
-									label={ __( 'Select View' ) }
-									key={ id }
-									value={ id }
-									options={ selectOptions }
-									onChange={ ( value ) =>
-										onIdChange( parseInt( value ) )
-									}
-								/>
-								{ id != 0 && (
-									<Button
-										target="_blank"
-										href={
-											st_views.adminURL +
-											'edit.php?post_type=wpm-testimonial&page=testimonial-views&action=edit&id=' +
-											id
+						{
+							// eslint-disable-next-line no-undef
+							stViews.views.length > 0 && (
+								<Fragment>
+									<SelectControl
+										label={ __( 'Select View' ) }
+										key={ id }
+										value={ id }
+										options={ selectOptions }
+										onChange={ ( value ) =>
+											onIdChange( parseInt( value ) )
 										}
-										isSecondary
-									>
-										{ __( 'Edit View' ) }
-									</Button>
-								) }
-							</Fragment>
-						) }
+									/>
+									{ id !== 0 && (
+										<Button
+											target="_blank"
+											href={
+												// eslint-disable-next-line no-undef
+												stViews.adminURL +
+												'edit.php?post_type=wpm-testimonial&page=testimonial-views&action=edit&id=' +
+												id
+											}
+											isSecondary
+										>
+											{ __( 'Edit View' ) }
+										</Button>
+									) }
+								</Fragment>
+							)
+						}
 					</PanelBody>
 				</InspectorControls>
 			</Fragment>

@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import Inspector from './inspector';
 
 /**
@@ -15,20 +16,20 @@ export const StrongTestimonialViewEdit = ( props ) => {
 	const { id, views, status, testimonials, mode } = attributes;
 
 	useEffect( () => {
-		setAttributes( { status: 'ready', views: st_views.views } );
+		setAttributes( { status: 'ready', views: stViews.views } );
 
-		if ( id != 0 ) {
+		if ( id !== 0 ) {
 			onIdChange( id );
 		}
 	}, [] );
-	const onIdChange = ( id ) => {
-		props.setAttributes( { status: 'ready', id } );
+	const onIdChange = ( newId ) => {
+		props.setAttributes( { status: 'ready', id: newId } );
 	};
 
 	const selectOptions = () => {
 		const options = [ { value: 0, label: __( 'None' ) } ];
 
-		st_views.views.forEach( function ( view ) {
+		stViews.views.forEach( function ( view ) {
 			options.push( { value: view.id, label: view.name } );
 		} );
 
@@ -37,7 +38,7 @@ export const StrongTestimonialViewEdit = ( props ) => {
 
 	const blockControls = (
 		<BlockControls>
-			{ st_views.views.length > 0 && (
+			{ stViews.views.length > 0 && (
 				<Toolbar>
 					<Button
 						label={ __( 'Edit View' ) }
@@ -64,21 +65,21 @@ export const StrongTestimonialViewEdit = ( props ) => {
 	return [
 		<Fragment key="viewSelect">
 			<Inspector
-				onIdChange={ ( id ) => onIdChange( id ) }
+				onIdChange={ ( newId ) => onIdChange( newId ) }
 				selectOptions={ selectOptions() }
 				{ ...props }
 			/>
 			<div className="st-block-preview">
 				<div className="st-block-preview__content">
 					<div className="st-block-preview__logo" />
-					{ st_views.views.length === 0 && (
+					{ stViews.views.length === 0 && (
 						<Fragment>
 							<h6>
 								{ __( "You don't seem to have any views." ) }
 							</h6>
 							<Button
 								href={
-									st_views.adminURL +
+									stViews.adminURL +
 									'edit.php?post_type=wpm-testimonial&page=testimonial-views&action=add'
 								}
 								target="_blank"
@@ -88,7 +89,7 @@ export const StrongTestimonialViewEdit = ( props ) => {
 							</Button>
 						</Fragment>
 					) }
-					{ st_views.views.length > 0 && (
+					{ stViews.views.length > 0 && (
 						<Fragment>
 							<SelectControl
 								label="Select a view:"
@@ -100,11 +101,11 @@ export const StrongTestimonialViewEdit = ( props ) => {
 									onIdChange( parseInt( value ) )
 								}
 							/>
-							{ id != 0 && (
+							{ id !== 0 && (
 								<Button
 									target="_blank"
 									href={
-										st_views.adminURL +
+										stViews.adminURL +
 										'edit.php?post_type=wpm-testimonial&page=testimonial-views&action=edit&id=' +
 										id
 									}

@@ -1,7 +1,7 @@
 {
 	"name": "strong-testimonials",
 	"author": "WPChill",
-	"version": "3.1.16",
+	"version": "3.1.18",
 	"license": "GPL v3",
 	"scripts": {
 		"build": "cross-env NODE_ENV=production wp-scripts build --config webpack.config.js",
@@ -15,6 +15,7 @@
 		"bundle": "node scripts/bundle.js",
 		"checktextdomain": "node scripts/check-text-domain.js",
 		"lint:js": "wp-scripts lint-js ./client-src/",
+		"lint:js-fix": "wp-scripts lint-js ./client-src/ --fix",
 		"lint:css": "wp-scripts lint-style"
 	},
 	"devDependencies": {
