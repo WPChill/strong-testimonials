@@ -53,7 +53,10 @@ class Strong_Testimonials_Debug {
 	 * @since 3.1.15
 	 */
 	public function wpmtst_export_testimonial(){
-
+		// Check if the user is allowed to edit posts.
+		if ( ! current_user_can( 'edit_posts' ) ) {
+			return;
+		}
 		if ( isset( $_GET['wpmtst_single_download'] ) ){
 
 			// WXR_VERSION is declared here
