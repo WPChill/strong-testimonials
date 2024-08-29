@@ -22,11 +22,11 @@ export const StrongTestimonialViewEdit = ( props ) => {
 		}
 	}, [] );
 	const onIdChange = ( id ) => {
-		props.setAttributes( { status: 'ready', id: id } );
+		props.setAttributes( { status: 'ready', id } );
 	};
 
 	const selectOptions = () => {
-		let options = [ { value: 0, label: __( 'None' ) } ];
+		const options = [ { value: 0, label: __( 'None' ) } ];
 
 		st_views.views.forEach( function ( view ) {
 			options.push( { value: view.id, label: view.name } );
@@ -50,7 +50,7 @@ export const StrongTestimonialViewEdit = ( props ) => {
 	);
 	if ( status === 'loading' ) {
 		return [
-			<Fragment>
+			<Fragment key="logo">
 				<div className="st-block-preview">
 					<div className="st-block-preview__content">
 						<div className="st-block-preview__logo"> </div>
@@ -62,14 +62,14 @@ export const StrongTestimonialViewEdit = ( props ) => {
 	}
 
 	return [
-		<Fragment>
+		<Fragment key="viewSelect">
 			<Inspector
 				onIdChange={ ( id ) => onIdChange( id ) }
 				selectOptions={ selectOptions() }
 				{ ...props }
 			/>
 			<div className="st-block-preview">
-				<div class="st-block-preview__content">
+				<div className="st-block-preview__content">
 					<div className="st-block-preview__logo" />
 					{ st_views.views.length === 0 && (
 						<Fragment>

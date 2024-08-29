@@ -343,7 +343,7 @@ class Strong_Testimonials_Admin_Scripts {
 
 		wp_add_inline_script(
 			'wpmtst-admin-script',
-			'const wpmtst_admin_script_nonce = "' . wp_create_nonce( 'wpmtst-admin-script-nonce' ) . '";',
+			'const wpmtstAdminScriptNonce = "' . wp_create_nonce( 'wpmtst-admin-script-nonce' ) . '";',
 			'before'
 		);
 
@@ -370,7 +370,7 @@ class Strong_Testimonials_Admin_Scripts {
 
 		wp_add_inline_script(
 			'wpmtst-admin-script',
-			'const wpmtst_admin_script_nonce = "' . wp_create_nonce( 'wpmtst-admin-script-nonce' ) . '";',
+			'const wpmtstAdminScriptNonce = "' . wp_create_nonce( 'wpmtst-admin-script-nonce' ) . '";',
 			'before'
 		);
 
@@ -420,7 +420,7 @@ class Strong_Testimonials_Admin_Scripts {
 				wp_enqueue_script( 'wpmtst-admin-script' );
 				wp_add_inline_script(
 					'wpmtst-admin-script',
-					'const wpmtst_admin_script_nonce = "' . wp_create_nonce( 'wpmtst-admin-script-nonce' ) . '";',
+					'const wpmtstAdminScriptNonce = "' . wp_create_nonce( 'wpmtst-admin-script-nonce' ) . '";',
 					'before'
 				);
 		}
@@ -435,7 +435,7 @@ class Strong_Testimonials_Admin_Scripts {
 
 		wp_add_inline_script(
 			'wpmtst-admin-script',
-			'const wpmtst_admin_script_nonce = "' . wp_create_nonce( 'wpmtst-admin-script-nonce' ) . '";',
+			'const wpmtstAdminScriptNonce = "' . wp_create_nonce( 'wpmtst-admin-script-nonce' ) . '";',
 			'before'
 		);
 
@@ -462,7 +462,7 @@ class Strong_Testimonials_Admin_Scripts {
 
 			wp_add_inline_script(
 				'wpmtst-admin-script',
-				'const wpmtst_admin_script_nonce = "' . wp_create_nonce( 'wpmtst-admin-script-nonce' ) . '";',
+				'const wpmtstAdminScriptNonce = "' . wp_create_nonce( 'wpmtst-admin-script-nonce' ) . '";',
 				'before'
 			);
 
@@ -497,7 +497,7 @@ class Strong_Testimonials_Admin_Scripts {
 
 			wp_add_inline_script(
 				'wpmtst-admin-script',
-				'const wpmtst_admin_script_nonce = "' . wp_create_nonce( 'wpmtst-admin-script-nonce' ) . '";',
+				'const wpmtstAdminScriptNonce = "' . wp_create_nonce( 'wpmtst-admin-script-nonce' ) . '";',
 				'before'
 			);
 

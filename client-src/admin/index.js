@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import './admin.scss';
 
 /**
@@ -93,8 +94,10 @@ jQuery( document ).ready( function ( $ ) {
 				action: 'wpmtst_save_view_list_order',
 				name: columnName,
 				order: columnOrder,
-				nonce: wpmtst_admin_script_nonce,
+				// eslint-disable-next-line no-undef
+				nonce: wpmtstAdminScriptNonce,
 			};
+			// eslint-disable-next-line no-undef
 			$.post( ajaxurl, data, function ( response ) {} );
 		}
 	);
@@ -115,8 +118,10 @@ jQuery( document ).ready( function ( $ ) {
 			const data = {
 				action: 'wpmtst_save_view_sticky',
 				id,
-				nonce: wpmtst_admin_script_nonce,
+				// eslint-disable-next-line no-undef
+				nonce: wpmtstAdminScriptNonce,
 			};
+			// eslint-disable-next-line no-undef
 			$.post( ajaxurl, data, function ( response ) {
 				if ( response ) {
 					window.location.reload();
@@ -129,7 +134,7 @@ jQuery( document ).ready( function ( $ ) {
 import Notice from '../blocks/modules/notice';
 import AddonsPage from '../blocks/modules/AddonsPage';
 
-class WPMTST_Admin {
+class wpmtstAdmin {
 	constructor() {
 		this.initNotices();
 		this.initAddonsPage();
@@ -146,4 +151,4 @@ class WPMTST_Admin {
 	}
 }
 
-window.WPMTST_Admin = new WPMTST_Admin();
+window.wpmtstAdmin = new wpmtstAdmin();
