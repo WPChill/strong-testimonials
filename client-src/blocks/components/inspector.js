@@ -10,20 +10,28 @@ const { SelectControl, Button, PanelBody, PanelRow } = wp.components;
  * Inspector controls
  */
 export default class Inspector extends Component {
-	constructor(props) {
-		super(...arguments);
+	constructor( props ) {
+		super( ...arguments );
 	}
 
 	render() {
-		const { attributes, setAttributes, onIdChange, selectOptions } = this.props;
+		const { attributes, setAttributes, onIdChange, selectOptions } =
+			this.props;
 		const { id, views, testimonials } = attributes;
 		return (
 			<Fragment>
 				<InspectorControls>
-					<PanelBody title={__('View Settings')} initialOpen={true}>
-						{st_views.views.length === 0 && (
+					<PanelBody
+						title={ __( 'View Settings' ) }
+						initialOpen={ true }
+					>
+						{ st_views.views.length === 0 && (
 							<Fragment>
-								<p>{__("You don't seem to have any views.")}</p>
+								<p>
+									{ __(
+										"You don't seem to have any views."
+									) }
+								</p>
 								<Button
 									href={
 										st_views.adminURL +
@@ -32,21 +40,23 @@ export default class Inspector extends Component {
 									target="_blank"
 									isDefault
 								>
-									{__('Add New View')}
+									{ __( 'Add New View' ) }
 								</Button>
 							</Fragment>
-						)}
+						) }
 
-						{st_views.views.length > 0 && (
+						{ st_views.views.length > 0 && (
 							<Fragment>
 								<SelectControl
-									label={__('Select View')}
-									key={id}
-									value={id}
-									options={selectOptions}
-									onChange={(value) => onIdChange(parseInt(value))}
+									label={ __( 'Select View' ) }
+									key={ id }
+									value={ id }
+									options={ selectOptions }
+									onChange={ ( value ) =>
+										onIdChange( parseInt( value ) )
+									}
 								/>
-								{id != 0 && (
+								{ id != 0 && (
 									<Button
 										target="_blank"
 										href={
@@ -56,11 +66,11 @@ export default class Inspector extends Component {
 										}
 										isSecondary
 									>
-										{__('Edit View')}
+										{ __( 'Edit View' ) }
 									</Button>
-								)}
+								) }
 							</Fragment>
-						)}
+						) }
 					</PanelBody>
 				</InspectorControls>
 			</Fragment>

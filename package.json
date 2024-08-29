@@ -1,48 +1,39 @@
 {
-  "name": "strong-testimonials",
-  "author": "WPChill",
-  "version": "3.1.16",
-  "license": "GPL v3",
-  "scripts": {
-    "build": "wp-scripts build ./assets/src/js/admin.js --output-path=./assets/dist/js/",
-    "start": "wp-scripts start ./assets/src/js/admin.js --output-path=./assets/dist/js/",
-    "packages-update": "wp-scripts packages-update",
-    "format:src": "wp-scripts format ./assets/src/js",
-    "plugin-zip": "npm run build && npm run clean && npm run copy && npm run css && npm run bundle && npm run clean",
-    "clean": "rimraf build",
-    "css": "postcss assets/css/*.css --use cssnano --dir build/assets/css --ext .min.css",
-    "copy": "node scripts/copy.js",
-    "bundle": "node scripts/bundle.js",
-    "checktextdomain": "node scripts/check-text-domain.js",
-    "lint:js": "wp-scripts lint-js",
-    "lint:css": "wp-scripts lint-style"
-  },
-  "devDependencies": {
-    "@babel/core": "^7.24.6",
-    "@babel/eslint-parser": "^7.24.6",
-    "@wordpress/dependency-extraction-webpack-plugin": "^6.3.0",
-    "@wordpress/eslint-plugin": "^20.3.0",
-    "@wordpress/scripts": "^28.5.0",
-	  "rimraf": "^5.0.1",
-    "archiver": "^5.3.1",
-    "cssnano": "^5.1.15",
-    "eslint": "^8.57.0",
-    "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-import": "^2.29.1",
-    "eslint-plugin-wordpress": "^0.1.0",
-    "fs-extra": "^11.1.1",
-    "glob": "^10.3.3",
-    "postcss": "^8.4.27",
-    "postcss-cli": "^10.1.0",
-    "prettier": "^3.3.3"
-  },
-  "dependencies": {
-    "@wordpress/icons": "^9.18.0",
-    "css-loader": "^6.5.1",
-    "node-sass": "^7.0.1",
-    "postcss": "^8.4.6",
-    "postcss-loader": "^6.2.1",
-    "sass-loader": "^12.4.0",
-    "swr": "^2.0.3"
-  }
+	"name": "strong-testimonials",
+	"author": "WPChill",
+	"version": "3.1.16",
+	"license": "GPL v3",
+	"scripts": {
+		"build": "NODE_ENV=production wp-scripts build --config webpack.config.js",
+		"start": "NODE_ENV=development wp-scripts start --config webpack.config.js",
+		"packages-update": "wp-scripts packages-update",
+		"format:src": "wp-scripts format ./client-src/",
+		"plugin-zip": "npm run build && npm run clean && npm run copy && npm run css && npm run bundle && npm run clean",
+		"clean": "rimraf build",
+		"css": "postcss assets/css/*.css --use cssnano --dir build/assets/css --ext .min.css",
+		"copy": "node scripts/copy.js",
+		"bundle": "node scripts/bundle.js",
+		"checktextdomain": "node scripts/check-text-domain.js",
+		"lint:js": "wp-scripts lint-js",
+		"lint:css": "wp-scripts lint-style"
+	},
+	"devDependencies": {
+		"@babel/core": "^7.24.6",
+		"@babel/eslint-parser": "^7.24.6",
+		"@tanstack/eslint-plugin-query": "^5.52.0",
+		"@wordpress/babel-plugin-makepot": "^6.5.0",
+		"@wordpress/scripts": "^28.5.0",
+		"eslint": "^8.57.0",
+		"eslint-config-prettier": "^9.1.0",
+		"eslint-plugin-import": "^2.29.1",
+		"eslint-plugin-react-hooks": "^4.6.2",
+		"archiver": "^5.3.1",
+		"fs-extra": "^11.2.0",
+		"glob": "^10.3.3",
+		"rimraf": "^5.0.1"
+	},
+	"dependencies": {
+		"@wordpress/icons": "^9.18.0",
+		"swr": "^2.0.3"
+	}
 }
