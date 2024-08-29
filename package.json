@@ -14,7 +14,7 @@
 		"copy": "node scripts/copy.js",
 		"bundle": "node scripts/bundle.js",
 		"checktextdomain": "node scripts/check-text-domain.js",
-		"lint:js": "wp-scripts lint-js",
+		"lint:js": "wp-scripts lint-js ./client-src/",
 		"lint:css": "wp-scripts lint-style"
 	},
 	"devDependencies": {
