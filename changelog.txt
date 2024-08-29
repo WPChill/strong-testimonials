@@ -1,3 +1,6 @@
+= 3.1.17 - 29.08.2024 -
+- Fixed: Security issue regarding Testimonial debug export
+
 = 3.1.16 - 14.08.2024 -
 - Fixed: Missing submodule files.
 
