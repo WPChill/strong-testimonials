@@ -27,6 +27,7 @@ archive.directory('build/languages/', `${pluginSlug}/languages`);
 archive.directory('build/public/', `${pluginSlug}/public`);
 archive.directory('build/templates/', `${pluginSlug}/templates`);
 archive.file('build/strong-testimonials.php', { name: `${pluginSlug}/strong-testimonials.php` });
+archive.file('build/class-strong-testimonials.php', { name: `${pluginSlug}/class-strong-testimonials.php` });
 archive.file('build/readme.txt', { name: `${pluginSlug}/readme.txt` });
 archive.file('build/changelog.txt', { name: `${pluginSlug}/changelog.txt` });
 
