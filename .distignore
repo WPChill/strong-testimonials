@@ -8,10 +8,13 @@ scripts
 .distignore
 .editorconfig
 .gitignore
+.gitattributes
 .babelrc
 .php_cs
 .travis.yml
 .wp-env.json
+.eslintignore
+.eslintrc.json
 composer.phar
 composer.json
 composer.lock

@@ -1,0 +1,7 @@
+# Exclude totul
+*
+
+# Include doar directorul admin/js
+!admin/
+!admin/js/
+!admin/js/**

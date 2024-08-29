@@ -13,26 +13,35 @@
     "css": "postcss assets/css/*.css --use cssnano --dir build/assets/css --ext .min.css",
     "copy": "node scripts/copy.js",
     "bundle": "node scripts/bundle.js",
-    "checktextdomain": "node scripts/check-text-domain.js"
+    "checktextdomain": "node scripts/check-text-domain.js",
+    "lint:js": "wp-scripts lint-js",
+    "lint:css": "wp-scripts lint-style"
   },
-	"devDependencies": {
-	  "@wordpress/dependency-extraction-webpack-plugin": "^6.3.0",
-	  "@wordpress/scripts": "^28.3.0",
-	  "archiver": "^5.3.1",
-	  "cssnano": "^5.1.15",
-	  "fs-extra": "^11.1.1",
-	  "glob": "^10.3.3",
-	  "postcss": "^8.4.27",
-	  "postcss-cli": "^10.1.0",
-	  "rimraf": "^5.0.1"
-	},
+  "devDependencies": {
+    "@babel/core": "^7.24.6",
+    "@babel/eslint-parser": "^7.24.6",
+    "@wordpress/dependency-extraction-webpack-plugin": "^6.3.0",
+    "@wordpress/eslint-plugin": "^20.3.0",
+    "@wordpress/scripts": "^28.5.0",
+	  "rimraf": "^5.0.1",
+    "archiver": "^5.3.1",
+    "cssnano": "^5.1.15",
+    "eslint": "^8.57.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-wordpress": "^0.1.0",
+    "fs-extra": "^11.1.1",
+    "glob": "^10.3.3",
+    "postcss": "^8.4.27",
+    "postcss-cli": "^10.1.0",
+    "prettier": "^3.3.3"
+  },
   "dependencies": {
     "@wordpress/icons": "^9.18.0",
     "css-loader": "^6.5.1",
     "node-sass": "^7.0.1",
     "postcss": "^8.4.6",
     "postcss-loader": "^6.2.1",
-    "prettier": "^2.5.1",
     "sass-loader": "^12.4.0",
     "swr": "^2.0.3"
   }

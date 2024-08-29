@@ -5,7 +5,7 @@
  * Description: Collect and display your testimonials or reviews.
  * Author: WPChill
  * Author URI: https://wpchill.com/
- * Version: 3.1.16
+ * Version: 3.1.18
  * Text Domain: strong-testimonials
  * Domain Path: /languages
  * Requires: 4.6 or higher
