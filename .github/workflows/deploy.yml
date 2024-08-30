@@ -72,40 +72,28 @@ jobs:
         shell: bash
         run: |
           echo "changelog<<EOF" >> $GITHUB_OUTPUT
-          version=$(echo "${{ github.ref_name }}" | sed 's/^v//')
+          version=$(echo "${{ steps.package-version.outputs.current-version }}" | sed 's/^v//')
           awk -v ver="$version" '
           BEGIN {latest_ver = "0.0.0"}
-          /^= v/ {
+          /^= / {
             split($2, a, "-");
-            sub(/^v/, "", a[1]);
             if (a[1] <= ver && a[1] > latest_ver) {
               latest_ver = a[1];
-              changelog = "";
-            }
-            if (a[1] == latest_ver) {
               p = 1;
-              changelog = changelog $0 "\n";
+              print "Latest version: " latest_ver;
+              print "Changelog:";
+              print;
               next;
-            } else {
-              p = 0;
             }
+            if (p) exit;
           }
-          p {changelog = changelog $0 "\n"}
-          END {
-            print "Latest version: v" latest_ver;
-            print "Changelog:";
-            print changelog;
-          }
+          p
           ' changelog.txt >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
-
-      - name: Get version
-        id: version
-        run: echo "version=${{ github.ref_name }}" >> $GITHUB_OUTPUT
 
       - name: Notify on Slack
         uses: bloodyowl/slack-message-release-action@v1.1.5
         with:
-          version: ${{ steps.version.outputs.version }}
+          version: ${{ steps.package-version.outputs.current-version }}
           changelog: ${{ steps.changelog.outputs.changelog }}
           slack_webhook_url: ${{ secrets.SLACK_WEBHOOK_URL }}
