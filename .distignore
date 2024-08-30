@@ -30,3 +30,6 @@ appv2
 Gruntfile.js
 .vscode
 client-src
+/scripts
+.gitmodules
+.gitattributes
