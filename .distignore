@@ -25,3 +25,6 @@ app
 appv2
 Gruntfile.js
 .vscode
+/scripts
+.gitmodules
+.gitattributes
