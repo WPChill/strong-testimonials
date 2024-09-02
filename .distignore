@@ -34,3 +34,6 @@ client-src
 .gitmodules
 .gitattributes
 *.zip
+.prettierrc.js
+templates-scss
+
