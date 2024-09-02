@@ -33,3 +33,4 @@ client-src
 /scripts
 .gitmodules
 .gitattributes
+*.zip
