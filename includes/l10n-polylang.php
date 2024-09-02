@@ -19,22 +19,21 @@ function wpmtst_l10n_filters_polylang() {
 	add_action( 'wpmtst_before_form_settings', 'wpmtst_help_link_polylang' );
 	add_action( 'wpmtst_before_fields_settings', 'wpmtst_help_link_polylang' );
 	add_action( 'wpmtst_after_notification_fields', 'wpmtst_help_link_polylang' );
-
 }
 add_action( 'init', 'wpmtst_l10n_filters_polylang', 20 );
 
 /**
- * @param $string
+ * @param $l10n_string
  * @param $context
  * @param $name
  *
  * @return bool|string
  */
-function wpmtst_l10n_polylang( $string, $context, $name ) {
+function wpmtst_l10n_polylang( $l10n_string, $context, $name ) {
 	if ( function_exists( 'pll__' ) ) {
-		return pll__( $string );
+		return pll__( $l10n_string );
 	}
-	return $string;
+	return $l10n_string;
 }
 
 /**
@@ -87,7 +86,7 @@ function wpmtst_form_options_polylang( $options ) {
 		// Form messages
 		$context = 'strong-testimonials-form-messages';
 		foreach ( $options['messages'] as $key => $field ) {
-			pll_register_string( __( $field['description'], 'strong-testimonials' ), $field['text'], $context );
+			pll_register_string( $field['description'], $field['text'], $context );
 		}
 
 		// Form notification
@@ -117,14 +116,26 @@ function wpmtst_readmore_polylang() {
 				continue;
 			}
 
-			pll_register_string( sprintf( __( 'View %s : Read more (testimonial)', 'strong-testimonials', false ),
-				$view['id'] ), $view_data['more_post_text'], $context );
+			pll_register_string(
+				// translators: %s is the view ID.
+				sprintf( __( 'View %s : Read more (testimonial)', 'strong-testimonials' ), $view['id'] ),
+				$view_data['more_post_text'],
+				$context
+			);
 
-			pll_register_string( sprintf( __( 'View %s : Read less (testimonial)', 'strong-testimonials', false ),
-				$view['id'] ), $view_data['less_post_text'], $context );
+			pll_register_string(
+				// translators: %s is the view ID.
+				sprintf( __( 'View %s : Read less (testimonial)', 'strong-testimonials' ), $view['id'] ),
+				$view_data['less_post_text'],
+				$context
+			);
 
-			pll_register_string( sprintf( __( 'View %s : Read more (page or post)', 'strong-testimonials', false ),
-				$view['id'] ), $view_data['more_page_text'], $context );
+			pll_register_string(
+				// translators: %s is the view ID.
+				sprintf( __( 'View %s : Read more (page or post)', 'strong-testimonials' ), $view['id'] ),
+				$view_data['more_page_text'],
+				$context
+			);
 		}
 	}
 }
@@ -144,7 +155,7 @@ function wpmtst_readmore_polylang() {
 function wpmtst_admin_polylang() {
 	global $plugin_page;
 
-	if ( isset( $plugin_page ) && 'mlang_strings' == $plugin_page ) {
+	if ( isset( $plugin_page ) && 'mlang_strings' === $plugin_page ) {
 		// Minor improvements to list table style
 		$plugin_version = get_option( 'wpmtst_plugin_version' );
 		wp_enqueue_style( 'wpmtst-admin-style-polylang', WPMTST_ADMIN_URL . 'css/polylang.css', array(), $plugin_version );
@@ -165,7 +176,10 @@ add_action( 'admin_init', 'wpmtst_admin_polylang' );
 function wpmtst_help_link_polylang( $context ) {
 	echo '<p>';
 	echo '<span class="dashicons dashicons-info icon-blue"></span>&nbsp;';
-	printf( wp_kses_post( __( 'Translate these fields in <a href="%s">Polylang String Translations</a>', 'strong-testimonials' ) ),
-		esc_url( admin_url( 'admin.php?page=mlang_strings&group=strong-testimonials-' . $context . '&paged=1' ) ) );
+	printf(
+		// translators: %s is the URL to the Polylang String Translations page for the specific context.
+		wp_kses_post( __( 'Translate these fields in <a href="%s">Polylang String Translations</a>', 'strong-testimonials' ) ),
+		esc_url( admin_url( 'admin.php?page=mlang_strings&group=strong-testimonials-' . $context . '&paged=1' ) )
+	);
 	echo '</p>';
 }

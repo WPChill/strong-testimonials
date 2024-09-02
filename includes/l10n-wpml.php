@@ -29,7 +29,6 @@ function wpmtst_l10n_filters_wpml() {
 	add_action( 'wpmtst_before_form_settings', 'wpmtst_help_link_wpml' );
 	add_action( 'wpmtst_before_fields_settings', 'wpmtst_help_link_wpml' );
 	add_action( 'wpmtst_after_notification_fields', 'wpmtst_help_link_wpml' );
-
 }
 add_action( 'init', 'wpmtst_l10n_filters_wpml', 20 );
 
@@ -40,8 +39,8 @@ add_action( 'init', 'wpmtst_l10n_filters_wpml', 20 );
  *
  * @return mixed
  */
-function wpmtst_l10n_wpml( $string, $context, $name ) {
-	return apply_filters( 'wpml_translate_single_string', $string, $context, $name );
+function wpmtst_l10n_wpml( $l10n_string, $context, $name ) {
+	return apply_filters( 'wpml_translate_single_string', $l10n_string, $context, $name );
 }
 
 /**
@@ -54,7 +53,7 @@ function wpmtst_l10n_wpml( $string, $context, $name ) {
  * @return mixed
  */
 function wpmtst_wpml_get_term( $term, $tax ) {
-	if ( 'wpm-testimonial-category' == $tax ) {
+	if ( 'wpm-testimonial-category' === $tax ) {
 		$term->term_id = apply_filters( 'wpmtst_wpml_translate_object_ids', $term->term_id );
 	}
 
@@ -77,31 +76,27 @@ function wpmtst_wpml_translate_object_ids( $object_id, $type = 'wpm-testimonial-
 			$translated_object_ids[] = apply_filters( 'wpml_object_id', $id, $type, true );
 		}
 		return $translated_object_ids;
-	}
-	// if string
-	elseif ( is_string( $object_id ) ) {
+	} elseif ( is_string( $object_id ) ) {
 		// check if we have a comma separated ID string
-		$is_comma_separated = strpos( $object_id,"," );
+		$is_comma_separated = strpos( $object_id, ',' );
 
-		if ( $is_comma_separated !== FALSE ) {
+		if ( false !== $is_comma_separated ) {
 			// explode the comma to create an array of IDs
-			$object_id     = explode( ',', $object_id );
+			$object_id = explode( ',', $object_id );
 
 			$translated_object_ids = array();
 			foreach ( $object_id as $id ) {
-				$translated_object_ids[] = apply_filters ( 'wpml_object_id', $id, $type, true );
+				$translated_object_ids[] = apply_filters( 'wpml_object_id', $id, $type, true );
 			}
 
 			// make sure the output is a comma separated string (the same way it came in!)
-			return implode ( ',', $translated_object_ids );
-		}
-		// if we don't find a comma in the string then this is a single ID
-		else {
+			return implode( ',', $translated_object_ids );
+		} else {
+			// if we don't find a comma in the string then this is a single ID
 			return apply_filters( 'wpml_object_id', intval( $object_id ), $type, true );
 		}
-	}
-	// if int
-	else {
+	} else {
+		// if int
 		return apply_filters( 'wpml_object_id', $object_id, $type, true );
 	}
 }
@@ -176,7 +171,7 @@ function wpmtst_form_options_wpml( $oldvalue, $newvalue, $option = 'wpmtst_form_
 	krsort( $wpml );
 	foreach ( $wpml as $key => $field ) {
 		// We can translate here because the description was localized when added.
-		do_action( 'wpml_register_single_string', $context, __( $field['description'], 'strong-testimonials' ), $field['text'] );
+		do_action( 'wpml_register_single_string', $context, $field['description'], $field['text'] );
 	}
 
 	// Form notification
@@ -234,7 +229,10 @@ function wpmtst_update_view_wpml( $view ) {
 function wpmtst_help_link_wpml( $context ) {
 	echo '<p>';
 	echo '<span class="dashicons dashicons-info icon-blue"></span>&nbsp;';
-	printf( wp_kses_post( __( 'Translate these fields in <a href="%s">WPML String Translations</a>', 'strong-testimonials' ) ),
-		esc_url( admin_url( 'admin.php?page=wpml-string-translation%2Fmenu%2Fstring-translation.php&context=strong-testimonials-' . $context ) ) );
+	printf(
+		// translators: %s is the URL to the WPML String Translations page for the specific context.
+		wp_kses_post( __( 'Translate these fields in <a href="%s">WPML String Translations</a>', 'strong-testimonials' ) ),
+		esc_url( admin_url( 'admin.php?page=wpml-string-translation%2Fmenu%2Fstring-translation.php&context=strong-testimonials-' . $context ) )
+	);
 	echo '</p>';
 }

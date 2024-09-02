@@ -10,7 +10,8 @@
 	<td>
 		<?php
 		// Field names for certain types are read-only.
-		if ( $field['name_mutable'] ) : ?>
+		if ( $field['name_mutable'] ) :
+			?>
 			<input class="field-name" type="text" name="fields[<?php echo esc_attr( $key ); ?>][name]" value="<?php echo isset( $field['name'] ) ? esc_attr( $field['name'] ) : ''; ?>">
 			<span class="help field-name-help"><?php esc_html_e( 'Use only lowercase letters, numbers, and underscores.', 'strong-testimonials' ); ?></span>
 			<span class="help field-name-help important"><?php esc_html_e( 'Cannot be "name" or "date".', 'strong-testimonials' ); ?></span>

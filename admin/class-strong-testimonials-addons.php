@@ -21,8 +21,9 @@ class Strong_Testimonials_Addons {
 	}
 
 	private function check_for_addons() {
+		$data = get_transient( 'strong_testimonials_all_extensions' );
 
-		if ( false !== ( $data = get_transient( 'strong_testimonials_all_extensions' ) ) ) {
+		if ( false !== $data ) {
 			return $data;
 		}
 
@@ -55,7 +56,7 @@ class Strong_Testimonials_Addons {
 
 		if ( ! empty( $this->addons ) ) {
 			foreach ( $this->addons as $addon ) {
-				$image = ( '' != $addon['image'] ) ? $addon['image'] : WPMTST_ASSETS_IMG . '/logo.png';
+				$image = ( '' !== $addon['image'] ) ? $addon['image'] : WPMTST_ASSETS_IMG . '/logo.png';
 				echo '<div class="wpmtst-addon">';
 				echo '<div class="wpmtst-addon-box">';
 				echo '<img src="' . esc_attr( $image ) . '">';
@@ -70,7 +71,6 @@ class Strong_Testimonials_Addons {
 				echo '</div>';
 			}
 		}
-
 	}
 
 	/**
@@ -104,8 +104,8 @@ class Strong_Testimonials_Addons {
 	/**
 	 * Print the Addons page.
 	 */
-	
-	public function addons_page() { 
+
+	public function addons_page() {
 
 		$this->addons = $this->check_for_addons();
 		?>
@@ -128,25 +128,25 @@ class Strong_Testimonials_Addons {
 		<h2 class="nav-tab-wrapper">
 			<?php
 			$tabs = array(
-					'testimonials'       => array(
-							'name'     => esc_html_x( 'Testimonials', 'post type general name', 'strong-testimonials' ),
-							'url'      => admin_url( 'edit.php?post_type=wpm-testimonial' ),
-							'priority' => '1'
-					),
-					'suggest_feature' => array(
-							'name'     => esc_html__( 'Suggest a feature', 'strong-testimonials' ),
-							'icon'     => 'dashicons-external',
-							'url'      => 'https://docs.google.com/forms/d/e/1FAIpQLScch0AchtnzxJsSrjUcW9ypcr1fZ9r-vyk3emEp8Sv47brb2g/viewform',
-							'target'   => '_blank',
-							'priority' => '10'
-					),
+				'testimonials'    => array(
+					'name'     => esc_html_x( 'Testimonials', 'post type general name', 'strong-testimonials' ),
+					'url'      => admin_url( 'edit.php?post_type=wpm-testimonial' ),
+					'priority' => '1',
+				),
+				'suggest_feature' => array(
+					'name'     => esc_html__( 'Suggest a feature', 'strong-testimonials' ),
+					'icon'     => 'dashicons-external',
+					'url'      => 'https://docs.google.com/forms/d/e/1FAIpQLScch0AchtnzxJsSrjUcW9ypcr1fZ9r-vyk3emEp8Sv47brb2g/viewform',
+					'target'   => '_blank',
+					'priority' => '10',
+				),
 			);
 
 			if ( current_user_can( 'install_plugins' ) ) {
-				$tabs[ 'extensions' ] = array(
-						'name'     => esc_html__( 'Extensions', 'strong-testimonials' ),
-						'url'      => admin_url( 'edit.php?post_type=wpm-testimonial&page=strong-testimonials-addons' ),
-						'priority' => '5',
+				$tabs['extensions'] = array(
+					'name'     => esc_html__( 'Extensions', 'strong-testimonials' ),
+					'url'      => admin_url( 'edit.php?post_type=wpm-testimonial&page=strong-testimonials-addons' ),
+					'priority' => '5',
 				);
 			}
 
@@ -193,10 +193,11 @@ class Strong_Testimonials_Addons {
 	 * @param $url
 	 */
 	public function register_tab( $active_tab, $url ) {
-		printf( '<a href="%s" class="nav-tab %s">%s</a>',
-		        esc_url( add_query_arg( 'tab', 'license', $url ) ),
-		        esc_attr( $active_tab == 'license' ? 'nav-tab-active' : '' ),
-		        esc_html__( 'License', 'strong-testimonials' )
+		printf(
+			'<a href="%s" class="nav-tab %s">%s</a>',
+			esc_url( add_query_arg( 'tab', 'license', $url ) ),
+			esc_attr( 'license' === $active_tab ? 'nav-tab-active' : '' ),
+			esc_html__( 'License', 'strong-testimonials' )
 		);
 	}
 
@@ -208,7 +209,7 @@ class Strong_Testimonials_Addons {
 	 * @return mixed
 	 */
 	public function register_settings_page( $pages ) {
-		$pages[ 'license' ] = array( $this, 'render_license' );
+		$pages['license'] = array( $this, 'render_license' );
 
 		return $pages;
 	}
@@ -227,6 +228,7 @@ class Strong_Testimonials_Addons {
 		$messages   = array(
 			'no-license'       => esc_html__( 'Enter your license key', 'strong-testimonials' ),
 			'activate-license' => esc_html__( 'Activate your license key', 'strong-testimonials' ),
+			// Translators: %s is the date until the license is active.
 			'all-good'         => __( 'Your license is active until <strong>%s</strong>', 'strong-testimonials' ),
 			'lifetime'         => __( 'You have a lifetime license.', 'strong-testimonials' ),
 			'expired'          => esc_html__( 'Your license has expired', 'strong-testimonials' ),
@@ -235,19 +237,19 @@ class Strong_Testimonials_Addons {
 		if ( '' === $license ) {
 			//$license_message = $messages['no-license'];
 			$license_message = '';
-		} elseif ( '' !== $license && $status === false ) {
+		} elseif ( '' !== $license && false === $status ) {
 			//$license_message = $messages['activate-license'];
 			$license_message = '';
-		} elseif ( $status->license === 'expired' ) {
+		} elseif ( 'expired' === $status->license ) {
 			$license_message = $messages['expired'];
-		} elseif ( '' !== $license && $status !== false && isset( $status->license ) && $status->license == 'valid' ) {
+		} elseif ( '' !== $license && false !== $status && isset( $status->license ) && 'valid' === $status->license ) {
 
 			$date_format = get_option( 'date_format' );
 
-			if ( 'lifetime' == $status->expires ) {
+			if ( 'lifetime' === $status->expires ) {
 				$license_message = $messages['lifetime'];
 			} else {
-				$license_expire = date( $date_format, strtotime( $status->expires ) );
+				$license_expire = date( $date_format, strtotime( $status->expires ) ); // phpcs:ignore WordPress.DateTime.RestrictedFunctions.date_date
 				$curr_time      = time();
 				// weeks till expiration
 				$weeks = (int) ( ( strtotime( $status->expires ) - $curr_time ) / ( 7 * 24 * 60 * 60 ) );
@@ -261,10 +263,10 @@ class Strong_Testimonials_Addons {
 
 				$license_message = sprintf( '<p class="%s">' . $messages['all-good'] . '</p>', $l_stat, $license_expire );
 
-				if ( 'green' != $l_stat ) {
+				if ( 'green' !== $l_stat ) {
+					// translators: %s is the number of weeks until the license will expire.
 					$license_message .= sprintf( __( 'You have %s week(s) untill your license will expire.', 'strong-testimonials' ), $weeks );
 				}
-
 			}
 		}
 		?>
@@ -276,7 +278,7 @@ class Strong_Testimonials_Addons {
 			if ( false !== $license && $status && 'valid' === $status->license ) {
 				$valid_license = true;
 			}
-		?>
+			?>
 		<table class="form-table wpmtst_license_table" cellpadding="0" cellspacing="0">
 
 			<tr valign="top">
@@ -338,7 +340,7 @@ class Strong_Testimonials_Addons {
 					</fieldset>
 				</td>
 			</tr>
-			<tr valign="top" <?php echo ( !isset( $options['disable_rewrite'] ) || '1' != $options['disable_rewrite'] ) ? '' : 'style="display:none;"'; ?> data-setting="single_testimonial_slug" >
+			<tr valign="top">
 				<th scope="row">
 					<?php esc_html_e( 'Action', 'strong-testimonials' ); ?>
 				</th>

@@ -10,12 +10,12 @@
  * @since 2.0.0
  * @deprecated 2.23.0
  *
- * @param $string
+ * @param $html_string
  *
  * @return string
  */
-function wpmtst_htmlspecialchars( $string ) {
-	return htmlspecialchars( $string, ENT_QUOTES, get_bloginfo( 'charset' ) );
+function wpmtst_htmlspecialchars( $html_string ) {
+	return htmlspecialchars( $html_string, ENT_QUOTES, get_bloginfo( 'charset' ) );
 }
 
 
@@ -70,4 +70,3 @@ function wpmtst_read_more() {}
 function wpmtst_get_category_list() {
 	return get_terms( 'wpm-testimonial-category', array( 'hide_empty' => false ) );
 }
-

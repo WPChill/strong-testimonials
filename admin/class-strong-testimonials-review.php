@@ -1,13 +1,13 @@
 <?php
 
-class Strong_Review {
+class Strong_Testimonials_Review {
 
 	private $value;
 	private $messages;
 	private $link = 'https://wordpress.org/support/plugin/%s/reviews/#new-post';
 	private $slug = 'strong-testimonials';
-	
-	function __construct() {
+
+	public function __construct() {
 
 		$this->messages = array(
 			'notice'  => esc_html__( "Hi there! Stoked to see you're using Strong Testimonials for a few days now - hope you like it! And if you do, please consider rating it. It would mean the world to us.  Keep on rocking!", 'strong-testimonials' ),
@@ -21,7 +21,6 @@ class Strong_Review {
 		}
 
 		add_action( 'init', array( $this, 'init' ) );
-
 	}
 
 	public function init() {
@@ -38,18 +37,16 @@ class Strong_Review {
 			add_action( 'admin_print_footer_scripts', array( $this, 'ajax_script' ) );
 		}
 
-		add_filter('st_uninstall_db_options',array($this,'uninstall_options'));
-
+		add_filter( 'st_uninstall_db_options', array( $this, 'uninstall_options' ) );
 	}
 
 	private function check() {
 
-		if ( ! current_user_can('manage_options') ) {
+		if ( ! current_user_can( 'manage_options' ) ) {
 			return false;
 		}
 
 		return( time() > $this->value );
-
 	}
 
 	private function value() {
@@ -61,9 +58,8 @@ class Strong_Review {
 
 		$value = time() + DAY_IN_SECONDS;
 		update_option( 'strong-testimonials-rate-time', $value );
-		
-		return $value;
 
+		return $value;
 	}
 
 	public function five_star_wp_rate_notice() {
@@ -71,10 +67,10 @@ class Strong_Review {
 		$url = sprintf( $this->link, $this->slug );
 
 		?>
-		<div id="<?php echo esc_attr( $this->slug ) ?>-strong-testimonials-review-notice" class="notice notice-success is-dismissible" style="margin-top:30px;">
-			<p><?php echo sprintf( esc_html( $this->messages['notice'] ), esc_attr( $this->value ) ) ; ?></p>
+		<div id="<?php echo esc_attr( $this->slug ); ?>-strong-testimonials-review-notice" class="notice notice-success is-dismissible" style="margin-top:30px;">
+			<p><?php echo sprintf( esc_html( $this->messages['notice'] ), esc_attr( $this->value ) ); ?></p>
 			<p class="actions">
-				<a id="strong-testimonials-rate" href="<?php echo esc_url( $url ) ?>" target="_blank" class="button button-primary strong-testimonials-review-button">
+				<a id="strong-testimonials-rate" href="<?php echo esc_url( $url ); ?>" target="_blank" class="button button-primary strong-testimonials-review-button">
 					<?php echo esc_html( $this->messages['rate'] ); ?>
 				</a>
 				<a id="strong-testimonials-later" href="#" style="margin-left:10px" class="strong-testimonials-review-button"><?php echo esc_html( $this->messages['rated'] ); ?></a>
@@ -94,17 +90,16 @@ class Strong_Review {
 
 		$time = get_option( 'strong-testimonials-rate-time' );
 
-		if ( 'strong-testimonials-rate' == $_POST['check'] ) {
+		if ( 'strong-testimonials-rate' === $_POST['check'] ) {
 			$time = time() + YEAR_IN_SECONDS * 1;
-		}elseif ( 'strong-testimonials-later' == ['check'] ) {
+		} elseif ( 'strong-testimonials-later' === array( 'check' ) ) {
 			$time = time() + WEEK_IN_SECONDS;
-		}elseif ( 'strong-testimonials-no-rate' == $_POST['check'] ) {
+		} elseif ( 'strong-testimonials-no-rate' === $_POST['check'] ) {
 			$time = time() + YEAR_IN_SECONDS * 1;
 		}
-		
+
 		update_option( 'strong-testimonials-rate-time', $time );
 		wp_die( 'ok' );
-
 	}
 
 	public function enqueue() {
@@ -113,7 +108,7 @@ class Strong_Review {
 
 	public function ajax_script() {
 
-		$ajax_nonce = wp_create_nonce( "strong-testimonials-review" );
+		$ajax_nonce = wp_create_nonce( 'strong-testimonials-review' );
 
 		?>
 
@@ -138,8 +133,8 @@ class Strong_Review {
 						data['strong-testimonials-review'] = 1;
 					}
 
-					$.post( '<?php echo esc_url( admin_url( 'admin-ajax.php' ) ) ?>', data, function( response ) {
-						$( '#<?php echo esc_attr( $this->slug ) ?>-strong-testimonials-review-notice' ).slideUp( 'fast', function() {
+					$.post( '<?php echo esc_url( admin_url( 'admin-ajax.php' ) ); ?>', data, function( response ) {
+						$( '#<?php echo esc_attr( $this->slug ); ?>-strong-testimonials-review-notice' ).slideUp( 'fast', function() {
 							$( this ).remove();
 						} );
 					});
@@ -167,4 +162,4 @@ class Strong_Review {
 	}
 }
 
-new Strong_Review();
+new Strong_Testimonials_Review();

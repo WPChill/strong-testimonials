@@ -13,7 +13,7 @@ class Strong_Testimonials_Settings_Compat {
 
 	const GROUP_NAME = 'wpmtst-compat-group';
 
-	var $options;
+	private $options;
 
 	/**
 	 * Strong_Testimonials_Settings_Compat constructor.
@@ -40,10 +40,11 @@ class Strong_Testimonials_Settings_Compat {
 	 * @param $url
 	 */
 	public function register_tab( $active_tab, $url ) {
-		printf( '<a href="%s" class="nav-tab %s">%s</a>',
-		        esc_url( add_query_arg( 'tab', self::TAB_NAME, $url ) ),
-		        esc_attr( $active_tab == self::TAB_NAME ? 'nav-tab-active' : '' ),
-		        esc_html__( 'Compatibility', 'strong-testimonials' )
+		printf(
+			'<a href="%s" class="nav-tab %s">%s</a>',
+			esc_url( add_query_arg( 'tab', self::TAB_NAME, $url ) ),
+			esc_attr( self::TAB_NAME === $active_tab ? 'nav-tab-active' : '' ),
+			esc_html__( 'Compatibility', 'strong-testimonials' )
 		);
 	}
 
@@ -79,7 +80,7 @@ class Strong_Testimonials_Settings_Compat {
 	public function sanitize_options( $input ) {
 		$input['page_loading'] = sanitize_text_field( $input['page_loading'] );
 
-		if ( 'general' == $input['page_loading'] ) {
+		if ( 'general' === $input['page_loading'] ) {
 			$input['prerender']      = 'all';
 			$input['ajax']['method'] = 'universal';
 		} else {
@@ -97,15 +98,15 @@ class Strong_Testimonials_Settings_Compat {
 		$input['controller']['initialize_on'] = sanitize_text_field( $input['controller']['initialize_on'] );
 
 		// FIXME: Special handling until proper use of default values in v3.0
-        $default = array(
-	        'enabled' => false,
-	        'classes' => array(
-		        array(
-			        'start'  => '',
-			        'finish' => '',
-		        ),
-	        ),
-        );
+		$default = array(
+			'enabled' => false,
+			'classes' => array(
+				array(
+					'start'  => '',
+					'finish' => '',
+				),
+			),
+		);
 
 		if ( ! isset( $input['lazyload'] ) ) {
 
@@ -120,29 +121,26 @@ class Strong_Testimonials_Settings_Compat {
 				// May be multiple pairs.
 				foreach ( $input['lazyload']['classes'] as $key => $classes ) {
 
-				    // Sanitize classes or remove empty pairs.
+					// Sanitize classes or remove empty pairs.
 					// Reduce multiple empty pairs down to default value of single empty pair.
 					if ( $classes['start'] || $classes['finish'] ) {
 						$input['lazyload']['classes'][ $key ]['start']  = str_replace( '.', '', sanitize_text_field( $classes['start'] ) );
 						$input['lazyload']['classes'][ $key ]['finish'] = str_replace( '.', '', sanitize_text_field( $classes['finish'] ) );
 					} else {
-						unset( $input['lazyload']['classes'][$key] );
+						unset( $input['lazyload']['classes'][ $key ] );
 					}
 
 					if ( ! count( $input['lazyload']['classes'] ) ) {
 						$input['lazyload'] = $default;
 					}
-
 				}
-
 			} else {
 
 				$input['lazyload'] = $default['classes'];
 
 			}
-
 		}
-                $input['random_js'] = wpmtst_sanitize_checkbox( $input, 'random_js' );
+				$input['random_js'] = wpmtst_sanitize_checkbox( $input, 'random_js' );
 		return $input;
 	}
 
@@ -265,8 +263,9 @@ class Strong_Testimonials_Settings_Compat {
 			</fieldset>
 				</td>
 			</tr>
-		</table> <?php
-        }
+		</table> 
+		<?php
+	}
 
 	/**
 	 * Page Loading
@@ -674,7 +673,8 @@ class Strong_Testimonials_Settings_Compat {
 	 */
 	public function settings_monitor_event() {
 		$checked = checked( $this->options['ajax']['method'], 'event', false );
-		$class   = $checked ? 'current' : ''; ?>
+		$class   = $checked ? 'current' : '';
+		?>
 		<div class="row">
 			<div>
 				<label class="<?php echo esc_attr( $class ); ?>" for="method-event">

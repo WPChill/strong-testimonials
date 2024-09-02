@@ -3,7 +3,7 @@
  * Class Strong_Testimonials_Addons
  *
  */
-class Strong_Testimonials_Lite_vs_PRO_page {
+class Strong_Testimonials_Lite_Vs_PRO_Page {
 
 	public function __construct() {
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
@@ -12,7 +12,7 @@ class Strong_Testimonials_Lite_vs_PRO_page {
 		// Upgrade to PRO plugin action link
 		add_filter( 'plugin_action_links_' . WPMTST_PLUGIN, array( $this, 'filter_action_links' ), 60 );
 	}
-	
+
 	/**
 	 * Add the Upgrade to PRO plugin action link
 	 *
@@ -26,10 +26,10 @@ class Strong_Testimonials_Lite_vs_PRO_page {
 
 		if ( apply_filters( 'st_plugins_upgrade_pro', true ) ) {
 
-			$links = array_merge( array ( '<a target="_blank" class="wpmtst-lite-vs-pro" href="https://strongtestimonials.com/pricing/?utm_source=strong-testimonials-lite&utm_medium=plugin_settings&utm_campaign=upsell">' . esc_html__( 'Upgrade to PRO!', 'strong-testimonials' ) . '</a>' ), $links );
+			$links = array_merge( array( '<a target="_blank" class="wpmtst-lite-vs-pro" href="https://strongtestimonials.com/pricing/?utm_source=strong-testimonials-lite&utm_medium=plugin_settings&utm_campaign=upsell">' . esc_html__( 'Upgrade to PRO!', 'strong-testimonials' ) . '</a>' ), $links );
 		}
-        return $links;
-    }
+		return $links;
+	}
 	/**
 	 * Add submenu page.
 	 *
@@ -42,7 +42,7 @@ class Strong_Testimonials_Lite_vs_PRO_page {
 		return $pages;
 	}
 
-	public function admin_enqueue_scripts(){
+	public function admin_enqueue_scripts() {
 		wp_enqueue_style( 'wpmtst-lite-vs-pro' );
 	}
 
@@ -61,7 +61,7 @@ class Strong_Testimonials_Lite_vs_PRO_page {
 		);
 	}
 
-	public function render_page(){
+	public function render_page() {
 
 		$addons = new Strong_Testimonials_Addons();
 		?>
@@ -88,7 +88,7 @@ class Strong_Testimonials_Lite_vs_PRO_page {
 					?>
 					<div class="wpchill-plans-table">
 					<div class="wpchill-pricing-package feature-name">
-						<h3><?php echo esc_html( $pro['name']); ?></h3>
+						<h3><?php echo esc_html( $pro['name'] ); ?></h3>
 						<p class="tab-header-description wpmtst-tooltip-content">
 							<?php echo esc_html( $pro['description'] ); ?>
 						</p>
@@ -132,6 +132,6 @@ class Strong_Testimonials_Lite_vs_PRO_page {
 				</div>
 			</div>
 		</div>
-	<?php
+		<?php
 	}
 }

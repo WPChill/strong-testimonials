@@ -38,7 +38,6 @@ class Strong_Testimonials_Order {
 
 		add_filter( 'get_next_post_where', array( __CLASS__, 'get_next_post_where' ) );
 		add_filter( 'get_next_post_sort', array( __CLASS__, 'get_next_post_sort' ) );
-
 	}
 
 	/**
@@ -47,7 +46,7 @@ class Strong_Testimonials_Order {
 	public static function load_scripts() {
 
 		$screen = get_current_screen();
-		if ( ! $screen || 'edit-wpm-testimonial' != $screen->id ) {
+		if ( ! $screen || 'edit-wpm-testimonial' !== $screen->id ) {
 			return;
 		}
 
@@ -58,22 +57,24 @@ class Strong_Testimonials_Order {
 		global $wp_query;
 
 		wp_enqueue_style( 'wpmtst-admin-order-style', WPMTST_ADMIN_URL . '/css/order.css', array(), null );
-		wp_enqueue_script( 'wpmtst-admin-order-script', WPMTST_ADMIN_URL . 'js/admin-order.js', array(
-			'jquery-effects-highlight',
-			'jquery-ui-sortable',
-		), null, true );
+		wp_enqueue_script(
+			'wpmtst-admin-order-script',
+			WPMTST_ADMIN_URL . 'js/admin-order.js',
+			array(
+				'jquery-effects-highlight',
+				'jquery-ui-sortable',
+			),
+			null,
+			true
+		);
 
 		$helper = array( 'nonce' => wp_create_nonce( 'st-update-menu-order' ) );
 		if ( isset( $wp_query ) && isset( $wp_query->query_vars ) ) {
 			$helper['page']           = max( 1, $wp_query->query_vars['paged'] );
 			$helper['posts_per_page'] = $wp_query->query_vars['posts_per_page'];
-			
-			
+
 		}
 		wp_localize_script( 'wpmtst-admin-order-script', 'wpmtstOrderHelper', $helper );
-		
-		
-
 	}
 
 	/**
@@ -92,12 +93,12 @@ class Strong_Testimonials_Order {
 		$count = $result[0];
 
 		// Exit if already one for one.
-		if ( 0 == $count->cnt || $count->cnt == $count->max ) {
+		if ( 0 === $count->cnt || $count->cnt === $count->max ) {
 			return;
 		}
 
 		// Initial or reset
-		if ( 0 == $count->min && 0 == $count->max ) {
+		if ( 0 === $count->min && 0 === $count->max ) {
 
 			// Order by descending post date.
 			$results = $wpdb->get_results( "SELECT ID FROM $wpdb->posts WHERE post_type = 'wpm-testimonial' AND post_status IN ('publish', 'pending', 'draft', 'private', 'future') ORDER BY post_date DESC" );
@@ -105,7 +106,6 @@ class Strong_Testimonials_Order {
 			foreach ( $results as $key => $result ) {
 				$wpdb->update( $wpdb->posts, array( 'menu_order' => $key + 1 ), array( 'ID' => $result->ID ) );
 			}
-
 		} else {
 
 			// Consecutive reorder with new posts at top.
@@ -114,9 +114,7 @@ class Strong_Testimonials_Order {
 			foreach ( $results as $key => $result ) {
 				$wpdb->update( $wpdb->posts, array( 'menu_order' => $key + 1 ), array( 'ID' => $result->ID ) );
 			}
-
 		}
-
 	}
 
 	/**
@@ -136,16 +134,14 @@ class Strong_Testimonials_Order {
 
 		if ( is_array( $query->query['post_type'] ) ) {
 
-			if ( ! in_array( 'wpm-testimonial', $query->query['post_type'] ) ) {
+			if ( ! in_array( 'wpm-testimonial', $query->query['post_type'], true ) ) {
 				return;
 			}
-
 		} else {
 
-			if ( 'wpm-testimonial' != $query->query['post_type'] ) {
+			if ( 'wpm-testimonial' !== $query->query['post_type'] ) {
 				return;
 			}
-
 		}
 
 		// disable filter suppression
@@ -156,7 +152,6 @@ class Strong_Testimonials_Order {
 		if ( isset( $query->query_vars['suppress_filters'] ) ) {
 			$query->query_vars['suppress_filters'] = false;
 		}
-
 	}
 
 	/**
@@ -178,7 +173,7 @@ class Strong_Testimonials_Order {
 		 * (This class is not loaded if reordering is disabled in this plugin
 		 * so no need to check that option before adding menu_order.)
 		 */
-		if ( 'wpm-testimonial' == $query->get( 'post_type' ) ) {
+		if ( 'wpm-testimonial' === $query->get( 'post_type' ) ) {
 			if ( ! $query->get( 'orderby' ) ) {
 				global $wpdb;
 				$orderby = "{$wpdb->posts}.menu_order ASC, {$wpdb->posts}.post_date DESC";
@@ -197,7 +192,7 @@ class Strong_Testimonials_Order {
 	 */
 	public static function get_previous_post_where( $where ) {
 		global $post;
-		if ( isset( $post->post_type ) && 'wpm-testimonial' == $post->post_type ) {
+		if ( isset( $post->post_type ) && 'wpm-testimonial' === $post->post_type ) {
 			$where = "WHERE p.menu_order > '{$post->menu_order}' AND p.post_type = '{$post->post_type}' AND p.post_status = 'publish'";
 		}
 
@@ -213,7 +208,7 @@ class Strong_Testimonials_Order {
 	 */
 	public static function get_next_post_where( $where ) {
 		global $post;
-		if ( isset( $post->post_type ) && 'wpm-testimonial' == $post->post_type ) {
+		if ( isset( $post->post_type ) && 'wpm-testimonial' === $post->post_type ) {
 			$where = "WHERE p.menu_order < '{$post->menu_order}' AND p.post_type = '{$post->post_type}' AND p.post_status = 'publish'";
 		}
 
@@ -229,7 +224,7 @@ class Strong_Testimonials_Order {
 	 */
 	public static function get_previous_post_sort( $sort ) {
 		global $post;
-		if ( isset( $post->post_type ) && 'wpm-testimonial' == $post->post_type ) {
+		if ( isset( $post->post_type ) && 'wpm-testimonial' === $post->post_type ) {
 			$sort = 'ORDER BY p.menu_order ASC, p.post_date DESC LIMIT 1';
 		}
 
@@ -245,7 +240,7 @@ class Strong_Testimonials_Order {
 	 */
 	public static function get_next_post_sort( $sort ) {
 		global $post;
-		if ( isset( $post->post_type ) && 'wpm-testimonial' == $post->post_type ) {
+		if ( isset( $post->post_type ) && 'wpm-testimonial' === $post->post_type ) {
 			$sort = 'ORDER BY p.menu_order DESC, p.post_date ASC LIMIT 1';
 		}
 
@@ -256,22 +251,22 @@ class Strong_Testimonials_Order {
 	 * Update menu order in back end.
 	 */
 	public static function update_menu_order() {
-		
+
 		$nonce = $_POST['nonce']; //phpcs:ignore
 
 		if ( ! wp_verify_nonce( $nonce, 'st-update-menu-order' ) ) {
 			wp_send_json_error( 'no nonce' );
 			die();
 		}
-		
-		if( !current_user_can('edit_posts') ){
+
+		if ( ! current_user_can( 'edit_posts' ) ) {
 			wp_die();
 		}
 		global $wpdb;
 
-		if( !empty( $_POST['posts'] ) ){
+		if ( ! empty( $_POST['posts'] ) ) {
 			parse_str( sanitize_text_field( wp_unslash( $_POST['posts'] ) ), $data );
-		}else{
+		} else {
 			wp_die();
 		}
 
@@ -287,7 +282,7 @@ class Strong_Testimonials_Order {
 		$posts_per_page = 25;
 		if ( isset( $_POST['order'] ) ) {
 			if ( isset( $_POST['order']['page'] ) ) {
-				$paged = absint( $_POST['order']['page']);
+				$paged = absint( $_POST['order']['page'] );
 			}
 			if ( isset( $_POST['order']['posts_per_page'] ) ) {
 				$posts_per_page = absint( $_POST['order']['posts_per_page'] );
@@ -304,7 +299,6 @@ class Strong_Testimonials_Order {
 		echo json_encode( $menu_order_arr );
 		wp_die();
 	}
-
 }
 
 Strong_Testimonials_Order::init();

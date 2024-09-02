@@ -177,7 +177,7 @@ if ( ! class_exists( 'Strong_Testimonials_List_Table' ) ) :
 		 * @return mixed Property.
 		 */
 		public function __get( $name ) {
-			if ( in_array( $name, $this->compat_fields ) ) {
+			if ( in_array( $name, $this->compat_fields, true ) ) {
 				return $this->$name;
 			}
 		}
@@ -193,7 +193,7 @@ if ( ! class_exists( 'Strong_Testimonials_List_Table' ) ) :
 		 * @return mixed Newly-set property.
 		 */
 		public function __set( $name, $value ) {
-			if ( in_array( $name, $this->compat_fields ) ) {
+			if ( in_array( $name, $this->compat_fields, true ) ) {
 				return $this->$name = $value;
 			}
 		}
@@ -208,7 +208,7 @@ if ( ! class_exists( 'Strong_Testimonials_List_Table' ) ) :
 		 * @return bool Whether the property is set.
 		 */
 		public function __isset( $name ) {
-			if ( in_array( $name, $this->compat_fields ) ) {
+			if ( in_array( $name, $this->compat_fields, true ) ) {
 				return isset( $this->$name );
 			}
 		}
@@ -222,7 +222,7 @@ if ( ! class_exists( 'Strong_Testimonials_List_Table' ) ) :
 		 * @param string $name Property to unset.
 		 */
 		public function __unset( $name ) {
-			if ( in_array( $name, $this->compat_fields ) ) {
+			if ( in_array( $name, $this->compat_fields, true ) ) {
 				unset( $this->$name );
 			}
 		}
@@ -238,7 +238,7 @@ if ( ! class_exists( 'Strong_Testimonials_List_Table' ) ) :
 		 * @return mixed|bool Return value of the callback, false otherwise.
 		 */
 		public function __call( $name, $arguments ) {
-			if ( in_array( $name, $this->compat_methods ) ) {
+			if ( in_array( $name, $this->compat_methods, true ) ) {
 				return call_user_func_array( array( $this, $name ), $arguments );
 			}
 			return false;
@@ -307,7 +307,7 @@ if ( ! class_exists( 'Strong_Testimonials_List_Table' ) ) :
 		 * @return int Number of items that correspond to the given pagination argument.
 		 */
 		public function get_pagination_arg( $key ) {
-			if ( 'page' == $key ) {
+			if ( 'page' === $key ) {
 				return $this->get_pagenum();
 			}
 
@@ -444,7 +444,8 @@ if ( ! class_exists( 'Strong_Testimonials_List_Table' ) ) :
 		 */
 		protected function bulk_actions( $which = '' ) {
 			if ( is_null( $this->_actions ) ) {
-				$no_new_actions = $this->_actions = $this->get_bulk_actions();
+				$no_new_actions = $this->get_bulk_actions();
+				$this->_actions = $no_new_actions;
 				/**
 				 * Filter the list table Bulk Actions drop-down.
 				 *
@@ -457,7 +458,7 @@ if ( ! class_exists( 'Strong_Testimonials_List_Table' ) ) :
 				 *
 				 * @param array $actions An array of the available bulk actions.
 				 */
-				$this->_actions = apply_filters( "bulk_actions-{$this->screen->id}", $this->_actions );
+				$this->_actions = apply_filters( "bulk_actions-{$this->screen->id}", $this->_actions ); // phpcs:ignore
 				$this->_actions = array_intersect_assoc( $this->_actions, $no_new_actions );
 				$two            = '';
 			} else {
@@ -473,9 +474,9 @@ if ( ! class_exists( 'Strong_Testimonials_List_Table' ) ) :
 			echo "<option value='-1' selected='selected'>" . esc_html__( 'Bulk Actions', 'strong-testimonials' ) . "</option>\n";
 
 			foreach ( $this->_actions as $name => $title ) {
-				$class = 'edit' == $name ? 'hide-if-no-js' : '';
+				$class = 'edit' === $name ? 'hide-if-no-js' : '';
 
-				echo "\t<option value='" . esc_attr( $name ) . "' class='" . esc_attr($class)  . "'>" . esc_html( $title ) . "</option>\n";
+				echo "\t<option value='" . esc_attr( $name ) . "' class='" . esc_attr( $class ) . "'>" . esc_html( $title ) . "</option>\n";
 			}
 
 			echo "</select>\n";
@@ -497,11 +498,11 @@ if ( ! class_exists( 'Strong_Testimonials_List_Table' ) ) :
 				return false;
 			}
 
-			if ( isset( $_REQUEST['action'] ) && -1 != $_REQUEST['action'] ) {
+			if ( isset( $_REQUEST['action'] ) && -1 !== (int) $_REQUEST['action'] ) {
 				return sanitize_text_field( wp_unslash( $_REQUEST['action'] ) );
 			}
 
-			if ( isset( $_REQUEST['action2'] ) && -1 != $_REQUEST['action2'] ) {
+			if ( isset( $_REQUEST['action2'] ) && -1 !== (int) $_REQUEST['action2'] ) {
 				return sanitize_text_field( wp_unslash( $_REQUEST['action2'] ) );
 			}
 
@@ -529,8 +530,8 @@ if ( ! class_exists( 'Strong_Testimonials_List_Table' ) ) :
 			$out = '<div class="' . ( $always_visible ? 'row-actions visible' : 'row-actions' ) . '">';
 			foreach ( $actions as $action => $link ) {
 				++$i;
-				( $i == $action_count ) ? $sep = '' : $sep = ' | ';
-				$out                          .= "<span class='$action'>$link$sep</span>";
+				( $i === $action_count ) ? $sep = '' : $sep = ' | ';
+				$out                           .= "<span class='$action'>$link$sep</span>";
 			}
 			$out .= '</div>';
 
@@ -584,7 +585,7 @@ if ( ! class_exists( 'Strong_Testimonials_List_Table' ) ) :
 
 			$month_count = count( $months );
 
-			if ( ! $month_count || ( 1 == $month_count && 0 == $months[0]->month ) ) {
+			if ( ! $month_count || ( 1 === $month_count && 0 === (int) $months[0]->month ) ) {
 				return;
 			}
 
@@ -595,7 +596,7 @@ if ( ! class_exists( 'Strong_Testimonials_List_Table' ) ) :
 			<option<?php selected( $m, 0 ); ?> value="0"><?php esc_html_e( 'All dates', 'strong-testimonials' ); ?></option>
 			<?php
 			foreach ( $months as $arc_row ) {
-				if ( 0 == $arc_row->year ) {
+				if ( 0 === (int) $arc_row->year ) {
 					continue;
 				}
 
@@ -607,7 +608,7 @@ if ( ! class_exists( 'Strong_Testimonials_List_Table' ) ) :
 					selected( $m, $year . $month, false ),
 					esc_attr( $arc_row->year . $month ),
 					/* translators: 1: month name, 2: 4-digit year */
-					sprintf( '%1$s %2$d', esc_html( $wp_locale->get_month( $month ) ), esc_html( $year) )
+					sprintf( '%1$s %2$d', esc_html( $wp_locale->get_month( $month ) ), esc_html( $year ) )
 				);
 			}
 			?>
@@ -630,15 +631,15 @@ if ( ! class_exists( 'Strong_Testimonials_List_Table' ) ) :
 			<?php
 			foreach ( $this->modes as $mode => $title ) {
 				$classes = array( 'view-' . $mode );
-				if ( $current_mode == $mode ) {
+				if ( $current_mode === $mode ) {
 					$classes[] = 'current';
 				}
 				printf(
-						"<a href='%s' class='%s' id='view-switch-%s'><span class='screen-reader-text'>%s</span></a>\n",
-						esc_url(add_query_arg('mode', $mode)),
-						esc_attr(implode(' ', $classes)),
-						esc_attr($mode),
-						esc_html($title)
+					"<a href='%s' class='%s' id='view-switch-%s'><span class='screen-reader-text'>%s</span></a>\n",
+					esc_url( add_query_arg( 'mode', $mode ) ),
+					esc_attr( implode( ' ', $classes ) ),
+					esc_attr( $mode ),
+					esc_html( $title )
 				);
 			}
 			?>
@@ -656,6 +657,7 @@ if ( ! class_exists( 'Strong_Testimonials_List_Table' ) ) :
 		 * @param int $pending_comments Number of pending comments.
 		 */
 		protected function comments_bubble( $post_id, $pending_comments ) {
+			// translators: %s is the number of pending comments.
 			$pending_phrase = sprintf( __( '%s pending', 'strong-testimonials' ), number_format( $pending_comments ) );
 
 			if ( $pending_comments ) {
@@ -694,13 +696,13 @@ if ( ! class_exists( 'Strong_Testimonials_List_Table' ) ) :
 		 * @access protected
 		 *
 		 * @param string $option
-		 * @param int    $default
+		 * @param int    $default_per_page
 		 * @return int
 		 */
-		protected function get_items_per_page( $option, $default = 20 ) {
+		protected function get_items_per_page( $option, $default_per_page = 20 ) {
 			$per_page = (int) get_user_option( $option );
 			if ( empty( $per_page ) || $per_page < 1 ) {
-				$per_page = $default;
+				$per_page = $default_per_page;
 			}
 
 			/**
@@ -738,8 +740,8 @@ if ( ! class_exists( 'Strong_Testimonials_List_Table' ) ) :
 			if ( isset( $this->_pagination_args['infinite_scroll'] ) ) {
 				$infinite_scroll = $this->_pagination_args['infinite_scroll'];
 			}
-
-			$output = '<span class="displaying-num">' . sprintf( _n( '1 item', '%s items', $total_items, 'strong-testimonials' ), number_format_i18n( $total_items ) ) . '</span>';
+			// translators: %s is the count of pagin ation items.
+			$output = '<span class="displaying-num">' . sprintf( _n( '%s item', '%s items', $total_items, 'strong-testimonials' ), number_format_i18n( $total_items ) ) . '</span>';
 
 			$current = $this->get_pagenum();
 
@@ -749,11 +751,12 @@ if ( ! class_exists( 'Strong_Testimonials_List_Table' ) ) :
 
 			$page_links = array();
 
-			$disable_first = $disable_last = '';
-			if ( $current == 1 ) {
+			$disable_first = '';
+			$disable_last  = '';
+			if ( 1 === absint( $current ) ) {
 				$disable_first = ' disabled';
 			}
-			if ( $current == $total_pages ) {
+			if ( absint( $current ) === absint( $total_pages ) ) {
 				$disable_last = ' disabled';
 			}
 			$page_links[] = sprintf(
@@ -772,7 +775,7 @@ if ( ! class_exists( 'Strong_Testimonials_List_Table' ) ) :
 				'&lsaquo;'
 			);
 
-			if ( 'bottom' == $which ) {
+			if ( 'bottom' === $which ) {
 				$html_current_page = $current;
 			} else {
 				$html_current_page = sprintf(
@@ -784,7 +787,8 @@ if ( ! class_exists( 'Strong_Testimonials_List_Table' ) ) :
 				);
 			}
 			$html_total_pages = sprintf( "<span class='total-pages'>%s</span>", number_format_i18n( $total_pages ) );
-			$page_links[]     = '<span class="paging-input">' . sprintf( _x( '%1$s of %2$s', 'paging', 'strong-testimonials' ), $html_current_page, $html_total_pages ) . '</span>';
+			// translators: %1$s is the current page number. %1$s is the total number of pages.
+			$page_links[] = '<span class="paging-input">' . sprintf( _x( '%1$s of %1$s', 'paging', 'strong-testimonials' ), $html_current_page, $html_total_pages ) . '</span>';
 
 			$page_links[] = sprintf(
 				"<a class='%s' title='%s' href='%s'>%s</a>",
@@ -931,7 +935,7 @@ if ( ! class_exists( 'Strong_Testimonials_List_Table' ) ) :
 				$current_orderby = '';
 			}
 
-			if ( isset( $_GET['order'] ) && 'desc' == $_GET['order'] ) {
+			if ( isset( $_GET['order'] ) && 'desc' === $_GET['order'] ) {
 				$current_order = 'desc';
 			} else {
 				$current_order = 'asc';
@@ -941,30 +945,30 @@ if ( ! class_exists( 'Strong_Testimonials_List_Table' ) ) :
 				static $cb_counter = 1;
 				$columns['cb']     = '<label class="screen-reader-text" for="cb-select-all-' . $cb_counter . '">' . esc_html__( 'Select All', 'strong-testimonials' ) . '</label>'
 				. '<input id="cb-select-all-' . $cb_counter . '" type="checkbox">';
-				$cb_counter++;
+				++$cb_counter;
 			}
 
 			foreach ( $columns as $column_key => $column_display_name ) {
 				$class = array( 'manage-column', "column-$column_key" );
 
 				$style = '';
-				if ( in_array( $column_key, $hidden ) ) {
+				if ( in_array( $column_key, $hidden, true ) ) {
 					$style = 'display:none;';
 				}
 
 				$style = ' style="' . $style . '"';
 
-				if ( 'cb' == $column_key ) {
+				if ( 'cb' === $column_key ) {
 					$class[] = 'check-column';
-				} elseif ( in_array( $column_key, array( 'posts', 'comments', 'links' ) ) ) {
+				} elseif ( in_array( $column_key, array( 'posts', 'comments', 'links' ), true ) ) {
 					$class[] = 'num';
 				}
 
 				if ( isset( $sortable[ $column_key ] ) ) {
 					list( $orderby, $desc_first ) = $sortable[ $column_key ];
 
-					if ( $current_orderby == $orderby ) {
-						$order   = 'asc' == $current_order ? 'desc' : 'asc';
+					if ( $current_orderby === $orderby ) {
+						$order   = 'asc' === $current_order ? 'desc' : 'asc';
 						$class[] = 'sorted';
 						$class[] = $current_order;
 					} else {
@@ -998,7 +1002,7 @@ if ( ! class_exists( 'Strong_Testimonials_List_Table' ) ) :
 			$this->display_tablenav( 'top' );
 
 			?>
-<table class="wp-list-table <?php echo esc_attr(implode(' ', $this->get_table_classes())); ?>">
+<table class="wp-list-table <?php echo esc_attr( implode( ' ', $this->get_table_classes() ) ); ?>">
 	<thead>
 	<tr>
 			<?php $this->print_column_headers(); ?>
@@ -1046,7 +1050,7 @@ if ( ! class_exists( 'Strong_Testimonials_List_Table' ) ) :
 		 * @param string $which
 		 */
 		protected function display_tablenav( $which ) {
-			if ( 'top' == $which ) {
+			if ( 'top' === $which ) {
 				wp_nonce_field( 'bulk-' . $this->_args['plural'] );
 			}
 			?>
@@ -1136,13 +1140,13 @@ if ( ! class_exists( 'Strong_Testimonials_List_Table' ) ) :
 				$class = "class='$column_name column-$column_name'";
 
 				$style = '';
-				if ( in_array( $column_name, $hidden ) ) {
+				if ( in_array( $column_name, $hidden, true ) ) {
 					$style = ' style="display:none;"';
 				}
 
 				$attributes = "$class$style";
 
-				if ( 'cb' == $column_name ) {
+				if ( 'cb' === $column_name ) {
 					echo '<th scope="row" class="check-column">';
 					echo $this->column_cb( $item );
 					echo '</th>';
@@ -1180,7 +1184,8 @@ if ( ! class_exists( 'Strong_Testimonials_List_Table' ) ) :
 
 			if ( isset( $this->_pagination_args['total_items'] ) ) {
 				$response['total_items_i18n'] = sprintf(
-					_n( '1 item', '%s items', $this->_pagination_args['total_items'], 'strong-testimonials' ),
+					// translators: %s is the number of items. Singular and plural forms are used.
+					_n( '%s item', '%s items', $this->_pagination_args['total_items'], 'strong-testimonials' ),
 					number_format_i18n( $this->_pagination_args['total_items'] )
 				);
 			}

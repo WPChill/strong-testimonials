@@ -41,7 +41,7 @@ class Strong_Testimonials_Admin_List {
 	 * @return array
 	 */
 	public static function post_row_actions( $actions, $post ) {
-		if ( 'wpm-testimonial' == $post->post_type ) {
+		if ( 'wpm-testimonial' === $post->post_type ) {
 			$actions = array( 'id' => '<span>ID: ' . $post->ID . '</span>' ) + $actions;
 		}
 
@@ -92,7 +92,7 @@ class Strong_Testimonials_Admin_List {
 
 		// 3. insert [excerpt] after [title]
 		$key           = 'title';
-		$offset        = array_search( $key, array_keys( $columns ) ) + 1;
+		$offset        = array_search( $key, array_keys( $columns ), true ) + 1;
 		$fields_to_add = array( 'post_excerpt' => esc_html__( 'Excerpt', 'strong-testimonials' ) );
 
 		// 4. add custom fields
@@ -100,18 +100,16 @@ class Strong_Testimonials_Admin_List {
 
 			if ( isset( $field['admin_table'] ) ) {
 
-				if ( 'post_title' == $field['name'] ) {
+				if ( 'post_title' === $field['name'] ) {
 					continue;
-				} elseif ( 'featured_image' == $field['name'] ) {
+				} elseif ( 'featured_image' === $field['name'] ) {
 					$fields_to_add['strong_thumbnail'] = esc_html__( 'Thumbnail', 'strong-testimonials' );
-				} elseif ( 'rating' == $field['input_type'] ) {
+				} elseif ( 'rating' === $field['input_type'] ) {
 					$fields_to_add[ $field['name'] ] = esc_html__( 'Rating', 'strong-testimonials' );
 				} else {
 					$fields_to_add[ $field['name'] ] = apply_filters( 'wpmtst_l10n', $field['label'], 'strong-testimonials-form-fields', $field['name'] . ' : label' );
 				}
-
 			}
-
 		}
 
 		// 5. add [category], [comments] and [date]
@@ -127,7 +125,7 @@ class Strong_Testimonials_Admin_List {
 		$fields_to_add['date'] = esc_html__( 'Date', 'strong-testimonials' );
 
 		$options = get_option( 'wpmtst_options' );
-		if ( isset( $options['include_platform'] ) && $options['include_platform'] === true ) {
+		if ( isset( $options['include_platform'] ) && true === $options['include_platform'] ) {
 			$fields_to_add['platform'] = esc_html__( 'Platform', 'strong-testimonials' );
 		}
 
@@ -151,34 +149,34 @@ class Strong_Testimonials_Admin_List {
 
 		switch ( $column ) {
 
-			case 'post_id' :
+			case 'post_id':
 				echo absint( $post->ID );
 				break;
 
-			case 'post_content' :
+			case 'post_content':
 				echo wp_kses_post( substr( $post->post_content, 0, 100 ) . '&hellip;' );
 				break;
 
-			case 'post_excerpt' :
+			case 'post_excerpt':
 				echo wp_kses_post( $post->post_excerpt );
 				break;
 
-			case 'strong_thumbnail' :
+			case 'strong_thumbnail':
 				echo wp_kses_post( wpmtst_get_thumbnail( array( 60, 60 ) ) );
 				break;
 
-			case 'category' :
+			case 'category':
 				$categories = get_the_terms( 0, 'wpm-testimonial-category' );
 				if ( $categories && ! is_wp_error( $categories ) ) {
 					$list = array();
 					foreach ( $categories as $cat ) {
 						$list[] = $cat->name;
 					}
-					echo esc_html( implode( ", ", $list ) );
+					echo esc_html( implode( ', ', $list ) );
 				}
 				break;
 
-			case 'handle' :
+			case 'handle':
 				if ( current_user_can( 'edit_post', $post->ID ) && ! self::is_column_sorted() && ! self::is_viewing_trash() ) {
 					echo '<div class="handle"><div class="help"></div><div class="help-in-motion"></div></div>';
 				}
@@ -195,7 +193,7 @@ class Strong_Testimonials_Admin_List {
 
 				break;
 
-			default :
+			default:
 				// custom field?
 				$custom = get_post_custom();
 				$fields = wpmtst_get_custom_fields();
@@ -205,31 +203,27 @@ class Strong_Testimonials_Admin_List {
 					if ( isset( $fields[ $column ] ) ) {
 
 						switch ( $fields[ $column ]['input_type'] ) {
-							case 'rating' :
+							case 'rating':
 								wpmtst_star_rating_display( $custom[ $column ][0], 'in-table-list' );
 								break;
-							case 'checkbox' :
+							case 'checkbox':
 								echo $custom[ $column ][0] ? 'yes' : 'no';
 								break;
-							default :
+							default:
 								echo wp_kses_post( $custom[ $column ][0] );
 						}
-
 					}
-
 				} else {
 
 					if ( isset( $fields[ $column ] ) ) {
 
-						if ( 'checkbox' == $fields[ $column ]['input_type'] ) {
+						if ( 'checkbox' === $fields[ $column ]['input_type'] ) {
 							echo 'no';
 						} else {
 							// display nothing
 						}
-
 					}
 				}
-
 		}
 	}
 
@@ -272,7 +266,7 @@ class Strong_Testimonials_Admin_List {
 	public static function add_taxonomy_filters() {
 		global $typenow;
 
-		if ( $typenow != 'wpm-testimonial' ) {
+		if ( 'wpm-testimonial' !== $typenow ) {
 			return;
 		}
 
@@ -316,8 +310,8 @@ class Strong_Testimonials_Admin_List {
 	 */
 	public static function pre_get_posts( $query ) {
 		// Only in main WP query AND if an orderby query variable is designated.
-		if ( is_admin() && $query->is_main_query() && 'wpm-testimonial' == $query->get( 'post_type' ) ) {
-			if ( 'client_name' == $query->get( 'orderby' ) ) {
+		if ( is_admin() && $query->is_main_query() && 'wpm-testimonial' === $query->get( 'post_type' ) ) {
+			if ( 'client_name' === $query->get( 'orderby' ) ) {
 				$query->set( 'meta_key', 'client_name' );
 				$query->set( 'orderby', 'meta_value' );
 			}
@@ -330,7 +324,7 @@ class Strong_Testimonials_Admin_List {
 	 * @since 1.16.0
 	 */
 	public static function is_viewing_trash() {
-		return isset( $_GET['post_status'] ) && 'trash' == $_GET['post_status'];
+		return isset( $_GET['post_status'] ) && 'trash' === $_GET['post_status'];
 	}
 
 	/**
@@ -341,7 +335,6 @@ class Strong_Testimonials_Admin_List {
 	public static function is_column_sorted() {
 		return isset( $_GET['orderby'] ) || ( isset( $_SERVER['REQUEST_URI'] ) && strstr( sanitize_url( $_SERVER['REQUEST_URI'] ), 'action=edit' ) ) || strstr( sanitize_url( $_SERVER['REQUEST_URI'] ), 'wp-admin/post-new.php' );
 	}
-
 }
 
 Strong_Testimonials_Admin_List::init();

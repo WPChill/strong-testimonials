@@ -55,7 +55,7 @@ class Strong_Testimonials_Admin_Category_List {
 	 * @return string
 	 */
 	public static function manage_columns( $out, $column_name, $id ) {
-		if ( 'ID' == $column_name ) {
+		if ( 'ID' === $column_name ) {
 			$output = $id;
 		} else {
 			$output = '';
@@ -63,7 +63,6 @@ class Strong_Testimonials_Admin_Category_List {
 
 		return $output;
 	}
-
 }
 
 Strong_Testimonials_Admin_Category_List::init();

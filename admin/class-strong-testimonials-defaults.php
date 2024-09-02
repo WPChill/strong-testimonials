@@ -31,9 +31,9 @@ class Strong_Testimonials_Defaults {
 		$default_options = array(
 			'embed_width'             => '',
 			'nofollow'                => true,
-            'noopener'                => true,
-            'noreferrer'              => true,
-            'disable_rewrite'         => false,
+			'noopener'                => true,
+			'noreferrer'              => true,
+			'disable_rewrite'         => false,
 			'pending_indicator'       => true,
 			'remove_whitespace'       => true,
 			//@todo : delete commented line. For the moment let it be
@@ -44,9 +44,9 @@ class Strong_Testimonials_Defaults {
 			'scrolltop'               => true,
 			'scrolltop_offset'        => 80,
 			'lazyload'                => false,
-            'no_lazyload_plugin'      => true,
+			'no_lazyload_plugin'      => true,
 			'touch_enabled'           => true,
-            'disable_upsells'         => false,
+			'disable_upsells'         => false,
 		);
 
 		return $default_options;
@@ -60,35 +60,38 @@ class Strong_Testimonials_Defaults {
 	 * @return array
 	 */
 	public static function get_field_base() {
-		return apply_filters( 'wpmtst_field_base', array(
-			'name'                    => '',
-			'name_mutable'            => 1,
-			'label'                   => '',
-			'show_label'              => 1,
-			'input_type'              => '',
-			'action_input'            => '',
-			'action_output'           => '',
-			'text'                    => '',
-			'show_text_option'        => 0,
-			'required'                => 0,
-			'show_required_option'    => 1,
-			'default_form_value'      => '',
-			'default_display_value'   => '',
-			'show_default_options'    => 1,
-			'error'                   => esc_html__( 'This field is required.', 'strong-testimonials' ),
-			'placeholder'             => '',
-			'show_placeholder_option' => 1,
-			'before'                  => '',
-			'after'                   => '',
-			'admin_table'             => 0,
-			'admin_table_option'      => 1,
-			'show_admin_table_option' => 1,
-			'shortcode_on_form'       => '',
-			'shortcode_on_display'    => '',
-			'show_shortcode_options'  => 0,
-            'show_length_option'      => 0,
-            'max_length'              => ''
-		) );
+		return apply_filters(
+			'wpmtst_field_base',
+			array(
+				'name'                    => '',
+				'name_mutable'            => 1,
+				'label'                   => '',
+				'show_label'              => 1,
+				'input_type'              => '',
+				'action_input'            => '',
+				'action_output'           => '',
+				'text'                    => '',
+				'show_text_option'        => 0,
+				'required'                => 0,
+				'show_required_option'    => 1,
+				'default_form_value'      => '',
+				'default_display_value'   => '',
+				'show_default_options'    => 1,
+				'error'                   => esc_html__( 'This field is required.', 'strong-testimonials' ),
+				'placeholder'             => '',
+				'show_placeholder_option' => 1,
+				'before'                  => '',
+				'after'                   => '',
+				'admin_table'             => 0,
+				'admin_table_option'      => 1,
+				'show_admin_table_option' => 1,
+				'shortcode_on_form'       => '',
+				'shortcode_on_display'    => '',
+				'show_shortcode_options'  => 0,
+				'show_length_option'      => 0,
+				'max_length'              => '',
+			)
+		);
 	}
 
 	/**
@@ -113,7 +116,7 @@ class Strong_Testimonials_Defaults {
 				'admin_table_option'      => 0,
 				'show_admin_table_option' => 0,
 				'name_mutable'            => 0,
-                                'show_length_option'      => 1
+				'show_length_option'      => 1,
 			),
 			'post_content'   => array(
 				'input_type'              => 'textarea',
@@ -125,7 +128,7 @@ class Strong_Testimonials_Defaults {
 				'admin_table'             => 0,
 				'show_admin_table_option' => 0,
 				'name_mutable'            => 0,
-                                'show_length_option'      => 1
+				'show_length_option'      => 1,
 			),
 			'featured_image' => array(
 				'input_type'              => 'file',
@@ -135,7 +138,7 @@ class Strong_Testimonials_Defaults {
 				'show_placeholder_option' => 0,
 				'admin_table'             => 0,
 				'name_mutable'            => 0,
-			)
+			),
 		);
 		foreach ( $field_types['post'] as $key => $array ) {
 			$field_types['post'][ $key ] = array_merge( $field_base, $array );
@@ -291,7 +294,7 @@ class Strong_Testimonials_Defaults {
 						'input_type'  => 'text',
 						'required'    => 0,
 						'after'       => esc_html__( 'A headline for your testimonial.', 'strong-testimonials' ),
-                                                'max_length'  => ''
+						'max_length'  => '',
 					),
 					6 => array(
 						'record_type' => 'post',
@@ -300,7 +303,7 @@ class Strong_Testimonials_Defaults {
 						'input_type'  => 'textarea',
 						'required'    => 1,
 						'after'       => esc_html__( 'What do you think about us?', 'strong-testimonials' ),
-                                                'max_length'  => ''
+						'max_length'  => '',
 					),
 					7 => array(
 						'record_type' => 'post',
@@ -310,13 +313,13 @@ class Strong_Testimonials_Defaults {
 						'after'       => esc_html__( 'Would you like to include a photo?', 'strong-testimonials' ),
 						'admin_table' => 1,
 					),
-                                    	8 => array(
+					8 => array(
 						'record_type' => 'optional',
 						'name'        => 'star_rating',
 						'label'       => esc_html__( 'Star rating', 'strong-testimonials' ),
 						'input_type'  => 'rating',
-                                                'required'    => 0,
-						'after'       => esc_html__( 'Would you like to include star rating?', 'strong-testimonials' )
+						'required'    => 0,
+						'after'       => esc_html__( 'Would you like to include star rating?', 'strong-testimonials' ),
 					),
 				),
 			),
@@ -363,13 +366,13 @@ class Strong_Testimonials_Defaults {
 
 		foreach ( $forms as $form_name => $form ) {
 			foreach ( $form['fields'] as $key => $array ) {
-				if ( 'post' == $array['record_type'] ) {
+				if ( 'post' === $array['record_type'] ) {
 					$forms[ $form_name ]['fields'][ $key ] = array_merge( $default_fields['field_types']['post'][ $array['name'] ], $array );
-				} elseif ( 'custom' == $array['record_type']) {
+				} elseif ( 'custom' === $array['record_type'] ) {
 					$forms[ $form_name ]['fields'][ $key ] = array_merge( $default_fields['field_types']['custom'][ $array['input_type'] ], $array );
 				} else {
-                                        $forms[ $form_name ]['fields'][ $key ] = array_merge( $default_fields['field_types']['optional'][ $array['input_type'] ], $array );
-                                }
+										$forms[ $form_name ]['fields'][ $key ] = array_merge( $default_fields['field_types']['optional'][ $array['input_type'] ], $array );
+				}
 			}
 		}
 
@@ -441,21 +444,21 @@ class Strong_Testimonials_Defaults {
 		uasort( $default_messages, 'wpmtst_uasort' );
 
 		$default_form_options = array(
-			'post_status'              => 'pending',
-			'admin_notify'             => false,
-                        'customer-notify'          => false,
-                        'approved-notify'          => false,
-                        'sender_name_for_customer' => false,
-                        'sender_customer_email'    => false,
-                        'sender_site_customer_email' => true,
-                        'sender_name_for_customer_approval' => false,
-                        'sender_site_customer_approval_email'    => true,
-                        'sender_approval_email' => false,
-			'mail_queue'               => false,
-			'sender_name'              => get_bloginfo( 'name' ),
-			'sender_site_email'        => true,
-			'sender_email'             => '',
-			'recipients'               => array(
+			'post_status'                         => 'pending',
+			'admin_notify'                        => false,
+			'customer-notify'                     => false,
+			'approved-notify'                     => false,
+			'sender_name_for_customer'            => false,
+			'sender_customer_email'               => false,
+			'sender_site_customer_email'          => true,
+			'sender_name_for_customer_approval'   => false,
+			'sender_site_customer_approval_email' => true,
+			'sender_approval_email'               => false,
+			'mail_queue'                          => false,
+			'sender_name'                         => get_bloginfo( 'name' ),
+			'sender_site_email'                   => true,
+			'sender_email'                        => '',
+			'recipients'                          => array(
 				array(
 					'admin_name'       => '',
 					'admin_email'      => '',
@@ -463,31 +466,31 @@ class Strong_Testimonials_Defaults {
 					'primary'          => true,  // cannot be deleted
 				),
 			),
-			'default_recipient'        => array(
+			'default_recipient'                   => array(
 				'admin_name'  => '',
 				'admin_email' => '',
 			),
 			/* translators: Default subject line for new testimonial notification email. */
-			'email_subject'                      => esc_html__( 'New testimonial for %BLOGNAME%', 'strong-testimonials' ),
-                        'customer_approval_email_subject'    => esc_html__( 'Testimonial for %BLOGNAME%', 'strong-testimonials' ),
-                        'customer_email_subject'             => esc_html__( 'Testimonial for %BLOGNAME%', 'strong-testimonials' ),
+			'email_subject'                       => esc_html__( 'New testimonial for %BLOGNAME%', 'strong-testimonials' ),
+			'customer_approval_email_subject'     => esc_html__( 'Testimonial for %BLOGNAME%', 'strong-testimonials' ),
+			'customer_email_subject'              => esc_html__( 'Testimonial for %BLOGNAME%', 'strong-testimonials' ),
 			/* translators: Default message for new testimonial notification email. */
-			'email_message'                      => esc_html__( 'New testimonial submission for %BLOGNAME%. This is awaiting action from the website administrator.', 'strong-testimonials' ),
-                        'customer_approval_email_message'    => esc_html__( 'Your testimonial was published for %BLOGNAME%. Thank you!', 'strong-testimonials' ),
-                        'customer_email_message'             => esc_html__( 'Your testimonial was received  for %BLOGNAME% and awaiting approval from the website administrator. Thank you!', 'strong-testimonials' ),
-			'messages'                 => $default_messages,
-			'scrolltop_success'        => true,
-			'scrolltop_success_offset' => 80,
-			'scrolltop_error'          => true,
-			'scrolltop_error_offset'   => 80,
-			'success_action'           => 'message', // message | id | url
-			'success_redirect_id'      => '',
-			'success_redirect_url'     => '',
-                        'members_only'             => false,
-                        'members_only_message'     => esc_html__( 'You need to be logged in to access this form.', 'strong-testimonials' ),
-                        'mailchimp'                => false,
-                        'mailchimp_message'        => esc_html__( 'Subscribe to our newsletter.', 'strong-testimonials' ),
-                        'mailchimp_list'           => ''
+			'email_message'                       => esc_html__( 'New testimonial submission for %BLOGNAME%. This is awaiting action from the website administrator.', 'strong-testimonials' ),
+			'customer_approval_email_message'     => esc_html__( 'Your testimonial was published for %BLOGNAME%. Thank you!', 'strong-testimonials' ),
+			'customer_email_message'              => esc_html__( 'Your testimonial was received  for %BLOGNAME% and awaiting approval from the website administrator. Thank you!', 'strong-testimonials' ),
+			'messages'                            => $default_messages,
+			'scrolltop_success'                   => true,
+			'scrolltop_success_offset'            => 80,
+			'scrolltop_error'                     => true,
+			'scrolltop_error_offset'              => 80,
+			'success_action'                      => 'message', // message | id | url
+			'success_redirect_id'                 => '',
+			'success_redirect_url'                => '',
+			'members_only'                        => false,
+			'members_only_message'                => esc_html__( 'You need to be logged in to access this form.', 'strong-testimonials' ),
+			'mailchimp'                           => false,
+			'mailchimp_message'                   => esc_html__( 'Subscribe to our newsletter.', 'strong-testimonials' ),
+			'mailchimp_list'                      => '',
 		);
 
 		return apply_filters( 'wpmtst_default_form_options', $default_form_options );
@@ -503,7 +506,7 @@ class Strong_Testimonials_Defaults {
 	public static function get_view_options() {
 		$default_view_options = array(
 
-			'mode' => array(
+			'mode'                   => array(
 				'display'         => array(
 					'name'        => 'display',
 					'label'       => esc_html__( 'Display', 'strong-testimonials' ),
@@ -526,33 +529,33 @@ class Strong_Testimonials_Defaults {
 				),
 			),
 
-			'order' => array(
+			'order'                  => array(
 				'random'     => esc_html_x( 'random', 'display order', 'strong-testimonials' ),
 				'menu_order' => esc_html_x( 'menu order', 'display order', 'strong-testimonials' ),
 				'newest'     => esc_html_x( 'newest first', 'display order', 'strong-testimonials' ),
 				'oldest'     => esc_html_x( 'oldest first', 'display order', 'strong-testimonials' ),
 			),
 
-			'slideshow_effect' => array(
+			'slideshow_effect'       => array(
 				'none'       => esc_html_x( 'no transition effect', 'slideshow transition option', 'strong-testimonials' ),
 				'fade'       => esc_html_x( 'fade', 'slideshow transition option', 'strong-testimonials' ),
 				'horizontal' => esc_html_x( 'scroll horizontally', 'slideshow transition option', 'strong-testimonials' ),
 				'vertical'   => esc_html_x( 'scroll vertically', 'slideshow transition option', 'strong-testimonials' ),
 			),
 
-			'slideshow_height' => array(
+			'slideshow_height'       => array(
 				'dynamic' => esc_html_x( 'Adjust height for each slide', 'slideshow option', 'strong-testimonials' ),
 				'static'  => esc_html_x( 'Set height to match the tallest slide', 'slideshow option', 'strong-testimonials' ),
 			),
 
-			'slideshow_nav_method' => array(
+			'slideshow_nav_method'   => array(
 				'controls' => array(
 					'none'   => array(
 						'label' => esc_html_x( 'none', 'slideshow controls option', 'strong-testimonials' ),
 						'args'  => array(  // base args; style will add more args
-						                   'controls'     => 0,
-						                   'pager'        => 0,
-						                   'autoControls' => 0,
+							'controls'     => 0,
+							'pager'        => 0,
+							'autoControls' => 0,
 						),
 					),
 					'full'   => array(
@@ -687,11 +690,11 @@ class Strong_Testimonials_Defaults {
 	public static function get_default_view() {
 		$default_view = array(
 			'background'          => array(
-				'color'              => '',
-				'type'               => '',
-				'preset'             => '',
-				'gradient1'          => '',
-				'gradient2'          => '',
+				'color'     => '',
+				'type'      => '',
+				'preset'    => '',
+				'gradient1' => '',
+				'gradient2' => '',
 			),
 			'category'            => 'all',
 			'class'               => '',
@@ -718,16 +721,16 @@ class Strong_Testimonials_Defaults {
 			'count'               => -1,
 			'divi_builder'        => 0,
 			'excerpt_length'      => 55,
-			'font-color'         => array(
+			'font-color'          => array(
 				'color' => '',
 				'type'  => '',
 			),
 			'form_ajax'           => 0,
 			'form_id'             => 1,
 			'gravatar'            => 'no',
-                        'initials_font_size'  => '42',
-                        'initials_font_color' => '#000000',
-                        'initials_bg_color'   => '#ffffff',
+			'initials_font_size'  => '42',
+			'initials_font_color' => '#000000',
+			'initials_bg_color'   => '#ffffff',
 			'id'                  => '',
 			'layout'              => '',
 			'lightbox'            => '',
@@ -762,13 +765,13 @@ class Strong_Testimonials_Defaults {
 				'after_page_number'  => '',
 			),
 			'slideshow_settings'  => array(
-				'type'        => 'show_single', // or show_multiple
-				'show_single'   => array(
+				'type'               => 'show_single', // or show_multiple
+				'show_single'        => array(
 					'max_slides'  => 1,
 					'move_slides' => 1,
 					'margin'      => 1,
 				),
-				'breakpoints' => array(
+				'breakpoints'        => array(
 					'desktop' => array(
 						'description' => 'Desktop',
 						'width'       => 1200,
@@ -852,22 +855,21 @@ class Strong_Testimonials_Defaults {
 				'event'           => '',
 				'script'          => '',
 			),
-			'controller' => array(
+			'controller'   => array(
 				'initialize_on' => 'documentReady', // or windowLoad
 			),
-			'lazyload' => array(
+			'lazyload'     => array(
 				'enabled' => '',
 				'classes' => array( // may be multiple pairs
 					array(
 						'start'  => '',
 						'finish' => '',
-					)
+					),
 				),
 			),
-            'random_js' => false
+			'random_js'    => false,
 		);
 
 		return $options;
 	}
-
 }

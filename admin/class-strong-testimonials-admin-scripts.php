@@ -46,105 +46,133 @@ class Strong_Testimonials_Admin_Scripts {
 
 		$min = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 
-		wp_register_script( 'wpmtst-help',
+		wp_register_script(
+			'wpmtst-help',
 			WPMTST_ADMIN_URL . 'js/help.js',
 			array( 'jquery' ),
 			$plugin_version,
-			true );
-
+			true
+		);
 
 		wp_register_script(
 			'wpmtst-admin-script',
-			WPMTST_ASSETS_JS . 'admin-js.js',
+			WPMTST_ASSETS_JS . 'admin.js',
 			array( 'jquery', 'underscore' ),
 			$plugin_version,
-			true );
+			true
+		);
 
 		wp_register_style(
 			'wpmtst-admin-global-style',
 			WPMTST_ASSETS_CSS . 'admin-global.css',
 			array(),
-			$plugin_version );
-                                    
-	 	wp_register_style(
+			$plugin_version
+		);
+
+		wp_register_style(
 			'wpmtst-admin-style',
 			WPMTST_ASSETS_CSS . 'admin.css',
-			array( ),
-			$plugin_version );
+			array(),
+			$plugin_version
+		);
 
-		wp_register_style( 'wpmtst-post-editor',
+		wp_register_style(
+			'wpmtst-post-editor',
 			WPMTST_ADMIN_URL . 'css/post-editor.css',
-			array( ),
-			$plugin_version );
+			array(),
+			$plugin_version
+		);
 
-		wp_register_style( 'wpmtst-lite-vs-pro',
+		wp_register_style(
+			'wpmtst-lite-vs-pro',
 			WPMTST_ADMIN_URL . 'css/lite-vs-pro.css',
-			array( ),
-			$plugin_version );
+			array(),
+			$plugin_version
+		);
 
-		wp_register_style( 'wpmtst-admin-upsells-style',
+		wp_register_style(
+			'wpmtst-admin-upsells-style',
 			WPMTST_ASSETS_CSS . 'admin-upsells.css',
-			array( ),
-			$plugin_version );
+			array(),
+			$plugin_version
+		);
 
-		wp_register_script( 'wpmtst-custom-spinner',
-				WPMTST_ADMIN_URL . 'js/custom-spinner.js',
-				array( 'jquery' ),
-				$plugin_version,
-				true );
+		wp_register_script(
+			'wpmtst-custom-spinner',
+			WPMTST_ADMIN_URL . 'js/custom-spinner.js',
+			array( 'jquery' ),
+			$plugin_version,
+			true
+		);
 
-		wp_register_script( 'autosize',
+		wp_register_script(
+			'autosize',
 			WPMTST_ADMIN_URL . 'js/lib/autosize/autosize.min.js',
 			array(),
 			'4.0.1',
-			true );
+			true
+		);
 
 		/**
 		 * Form tab
 		 */
-		wp_register_style( 'wpmtst-admin-form-style',
-		                   WPMTST_ADMIN_URL . 'css/admin-form.css',
-		                   array( 'wpmtst-admin-style' ),
-		                   $plugin_version );
+		wp_register_style(
+			'wpmtst-admin-form-style',
+			WPMTST_ADMIN_URL . 'css/admin-form.css',
+			array( 'wpmtst-admin-style' ),
+			$plugin_version
+		);
 
-		wp_register_script( 'wpmtst-admin-form-script',
-		                    WPMTST_ADMIN_URL . 'js/admin-form.js',
-		                    array( 'wpmtst-admin-script', 'autosize' ),
-		                    $plugin_version,
-		                    true );
+		wp_register_script(
+			'wpmtst-admin-form-script',
+			WPMTST_ADMIN_URL . 'js/admin-form.js',
+			array( 'wpmtst-admin-script', 'autosize' ),
+			$plugin_version,
+			true
+		);
 
 		/**
 		 * Compatibility tab
 		 */
-		wp_register_style( 'wpmtst-admin-compat-style',
-				WPMTST_ADMIN_URL . 'css/admin-compat.css',
-				array(),
-				$plugin_version );
+		wp_register_style(
+			'wpmtst-admin-compat-style',
+			WPMTST_ADMIN_URL . 'css/admin-compat.css',
+			array(),
+			$plugin_version
+		);
 
-		wp_register_script( 'wpmtst-admin-compat-script',
-				WPMTST_ADMIN_URL . 'js/admin-compat.js',
-				array( 'jquery', 'wpmtst-custom-spinner', 'wpmtst-help' ),
-				$plugin_version,
-				true );
+		wp_register_script(
+			'wpmtst-admin-compat-script',
+			WPMTST_ADMIN_URL . 'js/admin-compat.js',
+			array( 'jquery', 'wpmtst-custom-spinner', 'wpmtst-help' ),
+			$plugin_version,
+			true
+		);
 
 		/**
 		 * Fields
 		 */
-		wp_register_style( 'wpmtst-admin-fields-style',
+		wp_register_style(
+			'wpmtst-admin-fields-style',
 			WPMTST_ADMIN_URL . 'css/fields.css',
 			array(),
-			$plugin_version );
+			$plugin_version
+		);
 
-		wp_register_style( 'wpmtst-admin-form-preview',
+		wp_register_style(
+			'wpmtst-admin-form-preview',
 			WPMTST_ADMIN_URL . 'css/form-preview.css',
 			array(),
-			$plugin_version );
+			$plugin_version
+		);
 
-		wp_register_script( 'wpmtst-admin-fields-script',
+		wp_register_script(
+			'wpmtst-admin-fields-script',
 			WPMTST_ADMIN_URL . 'js/admin-fields.js',
 			array( 'jquery', 'jquery-ui-sortable', 'wpmtst-help' ),
 			$plugin_version,
-			true );
+			true
+		);
 
 		$params = array(
 			'ajax_nonce' => wp_create_nonce( 'wpmtst-admin' ),
@@ -157,35 +185,45 @@ class Strong_Testimonials_Admin_Scripts {
 		/**
 		 * Ratings
 		 */
-		wp_register_style( 'wpmtst-rating-display',
+		wp_register_style(
+			'wpmtst-rating-display',
 			WPMTST_PUBLIC_URL . 'css/rating-display.css',
-			array( ),
-			$plugin_version );
+			array(),
+			$plugin_version
+		);
 
-		wp_register_style( 'wpmtst-rating-form',
+		wp_register_style(
+			'wpmtst-rating-form',
 			WPMTST_PUBLIC_URL . 'css/rating-form.css',
-			array( ),
-			$plugin_version );
+			array(),
+			$plugin_version
+		);
 
-		wp_register_script( 'wpmtst-rating-script',
+		wp_register_script(
+			'wpmtst-rating-script',
 			WPMTST_ADMIN_URL . 'js/rating-edit.js',
 			array( 'jquery' ),
 			$plugin_version,
-			true );
+			true
+		);
 
 		/**
 		 * Views
 		 */
-		wp_register_style( 'wpmtst-admin-views-style',
+		wp_register_style(
+			'wpmtst-admin-views-style',
 			WPMTST_ADMIN_URL . 'css/views.css',
 			array(),
-			$plugin_version );
+			$plugin_version
+		);
 
-		wp_register_script( 'wpmtst-admin-views-script',
+		wp_register_script(
+			'wpmtst-admin-views-script',
 			WPMTST_ADMIN_URL . 'js/views.js',
 			array( 'jquery', 'jquery-ui-sortable', 'wp-color-picker', 'jquery-masonry', 'wpmtst-help' ),
 			$plugin_version,
-			true );
+			true
+		);
 
 		/**
 		 * Category filter in View editor.
@@ -195,27 +233,33 @@ class Strong_Testimonials_Admin_Scripts {
 		 *
 		 * @since 2.2.0
 		 */
-		wp_register_script( 'wpmtst-view-category-filter-script',
+		wp_register_script(
+			'wpmtst-view-category-filter-script',
 			WPMTST_ADMIN_URL . 'js/view-category-filter.js',
 			array( 'jquery' ),
 			$plugin_version,
-			true );
+			true
+		);
 
-		wp_register_style( 'wpmtst-about-style',
+		wp_register_style(
+			'wpmtst-about-style',
 			WPMTST_ADMIN_URL . 'css/about.css',
 			array(),
-			$plugin_version );
+			$plugin_version
+		);
 
 		/**
 		 * Add-on licenses
 		 *
 		 * @since 2.18
 		 */
-		wp_register_script( 'wpmtst-addons-script',
+		wp_register_script(
+			'wpmtst-addons-script',
 			WPMTST_ADMIN_URL . 'js/addon-licenses.js',
 			array( 'jquery' ),
 			$plugin_version,
-			true );
+			true
+		);
 
 		$params = array(
 			'ajax_nonce'     => wp_create_nonce( 'wpmtst-admin' ),
@@ -230,32 +274,38 @@ class Strong_Testimonials_Admin_Scripts {
 		 *
 		 * @since 2.18
 		 */
-		wp_register_script( 'wpmtst-ays-script',
+		wp_register_script(
+			'wpmtst-ays-script',
 			WPMTST_ADMIN_URL . "js/lib/are-you-sure/jquery.are-you-sure{$min}.js",
 			array( 'jquery' ),
 			$plugin_version,
-			true );
+			true
+		);
 
-		wp_register_style( 'wpmtst-logs-style',
+		wp_register_style(
+			'wpmtst-logs-style',
 			WPMTST_ADMIN_URL . 'css/logs.css',
 			array(),
-			$plugin_version );
+			$plugin_version
+		);
 	}
 
 	/**
 	 * Enqueue global admin scripts.
 	 */
 	public static function admin_enqueue_scripts() {
-                $screen = get_current_screen();
+				$screen = get_current_screen();
 		$plugin_version = get_option( 'wpmtst_plugin_version' );
 
 		wp_enqueue_style( 'wpmtst-admin-global-style' );
 
-		wp_enqueue_script( 'wpmtst-admin-global',
-		                    WPMTST_ADMIN_URL . 'js/admin-global.js',
-		                    array( 'jquery' ),
-		                    $plugin_version,
-		                    true );
+		wp_enqueue_script(
+			'wpmtst-admin-global',
+			WPMTST_ADMIN_URL . 'js/admin-global.js',
+			array( 'jquery' ),
+			$plugin_version,
+			true
+		);
 
 		wp_localize_script(
 			'wpmtst-admin-global',
@@ -274,7 +324,6 @@ class Strong_Testimonials_Admin_Scripts {
 				'enter_license'      => esc_html__( 'Please enter your license key.', 'strong-testimonials' ),
 			)
 		);
-
 	}
 
 	/**
@@ -294,7 +343,7 @@ class Strong_Testimonials_Admin_Scripts {
 
 		wp_add_inline_script(
 			'wpmtst-admin-script',
-			'const wpmtst_admin_script_nonce = "' . wp_create_nonce( 'wpmtst-admin-script-nonce' ) . '";',
+			'const wpmtstAdminScriptNonce = "' . wp_create_nonce( 'wpmtst-admin-script-nonce' ) . '";',
 			'before'
 		);
 
@@ -315,17 +364,17 @@ class Strong_Testimonials_Admin_Scripts {
 	 * Fields
 	 */
 	public static function admin_fields() {
-        $tab = isset( $_GET['tab'] ) ? sanitize_key( $_GET['tab'] ) : '';
-        wp_enqueue_style( 'wpmtst-admin-style' );
-        wp_enqueue_script( 'wpmtst-admin-script' );
-        
+		$tab = isset( $_GET['tab'] ) ? sanitize_key( $_GET['tab'] ) : '';
+		wp_enqueue_style( 'wpmtst-admin-style' );
+		wp_enqueue_script( 'wpmtst-admin-script' );
+
 		wp_add_inline_script(
 			'wpmtst-admin-script',
-			'const wpmtst_admin_script_nonce = "' . wp_create_nonce( 'wpmtst-admin-script-nonce' ) . '";',
+			'const wpmtstAdminScriptNonce = "' . wp_create_nonce( 'wpmtst-admin-script-nonce' ) . '";',
 			'before'
 		);
 
-        switch ( $tab ) {
+		switch ( $tab ) {
 			case 'form':
 				wp_enqueue_style( 'wpmtst-admin-form-style' );
 				wp_enqueue_script( 'wpmtst-admin-form-script' );
@@ -336,18 +385,18 @@ class Strong_Testimonials_Admin_Scripts {
 				);
 				break;
 			case 'fields':
-                wp_enqueue_style( 'wpmtst-admin-fields-style' );
-                wp_enqueue_script( 'wpmtst-admin-fields-script' );
+				wp_enqueue_style( 'wpmtst-admin-fields-style' );
+				wp_enqueue_script( 'wpmtst-admin-fields-script' );
 
-                wp_enqueue_style( 'wpmtst-admin-form-preview' );
-                wp_enqueue_style( 'wpmtst-rating-form' );
+				wp_enqueue_style( 'wpmtst-admin-form-preview' );
+				wp_enqueue_style( 'wpmtst-rating-form' );
 				break;
-            default:
-                wp_enqueue_style( 'wpmtst-admin-fields-style' );
-                wp_enqueue_script( 'wpmtst-admin-fields-script' );
+			default:
+				wp_enqueue_style( 'wpmtst-admin-fields-style' );
+				wp_enqueue_script( 'wpmtst-admin-fields-script' );
 
-                wp_enqueue_style( 'wpmtst-admin-form-preview' );
-                wp_enqueue_style( 'wpmtst-rating-form' );
+				wp_enqueue_style( 'wpmtst-admin-form-preview' );
+				wp_enqueue_style( 'wpmtst-rating-form' );
 		}
 	}
 
@@ -371,9 +420,9 @@ class Strong_Testimonials_Admin_Scripts {
 				wp_enqueue_script( 'wpmtst-admin-script' );
 				wp_add_inline_script(
 					'wpmtst-admin-script',
-					'const wpmtst_admin_script_nonce = "' . wp_create_nonce( 'wpmtst-admin-script-nonce' ) . '";',
+					'const wpmtstAdminScriptNonce = "' . wp_create_nonce( 'wpmtst-admin-script-nonce' ) . '";',
 					'before'
-				);		
+				);
 		}
 	}
 
@@ -383,10 +432,10 @@ class Strong_Testimonials_Admin_Scripts {
 	public static function admin_about() {
 		wp_enqueue_style( 'wpmtst-admin-style' );
 		wp_enqueue_script( 'wpmtst-admin-script' );
-		
+
 		wp_add_inline_script(
 			'wpmtst-admin-script',
-			'const wpmtst_admin_script_nonce = "' . wp_create_nonce( 'wpmtst-admin-script-nonce' ) . '";',
+			'const wpmtstAdminScriptNonce = "' . wp_create_nonce( 'wpmtst-admin-script-nonce' ) . '";',
 			'before'
 		);
 
@@ -410,10 +459,10 @@ class Strong_Testimonials_Admin_Scripts {
 		if ( wpmtst_is_testimonial_screen() ) {
 			wp_enqueue_style( 'wpmtst-admin-style' );
 			wp_enqueue_script( 'wpmtst-admin-script' );
-			
+
 			wp_add_inline_script(
 				'wpmtst-admin-script',
-				'const wpmtst_admin_script_nonce = "' . wp_create_nonce( 'wpmtst-admin-script-nonce' ) . '";',
+				'const wpmtstAdminScriptNonce = "' . wp_create_nonce( 'wpmtst-admin-script-nonce' ) . '";',
 				'before'
 			);
 
@@ -424,7 +473,7 @@ class Strong_Testimonials_Admin_Scripts {
 	/**
 	 * Logs View
 	 */
-	public static function admin_logs_view(){
+	public static function admin_logs_view() {
 		wp_enqueue_style( 'wpmtst-logs-style' );
 	}
 
@@ -448,10 +497,10 @@ class Strong_Testimonials_Admin_Scripts {
 
 			wp_add_inline_script(
 				'wpmtst-admin-script',
-				'const wpmtst_admin_script_nonce = "' . wp_create_nonce( 'wpmtst-admin-script-nonce' ) . '";',
+				'const wpmtstAdminScriptNonce = "' . wp_create_nonce( 'wpmtst-admin-script-nonce' ) . '";',
 				'before'
 			);
-	
+
 			wp_enqueue_style( 'wpmtst-rating-display' );
 			wp_enqueue_style( 'wpmtst-rating-form' );
 			wp_enqueue_script( 'wpmtst-rating-script' );
@@ -483,13 +532,12 @@ class Strong_Testimonials_Admin_Scripts {
 		 * Block RT Themes and their overzealous JavaScript on our admin pages.
 		 * @since 2.2.12.1
 		 */
-		if ( in_array( $hook, $hooks_to_script ) ) {
+		if ( in_array( $hook, $hooks_to_script, true ) ) {
 			if ( class_exists( 'RTThemeAdmin' ) && wp_script_is( 'admin-scripts' ) ) {
 				wp_dequeue_script( 'admin-scripts' );
 			}
 		}
 	}
-
 }
 
 Strong_Testimonials_Admin_Scripts::init();

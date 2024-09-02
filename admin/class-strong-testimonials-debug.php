@@ -17,7 +17,7 @@ class Strong_Testimonials_Debug {
 	 *
 	 * @since 3.1.15
 	 */
-	function __construct() {
+	public function __construct() {
 
 		add_action( 'admin_init', array( $this, 'wpmtst_export_testimonial' ) );
 
@@ -26,7 +26,7 @@ class Strong_Testimonials_Debug {
 		add_action( 'load-post-new.php', array( $this, 'debug_meta_box_setup' ) );
 
 		// Hide debug testimonial by default
-		add_filter( 'hidden_meta_boxes' , array( $this, 'hide_meta_box' ), 10, 2 );
+		add_filter( 'hidden_meta_boxes', array( $this, 'hide_meta_box' ), 10, 2 );
 	}
 
 
@@ -39,12 +39,11 @@ class Strong_Testimonials_Debug {
 	 */
 	public static function get_instance() {
 
-		if ( !isset( self::$instance ) && !( self::$instance instanceof Strong_Testimonials_Debug ) ) {
+		if ( ! isset( self::$instance ) && ! ( self::$instance instanceof Strong_Testimonials_Debug ) ) {
 			self::$instance = new Strong_Testimonials_Debug();
 		}
 
 		return self::$instance;
-
 	}
 
 	/**
@@ -52,26 +51,26 @@ class Strong_Testimonials_Debug {
 	 *
 	 * @since 3.1.15
 	 */
-	public function wpmtst_export_testimonial(){
+	public function wpmtst_export_testimonial() {
 		// Check if the user is allowed to edit posts.
 		if ( ! current_user_can( 'edit_posts' ) ) {
 			return;
 		}
-		if ( isset( $_GET['wpmtst_single_download'] ) ){
+		if ( isset( $_GET['wpmtst_single_download'] ) ) {
 
 			// WXR_VERSION is declared here
 			require_once ABSPATH . 'wp-admin/includes/export.php';
 
 			$post = get_post( absint( $_GET['wpmtst_single_download'] ) );
 
-			if ( !$post || 'wpm-testimonial' != $post->post_type ){
+			if ( ! $post || 'wpm-testimonial' !== $post->post_type ) {
 				return;
 			}
 
 			global $wpdb;
 
 			$testimonial_name = sanitize_key( $post->post_name );
-			if ( !empty( $testimonial_name ) ){
+			if ( ! empty( $testimonial_name ) ) {
 				$testimonial_name .= '.';
 			}
 			$date        = gmdate( 'Y-m-d' );
@@ -102,11 +101,11 @@ class Strong_Testimonials_Debug {
 			<!--    contained in this file into your site. -->
 
 			<rss version="2.0"
-				 xmlns:excerpt="http://wordpress.org/export/<?php echo esc_html( WXR_VERSION ); ?>/excerpt/"
-				 xmlns:content="http://purl.org/rss/1.0/modules/content/"
-				 xmlns:wfw="http://wellformedweb.org/CommentAPI/"
-				 xmlns:dc="http://purl.org/dc/elements/1.1/"
-				 xmlns:wp="http://wordpress.org/export/<?php echo esc_html( WXR_VERSION ); ?>/"
+				xmlns:excerpt="http://wordpress.org/export/<?php echo esc_html( WXR_VERSION ); ?>/excerpt/"
+				xmlns:content="http://purl.org/rss/1.0/modules/content/"
+				xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+				xmlns:dc="http://purl.org/dc/elements/1.1/"
+				xmlns:wp="http://wordpress.org/export/<?php echo esc_html( WXR_VERSION ); ?>/"
 			>
 
 				<channel>
@@ -129,15 +128,15 @@ class Strong_Testimonials_Debug {
 						<dc:creator><?php echo $this->wxr_cdata( get_the_author_meta( 'login' ) ); ?></dc:creator>
 						<guid isPermaLink="false"><?php the_guid(); ?></guid>
 						<description></description>
-						<wp:post_id><?php echo (int)$post->ID; ?></wp:post_id>
+						<wp:post_id><?php echo (int) $post->ID; ?></wp:post_id>
 						<wp:post_date><?php echo $this->wxr_cdata( $post->post_date ); ?></wp:post_date>
 						<wp:post_date_gmt><?php echo $this->wxr_cdata( $post->post_date_gmt ); ?></wp:post_date_gmt>
 						<wp:comment_status><?php echo $this->wxr_cdata( $post->comment_status ); ?></wp:comment_status>
 						<wp:ping_status><?php echo $this->wxr_cdata( $post->ping_status ); ?></wp:ping_status>
 						<wp:post_name><?php echo $this->wxr_cdata( $post->post_name ); ?></wp:post_name>
 						<wp:status><?php echo $this->wxr_cdata( $post->post_status ); ?></wp:status>
-						<wp:post_parent><?php echo (int)$post->post_parent; ?></wp:post_parent>
-						<wp:menu_order><?php echo (int)$post->menu_order; ?></wp:menu_order>
+						<wp:post_parent><?php echo (int) $post->post_parent; ?></wp:post_parent>
+						<wp:menu_order><?php echo (int) $post->menu_order; ?></wp:menu_order>
 						<wp:post_type><?php echo $this->wxr_cdata( $post->post_type ); ?></wp:post_type>
 						<wp:post_password><?php echo $this->wxr_cdata( $post->post_password ); ?></wp:post_password>
 						<?php
@@ -156,7 +155,7 @@ class Strong_Testimonials_Debug {
 							 * @since 3.3.0
 							 *
 							 */
-							if ( apply_filters( 'wxr_export_skip_postmeta', false, $meta->meta_key, $meta ) ){
+							if ( apply_filters( 'wxr_export_skip_postmeta', false, $meta->meta_key, $meta ) ) {
 								continue;
 							}
 							?>
@@ -164,7 +163,7 @@ class Strong_Testimonials_Debug {
 								<wp:meta_key><?php echo $this->wxr_cdata( $meta->meta_key ); ?></wp:meta_key>
 								<wp:meta_value><?php echo $this->wxr_cdata( $meta->meta_value ); ?></wp:meta_value>
 							</wp:postmeta>
-						<?php
+							<?php
 						endforeach;
 						?>
 					</item>
@@ -184,8 +183,8 @@ class Strong_Testimonials_Debug {
 	 * @since 3.1.15
 	 *
 	 */
-	private	function wxr_cdata( $str ){
-		if ( !seems_utf8( $str ) ){
+	private function wxr_cdata( $str ) {
+		if ( ! seems_utf8( $str ) ) {
 			$str = utf8_encode( $str );
 		}
 		// $str = ent2ncr(esc_html($str));
@@ -202,8 +201,7 @@ class Strong_Testimonials_Debug {
 	public function debug_meta_box_setup() {
 
 		/* Add meta boxes on the 'add_meta_boxes' hook. */
-		add_action( 'add_meta_boxes', array( $this, 'add_debug_meta_box' ),10 );
-
+		add_action( 'add_meta_boxes', array( $this, 'add_debug_meta_box' ), 10 );
 	}
 
 	/**
@@ -213,14 +211,13 @@ class Strong_Testimonials_Debug {
 	 */
 	public function add_debug_meta_box() {
 		add_meta_box(
-				'wpmtst-debug',      // Unique ID
-				esc_html__('Debug testimonial', 'strong-testimonials'),    // Title
-				array( $this, 'output_debug_meta' ),   // Callback function
-				'wpm-testimonial',         // Admin page (or post type)
-				'side',         // Context
-				'low'         // Priority
+			'wpmtst-debug',      // Unique ID
+			esc_html__( 'Debug testimonial', 'strong-testimonials' ),    // Title
+			array( $this, 'output_debug_meta' ),   // Callback function
+			'wpm-testimonial',         // Admin page (or post type)
+			'side',         // Context
+			'low'         // Priority
 		);
-
 	}
 
 	/**
@@ -230,14 +227,14 @@ class Strong_Testimonials_Debug {
 	 */
 	public function hide_meta_box( $hidden, $screen ) {
 		$user_id = get_current_user_id();
-		if ($user_id === 0) {
+		if ( 0 === $user_id ) {
 			return $hidden;
 		}
-	
+
 		$user_meta = get_user_meta( $user_id, 'metaboxhidden_wpm-testimonial', true );
 
 		//make sure we are dealing with the correct screen
-		if ( ( 'post' === $screen->base ) && ( 'wpm-testimonial' === $screen->id ) && is_array( $user_meta ) && in_array( 'wpmtst-debug', $user_meta ) ) {
+		if ( ( 'post' === $screen->base ) && ( 'wpm-testimonial' === $screen->id ) && is_array( $user_meta ) && in_array( 'wpmtst-debug', $user_meta, true ) ) {
 			$hidden[] = 'wpmtst-debug';
 		}
 
@@ -249,26 +246,33 @@ class Strong_Testimonials_Debug {
 	 *
 	 * @since 3.1.15
 	 */
-	public function output_debug_meta(){
+	public function output_debug_meta() {
 		?>
 		<div class="wpmtst-upsells-carousel-wrapper">
 			<div class="wpmtst-upsells-carousel">
 				<div class="wpmtst-upsell wpmtst-upsell-item">
 					<p class="wpmtst-upsell-description"><?php echo esc_html__( 'Export the testimonial and send it to Strong Testimonial\'s support team so that we can debug your problem much easier.', 'strong-testimonials' ); ?></p>
 					<p>
-						<a href="<?php echo esc_url( add_query_arg( array(
-								'wpmtst_single_download' => absint( get_the_ID() ),
-						) ) ); ?>"
-						   class="button"><?php esc_html_e( 'Export testimonial', 'strong-testimonials' ) ?></a>
+						<a href="
+						<?php
+						echo esc_url(
+							add_query_arg(
+								array(
+									'wpmtst_single_download' => absint( get_the_ID() ),
+								)
+							)
+						);
+						?>
+						"
+							class="button"><?php esc_html_e( 'Export testimonial', 'strong-testimonials' ); ?></a>
 
 					</p>
-					<?php do_action('wpmtst_debug_metabox_content'); ?>
+					<?php do_action( 'wpmtst_debug_metabox_content' ); ?>
 				</div>
 			</div>
 		</div>
 		<?php
 	}
-
 }
 
 $st_debug = Strong_Testimonials_Debug::get_instance();

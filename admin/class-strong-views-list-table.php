@@ -7,7 +7,7 @@
 
 class Strong_Views_List_Table extends Strong_Testimonials_List_Table {
 
-    public $stickies;
+	public $stickies;
 
 	/**
 	 * Message to be displayed when there are no items
@@ -20,7 +20,7 @@ class Strong_Views_List_Table extends Strong_Testimonials_List_Table {
 	}
 
 	public function prepare_list( $data = array() ) {
-	    $this->stickies = get_option( 'wpmtst_sticky_views', array() );
+		$this->stickies = get_option( 'wpmtst_sticky_views', array() );
 
 		$columns  = $this->get_columns();
 		$hidden   = $this->get_hidden_columns();
@@ -33,56 +33,57 @@ class Strong_Views_List_Table extends Strong_Testimonials_List_Table {
 			usort( $data, array( &$this, 'usort_reorder' ) );
 		}
 		$data = $this->move_sticky( $data );
-        $data = apply_filters('wpmtst_list_views', $data);
-        if ( isset( $_GET['mode'] ) && ! empty( $_GET['mode'] ) && $_GET['mode'] !== 'all' ) {
-            $data = $this->filter_data( sanitize_text_field( wp_unslash( $_GET['mode'] ) ), $data );
-        }
-        if ( isset( $_GET['s'] ) && ! empty( $_GET['s'] ) ) {
-            $data = $this->search_data( sanitize_text_field( wp_unslash( $_GET['s'] ) ), $data );
-        }
+		$data = apply_filters( 'wpmtst_list_views', $data );
+		if ( isset( $_GET['mode'] ) && ! empty( $_GET['mode'] ) && 'all' !== $_GET['mode'] ) {
+			$data = $this->filter_data( sanitize_text_field( wp_unslash( $_GET['mode'] ) ), $data );
+		}
+		if ( isset( $_GET['s'] ) && ! empty( $_GET['s'] ) ) {
+			$data = $this->search_data( sanitize_text_field( wp_unslash( $_GET['s'] ) ), $data );
+		}
 		$this->items = $data;
 	}
-        
-        public function prepare_filters( $data = array() ) {
-            $links = array();
-            foreach ($data as $item) {
-                $value = unserialize($item['value']);
-                $links[$value['mode']][] = $item;
-            }
-            return $links;
-        }
-        
-        public function filter_data( $mode, $data = array() ) {
-            $items = array();
-            foreach ($data as $item) {
-                if ( $mode == $item['data']['mode'] ) {
-                    $items[] = $item; 
-                }
-            }
-            return $items;
-        }
-        
-        public function search_data( $search, $data = array() ) {
-            $items = array();
-            foreach ($data as $item) {
-                if ( strtolower($search) == strtolower($item['name']) ) {
-                    $items[] = $item; 
-                }
-            }
-            return $items;
-        }
 
-    /**
-     * Move sticky views to the top
-     *
+	public function prepare_filters( $data = array() ) {
+		$links = array();
+		foreach ( $data as $item ) {
+			$value                     = unserialize( $item['value'] );
+			$links[ $value['mode'] ][] = $item;
+		}
+		return $links;
+	}
+
+	public function filter_data( $mode, $data = array() ) {
+		$items = array();
+		foreach ( $data as $item ) {
+			if ( $mode === $item['data']['mode'] ) {
+				$items[] = $item;
+			}
+		}
+		return $items;
+	}
+
+	public function search_data( $search, $data = array() ) {
+		$items = array();
+		foreach ( $data as $item ) {
+			if ( strtolower( $search ) === strtolower( $item['name'] ) ) {
+				$items[] = $item;
+			}
+		}
+		return $items;
+	}
+
+	/**
+	 * Move sticky views to the top
+	 *
 	 * @param $data
-     * @since 0.2.0
-     * @return array
+	 * @since 0.2.0
+	 * @return array
 	 */
 	public function move_sticky( $data ) {
-		$sticky_views = $views = array();
+		$sticky_views = array();
+		$views        = array();
 		foreach ( $data as $view ) {
-			if ( in_array( $view['id'], $this->stickies ) ) {
+			if ( in_array( $view['id'], $this->stickies, true ) ) {
 				$sticky_views[] = $view;
 			} else {
 				$views[] = $view;
@@ -112,8 +113,8 @@ class Strong_Views_List_Table extends Strong_Testimonials_List_Table {
 
 	public function get_sortable_columns() {
 		return array(
-			'id'       => array( 'id', false ),
-			'name'     => array( 'name', false ),
+			'id'   => array( 'id', false ),
+			'name' => array( 'name', false ),
 		);
 	}
 
@@ -125,18 +126,18 @@ class Strong_Views_List_Table extends Strong_Testimonials_List_Table {
 		$order = ( ! empty( $_GET['order'] ) ) ? sanitize_text_field( wp_unslash( $_GET['order'] ) ) : 'asc';
 
 		// Determine sort order
-		if ( 'id' == $orderby ) {
+		if ( 'id' === $orderby ) {
 			$result = $this->cmp( intval( $a[ $orderby ] ), intval( $b[ $orderby ] ) );
 		} else {
-		    $result = strcasecmp( $a[$orderby], $b[$orderby] );
+			$result = strcasecmp( $a[ $orderby ], $b[ $orderby ] );
 		}
 
 		// Send final sort direction to usort
-		return ( $order === 'asc' ) ? $result : -$result;
+		return ( 'asc' === $order ) ? $result : -$result;
 	}
 
 	public function cmp( $a, $b ) {
-		if ( $a == $b ) {
+		if ( (int) $a === (int) $b ) {
 			return 0;
 		}
 
@@ -149,7 +150,7 @@ class Strong_Views_List_Table extends Strong_Testimonials_List_Table {
 
 		// Edit link
 		$edit_link = esc_url( $url . '&page=testimonial-views&action=edit&id=' . $item['id'] );
-		echo '<a class="row-title" href="' . esc_url( $edit_link ). '">' . esc_html( $item['name'] ) . '</a>';
+		echo '<a class="row-title" href="' . esc_url( $edit_link ) . '">' . esc_html( $item['name'] ) . '</a>';
 
 		// Duplicate link
 		// @since 2.1.0
@@ -163,10 +164,11 @@ class Strong_Views_List_Table extends Strong_Testimonials_List_Table {
 		$actions              = array();
 		$actions['edit']      = '<a href="' . esc_url( $edit_link ) . '">' . esc_html__( 'Edit', 'strong-testimonials' ) . '</a>';
 		$actions['duplicate'] = '<a href="' . esc_url( $duplicate_link ) . '">' . esc_html__( 'Duplicate', 'strong-testimonials' ) . '</a>';
-		$actions['delete']    = "<a class='submitdelete' href='" . wp_nonce_url( $delete_link, 'delete-strong-view_' . $item['id'] ) . "' onclick=\"if ( confirm( '" . esc_js( sprintf( __( 'Delete "%s"?', 'strong-testimonials' ), $item['name'] ) ) . "' ) ) { return true;} return false;\">" . esc_html__( 'Delete', 'strong-testimonials' ) . '</a>';
+		// translators: %s is the name of the view that is going to be deleted.
+		$actions['delete'] = "<a class='submitdelete' href='" . wp_nonce_url( $delete_link, 'delete-strong-view_' . $item['id'] ) . "' onclick=\"if ( confirm( '" . esc_js( sprintf( __( 'Delete "%s"?', 'strong-testimonials' ), $item['name'] ) ) . "' ) ) { return true;} return false;\">" . esc_html__( 'Delete', 'strong-testimonials' ) . '</a>';
 
-		$actions = apply_filters('wpmtst_views_actions',$actions,$item);
-		
+		$actions = apply_filters( 'wpmtst_views_actions', $actions, $item );
+
 		echo wp_kses_post( $this->row_actions( $actions ) );
 	}
 
@@ -176,29 +178,29 @@ class Strong_Views_List_Table extends Strong_Testimonials_List_Table {
 				$text = $item['id'];
 				break;
 			case 'sticky':
-			    $stuck = $this->is_stuck( $item['id'] ) ? 'stuck' : '';
-				$text = '<a href="#" class="stickit ' . $stuck . '" title="' . esc_html__( 'stick to top of list', 'strong-testimonials' ) . '"></>';
+				$stuck = $this->is_stuck( $item['id'] ) ? 'stuck' : '';
+				$text  = '<a href="#" class="stickit ' . $stuck . '" title="' . esc_html__( 'stick to top of list', 'strong-testimonials' ) . '"></>';
 				break;
 			case 'name':
 				$text = $item['name'];
 				break;
 			case 'mode':
-				$mode = $item['data']['mode'];
-			    $text = $mode;
+				$mode         = $item['data']['mode'];
+				$text         = $mode;
 				$view_options = apply_filters( 'wpmtst_view_options', get_option( 'wpmtst_view_options' ) );
 				if ( isset( $view_options['mode'][ $mode ]['label'] ) ) {
-				    $text = $view_options['mode'][ $mode ]['label'];
+					$text = $view_options['mode'][ $mode ]['label'];
 				}
 				break;
 			case 'template':
-				if ( 'single_template' == $item['data']['mode'] ) {
+				if ( 'single_template' === $item['data']['mode'] ) {
 					$text = esc_html__( 'theme single post template', 'strong-testimonials' );
 				} else {
 					$text = $this->find_template( array( 'template' => $item['data']['template'] ) );
 				}
 				break;
 			case 'shortcode':
-				if ( 'single_template' == $item['data']['mode'] ) {
+				if ( 'single_template' === $item['data']['mode'] ) {
 					$text = '';
 				} else {
 					$text = '[testimonial_view id="' . $item['id'] . '"]';
@@ -213,7 +215,7 @@ class Strong_Views_List_Table extends Strong_Testimonials_List_Table {
 
 	public function is_stuck( $id ) {
 		$stickies = get_option( 'wpmtst_sticky_views', array() );
-		return ( $stickies && in_array( $id, $stickies ) );
+		return ( $stickies && in_array( $id, $stickies, true ) );
 	}
 
 	public function find_template( $atts = '' ) {
@@ -228,49 +230,50 @@ class Strong_Views_List_Table extends Strong_Testimonials_List_Table {
 	 * @access public
 	 */
 	public function display() {
-            $singular = $this->_args['singular'];
-            // Disabling the table nav options to regain some real estate.
-            //$this->display_tablenav( 'top' );
-            $s = '';
-            if ( isset( $_GET['s'] ) ) {
-            	$s = sanitize_text_field( wp_unslash( $_GET['s'] ) );
-            }
-            ?>
-            <form id="posts-filter" method="get">
-                <p class="search-box">
-                    <label class="screen-reader-text" for="post-search-input"><?php esc_html_e( 'Search', 'strong-testimonials' ); ?></label>
-                    <input type="search" id="post-search-input" name="s" value="<?php echo esc_attr( $s ) ?>">
-                    <input type="submit" id="search-submit" class="button" value="<?php esc_html_e( 'Search', 'strong-testimonials' ); ?>">
-                    <input type="hidden" name="post_type" class="post_type_page" value="wpm-testimonial">
-                    <input type="hidden" name="page" value="testimonial-views">
-                </p>
-                    <table class="wp-list-table <?php echo esc_attr(implode( ' ', $this->get_table_classes())); ?>">
-                        <thead>
-                        <tr>
-                            <?php $this->print_column_headers(); ?>
-                        </tr>
-                        </thead>
+			$singular = $this->_args['singular'];
+			// Disabling the table nav options to regain some real estate.
+			//$this->display_tablenav( 'top' );
+			$s = '';
+		if ( isset( $_GET['s'] ) ) {
+			$s = sanitize_text_field( wp_unslash( $_GET['s'] ) );
+		}
+		?>
+			<form id="posts-filter" method="get">
+				<p class="search-box">
+					<label class="screen-reader-text" for="post-search-input"><?php esc_html_e( 'Search', 'strong-testimonials' ); ?></label>
+					<input type="search" id="post-search-input" name="s" value="<?php echo esc_attr( $s ); ?>">
+					<input type="submit" id="search-submit" class="button" value="<?php esc_html_e( 'Search', 'strong-testimonials' ); ?>">
+					<input type="hidden" name="post_type" class="post_type_page" value="wpm-testimonial">
+					<input type="hidden" name="page" value="testimonial-views">
+				</p>
+					<table class="wp-list-table <?php echo esc_attr( implode( ' ', $this->get_table_classes() ) ); ?>">
+						<thead>
+						<tr>
+							<?php $this->print_column_headers(); ?>
+						</tr>
+						</thead>
 
-                        <tbody id="the-list"
+						<tbody id="the-list"
 						<?php
-                        if ( $singular ) {
-                            echo " data-wp-lists='list:" . esc_attr( $singular ) . "'";
-                        } ?>>
-                        <?php $this->display_rows_or_placeholder(); ?>
-                        </tbody>
+						if ( $singular ) {
+							echo " data-wp-lists='list:" . esc_attr( $singular ) . "'";
+						}
+						?>
+						>
+						<?php $this->display_rows_or_placeholder(); ?>
+						</tbody>
 
-                        <tfoot>
-                        <tr>
-                            <?php $this->print_column_headers( false ); ?>
-                        </tr>
-                        </tfoot>
+						<tfoot>
+						<tr>
+							<?php $this->print_column_headers( false ); ?>
+						</tr>
+						</tfoot>
 
-                    </table>
-                    <?php
-                    //$this->display_tablenav( 'bottom' );
-                    ?>
-            </form>
-        <?php
+					</table>
+					<?php
+					//$this->display_tablenav( 'bottom' );
+					?>
+			</form>
+		<?php
 	}
-
 }

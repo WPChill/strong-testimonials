@@ -1,9 +1,9 @@
 /node_modules/
-package-lock.json
+/assets/dist/
 **.zip
 .standard.json
 .vscode
-package-lock.json
+# assets/dist/
 
 #################
 ## PhpStorm
