@@ -1,5 +1,5 @@
 /node_modules/
-/assets/dist/
+assets/dist/
 **.zip
 .standard.json
 .vscode

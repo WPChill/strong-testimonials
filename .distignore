@@ -33,3 +33,6 @@ client-src
 /scripts
 .gitmodules
 .gitattributes
+*.zip
+.prettierrc.js
+templates-scss
