@@ -379,7 +379,7 @@ if ( ! class_exists( 'Strong_Testimonials_Master_License_Activator' ) ) {
 				foreach ( $plugins as $plugin ) {
 					// Search only for Strong Testimonials extensions.
 					if ( false !== strpos( $plugin, 'strong-testimonials-' ) ) {
-						$extensions[] = basename( $plugin, '.php' );
+						$extensions[] = 'strong-testimonials-imports/strong-testimonials-importer.php' === $plugin ? dirname( $plugin ) : basename( $plugin, '.php' );
 					}
 				}
 			}
