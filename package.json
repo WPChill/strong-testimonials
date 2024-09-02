@@ -4,8 +4,8 @@
 	"version": "3.1.18",
 	"license": "GPL v3",
 	"scripts": {
-		"build": "cross-env NODE_ENV=production wp-scripts build --config webpack.config.js",
-		"start": "cross-env NODE_ENV=development wp-scripts start --config webpack.config.js",
+		"build": "NODE_ENV=production wp-scripts build --config webpack.config.js",
+		"start": "NODE_ENV=development wp-scripts start --config webpack.config.js",
 		"packages-update": "wp-scripts packages-update",
 		"format:src": "wp-scripts format ./client-src/",
 		"plugin-zip": "npm run build && npm run clean && npm run copy && npm run css && npm run bundle && npm run clean",
