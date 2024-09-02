@@ -132,7 +132,7 @@ jQuery( document ).ready( function ( $ ) {
 } );
 
 import Notice from '../blocks/modules/notice';
-import AddonsPage from '../blocks/modules/AddonsPage';
+import AddonsPage from '../blocks/modules/addonspage';
 
 class wpmtstAdmin {
 	constructor() {
