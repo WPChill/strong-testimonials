@@ -199,6 +199,9 @@ No. If you already have testimonials in another plugin or theme, you will have t
 8. View editor
 
 == Changelog ==
+= 3.1.19 - 02.09.2024 -
+- Changed: Removed unnecessary files.
+
 = 3.1.18 - 02.09.2024 -
 - Changed: Applied WordPress Coding Standards
 - Fixed: Issue with activating license & Strong Testimonials Imports
