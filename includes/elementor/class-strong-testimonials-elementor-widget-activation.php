@@ -18,7 +18,7 @@ class Strong_Testimonials_Elementor_Widget_Activation {
 	}
 
 	private function include_widgets_files() {
-		require_once WPMTST_INC . 'elementor/class-strong-testimonials-elementor-widget';
+		require_once WPMTST_INC . 'elementor/class-strong-testimonials-elementor-widget.php';
 	}
 
 	/**

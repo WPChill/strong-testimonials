@@ -46,7 +46,7 @@ function wpmtst_the_title( $tag = '', $wrapper_class = '' ) {
 
 		if ( 'none' !== WPMST()->atts( 'title_link' ) && '0' !== WPMST()->atts( 'title_link' ) ) {
 
-			if ( ( ! isset( $options['disable_rewrite'] ) || '1' !== $options['disable_rewrite'] ) && ( 'wpmtst_testimonial' === WPMST()->atts( 'title_link' ) || '1' === WPMST()->atts( 'title_link' ) ) ) {
+			if ( ( ! isset( $options['disable_rewrite'] ) || false === $options['disable_rewrite'] ) && ( 'wpmtst_testimonial' === WPMST()->atts( 'title_link' ) || '1' === WPMST()->atts( 'title_link' ) ) ) {
 				$before .= '<a href="' . esc_url( get_permalink() ) . '" rel="bookmark">';
 				$after   = '</a>' . $after;
 			} else {
@@ -54,7 +54,7 @@ function wpmtst_the_title( $tag = '', $wrapper_class = '' ) {
 				$url_field    = WPMST()->atts( 'title_link' );
 				$external_url = get_post_meta( $id, $url_field, true );
 
-				if ( '' !== $external_url ) {
+				if ( '' !== $external_url && ! is_array( $external_url ) ) {
 					$before .= '<a href="' . esc_url( $external_url ) . '" rel="bookmark" target="_blank">';
 					$after   = '</a>' . $after;
 				}

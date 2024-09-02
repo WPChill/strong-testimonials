@@ -4,7 +4,7 @@ Tags: testimonials, testimonial slider, testimonial form, star ratings
 Requires at least: 5.2
 Requires PHP: 5.6
 Tested up to: 6.6
-Stable tag: 3.1.19
+Stable tag: 3.1.20
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -199,6 +199,9 @@ No. If you already have testimonials in another plugin or theme, you will have t
 8. View editor
 
 == Changelog ==
+= 3.1.20 - 02.09.2024 -
+- Fixed: Fixed fatal errors occurring after applying WPCS.
+
 = 3.1.19 - 02.09.2024 -
 - Changed: Removed unnecessary files.
 
