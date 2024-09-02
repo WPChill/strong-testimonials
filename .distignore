@@ -36,3 +36,4 @@ client-src
 *.zip
 .prettierrc.js
 templates-scss
+
