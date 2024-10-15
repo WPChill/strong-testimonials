@@ -1,5 +1,5 @@
 === Strong Testimonials ===
-Contributors: wpchill,silkalns,cdillon27,giucu91
+Contributors: wpchill,silkalns,cdillon27
 Tags: testimonials, testimonial slider, testimonial form, star ratings
 Requires at least: 5.2
 Requires PHP: 5.6
@@ -20,21 +20,21 @@ https://www.youtube.com/watch?v=3nyvRvoxMxY
 
 **Premium features only available in Strong Testimonials - Paid version:**
 
-- [Import reviews from external sources](https://strongtestimonials.com/docs/testimonial-importer/?utm_source=wordpress.org&utm_medium=web&utm_campaign=pro): With our dedicated 3-rd party importer, you can now automate importing, managing, and displaying your testimonials from
+- [Import reviews from external sources](https://strongtestimonials.com/docs/testimonial-importer/?utm_source=wordpress.org&utm_medium=link&utm_campaign=description&utm_term=Import+reviews): With our dedicated 3-rd party importer, you can now automate importing, managing, and displaying your testimonials from
 Google, Facebook, Booking, Airbnb, Yelp, Trustpilot, Capterra, and G2.
-- [Custom Testimonial Collection Form Fields](https://strongtestimonials.com/docs/custom-fields-2/?utm_source=wordpress.org&utm_medium=web&utm_campaign=pro): Easily assign custom fields to a testimonial view if you want to add extra fields to your testimonial submission forms and optionally display this alongside testimonials on your website.
+- [Custom Testimonial Collection Form Fields](https://strongtestimonials.com/docs/custom-fields-2/?utm_source=wordpress.org&utm_medium=link&utm_campaign=description&utm_term=Custom+form+fields): Easily assign custom fields to a testimonial view if you want to add extra fields to your testimonial submission forms and optionally display this alongside testimonials on your website.
 The perfect example is with a car review website. Using the Custom Fields extension, you can gather detailed testimonials that include information such as car manufacturer, model, and horsepower.
-- [Multiple Testimonial Collection Forms](https://strongtestimonials.com/docs/creating-multiple-forms/?utm_source=wordpress.org&utm_medium=web&utm_campaign=pro): You can now create multiple forms to collect testimonials from your website visitors and customers. You can easily create new forms to gather testimonials for different types of products on your website. There is no limit to the number of forms you can create or use.
-- [Advanced Views](https://strongtestimonials.com/docs/fields-reordering/?utm_source=wordpress.org&utm_medium=web&utm_campaign=pro): Easily define the display order of your testimonial fields. Re-order the name, image, URL, and testimonial content fields through drag & drop.
-- [Properties](https://strongtestimonials.com/docs/properties/?utm_source=wordpress.org&utm_medium=web&utm_campaign=pro): If you are not a fan of calling your product reviews testimonials, then use this extension to replace the default text (testimonials) with another one such as reviews or ratings.
-- [Captcha anti-spam form Protection](https://strongtestimonials.com/docs/adding-spam-control-to-your-forms/?utm_source=wordpress.org&utm_medium=web&utm_campaign=pro): Protection for spam is something all websites need.
-- [Templates](https://strongtestimonials.com/docs/pro-templates/?utm_source=wordpress.org&utm_medium=web&utm_campaign=pro): Beautifully designed & pixel-perfect templates, ready to use to showcase your testimonials. Don't lose clients with a poor design.
-- [Infinite Scroll](https://strongtestimonials.com/docs/infinite-scroll/?utm_source=wordpress.org&utm_medium=web&utm_campaign=pro): Using this extension you can control the number of testimonials that are visible on a pages first load. As the user starts scrolling down the page, more testimonials are brought into view using a continuous loading animation.
-- [Enhanced emails](https://strongtestimonials.com/docs/enhanced-emails/?utm_source=wordpress.org&utm_medium=web&utm_campaign=pro): Send a thank you email to your client once their testimonial is approved. Increase brand loyalty by showing you really care about your clients. Keep your clients engaged and increase your chances of selling more.
+- [Multiple Testimonial Collection Forms](https://strongtestimonials.com/docs/creating-multiple-forms/?utm_source=wordpress.org&utm_medium=link&utm_campaign=description&utm_term=Multiple+forms): You can now create multiple forms to collect testimonials from your website visitors and customers. You can easily create new forms to gather testimonials for different types of products on your website. There is no limit to the number of forms you can create or use.
+- [Advanced Views](https://strongtestimonials.com/docs/fields-reordering/?utm_source=wordpress.org&utm_medium=link&utm_campaign=description&utm_term=Advanced+views): Easily define the display order of your testimonial fields. Re-order the name, image, URL, and testimonial content fields through drag & drop.
+- [Properties](https://strongtestimonials.com/docs/properties/?utm_source=wordpress.org&utm_medium=link&utm_campaign=description&utm_term=Properties): If you are not a fan of calling your product reviews testimonials, then use this extension to replace the default text (testimonials) with another one such as reviews or ratings.
+- [Captcha anti-spam form Protection](https://strongtestimonials.com/docs/adding-spam-control-to-your-forms/?utm_source=wordpress.org&utm_medium=link&utm_campaign=description&utm_term=Captcha): Protection for spam is something all websites need.
+- [Templates](https://strongtestimonials.com/docs/pro-templates/?utm_source=wordpress.org&utm_medium=link&utm_campaign=description&utm_term=Templates): Beautifully designed & pixel-perfect templates, ready to use to showcase your testimonials. Don't lose clients with a poor design.
+- [Infinite Scroll](https://strongtestimonials.com/docs/infinite-scroll/?utm_source=wordpress.org&utm_medium=link&utm_campaign=description&utm_term=Infinite+scroll): Using this extension you can control the number of testimonials that are visible on a pages first load. As the user starts scrolling down the page, more testimonials are brought into view using a continuous loading animation.
+- [Enhanced emails](https://strongtestimonials.com/docs/enhanced-emails/?utm_source=wordpress.org&utm_medium=link&utm_campaign=description&utm_term=Enhanced+emails): Send a thank you email to your client once their testimonial is approved. Increase brand loyalty by showing you really care about your clients. Keep your clients engaged and increase your chances of selling more.
 - Priority email support.
 - Support and updates for 12 months.
 
-**[Learn more about Strong Testimonials - Paid version .](https://strongtestimonials.com/pricing?utm_source=wordpress.org&utm_medium=web&utm_campaign=lite)**
+**[Learn more about Strong Testimonials - Paid version .](https://strongtestimonials.com/pricing/?utm_source=wordpress.org&utm_medium=link&utm_campaign=description&utm_term=ST+pro)**
 
 ### Style
 
