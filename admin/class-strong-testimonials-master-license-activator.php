@@ -245,6 +245,13 @@ if ( ! class_exists( 'Strong_Testimonials_Master_License_Activator' ) ) {
 					exit;
 				}
 			}
+			// Get all installed extensions.
+			$installed_extensions = $this->get_installed_extensions();
+			// Check if ther are any extensions that are not deactivated.
+			$active_extensions = array_diff( $installed_extensions, $extensions );
+			if ( ! empty( $active_extensions ) ) {
+				return;
+			}
 
 			$store_url = ( 'false' !== get_option( 'strong_testimonials_alt_server', 'false' ) ) ? WPMTST_ALT_STORE_URL : WPMTST_STORE_URL;
 
@@ -291,9 +298,9 @@ if ( ! class_exists( 'Strong_Testimonials_Master_License_Activator' ) ) {
 
 			// decode the license data.
 			$license_data = json_decode( wp_remote_retrieve_body( $response ) );
-
 			// $license_data->license will be either "deactivated" or "failed"
-			if ( 'deactivated' === $license_data->license ) {
+			// Only delete the license status if there are no active extensions.
+			if ( 'deactivated' === $license_data->license && empty( $active_extensions ) ) {
 				delete_option( 'strong_testimonials_license_status' );
 			}
 
