@@ -87,10 +87,6 @@ class WPMTST_Admin_Helpers {
 			<div class="wpchill-status-bar">
 			</div>
 			<div class="wpchill-header-links">
-				<a href="<?php echo esc_url( admin_url( 'index.php?page=wpmtst-getting-started' ) ); ?>"
-					class="button button-secondary"><span
-							class="dashicons dashicons-admin-plugins"></span><?php esc_html_e( 'About', 'strong-testimonials' ); ?>
-				</a>
 				<a href="https://strongtestimonials.com/docs/" target="_blank" id="get-help"
 					class="button button-secondary"><span
 							class="dashicons dashicons-external"></span><?php esc_html_e( 'Documentation', 'strong-testimonials' ); ?>
