@@ -602,7 +602,7 @@ class Strong_Testimonials_Upsell {
 		?>
 		<div class="wpmtst-alert">
 			<?php
-			echo wp_kses_post( sprintf( __( 'With the %1$sStrong Testimonials: PRO Templates%2$s you can impress your potential clients with profesionally designed, pixel-perfect templates that increase your chances of standing out and landing more clients.', 'strong-testimonials' ), '<a href="https://strongtestimonials.com/extensions/pro-templates/" target="_blank">', '</a>' ) );
+			echo wp_kses_post( sprintf( __( 'With the %1$sStrong Testimonials: PRO Templates%2$s you can impress your potential clients with profesionally designed, pixel-perfect templates that increase your chances of standing out and landing more clients.', 'strong-testimonials' ), '<a href="' . WPMTST_STORE_URL . '/extensions/pro-templates/" target="_blank">', '</a>' ) );
 			?>
 			<p>
 				<a class="button button-primary" target="_blank" href="<?php echo esc_url( $this->store_upgrade_url . '&utm_medium=views-pro-templates-upsell' ); ?>"><?php echo esc_html( apply_filters( 'wpmtst_upsells_button_text', __( 'Upgrade', 'strong-testimonials' ) ) ); ?></a>
