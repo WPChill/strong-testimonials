@@ -189,11 +189,17 @@ class Strong_Testimonials_Addons {
 	 * @param $url
 	 */
 	public function register_tab( $active_tab, $url ) {
-		printf(
-			'<a href="%s" class="nav-tab %s">%s</a>',
-			esc_url( add_query_arg( 'tab', 'license', $url ) ),
-			esc_attr( 'license' === $active_tab ? 'nav-tab-active' : '' ),
-			esc_html__( 'License', 'strong-testimonials' )
+		echo apply_filters(
+			'wpmtst_license_tab',
+			sprintf(
+				'<a href="%1$s" class="nav-tab %2$s">%3$s %4$s</a>',
+				esc_url( add_query_arg( 'tab', 'license', $url ) ),
+				esc_attr( 'license' === $active_tab ? 'nav-tab-active' : '' ),
+				esc_html__( 'License', 'strong-testimonials' ),
+				'<span class="wpmtst-upsell-badge">PRO</span>'
+			),
+			$active_tab,
+			$url
 		);
 	}
 
