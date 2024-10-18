@@ -367,33 +367,6 @@ if ( ! class_exists( 'Strong_Testimonials' ) ) :
 			add_action( 'after_setup_theme', array( $this, 'add_image_size' ) );
 
 			add_filter( 'views_edit-wpm-testimonial', array( $this, 'add_onboarding_view' ), 10, 1 );
-
-			// License checker initiation
-			// Need to put store_url like this because it doesn't know who the constant is.
-			$args = array(
-				'plugin_slug'     => 'strong-testimonials',
-				'plugin_nicename' => 'Strong Testimonials',
-				'store_url'       => 'https://strongtestimonials.com',
-				'item_id'         => 724,
-				'license'         => 'strong_testimonials_license_key',
-				'license_status'  => 'strong_testimonials_license_status',
-				'plugin_file'     => __FILE__,
-				'addons_prefix'   => 'strong-testimonials-',
-			);
-
-			require_once WPMTST_INC . 'submodules/license-checker/class-wpchill-license-checker.php';
-			$wpchill_license_checker = Wpchill_License_Checker::get_instance( 'strong-testimonials', $args );
-
-			if ( is_admin() ) {
-				// Check if we need to add lite vs pro page
-				$license = get_option( 'strong_testimonials_license_key' );
-				$status  = get_option( 'strong_testimonials_license_status', false );
-				if ( '' === $license || false === $status || ! isset( $status->license ) || 'valid' !== $status->license ) {
-					if ( class_exists( 'Strong_Testimonials_Lite_Vs_PRO_Page' ) ) {
-						new Strong_Testimonials_Lite_Vs_PRO_Page();
-					}
-				}
-			}
 		}
 
 		/**
