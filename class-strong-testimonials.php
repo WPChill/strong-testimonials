@@ -367,6 +367,17 @@ if ( ! class_exists( 'Strong_Testimonials' ) ) :
 			add_action( 'after_setup_theme', array( $this, 'add_image_size' ) );
 
 			add_filter( 'views_edit-wpm-testimonial', array( $this, 'add_onboarding_view' ), 10, 1 );
+
+			if ( is_admin() ) {
+				// Check if we need to add lite vs pro page
+				$license = get_option( 'strong_testimonials_license_key' );
+				$status  = get_option( 'strong_testimonials_license_status', false );
+				if ( '' === $license || false === $status || ! isset( $status->license ) || 'valid' !== $status->license ) {
+					if ( class_exists( 'Strong_Testimonials_Lite_Vs_PRO_Page' ) ) {
+						new Strong_Testimonials_Lite_Vs_PRO_Page();
+					}
+				}
+			}
 		}
 
 		/**

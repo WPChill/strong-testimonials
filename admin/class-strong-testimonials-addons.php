@@ -165,8 +165,9 @@ class Strong_Testimonials_Addons {
 	public function reload_extensions() {
 		// Run a security check first.
 		check_admin_referer( 'wpmtst-reload-extensions', 'nonce' );
-
 		delete_transient( 'strong_testimonials_all_extensions' );
+
+		do_action( 'wpmtst_reload_extensions' );
 
 		die;
 	}
