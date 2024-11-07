@@ -149,14 +149,6 @@ if ( ! class_exists( 'Strong_Testimonials' ) ) :
 			flush_rewrite_rules();
 
 			do_action( 'wpmtst_after_update_setup', $first_install );
-
-			if ( class_exists( 'Strong_Testimonials_Master_License_Activator' ) ) {
-				$license = new Strong_Testimonials_Master_License_Activator();
-				if ( method_exists( $license, 'get_installed_extensions' ) ) {
-					$extensions = $license->get_installed_extensions();
-					$license->force_license_activation( false, $extensions, 'activate-st' );
-				}
-			}
 		}
 
 
@@ -188,13 +180,6 @@ if ( ! class_exists( 'Strong_Testimonials' ) ) :
 		 */
 		public static function plugin_deactivation() {
 			flush_rewrite_rules();
-			if ( class_exists( 'Strong_Testimonials_Master_License_Activator' ) ) {
-				$license = new Strong_Testimonials_Master_License_Activator();
-				if ( method_exists( $license, 'get_installed_extensions' ) ) {
-					$extensions = $license->get_installed_extensions();
-					$license->force_license_deactivation( false, $extensions, 'deactivate-st' );
-				}
-			}
 		}
 
 		/**
@@ -288,7 +273,6 @@ if ( ! class_exists( 'Strong_Testimonials' ) ) :
 			require_once WPMTST_INC . 'class-strong-testimonials-view-widget.php';
 
 			if ( is_admin() || ( defined( 'WP_CLI' ) && WP_CLI ) ) {
-				require_once WPMTST_ADMIN . 'class-strong-testimonials-master-license-activator.php';
 				require_once WPMTST_ADMIN . 'menu/class-strong-testimonials-menu.php';
 				require_once WPMTST_ADMIN . 'menu/class-strong-testimonials-menu-fields.php';
 				require_once WPMTST_ADMIN . 'menu/class-strong-testimonials-menu-settings.php';
