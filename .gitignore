@@ -4,7 +4,7 @@ assets/dist/
 .standard.json
 .vscode
 # assets/dist/
-
+package-lock.json
 #################
 ## PhpStorm
 #################
