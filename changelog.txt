@@ -1,5 +1,6 @@
-= 3.1.21 - TBD -
+= 3.2.0 - TBD -
 - Fixed: Modern view tempalte path to quote marks was not correct.
+- Changed: Removed license functionality
 
 = 3.1.20 - 02.09.2024 -
 - Fixed: Fixed fatal errors occurring after applying WPCS.

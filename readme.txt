@@ -3,8 +3,8 @@ Contributors: wpchill,silkalns,cdillon27
 Tags: testimonials, testimonial slider, testimonial form, star ratings
 Requires at least: 5.2
 Requires PHP: 5.6
-Tested up to: 6.6
-Stable tag: 3.1.20
+Tested up to: 6.7
+Stable tag: 3.2.0
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -199,8 +199,9 @@ No. If you already have testimonials in another plugin or theme, you will have t
 8. View editor
 
 == Changelog ==
-= 3.1.21 - TBD -
+= 3.2.0 - TBD -
 - Fixed: Modern view tempalte path to quote marks was not correct. ( [#474](https://github.com/WPChill/strong-testimonials/issues/474) )
+- Removed: License functionality
 
 = 3.1.20 - 02.09.2024 -
 - Fixed: Fixed fatal errors occurring after applying WPCS.
