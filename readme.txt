@@ -199,9 +199,11 @@ No. If you already have testimonials in another plugin or theme, you will have t
 8. View editor
 
 == Changelog ==
-= 3.2.0 - TBD -
+= 3.2.0 - 13.11.2024 -
 - Fixed: Modern view tempalte path to quote marks was not correct. ( [#474](https://github.com/WPChill/strong-testimonials/issues/474) )
 - Removed: License functionality
+- Fixed: Upsells fix ( [#477](https://github.com/WPChill/strong-testimonials/issues/477) )
+- Changed: Removed the About link ( [#476](https://github.com/WPChill/strong-testimonials/issues/476) )
 
 = 3.1.20 - 02.09.2024 -
 - Fixed: Fixed fatal errors occurring after applying WPCS.
