@@ -23,7 +23,7 @@
 		"@babel/eslint-parser": "^7.24.6",
 		"@tanstack/eslint-plugin-query": "^5.52.0",
 		"@wordpress/babel-plugin-makepot": "^6.5.0",
-		"@wordpress/scripts": "^28.5.0",
+		"@wordpress/scripts": "^30.4.0",
 		"archiver": "^5.3.1",
 		"eslint": "^8.57.0",
 		"eslint-config-prettier": "^9.1.0",
