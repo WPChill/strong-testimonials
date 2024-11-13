@@ -53,15 +53,15 @@ $template: modern;
   .wpmtst-testimonial-content:before {
     left: -56px;
     top: 0;
-    -webkit-mask: url('../../public/svg/quote-left-solid.svg') center center no-repeat;
-    mask: url('../../public/svg/quote-left-solid.svg') center center no-repeat;
+    -webkit-mask: url('../../assets/public/svg/quote-left-solid.svg') center center no-repeat;
+    mask: url('../../assets/public/svg/quote-left-solid.svg') center center no-repeat;
   }
 
   .wpmtst-testimonial-content:after {
     right: -56px;
     bottom: 0;
-    -webkit-mask: url('../../public/svg/quote-right-solid.svg') center center no-repeat;
-    mask: url('../../public/svg/quote-right-solid.svg') center center no-repeat;
+    -webkit-mask: url('../../assets/public/svg/quote-right-solid.svg') center center no-repeat;
+    mask: url('../../assets/public/svg/quote-right-solid.svg') center center no-repeat;
   }
 
   .wpmtst-testimonial-field {

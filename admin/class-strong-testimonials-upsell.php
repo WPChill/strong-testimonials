@@ -55,7 +55,7 @@ class Strong_Testimonials_Upsell {
 			add_filter( 'wpmtst_general_upsell_items', array( $this, 'add_role_upsell' ), 20 );
 		}
 
-		if ( $this->is_upgradable_addon( 'strong-testimonials-contry-selector' ) ) {
+		if ( $this->is_upgradable_addon( 'strong-testimonials-country-selector' ) ) {
 			add_action( 'wpmtst_after_form_type_selection', array( $this, 'output_country_selector_upsell' ) );
 			add_filter( 'wpmtst_general_upsell_items', array( $this, 'add_country_selector_upsell' ), 95 );
 		}
@@ -122,6 +122,10 @@ class Strong_Testimonials_Upsell {
 		if ( $this->is_upgradable_addon( 'strong-testimonials-properties' ) ) {
 			add_action( 'wpmtst_settings_tabs', array( $this, 'register_properties_tab' ), 4, 2 );
 			add_filter( 'wpmtst_settings_callbacks', array( $this, 'register_properties_page' ) );
+		}
+
+		if ( $this->is_upgradable_addon( 'strong-testimonials-mailchimp' ) ) {
+			add_action( 'wpmtst_after_form_settings', array( $this, 'output_mailchip_form_settings_upsell' ) );
 		}
 	}
 
@@ -598,7 +602,7 @@ class Strong_Testimonials_Upsell {
 		?>
 		<div class="wpmtst-alert">
 			<?php
-			echo esc_html__( 'Impress your potential clients with profesionally designed, pixel-perfect templates that increase your chances of standing out and landing more clients.', 'strong-testimonials' )
+			echo wp_kses_post( sprintf( __( 'With the %1$sStrong Testimonials: PRO Templates%2$s you can impress your potential clients with profesionally designed, pixel-perfect templates that increase your chances of standing out and landing more clients.', 'strong-testimonials' ), '<a href="' . WPMTST_STORE_URL . '/extensions/pro-templates/" target="_blank">', '</a>' ) );
 			?>
 			<p>
 				<a class="button button-primary" target="_blank" href="<?php echo esc_url( $this->store_upgrade_url . '&utm_medium=views-pro-templates-upsell' ); ?>"><?php echo esc_html( apply_filters( 'wpmtst_upsells_button_text', __( 'Upgrade', 'strong-testimonials' ) ) ); ?></a>
@@ -1061,6 +1065,32 @@ class Strong_Testimonials_Upsell {
 		}
 		</style>';
 		echo $css;
+	}
+
+	public function output_mailchip_form_settings_upsell() {
+		?>
+		<hr>
+
+		<h3><?php esc_html_e( 'Mailchimp', 'strong-testimonials' ); ?></h3>
+
+		<div class="wpmtst-alert">
+			<?php
+			printf(
+				// translators: %s is a link to a Strong Testimonials extension page.
+				esc_html__( 'With this extension you can automatically subscribe your users to a MailChimp email list. Follow up with a targeted message or a coupon to thank them for leaving a good review. Unlock even more marketing & automation potential. ', 'strong-testimonials' ),
+				sprintf(
+					'<a href="%s" target="_blank">%s</a>',
+					esc_url( WPMTST_STORE_URL . '/extensions/mailchimp?utm_source=st-lite&utm_campaign=upsell&utm_medium=form-settings-upsell' ),
+					esc_html__( 'Strong Testimonials: Captcha', 'strong-testimonials' )
+				)
+			);
+			?>
+			<p>
+				<a class="button button-primary" target="_blank"
+					href="<?php echo esc_url( $this->store_upgrade_url . '&utm_medium=form-settings-captcha-upsell' ); ?>"><?php echo esc_html( apply_filters( 'wpmtst_upsells_button_text', __( 'Upgrade', 'strong-testimonials' ) ) ); ?></a>
+			</p>
+		</div>
+		<?php
 	}
 }
 

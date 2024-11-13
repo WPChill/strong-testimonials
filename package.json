@@ -1,11 +1,11 @@
 {
 	"name": "strong-testimonials",
 	"author": "WPChill",
-	"version": "3.1.20",
+	"version": "3.2.0",
 	"license": "GPL v3",
 	"scripts": {
-		"build": "NODE_ENV=production wp-scripts build --config webpack.config.js",
-		"start": "NODE_ENV=development wp-scripts start --config webpack.config.js",
+		"build": "cross-env NODE_ENV=production wp-scripts build --config webpack.config.js",
+		"start": "cross-env NODE_ENV=development wp-scripts start --config webpack.config.js",
 		"packages-update": "wp-scripts packages-update",
 		"format:src": "wp-scripts format ./client-src/",
 		"plugin-zip": "npm run build && npm run clean && npm run copy && npm run css && npm run bundle && npm run clean",
@@ -32,7 +32,8 @@
 		"fs-extra": "^11.2.0",
 		"glob": "^10.3.3",
 		"postcss-cli": "^11.0.0",
-		"rimraf": "^5.0.1"
+		"rimraf": "^5.0.1",
+		"cross-env": "^7.0.3"
 	},
 	"dependencies": {
 		"@wordpress/icons": "^9.18.0",

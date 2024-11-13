@@ -128,15 +128,15 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
   content: "";
   left: -56px;
   top: 0;
-  -webkit-mask: url('../../public/svg/quote-left-solid.svg') center center no-repeat;
-  mask: url('../../public/svg/quote-left-solid.svg') center center no-repeat;
+  -webkit-mask: url('../../assets/public/svg/quote-left-solid.svg') center center no-repeat;
+  mask: url('../../assets/public/svg/quote-left-solid.svg') center center no-repeat;
 }
 .strong-view.wpmtst-modern .wpmtst-testimonial-content:after {
   content: "";
   right: -56px;
   bottom: 0;
-  -webkit-mask: url('../../public/svg/quote-right-solid.svg') center center no-repeat;
-  mask: url('../../public/svg/quote-right-solid.svg') center center no-repeat;
+  -webkit-mask: url('../../assets/public/svg/quote-right-solid.svg') center center no-repeat;
+  mask: url('../../assets/public/svg/quote-right-solid.svg') center center no-repeat;
 }
 .strong-view.wpmtst-modern .wpmtst-testimonial-field {
   clear: both;

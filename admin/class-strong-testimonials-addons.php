@@ -13,9 +13,6 @@ class Strong_Testimonials_Addons {
 
 		// Add ajax action to reload extensions
 		add_action( 'wp_ajax_wpmtst_reload_extensions', array( $this, 'reload_extensions' ), 20 );
-
-		add_filter( 'wpmtst_addon_button_action', array( $this, 'output_download_link' ), 5 );
-
 		add_action( 'wpmtst_settings_tabs', array( $this, 'register_tab' ), 1, 2 );
 		add_filter( 'wpmtst_settings_callbacks', array( $this, 'register_settings_page' ) );
 	}
@@ -56,6 +53,9 @@ class Strong_Testimonials_Addons {
 
 		if ( ! empty( $this->addons ) ) {
 			foreach ( $this->addons as $addon ) {
+				if ( 'strong-testimonials-pro' === $addon['slug'] ) {
+					continue;
+				}
 				$image = ( '' !== $addon['image'] ) ? $addon['image'] : WPMTST_ASSETS_IMG . '/logo.png';
 				echo '<div class="wpmtst-addon">';
 				echo '<div class="wpmtst-addon-box">';
@@ -104,7 +104,6 @@ class Strong_Testimonials_Addons {
 	/**
 	 * Print the Addons page.
 	 */
-
 	public function addons_page() {
 
 		$this->addons = $this->check_for_addons();
@@ -169,8 +168,9 @@ class Strong_Testimonials_Addons {
 	public function reload_extensions() {
 		// Run a security check first.
 		check_admin_referer( 'wpmtst-reload-extensions', 'nonce' );
-
 		delete_transient( 'strong_testimonials_all_extensions' );
+
+		do_action( 'wpmtst_reload_extensions' );
 
 		die;
 	}
@@ -193,11 +193,17 @@ class Strong_Testimonials_Addons {
 	 * @param $url
 	 */
 	public function register_tab( $active_tab, $url ) {
-		printf(
-			'<a href="%s" class="nav-tab %s">%s</a>',
-			esc_url( add_query_arg( 'tab', 'license', $url ) ),
-			esc_attr( 'license' === $active_tab ? 'nav-tab-active' : '' ),
-			esc_html__( 'License', 'strong-testimonials' )
+		echo apply_filters(
+			'wpmtst_license_tab',
+			sprintf(
+				'<a href="%1$s" class="nav-tab %2$s">%3$s %4$s</a>',
+				esc_url( add_query_arg( 'tab', 'license', $url ) ),
+				esc_attr( 'license' === $active_tab ? 'nav-tab-active' : '' ),
+				esc_html__( 'License', 'strong-testimonials' ),
+				'<span class="wpmtst-upsell-badge">PRO</span>'
+			),
+			$active_tab,
+			$url
 		);
 	}
 
@@ -209,7 +215,7 @@ class Strong_Testimonials_Addons {
 	 * @return mixed
 	 */
 	public function register_settings_page( $pages ) {
-		$pages['license'] = array( $this, 'render_license' );
+		$pages['license'] = array( $this, 'render_license_upsell_content' );
 
 		return $pages;
 	}
@@ -219,158 +225,16 @@ class Strong_Testimonials_Addons {
 	 *
 	 * @return void
 	 */
-	public function render_license() {
-
-		$license    = get_option( 'strong_testimonials_license_key' );
-		$email      = get_option( 'strong_testimonials_email' );
-		$status     = get_option( 'strong_testimonials_license_status', false );
-		$alt_server = get_option( 'strong_testimonials_alt_server', false );
-		$messages   = array(
-			'no-license'       => esc_html__( 'Enter your license key', 'strong-testimonials' ),
-			'activate-license' => esc_html__( 'Activate your license key', 'strong-testimonials' ),
-			// Translators: %s is the date until the license is active.
-			'all-good'         => __( 'Your license is active until <strong>%s</strong>', 'strong-testimonials' ),
-			'lifetime'         => __( 'You have a lifetime license.', 'strong-testimonials' ),
-			'expired'          => esc_html__( 'Your license has expired', 'strong-testimonials' ),
-		);
-
-		if ( '' === $license ) {
-			//$license_message = $messages['no-license'];
-			$license_message = '';
-		} elseif ( '' !== $license && false === $status ) {
-			//$license_message = $messages['activate-license'];
-			$license_message = '';
-		} elseif ( 'expired' === $status->license ) {
-			$license_message = $messages['expired'];
-		} elseif ( '' !== $license && false !== $status && isset( $status->license ) && 'valid' === $status->license ) {
-
-			$date_format = get_option( 'date_format' );
-
-			if ( 'lifetime' === $status->expires ) {
-				$license_message = $messages['lifetime'];
-			} else {
-				$license_expire = date( $date_format, strtotime( $status->expires ) ); // phpcs:ignore WordPress.DateTime.RestrictedFunctions.date_date
-				$curr_time      = time();
-				// weeks till expiration
-				$weeks = (int) ( ( strtotime( $status->expires ) - $curr_time ) / ( 7 * 24 * 60 * 60 ) );
-
-				// set license status based on colors
-				if ( 4 >= $weeks ) {
-					$l_stat = 'red';
-				} else {
-					$l_stat = 'green';
-				}
-
-				$license_message = sprintf( '<p class="%s">' . $messages['all-good'] . '</p>', $l_stat, $license_expire );
-
-				if ( 'green' !== $l_stat ) {
-					// translators: %s is the number of weeks until the license will expire.
-					$license_message .= sprintf( __( 'You have %s week(s) untill your license will expire.', 'strong-testimonials' ), $weeks );
-				}
-			}
-		}
+	public function render_license_upsell_content() {
 		?>
-
-		<h2><?php esc_html_e( 'License', 'strong-testimonials' ); ?></h2>
-		<?php do_action( 'wpmtst_license_errors' ); ?>
-			<?php
-			$valid_license = false;
-			if ( false !== $license && $status && 'valid' === $status->license ) {
-				$valid_license = true;
-			}
-			?>
-		<table class="form-table wpmtst_license_table" cellpadding="0" cellspacing="0">
-
-			<tr valign="top">
-				<th scope="row">
-					<?php esc_html_e( 'Email Address', 'strong-testimonials' ); ?>
-				</th>
-				<td>
-					<fieldset>
-
-							<input type="email" id="strong_testimonials_email" name="strong_testimonials_email" value="<?php echo esc_attr( $email ); ?>">
-						<p class="description"><?php esc_html_e( 'The email address used for license acquisition.', 'strong-testimonials' ); ?></p>
-					</fieldset>
-				</td>
-			</tr>
-			<tr valign="top">
-				<th scope="row">
-					<?php esc_html_e( 'License Key', 'strong-testimonials' ); ?>
-				</th>
-				<td>
-					<fieldset>
-
-						<input type="password" id="strong_testimonials_license_key" name="strong_testimonials_license_key" value="<?php echo esc_attr( $license ); ?>">  <a href="#" target="_blank" id="st-forgot-license" data-nonce="<?php echo esc_attr( wp_create_nonce( 'strong_testimonials_license_nonce' ) ); ?>"><?php esc_html_e( 'Forgot your license?', 'strong-testimonials' ); ?></a><br>
-						<p class="description"><?php echo wp_kses_post( $license_message ); ?></p>
-
-						<input type="hidden" value="<?php echo esc_attr( wp_create_nonce( 'strong_testimonials_license_nonce' ) ); ?>"/>
-						
-						<label class="description strong-testimonials-license-label" for="strong_testimonials_license_key"></label>
-				</fieldset>
-				</td>
-			</tr>
-			<tr valign="top">
-				<th scope="row">
-					<?php esc_html_e( 'Use Alternative Server', 'strong-testimonials' ); ?>
-				</th>
-				<td>
-					<fieldset>
-						<div class="wpmtst-toggle">
-							<input class="wpmtst-toggle__input" type="checkbox"
-								data-setting="strong_testimonials_alt_server"
-								id="strong_testimonials_alt_server"
-								name="strong_testimonials_alt_server"
-								value="1" <?php checked( $alt_server, 'true', 'false' ); ?>>
-							<div class="wpmtst-toggle__items">
-								<span class="wpmtst-toggle__track"></span>
-								<span class="wpmtst-toggle__thumb"></span>
-								<svg class="wpmtst-toggle__off" width="6" height="6" aria-hidden="true" role="img"
-									focusable="false" viewBox="0 0 6 6">
-									<path d="M3 1.5c.8 0 1.5.7 1.5 1.5S3.8 4.5 3 4.5 1.5 3.8 1.5 3 2.2 1.5 3 1.5M3 0C1.3 0 0 1.3 0 3s1.3 3 3 3 3-1.3 3-3-1.3-3-3-3z"></path>
-								</svg>
-								<svg class="wpmtst-toggle__on" width="2" height="6" aria-hidden="true" role="img"
-									focusable="false" viewBox="0 0 2 6">
-									<path d="M0 0h2v6H0z"></path>
-								</svg>
-							</div>
-						</div>
-						<p class="description">
-							<?php esc_html_e( 'Sometimes there can be problems with the activation server, in which case please try the alternative one.', 'strong-testimonials' ); ?>
-						</p>
-					</fieldset>
-				</td>
-			</tr>
-			<tr valign="top">
-				<th scope="row">
-					<?php esc_html_e( 'Action', 'strong-testimonials' ); ?>
-				</th>
-				<td>
-				<button class="button button-primary" id="st-master-license-btn" data-action="<?php echo ( ! $valid_license ) ? 'activate' : 'deactivate'; ?>"><?php ( ! $valid_license ) ? esc_html_e( 'Activate', 'strong-testimonials' ) : esc_html_e( 'Deactivate', 'strong-testimonials' ); ?></button>
-				</td>
-			</tr>
-
-		</table>
-
-
+		<div class="wpmtst-alert">
+			<h2> Strong Testimonials - PRO </h2>
+			<p><?php esc_html_e( 'Manage license activation and deactivation, and install extensions seamlessly on-the-go.', 'strong-testimonials' ); ?></p>
+			<p>
+				<a class="button button-primary" target="_blank" href="<?php echo esc_url( WPMTST_STORE_UPGRADE_URL . '?utm_medium=license-tab' ); ?>"><?php echo esc_html( apply_filters( 'wpmtst_upsells_button_text', __( 'Upgrade Now', 'strong-testimonials' ) ) ); ?></a>
+			</p>
+		</div>
 		<?php
-	}
-
-	/**
-	 * Output the download link.
-	 *
-	 * @param string $link The link.
-	 *
-	 * @return string
-	 * @since 3.1.4
-	 */
-	public function output_download_link( $link ) {
-		$license = get_option( 'strong_testimonials_license_key', false );
-		$status  = get_option( 'strong_testimonials_license_status', false );
-		if ( ! $license || $status && 'valid' !== $status->license ) {
-			return $link;
-		}
-
-		return '<a href="' . WPMTST_STORE_URL . '/account/" class="button button-primary" target="_blank">' . __( 'Download extension', 'strong-testimonials' ) . '</a>';
 	}
 }
 
