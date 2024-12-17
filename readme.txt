@@ -199,8 +199,9 @@ No. If you already have testimonials in another plugin or theme, you will have t
 8. View editor
 
 == Changelog ==
-= 3.2.1 - 17.12.2024 -
+ = 3.2.1 - 17.12.2024 -
 - Changed: Disabled seasonal promotions notifications.
+- Fixed: Javascript error in admin.
 
 = 3.2.0 - 13.11.2024 -
 - Fixed: Modern view tempalte path to quote marks was not correct. ( [#474](https://github.com/WPChill/strong-testimonials/issues/474) )

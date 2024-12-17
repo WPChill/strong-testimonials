@@ -7,6 +7,8 @@ class Strong_Testimonials_Lite_Vs_PRO_Page {
 
 	public function __construct() {
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
+		add_action( 'admin_print_footer_scripts', array( $this, 'inline_script_for_redirection' ) );
+
 		add_filter( 'wpmtst_submenu_pages', array( $this, 'add_submenu' ) );
 
 		// Upgrade to PRO plugin action link
@@ -56,82 +58,32 @@ class Strong_Testimonials_Lite_Vs_PRO_Page {
 			'page_title' => esc_html__( 'Lite vs Pro', 'strong-testimonials' ),
 			'menu_title' => esc_html__( 'Lite vs Pro', 'strong-testimonials' ),
 			'capability' => 'strong_testimonials_options',
-			'menu_slug'  => 'strong-testimonials-lite-vs-pro',
+			'menu_slug'  => '#st-lite-vs-pro',
 			'function'   => array( $this, 'render_page' ),
 		);
 	}
 
 	public function render_page() {
+		return;
+	}
 
-		$addons = new Strong_Testimonials_Addons();
+	public function inline_script_for_redirection() {
 		?>
-		<div class="wrap wpmtst-lite-vs-premium">
-			<hr class="wp-header-end" />
-			<h1><?php echo esc_html__( 'LITE vs PRO', 'strong-testimonials' ); ?> </h1>	
-			<div class="free-vs-premium">
-				<!--  Table header -->
-				<div class="wpchill-plans-table table-header">
-					<div class="wpchill-pricing-package wpchill-empty">
-						<!--This is an empty div so that we can have an empty corner-->
-					</div>
-					<div class="wpchill-pricing-package wpchill-title">
-						<p class="wpchill-name"><strong>PRO</strong></p>
-					</div>
-					<div class="wpchill-pricing-package wpchill-title wpchill-wpmtst-lite">
-						<p class="wpchill-name"><strong>LITE</strong></p>
-					</div>
-				</div>
-				<!--  Table content -->
-
-				<?php
-				foreach ( $addons->get_addons() as $pro ) {
-					?>
-					<div class="wpchill-plans-table">
-					<div class="wpchill-pricing-package feature-name">
-						<h3><?php echo esc_html( $pro['name'] ); ?></h3>
-						<p class="tab-header-description wpmtst-tooltip-content">
-							<?php echo esc_html( $pro['description'] ); ?>
-						</p>
-					</div>
-					<div class="wpchill-pricing-package">
-						<span class="dashicons dashicons-saved"></span>
-					</div>
-					<div class="wpchill-pricing-package">
-						<span class="dashicons dashicons-no-alt"></span>
-					</div>
-				</div>
-					<?php
+		<script type="text/javascript">
+			document.addEventListener('DOMContentLoaded', function() {
+				const link = document.querySelector('a[href*="edit.php?post_type=wpm-testimonial&page=#st-lite-vs-pro"]');
+				if (link) {
+					link.addEventListener('click', function(event) {
+						event.preventDefault();
+						
+						window.open(
+						'https://strongtestimonials.com/free-vs-pro/?utm_source=st-lite&utm_medium=link&utm_campaign=upsell&utm_term=lite-vs-pro',
+						'_blank'
+					);
+					});
 				}
-				?>
-				<!-- Support -->
-				<div class="wpchill-plans-table">
-					<div class="wpchill-pricing-package feature-name">
-						<h3><?php esc_html_e( 'Support', 'strong-testimonials' ); ?></h3>
-					</div>
-					<div class="wpchill-pricing-package">Priority</div>
-					<div class="wpchill-pricing-package"><a href="https://wordpress.org/support/plugin/strong-testimonials/"
-							target="_blank">wp.org</a>
-					</div>
-				</div>
-				<!--  Table footer -->
-				<div class="wpchill-plans-table tabled-footer">
-					<div class="wpchill-pricing-package wpchill-empty">
-						<!--This is an empty div so that we can have an empty corner-->
-					</div>
-					<div class="wpchill-pricing-package wpchill-title wpchill-wpmtst-grid-gallery-business">
-
-						<a href="https://strongtestimonials.com/pricing/?utm_source=strong-testimonials&utm_medium=lite-vs-pro&utm_campaign=upsell" target="_blank"
-							class="button button-primary button-hero "><span class="dashicons dashicons-cart"></span>
-							<?php esc_html_e( 'Upgrade now!', 'strong-testimonials' ); ?> </a>
-
-					</div>
-					<div class="wpchill-pricing-package wpchill-title wpchill-wpmtst-lite">
-
-
-					</div>
-				</div>
-			</div>
-		</div>
+			});
+		</script>
 		<?php
 	}
 }
