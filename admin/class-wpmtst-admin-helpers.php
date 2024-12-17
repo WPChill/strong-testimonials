@@ -95,6 +95,10 @@ class WPMTST_Admin_Helpers {
 					href="https://strongtestimonials.com/contact-us/" target="_blank"><span
 							class="dashicons dashicons-email-alt"></span><?php echo esc_html__( 'Contact us for support!', 'strong-testimonials' ); ?>
 				</a>
+				<a class="button button-secondary"
+					href="https://strongtestimonials.com/changelog/?utm_source=st-lite&utm_medium=link&utm_campaign=settings&utm_term=changelog" target="_blank"><span
+							class="dashicons dashicons-editor-ol"></span><?php echo esc_html__( 'Changelog', 'strong-testimonials' ); ?>
+				</a>
 			</div>
 		</div>
 		<?php

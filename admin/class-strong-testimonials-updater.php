@@ -12,7 +12,7 @@ class Strong_Testimonials_Updater {
 	 *
 	 * @var string
 	 */
-	private static $old_version;
+	private static $old_version = '3.0.0';
 
 	/**
 	 * Log steps during update process.

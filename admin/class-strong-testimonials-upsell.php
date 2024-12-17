@@ -952,16 +952,16 @@ class Strong_Testimonials_Upsell {
 	 * @since 3.1.10
 	 */
 	private function set_offer() {
-		$month = gmdate( 'm' );
+		// $month = gmdate( 'm' );
 
-		if ( '11' === $month ) {
-			add_filter( 'wpmtst_upsells_button_text', array( $this, 'bf_buttons' ), 15 );
-			add_action( 'admin_print_styles', array( $this, 'footer_bf_styles' ), 999 );
-		}
-		if ( '12' === $month ) {
-			add_filter( 'wpmtst_upsells_button_text', array( $this, 'xmas_buttons' ), 15 );
-			add_action( 'admin_print_styles', array( $this, 'footer_xmas_styles' ), 999 );
-		}
+		// if ( '11' === $month ) {
+		// 	add_filter( 'wpmtst_upsells_button_text', array( $this, 'bf_buttons' ), 15 );
+		// 	add_action( 'admin_print_styles', array( $this, 'footer_bf_styles' ), 999 );
+		// }
+		// if ( '12' === $month ) {
+		// 	add_filter( 'wpmtst_upsells_button_text', array( $this, 'xmas_buttons' ), 15 );
+		// 	add_action( 'admin_print_styles', array( $this, 'footer_xmas_styles' ), 999 );
+		// }
 	}
 
 	/**
