@@ -73,7 +73,7 @@ function wpmtst_scripts() {
 			'imagesloaded',
 			WPMTST_PUBLIC_URL . 'js/lib/imagesloaded/imagesloaded.pkgd.min.js',
 			array(),
-			'3.2.1',
+			WPMTST_VERSION,
 			true
 		);
 	}
