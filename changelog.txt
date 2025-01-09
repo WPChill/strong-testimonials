@@ -1,11 +1,14 @@
- = 3.2.2 - 19.12.2024 -
- - Fixed: Text domain loading
+= 3.2.3 - 09.01.2025 -
+- Fixed: Testimonial star rating edit triggering js error. ( [#493](https://github.com/WPChill/strong-testimonials/issues/493) )
+
+= 3.2.2 - 19.12.2024 -
+- Fixed: Text domain loading
  
- = 3.2.1 - 17.12.2024 -
+= 3.2.1 - 17.12.2024 -
 - Changed: Disabled seasonal promotions notifications.
 - Fixed: Javascript error in admin.
 
- 3.2.0 - 13.11.2024 -
+= 3.2.0 - 13.11.2024 -
 - Fixed: Modern view tempalte path to quote marks was not correct. ( [#474](https://github.com/WPChill/strong-testimonials/issues/474) )
 - Removed: License functionality
 - Fixed: Upsells fix ( [#477](https://github.com/WPChill/strong-testimonials/issues/477) )
