@@ -199,10 +199,13 @@ No. If you already have testimonials in another plugin or theme, you will have t
 8. View editor
 
 == Changelog ==
- = 3.2.2 - 19.12.2024 -
- - Fixed: Text domain loading
+= 3.2.3 - 09.01.2025 -
+- Fixed: Testimonial star rating edit triggering js error. ( [#493](https://github.com/WPChill/strong-testimonials/issues/493) )
 
- = 3.2.1 - 17.12.2024 -
+= 3.2.2 - 19.12.2024 -
+- Fixed: Text domain loading
+
+= 3.2.1 - 17.12.2024 -
 - Changed: Disabled seasonal promotions notifications.
 - Fixed: Javascript error in admin.
 
