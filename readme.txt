@@ -199,6 +199,9 @@ No. If you already have testimonials in another plugin or theme, you will have t
 8. View editor
 
 == Changelog ==
+= 3.2.4 - TBD -
+- Added: Integrated WPChill Notification System.
+
 = 3.2.3 - 09.01.2025 -
 - Fixed: Testimonial stars rating edit triggering js error. ( [#493](https://github.com/WPChill/strong-testimonials/issues/493) )
 

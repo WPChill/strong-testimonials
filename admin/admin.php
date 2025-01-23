@@ -64,19 +64,6 @@ function wpmtst_admin_init() {
 add_action( 'admin_init', 'wpmtst_admin_init' );
 
 /**
- * Custom action link in admin notice.
- *
- * @since 2.29.0
- */
-function wpmtst_action_captcha_options_changed() {
-	wpmtst_delete_admin_notice( 'captcha-options-changed' );
-	wp_redirect( admin_url( 'edit.php?post_type=wpm-testimonial&page=testimonial-settings&tab=form#captcha-section' ) );
-	exit;
-}
-
-add_action( 'admin_action_captcha-options-changed', 'wpmtst_action_captcha_options_changed' );
-
-/**
  * Are we on a testimonial admin screen?
  *
  * Used by add-ons too!
@@ -168,37 +155,6 @@ function wpmtst_updated_option( $option, $old_value, $value ) {
 	}
 }
 add_action( 'updated_option', 'wpmtst_updated_option', 10, 3 );
-
-
-/**
- * Store configuration error.
- *
- * @since 2.24.0
- * @param $key
- */
-function wpmtst_add_config_error( $key ) {
-	$errors   = get_option( 'wpmtst_config_errors', array() );
-	$errors[] = $key;
-	update_option( 'wpmtst_config_errors', array_unique( $errors ), 'no' );
-
-	wpmtst_add_admin_notice( $key, true );
-}
-
-
-/**
- * Delete configuration error.
- *
- * @since 2.24.0
- * @param $key
- */
-function wpmtst_delete_config_error( $key ) {
-	$errors = get_option( 'wpmtst_config_errors', array() );
-	$errors = array_diff( $errors, array( $key ) );
-	update_option( 'wpmtst_config_errors', $errors, 'no' );
-
-	wpmtst_delete_admin_notice( $key );
-}
-
 
 /**
  * Save a View.

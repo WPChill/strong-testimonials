@@ -43,19 +43,27 @@ class Strong_Testimonials_Forms {
 		}
 		$tab = self::get_tab();
 		$url = admin_url( 'edit.php?post_type=wpm-testimonial&page=testimonial-fields' );
+
+		if ( isset( $_GET['settings-updated'] ) ) {
+			$notice = array(
+				'title'   => esc_html__( 'Settings saved', 'strong-testimonials' ),
+				'message' => esc_html__( 'Form settings successfully saved.', 'strong-testimonials' ),
+				'status'  => 'success',
+				'source'  => array(
+					'slug' => 'strong-testimonials',
+					'name' => 'Strong Testimonials',
+				),
+				'timed'   => 5000,
+				'dismiss' => true,
+			);
+
+			WPChill_Notifications::add_notification( 'wpmtst-form-settings-saved', $notice );
+		}
 		?>
 		<div class="wrap wpmtst">
 
 			<h1><?php echo wp_kses_post( apply_filters( 'wpmtst_cpt_singular_name', esc_html__( 'Form', 'strong-testimonials' ) ) ); ?></h1>
-						
-						<?php do_action( 'wpmtst_testimonials_settings' ); ?>
-						
-			<?php if ( isset( $_GET['settings-updated'] ) ) : ?>
-				<div id="message" class="updated notice is-dismissible">
-					<p><?php esc_html_e( 'Settings saved.', 'strong-testimonials' ); ?></p>
-				</div>
-			<?php endif; ?>
-
+				<?php do_action( 'wpmtst_testimonials_settings' ); ?>
 			<h2 class="nav-tab-wrapper">
 				<?php do_action( 'wpmtst_form_tabs', $tab, $url ); ?>
 			</h2>

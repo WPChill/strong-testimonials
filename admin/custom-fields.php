@@ -36,11 +36,21 @@ function wpmtst_update_custom_fields() {
 	$forms         = get_option( 'wpmtst_custom_forms' );
 	$field_options = apply_filters( 'wpmtst_fields', get_option( 'wpmtst_fields' ) );
 
+	
+	$notice = array(
+		'status' => 'success',
+		'source' => array(
+			'slug' => 'strong-testimonials',
+			'name' => 'Strong Testimonials',
+		),
+		'timed'  => 5000,
+	);
+
 	if ( isset( $_POST['reset'] ) ) {
 
 		// Undo changes
-		wpmtst_add_admin_notice( 'changes-cancelled' );
-
+		$notice['title']   = esc_html__( 'Changes cancelled', 'strong-testimonials' );
+		$notice['message'] = esc_html__( 'The form changes have not been saved.', 'strong-testimonials' );
 	} elseif ( isset( $_POST['restore-defaults'] ) ) {
 
 		// Restore defaults
@@ -50,8 +60,8 @@ function wpmtst_update_custom_fields() {
 		update_option( 'wpmtst_custom_forms', $forms );
 		do_action( 'wpmtst_fields_updated', $fields );
 
-		wpmtst_add_admin_notice( 'defaults-restored' );
-
+		$notice['title']   = esc_html__( 'Defaults restored', 'strong-testimonials' );
+		$notice['message'] = esc_html__( 'The form fields have been restored to the default state.', 'strong-testimonials' );
 	} else {
 
 		// Save changes
@@ -127,11 +137,13 @@ function wpmtst_update_custom_fields() {
 		update_option( 'wpmtst_custom_forms', $forms );
 		do_action( 'wpmtst_fields_updated', $fields );
 
-		wpmtst_add_admin_notice( 'fields-saved' );
-
+		$notice['title']   = esc_html__( 'Fields saved', 'strong-testimonials' );
+		$notice['message'] = esc_html__( 'The changes to the form fields have been successfully saved.', 'strong-testimonials' );
 	}
 
-	wp_redirect( $goback );
+	WPChill_Notifications::add_notification( 'wpmtst-update-custom-fields-notice', $notice );
+
+	wp_safe_redirect( $goback );
 	exit;
 }
 
