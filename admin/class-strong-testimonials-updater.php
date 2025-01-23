@@ -214,11 +214,6 @@ class Strong_Testimonials_Updater {
 		update_option( 'wpmtst_update_log', $log );
 	}
 
-	public static function update_admin_notices() {
-		wpmtst_add_admin_notice( 'feedback-notice', true );
-		wpmtst_add_admin_notice( 'upsell-notice', true );
-	}
-
 	/**
 	 * Return admin role.
 	 *

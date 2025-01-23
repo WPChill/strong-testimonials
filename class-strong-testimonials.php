@@ -334,6 +334,9 @@ if ( ! class_exists( 'Strong_Testimonials' ) ) :
 				// WPMTST Debuging
 				require_once WPMTST_ADMIN . 'class-strong-testimonials-debug.php';
 			}
+
+			// WPChill Notifications
+			require_once WPMTST_ADMIN . 'wpchill-notifications/class-wpchill-notifications.php';
 		}
 
 		/**

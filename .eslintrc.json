@@ -3,19 +3,14 @@
 	"env": {
 		"browser": true,
 		"es6": true,
-		"node": true,
-		"jquery": true
-	},
-	"globals": {
-		"wp": true,
-		"jQuery": true
+		"node": true
 	},
 	"extends": [
 		"eslint:recommended",
 		"plugin:import/recommended",
 		"plugin:react/recommended",
 		"plugin:jsx-a11y/recommended",
-		"plugin:@wordpress/eslint-plugin/recommended",
+		"plugin:@wordpress/eslint-plugin/recommended-with-formatting",
 		"plugin:@tanstack/eslint-plugin-query/recommended"
 	],
 	"parserOptions": {
@@ -25,7 +20,7 @@
 			"jsx": true
 		}
 	},
-	"ignorePatterns": [ "node_modules/" ],
+	"ignorePatterns": ["node_modules/"],
 	"plugins": [
 		"react",
 		"import",
