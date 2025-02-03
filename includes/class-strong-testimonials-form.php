@@ -611,6 +611,7 @@ class Strong_Testimonials_Form {
 		if ( empty( $views ) ) {
 			return false;
 		}
+		$exists = false;
 
 		foreach ( $views as $view ) {
 			if ( empty( $view['value'] ) ) {
@@ -620,10 +621,11 @@ class Strong_Testimonials_Form {
 			$form_view = maybe_unserialize( $view['value'] );
 
 			if ( is_array( $form_view ) && isset( $form_view['form_id'] ) && absint( $form_view['form_id'] ) === absint( $form_id ) ) {
-				return true;
+				$exists = true;
+				break;
 			}
 		}
 
-		return false;
+		return $exists;
 	}
 }
