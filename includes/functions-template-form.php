@@ -54,6 +54,7 @@ function wpmtst_form_setup() {
 	echo '<input type="hidden" name="action" value="wpmtst_form">';
 	echo '<input type="hidden" name="form_id" value="' . esc_attr( WPMST()->atts( 'form_id' ) ) . '">';
 	echo '<input type="hidden" name="default_category" value="' . esc_attr( WPMST()->atts( 'category' ) ) . '">';
+	echo '<input type="hidden" name="view_id" value="' . esc_attr( WPMST()->atts( 'view' ) ) . '">';
 	echo '<input type="hidden" name="category" value="' . implode( ',', array_map( 'esc_html', $cats ) ) . '">';
 	echo '</div>';
 }

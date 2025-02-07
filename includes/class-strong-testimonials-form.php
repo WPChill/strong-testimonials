@@ -170,7 +170,7 @@ class Strong_Testimonials_Form {
 			return false;
 		}
 
-		if ( ! isset( $_POST['form_id'] ) || ! $this->is_form_in_any_view( absint( $_POST['form_id'] ) ) ) {
+		if ( ! isset( $_POST['form_id'] ) || ! isset( $_POST['view_id'] ) || empty( wpmtst_get_view( absint( $_POST['view_id'] ) ) ) ) {
 			return false;
 		}
 
@@ -603,29 +603,5 @@ class Strong_Testimonials_Form {
 		}
 
 		return $text;
-	}
-
-	private function is_form_in_any_view( $form_id ) {
-		$views = wpmtst_get_views();
-
-		if ( empty( $views ) ) {
-			return false;
-		}
-		$exists = false;
-
-		foreach ( $views as $view ) {
-			if ( empty( $view['value'] ) ) {
-				continue;
-			}
-
-			$form_view = maybe_unserialize( $view['value'] );
-
-			if ( is_array( $form_view ) && isset( $form_view['form_id'] ) && absint( $form_view['form_id'] ) === absint( $form_id ) ) {
-				$exists = true;
-				break;
-			}
-		}
-
-		return $exists;
 	}
 }
