@@ -231,7 +231,8 @@ function wpmtst_get_all_fields() {
 	 * and a field has 'admin_table' enabled in 'default'
 	 * but not in any custom form, the column will still be shown.
 	 */
-	$fields = $forms[1]['fields'];
+	$key    = array_key_exists( 1, $forms ) ? 1 : array_key_first( $forms );
+	$fields = $forms[ $key ]['fields'];
 
 	// replace key with field name
 	foreach ( $fields as $field ) {

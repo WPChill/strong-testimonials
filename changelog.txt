@@ -1,3 +1,7 @@
+
+= 3.2.4 - 12.02.2025 -
+- Fixed: Security issue
+
 = 3.2.3 - 09.01.2025 -
 - Fixed: Testimonial stars rating edit triggering js error. ( [#493](https://github.com/WPChill/strong-testimonials/issues/493) )
 

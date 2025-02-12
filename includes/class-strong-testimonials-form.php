@@ -170,6 +170,10 @@ class Strong_Testimonials_Form {
 			return false;
 		}
 
+		if ( ! isset( $_POST['form_id'] ) || ! isset( $_POST['view_id'] ) || empty( wpmtst_get_view( absint( $_POST['view_id'] ) ) ) ) {
+			return false;
+		}
+
 		do_action( 'wpmtst_form_submission' );
 
 		$new_post = stripslashes_deep( $_POST );
