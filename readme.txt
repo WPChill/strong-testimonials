@@ -199,7 +199,7 @@ No. If you already have testimonials in another plugin or theme, you will have t
 8. View editor
 
 == Changelog ==
-= 3.2.4 - 03.02.2025 -
+= 3.2.4 - 12.02.2025 -
 - Fixed: Security issue
 
 = 3.2.3 - 09.01.2025 -
