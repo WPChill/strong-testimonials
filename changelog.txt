@@ -1,4 +1,7 @@
 
+= 3.2.5 - 06.03.2025 -
+- Fixed: Inline script not being loaded with admin view script registration.
+
 = 3.2.4 - 12.02.2025 -
 - Fixed: Security issue
 
