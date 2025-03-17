@@ -170,7 +170,7 @@ class Strong_Testimonials_Form {
 			return false;
 		}
 
-		if ( ! isset( $_POST['form_id'] ) || ! $this->is_form_in_any_view( absint( $_POST['form_id'] ) ) ) {
+		if ( ! isset( $_POST['form_id'] ) || ! isset( $_POST['view_id'] ) || empty( wpmtst_get_view( absint( $_POST['view_id'] ) ) ) ) {
 			return false;
 		}
 
