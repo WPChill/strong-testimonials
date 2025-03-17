@@ -57,7 +57,11 @@ export function NotificationsList() {
 								{ notification?.source?.name && (
 									<span className="notification-source-name">{ notification.source.name }</span>
 								) }
-								<span className="notification-title">{ notification?.title }</span>
+								<span className="notification-title"><Markup content={ notification.title } /></span>
+								{ ( notification?.time_ago !== undefined || notification.time_ago ) &&
+								<span className="notification_time">
+									{ notification.time_ago }
+								</span> }
 							</>
 						}
 						key={ notification?.id }

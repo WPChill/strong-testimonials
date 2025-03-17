@@ -46,19 +46,21 @@ class Strong_Testimonials_Settings {
 		$tab = self::get_tab();
 		$url = admin_url( 'edit.php?post_type=wpm-testimonial&page=testimonial-settings' );
 
-		$notice = array(
-			'title'   => esc_html__( 'Settings saved', 'strong-testimonials' ),
-			'message' => esc_html__( 'Strong Testimonials settings successfully saved.', 'strong-testimonials' ),
-			'status'  => 'success',
-			'source'  => array(
-				'slug' => 'strong-testimonials',
-				'name' => 'Strong Testimonials',
-			),
-			'timed'   => 5000,
-			'dismiss' => true,
-		);
-
-		WPChill_Notifications::add_notification( 'wpmtst-plugin-settings-saved', $notice );
+		if ( isset( $_GET['settings-updated'] ) ) {
+			$notice = array(
+				'title'   => esc_html__( 'Settings saved', 'strong-testimonials' ),
+				'message' => esc_html__( 'Strong Testimonials settings successfully saved.', 'strong-testimonials' ),
+				'status'  => 'success',
+				'source'  => array(
+					'slug' => 'strong-testimonials',
+					'name' => 'Strong Testimonials',
+				),
+				'timed'   => 5000,
+				'dismiss' => true,
+			);
+	
+			WPChill_Notifications::add_notification( 'wpmtst-plugin-settings-saved', $notice );
+		}
 
 		?>
 		<div class="wrap wpmtst">

@@ -72,6 +72,7 @@ class Strong_Testimonials_Review {
 			'message'     => sprintf( esc_html( $this->messages['notice'] ), esc_html( $this->value ) ),
 			'status'      => 'success',
 			'dismissible' => false,
+			'timestamp'   => false,
 			'actions'     => array(
 				array(
 					'label'    => esc_html( $this->messages['rated'] ),

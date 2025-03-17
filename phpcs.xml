@@ -26,7 +26,7 @@
     </rule>
     <rule ref="WordPress.NamingConventions.PrefixAllGlobals">
         <properties>
-            <property name="prefixes" type="array" value="strong_testimonials,wpmtst"/>
+            <property name="prefixes" type="array" value="strong_testimonials,wpmtst,wpchill"/>
         </properties>
     </rule>
     <rule ref="WordPress.WP.I18n">

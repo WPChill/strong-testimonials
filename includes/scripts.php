@@ -274,7 +274,7 @@ function wpmtst_defer_scripts( $tag, $handle ) {
 		'wpmtst-slider',
 		'wpmtst-readmore',
 		'jquery-masonry',
-		'wpmtst-admin-views-script',
+		//'wpmtst-admin-views-script',
 	);
 
 	if ( in_array( $handle, $scripts_to_defer, true ) ) {
