@@ -37,4 +37,7 @@ client-src
 .prettierrc.js
 templates-scss
 /.wordpress-org
-
+webpack.config.notification-system.js
+.eslintrc.json
+babel.config.js
+phpcs.xml
