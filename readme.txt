@@ -4,7 +4,7 @@ Tags: testimonial plugin, testimonials slider, testimonial form, star ratings
 Requires at least: 5.2
 Requires PHP: 5.6
 Tested up to: 6.7
-Stable tag: 3.2.5
+Stable tag: 3.2.6
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -198,6 +198,13 @@ No. If you already have testimonials in another plugin or theme, you will have t
 8. View editor
 
 == Changelog ==
+= 3.2.6 - 17.03.2025 -
+- Added: Integrated WPChill Notification System.
+- Fixed: Gravatar overwriting platform user images.
+
+= 3.2.5 - 06.03.2025 -
+- Fixed: Inline script not being loaded with admin view script registration. 
+
 = 3.2.4 - 12.02.2025 -
 - Fixed: Security issue
 

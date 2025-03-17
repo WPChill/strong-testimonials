@@ -85,6 +85,8 @@ if ( ! class_exists( 'Strong_View_Display' ) ) :
 					$this->atts['count']    = -1;
 					$args['posts_per_page'] = $this->atts['pagination_settings']['per_page'];
 					$args['paged']          = wpmtst_get_paged();
+				}elseif ( 'slideshow' === $this->atts['mode'] ) {
+					$args['posts_per_page'] = $this->atts['count'];
 				}
 			}
 

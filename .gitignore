@@ -3,6 +3,8 @@ assets/dist/
 **.zip
 .standard.json
 .vscode
+admin/wpchill-notifications/scripts/*
+
 # assets/dist/
 package-lock.json
 #################

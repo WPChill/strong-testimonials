@@ -188,6 +188,11 @@ class Strong_Testimonials_Updater {
 		delete_transient( 'wpmtst_update_in_progress' );
 	}
 
+	public static function update_admin_notices() {
+		wpmtst_add_admin_notice( 'feedback-notice', true );
+		wpmtst_add_admin_notice( 'upsell-notice', true );
+	}
+
 	/**
 	 * Fix add-on file names.
 	 *
@@ -212,11 +217,6 @@ class Strong_Testimonials_Updater {
 		$log                            = get_option( 'wpmtst_update_log', array() );
 		$log[ current_time( 'mysql' ) ] = self::$new_log;
 		update_option( 'wpmtst_update_log', $log );
-	}
-
-	public static function update_admin_notices() {
-		wpmtst_add_admin_notice( 'feedback-notice', true );
-		wpmtst_add_admin_notice( 'upsell-notice', true );
 	}
 
 	/**

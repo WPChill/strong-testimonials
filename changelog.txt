@@ -1,3 +1,6 @@
+= 3.2.6 - 17.03.2025 -
+- Added: Integrated WPChill Notification System.
+- Fixed: Gravatar overwriting platform user images.
 
 = 3.2.5 - 06.03.2025 -
 - Fixed: Inline script not being loaded with admin view script registration. 

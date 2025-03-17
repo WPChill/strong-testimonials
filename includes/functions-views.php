@@ -23,7 +23,7 @@ function wpmtst_get_view_default( $unfiltered = false ) {
 /**
  * @return array|mixed|null|object
  */
-function wpmtst_get_views() {
+function wpmtst_get_views() { 
 	global $wpdb;
 	$wpdb->show_errors();
 	$table_name = $wpdb->prefix . 'strong_views';

@@ -63,20 +63,49 @@ class Strong_Testimonials_Review {
 
 	public function five_star_wp_rate_notice() {
 
-		$url = sprintf( $this->link, $this->slug );
+		$url            = sprintf( $this->link, $this->slug );
+		$url            = apply_filters( 'wpmtst_review_link', $url );
+		$this->messages = apply_filters( 'wpmtst_review_messages', $this->messages );
 
-		?>
-		<div id="<?php echo esc_attr( $this->slug ); ?>-strong-testimonials-review-notice" class="notice notice-success is-dismissible" style="margin-top:30px;">
-			<p><?php echo sprintf( esc_html( $this->messages['notice'] ), esc_attr( $this->value ) ); ?></p>
-			<p class="actions">
-				<a id="strong-testimonials-rate" href="<?php echo esc_url( $url ); ?>" target="_blank" class="button button-primary strong-testimonials-review-button">
-					<?php echo esc_html( $this->messages['rate'] ); ?>
-				</a>
-				<a id="strong-testimonials-later" href="#" style="margin-left:10px" class="strong-testimonials-review-button"><?php echo esc_html( $this->messages['rated'] ); ?></a>
-				<a id="strong-testimonials-no-rate" href="#" style="margin-left:10px" class="strong-testimonials-review-button"><?php echo esc_html( $this->messages['no_rate'] ); ?></a>
-			</p>
-		</div>
-		<?php
+		$notice = array(
+			'title'       => 'Rate Us',
+			'message'     => sprintf( esc_html( $this->messages['notice'] ), esc_html( $this->value ) ),
+			'status'      => 'success',
+			'dismissible' => false,
+			'timestamp'   => false,
+			'actions'     => array(
+				array(
+					'label'    => esc_html( $this->messages['rated'] ),
+					'id'       => 'strong-testimonials-later',
+					'class'    => 'strong-testimonials-review-button',
+					'dismiss'  => true,
+					'callback' => 'handleStButtonClick',
+				),
+				array(
+					'label'    => esc_html( $this->messages['no_rate'] ),
+					'id'       => 'strong-testimonials-no-rate',
+					'class'    => 'strong-testimonials-review-button',
+					'dismiss'  => true,
+					'callback' => 'handleStButtonClick',
+				),
+				array(
+					'label'    => esc_html( $this->messages['rate'] ),
+					'id'       => 'strong-testimonials-rate',
+					'url'      => esc_url( $url ),
+					'class'    => 'strong-testimonials-review-button',
+					'variant'  => 'primary',
+					'target'   => '_BLANK',
+					'dismiss'  => true,
+					'callback' => 'handleStButtonClick',
+				),
+			),
+			'source'      => array(
+				'slug' => 'strong-testimonials',
+				'name' => 'Strong Testimonials',
+			),
+		);
+
+		WPChill_Notifications::add_notification( 'wpmtst-five-star-rate', $notice );
 	}
 
 	public function ajax() {
@@ -89,12 +118,10 @@ class Strong_Testimonials_Review {
 
 		$time = get_option( 'strong-testimonials-rate-time' );
 
-		if ( 'strong-testimonials-rate' === $_POST['check'] ) {
-			$time = time() + YEAR_IN_SECONDS * 1;
-		} elseif ( 'strong-testimonials-later' === array( 'check' ) ) {
+		if ( 'strong-testimonials-rate' === $_POST['check'] || 'strong-testimonials-no-rate' === $_POST['check'] ) {
+			$time = time() + YEAR_IN_SECONDS * 5;
+		} else {
 			$time = time() + WEEK_IN_SECONDS;
-		} elseif ( 'strong-testimonials-no-rate' === $_POST['check'] ) {
-			$time = time() + YEAR_IN_SECONDS * 1;
 		}
 
 		update_option( 'strong-testimonials-rate-time', $time );
@@ -110,39 +137,19 @@ class Strong_Testimonials_Review {
 		$ajax_nonce = wp_create_nonce( 'strong-testimonials-review' );
 
 		?>
-
 		<script type="text/javascript">
-			jQuery( document ).ready( function( $ ){
 
-				$( '.strong-testimonials-review-button' ).on('click', function( evt ){
-					var href = $(this).attr('href'),
-						id = $(this).attr('id');
+		function handleStButtonClick( element ) {
+			console.error('clicky');
+			var data = {
+				action: 'strong-testimonials_review',
+				security: '<?php echo esc_js( $ajax_nonce ); ?>',
+				check: element.url ? 'strong-testimonials-rate' : element.id
+			};
 
-					if ( 'strong-testimonials-rate' != id ) {
-						evt.preventDefault();
-					}
-
-					var data = {
-						action: 'strong-testimonials_review',
-						security: '<?php echo $ajax_nonce; ?>',
-						check: id
-					};
-
-					if ( 'strong-testimonials-rated' === id ) {
-						data['strong-testimonials-review'] = 1;
-					}
-
-					$.post( '<?php echo esc_url( admin_url( 'admin-ajax.php' ) ); ?>', data, function( response ) {
-						$( '#<?php echo esc_attr( $this->slug ); ?>-strong-testimonials-review-notice' ).slideUp( 'fast', function() {
-							$( this ).remove();
-						} );
-					});
-
-				} );
-
-			});
+			jQuery.post('<?php echo esc_url( admin_url( 'admin-ajax.php' ) ); ?>', data );
+		}
 		</script>
-
 		<?php
 	}
 

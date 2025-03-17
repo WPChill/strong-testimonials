@@ -207,9 +207,6 @@ function wpmtst_get_avatar( $url, $id_or_email, $args ) {
 
 
 function wpmtst_thumbnail_img_platform( $img, $post_id, $size ) {
-	if ( $img ) {
-		return $img;
-	}
 
 	$platform = get_post_meta( $post_id, 'platform', true );
 	if ( ! $platform ) {

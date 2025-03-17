@@ -25,7 +25,7 @@ class Strong_Testimonials_Form {
 	 */
 	public function add_actions() {
 		add_action( 'init', array( $this, 'process_form' ), 20 );
-				//add_action( 'wpmtst_register_form_settings', array( $this, 'register_settings' ) );
+			//add_action( 'wpmtst_register_form_settings', array( $this, 'register_settings' ) );
 		add_action( 'wpmtst_form_tabs', array( $this, 'register_tab' ), 1, 2 );
 		add_filter( 'wpmtst_form_callbacks', array( $this, 'register_fields_page' ) );
 		add_action( 'wp_ajax_wpmtst_form2', array( $this, 'process_form_ajax' ) );
@@ -287,7 +287,6 @@ class Strong_Testimonials_Form {
 					$words_array                    = explode( ' ', $testimonial_post['post_content'] );
 					$five_words                     = array_slice( $words_array, 0, 5 );
 					$testimonial_post['post_title'] = implode( ' ', $five_words );
-
 				} else {
 					$testimonial_post['post_title']   = esc_html__( '(no title)', 'strong-testimonials' );
 					$testimonial_post['post_content'] = '';
@@ -358,9 +357,7 @@ class Strong_Testimonials_Form {
 
 				// TODO report errors in admin
 				$form_errors['post'] = $form_options['messages']['submission-error']['text'];
-
 			} else {
-
 				$testimonial_post['id'] = $testimonial_id;
 
 				/**
@@ -531,7 +528,6 @@ class Strong_Testimonials_Form {
 		$message = $this->replace_custom_fields( $message, $fields, $post );
 
 		foreach ( $form_options['recipients'] as $recipient ) {
-
 			if ( isset( $recipient['admin_site_email'] ) && $recipient['admin_site_email'] ) {
 				$admin_email = get_bloginfo( 'admin_email' );
 			} else {
@@ -603,5 +599,27 @@ class Strong_Testimonials_Form {
 		}
 
 		return $text;
+	}
+
+	private function is_form_in_any_view( $form_id ) {
+		$views = wpmtst_get_views();
+
+		if ( empty( $views ) ) {
+			return false;
+		}
+
+		foreach ( $views as $view ) {
+			if ( empty( $view['value'] ) ) {
+				continue;
+			}
+
+			$form_view = maybe_unserialize( $view['value'] );
+
+			if ( is_array( $form_view ) && isset( $form_view['form_id'] ) && absint( $form_view['form_id'] ) === absint( $form_id ) ) {
+				return true;
+			}
+		}
+
+		return false;
 	}
 }
