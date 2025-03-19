@@ -223,7 +223,7 @@ add_filter( 'wpmtst_thumbnail_img', 'wpmtst_thumbnail_img_platform', 10, 3 );
 function wpmtst_thumbnail_img_platform_general( $img, $post_id, $size ) {
 
 	$platform_user_photo = get_post_meta( $post_id, 'platform_user_photo', true );
-	if ( ! $platform_user_photo ) {
+	if ( ! $platform_user_photo || ! wpmtst_is_valid_image_url( $platform_user_photo ) ) {
 		return $img;
 	}
 
@@ -270,3 +270,17 @@ function wpmtst_thumbnail_img_platform_woocommerce( $img, $post_id, $size ) {
 	return sprintf( '<img src="%s" %s %s/>', get_avatar_url( $email ), $width ? "width='{$width}'" : '', $height ? "height='{$height}'" : '' );
 }
 add_filter( 'wpmtst_thumbnail_img_platform_woocommerce', 'wpmtst_thumbnail_img_platform_woocommerce', 10, 3 );
+
+function wpmtst_is_valid_image_url( $url ) {
+	$headers = get_headers( $url, 1 );
+
+	if ( false === $headers ) {
+		return false;
+	}
+
+	if ( isset( $headers[0] ) && strpos( $headers[0], '200 OK' ) !== false ) {
+		return true;
+	}
+
+	return false;
+}

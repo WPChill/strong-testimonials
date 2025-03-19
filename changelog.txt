@@ -1,3 +1,6 @@
+= 3.2.7 - 19.03.2025 -
+- Fixed: Ensured only valid social platform image URLs are inserted into testimonials, preventing broken images.
+
 = 3.2.6 - 17.03.2025 -
 - Added: Integrated WPChill Notification System.
 - Fixed: Gravatar overwriting platform user images.
