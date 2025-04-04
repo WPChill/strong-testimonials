@@ -4,17 +4,20 @@ Tags: testimonial plugin, testimonials slider, testimonial form, star ratings
 Requires at least: 5.2
 Requires PHP: 5.6
 Tested up to: 6.7
-Stable tag: 3.2.6
+Stable tag: 3.2.7
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
 == Description ==
-## An easy-to-use testimonial plugin to collect and show customer feedback in WordPress
+## An easy-to-use testimonial plugin to collect and show customer feedback in WordPress 
 
 Easily collect and publish testimonials in just a few steps. Packed with flexible features refined over the years, perfect for beginners and pros alike!
 
 = SEE HOW EASY IT IS TO GET STARTED WITH STRONG TESTIMONIALS =
-https://www.youtube.com/watch?v=3nyvRvoxMxY
+## Creating your first testimonials collection form
+https://www.youtube.com/watch?v=_DmoHH6iE4w&list=PLM2tOjfhVrZcgMyoeC_M7yUii1QJW8nfH&index=3
+## Displaying your testimonials
+https://www.youtube.com/watch?v=zIb0RQv2-pY&list=PLM2tOjfhVrZcgMyoeC_M7yUii1QJW8nfH&index=1
 
 
 ## Premium features only available in Strong Testimonials - Paid version:
