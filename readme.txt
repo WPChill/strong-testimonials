@@ -201,6 +201,9 @@ No. If you already have testimonials in another plugin or theme, you will have t
 8. View editor
 
 == Changelog ==
+= 3.2.8 - TBD -
+- Fixed: Admin list table broken if the testimonial had a table as post content.
+
 = 3.2.7 - 19.03.2025 -
 - Fixed: Ensured only valid social platform image URLs are inserted into testimonials, preventing broken images.
 

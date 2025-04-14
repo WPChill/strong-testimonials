@@ -148,13 +148,26 @@ class Strong_Testimonials_Admin_List {
 		global $post;
 
 		switch ( $column ) {
-
 			case 'post_id':
 				echo absint( $post->ID );
 				break;
 
 			case 'post_content':
-				echo wp_kses_post( substr( $post->post_content, 0, 100 ) . '&hellip;' );
+				$allowed_tags = array(
+					'a'      => array(
+						'href'  => array(),
+						'title' => array(),
+					),
+					'p'      => array(),
+					'strong' => array(),
+					'em'     => array(),
+					'ul'     => array(),
+					'ol'     => array(),
+					'li'     => array(),
+					'br'     => array(),
+					'span'   => array( 'class' => array() ),
+				);
+				echo wp_kses( substr( $post->post_content, 0, 100 ) . '&hellip;', $allowed_tags );
 				break;
 
 			case 'post_excerpt':
@@ -213,15 +226,11 @@ class Strong_Testimonials_Admin_List {
 								echo wp_kses_post( $custom[ $column ][0] );
 						}
 					}
-				} else {
-
-					if ( isset( $fields[ $column ] ) ) {
-
-						if ( 'checkbox' === $fields[ $column ]['input_type'] ) {
-							echo 'no';
-						} else {
-							// display nothing
-						}
+				} elseif ( isset( $fields[ $column ] ) ) {
+					if ( 'checkbox' === $fields[ $column ]['input_type'] ) {
+						echo 'no';
+					} else {
+						// display nothing
 					}
 				}
 		}
