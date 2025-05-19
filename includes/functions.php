@@ -173,11 +173,15 @@ function wpmtst_get_custom_form_count() {
 
 function wpmtst_get_form_fields( $form_id = 1 ) {
 	$forms = get_option( 'wpmtst_custom_forms' );
+
 	if ( isset( $forms[ $form_id ] ) ) {
 		$form = $forms[ $form_id ];
-	} else {
+	} elseif ( isset( $forms[1] ) ) {
 		$form = $forms[1];
+	} else {
+		$form = reset( $forms );
 	}
+
 	$fields = $form['fields'];
 
 	return $fields;

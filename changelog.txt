@@ -1,3 +1,8 @@
+= 3.2.8 - 19.05.2025 -
+- Fixed: Admin list table broken if the testimonial had a table as post content.
+- Added: Added previously removed config update functions.
+- Fixed: Prevent fatal error if wpmtst_custom_forms is not array.
+
 = 3.2.7 - 19.03.2025 -
 - Fixed: Ensured only valid social platform image URLs are inserted into testimonials, preventing broken images.
 
