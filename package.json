@@ -1,7 +1,7 @@
 {
 	"name": "strong-testimonials",
 	"author": "WPChill",
-	"version": "3.2.8",
+	"version": "3.2.9",
 	"license": "GPL v3",
 	"scripts": {
 		"build": "cross-env NODE_ENV=production wp-scripts build --config webpack.config.js",
@@ -13,9 +13,9 @@
 		"plugin-zip": "npm run build && npm run build:notification-system && npm run clean && npm run copy && npm run css && npm run bundle && npm run clean",
 		"clean": "rimraf build",
 		"css": "postcss assets/css/*.css --use cssnano --dir build/assets/css --ext .min.css",
-		"copy": "node scripts/copy.js",
-		"bundle": "node scripts/bundle.js",
-		"checktextdomain": "node scripts/check-text-domain.js",
+		"copy": "node build-scripts/copy.js",
+		"bundle": "node build-scripts/bundle.js",
+		"checktextdomain": "node build-scripts/check-text-domain.js",
 		"lint:js": "wp-scripts lint-js ./client-src/",
 		"lint:js-fix": "wp-scripts lint-js ./client-src/ --fix",
 		"lint:css": "wp-scripts lint-style"
