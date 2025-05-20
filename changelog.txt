@@ -1,3 +1,6 @@
+= 3.2.9 - 20.05.2025 -
+- Fixed: Missing notification system files in wp.org deploy.
+
 = 3.2.8 - 19.05.2025 -
 - Fixed: Admin list table broken if the testimonial had a table as post content.
 - Added: Added previously removed config update functions.

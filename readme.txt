@@ -4,7 +4,7 @@ Tags: testimonial plugin, testimonials slider, testimonial form, star ratings
 Requires at least: 5.2
 Requires PHP: 5.6
 Tested up to: 6.8
-Stable tag: 3.2.8
+Stable tag: 3.2.9
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -201,6 +201,9 @@ No. If you already have testimonials in another plugin or theme, you will have t
 8. View editor
 
 == Changelog ==
+= 3.2.9 - 20.05.2025 -
+- Fixed: Missing notification system files in wp.org deploy.
+
 = 3.2.8 - 19.05.2025 -
 - Fixed: Admin list table broken if the testimonial had a table as post content.
 - Added: Added previously removed config update functions.
