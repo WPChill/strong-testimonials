@@ -39,3 +39,15 @@
     width: 1px;
     word-wrap: normal !important;
 }
+
+/*  Readmore Inline
+----------------------------------------------------*/
+.readmore-excerpt-inline,
+.readmore-content-inline:not([hidden]),
+.readmore-content-inline:not([hidden]) p {
+    display: inline;
+}
+
+.wpmtst-inline-readme {
+    margin-left: 5px;
+}

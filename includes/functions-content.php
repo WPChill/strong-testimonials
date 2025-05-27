@@ -147,7 +147,7 @@ function wpmtst_get_excerpt_more_link() {
 	if ( apply_filters( 'wpmtst_is_hybrid_content', false ) ) {
 		// no href
 		$link = sprintf(
-			'<a aria-expanded="false" aria-controls="more-%1$d" class="%2s readmore-toggle"><span class="readmore-text" data-more-text="%4$s" data-less-text="%5$s">%3$s</span></a>',
+			'<a aria-expanded="false" aria-controls="more-%1$d" class="%2$s readmore-toggle"><span class="readmore-text" data-more-text="%4$s" data-less-text="%5$s">%3$s</span></a>',
 			get_the_ID(), // 1
 			$link_class,  // 2
 			$link_text,   // 3
@@ -261,13 +261,19 @@ function wpmtst_assemble_hybrid( $words_array, $num_words, $sep, $more, $full_te
 	if ( WPMST()->atts( 'html_content' ) || ! empty( $excerpt ) ) {
 		$wrap_open_class = 'all-html';
 	}
+	$inline = '';
+	if ( WPMST()->atts( 'more_post_text_inline' ) ) {
+		$more            = '<div class="wpmtst-inline-readme" style="display:inline;">' . $more . '</div>';
+		$wrap_open_class = 'readmore-excerpt-inline';
+		$inline          = 'readmore-content-inline';
+	}
 
-	$wrap_open_excerpt  = '<div class="readmore-excerpt animated ' . esc_attr( $wrap_open_class ) . '"> ';
-	$wrap_open          = '<div class="readmore-content animated"  id="more-' . esc_attr( get_the_ID() ) . '" hidden> ';
-	$wrap_close         = ' </div>';
-	$wrap_close_excerpt = ' </div>';
+	$wrap_open_excerpt  = '<div class="readmore-excerpt animated ' . esc_attr( $wrap_open_class ) . '">';
+	$wrap_open          = '<div class="readmore-content animated ' . esc_attr( $inline ) . '"  id="more-' . esc_attr( get_the_ID() ) . '" hidden>';
+	$wrap_close         = '</div>';
+	$wrap_close_excerpt = '</div>';
 	$first_half         = '<div style="display:inline;">' . wp_kses_post( $first_half ) . '</div>';
 
-	return $wrap_open_excerpt . $first_half . $ellipsis . ' ' . $wrap_close_excerpt . $wrap_open . ' ' . $full_text . $wrap_close . $more;
+	return $wrap_open_excerpt . $first_half . $ellipsis . $wrap_close_excerpt . $wrap_open . ' ' . $full_text . $wrap_close . $more;
 	/* ! This space is important:                                        ^                                                  */
 }

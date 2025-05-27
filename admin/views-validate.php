@@ -57,16 +57,14 @@ function wpmtst_sanitize_view( $input ) {
 		} else {
 			$data['category'] = '';
 		}
+	} elseif ( 'allcats' === $input['category_all'] ) {
+			$data['category'] = 'all';
+	} elseif ( ! isset( $input['category'] ) ) {
+		$data['category'] = 'all';
+	} elseif ( 'somecats' === $input['category_all'] && ! isset( $input['category'] ) ) {
+		$data['category'] = 'all';
 	} else {
-		if ( 'allcats' === $input['category_all'] ) {
-			$data['category'] = 'all';
-		} elseif ( ! isset( $input['category'] ) ) {
-			$data['category'] = 'all';
-		} elseif ( 'somecats' === $input['category_all'] && ! isset( $input['category'] ) ) {
-			$data['category'] = 'all';
-		} else {
-			$data['category'] = sanitize_text_field( implode( ',', $input['category'] ) );
-		}
+		$data['category'] = sanitize_text_field( implode( ',', $input['category'] ) );
 	}
 
 	$data['order'] = sanitize_text_field( $input['order'] );
@@ -183,10 +181,11 @@ function wpmtst_sanitize_view_readmore( $data, $input, $default_view ) {
 	} else {
 		$data['more_post'] = 0;
 	}
-	$data['more_post_ellipsis'] = sanitize_text_field( $input['more_post_ellipsis'] );
-	$data['use_default_more']   = ( isset( $input['use_default_more'] ) ) ? $input['use_default_more'] : 0;
-	$data['more_post_text']     = sanitize_text_field( $input['more_post_text'] );
-	$data['less_post_text']     = sanitize_text_field( $input['less_post_text'] );
+	$data['more_post_ellipsis']    = sanitize_text_field( $input['more_post_ellipsis'] );
+	$data['use_default_more']      = ( isset( $input['use_default_more'] ) ) ? $input['use_default_more'] : 0;
+	$data['more_post_text']        = sanitize_text_field( $input['more_post_text'] );
+	$data['less_post_text']        = sanitize_text_field( $input['less_post_text'] );
+	$data['more_post_text_inline'] = isset( $input['more_post_text_inline'] ) ? 1 : 0;
 
 	/**
 	 * Read more in place
@@ -238,14 +237,11 @@ function wpmtst_sanitize_view_readmore( $data, $input, $default_view ) {
 				$data['more_page_id'] = $id;
 				unset( $data['more_page_id2'] );
 			}
-		} else {
-
-			if ( $input['more_page_id'] ) {
-				if ( is_numeric( $input['more_page_id'] ) ) {
-					$data['more_page_id'] = (int) sanitize_text_field( $input['more_page_id'] );
-				} else {
-					$data['more_page_id'] = sanitize_text_field( $input['more_page_id'] );
-				}
+		} elseif ( $input['more_page_id'] ) {
+			if ( is_numeric( $input['more_page_id'] ) ) {
+				$data['more_page_id'] = (int) sanitize_text_field( $input['more_page_id'] );
+			} else {
+				$data['more_page_id'] = sanitize_text_field( $input['more_page_id'] );
 			}
 		}
 
@@ -391,7 +387,6 @@ function wpmtst_sanitize_view_slideshow( $in ) {
 	$breakpoints = $in['breakpoints'];
 
 	foreach ( $breakpoints as $key => $breakpoint ) {
-
 		$out['breakpoints'][ $key ]['width'] = intval( sanitize_text_field( $breakpoint['width'] ) );
 
 		$out['breakpoints'][ $key ]['max_slides'] = intval( sanitize_text_field( $breakpoint['max_slides'] ) );
@@ -403,7 +398,6 @@ function wpmtst_sanitize_view_slideshow( $in ) {
 		}
 
 		$out['breakpoints'][ $key ]['margin'] = intval( sanitize_text_field( $breakpoint['margin'] ) );
-
 	}
 
 	// Carousel requires horizontal scroll.
