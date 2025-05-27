@@ -1462,7 +1462,7 @@ class Strong_Testimonials_Helper {
 							<span id="option-inline-link-text" class="inline-span">
 								<input class="checkbox" id="view-more_post_text_inline" name="view[data][more_post_text_inline]" value="1"
 									type="checkbox" <?php checked( isset( $this->view['more_post_text_inline'] ) ? $this->view['more_post_text_inline'] : false ); ?>/>
-								<label for="view-more_post_text_inline"><?php echo wp_kses_post( __( 'inline', 'strong-testimonials' ) ); ?></label>
+								<label for="view-more_post_text_inline"> <?php echo wp_kses_post( __( 'show inline', 'strong-testimonials' ) ); ?></label>
 							</span>
 						</div>
 					</div>
