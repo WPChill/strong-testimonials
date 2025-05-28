@@ -218,7 +218,7 @@ class Strong_Testimonials_Average_Shortcode {
 			'review_count'   => null,
 			'rating_count'   => null,
 			'rating_sum'     => null,
-			'rating_average' => null,
+			'rating_average' => 0,
 			'rating_detail'  => null,
 		);
 
