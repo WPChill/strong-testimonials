@@ -90,11 +90,12 @@ class Strong_Testimonials_Average_Shortcode {
 
 		// category
 		if ( $atts['category'] ) {
+			$categories        = explode( ',', $atts['category'] );
 			$args['tax_query'] = array(
 				array(
 					'taxonomy' => 'wpm-testimonial-category',
-					'field'    => is_numeric( $atts['category'] ) ? 'id' : 'slug',
-					'terms'    => $atts['category'],
+					'field'    => is_numeric( $categories[0] ) ? 'id' : 'slug',
+					'terms'    => $categories,
 				),
 			);
 		}
@@ -180,13 +181,11 @@ class Strong_Testimonials_Average_Shortcode {
 			/* translators: %s is a number */
 			$count            = sprintf( _n( '(based on %s rating)', '(based on %s ratings)', $summary['rating_count'], 'strong-testimonials' ), $summary['rating_count'] );
 			$parts['summary'] = sprintf( '<span class="strong-rating-summary">%s</span>', $average . ' ' . $count );
-
 		} elseif ( isset( $parts['summary2'] ) ) {
 
 			/* translators: %s is a number */
 			$average           = sprintf( _n( '%s star', '%s stars', $rating_average, 'strong-testimonials' ), $rating_average );
 			$parts['summary2'] = sprintf( '<span class="strong-rating-summary">%s</span>', $average );
-
 		}
 
 		// replace tags
@@ -219,7 +218,7 @@ class Strong_Testimonials_Average_Shortcode {
 			'review_count'   => null,
 			'rating_count'   => null,
 			'rating_sum'     => null,
-			'rating_average' => null,
+			'rating_average' => 0,
 			'rating_detail'  => null,
 		);
 
@@ -245,7 +244,6 @@ class Strong_Testimonials_Average_Shortcode {
 			}
 
 			if ( $rating_count ) {
-
 				$rating_average = number_format( $rating_sum / $rating_count, absint( $decimals ) );
 				if ( 1 === absint( $decimals ) ) {
 					$rating_average = trim( $rating_average, '.0' );

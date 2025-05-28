@@ -4,7 +4,6 @@
 bin
 node_modules
 tests
-scripts
 .distignore
 .editorconfig
 .gitignore
@@ -41,4 +40,3 @@ webpack.config.notification-system.js
 .eslintrc.json
 babel.config.js
 phpcs.xml
-!/admin/wpchill/scripts

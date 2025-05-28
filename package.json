@@ -1,7 +1,7 @@
 {
 	"name": "strong-testimonials",
 	"author": "WPChill",
-	"version": "3.2.9",
+	"version": "3.2.10",
 	"license": "GPL v3",
 	"scripts": {
 		"build": "cross-env NODE_ENV=production wp-scripts build --config webpack.config.js",
@@ -10,7 +10,8 @@
 		"build:notification-system": "wp-scripts build --config webpack.config.notification-system.js",
 		"packages-update": "wp-scripts packages-update",
 		"format:src": "wp-scripts format ./client-src/",
-		"plugin-zip": "npm run build && npm run build:notification-system && npm run clean && npm run copy && npm run css && npm run bundle && npm run clean",
+		"plugin-zip": "npm run min:js && npm run build && npm run build:notification-system && npm run clean && npm run copy && npm run css && npm run bundle && npm run clean",
+		"min:js": "uglifyjs-folder \"./assets/public/js/\" -eo \"./assets/public/js/\" --pattern \"**/*.js,!**/*min.js\" ",
 		"clean": "rimraf build",
 		"css": "postcss assets/css/*.css --use cssnano --dir build/assets/css --ext .min.css",
 		"copy": "node build-scripts/copy.js",
@@ -39,7 +40,8 @@
 		"glob": "^10.3.3",
 		"postcss-cli": "^11.0.0",
 		"rimraf": "^5.0.1",
-		"cross-env": "^7.0.3"
+		"cross-env": "^7.0.3",
+		"uglifyjs-folder": "^3.3.0"
 	},
 	"dependencies": {
 		"@wordpress/icons": "^9.18.0",

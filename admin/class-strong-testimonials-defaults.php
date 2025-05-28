@@ -740,6 +740,7 @@ class Strong_Testimonials_Defaults {
 			'more_post'           => true,
 			'more_post_ellipsis'  => true,
 			'more_post_text'      => esc_html_x( 'Read more', 'link', 'strong-testimonials' ),
+			'more_post_text_inline' => false,
 			'more_post_in_place'  => false,
 			'less_post'           => false,
 			'less_post_text'      => esc_html__( 'Show less', 'strong-testimonials' ),

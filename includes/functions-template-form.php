@@ -10,7 +10,6 @@ function wpmtst_form_info() {
 	$fields      = array();
 
 	foreach ( $form_fields as $field ) {
-
 		$fields[] = array(
 			'name'     => $field['name'],
 			'type'     => $field['input_type'],
@@ -108,7 +107,6 @@ function wpmtst_single_form_field( $field ) {
 	echo '<div class="' . esc_attr( wpmtst_field_group_classes( $field['input_type'], $field['name'] ) ) . '">';
 
 	if ( 'checkbox' !== $field['input_type'] ) {
-
 		if ( ! isset( $field['show_label'] ) || $field['show_label'] ) {
 			printf( '<label for="wpmtst_%s" class="%s">%s</label>', esc_html( $field['name'] ), esc_attr( wpmtst_field_label_classes( $field['input_type'], $field['name'] ) ), wp_kses_post( wpmtst_form_field_meta_l10n( $field['label'], $field, 'label' ) ) );
 
@@ -117,20 +115,16 @@ function wpmtst_single_form_field( $field ) {
 			}
 		}
 		wpmtst_field_before( $field );
-
 	}
 
 	// Check for callback first.
 	if ( isset( $field['action_input'] ) && $field['action_input'] ) {
-
 		$value = ( isset( $form_values[ $field['name'] ] ) && $form_values[ $field['name'] ] ) ? $form_values[ $field['name'] ] : '';
 		do_action( $field['action_input'], $field, $value );
-
 	} else {
 
 		// Check field type.
 		switch ( $field['input_type'] ) {
-
 			case 'category-selector':
 				$value = isset( $form_values[ $field['name'] ] ) ? (array) $form_values[ $field['name'] ] : array();
 
@@ -355,10 +349,39 @@ function wpmtst_field_value( $field, $form_values ) {
 		$value = $field['default_form_value'];
 	}
 
+	$value = wpmtst_do_user_placeholders( $value, $field );
+
 	$value = apply_filters( 'wpmtst_field_value', $value, $field, $form_values );
 
 	return ' value="' . esc_attr( $value ) . '"';
 }
+
+function wpmtst_do_user_placeholders( $text, $field = false ) {
+	if ( is_user_logged_in() ) {
+		$current_user = wp_get_current_user();
+
+		if ( $field && isset( $field['input_type'] ) && 'email' === $field['input_type'] && apply_filters( 'wpmtst_add_default_email', true, $field ) ) {
+			return $current_user->user_email;
+		}
+
+		$placeholders = array(
+			'{user_name}'       => $current_user->user_login,
+			'{user_first_name}' => $current_user->user_firstname,
+			'{user_last_name}'  => $current_user->user_lastname,
+			'{user_email}'      => $current_user->user_email,
+		);
+	} else {
+		$placeholders = array(
+			'{user_name}'       => '',
+			'{user_first_name}' => '',
+			'{user_last_name}'  => '',
+			'{user_email}'      => '',
+		);
+	}
+
+	return strtr( $text, $placeholders );
+}
+
 
 /**
  * Print placeholder tag.

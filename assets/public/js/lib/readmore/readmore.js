@@ -97,7 +97,7 @@
 				fullTextWrapper.classList.remove( 'fadeOutUp' );
 				fullTextWrapper.classList.remove( 'faster' );
 
-				excerptWrapper[0].style.display = 'none';
+				excerptWrapper.hide();
 
 				fireCustomEvent();
 
@@ -117,8 +117,7 @@
 				fullTextWrapper.classList.add( 'faster' );
 				fullTextWrapper.classList.remove( 'fadeInDown' );
 
-				excerptWrapper[0].style.display = 'block';
-
+				excerptWrapper.show();
 				// 3. Add back the elipsis if needed.
 				if (ellipsis) {
 					ellipsis.style.display = 'inline';

@@ -350,3 +350,15 @@ Thanks https://css-tricks.com/minimum-paragraph-widths/
 .msHtmlOverlay .layer .disabled {
     display: block !important;
 }
+
+/*  Readmore Inline
+----------------------------------------------------*/
+.readmore-excerpt-inline,
+.readmore-content-inline:not([hidden]),
+.readmore-content-inline:not([hidden]) p {
+    display: inline;
+}
+
+.wpmtst-inline-readme {
+    margin-left: 5px;
+}
