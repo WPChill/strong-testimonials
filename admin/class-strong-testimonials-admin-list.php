@@ -29,6 +29,8 @@ class Strong_Testimonials_Admin_List {
 		add_filter( 'manage_edit-wpm-testimonial_sortable_columns', array( __CLASS__, 'manage_sortable_columns' ) );
 		add_action( 'manage_wpm-testimonial_posts_custom_column', array( __CLASS__, 'custom_columns' ) );
 		add_filter( 'post_row_actions', array( __CLASS__, 'post_row_actions' ), 10, 2 );
+
+		add_filter( 'manage_wpm-testimonial_posts_columns', array( __CLASS__, 'add_submitted_on_column' ) );
 	}
 
 	/**
@@ -97,9 +99,7 @@ class Strong_Testimonials_Admin_List {
 
 		// 4. add custom fields
 		foreach ( $fields as $key => $field ) {
-
 			if ( isset( $field['admin_table'] ) ) {
-
 				if ( 'post_title' === $field['name'] ) {
 					continue;
 				} elseif ( 'featured_image' === $field['name'] ) {
@@ -206,15 +206,24 @@ class Strong_Testimonials_Admin_List {
 
 				break;
 
+			case 'submission_date':
+				$submission_date = get_post_meta( $post->ID, 'submit_date', true );
+				if ( $submission_date ) {
+					$timestamp = strtotime( $submission_date );
+					$formatted = date_i18n( 'Y/m/d', $timestamp ) . ' at ' . date_i18n( 'g:i a', $timestamp );
+					echo esc_html( $formatted );
+				} else {
+					echo '—';
+				}
+				break;
+
 			default:
 				// custom field?
 				$custom = get_post_custom();
 				$fields = wpmtst_get_custom_fields();
 
 				if ( isset( $custom[ $column ] ) && $custom[ $column ][0] ) {
-
 					if ( isset( $fields[ $column ] ) ) {
-
 						switch ( $fields[ $column ]['input_type'] ) {
 							case 'rating':
 								wpmtst_star_rating_display( $custom[ $column ][0], 'in-table-list' );
@@ -250,6 +259,19 @@ class Strong_Testimonials_Admin_List {
 	}
 
 	/**
+	 * Add thumbnail column to admin list
+	 *
+	 * @param $columns
+	 *
+	 * @return array
+	 */
+	public static function add_submitted_on_column( $columns ) {
+		$columns['submission_date'] = esc_html__( 'Submitted On', 'strong-testimonials' );
+
+		return $columns;
+	}
+
+	/**
 	 * Make columns sortable.
 	 *
 	 * @param $columns
@@ -260,9 +282,10 @@ class Strong_Testimonials_Admin_List {
 	 * @return mixed
 	 */
 	public static function manage_sortable_columns( $columns ) {
-		$columns['client_name'] = 'client_name';
-		$columns['category']    = 'categories';
-		$columns['date']        = 'date';
+		$columns['client_name']     = 'client_name';
+		$columns['category']        = 'categories';
+		$columns['date']            = 'date';
+		$columns['submission_date'] = 'submission_date';
 
 		return $columns;
 	}
@@ -322,6 +345,10 @@ class Strong_Testimonials_Admin_List {
 		if ( is_admin() && $query->is_main_query() && 'wpm-testimonial' === $query->get( 'post_type' ) ) {
 			if ( 'client_name' === $query->get( 'orderby' ) ) {
 				$query->set( 'meta_key', 'client_name' );
+				$query->set( 'orderby', 'meta_value' );
+			}
+			if ( 'submission_date' === $query->get( 'orderby' ) ) {
+				$query->set( 'meta_key', 'submit_date' );
 				$query->set( 'orderby', 'meta_value' );
 			}
 		}
