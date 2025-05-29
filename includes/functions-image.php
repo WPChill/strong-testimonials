@@ -272,15 +272,24 @@ function wpmtst_thumbnail_img_platform_woocommerce( $img, $post_id, $size ) {
 add_filter( 'wpmtst_thumbnail_img_platform_woocommerce', 'wpmtst_thumbnail_img_platform_woocommerce', 10, 3 );
 
 function wpmtst_is_valid_image_url( $url ) {
-	$headers = get_headers( $url, 1 );
+	// Check local
+	$site_url = site_url();
+	if ( strpos( $url, $site_url ) === 0 ) {
+		// Obține path-ul relativ
+		$relative_path = str_replace( $site_url, '', $url );
+		$file_path     = ABSPATH . ltrim( $relative_path, '/' );
+
+		return file_exists( $file_path );
+	}
+
+	// Check external
+	$headers = @get_headers( $url, 1 ); // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged
 
 	if ( false === $headers ) {
 		return false;
 	}
 
-	if ( isset( $headers[0] ) && strpos( $headers[0], '200 OK' ) !== false ) {
-		return true;
-	}
+	$status_line = is_array( $headers ) && isset( $headers[0] ) ? $headers[0] : '';
 
-	return false;
+	return strpos( $status_line, '200 OK' ) !== false;
 }
