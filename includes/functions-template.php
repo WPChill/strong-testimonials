@@ -43,9 +43,7 @@ function wpmtst_the_title( $tag = '', $wrapper_class = '' ) {
 		$after  = '</' . $tag . '>';
 	}
 	if ( WPMST()->atts( 'title' ) && $title ) {
-
 		if ( 'none' !== WPMST()->atts( 'title_link' ) && '0' !== WPMST()->atts( 'title_link' ) ) {
-
 			if ( ( ! isset( $options['disable_rewrite'] ) || false === $options['disable_rewrite'] ) && ( 'wpmtst_testimonial' === WPMST()->atts( 'title_link' ) || '1' === WPMST()->atts( 'title_link' ) ) ) {
 				$before .= '<a href="' . esc_url( get_permalink() ) . '" rel="bookmark">';
 				$after   = '</a>' . $after;
@@ -140,7 +138,6 @@ function wpmtst_read_more_page() {
 	$atts = WPMST()->atts();
 
 	if ( $atts['more_page'] && $atts['more_page_id'] ) {
-
 		$permalink = '';
 		if ( is_numeric( $atts['more_page_id'] ) ) {
 			$permalink = wpmtst_get_permalink( $atts['more_page_id'] );
@@ -338,7 +335,6 @@ function wpmtst_the_custom_field( $field ) {
 		$output = apply_filters( $field['prop']['action_output'], $field, $value );
 	} else {
 		switch ( $field['type'] ) {
-
 			case 'link':
 			case 'link2':
 				// use default if missing
@@ -367,7 +363,6 @@ function wpmtst_the_custom_field( $field ) {
 				}
 
 				if ( $field['url'] ) {
-
 					$url = get_post_meta( $post->ID, $field['url'], true );
 					if ( $url ) {
 						if ( isset( $field['new_tab'] ) && $field['new_tab'] ) {
@@ -462,7 +457,6 @@ function wpmtst_the_custom_field( $field ) {
 								}
 							}
 							$output = implode( ', ', $list );
-
 						} elseif ( 'child' === $field['category_show'] ) {
 							foreach ( $categories as $cat ) {
 								// 3.2 Include only categories that have parents
@@ -609,7 +603,6 @@ function wpmtst_get_field( $field, $args = array() ) {
 		// Get the custom field.
 		default:
 			$html = get_post_meta( $post->ID, $field, true );
-
 	}
 
 	return $html;
@@ -646,7 +639,6 @@ if ( ! function_exists( 'wpmtst_standard_pagination' ) ) :
 
 		if ( $paginate_links ) {
 			echo "<nav class='nav-links'>";
-			//echo "<span class='page-numbers page-num'>Page " . $paged . " of " . $numpages . "</span> ";
 			echo $paginate_links;
 			echo '</nav>';
 		}
@@ -659,6 +651,9 @@ endif;
  * @return int|mixed
  */
 function wpmtst_get_paged() {
+	if ( is_front_page() ) {
+		return get_query_var( 'page' ) ? intval( get_query_var( 'page' ) ) : 1;
+	}
 	return get_query_var( 'paged' ) ? intval( get_query_var( 'paged' ) ) : 1;
 }
 
