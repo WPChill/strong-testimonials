@@ -46,7 +46,7 @@
 	  slideZIndex: 50,
 	  wrapperClass: 'wpmslider-wrapper',
 	  stretch: false,
-	  imagesLoaded: true,
+	  imagesLoaded: false,
 
 	  // TOUCH
 	  touchEnabled: true,
