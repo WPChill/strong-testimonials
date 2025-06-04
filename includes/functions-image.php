@@ -24,10 +24,8 @@ function wpmtst_get_thumbnail( $size = null ) {
 
 	// check for a featured image
 	if ( has_post_thumbnail( $id ) ) {
-
 		// show featured image
 		$img = get_the_post_thumbnail( $id, $size );
-
 	} else {
 
 		// no featured image, now what?
@@ -36,7 +34,6 @@ function wpmtst_get_thumbnail( $size = null ) {
 			// view > gravatar > show gravatar (use default, if not found)
 
 			$img = get_avatar( wpmtst_get_field( 'email' ), apply_filters( 'wpmtst_gravatar_size', $size ) );
-
 		} elseif ( 'if' === WPMST()->atts( 'gravatar' ) ) {
 			// view > gravatar > show gravatar only if found (and has email)
 
@@ -128,12 +125,16 @@ function wpmtst_add_lazyload( $attr, $attachment, $size ) {
 		$options = get_option( 'wpmtst_options' );
 
 		if ( isset( $options['lazyload'] ) && $options['lazyload'] ) {
-			if ( 'wpm-testimonial' === get_post_type( $attachment->post_parent ) && ! is_admin() ) {
-				$attr['class']                  .= ' lazy-load';
-							$attr['data-src']    = $attr['src'];
-							$attr['data-srcset'] = $attr['srcset'];
-							unset( $attr['src'] );
-							unset( $attr['srcset'] );
+			$parent_type = get_post_type( $attachment->post_parent );
+			if ( ( 'testimonial' === $parent_type || 'wpm-testimonial' === $parent_type ) && ! is_admin() ) {
+				$attr['class'] .= ' lazy-load';
+
+				$attr['data-src'] = $attr['src'];
+				unset( $attr['src'] );
+				if ( isset( $attr['srcset'] ) ) {
+					$attr['data-srcset'] = $attr['srcset'];
+					unset( $attr['srcset'] );
+				}
 			}
 		}
 	}
@@ -272,15 +273,24 @@ function wpmtst_thumbnail_img_platform_woocommerce( $img, $post_id, $size ) {
 add_filter( 'wpmtst_thumbnail_img_platform_woocommerce', 'wpmtst_thumbnail_img_platform_woocommerce', 10, 3 );
 
 function wpmtst_is_valid_image_url( $url ) {
-	$headers = get_headers( $url, 1 );
+	// Check local
+	$site_url = site_url();
+	if ( strpos( $url, $site_url ) === 0 ) {
+		// Obține path-ul relativ
+		$relative_path = str_replace( $site_url, '', $url );
+		$file_path     = ABSPATH . ltrim( $relative_path, '/' );
+
+		return file_exists( $file_path );
+	}
+
+	// Check external
+	$headers = @get_headers( $url, 1 ); // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged
 
 	if ( false === $headers ) {
 		return false;
 	}
 
-	if ( isset( $headers[0] ) && strpos( $headers[0], '200 OK' ) !== false ) {
-		return true;
-	}
+	$status_line = is_array( $headers ) && isset( $headers[0] ) ? $headers[0] : '';
 
-	return false;
+	return strpos( $status_line, '200 OK' ) !== false;
 }

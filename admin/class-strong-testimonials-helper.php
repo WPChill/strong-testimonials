@@ -33,6 +33,9 @@ class Strong_Testimonials_Helper {
 	 */
 	public function __construct() {
 
+		// Compatibility with plugins that edit wp_kses_post allowed html list. eg. "The Post Grid"
+		add_filter( 'wp_kses_allowed_html', array( $this, 'wpmtst_custom_wpkses_post_tags' ), 99, 2 );
+
 		$this->action       = isset( $_GET['action'] ) ? sanitize_text_field( wp_unslash( $_GET['action'] ) ) : false;
 		$this->view_id      = absint( filter_input( INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT ) );
 		$this->view_options = apply_filters( 'wpmtst_view_options', get_option( 'wpmtst_view_options' ) );
@@ -2656,5 +2659,39 @@ class Strong_Testimonials_Helper {
 			return 0;
 		}
 		return $a['priority'] < $b['priority'] ? -1 : 1;
+	}
+
+	/**
+	 * @param $tags
+	 * @param $context
+	 *
+	 * @return mixed
+	 */
+	public static function wpmtst_custom_wpkses_post_tags( $tags, $context ) {
+		if ( ! function_exists( 'get_current_screen' ) ) {
+			return $tags;
+		}
+
+		$screen = get_current_screen();
+
+		if ( ! isset( $screen->post_type ) || 'post' !== $context || 'wpm-testimonial' !== $screen->post_type ) {
+			return $tags;
+		}
+
+		if ( 'post' === $context ) {
+			$tags['input'] = array(
+				'type'        => true,
+				'class'       => true,
+				'placeholder' => true,
+				'name'        => true,
+				'id'          => true,
+				'value'       => true,
+				'checked'     => true,
+				'disabled'    => true,
+				'style'       => true,
+			);
+		}
+
+		return $tags;
 	}
 }

@@ -199,8 +199,9 @@ class Strong_Testimonials_Admin_List {
 				$platform = get_post_meta( $post->ID, 'platform', true );
 
 				if ( $platform ) {
+					$icon_src = apply_filters( 'wpmtst_platform_icon_src', WPMTST_ASSETS_IMG . '/platform_icons/' . $platform . '.svg', $platform, $post );
 					?>
-						<img title="<?php echo esc_attr( __( 'posted on ', 'strong-testimonials' ) . $platform ); ?>" width="26" height="26" src="<?php echo esc_attr( WPMTST_ASSETS_IMG ); ?>/platform_icons/<?php echo esc_attr( $platform ); ?>.svg"/>
+						<img title="<?php echo esc_attr( __( 'posted on ', 'strong-testimonials' ) . $platform ); ?>" width="26" height="26" src="<?php echo esc_url( $icon_src ); ?>"/>
 					<?php
 				}
 

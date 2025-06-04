@@ -61,6 +61,7 @@ if ( ! class_exists( 'Strong_View_Slideshow' ) ) :
 			$this->has_slideshow();
 			$this->has_stars();
 				$this->has_readmore();
+				$this->has_lazyload();
 
 			$this->load_dependent_scripts();
 			$this->load_extra_stylesheets();
