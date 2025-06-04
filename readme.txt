@@ -205,7 +205,7 @@ No. If you already have testimonials in another plugin or theme, you will have t
 - Fixed: Compatibility with plugins that edit wp_kses_post allowed html list. eg. "The Post Grid".
 - Fixed: Slider image lazy-load not working properly.
 - Fixed: Pagination was not working on the front page.
-- Update: JQuery Validate to the latest version.
+- Update: jQuery Validate to the latest version.
 
 = 3.2.10 - 28.05.2025 -
 - Fixed: Compatibility issue with the average rating shortcode when using multiple category attributes.
