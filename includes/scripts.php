@@ -134,7 +134,7 @@ function wpmtst_scripts() {
 		'wpmtst-validation-plugin',
 		WPMTST_PUBLIC_URL . "js/lib/validate/jquery-validate{$min}.js",
 		array( 'jquery' ),
-		'1.16.0',
+		'1.21.0',
 		true
 	);
 

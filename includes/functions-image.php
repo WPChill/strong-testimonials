@@ -26,7 +26,6 @@ function wpmtst_get_thumbnail( $size = null ) {
 	if ( has_post_thumbnail( $id ) ) {
 		// show featured image
 		$img = get_the_post_thumbnail( $id, $size );
-
 	} else {
 
 		// no featured image, now what?
@@ -35,7 +34,6 @@ function wpmtst_get_thumbnail( $size = null ) {
 			// view > gravatar > show gravatar (use default, if not found)
 
 			$img = get_avatar( wpmtst_get_field( 'email' ), apply_filters( 'wpmtst_gravatar_size', $size ) );
-
 		} elseif ( 'if' === WPMST()->atts( 'gravatar' ) ) {
 			// view > gravatar > show gravatar only if found (and has email)
 
@@ -122,17 +120,21 @@ add_action( 'init', 'wpmtst_lazyload_check' );
  *
  * @return array
  */
-function wpmtst_add_lazyload( $attr, $attachment, $size ) { 
+function wpmtst_add_lazyload( $attr, $attachment, $size ) {
 	if ( ! function_exists( 'wp_lazy_loading_enabled' ) || ! apply_filters( 'wp_lazy_loading_enabled', true, 'img', 'strong_testimonials_has_lazyload' ) ) {
 		$options = get_option( 'wpmtst_options' );
 
 		if ( isset( $options['lazyload'] ) && $options['lazyload'] ) {
-			if ( 'testimonial' === get_post_type( $attachment->post_parent ) && ! is_admin() ) {
-				$attr['class']                  .= ' lazy-load';
-							$attr['data-src']    = $attr['src'];
-							$attr['data-srcset'] = $attr['srcset'];
-							unset( $attr['src'] );
-							unset( $attr['srcset'] );
+			$parent_type = get_post_type( $attachment->post_parent );
+			if ( ( 'testimonial' === $parent_type || 'wpm-testimonial' === $parent_type ) && ! is_admin() ) {
+				$attr['class'] .= ' lazy-load';
+
+				$attr['data-src'] = $attr['src'];
+				unset( $attr['src'] );
+				if ( isset( $attr['srcset'] ) ) {
+					$attr['data-srcset'] = $attr['srcset'];
+					unset( $attr['srcset'] );
+				}
 			}
 		}
 	}

@@ -32,7 +32,7 @@ class WPMTST_Onboarding extends WP_Posts_List_Table {
 				<p class="wpmtst-onboarding-doc" >
 				<?php
 					// translators: %1$s is the opening HTML tag for the documentation link, %2$s is the closing HTML tag for the documentation link.
-					echo sprintf( esc_html__( 'Need help? Check out %1$s our documentation%2$s.', 'strong-testimonials' ), '<a href="https://strongtestimonials.com/docs/" target="_blank">', '</a>' );
+					echo sprintf( esc_html__( 'Need help? Check out %1$s our documentation%2$s.', 'strong-testimonials' ), '<a href="https://strongtestimonials.com/kb/" target="_blank">', '</a>' );
 				?>
 				</p>
 			</div>
