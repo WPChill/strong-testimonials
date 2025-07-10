@@ -527,7 +527,12 @@ function wpmtst_the_custom_field( $field ) {
 		}
 	}
 
+	if ( is_array( $output ) ) {
+		return '';
+	}
+
 	if ( $output ) {
+		$output = wp_kses_post( $output );
 		if ( isset( $field['before'] ) && $field['before'] ) {
 			$output = '<span class="wpmtst-testimonial-field-before testimonial-field-before">' . $field['before'] . '</span>' . $output;
 		}
