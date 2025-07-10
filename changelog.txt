@@ -1,3 +1,6 @@
+= 3.2.12 - 10.07.2025 -
+- Fixed: Security issue.
+
 = 3.2.11 - 04.06.2025 -
 - Fixed: Compatibility with plugins that edit wp_kses_post allowed html list. eg. "The Post Grid".
 - Fixed: Slider image lazy-load not working properly.
