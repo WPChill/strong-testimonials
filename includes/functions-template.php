@@ -521,6 +521,7 @@ function wpmtst_the_custom_field( $field ) {
 			default:
 				// text field
 				$output = get_post_meta( $post->ID, $field_name, true );
+				$output = wp_kses_post( $output );
 				if ( '' === $output && isset( $field['prop']['default_display_value'] ) && $field['prop']['default_display_value'] ) {
 					$output = $field['prop']['default_display_value'];
 				}
@@ -532,7 +533,6 @@ function wpmtst_the_custom_field( $field ) {
 	}
 
 	if ( $output ) {
-		$output = wp_kses_post( $output );
 		if ( isset( $field['before'] ) && $field['before'] ) {
 			$output = '<span class="wpmtst-testimonial-field-before testimonial-field-before">' . $field['before'] . '</span>' . $output;
 		}
