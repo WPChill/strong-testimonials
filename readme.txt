@@ -201,6 +201,9 @@ No. If you already have testimonials in another plugin or theme, you will have t
 8. View editor
 
 == Changelog ==
+= 3.2.14 - TBD -
+- Fixed: Undefined key "color" if background preset was not chosen.
+
 = 3.2.13 - 15.07.2025 -
 - Fixed: Star rating icons were not displaying correctly due to an escaping issue.
 

@@ -475,6 +475,9 @@ if ( ! class_exists( 'Strong_View' ) ) :
 
 			switch ( $background['type'] ) {
 				case 'preset':
+					if ( '' === $background['preset'] ) {
+						break;
+					}
 					$preset = wpmtst_get_background_presets( $background['preset'] );
 					$c1     = $preset['color'];
 					if ( isset( $preset['color2'] ) ) {
