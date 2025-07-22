@@ -147,7 +147,7 @@ function wpmtst_get_excerpt_more_link() {
 	if ( apply_filters( 'wpmtst_is_hybrid_content', false ) ) {
 		// no href
 		$link = sprintf(
-			'<a aria-expanded="false" aria-controls="more-%1$d" class="%2$s readmore-toggle"><span class="readmore-text" data-more-text="%4$s" data-less-text="%5$s">%3$s</span></a>',
+			'<a aria-expanded="false" aria-controls="more-%1$d" role="button" tabindex="0" class="%2$s readmore-toggle"><span class="readmore-text" data-more-text="%4$s" data-less-text="%5$s">%3$s</span></a>',
 			get_the_ID(), // 1
 			$link_class,  // 2
 			$link_text,   // 3
