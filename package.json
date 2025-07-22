@@ -1,7 +1,7 @@
 {
 	"name": "strong-testimonials",
 	"author": "WPChill",
-	"version": "3.2.13",
+	"version": "3.2.14",
 	"license": "GPL v3",
 	"scripts": {
 		"build": "cross-env NODE_ENV=production wp-scripts build --config webpack.config.js",
