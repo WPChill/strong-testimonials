@@ -35,7 +35,7 @@ class Strong_Testimonials_Helper {
 
 		// Compatibility with plugins that edit wp_kses_post allowed html list. eg. "The Post Grid"
 		add_filter( 'wp_kses_allowed_html', array( $this, 'wpmtst_custom_wpkses_post_tags' ), 99, 2 );
-
+		add_filter( 'wpmtst_view_options', array( $this, 'add_testimonials_view_order' ) );
 		$this->action       = isset( $_GET['action'] ) ? sanitize_text_field( wp_unslash( $_GET['action'] ) ) : false;
 		$this->view_id      = absint( filter_input( INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT ) );
 		$this->view_options = apply_filters( 'wpmtst_view_options', get_option( 'wpmtst_view_options' ) );
@@ -1128,7 +1128,7 @@ class Strong_Testimonials_Helper {
 			<p><?php echo wp_kses_post( '<code>order</code>' ); ?></p>
 		</td>
 		<td>
-			<p><?php echo wp_kses_post( 'oldest | newest | random | menu_order' ); ?></p>
+			<p><?php echo wp_kses_post( 'oldest | newest | random | menu_order | submit_date' ); ?></p>
 		</td>
 		<td>
 			<p><?php echo wp_kses_post( '<code>order="random"</code>' ); ?></p>
@@ -2693,5 +2693,13 @@ class Strong_Testimonials_Helper {
 		}
 
 		return $tags;
+	}
+
+	public function add_testimonials_view_order( $options ) {
+		if ( isset( $options['order'] ) ) {
+			$options['order']['submit_date'] = esc_html__( 'submit date', 'strong-testimonials' );
+		}
+
+		return $options;
 	}
 }
