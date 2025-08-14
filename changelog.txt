@@ -1,3 +1,6 @@
+= 3.2.15 - 14.08.2025 -
+- Added: Option to order the testimonials based on submission date.
+
 = 3.2.14 - 22.07.2025 -
 - Fixed: Undefined key "color" if background preset was not chosen.
 - Added: Accessibility controls for slider buttons.

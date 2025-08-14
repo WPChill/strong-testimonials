@@ -85,7 +85,7 @@ if ( ! class_exists( 'Strong_View_Display' ) ) :
 					$this->atts['count']    = -1;
 					$args['posts_per_page'] = $this->atts['pagination_settings']['per_page'];
 					$args['paged']          = wpmtst_get_paged();
-				}elseif ( 'slideshow' === $this->atts['mode'] ) {
+				} elseif ( 'slideshow' === $this->atts['mode'] ) {
 					$args['posts_per_page'] = $this->atts['count'];
 				}
 			}
@@ -178,14 +178,11 @@ if ( ! class_exists( 'Strong_View_Display' ) ) :
 			$html  = '';
 
 			if ( ! $this->found_posts ) {
-
 				if ( current_user_can( 'strong_testimonials_views' ) && 'infinitescroll' !== $this->atts['pagination_settings']['type'] ) {
 					$html = $this->nothing_found();
 				}
 			} elseif ( has_filter( 'wpmtst_render_view_template' ) ) {
-
 				$html = apply_filters( 'wpmtst_render_view_template', '', $this );
-
 			} else {
 
 				/**
@@ -201,7 +198,6 @@ if ( ! class_exists( 'Strong_View_Display' ) ) :
 				$html = ob_get_clean();
 
 				$post = $post_before;
-
 			}
 
 			/**
@@ -259,8 +255,12 @@ if ( ! class_exists( 'Strong_View_Display' ) ) :
 			}
 
 			// order by
-			// TODO improve for allowable custom order
-			if ( isset( $this->atts['order'] ) && 'menu_order' === $this->atts['order'] ) {
+			if ( isset( $this->atts['order'] ) && 'submit_date' === $this->atts['order'] ) {
+				$args['meta_key']  = 'submit_date';
+				$args['orderby']   = 'meta_value';
+				$args['order']     = 'DESC';
+				$args['meta_type'] = 'DATETIME';
+			} elseif ( isset( $this->atts['order'] ) && 'menu_order' === $this->atts['order'] ) {
 				$args['orderby'] = 'menu_order';
 				$args['order']   = 'ASC';
 			} else {
@@ -512,7 +512,6 @@ if ( ! class_exists( 'Strong_View_Display' ) ) :
 		 */
 		public function has_layouts() {
 			if ( $this->is_masonry() ) {
-
 				WPMST()->render->add_script( 'jquery-masonry' );
 				WPMST()->render->add_script( 'imagesloaded' );
 
@@ -520,12 +519,10 @@ if ( ! class_exists( 'Strong_View_Display' ) ) :
 					WPMST()->render->add_style( 'wpmtst-masonry-style' );
 				}
 			} elseif ( isset( $this->atts['layout'] ) && 'columns' === $this->atts['layout'] ) {
-
 				if ( apply_filters( 'wpmtst_load_columns_style', true ) ) {
 					WPMST()->render->add_style( 'wpmtst-columns-style' );
 				}
 			} elseif ( isset( $this->atts['layout'] ) && 'grid' === $this->atts['layout'] ) {
-
 				if ( apply_filters( 'wpmtst_load_grid_style', true ) ) {
 					WPMST()->render->add_style( 'wpmtst-grid-style' );
 				}

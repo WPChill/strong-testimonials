@@ -514,6 +514,8 @@
 		  if (slider.settings.ariaHidden) {
 			sliceAppend.attr('aria-hidden', true);
 			slicePrepend.attr('aria-hidden', true);
+			sliceAppend.find( 'a' ).attr('tabindex', -1);
+			slicePrepend.find( 'a' ).attr('tabindex', -1);
 		  }
 
 		  el.append(sliceAppend).prepend(slicePrepend);
