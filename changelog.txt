@@ -1,3 +1,6 @@
+= 3.2.16 - 25.08.2025 -
+- Fixed: License activation/deactivation alternative server.
+
 = 3.2.15 - 14.08.2025 -
 - Added: Option to order the testimonials based on submission date.
 
