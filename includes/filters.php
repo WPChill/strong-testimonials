@@ -24,7 +24,6 @@ function wpmtst_remove_whitespace( $html ) {
 add_filter( 'strong_view_html', 'wpmtst_remove_whitespace' );
 add_filter( 'strong_view_form_html', 'wpmtst_remove_whitespace' );
 
-
 /**
  * Content filters.
  *
@@ -45,7 +44,6 @@ function wpmtst_content_filters() {
 		add_filter( 'wpmtst_the_content', 'wp_make_content_images_responsive' );
 	}
 
-	add_filter( 'wpmtst_the_content', 'do_shortcode', 11 );
 	add_filter( 'wpmtst_the_content', 'convert_smilies', 20 );
 
 	add_filter( 'wpmtst_the_excerpt', 'wptexturize' );
@@ -53,7 +51,6 @@ function wpmtst_content_filters() {
 	add_filter( 'wpmtst_the_excerpt', 'convert_chars' );
 	add_filter( 'wpmtst_the_excerpt', 'wpautop' );
 	add_filter( 'wpmtst_the_excerpt', 'shortcode_unautop' );
-	add_filter( 'wpmtst_the_excerpt', 'do_shortcode', 11 );
 	add_filter( 'wpmtst_the_excerpt', 'convert_smilies', 20 );
 }
 add_action( 'init', 'wpmtst_content_filters' );

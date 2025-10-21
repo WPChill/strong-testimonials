@@ -4,7 +4,7 @@ Tags: testimonial plugin, testimonials slider, testimonial form, star ratings
 Requires at least: 5.2
 Requires PHP: 5.6
 Tested up to: 6.8
-Stable tag: 3.2.16
+Stable tag: 3.2.17
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -201,6 +201,9 @@ No. If you already have testimonials in another plugin or theme, you will have t
 8. View editor
 
 == Changelog ==
+= 3.2.17 - 21.10.2025 -
+- Removed: Shortcode processing from the_content and the_excerpt filters.
+
 = 3.2.16 - 25.08.2025 -
 - Fixed: License activation/deactivation alternative server.
 
