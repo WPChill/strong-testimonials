@@ -952,12 +952,18 @@ class Strong_Testimonials_Upsell {
 	 * @since 3.1.10
 	 */
 	private function set_offer() {
-		// $month = gmdate( 'm' );
+		$timezone_string = get_option( 'timezone_string' );
+		$timezone        = $timezone_string ? new DateTimeZone( $timezone_string ) : new DateTimeZone( 'UTC' );
 
-		// if ( '11' === $month ) {
-		// 	add_filter( 'wpmtst_upsells_button_text', array( $this, 'bf_buttons' ), 15 );
-		// 	add_action( 'admin_print_styles', array( $this, 'footer_bf_styles' ), 999 );
-		// }
+		$now = new DateTime( 'now', $timezone );
+
+		$bf_start = new DateTime( '2025-11-03 00:00:00', $timezone );
+		$bf_end   = new DateTime( '2025-12-03 10:00:00', $timezone );
+
+		if ( $now >= $bf_start && $now <= $bf_end ) {
+			add_filter( 'wpmtst_upsells_button_text', array( $this, 'bf_buttons' ), 15 );
+			add_action( 'admin_print_styles', array( $this, 'footer_bf_styles' ), 999 );
+		}
 		// if ( '12' === $month ) {
 		// 	add_filter( 'wpmtst_upsells_button_text', array( $this, 'xmas_buttons' ), 15 );
 		// 	add_action( 'admin_print_styles', array( $this, 'footer_xmas_styles' ), 999 );
@@ -970,7 +976,7 @@ class Strong_Testimonials_Upsell {
 	 * @since 3.1.10
 	 */
 	public function bf_buttons( $text ) {
-		return __( '40% OFF for Black Friday', 'strong-testimonials' );
+		return __( '65% OFF for Black Friday', 'strong-testimonials' );
 	}
 
 	/**

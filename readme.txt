@@ -4,7 +4,7 @@ Tags: testimonial plugin, testimonials slider, testimonial form, star ratings
 Requires at least: 5.2
 Requires PHP: 5.6
 Tested up to: 6.8
-Stable tag: 3.2.17
+Stable tag: 3.2.18
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -205,6 +205,9 @@ Please report security bugs found in the source code of the Strong Testimonials 
 8. View editor
 
 == Changelog ==
+= 3.2.18 - 03.11.2025 -
+- Added: Black Friday upsells & notifications updates.
+
 = 3.2.17 - 21.10.2025 -
 - Removed: Shortcode processing from the_content and the_excerpt filters.
 
